@@ -1,4 +1,20 @@
-node_modules
-pgdata
-dist
+# Contexte de build Docker : exclut tout ce qui n'est pas copié par les
+# Dockerfiles (dépendances, données locales, artefacts, secrets).
+**/node_modules
+**/dist
+**/pgdata
+apps/api/pgdata
 .git
+out
+*.log
+npm-debug.log*
+pnpm-debug.log*
+.env
+.env.*
+!.env.example
+coverage
+.DS_Store
+.vscode
+.idea
+tmp
+*.tsbuildinfo
