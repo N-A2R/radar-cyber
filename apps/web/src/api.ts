@@ -116,5 +116,5 @@ export const api = {
   sources: () => get<Source[]>("/sources"),
   stats: () => get<Stats>("/stats"),
   health: () => get<Health>("/health"),
-  flows: (days = 30, limit = 300) => get<Flows>(`/flows?days=${days}&limit=${limit}`),
+  flows: (days = 30, limit = 300, mode = "arcs") => get<Flows>(`/flows?days=${days}&limit=${limit}&mode=${mode}`),
 };
