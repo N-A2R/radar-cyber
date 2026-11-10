@@ -65,6 +65,8 @@ export interface Map3DProps {
   onSelectEvent?: (id: string) => void
   /** Arcs animés deck.gl (flux temps réel) ; vide = pas d'overlay. */
   flows?: FlowArc[]
+  /** Fond de carte : imagerie satellite (IGN) ou plan vectoriel sombre. */
+  basemap?: 'sat' | 'plan'
 }
 
 // ── Palette fixe (alignée sur les variables CSS de styles.css) ──────────
@@ -307,52 +309,52 @@ function buildEventFeatures(events: MapEvent[], cellDeg: number, aggregate: bool
 const POPUP_STYLE_ID = 'radar-map-popup-style'
 const POPUP_STYLE = `
 .radar-popup .maplibregl-popup-content {
-  background: var(--surface-2);
+  background: var(--surface-3);
   color: var(--text);
   border: 1px solid var(--border-strong);
-  border-radius: var(--radius);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
-  padding: 10px 12px 12px;
+  border-radius: var(--radius-4);
+  box-shadow: var(--shadow-popup);
+  padding: var(--space-2) var(--space-3) var(--space-3);
   font: inherit;
-  font-size: 12px;
-  line-height: 1.45;
-  max-width: 300px;
+  font-size: var(--text-xs);
+  line-height: var(--line-snug);
+  max-width: 320px;
 }
 .radar-popup .maplibregl-popup-tip {
-  border-top-color: var(--surface-2);
-  border-bottom-color: var(--surface-2);
-  border-left-color: var(--surface-2);
-  border-right-color: var(--surface-2);
+  border-top-color: var(--surface-3);
+  border-bottom-color: var(--surface-3);
+  border-left-color: var(--surface-3);
+  border-right-color: var(--surface-3);
 }
 .radar-popup .maplibregl-popup-close-button {
   color: var(--muted);
-  font-size: 16px;
+  font-size: var(--text-md);
   line-height: 1;
-  padding: 3px 7px;
-  border-radius: var(--radius);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-2);
 }
-.radar-popup .maplibregl-popup-close-button:hover { color: var(--text); background: var(--surface); }
-.radar-popup-body { display: flex; flex-direction: column; gap: 6px; }
-.radar-popup-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.radar-popup .maplibregl-popup-close-button:hover { color: var(--text); background: var(--surface-2); }
+.radar-popup-body { display: flex; flex-direction: column; gap: var(--space-2); }
+.radar-popup-head { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
 .radar-popup-chip {
   color: #0b0f16;
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  padding: 1px 7px;
-  border-radius: 999px;
-  text-transform: uppercase;
+  font-size: var(--text-micro);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.01em;
+  padding: 1px var(--space-2);
+  border-radius: var(--radius-full);
+  text-transform: lowercase;
 }
-.radar-popup-sev { color: var(--muted); font-size: 11px; }
-.radar-popup-title { font-size: 13px; font-weight: 600; line-height: 1.35; }
-.radar-popup-meta { display: flex; flex-direction: column; gap: 1px; color: var(--muted); font-size: 11.5px; }
-.radar-popup-summary { margin: 0; color: var(--muted); font-size: 12px; }
-.radar-popup-link { color: var(--accent); font-size: 12px; text-decoration: none; }
+.radar-popup-sev { color: var(--muted); font-size: var(--text-micro); font-variant-numeric: tabular-nums; }
+.radar-popup-title { font-size: var(--text-sm); font-weight: var(--font-weight-semibold); line-height: var(--line-snug); }
+.radar-popup-meta { display: flex; flex-direction: column; gap: 1px; color: var(--muted); font-size: var(--text-micro); }
+.radar-popup-summary { margin: 0; color: var(--muted); font-size: var(--text-xs); }
+.radar-popup-link { color: var(--accent); font-size: var(--text-xs); text-decoration: none; }
 .radar-popup-link:hover { text-decoration: underline; }
-.radar-popup-fams { display: flex; flex-direction: column; gap: 3px; }
-.radar-popup-fam { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 11.5px; }
-.radar-popup-fam .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
-.radar-popup-hint { color: var(--faint); font-size: 11px; }
+.radar-popup-fams { display: flex; flex-direction: column; gap: var(--space-1); }
+.radar-popup-fam { display: flex; align-items: center; gap: var(--space-2); color: var(--muted); font-size: var(--text-micro); }
+.radar-popup-fam .dot { width: 8px; height: 8px; border-radius: var(--radius-full); flex: none; }
+.radar-popup-hint { color: var(--faint); font-size: var(--text-micro); }
 `
 
 function ensurePopupStyles(): void {
@@ -457,6 +459,7 @@ export default function Map3D(props: Map3DProps) {
   const onSelectEventRef = useRef(props.onSelectEvent)
   onSelectEventRef.current = props.onSelectEvent
   const renderRef = useRef<(() => void) | null>(null)
+  const mapRef = useRef<maplibregl.Map | null>(null)
   const flowsRef = useRef<FlowArc[]>(props.flows ?? [])
   flowsRef.current = props.flows ?? []
 
@@ -490,6 +493,13 @@ export default function Map3D(props: Map3DProps) {
           glyphs: OFM_GLYPHS,
           sources: {
             osm: { type: 'raster', tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'], tileSize: 256 },
+            sat: {
+              type: 'raster',
+              tiles: ['https://data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=ORTHOIMAGERY.ORTHOPHOTOS&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&FORMAT=image/jpeg'],
+              tileSize: 256,
+              maxzoom: 19,
+              attribution: 'IGN-F/Géoplateforme',
+            },
             dem: { type: 'raster-dem', tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'], tileSize: 256, encoding: 'terrarium' },
             ofm: { type: 'vector', tiles: [ofmUrl], minzoom: 0, maxzoom: 14 },
             orgs: { type: 'geojson', data: { type: 'FeatureCollection', features: [] } },
@@ -499,7 +509,11 @@ export default function Map3D(props: Map3DProps) {
             events: { type: 'geojson', data: { type: 'FeatureCollection', features: [] } },
           },
           layers: [
-            { id: 'osm', type: 'raster', source: 'osm', paint: { 'raster-brightness-max': 0.42, 'raster-saturation': -0.92, 'raster-contrast': 0.18 } },
+            { id: 'osm', type: 'raster', source: 'osm', layout: { visibility: 'none' }, paint: { 'raster-brightness-max': 0.42, 'raster-saturation': -0.92, 'raster-contrast': 0.18 } },
+            // Imagerie satellite assombrie : lisible sous les calques de données.
+            { id: 'satellite', type: 'raster', source: 'sat', paint: {
+              'raster-saturation': -0.55, 'raster-contrast': 0.2,
+              'raster-brightness-min': 0.02, 'raster-brightness-max': 0.6 } },
             {
               id: 'buildings',
               type: 'fill-extrusion',
@@ -688,6 +702,8 @@ export default function Map3D(props: Map3DProps) {
       themeObserver = new MutationObserver(syncTheme)
       themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
 
+      mapRef.current = map
+
       map.on('style.load', () => {
         try { map?.setTerrain({ source: 'dem', exaggeration: 1.8 }) } catch { /* style déjà prêt */ }
       })
@@ -772,6 +788,15 @@ export default function Map3D(props: Map3DProps) {
       map?.remove()
     }
   }, [])
+
+  // Bascule satellite / plan sans recréer la carte.
+  useEffect(() => {
+    const m = mapRef.current
+    if (!m || !m.getLayer('satellite') || !m.getLayer('osm')) return
+    const base = props.basemap ?? 'sat'
+    m.setLayoutProperty('satellite', 'visibility', base === 'sat' ? 'visible' : 'none')
+    m.setLayoutProperty('osm', 'visibility', base === 'plan' ? 'visible' : 'none')
+  }, [props.basemap])
 
   // Mise à jour des données quand les props changent (ou au chargement de la carte).
   useEffect(() => {
