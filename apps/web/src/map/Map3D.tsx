@@ -22,8 +22,7 @@
  */
 import { useEffect, useRef } from 'react'
 import * as maplibregl from 'maplibre-gl'
-import { MapLibreOverlay } from '@deck.gl/maplibre'
-import { buildArcData, createArcLayers, type FlowArc } from './arcs.js'
+import type { FlowArc } from './arcs.js'
 
 // ── Types ────────────────────────────────────────────────────────────────
 
@@ -460,8 +459,7 @@ export default function Map3D(props: Map3DProps) {
   const renderRef = useRef<(() => void) | null>(null)
   const flowsRef = useRef<FlowArc[]>(props.flows ?? [])
   flowsRef.current = props.flows ?? []
-  const overlayRef = useRef<MapLibreOverlay | null>(null)
-  const arcRafRef = useRef(0)
+
 
   // Création unique de la carte.
   useEffect(() => {
@@ -657,41 +655,30 @@ export default function Map3D(props: Map3DProps) {
         ;(map.getSource('hot') as maplibregl.GeoJSONSource | undefined)?.setData({ type: 'FeatureCollection', features: hotFeatures } as unknown as Parameters<maplibregl.GeoJSONSource['setData']>[0])
 
         const orgById = new Map(orgs.map((o) => [o.id, o]))
-        const arcFeatures = visible.flatMap((e) => {
-          if (e.lat == null || e.lon == null || e.orgId == null) return []
-          const org = orgById.get(e.orgId)
-          if (!org || org.lat == null || org.lon == null) return []
-          return [{
-            type: 'Feature' as const,
-            geometry: { type: 'LineString' as const, coordinates: arcPoints([org.lon, org.lat], [e.lon, e.lat]) },
-            properties: { family: e.family, color: FAMILY_COLORS[e.family] ?? FAMILY_COLOR_FALLBACK },
-          }]
-        })
+        // Les arcs de flux (org → point d'hébergement, ou org → centroïde en
+        // repli) priment ; sinon on retombe sur les liaisons org → événement.
+        const flowArcs = flowsRef.current.map((f) => ({
+          type: 'Feature' as const,
+          geometry: { type: 'LineString' as const, coordinates: arcPoints([f.from.lon, f.from.lat], [f.to.lon, f.to.lat]) },
+          properties: { family: f.family, color: FAMILY_COLORS[f.family] ?? FAMILY_COLOR_FALLBACK },
+        }))
+        const arcFeatures = flowArcs.length > 0
+          ? flowArcs
+          : visible.flatMap((e) => {
+              if (e.lat == null || e.lon == null || e.orgId == null) return []
+              const org = orgById.get(e.orgId)
+              if (!org || org.lat == null || org.lon == null) return []
+              return [{
+                type: 'Feature' as const,
+                geometry: { type: 'LineString' as const, coordinates: arcPoints([org.lon, org.lat], [e.lon, e.lat]) },
+                properties: { family: e.family, color: FAMILY_COLORS[e.family] ?? FAMILY_COLOR_FALLBACK },
+              }]
+            })
         ;(map.getSource('arcs') as maplibregl.GeoJSONSource | undefined)?.setData({ type: 'FeatureCollection', features: arcFeatures } as unknown as Parameters<maplibregl.GeoJSONSource['setData']>[0])
       }
       renderRef.current = renderData
-      // ── Arcs animés deck.gl (overlay interleaved) ─────────────────────
-      // Le flux temps réel arrive via la prop `flows` ; l'overlay se met à
-      // jour sans recréer la carte (setProps), et l'animation est une boucle
-      // rAF qui rejoue les trajets (TripsLayer).
-      let overlay: MapLibreOverlay | null = null
-      const arcStart = performance.now()
-      const rebuildArcLayers = (time: number) => {
-        if (!overlay) return
-        overlay.setProps({ layers: createArcLayers(buildArcData(flowsRef.current), { time, showTrips: true }) })
-      }
-      const tick = () => {
-        rebuildArcLayers(((performance.now() - arcStart) / 1000) % 60)
-        arcRafRef.current = requestAnimationFrame(tick)
-      }
-      map.once('load', () => {
-        try {
-          overlay = new MapLibreOverlay({ interleaved: true, layers: [] })
-          map?.addControl(overlay)
-          overlayRef.current = overlay
-          tick()
-        } catch { /* WebGL2 absent ou service tuiles indisponible */ }
-      })
+      // Les arcs « flux » respirent : la couche de lueur pulse comme le halo
+      // des orgs (boucle rAF unique, pas de recalcul de géométrie).
 
       const syncTheme = () => {
         applyMapTheme(map!, document.documentElement.dataset.theme ?? 'observatoire')
@@ -719,6 +706,9 @@ export default function Map3D(props: Map3DProps) {
           try {
             map.setPaintProperty('hot', 'circle-radius', 12 + Math.sin(frame) * 4)
             map.setPaintProperty('hot', 'circle-opacity', 0.16 + (Math.sin(frame) + 1) * 0.06)
+            if (map.getLayer('arcs-glow')) {
+              map.setPaintProperty('arcs-glow', 'line-opacity', 0.22 + (Math.sin(frame) + 1) * 0.12)
+            }
           } catch { /* style pas encore prête */ }
         }
         raf = requestAnimationFrame(pulse)
@@ -777,7 +767,7 @@ export default function Map3D(props: Map3DProps) {
       observer.disconnect()
       themeObserver?.disconnect()
       clearTimeout(zoomTimer)
-      cancelAnimationFrame(arcRafRef.current)
+
       popup?.remove()
       map?.remove()
     }
@@ -785,11 +775,8 @@ export default function Map3D(props: Map3DProps) {
 
   // Mise à jour des données quand les props changent (ou au chargement de la carte).
   useEffect(() => {
-    renderRef.current?.()
     flowsRef.current = props.flows ?? []
-    overlayRef.current?.setProps({
-      layers: createArcLayers(buildArcData(props.flows ?? []), { time: 0, showTrips: true }),
-    })
+    renderRef.current?.()
   }, [props.orgs, props.events, props.families, props.flows])
 
   return <div ref={ref} style={{ width: '100%', height: '100%' }} />

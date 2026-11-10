@@ -98,15 +98,25 @@ export default function App() {
       setGraph(mockData.graph);
       return;
     }
-    Promise.all([api.orgs(), api.events(200), api.sources(), api.stats(), api.graph(90), api.flows(30)])
-      .then(([o, e, s, st, g, f]) => {
+    // Les arcs réels (org → point d'hébergement) sont rares ; si aucun n'existe,
+    // on retombe sur le mode « orgs » (org → centroïde départemental) pour que la
+    // carte ne reste jamais vide.
+    const loadFlows = async () => {
+      const arcs = await api.flows(30);
+      if (arcs.arcs.length > 0) return arcs.arcs;
+      const fallback = await api.flows(30, 300, "orgs");
+      return fallback.arcs;
+    };
+    Promise.all([api.orgs(), api.events(200), api.sources(), api.stats(), api.graph(90)])
+      .then(([o, e, s, st, g]) => {
         setOrgs(o);
         setEvents(e);
         setSources(s);
         setStats(st);
         setGraph(g);
-        setFlows(f.arcs);
+        return loadFlows();
       })
+      .then((arcs) => setFlows(arcs))
       .catch((err: Error) => setError(err.message));
   }, []);
 
@@ -117,6 +127,9 @@ export default function App() {
       api.stats().then(setStats).catch(() => {});
       api.graph(90).then(setGraph).catch(() => {});
       api.flows(30).then((f) => setFlows(f.arcs)).catch(() => {});
+      api.flows(30, 300, "orgs").then((f) => {
+        setFlows((prev) => (prev.length > 0 ? prev : f.arcs));
+      }).catch(() => {});
     }, 30000);
     return () => clearInterval(timer);
   }, []);

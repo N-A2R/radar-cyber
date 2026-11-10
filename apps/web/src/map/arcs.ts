@@ -11,7 +11,12 @@
  * ```
  */
 
-declare const require: any
+import { ArcLayer } from '@deck.gl/layers'
+import { TripsLayer } from '@deck.gl/geo-layers'
+import type { Layer } from '@deck.gl/core'
+
+/** Arc + timestamps relatifs, tel que consommé par `TripsLayer`. */
+type TripDatum = ArcDatum & { timestamps: number[] }
 
 export type FlowArc = {
   id: string
@@ -147,12 +152,11 @@ export function buildArcData(flows: FlowArc[]): ArcDatum[] {
 
 export function createArcLayers(
   data: ArcDatum[],
-  opts: { time: number; showTrips: boolean; opacity?: number; pickable?: boolean },
+  opts: { timeMs: number; showTrips: boolean; opacity?: number; pickable?: boolean },
 ): any[] {
-  const { ArcLayer } = require('@deck.gl/layers') as any
   const opacity = opts.opacity ?? 1
   const pickable = opts.pickable ?? true
-  const layers: any[] = [
+  const layers: Layer[] = [
     new ArcLayer({
       id: 'radar-arcs',
       data,
@@ -167,35 +171,29 @@ export function createArcLayers(
     }),
   ]
 
-  if (opts.showTrips) {
-    let TripsLayer: any
-    try {
-      // @ts-ignore
-      TripsLayer = (require('@deck.gl/geo-layers') as any).TripsLayer
-    } catch {
-      TripsLayer = null
-    }
-    if (TripsLayer) {
-      const SIX_H = 6 * 3600 * 1000
-      layers.push(
-        new TripsLayer({
-          id: 'radar-arcs-trips',
-          data: data.map((d) => ({
-            ...d,
-            timestamps: d.observedAt
-              ? [d.observedAt, d.observedAt + SIX_H]
-              : [opts.time, opts.time + SIX_H],
-          })),
-          getPath: (d: any) => d.path,
-          getTimestamps: (d: any) => d.timestamps,
-          getColor: (d: ArcDatum) => d.color,
-          getWidth: (d: ArcDatum) => d.width,
-          trailLength: 1800000,
-          currentTime: opts.time,
-          opacity,
-        }),
-      )
-    }
+  if (opts.showTrips && data.length > 0) {
+    // TripsLayer joue un point qui parcourt l'arc. Les timestamps sont
+    // relatifs (0 → DURATION) et currentTime tourne dans la même fenêtre,
+    // sinon le point n'est jamais dans l'intervalle et rien ne s'affiche.
+    const DURATION = 60_000
+    layers.push(
+      new TripsLayer({
+        id: 'radar-arcs-trips',
+        data: data.map((d, i) => ({
+          ...d,
+          timestamps: [0, DURATION],
+          offset: i,
+        })),
+        getPath: (d: TripDatum) => d.path,
+        getTimestamps: (d: TripDatum) => d.timestamps,
+        getColor: (d: ArcDatum) => d.color,
+        getWidth: (d: ArcDatum) => Math.max(d.width, 1.5),
+        trailLength: 20_000,
+        currentTime: opts.timeMs % DURATION,
+        fadeTrail: true,
+        opacity,
+      }),
+    )
   }
   return layers
 }

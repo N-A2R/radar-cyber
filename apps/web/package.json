@@ -10,6 +10,7 @@
   "dependencies": {
     "3d-tiles-renderer": "^0.5.4",
     "@deck.gl/core": "^9.4.1",
+    "@deck.gl/geo-layers": "^9.4.1",
     "@deck.gl/layers": "^9.4.1",
     "@deck.gl/maplibre": "^9.4.1",
     "@radar/shared": "workspace:*",
