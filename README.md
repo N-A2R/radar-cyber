@@ -7,11 +7,30 @@ normalisation, et visualisation cartographique 3D.
 
 | Métrique | Valeur |
 |---|---|
-| Sources déclarées | 150 |
-| Sources en succès | 133 |
-| Indicateurs collectés | 5,5 M |
-| Événements | ~4 000 |
-| Organisations suivies | 111 (12 départements) |
+| Sources déclarées | 304 |
+| Sources en succès | 256 |
+| Indicateurs collectés | 5,6 M |
+| Événements | 7 600+ |
+| dont presse / institutions régionales | 2 034 |
+| Organisations suivies | 392 (12 départements) |
+| Flux régionaux productifs | 74 |
+
+## Points d'ingénierie
+
+**Clé de déduplication.** `hashKey()` hachait l'URL en base64url avant de tronquer
+à 24 caractères, soit 18 octets d'entrée. Tous les liens partageant ce préfixe
+produisaient la même clé : sur `https://www.ici.fr` (exactement 18 octets), les
+20 articles d'un flux s'effondraient en un seul événement. La correction passe
+par SHA-256 avant troncature. Mesure de l'effet : 84 → 2 034 événements régionaux.
+
+**Comptage des indicateurs.** `count(*)` sur 5,6 M de lignes coûtait 14 s par
+requête et saturait l'API (122 s de latence observée). `/api/stats` lit désormais
+l'estimation du catalogue (`pg_class.reltuples`) et sert un cache de 20 s :
+0,05 s au lieu de 122 s.
+
+**Verrou de suggestion.** Le collecteur saute une source dont `last_ok_at` est
+plus récent que 0,8 × `interval_sec`. Après une réinitialisation de curseur, il
+faut aussi remettre `last_ok_at` à NULL, sinon aucune réingestion n'a lieu.
 
 ## Démarrage
 
