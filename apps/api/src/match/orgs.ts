@@ -23,8 +23,21 @@
  */
 
 import { pool } from "../db.js";
+import { chooseOrganization } from "./decide.js";
 
 export type Match = { orgId: number; alias: string; confidence: number };
+
+/**
+ * Motif d'issue d'un rapprochement, pour la mesure du script de rattachement :
+ *  - `matched` : une organisation a été trouvée ;
+ *  - `empty-text` : le texte ne contient aucun jeton exploitable ;
+ *  - `no-alias` : aucun alias de l'index ne figure dans le texte ;
+ *  - `short-only` : seuls des alias courts ont été vus, sans contexte
+ *    institutionnel pour les autoriser (villes, sigles nus) ;
+ *  - `ambiguous` : deux organisations différentes à égalité de force.
+ */
+export type MatchReason = "matched" | "empty-text" | "no-alias" | "short-only" | "ambiguous";
+export type MatchDiagnosis = { match: Match | null; reason: MatchReason };
 
 const MIN_ALIAS_LENGTH = 4;
 const MAX_CACHED_TEXTS = 20_000;
@@ -33,7 +46,7 @@ const SHORT_ALIAS_LENGTH = 8;
 /** Plafond de confiance d'un alias mono-jeton : reste sous le seuil 0.7. */
 const SINGLE_TOKEN_CAP = 0.4;
 
-type AliasEntry = { orgId: number; alias: string; confidence: number; tokens: number; short: boolean };
+type AliasEntry = { orgId: number; name: string; alias: string; confidence: number; tokens: number; short: boolean };
 
 /**
  * Mots qui signalent une organisation. Un alias court ne matche que si l'un
@@ -130,8 +143,8 @@ function confidenceFor(length: number): number {
 }
 
 async function loadIndex(): Promise<AliasIndex> {
-	const { rows } = await pool.query<{ org_id: number; alias: string }>(
-		"SELECT org_id, alias FROM org_alias WHERE status = 'active' AND length(btrim(alias)) >= $1",
+	const { rows } = await pool.query<{ org_id: number; name: string; alias: string }>(
+		"SELECT a.org_id, o.name, a.alias FROM org_alias a JOIN org o ON o.id = a.org_id WHERE a.status = 'active' AND length(btrim(a.alias)) >= $1",
 		[MIN_ALIAS_LENGTH],
 	);
 	const byKey = new Map<string, AliasEntry[]>();
@@ -139,6 +152,12 @@ async function loadIndex(): Promise<AliasIndex> {
 	let maxTokens = 0;
 
 	for (const row of rows) {
+		// Un alias qui est un nom de domaine ne sert pas au rapprochement de
+		// texte : « nouvelle-aquitaine.fr » se tokenise en « nouvelle aquitaine
+		// fr » et attrape alors tout article parlant de la région (mesuré :
+		// festival ornithologique rattaché à la Région). Les domaines se
+		// comparent en égalité, ailleurs — jamais comme des mots.
+		if (row.alias.includes(".")) continue;
 		const tokens = tokenize(row.alias);
 		if (tokens.length === 0) continue;
 		const key = tokens.join(" ");
@@ -147,7 +166,7 @@ async function loadIndex(): Promise<AliasIndex> {
 		const confidence = tokens.length === 1 ? Math.min(base, SINGLE_TOKEN_CAP) : base;
 		const short = tokens.length === 1 || key.length < SHORT_ALIAS_LENGTH;
 		const entries = byKey.get(key);
-		const entry: AliasEntry = { orgId: row.org_id, alias: row.alias, confidence, tokens: tokens.length, short };
+		const entry: AliasEntry = { orgId: row.org_id, name: row.name, alias: row.alias, confidence, tokens: tokens.length, short };
 		if (entries) entries.push(entry);
 		else byKey.set(key, [entry]);
 		if (tokens.length < minTokens) minTokens = tokens.length;
@@ -181,16 +200,30 @@ export function resetAliasCache(): void {
  * différentes correspondent (ambiguïté : on ne devine pas).
  */
 export async function matchOrg(text: string): Promise<Match | null> {
+	return (await matchOrgDetailed(text)).match;
+}
+
+/**
+ * Même recherche que `matchOrg`, mais dit **pourquoi** il n'y a pas de
+ * correspondance. Sert à la mesure du script de rattachement : sans le motif,
+ * on ne sait pas s'il faut ajouter un alias, lever une ambiguïté ou accepter
+ * que le texte ne nomme personne.
+ */
+export async function matchOrgDetailed(
+	text: string,
+	opts?: { arbitrate?: boolean },
+): Promise<MatchDiagnosis> {
 	const key = normalize(text);
-	if (key === "") return null;
+	if (key === "") return { match: null, reason: "empty-text" };
 
 	const cached = resultCache.get(key);
-	if (cached !== undefined) return cached;
+	if (cached !== undefined) return { match: cached, reason: cached ? "matched" : "no-alias" };
 
 	const index = await getIndex();
 	const tokens = key.split(" ");
 	const hits = new Map<number, AliasEntry>();
 	const allowShort = hasInstitutionalContext(text);
+	let sawShortOnly = false;
 
 	const largest = Math.min(index.maxTokens, tokens.length);
 	for (let size = largest; size >= index.minTokens; size--) {
@@ -198,13 +231,17 @@ export async function matchOrg(text: string): Promise<Match | null> {
 			const entries = index.byKey.get(tokens.slice(start, start + size).join(" "));
 			if (!entries) continue;
 			for (const entry of entries) {
-				if (entry.short && !allowShort) continue;
+				if (entry.short && !allowShort) {
+					sawShortOnly = true;
+					continue;
+				}
 				if (!hits.has(entry.orgId)) hits.set(entry.orgId, entry);
 			}
 		}
 	}
 
 	let match: Match | null = null;
+	let reason: MatchReason = "no-alias";
 	if (hits.size > 0) {
 		const ranked = [...hits.values()].sort(
 			(a, b) => b.tokens - a.tokens || b.confidence - a.confidence || normalize(b.alias).length - normalize(a.alias).length,
@@ -221,10 +258,143 @@ export async function matchOrg(text: string): Promise<Match | null> {
 				entry.confidence === best.confidence &&
 				normalize(entry.alias).length === bestLength,
 		);
-		if (!ambiguous) match = { orgId: best.orgId, alias: best.alias, confidence: best.confidence };
+		if (ambiguous) {
+			reason = "ambiguous";
+			// Second étage, seulement sur demande : le modèle de décision tranche
+			// entre des candidats à égalité, et ne rend la main que s'il est sûr.
+			if (opts?.arbitrate) {
+				const tied = new Map<number, string>();
+				for (const entry of ranked) {
+					if (
+						entry.tokens === best.tokens &&
+						entry.confidence === best.confidence &&
+						normalize(entry.alias).length === bestLength
+					) {
+						tied.set(entry.orgId, entry.name);
+					}
+				}
+				const chosen = await chooseOrganization(
+					text,
+					[...tied].map(([id, name]) => ({ id, name })),
+				);
+				if (chosen !== null) {
+					const entry = ranked.find((candidate) => candidate.orgId === chosen);
+					if (entry) {
+						match = { orgId: chosen, alias: entry.alias, confidence: entry.confidence };
+						reason = "matched";
+					}
+				}
+			}
+		} else {
+			match = { orgId: best.orgId, alias: best.alias, confidence: best.confidence };
+			reason = "matched";
+		}
+	} else if (sawShortOnly) {
+		reason = "short-only";
 	}
 
 	if (resultCache.size >= MAX_CACHED_TEXTS) resultCache.clear();
 	resultCache.set(key, match);
-	return match;
+	return { match, reason };
+}
+
+// ── Dérivation d'alias ───────────────────────────────────────────────────
+
+/** Mots de liaison ignorés pour construire un sigle. */
+const ACRONYM_STOPWORDS: Record<string, true> = {
+	de: true,
+	du: true,
+	des: true,
+	la: true,
+	le: true,
+	les: true,
+	et: true,
+	au: true,
+	aux: true,
+	en: true,
+	sur: true,
+};
+
+const LEGAL_FORMS: Record<string, true> = {
+	sa: true,
+	sas: true,
+	sasu: true,
+	sarl: true,
+	eurl: true,
+	sci: true,
+	gie: true,
+	snc: true,
+	sca: true,
+	scop: true,
+	scic: true,
+	selarl: true,
+	selas: true,
+	sei: true,
+	gem: true,
+	gmbh: true,
+	ltd: true,
+	llc: true,
+	inc: true,
+	plc: true,
+	bv: true,
+	ag: true,
+	spa: true,
+	corp: true,
+};
+
+/**
+ * Alias candidats dérivés d'un nom d'organisation : nom sans forme juridique,
+ * nom sans segment entre parenthèses, et sigle. Aucune de ces formes n'est
+ * retenue ici : la dérivation produit des candidats, l'ambiguïté globale est
+ * tranchée par `selectUnambiguousAliases`.
+ */
+export function deriveAliases(name: string): string[] {
+	const out = new Set<string>();
+	const trimmed = name.replace(/\s+/g, " ").trim();
+	if (trimmed === "") return [];
+
+	// Nom sans segment entre parenthèses : « CCI (Chambre de Commerce) ».
+	const withoutParens = trimmed.replace(/\([^)]*\)/g, " ").replace(/\s+/g, " ").trim();
+	if (withoutParens.length >= MIN_ALIAS_LENGTH) out.add(withoutParens);
+
+	// Nom sans forme juridique finale ou initiale.
+	const tokens = withoutParens.split(" ");
+	const kept = tokens.filter((token) => LEGAL_FORMS[token.toLowerCase()] !== true);
+	if (kept.length > 0 && kept.join(" ") !== withoutParens) out.add(kept.join(" "));
+
+	// Sigle : au moins trois mots significatifs, sinon « CHU » ne dit rien seul.
+	const meaningful = kept.filter((token) => ACRONYM_STOPWORDS[token.toLowerCase()] !== true);
+	if (meaningful.length >= 3) {
+		const acronym = meaningful.map((token) => token[0] ?? "").join("").toUpperCase();
+		if (acronym.length >= 3 && acronym.length <= 6) out.add(acronym);
+	}
+
+	return [...out].filter((alias) => normalize(alias).length >= MIN_ALIAS_LENGTH);
+}
+
+/**
+ * Parmi des alias candidats, ne garde que ceux qui ne désignent qu'une seule
+ * organisation. Un alias partagé est écarté des deux côtés : c'est la règle
+ * « on ne devine pas » appliquée avant l'écriture en base.
+ */
+export function selectUnambiguousAliases(
+	candidates: ReadonlyArray<{ orgId: number; alias: string }>,
+	existing: ReadonlyArray<{ orgId: number; alias: string }>,
+): { orgId: number; alias: string }[] {
+	const owners = new Map<string, Set<number>>();
+	const remember = (orgId: number, alias: string) => {
+		const key = normalize(alias);
+		if (key === "") return;
+		const set = owners.get(key);
+		if (set) set.add(orgId);
+		else owners.set(key, new Set([orgId]));
+	};
+	for (const row of existing) remember(row.orgId, row.alias);
+	for (const row of candidates) remember(row.orgId, row.alias);
+
+	return candidates.filter((row) => {
+		const key = normalize(row.alias);
+		const set = owners.get(key);
+		return set !== undefined && set.size === 1 && set.has(row.orgId);
+	});
 }
