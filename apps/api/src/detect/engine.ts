@@ -1,4 +1,5 @@
 import { query, ingestQuery } from "../db.js";
+import { classifyScope, isConfident, isScopeGateEnabled } from "./scope.js";
 
 export type RuleMatch = {
   family?: string;
@@ -70,15 +71,31 @@ export async function evaluateEvent(eventId: number): Promise<number> {
     const or = await query<Record<string, unknown>>("SELECT * FROM org WHERE id=$1", [e.org_id as number]);
     org = or.rows[0] ?? null;
   }
+  // Porte régionale. Deux chemins :
+  //   - une organisation est rattachée → incident d'organisation, sans appel réseau ;
+  //   - aucune organisation → le modèle de décision tranche la portée. Tant qu'il
+  //     n'a pas répondu avec assez de confiance pour dire « régional », on
+  //     n'alerte pas : mieux vaut rater un signal que noyer la file.
+  let regionalVerdict: { scope: string; confidence: number; probabilities: Record<string, number>; model: string } | null = null;
+  if (e.org_id == null && isScopeGateEnabled()) {
+    const decision = await classifyScope(`${String(e.title ?? "")} ${String(e.summary ?? "")}`);
+    if (!isConfident(decision) || decision.scope !== "REGIONAL") return 0;
+    regionalVerdict = decision;
+  }
+
   let created = 0;
   for (const rule of rules) {
     if (rule.match.indicator_type) continue;
     if (!matchesEvent(rule, e, org)) continue;
+    const scope = e.org_id != null ? "organization_incident" : "regional_advisory";
+    const evidence = regionalVerdict
+      ? { event_title: e.title, scope_decision: regionalVerdict }
+      : { event_title: e.title };
     const ins = await ingestQuery(
-      `INSERT INTO alert (rule_id, title, severity, event_id, org_id, evidence)
-       VALUES ($1,$2,$3,$4,$5,$6)
+      `INSERT INTO alert (rule_id, title, severity, event_id, org_id, evidence, scope)
+       VALUES ($1,$2,$3,$4,$5,$6,$7)
        ON CONFLICT (rule_id, event_id) WHERE event_id IS NOT NULL DO NOTHING`,
-      [rule.id, rule.name, rule.severity, e.id as number, e.org_id, JSON.stringify({ event_title: e.title })]
+      [rule.id, rule.name, rule.severity, e.id as number, e.org_id, JSON.stringify(evidence), scope]
     );
     if (ins.rowCount && ins.rowCount > 0) created++;
   }

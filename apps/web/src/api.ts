@@ -147,6 +147,7 @@ export type Alert = {
   indicator_id: number | null;
   org_id: number | null;
   evidence: unknown;
+  scope?: "organization_incident" | "regional_advisory";
   created_at: string;
   updated_at: string;
   acked_at: string | null;

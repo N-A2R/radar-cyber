@@ -51,6 +51,7 @@ type QuarantineRow = {
   raw_body: string | null;
   content_hash: string;
   promoted: boolean;
+  tlp: string | null;
 };
 
 /** Supprime les accents et passe en minuscules. */
@@ -243,7 +244,7 @@ export async function insertClaimEvent(
   const dedupKey = `quarantine:${row.content_hash}`;
   const title = `${row.org_hint ?? "Revendication"} — revendiqué par ${row.groupe ?? "groupe inconnu"}`.slice(0, 400);
   const description = (row.extracted?.description as string | null | undefined) ?? row.raw_body ?? null;
-  const summary = description ? String(description).slice(0, 4000) : null;
+  const summary = row.tlp === "RED" ? null : description ? String(description).slice(0, 4000) : null;
   // La date de promotion sert de `observed_at` : la date de revendication (2025)
   // est antérieure à la rétention de 90 j et viderait l'événement. Elle reste
   // dans `quarantine_raw.claimed_at` et dans `evidence`.
@@ -251,8 +252,8 @@ export async function insertClaimEvent(
 
   const r = await ingestQuery<{ id: number; inserted: boolean }>(
     `INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at, severity, confidence,
-       source_id, source_url, evidence, geo_type, org_id)
-     VALUES ($1,'ransomware','third_party_claim',$2,$3,$4,4,'C3',$5,$6,$7,'claimed_origin',$8)
+       source_id, source_url, evidence, geo_type, org_id, tlp, tlp_source)
+     VALUES ($1,'ransomware','third_party_claim',$2,$3,$4,4,'C3',$5,$6,$7,'claimed_origin',$8,$9,$10)
      ON CONFLICT (dedup_key) DO UPDATE SET observed_at = COALESCE(event.observed_at, EXCLUDED.observed_at)
      RETURNING id, (xmax = 0) AS inserted`,
     [
@@ -270,6 +271,8 @@ export async function insertClaimEvent(
         promoted_by: promotedBy,
       }),
       orgId,
+      row.tlp,
+      row.source,
     ]
   );
   const eventId = Number(r.rows[0].id);
@@ -315,7 +318,7 @@ export async function promoteMatches(
     where += ` AND id = ANY($${params.length}::bigint[])`;
   }
   const r = await query<QuarantineRow>(
-    `SELECT id, source, source_url, groupe, org_hint, claimed_at, extracted, raw_body, content_hash, promoted
+    `SELECT id, source, source_url, groupe, org_hint, claimed_at, extracted, raw_body, content_hash, promoted, tlp
      FROM quarantine_raw ${where} ORDER BY id`,
     params
   );
@@ -394,7 +397,7 @@ export async function promoteOne(id: number, promotedBy: string): Promise<Promot
   } as const;
 
   const r = await query<QuarantineRow>(
-    `SELECT id, source, source_url, groupe, org_hint, claimed_at, extracted, raw_body, content_hash, promoted
+    `SELECT id, source, source_url, groupe, org_hint, claimed_at, extracted, raw_body, content_hash, promoted, tlp
      FROM quarantine_raw WHERE id=$1`,
     [id]
   );

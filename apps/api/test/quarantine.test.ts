@@ -20,6 +20,22 @@ import {
 } from "../src/quarantine/promote.js";
 import quarantineRoute from "../src/routes/quarantine.js";
 
+/** Crée un utilisateur et une session pour les routes désormais protégées. */
+async function createSession(role = "lecteur"): Promise<{ token: string; userId: number }> {
+  const u = await query<{ id: number }>(
+    `INSERT INTO app_user (email, password_hash, role, display_name)
+     VALUES ($1,'x',$2,'Test quarantaine') RETURNING id`,
+    [`${next()}@example.invalid`, role]
+  );
+  const token = `tok-q-${next()}`;
+  await query(
+    "INSERT INTO app_session (token, user_id, expires_at) VALUES ($1,$2, now() + interval '1 hour')",
+    [token, u.rows[0].id]
+  );
+  return { token, userId: u.rows[0].id };
+}
+
+
 const TAG = `t${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
 let seq = 0;
 function next(): string {
@@ -215,16 +231,22 @@ test("promotion manuelle : promoteOne, idempotence, introuvable", async () => {
   assert.equal(missing.found, false);
 });
 
-test("route : lectures publiques, écriture protégée", async () => {
+test("route : lectures protégées par jeton", async () => {
   const app = Fastify({ logger: false });
   await app.register(quarantineRoute, { prefix: "/api" });
   await app.ready();
   try {
-    const list = await app.inject({ method: "GET", url: "/api/quarantine?limit=5" });
+    const anon = await app.inject({ method: "GET", url: "/api/quarantine?limit=5" });
+    assert.equal(anon.statusCode, 401);
+
+    const { token } = await createSession("lecteur");
+    const auth = { authorization: `Bearer ${token}` };
+
+    const list = await app.inject({ method: "GET", url: "/api/quarantine?limit=5", headers: auth });
     assert.equal(list.statusCode, 200);
     assert.ok(Array.isArray(list.json()));
 
-    const stats = await app.inject({ method: "GET", url: "/api/quarantine/stats" });
+    const stats = await app.inject({ method: "GET", url: "/api/quarantine/stats", headers: auth });
     assert.equal(stats.statusCode, 200);
     const body = stats.json() as {
       total: number;
@@ -251,9 +273,11 @@ test("route : org rapprochée exposée sur le fait", async () => {
   await app.register(quarantineRoute, { prefix: "/api" });
   await app.ready();
   try {
+    const { token } = await createSession("lecteur");
     const res = await app.inject({
       method: "GET",
       url: `/api/quarantine?source=test&limit=50`,
+      headers: { authorization: `Bearer ${token}` },
     });
     assert.equal(res.statusCode, 200);
     const rows = res.json() as Array<{ orgHint: string | null; org: { id: number } | null }>;

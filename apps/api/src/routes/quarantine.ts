@@ -1,6 +1,6 @@
 import type { FastifyInstance, FastifyRequest } from "fastify";
 import { query } from "../db.js";
-import { requireAuth } from "../middleware/auth.js";
+import { requireAuth, resolveUser } from "../middleware/auth.js";
 import {
   loadOrgIndex,
   matchOrgInIndex,
@@ -25,7 +25,12 @@ export default async function (app: FastifyInstance) {
    * `raw_body` reste hors API : les données ransomware.live ne sont pas
    * republiées (voir docs/quarantine.md). L'événement public porte le résumé.
    */
-  app.get("/quarantine", async (req: FastifyRequest) => {
+  app.get("/quarantine", async (req: FastifyRequest, reply) => {
+    const user = await resolveUser(req);
+    if (!user) {
+      reply.code(401).send({ error: "unauthorized" });
+      return;
+    }
     const q = req.query as Record<string, string | undefined>;
     let limit = Number(q.limit ?? 100);
     if (!Number.isFinite(limit)) limit = 100;
@@ -34,15 +39,13 @@ export default async function (app: FastifyInstance) {
     const params: unknown[] = [];
     const where: string[] = [];
     if (q.status) { params.push(q.status); where.push(`q.status=$${params.length}`); }
-    if (q.promoted === "true" || q.promoted === "false") {
-      params.push(q.promoted === "true");
-      where.push(`q.promoted=$${params.length}`);
-    }
+    if (q.promoted === "true") { where.push("q.promoted = true"); }
+    else if (q.promoted === "false") { where.push("q.promoted = false"); }
     if (q.source) { params.push(q.source); where.push(`q.source=$${params.length}`); }
     params.push(limit);
     const limitIdx = params.length;
 
-    const r = await query<any>(
+    const r = await query<Record<string, unknown>>(
       `SELECT q.id, q.source, q.source_url, q.groupe, q.org_hint, q.claimed_at, q.extracted, q.tlp,
               q.status, q.promoted, q.promoted_at, q.promoted_by, q.received_at, q.purge_after, q.content_hash
        FROM quarantine_raw q
@@ -53,16 +56,22 @@ export default async function (app: FastifyInstance) {
 
     const index = await loadOrgIndex();
     const orgById = new Map(index.map((e) => [e.id, e]));
-    return r.rows.map((row) => {
-      const m = matchOrgInIndex(row.org_hint ?? "", index);
-      return {
+    const out: Record<string, unknown>[] = [];
+    for (const row of r.rows) {
+      // La route exige désormais un jeton : le destinataire autorisé peut voir
+      // les faits TLP:RED. Leur contenu extrait reste masqué, seule la
+      // métadonnée (source, groupe, date, rattachement) est exposée.
+      const isRed = row.tlp === "RED";
+      // Le rattachement se calcule sur `org_hint`, jamais sur le contenu extrait.
+      const m = matchOrgInIndex(String(row.org_hint ?? ""), index);
+      out.push({
         id: row.id,
         source: row.source,
         sourceUrl: row.source_url,
         groupe: row.groupe,
         orgHint: row.org_hint,
         claimedAt: row.claimed_at,
-        extracted: row.extracted,
+        extracted: isRed ? null : row.extracted,
         tlp: row.tlp,
         status: row.status,
         promoted: row.promoted,
@@ -71,14 +80,20 @@ export default async function (app: FastifyInstance) {
         receivedAt: row.received_at,
         purgeAfter: row.purge_after,
         contentHash: row.content_hash,
-        org: m ? mapOrg(orgById.get(m.orgId)!) : null,
+        org: m && m.orgId ? mapOrg(orgById.get(m.orgId)!) : null,
         orgConfidence: m?.confidence ?? null,
-      };
-    });
+      });
+    }
+    return out;
   });
 
   /** Comptes par statut, promotion et source. */
-  app.get("/quarantine/stats", async () => {
+  app.get("/quarantine/stats", async (req: FastifyRequest, reply) => {
+    const user = await resolveUser(req);
+    if (!user) {
+      reply.code(401).send({ error: "unauthorized" });
+      return;
+    }
     const total = await query<{ n: string }>("SELECT count(*)::text AS n FROM quarantine_raw");
     const pending = await query<{ n: string }>(
       "SELECT count(*)::text AS n FROM quarantine_raw WHERE status='pending' AND promoted=false"

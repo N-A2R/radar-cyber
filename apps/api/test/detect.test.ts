@@ -314,19 +314,32 @@ test("evaluateIndicator : type + confiance, idempotent", async () => {
   }
 });
 
-test("auth : écriture sans token → 401, lectures publiques → 200", async () => {
+test("auth : lectures et écritures d'alertes exigent un jeton", async () => {
   const app = await makeApp();
+  const ids = newIds();
   try {
     const ack = await app.inject({ method: "POST", url: "/api/alerts/1/ack" });
     assert.equal(ack.statusCode, 401);
 
+    // Le contenu des alertes n'est plus public : un jeton est requis.
     const list = await app.inject({ method: "GET", url: "/api/alerts" });
-    assert.equal(list.statusCode, 200);
-    assert.ok(Array.isArray(list.json()));
+    assert.equal(list.statusCode, 401);
 
     const stats = await app.inject({ method: "GET", url: "/api/alerts/stats" });
-    assert.equal(stats.statusCode, 200);
+    assert.equal(stats.statusCode, 401);
+
+    // Avec un jeton, la lecture repasse en 200.
+    const { token, userId } = await createSession("lecteur");
+    ids.users.push(userId);
+    const authed = await app.inject({
+      method: "GET",
+      url: "/api/alerts",
+      headers: { authorization: `Bearer ${token}` },
+    });
+    assert.equal(authed.statusCode, 200);
+    assert.ok(Array.isArray(authed.json()));
   } finally {
+    await cleanup(ids);
     await app.close();
   }
 });
@@ -370,8 +383,15 @@ test("statuts : ack puis resolve avec un token valide", async () => {
 
 test("stats : comptes cohérents avec la table alert", async () => {
   const app = await makeApp();
+  const ids = newIds();
   try {
-    const res = await app.inject({ method: "GET", url: "/api/alerts/stats" });
+    const { token, userId } = await createSession("lecteur");
+    ids.users.push(userId);
+    const res = await app.inject({
+      method: "GET",
+      url: "/api/alerts/stats",
+      headers: { authorization: `Bearer ${token}` },
+    });
     assert.equal(res.statusCode, 200);
     const rows = res.json() as { status: string; severity: number; count: string }[];
     assert.ok(Array.isArray(rows));
@@ -401,21 +421,21 @@ test("filtres : status, severity et limit", async () => {
     ids.alerts.push(a5, a3);
     await app.inject({ method: "POST", url: `/api/alerts/${a5}/ack`, headers: { authorization: `Bearer ${token}` } });
 
-    const byStatus = await app.inject({ method: "GET", url: "/api/alerts?status=ack&limit=500" });
+    const byStatus = await app.inject({ method: "GET", url: "/api/alerts?status=ack&limit=500", headers: { authorization: `Bearer ${token}` } });
     assert.equal(byStatus.statusCode, 200);
     const ackRows = byStatus.json() as { id: number; status: string }[];
     assert.ok(ackRows.length >= 1);
     assert.ok(ackRows.every((r) => r.status === "ack"));
     assert.ok(ackRows.some((r) => r.id === a5));
 
-    const bySeverity = await app.inject({ method: "GET", url: "/api/alerts?severity=5&limit=500" });
+    const bySeverity = await app.inject({ method: "GET", url: "/api/alerts?severity=5&limit=500", headers: { authorization: `Bearer ${token}` } });
     assert.equal(bySeverity.statusCode, 200);
     const sevRows = bySeverity.json() as { id: number; severity: number }[];
     assert.ok(sevRows.length >= 1);
     assert.ok(sevRows.every((r) => r.severity === 5));
     assert.ok(sevRows.some((r) => r.id === a5));
 
-    const limited = await app.inject({ method: "GET", url: "/api/alerts?limit=1" });
+    const limited = await app.inject({ method: "GET", url: "/api/alerts?limit=1", headers: { authorization: `Bearer ${token}` } });
     assert.equal(limited.statusCode, 200);
     assert.equal((limited.json() as unknown[]).length, 1);
   } finally {

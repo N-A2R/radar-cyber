@@ -22,8 +22,8 @@ function formatDate(value: string | null): string {
 export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent }: AlertsViewProps) {
   const [status, setStatus] = useState<AlertStatus | "all">("open");
   const [severity, setSeverity] = useState<number | null>(null);
+  const [section, setSection] = useState<"organization_incident" | "regional_advisory">("organization_incident");
   const [rows, setRows] = useState<Alert[]>([]);
-  const [stats, setStats] = useState<AlertStatRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState<number | null>(null);
@@ -36,11 +36,9 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent }: Al
         status: status === "all" ? undefined : status,
         severity: severity ?? undefined,
       }),
-      api.alertStats(),
     ])
-      .then(([list, s]) => {
+      .then(([list]) => {
         setRows(list);
-        setStats(s);
       })
       .catch((err: Error & { status?: number }) => {
         if (err.status === 401) onUnauthorized();
@@ -51,11 +49,28 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent }: Al
 
   useEffect(reload, [reload]);
 
+  // Les compteurs viennent des lignes chargées : ils suivent donc les filtres
+  // de statut et de sévérité, au lieu d'un total global qui les ignorerait.
   const totals = useMemo(() => {
     const out: Record<string, number> = { open: 0, ack: 0, resolved: 0 };
-    for (const s of stats) out[s.status] = (out[s.status] ?? 0) + Number(s.count);
+    for (const row of rows) out[row.status] = (out[row.status] ?? 0) + 1;
     return out;
-  }, [stats]);
+  }, [rows]);
+
+  const incidentCount = useMemo(
+    () => rows.filter((alert) => alert.scope === "organization_incident").length,
+    [rows],
+  );
+  const regionalCount = rows.length - incidentCount;
+  const visibleRows = useMemo(
+    () =>
+      rows.filter((alert) =>
+        section === "organization_incident"
+          ? alert.scope === "organization_incident"
+          : alert.scope !== "organization_incident",
+      ),
+    [rows, section],
+  );
 
   const act = (id: number, kind: "ack" | "resolve") => {
     setBusy(id);
@@ -77,6 +92,23 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent }: Al
           {totals.open} ouvertes, {totals.ack} acquittées, {totals.resolved} résolues
         </span>
       </header>
+
+      <div className="alerts__sections">
+        <button
+          type="button"
+          aria-pressed={section === "organization_incident"}
+          onClick={() => setSection("organization_incident")}
+        >
+          incidents <span className="alerts__count">({incidentCount})</span>
+        </button>
+        <button
+          type="button"
+          aria-pressed={section === "regional_advisory"}
+          onClick={() => setSection("regional_advisory")}
+        >
+          avis régionaux <span className="alerts__count">({regionalCount})</span>
+        </button>
+      </div>
 
       <div className="alerts__filters">
         {STATUSES.map((s) => (
@@ -106,7 +138,7 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent }: Al
       {loading ? <p className="alerts__status">chargement</p> : null}
 
       <ul className="alerts__list">
-        {rows.map((alert) => (
+        {visibleRows.map((alert) => (
           <li key={alert.id} className="alerts__item">
             <button
               type="button"
@@ -153,7 +185,7 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent }: Al
         ))}
       </ul>
 
-      {!loading && rows.length === 0 ? <p className="alerts__status">aucune alerte sur ce filtre</p> : null}
+      {!loading && visibleRows.length === 0 ? <p className="alerts__status">aucune alerte sur ce filtre</p> : null}
     </section>
   );
 }
