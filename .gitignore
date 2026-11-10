@@ -30,3 +30,6 @@ coverage/
 # Système
 .DS_Store
 Thumbs.db
+
+# Artefacts locaux du skill de design
+.hallmark/

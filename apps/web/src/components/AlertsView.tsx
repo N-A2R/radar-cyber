@@ -1,291 +1,159 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import {
-  Alert as AntAlert,
-  Button,
-  Drawer,
-  Empty,
-  Segmented,
-  Space,
-  Spin,
-  Table,
-  Tag,
-  Typography,
-} from "antd";
-import type { ColumnsType } from "antd/es/table";
-import { api, type Alert as AlertRow, type AlertStatus } from "../api";
-import { t } from "../i18n";
+import { api, type Alert, type AlertStatRow, type AlertStatus } from "../api";
+import type { AlertsViewProps } from "../contracts";
+import "./alerts.css";
 
-const { Text, Title } = Typography;
+const STATUSES: { id: AlertStatus | "all"; label: string }[] = [
+  { id: "open", label: "ouvertes" },
+  { id: "ack", label: "acquittées" },
+  { id: "resolved", label: "résolues" },
+  { id: "all", label: "toutes" },
+];
 
-/** Sévérité S1 → S5 (S1 la plus basse). */
-const SEVERITY_COLOR: Record<number, string> = {
-  1: "#5b6472",
-  2: "#4a90d9",
-  3: "#e0b341",
-  4: "#e8833a",
-  5: "#e0483c",
-};
-
-const STATUS_COLOR: Record<AlertStatus, string> = {
-  open: "#e0483c",
-  ack: "#e0b341",
-  resolved: "#22c55e",
-};
-
-type SeverityFilter = "all" | "5" | "4" | "3" | "2" | "1";
-
-function severityTag(severity: number): string {
-  return SEVERITY_COLOR[severity] ?? "#5b6472";
-}
+const SEVERITIES = [5, 4, 3, 2, 1];
 
 function formatDate(value: string | null): string {
   if (!value) return "—";
   const d = new Date(value);
   if (Number.isNaN(d.getTime())) return "—";
-  return d.toLocaleString("en-GB", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" });
+  return new Intl.DateTimeFormat("fr", { dateStyle: "short", timeStyle: "short" }).format(d);
 }
 
-/** Bloc « enrichissement » : whois, DNS, certificats, reverse. */
-function EnrichmentBlock({ id, kind }: { id: number; kind: "indicator" | "event" }) {
-  const [data, setData] = useState<Record<string, unknown> | null>(null);
+export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent }: AlertsViewProps) {
+  const [status, setStatus] = useState<AlertStatus | "all">("open");
+  const [severity, setSeverity] = useState<number | null>(null);
+  const [rows, setRows] = useState<Alert[]>([]);
+  const [stats, setStats] = useState<AlertStatRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [busy, setBusy] = useState<number | null>(null);
 
-  useEffect(() => {
-    let cancelled = false;
+  const reload = useCallback(() => {
     setLoading(true);
     setError(null);
-    const call = kind === "indicator" ? api.enrichIndicator(id) : api.enrichEvent(id);
-    call
-      .then((res) => { if (!cancelled) setData(res as unknown as Record<string, unknown>) })
-      .catch((e: unknown) => { if (!cancelled) setError(e instanceof Error ? e.message : String(e)) })
-      .finally(() => { if (!cancelled) setLoading(false) });
-    return () => { cancelled = true };
-  }, [id, kind]);
+    Promise.all([
+      api.alerts({
+        status: status === "all" ? undefined : status,
+        severity: severity ?? undefined,
+      }),
+      api.alertStats(),
+    ])
+      .then(([list, s]) => {
+        setRows(list);
+        setStats(s);
+      })
+      .catch((err: Error & { status?: number }) => {
+        if (err.status === 401) onUnauthorized();
+        setError(err.message);
+      })
+      .finally(() => setLoading(false));
+  }, [status, severity, onUnauthorized]);
 
-  if (loading) return <Spin size="small" />;
-  if (error) return <AntAlert type="error" message={error} showIcon />;
+  useEffect(reload, [reload]);
 
-  const rows: Array<[string, string]> = [];
-  const enrichment = (data?.enrichment ?? {}) as Record<string, unknown>;
-
-  const domain = enrichment.domain as Record<string, unknown> | null | undefined;
-  if (domain) {
-    rows.push(["registrar", String(domain.registrar ?? "—")]);
-    rows.push(["created", String(domain.created ?? "—")]);
-    rows.push(["expires", String(domain.expires ?? "—")]);
-    if (Array.isArray(domain.nameServers) && domain.nameServers.length) {
-      rows.push(["name servers", domain.nameServers.map(String).join(", ")]);
-    }
-  }
-  const dns = enrichment.dns as Record<string, unknown> | null | undefined;
-  if (dns) {
-    const a = Array.isArray(dns.a) ? dns.a.map(String) : [];
-    const aaaa = Array.isArray(dns.aaaa) ? dns.aaaa.map(String) : [];
-    if (a.length) rows.push(["A", a.join(", ")]);
-    if (aaaa.length) rows.push(["AAAA", aaaa.join(", ")]);
-  }
-  const certs = enrichment.certs as Array<Record<string, unknown>> | null | undefined;
-  if (Array.isArray(certs) && certs.length) {
-    rows.push(["certificates", String(certs.length)]);
-    for (const c of certs.slice(0, 3)) {
-      rows.push([String(c.name ?? ""), `${String(c.issuer ?? "")} · ${String(c.notAfter ?? "")}`]);
-    }
-  }
-  const reverse = enrichment.reverse as string[] | null | undefined;
-  if (Array.isArray(reverse) && reverse.length) rows.push(["PTR", reverse.join(", ")]);
-
-  const errors = (enrichment.errors as string[] | undefined) ?? [];
-  const score = typeof data?.score === "number" ? data.score : null;
-
-  return (
-    <Space direction="vertical" size="small" style={{ width: "100%" }}>
-      {score != null && <Text strong>score {score}/100</Text>}
-      {rows.map(([k, v]) => (
-        <div key={k}>
-          <Text type="secondary" style={{ fontSize: 11, textTransform: "uppercase" }}>{k}</Text>
-          <div style={{ fontSize: 12, wordBreak: "break-all" }}>{v}</div>
-        </div>
-      ))}
-      {errors.length > 0 && (
-        <AntAlert type="warning" showIcon message={errors.join(" · ")} />
-      )}
-      {!rows.length && !errors.length && <Empty description="no enrichment" />}
-    </Space>
-  );
-}
-
-export default function AlertsView() {
-  const [alerts, setAlerts] = useState<AlertRow[]>([]);
-  const [stats, setStats] = useState<Array<{ status: AlertStatus; severity: number; count: string }>>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [status, setStatus] = useState<"all" | AlertStatus>("all");
-  const [severity, setSeverity] = useState<SeverityFilter>("all");
-  const [drawer, setDrawer] = useState<{ id: number; kind: "indicator" | "event"; title: string } | null>(null);
-
-
-  const load = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const [rows, st] = await Promise.all([
-        api.alerts({
-          status: status === "all" ? undefined : status,
-          severity: severity === "all" ? undefined : Number(severity),
-        }),
-        api.alertStats(),
-      ]);
-      setAlerts(rows);
-      setStats(st);
-    } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : String(e));
-    } finally {
-      setLoading(false);
-    }
-  }, [status, severity]);
-
-  useEffect(() => { void load(); }, [load]);
-
-  const counts = useMemo(() => {
-    const c: Record<AlertStatus, number> = { open: 0, ack: 0, resolved: 0 };
-    for (const row of stats) c[row.status] += Number(row.count);
-    return c;
+  const totals = useMemo(() => {
+    const out: Record<string, number> = { open: 0, ack: 0, resolved: 0 };
+    for (const s of stats) out[s.status] = (out[s.status] ?? 0) + Number(s.count);
+    return out;
   }, [stats]);
 
-  const act = useCallback(async (id: number, action: "ack" | "resolve") => {
-    try {
-      if (action === "ack") await api.ackAlert(id);
-      else await api.resolveAlert(id);
-      setAlerts((prev) => prev.map((a) => (a.id === id ? { ...a, status: action === "ack" ? "ack" : "resolved" } : a)));
-    } catch {
-      // 401 sans session : l'action reste visible mais échoue proprement.
-      setError("authentication required");
-    }
-  }, []);
-
-  const columns: ColumnsType<AlertRow> = [
-    {
-      title: t("alerts.severity"),
-      dataIndex: "severity",
-      width: 90,
-      sorter: (a, b) => a.severity - b.severity,
-      defaultSortOrder: "descend",
-      render: (s: number) => <Tag color={severityTag(s)}>S{s}</Tag>,
-    },
-    {
-      title: t("alerts.title"),
-      dataIndex: "title",
-      width: 320,
-      render: (_: string, row) => (
-        <Space direction="vertical" size={0}>
-          <Text strong>{row.title}</Text>
-          <Text type="secondary" style={{ fontSize: 11, whiteSpace: "nowrap" }}>{row.rule_id}</Text>
-        </Space>
-      ),
-    },
-    {
-      title: t("alerts.event"),
-      dataIndex: "event_title",
-      render: (v: string | null) => v ?? "—",
-    },
-    {
-      title: t("alerts.org"),
-      dataIndex: "org_name",
-      width: 160,
-      render: (v: string | null) => v ?? "—",
-    },
-    {
-      title: t("alerts.date"),
-      dataIndex: "created_at",
-      width: 140,
-      sorter: (a, b) => a.created_at.localeCompare(b.created_at),
-      render: (v: string) => formatDate(v),
-    },
-    {
-      title: t("alerts.status"),
-      dataIndex: "status",
-      width: 100,
-      render: (s: AlertStatus) => <Tag color={STATUS_COLOR[s]}>{s}</Tag>,
-    },
-    {
-      title: "",
-      width: 190,
-      render: (_: unknown, row) => {
-        const indicatorId = row.indicator_id;
-        const eventId = row.event_id;
-        return (
-        <Space size={4}>
-          {indicatorId != null && (
-            <Button size="small" onClick={() => setDrawer({ id: indicatorId, kind: "indicator", title: row.title })}>
-              {t("alerts.enrich")}
-            </Button>
-          )}
-          {eventId != null && (
-            <Button size="small" onClick={() => setDrawer({ id: eventId, kind: "event", title: row.title })}>
-              {t("alerts.detail")}
-            </Button>
-          )}
-          {row.status === "open" && (
-            <Button size="small" onClick={() => void act(row.id, "ack")}>{t("alerts.ack")}</Button>
-          )}
-          {row.status !== "resolved" && (
-            <Button size="small" type="primary" ghost onClick={() => void act(row.id, "resolve")}>
-              {t("alerts.resolve")}
-            </Button>
-          )}
-        </Space>
-        );
-      },
-    },
-  ];
+  const act = (id: number, kind: "ack" | "resolve") => {
+    setBusy(id);
+    const call = kind === "ack" ? api.ackAlert(id) : api.resolveAlert(id);
+    call
+      .then(() => reload())
+      .catch((err: Error & { status?: number }) => {
+        if (err.status === 401) onUnauthorized();
+        setError(err.message);
+      })
+      .finally(() => setBusy(null));
+  };
 
   return (
-    <Space direction="vertical" size="middle" style={{ width: "100%" }}>
-      <Space size="middle" wrap>
-        <Segmented
-          value={status}
-          onChange={(v) => setStatus(v as "all" | AlertStatus)}
-          options={[
-            { label: `open ${counts.open}`, value: "open" },
-            { label: `ack ${counts.ack}`, value: "ack" },
-            { label: `resolved ${counts.resolved}`, value: "resolved" },
-            { label: "all", value: "all" },
-          ]}
-        />
-        <Segmented
-          value={severity}
-          onChange={(v) => setSeverity(v as SeverityFilter)}
-          options={[
-            { label: "S5", value: "5" },
-            { label: "S4", value: "4" },
-            { label: "S3", value: "3" },
-            { label: "S2", value: "2" },
-            { label: "all", value: "all" },
-          ]}
-        />
-      </Space>
+    <section className="alerts" aria-label="alertes">
+      <header className="alerts__head">
+        <h2>Alertes</h2>
+        <span className="alerts__totals">
+          {totals.open} ouvertes, {totals.ack} acquittées, {totals.resolved} résolues
+        </span>
+      </header>
 
-      {error && <AntAlert type="error" showIcon message={error} onClose={() => setError(null)} />}
+      <div className="alerts__filters">
+        {STATUSES.map((s) => (
+          <button
+            key={s.id}
+            type="button"
+            aria-pressed={status === s.id}
+            onClick={() => setStatus(s.id)}
+          >
+            {s.label}
+          </button>
+        ))}
+        <span className="alerts__sep" />
+        {SEVERITIES.map((n) => (
+          <button
+            key={n}
+            type="button"
+            aria-pressed={severity === n}
+            onClick={() => setSeverity(severity === n ? null : n)}
+          >
+            S{n}
+          </button>
+        ))}
+      </div>
 
-      <Table<AlertRow>
-        rowKey="id"
-        size="small"
-        loading={loading}
-        columns={columns}
-        dataSource={alerts}
-        pagination={{ pageSize: 25, hideOnSinglePage: true }}
-        locale={{ emptyText: loading ? <Spin size="small" /> : <Empty description={t("alerts.empty")} /> }}
-      />
+      {error ? <p className="alerts__error">{error}</p> : null}
+      {loading ? <p className="alerts__status">chargement</p> : null}
 
-      <Drawer
-        open={drawer != null}
-        onClose={() => setDrawer(null)}
-        title={drawer?.title ?? ""}
-        width={420}
-      >
-        {drawer && <EnrichmentBlock id={drawer.id} kind={drawer.kind} />}
-      </Drawer>
-    </Space>
+      <ul className="alerts__list">
+        {rows.map((alert) => (
+          <li key={alert.id} className="alerts__item">
+            <button
+              type="button"
+              className="alerts__row"
+              onClick={() => {
+                if (alert.event_id !== null) onOpenEvent(String(alert.event_id));
+              }}
+            >
+              <span className="alerts__sev" data-level={alert.severity}>
+                {alert.severity}
+              </span>
+              <span className="alerts__body">
+                <span className="alerts__title">{alert.title}</span>
+                <span className="alerts__meta">
+                  {[alert.rule_id, alert.org_name, alert.event_family, formatDate(alert.created_at)]
+                    .filter(Boolean)
+                    .join(", ")}
+                </span>
+              </span>
+              <span className="alerts__state" data-state={alert.status}>
+                {alert.status === "open" ? "ouverte" : alert.status === "ack" ? "acquittée" : "résolue"}
+              </span>
+            </button>
+
+            {canWrite ? (
+              <span className="alerts__actions">
+                <button
+                  type="button"
+                  disabled={busy === alert.id || alert.status !== "open"}
+                  onClick={() => act(alert.id, "ack")}
+                >
+                  acquitter
+                </button>
+                <button
+                  type="button"
+                  disabled={busy === alert.id || alert.status === "resolved"}
+                  onClick={() => act(alert.id, "resolve")}
+                >
+                  résoudre
+                </button>
+              </span>
+            ) : null}
+          </li>
+        ))}
+      </ul>
+
+      {!loading && rows.length === 0 ? <p className="alerts__status">aucune alerte sur ce filtre</p> : null}
+    </section>
   );
 }

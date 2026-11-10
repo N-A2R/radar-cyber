@@ -122,7 +122,7 @@ const ORG_KIND_COLORS: Record<string, string> = {
 }
 const ORG_KIND_FALLBACK = '#9fb2c4'
 
-const STROKE_DARK = '#0b0f16'
+const STROKE_DARK = '#12100d'
 const STROKE_LIGHT = '#ffffff'
 
 /** Expression MapLibre `match` sur `family`, construite depuis la palette partagée. */
@@ -143,14 +143,14 @@ type DepFeature = GeoJSON.Feature<GeoJSON.Geometry, { code: string; nom: string 
 /** Limites des 12 départements de Nouvelle-Aquitaine (propriétés `code`, `nom`). */
 const DEP_FEATURES = (JSON.parse(DEP_GEOJSON_RAW) as { type: 'FeatureCollection'; features: DepFeature[] }).features
 
-/** Rampe séquentielle neutre : transparent → teal, selon le nombre d'organisations. */
+/** Rampe séquentielle neutre : transparent → ambre, selon le nombre d'organisations. */
 function densityColor(count: number): string {
-  if (count <= 0) return 'rgba(61,219,217,0)'
-  if (count <= 5) return 'rgba(61,219,217,0.12)'
-  if (count <= 15) return 'rgba(61,219,217,0.22)'
-  if (count <= 40) return 'rgba(61,219,217,0.36)'
-  if (count <= 100) return 'rgba(61,219,217,0.52)'
-  return 'rgba(61,219,217,0.68)'
+  if (count <= 0) return 'rgba(232,163,61,0)'
+  if (count <= 5) return 'rgba(232,163,61,0.12)'
+  if (count <= 15) return 'rgba(232,163,61,0.22)'
+  if (count <= 40) return 'rgba(232,163,61,0.36)'
+  if (count <= 100) return 'rgba(232,163,61,0.52)'
+  return 'rgba(232,163,61,0.68)'
 }
 
 /** Expression `match` sur `code`, teintée par le nombre réel d'organisations. */
@@ -158,7 +158,7 @@ function depDensityMatch(counts: Map<string, number>): ExpressionSpecification {
   const pairs = DEP_FEATURES.flatMap((f) => [f.properties.code, densityColor(counts.get(f.properties.code) ?? 0)])
   // `match` admet un nombre variable de couples ; TS ne vérifie pas un spread
   // dans un tuple, d'où la conversion vers le type d'expression MapLibre.
-  const expr = ['match', ['get', 'code'], ...pairs, 'rgba(61,219,217,0)'] as unknown as ExpressionSpecification
+  const expr = ['match', ['get', 'code'], ...pairs, 'rgba(232,163,61,0)'] as unknown as ExpressionSpecification
   return expr
 }
 
@@ -209,7 +209,7 @@ const MAP_THEMES: Record<string, { tiles: string[]; raster: Record<string, numbe
 const MAP_THEME_DARK = {
   raster: { 'raster-brightness-max': 0.42, 'raster-saturation': -0.92, 'raster-contrast': 0.18 },
   buildings: ['#1b2230', '#2b3542', '#3d4a5c', '#5a6b82'],
-  label: '#e6ebf2', labelHalo: '#080b10', orgStroke: '#080b10', depLine: 'rgba(230,235,242,0.65)',
+  label: '#e6ebf2', labelHalo: '#080b10', orgStroke: '#080b10', depLine: 'rgba(232,163,61,0.55)',
 }
 
 function applyMapTheme(map: maplibregl.Map, theme: string) {
@@ -576,7 +576,7 @@ export default function Map3D(props: Map3DProps) {
             { id: 'osm', type: 'raster', source: 'osm', layout: { visibility: 'none' }, paint: { 'raster-brightness-max': 0.42, 'raster-saturation': -0.92, 'raster-contrast': 0.18 } },
             // Imagerie satellite assombrie : lisible sous les calques de données.
             { id: 'satellite', type: 'raster', source: 'sat', paint: {
-              'raster-saturation': -0.55, 'raster-contrast': 0.2,
+              'raster-saturation': -0.72, 'raster-contrast': 0.2,
               'raster-brightness-min': 0.02, 'raster-brightness-max': 0.6 } },
             {
               id: 'buildings',
