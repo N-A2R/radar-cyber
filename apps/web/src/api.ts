@@ -234,8 +234,45 @@ export type EventEnrichment = {
   error?: string;
 };
 
+/** Actif (domaine, sous-domaine, IP…) rattaché à une organisation. */
+export type OrgAsset = {
+  value: string;
+  kind: string;
+  createdAt: string;
+  source: string | null;
+};
+
+/** Compteur d'actifs par type. */
+export type OrgAssetKind = { kind: string; n: number };
+
+/** Compteur d'événements par famille. */
+export type OrgEventFamily = { family: string; n: number };
+
+/** Revendication (ligne de quarantaine) rattachée à une organisation. */
+export type OrgClaim = {
+  id: number;
+  source: string;
+  orgHint: string | null;
+  groupe: string | null;
+  tlp: string;
+  claimedAt: string | null;
+};
+
+/** Point de la courbe d'exposition : un mois et son nombre d'événements. */
+export type OrgExposurePoint = { month: string; count: number };
+
+/** Réponse de `GET /api/orgs/:id` : fiche complète d'une organisation. */
+export type OrgDetail = {
+  org: Org;
+  assets: { total: number; byKind: OrgAssetKind[]; recent: OrgAsset[] };
+  events: { total: number; byFamily: OrgEventFamily[]; recent: Event[] };
+  claims: { total: number; recent: OrgClaim[] };
+  exposure: OrgExposurePoint[];
+};
+
 export const api = {
   orgs: () => get<Org[]>("/orgs"),
+  orgDetail: (id: number) => get<OrgDetail>(`/orgs/${id}`),
   events: (limit = 100) => get<Event[]>(`/events?limit=${limit}`),
   graph: (days = 90) => get<Graph>(`/graph?days=${days}`),
   sources: () => get<Source[]>("/sources"),

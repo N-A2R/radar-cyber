@@ -28,7 +28,7 @@ function hasValue(value: unknown): boolean {
   return true;
 }
 
-export default function Inspector({ eventId, orgId, onClose }: InspectorProps) {
+export default function Inspector({ eventId, orgId, onClose, onOpenOrg }: InspectorProps) {
   const [state, setState] = useState<LoadState>({ status: "idle" });
 
   useEffect(() => {
@@ -101,10 +101,25 @@ export default function Inspector({ eventId, orgId, onClose }: InspectorProps) {
 
   const hasSelection = eventId !== null || orgId !== null;
 
+  // L'organisation visée par la fiche : celle de l'élément sélectionné.
+  let targetOrgId: number | null = null;
+  if (state.status === "ready-org") targetOrgId = state.org.id;
+  else if (orgId !== null) targetOrgId = orgId;
+  else if (state.status === "ready-event") targetOrgId = state.data.event?.org_id ?? null;
+
   return (
     <aside className="inspector" aria-label="Inspecteur">
       <header className="inspector__header">
         <h2 className="inspector__title">{title}</h2>
+        {onOpenOrg && targetOrgId !== null && (
+          <button
+            type="button"
+            className="inspector__link inspector__open-sheet"
+            onClick={() => onOpenOrg(targetOrgId)}
+          >
+            ouvrir la fiche
+          </button>
+        )}
         <button type="button" className="inspector__close" onClick={onClose}>
           fermer
         </button>
