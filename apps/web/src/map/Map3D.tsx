@@ -229,6 +229,63 @@ function applyMapTheme(map: maplibregl.Map, theme: string) {
   map.setPaintProperty('dep-outline', 'line-color', cfg.depLine)
 }
 
+/** Couleur unique des arcs agrégés par destination. */
+const AGGREGATED_ARC_COLOR = 'rgba(232,163,61,0.55)'
+
+/** Arc candidat, avant regroupement par destination. */
+type ArcDraft = {
+  /** Destination arrondie (~11 m) : clé de regroupement. */
+  key: string
+  coordinates: [number, number][]
+  family: string
+  nature: string | null
+  severity: number
+}
+
+type ArcFeature = {
+  type: 'Feature'
+  geometry: { type: 'LineString'; coordinates: [number, number][] }
+  properties: { family: string; nature: string | null; color: string; count: number }
+}
+
+function arcKey(lon: number, lat: number): string {
+  return `${lon.toFixed(4)},${lat.toFixed(4)}`
+}
+
+/**
+ * Un seul arc par destination : `count` = nombre d'arcs regroupés, `family`
+ * celle de l'arc le plus sévère, couleur unique.
+ */
+function aggregateArcs(drafts: readonly ArcDraft[]): ArcFeature[] {
+  const groups = new Map<string, { feature: ArcFeature; severity: number }>()
+  for (const draft of drafts) {
+    const existing = groups.get(draft.key)
+    if (!existing) {
+      groups.set(draft.key, {
+        severity: draft.severity,
+        feature: {
+          type: 'Feature',
+          geometry: { type: 'LineString', coordinates: draft.coordinates },
+          properties: { family: draft.family, nature: draft.nature, color: AGGREGATED_ARC_COLOR, count: 1 },
+        },
+      })
+      continue
+    }
+    existing.feature.properties.count += 1
+    if (draft.severity > existing.severity) {
+      existing.severity = draft.severity
+      existing.feature.properties.family = draft.family
+      existing.feature.properties.nature = draft.nature
+    }
+  }
+  return Array.from(groups.values(), (entry) => entry.feature)
+}
+
+/** Épaisseur du trait : `2 + min(6, count / 12)` ; le halo ajoute 6 px. */
+function arcWidth(extra: number): ExpressionSpecification {
+  return ['+', 2 + extra, ['min', 6, ['/', ['coalesce', ['get', 'count'], 1], 12]]]
+}
+
 function arcPoints(from: [number, number], to: [number, number], segments = 32): [number, number][] {
   const points: [number, number][] = []
   for (let i = 0; i <= segments; i++) {
@@ -608,13 +665,13 @@ export default function Map3D(props: Map3DProps) {
               id: 'arcs-glow',
               type: 'line',
               source: 'arcs',
-              paint: { 'line-color': ['get', 'color'], 'line-width': 6, 'line-opacity': 0.12 },
+              paint: { 'line-color': ['get', 'color'], 'line-width': arcWidth(6), 'line-opacity': 0.10 },
             },
             {
               id: 'arcs',
               type: 'line',
               source: 'arcs',
-              paint: { 'line-color': ['get', 'color'], 'line-width': 1.8, 'line-opacity': 0.9 },
+              paint: { 'line-color': ['get', 'color'], 'line-width': arcWidth(0), 'line-opacity': 0.85 },
             },
             {
               id: 'cities',
@@ -756,23 +813,30 @@ export default function Map3D(props: Map3DProps) {
         const orgById = new Map(orgs.map((o) => [o.id, o]))
         // Les arcs de flux (org → point d'hébergement, ou org → centroïde en
         // repli) priment ; sinon on retombe sur les liaisons org → événement.
-        const flowArcs = flowsRef.current.map((f) => ({
-          type: 'Feature' as const,
-          geometry: { type: 'LineString' as const, coordinates: arcPoints([f.from.lon, f.from.lat], [f.to.lon, f.to.lat]) },
-          properties: { family: f.family, nature: f.nature ?? null, color: arcHex(f.family, f.nature) },
-        }))
-        const arcFeatures = flowArcs.length > 0
-          ? flowArcs
+        // Un seul tracé par destination : 284 arcs vers 12 villes donnaient
+        // 568 polylignes pour un dessin illisible.
+        const drafts: ArcDraft[] = flowsRef.current.length > 0
+          ? flowsRef.current.map((f) => ({
+              key: arcKey(f.to.lon, f.to.lat),
+              coordinates: arcPoints([f.from.lon, f.from.lat], [f.to.lon, f.to.lat]),
+              family: f.family,
+              nature: f.nature ?? null,
+              severity: f.severity,
+            }))
           : visible.flatMap((e) => {
               if (e.lat == null || e.lon == null || e.orgId == null) return []
               const org = orgById.get(e.orgId)
               if (!org || org.lat == null || org.lon == null) return []
-              return [{
-                type: 'Feature' as const,
-                geometry: { type: 'LineString' as const, coordinates: arcPoints([org.lon, org.lat], [e.lon, e.lat]) },
-                properties: { family: e.family, color: FAMILY_COLORS[e.family] ?? FAMILY_COLOR_FALLBACK },
-              }]
+              const draft: ArcDraft = {
+                key: arcKey(e.lon, e.lat),
+                coordinates: arcPoints([org.lon, org.lat], [e.lon, e.lat]),
+                family: e.family,
+                nature: null,
+                severity: e.severity ?? 0,
+              }
+              return [draft]
             })
+        const arcFeatures = aggregateArcs(drafts)
         ;(map.getSource('arcs') as maplibregl.GeoJSONSource | undefined)?.setData({ type: 'FeatureCollection', features: arcFeatures } as unknown as Parameters<maplibregl.GeoJSONSource['setData']>[0])
       }
       renderRef.current = renderData
@@ -807,9 +871,6 @@ export default function Map3D(props: Map3DProps) {
           try {
             map.setPaintProperty('hot', 'circle-radius', 12 + Math.sin(frame) * 4)
             map.setPaintProperty('hot', 'circle-opacity', 0.16 + (Math.sin(frame) + 1) * 0.06)
-            if (map.getLayer('arcs-glow')) {
-              map.setPaintProperty('arcs-glow', 'line-opacity', 0.22 + (Math.sin(frame) + 1) * 0.12)
-            }
           } catch { /* style pas encore prête */ }
         }
         raf = requestAnimationFrame(pulse)
