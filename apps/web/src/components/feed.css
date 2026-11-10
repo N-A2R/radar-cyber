@@ -62,12 +62,19 @@
   color: var(--color-muted);
   font: inherit;
   font-size: 12px;
-  padding: 2px 0;
+  padding: 3px 7px;
   cursor: pointer;
   display: inline-flex;
   align-items: baseline;
   gap: 4px;
-  transition: color 120ms ease, background-color 120ms ease;
+  border-radius: var(--radius);
+  /* Relief discret, dans la langue visuelle déjà en place : la plaque est
+     soulevée au repos, s'enfonce au clic, et prend un filet d'accent quand le
+     filtre est actif. Aucune couleur nouvelle : uniquement les jetons
+     d'élévation de la charte (--raise-sm, --sink, --color-edge-hi). */
+  box-shadow: var(--raise-sm);
+  transition: color 120ms ease, background-color 120ms ease,
+    box-shadow 120ms ease, transform 120ms ease;
 }
 
 .family-filter__btn:hover {
@@ -76,6 +83,9 @@
 
 .family-filter__btn:active {
   color: var(--color-ink-2);
+  /* Enfoncement : la même plaque, vue de dessus. */
+  box-shadow: var(--sink);
+  transform: translateY(1px);
 }
 
 .family-filter__btn:focus-visible {
@@ -85,11 +95,24 @@
 
 .family-filter__btn[aria-pressed="true"] {
   color: var(--color-accent);
+  box-shadow: var(--raise-sm), inset 0 0 0 1px var(--color-accent);
 }
 
 .family-filter__btn:disabled {
   color: var(--color-edge-hi);
   cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .family-filter__btn {
+    transition: none;
+  }
+
+  .family-filter__btn:active {
+    transform: none;
+  }
 }
 
 .family-filter__count {

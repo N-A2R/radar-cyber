@@ -122,7 +122,7 @@ export interface FetchResilientResult {
   contentType?: string | null;
 }
 
-const UA = "RadarCyberNA/0.2 (+https://github.com/j0ltdevv/radar-cyber)";
+const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
 
 function parseRetryAfter(header: string | null): number | null {
   if (!header) return null;
