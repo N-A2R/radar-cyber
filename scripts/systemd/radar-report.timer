@@ -1,0 +1,15 @@
+# radar-report.timer — déclenche radar-report.service chaque lundi 07:00.
+[Unit]
+Description=Radar Cyber — rapport hebdomadaire du lundi matin
+Documentation=file:/home/jolt/radar-cyber/docs/operations.md
+
+[Timer]
+OnCalendar=Mon *-*-* 07:00:00
+# Rattrapage si la machine était éteinte au déclenchement.
+Persistent=true
+RandomizedDelaySec=300
+AccuracySec=1min
+Unit=radar-report.service
+
+[Install]
+WantedBy=timers.target

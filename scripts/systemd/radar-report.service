@@ -1,0 +1,19 @@
+# radar-report.service — rapport hebdomadaire Radar Cyber.
+#
+# Unité autonome : elle n'utilise aucun jeton @...@ rendu par install.sh, elle
+# est installée telle quelle dans ~/.config/systemd/user/. Voir docs/operations.md.
+[Unit]
+Description=Radar Cyber — rapport hebdomadaire (HTML + Markdown)
+Documentation=file:/home/jolt/radar-cyber/docs/operations.md
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/jolt/radar-cyber/apps/api
+# PATH figé : systemd --user n'hérite pas de la session (node installé via mise).
+Environment=PATH=/home/jolt/.local/share/mise/shims:/home/jolt/.local/share/mise/installs/node/latest/bin:/usr/local/bin:/usr/bin:/bin
+Environment=HOME=%h
+Environment=DATABASE_URL=postgres://radar:radar@localhost:5432/radar
+ExecStart=/usr/bin/env bash /home/jolt/radar-cyber/scripts/report-weekly.sh
+Nice=10

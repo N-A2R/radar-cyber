@@ -259,6 +259,19 @@ pg_restore --clean --no-owner -d "$DATABASE_URL" "$BACKUP"
 Après restauration : `systemctl --user restart radar-api.service` (les pools
 de connexions et caches sont à recréer), puis `scripts/healthcheck.sh`.
 
+## Rapport hebdomadaire
+
+`radar-report.timer` déclenche chaque lundi à 07:00 (`Persistent=true` : rattrapage si
+la machine était éteinte) `radar-report.service`, qui appelle `scripts/report-weekly.sh`
+et écrit `out/rapport-AAAA-MM-JJ.{html,md}` (répertoire `out/` ignoré par git). Unités
+sans jeton `@...@`, à installer telles quelles :
+
+```bash
+install -m 644 scripts/systemd/radar-report.{service,timer} ~/.config/systemd/user/ && systemctl --user daemon-reload && systemctl --user enable --now radar-report.timer
+bash scripts/report-weekly.sh                        # test manuel
+journalctl --user -u radar-report.service -n 50      # logs
+```
+
 ## Dépannage
 
 | Symptôme | Piste |
