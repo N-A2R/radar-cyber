@@ -11,7 +11,7 @@
  *   pnpm exec tsx scripts/source-health.mts --out /tmp/sources.md
  *   pnpm exec tsx scripts/source-health.mts --json > /tmp/sources.json
  *
- * Lecture seule : deux agrégats bornés, aucun `SELECT *`, aucun verrou.
+ * Lecture seule : agrégats à colonnes explicites, aucun verrou, aucune écriture.
  */
 import { query, closePools } from "../apps/api/src/db.js";
 
@@ -228,7 +228,11 @@ async function main(): Promise<void> {
 
 try {
 	await main();
-} finally {
+} catch (error) {
+	const message = error instanceof Error ? error.message : String(error);
+	process.stderr.write(`source-health: ${message}\n`);
 	await closePools();
+	process.exit(1);
 }
+await closePools();
 process.exit(0);
