@@ -12,6 +12,7 @@
  */
 import { ingestQuery, query } from "../db.js";
 import { evaluateEvent } from "../detect/engine.js";
+import { confirmOrganization } from "../match/decide.js";
 
 /** Organisme tel que lu en base. */
 export type OrgRow = {
@@ -227,6 +228,27 @@ async function resolveSourceId(source: string): Promise<string> {
   return id;
 }
 
+
+/**
+ * Confirme un rapprochement par le modèle de décision avant de l'écrire.
+ *
+ * Le rapprochement par nom est trop permissif sur les revendications :
+ * « El Portal Imaging Center » avait été rattaché à « IBM Services Center
+ * France ». Le modèle lit le texte et le nom ; s'il nie, on n'attache rien.
+ * S'il hésite (`null`), on garde la décision déterministe : on ne bloque pas
+ * une promotion sur une incertitude du modèle.
+ */
+async function confirmMatch(
+  hint: string,
+  orgId: number,
+  nameById: Map<number, string>,
+): Promise<boolean> {
+  const name = nameById.get(orgId);
+  if (!name) return true;
+  const verdict = await confirmOrganization(hint, name);
+  return verdict !== false;
+}
+
 export type ClaimEventResult = { eventId: number; inserted: boolean; alerts: number };
 
 /**
@@ -331,6 +353,10 @@ export async function promoteMatches(
   for (const row of r.rows) {
     const m = matchOrgInIndex(row.org_hint ?? "", index);
     if (!m) continue;
+    // Le modèle tranche avant écriture : un rapprochement nié n'attache rien.
+    let confirmed = true;
+    if (!dryRun) confirmed = await confirmMatch(row.org_hint ?? "", m.orgId, orgNameById);
+    if (!confirmed) continue;
     matches.push({
       id: row.id,
       orgId: m.orgId,
@@ -407,6 +433,7 @@ export async function promoteOne(id: number, promotedBy: string): Promise<Promot
 
   const index = await loadOrgIndex();
   const m = matchOrgInIndex(row.org_hint ?? "", index);
+  const confirmed = m ? await confirmMatch(row.org_hint ?? "", m.orgId, new Map(index.map((e) => [e.id, e.name]))) : false;
 
   const upd = await query(
     `UPDATE quarantine_raw SET promoted=true, promoted_at=now(), promoted_by=$2, status='promoted'
@@ -415,7 +442,7 @@ export async function promoteOne(id: number, promotedBy: string): Promise<Promot
   );
   if ((upd.rowCount ?? 0) === 0) return { ...base, alreadyPromoted: true };
 
-  const ev = await insertClaimEvent(row, m?.orgId ?? null, promotedBy);
+  const ev = await insertClaimEvent(row, confirmed && m ? m.orgId : null, promotedBy);
   return {
     found: true,
     id,
