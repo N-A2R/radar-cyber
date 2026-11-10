@@ -21,6 +21,41 @@ plateforme CTI complète. Usage personnel, plus quelques personnes de confiance.
 
 ---
 
+## État au 10 novembre 2026, mesuré
+
+Ce tableau remplace toute impression : chaque chiffre vient d'une requête ou
+d'une exécution, pas d'une estimation.
+
+| Phase | Critère de sortie | Mesure | Verdict |
+|---|---|---|---|
+| 0 | carte lisible, fil sans hors-sujet, graphe utile | 12 tracés agrégés ; fil par défaut sans presse ; matrice famille × département | **atteint** |
+| 1 | 50 % des événements rattachés | 103 rattachés sur 3 216, et le matcher strict n'en trouve que 22 de plus | **critère à réécrire** |
+| 2 | provenance, confiance, corroboration par alerte | `GET /alerts/:id` expose les quatre ; aucun incident n'a plus d'une source | **livré, corroboration vide** |
+| 3 | 800 sources actives dont `.onion` | 456 déclarées, 105 productives, 303 joignables mais muettes | **non atteint** |
+| 4 | vue plein écran autonome | écran mural, bascule `F`, aucun bouton | **atteint** |
+| 5 | rapport hebdomadaire automatique | timer du lundi 07:00, HTML et Markdown datés | **atteint** |
+| 6 | accès distant authentifié, sauvegardes hors site | sauvegarde locale vérifiée, aucune exposition externe | **non commencé** |
+
+### Ce que la mesure a corrigé dans ce plan
+
+1. **La donnée n'était pas du renseignement.** 91 % de la famille `cti` était de
+   la presse régionale généraliste, et 85 % de la famille `vuln` était
+   l'historique CVE de 1999-2000, aspiré par une source NVD appelée sans
+   paramètre de date. Après assainissement : 3 216 événements dont 1 419 cyber,
+   contre 7 257 dont on croyait 4 683 utiles.
+2. **Le critère « 50 % rattachés » n'est pas atteignable.** Les événements ne
+   nomment presque jamais une organisation : même un matcher parfait ne trouve
+   que 22 correspondances supplémentaires. Le bon critère est « aucun faux
+   positif mesuré », pas un volume.
+3. **`geo_type` ne localise rien.** 1 371 événements le portent sans une seule
+   coordonnée. Le seul signal régional défendable reste le rattachement à une
+   organisation.
+4. **29 % des indicateurs étaient des valeurs légitimes.** 200 000 domaines
+   populaires et 54 378 réseaux de datacenter sont désormais écartés avant
+   insertion.
+5. **303 sources répondent en 200 sans rien produire.** Le gisement de
+   couverture n'est pas l'ajout de sources, c'est la réparation du parsing.
+
 ## Phase 0 — Terminer ce qui est cassé
 
 | | |
