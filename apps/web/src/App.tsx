@@ -16,9 +16,10 @@ import EventTicker from "./components/EventTicker";
 import MapLegend from "./components/MapLegend";
 import StatusBar from "./components/StatusBar";
 import TimelineScrubber, { type TimelineRange } from "./components/TimelineScrubber";
+import AlertsView from "./components/AlertsView";
 import "./components/chrome.css";
 
-type View = "carte" | "graphe" | "sources" | "sante";
+type View = "carte" | "graphe" | "sources" | "sante" | "alertes";
 
 const PAGE_SIZE = 20;
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -28,6 +29,7 @@ const VIEWS: { id: View; label: string }[] = [
   { id: "graphe", label: t("nav.graph") },
   { id: "sources", label: t("nav.sources") },
   { id: "sante", label: t("nav.health") },
+  { id: "alertes", label: t("nav.alerts") },
 ];
 
 export default function App() {
@@ -263,7 +265,11 @@ export default function App() {
       <KpiBand items={kpis} />
       <EventTicker events={tickerEvents} limit={14} />
       {error && <Alert type="error" message={`${t("error.api")} : ${error}`} showIcon />}
-      {view === "sante" ? (
+      {view === "alertes" ? (
+        <Layout.Content style={{ padding: 12 }}>
+          <Card><AlertsView /></Card>
+        </Layout.Content>
+      ) : view === "sante" ? (
         <Layout.Content style={{ padding: 12 }}>
           <Card><HealthView sources={sources} /></Card>
         </Layout.Content>
