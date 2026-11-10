@@ -28,13 +28,13 @@ d'une exécution, pas d'une estimation.
 
 | Phase | Critère de sortie | Mesure | Verdict |
 |---|---|---|---|
-| 0 | carte lisible, fil sans hors-sujet, graphe utile | 12 tracés agrégés ; fil par défaut sans presse ; matrice famille × département | **atteint** |
-| 1 | 50 % des événements rattachés | 103 rattachés sur 3 216, et le matcher strict n'en trouve que 22 de plus | **critère à réécrire** |
-| 2 | provenance, confiance, corroboration par alerte | `GET /alerts/:id` expose les quatre ; aucun incident n'a plus d'une source | **livré, corroboration vide** |
-| 3 | 800 sources actives dont `.onion` | 456 déclarées, 105 saines, 21 faibles, 326 muettes, 4 dormantes ; 303 répondent en 200 sans parser | **non atteint** |
-| 4 | vue plein écran autonome | écran mural, bascule `F`, aucun bouton | **atteint** |
+| 0 | carte lisible, fil sans hors-sujet, graphe utile | `/api/graph` 500 → 200 en 8 ms ; 2 834 événements EPSS synthétiques purgés ; 12 arcs agrégés par destination | **atteint** |
+| 1 | 50 % des événements rattachés | **22 sur 1 932 événements cyber (1,1 %)**, après retrait de 416 rattachements que le texte ne justifiait pas ; 613 organisations, 61 avec un événement | **non atteint** |
+| 2 | provenance, confiance, corroboration par alerte | note sur 100 à 4 composantes (source, nature, rattachement, corroboration), seuil 0,65, affichée et détaillée | **livré** |
+| 3 | 800 sources actives dont `.onion` | 463 déclarées, 424 actives, 410 en succès, **0 source onion**, Tor non configuré | **non atteint** |
+| 4 | vue plein écran autonome | **retiré du produit** le 10 novembre sur décision utilisateur : l'usage réel est la consultation, pas l'écran fixe | **abandonné** |
 | 5 | rapport hebdomadaire automatique | timer du lundi 07:00, HTML et Markdown datés | **atteint** |
-| 6 | accès distant authentifié, sauvegardes hors site | sauvegarde locale vérifiée, aucune exposition externe | **non commencé** |
+| 6 | accès distant authentifié, sauvegardes hors site | sauvegarde locale chiffrée AES-256, vérifiée par déchiffrement **et par restauration réelle** ; aucune exposition externe (choix utilisateur) | **partiel** |
 
 ### Ce que la mesure a corrigé dans ce plan
 

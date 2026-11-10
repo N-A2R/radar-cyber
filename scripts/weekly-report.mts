@@ -171,7 +171,7 @@ async function loadReport(days: number): Promise<ReportData> {
 		SELECT e.title, e.family, e.severity, coalesce(o.name, '—') AS org,
 		       e.source_url, coalesce(e.observed_at, e.collected_at) AS at
 		FROM event e
-		LEFT JOIN org o ON o.id = e.org_id
+		JOIN org o ON o.id = e.org_id
 		WHERE coalesce(e.observed_at, e.collected_at) >= $1 AND ${TLP_FILTER}
 		ORDER BY e.severity DESC, at DESC
 		LIMIT 10`;
@@ -279,7 +279,9 @@ function renderMarkdown(data: ReportData): string {
 	lines.push("");
 	lines.push("| Date | Sévérité | Famille | Organisation | Titre |");
 	lines.push("| --- | --- | --- | --- | --- |");
-	if (data.events.length === 0) lines.push("| — | — | — | — | *Aucun événement* |");
+	if (data.events.length === 0) {
+		lines.push("| — | — | — | — | *Aucun incident rattaché à une organisation régionale cette semaine* |");
+	}
 	for (const row of data.events) {
 		const title = row.sourceUrl ? `[${mdCell(row.title)}](${row.sourceUrl})` : mdCell(row.title);
 		lines.push(

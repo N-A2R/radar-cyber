@@ -7,13 +7,25 @@ normalisation, et visualisation cartographique 3D.
 
 | Métrique | Valeur |
 |---|---|
-| Sources déclarées | 304 |
-| Sources en succès | 256 |
-| Indicateurs collectés | 5,6 M |
-| Événements | 7 600+ |
-| dont presse / institutions régionales | 2 034 |
-| Organisations suivies | 392 (12 départements) |
-| Flux régionaux productifs | 74 |
+| Sources déclarées | 463 |
+| Sources actives / en succès | 424 / 410 |
+| Indicateurs collectés | 28 255 |
+| Événements | 6 231, dont 4 299 de presse (masqués du fil par défaut) |
+| Événements cyber | 1 932 |
+| Organisations au référentiel | 613, toutes en Nouvelle-Aquitaine |
+| Organisations ayant au moins un événement | 61 |
+| Taux de rattachement (événements cyber) | **1,1 %** — mesuré par `scripts/reconcile-orgs.mts` |
+| Scores EPSS en base | 402 773, dont 7 164 au-dessus du seuil d'admission 0,30 |
+
+Chiffres mesurés le 10 novembre 2026. Rejouer :
+
+```sql
+select 'sources', count(*) from source
+union all select 'evenements', count(*) from event
+union all select 'organisations', count(*) from org
+union all select 'indicateurs', count(*) from indicator
+union all select 'epss', count(*) from epss;
+```
 
 ## Points d'ingénierie
 
@@ -95,9 +107,18 @@ La box `hermes` héberge l'infrastructure de bots. Un profil `radar-cyber` y est
 (SOUL, skill de veille, cron quotidien 06:00 UTC). Le collecteur `hermes.collector.ts`
 rapatrie les briefings via le tunnel SSH instabox.
 
+## Modèle de décision
+
+Le projet a accès à un modèle de décision typé, `mercury-decide` : il ne produit
+pas de texte, il rend des probabilités sur des questions fermées (`noul`,
+`choice`, `score`). Il porte la porte régionale (`apps/api/src/detect/scope.ts`)
+et l'arbitrage des rattachements ambigus (`apps/api/src/match/decide.ts`).
+Règles, exemple de requête et seuils : [`docs/decision-model.md`](docs/decision-model.md).
+
 ## Limites connues
 
-- Aucune authentification : usage interne, à exposer derrière le tailnet uniquement.
+- Authentification par jeton de session en base (scrypt pour les mots de passe) ;
+  usage interne, à exposer derrière le tailnet uniquement.
 - La pertinence des flux narratives repose sur un gazetier de mots-clés et le matching
   d'entités (pas de NER pour l'instant — voir `docs/research/enrichment.md`).
 - Pas de déduplication de republication (MinHash/LSH non intégré).
