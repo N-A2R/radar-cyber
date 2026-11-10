@@ -215,7 +215,7 @@ export default function HealthView({ sources }: HealthViewProps) {
                   </div>
                 </td>
                 <td>{FAMILY_LABEL[s.family] ?? s.family}</td>
-                <td title={s.lastOkAt ? formatDate(s.lastOkAt) : "jamais collecté"}>
+                <td className="mono" title={s.lastOkAt ? formatDate(s.lastOkAt) : "jamais collecté"}>
                   {formatRelative(s.lastOkAt)}
                 </td>
                 <td className="mono" title={s.lastError ?? undefined}>

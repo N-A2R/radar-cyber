@@ -103,6 +103,10 @@ rapatrie les briefings via le tunnel SSH instabox.
 - Pas de déduplication de republication (MinHash/LSH non intégré).
 - Sévérité des vulnérabilités limitée au CVSS v3.1 et au statut KEV ; pas d'exploitabilité
   (PoC publics) pour le moment.
-- La quarantaine des revendications dark web est conçue (`docs/research/darkweb-sources.md`)
-  mais non encore implémentée.
-- Le géocodage des organisations reste approximatif (voir `docs/research/enrichment.md`).
+- La quarantaine des revendications dark web est implémentée : table `quarantine_raw`
+  (16 172 lignes), branchement dans `server.ts`, idempotent. Revue via
+  `npx tsx scripts/quarantine-review.mts pending`. TLP RED, purge 30 j.
+- Le géocodage des organisations est fait (`db/migrate-008-geo.sql`,
+  `scripts/geocode-orgs.mts`) : 392/392 orgs géocodées, 21 events avec lat/lng.
+- Le filtre d'actionnabilité est implémenté dans `apps/api/src/collectors/filter.ts`
+  (`loadActiveIndex`, `loadKnownCves`, `isActionableIndicator`).

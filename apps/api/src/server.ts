@@ -4,6 +4,7 @@ import Fastify from "fastify";
 import { correlateEvents } from "./collectors/correlate.js";
 import { runGenericSources } from "./collectors/generic.js";
 import { runHermesCollector } from "./collectors/hermes.collector.js";
+import { runQuarantineCollector } from "./collectors/quarantine.collector.js";
 import { fetchResilient } from "./collectors/http.js";
 import { collectors } from "./collectors/index.js";
 import { closePools, ingestQuery, query } from "./db.js";
@@ -15,16 +16,37 @@ import orgsRoute from "./routes/orgs.js";
 import searchRoute from "./routes/search.js";
 import sourcesRoute from "./routes/sources.js";
 import streamRoute from "./routes/stream.js";
+import { resolveUser } from "./middleware/auth.js";
 
 const port = Number(process.env.PORT ?? 8080);
 /** Cadence de la boucle de collecte. */
 const TICK_MS = Number(process.env.RADAR_TICK_MS ?? 60000);
 /** Fenêtre de rétention, en jours. */
 const RETENTION_MS = Number(process.env.RADAR_RETENTION_TICK_MS ?? 24 * 3600 * 1000);
+/** Cadence de la quarantaine dark web : 30 min mini (ToS de la source). */
+const QUARANTINE_MS = Number(process.env.RADAR_QUARANTINE_TICK_MS ?? 30 * 60 * 1000);
 
 const app = Fastify({ logger: true });
 
 await app.register(cors, { origin: true });
+
+/**
+ * Auth : lectures publiques (observatoire consultable sur le réseau local),
+ * écritures protégées. Un token valide est attaché à la requête s'il est fourni,
+ * ce qui permet au front d'adapter l'UI au rôle.
+ */
+const PUBLIC_READ = /^\/api\/(health|stats|sources|flows|search|graph|stream|events|orgs|healthz)(\/?$|\?)/;
+
+app.addHook("onRequest", async (req, reply) => {
+  const url = req.url.split("?")[0];
+  if (url === "/api/health") return;
+  if (url.startsWith("/api/auth/")) return;
+  const user = await resolveUser(req);
+  if (req.method !== "GET" || !PUBLIC_READ.test(url)) {
+    if (!user) { reply.code(401).send({ error: "unauthorized" }); return; }
+  }
+  if (user) req.user = user;
+});
 
 app.get("/api/health", async () => {
 	const r = await query<{ id: string }>("SELECT id FROM source");
@@ -38,6 +60,7 @@ await app.register(graphRoute, { prefix: "/api" });
 await app.register(streamRoute, { prefix: "/api" });
 await app.register(sourcesRoute, { prefix: "/api" });
 await app.register(searchRoute, { prefix: "/api" });
+await app.register((await import("./routes/auth.js")).default, { prefix: "/api" });
 
 /** Contexte fourni aux collecteurs : HTTP résilient, jamais de fetch nu. */
 function makeContext(cursor: Record<string, unknown>, log: (msg: string) => void): CollectContext {
@@ -135,6 +158,7 @@ if (COLLECT) {
 	void guarded("corrélation", () => correlateEvents(log));
 	void guarded("hermes", () => runHermesCollector(log));
 	void guarded("ingestion générique", () => runGenericSources(log));
+	void guarded("quarantaine", () => runQuarantineCollector(log));
 	void guarded("rétention", async () => {
 		const r = await runRetention(log);
 		log(`rétention : ${r.events} événement(s), ${r.indicators} indicateur(s), ${r.collectorRuns} run(s) purgé(s)`);
@@ -145,6 +169,11 @@ if (COLLECT) {
 		void guarded("corrélation", () => correlateEvents(log));
 		void guarded("ingestion générique", () => runGenericSources(log));
 	}, TICK_MS);
+
+	// Quarantaine : poll 1/30 min max (ToS ransomware.live), donc tick dédié.
+	setInterval(() => {
+		void guarded("quarantaine", () => runQuarantineCollector(log));
+	}, QUARANTINE_MS);
 
 	setInterval(() => {
 		void guarded("hermes", () => runHermesCollector(log));

@@ -23,6 +23,8 @@ export type FlowArc = {
   from: { lat: number; lon: number; label: string }
   to: { lat: number; lon: number; label: string }
   family: string
+  /** Nature d'organisation (arcs « orgs ») ; prioritaire sur `family` pour la couleur. */
+  nature?: string | null
   severity: number
   observedAt?: string | null
   title?: string
@@ -46,21 +48,61 @@ export type ArcDatum = {
   toLabel: string
 }
 
-export const FAMILY_RGB: Record<string, [number, number, number]> = {
-  ransomware: [239, 68, 68],
-  vuln: [249, 115, 22],
-  phishing: [234, 179, 8],
-  malware: [236, 72, 153],
-  cert: [34, 211, 238],
-  cert_fr: [103, 232, 249],
-  typosquat: [168, 85, 247],
-  reputation: [34, 197, 94],
-  cti: [59, 130, 246],
-  presse: [156, 163, 175],
+/**
+ * Palette unique des familles, alignée sur la maquette (`mock.html`) et sur
+ * `FAMILY_COLORS` de Map3D. Les couleurs hexadécimales sont la source ; les
+ * triplets RGB consommés par deck.gl en sont dérivés.
+ */
+export const FAMILY_HEX: Record<string, string> = {
+  ransomware: '#e0483c',
+  vuln: '#e8833a',
+  phishing: '#e0b341',
+  malware: '#c964b0',
+  cert: '#4a90d9',
+  cert_fr: '#67e8f9',
+  typosquat: '#a855f7',
+  reputation: '#22c55e',
+  cti: '#3b82f6',
+  presse: '#94a3b8',
 }
 
+export const FAMILY_HEX_FALLBACK = '#7dd3fc'
+
+/**
+ * Palette des natures d'organisation, alignée sur la légende carte
+ * (`--org-*` de styles.css / `ORG_KIND_COLORS` de Map3D). `ess` reste neutre.
+ * `operateur_critique` est un alias normalisé de la valeur OSM `opérateur critique`.
+ */
+export const NATURE_HEX: Record<string, string> = {
+  sante: '#f05545',
+  collectivite: '#4a90d9',
+  entreprise: '#f0a63c',
+  enseignement: '#a855f7',
+  recherche: '#22c55e',
+  'opérateur critique': '#e0483c',
+  operateur_critique: '#e0483c',
+  ess: '#8b93a1',
+}
+
+export const NATURE_HEX_FALLBACK = '#9fb2c4'
+
+/** Couleur d'un arc : nature d'organisation si connue, sinon famille. */
+export function arcHex(family: string, nature?: string | null): string {
+  if (nature && NATURE_HEX[nature]) return NATURE_HEX[nature]
+  return FAMILY_HEX[family] ?? FAMILY_HEX_FALLBACK
+}
+
+function hexToRgb(hex: string): [number, number, number] {
+  const n = Number.parseInt(hex.slice(1), 16)
+  return [(n >> 16) & 0xff, (n >> 8) & 0xff, n & 0xff]
+}
+
+export const FAMILY_RGB: Record<string, [number, number, number]> = Object.fromEntries(
+  Object.entries(FAMILY_HEX).map(([family, hex]) => [family, hexToRgb(hex)]),
+) as Record<string, [number, number, number]>
+
 function rgb(family: string): [number, number, number] {
-  return FAMILY_RGB[family] ?? [200, 200, 200]
+  return FAMILY_RGB[family] ?? hexToRgb(FAMILY_HEX_FALLBACK)
 }
 
 function alphaFor(severity: number): number {
@@ -127,7 +169,7 @@ export function greatCirclePath(
 
 export function buildArcData(flows: FlowArc[]): ArcDatum[] {
   return flows.map((f) => {
-    const c = rgb(f.family)
+    const c = f.nature != null && NATURE_HEX[f.nature] ? hexToRgb(NATURE_HEX[f.nature]) : rgb(f.family)
     const a = alphaFor(f.severity)
     const [flon, flat] = [f.from.lon, f.from.lat]
     const [tlon, tlat] = [f.to.lon, f.to.lat]

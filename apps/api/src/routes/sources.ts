@@ -43,9 +43,9 @@ export default async function (app: FastifyInstance) {
     }));
   });
 
-  // Le comptage exact de `indicator` (millions de lignes) coûte des dizaines de
-  // secondes : on estime via les statistiques du catalogue et on sert un court
-  // cache pour absorber les chargements concurrents de l'UI.
+  // `indicator` compte des millions de lignes : le count exact reste abordable
+  // (quelques centaines de ms) et on sert un court cache pour absorber les
+  // chargements concurrents de l'UI.
   let statsCache: { at: number; body: unknown } | null = null
   const STATS_TTL_MS = 20_000
 
@@ -54,13 +54,12 @@ export default async function (app: FastifyInstance) {
 
     const orgs = await query<{ n: number }>("SELECT count(*)::int AS n FROM org")
     const events = await query<{ n: number }>("SELECT count(*)::int AS n FROM event")
-    const indicators = await query<{ n: number }>(
-      "SELECT greatest(reltuples::bigint, 0)::int AS n FROM pg_class WHERE relname = 'indicator'"
-    )
-    const sources = await query<{ ok: number; err: number; total: number }>(`
+    const indicators = await query<{ n: number }>("SELECT count(*)::int AS n FROM indicator")
+    const sources = await query<{ total: number; active: number; ok: number; err: number }>(`
       SELECT count(*)::int AS total,
-             count(*) FILTER (WHERE last_error_at IS NULL AND last_ok_at IS NOT NULL)::int AS ok,
-             count(*) FILTER (WHERE last_error_at IS NOT NULL)::int AS err
+             count(*) FILTER (WHERE enabled)::int AS active,
+             count(*) FILTER (WHERE enabled AND last_error_at IS NULL AND last_ok_at IS NOT NULL)::int AS ok,
+             count(*) FILTER (WHERE enabled AND last_error_at IS NOT NULL)::int AS err
       FROM source
     `)
     const byFamily = await query<{ family: string; n: number }>(
@@ -73,7 +72,7 @@ export default async function (app: FastifyInstance) {
       orgs: orgs.rows[0]?.n ?? 0,
       events: events.rows[0]?.n ?? 0,
       indicators: indicators.rows[0]?.n ?? 0,
-      sources: sources.rows[0] ?? { ok: 0, err: 0, total: 0 },
+      sources: sources.rows[0] ?? { total: 0, active: 0, ok: 0, err: 0 },
       byFamily: byFamily.rows,
       byAssertion: byAssertion.rows,
     }

@@ -10,19 +10,25 @@
  * - `onSelectEvent` : appelé avec l'`id` de l'événement au clic sur un point.
  *
  * Couches (de bas en haut) :
- * - `osm` (plan raster), `dem` (terrain), `ofm`/`buildings` (bâtiments 3D OpenFreeMap) ;
- * - `arcs` (liaisons org → événement, couleur par famille) ;
+ * - `osm` (plan raster), `satellite` (imagerie IGN), `dem` (terrain),
+ *   `ofm`/`buildings` (bâtiments 3D OpenFreeMap) ;
+ * - `dep` (choroplèthe de densité d'organisations par département) +
+ *   `dep-outline` (contours départementaux) ;
+ * - `arcs-glow` + `arcs` (liaisons org → événement ou centroïde ; couleur par
+ *   nature d'organisation si connue, sinon par famille) ;
  * - `cities` (labels de villes) ;
- * - `orgs` (marqueurs neutres) + `hot` (halo pulsant des orgs impliquées) ;
+ * - `orgs` (marqueurs neutres cliquables) + `hot` (halo des orgs actives) ;
  * - `events` : cercles colorés par famille, rayon par sévérité ; au-delà de
  *   `MAX_POINTS` points, agrégation par cellule géo (compteur + famille dominante) ;
  * - `events-hover` (halo de survol), `events-count` (compteur des cellules).
  *
- * Palette fixe exportée : `FAMILY_COLORS`.
+ * Palette fixe exportée : `FAMILY_COLORS` (partagée avec `arcs.ts`).
  */
 import { useEffect, useRef } from 'react'
 import * as maplibregl from 'maplibre-gl'
-import type { FlowArc } from './arcs.js'
+import type { ExpressionSpecification } from 'maplibre-gl'
+import { FAMILY_HEX, FAMILY_HEX_FALLBACK, arcHex, type FlowArc } from './arcs.js'
+import DEP_GEOJSON_RAW from './departements-na.geojson?raw'
 
 // ── Types ────────────────────────────────────────────────────────────────
 
@@ -32,6 +38,10 @@ export type MapOrg = {
   slug: string
   kind: string
   city: string | null
+  /** Code INSEE du département ; sinon densité lue depuis `/api/orgs`. */
+  dept?: string | null
+  /** Nombre d'événements rattachés ; sinon calculé depuis `events`. */
+  eventCount?: number
   lat: number | null
   lon: number | null
 }
@@ -71,18 +81,11 @@ export interface Map3DProps {
 
 // ── Palette fixe (alignée sur les variables CSS de styles.css) ──────────
 
-export const FAMILY_COLORS: Record<string, string> = {
-  ransomware: '#f85149',
-  vuln: '#d29922',
-  phishing: '#a371f7',
-  malware: '#db61a2',
-  cert: '#4da3ff',
-  cert_fr: '#58a6ff',
-  typosquat: '#e3b341',
-  reputation: '#8b949e',
-  cti: '#6e7681',
-}
-export const FAMILY_COLOR_FALLBACK = '#94a3b8'
+export const FAMILY_COLORS: Record<string, string> = FAMILY_HEX
+export const FAMILY_COLOR_FALLBACK = FAMILY_HEX_FALLBACK
+/** Marqueur d'organisation : neutre (`--muted`), distinct des familles colorées. */
+export const NEUTRAL_COLOR = '#8b93a1'
+
 
 export const FAMILY_LABELS: Record<string, string> = {
   ransomware: 'rançongiciel',
@@ -94,6 +97,7 @@ export const FAMILY_LABELS: Record<string, string> = {
   typosquat: 'typosquattage',
   reputation: 'réputation',
   cti: 'CTI',
+  presse: 'presse',
 }
 
 const ORG_KIND_LABELS: Record<string, string> = {
@@ -106,9 +110,67 @@ const ORG_KIND_LABELS: Record<string, string> = {
   ess: 'ess',
 }
 
-const NEUTRAL_COLOR = '#94a3b8'
+/** Palette des types d'organisation (maquette), reprise par `orgKindMatch`. */
+const ORG_KIND_COLORS: Record<string, string> = {
+  sante: '#f05545',
+  collectivite: '#4a90d9',
+  entreprise: '#f0a63c',
+  enseignement: '#a855f7',
+  recherche: '#22c55e',
+  operateur_critique: '#e0483c',
+  ess: '#e0b341',
+}
+const ORG_KIND_FALLBACK = '#9fb2c4'
+
 const STROKE_DARK = '#0b0f16'
 const STROKE_LIGHT = '#ffffff'
+
+/** Expression MapLibre `match` sur `family`, construite depuis la palette partagée. */
+function familyMatch(): any[] {
+  const pairs = Object.entries(FAMILY_COLORS).flatMap(([family, color]) => [family, color])
+  return ['match', ['get', 'family'], ...pairs, FAMILY_COLOR_FALLBACK]
+}
+
+/** Expression MapLibre `match` sur `kind` (couleur des points d'organisation). */
+function orgKindMatch(): any[] {
+  const pairs = Object.entries(ORG_KIND_COLORS).flatMap(([kind, color]) => [kind, color])
+  return ['match', ['get', 'kind'], ...pairs, ORG_KIND_FALLBACK]
+}
+// ── Choroplèthe départements (OSM, ODbL) ────────────────────────────────
+
+type DepFeature = GeoJSON.Feature<GeoJSON.Geometry, { code: string; nom: string }>
+
+/** Limites des 12 départements de Nouvelle-Aquitaine (propriétés `code`, `nom`). */
+const DEP_FEATURES = (JSON.parse(DEP_GEOJSON_RAW) as { type: 'FeatureCollection'; features: DepFeature[] }).features
+
+/** Rampe séquentielle neutre : transparent → teal, selon le nombre d'organisations. */
+function densityColor(count: number): string {
+  if (count <= 0) return 'rgba(61,219,217,0)'
+  if (count <= 5) return 'rgba(61,219,217,0.12)'
+  if (count <= 15) return 'rgba(61,219,217,0.22)'
+  if (count <= 40) return 'rgba(61,219,217,0.36)'
+  if (count <= 100) return 'rgba(61,219,217,0.52)'
+  return 'rgba(61,219,217,0.68)'
+}
+
+/** Expression `match` sur `code`, teintée par le nombre réel d'organisations. */
+function depDensityMatch(counts: Map<string, number>): ExpressionSpecification {
+  const pairs = DEP_FEATURES.flatMap((f) => [f.properties.code, densityColor(counts.get(f.properties.code) ?? 0)])
+  // `match` admet un nombre variable de couples ; TS ne vérifie pas un spread
+  // dans un tuple, d'où la conversion vers le type d'expression MapLibre.
+  const expr = ['match', ['get', 'code'], ...pairs, 'rgba(61,219,217,0)'] as unknown as ExpressionSpecification
+  return expr
+}
+
+/** Compte les organisations par code de département (données réelles de `orgs`). */
+function countOrgsByDept(orgs: MapOrg[]): Map<string, number> {
+  const counts = new Map<string, number>()
+  for (const o of orgs) {
+    if (!o.dept) continue
+    counts.set(o.dept, (counts.get(o.dept) ?? 0) + 1)
+  }
+  return counts
+}
 
 // ── Constantes ──────────────────────────────────────────────────────────
 
@@ -136,18 +198,18 @@ const CITY_LABELS: [string, number, number][] = [
 ]
 
 // Habillage de la carte selon la variante de design (data-theme sur <html>).
-const MAP_THEMES: Record<string, { tiles: string[]; raster: Record<string, number>; buildings: string[]; label: string; labelHalo: string; orgStroke: string }> = {
+const MAP_THEMES: Record<string, { tiles: string[]; raster: Record<string, number>; buildings: string[]; label: string; labelHalo: string; orgStroke: string; depLine: string }> = {
   clair: {
     tiles: ['https://tiles.basemaps.cartocdn.com/light_all/{z}/{x}{r}.png'],
     raster: { 'raster-brightness-max': 1, 'raster-saturation': 0, 'raster-contrast': 0 },
     buildings: ['#e8e4dd', '#dcd6cb', '#cfc6b8', '#bdb2a1'],
-    label: '#1f2937', labelHalo: '#ffffff', orgStroke: '#ffffff',
+    label: '#1f2937', labelHalo: '#ffffff', orgStroke: '#ffffff', depLine: 'rgba(15,23,42,0.55)',
   },
 }
 const MAP_THEME_DARK = {
   raster: { 'raster-brightness-max': 0.42, 'raster-saturation': -0.92, 'raster-contrast': 0.18 },
   buildings: ['#1b2230', '#2b3542', '#3d4a5c', '#5a6b82'],
-  label: '#e6ebf2', labelHalo: '#080b10', orgStroke: '#080b10',
+  label: '#e6ebf2', labelHalo: '#080b10', orgStroke: '#080b10', depLine: 'rgba(230,235,242,0.65)',
 }
 
 function applyMapTheme(map: maplibregl.Map, theme: string) {
@@ -164,6 +226,7 @@ function applyMapTheme(map: maplibregl.Map, theme: string) {
   map.setPaintProperty('cities', 'text-color', cfg.label)
   map.setPaintProperty('cities', 'text-halo-color', cfg.labelHalo)
   map.setPaintProperty('orgs', 'circle-stroke-color', cfg.orgStroke)
+  map.setPaintProperty('dep-outline', 'line-color', cfg.depLine)
 }
 
 function arcPoints(from: [number, number], to: [number, number], segments = 32): [number, number][] {
@@ -492,7 +555,7 @@ export default function Map3D(props: Map3DProps) {
           version: 8,
           glyphs: OFM_GLYPHS,
           sources: {
-            osm: { type: 'raster', tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'], tileSize: 256 },
+            osm: { type: 'raster', tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'], tileSize: 256, attribution: '© OpenStreetMap contributors' },
             sat: {
               type: 'raster',
               tiles: ['https://data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=ORTHOIMAGERY.ORTHOPHOTOS&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&FORMAT=image/jpeg'],
@@ -505,6 +568,7 @@ export default function Map3D(props: Map3DProps) {
             orgs: { type: 'geojson', data: { type: 'FeatureCollection', features: [] } },
             hot: { type: 'geojson', data: { type: 'FeatureCollection', features: [] } },
             cities: { type: 'geojson', data: cityFeatures },
+            dep: { type: 'geojson', data: { type: 'FeatureCollection', features: DEP_FEATURES }, attribution: '© OpenStreetMap contributors' },
             arcs: { type: 'geojson', data: { type: 'FeatureCollection', features: [] } },
             events: { type: 'geojson', data: { type: 'FeatureCollection', features: [] } },
           },
@@ -527,6 +591,18 @@ export default function Map3D(props: Map3DProps) {
                 'fill-extrusion-base': ['coalesce', ['get', 'render_min_height'], 0],
                 'fill-extrusion-opacity': 0.9,
               },
+            },
+            {
+              id: 'dep',
+              type: 'fill',
+              source: 'dep',
+              paint: { 'fill-color': depDensityMatch(countOrgsByDept(propsRef.current.orgs)), 'fill-opacity': 1 },
+            },
+            {
+              id: 'dep-outline',
+              type: 'line',
+              source: 'dep',
+              paint: { 'line-color': 'rgba(230,235,242,0.65)', 'line-width': 1 },
             },
             {
               id: 'arcs-glow',
@@ -620,6 +696,7 @@ export default function Map3D(props: Map3DProps) {
         center: [-0.5792, 44.8378],
         zoom: 6.5,
         maxPitch: 70,
+        attributionControl: { compact: true },
       })
 
       debugWindow.__radarMap = map
@@ -656,6 +733,14 @@ export default function Map3D(props: Map3DProps) {
         const eventFeatures = buildEventFeatures(visible, cellDeg, aggregate, stroke)
         ;(map.getSource('events') as maplibregl.GeoJSONSource | undefined)?.setData({ type: 'FeatureCollection', features: eventFeatures } as unknown as Parameters<maplibregl.GeoJSONSource['setData']>[0])
         ;(map.getSource('orgs') as maplibregl.GeoJSONSource | undefined)?.setData(orgCollection(orgs) as unknown as Parameters<maplibregl.GeoJSONSource['setData']>[0])
+        const deptCounts = countOrgsByDept(orgs)
+        const depFeatures = DEP_FEATURES.map((f) => ({
+          type: 'Feature' as const,
+          geometry: f.geometry,
+          properties: { ...f.properties, count: deptCounts.get(f.properties.code) ?? 0 },
+        }))
+        ;(map.getSource('dep') as maplibregl.GeoJSONSource | undefined)?.setData({ type: 'FeatureCollection', features: depFeatures } as unknown as Parameters<maplibregl.GeoJSONSource['setData']>[0])
+        try { map.setPaintProperty('dep', 'fill-color', depDensityMatch(deptCounts)) } catch { /* style pas prête */ }
 
         const hotOrgs = new Set(visible.filter((e) => e.orgId != null).map((e) => e.orgId as number))
         const hotFeatures = orgs.flatMap((o) => {
@@ -674,7 +759,7 @@ export default function Map3D(props: Map3DProps) {
         const flowArcs = flowsRef.current.map((f) => ({
           type: 'Feature' as const,
           geometry: { type: 'LineString' as const, coordinates: arcPoints([f.from.lon, f.from.lat], [f.to.lon, f.to.lat]) },
-          properties: { family: f.family, color: FAMILY_COLORS[f.family] ?? FAMILY_COLOR_FALLBACK },
+          properties: { family: f.family, nature: f.nature ?? null, color: arcHex(f.family, f.nature) },
         }))
         const arcFeatures = flowArcs.length > 0
           ? flowArcs

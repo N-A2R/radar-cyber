@@ -32,6 +32,8 @@ export interface FetchResilientOpts {
   accept?: string;
   ifNoneMatch?: string;
   ifModifiedSince?: string;
+  /** En-têtes supplémentaires (ex. `Auth-Key` des API abuse.ch). */
+  headers?: Record<string, string>;
 }
 
 export interface FetchResilientResult {
@@ -80,7 +82,8 @@ export async function fetchResilient(
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeoutMs);
     const headers: Record<string, string> = {
-      "User-Agent": UA,
+      ...(opts.headers ?? {}),
+      'User-Agent': UA,
       Accept: accept,
     };
     if (ifNoneMatch) headers["If-None-Match"] = ifNoneMatch;

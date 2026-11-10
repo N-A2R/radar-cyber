@@ -1,36 +1,17 @@
-/* Radar · frise temporelle — jetons sombres + styles TimelineScrubber.
-   Les jetons sont déclarés sur la racine du composant (et non :root) afin de ne pas
-   écraser les variantes de thème de styles.css ; chaque usage garde un fallback littéral.
-   Contrastes de texte >= 4,5:1 (AA). */
+/* Radar · frise temporelle (panneau gauche).
+   Jetons fournis par styles.css. La frise prolonge le fil : hairline supérieure,
+   pas de rayon ni de fond propre, chiffres en mono tabulaire. */
 
 .timeline-scrubber {
-  /* ── Jetons ─────────────────────────────────────────────────── */
-  --surface: #10151d;
-  --surface-2: #161c26;
-  --border: #1f2733;
-  --border-strong: #2b3542;
-  --text: #e6ebf2;
-  --muted: #9aa7b8;
-  --faint: #6b7787;
-  --accent: #4da3ff;
-  --accent-dim: #2b5f99;
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --radius: 6px;
-  --radius-lg: 10px;
-
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
-  gap: var(--space-2, 8px);
-  padding: var(--space-3, 12px) var(--space-4, 16px);
-  background: var(--surface, #10151d);
-  border: 1px solid var(--border, #1f2733);
-  border-radius: var(--radius-lg, 10px);
-  color: var(--text, #e6ebf2);
-  font-size: 13px;
-  line-height: 1.4;
+  gap: 6px;
+  padding: 8px 14px 10px;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  font: 400 10px/1.35 var(--font-mono);
 }
 
 /* ── En-tête : bornes + compteur ──────────────────────────────── */
@@ -38,25 +19,28 @@
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: var(--space-3, 12px);
+  gap: var(--space-3);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--faint);
 }
 
 .timeline-scrubber__bounds {
-  font-weight: 600;
+  color: var(--muted);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 
 .timeline-scrubber__count {
-  color: var(--muted, #9aa7b8);
-  font-size: 12px;
+  color: var(--faint);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 
 .timeline-scrubber__count strong {
-  color: var(--text, #e6ebf2);
-  font-weight: 600;
+  color: var(--text);
+  font-weight: 500;
 }
 
 /* ── Piste : histogramme + sélection + poignées ───────────────── */
@@ -65,6 +49,9 @@
   cursor: ew-resize;
   touch-action: none;
   user-select: none;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
 }
 
 .timeline-scrubber__bars {
@@ -77,24 +64,23 @@
 .timeline-scrubber__bar {
   flex: 1 1 0;
   min-width: 1px;
-  background: var(--muted, #9aa7b8);
-  opacity: 0.35;
-  border-radius: 1px 1px 0 0;
+  background: var(--muted);
+  opacity: 0.3;
 }
 
 .timeline-scrubber__bar[data-active="true"] {
-  background: var(--accent, #4da3ff);
-  opacity: 1;
+  background: var(--accent);
+  opacity: 0.9;
 }
 
 .timeline-scrubber__selection {
   position: absolute;
   top: 0;
   bottom: 0;
-  background: var(--accent, #4da3ff);
-  opacity: 0.14;
-  border-left: 1px solid var(--accent, #4da3ff);
-  border-right: 1px solid var(--accent, #4da3ff);
+  background: var(--accent);
+  opacity: 0.1;
+  border-left: 1px solid var(--accent);
+  border-right: 1px solid var(--accent);
   pointer-events: none;
 }
 
@@ -113,35 +99,32 @@
 
 .timeline-scrubber__handle::before {
   content: "";
-  width: 2px;
-  border-radius: 1px;
-  background: var(--accent, #4da3ff);
+  width: 1px;
+  background: var(--accent);
 }
 
 .timeline-scrubber__handle::after {
   content: "";
   position: absolute;
-  top: 0;
-  width: 12px;
-  height: 12px;
-  border: 2px solid var(--surface, #10151d);
-  border-radius: 50%;
-  background: var(--accent, #4da3ff);
+  top: -1px;
+  width: 7px;
+  height: 7px;
+  border-radius: 1px;
+  background: var(--accent);
 }
 
 .timeline-scrubber__handle:focus-visible {
-  outline: 2px solid var(--accent, #4da3ff);
+  outline: 1px solid var(--accent);
   outline-offset: 1px;
-  border-radius: 2px;
 }
 
 /* ── Repères temporels ────────────────────────────────────────── */
 .timeline-scrubber__ticks {
   display: flex;
   justify-content: space-between;
-  gap: var(--space-2, 8px);
-  color: var(--muted, #9aa7b8);
-  font-size: 11px;
+  gap: var(--space-2);
+  color: var(--faint);
+  font-size: 9px;
   font-variant-numeric: tabular-nums;
 }
 

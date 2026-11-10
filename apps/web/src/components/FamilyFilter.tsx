@@ -52,15 +52,6 @@ export default function FamilyFilter({ value, onChange, counts, className }: Fam
 
   return (
     <section className={rootClassName} aria-label="Filtres par famille">
-      <header className="family-filter__header">
-        <h2 className="family-filter__title">Familles</h2>
-        {value.size > 0 ? (
-          <button type="button" className="family-filter__reset" onClick={() => onChange(new Set())}>
-            Réinitialiser ({value.size})
-          </button>
-        ) : null}
-      </header>
-
       <div className="family-filter__chips" role="group" aria-label="Sélection des familles">
         {FAMILIES.map((family) => {
           const selected = value.has(family);
@@ -81,6 +72,11 @@ export default function FamilyFilter({ value, onChange, counts, className }: Fam
             </button>
           );
         })}
+        {value.size > 0 ? (
+          <button type="button" className="family-filter__reset" onClick={() => onChange(new Set())}>
+            réinitialiser ({value.size})
+          </button>
+        ) : null}
       </div>
     </section>
   );

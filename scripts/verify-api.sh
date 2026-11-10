@@ -52,3 +52,8 @@ check "/api/sources" 'type == "array"'
 check "/api/search?q=bordeaux" 'type == "object"'
 
 echo "Tous les endpoints OK."
+
+# 9. Tests unitaires API
+pnpm -F @radar/api test || fail "tests" "tests unitaires en échec"
+
+echo "Vérification complète OK."
