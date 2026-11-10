@@ -1,0 +1,25 @@
+# radar-api.service — modèle d'unité systemd utilisateur.
+#
+# install.sh remplace les jetons @REPO@, @PNPM@, @PATH@ et @API_PORT@ puis écrit
+# le résultat dans ~/.config/systemd/user/. Ne pas installer ce fichier tel quel.
+[Unit]
+Description=Radar Cyber — API Fastify (observatoire + collecteurs)
+Documentation=file:@REPO@/docs/operations.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=@REPO@
+Environment=PATH=@PATH@
+Environment=HOME=%h
+Environment=DATABASE_URL=postgres://radar:radar@localhost:5432/radar
+Environment=PORT=@API_PORT@
+ExecStart=@PNPM@ -F @radar/api start
+# Redémarrage auto en cas de crash, mais pas après un `systemctl stop` volontaire.
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=20
+
+[Install]
+WantedBy=default.target

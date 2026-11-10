@@ -1,0 +1,30 @@
+# radar-web.service — modèle d'unité systemd utilisateur.
+#
+# install.sh remplace les jetons @REPO@, @PNPM@, @PATH@, @WEB_PORT@ et @API_PORT@
+# puis écrit le résultat dans ~/.config/systemd/user/. Ne pas installer ce
+# fichier tel quel.
+#
+# Le serveur est `vite preview` : il sert apps/web/dist (build de production)
+# et, via scripts/systemd/preview.config.mjs, proxie /api vers l'API Fastify.
+# La racine du projet vite est apps/web (WorkingDirectory) : pas de `root`
+# absolu à configurer, les assets sont résolus depuis dist/.
+[Unit]
+Description=Radar Cyber — interface web (vite preview, dist statique)
+Documentation=file:@REPO@/docs/operations.md
+After=network-online.target radar-api.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=@REPO@/apps/web
+Environment=PATH=@PATH@
+Environment=HOME=%h
+Environment=WEB_PORT=@WEB_PORT@
+Environment=API_PROXY_TARGET=http://127.0.0.1:@API_PORT@
+ExecStart=@PNPM@ -F @radar/web exec vite preview --config ../../scripts/systemd/preview.config.mjs
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=20
+
+[Install]
+WantedBy=default.target

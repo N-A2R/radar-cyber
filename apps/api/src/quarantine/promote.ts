@@ -244,7 +244,10 @@ export async function insertClaimEvent(
   const title = `${row.org_hint ?? "Revendication"} — revendiqué par ${row.groupe ?? "groupe inconnu"}`.slice(0, 400);
   const description = (row.extracted?.description as string | null | undefined) ?? row.raw_body ?? null;
   const summary = description ? String(description).slice(0, 4000) : null;
-  const observedAt = row.claimed_at ? new Date(row.claimed_at).toISOString() : null;
+  // La date de promotion sert de `observed_at` : la date de revendication (2025)
+  // est antérieure à la rétention de 90 j et viderait l'événement. Elle reste
+  // dans `quarantine_raw.claimed_at` et dans `evidence`.
+  const observedAt = new Date().toISOString();
 
   const r = await ingestQuery<{ id: number; inserted: boolean }>(
     `INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at, severity, confidence,
@@ -263,6 +266,7 @@ export async function insertClaimEvent(
         quarantine_id: row.id,
         group: row.groupe,
         org_hint: row.org_hint,
+        claimed_at: row.claimed_at,
         promoted_by: promotedBy,
       }),
       orgId,
