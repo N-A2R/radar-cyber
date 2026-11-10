@@ -22,7 +22,7 @@
  */
 
 import { closePools, pool } from "../apps/api/src/db.js";
-import { matchOrg, normalize } from "../apps/api/src/match/orgs.js";
+import { matchOrgDetailed, normalize, type MatchReason } from "../apps/api/src/match/orgs.js";
 
 type EventRow = { id: string; title: string; summary: string | null };
 
@@ -113,14 +113,29 @@ async function main(): Promise<void> {
 
 	const candidates: Candidate[] = [];
 	let belowThreshold = 0;
+	// Motif de rejet : sans lui, on ne sait pas s'il faut ajouter un alias,
+	// lever une ambiguïté ou accepter que le texte ne nomme personne.
+	const reasons: Record<MatchReason | "below-threshold", number> = {
+		matched: 0,
+		"empty-text": 0,
+		"no-alias": 0,
+		"short-only": 0,
+		ambiguous: 0,
+		"below-threshold": 0,
+	};
 	for (const event of events) {
 		const text = `${event.title} ${event.summary ?? ""}`;
-		const match = await matchOrg(text);
-		if (!match) continue;
-		if (match.confidence < minConfidence) {
-			belowThreshold += 1;
+		const { match, reason } = await matchOrgDetailed(text);
+		if (!match) {
+			reasons[reason] += 1;
 			continue;
 		}
+		if (match.confidence < minConfidence) {
+			belowThreshold += 1;
+			reasons["below-threshold"] += 1;
+			continue;
+		}
+		reasons.matched += 1;
 		candidates.push({
 			id: event.id,
 			title: event.title,
@@ -141,16 +156,22 @@ async function main(): Promise<void> {
 		for (const candidate of candidates) candidate.orgName = byId.get(candidate.orgId) ?? `#${candidate.orgId}`;
 	}
 
+	log("motifs sur les événements examinés :");
+	for (const [reason, count] of Object.entries(reasons)) {
+		if (count > 0) log(`  ${reason.padEnd(16)} ${count}`);
+	}
 	log(
 		`${candidates.length} événement(s) rattachable(s) vers ${new Set(candidates.map((c) => c.orgId)).size} organisation(s)` +
-			` — ${belowThreshold} écarté(s) sous le seuil ${minConfidence}, les villes et ambiguïtés rejetées en amont`,
+			` — ${belowThreshold} écarté(s) sous le seuil ${minConfidence}`,
 	);
 
-	const sample = [...candidates]
-		.sort((a, b) => b.confidence - a.confidence || b.alias.length - a.alias.length || a.id.localeCompare(b.id))
-		.slice(0, 10);
+	// Échantillon régulier : 30 lignes réparties sur l'ensemble des candidats,
+	// pour le contrôle humain demandé par le roadmap.
+	const sorted = [...candidates].sort((a, b) => a.id.localeCompare(b.id));
+	const step = Math.max(1, Math.floor(sorted.length / 30));
+	const sample = sorted.filter((_, index) => index % step === 0).slice(0, 30);
 	if (sample.length > 0) {
-		log("échantillon des 10 meilleurs matchs :");
+		log("échantillon de 30 rattachements pour contrôle humain :");
 		for (const candidate of sample) {
 			log(
 				`  ${candidate.id.padStart(6)}  conf=${candidate.confidence.toFixed(1)}  ` +
