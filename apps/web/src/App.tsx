@@ -7,6 +7,7 @@ import SourcesView from "./components/SourcesView";
 import HealthView from "./components/HealthView";
 import EventList from "./components/EventList";
 import Inspector from "./components/Inspector";
+import OrgSheet from "./components/OrgSheet";
 import AlertsView from "./components/AlertsView";
 import type { ViewKey } from "./contracts";
 
@@ -36,6 +37,7 @@ export default function App() {
   const [family, setFamily] = useState<string | null>(null);
   const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
   const [selectedOrgId, setSelectedOrgId] = useState<number | null>(null);
+  const [sheetOrgId, setSheetOrgId] = useState<number | null>(null);
   const [connected, setConnected] = useState(false);
   const [basemap, setBasemap] = useState<"sat" | "plan">("sat");
   const [token, setToken] = useState<string | null>(() => {
@@ -173,6 +175,8 @@ export default function App() {
     setSelectedEventId(null);
   }, []);
 
+  const openOrgSheet = useCallback((id: number) => setSheetOrgId(id), []);
+
   const onUnauthorized = useCallback(() => {
     setToken(null);
     try {
@@ -182,7 +186,8 @@ export default function App() {
     }
   }, []);
 
-  const inspectorOpen = selectedEventId !== null || selectedOrgId !== null;
+  const inspectorOpen =
+    selectedEventId !== null || selectedOrgId !== null || sheetOrgId !== null;
 
   const bodyStyle = {
     gridTemplateColumns: inspectorOpen ? "352px minmax(0,1fr) 320px" : "352px minmax(0,1fr)",
@@ -303,14 +308,20 @@ export default function App() {
 
         {inspectorOpen ? (
           <section className="shell__inspect">
-            <Inspector
-              eventId={selectedEventId}
-              orgId={selectedOrgId}
-              onClose={() => {
-                setSelectedEventId(null);
-                setSelectedOrgId(null);
-              }}
-            />
+            {sheetOrgId !== null ? (
+              <OrgSheet orgId={sheetOrgId} onClose={() => setSheetOrgId(null)} />
+            ) : (
+              <Inspector
+                eventId={selectedEventId}
+                orgId={selectedOrgId}
+                onOpenOrg={openOrgSheet}
+                onClose={() => {
+                  setSelectedEventId(null);
+                  setSelectedOrgId(null);
+                  setSheetOrgId(null);
+                }}
+              />
+            )}
           </section>
         ) : null}
       </div>
