@@ -25,6 +25,9 @@ import {
 import { isActionableIndicator, loadActiveIndex, type ActiveIndex } from "./filter.js";
 import { filterIndicators } from "./warninglist.js";
 import { classifyFamily, isFamily } from "./classify.js";
+import { decodeBody } from "./parsers/decode.js";
+import { parseRssItems } from "./parsers/xml.js";
+import { parseJsonItems as parseJsonItemsNew } from "./parsers/json.js";
 
 type SourceRow = {
   id: string;
@@ -59,7 +62,7 @@ const SUMMARY_FIELDS = ["summary", "description", "content", "excerpt", "abstrac
 const NAMED_ENTITIES: Record<string, string> = {
   amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " ", copy: "©",
   reg: "®", trade: "™", middot: "·", hellip: "…", mdash: "—", ndash: "–",
-  laquo: "«", raquo: "»", lsquo: "‘", rsquo: "’", ldquo: "“", rdquo: "”",
+  laquo: "«", raquo: "»", lsquo: "\u2018", rsquo: "\u2019", ldquo: "\u201c", rdquo: "\u201d",
   agrave: "à", aacute: "á", acirc: "â", ccedil: "ç", eacute: "é", egrave: "è",
   ecirc: "ê", euml: "ë", igrave: "ì", icirc: "î", iuml: "ï", ocirc: "ô",
   ugrave: "ù", ucirc: "û", uuml: "ü", ouml: "ö", auml: "ä", szlig: "ß",
@@ -87,7 +90,6 @@ function decodeEntities(value: string): string {
 function detectIndicatorType(line: string): string | null {
   let value = line.trim();
   if (!value || value.startsWith("#")) return null;
-  // Préfixe async/sync éventuel : on l'enlève pour évaluer le contenu.
   value = value.replace(/^(?:async|sync)\s+/i, "").trim();
   if (/^\d{1,3}(\.\d{1,3}){3}$/.test(value)) return "ip";
   if (/^[0-9a-fA-F]{32}$/.test(value) || /^[0-9a-fA-F]{40}$/.test(value) || /^[0-9a-fA-F]{64}$/.test(value)) return "hash";
@@ -98,9 +100,6 @@ function detectIndicatorType(line: string): string | null {
 }
 
 function hashKey(value: string): string {
-  // 24 caractères base64url = 18 octets : tronquer un encodage direct faisait
-  // s'effondrer sur une même clé tous les liens partageant le même préfixe
-  // d'URL (tout www.ici.fr, par exemple). On hache d'abord.
   return createHash("sha256").update(value).digest("base64url").slice(0, 24);
 }
 
@@ -127,11 +126,17 @@ function pickAny(item: Record<string, unknown>, candidates: string[]): string {
     if (Array.isArray(v)) {
       const first = v.find((x) => typeof x === "string");
       if (first) return String(first);
+      if (v[0] && typeof v[0] === "object") {
+        const nested = v[0] as Record<string, unknown>;
+        for (const key of ["cveID", "id", "name", "value", "url", "link", "href", "#text", "@_href"]) {
+          if (typeof nested[key] === "string") return nested[key] as string;
+        }
+      }
       continue;
     }
     if (typeof v === "object") {
       const nested = v as Record<string, unknown>;
-      for (const key of ["cveID", "id", "name", "value", "url", "link"]) {
+      for (const key of ["cveID", "id", "name", "value", "url", "link", "href", "#text", "@_href"]) {
         if (typeof nested[key] === "string") return nested[key] as string;
       }
       continue;
@@ -166,7 +171,7 @@ function findFirstObjectArray(node: unknown): Record<string, unknown>[] {
 }
 
 function parseRss(xml: string, parser: Record<string, unknown>): Record<string, unknown>[] {
-  const parsed = new XMLParser({ ignoreAttributes: false }).parse(xml) as Record<string, unknown>;
+  const parsed = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: "@_", textNodeName: "#text" }).parse(xml) as Record<string, unknown>;
   const path = String(parser.itemsPath ?? "rss.channel.item");
   let node: unknown = parsed;
   for (const key of path.split(".")) {
@@ -248,7 +253,7 @@ function parseFeedItems(body: string): { items: Record<string, unknown>[]; path:
   if (!/<(?:[\w.-]+:)?(?:item|entry)[\s>]/i.test(body)) return null;
   let parsed: unknown;
   try {
-    parsed = new XMLParser({ ignoreAttributes: false }).parse(body);
+    parsed = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: "@_", textNodeName: "#text" }).parse(body);
   } catch {
     return null;
   }
@@ -415,6 +420,12 @@ async function fetchText(url: string, timeoutMs = 30000): Promise<string> {
   const extra = key && /(^|\.)abuse\.ch$/i.test(new URL(url).hostname) ? { "Auth-Key": key } : undefined;
   const res = await fetchResilient(url, { timeoutMs, headers: extra });
   if (res.notModified) return "";
+  const buf = (res as any).buffer as Buffer | undefined;
+  if (buf) {
+    if (buf.length > MAX_BODY_BYTES) throw new Error(`flux trop volumineux (${(buf.length / 1048576).toFixed(1)} Mo)`);
+    const ct = (res as any).contentType as string | null | undefined;
+    return decodeBody(buf, ct ?? null).text;
+  }
   if (res.text.length > MAX_BODY_BYTES) {
     throw new Error(`flux trop volumineux (${(res.text.length / 1048576).toFixed(1)} Mo)`);
   }
@@ -475,6 +486,58 @@ async function ingestIndicator(source: SourceRow, body: string, idx?: ActiveInde
   return { items, added, skipped };
 }
 
+function isMenuEntry(title: string, sourceName: string): "menu_path" | "menu_token" | "menu_source" | null {
+  const t = title.trim();
+  if (!t) return null;
+  if (/^\//.test(t) || /\.(?:rss|xml|atom|feed)$/i.test(t)) return "menu_path";
+  if (!/\s/.test(t)) {
+    if (/^CVE-\d{4}-\d+$/i.test(t)) return null;
+    if (/^\d{1,3}(?:\.\d{1,3}){3}$/.test(t)) return null;
+    if (/^[0-9a-fA-F]{32}$/.test(t) || /^[0-9a-fA-F]{40}$/.test(t) || /^[0-9a-fA-F]{64}$/.test(t)) return null;
+    if (/^[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?(?:\.[a-z]{2,})(?:\/\S*)?$/i.test(t)) return null;
+    return "menu_token";
+  }
+  const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9à-ÿ]+/g, " ").trim();
+  const nt = norm(t);
+  const ns = norm(sourceName);
+  if (nt && ns && nt === ns) return "menu_source";
+  const words = nt.split(/\s+/).filter(Boolean);
+  if (words.length <= 2 && ns && (ns.includes(nt) || nt.includes(ns))) return "menu_source";
+  return null;
+}
+
+function parseNarrativeItems(body: string, parser: Record<string, unknown>, declaredFormat: string): Record<string, unknown>[] {
+  const trimmed = body.trimStart();
+  const looksFeed = /^<\?xml|^<(?:rss|feed|rdf:RDF)\b|^<rdf:RDF\b/i.test(trimmed) || /<(?:[\w.-]+:)?(?:item|entry)[\s>]/i.test(trimmed.slice(0, 20000));
+  const looksJson = trimmed.startsWith("{") || trimmed.startsWith("[");
+  const declaredPath = typeof parser.itemsPath === "string" ? parser.itemsPath : "";
+
+  // 1) Content-first: real feed markup beats declared format
+  if (looksFeed) {
+    const items = parseRssItems(body, declaredPath || undefined);
+    if (items.length > 0) return items;
+  }
+  if (looksJson) {
+    const items = parseJsonItems(body, parser);
+    if (items.length > 0) return items;
+  }
+
+  // 2) Declared-format path when content hint is ambiguous
+  if (!looksFeed && !looksJson) {
+    if (declaredFormat === "rss") {
+      const items = parseRss(body, parser);
+      if (items.length > 0) return items;
+    } else {
+      const items = parseJsonItems(body, parser);
+      if (items.length > 0) return items;
+    }
+  }
+
+  // 3) Fallback auto-detection (existing contract for scripts)
+  const detected = detectItems(body, null);
+  return detected.items;
+}
+
 async function ingestNarrative(
 	source: SourceRow,
 	body: string,
@@ -482,12 +545,8 @@ async function ingestNarrative(
 	coverage: CoverageContext,
 ): Promise<IngestResult> {
   const parser = source.parser ?? {};
-  // `itemsPath` déclaré et valide reste prioritaire : aucune source qui
-  // fonctionne ne change de comportement. Sinon on devine le format.
   const declaredPath = typeof parser.itemsPath === "string" ? parser.itemsPath : "";
-  let items = source.format === "rss"
-    ? parseRss(body, parser)
-    : parseJsonItems(body, parser);
+  let items = parseNarrativeItems(body, parser, source.format);
   if (items.length === 0) {
     const detected = detectItems(body, null);
     items = detected.items;
@@ -509,6 +568,13 @@ async function ingestNarrative(
     sourceHost = "";
   }
 
+  // Filtre menu RSS : certaines sources exposent les entrées de menu du flux
+  // comme items. Exclu pour la famille cert_fr et les avis ANSSI.
+  const isCertFr = source.family === "cert_fr";
+  const isAnssiAvis = /cert-?fr|anssi/i.test(source.id) || /cert-?fr|anssi/i.test(source.name);
+  const menuFilter = !isCertFr && !isAnssiAvis;
+  const menuRejected: Record<string, number> = {};
+
   let added = 0;
   let skipped = 0;
   const fetchedAt = new Date();
@@ -516,6 +582,14 @@ async function ingestNarrative(
     const title = decodeEntities(explicitOr(item, parser.titleField, TITLE_FIELDS)).slice(0, 400);
     const summary = decodeEntities(explicitOr(item, parser.summaryField, SUMMARY_FIELDS)).slice(0, 2000);
     if (!title) continue;
+    if (menuFilter) {
+      const reason = isMenuEntry(title, source.name);
+      if (reason) {
+        menuRejected[reason] = (menuRejected[reason] ?? 0) + 1;
+        skipped++;
+        continue;
+      }
+    }
     const link = explicitOr(item, parser.linkField, LINK_FIELDS);
     // Couverture élargie : un item rebuté par la porte peut être admis par la
     // règle (a) (CVE dont le score EPSS en base dépasse le seuil) ou (b) (un
@@ -571,20 +645,20 @@ async function ingestNarrative(
     );
     if (r.rows[0]?.inserted) added++;
   }
+  for (const [reason, n] of Object.entries(menuRejected)) {
+    runLog?.(`[collect] ${source.id} : ${n} entrée(s) menu rejetée(s) (${reason})`);
+  }
   return { items: items.length, added, skipped };
 }
 
 /**
  * Contexte des règles de couverture : scores EPSS joints sur l'identifiant CVE
- * depuis `event` (source `epss`), aucun appel réseau, et lieux de la région.
+ * depuis la table `epss` (migration 021), aucun appel réseau, et lieux de la région.
  */
 async function loadCoverageContext(): Promise<CoverageContext> {
   const { rows: epssRows } = await ingestQuery<{ cve: string; score: number }>(
-    `SELECT upper((regexp_match(title, 'CVE-[0-9]{4}-[0-9]+'))[1]) AS cve,
-            (evidence->>'epss')::float8 AS score
-       FROM event
-      WHERE source_id = 'epss' AND evidence ? 'epss' AND title ~ 'CVE-[0-9]{4}-[0-9]+'`
-  );
+    `SELECT cve, score FROM epss WHERE score >= $1`
+  , [EPSS_ADMISSION_THRESHOLD]);
   const epssByCve = new Map<string, number>();
   for (const row of epssRows) {
     if (row.cve && Number.isFinite(row.score)) epssByCve.set(row.cve, row.score);
