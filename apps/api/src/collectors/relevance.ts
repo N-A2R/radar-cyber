@@ -327,15 +327,39 @@ export const PREFECTURES: readonly string[] = [
 const AMBIGUOUS_PLACES: Readonly<Record<string, true>> = {
   vienne: true,
   lot: true,
+  pau: true,
+  niort: true,
+  saintes: true,
+  dax: true,
   charente: true,
   dordogne: true,
   creuse: true,
   correze: true,
   sevre: true,
   isle: true,
+  landes: true,
 };
 
-const ADMIN_CUE_RE = /\b(departement|prefecture|prefet|prefectoral|conseil departemental|region|agglomeration|communaute de communes)\b/;
+/**
+ * Contexte administratif explicite : autorise l'homonyme où qu'il soit dans la
+ * phrase (« le département du Lot », « la ville de Pau »). Volontairement
+ * resserré au vocabulaire administratif — « région » en est exclu, il apparaît
+ * dans « région Nouvelle-Aquitaine » aussi bien que dans « la région de Pau »
+ * sans rien dire du statut du toponyme.
+ */
+const ADMIN_CUE_RE =
+  /\b(departement|prefecture|prefet|prefectoral|prefectorale|conseil departemental|commune de|commune d|ville de|ville d|agglomeration|metropole)\b/;
+
+/**
+ * Indice locatif immédiatement antérieur (« en Vienne », « à Pau », « dans le
+ * Lot »). Ne vaut que collé au toponyme : le reste de la phrase ne suffit pas,
+ * sinon « à » et « en », omniprésents en français, valideraient n'importe quel
+ * homonyme et la règle redeviendrait inerte.
+ */
+const LOCATIVE_CUE_RE = /\b(?:en|au|aux|a|dans|sur|vers|depuis|pres de|autour de)\s+$/;
+
+/** Occurrences d'URL : elles ne disent rien du sujet de l'article. */
+const URL_OCCURRENCE_RE = /\b(?:https?:\/\/|www\.)\S+/gi;
 
 /**
  * Seuil EPSS retenu, mesuré (docs/couverture.md) : 0,10 capte la moitié des
@@ -389,24 +413,53 @@ function deptPattern(names: readonly string[]): RegExp {
 
 /**
  * Règle (b) : département ou préfecture cité en mot entier dans le texte
- * fourni (titre + résumé — l'URL est exclue par l'appelant). Un homonyme
- * ambigu doit être accompagné d'un terme administratif dans les 120 caractères
- * qui le précèdent ou le suivent.
+ * fourni (titre + résumé — l'URL est exclue par l'appelant et retirée ici par
+ * précaution). Un homonyme ambigu (`AMBIGUOUS_PLACES`) n'est retenu que :
+ *   - collé à une préposition locative (« en Vienne », « à Pau »), ou
+ *   - accompagné d'un terme administratif dans la même phrase, ou
+ *   - sous une forme composée non ambiguë (`lot-et-garonne`,
+ *     `charente-maritime`, `pyrénées-atlantiques`…).
+ * Mesure de l'effet : `scripts/audit-dept.mts` (docs/couverture.md).
  */
 export function admitsDepartment(text: string, deptNames: readonly string[]): boolean {
   if (!text || deptNames.length === 0) return false;
-  const hay = normalize(text);
+  const hay = normalize(text.replace(URL_OCCURRENCE_RE, " "));
   const pattern = deptPattern(deptNames);
   pattern.lastIndex = 0;
   for (const match of hay.matchAll(pattern)) {
     const name = match[1]?.toLowerCase() ?? "";
-    if (!name) continue;
-    if (AMBIGUOUS_PLACES[name] !== true || match.index === undefined) return true;
-    const from = Math.max(0, match.index - 120);
-    const window = hay.slice(from, match.index + name.length + 120);
-    if (ADMIN_CUE_RE.test(window)) return true;
+    const at = match.index;
+    if (!name || at === undefined) continue;
+    // Forme composée : le trait d'union lève l'ambiguïté (« lot » vs
+    // « lot-et-garonne », « vienne » vs « haute-vienne »).
+    if (name.includes("-")) return true;
+    if (AMBIGUOUS_PLACES[name] !== true) return true;
+    const before = hay.slice(Math.max(0, at - 32), at);
+    if (LOCATIVE_CUE_RE.test(before)) return true;
+    if (ADMIN_CUE_RE.test(deptSentenceWindow(hay, at, at + name.length))) return true;
   }
   return false;
+}
+
+/** Fenêtre bornée à la phrase autour de `[start, end)`, pour juger du contexte. */
+function deptSentenceWindow(hay: string, start: number, end: number): string {
+  const from = Math.max(0, start - 120);
+  const to = Math.min(hay.length, end + 120);
+  let left = from;
+  const head = hay.slice(from, start);
+  const cutLeft = Math.max(
+    head.lastIndexOf("."),
+    head.lastIndexOf("!"),
+    head.lastIndexOf("?"),
+    head.lastIndexOf(";"),
+    head.lastIndexOf("\n")
+  );
+  if (cutLeft >= 0) left = from + cutLeft + 1;
+  let right = to;
+  const tail = hay.slice(end, to);
+  const cutRight = tail.search(/[.!?;\n]/);
+  if (cutRight >= 0) right = end + cutRight;
+  return hay.slice(left, right);
 }
 
 /**

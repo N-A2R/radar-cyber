@@ -13,7 +13,13 @@ Flux `indicator` en JSON/CSV/RSS : valeurs tirées de `value|indicator|ip|domain
 link|cidr|title|description`, puis filtre warninglists. Un `304` ne remet plus `last_items` à 0.
 Diagnostic lecture seule : `apps/api/node_modules/.bin/tsx scripts/diagnose-parsers.mts`
 (25 sources muettes, 1 req/s, timeout 10 s).
-## Échantillon 2026-11-10
+## Règle de décision indicator/narrative
+`asIndicator = kind === "indicator" || (format !== "rss" && looksLikeBlocklist(url))`.
+`looksLikeBlocklist` repose désormais sur le **contenu** de l'URL et non sur son
+extension : domaine seul, `domaine.tld/chemin`, liste de domaines, préfixe
+`async`/`sync` et URL complète sont reconnus. Les lignes qui ne sont pas des
+domaines (texte libre) restent `narrative`. Condition fautive d'origine :
+`/\.(txt|csv|json|zip)(\?|$)/i.test(url)`.
 | Stratégie | Sources |
 | --- | ---: |
 | rss-atom | 10 |

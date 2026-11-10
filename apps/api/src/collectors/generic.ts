@@ -85,13 +85,15 @@ function decodeEntities(value: string): string {
 }
 
 function detectIndicatorType(line: string): string | null {
-  const value = line.trim();
+  let value = line.trim();
   if (!value || value.startsWith("#")) return null;
+  // Préfixe async/sync éventuel : on l'enlève pour évaluer le contenu.
+  value = value.replace(/^(?:async|sync)\s+/i, "").trim();
   if (/^\d{1,3}(\.\d{1,3}){3}$/.test(value)) return "ip";
   if (/^[0-9a-fA-F]{32}$/.test(value) || /^[0-9a-fA-F]{40}$/.test(value) || /^[0-9a-fA-F]{64}$/.test(value)) return "hash";
   if (/^https?:\/\//.test(value)) return "url";
   if (/^cve-\d{4}-\d+$/i.test(value)) return "cve";
-  if (/^[a-z0-9.-]+\.[a-z]{2,}$/i.test(value)) return "domain";
+  if (/^[a-z0-9.-]+\.[a-z]{2,}(\/[^\s]*)?$/i.test(value)) return "domain";
   return null;
 }
 
@@ -599,8 +601,14 @@ async function loadCoverageContext(): Promise<CoverageContext> {
   return { epssByCve, epssThreshold: EPSS_ADMISSION_THRESHOLD, deptNames: [...deptNames] };
 }
 
-function looksLikeBlocklist(url: string): boolean {
-  return /\.(txt|csv|json|zip)(\?|$)/i.test(url) || /blocklist|blacklist|hostfile|feed-osint/i.test(url);
+function looksLikeBlocklist(url: string, body?: string): boolean {
+  if (body !== undefined) {
+    const lines = body.split(/\r?\n/).map((l) => l.trim()).filter((l) => l && !l.startsWith("#"));
+    const sample = lines.slice(0, 200);
+    const recognized = sample.filter((l) => detectIndicatorType(l) !== null).length;
+    return sample.length > 0 && recognized / sample.length > 0.3;
+  }
+  return /blocklist|blacklist|hostfile|feed-osint/i.test(url);
 }
 
 async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], coverage: CoverageContext): Promise<void> {
@@ -626,10 +634,10 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], covera
       );
       return;
     }
-    const asIndicator = source.kind === "indicator" || (source.format !== "rss" && looksLikeBlocklist(source.url));
+    const asIndicator = source.kind === "indicator" || (source.format !== "rss" && looksLikeBlocklist(source.url, body));
     // Filtre anti-bruit : les blocklists mondiales (réputation, phishing) ne
     // gardent que les indicateurs actionnables pour nos actifs (voir filter.ts).
-    const filterIdx = asIndicator && (looksLikeBlocklist(source.url) || source.family === "reputation" || source.family === "phishing")
+    const filterIdx = asIndicator && (looksLikeBlocklist(source.url, body) || source.family === "reputation" || source.family === "phishing")
       ? activeIndex ?? undefined
       : undefined;
     let result = asIndicator
