@@ -1,55 +1,173 @@
+# Radar Cyber NA — déploiement conteneurisé.
+#
+# Services : db (PostgreSQL 18), migrate (one-shot), api (Fastify :8080),
+#            web (Vite preview :4173), tor (profil optionnel, SOCKS5 9050).
+# Variables : voir .env.example (copier en .env ou exporter).
+#
+# Usage :
+#   docker compose up -d
+#   docker compose --profile tor up -d      # active le routage .onion
+#   docker compose run --rm migrate         # rejouer les migrations
+
+name: radar-cyber
+
+x-db-credentials: &db-credentials
+  POSTGRES_USER: ${POSTGRES_USER:-radar}
+  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-radar}
+  POSTGRES_DB: ${POSTGRES_DB:-radar}
+
+x-database-url: &database-url
+  DATABASE_URL: postgres://${POSTGRES_USER:-radar}:${POSTGRES_PASSWORD:-radar}@db:5432/${POSTGRES_DB:-radar}
+
+x-api-env: &api-env
+  <<: *database-url
+  HOST: "0.0.0.0"
+  PORT: "8080"
+  INCEPTION_API_KEY: ${INCEPTION_API_KEY:-}
+  RADAR_TOR_SOCKS: ${RADAR_TOR_SOCKS:-socks5h://tor:9050}
+  RADAR_RETENTION_DAYS: ${RADAR_RETENTION_DAYS:-90}
+  RADAR_RETENTION_INDICATOR_DAYS: ${RADAR_RETENTION_INDICATOR_DAYS:-365}
+  TZ: ${TZ:-Europe/Paris}
+
 services:
   db:
-    image: postgres:17-alpine
+    image: postgres:18-alpine
+    restart: unless-stopped
     environment:
-      POSTGRES_USER: radar
-      POSTGRES_PASSWORD: radar
-      POSTGRES_DB: radar
+      <<: *db-credentials
+      TZ: ${TZ:-Europe/Paris}
+    command:
+      - postgres
+      - -c
+      - max_connections=100
+      - -c
+      - shared_buffers=256MB
     volumes:
+      # Données PostgreSQL persistantes.
       - pgdata:/var/lib/postgresql/data
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      # Répertoire des dumps (pg_dump / restauration).
+      - dumps:/dumps
+      # Schéma de base MVP ; les migrations complètent au démarrage.
+      - ./db/init.sql:/docker-entrypoint-initdb.d/010-init.sql:ro
+    ports:
+      - "${RADAR_DB_PORT:-5433}:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U radar -d radar"]
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER:-radar} -d $${POSTGRES_DB:-radar}"]
       interval: 5s
       timeout: 5s
-      retries: 10
-    deploy:
-      resources:
-        limits:
-          memory: 1g
+      retries: 12
+      start_period: 10s
+
+  migrate:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    image: radar-cyber-api:local
+    restart: "no"
+    working_dir: /app
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      <<: *database-url
+      TZ: ${TZ:-Europe/Paris}
+    # Garde-fou pour scripts/migrate.mts : sur une base vierge il marque
+    # historiquement un lot de migrations comme "appliquées" (amorçage d'une
+    # base live) et les saute. On pré-crée schema_migrations avec une entrée
+    # sentinelle pour désactiver cet amorçage, puis migrate.mts applique
+    # TOUTES les db/migrate-*.sql manquantes (idempotent aux relances).
+    command:
+      - sh
+      - -ec
+      - |
+        cd /app/apps/api
+        node --input-type=module -e '
+          import pg from "pg";
+          const c = new pg.Client({ connectionString: process.env.DATABASE_URL });
+          await c.connect();
+          await c.query("CREATE TABLE IF NOT EXISTS schema_migrations (version text PRIMARY KEY, applied_at timestamptz NOT NULL DEFAULT now())");
+          const { rows } = await c.query("SELECT count(*)::int AS n FROM schema_migrations");
+          if (rows[0].n === 0) {
+            await c.query("INSERT INTO schema_migrations (version) VALUES ($1) ON CONFLICT DO NOTHING", ["__container_bootstrap__"]);
+          }
+          await c.end();
+        '
+        cd /app
+        exec ./apps/api/node_modules/.bin/tsx scripts/migrate.mts
 
   api:
     build:
       context: .
       dockerfile: apps/api/Dockerfile
-    environment:
-      DATABASE_URL: postgres://radar:radar@db:5432/radar
-      PORT: "8080"
+    image: radar-cyber-api:local
+    restart: unless-stopped
+    init: true
     depends_on:
       db:
         condition: service_healthy
-    deploy:
-      resources:
-        limits:
-          memory: 512m
+      migrate:
+        condition: service_completed_successfully
+    environment:
+      <<: *api-env
+    ports:
+      - "${RADAR_API_PORT:-8080}:8080"
+    volumes:
+      - dumps:/dumps
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null \"http://127.0.0.1:$${PORT:-8080}/api/health\" || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
   web:
     build:
       context: .
       dockerfile: apps/web/Dockerfile
-    ports:
-      - "80:80"
+    image: radar-cyber-web:local
+    restart: unless-stopped
+    init: true
     depends_on:
-      - api
-    deploy:
-      resources:
-        limits:
-          memory: 128m
+      api:
+        condition: service_started
+    environment:
+      WEB_PORT: "4173"
+      API_PROXY_TARGET: http://api:8080
+      TZ: ${TZ:-Europe/Paris}
+    ports:
+      - "${RADAR_WEB_PORT:-4173}:4173"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1:4173/ || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
 
-  # tiles:
-  #   image: ghcr.io/maplibre/martin:latest
-  #   ports:
-  #     - "3000:3000"
+  # Tor (optionnel) — SOCKS5 pour les sources .onion.
+  # L'API est configurée par défaut avec RADAR_TOR_SOCKS=socks5h://tor:9050 ;
+  # sans ce service (--profile tor), les collectes .onion échouent immédiatement
+  # (aucun repli clearnet), ce qui est le comportement attendu.
+  tor:
+    image: alpine:3.21
+    profiles: ["tor"]
+    restart: unless-stopped
+    command:
+      - sh
+      - -ec
+      - |
+        apk add --no-cache tor netcat-openbsd >/dev/null
+        printf 'SocksPort 0.0.0.0:9050\nDataDirectory /var/lib/tor\nClientOnly 1\n' > /etc/tor/torrc
+        exec tor -f /etc/tor/torrc
+    volumes:
+      - tordata:/var/lib/tor
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z 127.0.0.1 9050"]
+      interval: 30s
+      timeout: 5s
+      retries: 10
+      start_period: 40s
 
 volumes:
   pgdata:
+  dumps:
+  tordata:
