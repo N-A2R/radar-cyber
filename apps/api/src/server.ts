@@ -17,6 +17,7 @@ import searchRoute from "./routes/search.js";
 import sourcesRoute from "./routes/sources.js";
 import streamRoute from "./routes/stream.js";
 import alertsRoute from "./routes/alerts.js";
+import quarantineRoute from "./routes/quarantine.js";
 import { resolveUser } from "./middleware/auth.js";
 
 const port = Number(process.env.PORT ?? 8080);
@@ -36,7 +37,7 @@ await app.register(cors, { origin: true });
  * écritures protégées. Un token valide est attaché à la requête s'il est fourni,
  * ce qui permet au front d'adapter l'UI au rôle.
  */
-const PUBLIC_READ = /^\/api\/(health|stats|sources|flows|search|graph|stream|events|orgs|enrich|alerts|healthz)(\/|$|\?)/;
+const PUBLIC_READ = /^\/api\/(health|stats|sources|flows|search|graph|stream|events|orgs|enrich|alerts|quarantine|healthz)(\/|$|\?)/;
 
 app.addHook("onRequest", async (req, reply) => {
   const url = req.url.split("?")[0];
@@ -50,8 +51,8 @@ app.addHook("onRequest", async (req, reply) => {
 });
 
 app.get("/api/health", async () => {
-	const r = await query<{ id: string }>("SELECT id FROM source");
-	return { ok: true, sources: r.rows.map((x) => x.id) };
+  const r = await query<{ n: string }>("SELECT count(*)::text AS n FROM source");
+  return { ok: true, sources: Number(r.rows[0]?.n ?? 0) };
 });
 
 await app.register(eventsRoute, { prefix: "/api" });
@@ -64,6 +65,7 @@ await app.register(searchRoute, { prefix: "/api" });
 await app.register((await import("./routes/enrich.js")).default, { prefix: "/api" });
 await app.register((await import("./routes/auth.js")).default, { prefix: "/api" });
 await app.register(alertsRoute, { prefix: "/api" });
+await app.register(quarantineRoute, { prefix: "/api" });
 
 /** Contexte fourni aux collecteurs : HTTP résilient, jamais de fetch nu. */
 function makeContext(cursor: Record<string, unknown>, log: (msg: string) => void): CollectContext {
