@@ -12,6 +12,7 @@ import { fetchResilient } from "./http.js";
 import { isRelevant, loadRelevanceOrgIndex, matchOrgForText, type RelevanceOrg } from "./relevance.js";
 import { isActionableIndicator, loadActiveIndex, type ActiveIndex } from "./filter.js";
 import { filterIndicators } from "./warninglist.js";
+import { classifyFamily, isFamily } from "./classify.js";
 
 type SourceRow = {
   id: string;
@@ -275,6 +276,13 @@ async function ingestNarrative(source: SourceRow, body: string, orgIndex: Releva
     // observed_at NULL qui s'accumulaient en fin de fil.
     const parsed = parseObservedAt(dateRaw, { fetchedAt });
     const dedupKey = `feed:${source.id}:${hashKey(link || title)}`;
+    // Porte cyber : le texte décide. Une dépêche régionale publiée par une
+    // source déclarée `cti` n'est pas du renseignement ; elle est classée
+    // `presse` au lieu d'être jetée. Les sources de l'allowlist et les familles
+    // `ransomware`/`cert_fr` gardent leur famille d'origine.
+    const family = isFamily(source.family)
+      ? classifyFamily({ title, summary, sourceFamily: source.family, sourceName: source.name })
+      : source.family;
 
     // DO UPDATE : un événement déjà connu mais sans date (ingéré avant la
     // correction) reçoit enfin observed_at. Sans ça, re-parser ne répare rien.
@@ -287,7 +295,7 @@ async function ingestNarrative(source: SourceRow, body: string, orgIndex: Releva
          date_source      = COALESCE(event.date_source, EXCLUDED.date_source),
          date_confidence  = COALESCE(event.date_confidence, EXCLUDED.date_confidence)
        RETURNING (xmax = 0) AS inserted`,
-      [dedupKey, source.family, title, parsed.at?.toISOString() ?? null, parsed.source, parsed.confidence,
+      [dedupKey, family, title, parsed.at?.toISOString() ?? null, parsed.source, parsed.confidence,
         source.id, link || null, JSON.stringify({ feed: source.name }), summary, orgId]
     );
     if (r.rows[0]?.inserted) added++;
