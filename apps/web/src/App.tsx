@@ -55,6 +55,7 @@ export default function App() {
   const [error, setError] = useState<string | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const [theme, setTheme] = useState<string>("observatoire");
+  const [basemap, setBasemap] = useState<"sat" | "plan">("sat");
   const [families, setFamilies] = useState<Set<string>>(new Set());
   const [page, setPage] = useState(1);
 
@@ -198,6 +199,10 @@ export default function App() {
           <button aria-current={view === "sources"} onClick={() => setView("sources")}>sources</button>
           <button aria-current={view === "sante"} onClick={() => setView("sante")}>santé</button>
         </nav>
+        <div className="basemap-picker" role="group" aria-label="fond de carte">
+          <button aria-pressed={basemap === "sat"} onClick={() => setBasemap("sat")}>satellite</button>
+          <button aria-pressed={basemap === "plan"} onClick={() => setBasemap("plan")}>plan</button>
+        </div>
         <select className="theme-picker" value={theme} onChange={(e) => setTheme(e.target.value)} aria-label="variante de design">
           <option value="observatoire">observatoire</option>
           <option value="terminal">terminal</option>
@@ -270,6 +275,7 @@ export default function App() {
                   summary: e.summary,
                 }))}
                 flows={flows}
+                basemap={basemap}
                 families={Array.from(families)}
                 onSelect={setSelected}
                 onSelectEvent={(id) => setSelected(id.startsWith("org:") ? id : null)}
