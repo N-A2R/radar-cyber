@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { api, type Event, type Org, type Source, type Stats, type Graph } from "./api";
+import { api, type Event, type Org, type Source, type Stats, type Graph, type FlowArc } from "./api";
 import { mockData } from "./mock";
 
 // Mode démonstration : données simulées, jamais d'appel API.
@@ -7,6 +7,9 @@ const MOCK_MODE = import.meta.env.VITE_DATA_MODE === "mock";
 import Map3D from "./map/Map3D";
 import GraphView from "./graph/GraphView";
 import SourcesView from "./components/SourcesView";
+import HealthView from "./components/HealthView";
+import EventList from "./components/EventList";
+import FamilyFilter from "./components/FamilyFilter";
 
 const FAMILY_COLOR: Record<string, string> = {
   ransomware: "var(--ransomware)",
@@ -18,6 +21,7 @@ const FAMILY_COLOR: Record<string, string> = {
   typosquat: "var(--typosquat)",
   reputation: "var(--reputation)",
   cti: "var(--cti)",
+  presse: "var(--presse)",
 };
 
 const ASSERTION_LABEL: Record<string, string> = {
@@ -36,7 +40,9 @@ const ASSERTION_TONE: Record<string, string> = {
   ambient_signal: "ambient",
 };
 
-type View = "carte" | "graphe" | "sources";
+type View = "carte" | "graphe" | "sources" | "sante";
+
+const PAGE_SIZE = 20;
 
 export default function App() {
   const [orgs, setOrgs] = useState<Org[]>([]);
@@ -44,10 +50,13 @@ export default function App() {
   const [sources, setSources] = useState<Source[]>([]);
   const [stats, setStats] = useState<Stats | null>(null);
   const [graph, setGraph] = useState<Graph>({ nodes: [], links: [] });
+  const [flows, setFlows] = useState<FlowArc[]>([]);
   const [view, setView] = useState<View>("carte");
   const [error, setError] = useState<string | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const [theme, setTheme] = useState<string>("observatoire");
+  const [families, setFamilies] = useState<Set<string>>(new Set());
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -89,30 +98,75 @@ export default function App() {
       setGraph(mockData.graph);
       return;
     }
-    Promise.all([api.orgs(), api.events(200), api.sources(), api.stats(), api.graph(90)])
-      .then(([o, e, s, st, g]) => {
+    Promise.all([api.orgs(), api.events(200), api.sources(), api.stats(), api.graph(90), api.flows(30)])
+      .then(([o, e, s, st, g, f]) => {
         setOrgs(o);
         setEvents(e);
         setSources(s);
         setStats(st);
         setGraph(g);
+        setFlows(f.arcs);
       })
       .catch((err: Error) => setError(err.message));
   }, []);
 
-  // Rafraîchit statistiques et graphe toutes les 30 s (temps réel, hors mode mock).
+  // Rafraîchit statistiques, graphe et arcs toutes les 30 s (temps réel, hors mode mock).
   useEffect(() => {
     if (MOCK_MODE) return;
     const timer = setInterval(() => {
       api.stats().then(setStats).catch(() => {});
       api.graph(90).then(setGraph).catch(() => {});
+      api.flows(30).then((f) => setFlows(f.arcs)).catch(() => {});
     }, 30000);
     return () => clearInterval(timer);
   }, []);
 
+  const filtered = useMemo(
+    () => (families.size === 0 ? events : events.filter((e) => families.has(e.family))),
+    [events, families],
+  );
+
+  const counts = useMemo(() => {
+    const c: Record<string, number> = {};
+    for (const e of events) c[e.family] = (c[e.family] ?? 0) + 1;
+    return c;
+  }, [events]);
+
+  const pageEvents = useMemo(
+    () => filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE),
+    [filtered, page],
+  );
+
+  const sourcesById = useMemo(() => {
+    const m: Record<string, { name: string; family: string; url: string }> = {};
+    for (const s of sources) m[String(s.id)] = { name: s.name, family: s.family, url: s.url };
+    return m;
+  }, [sources]);
+
+  const orgsById = useMemo(() => {
+    const m: Record<string, { kind: string; city: string | null; dept: string | null }> = {};
+    for (const o of orgs) m[String(o.id)] = { kind: o.kind, city: o.city, dept: o.dept };
+    return m;
+  }, [orgs]);
+
+  const eventsById = useMemo(() => {
+    const m: Record<string, { title: string; family: string; severity: number; observedAt: string | null; sourceId: string; assertionType: string }> = {};
+    for (const e of events) {
+      m[String(e.id)] = {
+        title: e.title,
+        family: e.family,
+        severity: e.severity,
+        observedAt: e.observedAt ?? null,
+        sourceId: e.sourceId,
+        assertionType: e.assertionType,
+      };
+    }
+    return m;
+  }, [events]);
+
   const selectedOrg = useMemo(
     () => (selected?.startsWith("org:") ? orgs.find((o) => String(o.id) === selected.slice(4)) : undefined),
-    [selected, orgs]
+    [selected, orgs],
   );
 
   return (
@@ -129,6 +183,7 @@ export default function App() {
           <button aria-current={view === "carte"} onClick={() => setView("carte")}>carte</button>
           <button aria-current={view === "graphe"} onClick={() => setView("graphe")}>graphe</button>
           <button aria-current={view === "sources"} onClick={() => setView("sources")}>sources</button>
+          <button aria-current={view === "sante"} onClick={() => setView("sante")}>santé</button>
         </nav>
         <select className="theme-picker" value={theme} onChange={(e) => setTheme(e.target.value)} aria-label="variante de design">
           <option value="observatoire">observatoire</option>
@@ -155,42 +210,39 @@ export default function App() {
 
       {error && <div className="failed">API indisponible : {error}</div>}
 
-      {view === "sources" ? (
+      {view === "sante" ? (
+        <HealthView sources={sources} />
+      ) : view === "sources" ? (
         <SourcesView sources={sources} />
       ) : (
         <main className="workspace">
           <aside className="panel">
-            <h2>fil d'événements</h2>
-            <ul className="feed-list">
-              {events.map((e) => (
-                <li
-                  key={e.dedupKey}
-                  className="feed-item"
-                  data-selected={selected === `org:${e.orgId}`}
-                  onClick={() => setSelected(e.orgId ? `org:${e.orgId}` : null)}
-                >
-                  <span className="swatch" style={{ background: FAMILY_COLOR[e.family] ?? "var(--cti)" }} />
-                  <div>
-                    <p>{e.title}</p>
-                    <small>
-                      <span className="badge" data-tone={ASSERTION_TONE[e.assertionType]}>
-                        {ASSERTION_LABEL[e.assertionType] ?? e.assertionType}
-                      </span>{" "}
-                      {e.sourceId}
-                      {e.observedAt ? ` ${new Date(e.observedAt).toLocaleDateString("fr-FR")}` : ""}
-                    </small>
-                  </div>
-                </li>
-              ))}
-              {events.length === 0 && !error && <li className="hint">Aucun événement.</li>}
-            </ul>
+            <div className="panel-head">
+              <h2>fil d'événements</h2>
+              <FamilyFilter
+                value={families}
+                onChange={(next) => {
+                  setFamilies(next);
+                  setPage(1);
+                }}
+                counts={counts}
+              />
+            </div>
+            <EventList
+              events={pageEvents}
+              page={page}
+              total={filtered.length}
+              pageSize={PAGE_SIZE}
+              sourcesById={sourcesById}
+              onChange={setPage}
+            />
           </aside>
 
           <section className="stage">
             {view === "carte" ? (
               <Map3D
                 orgs={orgs.map((o) => ({ id: o.id, name: o.name, slug: o.slug, kind: o.kind, city: o.city, lat: o.lat, lon: o.lon }))}
-                events={events.map((e) => ({
+                events={filtered.map((e) => ({
                   id: String(e.id),
                   title: e.title,
                   family: e.family,
@@ -198,11 +250,27 @@ export default function App() {
                   orgId: e.orgId,
                   lat: e.lat,
                   lon: e.lon,
+                  severity: e.severity,
+                  sourceId: e.sourceId,
+                  sourceUrl: e.sourceUrl,
+                  observedAt: e.observedAt,
+                  summary: e.summary,
                 }))}
+                flows={flows}
+                families={Array.from(families)}
                 onSelect={setSelected}
+                onSelectEvent={(id) => setSelected(id.startsWith("org:") ? id : null)}
               />
             ) : (
-              <GraphView nodes={graph.nodes} links={graph.links} onSelect={setSelected} />
+              <GraphView
+                nodes={graph.nodes}
+                links={graph.links}
+                eventsById={eventsById}
+                orgsById={orgsById}
+                sourcesById={sourcesById}
+                onSelect={setSelected}
+                theme={theme}
+              />
             )}
           </section>
 

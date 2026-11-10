@@ -22,6 +22,8 @@
  */
 import { useEffect, useRef } from 'react'
 import * as maplibregl from 'maplibre-gl'
+import { MapLibreOverlay } from '@deck.gl/maplibre'
+import { buildArcData, createArcLayers, type FlowArc } from './arcs.js'
 
 // ── Types ────────────────────────────────────────────────────────────────
 
@@ -62,6 +64,8 @@ export interface Map3DProps {
   onSelect?: (id: string) => void
   /** Clic sur un point d'événement → id de l'événement. */
   onSelectEvent?: (id: string) => void
+  /** Arcs animés deck.gl (flux temps réel) ; vide = pas d'overlay. */
+  flows?: FlowArc[]
 }
 
 // ── Palette fixe (alignée sur les variables CSS de styles.css) ──────────
@@ -195,7 +199,7 @@ function countRadius(count: number): number {
   return 34
 }
 
-type OrgCollection = { type: 'FeatureCollection'; features: Record<string, unknown>[] }
+type OrgCollection = { type: 'FeatureCollection'; features: { type: 'Feature'; geometry: { type: 'Point'; coordinates: [number, number] }; properties: Record<string, unknown> }[] }
 
 function orgCollection(orgs: MapOrg[]): OrgCollection {
   return {
@@ -222,9 +226,9 @@ type CellAccum = {
 
 function pointFeature(e: MapEvent, stroke: string): Record<string, unknown> {
   return {
-    type: 'Feature',
+    type: 'Feature' as const,
     id: e.id,
-    geometry: { type: 'Point', coordinates: [e.lon, e.lat] },
+    geometry: { type: 'Point' as const, coordinates: [e.lon, e.lat] },
     properties: {
       id: e.id,
       kind: 'point',
@@ -246,9 +250,9 @@ function cellFeature(key: string, cell: CellAccum, stroke: string): Record<strin
   const families = [...cell.families.entries()].sort((a, b) => b[1] - a[1])
   const dominant = families[0]?.[0] ?? 'cti'
   return {
-    type: 'Feature',
+    type: 'Feature' as const,
     id: `cell:${key}`,
-    geometry: { type: 'Point', coordinates: [cell.lon / cell.count, cell.lat / cell.count] },
+    geometry: { type: 'Point' as const, coordinates: [cell.lon / cell.count, cell.lat / cell.count] },
     properties: {
       id: `cell:${key}`,
       kind: 'cell',
@@ -454,6 +458,10 @@ export default function Map3D(props: Map3DProps) {
   const onSelectEventRef = useRef(props.onSelectEvent)
   onSelectEventRef.current = props.onSelectEvent
   const renderRef = useRef<(() => void) | null>(null)
+  const flowsRef = useRef<FlowArc[]>(props.flows ?? [])
+  flowsRef.current = props.flows ?? []
+  const overlayRef = useRef<MapLibreOverlay | null>(null)
+  const arcRafRef = useRef(0)
 
   // Création unique de la carte.
   useEffect(() => {
@@ -634,19 +642,19 @@ export default function Map3D(props: Map3DProps) {
         const cellDeg = cellSizeDeg(map.getZoom())
 
         const eventFeatures = buildEventFeatures(visible, cellDeg, aggregate, stroke)
-        ;(map.getSource('events') as maplibregl.GeoJSONSource | undefined)?.setData({ type: 'FeatureCollection', features: eventFeatures })
-        ;(map.getSource('orgs') as maplibregl.GeoJSONSource | undefined)?.setData(orgCollection(orgs))
+        ;(map.getSource('events') as maplibregl.GeoJSONSource | undefined)?.setData({ type: 'FeatureCollection', features: eventFeatures } as unknown as Parameters<maplibregl.GeoJSONSource['setData']>[0])
+        ;(map.getSource('orgs') as maplibregl.GeoJSONSource | undefined)?.setData(orgCollection(orgs) as unknown as Parameters<maplibregl.GeoJSONSource['setData']>[0])
 
         const hotOrgs = new Set(visible.filter((e) => e.orgId != null).map((e) => e.orgId as number))
         const hotFeatures = orgs.flatMap((o) => {
           if (o.lat == null || o.lon == null || !Number.isFinite(o.lat) || !Number.isFinite(o.lon) || !hotOrgs.has(o.id)) return []
           return [{
-            type: 'Feature',
-            geometry: { type: 'Point', coordinates: [o.lon, o.lat] as [number, number] },
+            type: 'Feature' as const,
+            geometry: { type: 'Point' as const, coordinates: [o.lon, o.lat] as [number, number] },
             properties: { color: NEUTRAL_COLOR },
           }]
         })
-        ;(map.getSource('hot') as maplibregl.GeoJSONSource | undefined)?.setData({ type: 'FeatureCollection', features: hotFeatures })
+        ;(map.getSource('hot') as maplibregl.GeoJSONSource | undefined)?.setData({ type: 'FeatureCollection', features: hotFeatures } as unknown as Parameters<maplibregl.GeoJSONSource['setData']>[0])
 
         const orgById = new Map(orgs.map((o) => [o.id, o]))
         const arcFeatures = visible.flatMap((e) => {
@@ -654,14 +662,36 @@ export default function Map3D(props: Map3DProps) {
           const org = orgById.get(e.orgId)
           if (!org || org.lat == null || org.lon == null) return []
           return [{
-            type: 'Feature',
-            geometry: { type: 'LineString', coordinates: arcPoints([org.lon, org.lat], [e.lon, e.lat]) },
+            type: 'Feature' as const,
+            geometry: { type: 'LineString' as const, coordinates: arcPoints([org.lon, org.lat], [e.lon, e.lat]) },
             properties: { family: e.family, color: FAMILY_COLORS[e.family] ?? FAMILY_COLOR_FALLBACK },
           }]
         })
-        ;(map.getSource('arcs') as maplibregl.GeoJSONSource | undefined)?.setData({ type: 'FeatureCollection', features: arcFeatures })
+        ;(map.getSource('arcs') as maplibregl.GeoJSONSource | undefined)?.setData({ type: 'FeatureCollection', features: arcFeatures } as unknown as Parameters<maplibregl.GeoJSONSource['setData']>[0])
       }
       renderRef.current = renderData
+      // ── Arcs animés deck.gl (overlay interleaved) ─────────────────────
+      // Le flux temps réel arrive via la prop `flows` ; l'overlay se met à
+      // jour sans recréer la carte (setProps), et l'animation est une boucle
+      // rAF qui rejoue les trajets (TripsLayer).
+      let overlay: MapLibreOverlay | null = null
+      const arcStart = performance.now()
+      const rebuildArcLayers = (time: number) => {
+        if (!overlay) return
+        overlay.setProps({ layers: createArcLayers(buildArcData(flowsRef.current), { time, showTrips: true }) })
+      }
+      const tick = () => {
+        rebuildArcLayers(((performance.now() - arcStart) / 1000) % 60)
+        arcRafRef.current = requestAnimationFrame(tick)
+      }
+      map.once('load', () => {
+        try {
+          overlay = new MapLibreOverlay({ interleaved: true, layers: [] })
+          map?.addControl(overlay)
+          overlayRef.current = overlay
+          tick()
+        } catch { /* WebGL2 absent ou service tuiles indisponible */ }
+      })
 
       const syncTheme = () => {
         applyMapTheme(map!, document.documentElement.dataset.theme ?? 'observatoire')
@@ -747,6 +777,7 @@ export default function Map3D(props: Map3DProps) {
       observer.disconnect()
       themeObserver?.disconnect()
       clearTimeout(zoomTimer)
+      cancelAnimationFrame(arcRafRef.current)
       popup?.remove()
       map?.remove()
     }
@@ -755,7 +786,11 @@ export default function Map3D(props: Map3DProps) {
   // Mise à jour des données quand les props changent (ou au chargement de la carte).
   useEffect(() => {
     renderRef.current?.()
-  }, [props.orgs, props.events, props.families])
+    flowsRef.current = props.flows ?? []
+    overlayRef.current?.setProps({
+      layers: createArcLayers(buildArcData(props.flows ?? []), { time: 0, showTrips: true }),
+    })
+  }, [props.orgs, props.events, props.families, props.flows])
 
   return <div ref={ref} style={{ width: '100%', height: '100%' }} />
 }
