@@ -32,6 +32,8 @@
 import ForceGraph2D, { type LinkObject, type NodeObject } from 'react-force-graph-2d';
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
+import GraphMatrix from '../components/GraphMatrix';
+import type { Graph } from '../api';
 
 // ── Types ────────────────────────────────────────────────────────
 
@@ -348,6 +350,33 @@ function overlayStyle(position: CSSProperties): CSSProperties {
   };
 }
 
+const MODE_BAR: CSSProperties = {
+  position: 'absolute',
+  top: 12,
+  right: 12,
+  zIndex: 6,
+  display: 'flex',
+  gap: 4,
+  padding: 4,
+  background: 'var(--surface)',
+  border: '1px solid var(--border)',
+  borderRadius: 'var(--radius)',
+};
+
+function modeButtonStyle(active: boolean): CSSProperties {
+  return {
+    padding: '4px 10px',
+    fontSize: 11,
+    letterSpacing: '0.04em',
+    textTransform: 'uppercase',
+    color: active ? 'var(--text)' : 'var(--muted)',
+    background: active ? 'var(--surface-2)' : 'transparent',
+    border: '1px solid ' + (active ? 'var(--border)' : 'transparent'),
+    borderRadius: 'var(--radius)',
+    cursor: 'pointer',
+  };
+}
+
 // ── Composant ────────────────────────────────────────────────────
 
 export default function GraphView(props: GraphViewProps) {
@@ -366,6 +395,20 @@ export default function GraphView(props: GraphViewProps) {
   const [kindFilter, setKindFilter] = useState<Set<string>>(() => new Set());
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [mode, setMode] = useState<'network' | 'matrix'>('network');
+
+  const matrixNodes = useMemo(
+    () =>
+      nodes.filter(
+        (node): node is GraphNode & { kind: Graph['nodes'][number]['kind'] } =>
+          node.kind === 'org' ||
+          node.kind === 'family' ||
+          node.kind === 'dept' ||
+          node.kind === 'group' ||
+          node.kind === 'asset',
+      ),
+    [nodes],
+  );
 
   const positionsRef = useRef<Map<string, { x: number; y: number }>>(new Map());
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -723,6 +766,37 @@ export default function GraphView(props: GraphViewProps) {
         fontFamily: 'var(--font-body)',
       }}
     >
+      <div style={MODE_BAR} role="tablist" aria-label="affichage du graphe">
+        <button
+          type="button"
+          role="tab"
+          aria-selected={mode === 'network'}
+          aria-current={mode === 'network' ? 'true' : undefined}
+          className={mode === 'network' ? 'is-active' : undefined}
+          onClick={() => setMode('network')}
+          style={modeButtonStyle(mode === 'network')}
+        >
+          réseau
+        </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected={mode === 'matrix'}
+          aria-current={mode === 'matrix' ? 'true' : undefined}
+          className={mode === 'matrix' ? 'is-active' : undefined}
+          onClick={() => setMode('matrix')}
+          style={modeButtonStyle(mode === 'matrix')}
+        >
+          matrice
+        </button>
+      </div>
+
+      {mode === 'matrix' ? (
+        <div style={{ position: 'absolute', inset: 0, padding: '44px 12px 12px', display: 'flex', minHeight: 0 }}>
+          <GraphMatrix nodes={matrixNodes} links={links} />
+        </div>
+      ) : (
+        <>
       <div ref={containerRef} style={{ position: 'absolute', inset: 0 }}>
         {size.width > 0 && (
           <ForceGraph2D<GraphNode, GraphLink>
@@ -852,6 +926,8 @@ export default function GraphView(props: GraphViewProps) {
             ))}
           </dl>
         </aside>
+      )}
+        </>
       )}
     </div>
   );
