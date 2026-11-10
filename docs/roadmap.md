@@ -1,0 +1,148 @@
+# Radar Cyber — roadmap
+
+Établie le 10 novembre 2026 à partir de 47 réponses. Chaque phase a un critère
+de sortie observable. Une phase n'est finie que quand son critère est vrai.
+
+## Ce que le projet doit être à la fin
+
+Un écran allumé en permanence sur un second moniteur, qui montre en direct ce
+qui tombe sur les organisations de Nouvelle-Aquitaine. Pas un tableau de bord
+qu'on consulte : une veille qui tourne.
+
+Trois propriétés non négociables :
+
+1. **Rien de faux.** Une alerte qui sort doit être défendable devant la personne
+   concernée. On préfère rater un signal que d'en inventer un.
+2. **Rien d'illisible.** L'information se lit à deux mètres, sans cliquer.
+3. **Rien de payant.** Zéro euro. Ce qui coûte de l'argent n'entre pas.
+
+Ce que ce n'est pas : un produit commercial, un outil multi-utilisateurs, une
+plateforme CTI complète. Usage personnel, plus quelques personnes de confiance.
+
+---
+
+## Phase 0 — Terminer ce qui est cassé
+
+| | |
+|---|---|
+| **Pourquoi** | trois défauts visibles aujourd'hui : la carte est illisible, le fil contient de la presse non cyber, le graphe ne calcule rien |
+| **Sortie** | la carte affiche 12 tracés au lieu de 568 ; aucun article hors sujet dans les 50 derniers événements ; le graphe a une vue qui informe |
+| **Coût** | 2 à 3 soirées |
+
+- Agréger les arcs de la carte par destination (284 → 12)
+- Filtrer le fil avec le décideur déjà branché : un événement sans organisation
+  doit être reconnu comme régional pour entrer
+- Remplacer le graphe force-directed par une matrice famille × département
+- Ajouter `graphology` pour les calculs, garder le rendu actuel
+
+## Phase 1 — Le référentiel devient fiable
+
+| | |
+|---|---|
+| **Pourquoi** | 19 organisations sur 529 ont un événement rattaché. Sans rattachement, ni graphe, ni historique, ni observatoire |
+| **Sortie** | au moins 50 % des événements sont rattachés à une organisation, avec un taux d'erreur mesuré |
+| **Coût** | 1 à 2 semaines |
+
+- Brancher SIRENE pour les noms officiels et les dénominations historiques
+- Table `org_alias` : acronyme, ancien nom, marque, période de validité
+- Mesurer précision et rappel sur un échantillon annoté à la main
+- Ne jamais fusionner une filiale avec sa société mère
+
+## Phase 2 — La confiance devient visible
+
+| | |
+|---|---|
+| **Pourquoi** | tu as demandé une note unique, mais une alerte a besoin de dire *pourquoi* on la croit |
+| **Sortie** | chaque alerte affiche sa provenance, son niveau de confiance, le texte qui l'a déclenchée, et les sources qui la confirment |
+| **Coût** | 1 semaine |
+
+- Note unique sur 100, calculée à partir de quatre composantes internes :
+  fiabilité de la source, nature de l'affirmation, qualité du rattachement,
+  corroboration indépendante
+- La note unique reste affichée, les quatre composantes sont consultables
+- Statut « à vérifier » pour les décisions du modèle sous le seuil
+
+## Phase 3 — La couverture s'élargit
+
+| | |
+|---|---|
+| **Pourquoi** | tu veux beaucoup plus de sources, et le dark web public manque |
+| **Sortie** | 800 sources actives, dont des pages `.onion` de revendication |
+| **Coût** | 2 semaines |
+
+- Tor en proxy SOCKS, collecte des pages publiques de revendication
+- Sites de paste et index de fuites publics
+- Warninglists MISP pour arrêter de considérer des valeurs légitimes comme des IOC
+- Aucun forum criminel, aucune marketplace : la ligne ne bouge pas
+
+## Phase 4 — L'écran mural
+
+| | |
+|---|---|
+| **Pourquoi** | l'usage réel est un écran fixe, pas une consultation |
+| **Sortie** | une vue plein écran qui tourne seule, sans souris, lisible à cinq mètres |
+| **Coût** | 1 semaine |
+
+- Quatre zones maximum, une seule animation
+- Rafraîchissement automatique par le flux SSE existant
+- Mode sans interaction, sortie par une touche
+
+## Phase 5 — Le rapport
+
+| | |
+|---|---|
+| **Pourquoi** | tu veux un export PDF hebdomadaire, et c'est ce qui rend l'outil transmissible |
+| **Sortie** | un PDF hebdomadaire généré automatiquement, avec les incidents de la semaine |
+| **Coût** | 1 semaine |
+
+- Gabarit sobre, imprimable en noir et blanc
+- Une page par incident, une page de synthèse par département
+- TLP:RED exclu de l'export par défaut
+
+## Phase 6 — L'infrastructure
+
+| | |
+|---|---|
+| **Pourquoi** | tu veux blinder l'infra et la pentester toi-même, plus tard |
+| **Sortie** | l'application accessible hors de la machine, derrière une authentification, avec des sauvegardes hors site |
+| **Coût** | 1 semaine, et seulement quand les phases 0 à 5 tiennent |
+
+- Cloudflare Tunnel pour l'exposition, sans ouvrir de port
+- Cloudflare Access devant l'UI à la place du JWT maison
+- **Les données TLP:RED ne sortent pas** par un tiers
+- Sauvegarde chiffrée hors site
+
+---
+
+## Ce qu'on ne fait pas
+
+| Écarté | Raison |
+|---|---|
+| OpenCTI, MISP, TheHive installés | 8 à 16 Go de RAM, et on ne fait pas le même métier |
+| Splink, matching probabiliste | on a 19 organisations rattachées ; il faut d'abord en rattacher |
+| IntelOwl, Cortex, MISP Modules | Python lourd, AGPL, contraire au « zéro euro » |
+| Forums criminels, marketplaces | recel de données volées, même sans usage |
+| Deuxième réécriture du design | on a déjà une direction qui tient |
+
+## Les briques open source retenues
+
+| Brique | Rôle | Licence |
+|---|---|---|
+| `graphology` | algorithmes de graphe | MIT |
+| warninglists MISP | arrêter de fausser les IOC | données |
+| MISP Galaxy | acteurs et ransomwares | données |
+| MITRE ATT&CK STIX | techniques | données |
+| `pg-boss` | remplacer la planification maison | MIT |
+
+## Le rythme
+
+Quelques soirées par semaine, projet long, aucune échéance externe. À ce rythme,
+les phases 0 à 2 représentent environ un mois, les phases 3 à 5 deux mois de plus.
+
+## Le risque principal
+
+C'est toi qui l'as nommé : **la complexité technique qui s'accumule**. C'est pour
+ça que ce document liste autant ce qu'on ne fait pas que ce qu'on fait.
+
+La règle : à chaque fois qu'un composant peut être remplacé par une donnée ou par
+un dépôt existant, on prend la donnée ou le dépôt.
