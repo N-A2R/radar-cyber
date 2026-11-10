@@ -37,6 +37,36 @@ let activeIndex: ActiveIndex | null = null;
 const TITLE_FIELDS = ["title", "name", "cveID", "cve", "value", "indicator", "description", "summary", "vulnerabilityName", "post_title"];
 const LINK_FIELDS = ["link", "url", "reference", "href", "source_url", "permalink"];
 const DATE_FIELDS = ["date", "pubDate", "dateAdded", "published", "created", "timestamp", "last_seen", "discovered"];
+const SUMMARY_FIELDS = ["summary", "description", "content", "excerpt", "abstract", "body", "text", "post_content"];
+
+/** Entités nommées les plus fréquentes dans les flux RSS/Atom. */
+const NAMED_ENTITIES: Record<string, string> = {
+  amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " ", copy: "©",
+  reg: "®", trade: "™", middot: "·", hellip: "…", mdash: "—", ndash: "–",
+  laquo: "«", raquo: "»", lsquo: "‘", rsquo: "’", ldquo: "“", rdquo: "”",
+  agrave: "à", aacute: "á", acirc: "â", ccedil: "ç", eacute: "é", egrave: "è",
+  ecirc: "ê", euml: "ë", igrave: "ì", icirc: "î", iuml: "ï", ocirc: "ô",
+  ugrave: "ù", ucirc: "û", uuml: "ü", ouml: "ö", auml: "ä", szlig: "ß",
+};
+
+/**
+ * Décode les entités HTML (&amp;, &eacute;, &#xE9;, &#8217;…). Certains flux
+ * échappent deux fois, si bien que l'UI affichait « d&#xE9;fectueux ».
+ */
+function decodeEntities(value: string): string {
+  if (!value || !value.includes("&")) return value;
+  return value.replace(/&(#x?[0-9a-fA-F]+|[a-zA-Z]+);/g, (match, entity: string) => {
+    if (entity.startsWith("#x") || entity.startsWith("#X")) {
+      const code = Number.parseInt(entity.slice(2), 16);
+      return Number.isFinite(code) ? String.fromCodePoint(code) : match;
+    }
+    if (entity.startsWith("#")) {
+      const code = Number.parseInt(entity.slice(1), 10);
+      return Number.isFinite(code) ? String.fromCodePoint(code) : match;
+    }
+    return NAMED_ENTITIES[entity.toLowerCase()] ?? match;
+  });
+}
 
 function detectIndicatorType(line: string): string | null {
   const value = line.trim();
@@ -211,7 +241,8 @@ async function ingestNarrative(source: SourceRow, body: string, orgIndex: Releva
   let skipped = 0;
   const fetchedAt = new Date();
   for (const item of items) {
-    const title = explicitOr(item, parser.titleField, TITLE_FIELDS).slice(0, 400);
+    const title = decodeEntities(explicitOr(item, parser.titleField, TITLE_FIELDS)).slice(0, 400);
+    const summary = decodeEntities(explicitOr(item, parser.summaryField, SUMMARY_FIELDS)).slice(0, 2000);
     if (!title) continue;
     const link = explicitOr(item, parser.linkField, LINK_FIELDS);
     if (gate && !isRelevant({ title, url: link, sourceUrl: link }, { orgs: orgIndex, ignoreDomains: [sourceHost] }).relevant) {
@@ -230,14 +261,14 @@ async function ingestNarrative(source: SourceRow, body: string, orgIndex: Releva
     const r = await ingestQuery<{ inserted: boolean }>(
       `INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at, date_source, date_confidence, severity, confidence,
         source_id, source_url, evidence, geo_type)
-       VALUES ($1,$2,'ambient_signal',$3,NULL,$4,$5,$6,2,'C3',$7,$8,$9,'unknown')
+       VALUES ($1,$2,'ambient_signal',$3,$10,$4,$5,$6,2,'C3',$7,$8,$9,'unknown')
        ON CONFLICT (dedup_key) DO UPDATE SET
          observed_at      = COALESCE(event.observed_at, EXCLUDED.observed_at),
          date_source      = COALESCE(event.date_source, EXCLUDED.date_source),
          date_confidence  = COALESCE(event.date_confidence, EXCLUDED.date_confidence)
        RETURNING (xmax = 0) AS inserted`,
       [dedupKey, source.family, title, parsed.at?.toISOString() ?? null, parsed.source, parsed.confidence,
-        source.id, link || null, JSON.stringify({ feed: source.name })]
+        source.id, link || null, JSON.stringify({ feed: source.name }), summary]
     );
     if (r.rows[0]?.inserted) added++;
   }
