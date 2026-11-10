@@ -1,0 +1,227 @@
+/* Écran mural : quatre zones, lisibles à cinq mètres, aucune interaction. */
+
+.wall {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 22px;
+  padding: 26px 32px;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: clip;
+  overflow-y: hidden;
+}
+
+/* 1. Compteur géant */
+
+.wall-counter {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  display: flex;
+  align-items: flex-end;
+  gap: 48px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.wall-figure {
+  font-size: clamp(64px, 9vw, 132px);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+.wall-figure-label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-bottom: 8px;
+}
+
+.wall-label {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.wall-sub {
+  display: flex;
+  gap: 40px;
+  margin-left: auto;
+  padding-bottom: 8px;
+}
+
+.wall-sub-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.wall-sub-value {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+/* 2. Fil vertical */
+
+.wall-feed {
+  grid-column: 1;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  min-height: 0;
+  overflow: hidden;
+  padding: 18px 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+.wall-section-title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.wall-feed-row {
+  display: grid;
+  grid-template-columns: 52px 12px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  font-size: 19px;
+}
+
+.wall-time {
+  font-size: 17px;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+.wall-pill {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--sev-1);
+}
+
+.wall-feed-title {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--text);
+}
+
+.wall-empty {
+  font-size: 17px;
+  color: var(--faint);
+}
+
+/* 3. Répartition par famille */
+
+.wall-families {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  min-height: 0;
+  overflow: hidden;
+  padding: 18px 20px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+.wall-family {
+  display: grid;
+  grid-template-columns: 104px minmax(0, 1fr) 56px;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  font-size: 17px;
+}
+
+.wall-family-name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--muted);
+}
+
+.wall-bar {
+  height: 18px;
+  border-radius: 3px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.wall-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--accent);
+}
+
+.wall-family-count {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* 4. Fraîcheur */
+
+.wall-footer {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 15px;
+  color: var(--faint);
+}
+
+.wall-freshness {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.wall-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.25;
+  transition: opacity 900ms linear;
+}
+
+.wall-dot.is-on {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wall-dot {
+    transition: none;
+    opacity: 1;
+  }
+}

@@ -11,6 +11,7 @@ import { parseObservedAt } from "./dates.js";
 import { fetchResilient } from "./http.js";
 import { isRelevant, loadRelevanceOrgIndex, matchOrgForText, type RelevanceOrg } from "./relevance.js";
 import { isActionableIndicator, loadActiveIndex, type ActiveIndex } from "./filter.js";
+import { filterIndicators } from "./warninglist.js";
 
 type SourceRow = {
   id: string;
@@ -33,6 +34,8 @@ const MAX_BODY_BYTES = 25 * 1024 * 1024;
 const BATCH_SIZE = 1000;
 /** Index des actifs surveillés : chargé une fois par run dans `runGenericSources`. */
 let activeIndex: ActiveIndex | null = null;
+/** Journal du run courant : `ingestIndicator` n'a pas de contexte à recevoir. */
+let runLog: ((msg: string) => void) | null = null;
 
 const TITLE_FIELDS = ["title", "name", "cveID", "cve", "value", "indicator", "description", "summary", "vulnerabilityName", "post_title"];
 const LINK_FIELDS = ["link", "url", "reference", "href", "source_url", "permalink"];
@@ -186,9 +189,19 @@ async function ingestIndicator(source: SourceRow, body: string, idx?: ActiveInde
   const flush = async (): Promise<number> => {
     if (batch.length === 0) return 0;
     const rows = batch.splice(0, batch.length);
-    const values = rows.map((_, i) => `($${i * 2 + 1}, $${i * 2 + 2}, now(), now(), 'WHITE', 'C3', $${rows.length * 2 + 1})`).join(", ");
+    // Dénylist : les valeurs légitimement courantes (domaines populaires,
+    // réseaux de datacenters) ne sont pas des indicateurs d'attaque.
+    const { kept, dropped } = filterIndicators(
+      rows.map((row) => ({ kind: row.type, value: row.value, row }))
+    );
+    if (dropped > 0) {
+      runLog?.(`filtre : ${dropped}/${rows.length} indicateur(s) légitime(s) écarté(s) (warninglists)`);
+    }
+    const usable = kept.map((entry) => entry.row);
+    if (usable.length === 0) return 0;
+    const values = usable.map((_, i) => `($${i * 2 + 1}, $${i * 2 + 2}, now(), now(), 'WHITE', 'C3', $${usable.length * 2 + 1})`).join(", ");
     const params: string[] = [];
-    for (const row of rows) {
+    for (const row of usable) {
       params.push(row.type, row.value);
     }
     params.push(source.id);
@@ -360,6 +373,7 @@ export async function runGenericSources(
 	}
 	const { rows } = await ingestQuery<SourceRow>(sql, params);
   log(`ingestion générique : ${rows.length} sources candidat(es)`);
+  runLog = log;
 
   // Index de pertinence chargé une seule fois par run (392 orgs + domaines).
   const { rows: orgRows } = await ingestQuery<{ name: string; domain: string | null; assets: string[] | null }>(
