@@ -28,31 +28,31 @@ const MOCK_EVENTS: Event[] = [
     id: "m1", dedupKey: "mock:m1", family: "ransomware", assertionType: "third_party_claim",
     title: "Revendication non confirmée visant un établissement de santé régional", summary: null,
     observedAt: "2026-11-09T14:00:00Z", severity: 4, confidence: "C3", sourceId: "mock", sourceUrl: null,
-    geoType: "claimed_origin", lat: 44.8378, lon: -0.5792, orgId: 1,
+    geoType: "claimed_origin", lat: 44.8378, lon: -0.5792, orgId: 1, regional: true,
   },
   {
     id: "m2", dedupKey: "mock:m2", family: "vuln", assertionType: "confirmed_incident",
     title: "CVE-2026-24713 (BeanUtils) exploitée — KEV", summary: null,
     observedAt: "2026-11-08T09:00:00Z", severity: 5, confidence: "A1", sourceId: "cisa_kev", sourceUrl: null,
-    geoType: "unknown", lat: null, lon: null, orgId: 3,
+    geoType: "unknown", lat: null, lon: null, orgId: 3, regional: true,
   },
   {
     id: "m3", dedupKey: "mock:m3", family: "phishing", assertionType: "technical_indicator",
     title: "Domaine typosquatté détecté : chu-bordeaux.fr", summary: null,
     observedAt: "2026-11-07T11:00:00Z", severity: 3, confidence: "C3", sourceId: "mock", sourceUrl: null,
-    geoType: "hosting_estimate", lat: 51.5074, lon: -0.1278, orgId: 1,
+    geoType: "hosting_estimate", lat: 51.5074, lon: -0.1278, orgId: 1, regional: true,
   },
   {
     id: "m4", dedupKey: "mock:m4", family: "cert_fr", assertionType: "ambient_signal",
     title: "Avis CERT-FR : campagne d'hameçonnage ciblant les collectivités", summary: null,
     observedAt: "2026-11-06T08:00:00Z", severity: 3, confidence: "A1", sourceId: "cert_fr", sourceUrl: null,
-    geoType: "unknown", lat: null, lon: null, orgId: null,
+    geoType: "unknown", lat: null, lon: null, orgId: null, regional: false,
   },
   {
     id: "m5", dedupKey: "mock:m5", family: "malware", assertionType: "technical_indicator",
     title: "Hash associé à un infostealer observé dans un flux CTI", summary: null,
     observedAt: "2026-11-05T16:00:00Z", severity: 3, confidence: "C3", sourceId: "mock", sourceUrl: null,
-    geoType: "unknown", lat: null, lon: null, orgId: 5,
+    geoType: "unknown", lat: null, lon: null, orgId: 5, regional: true,
   },
 ];
 

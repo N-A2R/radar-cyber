@@ -61,6 +61,8 @@ export type Event = {
   lat: number | null;
   lon: number | null;
   orgId: number | null;
+  /** Vrai si l'événement touche une organisation ou une entité de la région. */
+  regional: boolean;
 };
 
 export type Source = {
@@ -273,7 +275,8 @@ export type OrgDetail = {
 export const api = {
   orgs: () => get<Org[]>("/orgs"),
   orgDetail: (id: number) => get<OrgDetail>(`/orgs/${id}`),
-  events: (limit = 100) => get<Event[]>(`/events?limit=${limit}`),
+  events: (limit = 100, order: "regional" | "recent" = "regional") =>
+    get<Event[]>(`/events?limit=${limit}&order=${order}`),
   graph: (days = 90) => get<Graph>(`/graph?days=${days}`),
   sources: () => get<Source[]>("/sources"),
   stats: () => get<Stats>("/stats"),

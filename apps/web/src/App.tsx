@@ -37,6 +37,8 @@ export default function App() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(!MOCK_MODE);
   const [family, setFamily] = useState<string | null>(null);
+  // Ordre du fil : « régional d'abord » par défaut, « tout » = ordre de l'API.
+  const [regionalFirst, setRegionalFirst] = useState(true);
   const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
   const [selectedOrgId, setSelectedOrgId] = useState<number | null>(null);
   const [sheetOrgId, setSheetOrgId] = useState<number | null>(null);
@@ -83,6 +85,11 @@ export default function App() {
           lat: (row.lat as number | null) ?? null,
           lon: (row.lon as number | null) ?? null,
           orgId: (row.org_id as number | null) ?? null,
+          // Même définition que /events : org rattachée ou géographie d'entité.
+          regional:
+            (row.org_id as number | null) !== null ||
+            row.geo_type === "claimed_origin" ||
+            row.geo_type === "entity_location",
         };
         setEvents((prev) => [event, ...prev].slice(0, FEED_LIMIT));
       } catch {
@@ -156,6 +163,19 @@ export default function App() {
         : events.filter((e) => e.family === family),
     [events, family],
   );
+
+  // « régional d'abord » : les événements qui touchent la région passent en
+  // tête, les autres restent visibles derrière, dans l'ordre de l'API.
+  const ordered = useMemo(() => {
+    if (!regionalFirst) return filtered;
+    return filtered
+      .map((event, index) => ({ event, index }))
+      .sort(
+        (a, b) =>
+          Number(b.event.regional) - Number(a.event.regional) || a.index - b.index,
+      )
+      .map((entry) => entry.event);
+  }, [filtered, regionalFirst]);
 
   const eventsById = useMemo(() => {
     const m: Record<string, { title: string; family: string; severity: number; observedAt: string | null; sourceId: string; assertionType: string }> = {};
@@ -290,8 +310,26 @@ export default function App() {
       <div className="shell__body" style={bodyStyle}>
         {view === "wall" ? null : (
           <aside className="shell__feed">
+            <div className="family-filter" role="group" aria-label="Ordre du fil">
+              <button
+                type="button"
+                className="family-filter__btn"
+                aria-pressed={regionalFirst}
+                onClick={() => setRegionalFirst(true)}
+              >
+                <span>régional d'abord</span>
+              </button>
+              <button
+                type="button"
+                className="family-filter__btn"
+                aria-pressed={!regionalFirst}
+                onClick={() => setRegionalFirst(false)}
+              >
+                <span>tout</span>
+              </button>
+            </div>
             <EventList
-              events={filtered}
+              events={ordered}
               byFamily={byFamily}
               family={family}
               onFamily={setFamily}
