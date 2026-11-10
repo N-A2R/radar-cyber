@@ -1,0 +1,32 @@
+# Dépendances
+node_modules/
+.pnpm-store/
+
+# Données locales PostgreSQL (ne jamais versionner)
+apps/api/pgdata/
+pgdata/
+*.sqlite
+*.db
+*.db-wal
+*.db-shm
+
+# Secrets et environnement
+.env
+.env.*
+!.env.example
+
+# Build
+dist/
+build/
+*.tsbuildinfo
+.vite/
+
+# Logs et artefacts
+*.log
+logs/
+nohup.out
+coverage/
+
+# Système
+.DS_Store
+Thumbs.db

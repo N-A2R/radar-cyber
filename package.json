@@ -1,0 +1,19 @@
+{
+  "name": "radar-cyber",
+  "private": true,
+  "packageManager": "pnpm@12.15.0",
+  "scripts": {
+    "dev": "pnpm -r --parallel dev",
+    "dev:api": "pnpm -F @radar/api dev",
+    "dev:web": "pnpm -F @radar/web dev",
+    "typecheck": "pnpm -r typecheck"
+  },
+  "devDependencies": {
+    "embedded-postgres": "18.6.0-beta.19"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}
