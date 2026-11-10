@@ -1,34 +1,45 @@
 /**
  * Rafraîchissement des scores EPSS (FIRST, API publique sans clé).
  *
- * Sort la règle d'admission `admitByEpss` (`collectors/relevance.ts`) de son
- * état inerte : la base ne contenait que 100 scores de test, la règle rendait
- * donc 0 item. Ce script télécharge le dump du jour, ne garde que les CVE que
- * le radar suit déjà (indicator / event / org_alias) et écrit dans `event`
- * (source `epss`, dedup `epss:<CVE>`) les scores >= EPSS_ADMISSION_THRESHOLD,
- * au format exact du collecteur `epss` : titre `CVE-AAAA-N — EPSS x`,
- * `evidence->>'epss'` portant le score. C'est la seule table lue par
- * `loadCoverageContext()` ; aucun cache séparé. Les scores sous le seuil ne
- * peuvent jamais admettre un item et restent dehors : ils ne feraient que
- * gonfler le fil (les CVE suivies restent mesurées, cf. « retenues »).
+ * Télécharge le dump EPSS complet du jour (~402 000 CVE) et l'écrit dans la
+ * table `epss` (migration 021 : `cve` PK, `score`, `percentile`, `updated_at`).
+ * Aucun événement n'est créé : les scores alimentent `loadCoverageContext()` /
+ * `admitByEpss()` (`collectors/relevance.ts`), ce dernier utilisant le seuil
+ * `EPSS_ADMISSION_THRESHOLD`.
  *
- * Défaut : --dry-run (aucune écriture). --apply pour écrire.
+ * L'API FIRST **n'a pas de tri** : `order=!epss` est accepté mais ignoré
+ * (vérifié : la réponse est identique avec et sans paramètre). Il n'existe donc
+ * aucun moyen d'obtenir « les N meilleurs scores » côté serveur ; on pagine tout
+ * via `limit`/`offset` (limit plafonné à 10 000) jusqu'à `total`, sinon on ne
+ * récupère qu'une tranche arbitraire des CVE (les premiers du tri interne).
+ * L'API renvoie occasionnellement des 504 : les pages sont rejouées avec backoff.
+ *
+ * Les lignes sont déversées dans une table temporaire puis upsertées
+ * (`ON CONFLICT (cve) DO UPDATE`) : un COPY direct dans `epss` échouerait sur
+ * les doublons et ne sait pas faire de mise à jour.
+ *
+ * Défaut : --dry-run (aucune écriture). --apply pour écrire dans epss.
  *
  * Usage :
- *   apps/api/node_modules/.bin/tsx scripts/refresh-epss.mts            # simulation
- *   apps/api/node_modules/.bin/tsx scripts/refresh-epss.mts --apply    # écrit
- *   apps/api/node_modules/.bin/tsx scripts/refresh-epss.mts --apply --date=2026-11-10
- *   apps/api/node_modules/.bin/tsx scripts/refresh-epss.mts --limit=2000 --page-delay=1500
+ *   pnpm -F @radar/api exec tsx ../../scripts/refresh-epss.mts            # simulation
+ *   pnpm -F @radar/api exec tsx ../../scripts/refresh-epss.mts --apply    # écrit dans epss
+ *   pnpm -F @radar/api exec tsx ../../scripts/refresh-epss.mts --apply --date=2026-11-10
  */
-import { ingestQuery, closePools } from "../apps/api/src/db.js";
+import { ingestPool, closePools } from "../apps/api/src/db.js";
 import { EPSS_ADMISSION_THRESHOLD } from "../apps/api/src/collectors/relevance.js";
 
 const API = "https://api.first.org/data/v1/epss";
 const USER_AGENT = "radar-cyber-epss/1.0 (+https://radar-cyber.local; EPSS refresh)";
 /** L'API plafonne `limit` à 10 000 (vérifié : demander 100 001 rend limit=10000). */
 const MAX_LIMIT = 10_000;
-/** Politesse : 1 requête par seconde maximum. */
-const MIN_REQUEST_INTERVAL_MS = 1_000;
+/** Politesse : 1,1 s entre deux requêtes, y compris après un échec. */
+const MIN_REQUEST_INTERVAL_MS = 1_100;
+/** 504/429 observés sous charge ; 5 tentatives avec backoff exponentiel. */
+const MAX_RETRIES = 5;
+const RETRY_BASE_MS = 2_000;
+const RETRYABLE_STATUS = new Set([429, 500, 502, 503, 504]);
+/** Taille des lots insérés dans la table temporaire. */
+const STAGE_BATCH = 5_000;
 
 interface Options {
 	apply: boolean;
@@ -41,13 +52,10 @@ interface EpssApiRow {
 	cve?: unknown;
 	epss?: unknown;
 	percentile?: unknown;
-	date?: unknown;
 }
 
 interface EpssApiPage {
 	total?: unknown;
-	offset?: unknown;
-	limit?: unknown;
 	data?: unknown;
 }
 
@@ -55,17 +63,16 @@ interface ScoreRow {
 	cve: string;
 	score: number;
 	percentile: number | null;
-	date: string;
 }
 
 function parseArgs(argv: string[]): Options {
-	const opts: Options = { apply: false, date: null, limit: MAX_LIMIT, pageDelayMs: 1_100 };
+	const opts: Options = { apply: false, date: null, limit: MAX_LIMIT, pageDelayMs: MIN_REQUEST_INTERVAL_MS };
 	for (const arg of argv) {
 		if (arg === "--apply") opts.apply = true;
 		else if (arg === "--dry-run") opts.apply = false;
 		else if (arg.startsWith("--date=")) opts.date = arg.slice(7).trim() || null;
 		else if (arg.startsWith("--limit=")) opts.limit = Math.min(MAX_LIMIT, Math.max(1, Number(arg.slice(8)) || MAX_LIMIT));
-		else if (arg.startsWith("--page-delay=")) opts.pageDelayMs = Math.max(MIN_REQUEST_INTERVAL_MS, Number(arg.slice(13)) || 1_100);
+		else if (arg.startsWith("--page-delay=")) opts.pageDelayMs = Math.max(MIN_REQUEST_INTERVAL_MS, Number(arg.slice(13)) || MIN_REQUEST_INTERVAL_MS);
 		else if (arg === "--help" || arg === "-h") {
 			console.log("usage: refresh-epss.mts [--apply] [--date=AAAA-MM-JJ] [--limit=N] [--page-delay=ms]");
 			process.exit(0);
@@ -85,118 +92,143 @@ function resolveDate(explicit: string | null): string {
 	return new Date().toISOString().slice(0, 10);
 }
 
-/** CVE déjà suivies par le radar : indicateurs, textes d'événements, alias d'organisation. */
-async function loadTrackedCves(): Promise<Set<string>> {
-	const { rows } = await ingestQuery<{ cve: string }>(
-		`WITH matches AS (
-		   SELECT m[1] AS cve FROM indicator, regexp_matches(value, 'CVE-[0-9]{4}-[0-9]+', 'gi') m
-		   UNION
-		   SELECT m[1] FROM event, regexp_matches(
-		     coalesce(title, '') || ' ' || coalesce(summary, '') || ' ' || coalesce(evidence::text, ''),
-		     'CVE-[0-9]{4}-[0-9]+', 'gi') m
-		   UNION
-		   SELECT m[1] FROM org_alias, regexp_matches(alias, 'CVE-[0-9]{4}-[0-9]+', 'gi') m
-		 )
-		 SELECT DISTINCT upper(cve) AS cve FROM matches`
-	);
-	const set = new Set<string>();
-	for (const row of rows) if (row.cve) set.add(row.cve);
-	return set;
+/** Cadence globale : aucune requête ne part moins de `delayMs` après la précédente. */
+function makePacer(delayMs: number): () => Promise<void> {
+	let lastStart = 0;
+	return async () => {
+		const wait = lastStart + delayMs - Date.now();
+		if (wait > 0) await sleep(wait);
+		lastStart = Date.now();
+	};
 }
 
-async function fetchPage(offset: number, limit: number, date: string | null): Promise<EpssApiPage> {
-	const params = new URLSearchParams({ limit: String(limit), offset: String(offset) });
-	if (date !== null) params.set("date", date);
-	const res = await fetch(`${API}?${params.toString()}`, {
-		headers: { "user-agent": USER_AGENT, accept: "application/json" },
-		signal: AbortSignal.timeout(30_000),
-	});
-	if (!res.ok) throw new Error(`HTTP ${res.status} sur ${API} (offset ${offset})`);
-	const payload: unknown = await res.json();
-	if (payload === null || typeof payload !== "object") throw new Error("réponse EPSS non objet");
-	return payload as EpssApiPage;
+function isRetryable(error: unknown): boolean {
+	if (error instanceof Error && "status" in error && typeof (error as { status?: unknown }).status === "number") {
+		return RETRYABLE_STATUS.has((error as { status: number }).status);
+	}
+	// Erreur réseau / timeout : pas de statut HTTP.
+	return true;
+}
+
+async function fetchPage(pageOffset: number, limit: number, date: string | null, pace: () => Promise<void>): Promise<EpssApiPage> {
+	// Pas de `order` : l'API l'ignore et renvoie toujours le même tri interne.
+	const params = new URLSearchParams({ limit: String(limit), offset: String(pageOffset), date });
+	let attempt = 0;
+	for (;;) {
+		await pace();
+		try {
+			const res = await fetch(`${API}?${params.toString()}`, {
+				headers: { "user-agent": USER_AGENT, accept: "application/json" },
+				signal: AbortSignal.timeout(60_000),
+			});
+			if (!res.ok) throw Object.assign(new Error(`HTTP ${res.status} sur ${API} (offset ${pageOffset})`), { status: res.status });
+			const payload: unknown = await res.json();
+			if (payload === null || typeof payload !== "object") throw new Error("réponse EPSS non objet");
+			return payload as EpssApiPage;
+		} catch (error) {
+			if (attempt >= MAX_RETRIES || !isRetryable(error)) throw error;
+			const backoff = RETRY_BASE_MS * 2 ** attempt + Math.floor(Math.random() * 500);
+			attempt++;
+			const reason = error instanceof Error ? error.message : String(error);
+			console.warn(`  retry ${attempt}/${MAX_RETRIES} dans ${backoff} ms (offset ${pageOffset}) : ${reason}`);
+			await sleep(backoff);
+		}
+	}
 }
 
 function asRows(page: EpssApiPage): EpssApiRow[] {
 	return Array.isArray(page.data) ? (page.data.filter((row): row is EpssApiRow => row !== null && typeof row === "object") as EpssApiRow[]) : [];
 }
 
-/** Compte d'insertions vs mises à jour d'un upsert (`xmax = 0` = ligne créée). */
-function splitCounts(rows: { inserted: boolean }[]): { inserted: number; updated: number } {
-	let inserted = 0;
-	for (const row of rows) if (row.inserted) inserted++;
-	return { inserted, updated: rows.length - inserted };
+/** Déverse un lot dans la table temporaire ; l'upsert évite les doublons internes. */
+async function stageBatch(client: import("pg").PoolClient, rows: ScoreRow[]): Promise<void> {
+	await client.query(
+		`INSERT INTO epss_stage (cve, score, percentile)
+		 SELECT cve, score, percentile
+		   FROM unnest($1::text[], $2::double precision[], $3::double precision[]) AS t(cve, score, percentile)
+		 ON CONFLICT (cve) DO UPDATE SET
+		   score = EXCLUDED.score,
+		   percentile = EXCLUDED.percentile`,
+		[rows.map((r) => r.cve), rows.map((r) => r.score), rows.map((r) => r.percentile)]
+	);
 }
 
 async function main(): Promise<void> {
 	const opts = parseArgs(process.argv.slice(2));
 	const date = resolveDate(opts.date);
+	const pace = makePacer(opts.pageDelayMs);
 
-	const tracked = await loadTrackedCves();
-	if (tracked.size === 0) throw new Error("aucune CVE suivie en base : rien à rafraîchir");
-
+	// Map pour dédoublonner : l'API peut chevaucher des pages entre deux tirages.
+	const scores = new Map<string, ScoreRow>();
 	let offset = 0;
 	let total: number | null = null;
-	let downloaded = 0;
-	const retained: ScoreRow[] = [];
-	const seenDate = new Set<string>();
+	let pages = 0;
+	const startedAt = Date.now();
 
-	while (true) {
-		if (offset > 0) await sleep(opts.pageDelayMs);
-		const page = await fetchPage(offset, opts.limit, opts.date);
+	while (total === null || offset < total) {
+		const page = await fetchPage(offset, opts.limit, date, pace);
 		if (page.total !== undefined && Number.isFinite(Number(page.total))) total = Number(page.total);
 		const rows = asRows(page);
-		if (rows.length === 0) break;
-
-		for (const row of rows) {
-			downloaded++;
-			const cve = String(row.cve ?? "").trim().toUpperCase();
-			if (!cve || !tracked.has(cve)) continue;
-			const score = Number(row.epss);
-			if (!Number.isFinite(score)) continue;
-			const rawDate = typeof row.date === "string" ? row.date : date;
-			seenDate.add(rawDate);
-			const percentile = row.percentile === undefined || row.percentile === null ? null : Number(row.percentile);
-			retained.push({ cve, score, percentile: percentile !== null && Number.isFinite(percentile) ? percentile : null, date: rawDate });
+		if (rows.length === 0) {
+			console.warn(`  page vide à offset ${offset} (total ${total ?? "?"}) : arrêt`);
+			break;
 		}
-
+		for (const row of rows) {
+			const cve = String(row.cve ?? "").trim().toUpperCase();
+			const score = Number(row.epss);
+			if (!cve || !Number.isFinite(score)) continue;
+			const percentile = row.percentile === undefined || row.percentile === null ? null : Number(row.percentile);
+			scores.set(cve, { cve, score, percentile: percentile !== null && Number.isFinite(percentile) ? percentile : null });
+		}
 		offset += rows.length;
-		if (total !== null && offset >= total) break;
-		// Garde-fou : une API qui renvoie toujours la même page ne boucle pas à l'infini.
-		if (offset > 2_000_000) throw new Error("dépassement du plafond de pagination (API incohérente)");
+		pages++;
+		if (total !== null) console.log(`  page ${pages} : offset ${offset}/${total}`);
+		// Garde-fou : une API incohérente ne doit pas boucler à l'infini.
+		if (pages > 100) throw new Error("dépassement du plafond de pagination (API incohérente)");
 	}
 
-	const dumpDate = seenDate.size > 0 ? [...seenDate].sort().at(-1) ?? date : date;
-	const coverage = ((retained.length / tracked.size) * 100).toFixed(1);
-	console.log(`EPSS ${dumpDate} — téléchargées=${downloaded} (total API ${total ?? "?"}), retenues=${retained.length} `
-		+ `sur ${tracked.size} CVE suivies (${coverage} %)`);
-
-	const mirrored = retained.filter((row) => row.score >= EPSS_ADMISSION_THRESHOLD);
-	console.log(`  score >= ${EPSS_ADMISSION_THRESHOLD} : ${mirrored.length} (seules celles-ci sont matérialisées dans event)`);
+	const rowsOut = [...scores.values()];
+	const high = rowsOut.filter((row) => row.score >= EPSS_ADMISSION_THRESHOLD).length;
+	const elapsed = ((Date.now() - startedAt) / 1000).toFixed(0);
+	console.log(`EPSS ${date} — ${pages} page(s), téléchargées=${offset}, retenues=${rowsOut.length} (total API ${total ?? "?"}) en ${elapsed} s`);
+	console.log(`  score >= ${EPSS_ADMISSION_THRESHOLD} : ${high}`);
 
 	if (!opts.apply) {
 		console.log("  mode dry-run : aucune écriture (utiliser --apply)");
-		console.log(`  event : ${mirrored.length} ligne(s) visée(s), insertion/mise à jour non calculée`);
 		return;
 	}
 
-	if (mirrored.length > 0) {
-		const eventUpsert = await ingestQuery<{ inserted: boolean }>(
-			`INSERT INTO event (dedup_key, family, assertion_type, title, severity, confidence,
-			                    source_id, source_url, evidence, geo_type, date_source)
-			 SELECT 'epss:' || cve, 'vuln', 'technical_indicator', cve || ' — EPSS ' || score,
-			        CASE WHEN score >= 0.5 THEN 5 ELSE 3 END, 'A2', 'epss',
-			        'https://www.first.org/epss/',
-			        jsonb_build_object('epss', score, 'percentile', coalesce(percentile, 0)),
-			        'unknown', 'missing'
-			   FROM unnest($1::text[], $2::numeric[], $3::numeric[]) AS t(cve, score, percentile)
-			 ON CONFLICT (dedup_key) DO UPDATE SET
-			   title = EXCLUDED.title, evidence = EXCLUDED.evidence, severity = EXCLUDED.severity
-			 RETURNING (xmax = 0) AS inserted`,
-			[mirrored.map((row) => row.cve), mirrored.map((row) => row.score), mirrored.map((row) => row.percentile)]
+	const client = await ingestPool.connect();
+	try {
+		const before = await client.query<{ count: string }>("SELECT count(*)::text AS count FROM epss");
+		await client.query("BEGIN");
+		await client.query(
+			`CREATE TEMP TABLE epss_stage (
+			   cve text PRIMARY KEY,
+			   score double precision NOT NULL,
+			   percentile double precision
+			 ) ON COMMIT DROP`
 		);
-		const eventCounts = splitCounts(eventUpsert.rows);
-		console.log(`  event (source epss) : insérées=${eventCounts.inserted}, mises à jour=${eventCounts.updated}`);
+		for (let i = 0; i < rowsOut.length; i += STAGE_BATCH) {
+			await stageBatch(client, rowsOut.slice(i, i + STAGE_BATCH));
+		}
+		await client.query(
+			`INSERT INTO epss (cve, score, percentile, updated_at)
+			 SELECT cve, score, percentile, now() FROM epss_stage
+			 ON CONFLICT (cve) DO UPDATE SET
+			   score = EXCLUDED.score,
+			   percentile = EXCLUDED.percentile,
+			   updated_at = EXCLUDED.updated_at`
+		);
+		await client.query("COMMIT");
+		const after = await client.query<{ count: string }>("SELECT count(*)::text AS count FROM epss");
+		const inserted = Number(after.rows[0].count) - Number(before.rows[0].count);
+		console.log(`  epss : ${rowsOut.length} score(s) upsertés (${inserted} nouveaux, ${rowsOut.length - inserted} mis à jour, total ${after.rows[0].count})`);
+	} catch (error) {
+		await client.query("ROLLBACK").catch(() => undefined);
+		throw error;
+	} finally {
+		client.release();
 	}
 }
 
