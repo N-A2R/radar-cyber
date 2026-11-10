@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { api, getAuthToken, type Event, type FlowArc, type Graph, type Org, type Source, type Stats } from "./api";
 import { mockData } from "./mock";
 import Map3D from "./map/Map3D";
@@ -9,6 +9,7 @@ import EventList from "./components/EventList";
 import Inspector from "./components/Inspector";
 import OrgSheet from "./components/OrgSheet";
 import AlertsView from "./components/AlertsView";
+import WallScreen from "./components/WallScreen";
 import type { ViewKey } from "./contracts";
 
 // Mode démonstration : données simulées, jamais d'appel API.
@@ -20,6 +21,7 @@ const VIEWS: { id: ViewKey; label: string }[] = [
   { id: "sources", label: "Sources" },
   { id: "health", label: "Santé" },
   { id: "alerts", label: "Alertes" },
+  { id: "wall", label: "Mur" },
 ];
 
 const FEED_LIMIT = 300;
@@ -47,6 +49,9 @@ export default function App() {
       return null;
     }
   });
+
+  // Dernière vue hors mur : la touche F bascule mur ↔ vue précédente.
+  const prevViewRef = useRef<ViewKey>("map");
 
   // Temps réel : le serveur pousse les nouveaux événements (SSE).
   useEffect(() => {
@@ -142,8 +147,13 @@ export default function App() {
       .sort((a, b) => b.n - a.n);
   }, [events]);
 
+  // « tout » veut dire « tout ce qui est cyber » : la presse généraliste
+  // reste consultable via son filtre, mais ne noie plus la veille.
   const filtered = useMemo(
-    () => (family === null ? events : events.filter((e) => e.family === family)),
+    () =>
+      family === null
+        ? events.filter((e) => e.family !== "presse")
+        : events.filter((e) => e.family === family),
     [events, family],
   );
 
@@ -191,12 +201,41 @@ export default function App() {
     }
   }, []);
 
+  // Touche F : bascule vers l'écran mural et retour à la vue précédente.
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.metaKey || event.ctrlKey || event.altKey) return;
+      if (event.key.toLowerCase() !== "f") return;
+      const target = event.target as HTMLElement | null;
+      if (
+        target &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.tagName === "SELECT" ||
+          target.isContentEditable)
+      ) {
+        return;
+      }
+      event.preventDefault();
+      setView((current) => {
+        if (current === "wall") return prevViewRef.current;
+        prevViewRef.current = current;
+        return "wall";
+      });
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
+
   const inspectorOpen =
     selectedEventId !== null || selectedOrgId !== null || sheetOrgId !== null;
 
-  const bodyStyle = {
-    gridTemplateColumns: inspectorOpen ? "352px minmax(0,1fr) 320px" : "352px minmax(0,1fr)",
-  };
+  const bodyStyle =
+    view === "wall"
+      ? { gridTemplateColumns: "minmax(0,1fr)" }
+      : {
+          gridTemplateColumns: inspectorOpen ? "352px minmax(0,1fr) 320px" : "352px minmax(0,1fr)",
+        };
 
   return (
     <div className="shell">
@@ -249,21 +288,23 @@ export default function App() {
       {error ? <p className="shell__error">API : {error}</p> : null}
 
       <div className="shell__body" style={bodyStyle}>
-        <aside className="shell__feed">
-          <EventList
-            events={filtered}
-            byFamily={byFamily}
-            family={family}
-            onFamily={setFamily}
-            selectedEventId={selectedEventId}
-            onSelectEvent={(id) => {
-              setSelectedEventId(id);
-              setSelectedOrgId(null);
-            }}
-            loading={loading}
-            error={null}
-          />
-        </aside>
+        {view === "wall" ? null : (
+          <aside className="shell__feed">
+            <EventList
+              events={filtered}
+              byFamily={byFamily}
+              family={family}
+              onFamily={setFamily}
+              selectedEventId={selectedEventId}
+              onSelectEvent={(id) => {
+                setSelectedEventId(id);
+                setSelectedOrgId(null);
+              }}
+              loading={loading}
+              error={null}
+            />
+          </aside>
+        )}
 
         <main className="shell__stage">
           {view === "map" ? (
@@ -309,9 +350,11 @@ export default function App() {
               }}
             />
           ) : null}
+
+          {view === "wall" ? <WallScreen /> : null}
         </main>
 
-        {inspectorOpen ? (
+        {view !== "wall" && inspectorOpen ? (
           <section className="shell__inspect">
             {sheetOrgId !== null ? (
               <OrgSheet orgId={sheetOrgId} onClose={() => setSheetOrgId(null)} />
