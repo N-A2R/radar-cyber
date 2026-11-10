@@ -19,6 +19,7 @@ import sourcesRoute from "./routes/sources.js";
 import streamRoute from "./routes/stream.js";
 import alertsRoute from "./routes/alerts.js";
 import quarantineRoute from "./routes/quarantine.js";
+import ingestRoute from "./routes/ingest.js";
 import { resolveUser } from "./middleware/auth.js";
 
 const port = Number(process.env.PORT ?? 8080);
@@ -67,6 +68,7 @@ await app.register((await import("./routes/enrich.js")).default, { prefix: "/api
 await app.register((await import("./routes/auth.js")).default, { prefix: "/api" });
 await app.register(alertsRoute, { prefix: "/api" });
 await app.register(quarantineRoute, { prefix: "/api" });
+await app.register(ingestRoute, { prefix: "/api" });
 
 /** Contexte fourni aux collecteurs : HTTP résilient, jamais de fetch nu. */
 function makeContext(cursor: Record<string, unknown>, log: (msg: string) => void): CollectContext {
