@@ -5,6 +5,7 @@ import { correlateEvents } from "./collectors/correlate.js";
 import { runGenericSources } from "./collectors/generic.js";
 import { runHermesCollector } from "./collectors/hermes.collector.js";
 import { runQuarantineCollector } from "./collectors/quarantine.collector.js";
+import { promoteMatches } from "./quarantine/promote.js";
 import { fetchResilient } from "./collectors/http.js";
 import { collectors } from "./collectors/index.js";
 import { closePools, ingestQuery, query } from "./db.js";
@@ -178,6 +179,8 @@ if (COLLECT) {
 	// Quarantaine : poll 1/30 min max (ToS ransomware.live), donc tick dédié.
 	setInterval(() => {
 		void guarded("quarantaine", () => runQuarantineCollector(log));
+		// Promotion automatique des faits qui matchent une organisation.
+		void guarded("promotion quarantaine", () => promoteMatches().then(() => undefined));
 	}, QUARANTINE_MS);
 
 	setInterval(() => {

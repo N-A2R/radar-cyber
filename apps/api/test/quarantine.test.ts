@@ -129,8 +129,10 @@ test("matchOrg : nom normalisé (accents, casse, ponctuation)", async () => {
 });
 
 test("matchOrg : ville + nom", async () => {
-  const orgId = await insertOrg(`Dassault ${TAG} Aviation`, { city: "Mérignac" });
-  const m = await matchOrg(`Dassault ${TAG} Mérignac`);
+  // Nom et ville distincts des organisations réelles (« Dassault … Mérignac »
+  // existe en base et ramènerait un id plus faible à égalité de score).
+  const orgId = await insertOrg(`Villetaine-${TAG} Aviation`, { city: "Mérignac" });
+  const m = await matchOrg(`Villetaine-${TAG} Mérignac`);
   assert.ok(m);
   assert.equal(m.orgId, orgId);
   assert.ok(m.confidence >= MIN_CONFIDENCE);
@@ -244,6 +246,7 @@ test("route : lectures publiques, écriture protégée", async () => {
 
 test("route : org rapprochée exposée sur le fait", async () => {
   const orgId = await insertOrg(`Exposed ${TAG}`, { domain: `exposed-${TAG}.example` });
+  await insertFact({ orgHint: `exposed-${TAG}.example` });
   const app = Fastify({ logger: false });
   await app.register(quarantineRoute, { prefix: "/api" });
   await app.ready();

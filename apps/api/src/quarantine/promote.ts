@@ -97,10 +97,29 @@ export async function loadOrgIndex(): Promise<OrgIndexEntry[]> {
 }
 
 /**
+ * Test de présence d'une expression complète (frontières de mot) dans une
+ * chaîne normalisée. `normalizeName` ayant remplacé toute ponctuation par
+ * des espaces, un simple padding suffit — pas de regex à recompiler.
+ */
+function containsPhrase(hintNorm: string, phrase: string): boolean {
+  if (!phrase) return false;
+  return ` ${hintNorm} `.includes(` ${phrase} `);
+}
+
+/**
  * Score d'un organisme pour un indice donné. La responsabilité du seuil
  * reste dans `matchOrgInIndex` ; cette fonction renvoie 0..1.
+ *
+ * Le nom est comparé par jetons entiers : « travel » ne doit pas rapprocher
+ * « Avel », ni « davinci » « Vinci ». Le containment de sous-chaîne n'est
+ * volontairement pas utilisé.
  */
-function scoreEntry(hintNorm: string, hintDomain: string | null, e: OrgIndexEntry): number {
+function scoreEntry(
+  hintNorm: string,
+  hintTokens: Set<string>,
+  hintDomain: string | null,
+  e: OrgIndexEntry
+): number {
   let best = 0;
 
   // 1. Domaine : égalité exacte, puis sous-domaine / parent.
@@ -114,18 +133,36 @@ function scoreEntry(hintNorm: string, hintDomain: string | null, e: OrgIndexEntr
     if (e.websiteDomain && hintDomain === e.websiteDomain) best = Math.max(best, 0.9);
   }
 
-  // 2. Nom normalisé : égalité, puis containment dans un sens ou l'autre.
+  // 2. Nom normalisé : égalité, ou tous les jetons du nom présent dans l'indice.
   if (hintNorm && e.nameNorm) {
-    if (hintNorm === e.nameNorm) best = Math.max(best, 0.9);
-    else if (hintNorm.length >= 4 && e.nameNorm.includes(hintNorm)) best = Math.max(best, 0.75);
-    else if (e.nameNorm.length >= 4 && hintNorm.includes(e.nameNorm)) best = Math.max(best, 0.7);
+    if (hintNorm === e.nameNorm) {
+      best = Math.max(best, 0.9);
+    } else {
+      // Les jetons d'une lettre (« T D F ») sont du bruit : non significatifs.
+      const orgTokens = e.nameNorm.split(" ").filter((t) => t.length >= 2);
+      const allPresent = orgTokens.length > 0 && orgTokens.every((t) => hintTokens.has(t));
+      if (allPresent && orgTokens.length >= 2) {
+        // Nom complet présent dans l'indice (« Kenall/Legrand » pour « Legrand »
+        // est traité plus bas, car un nom simple est un mot courant possible).
+        best = Math.max(best, 0.75);
+      } else if (
+        orgTokens.length === 1 &&
+        orgTokens[0].length >= 5 &&
+        hintTokens.has(orgTokens[0]) &&
+        hintTokens.size <= 2
+      ) {
+        // Nom court et indice court : « Kenall/Legrand », « Legrand CRM ».
+        // Au-delà, un mot courant (« Orange Public School… ») est un faux positif.
+        best = Math.max(best, 0.7);
+      }
+    }
   }
 
   // 3. Ville + nom : la ville seule ne désigne pas une organisation.
-  if (hintNorm && e.cityNorm && hintNorm.includes(e.cityNorm)) {
+  if (hintNorm && e.cityNorm && containsPhrase(hintNorm, e.cityNorm)) {
     const cityTokens = new Set(e.cityNorm.split(" ").filter(Boolean));
     const nonCityTokens = e.nameTokens.filter((t) => !cityTokens.has(t));
-    if (nonCityTokens.some((t) => hintNorm.includes(t))) best = Math.max(best, 0.6);
+    if (nonCityTokens.some((t) => hintTokens.has(t))) best = Math.max(best, 0.6);
   }
 
   return best;
@@ -142,10 +179,11 @@ export function matchOrgInIndex(hint: string, index: OrgIndexEntry[]): OrgMatch 
   const hintNorm = normalizeName(trimmed);
   const hintDomain = extractDomain(trimmed);
   if (!hintNorm && !hintDomain) return null;
+  const hintTokens = new Set(hintNorm.split(" ").filter(Boolean));
 
   let best: OrgMatch | null = null;
   for (const e of index) {
-    const score = scoreEntry(hintNorm, hintDomain, e);
+    const score = scoreEntry(hintNorm, hintTokens, hintDomain, e);
     if (score < MIN_CONFIDENCE) continue;
     if (!best || score > best.confidence || (score === best.confidence && e.id < best.orgId)) {
       best = { orgId: e.id, confidence: score };
