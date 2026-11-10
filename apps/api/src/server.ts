@@ -9,6 +9,7 @@ import { promoteMatches } from "./quarantine/promote.js";
 import { fetchResilient } from "./collectors/http.js";
 import { collectors } from "./collectors/index.js";
 import { closePools, ingestQuery, query } from "./db.js";
+import { deliverPendingAlerts, readDeliveryConfig } from "./notify/alert-delivery.js";
 import { runRetention } from "./maintenance/retention.js";
 import eventsRoute from "./routes/events.js";
 import flowsRoute from "./routes/flows.js";
@@ -29,6 +30,8 @@ const TICK_MS = Number(process.env.RADAR_TICK_MS ?? 60000);
 const RETENTION_MS = Number(process.env.RADAR_RETENTION_TICK_MS ?? 24 * 3600 * 1000);
 /** Cadence de la quarantaine dark web : 30 min mini (ToS de la source). */
 const QUARANTINE_MS = Number(process.env.RADAR_QUARANTINE_TICK_MS ?? 30 * 60 * 1000);
+/** Cadence de diffusion des alertes (défaut : 2 min). Aucun effet si non configuré. */
+const ALERT_DELIVERY_MS = Number(process.env.RADAR_ALERT_DELIVERY_TICK_MS ?? 2 * 60 * 1000);
 
 const app = Fastify({ logger: true });
 
@@ -76,7 +79,18 @@ function makeContext(cursor: Record<string, unknown>, log: (msg: string) => void
 		fetchJson: async <T = unknown>(url: string): Promise<T> => {
 			const res = await fetchResilient(url);
 			if (res.notModified) throw new Error(`HTTP 304 inattendu pour ${url}`);
-			return JSON.parse(res.text) as T;
+			const text = res.text.trim();
+			if (text.startsWith("<")) {
+				if (text.toLowerCase().includes("cloudflare") || res.status === 429 || /error code: 1015/i.test(text)) {
+					throw new Error("NVD : rate limit Cloudflare (429)");
+				}
+				throw new Error(`Réponse non-JSON (HTML) pour ${url}`);
+			}
+			try {
+				return JSON.parse(text) as T;
+			} catch {
+				throw new Error("NVD : rate limit Cloudflare (429)");
+			}
 		},
 		fetchText: async (url: string): Promise<string> => (await fetchResilient(url)).text,
 		cursor,
@@ -192,6 +206,14 @@ if (COLLECT) {
 			log(`rétention : ${r.events} événement(s), ${r.indicators} indicateur(s), ${r.collectorRuns} run(s) purgé(s)`);
 		});
 	}, RETENTION_MS);
+
+	// Diffusion des alertes : uniquement si un canal est configuré.
+	const deliveryCfg = readDeliveryConfig();
+	if (deliveryCfg.webhookUrl || (deliveryCfg.telegramBotToken && deliveryCfg.telegramChatId)) {
+		const deliver = () => void guarded("diffusion alertes", () => deliverPendingAlerts(log).then(() => undefined));
+		deliver();
+		setInterval(deliver, ALERT_DELIVERY_MS);
+	}
 }
 
 for (const signal of ["SIGINT", "SIGTERM"] as const) {
