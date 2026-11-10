@@ -97,7 +97,12 @@ rapatrie les briefings via le tunnel SSH instabox.
 
 ## Limites connues
 
-- Rétention par défaut non appliquée (90 jours en projet, non codé).
-- Les flux narratifs sans date sont triés en fin de fil.
-- Certains flux communautaires renvoient 429/403 (PhishTank, dan.me.uk).
-- Aucune authentification (réseau Campus uniquement).
+- Aucune authentification : usage interne, à exposer derrière le tailnet uniquement.
+- La pertinence des flux narratives repose sur un gazetier de mots-clés et le matching
+  d'entités (pas de NER pour l'instant — voir `docs/research/enrichment.md`).
+- Pas de déduplication de republication (MinHash/LSH non intégré).
+- Sévérité des vulnérabilités limitée au CVSS v3.1 et au statut KEV ; pas d'exploitabilité
+  (PoC publics) pour le moment.
+- La quarantaine des revendications dark web est conçue (`docs/research/darkweb-sources.md`)
+  mais non encore implémentée.
+- Le géocodage des organisations reste approximatif (voir `docs/research/enrichment.md`).

@@ -49,7 +49,7 @@ export interface EventListProps {
   /** Nombre d'événements par page, utilisé pour le nombre de pages. Défaut : 20. */
   pageSize?: number;
   /** Noms d'affichage des sources (`sourceId` → nom). Défaut : `sourceId`. */
-  sourcesById?: Record<string, string>;
+  sourcesById?: Record<string, string | { name?: string; family?: string; url?: string }>;
   /** Appelé avec le nouveau numéro de page (base 1) lors d'un changement. */
   onChange: (page: number) => void;
   /** Classe CSS ajoutée à la racine du panneau. */
@@ -138,7 +138,8 @@ export default function EventList({
                   : `title:${event.title}`;
             const severity = normalizeSeverity(event.severity);
             const sourceId = event.sourceId ?? null;
-            const source = sourceId ? (sourcesById?.[sourceId] ?? sourceId) : "source inconnue";
+            const src = sourceId ? sourcesById?.[sourceId] : undefined;
+            const source = typeof src === 'string' ? src : (src?.name ?? sourceId ?? 'source inconnue');
             const observedAt = event.observedAt ?? null;
 
             return (
