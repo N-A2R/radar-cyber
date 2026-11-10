@@ -147,6 +147,217 @@ function parseRss(xml: string, parser: Record<string, unknown>): Record<string, 
   return items.filter((i): i is Record<string, unknown> => typeof i === "object" && i !== null);
 }
 
+/**
+ * Stratégies d'extraction essayées quand `parser.itemsPath` est vide ou stérile.
+ * L'ordre est fixe : tableau JSON racine, premier tableau d'objets (profondeur
+ * ≤ 4), flux RSS/Atom/RDF, CSV, puis page HTML. `none` = refus explicite.
+ */
+export type DetectionStrategy =
+  | "json-root-array"
+  | "json-nested-array"
+  | "rss-atom"
+  | "csv"
+  | "html-links"
+  | "none";
+
+export type DetectionResult = {
+  strategy: DetectionStrategy;
+  items: Record<string, unknown>[];
+  path: string | null;
+};
+
+const MAX_DETECT_DEPTH = 4;
+const MAX_HTML_LINKS = 2000;
+
+function isObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function toObjectArray(value: unknown[]): Record<string, unknown>[] {
+  return value.filter(isObject);
+}
+
+/** Premier tableau d'objets rencontré, avec son chemin (`data.items`…). */
+function findObjectArrayWithPath(
+  node: unknown,
+  depth: number,
+  path: string[],
+): { items: Record<string, unknown>[]; path: string } | null {
+  if (depth > MAX_DETECT_DEPTH) return null;
+  if (Array.isArray(node)) {
+    const objects = toObjectArray(node);
+    if (objects.length > 0) return { items: objects, path: path.join(".") };
+    for (let i = 0; i < node.length; i += 1) {
+      const found = findObjectArrayWithPath(node[i], depth + 1, [...path, String(i)]);
+      if (found) return found;
+    }
+    return null;
+  }
+  if (isObject(node)) {
+    for (const [key, value] of Object.entries(node)) {
+      const found = findObjectArrayWithPath(value, depth + 1, [...path, key]);
+      if (found) return found;
+    }
+  }
+  return null;
+}
+
+function pickPath(root: unknown, path: string): unknown {
+  let node: unknown = root;
+  for (const key of path.split(".")) {
+    if (!isObject(node)) return undefined;
+    node = node[key];
+  }
+  return node;
+}
+
+const FEED_PATHS = ["rss.channel.item", "channel.item", "feed.entry", "rdf:RDF.item", "RDF.item"];
+
+/** `<item>` (RSS 2.0), `<entry>` (Atom) ou `<item>` (RDF) → objets. */
+function parseFeedItems(body: string): { items: Record<string, unknown>[]; path: string } | null {
+  if (!/<(?:[\w.-]+:)?(?:item|entry)[\s>]/i.test(body)) return null;
+  let parsed: unknown;
+  try {
+    parsed = new XMLParser({ ignoreAttributes: false }).parse(body);
+  } catch {
+    return null;
+  }
+  for (const path of FEED_PATHS) {
+    const node = pickPath(parsed, path);
+    const items = Array.isArray(node) ? node : node === undefined ? [] : [node];
+    const objects = toObjectArray(items);
+    if (objects.length > 0) return { items: objects, path };
+  }
+  return null;
+}
+
+function splitCsvLine(line: string, delimiter: string): string[] {
+  const cells: string[] = [];
+  let cell = "";
+  let quoted = false;
+  for (let i = 0; i < line.length; i += 1) {
+    const ch = line[i];
+    if (ch === '"') {
+      if (quoted && line[i + 1] === '"') {
+        cell += '"';
+        i += 1;
+      } else {
+        quoted = !quoted;
+      }
+      continue;
+    }
+    if (ch === delimiter && !quoted) {
+      cells.push(cell);
+      cell = "";
+      continue;
+    }
+    cell += ch;
+  }
+  cells.push(cell);
+  return cells;
+}
+
+/** CSV avec en-tête : au moins 2 colonnes nommées et une ligne de données. */
+function parseCsvItems(body: string): { items: Record<string, unknown>[]; path: string } | null {
+  const lines = body.split(/\r?\n/).filter((line) => line.trim().length > 0).slice(0, 2001);
+  if (lines.length < 2) return null;
+  const headerLine = lines[0];
+  const delimiter = [",", ";", "\t"].find((d) => headerLine.split(d).length >= 2);
+  if (!delimiter) return null;
+  const columns = splitCsvLine(headerLine, delimiter).map((c) => c.trim().replace(/^"|"$/g, ""));
+  if (columns.length < 2 || columns.some((c) => c.length === 0)) return null;
+  const items: Record<string, unknown>[] = [];
+  for (const line of lines.slice(1)) {
+    const cells = splitCsvLine(line, delimiter);
+    if (cells.length !== columns.length) continue;
+    const item: Record<string, unknown> = {};
+    columns.forEach((column, i) => {
+      item[column] = cells[i].trim();
+    });
+    items.push(item);
+  }
+  return items.length > 0 ? { items, path: "csv-header" } : null;
+}
+
+/** Page HTML : liens `<a href>` significatifs (hors ancres et javascript:). */
+function parseHtmlLinks(body: string): { items: Record<string, unknown>[]; path: string } | null {
+  const linkRe = /<a\b[^>]*href\s*=\s*["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
+  const seen = new Set<string>();
+  const items: Record<string, unknown>[] = [];
+  for (const match of body.matchAll(linkRe)) {
+    const href = match[1].trim();
+    if (!href || href.startsWith("#") || /^javascript:/i.test(href)) continue;
+    const title = decodeEntities(match[2].replace(/<[^>]*>/g, " ")).replace(/\s+/g, " ").trim();
+    if (title.length < 4) continue;
+    if (seen.has(href)) continue;
+    seen.add(href);
+    items.push({ title: title.slice(0, 400), link: href });
+    if (items.length >= MAX_HTML_LINKS) break;
+  }
+  return items.length >= 3 ? { items, path: "a[href]" } : null;
+}
+
+/**
+ * Détection automatique du format d'un corps de flux. Pure et sans effet de
+ * bord : le diagnostic (`scripts/diagnose-parsers.mts`) l'appelle tel quel.
+ */
+export function detectItems(body: string, contentType: string | null): DetectionResult {
+  const text = body.trim();
+  const declared = (contentType ?? "").toLowerCase();
+  if (!text) return { strategy: "none", items: [], path: null };
+
+  if (text.startsWith("[") || text.startsWith("{")) {
+    let data: unknown;
+    try {
+      data = JSON.parse(text);
+    } catch {
+      data = undefined;
+    }
+    if (Array.isArray(data)) {
+      const objects = toObjectArray(data);
+      if (objects.length > 0) return { strategy: "json-root-array", items: objects, path: "" };
+    }
+    if (data !== undefined) {
+      const nested = findObjectArrayWithPath(data, 0, []);
+      if (nested) return { strategy: "json-nested-array", items: nested.items, path: nested.path };
+    }
+  }
+
+  if (declared.includes("json") && !declared.includes("xml")) {
+    // JSON annoncé mais illisible : on continue quand même, le corps peut être
+    // une page d'erreur HTML servie avec le bon content-type.
+  }
+
+  const feed = parseFeedItems(text);
+  if (feed) return { strategy: "rss-atom", items: feed.items, path: feed.path };
+
+  if (!text.startsWith("<")) {
+    const csv = parseCsvItems(text);
+    if (csv) return { strategy: "csv", items: csv.items, path: csv.path };
+  }
+
+  const links = parseHtmlLinks(text);
+  if (links) return { strategy: "html-links", items: links.items, path: links.path };
+
+  return { strategy: "none", items: [], path: null };
+}
+
+/** Champs d'objet portant une valeur d'indicateur dans un flux structuré. */
+const INDICATOR_VALUE_FIELDS = ["value", "indicator", "ioc", "ip", "domain", "hostname", "host", "url", "link", "cidr", "title", "description", "summary"];
+
+/** Valeurs d'indicateur tirées d'items structurés (JSON, CSV, RSS). */
+function indicatorLines(items: Record<string, unknown>[]): string[] {
+  const lines: string[] = [];
+  for (const item of items) {
+    for (const field of INDICATOR_VALUE_FIELDS) {
+      const value = item[field];
+      if (typeof value === "string" && detectIndicatorType(value)) lines.push(value.trim());
+    }
+    if (lines.length >= 20000) break;
+  }
+  return lines;
+}
+
 function parseJsonItems(body: string, parser: Record<string, unknown>): Record<string, unknown>[] {
   let data: unknown;
   try { data = JSON.parse(body); } catch { return []; }
@@ -236,9 +447,21 @@ async function ingestIndicator(source: SourceRow, body: string, idx?: ActiveInde
 
 async function ingestNarrative(source: SourceRow, body: string, orgIndex: RelevanceOrg[]): Promise<IngestResult> {
   const parser = source.parser ?? {};
-  const items = source.format === "rss"
+  // `itemsPath` déclaré et valide reste prioritaire : aucune source qui
+  // fonctionne ne change de comportement. Sinon on devine le format.
+  const declaredPath = typeof parser.itemsPath === "string" ? parser.itemsPath : "";
+  let items = source.format === "rss"
     ? parseRss(body, parser)
     : parseJsonItems(body, parser);
+  if (items.length === 0) {
+    const detected = detectItems(body, null);
+    items = detected.items;
+    if (detected.strategy === "none") {
+      runLog?.(`[collect] ${source.id} : format non reconnu (${body.length} o) — ${declaredPath ? `itemsPath="${declaredPath}" stérile` : "aucun itemsPath"}, refus explicite`);
+      return { items: 0, added: 0, skipped: 0 };
+    }
+    runLog?.(`[collect] ${source.id} : auto-détection ${detected.strategy}${detected.path ? ` (${detected.path})` : ""} → ${items.length} item(s)`);
+  }
 
   // Porte de pertinence : un flux de presse généraliste livre sa une, pas de
   // la cyber. Seules les sources `strict` (déjà cyber) passent sans filtre.
@@ -321,7 +544,7 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[]): Promi
     // 304 Not Modified : rien de neuf, la source reste saine.
     if (body === "") {
       await ingestQuery(
-        "UPDATE source SET last_ok_at=now(), last_error=NULL, last_error_at=NULL, last_items=0 WHERE id=$1",
+        "UPDATE source SET last_ok_at=now(), last_error=NULL, last_error_at=NULL WHERE id=$1",
         [source.id]
       );
       await ingestQuery(
@@ -339,6 +562,19 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[]): Promi
     let result = asIndicator
       ? await ingestIndicator(source, body, filterIdx)
       : await ingestNarrative(source, body, orgIndex);
+    // Flux marqué `indicator` mais livré en JSON/CSV/RSS : les lignes brutes ne
+    // portent aucun indicateur, on extrait les valeurs des items structurés.
+    if (asIndicator && result.items === 0) {
+      const detected = detectItems(body, null);
+      const lines = detected.strategy === "none" ? [] : indicatorLines(detected.items);
+      if (lines.length > 0) {
+        runLog?.(`[collect] ${source.id} : auto-détection ${detected.strategy} → ${lines.length} valeur(s) d'indicateur`);
+        const retry = await ingestIndicator(source, lines.join("\n"), filterIdx);
+        if (retry.items > 0) result = retry;
+      } else {
+        runLog?.(`[collect] ${source.id} : aucun indicateur extractible (${detected.strategy}), refus explicite`);
+      }
+    }
     if (!asIndicator && result.items === 0) {
       const fallback = await ingestIndicator(source, body);
       if (fallback.items > 0) result = fallback;
