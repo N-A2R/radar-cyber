@@ -10,6 +10,7 @@ import { ingestQuery } from "../db.js";
 import { parseObservedAt } from "./dates.js";
 import { fetchResilient } from "./http.js";
 import { isRelevant, loadRelevanceOrgIndex, type RelevanceOrg } from "./relevance.js";
+import { isActionableIndicator, loadActiveIndex, type ActiveIndex } from "./filter.js";
 
 type SourceRow = {
   id: string;
@@ -25,11 +26,13 @@ type SourceRow = {
   relevance: string;
 };
 
-/** `skipped` = éléments écartés par la porte de pertinence (presse hors cyber). */
+/** `skipped` = éléments écartés (porte de pertinence ou filtre anti-bruit). */
 type IngestResult = { items: number; added: number; skipped: number };
 
 const MAX_BODY_BYTES = 25 * 1024 * 1024;
 const BATCH_SIZE = 1000;
+/** Index des actifs surveillés : chargé une fois par run dans `runGenericSources`. */
+let activeIndex: ActiveIndex | null = null;
 
 const TITLE_FIELDS = ["title", "name", "cveID", "cve", "value", "indicator", "description", "summary", "vulnerabilityName", "post_title"];
 const LINK_FIELDS = ["link", "url", "reference", "href", "source_url", "permalink"];
@@ -132,7 +135,10 @@ function parseJsonItems(body: string, parser: Record<string, unknown>): Record<s
  * GET conditionnel). Un 304 renvoie une chaîne vide : la source est déjà à jour.
  */
 async function fetchText(url: string, timeoutMs = 30000): Promise<string> {
-  const res = await fetchResilient(url, { timeoutMs });
+  // Les API abuse.ch (URLhaus, SSLBL) exigent un en-tête Auth-Key depuis 2025.
+  const key = process.env.ABUSECH_AUTH_KEY;
+  const extra = key && /(^|\.)abuse\.ch$/i.test(new URL(url).hostname) ? { "Auth-Key": key } : undefined;
+  const res = await fetchResilient(url, { timeoutMs, headers: extra });
   if (res.notModified) return "";
   if (res.text.length > MAX_BODY_BYTES) {
     throw new Error(`flux trop volumineux (${(res.text.length / 1048576).toFixed(1)} Mo)`);
@@ -140,11 +146,12 @@ async function fetchText(url: string, timeoutMs = 30000): Promise<string> {
   return res.text;
 }
 
-async function ingestIndicator(source: SourceRow, body: string): Promise<IngestResult> {
+async function ingestIndicator(source: SourceRow, body: string, idx?: ActiveIndex): Promise<IngestResult> {
   const seen = new Set<string>();
   const batch: { type: string; value: string }[] = [];
   let items = 0;
   let added = 0;
+  let skipped = 0;
 
   const flush = async (): Promise<number> => {
     if (batch.length === 0) return 0;
@@ -172,11 +179,15 @@ async function ingestIndicator(source: SourceRow, body: string): Promise<IngestR
     const key = `${type}:${value}`;
     if (seen.has(key)) continue;
     seen.add(key);
+    if (idx && !isActionableIndicator(value, type, idx).keep) {
+      skipped++;
+      continue;
+    }
     batch.push({ type, value });
     if (batch.length >= BATCH_SIZE) added += await flush();
   }
   added += await flush();
-  return { items, added, skipped: 0 };
+  return { items, added, skipped };
 }
 
 async function ingestNarrative(source: SourceRow, body: string, orgIndex: RelevanceOrg[]): Promise<IngestResult> {
@@ -238,9 +249,13 @@ function looksLikeBlocklist(url: string): boolean {
 }
 
 async function processSource(source: SourceRow, orgIndex: RelevanceOrg[]): Promise<void> {
+  // Une source qui n'a jamais réussi (last_ok_at NULL) ne doit pas être
+  // retentée à chaque tick : le dernier échec sert de référence.
   const lastOk = source.last_ok_at ? Date.parse(source.last_ok_at) : NaN;
+  const lastAttempt = source.last_error_at ? Date.parse(source.last_error_at) : NaN;
+  const reference = Number.isNaN(lastOk) ? lastAttempt : lastOk;
   const minInterval = (source.interval_sec ?? 3600) * 1000 * 0.8;
-  if (!Number.isNaN(lastOk) && Date.now() - lastOk < minInterval) return;
+  if (!Number.isNaN(reference) && Date.now() - reference < minInterval) return;
 
   try {
     const body = await fetchText(source.url);
@@ -257,8 +272,13 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[]): Promi
       return;
     }
     const asIndicator = source.kind === "indicator" || (source.format !== "rss" && looksLikeBlocklist(source.url));
+    // Filtre anti-bruit : les blocklists mondiales (réputation, phishing) ne
+    // gardent que les indicateurs actionnables pour nos actifs (voir filter.ts).
+    const filterIdx = asIndicator && (looksLikeBlocklist(source.url) || source.family === "reputation" || source.family === "phishing")
+      ? activeIndex ?? undefined
+      : undefined;
     let result = asIndicator
-      ? await ingestIndicator(source, body)
+      ? await ingestIndicator(source, body, filterIdx)
       : await ingestNarrative(source, body, orgIndex);
     if (!asIndicator && result.items === 0) {
       const fallback = await ingestIndicator(source, body);
@@ -308,6 +328,8 @@ export async function runGenericSources(
     "SELECT o.name, o.domain, array_remove(array_agg(DISTINCT a.value), NULL) AS assets FROM org o LEFT JOIN asset a ON a.org_id = o.id AND a.kind IN ('domain','subdomain') GROUP BY o.id"
   );
   const orgIndex = loadRelevanceOrgIndex(orgRows.map((o) => ({ name: o.name, domain: o.domain, assets: o.assets ?? [] })));
+  activeIndex = await loadActiveIndex();
+  log(`filtre : ${activeIndex.domains.size} domaine(s), ${activeIndex.ips.size} IP, ${activeIndex.cves.size} CVE(s)`);
 
   const CONCURRENCY = 8;
   let index = 0;

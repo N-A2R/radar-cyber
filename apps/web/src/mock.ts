@@ -121,7 +121,7 @@ const MOCK_STATS: Stats = {
   orgs: MOCK_ORGS.length,
   events: MOCK_EVENTS.length,
   indicators: 0,
-  sources: { ok: 7, err: 2, total: 11 },
+  sources: { total: 11, active: 9, ok: 7, err: 2 },
   byFamily: [
     { family: "ransomware", n: 1 },
     { family: "vuln", n: 1 },

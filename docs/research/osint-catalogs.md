@@ -203,3 +203,14 @@ Autres pièges de comptage :
 - `feed:mthcht:ip` et `feed:mthcht:ioc` pointent vers des CSV GeoIP/VPN (ProtonVPN, sites de géoloc) : hors périmètre CTI, remplacer par `feed:mthcht:threatfox-ports` du §4.
 - `feed:urlhaus:url` → `https://urlhaus.abuse.ch/feeds/` : page HTML, les données plates sont en 410 → cette source ingère probablement du vide ou du HTML.
 - `feed:misp-project:url` → `app/files/feed-metadata/defaults.json` : c'est le **catalogue** MISP (métadonnées de feeds), pas des IOCs ; vérifier qu'il n'est pas parsé comme données.
+
+---
+
+## Harvest du 2026-11-10
+
+Catalogue → feeds retenus / écartés et pourquoi.
+
+- **firehol/blocklist-ipsets** : 32 feeds retenus (tous HTTP 200, < 25 Mo) écrits dans `db/sources-osint.sql`, id `feed:firehol:<slug>`. Écartés : `firehol_anonymous.netset` et `firehol_proxies.netset` (> 25 Mo), `.gitignore`/README (non-données), et les ipsets déjà en base (firehol_level1/2/3/4, dshield_*).
+- **stamparm/maltrail** : aucun feed direct — le dépôt ne contient pas `trails/static/malware/*.txt` (chemin inexistant, 404 vérifié). Utilisé comme catalogue de découverte uniquement.
+- **hslatman/awesome-threat-intelligence** : méta-catalogue Markdown, pas de flux bruts ingérables directement ; aucune URL ajoutée.
+- Déduplication vérifiée en psql : 0 doublon DB. Delta appliqué : 348 → 380 sources.

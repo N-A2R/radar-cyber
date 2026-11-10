@@ -130,7 +130,7 @@ export default function SourcesView({ sources }: SourcesViewProps) {
                 </td>
                 <td className="num">{formatNumber(s.itemsTotal)}</td>
                 <td className="num">{formatNumber(s.lastItems)}</td>
-                <td title={s.lastOkAt ? formatDate(s.lastOkAt) : "jamais collecté"}>
+                <td className="mono" title={s.lastOkAt ? formatDate(s.lastOkAt) : "jamais collecté"}>
                   {formatRelative(s.lastOkAt)}
                 </td>
                 <td className="mono">

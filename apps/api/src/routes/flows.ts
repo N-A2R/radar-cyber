@@ -48,8 +48,8 @@ export default async function (app: FastifyInstance) {
 
     if (mode === "orgs") {
       // arcs entre orgs et leur département centroïde
-      const r = await query<{ id: number; name: string; dept: string | null; lat: number; lon: number }>(
-        `SELECT o.id, o.name, o.dept, o.lat, o.lon FROM org o WHERE o.lat IS NOT NULL AND o.lon IS NOT NULL`
+      const r = await query<{ id: number; name: string; kind: string; dept: string | null; lat: number; lon: number }>(
+        `SELECT o.id, o.name, o.kind, o.dept, o.lat, o.lon FROM org o WHERE o.lat IS NOT NULL AND o.lon IS NOT NULL`
       );
       const arcs: Record<string, unknown>[] = [];
       for (const row of r.rows) {
@@ -61,6 +61,7 @@ export default async function (app: FastifyInstance) {
           from: { lat: row.lat, lon: row.lon, label: trunc(row.name) },
           to: { lat: c.lat, lon: c.lon, label: trunc(c.label) },
           family: "cti",
+          nature: row.kind,
           severity: 3,
           observedAt: new Date().toISOString(),
           title: trunc(row.name),

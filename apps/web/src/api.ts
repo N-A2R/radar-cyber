@@ -1,7 +1,16 @@
 const BASE = "/api";
 
+export function getAuthToken(): string | null {
+  try { return localStorage.getItem("radar_token"); } catch { return null; }
+}
+
+export function authHeaders(): HeadersInit {
+  const t = getAuthToken();
+  return t ? { Authorization: `Bearer ${t}` } : {};
+}
+
 async function get<T>(path: string): Promise<T> {
-  const res = await fetch(BASE + path);
+  const res = await fetch(BASE + path, { headers: authHeaders() });
   if (!res.ok) throw new Error(`${path} → ${res.status}`);
   return res.json() as Promise<T>;
 }
@@ -74,7 +83,7 @@ export type Stats = {
   orgs: number;
   events: number;
   indicators: number;
-  sources: { ok: number; err: number; total: number };
+  sources: { total: number; active: number; ok: number; err: number };
   byFamily: { family: string; n: number }[];
   byAssertion: { assertion_type: string; n: number }[];
 };

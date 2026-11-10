@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { FAMILIES } from "@radar/shared";
 import "./panels.css";
 
@@ -52,6 +53,8 @@ export interface EventListProps {
   sourcesById?: Record<string, string | { name?: string; family?: string; url?: string }>;
   /** Appelé avec le nouveau numéro de page (base 1) lors d'un changement. */
   onChange: (page: number) => void;
+  /** Contenu inséré entre l'en-tête et la liste (chips de familles). */
+  filters?: ReactNode;
   /** Classe CSS ajoutée à la racine du panneau. */
   className?: string;
 }
@@ -66,19 +69,19 @@ function normalizeSeverity(value: number | null | undefined): Severity {
   return rounded as Severity;
 }
 
-/** Date relative en français, retombant sur une date courte au-delà de 7 jours. */
+/** Date relative compacte en français (colonne d'heure du fil, 84 px). */
 function formatRelativeFr(iso: string | null | undefined, now: number): string {
-  if (!iso) return "date inconnue";
+  if (!iso) return "unknown";
   const time = Date.parse(iso);
-  if (Number.isNaN(time)) return "date inconnue";
+  if (Number.isNaN(time)) return "unknown";
   const minutes = Math.floor(Math.max(0, now - time) / 60_000);
-  if (minutes < 1) return "à l'instant";
-  if (minutes < 60) return `il y a ${minutes} min`;
+  if (minutes < 1) return "just now";
+  if (minutes < 60) return `${minutes} min`;
   const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `il y a ${hours} h`;
+  if (hours < 24) return `${hours} h`;
   const days = Math.floor(hours / 24);
-  if (days < 7) return `il y a ${days} j`;
-  return new Date(time).toLocaleDateString("fr-FR", { day: "numeric", month: "short", year: "numeric" });
+  if (days < 7) return `${days} j`;
+  return new Date(time).toLocaleDateString("en-US", { day: "2-digit", month: "short" });
 }
 
 /**
@@ -100,6 +103,7 @@ export default function EventList({
   pageSize = 20,
   sourcesById,
   onChange,
+  filters,
   className,
 }: EventListProps) {
   const now = Date.now();
@@ -111,21 +115,24 @@ export default function EventList({
   const rootClassName = ["event-list", className].filter(Boolean).join(" ");
 
   return (
-    <section className={rootClassName} aria-label="Événements">
+    <section className={rootClassName} aria-label="Events">
       <header className="event-list__header">
-        <h2 className="event-list__heading">Événements</h2>
-        <span className="event-list__count">
-          {totalItems.toLocaleString("fr-FR")} événement{totalItems > 1 ? "s" : ""}
+        <span className="micro">event feed</span>
+        <span className="micro">
+          <b>{Math.min(current * pageSize, totalItems).toLocaleString("en-US")}</b> /{" "}
+          {totalItems.toLocaleString("en-US")}
         </span>
       </header>
+
+      {filters ? <div className="event-list__filters">{filters}</div> : null}
 
       {events.length === 0 ? (
         <div className="event-list__empty">
           <span className="event-list__empty-icon" aria-hidden="true">
             ◌
           </span>
-          <strong>Aucun événement</strong>
-          <span>Aucun événement ne correspond aux filtres actifs. Élargissez la sélection ou revenez plus tard.</span>
+          <strong>No events</strong>
+          <span>No events match the active filters. Widen the selection or come back later.</span>
         </div>
       ) : (
         <ul className="event-list__items">
@@ -148,24 +155,21 @@ export default function EventList({
                   className="event-list__sev"
                   data-sev={severity}
                   aria-label={`${SEVERITY_LABEL} ${severity} sur 5`}
+                />
+                <time
+                  className="event-list__time"
+                  dateTime={observedAt ?? undefined}
+                  title={observedAt ?? undefined}
                 >
-                  {severity}
-                </span>
+                  {formatRelativeFr(observedAt, now)}
+                </time>
                 <div className="event-list__body">
-                  <div className="event-list__top">
-                    <span className="event-list__family" data-family={event.family}>
-                      {FAMILY_LABEL[event.family as Family] ?? event.family}
-                    </span>
-                    <time
-                      className="event-list__date"
-                      dateTime={observedAt ?? undefined}
-                      title={observedAt ?? undefined}
-                    >
-                      {formatRelativeFr(observedAt, now)}
-                    </time>
-                  </div>
                   <p className="event-list__title">{event.title}</p>
                   <div className="event-list__meta">
+                    <span className="event-list__family" data-family={event.family}>
+                      <span className="swatch" aria-hidden="true" />
+                      {FAMILY_LABEL[event.family as Family] ?? event.family}
+                    </span>
                     <span className="event-list__source">{source}</span>
                     {event.sourceUrl ? (
                       <a
@@ -174,7 +178,7 @@ export default function EventList({
                         target="_blank"
                         rel="noreferrer noopener"
                       >
-                        source externe ↗
+                        source ↗
                       </a>
                     ) : null}
                   </div>
