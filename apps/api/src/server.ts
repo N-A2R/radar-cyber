@@ -162,4 +162,8 @@ for (const signal of ["SIGINT", "SIGTERM"] as const) {
 	});
 }
 
-await app.listen({ port, host: "0.0.0.0" });
+// Écoute locale par défaut : l'API n'a pas à être visible depuis le réseau
+// (vite proxifie /api en localhost). Pour l'exposer sciemment — tailnet, LAN —
+// lancer avec HOST=0.0.0.0.
+const host = process.env.HOST ?? "127.0.0.1";
+await app.listen({ port, host });
