@@ -89,6 +89,18 @@ if [[ -n "${OFFSITE:-}" ]]; then
     log "ERREUR: OFFSITE est défini sans PASSPHRASE_FILE — refus de copier en clair."
     exit 1
   fi
+  # Les sandboxes InstaBox du plan gratuit s'auto-pausent après une trentaine de
+  # minutes d'inactivité. Sans réveil explicite, une sauvegarde quotidienne
+  # tomberait sur une machine endormie et échouerait presque tous les jours :
+  # la copie hors site existerait sur le papier et jamais sur le disque.
+  if [[ -n "${OFFSITE_SANDBOX:-}" ]] && command -v instabox >/dev/null 2>&1; then
+    log "Réveil de la sandbox $OFFSITE_SANDBOX"
+    if ! instabox wake "$OFFSITE_SANDBOX" >/dev/null 2>&1; then
+      # Un cooldown du plan gratuit peut durer des dizaines de minutes : on le
+      # dit, on n'abandonne pas la sauvegarde locale pour autant.
+      log "AVERTISSEMENT: réveil de $OFFSITE_SANDBOX impossible — la copie hors site peut échouer."
+    fi
+  fi
   if [[ "$OFFSITE" == *:* ]]; then
     HOST="${OFFSITE%%:*}"
     REMOTE_DIR="${OFFSITE#*:}"
