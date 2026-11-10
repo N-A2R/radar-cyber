@@ -1,8 +1,42 @@
 import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
+import { resolveUser } from "../middleware/auth.js";
+
+function redactEvent(row: Record<string, unknown>) {
+  const summary = row.tlp === "RED" ? null : row.summary;
+  return {
+    id: row.id,
+    dedupKey: row.dedup_key,
+    family: row.family,
+    assertionType: row.assertion_type,
+    title: row.title,
+    summary,
+    observedAt: row.observed_at,
+    collectedAt: row.collected_at,
+    severity: row.severity,
+    confidence: row.confidence,
+    sourceId: row.source_id,
+    sourceUrl: row.source_url,
+    evidence: row.evidence,
+    geoType: row.geo_type,
+    lat: row.lat,
+    lon: row.lon,
+    orgId: row.org_id,
+    dateSource: row.date_source,
+    dateConfidence: row.date_confidence,
+    tlp: row.tlp,
+    tlpSource: row.tlp_source,
+  };
+}
 
 export default async function (app: FastifyInstance) {
-  app.get("/events", async (req) => {
+  app.get("/events", async (req, reply) => {
+    const user = await resolveUser(req);
+    if (!user) {
+      reply.code(401).send({ error: "unauthorized" });
+      return;
+    }
+
     const q = req.query as Record<string, string | undefined>;
     let limit = Number(q.limit ?? 100);
     if (!Number.isFinite(limit)) limit = 100;
@@ -18,28 +52,8 @@ export default async function (app: FastifyInstance) {
     const orderCol = sort === "collected" ? "collected_at" : "COALESCE(observed_at, collected_at)";
     params.push(limit);
     const limitIdx = params.length;
-    const sql = `SELECT id, dedup_key, family, assertion_type, title, summary, observed_at, collected_at, severity, confidence, source_id, source_url, evidence, geo_type, lat, lon, org_id, date_source, date_confidence FROM event ${where.length ? "WHERE " + where.join(" AND ") : ""} ORDER BY ${orderCol} DESC, id DESC LIMIT $${limitIdx}`;
+    const sql = `SELECT id, dedup_key, family, assertion_type, title, summary, observed_at, collected_at, severity, confidence, source_id, source_url, evidence, geo_type, lat, lon, org_id, date_source, date_confidence, tlp, tlp_source FROM event ${where.length ? "WHERE " + where.join(" AND ") : ""} ORDER BY ${orderCol} DESC, id DESC LIMIT $${limitIdx}`;
     const r = await query<any>(sql, params);
-    return r.rows.map((row) => ({
-      id: row.id,
-      dedupKey: row.dedup_key,
-      family: row.family,
-      assertionType: row.assertion_type,
-      title: row.title,
-      summary: row.summary,
-      observedAt: row.observed_at,
-      collectedAt: row.collected_at,
-      severity: row.severity,
-      confidence: row.confidence,
-      sourceId: row.source_id,
-      sourceUrl: row.source_url,
-      evidence: row.evidence,
-      geoType: row.geo_type,
-      lat: row.lat,
-      lon: row.lon,
-      orgId: row.org_id,
-      dateSource: row.date_source,
-      dateConfidence: row.date_confidence,
-    }));
+    return r.rows.map((row) => redactEvent(row));
   });
 }

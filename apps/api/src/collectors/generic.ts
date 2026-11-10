@@ -9,7 +9,7 @@ import { XMLParser } from "fast-xml-parser";
 import { ingestQuery } from "../db.js";
 import { parseObservedAt } from "./dates.js";
 import { fetchResilient } from "./http.js";
-import { isRelevant, loadRelevanceOrgIndex, type RelevanceOrg } from "./relevance.js";
+import { isRelevant, loadRelevanceOrgIndex, matchOrgForText, type RelevanceOrg } from "./relevance.js";
 import { isActionableIndicator, loadActiveIndex, type ActiveIndex } from "./filter.js";
 
 type SourceRow = {
@@ -249,6 +249,13 @@ async function ingestNarrative(source: SourceRow, body: string, orgIndex: Releva
       skipped++;
       continue;
     }
+    let orgId: number | null = null;
+    try {
+      const matchedOrg = await matchOrgForText(`${title} ${summary}`);
+      orgId = matchedOrg?.orgId ?? null;
+    } catch {
+      orgId = null;
+    }
     const dateRaw = explicitOr(item, parser.dateField, DATE_FIELDS);
     // parseObservedAt couvre RFC 822/3339, formats français et relatifs ; à
     // défaut il retombe sur l'instant de collecte, ce qui évite les
@@ -259,16 +266,16 @@ async function ingestNarrative(source: SourceRow, body: string, orgIndex: Releva
     // DO UPDATE : un événement déjà connu mais sans date (ingéré avant la
     // correction) reçoit enfin observed_at. Sans ça, re-parser ne répare rien.
     const r = await ingestQuery<{ inserted: boolean }>(
-      `INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at, date_source, date_confidence, severity, confidence,
+      `INSERT INTO event (dedup_key, family, assertion_type, title, summary, org_id, observed_at, date_source, date_confidence, severity, confidence,
         source_id, source_url, evidence, geo_type)
-       VALUES ($1,$2,'ambient_signal',$3,$10,$4,$5,$6,2,'C3',$7,$8,$9,'unknown')
+       VALUES ($1,$2,'ambient_signal',$3,$10,$11,$4,$5,$6,2,'C3',$7,$8,$9,'unknown')
        ON CONFLICT (dedup_key) DO UPDATE SET
          observed_at      = COALESCE(event.observed_at, EXCLUDED.observed_at),
          date_source      = COALESCE(event.date_source, EXCLUDED.date_source),
          date_confidence  = COALESCE(event.date_confidence, EXCLUDED.date_confidence)
        RETURNING (xmax = 0) AS inserted`,
       [dedupKey, source.family, title, parsed.at?.toISOString() ?? null, parsed.source, parsed.confidence,
-        source.id, link || null, JSON.stringify({ feed: source.name }), summary]
+        source.id, link || null, JSON.stringify({ feed: source.name }), summary, orgId]
     );
     if (r.rows[0]?.inserted) added++;
   }

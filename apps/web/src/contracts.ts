@@ -63,5 +63,8 @@ export type LoginProps = {
   onSuccess: (token: string) => void;
 };
 
+/** Scope d'une alerte : incident organisationnel ou avis régional. */
+export type AlertScope = "organization_incident" | "regional_advisory";
+
 /** Rangée d'alerte telle que rendue par la vue alertes. */
-export type AlertRow = Alert;
+export type AlertRow = Alert & { scope?: AlertScope | null };
