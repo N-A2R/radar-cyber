@@ -20,6 +20,7 @@ export type InspectorProps = {
   eventId: string | null;
   orgId: number | null;
   onClose: () => void;
+  onOpenOrg?: (orgId: number) => void;
 };
 
 /** Contrat de la vue carte. */
