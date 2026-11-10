@@ -105,7 +105,7 @@ export type Stats = {
 };
 
 export type Graph = {
-  nodes: { id: string; label: string; kind: "org" | "family" | "group" | "asset" }[];
+  nodes: { id: string; label: string; kind: "org" | "family" | "group" | "asset" | "dept" }[];
   links: { source: string; target: string; type: string }[];
 };
 
