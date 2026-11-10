@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { api, type Event, type FlowArc, type Graph, type Org, type Source, type Stats } from "./api";
+import { api, getAuthToken, type Event, type FlowArc, type Graph, type Org, type Source, type Stats } from "./api";
 import { mockData } from "./mock";
 import Map3D from "./map/Map3D";
 import GraphView from "./graph/GraphView";
@@ -50,7 +50,12 @@ export default function App() {
 
   // Temps réel : le serveur pousse les nouveaux événements (SSE).
   useEffect(() => {
-    const stream = new EventSource("/api/stream");
+    // `EventSource` ne peut pas poser d'en-tête : le jeton passe en query,
+    // accepté par la seule route /api/stream côté serveur.
+    const streamToken = getAuthToken();
+    const stream = new EventSource(
+      streamToken ? `/api/stream?token=${encodeURIComponent(streamToken)}` : "/api/stream"
+    );
     stream.onopen = () => setConnected(true);
     stream.onerror = () => setConnected(false);
     stream.addEventListener("new", (raw) => {

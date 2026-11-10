@@ -9,11 +9,7 @@ declare module "fastify" {
   }
 }
 
-export async function resolveUser(req: FastifyRequest): Promise<AuthUser | null> {
-  const h = req.headers.authorization;
-  if (!h || !h.toLowerCase().startsWith("bearer ")) return null;
-  const token = h.slice(7).trim();
-  if (!token) return null;
+async function lookupToken(token: string): Promise<AuthUser | null> {
   const r = await query<{ user_id: number; email: string; role: string; display_name: string | null; expires_at: string }>(
     `SELECT u.id AS user_id, u.email, u.role, u.display_name, s.expires_at
      FROM app_session s JOIN app_user u ON u.id = s.user_id
@@ -24,6 +20,27 @@ export async function resolveUser(req: FastifyRequest): Promise<AuthUser | null>
   if (!row) return null;
   if (new Date(row.expires_at).getTime() < Date.now()) return null;
   return { id: row.user_id, email: row.email, role: row.role, displayName: row.display_name };
+}
+
+/**
+ * Le flux SSE est consommé par un `EventSource`, qui ne peut pas poser
+ * d'en-tête `Authorization` : c'est la seule route qui accepte le jeton en
+ * paramètre de requête.
+ */
+const QUERY_TOKEN_PATHS = ["/api/stream"];
+
+export async function resolveUser(req: FastifyRequest): Promise<AuthUser | null> {
+  const h = req.headers.authorization;
+  if (h && h.toLowerCase().startsWith("bearer ")) {
+    const token = h.slice(7).trim();
+    if (token) return lookupToken(token);
+  }
+  const path = (req.url ?? "").split("?")[0];
+  if (QUERY_TOKEN_PATHS.some((p) => path === p || path.startsWith(`${p}/`))) {
+    const raw = (req.query as { token?: unknown } | undefined)?.token;
+    if (typeof raw === "string" && raw.trim().length > 0) return lookupToken(raw.trim());
+  }
+  return null;
 }
 
 export function requireAuth() {
