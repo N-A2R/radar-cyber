@@ -252,6 +252,7 @@ exactement comme avant :
 |---|---|
 | `PASSPHRASE_FILE` | chiffre l'archive en AES-256 (gpg symétrique) et supprime le clair |
 | `OFFSITE` | copie l'archive chiffrée (`hôte:répertoire` par scp, sinon rsync) et vérifie sa taille à distance |
+| `OFFSITE_SANDBOX` | réveille la sandbox InstaBox nommée avant la copie (`instabox wake`) |
 
 ```bash
 PASSPHRASE_FILE=~/.config/radar-cyber/backup.pass \
@@ -266,6 +267,23 @@ Les appels gpg passent donc par `--pinentry-mode loopback` : jamais de dialogue.
 
 `OFFSITE` sans `PASSPHRASE_FILE` est refusé : une sauvegarde hors site en clair
 sortirait des données TLP:RED, ce que le roadmap interdit.
+
+**Les sandboxes du plan gratuit s'endorment** après une trentaine de minutes
+d'inactivité. Sans `OFFSITE_SANDBOX`, une sauvegarde quotidienne tomberait sur
+une machine en pause et échouerait presque tous les jours — le hors site
+n'existerait que sur le papier. Le script réveille donc la cible avant de
+copier, et se contente d'un avertissement si un cooldown l'empêche : la
+sauvegarde locale reste faite.
+
+```bash
+PASSPHRASE_FILE=~/.config/radar-cyber/backup.pass \
+OFFSITE=instabox-compute-3:/data/home/backups/radar \
+OFFSITE_SANDBOX=compute-3 \
+  scripts/backup-db.sh
+```
+
+La configuration vit dans `~/.config/radar-cyber/backup.env`, chargée par
+`radar-backup.service` (timer quotidien).
 
 ### Preuve de restauration
 
@@ -402,3 +420,25 @@ cd apps/api
 ```
 
 Nécessite `DATABASE_URL` pointant vers une base contenant les migrations.
+
+### Rétention — attention à la date utilisée
+
+La rétention tourne **au démarrage de l'API** puis périodiquement. La fenêtre
+est `RADAR_RETENTION_DAYS` (90 jours par défaut) et elle s'applique à
+`observed_at` : la date de l'**événement**, pas celle de son ingestion.
+
+Conséquence mesurée le 11 novembre : un redémarrage a purgé **4 245
+événements**. Ce n'était pas une perte accidentelle — c'étaient des éléments
+datés d'avant la fenêtre (fuites anciennes, CVE historiques) ingérés en
+rattrapage. Mais le total affiché avant le redémarrage les comptait, ce qui
+donne l'illusion d'une chute.
+
+Deux points à garder en tête :
+
+- Un événement ingéré aujourd'hui avec une date d'il y a trois mois sera purgé
+  au prochain redémarrage.
+- `SELECT count(*) FROM event` juste après une grosse collecte de rattrapage
+  surestime donc ce que le produit conserve réellement.
+
+Pour un observatoire, une revendication de quatre mois reste une information
+utile : la fenêtre est un choix produit, pas une évidence technique.
