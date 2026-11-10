@@ -145,3 +145,41 @@ Recherche du 2026-11-10. Toutes les URL ci-dessous ont été testées par requê
 - **À valider** : la licence ODbL impose un partage à l'identique si les données OSM sont redistribuées ; le stockage interne sans redistribution est acceptable.
 
 *Dernière vérification : 2026-11-10.*
+
+---
+
+## Vérification du 10 novembre 2026 — candidat retenu
+
+Recherche refaite après la mise au propre du front. Une seule piste retenue,
+les autres écartées pour une raison mesurée.
+
+### Re:Earth Buildings — retenu
+
+| Élément | Valeur observée |
+|---|---|
+| Racine | `https://buildings.reearth.land/tileset.json` → **200**, `application/json`, `access-control-allow-origin: *` |
+| Tuile témoin (Bordeaux, z12) | `https://buildings.reearth.land/v5-add/12/2041/1475.glb` → **200**, `model/gltf-binary`, CORS ouvert |
+| Licence | **ODbL 1.0** — © OpenStreetMap contributors + Overture Maps Foundation, attribution obligatoire |
+| Format | 3D Tiles 1.1, GLB meshopt, LOD par `geometricError`, `refine: ADD` |
+| Poids | ~29 Ko par tuile z12, chargée à la demande |
+| Gain visuel | vrais volumes et toits, contre l'extrusion 2.5D actuelle des empreintes OpenFreeMap |
+
+Une tuile a répondu **503** avec `retry-after: 2` au premier essai : le CDN est
+transitoirement instable, il faut un repli sur l'extrusion existante.
+
+### Écartés, avec la raison
+
+| Asset | Raison |
+|---|---|
+| Cesium OSM Buildings | `https://assets.ion.cesium.com/96188/tileset.json` → **401** sans jeton ion |
+| Google Photorealistic 3D Tiles | conditions d'usage interdisant le stockage, contraire au projet |
+| GBA LoD1 | CC BY-NC 4.0, non commercial |
+
+### Ce que l'intégration demande
+
+MapLibre 6 ne rend pas les 3D Tiles nativement : il faut une couche `three.js`
+(`maplibre-gl-three` + `3d-tiles-renderer`). Ces deux paquets avaient été
+retirés du `package.json` le 10 novembre parce qu'aucun code ne les utilisait —
+les réintroduire n'a de sens qu'au moment de brancher la couche, pas avant.
+La charte ne change pas : teinte des bâtiments et palette d'arcs restent celles
+de `styles.css`.

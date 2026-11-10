@@ -197,6 +197,40 @@ systemctl --user restart radar-api.service radar-web.service
 
 Vérifier ensuite : `scripts/verify-all.sh`.
 
+## Tor (collecte `.onion`)
+
+Les pages de revendication `.onion` passent par un proxy SOCKS5 local. Tor est
+installé sur la machine mais le service système lit `/etc/tor/torrc`, qui exige
+root (`User tor`). Radar Cyber utilise donc une configuration dédiée:
+
+```bash
+# ~/.config/radar-cyber/torrc
+SocksPort 127.0.0.1:9050
+DataDirectory ~/.local/share/radar-cyber/tor
+Log notice file ~/.local/share/radar-cyber/tor/notices.log
+```
+
+et un service utilisateur `tor-radar.service` :
+
+```bash
+systemctl --user enable --now tor-radar.service
+systemctl --user is-active tor-radar.service   # active
+ss -ltn | grep 9050                            # LISTEN 127.0.0.1:9050
+```
+
+Vérification de bout en bout, mesurée le 10 novembre 2026 :
+
+```bash
+curl --socks5-hostname 127.0.0.1:9050 -o /dev/null -w '%{http_code}\n' \
+  https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/
+# 200 (43 s : premier circuit, les suivants sont plus rapides)
+```
+
+Le collecteur ne sort **jamais** une URL `.onion` vers le clearnet : sans
+`RADAR_TOR_SOCKS`, la requête échoue immédiatement avec un message explicite.
+
+
+
 ## Sauvegarde et restauration
 
 `scripts/backup-db.sh` réalise un dump custom compressé
@@ -208,6 +242,45 @@ scripts/backup-db.sh
 # Dumps dans ~/.local/share/radar-cyber/backups/radar-<horodatage>.dump
 BACKUP_DIR=/mnt/sauvegardes RETENTION=30 scripts/backup-db.sh
 ```
+
+### Chiffrement et sortie hors site
+
+Deux variables, désactivées par défaut — sans elles le script se comporte
+exactement comme avant :
+
+| Variable | Effet |
+|---|---|
+| `PASSPHRASE_FILE` | chiffre l'archive en AES-256 (gpg symétrique) et supprime le clair |
+| `OFFSITE` | copie l'archive chiffrée (`hôte:répertoire` par scp, sinon rsync) et vérifie sa taille à distance |
+
+```bash
+PASSPHRASE_FILE=~/.config/radar-cyber/backup.pass \
+OFFSITE=hermes:/srv/backups/radar \
+  scripts/backup-db.sh
+```
+
+Le chiffrement est **vérifié par déchiffrement** : le script déchiffre dans un
+tube et compare le nombre d'octets avec l'original. `gpg --list-packets` ne
+suffit pas — il ne lit que les en-têtes, et il déclenche pinentry en mode batch.
+Les appels gpg passent donc par `--pinentry-mode loopback` : jamais de dialogue.
+
+`OFFSITE` sans `PASSPHRASE_FILE` est refusé : une sauvegarde hors site en clair
+sortirait des données TLP:RED, ce que le roadmap interdit.
+
+### Preuve de restauration
+
+`scripts/restore-verify.sh` restaure réellement une archive dans une base
+jetable (`radar_restore_<pid>`), compte `event`, `org`, `source` et
+`indicator`, puis supprime la base. Il accepte une archive claire ou `.gpg`.
+
+```bash
+PASSPHRASE_FILE=~/.config/radar-cyber/backup.pass scripts/restore-verify.sh
+# [22:12:37] Restauré: event=6166 org=613 source=463 indicator=28255
+# [22:12:37] Restauration vérifiée
+```
+
+C'est le seul contrôle qui prouve qu'une sauvegarde vaut quelque chose ; il
+coûte quelques secondes et ne touche jamais la base `radar`.
 
 Sur cette machine, un timer utilisateur `radar-backup.timer` (quotidien, 03:17)
 appelle déjà ce script ; ses fichiers sont locaux, pas dans le dépôt. Pour le
