@@ -278,7 +278,7 @@ export function isRelevant(
 // l'utilisateur (2026-11-10) et bornées par des mesures (docs/couverture.md).
 //
 //   (a) CVE exploitable : le CVE de l'item a un score EPSS ≥ seuil dans la
-//       source `epss` déjà en base (aucun appel réseau).
+//       table `epss` déjà en base (aucun appel réseau).
 //   (b) département cité : un département de Nouvelle-Aquitaine ou une
 //       préfecture apparaît en mot entier dans le titre ou le résumé — jamais
 //       dans l'URL, sinon chaque article d'un média local passerait.
@@ -362,15 +362,16 @@ const LOCATIVE_CUE_RE = /\b(?:en|au|aux|a|dans|sur|vers|depuis|pres de|autour de
 const URL_OCCURRENCE_RE = /\b(?:https?:\/\/|www\.)\S+/gi;
 
 /**
- * Seuil EPSS retenu, mesuré (docs/couverture.md) : 0,10 capte la moitié des
- * CVE 2025-2026 de l'échantillon (136/272) et reste le bar « exploitation
- * probable sous 30 jours » de FIRST ; 0,01 en admettrait 94 % (256/272), ce
- * qui ne distingue plus rien.
+ * Seuil EPSS d'admission. Fixé à 0,30 sur décision utilisateur du 10 novembre :
+ * 0,10 admettait trop de CVE peu exploitables et noyait le fil ; 0,30 ne garde
+ * que les scores où l'exploitation est réellement probable à court terme.
+ * La mesure d'origine (136/272 à 0,10) reste dans docs/couverture.md.
  */
-export const EPSS_ADMISSION_THRESHOLD = 0.1;
+export const EPSS_ADMISSION_THRESHOLD = 0.3;
 
 /** Contexte d'admission transmis par le collecteur (chargé une fois par run). */
 export interface CoverageContext {
+  /** Scores EPSS par CVE (table `epss`, migration 021), jamais depuis `event`. */
   epssByCve: ReadonlyMap<string, number>;
   epssThreshold: number;
   deptNames: readonly string[];
@@ -387,7 +388,7 @@ export function extractCveIds(text: string): string[] {
 
 /**
  * Règle (a) : un CVE de l'item dépasse le seuil EPSS. Le score vient de la
- * table `event` (source `epss`), jamais du réseau.
+ * table `epss` (migration 021), jamais du réseau ni de `event`.
  */
 export function admitByEpss(text: string, ctx: CoverageContext): { cve: string; score: number } | null {
   for (const cve of extractCveIds(text)) {
