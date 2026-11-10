@@ -6,7 +6,10 @@
  */
 import { createHash } from "node:crypto";
 import { XMLParser } from "fast-xml-parser";
-import { query } from "../db.js";
+import { ingestQuery } from "../db.js";
+import { parseObservedAt } from "./dates.js";
+import { fetchResilient } from "./http.js";
+import { isRelevant, loadRelevanceOrgIndex, type RelevanceOrg } from "./relevance.js";
 
 type SourceRow = {
   id: string;
@@ -19,9 +22,11 @@ type SourceRow = {
   interval_sec: number;
   last_ok_at: string | null;
   last_error_at: string | null;
+  relevance: string;
 };
 
-type IngestResult = { items: number; added: number };
+/** `skipped` = éléments écartés par la porte de pertinence (presse hors cyber). */
+type IngestResult = { items: number; added: number; skipped: number };
 
 const MAX_BODY_BYTES = 25 * 1024 * 1024;
 const BATCH_SIZE = 1000;
@@ -122,17 +127,17 @@ function parseJsonItems(body: string, parser: Record<string, unknown>): Record<s
   return findFirstObjectArray(data);
 }
 
+/**
+ * Récupère le corps d'un flux via le client résilient (Retry-After, backoff,
+ * GET conditionnel). Un 304 renvoie une chaîne vide : la source est déjà à jour.
+ */
 async function fetchText(url: string, timeoutMs = 30000): Promise<string> {
-  const res = await fetch(url, {
-    signal: AbortSignal.timeout(timeoutMs),
-    headers: { "User-Agent": "radar-cyber-na/0.1 (+veille passive)" },
-  });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  const declared = Number(res.headers.get("content-length") ?? 0);
-  if (declared > MAX_BODY_BYTES) throw new Error(`flux trop volumineux (${(declared / 1048576).toFixed(1)} Mo)`);
-  const body = await res.text();
-  if (body.length > MAX_BODY_BYTES) throw new Error(`flux trop volumineux (${(body.length / 1048576).toFixed(1)} Mo)`);
-  return body;
+  const res = await fetchResilient(url, { timeoutMs });
+  if (res.notModified) return "";
+  if (res.text.length > MAX_BODY_BYTES) {
+    throw new Error(`flux trop volumineux (${(res.text.length / 1048576).toFixed(1)} Mo)`);
+  }
+  return res.text;
 }
 
 async function ingestIndicator(source: SourceRow, body: string): Promise<IngestResult> {
@@ -150,7 +155,7 @@ async function ingestIndicator(source: SourceRow, body: string): Promise<IngestR
       params.push(row.type, row.value);
     }
     params.push(source.id);
-    const r = await query(
+    const r = await ingestQuery(
       `INSERT INTO indicator (type, value, first_seen, last_seen, tlp, confidence, source_id)
        VALUES ${values}
        ON CONFLICT (type, value) DO UPDATE SET last_seen=now(), source_id=EXCLUDED.source_id`,
@@ -171,85 +176,145 @@ async function ingestIndicator(source: SourceRow, body: string): Promise<IngestR
     if (batch.length >= BATCH_SIZE) added += await flush();
   }
   added += await flush();
-  return { items, added };
+  return { items, added, skipped: 0 };
 }
 
-async function ingestNarrative(source: SourceRow, body: string): Promise<IngestResult> {
+async function ingestNarrative(source: SourceRow, body: string, orgIndex: RelevanceOrg[]): Promise<IngestResult> {
   const parser = source.parser ?? {};
   const items = source.format === "rss"
     ? parseRss(body, parser)
     : parseJsonItems(body, parser);
 
+  // Porte de pertinence : un flux de presse généraliste livre sa une, pas de
+  // la cyber. Seules les sources `strict` (déjà cyber) passent sans filtre.
+  const gate = source.relevance !== "strict";
+  // L'hôte du flux est exclu du matching d'entités (voir relevance.ts).
+  let sourceHost = "";
+  try {
+    sourceHost = new URL(source.url).host;
+  } catch {
+    sourceHost = "";
+  }
+
   let added = 0;
+  let skipped = 0;
+  const fetchedAt = new Date();
   for (const item of items) {
     const title = explicitOr(item, parser.titleField, TITLE_FIELDS).slice(0, 400);
     if (!title) continue;
     const link = explicitOr(item, parser.linkField, LINK_FIELDS);
+    if (gate && !isRelevant({ title, url: link, sourceUrl: link }, { orgs: orgIndex, ignoreDomains: [sourceHost] }).relevant) {
+      skipped++;
+      continue;
+    }
     const dateRaw = explicitOr(item, parser.dateField, DATE_FIELDS);
-    const observedAt = dateRaw && !Number.isNaN(Date.parse(dateRaw)) ? new Date(dateRaw).toISOString() : undefined;
+    // parseObservedAt couvre RFC 822/3339, formats français et relatifs ; à
+    // défaut il retombe sur l'instant de collecte, ce qui évite les
+    // observed_at NULL qui s'accumulaient en fin de fil.
+    const parsed = parseObservedAt(dateRaw, { fetchedAt });
     const dedupKey = `feed:${source.id}:${hashKey(link || title)}`;
 
-    const r = await query(
-      `INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at, severity, confidence,
+    // DO UPDATE : un événement déjà connu mais sans date (ingéré avant la
+    // correction) reçoit enfin observed_at. Sans ça, re-parser ne répare rien.
+    const r = await ingestQuery<{ inserted: boolean }>(
+      `INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at, date_source, date_confidence, severity, confidence,
         source_id, source_url, evidence, geo_type)
-       VALUES ($1,$2,'ambient_signal',$3,NULL,$4,2,'C3',$5,$6,$7,'unknown')
-       ON CONFLICT (dedup_key) DO NOTHING`,
-      [dedupKey, source.family, title, observedAt ?? null, source.id, link || null, JSON.stringify({ feed: source.name })]
+       VALUES ($1,$2,'ambient_signal',$3,NULL,$4,$5,$6,2,'C3',$7,$8,$9,'unknown')
+       ON CONFLICT (dedup_key) DO UPDATE SET
+         observed_at      = COALESCE(event.observed_at, EXCLUDED.observed_at),
+         date_source      = COALESCE(event.date_source, EXCLUDED.date_source),
+         date_confidence  = COALESCE(event.date_confidence, EXCLUDED.date_confidence)
+       RETURNING (xmax = 0) AS inserted`,
+      [dedupKey, source.family, title, parsed.at?.toISOString() ?? null, parsed.source, parsed.confidence,
+        source.id, link || null, JSON.stringify({ feed: source.name })]
     );
-    if ((r.rowCount ?? 0) > 0) added++;
+    if (r.rows[0]?.inserted) added++;
   }
-  return { items: items.length, added };
+  return { items: items.length, added, skipped };
 }
 
 function looksLikeBlocklist(url: string): boolean {
   return /\.(txt|csv|json|zip)(\?|$)/i.test(url) || /blocklist|blacklist|hostfile|feed-osint/i.test(url);
 }
 
-async function processSource(source: SourceRow): Promise<void> {
+async function processSource(source: SourceRow, orgIndex: RelevanceOrg[]): Promise<void> {
   const lastOk = source.last_ok_at ? Date.parse(source.last_ok_at) : NaN;
   const minInterval = (source.interval_sec ?? 3600) * 1000 * 0.8;
   if (!Number.isNaN(lastOk) && Date.now() - lastOk < minInterval) return;
 
   try {
     const body = await fetchText(source.url);
+    // 304 Not Modified : rien de neuf, la source reste saine.
+    if (body === "") {
+      await ingestQuery(
+        "UPDATE source SET last_ok_at=now(), last_error=NULL, last_error_at=NULL, last_items=0 WHERE id=$1",
+        [source.id]
+      );
+      await ingestQuery(
+        "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new) VALUES ($1, now(), 'ok', 0, 0)",
+        [source.id]
+      );
+      return;
+    }
     const asIndicator = source.kind === "indicator" || (source.format !== "rss" && looksLikeBlocklist(source.url));
     let result = asIndicator
       ? await ingestIndicator(source, body)
-      : await ingestNarrative(source, body);
+      : await ingestNarrative(source, body, orgIndex);
     if (!asIndicator && result.items === 0) {
       const fallback = await ingestIndicator(source, body);
       if (fallback.items > 0) result = fallback;
     }
-    await query(
+    await ingestQuery(
       "UPDATE source SET last_ok_at=now(), last_error=NULL, last_error_at=NULL, items_total=$1, last_items=$2 WHERE id=$3",
       [result.items, result.added, source.id]
     );
-    await query(
-      "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new) VALUES ($1, now(), 'ok', $2, $3)",
-      [source.id, result.items, result.added]
+    await ingestQuery(
+      "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, items_skipped) VALUES ($1, now(), 'ok', $2, $3, $4)",
+      [source.id, result.items, result.added, result.skipped]
     );
   } catch (e) {
     const err = String((e as Error)?.message ?? e);
-    await query("UPDATE source SET last_error_at=now(), last_error=$1 WHERE id=$2", [err, source.id]).catch(() => {});
-    await query(
+    await ingestQuery("UPDATE source SET last_error_at=now(), last_error=$1 WHERE id=$2", [err, source.id]).catch(() => {});
+    await ingestQuery(
       "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, error) VALUES ($1, now(), 'error', 0, 0, $2)",
       [source.id, err]
     ).catch(() => {});
   }
 }
 
-export async function runGenericSources(log: (msg: string) => void): Promise<void> {
-  const { rows } = await query<SourceRow>(
-    "SELECT id, name, family, url, kind, format, parser, interval_sec, last_ok_at, last_error_at FROM source WHERE enabled AND id NOT IN ('cert_fr','cisa_kev','ransomlook','epss','hermes_radar_cyber')"
-  );
+export async function runGenericSources(
+	log: (msg: string) => void,
+	opts?: { sourceIds?: string[]; limit?: number },
+): Promise<void> {
+	// Les sources ci-dessous ont un collecteur dédié (collectors/index.ts) :
+	// le moteur générique ne doit pas tenter de les parser comme des flux.
+	const params: unknown[] = [];
+	let sql =
+		"SELECT id, name, family, url, kind, format, parser, interval_sec, last_ok_at, last_error_at, relevance FROM source WHERE enabled AND id NOT IN ('cert_fr','cisa_kev','ransomlook','epss','hermes_radar_cyber','nvd_cve','ctlog')";
+	if (opts?.sourceIds?.length) {
+		params.push(opts.sourceIds);
+		sql += ` AND id = ANY($${params.length})`;
+	}
+	sql += " ORDER BY id";
+	if (opts?.limit) {
+		params.push(opts.limit);
+		sql += ` LIMIT $${params.length}`;
+	}
+	const { rows } = await ingestQuery<SourceRow>(sql, params);
   log(`ingestion générique : ${rows.length} sources candidat(es)`);
+
+  // Index de pertinence chargé une seule fois par run (392 orgs + domaines).
+  const { rows: orgRows } = await ingestQuery<{ name: string; domain: string | null; assets: string[] | null }>(
+    "SELECT o.name, o.domain, array_remove(array_agg(DISTINCT a.value), NULL) AS assets FROM org o LEFT JOIN asset a ON a.org_id = o.id AND a.kind IN ('domain','subdomain') GROUP BY o.id"
+  );
+  const orgIndex = loadRelevanceOrgIndex(orgRows.map((o) => ({ name: o.name, domain: o.domain, assets: o.assets ?? [] })));
 
   const CONCURRENCY = 8;
   let index = 0;
   const workers = Array.from({ length: CONCURRENCY }, async () => {
     while (index < rows.length) {
       const source = rows[index++];
-      await processSource(source);
+      await processSource(source, orgIndex);
     }
   });
   await Promise.all(workers);

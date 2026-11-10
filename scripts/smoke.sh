@@ -21,6 +21,12 @@ check_endpoint "/api/orgs"
 check_endpoint "/api/events?limit=1"
 check_endpoint "/api/graph"
 
+# Vérification approfondie des endpoints si le script dédié est présent
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [ -x "$SCRIPT_DIR/verify-api.sh" ]; then
+  BASE_URL="$BASE_URL" "$SCRIPT_DIR/verify-api.sh"
+fi
+
 if [ -n "$DATABASE_URL" ]; then
   psql "$DATABASE_URL" -f db/checks.sql
 else

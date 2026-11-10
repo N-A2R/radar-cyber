@@ -42,11 +42,19 @@ function detectIndicatorType(line: string): string | null {
 export { detectIndicatorType };
 
 async function main() {
+  const pool = new pg.Pool({ connectionString: DATABASE_URL });
+  if (file.endsWith(".sql")) {
+    const sql = readFileSync(file, "utf8");
+    await pool.query(sql);
+    const r = await pool.query("SELECT count(*)::int AS n FROM source");
+    console.log(JSON.stringify({ applied: file, total: r.rows[0].n }));
+    await pool.end();
+    return;
+  }
   const raw = readFileSync(file, "utf8");
   const lines = raw.split(/\r?\n/).filter(Boolean);
   const header = lines.shift() ?? "";
   const sep = header.includes(";") ? ";" : ",";
-  const pool = new pg.Pool({ connectionString: DATABASE_URL });
 
   let inserted = 0;
   let skipped = 0;

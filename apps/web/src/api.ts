@@ -31,6 +31,7 @@ export type Event = {
   confidence: string | null;
   sourceId: string;
   sourceUrl: string | null;
+  evidence?: unknown;
   geoType: string;
   lat: number | null;
   lon: number | null;
@@ -54,6 +55,21 @@ export type Source = {
   ok: boolean;
 };
 
+/** État de santé d'une source, dérivé de ses dates de succès et d'erreur. */
+export type SourceStatus = "ok" | "error" | "pending";
+
+/**
+ * Détermine l'état d'une source :
+ * - "error"   : une erreur est renseignée (la plus récente) ;
+ * - "pending" : jamais collectée (ni succès ni erreur) ;
+ * - "ok"      : un succès sans erreur.
+ */
+export function sourceStatus(source: Pick<Source, "lastOkAt" | "lastErrorAt">): SourceStatus {
+  if (source.lastErrorAt) return "error";
+  if (source.lastOkAt) return "ok";
+  return "pending";
+}
+
 export type Stats = {
   orgs: number;
   events: number;
@@ -68,11 +84,37 @@ export type Graph = {
   links: { source: string; target: string; type: string }[];
 };
 
+/** Réponse de GET /api/health : vitalité du backend et id des sources connues. */
+export type Health = {
+  ok: boolean;
+  sources: string[];
+};
+
+/** Arc géographique pour la carte 3D (GET /api/flows). */
+export type FlowArc = {
+  id: string;
+  from: { lat: number; lon: number; label: string };
+  to: { lat: number; lon: number; label: string };
+  family: string;
+  severity: number;
+  observedAt: string | null;
+  title: string;
+  sourceUrl: string | null;
+};
+
+/** Réponse de GET /api/flows. */
+export type Flows = {
+  arcs: FlowArc[];
+  total: number;
+  truncated: boolean;
+};
+
 export const api = {
   orgs: () => get<Org[]>("/orgs"),
   events: (limit = 100) => get<Event[]>(`/events?limit=${limit}`),
   graph: (days = 90) => get<Graph>(`/graph?days=${days}`),
   sources: () => get<Source[]>("/sources"),
   stats: () => get<Stats>("/stats"),
-  health: () => get<{ ok: boolean; sources: unknown[] }>("/health"),
+  health: () => get<Health>("/health"),
+  flows: (days = 30, limit = 300) => get<Flows>(`/flows?days=${days}&limit=${limit}`),
 };

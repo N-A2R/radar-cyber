@@ -36,3 +36,18 @@ Tous ces points de terminaison ont répondu **HTTP 200** le 2026-11-09 (codes me
 ## Conséquence pour le produit
 
 La couverture régionale provient principalement de **nos propres domaines** (typosquatting, certificats) et des **CVE rattachées aux actifs**. Les flux mondiaux donnent le contexte, pas le signal local.
+
+## Vague régionale 2026-11-10
+
+| id | famille | statut HTTP | url |
+|---|---|---|---|
+| presse-sudouest | cti | 200 | https://www.sudouest.fr/rss.xml |
+| presse-charentelibre | cti | 200 | https://www.charentelibre.fr/rss.xml |
+| univ-limoges | cti | 200 | https://www.unilim.fr/rss |
+| univ-larochelle | cti | 200 | https://www.univ-lr.fr/rss |
+| chu-poitiers | cti | 200 | https://www.chu-poitiers.fr/rss |
+| presse-rue89bordeaux | cti | 200 | https://www.rue89bordeaux.com/feed |
+| inria-bordeaux | cti | 200 | https://www.inria.fr/rss |
+| cert-fr-feed | cert_fr | 200 | https://www.cert.ssi.gouv.fr/feed/ |
+| cert-fr-avis | cert_fr | 200 | https://www.cert.ssi.gouv.fr/avis/feed/ |
+| cert-fr-alerte | cert_fr | 200 | https://www.cert.ssi.gouv.fr/alerte/feed/ |

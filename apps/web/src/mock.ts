@@ -1,9 +1,16 @@
-import type { Event, Graph, Org, Source, Stats } from "./api";
+import type { Event, Graph, Health, Org, Source, Stats } from "./api";
 
 /**
  * Données simulées — exclusivement pour la démonstration.
  * Aucune de ces données ne provient d'une source réelle.
  */
+
+const now = Date.now();
+
+/** Date UTC figurant un instant survenu il y a `minutes` minutes. */
+function ago(minutes: number): string {
+  return new Date(now - minutes * 60_000).toISOString();
+}
 
 const MOCK_ORGS: Org[] = [
   { id: 1, name: "CHU de Bordeaux", slug: "chu-bordeaux", kind: "sante", sector: "santé", city: "Bordeaux", dept: "33", lat: 44.8378, lon: -0.5792, eventCount: 3 },
@@ -49,15 +56,72 @@ const MOCK_EVENTS: Event[] = [
   },
 ];
 
+// Couvre les trois états de santé : ok, erreur, jamais collecté.
 const MOCK_SOURCES: Source[] = [
-  { id: "mock", name: "Source simulée (démo)", family: "cti", url: "https://example.invalid", kind: "narrative", format: "json", enabled: true, intervalSec: 3600, lastOkAt: null, lastErrorAt: null, lastError: null, itemsTotal: null, lastItems: null, ok: true },
+  {
+    id: "mock", name: "Source simulée (démo)", family: "cti", url: "https://example.invalid",
+    kind: "narrative", format: "json", enabled: true, intervalSec: 3600,
+    lastOkAt: ago(3), lastErrorAt: null, lastError: null, itemsTotal: 5, lastItems: 1, ok: true,
+  },
+  {
+    id: "cert_fr", name: "CERT-FR", family: "cert_fr", url: "https://www.cert.ssi.gouv.fr/feed/",
+    kind: "narrative", format: "rss", enabled: true, intervalSec: 900,
+    lastOkAt: ago(12), lastErrorAt: null, lastError: null, itemsTotal: 486, lastItems: 2, ok: true,
+  },
+  {
+    id: "cisa_kev", name: "CISA KEV", family: "vuln", url: "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
+    kind: "indicator", format: "json", enabled: true, intervalSec: 3600,
+    lastOkAt: ago(48), lastErrorAt: null, lastError: null, itemsTotal: 1287, lastItems: 9, ok: true,
+  },
+  {
+    id: "epss", name: "EPSS", family: "vuln", url: "https://api.first.org/data/v1/epss",
+    kind: "indicator", format: "json", enabled: true, intervalSec: 3600,
+    lastOkAt: ago(31), lastErrorAt: null, lastError: null, itemsTotal: 5421, lastItems: 23, ok: true,
+  },
+  {
+    id: "ransomlook", name: "Ransomlook", family: "ransomware", url: "https://www.ransomlook.io/feed",
+    kind: "narrative", format: "json", enabled: true, intervalSec: 1800,
+    lastOkAt: ago(2880), lastErrorAt: ago(26), lastError: "HTTP 503 — service indisponible",
+    itemsTotal: 93, lastItems: 0, ok: false,
+  },
+  {
+    id: "hermes", name: "Hermès (flux régional)", family: "cti", url: "https://hermes.example.invalid/rss",
+    kind: "narrative", format: "rss", enabled: true, intervalSec: 3600,
+    lastOkAt: null, lastErrorAt: null, lastError: null, itemsTotal: null, lastItems: null, ok: false,
+  },
+  {
+    id: "typosquat", name: "Typosquatting NA", family: "typosquat", url: "https://typosquat.example.invalid/api",
+    kind: "indicator", format: "json", enabled: true, intervalSec: 1800,
+    lastOkAt: ago(5), lastErrorAt: null, lastError: null, itemsTotal: 214, lastItems: 4, ok: true,
+  },
+  {
+    id: "nvd", name: "NVD", family: "vuln", url: "https://services.nvd.nist.gov/json/cves/2.0",
+    kind: "indicator", format: "json", enabled: true, intervalSec: 7200,
+    lastOkAt: ago(4320), lastErrorAt: ago(120), lastError: "délai d'attente dépassé après 30000 ms",
+    itemsTotal: 80412, lastItems: 0, ok: false,
+  },
+  {
+    id: "abuse_ch", name: "abuse.ch Feodo", family: "malware", url: "https://feodo-tracker.abuse.ch/downloads/hostlist/",
+    kind: "indicator", format: "json", enabled: true, intervalSec: 3600,
+    lastOkAt: ago(72), lastErrorAt: null, lastError: null, itemsTotal: 3310, lastItems: 15, ok: true,
+  },
+  {
+    id: "openphish", name: "OpenPhish", family: "phishing", url: "https://openphish.com/feed.txt",
+    kind: "indicator", format: "text", enabled: true, intervalSec: 3600,
+    lastOkAt: ago(9), lastErrorAt: null, lastError: null, itemsTotal: 1204, lastItems: 6, ok: true,
+  },
+  {
+    id: "regional_na", name: "Veille régionale NA (à activer)", family: "cert", url: "https://veille.example.invalid/rss",
+    kind: "narrative", format: "rss", enabled: false, intervalSec: 3600,
+    lastOkAt: null, lastErrorAt: null, lastError: null, itemsTotal: null, lastItems: null, ok: false,
+  },
 ];
 
 const MOCK_STATS: Stats = {
   orgs: MOCK_ORGS.length,
   events: MOCK_EVENTS.length,
   indicators: 0,
-  sources: { ok: 1, err: 0, total: 1 },
+  sources: { ok: 7, err: 2, total: 11 },
   byFamily: [
     { family: "ransomware", n: 1 },
     { family: "vuln", n: 1 },
@@ -90,4 +154,16 @@ const MOCK_GRAPH: Graph = {
   ],
 };
 
-export const mockData = { orgs: MOCK_ORGS, events: MOCK_EVENTS, sources: MOCK_SOURCES, stats: MOCK_STATS, graph: MOCK_GRAPH };
+const MOCK_HEALTH: Health = {
+  ok: true,
+  sources: MOCK_SOURCES.map((s) => s.id),
+};
+
+export const mockData = {
+  orgs: MOCK_ORGS,
+  events: MOCK_EVENTS,
+  sources: MOCK_SOURCES,
+  stats: MOCK_STATS,
+  graph: MOCK_GRAPH,
+  health: MOCK_HEALTH,
+};
