@@ -111,7 +111,7 @@ npx tsx scripts/geocode-orgs.mts --dry-run --limit=30
 # Run réel de rodage
 npx tsx scripts/geocode-orgs.mts --limit=30
 
-# Run complet (392 orgs, ≈ 2 à 4 min selon les replis)
+# Run complet (ensemble des organisations, durée variable selon replis)
 npx tsx scripts/geocode-orgs.mts
 
 # Uniquement la propagation org → événements

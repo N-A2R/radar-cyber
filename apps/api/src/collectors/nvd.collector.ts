@@ -190,7 +190,7 @@ export const collector: Collector = {
       let total = 0;
       let firstPage = true;
       while (true) {
-        if (!firstPage) await sleep(7000);
+        if (!firstPage) await sleep(6000);
         firstPage = false;
         const data = await ctx.fetchJson<NvdResponse>(pageUrl(w, startIndex, MAX_RESULTS));
         const vulns = Array.isArray(data?.vulnerabilities) ? data.vulnerabilities : [];

@@ -71,7 +71,7 @@ Aéroport de Pau, thalesgroup.com ×2 (Thales DMS), Kenall/Legrand.
 | `GET /api/quarantine/stats` | publique | total, pending non promus, par statut/promotion/source |
 | `POST /api/quarantine/:id/promote` | **protégée** | promotion manuelle (idempotente) |
 
-Revue manuelle : `pnpm exec tsx scripts/quarantine-review.mts pending`.
+Revue manuelle : `./apps/api/node_modules/.bin/tsx scripts/quarantine-review.mts pending` (fichier présent ; exécution directe observée en échec dans cet environnement sur `import 'pg'` / résolution de dépendance, 2026-11-10).
 
 ## Tests
 

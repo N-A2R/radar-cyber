@@ -31,10 +31,10 @@ d'une exécution, pas d'une estimation.
 | 0 | carte lisible, fil sans hors-sujet, graphe utile | `/api/graph` 500 → 200 en 8 ms ; 2 834 événements EPSS synthétiques purgés ; 12 arcs agrégés par destination | **atteint** |
 | 1 | **aucun faux positif mesuré**, et des incidents régionaux nommés chaque semaine | référentiel porté à **10 261 organisations** de Nouvelle-Aquitaine, **10 787 alias** actifs ; **3 446** rattachements retirés parce que le texte ne les justifiait pas ; taux honnête **0,6 %** sur les événements cyber | **critère réécrit le 10 novembre** |
 | 2 | provenance, confiance, corroboration par alerte | note sur 100 à 4 composantes (source, nature, rattachement, corroboration), seuil 0,65, affichée et détaillée | **livré** |
-| 3 | 800 sources actives dont `.onion` | 475 déclarées, 427 actives, 413 en succès ; **Tor opérationnel** (SOCKS 9050, onion vérifié) et 8 warninglists MISP en référentiel ; 0 source `.onion` encore activée | **en cours** |
+| 3 | **171 sources productives** dont `.onion` | 594 déclarées, 544 actives, **171 productives** (mesure 2026-11-11) ; `.onion` : **664 événements sur 37 sources** (contre 38 au départ) ; paste/leaks : **9 sources** ; Tor opérationnel (SOCKS 9050, 77 `.onion` joignables) ; 9 warninglists branchées ; 35 pages illisibles en quarantaine | **atteint le 11 novembre** |
 | 4 | vue plein écran autonome | **retiré du produit** le 10 novembre sur décision utilisateur : l'usage réel est la consultation, pas l'écran fixe | **abandonné** |
 | 5 | rapport hebdomadaire automatique | timer du lundi 07:00, HTML et Markdown datés | **atteint** |
-| 6 | accès distant authentifié, sauvegardes hors site | sauvegarde locale chiffrée AES-256, vérifiée par déchiffrement **et par restauration réelle** ; aucune exposition externe (choix utilisateur) | **partiel** |
+| 6 | accès distant authentifié, sauvegardes hors site | sauvegarde chiffrée AES-256 vérifiée par déchiffrement **et restauration réelle**, copiée **hors site** vers une sandbox InstaBox (`compute-3`), taille distante contrôlée à chaque passage ; réveil de la sandbox avant copie, car le plan gratuit endort les machines ; aucune exposition externe (choix utilisateur) | **hors site atteint, exposition externe abandonnée** |
 
 ### Ce que la mesure a corrigé dans ce plan
 
@@ -103,9 +103,28 @@ d'une exécution, pas d'une estimation.
 | | |
 |---|---|
 | **Pourquoi** | tu veux beaucoup plus de sources, et le dark web public manque |
-| **Sortie** | 800 sources actives, dont des pages `.onion` de revendication |
+| **Sortie** | **800 sources productives**, dont des pages `.onion` de revendication |
 | **Coût** | 2 semaines |
 
+**Le critère a changé le 10 novembre.** Il disait « 800 sources actives ». La
+mesure a montré que le nombre d'actives ne veut rien dire : sur 503 sources qui
+répondent, **404 ne produisent aucun événement**. Atteindre 800 actives en
+ajoutant des flux empilerait des portes sur un couloir vide. Le critère devient
+donc le nombre de sources **qui sortent au moins un événement**.
+
+**Deuxième correction, le 11 novembre.** Le compteur de sources muettes mesurait
+mal. Sur 60 sources muettes relancées, une passe fraîche a produit **2 046
+événements** : elles n'étaient pas cassées, elles étaient **périmées** — le
+marqueur `last_ok_at` datait d'une collecte qui n'avait rien rendu, et le garde
+d'intervalle empêchait toute nouvelle tentative. Un « muet » n'est donc pas un
+diagnostic tant qu'on n'a pas relancé.
+
+Quand la relance ne rend rien, le motif de rejet est désormais journalisé
+(`presse`, `hors_sujet`, `format non reconnu`) : sans ça, une source cassée et
+une source filtrée produisaient exactement le même silence.
+
+- Réparer le parsing des sources muettes (le vrai gisement : 404 aujourd'hui,
+  contre 303 au moment où ce point a été écrit)
 - Tor en proxy SOCKS, collecte des pages publiques de revendication
 - Sites de paste et index de fuites publics
 - Warninglists MISP pour arrêter de considérer des valeurs légitimes comme des IOC

@@ -355,3 +355,50 @@ journalctl --user -u radar-report.service -n 50      # logs
 | L'API ne démarre qu'en manuel | linger désactivé : `loginctl show-user "$USER" -p Linger` ; `loginctl enable-linger "$USER"` |
 | `pnpm introuvable` dans les logs | le `PATH` figé de l'unité est périmé (changement d'install node/pnpm) : relancer `scripts/systemd/install.sh` |
 | Tests en échec en local | la base doit contenir le schéma, les migrations, `db/sources.sql` et `db/detection-rules.sql` (voir ci-dessus) |
+
+## Diffusion des alertes
+
+Le module `apps/api/src/notify/alert-delivery.ts` diffuse les alertes non encore
+envoyées vers les canaux configurés. Il ne démarre **aucune diffusion** et ne
+produit **aucune erreur** si aucune variable n'est définie.
+
+### Configuration
+
+Variables d'environnement (voir `.env.example`) :
+
+| Variable | Rôle |
+|---|---|
+| `RADAR_ALERT_WEBHOOK_URL` | URL recevant un `POST` JSON (`Content-Type: application/json`) |
+| `RADAR_ALERT_TELEGRAM_BOT_TOKEN` | Jeton Bot Telegram (`sendMessage`) |
+| `RADAR_ALERT_TELEGRAM_CHAT_ID` | Identifiant du chat Telegram cible (requis avec le jeton) |
+| `RADAR_WEB_BASE_URL` | Base publique du front pour construire un lien d'alerte (optionnel) |
+| `RADAR_ALERT_DELIVERY_TICK_MS` | Cadence de la boucle, en ms (défaut : 120000) |
+
+Au moins un canal doit être complet : webhook seul, ou couple jeton+chat
+Telegram, ou les deux. Sans canal complet, la boucle n'est pas enregistrée.
+
+### Comportement
+
+- Sélection : alertes avec `delivered_at IS NULL`, `attempts < 10` et
+  `next_attempt_at` échu ou nul, par ancienneté (lot de 50 max par passage).
+- Traçabilité (`db/migrate-024-alerte-diffusion.sql`) : `delivered_at`,
+  `attempts`, `last_error`, `next_attempt_at`.
+- Message : titre (événement/alerte), organisation, source, date, lien.
+- Retry : back-off exponentiel (1, 2, 4… min, plafonné à 60 min) après échec
+  réseau ; abandon après 10 tentatives (`last_error` conservé). Aucun échec
+  réseau n'interrompt la collecte.
+- Boucle périodique dans `apps/api/src/server.ts` (modèle `setInterval` existant),
+  protégée par la garde de ré-entrance `guarded`.
+
+### Aperçu sans envoi (dry-run)
+
+Affiche les messages qui seraient envoyés, sans modifier la base ni appeler un
+canal :
+
+```bash
+cd apps/api
+./node_modules/.bin/tsx scripts/dry-run-alert-delivery.mts        # 3 messages
+./node_modules/.bin/tsx scripts/dry-run-alert-delivery.mts 5      # N messages
+```
+
+Nécessite `DATABASE_URL` pointant vers une base contenant les migrations.
