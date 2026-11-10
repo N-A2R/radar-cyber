@@ -1,7 +1,10 @@
 const BASE = "/api";
 
+/** Clé de stockage du jeton de session. */
+const TOKEN_KEY = "radar_token";
+
 export function getAuthToken(): string | null {
-  try { return localStorage.getItem("radar_token"); } catch { return null; }
+  try { return localStorage.getItem(TOKEN_KEY); } catch { return null; }
 }
 
 export function authHeaders(): HeadersInit {
@@ -29,6 +32,38 @@ async function post<T>(path: string): Promise<T> {
   const res = await fetch(BASE + path, { method: "POST", headers: authHeaders() });
   if (!res.ok) throw apiError(path, res.status);
   return res.json() as Promise<T>;
+}
+
+/** POST avec corps JSON ; le jeton est joint quand il existe (login : aucun). */
+async function postJson<T>(path: string, body: unknown): Promise<T> {
+  const res = await fetch(BASE + path, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...authHeaders() },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw apiError(path, res.status);
+  return res.json() as Promise<T>;
+}
+
+/** Utilisateur renvoyé par `POST /auth/login`. */
+export type AuthUser = {
+  id: number;
+  email: string;
+  role: string;
+  displayName: string | null;
+};
+
+/** Réponse de `POST /auth/login`. */
+export type LoginResponse = { token: string; user: AuthUser };
+
+/** Mémorise le jeton de session (même clé que `getAuthToken`). */
+export function setAuthToken(token: string): void {
+  try { localStorage.setItem(TOKEN_KEY, token); } catch { /* stockage indisponible */ }
+}
+
+/** Oublie le jeton de session. */
+export function clearAuthToken(): void {
+  try { localStorage.removeItem(TOKEN_KEY); } catch { /* stockage indisponible */ }
 }
 
 export type Org = {
@@ -273,6 +308,8 @@ export type OrgDetail = {
 };
 
 export const api = {
+  login: (email: string, password: string) => postJson<LoginResponse>("/auth/login", { email, password }),
+  logout: () => post<{ ok: boolean }>("/auth/logout"),
   orgs: () => get<Org[]>("/orgs"),
   orgDetail: (id: number) => get<OrgDetail>(`/orgs/${id}`),
   events: (limit = 100, order: "regional" | "recent" = "regional") =>
