@@ -74,8 +74,9 @@ export default function WallScreen() {
   const refreshActivity = useCallback(async () => {
     try {
       const [recent, window] = await Promise.all([
-        api.events(FEED_LIMIT),
-        api.events(WINDOW_LIMIT),
+        // Le mur est chronologique : la priorité régionale sert le fil, pas lui.
+        api.events(FEED_LIMIT, "recent"),
+        api.events(WINDOW_LIMIT, "recent"),
       ]);
       setFeed(recent.filter((e) => e.family !== "presse").slice(0, 12));
       setEvents(window.filter((e) => e.family !== "presse"));

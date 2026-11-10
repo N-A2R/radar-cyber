@@ -72,7 +72,11 @@ export default function EventList({
                   {level}
                 </span>
                 <span className="feed__body">
-                  <span className="feed__item-title">{event.title}</span>
+                  <span
+                    className={event.regional ? "feed__item-title feed__regional" : "feed__item-title"}
+                  >
+                    {event.title}
+                  </span>
                   <span className="feed__meta">{eventMeta(event)}</span>
                 </span>
               </button>

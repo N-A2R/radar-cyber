@@ -195,3 +195,9 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/* Marqueur des événements qui touchent réellement une organisation régionale. */
+.feed__regional {
+  border-left: 2px solid var(--accent);
+  padding-left: 6px;
+}
