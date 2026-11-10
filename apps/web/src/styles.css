@@ -488,3 +488,267 @@ html[data-theme="clair"] {
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   Coquille « rack » — plaques surélevées, hairlines, aucun cadre.
+   Les jetons --color-* ne servent qu'aux composants réécrits ; les
+   jetons historiques (--surface, --muted…) restent en place pour la
+   carte, le graphe et la santé.
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  --color-plate: oklch(23% 0.008 72);
+  --color-plate-2: oklch(27% 0.009 72);
+  --color-plate-3: oklch(19% 0.007 72);
+  --color-well: oklch(15% 0.007 72);
+  --color-well-2: oklch(13% 0.006 72);
+  --color-ink: oklch(93% 0.008 80);
+  --color-ink-2: oklch(79% 0.010 80);
+  --color-muted: oklch(62% 0.010 80);
+  --color-edge-hi: oklch(38% 0.010 72);
+  --color-edge-lo: oklch(6% 0.005 72);
+  --color-accent: oklch(79% 0.155 78);
+  --color-accent-ink: oklch(22% 0.03 78);
+  --color-accent-2: oklch(72% 0.125 205);
+  --color-alarm: oklch(66% 0.195 27);
+  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --raise: 0 1px 0 var(--color-edge-hi) inset, 0 -1px 0 var(--color-edge-lo) inset, 0 2px 6px oklch(4% 0 0 / .6);
+  --raise-sm: 0 1px 0 var(--color-edge-hi) inset, 0 -1px 0 var(--color-edge-lo) inset, 0 1px 2px oklch(4% 0 0 / .5);
+  --sink: 0 3px 10px oklch(4% 0 0 / .7) inset, 0 1px 0 oklch(6% 0 0) inset, 0 1px 0 var(--color-edge-hi);
+}
+
+html,
+body {
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  background: var(--color-plate-3);
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 12px 12px 12px;
+  gap: 0;
+  box-sizing: border-box;
+}
+
+.shell__mock {
+  flex: 0 0 auto;
+  margin-bottom: 8px;
+  padding: 5px 12px;
+  border-radius: 4px;
+  font-size: 11px;
+  color: var(--color-accent-ink);
+  background: var(--color-accent);
+}
+
+.shell__error {
+  flex: 0 0 auto;
+  margin: 0 0 8px;
+  padding: 8px 14px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: var(--color-alarm);
+  background: var(--color-plate);
+  box-shadow: var(--raise-sm);
+}
+
+.shell__body {
+  display: grid;
+  grid-template-columns: 352px minmax(0, 1fr);
+  gap: 10px;
+  flex: 1;
+  min-height: 0;
+  margin-top: 10px;
+}
+
+.shell__feed,
+.shell__stage,
+.shell__inspect {
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.shell__feed {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--color-plate), var(--color-plate-3));
+  box-shadow: var(--raise);
+  border-top: 1px solid var(--color-edge-hi);
+}
+
+.shell__stage {
+  position: relative;
+  border-radius: var(--radius);
+  background: var(--color-well-2);
+  box-shadow: var(--sink);
+  overflow: hidden;
+}
+
+.shell__inspect {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--color-plate), var(--color-plate-3));
+  box-shadow: var(--raise);
+  border-top: 1px solid var(--color-edge-hi);
+  overflow-y: auto;
+}
+
+/* Rail : une seule plaque, pas de cadre autour des éléments. */
+.rail {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  height: 52px;
+  flex: 0 0 auto;
+  padding: 0 18px;
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--color-plate-2), var(--color-plate));
+  box-shadow: var(--raise);
+  border-top: 1px solid var(--color-edge-hi);
+}
+
+.wordmark {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: -0.03em;
+}
+
+.wordmark b {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.wordmark span {
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 0;
+  color: var(--color-muted);
+}
+
+.rail__nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.rail__nav button {
+  font: inherit;
+  font-size: 12px;
+  background: none;
+  border: 0;
+  padding: 4px 0;
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: color 90ms ease, box-shadow 90ms ease;
+}
+
+.rail__nav button:hover {
+  color: var(--color-ink-2);
+}
+
+.rail__nav button:active {
+  color: var(--color-ink);
+}
+
+.rail__nav button[aria-current="page"] {
+  color: var(--color-ink);
+  box-shadow: inset 0 -2px 0 var(--color-accent);
+}
+
+.rail__nav button:focus-visible {
+  outline: 2px solid var(--color-accent-2);
+  outline-offset: 3px;
+}
+
+.rail__spacer {
+  flex: 1;
+}
+
+.rail__toggle {
+  font: inherit;
+  font-size: 12px;
+  color: var(--color-ink-2);
+  background: none;
+  border: 0;
+  padding: 4px 0;
+  cursor: pointer;
+  box-shadow: inset 0 -1px 0 var(--color-edge-hi);
+  transition: color 90ms ease, box-shadow 90ms ease;
+}
+
+.rail__toggle:hover {
+  color: var(--color-accent);
+  box-shadow: inset 0 -1px 0 var(--color-accent);
+}
+
+.rail__toggle:active {
+  color: var(--color-ink);
+}
+
+.rail__toggle[aria-pressed="true"] {
+  color: var(--color-accent);
+}
+
+.rail__toggle:focus-visible {
+  outline: 2px solid var(--color-accent-2);
+  outline-offset: 3px;
+}
+
+.rail__live {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: var(--color-muted);
+}
+
+.rail__live i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-well-2);
+  box-shadow: 0 0 0 1px var(--color-edge-lo) inset;
+  flex: 0 0 auto;
+}
+
+.rail__live[data-on="true"] {
+  color: var(--color-ink-2);
+}
+
+.rail__live[data-on="true"] i {
+  background: var(--color-accent-2);
+  box-shadow: 0 0 7px var(--color-accent-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rail__nav button,
+  .rail__toggle {
+    transition: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .shell__body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .shell__feed {
+    display: none;
+  }
+}
