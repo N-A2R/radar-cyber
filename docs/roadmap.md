@@ -31,7 +31,7 @@ d'une exécution, pas d'une estimation.
 | 0 | carte lisible, fil sans hors-sujet, graphe utile | 12 tracés agrégés ; fil par défaut sans presse ; matrice famille × département | **atteint** |
 | 1 | 50 % des événements rattachés | 103 rattachés sur 3 216, et le matcher strict n'en trouve que 22 de plus | **critère à réécrire** |
 | 2 | provenance, confiance, corroboration par alerte | `GET /alerts/:id` expose les quatre ; aucun incident n'a plus d'une source | **livré, corroboration vide** |
-| 3 | 800 sources actives dont `.onion` | 456 déclarées, 105 productives, 303 joignables mais muettes | **non atteint** |
+| 3 | 800 sources actives dont `.onion` | 456 déclarées, 105 saines, 21 faibles, 326 muettes, 4 dormantes ; 303 répondent en 200 sans parser | **non atteint** |
 | 4 | vue plein écran autonome | écran mural, bascule `F`, aucun bouton | **atteint** |
 | 5 | rapport hebdomadaire automatique | timer du lundi 07:00, HTML et Markdown datés | **atteint** |
 | 6 | accès distant authentifié, sauvegardes hors site | sauvegarde locale vérifiée, aucune exposition externe | **non commencé** |
@@ -55,6 +55,7 @@ d'une exécution, pas d'une estimation.
    insertion.
 5. **303 sources répondent en 200 sans rien produire.** Le gisement de
    couverture n'est pas l'ajout de sources, c'est la réparation du parsing.
+6. **La règle EPSS était inerte.** La table \`epss\` ne contenait que 100 lignes de test, donc l'admission par score d'exploitabilité rendait zéro événement. Un rafraîchissement réel depuis l'API FIRST est nécessaire avant que la règle serve à quelque chose.
 
 ## Phase 0 — Terminer ce qui est cassé
 
