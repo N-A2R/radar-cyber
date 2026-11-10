@@ -161,7 +161,9 @@ export async function fetchResilient(
       "User-Agent": UA,
       Accept: accept,
     };
-    const r = await fetchThroughSocks(url, headers, timeoutMs);
+    // Un circuit Tor à froid met 40 s : le délai du clearnet condamnerait
+    // toutes les sources .onion. On plancher à 45 s.
+    const r = await fetchThroughSocks(url, headers, Math.max(timeoutMs, 45000));
     if (r.status === 403) {
       throw new SourceBlockedError(`Source blocked (403) via Tor pour ${url}`, true);
     }
