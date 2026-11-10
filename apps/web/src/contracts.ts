@@ -1,7 +1,7 @@
 import type { Alert, Event, Graph, Health, Org, Source, Stats } from "./api";
 
 /** Les cinq vues de l'application, dans l'ordre du rail. */
-export type ViewKey = "map" | "graph" | "sources" | "health" | "alerts" | "wall";
+export type ViewKey = "map" | "graph" | "sources" | "health" | "alerts";
 
 /** Contrat du fil d'événements (colonne de gauche). */
 export type FeedProps = {

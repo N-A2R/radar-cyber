@@ -73,7 +73,7 @@ export interface Map3DProps {
   onSelect?: (id: string) => void
   /** Clic sur un point d'événement → id de l'événement. */
   onSelectEvent?: (id: string) => void
-  /** Arcs animés deck.gl (flux temps réel) ; vide = pas d'overlay. */
+  /** Arcs animés (flux temps réel) ; vide = pas d'overlay. */
   flows?: FlowArc[]
   /** Fond de carte : imagerie satellite (IGN) ou plan vectoriel sombre. */
   basemap?: 'sat' | 'plan'
@@ -138,7 +138,11 @@ function orgKindMatch(): any[] {
 }
 // ── Choroplèthe départements (OSM, ODbL) ────────────────────────────────
 
-type DepFeature = GeoJSON.Feature<GeoJSON.Geometry, { code: string; nom: string }>
+type DepFeature = {
+  type: 'Feature'
+  geometry: unknown
+  properties: { code: string; nom: string }
+}
 
 /** Limites des 12 départements de Nouvelle-Aquitaine (propriétés `code`, `nom`). */
 const DEP_FEATURES = (JSON.parse(DEP_GEOJSON_RAW) as { type: 'FeatureCollection'; features: DepFeature[] }).features
@@ -198,18 +202,22 @@ const CITY_LABELS: [string, number, number][] = [
 ]
 
 // Habillage de la carte selon la variante de design (data-theme sur <html>).
-const MAP_THEMES: Record<string, { tiles: string[]; raster: Record<string, number>; buildings: string[]; label: string; labelHalo: string; orgStroke: string; depLine: string }> = {
+const MAP_THEMES: Record<string, { tiles: string[]; raster: Record<string, number>; buildings: string[]; label: string; labelHalo: string; orgStroke: string; depLine: string; fog: string; fogHorizon: string; lightColor: string; lightIntensity: number }> = {
   clair: {
     tiles: ['https://tiles.basemaps.cartocdn.com/light_all/{z}/{x}{r}.png'],
     raster: { 'raster-brightness-max': 1, 'raster-saturation': 0, 'raster-contrast': 0 },
     buildings: ['#e8e4dd', '#dcd6cb', '#cfc6b8', '#bdb2a1'],
     label: '#1f2937', labelHalo: '#ffffff', orgStroke: '#ffffff', depLine: 'rgba(15,23,42,0.55)',
+    fog: '#e9eff5', fogHorizon: '#fbfcfe', lightColor: '#ffffff', lightIntensity: 0.75,
   },
 }
 const MAP_THEME_DARK = {
   raster: { 'raster-brightness-max': 0.42, 'raster-saturation': -0.92, 'raster-contrast': 0.18 },
   buildings: ['#1b2230', '#2b3542', '#3d4a5c', '#5a6b82'],
   label: '#e6ebf2', labelHalo: '#080b10', orgStroke: '#080b10', depLine: 'rgba(232,163,61,0.55)',
+  // Brume de fond et lumière rasante : les bâtiments extrudés prennent du
+  // relief au lieu d'être des aplats. Couleurs prises dans la charte sombre.
+  fog: '#050a12', fogHorizon: '#0c1826', lightColor: '#c8d4e2', lightIntensity: 0.5,
 }
 
 function applyMapTheme(map: maplibregl.Map, theme: string) {
@@ -227,6 +235,29 @@ function applyMapTheme(map: maplibregl.Map, theme: string) {
   map.setPaintProperty('cities', 'text-halo-color', cfg.labelHalo)
   map.setPaintProperty('orgs', 'circle-stroke-color', cfg.orgStroke)
   map.setPaintProperty('dep-outline', 'line-color', cfg.depLine)
+
+  // Ambiance : ciel, horizon et brume au sol, plus une lumière rasante sur les
+  // volumes. Purement natif MapLibre 6 (`setSky`, `setLight`), aucune
+  // dépendance ; les couleurs viennent du thème, donc la charte ne bouge pas.
+  try {
+    map.setSky({
+      'sky-color': cfg.fogHorizon,
+      'horizon-color': cfg.fog,
+      'fog-color': cfg.fog,
+      'sky-horizon-blend': 0.35,
+      'horizon-fog-blend': 0.5,
+      'fog-ground-blend': 0.15,
+      'atmosphere-blend': 0.6,
+    })
+    map.setLight({
+      anchor: 'viewport',
+      color: cfg.lightColor,
+      intensity: cfg.lightIntensity,
+      position: [1.6, 88, 55],
+    })
+  } catch {
+    // Style pas encore prêt : l'ambiance sera posée au prochain `style.load`.
+  }
 }
 
 /** Couleur unique des arcs agrégés par destination. */
@@ -854,6 +885,9 @@ export default function Map3D(props: Map3DProps) {
       mapRef.current = map
 
       map.on('style.load', () => {
+        // Le thème n'était appliqué qu'au changement : la brume et la lumière
+        // ne posaient donc jamais au premier affichage.
+        applyMapTheme(map!, document.documentElement.dataset.theme ?? 'observatoire')
         try { map?.setTerrain({ source: 'dem', exaggeration: 1.8 }) } catch { /* style déjà prêt */ }
       })
       map.once('load', () => map?.resize())
