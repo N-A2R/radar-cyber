@@ -29,9 +29,9 @@ d'une exécution, pas d'une estimation.
 | Phase | Critère de sortie | Mesure | Verdict |
 |---|---|---|---|
 | 0 | carte lisible, fil sans hors-sujet, graphe utile | `/api/graph` 500 → 200 en 8 ms ; 2 834 événements EPSS synthétiques purgés ; 12 arcs agrégés par destination | **atteint** |
-| 1 | 50 % des événements rattachés | **22 sur 1 932 événements cyber (1,1 %)**, après retrait de 416 rattachements que le texte ne justifiait pas ; 613 organisations, 61 avec un événement | **non atteint** |
+| 1 | **aucun faux positif mesuré**, et des incidents régionaux nommés chaque semaine | référentiel porté à **10 261 organisations** de Nouvelle-Aquitaine, **10 787 alias** actifs ; **3 446** rattachements retirés parce que le texte ne les justifiait pas ; taux honnête **0,6 %** sur les événements cyber | **critère réécrit le 10 novembre** |
 | 2 | provenance, confiance, corroboration par alerte | note sur 100 à 4 composantes (source, nature, rattachement, corroboration), seuil 0,65, affichée et détaillée | **livré** |
-| 3 | 800 sources actives dont `.onion` | 463 déclarées, 424 actives, 410 en succès, **0 source onion**, Tor non configuré | **non atteint** |
+| 3 | 800 sources actives dont `.onion` | 475 déclarées, 427 actives, 413 en succès ; **Tor opérationnel** (SOCKS 9050, onion vérifié) et 8 warninglists MISP en référentiel ; 0 source `.onion` encore activée | **en cours** |
 | 4 | vue plein écran autonome | **retiré du produit** le 10 novembre sur décision utilisateur : l'usage réel est la consultation, pas l'écran fixe | **abandonné** |
 | 5 | rapport hebdomadaire automatique | timer du lundi 07:00, HTML et Markdown datés | **atteint** |
 | 6 | accès distant authentifié, sauvegardes hors site | sauvegarde locale chiffrée AES-256, vérifiée par déchiffrement **et par restauration réelle** ; aucune exposition externe (choix utilisateur) | **partiel** |

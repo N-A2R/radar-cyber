@@ -618,12 +618,17 @@ async function ingestNarrative(
     const parsed = parseObservedAt(dateRaw, { fetchedAt });
     const dedupKey = `feed:${source.id}:${hashKey(link || title)}`;
     // Porte cyber : le texte décide. Une dépêche régionale publiée par une
-    // source déclarée `cti` n'est pas du renseignement ; elle est classée
-    // `presse` au lieu d'être jetée. Les sources de l'allowlist et les familles
-    // `ransomware`/`cert_fr` gardent leur famille d'origine.
+    // source déclarée `cti` n'est pas du renseignement. Elle était classée
+    // `presse` et conservée ; sur décision utilisateur du 10 novembre, elle
+    // est désormais refusée à l'entrée : la base ne contient que du cyber.
+    // Les familles `ransomware`/`cert_fr` et l'allowlist gardent leur famille.
     const family = isFamily(source.family)
       ? classifyFamily({ title, summary, sourceFamily: source.family, sourceName: source.name })
       : source.family;
+    if (family === "presse") {
+      skipped++;
+      continue;
+    }
 
     // DO UPDATE : un événement déjà connu mais sans date (ingéré avant la
     // correction) reçoit enfin observed_at. Sans ça, re-parser ne répare rien.
