@@ -38,7 +38,17 @@ export type OrgIndexEntry = OrgRow & {
 export type OrgMatch = { orgId: number; confidence: number };
 
 /** Seuil minimal pour considérer un indice comme une organisation. */
+/** Seuil de rapprochement proposé à un humain (« ville + nom » vaut 0,6). */
 export const MIN_CONFIDENCE = 0.5;
+
+/**
+ * Seuil appliqué à la promotion **automatique**.
+ *
+ * À 0,5, l'index de 10 261 organisations faisait matcher des milliers de
+ * revendications et 2 908 événements sont entrés en dix minutes. La machine
+ * n'a pas le jugement d'un analyste : elle exige 0,85, l'humain garde 0,5.
+ */
+export const AUTO_MIN_CONFIDENCE = 0.85;
 
 /** Ligne de quarantaine nécessaire à la promotion. */
 type QuarantineRow = {
@@ -303,6 +313,9 @@ export async function insertClaimEvent(
   return { eventId, inserted, alerts };
 }
 
+/** Nombre maximal de faits promus automatiquement par passage. */
+const MAX_AUTO_PER_RUN = 50;
+
 export type PromotionMatch = {
   id: number;
   orgId: number;
@@ -339,9 +352,11 @@ export async function promoteMatches(
     params.push(opts.ids);
     where += ` AND id = ANY($${params.length}::bigint[])`;
   }
+  // Plafond par passage : une promotion automatique doit rester un filet, pas
+  // une inondation. Le reste attend le passage suivant.
   const r = await query<QuarantineRow>(
     `SELECT id, source, source_url, groupe, org_hint, claimed_at, extracted, raw_body, content_hash, promoted, tlp
-     FROM quarantine_raw ${where} ORDER BY id`,
+     FROM quarantine_raw ${where} ORDER BY id LIMIT ${MAX_AUTO_PER_RUN}`,
     params
   );
 
@@ -352,7 +367,7 @@ export async function promoteMatches(
 
   for (const row of r.rows) {
     const m = matchOrgInIndex(row.org_hint ?? "", index);
-    if (!m) continue;
+    if (!m || m.confidence < AUTO_MIN_CONFIDENCE) continue;
     // Le modèle tranche avant écriture : un rapprochement nié n'attache rien.
     let confirmed = true;
     if (!dryRun) confirmed = await confirmMatch(row.org_hint ?? "", m.orgId, orgNameById);
