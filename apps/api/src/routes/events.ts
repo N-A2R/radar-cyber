@@ -3,13 +3,13 @@ import { query } from "../db.js";
 import { resolveUser } from "../middleware/auth.js";
 
 /**
- * Définition unique de « régional » : un événement touche réellement la
- * Nouvelle-Aquitaine s'il est rattaché à une organisation (`org_id`) ou si sa
- * géographie désigne une entité / une origine revendiquée plutôt qu'une
- * estimation d'hébergement. Exprimé en SQL pour servir à la fois de projection
- * et de critère de tri — aucune colonne n'est créée.
+ * Un événement est régional quand il touche l'une de nos organisations.
+ * `geo_type` ne suffit pas : 1 371 événements le portent sans aucune
+ * coordonnée, si bien qu'aucun événement non rattaché ne tombe dans la
+ * région. Le rattachement est le seul signal défendable. Exprimé en SQL pour
+ * servir à la fois de projection et de critère de tri — aucune colonne créée.
  */
-const REGIONAL_SQL = "(org_id IS NOT NULL OR geo_type IN ('claimed_origin','entity_location'))";
+const REGIONAL_SQL = "(org_id IS NOT NULL)";
 
 function redactEvent(row: Record<string, unknown>) {
   const summary = row.tlp === "RED" ? null : row.summary;

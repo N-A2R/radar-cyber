@@ -1,7 +1,44 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { api, type Alert, type AlertStatRow, type AlertStatus } from "../api";
+import { api, authHeaders, type Alert, type AlertStatRow, type AlertStatus } from "../api";
 import type { AlertsViewProps } from "../contracts";
 import "./alerts.css";
+
+/** Réponse de `GET /api/alerts/:id` : provenance et corroboration d'une alerte. */
+type AlertDetail = {
+  alert: {
+    id: number;
+    rule_id: string;
+    title: string;
+    severity: number;
+    status: AlertStatus;
+    scope: string;
+    created_at: string;
+  };
+  event: {
+    id: string;
+    title: string;
+    family: string;
+    severity: number;
+    summary: string | null;
+    observed_at: string | null;
+    source_id: string;
+    confidence: string | null;
+  } | null;
+  source: { name: string; url: string | null; family: string | null } | null;
+  org: { id: number; name: string; dept: string | null; kind: string } | null;
+  corroboration: { distinct_sources: number; sources: { name: string; count: string }[] };
+  evidence: unknown;
+};
+
+async function fetchAlertDetail(id: number): Promise<AlertDetail> {
+  const res = await fetch(`/api/alerts/${id}`, { headers: authHeaders() });
+  if (!res.ok) {
+    const err = new Error(`/alerts/${id} → ${res.status}`) as Error & { status?: number };
+    err.status = res.status;
+    throw err;
+  }
+  return res.json() as Promise<AlertDetail>;
+}
 
 const STATUSES: { id: AlertStatus | "all"; label: string }[] = [
   { id: "open", label: "ouvertes" },
@@ -27,6 +64,32 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent }: Al
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState<number | null>(null);
+  const [openId, setOpenId] = useState<number | null>(null);
+  const [detail, setDetail] = useState<AlertDetail | null>(null);
+  const [detailError, setDetailError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (openId === null) {
+      setDetail(null);
+      setDetailError(null);
+      return;
+    }
+    let cancelled = false;
+    setDetail(null);
+    setDetailError(null);
+    fetchAlertDetail(openId)
+      .then((d) => {
+        if (!cancelled) setDetail(d);
+      })
+      .catch((err: Error & { status?: number }) => {
+        if (cancelled) return;
+        if (err.status === 401) onUnauthorized();
+        setDetailError(err.message);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [openId, onUnauthorized]);
 
   const reload = useCallback(() => {
     setLoading(true);
@@ -143,9 +206,8 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent }: Al
             <button
               type="button"
               className="alerts__row"
-              onClick={() => {
-                if (alert.event_id !== null) onOpenEvent(String(alert.event_id));
-              }}
+              aria-expanded={openId === alert.id}
+              onClick={() => setOpenId(openId === alert.id ? null : alert.id)}
             >
               <span className="alerts__sev" data-level={alert.severity}>
                 {alert.severity}
@@ -180,6 +242,44 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent }: Al
                   résoudre
                 </button>
               </span>
+            ) : null}
+
+            {openId === alert.id ? (
+              <div className="alerts__detail">
+                {detailError ? <p className="alerts__detail-line">{detailError}</p> : null}
+                {!detail && !detailError ? <p className="alerts__detail-line">chargement du détail</p> : null}
+                {detail ? (
+                  <>
+                    <p className="alerts__detail-line">
+                      {[
+                        detail.source?.name ?? detail.event?.source_id ?? "source inconnue",
+                        detail.source?.family ?? detail.event?.family ?? null,
+                        formatDate(detail.event?.observed_at ?? detail.alert.created_at),
+                      ]
+                        .filter(Boolean)
+                        .join(" · ")}
+                    </p>
+                    {detail.event?.summary ? <p className="alerts__detail-line">{detail.event.summary}</p> : null}
+                    <p className="alerts__detail-line">
+                      {detail.corroboration.distinct_sources > 0
+                        ? `corroboration : ${detail.corroboration.distinct_sources} source(s) — ${detail.corroboration.sources
+                            .map((s) => `${s.name} (${s.count})`)
+                            .join(", ")}`
+                        : "aucune corroboration"}
+                    </p>
+                    {detail.event?.confidence ? (
+                      <p className="alerts__detail-line">confiance {detail.event.confidence}</p>
+                    ) : null}
+                    {detail.event && onOpenEvent ? (
+                      <p className="alerts__detail-line">
+                        <button type="button" onClick={() => onOpenEvent(String(detail.event?.id))}>
+                          événement
+                        </button>
+                      </p>
+                    ) : null}
+                  </>
+                ) : null}
+              </div>
             ) : null}
           </li>
         ))}
