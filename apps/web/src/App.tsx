@@ -9,7 +9,6 @@ import EventList from "./components/EventList";
 import Inspector from "./components/Inspector";
 import OrgSheet from "./components/OrgSheet";
 import AlertsView from "./components/AlertsView";
-import WallScreen from "./components/WallScreen";
 import LoginScreen from "./components/LoginScreen";
 import type { ViewKey } from "./contracts";
 
@@ -22,7 +21,6 @@ const VIEWS: { id: ViewKey; label: string }[] = [
   { id: "sources", label: "Sources" },
   { id: "health", label: "Santé" },
   { id: "alerts", label: "Alertes" },
-  { id: "wall", label: "Mur" },
 ];
 
 const FEED_LIMIT = 300;
@@ -46,9 +44,6 @@ export default function App() {
   const [connected, setConnected] = useState(false);
   const [basemap, setBasemap] = useState<"sat" | "plan">("sat");
   const [token, setToken] = useState<string | null>(() => getAuthToken());
-
-  // Dernière vue hors mur : la touche F bascule mur ↔ vue précédente.
-  const prevViewRef = useRef<ViewKey>("map");
 
   // Temps réel : le serveur pousse les nouveaux événements (SSE).
   useEffect(() => {
@@ -115,21 +110,32 @@ export default function App() {
       return;
     }
     if (!token) return;
-    Promise.all([api.orgs(), api.events(FEED_LIMIT), api.sources(), api.stats(), api.graph(90)])
-      .then(([o, e, s, st, g]) => {
-        setOrgs(o);
-        setEvents(e);
-        setSources(s);
-        setStats(st);
-        setGraph(g);
-        setLoading(false);
-        return loadFlows();
-      })
-      .then((arcs) => setFlows(arcs))
-      .catch((err: Error) => {
-        setError(err.message);
-        setLoading(false);
-      });
+    // Chaque appel est indépendant : un endpoint en erreur ne doit plus vider
+    // l'écran. C'est exactement ce qui arrivait quand `/api/graph` dépassait
+    // son `statement_timeout` — le `Promise.all` rejetait, et organisations,
+    // événements, sources et statistiques n'étaient jamais posés en état.
+    const load = async () => {
+      const labels = ["organisations", "événements", "sources", "statistiques", "graphe"] as const;
+      const results = await Promise.allSettled([
+        api.orgs(),
+        api.events(FEED_LIMIT),
+        api.sources(),
+        api.stats(),
+        api.graph(90),
+      ]);
+      const [o, e, s, st, g] = results;
+      if (o.status === "fulfilled") setOrgs(o.value);
+      if (e.status === "fulfilled") setEvents(e.value);
+      if (s.status === "fulfilled") setSources(s.value);
+      if (st.status === "fulfilled") setStats(st.value);
+      if (g.status === "fulfilled") setGraph(g.value);
+      const failed = results.flatMap((r, i) => (r.status === "rejected" ? [labels[i]] : []));
+      setError(failed.length > 0 ? `indisponible : ${failed.join(", ")}` : null);
+      setLoading(false);
+      const arcs = await loadFlows().catch(() => []);
+      setFlows(arcs);
+    };
+    void load();
   }, [loadFlows, token]);
 
   // Rafraîchit statistiques, graphe et arcs toutes les 30 s.
@@ -222,41 +228,13 @@ export default function App() {
     setError(null);
   }, []);
 
-  // Touche F : bascule vers l'écran mural et retour à la vue précédente.
-  useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.metaKey || event.ctrlKey || event.altKey) return;
-      if (event.key.toLowerCase() !== "f") return;
-      const target = event.target as HTMLElement | null;
-      if (
-        target &&
-        (target.tagName === "INPUT" ||
-          target.tagName === "TEXTAREA" ||
-          target.tagName === "SELECT" ||
-          target.isContentEditable)
-      ) {
-        return;
-      }
-      event.preventDefault();
-      setView((current) => {
-        if (current === "wall") return prevViewRef.current;
-        prevViewRef.current = current;
-        return "wall";
-      });
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
 
   const inspectorOpen =
     selectedEventId !== null || selectedOrgId !== null || sheetOrgId !== null;
 
-  const bodyStyle =
-    view === "wall"
-      ? { gridTemplateColumns: "minmax(0,1fr)" }
-      : {
-          gridTemplateColumns: inspectorOpen ? "352px minmax(0,1fr) 320px" : "352px minmax(0,1fr)",
-        };
+  const bodyStyle = {
+    gridTemplateColumns: inspectorOpen ? "352px minmax(0,1fr) 320px" : "352px minmax(0,1fr)",
+  };
 
   // Sans jeton (hors démonstration), le shell n'est jamais monté : seul
   // l'écran de connexion est rendu, aucune requête authentifiée ne part.
@@ -313,8 +291,7 @@ export default function App() {
       {error ? <p className="shell__error">API : {error}</p> : null}
 
       <div className="shell__body" style={bodyStyle}>
-        {view === "wall" ? null : (
-          <aside className="shell__feed">
+        <aside className="shell__feed">
             <div className="family-filter" role="group" aria-label="Ordre du fil">
               <button
                 type="button"
@@ -346,8 +323,7 @@ export default function App() {
               loading={loading}
               error={null}
             />
-          </aside>
-        )}
+        </aside>
 
         <main className="shell__stage">
           {view === "map" ? (
@@ -394,10 +370,9 @@ export default function App() {
             />
           ) : null}
 
-          {view === "wall" ? <WallScreen /> : null}
         </main>
 
-        {view !== "wall" && inspectorOpen ? (
+        {inspectorOpen ? (
           <section className="shell__inspect">
             {sheetOrgId !== null ? (
               <OrgSheet orgId={sheetOrgId} onClose={() => setSheetOrgId(null)} />
