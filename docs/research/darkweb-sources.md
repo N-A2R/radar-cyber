@@ -146,3 +146,118 @@ ALTER TABLE quarantine_raw
 4. **Pas de contenu chiffré / rançon** : notes de rançon, échantillons de malware, binaires : hors périmètre (relève abuse.ch déjà en place).
 5. **Pas de republication** des données ransomware.live (T&C) : usage interne, attribution conservée, pas d'API exposée.
 6. **Pas de contact avec les groupes** : aucun accès aux négociateurs, chats de support de leak, ou formulaires de victimes.
+
+## 5. Harvest du 2026-11-10 (chantier 2)
+
+Périmètre : élargir la couverture « sites, canaux, actus, revendications ». Toutes les URLs ci-dessous ont été mesurées par `curl` le 2026-11-10 (code HTTP + taille). Aucun `.onion` retenu.
+
+### 5.1 Méthode
+
+- **Sites de fuite** : `https://www.ransomlook.io/urls.csv` (HTTP 200, 458 585 o) — index de 4 072 entrées (marchés + groupes) avec statut. Filtre `Type=group` + URL sans `.onion`/`.i2p` → 165 candidats, 116 « online ». Chaque candidat a été re-vérifié par `curl` (code + taille + contenu).
+- **Canaux Telegram** : listes `fastfire/deepdarkCTI` (`telegram_threat_actors.md`, `telegram_infostealer.md`, `ransomware_gang.md`) → 988 identifiants uniques testés via `https://t.me/s/<canal>` (code HTTP + nombre de blocs `tgme_widget_message_text` + extrait).
+- **Trackers / actus** : candidats issus de la doc et de recherches web, vérifiés un par un.
+
+### 5.2 Sites de fuite des rançongiciels — retenus (7)
+
+| Source | URL | HTTP | Taille | Contenu |
+|---|---|---|---|---|
+| NetLeaks (Bjorka) | https://netleaks.net/ | 200 | 10 733 | page de revendication, bases à vendre |
+| AntiBrok3rs | https://antibrok3rs.bearblog.dev/ | 200 | 10 165 | blog « Leaking the Leakers » |
+| LAPSUS$ | https://lapsus.ar.io | 200 | 14 987 | déclaration PGP du groupe |
+| FulcrumSec | https://fulcrumsec.vg/ | 200 | 13 246 | index de victimes |
+| Soul Group | https://codice-ledger.io/ | 200 | 10 118 | annuaire de victimes |
+| Cyber Toufan | https://toufanleaks.org/ | 200 | 45 813 | blog de fuite |
+| Leaked Data | https://business-data-leaks.com | 200 | 3 222 | publication de fuites |
+
+### 5.3 Sites écartés (extrait)
+
+| URL | HTTP | Pourquoi |
+|---|---|---|
+| https://www.lockbitblog.com/ | 000 | domaine mort |
+| https://lockbitblog.com/ | 000 | domaine mort |
+| https://www.lockbitblog.info/ | 000 | domaine mort |
+| https://lynxblog.net/ | 000 | domaine mort |
+| https://huntersinternational.net | 000 | domaine mort |
+| https://squidrocket.net/ | 000 | domaine mort |
+| https://www.ransomwhere.com/ | 403 | domaine parké (HugeDomains) |
+| https://www.id-ransomware.malwarehunterteam.com/ | 000 | domaine mort |
+| https://www.dls-monitor.com/ | 000 | domaine mort |
+| https://leakbase.io/ | 000 | domaine mort |
+| https://www.leakbase.cc/ | 200 | redirige vers un parking (ww38.leakbase.cc) |
+| https://probiv.cc/ | 456 | bloqué (WAF) |
+| https://karakurt.tech | 200 | page chinoise (site defacé) |
+| https://karaleaks.com | 200 | redirige vers un clic-par-pub |
+| https://darkrypt.io | 200 | redirige vers un domaine parké |
+| https://normalhunters0x.surge.sh | 200 | « Chrome Dino Game » (defacé) |
+| https://bjork.ai/ | 200 | page « for sale » |
+| https://0mega.cc/ | 200 | page vide (« Do Not Sell or Share… ») |
+| https://nasir.cc/ | 200 puis 000 | instable |
+| https://homelandjustice.ru | 200 puis 000 | instable |
+| https://www.ransomlook.io/urls.csv | 200 | contient des `.onion` → écarté comme source (utilisé comme référence de recherche) |
+| https://dark.fail/ | 200 | pas de claims, pas de licence (déjà écarté §2.4) |
+
+### 5.4 Canaux Telegram — retenus (10)
+
+| Canal | URL | HTTP | Messages | Extrait |
+|---|---|---|---|---|
+| Leaked Databases | https://t.me/s/leaked_databases | 200 | 21 | « DEA Investigating Breach of Law Enforcement Data Portal » |
+| Snatch Team | https://t.me/s/snatch_news | 200 | 20 | « Lootah Group data added 3.6 GB » |
+| BaseLeak | https://t.me/s/baseleeak | 200 | 20 | « INCIDENT: TOASTTAB.COM … Ransomware group Clop » |
+| BLACKNET-00 Ransomware | https://t.me/s/Ransomwareg | 200 | 11 | « We successfully hacked the government run NIKDU Institute and stole 483 GB » |
+| Marketo Leaks | https://t.me/s/marketo_leaks | 200 | 20 | « The Brokerage Land Co 1Gb of data is uploaded » |
+| CVE Notify | https://t.me/s/cveNotify | 200 | 20 | « CVE-2026-111822 … Apache ActiveMQ » |
+| DarkFeedNews | https://t.me/s/DarkfeedNews | 200 | 20 | « New Threat Intelligence Alert! Malaysian Government Employee Records Containing PII Leaked » |
+| IT Security Alerts | https://t.me/s/itsecalert | 200 | 19 | « Firefox Information Exposure » |
+| APT Analysis | https://t.me/s/APTANALYSIS | 200 | 21 | « Threat Intelligence Report: APT35 Internal Leak » |
+| TechPwnews | https://t.me/s/techpwnews | 200 | 20 | « A mistake in the bulletproofs paper could have led to the theft of millions » |
+
+### 5.5 Canaux écartés (extrait)
+
+- **Preview désactivée / canal vide** (HTTP 200, 0 message public) : `RansomwareLeaks`, `RansomwareLive`, `ransomwatch`, `CTI_Intel`, `cyberwarworld`, `darkwebinformer`, `LeakBase`, `sectest9`, `LeaksSite`, `darkwebdotcom`, `cyberthreatintel`, `feed_observer`, `IOC_Feed`, `threat_intelligence`…
+- **« Channel created »** (pas de contenu public exploitable) : `breachstars`, `MalwareLogs`, `BreachForumsNews`, `leakbaseforum`, `ThreatSec`, `cybersecuritynews`, `CyberVeille`, `TheDFIRReport`, `LeakBase`, `DataLeakHome`, `milkdude`, `gulfdocs`, `hannibalmaaleaks`, `breachfiles`.
+- **Hors sujet** : `DBleak` (déhashage payant), `breaches` (messagerie privée), `weleaklabs` (vente d’accès), `ThreatMarket` (bots), `naosbase`/`cybdetective` (outils de lookup, pas d’IOC).
+
+### 5.6 Trackers et agrégateurs — retenus (7)
+
+| Source | URL | HTTP | Taille | Format |
+|---|---|---|---|---|
+| Coveware ransomware feed | https://www.coveware.com/feed | 200 | 209 126 | RSS |
+| No More Ransom | https://www.nomoreransom.org/ | 200 | 22 129 | HTML |
+| Emsisoft decryption | https://www.emsisoft.com/en/ransomware-decryption/ | 200 | 189 597 | HTML |
+| RansomLook Leaks | https://www.ransomlook.io/leaks | 200 | 1 790 783 | HTML |
+| ICHI Adversary Ecosystem | https://ichi.global/ecosystem.html | 200 | 25 211 | HTML |
+| SecurityAlert.ai Ransomware Tracker | https://securityalert.ai/ransomware | 200 | 48 367 | HTML |
+| Binary Response Ransomware Groups | https://binary-response.com/threat-intel/ransomware-groups.html | 200 | 56 740 | HTML |
+
+### 5.7 Actus — retenus (10)
+
+| Source | URL | HTTP | Taille | Format |
+|---|---|---|---|---|
+| Cybersecurity Dive | https://www.cybersecuritydive.com/feeds/news/ | 200 | 8 206 | RSS |
+| Infosecurity Magazine | https://www.infosecurity-magazine.com/rss/news/ | 200 | 132 135 | RSS |
+| Help Net Security | https://www.helpnetsecurity.com/feed/ | 200 | 18 576 | RSS |
+| Security Affairs | https://securityaffairs.co/wordpress/feed | 200 | 82 767 | RSS |
+| IT Security Guru | https://www.itsecurityguru.org/feed/ | 200 | 157 702 | RSS |
+| CyberNews | https://cybernews.com/feed/ | 200 | 27 541 | RSS |
+| HackRead | https://www.hackread.com/feed/ | 200 | 11 580 | RSS |
+| WeLiveSecurity (ESET) | https://www.welivesecurity.com/feed/ | 200 | 70 099 | RSS |
+| CrowdStrike Blog | https://www.crowdstrike.com/blog/feed/ | 200 | 5 253 | RSS |
+| ZDNet Security | https://www.zdnet.com/topic/security/rss.xml | 200 | 24 924 | Atom |
+
+### 5.8 Actus écartés (extrait)
+
+- `https://www.scmagazine.com/feed/` → 200 mais redirige vers `scworld.com` (pas un flux).
+- `https://www.ibm.com/blogs/security/feed/` → 200 mais redirige vers une page HTML (pas un flux).
+- `https://www.rapid7.com/blog/feed/` → 404 ; `https://www.bitdefender.com/blog/feed/` → 404.
+- `https://www.mcafee.com/blogs/feed/` → 403 ; `https://www.cyberdefensemagazine.com/feed/` → 403.
+- `https://www.bankinfosecurity.com/rss-feed` et `https://www.databreachtoday.com/rss-feed` → 403.
+- `https://www.cybersecurity-insiders.com/feed/` → 500 ; `https://www.theregister.com/security/.rss` → 404.
+- `https://www.enisa.europa.eu/rss.xml`, `https://www.first.org/feed/`, `https://www.cisa.gov/news-events/cybersecurity-advisories/rss` → 404.
+- `https://www.threatpost.com/feed/` et `https://feeds.reuters.com/reuters/technologyNews` → 000 (domaine mort).
+
+### 5.9 Intégration
+
+- `db/darkweb-sources.sql` : 34 `INSERT … ON CONFLICT (id) DO NOTHING` → `SELECT count(*) FROM source` passe de **422 à 456**.
+- 14 sources en `kind='quarantine'` (7 sites de fuite + 5 canaux de leaks + 2 agrégateurs de leaks) : à ne pas ingérer comme `event` direct. Le collecteur générique doit les exclure et un collecteur de quarantaine doit les lire.
+- 20 sources en `kind='narrative'` (5 canaux CTI, 5 trackers, 10 actus) : ingestables par le moteur générique.
+- Aucune URL `.onion` retenue ; `urls.csv` de RansomLook reste une référence de recherche, pas une source.

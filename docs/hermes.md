@@ -102,12 +102,12 @@ avant tout besoin d'accès Tor : tester plusieurs relais/ports OR connus et
 - **Remontée des données** : chaque bot écrit un briefing JSON dans
   `~/.hermes/profiles/<profil>/out/briefing-<date>.json`. Le collecteur radar
   (`hermes.collector.ts`) rapatrie `.../profiles/radar-cyber/out/*.json` via le
-  tunnel SSH `instabox ssh hermes` (constaté dans le code). Le plan cible aligne
-  les profils de veille sur ce canal fichier (soit en produisant dans `out/` du
-  profil `radar-cyber`, soit en adaptant le collecteur pour lire plusieurs
-  profils — adaptation code hors périmètre de ce livrable de déploiement).
+  tunnel SSH `instabox ssh hermes` (constaté dans le code). Le pipeline
+  `hermes-briefing.mts` → `hermes-push.mts` (section 7) normalise un texte brut
+  et l'écrit au schéma collecteur ; le wrapper `radar-hermes-pipeline.sh` et le
+  timer `radar-hermes-pipeline.timer` l'appliquent automatiquement.
   *Aucun endpoint HTTP `POST /api/ingest` n'existe dans l'API actuelle (vérifié
-  par recherche) ; l'import se fait par insertion du collecteur après rapatriement.*
+  par recherche) ; `hermes-push.mts --api-url` reste donc optionnel.*
 - **Rate limit / charge** (box 4 vCPU / 7 Go, swap déjà saturé à l'inventaire) :
   1 profil = 1 famille, cadences décalées, pas de rafale parallèle, `deliver: local`.
 
@@ -134,7 +134,8 @@ avant tout besoin d'accès Tor : tester plusieurs relais/ports OR connus et
 - Pas de modification des services existants (`hermes-gateway`, `hermes-serve`,
   timers `pronote-*`, etc.) et pas d'arrêt de processus.
 - Pas d'activation automatique de timers/services non désirés : le script installe
-  un timer de santé mais ne l'active pas (`enable --now` laissé à l'opérateur).
+  les timers de santé et de pipeline mais ne les active pas (`enable --now`
+  laissé à l'opérateur).
 
 ## 3. Commandes de déploiement
 
@@ -153,10 +154,16 @@ ssh instabox-hermes 'bash -s -- --dry-run' < scripts/deploy-hermes.sh
 ```
 
 Le script : installe prérequis apt + Node LTS si absent, installe le CLI Hermes si
-absent (bootstrap officiel, best-effort), crée les profils/SOUL/`out/`, déclare les
-jobs cron espacés (`deliver local`), installe (sans activer) un timer de santé
-`radar-hermes-health`, puis affiche un état final. Les secrets (`.env`) ne sont
-jamais écrits : renseigner manuellement si le fournisseur de modèle l'exige.
+absent (bootstrap officiel, best-effort), crée les profils/SOUL/`config.yaml`/`out/`,
+épingle un modèle résolu sur chaque job cron (`--model`/`--provider`), déclare les
+jobs cron espacés (`deliver local`), installe le pipeline de remontée
+(`hermes-briefing.mts`, `hermes-push.mts`, wrapper) et les timers `radar-hermes-health`
+et `radar-hermes-pipeline` (non activés), puis affiche un état final. Les secrets
+(`.env`) ne sont jamais écrits : renseigner manuellement si le fournisseur de
+modèle l'exige.
+
+`--dry-run` strict : n'écrit ni ne crée rien ; toutes les actions sont affichés
+préfixées `[dry-run]`.
 
 ## 4. Procédure de vérification (post-déploiement)
 
@@ -167,20 +174,34 @@ jamais écrits : renseigner manuellement si le fournisseur de modèle l'exige.
 node --version
 ~/.local/bin/hermes --version   # ou hermes --version si dans le PATH
 
-# Profils et sorties
+# Profils, sorties et modèle résolu
 for p in radar-vuln radar-ransom radar-presse radar-cert; do
-  echo "--- $p"; ls -la ~/.hermes/profiles/$p/{SOUL.md,out} 2>&1 | head -10
+  echo "--- $p"
+  ls -la ~/.hermes/profiles/$p/{SOUL.md,config.yaml,out} 2>&1 | head -10
+  grep -m1 'default:' ~/.hermes/profiles/$p/config.yaml 2>/dev/null || echo "  config.yaml sans modèle !"
+  ~/.local/bin/hermes -p "$p" cron list 2>&1 | grep -E 'Name:|Last run:' | head -4
 done
 
-# Jobs cron (par profil, selon CLI) et ticker racine
-hermes cron list
-ls -lt ~/.hermes/cron/{ticker_heartbeat,ticker_last_success} 2>&1
+# Pipeline de remontée
+ls -la ~/.hermes/scripts/{hermes-briefing.mts,hermes-push.mts,radar-hermes-pipeline.sh}
+~/.local/bin/hermes -p radar-vuln cron list 2>&1 | head -12
 
-# Timer de santé (si activé manuellement)
-systemctl --user list-timers --all | grep radar-hermes-health
+# Timers (si activés manuellement)
+systemctl --user list-timers --all | grep radar-hermes
+
+# Jobs cron : modèle épinglé + dernier run
+~/.local/bin/hermes cron doctor
 
 # Contrat de sortie attendu par le collecteur radar (fichiers JSON dans out/)
 find ~/.hermes/profiles/radar-cyber/out -maxdepth 1 -name '*.json' 2>&1 | head
+```
+
+Test fonctionnel du pipeline (fichier factice) :
+
+```bash
+printf '## CVE-2026-1234 — faille critique\n- url: https://www.cert.ssi.gouv.fr/avis/CERTFR-2026-AVI-0001/\n- famille: vuln\n- sévérité: 5\n' > /tmp/b.txt
+node --experimental-strip-types ~/.hermes/scripts/hermes-briefing.mts /tmp/b.txt --profile radar-vuln --out /tmp/b.json
+node --experimental-strip-types ~/.hermes/scripts/hermes-push.mts /tmp/b.json --dry-run
 ```
 
 Côté radar (sur l'hôte qui exécute l'API), le collecteur rapatrie via :
@@ -198,8 +219,12 @@ présence de nouveaux fichiers `out/*.json` puis exécution/trace du collecteur.
   accès `.onion` ne doit être tenté.**
 - **Job radar-cyber existant en erreur** : le job racine `c35aee605a34` (quotidien
   06:00 UTC, `deliver: local`) a échoué au dernier run (`RuntimeError` contexte
-  trop large, modèle `qwen/qwen3.8-27b`), profil `radar-cyber/out/` vide. À
-  corriger (modèle/session/reset) avant de s'appuyer dessus.
+  trop large, modèle `qwen/qwen3.8-27b`), profil `radar-cyber/out/` vide. Diagnostic
+  complet et commandes de correction exactes : **section 6**.
+- **Jobs des 4 profils en erreur « no model configured »** : les profils `radar-*`
+  n'avaient pas de `config.yaml` ; le déploiement écrit désormais un `config.yaml`
+  minimal (modèle + compression) et épingle `--model`/`--provider` sur chaque job.
+  Voir **section 6**.
 - **Jobs/infra veille historiques** : timers `hermes-veille-*` présents mais sans
   prochain déclenchement listé ; services associés déplacés en `obsolete/` pointant
   vers `/data/home/veille/<nom>/run.sh` (répertoire `/data/home/veille` absent).
@@ -221,14 +246,20 @@ présence de nouveaux fichiers `out/*.json` puis exécution/trace du collecteur.
 
 ## Exécution réelle
 
-CLI confirmée sur la box : `~/.local/bin/hermes` (Hermes Agent v0.22.5). PATH non-interactif : utiliser `HERMES_BIN=~/.local/bin/hermes` ou chemin absolu.
+CLI confirmée sur la box : `~/.local/bin/hermes` (Hermes Agent v0.22.5 ; v0.23.0
+observée en local). PATH non-interactif : utiliser
+`HERMES_BIN=~/.local/bin/hermes` ou chemin absolu.
 
 Syntaxe CLI vérifiée (`--help`) :
-- `hermes -p <profil> cron create --name <nom> <schedule> <prompt> --deliver local`
+- `hermes -p <profil> cron create --name <nom> <schedule> <prompt> --deliver local --model <modèle> --provider <fournisseur>`
+- `hermes -p <profil> cron edit <job_id> --model <modèle> --provider <fournisseur> --no-continuity --prompt <prompt>`
 - `hermes profile show|create <nom>`
 - `hermes cron list`
+- `hermes sessions list|prune|delete`
 
-Correctif job quotidien `c35aee605a34` : erreur "conversation too large" avec `qwen/qwen3.8-27b`. Correction : modèle plus léger (`stepfun/step-3.7-flash:free`), prompt court, `/new` ou `/compress`, `compression.threshold_tokens` déjà 60000.
+Correctif job quotidien `c35aee605a34` : erreur « conversation too large » avec
+`qwen/qwen3.8-27b`. Procédure exacte en **section 6** (épingle du modèle, seuil de
+compression 30 k tokens, `--no-continuity`, reset de session).
 
 ## 3. Exécution réelle (2026-11-10)
 
@@ -244,3 +275,171 @@ Déploiement non dry-run effectué sur instabox-hermes via
 - Timer systemd `radar-hermes-health.timer` activé (`systemctl --user enable --now`).
 - Vérification : `hermes -p radar-<profil> cron list` affiche 1 job actif par profil.
 - Remontée : fichiers `out/briefing-*.json` rapatriés par le collecteur `hermes.collector.ts` via SSH (pas d'endpoint HTTP ingest).
+
+## 6. Crash du job `radar-cyber` — diagnostic et correctif (2026-11-10)
+
+### 6.1 Symptôme
+
+`~/.local/bin/hermes cron runs c35aee605a34` :
+
+```
+6175991744ef40bd9fb838fc55a8ec25  failed  job=c35aee605a34  source=builtin  2026-11-10T06:00:36Z
+RuntimeError: This conversation (including attachments) has grown too large to send to
+qwen/qwen3.8-27b, and Hermes couldn't shrink it enough automatically. Start a new
+session with /new (your history is kept), or try /compress once more.
+```
+
+### 6.2 Cause
+
+- Le job racine `c35aee605a34` a `model: null` et `provider: null` dans
+  `~/.hermes/cron/jobs.json` : le modèle est résolu au moment du tir.
+- `~/.hermes/profiles/radar-cyber/config.yaml` déclare
+  `model.default: stepfun/step-3.7-flash:free` (provider `nous`), avec une chaîne
+  `fallback_providers` dont `qwen/qwen3.8-27b` (groq). La session du job a
+  accumulé du contexte (attachments, multi-tours) ; le repli vers `qwen3.8-27b`
+  a dépassé la fenêtre de contexte, et la compression automatique n'a pas suffi
+  (`compression.threshold_tokens: 60000`).
+- La cause n'est donc pas le seul prompt : c'est l'accumulation de contexte sur
+  une session de cron + un modèle de repli à fenêtre trop courte.
+
+### 6.3 Commandes de correction (à exécuter sur la box)
+
+```bash
+# 1) Épingler un modèle petit et le fournisseur vérifié opérationnel (HTTP 200)
+~/.local/bin/hermes cron edit c35aee605a34 \
+  --model stepfun/step-3.7-flash:free \
+  --provider nous \
+  --no-continuity \
+  --prompt "Produis le briefing quotidien du Radar Cyber Nouvelle-Aquitaine : lance la skill radar-cyber et écris out/briefing-<date>.json. Faits uniquement, sources citées, périmètre Nouvelle-Aquitaine."
+
+# 2) Baisser le seuil de compression (contexte plus court) dans
+#    ~/.hermes/profiles/radar-cyber/config.yaml :
+#      compression:
+#        threshold_tokens: 30000
+#        enabled: true
+#    puis redémarrer le gateway : `~/.local/bin/hermes gateway restart`
+
+# 3) Repartir d'une session propre sans perdre l'historique :
+~/.local/bin/hermes -p radar-cyber sessions prune --older-than 7d --yes
+#    (ou supprimer la session exacte : `hermes -p radar-cyber sessions delete <id>`)
+
+# 4) Vérifier
+~/.local/bin/hermes -p radar-cyber cron doctor
+~/.local/bin/hermes -p radar-cyber cron run c35aee605a34
+```
+
+### 6.4 Jobs des 4 profils (« no model configured »)
+
+`hermes -p radar-vuln cron list` affichait `error: GatewayRPCError: request_failed` ;
+`~/.hermes/profiles/radar-vuln/logs/errors.log` donnait la cause :
+
+```
+RuntimeError: Cron job 'veille-vuln' has no model configured (job.model=None,
+HERMES_MODEL='', config.yaml model.default missing or empty). Set a per-job model
+via `hermes cron edit 4abbdadc797c --model <name>` or set a default with
+`hermes model <name>`.
+```
+
+Correction (deux volets, le script `deploy-hermes.sh` l'applique désormais) :
+
+```bash
+# a) config.yaml minimal par profil (modèle + compression) :
+#    ~/.hermes/profiles/<profil>/config.yaml
+model:
+  provider: nous
+  default: stepfun/step-3.7-flash:free
+agent:
+  reasoning_effort: none
+compression:
+  threshold_tokens: 30000
+  enabled: true
+
+# b) épingle du modèle sur chaque job existant
+for spec in "radar-vuln 4abbdadc797c" "radar-ransom c7ee13346af7" \
+            "radar-presse cef98c682ec2" "radar-cert ea3fd38bd64b"; do
+  set -- $spec
+  ~/.local/bin/hermes -p "$1" cron edit "$2" \
+    --model stepfun/step-3.7-flash:free --provider nous --no-continuity
+done
+```
+
+## 7. Pipeline de remontée briefing → Radar
+
+Deux scripts Node (zéro dépendance, type stripping natif) :
+
+| Script | Rôle |
+|---|---|
+| `scripts/hermes-briefing.mts` | Texte de briefing (brut) → JSON normalisé `{profile, generated_at, items[]}` |
+| `scripts/hermes-push.mts` | JSON normalisé → schéma collecteur `{generated_at, events[]}` → fichier `out/` (ou `POST /api/ingest`) |
+
+### 7.1 Normalisation (sans LLM)
+
+```bash
+node --experimental-strip-types scripts/hermes-briefing.mts <briefing.txt> \
+  --profile radar-vuln --out /tmp/briefing.json
+```
+
+Format d'entrée toléré : titre Markdown par item (`## Titre`) ou puces
+(`-`/`*`/`1.`), métadonnées inline `url:`, `famille:`, `sévérité:`, `résumé:` ;
+JSON déjà structuré (`items` ou `events`) accepté en idempotent.
+
+Sortie :
+
+```json
+{ "profile": "radar-vuln", "generated_at": "2026-11-10T14:14:13Z",
+  "items": [ { "title": "CVE-2026-1234 — faille critique", "url": "https://…",
+               "summary": "…", "severity": 5, "family": "vuln" } ] }
+```
+
+### 7.2 Remontée
+
+```bash
+# Fichier (mode recommandé, lu par hermes.collector.ts via SSH)
+node --experimental-strip-types scripts/hermes-push.mts /tmp/briefing.json \
+  --profile radar-vuln
+
+# Dry-run : affiche la charge utile sans écrire ni envoyer
+node --experimental-strip-types scripts/hermes-push.mts /tmp/briefing.json --dry-run
+
+# HTTP (seulement si la route est enregistrée côté API)
+node --experimental-strip-types scripts/hermes-push.mts /tmp/briefing.json \
+  --api-url http://radar:8080/api/ingest
+```
+
+Par défaut, le fichier est écrit dans
+`~/.hermes/profiles/radar-cyber/out/briefing-<AAAA-MM-JJ>.json` (chemin lu par
+`hermes.collector.ts`). `--out <chemin>` permet de choisir le profil.
+
+### 7.3 Déploiement
+
+`deploy-hermes.sh` copie les deux scripts dans `~/.hermes/scripts/`, installe le
+wrapper `radar-hermes-pipeline.sh` (normalise les `out/briefing-*.txt` puis
+remonte) et le timer `radar-hermes-pipeline.timer` (horaire). Aucune activation
+automatique : `systemctl --user enable --now radar-hermes-pipeline.timer`.
+
+Le wrapper écrit dans
+`~/.hermes/profiles/radar-cyber/out/briefing-<profil>-<date>.json` (répertoire lu
+par le collecteur), avec un suffixe de profil pour éviter les écrasements entre
+familles.
+
+### 7.4 Exemple complet (test réel)
+
+```bash
+cat > /tmp/briefing.txt <<'EOF'
+# Briefing radar-vuln — 2026-11-10
+
+## CVE-2026-1234 — faille critique dans Produit X
+- url: https://www.cert.ssi.gouv.fr/avis/CERTFR-2026-AVI-0001/
+- famille: vuln
+- sévérité: 5
+- résumé: Correction disponible, présente dans le catalogue KEV CISA.
+EOF
+
+node --experimental-strip-types scripts/hermes-briefing.mts /tmp/briefing.txt \
+  --profile radar-vuln --out /tmp/briefing.json
+node --experimental-strip-types scripts/hermes-push.mts /tmp/briefing.json --dry-run
+```
+
+Résultat : `3 item(s)` → JSON valide, puis charge utile `events[]` avec
+`dedup_key hermes:<sha256>` et `assertion_type third_party_claim` pour les
+revendications rançongicielles (jamais `confirmed_incident`).
