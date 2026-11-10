@@ -26,6 +26,7 @@ build/
 logs/
 nohup.out
 coverage/
+out/
 
 # Système
 .DS_Store
