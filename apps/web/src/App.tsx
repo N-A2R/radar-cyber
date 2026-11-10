@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { api, getAuthToken, type Event, type FlowArc, type Graph, type Org, type Source, type Stats } from "./api";
+import { api, clearAuthToken, getAuthToken, setAuthToken, type Event, type FlowArc, type Graph, type Org, type Source, type Stats } from "./api";
 import { mockData } from "./mock";
 import Map3D from "./map/Map3D";
 import GraphView from "./graph/GraphView";
@@ -10,6 +10,7 @@ import Inspector from "./components/Inspector";
 import OrgSheet from "./components/OrgSheet";
 import AlertsView from "./components/AlertsView";
 import WallScreen from "./components/WallScreen";
+import LoginScreen from "./components/LoginScreen";
 import type { ViewKey } from "./contracts";
 
 // Mode démonstration : données simulées, jamais d'appel API.
@@ -44,19 +45,14 @@ export default function App() {
   const [sheetOrgId, setSheetOrgId] = useState<number | null>(null);
   const [connected, setConnected] = useState(false);
   const [basemap, setBasemap] = useState<"sat" | "plan">("sat");
-  const [token, setToken] = useState<string | null>(() => {
-    try {
-      return localStorage.getItem("radar_token");
-    } catch {
-      return null;
-    }
-  });
+  const [token, setToken] = useState<string | null>(() => getAuthToken());
 
   // Dernière vue hors mur : la touche F bascule mur ↔ vue précédente.
   const prevViewRef = useRef<ViewKey>("map");
 
   // Temps réel : le serveur pousse les nouveaux événements (SSE).
   useEffect(() => {
+    if (!token) return;
     // `EventSource` ne peut pas poser d'en-tête : le jeton passe en query,
     // accepté par la seule route /api/stream côté serveur.
     const streamToken = getAuthToken();
@@ -97,7 +93,7 @@ export default function App() {
       }
     });
     return () => stream.close();
-  }, []);
+  }, [token]);
 
   // Les arcs réels (org → hébergement) sont rares ; à défaut on affiche les
   // arcs « orgs » (org → centroïde départemental) pour que la carte vive.
@@ -118,6 +114,7 @@ export default function App() {
       setLoading(false);
       return;
     }
+    if (!token) return;
     Promise.all([api.orgs(), api.events(FEED_LIMIT), api.sources(), api.stats(), api.graph(90)])
       .then(([o, e, s, st, g]) => {
         setOrgs(o);
@@ -133,18 +130,18 @@ export default function App() {
         setError(err.message);
         setLoading(false);
       });
-  }, [loadFlows]);
+  }, [loadFlows, token]);
 
   // Rafraîchit statistiques, graphe et arcs toutes les 30 s.
   useEffect(() => {
-    if (MOCK_MODE) return;
+    if (MOCK_MODE || !token) return;
     const timer = setInterval(() => {
       api.stats().then(setStats).catch(() => {});
       api.graph(90).then(setGraph).catch(() => {});
       loadFlows().then(setFlows).catch(() => {});
     }, 30000);
     return () => clearInterval(timer);
-  }, [loadFlows]);
+  }, [loadFlows, token]);
 
   const byFamily = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -214,11 +211,15 @@ export default function App() {
 
   const onUnauthorized = useCallback(() => {
     setToken(null);
-    try {
-      localStorage.removeItem("radar_token");
-    } catch {
-      // stockage indisponible : l'état local suffit
-    }
+    setError(null);
+    clearAuthToken();
+  }, []);
+
+  /** Connexion réussie : mémorise le jeton puis relance le chargement. */
+  const onAuthenticated = useCallback((fresh: string) => {
+    setAuthToken(fresh);
+    setToken(fresh);
+    setError(null);
   }, []);
 
   // Touche F : bascule vers l'écran mural et retour à la vue précédente.
@@ -256,6 +257,10 @@ export default function App() {
       : {
           gridTemplateColumns: inspectorOpen ? "352px minmax(0,1fr) 320px" : "352px minmax(0,1fr)",
         };
+
+  // Sans jeton (hors démonstration), le shell n'est jamais monté : seul
+  // l'écran de connexion est rendu, aucune requête authentifiée ne part.
+  if (!token && !MOCK_MODE) return <LoginScreen onAuthenticated={onAuthenticated} />;
 
   return (
     <div className="shell">
