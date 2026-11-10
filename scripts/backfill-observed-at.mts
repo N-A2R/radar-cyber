@@ -26,9 +26,8 @@
  *
  * Usage : pnpm exec tsx scripts/backfill-observed-at.mts [--apply]
  */
-import { Pool } from "pg";
+import { closePools, ingestQuery, withClient } from "../apps/api/src/db.js";
 
-const DATABASE_URL = process.env.DATABASE_URL ?? "postgres://radar:radar@localhost:5432/radar";
 const APPLY = process.argv.includes("--apply");
 
 /** Même intention que `\b(20\d{2})-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])\b` ; Postgres utilise `\m` / `\M` pour les frontières de mot. */
@@ -36,7 +35,8 @@ const ISO_RE = String.raw`\m(20[0-9]{2})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01]
 /** Année seule : CVE-2000-0564, publié en 2000 (les CVE des années 1990 existent aussi). */
 const YEAR_RE = String.raw`\m(19|20)[0-9]{2}\M`;
 
-const CLASSIFY = `
+function classifySql(provenanceGuard: string): string {
+  return `
 WITH base AS (
   SELECT e.id,
          e.title,
@@ -44,7 +44,7 @@ WITH base AS (
          coalesce(e.evidence::text, '') AS ev_text,
          coalesce(e.summary, '') AS sum_text
   FROM event e
-  WHERE e.observed_at IS NULL
+  WHERE e.observed_at IS NULL ${provenanceGuard}
 ),
 matched AS (
   SELECT id, title, collected_at,
@@ -79,14 +79,13 @@ SELECT id, title,
          ELSE collected_at
        END AS new_date
 FROM dated`;
+}
 
 type CountRow = { rule: string; n: number; earliest: string | null; latest: string | null };
 type SampleRow = { id: string; title: string; rule: string; new_date: string | null };
 
-const pool = new Pool({ connectionString: DATABASE_URL });
-
 async function columnExists(): Promise<boolean> {
-  const { rows } = await pool.query<{ exists: boolean }>(
+  const { rows } = await ingestQuery<{ exists: boolean }>(
     `SELECT EXISTS (
        SELECT 1 FROM information_schema.columns
        WHERE table_schema = 'public' AND table_name = 'event' AND column_name = 'observed_at_source'
@@ -95,9 +94,17 @@ async function columnExists(): Promise<boolean> {
   return rows[0]?.exists === true;
 }
 
-async function report(): Promise<void> {
-  const counts = await pool.query<CountRow>(
-    `WITH classified AS (${CLASSIFY})
+async function report(hasColumn: boolean): Promise<void> {
+  const guard = hasColumn ? "AND e.observed_at_source IS NULL" : "";
+  const classify = classifySql(guard);
+  if (hasColumn) {
+    const tagged = await ingestQuery<{ n: number }>(
+      "SELECT count(*)::int AS n FROM event WHERE observed_at IS NULL AND observed_at_source IS NOT NULL",
+    );
+    console.log(`Déjà tracés sans date (year-only) : ${tagged.rows[0]?.n ?? 0}`);
+  }
+  const counts = await ingestQuery<CountRow>(
+    `WITH classified AS (${classify})
      SELECT rule, count(*)::int AS n,
             min(new_date)::text AS earliest,
             max(new_date)::text AS latest
@@ -106,8 +113,8 @@ async function report(): Promise<void> {
      ORDER BY n DESC`,
     [ISO_RE, YEAR_RE],
   );
-  const samples = await pool.query<SampleRow>(
-    `WITH classified AS (${CLASSIFY})
+  const samples = await ingestQuery<SampleRow>(
+    `WITH classified AS (${classify})
      SELECT id::text, title, rule, new_date::text
      FROM classified
      ORDER BY (rule = 'year-only'), id
@@ -116,7 +123,7 @@ async function report(): Promise<void> {
   );
 
   const total = counts.rows.reduce((sum, r) => sum + r.n, 0);
-  console.log(`Événements sans observed_at : ${total}`);
+  console.log(`Événements restant à traiter : ${total}`);
   for (const row of counts.rows) {
     const range = row.earliest === null ? "date laissée NULL" : `${row.earliest} → ${row.latest}`;
     console.log(`  ${row.rule.padEnd(12)} ${String(row.n).padStart(6)}  (${range})`);
@@ -128,13 +135,12 @@ async function report(): Promise<void> {
 }
 
 async function apply(): Promise<void> {
-  const client = await pool.connect();
-  try {
+  await withClient(async (client) => {
     await client.query("BEGIN");
     await client.query("ALTER TABLE event ADD COLUMN IF NOT EXISTS observed_at_source text");
 
     const { rows } = await client.query<{ rule: string; n: number }>(
-      `WITH classified AS (${CLASSIFY}),
+      `WITH classified AS (${classifySql("AND e.observed_at_source IS NULL")}),
        updated AS (
          UPDATE event e
          SET observed_at = c.new_date, observed_at_source = c.rule
@@ -152,12 +158,7 @@ async function apply(): Promise<void> {
     const written = rows.reduce((sum, r) => sum + r.n, 0);
     console.log(`Écrit : ${written} ligne(s).`);
     for (const row of rows) console.log(`  ${row.rule.padEnd(12)} ${String(row.n).padStart(6)}`);
-  } catch (error) {
-    await client.query("ROLLBACK");
-    throw error;
-  } finally {
-    client.release();
-  }
+  });
 }
 
 try {
@@ -169,7 +170,7 @@ try {
   } else {
     console.log("Mode --dry-run (aucune écriture). Ajouter --apply pour écrire.\n");
   }
-  await report();
+  await report(hasColumn || APPLY);
 } finally {
-  await pool.end();
+  await closePools();
 }
