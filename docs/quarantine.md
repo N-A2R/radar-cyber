@@ -5,8 +5,14 @@ rançongiciels. Tout y est **TLP:RED**, jamais républié, jamais exposé.
 
 ## Principes
 
-- **Jamais de `.onion`** : l'egress est filtré (prouvé), et la collecte reposerait sur Tor.
-- **Jamais de dump** : seul le texte de revendication est conservé (`raw_body`).
+- **`.onion` en quarantaine depuis le 11 novembre** : une page `.onion` dont le
+  HTML ne se structure pas y est déposée (`source` = identifiant de la source).
+  Auparavant elle était jetée en silence, ce qui rendait 64 sources muettes
+  invisibles alors qu'elles répondaient en 200. Le corps est conservé pour
+  relecture, jamais publié. Les pages qui se parsent (cartes de revendication)
+  produisent des événements, elles ne passent pas par ici.
+- **Jamais de dump** : seul le texte de revendication est conservé (`raw_body`),
+  plafonné à 400 000 octets par page.
 - **Non-republication** : les données ransomware.live sont en usage interne, attribution conservée.
 - **Traçabilité** : toute sortie de la quarantaine est une promotion inscrite (`promoted_at`, `promoted_by`).
 

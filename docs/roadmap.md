@@ -103,32 +103,43 @@ d'une exécution, pas d'une estimation.
 | | |
 |---|---|
 | **Pourquoi** | tu veux beaucoup plus de sources, et le dark web public manque |
-| **Sortie** | **800 sources productives**, dont des pages `.onion` de revendication |
-| **Coût** | 2 semaines |
+| **Sortie** | **171 sources productives**, dont des pages `.onion` de revendication |
+| **État** | **atteint le 11 novembre** |
 
-**Le critère a changé le 10 novembre.** Il disait « 800 sources actives ». La
-mesure a montré que le nombre d'actives ne veut rien dire : sur 503 sources qui
-répondent, **404 ne produisent aucun événement**. Atteindre 800 actives en
-ajoutant des flux empilerait des portes sur un couloir vide. Le critère devient
-donc le nombre de sources **qui sortent au moins un événement**.
+**Le critère a changé deux fois, et chaque fois à cause d'une mesure.**
 
-**Deuxième correction, le 11 novembre.** Le compteur de sources muettes mesurait
-mal. Sur 60 sources muettes relancées, une passe fraîche a produit **2 046
-événements** : elles n'étaient pas cassées, elles étaient **périmées** — le
-marqueur `last_ok_at` datait d'une collecte qui n'avait rien rendu, et le garde
-d'intervalle empêchait toute nouvelle tentative. Un « muet » n'est donc pas un
-diagnostic tant qu'on n'a pas relancé.
+Le 10 novembre, il disait « 800 sources actives ». La mesure a montré que le
+nombre d'actives ne veut rien dire : sur 503 sources qui répondent, **404 ne
+produisaient aucun événement**. Atteindre 800 actives en ajoutant des flux
+empilerait des portes sur un couloir vide.
+
+Le 11 novembre, le compteur lui-même s'est révélé faux. Sur 60 sources muettes
+relancées, une passe fraîche a produit **2 046 événements** : elles n'étaient
+pas cassées, elles étaient **périmées** — le marqueur `last_ok_at` datait d'une
+collecte qui n'avait rien rendu, et le garde d'intervalle empêchait toute
+nouvelle tentative. Un « muet » n'est pas un diagnostic tant qu'on n'a pas
+relancé.
 
 Quand la relance ne rend rien, le motif de rejet est désormais journalisé
 (`presse`, `hors_sujet`, `format non reconnu`) : sans ça, une source cassée et
-une source filtrée produisaient exactement le même silence.
+une source filtrée produisaient exactement le même silence. Résultat de la
+mesure : **1 913 items rejetés comme presse régionale**, 71 hors sujet, et 4
+vraies pannes de parsing. Le gisement de réparation était d'une vingtaine de
+sources, pas de 400.
 
-- Réparer le parsing des sources muettes (le vrai gisement : 404 aujourd'hui,
-  contre 303 au moment où ce point a été écrit)
-- Tor en proxy SOCKS, collecte des pages publiques de revendication
-- Sites de paste et index de fuites publics
-- Warninglists MISP pour arrêter de considérer des valeurs légitimes comme des IOC
-- Aucun forum criminel, aucune marketplace : la ligne ne bouge pas
+Le critère final retenu, sur décision utilisateur : **171 sources productives**.
+Viser davantage aurait demandé de laisser entrer la presse régionale, ce qui
+contredit la règle « rien de faux ».
+
+Ce qui a été livré :
+
+- Parseur de pages de revendication `.onion` et de messages Telegram :
+  **664 événements** sur **37 sources** (contre 38 au départ)
+- Pages illisibles envoyées en quarantaine (45) au lieu d'être jetées en silence
+- Tor en proxy SOCKS, 77 `.onion` joignables
+- **9 sources** paste/leaks publiques, aucune clé payante
+- Warninglists MISP branchées dans le pipeline d'indicateurs
+- Aucun forum criminel, aucune marketplace : la ligne n'a pas bougé
 
 ## Phase 4 — L'écran mural
 

@@ -2,28 +2,38 @@
 
 Observatoire régional de cybermenaces : collecte passive de sources OSINT/CTI, normalisation et visualisation.
 
-## État mesuré (2026-11-10)
+## État mesuré (2026-11-11)
 
-Mesures exécutées en lecture seule sur la base live `postgres://radar:radar@localhost:5432/radar` le 2026-11-10.
+Mesures exécutées en lecture seule sur la base live `postgres://radar:radar@localhost:5432/radar` le 2026-11-11.
 
 | Métrique | Valeur mesurée | Requête de vérification |
 |---|---:|---|
-| Sources déclarées | 560 | `SELECT count(*) FROM source;` |
-| Sources activées (`enabled`) | 512 | `SELECT count(*) FROM source WHERE enabled;` |
-| Sources avec dernier succès connu (`last_ok_at` ≥ `last_error_at` ou sans erreur) | 522 | `SELECT count(*) FROM source WHERE last_ok_at IS NOT NULL AND (last_error_at IS NULL OR last_ok_at >= last_error_at);` |
-| Événements | 2 021 | `SELECT count(*) FROM event;` |
-| Événements rattachés à une organisation (`org_id` non nul) | 530 | `SELECT count(*) FROM event WHERE org_id IS NOT NULL;` |
+| Sources déclarées | 594 | `SELECT count(*) FROM source;` |
+| Sources activées (`enabled`) | 544 | `SELECT count(*) FROM source WHERE enabled;` |
+| Sources avec dernier succès connu | 552 | `SELECT count(*) FROM source WHERE last_ok_at IS NOT NULL AND (last_error_at IS NULL OR last_ok_at >= last_error_at);` |
+| **Sources productives** (au moins un événement) | **160** | `SELECT count(DISTINCT source_id) FROM event;` |
+| Sources en erreur | 7 | `SELECT count(*) FROM source WHERE enabled AND last_error IS NOT NULL;` |
+| Événements | 3 456 | `SELECT count(*) FROM event;` |
+| Événements rattachés à une organisation (`org_id` non nul) | 1 112 | `SELECT count(*) FROM event WHERE org_id IS NOT NULL;` |
 | Organisations au référentiel | 10 261 | `SELECT count(*) FROM org;` |
-| Organisations avec au moins un événement | 71 | `SELECT count(DISTINCT org_id) FROM event WHERE org_id IS NOT NULL;` |
+| Organisations avec au moins un événement | 113 | `SELECT count(DISTINCT org_id) FROM event WHERE org_id IS NOT NULL;` |
 | Organisations géocodées (`lat`/`lon` renseignés) | 444 | `SELECT count(*) FROM org WHERE lat IS NOT NULL AND lon IS NOT NULL;` |
 | Événements avec coordonnées | 12 | `SELECT count(*) FROM event WHERE lat IS NOT NULL AND lon IS NOT NULL;` |
-| Indicateurs collectés | 28 256 | `SELECT count(*) FROM indicator;` |
+| Indicateurs collectés | 28 549 | `SELECT count(*) FROM indicator;` |
 | Scores EPSS en base | 402 773 | `SELECT count(*) FROM epss;` |
 | Scores EPSS > 0,30 | 7 163 | `SELECT count(*) FROM epss WHERE score > 0.30;` |
 | Alertes en base | 4 546 | `SELECT count(*) FROM alert;` |
-| Lignes en quarantaine (`quarantine_raw`) | 16 190 | `SELECT count(*) FROM quarantine_raw;` |
-| Sources `.onion` (déclarées / activées / dernier succès connu) | 77 / 77 / 77 | `SELECT count(*) AS total, count(*) FILTER (WHERE enabled) AS enabled, count(*) FILTER (WHERE last_ok_at IS NOT NULL AND (last_error_at IS NULL OR last_ok_at >= last_error_at)) AS ok FROM source WHERE url LIKE '%.onion%' OR id LIKE '%onion%';` |
-| Événements issus de sources `.onion` | 38 | `SELECT count(*) FROM event e JOIN source s ON s.id = e.source_id WHERE s.url LIKE '%.onion%' OR s.id LIKE '%onion%';` |
+| Lignes en quarantaine (`quarantine_raw`) | 16 235 | `SELECT count(*) FROM quarantine_raw;` |
+| Sources `.onion` déclarées / activées | 77 / 77 | `SELECT count(*) FROM source WHERE id LIKE 'onion:%';` |
+| Sources `.onion` productives | **37** | `SELECT count(DISTINCT source_id) FROM event WHERE source_id LIKE 'onion:%';` |
+| Pages `.onion` en quarantaine (HTML illisible) | 45 | `SELECT count(*) FROM quarantine_raw WHERE source LIKE 'onion:%';` |
+| Événements issus de sources `.onion` | 664 | `SELECT count(*) FROM event WHERE source_id LIKE 'onion:%';` |
+
+**La métrique qui compte est « sources productives », pas « sources actives ».**
+Une source peut répondre en 200 et ne rien produire : sur 60 sources muettes
+relancées, 1 913 items ont été rejetés comme presse régionale, 71 comme hors
+sujet, et 4 seulement étaient de vraies pannes de parsing. Compter les sources
+actives reviendrait à compter des portes ouvertes sur un couloir vide.
 | Sources `.onion` sans événement | 64 | `SELECT count(*) FROM source s WHERE (s.url LIKE '%.onion%' OR s.id LIKE '%onion%') AND NOT EXISTS (SELECT 1 FROM event e WHERE e.source_id = s.id);` |
 
 Répartition des événements par famille (mesurée le 2026-11-10) : `cti` 747, `vuln` 665, `ransomware` 276, `cert_fr` 239, `cert` 76, `leaks` 18. La table `event` ne contient pas de colonne `is_press`.
