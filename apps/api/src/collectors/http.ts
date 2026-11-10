@@ -40,6 +40,8 @@ export interface FetchResilientResult {
   status: number;
   text: string;
   notModified: boolean;
+  buffer?: Buffer;
+  contentType?: string | null;
 }
 
 const UA = "RadarCyberNA/0.2 (+https://github.com/j0ltdevv/radar-cyber)";
@@ -100,7 +102,7 @@ export async function fetchResilient(
       }
 
       if (res.status === 304) {
-        return { status: 304, text: "", notModified: true };
+        return { status: 304, text: "", notModified: true, contentType: null };
       }
 
       if (res.status === 403) {
@@ -109,8 +111,10 @@ export async function fetchResilient(
 
       if (res.status === 429 || res.status === 503) {
         if (attempt >= maxAttempts) {
-          const text = await res.text().catch(() => "");
-          return { status: res.status, text, notModified: false };
+          const ab = await res.arrayBuffer().catch(() => new ArrayBuffer(0));
+          const buffer = Buffer.from(ab);
+          const text = buffer.toString("utf8");
+          return { status: res.status, text, notModified: false, buffer, contentType: res.headers.get("content-type") };
         }
         const retryAfter = parseRetryAfter(res.headers.get("retry-after"));
         let delay: number;
@@ -125,8 +129,10 @@ export async function fetchResilient(
         continue;
       }
 
-      const text = await res.text();
-      return { status: res.status, text, notModified: false };
+      const ab = await res.arrayBuffer();
+      const buffer = Buffer.from(ab);
+      const text = buffer.toString("utf8");
+      return { status: res.status, text, notModified: false, buffer, contentType: res.headers.get("content-type") };
     } catch (err) {
       clearTimeout(timer);
       lastError = err;

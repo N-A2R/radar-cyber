@@ -18,16 +18,20 @@ function cutoffExpr(table: Table): string {
 
 export async function runRetention(
   log: (msg: string) => void,
-  opts?: { days?: number; dryRun?: boolean; tables?: Table[] },
+  opts?: { days?: number; indicatorDays?: number; dryRun?: boolean; tables?: Table[] },
 ): Promise<RetentionResult> {
+  // Durées distinctes : un événement perd sa valeur vite, un indicateur
+  // technique reste utile un an. Décision utilisateur du 10 novembre.
   const days = opts?.days ?? Number(process.env.RADAR_RETENTION_DAYS ?? 90);
+  const indicatorDays = opts?.indicatorDays ?? Number(process.env.RADAR_RETENTION_INDICATOR_DAYS ?? 365);
   const dryRun = opts?.dryRun ?? false;
   const tables = opts?.tables ?? ["event", "indicator", "collector_run"];
-  const cutoff = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
 
   const result: RetentionResult = { events: 0, indicators: 0, collectorRuns: 0 };
 
   for (const table of tables) {
+    const tableDays = table === "indicator" && opts?.days === undefined ? indicatorDays : days;
+    const cutoff = new Date(Date.now() - tableDays * 24 * 60 * 60 * 1000).toISOString();
     let total = 0;
     while (true) {
       if (dryRun) {
