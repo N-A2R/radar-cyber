@@ -1,5 +1,10 @@
 // Client HTTP résilient pour collecteurs (radar-cyber).
-// Global fetch uniquement — aucune dépendance.
+// `fetch` global pour le clearnet ; `socks-proxy-agent` pour les URL `.onion`,
+// qui n'existent que derrière Tor.
+
+import { request as httpRequest } from "node:http";
+import { request as httpsRequest } from "node:https";
+import { SocksProxyAgent } from "socks-proxy-agent";
 
 export class SourceBlockedError extends Error {
   permanent: boolean;
@@ -8,6 +13,79 @@ export class SourceBlockedError extends Error {
     this.name = "SourceBlockedError";
     this.permanent = permanent;
   }
+}
+
+/** Proxy SOCKS de Tor, désactivé par défaut. `socks5h` résout côté Tor. */
+function torSocks(): string | null {
+  const raw = process.env.RADAR_TOR_SOCKS?.trim();
+  return raw && raw.length > 0 ? raw : null;
+}
+
+/** Une URL `.onion` ne résout nulle part ailleurs que dans Tor. */
+export function isOnionUrl(url: string): boolean {
+  try {
+    const host = new URL(url).hostname.toLowerCase().replace(/\.$/, "");
+    return host.endsWith(".onion");
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Requête via le proxy SOCKS. Aucun repli clearnet : sans configuration, ou
+ * si le proxy refuse, on lève une erreur explicite et immédiate.
+ */
+function fetchThroughSocks(
+  url: string,
+  headers: Record<string, string>,
+  timeoutMs: number,
+): Promise<{ status: number; buffer: Buffer; contentType: string | null }> {
+  const socks = torSocks();
+  if (!socks) {
+    throw new SourceBlockedError(
+      `URL .onion sans RADAR_TOR_SOCKS — collecte Tor refusée (aucun repli clearnet) : ${url}`,
+      true,
+    );
+  }
+  const agent = new SocksProxyAgent(socks);
+  const target = new URL(url);
+  const send = target.protocol === "https:" ? httpsRequest : httpRequest;
+
+  const { promise, resolve, reject } = Promise.withResolvers<{
+    status: number;
+    buffer: Buffer;
+    contentType: string | null;
+  }>();
+
+  const req = send(
+    {
+      protocol: target.protocol,
+      hostname: target.hostname,
+      port: target.port || (target.protocol === "https:" ? 443 : 80),
+      path: `${target.pathname}${target.search}`,
+      method: "GET",
+      headers: { ...headers, host: target.host },
+      agent,
+      timeout: timeoutMs,
+    },
+    (res) => {
+      const chunks: Buffer[] = [];
+      res.on("data", (chunk: Buffer) => chunks.push(chunk));
+      res.on("end", () =>
+        resolve({
+          status: res.statusCode ?? 0,
+          buffer: Buffer.concat(chunks),
+          contentType: (res.headers["content-type"] as string | undefined) ?? null,
+        }),
+      );
+      res.on("error", reject);
+    },
+  );
+  req.on("timeout", () => req.destroy(new Error(`délai dépassé (${timeoutMs} ms) via Tor`)));
+  req.on("error", reject);
+  req.end();
+
+  return promise;
 }
 
 export interface Validators {
@@ -75,6 +153,26 @@ export async function fetchResilient(
   const known = getValidators(url);
   const ifNoneMatch = opts.ifNoneMatch ?? known?.etag;
   const ifModifiedSince = opts.ifModifiedSince ?? known?.lastModified;
+
+  // Une URL `.onion` ne passe pas par `fetch` : elle sort par Tor ou échoue.
+  if (isOnionUrl(url)) {
+    const headers: Record<string, string> = {
+      ...(opts.headers ?? {}),
+      "User-Agent": UA,
+      Accept: accept,
+    };
+    const r = await fetchThroughSocks(url, headers, timeoutMs);
+    if (r.status === 403) {
+      throw new SourceBlockedError(`Source blocked (403) via Tor pour ${url}`, true);
+    }
+    return {
+      status: r.status,
+      text: r.buffer.toString("utf8"),
+      notModified: false,
+      buffer: r.buffer,
+      contentType: r.contentType,
+    };
+  }
 
   let attempt = 0;
   let lastError: unknown;
