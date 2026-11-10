@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { api, authHeaders, type Alert, type AlertStatRow, type AlertStatus } from "../api";
+import { api, authHeaders, type Alert, type AlertConfidence, type AlertStatRow, type AlertStatus } from "../api";
 import type { AlertsViewProps } from "../contracts";
 import "./alerts.css";
 
@@ -27,6 +27,7 @@ type AlertDetail = {
   source: { name: string; url: string | null; family: string | null } | null;
   org: { id: number; name: string; dept: string | null; kind: string } | null;
   corroboration: { distinct_sources: number; sources: { name: string; count: string }[] };
+  confidence: AlertConfidence | null;
   evidence: unknown;
 };
 
@@ -220,6 +221,19 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent }: Al
                     .join(", ")}
                 </span>
               </span>
+              {alert.confidence ? (
+                <span
+                  className="alerts__score"
+                  data-status={alert.confidence.status}
+                  title={
+                    alert.confidence.status === "a_verifier"
+                      ? "sous le seuil : à vérifier avant de s'appuyer dessus"
+                      : "au-dessus du seuil de vérification"
+                  }
+                >
+                  {alert.confidence.score}
+                </span>
+              ) : null}
               <span className="alerts__state" data-state={alert.status}>
                 {alert.status === "open" ? "ouverte" : alert.status === "ack" ? "acquittée" : "résolue"}
               </span>
@@ -267,7 +281,16 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent }: Al
                             .join(", ")}`
                         : "aucune corroboration"}
                     </p>
-                    {detail.event?.confidence ? (
+                    {detail.confidence ? (
+                      <p className="alerts__detail-line">
+                        {`confiance ${detail.confidence.score}/100`}
+                        {detail.confidence.status === "a_verifier" ? " — à vérifier" : ""}
+                        {` · source ${Math.round(detail.confidence.components.source_reliability * 100)}`}
+                        {` · nature ${Math.round(detail.confidence.components.assertion_strength * 100)}`}
+                        {` · rattachement ${Math.round(detail.confidence.components.attachment_quality * 100)}`}
+                        {` · corroboration ${Math.round(detail.confidence.components.corroboration * 100)}`}
+                      </p>
+                    ) : detail.event?.confidence ? (
                       <p className="alerts__detail-line">confiance {detail.event.confidence}</p>
                     ) : null}
                     {detail.event && onOpenEvent ? (

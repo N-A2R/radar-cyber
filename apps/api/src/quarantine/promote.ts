@@ -277,7 +277,7 @@ export async function insertClaimEvent(
   );
   const eventId = Number(r.rows[0].id);
   const inserted = Boolean(r.rows[0].inserted);
-  const alerts = inserted ? await evaluateEvent(eventId) : 0;
+  const alerts = inserted ? await evaluateEvent(eventId, { force: true }) : 0;
   return { eventId, inserted, alerts };
 }
 

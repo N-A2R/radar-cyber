@@ -43,10 +43,10 @@ async function sourceId(): Promise<string> {
   return cachedSourceId;
 }
 
-async function insertOrg(name: string, kind: string): Promise<number> {
+async function insertOrg(name: string, kind: string, dept: string | null = null): Promise<number> {
   const r = await query<{ id: number }>(
-    "INSERT INTO org (name, slug, kind) VALUES ($1,$2,$3) RETURNING id",
-    [name, next(), kind]
+    "INSERT INTO org (name, slug, kind, dept) VALUES ($1,$2,$3,$4) RETURNING id",
+    [name, next(), kind, dept]
   );
   return r.rows[0].id;
 }
@@ -169,11 +169,16 @@ test("confiance : min_confidence 3 exclut C3/B2 et admet A2/A1", async () => {
   const ruleId = `test-conf-${TAG}`;
   ids.rules.push(ruleId);
   try {
+    // Adaptation (seuil de confiance 65) : les événements acceptés sont
+    // rattachés à une organisation géolocalisée en third_party_claim pour
+    // franchir le seuil sans déclencher de règle de production (famille dédiée).
     await insertRule(ruleId, { family: "testconf", min_confidence: 3 });
-    const c3 = await insertEvent({ family: "testconf", assertionType: "ambient_signal", title: "Confiance C3", confidence: "C3" });
-    const b2 = await insertEvent({ family: "testconf", assertionType: "ambient_signal", title: "Confiance B2", confidence: "B2" });
-    const a2 = await insertEvent({ family: "testconf", assertionType: "ambient_signal", title: "Confiance A2", confidence: "A2" });
-    const a1 = await insertEvent({ family: "testconf", assertionType: "ambient_signal", title: "Confiance A1", confidence: "A1" });
+    const org = await insertOrg(`Org confiance ${TAG}`, "collectivite", "33");
+    ids.orgs.push(org);
+    const c3 = await insertEvent({ family: "testconf", assertionType: "ambient_signal", title: "Confiance C3", confidence: "C3", orgId: org });
+    const b2 = await insertEvent({ family: "testconf", assertionType: "ambient_signal", title: "Confiance B2", confidence: "B2", orgId: org });
+    const a2 = await insertEvent({ family: "testconf", assertionType: "third_party_claim", title: "Confiance A2", confidence: "A2", orgId: org });
+    const a1 = await insertEvent({ family: "testconf", assertionType: "third_party_claim", title: "Confiance A1", confidence: "A1", orgId: org });
     ids.events.push(c3, b2, a2, a1);
 
     assert.equal(await evaluateEvent(c3), 0, "C3 (rang 1) sous le seuil 3");
@@ -195,9 +200,15 @@ test("famille : la règle ransomware matche un ransomware, pas un vuln", async (
   const ruleId = `test-fam-${TAG}`;
   ids.rules.push(ruleId);
   try {
+    // Adaptation (seuil de confiance 65) : l'événement attendu reçoit une
+    // source A1, un rattachement géolocalisé et reste ambient_signal pour
+    // franchir le seuil sans activer la règle de production
+    // ransomware-revendication (qui exige third_party_claim).
     await insertRule(ruleId, { family: "ransomware" });
-    const hit = await insertEvent({ family: "ransomware", assertionType: "ambient_signal", title: "Rançongiciel", confidence: "A2" });
-    const miss = await insertEvent({ family: "vuln", assertionType: "ambient_signal", title: "Vulnérabilité", confidence: "A2" });
+    const org = await insertOrg(`Org famille ${TAG}`, "collectivite", "33");
+    ids.orgs.push(org);
+    const hit = await insertEvent({ family: "ransomware", assertionType: "ambient_signal", title: "Rançongiciel", confidence: "A1", orgId: org });
+    const miss = await insertEvent({ family: "vuln", assertionType: "ambient_signal", title: "Vulnérabilité", confidence: "A1", orgId: org });
     ids.events.push(hit, miss);
 
     assert.equal(await evaluateEvent(hit), 1);
@@ -214,9 +225,14 @@ test("assertion_type : la règle confirmed_incident matche, pas ambient_signal",
   const ruleId = `test-assert-${TAG}`;
   ids.rules.push(ruleId);
   try {
+    // Adaptation (seuil de confiance 65) : l'incident confirmé est rattaché à
+    // une organisation géolocalisée pour franchir le seuil ; la règle de
+    // production incident-confirme peut aussi correspondre, d'où le >= 1.
     await insertRule(ruleId, { assertion_type: "confirmed_incident" });
-    const hit = await insertEvent({ family: "testassert", assertionType: "confirmed_incident", title: "Incident confirmé", confidence: "A2" });
-    const miss = await insertEvent({ family: "testassert", assertionType: "ambient_signal", title: "Signal ambiant", confidence: "A2" });
+    const org = await insertOrg(`Org assertion ${TAG}`, "collectivite", "33");
+    ids.orgs.push(org);
+    const hit = await insertEvent({ family: "testassert", assertionType: "confirmed_incident", title: "Incident confirmé", confidence: "A2", orgId: org });
+    const miss = await insertEvent({ family: "testassert", assertionType: "ambient_signal", title: "Signal ambiant", confidence: "A2", orgId: org });
     ids.events.push(hit, miss);
 
     // La règle de production incident-confirme matche aussi hit : on vérifie notre règle.
@@ -234,10 +250,15 @@ test("mots-clés : any matche sur le titre ou le summary", async () => {
   const ruleId = `test-kw-${TAG}`;
   ids.rules.push(ruleId);
   try {
+    // Adaptation (seuil de confiance 65) : les événements qui doivent ouvrir
+    // une alerte sont portés par une source A1 et une organisation géolocalisée
+    // afin de dépasser le seuil sans modifier la sémantique des mots-clés.
     await insertRule(ruleId, { family: "phishing", keywords: { any: ["banque", "bank"] } });
-    const titleHit = await insertEvent({ family: "phishing", assertionType: "ambient_signal", title: "CAMPAGNE DE PHISHING BANQUE", summary: "RAS", confidence: "A2" });
-    const summaryHit = await insertEvent({ family: "phishing", assertionType: "ambient_signal", title: "Phishing generique", summary: "Tentative de phishing sur une banque", confidence: "A2" });
-    const miss = await insertEvent({ family: "phishing", assertionType: "ambient_signal", title: "Phishing generique", summary: "Aucune cible", confidence: "A2" });
+    const org = await insertOrg(`Org mots-clés ${TAG}`, "collectivite", "33");
+    ids.orgs.push(org);
+    const titleHit = await insertEvent({ family: "phishing", assertionType: "ambient_signal", title: "CAMPAGNE DE PHISHING BANQUE", summary: "RAS", confidence: "A1", orgId: org });
+    const summaryHit = await insertEvent({ family: "phishing", assertionType: "ambient_signal", title: "Phishing generique", summary: "Tentative de phishing sur une banque", confidence: "A1", orgId: org });
+    const miss = await insertEvent({ family: "phishing", assertionType: "ambient_signal", title: "Phishing generique", summary: "Aucune cible", confidence: "A1", orgId: org });
     ids.events.push(titleHit, summaryHit, miss);
 
     assert.equal(await evaluateEvent(titleHit), 1);
@@ -256,12 +277,15 @@ test("org_kind : la règle matche la nature d'organisation, pas une autre", asyn
   const ruleId = `test-orgkind-${TAG}`;
   ids.rules.push(ruleId);
   try {
+    // Adaptation (seuil de confiance 65) : la collectivité est géolocalisée et
+    // l'événement porté par une source A1 pour franchir le seuil ; le critère
+    // testé (nature d'organisation) reste inchangé.
     await insertRule(ruleId, { org_kind: "collectivite" });
-    const col = await insertOrg(`Collectivité ${TAG}`, "collectivite");
-    const ent = await insertOrg(`Entreprise ${TAG}`, "entreprise");
+    const col = await insertOrg(`Collectivité ${TAG}`, "collectivite", "33");
+    const ent = await insertOrg(`Entreprise ${TAG}`, "entreprise", "33");
     ids.orgs.push(col, ent);
-    const hit = await insertEvent({ family: "testorg", assertionType: "ambient_signal", title: "Cible collectivité", confidence: "A2", orgId: col });
-    const miss = await insertEvent({ family: "testorg", assertionType: "ambient_signal", title: "Cible entreprise", confidence: "A2", orgId: ent });
+    const hit = await insertEvent({ family: "testorg", assertionType: "ambient_signal", title: "Cible collectivité", confidence: "A1", orgId: col });
+    const miss = await insertEvent({ family: "testorg", assertionType: "ambient_signal", title: "Cible entreprise", confidence: "A1", orgId: ent });
     ids.events.push(hit, miss);
 
     assert.equal(await evaluateEvent(hit), 1);
@@ -278,8 +302,13 @@ test("idempotence : evaluateEvent appelé deux fois ne crée qu'une alerte", asy
   const ruleId = `test-idem-${TAG}`;
   ids.rules.push(ruleId);
   try {
+    // Adaptation (seuil de confiance 65) : l'événement est rattaché à une
+    // organisation géolocalisée et porté par une source A1 pour franchir le
+    // seuil ; l'idempotence (ON CONFLICT DO NOTHING) reste le comportement testé.
     await insertRule(ruleId, { family: "testidem" });
-    const ev = await insertEvent({ family: "testidem", assertionType: "ambient_signal", title: "Idempotence", confidence: "A2" });
+    const org = await insertOrg(`Org idempotence ${TAG}`, "collectivite", "33");
+    ids.orgs.push(org);
+    const ev = await insertEvent({ family: "testidem", assertionType: "ambient_signal", title: "Idempotence", confidence: "A1", orgId: org });
     ids.events.push(ev);
 
     const first = await evaluateEvent(ev);
@@ -440,6 +469,66 @@ test("filtres : status, severity et limit", async () => {
     assert.equal((limited.json() as unknown[]).length, 1);
   } finally {
     await app.close();
+    await cleanup(ids);
+  }
+});
+
+test("seuil : au-dessus de 65, l'alerte est créée avec score et composantes tracés", async () => {
+  const ids = newIds();
+  const ruleId = `test-seuil-haut-${TAG}`;
+  ids.rules.push(ruleId);
+  try {
+    await insertRule(ruleId, { family: "testseuilhaut" });
+    const org = await insertOrg(`Org seuil haut ${TAG}`, "collectivite", "33");
+    ids.orgs.push(org);
+    // A2 + third_party_claim + org géolocalisée + 1 source = 71 >= 65.
+    const ev = await insertEvent({ family: "testseuilhaut", assertionType: "third_party_claim", title: "Au-dessus du seuil", confidence: "A2", orgId: org });
+    ids.events.push(ev);
+
+    assert.equal(await evaluateEvent(ev), 1);
+    assert.equal(await countAlerts("rule_id=$1 AND event_id=$2", [ruleId, ev]), 1);
+
+    const r = await query<{ evidence: unknown }>(
+      "SELECT evidence FROM alert WHERE rule_id=$1 AND event_id=$2",
+      [ruleId, ev]
+    );
+    assert.equal(r.rows.length, 1);
+    const evidence = typeof r.rows[0].evidence === "string" ? JSON.parse(r.rows[0].evidence) : r.rows[0].evidence as Record<string, unknown>;
+    const confidence = evidence.confidence as Record<string, unknown>;
+    assert.ok(confidence, "evidence.confidence manquant");
+    assert.ok(Number(confidence.score) >= 65, `score attendu >= 65, obtenu ${String(confidence.score)}`);
+    assert.equal(confidence.status, "verifie");
+    assert.equal(confidence.threshold, 65);
+    assert.equal(confidence.distinct_sources, 1);
+    const components = confidence.components as Record<string, unknown>;
+    assert.equal(typeof components.source_reliability, "number");
+    assert.equal(typeof components.assertion_strength, "number");
+    assert.equal(typeof components.attachment_quality, "number");
+    assert.equal(typeof components.corroboration, "number");
+  } finally {
+    await cleanup(ids);
+  }
+});
+
+test("seuil : sous 65, aucune alerte n'est créée mais l'événement reste consultable", async () => {
+  const ids = newIds();
+  const ruleId = `test-seuil-bas-${TAG}`;
+  ids.rules.push(ruleId);
+  try {
+    await insertRule(ruleId, { family: "testseuilbas" });
+    // C3 + ambient_signal + sans organisation = 21 < 65 : revendication non admise.
+    const ev = await insertEvent({ family: "testseuilbas", assertionType: "ambient_signal", title: "Sous le seuil", confidence: "C3" });
+    ids.events.push(ev);
+
+    const first = await evaluateEvent(ev);
+    const second = await evaluateEvent(ev);
+    assert.equal(first, 0, "aucune alerte ne doit être ouverte sous le seuil");
+    assert.equal(second, 0, "réévaluation idempotente : toujours aucune alerte");
+    assert.equal(await countAlerts("event_id=$1", [ev]), 0);
+
+    const stillThere = await query<{ id: number }>("SELECT id FROM event WHERE id=$1", [ev]);
+    assert.equal(stillThere.rows.length, 1, "l'événement doit rester dans le fil");
+  } finally {
     await cleanup(ids);
   }
 });

@@ -1,6 +1,7 @@
 import type { FastifyInstance, FastifyRequest } from "fastify";
 import { query } from "../db.js";
 import { requireAuth, resolveUser } from "../middleware/auth.js";
+import { scoreAlert } from "../detect/confidence.js";
 
 export default async function (app: FastifyInstance) {
   app.get("/alerts", async (req: FastifyRequest, reply) => {
@@ -19,7 +20,7 @@ export default async function (app: FastifyInstance) {
     if (q.severity) { params.push(Number(q.severity)); where.push(`a.severity=$${params.length}`); }
     params.push(limit);
     const limitIdx = params.length;
-    const sql = `SELECT a.*, e.title AS event_title, e.family AS event_family, e.tlp AS event_tlp, e.summary AS event_summary, i.type AS indicator_type, i.value AS indicator_value, o.name AS org_name
+    const sql = `SELECT a.*, e.title AS event_title, e.family AS event_family, e.tlp AS event_tlp, e.summary AS event_summary, e.confidence AS event_confidence, e.assertion_type AS event_assertion, i.type AS indicator_type, i.value AS indicator_value, o.name AS org_name, o.dept AS org_dept
       FROM alert a
       LEFT JOIN event e ON e.id = a.event_id
       LEFT JOIN indicator i ON i.id = a.indicator_id
@@ -27,23 +28,49 @@ export default async function (app: FastifyInstance) {
       ${where.length ? "WHERE " + where.join(" AND ") : ""}
       ORDER BY a.created_at DESC, a.id DESC LIMIT $${limitIdx}`;
     const r = await query<Record<string, unknown>>(sql, params);
+
+    // Corroboration de la page en une requête : sources distinctes par
+    // organisation sur 30 jours, plutôt qu'un comptage par alerte.
+    const orgIds = [...new Set(r.rows.map((row) => row.org_id).filter((id): id is number => typeof id === "number"))];
+    const sourceCounts = new Map<number, number>();
+    if (orgIds.length > 0) {
+      const counts = await query<{ org_id: number; n: number }>(
+        `SELECT org_id, COUNT(DISTINCT source_id)::int AS n FROM event
+         WHERE org_id = ANY($1) AND observed_at >= now() - interval '30 days'
+         GROUP BY org_id`,
+        [orgIds]
+      );
+      for (const row of counts.rows) sourceCounts.set(row.org_id, row.n);
+    }
+
     const out: Record<string, unknown>[] = [];
     for (const row of r.rows) {
+      const orgId = typeof row.org_id === "number" ? row.org_id : null;
+      const scored: Record<string, unknown> = {
+        ...row,
+        confidence: scoreAlert({
+          sourceConfidence: row.event_confidence as string | null,
+          assertionType: row.event_assertion as string | null,
+          orgId,
+          orgDept: row.org_dept as string | null,
+          distinctSources: orgId === null ? 0 : (sourceCounts.get(orgId) ?? 0),
+        }),
+      };
       const tlp = row.tlp === "RED" || row.event_tlp === "RED";
       if (tlp) {
         if ("summary" in row) {
-          out.push({ ...row, summary: null });
+          out.push({ ...scored, summary: null });
           continue;
         }
         if ("event_summary" in row) {
-          const { event_summary, ...rest } = row;
+          const { event_summary, ...rest } = scored;
           out.push({ ...rest, event_summary: null });
           continue;
         }
-        out.push(row);
+        out.push(scored);
         continue;
       }
-      out.push(row);
+      out.push(scored);
     }
     return out;
   });
@@ -97,13 +124,14 @@ export default async function (app: FastifyInstance) {
           source_id: string;
           org_id: number | null;
           confidence: string | null;
+          assertion_type: string | null;
           tlp: string;
           source_name: string | null;
           source_url: string | null;
           source_family: string | null;
         }>(
           `SELECT e.id, e.title, e.family, e.severity, e.summary, e.observed_at, e.source_id,
-                  e.org_id, e.confidence, e.tlp,
+                  e.org_id, e.confidence, e.assertion_type, e.tlp,
                   s.name AS source_name, s.url AS source_url, s.family AS source_family
            FROM event e LEFT JOIN source s ON s.id = e.source_id
            WHERE e.id = $1 LIMIT 1`,
@@ -177,6 +205,13 @@ export default async function (app: FastifyInstance) {
         : null,
       org,
       corroboration,
+      confidence: scoreAlert({
+        sourceConfidence: event?.confidence ?? null,
+        assertionType: event?.assertion_type ?? null,
+        orgId,
+        orgDept: orgRow?.rows[0]?.dept ?? null,
+        distinctSources: corroboration.distinct_sources,
+      }),
       evidence: alert.evidence,
     };
   });
