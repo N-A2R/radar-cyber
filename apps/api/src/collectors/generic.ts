@@ -25,6 +25,8 @@ import {
 import { isActionableIndicator, loadActiveIndex, type ActiveIndex } from "./filter.js";
 import { filterIndicators } from "./warninglist.js";
 import { classifyFamily, isFamily } from "./classify.js";
+import { parseClaimCards } from "./parsers/claims.js";
+import { parseTelegramMessages } from "./parsers/telegram.js";
 import { decodeBody } from "./parsers/decode.js";
 import { parseRssItems } from "./parsers/xml.js";
 import { parseJsonItems as parseJsonItemsNew } from "./parsers/json.js";
@@ -193,6 +195,8 @@ export type DetectionStrategy =
   | "rss-atom"
   | "csv"
   | "html-links"
+  | "claim-cards"
+  | "telegram-channel"
   | "none";
 
 export type DetectionResult = {
@@ -371,6 +375,40 @@ export function detectItems(body: string, contentType: string | null): Detection
     if (csv) return { strategy: "csv", items: csv.items, path: csv.path };
   }
 
+  // Page de revendication : les victimes sont dans des cartes, pas dans les
+  // liens. Sans cette détection, le parseur générique ramène les menus du site
+  // et la porte de pertinence les rejette — c'est la cause des 64 sources
+  // `.onion` muettes.
+  const claims = parseClaimCards(text);
+  if (claims) {
+    return {
+      strategy: "claim-cards",
+      items: claims.map((claim) => ({
+        title: claim.name,
+        summary: [claim.sector, claim.country, claim.status, claim.summary].filter(Boolean).join(" — "),
+        link: claim.link,
+      })),
+      path: "h3",
+    };
+  }
+
+  // Aperçu public d'un canal Telegram : le contenu est dans les messages, pas
+  // dans les liens d'interface. Sans ça, 24 sources `tg-*` ramenaient
+  // « @canal » et « Download Telegram ».
+  const telegram = parseTelegramMessages(text);
+  if (telegram) {
+    return {
+      strategy: "telegram-channel",
+      items: telegram.map((message) => ({
+        title: message.text.slice(0, 200),
+        summary: message.text,
+        link: message.link,
+        date: message.datetime,
+      })),
+      path: "tgme_widget_message_text",
+    };
+  }
+
   const links = parseHtmlLinks(text);
   if (links) return { strategy: "html-links", items: links.items, path: links.path };
 
@@ -538,6 +576,30 @@ function parseNarrativeItems(body: string, parser: Record<string, unknown>, decl
   return detected.items;
 }
 
+/**
+ * Met le corps illisible d'une page `.onion` en quarantaine.
+ *
+ * Le refus explicite protège la base d'un parsing inventé, mais il rendait le
+ * problème invisible : 64 sources répondaient 200 et ne laissaient aucune
+ * trace. La quarantaine conserve le corps brut, avec une empreinte sha256 qui
+ * évite de le réécrire à chaque collecte.
+ */
+async function quarantineUnparsedBody(source: SourceRow, body: string): Promise<boolean> {
+  try {
+    const contentHash = createHash("sha256").update(`${source.id}:${body}`).digest("hex");
+    const r = await ingestQuery(
+      `INSERT INTO quarantine_raw (source, source_url, groupe, claimed_at, raw_body, content_hash)
+       VALUES ($1,$2,$3,now(),$4,$5)
+       ON CONFLICT (source, content_hash) DO NOTHING`,
+      [source.id, source.url, source.name, body.slice(0, 400_000), contentHash]
+    );
+    return (r.rowCount ?? 0) > 0;
+  } catch (error) {
+    runLog?.(`[collect] ${source.id} : quarantaine impossible — ${String(error).slice(0, 120)}`);
+    return false;
+  }
+}
+
 async function ingestNarrative(
 	source: SourceRow,
 	body: string,
@@ -551,7 +613,13 @@ async function ingestNarrative(
     const detected = detectItems(body, null);
     items = detected.items;
     if (detected.strategy === "none") {
-      runLog?.(`[collect] ${source.id} : format non reconnu (${body.length} o) — ${declaredPath ? `itemsPath="${declaredPath}" stérile` : "aucun itemsPath"}, refus explicite`);
+      // Une page `.onion` illisible n'est pas une page vide : c'est une page
+      // qu'on ne sait pas encore lire. La jeter en silence rendait 64 sources
+      // muettes invisibles. Elle part en quarantaine, où elle est relisible.
+      const quarantined = source.url.includes(".onion")
+        ? await quarantineUnparsedBody(source, body)
+        : false;
+      runLog?.(`[collect] ${source.id} : format non reconnu (${body.length} o) — ${declaredPath ? `itemsPath="${declaredPath}" stérile` : "aucun itemsPath"}, refus explicite${quarantined ? ", page mise en quarantaine" : ""}`);
       return { items: 0, added: 0, skipped: 0 };
     }
     runLog?.(`[collect] ${source.id} : auto-détection ${detected.strategy}${detected.path ? ` (${detected.path})` : ""} → ${items.length} item(s)`);
@@ -574,6 +642,10 @@ async function ingestNarrative(
   const isAnssiAvis = /cert-?fr|anssi/i.test(source.id) || /cert-?fr|anssi/i.test(source.name);
   const menuFilter = !isCertFr && !isAnssiAvis;
   const menuRejected: Record<string, number> = {};
+  // Motifs de rejet après parsing. Sans ce compteur, une source qui parse
+  // correctement mais dont tous les items sont filtrés était indiscernable
+  // d'une source cassée : même silence, mêmes zéro événement.
+  const rejectedBy: Record<string, number> = {};
 
   let added = 0;
   let skipped = 0;
@@ -600,6 +672,7 @@ async function ingestNarrative(
       if (admitByEpss(cveTextOf(item, title, summary), coverage) !== null) admission = "epss";
       else if (admitsDepartment(`${title} ${summary}`, coverage.deptNames)) admission = "dept";
       if (admission === null) {
+        rejectedBy["hors_sujet"] = (rejectedBy["hors_sujet"] ?? 0) + 1;
         skipped++;
         continue;
       }
@@ -626,6 +699,7 @@ async function ingestNarrative(
       ? classifyFamily({ title, summary, sourceFamily: source.family, sourceName: source.name })
       : source.family;
     if (family === "presse") {
+      rejectedBy["presse"] = (rejectedBy["presse"] ?? 0) + 1;
       skipped++;
       continue;
     }
@@ -652,6 +726,12 @@ async function ingestNarrative(
   }
   for (const [reason, n] of Object.entries(menuRejected)) {
     runLog?.(`[collect] ${source.id} : ${n} entrée(s) menu rejetée(s) (${reason})`);
+  }
+  if (skipped > 0) {
+    const detail = Object.entries(rejectedBy)
+      .map(([reason, n]) => `${reason}=${n}`)
+      .join(", ");
+    runLog?.(`[collect] ${source.id} : ${skipped}/${items.length} item(s) rejeté(s)${detail ? ` — ${detail}` : ""}`);
   }
   return { items: items.length, added, skipped };
 }
