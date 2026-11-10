@@ -173,6 +173,18 @@ export type Flows = {
 
 export type AlertStatus = "open" | "ack" | "resolved";
 
+/** Note de confiance d'une alerte (roadmap phase 2), calculée côté API. */
+export type AlertConfidence = {
+  score: number;
+  status: "verifie" | "a_verifier";
+  components: {
+    source_reliability: number;
+    assertion_strength: number;
+    attachment_quality: number;
+    corroboration: number;
+  };
+};
+
 /** Ligne de `GET /api/alerts` : alerte + jointures événement / indicateur / org. */
 export type Alert = {
   id: number;
@@ -185,6 +197,7 @@ export type Alert = {
   org_id: number | null;
   evidence: unknown;
   scope?: "organization_incident" | "regional_advisory";
+  confidence?: AlertConfidence;
   created_at: string;
   updated_at: string;
   acked_at: string | null;

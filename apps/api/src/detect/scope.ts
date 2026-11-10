@@ -28,11 +28,10 @@ export type ScopeDecision = {
   model: string;
 };
 
-const ENDPOINT = "https://api.inceptionlabs.ai/v1/decisions";
-const MODEL = "mercury-decide";
+import { askDecision, decisionApiKey } from "./decision.js";
+
 /** En dessous de ce seuil, la décision n'est pas retenue. */
 export const SCOPE_CONFIDENCE_THRESHOLD = 0.9;
-const TIMEOUT_MS = 4000;
 
 const CRITERIA: Record<string, string> = {
   REGIONAL: "Une organisation, une collectivité ou un établissement de Nouvelle-Aquitaine est directement concerné",
@@ -43,12 +42,7 @@ const CRITERIA: Record<string, string> = {
 /** La porte n'est active que si une clé est configurée. Sans clé, le moteur
  *  conserve son comportement d'origine : la fonctionnalité n'est pas déployée. */
 export function isScopeGateEnabled(): boolean {
-  return apiKey() !== null;
-}
-
-function apiKey(): string | null {
-  const key = process.env.INCEPTION_API_KEY?.trim();
-  return key && key.length > 8 ? key : null;
+  return decisionApiKey() !== null;
 }
 
 function isScope(value: unknown): value is EventScope {
@@ -73,7 +67,7 @@ function readAnswer(payload: unknown): ScopeDecision | null {
       if (typeof value === "number") probabilities[name] = value;
     }
   }
-  return { scope: candidate.choice, confidence, probabilities, model: MODEL };
+  return { scope: candidate.choice, confidence, probabilities, model: "mercury-decide" };
 }
 
 /**
@@ -83,41 +77,21 @@ function readAnswer(payload: unknown): ScopeDecision | null {
  * @returns la décision, ou `null` si le service est indisponible ou la réponse inexploitable.
  */
 export async function classifyScope(text: string): Promise<ScopeDecision | null> {
-  const key = apiKey();
   const message = text.trim().slice(0, 1500);
-  if (!key || message.length < 20) return null;
+  if (!decisionApiKey() || message.length < 20) return null;
 
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
-  try {
-    const res = await fetch(ENDPOINT, {
-      method: "POST",
-      signal: controller.signal,
-      headers: {
-        Authorization: `Bearer ${key}`,
-        "Content-Type": "application/json",
+  const payload = await askDecision(
+    { message },
+    {
+      scope: {
+        type: "choice",
+        instructions:
+          "Portée géographique de cet événement pour un observatoire du cyber en Nouvelle-Aquitaine.",
+        criteria: CRITERIA,
       },
-      body: JSON.stringify({
-        model: MODEL,
-        state: { message },
-        questions: {
-          scope: {
-            type: "choice",
-            instructions:
-              "Portée géographique de cet événement pour un observatoire du cyber en Nouvelle-Aquitaine.",
-            criteria: CRITERIA,
-          },
-        },
-      }),
-    });
-    if (!res.ok) return null;
-    return readAnswer(await res.json());
-  } catch {
-    // Réseau coupé, quota, délai dépassé : la règle déterministe reprend la main.
-    return null;
-  } finally {
-    clearTimeout(timer);
-  }
+    },
+  );
+  return payload === null ? null : readAnswer(payload);
 }
 
 /** Vrai si la décision est exploitable telle quelle. */

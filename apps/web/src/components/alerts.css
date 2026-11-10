@@ -211,6 +211,20 @@
   white-space: nowrap;
 }
 
+/* Note de confiance : chiffre seul, la couleur dit le statut. */
+.alerts__score {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-muted);
+  padding-right: 8px;
+  white-space: nowrap;
+}
+
+.alerts__score[data-status="a_verifier"] {
+  color: var(--color-accent);
+}
+
 .alerts__state[data-state="open"] {
   color: var(--color-accent);
 }
