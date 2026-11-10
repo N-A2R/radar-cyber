@@ -7,7 +7,8 @@ const WINDOW_LIMIT = 1000;
 /** La répartition par famille ne regarde que les 200 derniers événements. */
 const FAMILY_WINDOW = 200;
 /** Une ligne par événement dans le fil vertical. */
-const FEED_LIMIT = 12;
+// On sur-échantillonne : la presse est écartée après coup, il en faut 12 nets.
+const FEED_LIMIT = 120;
 /** Plafond de la liste d'alertes ouvertes renvoyée par l'API. */
 const ALERT_LIMIT = 500;
 
@@ -76,8 +77,8 @@ export default function WallScreen() {
         api.events(FEED_LIMIT),
         api.events(WINDOW_LIMIT),
       ]);
-      setFeed(recent);
-      setEvents(window);
+      setFeed(recent.filter((e) => e.family !== "presse").slice(0, 12));
+      setEvents(window.filter((e) => e.family !== "presse"));
       setLastRefresh(new Date());
     } catch {
       // Idem : la vue continue d'afficher le dernier état connu.
