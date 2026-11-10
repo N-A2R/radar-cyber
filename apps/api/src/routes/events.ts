@@ -2,6 +2,15 @@ import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
 import { resolveUser } from "../middleware/auth.js";
 
+/**
+ * Définition unique de « régional » : un événement touche réellement la
+ * Nouvelle-Aquitaine s'il est rattaché à une organisation (`org_id`) ou si sa
+ * géographie désigne une entité / une origine revendiquée plutôt qu'une
+ * estimation d'hébergement. Exprimé en SQL pour servir à la fois de projection
+ * et de critère de tri — aucune colonne n'est créée.
+ */
+const REGIONAL_SQL = "(org_id IS NOT NULL OR geo_type IN ('claimed_origin','entity_location'))";
+
 function redactEvent(row: Record<string, unknown>) {
   const summary = row.tlp === "RED" ? null : row.summary;
   return {
@@ -22,6 +31,7 @@ function redactEvent(row: Record<string, unknown>) {
     lat: row.lat,
     lon: row.lon,
     orgId: row.org_id,
+    regional: row.regional === true,
     dateSource: row.date_source,
     dateConfidence: row.date_confidence,
     tlp: row.tlp,
