@@ -9,7 +9,19 @@ import { XMLParser } from "fast-xml-parser";
 import { ingestQuery } from "../db.js";
 import { parseObservedAt } from "./dates.js";
 import { fetchResilient } from "./http.js";
-import { isRelevant, loadRelevanceOrgIndex, matchOrgForText, type RelevanceOrg } from "./relevance.js";
+import {
+	admitsDepartment,
+	admitByEpss,
+	DEPT_LABELS,
+	ensureCoverageSchema,
+	EPSS_ADMISSION_THRESHOLD,
+	PREFECTURES,
+	type CoverageContext,
+	isRelevant,
+	loadRelevanceOrgIndex,
+	matchOrgForText,
+	type RelevanceOrg,
+} from "./relevance.js";
 import { isActionableIndicator, loadActiveIndex, type ActiveIndex } from "./filter.js";
 import { filterIndicators } from "./warninglist.js";
 import { classifyFamily, isFamily } from "./classify.js";
@@ -88,6 +100,22 @@ function hashKey(value: string): string {
   // s'effondrer sur une même clé tous les liens partageant le même préfixe
   // d'URL (tout www.ici.fr, par exemple). On hache d'abord.
   return createHash("sha256").update(value).digest("base64url").slice(0, 24);
+}
+
+/** Champs portant un identifiant CVE en plus du titre (OSV `aliases`, `cve`…). */
+const CVE_ALIAS_FIELDS = ["aliases", "cve", "cveID", "cves", "vulnerabilityId", "identifiers"];
+
+function collectStrings(value: unknown, out: string[]): void {
+	if (typeof value === "string") out.push(value);
+	else if (Array.isArray(value)) for (const entry of value) collectStrings(entry, out);
+	else if (value && typeof value === "object") for (const entry of Object.values(value)) collectStrings(entry, out);
+}
+
+/** Texte où chercher les CVE de l'item : titre, résumé et champs d'alias. */
+function cveTextOf(item: Record<string, unknown>, title: string, summary: string): string {
+	const extra: string[] = [];
+	for (const field of CVE_ALIAS_FIELDS) collectStrings(item[field], extra);
+	return [title, summary, ...extra].join(" ");
 }
 
 function pickAny(item: Record<string, unknown>, candidates: string[]): string {
@@ -445,7 +473,12 @@ async function ingestIndicator(source: SourceRow, body: string, idx?: ActiveInde
   return { items, added, skipped };
 }
 
-async function ingestNarrative(source: SourceRow, body: string, orgIndex: RelevanceOrg[]): Promise<IngestResult> {
+async function ingestNarrative(
+	source: SourceRow,
+	body: string,
+	orgIndex: RelevanceOrg[],
+	coverage: CoverageContext,
+): Promise<IngestResult> {
   const parser = source.parser ?? {};
   // `itemsPath` déclaré et valide reste prioritaire : aucune source qui
   // fonctionne ne change de comportement. Sinon on devine le format.
@@ -482,9 +515,18 @@ async function ingestNarrative(source: SourceRow, body: string, orgIndex: Releva
     const summary = decodeEntities(explicitOr(item, parser.summaryField, SUMMARY_FIELDS)).slice(0, 2000);
     if (!title) continue;
     const link = explicitOr(item, parser.linkField, LINK_FIELDS);
+    // Couverture élargie : un item rebuté par la porte peut être admis par la
+    // règle (a) (CVE dont le score EPSS en base dépasse le seuil) ou (b) (un
+    // département de Nouvelle-Aquitaine est cité en mot entier). L'URL reste
+    // hors du texte examiné par (b).
+    let admission: "epss" | "dept" | null = null;
     if (gate && !isRelevant({ title, url: link, sourceUrl: link }, { orgs: orgIndex, ignoreDomains: [sourceHost] }).relevant) {
-      skipped++;
-      continue;
+      if (admitByEpss(cveTextOf(item, title, summary), coverage) !== null) admission = "epss";
+      else if (admitsDepartment(`${title} ${summary}`, coverage.deptNames)) admission = "dept";
+      if (admission === null) {
+        skipped++;
+        continue;
+      }
     }
     let orgId: number | null = null;
     try {
@@ -509,28 +551,59 @@ async function ingestNarrative(source: SourceRow, body: string, orgIndex: Releva
 
     // DO UPDATE : un événement déjà connu mais sans date (ingéré avant la
     // correction) reçoit enfin observed_at. Sans ça, re-parser ne répare rien.
+    // Marqueur d'admission : une organisation rattachée prime ; sinon la règle
+    // qui a fait passer l'item, sinon null (admis par la porte de pertinence).
+    const admissionRule: "org" | "epss" | "dept" | null = orgId !== null ? "org" : admission;
     const r = await ingestQuery<{ inserted: boolean }>(
       `INSERT INTO event (dedup_key, family, assertion_type, title, summary, org_id, observed_at, date_source, date_confidence, severity, confidence,
-        source_id, source_url, evidence, geo_type)
-       VALUES ($1,$2,'ambient_signal',$3,$10,$11,$4,$5,$6,2,'C3',$7,$8,$9,'unknown')
+        source_id, source_url, evidence, geo_type, admission_rule)
+       VALUES ($1,$2,'ambient_signal',$3,$10,$11,$4,$5,$6,2,'C3',$7,$8,$9,'unknown',$12)
        ON CONFLICT (dedup_key) DO UPDATE SET
          observed_at      = COALESCE(event.observed_at, EXCLUDED.observed_at),
          date_source      = COALESCE(event.date_source, EXCLUDED.date_source),
-         date_confidence  = COALESCE(event.date_confidence, EXCLUDED.date_confidence)
+         date_confidence  = COALESCE(event.date_confidence, EXCLUDED.date_confidence),
+         admission_rule   = COALESCE(event.admission_rule, EXCLUDED.admission_rule)
        RETURNING (xmax = 0) AS inserted`,
       [dedupKey, family, title, parsed.at?.toISOString() ?? null, parsed.source, parsed.confidence,
-        source.id, link || null, JSON.stringify({ feed: source.name }), summary, orgId]
+        source.id, link || null, JSON.stringify({ feed: source.name }), summary, orgId, admissionRule]
     );
     if (r.rows[0]?.inserted) added++;
   }
   return { items: items.length, added, skipped };
 }
 
+/**
+ * Contexte des règles de couverture : scores EPSS joints sur l'identifiant CVE
+ * depuis `event` (source `epss`), aucun appel réseau, et lieux de la région.
+ */
+async function loadCoverageContext(): Promise<CoverageContext> {
+  const { rows: epssRows } = await ingestQuery<{ cve: string; score: number }>(
+    `SELECT upper((regexp_match(title, 'CVE-[0-9]{4}-[0-9]+'))[1]) AS cve,
+            (evidence->>'epss')::float8 AS score
+       FROM event
+      WHERE source_id = 'epss' AND evidence ? 'epss' AND title ~ 'CVE-[0-9]{4}-[0-9]+'`
+  );
+  const epssByCve = new Map<string, number>();
+  for (const row of epssRows) {
+    if (row.cve && Number.isFinite(row.score)) epssByCve.set(row.cve, row.score);
+  }
+  const { rows: deptRows } = await ingestQuery<{ dept: string }>(
+    "SELECT DISTINCT dept FROM org WHERE dept IS NOT NULL"
+  );
+  const deptNames = new Set<string>();
+  for (const row of deptRows) {
+    const label = DEPT_LABELS[row.dept];
+    if (label) deptNames.add(label);
+  }
+  for (const prefecture of PREFECTURES) deptNames.add(prefecture);
+  return { epssByCve, epssThreshold: EPSS_ADMISSION_THRESHOLD, deptNames: [...deptNames] };
+}
+
 function looksLikeBlocklist(url: string): boolean {
   return /\.(txt|csv|json|zip)(\?|$)/i.test(url) || /blocklist|blacklist|hostfile|feed-osint/i.test(url);
 }
 
-async function processSource(source: SourceRow, orgIndex: RelevanceOrg[]): Promise<void> {
+async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], coverage: CoverageContext): Promise<void> {
   // Une source qui n'a jamais réussi (last_ok_at NULL) ne doit pas être
   // retentée à chaque tick : le dernier échec sert de référence.
   const lastOk = source.last_ok_at ? Date.parse(source.last_ok_at) : NaN;
@@ -561,7 +634,7 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[]): Promi
       : undefined;
     let result = asIndicator
       ? await ingestIndicator(source, body, filterIdx)
-      : await ingestNarrative(source, body, orgIndex);
+      : await ingestNarrative(source, body, orgIndex, coverage);
     // Flux marqué `indicator` mais livré en JSON/CSV/RSS : les lignes brutes ne
     // portent aucun indicateur, on extrait les valeurs des items structurés.
     if (asIndicator && result.items === 0) {
@@ -625,6 +698,14 @@ export async function runGenericSources(
   );
   const orgIndex = loadRelevanceOrgIndex(orgRows.map((o) => ({ name: o.name, domain: o.domain, assets: o.assets ?? [] })));
   activeIndex = await loadActiveIndex();
+
+  // Couverture élargie : colonne `admission_rule` (migration idempotente),
+  // scores EPSS de la source `epss` déjà en base (aucun appel réseau) et
+  // vocabulaire des départements de Nouvelle-Aquitaine présents dans `org`,
+  // complété par les préfectures.
+  await ensureCoverageSchema();
+  const coverage = await loadCoverageContext();
+  log(`couverture : ${coverage.epssByCve.size} score(s) EPSS, seuil ${coverage.epssThreshold}, ${coverage.deptNames.length} lieu(x)`);
   log(`filtre : ${activeIndex.domains.size} domaine(s), ${activeIndex.ips.size} IP, ${activeIndex.cves.size} CVE(s)`);
 
   const CONCURRENCY = 8;
@@ -632,7 +713,7 @@ export async function runGenericSources(
   const workers = Array.from({ length: CONCURRENCY }, async () => {
     while (index < rows.length) {
       const source = rows[index++];
-      await processSource(source, orgIndex);
+      await processSource(source, orgIndex, coverage);
     }
   });
   await Promise.all(workers);

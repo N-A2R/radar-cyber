@@ -273,5 +273,149 @@ export function isRelevant(
   return { relevant: false, reason: "none" };
 }
 
+// ---------------------------------------------------------------------------
+// Couverture élargie : deux règles d'admission supplémentaires, décidées par
+// l'utilisateur (2026-11-10) et bornées par des mesures (docs/couverture.md).
+//
+//   (a) CVE exploitable : le CVE de l'item a un score EPSS ≥ seuil dans la
+//       source `epss` déjà en base (aucun appel réseau).
+//   (b) département cité : un département de Nouvelle-Aquitaine ou une
+//       préfecture apparaît en mot entier dans le titre ou le résumé — jamais
+//       dans l'URL, sinon chaque article d'un média local passerait.
+//
+// Les items admis par ces règles mais sans organisation rattachée reçoivent
+// `event.admission_rule = 'epss' | 'dept'` ; ceux rattachés gardent 'org'.
+// ---------------------------------------------------------------------------
+
+/** Code INSEE → libellé normalisé (minuscules, sans accents) du département. */
+export const DEPT_LABELS: Readonly<Record<string, string>> = {
+  "16": "charente",
+  "17": "charente-maritime",
+  "19": "correze",
+  "23": "creuse",
+  "24": "dordogne",
+  "33": "gironde",
+  "40": "landes",
+  "47": "lot-et-garonne",
+  "64": "pyrenees-atlantiques",
+  "79": "deux-sevres",
+  "86": "vienne",
+  "87": "haute-vienne",
+};
+
+/** Préfectures de Nouvelle-Aquitaine : une commune citée vaut le département. */
+export const PREFECTURES: readonly string[] = [
+  "angouleme",
+  "la rochelle",
+  "tulle",
+  "gueret",
+  "perigueux",
+  "bordeaux",
+  "mont-de-marsan",
+  "agen",
+  "pau",
+  "niort",
+  "poitiers",
+  "limoges",
+];
+
+/**
+ * Noms qui désignent aussi autre chose (fleuve, ville d'une autre région) :
+ * « Vienne » est une ville d'Isère, « Lot » et « Dordogne » sont des rivières.
+ * Seule une mention explicite du contexte administratif les retient.
+ */
+const AMBIGUOUS_PLACES: Readonly<Record<string, true>> = {
+  vienne: true,
+  lot: true,
+  charente: true,
+  dordogne: true,
+  creuse: true,
+  correze: true,
+  sevre: true,
+  isle: true,
+};
+
+const ADMIN_CUE_RE = /\b(departement|prefecture|prefet|prefectoral|conseil departemental|region|agglomeration|communaute de communes)\b/;
+
+/**
+ * Seuil EPSS retenu, mesuré (docs/couverture.md) : 0,10 capte la moitié des
+ * CVE 2025-2026 de l'échantillon (136/272) et reste le bar « exploitation
+ * probable sous 30 jours » de FIRST ; 0,01 en admettrait 94 % (256/272), ce
+ * qui ne distingue plus rien.
+ */
+export const EPSS_ADMISSION_THRESHOLD = 0.1;
+
+/** Contexte d'admission transmis par le collecteur (chargé une fois par run). */
+export interface CoverageContext {
+  epssByCve: ReadonlyMap<string, number>;
+  epssThreshold: number;
+  deptNames: readonly string[];
+}
+
+const CVE_ID_RE = /\bCVE-\d{4}-\d{4,}\b/gi;
+
+/** Identifiants CVE d'un texte, en majuscules, sans doublon. */
+export function extractCveIds(text: string): string[] {
+  const found = text.match(CVE_ID_RE);
+  if (!found) return [];
+  return [...new Set(found.map((cve) => cve.toUpperCase()))];
+}
+
+/**
+ * Règle (a) : un CVE de l'item dépasse le seuil EPSS. Le score vient de la
+ * table `event` (source `epss`), jamais du réseau.
+ */
+export function admitByEpss(text: string, ctx: CoverageContext): { cve: string; score: number } | null {
+  for (const cve of extractCveIds(text)) {
+    const score = ctx.epssByCve.get(cve);
+    if (score !== undefined && score >= ctx.epssThreshold) return { cve, score };
+  }
+  return null;
+}
+
+const deptPatternCache = new Map<string, RegExp>();
+
+/** Motif « mot entier » unicode sur des libellés déjà normalisés. */
+function deptPattern(names: readonly string[]): RegExp {
+  const key = names.join("|");
+  const cached = deptPatternCache.get(key);
+  if (cached) return cached;
+  const sorted = [...new Set(names)].filter(Boolean).sort((a, b) => b.length - a.length);
+  const escaped = sorted.map((name) => name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  const re = new RegExp(`(?<![\\p{L}\\p{N}])(${escaped.join("|")})(?![\\p{L}\\p{N}])`, "giu");
+  deptPatternCache.set(key, re);
+  return re;
+}
+
+/**
+ * Règle (b) : département ou préfecture cité en mot entier dans le texte
+ * fourni (titre + résumé — l'URL est exclue par l'appelant). Un homonyme
+ * ambigu doit être accompagné d'un terme administratif dans les 120 caractères
+ * qui le précèdent ou le suivent.
+ */
+export function admitsDepartment(text: string, deptNames: readonly string[]): boolean {
+  if (!text || deptNames.length === 0) return false;
+  const hay = normalize(text);
+  const pattern = deptPattern(deptNames);
+  pattern.lastIndex = 0;
+  for (const match of hay.matchAll(pattern)) {
+    const name = match[1]?.toLowerCase() ?? "";
+    if (!name) continue;
+    if (AMBIGUOUS_PLACES[name] !== true || match.index === undefined) return true;
+    const from = Math.max(0, match.index - 120);
+    const window = hay.slice(from, match.index + name.length + 120);
+    if (ADMIN_CUE_RE.test(window)) return true;
+  }
+  return false;
+}
+
+/**
+ * Migration idempotente : marqueur d'admission sur `event`. Valeurs écrites par
+ * `generic.ts` : `org`, `epss`, `dept`, ou null. Aucun accès à `org_id`.
+ */
+export async function ensureCoverageSchema(): Promise<void> {
+  await ingestQuery("ALTER TABLE event ADD COLUMN IF NOT EXISTS admission_rule text");
+}
+
 // réexport type OrgRef pour compat
 export type { OrgRef };
