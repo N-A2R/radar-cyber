@@ -8,11 +8,17 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "3d-tiles-renderer": "^0.5.4",
+    "@deck.gl/core": "^9.4.1",
+    "@deck.gl/layers": "^9.4.1",
+    "@deck.gl/maplibre": "^9.4.1",
     "@radar/shared": "workspace:*",
+    "@types/three": "^0.187.0",
+    "maplibre-gl": "^6.17.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "maplibre-gl": "^6.17.0",
-    "react-force-graph-2d": "^1.29.2"
+    "react-force-graph-2d": "^1.29.2",
+    "three": "^0.187.0"
   },
   "devDependencies": {
     "@types/react": "^19.2.0",

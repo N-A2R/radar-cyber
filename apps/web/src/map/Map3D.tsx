@@ -1,29 +1,124 @@
+/**
+ * Carte MapLibre GL JS 6 — vue « carte » du radar cyber (Nouvelle-Aquitaine).
+ *
+ * Props :
+ * - `orgs` : organisations, petits points neutres cliquables (popup nom/kind/ville).
+ * - `events` : événements à placer ; champs utilisés : `id`, `title`, `family`,
+ *   `severity`, `sourceId`, `sourceUrl`, `observedAt`, `summary`, `lat`, `lon`, `orgId`.
+ * - `families` : filtre actif par famille (liste vide ou indéfinie = toutes).
+ * - `onSelect` : appelé avec `org:<id>` au clic sur un marqueur d'organisation.
+ * - `onSelectEvent` : appelé avec l'`id` de l'événement au clic sur un point.
+ *
+ * Couches (de bas en haut) :
+ * - `osm` (plan raster), `dem` (terrain), `ofm`/`buildings` (bâtiments 3D OpenFreeMap) ;
+ * - `arcs` (liaisons org → événement, couleur par famille) ;
+ * - `cities` (labels de villes) ;
+ * - `orgs` (marqueurs neutres) + `hot` (halo pulsant des orgs impliquées) ;
+ * - `events` : cercles colorés par famille, rayon par sévérité ; au-delà de
+ *   `MAX_POINTS` points, agrégation par cellule géo (compteur + famille dominante) ;
+ * - `events-hover` (halo de survol), `events-count` (compteur des cellules).
+ *
+ * Palette fixe exportée : `FAMILY_COLORS`.
+ */
 import { useEffect, useRef } from 'react'
 import * as maplibregl from 'maplibre-gl'
 
-type Org = { id: number; name: string; slug: string; kind: string; city: string | null; lat: number | null; lon: number | null }
-type Event = { id: string; title: string; family: string; assertionType: string; orgId: number | null; lat: number | null; lon: number | null }
+// ── Types ────────────────────────────────────────────────────────────────
 
-const KIND_COLORS: Record<string, string> = {
-  entreprise: '#38bdf8',
-  collectivite: '#f59e0b',
-  sante: '#ec4899',
-  enseignement: '#10b981',
-  recherche: '#22c55e',
-  operateur_critique: '#ef4444',
-  ess: '#8b5cf6',
+export type MapOrg = {
+  id: number
+  name: string
+  slug: string
+  kind: string
+  city: string | null
+  lat: number | null
+  lon: number | null
 }
-const FAMILY_COLORS: Record<string, string> = {
-  ransomware: '#ef4444',
-  vuln: '#f59e0b',
-  phishing: '#a855f7',
-  malware: '#ec4899',
-  cert_fr: '#38bdf8',
-  cert: '#22d3ee',
-  typosquat: '#facc15',
-  reputation: '#94a3b8',
-  cti: '#64748b',
+
+export type MapEvent = {
+  id: string
+  title: string
+  family: string
+  assertionType: string
+  orgId?: number | null
+  lat?: number | null
+  lon?: number | null
+  severity?: number
+  confidence?: string | null
+  sourceId?: string
+  sourceUrl?: string | null
+  observedAt?: string | null
+  summary?: string | null
 }
+
+export interface Map3DProps {
+  /** Organisations affichées (points neutres cliquables). */
+  orgs: MapOrg[]
+  /** Événements à placer sur la carte. */
+  events: MapEvent[]
+  /** Filtre actif par famille ; liste vide/indéfinie = toutes les familles. */
+  families?: readonly string[]
+  /** Clic sur un marqueur d'organisation → `org:<id>`. */
+  onSelect?: (id: string) => void
+  /** Clic sur un point d'événement → id de l'événement. */
+  onSelectEvent?: (id: string) => void
+}
+
+// ── Palette fixe (alignée sur les variables CSS de styles.css) ──────────
+
+export const FAMILY_COLORS: Record<string, string> = {
+  ransomware: '#f85149',
+  vuln: '#d29922',
+  phishing: '#a371f7',
+  malware: '#db61a2',
+  cert: '#4da3ff',
+  cert_fr: '#58a6ff',
+  typosquat: '#e3b341',
+  reputation: '#8b949e',
+  cti: '#6e7681',
+}
+export const FAMILY_COLOR_FALLBACK = '#94a3b8'
+
+export const FAMILY_LABELS: Record<string, string> = {
+  ransomware: 'rançongiciel',
+  vuln: 'vulnérabilité',
+  phishing: 'hameçonnage',
+  malware: 'maliciel',
+  cert: 'cert',
+  cert_fr: 'CERT-FR',
+  typosquat: 'typosquattage',
+  reputation: 'réputation',
+  cti: 'CTI',
+}
+
+const ORG_KIND_LABELS: Record<string, string> = {
+  entreprise: 'entreprise',
+  collectivite: 'collectivité',
+  sante: 'santé',
+  enseignement: 'enseignement',
+  recherche: 'recherche',
+  operateur_critique: 'opérateur critique',
+  ess: 'ess',
+}
+
+const NEUTRAL_COLOR = '#94a3b8'
+const STROKE_DARK = '#0b0f16'
+const STROKE_LIGHT = '#ffffff'
+
+// ── Constantes ──────────────────────────────────────────────────────────
+
+// Bâtiments 3D : tuiles vectorielles OpenFreeMap (OSM, hauteurs incluses, sans clé).
+const OFM_TILEJSON = 'https://tiles.openfreemap.org/planet'
+// Polices de la carte (labels de villes + compteurs de cellules).
+const OFM_GLYPHS = 'https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf'
+
+/** En deçà, chaque point est dessiné ; au-delà, agrégation par cellule. */
+const MAX_POINTS = 5000
+/** Taille cible d'une cellule à l'écran, en pixels. */
+const CELL_PX = 16
+const MIN_CELL_DEG = 0.0002
+/** Rayon (px) d'un point selon sa sévérité (1-5). */
+const SEVERITY_RADII: Record<number, number> = { 1: 4, 2: 6, 3: 8, 4: 11, 5: 14 }
 
 const CITY_LABELS: [string, number, number][] = [
   ['Bordeaux', -0.5792, 44.8378], ['La Rochelle', -1.152, 46.1591], ['Poitiers', 0.3404, 46.5802],
@@ -34,9 +129,6 @@ const CITY_LABELS: [string, number, number][] = [
   ['Brive-la-Gaillarde', 1.5333, 45.15], ['Guéret', 1.8703, 46.1706], ['Tulle', 1.7672, 45.2667],
   ['Mont-de-Marsan', -0.4997, 43.8907], ['Dax', -1.0536, 43.7102],
 ]
-
-// Bâtiments 3D : tuiles vectorielles OpenFreeMap (OSM, hauteurs incluses, sans clé).
-const OFM_TILEJSON = 'https://tiles.openfreemap.org/planet'
 
 // Habillage de la carte selon la variante de design (data-theme sur <html>).
 const MAP_THEMES: Record<string, { tiles: string[]; raster: Record<string, number>; buildings: string[]; label: string; labelHalo: string; orgStroke: string }> = {
@@ -81,34 +173,297 @@ function arcPoints(from: [number, number], to: [number, number], segments = 32):
 
 const debugWindow = window as unknown as Record<string, unknown>
 
+// ── Géographie / agrégation ─────────────────────────────────────────────
+
+/** Taille de cellule (en degrés) pour que la cellule fasse ~`CELL_PX` px à l'équateur. */
+function cellSizeDeg(zoom: number): number {
+  const degPerPx = 360 / (256 * Math.pow(2, zoom))
+  return Math.max(degPerPx * CELL_PX, MIN_CELL_DEG)
+}
+
+function severityRadius(severity: number | undefined): number {
+  const raw = typeof severity === 'number' && Number.isFinite(severity) ? severity : 3
+  const s = Math.min(5, Math.max(1, Math.round(raw)))
+  return SEVERITY_RADII[s]
+}
+
+function countRadius(count: number): number {
+  if (count <= 2) return 12
+  if (count <= 5) return 15
+  if (count <= 20) return 20
+  if (count <= 100) return 26
+  return 34
+}
+
 type OrgCollection = { type: 'FeatureCollection'; features: Record<string, unknown>[] }
 
-function orgCollection(orgs: Org[]): OrgCollection {
+function orgCollection(orgs: MapOrg[]): OrgCollection {
   return {
     type: 'FeatureCollection',
     features: orgs.flatMap((o) => {
-      if (o.lat == null || o.lon == null) return []
+      if (o.lat == null || o.lon == null || !Number.isFinite(o.lat) || !Number.isFinite(o.lon)) return []
       return [{
         type: 'Feature',
         geometry: { type: 'Point', coordinates: [o.lon, o.lat] as [number, number] },
-        properties: { id: o.id, name: o.name, kind: o.kind, color: KIND_COLORS[o.kind] ?? '#cbd5e1' },
+        properties: { id: o.id, name: o.name, kind: o.kind, city: o.city },
       }]
     }),
   }
 }
 
-export default function Map3D(props: { orgs: Org[]; events: Event[]; onSelect?: (id: string) => void }) {
+type CellAccum = {
+  lon: number
+  lat: number
+  count: number
+  families: Map<string, number>
+  severity: number
+  sample: MapEvent | null
+}
+
+function pointFeature(e: MapEvent, stroke: string): Record<string, unknown> {
+  return {
+    type: 'Feature',
+    id: e.id,
+    geometry: { type: 'Point', coordinates: [e.lon, e.lat] },
+    properties: {
+      id: e.id,
+      kind: 'point',
+      family: e.family,
+      color: FAMILY_COLORS[e.family] ?? FAMILY_COLOR_FALLBACK,
+      radius: severityRadius(e.severity),
+      severity: e.severity ?? 3,
+      title: e.title,
+      sourceId: e.sourceId ?? null,
+      sourceUrl: e.sourceUrl ?? null,
+      observedAt: e.observedAt ?? null,
+      summary: e.summary ?? null,
+      stroke,
+    },
+  }
+}
+
+function cellFeature(key: string, cell: CellAccum, stroke: string): Record<string, unknown> {
+  const families = [...cell.families.entries()].sort((a, b) => b[1] - a[1])
+  const dominant = families[0]?.[0] ?? 'cti'
+  return {
+    type: 'Feature',
+    id: `cell:${key}`,
+    geometry: { type: 'Point', coordinates: [cell.lon / cell.count, cell.lat / cell.count] },
+    properties: {
+      id: `cell:${key}`,
+      kind: 'cell',
+      family: dominant,
+      color: FAMILY_COLORS[dominant] ?? FAMILY_COLOR_FALLBACK,
+      radius: countRadius(cell.count),
+      severity: cell.severity,
+      count: cell.count,
+      families: families.slice(0, 4),
+      stroke,
+    },
+  }
+}
+
+/**
+ * Construit les entités de la couche `events` : points individuels, ou — au-delà
+ * de `MAX_POINTS` — cellules géo agrégées (compteur + famille dominante). Les
+ * points isolés dans leur cellule restent des points individuels.
+ */
+function buildEventFeatures(events: MapEvent[], cellDeg: number, aggregate: boolean, stroke: string): Record<string, unknown>[] {
+  if (!aggregate) {
+    return events.flatMap((e) => {
+      if (e.lat == null || e.lon == null || !Number.isFinite(e.lat) || !Number.isFinite(e.lon)) return []
+      return [pointFeature(e, stroke)]
+    })
+  }
+
+  const cells = new Map<string, CellAccum>()
+  for (const e of events) {
+    if (e.lat == null || e.lon == null || !Number.isFinite(e.lat) || !Number.isFinite(e.lon)) continue
+    const key = `${Math.floor(e.lon / cellDeg)}:${Math.floor(e.lat / cellDeg)}`
+    let cell = cells.get(key)
+    if (!cell) {
+      cell = { lon: 0, lat: 0, count: 0, families: new Map(), severity: 1, sample: null }
+      cells.set(key, cell)
+    }
+    cell.lon += e.lon
+    cell.lat += e.lat
+    cell.count += 1
+    cell.families.set(e.family, (cell.families.get(e.family) ?? 0) + 1)
+    cell.severity = Math.max(cell.severity, e.severity ?? 3)
+    if (!cell.sample) cell.sample = e
+  }
+
+  return [...cells.entries()].flatMap(([key, cell]) => {
+    if (cell.count === 1 && cell.sample) return [pointFeature(cell.sample, stroke)]
+    return [cellFeature(key, cell, stroke)]
+  })
+}
+
+// ── Popups ──────────────────────────────────────────────────────────────
+
+const POPUP_STYLE_ID = 'radar-map-popup-style'
+const POPUP_STYLE = `
+.radar-popup .maplibregl-popup-content {
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+  padding: 10px 12px 12px;
+  font: inherit;
+  font-size: 12px;
+  line-height: 1.45;
+  max-width: 300px;
+}
+.radar-popup .maplibregl-popup-tip {
+  border-top-color: var(--surface-2);
+  border-bottom-color: var(--surface-2);
+  border-left-color: var(--surface-2);
+  border-right-color: var(--surface-2);
+}
+.radar-popup .maplibregl-popup-close-button {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1;
+  padding: 3px 7px;
+  border-radius: var(--radius);
+}
+.radar-popup .maplibregl-popup-close-button:hover { color: var(--text); background: var(--surface); }
+.radar-popup-body { display: flex; flex-direction: column; gap: 6px; }
+.radar-popup-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.radar-popup-chip {
+  color: #0b0f16;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 1px 7px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+.radar-popup-sev { color: var(--muted); font-size: 11px; }
+.radar-popup-title { font-size: 13px; font-weight: 600; line-height: 1.35; }
+.radar-popup-meta { display: flex; flex-direction: column; gap: 1px; color: var(--muted); font-size: 11.5px; }
+.radar-popup-summary { margin: 0; color: var(--muted); font-size: 12px; }
+.radar-popup-link { color: var(--accent); font-size: 12px; text-decoration: none; }
+.radar-popup-link:hover { text-decoration: underline; }
+.radar-popup-fams { display: flex; flex-direction: column; gap: 3px; }
+.radar-popup-fam { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 11.5px; }
+.radar-popup-fam .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.radar-popup-hint { color: var(--faint); font-size: 11px; }
+`
+
+function ensurePopupStyles(): void {
+  if (document.getElementById(POPUP_STYLE_ID)) return
+  const style = document.createElement('style')
+  style.id = POPUP_STYLE_ID
+  style.textContent = POPUP_STYLE
+  document.head.appendChild(style)
+}
+
+function el(tag: string, className: string, text?: string): HTMLElement {
+  const node = document.createElement(tag)
+  node.className = className
+  if (text != null) node.textContent = text
+  return node
+}
+
+function formatDate(value: unknown): string {
+  if (typeof value !== 'string' || value === '') return 'inconnue'
+  const d = new Date(value)
+  return Number.isNaN(d.getTime()) ? 'inconnue' : d.toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' })
+}
+
+function familyChip(family: unknown): HTMLElement {
+  const key = typeof family === 'string' ? family : ''
+  const chip = el('span', 'radar-popup-chip', FAMILY_LABELS[key] ?? key)
+  chip.style.background = FAMILY_COLORS[key] ?? FAMILY_COLOR_FALLBACK
+  return chip
+}
+
+function eventPopupContent(p: Record<string, any>): HTMLElement {
+  const root = el('div', 'radar-popup-body')
+  const head = el('div', 'radar-popup-head')
+  head.appendChild(familyChip(p.family))
+  head.appendChild(el('span', 'radar-popup-sev', `Sévérité ${p.severity ?? '—'}/5`))
+  root.appendChild(head)
+  root.appendChild(el('div', 'radar-popup-title', String(p.title ?? 'Événement')))
+  const meta = el('div', 'radar-popup-meta')
+  meta.appendChild(el('span', '', `Source : ${p.sourceId ?? 'inconnue'}`))
+  meta.appendChild(el('span', '', `Date : ${formatDate(p.observedAt)}`))
+  root.appendChild(meta)
+  if (typeof p.summary === 'string' && p.summary !== '') {
+    root.appendChild(el('p', 'radar-popup-summary', p.summary))
+  }
+  if (typeof p.sourceUrl === 'string' && p.sourceUrl !== '') {
+    const link = document.createElement('a')
+    link.className = 'radar-popup-link'
+    link.href = p.sourceUrl
+    link.target = '_blank'
+    link.rel = 'noopener noreferrer'
+    link.textContent = 'Ouvrir la source ↗'
+    root.appendChild(link)
+  }
+  return root
+}
+
+function cellPopupContent(p: Record<string, any>): HTMLElement {
+  const root = el('div', 'radar-popup-body')
+  const head = el('div', 'radar-popup-head')
+  head.appendChild(familyChip(p.family))
+  head.appendChild(el('span', 'radar-popup-sev', `Sévérité max ${p.severity ?? '—'}/5`))
+  root.appendChild(head)
+  root.appendChild(el('div', 'radar-popup-title', `${p.count ?? 0} événements agrégés`))
+  const fams = Array.isArray(p.families) ? p.families : []
+  if (fams.length > 0) {
+    const list = el('div', 'radar-popup-fams')
+    for (const entry of fams) {
+      if (!Array.isArray(entry)) continue
+      const key = String(entry[0])
+      const row = el('span', 'radar-popup-fam')
+      const dot = el('span', 'dot')
+      dot.style.background = FAMILY_COLORS[key] ?? FAMILY_COLOR_FALLBACK
+      row.appendChild(dot)
+      row.appendChild(el('span', '', `${FAMILY_LABELS[key] ?? key} · ${entry[1]}`))
+      list.appendChild(row)
+    }
+    root.appendChild(list)
+  }
+  root.appendChild(el('div', 'radar-popup-hint', 'Zoomez pour détailler'))
+  return root
+}
+
+function orgPopupContent(p: Record<string, any>): HTMLElement {
+  const root = el('div', 'radar-popup-body')
+  root.appendChild(el('div', 'radar-popup-title', String(p.name ?? 'Organisation')))
+  const meta = el('div', 'radar-popup-meta')
+  const kind = typeof p.kind === 'string' ? ORG_KIND_LABELS[p.kind] ?? p.kind : '—'
+  meta.appendChild(el('span', '', `Type : ${kind}`))
+  if (p.city) meta.appendChild(el('span', '', `Ville : ${p.city}`))
+  root.appendChild(meta)
+  return root
+}
+
+// ── Composant ───────────────────────────────────────────────────────────
+
+export default function Map3D(props: Map3DProps) {
   const ref = useRef<HTMLDivElement>(null)
+  const propsRef = useRef(props)
+  propsRef.current = props
   const onSelectRef = useRef(props.onSelect)
   onSelectRef.current = props.onSelect
+  const onSelectEventRef = useRef(props.onSelectEvent)
+  onSelectEventRef.current = props.onSelectEvent
+  const renderRef = useRef<(() => void) | null>(null)
 
   // Création unique de la carte.
   useEffect(() => {
     if (!ref.current) return
     let disposed = false
     let map: maplibregl.Map | null = null
+    let popup: maplibregl.Popup | null = null
     let raf = 0
     let themeObserver: MutationObserver | null = null
+    let zoomTimer: ReturnType<typeof setTimeout> | undefined
 
     const cityFeatures = {
       type: 'FeatureCollection' as const,
@@ -121,10 +476,12 @@ export default function Map3D(props: { orgs: Org[]; events: Event[]; onSelect?: 
 
     const buildMap = (ofmUrl: string) => {
       if (disposed || !ref.current) return
+      ensurePopupStyles()
       map = new maplibregl.Map({
         container: ref.current,
         style: {
           version: 8,
+          glyphs: OFM_GLYPHS,
           sources: {
             osm: { type: 'raster', tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'], tileSize: 256 },
             dem: { type: 'raster-dem', tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'], tileSize: 256, encoding: 'terrarium' },
@@ -133,6 +490,7 @@ export default function Map3D(props: { orgs: Org[]; events: Event[]; onSelect?: 
             hot: { type: 'geojson', data: { type: 'FeatureCollection', features: [] } },
             cities: { type: 'geojson', data: cityFeatures },
             arcs: { type: 'geojson', data: { type: 'FeatureCollection', features: [] } },
+            events: { type: 'geojson', data: { type: 'FeatureCollection', features: [] } },
           },
           layers: [
             { id: 'osm', type: 'raster', source: 'osm', paint: { 'raster-brightness-max': 0.42, 'raster-saturation': -0.92, 'raster-contrast': 0.18 } },
@@ -175,6 +533,17 @@ export default function Map3D(props: { orgs: Org[]; events: Event[]; onSelect?: 
               paint: { 'text-color': '#e6ebf2', 'text-halo-color': '#080b10', 'text-halo-width': 1.5 },
             },
             {
+              id: 'orgs',
+              type: 'circle',
+              source: 'orgs',
+              paint: {
+                'circle-radius': ['interpolate', ['linear'], ['zoom'], 5, 3, 13, 7],
+                'circle-color': NEUTRAL_COLOR,
+                'circle-stroke-color': '#080b10',
+                'circle-stroke-width': 1.5,
+              },
+            },
+            {
               id: 'hot',
               type: 'circle',
               source: 'hot',
@@ -188,15 +557,43 @@ export default function Map3D(props: { orgs: Org[]; events: Event[]; onSelect?: 
               },
             },
             {
-              id: 'orgs',
+              id: 'events',
               type: 'circle',
-              source: 'orgs',
+              source: 'events',
               paint: {
-                'circle-radius': ['interpolate', ['linear'], ['zoom'], 5, 5, 13, 11],
                 'circle-color': ['get', 'color'],
-                'circle-stroke-color': '#080b10',
-                'circle-stroke-width': 2,
+                'circle-radius': ['get', 'radius'],
+                'circle-opacity': 0.92,
+                'circle-stroke-color': ['get', 'stroke'],
+                'circle-stroke-width': 1,
               },
+            },
+            {
+              id: 'events-hover',
+              type: 'circle',
+              source: 'events',
+              paint: {
+                'circle-color': ['get', 'color'],
+                'circle-radius': ['+', ['get', 'radius'], 4],
+                'circle-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 0.22, 0],
+                'circle-stroke-color': ['get', 'stroke'],
+                'circle-stroke-width': ['case', ['boolean', ['feature-state', 'hover'], false], 2, 0],
+                'circle-stroke-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 0.9, 0],
+              },
+            },
+            {
+              id: 'events-count',
+              type: 'symbol',
+              source: 'events',
+              filter: ['==', ['get', 'kind'], 'cell'],
+              layout: {
+                'text-field': ['to-string', ['get', 'count']],
+                'text-size': 11,
+                'text-font': ['Noto Sans Regular'],
+                'text-allow-overlap': true,
+                'text-ignore-placement': true,
+              },
+              paint: { 'text-color': '#ffffff', 'text-halo-color': '#0b0f16', 'text-halo-width': 1.5 },
             },
           ],
         },
@@ -206,16 +603,84 @@ export default function Map3D(props: { orgs: Org[]; events: Event[]; onSelect?: 
       })
 
       debugWindow.__radarMap = map
-      const syncTheme = () => applyMapTheme(map!, document.documentElement.dataset.theme ?? 'observatoire')
+      popup = new maplibregl.Popup({ closeButton: true, closeOnClick: true, closeOnMove: false, maxWidth: '300px', className: 'radar-popup' })
+
+      const showPopup = (lngLat: maplibregl.LngLatLike, content: HTMLElement) => {
+        popup!.setLngLat(lngLat).setDOMContent(content)
+        if (!popup!.isOpen()) popup!.addTo(map!)
+      }
+
+      let hoveredId: string | number | null = null
+      const setHover = (id: string | number | null) => {
+        if (id === hoveredId) return
+        if (hoveredId != null) {
+          try { map!.removeFeatureState({ source: 'events', id: hoveredId }, 'hover') } catch { /* ignoré */ }
+        }
+        hoveredId = id
+        if (id != null) {
+          try { map!.setFeatureState({ source: 'events', id }, { hover: true }) } catch { /* ignoré */ }
+        }
+      }
+
+      // Mise à jour des données sans recréer la carte (le zoom est préservé).
+      const renderData = () => {
+        if (disposed || !map) return
+        const { orgs, events, families } = propsRef.current
+        const stroke = document.documentElement.dataset.theme === 'clair' ? STROKE_LIGHT : STROKE_DARK
+        const active = families && families.length > 0 ? new Set(families) : null
+        const visible = active ? events.filter((e) => active!.has(e.family)) : events
+        const located = visible.filter((e) => e.lat != null && e.lon != null && Number.isFinite(e.lat) && Number.isFinite(e.lon))
+        const aggregate = located.length > MAX_POINTS
+        const cellDeg = cellSizeDeg(map.getZoom())
+
+        const eventFeatures = buildEventFeatures(visible, cellDeg, aggregate, stroke)
+        ;(map.getSource('events') as maplibregl.GeoJSONSource | undefined)?.setData({ type: 'FeatureCollection', features: eventFeatures })
+        ;(map.getSource('orgs') as maplibregl.GeoJSONSource | undefined)?.setData(orgCollection(orgs))
+
+        const hotOrgs = new Set(visible.filter((e) => e.orgId != null).map((e) => e.orgId as number))
+        const hotFeatures = orgs.flatMap((o) => {
+          if (o.lat == null || o.lon == null || !Number.isFinite(o.lat) || !Number.isFinite(o.lon) || !hotOrgs.has(o.id)) return []
+          return [{
+            type: 'Feature',
+            geometry: { type: 'Point', coordinates: [o.lon, o.lat] as [number, number] },
+            properties: { color: NEUTRAL_COLOR },
+          }]
+        })
+        ;(map.getSource('hot') as maplibregl.GeoJSONSource | undefined)?.setData({ type: 'FeatureCollection', features: hotFeatures })
+
+        const orgById = new Map(orgs.map((o) => [o.id, o]))
+        const arcFeatures = visible.flatMap((e) => {
+          if (e.lat == null || e.lon == null || e.orgId == null) return []
+          const org = orgById.get(e.orgId)
+          if (!org || org.lat == null || org.lon == null) return []
+          return [{
+            type: 'Feature',
+            geometry: { type: 'LineString', coordinates: arcPoints([org.lon, org.lat], [e.lon, e.lat]) },
+            properties: { family: e.family, color: FAMILY_COLORS[e.family] ?? FAMILY_COLOR_FALLBACK },
+          }]
+        })
+        ;(map.getSource('arcs') as maplibregl.GeoJSONSource | undefined)?.setData({ type: 'FeatureCollection', features: arcFeatures })
+      }
+      renderRef.current = renderData
+
+      const syncTheme = () => {
+        applyMapTheme(map!, document.documentElement.dataset.theme ?? 'observatoire')
+        renderData()
+      }
       map.on('load', syncTheme)
       themeObserver = new MutationObserver(syncTheme)
       themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
-      syncTheme()
 
       map.on('style.load', () => {
         try { map?.setTerrain({ source: 'dem', exaggeration: 1.8 }) } catch { /* style déjà prêt */ }
       })
       map.once('load', () => map?.resize())
+
+      // La taille de cellule dépend du zoom : on ré-agrège à la fin du zoom.
+      map.on('zoomend', () => {
+        clearTimeout(zoomTimer)
+        zoomTimer = setTimeout(() => renderRef.current?.(), 120)
+      })
 
       let frame = 0
       const pulse = () => {
@@ -230,12 +695,39 @@ export default function Map3D(props: { orgs: Org[]; events: Event[]; onSelect?: 
       }
       pulse()
 
-      map.on('click', 'orgs', (e) => {
-        const id = e.features?.[0]?.properties?.id
-        if (id != null) onSelectRef.current?.(`org:${id}`)
+      map.on('mousemove', 'events', (e) => {
+        const feature = e.features?.[0]
+        setHover(feature?.id != null ? feature.id : null)
+        map?.getCanvas().style.setProperty('cursor', 'pointer')
       })
-      map.on('mouseenter', 'orgs', () => { map?.getCanvas().style.setProperty('cursor', 'pointer') })
+      map.on('mouseleave', 'events', () => {
+        setHover(null)
+        map?.getCanvas().style.setProperty('cursor', '')
+      })
+      map.on('mousemove', 'orgs', () => { map?.getCanvas().style.setProperty('cursor', 'pointer') })
       map.on('mouseleave', 'orgs', () => { map?.getCanvas().style.setProperty('cursor', '') })
+
+      map.on('click', 'events', (e) => {
+        const feature = e.features?.[0]
+        if (!feature) return
+        const properties = (feature.properties ?? {}) as Record<string, any>
+        if (properties.kind === 'cell') {
+          showPopup(e.lngLat, cellPopupContent(properties))
+          return
+        }
+        showPopup(e.lngLat, eventPopupContent(properties))
+        if (properties.id != null) onSelectEventRef.current?.(String(properties.id))
+      })
+      map.on('click', 'orgs', (e) => {
+        const feature = e.features?.[0]
+        if (!feature) return
+        const properties = (feature.properties ?? {}) as Record<string, any>
+        if (properties.id == null) return
+        showPopup(e.lngLat, orgPopupContent(properties))
+        onSelectRef.current?.(`org:${properties.id}`)
+      })
+
+      syncTheme()
     }
 
     const observer = new ResizeObserver(() => map?.resize())
@@ -254,48 +746,16 @@ export default function Map3D(props: { orgs: Org[]; events: Event[]; onSelect?: 
       cancelAnimationFrame(raf)
       observer.disconnect()
       themeObserver?.disconnect()
+      clearTimeout(zoomTimer)
+      popup?.remove()
       map?.remove()
     }
   }, [])
 
-  // Mise à jour des données sans recréer la carte (le zoom est préservé).
+  // Mise à jour des données quand les props changent (ou au chargement de la carte).
   useEffect(() => {
-    const map = debugWindow.__radarMap as maplibregl.Map | undefined
-    if (!map) return
-
-    const orgs = orgCollection(props.orgs)
-    ;(map.getSource('orgs') as maplibregl.GeoJSONSource)?.setData(orgs)
-
-    const hotOrgs = new Set(props.events.filter((e) => e.orgId != null).map((e) => e.orgId as number))
-    const hot = {
-      type: 'FeatureCollection',
-      features: props.orgs.flatMap((o) => {
-        if (o.lat == null || o.lon == null || !hotOrgs.has(o.id)) return []
-        return [{
-          type: 'Feature',
-          geometry: { type: 'Point', coordinates: [o.lon, o.lat] },
-          properties: { color: KIND_COLORS[o.kind] ?? '#cbd5e1' },
-        }]
-      }),
-    }
-    ;(map.getSource('hot') as maplibregl.GeoJSONSource)?.setData(hot)
-
-    const orgById = new Map(props.orgs.map((o) => [o.id, o]))
-    const arcs = {
-      type: 'FeatureCollection',
-      features: props.events.flatMap((e) => {
-        if (e.lat == null || e.lon == null || e.orgId == null) return []
-        const org = orgById.get(e.orgId)
-        if (!org || org.lat == null || org.lon == null) return []
-        return [{
-          type: 'Feature',
-          geometry: { type: 'LineString', coordinates: arcPoints([org.lon, org.lat], [e.lon, e.lat]) },
-          properties: { family: e.family, color: FAMILY_COLORS[e.family] ?? '#cbd5e1' },
-        }]
-      }),
-    }
-    ;(map.getSource('arcs') as maplibregl.GeoJSONSource)?.setData(arcs)
-  }, [props.orgs, props.events])
+    renderRef.current?.()
+  }, [props.orgs, props.events, props.families])
 
   return <div ref={ref} style={{ width: '100%', height: '100%' }} />
 }

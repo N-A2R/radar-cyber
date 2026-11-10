@@ -1,0 +1,404 @@
+/* Radar · panneaux d'événements — jetons dark theme + styles EventList / FamilyFilter.
+   Les jetons sont déclarés sur les racines des composants (et non :root) afin de ne pas
+   écraser les variantes de thème de styles.css. Contrastes de texte >= 4,5:1 (AA). */
+
+.event-list,
+.family-filter {
+  /* ── Jetons ─────────────────────────────────────────────────── */
+  --surface: #10151d;
+  --surface-2: #161c26;
+  --surface-3: #1c232f;
+  --border: #1f2733;
+  --border-strong: #2b3542;
+  --text: #e6ebf2;
+  --muted: #9aa7b8;
+  --faint: #8b96a6;
+  --accent: #4da3ff;
+  --accent-dim: #2b5f99;
+  --accent-contrast: #0a0e14;
+  --success: #3fb950;
+  --warning: #d29922;
+  --error: #f85149;
+
+  /* ── Sévérité 1-5 ───────────────────────────────────────────── */
+  --sev-1: #7aa2f7;
+  --sev-2: var(--success);
+  --sev-3: var(--warning);
+  --sev-4: #f0883e;
+  --sev-5: var(--error);
+
+  /* ── Familles (palette de styles.css) ───────────────────────── */
+  --family-ransomware: #f85149;
+  --family-vuln: #d29922;
+  --family-phishing: #a371f7;
+  --family-malware: #db61a2;
+  --family-cert: #4da3ff;
+  --family-cert-fr: #4da3ff;
+  --family-typosquat: #e3b341;
+  --family-reputation: #8b949e;
+  --family-cti: #9aa7b8;
+  --family-presse: #39c5cf;
+
+  /* ── Géométrie ──────────────────────────────────────────────── */
+  --radius: 6px;
+  --radius-lg: 10px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+
+  color-scheme: dark;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* ── Badges : couleur par famille / sévérité ──────────────────── */
+.event-list__sev,
+.event-list__family,
+.family-filter__chip {
+  --chip-color: var(--muted);
+}
+
+.event-list__sev[data-sev="1"] { --chip-color: var(--sev-1); }
+.event-list__sev[data-sev="2"] { --chip-color: var(--sev-2); }
+.event-list__sev[data-sev="3"] { --chip-color: var(--sev-3); }
+.event-list__sev[data-sev="4"] { --chip-color: var(--sev-4); }
+.event-list__sev[data-sev="5"] { --chip-color: var(--sev-5); }
+
+.event-list__family[data-family="ransomware"],
+.family-filter__chip[data-family="ransomware"] { --chip-color: var(--family-ransomware); }
+.event-list__family[data-family="vuln"],
+.family-filter__chip[data-family="vuln"] { --chip-color: var(--family-vuln); }
+.event-list__family[data-family="phishing"],
+.family-filter__chip[data-family="phishing"] { --chip-color: var(--family-phishing); }
+.event-list__family[data-family="malware"],
+.family-filter__chip[data-family="malware"] { --chip-color: var(--family-malware); }
+.event-list__family[data-family="cert"],
+.family-filter__chip[data-family="cert"] { --chip-color: var(--family-cert); }
+.event-list__family[data-family="cert_fr"],
+.family-filter__chip[data-family="cert_fr"] { --chip-color: var(--family-cert-fr); }
+.event-list__family[data-family="typosquat"],
+.family-filter__chip[data-family="typosquat"] { --chip-color: var(--family-typosquat); }
+.event-list__family[data-family="reputation"],
+.family-filter__chip[data-family="reputation"] { --chip-color: var(--family-reputation); }
+.event-list__family[data-family="cti"],
+.family-filter__chip[data-family="cti"] { --chip-color: var(--family-cti); }
+.event-list__family[data-family="presse"],
+.family-filter__chip[data-family="presse"] { --chip-color: var(--family-presse); }
+
+/* ── EventList ────────────────────────────────────────────────── */
+.event-list {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.event-list__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+}
+
+.event-list__heading {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.event-list__count {
+  font-size: 12px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.event-list__items {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-y: auto;
+}
+
+.event-list__item {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border);
+}
+
+.event-list__item:last-child { border-bottom: 0; }
+.event-list__item:hover { background: var(--surface-2); }
+
+.event-list__sev {
+  flex: 0 0 auto;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 var(--space-1);
+  border: 1px solid color-mix(in srgb, var(--chip-color) 32%, transparent);
+  border-radius: var(--radius);
+  background: var(--surface-3);
+  color: var(--chip-color);
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.event-list__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.event-list__top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.event-list__family {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px var(--space-2);
+  border: 1px solid color-mix(in srgb, var(--chip-color) 32%, transparent);
+  border-radius: var(--radius);
+  background: var(--surface-3);
+  color: var(--chip-color);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.event-list__date {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 11.5px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.event-list__title {
+  margin: 0;
+  color: var(--text);
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.event-list__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  color: var(--muted);
+  font-size: 11.5px;
+}
+
+.event-list__source {
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.event-list__link {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.event-list__link:hover { text-decoration: underline; }
+
+/* ── État vide ────────────────────────────────────────────────── */
+.event-list__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-6) var(--space-4);
+  text-align: center;
+}
+
+.event-list__empty-icon {
+  color: var(--faint);
+  font-size: 22px;
+  line-height: 1;
+}
+
+.event-list__empty strong {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.event-list__empty span {
+  max-width: 42ch;
+  color: var(--muted);
+  font-size: 12.5px;
+}
+
+/* ── Pagination ───────────────────────────────────────────────── */
+.event-list__pager {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  background: var(--surface-2);
+  border-top: 1px solid var(--border);
+}
+
+.event-list__pager-btn {
+  appearance: none;
+  padding: 5px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--surface-3);
+  color: var(--text);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.event-list__pager-btn:hover:not(:disabled) {
+  border-color: var(--accent-dim);
+  color: var(--accent);
+}
+
+.event-list__pager-btn:disabled {
+  color: var(--faint);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.event-list__page-info {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── FamilyFilter ─────────────────────────────────────────────── */
+.family-filter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.family-filter__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.family-filter__title {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.family-filter__reset {
+  appearance: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  font-size: 11.5px;
+  cursor: pointer;
+}
+
+.family-filter__reset:hover { text-decoration: underline; }
+
+.family-filter__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.family-filter__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 4px 10px;
+  border: 1px solid color-mix(in srgb, var(--chip-color) 32%, transparent);
+  border-radius: 999px;
+  background: var(--surface-3);
+  color: var(--chip-color);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+}
+
+.family-filter__chip:hover {
+  border-color: var(--chip-color);
+}
+
+.family-filter__chip[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.family-filter__label {
+  white-space: nowrap;
+}
+
+.family-filter__count {
+  min-width: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--muted);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.family-filter__chip[aria-pressed="true"] .family-filter__count {
+  background: color-mix(in srgb, var(--accent-contrast) 18%, transparent);
+  color: var(--accent-contrast);
+}
+
+/* ── Focus ────────────────────────────────────────────────────── */
+.event-list__pager-btn:focus-visible,
+.event-list__link:focus-visible,
+.family-filter__chip:focus-visible,
+.family-filter__reset:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .family-filter__chip { transition: none; }
+}

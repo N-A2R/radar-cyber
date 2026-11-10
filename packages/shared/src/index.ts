@@ -11,6 +11,7 @@ export const FAMILIES = [
   "typosquat",
   "reputation",
   "cti",
+  "presse",
 ] as const;
 
 /** Nature de l'assertion — jamais fusionnée avec la confiance. */
