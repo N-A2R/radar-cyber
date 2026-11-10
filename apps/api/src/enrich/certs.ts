@@ -16,9 +16,10 @@ interface CrtShEntry {
   not_after?: string;
 }
 
-export async function certificatesFor(domain: string): Promise<CertInfo[]> {
+/** `timeoutMs` : crt.sh dépasse souvent 8 s (28 s observés) — la découverte d'actifs allonge. */
+export async function certificatesFor(domain: string, timeoutMs = TIMEOUT_MS): Promise<CertInfo[]> {
   const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
+  const t = setTimeout(() => ctrl.abort(), timeoutMs);
   try {
     const res = await fetch(`https://crt.sh/?q=${encodeURIComponent(domain)}&output=json`, { signal: ctrl.signal });
     if (!res.ok) return [];
