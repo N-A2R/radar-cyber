@@ -12,6 +12,19 @@ export const FAMILIES = [
   "reputation",
   "cti",
   "presse",
+  // Alignement du contrat sur la réalité du catalogue (arbitrage utilisateur,
+  // chantier « socle + contrat »). Trois valeurs circulaient déjà sans lui :
+  //  - `leaks` et `paste` : 8 sources actives les déclarent
+  //    (db/sources-paste-leaks.sql : HIBP, DataBreaches, RansomLook…).
+  //    generic.ts les laissait traverser vers `event.family` sans contrôle.
+  //  - `presse_cyber` : posée par scripts/reclassify-press.mts et acceptée par
+  //    le CHECK de db/migrate-019, mais absente d'ici — migrate-019 le
+  //    signalait déjà comme une dette à reprendre.
+  // Les garder distinctes plutôt que les fondre dans `ransomware`/`cti` :
+  // une fuite indexée n'est pas une revendication, un paste n'est pas un avis.
+  "leaks",
+  "paste",
+  "presse_cyber",
 ] as const;
 
 /** Nature de l'assertion — jamais fusionnée avec la confiance. */
