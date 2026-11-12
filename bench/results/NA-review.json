@@ -1,0 +1,63 @@
+{
+  "moteur": {
+    "organisations": 4462,
+    "indices": 500,
+    "balayageCompletMs": 1795.6,
+    "prefiltreMs": 7.5,
+    "gain": 239,
+    "candidatsExaminesEnMoyenne": 8.6,
+    "rattachementsComplets": 0,
+    "rattachementsPrefiltres": 0,
+    "resultatIdentique": true
+  },
+  "files": [
+    {
+      "label": "jeu réel",
+      "stock": 500,
+      "fenetre": 500,
+      "tronque": false,
+      "p50Ms": 252.4,
+      "p95Ms": 333,
+      "seaux": [
+        {
+          "value": "froid",
+          "count": 474
+        },
+        {
+          "value": "tiede",
+          "count": 26
+        }
+      ],
+      "compteurs": {
+        "pending": 500,
+        "reviewed": 0,
+        "rejected": 0,
+        "promoted": 0
+      }
+    },
+    {
+      "label": "palier synthétique +5000",
+      "stock": 5500,
+      "fenetre": 2000,
+      "tronque": true,
+      "p50Ms": 295.8,
+      "p95Ms": 401.6,
+      "seaux": [
+        {
+          "value": "froid",
+          "count": 1880
+        },
+        {
+          "value": "tiede",
+          "count": 120
+        }
+      ],
+      "compteurs": {
+        "pending": 5500,
+        "reviewed": 0,
+        "rejected": 0,
+        "promoted": 0
+      }
+    }
+  ]
+}
