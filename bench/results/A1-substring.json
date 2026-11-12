@@ -1,0 +1,309 @@
+{
+ "engine": "substring",
+ "aliases": 102,
+ "cases": 75,
+ "matchMs": 2.575,
+ "msPerCase": 0.0343,
+ "predictions": {
+  "c01": {
+   "orgId": 1,
+   "reason": "substring"
+  },
+  "c02": {
+   "orgId": 1,
+   "reason": "substring"
+  },
+  "c03": {
+   "orgId": 9,
+   "reason": "substring"
+  },
+  "c04": {
+   "orgId": 3,
+   "reason": "substring"
+  },
+  "c05": {
+   "orgId": 4,
+   "reason": "substring"
+  },
+  "c06": {
+   "orgId": 5,
+   "reason": "substring"
+  },
+  "c07": {
+   "orgId": 5,
+   "reason": "substring"
+  },
+  "c08": {
+   "orgId": 6,
+   "reason": "substring"
+  },
+  "c09": {
+   "orgId": 7,
+   "reason": "substring"
+  },
+  "c10": {
+   "orgId": 8,
+   "reason": "substring"
+  },
+  "c11": {
+   "orgId": 11,
+   "reason": "substring"
+  },
+  "c12": {
+   "orgId": 11,
+   "reason": "substring"
+  },
+  "c13": {
+   "orgId": 12,
+   "reason": "substring"
+  },
+  "c14": {
+   "orgId": 13,
+   "reason": "substring"
+  },
+  "c15": {
+   "orgId": 14,
+   "reason": "substring"
+  },
+  "c16": {
+   "orgId": 15,
+   "reason": "substring"
+  },
+  "c17": {
+   "orgId": 15,
+   "reason": "substring"
+  },
+  "c18": {
+   "orgId": 16,
+   "reason": "substring"
+  },
+  "c19": {
+   "orgId": 17,
+   "reason": "substring"
+  },
+  "c20": {
+   "orgId": 18,
+   "reason": "substring"
+  },
+  "c21": {
+   "orgId": 20,
+   "reason": "substring"
+  },
+  "c22": {
+   "orgId": 21,
+   "reason": "substring"
+  },
+  "c23": {
+   "orgId": 22,
+   "reason": "substring"
+  },
+  "c24": {
+   "orgId": 23,
+   "reason": "substring"
+  },
+  "c25": {
+   "orgId": 25,
+   "reason": "substring"
+  },
+  "c26": {
+   "orgId": 25,
+   "reason": "substring"
+  },
+  "c27": {
+   "orgId": 27,
+   "reason": "substring"
+  },
+  "c28": {
+   "orgId": 29,
+   "reason": "substring"
+  },
+  "c29": {
+   "orgId": 29,
+   "reason": "substring"
+  },
+  "c30": {
+   "orgId": 30,
+   "reason": "substring"
+  },
+  "c31": {
+   "orgId": 33,
+   "reason": "substring"
+  },
+  "c32": {
+   "orgId": 34,
+   "reason": "substring"
+  },
+  "c33": {
+   "orgId": 35,
+   "reason": "substring"
+  },
+  "c34": {
+   "orgId": 36,
+   "reason": "substring"
+  },
+  "c35": {
+   "orgId": 38,
+   "reason": "substring"
+  },
+  "c36": {
+   "orgId": 40,
+   "reason": "substring"
+  },
+  "c37": {
+   "orgId": 15,
+   "reason": "substring"
+  },
+  "c38": {
+   "orgId": 16,
+   "reason": "substring"
+  },
+  "c39": {
+   "orgId": 40,
+   "reason": "substring"
+  },
+  "c40": {
+   "orgId": 21,
+   "reason": "substring"
+  },
+  "c41": {
+   "orgId": null,
+   "reason": "substring"
+  },
+  "c42": {
+   "orgId": null,
+   "reason": "substring"
+  },
+  "c43": {
+   "orgId": 22,
+   "reason": "substring"
+  },
+  "c44": {
+   "orgId": null,
+   "reason": "substring"
+  },
+  "c45": {
+   "orgId": null,
+   "reason": "substring"
+  },
+  "c46": {
+   "orgId": 9,
+   "reason": "substring"
+  },
+  "c47": {
+   "orgId": 2,
+   "reason": "substring"
+  },
+  "c48": {
+   "orgId": null,
+   "reason": "substring"
+  },
+  "c49": {
+   "orgId": null,
+   "reason": "substring"
+  },
+  "c50": {
+   "orgId": 15,
+   "reason": "substring"
+  },
+  "c51": {
+   "orgId": 13,
+   "reason": "substring"
+  },
+  "c52": {
+   "orgId": null,
+   "reason": "substring"
+  },
+  "c53": {
+   "orgId": null,
+   "reason": "substring"
+  },
+  "c54": {
+   "orgId": null,
+   "reason": "substring"
+  },
+  "c55": {
+   "orgId": null,
+   "reason": "substring"
+  },
+  "c56": {
+   "orgId": null,
+   "reason": "substring"
+  },
+  "c57": {
+   "orgId": 19,
+   "reason": "substring"
+  },
+  "c58": {
+   "orgId": 28,
+   "reason": "substring"
+  },
+  "c59": {
+   "orgId": 39,
+   "reason": "substring"
+  },
+  "c60": {
+   "orgId": 2,
+   "reason": "substring"
+  },
+  "c61": {
+   "orgId": 10,
+   "reason": "substring"
+  },
+  "c62": {
+   "orgId": 9,
+   "reason": "substring"
+  },
+  "c63": {
+   "orgId": 1,
+   "reason": "substring"
+  },
+  "c64": {
+   "orgId": 35,
+   "reason": "substring"
+  },
+  "c65": {
+   "orgId": 23,
+   "reason": "substring"
+  },
+  "c66": {
+   "orgId": 37,
+   "reason": "substring"
+  },
+  "c67": {
+   "orgId": 37,
+   "reason": "substring"
+  },
+  "c68": {
+   "orgId": null,
+   "reason": "substring"
+  },
+  "c69": {
+   "orgId": null,
+   "reason": "substring"
+  },
+  "c70": {
+   "orgId": 29,
+   "reason": "substring"
+  },
+  "c71": {
+   "orgId": 14,
+   "reason": "substring"
+  },
+  "c72": {
+   "orgId": null,
+   "reason": "substring"
+  },
+  "c73": {
+   "orgId": 15,
+   "reason": "substring"
+  },
+  "c74": {
+   "orgId": null,
+   "reason": "substring"
+  },
+  "c75": {
+   "orgId": 16,
+   "reason": "substring"
+  }
+ }
+}

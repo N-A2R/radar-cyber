@@ -1,0 +1,69 @@
+{
+ "declarations_sql": 150,
+ "sources_uniques": 145,
+ "familles_connues": [
+  "ransomware",
+  "vuln",
+  "phishing",
+  "malware",
+  "cert",
+  "cert_fr",
+  "typosquat",
+  "reputation",
+  "cti",
+  "presse"
+ ],
+ "familles_invalides": {
+  "leaks": 7,
+  "paste": 1
+ },
+ "repartition_familles": {
+  "ransomware": 47,
+  "reputation": 33,
+  "cti": 29,
+  "presse": 15,
+  "leaks": 7,
+  "cert_fr": 5,
+  "vuln": 5,
+  "cert": 2,
+  "phishing": 1,
+  "paste": 1
+ },
+ "formats": {
+  "html": 67,
+  "rss": 32,
+  "txt": 32,
+  "json": 8,
+  "?": 5,
+  "text": 1
+ },
+ "natures": {
+  "narrative": 103,
+  "indicator": 37,
+  "?": 5
+ },
+ "urls_en_doublon": {
+  "https://www.cert.ssi.gouv.fr/feed/": [
+   "cert_fr",
+   "cert-fr-feed"
+  ],
+  "https://www.sudouest.fr/rss.xml": [
+   "presse-sudouest-rss",
+   "presse-sudouest"
+  ],
+  "http://byodxn5s7sua6oyyjj74rycgn6afncfckprt5ezskt3cni6lg3wdrgad.onion/": [
+   "onion:ccw:byod",
+   "onion:rl:byod"
+  ]
+ },
+ "identifiants_redeclares": {
+  "cert_fr": 2,
+  "cisa_kev": 2,
+  "cert-fr-feed": 2,
+  "cert-fr-avis": 2,
+  "cert-fr-alerte": 2
+ },
+ "onion": 43,
+ "http_non_chiffre": 43,
+ "desactivees": 43
+}

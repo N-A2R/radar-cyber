@@ -41,19 +41,26 @@ Toutes les métadonnées ci-dessous ont été mesurées par `gh api` et le regis
 | **Catalogue maximal, ⌘K, notifications, DataTable** | **Mantine** (MIT, React 19 strict) |
 | **Zéro verrouillage, on possède le code** | **shadcn/ui** (MIT, mais Tailwind à installer) |
 
-**Choix retenu pour radar-cyber : Carbon**, avec Primer en repli si l'intégration Sass pose problème.
-Raisons : Apache-2.0 propre, data table dense native, thème sombre d'entreprise, typographie IBM Plex
-(dont une mono pour les compteurs et les dates), et une esthétique qui n'a rien d'un template
-générique. Coût : Sass (peerDep) + styles Carbon à charger une fois.
+**Choix retenu pour radar-cyber : couche visuelle maison + TanStack Table** (arbitrage utilisateur).
+Carbon avait d'abord été retenu ici ; il a été **écarté** : son data table impose sa propre grammaire
+visuelle, là où le poste de veille a besoin d'une densité et de raccourcis qui lui sont propres.
+On garde les jetons CSS existants (`--color-*`, `--raise`, `--sink`, mono pour les compteurs) et on
+délègue à TanStack uniquement ce qui est pénible à réécrire : tri, en-têtes, état de table
+(`@tanstack/react-table` 9.3.1, MIT) et virtualisation (`@tanstack/react-virtual` 3.14.26, MIT).
+Arbitrage réversible : aucune dépendance visuelle n'est tissée dans les composants métier.
 
-## 4. Plan d'adoption (si validé)
+## 4. Adoption réelle (état des lieux)
 
-1. `pnpm -F @radar/web add @carbon/react sass` ; importer la feuille Carbon une fois dans `main.tsx`.
-2. Thème : `g100` par défaut, nos 4 variantes deviennent des surcharges de tokens Carbon
-   (`--cds-*`), pas un système parallèle.
-3. Remplacer dans l'ordre : `DataTable` (vue santé des 347 sources) → `Tag` (familles/sévérité) →
-   `Tabs` (4 vues) → `Search` + `Modal` (recherche, fiche org) → `InlineNotification` (collecte).
-4. Garder impérativement en CSS maison : `Map3D` (MapLibre), `EventList` (densité 34 px),
-   `FamilyFilter`, `TimelineScrubber`.
-5. Effort estimé : **1,5 à 2 jours** (0,5 j intégration Sass/theme, 1 j remplacement des 5 composants,
-   0,5 j régression des 4 thèmes).
+Le plan Carbon ci-dessous n'a pas été suivi. Ce qui est en place aujourd'hui :
+
+1. `@tanstack/react-table` 9.3.1 et `@tanstack/react-virtual` 3.14.26 (MIT) installés dans
+   `@radar/web`. Aucune feuille de style tierce n'est chargée.
+2. Les jetons restent les nôtres (`apps/web/src/styles.css`) ; les quatre variantes de thème
+   continuent de fonctionner sans reprise.
+3. TanStack est employé là où il paie : `DirectoryView` (tri, en-têtes, virtualisation de
+   4 462 puis 104 462 lignes) et le rail de vues. `ReviewView` garde une liste native : la
+   file se parcourt au clavier, une grille de table n'y apporte rien.
+4. Restent en CSS maison, comme prévu : `Map3D`, `EventList`, `FamilyFilter`, `TimelineScrubber`,
+   `OrgSheet`, `LiveAlerts`, `review.css`, `directory.css`.
+5. Régression couverte par `apps/web/test/render.tsx` (rendu) et `apps/web/test/review-dom.tsx`
+   (interactions clavier et décisions, jsdom).
