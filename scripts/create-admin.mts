@@ -1,4 +1,10 @@
-import { Pool } from "pg";
+import { createRequire } from "node:module";
+
+// pnpm cloisonne les dépendances : `pg` est installé dans apps/api, pas à la
+// racine. Sans ce require ciblé, le script échoue en ERR_MODULE_NOT_FOUND
+// depuis la racine du dépôt (constaté au remontage du socle).
+const require = createRequire(new URL("../apps/api/package.json", import.meta.url));
+const { Pool } = require("pg") as typeof import("pg");
 import { hashPassword } from "../apps/api/src/auth.js";
 
 const email = process.argv[2] ?? process.env.RADAR_ADMIN_EMAIL ?? "admin@radar.local";

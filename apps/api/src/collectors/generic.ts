@@ -25,6 +25,7 @@ import {
 import { isActionableIndicator, loadActiveIndex, type ActiveIndex } from "./filter.js";
 import { filterIndicators } from "./warninglist.js";
 import { classifyFamily, isFamily } from "./classify.js";
+import { AdmissionTally, admitEvent } from "../contract/admit.js";
 import { parseClaimCards } from "./parsers/claims.js";
 import { parseTelegramMessages } from "./parsers/telegram.js";
 import { decodeBody } from "./parsers/decode.js";
@@ -646,6 +647,8 @@ async function ingestNarrative(
   // correctement mais dont tous les items sont filtrés était indiscernable
   // d'une source cassée : même silence, mêmes zéro événement.
   const rejectedBy: Record<string, number> = {};
+  // Le contrat appliqué, et ses écarts comptés plutôt que tus.
+  const contract = new AdmissionTally();
 
   let added = 0;
   let skipped = 0;
@@ -709,18 +712,47 @@ async function ingestNarrative(
     // Marqueur d'admission : une organisation rattachée prime ; sinon la règle
     // qui a fait passer l'item, sinon null (admis par la porte de pertinence).
     const admissionRule: "org" | "epss" | "dept" | null = orgId !== null ? "org" : admission;
+
+    // Contrat partagé : c'est lui qui tranche désormais, pas les troncatures
+    // ad hoc d'ici. Une famille hors contrat ne passe plus (avant l'élargissement
+    // de FAMILIES, `leaks`/`paste` traversaient sans contrôle) ; une broutille
+    // réparable ne fait plus perdre l'événement. Les écarts sont comptés.
+    const admitted = admitEvent({
+      dedupKey,
+      family,
+      assertionType: "ambient_signal",
+      title,
+      summary,
+      observedAt: parsed.at?.toISOString(),
+      severity: 2,
+      confidence: "C3",
+      sourceId: source.id,
+      sourceUrl: link || undefined,
+      evidence: { feed: source.name },
+      geoType: "unknown",
+    });
+    contract.record(admitted);
+    if (!admitted.ok) {
+      skipped++;
+      for (const reason of admitted.rejections) {
+        rejectedBy[`contrat:${reason}`] = (rejectedBy[`contrat:${reason}`] ?? 0) + 1;
+      }
+      continue;
+    }
+    const event = admitted.event;
     const r = await ingestQuery<{ inserted: boolean }>(
       `INSERT INTO event (dedup_key, family, assertion_type, title, summary, org_id, observed_at, date_source, date_confidence, severity, confidence,
         source_id, source_url, evidence, geo_type, admission_rule)
-       VALUES ($1,$2,'ambient_signal',$3,$10,$11,$4,$5,$6,2,'C3',$7,$8,$9,'unknown',$12)
+       VALUES ($1,$2,$13,$3,$10,$11,$4,$5,$6,$14,$15,$7,$8,$9,$16,$12)
        ON CONFLICT (dedup_key) DO UPDATE SET
          observed_at      = COALESCE(event.observed_at, EXCLUDED.observed_at),
          date_source      = COALESCE(event.date_source, EXCLUDED.date_source),
          date_confidence  = COALESCE(event.date_confidence, EXCLUDED.date_confidence),
          admission_rule   = COALESCE(event.admission_rule, EXCLUDED.admission_rule)
        RETURNING (xmax = 0) AS inserted`,
-      [dedupKey, family, title, parsed.at?.toISOString() ?? null, parsed.source, parsed.confidence,
-        source.id, link || null, JSON.stringify({ feed: source.name }), summary, orgId, admissionRule]
+      [event.dedupKey, event.family, event.title, event.observedAt ?? null, parsed.source, parsed.confidence,
+        event.sourceId, event.sourceUrl ?? null, JSON.stringify(event.evidence ?? {}), event.summary ?? null, orgId, admissionRule,
+        event.assertionType, event.severity, event.confidence ?? "C3", event.geoType]
     );
     if (r.rows[0]?.inserted) added++;
   }
@@ -733,6 +765,10 @@ async function ingestNarrative(
       .join(", ");
     runLog?.(`[collect] ${source.id} : ${skipped}/${items.length} item(s) rejeté(s)${detail ? ` — ${detail}` : ""}`);
   }
+  // Les réparations ne rejettent rien : sans cette ligne elles passeraient
+  // inaperçues. Utile pour repérer une source qui dérive.
+  const contractLine = contract.logLine();
+  if (contractLine) runLog?.(`[collect] ${source.id} : contrat — ${contractLine}`);
   return { items: items.length, added, skipped };
 }
 

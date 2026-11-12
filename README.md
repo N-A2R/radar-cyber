@@ -38,20 +38,30 @@ actives reviendrait à compter des portes ouvertes sur un couloir vide.
 
 Répartition des événements par famille (mesurée le 2026-11-10) : `cti` 747, `vuln` 665, `ransomware` 276, `cert_fr` 239, `cert` 76, `leaks` 18. La table `event` ne contient pas de colonne `is_press`.
 
-## Démarrage (fichiers/commandes vérifiés présents le 2026-11-10)
+## Démarrage
 
 ```bash
-pnpm install
-./apps/api/node_modules/.bin/tsx db/dev-pg.ts                                    # PostgreSQL embarqué (5432)
-psql postgres://radar:radar@localhost:5432/radar -f db/schema.sql
-psql postgres://radar:radar@localhost:5432/radar -f db/sources.sql
-psql postgres://radar:radar@localhost:5432/radar -f db/migrate-002.sql
-ORGS_CSV=/home/jolt/tmp/orgs-na.csv ./apps/api/node_modules/.bin/tsx db/seed.ts # référentiel
-pnpm -F @radar/api start                                                         # API + collecteurs
-pnpm -F @radar/web dev                                                           # http://localhost:5173
+pnpm install --frozen-lockfile
+
+pnpm db:up                                                  # terminal 1 — PostgreSQL embarqué
+RADAR_ADMIN_PASSWORD='votre-mot-de-passe' pnpm setup         # terminal 2 — socle complet
+pnpm dev:api                                                # terminal 2 — API + collecteurs
+pnpm dev:web                                                # terminal 3 — http://localhost:5173
 ```
 
-> Vérifié le 2026-11-10 : `pnpm` 12.15.0 et `./apps/api/node_modules/.bin/tsx` présents ; les fichiers/scripts cités ci-dessus existent. `pnpm tsx ...` à la racine n'est pas disponible dans cet arbre (tsx installé dans `apps/api`).
+`pnpm setup` applique le schéma, les migrations, les 16 catalogues de sources,
+les règles de détection, le référentiel NA (4 462 organisations) et l'échantillon
+de revue. **Mesuré : 8/8 étapes en 4,3 s depuis une base vide, entièrement hors
+réseau** — le jeu NA et les fixtures sont versionnés. Idempotent : un rejeu ne
+duplique rien. `pnpm setup:check` diagnostique sans rien écrire.
+
+Détail des étapes, variables et pannes corrigées : [docs/socle.md](docs/socle.md).
+
+> L'ancienne procédure de ce README était inexacte : elle appelait
+> `db/dev-pg.ts` (ne démarrait pas, renommé `.mts`), `psql` (absent du sandbox) et
+> un CSV situé sur une machine personnelle. Elle est remplacée par le bootstrap.
+> `pnpm tsx ...` à la racine n'est pas disponible : tsx est installé dans
+> `apps/api`.
 
 Mode démonstration (données simulées, sans appel API) :
 
@@ -84,7 +94,11 @@ sources → collecteurs → PostgreSQL → API Fastify → front React
 | GET | `/api/sources` | état détaillé des flux |
 | GET | `/api/stream` | SSE — pousse chaque nouvel événement |
 
-## Contrôles (vérifiés le 2026-11-10)
+## Contrôles
+
+`pnpm verify` enchaîne contrat hors base, diagnostic du socle, typechecks, tests
+API, tests front, build et healthcheck. Le contrat d'événement est appliqué aux
+cinq chemins d'écriture : [docs/contrat.md](docs/contrat.md).
 
 ```bash
 psql postgres://radar:radar@localhost:5432/radar -f db/checks.sql
