@@ -84,7 +84,7 @@ Fichiers de données livrés : 5/5
   présent  bench/results/sources-probe.json
 Codes INSEE de référence : 4517
 
-entreprises    12840 enregistrement(s)
+entreprises    13305 enregistrement(s)
 sante          10008 enregistrement(s)
 enseignement   6528 enregistrement(s)
 corpus         20 enregistrement(s)
@@ -92,8 +92,8 @@ sources        264 enregistrement(s)
 
 0 erreur(s), 0 avertissement(s)
 
-Structure conforme sur 29660 enregistrement(s) réparti(s) dans 5 fichier(s).
+Structure conforme sur 30125 enregistrement(s) réparti(s) dans 5 fichier(s).
 Reste à relire les avertissements avant chargement.
 ```
 
-Code de sortie : `0`. Les 5 blocs attendus sont livrés. Pour le bloc 2, le filtre serveur par liste de tranches d'effectif n'étant pas disponible, le seuil 50+ des secteurs critiques a été appliqué localement à partir de la tranche d'effectif renvoyée par l'API, puis un contrôle géographique strict (département de siège NA + cadre régional) a été effectué ; 635 enregistrements hors cadre ont été écartés à cette étape.
+Code de sortie : `0`. Les 5 blocs attendus sont livrés. Pour le bloc 2, le filtre serveur par liste de tranches d'effectif n'étant pas disponible, le seuil 50+ des secteurs critiques a été appliqué localement à partir de la tranche d'effectif renvoyée par l'API, puis un contrôle géographique strict (département de siège NA + cadre régional) a été effectué ; 2 746 enregistrements hors cadre ont été écartés lors de ce contrôle final (dont les sièges hors région) à cette étape.
