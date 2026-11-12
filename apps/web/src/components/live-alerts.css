@@ -1,0 +1,140 @@
+/* Bandeau d'alertes en direct : une ligne, en creux sous le rail.
+   Mêmes jetons que le reste du poste ; la sévérité porte la couleur, pas
+   une pilule. Aucun nouvel écran, aucune modale. */
+
+.live-alerts {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 0 auto;
+  margin-top: 6px;
+  padding: 0 4px 0 0;
+  min-height: 30px;
+  border-radius: var(--radius);
+  background: var(--color-well);
+  box-shadow: var(--sink);
+  overflow: hidden;
+}
+
+.live-alerts[data-empty="true"] { box-shadow: none; background: transparent; }
+
+.live-alerts__hit {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 6px 12px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: var(--color-ink-2);
+}
+
+.live-alerts__hit:focus-visible { outline: 2px solid var(--color-accent); outline-offset: -2px; }
+.live-alerts__hit:hover .live-alerts__title { color: var(--color-ink); }
+
+.live-alerts__dot {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--sev-3);
+}
+
+.live-alerts__hit[data-level="4"] .live-alerts__dot { background: var(--sev-4); }
+.live-alerts__hit[data-level="5"] .live-alerts__dot {
+  background: var(--sev-5);
+  box-shadow: 0 0 8px var(--sev-5);
+  animation: live-alerts-pulse 1.6s ease-in-out 3;
+}
+
+@keyframes live-alerts-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.live-alerts__sev {
+  font: 500 9px/1 var(--font-mono);
+  letter-spacing: 0.1em;
+  color: var(--color-faint);
+  flex: 0 0 auto;
+}
+
+.live-alerts__hit[data-level="5"] .live-alerts__sev { color: var(--sev-5); }
+.live-alerts__hit[data-level="4"] .live-alerts__sev { color: var(--sev-4); }
+
+.live-alerts__title {
+  flex: 1 1 auto;
+  min-width: 0;
+  font: 400 12px/1.3 var(--font-display);
+  color: var(--color-ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.live-alerts__meta {
+  flex: 0 0 auto;
+  font: 400 10px/1 var(--font-mono);
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.live-alerts__more {
+  flex: 0 0 auto;
+  font: 500 10px/1 var(--font-mono);
+  color: var(--color-accent);
+}
+
+.live-alerts__idle {
+  padding: 6px 12px;
+  font: 400 10px/1 var(--font-mono);
+  color: var(--color-faint);
+}
+
+.live-alerts__controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+  padding-right: 6px;
+}
+
+.live-alerts__ctl {
+  border: 0;
+  background: none;
+  padding: 4px 7px;
+  border-radius: var(--radius);
+  font: 500 9px/1 var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-faint);
+  cursor: pointer;
+}
+
+.live-alerts__ctl:hover { color: var(--color-ink-2); }
+.live-alerts__ctl[aria-pressed="true"] { color: var(--color-accent); }
+.live-alerts__ctl:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 1px; }
+
+/* Compteur d'alertes non vues, sur l'onglet du rail. */
+.rail__badge {
+  display: inline-block;
+  margin-left: 5px;
+  padding: 1px 4px;
+  border-radius: var(--radius);
+  background: var(--sev-5);
+  color: var(--color-plate);
+  font: 500 9px/1.35 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 900px) {
+  .live-alerts__meta { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .live-alerts__hit[data-level="5"] .live-alerts__dot { animation: none; }
+}

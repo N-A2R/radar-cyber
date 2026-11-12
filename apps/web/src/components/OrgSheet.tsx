@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { api, type ApiError, type OrgDetail as OrgDetailData } from "../api";
+import { mockOrgDetail } from "../mock";
 import "./orgsheet.css";
 
 type LoadState =
@@ -27,12 +28,26 @@ function assetLabel(kind: string): string {
   return ASSET_LABELS[kind] ?? kind;
 }
 
-export default function OrgSheet({ orgId, onClose }: { orgId: number; onClose: () => void }) {
+export default function OrgSheet({
+  orgId,
+  onClose,
+  mock = false,
+}: {
+  orgId: number;
+  onClose: () => void;
+  /** Démonstration : fiche construite localement, aucun appel réseau. */
+  mock?: boolean;
+}) {
   const [state, setState] = useState<LoadState>({ status: "loading" });
 
   useEffect(() => {
     let cancelled = false;
     setState({ status: "loading" });
+    if (mock) {
+      const data = mockOrgDetail(orgId);
+      setState(data ? { status: "ready", data } : { status: "notfound" });
+      return;
+    }
     api
       .orgDetail(orgId)
       .then((data) => {
@@ -46,7 +61,7 @@ export default function OrgSheet({ orgId, onClose }: { orgId: number; onClose: (
     return () => {
       cancelled = true;
     };
-  }, [orgId]);
+  }, [orgId, mock]);
 
   const title = state.status === "ready" ? state.data.org.name : "Organisation";
 
