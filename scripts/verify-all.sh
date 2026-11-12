@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # verify-all.sh — Vérification locale complète de Radar Cyber.
 #
-# Enchaîne : typecheck API, typecheck web, tests API, build web, healthcheck.
+# Enchaîne : socle (diagnostic), contrat hors base, typecheck API et web,
+# tests API, tests front (rendu + interactions), build web, healthcheck.
 # Idempotent : les éventuels serveurs de test sont arrêtés en fin de script,
 # aucun fichier n'est laissé derrière soi (hors sorties de build).
 #
@@ -70,13 +71,45 @@ TMP_WEB_PID=""
 cleanup() {
   [ -n "$TMP_API_PID" ] && kill -- "-$TMP_API_PID" 2>/dev/null || true
   [ -n "$TMP_WEB_PID" ] && kill -- "-$TMP_WEB_PID" 2>/dev/null || true
+  [ -n "$PNPM_WRAPPER" ] && rm -f "$PNPM_WRAPPER"
 }
 trap cleanup EXIT
 
-run_step "typecheck api"  pnpm -F @radar/api typecheck
-run_step "typecheck web" pnpm -F @radar/web typecheck
-run_step "tests api"     pnpm -F @radar/api test
-run_step "build web"     pnpm -F @radar/web build
+# pnpm n'est pas toujours installé globalement (sandbox) : on retombe sur npx
+# avec la version épinglée par le dépôt, sans rien installer d'autre.
+# Il faut un vrai exécutable, pas une fonction shell : start_bg fait `exec`
+# dans un sous-shell, où les fonctions du script parent n'existent pas.
+PNPM_BIN="$(command -v pnpm || true)"
+PNPM_WRAPPER=""
+if [ -z "$PNPM_BIN" ]; then
+  PNPM_WRAPPER="$(mktemp "${TMPDIR:-/tmp}/radar-verify-pnpm.XXXXXX")"
+  printf '#!/bin/sh\nexec npx --yes pnpm@12.15.0 "$@"\n' > "$PNPM_WRAPPER"
+  chmod +x "$PNPM_WRAPPER"
+  PNPM_BIN="$PNPM_WRAPPER"
+fi
+TSX="$REPO_DIR/apps/api/node_modules/.bin/tsx"
+
+# Le contrat est une fonction pure : il se vérifie sans PostgreSQL. On le passe
+# avant le reste pour rendre un échec de contrat immédiatement lisible.
+run_step "contrat (hors base)" "$TSX" --test \
+  apps/api/test/contract-admit.test.ts \
+  apps/api/test/contract-families.test.ts
+
+# Diagnostic du socle : n'écrit rien. Une base absente n'est pas un échec de
+# vérification (les tests API créent la leur) ; on le signale seulement.
+step "socle (diagnostic)"
+if "$TSX" scripts/bootstrap.mts --check; then
+  log "OK: socle en place"
+else
+  log "INFO: socle incomplet ou base absente — voir docs/socle.md (pnpm db:up && pnpm setup)"
+fi
+
+run_step "typecheck api"  "$PNPM_BIN" -F @radar/api typecheck
+run_step "typecheck web" "$PNPM_BIN" -F @radar/web typecheck
+run_step "tests api"     "$PNPM_BIN" -F @radar/api test
+run_step "tests rendu"   "$PNPM_BIN" -F @radar/web run test:render
+run_step "tests dom"     "$PNPM_BIN" -F @radar/web run test:dom
+run_step "build web"     "$PNPM_BIN" -F @radar/web build
 
 step "healthcheck local"
 
@@ -87,7 +120,7 @@ if wait_up "$API_URL/api/health" 3; then
 else
   log "API absente de $API_URL : démarrage temporaire (RADAR_COLLECT=0, port $TMP_API_PORT)."
   tmp_api_log="$(mktemp "${TMPDIR:-/tmp}/radar-verify-api.XXXXXX")"
-  TMP_API_PID="$(start_bg "$tmp_api_log" "$REPO_DIR" env RADAR_COLLECT=0 PORT="$TMP_API_PORT" pnpm -F @radar/api start)"
+  TMP_API_PID="$(start_bg "$tmp_api_log" "$REPO_DIR" env RADAR_COLLECT=0 PORT="$TMP_API_PORT" "$PNPM_BIN" -F @radar/api start)"
   if wait_up "http://127.0.0.1:$TMP_API_PORT/api/health" 40; then
     API_URL="http://127.0.0.1:$TMP_API_PORT"
     log "API temporaire prête sur $API_URL."
@@ -104,7 +137,7 @@ if wait_up "$WEB_URL/" 3; then
 else
   log "Web absent de $WEB_URL : démarrage temporaire de vite preview (port $TMP_WEB_PORT)."
   tmp_web_log="$(mktemp "${TMPDIR:-/tmp}/radar-verify-web.XXXXXX")"
-  TMP_WEB_PID="$(start_bg "$tmp_web_log" "$REPO_DIR/apps/web" env WEB_PORT="$TMP_WEB_PORT" API_PROXY_TARGET="$API_URL" pnpm -F @radar/web exec vite preview --config ../../scripts/systemd/preview.config.mjs)"
+  TMP_WEB_PID="$(start_bg "$tmp_web_log" "$REPO_DIR/apps/web" env WEB_PORT="$TMP_WEB_PORT" API_PROXY_TARGET="$API_URL" "$PNPM_BIN" -F @radar/web exec vite preview --config ../../scripts/systemd/preview.config.mjs)"
   if wait_up "http://127.0.0.1:$TMP_WEB_PORT/" 20; then
     WEB_URL="http://127.0.0.1:$TMP_WEB_PORT"
     log "Web temporaire prêt sur $WEB_URL."

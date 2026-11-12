@@ -293,8 +293,52 @@ manuel.
 
 Détails : `docs/research/file-de-revue.md`, `bench/results/NA-review.json`.
 
+## Chantier 4 livré — socle reproductible + contrat appliqué (2026-11-12)
+
+Choisi par l'utilisateur parmi quatre options, avec arbitrage explicite :
+**élargir** le contrat plutôt que fondre les familles hors contrat.
+
+**Socle.** `pnpm db:up` puis `pnpm setup` remontent tout, hors réseau :
+**8/8 étapes en 4,3 s** depuis une base vide (23 migrations, 265 sources,
+7 règles, 4 462 orgs / 22 904 alias, 500 revendications, compte admin).
+Rejeu idempotent (`+0` source). `pnpm setup:check` diagnostique sans écrire.
+Procédure : [docs/socle.md](../socle.md).
+
+Trois pannes révélées par le simple fait de rejouer l'installation :
+`db/dev-pg.ts` ne démarrait pas (top-level await compilé en CJS, renommé `.mts`,
+fichier référencé nulle part) ; `migrate.mts` / `create-admin.mts` /
+`quarantine-review.mts` ne résolvaient pas `pg` depuis la racine (pnpm cloisonne) ;
+et l'amorçage des migrations marquait **17 migrations appliquées sans les jouer**
+sur une base neuve, puis échouait sur `org_alias`. Ce dernier bug était invisible
+des tests et de la CI, qui appliquent le SQL via un autre chemin. Corrigé par un
+amorçage conditionnel et une transaction par migration. Un job CI `socle` qui
+rejoue l'installation depuis le vide, deux fois, est prêt et simulé en local dans
+`scripts/ci/ci.proposed.yml` — **non appliqué** : le jeton de la session n'a pas
+la permission GitHub `workflows` (voir `scripts/ci/README.md`).
+
+**Contrat.** `EventSchema` est appelé aux **cinq** chemins d'écriture, via
+`apps/api/src/contract/admit.ts` : réparations tracées (13 codes) d'un côté,
+rejets motivés (7 motifs) de l'autre, compteurs rendus dans les logs et dans la
+réponse `/ingest`. `FAMILIES` passe de 10 à **13** (`leaks`, `paste`,
+`presse_cyber`) ; `db/migrate-025-family-contract.sql` aligne le CHECK SQL.
+Détail : [docs/contrat.md](../contrat.md).
+
+**Bug trouvé en écrivant le premier test de `/ingest`** (la route n'en avait
+aucun) : le `source_id` par défaut était `hermes`, absent du catalogue, donc tout
+bot poussant sans `source_id` prenait un 500 sur la clé étrangère. Défaut aligné
+sur `hermes_radar_cyber`, et provenance inconnue devenue un refus lisible.
+
+**Vérifications.** `pnpm verify` entièrement vert : contrat hors base **21/21**,
+API **196/196** (165 avant ce chantier, +31), rendu **59**, jsdom **26/26**,
+typechecks API et web **0**, build web OK, healthcheck OK. Chaîne réelle
+contrôlée : `/ingest` sur lot mixte → 2 admis / 1 rejet motivé / 3 réparations
+tracées ; front 200, annuaire NA et file de revue alimentés.
+
 ## Reste à faire
 
-**4** socle reproductible + contrat appliqué (`EventSchema` n'est toujours jamais
-appelé) · **5** corpus témoin + mesure de couverture · **6** agents CPU.
+**5** corpus témoin + mesure de couverture · **6** agents CPU.
+Options écartées à ce tour : **B** carte vivante hors ligne (géocodage par
+centroïdes versionnés — 4 557 entités déjà géolocalisées dans le jeu NA),
+**C** corpus témoin, **D** référentiel entreprises (**bloqué**, attend l'export :
+`recherche-entreprises.api.gouv.fr` injoignable, aucun jeu SIRENE utilisable).
 Export de la base réelle toujours en attente.
