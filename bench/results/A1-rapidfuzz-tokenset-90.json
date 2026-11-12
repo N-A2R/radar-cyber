@@ -1,0 +1,309 @@
+{
+ "engine": "rapidfuzz-tokenset-90",
+ "aliases": 102,
+ "cases": 75,
+ "matchMs": 12.034,
+ "msPerCase": 0.1605,
+ "predictions": {
+  "c01": {
+   "orgId": 1,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c02": {
+   "orgId": 1,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c03": {
+   "orgId": 9,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c04": {
+   "orgId": 3,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c05": {
+   "orgId": 4,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c06": {
+   "orgId": 5,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c07": {
+   "orgId": 5,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c08": {
+   "orgId": 6,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c09": {
+   "orgId": 7,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c10": {
+   "orgId": 8,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c11": {
+   "orgId": 11,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c12": {
+   "orgId": 11,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c13": {
+   "orgId": 12,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c14": {
+   "orgId": 13,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c15": {
+   "orgId": 14,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c16": {
+   "orgId": 15,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c17": {
+   "orgId": 15,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c18": {
+   "orgId": 16,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c19": {
+   "orgId": 17,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c20": {
+   "orgId": 18,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c21": {
+   "orgId": 20,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c22": {
+   "orgId": 21,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c23": {
+   "orgId": 22,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c24": {
+   "orgId": 23,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c25": {
+   "orgId": 25,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c26": {
+   "orgId": 25,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c27": {
+   "orgId": 27,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c28": {
+   "orgId": null,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c29": {
+   "orgId": 29,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c30": {
+   "orgId": 30,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c31": {
+   "orgId": 33,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c32": {
+   "orgId": 34,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c33": {
+   "orgId": null,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c34": {
+   "orgId": 36,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c35": {
+   "orgId": 38,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c36": {
+   "orgId": 40,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c37": {
+   "orgId": 15,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c38": {
+   "orgId": 16,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c39": {
+   "orgId": 40,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c40": {
+   "orgId": 21,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c41": {
+   "orgId": null,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c42": {
+   "orgId": null,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c43": {
+   "orgId": 22,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c44": {
+   "orgId": null,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c45": {
+   "orgId": null,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c46": {
+   "orgId": 9,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c47": {
+   "orgId": 2,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c48": {
+   "orgId": null,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c49": {
+   "orgId": null,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c50": {
+   "orgId": null,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c51": {
+   "orgId": 13,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c52": {
+   "orgId": null,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c53": {
+   "orgId": null,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c54": {
+   "orgId": null,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c55": {
+   "orgId": null,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c56": {
+   "orgId": null,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c57": {
+   "orgId": 19,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c58": {
+   "orgId": 28,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c59": {
+   "orgId": 39,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c60": {
+   "orgId": null,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c61": {
+   "orgId": 10,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c62": {
+   "orgId": 9,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c63": {
+   "orgId": 1,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c64": {
+   "orgId": 35,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c65": {
+   "orgId": 23,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c66": {
+   "orgId": 37,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c67": {
+   "orgId": 37,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c68": {
+   "orgId": null,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c69": {
+   "orgId": 29,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c70": {
+   "orgId": 29,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c71": {
+   "orgId": 14,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c72": {
+   "orgId": null,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c73": {
+   "orgId": null,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c74": {
+   "orgId": null,
+   "reason": "rapidfuzz-tokenset-90"
+  },
+  "c75": {
+   "orgId": null,
+   "reason": "rapidfuzz-tokenset-90"
+  }
+ }
+}

@@ -1,0 +1,435 @@
+{
+ "_meta": {
+  "objet": "Bench A2 — déduplication d'organisations (org ↔ org), pas rattachement de texte.",
+  "annotation": "Manuelle. Chaque enregistrement porte l'organisation réelle qu'il désigne (`cluster`). Les variantes couvrent formes juridiques, casse, accents, sigles et noms développés.",
+  "pieges": "Paires volontairement proches mais distinctes : CHU vs université d'une même ville, mairie vs métropole, deux cliniques homonymes dans des départements différents.",
+  "enregistrements": 60,
+  "organisations": 27,
+  "paires_positives": 45,
+  "prior_reel": 0.0254,
+  "limite": "Jeu construit à la main, pas un extrait du référentiel production (10 261 orgs). Il mesure le comportement sur des cas connus, pas un taux de doublons réel.",
+  "correction": "Bordeaux INP et Institut polytechnique de Bordeaux désignent la même institution : initialement annotés à tort comme deux organisations, corrigé après revue des erreurs du bench."
+ },
+ "records": [
+  {
+   "record_id": 1,
+   "name": "CHU de Bordeaux",
+   "city": "Bordeaux",
+   "dept": "33",
+   "cluster": "chu-bordeaux"
+  },
+  {
+   "record_id": 2,
+   "name": "Centre Hospitalier Universitaire de Bordeaux",
+   "city": "Bordeaux",
+   "dept": "33",
+   "cluster": "chu-bordeaux"
+  },
+  {
+   "record_id": 3,
+   "name": "CHU BORDEAUX",
+   "city": "Bordeaux",
+   "dept": "33",
+   "cluster": "chu-bordeaux"
+  },
+  {
+   "record_id": 4,
+   "name": "Université de Bordeaux",
+   "city": "Bordeaux",
+   "dept": "33",
+   "cluster": "univ-bordeaux"
+  },
+  {
+   "record_id": 5,
+   "name": "Universite de Bordeaux",
+   "city": "Bordeaux",
+   "dept": "33",
+   "cluster": "univ-bordeaux"
+  },
+  {
+   "record_id": 6,
+   "name": "UNIVERSITE DE BORDEAUX",
+   "city": "Bordeaux",
+   "dept": "33",
+   "cluster": "univ-bordeaux"
+  },
+  {
+   "record_id": 7,
+   "name": "Mairie de Bordeaux",
+   "city": "Bordeaux",
+   "dept": "33",
+   "cluster": "mairie-bordeaux"
+  },
+  {
+   "record_id": 8,
+   "name": "Ville de Bordeaux",
+   "city": "Bordeaux",
+   "dept": "33",
+   "cluster": "mairie-bordeaux"
+  },
+  {
+   "record_id": 9,
+   "name": "COMMUNE DE BORDEAUX",
+   "city": "Bordeaux",
+   "dept": "33",
+   "cluster": "mairie-bordeaux"
+  },
+  {
+   "record_id": 10,
+   "name": "Lectra",
+   "city": "Cestas",
+   "dept": "33",
+   "cluster": "lectra"
+  },
+  {
+   "record_id": 11,
+   "name": "LECTRA SA",
+   "city": "Cestas",
+   "dept": "33",
+   "cluster": "lectra"
+  },
+  {
+   "record_id": 12,
+   "name": "Lectra Systemes",
+   "city": "Cestas",
+   "dept": "33",
+   "cluster": "lectra"
+  },
+  {
+   "record_id": 13,
+   "name": "Cdiscount",
+   "city": "Bordeaux",
+   "dept": "33",
+   "cluster": "cdiscount"
+  },
+  {
+   "record_id": 14,
+   "name": "CDISCOUNT SAS",
+   "city": "Bordeaux",
+   "dept": "33",
+   "cluster": "cdiscount"
+  },
+  {
+   "record_id": 15,
+   "name": "Cdiscount France",
+   "city": "Bordeaux",
+   "dept": "33",
+   "cluster": "cdiscount"
+  },
+  {
+   "record_id": 16,
+   "name": "Université de Poitiers",
+   "city": "Poitiers",
+   "dept": "86",
+   "cluster": "univ-poitiers"
+  },
+  {
+   "record_id": 17,
+   "name": "Universite de Poitiers",
+   "city": "Poitiers",
+   "dept": "86",
+   "cluster": "univ-poitiers"
+  },
+  {
+   "record_id": 18,
+   "name": "CHU de Poitiers",
+   "city": "Poitiers",
+   "dept": "86",
+   "cluster": "chu-poitiers"
+  },
+  {
+   "record_id": 19,
+   "name": "Centre Hospitalier Universitaire de Poitiers",
+   "city": "Poitiers",
+   "dept": "86",
+   "cluster": "chu-poitiers"
+  },
+  {
+   "record_id": 20,
+   "name": "Bordeaux Métropole",
+   "city": "Bordeaux",
+   "dept": "33",
+   "cluster": "bordeaux-metropole"
+  },
+  {
+   "record_id": 21,
+   "name": "Bordeaux Metropole",
+   "city": "Bordeaux",
+   "dept": "33",
+   "cluster": "bordeaux-metropole"
+  },
+  {
+   "record_id": 22,
+   "name": "COMMUNAUTE URBAINE BORDEAUX METROPOLE",
+   "city": "Bordeaux",
+   "dept": "33",
+   "cluster": "bordeaux-metropole"
+  },
+  {
+   "record_id": 23,
+   "name": "Grand Poitiers",
+   "city": "Poitiers",
+   "dept": "86",
+   "cluster": "grand-poitiers"
+  },
+  {
+   "record_id": 24,
+   "name": "Communauté urbaine Grand Poitiers",
+   "city": "Poitiers",
+   "dept": "86",
+   "cluster": "grand-poitiers"
+  },
+  {
+   "record_id": 25,
+   "name": "GRAND POITIERS",
+   "city": "Poitiers",
+   "dept": "86",
+   "cluster": "grand-poitiers"
+  },
+  {
+   "record_id": 26,
+   "name": "Région Nouvelle-Aquitaine",
+   "city": "Bordeaux",
+   "dept": "33",
+   "cluster": "region-na"
+  },
+  {
+   "record_id": 27,
+   "name": "Conseil régional Nouvelle-Aquitaine",
+   "city": "Bordeaux",
+   "dept": "33",
+   "cluster": "region-na"
+  },
+  {
+   "record_id": 28,
+   "name": "REGION NOUVELLE AQUITAINE",
+   "city": "Bordeaux",
+   "dept": "33",
+   "cluster": "region-na"
+  },
+  {
+   "record_id": 29,
+   "name": "ARS Nouvelle-Aquitaine",
+   "city": "Bordeaux",
+   "dept": "33",
+   "cluster": "ars-na"
+  },
+  {
+   "record_id": 30,
+   "name": "Agence régionale de santé Nouvelle-Aquitaine",
+   "city": "Bordeaux",
+   "dept": "33",
+   "cluster": "ars-na"
+  },
+  {
+   "record_id": 31,
+   "name": "Safran Helicopter Engines",
+   "city": "Bordes",
+   "dept": "64",
+   "cluster": "safran-he"
+  },
+  {
+   "record_id": 32,
+   "name": "SAFRAN HELICOPTER ENGINES SAS",
+   "city": "Bordes",
+   "dept": "64",
+   "cluster": "safran-he"
+  },
+  {
+   "record_id": 33,
+   "name": "Dassault Aviation",
+   "city": "Mérignac",
+   "dept": "33",
+   "cluster": "dassault"
+  },
+  {
+   "record_id": 34,
+   "name": "DASSAULT AVIATION SA",
+   "city": "Mérignac",
+   "dept": "33",
+   "cluster": "dassault"
+  },
+  {
+   "record_id": 35,
+   "name": "Coopérative Euralis",
+   "city": "Lescar",
+   "dept": "64",
+   "cluster": "euralis"
+  },
+  {
+   "record_id": 36,
+   "name": "EURALIS SOCIETE COOPERATIVE",
+   "city": "Lescar",
+   "dept": "64",
+   "cluster": "euralis"
+  },
+  {
+   "record_id": 37,
+   "name": "Euralis",
+   "city": "Lescar",
+   "dept": "64",
+   "cluster": "euralis"
+  },
+  {
+   "record_id": 38,
+   "name": "Aéroport de Bordeaux-Mérignac",
+   "city": "Mérignac",
+   "dept": "33",
+   "cluster": "aeroport-bdx"
+  },
+  {
+   "record_id": 39,
+   "name": "Aéroport de Bordeaux Mérignac",
+   "city": "Mérignac",
+   "dept": "33",
+   "cluster": "aeroport-bdx"
+  },
+  {
+   "record_id": 40,
+   "name": "SA AEROPORT DE BORDEAUX MERIGNAC",
+   "city": "Mérignac",
+   "dept": "33",
+   "cluster": "aeroport-bdx"
+  },
+  {
+   "record_id": 41,
+   "name": "Keolis Bordeaux Métropole",
+   "city": "Bordeaux",
+   "dept": "33",
+   "cluster": "keolis-tbm"
+  },
+  {
+   "record_id": 42,
+   "name": "KEOLIS BORDEAUX METROPOLE SAS",
+   "city": "Bordeaux",
+   "dept": "33",
+   "cluster": "keolis-tbm"
+  },
+  {
+   "record_id": 43,
+   "name": "Inria Bordeaux",
+   "city": "Talence",
+   "dept": "33",
+   "cluster": "inria-bdx"
+  },
+  {
+   "record_id": 44,
+   "name": "Centre Inria de l'Université de Bordeaux",
+   "city": "Talence",
+   "dept": "33",
+   "cluster": "inria-bdx"
+  },
+  {
+   "record_id": 45,
+   "name": "INRIA BORDEAUX SUD OUEST",
+   "city": "Talence",
+   "dept": "33",
+   "cluster": "inria-bdx"
+  },
+  {
+   "record_id": 46,
+   "name": "Mairie de Poitiers",
+   "city": "Poitiers",
+   "dept": "86",
+   "cluster": "mairie-poitiers"
+  },
+  {
+   "record_id": 47,
+   "name": "Ville de Poitiers",
+   "city": "Poitiers",
+   "dept": "86",
+   "cluster": "mairie-poitiers"
+  },
+  {
+   "record_id": 48,
+   "name": "COMMUNE DE POITIERS",
+   "city": "Poitiers",
+   "dept": "86",
+   "cluster": "mairie-poitiers"
+  },
+  {
+   "record_id": 49,
+   "name": "Université de Limoges",
+   "city": "Limoges",
+   "dept": "87",
+   "cluster": "univ-limoges"
+  },
+  {
+   "record_id": 50,
+   "name": "Universite de Limoges",
+   "city": "Limoges",
+   "dept": "87",
+   "cluster": "univ-limoges"
+  },
+  {
+   "record_id": 51,
+   "name": "CHU de Limoges",
+   "city": "Limoges",
+   "dept": "87",
+   "cluster": "chu-limoges"
+  },
+  {
+   "record_id": 52,
+   "name": "Centre Hospitalier Universitaire de Limoges",
+   "city": "Limoges",
+   "dept": "87",
+   "cluster": "chu-limoges"
+  },
+  {
+   "record_id": 53,
+   "name": "Bordeaux INP",
+   "city": "Talence",
+   "dept": "33",
+   "cluster": "bordeaux-inp"
+  },
+  {
+   "record_id": 54,
+   "name": "Institut polytechnique Bordeaux",
+   "city": "Talence",
+   "dept": "33",
+   "cluster": "bordeaux-inp"
+  },
+  {
+   "record_id": 55,
+   "name": "Clinique Saint-Jean",
+   "city": "Bordeaux",
+   "dept": "33",
+   "cluster": "clinique-sj-bdx"
+  },
+  {
+   "record_id": 56,
+   "name": "Clinique Saint-Jean",
+   "city": "Montpellier",
+   "dept": "34",
+   "cluster": "clinique-sj-mtp"
+  },
+  {
+   "record_id": 57,
+   "name": "Centre Hospitalier de Pau",
+   "city": "Pau",
+   "dept": "64",
+   "cluster": "chu-pau"
+  },
+  {
+   "record_id": 58,
+   "name": "Centre Hospitalier Pau Bélair",
+   "city": "Pau",
+   "dept": "64",
+   "cluster": "ch-pau-belair"
+  },
+  {
+   "record_id": 59,
+   "name": "Cofinoga",
+   "city": "Mérignac",
+   "dept": "33",
+   "cluster": "cofinoga"
+  },
+  {
+   "record_id": 60,
+   "name": "Cofinoga Association",
+   "city": "Mérignac",
+   "dept": "33",
+   "cluster": "cofinoga-asso"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "trafilatura": {
+  "version": "2.3.1",
+  "pages": 181,
+  "empty": 0,
+  "errors": 0,
+  "total_s": 4.53,
+  "ms_per_page": 25.0,
+  "failures": []
+ },
+ "newspaper4k": {
+  "version": "0.9.6.1",
+  "pages": 181,
+  "empty": 9,
+  "errors": 0,
+  "total_s": 229.39,
+  "ms_per_page": 1267.3,
+  "failures": []
+ }
+}

@@ -1,0 +1,1744 @@
+{
+ "jeu": {
+  "objet": "Bench A2 — déduplication d'organisations (org ↔ org), pas rattachement de texte.",
+  "annotation": "Manuelle. Chaque enregistrement porte l'organisation réelle qu'il désigne (`cluster`). Les variantes couvrent formes juridiques, casse, accents, sigles et noms développés.",
+  "pieges": "Paires volontairement proches mais distinctes : CHU vs université d'une même ville, mairie vs métropole, deux cliniques homonymes dans des départements différents.",
+  "enregistrements": 60,
+  "organisations": 27,
+  "paires_positives": 45,
+  "prior_reel": 0.0254,
+  "limite": "Jeu construit à la main, pas un extrait du référentiel production (10 261 orgs). Il mesure le comportement sur des cas connus, pas un taux de doublons réel.",
+  "correction": "Bordeaux INP et Institut polytechnique de Bordeaux désignent la même institution : initialement annotés à tort comme deux organisations, corrigé après revue des erreurs du bench."
+ },
+ "prior_splink": 0.025,
+ "resultats": [
+  {
+   "engine": "institutional-synonyms",
+   "ms": 9.9,
+   "tp": 32,
+   "fp": 0,
+   "fn": 13,
+   "precision": 1.0,
+   "recall": 0.7111,
+   "f1": 0.8312,
+   "erreurs": [
+    [
+     "Lectra",
+     "Lectra Systemes",
+     "doublon manqué"
+    ],
+    [
+     "LECTRA SA",
+     "Lectra Systemes",
+     "doublon manqué"
+    ],
+    [
+     "Cdiscount",
+     "Cdiscount France",
+     "doublon manqué"
+    ],
+    [
+     "CDISCOUNT SAS",
+     "Cdiscount France",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux Métropole",
+     "COMMUNAUTE URBAINE BORDEAUX METROPOLE",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux Metropole",
+     "COMMUNAUTE URBAINE BORDEAUX METROPOLE",
+     "doublon manqué"
+    ],
+    [
+     "Grand Poitiers",
+     "Communauté urbaine Grand Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "Communauté urbaine Grand Poitiers",
+     "GRAND POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "Région Nouvelle-Aquitaine",
+     "Conseil régional Nouvelle-Aquitaine",
+     "doublon manqué"
+    ],
+    [
+     "Conseil régional Nouvelle-Aquitaine",
+     "REGION NOUVELLE AQUITAINE",
+     "doublon manqué"
+    ],
+    [
+     "Inria Bordeaux",
+     "Centre Inria de l'Université de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "Inria Bordeaux",
+     "INRIA BORDEAUX SUD OUEST",
+     "doublon manqué"
+    ],
+    [
+     "Centre Inria de l'Université de Bordeaux",
+     "INRIA BORDEAUX SUD OUEST",
+     "doublon manqué"
+    ]
+   ]
+  },
+  {
+   "engine": "rapidfuzz-85",
+   "ms": 23.9,
+   "tp": 20,
+   "fp": 2,
+   "fn": 25,
+   "precision": 0.9091,
+   "recall": 0.4444,
+   "f1": 0.597,
+   "erreurs": [
+    [
+     "Région Nouvelle-Aquitaine",
+     "ARS Nouvelle-Aquitaine",
+     "fusion à tort"
+    ],
+    [
+     "REGION NOUVELLE AQUITAINE",
+     "ARS Nouvelle-Aquitaine",
+     "fusion à tort"
+    ],
+    [
+     "CHU de Bordeaux",
+     "Centre Hospitalier Universitaire de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "Centre Hospitalier Universitaire de Bordeaux",
+     "CHU BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Bordeaux",
+     "Ville de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Bordeaux",
+     "COMMUNE DE BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Ville de Bordeaux",
+     "COMMUNE DE BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Lectra",
+     "Lectra Systemes",
+     "doublon manqué"
+    ],
+    [
+     "LECTRA SA",
+     "Lectra Systemes",
+     "doublon manqué"
+    ],
+    [
+     "Cdiscount",
+     "Cdiscount France",
+     "doublon manqué"
+    ],
+    [
+     "CDISCOUNT SAS",
+     "Cdiscount France",
+     "doublon manqué"
+    ],
+    [
+     "CHU de Poitiers",
+     "Centre Hospitalier Universitaire de Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux Métropole",
+     "COMMUNAUTE URBAINE BORDEAUX METROPOLE",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux Metropole",
+     "COMMUNAUTE URBAINE BORDEAUX METROPOLE",
+     "doublon manqué"
+    ],
+    [
+     "Grand Poitiers",
+     "Communauté urbaine Grand Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "Communauté urbaine Grand Poitiers",
+     "GRAND POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "Région Nouvelle-Aquitaine",
+     "Conseil régional Nouvelle-Aquitaine",
+     "doublon manqué"
+    ],
+    [
+     "Conseil régional Nouvelle-Aquitaine",
+     "REGION NOUVELLE AQUITAINE",
+     "doublon manqué"
+    ],
+    [
+     "ARS Nouvelle-Aquitaine",
+     "Agence régionale de santé Nouvelle-Aquitaine",
+     "doublon manqué"
+    ],
+    [
+     "Inria Bordeaux",
+     "Centre Inria de l'Université de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "Inria Bordeaux",
+     "INRIA BORDEAUX SUD OUEST",
+     "doublon manqué"
+    ],
+    [
+     "Centre Inria de l'Université de Bordeaux",
+     "INRIA BORDEAUX SUD OUEST",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Poitiers",
+     "Ville de Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Poitiers",
+     "COMMUNE DE POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "Ville de Poitiers",
+     "COMMUNE DE POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "CHU de Limoges",
+     "Centre Hospitalier Universitaire de Limoges",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux INP",
+     "Institut polytechnique Bordeaux",
+     "doublon manqué"
+    ]
+   ]
+  },
+  {
+   "engine": "rapidfuzz-90",
+   "ms": 9.2,
+   "tp": 19,
+   "fp": 0,
+   "fn": 26,
+   "precision": 1.0,
+   "recall": 0.4222,
+   "f1": 0.5938,
+   "erreurs": [
+    [
+     "CHU de Bordeaux",
+     "Centre Hospitalier Universitaire de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "CHU de Bordeaux",
+     "CHU BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Centre Hospitalier Universitaire de Bordeaux",
+     "CHU BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Bordeaux",
+     "Ville de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Bordeaux",
+     "COMMUNE DE BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Ville de Bordeaux",
+     "COMMUNE DE BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Lectra",
+     "Lectra Systemes",
+     "doublon manqué"
+    ],
+    [
+     "LECTRA SA",
+     "Lectra Systemes",
+     "doublon manqué"
+    ],
+    [
+     "Cdiscount",
+     "Cdiscount France",
+     "doublon manqué"
+    ],
+    [
+     "CDISCOUNT SAS",
+     "Cdiscount France",
+     "doublon manqué"
+    ],
+    [
+     "CHU de Poitiers",
+     "Centre Hospitalier Universitaire de Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux Métropole",
+     "COMMUNAUTE URBAINE BORDEAUX METROPOLE",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux Metropole",
+     "COMMUNAUTE URBAINE BORDEAUX METROPOLE",
+     "doublon manqué"
+    ],
+    [
+     "Grand Poitiers",
+     "Communauté urbaine Grand Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "Communauté urbaine Grand Poitiers",
+     "GRAND POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "Région Nouvelle-Aquitaine",
+     "Conseil régional Nouvelle-Aquitaine",
+     "doublon manqué"
+    ],
+    [
+     "Conseil régional Nouvelle-Aquitaine",
+     "REGION NOUVELLE AQUITAINE",
+     "doublon manqué"
+    ],
+    [
+     "ARS Nouvelle-Aquitaine",
+     "Agence régionale de santé Nouvelle-Aquitaine",
+     "doublon manqué"
+    ],
+    [
+     "Inria Bordeaux",
+     "Centre Inria de l'Université de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "Inria Bordeaux",
+     "INRIA BORDEAUX SUD OUEST",
+     "doublon manqué"
+    ],
+    [
+     "Centre Inria de l'Université de Bordeaux",
+     "INRIA BORDEAUX SUD OUEST",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Poitiers",
+     "Ville de Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Poitiers",
+     "COMMUNE DE POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "Ville de Poitiers",
+     "COMMUNE DE POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "CHU de Limoges",
+     "Centre Hospitalier Universitaire de Limoges",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux INP",
+     "Institut polytechnique Bordeaux",
+     "doublon manqué"
+    ]
+   ]
+  },
+  {
+   "engine": "rapidfuzz-95",
+   "ms": 9.6,
+   "tp": 19,
+   "fp": 0,
+   "fn": 26,
+   "precision": 1.0,
+   "recall": 0.4222,
+   "f1": 0.5938,
+   "erreurs": [
+    [
+     "CHU de Bordeaux",
+     "Centre Hospitalier Universitaire de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "CHU de Bordeaux",
+     "CHU BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Centre Hospitalier Universitaire de Bordeaux",
+     "CHU BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Bordeaux",
+     "Ville de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Bordeaux",
+     "COMMUNE DE BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Ville de Bordeaux",
+     "COMMUNE DE BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Lectra",
+     "Lectra Systemes",
+     "doublon manqué"
+    ],
+    [
+     "LECTRA SA",
+     "Lectra Systemes",
+     "doublon manqué"
+    ],
+    [
+     "Cdiscount",
+     "Cdiscount France",
+     "doublon manqué"
+    ],
+    [
+     "CDISCOUNT SAS",
+     "Cdiscount France",
+     "doublon manqué"
+    ],
+    [
+     "CHU de Poitiers",
+     "Centre Hospitalier Universitaire de Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux Métropole",
+     "COMMUNAUTE URBAINE BORDEAUX METROPOLE",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux Metropole",
+     "COMMUNAUTE URBAINE BORDEAUX METROPOLE",
+     "doublon manqué"
+    ],
+    [
+     "Grand Poitiers",
+     "Communauté urbaine Grand Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "Communauté urbaine Grand Poitiers",
+     "GRAND POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "Région Nouvelle-Aquitaine",
+     "Conseil régional Nouvelle-Aquitaine",
+     "doublon manqué"
+    ],
+    [
+     "Conseil régional Nouvelle-Aquitaine",
+     "REGION NOUVELLE AQUITAINE",
+     "doublon manqué"
+    ],
+    [
+     "ARS Nouvelle-Aquitaine",
+     "Agence régionale de santé Nouvelle-Aquitaine",
+     "doublon manqué"
+    ],
+    [
+     "Inria Bordeaux",
+     "Centre Inria de l'Université de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "Inria Bordeaux",
+     "INRIA BORDEAUX SUD OUEST",
+     "doublon manqué"
+    ],
+    [
+     "Centre Inria de l'Université de Bordeaux",
+     "INRIA BORDEAUX SUD OUEST",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Poitiers",
+     "Ville de Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Poitiers",
+     "COMMUNE DE POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "Ville de Poitiers",
+     "COMMUNE DE POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "CHU de Limoges",
+     "Centre Hospitalier Universitaire de Limoges",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux INP",
+     "Institut polytechnique Bordeaux",
+     "doublon manqué"
+    ]
+   ]
+  },
+  {
+   "engine": "normalised-key",
+   "ms": 13.5,
+   "tp": 19,
+   "fp": 1,
+   "fn": 26,
+   "precision": 0.95,
+   "recall": 0.4222,
+   "f1": 0.5846,
+   "erreurs": [
+    [
+     "Clinique Saint-Jean",
+     "Clinique Saint-Jean",
+     "fusion à tort"
+    ],
+    [
+     "CHU de Bordeaux",
+     "Centre Hospitalier Universitaire de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "CHU de Bordeaux",
+     "CHU BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Centre Hospitalier Universitaire de Bordeaux",
+     "CHU BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Bordeaux",
+     "Ville de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Bordeaux",
+     "COMMUNE DE BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Ville de Bordeaux",
+     "COMMUNE DE BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Lectra",
+     "Lectra Systemes",
+     "doublon manqué"
+    ],
+    [
+     "LECTRA SA",
+     "Lectra Systemes",
+     "doublon manqué"
+    ],
+    [
+     "Cdiscount",
+     "Cdiscount France",
+     "doublon manqué"
+    ],
+    [
+     "CDISCOUNT SAS",
+     "Cdiscount France",
+     "doublon manqué"
+    ],
+    [
+     "CHU de Poitiers",
+     "Centre Hospitalier Universitaire de Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux Métropole",
+     "COMMUNAUTE URBAINE BORDEAUX METROPOLE",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux Metropole",
+     "COMMUNAUTE URBAINE BORDEAUX METROPOLE",
+     "doublon manqué"
+    ],
+    [
+     "Grand Poitiers",
+     "Communauté urbaine Grand Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "Communauté urbaine Grand Poitiers",
+     "GRAND POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "Région Nouvelle-Aquitaine",
+     "Conseil régional Nouvelle-Aquitaine",
+     "doublon manqué"
+    ],
+    [
+     "Conseil régional Nouvelle-Aquitaine",
+     "REGION NOUVELLE AQUITAINE",
+     "doublon manqué"
+    ],
+    [
+     "ARS Nouvelle-Aquitaine",
+     "Agence régionale de santé Nouvelle-Aquitaine",
+     "doublon manqué"
+    ],
+    [
+     "Inria Bordeaux",
+     "Centre Inria de l'Université de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "Inria Bordeaux",
+     "INRIA BORDEAUX SUD OUEST",
+     "doublon manqué"
+    ],
+    [
+     "Centre Inria de l'Université de Bordeaux",
+     "INRIA BORDEAUX SUD OUEST",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Poitiers",
+     "Ville de Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Poitiers",
+     "COMMUNE DE POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "Ville de Poitiers",
+     "COMMUNE DE POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "CHU de Limoges",
+     "Centre Hospitalier Universitaire de Limoges",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux INP",
+     "Institut polytechnique Bordeaux",
+     "doublon manqué"
+    ]
+   ]
+  },
+  {
+   "engine": "rapidfuzz-90-any-city",
+   "ms": 15.2,
+   "tp": 19,
+   "fp": 1,
+   "fn": 26,
+   "precision": 0.95,
+   "recall": 0.4222,
+   "f1": 0.5846,
+   "erreurs": [
+    [
+     "Clinique Saint-Jean",
+     "Clinique Saint-Jean",
+     "fusion à tort"
+    ],
+    [
+     "CHU de Bordeaux",
+     "Centre Hospitalier Universitaire de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "CHU de Bordeaux",
+     "CHU BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Centre Hospitalier Universitaire de Bordeaux",
+     "CHU BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Bordeaux",
+     "Ville de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Bordeaux",
+     "COMMUNE DE BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Ville de Bordeaux",
+     "COMMUNE DE BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Lectra",
+     "Lectra Systemes",
+     "doublon manqué"
+    ],
+    [
+     "LECTRA SA",
+     "Lectra Systemes",
+     "doublon manqué"
+    ],
+    [
+     "Cdiscount",
+     "Cdiscount France",
+     "doublon manqué"
+    ],
+    [
+     "CDISCOUNT SAS",
+     "Cdiscount France",
+     "doublon manqué"
+    ],
+    [
+     "CHU de Poitiers",
+     "Centre Hospitalier Universitaire de Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux Métropole",
+     "COMMUNAUTE URBAINE BORDEAUX METROPOLE",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux Metropole",
+     "COMMUNAUTE URBAINE BORDEAUX METROPOLE",
+     "doublon manqué"
+    ],
+    [
+     "Grand Poitiers",
+     "Communauté urbaine Grand Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "Communauté urbaine Grand Poitiers",
+     "GRAND POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "Région Nouvelle-Aquitaine",
+     "Conseil régional Nouvelle-Aquitaine",
+     "doublon manqué"
+    ],
+    [
+     "Conseil régional Nouvelle-Aquitaine",
+     "REGION NOUVELLE AQUITAINE",
+     "doublon manqué"
+    ],
+    [
+     "ARS Nouvelle-Aquitaine",
+     "Agence régionale de santé Nouvelle-Aquitaine",
+     "doublon manqué"
+    ],
+    [
+     "Inria Bordeaux",
+     "Centre Inria de l'Université de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "Inria Bordeaux",
+     "INRIA BORDEAUX SUD OUEST",
+     "doublon manqué"
+    ],
+    [
+     "Centre Inria de l'Université de Bordeaux",
+     "INRIA BORDEAUX SUD OUEST",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Poitiers",
+     "Ville de Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Poitiers",
+     "COMMUNE DE POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "Ville de Poitiers",
+     "COMMUNE DE POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "CHU de Limoges",
+     "Centre Hospitalier Universitaire de Limoges",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux INP",
+     "Institut polytechnique Bordeaux",
+     "doublon manqué"
+    ]
+   ]
+  },
+  {
+   "engine": "derived-alias-overlap",
+   "ms": 6.4,
+   "tp": 16,
+   "fp": 0,
+   "fn": 29,
+   "precision": 1.0,
+   "recall": 0.3556,
+   "f1": 0.5246,
+   "erreurs": [
+    [
+     "CHU de Bordeaux",
+     "Centre Hospitalier Universitaire de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "CHU de Bordeaux",
+     "CHU BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Centre Hospitalier Universitaire de Bordeaux",
+     "CHU BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Bordeaux",
+     "Ville de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Bordeaux",
+     "COMMUNE DE BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Ville de Bordeaux",
+     "COMMUNE DE BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Lectra",
+     "Lectra Systemes",
+     "doublon manqué"
+    ],
+    [
+     "LECTRA SA",
+     "Lectra Systemes",
+     "doublon manqué"
+    ],
+    [
+     "Cdiscount",
+     "Cdiscount France",
+     "doublon manqué"
+    ],
+    [
+     "CDISCOUNT SAS",
+     "Cdiscount France",
+     "doublon manqué"
+    ],
+    [
+     "CHU de Poitiers",
+     "Centre Hospitalier Universitaire de Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux Métropole",
+     "COMMUNAUTE URBAINE BORDEAUX METROPOLE",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux Metropole",
+     "COMMUNAUTE URBAINE BORDEAUX METROPOLE",
+     "doublon manqué"
+    ],
+    [
+     "Grand Poitiers",
+     "Communauté urbaine Grand Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "Communauté urbaine Grand Poitiers",
+     "GRAND POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "Région Nouvelle-Aquitaine",
+     "Conseil régional Nouvelle-Aquitaine",
+     "doublon manqué"
+    ],
+    [
+     "Conseil régional Nouvelle-Aquitaine",
+     "REGION NOUVELLE AQUITAINE",
+     "doublon manqué"
+    ],
+    [
+     "ARS Nouvelle-Aquitaine",
+     "Agence régionale de santé Nouvelle-Aquitaine",
+     "doublon manqué"
+    ],
+    [
+     "Coopérative Euralis",
+     "EURALIS SOCIETE COOPERATIVE",
+     "doublon manqué"
+    ],
+    [
+     "Coopérative Euralis",
+     "Euralis",
+     "doublon manqué"
+    ],
+    [
+     "EURALIS SOCIETE COOPERATIVE",
+     "Euralis",
+     "doublon manqué"
+    ],
+    [
+     "Inria Bordeaux",
+     "Centre Inria de l'Université de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "Inria Bordeaux",
+     "INRIA BORDEAUX SUD OUEST",
+     "doublon manqué"
+    ],
+    [
+     "Centre Inria de l'Université de Bordeaux",
+     "INRIA BORDEAUX SUD OUEST",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Poitiers",
+     "Ville de Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Poitiers",
+     "COMMUNE DE POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "Ville de Poitiers",
+     "COMMUNE DE POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "CHU de Limoges",
+     "Centre Hospitalier Universitaire de Limoges",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux INP",
+     "Institut polytechnique Bordeaux",
+     "doublon manqué"
+    ]
+   ]
+  },
+  {
+   "engine": "splink-0.5",
+   "ms": 1575.5,
+   "paires_brutes": 27,
+   "tp": 8,
+   "fp": 19,
+   "fn": 37,
+   "precision": 0.2963,
+   "recall": 0.1778,
+   "f1": 0.2222,
+   "erreurs": [
+    [
+     "CHU de Bordeaux",
+     "Université de Bordeaux",
+     "fusion à tort"
+    ],
+    [
+     "CHU de Bordeaux",
+     "Universite de Bordeaux",
+     "fusion à tort"
+    ],
+    [
+     "CHU de Bordeaux",
+     "Mairie de Bordeaux",
+     "fusion à tort"
+    ],
+    [
+     "CHU de Bordeaux",
+     "Ville de Bordeaux",
+     "fusion à tort"
+    ],
+    [
+     "CHU BORDEAUX",
+     "COMMUNE DE BORDEAUX",
+     "fusion à tort"
+    ],
+    [
+     "Université de Bordeaux",
+     "Mairie de Bordeaux",
+     "fusion à tort"
+    ],
+    [
+     "Université de Bordeaux",
+     "Ville de Bordeaux",
+     "fusion à tort"
+    ],
+    [
+     "Universite de Bordeaux",
+     "Mairie de Bordeaux",
+     "fusion à tort"
+    ],
+    [
+     "Universite de Bordeaux",
+     "Ville de Bordeaux",
+     "fusion à tort"
+    ],
+    [
+     "UNIVERSITE DE BORDEAUX",
+     "COMMUNE DE BORDEAUX",
+     "fusion à tort"
+    ],
+    [
+     "COMMUNE DE BORDEAUX",
+     "COMMUNAUTE URBAINE BORDEAUX METROPOLE",
+     "fusion à tort"
+    ],
+    [
+     "Université de Poitiers",
+     "Mairie de Poitiers",
+     "fusion à tort"
+    ],
+    [
+     "Universite de Poitiers",
+     "Mairie de Poitiers",
+     "fusion à tort"
+    ],
+    [
+     "CHU de Poitiers",
+     "Mairie de Poitiers",
+     "fusion à tort"
+    ],
+    [
+     "Bordeaux Métropole",
+     "Keolis Bordeaux Métropole",
+     "fusion à tort"
+    ],
+    [
+     "Bordeaux Metropole",
+     "Keolis Bordeaux Métropole",
+     "fusion à tort"
+    ],
+    [
+     "Grand Poitiers",
+     "Mairie de Poitiers",
+     "fusion à tort"
+    ],
+    [
+     "Région Nouvelle-Aquitaine",
+     "ARS Nouvelle-Aquitaine",
+     "fusion à tort"
+    ],
+    [
+     "Conseil régional Nouvelle-Aquitaine",
+     "Agence régionale de santé Nouvelle-Aquitaine",
+     "fusion à tort"
+    ],
+    [
+     "CHU de Bordeaux",
+     "Centre Hospitalier Universitaire de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "CHU de Bordeaux",
+     "CHU BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Centre Hospitalier Universitaire de Bordeaux",
+     "CHU BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Université de Bordeaux",
+     "UNIVERSITE DE BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Universite de Bordeaux",
+     "UNIVERSITE DE BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Bordeaux",
+     "COMMUNE DE BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Ville de Bordeaux",
+     "COMMUNE DE BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Lectra",
+     "LECTRA SA",
+     "doublon manqué"
+    ],
+    [
+     "Lectra",
+     "Lectra Systemes",
+     "doublon manqué"
+    ],
+    [
+     "LECTRA SA",
+     "Lectra Systemes",
+     "doublon manqué"
+    ],
+    [
+     "Cdiscount",
+     "CDISCOUNT SAS",
+     "doublon manqué"
+    ],
+    [
+     "Cdiscount",
+     "Cdiscount France",
+     "doublon manqué"
+    ],
+    [
+     "CDISCOUNT SAS",
+     "Cdiscount France",
+     "doublon manqué"
+    ],
+    [
+     "CHU de Poitiers",
+     "Centre Hospitalier Universitaire de Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux Métropole",
+     "COMMUNAUTE URBAINE BORDEAUX METROPOLE",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux Metropole",
+     "COMMUNAUTE URBAINE BORDEAUX METROPOLE",
+     "doublon manqué"
+    ],
+    [
+     "Grand Poitiers",
+     "Communauté urbaine Grand Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "Grand Poitiers",
+     "GRAND POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "Communauté urbaine Grand Poitiers",
+     "GRAND POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "Région Nouvelle-Aquitaine",
+     "REGION NOUVELLE AQUITAINE",
+     "doublon manqué"
+    ],
+    [
+     "Conseil régional Nouvelle-Aquitaine",
+     "REGION NOUVELLE AQUITAINE",
+     "doublon manqué"
+    ],
+    [
+     "ARS Nouvelle-Aquitaine",
+     "Agence régionale de santé Nouvelle-Aquitaine",
+     "doublon manqué"
+    ],
+    [
+     "Safran Helicopter Engines",
+     "SAFRAN HELICOPTER ENGINES SAS",
+     "doublon manqué"
+    ],
+    [
+     "Dassault Aviation",
+     "DASSAULT AVIATION SA",
+     "doublon manqué"
+    ],
+    [
+     "Coopérative Euralis",
+     "EURALIS SOCIETE COOPERATIVE",
+     "doublon manqué"
+    ],
+    [
+     "Coopérative Euralis",
+     "Euralis",
+     "doublon manqué"
+    ],
+    [
+     "EURALIS SOCIETE COOPERATIVE",
+     "Euralis",
+     "doublon manqué"
+    ],
+    [
+     "Aéroport de Bordeaux-Mérignac",
+     "SA AEROPORT DE BORDEAUX MERIGNAC",
+     "doublon manqué"
+    ],
+    [
+     "Aéroport de Bordeaux Mérignac",
+     "SA AEROPORT DE BORDEAUX MERIGNAC",
+     "doublon manqué"
+    ],
+    [
+     "Keolis Bordeaux Métropole",
+     "KEOLIS BORDEAUX METROPOLE SAS",
+     "doublon manqué"
+    ],
+    [
+     "Inria Bordeaux",
+     "Centre Inria de l'Université de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "Inria Bordeaux",
+     "INRIA BORDEAUX SUD OUEST",
+     "doublon manqué"
+    ],
+    [
+     "Centre Inria de l'Université de Bordeaux",
+     "INRIA BORDEAUX SUD OUEST",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Poitiers",
+     "COMMUNE DE POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "Ville de Poitiers",
+     "COMMUNE DE POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "CHU de Limoges",
+     "Centre Hospitalier Universitaire de Limoges",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux INP",
+     "Institut polytechnique Bordeaux",
+     "doublon manqué"
+    ]
+   ]
+  },
+  {
+   "engine": "splink-0.8",
+   "ms": 1194.9,
+   "paires_brutes": 0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 45,
+   "precision": 0.0,
+   "recall": 0.0,
+   "f1": 0.0,
+   "erreurs": [
+    [
+     "CHU de Bordeaux",
+     "Centre Hospitalier Universitaire de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "CHU de Bordeaux",
+     "CHU BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Centre Hospitalier Universitaire de Bordeaux",
+     "CHU BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Université de Bordeaux",
+     "Universite de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "Université de Bordeaux",
+     "UNIVERSITE DE BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Universite de Bordeaux",
+     "UNIVERSITE DE BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Bordeaux",
+     "Ville de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Bordeaux",
+     "COMMUNE DE BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Ville de Bordeaux",
+     "COMMUNE DE BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Lectra",
+     "LECTRA SA",
+     "doublon manqué"
+    ],
+    [
+     "Lectra",
+     "Lectra Systemes",
+     "doublon manqué"
+    ],
+    [
+     "LECTRA SA",
+     "Lectra Systemes",
+     "doublon manqué"
+    ],
+    [
+     "Cdiscount",
+     "CDISCOUNT SAS",
+     "doublon manqué"
+    ],
+    [
+     "Cdiscount",
+     "Cdiscount France",
+     "doublon manqué"
+    ],
+    [
+     "CDISCOUNT SAS",
+     "Cdiscount France",
+     "doublon manqué"
+    ],
+    [
+     "Université de Poitiers",
+     "Universite de Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "CHU de Poitiers",
+     "Centre Hospitalier Universitaire de Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux Métropole",
+     "Bordeaux Metropole",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux Métropole",
+     "COMMUNAUTE URBAINE BORDEAUX METROPOLE",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux Metropole",
+     "COMMUNAUTE URBAINE BORDEAUX METROPOLE",
+     "doublon manqué"
+    ],
+    [
+     "Grand Poitiers",
+     "Communauté urbaine Grand Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "Grand Poitiers",
+     "GRAND POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "Communauté urbaine Grand Poitiers",
+     "GRAND POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "Région Nouvelle-Aquitaine",
+     "Conseil régional Nouvelle-Aquitaine",
+     "doublon manqué"
+    ],
+    [
+     "Région Nouvelle-Aquitaine",
+     "REGION NOUVELLE AQUITAINE",
+     "doublon manqué"
+    ],
+    [
+     "Conseil régional Nouvelle-Aquitaine",
+     "REGION NOUVELLE AQUITAINE",
+     "doublon manqué"
+    ],
+    [
+     "ARS Nouvelle-Aquitaine",
+     "Agence régionale de santé Nouvelle-Aquitaine",
+     "doublon manqué"
+    ],
+    [
+     "Safran Helicopter Engines",
+     "SAFRAN HELICOPTER ENGINES SAS",
+     "doublon manqué"
+    ],
+    [
+     "Dassault Aviation",
+     "DASSAULT AVIATION SA",
+     "doublon manqué"
+    ],
+    [
+     "Coopérative Euralis",
+     "EURALIS SOCIETE COOPERATIVE",
+     "doublon manqué"
+    ],
+    [
+     "Coopérative Euralis",
+     "Euralis",
+     "doublon manqué"
+    ],
+    [
+     "EURALIS SOCIETE COOPERATIVE",
+     "Euralis",
+     "doublon manqué"
+    ],
+    [
+     "Aéroport de Bordeaux-Mérignac",
+     "Aéroport de Bordeaux Mérignac",
+     "doublon manqué"
+    ],
+    [
+     "Aéroport de Bordeaux-Mérignac",
+     "SA AEROPORT DE BORDEAUX MERIGNAC",
+     "doublon manqué"
+    ],
+    [
+     "Aéroport de Bordeaux Mérignac",
+     "SA AEROPORT DE BORDEAUX MERIGNAC",
+     "doublon manqué"
+    ],
+    [
+     "Keolis Bordeaux Métropole",
+     "KEOLIS BORDEAUX METROPOLE SAS",
+     "doublon manqué"
+    ],
+    [
+     "Inria Bordeaux",
+     "Centre Inria de l'Université de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "Inria Bordeaux",
+     "INRIA BORDEAUX SUD OUEST",
+     "doublon manqué"
+    ],
+    [
+     "Centre Inria de l'Université de Bordeaux",
+     "INRIA BORDEAUX SUD OUEST",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Poitiers",
+     "Ville de Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Poitiers",
+     "COMMUNE DE POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "Ville de Poitiers",
+     "COMMUNE DE POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "Université de Limoges",
+     "Universite de Limoges",
+     "doublon manqué"
+    ],
+    [
+     "CHU de Limoges",
+     "Centre Hospitalier Universitaire de Limoges",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux INP",
+     "Institut polytechnique Bordeaux",
+     "doublon manqué"
+    ]
+   ]
+  },
+  {
+   "engine": "splink-0.95",
+   "ms": 1137.6,
+   "paires_brutes": 0,
+   "tp": 0,
+   "fp": 0,
+   "fn": 45,
+   "precision": 0.0,
+   "recall": 0.0,
+   "f1": 0.0,
+   "erreurs": [
+    [
+     "CHU de Bordeaux",
+     "Centre Hospitalier Universitaire de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "CHU de Bordeaux",
+     "CHU BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Centre Hospitalier Universitaire de Bordeaux",
+     "CHU BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Université de Bordeaux",
+     "Universite de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "Université de Bordeaux",
+     "UNIVERSITE DE BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Universite de Bordeaux",
+     "UNIVERSITE DE BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Bordeaux",
+     "Ville de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Bordeaux",
+     "COMMUNE DE BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Ville de Bordeaux",
+     "COMMUNE DE BORDEAUX",
+     "doublon manqué"
+    ],
+    [
+     "Lectra",
+     "LECTRA SA",
+     "doublon manqué"
+    ],
+    [
+     "Lectra",
+     "Lectra Systemes",
+     "doublon manqué"
+    ],
+    [
+     "LECTRA SA",
+     "Lectra Systemes",
+     "doublon manqué"
+    ],
+    [
+     "Cdiscount",
+     "CDISCOUNT SAS",
+     "doublon manqué"
+    ],
+    [
+     "Cdiscount",
+     "Cdiscount France",
+     "doublon manqué"
+    ],
+    [
+     "CDISCOUNT SAS",
+     "Cdiscount France",
+     "doublon manqué"
+    ],
+    [
+     "Université de Poitiers",
+     "Universite de Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "CHU de Poitiers",
+     "Centre Hospitalier Universitaire de Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux Métropole",
+     "Bordeaux Metropole",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux Métropole",
+     "COMMUNAUTE URBAINE BORDEAUX METROPOLE",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux Metropole",
+     "COMMUNAUTE URBAINE BORDEAUX METROPOLE",
+     "doublon manqué"
+    ],
+    [
+     "Grand Poitiers",
+     "Communauté urbaine Grand Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "Grand Poitiers",
+     "GRAND POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "Communauté urbaine Grand Poitiers",
+     "GRAND POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "Région Nouvelle-Aquitaine",
+     "Conseil régional Nouvelle-Aquitaine",
+     "doublon manqué"
+    ],
+    [
+     "Région Nouvelle-Aquitaine",
+     "REGION NOUVELLE AQUITAINE",
+     "doublon manqué"
+    ],
+    [
+     "Conseil régional Nouvelle-Aquitaine",
+     "REGION NOUVELLE AQUITAINE",
+     "doublon manqué"
+    ],
+    [
+     "ARS Nouvelle-Aquitaine",
+     "Agence régionale de santé Nouvelle-Aquitaine",
+     "doublon manqué"
+    ],
+    [
+     "Safran Helicopter Engines",
+     "SAFRAN HELICOPTER ENGINES SAS",
+     "doublon manqué"
+    ],
+    [
+     "Dassault Aviation",
+     "DASSAULT AVIATION SA",
+     "doublon manqué"
+    ],
+    [
+     "Coopérative Euralis",
+     "EURALIS SOCIETE COOPERATIVE",
+     "doublon manqué"
+    ],
+    [
+     "Coopérative Euralis",
+     "Euralis",
+     "doublon manqué"
+    ],
+    [
+     "EURALIS SOCIETE COOPERATIVE",
+     "Euralis",
+     "doublon manqué"
+    ],
+    [
+     "Aéroport de Bordeaux-Mérignac",
+     "Aéroport de Bordeaux Mérignac",
+     "doublon manqué"
+    ],
+    [
+     "Aéroport de Bordeaux-Mérignac",
+     "SA AEROPORT DE BORDEAUX MERIGNAC",
+     "doublon manqué"
+    ],
+    [
+     "Aéroport de Bordeaux Mérignac",
+     "SA AEROPORT DE BORDEAUX MERIGNAC",
+     "doublon manqué"
+    ],
+    [
+     "Keolis Bordeaux Métropole",
+     "KEOLIS BORDEAUX METROPOLE SAS",
+     "doublon manqué"
+    ],
+    [
+     "Inria Bordeaux",
+     "Centre Inria de l'Université de Bordeaux",
+     "doublon manqué"
+    ],
+    [
+     "Inria Bordeaux",
+     "INRIA BORDEAUX SUD OUEST",
+     "doublon manqué"
+    ],
+    [
+     "Centre Inria de l'Université de Bordeaux",
+     "INRIA BORDEAUX SUD OUEST",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Poitiers",
+     "Ville de Poitiers",
+     "doublon manqué"
+    ],
+    [
+     "Mairie de Poitiers",
+     "COMMUNE DE POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "Ville de Poitiers",
+     "COMMUNE DE POITIERS",
+     "doublon manqué"
+    ],
+    [
+     "Université de Limoges",
+     "Universite de Limoges",
+     "doublon manqué"
+    ],
+    [
+     "CHU de Limoges",
+     "Centre Hospitalier Universitaire de Limoges",
+     "doublon manqué"
+    ],
+    [
+     "Bordeaux INP",
+     "Institut polytechnique Bordeaux",
+     "doublon manqué"
+    ]
+   ]
+  }
+ ]
+}
