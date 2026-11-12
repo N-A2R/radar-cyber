@@ -1,4 +1,10 @@
-import { Client } from "pg";
+import { createRequire } from "node:module";
+
+// pnpm cloisonne les dépendances : `pg` est installé dans apps/api, pas à la
+// racine. Sans ce require ciblé, le script échoue en ERR_MODULE_NOT_FOUND
+// depuis la racine du dépôt (constaté au remontage du socle).
+const require = createRequire(new URL("../apps/api/package.json", import.meta.url));
+const { Client } = require("pg") as typeof import("pg");
 const url = process.env.DATABASE_URL ?? "postgres://radar:radar@localhost:5432/radar";
 const client = new Client({ connectionString: url });
 await client.connect();

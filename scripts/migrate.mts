@@ -4,8 +4,16 @@
  *
  * - Applique `db/migrate-*.sql` triés lexicographiquement.
  * - Table de suivi : `schema_migrations (version text primary key, applied_at timestamptz default now())`.
- * - Amorçage : si la table est créée et vide, on y inscrit les migrations
- *   déjà présentes historiquement (SEED_APPLIED) pour ne pas les rejouer.
+ * - Amorçage **conditionnel** : les migrations listées dans SEED_APPLIED ne
+ *   sont marquées appliquées que si la base porte la trace de leur exécution
+ *   passée. Sur une base neuve, elles sont jouées normalement.
+ *
+ *   Piège corrigé au chantier « socle » : l'amorçage était inconditionnel dès
+ *   que la table de suivi était absente ou vide. Sur un dépôt neuf, il
+ *   marquait 17 migrations comme faites sans les exécuter, puis la première
+ *   migration suivante échouait sur `relation "org_alias" does not exist`.
+ *   Les tests ne le voyaient pas : ils appliquent les migrations directement,
+ *   sans passer par ce runner.
  * - Chaque migration s'applique dans une transaction et n'est enregistrée
  *   qu'après succès.
  *
@@ -16,7 +24,13 @@
 
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import pg from "pg";
+import { createRequire } from "node:module";
+
+// pnpm cloisonne les dépendances : `pg` est installé dans apps/api, pas à la
+// racine. Sans ce require ciblé, le script échoue en ERR_MODULE_NOT_FOUND
+// depuis la racine du dépôt (constaté au remontage du socle).
+const require = createRequire(new URL("../apps/api/package.json", import.meta.url));
+const pg = require("pg") as typeof import("pg");
 
 const { Client } = pg;
 
@@ -68,16 +82,25 @@ async function main(): Promise<void> {
     const tableExists = tableRes.rows[0]?.exists === true;
 
     let applied = new Set<string>();
-    let needsSeed = false;
+    let trackingEmpty = false;
     if (tableExists) {
       const rows = await client.query<{ version: string }>(
         "SELECT version FROM schema_migrations",
       );
       applied = new Set(rows.rows.map((r) => r.version));
-      needsSeed = applied.size === 0;
-    } else {
-      needsSeed = true;
+      trackingEmpty = applied.size === 0;
     }
+
+    // L'amorçage ne vaut que pour une base historique reprise en main : on
+    // exige la trace des objets que ces migrations créent. `org_alias` vient
+    // de migrate-014a, `quarantine_raw` de migrate-007. Base neuve => aucun
+    // des deux => on joue tout, dans l'ordre.
+    const legacy = await client.query<{ org_alias: boolean; quarantine: boolean }>(
+      `SELECT to_regclass('public.org_alias') IS NOT NULL AS org_alias,
+              to_regclass('public.quarantine_raw') IS NOT NULL AS quarantine`,
+    );
+    const isLegacy = legacy.rows[0]?.org_alias === true && legacy.rows[0]?.quarantine === true;
+    const needsSeed = (tableExists ? trackingEmpty : true) && isLegacy;
 
     const seedVersions = needsSeed ? SEED_APPLIED.filter((v) => all.includes(v)) : [];
     for (const v of seedVersions) applied.add(v);
@@ -88,10 +111,10 @@ async function main(): Promise<void> {
     if (DRY_RUN) {
       console.log(`--dry-run: aucune modification.`);
       console.log(`Table schema_migrations: ${tableExists ? "présente" : "absente (serait créée)"}`);
-      if (needsSeed && !tableExists) {
-        console.log(`Amorçage prévu: ${seedVersions.length} migration(s) marquée(s) appliquée(s)`);
-      } else if (needsSeed && tableExists) {
-        console.log(`Amorçage prévu (table vide): ${seedVersions.length} migration(s)`);
+      if (needsSeed) {
+        console.log(`Amorçage prévu (base historique reconnue): ${seedVersions.length} migration(s)`);
+      } else if (!tableExists || trackingEmpty) {
+        console.log(`Base neuve : les ${all.length} migrations seront jouées dans l'ordre.`);
       }
       console.log(`Déjà appliquées (${already.length}):`);
       for (const v of already) console.log(`  [applied] ${v}`);
@@ -101,39 +124,60 @@ async function main(): Promise<void> {
       return;
     }
 
-    await client.query("BEGIN");
-    try {
-      await client.query(`
-        CREATE TABLE IF NOT EXISTS schema_migrations (
-          version text PRIMARY KEY,
-          applied_at timestamptz NOT NULL DEFAULT now()
-        )
-      `);
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS schema_migrations (
+        version text PRIMARY KEY,
+        applied_at timestamptz NOT NULL DEFAULT now()
+      )
+    `);
 
-      if (needsSeed) {
-        for (const v of seedVersions) {
-          await client.query(
-            "INSERT INTO schema_migrations (version) VALUES ($1) ON CONFLICT DO NOTHING",
-            [v],
-          );
-        }
-        if (seedVersions.length > 0) {
-          console.log(`Amorçage: ${seedVersions.length} migration(s) marquée(s) appliquée(s).`);
-        }
+    if (needsSeed) {
+      for (const v of seedVersions) {
+        await client.query(
+          "INSERT INTO schema_migrations (version) VALUES ($1) ON CONFLICT DO NOTHING",
+          [v],
+        );
       }
+      if (seedVersions.length > 0) {
+        console.log(`Amorçage: ${seedVersions.length} migration(s) marquée(s) appliquée(s).`);
+      }
+    }
 
-      for (const v of pending) {
-        const sql = readFileSync(join(DB_DIR, v), "utf8");
-        console.log(`Applying ${v}...`);
+    // Une transaction PAR migration, pas une pour tout le lot. Deux raisons,
+    // constatées au chantier « socle » :
+    //  1. migrate-021 et migrate-022 contiennent leur propre BEGIN/COMMIT
+    //     (écrits pour psql). Dans une transaction englobante, leur COMMIT
+    //     validait le travail déjà fait : un échec plus loin laissait une base
+    //     à moitié migrée et une table de suivi qui mentait.
+    //  2. Le contrat annoncé est « chaque migration dans une transaction,
+    //     enregistrée après succès ». C'est ce que fait cette boucle : un
+    //     échec arrête net, et le suivi reflète exactement ce qui est passé.
+    for (const v of pending) {
+      const sql = readFileSync(join(DB_DIR, v), "utf8");
+      // Certaines migrations (021, 022) ont été écrites pour `psql` et portent
+      // leur propre BEGIN/COMMIT. On ne réécrit PAS leur SQL : le retirer par
+      // regex casse les blocs PL/pgSQL (un `END;` y ferme un bloc, pas une
+      // transaction) et les expressions contenant des `$`. On les laisse
+      // therefore piloter leur transaction, et on n'ouvre la nôtre que pour
+      // les fichiers muets.
+      //
+      // Distinction fiable : en SQL transactionnel on écrit `BEGIN;` avec le
+      // point-virgule ; en PL/pgSQL le `BEGIN` d'un bloc n'en porte pas.
+      const selfTransactional =
+        /^\s*BEGIN\s*;\s*$/im.test(sql) && /^\s*COMMIT\s*;\s*$/im.test(sql);
+      console.log(`Applying ${v}...${selfTransactional ? " (transaction fournie)" : ""}`);
+      if (!selfTransactional) await client.query("BEGIN");
+      try {
         await client.query(sql);
         await client.query("INSERT INTO schema_migrations (version) VALUES ($1)", [v]);
+        if (!selfTransactional) await client.query("COMMIT");
         console.log(`  OK ${v}`);
+      } catch (err) {
+        if (!selfTransactional) await client.query("ROLLBACK");
+        console.error(`  ÉCHEC ${v} — aucune version enregistrée pour cette migration.`);
+        console.error(`  Les migrations précédentes restent appliquées ; corrigez puis relancez.`);
+        throw err;
       }
-
-      await client.query("COMMIT");
-    } catch (err) {
-      await client.query("ROLLBACK");
-      throw err;
     }
 
     if (pending.length === 0) {
