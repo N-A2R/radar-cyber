@@ -342,3 +342,17 @@ centroïdes versionnés — 4 557 entités déjà géolocalisées dans le jeu NA
 **C** corpus témoin, **D** référentiel entreprises (**bloqué**, attend l'export :
 `recherche-entreprises.api.gouv.fr` injoignable, aucun jeu SIRENE utilisable).
 Export de la base réelle toujours en attente.
+
+**Contournement du réseau filtré : collecte déléguée.** Puisque le sandbox ne
+joint ni les API gouv ni la presse, la collecte peut être confiée à un assistant
+externe qui, lui, a internet. Le prompt est prêt :
+[**`prompt-collecte-externe.md`**](prompt-collecte-externe.md) — quatre blocs
+(corpus témoin 12 mois, entreprises SIRENE, santé FINESS / enseignement UAI,
+sonde des 265 sources), schémas JSON imposés, provenance et licence exigées,
+livraison sur une branche dédiée.
+
+Ce qui revient est vérifié par `scripts/validate-external-data.mts` (Node seul,
+sans dépendance) : clés de Luhn des SIREN, codes INSEE confrontés aux 4 517 du
+jeu versionné, dates ISO, URL, doublons, et citation obligatoire pour tout
+incident du corpus. Les exemples du prompt passent le validateur ; un jeu
+volontairement fautif est bien rejeté.
