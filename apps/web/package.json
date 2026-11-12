@@ -5,10 +5,15 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:render": "vite build --ssr test/render.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/render.js",
+    "test:dom": "vite build --ssr test/review-dom.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/review-dom.js"
   },
   "dependencies": {
     "@radar/shared": "workspace:*",
+    "@tanstack/react-table": "^9.3.1",
+    "@tanstack/react-virtual": "3.14.26",
+    "@tanstack/table-core": "9.3.1",
     "maplibre-gl": "^6.17.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
@@ -18,6 +23,7 @@
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^6.3.0",
+    "jsdom": "26.1.0",
     "typescript": "^5.9.2",
     "vite": "^8.3.7"
   }
