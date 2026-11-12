@@ -416,8 +416,14 @@ fichier binaire, pas d'archive, pas de capture d'écran. Si le total dépasse
 Le dépôt contient un validateur. Lance-le :
 
 ```bash
-node scripts/validate-external-data.mts
+node scripts/validate-external-data.mts --livraison
 ```
+
+**« 0 erreur » ne veut rien dire si tu n'as rien livré.** Le validateur affiche
+désormais `Fichiers de données livrés : N/5` et **refuse une livraison vide**
+(code de sortie 1). Le drapeau `--livraison` exige en plus le compte rendu et le
+bloc 1. Ne présente jamais un passage à 0 erreur comme une avancée sans donner
+le nombre d'enregistrements **écrits dans les fichiers**.
 
 Il vérifie la structure, les clés de Luhn des SIREN, les codes INSEE face au jeu
 versionné, les formats de date, les URL et les doublons. **Il doit terminer avec
@@ -447,7 +453,19 @@ Fichier `docs/research/collecte-externe.md`, en français, avec :
 5. **Limites de la collecte** : ce que ta méthode ne pouvait structurellement pas
    voir. Pour le corpus d'incidents en particulier : quels types d'incidents
    passent sous le radar de la presse ?
-6. **Résultat du validateur** : la sortie finale, copiée telle quelle.
+6. **Résultat du validateur** : la sortie finale de
+   `node scripts/validate-external-data.mts --livraison`, copiée telle quelle,
+   **avec sa première ligne `Fichiers de données livrés : N/5`**.
+
+### Ce qui compte comme du travail fait
+
+Un enregistrement **écrit dans un fichier du dépôt**. Pas « identifié »,
+« repéré », « en cours de collecte » ou « à valider ». Si un bloc compte 0 ligne
+écrit, il est à 0 — dis-le franchement, c'est plus utile qu'un statut ambigu.
+
+Ne t'arrête pas pour demander par quel bloc commencer : **l'ordre est donné plus
+haut, commence par le bloc 1.** Une question de clarification ne se justifie que
+si une information te manque réellement pour avancer.
 
 ### Puis
 

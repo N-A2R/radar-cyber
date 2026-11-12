@@ -8,12 +8,19 @@
  *
  * Aucune dépendance, aucune base, aucun réseau :
  *
- *   ./apps/api/node_modules/.bin/tsx scripts/validate-external-data.mts
- *   ./apps/api/node_modules/.bin/tsx scripts/validate-external-data.mts --dir=/chemin
- *   ./apps/api/node_modules/.bin/tsx scripts/validate-external-data.mts --bloc=entreprises
+ *   node scripts/validate-external-data.mts
+ *   node scripts/validate-external-data.mts --dir=/chemin
+ *   node scripts/validate-external-data.mts --bloc=entreprises
+ *   node scripts/validate-external-data.mts --livraison   # contrôle final
  *
  * Sort en code 1 s'il reste une erreur. Les avertissements n'empêchent pas le
  * chargement : ils signalent ce qu'un humain doit regarder.
+ *
+ * **Une livraison vide est un échec, pas un succès.** Première version : les
+ * fichiers absents n'étaient que des avertissements, si bien qu'un dépôt sans
+ * aucune donnée affichait « 0 erreur, structure conforme » et sortait en 0. Un
+ * collecteur pouvait s'en prévaloir sans avoir rien produit — c'est arrivé.
+ * Aucun fichier livré ⇒ erreur. `--livraison` exige en plus le compte rendu.
  */
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
@@ -25,6 +32,16 @@ const dirArg = argv.find((a) => a.startsWith("--dir="));
 const blocArg = argv.find((a) => a.startsWith("--bloc="));
 const BASE = dirArg ? dirArg.slice(6) : ROOT;
 const ONLY = blocArg ? blocArg.slice(7) : "all";
+const FINAL = argv.includes("--livraison");
+
+/** Fichiers de données attendus, et combien sont réellement présents. */
+const EXPECTED = [
+	"db/data/entreprises-na.json",
+	"db/data/sante-na.json",
+	"db/data/enseignement-na.json",
+	"bench/fixtures/corpus-temoin-na.json",
+	"bench/results/sources-probe.json",
+];
 
 const DEPTS_NA = new Set(["16", "17", "19", "23", "24", "33", "40", "47", "64", "79", "86", "87"]);
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
@@ -314,9 +331,16 @@ function validateSources(): void {
 function main(): void {
 	console.log(`Validation des données externes — ${BASE}`);
 	const manifest = ["docs/research/collecte-externe.md", "docs/research/collecte-externe.json"];
-	if (!manifest.some((f) => existsSync(join(BASE, f)))) {
-		warn("manifest", "racine", "aucun compte rendu de collecte (docs/research/collecte-externe.md) — méthode et limites non documentées");
+	const hasManifest = manifest.some((f) => existsSync(join(BASE, f)));
+	if (!hasManifest) {
+		const message = "aucun compte rendu de collecte (docs/research/collecte-externe.md) — méthode et limites non documentées";
+		if (FINAL) err("manifest", "racine", message);
+		else warn("manifest", "racine", message);
 	}
+
+	const delivered = EXPECTED.filter((f) => existsSync(join(BASE, f)));
+	console.log(`Fichiers de données livrés : ${delivered.length}/${EXPECTED.length}`);
+	for (const file of delivered) console.log(`  présent  ${file}`);
 	const communes = knownCommunes();
 	if (communes.size === 0) err("socle", "db/data/referentiel-na.json", "référentiel versionné illisible : impossible de contrôler les codes INSEE");
 	else console.log(`Codes INSEE de référence : ${communes.size}`);
@@ -329,6 +353,19 @@ function main(): void {
 
 	console.log("");
 	for (const [bloc, n] of counts) console.log(`${bloc.padEnd(14)} ${n} enregistrement(s)`);
+
+	// Le cœur du correctif : sans donnée, il n'y a rien de conforme. On le dit
+	// explicitement, sinon « 0 erreur » se lit comme une réussite.
+	const totalRows = [...counts.values()].reduce((total, n) => total + n, 0);
+	if (ONLY === "all" && delivered.length === 0) {
+		err("livraison", "racine", "aucun fichier de données livré — la validation est sans objet, ce n'est pas une réussite");
+	} else if (totalRows === 0) {
+		err("livraison", "racine", "aucun enregistrement dans les fichiers livrés");
+	}
+	if (FINAL && ONLY === "all" && !counts.has("corpus")) {
+		err("livraison", "corpus", "bloc 1 absent : sans corpus d'incidents, la couverture reste non mesurable");
+	}
+
 	const errors = issues.filter((i) => i.level === "erreur");
 	const warnings = issues.filter((i) => i.level === "avertissement");
 	console.log(`\n${errors.length} erreur(s), ${warnings.length} avertissement(s)`);
@@ -340,7 +377,9 @@ function main(): void {
 		console.log("\nDonnées NON chargeables en l'état : corriger les erreurs, ou documenter l'écart dans le compte rendu.");
 		process.exitCode = 1;
 	} else {
-		console.log("\nStructure conforme. Reste à relire les avertissements avant chargement.");
+		console.log(`\nStructure conforme sur ${totalRows} enregistrement(s) réparti(s) dans ${delivered.length} fichier(s).`);
+		console.log("Reste à relire les avertissements avant chargement.");
+		if (!FINAL) console.log("Contrôle final : relancer avec --livraison (exige le compte rendu et le bloc 1).");
 	}
 }
 
