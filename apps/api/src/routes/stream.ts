@@ -1,6 +1,7 @@
 import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
 import { resolveUser } from "../middleware/auth.js";
+import { latestAlertId, selectNewAlerts } from "../notify/alert-feed.js";
 
 const MAX_CLIENTS = Number(process.env.STREAM_MAX_CLIENTS ?? 200);
 
@@ -67,6 +68,11 @@ export default async function (app: FastifyInstance) {
       lastId = Number(maxRes.rows[0]?.m ?? 0);
     }
 
+    // Canal d'alertes : indépendant des événements, avec son propre curseur.
+    // Un client qui se reconnecte peut reprendre par `sinceAlertId`.
+    let lastAlertId = Number(url.searchParams.get("sinceAlertId") ?? 0);
+    if (lastAlertId <= 0) lastAlertId = await latestAlertId();
+
     const timer = setInterval(async () => {
       try {
         const r = await query<Record<string, unknown>>("SELECT * FROM event WHERE id > $1 ORDER BY id", [lastId]);
@@ -77,6 +83,14 @@ export default async function (app: FastifyInstance) {
           }
           const redacted = redactEvent(row);
           reply.raw.write(`id: ${row.id}\nevent: new\ndata: ${JSON.stringify(redacted)}\n\n`);
+        }
+      } catch { /* ignore */ }
+
+      try {
+        const alerts = await selectNewAlerts(lastAlertId);
+        for (const alert of alerts) {
+          lastAlertId = Math.max(lastAlertId, alert.id);
+          reply.raw.write(`id: alert-${alert.id}\nevent: alert\ndata: ${JSON.stringify(alert)}\n\n`);
         }
       } catch { /* ignore */ }
     }, 3000);
