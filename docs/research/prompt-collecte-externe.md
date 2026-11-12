@@ -154,6 +154,7 @@ Fichier : **`bench/fixtures/corpus-temoin-na.json`**
         { "url": "https://autre.fr/article", "editeur": "France 3" }
       ],
       "confiance": "rapporte",
+      "perimetre": "siege-na",
       "verification": "Ce qui est confirmé, ce qui reste incertain. Exemple : l'établissement a confirmé l'attaque, mais ni le volume de données ni le groupe ne sont établis."
     }
   ]
@@ -174,6 +175,27 @@ Fichier : **`bench/fixtures/corpus-temoin-na.json`**
 - `dateIncident` : `null` si inconnue. `datePublique` est obligatoire : c'est elle
   qui mesure notre délai de détection.
 - Toutes les dates au format `AAAA-MM-DD`.
+- **`perimetre` est obligatoire**, et c'est le champ le plus important après la
+  preuve :
+  - **`siege-na`** — la victime est une organisation dont le siège est en
+    Nouvelle-Aquitaine. C'est le seul cas qui compte dans la mesure de couverture.
+  - **`impact-na`** — la victime est nationale mais des sites ou services
+    néo-aquitains **nommés** sont touchés (ex. un magasin précis).
+  - **`national`** — victime nationale, présence régionale seulement supposée
+    (« des licenciés de la région sont forcément concernés »). **À écarter du
+    calcul.**
+
+  Ne mets **jamais** un code commune NA sur une victime nationale pour la faire
+  entrer dans le corpus : mets `perimetre: "national"` et `codeCommune: null`.
+  Une fédération nationale dont on suppose des membres régionaux n'est pas une
+  victime néo-aquitaine.
+- **N'annonce pas de comptage dans la fenêtre** : le validateur le calcule depuis
+  `datePublique` et `meta.fenetre`. Un chiffre déclaré dans le compte rendu sera
+  contredit par le calcul. Garde les cas hors fenêtre si utile, mais sache qu'ils
+  seront signalés et exclus.
+- **Une entrée = une organisation nommée.** « Plusieurs magasins du Béarn »
+  n'est pas une entité : soit tu crées une entrée par magasin nommé, soit tu
+  retiens le plus documenté et tu listes les autres dans `verification`.
 
 ### Objectif de qualité
 
@@ -215,6 +237,14 @@ requête exacte pour reproduire la suite.
   lente pour le volume.
 - **`api-adresse.data.gouv.fr`** (Base Adresse Nationale) pour les coordonnées
   manquantes, si nécessaire.
+
+**Ne jette pas les coordonnées disponibles.** Les jeux Opendatasoft (FINESS,
+annuaire de l'éducation) exposent habituellement un champ `position` ou
+`geo_point_2d` avec latitude et longitude. Première livraison reçue : 16 536
+établissements, **tous avec `lat`/`lon` à `null`** alors que la source les
+fournissait. Sans coordonnées, la carte reste vide — c'est l'un des buts du
+référentiel. Reprends le champ s'il existe, et dis dans le compte rendu s'il
+n'existe pas.
 
 ### Format exact
 

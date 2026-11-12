@@ -261,6 +261,17 @@ function validateCorpus(): void {
 	if (data === null) { warn(bloc, "fichier", "bench/fixtures/corpus-temoin-na.json absent"); return; }
 	const seen = new Set<string>();
 	const seenUrls = new Map<string, number>();
+	// Périmètre : un incident national dont on retient « des membres régionaux »
+	// n'est pas un incident NA. Sans marque structurée, la nuance ne vit que
+	// dans la prose et le calcul de couverture compte faux.
+	const PERIMETRES = new Set(["siege-na", "impact-na", "national"]);
+	let dansFenetre = 0;
+	let horsFenetre = 0;
+	let sansPerimetre = 0;
+	const fenetre = isRecord(data) && isRecord(data.meta) ? data.meta.fenetre : null;
+	const bornes = Array.isArray(fenetre) && fenetre.length === 2 && fenetre.every((x) => typeof x === "string")
+		? (fenetre as [string, string])
+		: null;
 	const TYPES = new Set(["ransomware", "fuite", "ddos", "defacement", "phishing", "compromission", "autre"]);
 	const CONFIANCE = new Set(["etabli", "rapporte", "declare"]);
 	const ENTITES = new Set(["collectivite", "sante", "enseignement", "entreprise", "autre"]);
@@ -281,6 +292,23 @@ function validateCorpus(): void {
 		checkDept(bloc, where, row.departement);
 		checkDate(bloc, where, row.datePublique, "datePublique", true);
 		checkDate(bloc, where, row.dateIncident, "dateIncident", false);
+		// L'appartenance à la fenêtre se CALCULE, elle ne se déclare pas : un
+		// compte rendu peut annoncer 15, 16 ou 4 hors fenêtre, seul l'arithmétique
+		// tranche. Constaté sur la première livraison : trois chiffres différents.
+		if (bornes && typeof row.datePublique === "string") {
+			if (row.datePublique >= bornes[0] && row.datePublique <= bornes[1]) dansFenetre++;
+			else {
+				horsFenetre++;
+				warn(bloc, where, `hors fenêtre (${row.datePublique}) — à exclure du comptage de couverture`);
+			}
+		}
+		if (row.perimetre === undefined) {
+			sansPerimetre++;
+		} else if (typeof row.perimetre !== "string" || !PERIMETRES.has(row.perimetre)) {
+			err(bloc, where, `périmètre « ${String(row.perimetre)} » (siege-na|impact-na|national attendu)`);
+		} else if (row.perimetre === "national") {
+			warn(bloc, where, "périmètre national — ne doit pas entrer dans le dénominateur NA");
+		}
 		if (typeof row.dateIncident === "string" && typeof row.datePublique === "string" && row.dateIncident > row.datePublique) {
 			warn(bloc, where, "date d'incident postérieure à la date de publication");
 		}
@@ -302,6 +330,12 @@ function validateCorpus(): void {
 	}
 	for (const [url, n] of seenUrls) {
 		if (n > 3) warn(bloc, "preuve.url", `${n} incidents pointent sur ${url} — vérifier qu'il ne s'agit pas d'un article fourre-tout`);
+	}
+	if (bornes) {
+		console.log(`\nCorpus — fenêtre ${bornes[0]} → ${bornes[1]} : ${dansFenetre} dedans, ${horsFenetre} hors fenêtre (calculé sur datePublique)`);
+	}
+	if (sansPerimetre > 0) {
+		warn(bloc, "perimetre", `${sansPerimetre} incident(s) sans périmètre structuré : impossible de distinguer une victime NA d'un incident national à impact régional`);
 	}
 }
 
