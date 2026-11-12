@@ -21,8 +21,8 @@ function apiError(path: string, status: number): ApiError {
   return err;
 }
 
-async function get<T>(path: string): Promise<T> {
-  const res = await fetch(BASE + path, { headers: authHeaders() });
+async function get<T>(path: string, signal?: AbortSignal): Promise<T> {
+  const res = await fetch(BASE + path, { headers: authHeaders(), signal });
   if (!res.ok) throw apiError(path, res.status);
   return res.json() as Promise<T>;
 }
@@ -320,11 +320,157 @@ export type OrgDetail = {
   exposure: OrgExposurePoint[];
 };
 
+/** Alerte poussée par le flux SSE (`event: alert`). */
+export type LiveAlert = {
+  id: number;
+  rule_id: string;
+  title: string;
+  severity: number;
+  status: string;
+  event_id: number | null;
+  indicator_id: number | null;
+  org_id: number | null;
+  scope: string | null;
+  created_at: string;
+};
+
+/** Réponse de `GET /api/search` : trois natures, plafonnées à 20 chacune. */
+export type SearchResponse = {
+  orgs: Array<Pick<Org, "id" | "name" | "slug" | "kind" | "city" | "dept"> & { domain: string | null }>;
+  events: Event[];
+  indicators: Array<{
+    id: number;
+    type: string;
+    value: string;
+    firstSeen: string | null;
+    lastSeen: string | null;
+    tlp: string;
+    confidence: string | null;
+    sourceId: string;
+  }>;
+};
+
+/** Une facette : valeur et nombre d'organisations, hors filtre de sa dimension. */
+export type DirectoryFacet = { value: string; count: number };
+
+export type DirectoryQuery = {
+  q?: string;
+  kind?: string | null;
+  sector?: string | null;
+  dept?: string | null;
+  withEvents?: boolean;
+  sort?: string;
+  dir?: "asc" | "desc";
+  page?: number;
+  limit?: number;
+};
+
+/** Une ligne d'annuaire, avec la trace de la correspondance quand on cherche. */
+export type DirectoryRow = Org & {
+  score?: number;
+  reason?: "exact" | "exact-alias" | "prefix" | "prefix-alias" | "tokens" | "substring" | "fuzzy";
+  matchedAlias?: string | null;
+};
+
+export type DirectoryResponse = {
+  rows: DirectoryRow[];
+  total: number;
+  page: number;
+  limit: number;
+  facets: { kind: DirectoryFacet[]; sector: DirectoryFacet[]; dept: DirectoryFacet[] };
+  /** Présélection plafonnée : totaux et facettes approchés, l'UI doit le dire. */
+  truncated: boolean;
+  tookMs: number;
+};
+
+/** Un fait de quarantaine, priorisé, avec la trace de son score. */
+export type ReviewRow = {
+  id: number;
+  source: string;
+  sourceUrl: string;
+  groupe: string | null;
+  orgHint: string | null;
+  claimedAt: string | null;
+  receivedAt: string;
+  tlp: string;
+  status: string;
+  promoted: boolean;
+  promotedBy: string | null;
+  promotedAt: string | null;
+  hasDescription: boolean;
+  triage: {
+    score: number;
+    bucket: "chaud" | "tiede" | "froid";
+    suggested: "promote" | "review" | "reject";
+    reasons: Array<{ label: string; weight: number }>;
+    declaredCountry: string | null;
+    domainOnly: boolean;
+    disagreement: boolean;
+    referentialGap: boolean;
+  };
+  org: { id: number; name: string; kind: string; city: string | null } | null;
+  orgConfidence: number | null;
+  review: Array<{ at: string; by: string; action: string; reason: string | null }>;
+};
+
+export type ReviewQueueResponse = {
+  rows: ReviewRow[];
+  total: number;
+  page: number;
+  limit: number;
+  window: number;
+  truncated: boolean;
+  facets: {
+    source: DirectoryFacet[];
+    groupe: DirectoryFacet[];
+    bucket: DirectoryFacet[];
+    status: DirectoryFacet[];
+  };
+  counts: { pending: number; reviewed: number; rejected: number; promoted: number };
+  tookMs: number;
+};
+
+export type ReviewAction = "promote" | "reject" | "review" | "undo";
+
+export type ReviewOutcome = {
+  action: ReviewAction;
+  requested: number;
+  changed: number;
+  promoted: number;
+  alerts: number;
+  skipped: Array<{ id: number; reason: string }>;
+};
+
 export const api = {
   login: (email: string, password: string) => postJson<LoginResponse>("/auth/login", { email, password }),
   logout: () => post<{ ok: boolean }>("/auth/logout"),
   orgs: () => get<Org[]>("/orgs"),
+  reviewQueue: (params: { status?: string; bucket?: string; source?: string; groupe?: string; q?: string; page?: number; limit?: number } = {}, signal?: AbortSignal) => {
+    const qs = new URLSearchParams();
+    for (const [key, value] of Object.entries(params)) {
+      if (value !== undefined && value !== null && value !== "") qs.set(key, String(value));
+    }
+    const suffix = qs.toString();
+    return get<ReviewQueueResponse>(`/quarantine/queue${suffix ? `?${suffix}` : ""}`, signal);
+  },
+  reviewAction: (ids: number[], action: ReviewAction, reason?: string) =>
+    postJson<ReviewOutcome>("/quarantine/review", { ids, action, reason: reason ?? "" }),
+  directory: (params: DirectoryQuery = {}, signal?: AbortSignal) => {
+    const qs = new URLSearchParams();
+    if (params.q) qs.set("q", params.q);
+    if (params.kind) qs.set("kind", params.kind);
+    if (params.sector) qs.set("sector", params.sector);
+    if (params.dept) qs.set("dept", params.dept);
+    if (params.withEvents) qs.set("withEvents", "1");
+    if (params.sort) qs.set("sort", params.sort);
+    if (params.dir) qs.set("dir", params.dir);
+    if (params.page) qs.set("page", String(params.page));
+    if (params.limit) qs.set("limit", String(params.limit));
+    const suffix = qs.toString();
+    return get<DirectoryResponse>(`/directory${suffix ? `?${suffix}` : ""}`, signal);
+  },
   orgDetail: (id: number) => get<OrgDetail>(`/orgs/${id}`),
+  search: (q: string) => get<SearchResponse>(`/search?q=${encodeURIComponent(q)}`),
   events: (limit = 100, order: "regional" | "recent" = "regional") =>
     get<Event[]>(`/events?limit=${limit}&order=${order}`),
   graph: (days = 90) => get<Graph>(`/graph?days=${days}`),
