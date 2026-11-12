@@ -1,0 +1,281 @@
+{
+  "repetitions": 25,
+  "paliers": [
+    {
+      "label": "référentiel réel",
+      "organisations": 4462,
+      "alias": 22904,
+      "ancien": {
+        "p50": 19.9,
+        "p95": 30.2,
+        "bytes": 984256,
+        "total": 4462
+      },
+      "scenarios": [
+        {
+          "scenario": "première page",
+          "p50": 5.3,
+          "p95": 8.7,
+          "bytes": 12056,
+          "total": 4462,
+          "params": {
+            "limit": 50,
+            "page": 0,
+            "sort": "name"
+          }
+        },
+        {
+          "scenario": "page 10",
+          "p50": 7.2,
+          "p95": 9.6,
+          "bytes": 11492,
+          "total": 4462,
+          "params": {
+            "limit": 50,
+            "page": 10,
+            "sort": "name"
+          }
+        },
+        {
+          "scenario": "page 80",
+          "p50": 9.7,
+          "p95": 13.6,
+          "bytes": 11427,
+          "total": 4462,
+          "params": {
+            "limit": 50,
+            "page": 80,
+            "sort": "name"
+          }
+        },
+        {
+          "scenario": "filtre département",
+          "p50": 2.1,
+          "p95": 2.7,
+          "bytes": 11603,
+          "total": 561,
+          "params": {
+            "dept": "33",
+            "limit": 50
+          }
+        },
+        {
+          "scenario": "filtre secteur",
+          "p50": 3.4,
+          "p95": 5.1,
+          "bytes": 12037,
+          "total": 156,
+          "params": {
+            "sector": "epci",
+            "limit": 50
+          }
+        },
+        {
+          "scenario": "tri par activité",
+          "p50": 6.6,
+          "p95": 14.3,
+          "bytes": 11397,
+          "total": 4462,
+          "params": {
+            "sort": "eventCount",
+            "dir": "desc",
+            "limit": 50
+          }
+        },
+        {
+          "scenario": "recherche exacte",
+          "p50": 9.9,
+          "p95": 13.9,
+          "bytes": 742,
+          "total": 2,
+          "params": {
+            "q": "Pessac",
+            "limit": 50
+          }
+        },
+        {
+          "scenario": "recherche par alias",
+          "p50": 14.5,
+          "p95": 18.2,
+          "bytes": 794,
+          "total": 2,
+          "params": {
+            "q": "mairie de pessac",
+            "limit": 50
+          }
+        },
+        {
+          "scenario": "recherche fautive",
+          "p50": 9.9,
+          "p95": 12.6,
+          "bytes": 471,
+          "total": 1,
+          "params": {
+            "q": "Pesssac",
+            "limit": 50
+          }
+        },
+        {
+          "scenario": "recherche large",
+          "p50": 56.9,
+          "p95": 93.8,
+          "bytes": 14621,
+          "total": 891,
+          "params": {
+            "q": "saint",
+            "limit": 50
+          }
+        },
+        {
+          "scenario": "recherche EPCI",
+          "p50": 100.7,
+          "p95": 121.1,
+          "bytes": 14410,
+          "total": 129,
+          "params": {
+            "q": "communauté de communes",
+            "limit": 50
+          }
+        }
+      ]
+    },
+    {
+      "label": "palier synthétique 100 000",
+      "organisations": 104462,
+      "alias": 122904,
+      "ancien": {
+        "p50": 567.6,
+        "p95": 665.4,
+        "bytes": 22965024,
+        "total": 104462
+      },
+      "scenarios": [
+        {
+          "scenario": "première page",
+          "p50": 54.7,
+          "p95": 64.2,
+          "bytes": 12336,
+          "total": 104462,
+          "params": {
+            "limit": 50,
+            "page": 0,
+            "sort": "name"
+          }
+        },
+        {
+          "scenario": "page 10",
+          "p50": 58,
+          "p95": 74.1,
+          "bytes": 11772,
+          "total": 104462,
+          "params": {
+            "limit": 50,
+            "page": 10,
+            "sort": "name"
+          }
+        },
+        {
+          "scenario": "page 80",
+          "p50": 55,
+          "p95": 66.6,
+          "bytes": 11706,
+          "total": 104462,
+          "params": {
+            "limit": 50,
+            "page": 80,
+            "sort": "name"
+          }
+        },
+        {
+          "scenario": "filtre département",
+          "p50": 11.6,
+          "p95": 24,
+          "bytes": 11807,
+          "total": 561,
+          "params": {
+            "dept": "33",
+            "limit": 50
+          }
+        },
+        {
+          "scenario": "filtre secteur",
+          "p50": 32.6,
+          "p95": 39.7,
+          "bytes": 12076,
+          "total": 156,
+          "params": {
+            "sector": "epci",
+            "limit": 50
+          }
+        },
+        {
+          "scenario": "tri par activité",
+          "p50": 135,
+          "p95": 147.6,
+          "bytes": 11678,
+          "total": 104462,
+          "params": {
+            "sort": "eventCount",
+            "dir": "desc",
+            "limit": 50
+          }
+        },
+        {
+          "scenario": "recherche exacte",
+          "p50": 80.6,
+          "p95": 88.8,
+          "bytes": 742,
+          "total": 2,
+          "params": {
+            "q": "Pessac",
+            "limit": 50
+          }
+        },
+        {
+          "scenario": "recherche par alias",
+          "p50": 110.5,
+          "p95": 143.6,
+          "bytes": 795,
+          "total": 2,
+          "params": {
+            "q": "mairie de pessac",
+            "limit": 50
+          }
+        },
+        {
+          "scenario": "recherche fautive",
+          "p50": 79.5,
+          "p95": 85.6,
+          "bytes": 472,
+          "total": 1,
+          "params": {
+            "q": "Pesssac",
+            "limit": 50
+          }
+        },
+        {
+          "scenario": "recherche large",
+          "p50": 137.7,
+          "p95": 161.4,
+          "bytes": 14622,
+          "total": 891,
+          "params": {
+            "q": "saint",
+            "limit": 50
+          }
+        },
+        {
+          "scenario": "recherche EPCI",
+          "p50": 196.1,
+          "p95": 220.5,
+          "bytes": 14412,
+          "total": 129,
+          "params": {
+            "q": "communauté de communes",
+            "limit": 50
+          }
+        }
+      ]
+    }
+  ]
+}
