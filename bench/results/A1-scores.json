@@ -1,0 +1,1092 @@
+[
+ {
+  "engine": "radar-core",
+  "tp": 48,
+  "fp_hors_sujet": 3,
+  "fp_mauvaise_org": 0,
+  "fn": 5,
+  "tn": 19,
+  "precision": 0.9412,
+  "recall": 0.9057,
+  "f1": 0.9231,
+  "msPerCase": 0.0767,
+  "par_categorie": {
+   "alias": {
+    "ok": 21
+   },
+   "ambiguity": {
+    "ok": 3
+   },
+   "exact": {
+    "ok": 25
+   },
+   "homonym": {
+    "ko": 2
+   },
+   "none": {
+    "ok": 7
+   },
+   "short-no-context": {
+    "ok": 6,
+    "ko": 1
+   },
+   "substring-trap": {
+    "ok": 3
+   },
+   "typo": {
+    "ko": 5,
+    "ok": 2
+   }
+  },
+  "erreurs": [
+   {
+    "id": "c46",
+    "category": "homonym",
+    "text": "La ville de Bordeaux (Ohio) signale une panne de son portail municipal.",
+    "expect": null,
+    "got": 9,
+    "kind": "fp-hors-sujet",
+    "reason": "matched"
+   },
+   {
+    "id": "c47",
+    "category": "homonym",
+    "text": "L'université de Bordeaux au Sénégal annonce une maintenance.",
+    "expect": null,
+    "got": 2,
+    "kind": "fp-hors-sujet",
+    "reason": "matched"
+   },
+   {
+    "id": "c48",
+    "category": "typo",
+    "text": "Le CHU de Bordeau confirme une attaque par rançongiciel.",
+    "expect": 1,
+    "got": null,
+    "kind": "abstention",
+    "reason": "no-alias"
+   },
+   {
+    "id": "c49",
+    "category": "typo",
+    "text": "L'université de Poitier signale des comptes compromis.",
+    "expect": 3,
+    "got": null,
+    "kind": "abstention",
+    "reason": "no-alias"
+   },
+   {
+    "id": "c50",
+    "category": "typo",
+    "text": "La société Lectraa indique avoir contenu l'incident.",
+    "expect": 15,
+    "got": null,
+    "kind": "abstention",
+    "reason": "no-alias"
+   },
+   {
+    "id": "c52",
+    "category": "typo",
+    "text": "Le CHU de Limoge restaure progressivement ses applications.",
+    "expect": 7,
+    "got": null,
+    "kind": "abstention",
+    "reason": "no-alias"
+   },
+   {
+    "id": "c66",
+    "category": "short-no-context",
+    "text": "Orange Nouvelle-Aquitaine sponsorise un salon régional.",
+    "expect": null,
+    "got": 37,
+    "kind": "fp-hors-sujet",
+    "reason": "matched"
+   },
+   {
+    "id": "c75",
+    "category": "typo",
+    "text": "Le groupe Cdiscountt évoque une fuite de comptes clients.",
+    "expect": 16,
+    "got": null,
+    "kind": "abstention",
+    "reason": "no-alias"
+   }
+  ]
+ },
+ {
+  "engine": "radar-hybrid",
+  "tp": 53,
+  "fp_hors_sujet": 3,
+  "fp_mauvaise_org": 0,
+  "fn": 0,
+  "tn": 19,
+  "precision": 0.9464,
+  "recall": 1.0,
+  "f1": 0.9725,
+  "msPerCase": 0.6069,
+  "par_categorie": {
+   "alias": {
+    "ok": 21
+   },
+   "ambiguity": {
+    "ok": 3
+   },
+   "exact": {
+    "ok": 25
+   },
+   "homonym": {
+    "ko": 2
+   },
+   "none": {
+    "ok": 7
+   },
+   "short-no-context": {
+    "ok": 6,
+    "ko": 1
+   },
+   "substring-trap": {
+    "ok": 3
+   },
+   "typo": {
+    "ok": 7
+   }
+  },
+  "erreurs": [
+   {
+    "id": "c46",
+    "category": "homonym",
+    "text": "La ville de Bordeaux (Ohio) signale une panne de son portail municipal.",
+    "expect": null,
+    "got": 9,
+    "kind": "fp-hors-sujet",
+    "reason": "matched"
+   },
+   {
+    "id": "c47",
+    "category": "homonym",
+    "text": "L'université de Bordeaux au Sénégal annonce une maintenance.",
+    "expect": null,
+    "got": 2,
+    "kind": "fp-hors-sujet",
+    "reason": "matched"
+   },
+   {
+    "id": "c66",
+    "category": "short-no-context",
+    "text": "Orange Nouvelle-Aquitaine sponsorise un salon régional.",
+    "expect": null,
+    "got": 37,
+    "kind": "fp-hors-sujet",
+    "reason": "matched"
+   }
+  ]
+ },
+ {
+  "engine": "hybrid-core-then-fuzzy",
+  "tp": 53,
+  "fp_hors_sujet": 4,
+  "fp_mauvaise_org": 0,
+  "fn": 0,
+  "tn": 18,
+  "precision": 0.9298,
+  "recall": 1.0,
+  "f1": 0.9636,
+  "msPerCase": 0.2482,
+  "par_categorie": {
+   "alias": {
+    "ok": 21
+   },
+   "ambiguity": {
+    "ok": 3
+   },
+   "exact": {
+    "ok": 25
+   },
+   "homonym": {
+    "ko": 2
+   },
+   "none": {
+    "ok": 7
+   },
+   "short-no-context": {
+    "ok": 5,
+    "ko": 2
+   },
+   "substring-trap": {
+    "ok": 3
+   },
+   "typo": {
+    "ok": 7
+   }
+  },
+  "erreurs": [
+   {
+    "id": "c46",
+    "category": "homonym",
+    "text": "La ville de Bordeaux (Ohio) signale une panne de son portail municipal.",
+    "expect": null,
+    "got": 9,
+    "kind": "fp-hors-sujet",
+    "reason": "core:matched"
+   },
+   {
+    "id": "c47",
+    "category": "homonym",
+    "text": "L'université de Bordeaux au Sénégal annonce une maintenance.",
+    "expect": null,
+    "got": 2,
+    "kind": "fp-hors-sujet",
+    "reason": "core:matched"
+   },
+   {
+    "id": "c66",
+    "category": "short-no-context",
+    "text": "Orange Nouvelle-Aquitaine sponsorise un salon régional.",
+    "expect": null,
+    "got": 37,
+    "kind": "fp-hors-sujet",
+    "reason": "core:matched"
+   },
+   {
+    "id": "c73",
+    "category": "short-no-context",
+    "text": "Coupure de courant à Lectraa mardi soir, sans autre précision.",
+    "expect": null,
+    "got": 15,
+    "kind": "fp-hors-sujet",
+    "reason": "fuzzy-fallback"
+   }
+  ]
+ },
+ {
+  "engine": "rapidfuzz-window-95",
+  "tp": 49,
+  "fp_hors_sujet": 9,
+  "fp_mauvaise_org": 0,
+  "fn": 4,
+  "tn": 13,
+  "precision": 0.8448,
+  "recall": 0.9245,
+  "f1": 0.8829,
+  "msPerCase": 0.9481,
+  "par_categorie": {
+   "alias": {
+    "ok": 20,
+    "ko": 1
+   },
+   "ambiguity": {
+    "ok": 3
+   },
+   "exact": {
+    "ok": 24,
+    "ko": 1
+   },
+   "homonym": {
+    "ko": 2
+   },
+   "none": {
+    "ok": 7
+   },
+   "short-no-context": {
+    "ko": 6,
+    "ok": 1
+   },
+   "substring-trap": {
+    "ok": 2,
+    "ko": 1
+   },
+   "typo": {
+    "ok": 5,
+    "ko": 2
+   }
+  },
+  "erreurs": [
+   {
+    "id": "c33",
+    "category": "alias",
+    "text": "Keolis Bordeaux Métropole, opérateur du réseau TBM, restaure l'affichage voyageurs.",
+    "expect": 35,
+    "got": null,
+    "kind": "abstention",
+    "reason": "rapidfuzz-window-95"
+   },
+   {
+    "id": "c37",
+    "category": "short-no-context",
+    "text": "Coupure de courant à Lectra mardi soir, sans autre précision.",
+    "expect": null,
+    "got": 15,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-95"
+   },
+   {
+    "id": "c38",
+    "category": "short-no-context",
+    "text": "Cdiscount propose une promotion sur les SSD avant les fêtes.",
+    "expect": null,
+    "got": 16,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-95"
+   },
+   {
+    "id": "c39",
+    "category": "short-no-context",
+    "text": "Euralis ouvre une nouvelle plateforme logistique près de Pau.",
+    "expect": null,
+    "got": 40,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-95"
+   },
+   {
+    "id": "c40",
+    "category": "short-no-context",
+    "text": "Un orage a touché Cofinoga et plusieurs commerces du centre.",
+    "expect": null,
+    "got": 21,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-95"
+   },
+   {
+    "id": "c43",
+    "category": "substring-trap",
+    "text": "Le mot covéa n'apparaît dans aucun registre officiel.",
+    "expect": null,
+    "got": 22,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-95"
+   },
+   {
+    "id": "c46",
+    "category": "homonym",
+    "text": "La ville de Bordeaux (Ohio) signale une panne de son portail municipal.",
+    "expect": null,
+    "got": 9,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-95"
+   },
+   {
+    "id": "c47",
+    "category": "homonym",
+    "text": "L'université de Bordeaux au Sénégal annonce une maintenance.",
+    "expect": null,
+    "got": 2,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-95"
+   },
+   {
+    "id": "c50",
+    "category": "typo",
+    "text": "La société Lectraa indique avoir contenu l'incident.",
+    "expect": 15,
+    "got": null,
+    "kind": "abstention",
+    "reason": "rapidfuzz-window-95"
+   },
+   {
+    "id": "c60",
+    "category": "exact",
+    "text": "L'Université de Bordeaux et le CHU de Bordeaux coordonnent leur réponse à incident.",
+    "expect": 2,
+    "got": null,
+    "kind": "abstention",
+    "reason": "rapidfuzz-window-95"
+   },
+   {
+    "id": "c65",
+    "category": "short-no-context",
+    "text": "MAAF communique sur ses résultats annuels.",
+    "expect": null,
+    "got": 23,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-95"
+   },
+   {
+    "id": "c66",
+    "category": "short-no-context",
+    "text": "Orange Nouvelle-Aquitaine sponsorise un salon régional.",
+    "expect": null,
+    "got": 37,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-95"
+   },
+   {
+    "id": "c75",
+    "category": "typo",
+    "text": "Le groupe Cdiscountt évoque une fuite de comptes clients.",
+    "expect": 16,
+    "got": null,
+    "kind": "abstention",
+    "reason": "rapidfuzz-window-95"
+   }
+  ]
+ },
+ {
+  "engine": "rapidfuzz-window-85",
+  "tp": 51,
+  "fp_hors_sujet": 10,
+  "fp_mauvaise_org": 0,
+  "fn": 2,
+  "tn": 12,
+  "precision": 0.8361,
+  "recall": 0.9623,
+  "f1": 0.8947,
+  "msPerCase": 1.1287,
+  "par_categorie": {
+   "alias": {
+    "ok": 20,
+    "ko": 1
+   },
+   "ambiguity": {
+    "ok": 3
+   },
+   "exact": {
+    "ok": 24,
+    "ko": 1
+   },
+   "homonym": {
+    "ko": 2
+   },
+   "none": {
+    "ok": 7
+   },
+   "short-no-context": {
+    "ko": 7
+   },
+   "substring-trap": {
+    "ok": 2,
+    "ko": 1
+   },
+   "typo": {
+    "ok": 7
+   }
+  },
+  "erreurs": [
+   {
+    "id": "c33",
+    "category": "alias",
+    "text": "Keolis Bordeaux Métropole, opérateur du réseau TBM, restaure l'affichage voyageurs.",
+    "expect": 35,
+    "got": null,
+    "kind": "abstention",
+    "reason": "rapidfuzz-window-85"
+   },
+   {
+    "id": "c37",
+    "category": "short-no-context",
+    "text": "Coupure de courant à Lectra mardi soir, sans autre précision.",
+    "expect": null,
+    "got": 15,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-85"
+   },
+   {
+    "id": "c38",
+    "category": "short-no-context",
+    "text": "Cdiscount propose une promotion sur les SSD avant les fêtes.",
+    "expect": null,
+    "got": 16,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-85"
+   },
+   {
+    "id": "c39",
+    "category": "short-no-context",
+    "text": "Euralis ouvre une nouvelle plateforme logistique près de Pau.",
+    "expect": null,
+    "got": 40,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-85"
+   },
+   {
+    "id": "c40",
+    "category": "short-no-context",
+    "text": "Un orage a touché Cofinoga et plusieurs commerces du centre.",
+    "expect": null,
+    "got": 21,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-85"
+   },
+   {
+    "id": "c43",
+    "category": "substring-trap",
+    "text": "Le mot covéa n'apparaît dans aucun registre officiel.",
+    "expect": null,
+    "got": 22,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-85"
+   },
+   {
+    "id": "c46",
+    "category": "homonym",
+    "text": "La ville de Bordeaux (Ohio) signale une panne de son portail municipal.",
+    "expect": null,
+    "got": 9,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-85"
+   },
+   {
+    "id": "c47",
+    "category": "homonym",
+    "text": "L'université de Bordeaux au Sénégal annonce une maintenance.",
+    "expect": null,
+    "got": 2,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-85"
+   },
+   {
+    "id": "c60",
+    "category": "exact",
+    "text": "L'Université de Bordeaux et le CHU de Bordeaux coordonnent leur réponse à incident.",
+    "expect": 2,
+    "got": null,
+    "kind": "abstention",
+    "reason": "rapidfuzz-window-85"
+   },
+   {
+    "id": "c65",
+    "category": "short-no-context",
+    "text": "MAAF communique sur ses résultats annuels.",
+    "expect": null,
+    "got": 23,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-85"
+   },
+   {
+    "id": "c66",
+    "category": "short-no-context",
+    "text": "Orange Nouvelle-Aquitaine sponsorise un salon régional.",
+    "expect": null,
+    "got": 37,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-85"
+   },
+   {
+    "id": "c73",
+    "category": "short-no-context",
+    "text": "Coupure de courant à Lectraa mardi soir, sans autre précision.",
+    "expect": null,
+    "got": 15,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-85"
+   }
+  ]
+ },
+ {
+  "engine": "rapidfuzz-window-90",
+  "tp": 51,
+  "fp_hors_sujet": 10,
+  "fp_mauvaise_org": 0,
+  "fn": 2,
+  "tn": 12,
+  "precision": 0.8361,
+  "recall": 0.9623,
+  "f1": 0.8947,
+  "msPerCase": 1.098,
+  "par_categorie": {
+   "alias": {
+    "ok": 20,
+    "ko": 1
+   },
+   "ambiguity": {
+    "ok": 3
+   },
+   "exact": {
+    "ok": 24,
+    "ko": 1
+   },
+   "homonym": {
+    "ko": 2
+   },
+   "none": {
+    "ok": 7
+   },
+   "short-no-context": {
+    "ko": 7
+   },
+   "substring-trap": {
+    "ok": 2,
+    "ko": 1
+   },
+   "typo": {
+    "ok": 7
+   }
+  },
+  "erreurs": [
+   {
+    "id": "c33",
+    "category": "alias",
+    "text": "Keolis Bordeaux Métropole, opérateur du réseau TBM, restaure l'affichage voyageurs.",
+    "expect": 35,
+    "got": null,
+    "kind": "abstention",
+    "reason": "rapidfuzz-window-90"
+   },
+   {
+    "id": "c37",
+    "category": "short-no-context",
+    "text": "Coupure de courant à Lectra mardi soir, sans autre précision.",
+    "expect": null,
+    "got": 15,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-90"
+   },
+   {
+    "id": "c38",
+    "category": "short-no-context",
+    "text": "Cdiscount propose une promotion sur les SSD avant les fêtes.",
+    "expect": null,
+    "got": 16,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-90"
+   },
+   {
+    "id": "c39",
+    "category": "short-no-context",
+    "text": "Euralis ouvre une nouvelle plateforme logistique près de Pau.",
+    "expect": null,
+    "got": 40,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-90"
+   },
+   {
+    "id": "c40",
+    "category": "short-no-context",
+    "text": "Un orage a touché Cofinoga et plusieurs commerces du centre.",
+    "expect": null,
+    "got": 21,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-90"
+   },
+   {
+    "id": "c43",
+    "category": "substring-trap",
+    "text": "Le mot covéa n'apparaît dans aucun registre officiel.",
+    "expect": null,
+    "got": 22,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-90"
+   },
+   {
+    "id": "c46",
+    "category": "homonym",
+    "text": "La ville de Bordeaux (Ohio) signale une panne de son portail municipal.",
+    "expect": null,
+    "got": 9,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-90"
+   },
+   {
+    "id": "c47",
+    "category": "homonym",
+    "text": "L'université de Bordeaux au Sénégal annonce une maintenance.",
+    "expect": null,
+    "got": 2,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-90"
+   },
+   {
+    "id": "c60",
+    "category": "exact",
+    "text": "L'Université de Bordeaux et le CHU de Bordeaux coordonnent leur réponse à incident.",
+    "expect": 2,
+    "got": null,
+    "kind": "abstention",
+    "reason": "rapidfuzz-window-90"
+   },
+   {
+    "id": "c65",
+    "category": "short-no-context",
+    "text": "MAAF communique sur ses résultats annuels.",
+    "expect": null,
+    "got": 23,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-90"
+   },
+   {
+    "id": "c66",
+    "category": "short-no-context",
+    "text": "Orange Nouvelle-Aquitaine sponsorise un salon régional.",
+    "expect": null,
+    "got": 37,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-90"
+   },
+   {
+    "id": "c73",
+    "category": "short-no-context",
+    "text": "Coupure de courant à Lectraa mardi soir, sans autre précision.",
+    "expect": null,
+    "got": 15,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-window-90"
+   }
+  ]
+ },
+ {
+  "engine": "substring",
+  "tp": 50,
+  "fp_hors_sujet": 10,
+  "fp_mauvaise_org": 0,
+  "fn": 3,
+  "tn": 12,
+  "precision": 0.8333,
+  "recall": 0.9434,
+  "f1": 0.885,
+  "msPerCase": 0.0343,
+  "par_categorie": {
+   "alias": {
+    "ok": 21
+   },
+   "ambiguity": {
+    "ok": 3
+   },
+   "exact": {
+    "ok": 25
+   },
+   "homonym": {
+    "ko": 2
+   },
+   "none": {
+    "ok": 7
+   },
+   "short-no-context": {
+    "ko": 7
+   },
+   "substring-trap": {
+    "ok": 2,
+    "ko": 1
+   },
+   "typo": {
+    "ko": 3,
+    "ok": 4
+   }
+  },
+  "erreurs": [
+   {
+    "id": "c37",
+    "category": "short-no-context",
+    "text": "Coupure de courant à Lectra mardi soir, sans autre précision.",
+    "expect": null,
+    "got": 15,
+    "kind": "fp-hors-sujet",
+    "reason": "substring"
+   },
+   {
+    "id": "c38",
+    "category": "short-no-context",
+    "text": "Cdiscount propose une promotion sur les SSD avant les fêtes.",
+    "expect": null,
+    "got": 16,
+    "kind": "fp-hors-sujet",
+    "reason": "substring"
+   },
+   {
+    "id": "c39",
+    "category": "short-no-context",
+    "text": "Euralis ouvre une nouvelle plateforme logistique près de Pau.",
+    "expect": null,
+    "got": 40,
+    "kind": "fp-hors-sujet",
+    "reason": "substring"
+   },
+   {
+    "id": "c40",
+    "category": "short-no-context",
+    "text": "Un orage a touché Cofinoga et plusieurs commerces du centre.",
+    "expect": null,
+    "got": 21,
+    "kind": "fp-hors-sujet",
+    "reason": "substring"
+   },
+   {
+    "id": "c43",
+    "category": "substring-trap",
+    "text": "Le mot covéa n'apparaît dans aucun registre officiel.",
+    "expect": null,
+    "got": 22,
+    "kind": "fp-hors-sujet",
+    "reason": "substring"
+   },
+   {
+    "id": "c46",
+    "category": "homonym",
+    "text": "La ville de Bordeaux (Ohio) signale une panne de son portail municipal.",
+    "expect": null,
+    "got": 9,
+    "kind": "fp-hors-sujet",
+    "reason": "substring"
+   },
+   {
+    "id": "c47",
+    "category": "homonym",
+    "text": "L'université de Bordeaux au Sénégal annonce une maintenance.",
+    "expect": null,
+    "got": 2,
+    "kind": "fp-hors-sujet",
+    "reason": "substring"
+   },
+   {
+    "id": "c48",
+    "category": "typo",
+    "text": "Le CHU de Bordeau confirme une attaque par rançongiciel.",
+    "expect": 1,
+    "got": null,
+    "kind": "abstention",
+    "reason": "substring"
+   },
+   {
+    "id": "c49",
+    "category": "typo",
+    "text": "L'université de Poitier signale des comptes compromis.",
+    "expect": 3,
+    "got": null,
+    "kind": "abstention",
+    "reason": "substring"
+   },
+   {
+    "id": "c52",
+    "category": "typo",
+    "text": "Le CHU de Limoge restaure progressivement ses applications.",
+    "expect": 7,
+    "got": null,
+    "kind": "abstention",
+    "reason": "substring"
+   },
+   {
+    "id": "c65",
+    "category": "short-no-context",
+    "text": "MAAF communique sur ses résultats annuels.",
+    "expect": null,
+    "got": 23,
+    "kind": "fp-hors-sujet",
+    "reason": "substring"
+   },
+   {
+    "id": "c66",
+    "category": "short-no-context",
+    "text": "Orange Nouvelle-Aquitaine sponsorise un salon régional.",
+    "expect": null,
+    "got": 37,
+    "kind": "fp-hors-sujet",
+    "reason": "substring"
+   },
+   {
+    "id": "c73",
+    "category": "short-no-context",
+    "text": "Coupure de courant à Lectraa mardi soir, sans autre précision.",
+    "expect": null,
+    "got": 15,
+    "kind": "fp-hors-sujet",
+    "reason": "substring"
+   }
+  ]
+ },
+ {
+  "engine": "rapidfuzz-tokenset-90",
+  "tp": 45,
+  "fp_hors_sujet": 10,
+  "fp_mauvaise_org": 0,
+  "fn": 8,
+  "tn": 12,
+  "precision": 0.8182,
+  "recall": 0.8491,
+  "f1": 0.8333,
+  "msPerCase": 0.1605,
+  "par_categorie": {
+   "alias": {
+    "ok": 20,
+    "ko": 1
+   },
+   "ambiguity": {
+    "ok": 3
+   },
+   "exact": {
+    "ok": 23,
+    "ko": 2
+   },
+   "homonym": {
+    "ko": 2
+   },
+   "none": {
+    "ok": 6,
+    "ko": 1
+   },
+   "short-no-context": {
+    "ko": 6,
+    "ok": 1
+   },
+   "substring-trap": {
+    "ok": 2,
+    "ko": 1
+   },
+   "typo": {
+    "ko": 5,
+    "ok": 2
+   }
+  },
+  "erreurs": [
+   {
+    "id": "c28",
+    "category": "exact",
+    "text": "L'ARS Nouvelle-Aquitaine alerte les établissements de santé de la région.",
+    "expect": 29,
+    "got": null,
+    "kind": "abstention",
+    "reason": "rapidfuzz-tokenset-90"
+   },
+   {
+    "id": "c33",
+    "category": "alias",
+    "text": "Keolis Bordeaux Métropole, opérateur du réseau TBM, restaure l'affichage voyageurs.",
+    "expect": 35,
+    "got": null,
+    "kind": "abstention",
+    "reason": "rapidfuzz-tokenset-90"
+   },
+   {
+    "id": "c37",
+    "category": "short-no-context",
+    "text": "Coupure de courant à Lectra mardi soir, sans autre précision.",
+    "expect": null,
+    "got": 15,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-tokenset-90"
+   },
+   {
+    "id": "c38",
+    "category": "short-no-context",
+    "text": "Cdiscount propose une promotion sur les SSD avant les fêtes.",
+    "expect": null,
+    "got": 16,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-tokenset-90"
+   },
+   {
+    "id": "c39",
+    "category": "short-no-context",
+    "text": "Euralis ouvre une nouvelle plateforme logistique près de Pau.",
+    "expect": null,
+    "got": 40,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-tokenset-90"
+   },
+   {
+    "id": "c40",
+    "category": "short-no-context",
+    "text": "Un orage a touché Cofinoga et plusieurs commerces du centre.",
+    "expect": null,
+    "got": 21,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-tokenset-90"
+   },
+   {
+    "id": "c43",
+    "category": "substring-trap",
+    "text": "Le mot covéa n'apparaît dans aucun registre officiel.",
+    "expect": null,
+    "got": 22,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-tokenset-90"
+   },
+   {
+    "id": "c46",
+    "category": "homonym",
+    "text": "La ville de Bordeaux (Ohio) signale une panne de son portail municipal.",
+    "expect": null,
+    "got": 9,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-tokenset-90"
+   },
+   {
+    "id": "c47",
+    "category": "homonym",
+    "text": "L'université de Bordeaux au Sénégal annonce une maintenance.",
+    "expect": null,
+    "got": 2,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-tokenset-90"
+   },
+   {
+    "id": "c48",
+    "category": "typo",
+    "text": "Le CHU de Bordeau confirme une attaque par rançongiciel.",
+    "expect": 1,
+    "got": null,
+    "kind": "abstention",
+    "reason": "rapidfuzz-tokenset-90"
+   },
+   {
+    "id": "c49",
+    "category": "typo",
+    "text": "L'université de Poitier signale des comptes compromis.",
+    "expect": 3,
+    "got": null,
+    "kind": "abstention",
+    "reason": "rapidfuzz-tokenset-90"
+   },
+   {
+    "id": "c50",
+    "category": "typo",
+    "text": "La société Lectraa indique avoir contenu l'incident.",
+    "expect": 15,
+    "got": null,
+    "kind": "abstention",
+    "reason": "rapidfuzz-tokenset-90"
+   },
+   {
+    "id": "c52",
+    "category": "typo",
+    "text": "Le CHU de Limoge restaure progressivement ses applications.",
+    "expect": 7,
+    "got": null,
+    "kind": "abstention",
+    "reason": "rapidfuzz-tokenset-90"
+   },
+   {
+    "id": "c60",
+    "category": "exact",
+    "text": "L'Université de Bordeaux et le CHU de Bordeaux coordonnent leur réponse à incident.",
+    "expect": 2,
+    "got": null,
+    "kind": "abstention",
+    "reason": "rapidfuzz-tokenset-90"
+   },
+   {
+    "id": "c65",
+    "category": "short-no-context",
+    "text": "MAAF communique sur ses résultats annuels.",
+    "expect": null,
+    "got": 23,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-tokenset-90"
+   },
+   {
+    "id": "c66",
+    "category": "short-no-context",
+    "text": "Orange Nouvelle-Aquitaine sponsorise un salon régional.",
+    "expect": null,
+    "got": 37,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-tokenset-90"
+   },
+   {
+    "id": "c69",
+    "category": "none",
+    "text": "Nouvelle-Aquitaine : le bilan des intempéries s'alourdit.",
+    "expect": null,
+    "got": 29,
+    "kind": "fp-hors-sujet",
+    "reason": "rapidfuzz-tokenset-90"
+   },
+   {
+    "id": "c75",
+    "category": "typo",
+    "text": "Le groupe Cdiscountt évoque une fuite de comptes clients.",
+    "expect": 16,
+    "got": null,
+    "kind": "abstention",
+    "reason": "rapidfuzz-tokenset-90"
+   }
+  ]
+ }
+]

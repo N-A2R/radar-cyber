@@ -53,8 +53,8 @@
   --org-recherche: #22c55e;
   --org-operateur: #e0483c;
 
-  --font-sans: system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: ui-monospace, "JetBrains Mono", Menlo, monospace;
+  --font-sans: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "JetBrains Mono", Menlo, monospace;
   --font-body: var(--font-sans);
 
   --radius: 2px;
@@ -491,31 +491,44 @@ html[data-theme="clair"] {
 
 /* ═══════════════════════════════════════════════════════════════════
    Coquille « rack » — plaques surélevées, hairlines, aucun cadre.
-   Les jetons --color-* ne servent qu'aux composants réécrits ; les
-   jetons historiques (--surface, --muted…) restent en place pour la
-   carte, le graphe et la santé.
+
+   Unification des jetons (chantier C) : les noms --color-* ne sont plus
+   un second thème parallèle mais des ALIAS des jetons historiques
+   (--surface, --text, --line…), qui sont la seule source de vérité.
+   Conséquence : les quatre thèmes (observatoire, terminal, souverain,
+   clair) s'appliquent désormais aussi au fil, aux sources et à
+   l'annuaire — avant, ces vues restaient sombres en thème clair.
    ═══════════════════════════════════════════════════════════════════ */
 
 :root {
-  --color-plate: oklch(23% 0.008 72);
-  --color-plate-2: oklch(27% 0.009 72);
-  --color-plate-3: oklch(19% 0.007 72);
-  --color-well: oklch(15% 0.007 72);
-  --color-well-2: oklch(13% 0.006 72);
-  --color-ink: oklch(93% 0.008 80);
-  --color-ink-2: oklch(79% 0.010 80);
-  --color-muted: oklch(62% 0.010 80);
-  --color-edge-hi: oklch(38% 0.010 72);
-  --color-edge-lo: oklch(6% 0.005 72);
-  --color-accent: oklch(79% 0.155 78);
-  --color-accent-ink: oklch(22% 0.03 78);
-  --color-accent-2: oklch(72% 0.125 205);
-  --color-alarm: oklch(66% 0.195 27);
-  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
-  --raise: 0 1px 0 var(--color-edge-hi) inset, 0 -1px 0 var(--color-edge-lo) inset, 0 2px 6px oklch(4% 0 0 / .6);
-  --raise-sm: 0 1px 0 var(--color-edge-hi) inset, 0 -1px 0 var(--color-edge-lo) inset, 0 1px 2px oklch(4% 0 0 / .5);
-  --sink: 0 3px 10px oklch(4% 0 0 / .7) inset, 0 1px 0 oklch(6% 0 0) inset, 0 1px 0 var(--color-edge-hi);
+  --color-plate: var(--surface);
+  --color-plate-2: var(--surface-2);
+  --color-plate-3: var(--surface-3);
+  --color-well: var(--bg);
+  --color-well-2: var(--bg);
+  --color-ink: var(--text);
+  --color-ink-2: color-mix(in oklab, var(--text) 82%, var(--surface));
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-edge-hi: var(--line-strong);
+  --color-edge-lo: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-2: var(--accent);
+  --color-alarm: var(--sev-5);
+  --font-display: var(--font-sans);
+
+  /* Ombres de relief : une couleur d'ombre par thème, pas de noir en clair. */
+  --shadow-ink: oklch(4% 0 0 / 0.6);
+  --shadow-ink-soft: oklch(4% 0 0 / 0.5);
+  --raise: 0 1px 0 var(--color-edge-hi) inset, 0 -1px 0 var(--color-edge-lo) inset, 0 2px 6px var(--shadow-ink);
+  --raise-sm: 0 1px 0 var(--color-edge-hi) inset, 0 -1px 0 var(--color-edge-lo) inset, 0 1px 2px var(--shadow-ink-soft);
+  --sink: 0 3px 10px var(--shadow-ink) inset, 0 1px 0 var(--color-edge-lo) inset, 0 1px 0 var(--color-edge-hi);
+}
+
+html[data-theme="clair"] {
+  --shadow-ink: rgba(16, 24, 38, 0.12);
+  --shadow-ink-soft: rgba(16, 24, 38, 0.08);
 }
 
 html,

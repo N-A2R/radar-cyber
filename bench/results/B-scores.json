@@ -1,0 +1,44 @@
+{
+ "metrics": {
+  "newspaper4k": {
+   "accuracy": 0.2873,
+   "accuracy_std": 0.0344,
+   "f1": 0.9245,
+   "f1_std": 0.0114,
+   "precision": 0.962,
+   "precision_std": 0.0083,
+   "recall": 0.8898,
+   "recall_std": 0.0182
+  },
+  "trafilatura": {
+   "accuracy": 0.337,
+   "accuracy_std": 0.0347,
+   "f1": 0.9641,
+   "f1_std": 0.0071,
+   "precision": 0.9577,
+   "precision_std": 0.0083,
+   "recall": 0.9705,
+   "recall_std": 0.0081
+  }
+ },
+ "runtime": {
+  "trafilatura": {
+   "version": "2.3.1",
+   "pages": 181,
+   "empty": 0,
+   "errors": 0,
+   "total_s": 4.53,
+   "ms_per_page": 25.0,
+   "failures": []
+  },
+  "newspaper4k": {
+   "version": "0.9.6.1",
+   "pages": 181,
+   "empty": 9,
+   "errors": 0,
+   "total_s": 229.39,
+   "ms_per_page": 1267.3,
+   "failures": []
+  }
+ }
+}

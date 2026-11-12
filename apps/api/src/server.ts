@@ -11,10 +11,12 @@ import { collectors } from "./collectors/index.js";
 import { closePools, ingestQuery, query } from "./db.js";
 import { deliverPendingAlerts, readDeliveryConfig } from "./notify/alert-delivery.js";
 import { runRetention } from "./maintenance/retention.js";
+import { runDetectionPass } from "./detect/incremental.js";
 import eventsRoute from "./routes/events.js";
 import flowsRoute from "./routes/flows.js";
 import graphRoute from "./routes/graph.js";
 import orgsRoute from "./routes/orgs.js";
+import directoryRoute from "./routes/directory.js";
 import searchRoute from "./routes/search.js";
 import sourcesRoute from "./routes/sources.js";
 import streamRoute from "./routes/stream.js";
@@ -42,7 +44,7 @@ await app.register(cors, { origin: true });
  * écritures protégées. Un token valide est attaché à la requête s'il est fourni,
  * ce qui permet au front d'adapter l'UI au rôle.
  */
-const PUBLIC_READ = /^\/api\/(health|stats|sources|flows|search|graph|stream|events|orgs|enrich|alerts|quarantine|healthz)(\/|$|\?)/;
+const PUBLIC_READ = /^\/api\/(health|stats|sources|flows|search|directory|graph|stream|events|orgs|enrich|alerts|quarantine|healthz)(\/|$|\?)/;
 
 app.addHook("onRequest", async (req, reply) => {
   const url = req.url.split("?")[0];
@@ -63,6 +65,8 @@ app.get("/api/health", async () => {
 await app.register(eventsRoute, { prefix: "/api" });
 await app.register(flowsRoute, { prefix: "/api" });
 await app.register(orgsRoute, { prefix: "/api" });
+
+await app.register(directoryRoute, { prefix: "/api" });
 await app.register(graphRoute, { prefix: "/api" });
 await app.register(streamRoute, { prefix: "/api" });
 await app.register(sourcesRoute, { prefix: "/api" });
@@ -180,16 +184,33 @@ if (COLLECT) {
 	void guarded("corrélation", () => correlateEvents(log));
 	void guarded("hermes", () => runHermesCollector(log));
 	void guarded("ingestion générique", () => runGenericSources(log));
+	void guarded("détection", async () => {
+		const pass = await runDetectionPass();
+		log(`detection initiale : ${pass.alerts} alerte(s) sur ${pass.events} evenement(s)`);
+	});
 	void guarded("quarantaine", () => runQuarantineCollector(log));
 	void guarded("rétention", async () => {
 		const r = await runRetention(log);
 		log(`rétention : ${r.events} événement(s), ${r.indicators} indicateur(s), ${r.collectorRuns} run(s) purgé(s)`);
 	});
 
+	// Détection : après chaque vague de collecte, sur un lot borné. Sans ce
+	// passage, seuls les faits promus de la quarantaine produisaient des alertes.
+	const detect = async () => {
+		const pass = await runDetectionPass();
+		if (pass.events || pass.indicators || pass.late || pass.alerts) {
+			log(
+				`detection : ${pass.events} evenement(s), ${pass.indicators} indicateur(s), ` +
+				`${pass.late} rattachement(s) tardif(s) -> ${pass.alerts} alerte(s)`,
+			);
+		}
+	};
+
 	setInterval(() => {
 		void guarded("collecteurs", runCollectors);
 		void guarded("corrélation", () => correlateEvents(log));
 		void guarded("ingestion générique", () => runGenericSources(log));
+		void guarded("détection", detect);
 	}, TICK_MS);
 
 	// Quarantaine : poll 1/30 min max (ToS ransomware.live), donc tick dédié.

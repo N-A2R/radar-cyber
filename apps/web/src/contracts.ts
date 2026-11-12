@@ -1,7 +1,7 @@
 import type { Alert, Event, Graph, Health, Org, Source, Stats } from "./api";
 
-/** Les cinq vues de l'application, dans l'ordre du rail. */
-export type ViewKey = "map" | "graph" | "sources" | "health" | "alerts";
+/** Les vues de l'application, dans l'ordre du rail. */
+export type ViewKey = "map" | "directory" | "review" | "graph" | "sources" | "health" | "alerts";
 
 /** Contrat du fil d'événements (colonne de gauche). */
 export type FeedProps = {
@@ -36,6 +36,8 @@ export type AlertsViewProps = {
   canWrite: boolean;
   onUnauthorized: () => void;
   onOpenEvent: (eventId: string) => void;
+  /** Incrémenté à chaque alerte reçue en direct : force le rechargement. */
+  refreshSignal?: number;
 };
 
 /** Contrat de la vue sources. */
@@ -69,3 +71,41 @@ export type AlertScope = "organization_incident" | "regional_advisory";
 
 /** Rangée d'alerte telle que rendue par la vue alertes. */
 export type AlertRow = Alert & { scope?: AlertScope | null };
+
+/** Contrat de l'annuaire des organisations (chantier C). */
+export type DirectoryProps = {
+  orgs: Org[];
+  loading: boolean;
+  error: string | null;
+  onOpenOrg: (orgId: number) => void;
+  /** true : l'API filtre, classe et pagine ; false : tout en mémoire (démo). */
+  server?: boolean;
+  /** État lu dans l'URL au montage, pour un lien profond. */
+  urlState?: import("./url-state").DirectoryUrlState;
+  onUrlStateChange?: (state: import("./url-state").DirectoryUrlState) => void;
+  onCopyLink?: () => void;
+};
+
+/** Résultat de recherche globale, toutes natures confondues. */
+export type SearchHit =
+  | { kind: "org"; id: number; label: string; detail: string }
+  | { kind: "event"; id: string; label: string; detail: string }
+  | { kind: "indicator"; id: number; label: string; detail: string };
+
+/** Contrat de la palette de recherche globale (⌘K / Ctrl+K). */
+export type CommandPaletteProps = {
+  open: boolean;
+  onClose: () => void;
+  onOpenOrg: (orgId: number) => void;
+  onOpenEvent: (eventId: string) => void;
+  /** En mode démonstration, la recherche porte sur les données simulées. */
+  mock?: { orgs: Org[]; events: Event[] } | null;
+};
+
+/** File de revue de la quarantaine : décisions persistées, donc API requise. */
+export type ReviewViewProps = {
+  canWrite: boolean;
+  server: boolean;
+  onUnauthorized: () => void;
+  onOpenOrg: (orgId: number) => void;
+};

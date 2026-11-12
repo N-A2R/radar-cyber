@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { api, clearAuthToken, getAuthToken, setAuthToken, type Event, type FlowArc, type Graph, type Org, type Source, type Stats } from "./api";
+import { api, clearAuthToken, getAuthToken, setAuthToken, type Event, type FlowArc, type Graph, type LiveAlert, type Org, type Source, type Stats } from "./api";
 import { mockData } from "./mock";
 import Map3D from "./map/Map3D";
 import GraphView from "./graph/GraphView";
@@ -8,6 +8,11 @@ import HealthView from "./components/HealthView";
 import EventList from "./components/EventList";
 import Inspector from "./components/Inspector";
 import OrgSheet from "./components/OrgSheet";
+import DirectoryView from "./components/DirectoryView";
+import CommandPalette from "./components/CommandPalette";
+import LiveAlerts from "./components/LiveAlerts";
+import ReviewView from "./components/ReviewView";
+import { parseHash, toHash, shareableUrl, type AppUrlState } from "./url-state";
 import AlertsView from "./components/AlertsView";
 import LoginScreen from "./components/LoginScreen";
 import type { ViewKey } from "./contracts";
@@ -17,6 +22,8 @@ const MOCK_MODE = import.meta.env.VITE_DATA_MODE === "mock";
 
 const VIEWS: { id: ViewKey; label: string }[] = [
   { id: "map", label: "Carte" },
+  { id: "directory", label: "Annuaire" },
+  { id: "review", label: "Revue" },
   { id: "graph", label: "Graphe" },
   { id: "sources", label: "Sources" },
   { id: "health", label: "Santé" },
@@ -24,6 +31,9 @@ const VIEWS: { id: ViewKey; label: string }[] = [
 ];
 
 const FEED_LIMIT = 300;
+/** Alertes gardées en mémoire pour le bandeau (les plus récentes d'abord). */
+const LIVE_ALERT_LIMIT = 50;
+const SOUND_KEY = "radar.alertSound";
 
 export default function App() {
   const [orgs, setOrgs] = useState<Org[]>([]);
@@ -32,7 +42,17 @@ export default function App() {
   const [stats, setStats] = useState<Stats | null>(null);
   const [graph, setGraph] = useState<Graph>({ nodes: [], links: [] });
   const [flows, setFlows] = useState<FlowArc[]>([]);
-  const [view, setView] = useState<ViewKey>("map");
+  // L'URL porte la vue, les filtres de l'annuaire et la fiche ouverte :
+  // une vue se copie, se partage et survit au rechargement.
+  const [urlState, setUrlState] = useState<AppUrlState>(() =>
+    typeof window === "undefined"
+      ? parseHash("")
+      : parseHash(window.location.hash),
+  );
+  const view = urlState.view as ViewKey;
+  const setView = useCallback((next: ViewKey) => {
+    setUrlState((prev) => (prev.view === next ? prev : { ...prev, view: next }));
+  }, []);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(!MOCK_MODE);
   const [family, setFamily] = useState<string | null>(null);
@@ -40,10 +60,76 @@ export default function App() {
   const [regionalFirst, setRegionalFirst] = useState(true);
   const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
   const [selectedOrgId, setSelectedOrgId] = useState<number | null>(null);
-  const [sheetOrgId, setSheetOrgId] = useState<number | null>(null);
+  const sheetOrgId = urlState.org;
+  const setSheetOrgId = useCallback((id: number | null) => {
+    setUrlState((prev) => (prev.org === id ? prev : { ...prev, org: id }));
+  }, []);
   const [connected, setConnected] = useState(false);
   const [basemap, setBasemap] = useState<"sat" | "plan">("sat");
   const [token, setToken] = useState<string | null>(() => getAuthToken());
+  const [paletteOpen, setPaletteOpen] = useState(false);
+  const [liveAlerts, setLiveAlerts] = useState<LiveAlert[]>([]);
+  const [unseenAlerts, setUnseenAlerts] = useState(0);
+  const [alertSignal, setAlertSignal] = useState(0);
+  const [soundOn, setSoundOn] = useState(() => {
+    try {
+      return localStorage.getItem(SOUND_KEY) === "1";
+    } catch {
+      return false;
+    }
+  });
+
+  const toggleSound = useCallback(() => {
+    setSoundOn((on) => {
+      try {
+        localStorage.setItem(SOUND_KEY, on ? "0" : "1");
+      } catch {
+        // stockage refusé : le réglage reste valable pour la session
+      }
+      return !on;
+    });
+  }, []);
+
+  // Démonstration : sans API, on fait tomber des alertes simulées pour que le
+  // bandeau et le badge soient observables. Aucun réseau, aucune donnée réelle.
+  useEffect(() => {
+    if (!MOCK_MODE) return;
+    let n = 0;
+    const timer = setInterval(() => {
+      const candidates = mockData.events.filter((e) => e.orgId !== null);
+      if (candidates.length === 0) return;
+      const event = candidates[n % candidates.length];
+      n += 1;
+      const alert: LiveAlert = {
+        id: 900_000 + n,
+        rule_id: "demo-incident-organisation",
+        title: event.title,
+        severity: event.severity,
+        status: "open",
+        event_id: null,
+        indicator_id: null,
+        org_id: event.orgId,
+        scope: "organization_incident",
+        created_at: new Date().toISOString(),
+      };
+      setLiveAlerts((prev) => [alert, ...prev].slice(0, LIVE_ALERT_LIMIT));
+      setUnseenAlerts((count) => count + 1);
+      setAlertSignal((count) => count + 1);
+    }, 18_000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Recherche globale : ⌘K / Ctrl+K, disponible depuis toutes les vues.
+  useEffect(() => {
+    function onKey(event: KeyboardEvent) {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        setPaletteOpen((open) => !open);
+      }
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   // Temps réel : le serveur pousse les nouveaux événements (SSE).
   useEffect(() => {
@@ -56,6 +142,17 @@ export default function App() {
     );
     stream.onopen = () => setConnected(true);
     stream.onerror = () => setConnected(false);
+    stream.addEventListener("alert", (raw) => {
+      setConnected(true);
+      try {
+        const alert = JSON.parse((raw as MessageEvent).data) as LiveAlert;
+        setLiveAlerts((prev) => [alert, ...prev.filter((a) => a.id !== alert.id)].slice(0, LIVE_ALERT_LIMIT));
+        setUnseenAlerts((n) => n + 1);
+        setAlertSignal((n) => n + 1);
+      } catch {
+        // charge utile illisible : on ignore sans casser le flux
+      }
+    });
     stream.addEventListener("new", (raw) => {
       setConnected(true);
       try {
@@ -215,6 +312,42 @@ export default function App() {
 
   const openOrgSheet = useCallback((id: number) => setSheetOrgId(id), []);
 
+  // Refléter l'état dans le hash, sans empiler une entrée par frappe.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const hash = toHash(urlState);
+    if (window.location.hash !== hash) window.history.replaceState(null, "", hash);
+  }, [urlState]);
+
+  // Précédent / suivant : on relit le hash plutôt que de garder deux vérités.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const onHashChange = () => setUrlState(parseHash(window.location.hash));
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
+
+  const onDirectoryStateChange = useCallback((directory: AppUrlState["directory"]) => {
+    setUrlState((prev) => {
+      const same = prev.directory.q === directory.q
+        && prev.directory.kind === directory.kind
+        && prev.directory.sector === directory.sector
+        && prev.directory.dept === directory.dept
+        && prev.directory.withEvents === directory.withEvents
+        && prev.directory.sort === directory.sort
+        && prev.directory.dir === directory.dir
+        && prev.directory.page === directory.page
+        && prev.directory.size === directory.size;
+      return same ? prev : { ...prev, directory };
+    });
+  }, []);
+
+  const copyDirectoryLink = useCallback(() => {
+    if (typeof window === "undefined") return;
+    const url = shareableUrl(urlState, window.location.origin, window.location.pathname);
+    void navigator.clipboard?.writeText(url).catch(() => {});
+  }, [urlState]);
+
   const onUnauthorized = useCallback(() => {
     setToken(null);
     setError(null);
@@ -255,15 +388,30 @@ export default function App() {
             <button
               key={v.id}
               type="button"
-              onClick={() => setView(v.id)}
+              onClick={() => {
+                setView(v.id);
+                if (v.id === "alerts") setUnseenAlerts(0);
+              }}
               aria-current={view === v.id ? "page" : undefined}
             >
               {v.label}
+              {v.id === "alerts" && unseenAlerts > 0 ? (
+                <span className="rail__badge" aria-label={`${unseenAlerts} alertes non vues`}>{unseenAlerts}</span>
+              ) : null}
             </button>
           ))}
         </nav>
 
         <span className="rail__spacer" />
+
+        <button
+          type="button"
+          className="rail__toggle"
+          onClick={() => setPaletteOpen(true)}
+          aria-keyshortcuts="Meta+K Control+K"
+        >
+          rechercher ⌘K
+        </button>
 
         {view === "map" ? (
           <button
@@ -287,6 +435,21 @@ export default function App() {
           </button>
         ) : null}
       </header>
+
+      <LiveAlerts
+        alerts={liveAlerts}
+        unseen={unseenAlerts}
+        soundOn={soundOn}
+        onToggleSound={toggleSound}
+        onOpenAlerts={() => {
+          setView("alerts");
+          setUnseenAlerts(0);
+        }}
+        onDismiss={() => {
+          setLiveAlerts([]);
+          setUnseenAlerts(0);
+        }}
+      />
 
       {error ? <p className="shell__error">API : {error}</p> : null}
 
@@ -355,12 +518,35 @@ export default function App() {
             />
           ) : null}
 
+          {view === "directory" ? (
+            <DirectoryView
+              orgs={orgs}
+              loading={loading}
+              error={error}
+              onOpenOrg={openOrgSheet}
+              server={!MOCK_MODE}
+              urlState={urlState.directory}
+              onUrlStateChange={onDirectoryStateChange}
+              onCopyLink={copyDirectoryLink}
+            />
+          ) : null}
+
+          {view === "review" ? (
+            <ReviewView
+              canWrite={Boolean(token)}
+              server={!MOCK_MODE}
+              onUnauthorized={onUnauthorized}
+              onOpenOrg={openOrgSheet}
+            />
+          ) : null}
+
           {view === "sources" ? <SourcesView sources={sources} loading={loading} error={error} /> : null}
 
           {view === "health" ? <HealthView sources={sources} /> : null}
 
           {view === "alerts" ? (
             <AlertsView
+              refreshSignal={alertSignal}
               canWrite={Boolean(token)}
               onUnauthorized={onUnauthorized}
               onOpenEvent={(id) => {
@@ -375,7 +561,7 @@ export default function App() {
         {inspectorOpen ? (
           <section className="shell__inspect">
             {sheetOrgId !== null ? (
-              <OrgSheet orgId={sheetOrgId} onClose={() => setSheetOrgId(null)} />
+              <OrgSheet orgId={sheetOrgId} onClose={() => setSheetOrgId(null)} mock={MOCK_MODE} />
             ) : (
               <Inspector
                 eventId={selectedEventId}
@@ -391,6 +577,18 @@ export default function App() {
           </section>
         ) : null}
       </div>
+
+      <CommandPalette
+        open={paletteOpen}
+        onClose={() => setPaletteOpen(false)}
+        onOpenOrg={openOrgSheet}
+        onOpenEvent={(id) => {
+          setSelectedEventId(id);
+          setSelectedOrgId(null);
+          setSheetOrgId(null);
+        }}
+        mock={MOCK_MODE ? { orgs, events } : null}
+      />
     </div>
   );
 }
