@@ -1,3 +1,4 @@
+import { AdmissionTally, admitEvent } from "./contract/admit.js";
 import type { CollectContext, Collector, NormalizedEvent } from "@radar/shared";
 import cors from "@fastify/cors";
 import Fastify from "fastify";
@@ -128,12 +129,20 @@ async function runCollectors(): Promise<void> {
 		try {
 			const result = await c.run(makeContext(cursor, (m) => app.log.info(m)));
 			itemsIn = result.events.length;
+			// Le type `NormalizedEvent` n'était qu'une assertion du compilateur :
+			// les collecteurs renvoient ce qu'ils veulent à l'exécution. Le
+			// contrat vérifie pour de vrai, et compte ses écarts.
+			const contract = new AdmissionTally();
 			for (const ev of result.events as NormalizedEvent[]) {
+				const admitted = admitEvent(ev as unknown as Record<string, unknown>);
+				contract.record(admitted);
+				if (!admitted.ok) continue;
+				const event = admitted.event;
 				const r = await ingestQuery(
 					`INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at, severity, confidence, source_id, source_url, evidence, geo_type, lat, lon)
 					 VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)
 					 ON CONFLICT (dedup_key) DO UPDATE SET observed_at = COALESCE(event.observed_at, EXCLUDED.observed_at)`,
-					[ev.dedupKey, ev.family, ev.assertionType, ev.title, ev.summary ?? null, ev.observedAt ?? null, ev.severity, ev.confidence ?? null, ev.sourceId, ev.sourceUrl ?? null, JSON.stringify(ev.evidence ?? {}), ev.geoType, ev.lat ?? null, ev.lon ?? null]
+					[event.dedupKey, event.family, event.assertionType, event.title, event.summary ?? null, event.observedAt ?? null, event.severity, event.confidence ?? null, event.sourceId, event.sourceUrl ?? null, JSON.stringify(event.evidence ?? {}), event.geoType, event.lat ?? null, event.lon ?? null]
 				);
 				if ((r.rowCount ?? 0) > 0) itemsNew++;
 			}
@@ -141,6 +150,8 @@ async function runCollectors(): Promise<void> {
 			await ingestQuery("UPDATE source SET cursor=$1, last_ok_at=now() WHERE id=$2", [JSON.stringify(newCursor), c.id]);
 			await ingestQuery("INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new) VALUES ($1, now(), 'ok', $2, $3)", [c.id, itemsIn, itemsNew]);
 			app.log.info(`collecteur ${c.id} : ${itemsIn} élément(s), ${itemsNew} nouveau(x)`);
+			const contractLine = contract.logLine();
+			if (contractLine) app.log.warn(`collecteur ${c.id} : contrat — ${contractLine}`);
 		} catch (e: unknown) {
 			const err = String((e as { message?: string })?.message ?? e);
 			app.log.error(e);

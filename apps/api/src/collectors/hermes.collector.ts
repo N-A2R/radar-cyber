@@ -28,32 +28,37 @@ type BriefingEvent = {
 
 type Briefing = { generated_at?: unknown; events?: unknown };
 
+import { AdmissionTally, admitEvent } from "../contract/admit.js";
+
 function runRemote(command: string): Promise<string> {
   return execFileAsync("instabox", ["ssh", "hermes", command], { timeout: 60000, maxBuffer: 4 * 1024 * 1024 })
     .then(({ stdout }) => stdout)
     .catch(() => "");
 }
 
-function normalise(raw: BriefingEvent): { dedupKey: string; family: string; assertionType: string; title: string; observedAt: string | null; severity: number; confidence: string; sourceUrl: string | null; orgName: string | null; evidence: object } | null {
-  const title = String(raw.title ?? "").trim().slice(0, 400);
+/**
+ * Extraction brute d'un briefing Hermes. La validation n'est plus faite ici :
+ * elle appartient au contrat partagé (`admitEvent`), qui répare avec trace et
+ * rejette avec motif. Ce qui reste ici ne fait que remettre les champs du
+ * format Hermes (snake_case) dans la forme attendue par le contrat.
+ */
+function normalise(raw: BriefingEvent): Record<string, unknown> | null {
+  const title = String(raw.title ?? "").trim();
   if (!title) return null;
-  const family = String(raw.family ?? "cti");
-  const assertionType = String(raw.assertion_type ?? "ambient_signal");
   const dedupKey = String(raw.dedup_key ?? "").trim() || `hermes:${createHash("sha256").update(title).digest("base64url").slice(0, 24)}`;
-  const observedAt = raw.observed_at ? String(raw.observed_at) : null;
-  const severity = Number(raw.severity);
-  const evidence = raw.evidence && typeof raw.evidence === "object" ? raw.evidence as object : {};
   return {
     dedupKey,
-    family,
-    assertionType,
+    family: String(raw.family ?? "cti"),
+    assertionType: String(raw.assertion_type ?? "ambient_signal"),
     title,
-    observedAt: observedAt && !Number.isNaN(Date.parse(observedAt)) ? new Date(observedAt).toISOString() : null,
-    severity: Number.isFinite(severity) ? Math.min(Math.max(Math.trunc(severity), 1), 5) : 3,
+    observedAt: raw.observed_at ? String(raw.observed_at) : undefined,
+    severity: raw.severity ?? 3,
     confidence: String(raw.confidence ?? "C3"),
-    sourceUrl: raw.source_url ? String(raw.source_url) : null,
-    orgName: raw.org_name ? String(raw.org_name) : null,
-    evidence,
+    sourceId: SOURCE_ID,
+    sourceUrl: raw.source_url ? String(raw.source_url) : undefined,
+    orgHint: raw.org_name ? String(raw.org_name) : undefined,
+    evidence: raw.evidence ?? {},
+    geoType: "unknown",
   };
 }
 
@@ -67,6 +72,7 @@ export async function runHermesCollector(log: (msg: string) => void): Promise<vo
   const files = listing.split(/\r?\n/).map((f) => f.trim()).filter(Boolean);
   let total = 0;
   let added = 0;
+  const contract = new AdmissionTally();
 
   for (const file of files) {
     const raw = await runRemote(`cat ${file}`);
@@ -77,22 +83,29 @@ export async function runHermesCollector(log: (msg: string) => void): Promise<vo
     total += events.length;
 
     for (const rawEvent of events) {
-      const event = normalise(rawEvent);
-      if (!event) continue;
+      const candidate = normalise(rawEvent);
+      if (!candidate) continue;
+      const admitted = admitEvent(candidate);
+      contract.record(admitted);
+      if (!admitted.ok) continue;
+      const event = admitted.event;
       const r = await query(
         `INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at, severity, confidence,
           source_id, source_url, evidence, geo_type, org_id)
-         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,'unknown',
-           (SELECT id FROM org WHERE name = $12 LIMIT 1))
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,
+           (SELECT id FROM org WHERE name = $13 LIMIT 1))
          ON CONFLICT (dedup_key) DO NOTHING`,
-        [event.dedupKey, event.family, event.assertionType, event.title, null, event.observedAt, event.severity,
-         event.confidence, SOURCE_ID, event.sourceUrl, JSON.stringify(event.evidence), event.orgName]
+        [event.dedupKey, event.family, event.assertionType, event.title, event.summary ?? null, event.observedAt ?? null, event.severity,
+         event.confidence ?? "C3", event.sourceId, event.sourceUrl ?? null, JSON.stringify(event.evidence ?? {}), event.geoType,
+         candidate.orgHint ?? null]
       );
       if ((r.rowCount ?? 0) > 0) added++;
     }
   }
 
   log(`hermes: ${files.length} briefing(s), ${total} événement(s), ${added} nouveau(x)`);
+  const contractLine = contract.logLine();
+  if (contractLine) log(`hermes: contrat — ${contractLine}`);
   await query(
     "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new) VALUES ($1, now(), 'ok', $2, $3)",
     [SOURCE_ID, total, added]
