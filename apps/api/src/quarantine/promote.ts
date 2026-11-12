@@ -10,6 +10,7 @@
  * dédupliqué sur `content_hash`, puis déclenche la règle
  * `ransomware-revendication` pour générer l'alerte.
  */
+import { admitEvent } from "../contract/admit.js";
 import { ingestQuery, query } from "../db.js";
 import { evaluateEvent } from "../detect/engine.js";
 import { confirmOrganization } from "../match/decide.js";
@@ -282,26 +283,54 @@ export async function insertClaimEvent(
   // dans `quarantine_raw.claimed_at` et dans `evidence`.
   const observedAt = new Date().toISOString();
 
+  // Contrat appliqué aussi à la promotion : un fait promu par un analyste
+  // reste un événement comme les autres. Ici tout est construit par nous, donc
+  // un rejet signale une régression du code, pas une source mal formée : on le
+  // rend explicite plutôt que d'écrire une ligne incohérente en base.
+  const admitted = admitEvent({
+    dedupKey,
+    family: "ransomware",
+    assertionType: "third_party_claim",
+    title,
+    summary,
+    observedAt,
+    severity: 4,
+    confidence: "C3",
+    sourceId,
+    sourceUrl: row.source_url ?? undefined,
+    geoType: "claimed_origin",
+    orgHint: row.org_hint ?? undefined,
+    evidence: {
+      quarantine_id: row.id,
+      group: row.groupe,
+      org_hint: row.org_hint,
+      claimed_at: row.claimed_at,
+      promoted_by: promotedBy,
+    },
+  });
+  if (!admitted.ok) {
+    throw new Error(`promotion refusée par le contrat (${admitted.rejections.join(", ")}) : ${admitted.hint}`);
+  }
+  const event = admitted.event;
   const r = await ingestQuery<{ id: number; inserted: boolean }>(
     `INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at, severity, confidence,
        source_id, source_url, evidence, geo_type, org_id, tlp, tlp_source)
-     VALUES ($1,'ransomware','third_party_claim',$2,$3,$4,4,'C3',$5,$6,$7,'claimed_origin',$8,$9,$10)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)
      ON CONFLICT (dedup_key) DO UPDATE SET observed_at = COALESCE(event.observed_at, EXCLUDED.observed_at)
      RETURNING id, (xmax = 0) AS inserted`,
     [
-      dedupKey,
-      title,
-      summary,
-      observedAt,
-      sourceId,
-      row.source_url,
-      JSON.stringify({
-        quarantine_id: row.id,
-        group: row.groupe,
-        org_hint: row.org_hint,
-        claimed_at: row.claimed_at,
-        promoted_by: promotedBy,
-      }),
+      event.dedupKey,
+      event.family,
+      event.assertionType,
+      event.title,
+      event.summary ?? null,
+      event.observedAt ?? observedAt,
+      event.severity,
+      event.confidence ?? "C3",
+      event.sourceId,
+      event.sourceUrl ?? null,
+      JSON.stringify(event.evidence ?? {}),
+      event.geoType,
       orgId,
       row.tlp,
       row.source,
