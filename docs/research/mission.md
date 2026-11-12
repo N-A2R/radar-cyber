@@ -356,3 +356,43 @@ sans dépendance) : clés de Luhn des SIREN, codes INSEE confrontés aux 4 517 d
 jeu versionné, dates ISO, URL, doublons, et citation obligatoire pour tout
 incident du corpus. Les exemples du prompt passent le validateur ; un jeu
 volontairement fautif est bien rejeté.
+
+## Audit de la collecte externe — PR #3 (2026-11-12)
+
+Branche `data/collecte-externe`, 6 fichiers, **30 152 enregistrements**. Données
+récupérées et vérifiées localement, pas seulement sur la foi du compte rendu.
+
+**Authenticité établie.** FINESS : 10 008 identifiants uniques au format INSEE,
+libellés administratifs tronqués authentiques, adresses au format HAR,
+répartition calée sur la population (Gironde 2 173 / Creuse 264). Éducation :
+6 528 UAI avec lettre de contrôle, 4 707 écoles. Entreprises : 13 332 SIREN dont
+la clé de Luhn est valide, **tous géolocalisés**, 12/12 départements, tous actifs,
+noms commerciaux réels entre parenthèses. Sonde : 264 sources, titres réels en
+allemand/croate/suédois, et l'attaque des supermarchés apparaît à la fois au
+corpus et dans les flux CERT-AT/CERT-HR sondés — cohérence croisée qu'une
+fabrication ne produit pas.
+
+**Ce qui reste à reprendre :**
+
+| Point | État |
+| --- | --- |
+| Coordonnées santé + enseignement | **0/16 536** — champ `position` de la source non repris |
+| `perimetre` sur les 20 incidents | **0/20** — incidents nationaux encore géolocalisés en NA |
+| Bloc 2, volet « ≥50 salariés, tous secteurs » | **absent** : 0 agroalimentaire, 0 industrie, 0 construction, 0 commerce |
+| Bloc 2, secteurs critiques | restreints à ≥50 alors que le prompt demandait toutes tailles |
+
+Seules **345** entreprises livrées ont un effectif ≥50, dont 297 hors numérique.
+Le numérique représente 13 035 des 13 332 lignes. Pour une région dont
+l'agroalimentaire, l'aéronautique et le bâtiment sont des employeurs majeurs, le
+référentiel entreprises reste troué — et une couverture mesurée contre ce
+référentiel serait flatteuse à tort.
+
+**Piège de mesure à retenir.** Le collecteur a annoncé « 0 erreur, 0
+avertissement » en exécutant une version périmée du validateur. La version à jour
+rend **6 avertissements** (5 incidents hors fenêtre, 20 périmètres non marqués).
+Toujours revérifier avec le validateur du dépôt avant de croire un feu vert.
+
+**Récupérable côté chargement, sans recollecte** : les noms commerciaux sont
+présents mais enfouis dans `nom` entre parenthèses (`ALLIANCE ATLANTIQUE (H.M.
+VOYAGES, AUTOCARS BERTRAND, …)`) et `nomsAlternatifs` est vide partout. Les
+extraire en alias au chargement — c'est exactement ce qui sert au rapprochement.
