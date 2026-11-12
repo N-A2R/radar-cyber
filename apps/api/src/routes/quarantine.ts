@@ -1,12 +1,21 @@
 import type { FastifyInstance, FastifyRequest } from "fastify";
 import { query } from "../db.js";
 import { requireAuth, resolveUser } from "../middleware/auth.js";
+import { applyReview, reviewQueue, type ReviewAction } from "../quarantine/review.js";
+import type { TriageBucket } from "../quarantine/triage.js";
 import {
   loadOrgIndex,
   matchOrgInIndex,
   promoteOne,
   type OrgIndexEntry,
 } from "../quarantine/promote.js";
+
+/** Retire la clé réservée du contenu extrait avant exposition. */
+function stripReview(extracted: unknown): unknown {
+  if (!extracted || typeof extracted !== "object") return extracted;
+  const { _review: _journal, ...rest } = extracted as Record<string, unknown>;
+  return rest;
+}
 
 function mapOrg(e: OrgIndexEntry) {
   return {
@@ -71,7 +80,12 @@ export default async function (app: FastifyInstance) {
         groupe: row.groupe,
         orgHint: row.org_hint,
         claimedAt: row.claimed_at,
-        extracted: isRed ? null : row.extracted,
+        // `_review` est notre journal de décisions, pas du contenu extrait :
+        // il sort par son propre champ, jamais dans la charge utile source.
+        extracted: isRed ? null : stripReview(row.extracted),
+        review: Array.isArray((row.extracted as Record<string, unknown> | null)?.["_review"])
+          ? (row.extracted as Record<string, unknown>)["_review"]
+          : [],
         tlp: row.tlp,
         status: row.status,
         promoted: row.promoted,
@@ -114,6 +128,62 @@ export default async function (app: FastifyInstance) {
       byPromoted: byPromoted.rows.map((r) => ({ promoted: r.promoted, count: Number(r.count) })),
       bySource: bySource.rows.map((r) => ({ source: r.source, count: Number(r.count) })),
     };
+  });
+
+  /**
+   * File de revue priorisée : score, seau, suggestion et trace du calcul.
+   * Authentifiée comme le reste de la quarantaine — les métadonnées seules
+   * sont exposées, jamais le corps brut.
+   */
+  app.get("/quarantine/queue", async (req, reply) => {
+    const user = await resolveUser(req);
+    if (!user) {
+      reply.code(401).send({ error: "unauthorized" });
+      return;
+    }
+    const q = req.query as Record<string, string | undefined>;
+    const bucket = q.bucket && ["chaud", "tiede", "froid"].includes(q.bucket)
+      ? (q.bucket as TriageBucket)
+      : null;
+    const page = Number(q.page);
+    const limit = Number(q.limit);
+    return reviewQueue({
+      status: q.status || null,
+      bucket,
+      source: q.source || null,
+      groupe: q.groupe || null,
+      q: q.q || null,
+      page: Number.isFinite(page) && page > 0 ? Math.floor(page) : 0,
+      limit: Number.isFinite(limit) && limit > 0 ? Math.floor(limit) : 50,
+    });
+  });
+
+  /**
+   * Décision groupée. Le motif est obligatoire pour un rejet : une file de
+   * revue qui n'explique pas ses refus ne se relit pas.
+   */
+  app.post("/quarantine/review", { preHandler: requireAuth() }, async (req, reply) => {
+    const body = (req.body ?? {}) as { ids?: unknown; action?: string; reason?: string };
+    const action = body.action as ReviewAction;
+    if (!["promote", "reject", "review", "undo"].includes(action)) {
+      reply.code(400).send({ error: "invalid action" });
+      return;
+    }
+    if (!Array.isArray(body.ids) || body.ids.length === 0 || body.ids.length > 500) {
+      reply.code(400).send({ error: "ids must be a non-empty array of at most 500" });
+      return;
+    }
+    const ids = body.ids.map((value) => Number(value));
+    if (ids.some((id) => !Number.isInteger(id) || id <= 0)) {
+      reply.code(400).send({ error: "invalid id" });
+      return;
+    }
+    const reason = typeof body.reason === "string" ? body.reason.trim().slice(0, 500) : "";
+    if (action === "reject" && reason === "") {
+      reply.code(400).send({ error: "reason required for rejection" });
+      return;
+    }
+    return applyReview(ids, action, reason || null, req.user!.email);
   });
 
   /** Promotion manuelle par un analyste connecté. */

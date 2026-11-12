@@ -57,7 +57,7 @@ function formatDate(value: string | null): string {
   return new Intl.DateTimeFormat("fr", { dateStyle: "short", timeStyle: "short" }).format(d);
 }
 
-export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent }: AlertsViewProps) {
+export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent, refreshSignal = 0 }: AlertsViewProps) {
   const [status, setStatus] = useState<AlertStatus | "all">("open");
   const [severity, setSeverity] = useState<number | null>(null);
   const [section, setSection] = useState<"organization_incident" | "regional_advisory">("organization_incident");
@@ -111,7 +111,7 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent }: Al
       .finally(() => setLoading(false));
   }, [status, severity, onUnauthorized]);
 
-  useEffect(reload, [reload]);
+  useEffect(reload, [reload, refreshSignal]);
 
   // Les compteurs viennent des lignes chargées : ils suivent donc les filtres
   // de statut et de sévérité, au lieu d'un total global qui les ignorerait.

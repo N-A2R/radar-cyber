@@ -1,0 +1,91 @@
+{
+  "jeu": "2026-11-12",
+  "organisations": 4462,
+  "alias": 22905,
+  "clesIndex": 22088,
+  "maxTokens": 10,
+  "constructionIndexMs": 91,
+  "communes": 4293,
+  "nomsCommunauxHomonymes": 111,
+  "resultats": [
+    {
+      "template": "mairie-de",
+      "total": 4293,
+      "correct": 4033,
+      "abstention": 260,
+      "erreur": 0,
+      "tauxCorrect": 0.9394,
+      "tauxErreur": 0,
+      "communesHomonymes": 247,
+      "correctSurHomonymes": 0,
+      "latenceP50Ms": 0.033,
+      "latenceP95Ms": 0.065
+    },
+    {
+      "template": "ville-de",
+      "total": 4293,
+      "correct": 4033,
+      "abstention": 260,
+      "erreur": 0,
+      "tauxCorrect": 0.9394,
+      "tauxErreur": 0,
+      "communesHomonymes": 247,
+      "correctSurHomonymes": 0,
+      "latenceP50Ms": 0.03,
+      "latenceP95Ms": 0.058
+    },
+    {
+      "template": "commune-de",
+      "total": 4293,
+      "correct": 4033,
+      "abstention": 260,
+      "erreur": 0,
+      "tauxCorrect": 0.9394,
+      "tauxErreur": 0,
+      "communesHomonymes": 247,
+      "correctSurHomonymes": 0,
+      "latenceP50Ms": 0.024,
+      "latenceP95Ms": 0.049
+    },
+    {
+      "template": "nu-contexte",
+      "total": 4293,
+      "correct": 4033,
+      "abstention": 260,
+      "erreur": 0,
+      "tauxCorrect": 0.9394,
+      "tauxErreur": 0,
+      "communesHomonymes": 247,
+      "correctSurHomonymes": 0,
+      "latenceP50Ms": 0.029,
+      "latenceP95Ms": 0.053
+    }
+  ],
+  "institutions": [
+    {
+      "label": "Bordeaux Métropole",
+      "texte": "Bordeaux Métropole signale une intrusion",
+      "obtenu": "Métropole Bordeaux Métropole",
+      "motif": "matched"
+    },
+    {
+      "label": "CA du Grand Villeneuvois",
+      "texte": "La communauté d'agglomération du Grand Villeneuvois est visée",
+      "obtenu": "Communauté d'agglomération du Grand Villeneuvois",
+      "motif": "matched"
+    },
+    {
+      "label": "Département de la Gironde",
+      "texte": "Le conseil départemental de la Gironde confirme l'incident",
+      "obtenu": "Département de la Gironde",
+      "motif": "matched"
+    },
+    {
+      "label": "Région Nouvelle-Aquitaine",
+      "texte": "La région Nouvelle-Aquitaine a déposé plainte",
+      "obtenu": "Région Nouvelle-Aquitaine",
+      "motif": "matched"
+    }
+  ],
+  "echecs": []
+}

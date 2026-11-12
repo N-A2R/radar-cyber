@@ -5,6 +5,7 @@ node_modules/
 # Données locales PostgreSQL (ne jamais versionner)
 apps/api/pgdata/
 pgdata/
+pgdata-*/
 *.sqlite
 *.db
 *.db-wal
@@ -20,6 +21,7 @@ dist/
 build/
 *.tsbuildinfo
 .vite/
+.smoke-out/
 
 # Logs et artefacts
 *.log
@@ -27,6 +29,12 @@ logs/
 nohup.out
 coverage/
 out/
+
+# Benches : les prédictions du bench B sont régénérables depuis le corpus
+# externe (~2,6 Mo) ; on ne versionne que les scores et les temps mesurés.
+bench/results/B-*.json
+!bench/results/B-scores.json
+!bench/results/B-runtime.json
 
 # Système
 .DS_Store
