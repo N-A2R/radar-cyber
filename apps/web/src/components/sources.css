@@ -306,3 +306,20 @@
   color: var(--color-faint);
   font-style: italic;
 }
+
+/* --- Unicité : ce qu'une source apporte seule ------------------------------ */
+
+/* Aucune couleur d'alerte : une source qui ne révèle rien n'est pas en panne,
+   elle est seulement redondante. Le gras suffit à distinguer. */
+.sources-unique {
+  font-variant-numeric: tabular-nums;
+}
+
+.sources-unique[data-unique="oui"] {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+.sources-unique[data-unique="non"] {
+  color: var(--color-faint);
+}

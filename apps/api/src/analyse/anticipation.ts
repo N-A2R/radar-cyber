@@ -13,6 +13,8 @@
  * de classement, elle, se relit.
  */
 
+import { mediane } from "./mediane.js";
+
 /** Nature d'un signal antérieur. */
 export type NatureSignal = "indicateur" | "revendication" | "ambiance" | "alerte";
 
@@ -84,14 +86,11 @@ export function resumerAnticipation(
 		for (const signal of fait.signaux) avances.push(signal.avanceJours);
 	}
 
-	avances.sort((a, b) => a - b);
-	const mediane = avances.length === 0 ? null : (avances[Math.floor(avances.length / 2)] ?? null);
-
 	return {
 		faits: faits.length,
 		avecSignal,
 		partPct: faits.length === 0 ? 0 : Math.round((avecSignal / faits.length) * 100),
-		avanceMedianeJours: mediane,
+		avanceMedianeJours: mediane(avances),
 		parNature,
 		indicative: faits.length < SEUIL_INDICATIF,
 	};

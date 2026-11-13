@@ -33,6 +33,7 @@ type SortKey =
   | "evenements30j"
   | "rendement"
   | "motif"
+  | "unicite"
   // Tri par défaut, propre au registre : par gravité du problème, pas par date.
   | "yield";
 type SortDir = "asc" | "desc";
@@ -47,6 +48,12 @@ const COLUMNS: { key: SortKey; label: string; num?: boolean; hint?: string }[] =
   { key: "evenements30j", label: "évén. 30 j", num: true, hint: "événements attribués à la source" },
   { key: "rendement", label: "rendement", num: true, hint: "part des entrées lues devenues un événement" },
   { key: "motif", label: "motif de rejet", hint: "ce qui coûte le plus d'entrées sur le dernier run" },
+  {
+    key: "unicite",
+    label: "unicité",
+    num: true,
+    hint: "faits où elle est la seule à parler / faits où elle apparaît — ce qu'elle apporte que personne d'autre n'apporte",
+  },
 ];
 
 /** Libellés des rendements : ce que la source rapporte, pas si elle répond. */
@@ -157,10 +164,24 @@ function compareSources(a: Source, b: Source, key: SortKey, dir: SortDir): numbe
     // Les valeurs absentes (`null`) restent en fin de liste dans les deux sens :
     // « inconnu » ne doit jamais être classé comme « mauvais ».
     case "entrees":
-    case "evenements30j":
+    case "evenements30j": {
+      const av = a[key];
+      const bv = b[key];
+      if (av === null) return bv === null ? 0 : 1;
+      if (bv === null) return -1;
+      return (av - bv) * sign;
+    }
+    case "unicite": {
+      // Les sources jamais évaluées (serveur antérieur) passent en fin, quel que
+      // soit le sens : une absence de mesure n'est pas une mauvaise note.
+      const av = a.partUniquesPct;
+      const bv = b.partUniquesPct;
+      if (av === undefined || bv === undefined) return av === bv ? 0 : av === undefined ? 1 : -1;
+      return (av - bv) * sign;
+    }
     case "rendement": {
-      const av = key === "evenements30j" ? a.evenements30j : a[key];
-      const bv = key === "evenements30j" ? b.evenements30j : b[key];
+      const av = a.rendement;
+      const bv = b.rendement;
       if (av === null) return bv === null ? 0 : 1;
       if (bv === null) return -1;
       return (av - bv) * sign;
@@ -328,6 +349,23 @@ export default function SourcesView({ sources, loading, error }: SourcesViewProp
                         ? "—"
                         : `${(source.rendement * 100).toFixed(source.rendement < 0.01 ? 1 : 0)} %`}
                     </span>
+                  </td>
+                  <td className="sources-table__num">
+                    {typeof source.faitsUniques === "number" && typeof source.faits === "number" ? (
+                      <span
+                        className="sources-unique"
+                        data-unique={source.faitsUniques > 0 ? "oui" : "non"}
+                        title={
+                          source.faitsUniques === 0
+                            ? "aucun fait où elle soit seule : elle suit, elle ne révèle pas"
+                            : `${source.faitsUniques} fait(s) où elle est la seule source · ${source.primeurs ?? 0} fois la première`
+                        }
+                      >
+                        {source.faitsUniques}/{source.faits}
+                      </span>
+                    ) : (
+                      <span className="sources-table__unmeasured">non mesuré</span>
+                    )}
                   </td>
                   <td className="sources-table__motif">
                     {source.motifDominant === null ? (

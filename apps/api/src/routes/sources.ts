@@ -1,5 +1,7 @@
 import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
+import { regrouper } from "../analyse/corroboration.js";
+import { evaluerValeur } from "../analyse/valeur-source.js";
 
 type SourceRow = {
   id: string;
@@ -67,6 +69,48 @@ export default async function (app: FastifyInstance) {
         LEFT JOIN ev   e ON e.source_id = s.id
        ORDER BY s.kind, s.family, s.name
     `);
+    // Unicité : ce que la source apporte que personne d'autre n'apporte. On
+    // regroupe les événements de 180 jours qui touchent une organisation, puis
+    // on regarde, fait par fait, qui était seul à en parler. C'est la seule
+    // mesure qui distingue un agrégateur d'une source originale — le volume et
+    // le rendement ne le font pas.
+    const valeur = new Map<string, ReturnType<typeof evaluerValeur>[number]>();
+    try {
+      const evts = await query<{
+        id: string; family: string; severity: number | null; assertion_type: string;
+        source_id: string; date: string; org_id: number | null; title: string;
+      }>(`
+        SELECT e.id::text AS id, e.family, e.severity, e.assertion_type,
+               e.source_id, COALESCE(e.observed_at, e.collected_at)::text AS date,
+               e.org_id, e.title
+          FROM event e
+         WHERE e.org_id IS NOT NULL
+           AND COALESCE(e.observed_at, e.collected_at) >= now() - interval '180 days'
+         ORDER BY COALESCE(e.observed_at, e.collected_at) DESC
+         LIMIT 5000
+      `);
+      for (const v of evaluerValeur(
+        regrouper(
+          evts.rows.map((e) => ({
+            id: e.id,
+            family: e.family,
+            // Une sévérité inconnue ne vaut pas zéro : elle vaut « non renseignée ».
+            severity: e.severity ?? null,
+            assertionType: e.assertion_type,
+            sourceId: e.source_id,
+            date: e.date,
+            orgId: e.org_id,
+            title: e.title,
+          })),
+        ),
+      )) {
+        valeur.set(v.sourceId, v);
+      }
+    } catch {
+      // Une base sans événements ne doit pas faire tomber l'écran Sources : la
+      // valeur reste inconnue, ce qui est exact, plutôt que l'écran vide.
+    }
+
     return r.rows.map((s) => {
       const evenements30j = Number(s.evenements_30j);
       const entrees = s.entrees === null ? null : Number(s.entrees);
@@ -104,6 +148,7 @@ export default async function (app: FastifyInstance) {
             ? (Object.entries(s.motifs).sort((a, b) => Number(b[1]) - Number(a[1]))[0]?.[0] ?? null)
             : null,
         rendement: rendement === null ? null : Math.round(rendement * 1000) / 1000,
+        ...(valeur.get(s.id) ?? {}),
       };
     });
   });
