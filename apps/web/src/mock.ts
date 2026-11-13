@@ -13,11 +13,11 @@ function ago(minutes: number): string {
 }
 
 const MOCK_ORGS: Org[] = [
-  { id: 1, name: "CHU de Bordeaux", slug: "chu-bordeaux", kind: "sante", sector: "santé", city: "Bordeaux", dept: "33", lat: 44.8378, lon: -0.5792, eventCount: 3 },
+  { id: 1, name: "CHU de Bordeaux", domain: "chu-bordeaux.fr", slug: "chu-bordeaux", kind: "sante", sector: "santé", city: "Bordeaux", dept: "33", lat: 44.8378, lon: -0.5792, eventCount: 3 },
   { id: 2, name: "Région Nouvelle-Aquitaine", slug: "region-na", kind: "collectivite", sector: "gouvernance", city: "Bordeaux", dept: "33", lat: 44.84, lon: -0.58, eventCount: 1 },
-  { id: 3, name: "Dassault Aviation", slug: "dassault", kind: "entreprise", sector: "aéronautique", city: "Mérignac", dept: "33", lat: 44.8422, lon: -0.6453, eventCount: 2 },
-  { id: 4, name: "Université de Poitiers", slug: "univ-poitiers", kind: "enseignement", sector: "enseignement", city: "Poitiers", dept: "86", lat: 46.5802, lon: 0.3404, eventCount: 0 },
-  { id: 5, name: "Safran Helicopter Engines", slug: "safran", kind: "entreprise", sector: "aéronautique", city: "Bordes", dept: "64", lat: 43.2333, lon: -0.2833, eventCount: 1 },
+  { id: 3, name: "Dassault Aviation", domain: "dassault-aviation.com", slug: "dassault", kind: "entreprise", sector: "aéronautique", city: "Mérignac", dept: "33", lat: 44.8422, lon: -0.6453, eventCount: 2 },
+  { id: 4, name: "Université de Poitiers", domain: "univ-poitiers.fr", slug: "univ-poitiers", kind: "enseignement", sector: "enseignement", city: "Poitiers", dept: "86", lat: 46.5802, lon: 0.3404, eventCount: 0 },
+  { id: 5, name: "Safran Helicopter Engines", domain: "safran-helicopter-engines.com", slug: "safran", kind: "entreprise", sector: "aéronautique", city: "Bordes", dept: "64", lat: 43.2333, lon: -0.2833, eventCount: 1 },
   { id: 6, name: "CHU de Limoges", slug: "chu-limoges", kind: "sante", sector: "santé", city: "Limoges", dept: "87", lat: 45.8336, lon: 1.2611, eventCount: 0 },
   { id: 7, name: "Port de La Rochelle", slug: "port-lr", kind: "operateur_critique", sector: "transport", city: "La Rochelle", dept: "17", lat: 46.1591, lon: -1.152, eventCount: 0 },
   { id: 8, name: "TotalEnergies CSTJF", slug: "total-cstjf", kind: "entreprise", sector: "énergie", city: "Pau", dept: "64", lat: 43.2951, lon: -0.3708, eventCount: 1 },
@@ -27,7 +27,7 @@ const MOCK_ORGS: Org[] = [
   { id: 12, name: "Bordeaux Métropole", slug: "bordeaux-metropole", kind: "collectivite", sector: "gouvernance", city: "Bordeaux", dept: "33", lat: 44.8637, lon: -0.594, eventCount: 0 },
   { id: 13, name: "Grand Poitiers", slug: "grand-poitiers", kind: "collectivite", sector: "gouvernance", city: "Poitiers", dept: "86", lat: 46.5833, lon: 0.3333, eventCount: 0 },
   { id: 14, name: "Département de la Gironde", slug: "departement-33", kind: "collectivite", sector: "gouvernance", city: "Bordeaux", dept: "33", lat: 44.8412, lon: -0.58, eventCount: 0 },
-  { id: 15, name: "Lectra", slug: "lectra", kind: "entreprise", sector: "industrie", city: "Cestas", dept: "33", lat: 44.7439, lon: -0.6817, eventCount: 1 },
+  { id: 15, name: "Lectra", domain: "lectra.com", slug: "lectra", kind: "entreprise", sector: "industrie", city: "Cestas", dept: "33", lat: 44.7439, lon: -0.6817, eventCount: 1 },
   { id: 16, name: "Cdiscount", slug: "cdiscount", kind: "entreprise", sector: "distribution", city: "Bordeaux", dept: "33", lat: 44.8265, lon: -0.556, eventCount: 0 },
   { id: 17, name: "Ubisoft Bordeaux", slug: "ubisoft-bordeaux", kind: "entreprise", sector: "jeu vidéo", city: "Bordeaux", dept: "33", lat: 44.8497, lon: -0.5665, eventCount: 0 },
   { id: 18, name: "Cofinoga", slug: "cofinoga", kind: "entreprise", sector: "finance", city: "Mérignac", dept: "33", lat: 44.8422, lon: -0.6453, eventCount: 0 },

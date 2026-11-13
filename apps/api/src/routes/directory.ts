@@ -20,6 +20,7 @@ type Query = {
 	sector?: string;
 	dept?: string;
 	withEvents?: string;
+	withoutEvents?: string;
 	sort?: string;
 	dir?: string;
 	page?: string;
@@ -54,6 +55,7 @@ export default async function (app: FastifyInstance) {
 			sector: q.sector?.trim() || null,
 			dept: dept || null,
 			withEvents: q.withEvents === "1" || q.withEvents === "true",
+			withoutEvents: q.withoutEvents === "1" || q.withoutEvents === "true",
 			sort,
 			dir,
 			page: boundedInt(q.page, 0, 1000),
