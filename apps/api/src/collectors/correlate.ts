@@ -18,6 +18,7 @@
  */
 import { query, withClient } from "../db.js"
 import { designateOrganization, preparerGazetteer } from "./relevance.js"
+import { estTexteFrancais } from "../match/territorial.js"
 
 /** Suffixes de domaine acceptés comme plausibles dans un texte d'événement. */
 const TLD_SUFFIXES = [
@@ -232,7 +233,10 @@ export async function correlateEvents(log: (msg: string) => void): Promise<void>
     // 1) le domaine est une clé exacte ; 2) le nom passe par le moteur
     // partagé, le même que celui de l'ingestion.
     const parDomaine = resolveOrg(ev, index)
-    const parNom = parDomaine ? null : designateOrganization(texte)
+    // Un texte anglais ne désigne pas une organisation régionale : les flux
+    // de vulnérabilités décrivent des composants, pas des victimes. Sans ce
+    // verrou, « PHONE SERVICE » se rattachait à « Windows Phone ».
+    const parNom = parDomaine || !estTexteFrancais(texte) ? null : designateOrganization(texte)
     const hit: DomainIndexEntry | null = parDomaine
       ? parDomaine
       : parNom

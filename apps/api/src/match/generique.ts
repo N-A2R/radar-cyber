@@ -55,6 +55,14 @@ export const MOTS_GENERIQUES_ENTREPRISE: ReadonlySet<string> = new Set<string>([
 	"wide", "global", "smart", "tech", "technology", "technologies", "online",
 	"market", "trade", "business", "company", "partners", "partner", "office",
 	"lab", "labs", "studio", "studios", "agency", "agency", "consulting",
+	// Vocabulaire des flux de vulnérabilités : un CVE parle de composants,
+	// pas d'entreprises. « HOST & WORKER » se rattachait à tout texte
+	// contenant « worker », « CALL AGENT » à tout texte contenant « agent ».
+	"worker", "workers", "blog", "blogs", "tool", "tools", "framework",
+	"library", "package", "packages", "module", "modules", "plugin", "plugins",
+	"theme", "template", "demo", "sample", "api", "ops", "dev", "builder",
+	"build", "server", "servers", "host", "hosting", "backup", "monitor",
+	"monitoring", "gateway", "router", "switch", "engine", "runtime",
 ]);
 
 /**
