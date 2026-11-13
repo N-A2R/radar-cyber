@@ -1,0 +1,40 @@
+{
+  "type": "object",
+  "required": ["sources"],
+  "additionalProperties": false,
+  "properties": {
+    "sources": {
+      "type": "array",
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "required": ["nom", "url", "type", "famille", "frequence", "langue", "zone"],
+        "additionalProperties": false,
+        "properties": {
+          "nom": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "type": { "type": "string", "enum": ["rss", "html", "telegram", "twitter", "autre"] },
+          "famille": { "type": "string", "description": "ransomware, fuite, intrusion, ddos, hameconnage, mixte" },
+          "frequence": { "type": "string", "description": "quotidien, hebdomadaire, irregulier..." },
+          "langue": { "type": "string" },
+          "zone": { "type": "string", "description": "france, nouvelle-aquitaine, international" },
+          "actif_depuis": { "type": ["string", "null"], "description": "date de la derniere publication constatee (YYYY-MM-DD)" },
+          "exemples": {
+            "type": "array",
+            "maxItems": 2,
+            "items": {
+              "type": "object",
+              "required": ["titre", "date", "url"],
+              "additionalProperties": false,
+              "properties": {
+                "titre": { "type": "string" },
+                "date": { "type": "string" },
+                "url": { "type": "string", "format": "uri" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
