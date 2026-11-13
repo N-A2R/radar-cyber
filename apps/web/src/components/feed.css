@@ -224,3 +224,27 @@
   border-left: 2px solid var(--accent);
   padding-left: 6px;
 }
+
+/* --- Confiance dans le fil ------------------------------------------------ */
+
+/* Discrète quand tout va bien, visible quand ce n'est pas sûr : le lecteur doit
+   pouvoir trier d'un coup d'œil sans que chaque ligne crie. */
+.feed__confidence {
+  display: block;
+  font-size: 10px;
+  line-height: 1.3;
+  color: var(--color-faint);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: help;
+}
+
+.feed__confidence[data-niveau="plausible"] {
+  color: var(--sev-4, var(--color-muted));
+}
+
+.feed__confidence[data-niveau="fragile"] {
+  color: var(--color-alarm);
+  opacity: 0.85;
+}
