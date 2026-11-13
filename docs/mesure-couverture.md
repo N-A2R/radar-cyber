@@ -6,21 +6,26 @@ La seule question qui justifie le projet :
 > quelle part le radar a-t-il vue ?
 
 Mesure du **13 novembre 2026**, fenêtre `2025-11-01 → 2026-10-31`, corpus de
-20 incidents publics vérifiés sur pièces.
+**23 incidents** publics vérifiés sur pièces — dont trois ajoutés ce jour
+(SDIS des Landes, Institut Bergonié, ERNAT), chacun avec un extrait verbatim
+de sa source et sa date de consultation.
 
 ## Le résultat, sans arrangement
 
 ```
-Couverture : 5/15 (33,3 %)
+Couverture : 7/18 (38,9 %)
   non admis              0
-  non rattachés         10
-    dont 9 organisations absentes du référentiel
+  non rattachés         11
+    dont 10 organisations absentes du référentiel
     dont 1 présente mais non reconnue par le moteur
 Référentiel entreprises : 0 ligne en agroalimentaire, industrie, BTP, commerce
 ```
 
-Ce que le radar voit — les cinq collectivités moyennes, nommées dans le texte
-avec un rôle explicite :
+Ce que le radar voit — sept organisations, dont deux gagnées ce jour : le
+SDIS des Landes grâce à la correction des particules (« SDIS **des** Landes »
+ne frappait pas l'alias « SDIS LANDES »), et l'Institut Bergonié par son nom
+exact. La mesure ne bouge pas par hasard : chaque point gagné a une cause
+écrite dans le code.
 
 | Incident | Organisation trouvée |
 | --- | --- |
@@ -28,6 +33,8 @@ avec un rôle explicite :
 | Ville de Tarnos | Commune de Tarnos |
 | Mairie d'Espelette | Commune de Espelette |
 | EHPAD Résidence du Parc de Champdeniers | EHPAD RESIDENCE DU PARC |
+| SDIS des Landes | SDIS LANDES |
+| Institut Bergonié | INSTITUT BERGONIE |
 | Ville de Gradignan — police municipale | Commune de Gradignan |
 
 ## Ce qu'il ne voit pas, et pourquoi
