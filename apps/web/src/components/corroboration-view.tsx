@@ -9,7 +9,7 @@
  * Isolé dans son propre fichier pour être rendu hors réseau, donc vérifiable
  * sans navigateur ni base.
  */
-import type { Corroboration } from "../api";
+import type { Corroboration, Historique } from "../api";
 
 /** « 12 h », « 2 j » : l'écart lisible entre le premier signalement et une reprise. */
 function delai(heures: number): string {
@@ -107,4 +107,82 @@ function formatDateCourte(iso: string | null): string {
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
   return d.toLocaleDateString("fr-FR", { day: "2-digit", month: "short", year: "numeric" });
+}
+
+const TENDANCE_LABEL: Record<Historique["tendance"], string> = {
+  nouveau: "nouvelle dans le radar",
+  "en hausse": "plus active qu'avant",
+  stable: "régulière",
+  "en baisse": "moins active",
+  ancien: "silencieuse depuis trois mois",
+};
+
+/** « mars 2025 » : un repère pour situer le début, pas une date technique. */
+function moisLisible(iso: string | null): string {
+  if (iso === null) return "—";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "—";
+  return d.toLocaleDateString("fr-FR", { month: "long", year: "numeric" });
+}
+
+/**
+ * Le profil historique : est-ce que c'est nouveau, ou est-ce qu'on la voit tout
+ * le temps ? Sans cette distinction, l'organisation qui apparaît dans trois
+ * faits ressemble à celle qui en a trente sur deux ans.
+ */
+export function renduHistorique(histo: Historique | null) {
+  if (histo === null) {
+    return (
+      <section className="orgsheet__section" data-testid="historique-absent">
+        <h3 className="orgsheet__section-title">historique</h3>
+        <p className="orgsheet__empty">profil historique non disponible sur ce serveur</p>
+      </section>
+    );
+  }
+
+  const pic = Math.max(1, ...histo.parMois.map((m) => m.faits));
+
+  return (
+    <section className="orgsheet__section">
+      <h3 className="orgsheet__section-title">
+        historique <span className="orgsheet__count">{histo.faits} faits / 12 mois</span>
+      </h3>
+      {histo.faits === 0 ? (
+        <p className="orgsheet__empty">aucun fait sur douze mois</p>
+      ) : (
+        <>
+          <p className="orgsheet__meta" data-tendance={histo.tendance}>
+            vue depuis {moisLisible(histo.premier)} · {TENDANCE_LABEL[histo.tendance]} ·{" "}
+            {histo.sources.length} source{histo.sources.length > 1 ? "s" : ""}
+          </p>
+          {/* Un mois vide est dessiné comme un vide, pas omis : c'est l'absence
+              qui porte l'information. */}
+          <ol className="orgsheet__mois" aria-label="faits par mois sur douze mois">
+            {histo.parMois.map((m) => (
+              <li
+                key={m.mois}
+                className="orgsheet__mois-item"
+                data-vide={m.faits === 0 ? "oui" : "non"}
+                title={`${moisLisible(`${m.mois}-01T12:00:00Z`)} : ${m.faits} fait${m.faits > 1 ? "s" : ""}`}
+              >
+                <span
+                  className="orgsheet__mois-barre"
+                  style={{ height: `${Math.round((m.faits / pic) * 100)}%` }}
+                  aria-hidden="true"
+                />
+              </li>
+            ))}
+          </ol>
+          {histo.familles.length > 0 && (
+            <p className="orgsheet__meta">
+              {histo.familles
+                .slice(0, 4)
+                .map((f) => `${f.family} ×${f.faits}`)
+                .join(" · ")}
+            </p>
+          )}
+        </>
+      )}
+    </section>
+  );
 }

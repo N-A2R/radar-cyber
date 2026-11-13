@@ -2,6 +2,7 @@ import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
 import { resolveUser } from "../middleware/auth.js";
 import { desaccords, regrouper, resume } from "../analyse/corroboration.js";
+import { construireHistorique } from "../analyse/historique.js";
 
 type OrgListRow = {
   id: number;
@@ -275,6 +276,10 @@ export default async function (app: FastifyInstance) {
         groupes: groupes.slice(0, 20),
         desaccords: conflits.slice(0, 20),
       },
+      // Même base de faits, autre question : est-ce que c'est nouveau, ou est-ce
+      // qu'on la voit tout le temps ? 12 mois de recul, tendance sur 90 jours
+      // contre les 90 précédents.
+      historique: construireHistorique(groupes),
     };
   });
 }

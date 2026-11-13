@@ -6,8 +6,8 @@
  * Est-ce qu'un serveur sans analyse multi-sources laisse la fiche utilisable ?
  */
 import { renderToStaticMarkup } from "react-dom/server";
-import { renduCorroboration } from "../src/components/corroboration-view";
-import type { Corroboration } from "../src/api";
+import { renduCorroboration, renduHistorique } from "../src/components/corroboration-view";
+import type { Corroboration, Historique } from "../src/api";
 
 let failures = 0;
 function check(label: string, ok: boolean, detail = "") {
@@ -82,6 +82,33 @@ const vide: Corroboration = { resume: { faits: 0, evenements: 0, sources: 0, cor
 const htmlVide = renderToStaticMarkup(renduCorroboration(vide));
 check("aucun fait est explicite", htmlVide.includes("aucun fait sur 180 jours"));
 check("aucun désaccord n'affiche pas de sous-titre", !htmlVide.includes("ne s'accordent pas"));
+
+// --- Historique ------------------------------------------------------------
+const mois = Array.from({ length: 12 }, (_, i) => ({ mois: `2026-${String(i + 1).padStart(2, "0")}`, faits: i === 11 ? 3 : i === 5 ? 0 : 1 }));
+const histo: Historique = {
+	premier: "2025-12-04T08:00:00Z",
+	dernier: "2026-11-10T08:00:00Z",
+	faits: 11,
+	parMois: mois,
+	tendance: "en hausse",
+	familles: [{ family: "ransomware", faits: 6 }, { family: "phishing", faits: 3 }],
+	sources: ["sudouest", "france3", "cert_fr"],
+};
+const hHtml = renderToStaticMarkup(renduHistorique(histo));
+check("l'historique affiche sa profondeur", hHtml.includes("vue depuis"));
+// `renderToStaticMarkup` échappe l'apostrophe en `&#x27;` : on teste la forme
+// effectivement produite, pas celle du texte source.
+check("la tendance est dite en clair", hHtml.includes("plus active qu&#x27;avant"));
+check("les douze mois sont dessinés", (hHtml.match(/orgsheet__mois-item/g) ?? []).length === 12);
+check("un mois vide est marqué comme vide", hHtml.includes('data-vide="oui"'));
+check("les familles récurrentes sont citées", hHtml.includes("ransomware") && hHtml.includes("×6"));
+
+const hVide = renderToStaticMarkup(renduHistorique(null));
+check("un serveur sans historique le dit", hVide.includes("non disponible"));
+const hZero = renderToStaticMarkup(
+	renduHistorique({ premier: null, dernier: null, faits: 0, parMois: mois.map((m) => ({ ...m, faits: 0 })), tendance: "nouveau", familles: [], sources: [] }),
+);
+check("aucun fait sur douze mois est explicite", hZero.includes("aucun fait sur douze mois"));
 
 console.log(failures === 0 ? "\ncorroboration: tout est vert" : `\ncorroboration: ${failures} échec(s)`);
 process.exit(failures === 0 ? 0 : 1);

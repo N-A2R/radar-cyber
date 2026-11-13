@@ -29,6 +29,7 @@ import * as maplibregl from 'maplibre-gl'
 import type { ExpressionSpecification } from 'maplibre-gl'
 import { FAMILY_HEX, FAMILY_HEX_FALLBACK, arcHex, type FlowArc } from './arcs.js'
 import DEP_GEOJSON_RAW from './departements-na.geojson?raw'
+import { styleSecours } from '../offline'
 
 // ── Types ────────────────────────────────────────────────────────────────
 
@@ -949,13 +950,41 @@ export default function Map3D(props: Map3DProps) {
     const observer = new ResizeObserver(() => map?.resize())
     observer.observe(ref.current)
 
+    /**
+     * Deux échecs différents, deux réponses différentes.
+     *
+     * Le TileJSON ne sert qu'aux bâtiments en 3D : sans lui, la carte est
+     * complète, simplement plate. En revanche, si le réseau est absent au point
+     * que le fetch échoue **et** que rien n'a encore été construit, on dessine
+     * le style de secours : les contours départementaux et les villes sont dans
+     * le bundle, donc la carte reste une carte.
+     */
+    const degrade = (motif: string) => {
+      console.warn(`[carte] service de tuiles indisponible (${motif}) : fond vectoriel embarqué`);
+      if (map !== null) return;
+      ensurePopupStyles()
+      map = new maplibregl.Map({
+        container: ref.current as HTMLElement,
+        style: styleSecours(
+          { type: 'FeatureCollection', features: DEP_FEATURES },
+          cityFeatures as unknown as { type: 'FeatureCollection'; features: unknown[] },
+        ) as unknown as maplibregl.StyleSpecification,
+        center: [0.6, 45.2],
+        zoom: 5.4,
+      })
+    }
+
     fetch(OFM_TILEJSON)
-      .then((r) => r.json())
+      .then((r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`)
+        return r.json()
+      })
       .then((json: { tiles?: string[] }) => {
         const url = json.tiles?.[0]
         if (url) buildMap(url)
+        else degrade('sans url de tuiles')
       })
-      .catch(() => { /* pas de bâtiments si le service est indisponible */ })
+      .catch((error: unknown) => degrade(error instanceof Error ? error.message : 'réseau'))
 
     return () => {
       disposed = true

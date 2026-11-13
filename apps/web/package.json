@@ -11,7 +11,8 @@
     "test:sources": "vite build --ssr test/sources-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/sources-verif.js",
     "test:inspecteur": "vite build --ssr test/inspecteur-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/inspecteur-verif.js",
     "test:fil": "vite build --ssr test/fil-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/fil-verif.js",
-    "test:corroboration": "vite build --ssr test/corroboration-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/corroboration-verif.js"
+    "test:corroboration": "vite build --ssr test/corroboration-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/corroboration-verif.js",
+    "test:offline": "vite build --ssr test/offline-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/offline-verif.js"
   },
   "dependencies": {
     "@radar/shared": "workspace:*",
