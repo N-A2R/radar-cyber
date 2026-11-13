@@ -25,6 +25,28 @@ const PER_PAGE = 25;
 const DEPTS = ["16", "17", "19", "23", "24", "33", "40", "47", "64", "79", "86", "87"];
 /** Numérique et télécoms : c'est là que se trouvent les entreprises à cybersécurité. */
 const NAF = ["6202A", "6201Z", "6209Z", "6203Z"];
+/**
+ * Secteurs hors numérique, ajoutés le 14 novembre 2026.
+ *
+ * La mesure de couverture désignait ce trou : 13 035 entreprises en base,
+ * toutes ou presque en numérique, et **zéro** en agroalimentaire, industrie,
+ * BTP et commerce — les secteurs les plus rançonnés de la région. Un incident
+ * visant une enseigne de distribution ou un industriel ne pouvait donc pas
+ * être rattaché, quelle que soit la qualité du moteur.
+ *
+ * Le choix des codes reste indépendant du corpus : on prend les activités
+ * dominantes de chaque famille, pas les victimes déjà connues.
+ */
+const NAF_HORS_NUMERIQUE = [
+	"4711B", // supermarchés
+	"4711F", // hypermarchés
+	"4711D", // supérettes
+	"4631Z", // commerce de gros de fruits et légumes
+	"1013A", // transformation et conservation de viande
+	"2562B", // usinage
+	"4120A", // construction de maisons individuelles
+];
+const NAF_TOUS = [...NAF, ...NAF_HORS_NUMERIQUE];
 
 const args = process.argv.slice(2);
 const apply = args.includes("--apply");
@@ -126,7 +148,7 @@ async function main(): Promise<void> {
 	const before = Number((await client.query("SELECT count(*)::text AS c FROM org")).rows[0].c);
 
 	const pairs: [string, string][] = [];
-	for (const dept of DEPTS) for (const naf of NAF) pairs.push([dept, naf]);
+	for (const dept of DEPTS) for (const naf of NAF_TOUS) pairs.push([dept, naf]);
 
 	let done = 0;
 	let inserted = 0;
