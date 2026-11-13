@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { InspectorProps } from "../contracts";
 import { api, type EventEnrichment, type Org } from "../api";
+import { renduRattachement } from "./rattachement-view";
 import "./inspector.css";
 
 type LoadState =
@@ -207,6 +208,14 @@ function EventDetail({ data }: { data: EventEnrichment }) {
           <p className="inspector__text">{event.summary}</p>
         </section>
       )}
+
+      {/*
+        Le rattachement explique une décision, il ne l'affiche pas seulement.
+        Un analyste qui voit « CHU de Bordeaux » veut savoir si c'est parce que
+        le nom est écrit noir sur blanc ou parce qu'un département a départagé
+        deux homonymes — ce sont deux niveaux de confiance très différents.
+      */}
+      {renduRattachement(data.rattachement ?? null, data.org !== null)}
 
       {data.org && (
         <section className="inspector__section">

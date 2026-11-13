@@ -20,6 +20,7 @@ import {
 	isRelevant,
 	loadRelevanceOrgIndex,
 	designateOrganization,
+	expliquerRattachement,
 	preparerGazetteer,
 	type RelevanceOrg,
 } from "./relevance.js";
@@ -34,6 +35,7 @@ import { consignerLot, MOTEURS, type JournalEntry } from "../journal/index.js";
 import { parseRssItems } from "./parsers/xml.js";
 import { parseJsonItems as parseJsonItemsNew } from "./parsers/json.js";
 import { constaterTransition } from "./reveil.js";
+import { libelleMotif, versEvidence, type ExplicationRattachement } from "../journal/rattachement.js";
 
 type SourceRow = {
   id: string;
@@ -696,14 +698,34 @@ async function ingestNarrative(
       }
     }
     let orgId: number | null = null;
-    let motifRattachement = "aucun";
+    let explication: ExplicationRattachement = {
+      moteur: "gazetteer@2",
+      motif: "aucun",
+      alias: null,
+      confiance: 0,
+      indisponible: true,
+    };
     try {
       const matchedOrg = nomme ?? designateOrganization(`${title} ${summary}`);
       orgId = matchedOrg?.orgId ?? null;
-      if (matchedOrg) motifRattachement = "alias";
+      if (matchedOrg) {
+        // Le moteur sait pourquoi il rattache : on le garde, sinon la fiche
+        // d'un événement rattaché ne peut rien expliquer d'autre que « fait ».
+        explication = matchedOrg.explication ?? {
+          moteur: "gazetteer@2",
+          motif: "alias-distinctif",
+          alias: null,
+          confiance: matchedOrg.confidence,
+        };
+      } else {
+        // Aucun rattachement : la raison compte autant que l'absence. « Le
+        // texte ne nomme personne » et « deux homonymes à égalité » ne se
+        // corrigent pas de la même façon.
+        explication = expliquerRattachement(`${title} ${summary}`);
+      }
     } catch {
       orgId = null;
-      motifRattachement = "erreur";
+      explication = { moteur: "gazetteer@2", motif: "aucun", alias: null, confiance: 0, indisponible: true };
     }
     const dateRaw = explicitOr(item, parser.dateField, DATE_FIELDS);
     // parseObservedAt couvre RFC 822/3339, formats français et relatifs ; à
@@ -746,7 +768,8 @@ async function ingestNarrative(
       confidence: "C3",
       sourceId: source.id,
       sourceUrl: link || undefined,
-      evidence: { feed: source.name },
+      // La preuve porte le pourquoi du rattachement, pas seulement la source.
+      evidence: { feed: source.name, rattachement: versEvidence(explication) },
       geoType: "unknown",
     });
     contract.record(admitted);
@@ -777,12 +800,12 @@ async function ingestNarrative(
       kind: orgId !== null ? "event.rattachement" : "match.decided",
       subject: dedupKey,
       summary: orgId !== null
-        ? `${source.id} : rattaché par alias (${motifRattachement})`
-        : `${source.id} : aucun rattachement retenu`,
+        ? `${source.id} : rattaché — ${libelleMotif(explication.motif)}${explication.alias ? ` (« ${explication.alias} »)` : ""}`
+        : `${source.id} : non rattaché — ${libelleMotif(explication.motif)}`,
       actor: `moteur:${MOTEURS.rattachement}`,
       // Le pourquoi, pas seulement le quoi : c'est ce qui permet de mesurer
       // plus tard ce qu'un changement de moteur a corrigé.
-      payload: { orgId, motif: motifRattachement, famille: family, admission: admissionRule },
+      payload: { orgId, ...versEvidence(explication), famille: family, admission: admissionRule },
       validAt: event.observedAt ?? null,
     });
   }
