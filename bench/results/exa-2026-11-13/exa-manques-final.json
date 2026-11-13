@@ -1,0 +1,5893 @@
+{
+ "source": "11 lots medium + arbitrage ultra",
+ "n": 302,
+ "conflits": 21,
+ "entites": [
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Le domaine n’a pas pu être rattaché de façon fiable à une entité française actuellement identifiée.",
+   "region": null,
+   "confiance": "faible",
+   "nomLisible": "adveo.com",
+   "departement": null,
+   "nomOriginal": "adveo.com\\$740.7M\\France\\1.1TB\\<1% DISCLOSED",
+   "siret_siege": null,
+   "est_francaise": "cannot_verify",
+   "sources_preuves": [
+    "https://adveo.com/"
+   ],
+   "domaine_canonique": "adveo.com",
+   "type_organisation": "autre",
+   "denomination_legale": null,
+   "desaccord": true,
+   "verdict_ultra": "present",
+   "domaine_ultra": "adveo.com",
+   "raison_ultra": "Le site adveo.com s’identifie explicitement comme ADVEO France et donne son adresse en France. Le registre confirme ADVEO FRANCE, désormais inactive depuis le 09/12/2025; ne pas confondre avec l’ancienne maison mère espagnole."
+  },
+  {
+   "siren": null,
+   "ville": "Paris",
+   "raison": "Le site officiel identifie Groupe Demos, organisme de formation établi à Paris, France; la dénomination légale et les identifiants ne sont pas établis.",
+   "region": "Île-de-France",
+   "confiance": "moyenne",
+   "nomLisible": "demos.fr",
+   "departement": "Paris",
+   "nomOriginal": "demos.fr\\$37.5M\\France\\870GB\\<1% DISCLOSED",
+   "siret_siege": null,
+   "est_francaise": "present",
+   "sources_preuves": [
+    "https://demos.fr/"
+   ],
+   "domaine_canonique": "demos.fr",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Groupe Demos",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Saint-Herblain",
+   "raison": "Le site officiel identifie Lumiplan, établi à Saint-Herblain, France.",
+   "region": "Pays de la Loire",
+   "confiance": "moyenne",
+   "nomLisible": "lumiplan.com",
+   "departement": "Loire-Atlantique",
+   "nomOriginal": "lumiplan.com\\$49.2M\\France\\652GB\\<1% DISCLOSED",
+   "siret_siege": null,
+   "est_francaise": "present",
+   "sources_preuves": [
+    "https://lumiplan.com/"
+   ],
+   "domaine_canonique": "lumiplan.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Lumiplan",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Paris",
+   "raison": "Le site officiel identifie la société de production d’animation Millimages, basée à Paris.",
+   "region": "Île-de-France",
+   "confiance": "moyenne",
+   "nomLisible": "millimages.com",
+   "departement": "Paris",
+   "nomOriginal": "millimages.com\\$12.6M\\France\\147GB\\<1% DISCLOSED",
+   "siret_siege": null,
+   "est_francaise": "present",
+   "sources_preuves": [
+    "https://millimages.com/"
+   ],
+   "domaine_canonique": "millimages.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Millimages S.A.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Aucune preuve fiable ne permet d’identifier une organisation française correspondant exactement à ce nom. ",
+   "region": null,
+   "confiance": "faible",
+   "nomLisible": "Gloria Cales",
+   "departement": null,
+   "nomOriginal": "Gloria Cales",
+   "siret_siege": null,
+   "est_francaise": "cannot_verify",
+   "sources_preuves": [
+    "https://gloriafilms.fr/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Aucune preuve fiable ne permet d’établir que cette entité homonyme est française.",
+   "region": null,
+   "confiance": "faible",
+   "nomLisible": "Royal Glass",
+   "departement": null,
+   "nomOriginal": "Royal Glass",
+   "siret_siege": null,
+   "est_francaise": "cannot_verify",
+   "sources_preuves": [
+    "https://royal-glass.com/"
+   ],
+   "domaine_canonique": "royal-glass.com",
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": true,
+   "verdict_ultra": "absent",
+   "domaine_ultra": "royalglasscoinc.com",
+   "raison_ultra": "La revendication Play du 04/04/2025 désigne royalglasscoinc.com. Son site officiel donne le siège à Santa Clara, Californie, États-Unis. Il ne s’agit pas de la société française homonyme de verres de dégustation."
+  },
+  {
+   "siren": null,
+   "ville": "Nanterre",
+   "raison": "Le domaine officiel identifie SEMNA/SPLNA, organisme d’aménagement opérant à Nanterre, France.",
+   "region": "Île-de-France",
+   "confiance": "moyenne",
+   "nomLisible": "semna.fr",
+   "departement": "Hauts-de-Seine",
+   "nomOriginal": "semna.fr",
+   "siret_siege": null,
+   "est_francaise": "present",
+   "sources_preuves": [
+    "https://semna.fr/"
+   ],
+   "domaine_canonique": "semna.fr",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Société d’économie mixte d’aménagement et de gestion de la ville de Nanterre (SEMNA)",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Le domaine exact n’a pas pu être rattaché de façon fiable à une entité française.",
+   "region": null,
+   "confiance": "faible",
+   "nomLisible": "www.normandydiesel.fr",
+   "departement": null,
+   "nomOriginal": "www.normandydiesel.fr",
+   "siret_siege": null,
+   "est_francaise": "cannot_verify",
+   "sources_preuves": [
+    "https://www.normandydiesel.fr/"
+   ],
+   "domaine_canonique": "normandydiesel.fr",
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": true,
+   "verdict_ultra": "present",
+   "domaine_ultra": "normandydiesel.fr",
+   "raison_ultra": "Le site identifie le groupe Normandy Diesel, distributeur Mercedes-Benz en Normandie. Le registre rattache le domaine et le nom exact à NORMANDY DIESEL SAS, siège à Saint-Étienne-du-Rouvray (Seine-Maritime, Normandie), avec SIREN et SIRET concordants."
+  },
+  {
+   "siren": null,
+   "ville": "Riyad",
+   "raison": "Le site officiel identifie Fursan Travel comme une entreprise de voyages basée à Riyad, Arabie saoudite.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Fursan Travel",
+   "departement": null,
+   "nomOriginal": "Fursan Travel",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://fursan.com.sa/"
+   ],
+   "domaine_canonique": "fursan.com.sa",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Fursan Travel Group",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Orsay",
+   "raison": "Université Paris-Sud/Paris-XI était une université publique française; elle a été remplacée par Université Paris-Saclay en 2020.",
+   "region": "Île-de-France",
+   "confiance": "haute",
+   "nomLisible": "Universite Paris Sud",
+   "departement": "Essonne",
+   "nomOriginal": "Universite Paris Sud",
+   "siret_siege": null,
+   "est_francaise": "present",
+   "sources_preuves": [
+    "https://www.idref.fr/026404664",
+    "https://www.universite-paris-saclay.fr"
+   ],
+   "domaine_canonique": "universite-paris-saclay.fr",
+   "type_organisation": "etablissement_public",
+   "denomination_legale": "Université Paris-Sud / Paris-XI",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Le site et les registres sectoriels identifient une entreprise textile pakistanaise, non française.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Al-Karam Textile Mills Pvt",
+   "departement": null,
+   "nomOriginal": "[DISCLOSED] Al-Karam Textile Mills Pvt",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://alkaram.com/",
+    "https://ptc.org.pk/ptc-members/"
+   ],
+   "domaine_canonique": "alkaram.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Al-Karam Textile Mills (Pvt.) Limited",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Le titre de domaine seul et la revendication de fuite ne permettent pas d’identifier le propriétaire ni sa nationalité.",
+   "region": null,
+   "confiance": "faible",
+   "nomLisible": "1133.com",
+   "departement": null,
+   "nomOriginal": "1133.com",
+   "siret_siege": null,
+   "est_francaise": "cannot_verify",
+   "sources_preuves": [
+    "https://www.woowhois.com/whois/1133.com"
+   ],
+   "domaine_canonique": "1133.com",
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Beachwood",
+   "raison": "L’entité identifiée est 2K Dental, cabinet dentaire situé à Beachwood, Ohio, États-Unis.",
+   "region": "Ohio",
+   "confiance": "haute",
+   "nomLisible": "2K Dental Data Leak",
+   "departement": null,
+   "nomOriginal": "2K Dental Data Leak",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://2kdental.com"
+   ],
+   "domaine_canonique": "2kdental.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "2K Dental",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Leawood",
+   "raison": "L’entité identifiée est Accounting & Advisory Services, P.A., située au Kansas, États-Unis.",
+   "region": "Kansas",
+   "confiance": "haute",
+   "nomLisible": "Accounting & Advisory Services,",
+   "departement": null,
+   "nomOriginal": "Accounting & Advisory Services,",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://askyouraccountant.com"
+   ],
+   "domaine_canonique": "askyouraccountant.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Accounting & Advisory Services, P.A.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Muskogee",
+   "raison": "Le site officiel identifie Acme Engineering and Manufacturing Corporation, à Muskogee, Oklahoma, États-Unis.",
+   "region": "Oklahoma",
+   "confiance": "haute",
+   "nomLisible": "acmefan.com",
+   "departement": null,
+   "nomOriginal": "acmefan.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.acmefan.com/FANtastic/Public/About.aspx"
+   ],
+   "domaine_canonique": "acmefan.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Acme Engineering and Manufacturing Corporation",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Le site officiel identifie un constructeur immobilier du sud-est des États-Unis, non français.",
+   "region": "États-Unis",
+   "confiance": "haute",
+   "nomLisible": "adamshomes.com",
+   "departement": null,
+   "nomOriginal": "adamshomes.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.adamshomes.com/"
+   ],
+   "domaine_canonique": "adamshomes.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Adams Homes",
+   "desaccord": false
+  },
+  {
+   "siren": "775665599",
+   "ville": "Paris",
+   "raison": "L’Agence française de développement est un établissement public français; le siège est à Paris.",
+   "region": "Île-de-France",
+   "confiance": "haute",
+   "nomLisible": "AFD",
+   "departement": "Paris",
+   "nomOriginal": "AFD",
+   "siret_siege": "77566559900129",
+   "est_francaise": "present",
+   "sources_preuves": [
+    "https://lannuaire.service-public.gouv.fr/gouvernement/3a755272-b303-4e75-aa22-b6950262da46",
+    "https://www.afd.fr/fr/mentions-legales"
+   ],
+   "domaine_canonique": "afd.fr",
+   "type_organisation": "etablissement_public",
+   "denomination_legale": "Agence française de développement",
+   "desaccord": true,
+   "verdict_ultra": "absent",
+   "domaine_ultra": "afd-inc.com",
+   "raison_ultra": "La revendication Hunters du 12 décembre 2024 identifie AFD au domaine afd-inc.com et aux États-Unis. Le site officiel donne l’adresse 200 Varick Street, New York, NY; il s’agit donc de l’AFD américaine, pas de l’Agence française de développement."
+  },
+  {
+   "siren": null,
+   "ville": "Shanghai",
+   "raison": "Le site officiel identifie Shanghai Aishu Information Technology Co., Ltd., en Chine.",
+   "region": "Shanghai",
+   "confiance": "haute",
+   "nomLisible": "AIshu, Eshoo",
+   "departement": null,
+   "nomOriginal": "AIshu, Eshoo",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.aishu.cn/cn/about-us"
+   ],
+   "domaine_canonique": "aishu.cn",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Shanghai Aishu Information Technology Co., Ltd.",
+   "desaccord": false
+  },
+  {
+   "siren": "853000982",
+   "ville": "Paris",
+   "raison": "AKTO est une association française déclarée, dont le siège est à Paris.",
+   "region": "Île-de-France",
+   "confiance": "haute",
+   "nomLisible": "AKTO",
+   "departement": "Paris",
+   "nomOriginal": "AKTO",
+   "siret_siege": "85300098200019",
+   "est_francaise": "present",
+   "sources_preuves": [
+    "https://annuaire-entreprises.data.gouv.fr/entreprise/akto-853000982",
+    "https://www.akto.fr/politique-de-confidentialite/"
+   ],
+   "domaine_canonique": "akto.fr",
+   "type_organisation": "association",
+   "denomination_legale": "AKTO",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "San Rafael",
+   "raison": "AllBiz.com, Inc. est identifiée à San Rafael, Californie, États-Unis.",
+   "region": "California",
+   "confiance": "haute",
+   "nomLisible": "allbiz.com",
+   "departement": null,
+   "nomOriginal": "allbiz.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.allbiz.com/business/allbiz-com-inc-925-461-4224"
+   ],
+   "domaine_canonique": "allbiz.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "AllBiz.com, Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Winchester",
+   "raison": "Le site officiel identifie Allegheny Contract Flooring à Winchester, Massachusetts, États-Unis.",
+   "region": "Massachusetts",
+   "confiance": "haute",
+   "nomLisible": "alleghenycontract.com",
+   "departement": null,
+   "nomOriginal": "alleghenycontract.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://alleghenycontract.com/about-allegheny/contact-us/"
+   ],
+   "domaine_canonique": "alleghenycontract.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Allegheny Contract Flooring",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "London",
+   "raison": "L’entité est Allen Carr’s Easyway (International) Ltd, enregistrée en Angleterre et au pays de Galles.",
+   "region": "England",
+   "confiance": "haute",
+   "nomLisible": "Allen Carr’s Easyway Hacked",
+   "departement": null,
+   "nomOriginal": "Allen Carr’s Easyway Hacked",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://find-and-update.company-information.service.gov.uk/company/02423347"
+   ],
+   "domaine_canonique": "allencarr.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Allen Carr’s Easyway (International) Ltd",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Springfield",
+   "raison": "Alliance Industries est identifiée à Springfield, Missouri, États-Unis.",
+   "region": "Missouri",
+   "confiance": "haute",
+   "nomLisible": "allianceind.com",
+   "departement": null,
+   "nomOriginal": "allianceind.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.allianceind.com/about-us"
+   ],
+   "domaine_canonique": "allianceind.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Alliance Industries",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Anqing",
+   "raison": "Le site officiel identifie une société de fabrication basée à Anqing, Anhui, Chine.",
+   "region": "Anhui",
+   "confiance": "haute",
+   "nomLisible": "aqhch.com.cn",
+   "departement": null,
+   "nomOriginal": "aqhch.com.cn",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.aqhch.com.cn/en/"
+   ],
+   "domaine_canonique": "aqhch.com.cn",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Anqing Hengchang Machinery Manufacturing Co., Ltd.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Aucune preuve fiable ne permet d’établir l’identité légale ou la nationalité française de cette entité.",
+   "region": null,
+   "confiance": "faible",
+   "nomLisible": "Arrow Motor Auctions",
+   "departement": null,
+   "nomOriginal": "Arrow Motor Auctions",
+   "siret_siege": null,
+   "est_francaise": "cannot_verify",
+   "sources_preuves": [
+    "https://broadarrowauctions.com/"
+   ],
+   "domaine_canonique": "broadarrowauctions.com",
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": true,
+   "verdict_ultra": "absent",
+   "domaine_ultra": "arrowauctions.co.uk",
+   "raison_ultra": "La revendication Spacebears du 24 janvier 2025 identifie arrowauctions.co.uk et décrit l'entreprise établie à Redditch, Worcestershire; les sources cyber la classent au Royaume-Uni. Aucun indice d'organisation française."
+  },
+  {
+   "siren": null,
+   "ville": "Horsham",
+   "raison": "Arun Estate Agencies Limited (Arun Estates) est une entreprise établie au Royaume-Uni.",
+   "region": "West Sussex",
+   "confiance": "haute",
+   "nomLisible": "Arun Estates",
+   "departement": null,
+   "nomOriginal": "Arun Estates",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://arunestates.co.uk/"
+   ],
+   "domaine_canonique": "arunestates.co.uk",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Arun Estate Agencies Limited",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Saint-Herblain",
+   "raison": "Le site officiel identifie ASI, société de conseil numérique française établie à Saint-Herblain.",
+   "region": "Pays de la Loire",
+   "confiance": "moyenne",
+   "nomLisible": "ASI",
+   "departement": "Loire-Atlantique",
+   "nomOriginal": "ASI",
+   "siret_siege": null,
+   "est_francaise": "present",
+   "sources_preuves": [
+    "https://asi.fr/"
+   ],
+   "domaine_canonique": "asi.fr",
+   "type_organisation": "entreprise",
+   "denomination_legale": "ASI (ASI Informatique)",
+   "desaccord": true,
+   "verdict_ultra": "absent",
+   "domaine_ultra": "asipartner.com",
+   "raison_ultra": "La revendication BianLian du 28 juin 2024 décrit le distributeur informatique ASI, domaine asipartner.com, et le classe au Canada dans l’index; le site officiel donne son siège à Fremont, Californie, États-Unis. Ce n’est pas une société française."
+  },
+  {
+   "siren": null,
+   "ville": "Bamako",
+   "raison": "Le site identifie ASK Assurance Mali, au Mali, dans un groupe dont le siège est au Maroc.",
+   "region": "Mali",
+   "confiance": "haute",
+   "nomLisible": "askgs.ma",
+   "departement": null,
+   "nomOriginal": "askgs.ma",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://askgs.ma/",
+    "https://askassurance.ma/"
+   ],
+   "domaine_canonique": "askgs.ma",
+   "type_organisation": "entreprise",
+   "denomination_legale": "ASK Assurance Mali",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Eluru",
+   "raison": "Le site officiel identifie un établissement médical indien à Eluru, Andhra Pradesh, Inde.",
+   "region": "Andhra Pradesh",
+   "confiance": "haute",
+   "nomLisible": "ASRAM Medical College and Hospita",
+   "departement": null,
+   "nomOriginal": "ASRAM Medical College and Hospita",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.asram.in/"
+   ],
+   "domaine_canonique": "asram.in",
+   "type_organisation": "etablissement_public",
+   "denomination_legale": "Alluri Sitarama Raju Academy of Medical Sciences",
+   "desaccord": false
+  },
+  {
+   "siren": "323623603",
+   "ville": "Bezons",
+   "raison": "ATOS SE est une société française; le siège indiqué est à Bezons, France.",
+   "region": "Île-de-France",
+   "confiance": "haute",
+   "nomLisible": "Atos (Business Services · France)",
+   "departement": "Val-d’Oise",
+   "nomOriginal": "Atos (Business Services · France)",
+   "siret_siege": null,
+   "est_francaise": "present",
+   "sources_preuves": [
+    "https://atos.ai/"
+   ],
+   "domaine_canonique": "atos.net",
+   "type_organisation": "entreprise",
+   "denomination_legale": "ATOS SE",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Vetlanda",
+   "raison": "Société identifiée en Suède, à Vetlanda; aucune preuve de rattachement français.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "augustssons.se",
+   "departement": null,
+   "nomOriginal": "augustssons.se",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.augustssons.se/"
+   ],
+   "domaine_canonique": "augustssons.se",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Augustssons Beslagsindustri AB",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Old Brookville",
+   "raison": "Banfi Products Corp./Banfi Vintners est identifiée aux États-Unis, à New York.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Banfi Vintners",
+   "departement": "New York",
+   "nomOriginal": "Banfi Vintners",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.encyclopedia.com/books/politics-and-business-magazines/banfi-products-corp",
+    "https://banfiusa.com/company/"
+   ],
+   "domaine_canonique": "banfiusa.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Banfi Products Corp.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Harrow",
+   "raison": "Banner and Associates Limited est enregistrée au Royaume-Uni, à Harrow.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Banner and Associates",
+   "departement": "England",
+   "nomOriginal": "Banner and Associates",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://find-and-update.company-information.service.gov.uk/company/02860181",
+    "https://www.banneracc.com/contact-us/"
+   ],
+   "domaine_canonique": "banneracc.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "BANNER AND ASSOCIATES LIMITED",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Belcher Pharmaceuticals est une société pharmaceutique non française; le site officiel la présente comme Belcher Pharmaceuticals, LLC.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "belcherpharma.com",
+   "departement": null,
+   "nomOriginal": "belcherpharma.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.belcherpharma.com/"
+   ],
+   "domaine_canonique": "belcherpharma.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Belcher Pharmaceuticals, LLC",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "San Jose",
+   "raison": "Beowulf indique son siège dans la Silicon Valley et des bureaux à Singapour et Taïwan.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Beowulfchain",
+   "departement": "California",
+   "nomOriginal": "Beowulfchain",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://beowulfchain.com/about"
+   ],
+   "domaine_canonique": "beowulfchain.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Beowulf Blockchain",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Morgantown",
+   "raison": "Berg Construction, LLC est identifiée à Morgantown, Pennsylvanie, États-Unis.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "bergconst.com",
+   "departement": "Pennsylvania",
+   "nomOriginal": "bergconst.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://bergconst.com/contact-us/"
+   ],
+   "domaine_canonique": "bergconst.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Berg Construction, LLC",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Toronto",
+   "raison": "Le centre est une organisation de santé communautaire située à Toronto, Ontario, Canada.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Black Creek Community Health Centre (bcch.local)",
+   "departement": "Ontario",
+   "nomOriginal": "Black Creek Community Health Centre (bcch.local)",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.bcchc.com/"
+   ],
+   "domaine_canonique": "bcchc.com",
+   "type_organisation": "association",
+   "denomination_legale": "Black Creek Community Health Centre",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Jakarta",
+   "raison": "bri.co.id correspond à PT Bank Rakyat Indonesia (Persero) Tbk, dont le siège est en Indonésie.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "bri.co.id (SOLD TO 3RD PARTY)",
+   "departement": "DKI Jakarta",
+   "nomOriginal": "bri.co.id (SOLD TO 3RD PARTY)",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://linkedin.com/company/pt-bank-rakyat-indonesia-persero-tbk"
+   ],
+   "domaine_canonique": "bri.co.id",
+   "type_organisation": "entreprise",
+   "denomination_legale": "PT Bank Rakyat Indonesia (Persero) Tbk",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Sainte-Anne-de-la-Rochelle",
+   "raison": "Brien Maple Sweets Inc. est enregistrée au Québec, Canada, à Sainte-Anne-de-la-Rochelle.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Brien, Inc.",
+   "departement": "Quebec",
+   "nomOriginal": "Brien, Inc.",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://brien-produitsderable.com/fr/nous-joindre"
+   ],
+   "domaine_canonique": "brien-produitsderable.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "BRIEN MAPLE SWEETS INC.",
+   "desaccord": true,
+   "verdict_ultra": "cannot_verify",
+   "domaine_ultra": null,
+   "raison_ultra": "Le libellé « Brien, Inc. » apparaît dans la revendication du 4 mars 2025 sans pays ni domaine fiable. Un rapprochement avec Mosley Glick O’Brien, Inc. reste non démontré ; nationalité et identité légale non vérifiables."
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Brockington College est une académie Church of England au Royaume-Uni.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "brockington.leisc.sch.uk",
+   "departement": "England",
+   "nomOriginal": "brockington.leisc.sch.uk",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://darkfield.orizon.one/victims/eee86138-dc20-4930-84a7-cd1ec5e15fa8"
+   ],
+   "domaine_canonique": "brockington.leisc.sch.uk",
+   "type_organisation": "etablissement_public",
+   "denomination_legale": "Brockington College",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Brown Integrated Logistics est une entreprise de transport et logistique américaine.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "brownintegratedlogistics.com",
+   "departement": null,
+   "nomOriginal": "brownintegratedlogistics.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.brownintegratedlogistics.com/"
+   ],
+   "domaine_canonique": "brownintegratedlogistics.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Brown Integrated Logistics",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Bengaluru",
+   "raison": "Buddy Loan est une fintech basée à Bengaluru, en Inde; l’entité associée est Bvalue Services Pvt. Ltd.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Buddy Loan",
+   "departement": "Karnataka",
+   "nomOriginal": "Buddy Loan",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://linkedin.com/company/buddyloan",
+    "https://tracxn.com/d/companies/buddy-loan/__LgZr43dr8J5F6nuq0YZgHqmW4GS0xbkcaX2hyTFWtlE"
+   ],
+   "domaine_canonique": "buddyloan.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "BVALUE SERVICES PRIVATE LIMITED",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "La revendication correspond à Cambridgeport Construction, qui dessert Boston et l’est du Massachusetts, États-Unis.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "CAMRIDGEPORT",
+   "departement": "Massachusetts",
+   "nomOriginal": "CAMRIDGEPORT",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://ransomware.live/id/Q0FNUklER0VQT1JUQHNwYWNlYmVhcnM"
+   ],
+   "domaine_canonique": "cambridgeport.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Cambridgeport Construction",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Cetrulo LLP est un cabinet américain avec des bureaux en Nouvelle-Angleterre et à New York.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "CETRULO",
+   "departement": null,
+   "nomOriginal": "CETRULO",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.cetllp.com/our-firm/"
+   ],
+   "domaine_canonique": "cetllp.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Cetrulo LLP",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Douala",
+   "raison": "Chanas Assurances S.A. est autorisée au Cameroun et située à Douala.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Chanas Assurances S.A. (chanasassurances.com)",
+   "departement": null,
+   "nomOriginal": "Chanas Assurances S.A. (chanasassurances.com)",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.chanasassurances.com/nous-contacter/"
+   ],
+   "domaine_canonique": "chanasassurances.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "CHANAS ASSURANCES S.A.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "London",
+   "raison": "Chickenshed est une charity et société enregistrée en Angleterre et au pays de Galles, à Londres.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Chickenshed",
+   "departement": "England",
+   "nomOriginal": "Chickenshed",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.chickenshed.org.uk/legal/privacy"
+   ],
+   "domaine_canonique": "chickenshed.org.uk",
+   "type_organisation": "association",
+   "denomination_legale": "Chickenshed",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Nicosia",
+   "raison": "L’entité est enregistrée à Nicosie, Chypre, selon la fiche officielle de sanctions.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "CHRISTODOULOS G. VASSILIADES & CO. LLC",
+   "departement": null,
+   "nomOriginal": "CHRISTODOULOS G. VASSILIADES & CO. LLC",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://sanctionssearch.ofac.treas.gov/Details.aspx?id=42059"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": "entreprise",
+   "denomination_legale": "CHRISTODOULOS G. VASSILIADES & CO. LLC",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "McKinney",
+   "raison": "La ville est explicitement située à McKinney, Texas, États-Unis.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "City of McKinney",
+   "departement": "Texas",
+   "nomOriginal": "City of McKinney",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.mckinneytexas.org/"
+   ],
+   "domaine_canonique": "mckinneytexas.org",
+   "type_organisation": "collectivite",
+   "denomination_legale": "City of McKinney",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Coburg North",
+   "raison": "Clutch Industries se présente comme un fabricant australien, avec siège à Coburg North, Victoria.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Clutch Industries",
+   "departement": "Victoria",
+   "nomOriginal": "Clutch Industries",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.clutchindustries.com.au/"
+   ],
+   "domaine_canonique": "clutchindustries.com.au",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Clutch Industries",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Milano",
+   "raison": "CO-VER Power Technology S.p.A. a son siège légal à Milan, Italie.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "CO-VER Power Technology SpA Data Leak",
+   "departement": "Lombardia",
+   "nomOriginal": "CO-VER Power Technology SpA Data Leak",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.co-ver.it/"
+   ],
+   "domaine_canonique": "co-ver.it",
+   "type_organisation": "entreprise",
+   "denomination_legale": "CO-VER Power Technology S.p.A.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Dar es Salaam",
+   "raison": "Il s’agit du College of Business Education, établissement créé par le Parlement tanzanien et situé à Dar es Salaam.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "College of Business - Tanzania",
+   "departement": null,
+   "nomOriginal": "College of Business - Tanzania",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://cbe.ac.tz/about/overview"
+   ],
+   "domaine_canonique": "cbe.ac.tz",
+   "type_organisation": "etablissement_public",
+   "denomination_legale": "College of Business Education",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Portland",
+   "raison": "CRMG est identifiée à Portland, Oregon, États-Unis, et opère en Oregon et dans l’État de Washington.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Commercial & Residential Management Group",
+   "departement": "Oregon",
+   "nomOriginal": "Commercial & Residential Management Group",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.loopnet.com/company/commercial-residential-management-group/portland-or/c8z46fgl/"
+   ],
+   "domaine_canonique": "crmgco.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Commercial & Residential Management Group",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Jemeppe-sur-Sambre",
+   "raison": "L’administration communale est située à Jemeppe-sur-Sambre, en Belgique.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Commune de Jemeppe-sur-Sambre",
+   "departement": null,
+   "nomOriginal": "Commune de Jemeppe-sur-Sambre",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.jemeppe-sur-sambre.be/"
+   ],
+   "domaine_canonique": "jemeppe-sur-sambre.be",
+   "type_organisation": "collectivite",
+   "denomination_legale": "Commune de Jemeppe-sur-Sambre",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Leeds",
+   "raison": "Communisis Limited est enregistrée en Angleterre et au pays de Galles, avec siège à Leeds.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "communisis.com & paragon.world",
+   "departement": "England",
+   "nomOriginal": "communisis.com & paragon.world",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://client-portal-cm.communisis.com/Company-details"
+   ],
+   "domaine_canonique": "communisis.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Communisis Limited",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Starnberg",
+   "raison": "Le résultat officiel correspondant identifie Compass Communications GmbH à Starnberg, Allemagne.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Compass Communications(Attack again)",
+   "departement": "Bavaria",
+   "nomOriginal": "Compass Communications(Attack again)",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.compass-communications.de/kontakt/"
+   ],
+   "domaine_canonique": "compass-communications.de",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Compass Communications GmbH",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Charlotte",
+   "raison": "Conterra Networks est une entreprise de télécommunications basée à Charlotte, Caroline du Nord, États-Unis.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "conterra.com",
+   "departement": "North Carolina",
+   "nomOriginal": "conterra.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://marketing.conterra.com/",
+    "https://ourmembers.nctech.org/directory/Details/conterra-networks-825541"
+   ],
+   "domaine_canonique": "conterra.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Conterra Networks",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Langley",
+   "raison": "Cotala Cross-Media est située à Langley, Colombie-Britannique, Canada.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Cotala Cross-Media - Full Leak",
+   "departement": "British Columbia",
+   "nomOriginal": "Cotala Cross-Media - Full Leak",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.cotala.com/contact-us/"
+   ],
+   "domaine_canonique": "cotala.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Cotala Cross-Media",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Mumbai",
+   "raison": "Crimson Interactive Private Limited est enregistrée à Mumbai, Maharashtra, Inde.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Crimson Interactive",
+   "departement": "Maharashtra",
+   "nomOriginal": "Crimson Interactive",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.zaubacorp.com/CRIMSON-INTERACTIVE-PRIVATE-LIMITED-U64200MH2005PTC157563",
+    "https://www.crimsoni.com/contact.html"
+   ],
+   "domaine_canonique": "crimsoni.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "CRIMSON INTERACTIVE PRIVATE LIMITED",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Tlalnepantla",
+   "raison": "Cristal y Lavisa se présente comme une entreprise mexicaine, avec adresse à Tlalnepantla, État de México.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Cristal y Lavisa S.A. de C.V.",
+   "departement": "Estado de México",
+   "nomOriginal": "Cristal y Lavisa S.A. de C.V.",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://cristalylavisa.com.mx/PcConocenos"
+   ],
+   "domaine_canonique": "cristalylavisa.com.mx",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Cristal y Lavisa S.A. de C.V.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Lakes",
+   "raison": "Cruz Marine est identifiée en Alaska, États-Unis, et rattachée à Cruz Construction.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Cruz Marine (cruz.local)",
+   "departement": "Alaska",
+   "nomOriginal": "Cruz Marine (cruz.local)",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://exa.ai/library/place/n1wq4hwz0l7",
+    "https://www.cruzconstruct.com/projects/"
+   ],
+   "domaine_canonique": "cruzconstruct.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Cruz Marine",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Site officiel : siège national à Greensboro, Caroline du Nord, États-Unis.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Dana Safety Supply",
+   "departement": null,
+   "nomOriginal": "Dana Safety Supply",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://danasafetysupply.com/about-us",
+    "https://danasafetysupply.com/location/greensboro-3"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Site et profil d’entreprise : Campos dos Goytacazes, Rio de Janeiro, Brésil.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "datacampos.com",
+   "departement": null,
+   "nomOriginal": "datacampos.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.datacampos.com/indexEN.php",
+    "https://linkedin.com/company/datacampos"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Site officiel : cabinet situé à Toronto, Ontario, Canada.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "De Rose Lawyers",
+   "departement": null,
+   "nomOriginal": "De Rose Lawyers",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://deroselaw.ca/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Site officiel de Deloitte UK : entité opérant au Royaume-Uni.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Deloitte UK",
+   "departement": null,
+   "nomOriginal": "Deloitte UK",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.deloitte.com/uk/en.html"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Site officiel : société de règlement de sinistres basée en Floride, États-Unis.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "DR.Claims FL LLC",
+   "departement": null,
+   "nomOriginal": "DR.Claims FL LLC",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://dr.claims/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Site officiel : organisme à Scranton, Pennsylvanie, États-Unis.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Drug and Alcohol Treatment Service",
+   "departement": null,
+   "nomOriginal": "Drug and Alcohol Treatment Service",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "http://www.datsrecovery.org/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Site officiel : cabinet basé à San Antonio et Austin, Texas, États-Unis.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "dtrglaw.com",
+   "departement": null,
+   "nomOriginal": "dtrglaw.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://dtrglaw.com/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Site officiel : adresse à Louisville, Kentucky, États-Unis.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Eagle Safety Eyewear",
+   "departement": null,
+   "nomOriginal": "Eagle Safety Eyewear",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://eaglesafety.com/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Sources officielles : service postal opérant au Kurdistan et en Irak, siège à Erbil.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "eaglepost.com",
+   "departement": null,
+   "nomOriginal": "eaglepost.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.eaglepost.com/about",
+    "https://gov.krd/english/government/the-prime-minister/activities/posts/2024/june/krg-prime-minister-inaugurates-eagle-post-centre-in-erbil/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Site officiel : réseau américain, siège indiqué à Chicago, Illinois.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Easterseals",
+   "departement": null,
+   "nomOriginal": "Easterseals",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.easterseals.com/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Site officiel : cabinet avec bureaux à New York et Berkeley, États-Unis.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "ecbawm.com",
+   "departement": null,
+   "nomOriginal": "ecbawm.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://ecbawm.com/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": "332484021",
+   "ville": "Arradon",
+   "raison": "Société française active identifiée au RCS, avec siège à Arradon et SIREN/SIRET publiés.",
+   "region": "Bretagne",
+   "confiance": "haute",
+   "nomLisible": "Ecritel",
+   "departement": "Morbihan",
+   "nomOriginal": "Ecritel",
+   "siret_siege": "33248402100164",
+   "est_francaise": "present",
+   "sources_preuves": [
+    "https://www.pappers.fr/entreprise/ecritel-332484021",
+    "https://www.ecritel.fr/fr/"
+   ],
+   "domaine_canonique": "ecritel.fr",
+   "type_organisation": "entreprise",
+   "denomination_legale": "ECRITEL",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Service de déclaration fiscale en ligne pour l’IRS américain ; aucune implantation française identifiée.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "efile.com",
+   "departement": null,
+   "nomOriginal": "efile.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.e-file.com/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Site officiel : entreprise desservant l’Ontario, Canada, siège à Barrie.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Elevator One",
+   "departement": null,
+   "nomOriginal": "Elevator One",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.elevatorone.ca/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Site officiel : coopérative servant Houston, Texas, États-Unis, adresse à Houston.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Energy Capital Credit Union (eccu.net)",
+   "departement": null,
+   "nomOriginal": "Energy Capital Credit Union (eccu.net)",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.eccu.net/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Site officiel : entreprise basée à Lynchburg, Virginie, États-Unis.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "English Construction Company",
+   "departement": null,
+   "nomOriginal": "English Construction Company",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.englishconst.com/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Site officiel : boulangeries et bureaux aux États-Unis, notamment Atlanta et Muskegon.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Epi Breads",
+   "departement": null,
+   "nomOriginal": "Epi Breads",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.epibreads.com/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Les sources identifient EPS Tech Ltd comme une société israélienne de défense, basée à Zur Yigal.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "EPS Tech confidential source code ( military )",
+   "departement": null,
+   "nomOriginal": "EPS Tech confidential source code ( military )",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://linkedin.com/company/eps-tech",
+    "https://tech.walla.co.il/item/3684907"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Sources d’entreprise : Everything Breaks Inc. est enregistrée aux États-Unis et son activité est située au Texas.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Everything Breaks",
+   "departement": null,
+   "nomOriginal": "Everything Breaks",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.bbb.org/us/tx/dallas/profile/warranty-plans/everything-breaks-0875-90916669",
+    "https://everythingbreaks.com/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Site officiel : fabricant tunisien basé à Zaghouan, Tunisie.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "ExcelPlast Tunisie",
+   "departement": null,
+   "nomOriginal": "ExcelPlast Tunisie",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://excelplastunisie.com/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Site officiel : société de numérisation opérant au Brésil, avec indicatif et présence nationale brésiliens.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "fabricainfo.com/",
+   "departement": null,
+   "nomOriginal": "fabricainfo.com/",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.fabricainfo.com/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": "519115315",
+   "ville": "Nanterre",
+   "raison": "Les mentions légales et le registre indiquent une SAS française domiciliée à Nanterre, avec SIREN et SIRET publiés.",
+   "region": "Île-de-France",
+   "confiance": "haute",
+   "nomLisible": "fidelia-consulting.com PART2",
+   "departement": "Hauts-de-Seine",
+   "nomOriginal": "fidelia-consulting.com PART2",
+   "siret_siege": "51911531500029",
+   "est_francaise": "present",
+   "sources_preuves": [
+    "https://fidelia-consulting.com/mentions-legales/",
+    "https://www.societe.com/societe/fidelia-consulting-519115315.html"
+   ],
+   "domaine_canonique": "fidelia-consulting.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "FIDELIA CONSULTING",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Source institutionnelle lituanienne : domaine enregistré en Russie et site de piratage, sans organisation française identifiée.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "filmai.in",
+   "departement": null,
+   "nomOriginal": "filmai.in",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.rtk.lt/en/news/piracy-website-filmai-in-poses-threats-to-both-users-and-national-security"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": true,
+   "verdict_ultra": "cannot_verify",
+   "domaine_ultra": "filmai.in",
+   "raison_ultra": "La LRTK décrit le domaine et son infrastructure en Russie, mais cela ne permet pas d’identifier la personne morale éditrice ni son pays. Un hébergeur ou registrar étranger ne prouve pas la nationalité de l’organisation."
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Site officiel : cabinet de recrutement dont le siège est à Greenville, Caroline du Sud, États-Unis.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Find Great People",
+   "departement": null,
+   "nomOriginal": "Find Great People",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.fgp.com/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Sources officielles : ForeMedia Group indique une adresse à Londres, Royaume-Uni.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "foremedia.net",
+   "departement": null,
+   "nomOriginal": "foremedia.net",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://foremedia.net/",
+    "https://foremediagroup.com/about-us/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Site officiel : Fortina Investments Limited est une entité maltaise, adresse à Sliema, Malte.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "fortinainvestments.com",
+   "departement": null,
+   "nomOriginal": "fortinainvestments.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.fortinainvestments.com/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Site officiel : fournisseur d’accès internet opérant aux États-Unis.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Frontier.com",
+   "departement": null,
+   "nomOriginal": "Frontier.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://frontier.com/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": "794761593",
+   "ville": "Tours",
+   "raison": "Association française déclarée, identifiée par RNA et SIREN/SIRET, avec siège à Tours.",
+   "region": "Centre-Val de Loire",
+   "confiance": "haute",
+   "nomLisible": "Funlab",
+   "departement": "Indre-et-Loire",
+   "nomOriginal": "Funlab",
+   "siret_siege": "79476159300035",
+   "est_francaise": "present",
+   "sources_preuves": [
+    "https://site.lafun.fr/",
+    "https://assoce.fr/waldec/W372011761/LA-FABRIQUE-D-USAGES-NUMERIQUES",
+    "https://www.pappers.fr/entreprise/la-fabrique-d-usages-numeriques-794761593"
+   ],
+   "domaine_canonique": "lafun.fr",
+   "type_organisation": "association",
+   "denomination_legale": "LA FABRIQUE D'USAGES NUMERIQUES",
+   "desaccord": true,
+   "verdict_ultra": "absent",
+   "domaine_ultra": "fun-lab.com",
+   "raison_ultra": "La revendication Lynx d’octobre 2024 concerne fun-lab.com, groupe australien, et non Funlab Rennes. Sa politique de confidentialité identifie Funlab Holdings Pty Ltd à Abbotsford, Victoria, Australie."
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Site officiel : société avec adresse à Tamarac, Floride, États-Unis.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "futuremetals.com",
+   "departement": null,
+   "nomOriginal": "futuremetals.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://futuremetals.com/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Site officiel : trust multi-académies établi dans le Lancashire, Royaume-Uni.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Fylde Coast Academy Trust",
+   "departement": null,
+   "nomOriginal": "Fylde Coast Academy Trust",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://fcat.org.uk/about-us"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Entreprise américaine de recrutement médical; siège aux États-Unis.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Genie Healthcare",
+   "departement": null,
+   "nomOriginal": "Genie Healthcare",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://geniehealthcare.com/"
+   ],
+   "domaine_canonique": "geniehealthcare.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Genie Healthcare",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Les trois entités sont identifiées respectivement en Australie, Espagne et Équateur.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Gitlabs: Naphix, WDNA, Bayteq",
+   "departement": null,
+   "nomOriginal": "Gitlabs: Naphix, WDNA, Bayteq",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://wpcreative.com.au/",
+    "https://wdna.com/",
+    "https://www.bayteq.com/en"
+   ],
+   "domaine_canonique": "wpcreative.com.au",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Naphix Pty Ltd, Wireless DNA S.L. et Bayteq Cia. Ltda.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Les trois entités sont identifiées respectivement en Grèce, Italie et Vietnam.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Gitlabs: Synelixis Solutions, INGV, VMO Holdings",
+   "departement": null,
+   "nomOriginal": "Gitlabs: Synelixis Solutions, INGV, VMO Holdings",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://synelixis.com/",
+    "https://ingv.it/",
+    "https://vmogroup.com/"
+   ],
+   "domaine_canonique": "synelixis.com",
+   "type_organisation": "autre",
+   "denomination_legale": "Synelixis Solutions S.A.; Istituto Nazionale di Geofisica e Vulcanologia; VMO Holdings Co., Ltd.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Rockville",
+   "raison": "Cabinet d’avocats identifié à Rockville, Maryland, États-Unis.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Gleason, Flynn, Emig & McAfee",
+   "departement": "Maryland",
+   "nomOriginal": "Gleason, Flynn, Emig & McAfee",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.gfemlaw.com/directory/gerard-emig/"
+   ],
+   "domaine_canonique": "gfemlaw.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Gleason, Flynn, Emig & McAfee, Chartered",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Groupe identifié comme non français.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "GMG",
+   "departement": null,
+   "nomOriginal": "GMG",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.gmg.com/"
+   ],
+   "domaine_canonique": "gmg.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "GMG (Gulf Marketing Group)",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Société américaine GoFormz, Inc.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "goformz.com",
+   "departement": null,
+   "nomOriginal": "goformz.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.goformz.com/about"
+   ],
+   "domaine_canonique": "goformz.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "GoFormz, Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Établissement de soins identifié aux États-Unis.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Golden Age Nursing Home",
+   "departement": null,
+   "nomOriginal": "Golden Age Nursing Home",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.goldenageds.com/"
+   ],
+   "domaine_canonique": "goldenageds.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Golden Age Healthcare & Rehabilitation Center",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Société américaine.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Golden Business Machines",
+   "departement": null,
+   "nomOriginal": "Golden Business Machines",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://goldenbusiness.com/"
+   ],
+   "domaine_canonique": "goldenbusiness.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Golden Business Machines, Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Bangkok",
+   "raison": "Le site identifie une société thaïlandaise à Bangkok.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Gpstech2007.com",
+   "departement": null,
+   "nomOriginal": "Gpstech2007.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.gpstech2007.com/"
+   ],
+   "domaine_canonique": "gpstech2007.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "GPS Tech",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Rapid City",
+   "raison": "Organisation américaine basée dans le Dakota du Sud.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "gptchb.org",
+   "departement": "South Dakota",
+   "nomOriginal": "gptchb.org",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.greatplainstribalhealth.org/about/"
+   ],
+   "domaine_canonique": "greatplainstribalhealth.org",
+   "type_organisation": "autre",
+   "denomination_legale": "Great Plains Tribal Health",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "North Salt Lake",
+   "raison": "Entreprise américaine basée dans l’Utah.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "gramoll.com",
+   "departement": "Utah",
+   "nomOriginal": "gramoll.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.gramoll.com/contact/"
+   ],
+   "domaine_canonique": "gramoll.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Gramoll Construction",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Site et coordonnées brésiliennes (+55).",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "gronercrm.com.br",
+   "departement": null,
+   "nomOriginal": "gronercrm.com.br",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://gronercrm.com.br/"
+   ],
+   "domaine_canonique": "gronercrm.com.br",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Groner CRM",
+   "desaccord": false
+  },
+  {
+   "siren": "439548199",
+   "ville": "Annecy",
+   "raison": "Mentions légales et avis SIRENE français concordants.",
+   "region": "Auvergne-Rhône-Alpes",
+   "confiance": "haute",
+   "nomLisible": "Groupe Althays",
+   "departement": "Haute-Savoie",
+   "nomOriginal": "Groupe Althays",
+   "siret_siege": "43954819900108",
+   "est_francaise": "present",
+   "sources_preuves": [
+    "https://groupe-althays.com/mentions-legales/",
+    "https://api-avis-situation-sirene.insee.fr/identification/pdf/43954819900116"
+   ],
+   "domaine_canonique": "groupe-althays.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "SASU Groupe Althays",
+   "desaccord": false
+  },
+  {
+   "siren": "334898822",
+   "ville": "Paris",
+   "raison": "Mentions légales et registre français concordants.",
+   "region": "Île-de-France",
+   "confiance": "haute",
+   "nomLisible": "Groupe Delcourt",
+   "departement": "Paris",
+   "nomOriginal": "Groupe Delcourt",
+   "siret_siege": "33489882200062",
+   "est_francaise": "present",
+   "sources_preuves": [
+    "https://www.editions-delcourt.fr/mentions-legales",
+    "https://www.infogreffe.fr/entreprise/1fcaf24d-c070-45c5-b906-8f2a77dd16a2"
+   ],
+   "domaine_canonique": "editions-delcourt.fr",
+   "type_organisation": "entreprise",
+   "denomination_legale": "SAS Groupe Delcourt",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Groupe identifié en Amérique centrale et aux Caraïbes, avec siège au Costa Rica.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Grupo_Trisan",
+   "departement": null,
+   "nomOriginal": "Grupo_Trisan",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://trisan.com/"
+   ],
+   "domaine_canonique": "trisan.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Grupo Trisan",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "München",
+   "raison": "Organisation allemande basée à Munich.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "hausdesstiftens.org",
+   "departement": null,
+   "nomOriginal": "hausdesstiftens.org",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://hausdesstiftens.org/"
+   ],
+   "domaine_canonique": "hausdesstiftens.org",
+   "type_organisation": "autre",
+   "denomination_legale": "Haus des Stiftens gGmbH",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Le domaine n’a pas pu être vérifié par une source accessible; impossible de conclure.",
+   "region": null,
+   "confiance": "faible",
+   "nomLisible": "hcri.edu",
+   "departement": null,
+   "nomOriginal": "hcri.edu",
+   "siret_siege": null,
+   "est_francaise": "cannot_verify",
+   "sources_preuves": [],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": true,
+   "verdict_ultra": "absent",
+   "domaine_ultra": "baiminstitute.org",
+   "raison_ultra": "Une publication du HCRI rattache hcri.edu au Harvard Clinical Research Institute, Boston, États-Unis. Le site officiel actuel confirme son changement de nom en Baim Institute for Clinical Research en 2016 et son adresse à Boston."
+  },
+  {
+   "siren": null,
+   "ville": "Kirchlengern",
+   "raison": "Société allemande.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Hellmich",
+   "departement": null,
+   "nomOriginal": "Hellmich",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://hellmich.com/"
+   ],
+   "domaine_canonique": "hellmich.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Hellmich GmbH & Co. KG",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Henderson",
+   "raison": "Société américaine.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Henderson Stamping & Production",
+   "departement": "Tennessee",
+   "nomOriginal": "Henderson Stamping & Production",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://hendersonstamping.com/"
+   ],
+   "domaine_canonique": "hendersonstamping.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Henderson Stamping & Production, Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Singapore",
+   "raison": "Société identifiée à Singapour.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Hi-P International",
+   "departement": null,
+   "nomOriginal": "Hi-P International",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.hi-p.com/"
+   ],
+   "domaine_canonique": "hi-p.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Hi-P International Limited",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Holding identifiée comme non française.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "HOERBIGER Holding",
+   "departement": null,
+   "nomOriginal": "HOERBIGER Holding",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://hoerbiger.com/"
+   ],
+   "domaine_canonique": "hoerbiger.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "HOERBIGER Holding AG",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Site inaccessible; absence de preuve exploitable.",
+   "region": null,
+   "confiance": "faible",
+   "nomLisible": "http://dealscoop.com",
+   "departement": null,
+   "nomOriginal": "http://dealscoop.com",
+   "siret_siege": null,
+   "est_francaise": "cannot_verify",
+   "sources_preuves": [],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": true,
+   "verdict_ultra": "absent",
+   "domaine_ultra": "dealscoop.com",
+   "raison_ultra": "Le site officiel dealscoop.com indique que DealScoop est exploité par Image Microsystems, société basée au Texas, avec adresse à Fort Worth (États-Unis); le contact officiel donne la même adresse. L'entité n'est pas française."
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Service national de laboratoires identifié en Afrique du Sud.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "http://nhls.ac.za",
+   "departement": null,
+   "nomOriginal": "http://nhls.ac.za",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.nhls.ac.za/"
+   ],
+   "domaine_canonique": "nhls.ac.za",
+   "type_organisation": "etablissement_public",
+   "denomination_legale": "National Health Laboratory Service (NHLS)",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Kansas City",
+   "raison": "Association américaine.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "http://www.kchospice.org",
+   "departement": "Missouri",
+   "nomOriginal": "http://www.kchospice.org",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://kchospice.org/"
+   ],
+   "domaine_canonique": "kchospice.org",
+   "type_organisation": "association",
+   "denomination_legale": "Kansas City Hospice, Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Société britannique associée à Tuskbond.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "http://www.sanglier.org.uk",
+   "departement": null,
+   "nomOriginal": "http://www.sanglier.org.uk",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://tuskbond.co.uk/"
+   ],
+   "domaine_canonique": "tuskbond.co.uk",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Sanglier Limited",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Schonach",
+   "raison": "Société allemande.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "https://biw-burger.de",
+   "departement": "Baden-Württemberg",
+   "nomOriginal": "https://biw-burger.de",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://biw-burger.de/"
+   ],
+   "domaine_canonique": "biw-burger.de",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Burger Industriewerk GmbH & Co. KG",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Grigny",
+   "raison": "La page fournie rattache Reward Hospitality au groupe ECF, dont le siège est identifié à Grigny, France; SIREN non vérifié.",
+   "region": "Île-de-France",
+   "confiance": "haute",
+   "nomLisible": "https://ecfgroup.com/en/brand/reward-hospitality/;https://www.rewardhospitality.com.au/",
+   "departement": "Essonne",
+   "nomOriginal": "https://ecfgroup.com/en/brand/reward-hospitality/;https://www.rewardhospitality.com.au/",
+   "siret_siege": null,
+   "est_francaise": "present",
+   "sources_preuves": [
+    "https://ecfgroup.com/en/brand/reward-hospitality/",
+    "https://ecfgroup.com/"
+   ],
+   "domaine_canonique": "ecfgroup.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "E.CF Group",
+   "desaccord": true,
+   "verdict_ultra": "absent",
+   "domaine_ultra": "rewardhospitality.com.au",
+   "raison_ultra": "L'entité visée est Reward Hospitality, opérateur australien basé à Yatala (Queensland), et non sa maison mère française E.CF Group; elle est aussi désignée Reward Supply Co Pty Ltd."
+  },
+  {
+   "siren": null,
+   "ville": "Long Island City",
+   "raison": "Organisation américaine.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "https://fortunesociety.org/",
+   "departement": "New York",
+   "nomOriginal": "https://fortunesociety.org/",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://fortunesociety.org/"
+   ],
+   "domaine_canonique": "fortunesociety.org",
+   "type_organisation": "association",
+   "denomination_legale": "The Fortune Society, Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Fredericksburg",
+   "raison": "Société américaine.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "https://jarrellinc.com/",
+   "departement": "Virginia",
+   "nomOriginal": "https://jarrellinc.com/",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://jarrellinc.com/"
+   ],
+   "domaine_canonique": "jarrellinc.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Jarrell Properties, Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Baraboo",
+   "raison": "Cabinet comptable américain.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "https://mbe.cpa",
+   "departement": "Wisconsin",
+   "nomOriginal": "https://mbe.cpa",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://mbe.cpa/"
+   ],
+   "domaine_canonique": "mbe.cpa",
+   "type_organisation": "entreprise",
+   "denomination_legale": "MBE CPAs (Moy, Borchert, Erbs & Associates LLP)",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Site officiel : fabricant canadien, usine à Blainville (Québec, Canada).",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "https://rdccontrol.com",
+   "departement": null,
+   "nomOriginal": "https://rdccontrol.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://rdccontrol.com/company/about"
+   ],
+   "domaine_canonique": "rdccontrol.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Kempen",
+   "raison": "Mentions légales : Clatronic International GmbH, Kempen, Deutschland.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "https://www.clatronic.com/",
+   "departement": null,
+   "nomOriginal": "https://www.clatronic.com/",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.clatronic.com/impressum"
+   ],
+   "domaine_canonique": "clatronic.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Clatronic International GmbH",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Bösingen",
+   "raison": "Le site identifie Hug-Witschi AG à Bösingen, Suisse.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "hugwi.ch",
+   "departement": null,
+   "nomOriginal": "hugwi.ch",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.hugwi.ch/User/loginMobile"
+   ],
+   "domaine_canonique": "hugwi.ch",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Hug-Witschi AG",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Vadodara",
+   "raison": "ICICI Bank Limited indique son siège en Inde (Vadodara/Mumbai).",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "icicibank.com | SOLD",
+   "departement": null,
+   "nomOriginal": "icicibank.com | SOLD",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.sec.gov/Archives/edgar/data/1103838/000095010325000940/dp223846_6k-4.htm"
+   ],
+   "domaine_canonique": "icicibank.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "ICICI Bank Limited",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Bilbao",
+   "raison": "Le site légal identifie IDOM Consulting, Engineering, Architecture, S.A.U. à Bilbao, Espagne.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "idom.com",
+   "departement": null,
+   "nomOriginal": "idom.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.idom.com/en/legal-notices/"
+   ],
+   "domaine_canonique": "idom.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "IDOM Consulting, Engineering, Architecture, S.A.U.",
+   "desaccord": false
+  },
+  {
+   "siren": "495145252",
+   "ville": "Lyon",
+   "raison": "La société française ILEM FRANCE est immatriculée à Lyon ; le groupe indique un bureau ilem France.",
+   "region": "Auvergne-Rhône-Alpes",
+   "confiance": "haute",
+   "nomLisible": "ilemgroup.com",
+   "departement": "Rhône",
+   "nomOriginal": "ilemgroup.com",
+   "siret_siege": "49514525200039",
+   "est_francaise": "present",
+   "sources_preuves": [
+    "https://www.societe.com/societe/ilem-france-495145252.html",
+    "https://www.ilemgroup.com/contact/"
+   ],
+   "domaine_canonique": "ilemgroup.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "ILEM FRANCE",
+   "desaccord": true,
+   "verdict_ultra": "absent",
+   "domaine_ultra": "ilemgroup.com",
+   "raison_ultra": "ilem Group a son siège à Plan-les-Ouates, Genève, Suisse; le site mentionne une présence/filiale en France, mais l’entité groupe visée est suisse."
+  },
+  {
+   "siren": null,
+   "ville": "Aracruz",
+   "raison": "Le site officiel situe Imetame à Aracruz, Espírito Santo, Brésil.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Imetame",
+   "departement": null,
+   "nomOriginal": "Imetame",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.imetame.com.br/imetame/who-we-are/?lang=en"
+   ],
+   "domaine_canonique": "imetame.com.br",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Imetame Metalmecânica",
+   "desaccord": false
+  },
+  {
+   "siren": "304327844",
+   "ville": "Guémené-Penfao",
+   "raison": "Registre français : IMPRIMERIE PEAU, siège à Guémené-Penfao.",
+   "region": "Pays de la Loire",
+   "confiance": "haute",
+   "nomLisible": "Imprimerie Peau",
+   "departement": "Loire-Atlantique",
+   "nomOriginal": "Imprimerie Peau",
+   "siret_siege": "30432784400052",
+   "est_francaise": "present",
+   "sources_preuves": [
+    "https://www.annuaire-entreprises.data.gouv.fr/etablissement/30432784400052",
+    "https://www.pappers.fr/entreprise/imprimerie-peau-304327844"
+   ],
+   "domaine_canonique": "imprimerie-peau.fr",
+   "type_organisation": "entreprise",
+   "denomination_legale": "IMPRIMERIE PEAU",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Alger",
+   "raison": "Le site officiel situe la clinique à Kouba, Alger, Algérie.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Inaya Clinique",
+   "departement": null,
+   "nomOriginal": "Inaya Clinique",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://inayaclinic.org/about"
+   ],
+   "domaine_canonique": "inayaclinic.org",
+   "type_organisation": "entreprise",
+   "denomination_legale": "INAYA Clinic",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Los Angeles",
+   "raison": "Les conditions d’utilisation identifient U.S. Software Inc., société californienne à Los Angeles.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "IndicaOnline",
+   "departement": null,
+   "nomOriginal": "IndicaOnline",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://indicaonline.com/terms-of-service/"
+   ],
+   "domaine_canonique": "indicaonline.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "U.S. Software Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Mumbai",
+   "raison": "Le site officiel situe Interise à Mumbai et identifie ses sociétés de droit indien.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "interiseworld.com",
+   "departement": null,
+   "nomOriginal": "interiseworld.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.interiseworld.com/"
+   ],
+   "domaine_canonique": "interiseworld.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Interise Investment Managers Private Limited",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Aarschot",
+   "raison": "Le site officiel indique N.V. Interlabel S.A. à Aarschot, Belgique.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "interlabel.be",
+   "departement": null,
+   "nomOriginal": "interlabel.be",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://interlabel.be/?lang=en"
+   ],
+   "domaine_canonique": "interlabel.be",
+   "type_organisation": "entreprise",
+   "denomination_legale": "N.V. Interlabel S.A.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "La revendication concerne des photos privées du ministre israélien, pas une organisation française ; le contexte la rattache à Israël.",
+   "region": null,
+   "confiance": "moyenne",
+   "nomLisible": "Israel defense minister private photos",
+   "departement": null,
+   "nomOriginal": "Israel defense minister private photos",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.ransomware.live/id/SXNyYWVsIGxhcmdlc3QgY3liZXIgc2VjdXJpdHkgY29sbGVnZUBoYW5kYWxh"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": "autre",
+   "denomination_legale": null,
+   "desaccord": true,
+   "verdict_ultra": "cannot_verify",
+   "domaine_ultra": null,
+   "raison_ultra": "Titre descriptif visant une personne et des photos privées, non une organisation; il n'existe donc aucune entité juridique ou pays d'organisation à vérifier."
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "La fiche de revendication identifie Smart College en Israël.",
+   "region": null,
+   "confiance": "moyenne",
+   "nomLisible": "Israel largest cyber security college",
+   "departement": null,
+   "nomOriginal": "Israel largest cyber security college",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.ransomware.live/id/SXNyYWVsIGxhcmdlc3QgY3liZXIgc2VjdXJpdHkgY29sbGVnZUBoYW5kYWxh"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": "etablissement_public",
+   "denomination_legale": "Smart College",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Louisville",
+   "raison": "Le site officiel situe Jefferson County Clerk’s Office à Louisville, Kentucky, États-Unis.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Jeffersoncountyclerk.org",
+   "departement": null,
+   "nomOriginal": "Jeffersoncountyclerk.org",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.jeffersoncountyclerk.org/Home"
+   ],
+   "domaine_canonique": "jeffersoncountyclerk.org",
+   "type_organisation": "collectivite",
+   "denomination_legale": "Jefferson County Clerk's Office",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Oceanside",
+   "raison": "Le site officiel donne une adresse à Oceanside, New York, États-Unis.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Jildor Shoes",
+   "departement": null,
+   "nomOriginal": "Jildor Shoes",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.jildorshoes.com/pages/contact"
+   ],
+   "domaine_canonique": "jildorshoes.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Jildor Shoes",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Augusta",
+   "raison": "Le site officiel indique des bureaux à Augusta (GA) et Charleston (SC), États-Unis.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Johnson Laschober & Associates",
+   "departement": null,
+   "nomOriginal": "Johnson Laschober & Associates",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.thejlagroup.com/contact-jla-group/"
+   ],
+   "domaine_canonique": "thejlagroup.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Johnson, Laschober & Associates, P.C.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Nairobi",
+   "raison": "Autorité publique créée par le Kenya Roads Act et basée à Nairobi, Kenya.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Kenya Urban Roads Authority",
+   "departement": null,
+   "nomOriginal": "Kenya Urban Roads Authority",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://kura.go.ke/who-we-are/"
+   ],
+   "domaine_canonique": "kura.go.ke",
+   "type_organisation": "etablissement_public",
+   "denomination_legale": "Kenya Urban Roads Authority",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Les sources de suivi de la revendication indiquent l’Italie comme pays, pas la France.",
+   "region": null,
+   "confiance": "moyenne",
+   "nomLisible": "KHKKLOW.com",
+   "departement": null,
+   "nomOriginal": "KHKKLOW.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://breach.house/ransomware-victim/ransomhub-khkklowcom-aQlJXpzkRxfC"
+   ],
+   "domaine_canonique": "khkklow.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Kilgore",
+   "raison": "Le site officiel situe Kilgore College au Texas, États-Unis.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Kilgore College (kilgore.edu)",
+   "departement": null,
+   "nomOriginal": "Kilgore College (kilgore.edu)",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.kilgore.edu/contact-kc/"
+   ],
+   "domaine_canonique": "kilgore.edu",
+   "type_organisation": "etablissement_public",
+   "denomination_legale": "Kilgore College",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Milwaukee",
+   "raison": "Le site officiel situe le cabinet à Milwaukee, Wisconsin, États-Unis.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Kravit, Hovel & Krawczyk  SC",
+   "departement": null,
+   "nomOriginal": "Kravit, Hovel & Krawczyk  SC",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://kravitlaw.com/contact/"
+   ],
+   "domaine_canonique": "kravitlaw.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Kravit, Hovel & Krawczyk sc",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Philadelphia",
+   "raison": "Le site officiel situe Ladov Law Firm, P.C. à Philadelphia, Pennsylvanie, États-Unis.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Ladov Law Firm",
+   "departement": null,
+   "nomOriginal": "Ladov Law Firm",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://ladovlaw.com/contact-us"
+   ],
+   "domaine_canonique": "ladovlaw.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Ladov Law Firm, P.C.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Lakeland",
+   "raison": "La chambre officielle est à Lakeland, Floride, États-Unis.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "lakelandchamber.com",
+   "departement": null,
+   "nomOriginal": "lakelandchamber.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://web.lakelandchamber.com/contact"
+   ],
+   "domaine_canonique": "lakelandchamber.com",
+   "type_organisation": "association",
+   "denomination_legale": "Lakeland Area Chamber of Commerce",
+   "desaccord": false
+  },
+  {
+   "siren": "852551142",
+   "ville": "Menton",
+   "raison": "Les mentions légales identifient MAISON GANNAC, société française à Menton.",
+   "region": "Provence-Alpes-Côte d’Azur",
+   "confiance": "haute",
+   "nomLisible": "lamaisonducitron.com",
+   "departement": "Alpes-Maritimes",
+   "nomOriginal": "lamaisonducitron.com",
+   "siret_siege": null,
+   "est_francaise": "present",
+   "sources_preuves": [
+    "https://www.lamaisonducitron.com/policies/legal-notice"
+   ],
+   "domaine_canonique": "lamaisonducitron.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "MAISON GANNAC",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Honolulu",
+   "raison": "Le registre officiel d’Hawaï indique une société organisée à Hawaï, États-Unis.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "LAMERS ENTERPRISE INC",
+   "departement": null,
+   "nomOriginal": "LAMERS ENTERPRISE INC",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://hbe.ehawaii.gov/documents/business.html?fileNumber=81987D1"
+   ],
+   "domaine_canonique": "lamersenterprise.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "LAMERS ENTERPRISE, INC.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Atlanta",
+   "raison": "Le site officiel situe Leadership Strategies à Atlanta, Géorgie, États-Unis.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Leadership Strategies",
+   "departement": null,
+   "nomOriginal": "Leadership Strategies",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.leadstrat.com/contact/"
+   ],
+   "domaine_canonique": "leadstrat.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Leadership Strategies",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Canonsburg",
+   "raison": "Le site officiel situe Lighthouse Electric à Canonsburg, Pennsylvanie, États-Unis.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "lighthouseelectric.com",
+   "departement": null,
+   "nomOriginal": "lighthouseelectric.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.lighthouseelectric.com/"
+   ],
+   "domaine_canonique": "lighthouseelectric.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Lighthouse Electric Company, Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Les sources de la revendication identifient INTEROUTE et l’Espagne comme pays.",
+   "region": null,
+   "confiance": "moyenne",
+   "nomLisible": "LmayInteroute agency",
+   "departement": null,
+   "nomOriginal": "LmayInteroute agency",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://cybercrime.works/leaks/046e1568-6272-40f1-930e-b39f20b655da"
+   ],
+   "domaine_canonique": "interoute.lu",
+   "type_organisation": "entreprise",
+   "denomination_legale": "INTEROUTE",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Aucune preuve suffisamment fiable ne permet d’identifier l’organisation ou son pays.",
+   "region": null,
+   "confiance": "faible",
+   "nomLisible": "lnetwork",
+   "departement": null,
+   "nomOriginal": "lnetwork",
+   "siret_siege": null,
+   "est_francaise": "cannot_verify",
+   "sources_preuves": [
+    "https://rt.http3.lol/index.php?q=aHR0cHM6Ly9mci5saW5rZWRpbi5jb20vcHVsc2Uvc2hlLXN0YXJ0ZWQtbGFuY2VtZW50LWxuZXR3b3JrLWxjb25uZWN0LTA1MDQtY2hlei1ieC13YW5kYS1sYXVyZW50"
+   ],
+   "domaine_canonique": "lnetwork",
+   "type_organisation": "autre",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": "391541539",
+   "ville": "Le Port",
+   "raison": "Les mentions légales donnent LOGIC INSECTES, siège au Port (La Réunion, France).",
+   "region": "La Réunion",
+   "confiance": "haute",
+   "nomLisible": "logic insectes",
+   "departement": "La Réunion",
+   "nomOriginal": "logic insectes",
+   "siret_siege": "39154153900048",
+   "est_francaise": "present",
+   "sources_preuves": [
+    "https://www.logicinsectes.com/mentions-legales",
+    "https://www.societe.com/societe/logic-insectes-391541539.html"
+   ],
+   "domaine_canonique": "logicinsectes.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "LOGIC INSECTES",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "London",
+   "raison": "Société britannique basée à Londres, sans établissement ni identité juridique française vérifiés.",
+   "region": "England",
+   "confiance": "haute",
+   "nomLisible": "London Belgravia",
+   "departement": null,
+   "nomOriginal": "London Belgravia",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://lbb.london/"
+   ],
+   "domaine_canonique": "lbb.london",
+   "type_organisation": "entreprise",
+   "denomination_legale": "London Belgravia Brokers Ltd",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Longview",
+   "raison": "Cabinet médical identifié au Texas, aux États-Unis, sans immatriculation française vérifiée.",
+   "region": "Texas",
+   "confiance": "haute",
+   "nomLisible": "Longview Oral and Maxillofacial Surgery",
+   "departement": null,
+   "nomOriginal": "Longview Oral and Maxillofacial Surgery",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.easttexasoralsurgery.com/"
+   ],
+   "domaine_canonique": "easttexasoralsurgery.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "East Texas Oral & Maxillofacial Surgery Associates, Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Omaha",
+   "raison": "Entreprise de construction américaine établie à Omaha, Nebraska, sans immatriculation française vérifiée.",
+   "region": "Nebraska",
+   "confiance": "haute",
+   "nomLisible": "Mainelli Mechanical Contractors",
+   "departement": null,
+   "nomOriginal": "Mainelli Mechanical Contractors",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.mainellimechanical.com/"
+   ],
+   "domaine_canonique": "mainellimechanical.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Mainelli Mechanical Contractors, Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Toronto",
+   "raison": "Fabricant canadien de produits plastiques basé à Toronto, sans immatriculation française vérifiée.",
+   "region": "Ontario",
+   "confiance": "haute",
+   "nomLisible": "Markdom Plastic Products",
+   "departement": null,
+   "nomOriginal": "Markdom Plastic Products",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://markdom.com/"
+   ],
+   "domaine_canonique": "markdom.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Markdom Plastic Products Ltd",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Newport Beach",
+   "raison": "Société américaine de gestion de soins basée en Californie, sans immatriculation française vérifiée.",
+   "region": "California",
+   "confiance": "haute",
+   "nomLisible": "medexhco.com",
+   "departement": null,
+   "nomOriginal": "medexhco.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://medexhco.com/"
+   ],
+   "domaine_canonique": "medexhco.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "MEDEX, Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Bedford",
+   "raison": "Fabricant américain d'équipements médicaux basé au Massachusetts, sans immatriculation française vérifiée.",
+   "region": "Massachusetts",
+   "confiance": "haute",
+   "nomLisible": "Medica Corporation",
+   "departement": null,
+   "nomOriginal": "Medica Corporation",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.medicacorp.com/"
+   ],
+   "domaine_canonique": "medicacorp.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Medica Corporation",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Essen",
+   "raison": "Entreprise allemande d'électronique grand public basée à Essen, sans identité juridique française vérifiée.",
+   "region": "North Rhine-Westphalia",
+   "confiance": "haute",
+   "nomLisible": "Medion AG",
+   "departement": null,
+   "nomOriginal": "Medion AG",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://medion.com/"
+   ],
+   "domaine_canonique": "medion.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "medion GmbH (historiquement MEDION AG)",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Sudbury",
+   "raison": "Société britannique enregistrée au Royaume-Uni, sans SIREN ni SIRET français.",
+   "region": "England",
+   "confiance": "haute",
+   "nomLisible": "MEL aviation Ltd",
+   "departement": "Suffolk",
+   "nomOriginal": "MEL aviation Ltd",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://find-and-update.company-information.service.gov.uk/company/00939400",
+    "https://themelgroup.co.uk/"
+   ],
+   "domaine_canonique": "melaviation.co.uk",
+   "type_organisation": "entreprise",
+   "denomination_legale": "MEL AVIATION LIMITED",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Bengaluru",
+   "raison": "Société indienne de connectivité automobile basée à Bengaluru, sans immatriculation française vérifiée.",
+   "region": "Karnataka",
+   "confiance": "haute",
+   "nomLisible": "melangesystems.com",
+   "departement": null,
+   "nomOriginal": "melangesystems.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://melangesystems.com/"
+   ],
+   "domaine_canonique": "melangesystems.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Melange Systems Pvt. Ltd.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "San Jose",
+   "raison": "Prestataire électrique américain identifié à San Jose, sans établissement français vérifié.",
+   "region": "California",
+   "confiance": "moyenne",
+   "nomLisible": "Mid State Electric",
+   "departement": "Santa Clara County",
+   "nomOriginal": "Mid State Electric",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://midstateelectricinc.com/"
+   ],
+   "domaine_canonique": "midstateelectricinc.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Mid-State Electric, Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Phu Ly",
+   "raison": "Entreprise vietnamienne de composants inox marins, sans SIREN ni SIRET français.",
+   "region": "Ninh Binh Province",
+   "confiance": "haute",
+   "nomLisible": "midwaymetals.com.vn",
+   "departement": null,
+   "nomOriginal": "midwaymetals.com.vn",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://midwaymetals.com.vn/"
+   ],
+   "domaine_canonique": "midwaymetals.com.vn",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Midway Metals Marine",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Bengaluru",
+   "raison": "Société indienne basée à Bengaluru et filiale d'AXISCADES, sans immatriculation française vérifiée.",
+   "region": "Karnataka",
+   "confiance": "haute",
+   "nomLisible": "mistralsolutions.com",
+   "departement": null,
+   "nomOriginal": "mistralsolutions.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://mistralsolutions.com/"
+   ],
+   "domaine_canonique": "mistralsolutions.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Mistral Solutions Pvt. Ltd.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Singapore",
+   "raison": "Société singapourienne créée à Singapour, sans immatriculation française vérifiée.",
+   "region": "Singapore",
+   "confiance": "haute",
+   "nomLisible": "mnpl.com.sg",
+   "departement": null,
+   "nomOriginal": "mnpl.com.sg",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.mnpl.com.sg/",
+    "https://www.sgpbusiness.com/company/Manufacturing-Network-Pte-Ltd"
+   ],
+   "domaine_canonique": "mnpl.com.sg",
+   "type_organisation": "entreprise",
+   "denomination_legale": "MANUFACTURING NETWORK PTE LTD",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Winston-Salem",
+   "raison": "Réseau américain de concessionnaires automobiles basé en Caroline du Nord, sans immatriculation française vérifiée.",
+   "region": "North Carolina",
+   "confiance": "haute",
+   "nomLisible": "Modernauto",
+   "departement": "Forsyth County",
+   "nomOriginal": "Modernauto",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://modernauto.com/"
+   ],
+   "domaine_canonique": "modernauto.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Modern Automotive Network",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Los Angeles",
+   "raison": "Prestataire de services juridiques américain identifié à Los Angeles, sans entité française vérifiée.",
+   "region": "California",
+   "confiance": "haute",
+   "nomLisible": "Nationwide Legal",
+   "departement": null,
+   "nomOriginal": "Nationwide Legal",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://nationwidelegal.com/"
+   ],
+   "domaine_canonique": "nationwidelegal.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Nationwide Legal LLC",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Kabul",
+   "raison": "NEPA est une agence publique afghane à Kaboul ; l'entité dfr.gov.af n'a pas été vérifiée séparément.",
+   "region": "Afghanistan",
+   "confiance": "haute",
+   "nomLisible": "nepa.gov.af&dfr.gov.af",
+   "departement": null,
+   "nomOriginal": "nepa.gov.af&dfr.gov.af",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://nepa.gov.af/"
+   ],
+   "domaine_canonique": "nepa.gov.af",
+   "type_organisation": "autre",
+   "denomination_legale": "National Environmental Protection Agency",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Hicksville",
+   "raison": "Société américaine du Delaware enregistrée à New York, sans immatriculation française vérifiée.",
+   "region": "New York",
+   "confiance": "haute",
+   "nomLisible": "New TSI Holdings, NYSC",
+   "departement": null,
+   "nomOriginal": "New TSI Holdings, NYSC",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.newyorksportsclubs.com/club-policies/",
+    "https://shop.nysc.com/policies/terms-of-service"
+   ],
+   "domaine_canonique": "newyorksportsclubs.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "New TSI Holdings, Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "San Francisco",
+   "raison": "Service exploité par Allot, Inc., société américaine basée à San Francisco, sans entité française vérifiée.",
+   "region": "California",
+   "confiance": "haute",
+   "nomLisible": "NextStage.AI",
+   "departement": null,
+   "nomOriginal": "NextStage.AI",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://nextstage.ai/privacy"
+   ],
+   "domaine_canonique": "nextstage.ai",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Allot, Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Montevideo",
+   "raison": "Entreprise uruguayenne proposant des magasins Samsung en Uruguay, sans immatriculation française vérifiée.",
+   "region": "Uruguay",
+   "confiance": "haute",
+   "nomLisible": "nicatel.com.uy",
+   "departement": null,
+   "nomOriginal": "nicatel.com.uy",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.nicatel.com.uy/"
+   ],
+   "domaine_canonique": "nicatel.com.uy",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Nicatel",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Maastricht",
+   "raison": "Boulangerie-pâtisserie néerlandaise basée à Maastricht, sans immatriculation française vérifiée.",
+   "region": "Limburg",
+   "confiance": "haute",
+   "nomLisible": "Nora Biscuits",
+   "departement": null,
+   "nomOriginal": "Nora Biscuits",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://nora.nl/contact/"
+   ],
+   "domaine_canonique": "nora.nl",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Banketbakkerij Nora B.V.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Cumming",
+   "raison": "Entreprise américaine de matériaux de construction basée en Géorgie, sans immatriculation française vérifiée.",
+   "region": "Georgia",
+   "confiance": "haute",
+   "nomLisible": "North Georgia Brick",
+   "departement": null,
+   "nomOriginal": "North Georgia Brick",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://ngabrick.com/terms-of-use/",
+    "https://ngabrick.com/contact-us/"
+   ],
+   "domaine_canonique": "ngabrick.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "North Georgia Brick Company, Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Salem",
+   "raison": "Réseau américain de réadaptation situé au New Hampshire, sans établissement français indiqué.",
+   "region": "New Hampshire",
+   "confiance": "moyenne",
+   "nomLisible": "Northeast Rehabilitation Hospital Network",
+   "departement": null,
+   "nomOriginal": "Northeast Rehabilitation Hospital Network",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.northeastrehab.com/"
+   ],
+   "domaine_canonique": "northeastrehab.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Northeast Rehabilitation Hospital Network",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "West Perth",
+   "raison": "Société minière australienne cotée, sans immatriculation française vérifiée.",
+   "region": "Western Australia",
+   "confiance": "haute",
+   "nomLisible": "Northern Minerals Limited",
+   "departement": null,
+   "nomOriginal": "Northern Minerals Limited",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://invest.northernminerals.com.au/shareholder-information",
+    "https://invest.northernminerals.com.au/announcements/Qb5NNb-noosa-mining-investor-conference-presentation"
+   ],
+   "domaine_canonique": "northernminerals.com.au",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Northern Minerals Limited",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Nom de fichier texte et non organisation ou personne morale ; aucune identité juridique n'est établissable.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "NRStree.txt",
+   "departement": null,
+   "nomOriginal": "NRStree.txt",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [],
+   "domaine_canonique": null,
+   "type_organisation": "autre",
+   "denomination_legale": null,
+   "desaccord": true,
+   "verdict_ultra": "cannot_verify",
+   "domaine_ultra": null,
+   "raison_ultra": "NRStree.txt est un libellé de fichier; les recherches exactes et cyber ne donnent aucune organisation, raison sociale, adresse ou pays identifiable. Impossible de confirmer un cabinet malaisien ou toute autre entité sans inventer l’identité."
+  },
+  {
+   "siren": null,
+   "ville": "Owasso",
+   "raison": "Fournisseur américain de produits protéiques basé en Oklahoma, sans immatriculation française vérifiée.",
+   "region": "Oklahoma",
+   "confiance": "haute",
+   "nomLisible": "nspproteins.com",
+   "departement": null,
+   "nomOriginal": "nspproteins.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://nspproteins.com/privacy-policy/",
+    "https://nspproteins.com/contact-us/"
+   ],
+   "domaine_canonique": "nspproteins.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "National Steak Processors, LLC",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Odessa",
+   "raison": "Établissement public d'enseignement supérieur américain situé au Texas, et non entité française.",
+   "region": "Texas",
+   "confiance": "haute",
+   "nomLisible": "Odessa College",
+   "departement": null,
+   "nomOriginal": "Odessa College",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://catalog.odessa.edu/content.php?catoid=17&navoid=1028",
+    "https://www.odessa.edu/about/_files/financial-investment/hb-1378/Odessa-JCD-HB-1378-FY2025-v2-FINAL-002.pdf"
+   ],
+   "domaine_canonique": "odessa.edu",
+   "type_organisation": "etablissement_public",
+   "denomination_legale": "Odessa College District",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Corroios",
+   "raison": "Service de visioconversation exploité par une société portugaise, sans identité française vérifiée.",
+   "region": "Portugal",
+   "confiance": "moyenne",
+   "nomLisible": "ome.tv",
+   "departement": null,
+   "nomOriginal": "ome.tv",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://ome.tv/"
+   ],
+   "domaine_canonique": "ome.tv",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Bad Kitty’s Dad, LDA",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Dénomination ambiguë utilisée par plusieurs cabinets étrangers ; aucune entité française unique n'est identifiable.",
+   "region": null,
+   "confiance": "moyenne",
+   "nomLisible": "Optometrics",
+   "departement": null,
+   "nomOriginal": "Optometrics",
+   "siret_siege": null,
+   "est_francaise": "cannot_verify",
+   "sources_preuves": [
+    "https://optometrics.net/",
+    "https://optometricseyecare.com/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": true,
+   "verdict_ultra": "absent",
+   "domaine_ultra": "omega-optical.com",
+   "raison_ultra": "La revendication du 02/03/2025 correspond à Optometrics, victime Play, donnée comme US; le site officiel de la marque indique Littleton/Ayer, Massachusetts, États-Unis. Identité suffisamment corroborée malgré d’anciens homonymes."
+  },
+  {
+   "siren": null,
+   "ville": "Portland",
+   "raison": "Agence gouvernementale de l'État de l'Oregon aux États-Unis, et non entité française.",
+   "region": "Oregon",
+   "confiance": "haute",
+   "nomLisible": "Oregon Department of Environmental Quality",
+   "departement": null,
+   "nomOriginal": "Oregon Department of Environmental Quality",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.oregon.gov/deq/Pages/index.aspx",
+    "https://www.oregon.gov/deq/about-us/pages/default.aspx"
+   ],
+   "domaine_canonique": "oregon.gov/deq",
+   "type_organisation": "collectivite",
+   "denomination_legale": "Oregon Department of Environmental Quality",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "New York",
+   "raison": "Marque ou division d'une société textile américaine basée à New York, sans immatriculation française vérifiée.",
+   "region": "New York",
+   "confiance": "haute",
+   "nomLisible": "P/Kaufmann Fabrics",
+   "departement": null,
+   "nomOriginal": "P/Kaufmann Fabrics",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://pkaufmann.com/login.php",
+    "https://pkaufmann.com/pkfabrics/",
+    "https://pkaufmann.com/"
+   ],
+   "domaine_canonique": "pkaufmann.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "P/Kaufmann Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Forlì",
+   "raison": "Marque et société identifiées comme italiennes; une entité européenne est enregistrée en Espagne.",
+   "region": "Émilie-Romagne",
+   "confiance": "haute",
+   "nomLisible": "P448",
+   "departement": null,
+   "nomOriginal": "P448",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.aziende.it/p448-s-r-l",
+    "https://www.contract-factory.com/infosocietes/p448-brands-europe-sl-938707247"
+   ],
+   "domaine_canonique": "p448.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Dubai",
+   "raison": "Le site officiel indique une activité basée à Dubai, Émirats arabes unis.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "pandacare.ae",
+   "departement": null,
+   "nomOriginal": "pandacare.ae",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://pandacare.ae/pages/about-us"
+   ],
+   "domaine_canonique": "pandacare.ae",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Panda Care",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Atlanta",
+   "raison": "Le groupe est identifié comme PBS Aerospace Inc., basé aux États-Unis, avec production au sein du groupe tchèque PBS.",
+   "region": "Georgia",
+   "confiance": "haute",
+   "nomLisible": "PBS AEROSPACE",
+   "departement": null,
+   "nomOriginal": "PBS AEROSPACE",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.pbsaerospace.com/",
+    "https://linkedin.com/company/pbs-aerospace"
+   ],
+   "domaine_canonique": "pbsaerospace.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "PBS Aerospace Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Rajkot",
+   "raison": "Le site officiel donne une adresse à Rajkot, Gujarat, Inde.",
+   "region": "Gujarat",
+   "confiance": "haute",
+   "nomLisible": "pbw-india.com",
+   "departement": null,
+   "nomOriginal": "pbw-india.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://pbw-india.com/about-us"
+   ],
+   "domaine_canonique": "pbw-india.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Patel Brass Works Pvt. Ltd.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Irondale",
+   "raison": "Le site officiel indique le siège à Irondale, Alabama, États-Unis.",
+   "region": "Alabama",
+   "confiance": "haute",
+   "nomLisible": "Peak Season",
+   "departement": null,
+   "nomOriginal": "Peak Season",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.peakseasoninc.net/about-us"
+   ],
+   "domaine_canonique": "peakseasoninc.net",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Peak Season, Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Somers",
+   "raison": "Le site correspond à Pediatric Urology Associates, à New York, États-Unis.",
+   "region": "New York",
+   "confiance": "haute",
+   "nomLisible": "pedsurology.com",
+   "departement": null,
+   "nomOriginal": "pedsurology.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.pedsurology.com/",
+    "https://linkedin.com/company/pediatric-urology-associates-pc"
+   ],
+   "domaine_canonique": "pedsurology.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Pediatric Urology Associates, P.C.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Pottstown",
+   "raison": "Le site officiel situe l’activité aux États-Unis; l’adresse publiée est à Pottstown, Pennsylvanie.",
+   "region": "Pennsylvanie",
+   "confiance": "haute",
+   "nomLisible": "Performance Food Centers",
+   "departement": null,
+   "nomOriginal": "Performance Food Centers",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.performancefoodcenters.com/"
+   ],
+   "domaine_canonique": "performancefoodcenters.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Performance Food Centers",
+   "desaccord": false
+  },
+  {
+   "siren": "431291889",
+   "ville": "Estrées-Saint-Denis",
+   "raison": "Entreprise française confirmée par son site et son immatriculation: siège à Estrées-Saint-Denis (Oise).",
+   "region": "Hauts-de-France",
+   "confiance": "haute",
+   "nomLisible": "PHARMATIS-SAS",
+   "departement": "60",
+   "nomOriginal": "PHARMATIS-SAS",
+   "siret_siege": "43129188900027",
+   "est_francaise": "present",
+   "sources_preuves": [
+    "https://www.pharmatis.fr/contact/",
+    "https://www.pappers.fr/entreprise/pharmatis-431291889"
+   ],
+   "domaine_canonique": "pharmatis.fr",
+   "type_organisation": "entreprise",
+   "denomination_legale": "PHARMATIS",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Fort Myers",
+   "raison": "Le site officiel indique une pratique médicale de Southwest Florida, avec implantations en Floride, États-Unis.",
+   "region": "Floride",
+   "confiance": "haute",
+   "nomLisible": "Physicians' Primary Care of Southwest Florida",
+   "departement": null,
+   "nomOriginal": "Physicians' Primary Care of Southwest Florida",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.ppcswfl.com/about-us/"
+   ],
+   "domaine_canonique": "ppcswfl.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Physicians' Primary Care of Southwest Florida, P.L.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Shenzhen",
+   "raison": "Ping An est présenté par son site officiel comme fondé à Shenzhen, en Chine.",
+   "region": "Guangdong",
+   "confiance": "haute",
+   "nomLisible": "pingan.com",
+   "departement": null,
+   "nomOriginal": "pingan.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://group.pingan.com/about_us.html"
+   ],
+   "domaine_canonique": "pingan.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Ping An Insurance (Group) Company of China, Ltd.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Pinger est explicitement décrit comme une société américaine et le domaine est pinger.com.",
+   "region": "États-Unis",
+   "confiance": "haute",
+   "nomLisible": "Pinger - USA",
+   "departement": null,
+   "nomOriginal": "Pinger - USA",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.ransomware.live/id/UGluZ2VyIC0gVVNBQGhlbGxjYXQ"
+   ],
+   "domaine_canonique": "pinger.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Pinger, Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Elk River",
+   "raison": "Le site officiel donne une adresse à Elk River, Minnesota, États-Unis.",
+   "region": "Minnesota",
+   "confiance": "haute",
+   "nomLisible": "Plaisted Companies",
+   "departement": null,
+   "nomOriginal": "Plaisted Companies",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://plaistedcompanies.com/"
+   ],
+   "domaine_canonique": "plaistedcompanies.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Plaisted Companies",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Newington",
+   "raison": "La page officielle situe le siège à Newington, Géorgie, États-Unis.",
+   "region": "Georgia",
+   "confiance": "haute",
+   "nomLisible": "Planters Telephone Cooperative (planters.net)",
+   "departement": null,
+   "nomOriginal": "Planters Telephone Cooperative (planters.net)",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://planters.net/about/"
+   ],
+   "domaine_canonique": "planters.net",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Planters Telephone Cooperative, Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Sussex",
+   "raison": "Le site officiel indique le siège et la fabrication à Sussex, Wisconsin, États-Unis.",
+   "region": "Wisconsin",
+   "confiance": "haute",
+   "nomLisible": "powertestdyno.com",
+   "departement": null,
+   "nomOriginal": "powertestdyno.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://powertestdyno.com/"
+   ],
+   "domaine_canonique": "powertestdyno.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Power Test, LLC",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Monroe",
+   "raison": "L’organisation est décrite comme un centre de santé sans but lucratif fondé à Monroe, Louisiane, États-Unis.",
+   "region": "Louisiane",
+   "confiance": "haute",
+   "nomLisible": "Primary Health Services Center",
+   "departement": null,
+   "nomOriginal": "Primary Health Services Center",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://phsccenter.org/about/"
+   ],
+   "domaine_canonique": "phsccenter.org",
+   "type_organisation": "association",
+   "denomination_legale": "Primary Health Services Center",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Staten Island",
+   "raison": "Le site officiel situe Project Hospitality à Staten Island, New York, États-Unis.",
+   "region": "New York",
+   "confiance": "haute",
+   "nomLisible": "Project Hospitality",
+   "departement": null,
+   "nomOriginal": "Project Hospitality",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.projecthospitality.org/"
+   ],
+   "domaine_canonique": "projecthospitality.org",
+   "type_organisation": "association",
+   "denomination_legale": "Project Hospitality",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "San Diego",
+   "raison": "Le site officiel indique une organisation au service des enfants placés du comté de San Diego, Californie, États-Unis.",
+   "region": "Californie",
+   "confiance": "haute",
+   "nomLisible": "promises2kids.org",
+   "departement": null,
+   "nomOriginal": "promises2kids.org",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://promises2kids.org/about-us/"
+   ],
+   "domaine_canonique": "promises2kids.org",
+   "type_organisation": "association",
+   "denomination_legale": "Promises2Kids",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "QECO/COEQ est l’organisme ontarien d’évaluation des qualifications des enseignants au Canada.",
+   "region": "Ontario",
+   "confiance": "haute",
+   "nomLisible": "Qeco/coeq",
+   "departement": null,
+   "nomOriginal": "Qeco/coeq",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://qeco.ca/",
+    "https://qeco.ca/history/"
+   ],
+   "domaine_canonique": "qeco.ca",
+   "type_organisation": "autre",
+   "denomination_legale": "Qualifications Evaluation Council of Ontario",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Ramat Gan",
+   "raison": "Le site officiel identifie l’établissement comme un college académique situé à Ramat Gan, Israël.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Ramat Gan Academic College Hacked",
+   "departement": null,
+   "nomOriginal": "Ramat Gan Academic College Hacked",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://en.iac.ac.il/"
+   ],
+   "domaine_canonique": "iac.ac.il",
+   "type_organisation": "etablissement_public",
+   "denomination_legale": "Ramat Gan Academic College",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Rheinmünster",
+   "raison": "Le fabricant RAUCH indique son siège et sa production à Rheinmünster, Allemagne.",
+   "region": "Bade-Wurtemberg",
+   "confiance": "haute",
+   "nomLisible": "RAUCH Streuer – Kompetenz in Entwicklung & Herstellung",
+   "departement": null,
+   "nomOriginal": "RAUCH Streuer – Kompetenz in Entwicklung & Herstellung",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://rauch.de/index.html",
+    "https://linkedin.com/company/rauch-landmaschinenfabrik-gmbh"
+   ],
+   "domaine_canonique": "rauch.de",
+   "type_organisation": "entreprise",
+   "denomination_legale": "RAUCH Landmaschinenfabrik GmbH",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Leichlingen",
+   "raison": "L’entité correspond à RSB, identifiée à Leichlingen, Allemagne.",
+   "region": "Rhénanie-du-Nord-Westphalie",
+   "confiance": "haute",
+   "nomLisible": "Rheinischer Sch",
+   "departement": null,
+   "nomOriginal": "Rheinischer Sch",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://linkedin.com/company/rheinischer-sch",
+    "https://www.rsb1872.de/impressum"
+   ],
+   "domaine_canonique": "rsb1872.de",
+   "type_organisation": "association",
+   "denomination_legale": "Rheinischer Schützenbund",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Montgomery",
+   "raison": "Le site officiel donne l’adresse à Montgomery, Alabama, États-Unis.",
+   "region": "Alabama",
+   "confiance": "haute",
+   "nomLisible": "River Region Cardiology Associates",
+   "departement": null,
+   "nomOriginal": "River Region Cardiology Associates",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.rrcamd1.com/contact"
+   ],
+   "domaine_canonique": "rrcamd1.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "River Region Cardiology",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Florence",
+   "raison": "River Valley Rest Home est identifié à Florence, Massachusetts, États-Unis.",
+   "region": "Massachusetts",
+   "confiance": "haute",
+   "nomLisible": "RiverRestHome",
+   "departement": null,
+   "nomOriginal": "RiverRestHome",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://exa.ai/library/place/flsgcv3s1f2"
+   ],
+   "domaine_canonique": "rivervalleyresthome.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "River Valley Rest Home",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Lakewood",
+   "raison": "Le site officiel identifie Rocky Mountain Gastroenterology dans la région de Denver, Colorado, États-Unis.",
+   "region": "Colorado",
+   "confiance": "haute",
+   "nomLisible": "rockymountaingastro.com",
+   "departement": null,
+   "nomOriginal": "rockymountaingastro.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.rockymountaingastro.com/"
+   ],
+   "domaine_canonique": "rockymountaingastro.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Rocky Mountain Gastroenterology Associates",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Plusieurs entités homonymes existent; une société française RZO GROUP est récente et ne permet pas d’établir l’identité de la revendication 2024.",
+   "region": null,
+   "confiance": "moyenne",
+   "nomLisible": "RZO",
+   "departement": null,
+   "nomOriginal": "RZO",
+   "siret_siege": null,
+   "est_francaise": "cannot_verify",
+   "sources_preuves": [
+    "https://entreprises.lefigaro.fr/rzo-group-75/entreprise-101779379"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": true,
+   "verdict_ultra": "absent",
+   "domaine_ultra": "rzo.com",
+   "raison_ultra": "Désambiguïsation : RZO est Rascoff Zysblat Organization, société de représentation/gestion d’artistes à New York, États-Unis, au 250 West 57th Street."
+  },
+  {
+   "siren": null,
+   "ville": "Vitacura",
+   "raison": "Le site officiel indique une adresse à Vitacura, Santiago, Chili.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Saint George's College (saintgeorge.cl)",
+   "departement": null,
+   "nomOriginal": "Saint George's College (saintgeorge.cl)",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://saintgeorge.cl/"
+   ],
+   "domaine_canonique": "saintgeorge.cl",
+   "type_organisation": "etablissement_public",
+   "denomination_legale": "Saint George's College",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Prestbury",
+   "raison": "Companies House indique une société britannique, désormais renommée ENDEE LIMITED, dont l’ancien nom était SANGLIER LIMITED.",
+   "region": "Angleterre",
+   "confiance": "haute",
+   "nomLisible": "Sanglier Limited",
+   "departement": null,
+   "nomOriginal": "Sanglier Limited",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://find-and-update.company-information.service.gov.uk/company/04577960"
+   ],
+   "domaine_canonique": "endee.co.uk",
+   "type_organisation": "entreprise",
+   "denomination_legale": "ENDEE LIMITED",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Le nom est ambigu: les sources identifient notamment une société suisse et une association française homonyme, sans preuve suffisante de l’entité visée.",
+   "region": null,
+   "confiance": "faible",
+   "nomLisible": "SAWA INTERNATIONAL",
+   "departement": null,
+   "nomOriginal": "SAWA INTERNATIONAL",
+   "siret_siege": null,
+   "est_francaise": "cannot_verify",
+   "sources_preuves": [
+    "https://www.sawa.ch/fr/a-propos-de-sawa/actualites/i-3851-sawa-international",
+    "https://www.assoce.fr/waldec/W061001472/CLUB-SAWA-INTERNATIONAL-CSI-"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": true,
+   "verdict_ultra": "absent",
+   "domaine_ultra": "sawainternational.com",
+   "raison_ultra": "L’entité correspondant au site sawainternational.com est un fournisseur de télécoms aux Émirats arabes unis, avec adresse à Business Bay, Dubai."
+  },
+  {
+   "siren": "421106709",
+   "ville": "Rueil-Malmaison",
+   "raison": "Entité française confirmée par SIRENE et le site officiel; siège à Rueil-Malmaison.",
+   "region": "Île-de-France",
+   "confiance": "haute",
+   "nomLisible": "Schneider Electric - France",
+   "departement": "92",
+   "nomOriginal": "Schneider Electric - France",
+   "siret_siege": "42110670900668",
+   "est_francaise": "present",
+   "sources_preuves": [
+    "https://www.societe.com/societe/schneider-electric-france-421106709.html",
+    "https://api-avis-situation-sirene.insee.fr/identification/pdf/42110670900254",
+    "https://www.se.com/fr/fr/work/services/formation/docs/23210467-SCHNEIDER-ELECTRIC-FRANCE-Qualiopi.pdf"
+   ],
+   "domaine_canonique": "se.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "SCHNEIDER ELECTRIC FRANCE",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Aix-la-Chapelle",
+   "raison": "SCHUMAG est identifiée comme une entreprise industrielle ayant son siège à Aix-la-Chapelle, Allemagne.",
+   "region": "Rhénanie-du-Nord-Westphalie",
+   "confiance": "haute",
+   "nomLisible": "SCHUMAG AKTIENGESELLSCHAFT",
+   "departement": null,
+   "nomOriginal": "SCHUMAG AKTIENGESELLSCHAFT",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://de.wikipedia.org/wiki/Schumag",
+    "https://www.linkedin.com/company/schumag-gmbh/"
+   ],
+   "domaine_canonique": "schumag.de",
+   "type_organisation": "entreprise",
+   "denomination_legale": "SCHUMAG Precision GmbH",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "SCOTT PHARMA SOLUTIONS LTD est une société enregistrée au Royaume-Uni, à Ashwell (Hertfordshire).",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Scott Pharma Solutions",
+   "departement": null,
+   "nomOriginal": "Scott Pharma Solutions",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://find-and-update.company-information.service.gov.uk/company/09176772"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Seng Tsoi Architect Inc. est un cabinet situé à Vancouver, Colombie-Britannique, Canada.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Seng Tsoi Architect",
+   "departement": null,
+   "nomOriginal": "Seng Tsoi Architect",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.archilovers.com/sta-office-architecture-studio/",
+    "https://www.ecohome.net/en/companies/14490/seng-tsoi-architect-inc/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Seoul",
+   "raison": "Seoul Property Insight est présenté comme une société basée à Séoul, en Corée du Sud; aucune indication d’une entité française n’a été trouvée.",
+   "region": "Seoul",
+   "confiance": "moyenne",
+   "nomLisible": "seoulpi.io",
+   "departement": null,
+   "nomOriginal": "seoulpi.io",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://seoulpi.io/"
+   ],
+   "domaine_canonique": "https://seoulpi.io/",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Seoul Property Insight Co., Ltd. (nom d’usage/alias rapporté, forme locale non vérifiée par registre français)",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Dakar",
+   "raison": "Sesam Informatics indique une adresse à Dakar, Sénégal, et un indicatif téléphonique +221.",
+   "region": "Dakar",
+   "confiance": "haute",
+   "nomLisible": "SESAM Informatics",
+   "departement": null,
+   "nomOriginal": "SESAM Informatics",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://sesam-informatics.com/",
+    "https://sesam-informatics.com/contact"
+   ],
+   "domaine_canonique": "https://sesam-informatics.com/",
+   "type_organisation": "entreprise",
+   "denomination_legale": "SESAM INFORMATICS SARL (forme rapportée, non vérifiée par registre français)",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "San Francisco",
+   "raison": "Le site et l’entité SFrent sont identifiés comme une société immobilière basée à San Francisco, Californie, États-Unis.",
+   "region": "Californie",
+   "confiance": "moyenne",
+   "nomLisible": "Sfrent.net",
+   "departement": null,
+   "nomOriginal": "Sfrent.net",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.sfrent.net/"
+   ],
+   "domaine_canonique": "https://www.sfrent.net/",
+   "type_organisation": "entreprise",
+   "denomination_legale": "SFrent (dénomination légale complète non vérifiée)",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Georgetown",
+   "raison": "Sheridan Nurseries Limited est identifiée comme une société de vente horticole basée à Georgetown, Ontario, Canada.",
+   "region": "Ontario",
+   "confiance": "haute",
+   "nomLisible": "Sheridan Nurseries",
+   "departement": null,
+   "nomOriginal": "Sheridan Nurseries",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://sheridannurseries.com/"
+   ],
+   "domaine_canonique": "https://sheridannurseries.com/",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Sheridan Nurseries Limited",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Denver",
+   "raison": "Le cabinet est identifié comme un cabinet de droit familial basé à Denver, Colorado, États-Unis.",
+   "region": "Colorado",
+   "confiance": "haute",
+   "nomLisible": "Sherr Puttmann Akins Lamb PC",
+   "departement": null,
+   "nomOriginal": "Sherr Puttmann Akins Lamb PC",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.spalfamilylaw.com/"
+   ],
+   "domaine_canonique": "https://www.spalfamilylaw.com/",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Sherr Puttmann Akins Lamb PC",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "San Diego",
+   "raison": "Shinnick & Ryan LLP est identifié comme un cabinet juridique basé à San Diego, Californie, États-Unis, avec un bureau à Phoenix.",
+   "region": "Californie",
+   "confiance": "haute",
+   "nomLisible": "Shinnick & Ryan",
+   "departement": null,
+   "nomOriginal": "Shinnick & Ryan",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://srfirms.com/"
+   ],
+   "domaine_canonique": "https://srfirms.com/",
+   "type_organisation": "entreprise",
+   "denomination_legale": "SHINNICK & RYAN LLP (et Shinnick & Ryan, P.C., selon la source)",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Domaine institutionnel brésilien (.gov.br); aucune indication d’une entité française.",
+   "region": null,
+   "confiance": "moyenne",
+   "nomLisible": "siapenet.gov.br",
+   "departement": null,
+   "nomOriginal": "siapenet.gov.br",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.gov.br/mre/en"
+   ],
+   "domaine_canonique": "siapenet.gov.br",
+   "type_organisation": "autre",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Houston",
+   "raison": "Société américaine: Skyward Specialty Insurance Group, Inc., corporation du Delaware, siège à Houston.",
+   "region": "Texas",
+   "confiance": "haute",
+   "nomLisible": "Skyward Specialty Insurance",
+   "departement": null,
+   "nomOriginal": "Skyward Specialty Insurance",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://investors.skywardinsurance.com/static-files/7772c7b6-14d1-4d55-8a2a-7b83ea572acd",
+    "https://skywardinsurance.com/"
+   ],
+   "domaine_canonique": "skywardinsurance.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Skyward Specialty Insurance Group, Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Snoqualmie",
+   "raison": "Site officiel de la Snoqualmie Indian Tribe, gouvernement tribal situé à Snoqualmie, Washington (États-Unis).",
+   "region": "Washington",
+   "confiance": "haute",
+   "nomLisible": "snoqualmietribe.us",
+   "departement": null,
+   "nomOriginal": "snoqualmietribe.us",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://snoqualmietribe.us/",
+    "https://snoqualmietribe.us/snoqualmie-tribal-council/"
+   ],
+   "domaine_canonique": "snoqualmietribe.us",
+   "type_organisation": "collectivite",
+   "denomination_legale": "Snoqualmie Indian Tribe",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Somerset",
+   "raison": "Solaris Pharma est identifiée aux États-Unis (New Jersey) et au Brésil; aucune entité française vérifiée.",
+   "region": "New Jersey",
+   "confiance": "moyenne",
+   "nomLisible": "Solaris Pharma proof",
+   "departement": null,
+   "nomOriginal": "Solaris Pharma proof",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://solaris-pharma.com/",
+    "https://solarisdobrasil.com.br/"
+   ],
+   "domaine_canonique": "solaris-pharma.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Solaris Pharma Corporation",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "North Augusta",
+   "raison": "Coopérative financière américaine ayant son siège à North Augusta, South Carolina.",
+   "region": "South Carolina",
+   "confiance": "haute",
+   "nomLisible": "SRP Federal Credit Union",
+   "departement": null,
+   "nomOriginal": "SRP Federal Credit Union",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://srpfcu.org/about/",
+    "https://srpfcu.org/"
+   ],
+   "domaine_canonique": "srpfcu.org",
+   "type_organisation": "entreprise",
+   "denomination_legale": "SRP Federal Credit Union",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Le studio notarial identifié est italien; “Data Leak” décrit un incident, pas une entité française.",
+   "region": "Italie",
+   "confiance": "moyenne",
+   "nomLisible": "STUDIO NOTARILE BUCCI – OLMI Data Leak",
+   "departement": null,
+   "nomOriginal": "STUDIO NOTARILE BUCCI – OLMI Data Leak",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://linkedin.com/company/studio-notarile-bucci-olmi"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": "entreprise",
+   "denomination_legale": "Studio Notarile Bucci & Olmi",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Briarcliff Manor",
+   "raison": "Entreprise américaine de collecte des déchets, basée à Briarcliff Manor, New York.",
+   "region": "New York",
+   "confiance": "haute",
+   "nomLisible": "Suburban Carting",
+   "departement": null,
+   "nomOriginal": "Suburban Carting",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.suburbancarting.com/company/about-us/",
+    "https://www.suburbancarting.com/company/contact-us/"
+   ],
+   "domaine_canonique": "suburbancarting.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Suburban Carting Co.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Tucson",
+   "raison": "Site de Southwestern Dakotah, Inc., entreprise américaine de construction basée à Tucson, Arizona.",
+   "region": "Arizona",
+   "confiance": "haute",
+   "nomLisible": "SWDAKOTAH.COM",
+   "departement": null,
+   "nomOriginal": "SWDAKOTAH.COM",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.swdakotah.com/"
+   ],
+   "domaine_canonique": "swdakotah.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Southwestern Dakotah, Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Groupe maritime TCC (Taïwan/Hong Kong), pas une organisation française.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "tccfleet.com",
+   "departement": null,
+   "nomOriginal": "tccfleet.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://tccfleet.com/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "UES est une entreprise américaine, siège à Orlando (Floride), pas une organisation française.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "teamues.com",
+   "departement": null,
+   "nomOriginal": "teamues.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.teamues.com/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Entité identifiée en Allemagne par son domaine et ses mentions légales.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "telering.de",
+   "departement": null,
+   "nomOriginal": "telering.de",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.telering.de/Impressum.html"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Organisation américaine située à Hamden, Connecticut.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "The Children's Center Of Hamden",
+   "departement": null,
+   "nomOriginal": "The Children's Center Of Hamden",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://tccoh.org/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Entreprise britannique, site et activité au Royaume-Uni.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "The Greenhouse People",
+   "departement": null,
+   "nomOriginal": "The Greenhouse People",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.greenhousepeople.co.uk/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "The Hoff Brand SL est enregistrée à Elche, Espagne; “Data Leak” décrit l’incident.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "The Hoff Brand SL Data Leak",
+   "departement": null,
+   "nomOriginal": "The Hoff Brand SL Data Leak",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://thehoffbrand.com/en/policies/legal-notice"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Cabinet juridique américain; “Data Leak” décrit l’incident.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "The Law Office of Omar O. Vargas, P.C. Data Leak",
+   "departement": null,
+   "nomOriginal": "The Law Office of Omar O. Vargas, P.C. Data Leak",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://quenotedeporten.com/"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Broken Arrow",
+   "raison": "Entreprise immobilière identifiée à Broken Arrow, Oklahoma, États-Unis.",
+   "region": "Oklahoma",
+   "confiance": "moyenne",
+   "nomLisible": "The Robson Companies",
+   "departement": null,
+   "nomOriginal": "THE ROBSON COMPANIES, INC",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://linkedin.com/company/the-robson-companies-inc"
+   ],
+   "domaine_canonique": "immobilier",
+   "type_organisation": "entreprise",
+   "denomination_legale": "The Robson Companies, Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "London",
+   "raison": "Syndicat britannique dont le siège est à Londres, Royaume-Uni.",
+   "region": "England",
+   "confiance": "haute",
+   "nomLisible": "The University and College Union",
+   "departement": null,
+   "nomOriginal": "University and College Union (UCU)",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://ucu.org.uk/"
+   ],
+   "domaine_canonique": "syndicat",
+   "type_organisation": "autre",
+   "denomination_legale": "University and College Union",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Norman",
+   "raison": "Université publique située à Norman, Oklahoma, États-Unis.",
+   "region": "Oklahoma",
+   "confiance": "haute",
+   "nomLisible": "The University of Oklahoma (ou.edu)",
+   "departement": null,
+   "nomOriginal": "University of Oklahoma",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://ou.edu/"
+   ],
+   "domaine_canonique": "enseignement supérieur",
+   "type_organisation": "etablissement_public",
+   "denomination_legale": "University of Oklahoma",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Morristown",
+   "raison": "Cabinet d'avocats du New Jersey, États-Unis.",
+   "region": "New Jersey",
+   "confiance": "haute",
+   "nomLisible": "The Wacks Law Group",
+   "departement": null,
+   "nomOriginal": "The Wacks Law Group, LLC",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://wackslaw.net/",
+    "https://www.linkedin.com/company/the-wacks-law-group-llc"
+   ],
+   "domaine_canonique": "services juridiques",
+   "type_organisation": "entreprise",
+   "denomination_legale": "The Wacks Law Group, LLC",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Honolulu",
+   "raison": "Site de TheBus, exploité par Oahu Transit Services, Inc. à Honolulu, Hawaï, États-Unis.",
+   "region": "Hawaii",
+   "confiance": "haute",
+   "nomLisible": "thebus.org",
+   "departement": null,
+   "nomOriginal": "Oahu Transit Services, Inc.",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://thebus.org/"
+   ],
+   "domaine_canonique": "transport public",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Oahu Transit Services, Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": "562113274",
+   "ville": "Levallois-Perret",
+   "raison": "Société française active, SIREN 562113274; siège actuel à Levallois-Perret (Hauts-de-Seine).",
+   "region": "Île-de-France",
+   "confiance": "haute",
+   "nomLisible": "Therabel Lucien Pharma SAS",
+   "departement": "Hauts-de-Seine",
+   "nomOriginal": "Therabel Lucien Pharma SAS",
+   "siret_siege": "56211327400061",
+   "est_francaise": "present",
+   "sources_preuves": [
+    "https://www.societe.com/societe/therabel-lucien-pharma-562113274.html",
+    "https://annuaire-entreprises.data.gouv.fr/etablissement/56211327400053",
+    "https://www.therabel.fr/nous-contacter/"
+   ],
+   "domaine_canonique": "therabel.fr",
+   "type_organisation": "entreprise",
+   "denomination_legale": "THERABEL LUCIEN PHARMA",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Richmond",
+   "raison": "Société de gestion d'actifs située à Richmond, Virginie, États-Unis.",
+   "region": "Virginia",
+   "confiance": "haute",
+   "nomLisible": "Thompson Davis and Co",
+   "departement": null,
+   "nomOriginal": "Thompson Davis & Co., Inc.",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://thompsondavis.com/"
+   ],
+   "domaine_canonique": "services financiers",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Thompson Davis & Co., Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Lanham",
+   "raison": "site officiel: siège à Lanham, Maryland, États-Unis",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "thompsoncreek.com",
+   "departement": null,
+   "nomOriginal": "thompsoncreek.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.thompsoncreek.com/"
+   ],
+   "domaine_canonique": "thompsoncreek.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Orlando",
+   "raison": "site et profil: siège à Orlando, Floride, États-Unis",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "throttleup.io/",
+   "departement": null,
+   "nomOriginal": "throttleup.io/",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.throttleup.io/"
+   ],
+   "domaine_canonique": "throttleup.io",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Truckee",
+   "raison": "site officiel: adresses à Truckee, Californie, États-Unis",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "TNT Materials https://tnt-materials.com/",
+   "departement": null,
+   "nomOriginal": "TNT Materials https://tnt-materials.com/",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://tnt-materials.com/"
+   ],
+   "domaine_canonique": "tnt-materials.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Gary",
+   "raison": "site officiel: cabinet situé à Gary, Indiana, États-Unis",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "tolbertlegal.com",
+   "departement": null,
+   "nomOriginal": "tolbertlegal.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://tolbertlegal.com/"
+   ],
+   "domaine_canonique": "tolbertlegal.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Dilling",
+   "raison": "site officiel: adresse à Dilling/Moss, Norvège",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Total Revisjon DA",
+   "departement": null,
+   "nomOriginal": "Total Revisjon DA",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.totalrevisjon.no/"
+   ],
+   "domaine_canonique": "totalrevisjon.no",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "libellé trop ambigu: plusieurs organisations portent le nom TPI",
+   "region": null,
+   "confiance": "faible",
+   "nomLisible": "TPI",
+   "departement": null,
+   "nomOriginal": "TPI",
+   "siret_siege": null,
+   "est_francaise": "cannot_verify",
+   "sources_preuves": [
+    "https://tpi.setec.fr/en/our-history/"
+   ],
+   "domaine_canonique": "tpi.setec.fr",
+   "type_organisation": "autre",
+   "denomination_legale": null,
+   "desaccord": true,
+   "verdict_ultra": "absent",
+   "domaine_ultra": "tpicorp.com",
+   "raison_ultra": "La revendication Play du 23 juin 2024 identifie TPI via tpicorp.com et indique les États-Unis. Le site officiel décrit TPI Corporation comme un fabricant privé basé aux États-Unis; l’acronyme ne désigne donc pas une entité française dans cette revendication."
+  },
+  {
+   "siren": "318672623",
+   "ville": "Beaucouzé",
+   "raison": "TMO est la dénomination légale et TRANSTEC le nom commercial; siège en France",
+   "region": "Pays de la Loire",
+   "confiance": "haute",
+   "nomLisible": "Transtec SAS",
+   "departement": "Maine-et-Loire",
+   "nomOriginal": "Transtec SAS",
+   "siret_siege": "31867262300036",
+   "est_francaise": "present",
+   "sources_preuves": [
+    "https://rubypayeur.com/societe/tmo-318672623"
+   ],
+   "domaine_canonique": "transtecmo.fr",
+   "type_organisation": "entreprise",
+   "denomination_legale": "TMO",
+   "desaccord": true,
+   "verdict_ultra": "absent",
+   "domaine_ultra": "transtec.com.co",
+   "raison_ultra": "La revendication Orca d’octobre 2024 désigne transtec.com.co, dont le site officiel donne Bogotá, Colombie. L’organisme ProColombia identifie Transtec Diseño e Ingenieria SAS; aucun lien avec la société française TMO."
+  },
+  {
+   "siren": null,
+   "ville": "Denver",
+   "raison": "site officiel: siège à Denver, Colorado, États-Unis",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Trinity Petroleum Management, LLC",
+   "departement": null,
+   "nomOriginal": "Trinity Petroleum Management, LLC",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.trinitymgt.com/"
+   ],
+   "domaine_canonique": "trinitymgt.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "source de revendication et domaine: entreprise basée au Canada",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "u0 Excel Transportation",
+   "departement": null,
+   "nomOriginal": "u0 Excel Transportation",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://ransomware.live/id/dTAgRXhjZWwgVHJhbnNwb3J0YXRpb25AbHlueA"
+   ],
+   "domaine_canonique": "exceltransportation.ca",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Sheridan",
+   "raison": "site officiel: siège à Sheridan, Indiana, États-Unis",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "United Animal Health",
+   "departement": null,
+   "nomOriginal": "United Animal Health",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://unitedanh.com/contact/"
+   ],
+   "domaine_canonique": "unitedanh.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Santa Fe Springs",
+   "raison": "site officiel: siège et fabrication à Santa Fe Springs, Californie, États-Unis",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "United Bakery Equipment",
+   "departement": null,
+   "nomOriginal": "United Bakery Equipment",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.ubeusa.com/about"
+   ],
+   "domaine_canonique": "ubeusa.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "site officiel: services en Géorgie, Alabama et Caroline du Sud, États-Unis",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Unlimited Lawn Care",
+   "departement": null,
+   "nomOriginal": "Unlimited Lawn Care",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.unlimitedlawncare.com/"
+   ],
+   "domaine_canonique": "unlimitedlawncare.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Arlington",
+   "raison": "site officiel: agence fédérale des États-Unis, siège à Arlington, Virginie",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "US Marshals Service",
+   "departement": null,
+   "nomOriginal": "US Marshals Service",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.usmarshals.gov/"
+   ],
+   "domaine_canonique": "usmarshals.gov",
+   "type_organisation": "etablissement_public",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Vancouver",
+   "raison": "site et profil: siège à Vancouver, Washington, États-Unis",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Verosa LLC",
+   "departement": null,
+   "nomOriginal": "Verosa LLC",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.verosa.com/"
+   ],
+   "domaine_canonique": "verosa.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "libellé de revendication sans preuve d’une organisation identifiable",
+   "region": null,
+   "confiance": "faible",
+   "nomLisible": "Viber Messenger Source and Data!",
+   "departement": null,
+   "nomOriginal": "Viber Messenger Source and Data!",
+   "siret_siege": null,
+   "est_francaise": "cannot_verify",
+   "sources_preuves": [
+    "https://threatintel.cc/2025/01/20/handala-threat-actor-group-key.html"
+   ],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": true,
+   "verdict_ultra": "absent",
+   "domaine_ultra": "viber.com",
+   "raison_ultra": "Les mentions légales officielles identifient Viber Media S.à r.l., société constituée au Luxembourg, adresse 2 rue du Fossé, L-1536 Luxembourg. Rakuten est la maison mère japonaise; cela ne transforme pas l’éditeur en entité japonaise ou française."
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "site officiel en italien: entreprise italienne de packaging",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Vimer Industrie Grafiche Italiane",
+   "departement": null,
+   "nomOriginal": "Vimer Industrie Grafiche Italiane",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://vimer.it/"
+   ],
+   "domaine_canonique": "vimer.it",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "libellé technique de revendication, pas une organisation identifiable",
+   "region": null,
+   "confiance": "faible",
+   "nomLisible": "Warning: some of webchats are unavailable. We are working to resolve the issue, all timers",
+   "departement": null,
+   "nomOriginal": "Warning: some of webchats are unavailable. We are working to resolve the issue, all timers",
+   "siret_siege": null,
+   "est_francaise": "cannot_verify",
+   "sources_preuves": [],
+   "domaine_canonique": null,
+   "type_organisation": null,
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "site officiel: concessionnaire situé au Mississippi, États-Unis",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Waters Truck and Tractor (waterstruck.com)",
+   "departement": null,
+   "nomOriginal": "Waters Truck and Tractor (waterstruck.com)",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.waterstruck.com/our-location/"
+   ],
+   "domaine_canonique": "waterstruck.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Goyang",
+   "raison": "site officiel et fiche de fuite: eWave Corp. située en Corée du Sud",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "wave2.co.kr",
+   "departement": null,
+   "nomOriginal": "wave2.co.kr",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.wave2.co.kr/"
+   ],
+   "domaine_canonique": "wave2.co.kr",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Melbourne",
+   "raison": "site officiel: établissement à Melbourne, Victoria, Australie",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Waverley Christian College (wcc.vic.edu.au)",
+   "departement": null,
+   "nomOriginal": "Waverley Christian College (wcc.vic.edu.au)",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://wcc.vic.edu.au/about/"
+   ],
+   "domaine_canonique": "wcc.vic.edu.au",
+   "type_organisation": "etablissement_public",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Deerfield Beach",
+   "raison": "site officiel: adresse à Deerfield Beach, Floride, États-Unis",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "welevelup.com",
+   "departement": null,
+   "nomOriginal": "welevelup.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://welevelup.com/"
+   ],
+   "domaine_canonique": "welevelup.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Livonia",
+   "raison": "site officiel: magasins dans le Michigan, États-Unis",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "westbornmarket.com",
+   "departement": null,
+   "nomOriginal": "westbornmarket.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://westbornmarket.com/"
+   ],
+   "domaine_canonique": "westbornmarket.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Atlanta",
+   "raison": "site officiel et profil: siège à Atlanta, Géorgie, États-Unis",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "WhoHire",
+   "departement": null,
+   "nomOriginal": "WhoHire",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://whohire.com/"
+   ],
+   "domaine_canonique": "whohire.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Wichita",
+   "raison": "site officiel: campus à Wichita, Kansas, États-Unis",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Wichita State University Campus of Applied Sciences and Technology",
+   "departement": null,
+   "nomOriginal": "Wichita State University Campus of Applied Sciences and Technology",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://wsutech.edu/"
+   ],
+   "domaine_canonique": "wsutech.edu",
+   "type_organisation": "etablissement_public",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Wichita",
+   "raison": "site officiel: cabinet situé à Wichita, Kansas, États-Unis",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Woodard , Hernandez , Roth & Day",
+   "departement": null,
+   "nomOriginal": "Woodard , Hernandez , Roth & Day",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "http://www.woodard-law.com/"
+   ],
+   "domaine_canonique": "woodard-law.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Jessup",
+   "raison": "site officiel: Alliance Material Handling opère dans le Maryland/Virginie/Delaware, États-Unis",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "www.alliancemat.com",
+   "departement": null,
+   "nomOriginal": "www.alliancemat.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.alliancemat.com/"
+   ],
+   "domaine_canonique": "alliancemat.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Austin",
+   "raison": "site officiel: siège d’Ameda à Austin, Texas, États-Unis",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "www.ameda.com",
+   "departement": null,
+   "nomOriginal": "www.ameda.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.ameda.com/pages/contact"
+   ],
+   "domaine_canonique": "ameda.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Driebergen-Rijsenburg",
+   "raison": "profil d’entreprise: siège à Driebergen-Rijsenburg, Pays-Bas",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "www.assisi.nl",
+   "departement": null,
+   "nomOriginal": "www.assisi.nl",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://linkedin.com/company/assisi"
+   ],
+   "domaine_canonique": "assisi.nl",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Roswell",
+   "raison": "site officiel: bureaux en Géorgie et Tennessee, États-Unis",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "www.atlcc.net",
+   "departement": null,
+   "nomOriginal": "www.atlcc.net",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.atlcc.net/"
+   ],
+   "domaine_canonique": "atlcc.net",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Oslo",
+   "raison": "registre officiel norvégien: AVOKI IT AS, Oslo, Norvège",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "www.avantit.no",
+   "departement": null,
+   "nomOriginal": "www.avantit.no",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://virksomhet.brreg.no/nb/oppslag/enheter/983591744"
+   ],
+   "domaine_canonique": "avantit.no",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Official site identifies the Baim Institute as a nonprofit based in Boston, Massachusetts; no French legal entity or French registry identifiers are evidenced.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "www.baiminstitute.org/",
+   "departement": null,
+   "nomOriginal": "www.baiminstitute.org/",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.baiminstitute.org/index.php/about/",
+    "https://www.baiminstitute.org/"
+   ],
+   "domaine_canonique": "baiminstitute.org",
+   "type_organisation": "association",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Official site identifies Cameron, Hodges, Coleman, LaPointe & Wright, P.A. and lists offices only in Orlando and Ocala, Florida; no French entity is evidenced.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "www.cameronhodges.com",
+   "departement": null,
+   "nomOriginal": "www.cameronhodges.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.cameronhodges.com/",
+    "https://www.cameronhodges.com/about-us/"
+   ],
+   "domaine_canonique": "cameronhodges.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Official site identifies Copley at Stoughton Nursing Care Center at 380 Sumner Street, Stoughton, Massachusetts; no French legal entity or French identifiers are evidenced.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "www.copleystoughton.com",
+   "departement": null,
+   "nomOriginal": "www.copleystoughton.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://copleystoughton.com/",
+    "https://copleystoughton.com/contact-us/"
+   ],
+   "domaine_canonique": "copleystoughton.com",
+   "type_organisation": "autre",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Official site names Esquire Brands, LLC and gives its address as 385 Fifth Avenue, New York, NY; no French legal entity or French registry identifiers are evidenced.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "www.esquirebrands.com",
+   "departement": null,
+   "nomOriginal": "www.esquirebrands.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://esquirebrands.com/",
+    "https://esquirebrands.com/contact/"
+   ],
+   "domaine_canonique": "esquirebrands.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Eucatex's official investor materials identify Eucatex S.A. Indústria e Comércio, Brazilian CNPJ 56.643.018/0001-66, headquartered in São Paulo, Brazil; no French entity is evidenced.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "www.eucatex.com.br",
+   "departement": null,
+   "nomOriginal": "www.eucatex.com.br",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://ri.eucatex.com.br/Download.aspx?Arquivo=5AmJCkVjz7+jTjSa0gR1ZQ%3D%3D",
+    "https://ri.eucatex.com.br/estatuto-social"
+   ],
+   "domaine_canonique": "eucatex.com.br",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Official site identifies Financiera Paraguayo Japonesa S.A.E.C.A., a Paraguayan financial institution operating in Paraguay; no French legal entity or French identifiers are evidenced.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "www.fpj.com.py",
+   "departement": null,
+   "nomOriginal": "www.fpj.com.py",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.fpj.com.py/",
+    "http://www.fpj.com.py/sobre-nosotros/nuestra-entidad"
+   ],
+   "domaine_canonique": "fpj.com.py",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Official company materials identify PT Garudafood Putra Putri Jaya Tbk, an Indonesian food and beverage company headquartered in Jakarta; exports or international presence do not evidence a French entity.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "www.garudafood.com/",
+   "departement": null,
+   "nomOriginal": "www.garudafood.com/",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.garudafood.com/chi",
+    "https://www.garudafood.com/cfind/source/files/tentang-garudafoood/10.05.2023%20company%20profile%20pt%20gppj%20tbk_english%20version.pdf"
+   ],
+   "domaine_canonique": "garudafood.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": null,
+   "raison": "Official site places Gestion Quintessence at 2001 chemin du Village, Mont-Tremblant, Québec, Canada; no French legal entity or French registry identifiers are evidenced.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "www.gestionquintessence.com",
+   "departement": null,
+   "nomOriginal": "www.gestionquintessence.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.gestionquintessence.com/"
+   ],
+   "domaine_canonique": "gestionquintessence.com",
+   "type_organisation": "autre",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Washington",
+   "raison": "Official site identifies the church at 610 Rhode Island Ave NE, Washington, DC, United States; no French establishment or French identifiers supported.",
+   "region": "District of Columbia",
+   "confiance": "haute",
+   "nomLisible": "www.gmchc.org",
+   "departement": null,
+   "nomOriginal": "www.gmchc.org",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.gmchc.org/contact",
+    "https://gmchc.org/our-story"
+   ],
+   "domaine_canonique": "gmchc.org",
+   "type_organisation": "association",
+   "denomination_legale": "Greater Mount Calvary Holy Church",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Kuala Lumpur",
+   "raison": "Official contact page identifies HexoSys Sdn Bhd in Kuala Lumpur, Malaysia; no French establishment or French identifiers supported.",
+   "region": "Kuala Lumpur",
+   "confiance": "haute",
+   "nomLisible": "www.hexosys.com",
+   "departement": null,
+   "nomOriginal": "www.hexosys.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://hexosys.com/contact-us",
+    "https://hexosys.com/about"
+   ],
+   "domaine_canonique": "hexosys.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "HexoSys Sdn Bhd",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Hinton",
+   "raison": "Official municipal website identifies the Town of Hinton, Alberta, Canada, at 131 Civic Centre Road; it is not a French organization.",
+   "region": "Alberta",
+   "confiance": "haute",
+   "nomLisible": "www.hinton.ca",
+   "departement": null,
+   "nomOriginal": "www.hinton.ca",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.hinton.ca/",
+    "https://hinton.ca/27/Government"
+   ],
+   "domaine_canonique": "hinton.ca",
+   "type_organisation": "collectivite",
+   "denomination_legale": "Town of Hinton",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Woodward",
+   "raison": "Official site identifies Journey Oilfield Equipment LLC with corporate office in Woodward, Oklahoma, United States; no French establishment or identifiers supported.",
+   "region": "Oklahoma",
+   "confiance": "haute",
+   "nomLisible": "www.journeyoilfield.net",
+   "departement": null,
+   "nomOriginal": "www.journeyoilfield.net",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://journeyoilfield.net/",
+    "https://journeyoilfield.net/contact/"
+   ],
+   "domaine_canonique": "journeyoilfield.net",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Journey Oilfield Equipment LLC",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "La Vergne",
+   "raison": "Official site identifies JPW Industries at 427 New Sanford Rd, La Vergne, Tennessee, United States; global activity does not establish a French legal entity.",
+   "region": "Tennessee",
+   "confiance": "haute",
+   "nomLisible": "www.jpwindustries.com",
+   "departement": null,
+   "nomOriginal": "www.jpwindustries.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.jpwindustries.com/",
+    "https://www.jpwindustries.com/about-us/"
+   ],
+   "domaine_canonique": "jpwindustries.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "JPW Industries, Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Longmont",
+   "raison": "Official site identifies KCI/Krische Construction at 605 Weaver Park Road, Longmont, Colorado, United States; no French establishment or identifiers supported.",
+   "region": "Colorado",
+   "confiance": "haute",
+   "nomLisible": "www.kciconst.com",
+   "departement": null,
+   "nomOriginal": "www.kciconst.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.kciconst.com/",
+    "https://www.kciconst.com/about/"
+   ],
+   "domaine_canonique": "kciconst.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Krische Construction, Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "São Paulo",
+   "raison": "Official Portuguese-language site describes La Pastina as a Brazilian business founded in São Paulo and serving Brazil; no French legal entity or identifiers supported.",
+   "region": "São Paulo",
+   "confiance": "haute",
+   "nomLisible": "www.lapastina.com/",
+   "departement": null,
+   "nomOriginal": "www.lapastina.com/",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.lapastina.com/sobre-nos",
+    "https://www.lapastina.com/"
+   ],
+   "domaine_canonique": "lapastina.com",
+   "type_organisation": "autre",
+   "denomination_legale": "La Pastina (Grupo La Pastina)",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Bellevue",
+   "raison": "Official site identifies Lightspeed Design, Inc. at 1611 116th Avenue NE, Bellevue, Washington, United States; no French establishment or identifiers supported.",
+   "region": "Washington",
+   "confiance": "haute",
+   "nomLisible": "www.lightspeeddesign.com",
+   "departement": null,
+   "nomOriginal": "www.lightspeeddesign.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://lightspeeddesign.com/",
+    "https://www.depthq.com/profile.html"
+   ],
+   "domaine_canonique": "lightspeeddesign.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Lightspeed Design, Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Mexico City",
+   "raison": "Official site terms identify Controladora Mabe S.A. de C.V. in Mexico City, Mexico; no French establishment or French SIREN/SIRET supported.",
+   "region": "Ciudad de México",
+   "confiance": "haute",
+   "nomLisible": "www.mabeglobal.com",
+   "departement": null,
+   "nomOriginal": "www.mabeglobal.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://mabeglobal.com/medias/TERMINOS-Y-CONDICIONES-MABE-GLOBAL-MEXICO-2025.pdf?context=bWFzdGVyfGltYWdlc3w0OTU5MjN8YXBwbGljYXRpb24vcGRmfGFESmxMMmczTmk4eE1qZ3dOREk0TmpNNE1qRXhNQzlVUlZKTlNVNVBVeTFaTFVOUFRrUkpRMGxQVGtWVExVMUJRa1V0UjB4UFFrRk1VTFZGV0VsRFR5MHlNREkxTG5Ca1pnfDgyMGZiNDRhNDFiODk1MjAwN2QzYTFkM2Y2NmNhYjM1ODFjZjMyODQ5NjFhNjY2NTQwODMwNTAyNGNlOWYzYmE"
+   ],
+   "domaine_canonique": "mabeglobal.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Controladora Mabe, S.A. de C.V.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Dublin",
+   "raison": "The site's terms identify an Irish company (registration no. 496503) with registered office in Dublin 22; no French SIREN/SIRET or French establishment supported.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "www.maloneaccountants.ie",
+   "departement": null,
+   "nomOriginal": "www.maloneaccountants.ie",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.maloneaccountants.ie/terms-of-service/",
+    "https://companycheck.ie/company/496503"
+   ],
+   "domaine_canonique": "maloneaccountants.ie",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Malone & Company Accountants Limited",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Edmonton",
+   "raison": "Official corporate site identifies McCoy Global Inc. headquartered in Edmonton, Alberta, Canada; no French SIREN/SIRET or French establishment supported.",
+   "region": "Alberta",
+   "confiance": "haute",
+   "nomLisible": "www.mccoyglobal.com",
+   "departement": null,
+   "nomOriginal": "www.mccoyglobal.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.mccoyglobal.com/",
+    "https://www.mccoyglobal.com/contact/"
+   ],
+   "domaine_canonique": "mccoyglobal.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "McCoy Global Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Holland",
+   "raison": "Official contact page places the LLC in Holland, Ohio; Ohio registry reports it active. No French SIREN/SIRET or French establishment supported.",
+   "region": "Ohio",
+   "confiance": "haute",
+   "nomLisible": "www.midwestvascular.net",
+   "departement": null,
+   "nomOriginal": "www.midwestvascular.net",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://midwestvascular.net/contact/",
+    "https://ohio-corp.com/co/midwest-vascular-and-varicose-vein-center-llc"
+   ],
+   "domaine_canonique": "midwestvascular.net",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Midwest Vascular and Varicose Vein Center, LLC",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Millinocket",
+   "raison": "Hospital's official contact page places it at 200 Somerset Street, Millinocket, Maine, USA; no French SIREN/SIRET or French establishment supported.",
+   "region": "Maine",
+   "confiance": "haute",
+   "nomLisible": "www.mrhme.org/",
+   "departement": null,
+   "nomOriginal": "www.mrhme.org/",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.mrhme.org/contact-us/",
+    "https://www.mrhme.org/"
+   ],
+   "domaine_canonique": "mrhme.org",
+   "type_organisation": "association",
+   "denomination_legale": "Millinocket Regional Hospital",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Wautoma",
+   "raison": "Available company profile identifies Mid-State Supply headquartered in Wautoma, Wisconsin, USA; no French SIREN/SIRET or French establishment supported.",
+   "region": "Wisconsin",
+   "confiance": "moyenne",
+   "nomLisible": "www.mssupply.com",
+   "departement": null,
+   "nomOriginal": "www.mssupply.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://mssupply.com/"
+   ],
+   "domaine_canonique": "mssupply.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Mid-State Supply",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Dubai",
+   "raison": "Official terms identify Nissan Motor (Middle East) Limited, registered in the UAE at Jebel Ali Free Zone; no French SIREN/SIRET or French establishment supported.",
+   "region": "Dubai",
+   "confiance": "haute",
+   "nomLisible": "www.nissan-dubai.com",
+   "departement": null,
+   "nomOriginal": "www.nissan-dubai.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://en.nissan-dubai.com/terms-conditions.html",
+    "https://www.nissan-global.com/EN/COMPANY/PROFILE/EN_ESTABLISHMENT/MIDDLE_EAST/"
+   ],
+   "domaine_canonique": "nissan-dubai.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Nissan Motor (Middle East) Limited",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Palma",
+   "raison": "Official legal notice identifies Prinz Hoteles, S.A. in Palma de Mallorca, Spain (CIF A-07190309), plus Spanish group entities; no French SIREN/SIRET supported.",
+   "region": "Balearic Islands",
+   "confiance": "haute",
+   "nomLisible": "www.prinsotel.com",
+   "departement": null,
+   "nomOriginal": "www.prinsotel.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.prinsotel.com/es/aviso-legal/",
+    "https://www.prinsotel.com/fr/conditions-g%C3%A9n%C3%A9rales/"
+   ],
+   "domaine_canonique": "prinsotel.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Prinz Hoteles, S.A.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Alameda",
+   "raison": "RGB Spectrum identifies its headquarters in Alameda, California, USA; no French legal entity or French registry identifiers were found.",
+   "region": "California",
+   "confiance": "haute",
+   "nomLisible": "www.rgb.com",
+   "departement": null,
+   "nomOriginal": "www.rgb.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.rgb.com/about",
+    "https://www.rgb.com/contact"
+   ],
+   "domaine_canonique": "rgb.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "RGB Spectrum",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Guarapuava",
+   "raison": "The domain is associated with an active Brazilian company (CNPJ 61.277.871/0001-41) in Guarapuava, Paraná, not a French organization.",
+   "region": "Paraná",
+   "confiance": "haute",
+   "nomLisible": "www.shootinghouse.com.br",
+   "departement": null,
+   "nomOriginal": "www.shootinghouse.com.br",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://maiscnpj.com.br/cnpj/61277871000141-myshooting-sistemas-informatizados-ltda",
+    "https://www.shootinghouse.com.br/"
+   ],
+   "domaine_canonique": "shootinghouse.com.br",
+   "type_organisation": "autre",
+   "denomination_legale": "MYSHOOTING SISTEMAS INFORMATIZADOS LTDA",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Knoxville",
+   "raison": "The organization operates retina centers in Tennessee, Georgia and Virginia, USA; no French legal entity or French registry identifiers were found.",
+   "region": "Tennessee",
+   "confiance": "haute",
+   "nomLisible": "www.southeasternretina.com",
+   "departement": null,
+   "nomOriginal": "www.southeasternretina.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.southeasternretina.com/",
+    "https://www.southeasternretina.com/contact-us"
+   ],
+   "domaine_canonique": "southeasternretina.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Southeastern Retina Associates",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Suva",
+   "raison": "The domain is the official website of Suva City, Fiji, and concerns its municipal government; it is not a French organization.",
+   "region": "Central Division, Fiji",
+   "confiance": "haute",
+   "nomLisible": "www.suvacity.org",
+   "departement": null,
+   "nomOriginal": "www.suvacity.org",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://suvacity.org",
+    "https://en.wikipedia.org/wiki/Suva"
+   ],
+   "domaine_canonique": "suvacity.org",
+   "type_organisation": "collectivite",
+   "denomination_legale": "Suva City Council",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Ataşehir, Istanbul",
+   "raison": "Temo Tekstil identifies its company and factory in Istanbul, Turkey; no French legal entity or French registry identifiers were found.",
+   "region": "Istanbul, Turkey",
+   "confiance": "haute",
+   "nomLisible": "www.temotekstil.com.tr",
+   "departement": null,
+   "nomOriginal": "www.temotekstil.com.tr",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://temotekstil.com.tr/about/",
+    "https://temotekstil.com.tr/contact/",
+    "https://temotekstil.com.tr/"
+   ],
+   "domaine_canonique": "temotekstil.com.tr",
+   "type_organisation": "autre",
+   "denomination_legale": "TEMO TEKSTİL A.Ş. (Temo Tekstil Anonim Şirketi)",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Allentown",
+   "raison": "Trifecta Technologies identifies its headquarters in Allentown, Pennsylvania, USA; no French legal entity or French registry identifiers were found.",
+   "region": "Pennsylvania",
+   "confiance": "haute",
+   "nomLisible": "www.trifecta.com",
+   "departement": null,
+   "nomOriginal": "www.trifecta.com",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.trifecta.com/",
+    "https://www.crunchbase.com/organization/trifecta-technologies"
+   ],
+   "domaine_canonique": "trifecta.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": "Trifecta Technologies, Inc.",
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Yokohama",
+   "raison": "Le site officiel identifie Yorozu Corporation et donne une adresse à Yokohama, Kanagawa, Japon ; l'organisation est japonaise.",
+   "region": "Kanagawa",
+   "confiance": "haute",
+   "nomLisible": "yorozu-corp.co.jp",
+   "departement": null,
+   "nomOriginal": "yorozu-corp.co.jp",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://www.yorozu-corp.co.jp/en/about/outline/",
+    "https://www.yorozu-corp.co.jp/en/about/global/%E6%A8%AA%E6%B5%9C%E6%9C%AC%E7%A4%BE%EF%BC%88yc%EF%BC%89/"
+   ],
+   "domaine_canonique": "yorozu-corp.co.jp",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  },
+  {
+   "siren": null,
+   "ville": "Tel Aviv",
+   "raison": "Elfi-Tech est identifiée comme une entreprise dont le siège est à Tel Aviv, Israël ; la revendication cyber ne constitue pas une identité française.",
+   "region": null,
+   "confiance": "haute",
+   "nomLisible": "Zionists Elfi-Tech Hacked",
+   "departement": null,
+   "nomOriginal": "Zionists Elfi-Tech Hacked",
+   "siret_siege": null,
+   "est_francaise": "absent",
+   "sources_preuves": [
+    "https://elfi-tech.com/",
+    "https://il.linkedin.com/company/elfi-tech-ltd"
+   ],
+   "domaine_canonique": "elfi-tech.com",
+   "type_organisation": "entreprise",
+   "denomination_legale": null,
+   "desaccord": false
+  }
+ ]
+}

@@ -1,0 +1,10 @@
+Trouve des sources publiques d'incidents cyber couvrant la France et la Nouvelle-Aquitaine : flux RSS, pages de revendications, comptes Telegram/Twitter de groupes, bulletins CERT, presse régionale avec rubrique cyber.
+
+
+Critères :
+- Source encore active en 2025-2026 (au moins 1 publication dans les 90 derniers jours)
+- Couvre ransomware, fuite de données, intrusion, DDoS ou hameçonnage
+- Accessible sans paywall ni auth (URL directe)
+
+
+Pour chaque source, donne : nom, url, type (rss/html/telegram/twitter), famille principale, fréquence, langue, zone, et 2 exemples d'articles récents avec date.

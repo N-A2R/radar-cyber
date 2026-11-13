@@ -1,0 +1,2480 @@
+{
+ "id": "agent_run_3598dae3856d4fcf9a9168276128c6e9",
+ "object": "agent_run",
+ "status": "completed",
+ "stopReason": "iteration_limit_reached",
+ "createdAt": "2026-11-13T16:36:32.447Z",
+ "completedAt": "2026-11-13T16:41:20.303Z",
+ "request": {
+  "query": "Trouve des sources publiques d'incidents cyber couvrant la France et la Nouvelle-Aquitaine : flux RSS, pages de revendications, comptes Telegram/Twitter de groupes, bulletins CERT, presse régionale avec rubrique cyber.\n\n\nCritères :\n- Source encore active en 2025-2026 (au moins 1 publication dans les 90 derniers jours)\n- Couvre ransomware, fuite de données, intrusion, DDoS ou hameçonnage\n- Accessible sans paywall ni auth (URL directe)\n\n\nPour chaque source, donne : nom, url, type (rss/html/telegram/twitter), famille principale, fréquence, langue, zone, et 2 exemples d'articles récents avec date.",
+  "outputSchema": {
+   "type": "object",
+   "required": [
+    "sources"
+   ],
+   "properties": {
+    "sources": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "required": [
+       "nom",
+       "url",
+       "type",
+       "famille",
+       "frequence",
+       "langue",
+       "zone"
+      ],
+      "properties": {
+       "nom": {
+        "type": "string"
+       },
+       "url": {
+        "type": "string",
+        "format": "uri"
+       },
+       "type": {
+        "enum": [
+         "rss",
+         "html",
+         "telegram",
+         "twitter",
+         "autre"
+        ],
+        "type": "string"
+       },
+       "zone": {
+        "type": "string",
+        "description": "france, nouvelle-aquitaine, international"
+       },
+       "langue": {
+        "type": "string"
+       },
+       "famille": {
+        "type": "string",
+        "description": "ransomware, fuite, intrusion, ddos, hameconnage, mixte"
+       },
+       "exemples": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "required": [
+          "titre",
+          "date",
+          "url"
+         ],
+         "properties": {
+          "url": {
+           "type": "string",
+           "format": "uri"
+          },
+          "date": {
+           "type": "string"
+          },
+          "titre": {
+           "type": "string"
+          }
+         },
+         "additionalProperties": false
+        },
+        "maxItems": 2
+       },
+       "frequence": {
+        "type": "string",
+        "description": "quotidien, hebdomadaire, irregulier..."
+       },
+       "actif_depuis": {
+        "type": [
+         "string",
+         "null"
+        ],
+        "description": "date de la derniere publication constatee (YYYY-MM-DD)"
+       }
+      },
+      "additionalProperties": false
+     },
+     "maxItems": 50
+    }
+   },
+   "additionalProperties": false
+  },
+  "effort": "high",
+  "budget": {
+   "maxCostDollars": 2
+  }
+ },
+ "error": null,
+ "output": {
+  "text": "16 sources recensées avec deux exemples chacune, publiés entre le 15 août et le 13 novembre 2026. Le champ actif_depuis désigne la dernière publication constatée, pas la création de la source. Les fréquences sont indicatives. Les flux RSS sont annoncés publiquement, mais leur contenu XML n’a pas pu être contrôlé. Les articles de presse cités étaient consultables sans connexion ; cela ne garantit pas la gratuité de tous les articles du média. Les agrégateurs rapportent des revendications non nécessairement confirmées : leurs dates correspondent aux publications ou observations, non aux intrusions. ICI fournit ici des sujets de prévention plutôt que des signalements directs. Aucun compte Telegram ou Twitter de groupe n’a pu satisfaire l’ensemble des vérifications ; aucun n’est donc présenté comme conforme.",
+  "structured": {
+   "sources": [
+    {
+     "nom": "ZATAZ",
+     "url": "https://www.zataz.com/feed/",
+     "type": "rss",
+     "zone": "international",
+     "langue": "français",
+     "famille": "mixte",
+     "exemples": [
+      {
+       "url": "https://www.zataz.com/cyberattaque-des-frigos-la-piste-iranienne-se-precise/",
+       "date": "2026-11-09",
+       "titre": "Cyberattaque des frigos : la piste iranienne se précise"
+      },
+      {
+       "url": "https://www.zataz.com/cyberattaque-contre-les-frigos-de-lefs-le-plasma-vise/",
+       "date": "2026-11-05",
+       "titre": "Cyberattaque contre les frigos de l’EFS : le plasma visé"
+      }
+     ],
+     "frequence": "quotidien ou quasi quotidien",
+     "actif_depuis": "2026-11-09"
+    },
+    {
+     "nom": "Le Monde Informatique",
+     "url": "https://www.lemondeinformatique.fr/flux-rss/thematique/securite/rss.xml",
+     "type": "rss",
+     "zone": "international",
+     "langue": "français",
+     "famille": "mixte",
+     "exemples": [
+      {
+       "url": "https://www.lemondeinformatique.fr/actualites/lire-l-etablissement-francais-du-sang-touche-par-une-cyberattaque-100924.html",
+       "date": "2026-11-06",
+       "titre": "L’Établissement français du sang touché par une cyberattaque"
+      },
+      {
+       "url": "https://www.lemondeinformatique.fr/actualites/lire-binance-victime-d-un-vol-de-cryptomonnaies-de-6-3-md$-100895.html",
+       "date": "2026-10-30",
+       "titre": "Binance victime d’un vol de cryptomonnaies de 6,3 Md$"
+      }
+     ],
+     "frequence": "quotidien ou quasi quotidien",
+     "actif_depuis": "2026-11-06"
+    },
+    {
+     "nom": "Numerama – Cyberguerre",
+     "url": "https://www.numerama.com/cyberguerre/feed/",
+     "type": "rss",
+     "zone": "international",
+     "langue": "français",
+     "famille": "mixte",
+     "exemples": [
+      {
+       "url": "https://www.numerama.com/cyberguerre/2371399-mauvaise-surprise-notion-decouvre-que-des-conversations-avec-son-ia-ont-ete-volees-chez-un-prestataire.html",
+       "date": "2026-11-10",
+       "titre": "Mauvaise surprise, Notion découvre que des conversations avec son IA ont été volées chez un prestataire"
+      },
+      {
+       "url": "https://www.numerama.com/cyberguerre/2367257-apres-les-supermarches-une-cyberattaque-menace-les-reserves-de-plasma-de-letablissement-francais-du-sang.html",
+       "date": "2026-11-04",
+       "titre": "Après les supermarchés, une cyberattaque menace les réserves de plasma de l’Établissement français du sang"
+      }
+     ],
+     "frequence": "quotidien ou quasi quotidien",
+     "actif_depuis": "2026-11-10"
+    },
+    {
+     "nom": "CERT-FR / ANSSI",
+     "url": "https://cert.cyber.gouv.fr/cti/feed/",
+     "type": "rss",
+     "zone": "france",
+     "langue": "français",
+     "famille": "mixte",
+     "exemples": [
+      {
+       "url": "https://www.cert.cyber.gouv.fr/cti/CERTFR-2026-CTI-010/",
+       "date": "2026-11-12",
+       "titre": "Point de situation de l’opération REACTIV – octobre 2026"
+      },
+      {
+       "url": "https://www.cert.cyber.gouv.fr/cti/CERTFR-2026-CTI-009/",
+       "date": "2026-11-09",
+       "titre": "Activités cyber offensives ciblant la France menées par des acteurs iraniens liés au CGRI"
+      }
+     ],
+     "frequence": "irrégulier",
+     "actif_depuis": "2026-11-12"
+    },
+    {
+     "nom": "CNIL",
+     "url": "https://www.cnil.fr/fr/cybermois-2026",
+     "type": "html",
+     "zone": "france",
+     "langue": "français",
+     "famille": "fuite",
+     "exemples": [
+      {
+       "url": "https://www.cnil.fr/fr/piratage-du-systeme-dinformation-des-impots-les-verifications-sont-en-cours",
+       "date": "2026-08-18",
+       "titre": "Piratage du système d’information des impôts : les vérifications sont en cours"
+      },
+      {
+       "url": "https://www.cnil.fr/fr/cybermois-2026",
+       "date": "2026-10-01",
+       "titre": "Cybermois 2026 : la CNIL et Cybermalveillance.gouv.fr publient une nouvelle ressource pour adopter les bons réflexes face à une violation de données"
+      }
+     ],
+     "frequence": "irrégulier",
+     "actif_depuis": "2026-10-01"
+    },
+    {
+     "nom": "Cybermalveillance.gouv.fr",
+     "url": "https://www.cybermalveillance.gouv.fr/tous-nos-contenus/actualites/vigilance-faux-vote-whatsapp",
+     "type": "html",
+     "zone": "france",
+     "langue": "français",
+     "famille": "hameconnage",
+     "exemples": [
+      {
+       "url": "https://www.cybermalveillance.gouv.fr/tous-nos-contenus/actualites/vigilance-faux-vote-whatsapp",
+       "date": "2026-10-27",
+       "titre": "Hameçonnage aux faux votes pour des concours sur WhatsApp"
+      },
+      {
+       "url": "https://www.cybermalveillance.gouv.fr/tous-nos-contenus/actualites/cp-cybermois-2026",
+       "date": "2026-09-15",
+       "titre": "Cybermois 2026 : près d’un Français sur deux désormais notifié suite à une violation de ses données"
+      }
+     ],
+     "frequence": "irrégulier",
+     "actif_depuis": "2026-11-03"
+    },
+    {
+     "nom": "Actu.fr / Actu Landes",
+     "url": "https://actu.fr/landes/",
+     "type": "html",
+     "zone": "nouvelle-aquitaine",
+     "langue": "français",
+     "famille": "ransomware",
+     "exemples": [
+      {
+       "url": "https://actu.fr/nouvelle-aquitaine/tarnos_40312/cette-ville-des-landes-victime-d-une-cyberattaque-avec-demande-de-rancon-la-messagerie-toujours-touchee-ce-lundi_64724953.html",
+       "date": "2026-08-31",
+       "titre": "Cette ville des Landes victime d’une cyberattaque avec demande de rançon : la messagerie toujours touchée ce lundi"
+      },
+      {
+       "url": "https://actu.fr/nouvelle-aquitaine/mont-de-marsan_40192/la-prefecture-des-landes-egalement-touchee-par-une-alerte-de-cybersecurite-apres-la-detection-d-une-faille-de-securite_64958493.html",
+       "date": "2026-10-21",
+       "titre": "La préfecture des Landes également touchée par une alerte de cybersécurité après la détection d’une faille de sécurité"
+      }
+     ],
+     "frequence": "irrégulier",
+     "actif_depuis": "2026-10-21"
+    },
+    {
+     "nom": "Charente Libre",
+     "url": "https://www.charentelibre.fr/societe/justice/",
+     "type": "html",
+     "zone": "nouvelle-aquitaine",
+     "langue": "français",
+     "famille": "mixte",
+     "exemples": [
+      {
+       "url": "https://www.charentelibre.fr/france/piratage-du-fisc-un-membre-presume-du-groupe-de-pirates-informatiques-zerobytes-ecroue-30483652.php",
+       "date": "2026-09-04",
+       "titre": "Piratage du fisc : un membre présumé du groupe de pirates informatiques « Zerobytes » écroué"
+      },
+      {
+       "url": "https://www.charentelibre.fr/societe/justice/cyberattaques-visant-des-frigos-connectes-en-france-l-iran-suspecte-31461013.php",
+       "date": "2026-11-09",
+       "titre": "Cyberattaques visant des frigos connectés en France : l’Iran suspecté"
+      }
+     ],
+     "frequence": "irrégulier",
+     "actif_depuis": "2026-11-09"
+    },
+    {
+     "nom": "Sud Ouest",
+     "url": "https://www.sudouest.fr/economie/cybersecurite/",
+     "type": "html",
+     "zone": "nouvelle-aquitaine",
+     "langue": "français",
+     "famille": "mixte",
+     "exemples": [
+      {
+       "url": "https://www.sudouest.fr/politique/education/cyberattaque-a-l-education-nationale-avant-la-rentree-les-acces-aux-applications-sont-progressivement-retablis-assure-l-academie-de-bordeaux-le-ministre-confirme-30354294.php",
+       "date": "2026-08-24",
+       "titre": "Cyberattaque à l’Éducation nationale : avant la rentrée, « les accès aux applications sont progressivement rétablis », assure l’académie de Bordeaux, le ministre confirme"
+      },
+      {
+       "url": "https://www.sudouest.fr/economie/cybersecurite/cyberattaque-france-travail-de-nouveau-vise-par-un-piratage-de-donnees-plus-de-100-000-numeros-de-telephone-concernes-30981647.php",
+       "date": "2026-10-08",
+       "titre": "Cyberattaque : France Travail de nouveau visé par un piratage de données, plus de 100 000 numéros de téléphone concernés"
+      }
+     ],
+     "frequence": "irrégulier",
+     "actif_depuis": "2026-10-08"
+    },
+    {
+     "nom": "ICI (Radio France), antenne Pays basque / Nouvelle-Aquitaine",
+     "url": "https://www.ici.fr/emissions/l-info-d-ici-au-pays-basque/les-communes-du-pays-basque-deploient-un-bouclier-numerique-contre-le-hacking-et-les-attaques-cyber-7028821",
+     "type": "html",
+     "zone": "nouvelle-aquitaine",
+     "langue": "français",
+     "famille": "intrusion",
+     "exemples": [
+      {
+       "url": "https://www.ici.fr/emissions/l-info-d-ici-au-pays-basque/les-communes-du-pays-basque-deploient-un-bouclier-numerique-contre-le-hacking-et-les-attaques-cyber-7028821",
+       "date": "2026-08-24",
+       "titre": "Les communes du Pays Basque déploient un bouclier numérique contre le hacking et les attaques cyber"
+      },
+      {
+       "url": "https://www.ici.fr/emissions/l-invite-d-ici-matin-pays-basque/cybersecurite-un-entrepreneur-du-pays-basque-denonce-le-niveau-d-impreparation-de-l-administration-francaise-6595756",
+       "date": "2026-08-24",
+       "titre": "Cybersécurité : un entrepreneur du pays basque dénonce le niveau d'impréparation de l'administration française"
+      }
+     ],
+     "frequence": "irrégulier",
+     "actif_depuis": "2026-08-24"
+    },
+    {
+     "nom": "Ransomware.live",
+     "url": "https://www.ransomware.live/country/FRA",
+     "type": "html",
+     "zone": "france",
+     "langue": "anglais",
+     "famille": "ransomware",
+     "exemples": [
+      {
+       "url": "https://www.ransomware.live/country/FRA",
+       "date": "2026-11-12",
+       "titre": "Ensemble Boutancourt"
+      },
+      {
+       "url": "https://www.ransomware.live/country/FRA",
+       "date": "2026-11-12",
+       "titre": "Groupe Alternance"
+      }
+     ],
+     "frequence": "irrégulier",
+     "actif_depuis": "2026-11-12"
+    },
+    {
+     "nom": "RansomLook",
+     "url": "https://www.ransomlook.io/recent",
+     "type": "html",
+     "zone": "international",
+     "langue": "anglais",
+     "famille": "ransomware",
+     "exemples": [
+      {
+       "url": "https://www.ransomlook.io/recent",
+       "date": "2026-11-10",
+       "titre": "Association «ENSEMBLE»"
+      },
+      {
+       "url": "https://www.ransomlook.io/group/n0n",
+       "date": "2026-11-09",
+       "titre": "Company #155"
+      }
+     ],
+     "frequence": "irrégulier",
+     "actif_depuis": "2026-11-10"
+    },
+    {
+     "nom": "FrenchBreaches",
+     "url": "https://frenchbreaches.com/ransomware",
+     "type": "html",
+     "zone": "france",
+     "langue": "français",
+     "famille": "ransomware",
+     "exemples": [
+      {
+       "url": "https://frenchbreaches.com/ransomware/thegentlemen",
+       "date": "2026-11-12",
+       "titre": "Dernière revendication française de Thegentlemen"
+      },
+      {
+       "url": "https://frenchbreaches.com/ransomware/incransom",
+       "date": "2026-11-12",
+       "titre": "Dernière revendication française d’Incransom"
+      }
+     ],
+     "frequence": "irrégulier",
+     "actif_depuis": "2026-11-12"
+    },
+    {
+     "nom": "Clubic – Cybersécurité",
+     "url": "https://www.clubic.com/antivirus-securite-informatique/",
+     "type": "html",
+     "zone": "france",
+     "langue": "français",
+     "famille": "intrusion",
+     "exemples": [
+      {
+       "url": "https://www.clubic.com/actualite-638611-plex2shell-qnap-lance-l-alerte-concernant-des-attaques-visant-ses-nas.html",
+       "date": "2026-11-10",
+       "titre": "Plex2Shell : QNAP lance l’alerte concernant des attaques visant ses NAS"
+      },
+      {
+       "url": "https://www.clubic.com/actualite-638359-sonicwall-une-faille-permet-de-contourner-la-double-authentification-des-vpn-des-attaques-deja-confirmees.html",
+       "date": "2026-11-09",
+       "titre": "SonicWall : une faille permet de contourner la double authentification des VPN, des attaques déjà confirmées"
+      }
+     ],
+     "frequence": "quotidien ou quasi quotidien",
+     "actif_depuis": "2026-11-10"
+    },
+    {
+     "nom": "France 3 Nouvelle-Aquitaine",
+     "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/",
+     "type": "html",
+     "zone": "nouvelle-aquitaine",
+     "langue": "français",
+     "famille": "mixte",
+     "exemples": [
+      {
+       "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/ils-disposent-d-informations-reelles-et-vont-facilement-convaincre-les-victimes-pourquoi-il-faut-s-attendre-a-de-nouvelles-attaques-apres-le-piratage-du-site-des-impots-3402418.html",
+       "date": "2026-08-17",
+       "titre": "« Ils disposent d’informations réelles et vont facilement convaincre les victimes » : pourquoi il faut s’attendre à de nouvelles attaques après le piratage du site des impôts"
+      },
+      {
+       "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/assez-epargnee-par-rapport-aux-autres-apres-la-cyberattaque-contre-l-education-nationale-quels-impacts-sur-la-rentree-dans-l-academie-de-bordeaux-3409574.html",
+       "date": "2026-09-01",
+       "titre": "« Assez épargnée par rapport aux autres » : après la cyberattaque contre l’Éducation nationale, quels impacts sur la rentrée dans l’académie de Bordeaux ?"
+      }
+     ],
+     "frequence": "irrégulier",
+     "actif_depuis": "2026-09-01"
+    },
+    {
+     "nom": "Ransomware.live – revendications Lamashtu",
+     "url": "https://www.ransomware.live/group/lamashtu",
+     "type": "html",
+     "zone": "france",
+     "langue": "anglais",
+     "famille": "fuite",
+     "exemples": [
+      {
+       "url": "https://www.ransomware.live/group/lamashtu",
+       "date": "2026-10-24",
+       "titre": "Vins Viallet"
+      },
+      {
+       "url": "https://www.ransomware.live/group/lamashtu",
+       "date": "2026-10-21",
+       "titre": "MECA-PRECIS"
+      }
+     ],
+     "frequence": "irrégulier",
+     "actif_depuis": "2026-10-24"
+    }
+   ]
+  },
+  "grounding": [
+   {
+    "field": "structured.sources[0].nom",
+    "citations": [
+     {
+      "url": "https://www.zataz.com/feed/"
+     },
+     {
+      "url": "https://www.zataz.com/cyberattaque-des-frigos-la-piste-iranienne-se-precise/"
+     },
+     {
+      "url": "https://www.zataz.com/cyberattaque-contre-les-frigos-de-lefs-le-plasma-vise/"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[0].url",
+    "citations": [
+     {
+      "url": "https://www.zataz.com/feed/"
+     },
+     {
+      "url": "https://www.zataz.com/cyberattaque-des-frigos-la-piste-iranienne-se-precise/"
+     },
+     {
+      "url": "https://www.zataz.com/cyberattaque-contre-les-frigos-de-lefs-le-plasma-vise/"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[0].type",
+    "citations": [
+     {
+      "url": "https://www.zataz.com/feed/"
+     },
+     {
+      "url": "https://www.zataz.com/cyberattaque-des-frigos-la-piste-iranienne-se-precise/"
+     },
+     {
+      "url": "https://www.zataz.com/cyberattaque-contre-les-frigos-de-lefs-le-plasma-vise/"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[0].famille",
+    "citations": [
+     {
+      "url": "https://www.zataz.com/feed/"
+     },
+     {
+      "url": "https://www.zataz.com/cyberattaque-des-frigos-la-piste-iranienne-se-precise/"
+     },
+     {
+      "url": "https://www.zataz.com/cyberattaque-contre-les-frigos-de-lefs-le-plasma-vise/"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[0].frequence",
+    "citations": [
+     {
+      "url": "https://www.zataz.com/feed/"
+     },
+     {
+      "url": "https://www.zataz.com/cyberattaque-des-frigos-la-piste-iranienne-se-precise/"
+     },
+     {
+      "url": "https://www.zataz.com/cyberattaque-contre-les-frigos-de-lefs-le-plasma-vise/"
+     }
+    ],
+    "confidence": "medium"
+   },
+   {
+    "field": "structured.sources[0].langue",
+    "citations": [
+     {
+      "url": "https://www.zataz.com/feed/"
+     },
+     {
+      "url": "https://www.zataz.com/cyberattaque-des-frigos-la-piste-iranienne-se-precise/"
+     },
+     {
+      "url": "https://www.zataz.com/cyberattaque-contre-les-frigos-de-lefs-le-plasma-vise/"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[0].zone",
+    "citations": [
+     {
+      "url": "https://www.zataz.com/feed/"
+     },
+     {
+      "url": "https://www.zataz.com/cyberattaque-des-frigos-la-piste-iranienne-se-precise/"
+     },
+     {
+      "url": "https://www.zataz.com/cyberattaque-contre-les-frigos-de-lefs-le-plasma-vise/"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[0].actif_depuis",
+    "citations": [
+     {
+      "url": "https://www.zataz.com/feed/"
+     },
+     {
+      "url": "https://www.zataz.com/cyberattaque-des-frigos-la-piste-iranienne-se-precise/"
+     },
+     {
+      "url": "https://www.zataz.com/cyberattaque-contre-les-frigos-de-lefs-le-plasma-vise/"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[0].exemples",
+    "citations": [
+     {
+      "url": "https://www.zataz.com/feed/"
+     },
+     {
+      "url": "https://www.zataz.com/cyberattaque-des-frigos-la-piste-iranienne-se-precise/"
+     },
+     {
+      "url": "https://www.zataz.com/cyberattaque-contre-les-frigos-de-lefs-le-plasma-vise/"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[1].nom",
+    "citations": [
+     {
+      "url": "https://www.lemondeinformatique.fr/flux-rss/thematique/securite/rss.xml"
+     },
+     {
+      "url": "https://www.lemondeinformatique.fr/actualites/lire-l-etablissement-francais-du-sang-touche-par-une-cyberattaque-100924.html"
+     },
+     {
+      "url": "https://www.lemondeinformatique.fr/actualites/lire-binance-victime-d-un-vol-de-cryptomonnaies-de-6-3-md$-100895.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[1].url",
+    "citations": [
+     {
+      "url": "https://www.lemondeinformatique.fr/flux-rss/thematique/securite/rss.xml"
+     },
+     {
+      "url": "https://www.lemondeinformatique.fr/actualites/lire-l-etablissement-francais-du-sang-touche-par-une-cyberattaque-100924.html"
+     },
+     {
+      "url": "https://www.lemondeinformatique.fr/actualites/lire-binance-victime-d-un-vol-de-cryptomonnaies-de-6-3-md$-100895.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[1].type",
+    "citations": [
+     {
+      "url": "https://www.lemondeinformatique.fr/flux-rss/thematique/securite/rss.xml"
+     },
+     {
+      "url": "https://www.lemondeinformatique.fr/actualites/lire-l-etablissement-francais-du-sang-touche-par-une-cyberattaque-100924.html"
+     },
+     {
+      "url": "https://www.lemondeinformatique.fr/actualites/lire-binance-victime-d-un-vol-de-cryptomonnaies-de-6-3-md$-100895.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[1].famille",
+    "citations": [
+     {
+      "url": "https://www.lemondeinformatique.fr/flux-rss/thematique/securite/rss.xml"
+     },
+     {
+      "url": "https://www.lemondeinformatique.fr/actualites/lire-l-etablissement-francais-du-sang-touche-par-une-cyberattaque-100924.html"
+     },
+     {
+      "url": "https://www.lemondeinformatique.fr/actualites/lire-binance-victime-d-un-vol-de-cryptomonnaies-de-6-3-md$-100895.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[1].frequence",
+    "citations": [
+     {
+      "url": "https://www.lemondeinformatique.fr/flux-rss/thematique/securite/rss.xml"
+     },
+     {
+      "url": "https://www.lemondeinformatique.fr/actualites/lire-l-etablissement-francais-du-sang-touche-par-une-cyberattaque-100924.html"
+     },
+     {
+      "url": "https://www.lemondeinformatique.fr/actualites/lire-binance-victime-d-un-vol-de-cryptomonnaies-de-6-3-md$-100895.html"
+     }
+    ],
+    "confidence": "medium"
+   },
+   {
+    "field": "structured.sources[1].langue",
+    "citations": [
+     {
+      "url": "https://www.lemondeinformatique.fr/flux-rss/thematique/securite/rss.xml"
+     },
+     {
+      "url": "https://www.lemondeinformatique.fr/actualites/lire-l-etablissement-francais-du-sang-touche-par-une-cyberattaque-100924.html"
+     },
+     {
+      "url": "https://www.lemondeinformatique.fr/actualites/lire-binance-victime-d-un-vol-de-cryptomonnaies-de-6-3-md$-100895.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[1].zone",
+    "citations": [
+     {
+      "url": "https://www.lemondeinformatique.fr/flux-rss/thematique/securite/rss.xml"
+     },
+     {
+      "url": "https://www.lemondeinformatique.fr/actualites/lire-l-etablissement-francais-du-sang-touche-par-une-cyberattaque-100924.html"
+     },
+     {
+      "url": "https://www.lemondeinformatique.fr/actualites/lire-binance-victime-d-un-vol-de-cryptomonnaies-de-6-3-md$-100895.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[1].actif_depuis",
+    "citations": [
+     {
+      "url": "https://www.lemondeinformatique.fr/flux-rss/thematique/securite/rss.xml"
+     },
+     {
+      "url": "https://www.lemondeinformatique.fr/actualites/lire-l-etablissement-francais-du-sang-touche-par-une-cyberattaque-100924.html"
+     },
+     {
+      "url": "https://www.lemondeinformatique.fr/actualites/lire-binance-victime-d-un-vol-de-cryptomonnaies-de-6-3-md$-100895.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[1].exemples",
+    "citations": [
+     {
+      "url": "https://www.lemondeinformatique.fr/flux-rss/thematique/securite/rss.xml"
+     },
+     {
+      "url": "https://www.lemondeinformatique.fr/actualites/lire-l-etablissement-francais-du-sang-touche-par-une-cyberattaque-100924.html"
+     },
+     {
+      "url": "https://www.lemondeinformatique.fr/actualites/lire-binance-victime-d-un-vol-de-cryptomonnaies-de-6-3-md$-100895.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[2].nom",
+    "citations": [
+     {
+      "url": "https://www.numerama.com/cyberguerre/feed/"
+     },
+     {
+      "url": "https://www.numerama.com/cyberguerre/2371399-mauvaise-surprise-notion-decouvre-que-des-conversations-avec-son-ia-ont-ete-volees-chez-un-prestataire.html"
+     },
+     {
+      "url": "https://www.numerama.com/cyberguerre/2367257-apres-les-supermarches-une-cyberattaque-menace-les-reserves-de-plasma-de-letablissement-francais-du-sang.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[2].url",
+    "citations": [
+     {
+      "url": "https://www.numerama.com/cyberguerre/feed/"
+     },
+     {
+      "url": "https://www.numerama.com/cyberguerre/2371399-mauvaise-surprise-notion-decouvre-que-des-conversations-avec-son-ia-ont-ete-volees-chez-un-prestataire.html"
+     },
+     {
+      "url": "https://www.numerama.com/cyberguerre/2367257-apres-les-supermarches-une-cyberattaque-menace-les-reserves-de-plasma-de-letablissement-francais-du-sang.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[2].type",
+    "citations": [
+     {
+      "url": "https://www.numerama.com/cyberguerre/feed/"
+     },
+     {
+      "url": "https://www.numerama.com/cyberguerre/2371399-mauvaise-surprise-notion-decouvre-que-des-conversations-avec-son-ia-ont-ete-volees-chez-un-prestataire.html"
+     },
+     {
+      "url": "https://www.numerama.com/cyberguerre/2367257-apres-les-supermarches-une-cyberattaque-menace-les-reserves-de-plasma-de-letablissement-francais-du-sang.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[2].famille",
+    "citations": [
+     {
+      "url": "https://www.numerama.com/cyberguerre/feed/"
+     },
+     {
+      "url": "https://www.numerama.com/cyberguerre/2371399-mauvaise-surprise-notion-decouvre-que-des-conversations-avec-son-ia-ont-ete-volees-chez-un-prestataire.html"
+     },
+     {
+      "url": "https://www.numerama.com/cyberguerre/2367257-apres-les-supermarches-une-cyberattaque-menace-les-reserves-de-plasma-de-letablissement-francais-du-sang.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[2].frequence",
+    "citations": [
+     {
+      "url": "https://www.numerama.com/cyberguerre/feed/"
+     },
+     {
+      "url": "https://www.numerama.com/cyberguerre/2371399-mauvaise-surprise-notion-decouvre-que-des-conversations-avec-son-ia-ont-ete-volees-chez-un-prestataire.html"
+     },
+     {
+      "url": "https://www.numerama.com/cyberguerre/2367257-apres-les-supermarches-une-cyberattaque-menace-les-reserves-de-plasma-de-letablissement-francais-du-sang.html"
+     }
+    ],
+    "confidence": "medium"
+   },
+   {
+    "field": "structured.sources[2].langue",
+    "citations": [
+     {
+      "url": "https://www.numerama.com/cyberguerre/feed/"
+     },
+     {
+      "url": "https://www.numerama.com/cyberguerre/2371399-mauvaise-surprise-notion-decouvre-que-des-conversations-avec-son-ia-ont-ete-volees-chez-un-prestataire.html"
+     },
+     {
+      "url": "https://www.numerama.com/cyberguerre/2367257-apres-les-supermarches-une-cyberattaque-menace-les-reserves-de-plasma-de-letablissement-francais-du-sang.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[2].zone",
+    "citations": [
+     {
+      "url": "https://www.numerama.com/cyberguerre/feed/"
+     },
+     {
+      "url": "https://www.numerama.com/cyberguerre/2371399-mauvaise-surprise-notion-decouvre-que-des-conversations-avec-son-ia-ont-ete-volees-chez-un-prestataire.html"
+     },
+     {
+      "url": "https://www.numerama.com/cyberguerre/2367257-apres-les-supermarches-une-cyberattaque-menace-les-reserves-de-plasma-de-letablissement-francais-du-sang.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[2].actif_depuis",
+    "citations": [
+     {
+      "url": "https://www.numerama.com/cyberguerre/feed/"
+     },
+     {
+      "url": "https://www.numerama.com/cyberguerre/2371399-mauvaise-surprise-notion-decouvre-que-des-conversations-avec-son-ia-ont-ete-volees-chez-un-prestataire.html"
+     },
+     {
+      "url": "https://www.numerama.com/cyberguerre/2367257-apres-les-supermarches-une-cyberattaque-menace-les-reserves-de-plasma-de-letablissement-francais-du-sang.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[2].exemples",
+    "citations": [
+     {
+      "url": "https://www.numerama.com/cyberguerre/feed/"
+     },
+     {
+      "url": "https://www.numerama.com/cyberguerre/2371399-mauvaise-surprise-notion-decouvre-que-des-conversations-avec-son-ia-ont-ete-volees-chez-un-prestataire.html"
+     },
+     {
+      "url": "https://www.numerama.com/cyberguerre/2367257-apres-les-supermarches-une-cyberattaque-menace-les-reserves-de-plasma-de-letablissement-francais-du-sang.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[3].nom",
+    "citations": [
+     {
+      "url": "https://cert.cyber.gouv.fr/cti/feed/"
+     },
+     {
+      "url": "https://www.cert.cyber.gouv.fr/cti/CERTFR-2026-CTI-010/"
+     },
+     {
+      "url": "https://www.cert.cyber.gouv.fr/cti/CERTFR-2026-CTI-009/"
+     },
+     {
+      "url": "https://cert.cyber.gouv.fr/flux-rss"
+     },
+     {
+      "url": "https://www.cert.cyber.gouv.fr/cti/"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[3].url",
+    "citations": [
+     {
+      "url": "https://cert.cyber.gouv.fr/cti/feed/"
+     },
+     {
+      "url": "https://www.cert.cyber.gouv.fr/cti/CERTFR-2026-CTI-010/"
+     },
+     {
+      "url": "https://www.cert.cyber.gouv.fr/cti/CERTFR-2026-CTI-009/"
+     },
+     {
+      "url": "https://cert.cyber.gouv.fr/flux-rss"
+     },
+     {
+      "url": "https://www.cert.cyber.gouv.fr/cti/"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[3].type",
+    "citations": [
+     {
+      "url": "https://cert.cyber.gouv.fr/cti/feed/"
+     },
+     {
+      "url": "https://www.cert.cyber.gouv.fr/cti/CERTFR-2026-CTI-010/"
+     },
+     {
+      "url": "https://www.cert.cyber.gouv.fr/cti/CERTFR-2026-CTI-009/"
+     },
+     {
+      "url": "https://cert.cyber.gouv.fr/flux-rss"
+     },
+     {
+      "url": "https://www.cert.cyber.gouv.fr/cti/"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[3].famille",
+    "citations": [
+     {
+      "url": "https://cert.cyber.gouv.fr/cti/feed/"
+     },
+     {
+      "url": "https://www.cert.cyber.gouv.fr/cti/CERTFR-2026-CTI-010/"
+     },
+     {
+      "url": "https://www.cert.cyber.gouv.fr/cti/CERTFR-2026-CTI-009/"
+     },
+     {
+      "url": "https://cert.cyber.gouv.fr/flux-rss"
+     },
+     {
+      "url": "https://www.cert.cyber.gouv.fr/cti/"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[3].frequence",
+    "citations": [
+     {
+      "url": "https://cert.cyber.gouv.fr/cti/feed/"
+     },
+     {
+      "url": "https://www.cert.cyber.gouv.fr/cti/CERTFR-2026-CTI-010/"
+     },
+     {
+      "url": "https://www.cert.cyber.gouv.fr/cti/CERTFR-2026-CTI-009/"
+     },
+     {
+      "url": "https://cert.cyber.gouv.fr/flux-rss"
+     },
+     {
+      "url": "https://www.cert.cyber.gouv.fr/cti/"
+     }
+    ],
+    "confidence": "medium"
+   },
+   {
+    "field": "structured.sources[3].langue",
+    "citations": [
+     {
+      "url": "https://cert.cyber.gouv.fr/cti/feed/"
+     },
+     {
+      "url": "https://www.cert.cyber.gouv.fr/cti/CERTFR-2026-CTI-010/"
+     },
+     {
+      "url": "https://www.cert.cyber.gouv.fr/cti/CERTFR-2026-CTI-009/"
+     },
+     {
+      "url": "https://cert.cyber.gouv.fr/flux-rss"
+     },
+     {
+      "url": "https://www.cert.cyber.gouv.fr/cti/"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[3].zone",
+    "citations": [
+     {
+      "url": "https://cert.cyber.gouv.fr/cti/feed/"
+     },
+     {
+      "url": "https://www.cert.cyber.gouv.fr/cti/CERTFR-2026-CTI-010/"
+     },
+     {
+      "url": "https://www.cert.cyber.gouv.fr/cti/CERTFR-2026-CTI-009/"
+     },
+     {
+      "url": "https://cert.cyber.gouv.fr/flux-rss"
+     },
+     {
+      "url": "https://www.cert.cyber.gouv.fr/cti/"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[3].actif_depuis",
+    "citations": [
+     {
+      "url": "https://cert.cyber.gouv.fr/cti/feed/"
+     },
+     {
+      "url": "https://www.cert.cyber.gouv.fr/cti/CERTFR-2026-CTI-010/"
+     },
+     {
+      "url": "https://www.cert.cyber.gouv.fr/cti/CERTFR-2026-CTI-009/"
+     },
+     {
+      "url": "https://cert.cyber.gouv.fr/flux-rss"
+     },
+     {
+      "url": "https://www.cert.cyber.gouv.fr/cti/"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[3].exemples",
+    "citations": [
+     {
+      "url": "https://cert.cyber.gouv.fr/cti/feed/"
+     },
+     {
+      "url": "https://www.cert.cyber.gouv.fr/cti/CERTFR-2026-CTI-010/"
+     },
+     {
+      "url": "https://www.cert.cyber.gouv.fr/cti/CERTFR-2026-CTI-009/"
+     },
+     {
+      "url": "https://cert.cyber.gouv.fr/flux-rss"
+     },
+     {
+      "url": "https://www.cert.cyber.gouv.fr/cti/"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[4].nom",
+    "citations": [
+     {
+      "url": "https://www.cnil.fr/fr/cybermois-2026"
+     },
+     {
+      "url": "https://www.cnil.fr/fr/piratage-du-systeme-dinformation-des-impots-les-verifications-sont-en-cours"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[4].url",
+    "citations": [
+     {
+      "url": "https://www.cnil.fr/fr/cybermois-2026"
+     },
+     {
+      "url": "https://www.cnil.fr/fr/piratage-du-systeme-dinformation-des-impots-les-verifications-sont-en-cours"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[4].type",
+    "citations": [
+     {
+      "url": "https://www.cnil.fr/fr/cybermois-2026"
+     },
+     {
+      "url": "https://www.cnil.fr/fr/piratage-du-systeme-dinformation-des-impots-les-verifications-sont-en-cours"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[4].famille",
+    "citations": [
+     {
+      "url": "https://www.cnil.fr/fr/cybermois-2026"
+     },
+     {
+      "url": "https://www.cnil.fr/fr/piratage-du-systeme-dinformation-des-impots-les-verifications-sont-en-cours"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[4].frequence",
+    "citations": [
+     {
+      "url": "https://www.cnil.fr/fr/cybermois-2026"
+     },
+     {
+      "url": "https://www.cnil.fr/fr/piratage-du-systeme-dinformation-des-impots-les-verifications-sont-en-cours"
+     }
+    ],
+    "confidence": "medium"
+   },
+   {
+    "field": "structured.sources[4].langue",
+    "citations": [
+     {
+      "url": "https://www.cnil.fr/fr/cybermois-2026"
+     },
+     {
+      "url": "https://www.cnil.fr/fr/piratage-du-systeme-dinformation-des-impots-les-verifications-sont-en-cours"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[4].zone",
+    "citations": [
+     {
+      "url": "https://www.cnil.fr/fr/cybermois-2026"
+     },
+     {
+      "url": "https://www.cnil.fr/fr/piratage-du-systeme-dinformation-des-impots-les-verifications-sont-en-cours"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[4].actif_depuis",
+    "citations": [
+     {
+      "url": "https://www.cnil.fr/fr/cybermois-2026"
+     },
+     {
+      "url": "https://www.cnil.fr/fr/piratage-du-systeme-dinformation-des-impots-les-verifications-sont-en-cours"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[4].exemples",
+    "citations": [
+     {
+      "url": "https://www.cnil.fr/fr/cybermois-2026"
+     },
+     {
+      "url": "https://www.cnil.fr/fr/piratage-du-systeme-dinformation-des-impots-les-verifications-sont-en-cours"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[5].nom",
+    "citations": [
+     {
+      "url": "https://www.cybermalveillance.gouv.fr/tous-nos-contenus/actualites/vigilance-faux-vote-whatsapp"
+     },
+     {
+      "url": "https://www.cybermalveillance.gouv.fr/tous-nos-contenus/actualites/cp-cybermois-2026"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[5].url",
+    "citations": [
+     {
+      "url": "https://www.cybermalveillance.gouv.fr/tous-nos-contenus/actualites/vigilance-faux-vote-whatsapp"
+     },
+     {
+      "url": "https://www.cybermalveillance.gouv.fr/tous-nos-contenus/actualites/cp-cybermois-2026"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[5].type",
+    "citations": [
+     {
+      "url": "https://www.cybermalveillance.gouv.fr/tous-nos-contenus/actualites/vigilance-faux-vote-whatsapp"
+     },
+     {
+      "url": "https://www.cybermalveillance.gouv.fr/tous-nos-contenus/actualites/cp-cybermois-2026"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[5].famille",
+    "citations": [
+     {
+      "url": "https://www.cybermalveillance.gouv.fr/tous-nos-contenus/actualites/vigilance-faux-vote-whatsapp"
+     },
+     {
+      "url": "https://www.cybermalveillance.gouv.fr/tous-nos-contenus/actualites/cp-cybermois-2026"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[5].frequence",
+    "citations": [
+     {
+      "url": "https://www.cybermalveillance.gouv.fr/tous-nos-contenus/actualites/vigilance-faux-vote-whatsapp"
+     },
+     {
+      "url": "https://www.cybermalveillance.gouv.fr/tous-nos-contenus/actualites/cp-cybermois-2026"
+     }
+    ],
+    "confidence": "medium"
+   },
+   {
+    "field": "structured.sources[5].langue",
+    "citations": [
+     {
+      "url": "https://www.cybermalveillance.gouv.fr/tous-nos-contenus/actualites/vigilance-faux-vote-whatsapp"
+     },
+     {
+      "url": "https://www.cybermalveillance.gouv.fr/tous-nos-contenus/actualites/cp-cybermois-2026"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[5].zone",
+    "citations": [
+     {
+      "url": "https://www.cybermalveillance.gouv.fr/tous-nos-contenus/actualites/vigilance-faux-vote-whatsapp"
+     },
+     {
+      "url": "https://www.cybermalveillance.gouv.fr/tous-nos-contenus/actualites/cp-cybermois-2026"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[5].actif_depuis",
+    "citations": [
+     {
+      "url": "https://www.cybermalveillance.gouv.fr/tous-nos-contenus/actualites/vigilance-faux-vote-whatsapp"
+     },
+     {
+      "url": "https://www.cybermalveillance.gouv.fr/tous-nos-contenus/actualites/cp-cybermois-2026"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[5].exemples",
+    "citations": [
+     {
+      "url": "https://www.cybermalveillance.gouv.fr/tous-nos-contenus/actualites/vigilance-faux-vote-whatsapp"
+     },
+     {
+      "url": "https://www.cybermalveillance.gouv.fr/tous-nos-contenus/actualites/cp-cybermois-2026"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[6].nom",
+    "citations": [
+     {
+      "url": "https://actu.fr/landes/"
+     },
+     {
+      "url": "https://actu.fr/nouvelle-aquitaine/tarnos_40312/cette-ville-des-landes-victime-d-une-cyberattaque-avec-demande-de-rancon-la-messagerie-toujours-touchee-ce-lundi_64724953.html"
+     },
+     {
+      "url": "https://actu.fr/nouvelle-aquitaine/mont-de-marsan_40192/la-prefecture-des-landes-egalement-touchee-par-une-alerte-de-cybersecurite-apres-la-detection-d-une-faille-de-securite_64958493.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[6].url",
+    "citations": [
+     {
+      "url": "https://actu.fr/landes/"
+     },
+     {
+      "url": "https://actu.fr/nouvelle-aquitaine/tarnos_40312/cette-ville-des-landes-victime-d-une-cyberattaque-avec-demande-de-rancon-la-messagerie-toujours-touchee-ce-lundi_64724953.html"
+     },
+     {
+      "url": "https://actu.fr/nouvelle-aquitaine/mont-de-marsan_40192/la-prefecture-des-landes-egalement-touchee-par-une-alerte-de-cybersecurite-apres-la-detection-d-une-faille-de-securite_64958493.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[6].type",
+    "citations": [
+     {
+      "url": "https://actu.fr/landes/"
+     },
+     {
+      "url": "https://actu.fr/nouvelle-aquitaine/tarnos_40312/cette-ville-des-landes-victime-d-une-cyberattaque-avec-demande-de-rancon-la-messagerie-toujours-touchee-ce-lundi_64724953.html"
+     },
+     {
+      "url": "https://actu.fr/nouvelle-aquitaine/mont-de-marsan_40192/la-prefecture-des-landes-egalement-touchee-par-une-alerte-de-cybersecurite-apres-la-detection-d-une-faille-de-securite_64958493.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[6].famille",
+    "citations": [
+     {
+      "url": "https://actu.fr/landes/"
+     },
+     {
+      "url": "https://actu.fr/nouvelle-aquitaine/tarnos_40312/cette-ville-des-landes-victime-d-une-cyberattaque-avec-demande-de-rancon-la-messagerie-toujours-touchee-ce-lundi_64724953.html"
+     },
+     {
+      "url": "https://actu.fr/nouvelle-aquitaine/mont-de-marsan_40192/la-prefecture-des-landes-egalement-touchee-par-une-alerte-de-cybersecurite-apres-la-detection-d-une-faille-de-securite_64958493.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[6].frequence",
+    "citations": [
+     {
+      "url": "https://actu.fr/landes/"
+     },
+     {
+      "url": "https://actu.fr/nouvelle-aquitaine/tarnos_40312/cette-ville-des-landes-victime-d-une-cyberattaque-avec-demande-de-rancon-la-messagerie-toujours-touchee-ce-lundi_64724953.html"
+     },
+     {
+      "url": "https://actu.fr/nouvelle-aquitaine/mont-de-marsan_40192/la-prefecture-des-landes-egalement-touchee-par-une-alerte-de-cybersecurite-apres-la-detection-d-une-faille-de-securite_64958493.html"
+     }
+    ],
+    "confidence": "medium"
+   },
+   {
+    "field": "structured.sources[6].langue",
+    "citations": [
+     {
+      "url": "https://actu.fr/landes/"
+     },
+     {
+      "url": "https://actu.fr/nouvelle-aquitaine/tarnos_40312/cette-ville-des-landes-victime-d-une-cyberattaque-avec-demande-de-rancon-la-messagerie-toujours-touchee-ce-lundi_64724953.html"
+     },
+     {
+      "url": "https://actu.fr/nouvelle-aquitaine/mont-de-marsan_40192/la-prefecture-des-landes-egalement-touchee-par-une-alerte-de-cybersecurite-apres-la-detection-d-une-faille-de-securite_64958493.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[6].zone",
+    "citations": [
+     {
+      "url": "https://actu.fr/landes/"
+     },
+     {
+      "url": "https://actu.fr/nouvelle-aquitaine/tarnos_40312/cette-ville-des-landes-victime-d-une-cyberattaque-avec-demande-de-rancon-la-messagerie-toujours-touchee-ce-lundi_64724953.html"
+     },
+     {
+      "url": "https://actu.fr/nouvelle-aquitaine/mont-de-marsan_40192/la-prefecture-des-landes-egalement-touchee-par-une-alerte-de-cybersecurite-apres-la-detection-d-une-faille-de-securite_64958493.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[6].actif_depuis",
+    "citations": [
+     {
+      "url": "https://actu.fr/landes/"
+     },
+     {
+      "url": "https://actu.fr/nouvelle-aquitaine/tarnos_40312/cette-ville-des-landes-victime-d-une-cyberattaque-avec-demande-de-rancon-la-messagerie-toujours-touchee-ce-lundi_64724953.html"
+     },
+     {
+      "url": "https://actu.fr/nouvelle-aquitaine/mont-de-marsan_40192/la-prefecture-des-landes-egalement-touchee-par-une-alerte-de-cybersecurite-apres-la-detection-d-une-faille-de-securite_64958493.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[6].exemples",
+    "citations": [
+     {
+      "url": "https://actu.fr/landes/"
+     },
+     {
+      "url": "https://actu.fr/nouvelle-aquitaine/tarnos_40312/cette-ville-des-landes-victime-d-une-cyberattaque-avec-demande-de-rancon-la-messagerie-toujours-touchee-ce-lundi_64724953.html"
+     },
+     {
+      "url": "https://actu.fr/nouvelle-aquitaine/mont-de-marsan_40192/la-prefecture-des-landes-egalement-touchee-par-une-alerte-de-cybersecurite-apres-la-detection-d-une-faille-de-securite_64958493.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[7].nom",
+    "citations": [
+     {
+      "url": "https://www.charentelibre.fr/societe/justice/"
+     },
+     {
+      "url": "https://www.charentelibre.fr/france/piratage-du-fisc-un-membre-presume-du-groupe-de-pirates-informatiques-zerobytes-ecroue-30483652.php"
+     },
+     {
+      "url": "https://www.charentelibre.fr/societe/justice/cyberattaques-visant-des-frigos-connectes-en-france-l-iran-suspecte-31461013.php"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[7].url",
+    "citations": [
+     {
+      "url": "https://www.charentelibre.fr/societe/justice/"
+     },
+     {
+      "url": "https://www.charentelibre.fr/france/piratage-du-fisc-un-membre-presume-du-groupe-de-pirates-informatiques-zerobytes-ecroue-30483652.php"
+     },
+     {
+      "url": "https://www.charentelibre.fr/societe/justice/cyberattaques-visant-des-frigos-connectes-en-france-l-iran-suspecte-31461013.php"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[7].type",
+    "citations": [
+     {
+      "url": "https://www.charentelibre.fr/societe/justice/"
+     },
+     {
+      "url": "https://www.charentelibre.fr/france/piratage-du-fisc-un-membre-presume-du-groupe-de-pirates-informatiques-zerobytes-ecroue-30483652.php"
+     },
+     {
+      "url": "https://www.charentelibre.fr/societe/justice/cyberattaques-visant-des-frigos-connectes-en-france-l-iran-suspecte-31461013.php"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[7].famille",
+    "citations": [
+     {
+      "url": "https://www.charentelibre.fr/societe/justice/"
+     },
+     {
+      "url": "https://www.charentelibre.fr/france/piratage-du-fisc-un-membre-presume-du-groupe-de-pirates-informatiques-zerobytes-ecroue-30483652.php"
+     },
+     {
+      "url": "https://www.charentelibre.fr/societe/justice/cyberattaques-visant-des-frigos-connectes-en-france-l-iran-suspecte-31461013.php"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[7].frequence",
+    "citations": [
+     {
+      "url": "https://www.charentelibre.fr/societe/justice/"
+     },
+     {
+      "url": "https://www.charentelibre.fr/france/piratage-du-fisc-un-membre-presume-du-groupe-de-pirates-informatiques-zerobytes-ecroue-30483652.php"
+     },
+     {
+      "url": "https://www.charentelibre.fr/societe/justice/cyberattaques-visant-des-frigos-connectes-en-france-l-iran-suspecte-31461013.php"
+     }
+    ],
+    "confidence": "medium"
+   },
+   {
+    "field": "structured.sources[7].langue",
+    "citations": [
+     {
+      "url": "https://www.charentelibre.fr/societe/justice/"
+     },
+     {
+      "url": "https://www.charentelibre.fr/france/piratage-du-fisc-un-membre-presume-du-groupe-de-pirates-informatiques-zerobytes-ecroue-30483652.php"
+     },
+     {
+      "url": "https://www.charentelibre.fr/societe/justice/cyberattaques-visant-des-frigos-connectes-en-france-l-iran-suspecte-31461013.php"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[7].zone",
+    "citations": [
+     {
+      "url": "https://www.charentelibre.fr/societe/justice/"
+     },
+     {
+      "url": "https://www.charentelibre.fr/france/piratage-du-fisc-un-membre-presume-du-groupe-de-pirates-informatiques-zerobytes-ecroue-30483652.php"
+     },
+     {
+      "url": "https://www.charentelibre.fr/societe/justice/cyberattaques-visant-des-frigos-connectes-en-france-l-iran-suspecte-31461013.php"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[7].actif_depuis",
+    "citations": [
+     {
+      "url": "https://www.charentelibre.fr/societe/justice/"
+     },
+     {
+      "url": "https://www.charentelibre.fr/france/piratage-du-fisc-un-membre-presume-du-groupe-de-pirates-informatiques-zerobytes-ecroue-30483652.php"
+     },
+     {
+      "url": "https://www.charentelibre.fr/societe/justice/cyberattaques-visant-des-frigos-connectes-en-france-l-iran-suspecte-31461013.php"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[7].exemples",
+    "citations": [
+     {
+      "url": "https://www.charentelibre.fr/societe/justice/"
+     },
+     {
+      "url": "https://www.charentelibre.fr/france/piratage-du-fisc-un-membre-presume-du-groupe-de-pirates-informatiques-zerobytes-ecroue-30483652.php"
+     },
+     {
+      "url": "https://www.charentelibre.fr/societe/justice/cyberattaques-visant-des-frigos-connectes-en-france-l-iran-suspecte-31461013.php"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[8].nom",
+    "citations": [
+     {
+      "url": "https://www.sudouest.fr/economie/cybersecurite/"
+     },
+     {
+      "url": "https://www.sudouest.fr/politique/education/cyberattaque-a-l-education-nationale-avant-la-rentree-les-acces-aux-applications-sont-progressivement-retablis-assure-l-academie-de-bordeaux-le-ministre-confirme-30354294.php"
+     },
+     {
+      "url": "https://www.sudouest.fr/economie/cybersecurite/cyberattaque-france-travail-de-nouveau-vise-par-un-piratage-de-donnees-plus-de-100-000-numeros-de-telephone-concernes-30981647.php"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[8].url",
+    "citations": [
+     {
+      "url": "https://www.sudouest.fr/economie/cybersecurite/"
+     },
+     {
+      "url": "https://www.sudouest.fr/politique/education/cyberattaque-a-l-education-nationale-avant-la-rentree-les-acces-aux-applications-sont-progressivement-retablis-assure-l-academie-de-bordeaux-le-ministre-confirme-30354294.php"
+     },
+     {
+      "url": "https://www.sudouest.fr/economie/cybersecurite/cyberattaque-france-travail-de-nouveau-vise-par-un-piratage-de-donnees-plus-de-100-000-numeros-de-telephone-concernes-30981647.php"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[8].type",
+    "citations": [
+     {
+      "url": "https://www.sudouest.fr/economie/cybersecurite/"
+     },
+     {
+      "url": "https://www.sudouest.fr/politique/education/cyberattaque-a-l-education-nationale-avant-la-rentree-les-acces-aux-applications-sont-progressivement-retablis-assure-l-academie-de-bordeaux-le-ministre-confirme-30354294.php"
+     },
+     {
+      "url": "https://www.sudouest.fr/economie/cybersecurite/cyberattaque-france-travail-de-nouveau-vise-par-un-piratage-de-donnees-plus-de-100-000-numeros-de-telephone-concernes-30981647.php"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[8].famille",
+    "citations": [
+     {
+      "url": "https://www.sudouest.fr/economie/cybersecurite/"
+     },
+     {
+      "url": "https://www.sudouest.fr/politique/education/cyberattaque-a-l-education-nationale-avant-la-rentree-les-acces-aux-applications-sont-progressivement-retablis-assure-l-academie-de-bordeaux-le-ministre-confirme-30354294.php"
+     },
+     {
+      "url": "https://www.sudouest.fr/economie/cybersecurite/cyberattaque-france-travail-de-nouveau-vise-par-un-piratage-de-donnees-plus-de-100-000-numeros-de-telephone-concernes-30981647.php"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[8].frequence",
+    "citations": [
+     {
+      "url": "https://www.sudouest.fr/economie/cybersecurite/"
+     },
+     {
+      "url": "https://www.sudouest.fr/politique/education/cyberattaque-a-l-education-nationale-avant-la-rentree-les-acces-aux-applications-sont-progressivement-retablis-assure-l-academie-de-bordeaux-le-ministre-confirme-30354294.php"
+     },
+     {
+      "url": "https://www.sudouest.fr/economie/cybersecurite/cyberattaque-france-travail-de-nouveau-vise-par-un-piratage-de-donnees-plus-de-100-000-numeros-de-telephone-concernes-30981647.php"
+     }
+    ],
+    "confidence": "medium"
+   },
+   {
+    "field": "structured.sources[8].langue",
+    "citations": [
+     {
+      "url": "https://www.sudouest.fr/economie/cybersecurite/"
+     },
+     {
+      "url": "https://www.sudouest.fr/politique/education/cyberattaque-a-l-education-nationale-avant-la-rentree-les-acces-aux-applications-sont-progressivement-retablis-assure-l-academie-de-bordeaux-le-ministre-confirme-30354294.php"
+     },
+     {
+      "url": "https://www.sudouest.fr/economie/cybersecurite/cyberattaque-france-travail-de-nouveau-vise-par-un-piratage-de-donnees-plus-de-100-000-numeros-de-telephone-concernes-30981647.php"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[8].zone",
+    "citations": [
+     {
+      "url": "https://www.sudouest.fr/economie/cybersecurite/"
+     },
+     {
+      "url": "https://www.sudouest.fr/politique/education/cyberattaque-a-l-education-nationale-avant-la-rentree-les-acces-aux-applications-sont-progressivement-retablis-assure-l-academie-de-bordeaux-le-ministre-confirme-30354294.php"
+     },
+     {
+      "url": "https://www.sudouest.fr/economie/cybersecurite/cyberattaque-france-travail-de-nouveau-vise-par-un-piratage-de-donnees-plus-de-100-000-numeros-de-telephone-concernes-30981647.php"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[8].actif_depuis",
+    "citations": [
+     {
+      "url": "https://www.sudouest.fr/economie/cybersecurite/"
+     },
+     {
+      "url": "https://www.sudouest.fr/politique/education/cyberattaque-a-l-education-nationale-avant-la-rentree-les-acces-aux-applications-sont-progressivement-retablis-assure-l-academie-de-bordeaux-le-ministre-confirme-30354294.php"
+     },
+     {
+      "url": "https://www.sudouest.fr/economie/cybersecurite/cyberattaque-france-travail-de-nouveau-vise-par-un-piratage-de-donnees-plus-de-100-000-numeros-de-telephone-concernes-30981647.php"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[8].exemples",
+    "citations": [
+     {
+      "url": "https://www.sudouest.fr/economie/cybersecurite/"
+     },
+     {
+      "url": "https://www.sudouest.fr/politique/education/cyberattaque-a-l-education-nationale-avant-la-rentree-les-acces-aux-applications-sont-progressivement-retablis-assure-l-academie-de-bordeaux-le-ministre-confirme-30354294.php"
+     },
+     {
+      "url": "https://www.sudouest.fr/economie/cybersecurite/cyberattaque-france-travail-de-nouveau-vise-par-un-piratage-de-donnees-plus-de-100-000-numeros-de-telephone-concernes-30981647.php"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[9].nom",
+    "citations": [
+     {
+      "url": "https://www.ici.fr/emissions/l-info-d-ici-au-pays-basque/les-communes-du-pays-basque-deploient-un-bouclier-numerique-contre-le-hacking-et-les-attaques-cyber-7028821"
+     },
+     {
+      "url": "https://www.ici.fr/emissions/l-invite-d-ici-matin-pays-basque/cybersecurite-un-entrepreneur-du-pays-basque-denonce-le-niveau-d-impreparation-de-l-administration-francaise-6595756"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[9].url",
+    "citations": [
+     {
+      "url": "https://www.ici.fr/emissions/l-info-d-ici-au-pays-basque/les-communes-du-pays-basque-deploient-un-bouclier-numerique-contre-le-hacking-et-les-attaques-cyber-7028821"
+     },
+     {
+      "url": "https://www.ici.fr/emissions/l-invite-d-ici-matin-pays-basque/cybersecurite-un-entrepreneur-du-pays-basque-denonce-le-niveau-d-impreparation-de-l-administration-francaise-6595756"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[9].type",
+    "citations": [
+     {
+      "url": "https://www.ici.fr/emissions/l-info-d-ici-au-pays-basque/les-communes-du-pays-basque-deploient-un-bouclier-numerique-contre-le-hacking-et-les-attaques-cyber-7028821"
+     },
+     {
+      "url": "https://www.ici.fr/emissions/l-invite-d-ici-matin-pays-basque/cybersecurite-un-entrepreneur-du-pays-basque-denonce-le-niveau-d-impreparation-de-l-administration-francaise-6595756"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[9].famille",
+    "citations": [
+     {
+      "url": "https://www.ici.fr/emissions/l-info-d-ici-au-pays-basque/les-communes-du-pays-basque-deploient-un-bouclier-numerique-contre-le-hacking-et-les-attaques-cyber-7028821"
+     },
+     {
+      "url": "https://www.ici.fr/emissions/l-invite-d-ici-matin-pays-basque/cybersecurite-un-entrepreneur-du-pays-basque-denonce-le-niveau-d-impreparation-de-l-administration-francaise-6595756"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[9].frequence",
+    "citations": [
+     {
+      "url": "https://www.ici.fr/emissions/l-info-d-ici-au-pays-basque/les-communes-du-pays-basque-deploient-un-bouclier-numerique-contre-le-hacking-et-les-attaques-cyber-7028821"
+     },
+     {
+      "url": "https://www.ici.fr/emissions/l-invite-d-ici-matin-pays-basque/cybersecurite-un-entrepreneur-du-pays-basque-denonce-le-niveau-d-impreparation-de-l-administration-francaise-6595756"
+     }
+    ],
+    "confidence": "medium"
+   },
+   {
+    "field": "structured.sources[9].langue",
+    "citations": [
+     {
+      "url": "https://www.ici.fr/emissions/l-info-d-ici-au-pays-basque/les-communes-du-pays-basque-deploient-un-bouclier-numerique-contre-le-hacking-et-les-attaques-cyber-7028821"
+     },
+     {
+      "url": "https://www.ici.fr/emissions/l-invite-d-ici-matin-pays-basque/cybersecurite-un-entrepreneur-du-pays-basque-denonce-le-niveau-d-impreparation-de-l-administration-francaise-6595756"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[9].zone",
+    "citations": [
+     {
+      "url": "https://www.ici.fr/emissions/l-info-d-ici-au-pays-basque/les-communes-du-pays-basque-deploient-un-bouclier-numerique-contre-le-hacking-et-les-attaques-cyber-7028821"
+     },
+     {
+      "url": "https://www.ici.fr/emissions/l-invite-d-ici-matin-pays-basque/cybersecurite-un-entrepreneur-du-pays-basque-denonce-le-niveau-d-impreparation-de-l-administration-francaise-6595756"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[9].actif_depuis",
+    "citations": [
+     {
+      "url": "https://www.ici.fr/emissions/l-info-d-ici-au-pays-basque/les-communes-du-pays-basque-deploient-un-bouclier-numerique-contre-le-hacking-et-les-attaques-cyber-7028821"
+     },
+     {
+      "url": "https://www.ici.fr/emissions/l-invite-d-ici-matin-pays-basque/cybersecurite-un-entrepreneur-du-pays-basque-denonce-le-niveau-d-impreparation-de-l-administration-francaise-6595756"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[9].exemples",
+    "citations": [
+     {
+      "url": "https://www.ici.fr/emissions/l-info-d-ici-au-pays-basque/les-communes-du-pays-basque-deploient-un-bouclier-numerique-contre-le-hacking-et-les-attaques-cyber-7028821"
+     },
+     {
+      "url": "https://www.ici.fr/emissions/l-invite-d-ici-matin-pays-basque/cybersecurite-un-entrepreneur-du-pays-basque-denonce-le-niveau-d-impreparation-de-l-administration-francaise-6595756"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[10].nom",
+    "citations": [
+     {
+      "url": "https://www.ransomware.live/country/FRA"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[10].url",
+    "citations": [
+     {
+      "url": "https://www.ransomware.live/country/FRA"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[10].type",
+    "citations": [
+     {
+      "url": "https://www.ransomware.live/country/FRA"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[10].famille",
+    "citations": [
+     {
+      "url": "https://www.ransomware.live/country/FRA"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[10].frequence",
+    "citations": [
+     {
+      "url": "https://www.ransomware.live/country/FRA"
+     }
+    ],
+    "confidence": "medium"
+   },
+   {
+    "field": "structured.sources[10].langue",
+    "citations": [
+     {
+      "url": "https://www.ransomware.live/country/FRA"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[10].zone",
+    "citations": [
+     {
+      "url": "https://www.ransomware.live/country/FRA"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[10].actif_depuis",
+    "citations": [
+     {
+      "url": "https://www.ransomware.live/country/FRA"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[10].exemples",
+    "citations": [
+     {
+      "url": "https://www.ransomware.live/country/FRA"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[11].nom",
+    "citations": [
+     {
+      "url": "https://www.ransomlook.io/recent"
+     },
+     {
+      "url": "https://www.ransomlook.io/group/n0n"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[11].url",
+    "citations": [
+     {
+      "url": "https://www.ransomlook.io/recent"
+     },
+     {
+      "url": "https://www.ransomlook.io/group/n0n"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[11].type",
+    "citations": [
+     {
+      "url": "https://www.ransomlook.io/recent"
+     },
+     {
+      "url": "https://www.ransomlook.io/group/n0n"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[11].famille",
+    "citations": [
+     {
+      "url": "https://www.ransomlook.io/recent"
+     },
+     {
+      "url": "https://www.ransomlook.io/group/n0n"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[11].frequence",
+    "citations": [
+     {
+      "url": "https://www.ransomlook.io/recent"
+     },
+     {
+      "url": "https://www.ransomlook.io/group/n0n"
+     }
+    ],
+    "confidence": "medium"
+   },
+   {
+    "field": "structured.sources[11].langue",
+    "citations": [
+     {
+      "url": "https://www.ransomlook.io/recent"
+     },
+     {
+      "url": "https://www.ransomlook.io/group/n0n"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[11].zone",
+    "citations": [
+     {
+      "url": "https://www.ransomlook.io/recent"
+     },
+     {
+      "url": "https://www.ransomlook.io/group/n0n"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[11].actif_depuis",
+    "citations": [
+     {
+      "url": "https://www.ransomlook.io/recent"
+     },
+     {
+      "url": "https://www.ransomlook.io/group/n0n"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[11].exemples",
+    "citations": [
+     {
+      "url": "https://www.ransomlook.io/recent"
+     },
+     {
+      "url": "https://www.ransomlook.io/group/n0n"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[12].nom",
+    "citations": [
+     {
+      "url": "https://frenchbreaches.com/ransomware"
+     },
+     {
+      "url": "https://frenchbreaches.com/ransomware/thegentlemen"
+     },
+     {
+      "url": "https://frenchbreaches.com/ransomware/incransom"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[12].url",
+    "citations": [
+     {
+      "url": "https://frenchbreaches.com/ransomware"
+     },
+     {
+      "url": "https://frenchbreaches.com/ransomware/thegentlemen"
+     },
+     {
+      "url": "https://frenchbreaches.com/ransomware/incransom"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[12].type",
+    "citations": [
+     {
+      "url": "https://frenchbreaches.com/ransomware"
+     },
+     {
+      "url": "https://frenchbreaches.com/ransomware/thegentlemen"
+     },
+     {
+      "url": "https://frenchbreaches.com/ransomware/incransom"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[12].famille",
+    "citations": [
+     {
+      "url": "https://frenchbreaches.com/ransomware"
+     },
+     {
+      "url": "https://frenchbreaches.com/ransomware/thegentlemen"
+     },
+     {
+      "url": "https://frenchbreaches.com/ransomware/incransom"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[12].frequence",
+    "citations": [
+     {
+      "url": "https://frenchbreaches.com/ransomware"
+     },
+     {
+      "url": "https://frenchbreaches.com/ransomware/thegentlemen"
+     },
+     {
+      "url": "https://frenchbreaches.com/ransomware/incransom"
+     }
+    ],
+    "confidence": "medium"
+   },
+   {
+    "field": "structured.sources[12].langue",
+    "citations": [
+     {
+      "url": "https://frenchbreaches.com/ransomware"
+     },
+     {
+      "url": "https://frenchbreaches.com/ransomware/thegentlemen"
+     },
+     {
+      "url": "https://frenchbreaches.com/ransomware/incransom"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[12].zone",
+    "citations": [
+     {
+      "url": "https://frenchbreaches.com/ransomware"
+     },
+     {
+      "url": "https://frenchbreaches.com/ransomware/thegentlemen"
+     },
+     {
+      "url": "https://frenchbreaches.com/ransomware/incransom"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[12].actif_depuis",
+    "citations": [
+     {
+      "url": "https://frenchbreaches.com/ransomware"
+     },
+     {
+      "url": "https://frenchbreaches.com/ransomware/thegentlemen"
+     },
+     {
+      "url": "https://frenchbreaches.com/ransomware/incransom"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[12].exemples",
+    "citations": [
+     {
+      "url": "https://frenchbreaches.com/ransomware"
+     },
+     {
+      "url": "https://frenchbreaches.com/ransomware/thegentlemen"
+     },
+     {
+      "url": "https://frenchbreaches.com/ransomware/incransom"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[13].nom",
+    "citations": [
+     {
+      "url": "https://www.clubic.com/antivirus-securite-informatique/"
+     },
+     {
+      "url": "https://www.clubic.com/actualite-638611-plex2shell-qnap-lance-l-alerte-concernant-des-attaques-visant-ses-nas.html"
+     },
+     {
+      "url": "https://www.clubic.com/actualite-638359-sonicwall-une-faille-permet-de-contourner-la-double-authentification-des-vpn-des-attaques-deja-confirmees.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[13].url",
+    "citations": [
+     {
+      "url": "https://www.clubic.com/antivirus-securite-informatique/"
+     },
+     {
+      "url": "https://www.clubic.com/actualite-638611-plex2shell-qnap-lance-l-alerte-concernant-des-attaques-visant-ses-nas.html"
+     },
+     {
+      "url": "https://www.clubic.com/actualite-638359-sonicwall-une-faille-permet-de-contourner-la-double-authentification-des-vpn-des-attaques-deja-confirmees.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[13].type",
+    "citations": [
+     {
+      "url": "https://www.clubic.com/antivirus-securite-informatique/"
+     },
+     {
+      "url": "https://www.clubic.com/actualite-638611-plex2shell-qnap-lance-l-alerte-concernant-des-attaques-visant-ses-nas.html"
+     },
+     {
+      "url": "https://www.clubic.com/actualite-638359-sonicwall-une-faille-permet-de-contourner-la-double-authentification-des-vpn-des-attaques-deja-confirmees.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[13].famille",
+    "citations": [
+     {
+      "url": "https://www.clubic.com/antivirus-securite-informatique/"
+     },
+     {
+      "url": "https://www.clubic.com/actualite-638611-plex2shell-qnap-lance-l-alerte-concernant-des-attaques-visant-ses-nas.html"
+     },
+     {
+      "url": "https://www.clubic.com/actualite-638359-sonicwall-une-faille-permet-de-contourner-la-double-authentification-des-vpn-des-attaques-deja-confirmees.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[13].frequence",
+    "citations": [
+     {
+      "url": "https://www.clubic.com/antivirus-securite-informatique/"
+     },
+     {
+      "url": "https://www.clubic.com/actualite-638611-plex2shell-qnap-lance-l-alerte-concernant-des-attaques-visant-ses-nas.html"
+     },
+     {
+      "url": "https://www.clubic.com/actualite-638359-sonicwall-une-faille-permet-de-contourner-la-double-authentification-des-vpn-des-attaques-deja-confirmees.html"
+     }
+    ],
+    "confidence": "medium"
+   },
+   {
+    "field": "structured.sources[13].langue",
+    "citations": [
+     {
+      "url": "https://www.clubic.com/antivirus-securite-informatique/"
+     },
+     {
+      "url": "https://www.clubic.com/actualite-638611-plex2shell-qnap-lance-l-alerte-concernant-des-attaques-visant-ses-nas.html"
+     },
+     {
+      "url": "https://www.clubic.com/actualite-638359-sonicwall-une-faille-permet-de-contourner-la-double-authentification-des-vpn-des-attaques-deja-confirmees.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[13].zone",
+    "citations": [
+     {
+      "url": "https://www.clubic.com/antivirus-securite-informatique/"
+     },
+     {
+      "url": "https://www.clubic.com/actualite-638611-plex2shell-qnap-lance-l-alerte-concernant-des-attaques-visant-ses-nas.html"
+     },
+     {
+      "url": "https://www.clubic.com/actualite-638359-sonicwall-une-faille-permet-de-contourner-la-double-authentification-des-vpn-des-attaques-deja-confirmees.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[13].actif_depuis",
+    "citations": [
+     {
+      "url": "https://www.clubic.com/antivirus-securite-informatique/"
+     },
+     {
+      "url": "https://www.clubic.com/actualite-638611-plex2shell-qnap-lance-l-alerte-concernant-des-attaques-visant-ses-nas.html"
+     },
+     {
+      "url": "https://www.clubic.com/actualite-638359-sonicwall-une-faille-permet-de-contourner-la-double-authentification-des-vpn-des-attaques-deja-confirmees.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[13].exemples",
+    "citations": [
+     {
+      "url": "https://www.clubic.com/antivirus-securite-informatique/"
+     },
+     {
+      "url": "https://www.clubic.com/actualite-638611-plex2shell-qnap-lance-l-alerte-concernant-des-attaques-visant-ses-nas.html"
+     },
+     {
+      "url": "https://www.clubic.com/actualite-638359-sonicwall-une-faille-permet-de-contourner-la-double-authentification-des-vpn-des-attaques-deja-confirmees.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[14].nom",
+    "citations": [
+     {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/"
+     },
+     {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/ils-disposent-d-informations-reelles-et-vont-facilement-convaincre-les-victimes-pourquoi-il-faut-s-attendre-a-de-nouvelles-attaques-apres-le-piratage-du-site-des-impots-3402418.html"
+     },
+     {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/assez-epargnee-par-rapport-aux-autres-apres-la-cyberattaque-contre-l-education-nationale-quels-impacts-sur-la-rentree-dans-l-academie-de-bordeaux-3409574.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[14].url",
+    "citations": [
+     {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/"
+     },
+     {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/ils-disposent-d-informations-reelles-et-vont-facilement-convaincre-les-victimes-pourquoi-il-faut-s-attendre-a-de-nouvelles-attaques-apres-le-piratage-du-site-des-impots-3402418.html"
+     },
+     {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/assez-epargnee-par-rapport-aux-autres-apres-la-cyberattaque-contre-l-education-nationale-quels-impacts-sur-la-rentree-dans-l-academie-de-bordeaux-3409574.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[14].type",
+    "citations": [
+     {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/"
+     },
+     {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/ils-disposent-d-informations-reelles-et-vont-facilement-convaincre-les-victimes-pourquoi-il-faut-s-attendre-a-de-nouvelles-attaques-apres-le-piratage-du-site-des-impots-3402418.html"
+     },
+     {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/assez-epargnee-par-rapport-aux-autres-apres-la-cyberattaque-contre-l-education-nationale-quels-impacts-sur-la-rentree-dans-l-academie-de-bordeaux-3409574.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[14].famille",
+    "citations": [
+     {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/"
+     },
+     {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/ils-disposent-d-informations-reelles-et-vont-facilement-convaincre-les-victimes-pourquoi-il-faut-s-attendre-a-de-nouvelles-attaques-apres-le-piratage-du-site-des-impots-3402418.html"
+     },
+     {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/assez-epargnee-par-rapport-aux-autres-apres-la-cyberattaque-contre-l-education-nationale-quels-impacts-sur-la-rentree-dans-l-academie-de-bordeaux-3409574.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[14].frequence",
+    "citations": [
+     {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/"
+     },
+     {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/ils-disposent-d-informations-reelles-et-vont-facilement-convaincre-les-victimes-pourquoi-il-faut-s-attendre-a-de-nouvelles-attaques-apres-le-piratage-du-site-des-impots-3402418.html"
+     },
+     {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/assez-epargnee-par-rapport-aux-autres-apres-la-cyberattaque-contre-l-education-nationale-quels-impacts-sur-la-rentree-dans-l-academie-de-bordeaux-3409574.html"
+     }
+    ],
+    "confidence": "medium"
+   },
+   {
+    "field": "structured.sources[14].langue",
+    "citations": [
+     {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/"
+     },
+     {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/ils-disposent-d-informations-reelles-et-vont-facilement-convaincre-les-victimes-pourquoi-il-faut-s-attendre-a-de-nouvelles-attaques-apres-le-piratage-du-site-des-impots-3402418.html"
+     },
+     {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/assez-epargnee-par-rapport-aux-autres-apres-la-cyberattaque-contre-l-education-nationale-quels-impacts-sur-la-rentree-dans-l-academie-de-bordeaux-3409574.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[14].zone",
+    "citations": [
+     {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/"
+     },
+     {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/ils-disposent-d-informations-reelles-et-vont-facilement-convaincre-les-victimes-pourquoi-il-faut-s-attendre-a-de-nouvelles-attaques-apres-le-piratage-du-site-des-impots-3402418.html"
+     },
+     {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/assez-epargnee-par-rapport-aux-autres-apres-la-cyberattaque-contre-l-education-nationale-quels-impacts-sur-la-rentree-dans-l-academie-de-bordeaux-3409574.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[14].actif_depuis",
+    "citations": [
+     {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/"
+     },
+     {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/ils-disposent-d-informations-reelles-et-vont-facilement-convaincre-les-victimes-pourquoi-il-faut-s-attendre-a-de-nouvelles-attaques-apres-le-piratage-du-site-des-impots-3402418.html"
+     },
+     {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/assez-epargnee-par-rapport-aux-autres-apres-la-cyberattaque-contre-l-education-nationale-quels-impacts-sur-la-rentree-dans-l-academie-de-bordeaux-3409574.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[14].exemples",
+    "citations": [
+     {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/"
+     },
+     {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/ils-disposent-d-informations-reelles-et-vont-facilement-convaincre-les-victimes-pourquoi-il-faut-s-attendre-a-de-nouvelles-attaques-apres-le-piratage-du-site-des-impots-3402418.html"
+     },
+     {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/assez-epargnee-par-rapport-aux-autres-apres-la-cyberattaque-contre-l-education-nationale-quels-impacts-sur-la-rentree-dans-l-academie-de-bordeaux-3409574.html"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[15].nom",
+    "citations": [
+     {
+      "url": "https://www.ransomware.live/group/lamashtu"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[15].url",
+    "citations": [
+     {
+      "url": "https://www.ransomware.live/group/lamashtu"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[15].type",
+    "citations": [
+     {
+      "url": "https://www.ransomware.live/group/lamashtu"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[15].famille",
+    "citations": [
+     {
+      "url": "https://www.ransomware.live/group/lamashtu"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[15].frequence",
+    "citations": [
+     {
+      "url": "https://www.ransomware.live/group/lamashtu"
+     }
+    ],
+    "confidence": "medium"
+   },
+   {
+    "field": "structured.sources[15].langue",
+    "citations": [
+     {
+      "url": "https://www.ransomware.live/group/lamashtu"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[15].zone",
+    "citations": [
+     {
+      "url": "https://www.ransomware.live/group/lamashtu"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[15].actif_depuis",
+    "citations": [
+     {
+      "url": "https://www.ransomware.live/group/lamashtu"
+     }
+    ],
+    "confidence": "high"
+   },
+   {
+    "field": "structured.sources[15].exemples",
+    "citations": [
+     {
+      "url": "https://www.ransomware.live/group/lamashtu"
+     }
+    ],
+    "confidence": "high"
+   }
+  ]
+ },
+ "usage": {
+  "agentComputeUnits": 2,
+  "searches": 60,
+  "emails": 0,
+  "phoneNumbers": 0
+ },
+ "costDollars": {
+  "total": 0.5,
+  "agentCompute": 0.2,
+  "search": 0.3,
+  "emails": 0,
+  "phoneNumbers": 0
+ }
+}
