@@ -1,6 +1,7 @@
 import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
 import { resolveUser } from "../middleware/auth.js";
+import { desaccords, regrouper, resume } from "../analyse/corroboration.js";
 
 type OrgListRow = {
   id: number;
@@ -179,6 +180,45 @@ export default async function (app: FastifyInstance) {
       ),
     ]);
 
+    // Ce que l'organisation a vécu, regroupé par fait plutôt que par ligne.
+    // Deux sources qui décrivent le même incident ne sont pas deux incidents ;
+    // deux sources qui se contredisent ne sont pas du bruit.
+    const faits = await query<{
+      id: string;
+      family: string;
+      severity: number;
+      assertion_type: string;
+      source_id: string;
+      date: string;
+      org_id: number | null;
+      title: string;
+    }>(
+      // 500 lignes suffisent pour le regroupement et bornent la latence : sur
+      // une organisation à 5 000 événements, charger tout le stock pour n'en
+      // montrer que 20 serait payer 250 fois le prix de l'information.
+      `SELECT e.id::text AS id, e.family, e.severity, e.assertion_type, e.source_id,
+              COALESCE(e.observed_at, e.collected_at)::text AS date, e.org_id, e.title
+         FROM event e
+        WHERE e.org_id = $1
+          AND COALESCE(e.observed_at, e.collected_at) >= now() - interval '180 days'
+        ORDER BY COALESCE(e.observed_at, e.collected_at) DESC
+        LIMIT 500`,
+      [orgId],
+    );
+    const groupes = regrouper(
+      faits.rows.map((row) => ({
+        id: row.id,
+        family: row.family,
+        severity: Number(row.severity),
+        assertionType: row.assertion_type,
+        sourceId: row.source_id,
+        date: row.date,
+        orgId: row.org_id,
+        title: row.title,
+      })),
+    );
+    const conflits = desaccords(groupes);
+
     return {
       org: {
         id: org.id,
@@ -227,6 +267,14 @@ export default async function (app: FastifyInstance) {
         })),
       },
       exposure: exposure.rows.map((r) => ({ month: r.month, count: r.n })),
+      // 180 jours : assez pour voir une campagne, assez court pour que le
+      // regroupement reste lisible. Les groupes sont une lecture, pas une
+      // fusion : rien n'est réécrit en base.
+      corroboration: {
+        resume: resume(groupes, conflits),
+        groupes: groupes.slice(0, 20),
+        desaccords: conflits.slice(0, 20),
+      },
     };
   });
 }

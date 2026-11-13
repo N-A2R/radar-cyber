@@ -253,6 +253,40 @@ export function mockOrgDetail(orgId: number): OrgDetail | null {
         { value: `vpn.${domain}`, kind: "subdomain", createdAt: ago(60 * 24 * 12), source: "mock" },
       ],
     },
+    // Démonstration : deux événements de la même famille et du même jour sont
+    // un seul fait corroboré, pas deux faits.
+    corroboration: {
+      resume: {
+        faits: Math.max(1, byFamily.length),
+        evenements: events.length,
+        sources: new Set(events.map((e) => e.sourceId)).size,
+        corrobores: events.length > 1 ? 1 : 0,
+        isoles: Math.max(0, byFamily.length - 1),
+        desaccords: 0,
+      },
+      groupes: events.slice(0, 5).map((e, i) => ({
+        cle: `${e.family}:${(e.observedAt ?? "").slice(0, 10)}:${i}`,
+        family: e.family,
+        orgId,
+        titre: e.title,
+        debut: e.observedAt ?? new Date(now).toISOString(),
+        fin: e.observedAt ?? new Date(now).toISOString(),
+        sourcesDistinctes: 1,
+        force: "isole" as const,
+        sources: [
+          {
+            sourceId: e.sourceId,
+            premiereDate: e.observedAt ?? new Date(now).toISOString(),
+            estPremier: true,
+            delaiHeures: 0,
+            evenements: 1,
+            graviteMax: e.severity,
+            assertion: e.assertionType,
+          },
+        ],
+      })),
+      desaccords: [],
+    },
     events: { total: events.length, byFamily, recent: events },
     claims: { total: 0, recent: [] },
     exposure: months,

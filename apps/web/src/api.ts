@@ -423,12 +423,63 @@ export type OrgClaim = {
 export type OrgExposurePoint = { month: string; count: number };
 
 /** Réponse de `GET /api/orgs/:id` : fiche complète d'une organisation. */
+/** Une source qui a parlé d'un fait, et quand. */
+export type SourceGroupe = {
+  sourceId: string;
+  premiereDate: string;
+  /** Vrai pour la source qui a révélé le fait. */
+  estPremier: boolean;
+  /** Heures après le premier signalement. */
+  delaiHeures: number;
+  evenements: number;
+  graviteMax: number;
+  assertion: string;
+};
+
+/** Un fait, reconstitué à partir de plusieurs lignes d'événements. */
+export type FaitGroupe = {
+  cle: string;
+  family: string;
+  orgId: number | null;
+  titre: string;
+  debut: string;
+  fin: string;
+  sources: SourceGroupe[];
+  sourcesDistinctes: number;
+  force: "isole" | "corrobore" | "etabli";
+};
+
+/** Deux sources qui ne disent pas la même chose du même fait. */
+export type Desaccord = {
+  cle: string;
+  orgId: number | null;
+  family: string;
+  objet: "gravite" | "nature";
+  description: string;
+  positions: { sourceId: string; valeur: string }[];
+};
+
+export type Corroboration = {
+  resume: {
+    faits: number;
+    evenements: number;
+    sources: number;
+    corrobores: number;
+    isoles: number;
+    desaccords: number;
+  };
+  groupes: FaitGroupe[];
+  desaccords: Desaccord[];
+};
+
 export type OrgDetail = {
   org: Org;
   assets: { total: number; byKind: OrgAssetKind[]; recent: OrgAsset[] };
   events: { total: number; byFamily: OrgEventFamily[]; recent: Event[] };
   claims: { total: number; recent: OrgClaim[] };
   exposure: OrgExposurePoint[];
+  /** Absent des serveurs antérieurs à l'analyse multi-sources. */
+  corroboration?: Corroboration;
 };
 
 /** Alerte poussée par le flux SSE (`event: alert`). */

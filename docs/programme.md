@@ -53,10 +53,10 @@ pourquoi l'axe 1 est déjà engagé.
 
 | # | Chantier | État | Critère de sortie |
 | --- | --- | --- | --- |
-| 9 | **Corrélation multi-sources** | à faire | un incident vu par 3 sources = un incident, pas trois |
+| 9 | ✅ **Corrélation multi-sources** | **fait** (fiche org) | regroupement 72 h par famille, première source, délai de reprise, résumé |
 | 10 | **Agents de rupture** | à faire | 3 agents, taux de fausses alertes mesuré, branchés sur la revue |
 | 11 | **Anticipation mesurée** | à faire | ce qui, 3 semaines avant, l'aurait annoncé — même si la réponse est « rien » |
-| 12 | **Contradictions entre sources** | à faire | deux sources contradictoires produisent un fait de désaccord, pas un silence |
+| 12 | ✅ **Contradictions entre sources** | **fait** (fiche org) | désaccords de gravité et de nature affichés avec les positions de chaque source |
 
 ### Axe 4 — Données : ce qui entre
 

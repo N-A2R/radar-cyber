@@ -112,6 +112,7 @@ run_step "tests dom"     "$PNPM_BIN" -F @radar/web run test:dom
 run_step "tests sources" "$PNPM_BIN" -F @radar/web run test:sources
 run_step "tests inspecteur" "$PNPM_BIN" -F @radar/web run test:inspecteur
 run_step "tests fil"      "$PNPM_BIN" -F @radar/web run test:fil
+run_step "tests corroboration" "$PNPM_BIN" -F @radar/web run test:corroboration
 run_step "build web"     "$PNPM_BIN" -F @radar/web build
 
 step "healthcheck local"
