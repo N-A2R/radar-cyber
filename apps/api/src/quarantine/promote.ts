@@ -129,6 +129,28 @@ function containsPhrase(hintNorm: string, phrase: string): boolean {
 }
 
 /**
+ * Jetons qui ne désignent rien.
+ *
+ * « com » est présent dans *tous* les domaines en `.com` : une organisation
+ * nommée « N-COM (N-COM) » se réduisait donc à ce jeton et attrapait chaque
+ * revendication `quelquechose.com` à 0,75. Huit revendications d'un lot de
+ * dix ont été rattachées à cette seule société de Villeneuve-d'Ornon.
+ *
+ * La règle est simple : un jeton générique ne peut jamais *fonder* un
+ * rapprochement. Il peut accompagner (« chu bordeaux fr »), pas décider.
+ */
+const GENERIC_TOKENS = new Set([
+  "com", "net", "org", "edu", "gouv", "gov", "int", "info", "biz",
+  "fr", "eu", "be", "ch", "ca", "uk", "de", "es", "it", "nl", "lu",
+  "www", "http", "https", "mail", "web", "site",
+]);
+
+/** Vrai si le jeton porte une information : ni trop court, ni générique. */
+function isDiscriminating(token: string): boolean {
+  return token.length >= 2 && !GENERIC_TOKENS.has(token);
+}
+
+/**
  * Score d'un organisme pour un indice donné. La responsabilité du seuil
  * reste dans `matchOrgInIndex` ; cette fonction renvoie 0..1.
  *
@@ -168,7 +190,9 @@ function scoreEntry(
       best = Math.max(best, 0.9);
     } else {
       // Les jetons d'une lettre (« T D F ») sont du bruit : non significatifs.
-      const orgTokens = e.nameNorm.split(" ").filter((t) => t.length >= 2);
+      // Les jetons génériques (« com », « fr ») sont retirés : ils ne
+      // discriminent aucune organisation.
+      const orgTokens = e.nameNorm.split(" ").filter(isDiscriminating);
       const allPresent = orgTokens.length > 0 && orgTokens.every((t) => hintTokens.has(t));
       if (allPresent && orgTokens.length >= 2) {
         // Nom complet présent dans l'indice (« Kenall/Legrand » pour « Legrand »
