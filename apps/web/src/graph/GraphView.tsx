@@ -29,7 +29,11 @@
  * Les filtres (famille, type de nœud) recalculent `graphData` en réinjectant
  * les x/y connus des nœuds conservés : le layout n'est jamais re-randomisé.
  */
-import ForceGraph2D, { type LinkObject, type NodeObject } from 'react-force-graph-2d';
+import ForceGraph2D, {
+  type ForceGraphMethods,
+  type LinkObject,
+  type NodeObject,
+} from 'react-force-graph-2d';
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
 import GraphMatrix from '../components/GraphMatrix';
@@ -394,8 +398,12 @@ export default function GraphView(props: GraphViewProps) {
   const [familyFilter, setFamilyFilter] = useState<Set<string>>(() => new Set());
   const [kindFilter, setKindFilter] = useState<Set<string>>(() => new Set());
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [mode, setMode] = useState<'network' | 'matrix'>('matrix');
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [mode, setMode] = useState<'network' | 'matrix'>('network');
+  const [filtersOpen, setFiltersOpen] = useState<boolean>(() => {
+    try { return localStorage.getItem('graph:filtersOpen') !== '0'; } catch { return true; }
+  });
+  const persistFiltersOpen = (v: boolean) => { setFiltersOpen(v); try { localStorage.setItem('graph:filtersOpen', v ? '1' : '0'); } catch {} };
 
   const matrixNodes = useMemo(
     () =>
@@ -412,6 +420,7 @@ export default function GraphView(props: GraphViewProps) {
 
   const positionsRef = useRef<Map<string, { x: number; y: number }>>(new Map());
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const fgRef = useRef<ForceGraphMethods<GraphNode, GraphLink> | undefined>(undefined);
   const [size, setSize] = useState<{ width: number; height: number }>({ width: 0, height: 0 });
 
   useEffect(() => {
@@ -539,6 +548,22 @@ export default function GraphView(props: GraphViewProps) {
 
     return { nodes: positionedNodes, links: positionedLinks };
   }, [nodes, links, kindFilter, familyFilter, eventsById]);
+
+  useEffect(() => {
+    if (mode !== 'network') return;
+    const fg = fgRef.current;
+    if (!fg || size.width <= 0) return;
+    // 350 ms : le temps que la simulation ait placé les nœuds ; plus tôt,
+    // zoomToFit cadre le vide.
+    const t = setTimeout(() => {
+      try {
+        fg.zoomToFit(400, 40);
+      } catch {
+        // Le graphe peut être démonté entre-temps : rien à faire.
+      }
+    }, 350);
+    return () => clearTimeout(t);
+  }, [mode, data, size]);
   // Référence vers le dernier graphe injecté : force-graph mute les objets
   // (x/y) en place, ce qui permet de capturer les positions sans accéder au
   // graphe interne (API du wrapper limitée).
@@ -800,10 +825,12 @@ export default function GraphView(props: GraphViewProps) {
       <div ref={containerRef} style={{ position: 'absolute', inset: 0 }}>
         {size.width > 0 && (
           <ForceGraph2D<GraphNode, GraphLink>
+            ref={fgRef}
             width={size.width}
             height={size.height}
             graphData={data}
             backgroundColor={bg}
+            nodeRelSize={8}
             cooldownTicks={120}
             warmupTicks={30}
             nodeCanvasObject={paintNode}
@@ -831,7 +858,11 @@ export default function GraphView(props: GraphViewProps) {
       </div>
 
       <div style={overlayStyle({ top: 12, left: 12 })}>
-        <p style={BOX_TITLE}>filtres</p>
+        <button type="button" onClick={() => persistFiltersOpen(!filtersOpen)} style={{ ...BOX_TITLE, background: 'none', border: 'none', cursor: 'pointer', padding: 0, textAlign: 'left' }}>
+          filtres {filtersOpen ? '▾' : '▸'}
+        </button>
+        {filtersOpen && (
+          <>
         <p style={BOX_LABEL}>familles</p>
         <div style={CHIP_WRAP}>
           {families.map((family) => {
@@ -883,26 +914,9 @@ export default function GraphView(props: GraphViewProps) {
             {data.nodes.length} nœuds · {data.links.length} liens
           </span>
         </div>
+          </>
+        )}
       </div>
-
-      <div style={overlayStyle({ bottom: 12, left: 12 })}>
-        <p style={BOX_TITLE}>légende</p>
-        <p style={BOX_LABEL}>familles</p>
-        {families.map((family) => (
-          <div key={family.name} style={LEGEND_ROW}>
-            <span style={dotStyle(family.color)} />
-            {family.name}
-          </div>
-        ))}
-        <p style={BOX_LABEL}>nœuds</p>
-        {kinds.map((kind) => (
-          <div key={kind.kind} style={LEGEND_ROW}>
-            <span style={dotStyle(kind.color)} />
-            {kind.label}
-          </div>
-        ))}
-      </div>
-
       {selectedNode && (
         <aside style={DETAIL_STYLE}>
           <header style={DETAIL_HEADER}>
