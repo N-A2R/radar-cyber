@@ -41,6 +41,21 @@ const STOPWORDS: Record<string, true> = {
 }
 
 /** Termes géographiques génériques : seuls, ils ne désignent pas une org. */
+/**
+ * Termes techniques génériques. Un CVE contient presque toujours « code »,
+ * « software », « network » ou « server » : ces mots ne désignent aucune
+ * organisation et ne doivent jamais fonder un rattachement.
+ */
+const TECH_GENERICS: Record<string, true> = {
+  code: true, software: true, network: true, networks: true, system: true,
+  systems: true, server: true, servers: true, service: true, services: true,
+  solution: true, solutions: true, digital: true, cyber: true, data: true,
+  cloud: true, media: true, group: true, global: true, technolog: true,
+  technologies: true, technology: true, security: true, secure: true,
+  platform: true, platforms: true, product: true, products: true,
+}
+
+/** Termes géographiques génériques : seuls, ils ne désignent pas une org. */
 const GEO_GENERICS: Record<string, true> = {
   pays: true, basque: true, nouvelle: true, aquitaine: true, france: true,
   francais: true, europe: true, atlantique: true, sud: true, ouest: true,
@@ -81,10 +96,16 @@ function normalizeName(s: string): string {
 }
 
 /** Tokens significatifs (>= 4 caractères, hors suffixes juridiques et mots vides). */
-function significantTokens(normalizedName: string, exclude?: ReadonlySet<string>): string[] {
-  return normalizedName
-    .split(" ")
-    .filter((t) => t.length >= 4 && !LEGAL_SUFFIXES.test(t) && !STOPWORDS[t] && !GEO_GENERICS[t] && !exclude?.has(t))
+export function significantTokens(normalizedName: string, exclude?: ReadonlySet<string>): string[] {
+  // Déduplication : « CODE 202 (CODE 202) » se normalise en « code 202 code
+  // 202 » et produisait deux fois le même jeton. Le garde-fou « au moins deux
+  // jetons distincts » était donc contourné par la simple répétition d'un nom
+  // entre parenthèses — et n'importe quel texte contenant « code » suffisait.
+  return [...new Set(
+    normalizedName
+      .split(" ")
+      .filter((t) => t.length >= 4 && !LEGAL_SUFFIXES.test(t) && !STOPWORDS[t] && !GEO_GENERICS[t] && !TECH_GENERICS[t] && !exclude?.has(t)),
+  )]
 }
 
 /** Normalise un domaine : minuscules, sans www. final. */
@@ -142,7 +163,7 @@ interface OrgIndex {
   byToken: Map<string, DomainIndexEntry[]>
 }
 
-function buildOrgIndex(orgs: OrgRow[], assets: AssetRow[]): OrgIndex {
+export function buildOrgIndex(orgs: OrgRow[], assets: AssetRow[]): OrgIndex {
   const byDomain = new Map<string, DomainIndexEntry>()
   const byToken = new Map<string, DomainIndexEntry[]>()
   const addDomain = (domain: string, org: OrgRow) => {
@@ -171,7 +192,7 @@ function buildOrgIndex(orgs: OrgRow[], assets: AssetRow[]): OrgIndex {
  * Résout l'org d'un événement : essai par domaine (suffixe le plus long
  * d'abord), puis par nom. Renvoie l'entrée d'index gagnante ou null.
  */
-function resolveOrg(ev: EventRow, index: OrgIndex): DomainIndexEntry | null {
+export function resolveOrg(ev: EventRow, index: OrgIndex): DomainIndexEntry | null {
   const text = `${ev.title ?? ""} ${ev.summary ?? ""}`
   // 1. Domaine : on remonte label par label (sous-domaine → domaine de base).
   for (const host of extractDomains(ev.source_url, text)) {
@@ -267,6 +288,19 @@ export async function correlateEvents(log: (msg: string) => void): Promise<void>
          SELECT 'org', d.org_id::text, 'event', d.event_id, 'targeted_by', 'rule', 'B2'
          FROM unnest($1::text[], $2::int[]) AS d(event_id, org_id)
          ON CONFLICT DO NOTHING`,
+        [eventIds, orgIds],
+      )
+      // La correlation est une decision de rattachement : elle se consigne
+      // comme les autres, dans la meme transaction. Sans cela, 1 921
+      // evenements ont org_id sans qu'aucun fait ne dise qui l'a pose.
+      await client.query(
+        `INSERT INTO journal (kind, subject, summary, payload, actor, valid_at)
+         SELECT 'event.rattachement', e.dedup_key,
+                'correlation : rattache par regle de domaine ou de nom',
+                jsonb_build_object('orgId', d.org_id, 'regle', 'correlate'),
+                'moteur:correlate', e.observed_at
+           FROM unnest($1::text[], $2::int[]) AS d(event_id, org_id)
+           JOIN event e ON e.id = d.event_id::bigint`,
         [eventIds, orgIds],
       )
       await client.query("COMMIT")

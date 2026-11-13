@@ -12,6 +12,7 @@
  */
 import { admitEvent } from "../contract/admit.js";
 import { ingestQuery, query, withTransaction } from "../db.js";
+import { consignerAvec } from "../journal/index.js";
 import type { PoolClient, QueryResultRow } from "pg";
 import { evaluateEvent } from "../detect/engine.js";
 import { confirmOrganization } from "../match/decide.js";
@@ -113,7 +114,9 @@ export async function loadOrgIndex(): Promise<OrgIndexEntry[]> {
       domainNorm: o.domain ? normalizeDomain(o.domain) : null,
       websiteDomain: o.website ? extractDomain(o.website) : null,
       cityNorm: o.city ? normalizeName(o.city) : null,
-      nameTokens: nameNorm.split(" ").filter((t) => t.length >= 4),
+      // Jetons distincts, et sans les termes techniques génériques : « CODE
+      // 202 (CODE 202) » ne doit pas compter comme un nom à deux jetons.
+      nameTokens: [...new Set(nameNorm.split(" ").filter((t) => t.length >= 4 && !GENERIC_TOKENS.has(t)))],
     };
   });
 }
@@ -143,6 +146,12 @@ const GENERIC_TOKENS = new Set([
   "com", "net", "org", "edu", "gouv", "gov", "int", "info", "biz",
   "fr", "eu", "be", "ch", "ca", "uk", "de", "es", "it", "nl", "lu",
   "www", "http", "https", "mail", "web", "site",
+  // Termes techniques : présents dans tous les CVE et dans des milliers de
+  // raisons sociales. Ils ne distinguent rien.
+  "code", "software", "network", "networks", "system", "systems", "server",
+  "servers", "service", "services", "solution", "solutions", "security",
+  "secure", "platform", "platforms", "product", "products", "digital",
+  "cloud", "data", "media", "group", "global", "technology", "technologies",
 ]);
 
 /** Vrai si le jeton porte une information : ni trop court, ni générique. */
@@ -388,6 +397,16 @@ async function insertClaimEventRow(
     row.source,
   ];
   const r = await run<{ id: number; inserted: boolean }>(sql, values);
+  await consignerAvec((sql, params) => run(sql, params as unknown[]), {
+    kind: orgId !== null ? "event.rattachement" : "match.decided",
+    subject: dedupKey,
+    summary: orgId !== null
+      ? `promotion : rattaché (quarantine ${row.id})`
+      : `promotion : non rattaché (quarantine ${row.id})`,
+    actor: `humain:${promotedBy}`,
+    payload: { orgId, quarantineId: row.id, promotedBy },
+    validAt: observedAt,
+  });
   return { eventId: Number(r.rows[0].id), inserted: Boolean(r.rows[0].inserted) };
 }
 
