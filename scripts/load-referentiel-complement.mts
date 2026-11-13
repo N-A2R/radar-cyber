@@ -16,7 +16,9 @@ import { readFileSync } from "node:fs";
 import { query, withTransaction } from "../apps/api/src/db.js";
 
 const APPLY = process.argv.includes("--apply");
-const FICHIER = "db/data/referentiel-complement-2026-11-13.json";
+const FICHIER =
+	process.argv.find((a) => a.startsWith("--fichier="))?.slice(10) ??
+	"db/data/referentiel-complement-2026-11-13.json";
 
 type Entite = {
 	siren: string;

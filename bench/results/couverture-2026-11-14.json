@@ -9,28 +9,28 @@
     "dansLaFenetre": 42,
     "horsFenetre": 18
   },
-  "organisationsEnBase": 34352,
+  "organisationsEnBase": 41801,
   "couverture": {
-    "vus": 15,
+    "vus": 27,
     "total": 42,
-    "taux": 35.7,
+    "taux": 64.3,
     "motifs": {
-      "vu": 15,
+      "vu": 27,
       "pas_admis": 0,
-      "pas_rattache": 27
+      "pas_rattache": 15
     },
     "causes": {
-      "absent_du_referentiel": 23,
-      "au_referentiel_mais_non_reconnu": 4
+      "absent_du_referentiel": 9,
+      "au_referentiel_mais_non_reconnu": 6
     }
   },
   "referentielEntreprises": {
     "lignesSecteursManquants": 0,
     "parSecteur": {
       "sante-social": 88,
+      "entreprise": 7460,
       "energie-eau-dechets": 37,
       "finance-assurance": 23,
-      "entreprise": 16,
       "transport-logistique": 149,
       "numerique": 13035
     },
@@ -191,12 +191,12 @@
       "entite": "Magasins de grande distribution touchés en Béarn et Soule (dont Intermarché Pau et Monein)",
       "datePublique": "2026-10-12",
       "organismeAttendu": "Magasins de grande distribution touchés en Béarn et Soule (dont Intermarché Pau et Monein)",
-      "motif": "pas_rattache",
+      "motif": "vu",
       "delaiJours": null,
-      "organismeTrouve": null,
+      "organismeTrouve": "carrefour city",
       "refusAdmission": null,
-      "raisonMoteur": null,
-      "cause": "absent_du_referentiel"
+      "raisonMoteur": "alias-distinctif",
+      "cause": null
     },
     {
       "id": "na-2026-014",
@@ -335,12 +335,12 @@
       "entite": "UPPA Alumni — réseau des anciens de l'Université de Pau et des Pays de l'Adour",
       "datePublique": "2026-04-10",
       "organismeAttendu": "UPPA Alumni — réseau des anciens de l'Université de Pau et des Pays de l'Adour",
-      "motif": "pas_rattache",
+      "motif": "vu",
       "delaiJours": null,
-      "organismeTrouve": null,
+      "organismeTrouve": "uppa alumni",
       "refusAdmission": null,
-      "raisonMoteur": null,
-      "cause": "absent_du_referentiel"
+      "raisonMoteur": "alias-distinctif",
+      "cause": null
     },
     {
       "id": "na-2026-026",
@@ -359,12 +359,12 @@
       "entite": "UNSS (Union nationale du sport scolaire) — exfiltration OPUSS",
       "datePublique": "2026-03-02",
       "organismeAttendu": "UNSS (Union nationale du sport scolaire) — exfiltration OPUSS",
-      "motif": "pas_rattache",
+      "motif": "vu",
       "delaiJours": null,
-      "organismeTrouve": null,
+      "organismeTrouve": "union nationale du sport scolaire",
       "refusAdmission": null,
-      "raisonMoteur": null,
-      "cause": "absent_du_referentiel"
+      "raisonMoteur": "alias-distinctif",
+      "cause": null
     },
     {
       "id": "na-2026-028",
@@ -431,12 +431,12 @@
       "entite": "Supermarchés des Deux-Sèvres (Hyper U Parthenay, Intermarché Saint-Varent et Saint-Maixent-l'École, Super U Champdeniers, Celles-sur-Belle, Leclerc Thouars-Sainte-Verge)",
       "datePublique": "2026-10-12",
       "organismeAttendu": "Supermarchés des Deux-Sèvres (Hyper U Parthenay, Intermarché Saint-Varent et Saint-Maixent-l'École, Super U Champdeniers, Celles-sur-Belle, Leclerc Thouars-Sainte-Verge)",
-      "motif": "pas_rattache",
+      "motif": "vu",
       "delaiJours": null,
-      "organismeTrouve": null,
+      "organismeTrouve": "hyper u",
       "refusAdmission": null,
-      "raisonMoteur": null,
-      "cause": "absent_du_referentiel"
+      "raisonMoteur": "alias-distinctif",
+      "cause": null
     },
     {
       "id": "na-2026-034",
@@ -455,48 +455,48 @@
       "entite": "E.Leclerc de Surgères",
       "datePublique": "2026-10-12",
       "organismeAttendu": "E.Leclerc de Surgères",
-      "motif": "pas_rattache",
+      "motif": "vu",
       "delaiJours": null,
-      "organismeTrouve": null,
+      "organismeTrouve": "e leclerc",
       "refusAdmission": null,
-      "raisonMoteur": null,
-      "cause": "absent_du_referentiel"
+      "raisonMoteur": "alias-distinctif",
+      "cause": null
     },
     {
       "id": "na-2026-036",
       "entite": "Magasins de la Vienne (Intermarché Chauvigny et Gençay, Super U Vouillé, Leclerc Poitiers, Auchan Saint-Genest-d'Ambière)",
       "datePublique": "2026-10-12",
       "organismeAttendu": "Magasins de la Vienne (Intermarché Chauvigny et Gençay, Super U Vouillé, Leclerc Poitiers, Auchan Saint-Genest-d'Ambière)",
-      "motif": "pas_rattache",
+      "motif": "vu",
       "delaiJours": null,
-      "organismeTrouve": null,
+      "organismeTrouve": "super u",
       "refusAdmission": null,
-      "raisonMoteur": null,
-      "cause": "absent_du_referentiel"
+      "raisonMoteur": "alias-distinctif",
+      "cause": null
     },
     {
       "id": "na-2026-037",
       "entite": "Super U de Morcenx-la-Nouvelle et Carrefour Express de Rion-des-Landes",
       "datePublique": "2026-10-12",
       "organismeAttendu": "Super U de Morcenx-la-Nouvelle et Carrefour Express de Rion-des-Landes",
-      "motif": "pas_rattache",
+      "motif": "vu",
       "delaiJours": null,
-      "organismeTrouve": null,
+      "organismeTrouve": "super u",
       "refusAdmission": null,
-      "raisonMoteur": null,
-      "cause": "absent_du_referentiel"
+      "raisonMoteur": "alias-distinctif",
+      "cause": null
     },
     {
       "id": "na-2026-038",
       "entite": "Intermarché et Carrefour Market de Marmande",
       "datePublique": "2026-10-12",
       "organismeAttendu": "Intermarché et Carrefour Market de Marmande",
-      "motif": "pas_rattache",
+      "motif": "vu",
       "delaiJours": null,
-      "organismeTrouve": null,
+      "organismeTrouve": "carrefour market",
       "refusAdmission": null,
-      "raisonMoteur": null,
-      "cause": "absent_du_referentiel"
+      "raisonMoteur": "alias-distinctif",
+      "cause": null
     },
     {
       "id": "na-2026-039",
@@ -520,19 +520,19 @@
       "organismeTrouve": null,
       "refusAdmission": null,
       "raisonMoteur": null,
-      "cause": "absent_du_referentiel"
+      "cause": "au_referentiel_mais_non_reconnu"
     },
     {
       "id": "na-2026-041",
       "entite": "Polyclinique Bordeaux Nord Aquitaine",
       "datePublique": "2026-04-09",
       "organismeAttendu": "Polyclinique Bordeaux Nord Aquitaine",
-      "motif": "pas_rattache",
+      "motif": "vu",
       "delaiJours": null,
-      "organismeTrouve": null,
+      "organismeTrouve": "polyclinique bordeaux nord aquitaine",
       "refusAdmission": null,
-      "raisonMoteur": null,
-      "cause": "absent_du_referentiel"
+      "raisonMoteur": "alias-distinctif",
+      "cause": null
     },
     {
       "id": "na-2026-042",
@@ -556,43 +556,43 @@
       "organismeTrouve": null,
       "refusAdmission": null,
       "raisonMoteur": null,
-      "cause": "absent_du_referentiel"
+      "cause": "au_referentiel_mais_non_reconnu"
     },
     {
       "id": "na-2026-044",
       "entite": "FFRandonnée — fichier adhérents",
       "datePublique": "2026-02-05",
       "organismeAttendu": "FFRandonnée — fichier adhérents",
-      "motif": "pas_rattache",
+      "motif": "vu",
       "delaiJours": null,
-      "organismeTrouve": null,
+      "organismeTrouve": "federation francaise de la randonnee pedestre",
       "refusAdmission": null,
-      "raisonMoteur": null,
-      "cause": "absent_du_referentiel"
+      "raisonMoteur": "alias-distinctif",
+      "cause": null
     },
     {
       "id": "na-2026-045",
       "entite": "Association des maires de France (AMF)",
       "datePublique": "2026-09-04",
       "organismeAttendu": "Association des maires de France (AMF)",
-      "motif": "pas_rattache",
+      "motif": "vu",
       "delaiJours": null,
-      "organismeTrouve": null,
+      "organismeTrouve": "association des maires de france",
       "refusAdmission": null,
-      "raisonMoteur": null,
-      "cause": "absent_du_referentiel"
+      "raisonMoteur": "alias-distinctif",
+      "cause": null
     },
     {
       "id": "na-2026-046",
       "entite": "Office français de la biodiversité — fichier des permis de chasser",
       "datePublique": "2026-02-22",
       "organismeAttendu": "Office français de la biodiversité — fichier des permis de chasser",
-      "motif": "pas_rattache",
+      "motif": "vu",
       "delaiJours": null,
-      "organismeTrouve": null,
+      "organismeTrouve": "office francais de la biodiversite",
       "refusAdmission": null,
-      "raisonMoteur": null,
-      "cause": "absent_du_referentiel"
+      "raisonMoteur": "alias-distinctif",
+      "cause": null
     },
     {
       "id": "na-2026-047",
