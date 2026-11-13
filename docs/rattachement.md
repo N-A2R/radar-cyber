@@ -195,3 +195,16 @@ corrélation réappliquait l'ancienne règle.
 Leçon d'exploitation : **un correctif n'est actif que dans les processus
 redémarrés après son déploiement.** Vérifier qui tient le port et quand il a
 démarré (`ps -eo pid,lstart,args`) fait partie de la correction.
+
+### Deuxième passe : les faux positifs résiduels
+
+La réparation avait laissé 3 liens vers « SCHNEIDER ELECTRIC FRANCE »
+(Rueil-Malmaison, Hauts-de-Seine) — des revendications d'un site de fuite qui
+ne concernent pas la région. Vérifié : aucune entité Schneider dans le
+référentiel de la région (0 ligne en Gironde, Loire-Atlantique ou Bordeaux).
+
+La règle de réparation a été resserrée : elle demande maintenant au **moteur
+de production** s'il rattacherait encore le texte. Si la réponse diffère de la
+base, le lien vient d'une règle qui n'existe plus.
+
+Bilan des deux passes : **2 476 liens faux défaits**, 0 en base.
