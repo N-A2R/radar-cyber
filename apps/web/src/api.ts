@@ -98,6 +98,32 @@ export type Event = {
   orgId: number | null;
   /** Vrai si l'événement touche une organisation ou une entité de la région. */
   regional: boolean;
+  /**
+   * Quand cela s'est passé, et à quel point on le sait. Séparé de la confiance
+   * à dessein : un fait peut être récent et incertain, ou ancien et certain.
+   */
+  fraicheur?: Fraicheur;
+  /** À quel point on peut y croire, et pourquoi. */
+  confiance?: Confiance;
+};
+
+/** Précision de la date : publiée par la source, déduite du texte, ou collecte. */
+export type PrecisionDate = "certaine" | "deduite" | "collecte";
+
+export type Fraicheur = {
+  ageJours: number | null;
+  precision: PrecisionDate;
+  classe: "frais" | "recent" | "ancien" | "inconnu";
+  /** Phrase courte : « il y a 3 j », « aujourd'hui · date de collecte ». */
+  libelle: string;
+};
+
+export type Confiance = {
+  note: number;
+  niveau: "etabli" | "plausible" | "fragile";
+  raisons: string[];
+  sourcesDistinctes: number;
+  libelle: string;
 };
 
 export type Source = {
@@ -115,7 +141,82 @@ export type Source = {
   itemsTotal: number | null;
   lastItems: number | null;
   ok: boolean;
+  /** Désactivation : datée et motivée, ou jamais désactivée. */
+  disabledAt: string | null;
+  disabledReason: string | null;
+  /** Entrées lues par le collecteur sur 30 jours ; `null` = aucune mesure. */
+  entrees: number | null;
+  /** Entrées écartées par la porte ou le contrat, sur 30 jours. */
+  rejets: number | null;
+  /** Événements attribués à la source sur 30 jours. */
+  evenements30j: number;
+  /** Événements attribués à la source, tout l'historique. */
+  evenementsTotal: number;
+  /** Dernier passage du collecteur, quel qu'en soit le résultat. */
+  dernierRun: string | null;
+  dernierRunStatut: string | null;
+  /** Part des entrées lues devenues un événement ; `null` = jamais mesuré. */
+  rendement: number | null;
+  /** Motifs de rejet agrégés du dernier run : `{ hors_sujet: 34, presse: 6 }`. */
+  motifs: Record<string, number> | null;
+  /** Motif qui coûte le plus d'entrées — celui qui explique le silence. */
+  motifDominant: string | null;
+  /** Faits distincts où la source apparaît (180 j, organisations rattachées). */
+  faits?: number;
+  /** Faits où elle est la seule à parler : sa contribution propre. */
+  faitsUniques?: number;
+  /** Part de ses faits qu'elle porte seule, en pourcentage. */
+  partUniquesPct?: number;
+  /** Heures médianes d'arrivée après le premier signalement. */
+  retardMedianHeures?: number | null;
+  /** Faits où elle a parlé la première. */
+  primeurs?: number;
 };
+
+/**
+ * Ce que vaut une source, au-delà de « elle répond ».
+ *
+ * - `productive` : elle a rendu au moins un événement sur la fenêtre ;
+ * - `vide`       : elle lit des entrées et n'en retient aucune — la porte ou
+ *                  le parseur est en cause, pas la source ;
+ * - `muette`     : elle est passée au collecteur sans rien lire ;
+ * - `inconnue`   : aucun passage mesurable. À ne surtout pas lire comme « nulle ».
+ */
+export type SourceYield = "productive" | "vide" | "muette" | "inconnue";
+
+export function sourceYield(source: Pick<Source, "entrees" | "evenements30j" | "evenementsTotal" | "lastOkAt" | "dernierRun">): SourceYield {
+  if (source.evenements30j > 0) return "productive";
+  if (source.entrees !== null && source.entrees > 0) return "vide";
+  if (source.dernierRun !== null) return "muette";
+  if (source.evenementsTotal > 0) return "inconnue";
+  return source.lastOkAt ? "muette" : "inconnue";
+}
+
+/**
+ * Traduction des motifs de rejet du collecteur.
+ *
+ * Le motif brut est technique (`contrat:famille-inconnue`, `hors_sujet`) : sur
+ * un écran, il doit dire ce qu'il coûte. Un motif inconnu est affiché tel quel,
+ * en dernier recours — mieux vaut un mot bizarre qu'un silence.
+ */
+export const MOTIF_LABEL: Record<string, string> = {
+  hors_sujet: "hors sujet (porte de pertinence)",
+  presse: "non cyber (classé presse)",
+  menu_path: "entrée de menu (lien de navigation)",
+  menu_token: "entrée de menu (libellé seul)",
+  menu_source: "entrée de menu (nom de la source)",
+  warninglist: "indicateur légitime (warninglist)",
+  non_actionnable: "indicateur non actionnable pour nos actifs",
+  doublon: "doublon dans le même flux",
+};
+
+/** Libellé lisible d'un motif de rejet. Tolère l'absence : un serveur plus
+ * ancien ne renvoie pas ce champ, et l'écran doit rester lisible. */
+export function motifLabel(motif: string | null | undefined): string {
+  if (typeof motif !== "string" || motif === "") return "non mesuré";
+  if (motif.startsWith("contrat:")) return `refusé par le contrat (${motif.slice(8)})`;
+  return MOTIF_LABEL[motif] ?? motif;
+}
 
 /** État de santé d'une source, dérivé de ses dates de succès et d'erreur. */
 export type SourceStatus = "ok" | "error" | "pending";
@@ -273,6 +374,26 @@ export type EnrichedEvent = {
   lat: number | null;
   lon: number | null;
   org_id: number | null;
+  fraicheur?: Fraicheur;
+  confiance?: Confiance;
+};
+
+/**
+ * Pourquoi l'événement a été rattaché à cette organisation — ou pas.
+ *
+ * `motif` est la valeur brute du moteur, `libelle` sa traduction. On garde les
+ * deux : le libellé change avec la langue de l'interface, le motif se rejoue.
+ * `indecis` est vrai quand le moteur n'a pas pu essayer (référentiel
+ * indisponible) : l'absence de rattachement n'est alors pas un verdict.
+ */
+export type RattachementExplication = {
+  motif: string;
+  libelle: string;
+  alias: string | null;
+  confiance: number;
+  moteur: string;
+  candidats: { id: number; name: string }[];
+  indecis: boolean;
 };
 
 /** Réponse de `GET /api/enrich/events/:id`. */
@@ -281,6 +402,8 @@ export type EventEnrichment = {
   indicators: { id: string; type: string; value: string }[];
   org: Org | null;
   enrichment: Enrichment | null;
+  /** Absent des événements ingérés avant que le pourquoi soit conservé. */
+  rattachement?: RattachementExplication | null;
   error?: string;
 };
 
@@ -312,12 +435,76 @@ export type OrgClaim = {
 export type OrgExposurePoint = { month: string; count: number };
 
 /** Réponse de `GET /api/orgs/:id` : fiche complète d'une organisation. */
+/** Une source qui a parlé d'un fait, et quand. */
+export type SourceGroupe = {
+  sourceId: string;
+  premiereDate: string;
+  /** Vrai pour la source qui a révélé le fait. */
+  estPremier: boolean;
+  /** Heures après le premier signalement. */
+  delaiHeures: number;
+  evenements: number;
+  /** `null` = la source ne se prononce pas sur la gravité. */
+  graviteMax: number | null;
+  assertion: string;
+};
+
+/** Un fait, reconstitué à partir de plusieurs lignes d'événements. */
+export type FaitGroupe = {
+  cle: string;
+  family: string;
+  orgId: number | null;
+  titre: string;
+  debut: string;
+  fin: string;
+  sources: SourceGroupe[];
+  sourcesDistinctes: number;
+  force: "isole" | "corrobore" | "etabli";
+};
+
+/** Deux sources qui ne disent pas la même chose du même fait. */
+export type Desaccord = {
+  cle: string;
+  orgId: number | null;
+  family: string;
+  objet: "gravite" | "nature";
+  description: string;
+  positions: { sourceId: string; valeur: string }[];
+};
+
+export type Historique = {
+  premier: string | null;
+  dernier: string | null;
+  faits: number;
+  parMois: { mois: string; faits: number }[];
+  tendance: "nouveau" | "en hausse" | "stable" | "en baisse" | "ancien";
+  familles: { family: string; faits: number }[];
+  sources: string[];
+};
+
+export type Corroboration = {
+  resume: {
+    faits: number;
+    evenements: number;
+    sources: number;
+    corrobores: number;
+    isoles: number;
+    desaccords: number;
+  };
+  groupes: FaitGroupe[];
+  desaccords: Desaccord[];
+};
+
 export type OrgDetail = {
   org: Org;
   assets: { total: number; byKind: OrgAssetKind[]; recent: OrgAsset[] };
   events: { total: number; byFamily: OrgEventFamily[]; recent: Event[] };
   claims: { total: number; recent: OrgClaim[] };
   exposure: OrgExposurePoint[];
+  /** Absent des serveurs antérieurs à l'analyse multi-sources. */
+  corroboration?: Corroboration;
+  /** Absent des serveurs antérieurs au profil historique. */
+  historique?: Historique;
 };
 
 /** Alerte poussée par le flux SSE (`event: alert`). */
@@ -444,7 +631,8 @@ export type ReviewOutcome = {
 export const api = {
   login: (email: string, password: string) => postJson<LoginResponse>("/auth/login", { email, password }),
   logout: () => post<{ ok: boolean }>("/auth/logout"),
-  orgs: () => get<Org[]>("/orgs"),
+  orgs: (asOf?: string) => get<Org[]>(asOf ? `/orgs?asOf=${encodeURIComponent(asOf)}` : "/orgs"),
+  dossier: () => get<{ etat: Record<string, unknown>; dossier: { genere: string; sections: { cle: string; titre: string; points: string[] }[] } }>("/dossier"),
   reviewQueue: (params: { status?: string; bucket?: string; source?: string; groupe?: string; q?: string; page?: number; limit?: number } = {}, signal?: AbortSignal) => {
     const qs = new URLSearchParams();
     for (const [key, value] of Object.entries(params)) {

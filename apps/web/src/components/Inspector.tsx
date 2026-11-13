@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { InspectorProps } from "../contracts";
 import { api, type EventEnrichment, type Org } from "../api";
+import { renduRattachement } from "./rattachement-view";
 import "./inspector.css";
 
 type LoadState =
@@ -186,6 +187,12 @@ function EventDetail({ data }: { data: EventEnrichment }) {
           {hasValue(event.confidence) && <MetaRow label="Confiance" value={String(event.confidence)} />}
           {observed && <MetaRow label="Observation" value={observed} />}
           {hasValue(event.source_id) && <MetaRow label="Source" value={event.source_id} />}
+          {(event as unknown as { fraicheur?: { libelle: string; precision: string } }).fraicheur && (
+            <MetaRow label="Fraîcheur" value={`${(event as unknown as { fraicheur: { libelle: string; precision: string } }).fraicheur.libelle} (${(event as unknown as { fraicheur: { precision: string } }).fraicheur.precision})`} />
+          )}
+          {(event as unknown as { confiance?: { libelle: string; raisons: string[] } }).confiance && (
+            <MetaRow label="Fiabilité" value={`${(event as unknown as { confiance: { libelle: string; raisons: string[] } }).confiance.libelle} — ${(event as unknown as { confiance: { raisons: string[] } }).confiance.raisons.join(" · ")}`} />
+          )}
         </dl>
         {hasValue(event.source_url) && (
           <p className="inspector__link-row">
@@ -207,6 +214,14 @@ function EventDetail({ data }: { data: EventEnrichment }) {
           <p className="inspector__text">{event.summary}</p>
         </section>
       )}
+
+      {/*
+        Le rattachement explique une décision, il ne l'affiche pas seulement.
+        Un analyste qui voit « CHU de Bordeaux » veut savoir si c'est parce que
+        le nom est écrit noir sur blanc ou parce qu'un département a départagé
+        deux homonymes — ce sont deux niveaux de confiance très différents.
+      */}
+      {renduRattachement(data.rattachement ?? null, data.org !== null)}
 
       {data.org && (
         <section className="inspector__section">

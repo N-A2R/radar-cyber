@@ -226,3 +226,83 @@
     transition: none;
   }
 }
+
+/* --- Faits corroborés ----------------------------------------------------- */
+
+/* Un fait corroboré se distingue d'une ligne isolée sans crier : c'est la
+   présence de plusieurs sources qui rassure, pas une couleur. */
+.orgsheet__corrobore {
+  color: var(--color-ink);
+}
+
+.orgsheet__reprise {
+  color: var(--color-faint);
+  font-style: italic;
+}
+
+.orgsheet__subtitle {
+  margin: 10px 0 4px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-muted);
+}
+
+/* Un désaccord est une information, pas une alarme : orange, jamais rouge. */
+.orgsheet__chip--desaccord {
+  color: var(--sev-4, var(--color-ink-2));
+}
+
+.orgsheet__row--desaccord {
+  border-left: 2px solid var(--sev-4, var(--color-edge-hi));
+  padding-left: 8px;
+}
+
+.orgsheet__desaccord {
+  font-size: 12px;
+  color: var(--color-ink);
+}
+
+/* --- Historique : barres mensuelles --------------------------------------- */
+
+.orgsheet__mois {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 34px;
+  margin: 6px 0 4px;
+  padding: 0;
+  list-style: none;
+}
+
+.orgsheet__mois-item {
+  flex: 1 1 0;
+  display: flex;
+  align-items: flex-end;
+  height: 100%;
+  background: var(--color-plate-2, rgba(255, 255, 255, 0.03));
+  border-radius: 1px;
+}
+
+/* Un mois vide garde sa place et son fond : la continuité du temps est
+   l'information, pas la hauteur des barres. */
+.orgsheet__mois-item[data-vide="oui"] {
+  background: transparent;
+  outline: 1px dotted var(--color-edge, rgba(255, 255, 255, 0.08));
+  outline-offset: -1px;
+}
+
+.orgsheet__mois-barre {
+  width: 100%;
+  min-height: 2px;
+  background: var(--color-ink-2, #9aa7b8);
+  border-radius: 1px;
+}
+
+.orgsheet__mois-item[data-vide="non"] .orgsheet__mois-barre {
+  background: var(--sev-3, #8ea3c0);
+}
+
+.orgsheet__meta[data-tendance="en hausse"],
+.orgsheet__meta[data-tendance="nouveau"] {
+  color: var(--sev-3, var(--color-ink-2));
+}

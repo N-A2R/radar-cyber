@@ -23,23 +23,47 @@ export type ReferentielSector = "commune" | "epci" | "departement" | "region";
 
 export type PlannedAlias = { alias: string; source: string };
 
+/**
+ * `kind` couvre désormais les établissements et les entreprises, pas seulement
+ * les collectivités : c'est le vocabulaire fermé de la migration 022, complété
+ * par ce que `planReferentielEtendu` sait produire. `sector` reste une chaîne
+ * libre — c'est lui qui porte la nature réelle (pharmacie, collège, numerique).
+ */
+export type PlannedOrgKind =
+	| "collectivite"
+	| "sante"
+	| "enseignement"
+	| "entreprise"
+	| "recherche"
+	| "operateur_critique"
+	| "ess";
+
 export type PlannedOrg = {
 	slug: string;
 	name: string;
-	kind: "collectivite";
-	sector: ReferentielSector;
+	kind: PlannedOrgKind;
+	sector: string | null;
 	city: string | null;
 	dept: string | null;
 	siren: string | null;
 	lat: number | null;
 	lon: number | null;
 	geoSource: string;
-	status: "confirme";
-	/** Code officiel : INSEE communal, SIREN d'EPCI, code département ou région. */
+	status: "confirme" | "a_confirmer";
+	/** Code officiel : INSEE communal, SIREN d'EPCI, FINESS, UAI, code département. */
 	entityCode: string;
 	codesPostaux: string[];
 	population: number | null;
 	aliases: PlannedAlias[];
+	/** Jeu d'origine de `entityCode` — absent pour le référentiel territorial. */
+	entitySource?: string;
+	/** Code NAF de l'entreprise, quand il y en a un. */
+	naf?: string | null;
+	/** Borne basse de la tranche d'effectif INSEE. */
+	effectifMin?: number | null;
+	/** Site web et domaine, utiles au rattachement d'actifs. */
+	website?: string | null;
+	domain?: string | null;
 };
 
 export type ReferentielPlan = {

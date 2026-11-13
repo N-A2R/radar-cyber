@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { sourceStatus, type Source, type SourceStatus } from "../api";
+import { motifLabel, sourceStatus, sourceYield, type Source, type SourceStatus, type SourceYield } from "../api";
 import type { SourcesViewProps } from "../contracts";
 import "./sources.css";
 
@@ -22,17 +22,54 @@ const STATUS_LABEL: Record<SourceStatus, string> = {
   pending: "jamais collecté",
 };
 
-type SortKey = "name" | "family" | "status" | "lastOkAt" | "lastErrorAt" | "itemsTotal";
+type SortKey =
+  | "name"
+  | "family"
+  | "status"
+  | "lastOkAt"
+  | "lastErrorAt"
+  | "itemsTotal"
+  | "entrees"
+  | "evenements30j"
+  | "rendement"
+  | "motif"
+  | "unicite"
+  // Tri par défaut, propre au registre : par gravité du problème, pas par date.
+  | "yield";
 type SortDir = "asc" | "desc";
 
-const COLUMNS: { key: SortKey; label: string; num?: boolean }[] = [
+const COLUMNS: { key: SortKey; label: string; num?: boolean; hint?: string }[] = [
   { key: "name", label: "source" },
   { key: "family", label: "famille" },
   { key: "status", label: "état" },
   { key: "lastOkAt", label: "dernier succès" },
-  { key: "lastErrorAt", label: "dernier échec" },
-  { key: "itemsTotal", label: "éléments", num: true },
+  { key: "lastErrorAt", label: "dernier échec", hint: "le dernier passage a échoué" },
+  { key: "entrees", label: "lues 30 j", num: true, hint: "entrées lues par le collecteur" },
+  { key: "evenements30j", label: "évén. 30 j", num: true, hint: "événements attribués à la source" },
+  { key: "rendement", label: "rendement", num: true, hint: "part des entrées lues devenues un événement" },
+  { key: "motif", label: "motif de rejet", hint: "ce qui coûte le plus d'entrées sur le dernier run" },
+  {
+    key: "unicite",
+    label: "unicité",
+    num: true,
+    hint: "faits où elle est la seule à parler / faits où elle apparaît — ce qu'elle apporte que personne d'autre n'apporte",
+  },
 ];
+
+/** Libellés des rendements : ce que la source rapporte, pas si elle répond. */
+export const YIELD_LABEL: Record<SourceYield, string> = {
+  productive: "productive",
+  vide: "lit sans rendre",
+  muette: "muette",
+  inconnue: "inconnue",
+};
+
+const YIELD_HINT: Record<SourceYield, string> = {
+  productive: "au moins un événement retenu sur 30 jours",
+  vide: "des entrées sont lues mais aucune n'est retenue : porte ou parseur en cause",
+  muette: "le collecteur est passé sans rien lire",
+  inconnue: "aucun passage mesurable — ce n'est pas un zéro, c'est une absence de mesure",
+};
 
 /** Les erreurs d'abord, puis l'inconnu, puis le succès. */
 const STATUS_RANK: Record<SourceStatus, number> = { error: 0, pending: 1, ok: 2 };
@@ -72,10 +109,35 @@ export function formatAbsolute(value: string | null): string {
   return new Date(then).toLocaleString("fr-FR", { dateStyle: "short", timeStyle: "short" });
 }
 
+/**
+ * Gravité du rendement, pour le tri par défaut. Une source qui lit 40 entrées
+ * sans en retenir une seule passe avant une source jamais tentée : la première
+ * a un défaut localisé, la seconde n'a pas encore de verdict.
+ */
+const YIELD_RANK: Record<SourceYield, number> = { vide: 0, muette: 1, inconnue: 2, productive: 3 };
+
 /** Compare deux sources sur une colonne ; les valeurs absentes restent en fin de liste. */
 function compareSources(a: Source, b: Source, key: SortKey, dir: SortDir): number {
   const sign = dir === "asc" ? 1 : -1;
   switch (key) {
+    case "yield": {
+      const rank = YIELD_RANK[sourceYield(a)] - YIELD_RANK[sourceYield(b)];
+      if (rank !== 0) return rank * sign;
+      // À gravité égale, le plus mauvais rendement d'abord ; l'inconnu ensuite.
+      const av = a.rendement;
+      const bv = b.rendement;
+      if (av === null || bv === null) return av === bv ? a.name.localeCompare(b.name, "fr") : av === null ? 1 : -1;
+      return (av - bv) * sign || a.name.localeCompare(b.name, "fr");
+    }
+    case "motif": {
+      // Les motifs absents en fin de liste dans les deux sens : « non mesuré »
+      // n'est pas « aucun rejet ».
+      const av = a.motifDominant;
+      const bv = b.motifDominant;
+      if (av === null) return bv === null ? 0 : 1;
+      if (bv === null) return -1;
+      return av.localeCompare(bv, "fr") * sign;
+    }
     case "status": {
       const rank = STATUS_RANK[sourceStatus(a)] - STATUS_RANK[sourceStatus(b)];
       return rank !== 0 ? rank * sign : a.name.localeCompare(b.name, "fr");
@@ -99,6 +161,31 @@ function compareSources(a: Source, b: Source, key: SortKey, dir: SortDir): numbe
       if (bv === null) return -1;
       return (av - bv) * sign;
     }
+    // Les valeurs absentes (`null`) restent en fin de liste dans les deux sens :
+    // « inconnu » ne doit jamais être classé comme « mauvais ».
+    case "entrees":
+    case "evenements30j": {
+      const av = a[key];
+      const bv = b[key];
+      if (av === null) return bv === null ? 0 : 1;
+      if (bv === null) return -1;
+      return (av - bv) * sign;
+    }
+    case "unicite": {
+      // Les sources jamais évaluées (serveur antérieur) passent en fin, quel que
+      // soit le sens : une absence de mesure n'est pas une mauvaise note.
+      const av = a.partUniquesPct;
+      const bv = b.partUniquesPct;
+      if (av === undefined || bv === undefined) return av === bv ? 0 : av === undefined ? 1 : -1;
+      return (av - bv) * sign;
+    }
+    case "rendement": {
+      const av = a.rendement;
+      const bv = b.rendement;
+      if (av === null) return bv === null ? 0 : 1;
+      if (bv === null) return -1;
+      return (av - bv) * sign;
+    }
   }
 }
 
@@ -109,7 +196,12 @@ function compareSources(a: Source, b: Source, key: SortKey, dir: SortDir): numbe
  */
 export default function SourcesView({ sources, loading, error }: SourcesViewProps) {
   const [query, setQuery] = useState("");
-  const [sortKey, setSortKey] = useState<SortKey>("name");
+  // Par défaut : les sources qui rapportent le moins en tête, et parmi elles
+  // d'abord celles qui lisent sans rien rendre — c'est là qu'un parseur cassé
+  // se cache. Le registre sert à trouver ce qui ne marche pas, pas à admirer
+  // ce qui marche. « Non mesurée » vient après « vide » : ce n'est pas un
+  // défaut prouvé, c'est une absence de mesure.
+  const [sortKey, setSortKey] = useState<SortKey>("yield");
   const [sortDir, setSortDir] = useState<SortDir>("asc");
 
   const rows = useMemo(() => {
@@ -123,6 +215,14 @@ export default function SourcesView({ sources, loading, error }: SourcesViewProp
   const counts = useMemo(() => {
     const c: Record<SourceStatus, number> = { ok: 0, error: 0, pending: 0 };
     for (const s of sources) c[sourceStatus(s)] += 1;
+    return c;
+  }, [sources]);
+
+  // Deux questions distinctes : « répond-elle ? » et « rapporte-t-elle ? ».
+  // Une source peut répondre tous les jours et ne rien rendre pendant des mois.
+  const yields = useMemo(() => {
+    const c: Record<SourceYield, number> = { productive: 0, vide: 0, muette: 0, inconnue: 0 };
+    for (const s of sources) c[sourceYield(s)] += 1;
     return c;
   }, [sources]);
 
@@ -143,6 +243,25 @@ export default function SourcesView({ sources, loading, error }: SourcesViewProp
           {sources.length} flux déclarés · {counts.ok} ok · {counts.error} en erreur ·{" "}
           {counts.pending} jamais collectés
         </p>
+        <p className="sources-view__yield" aria-label="Rendement des sources">
+          {yields.productive} productive{yields.productive > 1 ? "s" : ""} · {yields.vide} qui
+          lisent sans rendre · {yields.muette} muette{yields.muette > 1 ? "s" : ""} ·{" "}
+          {yields.inconnue} non mesurée{yields.inconnue > 1 ? "s" : ""}
+        </p>
+        {sources.some((s) => s.motifDominant !== null) && (
+          <p className="sources-view__yield" aria-label="Motifs de rejet">
+            Rejets dominants :{" "}
+            {/*
+              Un serveur d'une version antérieure ne renvoie pas `motifDominant` :
+              on filtre sur le type réel, pas sur `!== null`, sinon un champ
+              absent fait planter tout l'écran.
+            */}
+            {[...new Set(sources.map((s) => s.motifDominant).filter((m): m is string => typeof m === "string"))]
+              .slice(0, 4)
+              .map((motif) => `${motifLabel(motif)} (${sources.filter((s) => s.motifDominant === motif).length})`)
+              .join(" · ")}
+          </p>
+        )}
       </header>
 
       <div className="sources-view__toolbar">
@@ -179,6 +298,7 @@ export default function SourcesView({ sources, loading, error }: SourcesViewProp
                       : "none"
                   }
                   className={col.num ? "sources-table__num" : undefined}
+                  title={col.hint}
                 >
                   <button type="button" className="sources-table__sort" onClick={() => toggleSort(col.key)}>
                     {col.label}
@@ -193,8 +313,9 @@ export default function SourcesView({ sources, loading, error }: SourcesViewProp
           <tbody>
             {rows.map((source) => {
               const status = sourceStatus(source);
+              const yieldKind = sourceYield(source);
               return (
-                <tr key={source.id}>
+                <tr key={source.id} title={YIELD_HINT[yieldKind]}>
                   <th scope="row" className="sources-table__name">
                     {source.name}
                   </th>
@@ -204,6 +325,11 @@ export default function SourcesView({ sources, loading, error }: SourcesViewProp
                       <span className="sources-status__dot" aria-hidden="true" />
                       {STATUS_LABEL[status]}
                     </span>
+                    {source.disabledReason && (
+                      <span className="sources-table__reason" title={source.disabledReason}>
+                        {source.disabledReason}
+                      </span>
+                    )}
                   </td>
                   <td className="sources-table__time">
                     <span title={formatAbsolute(source.lastOkAt)}>
@@ -215,7 +341,52 @@ export default function SourcesView({ sources, loading, error }: SourcesViewProp
                       {formatRelative(source.lastErrorAt)}
                     </span>
                   </td>
-                  <td className="sources-table__num">{formatNumber(source.itemsTotal)}</td>
+                  <td className="sources-table__num">{formatNumber(source.entrees)}</td>
+                  <td className="sources-table__num">{source.evenements30j}</td>
+                  <td className="sources-table__num">
+                    <span className="sources-yield" data-yield={yieldKind}>
+                      {source.rendement === null
+                        ? "—"
+                        : `${(source.rendement * 100).toFixed(source.rendement < 0.01 ? 1 : 0)} %`}
+                    </span>
+                  </td>
+                  <td className="sources-table__num">
+                    {typeof source.faitsUniques === "number" && typeof source.faits === "number" ? (
+                      <span
+                        className="sources-unique"
+                        data-unique={source.faitsUniques > 0 ? "oui" : "non"}
+                        title={
+                          source.faitsUniques === 0
+                            ? "aucun fait où elle soit seule : elle suit, elle ne révèle pas"
+                            : `${source.faitsUniques} fait(s) où elle est la seule source · ${source.primeurs ?? 0} fois la première`
+                        }
+                      >
+                        {source.faitsUniques}/{source.faits}
+                      </span>
+                    ) : (
+                      <span className="sources-table__unmeasured">non mesuré</span>
+                    )}
+                  </td>
+                  <td className="sources-table__motif">
+                    {source.motifDominant === null ? (
+                      <span className="sources-table__unmeasured">non mesuré</span>
+                    ) : (
+                      <span
+                        className="sources-motif"
+                        title={
+                          source.motifs
+                            ? Object.entries(source.motifs)
+                                .sort((x, y) => Number(y[1]) - Number(x[1]))
+                                .map(([motif, n]) => `${motifLabel(motif)} : ${n}`)
+                                .join("\n")
+                            : undefined
+                        }
+                      >
+                        {motifLabel(source.motifDominant)}
+                        {source.motifs ? ` (${source.motifs[source.motifDominant] ?? 0})` : null}
+                      </span>
+                    )}
+                  </td>
                 </tr>
               );
             })}

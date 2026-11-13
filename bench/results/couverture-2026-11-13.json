@@ -1,0 +1,285 @@
+{
+  "dateMesure": "2026-11-13",
+  "fenetre": {
+    "debut": "2025-11-01",
+    "fin": "2026-10-31"
+  },
+  "corpus": {
+    "incidents": 20,
+    "dansLaFenetre": 15,
+    "horsFenetre": 5
+  },
+  "organisationsEnBase": 34330,
+  "couverture": {
+    "vus": 5,
+    "total": 15,
+    "taux": 33.3,
+    "motifs": {
+      "vu": 5,
+      "pas_admis": 0,
+      "pas_rattache": 10
+    },
+    "causes": {
+      "absent_du_referentiel": 9,
+      "au_referentiel_mais_non_reconnu": 1
+    }
+  },
+  "referentielEntreprises": {
+    "lignesSecteursManquants": 0,
+    "parSecteur": {
+      "sante-social": 88,
+      "energie-eau-dechets": 37,
+      "finance-assurance": 23,
+      "transport-logistique": 149,
+      "numerique": 13035
+    },
+    "avertissement": "Le référentiel entreprises couvre le numérique et les secteurs critiques à partir de 50 salariés, mais contient zéro ligne en agroalimentaire, industrie, construction et commerce. La couverture ci-dessus est donc flatteuse pour ces secteurs."
+  },
+  "method": {
+    "porte": "contract/admit.ts — même admission que l'ingestion",
+    "moteur": "match/gazetteer.ts — 34 330 organisations réelles",
+    "limite": "La mesure suppose que la source publie le jour de l'incident et que le texte désigne l'organisation. Elle ne mesure pas le délai réel de collecte, seulement la capacité à reconnaître un incident publié."
+  },
+  "incidents": [
+    {
+      "id": "na-2026-001",
+      "entite": "Ymed (éditeur de la plateforme Sooncare)",
+      "datePublique": "2026-04-09",
+      "organismeAttendu": "Ymed (éditeur de la plateforme Sooncare)",
+      "motif": "pas_rattache",
+      "delaiJours": null,
+      "organismeTrouve": null,
+      "refusAdmission": null,
+      "raisonMoteur": "aucun",
+      "cause": "au_referentiel_mais_non_reconnu"
+    },
+    {
+      "id": "na-2026-002",
+      "entite": "Mairie de Marennes-Hiers-Brouage",
+      "datePublique": "2026-08-19",
+      "organismeAttendu": "Mairie de Marennes-Hiers-Brouage",
+      "motif": "vu",
+      "delaiJours": 0,
+      "organismeTrouve": "Commune de Marennes-Hiers-Brouage",
+      "refusAdmission": null,
+      "raisonMoteur": "alias-role",
+      "cause": null
+    },
+    {
+      "id": "na-2026-003",
+      "entite": "Ville de Tarnos",
+      "datePublique": "2026-08-29",
+      "organismeAttendu": "Ville de Tarnos",
+      "motif": "vu",
+      "delaiJours": 0,
+      "organismeTrouve": "Commune de Tarnos",
+      "refusAdmission": null,
+      "raisonMoteur": "alias-role",
+      "cause": null
+    },
+    {
+      "id": "na-2026-004",
+      "entite": "Mairie d'Espelette",
+      "datePublique": "2026-09-16",
+      "organismeAttendu": "Mairie d'Espelette",
+      "motif": "vu",
+      "delaiJours": 0,
+      "organismeTrouve": "Commune de Espelette",
+      "refusAdmission": null,
+      "raisonMoteur": "alias-role",
+      "cause": null
+    },
+    {
+      "id": "na-2026-005",
+      "entite": "EHPAD Résidence du Parc de Champdeniers",
+      "datePublique": "2025-12-11",
+      "organismeAttendu": "EHPAD Résidence du Parc de Champdeniers",
+      "motif": "vu",
+      "delaiJours": 0,
+      "organismeTrouve": "EHPAD RESIDENCE DU PARC",
+      "refusAdmission": null,
+      "raisonMoteur": "commune",
+      "cause": null
+    },
+    {
+      "id": "na-2026-006",
+      "entite": "Ville de Gradignan — police municipale",
+      "datePublique": "2026-05-13",
+      "organismeAttendu": "Ville de Gradignan — police municipale",
+      "motif": "vu",
+      "delaiJours": 0,
+      "organismeTrouve": "Commune de Gradignan",
+      "refusAdmission": null,
+      "raisonMoteur": "alias-role",
+      "cause": null
+    },
+    {
+      "id": "na-2026-007",
+      "entite": "Mairie de Fumel",
+      "datePublique": "2025-10-03",
+      "organismeAttendu": "Mairie de Fumel",
+      "motif": "hors_fenetre",
+      "delaiJours": null,
+      "organismeTrouve": "Commune de Fumel",
+      "refusAdmission": null,
+      "raisonMoteur": "alias-role",
+      "cause": null
+    },
+    {
+      "id": "na-2026-008",
+      "entite": "Collège privé La Salle de Brive-la-Gaillarde",
+      "datePublique": "2025-02-14",
+      "organismeAttendu": "Collège privé La Salle de Brive-la-Gaillarde",
+      "motif": "hors_fenetre",
+      "delaiJours": null,
+      "organismeTrouve": "Collège privé La Salle",
+      "refusAdmission": null,
+      "raisonMoteur": "alias-role",
+      "cause": null
+    },
+    {
+      "id": "na-2026-009",
+      "entite": "Bordeaux Sciences Agro",
+      "datePublique": "2026-09-15",
+      "organismeAttendu": "Bordeaux Sciences Agro",
+      "motif": "pas_rattache",
+      "delaiJours": null,
+      "organismeTrouve": null,
+      "refusAdmission": null,
+      "raisonMoteur": "aucun",
+      "cause": "absent_du_referentiel"
+    },
+    {
+      "id": "na-2026-010",
+      "entite": "Vignobles Toutigeac",
+      "datePublique": "2026-07-16",
+      "organismeAttendu": "Vignobles Toutigeac",
+      "motif": "pas_rattache",
+      "delaiJours": null,
+      "organismeTrouve": null,
+      "refusAdmission": null,
+      "raisonMoteur": "aucun",
+      "cause": "absent_du_referentiel"
+    },
+    {
+      "id": "na-2026-011",
+      "entite": "SICSOE (Solution Vin Logistique)",
+      "datePublique": "2026-07-23",
+      "organismeAttendu": "SICSOE (Solution Vin Logistique)",
+      "motif": "pas_rattache",
+      "delaiJours": null,
+      "organismeTrouve": null,
+      "refusAdmission": null,
+      "raisonMoteur": "aucun",
+      "cause": "absent_du_referentiel"
+    },
+    {
+      "id": "na-2026-012",
+      "entite": "Intermarché d'Altillac",
+      "datePublique": "2026-10-13",
+      "organismeAttendu": "Intermarché d'Altillac",
+      "motif": "pas_rattache",
+      "delaiJours": null,
+      "organismeTrouve": null,
+      "refusAdmission": null,
+      "raisonMoteur": "aucun",
+      "cause": "absent_du_referentiel"
+    },
+    {
+      "id": "na-2026-013",
+      "entite": "Magasins de grande distribution touchés en Béarn et Soule (dont Intermarché Pau et Monein)",
+      "datePublique": "2026-10-12",
+      "organismeAttendu": "Magasins de grande distribution touchés en Béarn et Soule (dont Intermarché Pau et Monein)",
+      "motif": "pas_rattache",
+      "delaiJours": null,
+      "organismeTrouve": null,
+      "refusAdmission": null,
+      "raisonMoteur": "aucun",
+      "cause": "absent_du_referentiel"
+    },
+    {
+      "id": "na-2026-014",
+      "entite": "Coaxis",
+      "datePublique": "2026-11-10",
+      "organismeAttendu": "Coaxis",
+      "motif": "hors_fenetre",
+      "delaiJours": null,
+      "organismeTrouve": null,
+      "refusAdmission": null,
+      "raisonMoteur": "aucun",
+      "cause": null
+    },
+    {
+      "id": "na-2026-015",
+      "entite": "Mairie de Sarran",
+      "datePublique": "2025-06-20",
+      "organismeAttendu": "Mairie de Sarran",
+      "motif": "hors_fenetre",
+      "delaiJours": null,
+      "organismeTrouve": "Commune de Sarran",
+      "refusAdmission": null,
+      "raisonMoteur": "alias-role",
+      "cause": null
+    },
+    {
+      "id": "na-2026-016",
+      "entite": "Fédération Nationale des Chasseurs / chasseurs charentais",
+      "datePublique": "2026-01-22",
+      "organismeAttendu": "Fédération Nationale des Chasseurs / chasseurs charentais",
+      "motif": "pas_rattache",
+      "delaiJours": null,
+      "organismeTrouve": null,
+      "refusAdmission": null,
+      "raisonMoteur": "aucun",
+      "cause": "absent_du_referentiel"
+    },
+    {
+      "id": "na-2026-017",
+      "entite": "Ville de Poitiers et Grand Poitiers",
+      "datePublique": "2025-09-05",
+      "organismeAttendu": "Ville de Poitiers et Grand Poitiers",
+      "motif": "hors_fenetre",
+      "delaiJours": null,
+      "organismeTrouve": "Commune de Poitiers",
+      "refusAdmission": null,
+      "raisonMoteur": "alias-role",
+      "cause": null
+    },
+    {
+      "id": "na-2026-018",
+      "entite": "Fédération Française de Cyclisme — membres en Nouvelle-Aquitaine",
+      "datePublique": "2025-12-10",
+      "organismeAttendu": "Fédération Française de Cyclisme — membres en Nouvelle-Aquitaine",
+      "motif": "pas_rattache",
+      "delaiJours": null,
+      "organismeTrouve": null,
+      "refusAdmission": null,
+      "raisonMoteur": "aucun",
+      "cause": "absent_du_referentiel"
+    },
+    {
+      "id": "na-2026-019",
+      "entite": "Delicity — service de livraison de repas disponible à Bordeaux, Pau et Limoges",
+      "datePublique": "2026-09-07",
+      "organismeAttendu": "Delicity — service de livraison de repas disponible à Bordeaux, Pau et Limoges",
+      "motif": "pas_rattache",
+      "delaiJours": null,
+      "organismeTrouve": null,
+      "refusAdmission": null,
+      "raisonMoteur": "aucun",
+      "cause": "absent_du_referentiel"
+    },
+    {
+      "id": "na-2026-020",
+      "entite": "Euskal Moneta (association support de la monnaie locale Eusko)",
+      "datePublique": "2026-08-28",
+      "organismeAttendu": "Euskal Moneta (association support de la monnaie locale Eusko)",
+      "motif": "pas_rattache",
+      "delaiJours": null,
+      "organismeTrouve": null,
+      "refusAdmission": null,
+      "raisonMoteur": "aucun",
+      "cause": "absent_du_referentiel"
+    }
+  ]
+}

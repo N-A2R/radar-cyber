@@ -87,61 +87,87 @@ const MOCK_EVENTS: Event[] = [
 ];
 
 // Couvre les trois états de santé : ok, erreur, jamais collecté.
+/** Une source de démonstration n'a pas d'historique de rendement : inconnu. */
+const MOCK_MEASURE = {
+  disabledAt: null,
+  disabledReason: null,
+  entrees: null,
+  rejets: null,
+  evenements30j: 0,
+  evenementsTotal: 0,
+  dernierRun: null,
+  dernierRunStatut: null,
+  rendement: null,
+  motifs: null,
+  motifDominant: null,
+} as const;
+
 const MOCK_SOURCES: Source[] = [
   {
     id: "mock", name: "Source simulée (démo)", family: "cti", url: "https://example.invalid",
+    ...MOCK_MEASURE,
     kind: "narrative", format: "json", enabled: true, intervalSec: 3600,
     lastOkAt: ago(3), lastErrorAt: null, lastError: null, itemsTotal: 5, lastItems: 1, ok: true,
   },
   {
     id: "cert_fr", name: "CERT-FR", family: "cert_fr", url: "https://www.cert.ssi.gouv.fr/feed/",
+    ...MOCK_MEASURE,
     kind: "narrative", format: "rss", enabled: true, intervalSec: 900,
     lastOkAt: ago(12), lastErrorAt: null, lastError: null, itemsTotal: 486, lastItems: 2, ok: true,
   },
   {
     id: "cisa_kev", name: "CISA KEV", family: "vuln", url: "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
+    ...MOCK_MEASURE,
     kind: "indicator", format: "json", enabled: true, intervalSec: 3600,
     lastOkAt: ago(48), lastErrorAt: null, lastError: null, itemsTotal: 1287, lastItems: 9, ok: true,
   },
   {
     id: "epss", name: "EPSS", family: "vuln", url: "https://api.first.org/data/v1/epss",
+    ...MOCK_MEASURE,
     kind: "indicator", format: "json", enabled: true, intervalSec: 3600,
     lastOkAt: ago(31), lastErrorAt: null, lastError: null, itemsTotal: 5421, lastItems: 23, ok: true,
   },
   {
     id: "ransomlook", name: "Ransomlook", family: "ransomware", url: "https://www.ransomlook.io/feed",
+    ...MOCK_MEASURE,
     kind: "narrative", format: "json", enabled: true, intervalSec: 1800,
     lastOkAt: ago(2880), lastErrorAt: ago(26), lastError: "HTTP 503 — service indisponible",
     itemsTotal: 93, lastItems: 0, ok: false,
   },
   {
     id: "hermes", name: "Hermès (flux régional)", family: "cti", url: "https://hermes.example.invalid/rss",
+    ...MOCK_MEASURE,
     kind: "narrative", format: "rss", enabled: true, intervalSec: 3600,
     lastOkAt: null, lastErrorAt: null, lastError: null, itemsTotal: null, lastItems: null, ok: false,
   },
   {
     id: "typosquat", name: "Typosquatting NA", family: "typosquat", url: "https://typosquat.example.invalid/api",
+    ...MOCK_MEASURE,
     kind: "indicator", format: "json", enabled: true, intervalSec: 1800,
     lastOkAt: ago(5), lastErrorAt: null, lastError: null, itemsTotal: 214, lastItems: 4, ok: true,
   },
   {
     id: "nvd", name: "NVD", family: "vuln", url: "https://services.nvd.nist.gov/json/cves/2.0",
+    ...MOCK_MEASURE,
     kind: "indicator", format: "json", enabled: true, intervalSec: 7200,
     lastOkAt: ago(4320), lastErrorAt: ago(120), lastError: "délai d'attente dépassé après 30000 ms",
     itemsTotal: 80412, lastItems: 0, ok: false,
   },
   {
     id: "abuse_ch", name: "abuse.ch Feodo", family: "malware", url: "https://feodo-tracker.abuse.ch/downloads/hostlist/",
+    ...MOCK_MEASURE,
     kind: "indicator", format: "json", enabled: true, intervalSec: 3600,
     lastOkAt: ago(72), lastErrorAt: null, lastError: null, itemsTotal: 3310, lastItems: 15, ok: true,
   },
   {
     id: "openphish", name: "OpenPhish", family: "phishing", url: "https://openphish.com/feed.txt",
+    ...MOCK_MEASURE,
     kind: "indicator", format: "text", enabled: true, intervalSec: 3600,
     lastOkAt: ago(9), lastErrorAt: null, lastError: null, itemsTotal: 1204, lastItems: 6, ok: true,
   },
   {
     id: "regional_na", name: "Veille régionale NA (à activer)", family: "cert", url: "https://veille.example.invalid/rss",
+    ...MOCK_MEASURE,
     kind: "narrative", format: "rss", enabled: false, intervalSec: 3600,
     lastOkAt: null, lastErrorAt: null, lastError: null, itemsTotal: null, lastItems: null, ok: false,
   },
@@ -226,6 +252,53 @@ export function mockOrgDetail(orgId: number): OrgDetail | null {
         { value: `www.${domain}`, kind: "subdomain", createdAt: ago(60 * 24 * 20), source: "mock" },
         { value: `vpn.${domain}`, kind: "subdomain", createdAt: ago(60 * 24 * 12), source: "mock" },
       ],
+    },
+    // Démonstration : un historique court pour que la fiche montre des barres.
+    historique: {
+      premier: ago(60 * 24 * 300),
+      dernier: events[0]?.observedAt ?? ago(60 * 24 * 3),
+      faits: Math.max(1, byFamily.length),
+      parMois: Array.from({ length: 12 }, (_, i) => {
+        const d = new Date(now - (11 - i) * 30 * 86_400_000);
+        return { mois: d.toISOString().slice(0, 7), faits: i >= 9 ? 1 : 0 };
+      }),
+      tendance: "nouveau" as const,
+      familles: byFamily.map((f) => ({ family: f.family, faits: f.n })),
+      sources: [...new Set(events.map((e) => e.sourceId))],
+    },
+    // Démonstration : deux événements de la même famille et du même jour sont
+    // un seul fait corroboré, pas deux faits.
+    corroboration: {
+      resume: {
+        faits: Math.max(1, byFamily.length),
+        evenements: events.length,
+        sources: new Set(events.map((e) => e.sourceId)).size,
+        corrobores: events.length > 1 ? 1 : 0,
+        isoles: Math.max(0, byFamily.length - 1),
+        desaccords: 0,
+      },
+      groupes: events.slice(0, 5).map((e, i) => ({
+        cle: `${e.family}:${(e.observedAt ?? "").slice(0, 10)}:${i}`,
+        family: e.family,
+        orgId,
+        titre: e.title,
+        debut: e.observedAt ?? new Date(now).toISOString(),
+        fin: e.observedAt ?? new Date(now).toISOString(),
+        sourcesDistinctes: 1,
+        force: "isole" as const,
+        sources: [
+          {
+            sourceId: e.sourceId,
+            premiereDate: e.observedAt ?? new Date(now).toISOString(),
+            estPremier: true,
+            delaiHeures: 0,
+            evenements: 1,
+            graviteMax: e.severity,
+            assertion: e.assertionType,
+          },
+        ],
+      })),
+      desaccords: [],
     },
     events: { total: events.length, byFamily, recent: events },
     claims: { total: 0, recent: [] },

@@ -163,6 +163,24 @@ async function main(): Promise<void> {
 			}
 		}
 
+		// --- Journal de vérité -----------------------------------------------
+		// La doctrine « aucune écriture destructive » n'est une propriété du
+		// dépôt que si elle est vérifiée dans le socle. Une base sans journal
+		// n'est pas un socle valide : le contrôle échoue, il ne prévient pas.
+		{
+			const j = await client.query<{ existe: boolean }>(
+				"SELECT to_regclass('public.journal') IS NOT NULL AS existe",
+			);
+			if (j.rows[0]?.existe === true) {
+				// La vérification tourne aussi en diagnostic : c'est là qu'on veut
+				// savoir qu'une projection a divergé, pas après coup.
+				await runScript("scripts/verify-journal.mts");
+				report("journal de vérité", true, "table présente, append-only et projections vérifiés");
+			} else {
+				report("journal de vérité", false, "table absente — migration 027 non appliquée");
+			}
+		}
+
 		// --- Compte administrateur -------------------------------------------
 		const users = await client.query<{ n: string }>("SELECT count(*)::text AS n FROM app_user");
 		if (Number(users.rows[0].n) > 0) {

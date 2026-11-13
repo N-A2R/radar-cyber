@@ -19,7 +19,9 @@ import {
 	type CoverageContext,
 	isRelevant,
 	loadRelevanceOrgIndex,
-	matchOrgForText,
+	designateOrganization,
+	expliquerRattachement,
+	preparerGazetteer,
 	type RelevanceOrg,
 } from "./relevance.js";
 import { isActionableIndicator, loadActiveIndex, type ActiveIndex } from "./filter.js";
@@ -29,8 +31,11 @@ import { AdmissionTally, admitEvent } from "../contract/admit.js";
 import { parseClaimCards } from "./parsers/claims.js";
 import { parseTelegramMessages } from "./parsers/telegram.js";
 import { decodeBody } from "./parsers/decode.js";
+import { consignerLot, MOTEURS, type JournalEntry } from "../journal/index.js";
 import { parseRssItems } from "./parsers/xml.js";
 import { parseJsonItems as parseJsonItemsNew } from "./parsers/json.js";
+import { constaterTransition } from "./reveil.js";
+import { libelleMotif, versEvidence, type ExplicationRattachement } from "../journal/rattachement.js";
 
 type SourceRow = {
   id: string;
@@ -47,7 +52,28 @@ type SourceRow = {
 };
 
 /** `skipped` = éléments écartés (porte de pertinence ou filtre anti-bruit). */
-type IngestResult = { items: number; added: number; skipped: number };
+/**
+ * Résultat d'une ingestion de source.
+ *
+ * `rejected` porte les motifs agrégés du run : c'est la seule information qui
+ * distingue « la source est vide » de « notre filtre refuse tout ». Sans elle,
+ * une source qui lit 40 entrées et n'en retient aucune est indiscernable d'une
+ * source cassée — et le chantier 15 n'a rien à se mettre sous la dent.
+ */
+type IngestResult = {
+  items: number;
+  added: number;
+  skipped: number;
+  rejected?: Record<string, number>;
+};
+
+/** Fusionne deux tableaux de motifs sans écraser les compteurs. */
+function fusionnerMotifs(a: Record<string, number> | undefined, b: Record<string, number> | undefined): Record<string, number> | undefined {
+  if (a === undefined && b === undefined) return undefined;
+  const out: Record<string, number> = { ...a };
+  for (const [motif, n] of Object.entries(b ?? {})) out[motif] = (out[motif] ?? 0) + n;
+  return out;
+}
 
 const MAX_BODY_BYTES = 25 * 1024 * 1024;
 const BATCH_SIZE = 1000;
@@ -477,6 +503,9 @@ async function ingestIndicator(source: SourceRow, body: string, idx?: ActiveInde
   let items = 0;
   let added = 0;
   let skipped = 0;
+  // Motifs de rejet des indicateurs : une valeur écartée l'est pour une raison
+  // précise (dénylist, filtre d'actionnabilité, doublon d'expression).
+  const rejetes: Record<string, number> = {};
 
   const flush = async (): Promise<number> => {
     if (batch.length === 0) return 0;
@@ -488,6 +517,7 @@ async function ingestIndicator(source: SourceRow, body: string, idx?: ActiveInde
     );
     if (dropped > 0) {
       runLog?.(`filtre : ${dropped}/${rows.length} indicateur(s) légitime(s) écarté(s) (warninglists)`);
+      rejetes.warninglist = (rejetes.warninglist ?? 0) + dropped;
     }
     const usable = kept.map((entry) => entry.row);
     if (usable.length === 0) return 0;
@@ -512,17 +542,21 @@ async function ingestIndicator(source: SourceRow, body: string, idx?: ActiveInde
     items++;
     const value = line.trim();
     const key = `${type}:${value}`;
-    if (seen.has(key)) continue;
+    if (seen.has(key)) {
+      rejetes.doublon = (rejetes.doublon ?? 0) + 1;
+      continue;
+    }
     seen.add(key);
     if (idx && !isActionableIndicator(value, type, idx).keep) {
       skipped++;
+      rejetes.non_actionnable = (rejetes.non_actionnable ?? 0) + 1;
       continue;
     }
     batch.push({ type, value });
     if (batch.length >= BATCH_SIZE) added += await flush();
   }
   added += await flush();
-  return { items, added, skipped };
+  return { items, added, skipped, ...(Object.keys(rejetes).length > 0 ? { rejected: rejetes } : {}) };
 }
 
 function isMenuEntry(title: string, sourceName: string): "menu_path" | "menu_token" | "menu_source" | null {
@@ -604,6 +638,7 @@ async function quarantineUnparsedBody(source: SourceRow, body: string): Promise<
 async function ingestNarrative(
 	source: SourceRow,
 	body: string,
+	/** Domaines connus, pour la porte ; le rattachement passe par le gazetteer. */
 	orgIndex: RelevanceOrg[],
 	coverage: CoverageContext,
 ): Promise<IngestResult> {
@@ -653,6 +688,10 @@ async function ingestNarrative(
   let added = 0;
   let skipped = 0;
   const fetchedAt = new Date();
+  // Faits à consigner pour cette source. Accumulés pendant la boucle puis
+  // écrits en une requête : le journal ne doit pas doubler le coût de collecte.
+  const faits: JournalEntry[] = [];
+
   for (const item of items) {
     const title = decodeEntities(explicitOr(item, parser.titleField, TITLE_FIELDS)).slice(0, 400);
     const summary = decodeEntities(explicitOr(item, parser.summaryField, SUMMARY_FIELDS)).slice(0, 2000);
@@ -671,7 +710,14 @@ async function ingestNarrative(
     // département de Nouvelle-Aquitaine est cité en mot entier). L'URL reste
     // hors du texte examiné par (b).
     let admission: "epss" | "dept" | null = null;
-    if (gate && !isRelevant({ title, url: link, sourceUrl: link }, { orgs: orgIndex, ignoreDomains: [sourceHost] }).relevant) {
+    // La porte consulte le gazetteer : un toponyme nu ne suffit plus, un nom
+    // distinctif ou un rôle institutionnel suffit. Sans cet appui, la porte
+    // reste sur les mots-clés cyber (et les deux règles de couverture).
+    const porte = gate
+      ? isRelevant({ title, url: link, sourceUrl: link }, { orgs: orgIndex, ignoreDomains: [sourceHost] })
+      : { relevant: true, reason: "keyword" as const };
+    const nomme = gate && !porte.relevant ? designateOrganization(`${title} ${summary}`) : null;
+    if (gate && !porte.relevant && nomme === null) {
       if (admitByEpss(cveTextOf(item, title, summary), coverage) !== null) admission = "epss";
       else if (admitsDepartment(`${title} ${summary}`, coverage.deptNames)) admission = "dept";
       if (admission === null) {
@@ -681,11 +727,34 @@ async function ingestNarrative(
       }
     }
     let orgId: number | null = null;
+    let explication: ExplicationRattachement = {
+      moteur: "gazetteer@2",
+      motif: "aucun",
+      alias: null,
+      confiance: 0,
+      indisponible: true,
+    };
     try {
-      const matchedOrg = await matchOrgForText(`${title} ${summary}`);
+      const matchedOrg = nomme ?? designateOrganization(`${title} ${summary}`);
       orgId = matchedOrg?.orgId ?? null;
+      if (matchedOrg) {
+        // Le moteur sait pourquoi il rattache : on le garde, sinon la fiche
+        // d'un événement rattaché ne peut rien expliquer d'autre que « fait ».
+        explication = matchedOrg.explication ?? {
+          moteur: "gazetteer@2",
+          motif: "alias-distinctif",
+          alias: null,
+          confiance: matchedOrg.confidence,
+        };
+      } else {
+        // Aucun rattachement : la raison compte autant que l'absence. « Le
+        // texte ne nomme personne » et « deux homonymes à égalité » ne se
+        // corrigent pas de la même façon.
+        explication = expliquerRattachement(`${title} ${summary}`);
+      }
     } catch {
       orgId = null;
+      explication = { moteur: "gazetteer@2", motif: "aucun", alias: null, confiance: 0, indisponible: true };
     }
     const dateRaw = explicitOr(item, parser.dateField, DATE_FIELDS);
     // parseObservedAt couvre RFC 822/3339, formats français et relatifs ; à
@@ -728,7 +797,8 @@ async function ingestNarrative(
       confidence: "C3",
       sourceId: source.id,
       sourceUrl: link || undefined,
-      evidence: { feed: source.name },
+      // La preuve porte le pourquoi du rattachement, pas seulement la source.
+      evidence: { feed: source.name, rattachement: versEvidence(explication) },
       geoType: "unknown",
     });
     contract.record(admitted);
@@ -755,6 +825,28 @@ async function ingestNarrative(
         event.assertionType, event.severity, event.confidence ?? "C3", event.geoType]
     );
     if (r.rows[0]?.inserted) added++;
+    faits.push({
+      kind: orgId !== null ? "event.rattachement" : "match.decided",
+      subject: dedupKey,
+      summary: orgId !== null
+        ? `${source.id} : rattaché — ${libelleMotif(explication.motif)}${explication.alias ? ` (« ${explication.alias} »)` : ""}`
+        : `${source.id} : non rattaché — ${libelleMotif(explication.motif)}`,
+      actor: `moteur:${MOTEURS.rattachement}`,
+      // Le pourquoi, pas seulement le quoi : c'est ce qui permet de mesurer
+      // plus tard ce qu'un changement de moteur a corrigé.
+      payload: { orgId, ...versEvidence(explication), famille: family, admission: admissionRule },
+      validAt: event.observedAt ?? null,
+    });
+  }
+  // Écriture groupée : les faits de cette source, en une requête.
+  if (faits.length > 0) {
+    try {
+      await consignerLot(faits);
+    } catch (error) {
+      // Le journal ne doit jamais faire perdre une collecte : on signale et on
+      // continue. Une lacune de journal est visible, une collecte perdue non.
+      runLog?.(`[journal] ${source.id} : ${faits.length} fait(s) non consigné(s) — ${String(error).slice(0, 120)}`);
+    }
   }
   for (const [reason, n] of Object.entries(menuRejected)) {
     runLog?.(`[collect] ${source.id} : ${n} entrée(s) menu rejetée(s) (${reason})`);
@@ -769,7 +861,14 @@ async function ingestNarrative(
   // inaperçues. Utile pour repérer une source qui dérive.
   const contractLine = contract.logLine();
   if (contractLine) runLog?.(`[collect] ${source.id} : contrat — ${contractLine}`);
-  return { items: items.length, added, skipped };
+  // Les motifs de rejet partent en base, pas seulement dans les logs : c'est
+  // ce qui permet de répondre à « pourquoi cette source ne rend-elle rien »
+  // sans relancer une collecte.
+  const motifs = fusionnerMotifs(
+    Object.keys(rejectedBy).length > 0 ? rejectedBy : undefined,
+    Object.keys(menuRejected).length > 0 ? menuRejected : undefined,
+  );
+  return { items: items.length, added, skipped, ...(motifs !== undefined ? { rejected: motifs } : {}) };
 }
 
 /**
@@ -860,9 +959,24 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], covera
       [result.items, result.added, source.id]
     );
     await ingestQuery(
-      "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, items_skipped) VALUES ($1, now(), 'ok', $2, $3, $4)",
-      [source.id, result.items, result.added, result.skipped]
-    );
+      "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, items_skipped, items_rejected) VALUES ($1, now(), 'ok', $2, $3, $4, $5)",
+      [source.id, result.items, result.added, result.skipped, result.rejected ? JSON.stringify(result.rejected) : null]
+    ).catch(async (error: unknown) => {
+      // Base pas encore migrée vers 029 : la collecte ne doit pas être perdue
+      // pour une colonne de diagnostic. On retombe sur l'écriture historique —
+      // mais seulement dans ce cas, sinon on masquerait une vraie panne.
+      const message = String((error as Error)?.message ?? error);
+      if (!message.includes("items_rejected")) throw error;
+      await ingestQuery(
+        "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, items_skipped) VALUES ($1, now(), 'ok', $2, $3, $4)",
+        [source.id, result.items, result.added, result.skipped]
+      );
+    });
+    // Le changement d'état est un fait : « elle se réveille » et « elle
+    // s'assoupit » ne se lisent nulle part ailleurs, et c'est pourtant la seule
+    // information qui distingue une source qui vient de casser d'une source qui
+    // n'a jamais rien valu.
+    await constaterTransition(source.id, "ok", result.added);
   } catch (e) {
     const err = String((e as Error)?.message ?? e);
     await ingestQuery("UPDATE source SET last_error_at=now(), last_error=$1 WHERE id=$2", [err, source.id]).catch(() => {});
@@ -870,6 +984,7 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], covera
       "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, error) VALUES ($1, now(), 'error', 0, 0, $2)",
       [source.id, err]
     ).catch(() => {});
+    await constaterTransition(source.id, "error", 0, err);
   }
 }
 
@@ -900,6 +1015,10 @@ export async function runGenericSources(
     "SELECT o.name, o.domain, array_remove(array_agg(DISTINCT a.value), NULL) AS assets FROM org o LEFT JOIN asset a ON a.org_id = o.id AND a.kind IN ('domain','subdomain') GROUP BY o.id"
   );
   const orgIndex = loadRelevanceOrgIndex(orgRows.map((o) => ({ name: o.name, domain: o.domain, assets: o.assets ?? [] })));
+  // Le rattachement s'appuie sur le gazetteer (alias + rôles), chargé une seule
+  // fois par run : un index de 52 000 alias coûte ~1 s, pas une requête par item.
+  const aliasIndexes = await preparerGazetteer();
+  log(`gazetteer : ${aliasIndexes} alias indexés pour le rattachement`);
   activeIndex = await loadActiveIndex();
 
   // Couverture élargie : colonne `admission_rule` (migration idempotente),

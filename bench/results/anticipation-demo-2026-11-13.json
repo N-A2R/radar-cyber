@@ -1,0 +1,47 @@
+{
+  "date": "2026-11-13",
+  "fenetreAvanceJours": 21,
+  "faits": 3,
+  "avecSignal": 2,
+  "partPct": 67,
+  "avanceMedianeJours": 16,
+  "parNature": {
+    "indicateur": 1,
+    "revendication": 0,
+    "ambiance": 1,
+    "alerte": 0
+  },
+  "indicative": true,
+  "details": [
+    {
+      "org": "Scierie de démonstration",
+      "family": "ransomware",
+      "fait": "2026-09-26 00:00:00+00",
+      "signaux": [
+        {
+          "nature": "indicateur",
+          "family": "vuln",
+          "source_id": "hermes_radar_cyber",
+          "date": "2026-09-10 00:00:00+00",
+          "avance_jours": 16,
+          "resume": "CVE critique sur un pare-feu utilisé par la scierie de démonstration"
+        }
+      ]
+    },
+    {
+      "org": "Scierie de démonstration",
+      "family": "vuln",
+      "fait": "2026-09-10 00:00:00+00",
+      "signaux": [
+        {
+          "nature": "ambiance",
+          "family": "cti",
+          "source_id": "hermes_radar_cyber",
+          "date": "2026-09-01 00:00:00+00",
+          "avance_jours": 9,
+          "resume": "Un actif exposé mentionne la scierie de démonstration"
+        }
+      ]
+    }
+  ]
+}

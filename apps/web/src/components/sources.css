@@ -244,3 +244,82 @@
     transition: none;
   }
 }
+
+/* --- Rendement : ce que la source rapporte, distinct de « elle répond » --- */
+
+.sources-view__yield {
+  padding: 0 16px 8px;
+  margin: 0;
+  font-size: 11px;
+  color: var(--color-ink-2);
+  border-bottom: 1px solid var(--color-edge-lo);
+  flex: 0 0 auto;
+}
+
+.sources-yield {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-muted);
+}
+
+/* Une source productive reste discrète : c'est le silence qui doit se voir. */
+.sources-yield[data-yield="productive"] {
+  color: var(--color-accent-2);
+}
+
+/* « lit sans rendre » : le parseur ou la porte est en cause, pas la source.
+   Orange, jamais rouge — rien n'est cassé, quelque chose se perd. */
+.sources-yield[data-yield="vide"] {
+  color: var(--sev-4, var(--color-ink-2));
+}
+
+.sources-table__reason {
+  display: block;
+  margin-top: 2px;
+  font-size: 10px;
+  color: var(--color-muted);
+  max-width: 22ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* --- Motif de rejet : pourquoi la source ne rend rien ---------------------- */
+
+.sources-table__motif {
+  font-size: 11px;
+  color: var(--color-muted);
+  max-width: 26ch;
+}
+
+.sources-motif {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: help;
+}
+
+/* « Non mesuré » est grisé, jamais vide : une case blanche laisse croire à
+   l'absence de rejet, ce qui est le contraire de la vérité. */
+.sources-table__unmeasured {
+  color: var(--color-faint);
+  font-style: italic;
+}
+
+/* --- Unicité : ce qu'une source apporte seule ------------------------------ */
+
+/* Aucune couleur d'alerte : une source qui ne révèle rien n'est pas en panne,
+   elle est seulement redondante. Le gras suffit à distinguer. */
+.sources-unique {
+  font-variant-numeric: tabular-nums;
+}
+
+.sources-unique[data-unique="oui"] {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+.sources-unique[data-unique="non"] {
+  color: var(--color-faint);
+}
