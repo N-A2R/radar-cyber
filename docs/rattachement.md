@@ -208,3 +208,25 @@ de production** s'il rattacherait encore le texte. Si la réponse diffère de la
 base, le lien vient d'une règle qui n'existe plus.
 
 Bilan des deux passes : **2 476 liens faux défaits**, 0 en base.
+
+---
+
+## Les particules ne portent pas de nom
+
+Le corpus de référence a produit un cas net : la presse écrit « SDIS **des**
+Landes », le référentiel porte « SDIS LANDES ». Les fenêtres de jetons étaient
+contiguës, donc la séquence « sdis des landes » ne frappait jamais l'alias
+« sdis landes » — un incident parfaitement identifiable restait non rattaché.
+
+`match/gazetteer.ts` essaie désormais **deux familles de fenêtres**, de la plus
+longue à la plus courte : contiguës d'abord (les alias du référentiel
+contiennent eux-mêmes des particules — « Ville de Tarnos »), puis sans
+particules.
+
+La première tentative ne gardait que la seconde famille : six tests du
+gazetteer sont tombés, parce qu'un alias qui contient une particule ne se
+trouvait plus. Les deux familles coexistent donc, et l'ordre est explicite.
+
+Effet mesuré sur la couverture : **5/15 (33,3 %) → 7/18 (38,9 %)**. Le
+dénominateur a grandi (trois incidents réels ajoutés au corpus) et le
+numérateur aussi (deux d'entre eux sont vus).
