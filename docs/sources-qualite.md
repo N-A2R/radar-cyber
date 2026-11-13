@@ -80,3 +80,43 @@ de produit assumée. La question est donc posée, pas tranchée ici.
 Le trou de fond reste le référentiel : 9 des 10 incidents non rattachés du
 corpus le sont parce que l'organisation n'existe pas en base. Aucune source
 supplémentaire ne comble ça.
+
+---
+
+## L'entonnoir, et le bon dénominateur
+
+« 12,4 % des sources rendent » était un chiffre calculé sur 266 sources
+**déclarées** — dont 107 n'avaient jamais été exécutées une seule fois. Le
+dénominateur était faux, donc le taux aussi.
+
+Mesuré le 13 novembre 2026, après triage :
+
+| Étape | Nombre |
+| --- | --- |
+| Déclarées | 270 |
+| Activées | 163 |
+| Lues au moins une fois | 163 |
+| Ont extrait au moins un item | 57 |
+| **Ont produit au moins un événement** | **55** |
+| **Rendement des sources réellement lues** | **55/163 = 33,7 %** |
+| Rendement sur l'ensemble des sources déclarées | 55/270 = 20,4 % |
+
+**33,7 %** est la seule mesure qui décrive le collecteur. L'autre décrit la
+paperasse.
+
+## Les 21 sources jamais lues, tranchées une par une
+
+Aucune n'était « en panne » : elles n'avaient jamais tourné, ou ne pouvaient
+pas fonctionner.
+
+| Sorte | Nombre | Décision |
+| --- | --- | --- |
+| Fonctionnent (758 et 100 items) | 2 | réactivées, jamais exécutées jusqu'ici |
+| Répondent 403 / flux vide | 2 | éteintes avec motif |
+| API sans clé (HIBP, GitHub) | 2 | éteintes avec motif |
+| Page HTML au lieu d'un flux | 9 | éteintes avec motif |
+| Canaux Telegram sans RSS | 5 | éteintes avec motif |
+| Profil d'exécution local | 1 | éteinte : n'est pas une source réseau |
+
+`db/migrate-034-sources-tranchees.sql`. Toutes réactivables : aucune n'est
+supprimée, chacune porte son motif en base.
