@@ -9,6 +9,7 @@ import { runQuarantineCollector } from "./collectors/quarantine.collector.js";
 import { promoteMatches } from "./quarantine/promote.js";
 import { fetchResilient } from "./collectors/http.js";
 import { collectors } from "./collectors/index.js";
+import { consignerLot, type JournalEntry } from "./journal/index.js";
 import { closePools, ingestQuery, query } from "./db.js";
 import { deliverPendingAlerts, readDeliveryConfig } from "./notify/alert-delivery.js";
 import { runRetention } from "./maintenance/retention.js";
@@ -134,6 +135,10 @@ async function runCollectors(): Promise<void> {
 			// les collecteurs renvoient ce qu'ils veulent à l'exécution. Le
 			// contrat vérifie pour de vrai, et compte ses écarts.
 			const contract = new AdmissionTally();
+			// Faits de journal pour cette source. Accumulés puis écrits en une
+			// passe : sans eux, 1 921 événements sur 3 758 n'avaient aucune
+			// trace, et `verify:journal` le disait sans qu'on l'écoute.
+			const faits: JournalEntry[] = [];
 			for (const ev of result.events as NormalizedEvent[]) {
 				const admitted = admitEvent(ev as unknown as Record<string, unknown>);
 				contract.record(admitted);
@@ -145,7 +150,24 @@ async function runCollectors(): Promise<void> {
 					 ON CONFLICT (dedup_key) DO UPDATE SET observed_at = COALESCE(event.observed_at, EXCLUDED.observed_at)`,
 					[event.dedupKey, event.family, event.assertionType, event.title, event.summary ?? null, event.observedAt ?? null, event.severity, event.confidence ?? null, event.sourceId, event.sourceUrl ?? null, JSON.stringify(event.evidence ?? {}), event.geoType, event.lat ?? null, event.lon ?? null]
 				);
-				if ((r.rowCount ?? 0) > 0) itemsNew++;
+				if ((r.rowCount ?? 0) > 0) {
+					itemsNew++;
+					faits.push({
+						kind: "event.admitted",
+						subject: event.dedupKey,
+						summary: `${c.id} : événement admis (${event.family})`,
+						actor: `collecteur:${c.id}`,
+						payload: { family: event.family, assertionType: event.assertionType },
+						validAt: event.observedAt ?? null,
+					});
+				}
+			}
+			// Une lacune de journal est visible et réparable ; une collecte
+			// perdue ne l'est pas. On signale, on ne bloque pas.
+			if (faits.length > 0) {
+				await consignerLot(faits).catch((e: unknown) => {
+					app.log.warn(`[journal] ${c.id} : ${faits.length} fait(s) non consigné(s) — ${String((e as Error)?.message ?? e)}`);
+				});
 			}
 			const newCursor = result.cursor ?? cursor;
 			await ingestQuery("UPDATE source SET cursor=$1, last_ok_at=now() WHERE id=$2", [JSON.stringify(newCursor), c.id]);
