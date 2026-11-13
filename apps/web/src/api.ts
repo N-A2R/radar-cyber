@@ -470,6 +470,16 @@ export type Desaccord = {
   positions: { sourceId: string; valeur: string }[];
 };
 
+export type Historique = {
+  premier: string | null;
+  dernier: string | null;
+  faits: number;
+  parMois: { mois: string; faits: number }[];
+  tendance: "nouveau" | "en hausse" | "stable" | "en baisse" | "ancien";
+  familles: { family: string; faits: number }[];
+  sources: string[];
+};
+
 export type Corroboration = {
   resume: {
     faits: number;
@@ -491,6 +501,8 @@ export type OrgDetail = {
   exposure: OrgExposurePoint[];
   /** Absent des serveurs antérieurs à l'analyse multi-sources. */
   corroboration?: Corroboration;
+  /** Absent des serveurs antérieurs au profil historique. */
+  historique?: Historique;
 };
 
 /** Alerte poussée par le flux SSE (`event: alert`). */

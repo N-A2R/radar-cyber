@@ -253,6 +253,19 @@ export function mockOrgDetail(orgId: number): OrgDetail | null {
         { value: `vpn.${domain}`, kind: "subdomain", createdAt: ago(60 * 24 * 12), source: "mock" },
       ],
     },
+    // Démonstration : un historique court pour que la fiche montre des barres.
+    historique: {
+      premier: ago(60 * 24 * 300),
+      dernier: events[0]?.observedAt ?? ago(60 * 24 * 3),
+      faits: Math.max(1, byFamily.length),
+      parMois: Array.from({ length: 12 }, (_, i) => {
+        const d = new Date(now - (11 - i) * 30 * 86_400_000);
+        return { mois: d.toISOString().slice(0, 7), faits: i >= 9 ? 1 : 0 };
+      }),
+      tendance: "nouveau" as const,
+      familles: byFamily.map((f) => ({ family: f.family, faits: f.n })),
+      sources: [...new Set(events.map((e) => e.sourceId))],
+    },
     // Démonstration : deux événements de la même famille et du même jour sont
     // un seul fait corroboré, pas deux faits.
     corroboration: {

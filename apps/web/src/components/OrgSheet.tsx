@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { api, type ApiError, type OrgDetail as OrgDetailData } from "../api";
-import { renduCorroboration } from "./corroboration-view";
+import { renduCorroboration, renduHistorique } from "./corroboration-view";
 import { mockOrgDetail } from "../mock";
 import "./orgsheet.css";
 
@@ -99,6 +99,7 @@ function OrgSheetBody({ data }: { data: OrgDetailData }) {
         regroupé par fait. Cinq lignes d'événements peuvent raconter un seul
         incident relayé par cinq sources — ou cinq incidents.
       */}
+      {renduHistorique(data.historique ?? null)}
       {renduCorroboration(data.corroboration ?? null)}
 
       <section className="orgsheet__section">
