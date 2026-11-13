@@ -1,5 +1,6 @@
 import type { FastifyInstance } from "fastify";
 import { ingestQuery } from "../db.js";
+import { consigner } from "../journal/index.js";
 import { requireAuth } from "../middleware/auth.js";
 import { AdmissionTally, admitEvent } from "../contract/admit.js";
 
@@ -110,7 +111,17 @@ export default async function (app: FastifyInstance) {
           event.geoType,
         ]
       );
-      if (r.rows[0]?.inserted) inserted++; else skipped++;
+      if (r.rows[0]?.inserted) {
+        inserted++;
+        await consigner({
+          kind: "event.admitted",
+          subject: event.dedupKey,
+          summary: `${event.sourceId} : événement admis via POST /api/ingest`,
+          actor: "collecteur:ingest_http",
+          payload: { family: event.family, assertionType: event.assertionType },
+          validAt: event.observedAt ?? null,
+        });
+      } else skipped++;
     }
     return { inserted, skipped, contract: contract.detail(), rejected };
   });
