@@ -79,7 +79,7 @@ pourquoi l'axe 1 est déjà engagé.
 
 | # | Chantier | État | Critère de sortie |
 | --- | --- | --- | --- |
-| 20 | **Exploitation vérifiée et dossier de reprise** | à faire | reprise après arrêt prouvée, rapport hebdo transmettable, procédure écrite |
+| 20 | **Exploitation vérifiée et dossier de reprise** | ✅ **fait** (`docs/dossier-reprise.md`, `bench/results/dossier-YYYY-MM-DD.md`, `analyse/dossier-reprise.ts`) | reprise après arrêt prouvée (`bootstrap --check` + `verify-all.sh`), rapport hebdo transmettable (`scripts/dossier-reprise.mts`), procédure écrite |
 
 ---
 
