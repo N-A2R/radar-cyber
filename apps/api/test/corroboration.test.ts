@@ -142,3 +142,50 @@ test("une date illisible est écartée plutôt que de fausser le groupe", () => 
 	assert.equal(groupes.length, 1);
 	assert.equal(groupes[0]?.sourcesDistinctes, 1);
 });
+
+test("les faits sortent du plus récent au plus ancien", () => {
+	// Mesuré sur un scénario réel : la fiche ouvrait sur un fait de 40 jours
+	// avant de montrer celui de la veille.
+	const groupes = regrouper([
+		evt({ id: "vieux", date: "2026-09-20T08:00:00Z", family: "phishing", sourceId: "cert" }),
+		evt({ id: "recent", date: "2026-11-10T08:00:00Z", family: "ransomware", sourceId: "presse" }),
+		evt({ id: "milieu", date: "2026-10-15T08:00:00Z", family: "intrusion", sourceId: "presse" }),
+	]);
+	assert.deepEqual(
+		groupes.map((g) => g.family),
+		["ransomware", "intrusion", "phishing"],
+	);
+});
+
+test("le délai d'une source n'est jamais négatif", () => {
+	// Une source peut apparaître deux fois dans le groupe : la seconde ligne ne
+	// doit pas produire un « -5 h après ».
+	const groupes = regrouper([
+		evt({ id: "a", date: "2026-10-01T08:00:00Z", sourceId: "premiere" }),
+		evt({ id: "b", date: "2026-10-01T10:00:00Z", sourceId: "seconde" }),
+		evt({ id: "c", date: "2026-10-01T06:00:00Z", sourceId: "seconde" }),
+	]);
+	for (const source of groupes[0]?.sources ?? []) {
+		assert.ok(source.delaiHeures >= 0, `${source.sourceId} ne peut pas arriver avant le fait`);
+	}
+});
+
+test("une source qui confirme puis nuance reste une confirmation", () => {
+	const groupes = regrouper([
+		evt({ id: "a", date: "2026-10-01T08:00:00Z", sourceId: "presse", assertionType: "confirmed_incident" }),
+		evt({ id: "b", date: "2026-10-01T09:00:00Z", sourceId: "presse", assertionType: "ambient_signal" }),
+		evt({ id: "c", date: "2026-10-01T07:00:00Z", sourceId: "autre", assertionType: "third_party_claim" }),
+	]);
+	const presse = groupes[0]?.sources.find((s) => s.sourceId === "presse");
+	assert.equal(presse?.assertion, "confirmed_incident", "retenir la dernière ligne aurait effacé sa confirmation");
+	const nature = desaccords(groupes).find((c) => c.objet === "nature");
+	assert.ok(nature, "le désaccord doit rester visible");
+});
+
+test("une sévérité non renseignée ne fabrique pas un désaccord de gravité", () => {
+	const groupes = regrouper([
+		evt({ id: "a", date: "2026-10-01T08:00:00Z", sourceId: "a", severity: 5 }),
+		evt({ id: "b", date: "2026-10-01T09:00:00Z", sourceId: "b", severity: null }),
+	]);
+	assert.deepEqual(desaccords(groupes), []);
+});

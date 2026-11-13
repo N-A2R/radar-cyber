@@ -161,6 +161,16 @@ export type Source = {
   motifs: Record<string, number> | null;
   /** Motif qui coûte le plus d'entrées — celui qui explique le silence. */
   motifDominant: string | null;
+  /** Faits distincts où la source apparaît (180 j, organisations rattachées). */
+  faits?: number;
+  /** Faits où elle est la seule à parler : sa contribution propre. */
+  faitsUniques?: number;
+  /** Part de ses faits qu'elle porte seule, en pourcentage. */
+  partUniquesPct?: number;
+  /** Heures médianes d'arrivée après le premier signalement. */
+  retardMedianHeures?: number | null;
+  /** Faits où elle a parlé la première. */
+  primeurs?: number;
 };
 
 /**
@@ -432,7 +442,8 @@ export type SourceGroupe = {
   /** Heures après le premier signalement. */
   delaiHeures: number;
   evenements: number;
-  graviteMax: number;
+  /** `null` = la source ne se prononce pas sur la gravité. */
+  graviteMax: number | null;
   assertion: string;
 };
 

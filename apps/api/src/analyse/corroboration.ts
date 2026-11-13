@@ -26,7 +26,12 @@
 export type EvenementCorroborable = {
 	id: string;
 	family: string;
-	severity: number;
+	/**
+	 * Sévérité déclarée. `null` = non renseignée, et ce n'est pas zéro : une
+	 * source muette sur la gravité ne rend pas l'incident bénin. Les désaccords
+	 * se calculent donc sur les seules valeurs renseignées.
+	 */
+	severity: number | null;
 	assertionType: string;
 	sourceId: string;
 	/** Date de référence, ISO. */
@@ -44,7 +49,7 @@ export type SourceGroupe = {
 	/** Heures entre le premier événement du groupe et celui-ci. */
 	delaiHeures: number;
 	evenements: number;
-	graviteMax: number;
+	graviteMax: number | null;
 	assertion: string;
 };
 
@@ -118,7 +123,27 @@ export function regrouper(evenements: readonly EvenementCorroborable[]): Groupe[
 		courant.items.push(evt);
 	}
 	if (courant !== null) groupes.push(finaliser(courant));
-	return groupes;
+	// Du plus récent au plus ancien : un analyste ouvre une fiche pour savoir ce
+	// qui vient de se passer, pas ce qui s'est passé il y a trois mois. Le
+	// regroupement se fait chronologiquement, l'affichage se fait à l'envers —
+	// mesuré sur un scénario à trois faits, la fiche ouvrait sur le plus vieux.
+	return groupes.sort((a, b) => new Date(b.debut).getTime() - new Date(a.debut).getTime());
+}
+
+/** Force probante d'une affirmation : du plus fort au plus faible. */
+const ORDRE_ASSERTION = ["confirmed_incident", "technical_indicator", "third_party_claim", "ambient_signal"];
+
+/**
+ * Retient la plus forte affirmation d'une source.
+ *
+ * Prendre la dernière ligne était un raccourci faux : une source qui confirme
+ * l'incident puis publie un rappel d'ambiance se retrouvait classée « ambiance ».
+ */
+export function plusForteAssertion(assertions: readonly (string | null)[]): string {
+	for (const rang of ORDRE_ASSERTION) {
+		if (assertions.includes(rang)) return rang;
+	}
+	return assertions[0] ?? "ambient_signal";
 }
 
 function finaliser(courant: { debut: number; famille: string; orgId: number | null; items: EvenementCorroborable[] }): Groupe {
@@ -133,15 +158,22 @@ function finaliser(courant: { debut: number; famille: string; orgId: number | nu
 	const sources: SourceGroupe[] = [...parSource.entries()]
 		.map(([sourceId, liste]) => {
 			const premier = liste[0] as EvenementCorroborable;
-			const dernier = liste[liste.length - 1] as EvenementCorroborable;
+			const gravites = liste.map((e) => e.severity).filter((v): v is number => typeof v === "number");
 			return {
 				sourceId,
 				premiereDate: premier.date,
 				estPremier: sourceId === debut.sourceId && premier.id === debut.id,
-				delaiHeures: heuresEntre(debut.date, premier.date),
+				// Une source peut avoir plusieurs événements dans le groupe ; seul le
+				// premier compte pour le délai, et il ne peut pas être négatif.
+				delaiHeures: Math.max(0, heuresEntre(debut.date, premier.date)),
 				evenements: liste.length,
-				graviteMax: Math.max(...liste.map((e) => e.severity)),
-				assertion: dernier.assertionType,
+				// `Math.max()` sur une liste vide rend `-Infinity`, qui devenait une
+				// gravité affichée en base. Une source muette sur la gravité n'a pas
+				// de gravité : `null`.
+				graviteMax: gravites.length === 0 ? null : Math.max(...gravites),
+				// La dernière ligne d'une source n'est pas sa position : si elle a
+				// d'abord confirmé puis nuancé, on retient la plus forte preuve.
+				assertion: plusForteAssertion(liste.map((e) => e.assertionType)),
 			};
 		})
 		.sort((a, b) => new Date(a.premiereDate).getTime() - new Date(b.premiereDate).getTime());
@@ -175,15 +207,19 @@ export function desaccords(groupes: readonly Groupe[]): Desaccord[] {
 	for (const groupe of groupes) {
 		if (groupe.sourcesDistinctes < 2) continue;
 
-		const gravites = groupe.sources.map((s) => s.graviteMax);
-		if (Math.max(...gravites) - Math.min(...gravites) >= 2) {
+		const gravites = groupe.sources
+			.map((s) => s.graviteMax)
+			.filter((v): v is number => typeof v === "number");
+		if (gravites.length >= 2 && Math.max(...gravites) - Math.min(...gravites) >= 2) {
 			out.push({
 				cle: groupe.cle,
 				orgId: groupe.orgId,
 				family: groupe.family,
 				objet: "gravite",
 				description: `gravité ${Math.min(...gravites)} chez une source, ${Math.max(...gravites)} chez une autre`,
-				positions: groupe.sources.map((s) => ({ sourceId: s.sourceId, valeur: String(s.graviteMax) })),
+				positions: groupe.sources
+					.filter((s) => typeof s.graviteMax === "number")
+					.map((s) => ({ sourceId: s.sourceId, valeur: String(s.graviteMax) })),
 			});
 		}
 

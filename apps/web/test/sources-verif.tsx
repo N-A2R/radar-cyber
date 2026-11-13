@@ -92,8 +92,13 @@ const muette: Source = {
 // Aucun passage mesurable : inconnue, ce qui n'est pas « nulle ».
 const inconnue: Source = { ...base, id: "jamais", name: "Jamais tentée" };
 
+// Deux sources qui parlent des mêmes faits : celle qui révèle, celle qui suit.
+// Le volume de la seconde peut être supérieur — c'est tout le piège.
+const revelatrice: Source = { ...productive, id: "locale", name: "Rédactions locales", faits: 12, faitsUniques: 7, partUniquesPct: 58, primeurs: 7, retardMedianHeures: null };
+const suiveuse: Source = { ...productive, id: "agregateur", name: "Agrégateur", faits: 40, faitsUniques: 0, partUniquesPct: 0, primeurs: 0, retardMedianHeures: 6 };
+
 const html = renderToStaticMarkup(
-	<SourcesView sources={[productive, vide, muette, inconnue]} loading={false} error={null} />,
+	<SourcesView sources={[productive, vide, muette, inconnue, revelatrice, suiveuse]} loading={false} error={null} />,
 );
 
 check("écran rendu", html.includes("Sources"));
@@ -110,6 +115,17 @@ check("marqueur de rendement posé", html.includes('data-yield="productive"') &&
 check("le motif de rejet dominant est affiché", html.includes("hors sujet"), "la source vide rejette 34 entrées pour ce motif");
 check("le motif porte son compteur", html.includes("(34)"));
 check("les motifs non mesurés sont dits", html.includes("non mesuré"));
+
+check("colonne d'unicité présente", html.includes("unicité"));
+check("l'unicité est chiffrée", html.includes("7/12") && html.includes("0/40"));
+check(
+	"une source qui ne révèle rien est marquée comme telle",
+	html.includes('data-unique="non"') && html.includes('data-unique="oui"'),
+);
+check(
+	"une source jamais évaluée n'est pas notée « 0/0 »",
+	!html.includes("0/0") && html.includes("non mesuré"),
+);
 
 check("production reconnue", sourceYield(productive) === "productive");
 check("lecture sans rendement reconnue", sourceYield(vide) === "vide");
