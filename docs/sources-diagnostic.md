@@ -73,15 +73,19 @@ d'état, donc pas de transition : on ne la condamne pas par omission.
 | La source répond-elle ? | oui / non / inconnu — `last_error`, `last_ok_at` |
 | Que lit-elle ? | **par source, sur 30 j** — `collector_run` |
 | Que rend-elle ? | **par source, sur 30 j** — `event` |
-| Pourquoi rejette-t-elle ? | **agrégé seulement** (`items_skipped`) |
-| Quel motif de rejet domine ? | **non** — le détail est dans les logs du run |
+| Pourquoi rejette-t-elle ? | **par motif** — `collector_run.items_rejected` (migration 029) |
+| Quel motif de rejet domine ? | **oui** — `motifDominant` dans `/api/sources`, colonne à l'écran |
 | Une famille est-elle couverte ? | **non agrégé** |
 
-Le dernier point est le prochain vrai gisement : savoir qu'une source rejette 40
-entrées sur 40 ne dit pas s'il faut accuser la porte de pertinence ou le
-classement de famille. Le détail existe (`rejectedBy` dans le collecteur
-générique) mais il n'est écrit nulle part en base — il part dans les logs et
-disparaît.
+Le motif de rejet est désormais un fait de base, pas une ligne de log. C'était le
+point aveugle du chantier 15 : savoir qu'une source rejette 40 entrées sur 40 ne
+dit pas s'il faut accuser la porte de pertinence (`hors_sujet`), le classement de
+famille (`presse`), la détection de menu (`menu_path`) ou le contrat
+(`contrat:famille-inconnue`). Le collecteur calculait ce détail depuis toujours
+et le perdait.
+
+Encore non mesuré : la couverture par famille (a-t-on au moins une source
+productive dans chaque famille publiée ?). C'est la prochaine question utile.
 
 ## Ce que je n'ai pas pu faire ici
 
