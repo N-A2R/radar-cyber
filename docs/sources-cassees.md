@@ -31,3 +31,15 @@ périmètre de ce script, qui ne modifie que `url`, `enabled` et `disabled_reaso
 
 Aucune : les deux 404/401 sont des endpoints retirés de l'API amont, sans
 remplacement HTTP vérifié (`/v3/` et le CSV urlhaus répondent aussi 404/410).
+
+## Motifs d'échec d'un run (chantier 15)
+
+| Motif | Cause | Action |
+|---|---|---|
+| `reseau` | timeout / 403 / 5xx lors de la récupération | vérifier URL, désactiver si persistant |
+| `format` | corps illisible (JSON/XML invalide) | corriger le parseur ou désactiver |
+| `selecteur` | page lue, zéro élément extrait | mettre à jour le sélecteur |
+| `filtre` | éléments extraits, zéro retenu par le filtre cyber | relâcher le filtre ou reclasser |
+
+### Désactivation et réactivation
+Une source dont le motif est `selecteur` ou `format` pendant N runs consécutifs est désactivée (jamais supprimée) avec son motif dans `disabled_reason`. Réactivation manuelle après correction : `UPDATE source SET enabled=true, disabled_reason=NULL WHERE id=...`.
