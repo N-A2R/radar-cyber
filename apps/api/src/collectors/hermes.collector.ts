@@ -4,6 +4,7 @@
  * Les fichiers sont lus dans ~/.hermes/profiles/radar-cyber/out/*.json.
  */
 import { execFile } from "node:child_process";
+import { consigner } from "../journal/index.js";
 import { promisify } from "node:util";
 import { createHash } from "node:crypto";
 import { query } from "../db.js";
@@ -99,7 +100,19 @@ export async function runHermesCollector(log: (msg: string) => void): Promise<vo
          event.confidence ?? "C3", event.sourceId, event.sourceUrl ?? null, JSON.stringify(event.evidence ?? {}), event.geoType,
          candidate.orgHint ?? null]
       );
-      if ((r.rowCount ?? 0) > 0) added++;
+      if ((r.rowCount ?? 0) > 0) {
+        added++;
+        // Hermes écrit ses événements hors de la boucle générique : sans ce
+        // fait, ils n'ont aucune trace dans le journal.
+        await consigner({
+          kind: event.orgHint ? "event.rattachement" : "event.admitted",
+          subject: event.dedupKey,
+          summary: `hermes : ${event.title.slice(0, 80)}`,
+          actor: "collecteur:hermes",
+          payload: { family: event.family, assertionType: event.assertionType, orgHint: candidate.orgHint ?? null },
+          validAt: event.observedAt ?? null,
+        }).catch(() => {});
+      }
     }
   }
 
