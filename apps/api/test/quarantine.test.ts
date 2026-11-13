@@ -334,3 +334,27 @@ test("un domaine identique est une clé, pas une ressemblance", async () => {
 
   await query("DELETE FROM org WHERE id=$1", [org]).catch(() => {});
 });
+
+test("un jeton générique (« com ») ne fonde jamais un rattachement", async () => {
+  // Cas réel : une organisation nommée « N-COM (N-COM) » se réduisait au jeton
+  // « com », présent dans tous les domaines en .com. Huit revendications d'un
+  // lot de dix lui ont été rattachées.
+  const org = await insertOrg(`N-COM (N-COM) ${TAG}`, { domain: `ncom-${TAG}.example` });
+  const vrai = await insertOrg(`Vraie Cible ${TAG}`, { domain: `cible-${TAG}.example` });
+
+  try {
+    const faux = await matchOrg(`advelo-${TAG}.com`);
+    assert.ok(
+      !faux || faux.orgId !== org,
+      "un domaine en .com ne doit pas se rattacher à une organisation nommée N-COM",
+    );
+
+    // Le domaine exact reste une clé : la vraie cible se trouve toujours.
+    const exact = await matchOrg(`cible-${TAG}.example`);
+    assert.ok(exact);
+    assert.equal(exact.orgId, vrai);
+    assert.equal(exact.via, "domain");
+  } finally {
+    await query("DELETE FROM org WHERE id = ANY($1::int[])", [[org, vrai]]).catch(() => {});
+  }
+});
