@@ -12,6 +12,7 @@
  */
 import { admitEvent } from "../contract/admit.js";
 import { ingestQuery, query, withTransaction } from "../db.js";
+import { consignerAvec } from "../journal/index.js";
 import type { PoolClient, QueryResultRow } from "pg";
 import { evaluateEvent } from "../detect/engine.js";
 import { confirmOrganization } from "../match/decide.js";
@@ -388,6 +389,16 @@ async function insertClaimEventRow(
     row.source,
   ];
   const r = await run<{ id: number; inserted: boolean }>(sql, values);
+  await consignerAvec((sql, params) => run(sql, params as unknown[]), {
+    kind: orgId !== null ? "event.rattachement" : "match.decided",
+    subject: dedupKey,
+    summary: orgId !== null
+      ? `promotion : rattaché (quarantine ${row.id})`
+      : `promotion : non rattaché (quarantine ${row.id})`,
+    actor: `humain:${promotedBy}`,
+    payload: { orgId, quarantineId: row.id, promotedBy },
+    validAt: observedAt,
+  });
   return { eventId: Number(r.rows[0].id), inserted: Boolean(r.rows[0].inserted) };
 }
 
