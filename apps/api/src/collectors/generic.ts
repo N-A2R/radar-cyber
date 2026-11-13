@@ -19,7 +19,8 @@ import {
 	type CoverageContext,
 	isRelevant,
 	loadRelevanceOrgIndex,
-	matchOrgForText,
+	designateOrganization,
+	preparerGazetteer,
 	type RelevanceOrg,
 } from "./relevance.js";
 import { isActionableIndicator, loadActiveIndex, type ActiveIndex } from "./filter.js";
@@ -604,6 +605,7 @@ async function quarantineUnparsedBody(source: SourceRow, body: string): Promise<
 async function ingestNarrative(
 	source: SourceRow,
 	body: string,
+	/** Domaines connus, pour la porte ; le rattachement passe par le gazetteer. */
 	orgIndex: RelevanceOrg[],
 	coverage: CoverageContext,
 ): Promise<IngestResult> {
@@ -671,7 +673,14 @@ async function ingestNarrative(
     // département de Nouvelle-Aquitaine est cité en mot entier). L'URL reste
     // hors du texte examiné par (b).
     let admission: "epss" | "dept" | null = null;
-    if (gate && !isRelevant({ title, url: link, sourceUrl: link }, { orgs: orgIndex, ignoreDomains: [sourceHost] }).relevant) {
+    // La porte consulte le gazetteer : un toponyme nu ne suffit plus, un nom
+    // distinctif ou un rôle institutionnel suffit. Sans cet appui, la porte
+    // reste sur les mots-clés cyber (et les deux règles de couverture).
+    const porte = gate
+      ? isRelevant({ title, url: link, sourceUrl: link }, { orgs: orgIndex, ignoreDomains: [sourceHost] })
+      : { relevant: true, reason: "keyword" as const };
+    const nomme = gate && !porte.relevant ? designateOrganization(`${title} ${summary}`) : null;
+    if (gate && !porte.relevant && nomme === null) {
       if (admitByEpss(cveTextOf(item, title, summary), coverage) !== null) admission = "epss";
       else if (admitsDepartment(`${title} ${summary}`, coverage.deptNames)) admission = "dept";
       if (admission === null) {
@@ -682,7 +691,7 @@ async function ingestNarrative(
     }
     let orgId: number | null = null;
     try {
-      const matchedOrg = await matchOrgForText(`${title} ${summary}`);
+      const matchedOrg = nomme ?? designateOrganization(`${title} ${summary}`);
       orgId = matchedOrg?.orgId ?? null;
     } catch {
       orgId = null;
@@ -900,6 +909,10 @@ export async function runGenericSources(
     "SELECT o.name, o.domain, array_remove(array_agg(DISTINCT a.value), NULL) AS assets FROM org o LEFT JOIN asset a ON a.org_id = o.id AND a.kind IN ('domain','subdomain') GROUP BY o.id"
   );
   const orgIndex = loadRelevanceOrgIndex(orgRows.map((o) => ({ name: o.name, domain: o.domain, assets: o.assets ?? [] })));
+  // Le rattachement s'appuie sur le gazetteer (alias + rôles), chargé une seule
+  // fois par run : un index de 52 000 alias coûte ~1 s, pas une requête par item.
+  const aliasIndexes = await preparerGazetteer();
+  log(`gazetteer : ${aliasIndexes} alias indexés pour le rattachement`);
   activeIndex = await loadActiveIndex();
 
   // Couverture élargie : colonne `admission_rule` (migration idempotente),

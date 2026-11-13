@@ -34,6 +34,7 @@ import type {
 	EntreprisesNA,
 	ReferentielNA,
 } from "./model.js";
+import { MOTS_GENERIQUES, MOTS_GENERIQUES_ENTREPRISE } from "../match/generique.js";
 import type { PlannedAlias, PlannedOrg } from "./plan.js";
 
 export type SecteurEtendu = "sante" | "enseignement" | "entreprise";
@@ -56,45 +57,6 @@ export type PlanEtendu = {
 	};
 	warnings: string[];
 };
-
-/**
- * Mots qui ne désignent rien en propre dans un nom d'établissement.
- *
- * Volontairement large : mieux vaut renoncer à un alias inutile (« Ecole
- * élémentaire ») que de court-circuiter le rattachement. Un alias écarté ne
- * coûte rien — le nom reste cherchable dans le répertoire.
- */
-const MOTS_GENERIQUES = new Set<string>([
-	// enseignement
-	"ecole", "elementaire", "primaire", "maternelle", "publique", "privee",
-	"college", "lycee", "ensemble", "scolaire", "groupe", "section",
-	"enseignement", "professionnel", "technologique", "general", "generale",
-	"campus", "institut", "annexe", "site",
-	// santé et médico-social
-	"centre", "service", "maison", "foyer", "antenne", "unite", "secteur",
-	"hopital", "hospitalier", "clinique", "pharmacie", "laboratoire", "cabinet",
-	"consultation", "consultations", "protection", "infantile", "soins",
-	"infirmiers", "infirmier", "pmi", "msp", "ehpad", "eps", "chs", "cmp",
-	"csapa", "carr", "ciam", "ime", "sessad", "iemp", "upatou", "ssiad",
-	"accueil", "medicalise", "medicalises", "medical", "medicale", "social",
-	"sociale", "reinsertion", "aide", "fam", "mas", "finess", "etablissement",
-	"polyvalent", "polyvalents", "adultes", "handicapes", "personnes",
-	"ages", "enfants", "jeunes", "vie", "logis", "residence", "maison",
-	"retraite", "sante", "soin", "permanent", "ambulatoire", "public", "prive",
-	// particules
-	"de", "du", "des", "la", "le", "les", "l", "d", "et", "pour", "aux", "au",
-	"en", "sur", "sous", "chez",
-]);
-
-/** Mots génériques d'entreprise : une enseigne nue ne rapproche rien. */
-const MOTS_GENERIQUES_ENTREPRISE = new Set<string>([
-	"services", "service", "groupe", "societe", "entreprise", "etablissement",
-	"etablissements", "france", "francais", "francaise", "international",
-	"internationale", "holding", "investissement", "investissements", "gestion",
-	"conseil", "conseils", "technologies", "technology", "solutions", "systemes",
-	"system", "numerique", "informatique", "digital", "telecom", "telecoms",
-	"nouvelle", "aquitaine", "europe", "europeen", "europeenne",
-]);
 
 /** Normalisation alignée sur `match/core.ts` : accents retirés, jetons séparés. */
 export function normaliserJeton(valeur: string): string {
