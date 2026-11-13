@@ -50,7 +50,7 @@ services:
       # Schéma de base MVP ; les migrations complètent au démarrage.
       - ./db/init.sql:/docker-entrypoint-initdb.d/010-init.sql:ro
     ports:
-      - "${RADAR_DB_PORT:-5433}:5432"
+      - "127.0.0.1:${RADAR_DB_PORT:-5433}:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER:-radar} -d $${POSTGRES_DB:-radar}"]
       interval: 5s

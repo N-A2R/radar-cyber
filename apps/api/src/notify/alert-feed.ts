@@ -25,19 +25,19 @@ export type LiveAlert = {
 
 /** Alertes d'identifiant strictement supérieur à `sinceId`, les plus anciennes d'abord. */
 export async function selectNewAlerts(sinceId: number, limit = 100): Promise<LiveAlert[]> {
-	const r = await query<LiveAlert & { tlp: string | null }>(
+	const r = await query<LiveAlert>(
 		`SELECT a.id, a.rule_id, a.title, a.severity, a.status, a.event_id, a.indicator_id,
-		        a.org_id, a.scope, a.created_at, e.tlp
+		        a.org_id, a.scope, a.created_at
 		   FROM alert a
 		   LEFT JOIN event e ON e.id = a.event_id
 		  WHERE a.id > $1
+		    AND (e.tlp IS NULL OR e.tlp <> 'RED')
 		  ORDER BY a.id
 		  LIMIT $2`,
 		[sinceId, limit],
 	);
 	return r.rows
-		.filter((row) => row.tlp !== "RED")
-		.map(({ tlp: _tlp, ...alert }) => ({
+		.map((alert) => ({
 			...alert,
 			id: Number(alert.id),
 			severity: Number(alert.severity),

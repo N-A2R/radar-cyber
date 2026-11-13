@@ -187,9 +187,12 @@ export function compareQueueEntries(
 	a: { score: number; claimedAt: string | null; id: number },
 	b: { score: number; claimedAt: string | null; id: number },
 ): number {
-	if (b.score !== a.score) return b.score - a.score;
-	const left = a.claimedAt ? Date.parse(a.claimedAt) : 0;
-	const right = b.claimedAt ? Date.parse(b.claimedAt) : 0;
+	const scoreDiff = b.score - a.score;
+	if (Number.isFinite(scoreDiff) && scoreDiff !== 0) return scoreDiff;
+	const leftRaw = a.claimedAt ? Date.parse(a.claimedAt) : 0;
+	const rightRaw = b.claimedAt ? Date.parse(b.claimedAt) : 0;
+	const left = Number.isFinite(leftRaw) ? leftRaw : 0;
+	const right = Number.isFinite(rightRaw) ? rightRaw : 0;
 	if (right !== left) return right - left;
 	return b.id - a.id;
 }

@@ -19,6 +19,8 @@ export interface DeliveryAlert {
   status: string;
   created_at: Date | string;
   attempts: number;
+  webhook_delivered_at: Date | string | null;
+  telegram_delivered_at: Date | string | null;
   org_name: string | null;
   source_name: string | null;
   event_title: string | null;
@@ -61,6 +63,8 @@ SELECT
   a.status,
   a.created_at,
   a.attempts,
+  a.webhook_delivered_at,
+  a.telegram_delivered_at,
   o.name AS org_name,
   s.name AS source_name,
   e.title AS event_title,
@@ -176,6 +180,14 @@ async function markDelivered(id: number): Promise<void> {
   );
 }
 
+async function markChannelDelivered(id: number, channel: "webhook" | "telegram"): Promise<void> {
+  const column = channel === "webhook" ? "webhook_delivered_at" : "telegram_delivered_at";
+  await ingestQuery(
+    `UPDATE alert SET ${column} = now(), updated_at = now() WHERE id = $1`,
+    [id],
+  );
+}
+
 async function markFailed(id: number, attemptsBefore: number, error: string): Promise<{ abandoned: boolean }> {
   const attempts = attemptsBefore + 1;
   const abandoned = attempts >= MAX_ATTEMPTS;
@@ -215,12 +227,27 @@ export async function deliverPendingAlerts(
     result.attempted++;
     const msg = buildDeliveryMessage(alert, cfg);
     try {
-      if (cfg.webhookUrl) await sendWebhook(cfg.webhookUrl, msg.payload);
-      if (cfg.telegramBotToken && cfg.telegramChatId) {
-        await sendTelegram(cfg.telegramBotToken, cfg.telegramChatId, msg.text);
+      let webhookOk = Boolean(alert.webhook_delivered_at);
+      let telegramOk = Boolean(alert.telegram_delivered_at);
+      if (cfg.webhookUrl && !webhookOk) {
+        await sendWebhook(cfg.webhookUrl, msg.payload);
+        webhookOk = true;
+        await markChannelDelivered(alert.id, "webhook");
       }
-      await markDelivered(alert.id);
-      result.delivered++;
+      if (cfg.telegramBotToken && cfg.telegramChatId && !telegramOk) {
+        await sendTelegram(cfg.telegramBotToken, cfg.telegramChatId, msg.text);
+        telegramOk = true;
+        await markChannelDelivered(alert.id, "telegram");
+      }
+      const allOk =
+        (cfg.webhookUrl ? webhookOk : true) &&
+        (cfg.telegramBotToken && cfg.telegramChatId ? telegramOk : true);
+      if (allOk) {
+        await markDelivered(alert.id);
+        result.delivered++;
+      } else {
+        result.failed++;
+      }
     } catch (err) {
       const error = truncateError(err);
       try {

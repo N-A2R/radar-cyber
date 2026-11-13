@@ -1,13 +1,13 @@
 import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
-
+import { likeLiteral } from "../directory/query.js";
 export default async function (app: FastifyInstance) {
   app.get("/search", async (req) => {
     const q = (req.query as Record<string, string | undefined>).q ?? "";
     if (q.trim().length < 3) {
       return { orgs: [], events: [], indicators: [] };
     }
-    const like = `%${q}%`;
+	const like = `%${likeLiteral(q)}%`;
     const [orgsRes, eventsRes, indicatorsRes] = await Promise.all([
       query<Record<string, unknown>>(
         "SELECT id, name, slug, kind, city, dept, domain, lat, lon FROM org WHERE name ILIKE $1 OR domain ILIKE $1 LIMIT 20",

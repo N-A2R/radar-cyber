@@ -1,6 +1,9 @@
 import type { PoolClient } from "pg";
 import { Pool } from "pg";
 
+if (process.env.NODE_ENV === "production" && !process.env.DATABASE_URL) {
+  throw new Error("DATABASE_URL is required in production");
+}
 const connectionString = process.env.DATABASE_URL ?? "postgres://radar:radar@localhost:5432/radar";
 
 /**
@@ -49,6 +52,29 @@ export async function withClient<T>(fn: (client: PoolClient) => Promise<T>): Pro
 	const client = await pool.connect();
 	try {
 		return await fn(client);
+	} finally {
+		client.release();
+	}
+}
+
+/**
+ * Transaction explicite : `BEGIN` / `COMMIT`, et `ROLLBACK` sur toute exception.
+ *
+ * Sans ce helper, les chemins qui écrivent deux fois (promotion d'une
+ * revendication puis création de l'événement, archivage puis projection)
+ * laissaient la base dans un état intermédiaire quand la seconde écriture
+ * échouait — et le client rendu au pool gardait une transaction ouverte.
+ */
+export async function withTransaction<T>(fn: (client: PoolClient) => Promise<T>): Promise<T> {
+	const client = await pool.connect();
+	try {
+		await client.query("BEGIN");
+		const result = await fn(client);
+		await client.query("COMMIT");
+		return result;
+	} catch (error) {
+		await client.query("ROLLBACK").catch(() => {});
+		throw error;
 	} finally {
 		client.release();
 	}
