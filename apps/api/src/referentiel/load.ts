@@ -11,8 +11,12 @@
  *  3. **Rejouable.** Slugs dérivés des codes officiels, alias en
  *     `ON CONFLICT DO NOTHING`. Interrompre puis relancer ne coûte que du temps.
  *
- * Aucune migration : seules les colonnes déjà présentes sont utilisées
- * (`siren` et `geo_source` viennent des migrations 008 et 013).
+ * Portée : le plan peut désormais contenir des collectivités, des établissements
+ * de santé et d'enseignement et des entreprises (voir `plan-etendu.ts`). Les
+ * colonnes d'identification officielle ajoutées par la migration 026 gardent
+ * leur valeur si elle existe déjà — comme le reste, on complète sans écraser.
+ * Une organisation sans `entitySource` (référentiel territorial) laisse ces
+ * colonnes intactes.
  */
 import { query, withClient } from "../db.js";
 import type { PlannedOrg, ReferentielPlan } from "./plan.js";
@@ -36,6 +40,8 @@ export type LoadReport = {
 	collisions: Array<{ name: string; slug: string; existingId: number }>;
 	/** Noms portés par plusieurs organisations du jeu lui-même (homonymes). */
 	internalHomonyms: number;
+	/** Répartition par `kind`, pour vérifier que chaque jeu a bien été chargé. */
+	byKind: Record<string, number>;
 };
 
 const ALIAS_BATCH = 400;
@@ -84,7 +90,11 @@ export async function loadReferentiel(
 		aliasesPlanned: plan.counts.aliases,
 		collisions: [],
 		internalHomonyms: 0,
+		byKind: {},
 	};
+	for (const org of plan.orgs) {
+		report.byKind[org.kind] = (report.byKind[org.kind] ?? 0) + 1;
+	}
 
 	// Collisions de nom : une organisation existante porte le même nom mais un
 	// autre SIREN. On ne fusionne pas automatiquement — on le signale pour la
@@ -122,7 +132,11 @@ export async function loadReferentiel(
 	}
 
 	if (dryRun) {
-		log(`dry-run : ${report.created} création(s), ${report.updated} mise(s) à jour, ${report.attachedBySiren} rattachement(s) par SIREN`);
+		const kinds = Object.entries(report.byKind)
+			.map(([kind, total]) => `${total} ${kind}`)
+			.join(", ");
+		log(`dry-run : ${report.created} création(s), ${report.updated} mise(s) à jour, ` +
+			`${report.attachedBySiren} rattachement(s) par SIREN — ${kinds}`);
 		return report;
 	}
 
@@ -149,8 +163,9 @@ export async function loadReferentiel(
 					orgId = Number(r.rows[0].id);
 				} else {
 					const r = await client.query<{ id: number }>(
-						`INSERT INTO org (name, slug, kind, sector, city, dept, siren, lat, lon, geo_source, status)
-						 VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
+						`INSERT INTO org (name, slug, kind, sector, city, dept, siren, lat, lon, geo_source,
+						                  status, entity_code, entity_source, naf, effectif_min, website, domain)
+						 VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17)
 						 ON CONFLICT (slug) DO UPDATE SET
 						    lat = COALESCE(EXCLUDED.lat, org.lat),
 						    lon = COALESCE(EXCLUDED.lon, org.lon),
@@ -158,10 +173,18 @@ export async function loadReferentiel(
 						    siren = COALESCE(org.siren, EXCLUDED.siren),
 						    dept = COALESCE(org.dept, EXCLUDED.dept),
 						    city = COALESCE(org.city, EXCLUDED.city),
-						    sector = COALESCE(org.sector, EXCLUDED.sector)
+						    sector = COALESCE(org.sector, EXCLUDED.sector),
+						    entity_code = COALESCE(org.entity_code, EXCLUDED.entity_code),
+						    entity_source = COALESCE(org.entity_source, EXCLUDED.entity_source),
+						    naf = COALESCE(org.naf, EXCLUDED.naf),
+						    effectif_min = COALESCE(org.effectif_min, EXCLUDED.effectif_min),
+						    website = COALESCE(org.website, EXCLUDED.website),
+						    domain = COALESCE(org.domain, EXCLUDED.domain)
 						 RETURNING id`,
 						[org.name, org.slug, org.kind, org.sector, org.city, org.dept, org.siren,
-						 org.lat, org.lon, org.geoSource, org.status],
+						 org.lat, org.lon, org.geoSource, org.status,
+						 org.entityCode, org.entitySource ?? null, org.naf ?? null,
+						 org.effectifMin ?? null, org.website ?? null, org.domain ?? null],
 					);
 					orgId = Number(r.rows[0].id);
 				}
