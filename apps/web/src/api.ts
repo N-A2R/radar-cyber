@@ -74,6 +74,8 @@ export type Org = {
   sector: string | null;
   city: string | null;
   dept: string | null;
+  /** Domaine officiel, quand il est connu : sert de lien de vérification. */
+  domain?: string | null;
   lat: number | null;
   lon: number | null;
   eventCount: number;
@@ -546,6 +548,7 @@ export type DirectoryQuery = {
   sector?: string | null;
   dept?: string | null;
   withEvents?: boolean;
+  withoutEvents?: boolean;
   sort?: string;
   dir?: "asc" | "desc";
   page?: number;
@@ -554,8 +557,13 @@ export type DirectoryQuery = {
 
 /** Une ligne d'annuaire, avec la trace de la correspondance quand on cherche. */
 export type DirectoryRow = Org & {
+  /** Identifiant officiel (FINESS, UAI, SIREN) et sa source. */
+  entityCode?: string | null;
+  entitySource?: string | null;
+  website?: string | null;
+  domain?: string | null;
   score?: number;
-  reason?: "exact" | "exact-alias" | "prefix" | "prefix-alias" | "tokens" | "substring" | "fuzzy";
+  reason?: "exact-code" | "exact" | "exact-alias" | "prefix" | "prefix-alias" | "tokens" | "substring" | "fuzzy";
   matchedAlias?: string | null;
 };
 
@@ -650,6 +658,7 @@ export const api = {
     if (params.sector) qs.set("sector", params.sector);
     if (params.dept) qs.set("dept", params.dept);
     if (params.withEvents) qs.set("withEvents", "1");
+    if (params.withoutEvents) qs.set("withoutEvents", "1");
     if (params.sort) qs.set("sort", params.sort);
     if (params.dir) qs.set("dir", params.dir);
     if (params.page) qs.set("page", String(params.page));
