@@ -28,6 +28,7 @@
  *     revue. On préfère manquer un rattachement que d'en inventer un.
  */
 import {
+	commenceParRoleEtablissement,
 	commenceParUnRole,
 	MOTS_GENERIQUES,
 	MOTS_GENERIQUES_ENTREPRISE,
@@ -42,6 +43,8 @@ export type GazetteerOrg = {
 	dept: string | null;
 	/** Commune du siège : départage deux établissements homonymes. */
 	city: string | null;
+	/** Secteur éditorial : dit si l'organisation est un territoire. */
+	sector: string | null;
 };
 
 export type GazetteerRow = {
@@ -50,6 +53,7 @@ export type GazetteerRow = {
 	kind: string;
 	dept: string | null;
 	city: string | null;
+	sector: string | null;
 	alias: string;
 };
 
@@ -60,8 +64,17 @@ export type Gazetteer = {
 	aliasKeysByFirstToken: Map<string, string[]>;
 	/** clés qui portent un rôle institutionnel : seules à pouvoir trancher une collectivité */
 	roleKeys: Set<string>;
+	/**
+	 * Clés qui désignent un lieu et non une organisation : nom de commune, de
+	 * département, de région ou d'intercommunalité, sans rôle de tête.
+	 * « Sauveterre-de-Béarn » et « Pays Basque » en font partie : un article qui
+	 * les cite parle d'un endroit, pas d'une victime.
+	 */
+	lieuKeys: Set<string>;
 	/** jetons de rôle, pour la porte d'admission */
 	roleTokens: Set<string>;
+	/** premiers jetons de noms de lieux : ne suffisent pas à désigner une organisation */
+	lieuTokens: Set<string>;
 	maxTokens: number;
 	/** jetons de tous les noms d'organisation → ids (porte d'admission) */
 	orgsByToken: Map<string, Set<number>>;
@@ -86,6 +99,9 @@ export type GazetteerMatch = {
 	/** Candidats à égalité de force, quand le texte ne tranche pas. */
 	tied: GazetteerOrg[];
 };
+
+/** Secteurs territoriaux : leur nom est un lieu, pas une organisation. */
+const TERRITOIRES = new Set<string>(["commune", "epci", "departement", "region"]);
 
 /** En deçà, un alias n'est pas une preuve. Aligné sur `core.MIN_ALIAS_LENGTH`. */
 const MIN_KEY_LENGTH = 4;
@@ -126,6 +142,8 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 	const byAliasKey = new Map<string, GazetteerOrg[]>();
 	const aliasKeysByFirstToken = new Map<string, string[]>();
 	const roleKeys = new Set<string>();
+	const lieuKeys = new Set<string>();
+	const lieuTokens = new Set<string>();
 	const roleTokens = new Set<string>();
 	const orgsByToken = new Map<string, Set<number>>();
 	const orgsById = new Map<number, GazetteerOrg>();
@@ -138,6 +156,7 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 			kind: row.kind,
 			dept: row.dept,
 			city: row.city,
+			sector: row.sector,
 		};
 		orgsById.set(org.id, org);
 
@@ -156,7 +175,9 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 		if (cle.length < MIN_KEY_LENGTH) continue;
 		if (jetons.length > MAX_ALIAS_TOKENS) continue;
 
-		const role = commenceParUnRole(jetons);
+		// Seul un rôle d'établissement peut trancher. « Département de la Gironde »
+		// reste un indice, jamais une preuve : c'est de la géographie.
+		const role = commenceParRoleEtablissement(jetons);
 		const lieu = nomDeLieu(jetons);
 		// Un alias d'un seul jeton sans rôle est un nom de lieu, pas une
 		// organisation : il n'entre pas dans l'index de décision.
@@ -165,6 +186,17 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 		// Un alias composé uniquement de mots génériques ne vaut pas mieux.
 		const porteurs = jetons.filter((j) => !GENERIQUES.has(j) && j.length > 2);
 		if (porteurs.length === 0) continue;
+
+		// Un territoire n'est pas une organisation. Le secteur vient des données :
+		// commune, EPCI, département, région. Sans rôle de tête (« ville de »,
+		// « mairie de »), son nom est celui d'un lieu — il reste consultable,
+		// mais il ne tranche aucun rattachement.
+		const territoire = TERRITOIRES.has(row.sector ?? "");
+		if (territoire && !role) {
+			lieuKeys.add(cle);
+			lieuTokens.add(jetons[0] as string);
+			continue;
+		}
 
 		if (role) {
 			roleKeys.add(cle);
@@ -188,7 +220,17 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 		if (jetons.length > maxTokens) maxTokens = jetons.length;
 	}
 
-	return { byAliasKey, aliasKeysByFirstToken, roleKeys, roleTokens, maxTokens, orgsByToken, orgsById };
+	return {
+		byAliasKey,
+		aliasKeysByFirstToken,
+		roleKeys,
+		lieuKeys,
+		lieuTokens,
+		roleTokens,
+		maxTokens,
+		orgsByToken,
+		orgsById,
+	};
 }
 
 /** Tous les alias qui apparaissent dans `jetons`, en gardant le plus long par position. */
@@ -363,7 +405,7 @@ export function designateUneOrganisation(gaz: Gazetteer, texte: string): Gazette
 	// l'alias retenu n'est pas un simple toponyme.
 	const alias = resultat.alias ?? "";
 	const aliasJetons = alias.split(" ");
-	const role = commenceParUnRole(aliasJetons);
+	const role = commenceParRoleEtablissement(aliasJetons);
 	const porteurs = aliasJetons.filter((j) => !GENERIQUES.has(j) && j.length > 2);
 	if (!role && porteurs.length === 0) {
 		return { ...resultat, org: null, reason: "ambiant" };

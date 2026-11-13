@@ -13,7 +13,7 @@ derniers sont parallélisables et peuvent attendre.
 
 | # | Chantier | Débloque | Taille |
 |---|---|---|---|
-| 1 | **Journal de vérité** (event sourcing pragmatique) | tout le reste | ~3 semaines |
+| 1 | ~~**Journal de vérité**~~ ✅ **livré** | tout le reste | ~3 semaines |
 | 2 | **Mémoire longue** (archive + datation + rejeu) | la mesure | ~1 semaine |
 | 3 | **Couverture mesurée** (étage 2) | les agents | ~1 semaine |
 | 4 | **Agents CPU** (étage 3) | l'anticipation | ~2 semaines |
@@ -23,7 +23,13 @@ derniers sont parallélisables et peuvent attendre.
 
 ---
 
-## 1. Journal de vérité — le chantier qui englobe
+## 1. Journal de vérité — ✅ LIVRÉ
+
+> Migration 027, `apps/api/src/journal/`, trois voies câblées, `verify:journal`
+> dans le socle, 11 tests, diff nominatif du changement de moteur produit.
+> Détail : `docs/journal.md`. Ce qui reste : alertes, sources, rétention, écran.
+
+### Le chantier qui englobe
 
 **Le constat.** Neuf chemins d'écriture, aucun ne conserve l'état antérieur.
 `UPDATE org`, `ON CONFLICT DO UPDATE` sur l'ingestion, la purge à 90 jours, la

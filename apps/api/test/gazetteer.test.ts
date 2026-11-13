@@ -9,8 +9,16 @@ import {
 } from "../src/match/gazetteer.js";
 import { isRelevant, loadRelevanceOrgIndex, matchOrgForTextFromList } from "../src/collectors/relevance.js";
 
-function row(org_id: number, name: string, alias: string, kind = "collectivite", dept: string | null = null, city: string | null = null): GazetteerRow {
-	return { org_id, name, kind, dept, city, alias };
+function row(
+	org_id: number,
+	name: string,
+	alias: string,
+	kind = "collectivite",
+	dept: string | null = null,
+	city: string | null = null,
+	sector: string | null = null,
+): GazetteerRow {
+	return { org_id, name, kind, dept, city, sector, alias };
 }
 
 /**
@@ -19,12 +27,15 @@ function row(org_id: number, name: string, alias: string, kind = "collectivite",
  * « Ecole primaire » dans le jeu livré, 21 pharmacies « Pharmacie du Centre ».
  */
 const rows: GazetteerRow[] = [
-	row(1, "Commune de Tarnos", "Ville de Tarnos", "collectivite", "40", "Tarnos"),
-	row(1, "Commune de Tarnos", "Commune de Tarnos", "collectivite", "40", "Tarnos"),
-	row(1, "Commune de Tarnos", "Tarnos", "collectivite", "40", "Tarnos"),
-	row(2, "Commune de Gradignan", "Ville de Gradignan", "collectivite", "33", "Gradignan"),
-	row(2, "Commune de Gradignan", "Mairie de Gradignan", "collectivite", "33", "Gradignan"),
-	row(3, "Département de la Gironde", "Gironde", "collectivite", "33", null),
+	row(1, "Commune de Tarnos", "Ville de Tarnos", "collectivite", "40", "Tarnos", "commune"),
+	row(1, "Commune de Tarnos", "Commune de Tarnos", "collectivite", "40", "Tarnos", "commune"),
+	row(1, "Commune de Tarnos", "Tarnos", "collectivite", "40", "Tarnos", "commune"),
+	row(2, "Commune de Gradignan", "Ville de Gradignan", "collectivite", "33", "Gradignan", "commune"),
+	row(2, "Commune de Gradignan", "Mairie de Gradignan", "collectivite", "33", "Gradignan", "commune"),
+	row(3, "Département de la Gironde", "Département de la Gironde", "collectivite", "33", null, "departement"),
+	row(3, "Département de la Gironde", "Gironde", "collectivite", "33", null, "departement"),
+	row(13, "Commune de Sauveterre-de-Béarn", "Sauveterre-de-Béarn", "collectivite", "64", "Sauveterre-de-Béarn", "commune"),
+	row(14, "CA du Pays Basque", "Pays Basque", "collectivite", "64", null, "epci"),
 	row(4, "Commune de Bordeaux", "Bordeaux", "collectivite", "33", "Bordeaux"),
 	row(5, "Ecole primaire d'Agris", "Ecole primaire d'Agris", "enseignement", "16", "Agris"),
 	row(6, "Ecole primaire", "Ecole primaire", "enseignement", "24", "Périgueux"),
@@ -94,6 +105,31 @@ describe("gazetteer — l'ambiguïté se départage sur des indices", () => {
 
 	it("reste ambigu entre deux entreprises homonymes", () => {
 		const r = resoudre(gaz, "Incident chez Alpha ce matin");
+		assert.equal(r.org, null);
+	});
+});
+
+describe("gazetteer — un territoire n'est pas une organisation victime", () => {
+	it("ne rattache pas à une commune citée parmi sept autres", () => {
+		// Cas réel : l'attaque nationale des supermarchés cite Sauveterre-de-Béarn
+		// parmi sept enseignes. Ce n'est pas la mairie qui est victime.
+		const r = resoudre(gaz, "sept magasins touchés en Béarn, dont celui de Sauveterre-de-Béarn");
+		assert.equal(r.org, null);
+	});
+
+	it("ne rattache pas à l'intercommunalité sur un nom de lieu", () => {
+		// « au Pays basque » est une localisation, pas la communauté d'agglomération.
+		const r = resoudre(gaz, "une association de monnaie locale au Pays basque attaquée");
+		assert.equal(r.org, null);
+	});
+
+	it("rattache quand le rôle de tête est explicite", () => {
+		const r = resoudre(gaz, "La mairie de Gradignan a été piratée");
+		assert.equal(r.org?.id, 2);
+	});
+
+	it("ne prend pas un département cité pour une victime", () => {
+		const r = resoudre(gaz, "une entreprise du Département de la Gironde");
 		assert.equal(r.org, null);
 	});
 });

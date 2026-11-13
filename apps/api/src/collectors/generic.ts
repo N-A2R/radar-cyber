@@ -30,6 +30,7 @@ import { AdmissionTally, admitEvent } from "../contract/admit.js";
 import { parseClaimCards } from "./parsers/claims.js";
 import { parseTelegramMessages } from "./parsers/telegram.js";
 import { decodeBody } from "./parsers/decode.js";
+import { consignerLot, MOTEURS, type JournalEntry } from "../journal/index.js";
 import { parseRssItems } from "./parsers/xml.js";
 import { parseJsonItems as parseJsonItemsNew } from "./parsers/json.js";
 
@@ -655,6 +656,10 @@ async function ingestNarrative(
   let added = 0;
   let skipped = 0;
   const fetchedAt = new Date();
+  // Faits à consigner pour cette source. Accumulés pendant la boucle puis
+  // écrits en une requête : le journal ne doit pas doubler le coût de collecte.
+  const faits: JournalEntry[] = [];
+
   for (const item of items) {
     const title = decodeEntities(explicitOr(item, parser.titleField, TITLE_FIELDS)).slice(0, 400);
     const summary = decodeEntities(explicitOr(item, parser.summaryField, SUMMARY_FIELDS)).slice(0, 2000);
@@ -690,11 +695,14 @@ async function ingestNarrative(
       }
     }
     let orgId: number | null = null;
+    let motifRattachement = "aucun";
     try {
       const matchedOrg = nomme ?? designateOrganization(`${title} ${summary}`);
       orgId = matchedOrg?.orgId ?? null;
+      if (matchedOrg) motifRattachement = "alias";
     } catch {
       orgId = null;
+      motifRattachement = "erreur";
     }
     const dateRaw = explicitOr(item, parser.dateField, DATE_FIELDS);
     // parseObservedAt couvre RFC 822/3339, formats français et relatifs ; à
@@ -764,6 +772,28 @@ async function ingestNarrative(
         event.assertionType, event.severity, event.confidence ?? "C3", event.geoType]
     );
     if (r.rows[0]?.inserted) added++;
+    faits.push({
+      kind: orgId !== null ? "event.rattachement" : "match.decided",
+      subject: dedupKey,
+      summary: orgId !== null
+        ? `${source.id} : rattaché par alias (${motifRattachement})`
+        : `${source.id} : aucun rattachement retenu`,
+      actor: `moteur:${MOTEURS.rattachement}`,
+      // Le pourquoi, pas seulement le quoi : c'est ce qui permet de mesurer
+      // plus tard ce qu'un changement de moteur a corrigé.
+      payload: { orgId, motif: motifRattachement, famille: family, admission: admissionRule },
+      validAt: event.observedAt ?? null,
+    });
+  }
+  // Écriture groupée : les faits de cette source, en une requête.
+  if (faits.length > 0) {
+    try {
+      await consignerLot(faits);
+    } catch (error) {
+      // Le journal ne doit jamais faire perdre une collecte : on signale et on
+      // continue. Une lacune de journal est visible, une collecte perdue non.
+      runLog?.(`[journal] ${source.id} : ${faits.length} fait(s) non consigné(s) — ${String(error).slice(0, 120)}`);
+    }
   }
   for (const [reason, n] of Object.entries(menuRejected)) {
     runLog?.(`[collect] ${source.id} : ${n} entrée(s) menu rejetée(s) (${reason})`);
