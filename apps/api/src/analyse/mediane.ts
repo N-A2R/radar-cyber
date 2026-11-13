@@ -7,8 +7,9 @@
  * et c'est exactement le genre d'erreur qui ne se voit pas. On moyenne.
  */
 export function mediane(valeurs: readonly number[]): number | null {
-	if (valeurs.length === 0) return null;
-	const triees = [...valeurs].sort((a, b) => a - b);
+	const valides = [...valeurs].filter((v) => Number.isFinite(v));
+	if (valides.length === 0) return null;
+	const triees = valides.sort((a, b) => a - b);
 	const milieu = Math.floor(triees.length / 2);
 	if (triees.length % 2 === 1) return triees[milieu] ?? null;
 	const bas = triees[milieu - 1];

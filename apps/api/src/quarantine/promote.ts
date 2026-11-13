@@ -11,7 +11,8 @@
  * `ransomware-revendication` pour générer l'alerte.
  */
 import { admitEvent } from "../contract/admit.js";
-import { ingestQuery, query } from "../db.js";
+import { ingestQuery, query, withTransaction } from "../db.js";
+import type { PoolClient, QueryResultRow } from "pg";
 import { evaluateEvent } from "../detect/engine.js";
 import { confirmOrganization } from "../match/decide.js";
 
@@ -262,17 +263,26 @@ async function confirmMatch(
 
 export type ClaimEventResult = { eventId: number; inserted: boolean; alerts: number };
 
+type EventRunner = <T extends QueryResultRow>(text: string, params?: unknown[]) => Promise<{ rows: T[] }>;
+
+/** Adapte un client de transaction au type `EventRunner`. */
+const runnerOf = (client: PoolClient): EventRunner =>
+  <T extends QueryResultRow>(text: string, params?: unknown[]) => client.query<T>(text, params);
+
 /**
- * Crée l'événement public associé à un fait promu, puis évalue les règles.
- * Idempotent : `dedup_key = quarantine:<content_hash>` (contenu unique par
- * fait, source incluse dans le hash). Un conflit ne recrée ni événement ni
- * alerte.
+ * Insère l'événement public associé à un fait promu. Idempotent :
+ * `dedup_key = quarantine:<content_hash>`. Un conflit ne recrée rien.
+ *
+ * Aucune évaluation de règle ici : elle doit tourner APRÈS le COMMIT. Lancée
+ * dans la transaction, elle ouvre une autre connexion qui ne voit pas encore
+ * la ligne insérée et conclut « aucune alerte ».
  */
-export async function insertClaimEvent(
+async function insertClaimEventRow(
+  run: EventRunner,
   row: QuarantineRow,
   orgId: number | null,
-  promotedBy: string
-): Promise<ClaimEventResult> {
+  promotedBy: string,
+): Promise<{ eventId: number; inserted: boolean }> {
   const sourceId = await resolveSourceId(row.source);
   const dedupKey = `quarantine:${row.content_hash}`;
   const title = `${row.org_hint ?? "Revendication"} — revendiqué par ${row.groupe ?? "groupe inconnu"}`.slice(0, 400);
@@ -312,34 +322,44 @@ export async function insertClaimEvent(
     throw new Error(`promotion refusée par le contrat (${admitted.rejections.join(", ")}) : ${admitted.hint}`);
   }
   const event = admitted.event;
-  const r = await ingestQuery<{ id: number; inserted: boolean }>(
-    `INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at, severity, confidence,
+  const sql = `INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at, severity, confidence,
        source_id, source_url, evidence, geo_type, org_id, tlp, tlp_source)
      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)
      ON CONFLICT (dedup_key) DO UPDATE SET observed_at = COALESCE(event.observed_at, EXCLUDED.observed_at)
-     RETURNING id, (xmax = 0) AS inserted`,
-    [
-      event.dedupKey,
-      event.family,
-      event.assertionType,
-      event.title,
-      event.summary ?? null,
-      event.observedAt ?? observedAt,
-      event.severity,
-      event.confidence ?? "C3",
-      event.sourceId,
-      event.sourceUrl ?? null,
-      JSON.stringify(event.evidence ?? {}),
-      event.geoType,
-      orgId,
-      row.tlp,
-      row.source,
-    ]
-  );
-  const eventId = Number(r.rows[0].id);
-  const inserted = Boolean(r.rows[0].inserted);
-  const alerts = inserted ? await evaluateEvent(eventId, { force: true }) : 0;
-  return { eventId, inserted, alerts };
+     RETURNING id, (xmax = 0) AS inserted`;
+  const values = [
+    event.dedupKey,
+    event.family,
+    event.assertionType,
+    event.title,
+    event.summary ?? null,
+    event.observedAt ?? observedAt,
+    event.severity,
+    event.confidence ?? "C3",
+    event.sourceId,
+    event.sourceUrl ?? null,
+    JSON.stringify(event.evidence ?? {}),
+    event.geoType,
+    orgId,
+    row.tlp,
+    row.source,
+  ];
+  const r = await run<{ id: number; inserted: boolean }>(sql, values);
+  return { eventId: Number(r.rows[0].id), inserted: Boolean(r.rows[0].inserted) };
+}
+
+/**
+ * Crée l'événement puis évalue les règles, hors transaction.
+ * C'est l'entrée utilisée hors promotion transactionnelle.
+ */
+export async function insertClaimEvent(
+  row: QuarantineRow,
+  orgId: number | null,
+  promotedBy: string,
+): Promise<ClaimEventResult> {
+  const r = await insertClaimEventRow(ingestQuery, row, orgId, promotedBy);
+  const alerts = r.inserted ? await evaluateEvent(r.eventId, { force: true }) : 0;
+  return { eventId: r.eventId, inserted: r.inserted, alerts };
 }
 
 /** Nombre maximal de faits promus automatiquement par passage. */
@@ -358,6 +378,7 @@ export type PromotionResult = {
   promoted: number;
   eventsCreated: number;
   alertsCreated: number;
+  failures: { id: number; error: string }[];
   dryRun: boolean;
   matches: PromotionMatch[];
 };
@@ -393,6 +414,7 @@ export async function promoteMatches(
   let promoted = 0;
   let eventsCreated = 0;
   let alertsCreated = 0;
+  const failures: { id: number; error: string }[] = [];
 
   for (const row of r.rows) {
     const m = matchOrgInIndex(row.org_hint ?? "", index);
@@ -409,18 +431,25 @@ export async function promoteMatches(
     });
     if (dryRun) continue;
 
-    const upd = await query(
-      `UPDATE quarantine_raw SET promoted=true, promoted_at=now(), promoted_by='auto', status='promoted'
-       WHERE id=$1 AND promoted=false`,
-      [row.id]
-    );
-    if ((upd.rowCount ?? 0) === 0) continue;
-    promoted++;
-
-    const ev = await insertClaimEvent(row, m.orgId, "auto");
-    if (ev.inserted) {
-      eventsCreated++;
-      alertsCreated += ev.alerts;
+    try {
+      const upd = await withTransaction(async (client) => {
+        const u = await client.query(
+          `UPDATE quarantine_raw SET promoted=true, promoted_at=now(), promoted_by='auto', status='promoted'
+           WHERE id=$1 AND promoted=false`,
+          [row.id]
+        );
+        if ((u.rowCount ?? 0) === 0) return null;
+        return insertClaimEventRow(runnerOf(client), row, m.orgId, "auto");
+      });
+      if (upd === null) continue;
+      promoted++;
+      if (upd.inserted) {
+        eventsCreated++;
+        // Après COMMIT : l'évaluation ouvre une autre connexion et doit voir la ligne.
+        alertsCreated += await evaluateEvent(upd.eventId, { force: true });
+      }
+    } catch (e) {
+      failures.push({ id: row.id, error: String(e) });
     }
   }
 
@@ -436,6 +465,7 @@ export async function promoteMatches(
     alertsCreated,
     dryRun,
     matches,
+    failures,
   };
 }
 
@@ -448,13 +478,15 @@ export type PromoteOneResult = {
   confidence: number | null;
   eventId: number | null;
   alertsCreated: number;
+  /** Vrai si l'événement vient d'être créé (faux si dédupliqué). */
+  inserted: boolean;
 };
 
 /**
  * Promotion manuelle d'un fait (décision d'analyste). Promeut même sans
  * correspondance d'organisation : l'événement reste rattachable plus tard.
  */
-export async function promoteOne(id: number, promotedBy: string): Promise<PromoteOneResult> {
+export async function promoteOneTx(client: PoolClient, id: number, promotedBy: string): Promise<PromoteOneResult> {
   const base = {
     found: true,
     id,
@@ -464,6 +496,7 @@ export async function promoteOne(id: number, promotedBy: string): Promise<Promot
     confidence: null,
     eventId: null,
     alertsCreated: 0,
+    inserted: false,
   } as const;
 
   const r = await query<QuarantineRow>(
@@ -479,14 +512,20 @@ export async function promoteOne(id: number, promotedBy: string): Promise<Promot
   const m = matchOrgInIndex(row.org_hint ?? "", index);
   const confirmed = m ? await confirmMatch(row.org_hint ?? "", m.orgId, new Map(index.map((e) => [e.id, e.name]))) : false;
 
-  const upd = await query(
+  const upd = await client.query(
     `UPDATE quarantine_raw SET promoted=true, promoted_at=now(), promoted_by=$2, status='promoted'
      WHERE id=$1 AND promoted=false`,
     [id, promotedBy]
   );
-  if ((upd.rowCount ?? 0) === 0) return { ...base, alreadyPromoted: true };
-
-  const ev = await insertClaimEvent(row, confirmed && m ? m.orgId : null, promotedBy);
+  if ((upd.rowCount ?? 0) === 0) {
+    return { ...base, alreadyPromoted: true };
+  }
+  const ev = await insertClaimEventRow(
+    runnerOf(client),
+    row,
+    confirmed && m ? m.orgId : null,
+    promotedBy,
+  );
   return {
     found: true,
     id,
@@ -495,6 +534,14 @@ export async function promoteOne(id: number, promotedBy: string): Promise<Promot
     orgName: m ? (index.find((e) => e.id === m.orgId)?.name ?? null) : null,
     confidence: m?.confidence ?? null,
     eventId: ev.eventId,
-    alertsCreated: ev.alerts,
+    inserted: ev.inserted,
+    alertsCreated: 0,
   };
+}
+
+export async function promoteOne(id: number, promotedBy: string): Promise<PromoteOneResult> {
+  const r = await withTransaction((client) => promoteOneTx(client, id, promotedBy));
+  // Hors transaction : l'évaluation doit voir l'événement commité.
+  const alerts = r.inserted && r.eventId !== null ? await evaluateEvent(r.eventId, { force: true }) : 0;
+  return { ...r, alertsCreated: alerts };
 }
