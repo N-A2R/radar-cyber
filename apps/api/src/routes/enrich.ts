@@ -5,6 +5,7 @@ import { enrichDomain } from "../enrich/whois.js";
 import { resolveDomain } from "../enrich/dns.js";
 import { certificatesFor } from "../enrich/certs.js";
 import { scoreIndicator } from "../enrich/score.js";
+import { depuisEvidence, estIndisponible, libelleMotif } from "../journal/rattachement.js";
 
 async function cacheGet(key: string): Promise<unknown | null> {
   const r = await query<{ value: unknown }>("SELECT value FROM enrich_cache WHERE key=$1 AND expires_at > now()", [key]);
@@ -47,6 +48,21 @@ export default async function (app: FastifyInstance) {
     const er = await query("SELECT * FROM event WHERE id=$1", [id]);
     const ev = er.rows[0];
     if (!ev) return { error: "not found" };
+    // Le pourquoi du rattachement, tel qu'il a été décidé à l'ingestion. Il vit
+    // dans `evidence` : aucune colonne, aucun recalcul, donc aucun risque qu'il
+    // change après coup — c'est une trace, pas une déduction.
+    const explication = depuisEvidence(ev.evidence);
+    const rattachement = explication
+      ? {
+          motif: explication.motif,
+          libelle: libelleMotif(explication.motif),
+          alias: explication.alias,
+          confiance: explication.confiance,
+          moteur: explication.moteur,
+          candidats: explication.candidats ?? [],
+          indecis: estIndisponible(explication),
+        }
+      : null;
     const inds = await query("SELECT * FROM indicator WHERE id=ANY($1::bigint[])", [ev.evidence?.indicator_ids ?? []]).catch(() => ({ rows: [] }));
     const org = ev.org_id ? (await query("SELECT * FROM org WHERE id=$1", [ev.org_id])).rows[0] : null;
     let enrichment = null;
@@ -55,6 +71,6 @@ export default async function (app: FastifyInstance) {
       enrichment = await cacheGet(key);
       if (!enrichment) { enrichment = await enrichIndicator({ type: inds.rows[0].type, value: inds.rows[0].value }); await cacheSet(key, enrichment); }
     }
-    return { event: ev, indicators: inds.rows, org, enrichment };
+    return { event: ev, indicators: inds.rows, org, enrichment, rattachement };
   });
 }

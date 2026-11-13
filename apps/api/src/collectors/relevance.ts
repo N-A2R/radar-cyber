@@ -4,6 +4,7 @@ import { getGazetteer } from "./org-gazetteer.js";
 import { buildGazetteer, designateUneOrganisation, normaliser, resoudre } from "../match/gazetteer.js";
 import { MOTS_GENERIQUES, MOTS_GENERIQUES_ENTREPRISE } from "../match/generique.js";
 import type { OrgRef } from "@radar/shared";
+import type { ExplicationRattachement } from "../journal/rattachement.js";
 
 interface MatchOrgRow {
   id: number;
@@ -15,6 +16,13 @@ interface MatchOrgRow {
 export interface OrgMatch {
   orgId: number;
   confidence: number;
+  /**
+   * Le pourquoi du rattachement, tel que le moteur l'a décidé. Facultatif pour
+   * ne pas casser les appelants qui n'ont que l'identifiant — mais l'ingestion
+   * le renseigne toujours, parce qu'un rattachement sans motif n'est pas
+   * auditable.
+   */
+  explication?: ExplicationRattachement;
 }
 
 interface CachedOrg extends MatchOrgRow {
@@ -170,9 +178,47 @@ export async function matchOrgForText(text: string): Promise<OrgMatch | null> {
  */
 export function designateOrganization(text: string): OrgMatch | null {
 	const gaz = gazetteerCharge();
+	// L'index n'est pas chargé : ce n'est pas « aucune organisation trouvée ».
+	// Confondre les deux fait compter une panne de référentiel comme un échec de
+	// rattachement — et c'est déjà arrivé sur la mesure de couverture.
 	if (!gaz) return null;
 	const resultat = designateUneOrganisation(gaz, text);
-	return resultat.org ? { orgId: resultat.org.id, confidence: resultat.confidence } : null;
+	return resultat.org
+		? {
+				orgId: resultat.org.id,
+				confidence: resultat.confidence,
+				explication: {
+					moteur: "gazetteer@2",
+					motif: resultat.reason,
+					alias: resultat.alias,
+					confiance: resultat.confidence,
+					...(resultat.tied.length > 0 ? { candidats: resultat.tied.map((o) => ({ id: o.id, name: o.name })) } : {}),
+				},
+			}
+		: null;
+}
+
+/**
+ * Le « pourquoi » d'une absence de rattachement, quand on veut l'écrire.
+ *
+ * `designateOrganization` rend `null` pour quatre causes très différentes :
+ * texte vide, aucun alias, ambiguïté refusée, index indisponible. Sans cette
+ * fonction, la fiche d'un événement non rattaché ne peut rien dire — et
+ * « non rattaché » devient un silence.
+ */
+export function expliquerRattachement(text: string): ExplicationRattachement {
+	const gaz = gazetteerCharge();
+	if (!gaz) {
+		return { moteur: "gazetteer@2", motif: "aucun", alias: null, confiance: 0, indisponible: true };
+	}
+	const resultat = designateUneOrganisation(gaz, text);
+	return {
+		moteur: "gazetteer@2",
+		motif: resultat.reason,
+		alias: resultat.alias,
+		confiance: resultat.confidence,
+		...(resultat.tied.length > 0 ? { candidats: resultat.tied.map((o) => ({ id: o.id, name: o.name })) } : {}),
+	};
 }
 
 let dernierGazetteer: { at: number; gaz: ReturnType<typeof buildGazetteer> } | null = null;

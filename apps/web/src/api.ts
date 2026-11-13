@@ -310,12 +310,32 @@ export type EnrichedEvent = {
   org_id: number | null;
 };
 
+/**
+ * Pourquoi l'événement a été rattaché à cette organisation — ou pas.
+ *
+ * `motif` est la valeur brute du moteur, `libelle` sa traduction. On garde les
+ * deux : le libellé change avec la langue de l'interface, le motif se rejoue.
+ * `indecis` est vrai quand le moteur n'a pas pu essayer (référentiel
+ * indisponible) : l'absence de rattachement n'est alors pas un verdict.
+ */
+export type RattachementExplication = {
+  motif: string;
+  libelle: string;
+  alias: string | null;
+  confiance: number;
+  moteur: string;
+  candidats: { id: number; name: string }[];
+  indecis: boolean;
+};
+
 /** Réponse de `GET /api/enrich/events/:id`. */
 export type EventEnrichment = {
   event: EnrichedEvent | null;
   indicators: { id: string; type: string; value: string }[];
   org: Org | null;
   enrichment: Enrichment | null;
+  /** Absent des événements ingérés avant que le pourquoi soit conservé. */
+  rattachement?: RattachementExplication | null;
   error?: string;
 };
 

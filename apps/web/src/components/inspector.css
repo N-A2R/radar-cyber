@@ -256,3 +256,25 @@
   color: var(--color-muted);
   overflow-wrap: anywhere;
 }
+
+/* --- Le pourquoi d'un rattachement ---------------------------------------- */
+
+/* La phrase qui explique la décision : c'est la première chose qu'on lit,
+   avant le nom de l'organisation. */
+.inspector__why {
+  margin: 0 0 8px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--color-ink);
+}
+
+/* Un refus de trancher se voit : ce n'est pas une absence, c'est une décision. */
+.inspector__why[data-motif="ambigu"] {
+  color: var(--sev-4, var(--color-ink-2));
+}
+
+/* Un nom contredit par le lieu est le seul cas où le moteur reconnaît puis
+   retire : il mérite d'être distingué d'un simple « pas trouvé ». */
+.inspector__why[data-motif="lieu-contredit"] {
+  color: var(--color-alarm);
+}

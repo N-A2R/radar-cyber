@@ -8,7 +8,8 @@
     "typecheck": "tsc --noEmit",
     "test:render": "vite build --ssr test/render.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/render.js",
     "test:dom": "vite build --ssr test/review-dom.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/review-dom.js",
-    "test:sources": "vite build --ssr test/sources-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/sources-verif.js"
+    "test:sources": "vite build --ssr test/sources-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/sources-verif.js",
+    "test:inspecteur": "vite build --ssr test/inspecteur-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/inspecteur-verif.js"
   },
   "dependencies": {
     "@radar/shared": "workspace:*",
