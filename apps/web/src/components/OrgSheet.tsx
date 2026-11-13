@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { api, type ApiError, type OrgDetail as OrgDetailData } from "../api";
+import { renduCorroboration } from "./corroboration-view";
 import { mockOrgDetail } from "../mock";
 import "./orgsheet.css";
 
@@ -92,6 +93,13 @@ function OrgSheetBody({ data }: { data: OrgDetailData }) {
   return (
     <div className="orgsheet__body">
       <p className="orgsheet__identity">{identity.length > 0 ? identity.join(" · ") : "identité incomplète"}</p>
+
+      {/*
+        Avant les actifs et les événements : ce que l'organisation a *vécu*,
+        regroupé par fait. Cinq lignes d'événements peuvent raconter un seul
+        incident relayé par cinq sources — ou cinq incidents.
+      */}
+      {renduCorroboration(data.corroboration ?? null)}
 
       <section className="orgsheet__section">
         <h3 className="orgsheet__section-title">
