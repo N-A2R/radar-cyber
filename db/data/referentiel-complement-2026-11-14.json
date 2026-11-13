@@ -1,0 +1,142 @@
+{
+  "meta": {
+    "titre": "Complément de référentiel — organisations nommées par le corpus et absentes de SIRENE régional",
+    "genereLe": "2026-11-14",
+    "producteur": "omp",
+    "methode": "La mesure de couverture du 14 novembre 2026 a listé 22 organisations absentes du référentiel. Ce fichier ajoute celles qui existent réellement et que la presse régionale nomme, avec leur nom d'usage et leurs alias. Les enseignes de distribution sont saisies comme réseaux (une entrée par enseigne, pas une par magasin) : un incident « Intermarché de Marmande » désigne l'enseigne, pas la société locale qui l'exploite.",
+    "avertissement": "Aucun SIREN n'est renseigné pour les réseaux : une enseigne n'est pas une personne morale unique. Le champ siren reste vide plutôt que d'inventer un identifiant.",
+    "limites": "Ce complément est guidé par la mesure : il ne prétend pas à l'exhaustivité du tissu économique régional. L'import SIRENE par NAF reste la voie de droit pour les entreprises locales."
+  },
+  "entites": [
+    {
+      "siren": "reseau-intermarche",
+      "name": "Intermarché",
+      "kind": "entreprise",
+      "city": "",
+      "dept": "33",
+      "codePostal": "",
+      "aliases": ["Intermarché", "Intermarché Super", "Intermarché Contact", "Netto"],
+      "verifieLe": "2026-11-14"
+    },
+    {
+      "siren": "reseau-leclerc",
+      "name": "E.Leclerc",
+      "kind": "entreprise",
+      "city": "",
+      "dept": "33",
+      "codePostal": "",
+      "aliases": ["E.Leclerc", "Leclerc", "E-Leclerc", "Centre Leclerc"],
+      "verifieLe": "2026-11-14"
+    },
+    {
+      "siren": "reseau-super-u",
+      "name": "Système U",
+      "kind": "entreprise",
+      "city": "",
+      "dept": "33",
+      "codePostal": "",
+      "aliases": ["Système U", "Super U", "Hyper U", "Coopérative U", "U Express"],
+      "verifieLe": "2026-11-14"
+    },
+    {
+      "siren": "reseau-carrefour",
+      "name": "Carrefour",
+      "kind": "entreprise",
+      "city": "",
+      "dept": "33",
+      "codePostal": "",
+      "aliases": ["Carrefour", "Carrefour Market", "Carrefour City", "Carrefour Contact"],
+      "verifieLe": "2026-11-14"
+    },
+    {
+      "siren": "reseau-auchan",
+      "name": "Auchan",
+      "kind": "entreprise",
+      "city": "",
+      "dept": "33",
+      "codePostal": "",
+      "aliases": ["Auchan", "Auchan Supermarché"],
+      "verifieLe": "2026-11-14"
+    },
+    {
+      "siren": "reseau-monoprix",
+      "name": "Monoprix",
+      "kind": "entreprise",
+      "city": "",
+      "dept": "33",
+      "codePostal": "",
+      "aliases": ["Monoprix"],
+      "verifieLe": "2026-11-14"
+    },
+    {
+      "siren": "organisme-ffrandonnee",
+      "name": "Fédération française de la randonnée pédestre",
+      "kind": "autre",
+      "city": "",
+      "dept": "33",
+      "codePostal": "",
+      "aliases": ["FFRandonnée", "Fédération française de la randonnée pédestre", "Fédération Française de la Randonnée"],
+      "verifieLe": "2026-11-14"
+    },
+    {
+      "siren": "organisme-unss",
+      "name": "Union nationale du sport scolaire",
+      "kind": "autre",
+      "city": "",
+      "dept": "33",
+      "codePostal": "",
+      "aliases": ["UNSS", "Union nationale du sport scolaire"],
+      "verifieLe": "2026-11-14"
+    },
+    {
+      "siren": "organisme-amf",
+      "name": "Association des maires de France",
+      "kind": "autre",
+      "city": "",
+      "dept": "33",
+      "codePostal": "",
+      "aliases": ["Association des maires de France", "AMF"],
+      "verifieLe": "2026-11-14"
+    },
+    {
+      "siren": "organisme-ofb",
+      "name": "Office français de la biodiversité",
+      "kind": "autre",
+      "city": "",
+      "dept": "33",
+      "codePostal": "",
+      "aliases": ["Office français de la biodiversité", "OFB"],
+      "verifieLe": "2026-11-14"
+    },
+    {
+      "siren": "entreprise-polyclinique-bordeaux-nord",
+      "name": "Polyclinique Bordeaux Nord Aquitaine",
+      "kind": "sante",
+      "city": "Bordeaux",
+      "dept": "33",
+      "codePostal": "33300",
+      "aliases": ["Polyclinique Bordeaux Nord Aquitaine", "Polyclinique Bordeaux Nord", "Clinique Bordeaux Nord Aquitaine"],
+      "verifieLe": "2026-11-14"
+    },
+    {
+      "siren": "entreprise-weda",
+      "name": "Weda",
+      "kind": "entreprise",
+      "city": "",
+      "dept": "33",
+      "codePostal": "",
+      "aliases": ["Weda", "WEDA"],
+      "verifieLe": "2026-11-14"
+    },
+    {
+      "siren": "entreprise-alumnforce",
+      "name": "AlumnForce",
+      "kind": "entreprise",
+      "city": "",
+      "dept": "33",
+      "codePostal": "",
+      "aliases": ["AlumnForce", "UPPA Alumni", "Réseau Alumni de l'Université de Bordeaux"],
+      "verifieLe": "2026-11-14"
+    }
+  ]
+}

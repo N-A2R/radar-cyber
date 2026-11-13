@@ -14,26 +14,38 @@ antérieurs à la fenêtre : conservées comme contexte, exclues du dénominateu
 ## Le résultat, sans arrangement
 
 ```
-Couverture : 15/42 (35,7 %)
+Couverture : 27/42 (64,3 %)
   non admis              0
-  non rattachés         27
-    dont 23 organisations absentes du référentiel
-    dont 4 présentes mais non reconnues par le moteur
-Référentiel entreprises : 0 ligne en agroalimentaire, industrie, BTP, commerce
+  non rattachés         15
+    dont 9 organisations absentes du référentiel
+    dont 6 présentes mais non reconnues par le moteur
+Référentiel entreprises : 2 516 lignes commerce, 1 126 BTP, 951 industrie, 231 agro
 
 Rappel par secteur (33 incidents sectorisés)
   collectivite   5/6   (83 %)  · réserve : n = 6
-  enseignement   2/4   (50 %)  · réserve : n = 4
-  sante          3/7   (43 %)  · réserve : n = 7
-  entreprise     2/16  (13 %)  · réserve : n = 16
+  enseignement   3/4   (75 %)  · réserve : n = 4
+  sante          4/7   (57 %)  · réserve : n = 7
+  entreprise     8/16  (50 %)  · réserve : n = 16
   autre          0/9   · pas de taux (aucun rattachement par secteur d'activité)
 ```
 
-Le corpus élargi ne fait pas bouger le taux global — il le rend lisible. La
-collectivité reste reconnue presque systématiquement ; l'entreprise s'effondre à
-13 %, et ce n'est pas une surprise : sur les 16 faits « entreprise » de la
-fenêtre, 14 sont des enseignes ou des PME absentes du référentiel (grande
-distribution, billetterie, éditeurs de logiciels métiers, laboratoires).
+Deux corrections ont fait passer la couverture de 15/42 à 27/42, sans toucher
+au moteur :
+
+1. **Import SIRENE hors numérique** (7 codes NAF : supermarchés, hypermarchés,
+   supérettes, gros fruits et légumes, transformation de viande, usinage,
+   construction de maisons). 7 436 entreprises ajoutées, réparties sur les
+   12 départements. Le référentiel passe de 0 à 4 824 lignes hors numérique.
+2. **Complément d'usage** (13 entités, 37 alias) pour ce que SIRENE ne peut pas
+   donner : une enseigne est un réseau de sociétés locales, pas une personne
+   morale. « Intermarché de Marmande » désigne l'enseigne, pas la SARL qui
+   l'exploite.
+
+Le rappel entreprise double (13 % → 50 %) et les trois autres secteurs
+progressent. Ce qui reste non rattaché n'est plus un trou de référentiel mais
+un refus assumé du moteur : six organisations sont en base et ne sont pas
+reconnues, dont les cas mono-jeton (« Intermarché » seul, « Ymed ») que la
+règle des deux jetons écarte par construction.
 
 | Incident | Organisation trouvée |
 | --- | --- |
@@ -80,15 +92,26 @@ mesure doit exposer, pas absorber.
 
 ## Ce que la mesure change dans la feuille de route
 
-Le goulot n'est **pas** le moteur de rattachement : sur les collectivités, il
+Le goulot n'était **pas** le moteur de rattachement : sur les collectivités, il
 reconnaît 5 cas sur 6, et ses refus sont motivés.
 
-Le goulot est **le référentiel** : 13 332 entreprises, dont 13 035 en numérique,
-et **zéro** en agroalimentaire, industrie, construction et commerce — les
-secteurs les plus rançonnés de la région. Tant que ce trou existe, tout taux de
-couverture est flatteur par construction : le radar ne peut pas manquer ce dont
-il ignore l'existence. Le taux de 13 % en entreprise n'est pas une contre-
-performance du moteur, c'est le prix du trou.
+Le goulot était **le référentiel** : 13 332 entreprises, dont 13 035 en
+numérique, et **zéro** en agroalimentaire, industrie, construction et commerce.
+Le trou est désormais comblé côté données — 7 436 entreprises importées, 4 824
+lignes hors numérique — et la couverture passe de 35,7 % à 64,3 %.
+
+Ce que la mesure dit maintenant est différent, et plus utile : **15 incidents
+restent non rattachés, dont 6 dont l'organisation est pourtant en base**. Ce
+n'est plus un problème d'annuaire mais de désignation. Deux familles :
+
+| Cas | Exemple | Décision |
+| --- | --- | --- |
+| Alias mono-jeton | « Intermarché » seul, « Ymed » | refus assumé : un mot n'est pas une preuve |
+| Entité mal nommée dans le référentiel | « SA ROCOFRID » pour un Intermarché | alias d'enseigne à porter (fait pour 37 alias) |
+
+Le prochain gain ne viendra donc pas d'un import massif mais du traitement des
+noms d'usage : c'est un travail de quelques dizaines d'alias, pas de dizaines
+de milliers de lignes.
 
 ## Méthode
 
