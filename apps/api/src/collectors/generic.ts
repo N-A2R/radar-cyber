@@ -24,6 +24,7 @@ import {
 	preparerGazetteer,
 	type RelevanceOrg,
 } from "./relevance.js";
+import { estTexteFrancais } from "../match/territorial.js";
 import { isActionableIndicator, loadActiveIndex, type ActiveIndex } from "./filter.js";
 import { filterIndicators } from "./warninglist.js";
 import { classifyFamily, isFamily } from "./classify.js";
@@ -735,7 +736,13 @@ async function ingestNarrative(
       indisponible: true,
     };
     try {
-      const matchedOrg = nomme ?? designateOrganization(`${title} ${summary}`);
+      // Même verrou qu'en corrélation : un texte anglais ne désigne pas une
+      // organisation régionale. Les flux de vulnérabilités décrivent des
+      // composants, pas des victimes.
+      const texteRattachable = `${title} ${summary}`;
+      const matchedOrg = !estTexteFrancais(texteRattachable)
+        ? null
+        : (nomme ?? designateOrganization(texteRattachable));
       orgId = matchedOrg?.orgId ?? null;
       if (matchedOrg) {
         // Le moteur sait pourquoi il rattache : on le garde, sinon la fiche
@@ -958,9 +965,13 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], covera
       "UPDATE source SET last_ok_at=now(), last_error=NULL, last_error_at=NULL, items_total=$1, last_items=$2 WHERE id=$3",
       [result.items, result.added, source.id]
     );
+    const motifRun = classerMotifEchec({ itemsExtraits: result.items, itemsRetenus: result.added });
+    const rejectedAvecMotif = motifRun
+      ? { ...(result.rejected ?? {}), motif: motifRun }
+      : (result.rejected ?? undefined);
     await ingestQuery(
       "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, items_skipped, items_rejected) VALUES ($1, now(), 'ok', $2, $3, $4, $5)",
-      [source.id, result.items, result.added, result.skipped, result.rejected ? JSON.stringify(result.rejected) : null]
+      [source.id, result.items, result.added, result.skipped, rejectedAvecMotif ? JSON.stringify(rejectedAvecMotif) : null]
     ).catch(async (error: unknown) => {
       // Base pas encore migrée vers 029 : la collecte ne doit pas être perdue
       // pour une colonne de diagnostic. On retombe sur l'écriture historique —
@@ -980,9 +991,10 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], covera
   } catch (e) {
     const err = String((e as Error)?.message ?? e);
     await ingestQuery("UPDATE source SET last_error_at=now(), last_error=$1 WHERE id=$2", [err, source.id]).catch(() => {});
+    const motifErr = classerMotifEchec({ erreur: err }) ?? "reseau";
     await ingestQuery(
-      "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, error) VALUES ($1, now(), 'error', 0, 0, $2)",
-      [source.id, err]
+      "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, items_rejected, error) VALUES ($1, now(), 'error', 0, 0, $2, $3)",
+      [source.id, JSON.stringify({ motif: motifErr }), err]
     ).catch(() => {});
     await constaterTransition(source.id, "error", 0, err);
   }
@@ -1039,4 +1051,45 @@ export async function runGenericSources(
     }
   });
   await Promise.all(workers);
+}
+
+/**
+ * Motif d'échec d'un run de collecte (chantier 15).
+ *
+ * « Zéro » ne dit pas la même chose selon l'endroit où le zéro apparaît :
+ *   - `reseau`    : la source n'a pas pu être lue (timeout, 403, 5xx, socket)
+ *   - `format`    : elle a été lue, mais le corps n'est pas du JSON/XML exploitable
+ *   - `selecteur` : page valide lue, l'extraction n'a rien trouvé
+ *   - `filtre`    : des éléments extraits, aucun retenu par le filtre cyber
+ *
+ * Seuls les deux derniers parlent du *traitement* ; les deux premiers disent
+ * que la source elle-même est en cause. Les confondre, c'est désactiver une
+ * source saine ou garder une source morte.
+ */
+export type MotifEchec = "reseau" | "format" | "selecteur" | "filtre";
+
+export interface MotifEchecInput {
+	/** Message d'erreur du run, s'il y en a eu un. Prioritaire sur le reste. */
+	erreur?: string | null;
+	/** Corps lu mais illisible (JSON/XML invalide). */
+	formatInvalide?: boolean;
+	/** Code HTTP observé. 404 = page absente, ce n'est pas une panne. */
+	httpStatus?: number;
+	itemsExtraits?: number;
+	itemsRetenus?: number;
+}
+
+export function classerMotifEchec(input: MotifEchecInput): MotifEchec | null {
+	const { erreur, formatInvalide, httpStatus, itemsExtraits = 0, itemsRetenus = 0 } = input;
+	if (erreur) {
+		// Un message d'erreur prime : le run n'a pas pu aller au bout.
+		const illisible = /json|xml|pars|invalid/i.test(erreur);
+		const reseau = /timeout|fetch|econn|socket|enotfound|\b5\d\d\b|403/i.test(erreur);
+		return illisible && !reseau ? "format" : "reseau";
+	}
+	if (formatInvalide) return "format";
+	if (httpStatus !== undefined && httpStatus !== 404 && httpStatus >= 400) return "reseau";
+	if (itemsExtraits === 0) return "selecteur";
+	if (itemsRetenus === 0) return "filtre";
+	return null;
 }

@@ -17,6 +17,8 @@
  * par domaine normalisé et par token de nom.
  */
 import { query, withClient } from "../db.js"
+import { designateOrganization, preparerGazetteer } from "./relevance.js"
+import { estTexteFrancais } from "../match/territorial.js"
 
 /** Suffixes de domaine acceptés comme plausibles dans un texte d'événement. */
 const TLD_SUFFIXES = [
@@ -38,6 +40,21 @@ const STOPWORDS: Record<string, true> = {
   de: true, du: true, des: true, la: true, le: true, les: true, l: true, d: true,
   et: true, en: true, sur: true, dans: true, pour: true, par: true, au: true,
   aux: true, avec: true, sous: true, ville: true, agglomeration: true,
+}
+
+/** Termes géographiques génériques : seuls, ils ne désignent pas une org. */
+/**
+ * Termes techniques génériques. Un CVE contient presque toujours « code »,
+ * « software », « network » ou « server » : ces mots ne désignent aucune
+ * organisation et ne doivent jamais fonder un rattachement.
+ */
+const TECH_GENERICS: Record<string, true> = {
+  code: true, software: true, network: true, networks: true, system: true,
+  systems: true, server: true, servers: true, service: true, services: true,
+  solution: true, solutions: true, digital: true, cyber: true, data: true,
+  cloud: true, media: true, group: true, global: true, technolog: true,
+  technologies: true, technology: true, security: true, secure: true,
+  platform: true, platforms: true, product: true, products: true,
 }
 
 /** Termes géographiques génériques : seuls, ils ne désignent pas une org. */
@@ -81,10 +98,16 @@ function normalizeName(s: string): string {
 }
 
 /** Tokens significatifs (>= 4 caractères, hors suffixes juridiques et mots vides). */
-function significantTokens(normalizedName: string, exclude?: ReadonlySet<string>): string[] {
-  return normalizedName
-    .split(" ")
-    .filter((t) => t.length >= 4 && !LEGAL_SUFFIXES.test(t) && !STOPWORDS[t] && !GEO_GENERICS[t] && !exclude?.has(t))
+export function significantTokens(normalizedName: string, exclude?: ReadonlySet<string>): string[] {
+  // Déduplication : « CODE 202 (CODE 202) » se normalise en « code 202 code
+  // 202 » et produisait deux fois le même jeton. Le garde-fou « au moins deux
+  // jetons distincts » était donc contourné par la simple répétition d'un nom
+  // entre parenthèses — et n'importe quel texte contenant « code » suffisait.
+  return [...new Set(
+    normalizedName
+      .split(" ")
+      .filter((t) => t.length >= 4 && !LEGAL_SUFFIXES.test(t) && !STOPWORDS[t] && !GEO_GENERICS[t] && !TECH_GENERICS[t] && !exclude?.has(t)),
+  )]
 }
 
 /** Normalise un domaine : minuscules, sans www. final. */
@@ -138,42 +161,36 @@ interface DomainIndexEntry {
 interface OrgIndex {
   /** domaine enregistré normalisé → org. */
   byDomain: Map<string, DomainIndexEntry>
-  /** token significatif normalisé → orgs candidates. */
-  byToken: Map<string, DomainIndexEntry[]>
 }
 
-function buildOrgIndex(orgs: OrgRow[], assets: AssetRow[]): OrgIndex {
+export function buildOrgIndex(orgs: OrgRow[], assets: AssetRow[]): OrgIndex {
   const byDomain = new Map<string, DomainIndexEntry>()
-  const byToken = new Map<string, DomainIndexEntry[]>()
   const addDomain = (domain: string, org: OrgRow) => {
     const key = normalizeDomain(domain)
     if (!key || !key.includes(".")) return
     const reg = registeredDomain(key) ?? key
     if (!byDomain.has(reg)) byDomain.set(reg, { orgId: org.id, lat: org.lat, lon: org.lon })
   }
-  for (const o of orgs) {
-    if (o.domain) addDomain(o.domain, o)
-    for (const t of significantTokens(normalizeName(o.name))) {
-      const list = byToken.get(t) ?? []
-      list.push({ orgId: o.id, lat: o.lat, lon: o.lon })
-      byToken.set(t, list)
-    }
-  }
+  for (const o of orgs) if (o.domain) addDomain(o.domain, o)
   for (const a of assets) {
     if (a.kind !== "domain" && a.kind !== "subdomain") continue
     const org = orgs.find((o) => o.id === a.org_id)
     if (org) addDomain(a.value, org)
   }
-  return { byDomain, byToken }
+  return { byDomain }
 }
 
 /**
- * Résout l'org d'un événement : essai par domaine (suffixe le plus long
- * d'abord), puis par nom. Renvoie l'entrée d'index gagnante ou null.
+ * Résolution par domaine : une égalité de clé, jamais une ressemblance.
+ *
+ * La stratégie « nom » a été retirée d'ici. Elle vivait en double du
+ * gazetteer partagé (`collectors/relevance.ts`), sans notion de territoire,
+ * d'homonyme ni de rôle institutionnel — et c'est par cette porte que
+ * 2 464 rattachements faux sont entrés en base. Le nom passe désormais par
+ * le moteur unique ; ce module ne garde que le domaine.
  */
-function resolveOrg(ev: EventRow, index: OrgIndex): DomainIndexEntry | null {
+export function resolveOrg(ev: EventRow, index: OrgIndex): DomainIndexEntry | null {
   const text = `${ev.title ?? ""} ${ev.summary ?? ""}`
-  // 1. Domaine : on remonte label par label (sous-domaine → domaine de base).
   for (const host of extractDomains(ev.source_url, text)) {
     const labels = host.split(".")
     for (let i = 0; i < labels.length - 1; i++) {
@@ -182,36 +199,10 @@ function resolveOrg(ev: EventRow, index: OrgIndex): DomainIndexEntry | null {
       if (hit) return hit
     }
   }
-  // 2. Nom : tous les tokens significatifs de l'org doivent apparaître
-  //    (frontières de mots) dans le texte normalisé. On exige au moins
-  //    2 tokens significatifs pour éviter les faux positifs sur des noms
-  //    génériques réduits à un seul mot (France, Poste, nom de ville seul…).
-  const normText = ` ${normalizeName(text)} `
-  let best: DomainIndexEntry | null = null
-  let bestTokens = 0
-  const seenTokens = new Set<string>()
-  for (const t of normText.split(" ")) {
-    if (!t || t.length < 4 || seenTokens.has(t)) continue
-    seenTokens.add(t)
-    const candidates = index.byToken.get(t)
-    if (!candidates) continue
-    for (const c of candidates) {
-      const org = orgTokensCache.get(c.orgId)
-      if (!org || org.length < 2) continue
-      if (org.every((tok) => normText.includes(` ${tok} `))) {
-        // Préfère l'org avec le plus de tokens corroborés.
-        if (org.length > bestTokens) {
-          best = c
-          bestTokens = org.length
-        }
-      }
-    }
-  }
-  return best
+  return null
 }
 
 /** Cache des tokens significatifs par org (rempli au chargement). */
-const orgTokensCache = new Map<number, string[]>()
 
 export async function correlateEvents(log: (msg: string) => void): Promise<void> {
   const before = await query<{ n: number }>("SELECT count(*)::int AS n FROM event WHERE org_id IS NOT NULL")
@@ -221,13 +212,8 @@ export async function correlateEvents(log: (msg: string) => void): Promise<void>
   const assets = (await query<AssetRow>(
     "SELECT org_id, kind, value FROM asset WHERE kind IN ('domain', 'subdomain')",
   )).rows
-  for (const o of orgs) {
-    // Les tokens repris du nom de la ville de l'org ne sont pas discriminants
-    // (ex. « CH de Brive-la-Gaillarde » vs la ville elle-même).
-    const cityTokens = new Set(o.city ? significantTokens(normalizeName(o.city)) : [])
-    orgTokensCache.set(o.id, significantTokens(normalizeName(o.name), cityTokens))
-  }
   const index = buildOrgIndex(orgs, assets)
+  const orgById = new Map(orgs.map((o) => [o.id, o]))
 
   const events = (await query<EventRow>(
     "SELECT id::text AS id, title, summary, source_url FROM event WHERE org_id IS NULL",
@@ -237,8 +223,25 @@ export async function correlateEvents(log: (msg: string) => void): Promise<void>
   const orgIds: number[] = []
   const lats: (number | null)[] = []
   const lons: (number | null)[] = []
+  // Le gazetteer doit être chargé avant la boucle : sans lui, aucune
+  // résolution par nom n'est possible et l'absence de rattachement serait
+  // comptée comme un échec du moteur alors que c'est une panne d'index.
+  const aliasCharges = await preparerGazetteer()
+
   for (const ev of events) {
-    const hit = resolveOrg(ev, index)
+    const texte = `${ev.title ?? ""} ${ev.summary ?? ""}`
+    // 1) le domaine est une clé exacte ; 2) le nom passe par le moteur
+    // partagé, le même que celui de l'ingestion.
+    const parDomaine = resolveOrg(ev, index)
+    // Un texte anglais ne désigne pas une organisation régionale : les flux
+    // de vulnérabilités décrivent des composants, pas des victimes. Sans ce
+    // verrou, « PHONE SERVICE » se rattachait à « Windows Phone ».
+    const parNom = parDomaine || !estTexteFrancais(texte) ? null : designateOrganization(texte)
+    const hit: DomainIndexEntry | null = parDomaine
+      ? parDomaine
+      : parNom
+        ? { orgId: parNom.orgId, lat: orgById.get(parNom.orgId)?.lat ?? null, lon: orgById.get(parNom.orgId)?.lon ?? null }
+        : null
     if (!hit) continue
     eventIds.push(ev.id)
     orgIds.push(hit.orgId)
@@ -269,10 +272,23 @@ export async function correlateEvents(log: (msg: string) => void): Promise<void>
          ON CONFLICT DO NOTHING`,
         [eventIds, orgIds],
       )
+      // La correlation est une decision de rattachement : elle se consigne
+      // comme les autres, dans la meme transaction. Sans cela, 1 921
+      // evenements ont org_id sans qu'aucun fait ne dise qui l'a pose.
+      await client.query(
+        `INSERT INTO journal (kind, subject, summary, payload, actor, valid_at)
+         SELECT 'event.rattachement', e.dedup_key,
+                'correlation : rattache par regle de domaine ou de nom',
+                jsonb_build_object('orgId', d.org_id, 'regle', 'correlate'),
+                'moteur:correlate', e.observed_at
+           FROM unnest($1::text[], $2::int[]) AS d(event_id, org_id)
+           JOIN event e ON e.id = d.event_id::bigint`,
+        [eventIds, orgIds],
+      )
       await client.query("COMMIT")
     })
   }
 
   const after = await query<{ n: number }>("SELECT count(*)::int AS n FROM event WHERE org_id IS NOT NULL")
-  log(`corrélation : ${eventIds.length} rattachement(s), ${before.rows[0]?.n ?? 0} → ${after.rows[0]?.n ?? 0} événement(s) rattaché(s)`)
+  log(`corrélation : ${aliasCharges} alias chargés · ${eventIds.length} rattachement(s), ${before.rows[0]?.n ?? 0} → ${after.rows[0]?.n ?? 0} événement(s) rattaché(s)`)
 }

@@ -43,6 +43,26 @@ export const MOTS_GENERIQUES_ENTREPRISE: ReadonlySet<string> = new Set<string>([
 	"system", "numerique", "informatique", "digital", "telecom", "telecoms",
 	"nouvelle", "aquitaine", "europe", "europeen", "europeenne", "sas", "sarl",
 	"sci", "scp", "eurl", "gie", "snc", "association", "associations",
+	// Mots anglais courants dans les flux techniques (CVE, bulletins). Une
+	// organisation nommée « THE HOST » ou « CALL AGENT » se rattachait à tout
+	// texte contenant « host » ou « agent » : mesuré sur 400 événements, trois
+	// faux positifs, tous de cette famille.
+	"the", "host", "agent", "call", "app", "apps", "web", "mail", "store",
+	"shop", "home", "house", "one", "plus", "pro", "max", "direct", "express",
+	"cloud", "data", "media", "network", "networks", "systems", "software",
+	"security", "secure", "platform", "product", "products", "support",
+	"center", "centre", "central", "first", "next", "best", "top", "world",
+	"wide", "global", "smart", "tech", "technology", "technologies", "online",
+	"market", "trade", "business", "company", "partners", "partner", "office",
+	"lab", "labs", "studio", "studios", "agency", "agency", "consulting",
+	// Vocabulaire des flux de vulnérabilités : un CVE parle de composants,
+	// pas d'entreprises. « HOST & WORKER » se rattachait à tout texte
+	// contenant « worker », « CALL AGENT » à tout texte contenant « agent ».
+	"worker", "workers", "blog", "blogs", "tool", "tools", "framework",
+	"library", "package", "packages", "module", "modules", "plugin", "plugins",
+	"theme", "template", "demo", "sample", "api", "ops", "dev", "builder",
+	"build", "server", "servers", "host", "hosting", "backup", "monitor",
+	"monitoring", "gateway", "router", "switch", "engine", "runtime",
 ]);
 
 /**

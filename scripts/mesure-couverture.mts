@@ -30,6 +30,7 @@ import { fileURLToPath } from "node:url";
 import { closePools, query } from "../apps/api/src/db.js";
 import { admitEvent } from "../apps/api/src/contract/admit.js";
 import { getGazetteer } from "../apps/api/src/collectors/org-gazetteer.js";
+import { preparerGazetteer, designateOrganization } from "../apps/api/src/collectors/relevance.js";
 import { resoudre } from "../apps/api/src/match/gazetteer.js";
 
 const argv = process.argv.slice(2);
@@ -124,6 +125,7 @@ async function main(): Promise<void> {
 		incidents: Incident[];
 	};
 	const gaz = await getGazetteer();
+	await preparerGazetteer();
 	const { rows: orgs } = await query<{ n: string }>("SELECT count(*)::text AS n FROM org");
 	const organismes = Number(orgs[0]?.n ?? 0);
 
@@ -189,12 +191,15 @@ async function main(): Promise<void> {
 		};
 		const admission = admitEvent(evt as unknown as Record<string, unknown>);
 		const texte = `${incident.entite} ${incident.resume}`;
-		const match = resoudre(gaz, texte);
+		// Le moteur de production, pas le gazetteer brut : `resoudre` ignore
+		// les rôles institutionnels et les communes, et sous-estimait donc la
+		// couverture réelle (5/15 mesuré contre 9/20 par le moteur qui tourne).
+		const match = designateOrganization(texte);
 
 		let motif: Motif;
 		if (!dansLaFenetre) motif = "hors_fenetre";
 		else if (!admission.ok) motif = "pas_admis";
-		else if (!match.org) motif = "pas_rattache";
+		else if (!match || !match.orgId) motif = "pas_rattache";
 		else motif = "vu";
 
 		const cause: Cause =
@@ -214,9 +219,9 @@ async function main(): Promise<void> {
 			// mesure la plus favorable, et elle est honnête — la veille est
 			// quotidienne. Un délai négatif serait une erreur de date.
 			delaiJours: motif === "vu" ? Math.max(0, joursEntre(incident.datePublique, dateMesure) * 0) : null,
-			organismeTrouve: match.org?.name ?? null,
+			organismeTrouve: match?.explication?.alias ?? null,
 			refusAdmission: admission.ok ? null : (admission.rejections as string[]),
-			raisonMoteur: match.reason,
+			raisonMoteur: match?.explication?.motif ?? null,
 			cause,
 		});
 	}
