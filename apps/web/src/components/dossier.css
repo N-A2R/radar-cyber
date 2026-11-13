@@ -1,0 +1,12 @@
+.dossier { padding: 1.2rem 1.4rem; max-width: 860px; }
+.dossier__head h1 { font-size: 1.3rem; margin: 0 0 .4rem; }
+.dossier__meta { color: #666; font-size: .9rem; margin: 0; }
+.dossier__hint { color: #888; font-size: .8rem; margin: .3rem 0 1rem; }
+.dossier__status { color: #666; }
+.dossier__status--error { color: #b00; }
+.dossier__section { margin: 1.2rem 0; padding: 0; }
+.dossier__title { font-size: 1.05rem; margin: 0 0 .5rem; border-bottom: 1px solid #eee; padding-bottom: .3rem; }
+.dossier__list { margin: 0; padding-left: 1.2rem; }
+.dossier__list li { margin: .4rem 0; line-height: 1.4; }
+.dossier__list code { background: #f5f5f5; padding: .1rem .3rem; border-radius: 3px; font-size: .9em; }
+.dossier__json { background: #fafafa; border: 1px solid #eee; padding: .8rem; font-size: .8rem; overflow: auto; }

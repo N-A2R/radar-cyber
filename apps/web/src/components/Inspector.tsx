@@ -187,6 +187,12 @@ function EventDetail({ data }: { data: EventEnrichment }) {
           {hasValue(event.confidence) && <MetaRow label="Confiance" value={String(event.confidence)} />}
           {observed && <MetaRow label="Observation" value={observed} />}
           {hasValue(event.source_id) && <MetaRow label="Source" value={event.source_id} />}
+          {(event as unknown as { fraicheur?: { libelle: string; precision: string } }).fraicheur && (
+            <MetaRow label="Fraîcheur" value={`${(event as unknown as { fraicheur: { libelle: string; precision: string } }).fraicheur.libelle} (${(event as unknown as { fraicheur: { precision: string } }).fraicheur.precision})`} />
+          )}
+          {(event as unknown as { confiance?: { libelle: string; raisons: string[] } }).confiance && (
+            <MetaRow label="Fiabilité" value={`${(event as unknown as { confiance: { libelle: string; raisons: string[] } }).confiance.libelle} — ${(event as unknown as { confiance: { raisons: string[] } }).confiance.raisons.join(" · ")}`} />
+          )}
         </dl>
         {hasValue(event.source_url) && (
           <p className="inspector__link-row">

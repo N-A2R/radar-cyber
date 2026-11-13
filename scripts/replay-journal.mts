@@ -8,10 +8,12 @@
  *   tsx scripts/replay-journal.mts                    # dry-run : montre les écarts
  *   tsx scripts/replay-journal.mts --apply            # répare la projection
  *   tsx scripts/replay-journal.mts --as-of=2026-11-01 # état cru à cette date
+ *   tsx scripts/rejouer-moteur.mts --moteur=gazetteer@1 --comparer # qu'aurait fait l'ancien moteur ?
  *
  * `--as-of` répond à « qu'est-ce qu'on croyait le 1er novembre ? » : il ne
  * rejoue que les faits connus à cette date. C'est ce qui rend la mesure d'un
  * changement de moteur possible — on peut comparer ce qu'on pensait avant.
+ * Le moteur actif à une date est donné par `match/versions.ts` (DEPLOIEMENTS).
  */
 import { closePools, query } from "../apps/api/src/db.js";
 

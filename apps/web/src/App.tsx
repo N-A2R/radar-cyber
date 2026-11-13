@@ -13,6 +13,7 @@ import DirectoryView from "./components/DirectoryView";
 import CommandPalette from "./components/CommandPalette";
 import LiveAlerts from "./components/LiveAlerts";
 import ReviewView from "./components/ReviewView";
+import DossierView from "./components/DossierView";
 import { parseHash, toHash, shareableUrl, type AppUrlState } from "./url-state";
 import AlertsView from "./components/AlertsView";
 import LoginScreen from "./components/LoginScreen";
@@ -29,6 +30,7 @@ const VIEWS: { id: ViewKey; label: string }[] = [
   { id: "sources", label: "Sources" },
   { id: "health", label: "Santé" },
   { id: "alerts", label: "Alertes" },
+  { id: "dossier", label: "Dossier" },
 ];
 
 const FEED_LIMIT = 300;
@@ -584,6 +586,8 @@ export default function App() {
           {view === "sources" ? <SourcesView sources={sources} loading={loading} error={error} /> : null}
 
           {view === "health" ? <HealthView sources={sources} /> : null}
+
+          {view === "dossier" ? <DossierView /> : null}
 
           {view === "alerts" ? (
             <AlertsView

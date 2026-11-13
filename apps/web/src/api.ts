@@ -374,6 +374,8 @@ export type EnrichedEvent = {
   lat: number | null;
   lon: number | null;
   org_id: number | null;
+  fraicheur?: Fraicheur;
+  confiance?: Confiance;
 };
 
 /**
@@ -629,7 +631,8 @@ export type ReviewOutcome = {
 export const api = {
   login: (email: string, password: string) => postJson<LoginResponse>("/auth/login", { email, password }),
   logout: () => post<{ ok: boolean }>("/auth/logout"),
-  orgs: () => get<Org[]>("/orgs"),
+  orgs: (asOf?: string) => get<Org[]>(asOf ? `/orgs?asOf=${encodeURIComponent(asOf)}` : "/orgs"),
+  dossier: () => get<{ etat: Record<string, unknown>; dossier: { genere: string; sections: { cle: string; titre: string; points: string[] }[] } }>("/dossier"),
   reviewQueue: (params: { status?: string; bucket?: string; source?: string; groupe?: string; q?: string; page?: number; limit?: number } = {}, signal?: AbortSignal) => {
     const qs = new URLSearchParams();
     for (const [key, value] of Object.entries(params)) {

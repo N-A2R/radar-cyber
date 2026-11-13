@@ -6,6 +6,7 @@ import { resolveDomain } from "../enrich/dns.js";
 import { certificatesFor } from "../enrich/certs.js";
 import { scoreIndicator } from "../enrich/score.js";
 import { depuisEvidence, estIndisponible, libelleMotif } from "../journal/rattachement.js";
+import { confianceDe, fraicheurDe } from "../analyse/confiance.js";
 
 async function cacheGet(key: string): Promise<unknown | null> {
   const r = await query<{ value: unknown }>("SELECT value FROM enrich_cache WHERE key=$1 AND expires_at > now()", [key]);
@@ -65,12 +66,22 @@ export default async function (app: FastifyInstance) {
       : null;
     const inds = await query("SELECT * FROM indicator WHERE id=ANY($1::bigint[])", [ev.evidence?.indicator_ids ?? []]).catch(() => ({ rows: [] }));
     const org = ev.org_id ? (await query("SELECT * FROM org WHERE id=$1", [ev.org_id])).rows[0] : null;
+    // Fraîcheur et confiance : mêmes calculs que GET /events, pour que
+    // l'inspecteur dise « depuis quand » et « à quel point on y croit »
+    // sans que le front ne déduise.
+    const sourcesDistinctes = ev.org_id
+      ? (await query<{ n: number }>(`SELECT COUNT(DISTINCT source_id)::int AS n FROM event WHERE org_id=$1 AND COALESCE(observed_at, collected_at) >= now() - interval '30 days'`, [ev.org_id]).catch(() => ({ rows: [{ n: 0 }] })) ).rows[0]?.n ?? 0
+      : 0;
+    const dateObs = (ev.observed_at ?? ev.collected_at) as string | null;
+    const fraicheur = fraicheurDe({ observedAt: dateObs ? new Date(dateObs).toISOString() : null, dateSource: (ev.date_source as string | null) ?? null });
+    const confiance = confianceDe({ sourceConfidence: (ev.confidence as string | null) ?? null, assertionType: (ev.assertion_type as string | null) ?? null, orgId: ev.org_id as number | null, sourcesDistinctes });
+    const enrichedEvent = { ...ev, fraicheur, confiance };
     let enrichment = null;
     if (inds.rows[0]) {
       const key = `ind:${inds.rows[0].id}`;
       enrichment = await cacheGet(key);
       if (!enrichment) { enrichment = await enrichIndicator({ type: inds.rows[0].type, value: inds.rows[0].value }); await cacheSet(key, enrichment); }
     }
-    return { event: ev, indicators: inds.rows, org, enrichment, rattachement };
+    return { event: enrichedEvent, indicators: inds.rows, org, enrichment, rattachement };
   });
 }
