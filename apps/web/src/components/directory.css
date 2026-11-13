@@ -311,6 +311,17 @@ th[aria-sort="descending"] .directory__arrow { color: var(--color-accent); }
 
 .directory__timing { color: var(--color-faint); }
 
+/* Le domaine officiel, cliquable, sous le nom : on vérifie « est-ce la bonne
+   organisation ? » sans quitter l'annuaire. */
+.directory__site {
+  display: block;
+  margin-left: 16px;
+  font: 400 10px/1.3 var(--font-mono);
+  color: var(--color-faint);
+  text-decoration: none;
+}
+.directory__site:hover { color: var(--color-accent); text-decoration: underline; }
+
 .directory__truncated {
   margin: 0 0 8px;
   padding: 6px 10px;

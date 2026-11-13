@@ -21,6 +21,8 @@ export type DirectoryUrlState = {
 	sector: string | null;
 	dept: string | null;
 	withEvents: boolean;
+	/** Les organisations jamais vues : le trou, pas le bruit. */
+	withoutEvents: boolean;
 	sort: string;
 	dir: "asc" | "desc";
 	page: number;
@@ -40,6 +42,7 @@ export const DEFAULT_DIRECTORY: DirectoryUrlState = {
 	sector: null,
 	dept: null,
 	withEvents: false,
+	withoutEvents: false,
 	// Tri par défaut : les organisations touchées d'abord. C'est un poste de
 	// veille, pas un annuaire alphabétique.
 	sort: "eventCount",
@@ -81,6 +84,7 @@ export function parseHash(hash: string): AppUrlState {
 			sector: params.get("sector") || null,
 			dept: dept && /^[0-9ABab]{2,3}$/.test(dept) ? dept : null,
 			withEvents: params.get("events") === "1",
+			withoutEvents: params.get("sans") === "1",
 			sort: ["name", "eventCount", "city", "dept", "relevance"].includes(sort)
 				? sort
 				: DEFAULT_DIRECTORY.sort,
@@ -103,6 +107,7 @@ export function toHash(state: AppUrlState): string {
 		if (d.sector) params.set("sector", d.sector);
 		if (d.dept) params.set("dept", d.dept);
 		if (d.withEvents) params.set("events", "1");
+		if (d.withoutEvents) params.set("sans", "1");
 		if (d.sort && d.sort !== DEFAULT_DIRECTORY.sort) params.set("sort", d.sort);
 		if (d.dir !== DEFAULT_DIRECTORY.dir) params.set("dir", d.dir);
 		if (d.page > 0) params.set("page", String(d.page));

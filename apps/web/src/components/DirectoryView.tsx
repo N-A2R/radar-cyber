@@ -51,6 +51,7 @@ const REASON_LABEL: Record<string, string> = {
 const COLUMNS = [
 	{ id: "name", label: "Organisation", sortable: true },
 	{ id: "kind", label: "Nature", sortable: false },
+	{ id: "entityCode", label: "Identifiant", sortable: false },
 	{ id: "city", label: "Commune", sortable: true },
 	{ id: "dept", label: "Dépt", sortable: true },
 	{ id: "eventCount", label: "Événements", sortable: true },
@@ -97,6 +98,7 @@ export default function DirectoryView({
 	const [sector, setSector] = useState<string | null>(urlState?.sector ?? null);
 	const [dept, setDept] = useState<string | null>(urlState?.dept ?? null);
 	const [withEvents, setWithEvents] = useState(urlState?.withEvents ?? false);
+	const [withoutEvents, setWithoutEvents] = useState(urlState?.withoutEvents ?? false);
 	const [sort, setSort] = useState(urlState?.sort ?? DEFAULT_DIRECTORY.sort);
 	const [dir, setDir] = useState<"asc" | "desc">(urlState?.dir ?? DEFAULT_DIRECTORY.dir);
 	const [page, setPage] = useState(urlState?.page ?? 0);
@@ -129,6 +131,7 @@ export default function DirectoryView({
 				sector,
 				dept,
 				withEvents,
+				withoutEvents,
 				sort: sort || undefined,
 				dir,
 				page,
@@ -146,14 +149,35 @@ export default function DirectoryView({
 				setRemoteLoading(false);
 			});
 		return () => controller.abort();
-	}, [server, debouncedQuery, kind, sector, dept, withEvents, sort, dir, page, size]);
+	}, [server, debouncedQuery, kind, sector, dept, withEvents, withoutEvents, sort, dir, page, size]);
 
 	// L'URL suit l'état : un lien se copie et se partage tel quel.
 	useEffect(() => {
 		onUrlStateChange?.({
-			q: query, kind, sector, dept, withEvents, sort, dir, page, size,
+			q: query, kind, sector, dept, withEvents, withoutEvents, sort, dir, page, size,
 		});
-	}, [onUrlStateChange, query, kind, sector, dept, withEvents, sort, dir, page, size]);
+	}, [onUrlStateChange, query, kind, sector, dept, withEvents, withoutEvents, sort, dir, page, size]);
+
+	// Et l'état suit l'URL : le bouton retour et un lien collé doivent
+	// réellement changer la liste, pas seulement la barre d'adresse.
+	const urlKey = urlState
+		? [urlState.q, urlState.kind, urlState.sector, urlState.dept, urlState.withEvents,
+			urlState.withoutEvents, urlState.sort, urlState.dir, urlState.page, urlState.size].join("\u0000")
+		: "";
+	useEffect(() => {
+		if (!urlState) return;
+		setQuery(urlState.q);
+		setKind(urlState.kind);
+		setSector(urlState.sector);
+		setDept(urlState.dept);
+		setWithEvents(urlState.withEvents);
+		setWithoutEvents(urlState.withoutEvents);
+		setSort(urlState.sort);
+		setDir(urlState.dir);
+		setPage(urlState.page);
+		setSize(urlState.size);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [urlKey]);
 
 	const local = useMemo(() => {
 		if (server) return null;
@@ -163,6 +187,7 @@ export default function DirectoryView({
 			if (sector && org.sector !== sector) return false;
 			if (dept && org.dept !== dept) return false;
 			if (withEvents && org.eventCount === 0) return false;
+			if (withoutEvents && org.eventCount > 0) return false;
 			if (q === "") return true;
 			return [org.name, org.city ?? "", org.dept ?? "", org.kind, org.sector ?? ""]
 				.join(" ").toLowerCase().includes(q);
@@ -187,7 +212,7 @@ export default function DirectoryView({
 			truncated: false,
 			tookMs: 0,
 		};
-	}, [server, orgs, debouncedQuery, kind, sector, dept, withEvents, sort, dir, page, size]);
+	}, [server, orgs, debouncedQuery, kind, sector, dept, withEvents, withoutEvents, sort, dir, page, size]);
 
 	const rows = server ? remote?.rows ?? [] : local?.rows ?? [];
 	const total = server ? remote?.total ?? 0 : local?.total ?? 0;
@@ -317,8 +342,13 @@ export default function DirectoryView({
 						))}
 					</select>
 					<button type="button" aria-pressed={withEvents}
-						onClick={() => { setWithEvents((v) => !v); resetPage(); }}>
+						onClick={() => { setWithEvents((v) => !v); setWithoutEvents(false); resetPage(); }}>
 						Avec événements
+					</button>
+					<button type="button" aria-pressed={withoutEvents}
+						onClick={() => { setWithoutEvents((v) => !v); setWithEvents(false); resetPage(); }}
+						title="Les organisations du référentiel qu'aucune source n'a jamais citées">
+						Jamais vues
 					</button>
 				</div>
 			</div>
@@ -386,6 +416,18 @@ export default function DirectoryView({
 											<span className="directory__bullet" data-kind={row.kind} aria-hidden="true" />
 											{row.name}
 										</span>
+										{row.domain ? (
+											<a
+												className="directory__site"
+												href={`https://${row.domain}`}
+												target="_blank"
+												rel="noreferrer noopener"
+												onClick={(event) => event.stopPropagation()}
+												title={`Ouvrir ${row.domain}`}
+											>
+												{row.domain}
+											</a>
+										) : null}
 										{row.matchedAlias && row.matchedAlias !== row.name ? (
 											<span className="directory__match">
 												via « {row.matchedAlias} »
@@ -396,6 +438,15 @@ export default function DirectoryView({
 										) : null}
 									</td>
 									<td><span className="directory__kind">{KIND_LABEL[row.kind] ?? row.kind}</span></td>
+									<td>
+										{row.entityCode ? (
+											<span className="directory__mono" title={`${row.entitySource ?? "identifiant"} ${row.entityCode}`}>
+												{row.entityCode}
+											</span>
+										) : (
+											<span className="directory__void">—</span>
+										)}
+									</td>
 									<td>{row.city || <span className="directory__void">—</span>}</td>
 									<td><span className="directory__mono">{row.dept || "—"}</span></td>
 									<td><span className="directory__count" data-zero={row.eventCount === 0}>{row.eventCount}</span></td>

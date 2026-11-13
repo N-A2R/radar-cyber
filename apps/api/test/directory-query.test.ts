@@ -160,3 +160,33 @@ test("résultat vide : pas d'erreur, facets vides, total nul", async () => {
 	assert.deepEqual(result.rows, []);
 	assert.deepEqual(result.facets.dept, []);
 });
+
+test("filtre « jamais vues » : l'inverse exact de « avec événements »", async () => {
+	await fixtures();
+	const avec = await queryDirectory({ withEvents: true, limit: 200 });
+	const sans = await queryDirectory({ withoutEvents: true, limit: 200 });
+
+	const avecMine = mine(avec.rows);
+	const sansMine = mine(sans.rows);
+	assert.ok(avecMine.every((o) => o.eventCount > 0), "« avec » ne rend que des organisations vues");
+	assert.ok(sansMine.every((o) => o.eventCount === 0), "« jamais vues » ne rend que des organisations à zéro fait");
+	assert.equal(avecMine.length + sansMine.length, 5, "les deux filtres partitionnent le jeu de test");
+
+	// Les deux ensemble : « jamais vues » l'emporte, on ne rend pas l'intersection vide.
+	const deux = await queryDirectory({ withEvents: true, withoutEvents: true, limit: 200 });
+	assert.ok(mine(deux.rows).every((o) => o.eventCount === 0));
+});
+
+test("recherche par identifiant officiel : un SIREN sort en tête", async () => {
+	await fixtures();
+	const siren = "775665599";
+	await query(
+		`UPDATE org SET entity_code=$1, entity_source='siren' WHERE id=$2`,
+		[siren, pessacId],
+	);
+
+	const result = await queryDirectory({ q: siren });
+	assert.ok(result.rows.length > 0, "un SIREN doit être trouvé");
+	assert.equal(result.rows[0]?.id, pessacId, "l'organisation portant le SIREN doit être la première");
+	assert.equal(result.rows[0]?.entityCode, siren, "l'identifiant doit être renvoyé pour l'affichage");
+});

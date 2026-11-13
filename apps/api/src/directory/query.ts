@@ -29,6 +29,8 @@ export type DirectoryParams = {
 	sector?: string | null;
 	dept?: string | null;
 	withEvents?: boolean;
+	/** L'inverse de `withEvents` : les organisations qu'on n'a jamais vues. */
+	withoutEvents?: boolean;
 	sort?: DirectorySort;
 	dir?: DirectoryDir;
 	page?: number;
@@ -48,6 +50,9 @@ export type DirectoryOrg = {
 	lat: number | null;
 	lon: number | null;
 	eventCount: number;
+	/** Identifiant officiel (FINESS, UAI ou SIREN) et sa source. */
+	entityCode: string | null;
+	entitySource: string | null;
 	score?: number;
 	reason?: RankReason;
 	matchedAlias?: string | null;
@@ -92,6 +97,8 @@ type RawRow = {
 	domain: string | null;
 	lat: number | null;
 	lon: number | null;
+	entity_code: string | null;
+	entity_source: string | null;
 	event_count: number;
 	aliases: string[] | null;
 	total: string | null;
@@ -99,6 +106,7 @@ type RawRow = {
 
 const SELECT_FIELDS = `
   o.id, o.name, o.slug, o.kind, o.sector, o.city, o.dept, o.website, o.domain, o.lat, o.lon,
+  o.entity_code, o.entity_source,
   (SELECT COUNT(*)::int FROM event e WHERE e.org_id = o.id) AS event_count`;
 
 function mapRow(row: RawRow): DirectoryOrg {
@@ -117,6 +125,8 @@ function mapRow(row: RawRow): DirectoryOrg {
 		lat: row.lat === null ? null : Number(row.lat),
 		lon: row.lon === null ? null : Number(row.lon),
 		eventCount: Number(row.event_count ?? 0),
+		entityCode: row.entity_code ?? null,
+		entitySource: row.entity_source ?? null,
 	};
 }
 
@@ -134,7 +144,9 @@ function buildWhere(params: DirectoryParams, skip?: "kind" | "sector" | "dept"):
 	if (params.kind && skip !== "kind") add("o.kind = ?", params.kind);
 	if (params.sector && skip !== "sector") add("o.sector = ?", params.sector);
 	if (params.dept && skip !== "dept") add("o.dept = ?", params.dept);
-	if (params.withEvents) clauses.push("EXISTS (SELECT 1 FROM event e WHERE e.org_id = o.id)");
+	// Les deux filtres sont exclusifs : « jamais vue » l'emporte si les deux arrivent.
+	if (params.withoutEvents) clauses.push("NOT EXISTS (SELECT 1 FROM event e WHERE e.org_id = o.id)");
+	else if (params.withEvents) clauses.push("EXISTS (SELECT 1 FROM event e WHERE e.org_id = o.id)");
 	return { sql: clauses.length ? `WHERE ${clauses.join(" AND ")}` : "", values };
 }
 
@@ -241,6 +253,7 @@ export async function queryDirectory(params: DirectoryParams): Promise<Directory
 		     o.name ILIKE ANY($${patternIndex}::text[])
 		     OR COALESCE(o.city,'') ILIKE ANY($${patternIndex}::text[])
 		     OR COALESCE(o.domain,'') ILIKE ANY($${patternIndex}::text[])
+		     OR COALESCE(o.entity_code,'') ILIKE ANY($${patternIndex}::text[])
 		     OR EXISTS (SELECT 1 FROM org_alias a WHERE a.org_id = o.id AND a.alias ILIKE ANY($${patternIndex}::text[]))
 		   )
 		   ORDER BY event_count DESC, o.name, o.id

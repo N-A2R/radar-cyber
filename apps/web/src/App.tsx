@@ -369,6 +369,7 @@ export default function App() {
         && prev.directory.sector === directory.sector
         && prev.directory.dept === directory.dept
         && prev.directory.withEvents === directory.withEvents
+        && prev.directory.withoutEvents === directory.withoutEvents
         && prev.directory.sort === directory.sort
         && prev.directory.dir === directory.dir
         && prev.directory.page === directory.page

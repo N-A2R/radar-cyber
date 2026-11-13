@@ -33,12 +33,14 @@ export type RankCandidate = {
 	city: string | null;
 	dept: string | null;
 	domain: string | null;
+	/** Identifiant officiel : un SIREN tapé doit sortir en tête, pas en sous-chaîne. */
+	entityCode?: string | null;
 	eventCount: number;
 	/** Alias de l'organisation, tels que stockés. Facultatif selon la requête. */
 	aliases?: readonly string[];
 };
 
-export type RankReason = "exact" | "exact-alias" | "prefix" | "prefix-alias" | "tokens" | "substring" | "fuzzy";
+export type RankReason = "exact-code" | "exact" | "exact-alias" | "prefix" | "prefix-alias" | "tokens" | "substring" | "fuzzy";
 
 export type RankedOrg<T extends RankCandidate> = T & {
 	score: number;
@@ -51,6 +53,7 @@ export type RankedOrg<T extends RankCandidate> = T & {
 const FUZZY_MIN = 88;
 
 const REASON_BASE: Record<RankReason, number> = {
+	"exact-code": 1050,
 	exact: 1000,
 	"exact-alias": 940,
 	prefix: 860,
@@ -132,6 +135,12 @@ export function rankOrgs<T extends RankCandidate>(candidates: readonly T[], quer
 	const tokens = discriminatingTokens(query);
 	const out: Array<RankedOrg<T>> = [];
 	for (const org of candidates) {
+		// Un identifiant officiel (SIREN, FINESS, UAI) tapé tel quel gagne
+		// toujours : aucun texte ne peut produire une correspondance plus sûre.
+		if (org.entityCode && normalize(org.entityCode) === key) {
+			out.push({ ...org, score: REASON_BASE["exact-code"], reason: "exact-code", matchedAlias: null });
+			continue;
+		}
 		const hit = bestHit(org, key, tokens) as Hit | null;
 		if (!hit) continue;
 		out.push({ ...org, score: hit.score, reason: hit.reason, matchedAlias: hit.alias });
