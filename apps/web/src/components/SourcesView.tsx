@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { sourceStatus, type Source, type SourceStatus } from "../api";
+import { sourceStatus, sourceYield, type Source, type SourceStatus, type SourceYield } from "../api";
 import type { SourcesViewProps } from "../contracts";
 import "./sources.css";
 
@@ -22,17 +22,45 @@ const STATUS_LABEL: Record<SourceStatus, string> = {
   pending: "jamais collecté",
 };
 
-type SortKey = "name" | "family" | "status" | "lastOkAt" | "lastErrorAt" | "itemsTotal";
+type SortKey =
+  | "name"
+  | "family"
+  | "status"
+  | "lastOkAt"
+  | "lastErrorAt"
+  | "itemsTotal"
+  | "entrees"
+  | "evenements30j"
+  | "rendement"
+  // Tri par défaut, propre au registre : par gravité du problème, pas par date.
+  | "yield";
 type SortDir = "asc" | "desc";
 
-const COLUMNS: { key: SortKey; label: string; num?: boolean }[] = [
+const COLUMNS: { key: SortKey; label: string; num?: boolean; hint?: string }[] = [
   { key: "name", label: "source" },
   { key: "family", label: "famille" },
   { key: "status", label: "état" },
   { key: "lastOkAt", label: "dernier succès" },
-  { key: "lastErrorAt", label: "dernier échec" },
-  { key: "itemsTotal", label: "éléments", num: true },
+  { key: "lastErrorAt", label: "dernier échec", hint: "le dernier passage a échoué" },
+  { key: "entrees", label: "lues 30 j", num: true, hint: "entrées lues par le collecteur" },
+  { key: "evenements30j", label: "évén. 30 j", num: true, hint: "événements attribués à la source" },
+  { key: "rendement", label: "rendement", num: true, hint: "part des entrées lues devenues un événement" },
 ];
+
+/** Libellés des rendements : ce que la source rapporte, pas si elle répond. */
+export const YIELD_LABEL: Record<SourceYield, string> = {
+  productive: "productive",
+  vide: "lit sans rendre",
+  muette: "muette",
+  inconnue: "inconnue",
+};
+
+const YIELD_HINT: Record<SourceYield, string> = {
+  productive: "au moins un événement retenu sur 30 jours",
+  vide: "des entrées sont lues mais aucune n'est retenue : porte ou parseur en cause",
+  muette: "le collecteur est passé sans rien lire",
+  inconnue: "aucun passage mesurable — ce n'est pas un zéro, c'est une absence de mesure",
+};
 
 /** Les erreurs d'abord, puis l'inconnu, puis le succès. */
 const STATUS_RANK: Record<SourceStatus, number> = { error: 0, pending: 1, ok: 2 };
@@ -72,10 +100,26 @@ export function formatAbsolute(value: string | null): string {
   return new Date(then).toLocaleString("fr-FR", { dateStyle: "short", timeStyle: "short" });
 }
 
+/**
+ * Gravité du rendement, pour le tri par défaut. Une source qui lit 40 entrées
+ * sans en retenir une seule passe avant une source jamais tentée : la première
+ * a un défaut localisé, la seconde n'a pas encore de verdict.
+ */
+const YIELD_RANK: Record<SourceYield, number> = { vide: 0, muette: 1, inconnue: 2, productive: 3 };
+
 /** Compare deux sources sur une colonne ; les valeurs absentes restent en fin de liste. */
 function compareSources(a: Source, b: Source, key: SortKey, dir: SortDir): number {
   const sign = dir === "asc" ? 1 : -1;
   switch (key) {
+    case "yield": {
+      const rank = YIELD_RANK[sourceYield(a)] - YIELD_RANK[sourceYield(b)];
+      if (rank !== 0) return rank * sign;
+      // À gravité égale, le plus mauvais rendement d'abord ; l'inconnu ensuite.
+      const av = a.rendement;
+      const bv = b.rendement;
+      if (av === null || bv === null) return av === bv ? a.name.localeCompare(b.name, "fr") : av === null ? 1 : -1;
+      return (av - bv) * sign || a.name.localeCompare(b.name, "fr");
+    }
     case "status": {
       const rank = STATUS_RANK[sourceStatus(a)] - STATUS_RANK[sourceStatus(b)];
       return rank !== 0 ? rank * sign : a.name.localeCompare(b.name, "fr");
@@ -99,6 +143,17 @@ function compareSources(a: Source, b: Source, key: SortKey, dir: SortDir): numbe
       if (bv === null) return -1;
       return (av - bv) * sign;
     }
+    // Les valeurs absentes (`null`) restent en fin de liste dans les deux sens :
+    // « inconnu » ne doit jamais être classé comme « mauvais ».
+    case "entrees":
+    case "evenements30j":
+    case "rendement": {
+      const av = key === "evenements30j" ? a.evenements30j : a[key];
+      const bv = key === "evenements30j" ? b.evenements30j : b[key];
+      if (av === null) return bv === null ? 0 : 1;
+      if (bv === null) return -1;
+      return (av - bv) * sign;
+    }
   }
 }
 
@@ -109,7 +164,12 @@ function compareSources(a: Source, b: Source, key: SortKey, dir: SortDir): numbe
  */
 export default function SourcesView({ sources, loading, error }: SourcesViewProps) {
   const [query, setQuery] = useState("");
-  const [sortKey, setSortKey] = useState<SortKey>("name");
+  // Par défaut : les sources qui rapportent le moins en tête, et parmi elles
+  // d'abord celles qui lisent sans rien rendre — c'est là qu'un parseur cassé
+  // se cache. Le registre sert à trouver ce qui ne marche pas, pas à admirer
+  // ce qui marche. « Non mesurée » vient après « vide » : ce n'est pas un
+  // défaut prouvé, c'est une absence de mesure.
+  const [sortKey, setSortKey] = useState<SortKey>("yield");
   const [sortDir, setSortDir] = useState<SortDir>("asc");
 
   const rows = useMemo(() => {
@@ -123,6 +183,14 @@ export default function SourcesView({ sources, loading, error }: SourcesViewProp
   const counts = useMemo(() => {
     const c: Record<SourceStatus, number> = { ok: 0, error: 0, pending: 0 };
     for (const s of sources) c[sourceStatus(s)] += 1;
+    return c;
+  }, [sources]);
+
+  // Deux questions distinctes : « répond-elle ? » et « rapporte-t-elle ? ».
+  // Une source peut répondre tous les jours et ne rien rendre pendant des mois.
+  const yields = useMemo(() => {
+    const c: Record<SourceYield, number> = { productive: 0, vide: 0, muette: 0, inconnue: 0 };
+    for (const s of sources) c[sourceYield(s)] += 1;
     return c;
   }, [sources]);
 
@@ -142,6 +210,11 @@ export default function SourcesView({ sources, loading, error }: SourcesViewProp
         <p className="sources-view__summary">
           {sources.length} flux déclarés · {counts.ok} ok · {counts.error} en erreur ·{" "}
           {counts.pending} jamais collectés
+        </p>
+        <p className="sources-view__yield" aria-label="Rendement des sources">
+          {yields.productive} productive{yields.productive > 1 ? "s" : ""} · {yields.vide} qui
+          lisent sans rendre · {yields.muette} muette{yields.muette > 1 ? "s" : ""} ·{" "}
+          {yields.inconnue} non mesurée{yields.inconnue > 1 ? "s" : ""}
         </p>
       </header>
 
@@ -179,6 +252,7 @@ export default function SourcesView({ sources, loading, error }: SourcesViewProp
                       : "none"
                   }
                   className={col.num ? "sources-table__num" : undefined}
+                  title={col.hint}
                 >
                   <button type="button" className="sources-table__sort" onClick={() => toggleSort(col.key)}>
                     {col.label}
@@ -193,8 +267,9 @@ export default function SourcesView({ sources, loading, error }: SourcesViewProp
           <tbody>
             {rows.map((source) => {
               const status = sourceStatus(source);
+              const yieldKind = sourceYield(source);
               return (
-                <tr key={source.id}>
+                <tr key={source.id} title={YIELD_HINT[yieldKind]}>
                   <th scope="row" className="sources-table__name">
                     {source.name}
                   </th>
@@ -204,6 +279,11 @@ export default function SourcesView({ sources, loading, error }: SourcesViewProp
                       <span className="sources-status__dot" aria-hidden="true" />
                       {STATUS_LABEL[status]}
                     </span>
+                    {source.disabledReason && (
+                      <span className="sources-table__reason" title={source.disabledReason}>
+                        {source.disabledReason}
+                      </span>
+                    )}
                   </td>
                   <td className="sources-table__time">
                     <span title={formatAbsolute(source.lastOkAt)}>
@@ -215,7 +295,15 @@ export default function SourcesView({ sources, loading, error }: SourcesViewProp
                       {formatRelative(source.lastErrorAt)}
                     </span>
                   </td>
-                  <td className="sources-table__num">{formatNumber(source.itemsTotal)}</td>
+                  <td className="sources-table__num">{formatNumber(source.entrees)}</td>
+                  <td className="sources-table__num">{source.evenements30j}</td>
+                  <td className="sources-table__num">
+                    <span className="sources-yield" data-yield={yieldKind}>
+                      {source.rendement === null
+                        ? "—"
+                        : `${(source.rendement * 100).toFixed(source.rendement < 0.01 ? 1 : 0)} %`}
+                    </span>
+                  </td>
                 </tr>
               );
             })}

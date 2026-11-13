@@ -33,6 +33,7 @@ import { decodeBody } from "./parsers/decode.js";
 import { consignerLot, MOTEURS, type JournalEntry } from "../journal/index.js";
 import { parseRssItems } from "./parsers/xml.js";
 import { parseJsonItems as parseJsonItemsNew } from "./parsers/json.js";
+import { constaterTransition } from "./reveil.js";
 
 type SourceRow = {
   id: string;
@@ -902,6 +903,11 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], covera
       "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, items_skipped) VALUES ($1, now(), 'ok', $2, $3, $4)",
       [source.id, result.items, result.added, result.skipped]
     );
+    // Le changement d'état est un fait : « elle se réveille » et « elle
+    // s'assoupit » ne se lisent nulle part ailleurs, et c'est pourtant la seule
+    // information qui distingue une source qui vient de casser d'une source qui
+    // n'a jamais rien valu.
+    await constaterTransition(source.id, "ok", result.added);
   } catch (e) {
     const err = String((e as Error)?.message ?? e);
     await ingestQuery("UPDATE source SET last_error_at=now(), last_error=$1 WHERE id=$2", [err, source.id]).catch(() => {});
@@ -909,6 +915,7 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], covera
       "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, error) VALUES ($1, now(), 'error', 0, 0, $2)",
       [source.id, err]
     ).catch(() => {});
+    await constaterTransition(source.id, "error", 0, err);
   }
 }
 
