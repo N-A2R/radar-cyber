@@ -49,7 +49,7 @@ vérifié ; ce qui manque n'est plus du code, c'est la preuve qu'il voit.
 | 6 — Transmission | 1/1 | rien |
 
 **La mesure existe et elle est mauvaise.** `docs/mesure-couverture.md` publie
-5/15 (33,3 %) sur un corpus de 20 incidents, avec les 9 organisations absentes
+7/18 (38,9 %) sur un corpus de 23 incidents, avec les 10 organisations absentes
 du référentiel nommées une par une. Le chiffre est reproductible : rejoué ce
 jour sur 34 330 organisations chargées localement, il redonne 5/15 à
 l'identique. Ce qui manque n'est donc plus l'instrument, c'est le référentiel
@@ -57,9 +57,10 @@ qui rendrait le taux acceptable — et le corpus qui le rendrait solide.
 
 ### La suite, dans l'ordre
 
-1. **Le corpus, encore.** 20 incidents ne suffisent pas : tous les secteurs
+1. **Le corpus, encore.** 23 incidents ne suffisent pas : tous les secteurs
    sont en réserve statistique (< 10 faits). C'est le seul levier qui fait
-   bouger la mesure.
+   bouger la mesure — et il a déjà payé : trois incidents ajoutés, deux vus,
+   et un défaut du moteur révélé par l'un d'eux.
 2. **Le référentiel des petites structures.** 9 des 10 incidents non rattachés
    le sont parce que l'organisation n'existe pas en base, et 245 des 290
    entités manquantes n'ont même pas de zone identifiable.
