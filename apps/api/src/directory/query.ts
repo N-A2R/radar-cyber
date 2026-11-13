@@ -154,7 +154,7 @@ async function facet(
 }
 
 /** `%` et `_` saisis par l'utilisateur sont des littéraux, pas des jokers. */
-function likeLiteral(value: string): string {
+export function likeLiteral(value: string): string {
 	return value.replace(/[\\%_]/g, (char) => `\\${char}`);
 }
 
@@ -243,7 +243,7 @@ export async function queryDirectory(params: DirectoryParams): Promise<Directory
 		     OR COALESCE(o.domain,'') ILIKE ANY($${patternIndex}::text[])
 		     OR EXISTS (SELECT 1 FROM org_alias a WHERE a.org_id = o.id AND a.alias ILIKE ANY($${patternIndex}::text[]))
 		   )
-		   ORDER BY event_count DESC, o.name
+		   ORDER BY event_count DESC, o.name, o.id
 		   LIMIT ${CANDIDATE_CAP + 1}`,
 		values,
 	);
@@ -262,7 +262,8 @@ export async function queryDirectory(params: DirectoryParams): Promise<Directory
 			const comparison = typeof left === "number" && typeof right === "number"
 				? left - right
 				: String(left).localeCompare(String(right), "fr");
-			return dir === "desc" ? -comparison : comparison;
+			if (comparison !== 0) return dir === "desc" ? -comparison : comparison;
+			return dir === "desc" ? b.id - a.id : a.id - b.id;
 		});
 	}
 

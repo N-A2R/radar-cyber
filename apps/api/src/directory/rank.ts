@@ -139,7 +139,9 @@ export function rankOrgs<T extends RankCandidate>(candidates: readonly T[], quer
 	out.sort((a, b) => {
 		if (b.score !== a.score) return b.score - a.score;
 		if (b.eventCount !== a.eventCount) return b.eventCount - a.eventCount;
-		return a.name.localeCompare(b.name, "fr");
+		const cmp = a.name.localeCompare(b.name, "fr");
+		if (cmp !== 0) return cmp;
+		return a.id - b.id;
 	});
 	return out;
 }
