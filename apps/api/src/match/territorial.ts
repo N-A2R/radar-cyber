@@ -40,3 +40,39 @@ export function verifierTerritorial(
 	if (admitsDepartment(texte, departements)) return { regional: true, motif: "departement" };
 	return { regional: false, motif: "aucun-indice-territorial" };
 }
+
+/**
+ * Mots outils français. Un texte qui n'en contient aucun, et qui n'a pas
+ * d'accent, n'est pas un texte français.
+ */
+const MOTS_FRANCAIS: Record<string, true> = {
+	de: true, la: true, le: true, les: true, des: true, du: true, et: true,
+	en: true, dans: true, sur: true, pour: true, avec: true, une: true,
+	un: true, est: true, sont: true, qui: true, que: true, par: true,
+	au: true, aux: true, ce: true, cette: true, son: true, sa: true,
+	ses: true, ont: true, été: true, après: true, avant: true, plus: true,
+	hors: true, sous: true, vers: true, chez: true, dont: true, où: true,
+};
+
+/**
+ * Vrai si le texte a une chance d'être français.
+ *
+ * Ce test existe pour une raison précise : les flux de vulnérabilités sont en
+ * anglais, et un référentiel régional contient des raisons sociales composées
+ * de mots anglais ordinaires — « PHONE SERVICE », « FIREWALL SERVICES »,
+ * « HOST & WORKER ». Chaque mot ajouté à la liste des termes génériques en
+ * faisait apparaître un autre : la liste ne pouvait pas gagner.
+ *
+ * La règle qui gagne est plus haut : **un CVE n'est pas un incident régional**.
+ * On ne cherche une organisation que dans un texte français.
+ */
+export function estTexteFrancais(texte: string): boolean {
+	if (/[àâäçéèêëîïôöùûüÿœæ]/i.test(texte)) return true;
+	const mots = texte.toLowerCase().split(/[^a-zà-ÿ]+/).filter(Boolean);
+	if (mots.length === 0) return false;
+	let outils = 0;
+	for (const m of mots) if (MOTS_FRANCAIS[m] === true) outils++;
+	// Un mot outil tous les 12 mots : un texte français en contient bien plus,
+	// un texte anglais technique beaucoup moins.
+	return outils >= Math.max(2, Math.floor(mots.length / 12));
+}
