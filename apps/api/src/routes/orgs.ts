@@ -69,12 +69,38 @@ function mapOrg(row: OrgListRow) {
 }
 
 export default async function (app: FastifyInstance) {
-  app.get("/orgs", async () => {
-    const r = await query<OrgListRow>(`
+  app.get("/orgs", async (req) => {
+    const q = (req.query as Record<string, string | undefined>) ?? {};
+    const asOfRaw = q.asOf ?? (q as Record<string, string | undefined>).as_of ?? null;
+    let asOf: string | null = null;
+    if (asOfRaw) {
+      const t = Date.parse(asOfRaw);
+      if (!Number.isNaN(t)) asOf = new Date(t).toISOString();
+    }
+    if (!asOf) {
+      const r = await query<OrgListRow>(`
       SELECT o.id, o.name, o.slug, o.kind, o.sector, o.city, o.dept, o.website, o.domain, o.lat, o.lon, COUNT(e.id)::int AS event_count
       FROM org o LEFT JOIN event e ON e.org_id=o.id
+      WHERE o.valid_to IS NULL
       GROUP BY o.id ORDER BY o.name
     `);
+      return r.rows.map(mapOrg);
+    }
+    const r = await query<OrgListRow>(
+      `WITH valides AS (
+         SELECT id, name, slug, kind, sector, city, dept, website, domain, lat, lon
+         FROM org WHERE valid_from <= $1::timestamptz AND (valid_to IS NULL OR valid_to > $1::timestamptz)
+         UNION ALL
+         SELECT org_id AS id, name, slug, kind, sector, city, dept, website, domain, lat, lon
+         FROM org_history WHERE valid_from <= $1::timestamptz AND (valid_to IS NULL OR valid_to > $1::timestamptz)
+       )
+       SELECT v.id, v.name, v.slug, v.kind, v.sector, v.city, v.dept, v.website, v.domain, v.lat, v.lon,
+              COUNT(e.id)::int AS event_count
+       FROM valides v LEFT JOIN event e ON e.org_id=v.id
+       GROUP BY v.id, v.name, v.slug, v.kind, v.sector, v.city, v.dept, v.website, v.domain, v.lat, v.lon
+       ORDER BY v.name`,
+      [asOf],
+    );
     return r.rows.map(mapOrg);
   });
 

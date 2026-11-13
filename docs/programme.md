@@ -36,9 +36,9 @@ pourquoi l'axe 1 est déjà engagé.
 | # | Chantier | État | Critère de sortie |
 | --- | --- | --- | --- |
 | 1 | **Journal de vérité** — append-only, bi-temporel | ✅ livré | `verify:journal` passe, 3 voies câblées, rejeu prouvé |
-| 2 | ✅ **Archive longue** — arrêter de jeter à 90 jours | à faire | une requête répond sur 12 mois alors que le brut est purgé à 90 j |
-| 3 | **Rejeu historique** — rejouer avec un autre moteur | amorcé | rejouer une période avec un moteur antérieur redonne l'état de l'époque |
-| 4 | **Bi-temporel des organisations** — fusions, renommages, périmètres | à faire | un incident de 2024 se rattache à ce qui existait en 2024 |
+| 2 | ✅ **Archive longue** — arrêter de jeter à 90 jours | ✅ **fait** (`migrate-028`, `event_archive` 12 mois) | une requête répond sur 12 mois alors que le brut est purgé à 90 j |
+| 3 | **Rejeu historique** — rejouer avec un autre moteur | ✅ **fait** (`match/versions.ts`, `DEPLOIEMENTS`, `scripts/rejouer-moteur.mts`, `--as-of` + `moteurActifA`) | rejouer une période avec un moteur antérieur redonne l'état de l'époque |
+| 4 | **Bi-temporel des organisations** — fusions, renommages, périmètres | ✅ **fait** (`migrate-030`, `org_history`, `referentiel/bitemporal.ts`, `GET /orgs?asOf=`) | un incident de 2024 se rattache à ce qui existait en 2024 |
 
 ### Axe 2 — Mesure : prouver ce qu'on voit
 

@@ -45,7 +45,7 @@ await app.register(cors, { origin: true });
  * écritures protégées. Un token valide est attaché à la requête s'il est fourni,
  * ce qui permet au front d'adapter l'UI au rôle.
  */
-const PUBLIC_READ = /^\/api\/(health|stats|sources|flows|search|directory|graph|stream|events|orgs|enrich|alerts|quarantine|healthz)(\/|$|\?)/;
+const PUBLIC_READ = /^\/api\/(health|stats|sources|flows|search|directory|graph|stream|events|orgs|enrich|alerts|quarantine|dossier|healthz)(\/|$|\?)/;
 
 app.addHook("onRequest", async (req, reply) => {
   const url = req.url.split("?")[0];
@@ -77,6 +77,7 @@ await app.register((await import("./routes/auth.js")).default, { prefix: "/api" 
 await app.register(alertsRoute, { prefix: "/api" });
 await app.register(quarantineRoute, { prefix: "/api" });
 await app.register(ingestRoute, { prefix: "/api" });
+await app.register((await import("./routes/dossier.js")).default, { prefix: "/api" });
 
 /** Contexte fourni aux collecteurs : HTTP résilient, jamais de fetch nu. */
 function makeContext(cursor: Record<string, unknown>, log: (msg: string) => void): CollectContext {
