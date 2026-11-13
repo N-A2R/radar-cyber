@@ -16,7 +16,7 @@ Décisions de cadrage, données par l'utilisateur ce jour :
 
 ## Où on en est — 13 novembre 2026
 
-**16 chantiers faits, 2 à moitié, 2 pas commencés.** Le moteur tourne et il est
+**18 chantiers faits, 2 à moitié, 0 pas commencé.** Le moteur tourne et il est
 vérifié ; ce qui manque n'est plus du code, c'est la preuve qu'il voit.
 
 ### Ce qui a été prouvé (D0)
@@ -42,9 +42,9 @@ vérifié ; ce qui manque n'est plus du code, c'est la preuve qu'il voit.
 | Axe | Faits | Reste |
 | --- | --- | --- |
 | 1 — Mémoire | 4/4 | rien |
-| 2 — Mesure | **3/4** | 7 (par secteur) |
-| 3 — Analyse | 3/4 | 10 |
-| 4 — Données | 1/3 | 13 (chargement), 15 (parsing) |
+| 2 — Mesure | **4/4** | rien |
+| 3 — Analyse | 3/4 | 10 (taux de fausses alertes) |
+| 4 — Données | 2/3 | 13 (245 entités sans zone) |
 | 5 — Produit | 4/4 | rien |
 | 6 — Transmission | 1/1 | rien |
 
@@ -57,15 +57,18 @@ qui rendrait le taux acceptable — et le corpus qui le rendrait solide.
 
 ### La suite, dans l'ordre
 
-1. **13 — le trou du référentiel.** C'est le seul chiffre qui bloque tout :
-   sur 15 incidents du corpus, 9 échouent parce que l'organisation n'existe
-   pas au référentiel. Les 302 entités qualifiées sont prêtes à charger.
-2. **7 — par secteur.** Le 33,3 % global cache le vrai : le référentiel est
-   vide en agroalimentaire, industrie, BTP et commerce. Un taux par secteur
-   dit où le trou est, un taux global le noie.
-3. **10 — agents de rupture.** Indépendant de tout le reste.
-4. **15 — parsing.** 265 sources déclarées, presque aucune ne rend. Dire
-   *pourquoi* une source rend zéro est un préalable à toute collecte réelle.
+1. **Le corpus, encore.** 20 incidents ne suffisent pas : tous les secteurs
+   sont en réserve statistique (< 10 faits). C'est le seul levier qui fait
+   bouger la mesure.
+2. **Le référentiel des petites structures.** 9 des 10 incidents non rattachés
+   le sont parce que l'organisation n'existe pas en base, et 245 des 290
+   entités manquantes n'ont même pas de zone identifiable.
+3. **La décision presse.** La famille `presse` est refusée à l'entrée depuis
+   le 10 novembre ; les flux régionaux lisent 30 items et n'en admettent
+   aucun. Rouvrir demande un critère (signal cyber + indice régional), pas
+   une exception.
+4. **Le taux de fausses alertes des agents de rupture** (chantier 10), seule
+   pièce manquante pour clore l'axe analyse.
 
 ---
 
@@ -101,7 +104,7 @@ pourquoi l'axe 1 est déjà engagé.
 | --- | --- | --- | --- |
 | 5 | **Corpus de référence** — les incidents réels, versionnés | **fait** (`bench/fixtures/corpus-reference-na.json`, 20 incidents sourcés) | corpus annoté dans le dépôt : date, organisateur, lieu, type, preuve |
 | 6 | **Mesure de couverture publiée** | **fait** (`docs/mesure-couverture.md`, `scripts/mesure-couverture.mts` — 5/15, reproductible) | tableau nominatif : vu/non vu, délai, motif d'absence — committé |
-| 7 | **Mesure du rattachement par secteur** | à faire | précision et rappel par secteur d'activité, pas un global trompeur |
+| 7 | **Mesure du rattachement par secteur** | **fait** (`analyse/secteur.ts`, `scripts/mesure-secteurs.mts` — tous en réserve, corpus trop mince) | précision et rappel par secteur d'activité, pas un global trompeur |
 | 8 | **Valeur des sources** | **fait** (`analyse/valeur-source.ts`, `GET /api/sources`, colonne unicité) | chaque source a un apport mesuré en incidents réels, pas en volume |
 
 ### Axe 3 — Analyse : voir au-delà du fil
@@ -109,7 +112,7 @@ pourquoi l'axe 1 est déjà engagé.
 | # | Chantier | État | Critère de sortie |
 | --- | --- | --- | --- |
 | 9 | **Corrélation multi-sources** | **fait** (fiche org) | regroupement 72 h par famille, première source, délai de reprise, résumé |
-| 10 | **Agents de rupture** | à faire | 3 agents, taux de fausses alertes mesuré, branchés sur la revue |
+| 10 | **Agents de rupture** | **moitié** (`analyse/rupture.ts`, 3 détecteurs branchés sur `/api/dossier`) — le taux de fausses alertes reste à mesurer | 3 agents, taux de fausses alertes mesuré, branchés sur la revue |
 | 11 | **Anticipation mesurée** | **fait** (`docs/anticipation.md`) | part des faits précédés d'un signal, par nature, avec réserve sous 10 faits |
 | 12 | **Contradictions entre sources** | **fait** (fiche org) | désaccords de gravité et de nature affichés avec les positions de chaque source |
 
@@ -117,9 +120,9 @@ pourquoi l'axe 1 est déjà engagé.
 
 | # | Chantier | État | Critère de sortie |
 | --- | --- | --- | --- |
-| 13 | **Référentiel entreprises** | **voie prête** (`scripts/load-manques-exa.mts`, 302 entités qualifiées) — reste le chargement et le trou résiduel | **trou publié** en liste de courses (411 entités, 8 en France, zone et voie par entité) |
+| 13 | **Référentiel entreprises** | **moitié** — 12 entités chargées, trou publié (290/302, dont **245 sans zone identifiable**) ; le critère « zone et voie par entité » n'est pas tenu pour ces 245 | **trou publié** en liste de courses (411 entités, 8 en France, zone et voie par entité) |
 | 14 | **Diagnostic des sources muettes** | **fait** (`docs/sources-diagnostic.md`) | rendement par source exposé, `null` ≠ 0, transitions journalisées |
-| 15 | **Réparation du parsing** | **moitié faite** (motif par run, migration 029) | sources illisibles **réparées ou désactivées avec motif** — nécessite une relance réseau |
+| 15 | **Réparation du parsing** | **fait** (4 motifs, `migrate-033` : 3 flux réparés, 2 éteints avec motif) | sources illisibles **réparées ou désactivées avec motif** — nécessite une relance réseau |
 
 ### Axe 5 — Produit : ce qui se voit
 
