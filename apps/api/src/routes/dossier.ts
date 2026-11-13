@@ -1,6 +1,7 @@
 import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
 import { construireDossier, type EtatSysteme } from "../analyse/dossier-reprise.js";
+import { detecterRupturesDepuisBase } from "../analyse/rupture.js";
 
 /**
  * GET /api/dossier — le dossier de reprise en JSON, pour le front et l'audit.
@@ -63,7 +64,10 @@ export default async function (app: FastifyInstance) {
 			derniereMigration,
 			domainesConnus,
 		};
-		const dossier = construireDossier(etat);
+		// Les ruptures sont détectées avant de composer le dossier : une
+		// détection qui échoue ne doit pas priver l'utilisateur du reste.
+		const ruptures = await detecterRupturesDepuisBase().catch(() => []);
+		const dossier = construireDossier(etat, new Date().toISOString(), ruptures);
 		return { etat, dossier };
 	});
 }

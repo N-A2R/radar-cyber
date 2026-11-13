@@ -17,9 +17,12 @@ export type SectionDossier = {
 	points: string[];
 };
 
+import { DETECTEURS_RUPTURE, type AlerteRupture } from "./rupture.js";
+
 export type Dossier = {
 	genere: string;
 	sections: SectionDossier[];
+	ruptures: AlerteRupture[];
 };
 
 export type EtatSysteme = {
@@ -40,7 +43,7 @@ export type EtatSysteme = {
 };
 
 /** Ce que le dossier doit dire, dans l'ordre où un successeur le demande. */
-export function construireDossier(etat: EtatSysteme, maintenant: string = new Date().toISOString()): Dossier {
+export function construireDossier(etat: EtatSysteme, maintenant: string = new Date().toISOString(), ruptures: readonly AlerteRupture[] = []): Dossier {
 	const sections: SectionDossier[] = [];
 
 	sections.push({
@@ -103,7 +106,24 @@ export function construireDossier(etat: EtatSysteme, maintenant: string = new Da
 		],
 	});
 
-	return { genere: maintenant, sections };
+	// Trois détecteurs, trois lignes : même quand rien ne déclenche, le dossier
+	// doit dire *ce qui a été regardé*. « Aucune rupture » sans dire sur quoi
+	// on a cherché est une affirmation qu'on ne peut pas vérifier.
+	const parAgent = new Map<string, number>();
+	for (const r of ruptures) parAgent.set(r.agent, (parAgent.get(r.agent) ?? 0) + 1);
+	sections.push({
+		cle: "ruptures",
+		titre: "Ruptures détectées sur la semaine",
+		points: [
+			...DETECTEURS_RUPTURE.map((agent) => `${agent} : ${parAgent.get(agent) ?? 0} déclenchement(s)`),
+			ruptures.length === 0
+				? "aucune rupture — les trois détecteurs ont regardé la fenêtre et n'ont rien retenu"
+				: `${ruptures.length} rupture(s), détaillées ci-dessous`,
+			...ruptures.map((r) => `${r.agent} — org ${r.orgId} : ${r.motif}`),
+		],
+	});
+
+	return { genere: maintenant, sections, ruptures: [...ruptures] };
 }
 
 /** Rendu markdown du dossier, prêt à être relu hors ligne. */
