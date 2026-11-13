@@ -668,8 +668,11 @@ export const api = {
   },
   orgDetail: (id: number) => get<OrgDetail>(`/orgs/${id}`),
   search: (q: string) => get<SearchResponse>(`/search?q=${encodeURIComponent(q)}`),
-  events: (limit = 100, order: "regional" | "recent" = "regional") =>
-    get<Event[]>(`/events?limit=${limit}&order=${order}`),
+  events: (
+    limit = 100,
+    order: "regional" | "recent" = "regional",
+    portee: "region" | "toutes" | "vulnerabilites" = "region",
+  ) => get<Event[]>(`/events?limit=${limit}&order=${order}&portee=${portee}`),
   graph: (days = 90) => get<Graph>(`/graph?days=${days}`),
   sources: () => get<Source[]>("/sources"),
   stats: () => get<Stats>("/stats"),

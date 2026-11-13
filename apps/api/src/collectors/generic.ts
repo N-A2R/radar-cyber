@@ -24,7 +24,7 @@ import {
 	preparerGazetteer,
 	type RelevanceOrg,
 } from "./relevance.js";
-import { estTexteFrancais } from "../match/territorial.js";
+import { estTexteFrancais, porteeRegionale } from "../match/territorial.js";
 import { isActionableIndicator, loadActiveIndex, type ActiveIndex } from "./filter.js";
 import { filterIndicators } from "./warninglist.js";
 import { classifyFamily, isFamily } from "./classify.js";
@@ -793,6 +793,9 @@ async function ingestNarrative(
     // ad hoc d'ici. Une famille hors contrat ne passe plus (avant l'élargissement
     // de FAMILIES, `leaks`/`paste` traversaient sans contrôle) ; une broutille
     // réparable ne fait plus perdre l'événement. Les écarts sont comptés.
+    // Portée régionale calculée à l'écriture : le fil doit pouvoir trier et
+    // filtrer sans recalculer 19 000 textes à chaque requête.
+    const portee = porteeRegionale(`${title} ${summary}`, orgId);
     const admitted = admitEvent({
       dedupKey,
       family,
@@ -819,8 +822,8 @@ async function ingestNarrative(
     const event = admitted.event;
     const r = await ingestQuery<{ inserted: boolean }>(
       `INSERT INTO event (dedup_key, family, assertion_type, title, summary, org_id, observed_at, date_source, date_confidence, severity, confidence,
-        source_id, source_url, evidence, geo_type, admission_rule)
-       VALUES ($1,$2,$13,$3,$10,$11,$4,$5,$6,$14,$15,$7,$8,$9,$16,$12)
+        source_id, source_url, evidence, geo_type, admission_rule, regional, regional_motif)
+       VALUES ($1,$2,$13,$3,$10,$11,$4,$5,$6,$14,$15,$7,$8,$9,$16,$12,$17,$18)
        ON CONFLICT (dedup_key) DO UPDATE SET
          observed_at      = COALESCE(event.observed_at, EXCLUDED.observed_at),
          date_source      = COALESCE(event.date_source, EXCLUDED.date_source),
@@ -829,7 +832,8 @@ async function ingestNarrative(
        RETURNING (xmax = 0) AS inserted`,
       [event.dedupKey, event.family, event.title, event.observedAt ?? null, parsed.source, parsed.confidence,
         event.sourceId, event.sourceUrl ?? null, JSON.stringify(event.evidence ?? {}), event.summary ?? null, orgId, admissionRule,
-        event.assertionType, event.severity, event.confidence ?? "C3", event.geoType]
+        event.assertionType, event.severity, event.confidence ?? "C3", event.geoType,
+        portee.regional, portee.motif]
     );
     if (r.rows[0]?.inserted) added++;
     faits.push({

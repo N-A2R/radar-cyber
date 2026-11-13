@@ -1,6 +1,7 @@
 import type { FastifyInstance } from "fastify";
 import { ingestQuery } from "../db.js";
 import { consigner } from "../journal/index.js";
+import { porteeRegionale } from "../match/territorial.js";
 import { requireAuth } from "../middleware/auth.js";
 import { AdmissionTally, admitEvent } from "../contract/admit.js";
 
@@ -92,8 +93,9 @@ export default async function (app: FastifyInstance) {
       const event = admitted.event;
       const r = await ingestQuery<{ inserted: boolean }>(
         `INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at,
-           severity, confidence, source_id, source_url, evidence, geo_type)
-         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
+           severity, confidence, source_id, source_url, evidence, geo_type,
+           regional, regional_motif)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)
          ON CONFLICT (dedup_key) DO NOTHING
          RETURNING (xmax = 0) AS inserted`,
         [
@@ -109,6 +111,10 @@ export default async function (app: FastifyInstance) {
           event.sourceUrl ?? null,
           JSON.stringify(event.evidence ?? {}),
           event.geoType,
+          ...(() => {
+            const p = porteeRegionale(`${event.title} ${event.summary ?? ""}`, null);
+            return [p.regional, p.motif];
+          })(),
         ]
       );
       if (r.rows[0]?.inserted) {

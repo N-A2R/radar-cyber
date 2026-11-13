@@ -76,6 +76,12 @@ export default function App() {
   const [family, setFamily] = useState<string | null>(null);
   // Ordre du fil : « régional d'abord » par défaut, « tout » = ordre de l'API.
   const [regionalFirst, setRegionalFirst] = useState(true);
+  /**
+   * Ce que le fil montre : la région (défaut), tout, ou la veille CVE.
+   * Le fil par défaut ne affichait 19 000 lignes dont 87 % de bulletins de
+   * vulnérabilités et aucune ne concernait la région.
+   */
+  const [portee, setPortee] = useState<"region" | "toutes" | "vulnerabilites">("region");
   const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
   const [selectedOrgId, setSelectedOrgId] = useState<number | null>(null);
   const sheetOrgId = urlState.org;
@@ -191,19 +197,23 @@ export default function App() {
           lat: (row.lat as number | null) ?? null,
           lon: (row.lon as number | null) ?? null,
           orgId: (row.org_id as number | null) ?? null,
-          // Même définition que /events : org rattachée ou géographie d'entité.
-          regional:
-            (row.org_id as number | null) !== null ||
-            row.geo_type === "claimed_origin" ||
-            row.geo_type === "entity_location",
+          // La portée vient du serveur : une seule définition, remplie à
+          // l'écriture par `porteeRegionale`. Le front ne la réinvente plus.
+          regional: row.regional === true,
         };
-        setEvents((prev) => [event, ...prev].slice(0, FEED_LIMIT));
+        // Le flux direct doit respecter la portée choisie : sinon les
+        // bulletins CVE arrivent en continu et noient le fil filtré.
+        const visible =
+          portee === "toutes" ||
+          (portee === "region" && event.regional) ||
+          (portee === "vulnerabilites" && event.family === "vuln");
+        if (visible) setEvents((prev) => [event, ...prev].slice(0, FEED_LIMIT));
       } catch {
         // Charge utile illisible : on ignore le message plutôt que de casser le flux.
       }
     });
     return () => stream.close();
-  }, [token]);
+  }, [token, portee]);
 
   // Les arcs réels (org → hébergement) sont rares ; à défaut on affiche les
   // arcs « orgs » (org → centroïde départemental) pour que la carte vive.
@@ -242,7 +252,7 @@ export default function App() {
       const labels = ["organisations", "événements", "sources", "statistiques", "graphe"] as const;
       const results = await Promise.allSettled([
         api.orgs(),
-        api.events(FEED_LIMIT),
+        api.events(FEED_LIMIT, "regional", portee),
         api.sources(),
         api.stats(),
         api.graph(90),
@@ -268,7 +278,7 @@ export default function App() {
       setFlows(arcs);
     };
     void load();
-  }, [loadFlows, token]);
+  }, [loadFlows, token, portee]);
 
   // Rafraîchit statistiques, graphe et arcs toutes les 30 s.
   useEffect(() => {
@@ -499,22 +509,31 @@ export default function App() {
 
       <div className="shell__body" style={bodyStyle}>
         <aside className="shell__feed">
-            <div className="family-filter" role="group" aria-label="Ordre du fil">
+            <div className="family-filter" role="group" aria-label="Portée du fil">
               <button
                 type="button"
                 className="family-filter__btn"
-                aria-pressed={regionalFirst}
-                onClick={() => setRegionalFirst(true)}
+                aria-pressed={portee === "region"}
+                onClick={() => { setPortee("region"); setRegionalFirst(true); }}
               >
-                <span>régional d'abord</span>
+                <span>région</span>
               </button>
               <button
                 type="button"
                 className="family-filter__btn"
-                aria-pressed={!regionalFirst}
-                onClick={() => setRegionalFirst(false)}
+                aria-pressed={portee === "toutes"}
+                onClick={() => { setPortee("toutes"); setRegionalFirst(false); }}
               >
                 <span>tout</span>
+              </button>
+              <button
+                type="button"
+                className="family-filter__btn"
+                aria-pressed={portee === "vulnerabilites"}
+                onClick={() => { setPortee("vulnerabilites"); setRegionalFirst(false); }}
+                title="Bulletins de vulnérabilités : 87 % du flux brut, aucun fait régional"
+              >
+                <span>vulnérabilités</span>
               </button>
             </div>
             <EventList

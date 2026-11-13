@@ -13,6 +13,7 @@
 import { admitEvent } from "../contract/admit.js";
 import { ingestQuery, query, withTransaction } from "../db.js";
 import { consignerAvec } from "../journal/index.js";
+import { porteeRegionale } from "../match/territorial.js";
 import type { PoolClient, QueryResultRow } from "pg";
 import { evaluateEvent } from "../detect/engine.js";
 import { confirmOrganization } from "../match/decide.js";
@@ -114,7 +115,9 @@ export async function loadOrgIndex(): Promise<OrgIndexEntry[]> {
       domainNorm: o.domain ? normalizeDomain(o.domain) : null,
       websiteDomain: o.website ? extractDomain(o.website) : null,
       cityNorm: o.city ? normalizeName(o.city) : null,
-      nameTokens: nameNorm.split(" ").filter((t) => t.length >= 4),
+      // Jetons distincts, et sans les termes techniques génériques : « CODE
+      // 202 (CODE 202) » ne doit pas compter comme un nom à deux jetons.
+      nameTokens: [...new Set(nameNorm.split(" ").filter((t) => t.length >= 4 && !GENERIC_TOKENS.has(t)))],
     };
   });
 }
@@ -144,6 +147,12 @@ const GENERIC_TOKENS = new Set([
   "com", "net", "org", "edu", "gouv", "gov", "int", "info", "biz",
   "fr", "eu", "be", "ch", "ca", "uk", "de", "es", "it", "nl", "lu",
   "www", "http", "https", "mail", "web", "site",
+  // Termes techniques : présents dans tous les CVE et dans des milliers de
+  // raisons sociales. Ils ne distinguent rien.
+  "code", "software", "network", "networks", "system", "systems", "server",
+  "servers", "service", "services", "solution", "solutions", "security",
+  "secure", "platform", "platforms", "product", "products", "digital",
+  "cloud", "data", "media", "group", "global", "technology", "technologies",
 ]);
 
 /** Vrai si le jeton porte une information : ni trop court, ni générique. */
@@ -366,9 +375,10 @@ async function insertClaimEventRow(
     throw new Error(`promotion refusée par le contrat (${admitted.rejections.join(", ")}) : ${admitted.hint}`);
   }
   const event = admitted.event;
+  const portee = porteeRegionale(`${event.title} ${event.summary ?? ""}`, orgId);
   const sql = `INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at, severity, confidence,
-       source_id, source_url, evidence, geo_type, org_id, tlp, tlp_source)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)
+       source_id, source_url, evidence, geo_type, org_id, tlp, tlp_source, regional, regional_motif)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17)
      ON CONFLICT (dedup_key) DO UPDATE SET observed_at = COALESCE(event.observed_at, EXCLUDED.observed_at)
      RETURNING id, (xmax = 0) AS inserted`;
   const values = [
@@ -387,6 +397,8 @@ async function insertClaimEventRow(
     orgId,
     row.tlp,
     row.source,
+    portee.regional,
+    portee.motif,
   ];
   const r = await run<{ id: number; inserted: boolean }>(sql, values);
   await consignerAvec((sql, params) => run(sql, params as unknown[]), {
