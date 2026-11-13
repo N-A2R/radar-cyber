@@ -63,8 +63,8 @@ pourquoi l'axe 1 est déjà engagé.
 | # | Chantier | État | Critère de sortie |
 | --- | --- | --- | --- |
 | 13 | **Référentiel entreprises** | bloqué externe | voie de chargement prête, **trou publié** (0 ligne agro/industrie/BTP/commerce) |
-| 14 | ✅ **Diagnostic des sources muettes** | à faire | chaque source sans production a un motif écrit, pas un silence |
-| 15 | **Réparation du parsing** | à faire | les sources illisibles connues sont réparées ou désactivées avec motif |
+| 14 | ✅ **Diagnostic des sources muettes** | **fait** (`docs/sources-diagnostic.md`) | rendement par source exposé, `null` ≠ 0, transitions journalisées |
+| 15 | **Réparation du parsing** | à faire | motif de rejet agrégé en base, sources illisibles réparées ou désactivées avec motif |
 
 ### Axe 5 — Produit : ce qui se voit
 

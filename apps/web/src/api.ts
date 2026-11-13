@@ -115,7 +115,42 @@ export type Source = {
   itemsTotal: number | null;
   lastItems: number | null;
   ok: boolean;
+  /** Désactivation : datée et motivée, ou jamais désactivée. */
+  disabledAt: string | null;
+  disabledReason: string | null;
+  /** Entrées lues par le collecteur sur 30 jours ; `null` = aucune mesure. */
+  entrees: number | null;
+  /** Entrées écartées par la porte ou le contrat, sur 30 jours. */
+  rejets: number | null;
+  /** Événements attribués à la source sur 30 jours. */
+  evenements30j: number;
+  /** Événements attribués à la source, tout l'historique. */
+  evenementsTotal: number;
+  /** Dernier passage du collecteur, quel qu'en soit le résultat. */
+  dernierRun: string | null;
+  dernierRunStatut: string | null;
+  /** Part des entrées lues devenues un événement ; `null` = jamais mesuré. */
+  rendement: number | null;
 };
+
+/**
+ * Ce que vaut une source, au-delà de « elle répond ».
+ *
+ * - `productive` : elle a rendu au moins un événement sur la fenêtre ;
+ * - `vide`       : elle lit des entrées et n'en retient aucune — la porte ou
+ *                  le parseur est en cause, pas la source ;
+ * - `muette`     : elle est passée au collecteur sans rien lire ;
+ * - `inconnue`   : aucun passage mesurable. À ne surtout pas lire comme « nulle ».
+ */
+export type SourceYield = "productive" | "vide" | "muette" | "inconnue";
+
+export function sourceYield(source: Pick<Source, "entrees" | "evenements30j" | "evenementsTotal" | "lastOkAt" | "dernierRun">): SourceYield {
+  if (source.evenements30j > 0) return "productive";
+  if (source.entrees !== null && source.entrees > 0) return "vide";
+  if (source.dernierRun !== null) return "muette";
+  if (source.evenementsTotal > 0) return "inconnue";
+  return source.lastOkAt ? "muette" : "inconnue";
+}
 
 /** État de santé d'une source, dérivé de ses dates de succès et d'erreur. */
 export type SourceStatus = "ok" | "error" | "pending";
