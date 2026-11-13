@@ -120,3 +120,46 @@ pas fonctionner.
 
 `db/migrate-034-sources-tranchees.sql`. Toutes réactivables : aucune n'est
 supprimée, chacune porte son motif en base.
+
+---
+
+## Le 14 novembre 2026 : la presse généraliste ne rend rien
+
+Mesuré sur une base neuve (schéma complet, 34 335 organisations, collecte réelle) :
+
+| Source | Items lus | Admis |
+| --- | --- | --- |
+| France 3 Nouvelle-Aquitaine (RSS) | 30 | **0** |
+| Sud Ouest — Gironde | 20 | **0** |
+| Sud Ouest — Pyrénées-Atlantiques | 20 | **0** |
+| Médiacités | 10 | **0** |
+| CERT-FR | 40 | 40 |
+| CISA KEV | 1 781 | 1 781 |
+| RansomLook | 100 | 100 |
+
+Les flux généralistes sont **correctement lus** et **entièrement rejetés** par le
+contrat d'admission : un fil d'actualité régional ne contient pas d'incident
+cyber au moment où on le lit. Le collecteur n'était pas en cause.
+
+### La correction : interroger Google News avec un mot-clé cyber
+
+`db/migrate-037-sources-presse-ciblee.sql` ajoute 16 flux construits comme une
+requête : un mot-clé cyber, un périmètre géographique, une fenêtre (`when:30d`).
+
+Résultat sur la même base, même contrat :
+
+| | Avant | Après |
+| --- | --- | --- |
+| Événements presse admis | 0 | **200** |
+| Rattachés à une organisation | 0 | **1** |
+
+Le rattachement obtenu : « Préfecture de la Gironde, mairie de Bordeaux :
+plusieurs sites inaccessibles » → **Commune de Bordeaux**. C'est la première
+fois que la chaîne complète — source, collecte, admission, rattachement — est
+observée de bout en bout sur une base neuve.
+
+Le chiffre reste petit, et il faut le dire : 200 événements presse pour **un**
+rattachement. La raison est connue — les requêtes Google News ignorent en partie
+la contrainte géographique (« Cholet », « EFS » remontent dans le flux
+« Nouvelle-Aquitaine »). Le prochain levier est la précision de la requête, pas
+le volume de sources.
