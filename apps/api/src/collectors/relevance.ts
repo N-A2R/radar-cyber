@@ -1,5 +1,8 @@
 // pertinence cyber pour les flux de presse généraliste
 import { ingestQuery } from "../db.js";
+import { getGazetteer } from "./org-gazetteer.js";
+import { buildGazetteer, designateUneOrganisation, normaliser, resoudre } from "../match/gazetteer.js";
+import { MOTS_GENERIQUES, MOTS_GENERIQUES_ENTREPRISE } from "../match/generique.js";
 import type { OrgRef } from "@radar/shared";
 
 interface MatchOrgRow {
@@ -115,90 +118,86 @@ function prepareOrgForMatch(org: MatchOrgRow): CachedOrg {
   };
 }
 
+/**
+ * Même moteur que l'ingestion, sur une liste en mémoire (tests, benches).
+ *
+ * Construit un gazetteer à partir des noms et slugs fournis, puis applique les
+ * règles de `match/gazetteer.ts`. Conserver deux implémentations — une pour les
+ * tests, une pour la production — garantissait qu'elles divergent.
+ */
 export function matchOrgForTextFromList(text: string, orgs: MatchOrgRow[]): OrgMatch | null {
-  const normText = normalizeMatchText(text);
-  if (!normText) return null;
-  const textTokens: Record<string, true> = {};
-  for (const token of tokenizeMatchText(text)) textTokens[token] = true;
-  if (Object.keys(textTokens).length === 0 && !normText.includes(".")) return null;
-
-  const candidates: Array<{ orgId: number; confidence: number; score: number }> = [];
-  for (const row of orgs) {
-    const org = prepareOrgForMatch(row);
-    let score = 0;
-    let confidence = 0;
-
-    if (org.normDomain && org.normDomain.length >= 4 && normText.includes(org.normDomain)) {
-      score += 100;
-      confidence = Math.max(confidence, 0.95);
-    }
-
-    let tokenHits = 0;
-    for (const token of org.nameTokens) {
-      if (textTokens[token]) tokenHits++;
-    }
-    for (const token of org.slugTokens) {
-      if (textTokens[token] && !org.nameTokens.includes(token)) tokenHits++;
-    }
-    if (tokenHits > 0) {
-      score += tokenHits * 10;
-      confidence = Math.max(confidence, tokenHits >= 2 ? 0.9 : 0.8);
-    }
-
-    const threshold = org.normDomain && normText.includes(org.normDomain) ? 100 : 10;
-    if (score >= threshold) candidates.push({ orgId: org.id, confidence, score });
-  }
-
-  candidates.sort((a, b) => b.score - a.score || b.confidence - a.confidence);
-  if (candidates.length !== 1) return null;
-  return { orgId: candidates[0].orgId, confidence: candidates[0].confidence };
+	const rows = orgs.flatMap((org) => {
+		const alias = [org.name, org.slug ?? ""].filter((a) => normalizeMatchText(a).length >= 4);
+		return alias.map((a) => ({
+			org_id: org.id,
+			name: org.name,
+			kind: "entreprise",
+			dept: null as string | null,
+			city: null as string | null,
+			alias: a,
+		}));
+	});
+	const gaz = buildGazetteer(rows);
+	const resultat = resoudre(gaz, text);
+	return resultat.org ? { orgId: resultat.org.id, confidence: resultat.confidence } : null;
 }
 
-async function loadOrgMatchCache(): Promise<CachedOrg[]> {
-  const now = Date.now();
-  if (orgMatchCache && now - orgMatchCache.at < ORG_MATCH_CACHE_TTL_MS) return orgMatchCache.orgs;
-  const res = await ingestQuery<MatchOrgRow>("SELECT id, name, slug, domain FROM org");
-  const orgs = (res.rows ?? []).map(prepareOrgForMatch);
-  orgMatchCache = { at: now, orgs };
-  return orgs;
-}
-
+/**
+ * Rattachement d'un texte, adossé au gazetteer partagé.
+ *
+ * Cette fonction remplace un parcours de toutes les organisations par
+ * recouvrement de jetons, qui exigeait un candidat unique dans la table
+ * entière : sur 34 330 organisations, il ne rattachait plus qu'un incident sur
+ * quinze. Le gazetteer ne consulte que les alias présents dans le texte et
+ * refuse de trancher sur un toponyme nu. Une panne de chargement rend `null` :
+ * l'ingestion continue, l'événement reste non rattaché.
+ */
 export async function matchOrgForText(text: string): Promise<OrgMatch | null> {
-  try {
-    const normText = normalizeMatchText(text);
-    if (!normText) return null;
-    const textTokens: Record<string, true> = {};
-    for (const token of tokenizeMatchText(text)) textTokens[token] = true;
-    if (Object.keys(textTokens).length === 0 && !normText.includes(".")) return null;
-    const orgs = await loadOrgMatchCache();
-    const candidates: Array<{ orgId: number; confidence: number; score: number }> = [];
-    for (const org of orgs) {
-      let score = 0;
-      let confidence = 0;
-      if (org.normDomain && org.normDomain.length >= 4 && normText.includes(org.normDomain)) {
-        score += 100;
-        confidence = Math.max(confidence, 0.95);
-      }
-      let tokenHits = 0;
-      for (const token of org.nameTokens) {
-        if (textTokens[token]) tokenHits++;
-      }
-      for (const token of org.slugTokens) {
-        if (textTokens[token] && !org.nameTokens.includes(token)) tokenHits++;
-      }
-      if (tokenHits > 0) {
-        score += tokenHits * 10;
-        confidence = Math.max(confidence, tokenHits >= 2 ? 0.9 : 0.8);
-      }
-      const threshold = org.normDomain && normText.includes(org.normDomain) ? 100 : 10;
-      if (score >= threshold) candidates.push({ orgId: org.id, confidence, score });
-    }
-    candidates.sort((a, b) => b.score - a.score || b.confidence - a.confidence);
-    if (candidates.length !== 1) return null;
-    return { orgId: candidates[0].orgId, confidence: candidates[0].confidence };
-  } catch {
-    return null;
-  }
+	try {
+		const gaz = await getGazetteer();
+		const resultat = resoudre(gaz, text);
+		return resultat.org ? { orgId: resultat.org.id, confidence: resultat.confidence } : null;
+	} catch {
+		return null;
+	}
+}
+
+/**
+ * Variante synchrone utilisée à l'ingestion : elle réutilise le gazetteer déjà
+ * chargé par le run et n'ouvre aucune connexion. Rend `null` quand l'index
+ * n'est pas encore prêt, ce qui laisse la porte sur ses mots-clés.
+ */
+export function designateOrganization(text: string): OrgMatch | null {
+	const gaz = gazetteerCharge();
+	if (!gaz) return null;
+	const resultat = designateUneOrganisation(gaz, text);
+	return resultat.org ? { orgId: resultat.org.id, confidence: resultat.confidence } : null;
+}
+
+let dernierGazetteer: { at: number; gaz: ReturnType<typeof buildGazetteer> } | null = null;
+
+/** Mémoïse localement le gazetteer déjà résolu par le chargement asynchrone. */
+export function gazetteerCharge(): ReturnType<typeof buildGazetteer> | null {
+	return dernierGazetteer?.gaz ?? null;
+}
+
+/** À appeler avant un run d'ingestion : charge l'index une fois, sans requête par item. */
+export async function preparerGazetteer(): Promise<number> {
+	const gaz = await getGazetteer();
+	dernierGazetteer = { at: Date.now(), gaz };
+	return gaz.byAliasKey.size;
+}
+
+const GENERIQUES_PORTE = new Set<string>([...MOTS_GENERIQUES, ...MOTS_GENERIQUES_ENTREPRISE]);
+
+/**
+ * Vrai si le nom porte un mot qui n'est ni une catégorie ni une particule.
+ * « Ecole primaire » → faux ; « Collège de l'Osme » → vrai.
+ */
+export function nomPropre(nomNormalise: string): boolean {
+	return nomNormalise
+		.split(" ")
+		.some((jeton) => jeton.length > 2 && !GENERIQUES_PORTE.has(jeton) && !/^\d+$/.test(jeton));
 }
 
 function normalizeOrgName(name: string): string {
@@ -258,7 +257,11 @@ export function isRelevant(
   // entités org
   for (const org of opts.orgs ?? []) {
     const nameNorm = normalizeOrgName(org.name);
-    if (nameNorm && nameNorm.length >= 4 && textNorm.includes(nameNorm)) {
+    // Un nom de catégorie ne désigne personne : « une école primaire fermée »
+    // ouvrait la porte tant que le référentiel ne contenait que des
+    // collectivités, et l'ouvre grand dès qu'il contient 710 écoles du même
+    // nom. Le nom doit porter au moins un mot propre pour compter.
+    if (nameNorm && nameNorm.length >= 4 && nomPropre(nameNorm) && textNorm.includes(nameNorm)) {
       return { relevant: true, reason: "org", match: org.name };
     }
     const candidates = [org.domain, ...(org.assets ?? [])].filter(Boolean) as string[];

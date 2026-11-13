@@ -451,3 +451,30 @@ justes (3/15 de précision).
 **Conséquence produit** : charger le référentiel n'améliore la couverture que
 si l'ingestion bascule sur l'index d'alias *et* si les alias orphelins
 mono-jeton sont écartés. C'est le chantier suivant, et il est mesurable.
+
+## Moteur de rattachement refondu (2026-11-12)
+
+Le goulot identifié au chargement est traité. `matchOrgForText` (recouvrement de
+jetons sur le `name` de toutes les organisations, un seul candidat toléré dans
+la table) est remplacé par un gazetteer à index inversé, dans l'ingestion comme
+dans la porte d'admission.
+
+| Étage | Rattachement | Faux |
+| --- | --- | --- |
+| ancien moteur, 4 462 orgs | 5/15 | — |
+| ancien moteur, 34 330 orgs | 1/15 | — |
+| moteur d'alias (`match/core`) | 12/15 | 4 |
+| **gazetteer** | **7/15** | **0** |
+
+Trois règles : un toponyme nu ne tranche pas ; l'ambiguïté se départage sur le
+département puis la commune cités, sinon on rend `null` avec les candidats ;
+l'index inversé remplace le balayage (44 071 alias en 480 ms).
+
+**Faille refermée** : la porte d'admission acceptait tout nom présent en
+sous-chaîne. Avec 710 écoles nommées « Ecole primaire », « une école primaire
+fermée à Périgueux » entrait en base. La porte exige désormais un mot propre.
+
+Vérifié de bout en bout sur un flux local (5 items) : Tarnos rattaché, EHPAD de
+Champdeniers désambiguïsé par sa commune, article scolaire refusé, « Vignobles
+Toutigeac en Gironde » non rattaché à la Gironde. Détail : `docs/rattachement.md`.
+225/225 tests API, socle rejoué sur base neuve.
