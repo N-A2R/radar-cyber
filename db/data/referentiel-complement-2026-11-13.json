@@ -1,0 +1,57 @@
+{
+  "genereLe": "2026-11-13",
+  "source": "API Recherche d'entreprises (annuaire-entreprises.data.gouv.fr, données INSEE/SIRENE)",
+  "methode": "Chaque entité a été retrouvée par son nom auprès de l'API officielle, avec son SIREN, son code postal et sa commune. Aucune entrée n'a été déduite d'un article de presse : le corpus a révélé le manque, la vérification vient de l'État.",
+  "entites": [
+    {
+      "siren": "193302031",
+      "name": "École nationale supérieure des sciences agronomiques de Bordeaux Aquitaine (Bordeaux Sciences Agro)",
+      "kind": "enseignement",
+      "city": "Gradignan",
+      "dept": "33",
+      "codePostal": "33170",
+      "aliases": ["Bordeaux Sciences Agro", "ENSA Bordeaux Aquitaine"],
+      "verifieLe": "2026-11-13"
+    },
+    {
+      "siren": "331519272",
+      "name": "SICSOE",
+      "kind": "entreprise",
+      "city": "Cénac",
+      "dept": "33",
+      "codePostal": "33360",
+      "aliases": ["SICSOE (Solution Vin Logistique)"],
+      "verifieLe": "2026-11-13"
+    },
+    {
+      "siren": "339293086",
+      "name": "Études Réalisations Négoce Assistance Technique (ERNAT)",
+      "kind": "entreprise",
+      "city": "Orthez",
+      "dept": "64",
+      "codePostal": "64300",
+      "aliases": ["ERNAT"],
+      "verifieLe": "2026-11-13"
+    },
+    {
+      "siren": "790029599",
+      "name": "Euskal Moneta - Monnaie locale du Pays basque",
+      "kind": "entreprise",
+      "city": "Bayonne",
+      "dept": "64",
+      "codePostal": "64100",
+      "aliases": ["Euskal Moneta"],
+      "verifieLe": "2026-11-13"
+    },
+    {
+      "siren": "409719556",
+      "name": "EARL Vignobles Toutigeac",
+      "kind": "entreprise",
+      "city": "Targon",
+      "dept": "33",
+      "codePostal": "33760",
+      "aliases": ["Vignobles Toutigeac"],
+      "verifieLe": "2026-11-13"
+    }
+  ]
+}
