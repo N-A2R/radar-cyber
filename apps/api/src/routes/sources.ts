@@ -27,6 +27,8 @@ type SourceRow = {
   evenements_total: number;
   dernier_run: string | null;
   dernier_run_statut: string | null;
+  /** Motifs de rejet agrégés du dernier run mesuré. */
+  motifs: Record<string, number> | null;
 };
 
 export default async function (app: FastifyInstance) {
@@ -41,7 +43,8 @@ export default async function (app: FastifyInstance) {
                sum(items_in)::int    AS entrees,
                sum(items_skipped)::int AS rejets,
                max(started_at)       AS dernier_run,
-               (array_agg(status ORDER BY started_at DESC))[1] AS dernier_run_statut
+               (array_agg(status ORDER BY started_at DESC))[1] AS dernier_run_statut,
+               (array_agg(items_rejected ORDER BY started_at DESC))[1] AS motifs
           FROM collector_run
          WHERE started_at >= now() - interval '30 days'
          GROUP BY source_id
@@ -56,7 +59,7 @@ export default async function (app: FastifyInstance) {
       SELECT s.id, s.name, s.family, s.url, s.kind, s.format, s.enabled, s.interval_sec,
              s.last_ok_at, s.last_error_at, s.last_error, s.items_total, s.last_items,
              s.disabled_at, s.disabled_reason,
-             r.entrees, r.rejets, r.dernier_run, r.dernier_run_statut,
+             r.entrees, r.rejets, r.dernier_run, r.dernier_run_statut, r.motifs,
              COALESCE(e.evenements_30j, 0) AS evenements_30j,
              COALESCE(e.evenements_total, 0) AS evenements_total
         FROM source s
@@ -93,6 +96,13 @@ export default async function (app: FastifyInstance) {
         evenementsTotal: Number(s.evenements_total),
         dernierRun: s.dernier_run,
         dernierRunStatut: s.dernier_run_statut,
+        motifs: s.motifs && typeof s.motifs === "object" ? s.motifs : null,
+        // Le motif dominant est celui qui coûte le plus d'entrées : c'est lui
+        // qui explique le silence, pas la liste complète.
+        motifDominant:
+          s.motifs && typeof s.motifs === "object"
+            ? (Object.entries(s.motifs).sort((a, b) => Number(b[1]) - Number(a[1]))[0]?.[0] ?? null)
+            : null,
         rendement: rendement === null ? null : Math.round(rendement * 1000) / 1000,
       };
     });

@@ -131,6 +131,10 @@ export type Source = {
   dernierRunStatut: string | null;
   /** Part des entrées lues devenues un événement ; `null` = jamais mesuré. */
   rendement: number | null;
+  /** Motifs de rejet agrégés du dernier run : `{ hors_sujet: 34, presse: 6 }`. */
+  motifs: Record<string, number> | null;
+  /** Motif qui coûte le plus d'entrées — celui qui explique le silence. */
+  motifDominant: string | null;
 };
 
 /**
@@ -150,6 +154,32 @@ export function sourceYield(source: Pick<Source, "entrees" | "evenements30j" | "
   if (source.dernierRun !== null) return "muette";
   if (source.evenementsTotal > 0) return "inconnue";
   return source.lastOkAt ? "muette" : "inconnue";
+}
+
+/**
+ * Traduction des motifs de rejet du collecteur.
+ *
+ * Le motif brut est technique (`contrat:famille-inconnue`, `hors_sujet`) : sur
+ * un écran, il doit dire ce qu'il coûte. Un motif inconnu est affiché tel quel,
+ * en dernier recours — mieux vaut un mot bizarre qu'un silence.
+ */
+export const MOTIF_LABEL: Record<string, string> = {
+  hors_sujet: "hors sujet (porte de pertinence)",
+  presse: "non cyber (classé presse)",
+  menu_path: "entrée de menu (lien de navigation)",
+  menu_token: "entrée de menu (libellé seul)",
+  menu_source: "entrée de menu (nom de la source)",
+  warninglist: "indicateur légitime (warninglist)",
+  non_actionnable: "indicateur non actionnable pour nos actifs",
+  doublon: "doublon dans le même flux",
+};
+
+/** Libellé lisible d'un motif de rejet. Tolère l'absence : un serveur plus
+ * ancien ne renvoie pas ce champ, et l'écran doit rester lisible. */
+export function motifLabel(motif: string | null | undefined): string {
+  if (typeof motif !== "string" || motif === "") return "non mesuré";
+  if (motif.startsWith("contrat:")) return `refusé par le contrat (${motif.slice(8)})`;
+  return MOTIF_LABEL[motif] ?? motif;
 }
 
 /** État de santé d'une source, dérivé de ses dates de succès et d'erreur. */

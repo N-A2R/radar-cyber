@@ -43,6 +43,8 @@ const base: Source = {
 	dernierRun: null,
 	dernierRunStatut: null,
 	rendement: null,
+	motifs: null,
+	motifDominant: null,
 };
 
 const productive: Source = {
@@ -67,6 +69,10 @@ const vide: Source = {
 	entrees: 40,
 	rejets: 40,
 	evenements30j: 0,
+	// La source lit 40 entrées et les refuse toutes pour la même raison : c'est
+	// ce motif qui dit s'il faut instruire la porte ou le parseur.
+	motifs: { hors_sujet: 34, presse: 6 },
+	motifDominant: "hors_sujet",
 	dernierRun: "2026-11-13T07:00:00Z",
 	dernierRunStatut: "ok",
 	rendement: 0,
@@ -101,6 +107,9 @@ check(
 );
 check("la source vide affiche 0 %", html.includes("0 %"));
 check("marqueur de rendement posé", html.includes('data-yield="productive"') && html.includes('data-yield="vide"'));
+check("le motif de rejet dominant est affiché", html.includes("hors sujet"), "la source vide rejette 34 entrées pour ce motif");
+check("le motif porte son compteur", html.includes("(34)"));
+check("les motifs non mesurés sont dits", html.includes("non mesuré"));
 
 check("production reconnue", sourceYield(productive) === "productive");
 check("lecture sans rendement reconnue", sourceYield(vide) === "vide");

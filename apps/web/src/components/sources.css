@@ -283,3 +283,26 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/* --- Motif de rejet : pourquoi la source ne rend rien ---------------------- */
+
+.sources-table__motif {
+  font-size: 11px;
+  color: var(--color-muted);
+  max-width: 26ch;
+}
+
+.sources-motif {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: help;
+}
+
+/* « Non mesuré » est grisé, jamais vide : une case blanche laisse croire à
+   l'absence de rejet, ce qui est le contraire de la vérité. */
+.sources-table__unmeasured {
+  color: var(--color-faint);
+  font-style: italic;
+}

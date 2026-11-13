@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { sourceStatus, sourceYield, type Source, type SourceStatus, type SourceYield } from "../api";
+import { motifLabel, sourceStatus, sourceYield, type Source, type SourceStatus, type SourceYield } from "../api";
 import type { SourcesViewProps } from "../contracts";
 import "./sources.css";
 
@@ -32,6 +32,7 @@ type SortKey =
   | "entrees"
   | "evenements30j"
   | "rendement"
+  | "motif"
   // Tri par défaut, propre au registre : par gravité du problème, pas par date.
   | "yield";
 type SortDir = "asc" | "desc";
@@ -45,6 +46,7 @@ const COLUMNS: { key: SortKey; label: string; num?: boolean; hint?: string }[] =
   { key: "entrees", label: "lues 30 j", num: true, hint: "entrées lues par le collecteur" },
   { key: "evenements30j", label: "évén. 30 j", num: true, hint: "événements attribués à la source" },
   { key: "rendement", label: "rendement", num: true, hint: "part des entrées lues devenues un événement" },
+  { key: "motif", label: "motif de rejet", hint: "ce qui coûte le plus d'entrées sur le dernier run" },
 ];
 
 /** Libellés des rendements : ce que la source rapporte, pas si elle répond. */
@@ -119,6 +121,15 @@ function compareSources(a: Source, b: Source, key: SortKey, dir: SortDir): numbe
       const bv = b.rendement;
       if (av === null || bv === null) return av === bv ? a.name.localeCompare(b.name, "fr") : av === null ? 1 : -1;
       return (av - bv) * sign || a.name.localeCompare(b.name, "fr");
+    }
+    case "motif": {
+      // Les motifs absents en fin de liste dans les deux sens : « non mesuré »
+      // n'est pas « aucun rejet ».
+      const av = a.motifDominant;
+      const bv = b.motifDominant;
+      if (av === null) return bv === null ? 0 : 1;
+      if (bv === null) return -1;
+      return av.localeCompare(bv, "fr") * sign;
     }
     case "status": {
       const rank = STATUS_RANK[sourceStatus(a)] - STATUS_RANK[sourceStatus(b)];
@@ -216,6 +227,20 @@ export default function SourcesView({ sources, loading, error }: SourcesViewProp
           lisent sans rendre · {yields.muette} muette{yields.muette > 1 ? "s" : ""} ·{" "}
           {yields.inconnue} non mesurée{yields.inconnue > 1 ? "s" : ""}
         </p>
+        {sources.some((s) => s.motifDominant !== null) && (
+          <p className="sources-view__yield" aria-label="Motifs de rejet">
+            Rejets dominants :{" "}
+            {/*
+              Un serveur d'une version antérieure ne renvoie pas `motifDominant` :
+              on filtre sur le type réel, pas sur `!== null`, sinon un champ
+              absent fait planter tout l'écran.
+            */}
+            {[...new Set(sources.map((s) => s.motifDominant).filter((m): m is string => typeof m === "string"))]
+              .slice(0, 4)
+              .map((motif) => `${motifLabel(motif)} (${sources.filter((s) => s.motifDominant === motif).length})`)
+              .join(" · ")}
+          </p>
+        )}
       </header>
 
       <div className="sources-view__toolbar">
@@ -303,6 +328,26 @@ export default function SourcesView({ sources, loading, error }: SourcesViewProp
                         ? "—"
                         : `${(source.rendement * 100).toFixed(source.rendement < 0.01 ? 1 : 0)} %`}
                     </span>
+                  </td>
+                  <td className="sources-table__motif">
+                    {source.motifDominant === null ? (
+                      <span className="sources-table__unmeasured">non mesuré</span>
+                    ) : (
+                      <span
+                        className="sources-motif"
+                        title={
+                          source.motifs
+                            ? Object.entries(source.motifs)
+                                .sort((x, y) => Number(y[1]) - Number(x[1]))
+                                .map(([motif, n]) => `${motifLabel(motif)} : ${n}`)
+                                .join("\n")
+                            : undefined
+                        }
+                      >
+                        {motifLabel(source.motifDominant)}
+                        {source.motifs ? ` (${source.motifs[source.motifDominant] ?? 0})` : null}
+                      </span>
+                    )}
                   </td>
                 </tr>
               );

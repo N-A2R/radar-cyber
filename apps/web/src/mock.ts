@@ -98,6 +98,8 @@ const MOCK_MEASURE = {
   dernierRun: null,
   dernierRunStatut: null,
   rendement: null,
+  motifs: null,
+  motifDominant: null,
 } as const;
 
 const MOCK_SOURCES: Source[] = [

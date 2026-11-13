@@ -52,7 +52,28 @@ type SourceRow = {
 };
 
 /** `skipped` = éléments écartés (porte de pertinence ou filtre anti-bruit). */
-type IngestResult = { items: number; added: number; skipped: number };
+/**
+ * Résultat d'une ingestion de source.
+ *
+ * `rejected` porte les motifs agrégés du run : c'est la seule information qui
+ * distingue « la source est vide » de « notre filtre refuse tout ». Sans elle,
+ * une source qui lit 40 entrées et n'en retient aucune est indiscernable d'une
+ * source cassée — et le chantier 15 n'a rien à se mettre sous la dent.
+ */
+type IngestResult = {
+  items: number;
+  added: number;
+  skipped: number;
+  rejected?: Record<string, number>;
+};
+
+/** Fusionne deux tableaux de motifs sans écraser les compteurs. */
+function fusionnerMotifs(a: Record<string, number> | undefined, b: Record<string, number> | undefined): Record<string, number> | undefined {
+  if (a === undefined && b === undefined) return undefined;
+  const out: Record<string, number> = { ...a };
+  for (const [motif, n] of Object.entries(b ?? {})) out[motif] = (out[motif] ?? 0) + n;
+  return out;
+}
 
 const MAX_BODY_BYTES = 25 * 1024 * 1024;
 const BATCH_SIZE = 1000;
@@ -482,6 +503,9 @@ async function ingestIndicator(source: SourceRow, body: string, idx?: ActiveInde
   let items = 0;
   let added = 0;
   let skipped = 0;
+  // Motifs de rejet des indicateurs : une valeur écartée l'est pour une raison
+  // précise (dénylist, filtre d'actionnabilité, doublon d'expression).
+  const rejetes: Record<string, number> = {};
 
   const flush = async (): Promise<number> => {
     if (batch.length === 0) return 0;
@@ -493,6 +517,7 @@ async function ingestIndicator(source: SourceRow, body: string, idx?: ActiveInde
     );
     if (dropped > 0) {
       runLog?.(`filtre : ${dropped}/${rows.length} indicateur(s) légitime(s) écarté(s) (warninglists)`);
+      rejetes.warninglist = (rejetes.warninglist ?? 0) + dropped;
     }
     const usable = kept.map((entry) => entry.row);
     if (usable.length === 0) return 0;
@@ -517,17 +542,21 @@ async function ingestIndicator(source: SourceRow, body: string, idx?: ActiveInde
     items++;
     const value = line.trim();
     const key = `${type}:${value}`;
-    if (seen.has(key)) continue;
+    if (seen.has(key)) {
+      rejetes.doublon = (rejetes.doublon ?? 0) + 1;
+      continue;
+    }
     seen.add(key);
     if (idx && !isActionableIndicator(value, type, idx).keep) {
       skipped++;
+      rejetes.non_actionnable = (rejetes.non_actionnable ?? 0) + 1;
       continue;
     }
     batch.push({ type, value });
     if (batch.length >= BATCH_SIZE) added += await flush();
   }
   added += await flush();
-  return { items, added, skipped };
+  return { items, added, skipped, ...(Object.keys(rejetes).length > 0 ? { rejected: rejetes } : {}) };
 }
 
 function isMenuEntry(title: string, sourceName: string): "menu_path" | "menu_token" | "menu_source" | null {
@@ -832,7 +861,14 @@ async function ingestNarrative(
   // inaperçues. Utile pour repérer une source qui dérive.
   const contractLine = contract.logLine();
   if (contractLine) runLog?.(`[collect] ${source.id} : contrat — ${contractLine}`);
-  return { items: items.length, added, skipped };
+  // Les motifs de rejet partent en base, pas seulement dans les logs : c'est
+  // ce qui permet de répondre à « pourquoi cette source ne rend-elle rien »
+  // sans relancer une collecte.
+  const motifs = fusionnerMotifs(
+    Object.keys(rejectedBy).length > 0 ? rejectedBy : undefined,
+    Object.keys(menuRejected).length > 0 ? menuRejected : undefined,
+  );
+  return { items: items.length, added, skipped, ...(motifs !== undefined ? { rejected: motifs } : {}) };
 }
 
 /**
@@ -923,9 +959,19 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], covera
       [result.items, result.added, source.id]
     );
     await ingestQuery(
-      "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, items_skipped) VALUES ($1, now(), 'ok', $2, $3, $4)",
-      [source.id, result.items, result.added, result.skipped]
-    );
+      "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, items_skipped, items_rejected) VALUES ($1, now(), 'ok', $2, $3, $4, $5)",
+      [source.id, result.items, result.added, result.skipped, result.rejected ? JSON.stringify(result.rejected) : null]
+    ).catch(async (error: unknown) => {
+      // Base pas encore migrée vers 029 : la collecte ne doit pas être perdue
+      // pour une colonne de diagnostic. On retombe sur l'écriture historique —
+      // mais seulement dans ce cas, sinon on masquerait une vraie panne.
+      const message = String((error as Error)?.message ?? error);
+      if (!message.includes("items_rejected")) throw error;
+      await ingestQuery(
+        "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, items_skipped) VALUES ($1, now(), 'ok', $2, $3, $4)",
+        [source.id, result.items, result.added, result.skipped]
+      );
+    });
     // Le changement d'état est un fait : « elle se réveille » et « elle
     // s'assoupit » ne se lisent nulle part ailleurs, et c'est pourtant la seule
     // information qui distingue une source qui vient de casser d'une source qui
