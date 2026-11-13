@@ -5,6 +5,7 @@
  */
 import { execFile } from "node:child_process";
 import { consigner } from "../journal/index.js";
+import { porteeRegionale } from "../match/territorial.js";
 import { promisify } from "node:util";
 import { createHash } from "node:crypto";
 import { query } from "../db.js";
@@ -92,13 +93,15 @@ export async function runHermesCollector(log: (msg: string) => void): Promise<vo
       const event = admitted.event;
       const r = await query(
         `INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at, severity, confidence,
-          source_id, source_url, evidence, geo_type, org_id)
+          source_id, source_url, evidence, geo_type, org_id, regional, regional_motif)
          VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,
-           (SELECT id FROM org WHERE name = $13 LIMIT 1))
+           (SELECT id FROM org WHERE name = $13 LIMIT 1), $14, $15)
          ON CONFLICT (dedup_key) DO NOTHING`,
         [event.dedupKey, event.family, event.assertionType, event.title, event.summary ?? null, event.observedAt ?? null, event.severity,
          event.confidence ?? "C3", event.sourceId, event.sourceUrl ?? null, JSON.stringify(event.evidence ?? {}), event.geoType,
-         candidate.orgHint ?? null]
+         candidate.orgHint ?? null,
+         porteeRegionale(`${event.title} ${event.summary ?? ""}`, null).regional,
+         porteeRegionale(`${event.title} ${event.summary ?? ""}`, null).motif]
       );
       if ((r.rowCount ?? 0) > 0) {
         added++;

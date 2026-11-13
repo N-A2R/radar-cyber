@@ -4,13 +4,14 @@ import { resolveUser } from "../middleware/auth.js";
 import { confianceDe, fraicheurDe } from "../analyse/confiance.js";
 
 /**
- * Un événement est régional quand il touche l'une de nos organisations.
- * `geo_type` ne suffit pas : 1 371 événements le portent sans aucune
- * coordonnée, si bien qu'aucun événement non rattaché ne tombe dans la
- * région. Le rattachement est le seul signal défendable. Exprimé en SQL pour
- * servir à la fois de projection et de critère de tri — aucune colonne créée.
+ * La portée régionale est une colonne (`migrate-035`), remplie à l'écriture
+ * par `porteeRegionale` — la même fonction pour les cinq voies d'ingestion.
+ *
+ * Avant, elle valait `org_id IS NOT NULL`, donc faux partout depuis que les
+ * rattachements faux avaient été défaits : le fil affichait 19 000 lignes dont
+ * **aucune** ne concernait la région, et 87 % étaient des bulletins CVE.
  */
-const REGIONAL_SQL = "(org_id IS NOT NULL)";
+const REGIONAL_SQL = "e.regional";
 
 /** Date de l'événement, quelle que soit la colonne qui la porte. */
 function dateObservee(row: Record<string, unknown>): string | null {
@@ -41,6 +42,7 @@ function redactEvent(row: Record<string, unknown>) {
     lon: row.lon,
     orgId: row.org_id,
     regional: row.regional === true,
+    regionalMotif: row.regional_motif ?? null,
     dateSource: row.date_source,
     dateConfidence: row.date_confidence,
     tlp: row.tlp,
@@ -81,6 +83,11 @@ export default async function (app: FastifyInstance) {
     if (q.from) { params.push(q.from); where.push(`e.observed_at >= $${params.length}`); }
     if (q.sinceId) { params.push(Number(q.sinceId)); where.push(`e.id > $${params.length}`); }
     if (q.before) { params.push(Number(q.before)); where.push(`e.id < $${params.length}`); }
+    // Portée : `region` par défaut — le fil parle de la Nouvelle-Aquitaine ou
+    // ne dit rien. `vulnerabilites` isole la veille CVE, `toutes` montre tout.
+    const portee = q.portee === "toutes" ? "toutes" : q.portee === "vulnerabilites" ? "vulnerabilites" : "region";
+    if (portee === "region") where.push("e.regional = true");
+    if (portee === "vulnerabilites") where.push("e.family = 'vuln'");
     // `order=regional` (défaut) remonte d'abord ce qui touche la région ;
     // `order=recent` rétablit l'ordre purement chronologique. Toute valeur
     // inconnue retombe sur le défaut.
@@ -90,7 +97,7 @@ export default async function (app: FastifyInstance) {
       sort === "collected" ? "e.collected_at" : "COALESCE(e.observed_at, e.collected_at)";
     const orderBy =
       order === "regional"
-        ? `${REGIONAL_SQL.replace(/\borg_id\b/g, "e.org_id")} DESC, e.severity DESC NULLS LAST, COALESCE(e.observed_at, e.collected_at) DESC, e.id DESC`
+        ? `e.regional DESC, e.severity DESC NULLS LAST, COALESCE(e.observed_at, e.collected_at) DESC, e.id DESC`
         : `${orderCol} DESC, e.id DESC`;
     params.push(limit);
     const limitIdx = params.length;
@@ -98,7 +105,7 @@ export default async function (app: FastifyInstance) {
     // sources distinctes parlent de la même organisation sur 30 jours. Sans
     // elle, le fil ne peut pas distinguer une revendication isolée d'un
     // incident dont trois rédactions font état.
-    const sql = `SELECT e.id, e.dedup_key, e.family, e.assertion_type, e.title, e.summary, e.observed_at, e.collected_at, e.severity, e.confidence, e.source_id, e.source_url, e.evidence, e.geo_type, e.lat, e.lon, e.org_id, e.date_source, e.date_confidence, e.tlp, e.tlp_source, ${REGIONAL_SQL.replace(/\borg_id\b/g, "e.org_id")} AS regional,
+    const sql = `SELECT e.id, e.dedup_key, e.family, e.assertion_type, e.title, e.summary, e.observed_at, e.collected_at, e.severity, e.confidence, e.source_id, e.source_url, e.evidence, e.geo_type, e.lat, e.lon, e.org_id, e.date_source, e.date_confidence, e.tlp, e.tlp_source, e.regional, e.regional_motif,
              COALESCE((SELECT COUNT(DISTINCT e2.source_id) FROM event e2
                         WHERE e2.org_id = e.org_id
                           AND e.org_id IS NOT NULL
