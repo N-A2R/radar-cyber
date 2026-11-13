@@ -623,8 +623,8 @@ async function quarantineUnparsedBody(source: SourceRow, body: string): Promise<
   try {
     const contentHash = createHash("sha256").update(`${source.id}:${body}`).digest("hex");
     const r = await ingestQuery(
-      `INSERT INTO quarantine_raw (source, source_url, groupe, claimed_at, raw_body, content_hash)
-       VALUES ($1,$2,$3,now(),$4,$5)
+      `INSERT INTO quarantine_raw (source, source_url, groupe, claimed_at, raw_body, content_hash, kind)
+       VALUES ($1,$2,$3,now(),$4,$5,'unparsable')
        ON CONFLICT (source, content_hash) DO NOTHING`,
       [source.id, source.url, source.name, body.slice(0, 400_000), contentHash]
     );
