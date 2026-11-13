@@ -97,3 +97,35 @@ Reste à relire les avertissements avant chargement.
 ```
 
 Code de sortie : `0`. Les 5 blocs attendus sont livrés. Pour le bloc 2, le filtre serveur par liste de tranches d'effectif n'étant pas disponible, le seuil 50+ des secteurs critiques a été appliqué localement à partir de la tranche d'effectif renvoyée par l'API, puis un contrôle géographique strict (département de siège NA + cadre régional) a été effectué ; 2 746 enregistrements hors cadre ont été écartés lors de ce contrôle final (dont les sièges hors région) à cette étape.
+
+---
+
+## Élargissement du 14 novembre 2026 — bloc 1 : 23 → 60 incidents
+
+Le corpus témoin est passé de 23 à **60 incidents**, dont **42 dans la fenêtre
+`2025-11-01 → 2026-10-31`** et 18 conservés hors fenêtre comme contexte.
+
+Méthode : recherche par département (12 départements), par secteur (santé,
+enseignement, collectivités, entreprises) et par événement national à impact
+régional, puis lecture de la page source pour chaque entrée. Chaque incident
+porte une URL, un extrait verbatim, une date de consultation (`2026-11-14`) et
+un niveau de confiance (`etabli` / `rapporte` / `declare`).
+
+Deux écarts assumés, documentés dans le fichier :
+
+- **Ancrage régional des entités nationales.** Une fédération ou un éditeur
+  national n'a pas de département NA : l'entrée est ancrée sur le département
+  où l'impact régional est documenté (UNSS → Gironde, origine de l'intrusion ;
+  FFTir → Haute-Vienne, retombées à Limoges ; Arsoé/Synel → Haute-Vienne ;
+  FFRandonnée et OFB → Charente). Le champ `verification` le précise.
+- **Événement multi-sites.** La vague de piratage des systèmes frigorifiques
+  du 12 octobre 2026 est découpée par département (Gironde, Dordogne,
+  Deux-Sèvres, Vienne, Landes, Lot-et-Garonne, Charente-Maritime), comme le
+  faisait déjà l'entrée « magasins de Béarn et Soule ».
+
+Un faux positif de mesure a été corrigé au passage : le résumé de l'incident
+OFB citait la Fédération nationale des chasseurs, que le moteur rattachait à sa
+place. Le résumé a été reformulé ; la couverture passe de 16/42 à **15/42**.
+
+Validation : `node scripts/validate-external-data.mts` → 0 erreur,
+19 avertissements (18 entrées hors fenêtre + périmètre non structuré).

@@ -5,27 +5,35 @@ La seule question qui justifie le projet :
 > Sur les incidents publics de Nouvelle-Aquitaine des douze derniers mois,
 > quelle part le radar a-t-il vue ?
 
-Mesure du **13 novembre 2026**, fenêtre `2025-11-01 → 2026-10-31`, corpus de
-**23 incidents** publics vérifiés sur pièces — dont trois ajoutés ce jour
-(SDIS des Landes, Institut Bergonié, ERNAT), chacun avec un extrait verbatim
-de sa source et sa date de consultation.
+Mesure du **14 novembre 2026**, fenêtre `2025-11-01 → 2026-10-31`, corpus de
+**60 incidents** publics vérifiés sur pièces — dont **37 ajoutés ce jour**
+(élargissement des 13 et 14 novembre), chacun avec un extrait verbatim de sa
+source et sa date de consultation. Dix-huit entrées portent sur des incidents
+antérieurs à la fenêtre : conservées comme contexte, exclues du dénominateur.
 
 ## Le résultat, sans arrangement
 
 ```
-Couverture : 7/18 (38,9 %)
+Couverture : 15/42 (35,7 %)
   non admis              0
-  non rattachés         11
-    dont 10 organisations absentes du référentiel
-    dont 1 présente mais non reconnue par le moteur
+  non rattachés         27
+    dont 23 organisations absentes du référentiel
+    dont 4 présentes mais non reconnues par le moteur
 Référentiel entreprises : 0 ligne en agroalimentaire, industrie, BTP, commerce
+
+Rappel par secteur (33 incidents sectorisés)
+  collectivite   5/6   (83 %)  · réserve : n = 6
+  enseignement   2/4   (50 %)  · réserve : n = 4
+  sante          3/7   (43 %)  · réserve : n = 7
+  entreprise     2/16  (13 %)  · réserve : n = 16
+  autre          0/9   · pas de taux (aucun rattachement par secteur d'activité)
 ```
 
-Ce que le radar voit — sept organisations, dont deux gagnées ce jour : le
-SDIS des Landes grâce à la correction des particules (« SDIS **des** Landes »
-ne frappait pas l'alias « SDIS LANDES »), et l'Institut Bergonié par son nom
-exact. La mesure ne bouge pas par hasard : chaque point gagné a une cause
-écrite dans le code.
+Le corpus élargi ne fait pas bouger le taux global — il le rend lisible. La
+collectivité reste reconnue presque systématiquement ; l'entreprise s'effondre à
+13 %, et ce n'est pas une surprise : sur les 16 faits « entreprise » de la
+fenêtre, 14 sont des enseignes ou des PME absentes du référentiel (grande
+distribution, billetterie, éditeurs de logiciels métiers, laboratoires).
 
 | Incident | Organisation trouvée |
 | --- | --- |
@@ -33,40 +41,54 @@ exact. La mesure ne bouge pas par hasard : chaque point gagné a une cause
 | Ville de Tarnos | Commune de Tarnos |
 | Mairie d'Espelette | Commune de Espelette |
 | EHPAD Résidence du Parc de Champdeniers | EHPAD RESIDENCE DU PARC |
-| SDIS des Landes | SDIS LANDES |
-| Institut Bergonié | INSTITUT BERGONIE |
 | Ville de Gradignan — police municipale | Commune de Gradignan |
+| Bordeaux Sciences Agro | Bordeaux Sciences Agro |
+| Vignobles Toutigeac | Vignobles Toutigeac |
+| SICSOE (Solution Vin Logistique) | SICSOE Solution Vin Logistique |
+| Fédération Nationale des Chasseurs / chasseurs charentais | Fédération Nationale des Chasseurs |
+| Euskal Moneta | Euskal Moneta |
+| SDIS des Landes | SDIS Landes |
+| Institut Bergonié | Institut Bergonié |
+| Rectorat de l'académie de Poitiers | Rectorat de l'académie de Poitiers |
+| Ville de La Rochelle — fuite via Synbird | Ville de La Rochelle |
+| Ville de Limoges — centre de vaccination | Ville de Limoges |
 
 ## Ce qu'il ne voit pas, et pourquoi
 
-**Neuf organisations ne sont pas au référentiel.** Ce n'est pas un défaut du
-moteur, c'est un trou de données :
+**Vingt-trois organisations ne sont pas au référentiel.** Ce n'est pas un défaut
+du moteur, c'est un trou de données. Les nouveaux cas ajoutés le 14 novembre
+dessinent trois familles :
 
-| Incident | Pourquoi elle manque |
+| Famille | Exemples |
 | --- | --- |
-| Intermarché d'Altillac, magasins de Béarn | grande distribution, absente du bloc 2 |
-| Vignobles Toutigeac, SICSOE | viticulture et logistique viticole, non collectées |
-| Bordeaux Sciences Agro | école d'ingénieurs publique, hors annuaire scolaire |
-| Fédération Nationale des Chasseurs, FFC | associations nationales |
-| Delicity | start-up de livraison, hors périmètre numérique |
-| Euskal Moneta | association de monnaie locale |
+| Grande distribution et commerce | Intermarché (Gironde, Dordogne, Deux-Sèvres, Lot-et-Garonne), E.Leclerc Surgères, Super U Morcenx |
+| Éditeurs et prestataires numériques | Vivaticket, Weda, Cegedim Santé, Cerballiance, Synbird |
+| Établissements et réseaux | UPPA Alumni, réseau Alumni de Bordeaux, Polyclinique Bordeaux Nord, UNSS, AMF, FFRandonnée |
 
-**Une organisation est présente mais non reconnue** : `YMED` est en base
-(entreprise de numérique, Gironde), mais son nom tient en un seul mot. Le
-gazetteer refuse de trancher sur un alias mono-jeton — règle posée parce qu'un
-mot seul est un lieu ou une marque, pas une preuve. « Ymed » relève donc de la
-revue, pas du rattachement automatique.
+**Quatre organisations sont présentes mais non reconnues**, dont le cas
+structurel déjà documenté : `YMED` est en base mais son nom tient en un seul
+mot, et le gazetteer refuse de trancher sur un alias mono-jeton. Les trois
+autres (Bordeaux Métropole sur la taxe de séjour, ERNAT) relèvent de la même
+famille de refus assumé : trop peu de signal dans le libellé pour une décision
+automatique.
+
+**Un faux positif a été retiré de la mesure ce jour** : le résumé de l'incident
+OFB citait la Fédération nationale des chasseurs, que le moteur a rattachée à sa
+place. Le résumé a été reformulé et le taux recalcule sans ce point (16/42
+avant correction, 15/42 après). C'est exactement le genre d'erreur que la
+mesure doit exposer, pas absorber.
 
 ## Ce que la mesure change dans la feuille de route
 
-Le goulot n'est **pas** le moteur de rattachement. Il est à 0 faux positif et
-ne rate qu'un cas sur dix pour une raison assumée.
+Le goulot n'est **pas** le moteur de rattachement : sur les collectivités, il
+reconnaît 5 cas sur 6, et ses refus sont motivés.
 
 Le goulot est **le référentiel** : 13 332 entreprises, dont 13 035 en numérique,
 et **zéro** en agroalimentaire, industrie, construction et commerce — les
 secteurs les plus rançonnés de la région. Tant que ce trou existe, tout taux de
 couverture est flatteur par construction : le radar ne peut pas manquer ce dont
-il ignore l'existence.
+il ignore l'existence. Le taux de 13 % en entreprise n'est pas une contre-
+performance du moteur, c'est le prix du trou.
 
 ## Méthode
 
