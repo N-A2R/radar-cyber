@@ -198,11 +198,18 @@ const MOCK_GRAPH: Graph = {
     { id: "org:1", label: "CHU de Bordeaux", kind: "org" },
     { id: "org:3", label: "Dassault Aviation", kind: "org" },
     { id: "org:5", label: "Safran Helicopter Engines", kind: "org" },
+    { id: "dept:33", label: "Gironde", kind: "dept" },
+    { id: "dept:64", label: "Pyrénées-Atlantiques", kind: "dept" },
     { id: "family:ransomware", label: "rançongiciel", kind: "family" },
     { id: "family:vuln", label: "vulnérabilité", kind: "family" },
     { id: "family:phishing", label: "hameçonnage", kind: "family" },
   ],
   links: [
+    // Sans `rattache`, la matrice famille × département n'a pas de colonne :
+    // la vue par défaut serait vide dans la démonstration.
+    { source: "org:1", target: "dept:33", type: "rattache" },
+    { source: "org:3", target: "dept:33", type: "rattache" },
+    { source: "org:5", target: "dept:64", type: "rattache" },
     { source: "org:1", target: "family:ransomware", type: "has_event" },
     { source: "org:1", target: "family:phishing", type: "has_event" },
     { source: "org:3", target: "family:vuln", type: "has_event" },
