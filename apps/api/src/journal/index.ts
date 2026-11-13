@@ -70,9 +70,18 @@ function toTimestamp(value: Date | string | null | undefined): string | null {
  * un journal indisponible ne doit pas faire perdre un événement. L'échec est
  * rendu à l'appelant, qui décide de le signaler.
  */
-export async function consigner(entry: JournalEntry): Promise<{ ok: boolean; error?: string }> {
+/**
+ * Ce dont `consignerAvec` a besoin : la méthode `query` d'un client de
+ * transaction (`PoolClient`) ou la fonction d'ingestion hors transaction.
+ * On ne déclare que ce qui est utilisé, pour que les deux s'y conforment
+ * sans conversion de type.
+ */
+export type JournalRunner = (text: string, params?: readonly unknown[]) => Promise<{ rows: unknown[] }>;
+
+/** Consigne un fait via un runner donné (transaction ou non). */
+export async function consignerAvec(run: JournalRunner, entry: JournalEntry): Promise<{ ok: boolean; error?: string }> {
 	try {
-		await ingestQuery(
+		await run(
 			`INSERT INTO journal (kind, subject, summary, payload, actor, valid_at)
 			 VALUES ($1, $2, $3, $4::jsonb, $5, $6)`,
 			[
@@ -88,6 +97,10 @@ export async function consigner(entry: JournalEntry): Promise<{ ok: boolean; err
 	} catch (error) {
 		return { ok: false, error: String((error as { message?: string })?.message ?? error) };
 	}
+}
+
+export async function consigner(entry: JournalEntry): Promise<{ ok: boolean; error?: string }> {
+	return consignerAvec((sql, params) => ingestQuery(sql, params ? [...params] : undefined), entry);
 }
 
 /** Variante groupée : une seule requête pour N faits. Utile en fin de collecte. */
