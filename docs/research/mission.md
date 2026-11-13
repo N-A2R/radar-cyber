@@ -396,3 +396,58 @@ Toujours revérifier avec le validateur du dépôt avant de croire un feu vert.
 présents mais enfouis dans `nom` entre parenthèses (`ALLIANCE ATLANTIQUE (H.M.
 VOYAGES, AUTOCARS BERTRAND, …)`) et `nomsAlternatifs` est vide partout. Les
 extraire en alias au chargement — c'est exactement ce qui sert au rapprochement.
+
+## Chargement du référentiel étendu (2026-11-12)
+
+Le référentiel ne décrit plus seulement le maillage administratif : il contient
+les organisations que la région compte réellement, donc celles qu'un incident
+peut frapper.
+
+| Jeu | Volume | Identifiant |
+| --- | --- | --- |
+| référentiel territorial | 4 462 | code INSEE / SIREN d'EPCI |
+| santé (FINESS) | 10 008 | 9 chiffres |
+| enseignement (UAI) | 6 528 | 7 caractères |
+| entreprises (SIREN) | 13 332 | 9 chiffres, clé Luhn validée |
+| **total** | **34 330** | |
+
+`pnpm migrate` (migration 026) puis
+`tsx scripts/load-organisations-na.mts --apply` : 34 330 organisations,
+52 473 alias. Rejouable, 15 s.
+
+**Coordonnées : trou comblé sans recollecte.** Les 16 536 établissements livrés
+avec `lat`/`lon` à `null` portent tous un code commune INSEE géolocalisé dans
+`referentiel-na.json` : le centroïde communal est posé et `geo_source` vaut
+`centroide-commune`, ce qui interdit de confondre la précision d'un centroïde
+avec celle d'une adresse. Résultat : **34 330 / 34 330 géolocalisées**, carte
+alimentée.
+
+**Alias : 4 267 noms écartés du moteur.** 710 écoles s'appellent « Ecole
+primaire » et 21 pharmacies « Pharmacie du Centre ». Les verser au matcher, qui
+rend `null` dès que deux organisations revendiquent le même nom, l'aurait
+paralysé. Seuls les noms distinctifs deviennent des alias ; le nom complet reste
+dans `org.name`, donc rien n'est perdu — on refuse seulement d'armer le moteur
+avec du vocabulaire commun. Les enseignes entre parenthèses des entreprises
+(« AGUR », « PEAKSYS ») sont extraites : 2 042 alias récupérés.
+
+**Le vrai goulot n'est pas le référentiel, c'est le matcher d'ingestion.**
+Mesuré sur les 15 incidents du corpus dans la fenêtre :
+
+| Étage | Rattachement |
+| --- | --- |
+| `matchOrgForText` (ingestion) avec 4 462 orgs | 5/15 |
+| `matchOrgForText` (ingestion) avec 34 330 orgs | **1/15** |
+| `matchOrgDetailed` (alias) avec 34 330 orgs | 12/15, mais **4 faux** |
+
+Le matcher d'ingestion compare des jetons du `name` de **toutes** les
+organisations et exige **un seul candidat** dans la table entière : mécanique de
+tablette de 800 lignes, elle s'effondre à 34 330. Il ignore `org_alias` — les
+52 473 alias n'y servent à rien. Le moteur d'alias, lui, trouve plus mais se
+trompe : « Vignobles Toutigeac » → Gironde, « Ymed » → « S-SERVICES », et
+« Bordeaux » désigne tour à tour une commune, une école et une entreprise. Seuls
+les 3 cas « Ville de Tarnos / Mairie d'Esplanade / Mairie de Marennes » sont
+justes (3/15 de précision).
+
+**Conséquence produit** : charger le référentiel n'améliore la couverture que
+si l'ingestion bascule sur l'index d'alias *et* si les alias orphelins
+mono-jeton sont écartés. C'est le chantier suivant, et il est mesurable.
