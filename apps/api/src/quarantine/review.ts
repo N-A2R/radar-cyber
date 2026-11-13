@@ -18,6 +18,7 @@
 import { query, withClient } from "../db.js";
 import { buildAliasIndex, analyzeAliasIndex, type AliasRow } from "../match/core.js";
 import { loadOrgIndex, matchOrgInIndex, promoteOne, type OrgIndexEntry } from "./promote.js";
+import { consignerLot, type JournalEntry } from "../journal/index.js";
 import { buildCandidateIndex, candidatesFor } from "./candidates.js";
 import { compareQueueEntries, triageClaim, type TriageBucket, type TriageResult } from "./triage.js";
 
@@ -302,6 +303,7 @@ export async function applyReview(
 	}
 
 	const status = STATUS_FOR[action];
+	const faits: JournalEntry[] = [];
 	await withClient(async (client) => {
 		await client.query("BEGIN");
 		try {
@@ -320,8 +322,18 @@ export async function applyReview(
 					  WHERE id = $1 AND ${guard}`,
 					[id, status, JSON.stringify([entry])],
 				);
-				if ((r.rowCount ?? 0) > 0) outcome.changed++;
-				else outcome.skipped.push({ id, reason: action === "undo" ? "non annulable" : "déjà promu ou introuvable" });
+				if ((r.rowCount ?? 0) > 0) {
+					outcome.changed++;
+					// Décision humaine : elle était écrasée par la suivante. Ici elle
+					// reste, avec son auteur, son motif et sa date.
+					faits.push({
+						kind: "review.decided",
+						subject: `quarantine:${id}`,
+						summary: `${action} par ${actor}${reason ? ` — ${reason}` : ""}`,
+						actor: `humain:${actor}`,
+						payload: { action, reason, statutApplique: status, entry },
+					});
+				} else outcome.skipped.push({ id, reason: action === "undo" ? "non annulable" : "déjà promu ou introuvable" });
 			}
 			await client.query("COMMIT");
 		} catch (error) {
@@ -329,6 +341,13 @@ export async function applyReview(
 			throw error;
 		}
 	});
+	if (faits.length > 0) {
+		try {
+			await consignerLot(faits);
+		} catch {
+			// Une lacune de journal est visible ; une revue perdue ne l'est pas.
+		}
+	}
 	return outcome;
 }
 

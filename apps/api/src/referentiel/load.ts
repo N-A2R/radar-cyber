@@ -19,6 +19,7 @@
  * colonnes intactes.
  */
 import { query, withClient } from "../db.js";
+import { consignerLot, MOTEURS, type JournalEntry } from "../journal/index.js";
 import type { PlannedOrg, ReferentielPlan } from "./plan.js";
 
 export type LoadOptions = {
@@ -140,6 +141,22 @@ export async function loadReferentiel(
 		return report;
 	}
 
+	// État antérieur des organisations concernées : sans lui, un chargement
+	// réécrit sans qu'on puisse dire ce qui a changé. C'est ce trou qui a rendu
+	// impossible la mesure du changement de moteur de rattachement.
+	const avant = new Map<number, { name: string; lat: number | null; lon: number | null; dept: string | null }>();
+	const ids = plan.orgs
+		.map((o) => (o.siren ? bySiren.get(o.siren)?.id : undefined) ?? bySlug.get(o.slug)?.id)
+		.filter((id): id is number => typeof id === "number");
+	if (ids.length > 0) {
+		const { rows } = await query<{ id: number; name: string; lat: number | null; lon: number | null; dept: string | null }>(
+			"SELECT id, name, lat, lon, dept FROM org WHERE id = ANY($1::int[])",
+			[ids],
+		);
+		for (const row of rows) avant.set(Number(row.id), row);
+	}
+	const faits: JournalEntry[] = [];
+
 	let done = 0;
 	await withClient(async (client) => {
 		await client.query("BEGIN");
@@ -189,6 +206,25 @@ export async function loadReferentiel(
 					orgId = Number(r.rows[0].id);
 				}
 
+				// Journal : ce qui a réellement changé sur cette organisation.
+				const etatAvant = avant.get(orgId);
+				if (etatAvant) {
+					const changements: Record<string, unknown> = {};
+					if (etatAvant.name !== org.name) changements.name = { avant: etatAvant.name, apres: org.name };
+					if (etatAvant.lat === null && org.lat !== null) changements.lat = { avant: null, apres: org.lat };
+					if (etatAvant.lon === null && org.lon !== null) changements.lon = { avant: null, apres: org.lon };
+					if (etatAvant.dept === null && org.dept !== null) changements.dept = { avant: null, apres: org.dept };
+					if (Object.keys(changements).length > 0) {
+						faits.push({
+							kind: "org.changed",
+							subject: org.entityCode,
+							summary: `${org.name} : ${Object.keys(changements).join(", ")} complété(s)`,
+							actor: `moteur:${MOTEURS.referentiel}`,
+							payload: { slug: org.slug, kind: org.kind, changements },
+						});
+					}
+				}
+
 				for (let start = 0; start < org.aliases.length; start += batchSize) {
 					const slice = org.aliases.slice(start, start + batchSize);
 					const values: unknown[] = [];
@@ -216,5 +252,27 @@ export async function loadReferentiel(
 	});
 
 	log(`chargé : ${done} organisations, ${report.aliasesInserted} alias`);
+
+	// Un fait de chargement, plus un fait par organisation modifiée. Écrit hors
+	// transaction : une lacune de journal ne doit pas annuler un chargement.
+	faits.unshift({
+		kind: "referentiel.charged",
+		subject: "referentiel-na",
+		summary: `${report.created} création(s), ${report.updated} mise(s) à jour, ${report.aliasesInserted} alias`,
+		actor: `moteur:${MOTEURS.referentiel}`,
+		payload: {
+			planned: report.planned,
+			created: report.created,
+			updated: report.updated,
+			attachedBySiren: report.attachedBySiren,
+			aliasesInserted: report.aliasesInserted,
+			byKind: report.byKind,
+		},
+	});
+	try {
+		await consignerLot(faits);
+	} catch (error) {
+		log(`journal : ${faits.length} fait(s) non consigné(s) — ${String(error).slice(0, 120)}`);
+	}
 	return report;
 }

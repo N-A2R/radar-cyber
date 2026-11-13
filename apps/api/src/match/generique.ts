@@ -87,3 +87,24 @@ export function nomDeLieu(jetons: readonly string[]): string {
 export function commenceParUnRole(jetons: readonly string[]): boolean {
 	return jetons.length > 1 && MOTS_ROLE.includes(jetons[0] as string);
 }
+
+/**
+ * Mots de rôle qui désignent une **organisation à établissement** : une mairie,
+ * un hôpital, une école. Ceux-là peuvent trancher un rattachement.
+ *
+ * Par opposition aux mots de **territoire** (« département », « région »,
+ * « agglomération ») : « en Gironde », « au Pays basque » sont des localisations.
+ * Un article qui les cite parle d'un lieu, pas d'une institution victime.
+ * Les traiter comme des organisations est exactement le faux positif qui
+ * rattachait « Vignobles Toutigeac » au Département de la Gironde.
+ */
+export const MOTS_ROLE_ETABLISSEMENT: readonly string[] = [
+	"commune", "ville", "mairie", "prefecture", "sous-prefecture",
+	"universite", "ecole", "college", "lycee", "hopital", "chu", "chr",
+	"clinique", "institut", "laboratoire", "pharmacie", "ehpad", "syndicat",
+];
+
+/** Vrai si l'alias commence par un rôle d'établissement, et non de territoire. */
+export function commenceParRoleEtablissement(jetons: readonly string[]): boolean {
+	return jetons.length > 1 && MOTS_ROLE_ETABLISSEMENT.includes(jetons[0] as string);
+}

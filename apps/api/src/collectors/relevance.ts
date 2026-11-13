@@ -134,6 +134,7 @@ export function matchOrgForTextFromList(text: string, orgs: MatchOrgRow[]): OrgM
 			kind: "entreprise",
 			dept: null as string | null,
 			city: null as string | null,
+			sector: null as string | null,
 			alias: a,
 		}));
 	});
