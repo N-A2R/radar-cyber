@@ -76,3 +76,26 @@ export function estTexteFrancais(texte: string): boolean {
 	// un texte anglais technique beaucoup moins.
 	return outils >= Math.max(2, Math.floor(mots.length / 12));
 }
+
+/**
+ * Portée d'un événement, telle qu'elle est stockée sur la ligne.
+ *
+ * Deux signaux seulement, dans cet ordre :
+ *  1. l'événement est rattaché à une organisation du référentiel — c'est une
+ *     preuve, pas un indice ;
+ *  2. le texte nomme un département de la région.
+ *
+ * Le second est plus faible : « la Vienne » est aussi une rivière et une ville
+ * de l'Isère. Il suffit pour **trier un fil**, pas pour rattacher une victime.
+ * D'où deux colonnes : le drapeau, et le motif qui l'explique.
+ */
+export function porteeRegionale(
+	texte: string,
+	orgId: number | null,
+	departements: readonly string[] = DEPARTEMENTS_NA,
+): { regional: boolean; motif: "rattachement" | "departement" | "aucun" } {
+	if (orgId !== null) return { regional: true, motif: "rattachement" };
+	const verdict = verifierTerritorial(texte, departements);
+	if (verdict.regional) return { regional: true, motif: "departement" };
+	return { regional: false, motif: "aucun" };
+}
