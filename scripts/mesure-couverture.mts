@@ -215,10 +215,12 @@ async function main(): Promise<void> {
 			datePublique: incident.datePublique,
 			organismeAttendu: incident.entite,
 			motif,
-			// Le radar voit l'incident le jour de sa publication : c'est la
-			// mesure la plus favorable, et elle est honnête — la veille est
-			// quotidienne. Un délai négatif serait une erreur de date.
-			delaiJours: motif === "vu" ? Math.max(0, joursEntre(incident.datePublique, dateMesure) * 0) : null,
+			// Le délai n'est PAS mesurable ici : le corpus est rejoué contre le
+			// moteur, il n'est pas ingéré. La formule précédente multipliait par
+			// zéro et publiait donc un délai médian de 0 jour — un chiffre faux
+			// qui avait l'air d'une mesure. Le délai réel se mesure sur le flux
+			// collecté (`scripts/mesure-delai.mts`), pas sur une simulation.
+			delaiJours: null,
 			organismeTrouve: match?.explication?.alias ?? null,
 			refusAdmission: admission.ok ? null : (admission.rejections as string[]),
 			raisonMoteur: match?.explication?.motif ?? null,

@@ -90,3 +90,31 @@ pnpm tsx scripts/mesure-couverture.mts --json=out.json        # publie
 
 Corpus : `bench/fixtures/corpus-reference-na.json` (versionné).
 Résultat : `bench/results/couverture-2026-11-13.json` (publié).
+
+---
+
+## Le délai : un zéro qui n'en était pas un
+
+La mesure publiait un « délai médian » calculé sur une simulation et multiplié
+par zéro — `joursEntre(...) * 0`. Il valait **0 jour**, toujours, et s'affichait
+comme une mesure. Le corpus est rejoué contre le moteur : il n'est pas ingéré,
+donc il n'a pas de délai.
+
+Le délai réel se mesure sur le flux collecté (`scripts/mesure-delai.mts`),
+entre la date du fait (`observed_at`) et son écriture en base (`created_at`) :
+
+| | |
+| --- | --- |
+| Événements datés | 19 050 |
+| Dont bulletins de vulnérabilités (date = date du CVE) | 18 117 |
+| **Délai médian de veille** | **1,9 jour** (sur 933 faits) |
+| Premier quartile | 0,0 j |
+| Troisième quartile | 10,1 j |
+| Délais aberrants | 0 |
+
+Les 18 117 bulletins sont exclus du calcul et publiés à part : un CVE de 2022
+entré dans KEV en 2026 affiche un « délai » de 1 325 jours. Ce n'est pas notre
+latence, c'est l'âge du CVE. Les confondre aurait donné une moyenne absurde.
+
+**1,9 jour** est donc le premier chiffre honnête du quatrième nombre de la
+phrase de clôture du programme.
