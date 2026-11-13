@@ -241,22 +241,54 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 /** Tous les alias qui apparaissent dans `jetons`, en gardant le plus long par position. */
 type Frappe = { cle: string; orgs: GazetteerOrg[]; taille: number };
 
+/**
+ * Particules qui ne portent aucun sens et ne servent qu'à joindre.
+ *
+ * « SDIS LANDES » est au référentiel ; la presse écrit « SDIS des Landes ».
+ * Sans cette liste, la fenêtre de jetons était « sdis des landes » et ne
+ * frappait jamais l'alias « sdis landes » — un incident régional parfaitement
+ * identifiable restait donc non rattaché.
+ */
+const PARTICULES: Record<string, true> = {
+	de: true, des: true, du: true, la: true, le: true, les: true, l: true,
+	d: true, et: true, en: true, sur: true, aux: true, au: true,
+};
+
 function aliasFrappes(gaz: Gazetteer, jetons: readonly string[]): Frappe[] {
 	const frappes: Frappe[] = [];
 	for (let debut = 0; debut < jetons.length; debut++) {
-		const cles = gaz.aliasKeysByFirstToken.get(jetons[debut] as string);
-		if (!cles) continue;
-		// À une position donnée, on ne garde que l'alias le plus long : s'il en
-		// existait un plus court au même endroit, il serait moins spécifique.
-		const tailles: number[] = [];
-		for (let taille = Math.min(gaz.maxTokens, jetons.length - debut); taille >= 1; taille--) {
-			tailles.push(taille);
+		if (!gaz.aliasKeysByFirstToken.get(jetons[debut] as string)) continue;
+		// Deux familles de fenêtres, essayées de la plus longue à la plus courte :
+		//  1. contiguës — comportement historique, indispensable car les alias du
+		//     référentiel contiennent eux-mêmes des particules (« Ville de Tarnos ») ;
+		//  2. sans particules — « SDIS des Landes » doit frapper « SDIS LANDES ».
+		const candidats: { cle: string; taille: number }[] = [];
+		const vues = new Set<string>();
+		const ajouter = (jetonsFenetre: readonly string[]) => {
+			if (jetonsFenetre.length === 0) return;
+			const cle = jetonsFenetre.join(" ");
+			if (vues.has(cle)) return;
+			vues.add(cle);
+			candidats.push({ cle, taille: jetonsFenetre.length });
+		};
+		const max = Math.min(gaz.maxTokens, jetons.length - debut);
+		for (let taille = max; taille >= 1; taille--) {
+			ajouter(jetons.slice(debut, debut + taille));
 		}
-		for (const taille of tailles) {
-			const cle = jetons.slice(debut, debut + taille).join(" ");
-			const orgs = gaz.byAliasKey.get(cle);
+		const sansParticules: string[] = [];
+		for (let i = debut; i < jetons.length && sansParticules.length < gaz.maxTokens; i++) {
+			const jeton = jetons[i] as string;
+			if (PARTICULES[jeton] === true) continue;
+			sansParticules.push(jeton);
+			ajouter([...sansParticules]);
+		}
+		// La plus longue d'abord : un alias plus court au même endroit serait
+		// moins spécifique.
+		candidats.sort((a, b) => b.taille - a.taille);
+		for (const c of candidats) {
+			const orgs = gaz.byAliasKey.get(c.cle);
 			if (!orgs) continue;
-			frappes.push({ cle, orgs, taille });
+			frappes.push({ cle: c.cle, orgs, taille: c.taille });
 			break;
 		}
 	}
