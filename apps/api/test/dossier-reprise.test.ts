@@ -43,12 +43,12 @@ function etatPlein(): EtatSysteme {
 	};
 }
 
-test("le dossier a cinq sections dans l'ordre attendu", () => {
+test("le dossier a six sections dans l'ordre attendu", () => {
 	const d = construireDossier(etatVide(), "2026-11-13T12:00:00.000Z");
 	assert.equal(d.genere, "2026-11-13T12:00:00.000Z");
 	assert.deepEqual(
 		d.sections.map((s) => s.cle),
-		["etat", "verite", "regles", "gestes", "pieges"],
+		["etat", "verite", "regles", "gestes", "pieges", "ruptures"],
 	);
 	for (const s of d.sections) {
 		assert.ok(s.points.length > 0, `section ${s.cle} vide`);
