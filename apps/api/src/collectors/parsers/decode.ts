@@ -29,17 +29,35 @@ function maybeDecompress(buf: Buffer): Buffer {
   return buf;
 }
 
-export function decodeBody(buf: Buffer, contentType: string | null): { text: string; charset: string; decompressed: boolean } {
+export function decodeBody(buf: Buffer, contentType: string | null): { text: string; charset: string; decompressed: boolean; uncertain: boolean } {
   const raw = maybeDecompress(buf);
-  const charset = normalizeLabel(sniffCharset(contentType, raw));
+  const sniffed = sniffCharset(contentType, raw);
+  const declared = sniffed.trim() !== "";
+  let charset = normalizeLabel(sniffed || "utf-8");
   let text: string;
-  try {
-    text = new TextDecoder(charset, { fatal: false }).decode(raw);
-  } catch {
-    text = new TextDecoder("utf-8", { fatal: false }).decode(raw);
+  let uncertain = false;
+  if (!declared) {
+    try {
+      text = new TextDecoder("utf-8", { fatal: true }).decode(raw);
+      charset = "utf-8";
+      if (text.includes("\uFFFD")) uncertain = true;
+    } catch {
+      text = new TextDecoder("windows-1252", { fatal: false }).decode(raw);
+      charset = "windows-1252";
+      uncertain = true;
+    }
+  } else {
+    try {
+      text = new TextDecoder(charset, { fatal: false }).decode(raw);
+    } catch {
+      text = new TextDecoder("utf-8", { fatal: false }).decode(raw);
+      charset = "utf-8";
+      uncertain = true;
+    }
+    if (text.includes("\uFFFD")) uncertain = true;
   }
   if (text.charCodeAt(0) === 0xfeff) text = text.slice(1);
-  return { text, charset, decompressed: raw !== buf };
+  return { text, charset, decompressed: raw !== buf, uncertain };
 }
 
 export function tryBrotli(buf: Buffer): Buffer | null {

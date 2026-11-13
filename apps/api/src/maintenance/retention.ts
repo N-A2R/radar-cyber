@@ -19,6 +19,19 @@ function cutoffExpr(table: Table): string {
   return "finished_at < $1::timestamptz - interval '60 days'";
 }
 
+/**
+ * `alert.event_id` est un entier nu, sans clé étrangère : purger un événement
+ * encore référencé laisse une alerte qui joint `null` et devient illisible
+ * (plus de titre, d'organisation, de source). Ces événements restent donc en
+ * base tant qu'une alerte les cite — c'est la preuve, pas le volume, qui prime.
+ */
+function purgeFilter(table: Table): string {
+  if (table === "event") {
+    return " AND NOT EXISTS (SELECT 1 FROM alert a WHERE a.event_id = event.id)";
+  }
+  return "";
+}
+
 export async function runRetention(
   log: (msg: string) => void,
   opts?: { days?: number; indicatorDays?: number; dryRun?: boolean; tables?: Table[] },
@@ -76,7 +89,7 @@ export async function runRetention(
     while (true) {
       if (dryRun) {
         const { rows } = await ingestQuery<{ c: string }>(
-          `SELECT count(*)::text AS c FROM ${table} WHERE ${cutoffExpr(table)}`,
+          `SELECT count(*)::text AS c FROM ${table} WHERE ${cutoffExpr(table)}${purgeFilter(table)}`,
           [cutoff],
         );
         const n = Number(rows[0]?.c ?? 0);
@@ -85,7 +98,7 @@ export async function runRetention(
         break;
       }
       const { rowCount } = await ingestQuery(
-        `DELETE FROM ${table} WHERE id IN (SELECT id FROM ${table} WHERE ${cutoffExpr(table)} LIMIT ${BATCH})`,
+        `DELETE FROM ${table} WHERE id IN (SELECT id FROM ${table} WHERE ${cutoffExpr(table)}${purgeFilter(table)} LIMIT ${BATCH})`,
         [cutoff],
       );
       const n = rowCount ?? 0;
