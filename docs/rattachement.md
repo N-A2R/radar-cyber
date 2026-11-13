@@ -162,3 +162,23 @@ mauvais (« City of Humboldt » → FACILITY PROJECT). Le moteur partagé refuse
 désormais ces textes, mais le corpus montre la vraie limite : **le flux
 collecté parle très peu de la région**. Un CVE ne se rattache pas à une
 entreprise girondine, et aucun réglage de seuil ne changera cela.
+
+### Ce que la mise en service a appris
+
+Le correctif a été appliqué, puis la base a continué de se remplir de liens
+faux : **12 359 de plus** en une heure. La cause n'était pas le code mais
+l'**exploitation** — un processus API démarré avant le correctif continuait de
+tourner, et il réappliquait l'ancienne règle à chaque passage de corrélation.
+
+Une correction qui n'est pas suivie d'un redémarrage n'est pas une correction.
+C'est écrit ici parce que le même piège se représentera : `correlate.ts` et le
+serveur ne se rechargent pas à chaud.
+
+Après redémarrage, nouvelle mesure sur la même base :
+
+| | |
+| --- | --- |
+| Événements orphelins proposés au corrélateur | 7 292 |
+| Rattachements produits par le moteur corrigé | **2** |
+| Rattachements fautifs restants, puis défaits | 12 359 |
+| Rattachements en base après réparation | 169 sur 18 981 |
