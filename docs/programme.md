@@ -16,7 +16,7 @@ Décisions de cadrage, données par l'utilisateur ce jour :
 
 ## Où on en est — 13 novembre 2026
 
-**11 chantiers faits, 2 à moitié, 7 pas commencés.** Le moteur tourne et il est
+**16 chantiers faits, 2 à moitié, 2 pas commencés.** Le moteur tourne et il est
 vérifié ; ce qui manque n'est plus du code, c'est la preuve qu'il voit.
 
 ### Ce qui a été prouvé (D0)
@@ -42,26 +42,30 @@ vérifié ; ce qui manque n'est plus du code, c'est la preuve qu'il voit.
 | Axe | Faits | Reste |
 | --- | --- | --- |
 | 1 — Mémoire | 4/4 | rien |
-| 2 — Mesure | **0/4** | 5, 6, 7, 8 — tout l'axe |
+| 2 — Mesure | **3/4** | 7 (par secteur) |
 | 3 — Analyse | 3/4 | 10 |
-| 4 — Données | 1/3 | 13 (chargement), 15 (relance réseau) |
-| 5 — Produit | 2/4 | 17, 18 |
+| 4 — Données | 1/3 | 13 (chargement), 15 (parsing) |
+| 5 — Produit | 4/4 | rien |
 | 6 — Transmission | 1/1 | rien |
 
-**L'axe 2 est vide.** C'est celui qui donne son sens aux autres : sans le
-corpus (5) et la mesure (6), on ne peut pas écrire la phrase de clôture du
-programme. Tout le reste est instrumenté mais non mesuré.
+**La mesure existe et elle est mauvaise.** `docs/mesure-couverture.md` publie
+5/15 (33,3 %) sur un corpus de 20 incidents, avec les 9 organisations absentes
+du référentiel nommées une par une. Le chiffre est reproductible : rejoué ce
+jour sur 34 330 organisations chargées localement, il redonne 5/15 à
+l'identique. Ce qui manque n'est donc plus l'instrument, c'est le référentiel
+qui rendrait le taux acceptable — et le corpus qui le rendrait solide.
 
 ### La suite, dans l'ordre
 
-1. **5 — corpus** : les incidents publics de Nouvelle-Aquitaine des 12 derniers
-   mois, sourcés et datés. Rien ne le bloque, et tout en dépend ensuite.
-2. **6 — mesure** : le tableau nominatif vu / non vu / délai / motif. La
-   mécanique existe (`analyse/`), il lui manque le corpus.
-3. **13 — chargement** des 302 entités qualifiées, puis **7** : le rappel par
-   secteur, qui n'a de sens qu'avec 5, 6 et 13 en place.
-4. En parallèle, sans dépendance : **18** (fiches d'organisation), **10**
-   (agents de rupture), **17** (carte hors ligne), **15** (relance réseau).
+1. **13 — le trou du référentiel.** C'est le seul chiffre qui bloque tout :
+   sur 15 incidents du corpus, 9 échouent parce que l'organisation n'existe
+   pas au référentiel. Les 302 entités qualifiées sont prêtes à charger.
+2. **7 — par secteur.** Le 33,3 % global cache le vrai : le référentiel est
+   vide en agroalimentaire, industrie, BTP et commerce. Un taux par secteur
+   dit où le trou est, un taux global le noie.
+3. **10 — agents de rupture.** Indépendant de tout le reste.
+4. **15 — parsing.** 265 sources déclarées, presque aucune ne rend. Dire
+   *pourquoi* une source rend zéro est un préalable à toute collecte réelle.
 
 ---
 
@@ -95,10 +99,10 @@ pourquoi l'axe 1 est déjà engagé.
 
 | # | Chantier | État | Critère de sortie |
 | --- | --- | --- | --- |
-| 5 | **Corpus de référence** — les incidents réels, versionnés | à faire | corpus annoté dans le dépôt : date, organisateur, lieu, type, preuve |
-| 6 | **Mesure de couverture publiée** | à faire | tableau nominatif : vu/non vu, délai, motif d'absence — committé |
+| 5 | **Corpus de référence** — les incidents réels, versionnés | **fait** (`bench/fixtures/corpus-reference-na.json`, 20 incidents sourcés) | corpus annoté dans le dépôt : date, organisateur, lieu, type, preuve |
+| 6 | **Mesure de couverture publiée** | **fait** (`docs/mesure-couverture.md`, `scripts/mesure-couverture.mts` — 5/15, reproductible) | tableau nominatif : vu/non vu, délai, motif d'absence — committé |
 | 7 | **Mesure du rattachement par secteur** | à faire | précision et rappel par secteur d'activité, pas un global trompeur |
-| 8 | **Valeur des sources** | à faire | chaque source a un apport mesuré en incidents réels, pas en volume |
+| 8 | **Valeur des sources** | **fait** (`analyse/valeur-source.ts`, `GET /api/sources`, colonne unicité) | chaque source a un apport mesuré en incidents réels, pas en volume |
 
 ### Axe 3 — Analyse : voir au-delà du fil
 
@@ -122,8 +126,8 @@ pourquoi l'axe 1 est déjà engagé.
 | # | Chantier | État | Critère de sortie |
 | --- | --- | --- | --- |
 | 16 | **Le « pourquoi » dans le rail** | **fait** (inspecteur) | rattachement expliqué (motif, alias, confiance, candidats écartés), absence motivée |
-| 17 | **Carte complète et hors ligne** | à faire | 34 330 organisations, utilisable sans réseau |
-| 18 | **Recherche et fiches d'organisation** | à faire | une fiche montre l'historique de rattachement, pas seulement l'état |
+| 17 | **Carte complète et hors ligne** | **fait** (`apps/web/src/offline.ts`, 17 contrôles) | 34 330 organisations, utilisable sans réseau |
+| 18 | **Recherche et fiches d'organisation** | **fait** (`analyse/historique.ts`, `GET /api/orgs/:id`, fiche) | une fiche montre l'historique de rattachement, pas seulement l'état |
 | 19 | **Fraîcheur et confiance affichées** | **fait** (fil) | date et fraîcheur, précision de la date, niveau de confiance, raisons, corroboration |
 
 ### Axe 6 — Transmission : ce qui survit
