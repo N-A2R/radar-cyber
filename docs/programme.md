@@ -62,7 +62,7 @@ pourquoi l'axe 1 est déjà engagé.
 
 | # | Chantier | État | Critère de sortie |
 | --- | --- | --- | --- |
-| 13 | **Référentiel entreprises** | bloqué externe | voie de chargement prête, **trou publié** (0 ligne agro/industrie/BTP/commerce) |
+| 13 | **Référentiel entreprises** | **moitié faite** (`docs/manques-referentiel.md`) — chargement bloqué externe | **trou publié** en liste de courses (411 entités, 8 en France, zone et voie par entité) |
 | 14 | ✅ **Diagnostic des sources muettes** | **fait** (`docs/sources-diagnostic.md`) | rendement par source exposé, `null` ≠ 0, transitions journalisées |
 | 15 | **Réparation du parsing** | à faire | motif de rejet agrégé en base, sources illisibles réparées ou désactivées avec motif |
 
