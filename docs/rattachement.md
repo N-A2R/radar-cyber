@@ -182,3 +182,16 @@ Après redémarrage, nouvelle mesure sur la même base :
 | Rattachements produits par le moteur corrigé | **2** |
 | Rattachements fautifs restants, puis défaits | 12 359 |
 | Rattachements en base après réparation | 169 sur 18 981 |
+
+---
+
+## Le piège d'exploitation : deux instances sur une base
+
+Après le correctif, les liens faux **ont continué d'apparaître**. Cause : un
+second processus API tournait encore — le service systemd `radar-api`, lancé
+depuis le clone principal, qui n'avait pas les correctifs. Chaque cycle de
+corrélation réappliquait l'ancienne règle.
+
+Leçon d'exploitation : **un correctif n'est actif que dans les processus
+redémarrés après son déploiement.** Vérifier qui tient le port et quand il a
+démarré (`ps -eo pid,lstart,args`) fait partie de la correction.
