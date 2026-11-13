@@ -297,3 +297,40 @@ test("loadOrgIndex : charge les organisations actives", async () => {
     assert.equal(typeof e.nameNorm, "string");
   }
 });
+
+test("un corps illisible n'entre pas dans la file de revue", async () => {
+  const { reviewQueue } = await import("../src/quarantine/review.js");
+  const org = await insertOrg(`Corps Illisible ${TAG}`, { domain: `corps-${TAG}.example` });
+  const fait = await insertFact({ orgHint: `corps-${TAG}.example`, groupe: "Groupe Corps" });
+  const corps = await insertFact({ orgHint: null, rawBody: "<html>bruit</html>" });
+  await query("UPDATE quarantine_raw SET kind='unparsable' WHERE id=$1", [corps.id]);
+
+  try {
+    const queue = await reviewQueue({ limit: 200 });
+    // `id` est un bigint : pg le rend en chaîne, la file en nombre.
+    const ids = queue.rows.map((row) => row.id);
+    assert.ok(ids.includes(Number(fait.id)), "un fait ordinaire doit rester dans la file");
+    assert.ok(!ids.includes(Number(corps.id)), "un corps illisible ne doit jamais être proposé à un humain");
+  } finally {
+    await query("DELETE FROM quarantine_raw WHERE id = ANY($1::bigint[])", [[fait.id, corps.id]]).catch(() => {});
+    await query("DELETE FROM org WHERE id=$1", [org]).catch(() => {});
+  }
+});
+
+test("un domaine identique est une clé, pas une ressemblance", async () => {
+  const domain = `cle-${TAG}.example`;
+  const org = await insertOrg(`Organisation Cle ${TAG}`, { domain });
+
+  const exact = await matchOrg(domain);
+  assert.ok(exact, "un domaine présent au référentiel doit se rattacher");
+  assert.equal(exact.orgId, org);
+  assert.equal(exact.via, "domain", "l'égalité de domaine doit être marquée comme telle");
+  assert.ok(exact.confidence >= 0.95);
+
+  // Le même indice par le nom seul ne doit pas prétendre être un domaine.
+  const parNom = await matchOrg(`Organisation Cle ${TAG}`);
+  assert.ok(parNom);
+  assert.equal(parNom.via, "name");
+
+  await query("DELETE FROM org WHERE id=$1", [org]).catch(() => {});
+});

@@ -37,7 +37,15 @@ export type OrgIndexEntry = OrgRow & {
 };
 
 /** Résultat d'un rapprochement : orgId + score de confiance [0,1]. */
-export type OrgMatch = { orgId: number; confidence: number };
+export type OrgMatch = {
+	orgId: number;
+	confidence: number;
+	/**
+	 * Ce qui a porté la correspondance. Un domaine exact est une **clé**, pas
+	 * une ressemblance : il ne demande aucun arbitrage. Un nom, si.
+	 */
+	via: "domain" | "name";
+};
 
 /** Seuil minimal pour considérer un indice comme une organisation. */
 /** Seuil de rapprochement proposé à un humain (« ville + nom » vaut 0,6). */
@@ -133,18 +141,25 @@ function scoreEntry(
   hintTokens: Set<string>,
   hintDomain: string | null,
   e: OrgIndexEntry
-): number {
+): { score: number; via: "domain" | "name" } {
   let best = 0;
+  let viaDomain = false;
 
   // 1. Domaine : égalité exacte, puis sous-domaine / parent.
   if (hintDomain) {
     if (e.domainNorm) {
-      if (hintDomain === e.domainNorm) best = Math.max(best, 0.95);
-      else if (hintDomain.endsWith("." + e.domainNorm) || e.domainNorm.endsWith("." + hintDomain)) {
+      if (hintDomain === e.domainNorm) {
+        best = Math.max(best, 0.95);
+        viaDomain = true;
+      } else if (hintDomain.endsWith("." + e.domainNorm) || e.domainNorm.endsWith("." + hintDomain)) {
         best = Math.max(best, 0.85);
+        viaDomain = true;
       }
     }
-    if (e.websiteDomain && hintDomain === e.websiteDomain) best = Math.max(best, 0.9);
+    if (e.websiteDomain && hintDomain === e.websiteDomain) {
+      best = Math.max(best, 0.9);
+      viaDomain = true;
+    }
   }
 
   // 2. Nom normalisé : égalité, ou tous les jetons du nom présent dans l'indice.
@@ -179,7 +194,7 @@ function scoreEntry(
     if (nonCityTokens.some((t) => hintTokens.has(t))) best = Math.max(best, 0.6);
   }
 
-  return best;
+  return { score: best, via: viaDomain ? "domain" : "name" };
 }
 
 /**
@@ -197,10 +212,10 @@ export function matchOrgInIndex(hint: string, index: OrgIndexEntry[]): OrgMatch 
 
   let best: OrgMatch | null = null;
   for (const e of index) {
-    const score = scoreEntry(hintNorm, hintTokens, hintDomain, e);
+    const { score, via } = scoreEntry(hintNorm, hintTokens, hintDomain, e);
     if (score < MIN_CONFIDENCE) continue;
     if (!best || score > best.confidence || (score === best.confidence && e.id < best.orgId)) {
-      best = { orgId: e.id, confidence: score };
+      best = { orgId: e.id, confidence: score, via };
     }
   }
   return best;
@@ -254,7 +269,11 @@ async function confirmMatch(
   hint: string,
   orgId: number,
   nameById: Map<number, string>,
+  via: "domain" | "name" = "name",
 ): Promise<boolean> {
+  // Un domaine identique n'est pas une ressemblance de nom : c'est la même
+  // adresse. Aucun modèle ne doit arbitrer une égalité de clé.
+  if (via === "domain") return true;
   const name = nameById.get(orgId);
   if (!name) return true;
   const verdict = await confirmOrganization(hint, name);
@@ -397,7 +416,7 @@ export async function promoteMatches(
   const orgNameById = new Map(index.map((e) => [e.id, e.name]));
 
   const params: unknown[] = [];
-  let where = "WHERE status='pending' AND promoted=false AND org_hint IS NOT NULL AND org_hint <> ''";
+  let where = "WHERE status='pending' AND promoted=false AND kind='claim' AND org_hint IS NOT NULL AND org_hint <> ''";
   if (opts.ids?.length) {
     params.push(opts.ids);
     where += ` AND id = ANY($${params.length}::bigint[])`;
@@ -421,7 +440,7 @@ export async function promoteMatches(
     if (!m || m.confidence < AUTO_MIN_CONFIDENCE) continue;
     // Le modèle tranche avant écriture : un rapprochement nié n'attache rien.
     let confirmed = true;
-    if (!dryRun) confirmed = await confirmMatch(row.org_hint ?? "", m.orgId, orgNameById);
+    if (!dryRun) confirmed = await confirmMatch(row.org_hint ?? "", m.orgId, orgNameById, m.via);
     if (!confirmed) continue;
     matches.push({
       id: row.id,
@@ -510,7 +529,9 @@ export async function promoteOneTx(client: PoolClient, id: number, promotedBy: s
 
   const index = await loadOrgIndex();
   const m = matchOrgInIndex(row.org_hint ?? "", index);
-  const confirmed = m ? await confirmMatch(row.org_hint ?? "", m.orgId, new Map(index.map((e) => [e.id, e.name]))) : false;
+  const confirmed = m
+    ? await confirmMatch(row.org_hint ?? "", m.orgId, new Map(index.map((e) => [e.id, e.name])), m.via)
+    : false;
 
   const upd = await client.query(
     `UPDATE quarantine_raw SET promoted=true, promoted_at=now(), promoted_by=$2, status='promoted'

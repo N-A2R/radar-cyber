@@ -134,7 +134,9 @@ export async function reviewQueue(params: QueueParams = {}): Promise<QueueResult
 	const page = Math.max(0, params.page ?? 0);
 	const window = Math.min(MAX_WINDOW, Math.max(limit, params.window ?? DEFAULT_WINDOW));
 
-	const clauses = ["promoted = false"];
+	// Un corps illisible n'est pas un fait à trancher : c'est une source cassée.
+	// Il reste en quarantaine pour l'audit, mais hors de la file de revue.
+	const clauses = ["promoted = false", "kind = 'claim'"];
 	const values: unknown[] = [];
 	const add = (clause: string, value: unknown) => {
 		values.push(value);
@@ -166,7 +168,7 @@ export async function reviewQueue(params: QueueParams = {}): Promise<QueueResult
 		loadOrgIndex(),
 		loadSecondOpinionIndex(),
 		query<{ status: string; promoted: boolean; n: string }>(
-			"SELECT status, promoted, count(*)::text AS n FROM quarantine_raw GROUP BY status, promoted",
+			"SELECT status, promoted, count(*)::text AS n FROM quarantine_raw WHERE kind = 'claim' GROUP BY status, promoted",
 		),
 	]);
 
