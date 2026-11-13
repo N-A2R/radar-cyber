@@ -87,6 +87,7 @@ export type MatchReason =
 	| "alias-distinctif"
 	| "departement"
 	| "commune"
+	| "lieu-contredit"
 	| "ambigu"
 	| "ambiant"
 	| "aucun";
@@ -192,13 +193,17 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 		// « mairie de »), son nom est celui d'un lieu — il reste consultable,
 		// mais il ne tranche aucun rattachement.
 		const territoire = TERRITOIRES.has(row.sector ?? "");
-		if (territoire && !role) {
+		// Le rôle se lit sur le nom **légal** de l'organisation, pas sur l'alias.
+		// « Département de la Gironde » est un territoire dont le nom porte un
+		// rôle ; une entreprise dont l'alias est « Société X » n'en est pas un.
+		const roleLieu = role && TERRITOIRES.has(row.sector ?? "");
+		if (territoire && !roleLieu) {
 			lieuKeys.add(cle);
 			lieuTokens.add(jetons[0] as string);
 			continue;
 		}
 
-		if (role) {
+		if (roleLieu) {
 			roleKeys.add(cle);
 			// Les jetons du rôle lui-même (« ville », « mairie ») servent à la
 			// porte : un texte qui les emploie parle d'une organisation.
@@ -274,6 +279,46 @@ const DEPARTEMENTS: Readonly<Record<string, string>> = {
 	"deux-sevres": "79",
 };
 
+/**
+ * Le texte place-t-il l'organisation hors de chez elle ?
+ *
+ * Le savoir géographique vient des données : un département ou une ville
+ * étrangère citée juste après le nom de l'organisation, alors que ce n'est ni
+ * son département ni sa commune. Formulation volontairement étroite — on ne
+ * écarte que ce qui est explicitement situé ailleurs.
+ */
+const LIEUX_ETRANGERS = [
+	"ohio", "senegal", "canada", "belgique", "suisse", "luxembourg", "espagne",
+	"allemagne", "italie", "royaume uni", "etats unis", "usa", "chine", "japon",
+	"maroc", "tunisie", "algerie", "quebec", "etats unis d amerique",
+];
+
+function contreditLeLieu(org: GazetteerOrg, jetons: readonly string[], alias: string): boolean {
+	const texte = jetons.join(" ");
+	// Position de l'alias qui a fait la correspondance : c'est là qu'est le nom.
+	const motsAlias = normaliser(alias);
+	if (motsAlias.length === 0) return false;
+	let position = -1;
+	for (let i = 0; i + motsAlias.length <= jetons.length; i++) {
+		if (jetons.slice(i, i + motsAlias.length).join(" ") === motsAlias.join(" ")) {
+			position = i;
+			break;
+		}
+	}
+	if (position < 0) return false;
+	for (const lieu of LIEUX_ETRANGERS) {
+		const dansTexte = texte.includes(lieu);
+		if (!dansTexte) continue;
+		// Le lieu doit suivre ou précéder immédiatement le nom, dans une fenêtre
+		// courte. Une mention à l'autre bout du paragraphe ne dit rien.
+		const iLieu = jetons.findIndex((j) => lieu.split(" ").includes(j));
+		if (iLieu < 0) continue;
+		const distance = Math.abs(iLieu - (position + motsAlias.length - 1));
+		if (distance <= 3) return true;
+	}
+	return false;
+}
+
 function departementsCites(jetons: readonly string[]): Set<string> {
 	const cites = new Set<string>();
 	const texte = jetons.join(" ");
@@ -315,7 +360,18 @@ export function resoudre(gaz: Gazetteer, texte: string): GazetteerMatch {
 		}
 	}
 
-	// Une seule organisation : c'est elle.
+	// Une seule organisation, mais le texte la situe ailleurs : « la ville de
+	// Bordeaux (Ohio) », « l'université de Bordeaux au Sénégal ». Le nom coïncide,
+	// le lieu contredit. On s'abstient — c'est le prix de « rien de faux ».
+	if (parOrg.size === 1 && retenues.length > 0) {
+		const orgId = [...parOrg.keys()][0] as number;
+		const seule = gaz.orgsById.get(orgId) ?? null;
+		const frappe = parOrg.get(orgId) as Frappe;
+		if (seule && contreditLeLieu(seule, jetons, frappe.cle)) {
+			return { org: null, reason: "lieu-contredit", alias: null, confidence: 0, tied: [] };
+		}
+	}
+
 	if (parOrg.size === 1 && retenues.length > 0) {
 		const orgId = [...parOrg.keys()][0] as number;
 		const org = gaz.orgsById.get(orgId) ?? null;

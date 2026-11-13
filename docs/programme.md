@@ -36,7 +36,7 @@ pourquoi l'axe 1 est déjà engagé.
 | # | Chantier | État | Critère de sortie |
 | --- | --- | --- | --- |
 | 1 | **Journal de vérité** — append-only, bi-temporel | ✅ livré | `verify:journal` passe, 3 voies câblées, rejeu prouvé |
-| 2 | **Archive longue** — arrêter de jeter à 90 jours | à faire | une requête répond sur 12 mois alors que le brut est purgé à 90 j |
+| 2 | ✅ **Archive longue** — arrêter de jeter à 90 jours | à faire | une requête répond sur 12 mois alors que le brut est purgé à 90 j |
 | 3 | **Rejeu historique** — rejouer avec un autre moteur | amorcé | rejouer une période avec un moteur antérieur redonne l'état de l'époque |
 | 4 | **Bi-temporel des organisations** — fusions, renommages, périmètres | à faire | un incident de 2024 se rattache à ce qui existait en 2024 |
 
@@ -44,9 +44,9 @@ pourquoi l'axe 1 est déjà engagé.
 
 | # | Chantier | État | Critère de sortie |
 | --- | --- | --- | --- |
-| 5 | **Corpus de référence** — les incidents réels, versionnés | à faire | corpus annoté dans le dépôt : date, organisateur, lieu, type, preuve |
-| 6 | **Mesure de couverture publiée** | à faire | tableau nominatif : vu/non vu, délai, motif d'absence — committé |
-| 7 | **Mesure du rattachement par secteur** | à faire | précision et rappel par secteur d'activité, pas un global trompeur |
+| 5 | ✅ **Corpus de référence** — les incidents réels, versionnés | à faire | corpus annoté dans le dépôt : date, organisateur, lieu, type, preuve |
+| 6 | ✅ **Mesure de couverture publiée** | à faire | tableau nominatif : vu/non vu, délai, motif d'absence — committé |
+| 7 | ✅ **Mesure du rattachement par secteur** | à faire | précision et rappel par secteur d'activité, pas un global trompeur |
 | 8 | **Valeur des sources** | à faire | chaque source a un apport mesuré en incidents réels, pas en volume |
 
 ### Axe 3 — Analyse : voir au-delà du fil
@@ -63,7 +63,7 @@ pourquoi l'axe 1 est déjà engagé.
 | # | Chantier | État | Critère de sortie |
 | --- | --- | --- | --- |
 | 13 | **Référentiel entreprises** | bloqué externe | voie de chargement prête, **trou publié** (0 ligne agro/industrie/BTP/commerce) |
-| 14 | **Diagnostic des sources muettes** | à faire | chaque source sans production a un motif écrit, pas un silence |
+| 14 | ✅ **Diagnostic des sources muettes** | à faire | chaque source sans production a un motif écrit, pas un silence |
 | 15 | **Réparation du parsing** | à faire | les sources illisibles connues sont réparées ou désactivées avec motif |
 
 ### Axe 5 — Produit : ce qui se voit

@@ -1,0 +1,270 @@
+{
+  "date": "2026-11-13",
+  "moteur": "gazetteer@2",
+  "jeu": {
+    "organisations": 40,
+    "cas": 75,
+    "alias": 62
+  },
+  "constructionMs": 2,
+  "latence": {
+    "p50": 0.026,
+    "p95": 0.1,
+    "max": 0.499
+  },
+  "global": {
+    "cas": 75,
+    "rappel": 0.792,
+    "precision": 1,
+    "f1": 0.884,
+    "trouves": 42,
+    "faux": 0,
+    "abstentions": 11,
+    "bruit": 1,
+    "attendus": 53
+  },
+  "parSecteur": {
+    "sante": {
+      "cas": 11,
+      "rappel": 0.818,
+      "precision": 1,
+      "f1": 0.9,
+      "trouves": 9,
+      "faux": 0,
+      "abstentions": 2,
+      "bruit": 0,
+      "attendus": 11
+    },
+    "collectivite": {
+      "cas": 11,
+      "rappel": 0.909,
+      "precision": 1,
+      "f1": 0.952,
+      "trouves": 10,
+      "faux": 0,
+      "abstentions": 1,
+      "bruit": 0,
+      "attendus": 11
+    },
+    "enseignement": {
+      "cas": 8,
+      "rappel": 0.75,
+      "precision": 1,
+      "f1": 0.857,
+      "trouves": 6,
+      "faux": 0,
+      "abstentions": 2,
+      "bruit": 0,
+      "attendus": 8
+    },
+    "entreprise": {
+      "cas": 16,
+      "rappel": 0.625,
+      "precision": 1,
+      "f1": 0.769,
+      "trouves": 10,
+      "faux": 0,
+      "abstentions": 6,
+      "bruit": 0,
+      "attendus": 16
+    },
+    "recherche": {
+      "cas": 2,
+      "rappel": 1,
+      "precision": 1,
+      "f1": 1,
+      "trouves": 2,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 2
+    },
+    "operateur": {
+      "cas": 5,
+      "rappel": 1,
+      "precision": 1,
+      "f1": 1,
+      "trouves": 5,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 5
+    }
+  },
+  "parCategorie": {
+    "exact": {
+      "cas": 25,
+      "rappel": 0.92,
+      "precision": 1,
+      "f1": 0.958,
+      "trouves": 23,
+      "faux": 0,
+      "abstentions": 2,
+      "bruit": 0,
+      "attendus": 25
+    },
+    "alias": {
+      "cas": 21,
+      "rappel": 0.81,
+      "precision": 1,
+      "f1": 0.895,
+      "trouves": 17,
+      "faux": 0,
+      "abstentions": 4,
+      "bruit": 0,
+      "attendus": 21
+    },
+    "short-no-context": {
+      "cas": 7,
+      "rappel": 0,
+      "precision": 1,
+      "f1": 0,
+      "trouves": 0,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 1,
+      "attendus": 0
+    },
+    "substring-trap": {
+      "cas": 3,
+      "rappel": 0,
+      "precision": 1,
+      "f1": 0,
+      "trouves": 0,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 0
+    },
+    "ambiguity": {
+      "cas": 3,
+      "rappel": 0,
+      "precision": 1,
+      "f1": 0,
+      "trouves": 0,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 0
+    },
+    "homonym": {
+      "cas": 2,
+      "rappel": 0,
+      "precision": 1,
+      "f1": 0,
+      "trouves": 0,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 0
+    },
+    "typo": {
+      "cas": 7,
+      "rappel": 0.286,
+      "precision": 1,
+      "f1": 0.444,
+      "trouves": 2,
+      "faux": 0,
+      "abstentions": 5,
+      "bruit": 0,
+      "attendus": 7
+    },
+    "none": {
+      "cas": 7,
+      "rappel": 0,
+      "precision": 1,
+      "f1": 0,
+      "trouves": 0,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 0
+    }
+  },
+  "echecs": [
+    {
+      "id": "c13",
+      "categorie": "exact",
+      "attendu": "collectivite",
+      "obtenu": null,
+      "raison": "aucun"
+    },
+    {
+      "id": "c16",
+      "categorie": "alias",
+      "attendu": "entreprise",
+      "obtenu": null,
+      "raison": "aucun"
+    },
+    {
+      "id": "c18",
+      "categorie": "alias",
+      "attendu": "entreprise",
+      "obtenu": null,
+      "raison": "aucun"
+    },
+    {
+      "id": "c22",
+      "categorie": "alias",
+      "attendu": "entreprise",
+      "obtenu": null,
+      "raison": "aucun"
+    },
+    {
+      "id": "c23",
+      "categorie": "alias",
+      "attendu": "entreprise",
+      "obtenu": null,
+      "raison": "aucun"
+    },
+    {
+      "id": "c48",
+      "categorie": "typo",
+      "attendu": "sante",
+      "obtenu": null,
+      "raison": "aucun"
+    },
+    {
+      "id": "c49",
+      "categorie": "typo",
+      "attendu": "enseignement",
+      "obtenu": null,
+      "raison": "aucun"
+    },
+    {
+      "id": "c50",
+      "categorie": "typo",
+      "attendu": "entreprise",
+      "obtenu": null,
+      "raison": "aucun"
+    },
+    {
+      "id": "c52",
+      "categorie": "typo",
+      "attendu": "sante",
+      "obtenu": null,
+      "raison": "aucun"
+    },
+    {
+      "id": "c60",
+      "categorie": "exact",
+      "attendu": "enseignement",
+      "obtenu": null,
+      "raison": "ambigu"
+    },
+    {
+      "id": "c66",
+      "categorie": "short-no-context",
+      "attendu": null,
+      "obtenu": "operateur",
+      "raison": "alias-distinctif"
+    },
+    {
+      "id": "c75",
+      "categorie": "typo",
+      "attendu": "entreprise",
+      "obtenu": null,
+      "raison": "aucun"
+    }
+  ]
+}

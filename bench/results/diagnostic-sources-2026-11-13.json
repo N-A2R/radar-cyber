@@ -1,0 +1,2400 @@
+{
+  "date": "2026-11-13",
+  "total": 265,
+  "parVerdict": {
+    "productive": 0,
+    "silencieuse": 0,
+    "erreur-source": 0,
+    "environnement": 12,
+    "desactivee": 86,
+    "jamais-tentee": 167
+  },
+  "avertissement": "Les sources en « environnement » ont échoué faute d'accès réseau depuis le poste de mesure. Leur état réel est inconnu.",
+  "sources": [
+    {
+      "id": "actu-crowdstrike",
+      "name": "CrowdStrike Blog",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "environnement",
+      "motif": "échec d'accès réseau (« fetch failed ») — non concluant sur la santé de la source"
+    },
+    {
+      "id": "actu-cybernews",
+      "name": "CyberNews",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "environnement",
+      "motif": "échec d'accès réseau (« fetch failed ») — non concluant sur la santé de la source"
+    },
+    {
+      "id": "actu-cybersecuritydive",
+      "name": "Cybersecurity Dive",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "environnement",
+      "motif": "échec d'accès réseau (« fetch failed ») — non concluant sur la santé de la source"
+    },
+    {
+      "id": "actu-hackread",
+      "name": "HackRead",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "environnement",
+      "motif": "échec d'accès réseau (« fetch failed ») — non concluant sur la santé de la source"
+    },
+    {
+      "id": "actu-helpnetsecurity",
+      "name": "Help Net Security",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "environnement",
+      "motif": "échec d'accès réseau (« fetch failed ») — non concluant sur la santé de la source"
+    },
+    {
+      "id": "actu-infosecurity-magazine",
+      "name": "Infosecurity Magazine",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "environnement",
+      "motif": "échec d'accès réseau (« fetch failed ») — non concluant sur la santé de la source"
+    },
+    {
+      "id": "actu-itsecurityguru",
+      "name": "IT Security Guru",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "environnement",
+      "motif": "échec d'accès réseau (« fetch failed ») — non concluant sur la santé de la source"
+    },
+    {
+      "id": "actu-securityaffairs",
+      "name": "Security Affairs",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "environnement",
+      "motif": "échec d'accès réseau (« fetch failed ») — non concluant sur la santé de la source"
+    },
+    {
+      "id": "actu-welivesecurity",
+      "name": "WeLiveSecurity (ESET)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "environnement",
+      "motif": "échec d'accès réseau (« fetch failed ») — non concluant sur la santé de la source"
+    },
+    {
+      "id": "actu-zdnet-security",
+      "name": "ZDNet Security",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "environnement",
+      "motif": "échec d'accès réseau (« fetch failed ») — non concluant sur la santé de la source"
+    },
+    {
+      "id": "alienvault-reputation",
+      "name": "AlienVault IP Reputation (generic)",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "environnement",
+      "motif": "échec d'accès réseau (« fetch failed ») — non concluant sur la santé de la source"
+    },
+    {
+      "id": "cat-aws-security-bulletins",
+      "name": "AWS Security Bulletins",
+      "family": "vuln",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "environnement",
+      "motif": "échec d'accès réseau (« fetch failed ») — non concluant sur la santé de la source"
+    },
+    {
+      "id": "cat-bitdefender-labs",
+      "name": "Bitdefender Labs",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cat-cert-at-blog",
+      "name": "CERT.at Blog",
+      "family": "cert",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cat-cert-at-warnings",
+      "name": "CERT.at Warnings",
+      "family": "cert",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cat-cert-ee",
+      "name": "CERT-EE / RIA News",
+      "family": "cert",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cat-cert-eu-sa",
+      "name": "CERT-EU Security Advisories",
+      "family": "vuln",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cat-cert-hr",
+      "name": "CERT.hr News",
+      "family": "cert",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cat-cert-lv",
+      "name": "CERT.LV (All)",
+      "family": "cert",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cat-cert-pl",
+      "name": "CERT Polska",
+      "family": "vuln",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cat-cert-se",
+      "name": "CERT-SE (MSB) Feed",
+      "family": "cert",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cat-cert-si-news",
+      "name": "SI-CERT News (EN)",
+      "family": "cert",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cat-circl-news",
+      "name": "CIRCL Luxembourg News",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cat-cisa-ics-advisories",
+      "name": "CISA ICS Advisories",
+      "family": "vuln",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cat-cisa-ics-medical",
+      "name": "CISA ICS Medical Advisories",
+      "family": "vuln",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cat-dnsc-ro",
+      "name": "DNSC Romania (CERT-RO) News",
+      "family": "cert",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cat-drupal-sa",
+      "name": "Drupal Security Advisories",
+      "family": "vuln",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cat-elastic-security-labs",
+      "name": "Elastic Security Labs",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cat-gbhackers",
+      "name": "GBHackers Security News",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cat-huntress-blog",
+      "name": "Huntress Blog",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cat-jpcert-blog",
+      "name": "JPCERT/CC Blog (EN)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cat-ncsc-nl-advisories",
+      "name": "NCSC-NL Beveiligingsadviezen",
+      "family": "vuln",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cat-ncsc-nl-news",
+      "name": "NCSC-NL Nieuws",
+      "family": "cert",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cat-qualys-blog",
+      "name": "Qualys Blog / Threat Research",
+      "family": "vuln",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cat-schneier-security",
+      "name": "Schneier on Security",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cat-sentinelone-labs",
+      "name": "SentinelOne Labs",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cat-tenable-blog",
+      "name": "Tenable Blog",
+      "family": "vuln",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cert-cisa-advisories",
+      "name": "CISA cyber advisories (XML)",
+      "family": "vuln",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cert-eu-page",
+      "name": "CERT-EU advisories (page)",
+      "family": "cert",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cert-fr-alerte",
+      "name": "CERT-FR alerte",
+      "family": "cert_fr",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cert-fr-avis",
+      "name": "CERT-FR avis",
+      "family": "cert_fr",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cert-fr-feed",
+      "name": "CERT-FR feed",
+      "family": "cert_fr",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cert_fr",
+      "name": "CERT-FR / ANSSI",
+      "family": "cert_fr",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "chu-poitiers",
+      "name": "CHU de Poitiers (RSS)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cinsscore-badguys",
+      "name": "CINS Score badguys list",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "cisa_kev",
+      "name": "CISA Known Exploited Vulnerabilities",
+      "family": "vuln",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "ctlog",
+      "name": "Certificate Transparency (crt.sh)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "danmeuk-torlist",
+      "name": "dan.me.uk Tor node list",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "eco-aquitaine-robotics",
+      "name": "Aquitaine Robotics (RSS)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "eco-charentelibre",
+      "name": "Charente Libre Économie (RSS)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "eco-dordogne-libre",
+      "name": "Dordogne Libre Économie (RSS)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "eco-jde-na",
+      "name": "Le Journal des Entreprises Nouvelle-Aquitaine (RSS)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "eco-rep-pyrenees",
+      "name": "La République des Pyrénées Économie (RSS)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "eco-sudouest",
+      "name": "Sud Ouest Éco (RSS)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "eco-technowest",
+      "name": "Bordeaux Technowest (RSS)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "eco-unitec",
+      "name": "Unitec (incubateur Bordeaux, RSS)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "epss",
+      "name": "FIRST EPSS",
+      "family": "vuln",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "et-compromised",
+      "name": "Emerging Threats compromised IPs",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:abuseipdb_1d",
+      "name": "FireHOL abuseipdb_1d",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:abuseipdb_30d",
+      "name": "FireHOL abuseipdb_30d",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:blocklist_de",
+      "name": "FireHOL blocklist_de",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:blocklist_de_apache",
+      "name": "FireHOL blocklist_de_apache",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:blocklist_de_bots",
+      "name": "FireHOL blocklist_de_bots",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:blocklist_de_bruteforce",
+      "name": "FireHOL blocklist_de_bruteforce",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:blocklist_de_ftp",
+      "name": "FireHOL blocklist_de_ftp",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:blocklist_de_imap",
+      "name": "FireHOL blocklist_de_imap",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:blocklist_de_mail",
+      "name": "FireHOL blocklist_de_mail",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:blocklist_de_sip",
+      "name": "FireHOL blocklist_de_sip",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:blocklist_de_ssh",
+      "name": "FireHOL blocklist_de_ssh",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:blocklist_de_strongips",
+      "name": "FireHOL blocklist_de_strongips",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:blocklist_net_ua",
+      "name": "FireHOL blocklist_net_ua",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:botscout",
+      "name": "FireHOL botscout",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:botscout_1d",
+      "name": "FireHOL botscout_1d",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:botscout_30d",
+      "name": "FireHOL botscout_30d",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:botscout_7d",
+      "name": "FireHOL botscout_7d",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:botvrij_dst",
+      "name": "FireHOL botvrij_dst",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:botvrij_src",
+      "name": "FireHOL botvrij_src",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:bruteforceblocker",
+      "name": "FireHOL bruteforceblocker",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:c2_tracker",
+      "name": "FireHOL c2_tracker",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:ciarmy",
+      "name": "FireHOL ciarmy",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:cidr_report_bogons",
+      "name": "FireHOL cidr_report_bogons",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:cleantalk",
+      "name": "FireHOL cleantalk",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:cleantalk_1d",
+      "name": "FireHOL cleantalk_1d",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:cleantalk_30d",
+      "name": "FireHOL cleantalk_30d",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:cleantalk_7d",
+      "name": "FireHOL cleantalk_7d",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:cleantalk_new_1d",
+      "name": "FireHOL cleantalk_new_1d",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:cleantalk_new_30d",
+      "name": "FireHOL cleantalk_new_30d",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:cleantalk_new_7d",
+      "name": "FireHOL cleantalk_new_7d",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:cybercrime",
+      "name": "FireHOL cybercrime",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feed:firehol:cybercure",
+      "name": "FireHOL cybercure",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "feodo-ip",
+      "name": "Feodo Tracker (abuse.ch) IP blocklist",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "hermes_radar_cyber",
+      "name": "Hermes Agent — bot de veille radar-cyber",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "inria-bordeaux",
+      "name": "Inria Bordeaux (RSS)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "leak:databreaches:feed",
+      "name": "DataBreaches.net — flux des fuites de données",
+      "family": "leaks",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "leak:ddosecrets:rss",
+      "name": "DDoS Secrets — publications récentes",
+      "family": "leaks",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "leak:hibp:breaches",
+      "name": "Have I Been Pwned — index des violations",
+      "family": "leaks",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "leak:hibp:breaches-index",
+      "name": "Have I Been Pwned — index des violations (JSON public)",
+      "family": "leaks",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "leak:hibp:latest-breaches",
+      "name": "Have I Been Pwned — dernières violations (RSS)",
+      "family": "leaks",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "leak:hipaajournal:feed",
+      "name": "HIPAA Journal — incidents et fuites (RSS)",
+      "family": "leaks",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "leak:ransomlook:recent-api",
+      "name": "RansomLook — victimes récentes (API JSON)",
+      "family": "leaks",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "leak:ransomware-live:recent-rss",
+      "name": "ransomware.live — revendications récentes (RSS)",
+      "family": "leaks",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "leak:ransomwatch:posts",
+      "name": "Ransomwatch — publications (JSON public)",
+      "family": "leaks",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "nvd_cve",
+      "name": "NVD CVE 2.0",
+      "family": "vuln",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "onion:ccw:anubis",
+      "name": "anubis",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:aoqin",
+      "name": "aoqin",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:aoqin-leaks",
+      "name": "aoqin-leaks",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:apt73",
+      "name": "apt73",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:arcusmedia",
+      "name": "arcusmedia",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:atomsilo",
+      "name": "atomsilo",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:auditteam",
+      "name": "auditteam",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:aurora",
+      "name": "aurora",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:barracuda",
+      "name": "barracuda",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:bavacai",
+      "name": "bavacai",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:blacknevas",
+      "name": "blacknevas",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:blackout",
+      "name": "blackout",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:booba-project",
+      "name": "booba-project",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:byod",
+      "name": "byod",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:ciphbit",
+      "name": "ciphbit",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:climax",
+      "name": "climax",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:dark-project",
+      "name": "dark-project",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:destello",
+      "name": "destello",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:direwolf",
+      "name": "direwolf",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:doommageddon",
+      "name": "doommageddon",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:eclipse",
+      "name": "eclipse",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:endzone",
+      "name": "endzone",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:ethics",
+      "name": "ethics",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:everest",
+      "name": "everest",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:everstake",
+      "name": "everstake",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:exitium",
+      "name": "exitium",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:gammax",
+      "name": "gammax",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:genesis",
+      "name": "genesis",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:global-secret-group",
+      "name": "global-secret-group",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:helix",
+      "name": "helix",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:incransom",
+      "name": "incransom",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:insomnia",
+      "name": "insomnia",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:kairos",
+      "name": "kairos",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:krybit",
+      "name": "krybit",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:lamashtu",
+      "name": "lamashtu",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:leaknet",
+      "name": "leaknet",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:lockbit4",
+      "name": "lockbit4",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:medusalocker",
+      "name": "medusalocker",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:moneymessage",
+      "name": "moneymessage",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:n0n",
+      "name": "n0n",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:netrunner",
+      "name": "netrunner",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:nightspire",
+      "name": "nightspire",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:obsoft",
+      "name": "obsoft",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:osyolorz-collective",
+      "name": "osyolorz-collective",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:panzer",
+      "name": "panzer",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:pear",
+      "name": "pear",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:pixelleaks",
+      "name": "pixelleaks",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:qilin",
+      "name": "qilin",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:ransomexx",
+      "name": "ransomexx",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:reynolds",
+      "name": "reynolds",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:runsomewares",
+      "name": "runsomewares",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:safepay",
+      "name": "safepay",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:scarlettgroup",
+      "name": "scarlettgroup",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:secp0",
+      "name": "secp0",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:spacebears",
+      "name": "spacebears",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:team-underground",
+      "name": "team-underground",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:threeam",
+      "name": "threeam",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:titan",
+      "name": "titan",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:vortex",
+      "name": "vortex",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:vypr",
+      "name": "vypr",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:wallstreet",
+      "name": "wallstreet",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ccw:whitearmor",
+      "name": "whitearmor",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:ransomlook:site",
+      "name": "RansomLook — site .onion (revendications)",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "Activation manuelle requise (collecte Tor à valider par le parent)."
+    },
+    {
+      "id": "onion:ransomwatch:site",
+      "name": "Ransomwatch — site .onion (revendications)",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "Activation manuelle requise (collecte Tor à valider par le parent)."
+    },
+    {
+      "id": "onion:rl:3am",
+      "name": "3am",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:rl:abyss-data",
+      "name": "abyss-data",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:rl:byod",
+      "name": "byod",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:rl:eraleign-apt73",
+      "name": "eraleign (apt73)",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:rl:fulcrumsec",
+      "name": "fulcrumsec",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:rl:gammax",
+      "name": "gammax",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:rl:genesis",
+      "name": "genesis",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:rl:global-secret-group",
+      "name": "global secret group",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:rl:kazu",
+      "name": "kazu",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:rl:netrunner",
+      "name": "netrunner",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:rl:orova",
+      "name": "orova",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:rl:ransomhouse",
+      "name": "ransomhouse",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "onion:rl:sarcoma",
+      "name": "sarcoma",
+      "family": "ransomware",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "désactivée sans motif écrit"
+    },
+    {
+      "id": "openphish",
+      "name": "OpenPhish community feed",
+      "family": "phishing",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "osint-abusech",
+      "name": "abuse.ch (site)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "osint-hibp",
+      "name": "Have I Been Pwned (site)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "osint-otx",
+      "name": "AlienVault OTX (site)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "osint-shodan",
+      "name": "Shodan (site)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "osint-threatfox",
+      "name": "ThreatFox (site)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "osint-urlhaus",
+      "name": "URLhaus (site)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "osint-virustotal",
+      "name": "VirusTotal (site)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "paste:github:gists-public",
+      "name": "GitHub — gists publics (flux)",
+      "family": "paste",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "paste:github:gists-public-feed",
+      "name": "GitHub — gists publics (flux narratif)",
+      "family": "paste",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "poc_github",
+      "name": "PoC publics GitHub (nomi-sec/PoC-in-GitHub)",
+      "family": "vuln",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "presse-01net",
+      "name": "01net (RSS)",
+      "family": "presse",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "presse-charentelibre",
+      "name": "Charente Libre (RSS)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "presse-francebleu-rss",
+      "name": "France Bleu (RSS)",
+      "family": "presse",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "presse-francetvinfo",
+      "name": "Franceinfo (RSS titres)",
+      "family": "presse",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "presse-generationnt",
+      "name": "Generation NT (RSS)",
+      "family": "presse",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "presse-lefigaro-actu",
+      "name": "Le Figaro (RSS actu)",
+      "family": "presse",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "presse-lemonde-tech",
+      "name": "Le Monde Technologies (RSS)",
+      "family": "presse",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "presse-lemonde-une",
+      "name": "Le Monde (RSS une)",
+      "family": "presse",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "presse-lmi-feedburner",
+      "name": "Le Monde Informatique (Feedburner)",
+      "family": "presse",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "presse-lmi-rss",
+      "name": "Le Monde Informatique (RSS)",
+      "family": "presse",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "presse-numerama",
+      "name": "Numerama (feed)",
+      "family": "presse",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "presse-ouestfrance-rss",
+      "name": "Ouest-France (RSS)",
+      "family": "presse",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "presse-rue89bordeaux",
+      "name": "Rue89 Bordeaux (feed)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "presse-silicon",
+      "name": "Silicon (feed)",
+      "family": "presse",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "presse-sudouest",
+      "name": "Sud Ouest (RSS)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "presse-sudouest-rss",
+      "name": "Sud Ouest (RSS)",
+      "family": "presse",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "presse-undernews",
+      "name": "UnderNews (feed)",
+      "family": "presse",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "presse-zataz",
+      "name": "Zataz (feed)",
+      "family": "presse",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "ransom-binaryresponse",
+      "name": "Binary Response Ransomware Groups Tracker",
+      "family": "ransomware",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "ransom-coveware-feed",
+      "name": "Coveware ransomware feed",
+      "family": "ransomware",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "ransom-emsisoft-decrypt",
+      "name": "Emsisoft ransomware decryption",
+      "family": "ransomware",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "ransom-ichi-ecosystem",
+      "name": "ICHI Adversary Ecosystem",
+      "family": "ransomware",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "ransom-look-leaks",
+      "name": "RansomLook Leaks",
+      "family": "ransomware",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "ransom-nomoreransom",
+      "name": "No More Ransom",
+      "family": "ransomware",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "ransom-ransomlook",
+      "name": "RansomLook (site)",
+      "family": "ransomware",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "ransom-ransomwarelive",
+      "name": "Ransomware.live (site)",
+      "family": "ransomware",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "ransom-securityalert",
+      "name": "SecurityAlert.ai Ransomware Tracker",
+      "family": "ransomware",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "ransomleak-antibrok3rs",
+      "name": "AntiBrok3rs",
+      "family": "ransomware",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "ransomleak-fulcrumsec",
+      "name": "FulcrumSec",
+      "family": "ransomware",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "ransomleak-lapsus",
+      "name": "LAPSUS$",
+      "family": "ransomware",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "ransomleak-leakeddata",
+      "name": "Leaked Data",
+      "family": "ransomware",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "ransomleak-netleaks",
+      "name": "NetLeaks (Bjorka)",
+      "family": "ransomware",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "ransomleak-soulgroup",
+      "name": "Soul Group",
+      "family": "ransomware",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "ransomleak-toufan",
+      "name": "Cyber Toufan",
+      "family": "ransomware",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "ransomlook",
+      "name": "RansomLook",
+      "family": "ransomware",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "secteur-renater",
+      "name": "RENATER (feed)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "secteur-sante-fr",
+      "name": "Sante.fr (RSS)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "spamhaus-drop",
+      "name": "Spamhaus DROP list",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "tg-aptanalysis",
+      "name": "Telegram APT Analysis",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "tg-baseleeak",
+      "name": "Telegram BaseLeak",
+      "family": "ransomware",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "tg-cert-eu",
+      "name": "Telegram CERT_EU (web)",
+      "family": "cert",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "tg-certfr",
+      "name": "Telegram CERT_FR (web)",
+      "family": "cert_fr",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "tg-cti",
+      "name": "Telegram CTI (web)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "tg-cvenotify",
+      "name": "Telegram CVE Notify",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "tg-cyberdefence",
+      "name": "Telegram cyberdefence (web)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "tg-cybersecurity",
+      "name": "Telegram cybersecurity (web)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "tg-darkfeednews",
+      "name": "Telegram DarkFeedNews",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "tg-intelfeed",
+      "name": "Telegram IntelFeed (web)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "tg-intelowl",
+      "name": "Telegram IntelOwl (web)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "tg-itsecalert",
+      "name": "Telegram IT Security Alerts",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "tg-leaked-databases",
+      "name": "Telegram Leaked Databases",
+      "family": "ransomware",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "tg-malware-traffic",
+      "name": "Telegram malware_traffic (web)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "tg-marketo-leaks",
+      "name": "Telegram Marketo Leaks",
+      "family": "ransomware",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "tg-osint",
+      "name": "Telegram OSINT (web)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "tg-osint-techniques",
+      "name": "Telegram OSINT_Techniques (web)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "tg-osintdefender",
+      "name": "Telegram OSINTdefender (web)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "tg-ransomware",
+      "name": "Telegram ransomware (web)",
+      "family": "ransomware",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "tg-ransomwareg",
+      "name": "Telegram BLACKNET-00 Ransomware",
+      "family": "ransomware",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "tg-snatch-news",
+      "name": "Telegram Snatch Team",
+      "family": "ransomware",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "tg-techpwnews",
+      "name": "Telegram TechPwnews",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "tg-threatintel",
+      "name": "Telegram threatintel (web)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "tg-threatintel-daily",
+      "name": "Telegram threatintel_daily (web)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "tor-bulk-exit",
+      "name": "Tor Project bulk exit list",
+      "family": "reputation",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "univ-larochelle",
+      "name": "Université de La Rochelle (RSS)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "univ-limoges",
+      "name": "Université de Limoges (RSS)",
+      "family": "cti",
+      "enabled": true,
+      "evenements": 0,
+      "verdict": "jamais-tentee",
+      "motif": "aucune tentative réussie enregistrée"
+    },
+    {
+      "id": "wl:misp:amazon-aws",
+      "name": "MISP warninglist — plages Amazon AWS",
+      "family": "warninglist",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "Référentiel consommé par scripts/build-warninglist.mts (clone du dépôt), pas par le polling ; format liste JSON sans items de flux"
+    },
+    {
+      "id": "wl:misp:cisco-top1m",
+      "name": "MISP warninglist — Cisco Umbrella top 1M",
+      "family": "warninglist",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "Référentiel consommé par scripts/build-warninglist.mts (clone du dépôt), pas par le polling ; format liste JSON sans items de flux"
+    },
+    {
+      "id": "wl:misp:cloudflare",
+      "name": "MISP warninglist — plages Cloudflare",
+      "family": "warninglist",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "Référentiel consommé par scripts/build-warninglist.mts (clone du dépôt), pas par le polling ; format liste JSON sans items de flux"
+    },
+    {
+      "id": "wl:misp:cloudflare-top1m",
+      "name": "MISP warninglist — Cloudflare Radar top 1M",
+      "family": "warninglist",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "Référentiel consommé par scripts/build-warninglist.mts (clone du dépôt), pas par le polling ; format liste JSON sans items de flux"
+    },
+    {
+      "id": "wl:misp:common-ioc-false-positive",
+      "name": "MISP warninglist — faux positifs IOC courants",
+      "family": "warninglist",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "Référentiel consommé par scripts/build-warninglist.mts (clone du dépôt), pas par le polling ; format liste JSON sans items de flux"
+    },
+    {
+      "id": "wl:misp:datacenter-ipv4",
+      "name": "MISP warninglist — datacenter IPv4",
+      "family": "warninglist",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "Référentiel consommé par scripts/build-warninglist.mts (clone du dépôt), pas par le polling ; format liste JSON sans items de flux"
+    },
+    {
+      "id": "wl:misp:datacenter-ipv6",
+      "name": "MISP warninglist — datacenter IPv6",
+      "family": "warninglist",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "Référentiel consommé par scripts/build-warninglist.mts (clone du dépôt), pas par le polling ; format liste JSON sans items de flux"
+    },
+    {
+      "id": "wl:misp:majestic-million",
+      "name": "MISP warninglist — Majestic Million",
+      "family": "warninglist",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "Référentiel consommé par scripts/build-warninglist.mts (clone du dépôt), pas par le polling ; format liste JSON sans items de flux"
+    },
+    {
+      "id": "wl:misp:tranco",
+      "name": "MISP warninglist — Tranco top 1M",
+      "family": "warninglist",
+      "enabled": false,
+      "evenements": 0,
+      "verdict": "desactivee",
+      "motif": "Référentiel consommé par scripts/build-warninglist.mts (clone du dépôt), pas par le polling ; format liste JSON sans items de flux"
+    }
+  ]
+}
