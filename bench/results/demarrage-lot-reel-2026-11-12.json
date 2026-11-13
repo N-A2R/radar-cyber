@@ -1,0 +1,547 @@
+{
+ "meta": {
+  "objet": "Lot réel d'ingestion — chantier D0 (démarrage prouvé)",
+  "date": "2026-11-12",
+  "composition": "24 incidents du panorama Cyberhebdo LeMagIT du 13/11/2026 (compilation internationale, chaque item porte sa source d'origine) + 4 incidents Nouvelle-Aquitaine individuellement sourcés",
+  "transport": "Le réseau sortant du sandbox est filtré (TLS coupé hors github/npm/pypi) : les collecteurs RSS/HTTP du radar ne peuvent pas joindre les sources. Les articles ont été lus via les outils de recherche et de fetch de l'agent, puis poussés par la porte d'admission HTTP (POST /api/ingest) prévue pour les apports externes (bots Hermes, scripts). Chaque événement porte l'URL de son article comme preuve, et la date de consultation.",
+  "portee": "Aucun incident du corpus de référence (bench/fixtures/corpus-reference-na.json) n'est dans ce lot : la mesure de couverture du chantier 6 reste intègre. Les événements NA du lot sont hors des 20 entités du corpus (Berson et Floirac ne figurent que dans la bibliographie du corpus, sans entrée ; EFS et les sites publics girondins sont absents).",
+  "rattachement": "Les événements NA portent org_name ; le rattachement effectif passe par scripts/match-orgs.mts (moteur d'alias), jamais écrit à la main."
+ },
+ "events": [
+  {
+   "dedup_key": "feed:demarrage-d0:1858e0864cddb794f270c537",
+   "family": "ransomware",
+   "assertion_type": "confirmed_incident",
+   "title": "Giken (JPN) : ransomware et exposition potentielle de 3 200 identifiants",
+   "summary": "L'entreprise Giken a annoncé le 9 novembre 2026 avoir été victime d'une cyberattaque par ransomware. L'accès non autorisé à un serveur a exposé les informations personnelles d'environ 3 200 personnes (identifiants de connexion et mots de passe chiffrés du système de support client). L'anomalie a été détectée le 5 novembre, l'accès coupé le 6. Aucune preuve de transmission externe confirmée, la fuite n'est pas exclue.",
+   "observed_at": "2026-11-05",
+   "severity": 4,
+   "confidence": "B2",
+   "source_id": "hermes_radar_cyber",
+   "source_url": "https://rocket-boys.co.jp/security-measures-lab/giken_ransomware_3200_potential_data_leak_20261109/",
+   "evidence": {
+    "editeur": "Rocket Boys Security Measures Lab",
+    "url_preuve_compilation": "https://www.lemagit.fr/actualites/366654708/Cyberhebdo-du-13-novembre-2026",
+    "date_consultation": "2026-11-12",
+    "transport": "recherche web + fetch agent (sandbox sans réseau sortant) — collecteurs RSS débrayés",
+    "url_preuve": "https://rocket-boys.co.jp/security-measures-lab/giken_ransomware_3200_potential_data_leak_20261109/"
+   }
+  },
+  {
+   "dedup_key": "feed:demarrage-d0:1f918400e6d500445a9bfb3d",
+   "family": "presse_cyber",
+   "assertion_type": "confirmed_incident",
+   "title": "Santa Maria da Feira (PRT) : tous les systèmes de la municipalité affectés",
+   "summary": "Le Conseil Municipal de Santa Maria da Feira a été victime d'une cyberattaque la nuit du 5 novembre 2026. Tous les systèmes informatiques sont affectés (messagerie et lignes téléphoniques fixes indisponibles). L'incident a été signalé au Centre National de Cybersécurité (CNCS). Aucune fuite de données confirmée publiquement.",
+   "observed_at": "2026-11-05",
+   "severity": 3,
+   "confidence": "B2",
+   "source_id": "hermes_radar_cyber",
+   "source_url": "https://pplware.sapo.pt/internet/camara-municipal-de-santa-maria-da-feira-alvo-de-ataque-informatico/",
+   "evidence": {
+    "editeur": "Pplware",
+    "url_preuve_compilation": "https://www.lemagit.fr/actualites/366654708/Cyberhebdo-du-13-novembre-2026",
+    "date_consultation": "2026-11-12",
+    "transport": "recherche web + fetch agent (sandbox sans réseau sortant) — collecteurs RSS débrayés",
+    "url_preuve": "https://pplware.sapo.pt/internet/camara-municipal-de-santa-maria-da-feira-alvo-de-ataque-informatico/"
+   }
+  },
+  {
+   "dedup_key": "feed:demarrage-d0:52de48a858c77aa8d1d375fe",
+   "family": "leaks",
+   "assertion_type": "confirmed_incident",
+   "title": "Yodobashi Holdings (JPN) : intrusion confirmée, 37,62 millions de comptes potentiellement exposés",
+   "summary": "Yodobashi Holdings a confirmé une intrusion non autorisée sur ses serveurs le 6 novembre 2026, exposant potentiellement les données personnelles de 37,62 millions de membres et d'utilisateurs de commerce en ligne. Les numéros de carte de crédit ne seraient pas compromis. L'entreprise prévoit d'informer les clients concernés par courriel.",
+   "observed_at": "2026-11-06",
+   "severity": 4,
+   "confidence": "B2",
+   "source_id": "hermes_radar_cyber",
+   "source_url": "https://tw.news.yahoo.com/%E6%97%A5%E6%9C%AC%E5%AE%9C%E5%BE%97%E5%88%A9%E9%81%AD%E9%9D%9E%E6%B3%95%E5%AD%98%E5%8F%96-3762%E8%90%AC%E7%AD%86%E6%9C%83%E5%93%A1%E8%B3%87%E6%96%99%E6%81%90%E5%A4%96%E6%B4%A9-%E4%BB%A3%E7%90%86%E5%BC%8Fai%E5%8A%A0%E5%85%A6%E7%B6%B2%E8%B7%AF%E6%94%BB%E6%93%8A-093900472.html",
+   "evidence": {
+    "editeur": "Yahoo Actualités (TW)",
+    "url_preuve_compilation": "https://www.lemagit.fr/actualites/366654708/Cyberhebdo-du-13-novembre-2026",
+    "date_consultation": "2026-11-12",
+    "transport": "recherche web + fetch agent (sandbox sans réseau sortant) — collecteurs RSS débrayés",
+    "url_preuve": "https://tw.news.yahoo.com/%E6%97%A5%E6%9C%AC%E5%AE%9C%E5%BE%97%E5%88%A9%E9%81%AD%E9%9D%9E%E6%B3%95%E5%AD%98%E5%8F%96-3762%E8%90%AC%E7%AD%86%E6%9C%83%E5%93%A1%E8%B3%87%E6%96%99%E6%81%90%E5%A4%96%E6%B4%A9-%E4%BB%A3%E7%90%86%E5%BC%8Fai%E5%8A%A0%E5%85%A6%E7%B6%B2%E8%B7%AF%E6%94%BB%E6%93%8A-093900472.html"
+   }
+  },
+  {
+   "dedup_key": "feed:demarrage-d0:525c8cf2ed94d1e6411ea674",
+   "family": "leaks",
+   "assertion_type": "confirmed_incident",
+   "title": "Administration géodésique slovène (GURS) : 15 000 enregistrements et 7 216 hachages de mots de passe accédés",
+   "summary": "L'administration géodésique de la République de Slovénie a été victime d'une cyberattaque le vendredi 6 novembre 2026. Des attaquants ont accédé à plus de 15 000 enregistrements d'utilisateurs de son système Domino, dont 7 216 mots de passe hachés. Certains services en ligne ont été désactivés par précaution ; l'enquête est en cours.",
+   "observed_at": "2026-11-06",
+   "severity": 4,
+   "confidence": "B2",
+   "source_id": "hermes_radar_cyber",
+   "source_url": "https://n1info.si/novice/slovenija/gurs-po-varnostnem-incidentu-ponovno-vklaplja-baze-je-slo-za-kibernetski-napad/",
+   "evidence": {
+    "editeur": "N1 Info (SLO)",
+    "url_preuve_compilation": "https://www.lemagit.fr/actualites/366654708/Cyberhebdo-du-13-novembre-2026",
+    "date_consultation": "2026-11-12",
+    "transport": "recherche web + fetch agent (sandbox sans réseau sortant) — collecteurs RSS débrayés",
+    "url_preuve": "https://n1info.si/novice/slovenija/gurs-po-varnostnem-incidentu-ponovno-vklaplja-baze-je-slo-za-kibernetski-napad/"
+   }
+  },
+  {
+   "dedup_key": "feed:demarrage-d0:305d8a7592934816caa5231a",
+   "family": "presse_cyber",
+   "assertion_type": "third_party_claim",
+   "title": "LAHSA (USA) : personnel déconnecté des systèmes après un incident potentiel",
+   "summary": "L'Autorité des Services aux Sans-Abri de Los Angeles (LAHSA) a ordonné à son personnel de se déconnecter des systèmes informatiques et des courriels le vendredi 6 novembre 2026, suite à une enquête sur un incident de cybersécurité potentiel. Les opérations essentielles sont maintenues ; l'impact sur les données clients reste inconnu.",
+   "observed_at": "2026-11-06",
+   "severity": 2,
+   "confidence": "C3",
+   "source_id": "hermes_radar_cyber",
+   "source_url": "https://dysruptionhub.com/lahsa-los-angeles-cybersecurity-shutdown/",
+   "evidence": {
+    "editeur": "DysruptionHub",
+    "url_preuve_compilation": "https://www.lemagit.fr/actualites/366654708/Cyberhebdo-du-13-novembre-2026",
+    "date_consultation": "2026-11-12",
+    "transport": "recherche web + fetch agent (sandbox sans réseau sortant) — collecteurs RSS débrayés",
+    "url_preuve": "https://dysruptionhub.com/lahsa-los-angeles-cybersecurity-shutdown/"
+   }
+  },
+  {
+   "dedup_key": "feed:demarrage-d0:dc55ff344bc9230fbebe1b63",
+   "family": "presse_cyber",
+   "assertion_type": "confirmed_incident",
+   "title": "Bergmann et Trauco (DEU) : pannes informatiques sur plusieurs sites",
+   "summary": "Une cyberattaque a touché l'entreprise de matériaux de construction Bergmann ainsi que Trauco le 6 novembre 2026, provoquant des pannes informatiques temporaires sur de nombreux sites et forçant le recours au téléphone et au fax pour les commandes.",
+   "observed_at": "2026-11-06",
+   "severity": 3,
+   "confidence": "B2",
+   "source_id": "hermes_radar_cyber",
+   "source_url": "https://www.om-online.de/landkreis-vechta/steinfeld/artikel/cyberangriff-bei-bergmann-ki-anrufe-verunsichern-kunden-51707851",
+   "evidence": {
+    "editeur": "OM Online (DEU)",
+    "url_preuve_compilation": "https://www.lemagit.fr/actualites/366654708/Cyberhebdo-du-13-novembre-2026",
+    "date_consultation": "2026-11-12",
+    "transport": "recherche web + fetch agent (sandbox sans réseau sortant) — collecteurs RSS débrayés",
+    "url_preuve": "https://www.om-online.de/landkreis-vechta/steinfeld/artikel/cyberangriff-bei-bergmann-ki-anrufe-verunsichern-kunden-51707851"
+   }
+  },
+  {
+   "dedup_key": "feed:demarrage-d0:bc9351e8bc9d0fa6551322a7",
+   "family": "presse_cyber",
+   "assertion_type": "confirmed_incident",
+   "title": "Chambourcy (FRA-78) : la mairie coupe son réseau après une cyberattaque",
+   "summary": "La mairie de Chambourcy (Yvelines) a été victime d'une cyberattaque le week-end des 7 et 8 novembre 2026. Le réseau informatique municipal a été mis à l'arrêt préventif et les services basculent en grande partie sur papier. La mairie a déposé plainte et informé la CNIL, et met en garde les habitants contre les escroqueries exploitant la situation.",
+   "observed_at": "2026-11-07",
+   "severity": 3,
+   "confidence": "B2",
+   "source_id": "hermes_radar_cyber",
+   "source_url": "https://www.infosyvelines.fr/articles/chambourcy-mairie-victime-cyberattaque-services-mode",
+   "evidence": {
+    "editeur": "Infos Yvelines",
+    "url_preuve_compilation": "https://www.lemagit.fr/actualites/366654708/Cyberhebdo-du-13-novembre-2026",
+    "date_consultation": "2026-11-12",
+    "transport": "recherche web + fetch agent (sandbox sans réseau sortant) — collecteurs RSS débrayés",
+    "url_preuve": "https://www.infosyvelines.fr/articles/chambourcy-mairie-victime-cyberattaque-services-mode"
+   }
+  },
+  {
+   "dedup_key": "feed:demarrage-d0:0e8091e4462130a49fb49218",
+   "family": "presse_cyber",
+   "assertion_type": "confirmed_incident",
+   "title": "Kinnarps (SWE) : production arrêtée sur trois sites après une intrusion",
+   "summary": "Le fabricant de meubles Kinnarps a été victime d'une cyberattaque dont l'intrusion a été découverte le samedi 7 novembre 2026. La production a été stoppée sur les sites de Kinnarp, Jönköping et Skillingaryd et le site web a été mis hors ligne. L'incident a été signalé à la police.",
+   "observed_at": "2026-11-07",
+   "severity": 3,
+   "confidence": "B2",
+   "source_id": "hermes_radar_cyber",
+   "source_url": "https://www.borskollen.se/nyheter/27/cyberattack-tvingade-kinnarps-att-stoppa-produktionen-pa-tre-orter",
+   "evidence": {
+    "editeur": "Borskollen (SWE)",
+    "url_preuve_compilation": "https://www.lemagit.fr/actualites/366654708/Cyberhebdo-du-13-novembre-2026",
+    "date_consultation": "2026-11-12",
+    "transport": "recherche web + fetch agent (sandbox sans réseau sortant) — collecteurs RSS débrayés",
+    "url_preuve": "https://www.borskollen.se/nyheter/27/cyberattack-tvingade-kinnarps-att-stoppa-produktionen-pa-tre-orter"
+   }
+  },
+  {
+   "dedup_key": "feed:demarrage-d0:6c0e2f9343cebed71123624d",
+   "family": "presse_cyber",
+   "assertion_type": "confirmed_incident",
+   "title": "Stadtwerke Achim (DEU) : systèmes centraux paralysés, fournisseurs d'énergie maintenus",
+   "summary": "L'énergéticien municipal d'Achim a été victime d'une cyberattaque détectée le 8 novembre 2026, paralysant ses systèmes informatiques centraux. L'approvisionnement en électricité, gaz et chaleur est assuré mais les portails clients sont indisponibles. Cellule de crise, experts externes mobilisés, BSI et police informés. Aucune preuve de fuite de données à ce stade.",
+   "observed_at": "2026-11-08",
+   "severity": 3,
+   "confidence": "B2",
+   "source_id": "hermes_radar_cyber",
+   "source_url": "https://www.weser-kurier.de/landkreis-verden/stadt-achim/cyberangriff-auf-achimer-stadtwerke-it-systeme-lahmgelegt-doc88feidafgmdhl0xoarw",
+   "evidence": {
+    "editeur": "Weser-Kurier (DEU)",
+    "url_preuve_compilation": "https://www.lemagit.fr/actualites/366654708/Cyberhebdo-du-13-novembre-2026",
+    "date_consultation": "2026-11-12",
+    "transport": "recherche web + fetch agent (sandbox sans réseau sortant) — collecteurs RSS débrayés",
+    "url_preuve": "https://www.weser-kurier.de/landkreis-verden/stadt-achim/cyberangriff-auf-achimer-stadtwerke-it-systeme-lahmgelegt-doc88feidafgmdhl0xoarw"
+   }
+  },
+  {
+   "dedup_key": "feed:demarrage-d0:2eaf3f114c18f2112de7f3b4",
+   "family": "presse_cyber",
+   "assertion_type": "confirmed_incident",
+   "title": "Narni (ITA) : tentative d'intrusion sur le serveur de messagerie déjouée",
+   "summary": "Le service informatique de la municipalité de Narni a détecté et déjoué le 8 novembre 2026 une tentative d'intrusion sur son serveur de messagerie, qui contenait des milliers de données sensibles. Les données ont été sécurisées avant toute intrusion effective.",
+   "observed_at": "2026-11-08",
+   "severity": 2,
+   "confidence": "B2",
+   "source_id": "hermes_radar_cyber",
+   "source_url": "https://terninrete.it/notizie-di-terni-attacco-informatico-al-comune-di-narni-i-dati-messi-in-sicurezza-prima-dellintrusione-vera-e-propria-dellhater/",
+   "evidence": {
+    "editeur": "TerniNrete (ITA)",
+    "url_preuve_compilation": "https://www.lemagit.fr/actualites/366654708/Cyberhebdo-du-13-novembre-2026",
+    "date_consultation": "2026-11-12",
+    "transport": "recherche web + fetch agent (sandbox sans réseau sortant) — collecteurs RSS débrayés",
+    "url_preuve": "https://terninrete.it/notizie-di-terni-attacco-informatico-al-comune-di-narni-i-dati-messi-in-sicurezza-prima-dellintrusione-vera-e-propria-dellhater/"
+   }
+  },
+  {
+   "dedup_key": "feed:demarrage-d0:babfcdcd70c409c463396973",
+   "family": "ransomware",
+   "assertion_type": "third_party_claim",
+   "title": "ESTT (RUS) : hébergeur victime d'un rançongiciel, panne massive des services",
+   "summary": "Le fournisseur d'hébergement russe ESTT a été victime d'une cyberattaque par rançongiciel le 8 novembre 2026, provoquant une panne massive de ses services clients et de son infrastructure cloud. ESTT affirme qu'aucune fuite n'a eu lieu et annonce 90 % de serveurs virtuels restaurés ; les données utilisateurs restent inaccessibles et le délai de récupération complet n'est pas précisé.",
+   "observed_at": "2026-11-08",
+   "severity": 4,
+   "confidence": "C3",
+   "source_id": "hermes_radar_cyber",
+   "source_url": "https://korrespondent.net/world/russia/4927425-vtoroi-za-nedelui-rossyiskyi-khostynh-stal-zhertvoi-ataky-khakerov",
+   "evidence": {
+    "editeur": "Korrespondent (RUS)",
+    "url_preuve_compilation": "https://www.lemagit.fr/actualites/366654708/Cyberhebdo-du-13-novembre-2026",
+    "date_consultation": "2026-11-12",
+    "transport": "recherche web + fetch agent (sandbox sans réseau sortant) — collecteurs RSS débrayés",
+    "url_preuve": "https://korrespondent.net/world/russia/4927425-vtoroi-za-nedelui-rossyiskyi-khostynh-stal-zhertvoi-ataky-khakerov"
+   }
+  },
+  {
+   "dedup_key": "feed:demarrage-d0:f06b7e23a61f505b3f34b630",
+   "family": "presse_cyber",
+   "assertion_type": "third_party_claim",
+   "title": "Monadnock Community Hospital (USA) : panne serveur suspectée d'origine cyber",
+   "summary": "L'hôpital communal de Monadnock (New Hampshire) a connu une panne de serveur ayant entraîné la déviation des ambulances et l'annulation de soins électifs. L'incident est suspecté d'être lié à une cyberattaque mais la cause reste non confirmée ; l'hôpital travaille avec des experts externes au rétablissement.",
+   "observed_at": "2026-11-09",
+   "severity": 3,
+   "confidence": "C3",
+   "source_id": "hermes_radar_cyber",
+   "source_url": "https://dysruptionhub.com/monadnock-community-hospital-suspected-cyber-incident/",
+   "evidence": {
+    "editeur": "DysruptionHub",
+    "url_preuve_compilation": "https://www.lemagit.fr/actualites/366654708/Cyberhebdo-du-13-novembre-2026",
+    "date_consultation": "2026-11-12",
+    "transport": "recherche web + fetch agent (sandbox sans réseau sortant) — collecteurs RSS débrayés",
+    "url_preuve": "https://dysruptionhub.com/monadnock-community-hospital-suspected-cyber-incident/"
+   }
+  },
+  {
+   "dedup_key": "feed:demarrage-d0:4da4b9fb0f78f50e91806a23",
+   "family": "ransomware",
+   "assertion_type": "third_party_claim",
+   "title": "Ridgecrest Regional Hospital (USA) : systèmes hors ligne, revendication d'extorsion ScarlettGroup",
+   "summary": "Le Ridgecrest Regional Hospital a dû mettre ses systèmes hors ligne suite à un incident de cybersécurité. Le groupe ScarlettGroup a listé le domaine de l'hôpital sur son site d'extorsion en affirmant détenir des dossiers patients, employés, de paie, cliniques et financiers. Des retards de traitement des ordonnances sont signalés. L'hôpital n'a confirmé ni l'attribution ni la nature exacte de l'incident.",
+   "observed_at": "2026-11-09",
+   "severity": 4,
+   "confidence": "C3",
+   "source_id": "hermes_radar_cyber",
+   "source_url": "https://dysruptionhub.com/ridgecrest-california-hospital-cyber-incident/",
+   "evidence": {
+    "editeur": "DysruptionHub",
+    "url_preuve_compilation": "https://www.lemagit.fr/actualites/366654708/Cyberhebdo-du-13-novembre-2026",
+    "date_consultation": "2026-11-12",
+    "transport": "recherche web + fetch agent (sandbox sans réseau sortant) — collecteurs RSS débrayés",
+    "url_preuve": "https://dysruptionhub.com/ridgecrest-california-hospital-cyber-incident/"
+   }
+  },
+  {
+   "dedup_key": "feed:demarrage-d0:80330562206f376728d01718",
+   "family": "malware",
+   "assertion_type": "confirmed_incident",
+   "title": "Vanderbilt University (USA) : malware attribué au groupe BYOD, données massives potentiellement volées",
+   "summary": "L'Université Vanderbilt a été victime d'une cyberattaque par logiciel malveillant attribuée au groupe BYOD, commencée le lundi 9 novembre 2026 : propagation de malwares, fichiers renommés en .byod, communauté invitée à se déconnecter. Les pirates revendiquent des données personnelles étendues, dont des dossiers d'étudiants et plus d'un million de numéros de sécurité sociale.",
+   "observed_at": "2026-11-09",
+   "severity": 4,
+   "confidence": "B2",
+   "source_id": "hermes_radar_cyber",
+   "source_url": "https://www.nashvillescene.com/news/pithinthewind/vanderbilt-university-cyber-attack-lockdown/article_c7136f1f-a103-4e75-93bc-826ca02e894e.html",
+   "evidence": {
+    "editeur": "Nashville Scene",
+    "url_preuve_compilation": "https://www.lemagit.fr/actualites/366654708/Cyberhebdo-du-13-novembre-2026",
+    "date_consultation": "2026-11-12",
+    "transport": "recherche web + fetch agent (sandbox sans réseau sortant) — collecteurs RSS débrayés",
+    "url_preuve": "https://www.nashvillescene.com/news/pithinthewind/vanderbilt-university-cyber-attack-lockdown/article_c7136f1f-a103-4e75-93bc-826ca02e894e.html"
+   }
+  },
+  {
+   "dedup_key": "feed:demarrage-d0:76407e86d3e98c60669d8bec",
+   "family": "presse_cyber",
+   "assertion_type": "confirmed_incident",
+   "title": "ActiveCloud (BLR) : cyberattaque massive, services et canaux de communication indisponibles",
+   "summary": "Le fournisseur biélorusse ActiveCloud a été victime d'une cyberattaque massive détectée le 10 novembre 2026. De nombreux services et canaux de communication sont indisponibles : site web, chats, téléphonie, système de tickets de support.",
+   "observed_at": "2026-11-10",
+   "severity": 3,
+   "confidence": "B2",
+   "source_id": "hermes_radar_cyber",
+   "source_url": "https://nashaniva.com/ru/408915",
+   "evidence": {
+    "editeur": "Nasha Niva (BLR)",
+    "url_preuve_compilation": "https://www.lemagit.fr/actualites/366654708/Cyberhebdo-du-13-novembre-2026",
+    "date_consultation": "2026-11-12",
+    "transport": "recherche web + fetch agent (sandbox sans réseau sortant) — collecteurs RSS débrayés",
+    "url_preuve": "https://nashaniva.com/ru/408915"
+   }
+  },
+  {
+   "dedup_key": "feed:demarrage-d0:e01d16db3d9cbc82e479a843",
+   "family": "presse_cyber",
+   "assertion_type": "confirmed_incident",
+   "title": "Minmed (SGP) : téléconsultation et dépistage visés, dossiers cliniques intacts",
+   "summary": "Le groupe médical singapourien Minmed a été victime d'une cyberattaque ciblant son système de téléconsultation et de dépistage. Les dossiers médicaux cliniques n'ont pas été affectés selon le groupe, qui a engagé Ensign InfoSecurity, corrigé les vulnérabilités et notifié les autorités.",
+   "observed_at": "2026-11-10",
+   "severity": 3,
+   "confidence": "B2",
+   "source_id": "hermes_radar_cyber",
+   "source_url": "https://www.zaobao.com.sg/news/singapore/story20261111-9982881",
+   "evidence": {
+    "editeur": "Lianhe Zaobao (SGP)",
+    "url_preuve_compilation": "https://www.lemagit.fr/actualites/366654708/Cyberhebdo-du-13-novembre-2026",
+    "date_consultation": "2026-11-12",
+    "transport": "recherche web + fetch agent (sandbox sans réseau sortant) — collecteurs RSS débrayés",
+    "url_preuve": "https://www.zaobao.com.sg/news/singapore/story20261111-9982881"
+   }
+  },
+  {
+   "dedup_key": "feed:demarrage-d0:e36460cac5a892fbc8840059",
+   "family": "presse_cyber",
+   "assertion_type": "confirmed_incident",
+   "title": "ePUAP (POL) : attaque contre le système gouvernemental polonais stoppée",
+   "summary": "Une cyberattaque a été découverte et stoppée le 10 novembre 2026 sur le système gouvernemental polonais ePUAP. Le ministre de la Digitalisation Krzysztof Gawkowski a confirmé l'incident ; l'agence ABW est impliquée dans l'enquête sans qu'une origine ait été communiquée.",
+   "observed_at": "2026-11-10",
+   "severity": 3,
+   "confidence": "B2",
+   "source_id": "hermes_radar_cyber",
+   "source_url": "https://ua.news/ru/dovkolo-svitu/u-polshchi-zupinili-kiberataku-na-derzhavnu-sistemu-epuap-polsat-news",
+   "evidence": {
+    "editeur": "Ua.news (reprise Polsat News)",
+    "url_preuve_compilation": "https://www.lemagit.fr/actualites/366654708/Cyberhebdo-du-13-novembre-2026",
+    "date_consultation": "2026-11-12",
+    "transport": "recherche web + fetch agent (sandbox sans réseau sortant) — collecteurs RSS débrayés",
+    "url_preuve": "https://ua.news/ru/dovkolo-svitu/u-polshchi-zupinili-kiberataku-na-derzhavnu-sistemu-epuap-polsat-news"
+   }
+  },
+  {
+   "dedup_key": "feed:demarrage-d0:ce53d8f3f34e7cc687fb9514",
+   "family": "presse_cyber",
+   "assertion_type": "third_party_claim",
+   "title": "Port de Santos (BRA) : dysfonctionnements système, cyberattaque suspectée",
+   "summary": "Des investigations sont en cours au port de Santos (Brésil), le plus grand complexe portuaire d'Amérique latine, après des dysfonctionnements de son système. Une cyberattaque est suspectée ; l'évaluation de la sécurité des données et le rétablissement de la normalité sont en cours.",
+   "observed_at": "2026-11-10",
+   "severity": 3,
+   "confidence": "C3",
+   "source_id": "hermes_radar_cyber",
+   "source_url": "https://g1.globo.com/sp/santos-regiao/videos-bom-dia-regiao/video/porto-de-santos-investiga-suspeita-de-ataque-cibernetico-apos-falhas-em-sistema-15174613.ghtml",
+   "evidence": {
+    "editeur": "G1 (BRA)",
+    "url_preuve_compilation": "https://www.lemagit.fr/actualites/366654708/Cyberhebdo-du-13-novembre-2026",
+    "date_consultation": "2026-11-12",
+    "transport": "recherche web + fetch agent (sandbox sans réseau sortant) — collecteurs RSS débrayés",
+    "url_preuve": "https://g1.globo.com/sp/santos-regiao/videos-bom-dia-regiao/video/porto-de-santos-investiga-suspeita-de-ataque-cibernetico-apos-falhas-em-sistema-15174613.ghtml"
+   }
+  },
+  {
+   "dedup_key": "feed:demarrage-d0:996fbf88e2a3cbcbb6bc069a",
+   "family": "presse_cyber",
+   "assertion_type": "confirmed_incident",
+   "title": "Ville de Koka (JPN) : système d'alerte d'urgence rendu inutilisable",
+   "summary": "La ville de Koka (préfecture de Shiga) a annoncé le 12 novembre 2026 que le serveur de son système de diffusion vocale d'alertes d'urgence en cas de catastrophe avait été victime d'une cyberattaque, rendant le système inutilisable dès le matin du 11 novembre.",
+   "observed_at": "2026-11-11",
+   "severity": 3,
+   "confidence": "B2",
+   "source_id": "hermes_radar_cyber",
+   "source_url": "https://www.kyoto-np.co.jp/articles/-/1825071",
+   "evidence": {
+    "editeur": "Kyoto Shimbun (JPN)",
+    "url_preuve_compilation": "https://www.lemagit.fr/actualites/366654708/Cyberhebdo-du-13-novembre-2026",
+    "date_consultation": "2026-11-12",
+    "transport": "recherche web + fetch agent (sandbox sans réseau sortant) — collecteurs RSS débrayés",
+    "url_preuve": "https://www.kyoto-np.co.jp/articles/-/1825071"
+   }
+  },
+  {
+   "dedup_key": "feed:demarrage-d0:9d69b3b6124058d4a92b397e",
+   "family": "presse_cyber",
+   "assertion_type": "third_party_claim",
+   "title": "Acadia Parish School System (USA) : systèmes fermés pour enquête",
+   "summary": "Le système scolaire de la paroisse d'Acadia (Louisiane) a fermé ses systèmes informatiques le 11 novembre 2026 pour enquêter sur une possible compromission de réseau. Les cours et opérations doivent se poursuivre malgré l'incident.",
+   "observed_at": "2026-11-11",
+   "severity": 2,
+   "confidence": "C3",
+   "source_id": "hermes_radar_cyber",
+   "source_url": "https://dysruptionhub.com/acadia-parish-louisiana-schools-cyber-shutdown/",
+   "evidence": {
+    "editeur": "DysruptionHub",
+    "url_preuve_compilation": "https://www.lemagit.fr/actualites/366654708/Cyberhebdo-du-13-novembre-2026",
+    "date_consultation": "2026-11-12",
+    "transport": "recherche web + fetch agent (sandbox sans réseau sortant) — collecteurs RSS débrayés",
+    "url_preuve": "https://dysruptionhub.com/acadia-parish-louisiana-schools-cyber-shutdown/"
+   }
+  },
+  {
+   "dedup_key": "feed:demarrage-d0:2caa2d6537234c28d8e7f3df",
+   "family": "presse_cyber",
+   "assertion_type": "third_party_claim",
+   "title": "Wilmington College (USA) : campus fermé après un incident de sécurité potentiel",
+   "summary": "Le Wilmington College (Ohio) a fermé son campus le mercredi 11 novembre 2026 pour enquêter sur un incident de sécurité potentiel. L'accès aux systèmes clés (SharePoint, OneDrive, Jenzabar) a été interdit aux étudiants et employés en attendant les résultats de l'enquête.",
+   "observed_at": "2026-11-11",
+   "severity": 2,
+   "confidence": "C3",
+   "source_id": "hermes_radar_cyber",
+   "source_url": "https://dysruptionhub.com/wilmington-college-ohio-cyber-incident-campus-closure/",
+   "evidence": {
+    "editeur": "DysruptionHub",
+    "url_preuve_compilation": "https://www.lemagit.fr/actualites/366654708/Cyberhebdo-du-13-novembre-2026",
+    "date_consultation": "2026-11-12",
+    "transport": "recherche web + fetch agent (sandbox sans réseau sortant) — collecteurs RSS débrayés",
+    "url_preuve": "https://dysruptionhub.com/wilmington-college-ohio-cyber-incident-campus-closure/"
+   }
+  },
+  {
+   "dedup_key": "feed:demarrage-d0:6f79f5bf37695af8f92a542b",
+   "family": "leaks",
+   "assertion_type": "confirmed_incident",
+   "title": "Worten (PRT) : données personnelles d'un groupe de clients accédées",
+   "summary": "La société Worten (groupe Sonae) a révélé le 11 novembre 2026 avoir été victime d'une cyberattaque avec accès non autorisé aux données personnelles d'un groupe restreint de clients : numéro de contribuable, coordonnées, identifiants de commande. Mots de passe et données de paiement non affectés selon l'entreprise, qui collabore avec les autorités.",
+   "observed_at": "2026-11-11",
+   "severity": 3,
+   "confidence": "B2",
+   "source_id": "hermes_radar_cyber",
+   "source_url": "https://www.jornaldenegocios.pt/empresas/comercio/detalhe/worten-alvo-de-ataque-informatico",
+   "evidence": {
+    "editeur": "Jornal de Negócios (PRT)",
+    "url_preuve_compilation": "https://www.lemagit.fr/actualites/366654708/Cyberhebdo-du-13-novembre-2026",
+    "date_consultation": "2026-11-12",
+    "transport": "recherche web + fetch agent (sandbox sans réseau sortant) — collecteurs RSS débrayés",
+    "url_preuve": "https://www.jornaldenegocios.pt/empresas/comercio/detalhe/worten-alvo-de-ataque-informatico"
+   }
+  },
+  {
+   "dedup_key": "feed:demarrage-d0:f72197985bc1e15f46dd1290",
+   "family": "presse_cyber",
+   "assertion_type": "third_party_claim",
+   "title": "Evergreen Logistics (TWN) : anomalies système, cyberattaque potentielle",
+   "summary": "Evergreen Logistics Corp. a détecté le 12 novembre 2026 des anomalies dans certains de ses systèmes d'information, potentiellement liées à une cyberattaque. Une société externe d'investigation judiciaire a été engagée ; les systèmes continuent de fonctionner sans interruption de service.",
+   "observed_at": "2026-11-12",
+   "severity": 2,
+   "confidence": "C3",
+   "source_id": "hermes_radar_cyber",
+   "source_url": "https://emops.twse.com.tw/server-java/t05sr01_1_e?&isNew=Y&seq_no=2&spoke_time=182348&spoke_date=20261112&co_id=2607",
+   "evidence": {
+    "editeur": "Rapport boursier TWSE (TWN)",
+    "url_preuve_compilation": "https://www.lemagit.fr/actualites/366654708/Cyberhebdo-du-13-novembre-2026",
+    "date_consultation": "2026-11-12",
+    "transport": "recherche web + fetch agent (sandbox sans réseau sortant) — collecteurs RSS débrayés",
+    "url_preuve": "https://emops.twse.com.tw/server-java/t05sr01_1_e?&isNew=Y&seq_no=2&spoke_time=182348&spoke_date=20261112&co_id=2607"
+   }
+  },
+  {
+   "dedup_key": "feed:demarrage-d0:8faa9f1fd1993b5955d24ff7",
+   "family": "leaks",
+   "assertion_type": "confirmed_incident",
+   "title": "Université Charles de Prague (CZE) : compromission du SIS, données personnelles exfiltrées",
+   "summary": "L'Université Charles a été victime d'une cyberattaque sérieuse : une application web compromise a donné accès au Système d'Information Étudiant (SIS), d'où des données personnelles ont été exfiltrées. L'université a signalé l'incident au NÚKIB et imposé des changements de mots de passe.",
+   "observed_at": "2026-11-13",
+   "severity": 4,
+   "confidence": "B2",
+   "source_id": "hermes_radar_cyber",
+   "source_url": "https://www.ceskenoviny.cz/zpravy/univerzita-karlova-resi-kyberneticky-utok-utocnik-ziskal-osobni-udaje/2901579",
+   "evidence": {
+    "editeur": "České noviny (CZE)",
+    "url_preuve_compilation": "https://www.lemagit.fr/actualites/366654708/Cyberhebdo-du-13-novembre-2026",
+    "date_consultation": "2026-11-12",
+    "transport": "recherche web + fetch agent (sandbox sans réseau sortant) — collecteurs RSS débrayés",
+    "url_preuve": "https://www.ceskenoviny.cz/zpravy/univerzita-karlova-resi-kyberneticky-utok-utocnik-ziskal-osobni-udaje/2901579"
+   }
+  },
+  {
+   "dedup_key": "feed:demarrage-d0:4115d5d6baa4df5f7ecfb8ee",
+   "family": "presse_cyber",
+   "assertion_type": "confirmed_incident",
+   "title": "Établissement français du sang de Bordeaux (FRA-33) : chambres froides programmées à 110 °C via un prestataire",
+   "summary": "Des chambres froides de l'Établissement français du sang de Bordeaux (Gironde), contenant des stocks de dons du sang, ont été programmées pour atteindre 110 °C après une cyberattaque ciblant un prestataire de services de l'EFS. Un technicien vigilant a contrecarré le dérèglement ; l'EFS, confirmant l'incident le 3 novembre 2026, annonce aucun impact sanitaire et aucune perte de produits sanguins.",
+   "observed_at": "2026-11-03",
+   "severity": 4,
+   "confidence": "B2",
+   "source_id": "hermes_radar_cyber",
+   "source_url": "https://www.liberation.fr/idees-et-debats/cyberattaque-de-letablissement-francais-du-sang-cessons-de-romantiser-les-pirates-informatiques-20261104_K7K4YPT3MVEEFMMLCUA275ORFI/",
+   "evidence": {
+    "editeur": "Libération (révélé par Le Canard enchaîné)",
+    "url_preuve_compilation": "https://www.lemagit.fr/actualites/366654708/Cyberhebdo-du-13-novembre-2026",
+    "date_consultation": "2026-11-12",
+    "transport": "recherche web + fetch agent (sandbox sans réseau sortant) — collecteurs RSS débrayés",
+    "url_preuve": "https://www.liberation.fr/idees-et-debats/cyberattaque-de-letablissement-francais-du-sang-cessons-de-romantiser-les-pirates-informatiques-20261104_K7K4YPT3MVEEFMMLCUA275ORFI/"
+   },
+   "org_name": "Établissement français du sang — site de Bordeaux"
+  },
+  {
+   "dedup_key": "feed:demarrage-d0:c793ab1123838ba207ab47d6",
+   "family": "vuln",
+   "assertion_type": "confirmed_incident",
+   "title": "Sites publics girondins indisponibles après une faille critique (préfecture, métropole, mairies de Bordeaux et de Pessac)",
+   "summary": "Le 21 octobre 2026, après détection d'une vulnérabilité critique de sécurité (PHP) et à la demande de l'ANSSI, plusieurs sites publics girondins ont été fermés ou rendus inaccessibles : la préfecture de la Gironde, la métropole de Bordeaux, la mairie de Bordeaux, la mairie de Pessac, le tribunal administratif et la cour d'appel de Bordeaux. Le gouvernement de veille cyber (CERT-FR) avait publié une alerte sur deux vulnérabilités critiques.",
+   "observed_at": "2026-10-21",
+   "severity": 3,
+   "confidence": "B2",
+   "source_id": "hermes_radar_cyber",
+   "source_url": "https://www.ici.fr/nouvelle-aquitaine/gironde-33/prefecture-de-la-gironde-mairie-de-bordeaux-plusieurs-sites-inaccessibles-apres-une-faille-de-cybersecurite-8046412",
+   "evidence": {
+    "editeur": "ICI (France Bleu) Nouvelle-Aquitaine",
+    "url_preuve_compilation": "https://www.lemagit.fr/actualites/366654708/Cyberhebdo-du-13-novembre-2026",
+    "date_consultation": "2026-11-12",
+    "transport": "recherche web + fetch agent (sandbox sans réseau sortant) — collecteurs RSS débrayés",
+    "url_preuve": "https://www.ici.fr/nouvelle-aquitaine/gironde-33/prefecture-de-la-gironde-mairie-de-bordeaux-plusieurs-sites-inaccessibles-apres-une-faille-de-cybersecurite-8046412"
+   }
+  },
+  {
+   "dedup_key": "feed:demarrage-d0:41d93d45a9790e4650fa5728",
+   "family": "ransomware",
+   "assertion_type": "confirmed_incident",
+   "title": "Berson (FRA-33) : rançongiciel et rançon, la mairie privée de ses sauvegardes",
+   "summary": "Depuis le 21 février 2025, la mairie de Berson (Gironde, Blayais) ne peut plus utiliser son matériel informatique ni accéder à ses données numériques, sauvegardes cloud comprises, et fait face à une demande de rançon. Le maire Jacques Davoust a porté plainte à la gendarmerie de Blaye le 28 février 2025.",
+   "observed_at": "2025-02-21",
+   "severity": 4,
+   "confidence": "B2",
+   "source_id": "hermes_radar_cyber",
+   "source_url": "https://www.sudouest.fr/gironde/berson/meme-nos-sauvegardes-ne-nous-sont-plus-accessibles-en-gironde-ce-village-victime-d-une-cyberattaque-23443299.php",
+   "evidence": {
+    "editeur": "Sud Ouest",
+    "url_preuve_compilation": "https://www.lemagit.fr/actualites/366654708/Cyberhebdo-du-13-novembre-2026",
+    "date_consultation": "2026-11-12",
+    "transport": "recherche web + fetch agent (sandbox sans réseau sortant) — collecteurs RSS débrayés",
+    "url_preuve": "https://www.sudouest.fr/gironde/berson/meme-nos-sauvegardes-ne-nous-sont-plus-accessibles-en-gironde-ce-village-victime-d-une-cyberattaque-23443299.php"
+   },
+   "org_name": "Commune de Berson"
+  },
+  {
+   "dedup_key": "feed:demarrage-d0:5a0a58a7d4e93d8e18e6972e",
+   "family": "presse_cyber",
+   "assertion_type": "confirmed_incident",
+   "title": "Floirac (FRA-33) : intrusion sur les équipements mutualisés, réseau municipal coupé",
+   "summary": "Le 18 avril 2024 vers 18 h, la mairie de Floirac (Gironde) a été victime d'une intrusion sur son système d'information via des équipements de sécurité numériques mutualisés avec Bordeaux Métropole. Les réseaux et accès internet de la commune ont été suspendus par précaution ; selon les premières enquêtes menées avec Bordeaux Métropole, aucune donnée n'a été exfiltrée.",
+   "observed_at": "2024-04-18",
+   "severity": 3,
+   "confidence": "B2",
+   "source_id": "hermes_radar_cyber",
+   "source_url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/aucune-donnee-n-a-ete-exfiltree-victime-d-une-cyberattaque-une-mairie-est-privee-d-acces-a-internet-2957996.html",
+   "evidence": {
+    "editeur": "France 3 Nouvelle-Aquitaine",
+    "url_preuve_compilation": "https://www.lemagit.fr/actualites/366654708/Cyberhebdo-du-13-novembre-2026",
+    "date_consultation": "2026-11-12",
+    "transport": "recherche web + fetch agent (sandbox sans réseau sortant) — collecteurs RSS débrayés",
+    "url_preuve": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/aucune-donnee-n-a-ete-exfiltree-victime-d-une-cyberattaque-une-mairie-est-privee-d-acces-a-internet-2957996.html"
+   },
+   "org_name": "Commune de Floirac"
+  }
+ ]
+}

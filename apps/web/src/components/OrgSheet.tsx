@@ -83,7 +83,10 @@ export default function OrgSheet({
   );
 }
 
-function OrgSheetBody({ data }: { data: OrgDetailData }) {
+// Exportée pour la vérification hors navigateur (test/etat-rendu.tsx, D0) :
+// le rendu statique n'exécute pas les effets, donc le corps de la fiche ne
+// peut être capturé qu'en le rendant directement avec des données chargées.
+export function OrgSheetBody({ data }: { data: OrgDetailData }) {
   const { org, assets, events, claims, exposure } = data;
   const identity = [org.kind, org.sector, org.city, org.dept].filter(
     (v): v is string => typeof v === "string" && v.trim().length > 0

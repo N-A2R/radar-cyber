@@ -1,0 +1,2554 @@
+
+=== contrat (hors base) ===
+TAP version 13
+# Subtest: un événement conforme passe et reçoit les défauts du contrat
+ok 1 - un événement conforme passe et reçoit les défauts du contrat
+  ---
+  duration_ms: 5.189718
+  type: 'test'
+  ...
+# Subtest: famille hors contrat : rejet, jamais de passe-plat
+ok 2 - famille hors contrat : rejet, jamais de passe-plat
+  ---
+  duration_ms: 0.603181
+  type: 'test'
+  ...
+# Subtest: les familles élargies passent l'admission
+ok 3 - les familles élargies passent l'admission
+  ---
+  duration_ms: 1.124376
+  type: 'test'
+  ...
+# Subtest: assertion inconnue : rejet — le sens ne se devine pas
+ok 4 - assertion inconnue : rejet — le sens ne se devine pas
+  ---
+  duration_ms: 0.164481
+  type: 'test'
+  ...
+# Subtest: clé de déduplication absente ou trop courte : rejet
+ok 5 - clé de déduplication absente ou trop courte : rejet
+  ---
+  duration_ms: 0.32835
+  type: 'test'
+  ...
+# Subtest: source absente : rejet — sans provenance, pas d'audit possible
+ok 6 - source absente : rejet — sans provenance, pas d'audit possible
+  ---
+  duration_ms: 0.346752
+  type: 'test'
+  ...
+# Subtest: titre : absent ou trop court rejeté, espaces et longueur réparés
+ok 7 - titre : absent ou trop court rejeté, espaces et longueur réparés
+  ---
+  duration_ms: 0.507158
+  type: 'test'
+  ...
+# Subtest: sévérité : bornée et arrondie, jamais inventée si illisible
+ok 8 - sévérité : bornée et arrondie, jamais inventée si illisible
+  ---
+  duration_ms: 0.6709
+  type: 'test'
+  ...
+# Subtest: confidence : casse réparée, code invalide écarté sans jeter l'événement
+ok 9 - confidence : casse réparée, code invalide écarté sans jeter l'événement
+  ---
+  duration_ms: 1.024482
+  type: 'test'
+  ...
+# Subtest: date : normalisée en ISO, illisible écartée sans rejet
+ok 10 - date : normalisée en ISO, illisible écartée sans rejet
+  ---
+  duration_ms: 1.311025
+  type: 'test'
+  ...
+# Subtest: URL de provenance illisible : écartée, événement conservé
+ok 11 - URL de provenance illisible : écartée, événement conservé
+  ---
+  duration_ms: 0.415619
+  type: 'test'
+  ...
+# Subtest: coordonnées : couple incomplet ou hors bornes écarté, pas de point fantôme
+ok 12 - coordonnées : couple incomplet ou hors bornes écarté, pas de point fantôme
+  ---
+  duration_ms: 0.37561
+  type: 'test'
+  ...
+# Subtest: geoType inconnu et evidence non-objet : réparés
+ok 13 - geoType inconnu et evidence non-objet : réparés
+  ---
+  duration_ms: 0.276164
+  type: 'test'
+  ...
+# Subtest: les champs hors contrat sont ignorés, pas rejetés
+ok 14 - les champs hors contrat sont ignorés, pas rejetés
+  ---
+  duration_ms: 0.19379
+  type: 'test'
+  ...
+# Subtest: rejets cumulés : tous les motifs sont rendus
+ok 15 - rejets cumulés : tous les motifs sont rendus
+  ---
+  duration_ms: 0.149848
+  type: 'test'
+  ...
+# Subtest: compteurs : rejets et réparations restent visibles
+ok 16 - compteurs : rejets et réparations restent visibles
+  ---
+  duration_ms: 0.766801
+  type: 'test'
+  ...
+# Subtest: compteurs vides : log muet
+ok 17 - compteurs vides : log muet
+  ---
+  duration_ms: 0.144616
+  type: 'test'
+  ...
+# Subtest: le contrat connaît les familles du catalogue et de migrate-019
+ok 18 - le contrat connaît les familles du catalogue et de migrate-019
+  ---
+  duration_ms: 0.906803
+  type: 'test'
+  ...
+# Subtest: les 8 sources leaks/paste gardent leur famille sur un titre de fuite
+ok 19 - les 8 sources leaks/paste gardent leur famille sur un titre de fuite
+  ---
+  duration_ms: 82.576659
+  type: 'test'
+  ...
+# Subtest: une famille inconnue reste refusée par isFamily
+ok 20 - une famille inconnue reste refusée par isFamily
+  ---
+  duration_ms: 0.37283
+  type: 'test'
+  ...
+# Subtest: ransomware et cert_fr traversent la porte sans être reclassés
+ok 21 - ransomware et cert_fr traversent la porte sans être reclassés
+  ---
+  duration_ms: 0.482575
+  type: 'test'
+  ...
+1..21
+# tests 21
+# suites 0
+# pass 21
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 535.789488
+[2026-11-13 18:10:41] OK: contrat (hors base)
+
+=== socle (diagnostic) ===
+
+PostgreSQL injoignable sur postgres://radar:***@localhost:5432/radar
+Démarrez-le d'abord :  tsx db/dev-pg.mts
+Détail : 
+[2026-11-13 18:10:41] INFO: socle incomplet ou base absente — voir docs/socle.md (pnpm db:up && pnpm setup)
+
+=== typecheck api ===
+$ tsc --noEmit
+[2026-11-13 18:10:47] OK: typecheck api
+
+=== typecheck web ===
+$ tsc --noEmit
+[2026-11-13 18:10:52] OK: typecheck web
+
+=== tests api ===
+$ tsx test/run.ts
+TAP version 13
+# Subtest: la nature d'un signal suit ce qu'il prouve
+ok 1 - la nature d'un signal suit ce qu'il prouve
+  ---
+  duration_ms: 0.970183
+  type: 'test'
+  ...
+# Subtest: un fait n'est compté qu'une fois par nature
+ok 2 - un fait n'est compté qu'une fois par nature
+  ---
+  duration_ms: 0.525328
+  type: 'test'
+  ...
+# Subtest: la médiane d'avance se calcule sur les signaux, pas sur les faits
+ok 3 - la médiane d'avance se calcule sur les signaux, pas sur les faits
+  ---
+  duration_ms: 0.204004
+  type: 'test'
+  ...
+# Subtest: aucun signal : la mesure le dit, sans division par zéro
+ok 4 - aucun signal : la mesure le dit, sans division par zéro
+  ---
+  duration_ms: 0.211535
+  type: 'test'
+  ...
+# Subtest: un corpus vide n'est pas « 0 % d'anticipation », c'est une mesure vide
+ok 5 - un corpus vide n'est pas « 0 % d'anticipation », c'est une mesure vide
+  ---
+  duration_ms: 0.368811
+  type: 'test'
+  ...
+# Subtest: sous le seuil, la mesure se déclare indicative
+ok 6 - sous le seuil, la mesure se déclare indicative
+  ---
+  duration_ms: 0.309593
+  type: 'test'
+  ...
+# Subtest: base sans aucun compte : l'inscription crée le premier admin (bootstrap)
+ok 7 - base sans aucun compte : l'inscription crée le premier admin (bootstrap)
+  ---
+  duration_ms: 224.800976
+  type: 'test'
+  ...
+# Subtest: avec un compte existant : sans jeton refusé, avec jeton admin accepté
+ok 8 - avec un compte existant : sans jeton refusé, avec jeton admin accepté
+  ---
+  duration_ms: 75.317508
+  type: 'test'
+  ...
+# Subtest: une organisation mutée garde son ancienne version pour le passé
+ok 9 - une organisation mutée garde son ancienne version pour le passé
+  ---
+  duration_ms: 55.224753
+  type: 'test'
+  ...
+# Subtest: sans asOf, on ne voit que le présent (valid_to IS NULL)
+ok 10 - sans asOf, on ne voit que le présent (valid_to IS NULL)
+  ---
+  duration_ms: 1.945554
+  type: 'test'
+  ...
+# Subtest: alias bitemporel : lecture asOf renvoie les bons alias
+ok 11 - alias bitemporel : lecture asOf renvoie les bons alias
+  ---
+  duration_ms: 7.163061
+  type: 'test'
+  ...
+# Subtest: muterOrganisation refuse une colonne hors whitelist avant toute écriture
+ok 12 - muterOrganisation refuse une colonne hors whitelist avant toute écriture
+  ---
+  duration_ms: 4.378534
+  type: 'test'
+  ...
+# Subtest: orgsValidesAu(asOfRecorded) n'expose pas une organisation enregistrée plus tard
+ok 13 - orgsValidesAu(asOfRecorded) n'expose pas une organisation enregistrée plus tard
+  ---
+  duration_ms: 8.70911
+  type: 'test'
+  ...
+# Subtest: structure modale : les victimes sont extraites avec secteur et pays
+ok 14 - structure modale : les victimes sont extraites avec secteur et pays
+  ---
+  duration_ms: 4.164033
+  type: 'test'
+  ...
+# Subtest: structure carte de projet : statut et pays structuré
+ok 15 - structure carte de projet : statut et pays structuré
+  ---
+  duration_ms: 1.387369
+  type: 'test'
+  ...
+# Subtest: une page de navigation n'est pas prise pour une page de revendication
+ok 16 - une page de navigation n'est pas prise pour une page de revendication
+  ---
+  duration_ms: 0.123015
+  type: 'test'
+  ...
+# Subtest: les doublons de nom ne produisent qu'une victime
+ok 17 - les doublons de nom ne produisent qu'une victime
+  ---
+  duration_ms: 0.282464
+  type: 'test'
+  ...
+# Subtest: note maximale : source A1, incident confirmé, org géolocalisée, 3 sources
+ok 18 - note maximale : source A1, incident confirmé, org géolocalisée, 3 sources
+  ---
+  duration_ms: 2.036202
+  type: 'test'
+  ...
+# Subtest: note minimale : source C3, signal d'ambiance, aucun rattachement
+ok 19 - note minimale : source C3, signal d'ambiance, aucun rattachement
+  ---
+  duration_ms: 0.295644
+  type: 'test'
+  ...
+# Subtest: seuil : une note exactement égale au seuil vaut « vérifié »
+ok 20 - seuil : une note exactement égale au seuil vaut « vérifié »
+  ---
+  duration_ms: 0.260134
+  type: 'test'
+  ...
+# Subtest: une note juste sous le seuil bascule en « à vérifier »
+ok 21 - une note juste sous le seuil bascule en « à vérifier »
+  ---
+  duration_ms: 0.296429
+  type: 'test'
+  ...
+# Subtest: revendication non corroborée d'une source C3 : jamais « vérifié »
+ok 22 - revendication non corroborée d'une source C3 : jamais « vérifié »
+  ---
+  duration_ms: 0.298909
+  type: 'test'
+  ...
+# Subtest: corroboration : la deuxième source compte plus que la première
+ok 23 - corroboration : la deuxième source compte plus que la première
+  ---
+  duration_ms: 0.236872
+  type: 'test'
+  ...
+# Subtest: champs absents : aucune composante NaN, note bornée
+ok 24 - champs absents : aucune composante NaN, note bornée
+  ---
+  duration_ms: 0.316807
+  type: 'test'
+  ...
+# Subtest: un événement conforme passe et reçoit les défauts du contrat
+ok 25 - un événement conforme passe et reçoit les défauts du contrat
+  ---
+  duration_ms: 4.379695
+  type: 'test'
+  ...
+# Subtest: famille hors contrat : rejet, jamais de passe-plat
+ok 26 - famille hors contrat : rejet, jamais de passe-plat
+  ---
+  duration_ms: 0.311759
+  type: 'test'
+  ...
+# Subtest: les familles élargies passent l'admission
+ok 27 - les familles élargies passent l'admission
+  ---
+  duration_ms: 0.849133
+  type: 'test'
+  ...
+# Subtest: assertion inconnue : rejet — le sens ne se devine pas
+ok 28 - assertion inconnue : rejet — le sens ne se devine pas
+  ---
+  duration_ms: 0.145246
+  type: 'test'
+  ...
+# Subtest: clé de déduplication absente ou trop courte : rejet
+ok 29 - clé de déduplication absente ou trop courte : rejet
+  ---
+  duration_ms: 0.22707
+  type: 'test'
+  ...
+# Subtest: source absente : rejet — sans provenance, pas d'audit possible
+ok 30 - source absente : rejet — sans provenance, pas d'audit possible
+  ---
+  duration_ms: 0.243548
+  type: 'test'
+  ...
+# Subtest: titre : absent ou trop court rejeté, espaces et longueur réparés
+ok 31 - titre : absent ou trop court rejeté, espaces et longueur réparés
+  ---
+  duration_ms: 0.323959
+  type: 'test'
+  ...
+# Subtest: sévérité : bornée et arrondie, jamais inventée si illisible
+ok 32 - sévérité : bornée et arrondie, jamais inventée si illisible
+  ---
+  duration_ms: 0.476605
+  type: 'test'
+  ...
+# Subtest: confidence : casse réparée, code invalide écarté sans jeter l'événement
+ok 33 - confidence : casse réparée, code invalide écarté sans jeter l'événement
+  ---
+  duration_ms: 0.627443
+  type: 'test'
+  ...
+# Subtest: date : normalisée en ISO, illisible écartée sans rejet
+ok 34 - date : normalisée en ISO, illisible écartée sans rejet
+  ---
+  duration_ms: 1.209384
+  type: 'test'
+  ...
+# Subtest: URL de provenance illisible : écartée, événement conservé
+ok 35 - URL de provenance illisible : écartée, événement conservé
+  ---
+  duration_ms: 0.346592
+  type: 'test'
+  ...
+# Subtest: coordonnées : couple incomplet ou hors bornes écarté, pas de point fantôme
+ok 36 - coordonnées : couple incomplet ou hors bornes écarté, pas de point fantôme
+  ---
+  duration_ms: 0.251692
+  type: 'test'
+  ...
+# Subtest: geoType inconnu et evidence non-objet : réparés
+ok 37 - geoType inconnu et evidence non-objet : réparés
+  ---
+  duration_ms: 0.41489
+  type: 'test'
+  ...
+# Subtest: les champs hors contrat sont ignorés, pas rejetés
+ok 38 - les champs hors contrat sont ignorés, pas rejetés
+  ---
+  duration_ms: 0.202797
+  type: 'test'
+  ...
+# Subtest: rejets cumulés : tous les motifs sont rendus
+ok 39 - rejets cumulés : tous les motifs sont rendus
+  ---
+  duration_ms: 0.129243
+  type: 'test'
+  ...
+# Subtest: compteurs : rejets et réparations restent visibles
+ok 40 - compteurs : rejets et réparations restent visibles
+  ---
+  duration_ms: 0.6073
+  type: 'test'
+  ...
+# Subtest: compteurs vides : log muet
+ok 41 - compteurs vides : log muet
+  ---
+  duration_ms: 0.157762
+  type: 'test'
+  ...
+# Subtest: le contrat connaît les familles du catalogue et de migrate-019
+ok 42 - le contrat connaît les familles du catalogue et de migrate-019
+  ---
+  duration_ms: 1.260661
+  type: 'test'
+  ...
+# Subtest: les 8 sources leaks/paste gardent leur famille sur un titre de fuite
+ok 43 - les 8 sources leaks/paste gardent leur famille sur un titre de fuite
+  ---
+  duration_ms: 70.086456
+  type: 'test'
+  ...
+# Subtest: une famille inconnue reste refusée par isFamily
+ok 44 - une famille inconnue reste refusée par isFamily
+  ---
+  duration_ms: 0.263992
+  type: 'test'
+  ...
+# Subtest: ransomware et cert_fr traversent la porte sans être reclassés
+ok 45 - ransomware et cert_fr traversent la porte sans être reclassés
+  ---
+  duration_ms: 0.2311
+  type: 'test'
+  ...
+# Subtest: sans jeton, l'ingestion est refusée
+ok 46 - sans jeton, l'ingestion est refusée
+  ---
+  duration_ms: 172.531224
+  type: 'test'
+  ...
+# Subtest: un lot conforme est inséré, un rejeu n'ajoute rien
+ok 47 - un lot conforme est inséré, un rejeu n'ajoute rien
+  ---
+  duration_ms: 22.597752
+  type: 'test'
+  ...
+# Subtest: famille inconnue : rejetée, motif rendu au client
+ok 48 - famille inconnue : rejetée, motif rendu au client
+  ---
+  duration_ms: 2.849489
+  type: 'test'
+  ...
+# Subtest: les familles élargies passent la porte HTTP
+ok 49 - les familles élargies passent la porte HTTP
+  ---
+  duration_ms: 7.700368
+  type: 'test'
+  ...
+# Subtest: un lot mixte : les bons passent, les mauvais sont comptés
+ok 50 - un lot mixte : les bons passent, les mauvais sont comptés
+  ---
+  duration_ms: 4.973309
+  type: 'test'
+  ...
+# Subtest: les réparations passent et sont annoncées, sans rejet
+ok 51 - les réparations passent et sont annoncées, sans rejet
+  ---
+  duration_ms: 7.692543
+  type: 'test'
+  ...
+# Subtest: la provenance Hermes reste dans evidence
+ok 52 - la provenance Hermes reste dans evidence
+  ---
+  duration_ms: 6.935049
+  type: 'test'
+  ...
+# Subtest: un lot vide répond sans erreur
+ok 53 - un lot vide répond sans erreur
+  ---
+  duration_ms: 4.582453
+  type: 'test'
+  ...
+# Subtest: provenance inconnue : refus lisible, pas une violation de clé étrangère
+ok 54 - provenance inconnue : refus lisible, pas une violation de clé étrangère
+  ---
+  duration_ms: 5.908239
+  type: 'test'
+  ...
+# Subtest: le defaut de la route existe au catalogue, sans base
+ok 55 - le defaut de la route existe au catalogue, sans base
+  ---
+  duration_ms: 0.776283
+  type: 'test'
+  ...
+# Subtest: deux sources le même jour, c'est un fait corroboré — pas deux faits
+ok 56 - deux sources le même jour, c'est un fait corroboré — pas deux faits
+  ---
+  duration_ms: 1.777669
+  type: 'test'
+  ...
+# Subtest: trois sources : le fait est établi
+ok 57 - trois sources : le fait est établi
+  ---
+  duration_ms: 0.295632
+  type: 'test'
+  ...
+# Subtest: au-delà de la fenêtre, ce sont deux faits distincts
+ok 58 - au-delà de la fenêtre, ce sont deux faits distincts
+  ---
+  duration_ms: 0.231973
+  type: 'test'
+  ...
+# Subtest: deux familles différentes ne se regroupent pas
+ok 59 - deux familles différentes ne se regroupent pas
+  ---
+  duration_ms: 0.243922
+  type: 'test'
+  ...
+# Subtest: une source répétée ne corrobore rien
+ok 60 - une source répétée ne corrobore rien
+  ---
+  duration_ms: 0.353979
+  type: 'test'
+  ...
+# Subtest: désaccord de gravité : deux crans d'écart suffisent
+ok 61 - désaccord de gravité : deux crans d'écart suffisent
+  ---
+  duration_ms: 0.55496
+  type: 'test'
+  ...
+# Subtest: désaccord de nature : confirmé contre revendiqué
+ok 62 - désaccord de nature : confirmé contre revendiqué
+  ---
+  duration_ms: 0.22477
+  type: 'test'
+  ...
+# Subtest: un écart de date à l'intérieur d'un groupe est structurellement impossible
+ok 63 - un écart de date à l'intérieur d'un groupe est structurellement impossible
+  ---
+  duration_ms: 0.184437
+  type: 'test'
+  ...
+# Subtest: une source seule ne produit aucun désaccord
+ok 64 - une source seule ne produit aucun désaccord
+  ---
+  duration_ms: 0.841772
+  type: 'test'
+  ...
+# Subtest: le résumé compte les faits, pas les lignes
+ok 65 - le résumé compte les faits, pas les lignes
+  ---
+  duration_ms: 0.561403
+  type: 'test'
+  ...
+# Subtest: une date illisible est écartée plutôt que de fausser le groupe
+ok 66 - une date illisible est écartée plutôt que de fausser le groupe
+  ---
+  duration_ms: 0.233288
+  type: 'test'
+  ...
+# Subtest: les faits sortent du plus récent au plus ancien
+ok 67 - les faits sortent du plus récent au plus ancien
+  ---
+  duration_ms: 0.261648
+  type: 'test'
+  ...
+# Subtest: le délai d'une source n'est jamais négatif
+ok 68 - le délai d'une source n'est jamais négatif
+  ---
+  duration_ms: 0.161608
+  type: 'test'
+  ...
+# Subtest: une source qui confirme puis nuance reste une confirmation
+ok 69 - une source qui confirme puis nuance reste une confirmation
+  ---
+  duration_ms: 0.19134
+  type: 'test'
+  ...
+# Subtest: une sévérité non renseignée ne fabrique pas un désaccord de gravité
+ok 70 - une sévérité non renseignée ne fabrique pas un désaccord de gravité
+  ---
+  duration_ms: 0.169137
+  type: 'test'
+  ...
+# Subtest: RFC822
+ok 71 - RFC822
+  ---
+  duration_ms: 1.290095
+  type: 'test'
+  ...
+# Subtest: RFC3339
+ok 72 - RFC3339
+  ---
+  duration_ms: 0.246547
+  type: 'test'
+  ...
+# Subtest: date française
+ok 73 - date française
+  ---
+  duration_ms: 0.283656
+  type: 'test'
+  ...
+# Subtest: JJ/MM/AAAA
+ok 74 - JJ/MM/AAAA
+  ---
+  duration_ms: 0.213033
+  type: 'test'
+  ...
+# Subtest: relatif FR
+ok 75 - relatif FR
+  ---
+  duration_ms: 0.400599
+  type: 'test'
+  ...
+# Subtest: relatif EN
+ok 76 - relatif EN
+  ---
+  duration_ms: 0.173779
+  type: 'test'
+  ...
+# Subtest: epoch s
+ok 77 - epoch s
+  ---
+  duration_ms: 0.167537
+  type: 'test'
+  ...
+# Subtest: epoch ms
+ok 78 - epoch ms
+  ---
+  duration_ms: 0.103222
+  type: 'test'
+  ...
+# Subtest: chaîne vide fallback fetched
+ok 79 - chaîne vide fallback fetched
+  ---
+  duration_ms: 0.402923
+  type: 'test'
+  ...
+# Subtest: chaîne invalide fallback fetched
+ok 80 - chaîne invalide fallback fetched
+  ---
+  duration_ms: 0.416783
+  type: 'test'
+  ...
+# Subtest: loadRules charge les règles actives
+ok 81 - loadRules charge les règles actives
+  ---
+  duration_ms: 46.486154
+  type: 'test'
+  ...
+# Subtest: confiance : min_confidence 3 exclut C3/B2 et admet A2/A1
+ok 82 - confiance : min_confidence 3 exclut C3/B2 et admet A2/A1
+  ---
+  duration_ms: 49.202215
+  type: 'test'
+  ...
+# Subtest: famille : la règle ransomware matche un ransomware, pas un vuln
+ok 83 - famille : la règle ransomware matche un ransomware, pas un vuln
+  ---
+  duration_ms: 17.472025
+  type: 'test'
+  ...
+# Subtest: assertion_type : la règle confirmed_incident matche, pas ambient_signal
+ok 84 - assertion_type : la règle confirmed_incident matche, pas ambient_signal
+  ---
+  duration_ms: 17.097731
+  type: 'test'
+  ...
+# Subtest: mots-clés : any matche sur le titre ou le summary
+ok 85 - mots-clés : any matche sur le titre ou le summary
+  ---
+  duration_ms: 20.372007
+  type: 'test'
+  ...
+# Subtest: org_kind : la règle matche la nature d'organisation, pas une autre
+ok 86 - org_kind : la règle matche la nature d'organisation, pas une autre
+  ---
+  duration_ms: 12.458796
+  type: 'test'
+  ...
+# Subtest: idempotence : evaluateEvent appelé deux fois ne crée qu'une alerte
+ok 87 - idempotence : evaluateEvent appelé deux fois ne crée qu'une alerte
+  ---
+  duration_ms: 9.910314
+  type: 'test'
+  ...
+# Subtest: evaluateIndicator : type + confiance, idempotent
+ok 88 - evaluateIndicator : type + confiance, idempotent
+  ---
+  duration_ms: 15.462483
+  type: 'test'
+  ...
+# Subtest: auth : lectures et écritures d'alertes exigent un jeton
+ok 89 - auth : lectures et écritures d'alertes exigent un jeton
+  ---
+  duration_ms: 127.15137
+  type: 'test'
+  ...
+# Subtest: statuts : ack puis resolve avec un token valide
+ok 90 - statuts : ack puis resolve avec un token valide
+  ---
+  duration_ms: 20.249916
+  type: 'test'
+  ...
+# Subtest: stats : comptes cohérents avec la table alert
+ok 91 - stats : comptes cohérents avec la table alert
+  ---
+  duration_ms: 8.945381
+  type: 'test'
+  ...
+# Subtest: filtres : status, severity et limit
+ok 92 - filtres : status, severity et limit
+  ---
+  duration_ms: 26.288808
+  type: 'test'
+  ...
+# Subtest: seuil : au-dessus de 65, l'alerte est créée avec score et composantes tracés
+ok 93 - seuil : au-dessus de 65, l'alerte est créée avec score et composantes tracés
+  ---
+  duration_ms: 10.430031
+  type: 'test'
+  ...
+# {"detect":"alert_skipped_below_threshold","event_id":27,"score":21,"threshold":65,"components":{"source_reliability":0.25,"assertion_strength":0.35,"attachment_quality":0.15,"corroboration":0},"distinct_sources":0,"rule_ids":["test-seuil-bas-tmwfalwvae10ak4"]}
+# {"detect":"alert_skipped_below_threshold","event_id":27,"score":21,"threshold":65,"components":{"source_reliability":0.25,"assertion_strength":0.35,"attachment_quality":0.15,"corroboration":0},"distinct_sources":0,"rule_ids":["test-seuil-bas-tmwfalwvae10ak4"]}
+# Subtest: seuil : sous 65, aucune alerte n'est créée mais l'événement reste consultable
+ok 94 - seuil : sous 65, aucune alerte n'est créée mais l'événement reste consultable
+  ---
+  duration_ms: 17.510656
+  type: 'test'
+  ...
+# Subtest: pagination : total stable, pages disjointes, limite respectée
+ok 95 - pagination : total stable, pages disjointes, limite respectée
+  ---
+  duration_ms: 88.916784
+  type: 'test'
+  ...
+# Subtest: sans recherche : filtres, tri et facettes côté serveur
+ok 96 - sans recherche : filtres, tri et facettes côté serveur
+  ---
+  duration_ms: 30.354186
+  type: 'test'
+  ...
+# Subtest: recherche par alias : « mairie de … » trouve la commune
+ok 97 - recherche par alias : « mairie de … » trouve la commune
+  ---
+  duration_ms: 6.032752
+  type: 'test'
+  ...
+# Subtest: recherche tolérante : une lettre en trop est rattrapée
+ok 98 - recherche tolérante : une lettre en trop est rattrapée
+  ---
+  duration_ms: 3.016098
+  type: 'test'
+  ...
+# Subtest: avec événements : le filtre ne garde que les organisations actives
+ok 99 - avec événements : le filtre ne garde que les organisations actives
+  ---
+  duration_ms: 2.456227
+  type: 'test'
+  ...
+# Subtest: les jokers saisis sont des littéraux, pas des motifs SQL
+ok 100 - les jokers saisis sont des littéraux, pas des motifs SQL
+  ---
+  duration_ms: 2.541215
+  type: 'test'
+  ...
+# Subtest: facettes avec recherche : chaque dimension reste ouverte
+ok 101 - facettes avec recherche : chaque dimension reste ouverte
+  ---
+  duration_ms: 4.492892
+  type: 'test'
+  ...
+# Subtest: résultat vide : pas d'erreur, facets vides, total nul
+ok 102 - résultat vide : pas d'erreur, facets vides, total nul
+  ---
+  duration_ms: 2.571396
+  type: 'test'
+  ...
+# Subtest: requête vide : l'ordre du serveur est conservé
+ok 103 - requête vide : l'ordre du serveur est conservé
+  ---
+  duration_ms: 2.500875
+  type: 'test'
+  ...
+# Subtest: égalité exacte en tête, avant la sous-chaîne
+ok 104 - égalité exacte en tête, avant la sous-chaîne
+  ---
+  duration_ms: 0.94291
+  type: 'test'
+  ...
+# Subtest: recherche par alias institutionnel : le nom diffère, l'alias porte
+ok 105 - recherche par alias institutionnel : le nom diffère, l'alias porte
+  ---
+  duration_ms: 0.246706
+  type: 'test'
+  ...
+# Subtest: faute de frappe : une lettre rattrapée, deux lettres non
+ok 106 - faute de frappe : une lettre rattrapée, deux lettres non
+  ---
+  duration_ms: 1.116353
+  type: 'test'
+  ...
+# Subtest: homonymes : l'activité départage, pas l'ordre d'insertion
+ok 107 - homonymes : l'activité départage, pas l'ordre d'insertion
+  ---
+  duration_ms: 0.191655
+  type: 'test'
+  ...
+# Subtest: mots institutionnels seuls : pas de plantage, pas de jetons vides
+ok 108 - mots institutionnels seuls : pas de plantage, pas de jetons vides
+  ---
+  duration_ms: 0.554556
+  type: 'test'
+  ...
+# Subtest: jetons de présélection : le mot discriminant survit, les liaisons tombent
+ok 109 - jetons de présélection : le mot discriminant survit, les liaisons tombent
+  ---
+  duration_ms: 0.20192
+  type: 'test'
+  ...
+# Subtest: sans correspondance : rien n'est proposé plutôt qu'un résultat douteux
+ok 110 - sans correspondance : rien n'est proposé plutôt qu'un résultat douteux
+  ---
+  duration_ms: 0.247331
+  type: 'test'
+  ...
+# Subtest: domaine et ville sont cherchés aussi
+ok 111 - domaine et ville sont cherchés aussi
+  ---
+  duration_ms: 0.448668
+  type: 'test'
+  ...
+# Subtest: le dossier a cinq sections dans l'ordre attendu
+ok 112 - le dossier a cinq sections dans l'ordre attendu
+  ---
+  duration_ms: 1.778475
+  type: 'test'
+  ...
+# Subtest: aucune section n'est vide même sur une base neuve
+ok 113 - aucune section n'est vide même sur une base neuve
+  ---
+  duration_ms: 0.432233
+  type: 'test'
+  ...
+# Subtest: les chiffres du système apparaissent dans la section état
+ok 114 - les chiffres du système apparaissent dans la section état
+  ---
+  duration_ms: 0.351309
+  type: 'test'
+  ...
+# Subtest: la dernière migration inconnue s'affiche comme telle
+ok 115 - la dernière migration inconnue s'affiche comme telle
+  ---
+  duration_ms: 0.211954
+  type: 'test'
+  ...
+# Subtest: les règles non négociables mentionnent zéro euro et non mesuré
+ok 116 - les règles non négociables mentionnent zéro euro et non mesuré
+  ---
+  duration_ms: 0.358746
+  type: 'test'
+  ...
+# Subtest: les pièges déjà payés citent fetch failed et médiane
+ok 117 - les pièges déjà payés citent fetch failed et médiane
+  ---
+  duration_ms: 0.266434
+  type: 'test'
+  ...
+# Subtest: le rendu markdown est un document lisible hors ligne
+ok 118 - le rendu markdown est un document lisible hors ligne
+  ---
+  duration_ms: 0.337989
+  type: 'test'
+  ...
+# Subtest: les cinq gestes contiennent verify et les scripts de mesure
+ok 119 - les cinq gestes contiennent verify et les scripts de mesure
+  ---
+  duration_ms: 0.189724
+  type: 'test'
+  ...
+# Subtest: scoreIndicator boundaries
+ok 120 - scoreIndicator boundaries
+  ---
+  duration_ms: 1.331608
+  type: 'test'
+  ...
+# Subtest: enrichIndicator degrades gracefully
+ok 121 - enrichIndicator degrades gracefully
+  ---
+  duration_ms: 1.110577
+  type: 'test'
+  ...
+# Subtest: domaine org exact
+ok 122 - domaine org exact
+  ---
+  duration_ms: 5.324214
+  type: 'test'
+  ...
+# Subtest: sous-domaine org
+ok 123 - sous-domaine org
+  ---
+  duration_ms: 1.235583
+  type: 'test'
+  ...
+# Subtest: IP /24
+ok 124 - IP /24
+  ---
+  duration_ms: 0.458213
+  type: 'test'
+  ...
+# Subtest: CVE connu
+ok 125 - CVE connu
+  ---
+  duration_ms: 0.154448
+  type: 'test'
+  ...
+# Subtest: hash global
+ok 126 - hash global
+  ---
+  duration_ms: 0.125705
+  type: 'test'
+  ...
+# Subtest: suffixe public
+ok 127 - suffixe public
+  ---
+  duration_ms: 0.161134
+  type: 'test'
+  ...
+# Subtest: normalizeHost
+ok 128 - normalizeHost
+  ---
+  duration_ms: 0.219409
+  type: 'test'
+  ...
+# Subtest: une date publiée par la source est certaine
+ok 129 - une date publiée par la source est certaine
+  ---
+  duration_ms: 1.350345
+  type: 'test'
+  ...
+# Subtest: une date déduite du texte se déclare comme telle
+ok 130 - une date déduite du texte se déclare comme telle
+  ---
+  duration_ms: 0.287491
+  type: 'test'
+  ...
+# Subtest: une date de collecte n'est pas la date de l'incident
+ok 131 - une date de collecte n'est pas la date de l'incident
+  ---
+  duration_ms: 0.214025
+  type: 'test'
+  ...
+# Subtest: une date dans le futur est invraisemblable, pas fraîche
+ok 132 - une date dans le futur est invraisemblable, pas fraîche
+  ---
+  duration_ms: 0.167194
+  type: 'test'
+  ...
+# Subtest: sans date, l'âge est inconnu — pas zéro
+ok 133 - sans date, l'âge est inconnu — pas zéro
+  ---
+  duration_ms: 0.20573
+  type: 'test'
+  ...
+# Subtest: une revendication isolée ne peut pas être « établie »
+ok 134 - une revendication isolée ne peut pas être « établie »
+  ---
+  duration_ms: 0.526459
+  type: 'test'
+  ...
+# Subtest: trois sources concordantes sur un incident confirmé : établi
+ok 135 - trois sources concordantes sur un incident confirmé : établi
+  ---
+  duration_ms: 0.218309
+  type: 'test'
+  ...
+# Subtest: une revendication tierce d'une source faible reste fragile
+ok 136 - une revendication tierce d'une source faible reste fragile
+  ---
+  duration_ms: 0.11595
+  type: 'test'
+  ...
+# Subtest: l'absence de rattachement est dite, pas seulement pénalisée
+ok 137 - l'absence de rattachement est dite, pas seulement pénalisée
+  ---
+  duration_ms: 0.405543
+  type: 'test'
+  ...
+# Subtest: la note est indépendante de la fraîcheur
+ok 138 - la note est indépendante de la fraîcheur
+  ---
+  duration_ms: 0.394991
+  type: 'test'
+  ...
+# Subtest: gazetteer — les noms de lieu ne tranchent pas
+    # Subtest: ignore un toponyme nu, même s'il est un alias de collectivité
+    ok 1 - ignore un toponyme nu, même s'il est un alias de collectivité
+      ---
+      duration_ms: 1.489543
+      type: 'test'
+      ...
+    # Subtest: ne prend pas la Gironde pour l'organisation dont on parle
+    ok 2 - ne prend pas la Gironde pour l'organisation dont on parle
+      ---
+      duration_ms: 0.219846
+      type: 'test'
+      ...
+    1..2
+ok 139 - gazetteer — les noms de lieu ne tranchent pas
+  ---
+  duration_ms: 2.93205
+  type: 'suite'
+  ...
+# Subtest: gazetteer — un rôle institutionnel tranche
+    # Subtest: rattache « Ville de Tarnos » à la commune
+    ok 1 - rattache « Ville de Tarnos » à la commune
+      ---
+      duration_ms: 0.512046
+      type: 'test'
+      ...
+    # Subtest: rattache « Mairie de Gradignan » malgré la graphie
+    ok 2 - rattache « Mairie de Gradignan » malgré la graphie
+      ---
+      duration_ms: 3.839957
+      type: 'test'
+      ...
+    1..2
+ok 140 - gazetteer — un rôle institutionnel tranche
+  ---
+  duration_ms: 4.689504
+  type: 'suite'
+  ...
+# Subtest: gazetteer — les noms génériques ne décident pas
+    # Subtest: ne rattache rien sur « Ecole primaire » seul
+    ok 1 - ne rattache rien sur « Ecole primaire » seul
+      ---
+      duration_ms: 0.281872
+      type: 'test'
+      ...
+    # Subtest: rattache quand le nom est distinctif
+    ok 2 - rattache quand le nom est distinctif
+      ---
+      duration_ms: 0.385119
+      type: 'test'
+      ...
+    1..2
+ok 141 - gazetteer — les noms génériques ne décident pas
+  ---
+  duration_ms: 1.193234
+  type: 'suite'
+  ...
+# Subtest: gazetteer — l'ambiguïté se départage sur des indices
+    # Subtest: départage deux établissements homonymes par la commune citée
+    ok 1 - départage deux établissements homonymes par la commune citée
+      ---
+      duration_ms: 0.662615
+      type: 'test'
+      ...
+    # Subtest: reste ambigu quand rien ne départage, et rend les candidats
+    ok 2 - reste ambigu quand rien ne départage, et rend les candidats
+      ---
+      duration_ms: 0.248401
+      type: 'test'
+      ...
+    # Subtest: reste ambigu entre deux entreprises homonymes
+    ok 3 - reste ambigu entre deux entreprises homonymes
+      ---
+      duration_ms: 0.188716
+      type: 'test'
+      ...
+    1..3
+ok 142 - gazetteer — l'ambiguïté se départage sur des indices
+  ---
+  duration_ms: 1.594521
+  type: 'suite'
+  ...
+# Subtest: gazetteer — un territoire n'est pas une organisation victime
+    # Subtest: ne rattache pas à une commune citée parmi sept autres
+    ok 1 - ne rattache pas à une commune citée parmi sept autres
+      ---
+      duration_ms: 0.277397
+      type: 'test'
+      ...
+    # Subtest: ne rattache pas à l'intercommunalité sur un nom de lieu
+    ok 2 - ne rattache pas à l'intercommunalité sur un nom de lieu
+      ---
+      duration_ms: 0.152692
+      type: 'test'
+      ...
+    # Subtest: rattache quand le rôle de tête est explicite
+    ok 3 - rattache quand le rôle de tête est explicite
+      ---
+      duration_ms: 0.120858
+      type: 'test'
+      ...
+    # Subtest: ne prend pas un département cité pour une victime
+    ok 4 - ne prend pas un département cité pour une victime
+      ---
+      duration_ms: 0.087659
+      type: 'test'
+      ...
+    1..4
+ok 143 - gazetteer — un territoire n'est pas une organisation victime
+  ---
+  duration_ms: 0.851933
+  type: 'suite'
+  ...
+# Subtest: gazetteer — porte d'admission
+    # Subtest: un nom distinctif suffit à désigner une organisation
+    ok 1 - un nom distinctif suffit à désigner une organisation
+      ---
+      duration_ms: 0.304747
+      type: 'test'
+      ...
+    # Subtest: un nom générique ne désigne personne
+    ok 2 - un nom générique ne désigne personne
+      ---
+      duration_ms: 0.101355
+      type: 'test'
+      ...
+    1..2
+ok 144 - gazetteer — porte d'admission
+  ---
+  duration_ms: 0.50668
+  type: 'suite'
+  ...
+# Subtest: porte de pertinence — régression du référentiel étendu
+    # Subtest: refuse un article qui ne cite qu'un nom de catégorie
+    ok 1 - refuse un article qui ne cite qu'un nom de catégorie
+      ---
+      duration_ms: 1.145956
+      type: 'test'
+      ...
+    # Subtest: continue d'accepter un nom propre
+    ok 2 - continue d'accepter un nom propre
+      ---
+      duration_ms: 0.210746
+      type: 'test'
+      ...
+    # Subtest: continue d'accepter un mot-clé cyber, sans organisation
+    ok 3 - continue d'accepter un mot-clé cyber, sans organisation
+      ---
+      duration_ms: 0.116507
+      type: 'test'
+      ...
+    1..3
+ok 145 - porte de pertinence — régression du référentiel étendu
+  ---
+  duration_ms: 1.600457
+  type: 'suite'
+  ...
+# Subtest: matchOrgForTextFromList — même moteur que la production
+    # Subtest: rattache un nom à deux jetons
+    ok 1 - rattache un nom à deux jetons
+      ---
+      duration_ms: 0.549797
+      type: 'test'
+      ...
+    # Subtest: ne rend rien sur un texte sans rapport
+    ok 2 - ne rend rien sur un texte sans rapport
+      ---
+      duration_ms: 0.22569
+      type: 'test'
+      ...
+    # Subtest: normalise accents et casse comme le moteur d'alias
+    ok 3 - normalise accents et casse comme le moteur d'alias
+      ---
+      duration_ms: 0.66405
+      type: 'test'
+      ...
+    1..3
+ok 146 - matchOrgForTextFromList — même moteur que la production
+  ---
+  duration_ms: 1.563889
+  type: 'suite'
+  ...
+# Subtest: une organisation jamais vue n'invente pas d'historique
+ok 147 - une organisation jamais vue n'invente pas d'historique
+  ---
+  duration_ms: 1.375578
+  type: 'test'
+  ...
+# Subtest: un fait relayé par cinq sources reste un fait dans l'histogramme
+ok 148 - un fait relayé par cinq sources reste un fait dans l'histogramme
+  ---
+  duration_ms: 0.787103
+  type: 'test'
+  ...
+# Subtest: une organisation qui apparaît maintenant est « nouveau »
+ok 149 - une organisation qui apparaît maintenant est « nouveau »
+  ---
+  duration_ms: 0.344731
+  type: 'test'
+  ...
+# Subtest: une organisation qu'on n'a pas vue depuis six mois est « ancien »
+ok 150 - une organisation qu'on n'a pas vue depuis six mois est « ancien »
+  ---
+  duration_ms: 8.014108
+  type: 'test'
+  ...
+# Subtest: l'activité qui double est « en hausse », pas « stable »
+ok 151 - l'activité qui double est « en hausse », pas « stable »
+  ---
+  duration_ms: 0.586029
+  type: 'test'
+  ...
+# Subtest: quatre faits ne justifient pas de pourcentage : la tendance reste grossière
+ok 152 - quatre faits ne justifient pas de pourcentage : la tendance reste grossière
+  ---
+  duration_ms: 0.343383
+  type: 'test'
+  ...
+# Subtest: un fait daté dans le futur ne crée pas de barre à venir
+ok 153 - un fait daté dans le futur ne crée pas de barre à venir
+  ---
+  duration_ms: 0.603745
+  type: 'test'
+  ...
+# Subtest: l'histogramme va du plus ancien au plus récent
+ok 154 - l'histogramme va du plus ancien au plus récent
+  ---
+  duration_ms: 1.156301
+  type: 'test'
+  ...
+# Subtest: les familles récurrentes sortent en tête
+ok 155 - les familles récurrentes sortent en tête
+  ---
+  duration_ms: 0.672382
+  type: 'test'
+  ...
+# Subtest: la fenêtre de tendance est bien de deux fois 90 jours
+ok 156 - la fenêtre de tendance est bien de deux fois 90 jours
+  ---
+  duration_ms: 0.531015
+  type: 'test'
+  ...
+# Subtest: HostLimiter espaces appels même hôte
+ok 157 - HostLimiter espaces appels même hôte
+  ---
+  duration_ms: 103.203085
+  type: 'test'
+  ...
+# Subtest: HostLimiter hôte différent non bloqué
+ok 158 - HostLimiter hôte différent non bloqué
+  ---
+  duration_ms: 0.377184
+  type: 'test'
+  ...
+# Subtest: getValidators par défaut undefined
+ok 159 - getValidators par défaut undefined
+  ---
+  duration_ms: 0.163396
+  type: 'test'
+  ...
+# Subtest: setValidators merge partiel etag puis lastModified
+ok 160 - setValidators merge partiel etag puis lastModified
+  ---
+  duration_ms: 0.227977
+  type: 'test'
+  ...
+# Subtest: journal — append-only
+    # Subtest: refuse une mise à jour
+    ok 1 - refuse une mise à jour
+      ---
+      duration_ms: 39.195203
+      type: 'test'
+      ...
+    # Subtest: refuse une suppression
+    ok 2 - refuse une suppression
+      ---
+      duration_ms: 21.553651
+      type: 'test'
+      ...
+    # Subtest: refuse un TRUNCATE
+    ok 3 - refuse un TRUNCATE
+      ---
+      duration_ms: 13.742153
+      type: 'test'
+      ...
+    # Subtest: garde le fait en place après les tentatives
+    ok 4 - garde le fait en place après les tentatives
+      ---
+      duration_ms: 7.107319
+      type: 'test'
+      ...
+    1..4
+ok 161 - journal — append-only
+  ---
+  duration_ms: 83.259713
+  type: 'suite'
+  ...
+# Subtest: journal — bi-temporalité
+    # Subtest: distingue le jour où le fait était vrai du jour où on l'a su
+    ok 1 - distingue le jour où le fait était vrai du jour où on l'a su
+      ---
+      duration_ms: 4.799557
+      type: 'test'
+      ...
+    # Subtest: laisse valid_at vide quand la source ne donne pas de date
+    ok 2 - laisse valid_at vide quand la source ne donne pas de date
+      ---
+      duration_ms: 3.729773
+      type: 'test'
+      ...
+    1..2
+ok 162 - journal — bi-temporalité
+  ---
+  duration_ms: 8.928342
+  type: 'suite'
+  ...
+# Subtest: journal — relire ce qu'on croyait à une date
+    # Subtest: ne rend que les faits connus avant la date demandée
+    ok 1 - ne rend que les faits connus avant la date demandée
+      ---
+      duration_ms: 4.80696
+      type: 'test'
+      ...
+    1..1
+ok 163 - journal — relire ce qu'on croyait à une date
+  ---
+  duration_ms: 5.403189
+  type: 'suite'
+  ...
+# Subtest: journal — le pourquoi est conservé
+    # Subtest: garde le moteur, sa version et la preuve
+    ok 1 - garde le moteur, sa version et la preuve
+      ---
+      duration_ms: 3.017908
+      type: 'test'
+      ...
+    1..1
+ok 164 - journal — le pourquoi est conservé
+  ---
+  duration_ms: 3.551755
+  type: 'suite'
+  ...
+# Subtest: journal — écriture groupée
+    # Subtest: consigne N faits en une requête
+    ok 1 - consigne N faits en une requête
+      ---
+      duration_ms: 5.125539
+      type: 'test'
+      ...
+    # Subtest: ne fait rien sur une liste vide
+    ok 2 - ne fait rien sur une liste vide
+      ---
+      duration_ms: 0.539901
+      type: 'test'
+      ...
+    1..2
+ok 165 - journal — écriture groupée
+  ---
+  duration_ms: 5.996271
+  type: 'suite'
+  ...
+# Subtest: journal — robustesse
+    # Subtest: ne lève pas quand l'écriture échoue, et rend l'erreur
+    ok 1 - ne lève pas quand l'écriture échoue, et rend l'erreur
+      ---
+      duration_ms: 0.526772
+      type: 'test'
+      ...
+    1..1
+ok 166 - journal — robustesse
+  ---
+  duration_ms: 0.649609
+  type: 'suite'
+  ...
+# Subtest: un pays déclaré par la source tranche la zone
+ok 167 - un pays déclaré par la source tranche la zone
+  ---
+  duration_ms: 31.521001
+  type: 'test'
+  ...
+# Subtest: sans pays, seul un indice français net vaut
+ok 168 - sans pays, seul un indice français net vaut
+  ---
+  duration_ms: 0.545799
+  type: 'test'
+  ...
+# Subtest: une ville du référentiel rattache à la région, si elle est longue
+ok 169 - une ville du référentiel rattache à la région, si elle est longue
+  ---
+  duration_ms: 0.376353
+  type: 'test'
+  ...
+# Subtest: la voie de chargement suit la forme du nom, sans prétendre décider
+ok 170 - la voie de chargement suit la forme du nom, sans prétendre décider
+  ---
+  duration_ms: 0.974425
+  type: 'test'
+  ...
+# Subtest: la clé de comparaison ne confond pas deux entités distinctes
+ok 171 - la clé de comparaison ne confond pas deux entités distinctes
+  ---
+  duration_ms: 0.340282
+  type: 'test'
+  ...
+# Subtest: la liste écarte ce qui existe déjà au référentiel
+ok 172 - la liste écarte ce qui existe déjà au référentiel
+  ---
+  duration_ms: 19.381111
+  type: 'test'
+  ...
+# Subtest: le hors-zone est marqué, pas supprimé
+ok 173 - le hors-zone est marqué, pas supprimé
+  ---
+  duration_ms: 3.004408
+  type: 'test'
+  ...
+# Subtest: chaque manque porte une provenance et une voie
+ok 174 - chaque manque porte une provenance et une voie
+  ---
+  duration_ms: 3.128805
+  type: 'test'
+  ...
+# Subtest: normalize retire accents, ligatures et ponctuation
+ok 175 - normalize retire accents, ligatures et ponctuation
+  ---
+  duration_ms: 2.603921
+  type: 'test'
+  ...
+# Subtest: tokenize rend une liste vide pour un texte sans lettre ni chiffre
+ok 176 - tokenize rend une liste vide pour un texte sans lettre ni chiffre
+  ---
+  duration_ms: 1.132312
+  type: 'test'
+  ...
+# Subtest: hasInstitutionalContext reconnaît mots, locutions et formes juridiques
+ok 177 - hasInstitutionalContext reconnaît mots, locutions et formes juridiques
+  ---
+  duration_ms: 0.670941
+  type: 'test'
+  ...
+# Subtest: une forme juridique n'est un marqueur qu'en capitales
+ok 178 - une forme juridique n'est un marqueur qu'en capitales
+  ---
+  duration_ms: 0.293461
+  type: 'test'
+  ...
+# Subtest: buildAliasIndex écarte les domaines et les alias trop courts
+ok 179 - buildAliasIndex écarte les domaines et les alias trop courts
+  ---
+  duration_ms: 0.54753
+  type: 'test'
+  ...
+# Subtest: un alias mono-jeton reste sous le seuil d'application automatique
+ok 180 - un alias mono-jeton reste sous le seuil d'application automatique
+  ---
+  duration_ms: 0.188831
+  type: 'test'
+  ...
+# Subtest: un alias long rattache sans contexte institutionnel
+ok 181 - un alias long rattache sans contexte institutionnel
+  ---
+  duration_ms: 1.402799
+  type: 'test'
+  ...
+# Subtest: pas de sous-chaîne nue : un alias ne matche pas à l'intérieur d'un mot
+ok 182 - pas de sous-chaîne nue : un alias ne matche pas à l'intérieur d'un mot
+  ---
+  duration_ms: 0.270911
+  type: 'test'
+  ...
+# Subtest: un alias court sans contexte institutionnel est refusé et signalé
+ok 183 - un alias court sans contexte institutionnel est refusé et signalé
+  ---
+  duration_ms: 0.578361
+  type: 'test'
+  ...
+# Subtest: un alias court avec contexte institutionnel est accepté
+ok 184 - un alias court avec contexte institutionnel est accepté
+  ---
+  duration_ms: 0.562147
+  type: 'test'
+  ...
+# Subtest: l'alias le plus long l'emporte sur un alias plus court d'une autre org
+ok 185 - l'alias le plus long l'emporte sur un alias plus court d'une autre org
+  ---
+  duration_ms: 0.282855
+  type: 'test'
+  ...
+# Subtest: deux organisations à force égale : aucune décision, candidats exposés
+ok 186 - deux organisations à force égale : aucune décision, candidats exposés
+  ---
+  duration_ms: 0.376775
+  type: 'test'
+  ...
+# Subtest: texte vide : motif explicite
+ok 187 - texte vide : motif explicite
+  ---
+  duration_ms: 0.226939
+  type: 'test'
+  ...
+# Subtest: index vide : jamais de correspondance
+ok 188 - index vide : jamais de correspondance
+  ---
+  duration_ms: 0.151223
+  type: 'test'
+  ...
+# Subtest: deriveAliases produit nom nettoyé, nom sans forme juridique et sigle
+ok 189 - deriveAliases produit nom nettoyé, nom sans forme juridique et sigle
+  ---
+  duration_ms: 0.45264
+  type: 'test'
+  ...
+# Subtest: deriveAliases retire la forme juridique et le segment entre parenthèses
+ok 190 - deriveAliases retire la forme juridique et le segment entre parenthèses
+  ---
+  duration_ms: 0.28015
+  type: 'test'
+  ...
+# Subtest: deriveAliases ne fabrique pas de sigle à partir de deux mots
+ok 191 - deriveAliases ne fabrique pas de sigle à partir de deux mots
+  ---
+  duration_ms: 0.160735
+  type: 'test'
+  ...
+# Subtest: selectUnambiguousAliases écarte un alias partagé des deux côtés
+ok 192 - selectUnambiguousAliases écarte un alias partagé des deux côtés
+  ---
+  duration_ms: 0.304163
+  type: 'test'
+  ...
+# Subtest: selectUnambiguousAliases refuse un candidat déjà possédé par une autre org
+ok 193 - selectUnambiguousAliases refuse un candidat déjà possédé par une autre org
+  ---
+  duration_ms: 0.166714
+  type: 'test'
+  ...
+# Subtest: selectUnambiguousAliases compare les alias normalisés
+ok 194 - selectUnambiguousAliases compare les alias normalisés
+  ---
+  duration_ms: 0.199432
+  type: 'test'
+  ...
+# Subtest: selectUnambiguousAliases garde un alias déjà possédé par la même org
+ok 195 - selectUnambiguousAliases garde un alias déjà possédé par la même org
+  ---
+  duration_ms: 0.340266
+  type: 'test'
+  ...
+# Subtest: le filet rattrape une faute de frappe que le cœur manque
+ok 196 - le filet rattrape une faute de frappe que le cœur manque
+  ---
+  duration_ms: 2.520844
+  type: 'test'
+  ...
+# Subtest: le filet rattrape un accent ou un pluriel égaré
+ok 197 - le filet rattrape un accent ou un pluriel égaré
+  ---
+  duration_ms: 0.696131
+  type: 'test'
+  ...
+# Subtest: la confiance reste sous le seuil d'application automatique
+ok 198 - la confiance reste sous le seuil d'application automatique
+  ---
+  duration_ms: 0.408393
+  type: 'test'
+  ...
+# Subtest: un alias mono-jeton approchant exige un contexte institutionnel
+ok 199 - un alias mono-jeton approchant exige un contexte institutionnel
+  ---
+  duration_ms: 0.579621
+  type: 'test'
+  ...
+# Subtest: deux organisations à égalité : le filet ne choisit pas
+ok 200 - deux organisations à égalité : le filet ne choisit pas
+  ---
+  duration_ms: 0.879871
+  type: 'test'
+  ...
+# Subtest: sous le seuil, aucune correspondance n'est proposée
+ok 201 - sous le seuil, aucune correspondance n'est proposée
+  ---
+  duration_ms: 0.358633
+  type: 'test'
+  ...
+# Subtest: le seuil est réglable et durci sans effet de bord
+ok 202 - le seuil est réglable et durci sans effet de bord
+  ---
+  duration_ms: 0.428006
+  type: 'test'
+  ...
+# Subtest: texte vide et index vide : jamais de correspondance
+ok 203 - texte vide et index vide : jamais de correspondance
+  ---
+  duration_ms: 0.192682
+  type: 'test'
+  ...
+# Subtest: un alias exact reste du ressort du cœur, pas du filet
+ok 204 - un alias exact reste du ressort du cœur, pas du filet
+  ---
+  duration_ms: 0.669926
+  type: 'test'
+  ...
+# Subtest: le motif de rejet dominant est celui qui coûte le plus
+ok 205 - le motif de rejet dominant est celui qui coûte le plus
+  ---
+  duration_ms: 171.217558
+  type: 'test'
+  ...
+# Subtest: un run sans motif mesuré rend null, pas un objet vide
+ok 206 - un run sans motif mesuré rend null, pas un objet vide
+  ---
+  duration_ms: 5.229816
+  type: 'test'
+  ...
+# Subtest: la migration 029 est idempotente et rétrocompatible
+ok 207 - la migration 029 est idempotente et rétrocompatible
+  ---
+  duration_ms: 3.006435
+  type: 'test'
+  ...
+# Subtest: un événement collecté produit une alerte sans passer par la quarantaine
+ok 208 - un événement collecté produit une alerte sans passer par la quarantaine
+  ---
+  duration_ms: 60.039685
+  type: 'test'
+  ...
+# Subtest: le rejeu du même lot ne crée pas de doublon
+ok 209 - le rejeu du même lot ne crée pas de doublon
+  ---
+  duration_ms: 4.809077
+  type: 'test'
+  ...
+# {"detect":"alert_skipped_below_threshold","event_id":35,"score":63,"threshold":65,"components":{"source_reliability":1,"assertion_strength":1,"attachment_quality":0.15,"corroboration":0},"distinct_sources":0,"rule_ids":["incident-confirme"]}
+# Subtest: rattachement tardif : l'événement évalué sans org finit par alerter
+ok 210 - rattachement tardif : l'événement évalué sans org finit par alerter
+  ---
+  duration_ms: 19.238021
+  type: 'test'
+  ...
+# Subtest: le canal temps réel sélectionne les nouvelles alertes, sans les TLP:RED
+ok 211 - le canal temps réel sélectionne les nouvelles alertes, sans les TLP:RED
+  ---
+  duration_ms: 16.736946
+  type: 'test'
+  ...
+# Subtest: différentiel : 500 revendications réelles, résultat identique
+ok 212 - différentiel : 500 revendications réelles, résultat identique
+  ---
+  duration_ms: 39.641261
+  type: 'test'
+  ...
+# Subtest: différentiel : jeu d'or de rattachement, résultat identique
+ok 213 - différentiel : jeu d'or de rattachement, résultat identique
+  ---
+  duration_ms: 6.130207
+  type: 'test'
+  ...
+# Subtest: différentiel : indices constrits pour chaque chemin du moteur
+ok 214 - différentiel : indices constrits pour chaque chemin du moteur
+  ---
+  duration_ms: 2.459739
+  type: 'test'
+  ...
+# Subtest: différentiel non vide : des rattachements positifs sont préservés
+ok 215 - différentiel non vide : des rattachements positifs sont préservés
+  ---
+  duration_ms: 137.781083
+  type: 'test'
+  ...
+# Subtest: indice sans jeton exploitable : repli sur l'index complet
+ok 216 - indice sans jeton exploitable : repli sur l'index complet
+  ---
+  duration_ms: 1.645154
+  type: 'test'
+  ...
+# Subtest: le préfiltre réduit le travail de façon déterministe
+ok 217 - le préfiltre réduit le travail de façon déterministe
+  ---
+  duration_ms: 3.784834
+  type: 'test'
+  ...
+# Subtest: la file remontée en tête les faits actionnables, pas les plus récents
+ok 218 - la file remontée en tête les faits actionnables, pas les plus récents
+  ---
+  duration_ms: 59.862223
+  type: 'test'
+  ...
+# Subtest: filtre par seau et pagination
+ok 219 - filtre par seau et pagination
+  ---
+  duration_ms: 12.227862
+  type: 'test'
+  ...
+# Subtest: rejet groupé : statut, journal et motif
+ok 220 - rejet groupé : statut, journal et motif
+  ---
+  duration_ms: 16.511518
+  type: 'test'
+  ...
+# Subtest: annulation : retour en attente, journal conservé
+ok 221 - annulation : retour en attente, journal conservé
+  ---
+  duration_ms: 5.315481
+  type: 'test'
+  ...
+# Subtest: promotion : événement créé, rejeu sans doublon, annulation refusée
+ok 222 - promotion : événement créé, rejeu sans doublon, annulation refusée
+  ---
+  duration_ms: 43.330225
+  type: 'test'
+  ...
+# Subtest: le journal de revue sort de la quarantaine, jamais dans le contenu extrait
+ok 223 - le journal de revue sort de la quarantaine, jamais dans le contenu extrait
+  ---
+  duration_ms: 8.244959
+  type: 'test'
+  ...
+# Subtest: sélection vide : rien n'est fait, rien ne plante
+ok 224 - sélection vide : rien n'est fait, rien ne plante
+  ---
+  duration_ms: 0.317968
+  type: 'test'
+  ...
+# Subtest: titre structuré : le pays déclaré est extrait
+ok 225 - titre structuré : le pays déclaré est extrait
+  ---
+  duration_ms: 1.379497
+  type: 'test'
+  ...
+# Subtest: rattachement fort et récent : chaud, suggestion de promotion
+ok 226 - rattachement fort et récent : chaud, suggestion de promotion
+  ---
+  duration_ms: 1.01259
+  type: 'test'
+  ...
+# Subtest: pays déclaré hors France : jamais suggéré à la promotion
+ok 227 - pays déclaré hors France : jamais suggéré à la promotion
+  ---
+  duration_ms: 0.474206
+  type: 'test'
+  ...
+# Subtest: pays déclaré France : remonte nettement
+ok 228 - pays déclaré France : remonte nettement
+  ---
+  duration_ms: 0.198711
+  type: 'test'
+  ...
+# Subtest: désaccord entre moteurs : revue obligatoire, même avec un score élevé
+ok 229 - désaccord entre moteurs : revue obligatoire, même avec un score élevé
+  ---
+  duration_ms: 0.360785
+  type: 'test'
+  ...
+# Subtest: moteur fort muet sur l'autre : désaccord aussi
+ok 230 - moteur fort muet sur l'autre : désaccord aussi
+  ---
+  duration_ms: 0.15289
+  type: 'test'
+  ...
+# Subtest: indice vide : rejet, score plancher
+ok 231 - indice vide : rejet, score plancher
+  ---
+  duration_ms: 0.206907
+  type: 'test'
+  ...
+# Subtest: domaine seul : signalé comme tel
+ok 232 - domaine seul : signalé comme tel
+  ---
+  duration_ms: 0.160272
+  type: 'test'
+  ...
+# Subtest: fraîcheur : c'est l'arrivée dans la file qui compte, pas la publication
+ok 233 - fraîcheur : c'est l'arrivée dans la file qui compte, pas la publication
+  ---
+  duration_ms: 0.608497
+  type: 'test'
+  ...
+# Subtest: trou du référentiel : indice français sans correspondance, à ajouter
+ok 234 - trou du référentiel : indice français sans correspondance, à ajouter
+  ---
+  duration_ms: 0.424341
+  type: 'test'
+  ...
+# Subtest: score borné entre 0 et 100
+ok 235 - score borné entre 0 et 100
+  ---
+  duration_ms: 0.280066
+  type: 'test'
+  ...
+# Subtest: ordre de file : score, puis date, puis identifiant
+ok 236 - ordre de file : score, puis date, puis identifiant
+  ---
+  duration_ms: 0.717638
+  type: 'test'
+  ...
+# Subtest: corpus réel : aucune revendication étrangère déclarée n'est promue
+ok 237 - corpus réel : aucune revendication étrangère déclarée n'est promue
+  ---
+  duration_ms: 6.861821
+  type: 'test'
+  ...
+# Subtest: matchOrg : domaine exact
+ok 238 - matchOrg : domaine exact
+  ---
+  duration_ms: 35.113813
+  type: 'test'
+  ...
+# Subtest: matchOrg : nom normalisé (accents, casse, ponctuation)
+ok 239 - matchOrg : nom normalisé (accents, casse, ponctuation)
+  ---
+  duration_ms: 2.571612
+  type: 'test'
+  ...
+# Subtest: matchOrg : ville + nom
+ok 240 - matchOrg : ville + nom
+  ---
+  duration_ms: 2.147753
+  type: 'test'
+  ...
+# Subtest: matchOrg : négatifs (vide, inconnu, ville seule)
+ok 241 - matchOrg : négatifs (vide, inconnu, ville seule)
+  ---
+  duration_ms: 4.398164
+  type: 'test'
+  ...
+# Subtest: promotion automatique : promotion, événement, alerte, idempotence
+ok 242 - promotion automatique : promotion, événement, alerte, idempotence
+  ---
+  duration_ms: 41.483645
+  type: 'test'
+  ...
+# Subtest: promotion automatique : dryRun n'écrit rien
+ok 243 - promotion automatique : dryRun n'écrit rien
+  ---
+  duration_ms: 4.522074
+  type: 'test'
+  ...
+# Subtest: promotion manuelle : promoteOne, idempotence, introuvable
+ok 244 - promotion manuelle : promoteOne, idempotence, introuvable
+  ---
+  duration_ms: 11.967947
+  type: 'test'
+  ...
+# Subtest: route : lectures protégées par jeton
+ok 245 - route : lectures protégées par jeton
+  ---
+  duration_ms: 128.150288
+  type: 'test'
+  ...
+# Subtest: route : org rapprochée exposée sur le fait
+ok 246 - route : org rapprochée exposée sur le fait
+  ---
+  duration_ms: 13.107157
+  type: 'test'
+  ...
+# Subtest: loadOrgIndex : charge les organisations actives
+ok 247 - loadOrgIndex : charge les organisations actives
+  ---
+  duration_ms: 1.421143
+  type: 'test'
+  ...
+# Subtest: une explication fait l'aller-retour par la preuve
+ok 248 - une explication fait l'aller-retour par la preuve
+  ---
+  duration_ms: 1.417518
+  type: 'test'
+  ...
+# Subtest: les candidats à égalité sont conservés
+ok 249 - les candidats à égalité sont conservés
+  ---
+  duration_ms: 0.307762
+  type: 'test'
+  ...
+# Subtest: un index indisponible n'est pas un échec de rattachement
+ok 250 - un index indisponible n'est pas un échec de rattachement
+  ---
+  duration_ms: 0.215088
+  type: 'test'
+  ...
+# Subtest: une preuve d'avant le chantier ne casse rien
+ok 251 - une preuve d'avant le chantier ne casse rien
+  ---
+  duration_ms: 0.277735
+  type: 'test'
+  ...
+# Subtest: chaque motif connu a un libellé qui dit pourquoi, pas combien
+ok 252 - chaque motif connu a un libellé qui dit pourquoi, pas combien
+  ---
+  duration_ms: 0.546165
+  type: 'test'
+  ...
+# Subtest: nomDistinctif
+    # Subtest: écarte les noms de catégorie que des centaines d'écoles partagent
+    ok 1 - écarte les noms de catégorie que des centaines d'écoles partagent
+      ---
+      duration_ms: 1.650698
+      type: 'test'
+      ...
+    # Subtest: garde les noms qui désignent réellement une organisation
+    ok 2 - garde les noms qui désignent réellement une organisation
+      ---
+      duration_ms: 0.331633
+      type: 'test'
+      ...
+    # Subtest: refuse un nom d'un seul jeton : illisible hors de sa ville
+    ok 3 - refuse un nom d'un seul jeton : illisible hors de sa ville
+      ---
+      duration_ms: 0.166593
+      type: 'test'
+      ...
+    1..3
+ok 253 - nomDistinctif
+  ---
+  duration_ms: 3.149411
+  type: 'suite'
+  ...
+# Subtest: nomsCommerciaux
+    # Subtest: extrait les enseignes enfouies entre parenthèses
+    ok 1 - extrait les enseignes enfouies entre parenthèses
+      ---
+      duration_ms: 1.023981
+      type: 'test'
+      ...
+    # Subtest: ne rend rien quand il n'y a pas d'enseigne
+    ok 2 - ne rend rien quand il n'y a pas d'enseigne
+      ---
+      duration_ms: 0.177899
+      type: 'test'
+      ...
+    1..2
+ok 254 - nomsCommerciaux
+  ---
+  duration_ms: 1.534457
+  type: 'suite'
+  ...
+# Subtest: familleNaf
+    # Subtest: nomme les secteurs que la région emploie vraiment
+    ok 1 - nomme les secteurs que la région emploie vraiment
+      ---
+      duration_ms: 0.377941
+      type: 'test'
+      ...
+    1..1
+ok 255 - familleNaf
+  ---
+  duration_ms: 0.713481
+  type: 'suite'
+  ...
+# Subtest: secteurDeType
+    # Subtest: ramène les libellés FINESS bavards à une famille de facette
+    ok 1 - ramène les libellés FINESS bavards à une famille de facette
+      ---
+      duration_ms: 0.351552
+      type: 'test'
+      ...
+    1..1
+ok 256 - secteurDeType
+  ---
+  duration_ms: 0.625979
+  type: 'suite'
+  ...
+# Subtest: planReferentielEtendu
+    # Subtest: reconstruit les coordonnées depuis la commune quand la source les omet
+    ok 1 - reconstruit les coordonnées depuis la commune quand la source les omet
+      ---
+      duration_ms: 1.016107
+      type: 'test'
+      ...
+    # Subtest: laisse vide quand la commune elle-même n'a pas de centroïde
+    ok 2 - laisse vide quand la commune elle-même n'a pas de centroïde
+      ---
+      duration_ms: 0.357148
+      type: 'test'
+      ...
+    # Subtest: n'arme pas le moteur avec un nom générique, sans perdre le nom
+    ok 3 - n'arme pas le moteur avec un nom générique, sans perdre le nom
+      ---
+      duration_ms: 0.422897
+      type: 'test'
+      ...
+    # Subtest: identifie chaque établissement par son code officiel
+    ok 4 - identifie chaque établissement par son code officiel
+      ---
+      duration_ms: 0.464158
+      type: 'test'
+      ...
+    # Subtest: charge une entreprise avec son SIREN, son NAF et ses enseignes
+    ok 5 - charge une entreprise avec son SIREN, son NAF et ses enseignes
+      ---
+      duration_ms: 0.508308
+      type: 'test'
+      ...
+    1..5
+ok 257 - planReferentielEtendu
+  ---
+  duration_ms: 3.020363
+  type: 'suite'
+  ...
+# Subtest: dry-run : rien n'est écrit
+ok 258 - dry-run : rien n'est écrit
+  ---
+  duration_ms: 27.970368
+  type: 'test'
+  ...
+# Subtest: chargement puis rejeu : aucun doublon d'organisation ni d'alias
+ok 259 - chargement puis rejeu : aucun doublon d'organisation ni d'alias
+  ---
+  duration_ms: 29.366417
+  type: 'test'
+  ...
+# Subtest: SIREN commun : rattachement à l'organisation existante, pas de doublon
+ok 260 - SIREN commun : rattachement à l'organisation existante, pas de doublon
+  ---
+  duration_ms: 18.098528
+  type: 'test'
+  ...
+# Subtest: rechargement : un nom corrigé par un analyste n'est pas écrasé
+ok 261 - rechargement : un nom corrigé par un analyste n'est pas écrasé
+  ---
+  duration_ms: 12.516906
+  type: 'test'
+  ...
+# Subtest: alias de commune : nom nu, formes institutionnelles, contractions, élision
+ok 262 - alias de commune : nom nu, formes institutionnelles, contractions, élision
+  ---
+  duration_ms: 1.758871
+  type: 'test'
+  ...
+# Subtest: abréviations Saint/Sainte : seulement sous forme institutionnelle
+ok 263 - abréviations Saint/Sainte : seulement sous forme institutionnelle
+  ---
+  duration_ms: 0.251457
+  type: 'test'
+  ...
+# Subtest: commune déléguée : son nom devient un alias du parent
+ok 264 - commune déléguée : son nom devient un alias du parent
+  ---
+  duration_ms: 0.484725
+  type: 'test'
+  ...
+# Subtest: EPCI : le type abrégé est développé en nom complet
+ok 265 - EPCI : le type abrégé est développé en nom complet
+  ---
+  duration_ms: 0.260712
+  type: 'test'
+  ...
+# Subtest: départements : l'article contracté est le bon
+ok 266 - départements : l'article contracté est le bon
+  ---
+  duration_ms: 0.232833
+  type: 'test'
+  ...
+# Subtest: plan réel : 4 462 organisations, toutes géocodées
+ok 267 - plan réel : 4 462 organisations, toutes géocodées
+  ---
+  duration_ms: 0.220642
+  type: 'test'
+  ...
+# Subtest: plan réel : chaque organisation porte son propre nom en alias
+ok 268 - plan réel : chaque organisation porte son propre nom en alias
+  ---
+  duration_ms: 33.494389
+  type: 'test'
+  ...
+# Subtest: plan réel : slugs uniques, alias uniques par organisation
+ok 269 - plan réel : slugs uniques, alias uniques par organisation
+  ---
+  duration_ms: 9.818459
+  type: 'test'
+  ...
+# Subtest: plan réel : Bordeaux, Limoges, Pau, Poitiers sont là et bien placés
+ok 270 - plan réel : Bordeaux, Limoges, Pau, Poitiers sont là et bien placés
+  ---
+  duration_ms: 4.017099
+  type: 'test'
+  ...
+# Subtest: parent absent du jeu : avertissement, pas de crash ni d'org fantôme
+ok 271 - parent absent du jeu : avertissement, pas de crash ni d'org fantôme
+  ---
+  duration_ms: 0.969988
+  type: 'test'
+  ...
+# Subtest: échelle réelle : une commune se rattache par sa mairie
+ok 272 - échelle réelle : une commune se rattache par sa mairie
+  ---
+  duration_ms: 1.128493
+  type: 'test'
+  ...
+# Subtest: échelle réelle : le piège de sous-chaîne est évité
+ok 273 - échelle réelle : le piège de sous-chaîne est évité
+  ---
+  duration_ms: 0.603498
+  type: 'test'
+  ...
+# Subtest: échelle réelle : un nom communal homonyme est refusé, pas deviné
+ok 274 - échelle réelle : un nom communal homonyme est refusé, pas deviné
+  ---
+  duration_ms: 1.04045
+  type: 'test'
+  ...
+# Subtest: échelle réelle : nom nu sans contexte institutionnel n'attache pas
+ok 275 - échelle réelle : nom nu sans contexte institutionnel n'attache pas
+  ---
+  duration_ms: 0.482996
+  type: 'test'
+  ...
+# Subtest: titre cyber FR accepté par keyword
+ok 276 - titre cyber FR accepté par keyword
+  ---
+  duration_ms: 1.364653
+  type: 'test'
+  ...
+# Subtest: titre people rejeté
+ok 277 - titre people rejeté
+  ---
+  duration_ms: 0.34545
+  type: 'test'
+  ...
+# Subtest: mention domaine org acceptée par org
+ok 278 - mention domaine org acceptée par org
+  ---
+  duration_ms: 1.027958
+  type: 'test'
+  ...
+# Subtest: accents/casse ignorés
+ok 279 - accents/casse ignorés
+  ---
+  duration_ms: 0.186167
+  type: 'test'
+  ...
+# Subtest: matchOrgForText: correspondance nette (nom + domaine)
+ok 280 - matchOrgForText: correspondance nette (nom + domaine)
+  ---
+  duration_ms: 2.406042
+  type: 'test'
+  ...
+# Subtest: matchOrgForText: deux candidats plausibles => null (ambigu)
+ok 281 - matchOrgForText: deux candidats plausibles => null (ambigu)
+  ---
+  duration_ms: 0.634777
+  type: 'test'
+  ...
+# Subtest: matchOrgForText: texte sans rapport => null
+ok 282 - matchOrgForText: texte sans rapport => null
+  ---
+  duration_ms: 0.51924
+  type: 'test'
+  ...
+# Subtest: matchOrgForText: jetons trop courts/stopwords ignorés => null
+ok 283 - matchOrgForText: jetons trop courts/stopwords ignorés => null
+  ---
+  duration_ms: 0.240755
+  type: 'test'
+  ...
+# Subtest: état d'un run : erreur prime, puis production, puis silence
+ok 284 - état d'un run : erreur prime, puis production, puis silence
+  ---
+  duration_ms: 20.164216
+  type: 'test'
+  ...
+# Subtest: une panne n'est effacée que par un run réussi
+ok 285 - une panne n'est effacée que par un run réussi
+  ---
+  duration_ms: 0.421724
+  type: 'test'
+  ...
+# Subtest: les quatre transitions, et rien d'autre
+ok 286 - les quatre transitions, et rien d'autre
+  ---
+  duration_ms: 0.261793
+  type: 'test'
+  ...
+# Subtest: l'assoupissement est consigné comme un fait, une fois
+ok 287 - l'assoupissement est consigné comme un fait, une fois
+  ---
+  duration_ms: 21.469626
+  type: 'test'
+  ...
+# Subtest: un état stable ne produit aucun fait
+ok 288 - un état stable ne produit aucun fait
+  ---
+  duration_ms: 2.95654
+  type: 'test'
+  ...
+# Subtest: le réveil est consigné
+ok 289 - le réveil est consigné
+  ---
+  duration_ms: 3.177589
+  type: 'test'
+  ...
+# Subtest: médiane : les valeurs non finies sont écartées, jamais propagées
+ok 290 - médiane : les valeurs non finies sont écartées, jamais propagées
+  ---
+  duration_ms: 0.937508
+  type: 'test'
+  ...
+# Subtest: tri de revue : une date invalide ne produit pas un ordre aléatoire
+ok 291 - tri de revue : une date invalide ne produit pas un ordre aléatoire
+  ---
+  duration_ms: 0.956416
+  type: 'test'
+  ...
+# Subtest: décodage : une page windows-1252 sans charset n'est plus corrompue en silence
+ok 292 - décodage : une page windows-1252 sans charset n'est plus corrompue en silence
+  ---
+  duration_ms: 0.617029
+  type: 'test'
+  ...
+# Subtest: rétention : un événement cité par une alerte survit, les autres partent
+ok 293 - rétention : un événement cité par une alerte survit, les autres partent
+  ---
+  duration_ms: 60.017513
+  type: 'test'
+  ...
+# Subtest: isOnionUrl reconnaît les hôtes .onion
+ok 294 - isOnionUrl reconnaît les hôtes .onion
+  ---
+  duration_ms: 1.361593
+  type: 'test'
+  ...
+# Subtest: isOnionUrl ignore les URL invalides
+ok 295 - isOnionUrl ignore les URL invalides
+  ---
+  duration_ms: 0.271
+  type: 'test'
+  ...
+# Subtest: fetchResilient rejette une URL .onion sans RADAR_TOR_SOCKS, immédiatement
+ok 296 - fetchResilient rejette une URL .onion sans RADAR_TOR_SOCKS, immédiatement
+  ---
+  duration_ms: 1.36458
+  type: 'test'
+  ...
+# Subtest: fetchResilient sert le clearnet via un serveur local
+ok 297 - fetchResilient sert le clearnet via un serveur local
+  ---
+  duration_ms: 36.100495
+  type: 'test'
+  ...
+# Subtest: une source productive expose son rendement
+ok 298 - une source productive expose son rendement
+  ---
+  duration_ms: 177.661115
+  type: 'test'
+  ...
+# Subtest: une source qui lit sans rendre a un rendement de 0, pas null
+ok 299 - une source qui lit sans rendre a un rendement de 0, pas null
+  ---
+  duration_ms: 4.537574
+  type: 'test'
+  ...
+# Subtest: une source jamais tentée n'est pas « 0 % » : elle est inconnue
+ok 300 - une source jamais tentée n'est pas « 0 % » : elle est inconnue
+  ---
+  duration_ms: 3.945628
+  type: 'test'
+  ...
+# Subtest: la route ne casse pas sur une base sans run ni événement
+ok 301 - la route ne casse pas sur une base sans run ni événement
+  ---
+  duration_ms: 3.133113
+  type: 'test'
+  ...
+# Subtest: une source seule sur un fait est indispensable, même avec un petit volume
+ok 302 - une source seule sur un fait est indispensable, même avec un petit volume
+  ---
+  duration_ms: 1.729375
+  type: 'test'
+  ...
+# Subtest: une source qui suit sans jamais révéler est redondante
+ok 303 - une source qui suit sans jamais révéler est redondante
+  ---
+  duration_ms: 0.453408
+  type: 'test'
+  ...
+# Subtest: le retard médian ne se calcule que sur les faits où l'on arrive après
+ok 304 - le retard médian ne se calcule que sur les faits où l'on arrive après
+  ---
+  duration_ms: 0.529467
+  type: 'test'
+  ...
+# Subtest: l'ordre place d'abord ce qui porte des faits uniques
+ok 305 - l'ordre place d'abord ce qui porte des faits uniques
+  ---
+  duration_ms: 7.389827
+  type: 'test'
+  ...
+# Subtest: aucun fait : aucun classement inventé
+ok 306 - aucun fait : aucun classement inventé
+  ---
+  duration_ms: 1.003812
+  type: 'test'
+  ...
+# Subtest: les versions connues sont documentées et datées
+ok 307 - les versions connues sont documentées et datées
+  ---
+  duration_ms: 0.842052
+  type: 'test'
+  ...
+# Subtest: moteurActifA distingue l'époque
+ok 308 - moteurActifA distingue l'époque
+  ---
+  duration_ms: 0.230426
+  type: 'test'
+  ...
+# Subtest: gazetteer@2 départage sur le département, @1 reste ambigu
+ok 309 - gazetteer@2 départage sur le département, @1 reste ambigu
+  ---
+  duration_ms: 1.961586
+  type: 'test'
+  ...
+# Subtest: gazetteer@2 refuse un lieu-contredit, @1 ne sait pas le faire
+ok 310 - gazetteer@2 refuse un lieu-contredit, @1 ne sait pas le faire
+  ---
+  duration_ms: 0.512039
+  type: 'test'
+  ...
+# Subtest: rejouer avec l'ancien moteur redonne l'état de l'époque
+ok 311 - rejouer avec l'ancien moteur redonne l'état de l'époque
+  ---
+  duration_ms: 0.505248
+  type: 'test'
+  ...
+1..311
+# tests 336
+# suites 19
+# pass 336
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 12353.78972
+[2026-11-13 18:11:05] OK: tests api
+
+=== tests rendu ===
+$ vite build --ssr test/render.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/render.js
+OK   annuaire rendu
+OK   effectif affiché — 38 orgs en démonstration
+OK   première organisation présente
+OK   50 lignes par page par défaut — 38 lignes
+OK   en-tête trié décroissant
+OK   facettes de nature
+OK   pagination une page
+OK   25 lignes si demandé — 25 lignes
+OK   pagination 2 pages à 25
+OK   filtre département lu depuis l'URL
+OK   bouton de partage présent
+OK   mode serveur rendu sans données locales
+OK   URL Aller-retour conserve la vue
+OK   URL Aller-retour conserve la recherche
+OK   URL Aller-retour conserve le département
+OK   URL Aller-retour conserve la page et la taille
+OK   URL Aller-retour conserve la fiche ouverte
+OK   URL par défaut reste courte
+OK   URL invalide neutralisée
+OK   URL invalide : page et fiche rejetées
+OK   lien partageable absolu
+OK   état vide absent
+OK   état vide géré
+OK   état chargement géré
+OK   état erreur géré
+OK   palette rendue
+OK   palette: consigne 3 caractères
+OK   palette fermée ne rend rien
+OK   URL : la vue revue est reconnue
+OK   URL : la vue revue survit à un aller-retour
+OK   clavier : J descend
+OK   clavier : K monte
+OK   clavier : flèches équivalentes
+OK   clavier : bornes respectées
+OK   clavier : P majuscule décide aussi
+OK   clavier : sans sélection, la décision porte sur le fait courant
+OK   clavier : la sélection prime sur le fait courant
+OK   clavier : X coche le fait courant
+OK   clavier : X décoche un fait déjà coché
+OK   clavier : Maj+A coche toute la page
+OK   clavier : a minuscule ne coche pas tout
+OK   clavier : Échap désélectionne
+OK   clavier : R ouvre la saisie du motif
+OK   clavier : aucune décision pendant la saisie du motif
+OK   clavier : Échap ferme la saisie du motif
+OK   clavier : file vide, aucune décision possible
+OK   clavier : U annule la dernière décision
+OK   clavier : touche inconnue sans effet
+OK   revue hors ligne : explique l'exigence d'API
+OK   revue hors ligne : aucune décision simulée
+OK   revue rendue en mode serveur
+OK   revue : raccourcis clavier annoncés
+OK   revue : actions presentes
+OK   revue : compteurs affiches
+OK   revue lecture seule : actions désactivées
+OK   fiche org simulée
+OK   fiche org: exposition 12 mois
+OK   fiche org: événements rattachés — 2 événements
+OK   fiche org: id inconnu → null
+
+Tous les contrôles passent.
+[2026-11-13 18:11:05] OK: tests rendu
+
+=== tests dom ===
+$ vite build --ssr test/review-dom.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/review-dom.js
+OK   monte et charge la file
+OK   affiche le compteur d'attente
+OK   détail du premier fait visible
+OK   trace du score affichée
+OK   trou du référentiel signalé
+OK   J déplace le fait courant
+OK   le détail suit la navigation
+OK   K revient en arrière
+OK   P envoie une promotion du fait courant
+OK   un bandeau de résultat apparaît
+OK   X coche deux faits
+OK   la décision porte sur toute la sélection
+OK   Échap vide la sélection
+OK   R ouvre la saisie du motif
+OK   confirmation désactivée sans motif
+OK   aucune promotion pendant la saisie du motif
+OK   confirmation activée avec motif
+OK   le rejet part avec son motif
+OK   la saisie se referme après décision
+OK   le bandeau propose une annulation
+OK   l'annulation porte exactement sur les faits de la décision annulée
+OK   lecture seule : le clavier ne décide pas
+OK   lecture seule : message explicite
+OK   401 : la session est signalée à l'application
+OK   401 : l'erreur est affichée
+OK   mode démonstration : aucun appel réseau
+
+26/26 contrôles d'interaction.
+Tous les contrôles passent.
+[2026-11-13 18:11:07] OK: tests dom
+
+=== tests sources ===
+$ vite build --ssr test/sources-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/sources-verif.js
+OK   écran rendu
+OK   colonne de rendement présente
+OK   colonne des entrées lues
+OK   synthèse par rendement
+OK   rendement affiché en pourcentage
+OK   une source non mesurée affiche « — », jamais « 0 % »
+OK   la source vide affiche 0 %
+OK   marqueur de rendement posé
+OK   le motif de rejet dominant est affiché — la source vide rejette 34 entrées pour ce motif
+OK   le motif porte son compteur
+OK   les motifs non mesurés sont dits
+OK   colonne d'unicité présente
+OK   l'unicité est chiffrée
+OK   une source qui ne révèle rien est marquée comme telle
+OK   une source jamais évaluée n'est pas notée « 0/0 »
+OK   production reconnue
+OK   lecture sans rendement reconnue
+OK   mutisme reconnu
+OK   absence de mesure reconnue
+OK   stock sans passage récent classé inconnu
+OK   le registre ouvre sur ce qui ne rend rien
+
+sources: tout est vert
+[2026-11-13 18:11:07] OK: tests sources
+
+=== tests inspecteur ===
+$ vite build --ssr test/inspecteur-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/inspecteur-verif.js
+OK   le motif est affiché en clair
+OK   l'alias retenu est visible
+OK   la confiance est en pourcentage
+OK   les candidats écartés sont listés
+OK   un refus de trancher est marqué
+OK   un refus ne prétend pas avoir rattaché
+OK   un index indisponible est dit
+OK   un index indisponible n'est pas un verdict — <section class="inspector__section"><h3 class="inspector__section-title">Rattachement</h3><p class="inspector__why" data-motif="aucun">aucune organisation du référentiel n&#x27;est citée</p><dl class="inspector__meta"><div class="inspector__meta-row"><dt class="inspector__meta-label">Moteur</dt><dd class="inspector__meta-value inspector__mono">gazetteer@2</dd></div></dl><p class="inspector__muted"
+OK   un événement d'avant le chantier est signalé
+OK   un rattachement ancien ne nie pas son motif
+
+inspecteur: tout est vert
+[2026-11-13 18:11:08] OK: tests inspecteur
+
+=== tests fil ===
+$ vite build --ssr test/fil-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/fil-verif.js
+OK   le fil se rend
+OK   une revendication fragile est marquée
+OK   un incident établi est marqué
+OK   la corroboration est chiffrée
+OK   la date de collecte est annoncée
+OK   les raisons sont en infobulle
+OK   une ligne sans métadonnées ne casse rien
+OK   fragile et établi ne se ressemblent pas
+
+fil: tout est vert
+[2026-11-13 18:11:08] OK: tests fil
+
+=== tests corroboration ===
+$ vite build --ssr test/corroboration-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/corroboration-verif.js
+OK   la section se rend
+OK   le nombre de faits est affiché
+OK   les faits corroborés et isolés sont distingués
+OK   un fait établi affiche sa force
+OK   la source qui a révélé le fait est nommée
+OK   le délai de reprise est lisible
+OK   le désaccord est affiché
+OK   les positions opposées sont montrées
+OK   l'absence d'analyse est dite
+OK   l'absence ne prétend pas à zéro fait
+OK   aucun fait est explicite
+OK   aucun désaccord n'affiche pas de sous-titre
+OK   l'historique affiche sa profondeur
+OK   la tendance est dite en clair
+OK   les douze mois sont dessinés
+OK   un mois vide est marqué comme vide
+OK   les familles récurrentes sont citées
+OK   un serveur sans historique le dit
+OK   aucun fait sur douze mois est explicite
+
+corroboration: tout est vert
+[2026-11-13 18:11:09] OK: tests corroboration
+
+=== tests hors ligne ===
+$ vite build --ssr test/offline-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/offline-verif.js
+OK   un instantané se relit
+OK   sa date est conservée
+OK   absence de stockage tolérée
+OK   quota plein : écrire échoue sans casser l'écran
+OK   instantané sans date écarté
+OK   à 0 min → frais — à jour
+OK   à 14 min → frais — à jour
+OK   à 45 min → perime — hors ligne · données de 45 min
+OK   à 180 min → perime — hors ligne · données de 3 h
+OK   à 4320 min → perime — hors ligne · données de 3 j
+OK   sans instantané : « aucune donnée en mémoire »
+OK   une date dans le futur ne donne pas un âge négatif
+OK   le style de secours est un style MapLibre
+OK   aucune tuile distante
+OK   aucun sprite ni police distante
+OK   les contours sont embarqués
+OK   les villes sont embarquées
+
+offline: tout est vert
+[2026-11-13 18:11:09] OK: tests hors ligne
+
+=== build web ===
+$ vite build
+vite v8.3.7 building client environment for production...
+transforming...
+✓ 780 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                 0.83 kB │ gzip:   0.44 kB
+dist/assets/maplibre-gl-worker-DTh23QKw.js    519.75 kB
+dist/assets/index-J0OyJfAt.css                 57.92 kB │ gzip:  10.00 kB
+dist/assets/index-BMwGXyD3.js               1,762.25 kB │ gzip: 511.16 kB
+
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 1.33s
+[2026-11-13 18:11:11] OK: build web
+
+=== healthcheck local ===
+[2026-11-13 18:11:11] API détectée sur http://127.0.0.1:8080.
+[2026-11-13 18:11:11] Web détecté sur http://127.0.0.1:5173.
+OK   /api/health → {"ok":true,"sources":265}
+OK   /api/stats → {"orgs":34330,"events":38,"indicators":0}
+OK   carte : shell web + point d'entrée servis (/src/main.tsx)
+OK   Tous les tests de supervision sont OK.
+[2026-11-13 18:11:11] OK: healthcheck local
+
+[2026-11-13 18:11:11] Vérification complète OK.
