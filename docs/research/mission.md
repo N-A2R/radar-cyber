@@ -342,3 +342,139 @@ centroïdes versionnés — 4 557 entités déjà géolocalisées dans le jeu NA
 **C** corpus témoin, **D** référentiel entreprises (**bloqué**, attend l'export :
 `recherche-entreprises.api.gouv.fr` injoignable, aucun jeu SIRENE utilisable).
 Export de la base réelle toujours en attente.
+
+**Contournement du réseau filtré : collecte déléguée.** Puisque le sandbox ne
+joint ni les API gouv ni la presse, la collecte peut être confiée à un assistant
+externe qui, lui, a internet. Le prompt est prêt :
+[**`prompt-collecte-externe.md`**](prompt-collecte-externe.md) — quatre blocs
+(corpus témoin 12 mois, entreprises SIRENE, santé FINESS / enseignement UAI,
+sonde des 265 sources), schémas JSON imposés, provenance et licence exigées,
+livraison sur une branche dédiée.
+
+Ce qui revient est vérifié par `scripts/validate-external-data.mts` (Node seul,
+sans dépendance) : clés de Luhn des SIREN, codes INSEE confrontés aux 4 517 du
+jeu versionné, dates ISO, URL, doublons, et citation obligatoire pour tout
+incident du corpus. Les exemples du prompt passent le validateur ; un jeu
+volontairement fautif est bien rejeté.
+
+## Audit de la collecte externe — PR #3 (2026-11-12)
+
+Branche `data/collecte-externe`, 6 fichiers, **30 152 enregistrements**. Données
+récupérées et vérifiées localement, pas seulement sur la foi du compte rendu.
+
+**Authenticité établie.** FINESS : 10 008 identifiants uniques au format INSEE,
+libellés administratifs tronqués authentiques, adresses au format HAR,
+répartition calée sur la population (Gironde 2 173 / Creuse 264). Éducation :
+6 528 UAI avec lettre de contrôle, 4 707 écoles. Entreprises : 13 332 SIREN dont
+la clé de Luhn est valide, **tous géolocalisés**, 12/12 départements, tous actifs,
+noms commerciaux réels entre parenthèses. Sonde : 264 sources, titres réels en
+allemand/croate/suédois, et l'attaque des supermarchés apparaît à la fois au
+corpus et dans les flux CERT-AT/CERT-HR sondés — cohérence croisée qu'une
+fabrication ne produit pas.
+
+**Ce qui reste à reprendre :**
+
+| Point | État |
+| --- | --- |
+| Coordonnées santé + enseignement | **0/16 536** — champ `position` de la source non repris |
+| `perimetre` sur les 20 incidents | **0/20** — incidents nationaux encore géolocalisés en NA |
+| Bloc 2, volet « ≥50 salariés, tous secteurs » | **absent** : 0 agroalimentaire, 0 industrie, 0 construction, 0 commerce |
+| Bloc 2, secteurs critiques | restreints à ≥50 alors que le prompt demandait toutes tailles |
+
+Seules **345** entreprises livrées ont un effectif ≥50, dont 297 hors numérique.
+Le numérique représente 13 035 des 13 332 lignes. Pour une région dont
+l'agroalimentaire, l'aéronautique et le bâtiment sont des employeurs majeurs, le
+référentiel entreprises reste troué — et une couverture mesurée contre ce
+référentiel serait flatteuse à tort.
+
+**Piège de mesure à retenir.** Le collecteur a annoncé « 0 erreur, 0
+avertissement » en exécutant une version périmée du validateur. La version à jour
+rend **6 avertissements** (5 incidents hors fenêtre, 20 périmètres non marqués).
+Toujours revérifier avec le validateur du dépôt avant de croire un feu vert.
+
+**Récupérable côté chargement, sans recollecte** : les noms commerciaux sont
+présents mais enfouis dans `nom` entre parenthèses (`ALLIANCE ATLANTIQUE (H.M.
+VOYAGES, AUTOCARS BERTRAND, …)`) et `nomsAlternatifs` est vide partout. Les
+extraire en alias au chargement — c'est exactement ce qui sert au rapprochement.
+
+## Chargement du référentiel étendu (2026-11-12)
+
+Le référentiel ne décrit plus seulement le maillage administratif : il contient
+les organisations que la région compte réellement, donc celles qu'un incident
+peut frapper.
+
+| Jeu | Volume | Identifiant |
+| --- | --- | --- |
+| référentiel territorial | 4 462 | code INSEE / SIREN d'EPCI |
+| santé (FINESS) | 10 008 | 9 chiffres |
+| enseignement (UAI) | 6 528 | 7 caractères |
+| entreprises (SIREN) | 13 332 | 9 chiffres, clé Luhn validée |
+| **total** | **34 330** | |
+
+`pnpm migrate` (migration 026) puis
+`tsx scripts/load-organisations-na.mts --apply` : 34 330 organisations,
+52 473 alias. Rejouable, 15 s.
+
+**Coordonnées : trou comblé sans recollecte.** Les 16 536 établissements livrés
+avec `lat`/`lon` à `null` portent tous un code commune INSEE géolocalisé dans
+`referentiel-na.json` : le centroïde communal est posé et `geo_source` vaut
+`centroide-commune`, ce qui interdit de confondre la précision d'un centroïde
+avec celle d'une adresse. Résultat : **34 330 / 34 330 géolocalisées**, carte
+alimentée.
+
+**Alias : 4 267 noms écartés du moteur.** 710 écoles s'appellent « Ecole
+primaire » et 21 pharmacies « Pharmacie du Centre ». Les verser au matcher, qui
+rend `null` dès que deux organisations revendiquent le même nom, l'aurait
+paralysé. Seuls les noms distinctifs deviennent des alias ; le nom complet reste
+dans `org.name`, donc rien n'est perdu — on refuse seulement d'armer le moteur
+avec du vocabulaire commun. Les enseignes entre parenthèses des entreprises
+(« AGUR », « PEAKSYS ») sont extraites : 2 042 alias récupérés.
+
+**Le vrai goulot n'est pas le référentiel, c'est le matcher d'ingestion.**
+Mesuré sur les 15 incidents du corpus dans la fenêtre :
+
+| Étage | Rattachement |
+| --- | --- |
+| `matchOrgForText` (ingestion) avec 4 462 orgs | 5/15 |
+| `matchOrgForText` (ingestion) avec 34 330 orgs | **1/15** |
+| `matchOrgDetailed` (alias) avec 34 330 orgs | 12/15, mais **4 faux** |
+
+Le matcher d'ingestion compare des jetons du `name` de **toutes** les
+organisations et exige **un seul candidat** dans la table entière : mécanique de
+tablette de 800 lignes, elle s'effondre à 34 330. Il ignore `org_alias` — les
+52 473 alias n'y servent à rien. Le moteur d'alias, lui, trouve plus mais se
+trompe : « Vignobles Toutigeac » → Gironde, « Ymed » → « S-SERVICES », et
+« Bordeaux » désigne tour à tour une commune, une école et une entreprise. Seuls
+les 3 cas « Ville de Tarnos / Mairie d'Esplanade / Mairie de Marennes » sont
+justes (3/15 de précision).
+
+**Conséquence produit** : charger le référentiel n'améliore la couverture que
+si l'ingestion bascule sur l'index d'alias *et* si les alias orphelins
+mono-jeton sont écartés. C'est le chantier suivant, et il est mesurable.
+
+## Moteur de rattachement refondu (2026-11-12)
+
+Le goulot identifié au chargement est traité. `matchOrgForText` (recouvrement de
+jetons sur le `name` de toutes les organisations, un seul candidat toléré dans
+la table) est remplacé par un gazetteer à index inversé, dans l'ingestion comme
+dans la porte d'admission.
+
+| Étage | Rattachement | Faux |
+| --- | --- | --- |
+| ancien moteur, 4 462 orgs | 5/15 | — |
+| ancien moteur, 34 330 orgs | 1/15 | — |
+| moteur d'alias (`match/core`) | 12/15 | 4 |
+| **gazetteer** | **7/15** | **0** |
+
+Trois règles : un toponyme nu ne tranche pas ; l'ambiguïté se départage sur le
+département puis la commune cités, sinon on rend `null` avec les candidats ;
+l'index inversé remplace le balayage (44 071 alias en 480 ms).
+
+**Faille refermée** : la porte d'admission acceptait tout nom présent en
+sous-chaîne. Avec 710 écoles nommées « Ecole primaire », « une école primaire
+fermée à Périgueux » entrait en base. La porte exige désormais un mot propre.
+
+Vérifié de bout en bout sur un flux local (5 items) : Tarnos rattaché, EHPAD de
+Champdeniers désambiguïsé par sa commune, article scolaire refusé, « Vignobles
+Toutigeac en Gironde » non rattaché à la Gironde. Détail : `docs/rattachement.md`.
+225/225 tests API, socle rejoué sur base neuve.

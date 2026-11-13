@@ -11,7 +11,12 @@
     "dev:api": "pnpm -F @radar/api dev",
     "dev:web": "pnpm -F @radar/web dev",
     "typecheck": "pnpm -r typecheck",
-    "verify": "bash scripts/verify-all.sh"
+    "verify": "bash scripts/verify-all.sh",
+    "verify:journal": "apps/api/node_modules/.bin/tsx scripts/verify-journal.mts",
+    "replay:journal": "apps/api/node_modules/.bin/tsx scripts/replay-journal.mts",
+    "mesure:couverture": "apps/api/node_modules/.bin/tsx scripts/mesure-couverture.mts",
+    "mesure:manques": "apps/api/node_modules/.bin/tsx scripts/manques-referentiel.mts",
+    "mesure:anticipation": "apps/api/node_modules/.bin/tsx scripts/mesure-anticipation.mts"
   },
   "devDependencies": {
     "embedded-postgres": "18.6.0-beta.19"

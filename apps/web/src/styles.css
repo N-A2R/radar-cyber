@@ -565,6 +565,23 @@ body {
   background: var(--color-accent);
 }
 
+/* Hors ligne : neutre, pas alarmant. L'incident n'est pas la panne réseau. */
+.shell__offline {
+  flex: 0 0 auto;
+  margin: 0 0 8px;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--color-muted);
+  background: var(--color-plate);
+  border-left: 2px solid var(--sev-3, var(--color-edge-hi));
+}
+
+.shell__offline[data-etat="frais"] {
+  display: none;
+}
+
 .shell__error {
   flex: 0 0 auto;
   margin: 0 0 8px;

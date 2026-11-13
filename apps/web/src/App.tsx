@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { creerMemoire, etatDonnees, type Instantane } from "./offline";
 import { api, clearAuthToken, getAuthToken, setAuthToken, type Event, type FlowArc, type Graph, type LiveAlert, type Org, type Source, type Stats } from "./api";
 import { mockData } from "./mock";
 import Map3D from "./map/Map3D";
@@ -12,6 +13,7 @@ import DirectoryView from "./components/DirectoryView";
 import CommandPalette from "./components/CommandPalette";
 import LiveAlerts from "./components/LiveAlerts";
 import ReviewView from "./components/ReviewView";
+import DossierView from "./components/DossierView";
 import { parseHash, toHash, shareableUrl, type AppUrlState } from "./url-state";
 import AlertsView from "./components/AlertsView";
 import LoginScreen from "./components/LoginScreen";
@@ -28,6 +30,7 @@ const VIEWS: { id: ViewKey; label: string }[] = [
   { id: "sources", label: "Sources" },
   { id: "health", label: "Santé" },
   { id: "alerts", label: "Alertes" },
+  { id: "dossier", label: "Dossier" },
 ];
 
 const FEED_LIMIT = 300;
@@ -54,6 +57,21 @@ export default function App() {
     setUrlState((prev) => (prev.view === next ? prev : { ...prev, view: next }));
   }, []);
   const [error, setError] = useState<string | null>(null);
+  /**
+   * Hors ligne : quand l'API ne répond pas, on continue d'afficher le dernier
+   * état connu de la carte, avec son âge. Un écran vide en dit moins qu'un
+   * écran daté.
+   */
+  const [instantane, setInstantane] = useState<Instantane<{ orgs: unknown; events: unknown }> | null>(null);
+  const [horloge, setHorloge] = useState(() => Date.now());
+  const memoire = useMemo(() => creerMemoire(typeof localStorage === "undefined" ? null : localStorage), []);
+  // L'âge des données doit vieillir à l'écran : une mention « 3 min » qui reste
+  // figée devient un mensonge au bout d'une heure.
+  useEffect(() => {
+    const timer = setInterval(() => setHorloge(Date.now()), 60_000);
+    return () => clearInterval(timer);
+  }, []);
+  const instantaneData = useMemo(() => etatDonnees(instantane, horloge), [instantane, horloge]);
   const [loading, setLoading] = useState(!MOCK_MODE);
   const [family, setFamily] = useState<string | null>(null);
   // Ordre du fil : « régional d'abord » par défaut, « tout » = ordre de l'API.
@@ -207,6 +225,15 @@ export default function App() {
       return;
     }
     if (!token) return;
+    // 1. Ce qu'on avait la dernière fois, tout de suite, pour ne pas ouvrir sur
+    //    un écran vide si le réseau est tombé entre deux sessions.
+    const cache = memoire.lire<{ orgs: Org[]; events: Event[] }>("carte");
+    if (cache !== null && cache.data.orgs.length > 0) {
+      setOrgs(cache.data.orgs);
+      setEvents(cache.data.events);
+      setLoading(false);
+      setInstantane(cache as unknown as Instantane<{ orgs: unknown; events: unknown }>);
+    }
     // Chaque appel est indépendant : un endpoint en erreur ne doit plus vider
     // l'écran. C'est exactement ce qui arrivait quand `/api/graph` dépassait
     // son `statement_timeout` — le `Promise.all` rejetait, et organisations,
@@ -223,6 +250,14 @@ export default function App() {
       const [o, e, s, st, g] = results;
       if (o.status === "fulfilled") setOrgs(o.value);
       if (e.status === "fulfilled") setEvents(e.value);
+      if (o.status === "fulfilled" && e.status === "fulfilled") {
+        // On n'écrit l'instantané que si les deux moitiés de la carte sont là :
+        // une carte avec des organisations et sans événements serait un état
+        // qui n'a jamais existé.
+        const at = Date.now();
+        memoire.ecrire("carte", { orgs: o.value, events: e.value }, at);
+        setInstantane({ at, data: { orgs: o.value, events: e.value } });
+      }
       if (s.status === "fulfilled") setSources(s.value);
       if (st.status === "fulfilled") setStats(st.value);
       if (g.status === "fulfilled") setGraph(g.value);
@@ -452,6 +487,14 @@ export default function App() {
       />
 
       {error ? <p className="shell__error">API : {error}</p> : null}
+      {/* Hors ligne assumé : on dit l'âge des données plutôt que de faire
+          croire à un temps réel qu'on n'a plus. */}
+      {error && instantaneData ? (
+        <p className="shell__offline" data-etat={instantaneData.etat}>
+          {instantaneData.libelle}
+          {instantaneData.etat === "perime" ? " — carte figée sur la dernière réponse reçue" : null}
+        </p>
+      ) : null}
 
       <div className="shell__body" style={bodyStyle}>
         <aside className="shell__feed">
@@ -543,6 +586,8 @@ export default function App() {
           {view === "sources" ? <SourcesView sources={sources} loading={loading} error={error} /> : null}
 
           {view === "health" ? <HealthView sources={sources} /> : null}
+
+          {view === "dossier" ? <DossierView /> : null}
 
           {view === "alerts" ? (
             <AlertsView

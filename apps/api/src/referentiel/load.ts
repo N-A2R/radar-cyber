@@ -11,10 +11,15 @@
  *  3. **Rejouable.** Slugs dérivés des codes officiels, alias en
  *     `ON CONFLICT DO NOTHING`. Interrompre puis relancer ne coûte que du temps.
  *
- * Aucune migration : seules les colonnes déjà présentes sont utilisées
- * (`siren` et `geo_source` viennent des migrations 008 et 013).
+ * Portée : le plan peut désormais contenir des collectivités, des établissements
+ * de santé et d'enseignement et des entreprises (voir `plan-etendu.ts`). Les
+ * colonnes d'identification officielle ajoutées par la migration 026 gardent
+ * leur valeur si elle existe déjà — comme le reste, on complète sans écraser.
+ * Une organisation sans `entitySource` (référentiel territorial) laisse ces
+ * colonnes intactes.
  */
 import { query, withClient } from "../db.js";
+import { consignerLot, MOTEURS, type JournalEntry } from "../journal/index.js";
 import type { PlannedOrg, ReferentielPlan } from "./plan.js";
 
 export type LoadOptions = {
@@ -36,6 +41,8 @@ export type LoadReport = {
 	collisions: Array<{ name: string; slug: string; existingId: number }>;
 	/** Noms portés par plusieurs organisations du jeu lui-même (homonymes). */
 	internalHomonyms: number;
+	/** Répartition par `kind`, pour vérifier que chaque jeu a bien été chargé. */
+	byKind: Record<string, number>;
 };
 
 const ALIAS_BATCH = 400;
@@ -84,7 +91,11 @@ export async function loadReferentiel(
 		aliasesPlanned: plan.counts.aliases,
 		collisions: [],
 		internalHomonyms: 0,
+		byKind: {},
 	};
+	for (const org of plan.orgs) {
+		report.byKind[org.kind] = (report.byKind[org.kind] ?? 0) + 1;
+	}
 
 	// Collisions de nom : une organisation existante porte le même nom mais un
 	// autre SIREN. On ne fusionne pas automatiquement — on le signale pour la
@@ -122,9 +133,29 @@ export async function loadReferentiel(
 	}
 
 	if (dryRun) {
-		log(`dry-run : ${report.created} création(s), ${report.updated} mise(s) à jour, ${report.attachedBySiren} rattachement(s) par SIREN`);
+		const kinds = Object.entries(report.byKind)
+			.map(([kind, total]) => `${total} ${kind}`)
+			.join(", ");
+		log(`dry-run : ${report.created} création(s), ${report.updated} mise(s) à jour, ` +
+			`${report.attachedBySiren} rattachement(s) par SIREN — ${kinds}`);
 		return report;
 	}
+
+	// État antérieur des organisations concernées : sans lui, un chargement
+	// réécrit sans qu'on puisse dire ce qui a changé. C'est ce trou qui a rendu
+	// impossible la mesure du changement de moteur de rattachement.
+	const avant = new Map<number, { name: string; lat: number | null; lon: number | null; dept: string | null }>();
+	const ids = plan.orgs
+		.map((o) => (o.siren ? bySiren.get(o.siren)?.id : undefined) ?? bySlug.get(o.slug)?.id)
+		.filter((id): id is number => typeof id === "number");
+	if (ids.length > 0) {
+		const { rows } = await query<{ id: number; name: string; lat: number | null; lon: number | null; dept: string | null }>(
+			"SELECT id, name, lat, lon, dept FROM org WHERE id = ANY($1::int[])",
+			[ids],
+		);
+		for (const row of rows) avant.set(Number(row.id), row);
+	}
+	const faits: JournalEntry[] = [];
 
 	let done = 0;
 	await withClient(async (client) => {
@@ -149,8 +180,9 @@ export async function loadReferentiel(
 					orgId = Number(r.rows[0].id);
 				} else {
 					const r = await client.query<{ id: number }>(
-						`INSERT INTO org (name, slug, kind, sector, city, dept, siren, lat, lon, geo_source, status)
-						 VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
+						`INSERT INTO org (name, slug, kind, sector, city, dept, siren, lat, lon, geo_source,
+						                  status, entity_code, entity_source, naf, effectif_min, website, domain)
+						 VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17)
 						 ON CONFLICT (slug) DO UPDATE SET
 						    lat = COALESCE(EXCLUDED.lat, org.lat),
 						    lon = COALESCE(EXCLUDED.lon, org.lon),
@@ -158,12 +190,39 @@ export async function loadReferentiel(
 						    siren = COALESCE(org.siren, EXCLUDED.siren),
 						    dept = COALESCE(org.dept, EXCLUDED.dept),
 						    city = COALESCE(org.city, EXCLUDED.city),
-						    sector = COALESCE(org.sector, EXCLUDED.sector)
+						    sector = COALESCE(org.sector, EXCLUDED.sector),
+						    entity_code = COALESCE(org.entity_code, EXCLUDED.entity_code),
+						    entity_source = COALESCE(org.entity_source, EXCLUDED.entity_source),
+						    naf = COALESCE(org.naf, EXCLUDED.naf),
+						    effectif_min = COALESCE(org.effectif_min, EXCLUDED.effectif_min),
+						    website = COALESCE(org.website, EXCLUDED.website),
+						    domain = COALESCE(org.domain, EXCLUDED.domain)
 						 RETURNING id`,
 						[org.name, org.slug, org.kind, org.sector, org.city, org.dept, org.siren,
-						 org.lat, org.lon, org.geoSource, org.status],
+						 org.lat, org.lon, org.geoSource, org.status,
+						 org.entityCode, org.entitySource ?? null, org.naf ?? null,
+						 org.effectifMin ?? null, org.website ?? null, org.domain ?? null],
 					);
 					orgId = Number(r.rows[0].id);
+				}
+
+				// Journal : ce qui a réellement changé sur cette organisation.
+				const etatAvant = avant.get(orgId);
+				if (etatAvant) {
+					const changements: Record<string, unknown> = {};
+					if (etatAvant.name !== org.name) changements.name = { avant: etatAvant.name, apres: org.name };
+					if (etatAvant.lat === null && org.lat !== null) changements.lat = { avant: null, apres: org.lat };
+					if (etatAvant.lon === null && org.lon !== null) changements.lon = { avant: null, apres: org.lon };
+					if (etatAvant.dept === null && org.dept !== null) changements.dept = { avant: null, apres: org.dept };
+					if (Object.keys(changements).length > 0) {
+						faits.push({
+							kind: "org.changed",
+							subject: org.entityCode,
+							summary: `${org.name} : ${Object.keys(changements).join(", ")} complété(s)`,
+							actor: `moteur:${MOTEURS.referentiel}`,
+							payload: { slug: org.slug, kind: org.kind, changements },
+						});
+					}
 				}
 
 				for (let start = 0; start < org.aliases.length; start += batchSize) {
@@ -193,5 +252,27 @@ export async function loadReferentiel(
 	});
 
 	log(`chargé : ${done} organisations, ${report.aliasesInserted} alias`);
+
+	// Un fait de chargement, plus un fait par organisation modifiée. Écrit hors
+	// transaction : une lacune de journal ne doit pas annuler un chargement.
+	faits.unshift({
+		kind: "referentiel.charged",
+		subject: "referentiel-na",
+		summary: `${report.created} création(s), ${report.updated} mise(s) à jour, ${report.aliasesInserted} alias`,
+		actor: `moteur:${MOTEURS.referentiel}`,
+		payload: {
+			planned: report.planned,
+			created: report.created,
+			updated: report.updated,
+			attachedBySiren: report.attachedBySiren,
+			aliasesInserted: report.aliasesInserted,
+			byKind: report.byKind,
+		},
+	});
+	try {
+		await consignerLot(faits);
+	} catch (error) {
+		log(`journal : ${faits.length} fait(s) non consigné(s) — ${String(error).slice(0, 120)}`);
+	}
 	return report;
 }

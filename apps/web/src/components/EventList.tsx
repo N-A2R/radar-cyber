@@ -29,7 +29,7 @@ function severityLevel(severity: number): string {
 }
 
 function eventMeta(event: Event): string {
-  return [event.family, formatRelative(event.observedAt), event.sourceId]
+  return [event.family, event.fraicheur?.libelle ?? formatRelative(event.observedAt), event.sourceId]
     .filter((part) => part && part.length > 0)
     .join(" · ");
 }
@@ -78,6 +78,20 @@ export default function EventList({
                     {event.title}
                   </span>
                   <span className="feed__meta">{eventMeta(event)}</span>
+                  {event.confiance && (
+                    // La confiance se voit avant d'ouvrir quoi que ce soit : une
+                    // revendication fragile ne doit pas se lire comme un fait.
+                    <span
+                      className="feed__confidence"
+                      data-niveau={event.confiance.niveau}
+                      title={event.confiance.raisons.join(" · ")}
+                    >
+                      {event.confiance.libelle}
+                      {event.confiance.sourcesDistinctes > 1
+                        ? ` · ${event.confiance.sourcesDistinctes} sources`
+                        : ""}
+                    </span>
+                  )}
                 </span>
               </button>
             </li>

@@ -12,7 +12,7 @@
  * Fonctions pures : testables sans navigateur.
  */
 
-export const VIEWS = ["map", "directory", "review", "graph", "sources", "health", "alerts"] as const;
+export const VIEWS = ["map", "directory", "review", "graph", "sources", "health", "alerts", "dossier"] as const;
 export type ViewId = (typeof VIEWS)[number];
 
 export type DirectoryUrlState = {
