@@ -98,6 +98,32 @@ export type Event = {
   orgId: number | null;
   /** Vrai si l'événement touche une organisation ou une entité de la région. */
   regional: boolean;
+  /**
+   * Quand cela s'est passé, et à quel point on le sait. Séparé de la confiance
+   * à dessein : un fait peut être récent et incertain, ou ancien et certain.
+   */
+  fraicheur?: Fraicheur;
+  /** À quel point on peut y croire, et pourquoi. */
+  confiance?: Confiance;
+};
+
+/** Précision de la date : publiée par la source, déduite du texte, ou collecte. */
+export type PrecisionDate = "certaine" | "deduite" | "collecte";
+
+export type Fraicheur = {
+  ageJours: number | null;
+  precision: PrecisionDate;
+  classe: "frais" | "recent" | "ancien" | "inconnu";
+  /** Phrase courte : « il y a 3 j », « aujourd'hui · date de collecte ». */
+  libelle: string;
+};
+
+export type Confiance = {
+  note: number;
+  niveau: "etabli" | "plausible" | "fragile";
+  raisons: string[];
+  sourcesDistinctes: number;
+  libelle: string;
 };
 
 export type Source = {

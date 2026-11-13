@@ -73,7 +73,7 @@ pourquoi l'axe 1 est déjà engagé.
 | 16 | ✅ **Le « pourquoi » dans le rail** | **fait** (inspecteur) | rattachement expliqué (motif, alias, confiance, candidats écartés), absence motivée |
 | 17 | **Carte complète et hors ligne** | à faire | 34 330 organisations, utilisable sans réseau |
 | 18 | **Recherche et fiches d'organisation** | à faire | une fiche montre l'historique de rattachement, pas seulement l'état |
-| 19 | **Fraîcheur et confiance affichées** | à faire | on sait, à l'écran, depuis quand et à quel point on croit |
+| 19 | ✅ **Fraîcheur et confiance affichées** | **fait** (fil) | date et fraîcheur, précision de la date, niveau de confiance, raisons, corroboration |
 
 ### Axe 6 — Transmission : ce qui survit
 
