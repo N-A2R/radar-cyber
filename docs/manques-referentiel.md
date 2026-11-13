@@ -1,83 +1,65 @@
 # Le trou du référentiel, en liste de courses
 
-> Chantier 13. `tsx scripts/manques-referentiel.mts --json=bench/results/manques-referentiel-2026-11-13.json`
-> régénère la liste. Le chargement des entreprises reste bloqué côté externe
-> (pas d'accès à l'API recherche-entreprises depuis ce poste) ; ce qui change
-> ici, c'est qu'on sait **quoi** charger.
+> Chantier 13. Mesuré le 13 novembre 2026 sur la base de reprise
+> (34 342 organisations). Reproductible :
+> `tsx scripts/load-manques-exa.mts` puis `tsx scripts/mesure-manques.mts`.
 
-## Ce que la mesure de couverture avait laissé
+## Ce qui a changé
 
-`docs/mesure-couverture.md` a établi que le goulot n'est pas le moteur de
-rattachement mais le référentiel : sur 15 incidents réels de la fenêtre, 9
-organisations sont absentes d'un référentiel de 34 330 lignes. On connaissait
-même leurs noms — Intermarché, Toutigeac, SICSOE, Euskal Moneta, la FNC, la FFC.
+Avant ce jour, le référentiel comptait **34 330 organisations et aucune ne
+portait de domaine**. Le moteur de rattachement a une règle qui vaut certitude
+— domaine identique, confiance 0,95 — et elle ne pouvait jamais se déclencher.
+Tout incident retombait sur la comparaison de noms.
 
-Manquait la liste : combien d'entités, lesquelles, par quelle source, et par
-quelle voie les charger. La revue de quarantaine savait déjà dire « organisation
-française probable absente du référentiel » — mais cette phrase restait dans une
-ligne de file.
+Les 302 entités manquantes avaient déjà été qualifiées par Exa (17,60 $ pour
+la passe Ultra, 1,10 $ pour les onze lots à `medium`). Restait à les charger.
 
-## Ce que la liste contient, sur la base de développement
+## Ce que le chargement a donné
 
-```
-411 entités nommées, absentes du référentiel
-   8  en France      — vrais manques, mesurables
- 294  sans indice   — ni manque prouvé, ni hors-sujet prouvé
- 109  hors zone     — pays déclaré par la source, pas des manques
-```
+| | |
+|---|---|
+| Entités qualifiées | 302 |
+| Chargeables en l'état | **12** |
+| En désaccord entre les deux passes Exa | 21 |
+| « present » sans SIREN exploitable | 7 |
+| **Chargées** | **12** |
+| Organisations avant / après | 34 330 → **34 342** |
+| Organisations avec domaine | 0 → **12** |
 
-**La ligne du milieu est la plus importante.** 294 entités ne sont pas
-classables : la source ne déclare pas de pays, le nom ne porte aucun indice
-français, aucune ville de la région n'est citée. Les compter comme des trous de
-couverture serait une faute de mesure ; les écarter serait une faute inverse. On
-les publie comme ce qu'elles sont : inconnues.
+Les 21 désaccords ne sont pas chargés. Sept d'entre eux ont été tranchés à la
+main par la passe Ultra (AFD → `afd-inc.com`, ASI → `asipartner.com`,
+Transtec → `transtec.com.co`, ilemgroup, Funlab, Reward) ; les quatorze autres
+attendent un arbitrage humain. **Aucun SIREN n'a été inventé** : une entité dont
+l'identifiant n'est pas établi reste sans identifiant.
 
-Les 109 hors zone ne sont pas un manque du référentiel — une entreprise
-américaine revendiquée par un groupe international n'a pas à y figurer. Elles
-restent dans le fichier JSON, marquées, pour être auditées si besoin.
+## Le trou résiduel, publié
 
-## Deux heuristiques mesurées, une seule retenue
+**290 entités sur 302 restent absentes** après chargement. Elles sont hors de
+portée du référentiel actuel, et c'est ce chiffre-là qui compte : charger 12
+entités ne referme pas un trou de 302.
 
-Deviner la zone d'une entité sans pays déclaré est tentant et **se trompe
-beaucoup**. Mesuré sur les 500 indices de la base :
+La liste complète, triée par zone, est produite par
+`scripts/mesure-manques.mts`. Ce qu'elle montre, sans interprétation :
 
-| Heuristique | Entités classées « France » | Dont à l'étranger |
-|---|---|---|
-| large (`clinique`, `collège`, `université`, `commune`…) | 22 | ≥ 10 — un collège tanzanien, une commune belge, trois colleges américains |
-| ville du référentiel citée | 5 | 4 — « Gan » (mot de 3 lettres) attrape tout |
-| **`.fr` seul** | **3** | **0** |
+- **245 entités sur 290 n'ont aucun département identifiable** — ni en
+  Nouvelle-Aquitaine ni ailleurs. On sait qu'elles manquent, on ne sait pas
+  où les chercher ;
+- les 45 autres portent une zone, et cette zone est très majoritairement
+  étrangère ou hors région : États américains (Texas, Utah, Oregon,
+  Pennsylvanie…), provinces canadiennes (Ontario, Québec), comtés anglais,
+  Paris, Rhône.
 
-D'où la règle retenue : un pays déclaré tranche ; sinon `.fr` ; sinon une ville
-du référentiel **de plus de cinq lettres**. Tout le reste est « inconnu ». Une
-liste de courses qui contient de fausses lignes est pire qu'une liste courte.
+Le trou n'est donc pas un trou *régional* qu'on pourrait refermer avec un
+extrait supplémentaire du répertoire Sirene. Pour 245 des 290 entités, il
+n'existe même pas de clé géographique pour lancer la recherche.
 
-La même prudence s'applique au champ pays des titres structurés
-(`domaine\montant\pays\volume`) : la première version lisait le **domaine**
-comme un pays et classait les entités françaises hors zone — diagnostic
-inversé, silencieux.
+## Ce que ça change pour la mesure de couverture
 
-## Déduplication
+Mesuré après chargement : la couverture reste **5/15 (33,3 %)**, à l'identique,
+et la ligne « référentiel entreprises : 0 en agroalimentaire, industrie, BTP,
+commerce » est inchangée. Les 12 entités chargées ne recoupent aucun incident
+du corpus de référence.
 
-Les revendications reviennent : la même entreprise est publiée une fois avec
-« <1% DISCLOSED » et une fois avec « 100% DISCLOSED ». La clé de regroupement
-porte donc sur l'entité (domaine ou nom), pas sur le titre — sans quoi la liste
-doublerait et la corroboration deviendrait fausse. Le `nomLisible` fait de même :
-on cherche à charger « adveo.com », pas
-« adveo.com$740.7MFrance1.1TB<1% DISCLOSED ».
-
-## Voie de chargement
-
-Sept entités relèvent de Sirene (sociétés), deux de l'annuaire administratif
-(collectivités), le reste de la main : associations, fédérations sportives,
-monnaies locales. C'est une aide au tri, pas une décision — elle ne fait que
-classer une liste à relire.
-
-## Ce que ce chantier ne fait pas
-
-Il **ne charge rien**. La voie Sirene suppose un accès réseau à
-`recherche-entreprises.api.gouv.fr`, fermé depuis ce poste ; la voie manuelle
-suppose une saisie humaine. Le trou reste donc ouvert, et il est publié : c'est
-exactement ce que le cadrage demandait — assumer le trou plutôt que le masquer.
-
-Ce que le chantier change, c'est qu'une question vague (« le référentiel est
-incomplet ») devient une liste finie, triée, avec sa provenance et sa zone.
+C'est la conclusion du chantier : **le référentiel entreprises manque là où
+la région est faite de petites structures**, et les 302 entités qualifiées par
+Exa ne sont pas la bonne réponse à ce problème. Elles referment un autre trou.
