@@ -15,9 +15,11 @@
  * La promotion réutilise `promoteOne` : mêmes règles, même événement, même
  * évaluation d'alertes. Ce module ne réinvente pas la sortie de quarantaine.
  */
-import { query, withClient } from "../db.js";
+import type { PoolClient } from "pg";
+import { query, withClient, withTransaction } from "../db.js";
 import { buildAliasIndex, analyzeAliasIndex, type AliasRow } from "../match/core.js";
-import { loadOrgIndex, matchOrgInIndex, promoteOne, type OrgIndexEntry } from "./promote.js";
+import { loadOrgIndex, matchOrgInIndex, promoteOne, promoteOneTx, type OrgIndexEntry } from "./promote.js";
+import { evaluateEvent } from "../detect/engine.js";
 import { consignerLot, type JournalEntry } from "../journal/index.js";
 import { buildCandidateIndex, candidatesFor } from "./candidates.js";
 import { compareQueueEntries, triageClaim, type TriageBucket, type TriageResult } from "./triage.js";
@@ -285,19 +287,28 @@ export async function applyReview(
 
 	if (action === "promote") {
 		for (const id of unique) {
-			const result = await promoteOne(id, actor);
-			if (!result.found) {
-				outcome.skipped.push({ id, reason: "introuvable" });
-				continue;
-			}
-			if (result.alreadyPromoted) {
-				outcome.skipped.push({ id, reason: "déjà promu" });
-				continue;
-			}
+			// Promotion + décision de revue dans la même transaction : une décision
+			// ne peut pas exister sans la promotion qu'elle prétend justifier.
+			const result = await withTransaction(async (client) => {
+				const r = await promoteOneTx(client, id, actor);
+				if (!r.found) {
+					outcome.skipped.push({ id, reason: "introuvable" });
+					return null;
+				}
+				if (r.alreadyPromoted) {
+					outcome.skipped.push({ id, reason: "déjà promu" });
+					return null;
+				}
+				await appendReview(id, entry, client);
+				return r;
+			});
+			if (result === null) continue;
 			outcome.changed++;
 			outcome.promoted++;
-			outcome.alerts += result.alertsCreated;
-			await appendReview(id, entry);
+			// Après COMMIT : l'évaluation ouvre une autre connexion et doit voir l'événement.
+			outcome.alerts += result.inserted && result.eventId !== null
+				? await evaluateEvent(result.eventId, { force: true })
+				: 0;
 		}
 		return outcome;
 	}
@@ -351,8 +362,11 @@ export async function applyReview(
 	return outcome;
 }
 
-async function appendReview(id: number, entry: ReviewEntry): Promise<void> {
-	await query(
+async function appendReview(id: number, entry: ReviewEntry, client?: PoolClient): Promise<void> {
+	const run = client
+		? (text: string, params?: unknown[]) => client.query(text, params)
+		: query;
+	await run(
 		`UPDATE quarantine_raw
 		    SET extracted = jsonb_set(
 		          COALESCE(extracted, '{}'::jsonb),

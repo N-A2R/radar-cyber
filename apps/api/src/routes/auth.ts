@@ -6,7 +6,12 @@ import { requireAuth, requireRole } from "../middleware/auth.js";
 const SESSION_TTL_MS = 7 * 24 * 3600 * 1000;
 
 export default async function (app: FastifyInstance) {
-  app.post("/auth/register", async (req, reply) => {
+  app.post("/auth/register", { preHandler: async (req, reply) => {
+    const c = await query<{ n: number }>("SELECT count(*)::int AS n FROM app_user");
+    if ((c.rows[0]?.n ?? 0) > 0) {
+      await requireAuth()(req, reply);
+    }
+  } }, async (req, reply) => {
     const body = (req.body ?? {}) as { email?: string; password?: string; role?: string; displayName?: string };
     const email = body.email?.trim().toLowerCase();
     const password = body.password ?? "";
@@ -17,7 +22,7 @@ export default async function (app: FastifyInstance) {
     // premier utilisateur autorisé ; sinon admin requis
     const count = await query<{ n: number }>("SELECT count(*)::int AS n FROM app_user");
     if ((count.rows[0]?.n ?? 0) > 0) {
-      const u = (req as any).user;
+      const u = req.user;
       if (!u || u.role !== "admin") {
         reply.code(403).send({ error: "admin required" });
         return;
@@ -29,7 +34,7 @@ export default async function (app: FastifyInstance) {
       return;
     }
     const role = body.role && ["admin", "analyste", "lecteur"].includes(body.role) ? body.role : "lecteur";
-    // premier utilisateur devient admin
+    // premier utilisateur devient admin (bootstrap) ; impossible de choisir un autre rôle
     const finalRole = (count.rows[0]?.n ?? 0) === 0 ? "admin" : role;
     const hash = await hashPassword(password);
     const r = await query<{ id: number }>(

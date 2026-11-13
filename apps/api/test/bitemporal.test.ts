@@ -78,3 +78,55 @@ test("alias bitemporel : lecture asOf renvoie les bons alias", async () => {
 	const { rows } = await query<{ column_name: string }>(`SELECT column_name FROM information_schema.columns WHERE table_name='org_alias' AND column_name IN ('valid_from','valid_to')`);
 	assert.equal(rows.length, 2, "org_alias doit avoir valid_from/valid_to");
 });
+
+test("muterOrganisation refuse une colonne hors whitelist avant toute écriture", async () => {
+	const slug = `test-bitemp-whitelist-${Date.now()}`;
+	const { rows } = await query<{ id: number }>(
+		`INSERT INTO org (name, slug, kind, valid_from) VALUES ($1,$2,'collectivite','2023-01-01') RETURNING id`,
+		[`Test Whitelist ${slug}`, slug],
+	);
+	const orgId = rows[0]!.id;
+
+	try {
+		await assert.rejects(
+			() => muterOrganisation({ orgId, changes: { "name = 'x', slug": "y" } as never, actor: "test:whitelist" }),
+			/colonne non modifiable/,
+		);
+		// Le rejet doit être antérieur à l'archivage : aucune version n'a été créée.
+		const { rows: hist } = await query<{ n: number }>(
+			"SELECT count(*)::int AS n FROM org_history WHERE org_id=$1",
+			[orgId],
+		);
+		assert.equal(hist[0]!.n, 0, "aucune version ne doit être archivée quand la clé est refusée");
+		const { rows: cur } = await query<{ name: string }>("SELECT name FROM org WHERE id=$1", [orgId]);
+		assert.equal(cur[0]!.name, `Test Whitelist ${slug}`, "la projection ne doit pas avoir bougé");
+	} finally {
+		await query("DELETE FROM org_history WHERE org_id=$1", [orgId]).catch(() => {});
+		await query("DELETE FROM org WHERE id=$1", [orgId]).catch(() => {});
+	}
+});
+
+test("orgsValidesAu(asOfRecorded) n'expose pas une organisation enregistrée plus tard", async () => {
+	const slug = `test-bitemp-recorded-${Date.now()}`;
+	const { rows } = await query<{ id: number }>(
+		`INSERT INTO org (name, slug, kind, valid_from) VALUES ($1,$2,'collectivite', now()) RETURNING id`,
+		[`Test Recorded ${slug}`, slug],
+	);
+	const orgId = rows[0]!.id;
+
+	try {
+		const passe = await orgsValidesAu({ asOfRecorded: "2020-01-01T00:00:00Z" });
+		assert.ok(
+			!passe.some((o) => o.org_id === orgId),
+			"une org créée aujourd'hui ne doit pas apparaître à une date d'enregistrement passée",
+		);
+		const maintenant = await orgsValidesAu();
+		assert.ok(
+			maintenant.some((o) => o.org_id === orgId),
+			"la même org doit être visible en lecture courante",
+		);
+	} finally {
+		await query("DELETE FROM org_history WHERE org_id=$1", [orgId]).catch(() => {});
+		await query("DELETE FROM org WHERE id=$1", [orgId]).catch(() => {});
+	}
+});

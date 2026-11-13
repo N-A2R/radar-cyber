@@ -26,7 +26,7 @@
  * sans `as_of`.
  */
 
-import { query } from "../db.js";
+import { query, withClient } from "../db.js";
 
 export type OrgVersion = {
 	id: number;
@@ -163,6 +163,10 @@ export async function orgsValidesAu(options: {
 		curVals.push(valid);
 		curWhere.push(`(valid_to IS NULL OR valid_to > $${curVals.length}::timestamptz)`);
 	}
+	if (recorded) {
+		curVals.push(recorded);
+		curWhere.push(`valid_from <= $${curVals.length}::timestamptz`);
+	}
 	const curSql = `SELECT id, id AS org_id, name, slug, kind, sector, city, dept, website, domain, status,
 	                       lat, lon, entity_code, entity_source,
 	                       valid_from::text, valid_to::text, now()::text AS recorded_at, null::text AS superseded_at, 'system' AS actor
@@ -194,6 +198,18 @@ export async function aliasValidesAu(options: {
 	return rows;
 }
 
+export const MUTABLE_ORG_COLUMNS = [
+	"name",
+	"slug",
+	"kind",
+	"sector",
+	"city",
+	"dept",
+	"website",
+	"domain",
+	"status",
+] as const;
+
 /**
  * Ferme une version d'organisation (fusion, renommage, changement de périmètre)
  * et ouvre la suivante. Jamais d'UPDATE destructif : on archive l'ancienne
@@ -211,55 +227,73 @@ export async function muterOrganisation(options: {
 	const validFrom = options.validFrom ? encadre(String(options.validFrom)) : new Date().toISOString();
 	const actor = options.actor ?? "system";
 
-	// 1. Lire l'état courant
-	const { rows } = await query<OrgVersion>(
-		`SELECT id, id AS org_id, name, slug, kind, sector, city, dept, website, domain, status,
-		        lat, lon, entity_code, entity_source, valid_from::text, valid_to::text
-		 FROM org WHERE id=$1`,
-		[options.orgId],
-	);
-	const cur = rows[0];
-	if (!cur) throw new Error(`organisation ${options.orgId} introuvable`);
-
-	// 2. Archiver l'ancienne version dans org_history
-	await query(
-		`INSERT INTO org_history (org_id, name, slug, kind, sector, city, dept, website, domain, status,
-		                          lat, lon, entity_code, entity_source, valid_from, valid_to, recorded_at, actor)
-		 VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16, now(), $17)`,
-		[
-			cur.org_id,
-			cur.name,
-			cur.slug,
-			cur.kind,
-			cur.sector,
-			cur.city,
-			cur.dept,
-			cur.website,
-			cur.domain,
-			cur.status,
-			cur.lat,
-			cur.lon,
-			cur.entity_code,
-			cur.entity_source,
-			cur.valid_from,
-			validFrom,
-			actor,
-		],
-	);
-
-	// 3. Mettre à jour la projection
-	const setters: string[] = [];
-	const vals: unknown[] = [];
-	for (const [k, v] of Object.entries(options.changes)) {
-		vals.push(v);
-		setters.push(`${k}=$${vals.length}`);
+	// Whitelist des colonnes modifiables
+	const allowed = new Set<string>(MUTABLE_ORG_COLUMNS);
+	for (const k of Object.keys(options.changes)) {
+		if (!allowed.has(k)) {
+			throw new Error(`colonne non modifiable : ${k}`);
+		}
 	}
-	vals.push(validFrom);
-	setters.push(`valid_from=$${vals.length}`);
-	vals.push(options.orgId);
-	await query(`UPDATE org SET ${setters.join(", ")} WHERE id=$${vals.length}`, vals);
 
-	// 4. Journaliser (pour le rejeu : on sait quand l'organisation a changé)
+	await withClient(async (client) => {
+		await client.query("BEGIN");
+		try {
+			// 1. Lire l'état courant
+			const { rows } = await client.query(
+				`SELECT id, id AS org_id, name, slug, kind, sector, city, dept, website, domain, status,
+				        lat, lon, entity_code, entity_source, valid_from::text, valid_to::text
+				 FROM org WHERE id=$1`,
+				[options.orgId],
+			);
+			const cur = rows[0];
+			if (!cur) throw new Error(`organisation ${options.orgId} introuvable`);
+
+			// 2. Archiver l'ancienne version dans org_history
+			await client.query(
+				`INSERT INTO org_history (org_id, name, slug, kind, sector, city, dept, website, domain, status,
+				                          lat, lon, entity_code, entity_source, valid_from, valid_to, recorded_at, actor)
+				 VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16, now(), $17)`,
+				[
+					cur.org_id,
+					cur.name,
+					cur.slug,
+					cur.kind,
+					cur.sector,
+					cur.city,
+					cur.dept,
+					cur.website,
+					cur.domain,
+					cur.status,
+					cur.lat,
+					cur.lon,
+					cur.entity_code,
+					cur.entity_source,
+					cur.valid_from,
+					validFrom,
+					actor,
+				],
+			);
+
+			// 3. Mettre à jour la projection
+			const setters: string[] = [];
+			const vals: unknown[] = [];
+			for (const [k, v] of Object.entries(options.changes)) {
+				vals.push(v);
+				setters.push(`${k}=$${vals.length}`);
+			}
+			vals.push(validFrom);
+			setters.push(`valid_from=$${vals.length}`);
+			vals.push(options.orgId);
+			await client.query(`UPDATE org SET ${setters.join(", ")} WHERE id=$${vals.length}`, vals);
+
+			await client.query("COMMIT");
+		} catch (e) {
+			await client.query("ROLLBACK");
+			throw e;
+		}
+	});
+
+	// 4. Journaliser
 	const { consigner } = await import("../journal/index.js");
 	await consigner({
 		kind: "org.changed",
