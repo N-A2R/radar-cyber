@@ -21,7 +21,10 @@
 
   --text: #e6e9ef;
   --muted: #8b93a1;
-  --faint: #5b6472;
+  /* #5b6472 donnait 3,2:1 sur --surface : sous le seuil de 4,5:1 pour du
+     texte courant. Le gris faible sert maintenant aux libellés courts, et il
+     reste lisible (4,5:1). */
+  --faint: #737c8b;
 
   --accent: #3ddbd9;
   --accent-ink: #05080a;
@@ -63,6 +66,14 @@
   --space-3: 12px;
   --space-4: 16px;
   --space-6: 24px;
+
+  /* Échelle typographique. Le corps monte à 13 px et la lecture à 15 px :
+     à 12 px, un tableau dense se lit mal, et 11 px ne doit plus servir qu'à
+     des libellés en capitales. */
+  --text-label: 11px;
+  --text-body: 13px;
+  --text-read: 15px;
+  --text-title: 20px;
 }
 
 /* ── Base ────────────────────────────────────────────────────── */
@@ -73,7 +84,7 @@ html, body, #root { height: 100%; margin: 0; }
 body {
   background: var(--bg);
   color: var(--text);
-  font: 12px/1.45 var(--font-sans);
+  font: var(--text-body) / 1.5 var(--font-sans);
   -webkit-font-smoothing: antialiased;
   overflow: hidden;
 }
@@ -286,9 +297,9 @@ h1, h2 { text-wrap: balance; }
   font-variant-numeric: tabular-nums;
 }
 .kv dt {
-  color: var(--faint);
-  font-size: 9px;
-  letter-spacing: 0.1em;
+  color: var(--muted);
+  font-size: var(--text-label);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 .kv dd {

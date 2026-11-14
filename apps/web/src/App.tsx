@@ -510,6 +510,7 @@ export default function App() {
       <div className="shell__body" style={bodyStyle}>
         <aside className="shell__feed">
             <div className="family-filter" role="group" aria-label="Portée du fil">
+              <span className="family-filter__label">portée</span>
               <button
                 type="button"
                 className="family-filter__btn"

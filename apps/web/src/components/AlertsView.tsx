@@ -308,7 +308,19 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent, refr
         ))}
       </ul>
 
-      {!loading && visibleRows.length === 0 ? <p className="alerts__status">aucune alerte sur ce filtre</p> : null}
+      {!loading && visibleRows.length === 0 ? (
+        <div className="alerts__empty">
+          <p className="alerts__empty-title">Aucune alerte sur ce filtre</p>
+          <p className="alerts__empty-text">
+            Le radar n'alerte que sur un score suffisant : un fait isolé, sans corroboration ni incident
+            confirmé, reste dans le fil d'événements. Une alerte apparaît quand la même organisation est
+            touchée par plusieurs sources, ou quand l'incident est confirmé.
+          </p>
+          <p className="alerts__empty-hint">
+            Les événements admis mais non alertés se lisent dans <strong>Carte → Fil d'événements</strong>.
+          </p>
+        </div>
+      ) : null}
     </section>
   );
 }
