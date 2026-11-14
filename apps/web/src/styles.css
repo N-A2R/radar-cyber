@@ -327,6 +327,17 @@ h1, h2 { text-wrap: balance; }
 
 .sources { max-width: 1500px; }
 
+/* Sept colonnes ne tiennent pas dans le panneau : le conteneur défile au lieu
+   de rogner sa dernière colonne. */
+.sources__scroll {
+  overflow-x: auto;
+  min-height: 0;
+}
+
+.sources__scroll table.data {
+  min-width: 820px;
+}
+
 .sources header {
   display: flex;
   align-items: baseline;
