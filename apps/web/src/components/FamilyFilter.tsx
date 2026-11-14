@@ -6,6 +6,7 @@ type FamilyFilterProps = Pick<FeedProps, "byFamily" | "family" | "onFamily">;
 export default function FamilyFilter({ byFamily, family, onFamily }: FamilyFilterProps) {
   return (
     <div className="family-filter" role="group" aria-label="Filtrer par famille">
+      <span className="family-filter__label">famille</span>
       <button
         type="button"
         className="family-filter__btn"

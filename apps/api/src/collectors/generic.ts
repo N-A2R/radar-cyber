@@ -768,7 +768,12 @@ async function ingestNarrative(
     // défaut il retombe sur l'instant de collecte, ce qui évite les
     // observed_at NULL qui s'accumulaient en fin de fil.
     const parsed = parseObservedAt(dateRaw, { fetchedAt });
-    const dedupKey = `feed:${source.id}:${hashKey(link || title)}`;
+    // La clé portait l'identifiant de la source : le même article, repris par
+    // les douze flux départementaux, devenait douze événements identiques dans
+    // le fil. Elle portait ensuite le lien, mais Google News sert la même
+    // dépêche sous une URL différente par requête — huit copies du même titre
+    // sont passées par là. L'identité d'un article, c'est son titre.
+    const dedupKey = `feed:${hashKey(title)}`;
     // Porte cyber : le texte décide. Une dépêche régionale publiée par une
     // source déclarée `cti` n'est pas du renseignement. Elle était classée
     // `presse` et conservée ; sur décision utilisateur du 10 novembre, elle
