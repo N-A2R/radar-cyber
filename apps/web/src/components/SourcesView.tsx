@@ -284,6 +284,14 @@ export default function SourcesView({ sources, loading, error }: SourcesViewProp
           <caption className="sources-view__caption">
             Registre des sources surveillées
           </caption>
+          {/* `table-layout: fixed` sans colgroup donnait des colonnes égales :
+              le nom de la source se cassait sur cinq lignes pendant que
+              « il y a 18 min » débordait sur la suivante. */}
+          <colgroup>
+            {COLUMNS.map((col) => (
+              <col key={col.key} className={`sources-table__col sources-table__col--${col.key}`} />
+            ))}
+          </colgroup>
           <thead>
             <tr>
               {COLUMNS.map((col) => (

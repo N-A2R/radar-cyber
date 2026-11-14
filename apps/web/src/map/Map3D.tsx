@@ -681,7 +681,10 @@ export default function Map3D(props: Map3DProps) {
           layers: [
             { id: 'osm', type: 'raster', source: 'osm', layout: { visibility: 'none' }, paint: { 'raster-brightness-max': 0.42, 'raster-saturation': -0.92, 'raster-contrast': 0.18 } },
             // Imagerie satellite assombrie : lisible sous les calques de données.
-            { id: 'satellite', type: 'raster', source: 'sat', paint: {
+            // Masquée au départ : sans `visibility: none`, elle s'affichait
+            // jusqu'au premier changement de prop, et le fond « plan » restait
+            // couvert par l'imagerie.
+            { id: 'satellite', type: 'raster', source: 'sat', layout: { visibility: 'none' }, paint: {
               'raster-saturation': -0.72, 'raster-contrast': 0.2,
               'raster-brightness-min': 0.02, 'raster-brightness-max': 0.6 } },
             {
@@ -744,7 +747,7 @@ export default function Map3D(props: Map3DProps) {
                 'circle-opacity': 1,
                 'circle-stroke-color': 'rgba(61, 219, 217, 0.45)',
                 'circle-stroke-width': 1,
-                'circle-radius': ['interpolate', ['linear'], ['get', 'point_count'], 10, 11, 100, 15, 1000, 20, 10000, 27],
+                'circle-radius': ['interpolate', ['linear'], ['get', 'point_count'], 10, 14, 100, 18, 1000, 24, 10000, 30],
               },
             },
             {
@@ -754,10 +757,11 @@ export default function Map3D(props: Map3DProps) {
               filter: ['has', 'point_count'],
               layout: {
                 'text-field': ['to-string', ['get', 'point_count']],
-                'text-size': ['interpolate', ['linear'], ['get', 'point_count'], 10, 10, 1000, 12, 10000, 13],
+                'text-size': ['interpolate', ['linear'], ['get', 'point_count'], 10, 11, 1000, 12, 10000, 13],
                 'text-font': ['Noto Sans Regular'],
+                'text-allow-overlap': true,
               },
-              paint: { 'text-color': '#cfd6e2' },
+              paint: { 'text-color': '#dfe6f0' },
             },
             {
               id: 'orgs',
@@ -825,8 +829,10 @@ export default function Map3D(props: Map3DProps) {
             },
           ],
         },
-        center: [-0.5792, 44.8378],
-        zoom: 6.5,
+        center: [-0.4, 44.9],
+        // Le panneau du fil occupe le tiers gauche : le cadrage précédent
+        // posait la région au centre du canevas et laissait un tiers d'océan.
+        zoom: 6.7,
         maxPitch: 70,
         attributionControl: { compact: true },
       })
