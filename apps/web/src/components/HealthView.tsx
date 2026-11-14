@@ -173,6 +173,7 @@ export default function HealthView({ sources }: HealthViewProps) {
         </span>
       </div>
 
+      <div className="sources__scroll">
       <table className="data">
         <thead>
           <tr>
@@ -236,6 +237,7 @@ export default function HealthView({ sources }: HealthViewProps) {
           )}
         </tbody>
       </table>
+      </div>
     </section>
   );
 }

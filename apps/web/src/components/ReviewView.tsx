@@ -213,6 +213,13 @@ export default function ReviewView({ canWrite, server, onUnauthorized, onOpenOrg
 				</p>
 			) : null}
 
+			<p className="review__intro">
+				Chaque ligne est une revendication brute, telle que publiée par sa source. Rien n'est
+				rattaché automatiquement : la revue décide si le fait entre au dossier. Les seaux
+				classent par probabilité d'appartenance à la région — « froid » signifie « conservé,
+				mais hors file ».
+			</p>
+
 			{error ? <p className="review__error" role="alert">{error}</p> : null}
 
 			<div className="review__bar">

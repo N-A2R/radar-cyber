@@ -1,12 +1,93 @@
-.dossier { padding: 1.2rem 1.4rem; max-width: 860px; }
-.dossier__head h1 { font-size: 1.3rem; margin: 0 0 .4rem; }
-.dossier__meta { color: #666; font-size: .9rem; margin: 0; }
-.dossier__hint { color: #888; font-size: .8rem; margin: .3rem 0 1rem; }
-.dossier__status { color: #666; }
-.dossier__status--error { color: #b00; }
-.dossier__section { margin: 1.2rem 0; padding: 0; }
-.dossier__title { font-size: 1.05rem; margin: 0 0 .5rem; border-bottom: 1px solid #eee; padding-bottom: .3rem; }
-.dossier__list { margin: 0; padding-left: 1.2rem; }
-.dossier__list li { margin: .4rem 0; line-height: 1.4; }
-.dossier__list code { background: #f5f5f5; padding: .1rem .3rem; border-radius: 3px; font-size: .9em; }
-.dossier__json { background: #fafafa; border: 1px solid #eee; padding: .8rem; font-size: .8rem; overflow: auto; }
+/* Dossier de reprise.
+   Cette feuille était écrite pour un fond clair (#f5f5f5, #666, #eee) et
+   s'affichait telle quelle dans le thème sombre : des puces gris clair
+   illisibles et des blocs de code blancs. Tout passe par les jetons. */
+
+.dossier {
+  padding: var(--space-6) var(--space-4);
+  max-width: 78ch;
+  color: var(--text);
+  overflow-y: auto;
+  height: 100%;
+}
+
+.dossier__head h1 {
+  font-size: var(--text-title);
+  margin: 0 0 var(--space-2);
+  color: var(--text);
+}
+
+.dossier__meta {
+  color: var(--muted);
+  font-size: var(--text-body);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.dossier__hint {
+  color: var(--faint);
+  font-size: var(--text-body);
+  margin: var(--space-2) 0 var(--space-4);
+  line-height: 1.5;
+}
+
+.dossier__status {
+  color: var(--muted);
+  font-size: var(--text-body);
+}
+
+.dossier__status--error {
+  color: var(--sev-5);
+}
+
+.dossier__section {
+  margin: var(--space-6) 0;
+  padding: 0;
+}
+
+.dossier__title {
+  font-size: var(--text-read);
+  font-weight: 600;
+  margin: 0 0 var(--space-3);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: var(--space-2);
+  color: var(--text);
+}
+
+.dossier__list {
+  margin: 0;
+  padding-left: var(--space-6);
+}
+
+.dossier__list li {
+  margin: var(--space-2) 0;
+  line-height: 1.6;
+  font-size: var(--text-read);
+  color: var(--muted);
+}
+
+.dossier__list strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.dossier__list code {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  padding: 1px 5px;
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text);
+}
+
+.dossier__json {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  padding: var(--space-3);
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: var(--muted);
+  overflow: auto;
+  max-height: 40vh;
+}

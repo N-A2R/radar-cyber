@@ -148,14 +148,21 @@ type DepFeature = {
 /** Limites des 12 départements de Nouvelle-Aquitaine (propriétés `code`, `nom`). */
 const DEP_FEATURES = (JSON.parse(DEP_GEOJSON_RAW) as { type: 'FeatureCollection'; features: DepFeature[] }).features
 
-/** Rampe séquentielle neutre : transparent → ambre, selon le nombre d'organisations. */
+/**
+ * Densité du référentiel par département.
+ *
+ * L'orange saturé à 0,68 couvrait toute la carte : chaque département dépasse
+ * cent organisations, donc tous tombaient dans la classe haute, et l'aplat
+ * masquait les points d'activité. La densité du référentiel est un fond, pas
+ * une alerte : elle passe en teal très clair, et se lit comme une texture.
+ */
 function densityColor(count: number): string {
-  if (count <= 0) return 'rgba(232,163,61,0)'
-  if (count <= 5) return 'rgba(232,163,61,0.12)'
-  if (count <= 15) return 'rgba(232,163,61,0.22)'
-  if (count <= 40) return 'rgba(232,163,61,0.36)'
-  if (count <= 100) return 'rgba(232,163,61,0.52)'
-  return 'rgba(232,163,61,0.68)'
+  if (count <= 0) return 'rgba(61,219,217,0)'
+  if (count <= 200) return 'rgba(61,219,217,0.05)'
+  if (count <= 600) return 'rgba(61,219,217,0.08)'
+  if (count <= 1500) return 'rgba(61,219,217,0.11)'
+  if (count <= 4000) return 'rgba(61,219,217,0.14)'
+  return 'rgba(61,219,217,0.18)'
 }
 
 /** Expression `match` sur `code`, teintée par le nombre réel d'organisations. */
@@ -654,7 +661,17 @@ export default function Map3D(props: Map3DProps) {
             },
             dem: { type: 'raster-dem', tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'], tileSize: 256, encoding: 'terrarium' },
             ofm: { type: 'vector', tiles: [ofmUrl], minzoom: 0, maxzoom: 14 },
-            orgs: { type: 'geojson', data: { type: 'FeatureCollection', features: [] } },
+            orgs: {
+              type: 'geojson',
+              data: { type: 'FeatureCollection', features: [] },
+              // 34 000 organisations en points individuels donnaient une tache
+              // illisible à l'ouverture. Le regroupement fait lire une densité
+              // (une pastille par bassin), et le point individuel n'apparaît
+              // qu'une fois assez zoomé pour qu'il veuille dire quelque chose.
+              cluster: true,
+              clusterRadius: 42,
+              clusterMaxZoom: 9,
+            },
             hot: { type: 'geojson', data: { type: 'FeatureCollection', features: [] } },
             cities: { type: 'geojson', data: cityFeatures },
             dep: { type: 'geojson', data: { type: 'FeatureCollection', features: DEP_FEATURES }, attribution: '© OpenStreetMap contributors' },
@@ -664,7 +681,10 @@ export default function Map3D(props: Map3DProps) {
           layers: [
             { id: 'osm', type: 'raster', source: 'osm', layout: { visibility: 'none' }, paint: { 'raster-brightness-max': 0.42, 'raster-saturation': -0.92, 'raster-contrast': 0.18 } },
             // Imagerie satellite assombrie : lisible sous les calques de données.
-            { id: 'satellite', type: 'raster', source: 'sat', paint: {
+            // Masquée au départ : sans `visibility: none`, elle s'affichait
+            // jusqu'au premier changement de prop, et le fond « plan » restait
+            // couvert par l'imagerie.
+            { id: 'satellite', type: 'raster', source: 'sat', layout: { visibility: 'none' }, paint: {
               'raster-saturation': -0.72, 'raster-contrast': 0.2,
               'raster-brightness-min': 0.02, 'raster-brightness-max': 0.6 } },
             {
@@ -718,11 +738,38 @@ export default function Map3D(props: Map3DProps) {
               paint: { 'text-color': '#e6ebf2', 'text-halo-color': '#080b10', 'text-halo-width': 1.5 },
             },
             {
+              id: 'orgs-clusters',
+              type: 'circle',
+              source: 'orgs',
+              filter: ['has', 'point_count'],
+              paint: {
+                'circle-color': 'rgba(20, 30, 38, 0.88)',
+                'circle-opacity': 1,
+                'circle-stroke-color': 'rgba(61, 219, 217, 0.45)',
+                'circle-stroke-width': 1,
+                'circle-radius': ['interpolate', ['linear'], ['get', 'point_count'], 10, 14, 100, 18, 1000, 24, 10000, 30],
+              },
+            },
+            {
+              id: 'orgs-cluster-count',
+              type: 'symbol',
+              source: 'orgs',
+              filter: ['has', 'point_count'],
+              layout: {
+                'text-field': ['to-string', ['get', 'point_count']],
+                'text-size': ['interpolate', ['linear'], ['get', 'point_count'], 10, 11, 1000, 12, 10000, 13],
+                'text-font': ['Noto Sans Regular'],
+                'text-allow-overlap': true,
+              },
+              paint: { 'text-color': '#dfe6f0' },
+            },
+            {
               id: 'orgs',
               type: 'circle',
               source: 'orgs',
+              filter: ['!', ['has', 'point_count']],
               paint: {
-                'circle-radius': ['interpolate', ['linear'], ['zoom'], 5, 3, 13, 7],
+                'circle-radius': ['interpolate', ['linear'], ['zoom'], 9, 3, 13, 6],
                 'circle-color': NEUTRAL_COLOR,
                 'circle-stroke-color': '#080b10',
                 'circle-stroke-width': 1.5,
@@ -782,8 +829,10 @@ export default function Map3D(props: Map3DProps) {
             },
           ],
         },
-        center: [-0.5792, 44.8378],
-        zoom: 6.5,
+        center: [-0.4, 44.9],
+        // Le panneau du fil occupe le tiers gauche : le cadrage précédent
+        // posait la région au centre du canevas et laissait un tiers d'océan.
+        zoom: 6.7,
         maxPitch: 70,
         attributionControl: { compact: true },
       })
@@ -923,6 +972,21 @@ export default function Map3D(props: Map3DProps) {
       })
       map.on('mousemove', 'orgs', () => { map?.getCanvas().style.setProperty('cursor', 'pointer') })
       map.on('mouseleave', 'orgs', () => { map?.getCanvas().style.setProperty('cursor', '') })
+      map.on('mousemove', 'orgs-clusters', () => { map?.getCanvas().style.setProperty('cursor', 'pointer') })
+      map.on('mouseleave', 'orgs-clusters', () => { map?.getCanvas().style.setProperty('cursor', '') })
+
+      // Un groupe n'est pas un objet : il ne s'ouvre pas, il se traverse.
+      map.on('click', 'orgs-clusters', (e) => {
+        const feature = e.features?.[0]
+        const clusterId = feature?.properties?.cluster_id
+        const geometry = feature?.geometry
+        if (typeof clusterId !== 'number' || geometry == null || geometry.type !== 'Point') return
+        const center = geometry.coordinates as [number, number]
+        const source = map?.getSource('orgs') as maplibregl.GeoJSONSource | undefined
+        source?.getClusterExpansionZoom(clusterId).then((zoom) => {
+          map?.easeTo({ center, zoom, duration: 450 })
+        }).catch(() => { /* source remplacée entre-temps */ })
+      })
 
       map.on('click', 'events', (e) => {
         const feature = e.features?.[0]

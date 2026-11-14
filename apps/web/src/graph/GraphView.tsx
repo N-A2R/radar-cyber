@@ -217,6 +217,28 @@ const BOX_LABEL: CSSProperties = { margin: '10px 0 4px', fontSize: 11, color: 'v
 const CHIP_WRAP: CSSProperties = { display: 'flex', flexWrap: 'wrap', gap: 4 };
 const MUTED: CSSProperties = { color: 'var(--faint)', fontSize: 11 };
 const COUNT: CSSProperties = { color: 'var(--faint)', fontSize: 10 };
+
+/* Un graphe à trois nœuds ressemble à une panne. Ce panneau dit ce qu'il
+   montre et pourquoi il est mince : le graphe ne dessine que les
+   rattachements, pas les articles. */
+const EMPTY_CARD: CSSProperties = {
+  position: 'absolute',
+  left: '50%',
+  top: '50%',
+  transform: 'translate(-50%, -50%)',
+  maxWidth: '48ch',
+  padding: '20px 22px',
+  border: '1px dashed var(--line-strong)',
+  borderRadius: 'var(--radius)',
+  background: 'var(--surface)',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+  zIndex: 5,
+};
+const EMPTY_TITLE: CSSProperties = { margin: 0, fontSize: 'var(--text-read)', color: 'var(--text)' };
+const EMPTY_TEXT: CSSProperties = { margin: 0, fontSize: 'var(--text-body)', lineHeight: 1.6, color: 'var(--muted)' };
+const EMPTY_HINT: CSSProperties = { margin: 0, fontSize: 'var(--text-body)', color: 'var(--faint)' };
 const LEGEND_ROW: CSSProperties = {
   display: 'flex',
   alignItems: 'center',
@@ -816,11 +838,28 @@ export default function GraphView(props: GraphViewProps) {
         </button>
       </div>
 
-      {mode === 'matrix' ? (
+      {data.nodes.length <= 5 ? (
+        <div style={EMPTY_CARD}>
+          <p style={EMPTY_TITLE}>Le graphe ne dessine que les rattachements</p>
+          <p style={EMPTY_TEXT}>
+            {data.nodes.length === 0
+              ? "Aucun fait n'est encore relié à une organisation."
+              : `${data.nodes.length} nœud${data.nodes.length > 1 ? "s" : ""} : chaque organisation, département ou famille affiché ici doit être relié à un événement rattaché.`}
+          </p>
+          <p style={EMPTY_TEXT}>
+            Un article de presse qui nomme une enseigne sans que le référentiel la connaisse
+            reste dans le fil, mais ne crée pas de nœud. Le graphe grandit donc avec la
+            qualité du rattachement, pas avec le volume collecté.
+          </p>
+          <p style={EMPTY_HINT}>Voir les faits : Carte → Fil d'événements.</p>
+        </div>
+      ) : null}
+
+      {mode === 'matrix' && data.nodes.length > 5 ? (
         <div style={{ position: 'absolute', inset: 0, padding: '44px 12px 12px', display: 'flex', minHeight: 0 }}>
           <GraphMatrix nodes={matrixNodes} links={links} />
         </div>
-      ) : (
+      ) : data.nodes.length <= 5 ? null : (
         <>
       <div ref={containerRef} style={{ position: 'absolute', inset: 0 }}>
         {size.width > 0 && (

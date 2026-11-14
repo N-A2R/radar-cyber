@@ -89,7 +89,10 @@ export default function App() {
     setUrlState((prev) => (prev.org === id ? prev : { ...prev, org: id }));
   }, []);
   const [connected, setConnected] = useState(false);
-  const [basemap, setBasemap] = useState<"sat" | "plan">("sat");
+  // Le fond par défaut est le plan sombre : l'imagerie satellite est superbe
+  // mais elle occupe l'œil, et la densité du référentiel comme les pastilles
+  // de regroupement ne se lisent plus dessus. C'est un mode de détail.
+  const [basemap, setBasemap] = useState<"sat" | "plan">("plan");
   const [token, setToken] = useState<string | null>(() => getAuthToken());
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [liveAlerts, setLiveAlerts] = useState<LiveAlert[]>([]);
@@ -510,6 +513,7 @@ export default function App() {
       <div className="shell__body" style={bodyStyle}>
         <aside className="shell__feed">
             <div className="family-filter" role="group" aria-label="Portée du fil">
+              <span className="family-filter__label">portée</span>
               <button
                 type="button"
                 className="family-filter__btn"

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { api } from "../api";
 import "./dossier.css";
 
@@ -71,7 +71,7 @@ export default function DossierView() {
 					<h2 className="dossier__title">{s.titre}</h2>
 					<ul className="dossier__list">
 						{s.points.map((p, i) => (
-							<li key={i} dangerouslySetInnerHTML={{ __html: renderInline(p) }} />
+							<li key={i}>{renderInline(p)}</li>
 						))}
 					</ul>
 				</section>
@@ -85,14 +85,24 @@ export default function DossierView() {
 	);
 }
 
-function renderInline(text: string): string {
-	// Minimal markdown inline : **gras** → <b>, `code` → <code>
-	return text
-		.replace(/\*\*(.+?)\*\*/g, "<b>$1</b>")
-		.replace(/`(.+?)`/g, "<code>$1</code>")
-		.replace(/</g, "&lt;") // will be undone for our tags, so do careful
-		.replace(/&lt;b&gt;/g, "<b>")
-		.replace(/&lt;\/b&gt;/g, "</b>")
-		.replace(/&lt;code&gt;/g, "<code>")
-		.replace(/&lt;\/code&gt;/g, "</code>");
+function renderInline(text: string): ReactNode {
+	// Le dossier arrive en markdown inline (`**gras**`, `` `code` ``) et certains
+	// passages contiennent déjà du `<b>`. La chaîne précédente échappait tout
+	// puis ré-ouvrait ses propres balises : le moindre `<` du texte ressortait
+	// affiché tel quel. On construit des nœuds React, il n'y a plus d'HTML
+	// injecté du tout.
+	const motif = /\*\*(.+?)\*\*|`([^`]+)`|<b>(.+?)<\/b>/g;
+	const noeuds: ReactNode[] = [];
+	let dernier = 0;
+	let m: RegExpExecArray | null;
+	let cle = 0;
+	while ((m = motif.exec(text)) !== null) {
+		if (m.index > dernier) noeuds.push(text.slice(dernier, m.index));
+		if (m[1] !== undefined) noeuds.push(<strong key={cle++}>{m[1]}</strong>);
+		else if (m[2] !== undefined) noeuds.push(<code key={cle++}>{m[2]}</code>);
+		else noeuds.push(<strong key={cle++}>{m[3]}</strong>);
+		dernier = motif.lastIndex;
+	}
+	if (dernier < text.length) noeuds.push(text.slice(dernier));
+	return noeuds;
 }
