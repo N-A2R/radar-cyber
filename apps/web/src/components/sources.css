@@ -96,6 +96,10 @@
 
 .sources-table {
   width: 100%;
+  /* Neuf colonnes ne tiennent pas dans un panneau de 700 px : le tableau garde
+     une largeur minimale et le conteneur défile horizontalement, plutôt que de
+     rogner la dernière colonne en silence. */
+  min-width: 900px;
   border-collapse: collapse;
   font-size: 12px;
   table-layout: fixed;
@@ -276,7 +280,7 @@
 .sources-table__reason {
   display: block;
   margin-top: 2px;
-  font-size: 10px;
+  font-size: 11px;
   color: var(--color-muted);
   max-width: 22ch;
   overflow: hidden;
@@ -322,4 +326,35 @@
 
 .sources-unique[data-unique="non"] {
   color: var(--color-faint);
+}
+
+/* Largeurs par colonne : le nom respire, les nombres ne se cassent pas. */
+.sources-table__col--name { width: 24%; }
+.sources-table__col--family { width: 8%; }
+.sources-table__col--status { width: 9%; }
+.sources-table__col--lastOkAt { width: 11%; }
+.sources-table__col--lastErrorAt { width: 11%; }
+.sources-table__col--entrees { width: 8%; }
+.sources-table__col--evenements30j { width: 8%; }
+.sources-table__col--rendement { width: 8%; }
+.sources-table__col--motif { width: 13%; }
+
+/* Une date relative et un nombre ne se coupent pas en deux. */
+.sources-table td,
+.sources-table th {
+  font-variant-numeric: tabular-nums;
+  padding-top: 9px;
+  padding-bottom: 9px;
+  vertical-align: top;
+}
+
+.sources-table__num,
+.sources-table td:nth-child(n + 4) {
+  white-space: nowrap;
+}
+
+.sources-table__name {
+  white-space: normal;
+  font-weight: 500;
+  line-height: 1.4;
 }

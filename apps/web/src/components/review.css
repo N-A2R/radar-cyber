@@ -193,3 +193,20 @@
   .review__body { grid-template-columns: minmax(0, 1fr); }
   .review__detail { max-height: 40vh; }
 }
+
+/* Ce que la file est, et ce qu'elle n'est pas. Sans cette phrase, 16 000
+   lignes en attente se lisent comme un travail en retard — alors que la
+   plupart sont là pour être écartées. */
+.review__intro {
+  margin: 0;
+  padding: 10px 12px;
+  border-left: 2px solid var(--line-strong);
+  font-size: var(--text-body);
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 78ch;
+}
+
+.review__intro + * {
+  margin-top: var(--space-3);
+}
