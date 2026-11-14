@@ -280,7 +280,7 @@
 .sources-table__reason {
   display: block;
   margin-top: 2px;
-  font-size: 10px;
+  font-size: 11px;
   color: var(--color-muted);
   max-width: 22ch;
   overflow: hidden;
