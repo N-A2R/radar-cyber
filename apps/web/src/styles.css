@@ -804,3 +804,56 @@ body {
     display: none;
   }
 }
+
+/* ── Repli du fil ─────────────────────────────────────────────
+   Le fil reste monté sur tous les onglets, alors que Sources, Santé et
+   Dossier ont besoin de toute la largeur. Il se replie en un rail de 44 px
+   qui le rouvre. */
+.shell__feed {
+  position: relative;
+}
+
+.shell__feed-collapse {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  z-index: 3;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.shell__feed-collapse:hover {
+  color: var(--text);
+  border-color: var(--line-strong);
+}
+
+.shell__feed-rail {
+  display: grid;
+  place-items: center;
+  align-content: start;
+  padding-top: var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: var(--text-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  cursor: pointer;
+  transition: color 120ms ease, border-color 120ms ease;
+}
+
+.shell__feed-rail:hover {
+  color: var(--text);
+  border-color: var(--line-strong);
+}
