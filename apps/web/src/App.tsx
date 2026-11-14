@@ -414,8 +414,15 @@ export default function App() {
   const inspectorOpen =
     selectedEventId !== null || selectedOrgId !== null || sheetOrgId !== null;
 
+  // Le fil occupe un tiers de la largeur sur tous les onglets. Sur Sources,
+  // Santé ou Dossier — des vues qui ont besoin de toute la largeur — il se
+  // replie en un rail de 44 px.
+  const [feedOpen, setFeedOpen] = useState(true);
+  const feedWidth = feedOpen ? "352px" : "44px";
   const bodyStyle = {
-    gridTemplateColumns: inspectorOpen ? "352px minmax(0,1fr) 320px" : "352px minmax(0,1fr)",
+    gridTemplateColumns: inspectorOpen
+      ? `${feedWidth} minmax(0,1fr) 320px`
+      : `${feedWidth} minmax(0,1fr)`,
   };
 
   // Sans jeton (hors démonstration), le shell n'est jamais monté : seul
@@ -511,7 +518,17 @@ export default function App() {
       ) : null}
 
       <div className="shell__body" style={bodyStyle}>
+        {feedOpen ? (
         <aside className="shell__feed">
+            <button
+              type="button"
+              className="shell__feed-collapse"
+              onClick={() => setFeedOpen(false)}
+              aria-label="Replier le fil d'événements"
+              title="Replier le fil"
+            >
+              ‹
+            </button>
             <div className="family-filter" role="group" aria-label="Portée du fil">
               <span className="family-filter__label">portée</span>
               <button
@@ -554,6 +571,17 @@ export default function App() {
               error={null}
             />
         </aside>
+        ) : (
+          <button
+            type="button"
+            className="shell__feed-rail"
+            onClick={() => setFeedOpen(true)}
+            aria-label="Déplier le fil d'événements"
+            title="Déplier le fil"
+          >
+            fil
+          </button>
+        )}
 
         <main className="shell__stage">
           {view === "map" ? (
