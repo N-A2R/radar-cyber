@@ -163,3 +163,42 @@ rattachement. La raison est connue — les requêtes Google News ignorent en par
 la contrainte géographique (« Cholet », « EFS » remontent dans le flux
 « Nouvelle-Aquitaine »). Le prochain levier est la précision de la requête, pas
 le volume de sources.
+
+---
+
+## Correctif du 14 novembre : une famille hors contrat
+
+La migration 037 déclarait les flux Google News avec `family = 'presse_cyber'`.
+Cette valeur **n'existe pas** dans `packages/shared` (`FAMILIES`), et le code ne
+la refuse pas : `isFamily()` rend faux, la famille déclarée est recopiée telle
+quelle, et la porte d'admission — `if (family === "presse") refus` — ne
+s'applique plus.
+
+Deux conséquences mesurées :
+
+1. Les 200 articles admis ont **contourné la décision du 10 novembre** sur la
+   presse ;
+2. Aucun ne pouvait alerter. `presse-cyber` attend `family = "presse"`,
+   `fuite-donnees` attend `family = "cti"` — une troisième valeur ne satisfait
+   aucune des deux.
+
+`db/migrate-038` remet la famille dans le contrat (`cti`) et purge les
+événements admis par le mauvais chemin. Recollecte sur D0 : **205 événements
+`cti`**, dont **12 régionaux** et **1 rattaché**.
+
+## Ce que les autres portées font réellement
+
+La passe de détection a évalué les 205 événements (`events: 205, alerts: 0`).
+La règle `fuite-donnees` **s'est déclenchée**, puis le score l'a arrêtée :
+
+```json
+{"detect":"alert_skipped_below_threshold","score":21,"threshold":65,
+ "components":{"source_reliability":0.25,"assertion_strength":0.35,
+ "attachment_quality":0.15,"corroboration":0}}
+```
+
+Un article de presse seul plafonne à 21 sur 65 : c'est la doctrine écrite dans
+`detect/confidence.ts` — sans corroboration ni incident confirmé, pas d'alerte.
+Les portées NATIONAL et MONDE ne sont donc pas « perdues » : elles sont
+**adressées puis refusées** par la porte de confiance, ce qui est le
+comportement voulu et désormais observable.
