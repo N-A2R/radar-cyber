@@ -55,7 +55,7 @@ export type JournalEntry = {
  * exactement le trou qu'a révélé le remplacement du matcher de rattachement.
  */
 export const MOTEURS = {
-	rattachement: "gazetteer@3",
+	rattachement: "gazetteer@4",
 	admission: "contrat@1",
 	detection: "regles@7",
 	referentiel: "plan-etendu@1",
