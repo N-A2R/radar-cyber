@@ -5,11 +5,12 @@ La seule question qui justifie le projet :
 > Sur les incidents publics de Nouvelle-Aquitaine des douze derniers mois,
 > quelle part le radar a-t-il vue ?
 
-Mesure du **14 novembre 2026**, fenêtre `2025-11-01 → 2026-10-31`, corpus de
-**60 incidents** publics vérifiés sur pièces — dont **37 ajoutés ce jour**
-(élargissement des 13 et 14 novembre), chacun avec un extrait verbatim de sa
-source et sa date de consultation. Dix-huit entrées portent sur des incidents
-antérieurs à la fenêtre : conservées comme contexte, exclues du dénominateur.
+Mesure du **15 novembre 2026** (re-jeu de la mesure du 14, corpus inchangé),
+fenêtre `2025-11-01 → 2026-10-31`, corpus de **60 incidents** publics vérifiés
+sur pièces — dont 37 ajoutés les 13 et 14 novembre, chacun avec un extrait
+verbatim de sa source et sa date de consultation. Dix-huit entrées portent sur
+des incidents antérieurs à la fenêtre : conservées comme contexte, exclues du
+dénominateur.
 
 ## Le résultat, sans arrangement
 
@@ -19,7 +20,8 @@ Couverture : 27/42 (64,3 %)
   non rattachés         15
     dont 9 organisations absentes du référentiel
     dont 6 présentes mais non reconnues par le moteur
-Référentiel entreprises : 2 516 lignes commerce, 1 126 BTP, 951 industrie, 231 agro
+Référentiel entreprises : 5 788 lignes hors numérique
+  commerce 3 290 · construction 1 230 · industrie 1 027 · agroalimentaire 241
 
 Rappel par secteur (33 incidents sectorisés)
   collectivite   5/6   (83 %)  · réserve : n = 6
@@ -28,6 +30,11 @@ Rappel par secteur (33 incidents sectorisés)
   entreprise     8/16  (50 %)  · réserve : n = 16
   autre          0/9   · pas de taux (aucun rattachement par secteur d'activité)
 ```
+
+Le taux est identique à la mesure du 14 novembre — le re-jeu a en revanche
+révélé deux défauts, corrigés ce jour (voir plus bas) : l'import SIRENE n'écrivait
+jamais le secteur de ses entreprises, et la ligne « référentiel entreprises » du
+script de mesure valait toujours 0 quelle que soit la base.
 
 Deux corrections ont fait passer la couverture de 15/42 à 27/42, sans toucher
 au moteur :
@@ -113,12 +120,38 @@ Le prochain gain ne viendra donc pas d'un import massif mais du traitement des
 noms d'usage : c'est un travail de quelques dizaines d'alias, pas de dizaines
 de milliers de lignes.
 
+## Deux défauts trouvés par le re-jeu du 15 novembre
+
+Le taux n'a pas bougé ; la mesure a tout de même servi. Rejouée sur la base du
+jour, elle a révélé deux défauts, chacun corrigé ce jour :
+
+1. **L'import SIRENE n'écrivait jamais le secteur.** Le script
+   (`scripts/import-entreprises-na.mts`) insérait `sector = NULL` en dur : les
+   7 460 entreprises créées depuis le 14 novembre — dont 1 648 numériques
+   réimportées — portaient leur code NAF mais aucun secteur, donc « 0 ligne »
+   dans les comptes par secteur. Les nombres publiés le 14 (4 824 lignes hors
+   numérique) ne tenaient plus sur aucune base reproductible. Corrigé : le
+   secteur se déduit du NAF (`scripts/naf-secteurs.mts`), à l'import comme en
+   backfill, et le backfill (`scripts/backfill-secteurs-org.mts`) a complété
+   7 436 organisations avec un fait `org.changed` par ligne, journalisé.
+2. **La ligne « référentiel entreprises » du script de mesure valait toujours
+   0.** `query()` renvoie `{rows, rowCount}` et le script lisait le résultat
+   comme un tableau (`secteursManquants[0]?.n` au lieu de `.rows[0]?.n`) :
+   `lignesSecteursManquants` était structurellement à 0 — y compris dans les
+   JSON publiés les 13 et 14. Renommé `lignesHorsNumerique`, lu correctement,
+   avertissement conditionnel au lieu d'un texte figé qui annonçait un trou
+   comblé comme s'il subsistait.
+
+C'est le sens de « mesure publiable » : rejouer un chiffre doit soit le
+reproduire, soit expliquer pourquoi il bouge. Ici il s'est reproduit (27/42)
+et deux instruments cassés ont été réparés au passage.
+
 ## Méthode
 
 - Chaque incident du corpus est transformé en événement normalisé et passé à la
   **porte d'admission du contrat** (`contract/admit.ts`), la même que
   l'ingestion.
-- Le texte traverse le **gazetteer réel** sur les 34 330 organisations.
+- Le texte traverse le **gazetteer réel** sur les 41 801 organisations.
 - Aucun refus n'est une case vide : tout est motivé (`pas_admis`,
   `pas_rattache`, `absent_du_referentiel`, `au_referentiel_mais_non_reconnu`).
 
@@ -134,7 +167,7 @@ pnpm tsx scripts/mesure-couverture.mts --json=out.json        # publie
 ```
 
 Corpus : `bench/fixtures/corpus-reference-na.json` (versionné).
-Résultat : `bench/results/couverture-2026-11-13.json` (publié).
+Résultat : `bench/results/couverture-2026-11-15.json` (publié).
 
 ---
 
