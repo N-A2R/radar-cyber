@@ -104,21 +104,23 @@ describe("journal — le pourquoi est conservé", () => {
 });
 
 describe("journal — écriture groupée", () => {
-	it("consigne N faits en une requête", async () => {
+	it("consigne N faits et rend la comptabilité", async () => {
 		const faits = [1, 2, 3].map((n) => ({
 			kind: "match.decided" as const,
 			subject: `${MARQUE}-lot-${n}`,
 			summary: `fait ${n}`,
 			actor: "moteur:test",
 		}));
-		const ecrits = await consignerLot(faits);
-		assert.equal(ecrits, 3);
+		const lot = await consignerLot(faits);
+		assert.equal(lot.consignes, 3);
+		assert.equal(lot.lacunes, 0);
+		assert.equal(lot.erreurs.length, 0);
 		const resumes = await resumeJournal();
 		assert.ok((resumes["match.decided"] ?? 0) >= 3);
 	});
 
 	it("ne fait rien sur une liste vide", async () => {
-		assert.equal(await consignerLot([]), 0);
+		assert.deepEqual(await consignerLot([]), { consignes: 0, lacunes: 0, erreurs: [] });
 	});
 });
 
