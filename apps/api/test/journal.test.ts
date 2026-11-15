@@ -97,7 +97,7 @@ describe("journal — le pourquoi est conservé", () => {
 			payload: { orgId: 42, alias: "ville de tarnos", motif: "alias-role", confiance: 0.95 },
 		});
 		const [ligne] = await lireJournal({ subject: `${MARQUE}-preuve` });
-		assert.equal(ligne?.actor, "moteur:gazetteer@2");
+		assert.equal(ligne?.actor, `moteur:${MOTEURS.rattachement}`);
 		assert.equal(ligne?.payload.motif, "alias-role");
 		assert.equal(ligne?.payload.confiance, 0.95);
 	});
