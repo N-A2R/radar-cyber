@@ -1,6 +1,6 @@
 import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
-import { hashPassword, verifyPassword, newToken } from "../auth.js";
+import { hashPassword, verifyPassword, newToken, hashSessionToken } from "../auth.js";
 import { requireAuth, requireRole } from "../middleware/auth.js";
 
 const SESSION_TTL_MS = 7 * 24 * 3600 * 1000;
@@ -44,7 +44,7 @@ export default async function (app: FastifyInstance) {
     reply.code(201).send({ id: r.rows[0].id, email, role: finalRole });
   });
 
-  app.post("/auth/login", async (req, reply) => {
+  app.post("/auth/login", { config: { rateLimit: { max: 5, timeWindow: "1 minute" } } }, async (req, reply) => {
     const body = (req.body ?? {}) as { email?: string; password?: string };
     const email = body.email?.trim().toLowerCase();
     const password = body.password ?? "";
@@ -59,7 +59,9 @@ export default async function (app: FastifyInstance) {
     }
     const token = newToken();
     const expires = new Date(Date.now() + SESSION_TTL_MS);
-    await query("INSERT INTO app_session (token, user_id, expires_at) VALUES ($1,$2,$3)", [token, row.id, expires.toISOString()]);
+    // Seul le SHA-256 du token dort en base : le token lui-même ne vit que
+    // chez le client.
+    await query("INSERT INTO app_session (token, user_id, expires_at) VALUES ($1,$2,$3)", [hashSessionToken(token), row.id, expires.toISOString()]);
     await query("UPDATE app_user SET last_login_at = now() WHERE id = $1", [row.id]);
     reply.send({ token, user: { id: row.id, email, role: row.role, displayName: row.display_name } });
   });
@@ -67,7 +69,7 @@ export default async function (app: FastifyInstance) {
   app.post("/auth/logout", { preHandler: requireAuth() }, async (req, reply) => {
     const h = req.headers.authorization as string;
     const token = h.slice(7).trim();
-    await query("DELETE FROM app_session WHERE token = $1", [token]);
+    await query("DELETE FROM app_session WHERE token = $1", [hashSessionToken(token)]);
     reply.send({ ok: true });
   });
 

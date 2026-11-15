@@ -1,5 +1,6 @@
 import type { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
 import { query } from "../db.js";
+import { hashSessionToken } from "../auth.js";
 
 export type AuthUser = { id: number; email: string; role: string; displayName: string | null };
 
@@ -10,11 +11,13 @@ declare module "fastify" {
 }
 
 async function lookupToken(token: string): Promise<AuthUser | null> {
+  // La base ne connaît que le SHA-256 du token : on cherche le hash, jamais
+  // le token lui-même.
   const r = await query<{ user_id: number; email: string; role: string; display_name: string | null; expires_at: string }>(
     `SELECT u.id AS user_id, u.email, u.role, u.display_name, s.expires_at
      FROM app_session s JOIN app_user u ON u.id = s.user_id
      WHERE s.token = $1`,
-    [token]
+    [hashSessionToken(token)]
   );
   const row = r.rows[0];
   if (!row) return null;

@@ -13,11 +13,11 @@ name: radar-cyber
 
 x-db-credentials: &db-credentials
   POSTGRES_USER: ${POSTGRES_USER:-radar}
-  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-radar}
+  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD requis}
   POSTGRES_DB: ${POSTGRES_DB:-radar}
 
 x-database-url: &database-url
-  DATABASE_URL: postgres://${POSTGRES_USER:-radar}:${POSTGRES_PASSWORD:-radar}@db:5432/${POSTGRES_DB:-radar}
+  DATABASE_URL: postgres://${POSTGRES_USER:-radar}:${POSTGRES_PASSWORD:?POSTGRES_PASSWORD requis}@db:5432/${POSTGRES_DB:-radar}
 
 x-api-env: &api-env
   <<: *database-url

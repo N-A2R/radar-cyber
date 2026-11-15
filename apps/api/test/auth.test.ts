@@ -12,6 +12,7 @@ import assert from "node:assert/strict";
 import Fastify from "fastify";
 import { closePools, query } from "../src/db.js";
 import authRoute from "../src/routes/auth.js";
+import { hashSessionToken } from "../src/auth.js";
 
 const SUFFIX = `${Date.now()}-${process.pid}`;
 const ADMIN_EMAIL = `admin-${SUFFIX}@authtest.local`;
@@ -54,7 +55,7 @@ test("avec un compte existant : sans jeton refusé, avec jeton admin accepté", 
 	const token = `tok-${SUFFIX}`;
 	await query(
 		"INSERT INTO app_session (token, user_id, expires_at) VALUES ($1,$2, now() + interval '1 hour')",
-		[token, adminId],
+		[hashSessionToken(token), adminId],
 	);
 
 	const app = await freshApp();
