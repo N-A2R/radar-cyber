@@ -8,6 +8,7 @@
  */
 
 import { mediane } from "./mediane.js";
+import { consignerLot, type JournalEntry } from "../journal/index.js";
 
 export type AlerteRupture = {
 	agent: string;
@@ -138,12 +139,20 @@ export function detecterChangementNature(input: {
 }
 
 /**
- * Détecte les ruptures sur la base courante.
+ * Détecte les ruptures sur la base courante, à un instant donné.
  *
  * Séparé des détecteurs (qui restent purs et testables) : ici on ne fait que
  * lire ce qu'il faut leur donner. Sur une base sans événement, la fonction
  * renvoie une liste vide — ce n'est pas « aucune rupture », c'est « rien à
  * observer », et `dossier-reprise` le dit ainsi.
+ *
+ * `maintenant` est réellement propagé aux requêtes : les fenêtres se calculent
+ * depuis cet instant, pas depuis l'horloge du serveur. C'est ce qui permet le
+ * rejeu historique — la mesure du taux de fausses alertes
+ * (`scripts/mesure-fausses-alertes.mts`) rejoue ces fenêtres sur les douze
+ * derniers mois. Avant ce chantier, le paramètre n'atteignait pas le SQL
+ * (les requêtes utilisaient `now()` en dur) : rejouer une date passée
+ * regardait en réalité la semaine présente.
  *
  * Ce qui manque encore et qui est assumé : `referentielDepuis` est approximé
  * par `org.created_at` (date de chargement), pas par la date de création
@@ -153,6 +162,7 @@ export function detecterChangementNature(input: {
  */
 export async function detecterRupturesDepuisBase(maintenant: number = Date.now()): Promise<AlerteRupture[]> {
 	const appels: AlerteRupture[] = [];
+	const instant = new Date(maintenant).toISOString();
 
 	const { query } = await import("../db.js");
 
@@ -168,8 +178,8 @@ export async function detecterRupturesDepuisBase(maintenant: number = Date.now()
 		   FROM org o
 		   JOIN event e ON e.org_id = o.id
 		  GROUP BY o.id, o.created_at
-		 HAVING min(e.observed_at) >= now() - make_interval(days => $1)`,
-		[FENETRE_NOUVEAUTE_JOURS],
+		 HAVING min(e.observed_at) >= $2::timestamptz - make_interval(days => $1)`,
+		[FENETRE_NOUVEAUTE_JOURS, instant],
 	);
 	for (const n of nouvelles.rows) {
 		const faits = await query<FaitRupture>(
@@ -189,30 +199,33 @@ export async function detecterRupturesDepuisBase(maintenant: number = Date.now()
 	const rafales = await query<{ dept: string; family: string; recents: number }>(
 		`SELECT o.dept, e.family, count(*)::int AS recents
 		   FROM event e JOIN org o ON o.id = e.org_id
-		  WHERE e.observed_at >= now() - make_interval(days => $1) AND o.dept IS NOT NULL
+		  WHERE e.observed_at >= $2::timestamptz - make_interval(days => $1) AND o.dept IS NOT NULL
 		  GROUP BY o.dept, e.family
-		 HAVING count(*) >= $2`,
-		[FENETRE_RAFLE_JOURS, SEUIL_RAFLE_MIN],
+		 HAVING count(*) >= $3`,
+		[FENETRE_RAFLE_JOURS, instant, SEUIL_RAFLE_MIN],
 	);
 	for (const r of rafales.rows) {
+		// `zone` fait partie du contrat du détecteur : sans elle, son filtre
+		// `f.zone === zone` comparait `undefined` à un département et aucune
+		// rafale ne partait jamais — un câblage structurellement mort.
 		const recents = await query<FaitRupture>(
-			`SELECT e.id, e.org_id AS "orgId", e.family, e.severity, e.observed_at AS date
+			`SELECT e.id, e.org_id AS "orgId", e.family, e.severity, e.observed_at AS date, o.dept AS zone
 			   FROM event e JOIN org o ON o.id = e.org_id
 			  WHERE o.dept = $1 AND e.family = $2
-			    AND e.observed_at >= now() - make_interval(days => $3)`,
-			[r.dept, r.family, FENETRE_RAFLE_JOURS],
+			    AND e.observed_at >= $3::timestamptz - make_interval(days => $4)`,
+			[r.dept, r.family, instant, FENETRE_RAFLE_JOURS],
 		);
 		// Historique : nombre de faits par fenêtre de même durée, sur 12 fenêtres.
 		const hist = await query<{ n: number }>(
 			`SELECT count(*)::int AS n
 			   FROM event e JOIN org o ON o.id = e.org_id
 			  WHERE o.dept = $1 AND e.family = $2
-			    AND e.observed_at < now() - make_interval(days => $3)
+			    AND e.observed_at < $3::timestamptz - make_interval(days => $4)
 			  GROUP BY width_bucket(
-			           extract(epoch FROM (now() - e.observed_at)),
-			           extract(epoch FROM make_interval(days => $3)),
-			           extract(epoch FROM make_interval(days => $3)) * 13, 12)`,
-			[r.dept, r.family, FENETRE_RAFLE_JOURS],
+			           extract(epoch FROM ($3::timestamptz - e.observed_at)),
+			           extract(epoch FROM make_interval(days => $4)),
+			           extract(epoch FROM make_interval(days => $4)) * 13, 12)`,
+			[r.dept, r.family, instant, FENETRE_RAFLE_JOURS],
 		);
 		const alerte = detecterRafale({
 			zone: r.dept,
@@ -224,5 +237,139 @@ export async function detecterRupturesDepuisBase(maintenant: number = Date.now()
 		if (alerte) appels.push(alerte);
 	}
 
+	// 3. Changement de nature : le dernier fait d'une organisation est d'une
+	// famille jamais vue et d'une gravité qui dépasse le maximum antérieur.
+	// Candidats sélectionnés en une requête, historique lu par organisation :
+	// les détecteurs restent purs, la base ne fait que leur donner à manger.
+	const candidats = await query<{
+		orgId: number;
+		id: number;
+		family: string;
+		severity: number;
+		observed: string;
+		maxPrev: number;
+	}>(
+		`WITH dernier AS (
+		   SELECT DISTINCT ON (e.org_id)
+		          e.org_id, e.id, e.family, e.severity, e.observed_at
+		     FROM event e
+		    WHERE e.org_id IS NOT NULL AND e.severity IS NOT NULL
+		    ORDER BY e.org_id, e.observed_at DESC, e.id DESC
+		 )
+		 SELECT d.org_id AS "orgId", d.id, d.family, d.severity,
+		        d.observed_at::text AS observed, h.max_prev::int AS "maxPrev"
+		   FROM dernier d
+		   JOIN (SELECT h.org_id, max(h.severity) AS max_prev
+		           FROM event h
+		           JOIN dernier d2 ON d2.org_id = h.org_id
+		                  AND (h.observed_at < d2.observed_at
+		                       OR (h.observed_at = d2.observed_at AND h.id < d2.id))
+		          WHERE h.severity IS NOT NULL
+		          GROUP BY h.org_id) h ON h.org_id = d.org_id
+		  WHERE NOT EXISTS (SELECT 1 FROM event e2
+		                     WHERE e2.org_id = d.org_id AND e2.family = d.family
+		                       AND (e2.observed_at < d.observed_at
+		                            OR (e2.observed_at = d.observed_at AND e2.id < d.id)))
+		    AND d.severity >= h.max_prev + $1`,
+		[ECART_GRAVITE],
+	);
+	for (const c of candidats.rows) {
+		const historique = await query<{ family: string; severity: number | null }>(
+			`SELECT family, severity FROM event
+			  WHERE org_id = $1
+			    AND (observed_at < $2::timestamptz OR (observed_at = $2::timestamptz AND id < $3))
+			  ORDER BY observed_at DESC LIMIT 20`,
+			[c.orgId, c.observed, c.id],
+		);
+		const alerte = detecterChangementNature({
+			orgId: c.orgId,
+			historique: historique.rows,
+			nouveau: { id: c.id, orgId: c.orgId, family: c.family, date: c.observed, severity: c.severity },
+		});
+		if (alerte) appels.push(alerte);
+	}
+
 	return appels;
+}
+
+// ---------------------------------------------------------------------------
+// Passage en revue : les alertes de rupture deviennent des lignes de la revue
+// ---------------------------------------------------------------------------
+
+/** Résultat d'un passage de capture : la comptabilité demandée à tout écrivain. */
+export type ResultatRuptures = {
+	/** Alertes détectées à ce passage. */
+	emises: number;
+	/** Lignes de revue créées. */
+	creees: number;
+	/** Lignes existantes mises à jour (evidence, sévérité). */
+	misesAJour: number;
+	/** Faits `alert.changed` consignés (créations et mises à jour). */
+	journal: number;
+	/** Faits restés sans trace ou remplacés par une lacune. */
+	lacunes: number;
+};
+
+/**
+ * score ∈ [0,1] → sévérité entière 1..5 : une alerte de rupture partage
+ * l'échelle des règles de détection, la revue trie sur la même colonne.
+ */
+function severiteDe(score: number): number {
+	return Math.min(5, Math.max(1, Math.round(score * 4) + 1));
+}
+
+/**
+ * Persiste les alertes de rupture dans la revue.
+ *
+ * Une ligne par (agent, organisation) : une situation qui dure met à jour
+ * l'evidence au lieu d'empiler des doublons, et une alerte confirmée par un
+ * analyste n'est jamais rouverte par un passage (le statut ne se touche pas
+ * ici). Chaque écriture est consignée comme `alert.changed` — un fait par
+ * alerte, hors transaction : une lacune de journal ne doit pas perdre une
+ * alerte de revue.
+ */
+export async function capterAlertesRupture(maintenant: number = Date.now()): Promise<ResultatRuptures> {
+	const alertes = await detecterRupturesDepuisBase(maintenant);
+	const { ingestQuery } = await import("../db.js");
+
+	const faits: JournalEntry[] = [];
+	let creees = 0;
+	let misesAJour = 0;
+
+	for (const a of alertes) {
+		const ins = await ingestQuery<{ id: number; nouveau: boolean }>(
+			`INSERT INTO alert (rule_id, title, severity, org_id, evidence, scope)
+			 VALUES ($1, $2, $3, $4, $5, 'rupture')
+			 ON CONFLICT (rule_id, org_id) WHERE scope = 'rupture' AND org_id IS NOT NULL DO UPDATE
+			   SET evidence = EXCLUDED.evidence, severity = EXCLUDED.severity, updated_at = now()
+			 RETURNING id, (xmax = 0) AS nouveau`,
+			[
+				`rupture:${a.agent}`,
+				`${a.agent} — ${a.motif}`,
+				severiteDe(a.score),
+				a.orgId,
+				JSON.stringify({ motif: a.motif, score: a.score, explication: a.explication, faits: a.faits }),
+			],
+		);
+		const ligne = ins.rows[0];
+		if (!ligne) continue;
+		if (ligne.nouveau) creees++;
+		else misesAJour++;
+		faits.push({
+			kind: "alert.changed",
+			subject: `alert:rupture:${a.agent}:${a.orgId}`,
+			summary: `${a.agent} : alerte ${ligne.nouveau ? "créée" : "mise à jour"} — ${a.motif}`,
+			actor: "moteur:rupture@1",
+			payload: { agent: a.agent, orgId: a.orgId, motif: a.motif, score: a.score, faits: a.faits, alerte: ligne.id },
+		});
+	}
+
+	const lot = await consignerLot(faits);
+	return {
+		emises: alertes.length,
+		creees,
+		misesAJour,
+		journal: lot.consignes,
+		lacunes: lot.lacunes + lot.erreurs.length,
+	};
 }
