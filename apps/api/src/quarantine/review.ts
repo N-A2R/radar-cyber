@@ -259,6 +259,10 @@ export type ReviewOutcome = {
 	promoted: number;
 	alerts: number;
 	skipped: Array<{ id: number; reason: string }>;
+	/** Comptabilité du journal : faits posés, trous consignés, échecs restants. */
+	journalConsignes: number;
+	journalLacunes: number;
+	journalErreurs: number;
 };
 
 const STATUS_FOR: Record<Exclude<ReviewAction, "promote">, string> = {
@@ -282,6 +286,7 @@ export async function applyReview(
 	const unique = [...new Set(ids.filter((id) => Number.isInteger(id) && id > 0))];
 	const outcome: ReviewOutcome = {
 		action, requested: unique.length, changed: 0, promoted: 0, alerts: 0, skipped: [],
+		journalConsignes: 0, journalLacunes: 0, journalErreurs: 0,
 	};
 	if (unique.length === 0) return outcome;
 
@@ -355,11 +360,14 @@ export async function applyReview(
 		}
 	});
 	if (faits.length > 0) {
-		try {
-			await consignerLot(faits);
-		} catch {
-			// Une lacune de journal est visible ; une revue perdue ne l'est pas.
-		}
+		// Une revue ne doit pas être perdue à cause du journal ; en échange le
+		// résultat porte la comptabilité : les trous sont écrits dans le journal
+		// (faits `journal.lacune`), les échecs restants sont exposés au lieu
+		// d'être avalés en silence.
+		const lot = await consignerLot(faits);
+		outcome.journalConsignes = lot.consignes;
+		outcome.journalLacunes = lot.lacunes;
+		outcome.journalErreurs = lot.erreurs.length;
 	}
 	return outcome;
 }
