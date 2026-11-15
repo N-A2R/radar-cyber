@@ -19,12 +19,15 @@ Décisions de cadrage, données par l'utilisateur ce jour :
 **18 chantiers faits, 2 à moitié, 0 pas commencé.** Le moteur tourne et il est
 vérifié ; ce qui manque n'est plus du code, c'est la preuve qu'il voit.
 
-> **Mise à jour 15 novembre 2026** : 19 chantiers faits, 1 à moitié (13).
-> Le chantier 10 est clos — trois agents câblés, taux de fausses alertes
-> mesuré et publié (`docs/fausses-alertes.md` : 0 alerte émise sur 27 rejeux,
-> non calculable, publie tel quel), revue branchée. Le journal de vérité a
-> retrouvé 6 067 faits perdus (PR #34), l'import SIRENE écrit ses secteurs
-> (PR #35) et la mesure de couverture est re-jeuée : 27/42 (64,3 %).
+> **Mise à jour 15 novembre 2026** : **20 chantiers faits, 0 à moitié.**
+> Chantier 10 clos (agents de rupture câblés, taux publié, revue branchée) ;
+> chantier 13 clos (stock SIRENE national importé : 700 320 organisations,
+> secteurs déduits du NAF, effectifs, géolocalisation — `docs/vague-sirene.md`).
+> Le journal de vérité a retrouvé 6 067 faits perdus (PR #34), l'import SIRENE
+> écrit ses secteurs (PR #35), et la mesure de couverture est publiée après
+> la vague : 24/42 (57,1 %) — en baisse assumée, le moteur devant apprendre
+> l'arbitrage enseigne à cette densité (gazetteer@3, priorité n° 1 de la
+> suite).
 
 ### Ce qui a été prouvé (D0)
 
@@ -51,7 +54,7 @@ vérifié ; ce qui manque n'est plus du code, c'est la preuve qu'il voit.
 | 1 — Mémoire | 4/4 | rien |
 | 2 — Mesure | **4/4** | rien |
 | 3 — Analyse | 4/4 | rien |
-| 4 — Données | 2/3 | 13 (245 entités sans zone) |
+| 4 — Données | 3/3 | rien |
 | 5 — Produit | 4/4 | rien |
 | 6 — Transmission | 1/1 | rien |
 
@@ -73,7 +76,15 @@ et le journal de vérité est réparé : 6 067 faits perdus le 13 reconsignés,
 
 ### La suite, dans l'ordre (mise à jour du 15 novembre)
 
-1. ~~**Le corpus, encore.**~~ **Saturé aux sources web publiques.** Neuf
+1. **gazetteer@3 — arbitrage enseigne et garde anti-toponyme.** La vague
+   SIRENE a rendu le référentiel 17 fois plus dense : les alias d'usage
+   (« hyper u », « super u », « e leclerc ») touchent désormais des dizaines
+   d'unités légales et le moteur, fidèle à son refus d'ambiguïté, a perdu
+   trois incidents enseigne ; et un alias distinctif porté par un toponyme de
+   département a créé un faux positif. Détail et mécanisme :
+   `docs/vague-sirene.md`. C'est le chantier qui ramène la couverture au
+   niveau atteint avant la vague, puis au-delà.
+2. ~~**Le corpus, encore.**~~ **Saturé aux sources web publiques.** Neuf
    requêtes sur deux moteurs le 15 novembre n'ont trouvé aucun incident NA
    nouveau et vérifiable — chaque candidat était déjà au corpus, hors région
    ou pas un incident (journal dans les métadonnées du corpus). Les réserves
@@ -142,7 +153,7 @@ pourquoi l'axe 1 est déjà engagé.
 
 | # | Chantier | État | Critère de sortie |
 | --- | --- | --- | --- |
-| 13 | **Référentiel entreprises** | **moitié** (15/11 : trou re-publié à jour — cohorte vivante 500 entités, dont **199 en France** chargeables et **301 sans zone** ; cohorte Exa 302 stable, quasi étrangère ; 3 identités testées dans Sirene, refus documentés pour homonymie — `docs/manques-referentiel.md`) ; le côté régional du trou est comblé par l'import SIRENE du 14 (7 436 entreprises, secteurs déduits du NAF) | **trou publié** en liste de courses (zone et voie par entité) |
+| 13 | **Référentiel entreprises** | **fait** (15/11 : stock SIRENE national importé — 700 320 organisations, 99,9 % sectorisées par NAF, 98 % géolocalisées, 126 892 avec effectif, W % des salariés publiable à 87,7 % en minorant — `docs/vague-sirene.md`) ; restent hors vague 1 : ~502 000 personnes physiques (dénomination vide) et les sites secondaires | trou publié en liste de courses (zone et voie par entité) |
 | 14 | **Diagnostic des sources muettes** | **fait** (`docs/sources-diagnostic.md`) | rendement par source exposé, `null` ≠ 0, transitions journalisées |
 | 15 | **Réparation du parsing** | **fait** (4 motifs, `migrate-033` : 3 flux réparés, 2 éteints avec motif) | sources illisibles **réparées ou désactivées avec motif** — nécessite une relance réseau |
 
@@ -181,31 +192,35 @@ peut démarrer immédiatement.
 
 ## Ce que « programme fini » veut dire
 
-**La phrase, publiée le 15 novembre 2026** (mesures reproductibles liées) :
+**La phrase, publiée le 15 novembre 2026 — actualisée après la vague SIRENE
+du même jour** (mesures reproductibles liées) :
 
 > Sur les incidents publics de Nouvelle-Aquitaine de douze derniers mois
-> (fenêtre `2025-11-01 → 2026-10-31`), le radar en a vu **27 sur 42 publiés
-> (64,3 %)**, avec un délai médian de veille de **1,9 jour** après publication
-> (mesuré le 14 novembre sur le flux réel, bulletins CVE exclus). Les **15
+> (fenêtre `2025-11-01 → 2026-10-31`), le radar en a vu **24 sur 42 publiés
+> (57,1 %)**, avec un délai médian de veille de **1,9 jour** après publication
+> (mesuré le 14 novembre sur le flux réel, bulletins CVE exclus). Les **18
 > incidents non vus** le sont pour une raison connue et écrite : 0 refusé à
-> l'admission, 15 non rattachés — dont 9 organisations absentes du référentiel
-> (nommées une par une dans la liste de courses) et 6 présentes mais non
-> reconnues par le moteur (refus assumé des alias mono-jeton). La couverture
-> du référentiel entreprises **en part des salariés de la région n'est pas
-> mesurable aujourd'hui** — aucun effectif n'est en base — ; elle est publiée
-> en lignes à la place : 5 788 lignes hors numérique (commerce 3 290,
-> construction 1 230, industrie 1 027, agroalimentaire 241) sur 20 495
-> entreprises, et 24 entreprises sans NAF à qualifier.
-> Sources : `docs/mesure-couverture.md` (27/42, reproduite), `bench/results/couverture-2026-11-15.json`,
-> `docs/fausses-alertes.md` (0 alerte émise, publié tel quel),
-> `docs/manques-referentiel.md` (500 entités, 199 en France).
+> l'admission, 18 non rattachés — 11 organisations au nom d'usage absent du
+> référentiel légal (les enseignes de distribution, dont les unités légales
+> existent désormais en masse et rendent le matching ambigu — refus assumé du
+> moteur) et 7 présentes mais non reconnues. Le chiffre contient au moins un
+> rattachement faux, lui aussi publié : l'incident ERNAT est compté vu par
+> l'alias distinctif d'une association colombophile dont le nom est celui du
+> département cité. **La couverture du référentiel entreprises en part des
+> salariés de la région est publiable : 87,7 %** (806 878 salariés à la borne
+> basse des tranches SIRENE, sur 919 904 dans le stock régional actif, hors
+> secteur public) — minorant honnête, 501 964 personnes physiques restant
+> hors référentiel.
+> Sources : `docs/vague-sirene.md` (la vague, la régression, le mécanisme),
+> `bench/results/couverture-2026-11-15-post-vague1.json`, `docs/fausses-alertes.md`,
+> `docs/manques-referentiel.md`.
 
-Le taux est mauvais et il est publié — c'est le sens de « mesure publiable ».
-Ce qui reste ouvert pour que la phrase soit *plus* vraie : qualifier les
-entités de la liste de courses (199 en France, arbitrage humain sur les
-homonymies), faire tirer les agents de rupture (ils sont muets, cf.
-`docs/fausses-alertes.md`), et croître le corpus au-delà des sources web
-publiques (saturation documentée dans les métadonnées du corpus).
+Le taux a **baissé** avec la vague (27/42 → 24/42) et il est publié tel quel —
+c'est exactement le sens de « mesure publiable ». Le référentiel est devenu
+17 fois plus dense et le moteur, inchangé, refuse désormais des ambiguïtés
+qu'il ne connaissait pas. Les trois incidents enseigne repasseront vus par le
+chantier gazetteer@3 (arbitrage enseigne/commune, garde anti-toponyme), sans
+détruire le refus d'ambiguïté qui fait la précision du moteur.
 
 ---
 
