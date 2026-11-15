@@ -18,6 +18,7 @@ import { fileURLToPath } from "node:url";
 import Fastify, { type FastifyInstance } from "fastify";
 import { query, closePools } from "../src/db.js";
 import ingestRoute from "../src/routes/ingest.js";
+import { hashSessionToken } from "../src/auth.js";
 
 const TAG = `ing${Date.now().toString(36)}${randomBytes(3).toString("hex")}`;
 const EMAIL = `${TAG}@exemple.invalid`;
@@ -51,7 +52,7 @@ before(async () => {
 	userId = Number(u.rows[0].id);
 	await query(
 		`INSERT INTO app_session (token, user_id, expires_at) VALUES ($1,$2, now() + interval '1 hour')`,
-		[TOKEN, userId],
+		[hashSessionToken(TOKEN), userId],
 	);
 	app = Fastify();
 	await app.register(ingestRoute);

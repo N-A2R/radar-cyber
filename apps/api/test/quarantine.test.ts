@@ -19,6 +19,7 @@ import {
   promoteOne,
 } from "../src/quarantine/promote.js";
 import quarantineRoute from "../src/routes/quarantine.js";
+import { hashSessionToken } from "../src/auth.js";
 
 /** Crée un utilisateur et une session pour les routes désormais protégées. */
 async function createSession(role = "lecteur"): Promise<{ token: string; userId: number }> {
@@ -30,7 +31,7 @@ async function createSession(role = "lecteur"): Promise<{ token: string; userId:
   const token = `tok-q-${next()}`;
   await query(
     "INSERT INTO app_session (token, user_id, expires_at) VALUES ($1,$2, now() + interval '1 hour')",
-    [token, u.rows[0].id]
+    [hashSessionToken(token), u.rows[0].id]
   );
   return { token, userId: u.rows[0].id };
 }

@@ -1,6 +1,8 @@
 import { AdmissionTally, admitEvent } from "./contract/admit.js";
 import type { CollectContext, Collector, NormalizedEvent } from "@radar/shared";
 import cors from "@fastify/cors";
+import helmet from "@fastify/helmet";
+import rateLimit from "@fastify/rate-limit";
 import Fastify from "fastify";
 import { correlateEvents } from "./collectors/correlate.js";
 import { runGenericSources } from "./collectors/generic.js";
@@ -41,7 +43,22 @@ const ALERT_DELIVERY_MS = Number(process.env.RADAR_ALERT_DELIVERY_TICK_MS ?? 2 *
 
 const app = Fastify({ logger: true });
 
-await app.register(cors, { origin: true });
+/** Origines autorisées pour le cross-origin, séparées par des virgules.
+ *  Vide = aucune origine croisée (le front est servi depuis la même origine). */
+const corsOrigins = (process.env.RADAR_CORS_ORIGINS ?? "")
+  .split(",")
+  .map((o) => o.trim())
+  .filter(Boolean);
+
+await app.register(cors, { origin: corsOrigins.length > 0 ? corsOrigins : false });
+
+/** En-têtes de sécurité sur toutes les réponses (nosniff, frameguard,
+ *  referrer-policy, HSTS). Le CSP reste à la charge de la couche qui sert du
+ *  HTML (le dist statique sur la box) : l'API ne sert que du JSON. */
+await app.register(helmet, { contentSecurityPolicy: false });
+
+/* Limite globale généreuse ; les routes sensibles resserrent via config.rateLimit. */
+await app.register(rateLimit, { global: false });
 
 /**
  * Auth : lectures publiques (observatoire consultable sur le réseau local),

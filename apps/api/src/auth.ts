@@ -1,4 +1,4 @@
-import { scrypt, randomBytes, timingSafeEqual } from "node:crypto";
+import { scrypt, randomBytes, timingSafeEqual, createHash } from "node:crypto";
 import { promisify } from "node:util";
 
 const scryptAsync = promisify(scrypt);
@@ -19,5 +19,14 @@ export async function verifyPassword(password: string, stored: string): Promise<
 }
 
 export function newToken(): string {
-  return randomBytes(32).toString("hex");
+	return randomBytes(32).toString("hex");
+}
+
+/**
+ * Les tokens de session ne dorment pas en clair en base : on n'y stocke que
+ * leur SHA-256. Une fuite de la table `app_session` ne permet alors pas de
+ * détourner une session — il faudrait inverser le hash.
+ */
+export function hashSessionToken(token: string): string {
+	return createHash("sha256").update(token).digest("hex");
 }
