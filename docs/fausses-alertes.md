@@ -69,7 +69,11 @@ DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
   pnpm -F @radar/api exec tsx ../../scripts/mesure-fausses-alertes.mts
 ```
 
-Résultat publié : `bench/results/fausses-alertes-2026-11-15.json`.
-Le taux se recalculera automatiquement à chaque rejeu du script ; dès que la
-base portera les données qui font tirer les détecteurs (presse régulière,
-référentiel daté finement, corpus élargi), le chiffre existera.
+Résultat publié : `bench/results/fausses-alertes-2026-11-15.json`, re-joué le
+même jour après les vagues SIRENE
+(`bench/results/fausses-alertes-2026-11-15-post-vague2.json`) : sur un
+référentiel de **1 244 048 organisations**, les agents restent muets —
+**toujours 0 alerte émise sur 27 rejeux**. La conclusion du 15 novembre tient
+à l'échelle : le taux de fausses alertes reste non calculable parce que les
+agents ne tirent pas, et les raisons structurelles par agent (chargement en
+bloc du référentiel, absence de saut de gravité) n'ont pas changé.
