@@ -194,29 +194,28 @@ peut démarrer immédiatement.
 du même jour** (mesures reproductibles liées) :
 
 > Sur les incidents publics de Nouvelle-Aquitaine de douze derniers mois
-> (fenêtre `2025-11-01 → 2026-10-31`), le radar en a vu **31 sur 42 publiés
-> (73,8 %)**, avec un délai médian de veille de **1,9 jour** après publication
-> (mesuré le 14 novembre sur le flux réel, bulletins CVE exclus). Les **11
+> (fenêtre `2025-11-01 → 2026-10-31`), le radar en a vu **28 sur 42 publiés
+> (66,7 %)**, avec un délai médian de veille de **1,9 jour** après publication
+> (mesuré le 14 novembre sur le flux réel, bulletins CVE exclus). Les **14
 > incidents non vus** le sont pour une raison connue et écrite : 0 refusé à
-> l'admission, 11 non rattachés — 5 organisations au nom d'usage absent du
-> référentiel et 6 présentes mais non reconnues (refus assumé des alias
-> mono-jeton et des homonymes). Le chiffre contient au moins un rattachement
-> faux, publié avec : l'incident ERNAT est compté vu par l'alias d'une
-> association dont le nom légal SIRENE est « A CE JOUR » — une phrase courante
-> du résumé. **La couverture du référentiel entreprises en part des salariés
-> de la région est publiable : ≈ 90 %** (827 471 salariés à la borne basse des
-> tranches SIRENE sur ~919 904 dans le stock régional actif) — minorant
-> honnête.
+> l'admission, 14 non rattachés — 6 organisations au nom d'usage absent du
+> référentiel et 8 présentes mais non reconnues (refus assumé des alias
+> mono-jeton et des homonymes). La mesure est **assainie** : le faux positif
+> de coïncidence de phrase (« A CE JOUR », incident ERNAT) a été dé-compté par
+> gazetteer@4 (confiance par source d'alias). **La couverture du référentiel
+> entreprises en part des salariés de la région est publiable : ≈ 90 %**
+> (827 471 salariés à la borne basse des tranches SIRENE sur ~919 904 dans le
+> stock régional actif) — minorant honnête.
 > Sources : `docs/vague-sirene.md` (vagues 1 et 2, régression et correction),
-> `bench/results/couverture-2026-11-15-post-vague2.json`, `docs/fausses-alertes.md`,
-> `docs/manques-referentiel.md`.
+> `bench/results/couverture-2026-11-15-gazetteer4.json`, `docs/fausses-alertes.md`
+> (re-jeu post-vagues : toujours 0 alerte), `docs/manques-referentiel.md`.
 
-Le taux a d'abord **baissé** avec la vague 1 (27/42 → 24/42, ambiguïtés
-d'enseigne à 700k organisations), puis le chantier gazetteer@3 (alias d'usage
-prioritaire, garde anti-toponyme) et la vague 2 (alias de nom pour tout le
-référentiel) l'ont porté à **31/42 (73,8 %)** — au-dessus du meilleur niveau
-d'avant-vague. Le prochain gain : la confiance par source d'alias
-(gazetteer@4) pour distinguer un nom légal d'une phrase courante.
+Trajectoire du taux dans la journée : 27/42 (64,3 %) avant les vagues →
+24/42 (57,1 %) après la vague 1, les ambiguïtés d'enseigne à 700k
+organisations ayant fait perdre trois incidents → 31/42 (73,8 %) après
+gazetteer@3 et la vague 2, dont un faux positif de coïncidence de phrase →
+**28/42 (66,7 %) après gazetteer@4**, le faux positif dé-compté. Le moteur
+apprend l'échelle par paliers, et chaque palier est publié.
 
 ---
 
