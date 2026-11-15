@@ -70,6 +70,35 @@ test("sans source d'usage, le moteur garde le comportement @2", () => {
 	assert.equal(r.reason, "alias-role");
 });
 
-test("la version de rattachement déclarée au journal est gazetteer@3", () => {
-	assert.equal(MOTEURS.rattachement, "gazetteer@3");
+test("la version de rattachement déclarée au journal est gazetteer@4", () => {
+	assert.equal(MOTEURS.rattachement, "gazetteer@4");
+});
+
+test("un alias auto-dérivé du stock exige deux mots propres", () => {
+	const rows: GazetteerRow[] = [
+		// Le cas réel du 15 novembre : une association légalement nommée
+		// « A CE JOUR » rattachait tout texte contenant la phrase.
+		{ org_id: 7, name: "A CE JOUR", kind: "association", dept: "64", city: "Anglet", sector: "associations", alias: "a ce jour", source: "sirene-nom" },
+	];
+	const r = resoudre(buildGazetteer(rows), "Incident chez ERNAT à Orthez. À ce jour, aucun comment.");
+	assert.equal(r.org, null, "la phrase courante ne désigne pas l'association");
+	assert.equal(r.reason, "aucun");
+});
+
+test("un alias auto-dérivé avec deux mots propres reste matchable", () => {
+	const rows: GazetteerRow[] = [
+		{ org_id: 8, name: "DASS SONJOY", kind: "entreprise", dept: "33", city: "Bordeaux", sector: "commerce", alias: "dass sonjoy", source: "sirene-nom" },
+	];
+	const r = resoudre(buildGazetteer(rows), "Rançongiciel chez DASS SONJOY");
+	assert.equal(r.org?.id, 8, "deux mots propres : le nom légal désigne");
+	assert.equal(r.reason, "alias-distinctif");
+});
+
+test("un alias auto-dérivé portant un rôle garde la règle ordinaire", () => {
+	const rows: GazetteerRow[] = [
+		{ org_id: 9, name: "Mairie de Test", kind: "collectivite", dept: "33", city: "Test", sector: "commune", alias: "mairie de test", source: "sirene-nom" },
+	];
+	const r = resoudre(buildGazetteer(rows), "la mairie de test piratée");
+	assert.equal(r.org?.id, 9, "un rôle institutionnel tranche même en source stock");
+	assert.equal(r.reason, "alias-role");
 });
