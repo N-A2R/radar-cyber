@@ -13,6 +13,7 @@ import { query, closePools } from "../src/db.js";
 import { loadRules, evaluateEvent, evaluateIndicator } from "../src/detect/engine.js";
 import type { RuleMatch } from "../src/detect/engine.js";
 import alertsRoute from "../src/routes/alerts.js";
+import { hashSessionToken } from "../src/auth.js";
 
 const TAG = `t${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
 let seq = 0;
@@ -115,7 +116,7 @@ async function createSession(role = "analyste"): Promise<{ token: string; userId
   const token = `tok-${next()}`;
   await query(
     "INSERT INTO app_session (token, user_id, expires_at) VALUES ($1,$2, now() + interval '1 hour')",
-    [token, u.rows[0].id]
+    [hashSessionToken(token), u.rows[0].id]
   );
   return { token, userId: u.rows[0].id };
 }
