@@ -1,0 +1,7015 @@
+{
+  "date": "2026-11-15",
+  "regle": "nom principal entièrement présent chez une même organisation ; mêmes jetons que scripts/mesure-couverture.mts",
+  "total": 500,
+  "enFrance": 199,
+  "inconnues": 301,
+  "horsZone": 0,
+  "parVoie": {
+    "sirene": 6,
+    "annuaire-administratif": 9,
+    "manuel": 485
+  },
+  "manques": [
+    {
+      "nom": "adveo.com\\$740.7M\\France\\1.1TB\\<1% DISCLOSED",
+      "occurrences": 4,
+      "zone": "france",
+      "nomLisible": "adveo.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-12-23",
+      "derniereVue": "2025-01-13",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "demos.fr\\$37.5M\\France\\870GB\\100% DISCLOSED",
+      "occurrences": 4,
+      "zone": "france",
+      "nomLisible": "demos.fr",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-30",
+      "derniereVue": "2024-08-08",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "lumiplan.com\\$49.2M\\France\\652GB\\&lt;1% DISCLOSED",
+      "occurrences": 4,
+      "zone": "france",
+      "nomLisible": "lumiplan.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-01",
+      "derniereVue": "2024-11-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "millimages.com\\$12.6M\\France\\147GB\\100% DISCLOSED",
+      "occurrences": 4,
+      "zone": "france",
+      "nomLisible": "millimages.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-23",
+      "derniereVue": "2024-07-08",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Universite Paris Sud",
+      "occurrences": 4,
+      "zone": "france",
+      "nomLisible": "Universite Paris Sud",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-09",
+      "derniereVue": "2024-10-29",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Gloria Cales",
+      "occurrences": 2,
+      "zone": "france",
+      "nomLisible": "Gloria Cales",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-03-18",
+      "derniereVue": "2025-03-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Royal Glass",
+      "occurrences": 2,
+      "zone": "france",
+      "nomLisible": "Royal Glass",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-04-04",
+      "derniereVue": "2025-04-04",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "semna.fr",
+      "occurrences": 2,
+      "zone": "france",
+      "nomLisible": "semna.fr",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-22",
+      "derniereVue": "2024-10-22",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.normandydiesel.fr",
+      "occurrences": 2,
+      "zone": "france",
+      "nomLisible": "www.normandydiesel.fr",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-08-02",
+      "derniereVue": "2024-08-02",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "iseta.fr",
+      "occurrences": 2,
+      "zone": "france",
+      "nomLisible": "iseta.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-06-18",
+      "derniereVue": "2024-06-28",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "lapostemobile.fr",
+      "occurrences": 2,
+      "zone": "france",
+      "nomLisible": "lapostemobile.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-07-07",
+      "derniereVue": "2023-12-21",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Ministry of Energy and Mines (Cuba) \" STORMOUS + GhostSec \"",
+      "occurrences": 2,
+      "zone": "france",
+      "nomLisible": "Ministry of Energy and Mines (Cuba) \" STORMOUS + GhostSec \"",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-07-13",
+      "derniereVue": "2023-07-14",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "odalys-vacances.com\\$151.1M\\France\\548gb\\100%DISCLOSED",
+      "occurrences": 2,
+      "zone": "france",
+      "nomLisible": "odalys-vacances.com",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-12-18",
+      "derniereVue": "2023-12-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "2cara.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "2cara.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-01-31",
+      "derniereVue": "2023-01-31",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "a2-pas.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "a2-pas.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-07-21",
+      "derniereVue": "2022-07-21",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "abeyor.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "abeyor.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2025-03-23",
+      "derniereVue": "2025-03-23",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "aev-iledefrance.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "aev-iledefrance.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-05-07",
+      "derniereVue": "2024-05-07",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "akantha.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "akantha.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2025-01-05",
+      "derniereVue": "2025-01-05",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Ananda Temple",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Ananda Temple",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-09-26",
+      "derniereVue": "2023-09-26",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "ardeche.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "ardeche.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-04-08",
+      "derniereVue": "2022-04-08",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "artdis.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "artdis.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-09-14",
+      "derniereVue": "2022-09-14",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "avidoc.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "avidoc.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-03-23",
+      "derniereVue": "2022-03-23",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "baffetmateriaux.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "baffetmateriaux.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-04-24",
+      "derniereVue": "2023-04-24",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Baton Rouge General",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Baton Rouge General",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-08-24",
+      "derniereVue": "2022-08-24",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Belle Tire",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Belle Tire",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-06-23",
+      "derniereVue": "2024-06-23",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "betsaisonparagot.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "betsaisonparagot.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2021-11-09",
+      "derniereVue": "2021-11-09",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "bg2i.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "bg2i.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-04-26",
+      "derniereVue": "2023-04-26",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "bredinprat.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "bredinprat.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-01-01",
+      "derniereVue": "2024-01-01",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "bresselouhannaiseintercom.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "bresselouhannaiseintercom.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-11-05",
+      "derniereVue": "2023-11-05",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Brett Martin",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Brett Martin",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-07-03",
+      "derniereVue": "2023-07-03",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "brl.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "brl.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-04-17",
+      "derniereVue": "2023-04-17",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "brunoy.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "brunoy.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-12-04",
+      "derniereVue": "2022-12-04",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "carcajou.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "carcajou.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-05-23",
+      "derniereVue": "2024-05-23",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "cc-gorgesardeche.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "cc-gorgesardeche.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-09-02",
+      "derniereVue": "2023-09-02",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "cdc-biodiversite.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "cdc-biodiversite.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-09-29",
+      "derniereVue": "2024-09-29",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Centre Hospitalier D'Arles",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Centre Hospitalier D'Arles",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-01-06",
+      "derniereVue": "2022-01-06",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "ces-conditionneur.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "ces-conditionneur.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-09-16",
+      "derniereVue": "2022-09-16",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "ch-armentieres.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "ch-armentieres.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-02-27",
+      "derniereVue": "2024-02-27",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "ch-cannes.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "ch-cannes.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-04-30",
+      "derniereVue": "2024-04-30",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "ch-sf.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "ch-sf.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-09-12",
+      "derniereVue": "2022-09-12",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "ch-sf.fr (old)",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "ch-sf.fr (old)",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-09-12",
+      "derniereVue": "2022-09-12",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Change Healthcare - Optum - UnitedHealth",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Change Healthcare - Optum - UnitedHealth",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-02-28",
+      "derniereVue": "2024-02-28",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Change HealthCare - OPTUM Group - United HealthCare Group",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Change HealthCare - OPTUM Group - United HealthCare Group",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-04-08",
+      "derniereVue": "2024-04-08",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Change HealthCare - OPTUM Group - United HealthCare Group - FOR SALE",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Change HealthCare - OPTUM Group - United HealthCare Group - FOR SALE",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-04-16",
+      "derniereVue": "2024-04-16",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Change HealthCare - OPTUM Group - United HealthCare Group<Updated>",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Change HealthCare - OPTUM Group - United HealthCare Group<Updated>",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-04-15",
+      "derniereVue": "2024-04-15",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Chu De Rennes",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Chu De Rennes",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-07-28",
+      "derniereVue": "2023-07-28",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "CIG de la Grande Couronne",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "CIG de la Grande Couronne",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-01-28",
+      "derniereVue": "2022-01-28",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "City of St. Cloud, Florida",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "City of St. Cloud, Florida",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-04-16",
+      "derniereVue": "2024-04-16",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Colmar Industrial Supplies",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Colmar Industrial Supplies",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2025-04-11",
+      "derniereVue": "2025-04-11",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "coteg-azam.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "coteg-azam.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-06-21",
+      "derniereVue": "2022-06-21",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "coteg-toulouse.dom",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "coteg-toulouse.dom",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-01-01",
+      "derniereVue": "2024-01-01",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "cyceron.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "cyceron.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-11-18",
+      "derniereVue": "2024-11-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "deganis.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "deganis.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-08-19",
+      "derniereVue": "2024-08-19",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Département de La Réunion",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Département de La Réunion",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-11-20",
+      "derniereVue": "2024-11-20",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "annuaire-administratif"
+    },
+    {
+      "nom": "dollinger-pierre.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "dollinger-pierre.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-08-30",
+      "derniereVue": "2023-08-30",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "dragages-ports.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "dragages-ports.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-10-09",
+      "derniereVue": "2022-10-09",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "ds-granit.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "ds-granit.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-11-22",
+      "derniereVue": "2023-11-22",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "effigest.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "effigest.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-10-10",
+      "derniereVue": "2023-10-10",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "eivp-paris.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "eivp-paris.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-06-10",
+      "derniereVue": "2022-06-10",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "epr-groupe.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "epr-groupe.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-05-07",
+      "derniereVue": "2024-05-07",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "sirene"
+    },
+    {
+      "nom": "Erbilbil Bilgisayar (You have 72 hours)",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Erbilbil Bilgisayar (You have 72 hours)",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-12-29",
+      "derniereVue": "2023-12-29",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Establishment of the Agency for the Environmental Protection of the Marche Region",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Establishment of the Agency for the Environmental Protection of the Marche Region",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-03-24",
+      "derniereVue": "2022-03-24",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "annuaire-administratif"
+    },
+    {
+      "nom": "estpm.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "estpm.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-01-27",
+      "derniereVue": "2022-01-27",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "euromip.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "euromip.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-09-14",
+      "derniereVue": "2022-09-14",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "exco.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "exco.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-10-30",
+      "derniereVue": "2022-10-30",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "fandi.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "fandi.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2021-11-06",
+      "derniereVue": "2021-11-06",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "fimadev.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "fimadev.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-08-29",
+      "derniereVue": "2023-08-29",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "fol-23.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "fol-23.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2025-01-20",
+      "derniereVue": "2025-01-20",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "franckbeun.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "franckbeun.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-09-19",
+      "derniereVue": "2022-09-19",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Freightliner of Grand Rapids &amp; Kalamazoo",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Freightliner of Grand Rapids &amp; Kalamazoo",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-06-29",
+      "derniereVue": "2024-06-29",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "fugybat.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "fugybat.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2021-09-30",
+      "derniereVue": "2021-09-30",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Gallier Orléans",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Gallier Orléans",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-02-16",
+      "derniereVue": "2023-02-16",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "germaintoiture.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "germaintoiture.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-02-12",
+      "derniereVue": "2024-02-12",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "glnf.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "glnf.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-10-06",
+      "derniereVue": "2024-10-06",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "GNS Cloud Hacked",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "GNS Cloud Hacked",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-12-16",
+      "derniereVue": "2024-12-16",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "gorrias-mercedes-benz.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "gorrias-mercedes-benz.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-05-08",
+      "derniereVue": "2024-05-08",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Grand Annecy Agglomeration",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Grand Annecy Agglomeration",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2021-09-09",
+      "derniereVue": "2021-09-09",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "annuaire-administratif"
+    },
+    {
+      "nom": "Grand Homes",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Grand Homes",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2021-09-09",
+      "derniereVue": "2021-09-09",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Grand Power Systems",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Grand Power Systems",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2021-09-09",
+      "derniereVue": "2021-09-09",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Grand Valley State University",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Grand Valley State University",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-06-13",
+      "derniereVue": "2022-06-13",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Grande Stevens",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Grande Stevens",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-08-28",
+      "derniereVue": "2022-08-28",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "GRANVILLE FOOD CARE  LIMITED",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "GRANVILLE FOOD CARE  LIMITED",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-05-22",
+      "derniereVue": "2024-05-22",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "groupe-sobotram.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "groupe-sobotram.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-02-21",
+      "derniereVue": "2022-02-21",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "sirene"
+    },
+    {
+      "nom": "Herrs (You have 72 hours)",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Herrs (You have 72 hours)",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-01-23",
+      "derniereVue": "2024-01-23",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "http://FIMM.FR",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "http://FIMM.FR",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-03-02",
+      "derniereVue": "2023-03-02",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "http://soprovise.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "http://soprovise.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-09-15",
+      "derniereVue": "2023-09-15",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "http://www.neodomos.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "http://www.neodomos.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-11-08",
+      "derniereVue": "2023-11-08",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "http://www.soprovise.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "http://www.soprovise.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-09-16",
+      "derniereVue": "2023-09-16",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "http://www.sovitrat.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "http://www.sovitrat.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-05-26",
+      "derniereVue": "2023-05-26",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "https://smdea09.fr/",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "https://smdea09.fr/",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-05-22",
+      "derniereVue": "2023-05-22",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "https://www.dgm-industrie.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "https://www.dgm-industrie.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-03-17",
+      "derniereVue": "2023-03-17",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "sirene"
+    },
+    {
+      "nom": "https://www.lille.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "https://www.lille.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-03-27",
+      "derniereVue": "2023-03-27",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "ibafrance.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "ibafrance.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-06-28",
+      "derniereVue": "2023-06-28",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "iledefrance-nature.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "iledefrance-nature.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-08-23",
+      "derniereVue": "2023-08-23",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "iRely LLC's Grand Failure",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "iRely LLC's Grand Failure",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2021-09-09",
+      "derniereVue": "2021-09-09",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "iseta.fr (institut des Sciences de l'Environnement et des Territoires d'Annecy)",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "iseta.fr (institut des Sciences de l'Environnement et des Territoires d'Annecy)",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-05-23",
+      "derniereVue": "2024-05-23",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "isosteo.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "isosteo.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-02-18",
+      "derniereVue": "2023-02-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "jacquart.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "jacquart.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-06-06",
+      "derniereVue": "2023-06-06",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "jrichard-paysage.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "jrichard-paysage.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-03-07",
+      "derniereVue": "2022-03-07",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "justice.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "justice.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-01-27",
+      "derniereVue": "2022-01-27",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "labelians.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "labelians.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-12-06",
+      "derniereVue": "2023-12-06",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "lanormandise.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "lanormandise.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-07-22",
+      "derniereVue": "2022-07-22",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "lapostermobile.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "lapostermobile.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-01-01",
+      "derniereVue": "2024-01-01",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "LASOLTEL.FR",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "LASOLTEL.FR",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-03-22",
+      "derniereVue": "2023-03-22",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "LASOTEL.FR",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "LASOTEL.FR",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-04-02",
+      "derniereVue": "2023-04-02",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "legilog.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "legilog.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2025-01-04",
+      "derniereVue": "2025-01-04",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "lhotellerie-restauration.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "lhotellerie-restauration.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-01-29",
+      "derniereVue": "2022-01-29",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "locaparc.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "locaparc.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-08-30",
+      "derniereVue": "2023-08-30",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "loiret.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "loiret.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-11-11",
+      "derniereVue": "2023-11-11",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "lpahorticole.faylbillot.educagri.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "lpahorticole.faylbillot.educagri.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-10-22",
+      "derniereVue": "2024-10-22",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "maisonloisy.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "maisonloisy.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-09-14",
+      "derniereVue": "2022-09-14",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "maleosante.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "maleosante.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-09-14",
+      "derniereVue": "2022-09-14",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Manoir Saint-Sauveur",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Manoir Saint-Sauveur",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-05-09",
+      "derniereVue": "2023-05-09",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Marans Weisz & Newman, LLC",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Marans Weisz & Newman, LLC",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2021-09-22",
+      "derniereVue": "2021-09-22",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Marseille Provence",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Marseille Provence",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2021-09-09",
+      "derniereVue": "2021-09-09",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Martin Mechanical (martin.local)",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Martin Mechanical (martin.local)",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2025-03-29",
+      "derniereVue": "2025-03-29",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Massy Distribution Limited",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Massy Distribution Limited",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-07-04",
+      "derniereVue": "2022-07-04",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "mauguio-carnon.com",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "mauguio-carnon.com",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-10-22",
+      "derniereVue": "2024-10-22",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "MeridianLink fails to file with the SEC..so we do it for them + 24 hours to pay",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "MeridianLink fails to file with the SEC..so we do it for them + 24 hours to pay",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-11-15",
+      "derniereVue": "2023-11-15",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "midipapierspeints.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "midipapierspeints.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-04-24",
+      "derniereVue": "2023-04-24",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Mission Locale Montpellier",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Mission Locale Montpellier",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2025-01-29",
+      "derniereVue": "2025-01-29",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "mj-donnais.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "mj-donnais.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-09-14",
+      "derniereVue": "2022-09-14",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Moose, Martin, Haynes & Lundy",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Moose, Martin, Haynes & Lundy",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-02-27",
+      "derniereVue": "2023-02-27",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "MORTON WILLIAMS Data Leak",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "MORTON WILLIAMS Data Leak",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-05-01",
+      "derniereVue": "2024-05-01",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "mpm.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "mpm.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-04-14",
+      "derniereVue": "2022-04-14",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "My Cloud Star",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "My Cloud Star",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2021-09-09",
+      "derniereVue": "2021-09-09",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "neatem.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "neatem.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2025-02-17",
+      "derniereVue": "2025-02-17",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "neatem.fr | Update!",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "neatem.fr | Update!",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2025-02-25",
+      "derniereVue": "2025-02-25",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Nexon Asia Pacific",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Nexon Asia Pacific",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-01-05",
+      "derniereVue": "2023-01-05",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Nicole Miller",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Nicole Miller",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-11-23",
+      "derniereVue": "2023-11-23",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Orange County Pathology Medical Group",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Orange County Pathology Medical Group",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-11-12",
+      "derniereVue": "2024-11-12",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Orange Public School District",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Orange Public School District",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-02-28",
+      "derniereVue": "2024-02-28",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Paris High School",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Paris High School",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-07-10",
+      "derniereVue": "2023-07-10",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Paris Society",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Paris Society",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2021-10-12",
+      "derniereVue": "2021-10-12",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "paysdelaloire.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "paysdelaloire.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-10-06",
+      "derniereVue": "2024-10-06",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Pharma Force",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Pharma Force",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2025-04-21",
+      "derniereVue": "2025-04-21",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "plravocats.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "plravocats.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-07-02",
+      "derniereVue": "2022-07-02",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "pradiergranulats.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "pradiergranulats.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-02-15",
+      "derniereVue": "2024-02-15",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "promhotel.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "promhotel.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2021-12-05",
+      "derniereVue": "2021-12-05",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "rmn.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "rmn.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-11-18",
+      "derniereVue": "2024-11-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Robins & Morton",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Robins & Morton",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-09-26",
+      "derniereVue": "2023-09-26",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Royal Brunei Airlines Sdn Bhd",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Royal Brunei Airlines Sdn Bhd",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-03-29",
+      "derniereVue": "2022-03-29",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Royal Centre",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Royal Centre",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-05-22",
+      "derniereVue": "2023-05-22",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Royal Chemical",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Royal Chemical",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2025-05-14",
+      "derniereVue": "2025-05-14",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Royal College of Phy sicians and Surgeons of Glasgow",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Royal College of Phy sicians and Surgeons of Glasgow",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-10-20",
+      "derniereVue": "2023-10-20",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Royal Dirkzwager",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Royal Dirkzwager",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-03-13",
+      "derniereVue": "2023-03-13",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "ROYAL GATEWAY CO., LTD",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "ROYAL GATEWAY CO., LTD",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-11-07",
+      "derniereVue": "2022-11-07",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "ROYAL INSIGNIA",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "ROYAL INSIGNIA",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-02-28",
+      "derniereVue": "2024-02-28",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Royal Laser",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Royal Laser",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-02-04",
+      "derniereVue": "2022-02-04",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Royal Oak Pet Clinic",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Royal Oak Pet Clinic",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-08-24",
+      "derniereVue": "2023-08-24",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Royal Smilde",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Royal Smilde",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-02-21",
+      "derniereVue": "2022-02-21",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Royal Star & Garter",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Royal Star & Garter",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-05-22",
+      "derniereVue": "2024-05-22",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Rush Energy Services Inc [You have 48 hours]",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Rush Energy Services Inc [You have 48 hours]",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-02-12",
+      "derniereVue": "2024-02-12",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "sadeco.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "sadeco.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-04-10",
+      "derniereVue": "2022-04-10",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "saintcloud.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "saintcloud.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-01-27",
+      "derniereVue": "2022-01-27",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "sarassure.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "sarassure.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-09-14",
+      "derniereVue": "2022-09-14",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "SBM & Co [You have 48 hours. Check your e-mail]",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "SBM & Co [You have 48 hours. Check your e-mail]",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-03-02",
+      "derniereVue": "2024-03-02",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Serfilco, RP Adams,  Baron Blakeslee, Pac er, Service Filtrati on of Canada, Polyma r.",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Serfilco, RP Adams,  Baron Blakeslee, Pac er, Service Filtrati on of Canada, Polyma r.",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-04-17",
+      "derniereVue": "2024-04-17",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "sfr.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "sfr.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2025-01-04",
+      "derniereVue": "2025-01-04",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "sides.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "sides.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2021-10-06",
+      "derniereVue": "2021-10-06",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "sieam.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "sieam.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-07-26",
+      "derniereVue": "2022-07-26",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "SOFPO (Exideuil)",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "SOFPO (Exideuil)",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-10-25",
+      "derniereVue": "2024-10-25",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "St Benet Biscop",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "St Benet Biscop",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2021-10-04",
+      "derniereVue": "2021-10-04",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "St. Cloud Florida",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "St. Cloud Florida",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-04-16",
+      "derniereVue": "2024-04-16",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "stt-logistique.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "stt-logistique.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-03-24",
+      "derniereVue": "2022-03-24",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "SVA Jean Rozé - sva-jeanroze.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "SVA Jean Rozé - sva-jeanroze.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2021-09-09",
+      "derniereVue": "2021-09-09",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "sva-avignon.concession-landrover.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "sva-avignon.concession-landrover.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-09-14",
+      "derniereVue": "2022-09-14",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Syndicat Général des Vignerons de la Champagne",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Syndicat Général des Vignerons de la Champagne",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-01-09",
+      "derniereVue": "2024-01-09",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "annuaire-administratif"
+    },
+    {
+      "nom": "syredis.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "syredis.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-07-14",
+      "derniereVue": "2022-07-14",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "TaxPros of Clermont",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "TaxPros of Clermont",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-11-12",
+      "derniereVue": "2024-11-12",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Taylor and Martin",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Taylor and Martin",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-02-05",
+      "derniereVue": "2022-02-05",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "thaonlesvosges.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "thaonlesvosges.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2025-05-13",
+      "derniereVue": "2025-05-13",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "The De Montfort School",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "The De Montfort School",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-06-02",
+      "derniereVue": "2022-06-02",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "The Grand Bahama Port Authority",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "The Grand Bahama Port Authority",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-01-07",
+      "derniereVue": "2022-01-07",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "The Louis G Freeman",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "The Louis G Freeman",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-05-22",
+      "derniereVue": "2024-05-22",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "The Royal Commission for Riyadh City (RCRC)",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "The Royal Commission for Riyadh City (RCRC)",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-07-11",
+      "derniereVue": "2022-07-11",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "The Royal Family of Great Britain",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "The Royal Family of Great Britain",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-04-30",
+      "derniereVue": "2024-04-30",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "theus-industries.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "theus-industries.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-03-30",
+      "derniereVue": "2023-03-30",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Unione dei Comuni Terre di Pianura",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Unione dei Comuni Terre di Pianura",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2021-11-16",
+      "derniereVue": "2021-11-16",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "University Institute of Technology of Paris",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "University Institute of Technology of Paris",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-12-17",
+      "derniereVue": "2022-12-17",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "vdbassocies.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "vdbassocies.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-05-22",
+      "derniereVue": "2023-05-22",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Vernon Milling",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Vernon Milling",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2025-05-24",
+      "derniereVue": "2025-05-24",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "ville-bouchemaine.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "ville-bouchemaine.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-05-07",
+      "derniereVue": "2024-05-07",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "annuaire-administratif"
+    },
+    {
+      "nom": "ville-faulquemont.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "ville-faulquemont.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-09-14",
+      "derniereVue": "2022-09-14",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "annuaire-administratif"
+    },
+    {
+      "nom": "villemandeure.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "villemandeure.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-06-06",
+      "derniereVue": "2023-06-06",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Virginia Defense Force",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Virginia Defense Force",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2021-12-07",
+      "derniereVue": "2021-12-07",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "voyageursdumonde.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "voyageursdumonde.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-05-28",
+      "derniereVue": "2023-05-28",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "wannago.cloud",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "wannago.cloud",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-03-20",
+      "derniereVue": "2024-03-20",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Wendy Wu Tours",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Wendy Wu Tours",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2025-03-04",
+      "derniereVue": "2025-03-04",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.acomen.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "www.acomen.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-07-18",
+      "derniereVue": "2023-07-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.actionsantetravail.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "www.actionsantetravail.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-11-09",
+      "derniereVue": "2023-11-09",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.iph-bet.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "www.iph-bet.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-08-30",
+      "derniereVue": "2024-08-30",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.legilog.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "www.legilog.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-11-18",
+      "derniereVue": "2024-11-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.mpm.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "www.mpm.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-04-14",
+      "derniereVue": "2022-04-14",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.odalys-vacances.com\\$151.1M\\France\\548gb\\1%Disclosed",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "www.odalys-vacances.com",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-12-14",
+      "derniereVue": "2023-12-14",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.scara.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "www.scara.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-09-26",
+      "derniereVue": "2023-09-26",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.sefiso-atlantique.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "www.sefiso-atlantique.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-12-04",
+      "derniereVue": "2024-12-04",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.sfr.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "www.sfr.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-11-23",
+      "derniereVue": "2024-11-23",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.ville-chevilly-larue.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "www.ville-chevilly-larue.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-07-26",
+      "derniereVue": "2023-07-26",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "annuaire-administratif"
+    },
+    {
+      "nom": "Fursan Travel",
+      "occurrences": 4,
+      "zone": "inconnue",
+      "nomLisible": "Fursan Travel",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-04",
+      "derniereVue": "2024-10-29",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "[DISCLOSED] Al-Karam Textile Mills Pvt",
+      "occurrences": 3,
+      "zone": "inconnue",
+      "nomLisible": "Al-Karam Textile Mills Pvt",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-29",
+      "derniereVue": "2024-08-08",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "AIshu, Eshoo",
+      "occurrences": 3,
+      "zone": "inconnue",
+      "nomLisible": "AIshu, Eshoo",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-01-27",
+      "derniereVue": "2025-02-24",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "brownintegratedlogistics.com",
+      "occurrences": 3,
+      "zone": "inconnue",
+      "nomLisible": "brownintegratedlogistics.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2023-11-20",
+      "derniereVue": "2024-07-25",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "efile.com",
+      "occurrences": 3,
+      "zone": "inconnue",
+      "nomLisible": "efile.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2022-01-21",
+      "derniereVue": "2024-10-06",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "English Construction Company",
+      "occurrences": 3,
+      "zone": "inconnue",
+      "nomLisible": "English Construction Company",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2022-06-08",
+      "derniereVue": "2024-09-26",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Frontier.com",
+      "occurrences": 3,
+      "zone": "inconnue",
+      "nomLisible": "Frontier.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-18",
+      "derniereVue": "2024-06-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Grupo Trisan",
+      "occurrences": 3,
+      "zone": "inconnue",
+      "nomLisible": "Grupo Trisan",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-16",
+      "derniereVue": "2024-11-17",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Johnson Laschober & Associates",
+      "occurrences": 3,
+      "zone": "inconnue",
+      "nomLisible": "Johnson Laschober & Associates",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-08-19",
+      "derniereVue": "2024-08-26",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "medexhco.com",
+      "occurrences": 3,
+      "zone": "inconnue",
+      "nomLisible": "medexhco.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2023-03-18",
+      "derniereVue": "2024-10-10",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "teamwass.com",
+      "occurrences": 3,
+      "zone": "inconnue",
+      "nomLisible": "teamwass.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-02-17",
+      "derniereVue": "2025-02-27",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.avantit.no",
+      "occurrences": 3,
+      "zone": "inconnue",
+      "nomLisible": "www.avantit.no",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-18",
+      "derniereVue": "2024-06-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.baiminstitute.org/",
+      "occurrences": 3,
+      "zone": "inconnue",
+      "nomLisible": "www.baiminstitute.org/",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-15",
+      "derniereVue": "2024-07-25",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.garudafood.com/",
+      "occurrences": 3,
+      "zone": "inconnue",
+      "nomLisible": "www.garudafood.com/",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-20",
+      "derniereVue": "2024-07-29",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.lapastina.com/",
+      "occurrences": 3,
+      "zone": "inconnue",
+      "nomLisible": "www.lapastina.com/",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-18",
+      "derniereVue": "2024-06-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.shootinghouse.com.br",
+      "occurrences": 3,
+      "zone": "inconnue",
+      "nomLisible": "www.shootinghouse.com.br",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-18",
+      "derniereVue": "2024-06-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.trifecta.com",
+      "occurrences": 3,
+      "zone": "inconnue",
+      "nomLisible": "www.trifecta.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-04-25",
+      "derniereVue": "2024-11-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "1133.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "1133.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-23",
+      "derniereVue": "2024-06-23",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "2K Dental Data Leak",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "2K Dental Data Leak",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-25",
+      "derniereVue": "2024-06-25",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Accounting & Advisory Services,",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Accounting & Advisory Services,",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-18",
+      "derniereVue": "2024-11-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "acmefan.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "acmefan.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-02-25",
+      "derniereVue": "2025-02-25",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "adamshomes.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "adamshomes.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-25",
+      "derniereVue": "2024-07-25",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "AFD",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "AFD",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-12-12",
+      "derniereVue": "2024-12-12",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "allbiz.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "allbiz.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-03-24",
+      "derniereVue": "2025-03-24",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "alleghenycontract.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "alleghenycontract.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-27",
+      "derniereVue": "2024-11-27",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Allen Carr’s Easyway Hacked",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Allen Carr’s Easyway Hacked",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-12-30",
+      "derniereVue": "2024-12-30",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "allianceind.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "allianceind.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-18",
+      "derniereVue": "2024-11-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "aqhch.com.cn",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "aqhch.com.cn",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-04-16",
+      "derniereVue": "2025-04-16",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Arrow Motor Auctions",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Arrow Motor Auctions",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-01-24",
+      "derniereVue": "2025-01-24",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Arun Estates",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Arun Estates",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-01-11",
+      "derniereVue": "2025-01-11",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "ASI",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "ASI",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-28",
+      "derniereVue": "2024-06-28",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "askgs.ma",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "askgs.ma",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-02-12",
+      "derniereVue": "2025-02-12",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "ASRAM Medical College and Hospita",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "ASRAM Medical College and Hospita",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-02-10",
+      "derniereVue": "2025-02-10",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "augustssons.se",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "augustssons.se",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-03-28",
+      "derniereVue": "2025-03-28",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Banfi Vintners",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Banfi Vintners",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-02-05",
+      "derniereVue": "2025-02-05",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Banner and Associates",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Banner and Associates",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-08-13",
+      "derniereVue": "2024-08-13",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "belcherpharma.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "belcherpharma.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-12",
+      "derniereVue": "2024-06-12",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Beowulfchain",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Beowulfchain",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-25",
+      "derniereVue": "2024-07-25",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "bergconst.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "bergconst.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-02-12",
+      "derniereVue": "2025-02-12",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Black Creek Community Health Centre (bcch.local)",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Black Creek Community Health Centre (bcch.local)",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-12-07",
+      "derniereVue": "2024-12-07",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "bri.co.id (SOLD TO 3RD PARTY)",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "bri.co.id (SOLD TO 3RD PARTY)",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-12-24",
+      "derniereVue": "2024-12-24",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Brien, Inc.",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Brien, Inc.",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-03-04",
+      "derniereVue": "2025-03-04",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "brockington.leisc.sch.uk",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "brockington.leisc.sch.uk",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-06",
+      "derniereVue": "2024-10-06",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Buddy Loan",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Buddy Loan",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-18",
+      "derniereVue": "2024-11-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "CAMRIDGEPORT",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "CAMRIDGEPORT",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-02-01",
+      "derniereVue": "2025-02-01",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "CETRULO",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "CETRULO",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-16",
+      "derniereVue": "2024-10-16",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Chanas Assurances S.A. (chanasassurances.com)",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Chanas Assurances S.A. (chanasassurances.com)",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-28",
+      "derniereVue": "2024-11-28",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Chickenshed",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Chickenshed",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-04-12",
+      "derniereVue": "2025-04-12",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "City of McKinney",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "City of McKinney",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-02-15",
+      "derniereVue": "2025-02-15",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Clutch Industries",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Clutch Industries",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-01-20",
+      "derniereVue": "2025-01-20",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "CO-VER Power Technology SpA Data Leak",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "CO-VER Power Technology SpA Data Leak",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-01-09",
+      "derniereVue": "2025-01-09",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "College of Business - Tanzania",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "College of Business - Tanzania",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-18",
+      "derniereVue": "2024-11-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Commercial & Residential Management Group",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Commercial & Residential Management Group",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-01-29",
+      "derniereVue": "2025-01-29",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Commune de Jemeppe-sur-Sambre",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Commune de Jemeppe-sur-Sambre",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-05-06",
+      "derniereVue": "2025-05-06",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "annuaire-administratif"
+    },
+    {
+      "nom": "communisis.com & paragon.world",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "communisis.com & paragon.world",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-01-15",
+      "derniereVue": "2025-01-15",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Compass Communications(Attack again)",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Compass Communications(Attack again)",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-12-28",
+      "derniereVue": "2024-12-28",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "conterra.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "conterra.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-03-27",
+      "derniereVue": "2025-03-27",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Cotala Cross-Media - Full Leak",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Cotala Cross-Media - Full Leak",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-21",
+      "derniereVue": "2024-10-21",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Crimson Interactive",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Crimson Interactive",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-08-23",
+      "derniereVue": "2024-08-23",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Cristal y Lavisa S.A. de C.V.",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Cristal y Lavisa S.A. de C.V.",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-12-13",
+      "derniereVue": "2024-12-13",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Cruz Marine (cruz.local)",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Cruz Marine (cruz.local)",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-09-16",
+      "derniereVue": "2024-09-16",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Dana Safety Supply",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Dana Safety Supply",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-29",
+      "derniereVue": "2024-10-29",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "datacampos.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "datacampos.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-18",
+      "derniereVue": "2024-11-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "De Rose Lawyers",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "De Rose Lawyers",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-25",
+      "derniereVue": "2024-10-25",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Deloitte UK",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Deloitte UK",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-12-04",
+      "derniereVue": "2024-12-04",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "DR.Claims FL LLC",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "DR.Claims FL LLC",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-02-19",
+      "derniereVue": "2025-02-19",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Drug and Alcohol Treatment Service",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Drug and Alcohol Treatment Service",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-25",
+      "derniereVue": "2024-10-25",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "dtrglaw.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "dtrglaw.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-03-13",
+      "derniereVue": "2025-03-13",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Eagle Safety Eyewear",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Eagle Safety Eyewear",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-08-24",
+      "derniereVue": "2024-08-24",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "eaglepost.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "eaglepost.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-02-20",
+      "derniereVue": "2025-02-20",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Easterseals",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Easterseals",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-23",
+      "derniereVue": "2024-10-23",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "ecbawm.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "ecbawm.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-09-14",
+      "derniereVue": "2024-09-14",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Elevator One",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Elevator One",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-25",
+      "derniereVue": "2024-10-25",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Energy Capital Credit Union (eccu.net)",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Energy Capital Credit Union (eccu.net)",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-12-19",
+      "derniereVue": "2024-12-19",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Epi Breads",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Epi Breads",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-08-28",
+      "derniereVue": "2024-08-28",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "EPS Tech confidential source code ( military )",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "EPS Tech confidential source code ( military )",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-08-22",
+      "derniereVue": "2024-08-22",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Everything Breaks",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Everything Breaks",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-25",
+      "derniereVue": "2024-11-25",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "ExcelPlast Tunisie",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "ExcelPlast Tunisie",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-25",
+      "derniereVue": "2024-10-25",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "fabricainfo.com/",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "fabricainfo.com/",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-18",
+      "derniereVue": "2024-06-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "filmai.in",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "filmai.in",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-18",
+      "derniereVue": "2024-11-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Find Great People",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Find Great People",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-31",
+      "derniereVue": "2024-07-31",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "foremedia.net",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "foremedia.net",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-03",
+      "derniereVue": "2024-07-03",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "fortinainvestments.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "fortinainvestments.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-15",
+      "derniereVue": "2024-11-15",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Funlab",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Funlab",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-16",
+      "derniereVue": "2024-10-16",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "futuremetals.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "futuremetals.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-07",
+      "derniereVue": "2024-11-07",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Fylde Coast Academy Trust",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Fylde Coast Academy Trust",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-05",
+      "derniereVue": "2024-11-05",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Genie Healthcare",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Genie Healthcare",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-12-20",
+      "derniereVue": "2024-12-20",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Gitlabs: Naphix, WDNA, Bayteq",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Gitlabs: Naphix, WDNA, Bayteq",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-02-23",
+      "derniereVue": "2025-02-23",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Gitlabs: Synelixis Solutions, INGV, VMO Holdings",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Gitlabs: Synelixis Solutions, INGV, VMO Holdings",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-02-26",
+      "derniereVue": "2025-02-26",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "GMG",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "GMG",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-26",
+      "derniereVue": "2024-11-26",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "goformz.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "goformz.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-26",
+      "derniereVue": "2024-11-26",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Golden Age Nursing Home",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Golden Age Nursing Home",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-03",
+      "derniereVue": "2024-10-03",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Golden Business Machines",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Golden Business Machines",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-25",
+      "derniereVue": "2024-07-25",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Gpstech2007.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Gpstech2007.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-02-16",
+      "derniereVue": "2025-02-16",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "gptchb.org",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "gptchb.org",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-06",
+      "derniereVue": "2024-10-06",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "gramoll.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "gramoll.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-04-09",
+      "derniereVue": "2025-04-09",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "gronercrm.com.br",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "gronercrm.com.br",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-27",
+      "derniereVue": "2024-11-27",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "hausdesstiftens.org",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "hausdesstiftens.org",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-18",
+      "derniereVue": "2024-11-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "hcri.edu",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "hcri.edu",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-04",
+      "derniereVue": "2024-07-04",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Hellmich",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Hellmich",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-13",
+      "derniereVue": "2024-11-13",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Henderson Stamping & Production",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Henderson Stamping & Production",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-19",
+      "derniereVue": "2024-11-19",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Hi-P International",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Hi-P International",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-08-05",
+      "derniereVue": "2024-08-05",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "HOERBIGER Holding",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "HOERBIGER Holding",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-08-21",
+      "derniereVue": "2024-08-21",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "sirene"
+    },
+    {
+      "nom": "http://dealscoop.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "http://dealscoop.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-11",
+      "derniereVue": "2024-07-11",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "http://nhls.ac.za",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "http://nhls.ac.za",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-05",
+      "derniereVue": "2024-07-05",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "http://www.kchospice.org",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "http://www.kchospice.org",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-19",
+      "derniereVue": "2024-10-19",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "http://www.sanglier.org.uk",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "http://www.sanglier.org.uk",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-25",
+      "derniereVue": "2024-06-25",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "https://biw-burger.de",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "https://biw-burger.de",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-08-07",
+      "derniereVue": "2024-08-07",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "https://ecfgroup.com/en/brand/reward-hospitality/;https://www.rewardhospitality.com.au/",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "https://ecfgroup.com/en/brand/reward-hospitality/;https://www.rewardhospitality.com.au/",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-20",
+      "derniereVue": "2024-07-20",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "https://fortunesociety.org/",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "https://fortunesociety.org/",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-04-24",
+      "derniereVue": "2025-04-24",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "https://jarrellinc.com/",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "https://jarrellinc.com/",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-12",
+      "derniereVue": "2024-11-12",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "https://mbe.cpa",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "https://mbe.cpa",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-14",
+      "derniereVue": "2024-06-14",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "https://rdccontrol.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "https://rdccontrol.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-18",
+      "derniereVue": "2024-10-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "https://www.clatronic.com/",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "https://www.clatronic.com/",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-08-30",
+      "derniereVue": "2024-08-30",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "hugwi.ch",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "hugwi.ch",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-08-19",
+      "derniereVue": "2024-08-19",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "icicibank.com | SOLD",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "icicibank.com | SOLD",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-01-30",
+      "derniereVue": "2025-01-30",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "idom.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "idom.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-09-04",
+      "derniereVue": "2024-09-04",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "ilemgroup.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "ilemgroup.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-01-22",
+      "derniereVue": "2025-01-22",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Imetame",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Imetame",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-09-05",
+      "derniereVue": "2024-09-05",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Inaya Clinique",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Inaya Clinique",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-01-21",
+      "derniereVue": "2025-01-21",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "IndicaOnline",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "IndicaOnline",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-19",
+      "derniereVue": "2024-11-19",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "interiseworld.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "interiseworld.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-03-20",
+      "derniereVue": "2025-03-20",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "interlabel.be",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "interlabel.be",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-08",
+      "derniereVue": "2024-11-08",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Israel defense minister private photos",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Israel defense minister private photos",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-09-24",
+      "derniereVue": "2024-09-24",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Israel largest cyber security college",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Israel largest cyber security college",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-25",
+      "derniereVue": "2024-07-25",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Jeffersoncountyclerk.org",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Jeffersoncountyclerk.org",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-08-11",
+      "derniereVue": "2024-08-11",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Jildor Shoes",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Jildor Shoes",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-02-11",
+      "derniereVue": "2025-02-11",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Kenya Urban Roads Authority",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Kenya Urban Roads Authority",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-13",
+      "derniereVue": "2024-07-13",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "KHKKLOW.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "KHKKLOW.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-12-02",
+      "derniereVue": "2024-12-02",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Kilgore College (kilgore.edu)",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Kilgore College (kilgore.edu)",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-01-17",
+      "derniereVue": "2025-01-17",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Ladov Law Firm",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Ladov Law Firm",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-09-11",
+      "derniereVue": "2024-09-11",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "lakelandchamber.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "lakelandchamber.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-06",
+      "derniereVue": "2024-10-06",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "lamaisonducitron.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "lamaisonducitron.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-01-04",
+      "derniereVue": "2025-01-04",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "LAMERS ENTERPRISE INC",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "LAMERS ENTERPRISE INC",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-12-21",
+      "derniereVue": "2024-12-21",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Leadership Strategies",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Leadership Strategies",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-02-17",
+      "derniereVue": "2025-02-17",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "lighthouseelectric.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "lighthouseelectric.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-01",
+      "derniereVue": "2024-11-01",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "LmayInteroute agency",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "LmayInteroute agency",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-06",
+      "derniereVue": "2024-11-06",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "lnetwork",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "lnetwork",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-01-28",
+      "derniereVue": "2025-01-28",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "London Belgravia",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "London Belgravia",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-02-26",
+      "derniereVue": "2025-02-26",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Longview Oral and Maxillofacial Surgery",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Longview Oral and Maxillofacial Surgery",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-02",
+      "derniereVue": "2024-07-02",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Mainelli Mechanical Contractors",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Mainelli Mechanical Contractors",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-24",
+      "derniereVue": "2024-10-24",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Markdom Plastic Products",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Markdom Plastic Products",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-04",
+      "derniereVue": "2024-10-04",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Medica Corporation",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Medica Corporation",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-12-04",
+      "derniereVue": "2024-12-04",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Medion AG",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Medion AG",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-12-18",
+      "derniereVue": "2024-12-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "MEL aviation Ltd",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "MEL aviation Ltd",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-21",
+      "derniereVue": "2024-06-21",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "melangesystems.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "melangesystems.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-27",
+      "derniereVue": "2024-10-27",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Mid State Electric",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Mid State Electric",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-18",
+      "derniereVue": "2024-10-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "midwaymetals.com.vn",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "midwaymetals.com.vn",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-01-29",
+      "derniereVue": "2025-01-29",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "mistralsolutions.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "mistralsolutions.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-02-04",
+      "derniereVue": "2025-02-04",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "mnpl.com.sg",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "mnpl.com.sg",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-09-30",
+      "derniereVue": "2024-09-30",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Modernauto",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Modernauto",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-17",
+      "derniereVue": "2024-07-17",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Nationwide Legal",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Nationwide Legal",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-24",
+      "derniereVue": "2024-11-24",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "New TSI Holdings, NYSC",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "New TSI Holdings, NYSC",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-08-09",
+      "derniereVue": "2024-08-09",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "NextStage.AI",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "NextStage.AI",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-12",
+      "derniereVue": "2024-10-12",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "nicatel.com.uy",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "nicatel.com.uy",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-01-13",
+      "derniereVue": "2025-01-13",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Nora Biscuits",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Nora Biscuits",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-15",
+      "derniereVue": "2024-10-15",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "North Georgia Brick",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "North Georgia Brick",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-08-20",
+      "derniereVue": "2024-08-20",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Northeast Rehabilitation Hospital Network",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Northeast Rehabilitation Hospital Network",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-18",
+      "derniereVue": "2024-07-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Northern Minerals Limited",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Northern Minerals Limited",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-04",
+      "derniereVue": "2024-06-04",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "NRStree.txt",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "NRStree.txt",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-18",
+      "derniereVue": "2024-06-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "nspproteins.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "nspproteins.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-07",
+      "derniereVue": "2024-10-07",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Odessa College",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Odessa College",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-25",
+      "derniereVue": "2024-07-25",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "ome.tv",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "ome.tv",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-02-03",
+      "derniereVue": "2025-02-03",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Optometrics",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Optometrics",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-03-02",
+      "derniereVue": "2025-03-02",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Oregon Department of Environmental Quality",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Oregon Department of Environmental Quality",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-04-15",
+      "derniereVue": "2025-04-15",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "P/Kaufmann Fabrics",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "P/Kaufmann Fabrics",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-17",
+      "derniereVue": "2024-06-17",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "P448",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "P448",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-10",
+      "derniereVue": "2024-07-10",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "pandacare.ae",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "pandacare.ae",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-29",
+      "derniereVue": "2024-06-29",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "PBS AEROSPACE",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "PBS AEROSPACE",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-20",
+      "derniereVue": "2024-11-20",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "pbw-india.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "pbw-india.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-06",
+      "derniereVue": "2024-10-06",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Peak Season",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Peak Season",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-03-09",
+      "derniereVue": "2025-03-09",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "pedsurology.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "pedsurology.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-18",
+      "derniereVue": "2024-06-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Performance Food Centers",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Performance Food Centers",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-09-29",
+      "derniereVue": "2024-09-29",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Physicians' Primary Care of Southwest Florida",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Physicians' Primary Care of Southwest Florida",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-12-10",
+      "derniereVue": "2024-12-10",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "pingan.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "pingan.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-08",
+      "derniereVue": "2024-10-08",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Pinger - USA",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Pinger - USA",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-18",
+      "derniereVue": "2024-11-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Plaisted Companies",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Plaisted Companies",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-09-18",
+      "derniereVue": "2024-09-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Planters Telephone Cooperative (planters.net)",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Planters Telephone Cooperative (planters.net)",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-12-11",
+      "derniereVue": "2024-12-11",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "powertestdyno.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "powertestdyno.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-01",
+      "derniereVue": "2024-06-01",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Primary Health Services Center",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Primary Health Services Center",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-12-27",
+      "derniereVue": "2024-12-27",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Project Hospitality",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Project Hospitality",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-09-02",
+      "derniereVue": "2024-09-02",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "promises2kids.org",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "promises2kids.org",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-08-16",
+      "derniereVue": "2024-08-16",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Qeco/coeq",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Qeco/coeq",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-09-10",
+      "derniereVue": "2024-09-10",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Ramat Gan Academic College Hacked",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Ramat Gan Academic College Hacked",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-25",
+      "derniereVue": "2024-07-25",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Rheinischer Sch",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Rheinischer Sch",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-02-17",
+      "derniereVue": "2025-02-17",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "River Region Cardiology Associates",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "River Region Cardiology Associates",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-09-20",
+      "derniereVue": "2024-09-20",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "annuaire-administratif"
+    },
+    {
+      "nom": "RiverRestHome",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "RiverRestHome",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-25",
+      "derniereVue": "2024-11-25",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "rockymountaingastro.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "rockymountaingastro.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-09-28",
+      "derniereVue": "2024-09-28",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "RZO",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "RZO",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-15",
+      "derniereVue": "2024-07-15",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Sanglier Limited",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Sanglier Limited",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-25",
+      "derniereVue": "2024-10-25",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "SAWA INTERNATIONAL",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "SAWA INTERNATIONAL",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-20",
+      "derniereVue": "2024-06-20",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "SCHUMAG AKTIENGESELLSCHAFT",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "SCHUMAG AKTIENGESELLSCHAFT",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-25",
+      "derniereVue": "2024-10-25",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Scott Pharma Solutions",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Scott Pharma Solutions",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-08-28",
+      "derniereVue": "2024-08-28",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Seng Tsoi Architect",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Seng Tsoi Architect",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-08-30",
+      "derniereVue": "2024-08-30",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "seoulpi.io",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "seoulpi.io",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-06",
+      "derniereVue": "2024-10-06",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "SESAM Informatics",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "SESAM Informatics",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-09-06",
+      "derniereVue": "2024-09-06",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Sfrent.net",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Sfrent.net",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-04-11",
+      "derniereVue": "2025-04-11",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Sheridan Nurseries",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Sheridan Nurseries",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-02-03",
+      "derniereVue": "2025-02-03",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Sherr Puttmann Akins Lamb PC",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Sherr Puttmann Akins Lamb PC",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-09-17",
+      "derniereVue": "2024-09-17",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Shinnick & Ryan",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Shinnick & Ryan",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-12",
+      "derniereVue": "2024-06-12",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "siapenet.gov.br",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "siapenet.gov.br",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-01-04",
+      "derniereVue": "2025-01-04",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Skyward Specialty Insurance",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Skyward Specialty Insurance",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-03-11",
+      "derniereVue": "2025-03-11",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "snoqualmietribe.us",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "snoqualmietribe.us",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-02-13",
+      "derniereVue": "2025-02-13",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Solaris Pharma proof",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Solaris Pharma proof",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-01-16",
+      "derniereVue": "2025-01-16",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "SRP Federal Credit Union",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "SRP Federal Credit Union",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-12-05",
+      "derniereVue": "2024-12-05",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "STUDIO NOTARILE BUCCI – OLMI Data Leak",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "STUDIO NOTARILE BUCCI – OLMI Data Leak",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-26",
+      "derniereVue": "2024-07-26",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Suburban Carting",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Suburban Carting",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-04-23",
+      "derniereVue": "2025-04-23",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "SWDAKOTAH.COM",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "SWDAKOTAH.COM",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-12-16",
+      "derniereVue": "2024-12-16",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "tccfleet.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "tccfleet.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-06",
+      "derniereVue": "2024-10-06",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "teamues.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "teamues.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-02-07",
+      "derniereVue": "2025-02-07",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "telering.de",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "telering.de",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-01-13",
+      "derniereVue": "2025-01-13",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "The Children's Center Of Hamden",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "The Children's Center Of Hamden",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-02-11",
+      "derniereVue": "2025-02-11",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "The Greenhouse People",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "The Greenhouse People",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-08-19",
+      "derniereVue": "2024-08-19",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "The Hoff Brand SL Data Leak",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "The Hoff Brand SL Data Leak",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-04-02",
+      "derniereVue": "2025-04-02",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "The Law Office of Omar O. Vargas, P.C. Data Leak",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "The Law Office of Omar O. Vargas, P.C. Data Leak",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-25",
+      "derniereVue": "2024-07-25",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "The Robson Companies",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "The Robson Companies",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-07",
+      "derniereVue": "2024-06-07",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "The University and College Union",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "The University and College Union",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-18",
+      "derniereVue": "2024-11-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "The University of Oklahoma (ou.edu)",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "The University of Oklahoma (ou.edu)",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-01-14",
+      "derniereVue": "2025-01-14",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "The Wacks Law Group",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "The Wacks Law Group",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-09",
+      "derniereVue": "2024-07-09",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "thebus.org",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "thebus.org",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-18",
+      "derniereVue": "2024-06-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Thompson Davis and Co",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Thompson Davis and Co",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-08-14",
+      "derniereVue": "2024-08-14",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "thompsoncreek.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "thompsoncreek.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-18",
+      "derniereVue": "2024-11-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "throttleup.io/",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "throttleup.io/",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-18",
+      "derniereVue": "2024-06-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "TNT Materials https://tnt-materials.com/",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "TNT Materials https://tnt-materials.com/",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-08-01",
+      "derniereVue": "2024-08-01",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "tolbertlegal.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "tolbertlegal.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-11",
+      "derniereVue": "2024-11-11",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Total Revisjon DA",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Total Revisjon DA",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-26",
+      "derniereVue": "2024-06-26",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "TPI",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "TPI",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-23",
+      "derniereVue": "2024-06-23",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Transtec SAS",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Transtec SAS",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-25",
+      "derniereVue": "2024-10-25",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "sirene"
+    },
+    {
+      "nom": "Trinity Petroleum Management, LLC",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Trinity Petroleum Management, LLC",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-22",
+      "derniereVue": "2024-11-22",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "u0 Excel Transportation",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "u0 Excel Transportation",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-01-07",
+      "derniereVue": "2025-01-07",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "United Animal Health",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "United Animal Health",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-01",
+      "derniereVue": "2024-10-01",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "United Bakery Equipment",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "United Bakery Equipment",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-21",
+      "derniereVue": "2024-11-21",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Unlimited Lawn Care",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Unlimited Lawn Care",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-30",
+      "derniereVue": "2024-10-30",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "US Marshals Service",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "US Marshals Service",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-08-26",
+      "derniereVue": "2024-08-26",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Verosa LLC",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Verosa LLC",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-12-18",
+      "derniereVue": "2024-12-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Viber Messenger Source and Data!",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Viber Messenger Source and Data!",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-25",
+      "derniereVue": "2024-07-25",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Vimer Industrie Grafiche Italiane",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Vimer Industrie Grafiche Italiane",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-18",
+      "derniereVue": "2024-06-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "sirene"
+    },
+    {
+      "nom": "Warning: some of webchats are unavailable. We are working to resolve the issue, all timers",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Warning: some of webchats are unavailable. We are working to resolve the issue, all timers",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-23",
+      "derniereVue": "2024-07-23",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Waters Truck and Tractor (waterstruck.com)",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Waters Truck and Tractor (waterstruck.com)",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-18",
+      "derniereVue": "2024-11-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "wave2.co.kr",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "wave2.co.kr",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-10",
+      "derniereVue": "2024-06-10",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Waverley Christian College (wcc.vic.edu.au)",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Waverley Christian College (wcc.vic.edu.au)",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-12-16",
+      "derniereVue": "2024-12-16",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "welevelup.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "welevelup.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-30",
+      "derniereVue": "2024-07-30",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "westbornmarket.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "westbornmarket.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-12-04",
+      "derniereVue": "2024-12-04",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "WhoHire",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "WhoHire",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-02-10",
+      "derniereVue": "2025-02-10",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Wichita State University Campus of Applied Sciences and Technology",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Wichita State University Campus of Applied Sciences and Technology",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-25",
+      "derniereVue": "2024-07-25",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.alliancemat.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.alliancemat.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-01-03",
+      "derniereVue": "2025-01-03",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.ameda.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.ameda.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-03-16",
+      "derniereVue": "2025-03-16",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.assisi.nl",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.assisi.nl",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-03-30",
+      "derniereVue": "2025-03-30",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.atlcc.net",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.atlcc.net",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-09-15",
+      "derniereVue": "2024-09-15",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.cameronhodges.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.cameronhodges.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-16",
+      "derniereVue": "2024-07-16",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.copleystoughton.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.copleystoughton.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-02-18",
+      "derniereVue": "2025-02-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.esquirebrands.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.esquirebrands.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-03-21",
+      "derniereVue": "2025-03-21",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.eucatex.com.br",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.eucatex.com.br",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-18",
+      "derniereVue": "2024-06-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.fpj.com.py",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.fpj.com.py",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-30",
+      "derniereVue": "2024-11-30",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.gestionquintessence.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.gestionquintessence.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-03-21",
+      "derniereVue": "2025-03-21",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.gmchc.org",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.gmchc.org",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-08-17",
+      "derniereVue": "2024-08-17",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.hexosys.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.hexosys.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-03-10",
+      "derniereVue": "2025-03-10",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.hinton.ca",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.hinton.ca",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-03-06",
+      "derniereVue": "2025-03-06",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.journeyoilfield.net",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.journeyoilfield.net",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-02-28",
+      "derniereVue": "2025-02-28",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.jpwindustries.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.jpwindustries.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-03-08",
+      "derniereVue": "2025-03-08",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.kciconst.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.kciconst.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-24",
+      "derniereVue": "2024-10-24",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.lightspeeddesign.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.lightspeeddesign.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-12-14",
+      "derniereVue": "2024-12-14",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.mabeglobal.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.mabeglobal.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-31",
+      "derniereVue": "2024-10-31",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.maloneaccountants.ie",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.maloneaccountants.ie",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-18",
+      "derniereVue": "2024-06-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.mccoyglobal.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.mccoyglobal.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-12-23",
+      "derniereVue": "2024-12-23",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.midwestvascular.net",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.midwestvascular.net",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-02-21",
+      "derniereVue": "2025-02-21",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.mrhme.org/",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.mrhme.org/",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-26",
+      "derniereVue": "2024-07-26",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.mssupply.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.mssupply.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-04",
+      "derniereVue": "2024-11-04",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.nissan-dubai.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.nissan-dubai.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-08-31",
+      "derniereVue": "2024-08-31",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.prinsotel.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.prinsotel.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-08-15",
+      "derniereVue": "2024-08-15",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.rgb.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.rgb.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-02-25",
+      "derniereVue": "2025-02-25",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.southeasternretina.com",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.southeasternretina.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-09-13",
+      "derniereVue": "2024-09-13",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.suvacity.org",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.suvacity.org",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-08-30",
+      "derniereVue": "2024-08-30",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.temotekstil.com.tr",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "www.temotekstil.com.tr",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-01-09",
+      "derniereVue": "2025-01-09",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "yorozu-corp.co.jp",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "yorozu-corp.co.jp",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-21",
+      "derniereVue": "2024-10-21",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Zionists Elfi-Tech Hacked",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Zionists Elfi-Tech Hacked",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-25",
+      "derniereVue": "2024-07-25",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "A*********",
+      "occurrences": 13,
+      "zone": "inconnue",
+      "nomLisible": "A*********",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-02-06",
+      "derniereVue": "2023-09-21",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "M*****",
+      "occurrences": 8,
+      "zone": "inconnue",
+      "nomLisible": "M*****",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-12-21",
+      "derniereVue": "2023-07-09",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "?C?",
+      "occurrences": 7,
+      "zone": "inconnue",
+      "nomLisible": "?C?",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-02-06",
+      "derniereVue": "2023-09-26",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "*********** E*****",
+      "occurrences": 6,
+      "zone": "inconnue",
+      "nomLisible": "*********** E*****",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-12-29",
+      "derniereVue": "2023-11-21",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "I*****",
+      "occurrences": 6,
+      "zone": "inconnue",
+      "nomLisible": "I*****",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-02-11",
+      "derniereVue": "2023-09-11",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "S??????????",
+      "occurrences": 6,
+      "zone": "inconnue",
+      "nomLisible": "S??????????",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-12-18",
+      "derniereVue": "2023-03-05",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "H***** *****",
+      "occurrences": 5,
+      "zone": "inconnue",
+      "nomLisible": "H***** *****",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-04-19",
+      "derniereVue": "2023-08-03",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "N****",
+      "occurrences": 5,
+      "zone": "inconnue",
+      "nomLisible": "N****",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-01-21",
+      "derniereVue": "2023-07-29",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "*r***** ********** ******** ***********",
+      "occurrences": 4,
+      "zone": "inconnue",
+      "nomLisible": "*r***** ********** ******** ***********",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-02-06",
+      "derniereVue": "2023-07-19",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "T******** ***** **********",
+      "occurrences": 4,
+      "zone": "inconnue",
+      "nomLisible": "T******** ***** **********",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-03-05",
+      "derniereVue": "2023-08-07",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "acac.com",
+      "occurrences": 3,
+      "zone": "inconnue",
+      "nomLisible": "acac.com",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-06-20",
+      "derniereVue": "2023-12-21",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "B****** ***** *****",
+      "occurrences": 3,
+      "zone": "inconnue",
+      "nomLisible": "B****** ***** *****",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-04-19",
+      "derniereVue": "2023-10-31",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "canstarrestorations.com",
+      "occurrences": 3,
+      "zone": "inconnue",
+      "nomLisible": "canstarrestorations.com",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-09-30",
+      "derniereVue": "2024-11-04",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "emprint.com",
+      "occurrences": 3,
+      "zone": "inconnue",
+      "nomLisible": "emprint.com",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-06-20",
+      "derniereVue": "2023-12-21",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Florida Department of Veterans' Affairs",
+      "occurrences": 3,
+      "zone": "inconnue",
+      "nomLisible": "Florida Department of Veterans' Affairs",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-05-27",
+      "derniereVue": "2023-11-30",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "G********* ****** ****",
+      "occurrences": 3,
+      "zone": "inconnue",
+      "nomLisible": "G********* ****** ****",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-04-19",
+      "derniereVue": "2023-10-02",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "NEBRASKALAND",
+      "occurrences": 3,
+      "zone": "inconnue",
+      "nomLisible": "NEBRASKALAND",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-06-14",
+      "derniereVue": "2024-11-09",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "P****** ******",
+      "occurrences": 3,
+      "zone": "inconnue",
+      "nomLisible": "P****** ******",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-04-19",
+      "derniereVue": "2024-04-19",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "Research Electronics International",
+      "occurrences": 3,
+      "zone": "inconnue",
+      "nomLisible": "Research Electronics International",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-10-25",
+      "derniereVue": "2025-03-11",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "WARNING",
+      "occurrences": 3,
+      "zone": "inconnue",
+      "nomLisible": "WARNING",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-02-25",
+      "derniereVue": "2023-09-28",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "www.gannons.co.uk",
+      "occurrences": 3,
+      "zone": "inconnue",
+      "nomLisible": "www.gannons.co.uk",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-11-01",
+      "derniereVue": "2024-11-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "\"CCAA\"",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "\"CCAA\"",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-03-24",
+      "derniereVue": "2023-06-03",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "\"FICCI\"",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "\"FICCI\"",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-02-23",
+      "derniereVue": "2023-06-03",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "[DISCLOSED] INFiLED",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "INFiLED",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-11-25",
+      "derniereVue": "2024-12-27",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    },
+    {
+      "nom": "[DISCLOSED] Lago Group Spa",
+      "occurrences": 2,
+      "zone": "inconnue",
+      "nomLisible": "Lago Group Spa",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-07-26",
+      "derniereVue": "2024-12-27",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel"
+    }
+  ]
+}

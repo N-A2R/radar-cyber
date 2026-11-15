@@ -137,7 +137,7 @@ pourquoi l'axe 1 est déjà engagé.
 
 | # | Chantier | État | Critère de sortie |
 | --- | --- | --- | --- |
-| 13 | **Référentiel entreprises** | **moitié** — 12 entités chargées, trou publié (290/302, dont **245 sans zone identifiable**) ; le critère « zone et voie par entité » n'est pas tenu pour ces 245 | **trou publié** en liste de courses (411 entités, 8 en France, zone et voie par entité) |
+| 13 | **Référentiel entreprises** | **moitié** (15/11 : trou re-publié à jour — cohorte vivante 500 entités, dont **199 en France** chargeables et **301 sans zone** ; cohorte Exa 302 stable, quasi étrangère ; 3 identités testées dans Sirene, refus documentés pour homonymie — `docs/manques-referentiel.md`) ; le côté régional du trou est comblé par l'import SIRENE du 14 (7 436 entreprises, secteurs déduits du NAF) | **trou publié** en liste de courses (zone et voie par entité) |
 | 14 | **Diagnostic des sources muettes** | **fait** (`docs/sources-diagnostic.md`) | rendement par source exposé, `null` ≠ 0, transitions journalisées |
 | 15 | **Réparation du parsing** | **fait** (4 motifs, `migrate-033` : 3 flux réparés, 2 éteints avec motif) | sources illisibles **réparées ou désactivées avec motif** — nécessite une relance réseau |
 
