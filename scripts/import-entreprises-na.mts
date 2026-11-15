@@ -16,6 +16,7 @@ import { createRequire } from "node:module";
 
 const require = createRequire(new URL("../apps/api/package.json", import.meta.url));
 const { Client } = require("pg") as typeof import("pg");
+import { secteurDeNaf } from "./naf-secteurs.mts";
 
 const DATABASE_URL = process.env.DATABASE_URL ?? "postgres://radar:radar@localhost:5432/radar";
 const API = "https://recherche-entreprises.api.gouv.fr/search";
@@ -123,7 +124,7 @@ async function importPair(client: InstanceType<typeof Client>, dept: string, naf
 			const siege = row.siege ?? {};
 			const res = await client.query(
 				`INSERT INTO org (name, slug, kind, sector, naf, dept, city, domain, status, siren)
-				 VALUES ($1,$2,'entreprise',NULL,$3,$4,$5,$6,'confirme',$7)
+				 VALUES ($1,$2,'entreprise',$8,$3,$4,$5,$6,'confirme',$7)
 				 ON CONFLICT (siren) WHERE siren IS NOT NULL DO NOTHING`,
 				[
 					name.slice(0, 200),
@@ -133,6 +134,7 @@ async function importPair(client: InstanceType<typeof Client>, dept: string, naf
 					siege.libelle_commune ? siege.libelle_commune.slice(0, 120) : null,
 					domainOf(siege.site_web),
 					siren,
+					secteurDeNaf(row.activite_principale ?? naf),
 				],
 			);
 			inserted += res.rowCount ?? 0;
