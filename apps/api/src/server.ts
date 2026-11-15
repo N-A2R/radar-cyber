@@ -167,9 +167,10 @@ async function runCollectors(): Promise<void> {
 			// Une lacune de journal est visible et réparable ; une collecte
 			// perdue ne l'est pas. On signale, on ne bloque pas.
 			if (faits.length > 0) {
-				await consignerLot(faits).catch((e: unknown) => {
-					app.log.warn(`[journal] ${c.id} : ${faits.length} fait(s) non consigné(s) — ${String((e as Error)?.message ?? e)}`);
-				});
+				const lot = await consignerLot(faits);
+				if (lot.lacunes > 0 || lot.erreurs.length > 0) {
+					app.log.warn(`[journal] ${c.id} : ${lot.consignes} fait(s) consigné(s), ${lot.lacunes} lacune(s), ${lot.erreurs.length} échec(s) — ${lot.erreurs[0]?.slice(0, 120) ?? ""}`);
+				}
 			}
 			const newCursor = result.cursor ?? cursor;
 			await ingestQuery("UPDATE source SET cursor=$1, last_ok_at=now() WHERE id=$2", [JSON.stringify(newCursor), c.id]);

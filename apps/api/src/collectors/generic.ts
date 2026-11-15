@@ -854,14 +854,13 @@ async function ingestNarrative(
       validAt: event.observedAt ?? null,
     });
   }
-  // Écriture groupée : les faits de cette source, en une requête.
+  // Écriture groupée : les faits partent par paquets, avec repli ligne à ligne.
+  // Le journal ne doit jamais faire perdre une collecte ; en échange il rend
+  // ses comptes : trous consignés, échecs restants signalés, rien d'avalé.
   if (faits.length > 0) {
-    try {
-      await consignerLot(faits);
-    } catch (error) {
-      // Le journal ne doit jamais faire perdre une collecte : on signale et on
-      // continue. Une lacune de journal est visible, une collecte perdue non.
-      runLog?.(`[journal] ${source.id} : ${faits.length} fait(s) non consigné(s) — ${String(error).slice(0, 120)}`);
+    const lot = await consignerLot(faits);
+    if (lot.lacunes > 0 || lot.erreurs.length > 0) {
+      runLog?.(`[journal] ${source.id} : ${lot.consignes} fait(s) consigné(s), ${lot.lacunes} lacune(s), ${lot.erreurs.length} échec(s) — ${lot.erreurs[0]?.slice(0, 120) ?? ""}`);
     }
   }
   for (const [reason, n] of Object.entries(menuRejected)) {

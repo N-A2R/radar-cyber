@@ -269,10 +269,9 @@ export async function loadReferentiel(
 			byKind: report.byKind,
 		},
 	});
-	try {
-		await consignerLot(faits);
-	} catch (error) {
-		log(`journal : ${faits.length} fait(s) non consigné(s) — ${String(error).slice(0, 120)}`);
+	const lot = await consignerLot(faits);
+	if (lot.lacunes > 0 || lot.erreurs.length > 0) {
+		log(`journal : ${lot.consignes} fait(s) consigné(s), ${lot.lacunes} lacune(s), ${lot.erreurs.length} échec(s) — ${lot.erreurs[0]?.slice(0, 120) ?? ""}`);
 	}
 	return report;
 }
