@@ -19,6 +19,13 @@ Décisions de cadrage, données par l'utilisateur ce jour :
 **18 chantiers faits, 2 à moitié, 0 pas commencé.** Le moteur tourne et il est
 vérifié ; ce qui manque n'est plus du code, c'est la preuve qu'il voit.
 
+> **Mise à jour 15 novembre 2026** : 19 chantiers faits, 1 à moitié (13).
+> Le chantier 10 est clos — trois agents câblés, taux de fausses alertes
+> mesuré et publié (`docs/fausses-alertes.md` : 0 alerte émise sur 27 rejeux,
+> non calculable, publie tel quel), revue branchée. Le journal de vérité a
+> retrouvé 6 067 faits perdus (PR #34), l'import SIRENE écrit ses secteurs
+> (PR #35) et la mesure de couverture est re-jeuée : 27/42 (64,3 %).
+
 ### Ce qui a été prouvé (D0)
 
 - Base fraîche, **29/29 migrations**, `event_archive` et `org_history` vérifiées.
@@ -43,7 +50,7 @@ vérifié ; ce qui manque n'est plus du code, c'est la preuve qu'il voit.
 | --- | --- | --- |
 | 1 — Mémoire | 4/4 | rien |
 | 2 — Mesure | **4/4** | rien |
-| 3 — Analyse | 3/4 | 10 (taux de fausses alertes) |
+| 3 — Analyse | 4/4 | rien |
 | 4 — Données | 2/3 | 13 (245 entités sans zone) |
 | 5 — Produit | 4/4 | rien |
 | 6 — Transmission | 1/1 | rien |
@@ -122,7 +129,7 @@ pourquoi l'axe 1 est déjà engagé.
 | # | Chantier | État | Critère de sortie |
 | --- | --- | --- | --- |
 | 9 | **Corrélation multi-sources** | **fait** (fiche org) | regroupement 72 h par famille, première source, délai de reprise, résumé |
-| 10 | **Agents de rupture** | **moitié** (`analyse/rupture.ts`, 3 détecteurs branchés sur `/api/dossier`) — le taux de fausses alertes reste à mesurer | 3 agents, taux de fausses alertes mesuré, branchés sur la revue |
+| 10 | **Agents de rupture** | **fait** (15/11 : 3 agents câblés sur la base, taux mesuré et publié — 0 alerte émise sur 27 rejeux, taux non calculable publié tel quel, `docs/fausses-alertes.md` — branchés sur la revue avec journalisation) | 3 agents, taux de fausses alertes mesuré, branchés sur la revue |
 | 11 | **Anticipation mesurée** | **fait** (`docs/anticipation.md`) | part des faits précédés d'un signal, par nature, avec réserve sous 10 faits |
 | 12 | **Contradictions entre sources** | **fait** (fiche org) | désaccords de gravité et de nature affichés avec les positions de chaque source |
 

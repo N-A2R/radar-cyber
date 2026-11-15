@@ -1,0 +1,22 @@
+{
+  "dateMesure": "2026-11-15",
+  "fenetre": {
+    "debut": "2025-11-01",
+    "fin": "2026-10-31"
+  },
+  "rejeux": 27,
+  "pasJours": 14,
+  "toleranceJours": 35,
+  "veriteTerrain": {
+    "organisations": 24,
+    "incidentsNonResolus": 15
+  },
+  "total": {
+    "emises": 0,
+    "vraies": 0,
+    "fausses": 0,
+    "tauxFaussesAlertes": null
+  },
+  "parAgent": {},
+  "alertes": []
+}
