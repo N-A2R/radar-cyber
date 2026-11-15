@@ -29,7 +29,9 @@ export type JournalKind =
 	/** Une alerte a été créée, confirmée ou close. */
 	| "alert.changed"
 	/** Une source a changé d'état (cassée, réparée, désactivée). */
-	| "source.changed";
+	| "source.changed"
+	/** Un fait visé n'a pas pu être écrit : le journal se souvient du trou. */
+	| "journal.lacune";
 
 export type JournalEntry = {
 	kind: JournalKind;
@@ -66,6 +68,21 @@ function toTimestamp(value: Date | string | null | undefined): string | null {
 }
 
 /**
+ * Les octets nuls rendent une insertion refusable par PostgreSQL (`invalid byte
+ * sequence`), et une seule ligne toxique ne doit pas faire perdre un lot. Les
+ * flux venus du web en contiennent parfois ; le journal les retire, ils
+ * n'apportent jamais d'information.
+ */
+function sansNul(valeur: string): string {
+	return valeur.replace(/\u0000/g, "");
+}
+
+/** Idem sur du texte JSON déjà sérialisé, où le nul est une séquence d'échappement. */
+function sansNulJson(json: string): string {
+	return json.replace(/\\u0000/g, "");
+}
+
+/**
  * Consigne un fait. Ne lève jamais bloquante dans le chemin d'ingestion :
  * un journal indisponible ne doit pas faire perdre un événement. L'échec est
  * rendu à l'appelant, qui décide de le signaler.
@@ -86,9 +103,9 @@ export async function consignerAvec(run: JournalRunner, entry: JournalEntry): Pr
 			 VALUES ($1, $2, $3, $4::jsonb, $5, $6)`,
 			[
 				entry.kind,
-				entry.subject,
-				entry.summary.slice(0, 500),
-				JSON.stringify(entry.payload ?? {}),
+				sansNul(entry.subject),
+				sansNul(entry.summary).slice(0, 500),
+				sansNulJson(JSON.stringify(entry.payload ?? {})),
 				entry.actor,
 				toTimestamp(entry.validAt),
 			],
@@ -103,27 +120,104 @@ export async function consigner(entry: JournalEntry): Promise<{ ok: boolean; err
 	return consignerAvec((sql, params) => ingestQuery(sql, params ? [...params] : undefined), entry);
 }
 
-/** Variante groupée : une seule requête pour N faits. Utile en fin de collecte. */
-export async function consignerLot(entries: readonly JournalEntry[]): Promise<number> {
-	if (entries.length === 0) return 0;
+/**
+ * Ce que la consigne groupée a réellement écrit. La doctrine du journal tient en
+ * trois nombres : les faits posés, les trous remplacés par une lacune consignée
+ * (le journal se souvient du trou au lieu de l'oublier), et ce qui reste sans
+ * aucune trace — cas catastrophique (journal indisponible) rendu à l'appelant
+ * pour qu'il le signale, jamais avalé en silence.
+ */
+export type LotResultat = {
+	/** Faits écrits, lacunes consignées comprises. */
+	consignes: number;
+	/** Faits remplacés par un fait `journal.lacune`. */
+	lacunes: number;
+	/** Faits restés sans trace écrite : message d'erreur par fait. */
+	erreurs: string[];
+};
+
+/** 250 faits × 6 paramètres par requête : loin du plafond de 65 535 du protocole. */
+const TAILLE_PAQUET = 250;
+
+/** Construit et écrit un paquet de faits en une requête. */
+async function insererPaquet(run: JournalRunner, paquet: readonly JournalEntry[]): Promise<void> {
 	const valeurs: unknown[] = [];
-	const lignes = entries.map((entry, index) => {
+	const lignes = paquet.map((entry, index) => {
 		const base = index * 6;
 		valeurs.push(
 			entry.kind,
-			entry.subject,
-			entry.summary.slice(0, 500),
-			JSON.stringify(entry.payload ?? {}),
+			sansNul(entry.subject),
+			sansNul(entry.summary).slice(0, 500),
+			sansNulJson(JSON.stringify(entry.payload ?? {})),
 			entry.actor,
 			toTimestamp(entry.validAt),
 		);
 		return `($${base + 1},$${base + 2},$${base + 3},$${base + 4}::jsonb,$${base + 5},$${base + 6})`;
 	});
-	await ingestQuery(
+	await run(
 		`INSERT INTO journal (kind, subject, summary, payload, actor, valid_at) VALUES ${lignes.join(",")}`,
 		valeurs,
 	);
-	return entries.length;
+}
+
+/**
+ * Variante groupée : les faits partent par paquets, et un paquet qui échoue est
+ * rejoué ligne à ligne — une seule donnée toxique ou une panne brève ne perd
+ * plus la collecte entière. Une ligne qui échoue encore (une fois les octets
+ * nuls retirés, ce ne peut plus être qu'un vrai refus de la base) devient un
+ * fait `journal.lacune` : le trou est écrit là où on saura le lire. Ne lève
+ * jamais : le résultat porte la comptabilité.
+ */
+export async function consignerLotAvec(run: JournalRunner, entries: readonly JournalEntry[]): Promise<LotResultat> {
+	const resultat: LotResultat = { consignes: 0, lacunes: 0, erreurs: [] };
+	if (entries.length === 0) return resultat;
+	for (let debut = 0; debut < entries.length; debut += TAILLE_PAQUET) {
+		const paquet = entries.slice(debut, debut + TAILLE_PAQUET);
+		try {
+			await insererPaquet(run, paquet);
+			resultat.consignes += paquet.length;
+			continue;
+		} catch {
+			// Repli ligne à ligne : isoler ce qui refuse, garder le reste.
+		}
+		let echecsConsecutifs = 0;
+		for (const entry of paquet) {
+			const pose = await consignerAvec(run, entry);
+			if (pose.ok) {
+				resultat.consignes++;
+				echecsConsecutifs = 0;
+				continue;
+			}
+			const erreur = pose.error ?? "erreur inconnue";
+			const lacune: JournalEntry = {
+				kind: "journal.lacune",
+				subject: entry.subject,
+				summary: `lacune : ${entry.kind} non consigné — ${erreur}`,
+				actor: "journal:lacune@1",
+				payload: { kindVise: entry.kind, sujetVise: entry.subject, erreur },
+				validAt: entry.validAt ?? null,
+			};
+			const trace = await consignerAvec(run, lacune);
+			if (trace.ok) {
+				resultat.lacunes++;
+				resultat.consignes++;
+				echecsConsecutifs = 0;
+				continue;
+			}
+			echecsConsecutifs++;
+			resultat.erreurs.push(`${entry.kind} ${entry.subject} — ${erreur}`);
+			if (echecsConsecutifs >= 5) {
+				resultat.erreurs.push("paquet abandonné : 5 échecs consécutifs, journal probablement indisponible");
+				break;
+			}
+		}
+	}
+	return resultat;
+}
+
+/** Variante groupée sur le pool d'ingestion. Utile en fin de collecte. */
+export async function consignerLot(entries: readonly JournalEntry[]): Promise<LotResultat> {
+	return consignerLotAvec((sql, params) => ingestQuery(sql, params ? [...params] : undefined), entries);
 }
 
 export type JournalRow = {
