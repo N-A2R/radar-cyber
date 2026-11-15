@@ -55,6 +55,8 @@ export type GazetteerRow = {
 	city: string | null;
 	sector: string | null;
 	alias: string;
+	/** Source de la ligne d'alias : les alias d'usage posés à la main ont un traitement préférentiel. */
+	source?: string | null;
 };
 
 export type Gazetteer = {
@@ -80,11 +82,20 @@ export type Gazetteer = {
 	orgsByToken: Map<string, Set<number>>;
 	/** organisations par id, pour rendre un résultat lisible */
 	orgsById: Map<number, GazetteerOrg>;
+	/**
+	 * alias → organisations désignées par un alias d'usage posé à la main
+	 * (`annuaire-entreprises`). À l'échelle du stock SIRENE, une enseigne
+	 * (« hyper u ») frappe des dizaines d'unités légales ; l'alias d'usage est
+	 * la seule lecture qui dit ce que le texte désigne — le réseau, pas une
+	 * coopérative parmi quarante-huit.
+	 */
+	curatedOrgsByAliasKey: Map<string, Set<number>>;
 };
 
 export type MatchReason =
 	| "alias-role"
 	| "alias-distinctif"
+	| "alias-usage"
 	| "departement"
 	| "commune"
 	| "lieu-contredit"
@@ -103,6 +114,13 @@ export type GazetteerMatch = {
 
 /** Secteurs territoriaux : leur nom est un lieu, pas une organisation. */
 const TERRITOIRES = new Set<string>(["commune", "epci", "departement", "region"]);
+
+/**
+ * Sources d'alias posés à la main par un analyste : ils disent un usage
+ * (« Intermarché » désigne le réseau), pas un nom légal. À l'échelle du stock
+ * SIRENE, ce sont eux qui désignent quand l'enseigne devient ambiguë.
+ */
+const SOURCES_ALIAS_USAGE = new Set<string>(["annuaire-entreprises"]);
 
 /** En deçà, un alias n'est pas une preuve. Aligné sur `core.MIN_ALIAS_LENGTH`. */
 const MIN_KEY_LENGTH = 4;
@@ -148,6 +166,7 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 	const roleTokens = new Set<string>();
 	const orgsByToken = new Map<string, Set<number>>();
 	const orgsById = new Map<number, GazetteerOrg>();
+	const curatedOrgsByAliasKey = new Map<string, Set<number>>();
 	let maxTokens = 1;
 
 	for (const row of rows) {
@@ -183,6 +202,14 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 		// Un alias d'un seul jeton sans rôle est un nom de lieu, pas une
 		// organisation : il n'entre pas dans l'index de décision.
 		if (!role && lieu.split(" ").length < 2) continue;
+
+		// Garde anti-toponyme : un alias qui est exactement le nom d'un
+		// département désigne le département, jamais l'organisation qui le
+		// porte dans son nom légal. Sans cette garde, l'alias distinctif
+		// « pyrenees atlantiques » d'une association colombophile rattachait
+		// tout texte citant le département (constaté sur la mesure du 15
+		// novembre 2026, incident ERNAT).
+		if (!role && CLES_DEPARTEMENTS.has(cle)) continue;
 
 		// Un alias composé uniquement de mots génériques ne vaut pas mieux.
 		const porteurs = jetons.filter((j) => !GENERIQUES.has(j) && j.length > 2);
@@ -222,6 +249,13 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 			cles.push(cle);
 			aliasKeysByFirstToken.set(premier, cles);
 		}
+		// L'alias d'usage se souvient des organisations qu'il désigne : c'est
+		// lui qui tranche quand l'enseigne est devenue ambiguë au stock.
+		if (SOURCES_ALIAS_USAGE.has(row.source ?? "")) {
+			const set = curatedOrgsByAliasKey.get(cle) ?? new Set<number>();
+			set.add(org.id);
+			curatedOrgsByAliasKey.set(cle, set);
+		}
 		if (jetons.length > maxTokens) maxTokens = jetons.length;
 	}
 
@@ -235,6 +269,7 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 		maxTokens,
 		orgsByToken,
 		orgsById,
+		curatedOrgsByAliasKey,
 	};
 }
 
@@ -310,6 +345,11 @@ const DEPARTEMENTS: Readonly<Record<string, string>> = {
 	"haute-vienne": "87",
 	"deux-sevres": "79",
 };
+
+/** Les clés d'alias qui sont des noms de département (normalisés, tirets → espaces). */
+const CLES_DEPARTEMENTS: ReadonlySet<string> = new Set(
+	Object.keys(DEPARTEMENTS).map((k) => k.replace(/-/g, " ")),
+);
 
 /**
  * Le texte place-t-il l'organisation hors de chez elle ?
@@ -427,9 +467,12 @@ export function resoudre(gaz: Gazetteer, texte: string): GazetteerMatch {
 		frappe,
 	}));
 
-	// Deux indices de départage, dans cet ordre : le département cité, puis la
-	// commune citée. « EHPAD Résidence du Parc » existe dans quatre communes ;
-	// le texte qui dit « à Champdeniers » tranche sans ambiguïté.
+	// Trois indices de départage, dans cet ordre : le département cité, la
+	// commune citée, puis l'alias d'usage. « EHPAD Résidence du Parc » existe
+	// dans quatre communes ; le texte qui dit « à Champdeniers » tranche sans
+	// ambiguïté. Et quand l'enseigne est devenue ambiguë au stock (« hyper u »
+	// frappe 49 unités légales), l'alias d'usage posé à la main désigne le
+	// réseau — c'est la lecture que le texte entend.
 	const parDepartement = candidats.filter((c) => c.org.dept !== null && cites.has(c.org.dept));
 	let departage = parDepartement.length === 1 ? parDepartement : [];
 	let motif: MatchReason = "departement";
@@ -444,6 +487,21 @@ export function resoudre(gaz: Gazetteer, texte: string): GazetteerMatch {
 		if (parCommune.length === 1) {
 			departage = parCommune;
 			motif = "commune";
+		}
+	}
+
+	if (departage.length === 0) {
+		for (const frappe of retenues) {
+			const cures = gaz.curatedOrgsByAliasKey.get(frappe.cle);
+			if (!cures) continue;
+			const citesDansTexte = [...parOrg.keys()].filter((id) => cures.has(id));
+			if (citesDansTexte.length === 1) {
+				departage = [
+					{ org: gaz.orgsById.get(citesDansTexte[0] as number) as GazetteerOrg, frappe },
+				];
+				motif = "alias-usage";
+				break;
+			}
 		}
 	}
 

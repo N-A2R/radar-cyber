@@ -19,11 +19,12 @@ import { normaliser } from "./gazetteer.js";
 // Date de mise en prod de chaque version, à l'heure UTC. Avant cette date,
 // le moteur précédent était l'autorité.
 
-export type MoteurId = "gazetteer@1" | "gazetteer@2" | "contrat@1" | "regles@7";
+export type MoteurId = "gazetteer@1" | "gazetteer@2" | "gazetteer@3" | "contrat@1" | "regles@7";
 
 export const DEPLOIEMENTS: Record<MoteurId, string> = {
 	"gazetteer@1": "2024-01-01T00:00:00.000Z", // rattachement initial : equal token overlap, naïf
 	"gazetteer@2": "2025-10-15T00:00:00.000Z", // index inversé + rôle + lieu-contredit
+	"gazetteer@3": "2026-11-15T13:00:00.000Z", // alias d'usage prioritaire + garde anti-toponyme (vague SIRENE)
 	"contrat@1": "2024-01-01T00:00:00.000Z",
 	"regles@7": "2025-11-01T00:00:00.000Z",
 };
@@ -32,6 +33,7 @@ export const DEPLOIEMENTS: Record<MoteurId, string> = {
 export function moteurActifA(date: Date | string, famille: "gazetteer" | "contrat" | "regles"): MoteurId {
 	const t = new Date(date).getTime();
 	if (famille === "gazetteer") {
+		if (t >= Date.parse(DEPLOIEMENTS["gazetteer@3"])) return "gazetteer@3";
 		return t >= Date.parse(DEPLOIEMENTS["gazetteer@2"]) ? "gazetteer@2" : "gazetteer@1";
 	}
 	if (famille === "contrat") return "contrat@1";
@@ -77,7 +79,7 @@ function resoudreGazetteerV1(gaz: Gazetteer, texte: string): GazetteerMatch {
 export function resoudreAvecVersion(
 	gaz: Gazetteer,
 	texte: string,
-	version: MoteurId = "gazetteer@2",
+	version: MoteurId = "gazetteer@3",
 ): GazetteerMatch {
 	if (version === "gazetteer@1") return resoudreGazetteerV1(gaz, texte);
 	return resoudre(gaz, texte);
@@ -89,7 +91,13 @@ export function gazetteerPourVersion(rows: GazetteerRow[]): Gazetteer {
 }
 
 /** Liste des versions connues, pour l'API et le script de rejeu. */
-export const VERSIONS_CONNUES: readonly MoteurId[] = ["gazetteer@1", "gazetteer@2", "contrat@1", "regles@7"] as const;
+export const VERSIONS_CONNUES: readonly MoteurId[] = [
+	"gazetteer@1",
+	"gazetteer@2",
+	"gazetteer@3",
+	"contrat@1",
+	"regles@7",
+] as const;
 
 /** Résumé lisible pour le dossier de reprise. */
 export function decrireVersion(version: MoteurId): string {
@@ -99,8 +107,10 @@ export function decrireVersion(version: MoteurId): string {
 			? "rattachement naïf par chevauchement de jetons (seuil 2, sans contexte)"
 			: version === "gazetteer@2"
 				? "index inversé + rôle institutionnel + lieu-contredit + départage"
-				: version === "contrat@1"
-					? "contrat d'admission : filtre cyber / hors-sujet"
-					: "moteur de règles de détection";
+				: version === "gazetteer@3"
+					? "gazetteer@2 + alias d'usage prioritaire (stock SIRENE) + garde anti-toponyme"
+					: version === "contrat@1"
+						? "contrat d'admission : filtre cyber / hors-sujet"
+						: "moteur de règles de détection";
 	return `${version} — ${base} — déployé le ${dep.slice(0, 10)}`;
 }
