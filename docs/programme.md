@@ -74,16 +74,14 @@ SIRENE ; ligne « référentiel entreprises » du script de mesure structurellem
 et le journal de vérité est réparé : 6 067 faits perdus le 13 reconsignés,
 `verify:journal` repasse (19 135/19 135 tracés).
 
-### La suite, dans l'ordre (mise à jour du 15 novembre)
+### La suite, dans l'ordre (mise à jour du 15 novembre, après les vagues)
 
-1. **gazetteer@3 — arbitrage enseigne et garde anti-toponyme.** La vague
-   SIRENE a rendu le référentiel 17 fois plus dense : les alias d'usage
-   (« hyper u », « super u », « e leclerc ») touchent désormais des dizaines
-   d'unités légales et le moteur, fidèle à son refus d'ambiguïté, a perdu
-   trois incidents enseigne ; et un alias distinctif porté par un toponyme de
-   département a créé un faux positif. Détail et mécanisme :
-   `docs/vague-sirene.md`. C'est le chantier qui ramène la couverture au
-   niveau atteint avant la vague, puis au-delà.
+1. **gazetteer@4 — confiance par source d'alias.** Livré : gazetteer@3
+   (arbitrage enseigne + garde anti-toponyme) et la vague 2 (alias de nom)
+   portent la couverture à 31/42. Reste le faux positif de coïncidence de
+   phrase (« A CE JOUR ») : un alias auto-dérivé du stock ne doit pas peser
+   le même poids qu'un alias posé ou qu'un nom établi. Détail :
+   `docs/vague-sirene.md`.
 2. ~~**Le corpus, encore.**~~ **Saturé aux sources web publiques.** Neuf
    requêtes sur deux moteurs le 15 novembre n'ont trouvé aucun incident NA
    nouveau et vérifiable — chaque candidat était déjà au corpus, hors région
@@ -153,7 +151,7 @@ pourquoi l'axe 1 est déjà engagé.
 
 | # | Chantier | État | Critère de sortie |
 | --- | --- | --- | --- |
-| 13 | **Référentiel entreprises** | **fait** (15/11 : stock SIRENE national importé — 700 320 organisations, 99,9 % sectorisées par NAF, 98 % géolocalisées, 126 892 avec effectif, W % des salariés publiable à 87,7 % en minorant — `docs/vague-sirene.md`) ; restent hors vague 1 : ~502 000 personnes physiques (dénomination vide) et les sites secondaires | trou publié en liste de courses (zone et voie par entité) |
+| 13 | **Référentiel entreprises** | **fait** (15/11 : stock SIRENE national, vagues 1 + 2 — **1 244 048 organisations** dont 493 134 personnes physiques et 50 594 sites à enseigne ; 99,9 % sectorisées, 98 % géolocalisées, effectifs importés, **W % des salariés ≈ 90 %** en minorant ; chaque org a son nom en alias — `docs/vague-sirene.md`) | trou publié en liste de courses (zone et voie par entité) |
 | 14 | **Diagnostic des sources muettes** | **fait** (`docs/sources-diagnostic.md`) | rendement par source exposé, `null` ≠ 0, transitions journalisées |
 | 15 | **Réparation du parsing** | **fait** (4 motifs, `migrate-033` : 3 flux réparés, 2 éteints avec motif) | sources illisibles **réparées ou désactivées avec motif** — nécessite une relance réseau |
 
@@ -196,31 +194,29 @@ peut démarrer immédiatement.
 du même jour** (mesures reproductibles liées) :
 
 > Sur les incidents publics de Nouvelle-Aquitaine de douze derniers mois
-> (fenêtre `2025-11-01 → 2026-10-31`), le radar en a vu **24 sur 42 publiés
-> (57,1 %)**, avec un délai médian de veille de **1,9 jour** après publication
-> (mesuré le 14 novembre sur le flux réel, bulletins CVE exclus). Les **18
+> (fenêtre `2025-11-01 → 2026-10-31`), le radar en a vu **31 sur 42 publiés
+> (73,8 %)**, avec un délai médian de veille de **1,9 jour** après publication
+> (mesuré le 14 novembre sur le flux réel, bulletins CVE exclus). Les **11
 > incidents non vus** le sont pour une raison connue et écrite : 0 refusé à
-> l'admission, 18 non rattachés — 11 organisations au nom d'usage absent du
-> référentiel légal (les enseignes de distribution, dont les unités légales
-> existent désormais en masse et rendent le matching ambigu — refus assumé du
-> moteur) et 7 présentes mais non reconnues. Le chiffre contient au moins un
-> rattachement faux, lui aussi publié : l'incident ERNAT est compté vu par
-> l'alias distinctif d'une association colombophile dont le nom est celui du
-> département cité. **La couverture du référentiel entreprises en part des
-> salariés de la région est publiable : 87,7 %** (806 878 salariés à la borne
-> basse des tranches SIRENE, sur 919 904 dans le stock régional actif, hors
-> secteur public) — minorant honnête, 501 964 personnes physiques restant
-> hors référentiel.
-> Sources : `docs/vague-sirene.md` (la vague, la régression, le mécanisme),
-> `bench/results/couverture-2026-11-15-post-vague1.json`, `docs/fausses-alertes.md`,
+> l'admission, 11 non rattachés — 5 organisations au nom d'usage absent du
+> référentiel et 6 présentes mais non reconnues (refus assumé des alias
+> mono-jeton et des homonymes). Le chiffre contient au moins un rattachement
+> faux, publié avec : l'incident ERNAT est compté vu par l'alias d'une
+> association dont le nom légal SIRENE est « A CE JOUR » — une phrase courante
+> du résumé. **La couverture du référentiel entreprises en part des salariés
+> de la région est publiable : ≈ 90 %** (827 471 salariés à la borne basse des
+> tranches SIRENE sur ~919 904 dans le stock régional actif) — minorant
+> honnête.
+> Sources : `docs/vague-sirene.md` (vagues 1 et 2, régression et correction),
+> `bench/results/couverture-2026-11-15-post-vague2.json`, `docs/fausses-alertes.md`,
 > `docs/manques-referentiel.md`.
 
-Le taux a **baissé** avec la vague (27/42 → 24/42) et il est publié tel quel —
-c'est exactement le sens de « mesure publiable ». Le référentiel est devenu
-17 fois plus dense et le moteur, inchangé, refuse désormais des ambiguïtés
-qu'il ne connaissait pas. Les trois incidents enseigne repasseront vus par le
-chantier gazetteer@3 (arbitrage enseigne/commune, garde anti-toponyme), sans
-détruire le refus d'ambiguïté qui fait la précision du moteur.
+Le taux a d'abord **baissé** avec la vague 1 (27/42 → 24/42, ambiguïtés
+d'enseigne à 700k organisations), puis le chantier gazetteer@3 (alias d'usage
+prioritaire, garde anti-toponyme) et la vague 2 (alias de nom pour tout le
+référentiel) l'ont porté à **31/42 (73,8 %)** — au-dessus du meilleur niveau
+d'avant-vague. Le prochain gain : la confiance par source d'alias
+(gazetteer@4) pour distinguer un nom légal d'une phrase courante.
 
 ---
 
