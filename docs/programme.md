@@ -71,21 +71,26 @@ SIRENE ; ligne « référentiel entreprises » du script de mesure structurellem
 et le journal de vérité est réparé : 6 067 faits perdus le 13 reconsignés,
 `verify:journal` repasse (19 135/19 135 tracés).
 
-### La suite, dans l'ordre
+### La suite, dans l'ordre (mise à jour du 15 novembre)
 
-1. **Le corpus, encore.** 23 incidents ne suffisent pas : tous les secteurs
-   sont en réserve statistique (< 10 faits). C'est le seul levier qui fait
-   bouger la mesure — et il a déjà payé : trois incidents ajoutés, deux vus,
-   et un défaut du moteur révélé par l'un d'eux.
-2. **Le référentiel des petites structures.** 9 des 10 incidents non rattachés
-   le sont parce que l'organisation n'existe pas en base, et 245 des 290
-   entités manquantes n'ont même pas de zone identifiable.
-3. **La décision presse.** La famille `presse` est refusée à l'entrée depuis
-   le 10 novembre ; les flux régionaux lisent 30 items et n'en admettent
-   aucun. Rouvrir demande un critère (signal cyber + indice régional), pas
-   une exception.
-4. **Le taux de fausses alertes des agents de rupture** (chantier 10), seule
-   pièce manquante pour clore l'axe analyse.
+1. ~~**Le corpus, encore.**~~ **Saturé aux sources web publiques.** Neuf
+   requêtes sur deux moteurs le 15 novembre n'ont trouvé aucun incident NA
+   nouveau et vérifiable — chaque candidat était déjà au corpus, hors région
+   ou pas un incident (journal dans les métadonnées du corpus). Les réserves
+   sectorielles reflètent la rareté des publications. L'élargissement exigera
+   des sources hors web public.
+2. ~~**Le référentiel des petites structures.**~~ **Comblé côté régional** par
+   l'import SIRENE hors numérique du 14 (7 436 entreprises, secteurs déduits
+   du NAF) : la couverture passe de 35,7 % à 64,3 %. Reste la liste de courses
+   (500 entités, 199 en France) qui exige de l'arbitrage humain sur les
+   homonymies.
+3. ~~**La décision presse.**~~ **Réglée le 14** : famille `presse_cyber` admise
+   au contrat (PR #31), presse ciblée par requête (PR #30) — 0 → 200
+   événements admis.
+4. ~~**Le taux de fausses alertes.**~~ **Mesuré et publié le 15** (chantier 10
+   clos) : 0 alerte émise sur 27 rejeux — les agents sont muets sur cette
+   base, raison structurelle agent par agent, et la revue est branchée pour
+   quand ils tireront.
 
 ---
 
@@ -119,8 +124,8 @@ pourquoi l'axe 1 est déjà engagé.
 
 | # | Chantier | État | Critère de sortie |
 | --- | --- | --- | --- |
-| 5 | **Corpus de référence** — les incidents réels, versionnés | **fait** (`bench/fixtures/corpus-reference-na.json`, 20 incidents sourcés) | corpus annoté dans le dépôt : date, organisateur, lieu, type, preuve |
-| 6 | **Mesure de couverture publiée** | **fait** (`docs/mesure-couverture.md`, `scripts/mesure-couverture.mts` — 5/15, reproductible) | tableau nominatif : vu/non vu, délai, motif d'absence — committé |
+| 5 | **Corpus de référence** — les incidents réels, versionnés | **fait** (15/11 : 60 incidents sourcés, recherche de saturation documentée dans les métadonnées) | corpus annoté dans le dépôt : date, organisateur, lieu, type, preuve |
+| 6 | **Mesure de couverture publiée** | **fait** (15/11 : `docs/mesure-couverture.md`, 27/42 = 64,3 %, reproductible, `bench/results/couverture-2026-11-15.json`) | tableau nominatif : vu/non vu, délai, motif d'absence — committé |
 | 7 | **Mesure du rattachement par secteur** | **fait** (`analyse/secteur.ts`, `scripts/mesure-secteurs.mts` — tous en réserve, corpus trop mince) | précision et rappel par secteur d'activité, pas un global trompeur |
 | 8 | **Valeur des sources** | **fait** (`analyse/valeur-source.ts`, `GET /api/sources`, colonne unicité) | chaque source a un apport mesuré en incidents réels, pas en volume |
 
@@ -175,6 +180,34 @@ peut démarrer immédiatement.
 ---
 
 ## Ce que « programme fini » veut dire
+
+**La phrase, publiée le 15 novembre 2026** (mesures reproductibles liées) :
+
+> Sur les incidents publics de Nouvelle-Aquitaine de douze derniers mois
+> (fenêtre `2025-11-01 → 2026-10-31`), le radar en a vu **27 sur 42 publiés
+> (64,3 %)**, avec un délai médian de veille de **1,9 jour** après publication
+> (mesuré le 14 novembre sur le flux réel, bulletins CVE exclus). Les **15
+> incidents non vus** le sont pour une raison connue et écrite : 0 refusé à
+> l'admission, 15 non rattachés — dont 9 organisations absentes du référentiel
+> (nommées une par une dans la liste de courses) et 6 présentes mais non
+> reconnues par le moteur (refus assumé des alias mono-jeton). La couverture
+> du référentiel entreprises **en part des salariés de la région n'est pas
+> mesurable aujourd'hui** — aucun effectif n'est en base — ; elle est publiée
+> en lignes à la place : 5 788 lignes hors numérique (commerce 3 290,
+> construction 1 230, industrie 1 027, agroalimentaire 241) sur 20 495
+> entreprises, et 24 entreprises sans NAF à qualifier.
+> Sources : `docs/mesure-couverture.md` (27/42, reproduite), `bench/results/couverture-2026-11-15.json`,
+> `docs/fausses-alertes.md` (0 alerte émise, publié tel quel),
+> `docs/manques-referentiel.md` (500 entités, 199 en France).
+
+Le taux est mauvais et il est publié — c'est le sens de « mesure publiable ».
+Ce qui reste ouvert pour que la phrase soit *plus* vraie : qualifier les
+entités de la liste de courses (199 en France, arbitrage humain sur les
+homonymies), faire tirer les agents de rupture (ils sont muets, cf.
+`docs/fausses-alertes.md`), et croître le corpus au-delà des sources web
+publiques (saturation documentée dans les métadonnées du corpus).
+
+---
 
 Le programme est terminé quand cette phrase est vraie et publiée dans le dépôt :
 
