@@ -215,6 +215,14 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 		const porteurs = jetons.filter((j) => !GENERIQUES.has(j) && j.length > 2);
 		if (porteurs.length === 0) continue;
 
+		// Confiance par source : les alias auto-dérivés du stock (`sirene-nom`)
+		// ne désignent qu'avec au moins deux mots propres. Une organisation
+		// baptisée « A CE JOUR » rattachait sinon tout texte contenant la
+		// phrase — constaté sur la mesure du 15 novembre 2026 (incident ERNAT).
+		// Les alias posés ou établis (usage, enseigne, usuelle) gardent la
+		// règle ordinaire : un seul mot propre suffit.
+		if (row.source === "sirene-nom" && !role && porteurs.length < 2) continue;
+
 		// Un territoire n'est pas une organisation. Le secteur vient des données :
 		// commune, EPCI, département, région. Sans rôle de tête (« ville de »,
 		// « mairie de »), son nom est celui d'un lieu — il reste consultable,
