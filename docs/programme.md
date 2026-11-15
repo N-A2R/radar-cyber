@@ -55,6 +55,15 @@ jour sur 34 330 organisations chargées localement, il redonne 5/15 à
 l'identique. Ce qui manque n'est donc plus l'instrument, c'est le référentiel
 qui rendrait le taux acceptable — et le corpus qui le rendrait solide.
 
+**Mise à jour 15 novembre 2026.** La mesure est rejouée sur le corpus élargi
+(60 incidents) : **27/42 (64,3 %)**, reproduit à l'identique —
+`docs/mesure-couverture.md` porte le détail, plus deux défauts d'instrument
+trouvés par le re-jeu et corrigés ce jour (secteurs jamais écrits par l'import
+SIRENE ; ligne « référentiel entreprises » du script de mesure structurellement
+à 0). La presse régionale ciblée est admise depuis le 14 (0 → 200 événements),
+et le journal de vérité est réparé : 6 067 faits perdus le 13 reconsignés,
+`verify:journal` repasse (19 135/19 135 tracés).
+
 ### La suite, dans l'ordre
 
 1. **Le corpus, encore.** 23 incidents ne suffisent pas : tous les secteurs
