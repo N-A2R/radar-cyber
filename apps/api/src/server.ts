@@ -15,6 +15,7 @@ import { closePools, ingestQuery, query } from "./db.js";
 import { deliverPendingAlerts, readDeliveryConfig } from "./notify/alert-delivery.js";
 import { runRetention } from "./maintenance/retention.js";
 import { runDetectionPass } from "./detect/incremental.js";
+import { capterAlertesRupture } from "./analyse/rupture.js";
 import eventsRoute from "./routes/events.js";
 import flowsRoute from "./routes/flows.js";
 import graphRoute from "./routes/graph.js";
@@ -225,6 +226,14 @@ if (COLLECT) {
 		const pass = await runDetectionPass();
 		log(`detection initiale : ${pass.alerts} alerte(s) sur ${pass.events} evenement(s)`);
 	});
+	// Agents de rupture : même cadence que la détection, alertes persistées dans
+	// la revue (scope 'rupture', une ligne par agent × organisation).
+	void guarded("ruptures", async () => {
+		const r = await capterAlertesRupture();
+		if (r.emises > 0) {
+			log(`ruptures : ${r.emises} alerte(s) — ${r.creees} nouvelle(s), ${r.misesAJour} mise(s) à jour, ${r.lacunes} lacune(s)`);
+		}
+	});
 	void guarded("quarantaine", () => runQuarantineCollector(log));
 	void guarded("rétention", async () => {
 		const r = await runRetention(log);
@@ -248,6 +257,13 @@ if (COLLECT) {
 		void guarded("corrélation", () => correlateEvents(log));
 		void guarded("ingestion générique", () => runGenericSources(log));
 		void guarded("détection", detect);
+		void guarded("ruptures", () =>
+			capterAlertesRupture().then((r) => {
+				if (r.emises > 0) {
+					log(`ruptures : ${r.emises} alerte(s) — ${r.creees} nouvelle(s), ${r.misesAJour} mise(s) à jour, ${r.lacunes} lacune(s)`);
+				}
+			}),
+		);
 	}, TICK_MS);
 
 	// Quarantaine : poll 1/30 min max (ToS ransomware.live), donc tick dédié.
