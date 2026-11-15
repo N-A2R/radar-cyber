@@ -247,7 +247,7 @@ async function main(): Promise<void> {
 		`SELECT COALESCE(sector, kind) AS secteur, count(*)::text AS n
 		   FROM org WHERE kind = 'entreprise' GROUP BY 1 ORDER BY 2 DESC`,
 	);
-	const secteursManquants = await query<{ n: string }>(
+	const lignesHorsNumerique = await query<{ n: string }>(
 		`SELECT count(*)::text AS n FROM org
 		  WHERE kind = 'entreprise' AND sector IN ('agroalimentaire','industrie','construction','commerce')`,
 	);
@@ -280,11 +280,14 @@ async function main(): Promise<void> {
 			causes: parCause,
 		},
 		referentielEntreprises: {
-			// Le trou est publié à côté du taux, en clair.
-			lignesSecteursManquants: Number(secteursManquants[0]?.n ?? 0),
+			// Lignes présentes dans les secteurs hors numérique ; le trou, s'il y
+			// en a un, est publié à côté du taux, en clair.
+			lignesHorsNumerique: Number(lignesHorsNumerique.rows[0]?.n ?? 0),
 			parSecteur: Object.fromEntries(couvertureSecteurs.rows.map((r) => [r.secteur, Number(r.n)])),
 			avertissement:
-				"Le référentiel entreprises couvre le numérique et les secteurs critiques à partir de 50 salariés, mais contient zéro ligne en agroalimentaire, industrie, construction et commerce. La couverture ci-dessus est donc flatteuse pour ces secteurs.",
+				Number(lignesHorsNumerique.rows[0]?.n ?? 0) === 0
+					? "Le référentiel entreprises couvre le numérique et les secteurs critiques à partir de 50 salariés, mais contient zéro ligne en agroalimentaire, industrie, construction et commerce. La couverture ci-dessus est donc flatteuse pour ces secteurs."
+					: `Le référentiel entreprises couvre ${Number(lignesHorsNumerique.rows[0]?.n ?? 0)} ligne(s) hors numérique (commerce, industrie, construction, agroalimentaire).`,
 		},
 		method: {
 			porte: "contract/admit.ts — même admission que l'ingestion",
@@ -319,7 +322,7 @@ async function main(): Promise<void> {
 			` et ${parCause.au_referentiel_mais_non_reconnu} présente(s) mais non reconnue(s) par le moteur`,
 	);
 	console.log(
-		`Référentiel entreprises : ${synthese.referentielEntreprises.lignesSecteursManquants} ligne(s) en agro/industrie/BTP/commerce`,
+		`Référentiel entreprises : ${synthese.referentielEntreprises.lignesHorsNumerique} ligne(s) en agro/industrie/BTP/commerce`,
 	);
 	console.log("(trou publié à côté du taux, jamais masqué)");
 
