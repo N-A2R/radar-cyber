@@ -85,6 +85,16 @@ const MOTS_GENERIQUES = new Set([
 	"logiciel", "plateforme", "france", "francais", "francaise", "des", "les", "aux",
 ]);
 
+/** Minuscules, sans accents, ponctuation réduite à des espaces. */
+function normaliserPhrase(texte: string): string {
+	return texte
+		.toLowerCase()
+		.normalize("NFD")
+		.replace(/\p{Diacritic}/gu, "")
+		.replace(/[^a-z0-9]+/g, " ")
+		.trim();
+}
+
 function motsDiscriminants(texte: string): string[] {
 	return texte
 		.normalize("NFD")
@@ -198,43 +208,34 @@ async function main(): Promise<void> {
 	const dateMesure = new Date().toISOString().slice(0, 10);
 
 	/**
-	 * L'organisation citée existe-t-elle au référentiel, même si le moteur ne
-	 * l'a pas reconnue ? On compare les mots significatifs du nom à ceux des
-	 * organisations : c'est grossier, c'est exactement ce qu'il faut pour
-	 * distinguer « on ne la connaît pas » de « on la connaît mais on ne sait pas
-	 * la reconnaître ».
+	 * L'organisation citée existe-t-elle au référentiel ?
+	 *
+	 * Vérifié par requête, pas par une heuristique de jetons : « Ministère de
+	 * l'Intérieur » trouvait « …DU MINISTERE DE L'INTERIEUR ET DE L'AMENAGEMENT
+	 * DU TERRITOIRE », un comité départemental, et était donc classé « présent
+	 * mais non reconnu » alors qu'il est absent.
+	 *
+	 * Un nom de plusieurs mots doit être le début du nom de l'organisation ;
+	 * un sigle (un seul mot) peut apparaître n'importe où — « ERNAT » dans
+	 * « Études Réalisations Négoce Assistance Technique (ERNAT) ».
 	 */
-	const { rows: toutes } = await query<{ name: string }>("SELECT name FROM org");
-	const nomsNormalises = toutes.map((o) => ({
-		nom: o.name,
-		jetons: new Set(
-			o.name
-				.toLowerCase()
-				.normalize("NFD")
-				.replace(/\p{Diacritic}/gu, "")
-				.replace(/[^a-z0-9]+/g, " ")
-				.split(" ")
-				.filter((j) => j.length > 3),
-		),
-	}));
-	/**
-	 * On ne garde que le nom principal — ce qui précède la parenthèse ou le tiret.
-	 * « Ymed (éditeur de la plateforme Sooncare) » est le nom *Ymed* ; exiger que
-	 * « sooncare » figure aussi au référentiel ferait conclure à tort qu'on ne
-	 * connaît pas l'organisation.
-	 */
-	const existeAuReferentiel = (entite: string): boolean => {
-		const principal = entite.split(/[(—–-]/)[0] ?? entite;
-		const mots = principal
-			.toLowerCase()
-			.normalize("NFD")
-			.replace(/\p{Diacritic}/gu, "")
-			.replace(/[^a-z0-9]+/g, " ")
+	const existeAuReferentiel = async (entite: string): Promise<boolean> => {
+		const principal = (entite.split(/[(—–]/)[0] ?? entite).trim();
+		const mots = normaliserPhrase(principal)
 			.split(" ")
-			.filter((j) => j.length > 3 && !["societe", "groupe", "service"].includes(j));
+			.filter((m) => m.length > 1 && !["de", "du", "des", "la", "le", "les", "et"].includes(m));
 		if (mots.length === 0) return false;
-		// Tous les mots du nom principal doivent exister chez une même organisation.
-		return nomsNormalises.some((o) => mots.every((m) => o.jetons.has(m)));
+		// Sonde : le mot le plus long, pour que l'index trigramme fasse le tri.
+		const sonde = mots.reduce((a, b) => (b.length > a.length ? b : a));
+		const { rows } = await query<{ name: string }>("SELECT name FROM org WHERE name ILIKE $1 LIMIT 300", [
+			`%${sonde}%`,
+		]);
+		const cible = mots.join(" ");
+		return rows.some((o) => {
+			const nom = normaliserPhrase(o.name);
+			if (mots.length === 1) return nom.split(" ").includes(cible);
+			return nom === cible || nom.startsWith(`${cible} `);
+		});
 	};
 
 	for (const incident of corpus.incidents) {
@@ -269,7 +270,7 @@ async function main(): Promise<void> {
 
 		const cause: Cause =
 			motif === "pas_rattache"
-				? existeAuReferentiel(incident.entite)
+				? (await existeAuReferentiel(incident.entite))
 					? "au_referentiel_mais_non_reconnu"
 					: "absent_du_referentiel"
 				: null;
