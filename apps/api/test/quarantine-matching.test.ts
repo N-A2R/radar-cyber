@@ -73,3 +73,11 @@ test("l'égalité de domaine reste une clé : 0,95, au-dessus du seuil automatiq
 	assert.equal(match.confidence, 0.95);
 	assert.ok(match.confidence >= AUTO_MIN_CONFIDENCE);
 });
+
+test("le domaine ne rachète pas un nom à jeton unique", () => {
+	// Cas mesuré par la suite existante : `advelo-<tag>.com` se rattachait à
+	// « N-COM (N-COM) <tag> » dès que le domaine était compté comme un indice
+	// court, le seul jeton restant étant le tag commun aux deux.
+	const index = [entry(12, "N-COM (N-COM) xyz123", { domain: "ncom-xyz123.example" })];
+	assert.equal(matchOrgInIndex("advelo-xyz123.com", index), null);
+});
