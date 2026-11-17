@@ -16,7 +16,7 @@
  *   tsx scripts/mesure-rattachement.mts --limit=500
  */
 import { closePools, query } from "../apps/api/src/db.js";
-import { loadOrgIndex, matchOrgInIndex, AUTO_MIN_CONFIDENCE } from "../apps/api/src/quarantine/promote.js";
+import { loadCandidateIndex, matchOrgInIndex, AUTO_MIN_CONFIDENCE } from "../apps/api/src/quarantine/promote.js";
 
 type Args = { all: boolean; limit: number; show: number };
 
@@ -26,14 +26,6 @@ function parseArgs(argv: string[]): Args {
 		return found ? Number(found.split("=")[1]) : fallback;
 	};
 	return { all: argv.includes("--all"), limit: arg("limit", 5000), show: arg("show", 25) };
-}
-
-/** Mots du domaine, TLD exclu : « www.black-star.fr » → [black, star]. */
-function domainWords(hint: string): string[] {
-	const host = hint.trim().toLowerCase().replace(/^https?:\/\//, "").replace(/^www\./, "").replace(/\/.*$/, "");
-	const labels = host.split(".").filter(Boolean);
-	const stem = labels.slice(0, Math.max(0, labels.length - 1)).join(" ");
-	return stem.split(/[^a-z0-9]+/).filter((word) => word.length >= 3);
 }
 
 const args = parseArgs(process.argv.slice(2));
@@ -52,10 +44,7 @@ let automatic = 0;
 const samples: string[] = [];
 
 for (const { org_hint } of rows) {
-	const words = domainWords(org_hint);
-	if (words.length === 0) continue;
-	const where = words.map((_, i) => `name ILIKE $${i + 1}`).join(" AND ");
-	const index = await loadOrgIndex({ where, params: words.map((w) => `%${w}%`) });
+	const index = await loadCandidateIndex(org_hint);
 	examined++;
 	const match = matchOrgInIndex(org_hint, index);
 	if (!match || match.confidence < 0.5) continue;

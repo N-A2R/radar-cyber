@@ -102,28 +102,66 @@ function extractDomain(hint: string): string | null {
 }
 
 /**
+ * Ligne `org` → entrée d'index pré-normalisée.
+ */
+function toIndexEntry(o: OrgRow): OrgIndexEntry {
+  const nameNorm = normalizeName(o.name);
+  return {
+    ...o,
+    nameNorm,
+    domainNorm: o.domain ? normalizeDomain(o.domain) : null,
+    websiteDomain: o.website ? extractDomain(o.website) : null,
+    cityNorm: o.city ? normalizeName(o.city) : null,
+    // Jetons distincts, et sans les termes techniques génériques : « CODE
+    // 202 (CODE 202) » ne doit pas compter comme un nom à deux jetons.
+    nameTokens: [...new Set(nameNorm.split(" ").filter((t) => t.length >= 4 && !GENERIC_TOKENS.has(t)))],
+  };
+}
+
+/**
  * Charge et pré-normalise les organisations.
  *
  * `filter` borne la requête (mesure, revue d'une poignée d'indices). Sans lui,
- * l'index complet — 1,2 million de lignes — est chargé : mesuré à 388 s par
- * passage de promotion automatique sur le ThinkBook, pour 6,5 min de cycle.
+ * l'index complet — 1,2 million de lignes — est chargé.
  */
 export async function loadOrgIndex(filter?: { where: string; params?: unknown[] }): Promise<OrgIndexEntry[]> {
   const sql = `SELECT id, name, slug, kind, city, domain, website FROM org${filter ? ` WHERE ${filter.where}` : ""}`;
   const r = await query<OrgRow>(sql, filter?.params ?? []);
-  return r.rows.map((o) => {
-    const nameNorm = normalizeName(o.name);
-    return {
-      ...o,
-      nameNorm,
-      domainNorm: o.domain ? normalizeDomain(o.domain) : null,
-      websiteDomain: o.website ? extractDomain(o.website) : null,
-      cityNorm: o.city ? normalizeName(o.city) : null,
-      // Jetons distincts, et sans les termes techniques génériques : « CODE
-      // 202 (CODE 202) » ne doit pas compter comme un nom à deux jetons.
-      nameTokens: [...new Set(nameNorm.split(" ").filter((t) => t.length >= 4 && !GENERIC_TOKENS.has(t)))],
-    };
-  });
+  return r.rows.map(toIndexEntry);
+}
+
+/**
+ * Organisations candidates pour un indice — sans charger 1,24 M de lignes.
+ *
+ * Le moteur exige l'égalité des jetons : une correspondance par nom suppose
+ * qu'un jeton du nom soit présent dans l'indice, et une correspondance par
+ * domaine passe par `domain` ou `website`. On borne donc la requête à ces cas
+ * (index trigramme `org_name_trgm`), puis le moteur tranche sur ce
+ * sur-ensemble. Mesuré : 11 ms par indice au lieu de 388 s pour l'index
+ * entier.
+ */
+export async function loadCandidateIndex(hint: string): Promise<OrgIndexEntry[]> {
+  const tokens = [...new Set(normalizeName(hint).split(" ").filter((t) => t.length >= 2))];
+  const domain = extractDomain(hint);
+  const clauses: string[] = [];
+  const params: unknown[] = [];
+  if (tokens.length > 0) {
+    params.push(tokens.map((t) => `%${t}%`));
+    clauses.push(`name ILIKE ANY($${params.length}::text[])`);
+  }
+  if (domain) {
+    params.push(domain);
+    const d = `$${params.length}`;
+    clauses.push(
+      `(lower(domain) = ${d} OR lower(domain) LIKE '%.' || ${d} OR ${d} LIKE '%.' || lower(domain) OR lower(coalesce(website, '')) LIKE '%' || ${d})`,
+    );
+  }
+  if (clauses.length === 0) return loadOrgIndex();
+  const r = await query<OrgRow>(
+    `SELECT id, name, slug, kind, city, domain, website FROM org WHERE ${clauses.join(" OR ")}`,
+    params,
+  );
+  return r.rows.map(toIndexEntry);
 }
 
 /**
@@ -500,8 +538,6 @@ export async function promoteMatches(
   opts: { ids?: number[]; log?: (msg: string) => void } = {}
 ): Promise<PromotionResult> {
   const log = opts.log ?? (() => {});
-  const index = await loadOrgIndex();
-  const orgNameById = new Map(index.map((e) => [e.id, e.name]));
 
   const params: unknown[] = [];
   let where = "WHERE status='pending' AND promoted=false AND kind='claim' AND org_hint IS NOT NULL AND org_hint <> ''";
@@ -524,8 +560,15 @@ export async function promoteMatches(
   const failures: { id: number; error: string }[] = [];
 
   for (const row of r.rows) {
-    const m = matchOrgInIndex(row.org_hint ?? "", index);
+    // Candidats bornés par SQL, pas l'index complet : charger 1,24 M
+    // d'organisations pour examiner 50 indices coûtait 388 s et 1,2 Go par
+    // cycle. Le filtre trigramme rend un sur-ensemble exact des
+    // correspondances possibles — le moteur, appliqué dessus, tranche.
+    const candidates = await loadCandidateIndex(row.org_hint ?? "");
+    const m = matchOrgInIndex(row.org_hint ?? "", candidates);
     if (!m || m.confidence < AUTO_MIN_CONFIDENCE) continue;
+    const orgName = candidates.find((e) => e.id === m.orgId)?.name ?? "";
+    const orgNameById = new Map([[m.orgId, orgName]]);
     // Le modèle tranche avant écriture : un rapprochement nié n'attache rien.
     let confirmed = true;
     if (!dryRun) confirmed = await confirmMatch(row.org_hint ?? "", m.orgId, orgNameById, m.via);
@@ -533,7 +576,7 @@ export async function promoteMatches(
     matches.push({
       id: row.id,
       orgId: m.orgId,
-      orgName: orgNameById.get(m.orgId) ?? "",
+      orgName,
       confidence: m.confidence,
     });
     if (dryRun) continue;
