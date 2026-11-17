@@ -64,6 +64,69 @@ type Motif = "vu" | "pas_admis" | "pas_rattache" | "hors_fenetre";
  */
 type Cause = "au_referentiel_mais_non_reconnu" | "absent_du_referentiel" | null;
 
+/**
+ * Niveau du rattachement pour un « vu ».
+ *
+ * Un incident « Intermarché de Gradignan » rattaché à la commune de La Teste
+ * de Buch comptait comme vu : le taux s'en trouvait gonflé par des
+ * rattachements qui ne désignent pas la bonne organisation. Le taux brut ne
+ * vaut que si l'on publie, à côté, combien de ces rattachements sont au bon
+ * niveau.
+ */
+type Qualite = "exacte" | "partielle" | "hors_sujet";
+
+/** Mots qui ne distinguent aucune organisation : ils ne comptent pas. */
+const MOTS_GENERIQUES = new Set([
+	"mairie", "ville", "commune", "conseil", "general", "regionale", "region",
+	"departement", "departemental", "office", "national", "nationale", "federation",
+	"association", "groupement", "societe", "groupe", "service", "services",
+	"magasin", "magasins", "supermarche", "supermarches", "hypermarche", "enseigne",
+	"etablissement", "etablissements", "centre", "centres", "reseau", "editeur",
+	"logiciel", "plateforme", "france", "francais", "francaise", "des", "les", "aux",
+]);
+
+function motsDiscriminants(texte: string): string[] {
+	return texte
+		.normalize("NFD")
+		.replace(/[\u0300-\u036f]/g, "")
+		.toLowerCase()
+		.split(/[^a-z0-9]+/)
+		.filter((mot) => mot.length >= 4 && !MOTS_GENERIQUES.has(mot));
+}
+
+/**
+ * Compare l'organisation attendue et celle qui a été trouvée.
+ *
+ * - `exacte` : le nom trouvé est celui attendu (ou son début) ;
+ * - `partielle` : le nom trouvé est une enseigne citée dans l'attendu, mais pas
+ *   l'établissement — « Hyper U » pour « Supermarchés des Deux-Sèvres (Hyper U
+ *   Parthenay) » ;
+ * - `hors_sujet` : aucun mot discriminant commun (« la teste de buch » pour
+ *   « Intermarché de Gradignan, Parempuyre, Macau »).
+ */
+function qualiteRattachement(attendu: string, trouve: string): Qualite | null {
+	if (!trouve) return null;
+	const a = motsDiscriminants(attendu);
+	const t = motsDiscriminants(trouve);
+	if (t.length === 0) return "partielle";
+	const toutPresents = t.every((mot) => a.includes(mot));
+	if (!toutPresents) {
+		// Le nom attendu peut être collé (« FFRandonnée ») quand le trouvé est
+		// développé (« Fédération française de la randonnée pédestre ») : le
+		// sigle dit que c'est la même organisation. Faux positif de mesure, pas
+		// de rattachement.
+		const sigle = t.map((mot) => mot[0]).join("");
+		const sigleReconnu = sigle.length >= 3 && a.some((mot) => mot.startsWith(sigle) || sigle.startsWith(mot));
+		return sigleReconnu ? "partielle" : "hors_sujet";
+	}
+	// La phrase trouvée préfixe celle de l'attendu : « ville de gradignan »
+	// pour « Ville de Gradignan — police municipale ». Les mots en plus
+	// décrivent l'incident, pas une autre organisation.
+	const prefixe = a.slice(0, t.length).every((mot, i) => mot === t[i]);
+	if (prefixe || t.length === a.length) return "exacte";
+	return "partielle";
+}
+
 type Resultat = {
 	id: string;
 	entite: string;
@@ -225,6 +288,7 @@ async function main(): Promise<void> {
 			refusAdmission: admission.ok ? null : (admission.rejections as string[]),
 			raisonMoteur: match?.explication?.motif ?? null,
 			cause,
+			qualite: motif === "vu" ? qualiteRattachement(incident.entite, match?.explication?.alias ?? "") : null,
 		});
 	}
 
@@ -320,6 +384,11 @@ async function main(): Promise<void> {
 	console.log(
 		`  dont ${parCause.absent_du_referentiel} organisation(s) absente(s) du référentiel` +
 			` et ${parCause.au_referentiel_mais_non_reconnu} présente(s) mais non reconnue(s) par le moteur`,
+	);
+	console.log(
+		`Qualité du rattachement : ${parQualite.exacte} exacte(s), ${parQualite.partielle} partielle(s)` +
+			`, ${parQualite.hors_sujet} hors sujet — ${vusDefendables}/${dansFenetre.length}` +
+			` (${Math.round((vusDefendables / Math.max(1, dansFenetre.length)) * 1000) / 10} %) défendable(s)`,
 	);
 	console.log(
 		`Référentiel entreprises : ${synthese.referentielEntreprises.lignesHorsNumerique} ligne(s) en agro/industrie/BTP/commerce`,
