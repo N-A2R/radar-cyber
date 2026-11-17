@@ -141,6 +141,8 @@ type Resultat = {
 	/** Ce que le moteur a répondu : raison et alias. */
 	raisonMoteur: string | null;
 	cause: Cause;
+	/** Niveau du rattachement pour un « vu » : exacte, partielle, hors_sujet. */
+	qualite: Qualite | null;
 };
 
 function hashKey(value: string): string {
@@ -305,6 +307,15 @@ async function main(): Promise<void> {
 			(r) => r.cause === "au_referentiel_mais_non_reconnu",
 		).length,
 	};
+	// Qualité du rattachement : un « vu » qui désigne une autre organisation
+	// n'est pas une couverture, c'est un faux positif. On publie les deux
+	// chiffres côte à côte plutôt que de choisir le flatteur.
+	const parQualite = {
+		exacte: vus.filter((r) => r.qualite === "exacte").length,
+		partielle: vus.filter((r) => r.qualite === "partielle").length,
+		hors_sujet: vus.filter((r) => r.qualite === "hors_sujet").length,
+	};
+	const vusDefendables = parQualite.exacte + parQualite.partielle;
 
 	// Le référentiel entreprises : publié à côté du taux, jamais caché.
 	const couvertureSecteurs = await query<{ secteur: string; n: string }>(
@@ -336,6 +347,8 @@ async function main(): Promise<void> {
 		organisationsEnBase: organismes,
 		couverture: {
 			vus: parMotif.vu,
+			qualite: parQualite,
+			vusDefendables,
 			total: dansFenetre.length,
 			taux: dansFenetre.length === 0 ? 0 : Math.round((parMotif.vu / dansFenetre.length) * 1000) / 10,
 			motifs: parMotif,
