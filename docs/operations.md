@@ -51,7 +51,26 @@ Les migrations sont idempotentes (`IF NOT EXISTS`) : les rejouer sans risque.
 
 ## Services systemd
 
-Les unités sont **utilisateur** : elles vivent dans la session, sans `sudo`, et
+> **Déploiement depuis le 2026-11-17 : trois boxes, plus rien sur le ThinkBook.**
+>
+> | Machine | Rôle | Unité |
+> | --- | --- | --- |
+> | `compute-2` (instabox) | Postgres 18 (conteneur `radar-db18`, 127.0.0.1:5433) + API et collecteurs + rapport hebdomadaire + Tor | `radar-api.service`, `radar-report.timer` (unités **système**, `sudo`) |
+> | `compute-hermes` | web statique + proxy `/api` → `http://100.126.234.6:8080` | `radar-web.service` (`User=jolt`, `HOME=/data/home`) |
+> | `compute-3` | sauvegarde chiffrée hors site | — |
+> | ThinkBook | plus qu'un poste de consultation ; il garde le dump, le chiffrement et les clés | `radar-backup.service` + `.timer` |
+>
+> La base n'est pas exposée sur le tailnet (ACL) : `scripts/backup-remote.sh`
+> monte un tunnel SSH vers `compute-2` pour `pg_dump`, puis `backup-db.sh`
+> chiffre et copie vers `compute-3`. Les clés et la phrase secrète ne quittent
+> pas le ThinkBook.
+>
+> Le plan gratuit instabox met les boxes en pause : `instabox-keepalive@{compute-2,compute-3,compute-hermes}.timer`
+> les **réveille** (`instabox wake`) puis les frappe toutes les 5 min. Sans le
+> `wake`, un `exec` sur une box endormie échoue en silence — constaté le
+> 2026-11-17 (hermes en pause, web indisponible).
+
+Les unités historiques ci-dessous restent **utilisateur** : elles vivent dans la session, sans `sudo`, et
 meurent à la déconnexion sauf si linger est activé.
 
 ```bash
