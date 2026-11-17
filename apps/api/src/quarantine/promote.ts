@@ -102,11 +102,15 @@ function extractDomain(hint: string): string | null {
 }
 
 /**
- * Charge et pré-normalise toutes les organisations.
- * Appelant unique (route, promoteMatches) : un chargement par requête.
+ * Charge et pré-normalise les organisations.
+ *
+ * `filter` borne la requête (mesure, revue d'une poignée d'indices). Sans lui,
+ * l'index complet — 1,2 million de lignes — est chargé : mesuré à 388 s par
+ * passage de promotion automatique sur le ThinkBook, pour 6,5 min de cycle.
  */
-export async function loadOrgIndex(): Promise<OrgIndexEntry[]> {
-  const r = await query<OrgRow>("SELECT id, name, slug, kind, city, domain, website FROM org");
+export async function loadOrgIndex(filter?: { where: string; params?: unknown[] }): Promise<OrgIndexEntry[]> {
+  const sql = `SELECT id, name, slug, kind, city, domain, website FROM org${filter ? ` WHERE ${filter.where}` : ""}`;
+  const r = await query<OrgRow>(sql, filter?.params ?? []);
   return r.rows.map((o) => {
     const nameNorm = normalizeName(o.name);
     return {
@@ -153,6 +157,14 @@ const GENERIC_TOKENS = new Set([
   "servers", "service", "services", "solution", "solutions", "security",
   "secure", "platform", "platforms", "product", "products", "digital",
   "cloud", "data", "media", "group", "global", "technology", "technologies",
+  // Formes juridiques : présentes dans des centaines de milliers de raisons
+  // sociales. Elles ne distinguent rien, mais elles **bloquaient** la règle
+  // « tous les jetons du nom sont dans l'indice » : « EARL BLACK STAR » ne
+  // pouvait pas rencontrer l'indice « black star » à cause du seul « earl ».
+  // Retirées ici, elles ne fondent jamais un rapprochement et cessent de
+  // l'empêcher.
+  "earl", "sarl", "sas", "sasu", "eurl", "sci", "scm", "snc", "scs", "scic",
+  "scop", "gie", "geie", "sei", "sep", "selarl", "selas", "scp", "eirl",
 ]);
 
 /** Vrai si le jeton porte une information : ni trop court, ni générique. */
@@ -176,6 +188,27 @@ function scoreEntry(
 ): { score: number; via: "domain" | "name" } {
   let best = 0;
   let viaDomain = false;
+
+  // Étiquettes du domaine, TLD exclu : « black-star.fr » → { black, star }.
+  //
+  // Sans ce jeu de jetons, une revendication qui ne donne qu'un domaine ne
+  // pouvait jamais rencontrer une organisation dont on connaît le nom mais pas
+  // le site — c'est-à-dire 1 244 036 des 1 244 048 organisations du référentiel
+  // (`org.domain` n'est renseigné que pour 12 d'entre elles). Le domaine reste
+  // un indice de **nom**, pas une clé : il est scoré par les mêmes règles, donc
+  // il plafonne à 0,75 et ne peut jamais déclencher une promotion automatique
+  // (seuil 0,85).
+  const stemTokens =
+    hintDomain === null
+      ? null
+      : new Set(
+          hintDomain
+            .split(".")
+            .slice(0, -1)
+            .join(" ")
+            .split(" ")
+            .filter((t) => t.length >= 2)
+        );
 
   // 1. Domaine : égalité exacte, puis sous-domaine / parent.
   if (hintDomain) {
@@ -203,7 +236,11 @@ function scoreEntry(
       // Les jetons génériques (« com », « fr ») sont retirés : ils ne
       // discriminent aucune organisation.
       const orgTokens = e.nameNorm.split(" ").filter(isDiscriminating);
-      const allPresent = orgTokens.length > 0 && orgTokens.every((t) => hintTokens.has(t));
+      // Le nom est présent soit dans les jetons de l'indice, soit dans ceux de
+      // son domaine (« black-star.fr » → black, star).
+      const allPresent =
+        (orgTokens.length > 0 && orgTokens.every((t) => hintTokens.has(t))) ||
+        (stemTokens !== null && orgTokens.length > 0 && orgTokens.every((t) => stemTokens.has(t)));
       if (allPresent && orgTokens.length >= 2) {
         // Nom complet présent dans l'indice (« Kenall/Legrand » pour « Legrand »
         // est traité plus bas, car un nom simple est un mot courant possible).
@@ -216,6 +253,10 @@ function scoreEntry(
       ) {
         // Nom court et indice court : « Kenall/Legrand », « Legrand CRM ».
         // Au-delà, un mot courant (« Orange Public School… ») est un faux positif.
+        // Le domaine n'entre pas ici : ses étiquettes sont plus courtes que
+        // l'indice, et les compter reviendrait à relâcher la garde. Mesuré :
+        // `advelo-<tag>.com` se rattachait à « N-COM (N-COM) <tag> », le seul
+        // jeton restant étant le tag commun aux deux.
         best = Math.max(best, 0.7);
       }
     }

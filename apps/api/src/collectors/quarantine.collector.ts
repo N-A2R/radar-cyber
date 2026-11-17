@@ -43,6 +43,10 @@ export async function runQuarantineCollector(log: (msg: string) => void): Promis
             data_size: v.data_size ?? null,
             press: v.press ?? null,
             description: v.description ?? null,
+            // Le nom de la victime était jeté dès qu'un domaine existait :
+            // la seule clé de rapprochement restante était un domaine, que le
+            // référentiel ne connaît presque jamais (12 orgs sur 1 244 048).
+            title: v.post_title ?? null,
           };
           const rawBody = v.description ? String(v.description).slice(0, 2000) : null;
           const r = await query(
