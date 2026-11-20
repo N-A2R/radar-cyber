@@ -77,3 +77,38 @@ référentiel de **1 244 048 organisations**, les agents restent muets —
 à l'échelle : le taux de fausses alertes reste non calculable parce que les
 agents ne tirent pas, et les raisons structurelles par agent (chargement en
 bloc du référentiel, absence de saut de gravité) n'ont pas changé.
+
+## Rejeu du 20 novembre 2026 — fenêtre fraîche post-trou de collecte
+
+Après la reprise de collecte du 20 novembre (incident 2026-11-17, consigné
+dans `docs/operations.md`) et le refresh réel d'EPSS, les agents ont été
+rejoués sur la fenêtre fraîche `2026-10-21 → 2026-11-20` : 3 instants, calés
+en arrière depuis la fin de fenêtre — le dernier voit les faits collectés le
+jour même. L'instrument (`scripts/mesure-fausses-alertes.mts`) accepte
+désormais `--depuis/--jusqua/--pas` ; au-delà de la couverture du corpus
+(qui s'arrête au 10 novembre), une alerte serait classée « non_classable »
+plutôt que fausse faute de vérité terrain.
+
+```
+Alertes émises sur 3 rejeux : 0
+  nouvelle-organisation   0
+  rafale                  0
+  changement-nature       0
+```
+
+Raisons structurelles du 15 novembre, rejouées sur la base courante — les
+trois tiennent, confirmées sur données, pas de mémoire :
+
+| Agent | Verdict | Ce que la base dit aujourd'hui |
+| --- | --- | --- |
+| `nouvelle-organisation` | confirmée | Le référentiel (1 244 048 organisations, vagues SIRENE comprises) a été chargé entre le 13 novembre 21:27 et le 15 novembre 16:35 : âge maximal au référentiel **7 j**, seuil à 180 j. 19 organisations candidates (premier fait dans les 30 j), aucune ne franchit le seuil. |
+| `rafale` | confirmée | Une seule combinaison atteint 3 faits en 7 j sur la dernière fenêtre — ransomware, dept 33 : 4 récents contre une médiane historique de 4. La rivière régulière décrite le 15 nov coule toujours : sous le double du seuil, pas de crue. |
+| `changement-nature` | confirmée | Aucun candidat : aucun saut de famille avec +2 crans de gravité sur le dernier fait d'une organisation. Les 23 472 faits `vuln` (18 117 au 15 nov) restent dans leur famille. |
+
+Résultat publié : `bench/results/rupture-rejeu-2026-11-20.json` — fenêtre,
+instants, vérité terrain du sous-fenêtrage (6 organisations résolues, 3
+incidents non résolus) et vérification des raisons dans le JSON. Le taux de
+fausses alertes reste non calculable parce que les agents ne tirent pas ; le
+mesurer sur la fenêtre fraîche exigerait un corpus qui la couvre (chantier en
+cours).
+

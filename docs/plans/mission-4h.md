@@ -54,17 +54,28 @@
 
 ### Task 3 : Rejouer les agents de rupture sur la fenêtre fraîche
 
-- [ ] Lire `docs/agents-rupture.md` et `apps/api/src/analyse/rupture.ts` pour
+- [x] Lire `docs/agents-rupture.md` et `apps/api/src/analyse/rupture.ts` pour
       comprendre les 3 détecteurs et leur fenêtre
-- [ ] Lancer le rejeu (`scripts/rejouer-moteur.mts` ou l'équivalent rupture)
+      → fait ; l'instrument de rejeu rupture est `scripts/mesure-fausses-alertes.mts`
+      (rejouer-moteur.mts est le rejeu du moteur de rattachement, pas la rupture)
+- [x] Lancer le rejeu (`scripts/rejouer-moteur.mts` ou l'équivalent rupture)
       sur les 30 derniers jours
-- [ ] Consigner le résultat exact (nombre d'alertes par agent) dans
+      → fenêtre 2026-10-21 → 2026-11-20, 3 instants calés depuis la fin ;
+      `--depuis/--jusqua/--pas` ajoutés à mesure-fausses-alertes.mts
+- [x] Consigner le résultat exact (nombre d'alertes par agent) dans
       `bench/results/` au format JSON daté du jour
-- [ ] Si toujours 0 alerte : vérifier que la raison structurelle documentée
+      → `bench/results/rupture-rejeu-2026-11-20.json` : 0 alerte émise
+      (nouvelle-organisation 0, rafale 0, changement-nature 0)
+- [x] Si toujours 0 alerte : vérifier que la raison structurelle documentée
       tient toujours après les vagues SIRENE (elle est écrite dans
       `docs/fausses-alertes.md` — la confirmer ou l'infirmer, ne jamais la
       réécrire de mémoire)
-- [ ] Committer : `mesure(rupture): rejeu post-trou-collecte publié`
+      → les trois confirmées sur données (vérification rejouée dans le JSON,
+      consignée dans `docs/fausses-alertes.md`, section 20 nov) : référentiel
+      chargé 13→15 nov (âge max 7 j contre seuil 180 j) ; rafale dept 33 ×
+      ransomware 4 récents vs médiane 4 (sous le double) ; 0 candidat saut de
+      gravité, 23 472 faits vuln
+- [x] Committer : `mesure(rupture): rejeu post-trou-collecte publié`
 
 ### Task 4 : La liste de courses — traiter 10 entités manquantes
 
