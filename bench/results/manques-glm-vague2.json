@@ -6,21 +6,27 @@
   "cohorte": {
     "zone": "france",
     "total": 199,
-    "traitees": 10
+    "traitees": 20
   },
   "resolution": {
-    "resolues": 6,
-    "taux": "6/10",
+    "resolues": 10,
+    "taux": "10/20",
     "parConfiance": {
-      "haute": 5,
-      "moyenne": 0,
+      "haute": 8,
+      "moyenne": 1,
       "faible": 1
     },
     "nonResolues": [
       "Ministry of Energy and Mines (Cuba) \" STORMOUS + GhostSec \"",
       "aev-iledefrance.fr",
       "akantha.fr",
-      "Ananda Temple"
+      "Ananda Temple",
+      "artdis.fr",
+      "Baton Rouge General",
+      "Belle Tire",
+      "betsaisonparagot.fr",
+      "bredinprat.fr",
+      "Brett Martin"
     ],
     "parLot": [
       {
@@ -28,9 +34,15 @@
         "entites": "11-20",
         "resolues": 6,
         "total": 10
+      },
+      {
+        "lot": "B",
+        "entites": "21-30",
+        "resolues": 4,
+        "total": 10
       }
     ],
-    "tauxGlobal": "14/20"
+    "tauxGlobal": "18/30"
   },
   "manques": [
     {
@@ -482,6 +494,469 @@
         }
       ],
       "verdict": "present"
+    },
+    {
+      "nom": "artdis.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "artdis.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-09-14",
+      "derniereVue": "2022-09-14",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": false,
+      "confiance": null,
+      "siren": null,
+      "siretSiege": null,
+      "denominationLegale": null,
+      "ville": null,
+      "departement": null,
+      "natureJuridique": null,
+      "typeOrganisation": null,
+      "etatAdministratif": null,
+      "adresseSiege": null,
+      "raison": "homonymes exacts corroborés par le site : 379986409, 395293822, 424107712, 885213975, 350888236, 385103585 — arbitrage humain requis",
+      "requetes": [
+        "artdis"
+      ],
+      "preuves": [
+        {
+          "voie": "site-entite",
+          "url": "https://www.artdis.fr/",
+          "extrait": "HTTP 200, titre « ARTDIS,Transport, frèt rhône alpes, express, affrètement, » — extrait : « --> ARTDIS,Transport, frèt rhône alpes, express, affrètement, top of page Transports A RTD »",
+          "dateConsultation": "2026-11-20"
+        },
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=artdis",
+          "extrait": "379986409 ARTDIS (actif, LORETTE) ; 395293822 ARTDIS (actif, SAINT-PIERRE-DE-CHANDIEU) ; 424107712 ARTDIS (actif, JOUARRE) ; 885213975 ARTDIS (ARTDIS) (actif, PARIS) ; 350888236 ARTDIS (cessé, LE POULIGUEN) ; 385103585 ARTDIS (cessé, HENIN-BEAUMONT) ; 447632092 ARTDIS NANTERRE (actif, FONTENAY-AUX-ROSES) ; 447695222 ARTDIS NANTERRE (actif, NANTERRE) ; 393155049 ARTDIS YVELINES (cessé, LEVIS-SAINT-",
+          "dateConsultation": "2026-11-20"
+        }
+      ],
+      "verdict": "cannot_verify"
+    },
+    {
+      "nom": "avidoc.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "avidoc.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-03-23",
+      "derniereVue": "2022-03-23",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": true,
+      "confiance": "haute",
+      "siren": "353439110",
+      "siretSiege": "35343911000035",
+      "denominationLegale": "AVIDOC",
+      "ville": "VENDRES",
+      "departement": "34",
+      "natureJuridique": "5710",
+      "typeOrganisation": "entreprise",
+      "etatAdministratif": "A",
+      "adresseSiege": "ZAC VIA EUROPA EST 8 RUE DE COPENHAGUE 34350 VENDRES",
+      "raison": "SIREN publié par le site (0,00 € – Numéro de TVA : FR60353439110 – Siège social : ZAC VIA EUROPA EST, 8 rue de Copenhague, 34350 Vendres - SIRET: 353 439 110 00035 -R) et confirmé au registre",
+      "requetes": [
+        "avidoc"
+      ],
+      "preuves": [
+        {
+          "voie": "site-entite",
+          "url": "https://avidoc.fr/mentions-legales",
+          "extrait": "0,00 € – Numéro de TVA : FR60353439110 – Siège social : ZAC VIA EUROPA EST, 8 rue de Copenhague, 34350 Vendres - SIRET: 353 439 110 00035 -Responsable publication : M. STRUB, Président -Webmaster : Mind and Go – support@mind-and-go.com -Hébergeur : OV",
+          "dateConsultation": "2026-11-20"
+        },
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=353439110",
+          "extrait": "353439110 AVIDOC (actif, VENDRES) ; 448232819 AVIDOC (cessé, NARBONNE) ; 348238635 SOC COOP AGRICOLE D'ELEVAGE AVIDOC (cessé, BRAM)",
+          "dateConsultation": "2026-11-20"
+        }
+      ],
+      "verdict": "present"
+    },
+    {
+      "nom": "baffetmateriaux.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "baffetmateriaux.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-04-24",
+      "derniereVue": "2023-04-24",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": true,
+      "confiance": "moyenne",
+      "siren": "332374891",
+      "siretSiege": "33237489100064",
+      "denominationLegale": "BAFFET MATERIAUX (BAFFET MATERIAUX)",
+      "ville": "SAINT-PANTALEON-DE-LARCHE",
+      "departement": "19",
+      "natureJuridique": "5710",
+      "typeOrganisation": "entreprise",
+      "etatAdministratif": "A",
+      "adresseSiege": "ZAC DE BRIVE LAROCHE 38 AVENUE DES DROITS DE L'HOMME 19600 SAINT-PANTALEON-DE-LARCHE",
+      "raison": "dénomination exacte au registre ; site mort ou en parking sans dénomination ni SIREN publiés — la marque coïncide avec le domaine",
+      "requetes": [
+        "baffetmateriaux",
+        "baf fetmateriaux",
+        "baff etmateriaux",
+        "baffe tmateriaux",
+        "baffet materiaux"
+      ],
+      "preuves": [
+        {
+          "voie": "site-entite",
+          "url": "https://baffetmateriaux.fr/",
+          "extrait": "site inaccessible (TypeError: fetch failed)",
+          "dateConsultation": "2026-11-20"
+        },
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=baffetmateriaux",
+          "extrait": "332374891 BAFFET MATERIAUX (BAFFET MATERIAUX) (actif, SAINT-PANTALEON-DE-LARCHE)",
+          "dateConsultation": "2026-11-20"
+        }
+      ],
+      "verdict": "present"
+    },
+    {
+      "nom": "Baton Rouge General",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Baton Rouge General",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-08-24",
+      "derniereVue": "2022-08-24",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": false,
+      "confiance": null,
+      "siren": null,
+      "siretSiege": null,
+      "denominationLegale": null,
+      "ville": null,
+      "departement": null,
+      "natureJuridique": null,
+      "typeOrganisation": null,
+      "etatAdministratif": null,
+      "adresseSiege": null,
+      "raison": "aucune entité correspondante au registre (actifs et cessés)",
+      "requetes": [
+        "Baton Rouge General"
+      ],
+      "preuves": [
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=Baton%20Rouge%20General",
+          "extrait": "aucun résultat pertinent pour « Baton Rouge General » (actifs et cessés)",
+          "dateConsultation": "2026-11-20"
+        }
+      ],
+      "verdict": "absent"
+    },
+    {
+      "nom": "Belle Tire",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Belle Tire",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-06-23",
+      "derniereVue": "2024-06-23",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": false,
+      "confiance": null,
+      "siren": null,
+      "siretSiege": null,
+      "denominationLegale": null,
+      "ville": null,
+      "departement": null,
+      "natureJuridique": null,
+      "typeOrganisation": null,
+      "etatAdministratif": null,
+      "adresseSiege": null,
+      "raison": "aucune entité correspondante au registre (actifs et cessés)",
+      "requetes": [
+        "Belle Tire"
+      ],
+      "preuves": [
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=Belle%20Tire",
+          "extrait": "aucun résultat pertinent pour « Belle Tire » (actifs et cessés)",
+          "dateConsultation": "2026-11-20"
+        }
+      ],
+      "verdict": "absent"
+    },
+    {
+      "nom": "betsaisonparagot.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "betsaisonparagot.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2021-11-09",
+      "derniereVue": "2021-11-09",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": false,
+      "confiance": null,
+      "siren": null,
+      "siretSiege": null,
+      "denominationLegale": null,
+      "ville": null,
+      "departement": null,
+      "natureJuridique": null,
+      "typeOrganisation": null,
+      "etatAdministratif": null,
+      "adresseSiege": null,
+      "raison": "aucune entité correspondante au registre (actifs et cessés)",
+      "requetes": [
+        "betsaisonparagot",
+        "bet saisonparagot",
+        "bets aisonparagot",
+        "betsa isonparagot",
+        "betsai sonparagot",
+        "betsais onparagot",
+        "betsaiso nparagot",
+        "betsaison paragot",
+        "betsaisonp aragot",
+        "betsaisonpa ragot",
+        "betsaisonpar agot",
+        "betsaisonpara got",
+        "betsaisonparag ot"
+      ],
+      "preuves": [
+        {
+          "voie": "site-entite",
+          "url": "https://betsaisonparagot.fr/",
+          "extrait": "site inaccessible (TypeError: fetch failed)",
+          "dateConsultation": "2026-11-20"
+        },
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=betsaisonparagot",
+          "extrait": "aucun résultat pertinent pour « betsaisonparagot » (actifs et cessés)",
+          "dateConsultation": "2026-11-20"
+        }
+      ],
+      "verdict": "cannot_verify"
+    },
+    {
+      "nom": "bg2i.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "bg2i.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-04-26",
+      "derniereVue": "2023-04-26",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": true,
+      "confiance": "haute",
+      "siren": "499760494",
+      "siretSiege": "49976049400041",
+      "denominationLegale": "BG2I",
+      "ville": "MONTAIGU-VENDEE",
+      "departement": "85",
+      "natureJuridique": "5499",
+      "typeOrganisation": "entreprise",
+      "etatAdministratif": "A",
+      "adresseSiege": "71 BD AUGUSTE DURAND - MONTAIGU 85600 MONTAIGU-VENDEE",
+      "raison": "SIREN publié par le site (déontologie BG2i Formations 71 Boulevard Auguste Durand 85600 Montaigu Tél : 02 51 24 23 41 NDA : 52 85 01 302 85 RCS : 499 760 494 000 41 A) et confirmé au registre",
+      "requetes": [
+        "bg2i"
+      ],
+      "preuves": [
+        {
+          "voie": "site-entite",
+          "url": "https://bg2i.fr/",
+          "extrait": "déontologie BG2i Formations 71 Boulevard Auguste Durand 85600 Montaigu Tél : 02 51 24 23 41 NDA : 52 85 01 302 85 RCS : 499 760 494 000 41 APE : 8559A Plan La certification Qualité a été délivrée au titre des catégories d'actions suivantes : Actions d",
+          "dateConsultation": "2026-11-20"
+        },
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=499760494",
+          "extrait": "499760494 BG2I (actif, MONTAIGU-VENDEE) ; 379691165 BG2I (cessé, LYON 2EME) ; 990908956 BERTRAND GRELET (BG2I) (actif, PLOMION) ; 528651706 BG INVESTISSEMENTS INTERNATIONAL BG2I (BG2I) (actif, PARIS) ; 910581453 BOIS GUILLAUME INVEST IMMO (BG2I) (actif, BOIS GUILLAUME)",
+          "dateConsultation": "2026-11-20"
+        }
+      ],
+      "verdict": "present"
+    },
+    {
+      "nom": "bredinprat.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "bredinprat.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-01-01",
+      "derniereVue": "2024-01-01",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": false,
+      "confiance": null,
+      "siren": null,
+      "siretSiege": null,
+      "denominationLegale": null,
+      "ville": null,
+      "departement": null,
+      "natureJuridique": null,
+      "typeOrganisation": null,
+      "etatAdministratif": null,
+      "adresseSiege": null,
+      "raison": "homonymes exacts corroborés par le site : 821638368, 948083936, 948165907 — arbitrage humain requis",
+      "requetes": [
+        "bredinprat",
+        "bre dinprat",
+        "bred inprat",
+        "bredi nprat",
+        "bredin prat"
+      ],
+      "preuves": [
+        {
+          "voie": "site-entite",
+          "url": "https://www.bredinprat.fr/fr/",
+          "extrait": "HTTP 200, titre « Bredin Prat | Cabinet d'avocats français indépendant à Paris et à Bruxelles » — marque absente du texte",
+          "dateConsultation": "2026-11-20"
+        },
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=bredinprat",
+          "extrait": "821638368 BREDIN PRAT (actif, PARIS) ; 948083936 THIBAULT BALAY (BREDIN PRAT) (actif, PARIS) ; 948165907 MELCHIOR BEBEY (BREDIN PRAT) (actif, PARIS) ; 784349037 CABINET BREDIN PRAT & ASSOCIES (cessé, PARIS 7) ; 834442014 FONDS DE DOTATION BREDIN PRAT POUR L'ART CONTEMPORAIN (actif, PARIS)",
+          "dateConsultation": "2026-11-20"
+        }
+      ],
+      "verdict": "cannot_verify"
+    },
+    {
+      "nom": "bresselouhannaiseintercom.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "bresselouhannaiseintercom.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-11-05",
+      "derniereVue": "2023-11-05",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": true,
+      "confiance": "haute",
+      "siren": "200071579",
+      "siretSiege": "20007157900011",
+      "denominationLegale": "CC BRESSE LOUHANNAISE INTERCOM'",
+      "ville": "LOUHANS",
+      "departement": "71",
+      "natureJuridique": "7346",
+      "typeOrganisation": "entreprise",
+      "etatAdministratif": "A",
+      "adresseSiege": "1 PLACE SAINT-JEAN 71500 LOUHANS",
+      "raison": "SIREN publié par le site (esse Louhannaise Intercom', Communauté de communes, entreprise répertoriée dans SIRENE sous le numéro d’immatriculation 200071579 et dont le) et confirmé au registre",
+      "requetes": [
+        "bresselouhannaiseintercom",
+        "bre sselouhannaiseintercom",
+        "bres selouhannaiseintercom",
+        "bress elouhannaiseintercom",
+        "bresse louhannaiseintercom",
+        "bressel ouhannaiseintercom",
+        "bresselo uhannaiseintercom",
+        "bresselou hannaiseintercom",
+        "bresselouh annaiseintercom",
+        "bresselouha nnaiseintercom",
+        "bresselouhan naiseintercom",
+        "bresselouhann aiseintercom",
+        "bresselouhanna iseintercom",
+        "bresselouhannai seintercom",
+        "bresselouhannais eintercom",
+        "bresselouhannaise intercom",
+        "bresselouhannaisei ntercom",
+        "bresselouhannaisein tercom",
+        "bresselouhannaiseint ercom",
+        "bresselouhannaiseinte rcom",
+        "bresselouhannaiseinter com",
+        "bresselouhannaiseinterc om"
+      ],
+      "preuves": [
+        {
+          "voie": "site-entite",
+          "url": "https://www.bresselouhannaiseintercom.fr/mentions-legales/",
+          "extrait": "esse Louhannaise Intercom', Communauté de communes, entreprise répertoriée dans SIRENE sous le numéro d’immatriculation 200071579 et dont le siège social est situé au 1 Place Saint-Jean, 71500 Louhans-Châteaurenaud . Directeur de la publication : An",
+          "dateConsultation": "2026-11-20"
+        },
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=200071579",
+          "extrait": "200071579 CC BRESSE LOUHANNAISE INTERCOM' (actif, LOUHANS)",
+          "dateConsultation": "2026-11-20"
+        }
+      ],
+      "verdict": "present"
+    },
+    {
+      "nom": "Brett Martin",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Brett Martin",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-07-03",
+      "derniereVue": "2023-07-03",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": false,
+      "confiance": null,
+      "siren": null,
+      "siretSiege": null,
+      "denominationLegale": null,
+      "ville": null,
+      "departement": null,
+      "natureJuridique": null,
+      "typeOrganisation": null,
+      "etatAdministratif": null,
+      "adresseSiege": null,
+      "raison": "2 dénominations à un jeton près : 450502927, 899829360 — arbitrage humain requis",
+      "requetes": [
+        "Brett Martin"
+      ],
+      "preuves": [
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=Brett%20Martin",
+          "extrait": "410592299 MARTIN BRETT (cessé, PORT-LAUNAY) ; 450502927 BRETT MARTIN LTD (actif, ?) ; 899829360 BRETT MARTIN LTD (actif, ?)",
+          "dateConsultation": "2026-11-20"
+        }
+      ],
+      "verdict": "cannot_verify"
     }
   ]
 }
