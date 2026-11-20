@@ -6,14 +6,14 @@
   "cohorte": {
     "zone": "france",
     "total": 199,
-    "traitees": 20
+    "traitees": 30
   },
   "resolution": {
-    "resolues": 10,
-    "taux": "10/20",
+    "resolues": 12,
+    "taux": "12/30",
     "parConfiance": {
-      "haute": 8,
-      "moyenne": 1,
+      "haute": 9,
+      "moyenne": 2,
       "faible": 1
     },
     "nonResolues": [
@@ -26,7 +26,15 @@
       "Belle Tire",
       "betsaisonparagot.fr",
       "bredinprat.fr",
-      "Brett Martin"
+      "Brett Martin",
+      "brl.fr",
+      "brunoy.fr",
+      "carcajou.fr",
+      "cc-gorgesardeche.fr",
+      "ces-conditionneur.fr",
+      "ch-armentieres.fr",
+      "ch-cannes.fr",
+      "ch-sf.fr"
     ],
     "parLot": [
       {
@@ -40,9 +48,15 @@
         "entites": "21-30",
         "resolues": 4,
         "total": 10
+      },
+      {
+        "lot": "C",
+        "entites": "31-40",
+        "resolues": 2,
+        "total": 10
       }
     ],
-    "tauxGlobal": "18/30"
+    "tauxGlobal": "20/40"
   },
   "manques": [
     {
@@ -953,6 +967,478 @@
           "voie": "registre-sirene",
           "url": "https://recherche-entreprises.api.gouv.fr/search?q=Brett%20Martin",
           "extrait": "410592299 MARTIN BRETT (cessé, PORT-LAUNAY) ; 450502927 BRETT MARTIN LTD (actif, ?) ; 899829360 BRETT MARTIN LTD (actif, ?)",
+          "dateConsultation": "2026-11-20"
+        }
+      ],
+      "verdict": "cannot_verify"
+    },
+    {
+      "nom": "brl.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "brl.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-04-17",
+      "derniereVue": "2023-04-17",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": false,
+      "confiance": null,
+      "siren": null,
+      "siretSiege": null,
+      "denominationLegale": null,
+      "ville": null,
+      "departement": null,
+      "natureJuridique": null,
+      "typeOrganisation": null,
+      "etatAdministratif": null,
+      "adresseSiege": null,
+      "raison": "homonymes exacts au registre : 130840978 (LE BEC-HELLOUIN), 438003386 (NICE), 453537094 (BREST), 513726836 (USSEL), 530719129 (PARIS), 550200661 (NIMES), 750715443 (SAINT-MALO), 751941626 (DRAP), 803254697 (BRAY-DUNES), 813031176 (SOULEUVRE EN BOCAGE), 813551983 (LESCAR), 825337231 (LA HAIE-FOUASSIERE), 827989690 (LIMOGES), 840394159 (LANGON), 844543553 (PARIS), 892024043 (SAINT-MICHEL-CHEF-CHEF), 899629950 (PORTO-VECCHIO), 899798490 (BRINDAS), 921753851 (PARIS), 941467771 (BEAUCE LA ROMAINE), 994922466 (SAINT-OUEN-SUR-SEINE), 311890354 (CHATEAUNEUF-LES-MARTIGUES), 499142925 (PARIS 20), 520171745 (GRENOBLE), 825142284 (TOULON), 884388976 (LOUANNEC), 911034023 (PARIS), 977886373 (DIEPPE), 498202555 (GRENOBLE), 817706930 (PARIS 8), 321513657 (EPONE), 822777231 (LYON), 833797863 (LE GRAND-QUEVILLY), 321201378 (BORDEAUX), 900043373 (BIGNAN), 391440815 (NICE), 398244202 (SAINT-DENIS) — arbitrage humain requis",
+      "requetes": [
+        "brl"
+      ],
+      "preuves": [
+        {
+          "voie": "site-entite",
+          "url": "https://brl.fr/",
+          "extrait": "site inaccessible (TypeError: fetch failed)",
+          "dateConsultation": "2026-11-20"
+        },
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=brl",
+          "extrait": "130840978 BRL (actif, LE BEC-HELLOUIN) ; 438003386 BRL (B R L) (actif, NICE) ; 453537094 BRL (actif, BREST) ; 513726836 BRL (actif, USSEL) ; 530719129 BRL (actif, PARIS) ; 550200661 BRL (BRL) (actif, NIMES) ; 750715443 BRL (actif, SAINT-MALO) ; 751941626 BRL (actif, DRAP) ; 803254697 BRL (actif, BRAY-DUNES) ; 813031176 BRL (actif, SOULEUVRE EN BOCAGE) ; 813551983 BRL (actif, LESCAR) ; 825337231 BR",
+          "dateConsultation": "2026-11-20"
+        }
+      ],
+      "verdict": "cannot_verify"
+    },
+    {
+      "nom": "brunoy.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "brunoy.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-12-04",
+      "derniereVue": "2022-12-04",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": false,
+      "confiance": null,
+      "siren": null,
+      "siretSiege": null,
+      "denominationLegale": null,
+      "ville": null,
+      "departement": null,
+      "natureJuridique": null,
+      "typeOrganisation": null,
+      "etatAdministratif": null,
+      "adresseSiege": null,
+      "raison": "homonymes exacts corroborés par le site : 438705907, 392443610 — arbitrage humain requis",
+      "requetes": [
+        "brunoy"
+      ],
+      "preuves": [
+        {
+          "voie": "site-entite",
+          "url": "https://www.brunoy.fr/",
+          "extrait": "HTTP 200, titre « Site officiel de la ville de Brunoy » — extrait : « Site officiel de la ville de Brunoy 01 69 39 89 89 Nous contacter Mon compte famille Toggle navigation Découvrir Br »",
+          "dateConsultation": "2026-11-20"
+        },
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=brunoy",
+          "extrait": "438705907 BRUNOY (actif, ETREPILLY) ; 392443610 BRUNOY (cessé, DRANCY) ; 939442935 AMANDINE CESARION (BRUNOY) (LE MONDE D'AMANDINE) (actif, PARIS) ; 351907936 LE BRUNOY (actif, YERRES) ; 101857381 BRUNOY EXOTIQUE (actif, BRUNOY) ; 105306799 APPARTEMENT BRUNOY (actif, BRUNOY) ; 132163627 BRUNOY LOAN (actif, BRUNOY) ; 219101144 COMMUNE DE BRUNOY (actif, BRUNOY) ; 502011893 CYCLO BRUNOY (actif, BRUNO",
+          "dateConsultation": "2026-11-20"
+        }
+      ],
+      "verdict": "cannot_verify"
+    },
+    {
+      "nom": "carcajou.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "carcajou.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-05-23",
+      "derniereVue": "2024-05-23",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": false,
+      "confiance": null,
+      "siren": null,
+      "siretSiege": null,
+      "denominationLegale": null,
+      "ville": null,
+      "departement": null,
+      "natureJuridique": null,
+      "typeOrganisation": null,
+      "etatAdministratif": null,
+      "adresseSiege": null,
+      "raison": "homonymes exacts corroborés par le site : 443658273, 445265937, 452467061, 879474955, 992289801, 538780875, 825249022 — arbitrage humain requis",
+      "requetes": [
+        "carcajou"
+      ],
+      "preuves": [
+        {
+          "voie": "site-entite",
+          "url": "https://carcajou.fr/",
+          "extrait": "HTTP 200, titre « Carcajou.fr » — extrait : « Carcajou.fr --> Bienvenue sur le site internet du groupe Carcajou. Groupe CARCAJOU : con »",
+          "dateConsultation": "2026-11-20"
+        },
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=carcajou",
+          "extrait": "443658273 CARCAJOU (actif, DOUVAINE) ; 445265937 CARCAJOU (actif, DIJON) ; 452467061 CARCAJOU (actif, ANNECY) ; 879474955 CARCAJOU (actif, PARIS) ; 992289801 CARCAJOU (actif, NICE) ; 538780875 CARCAJOU (cessé, PARIS) ; 825249022 CARCAJOU (cessé, CHAMONIX-MONT-BLANC) ; 353192545 SCI LE CARCAJOU (actif, MARIGNIER) ; 382386480 CARCAJOU PRODUCTIONS (actif, PARIS) ; 439471848 SCI CARCAJOU (actif, PERIG",
+          "dateConsultation": "2026-11-20"
+        }
+      ],
+      "verdict": "cannot_verify"
+    },
+    {
+      "nom": "cc-gorgesardeche.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "cc-gorgesardeche.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2023-09-02",
+      "derniereVue": "2023-09-02",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": false,
+      "confiance": null,
+      "siren": null,
+      "siretSiege": null,
+      "denominationLegale": null,
+      "ville": null,
+      "departement": null,
+      "natureJuridique": null,
+      "typeOrganisation": null,
+      "etatAdministratif": null,
+      "adresseSiege": null,
+      "raison": "aucune entité correspondante au registre (actifs et cessés)",
+      "requetes": [
+        "cc-gorgesardeche",
+        "cc gorgesardeche",
+        "cc- gorgesardeche",
+        "cc-g orgesardeche",
+        "cc-go rgesardeche",
+        "cc-gor gesardeche",
+        "cc-gorg esardeche",
+        "cc-gorge sardeche",
+        "cc-gorges ardeche",
+        "cc-gorgesa rdeche",
+        "cc-gorgesar deche",
+        "cc-gorgesard eche",
+        "cc-gorgesarde che",
+        "cc-gorgesardec he"
+      ],
+      "preuves": [
+        {
+          "voie": "site-entite",
+          "url": "https://www.cc-gorgesardeche.fr/",
+          "extrait": "HTTP 200, titre « Communauté de communes des Gorges de l’Ardèche » — marque absente du texte",
+          "dateConsultation": "2026-11-20"
+        },
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=cc-gorgesardeche",
+          "extrait": "aucun résultat pertinent pour « cc-gorgesardeche » (actifs et cessés)",
+          "dateConsultation": "2026-11-20"
+        }
+      ],
+      "verdict": "cannot_verify"
+    },
+    {
+      "nom": "cdc-biodiversite.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "cdc-biodiversite.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-09-29",
+      "derniereVue": "2024-09-29",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": true,
+      "confiance": "haute",
+      "siren": "501639587",
+      "siretSiege": "50163958700036",
+      "denominationLegale": "CDC BIODIVERSITE",
+      "ville": "PARIS",
+      "departement": "75",
+      "natureJuridique": "5710",
+      "typeOrganisation": "entreprise",
+      "etatAdministratif": "A",
+      "adresseSiege": "141 AVENUE DE CLICHY 75017 PARIS",
+      "raison": "dénomination publiée sur le site du domaine de la revendication, confirmée au registre",
+      "requetes": [
+        "cdc-biodiversite"
+      ],
+      "preuves": [
+        {
+          "voie": "site-entite",
+          "url": "https://www.cdc-biodiversite.fr/",
+          "extrait": "HTTP 200, titre « CDC Biodiversité | Parce que la biodiversité est essentielle » — marque absente du texte",
+          "dateConsultation": "2026-11-20"
+        },
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=cdc-biodiversite",
+          "extrait": "501639587 CDC BIODIVERSITE (actif, PARIS)",
+          "dateConsultation": "2026-11-20"
+        }
+      ],
+      "verdict": "present"
+    },
+    {
+      "nom": "Centre Hospitalier D'Arles",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "Centre Hospitalier D'Arles",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-01-06",
+      "derniereVue": "2022-01-06",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": true,
+      "confiance": "moyenne",
+      "siren": "261300222",
+      "siretSiege": "26130022200013",
+      "denominationLegale": "CENTRE HOSPITALIER D ARLES",
+      "ville": "ARLES",
+      "departement": "13",
+      "natureJuridique": "7364",
+      "typeOrganisation": "entreprise",
+      "etatAdministratif": "A",
+      "adresseSiege": "QUA FOURCHON 13104 ARLES",
+      "raison": "dénomination exacte et unique au registre ; la revendication ne porte pas de domaine",
+      "requetes": [
+        "Centre Hospitalier D'Arles"
+      ],
+      "preuves": [
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=Centre%20Hospitalier%20D'Arles",
+          "extrait": "261300222 CENTRE HOSPITALIER D ARLES (actif, ARLES)",
+          "dateConsultation": "2026-11-20"
+        }
+      ],
+      "verdict": "present"
+    },
+    {
+      "nom": "ces-conditionneur.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "ces-conditionneur.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-09-16",
+      "derniereVue": "2022-09-16",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": false,
+      "confiance": null,
+      "siren": null,
+      "siretSiege": null,
+      "denominationLegale": null,
+      "ville": null,
+      "departement": null,
+      "natureJuridique": null,
+      "typeOrganisation": null,
+      "etatAdministratif": null,
+      "adresseSiege": null,
+      "raison": "aucune entité correspondante au registre (actifs et cessés)",
+      "requetes": [
+        "ces-conditionneur",
+        "ces conditionneur",
+        "ces -conditionneur",
+        "ces- conditionneur",
+        "ces-c onditionneur",
+        "ces-co nditionneur",
+        "ces-con ditionneur",
+        "ces-cond itionneur",
+        "ces-condi tionneur",
+        "ces-condit ionneur",
+        "ces-conditi onneur",
+        "ces-conditio nneur",
+        "ces-condition neur",
+        "ces-conditionn eur",
+        "ces-conditionne ur"
+      ],
+      "preuves": [
+        {
+          "voie": "site-entite",
+          "url": "https://ces-conditionneur.fr/",
+          "extrait": "HTTP 200, titre « ? » — extrait : « u - ZA Thival 69930 Saint Laurent de Chamousset Tel. 04 74 70 58 30 Email : ces@ces-conditionneur.com »",
+          "dateConsultation": "2026-11-20"
+        },
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=ces-conditionneur",
+          "extrait": "aucun résultat pertinent pour « ces-conditionneur » (actifs et cessés)",
+          "dateConsultation": "2026-11-20"
+        }
+      ],
+      "verdict": "cannot_verify"
+    },
+    {
+      "nom": "ch-armentieres.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "ch-armentieres.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-02-27",
+      "derniereVue": "2024-02-27",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": false,
+      "confiance": null,
+      "siren": null,
+      "siretSiege": null,
+      "denominationLegale": null,
+      "ville": null,
+      "departement": null,
+      "natureJuridique": null,
+      "typeOrganisation": null,
+      "etatAdministratif": null,
+      "adresseSiege": null,
+      "raison": "aucune entité correspondante au registre (actifs et cessés)",
+      "requetes": [
+        "ch-armentieres",
+        "ch armentieres",
+        "ch- armentieres",
+        "ch-a rmentieres",
+        "ch-ar mentieres",
+        "ch-arm entieres",
+        "ch-arme ntieres",
+        "ch-armen tieres",
+        "ch-arment ieres",
+        "ch-armenti eres",
+        "ch-armentie res",
+        "ch-armentier es"
+      ],
+      "preuves": [
+        {
+          "voie": "site-entite",
+          "url": "https://ch-armentieres.fr/",
+          "extrait": "site inaccessible (TypeError: fetch failed)",
+          "dateConsultation": "2026-11-20"
+        },
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=ch-armentieres",
+          "extrait": "aucun résultat pertinent pour « ch-armentieres » (actifs et cessés)",
+          "dateConsultation": "2026-11-20"
+        }
+      ],
+      "verdict": "cannot_verify"
+    },
+    {
+      "nom": "ch-cannes.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "ch-cannes.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-04-30",
+      "derniereVue": "2024-04-30",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": false,
+      "confiance": null,
+      "siren": null,
+      "siretSiege": null,
+      "denominationLegale": null,
+      "ville": null,
+      "departement": null,
+      "natureJuridique": null,
+      "typeOrganisation": null,
+      "etatAdministratif": null,
+      "adresseSiege": null,
+      "raison": "dénominations trop éloignées (1 candidates non retenues) — non résolu",
+      "requetes": [
+        "ch-cannes"
+      ],
+      "preuves": [
+        {
+          "voie": "site-entite",
+          "url": "https://ch-cannes.fr/",
+          "extrait": "site inaccessible (TypeError: fetch failed)",
+          "dateConsultation": "2026-11-20"
+        },
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=ch-cannes",
+          "extrait": "131928228 CH 3 RUE GOUJON CANNES (actif, CANNES)",
+          "dateConsultation": "2026-11-20"
+        }
+      ],
+      "verdict": "cannot_verify"
+    },
+    {
+      "nom": "ch-sf.fr",
+      "occurrences": 1,
+      "zone": "france",
+      "nomLisible": "ch-sf.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2022-09-12",
+      "derniereVue": "2022-09-12",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": false,
+      "confiance": null,
+      "siren": null,
+      "siretSiege": null,
+      "denominationLegale": null,
+      "ville": null,
+      "departement": null,
+      "natureJuridique": null,
+      "typeOrganisation": null,
+      "etatAdministratif": null,
+      "adresseSiege": null,
+      "raison": "dénominations trop éloignées (2 candidates non retenues) — non résolu",
+      "requetes": [
+        "ch-sf"
+      ],
+      "preuves": [
+        {
+          "voie": "site-entite",
+          "url": "https://ch-sf.fr/",
+          "extrait": "site inaccessible (TypeError: fetch failed)",
+          "dateConsultation": "2026-11-20"
+        },
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=ch-sf",
+          "extrait": "290600352 SF CH ROSA BIANCA (actif, NICE) ; 990906844 FIONA CH (SALON BY FIONA) (SF) (actif, THONON-LES-BAINS)",
           "dateConsultation": "2026-11-20"
         }
       ],

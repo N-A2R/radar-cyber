@@ -508,10 +508,14 @@ export async function traiter(m: Manque, aujourdhui: string): Promise<Traite> {
 
 	const ranges = ranger(dedup(candidats));
 
-	// 4. Dénomination la plus longue publiée sur le site du domaine.
+	// 4. Dénomination la plus longue publiée sur le site du domaine. Seule la
+	// dénomination nettoyée complète corrobore — jamais un fragment entre
+	// parenthèses (un mot comme « Sauvageon », alias isolé d'une entité sans
+	// rapport, peut figurer sur n'importe quel site municipal pour une autre
+	// raison ; faux positif constaté sur brunoy.fr).
 	const corroborees = new Set<string>();
 	if (site && !site.accueil.echec) {
-		const longueurs = ranges.map((c) => ({ siren: c.siren, len: Math.max(0, ...c.variantes.map((v) => longueurPubliee(site!.accueil.texte, v))) }));
+		const longueurs = ranges.map((c) => ({ siren: c.siren, len: longueurPubliee(site!.accueil.texte, c.variantes[0]) }));
 		const max = Math.max(0, ...longueurs.map((x) => x.len));
 		if (max >= 4) {
 			for (const x of longueurs) if (x.len === max) corroborees.add(x.siren);
