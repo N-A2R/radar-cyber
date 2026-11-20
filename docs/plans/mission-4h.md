@@ -119,7 +119,11 @@
 
 ### Task 6 : Rapport de fin de mission
 
-- [ ] Écrire `bench/results/mission-glm-<date>.md` : récapitulatif des 5
+- [x] Écrire `bench/results/mission-glm-<date>.md` : récapitulatif des 5
       tâches, chiffres avant/après, ce qui reste
-- [ ] Vérifier que `pnpm typecheck` et `bash scripts/verify-all.sh` passent
-- [ ] Committer : `docs(mission): rapport 4h GLM publié`
+      → `bench/results/mission-glm-2026-11-20.md`
+- [x] Vérifier que `pnpm typecheck` et `bash scripts/verify-all.sh` passent
+      → vert (« Vérification complète OK ») ; variable documentée
+      `RADAR_TEST_ADMIN_URL` (5433) requise pour tests api sur cette machine
+      (5432 occupé par un autre PostgreSQL) — constat consigné dans le rapport
+- [x] Committer : `docs(mission): rapport 4h GLM publié`
