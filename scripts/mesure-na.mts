@@ -60,6 +60,14 @@ const SOURCES_REGIONALES_NA = [
 	"presse-sudouest-rss",
 	"presse-sudouest-gironde",
 	"presse-sudouest-pyrenees",
+	"presse-sudouest-charente",
+	"presse-sudouest-charente-maritime",
+	"presse-sudouest-dordogne",
+	"presse-sudouest-landes",
+	"presse-sudouest-lot-et-garonne",
+	"presse-sudouest-deux-sevres",
+	"presse-lnr-vienne",
+	"presse-lnr-deuxsevres",
 	"presse-charentelibre",
 	"presse-france3-na",
 	"presse-mediacites",
@@ -69,6 +77,8 @@ const SOURCES_REGIONALES_NA = [
 	"univ-limoges",
 	"univ-larochelle",
 	"chu-poitiers",
+	"gn-press-lamontagne",
+	"gn-press-lepopulaire",
 ];
 
 /** Source → départements couverts. `null` = couvre toute la région (les 12). */
@@ -80,12 +90,32 @@ function deptsCouverts(id: string): string[] | null {
 			return ["33"];
 		case "presse-sudouest-pyrenees":
 			return ["64"];
+		case "presse-sudouest-charente":
+			return ["16"];
+		case "presse-sudouest-charente-maritime":
+			return ["17"];
+		case "presse-sudouest-dordogne":
+			return ["24"];
+		case "presse-sudouest-landes":
+			return ["40"];
+		case "presse-sudouest-lot-et-garonne":
+			return ["47"];
+		case "presse-sudouest-deux-sevres":
+			return ["79"];
+		case "presse-lnr-vienne":
+			return ["86"];
+		case "presse-lnr-deuxsevres":
+			return ["79"];
 		case "univ-limoges":
 			return ["87"];
 		case "univ-larochelle":
 			return ["17"];
 		case "chu-poitiers":
 			return ["86"];
+		case "gn-press-lamontagne":
+			return ["19", "23"];
+		case "gn-press-lepopulaire":
+			return ["87"];
 		default:
 			// Tout le reste de la liste est de portée régionale : France 3 NA,
 			// Sud Ouest national, Médiacités, Google News régionaux… ils couvrent

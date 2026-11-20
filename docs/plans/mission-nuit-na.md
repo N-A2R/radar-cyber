@@ -77,14 +77,17 @@ viennent de la table du plan est un échec de cette tâche.
 
 ## Task 1: Sources régionales — les 12 départements
 
-- [ ] Inventorier les sources de presse régionale NA **gratuites et lisibles** :
+- [x] Inventorier les sources de presse régionale NA **gratuites et lisibles** :
       Sud Ouest, La Nouvelle République, Charente Libre, La Montagne, Le
       Populaire du Centre, Ouest-France éditions locales, Médiacités NA, France
       Bleu NA, et les titres départementaux
-- [ ] Pour chacune : flux RSS/Atom réel, test de fetch, volume d'items, langue,
-      et **fréquence de publication mesurée**
-- [ ] Câbler les sources retenues dans `db/sources-regional.sql` (INSERT idempotent)
-- [ ] Vérifier en base : au moins **une source active par département**
+- [x] Pour chacune : flux RSS/Atom réel, test de fetch, volume d'items, langue,
+      et **fréquence de publication mesurée** — `bench/results/na-sources-sondage-2026-11-21.json`
+      (URL testée, HTTP, items réels, dernier pubDate, titres verbatim ; les
+      candidates mortes documentées avec leur motif)
+- [x] Câbler les sources retenues dans `db/sources-regional.sql` (INSERT idempotent)
+- [x] Vérifier en base : au moins **une source active par département** — 12/12,
+      minimum 2 sources chacun (`bench/results/na-sources-2026-11-21.json`)
 - [ ] Commit : `feat(sources): presse régionale NA par département`
 
 **Critère :** requête SQL qui liste, par département, ses sources actives. Aucun

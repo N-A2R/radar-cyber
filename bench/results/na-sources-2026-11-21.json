@@ -1,0 +1,296 @@
+{
+  "dateMesure": "2026-11-21",
+  "commande": "DATABASE_URL=postgres://radar:radar@localhost:5433/radar tsx scripts/mesure-na.mts",
+  "plan": "docs/plans/mission-nuit-na.md — Task 0",
+  "perimetre": {
+    "depts": [
+      "16",
+      "17",
+      "19",
+      "23",
+      "24",
+      "33",
+      "40",
+      "47",
+      "64",
+      "79",
+      "86",
+      "87"
+    ],
+    "joinOrg": "event.org_id = org.id, org.dept"
+  },
+  "referentiel": {
+    "sql": "SELECT count(*)::text AS n FROM org WHERE dept IN ('16','17','19','23','24','33','40','47','64','79','86','87')",
+    "orgsNa": 1242882,
+    "parDepartement": {
+      "sql": "SELECT dept, count(*)::text AS n FROM org WHERE dept IN ('16','17','19','23','24','33','40','47','64','79','86','87') GROUP BY dept + SELECT o.dept, count(*)::text AS evts, count(DISTINCT e.org_id)::text AS orgs FROM event e JOIN org o ON e.org_id = o.id WHERE o.dept IN ('16','17','19','23','24','33','40','47','64','79','86','87') GROUP BY o.dept",
+      "depts": {
+        "16": {
+          "orgs": 62828,
+          "orgsAvecEvenement": 1,
+          "evenements": 1,
+          "sourcesActives": 14
+        },
+        "17": {
+          "orgs": 139808,
+          "orgsAvecEvenement": 2,
+          "evenements": 2,
+          "sourcesActives": 15
+        },
+        "19": {
+          "orgs": 51306,
+          "orgsAvecEvenement": 0,
+          "evenements": 0,
+          "sourcesActives": 14
+        },
+        "23": {
+          "orgs": 25374,
+          "orgsAvecEvenement": 0,
+          "evenements": 0,
+          "sourcesActives": 14
+        },
+        "24": {
+          "orgs": 87555,
+          "orgsAvecEvenement": 1,
+          "evenements": 1,
+          "sourcesActives": 14
+        },
+        "33": {
+          "orgs": 360875,
+          "orgsAvecEvenement": 14,
+          "evenements": 20,
+          "sourcesActives": 14
+        },
+        "40": {
+          "orgs": 95633,
+          "orgsAvecEvenement": 0,
+          "evenements": 0,
+          "sourcesActives": 14
+        },
+        "47": {
+          "orgs": 68542,
+          "orgsAvecEvenement": 0,
+          "evenements": 0,
+          "sourcesActives": 14
+        },
+        "64": {
+          "orgs": 156188,
+          "orgsAvecEvenement": 3,
+          "evenements": 3,
+          "sourcesActives": 14
+        },
+        "79": {
+          "orgs": 60499,
+          "orgsAvecEvenement": 1,
+          "evenements": 1,
+          "sourcesActives": 15
+        },
+        "86": {
+          "orgs": 72041,
+          "orgsAvecEvenement": 2,
+          "evenements": 2,
+          "sourcesActives": 15
+        },
+        "87": {
+          "orgs": 62233,
+          "orgsAvecEvenement": 1,
+          "evenements": 1,
+          "sourcesActives": 15
+        }
+      }
+    }
+  },
+  "evenements": {
+    "sql": "SELECT count(*)::text AS evts, count(DISTINCT e.org_id)::text AS orgs FROM event e JOIN org o ON e.org_id = o.id WHERE o.dept IN ('16','17','19','23','24','33','40','47','64','79','86','87')",
+    "rattachesNa": 31,
+    "orgsNaAvecEvenement": 25,
+    "regionauxSansRattachement": {
+      "sql": "SELECT count(*)::text AS n FROM event WHERE regional = true AND org_id IS NULL",
+      "total": 10
+    },
+    "deptsSansEvenement": [
+      "19",
+      "23",
+      "40",
+      "47"
+    ]
+  },
+  "sources": {
+    "sql": "SELECT s.id, s.name, s.enabled, s.last_ok_at, s.last_error_at, s.last_error, COALESCE((SELECT sum(r.items_new) FROM collector_run r WHERE r.source_id = s.id AND r.started_at >= now() - interval '7 days'), 0) AS nouveaux7j FROM source s WHERE s.id = ANY($1) ORDER BY s.id",
+    "regionalesNa": 39,
+    "regionalesActives": 39,
+    "sourcesTotalesActives": {
+      "sql": "SELECT count(*)::text AS actives FROM source WHERE enabled = true",
+      "total": 191
+    },
+    "muettes": [
+      {
+        "id": "chu-poitiers",
+        "name": "CHU de Poitiers (RSS)",
+        "itemsNouveaux7j": 0,
+        "depts": [
+          "86"
+        ]
+      },
+      {
+        "id": "eco-jde-na",
+        "name": "Le Journal des Entreprises Nouvelle-Aquitaine (RSS)",
+        "itemsNouveaux7j": 0,
+        "depts": null
+      },
+      {
+        "id": "gn-press-lamontagne",
+        "name": "Google News — cyber sur lamontagne.fr (30 j)",
+        "itemsNouveaux7j": 0,
+        "depts": [
+          "19",
+          "23"
+        ]
+      },
+      {
+        "id": "gn-press-lepopulaire",
+        "name": "Google News — cyber sur lepopulaire.fr (30 j)",
+        "itemsNouveaux7j": 0,
+        "depts": [
+          "87"
+        ]
+      },
+      {
+        "id": "gn-ransom-aquitaine",
+        "name": "Google News — « ransomware Aquitaine »",
+        "itemsNouveaux7j": 0,
+        "depts": null
+      },
+      {
+        "id": "presse-lnr-deuxsevres",
+        "name": "La Nouvelle République — Deux-Sèvres (RSS)",
+        "itemsNouveaux7j": 0,
+        "depts": [
+          "79"
+        ]
+      },
+      {
+        "id": "presse-mediacites",
+        "name": "Médiacités (feed national, enquêtes locales)",
+        "itemsNouveaux7j": 0,
+        "depts": null
+      },
+      {
+        "id": "presse-ouestfrance-rss",
+        "name": "Ouest-France (RSS)",
+        "itemsNouveaux7j": 0,
+        "depts": null
+      },
+      {
+        "id": "presse-sudouest-charente-maritime",
+        "name": "Sud Ouest — Charente-Maritime (RSS)",
+        "itemsNouveaux7j": 0,
+        "depts": [
+          "17"
+        ]
+      },
+      {
+        "id": "presse-sudouest-deux-sevres",
+        "name": "Sud Ouest — Deux-Sèvres (RSS)",
+        "itemsNouveaux7j": 0,
+        "depts": [
+          "79"
+        ]
+      },
+      {
+        "id": "presse-sudouest-dordogne",
+        "name": "Sud Ouest — Dordogne (RSS)",
+        "itemsNouveaux7j": 0,
+        "depts": [
+          "24"
+        ]
+      },
+      {
+        "id": "presse-sudouest-landes",
+        "name": "Sud Ouest — Landes (RSS)",
+        "itemsNouveaux7j": 0,
+        "depts": [
+          "40"
+        ]
+      },
+      {
+        "id": "presse-sudouest-lot-et-garonne",
+        "name": "Sud Ouest — Lot-et-Garonne (RSS)",
+        "itemsNouveaux7j": 0,
+        "depts": [
+          "47"
+        ]
+      },
+      {
+        "id": "presse-sudouest-rss",
+        "name": "Sud Ouest (RSS)",
+        "itemsNouveaux7j": 0,
+        "depts": null
+      },
+      {
+        "id": "univ-larochelle",
+        "name": "Université de La Rochelle (RSS)",
+        "itemsNouveaux7j": 0,
+        "depts": [
+          "17"
+        ]
+      }
+    ]
+  },
+  "concordance": [
+    {
+      "compteur": "referentiel.orgsNa",
+      "attendu": 1242882,
+      "mesure": 1242882,
+      "conforme": true
+    },
+    {
+      "compteur": "evenements.rattachesNa",
+      "attendu": 31,
+      "mesure": 31,
+      "conforme": true
+    },
+    {
+      "compteur": "evenements.orgsNaAvecEvenement",
+      "attendu": 25,
+      "mesure": 25,
+      "conforme": true
+    },
+    {
+      "compteur": "referentiel.parDepartement.33.evenements",
+      "attendu": 20,
+      "mesure": 20,
+      "conforme": true
+    },
+    {
+      "compteur": "evenements.deptsSansEvenement",
+      "attendu": [
+        "40",
+        "47",
+        "23",
+        "19"
+      ],
+      "mesure": [
+        "19",
+        "23",
+        "40",
+        "47"
+      ],
+      "conforme": true
+    },
+    {
+      "compteur": "sources.sourcesTotalesActives",
+      "attendu": 181,
+      "mesure": 191,
+      "conforme": false
+    }
+  ],
+  "ecartVsPlan": [
+    {
+      "compteur": "sources.sourcesTotalesActives",
+      "attendu": 181,
+      "mesure": 191,
+      "commentaire": "écart entre la table de baseline du plan (relevée à la main) et la mesure SQL du script : données qui ont bougé entre les deux relevés, ou périmètre de comptage différent"
+    }
+  ]
+}
