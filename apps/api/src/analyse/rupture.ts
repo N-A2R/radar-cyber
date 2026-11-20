@@ -39,9 +39,9 @@ const JOUR_MS = 86_400_000;
 /** Les trois détecteurs, nommés une fois : le dossier les cite, les tests les vérifient. */
 export const DETECTEURS_RUPTURE = ["nouvelle-organisation", "rafale", "changement-nature"] as const;
 
-const ANCIENNETE_REFERENTIEL_JOURS = 180;
+export const ANCIENNETE_REFERENTIEL_JOURS = 180;
 /** 30 j : fenêtre d'une revue hebdomadaire élargie ; non mesuré, à calibrer. */
-const FENETRE_NOUVEAUTE_JOURS = 30;
+export const FENETRE_NOUVEAUTE_JOURS = 30;
 
 export function detecterNouvelleOrganisation(input: {
 	org: { id: number; premiereApparition: string; referentielDepuis: string };
@@ -76,9 +76,9 @@ export function detecterNouvelleOrganisation(input: {
 // ---------------------------------------------------------------------------
 
 /** 7 j : fenêtre d'une semaine, alignée sur la revue hebdomadaire ; non mesuré. */
-const FENETRE_RAFLE_JOURS = 7;
+export const FENETRE_RAFLE_JOURS = 7;
 /** 3 faits minimum : en dessous, un seul incident bien couvert suffit ; non mesuré. */
-const SEUIL_RAFLE_MIN = 3;
+export const SEUIL_RAFLE_MIN = 3;
 
 export function detecterRafale(input: {
 	zone: string;
@@ -113,7 +113,7 @@ export function detecterRafale(input: {
 // ---------------------------------------------------------------------------
 
 /** 2 niveaux : évite les faux positifs sur des écarts d'un seul cran ; non mesuré. */
-const ECART_GRAVITE = 2;
+export const ECART_GRAVITE = 2;
 
 export function detecterChangementNature(input: {
 	orgId: number;

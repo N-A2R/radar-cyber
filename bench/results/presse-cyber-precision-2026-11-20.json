@@ -1,0 +1,239 @@
+{
+  "date": "2026-11-20",
+  "objet": "Précision du fil de la revue de presse (famille presse_cyber)",
+  "methode": "Échantillon déterministe de 20 événements (ORDER BY md5(id::text || 'echantillon-presse-2026-11-20'), reproductible) sur la population admise par la porte cyber depuis le 2026-11-14 ; verdict porté sur titre + résumé — exactement les champs que voit le classificateur (apps/api/src/collectors/classify.ts). Tâche de mesure : le classificateur n'a pas été modifié.",
+  "presse_cyber": {
+    "admisDepuis14Nov": 0,
+    "totalEnBase": 0,
+    "explication": "La famille presse_cyber n'a jamais été peuplée : scripts/reclassify-press.mts n'a jamais été lancé avec --apply (la table event_press_archive qu'il crée n'existe pas), et depuis le 10 nov la porte d'admission refuse à l'entrée tout événement classé presse (apps/api/src/collectors/generic.ts : family === 'presse' → rejeté). La mesure demandée sur presse_cyber est donc portée sur la population effective décrite ci-dessous."
+  },
+  "populationEffective": {
+    "definition": "Événements family='cti' issus des sources de presse (identifiants gn-* et eco-*) admis depuis le 2026-11-14 — la revue de presse qui atteint réellement la base.",
+    "total": 180,
+    "requete": "SELECT count(*) FROM event e JOIN source s ON s.id=e.source_id WHERE e.family='cti' AND e.collected_at>='2026-11-14' AND (s.id LIKE 'gn-%' OR s.id LIKE 'eco-%');"
+  },
+  "echantillon": {
+    "taille": 20,
+    "graine": "echantillon-presse-2026-11-20",
+    "reproductible": true
+  },
+  "precision": {
+    "reellementCyber": 20,
+    "nonCyber": 0,
+    "taux": "20/20 (100 %)",
+    "seuil90Pct": "atteint — aucun motif de non-cyber à lister (branche conditionnelle de la tâche non déclenchée)",
+    "repartition": {
+      "incidentsCyberReels": 15,
+      "thematiqueCyberSansIncident": 5,
+      "nonCyber": 0
+    }
+  },
+  "echantillonVerifie": [
+    {
+      "id": 47941,
+      "sourceId": "gn-47",
+      "titreVerbatim": "Cyberattaque de l'Établissement français du sang : les pirates ont fait chauffer des réserves de sang à 110 °C... \"À cette température-là, ça devient du boudin !\" - ladepeche.fr",
+      "url": "https://news.google.com/rss/articles/CBMipgJBVV95cUxQV2VWb3FQZG1Tb1liM0xrM3BmV1VCR2hMclVWbFFzT1FYenUwUHprd0htaUZGVTNiRWRJZjhzZmdkYjUwbVlFbjc3MU1YSnBsMUNKMFZxRkdLTzcyLW93dV83eFZ0TTE5c0hZSTlVaVd4Sm1xeS1wc2tLZXc4SEJwZXVKQ3JwOE1NVm82cFNfdWNMejctaE9panhDeHlpdGxWX2MwZjU4WHpLWTJ3cUNSWmdZUnUySUNhTG12S1NyemY3UGVqOG5INFpwblVnSWpOV0NHSlREUXlxNWhTcDB6ZUcxcDhwZ0M2UzJCWUUwWlhwOWFRY2wwLTZ3XzYxYjd3M1EtTWZZRE55NWUxTmdRWDFtU3ZYLXFMQU1yT2ptbkdjaExOZmc?oc=5",
+      "collectedAt": "2026-11-17T16:22:39",
+      "verdict": "cyber",
+      "categorie": "incident",
+      "motif": "Cyberattaque réelle — Établissement français du sang"
+    },
+    {
+      "id": 24366,
+      "sourceId": "gn-fuite-metropoles",
+      "titreVerbatim": "Vos nom, prénom et adresse volés sans que vous le sachiez : une cyberattaque sur La Poste a touché 22 millions de personnes - Le Populaire du Centre",
+      "url": "https://news.google.com/rss/articles/CBMikAJBVV95cUxPX2lrSDFoNk44dGVsQjIwcWRkX0daZUM4Sm1nVEpGYnA0ZGplX3Y0ZDkxQjhWRnBjWUV1VFJFN20tWHdkLWRPdjdsVUlsaHM0d09nZUpMSWVDM0NmZnMtU3ozRDJaSy1PMU5MczBsLVRCWFpqTWJlZzJlWW5wTWdlYkdyYjVuSG0yT0wxTXdIM0FYVjVDQzBkSXA5MzdySHdGS05nY1JRV0lnZnFKTFZieUpYbEhEeU52RUxtMHB6Q0xpaDRFN1BVV21xWmpVUmpMYVo5VU1LclRORS1QTkR4a1pmUTVPNE11bjhEOEdjQUNGNjBpd0FDaFRFNlVqLVE2cUxQS2U3b1hna2ZoOXlNag?oc=5",
+      "collectedAt": "2026-11-15T20:54:38",
+      "verdict": "cyber",
+      "categorie": "incident",
+      "motif": "Fuite réelle — La Poste, 22 millions de personnes"
+    },
+    {
+      "id": 24352,
+      "sourceId": "gn-40",
+      "titreVerbatim": "Ukraine et Russie touchées par des cyberattaques après la fin de la trêve, Zelensky demande des missiles Patriot à Trump - Sud Ouest",
+      "url": "https://news.google.com/rss/articles/CBMikwJBVV95cUxPTGZmX1dNWHducEhUbFFOZWVFTzFlQWd4b0ppdWJnTjliU3RuUlk5ZUNLdlJJbFhtNXAxdTZPdndJSUNxa2tfWVBTU0V6N013M2IyZTRKZXZjR2dnZ1JRbHBqcnp2Y3c4c2J1a3NJT3EzdGtYeDVwaDZNLVhHYnNGMW9zTjVPMXJFeVM3U21QbV9nQTJRUEJ4Ums3Q1dBYTJQRDFxaG1GVnRiQUUzai1oenhCb1BuWjJyUTZBWUkyQWh0SXNCbW1senNjLTE5cUg0aG5kWU1CbkxpeGhTcjV2STh6SW9jQW9YeXBPMXVzcURVSW1XdG5pSzMtMGVFd0RZbEJ2dHdwbHdXeHh2cXU1Uktadw?oc=5",
+      "collectedAt": "2026-11-15T20:54:37",
+      "verdict": "cyber",
+      "categorie": "incident",
+      "motif": "Cyberattaques Ukraine/Russie après la trêve"
+    },
+    {
+      "id": 24387,
+      "sourceId": "gn-cyber-na",
+      "titreVerbatim": "Piratage de Maileva : quelles données ont été volées lors de l'une des plus importantes cyberattaques commises en France - Actu.fr",
+      "url": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxQOUpYNWk3OG1HMDg2YVpGSXhGaWRyWDc5V2VEbnZiam1zTHJ0S3plZzhKZDMyRlZQdVVwVm04RUFSZ0ozVHZNU1JtTzA0ck1rcHBsMENQRnA1aXhhVE1sSVZoOTZuSnJRRHZNV3VNbTAzWV9HR3QzRFNyYjFLNjF0d0RhT0FVMW5mc3dLS1NvcnpxbXlPSGJ6c1dtNFdUNHJVY1lycEdaSDBDNUlVZ08yYkppOXVZRW5fZ1NIelVxV05qZ3A4eFJEc1ZETU9TSG8yWGVybmJKT01tQUhXbGZ4ZWhfcU1oY3ItdGpJRA?oc=5",
+      "collectedAt": "2026-11-15T20:54:39",
+      "verdict": "cyber",
+      "categorie": "incident",
+      "motif": "Piratage réel — Maileva"
+    },
+    {
+      "id": 52453,
+      "sourceId": "gn-33",
+      "titreVerbatim": "Après un été de cyberattaques et un an de blocage, la loi « résilience » de retour à l’Assemblée nationale - Le Monde.fr",
+      "url": "https://news.google.com/rss/articles/CBMigAJBVV95cUxQU1FsTnNmOHlVYXZ2dE9KYUVBV1EwaGwzQWxRQnBQV3Q1ajgyTWxZMUxBdk1lYVNfX2lncGo2R3VucFl3OFhxZHJEVFNLOEJqbXJRNnY3RllVaGhiM0t2UURkX0otMnhTMmJ2TU1NTkFCQzRkUWx0TFdxUGh0Z1JxVDR0cUNCNW1xd1kyYTVfRExZX0JCM1prejY0WEZTQ2RXTXBrUWJMejlIaWRvTzFURmE3cVU4WXB0RUVxeENFRHhIS21leGltYkFPVFdJVng2bnVFblF2TVpweWcyUmh1WjZrVm1CYWpYdmFTMF9zYURRTlJrU1FzaktwZG5DT0Ft?oc=5",
+      "collectedAt": "2026-11-20T17:58:14",
+      "verdict": "cyber",
+      "categorie": "thematique",
+      "motif": "Débat législatif sur la loi résilience cyber"
+    },
+    {
+      "id": 24238,
+      "sourceId": "gn-16",
+      "titreVerbatim": "Le fichier d’enregistrement des chats victime d’une cyberattaque. Que disent les investigations ? - Sud Ouest",
+      "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxPSlVBSGRRWThackZTOXhHOWhEbDdxX1VJQnFyQzNDUGJ1djhTbVBNTk1QX3ZwSFZRZlJ1WEdJTDVrOFhHMmRQakY2V3BVWGgxY0lJd01tZ3JLbkE0MUFPTXM4N25UVVlFSlVBMFdCMl9vajFHeXNVRElLQXMtaERMbEhIdDh3elRqRGl4OEhTOXlVQUZSLUZnRjMyRktQazlyLWxEeHhSWkQ0SnVKcmJYQ09GWTZfOFppczhvN0VsMEJqRWRtN0NNSXBrVU1HOHVUb190empLTng4RjVzWVhsTA?oc=5",
+      "collectedAt": "2026-11-15T20:54:36",
+      "verdict": "cyber",
+      "categorie": "incident",
+      "motif": "Fichier d'enregistrement des chats victime d'une cyberattaque"
+    },
+    {
+      "id": 52553,
+      "sourceId": "gn-cyber-na",
+      "titreVerbatim": "Ikea, Air France, Zoom... Une nouvelle cyberattaque a frappé ces sites, des données de cartes bancaires volées - Actu.fr",
+      "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxOcVA5ZmRjckY3S2JNZFdhT0VUUlF4WmF2TnJDZ01wc3U3QTF2c0NWSW1iZ0RsNld0THRkdUhkWDVReFJKWk9iOU5wOE1IZlAzRkUwUEoxRUE2QWpDcHBuRHpHVEpuT1hROW40ME9CY1o1NzJXcDIzWjdjZE1ZalhkYVZWU0QwMEZtY2w3eHRvdGpOUmg4djc5cEZpSjFpcURVZ3A4WU5VSlZSelpGS0FsLWJ2YU1xdWdGTnVMS0o1cUY4NzhsNmZBSXJuSndsdks5OF9xUi02MTRPMTA?oc=5",
+      "collectedAt": "2026-11-20T17:58:16",
+      "verdict": "cyber",
+      "categorie": "incident",
+      "motif": "Cartes bancaires volées — Ikea, Air France, Zoom"
+    },
+    {
+      "id": 24195,
+      "sourceId": "gn-16",
+      "titreVerbatim": "\"La cyberattaque, aujourd'hui, c'est du quotidien\" : comment Soluris accompagne les communes de Charente-Maritime - ici.fr",
+      "url": "https://news.google.com/rss/articles/CBMilwJBVV95cUxOY0poN1dzcUJxMWZSb0JCM2ZoNHhoNnVuZmU4YlF1akxXb2VLbVFxVUxadHc2M09RWmlCX1BYMkZMZkFJblZrdnhmNWdKaEVuZVg3QzRFWk9VWXhxQ2t5RlBYYVg3R25wU0ZiS2hyWXBlMFN1V0t2TEw5a1gyeHJRVkQ2M3IwX0ZKSms0UTBZSjNRdzJOWUxha0VWdUZJTUk0Y0xRN0NKWFhNWFJ4bGFvUVIxblNPckdsV2F2ODYwaGo5d0VVWWlhN1hkY1diS1BuTktsSGN6ZTM4bnJzWVg0SmcxemthdHNwSDJLVjNDbEpKNy16d3c0TmdyeG1CQzJucE1JbVlCRmJfMHl5N0ctTXl6OGNFOU0?oc=5",
+      "collectedAt": "2026-11-15T20:54:34",
+      "verdict": "cyber",
+      "categorie": "thematique",
+      "motif": "Interview sur l'accompagnement cyber des communes"
+    },
+    {
+      "id": 52607,
+      "sourceId": "gn-mairie-cyber",
+      "titreVerbatim": "Decoset : fuite de données touchant les usagers du PASS déchèterie - Fuites Infos",
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE5QU1NvU3V3bHNBbjExZWdZeE5UYXFCQzJVZmlibThQWk5OZlZoN1VkeFNteE5MZzVOSlFLTU1nMVROako3TGRPQlhOelRlT1VXLXpGVWMzcENBZldJWlE?oc=5",
+      "collectedAt": "2026-11-20T17:58:17",
+      "verdict": "cyber",
+      "categorie": "incident",
+      "motif": "Fuite de données réelle — Decoset PASS déchèterie"
+    },
+    {
+      "id": 24303,
+      "sourceId": "gn-16",
+      "titreVerbatim": "Cyberattaque : des distributeurs belges et suédois annoncent à leur tour des « incidents informatiques » affectant leurs réfrigérateurs - Sud Ouest",
+      "url": "https://news.google.com/rss/articles/CBMihgJBVV95cUxQcEgwSGE5cFJmaG1rcDdkb3kyYUE1Mlpmc2Fwd0lSbFAweU5RNDBYYkprZ3RYZVJYWGh3STlCcFJIb3g2S2x1UGdDQ1VCbUptcXFKakRnbHdYam1fZDNwLWVtbUl0U3lPc0ZIUVFFZmhYTE1PWG9wRUh0cVV3N0ZOV2NZeFdjMHJ1cWdtSGZhQlJJZ1haVEEyaWJLVENGRENpTm5kTUVibUZ6OXlZV0xFX0dKYmdQRHdmaWdMRTRWUS1Zd3hsNGtWSEI0ZjlfcGpjSjJyOEVEZXRZenpFWk1ieGdodUpZazlRZzE1MTl6a2JnMXJfakhneHBlLVozMHF2MmFTWXFR?oc=5",
+      "collectedAt": "2026-11-15T20:54:36",
+      "verdict": "cyber",
+      "categorie": "incident",
+      "motif": "Incidents informatiques réels — distributeurs belges et suédois"
+    },
+    {
+      "id": 52572,
+      "sourceId": "gn-79",
+      "titreVerbatim": "Cyberattaques : les députés adoptent un projet de loi pour renforcer la protection des entreprises - maville.com",
+      "url": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxQd2NaWDhvVzg5Zi1IZGNoNzltQU5uNmpMQ0VzdnQtYTRHM1VUUFNPblp6MW81LU5Eb29kMlY4SDhTVGMxZENlYkZ5WnFjOVR6QjVXbUdrME9EazFOZjVvcjBybncydVRJZWRsa0NEbk5WelljMGFEbWIwajZXTFJndUt0X211XzlxZnhDOWk1VVJoNk1fSW9YQ1VXdjBGNFEzeUxlaGVxZFJpTDgzM2dvTk4yLUwteUxCeC1VS0NpaFVHajQtOU12azFnUFdBZTFhc3E0WDh0bEdKUDZLV0dNeHRSRkFHd1hra0VMUHhR?oc=5",
+      "collectedAt": "2026-11-20T17:58:16",
+      "verdict": "cyber",
+      "categorie": "thematique",
+      "motif": "Projet de loi sur la protection des entreprises face aux cyberattaques"
+    },
+    {
+      "id": 24230,
+      "sourceId": "gn-17",
+      "titreVerbatim": "Europe : désormais une douzaine de pays touchés par une vaste cyberattaque visant les réfrigérateurs de supermarchés - Sud Ouest",
+      "url": "https://news.google.com/rss/articles/CBMihAJBVV95cUxQaFNDaXMxU1FPLTZFdlBCV21vMm9KQ09feUJTTnNXRndxa2FJLXBKT0toM1RsT0tIS09aUXVXZUlnNmZWWTM1MV92dEtybXp4TjVlRTNLdmJFRWxaVXFXUFowZGVpdkptdm82YkJUdGFnRkRaME80cEpLSWZJNDZsRVFmQURJWDh6M1BrTVpueDNzOS1HY3FrV1h5UVg3OXREYzAxYUtSMXpEcHIxUzFELXZadF9JNkh1VXk3WEhSSWZVcHFqdl9Gem5BTnEtQ2xCWE5mWEQ5bGtyUDZkWmF2T1BUcm5Ib1U2eVlWdDBOaEVSb3FwdS1Wblo5MDB4Uk1PS3pzVg?oc=5",
+      "collectedAt": "2026-11-15T20:54:35",
+      "verdict": "cyber",
+      "categorie": "incident",
+      "motif": "Vaste cyberattaque réelle — réfrigérateurs de supermarchés, 12 pays"
+    },
+    {
+      "id": 47913,
+      "sourceId": "gn-47",
+      "titreVerbatim": "À Strasbourg, 230.000 comptes clients ont été piratés lors d’une cyberattaque - 20 Minutes",
+      "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxOd29lckhLMGs4cmVVSmpuY2htNmJDaWJKbmswcWpTWDJqTFlVY0RmNjdSa3hDVWRnMGxmY0FsSkotemVzSDNFcmgwZ1FLalhzeHZoNUdsZUNMNEN2Z3lyMGVXckZqNnotOV83aEVZSVlPZXVYcHVoYi1wanV3dmV3RGRVVGliRWZzTjVJeU5KSmYzTXFkSDB5Vi1rTU1hUDFlTFhVZHFHVEJKQjAtcUVFMGd5cW1tRm0xeTNMRy16LWdleGtLV0lFQ2dxdmYydUNH?oc=5",
+      "collectedAt": "2026-11-17T16:22:39",
+      "verdict": "cyber",
+      "categorie": "incident",
+      "motif": "230 000 comptes piratés — Strasbourg"
+    },
+    {
+      "id": 74060,
+      "sourceId": "gn-64",
+      "titreVerbatim": "Mourenx : les industriels et administrations sensibilisés face à la cybercriminalité - La République des Pyrénées",
+      "url": "https://news.google.com/rss/articles/CBMi9wFBVV95cUxQQlhqNmhTQUtjb1Nab3dmRmZEekFUZ01PU3NWN1dmS3Z2Q0lxV19kQ2I3RWQ0S3pSWmFyVEd0ZjFvZHBSbEsxdWJ5Y1hOZ19fajhWZkJBeHJBWHVmZi1PWnl3SzAya2lheU1Va0NPM2ZXcldjNElmY1JWNzlTYlR0R2lacGs5MXN3WlVqZjdvQVZxaGtWSTV3d19MYllxN2Z3Z1h4QnVYX2lvMGlEdlYwWTBEZVBwQVU2SnBXd3FrMk1XaVlsNFVkTkFucnZ4VUtCUVI1a1hES2FuQW1Yem1XaWhBTVZqY3JtX0FGZnZxUDdYRU9uWWVj?oc=5",
+      "collectedAt": "2026-11-20T21:41:28",
+      "verdict": "cyber",
+      "categorie": "thematique",
+      "motif": "Séance de sensibilisation à la cybercriminalité — Mourenx"
+    },
+    {
+      "id": 24266,
+      "sourceId": "gn-40",
+      "titreVerbatim": "La préfecture des Landes également touchée par une alerte de cybersécurité après la détection d’une faille de sécurité - Actu.fr",
+      "url": "https://news.google.com/rss/articles/CBMilwJBVV95cUxQMnk0S1lQenJVbFRrc3E1WDU3eU5mOFFwV0NYM1Q0dkNJbHc1MXIyVmFYR0h0dHZFWDAzWm5pZ0FQd0wzWTBZMHBNQ0d5ZmF5Y1NFV21uTl9LMUZZMmt5eVlpVmZuaGdBeTEyX1ZURnViY0xYSzIyYjc3UWtuaDNwRkgxSFktT01qYklPZElUZ1lxQ0pJQ0djT2NpR2s4SlVod0Q0UlN5ZnBEdGg4eVg5bUhuQUgxbVJsTXFERVZoZEtDQUdYdkNrOUNKY21lRnVHLU9uVnhIQ0Zxc1NzSmtIaUlzdmtOcHBTV2VzOXBXdExTZEpfY0gyQWtxczVGamlmeGx5Z1RUcG52R0MwN0kyeWxXb2FGOGM?oc=5",
+      "collectedAt": "2026-11-15T20:54:36",
+      "verdict": "cyber",
+      "categorie": "incident",
+      "motif": "Alerte cybersécurité réelle — préfecture des Landes"
+    },
+    {
+      "id": 24395,
+      "sourceId": "gn-mairie-cyber",
+      "titreVerbatim": "Le géant français de l'affichage publicitaire Next One paralysé par une cyberattaque - French Breaches",
+      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOY0trQkVzX3g3UGJBTTZsTDJTb2tTM1dSdWlRUXdBZW5YQ1RNRjFTN3JrMzJCQ0tHTXA4amh2c3I1a0lMeldjVk5CdFdCM29sVlIxbDgzdXFTa0czaVIyZWt2ZEtBUjB0cF9DTlAwNU0yTFJxVHlzclBuaHJNYlplVWFIYkpEbUNOR2ZKaVhBcjdOQ291UUVaenpwVmlVSmNkaVFGdnBHU3d2TkVaRnNldTZ5aWJMQQ?oc=5",
+      "collectedAt": "2026-11-15T20:54:39",
+      "verdict": "cyber",
+      "categorie": "incident",
+      "motif": "Cyberattaque réelle — Next One paralysé"
+    },
+    {
+      "id": 24296,
+      "sourceId": "gn-17",
+      "titreVerbatim": "Cyberattaque des frigos de supermarchés en Europe : pour le géant de la distribution Ahold Delhaize, l’incident va coûter jusqu’à 250 millions d’euros de chiffre d’affaires - Sud Ouest",
+      "url": "https://news.google.com/rss/articles/CBMiuwJBVV95cUxNamVPNWpLb3hLZlN0YldXTHkxRlhjWnpoUVhqTEtoSXM0S2c4dWZkaUxuMlpDR001QzQ2dlQzSm9KbXNoQ01rNnpjY1pMUFBiaHA1eTlaX3NZSnJUbzVBNkdyN3VzbTdIR0Z5STk3NF9HZHVSQmYtX0IzcFJHbzEwVUhxRk0xZjlYUXlFS0Y0SFJzbDBkZ2dMYXd0cDVNVDEzMGdMWmJuTUw3Q2dvejN2YmswOVRFcHJxMFRVdWJLdW9EMFFfMlM0RXBEYVZ3Z2FpamplZ3hXZFoxMXViS3FvV2VrS2JVWUlXMVhTeWoxTVl6NzdiQVlMSDBHVVlBR0t4Ymk4MkdYUV9sQlZwcWxpc1k2ck1Lajd4SU1QbmpjcEFHemlKaFdTVjNRSVBLQmNjSHZEbGZOaXhPZmM?oc=5",
+      "collectedAt": "2026-11-15T20:54:36",
+      "verdict": "cyber",
+      "categorie": "incident",
+      "motif": "Cyberattaque réelle — Ahold Delhaize, 250 M€ de CA"
+    },
+    {
+      "id": 24243,
+      "sourceId": "gn-17",
+      "titreVerbatim": "« Des tentatives de piratage tous les jours » : d’une enquête locale à une traque internationale, une entreprise de Lot-et-Garonne victime de malveillance témoigne dans un documentaire choc - Sud Ouest",
+      "url": "https://news.google.com/rss/articles/CBMi4AJBVV95cUxOMjJ4UnpnZnRNN3BLNHIwZGtDOXBwZW41YkxGeW5wMU5hdTM5VjAwTnlnaXlJVXJZT0tOSlFLSlIxLTZOeE5Yd3JmYmt0a2k3elVkNkE1bFdjeXVqOWIwRzh4YjdwenNfLTY1ZDNSQnFvOWgtbDRjQm9VeS0yVE5oVU9qelo3VkxLdlVDOTZZVm8xX2l3UDhTWTNlM0NWVVRRZzhvNU5vZXdNZWlWQnRUTVEwcXgzSEFNUEwxOHktSXo0MVdTZEtmTmxvUVMtQ3YxYjJIRElXVWZ3TUpuY0dpbmFxbWwxdjk3NTl6ZnpIbTFONGdsTm9hRDd0eG1LZWR2b0hGOEQxS2szemR1VkpqQzFGamNkRWdtRlNxUVFEVDFycGxVTG5QQ0U0WklqSWMzc1p2YTVnRHpFLVBUWnNQclNpNG90SGxmV3pUbW9vN2RDOEZNZEVBSk5QRkQ2RGRF?oc=5",
+      "collectedAt": "2026-11-15T20:54:36",
+      "verdict": "cyber",
+      "categorie": "thematique",
+      "motif": "Témoignage documentaire d'une entreprise victime de tentatives de piratage"
+    },
+    {
+      "id": 24251,
+      "sourceId": "gn-17",
+      "titreVerbatim": "Cyberattaque : Crédit Mutuel Arkéa affirme avoir récupéré une partie des 100 millions d’euros dérobés - Sud Ouest",
+      "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxNNGpOcUNYZEFYcGVaVGRWYjQ3bHJpcFJiY2RvSjN6T05PVy1VV1dQQUZhZ1dRZHo0SmRBaGRELTIyeTZBdDNsS3JTZk1RM1hubjlMVEdnVWZEVGJhTEpwT2EtYWJ0OFgxU3Eya0g3cE8tVG9WOFpQS2lycm9vY1lDcGFZWU9ZRUZ0ay10cUlqc0R3VkFYejI0WmxIOFRDQWktR2ZOdnVsOVNNM0xScy1UeS0wYnZLY3BDdWdaa1M5WjdEVDlPQXh6M3JxSHhXN1hVbFZHX2RyN05iakJqQVE?oc=5",
+      "collectedAt": "2026-11-15T20:54:36",
+      "verdict": "cyber",
+      "categorie": "incident",
+      "motif": "Cyberattaque réelle — Crédit Mutuel Arkéa, 100 M€ dérobés"
+    },
+    {
+      "id": 24307,
+      "sourceId": "gn-16",
+      "titreVerbatim": "De -30 à 110 degrés : les frigos du don du sang ciblés par une cyberattaque - Charente Libre",
+      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxORW85aWd2ZndNNWs4VkRJX3lYVktCa0JrbXlPTzgxS0Z4NERXQTBmUmNwRERkLVZvUE9nMGtFVnllRDg1UGlyOVhuOHREd0pOaXNHOTVJX3dvYzVXTnRJYUduOEdVam0ySFQxcUIzLUxranp4b1BTaDRGVHJMRS1NWEFRV0txbGFHWW8wOWVkb3hUS2dWZmg2YkdxY3NEU1BGTnpJckwwZGJXQktZUHRVUTZqRUc4aTRsb1FlOA?oc=5",
+      "collectedAt": "2026-11-15T20:54:36",
+      "verdict": "cyber",
+      "categorie": "incident",
+      "motif": "Cyberattaque réelle — frigos du don du sang"
+    }
+  ],
+  "observations": [
+    "Les 15 sources déclarées family='presse' (presse-01net, presse-lemonde-tech, …) sont stériles : classifyFamily retourne sourceFamily='presse' dans ses deux branches (texte cyber ou non), et generic.ts rejette toute famille 'presse'. Un article réellement cyber publié par ces sources est perdu à l'entrée.",
+    "Le compteur de rejet 'presse' depuis le 14 nov (53 627 sur 699 runs) est dominé par des sources non-presse : leak:ransomwatch:posts (37 941 rejets, 0 événement admis depuis toujours — ses titres de revendications NOM$CA\\Pays\\Taille ne contiennent aucun terme cyber), leak:ransomware-live:recent-rss (2 789), leak:ddosecrets:rss (2 721), cat-ncsc-nl-news (2 090). Le rejet 'presse' n'est donc pas un volume de presse. Les revendications vivent par ailleurs dans quarantine_raw (ransomware.live frais du 20 nov).",
+    "Les URLs des événements Google News sont des liens de redirection ?oc=5 vers news.google.com, pas vers l'article source — limite connue de la preuve pour ce fil."
+  ],
+  "limites": "Verdict porté sur titre + résumé Google News, sans ouverture de l'article source : c'est la même base d'information que celle du classificateur, c'est donc bien sa précision qui est mesurée, pas celle du contenu complet."
+}

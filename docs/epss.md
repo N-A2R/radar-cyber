@@ -3,22 +3,49 @@
 **Source** : API publique FIRST, sans clé ni quota déclaré —
 `https://api.first.org/data/v1/epss`. Pagination `limit`/`offset` (plafond `limit=10000`,
 vérifié : demander 100 001 rend `limit:10000`), `total` annoncé à 402 773 lignes le
-2026-11-10. Filtres `?cve=CVE-…,…` et `?date=AAAA-MM-JJ` également disponibles.
+2026-11-10, 410 485 lignes le 2026-11-20. Filtres `?cve=CVE-…,…` et `?date=AAAA-MM-JJ`
+également disponibles.
 
-**Rafraîchissement** : `apps/api/node_modules/.bin/tsx scripts/refresh-epss.mts --apply` (dry-run par défaut). 1 requête/s maximum, `User-Agent` explicite
-(`radar-cyber-epss/1.0`). Fréquence recommandée : **quotidienne**, après la publication FIRST (~13 h Paris) ; relancer est idempotent (upsert sur `dedup_key`).
+**Rafraîchissement** : `apps/api/node_modules/.bin/tsx scripts/refresh-epss.mts --apply`
+(dry-run par défaut), avec `DATABASE_URL` exportée explicitement — le défaut de
+`apps/api/src/db.ts` pointe sur 5432, alors que la base de dev Docker écoute sur 5433.
+1 requête/s maximum, `User-Agent` explicite (`radar-cyber-epss/1.0`). Fréquence
+recommandée : **quotidienne**, après la publication FIRST (~13 h Paris) ; relancer est
+idempotent (upsert sur `cve`). Durée mesurée : ~163 s pour les 42 pages du dump complet.
 
-**Où vont les scores** : uniquement dans `event`, en lignes de source `epss`, au format du
-collecteur (`dedup_key = epss:<CVE>`, titre `CVE-AAAA-N — EPSS x`,
-`evidence->>'epss'` = score). C'est la seule table lue par `loadCoverageContext()`
-(`collectors/generic.ts`) donc la seule façon d'alimenter `admitByEpss`. Seules les CVE
-déjà suivies (`indicator`, `event`, `org_alias`) avec score ≥ 0,10
-(`EPSS_ADMISSION_THRESHOLD`) sont écrites : en dessous, un score ne peut jamais admettre.
-`db/migrate-020-epss.sql` n'ajoute donc aucune table, seulement l'index partiel
-`event(source_id) WHERE source_id = 'epss'`.
+**Où vont les scores** : dans la table dédiée `epss` (migration 021 : `cve` PK, `score`,
+`percentile`, `updated_at`), une ligne par CVE, mise à jour en place, **aucun
+événement**. La règle d'admission `admitByEpss` (`collectors/relevance.ts`) lit la table
+via `SELECT cve, score FROM epss WHERE score >= $1` (`collectors/generic.ts`), au seuil
+`EPSS_ADMISSION_THRESHOLD` = 0,3. Le dump complet est chargé (~410 000 lignes) ; le
+filtrage se fait à la lecture, pas à l'écriture. Avant la migration 021, les scores
+vivaient dans `event` (source `epss`) : historique du 2026-11-10 ci-dessous, conservé
+tel que mesuré à l'époque.
 
-**Effet mesuré** (2026-11-10) : 402 773 lignes téléchargées, **3 731 retenues sur 3 929
-CVE suivies (95 %)**, **2 734 scores réels écrits**. Sur `feed:ecrimelabs`
-(3 267 items CVE), les items passant `admitByEpss` tombent de **0 → 2 681** : la règle
-d'admission n'est plus inerte. Les 100 lignes de test `CVE-2026-99xx` restent en base
-(signalées, non supprimées) ; elles ne recoupent aucun item réel.
+**Effet mesuré** (2026-11-10, comportement `event` d'alors) : 402 773 lignes
+téléchargées, **3 731 retenues sur 3 929 CVE suivies (95 %)**, **2 734 scores réels
+écrits**. Sur `feed:ecrimelabs` (3 267 items CVE), les items passant `admitByEpss`
+tombent de **0 → 2 681** : la règle d'admission n'est plus inerte.
+
+## 2026-11-20 — refresh réel après le trou de collecte du 17-20 nov
+
+Avant/après mesurés par requêtes reproductibles (voir plus bas) :
+
+- **Avant** : 196 lignes dans `epss`, toutes des lignes de test `CVE-2026-99xx` —
+  **aucun score réel** : la table n'avait jamais reçu le dump depuis la migration 021.
+  0 ligne > 0,30. Le `max(updated_at)` affiché (17 h 56 du jour) venait du ré-upsert
+  des lignes de test par la suite de tests API, pas d'un vrai refresh.
+- **Refresh** : 42 pages, 410 485 CVE téléchargées (total API annoncé : 410 485),
+  163 s, 410 289 nouvelles lignes écrites.
+- **Après** : 410 485 lignes, `max(updated_at)` 18 h 23, **7 189 lignes avec
+  score > 0,30** (7 190 à `>= 0,30`).
+- Les lignes de test `CVE-2026-99xx` : la plage recoupe désormais 896 entrées réelles
+  du dump (des CVE-2026-99xx existent bel et bien). Aucune entrée de cette plage ne
+  dépasse 0,3 : aucune admission parasite via les anciennes données de test.
+
+Requêtes de vérification :
+
+```sql
+SELECT count(*), max(updated_at) FROM epss;
+SELECT count(*) FROM epss WHERE score > 0.30;
+```

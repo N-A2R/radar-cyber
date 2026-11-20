@@ -31,7 +31,9 @@ export type JournalKind =
 	/** Une source a changé d'état (cassée, réparée, désactivée). */
 	| "source.changed"
 	/** Un fait visé n'a pas pu être écrit : le journal se souvient du trou. */
-	| "journal.lacune";
+	| "journal.lacune"
+	/** Un lot d'événements a été retiré de la table de lecture — jamais sans archive. */
+	| "event.purge";
 
 export type JournalEntry = {
 	kind: JournalKind;

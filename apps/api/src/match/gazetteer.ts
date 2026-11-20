@@ -163,6 +163,21 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 	const roleKeys = new Set<string>();
 	const lieuKeys = new Set<string>();
 	const lieuTokens = new Set<string>();
+
+	// Pré-passe : deux jugements se prennent sur l'ensemble des lignes, pas
+	// ligne par ligne — combien d'organisations portent cette clé d'alias, et
+	// lesquelles de ces clés sont le nom d'un territoire du référentiel.
+	const orgsParCle = new Map<string, Set<number>>();
+	const clesTerritoire = new Set<string>();
+	for (const row of rows) {
+		const jetons = normaliser(row.alias);
+		if (jetons.length === 0) continue;
+		const cle = jetons.join(" ");
+		const porteurs = orgsParCle.get(cle) ?? new Set<number>();
+		porteurs.add(row.org_id);
+		orgsParCle.set(cle, porteurs);
+		if (TERRITOIRES.has(row.sector ?? "")) clesTerritoire.add(cle);
+	}
 	const roleTokens = new Set<string>();
 	const orgsByToken = new Map<string, Set<number>>();
 	const orgsById = new Map<number, GazetteerOrg>();
@@ -201,7 +216,24 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 		const lieu = nomDeLieu(jetons);
 		// Un alias d'un seul jeton sans rôle est un nom de lieu, pas une
 		// organisation : il n'entre pas dans l'index de décision.
-		if (!role && lieu.split(" ").length < 2) continue;
+		//
+		// Sauf s'il ne désigne qu'**une** organisation du référentiel et qu'il
+		// n'est le nom d'aucun territoire. « Ymed », « Weda », « Cdiscount »
+		// sont des marques, pas des communes — les exclure rendait la mesure
+		// muette sur cinq incidents où l'organisation est pourtant en base.
+		// « Intermarché » (182 porteurs) et « Orange » (54) restent dehors :
+		// leur ambiguïté est réelle, pas un défaut de la garde.
+		if (!role && lieu.split(" ").length < 2) {
+			const unique = orgsParCle.get(cle)?.size === 1;
+			// Seule une source qui *nomme* l'organisation peut trancher sur un mot
+			// seul : alias posés à la main (`usage`) ou annuaire officiel des
+			// entreprises. Les alias dérivés en masse sont des fragments de
+			// raison sociale — « clair », « personnelles » sont uniques dans
+			// l'index et pourtant des mots ordinaires : mesuré le 2026-11-17,
+			// ils ont fabriqué trois faux positifs d'un coup.
+			const sourceNommeuse = row.source === "usage" || row.source === "annuaire-entreprises";
+			if (!unique || clesTerritoire.has(cle) || row.kind === "collectivite" || !sourceNommeuse) continue;
+		}
 
 		// Garde anti-toponyme : un alias qui est exactement le nom d'un
 		// département désigne le département, jamais l'organisation qui le

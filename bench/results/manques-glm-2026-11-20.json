@@ -1,0 +1,444 @@
+{
+  "date": "2026-11-20",
+  "source": "bench/results/manques-referentiel-2026-11-15.json",
+  "methode": "registre SIRENE (recherche-entreprises.api.gouv.fr, sans clé) + lecture du site de l'entité quand la revendication porte un domaine ; SIREN jamais inventé, recoupé avec le registre ; entités cessées cherchées aussi",
+  "confiances": "haute = SIREN/RCS ou dénomination publiés par le site de l'entité ; moyenne = dénomination exacte au registre ; faible = à un jeton près, à revoir avant chargement",
+  "cohorte": {
+    "zone": "france",
+    "total": 199,
+    "traitees": 10
+  },
+  "resolution": {
+    "resolues": 8,
+    "taux": "8/10",
+    "parConfiance": {
+      "haute": 5,
+      "moyenne": 2,
+      "faible": 1
+    },
+    "nonResolues": [
+      "adveo.com",
+      "Gloria Cales"
+    ]
+  },
+  "manques": [
+    {
+      "nom": "adveo.com\\$740.7M\\France\\1.1TB\\<1% DISCLOSED",
+      "occurrences": 4,
+      "zone": "france",
+      "nomLisible": "adveo.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-12-23",
+      "derniereVue": "2025-01-13",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": false,
+      "confiance": null,
+      "siren": null,
+      "siretSiege": null,
+      "denominationLegale": null,
+      "ville": null,
+      "departement": null,
+      "natureJuridique": null,
+      "typeOrganisation": null,
+      "etatAdministratif": null,
+      "adresseSiege": null,
+      "raison": "2 dénominations à un jeton près : 538851205, 922423538 — arbitrage humain requis",
+      "requetes": [
+        "adveo"
+      ],
+      "preuves": [
+        {
+          "voie": "site-entite",
+          "url": "https://www.comlandi.fr/",
+          "extrait": "HTTP 200, titre « Page Redirection » — marque absente du texte",
+          "dateConsultation": "2026-11-20"
+        },
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=adveo",
+          "extrait": "538851205 ADVEO FRANCE (actif, DAMMARTIN-EN-GOELE) ; 922423538 ADVEO RETAIL (actif, DAMMARTIN-EN-GOELE) ; 913870630 AARPI ADVEO AVOCATS (actif, BORDEAUX) ; 840823298 ADVEOS CONSULTING (cessé, LYON 2EME) ; 985181643 ADVEO CONSEIL (ADVEO CONSEILS) (cessé, EYSINES)",
+          "dateConsultation": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "nom": "demos.fr\\$37.5M\\France\\870GB\\100% DISCLOSED",
+      "occurrences": 4,
+      "zone": "france",
+      "nomLisible": "demos.fr",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-07-30",
+      "derniereVue": "2024-08-08",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": true,
+      "confiance": "haute",
+      "siren": "722030277",
+      "siretSiege": "72203027700320",
+      "denominationLegale": "DEMOS (DEMOS TRAINING)",
+      "ville": "PUTEAUX",
+      "departement": "92",
+      "natureJuridique": "5599",
+      "typeOrganisation": "entreprise",
+      "etatAdministratif": "A",
+      "adresseSiege": "7 COURS VALMY 92800 PUTEAUX",
+      "raison": "SIREN publié par le site (s Mentions légales et protection des données MENTIONS LEGALES Éditeur DEMOS Société Anonyme au capital de 14 165 749 €. 722 030 277 RCS Nant) et confirmé au registre",
+      "requetes": [
+        "demos"
+      ],
+      "preuves": [
+        {
+          "voie": "site-entite",
+          "url": "https://www.demos.fr/mentions-legales/",
+          "extrait": "s Mentions légales et protection des données MENTIONS LEGALES Éditeur DEMOS Société Anonyme au capital de 14 165 749 €. 722 030 277 RCS Nanterre Spaces Valmy, 1-7 Cours Valmy 92800 Puteaux Tél. : 01 44 94 34 34 email : contact@demos.fr TVA intracommun",
+          "dateConsultation": "2026-11-20"
+        },
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=722030277",
+          "extrait": "344328174 DEMOS (actif, VENCE) ; 384322905 DEMOS (actif, PARIS) ; 399853761 DEMOS (actif, VILLERVILLE) ; 809411432 DEMOS (actif, SAINT-JULIEN) ; 885409755 DEMOS (actif, SAINT-FERREOL) ; 902344779 DEMOS (actif, SAINT-DENIS) ; 992711838 DEMOS (actif, PARIS) ; 999111776 DEMOS (actif, BOUGUENAIS) ; 305720146 DEMOS (cessé, ALES) ; 849450911 DEMOS (cessé, LAMBERSART) ; 908510456 DEMOS (cessé, PESSAC) ; ",
+          "dateConsultation": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "nom": "lumiplan.com\\$49.2M\\France\\652GB\\&lt;1% DISCLOSED",
+      "occurrences": 4,
+      "zone": "france",
+      "nomLisible": "lumiplan.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-11-01",
+      "derniereVue": "2024-11-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": true,
+      "confiance": "haute",
+      "siren": "402205199",
+      "siretSiege": "40220519900027",
+      "denominationLegale": "LUMIPLAN",
+      "ville": "SAINT-HERBLAIN",
+      "departement": "44",
+      "natureJuridique": "5710",
+      "typeOrganisation": "entreprise",
+      "etatAdministratif": "C",
+      "adresseSiege": "PARC D ACT DU MOULIN NEUF 1 IMPASSE AUGUSTIN FRESNEL 44800 SAINT-HERBLAIN",
+      "raison": "SIREN publié par le site (édité par la société LUMIPLAN, société par actions simplifiée à associé unique au capital de 1 065 696,00 € (RCS Nantes 402 205 199), dont l) et confirmé au registre",
+      "requetes": [
+        "lumiplan"
+      ],
+      "preuves": [
+        {
+          "voie": "site-entite",
+          "url": "https://www.lumiplan.com/mentions-legales",
+          "extrait": "édité par la société LUMIPLAN, société par actions simplifiée à associé unique au capital de 1 065 696,00 € (RCS Nantes 402 205 199), dont le siège social est situé 1 Impasse Augustin Fresnel à SAINT HERBLAIN (44800) (ci-après désignée comme « LUMIPLA",
+          "dateConsultation": "2026-11-20"
+        },
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=402205199",
+          "extrait": "951323997 LUMIPLAN (actif, SAINT-HERBLAIN) ; 402205199 LUMIPLAN (cessé, SAINT-HERBLAIN) ; 073500605 LUMIPLAN DUHAMEL (actif, LE VERSOUD) ; 305165532 LUMIPLAN VILLE (actif, SAINT-HERBLAIN) ; 325230308 LUMIPLAN TRANSPORT (actif, SAINT-HERBLAIN) ; 432911469 LUMIPLAN MONTAGNE (actif, SAINT-HERBLAIN) ; 837470509 LUMIPLAN HOLDING (actif, SAINT-HERBLAIN)",
+          "dateConsultation": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "nom": "millimages.com\\$12.6M\\France\\147GB\\100% DISCLOSED",
+      "occurrences": 4,
+      "zone": "france",
+      "nomLisible": "millimages.com",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-06-23",
+      "derniereVue": "2024-07-08",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": true,
+      "confiance": "haute",
+      "siren": "382954279",
+      "siretSiege": "38295427900040",
+      "denominationLegale": "MILLIMAGES",
+      "ville": "PARIS",
+      "departement": "75",
+      "natureJuridique": "5599",
+      "typeOrganisation": "entreprise",
+      "etatAdministratif": "A",
+      "adresseSiege": "88 RUE DE LA FOLIE-MERICOURT 75011 PARIS",
+      "raison": "dénomination publiée sur le site du domaine de la revendication, confirmée au registre",
+      "requetes": [
+        "millimages"
+      ],
+      "preuves": [
+        {
+          "voie": "site-entite",
+          "url": "https://millimages.com/",
+          "extrait": "HTTP 200, titre « Millimages | From sketch to global family entertainment » — extrait : « Millimages | From sketch to global family entertainment Home Programs Team About Us Home P »",
+          "dateConsultation": "2026-11-20"
+        },
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=millimages",
+          "extrait": "382954279 MILLIMAGES (actif, PARIS) ; 434008660 MILLIMAGES ONLINE (cessé, PARIS 11) ; 437858699 MILLIMAGES LICENCES (cessé, PARIS 11)",
+          "dateConsultation": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "nom": "Universite Paris Sud",
+      "occurrences": 4,
+      "zone": "france",
+      "nomLisible": "Universite Paris Sud",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-09",
+      "derniereVue": "2024-10-29",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": true,
+      "confiance": "faible",
+      "siren": "199111014",
+      "siretSiege": "19911101400015",
+      "denominationLegale": "UNIVERSITE DE PARIS XI PARIS SUD",
+      "ville": "ORSAY",
+      "departement": "91",
+      "natureJuridique": "7383",
+      "typeOrganisation": "etablissement_public",
+      "etatAdministratif": "C",
+      "adresseSiege": "15 RUE GEORGES CLEMENCEAU 91400 ORSAY",
+      "raison": "dénomination à un jeton près (jeton superflu : xi) — à revoir avant chargement",
+      "requetes": [
+        "Universite Paris Sud"
+      ],
+      "preuves": [
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=Universite%20Paris%20Sud",
+          "extrait": "199111014 UNIVERSITE DE PARIS XI PARIS SUD (cessé, ORSAY) ; 378485379 PARIS SUD UNIVERSITE CLUB (PSUC) (actif, ORSAY) ; 789632429 JARDIND PARTAGES UNIVERSITE PARIS SUD (actif, ORSAY) ; 801688672 ASSOCIATION DES GEOLOGUES DE L'UNIVERSITE DE PARIS SUD (A.G.U.P.S.) (actif, ORSAY) ; 893204255 ASSOCIATION DES PENALISTES DE L'UNIVERSITE PARIS-SUD (actif, SCEAUX) ; 808102925 P-CUPS (PHOTO-CLUB DE L'UNIVE",
+          "dateConsultation": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "nom": "Gloria Cales",
+      "occurrences": 2,
+      "zone": "france",
+      "nomLisible": "Gloria Cales",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-03-18",
+      "derniereVue": "2025-03-18",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": false,
+      "confiance": null,
+      "siren": null,
+      "siretSiege": null,
+      "denominationLegale": null,
+      "ville": null,
+      "departement": null,
+      "natureJuridique": null,
+      "typeOrganisation": null,
+      "etatAdministratif": null,
+      "adresseSiege": null,
+      "raison": "aucune entité correspondante au registre (actifs et cessés)",
+      "requetes": [
+        "Gloria Cales"
+      ],
+      "preuves": [
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=Gloria%20Cales",
+          "extrait": "aucun résultat pertinent pour « Gloria Cales » (actifs et cessés)",
+          "dateConsultation": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "nom": "Royal Glass",
+      "occurrences": 2,
+      "zone": "france",
+      "nomLisible": "Royal Glass",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2025-04-04",
+      "derniereVue": "2025-04-04",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": true,
+      "confiance": "moyenne",
+      "siren": "907685325",
+      "siretSiege": "90768532500017",
+      "denominationLegale": "ROYAL GLASS",
+      "ville": "PARIS",
+      "departement": "75",
+      "natureJuridique": "5710",
+      "typeOrganisation": "entreprise",
+      "etatAdministratif": "A",
+      "adresseSiege": "128 RUE LA BOETIE 75008 PARIS",
+      "raison": "dénomination exacte et unique au registre ; la revendication ne porte pas de domaine",
+      "requetes": [
+        "Royal Glass"
+      ],
+      "preuves": [
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=Royal%20Glass",
+          "extrait": "907685325 ROYAL GLASS (actif, PARIS) ; 928726033 ROYAL GLASS PLUS (actif, CHATENOY-LE-ROYAL)",
+          "dateConsultation": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "nom": "semna.fr",
+      "occurrences": 2,
+      "zone": "france",
+      "nomLisible": "semna.fr",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-10-22",
+      "derniereVue": "2024-10-22",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": true,
+      "confiance": "haute",
+      "siren": "333502391",
+      "siretSiege": "33350239100019",
+      "denominationLegale": "ECONOMIE MIXTE AMENAGEM GESTION NANTERRE (SEMNA)",
+      "ville": "NANTERRE",
+      "departement": "92",
+      "natureJuridique": "5515",
+      "typeOrganisation": "entreprise",
+      "etatAdministratif": "A",
+      "adresseSiege": "088 A 118 88 RUE DU 8 MAI 1945 92000 NANTERRE",
+      "raison": "dénomination publiée sur le site du domaine de la revendication, confirmée au registre",
+      "requetes": [
+        "semna"
+      ],
+      "preuves": [
+        {
+          "voie": "site-entite",
+          "url": "https://semna.fr/",
+          "extrait": "HTTP 200, titre « SEMNA &#8211; AU CŒUR DE NOTRE MÉTIER, LA VILLE » — extrait : « SEMNA AU CŒUR DE NOTRE MÉTIER, LA VILLE X Les Sociétés Actionnariat Semna ACTIONNARIA »",
+          "dateConsultation": "2026-11-20"
+        },
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=semna",
+          "extrait": "333502391 ECONOMIE MIXTE AMENAGEM GESTION NANTERRE (SEMNA) (actif, NANTERRE) ; 307116384 SEMNAS STE EXPL MAG NETTO (cessé, OSTWALD)",
+          "dateConsultation": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "nom": "www.normandydiesel.fr",
+      "occurrences": 2,
+      "zone": "france",
+      "nomLisible": "www.normandydiesel.fr",
+      "provenance": "revendication",
+      "sources": 2,
+      "premiereVue": "2024-08-02",
+      "derniereVue": "2024-08-02",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": true,
+      "confiance": "moyenne",
+      "siren": "301188736",
+      "siretSiege": "30118873600021",
+      "denominationLegale": "NORMANDY DIESEL",
+      "ville": "SAINT-ETIENNE-DU-ROUVRAY",
+      "departement": "76",
+      "natureJuridique": "5710",
+      "typeOrganisation": "entreprise",
+      "etatAdministratif": "A",
+      "adresseSiege": "BD LENINE 76800 SAINT-ETIENNE-DU-ROUVRAY",
+      "raison": "dénomination exacte au registre ; site mort ou en parking sans dénomination ni SIREN publiés — la marque coïncide avec le domaine",
+      "requetes": [
+        "normandydiesel",
+        "nor mandydiesel",
+        "norm andydiesel",
+        "norma ndydiesel",
+        "norman dydiesel",
+        "normand ydiesel",
+        "normandy diesel"
+      ],
+      "preuves": [
+        {
+          "voie": "site-entite",
+          "url": "https://normandydiesel.fr/",
+          "extrait": "site inaccessible (TypeError: fetch failed)",
+          "dateConsultation": "2026-11-20"
+        },
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=normandydiesel",
+          "extrait": "301188736 NORMANDY DIESEL (actif, SAINT-ETIENNE-DU-ROUVRAY) ; 433896636 NORMANDY DIESEL 27 (actif, SAINT-ETIENNE-DU-ROUVRAY) ; 529205726 NORMANDY DIESEL DIEPPE (actif, SAINT-ETIENNE-DU-ROUVRAY) ; 451142483 NORMANDY DIESEL SERVICES (cessé, SAINT-ETIENNE-DU-ROUVRAY)",
+          "dateConsultation": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "nom": "iseta.fr",
+      "occurrences": 2,
+      "zone": "france",
+      "nomLisible": "iseta.fr",
+      "provenance": "revendication",
+      "sources": 1,
+      "premiereVue": "2024-06-18",
+      "derniereVue": "2024-06-28",
+      "familles": [
+        "ransomware"
+      ],
+      "voie": "manuel",
+      "resolu": true,
+      "confiance": "haute",
+      "siren": "776603060",
+      "siretSiege": "77660306000018",
+      "denominationLegale": "ISETA - ECA (ISETA - ECA)",
+      "ville": "POISY",
+      "departement": "74",
+      "natureJuridique": "9220",
+      "typeOrganisation": "association",
+      "etatAdministratif": "A",
+      "adresseSiege": "ECOLE D'AGRICULTURE DE POISY 859 ROUTE DE L'ECOLE D'AGRICULTURE 74330 POISY",
+      "raison": "SIREN publié par le site (e d’Agriculture CS 10039 74331 POISY Cedex Téléphone : 04 50 46 20 26 Email : contact@iseta-eca.cneap.fr Numéro SIRET : 776 603 060 00018 Di) et confirmé au registre",
+      "requetes": [
+        "iseta"
+      ],
+      "preuves": [
+        {
+          "voie": "site-entite",
+          "url": "https://iseta.fr/mentions-legales/",
+          "extrait": "e d’Agriculture CS 10039 74331 POISY Cedex Téléphone : 04 50 46 20 26 Email : contact@iseta-eca.cneap.fr Numéro SIRET : 776 603 060 00018 Directeur de la publication : Vincent Vandenbroucke Hébergeur du site : OVH – 2 rue Kellermann 59100 Roubaix 1007",
+          "dateConsultation": "2026-11-20"
+        },
+        {
+          "voie": "registre-sirene",
+          "url": "https://recherche-entreprises.api.gouv.fr/search?q=776603060",
+          "extrait": "413076332 ISETA (actif, LA BROQUE) ; 401706593 ISETA (cessé, BAYONNE) ; 776603060 ISETA - ECA (ISETA - ECA) (actif, POISY)",
+          "dateConsultation": "2026-11-20"
+        }
+      ]
+    }
+  ]
+}

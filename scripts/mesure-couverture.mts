@@ -64,6 +64,79 @@ type Motif = "vu" | "pas_admis" | "pas_rattache" | "hors_fenetre";
  */
 type Cause = "au_referentiel_mais_non_reconnu" | "absent_du_referentiel" | null;
 
+/**
+ * Niveau du rattachement pour un « vu ».
+ *
+ * Un incident « Intermarché de Gradignan » rattaché à la commune de La Teste
+ * de Buch comptait comme vu : le taux s'en trouvait gonflé par des
+ * rattachements qui ne désignent pas la bonne organisation. Le taux brut ne
+ * vaut que si l'on publie, à côté, combien de ces rattachements sont au bon
+ * niveau.
+ */
+type Qualite = "exacte" | "partielle" | "hors_sujet";
+
+/** Mots qui ne distinguent aucune organisation : ils ne comptent pas. */
+const MOTS_GENERIQUES = new Set([
+	"mairie", "ville", "commune", "conseil", "general", "regionale", "region",
+	"departement", "departemental", "office", "national", "nationale", "federation",
+	"association", "groupement", "societe", "groupe", "service", "services",
+	"magasin", "magasins", "supermarche", "supermarches", "hypermarche", "enseigne",
+	"etablissement", "etablissements", "centre", "centres", "reseau", "editeur",
+	"logiciel", "plateforme", "france", "francais", "francaise", "des", "les", "aux",
+]);
+
+/** Minuscules, sans accents, ponctuation réduite à des espaces. */
+function normaliserPhrase(texte: string): string {
+	return texte
+		.toLowerCase()
+		.normalize("NFD")
+		.replace(/\p{Diacritic}/gu, "")
+		.replace(/[^a-z0-9]+/g, " ")
+		.trim();
+}
+
+function motsDiscriminants(texte: string): string[] {
+	return texte
+		.normalize("NFD")
+		.replace(/[\u0300-\u036f]/g, "")
+		.toLowerCase()
+		.split(/[^a-z0-9]+/)
+		.filter((mot) => mot.length >= 4 && !MOTS_GENERIQUES.has(mot));
+}
+
+/**
+ * Compare l'organisation attendue et celle qui a été trouvée.
+ *
+ * - `exacte` : le nom trouvé est celui attendu (ou son début) ;
+ * - `partielle` : le nom trouvé est une enseigne citée dans l'attendu, mais pas
+ *   l'établissement — « Hyper U » pour « Supermarchés des Deux-Sèvres (Hyper U
+ *   Parthenay) » ;
+ * - `hors_sujet` : aucun mot discriminant commun (« la teste de buch » pour
+ *   « Intermarché de Gradignan, Parempuyre, Macau »).
+ */
+function qualiteRattachement(attendu: string, trouve: string): Qualite | null {
+	if (!trouve) return null;
+	const a = motsDiscriminants(attendu);
+	const t = motsDiscriminants(trouve);
+	if (t.length === 0) return "partielle";
+	const toutPresents = t.every((mot) => a.includes(mot));
+	if (!toutPresents) {
+		// Le nom attendu peut être collé (« FFRandonnée ») quand le trouvé est
+		// développé (« Fédération française de la randonnée pédestre ») : le
+		// sigle dit que c'est la même organisation. Faux positif de mesure, pas
+		// de rattachement.
+		const sigle = t.map((mot) => mot[0]).join("");
+		const sigleReconnu = sigle.length >= 3 && a.some((mot) => mot.startsWith(sigle) || sigle.startsWith(mot));
+		return sigleReconnu ? "partielle" : "hors_sujet";
+	}
+	// La phrase trouvée préfixe celle de l'attendu : « ville de gradignan »
+	// pour « Ville de Gradignan — police municipale ». Les mots en plus
+	// décrivent l'incident, pas une autre organisation.
+	const prefixe = a.slice(0, t.length).every((mot, i) => mot === t[i]);
+	if (prefixe || t.length === a.length) return "exacte";
+	return "partielle";
+}
+
 type Resultat = {
 	id: string;
 	entite: string;
@@ -78,6 +151,8 @@ type Resultat = {
 	/** Ce que le moteur a répondu : raison et alias. */
 	raisonMoteur: string | null;
 	cause: Cause;
+	/** Niveau du rattachement pour un « vu » : exacte, partielle, hors_sujet. */
+	qualite: Qualite | null;
 };
 
 function hashKey(value: string): string {
@@ -133,43 +208,34 @@ async function main(): Promise<void> {
 	const dateMesure = new Date().toISOString().slice(0, 10);
 
 	/**
-	 * L'organisation citée existe-t-elle au référentiel, même si le moteur ne
-	 * l'a pas reconnue ? On compare les mots significatifs du nom à ceux des
-	 * organisations : c'est grossier, c'est exactement ce qu'il faut pour
-	 * distinguer « on ne la connaît pas » de « on la connaît mais on ne sait pas
-	 * la reconnaître ».
+	 * L'organisation citée existe-t-elle au référentiel ?
+	 *
+	 * Vérifié par requête, pas par une heuristique de jetons : « Ministère de
+	 * l'Intérieur » trouvait « …DU MINISTERE DE L'INTERIEUR ET DE L'AMENAGEMENT
+	 * DU TERRITOIRE », un comité départemental, et était donc classé « présent
+	 * mais non reconnu » alors qu'il est absent.
+	 *
+	 * Un nom de plusieurs mots doit être le début du nom de l'organisation ;
+	 * un sigle (un seul mot) peut apparaître n'importe où — « ERNAT » dans
+	 * « Études Réalisations Négoce Assistance Technique (ERNAT) ».
 	 */
-	const { rows: toutes } = await query<{ name: string }>("SELECT name FROM org");
-	const nomsNormalises = toutes.map((o) => ({
-		nom: o.name,
-		jetons: new Set(
-			o.name
-				.toLowerCase()
-				.normalize("NFD")
-				.replace(/\p{Diacritic}/gu, "")
-				.replace(/[^a-z0-9]+/g, " ")
-				.split(" ")
-				.filter((j) => j.length > 3),
-		),
-	}));
-	/**
-	 * On ne garde que le nom principal — ce qui précède la parenthèse ou le tiret.
-	 * « Ymed (éditeur de la plateforme Sooncare) » est le nom *Ymed* ; exiger que
-	 * « sooncare » figure aussi au référentiel ferait conclure à tort qu'on ne
-	 * connaît pas l'organisation.
-	 */
-	const existeAuReferentiel = (entite: string): boolean => {
-		const principal = entite.split(/[(—–-]/)[0] ?? entite;
-		const mots = principal
-			.toLowerCase()
-			.normalize("NFD")
-			.replace(/\p{Diacritic}/gu, "")
-			.replace(/[^a-z0-9]+/g, " ")
+	const existeAuReferentiel = async (entite: string): Promise<boolean> => {
+		const principal = (entite.split(/[(—–]/)[0] ?? entite).trim();
+		const mots = normaliserPhrase(principal)
 			.split(" ")
-			.filter((j) => j.length > 3 && !["societe", "groupe", "service"].includes(j));
+			.filter((m) => m.length > 1 && !["de", "du", "des", "la", "le", "les", "et"].includes(m));
 		if (mots.length === 0) return false;
-		// Tous les mots du nom principal doivent exister chez une même organisation.
-		return nomsNormalises.some((o) => mots.every((m) => o.jetons.has(m)));
+		// Sonde : le mot le plus long, pour que l'index trigramme fasse le tri.
+		const sonde = mots.reduce((a, b) => (b.length > a.length ? b : a));
+		const { rows } = await query<{ name: string }>("SELECT name FROM org WHERE name ILIKE $1 LIMIT 300", [
+			`%${sonde}%`,
+		]);
+		const cible = mots.join(" ");
+		return rows.some((o) => {
+			const nom = normaliserPhrase(o.name);
+			if (mots.length === 1) return nom.split(" ").includes(cible);
+			return nom === cible || nom.startsWith(`${cible} `);
+		});
 	};
 
 	for (const incident of corpus.incidents) {
@@ -204,7 +270,7 @@ async function main(): Promise<void> {
 
 		const cause: Cause =
 			motif === "pas_rattache"
-				? existeAuReferentiel(incident.entite)
+				? (await existeAuReferentiel(incident.entite))
 					? "au_referentiel_mais_non_reconnu"
 					: "absent_du_referentiel"
 				: null;
@@ -225,6 +291,7 @@ async function main(): Promise<void> {
 			refusAdmission: admission.ok ? null : (admission.rejections as string[]),
 			raisonMoteur: match?.explication?.motif ?? null,
 			cause,
+			qualite: motif === "vu" ? qualiteRattachement(incident.entite, match?.explication?.alias ?? "") : null,
 		});
 	}
 
@@ -241,6 +308,15 @@ async function main(): Promise<void> {
 			(r) => r.cause === "au_referentiel_mais_non_reconnu",
 		).length,
 	};
+	// Qualité du rattachement : un « vu » qui désigne une autre organisation
+	// n'est pas une couverture, c'est un faux positif. On publie les deux
+	// chiffres côte à côte plutôt que de choisir le flatteur.
+	const parQualite = {
+		exacte: vus.filter((r) => r.qualite === "exacte").length,
+		partielle: vus.filter((r) => r.qualite === "partielle").length,
+		hors_sujet: vus.filter((r) => r.qualite === "hors_sujet").length,
+	};
+	const vusDefendables = parQualite.exacte + parQualite.partielle;
 
 	// Le référentiel entreprises : publié à côté du taux, jamais caché.
 	const couvertureSecteurs = await query<{ secteur: string; n: string }>(
@@ -272,6 +348,8 @@ async function main(): Promise<void> {
 		organisationsEnBase: organismes,
 		couverture: {
 			vus: parMotif.vu,
+			qualite: parQualite,
+			vusDefendables,
 			total: dansFenetre.length,
 			taux: dansFenetre.length === 0 ? 0 : Math.round((parMotif.vu / dansFenetre.length) * 1000) / 10,
 			motifs: parMotif,
@@ -320,6 +398,11 @@ async function main(): Promise<void> {
 	console.log(
 		`  dont ${parCause.absent_du_referentiel} organisation(s) absente(s) du référentiel` +
 			` et ${parCause.au_referentiel_mais_non_reconnu} présente(s) mais non reconnue(s) par le moteur`,
+	);
+	console.log(
+		`Qualité du rattachement : ${parQualite.exacte} exacte(s), ${parQualite.partielle} partielle(s)` +
+			`, ${parQualite.hors_sujet} hors sujet — ${vusDefendables}/${dansFenetre.length}` +
+			` (${Math.round((vusDefendables / Math.max(1, dansFenetre.length)) * 1000) / 10} %) défendable(s)`,
 	);
 	console.log(
 		`Référentiel entreprises : ${synthese.referentielEntreprises.lignesHorsNumerique} ligne(s) en agro/industrie/BTP/commerce`,

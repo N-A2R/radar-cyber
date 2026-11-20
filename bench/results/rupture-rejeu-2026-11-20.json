@@ -1,0 +1,57 @@
+{
+  "dateMesure": "2026-11-20",
+  "fenetre": {
+    "debut": "2026-10-21",
+    "fin": "2026-11-20"
+  },
+  "fenetreAdHoc": true,
+  "rejeux": 3,
+  "pasJours": 14,
+  "toleranceJours": 35,
+  "couvertureCorpus": {
+    "maxDatePublique": "2026-11-10",
+    "couvreFenetre": true
+  },
+  "veriteTerrain": {
+    "organisations": 6,
+    "incidentsNonResolus": 3
+  },
+  "total": {
+    "emises": 0,
+    "vraies": 0,
+    "fausses": 0,
+    "nonClassables": 0,
+    "classables": 0,
+    "tauxFaussesAlertes": null
+  },
+  "parAgent": {},
+  "verifRaisons": {
+    "nouvelleOrganisation": {
+      "candidats30j": 19,
+      "tireraient": 0,
+      "maxAgeReferentielJours": 7.146021930324074,
+      "referentielDepuisMin": "2026-11-13 21:27:37.725324+01",
+      "referentielDepuisMax": "2026-11-15 16:35:48.358826+01",
+      "seuilJours": 180,
+      "confirme": true
+    },
+    "rafale": {
+      "combosAuSeuil": [
+        {
+          "dept": "33",
+          "family": "ransomware",
+          "recents": 4,
+          "medianeHistorique": 4,
+          "tirerait": false
+        }
+      ],
+      "confirme": true
+    },
+    "changementNature": {
+      "candidats": 0,
+      "faitsVuln": 23472,
+      "confirme": true
+    }
+  },
+  "alertes": []
+}
