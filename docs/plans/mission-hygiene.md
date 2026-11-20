@@ -20,10 +20,10 @@
 `db/sources-telegram-triage.sql` passe **les mêmes IDs** en `enabled=false`.
 L'état final dépend donc de l'ordre d'exécution.
 
-- [ ] Lire les deux fichiers et `docs/sources-triage.md` pour établir l'état voulu
-- [ ] Réécrire le fichier perdant pour qu'il ne touche plus ces IDs (ou fusionner
+- [x] Lire les deux fichiers et `docs/sources-triage.md` pour établir l'état voulu
+- [x] Réécrire le fichier perdant pour qu'il ne touche plus ces IDs (ou fusionner
       les deux intentions en un seul fichier dont l'en-tête dit l'ordre)
-- [ ] Vérifier en base l'état effectif des 5 canaux après rejeu des deux fichiers
+- [x] Vérifier en base l'état effectif des 5 canaux après rejeu des deux fichiers
 - [ ] Commit : `fix(db): les SQL telegram ne se contredisent plus`
 
 Critère de sortie : rejouer les deux fichiers dans les deux ordres donne le même état.
