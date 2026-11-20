@@ -53,12 +53,28 @@ dans la **collecte** et le **rattachement**.
 
 ## Task 0: Socle de mesure NA
 
+La table de baseline ci-dessus a été relevée **à la main en psql**. Elle sert de
+**repère de contrôle**, pas de source : elle ne doit jamais être recopiée dans un
+fichier de résultats. Le JSON de baseline est **produit par le script**, et ses
+compteurs doivent **concorder** avec cette table.
+
 - [ ] Écrire `scripts/mesure-na.mts` : compte par département (orgs, orgs avec
-      événement, événements), sources régionales actives, sources muettes NA
-- [ ] Produire `bench/results/na-baseline-2026-11-21.json` avec les chiffres ci-dessus
+      événement, événements), sources régionales actives, sources muettes NA.
+      Il émet **ses propres requêtes SQL**, aucune valeur en dur.
+- [ ] Le script écrit `bench/results/na-baseline-2026-11-21.json` (ou l'imprime
+      et Task 0 le redirige) : **chaque bloc du JSON porte la requête qui l'a
+      produit** (`sql` par compteur, ou un champ `requetes` en tête).
+- [ ] **Contrôle de concordance** : comparer, compteur par compteur, la sortie du
+      script aux valeurs de la table ci-dessus (1 242 882 orgs NA, 31 événements,
+      25 orgs avec événement, Gironde 20, 40/47/23/19 à zéro, 181 sources).
+- [ ] Si un compteur **diffère** : ne pas corriger la table, ne pas corriger le
+      script pour le faire coller. Écrire l'écart dans le JSON (`ecartVsPlan`),
+      dire pourquoi (données qui ont bougé depuis le relevé), et continuer.
 - [ ] Commit : `mesure(na): baseline Nouvelle-Aquitaine publiée`
 
-**Critère :** le JSON contient 12 départements et leurs 4 compteurs.
+**Critère :** le JSON existe, il a été **produit par le script** (pas édité à la
+main), et chaque compteur est accompagné de sa requête. Un JSON dont les nombres
+viennent de la table du plan est un échec de cette tâche.
 
 ## Task 1: Sources régionales — les 12 départements
 
