@@ -41,13 +41,16 @@
 
 ### Task 2 : Rattraper la fraîcheur EPSS
 
-- [ ] Vérifier la date du dernier refresh EPSS :
+- [x] Vérifier la date du dernier refresh EPSS :
       `psql "$DATABASE_URL" -tAc "SELECT max(updated_at) FROM epss;"` (colonne à
       adapter au schéma réel — la trouver d'abord dans `db/init.sql`)
-- [ ] Lancer `scripts/refresh-epss.mts` avec la vraie DATABASE_URL
-- [ ] Re-mesurer : combien de lignes EPSS > 0.30 après refresh
-- [ ] Consigner avant/après dans `docs/epss.md`
-- [ ] Committer : `feat(epss): refresh réel après le trou de collecte`
+      → schéma réel = migration 021 : avant, 196 lignes de test, 0 score réel
+- [x] Lancer `scripts/refresh-epss.mts` avec la vraie DATABASE_URL
+      → --apply : 410 485 CVE en 163 s, 410 289 nouvelles lignes
+- [x] Re-mesurer : combien de lignes EPSS > 0.30 après refresh
+      → 7 189 lignes > 0,30 (7 190 à >= 0,30) sur 410 485
+- [x] Consigner avant/après dans `docs/epss.md`
+- [x] Committer : `feat(epss): refresh réel après le trou de collecte`
 
 ### Task 3 : Rejouer les agents de rupture sur la fenêtre fraîche
 
