@@ -34,9 +34,9 @@ Critère de sortie : rejouer les deux fichiers dans les deux ordres donne le mê
 « et confirmé au registre », mais l'extrait `registre-sirene`
 (`search?q=722030277`) ne contient pas `722030277`.
 
-- [ ] Rejouer la requête `https://recherche-entreprises.api.gouv.fr/search?q=722030277`
+- [x] Rejouer la requête `https://recherche-entreprises.api.gouv.fr/search?q=722030277`
       et vérifier si le SIREN apparaît
-- [ ] Si oui : remplacer l'extrait par la réponse réelle et garder la mention
+- [x] Si oui : remplacer l'extrait par la réponse réelle et garder la mention
 - [ ] Si non : reformuler en « SIREN publié par le site », sans prétendre au registre
 - [ ] Commit : `fix(mesure): la preuve SIRENE de DEMOS dit ce qu'elle montre`
 
