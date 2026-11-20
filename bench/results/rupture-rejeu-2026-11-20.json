@@ -1,5 +1,6 @@
 {
   "dateMesure": "2026-11-20",
+  "commande": "tsx scripts/mesure-fausses-alertes.mts --depuis=2026-10-21 --jusqua=2026-11-20 --pas=14 --json=bench/results/rupture-rejeu-2026-11-20.json",
   "fenetre": {
     "debut": "2026-10-21",
     "fin": "2026-11-20"

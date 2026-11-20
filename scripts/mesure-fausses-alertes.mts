@@ -76,6 +76,19 @@ const FENETRE = { debut: DEPUIS_ARG ?? "2025-11-01", fin: JUSQUA_ARG ?? "2026-10
 /** Pas du rejeu : deux semaines, la granularité d'une revue élargie
  * (--pas=N pour resserrer l'échantillonnage d'une sous-fenêtre). */
 const PAS_REJEU_JOURS = Number(argv.find((a) => a.startsWith("--pas="))?.split("=")[1] ?? 14);
+
+/** Commande de rejeu, reproduite dans le JSON publié : chaque nombre du
+ * fichier se rejoue avec cette commande contre la base courante — un chiffre
+ * sans sa requête n'est pas publié. */
+const COMMANDE_REJEU = [
+	"tsx scripts/mesure-fausses-alertes.mts",
+	DEPUIS_ARG ? `--depuis=${DEPUIS_ARG}` : null,
+	JUSQUA_ARG ? `--jusqua=${JUSQUA_ARG}` : null,
+	argv.some((a) => a.startsWith("--pas=")) ? `--pas=${PAS_REJEU_JOURS}` : null,
+	SORTIE_JSON ? `--json=${SORTIE_JSON}` : null,
+]
+	.filter((p): p is string => p !== null)
+	.join(" ");
 /** Fenêtre de veille déclarée vraie : couvre les 30 j du détecteur de
  * nouveauté comme les 7 j de la rafale. */
 const TOLERANCE_JOURS = 35;
@@ -441,6 +454,7 @@ async function main(): Promise<void> {
 			SORTIE_JSON,
 			`${JSON.stringify({
 				dateMesure: new Date().toISOString().slice(0, 10),
+				commande: COMMANDE_REJEU,
 				fenetre: FENETRE,
 				fenetreAdHoc: adHoc,
 				rejeux,
