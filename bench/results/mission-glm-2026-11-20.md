@@ -6,7 +6,7 @@ Les 6 tâches du plan sont exécutées et committées une par une. Chaque chiffr
 ci-dessous provient d'une requête ou d'un script reproductible référencé dans
 `bench/results/` ou dans un doc ; rien n'est estimé.
 
-## Récapitulatif des 5 tâches
+## Récapitulatif des 5 tâches d'exécution (la sixième est ce rapport)
 
 ### Task 1 — Diagnostiquer le trou de collecte 17-20 nov
 
@@ -18,8 +18,10 @@ ci-dessous provient d'une requête ou d'un script reproductible référencé dan
   base Docker éteinte — le conteneur avait été arrêté à la main avant les
   reboots et `restart: unless-stopped` ne relance pas un conteneur stoppé à la
   main ; chaque cycle avorte en `ECONNREFUSED`, sans trace dans `collector_run`.
-- Reprise effective le 20 nov 17:55:26 (premier `collector_run`) ;
-  **5 200 événements** ingérés après 17:49 le jour de la reprise.
+- Reprise effective le 20 nov 17:55:26 (premier `collector_run`) ; le volume
+  ingéré après la reprise est un compteur croissant (la collecte a repris
+  pendant la rédaction) et n'est pas figé dans ce rapport — état courant :
+  `SELECT count(*) FROM event WHERE collected_at >= '2026-11-20 17:49'`.
 
 ### Task 2 — Rattraper la fraîcheur EPSS
 
@@ -41,13 +43,17 @@ Documenté avant/après dans `docs/epss.md` ; le refresh (`refresh-epss.mts
 - Rejeu `mesure-fausses-alertes.mts` (fenêtre 2026-10-21 → 2026-11-20, 3 instants
   calés, pas 14 j) publié dans `bench/results/rupture-rejeu-2026-11-20.json` :
   **0 alerte émise** (nouvelle-organisation 0, rafale 0, changement-nature 0).
+  JSON régénéré le soir même (mission hygiène) — les valeurs ci-dessous sont
+  celles du fichier courant ; la commande de rejeu est dans son champ
+  `commande`.
 - Les trois raisons structurelles de `docs/fausses-alertes.md` sont **confirmées
   sur données**, pas réécrites de mémoire :
   - nouvelle-organisation : référentiel chargé 13→15 nov, âge max 7,15 j contre
-    seuil 180 j (19 candidats, 0 tirerait) ;
+    seuil 180 j (23 candidats — champ `candidats30j` du JSON — 0 tirerait) ;
   - rafale : seul combo au seuil = dept 33 × ransomware, 4 récents vs médiane 4
     (sous le double) ;
-  - changement-nature : 0 candidat, 23 472 faits vulnérabilité.
+  - changement-nature : 0 candidat, 23 478 faits vulnérabilité (champ
+    `faitsVuln` du JSON).
 
 ### Task 4 — Liste de courses : 10 entités manquantes
 
@@ -99,12 +105,16 @@ Documenté avant/après dans `docs/epss.md` ; le refresh (`refresh-epss.mts
    famille `presse` — un article réellement cyber de presse-01net ou
    presse-lemonde-tech est perdu à l'entrée. Chantier de design (que veut-on :
    une famille `presse_cyber` admise, ou le rejet ?), pas un quick-fix.
-2. **Le compteur de rejet « presse » est trompeur** : 53 627 rejets depuis le
-   14 nov, dont 37 941 de `leak:ransomwatch:posts` (titres de revendications
-   sans terme cyber, 0 événement admis de cette source depuis toujours) et
-   2 721 de `leak:ddosecrets:rss`. Les revendications vivent par ailleurs dans
-   `quarantine_raw` (ransomware.live frais du 20 nov), mais `rejectedBy.presse`
-   n'est pas un volume de presse.
+2. **Le compteur de rejet « presse » est trompeur** : la ventilation du motif
+   `presse` depuis le 14 nov (compteur croissant — valeurs non figées dans ce
+   rapport) se vérifie par
+   `SELECT r.source_id, sum((r.items_rejected->>'presse')::bigint) FROM collector_run r WHERE r.finished_at >= '2026-11-14' AND r.items_rejected ? 'presse' GROUP BY r.source_id ORDER BY 2 DESC` :
+   `leak:ransomwatch:posts` domine (titres de revendications sans terme cyber ;
+   la source n'est pas morte pour autant — ses événements admis, famille
+   `leaks`, se comptent par `SELECT count(*) FROM event WHERE source_id = 'leak:ransomwatch:posts'`),
+   devant `leak:ransomware-live:recent-rss` et `leak:ddosecrets:rss`.
+   Les revendications vivent par ailleurs dans `quarantine_raw` (ransomware.live
+   frais du 20 nov), mais `rejectedBy.presse` n'est pas un volume de presse.
 3. **Google News sert des URLs de redirection** `?oc=5`, pas les articles
    sources : la preuve de ce fil est limitée au titre verbatim.
 4. **189 entités** de la cohorte `france` restent non traitées (8/10 sur les 10

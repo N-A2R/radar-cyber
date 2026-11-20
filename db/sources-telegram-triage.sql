@@ -33,25 +33,16 @@ WHERE id = 'tg-intelowl';
 --    tg-threatintel-daily, tg-cybersecurity (rendu « Cyber Fighter »).
 
 -- 3) Cinq canaux ransomware réellement lisibles (11 à 20 messages au sondage)
---    sont en `kind='quarantine'` : exclus de la boucle générique
+--    étaient en `kind='quarantine'` : exclus de la boucle générique
 --    (`kind <> 'quarantine'`), et le collecteur de quarantaine ne connaît que
---    `quarantine:ransomware.live`. Personne ne les lit — ce n'est pas un
---    problème de `enabled`. On ne tranche pas ici : le passage en `narrative`
---    ferait entrer des revendications non vérifiées directement dans `event`,
---    contre la doctrine du projet. Ils restent désactivés en attendant
---    l'arbitrage, avec le motif qui dit pourquoi.
+--    `quarantine:ransomware.live`. Personne ne les lisait.
+--    ARBITRAGE INTERVENU le 2026-11-17, même jour (décision utilisateur) :
+--    passés en `kind='narrative', enabled=true` par
+--    `db/sources-telegram-narrative.sql`. Ce fichier ne les touche plus :
+--    les deux fichiers peuvent être rejoués dans n'importe quel ordre,
+--    l'état final des cinq canaux est le même (narratif, actifs).
 --    Concerne : tg-baseleeak, tg-leaked-databases, tg-marketo-leaks,
 --    tg-ransomwareg, tg-snatch-news.
-UPDATE source SET
-  enabled = false,
-  disabled_at = COALESCE(disabled_at, now()),
-  disabled_reason = 'kind=quarantine mais aucun collecteur ne la lit (le collecteur de quarantaine ne traite que quarantine:ransomware.live) — canal mesuré vivant le 2026-11-17, câblage à arbitrer'
-WHERE id IN (
-  'tg-baseleeak',
-  'tg-leaked-databases',
-  'tg-marketo-leaks',
-  'tg-ransomwareg',
-  'tg-snatch-news'
-);
+--    (Aucun UPDATE ici — voir db/sources-telegram-narrative.sql.)
 
 COMMIT;

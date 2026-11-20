@@ -46,6 +46,12 @@ Leur passage en `narrative` ferait entrer des revendications non vérifiées
 directement dans `event` — contre la doctrine « rien de faux ». Décision laissée
 à l'utilisateur.
 
+**Arbitrage (2026-11-17, même jour)** : l'utilisateur a tranché pour le passage
+en `narrative` — compromis assumé, voir `db/sources-telegram-narrative.sql`.
+Les cinq canaux sont donc actifs en sources narratives ; le fichier de triage
+`db/sources-telegram-triage.sql` ne les touche plus, les deux fichiers sont
+rejouables dans n'importe quel ordre.
+
 **Leçon de méthode** : un `GET` à 0 message ne prouve pas qu'une source est
 morte. `tg-cti` avait été classé « aperçu fermé » sur ce seul critère alors que
 le journal montrait 39 items parsés le même jour, écartés par le filtre de

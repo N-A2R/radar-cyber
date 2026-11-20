@@ -103,7 +103,7 @@
         {
           "voie": "registre-sirene",
           "url": "https://recherche-entreprises.api.gouv.fr/search?q=722030277",
-          "extrait": "344328174 DEMOS (actif, VENCE) ; 384322905 DEMOS (actif, PARIS) ; 399853761 DEMOS (actif, VILLERVILLE) ; 809411432 DEMOS (actif, SAINT-JULIEN) ; 885409755 DEMOS (actif, SAINT-FERREOL) ; 902344779 DEMOS (actif, SAINT-DENIS) ; 992711838 DEMOS (actif, PARIS) ; 999111776 DEMOS (actif, BOUGUENAIS) ; 305720146 DEMOS (cessé, ALES) ; 849450911 DEMOS (cessé, LAMBERSART) ; 908510456 DEMOS (cessé, PESSAC) ; ",
+          "extrait": "722030277 DEMOS (DEMOS TRAINING) (actif, PUTEAUX) — résultat unique ; siège 7 COURS VALMY 92800 PUTEAUX, SIRET siège 72203027700320, nature juridique 5599",
           "dateConsultation": "2026-11-20"
         }
       ]
