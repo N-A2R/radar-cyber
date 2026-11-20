@@ -79,15 +79,23 @@
 
 ### Task 4 : La liste de courses — traiter 10 entités manquantes
 
-- [ ] Lire `bench/results/manques-referentiel-2026-11-15.json` et prendre les
+- [x] Lire `bench/results/manques-referentiel-2026-11-15.json` et prendre les
       10 premières entités de la cohorte `france` (199 entités)
-- [ ] Pour chaque entité : chercher son identité légale via les sources déjà
+      → les 10 premières traitées dans l'ordre du fichier
+- [x] Pour chaque entité : chercher son identité légale via les sources déjà
       branchées (pas d'Exa payant, pas de nouvelle clé API — règle « rien de
       payant ») ; ne JAMAIS inventer un SIREN
-- [ ] Ce qui est trouvé va dans un fichier `bench/results/manques-glm-<date>.json`
+      → registre SIRENE public (recherche-entreprises.api.gouv.fr, sans clé) +
+      site de l'entité quand la revendication porte un domaine ; tout SIREN
+      recoupé au registre, Luhn vérifié
+- [x] Ce qui est trouvé va dans un fichier `bench/results/manques-glm-<date>.json`
       au même schéma que le fichier d'origine ; le reste reste non traité
-- [ ] Consigner le taux de résolution (x/10) dans le JSON, honnêtement
-- [ ] Committer : `feat(référentiel): vague manques GLM — x/10 résolues avec preuves`
+      → `bench/results/manques-glm-2026-11-20.json` + `scripts/manques-glm.mts`
+      (reproductible, dry-run possible) + `apps/api/test/manques-glm.test.ts`
+- [x] Consigner le taux de résolution (x/10) dans le JSON, honnêtement
+      → 8/10 (5 haute, 2 moyenne, 1 faible) ; adveo.com et Gloria Cales non
+      résolues avec la raison exacte ; spot-check registre du 20 nov confirmé
+- [x] Committer : `feat(référentiel): vague manques GLM — 8/10 résolues avec preuves`
 
 ### Task 5 : Le faux positif de la revue de presse
 
