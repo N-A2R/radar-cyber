@@ -186,7 +186,7 @@ export function famille(nature: string | null): string {
 	return "entreprise"; // sociétés (5xxx) et SEM/EPL (73xx) : personnes morales de droit privé
 }
 
-export function versCandidat(r: ApiResultat, marque: string, jetonsMarque: string[]): Candidat | null {
+export function versCandidat(r: ApiResultat, marque: string, jetonsMarque: string[], forcer = false): Candidat | null {
 	if (!r.siren || !/^\d{9}$/.test(r.siren)) return null;
 	const denom = (r.nom_complet ?? r.nom_raison_sociale ?? "").trim();
 	if (!denom) return null;
@@ -195,6 +195,7 @@ export function versCandidat(r: ApiResultat, marque: string, jetonsMarque: strin
 	const denomJetons = new Set(variantes.flatMap((v) => jetons(v)));
 	const extras = [...denomJetons].filter((j) => !jetonsMarque.includes(j));
 	const pertinent =
+		forcer ||
 		exact ||
 		variantes.some((v) => sansSeparateurs(v).includes(sansSeparateurs(marque))) ||
 		jetonsMarque.every((j) => denomJetons.has(j));
@@ -233,10 +234,29 @@ const pause = (): Promise<void> => new Promise((r) => setTimeout(r, PAUSE_MS));
 async function apiRecherche(requete: string, cessees: boolean): Promise<ApiResultat[]> {
 	const etat = cessees ? "&etat_administratif=C" : "";
 	const url = `${API_BASE}?q=${encodeURIComponent(requete)}&per_page=25${etat}`;
-	const res = await fetch(url, { headers: { "User-Agent": UA }, signal: AbortSignal.timeout(20_000) });
-	if (!res.ok) throw new Error(`recherche-entreprises HTTP ${res.status} pour « ${requete} »`);
-	const data = (await res.json()) as { results?: ApiResultat[] };
-	return data.results ?? [];
+	// La limite publique anonyme est de 7 req/s ; au-delà l'API répond 429. On
+	// espace les appels et on réessaie avec recul : un 429 ou un fetch failed
+	// isolé est un ralentissement, pas une absence de réponse.
+	const essais = [0, 2_000, 5_000, 10_000];
+	let derniere: unknown = null;
+	for (const delai of essais) {
+		if (delai > 0) await new Promise((r) => setTimeout(r, delai));
+		await pause();
+		try {
+			const res = await fetch(url, { headers: { "User-Agent": UA }, signal: AbortSignal.timeout(20_000) });
+			if (res.status === 429) {
+				derniere = new Error(`recherche-entreprises HTTP 429 pour « ${requete} »`);
+				continue;
+			}
+			if (!res.ok) throw new Error(`recherche-entreprises HTTP ${res.status} pour « ${requete} »`);
+			const data = (await res.json()) as { results?: ApiResultat[] };
+			return data.results ?? [];
+		} catch (e) {
+			if (e instanceof Error && e.message.startsWith("recherche-entreprises HTTP")) throw e;
+			derniere = e; // fetch failed transitoire : on réessaie
+		}
+	}
+	throw derniere instanceof Error ? derniere : new Error("recherche-entreprises : échec réseau après réessais");
 }
 
 async function chercher(requete: string): Promise<ApiResultat[]> {
@@ -389,7 +409,7 @@ export function trancher(i: Indices): Verdict {
 // Déroulé principal
 // ---------------------------------------------------------------------------
 
-type Manque = {
+export type Manque = {
 	nom: string;
 	occurrences: number;
 	zone: string;
@@ -402,7 +422,7 @@ type Manque = {
 	voie: string;
 };
 
-type Traite = Manque & {
+export type Traite = Manque & {
 	resolu: boolean;
 	confiance: "haute" | "moyenne" | "faible" | null;
 	siren: string | null;
@@ -419,26 +439,34 @@ type Traite = Manque & {
 	preuves: { voie: string; url: string; extrait: string; dateConsultation: string }[];
 };
 
-/** Requêtes vers le registre : marque telle quelle, puis découpages d'un bloc collé. */
+/** Requêtes vers le registre : marque telle quelle, variante hyphens en
+ * espaces (le domaine n'épelle pas la dénomination), puis découpages d'un bloc
+ * collé (dès 5 caractères : « 2cara » → « 2 cara »). */
 export function requetesPour(marque: string): string[] {
 	const requetes = [marque];
-	if (!marque.includes(" ") && marque.length >= 6 && marque.length <= 28) {
-		for (let i = 3; i < marque.length - 2; i++) requetes.push(`${marque.slice(0, i)} ${marque.slice(i)}`);
+	if (marque.includes("-")) requetes.push(marque.replace(/-/g, " "));
+	if (!marque.includes(" ") && marque.length >= 5 && marque.length <= 28) {
+		for (let i = marque.length >= 6 ? 3 : 1; i < marque.length - 1; i++) {
+			requetes.push(`${marque.slice(0, i)} ${marque.slice(i)}`);
+		}
 	}
-	return requetes;
+	return [...new Set(requetes)];
 }
 
-async function traiter(m: Manque, aujourdhui: string): Promise<Traite> {
+export async function traiter(m: Manque, aujourdhui: string): Promise<Traite> {
 	const { marque, domaine } = marqueEtDomaine(m.nomLisible);
 	const jetonsMarque = jetons(marque);
 
 	// 1. Le registre : requête principale, puis découpages si rien de pertinent.
 	const candidats: Candidat[] = [];
 	const requetesUtilisees = [marque];
-	const pousser = (bruts: ApiResultat[]): number => {
+	const pousser = (bruts: ApiResultat[], forcerSiren?: string): number => {
 		let ajout = 0;
 		for (const r of bruts) {
-			const c = versCandidat(r, marque, jetonsMarque);
+			// Un SIREN confirmé sur demande explicite (publié par le site de
+			// l'entité) reste candidat même si la dénomination ne ressemble pas à
+			// la marque : enseigne et dénomination légale diffèrent souvent.
+			const c = versCandidat(r, marque, jetonsMarque, r.siren !== undefined && r.siren === forcerSiren);
 			if (c) { candidats.push(c); ajout++; }
 		}
 		return ajout;
@@ -462,7 +490,7 @@ async function traiter(m: Manque, aujourdhui: string): Promise<Traite> {
 		for (const p of page.sirens) {
 			const confirmes = await chercher(p.siren);
 			if (!confirmes.some((r) => r.siren === p.siren)) continue;
-			pousser(confirmes);
+			pousser(confirmes, p.siren);
 			sirenPublie = { siren: p.siren, contexte: p.contexte, url: page.urlFinale };
 			break;
 		}
