@@ -95,9 +95,13 @@ département sans au moins une source.
 
 ## Task 2: CERT et alertes officielles
 
-- [ ] ANSSI (CERT-FR) : vérifier le flux existant, sa fraîcheur, sa portée
-- [ ] CISA KEV et avis : vérifier s'ils sont branchés, sinon dire pourquoi
-- [ ] Mesurer le rendement : items collectés sur 7 jours, dont rattachés à une org NA
+- [x] ANSSI (CERT-FR) : vérifier le flux existant, sa fraîcheur, sa portée — 4 flux
+      actifs, dernier item 2026-11-20, portée nationale documentée
+- [x] CISA KEV et avis : vérifier s'ils sont branchés, sinon dire pourquoi —
+      branchés (KEV 9 items/7 j, 1 316 événements au total ; ICS advisories actifs)
+- [x] Mesurer le rendement : items collectés sur 7 jours, dont rattachés à une org
+      NA — `bench/results/na-cert-2026-11-21.json` : CERT-FR 322 items / 192 évts
+      / 3 rattachés NA ; CISA 154 items / 85 évts / 0 NA
 - [ ] Commit : `feat(sources): CERT et alertes officielles mesurés`
 
 ## Task 3: Revendications ransomware — rattachement NA

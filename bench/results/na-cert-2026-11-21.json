@@ -1,0 +1,62 @@
+{
+  "dateMesure": "2026-11-21",
+  "objet": "Task 2 — CERT et alertes officielles : fraîcheur, portée, rendement 7 jours",
+  "requetes": {
+    "inventaire": "SELECT s.id, s.family, s.enabled, s.relevance, s.interval_sec, s.last_ok_at, s.last_error_at, (SELECT sum(r.items_new) FROM collector_run r WHERE r.source_id=s.id AND r.started_at >= now() - interval '7 days') AS new_7j, (SELECT count(*) FROM event e WHERE e.source_id=s.id) AS evts_total FROM source s WHERE s.family IN ('cert_fr','cert') OR s.id ILIKE '%cisa%' OR s.id ILIKE '%cert%' ORDER BY s.family, s.id;",
+    "rendement7j": "SELECT source_id, count(*) AS evts_7j, max(observed_at)::date AS dernier FROM event WHERE source_id IN (... sources ci-dessous ...) AND collected_at >= now() - interval '7 days' GROUP BY source_id;",
+    "rattachesNa": "WITH cert_src AS (SELECT id FROM source WHERE family IN ('cert_fr','cert') OR id ILIKE '%cisa%') SELECT e.source_id, count(*) AS evts_na, max(e.observed_at)::date FROM event e JOIN org o ON e.org_id = o.id WHERE o.dept IN ('16','17','19','23','24','33','40','47','64','79','86','87') AND e.source_id IN (SELECT id FROM cert_src) GROUP BY e.source_id;"
+  },
+  "anssi": {
+    "sources": [
+      { "id": "cert-fr-alerte", "family": "cert_fr", "enabled": true, "new7j": 170, "evts7j": 40, "dernierEvenement": "2026-11-18" },
+      { "id": "cert-fr-avis", "family": "cert_fr", "enabled": true, "new7j": 96, "evts7j": 96, "dernierEvenement": "2026-11-20" },
+      { "id": "cert-fr-feed", "family": "cert_fr", "enabled": true, "new7j": 1, "evts7j": 1, "dernierEvenement": "2026-11-16" },
+      { "id": "cert_fr", "family": "cert_fr", "enabled": true, "new7j": 55, "evts7j": 55, "dernierEvenement": "2026-11-20" },
+      { "id": "tg-certfr", "family": "cert_fr", "enabled": true, "new7j": 0, "evts7j": 0, "dernierEvenement": null, "motif": "flux HTTP 200 mais 0 item nouveau en 7 j — les mêmes dépêches arrivent par cert_fr et sont dédupliquées entre flux (migrate-039)" }
+    ],
+    "itemsNouvelles7j": 322,
+    "evenements7j": 192,
+    "fraicheur": "dernier item observé 2026-11-20, collecte toutes les 900 s pour les trois flux officiels — flux frais",
+    "portee": "nationale France : un avis CERT-FR entre au radar même sans organisation nommée ; portée NA indirecte (une org NA n'est rattachée que si le texte la cite)"
+  },
+  "cisa": {
+    "sources": [
+      { "id": "cisa_kev", "family": "vuln", "enabled": true, "new7j": 9, "evts7j": 9, "dernierEvenement": "2026-11-20", "evtsTotal": 1316 },
+      { "id": "cert-cisa-advisories", "family": "vuln", "enabled": true, "new7j": 7, "evts7j": 7, "dernierEvenement": "2026-11-17", "evtsTotal": 22 },
+      { "id": "cat-cisa-ics-advisories", "family": "vuln", "enabled": true, "new7j": 41, "evts7j": 41, "dernierEvenement": "2026-11-19", "evtsTotal": 47 },
+      { "id": "cat-cisa-ics-medical", "family": "vuln", "enabled": true, "new7j": 97, "evts7j": 28, "dernierEvenement": "2026-10-22", "evtsTotal": 29 }
+    ],
+    "itemsNouvelles7j": 154,
+    "evenements7j": 85,
+    "fraicheur": "cisa_kev à jour (dernier 2026-11-20) ; cat-cisa-ics-medical en retard apparent (dernier événement 2026-10-22) mais collecte OK le 2026-11-21 — l'éditeur publie peu",
+    "portee": "catalogue US (KEV) et advisories ICS : l'entité est un éditeur/vulnérabilité, pas une organisation NA ; utile pour l'enrichissement des CVE, pas pour la couverture territoriale"
+  },
+  "autresCert": [
+    { "id": "cat-ncsc-nl-news", "new7j": 488, "evtsTotal": 167 },
+    { "id": "cat-cert-at-warnings", "new7j": 167, "evtsTotal": 50 },
+    { "id": "cat-cert-pl", "new7j": 255, "evtsTotal": 135 },
+    { "id": "cat-cert-at-blog", "new7j": 127, "evtsTotal": 34 },
+    { "id": "cat-cert-lv", "new7j": 61, "evtsTotal": 17 },
+    { "id": "cat-cert-si-news", "new7j": 36, "evtsTotal": 9 },
+    { "id": "cert-eu-page", "new7j": 33, "evtsTotal": 54 },
+    { "id": "cat-jpcert-blog", "new7j": 26, "evtsTotal": 7 },
+    { "id": "cat-cert-hr", "new7j": 7, "evtsTotal": 9 },
+    { "id": "cat-dnsc-ro", "new7j": 6, "evtsTotal": 10 },
+    { "id": "cat-cert-se", "new7j": 5, "evtsTotal": 5 },
+    { "id": "cat-cert-eu-sa", "new7j": 12, "evtsTotal": 13 },
+    { "id": "cat-cert-ee", "new7j": 0, "evtsTotal": 0, "motif": "erreur de collecte 2026-11-20 (last_error_at) — source vivante avant, à surveiller" },
+    { "id": "tg-cert-eu", "new7j": 0, "evtsTotal": 0, "motif": "0 item nouveau en 7 j" }
+  ],
+  "rattachementsNa": {
+    "total": 8,
+    "detail": [
+      { "source": "cert-fr-alerte", "evts": 2, "dernier": "2026-11-18" },
+      { "source": "cat-ncsc-nl-news", "evts": 2, "dernier": "2026-11-18" },
+      { "source": "cat-cert-at-blog", "evts": 2, "dernier": "2022-10-12" },
+      { "source": "cat-cert-at-warnings", "evts": 1, "dernier": "2026-11-18" },
+      { "source": "cert_fr", "evts": 1, "dernier": "2026-11-18" }
+    ],
+    "tauxNaSur7j": "3 rattachements NA sur 192 événements CERT-FR en 7 jours (1,6 %) — attendu : un avis national ne cite une org NA qu'occasionnellement"
+  },
+  "verdict": "ANSSI et CISA sont branchés, frais et mesurés. Rien à câbler : les trois flux CERT-FR officiels + KEV + advisories ICS tournent. Les sources muettes (tg-certfr, tg-cert-eu, cat-cert-ee) sont documentées avec motif, pas masquées."
+}
