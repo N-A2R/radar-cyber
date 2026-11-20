@@ -30,11 +30,19 @@ entité : chercher l'identité légale via sources gratuites déjà branchées
 `present` (avec preuve), `absent` (preuve que non-français) ou
 `cannot_verify` (site inaccessible — jamais répondre absent sans preuve).
 
-- [ ] Lot A : entités 11-20 de la cohorte france
-- [ ] Lot B : entités 21-30
-- [ ] Lot C : entités 31-40
+> État au 2026-11-20 : 3 lots faits (A, B, C — 30 entités traitées, 12
+> résolues, détail par lot dans `bench/results/manques-glm-vague2.json`),
+> 16 lots restants (D à S, 159 entités). Cohorte 199 : la vague 1 a traité
+> les entités 1-10, cette vague suit par lots de 10 — 189 entités à
+> l'ouverture, soit 18 lots de 10 et un dernier lot (S) de 9.
+
+- [x] Lot A : entités 11-20 de la cohorte france
+- [x] Lot B : entités 21-30
+- [x] Lot C : entités 31-40
 - [ ] Lot D : entités 41-50
 - [ ] Lot E : entités 51-60
+- [ ] Lots F à R : entités 61-190, par lots de 10
+- [ ] Lot S : entités 191-199 (9 entités)
 - [ ] Chaque lot : appender `bench/results/manques-glm-vague2.json` (schéma du
       fichier vague 1), commit `feat(référentiel): vague 2 — lot X/10 résolu`
 - [ ] Fin de tous les lots : taux global de résolution publié dans le JSON
