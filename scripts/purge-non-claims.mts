@@ -61,7 +61,11 @@ const result = await withTransaction(async (client) => {
 	return { archived: archived.rowCount ?? 0, deleted: deleted.rowCount ?? 0 };
 });
 
-await consigner({
+// `consigner` n'échoue jamais par exception : il renvoie { ok:false, error }.
+// On ne peut donc pas se contenter de l'attendre et d'annoncer le succès : le
+// DELETE est déjà committé, et une purge non consignée contredirait le
+// contrat du script (« rien n'est détruit sans trace »).
+const journal = await consigner({
 	kind: "event.purge",
 	subject: "non-claims",
 	summary: `${result.deleted} événement(s) non-claim(s) purgé(s) — ${SOURCES.join(", ")}`,
@@ -71,6 +75,15 @@ await consigner({
 
 const after = await query<{ n: string }>("SELECT count(*)::text AS n FROM event WHERE source_id = ANY($1)", [SOURCES]);
 console.log(`\narchivés : ${result.archived} · supprimés : ${result.deleted} · restants : ${after.rows[0]?.n ?? "?"}`);
-console.log("Purge consignée au journal (kind=event.purge).");
+if (journal.ok) {
+	console.log("Purge consignée au journal (kind=event.purge).");
+} else {
+	console.error(`Purge NON consignée : ${journal.error ?? "raison inconnue"}`);
+	console.error(
+		`Les ${result.deleted} événements sont déjà supprimés, mais archivés : rejoue kind=event.purge à la main.`,
+	);
+	await closePools();
+	process.exit(1);
+}
 
 await closePools();

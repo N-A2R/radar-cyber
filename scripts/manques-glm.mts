@@ -327,6 +327,15 @@ export type Verdict = {
 export function trancher(i: Indices): Verdict {
 	if (i.sirenPublie) {
 		const c = i.candidatsRanges.find((x) => x.siren === i.sirenPublie!.siren) ?? null;
+		// Sans candidat au registre, il n'y a rien à nommer : déclarer « résolu,
+		// confiance haute » avec un candidat nul gonflerait le taux publié d'une
+		// entité qui n'a pas d'identité vérifiée.
+		if (!c) {
+			return {
+				resolu: false, confiance: null, candidat: null,
+				raison: `SIREN ${i.sirenPublie.siren} publié par le site (${i.sirenPublie.contexte.slice(0, 100)}) mais absent des candidats au registre`,
+			};
+		}
 		return {
 			resolu: true, confiance: "haute", candidat: c,
 			raison: `SIREN publié par le site (${i.sirenPublie.contexte.slice(0, 140)}) et confirmé au registre`,
