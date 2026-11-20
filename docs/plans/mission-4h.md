@@ -27,7 +27,7 @@
 - 21 264 événements, 1 244 048 organisations, dernier event 17 nov (trou de
   collecte du 17 au 20 lié à l'arrêt du conteneur — à documenter, pas à masquer)
 
-### Tâche 1 : Diagnostiquer le trou de collecte 17-20 nov
+### Task 1 : Diagnostiquer le trou de collecte 17-20 nov
 
 - [x] Interroger `collector_run` pour lister les exécutions du 17 au 20 nov :
       dates, statut, durée, erreur éventuelle
@@ -39,7 +39,7 @@
       compter les nouveaux événements ingérés après 17:49
 - [x] Committer avec le message `docs(opérations): incident collecte 17-20 nov consigné`
 
-### Tâche 2 : Rattraper la fraîcheur EPSS
+### Task 2 : Rattraper la fraîcheur EPSS
 
 - [ ] Vérifier la date du dernier refresh EPSS :
       `psql "$DATABASE_URL" -tAc "SELECT max(updated_at) FROM epss;"` (colonne à
@@ -49,7 +49,7 @@
 - [ ] Consigner avant/après dans `docs/epss.md`
 - [ ] Committer : `feat(epss): refresh réel après le trou de collecte`
 
-### Tâche 3 : Rejouer les agents de rupture sur la fenêtre fraîche
+### Task 3 : Rejouer les agents de rupture sur la fenêtre fraîche
 
 - [ ] Lire `docs/agents-rupture.md` et `apps/api/src/analyse/rupture.ts` pour
       comprendre les 3 détecteurs et leur fenêtre
@@ -63,7 +63,7 @@
       réécrire de mémoire)
 - [ ] Committer : `mesure(rupture): rejeu post-trou-collecte publié`
 
-### Tâche 4 : La liste de courses — traiter 10 entités manquantes
+### Task 4 : La liste de courses — traiter 10 entités manquantes
 
 - [ ] Lire `bench/results/manques-referentiel-2026-11-15.json` et prendre les
       10 premières entités de la cohorte `france` (199 entités)
@@ -75,7 +75,7 @@
 - [ ] Consigner le taux de résolution (x/10) dans le JSON, honnêtement
 - [ ] Committer : `feat(référentiel): vague manques GLM — x/10 résolues avec preuves`
 
-### Tâche 5 : Le faux positif de la revue de presse
+### Task 5 : Le faux positif de la revue de presse
 
 - [ ] Lire `scripts/triage-sources.mts` et `apps/api/src/collectors/classify.ts`
 - [ ] Compter les événements `presse_cyber` admis depuis le 14 nov et vérifier
@@ -85,7 +85,7 @@
       toucher au classificateur — cette tâche est une mesure, pas un fix)
 - [ ] Committer : `mesure(presse): précision du fil presse_cyber publiée`
 
-### Tâche 6 : Rapport de fin de mission
+### Task 6 : Rapport de fin de mission
 
 - [ ] Écrire `bench/results/mission-glm-<date>.md` : récapitulatif des 5
       tâches, chiffres avant/après, ce qui reste
