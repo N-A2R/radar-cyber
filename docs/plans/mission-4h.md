@@ -1,8 +1,10 @@
 # Plan : Mission 4 h — radar-cyber, vague GLM
 
-> Plan exécuté par ralphex, une tâche = une session Claude Code fraîche sur le
-> pont zcode (Start Plan GLM-5.3-Flash). Chaque tâche doit finir par un commit
-> et un tour de validation. Ne jamais toucher aux fichiers hors du dépôt.
+> Plan prévu pour ralphex — une tâche = une session Claude Code fraîche sur le
+> pont zcode (Start Plan GLM-5.3-Flash). Exécuté ralphex pour les tâches 1-4,
+> puis via claude-squad (`cs`) pour les tâches 5-6, après la migration du
+> 20 nov consignée dans `docs/mission-cs.md`. Chaque tâche doit finir par un
+> commit et un tour de validation. Ne jamais toucher aux fichiers hors du dépôt.
 > Ne jamais reformater du code existant (dépôt à indentation mixte : suivre le
 > fichier édité).
 

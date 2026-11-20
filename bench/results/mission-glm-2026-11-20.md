@@ -6,7 +6,7 @@ Les 6 tâches du plan sont exécutées et committées une par une. Chaque chiffr
 ci-dessous provient d'une requête ou d'un script reproductible référencé dans
 `bench/results/` ou dans un doc ; rien n'est estimé.
 
-## Récapitulatif des 5 tâches
+## Récapitulatif des 5 tâches d'exécution (la sixième est ce rapport)
 
 ### Task 1 — Diagnostiquer le trou de collecte 17-20 nov
 

@@ -67,11 +67,11 @@ Critère de sortie : aucun des quatre ne reste sans requête vérifiable.
 
 ## Task 5: Cohérence des documents
 
-- [ ] `bench/results/mission-glm-2026-11-20.md:5` dit « 6 tâches », `l.9` dit
+- [x] `bench/results/mission-glm-2026-11-20.md:5` dit « 6 tâches », `l.9` dit
       « 5 tâches » : trancher et aligner
-- [ ] `docs/plans/mission-vague2.md` annonce 19 lots, 5 listés : dire combien sont
+- [x] `docs/plans/mission-vague2.md` annonce 19 lots, 5 listés : dire combien sont
       faits (A, B, C), combien restent, et mettre à jour la liste
-- [ ] `docs/mission-cs.md` et `docs/plans/mission-4h.md` se contredisent sur
+- [x] `docs/mission-cs.md` et `docs/plans/mission-4h.md` se contredisent sur
       l'outil d'exécution (cs vs ralphex) : aligner sur l'état réel
 - [ ] Commit : `docs: les plans et rapports disent la même chose`
 
