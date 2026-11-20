@@ -45,11 +45,11 @@ Critère de sortie : rejouer les deux fichiers dans les deux ordres donne le mê
 `bench/results/rupture-rejeu-2026-11-20.json` porte `couvreFenetre: true` alors que
 `maxDatePublique` vaut `2026-11-10` pour une fenêtre finissant le `2026-11-20`.
 
-- [ ] Trouver le script qui produit ce fichier (`scripts/mesure-fausses-alertes.mts`
+- [x] Trouver le script qui produit ce fichier (`scripts/mesure-fausses-alertes.mts`
       ou `scripts/mesure-rattachement.mts`)
-- [ ] Calculer `couvreFenetre` à partir de `maxDatePublique` et de la fin de fenêtre,
+- [x] Calculer `couvreFenetre` à partir de `maxDatePublique` et de la fin de fenêtre,
       au lieu de l'écrire en dur
-- [ ] Régénérer le JSON et vérifier que le champ vaut `false`
+- [x] Régénérer le JSON et vérifier que le champ vaut `false`
 - [ ] Commit : `fix(mesure): couvreFenetre est calculé, plus affirmé`
 
 ## Task 4: Chiffres sans requête

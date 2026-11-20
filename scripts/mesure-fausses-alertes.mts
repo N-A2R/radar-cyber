@@ -448,7 +448,11 @@ async function main(): Promise<void> {
 				toleranceJours: TOLERANCE_JOURS,
 				couvertureCorpus: {
 					maxDatePublique: new Date(maxDateCorpus).toISOString().slice(0, 10),
-					couvreFenetre: fenetre.fin <= maxDateCorpus + TOLERANCE_JOURS * JOUR_MS,
+					// Couverture lue telle quelle : la fin de fenêtre est-elle
+					// atteinte par la dernière date publique du corpus ? La
+					// tolérance de veille reste l'affaire du classement des
+					// alertes (estClassable), pas de cette affirmation.
+					couvreFenetre: fenetre.fin <= maxDateCorpus,
 				},
 				veriteTerrain: { organisations: veriteTerrain.size, incidentsNonResolus: resolutionRatee },
 				total: { emises: total, vraies, fausses, nonClassables, classables, tauxFaussesAlertes: taux },

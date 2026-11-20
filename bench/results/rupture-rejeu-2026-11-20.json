@@ -10,7 +10,7 @@
   "toleranceJours": 35,
   "couvertureCorpus": {
     "maxDatePublique": "2026-11-10",
-    "couvreFenetre": true
+    "couvreFenetre": false
   },
   "veriteTerrain": {
     "organisations": 6,
@@ -27,9 +27,9 @@
   "parAgent": {},
   "verifRaisons": {
     "nouvelleOrganisation": {
-      "candidats30j": 19,
+      "candidats30j": 23,
       "tireraient": 0,
-      "maxAgeReferentielJours": 7.146021930324074,
+      "maxAgeReferentielJours": 7.147468456898148,
       "referentielDepuisMin": "2026-11-13 21:27:37.725324+01",
       "referentielDepuisMax": "2026-11-15 16:35:48.358826+01",
       "seuilJours": 180,
@@ -49,7 +49,7 @@
     },
     "changementNature": {
       "candidats": 0,
-      "faitsVuln": 23472,
+      "faitsVuln": 23478,
       "confirme": true
     }
   },
