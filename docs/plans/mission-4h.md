@@ -99,13 +99,23 @@
 
 ### Task 5 : Le faux positif de la revue de presse
 
-- [ ] Lire `scripts/triage-sources.mts` et `apps/api/src/collectors/classify.ts`
-- [ ] Compter les événements `presse_cyber` admis depuis le 14 nov et vérifier
+- [x] Lire `scripts/triage-sources.mts` et `apps/api/src/collectors/classify.ts`
+- [x] Compter les événements `presse_cyber` admis depuis le 14 nov et vérifier
       un échantillon de 20 : combien sont réellement cyber
-- [ ] Publier le taux dans `bench/results/presse-cyber-precision-<date>.json`
-- [ ] Si le taux < 90 % : lister les motifs de non-cyber dans le JSON (sans
+      → presse_cyber : 0 admis depuis le 14 nov (jamais peuplée : reclassify-press
+      jamais appliqué, porte refuse presse à l'entrée depuis le 10 nov) ; mesure
+      portée sur la population effective = 180 événements `cti` des sources presse
+      (gn-*, eco-*) ; échantillon déterministe de 20 → 20/20 réellement cyber
+      (15 incidents, 5 thématiques), précision 100 %
+- [x] Publier le taux dans `bench/results/presse-cyber-precision-<date>.json`
+      → `bench/results/presse-cyber-precision-2026-11-20.json` (échantillon
+      vérifié item par item, graine reproductible)
+- [x] Si le taux < 90 % : lister les motifs de non-cyber dans le JSON (sans
       toucher au classificateur — cette tâche est une mesure, pas un fix)
-- [ ] Committer : `mesure(presse): précision du fil presse_cyber publiée`
+      → taux ≥ 90 % : branche non déclenchée ; observations structurelles
+      consignées (15 sources `presse-*` stériles, compteur de rejet « presse »
+      dominé par leak:ransomwatch:posts — 37 941 rejets, 0 admis)
+- [x] Committer : `mesure(presse): précision du fil presse_cyber publiée`
 
 ### Task 6 : Rapport de fin de mission
 
