@@ -29,15 +29,15 @@
 
 ### Tâche 1 : Diagnostiquer le trou de collecte 17-20 nov
 
-- [ ] Interroger `collector_run` pour lister les exécutions du 17 au 20 nov :
+- [x] Interroger `collector_run` pour lister les exécutions du 17 au 20 nov :
       dates, statut, durée, erreur éventuelle
-- [ ] Identifier pourquoi rien n'a été collecté pendant l'arrêt du conteneur
+- [x] Identifier pourquoi rien n'a été collecté pendant l'arrêt du conteneur
       (le service API systemd pointait sur 5433 avec la base Docker éteinte)
-- [ ] Écrire le constat dans `docs/operations.md` (section « Incident 2026-11-17 »),
+- [x] Écrire le constat dans `docs/operations.md` (section « Incident 2026-11-17 »),
       avec les commandes de vérification et la date de reprise effective
-- [ ] Vérifier que la collecte a bien repris depuis le redémarrage de ce jour :
+- [x] Vérifier que la collecte a bien repris depuis le redémarrage de ce jour :
       compter les nouveaux événements ingérés après 17:49
-- [ ] Committer avec le message `docs(opérations): incident collecte 17-20 nov consigné`
+- [x] Committer avec le message `docs(opérations): incident collecte 17-20 nov consigné`
 
 ### Tâche 2 : Rattraper la fraîcheur EPSS
 

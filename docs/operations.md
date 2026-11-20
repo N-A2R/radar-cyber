@@ -194,6 +194,67 @@ systemctl --user daemon-reload
 systemctl --user enable --now radar-healthcheck.timer
 ```
 
+## Incident 2026-11-17 — trou de collecte du 16 au 20 nov
+
+**Constat.** Aucun événement ingéré entre le 15 nov 2026 23:27 CET (dernier
+`collector_run` avant le trou) et le 20 nov 2026 17:55 CET (premier run de
+reprise). Le trou est consigné, pas comblé : les sources n'ont pas été
+réinterrogées rétroactivement sur la fenêtre manquante.
+
+**Chronologie** (heures CET ; sources : `collector_run` et
+`journalctl --user -u radar-api.service`) :
+
+| Moment | Événement |
+|---|---|
+| 15 nov 23:27 | dernière collecte avant le trou |
+| 16 nov | service actif mais pointé sur la copie compute-2 abandonnée — schéma divergent (`event.regional`, `journal`, `quarantine_raw.kind` absents) : inserts refusés, 0 événement |
+| 17 nov 16:19 | drop-in `radar-api.service.d/30-db.conf` repointé sur la vraie base Docker (`localhost:5433/radar`) ; 467 événements ingérés en 1 h 11 |
+| 17 nov 17:30 | arrêt propre du service (SIGTERM) pendant la bascule prod compute-2 |
+| 17 nov 19:49 → 20 nov 13:57 | trois boots ; `radar-api.service` (enabled) redémarre à chaque fois, le conteneur `radar-cyber-db-1` non — boucle `ECONNREFUSED 127.0.0.1:5433` (984 lignes sur le boot du 17 au soir, 13 200 sur celui du 18 au 20) |
+| 20 nov 17:49–17:54 | `docker compose up -d db` ; le conteneur repart (17:55:02, healthy) |
+| 20 nov 17:55:26 | premier `collector_run` de reprise |
+
+**Cause racine.** Le service API systemd pointe sur 5433 avec la base Docker
+éteinte : chaque cycle collecteurs/corrélation/détection avorte en
+`ECONNREFUSED` et ne peut même pas écrire dans `collector_run`, qui exige la
+base — d'où un trou sans aucune trace côté table de runs. Le conteneur avait
+été **arrêté manuellement** avant les reboots : la politique
+`restart: unless-stopped` de `docker-compose.yml` ne redémarre pas un
+conteneur stoppé à la main, et rien (unité, timer, script) ne relance
+`docker compose up -d db` au boot, alors que `radar-api.service` est enabled
+et repart à chaque session.
+
+**Commandes de vérification** (reproductibles telles quelles) :
+
+```bash
+# Fraîcheur réelle des données
+psql "$DATABASE_URL" -tAc "SELECT max(created_at) FROM event;"
+
+# Histogramme horaire des runs autour du trou
+psql "$DATABASE_URL" -c "SELECT date_trunc('hour', started_at) AS h, count(*),
+  count(*) FILTER (WHERE status='error') AS errs
+  FROM collector_run WHERE started_at >= '2026-11-14'
+  GROUP BY 1 ORDER BY 1;"
+
+# Preuve du refus de connexion pendant l'arrêt du conteneur
+journalctl --user -u radar-api.service -b -1 --no-pager | grep -c ECONNREFUSED
+
+# État de départ du conteneur et du daemon au boot
+docker inspect -f '{{.State.StartedAt}}' radar-cyber-db-1
+systemctl show docker.service -p ActiveEnterTimestamp
+```
+
+**Reprise effective.** 2026-11-20 à 17:55:26 CET, 24 s après le démarrage du
+conteneur. À 18:06 : 187 runs collecteurs depuis la reprise (176 ok, 11 en
+erreur — surtout `nvd_cve` « This operation was aborted » et les sources
+`cat-cert-ee` / `cat-huntress-blog` bloquées 403) et 2 025 événements
+ingérés.
+
+**Reste à faire.** Démarrage du conteneur de dev avec la session : soit
+`docker compose up -d db` au lieu d'un stop manuel avant reboot, soit une
+unité/timer systemd qui l'exécute au boot — pour que la reprise d'un boot ne
+dépende plus d'une commande manuelle.
+
 ## Mise à jour
 
 ```bash
