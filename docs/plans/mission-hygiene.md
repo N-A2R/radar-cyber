@@ -57,10 +57,10 @@ Critère de sortie : rejouer les deux fichiers dans les deux ordres donne le mê
 Quatre nombres sont publiés sans qu'on puisse les reproduire. Pour chacun : soit la
 requête exacte est ajoutée au fichier, soit le nombre est retiré.
 
-- [ ] `5 200 événements` — `bench/results/mission-glm-2026-11-20.md:22`
-- [ ] `53 627 rejets dont 37 941 leak:ransomwatch` — même fichier, `l.102-103`
-- [ ] `312 / 698 sources` — `db/sources-ransomware-triage.sql:6`
-- [ ] `23 472 faits` — `bench/results/rupture-rejeu-2026-11-20.json:48`
+- [x] `5 200 événements` — `bench/results/mission-glm-2026-11-20.md:22`
+- [x] `53 627 rejets dont 37 941 leak:ransomwatch` — même fichier, `l.102-103`
+- [x] `312 / 698 sources` — `db/sources-ransomware-triage.sql:6`
+- [x] `23 472 faits` — `bench/results/rupture-rejeu-2026-11-20.json:48`
 - [ ] Commit : `docs(mesure): chaque chiffre publié cite sa requête`
 
 Critère de sortie : aucun des quatre ne reste sans requête vérifiable.
