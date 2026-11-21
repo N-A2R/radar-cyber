@@ -44,6 +44,8 @@ export type QueueParams = {
 	/** Joint les candidats, la règle de refus et la géographie de l'org. */
 	enriched?: boolean;
 	page?: number;
+	offset?: number;
+	cursor?: number | null;
 	limit?: number;
 	window?: number;
 };
@@ -89,6 +91,8 @@ export type QueueResult = {
 	total: number;
 	page: number;
 	limit: number;
+	/** Dernier id de la page courante quand une suite existe, sinon null. */
+	nextCursor: number | null;
 	/** Nombre de faits examinés pour construire la file. */
 	window: number;
 	/** Le stock dépasse la fenêtre : la file ne couvre pas tout. */
@@ -151,6 +155,8 @@ export async function reviewQueue(params: QueueParams = {}): Promise<QueueResult
 	const limit = Math.min(MAX_LIMIT, Math.max(1, params.limit ?? 50));
 	const page = Math.max(0, params.page ?? 0);
 	const window = Math.min(MAX_WINDOW, Math.max(limit, params.window ?? DEFAULT_WINDOW));
+	const start = Math.max(0, params.offset ?? page * limit);
+	const cursor = params.cursor ?? null;
 
 	// Un corps illisible n'est pas un fait à trancher : c'est une source cassée.
 	// Il reste en quarantaine pour l'audit, mais hors de la file de revue.
@@ -173,6 +179,7 @@ export async function reviewQueue(params: QueueParams = {}): Promise<QueueResult
 		values.push(`%${search.replace(/[\\%_]/g, (c) => `\\${c}`)}%`);
 		clauses.push(`(org_hint ILIKE $${values.length} OR groupe ILIKE $${values.length})`);
 	}
+	if (cursor !== null) add("id < ?", cursor);
 	values.push(window + 1);
 
 	const [raw, orgIndex, aliasIndex, countsRaw] = await Promise.all([
@@ -183,7 +190,7 @@ export async function reviewQueue(params: QueueParams = {}): Promise<QueueResult
 			        (extracted->'${REVIEW_KEY}') AS review
 			   FROM quarantine_raw
 			  WHERE ${clauses.join(" AND ")}
-			  ORDER BY received_at DESC, id DESC
+			  ORDER BY ${cursor === null ? "received_at DESC, id DESC" : "id DESC"}
 			  LIMIT $${values.length}`,
 			values,
 		),
@@ -286,7 +293,8 @@ export async function reviewQueue(params: QueueParams = {}): Promise<QueueResult
 	});
 
 	const filtered = params.bucket ? scored.filter((row) => row.triage.bucket === params.bucket) : scored;
-	filtered.sort((a, b) => compareQueueEntries({
+	if (cursor !== null) filtered.sort((a, b) => b.id - a.id);
+	else filtered.sort((a, b) => compareQueueEntries({
 		score: a.triage.score, claimedAt: a.claimedAt, id: a.id,
 	}, {
 		score: b.triage.score, claimedAt: b.claimedAt, id: b.id,
@@ -301,11 +309,15 @@ export async function reviewQueue(params: QueueParams = {}): Promise<QueueResult
 		else if (row.status === "rejected") counts.rejected += n;
 	}
 
+	const rows = filtered.slice(start, start + limit);
+	const hasMore = start + limit < filtered.length || (truncated && rows.length === limit);
+
 	return {
-		rows: filtered.slice(page * limit, page * limit + limit),
+		rows,
 		total: filtered.length,
 		page,
 		limit,
+		nextCursor: hasMore ? rows.at(-1)?.id ?? null : null,
 		window: Math.min(raw.rows.length, window),
 		truncated,
 		facets: {

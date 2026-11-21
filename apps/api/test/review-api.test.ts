@@ -280,3 +280,50 @@ test("stats : les quatre comptes sont lus en base", async () => {
 	const stats = res.json<Record<string, number>>();
 	assert.ok(stats.acceptees >= 1 && stats.refusees >= 1 && stats.promues >= 1);
 });
+
+test("curseur : deux pages de 50 sur 120 lignes, sans doublon ni trou", async () => {
+	const lot = `${TAG}-cursor`;
+	const inserted = await query<{ id: number }>(
+		`INSERT INTO quarantine_raw
+		   (source, source_url, groupe, org_hint, claimed_at, extracted, tlp, content_hash, status)
+		 SELECT $1, 'https://exemple.test/' || $2 || '-' || g, $2, $2 || '-' || g || '.example',
+		        now(), '{}'::jsonb, 'RED', md5($2 || '-' || g), 'pending'
+		   FROM generate_series(1, 120) AS g
+		  RETURNING id`,
+		[SOURCE, lot],
+	);
+	const attendu = inserted.rows.map((row) => Number(row.id)).sort((a, b) => b - a);
+	assert.equal(attendu.length, 120);
+
+	const premiere = await app.inject({
+		method: "GET",
+		url: `/api/review/queue?limit=50&q=${encodeURIComponent(lot)}`,
+		headers: auth,
+	});
+	assert.equal(premiere.statusCode, 200);
+	const page1 = premiere.json<{ rows: Array<{ id: number }>; nextCursor: number | null }>();
+	assert.equal(page1.rows.length, 50);
+	assert.deepEqual(page1.rows.map((row) => row.id), attendu.slice(0, 50));
+	assert.equal(page1.nextCursor, attendu[49]);
+
+	const deuxieme = await app.inject({
+		method: "GET",
+		url: `/api/review/queue?limit=50&q=${encodeURIComponent(lot)}&cursor=${page1.nextCursor}`,
+		headers: auth,
+	});
+	assert.equal(deuxieme.statusCode, 200);
+	const page2 = deuxieme.json<{ rows: Array<{ id: number }>; nextCursor: number | null }>();
+	assert.equal(page2.rows.length, 50);
+	assert.deepEqual(page2.rows.map((row) => row.id), attendu.slice(50, 100));
+	const ids = [...page1.rows, ...page2.rows].map((row) => row.id);
+	assert.equal(new Set(ids).size, 100, "aucun doublon entre les deux pages");
+	assert.equal(page2.nextCursor, attendu[99], "les 20 lignes restantes restent accessibles");
+
+	const compat = await app.inject({
+		method: "GET",
+		url: `/api/review/queue?limit=50&offset=50&q=${encodeURIComponent(lot)}`,
+		headers: auth,
+	});
+	assert.equal(compat.statusCode, 200, "?offset= reste accepté");
+	assert.equal(compat.json<{ rows: unknown[] }>().rows.length, 50);
+});
