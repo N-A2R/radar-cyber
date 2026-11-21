@@ -24,6 +24,7 @@ import { capterAlertesRupture } from "./analyse/rupture.js";
 import healthDetailRoute from "./routes/health-detail.js";
 import healthCausesRoute from "./routes/health-causes.js";
 import eventsRoute from "./routes/events.js";
+import historyRoute from "./routes/history.js";
 import todayRoute from "./routes/today.js";
 import statsDepartementsRoute from "./routes/stats-departements.js";
 import flowsRoute from "./routes/flows.js";
@@ -93,7 +94,7 @@ if (existsSync(webDist)) {
  * écritures protégées. Un token valide est attaché à la requête s'il est fourni,
  * ce qui permet au front d'adapter l'UI au rôle.
  */
-const PUBLIC_READ = /^\/api\/(health|stats|sources|flows|search|directory|graph|stream|events|orgs|enrich|alerts|quarantine|dossier|healthz|na|today)(\/|$|\?)/;
+const PUBLIC_READ = /^\/api\/(health|stats|sources|flows|search|directory|graph|stream|events|history|orgs|enrich|alerts|quarantine|dossier|healthz|na|today)(\/|$|\?)/;
 
 app.addHook("onRequest", async (req, reply) => {
   const url = req.url.split("?")[0];
@@ -116,6 +117,7 @@ app.get("/api/health", async () => {
 });
 
 await app.register(eventsRoute, { prefix: "/api" });
+await app.register(historyRoute, { prefix: "/api" });
 await app.register(healthDetailRoute, { prefix: "/api" });
 await app.register(healthCausesRoute, { prefix: "/api" });
 await app.register(todayRoute, { prefix: "/api" });
