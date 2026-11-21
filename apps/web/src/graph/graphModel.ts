@@ -15,7 +15,8 @@ export type GraphNodeKind =
   | 'family'
   | 'dept'
   | 'group'
-  | 'asset';
+  | 'asset'
+  | 'ip';
 
 export interface GraphNode {
   id: string;
@@ -31,12 +32,16 @@ export interface GraphNode {
   city?: string | null;
   dept?: string | null;
   orgId?: number | string | null;
+  validFrom?: string;
+  validTo?: string | null;
 }
 
 export interface GraphLink {
   source: string;
   target: string;
   type: string;
+  validFrom?: string;
+  validTo?: string | null;
 }
 
 export interface GraphEventInfo {
@@ -74,6 +79,8 @@ export interface GraphViewProps {
   now?: number;
   /** Chargement du graphe côté parent : squelette tant qu'il n'y a rien à dessiner. */
   loading?: boolean;
+  /** Optional time-aware graph served by GET /api/graph/temporal. */
+  temporal?: GraphData | null;
 }
 
 export interface GraphData {
@@ -88,6 +95,13 @@ export const LINK_TYPES: Record<string, string> = {
   contains: 'contains',
   reported_by: 'reported by',
   observed_at: 'observed at',
+  targeted_by: 'targeted by',
+  claims: 'claims',
+  attributed_to: 'attributed to',
+  located_in: 'located in',
+  owns_domain: 'owns domain',
+  dns_link: 'DNS link',
+  resolves_to: 'resolves to',
 };
 
 const FAMILY_ALIASES: Record<string, string> = {
@@ -165,14 +179,14 @@ export function buildGraph(input: {
 
   const links: GraphLink[] = [];
   const linkKeys = new Set<string>();
-  const addLink = (source: string | undefined, target: string | undefined, type: string) => {
+  const addLink = (source: string | undefined, target: string | undefined, type: string, extra: Partial<GraphLink> = {}) => {
     if (!source || !target || source === target) return;
     const key = `${source}\u0000${target}\u0000${type}`;
     if (linkKeys.has(key)) return;
     linkKeys.add(key);
-    links.push({ source, target, type });
+    links.push({ ...extra, source, target, type });
   };
-  for (const link of input.links) addLink(endId(link.source), endId(link.target), link.type);
+  for (const link of input.links) addLink(endId(link.source), endId(link.target), link.type, link);
 
   const sourceIds = new Set<string>();
   const events = input.eventsById ?? {};

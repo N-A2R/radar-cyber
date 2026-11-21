@@ -38,7 +38,7 @@ export { buildGraph, canonicalFamily, filterGraph, selectNeighborhood } from './
 
 // ── Visual constants ─────────────────────────────────────────────
 
-const KIND_ORDER = ['org', 'event', 'source', 'family', 'dept', 'group', 'asset'];
+const KIND_ORDER = ['org', 'event', 'source', 'family', 'dept', 'group', 'asset', 'ip'];
 
 const KIND_COLOR: Record<string, string> = {
   org: '#38bdf8',
@@ -48,6 +48,7 @@ const KIND_COLOR: Record<string, string> = {
   dept: '#a78bfa',
   group: '#ef4444',
   asset: '#22c55e',
+  ip: '#22d3ee',
 };
 
 const KIND_LABEL: Record<string, string> = {
@@ -58,6 +59,7 @@ const KIND_LABEL: Record<string, string> = {
   dept: 'department',
   group: 'group',
   asset: 'asset',
+  ip: 'IP address',
 };
 
 const KIND_RADIUS: Record<string, number> = {
@@ -68,6 +70,7 @@ const KIND_RADIUS: Record<string, number> = {
   source: 4,
   group: 4,
   asset: 3,
+  ip: 3,
 };
 
 const FALLBACK_PALETTE = ['#38bdf8', '#f59e0b', '#22c55e', '#a78bfa', '#ef4444', '#e3b341', '#db61a2'];
@@ -173,7 +176,7 @@ type DetailRow = { label: string; value: string; color?: string };
 // ── Component ────────────────────────────────────────────────────
 
 export default function GraphView(props: GraphViewProps) {
-  const { nodes, links, eventsById, orgsById, sourcesById, onSelect, now } = props;
+  const { nodes, links, eventsById, orgsById, sourcesById, onSelect, now, temporal } = props;
   const theme =
     props.theme ??
     (typeof document === 'undefined' ? 'observatoire' : document.documentElement.dataset.theme ?? 'observatoire');
@@ -191,6 +194,9 @@ export default function GraphView(props: GraphViewProps) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [mode, setMode] = useState<'network' | 'matrix'>('network');
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [timeAware, setTimeAware] = useState(false);
+  const sourceNodes = timeAware && temporal ? temporal.nodes : nodes;
+  const sourceLinks = timeAware && temporal ? temporal.links : links;
   const [filtersOpen, setFiltersOpen] = useState<boolean>(() => {
     try { return localStorage.getItem('graph:filtersOpen') !== '0'; } catch { return true; }
   });
@@ -225,8 +231,8 @@ export default function GraphView(props: GraphViewProps) {
   }, [theme]);
 
   const enriched = useMemo(
-    () => buildGraph({ nodes, links, eventsById, sourcesById }),
-    [nodes, links, eventsById, sourcesById],
+    () => buildGraph({ nodes: sourceNodes, links: sourceLinks, eventsById, sourcesById }),
+    [sourceNodes, sourceLinks, eventsById, sourcesById],
   );
 
   const families = useMemo(() => {
@@ -479,6 +485,10 @@ export default function GraphView(props: GraphViewProps) {
       if (sourceInfo?.family) rows.push({ label: 'Family', value: sourceInfo.family });
       if (sourceInfo?.url) rows.push({ label: 'URL', value: sourceInfo.url });
     }
+    if (node.validFrom) {
+      rows.push({ label: 'Valid from', value: formatDate(node.validFrom) });
+      rows.push({ label: 'Valid to', value: node.validTo ? formatDate(node.validTo) : 'still valid' });
+    }
     return rows;
   }, [selection.node, degreeMap, eventsById, orgsById, sourcesById, familyColors]);
 
@@ -565,6 +575,19 @@ export default function GraphView(props: GraphViewProps) {
                 </button>
               ))}
             </div>
+            {temporal ? (
+              <>
+                <p style={BOX_LABEL}>Time model</p>
+                <div style={CHIP_WRAP}>
+                  <button type="button" aria-pressed={!timeAware} onClick={() => setTimeAware(false)} style={chipStyle(!timeAware, accent)}>
+                    Structural
+                  </button>
+                  <button type="button" aria-pressed={timeAware} onClick={() => setTimeAware(true)} style={chipStyle(timeAware, accent)}>
+                    Time-aware
+                  </button>
+                </div>
+              </>
+            ) : null}
             <div className="gv-footer">
               <button
                 type="button"
