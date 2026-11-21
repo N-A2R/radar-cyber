@@ -1,0 +1,30 @@
+{
+  "source:cat-cert-pl:2026-07-29": {
+    "classement": "fausse",
+    "raison": "rattrapage : 5 avis CERT distincts observés le 29/07 mais collectés le 21/11 (115 j de retard), import différé sans nouveauté le jour dit"
+  },
+  "source:cisa_kev:2026-04-13": {
+    "classement": "fausse",
+    "raison": "rattrapage : 6 CVE KEV observées le 13/04 et collectées le 13/11 (215 j), lot d'import historique"
+  },
+  "source:cisa_kev:2026-05-20": {
+    "classement": "fausse",
+    "raison": "rattrapage : 6 CVE KEV observées le 20/05 et collectées le 13/11 (178 j), lot d'import historique"
+  },
+  "source:cisa_kev:2026-08-26": {
+    "classement": "fausse",
+    "raison": "rattrapage : 6 CVE KEV observées le 26/08 et collectées le 13/11 (80 j), lot d'import historique"
+  },
+  "source:cisa_kev:2026-09-02": {
+    "classement": "fausse",
+    "raison": "rattrapage : 7 CVE KEV observées le 02/09 et collectées le 13/11 (73 j), lot d'import historique"
+  },
+  "source:cisa_kev:2026-10-20": {
+    "classement": "fausse",
+    "raison": "rattrapage : 6 CVE KEV observées le 20/10 et collectées le 13/11 (25 j), lot d'import historique"
+  },
+  "source:poc_github:2026-11-20": {
+    "classement": "vraie",
+    "raison": "6 PoC publics distincts, URLs GitHub distinctes, collectés le 21/11 (moins d'un jour) : rafale réelle et exploitable"
+  }
+}
