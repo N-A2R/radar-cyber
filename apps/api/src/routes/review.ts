@@ -9,7 +9,7 @@
 import type { FastifyInstance } from "fastify";
 import { z } from "zod";
 import { query, withTransaction } from "../db.js";
-import { requireAuth } from "../middleware/auth.js";
+import { requireAuth, requireRole } from "../middleware/auth.js";
 import { evaluateEvent } from "../detect/engine.js";
 import { domainFromHint } from "../match/domaine.js";
 import { estSigle } from "../match/sigles.js";
@@ -78,6 +78,11 @@ function badRequest(reply: { code: (n: number) => { send: (body: unknown) => unk
 		details: error.issues.map((issue) => ({ path: issue.path.join("."), message: issue.message })),
 	});
 }
+
+/** Refus massif : une seule raison, un seul lot journalisé. */
+const RefuserSansIndiceBody = z.object({
+	raison: z.string().trim().min(1).max(500),
+}).strict();
 
 /**
  * Traduit l'indice de quarantaine en entrée du service de création.
@@ -178,6 +183,66 @@ export default async function (app: FastifyInstance) {
 			promues: promues.rows[0]?.n ?? 0,
 		};
 	});
+
+	/**
+	 * Refus en masse des revendications en attente sans indice exploitable.
+	 * Une seule transaction : toutes les lignes passent en `rejected`, et un
+	 * unique fait de journal porte la raison, l'auteur et les identifiants.
+	 * Si le journal refuse l'écriture, la transaction entière est annulée —
+	 * on ne classe jamais 145 lignes sans trace.
+	 */
+	app.post(
+		"/review/refuser-sans-indice",
+		{ preHandler: requireRole("admin") },
+		async (req, reply) => {
+			const parsed = RefuserSansIndiceBody.safeParse(req.body ?? {});
+			if (!parsed.success) return badRequest(reply, parsed.error);
+			const { raison } = parsed.data;
+			const acteur = req.user!.email;
+			const entry: ReviewEntry = {
+				at: new Date().toISOString(), by: acteur, action: "reject", reason: raison,
+			};
+
+			const ids = await withTransaction(async (client) => {
+				const updated = await client.query<{ id: number }>(
+					`UPDATE quarantine_raw
+					    SET status = 'rejected',
+					        extracted = jsonb_set(
+					          COALESCE(extracted, '{}'::jsonb),
+					          '{_review}',
+					          COALESCE(extracted->'_review', '[]'::jsonb) || $1::jsonb
+					        )
+					  WHERE kind = 'claim' AND status = 'pending' AND promoted = false
+					    AND (org_hint IS NULL OR btrim(org_hint) = '')
+					  RETURNING id`,
+					[JSON.stringify([entry])],
+				);
+				const traites = updated.rows.map((row) => Number(row.id)).sort((a, b) => a - b);
+				if (traites.length === 0) return traites;
+				const trace = await consignerAvec(
+					(sql, params) => client.query(sql, params as unknown[]),
+					{
+						kind: "review.decided",
+						subject: "review.batch:refuser-sans-indice",
+						summary: `refuser-sans-indice par ${acteur} — ${raison} (${traites.length} ligne(s))`,
+						actor: `humain:${acteur}`,
+						payload: {
+							decision: "refuser",
+							action: "reject",
+							reason: raison,
+							statutApplique: "rejected",
+							traites: traites.length,
+							quarantineIds: traites,
+						},
+					},
+				);
+				if (!trace.ok) throw new Error(`journal indisponible : ${trace.error}`);
+				return traites;
+			});
+
+			return { traites: ids.length, journalConsignes: ids.length > 0 ? 1 : 0 };
+		},
+	);
 
 	/**
 	 * Décision sur une ligne : accepter attache l'organisation choisie, creer
