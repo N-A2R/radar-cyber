@@ -20,6 +20,9 @@ export type JournalKind =
 	| "event.rattachement"
 	/** Un alias a été retenu ou écarté pour un texte donné. */
 	| "match.decided"
+	/** Un rattachement produit par le moteur a été refusé par une règle de
+	 * précision (drapeau `PRECISION_RULES=on`) — le fait porte la règle. */
+	| "match.refuse"
 	/** Un référentiel a été chargé ou complété. */
 	| "referentiel.charged"
 	/** Une organisation a changé de nom, de périmètre ou a fusionné. */

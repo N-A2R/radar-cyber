@@ -3,12 +3,14 @@
  * (docs/plans/wave-precision.md, étapes S2/S3), mesurée sur le corpus gelé
  * et sur échantillon frais, adoptée en S2.4/S3.1.
  *
- * Ce module ne change pas le moteur : il porte la **spécification** des
- * règles que le rattachement doit suivre. Le moteur livré ne l'appelle pas
- * encore ; les tests de régression (test/regles-precision.test.ts) et le
- * jeu d'or (scripts/precision-gold.mts) la font respecter — toute
- * modification du moteur qui viole une règle ou fait bouger un cas du jeu
- * d'or échoue.
+ * Ce module porte la **spécification** des règles que le rattachement doit
+ * suivre. Depuis la vague « branchement » (docs/plans/wave-regles.md), le
+ * moteur l'appelle au point de décision de la promotion
+ * (quarantine/promote.ts), derrière le drapeau `PRECISION_RULES=on|off` —
+ * les deux régimes se mesurent dans le même binaire. Les tests de régression
+ * (test/regles-precision.test.ts) et le jeu d'or (scripts/precision-gold.mts)
+ * la font respecter — toute modification du moteur qui viole une règle ou
+ * fait bouger un cas du jeu d'or échoue.
  *
  * Les règles, dans l'ordre de leur évaluation :
  *
