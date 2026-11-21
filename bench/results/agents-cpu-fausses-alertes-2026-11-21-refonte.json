@@ -1,0 +1,188 @@
+{
+  "dateMesure": "2026-11-21",
+  "commande": "tsx scripts/mesure-agents-cpu.mts --json=bench/results/agents-cpu-fausses-alertes-2026-11-21-refonte.json",
+  "base": {
+    "evenements": 27870,
+    "organisations": 1673151,
+    "sources": 312,
+    "derniereObservation": "2026-11-21"
+  },
+  "fenetre": {
+    "debut": "2026-10-22",
+    "fin": "2026-11-21"
+  },
+  "pasJours": 1,
+  "rejeux": 32,
+  "toleranceJours": 35,
+  "seuils": {
+    "organisation": {
+      "evenements": 3,
+      "fenetreJours": 7,
+      "absenceJours": 90,
+      "historiqueAncienMin": 1,
+      "sourcesDistinctesMin": 2
+    },
+    "secteur": {
+      "z": 3,
+      "effectifMin": 10,
+      "observesMin": 3,
+      "fenetreJours": 7,
+      "referenceJours": 90
+    },
+    "source": {
+      "silenceJours": 3,
+      "cadenceJours": 7,
+      "horizonRepriseJours": 7
+    }
+  },
+  "couvertureCorpus": {
+    "maxDatePublique": "2026-11-10",
+    "couvreFenetre": false
+  },
+  "veriteTerrain": {
+    "organisations": 4,
+    "incidentsNonResolus": 6,
+    "secteurs": 2
+  },
+  "diagnosticSources": {
+    "instant": "2026-11-21",
+    "sourcesAvecEvenementsRecents": 105,
+    "sourcesQuotidiennesSurCadence": 1
+  },
+  "total": {
+    "emises": 3,
+    "vraies": 0,
+    "fausses": 1,
+    "nonClassables": 2,
+    "classables": 1,
+    "tauxFaussesAlertes": 100
+  },
+  "parAgent": {
+    "organisation-surgissante": {
+      "emises": 0,
+      "vraies": 0,
+      "fausses": 0,
+      "nonClassables": 0,
+      "taux": null,
+      "raisons": {}
+    },
+    "bascule-secteur": {
+      "emises": 2,
+      "vraies": 0,
+      "fausses": 0,
+      "nonClassables": 2,
+      "taux": null,
+      "raisons": {
+        "secteur_sans_verite": 2
+      }
+    },
+    "source-muette": {
+      "emises": 1,
+      "vraies": 0,
+      "fausses": 1,
+      "nonClassables": 0,
+      "taux": 100,
+      "raisons": {
+        "reprise_transitoire": 1
+      }
+    }
+  },
+  "alertes": [
+    {
+      "agent": "bascule-secteur",
+      "cle": "bascule-secteur:entreprise",
+      "instant": "2026-11-21",
+      "motif": "bascule-secteur — bascule du secteur entreprise (z=8.4)",
+      "classement": "non_classable",
+      "raison": "secteur_sans_verite",
+      "faits": [
+        82933,
+        82937,
+        83875,
+        83876,
+        48144,
+        126789,
+        82931,
+        82932,
+        82934,
+        82935,
+        82936,
+        81249,
+        81250,
+        83877,
+        46822,
+        81252,
+        126770,
+        126780,
+        126771,
+        126772,
+        126773,
+        126786,
+        126774,
+        126775,
+        126776,
+        126777,
+        126778,
+        126779,
+        126781,
+        126782,
+        126783,
+        126784,
+        126785,
+        126787,
+        126788,
+        46611,
+        81253,
+        81254,
+        81255,
+        81256,
+        81258,
+        81259,
+        81260,
+        81251
+      ]
+    },
+    {
+      "agent": "bascule-secteur",
+      "cle": "bascule-secteur:associations",
+      "instant": "2026-11-20",
+      "motif": "bascule-secteur — bascule du secteur associations (z=5.2)",
+      "classement": "non_classable",
+      "raison": "secteur_sans_verite",
+      "faits": [
+        51151,
+        51872,
+        51362,
+        51960,
+        130419,
+        52347
+      ]
+    },
+    {
+      "agent": "source-muette",
+      "cle": "source-muette:gn-17",
+      "instant": "2026-11-18",
+      "motif": "source-muette — source quotidienne muette depuis 3 j",
+      "classement": "fausse",
+      "raison": "reprise_transitoire",
+      "faits": [
+        139528,
+        139599,
+        139602,
+        24243,
+        24227,
+        47878,
+        24233,
+        77167,
+        77177,
+        130547,
+        130581,
+        130611,
+        130617,
+        130644,
+        77192,
+        77201
+      ]
+    }
+  ]
+}
