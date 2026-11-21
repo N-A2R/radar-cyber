@@ -2,6 +2,7 @@ import type { FastifyInstance } from "fastify";
 import { ingestQuery } from "../db.js";
 import { consigner } from "../journal/index.js";
 import { porteeRegionale } from "../match/territorial.js";
+import { rateLimit } from "../middleware/rate-limit.js";
 import { requireAuth } from "../middleware/auth.js";
 import { AdmissionTally, admitEvent } from "../contract/admit.js";
 
@@ -47,7 +48,9 @@ interface IngestBody {
 }
 
 export default async function (app: FastifyInstance) {
-  app.post<{ Body: IngestBody }>("/ingest", { preHandler: requireAuth() }, async (req, reply) => {
+  // Fenêtre glissante partagée par les écritures d'ingestion de ce serveur.
+  const writeRateLimit = rateLimit({ max: 20, windowMs: 60_000 });
+  app.post<{ Body: IngestBody }>("/ingest", { preHandler: [writeRateLimit, requireAuth()] }, async (req, reply) => {
     const events = Array.isArray(req.body?.events) ? req.body.events : [];
     if (events.length === 0) return { inserted: 0, skipped: 0 };
 

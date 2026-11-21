@@ -9,6 +9,7 @@
 import type { FastifyInstance } from "fastify";
 import { z } from "zod";
 import { query, withTransaction } from "../db.js";
+import { rateLimit } from "../middleware/rate-limit.js";
 import { requireAuth, requireRole } from "../middleware/auth.js";
 import { evaluateEvent } from "../detect/engine.js";
 import { domainFromHint } from "../match/domaine.js";
@@ -112,6 +113,7 @@ function inputDepuisIndice(
 }
 
 export default async function (app: FastifyInstance) {
+	const ecritureRateLimit = rateLimit({ max: 20, windowMs: 60_000 });
 	/** Revendications en attente avec indice, candidats et règle de refus. */
 	app.get("/review/queue", { preHandler: requireAuth() }, async (req, reply) => {
 		const parsed = QueueQuery.safeParse(req.query ?? {});
@@ -193,7 +195,7 @@ export default async function (app: FastifyInstance) {
 	 */
 	app.post(
 		"/review/refuser-sans-indice",
-		{ preHandler: requireRole("admin") },
+		{ preHandler: [ecritureRateLimit, requireRole("admin")] },
 		async (req, reply) => {
 			const parsed = RefuserSansIndiceBody.safeParse(req.body ?? {});
 			if (!parsed.success) return badRequest(reply, parsed.error);
@@ -252,7 +254,7 @@ export default async function (app: FastifyInstance) {
 	 */
 	app.post<{ Params: { id: string } }>(
 		"/review/:id/decision",
-		{ preHandler: requireAuth() },
+		{ preHandler: [ecritureRateLimit, requireAuth()] },
 		async (req, reply) => {
 			const id = Number(req.params.id);
 			if (!Number.isInteger(id) || id <= 0) {
