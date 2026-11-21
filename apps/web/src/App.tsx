@@ -82,6 +82,7 @@ export default function App() {
   const [corpusError, setCorpusError] = useState<string | null>(null);
   const [statsDepartements, setStatsDepartements] = useState<DeptStat[]>([]);
   const [graph, setGraph] = useState<Graph>({ nodes: [], links: [] });
+  const [temporalGraph, setTemporalGraph] = useState<Graph | null>(null);
   const [flows, setFlows] = useState<FlowArc[]>([]);
   // L'URL porte la vue, les filtres de l'annuaire et la fiche ouverte :
   // une vue se copie, se partage et survit au rechargement.
@@ -280,7 +281,7 @@ export default function App() {
     // son `statement_timeout` — le `Promise.all` rejetait, et organisations,
     // événements, sources et statistiques n'étaient jamais posés en état.
     const load = async () => {
-      const labels = ["organisations", "événements", "sources", "statistiques", "graphe", "vue NA", "état détaillé", "causes des sources rouges", "supervision de la collecte"] as const;
+      const labels = ["organisations", "événements", "sources", "statistiques", "graphe", "vue NA", "état détaillé", "causes des sources rouges", "supervision de la collecte", "graphe temporel"] as const;
       const results = await Promise.allSettled([
         api.orgs(),
         api.events(FEED_LIMIT, "regional", portee),
@@ -291,8 +292,9 @@ export default function App() {
         api.healthDetail(),
         api.healthCauses(),
         api.collecteMetrics(),
+        api.graphTemporal(),
       ]);
-      const [o, e, s, st, g, na, hd, hc, cm] = results;
+      const [o, e, s, st, g, na, hd, hc, cm, tg] = results;
       if (o.status === "fulfilled") setOrgs(o.value);
       if (e.status === "fulfilled") setEvents(e.value);
       if (o.status === "fulfilled" && e.status === "fulfilled") {
@@ -310,6 +312,7 @@ export default function App() {
       if (hd.status === "fulfilled") setHealthDetail(hd.value);
       if (hc.status === "fulfilled") setHealthCauses(hc.value);
       if (cm.status === "fulfilled") setCollecteMetrics(cm.value);
+      if (tg.status === "fulfilled") setTemporalGraph(tg.value);
       const failed = results.flatMap((r, i) => (r.status === "rejected" ? [labels[i]] : []));
       setError(failed.length > 0 ? `indisponible : ${failed.join(", ")}` : null);
       setLoading(false);
@@ -811,6 +814,7 @@ export default function App() {
               }}
               theme="observatoire"
               loading={loading}
+              temporal={temporalGraph}
             />
           ) : null}
 

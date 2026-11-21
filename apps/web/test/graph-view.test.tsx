@@ -61,6 +61,15 @@ const links = [
   { source: 'org:10', target: 'family:ransomware', type: 'has_event' },
   { source: 'org:20', target: 'family:phishing', type: 'has_event' },
 ];
+const temporal = {
+  nodes: [
+    { id: 'org:99', label: 'Temporal Org', kind: 'org', validFrom: iso(30), validTo: null },
+    { id: 'ip:203.0.113.7', label: '203.0.113.7', kind: 'ip', validFrom: iso(30), validTo: null },
+  ],
+  links: [
+    { source: 'org:99', target: 'ip:203.0.113.7', type: 'dns_link', validFrom: iso(30), validTo: null },
+  ],
+};
 
 let container: HTMLDivElement;
 let root: Root;
@@ -74,6 +83,19 @@ function mount() {
   act(() => {
     root.render(<GraphView
       nodes={nodes} links={links} eventsById={events} sourcesById={sources}
+      now={NOW} onSelect={(id) => selected.push(id)} theme="observatoire"
+    />);
+  });
+}
+
+function mountTemporal() {
+  selected = [];
+  container = document.createElement('div');
+  document.body.appendChild(container);
+  root = createRoot(container);
+  act(() => {
+    root.render(<GraphView
+      nodes={nodes} links={links} temporal={temporal} eventsById={events} sourcesById={sources}
       now={NOW} onSelect={(id) => selected.push(id)} theme="observatoire"
     />);
   });
@@ -172,5 +194,26 @@ describe('GraphView — selection', () => {
     act(() => { (container.querySelector('.gv-close') as HTMLButtonElement).click(); });
     expect(container.querySelector('.gv-detail')).toBeNull();
     expect(selected).toEqual(['event:101', 'source:src-1', null]);
+  });
+});
+
+describe('GraphView — time-aware graph', () => {
+  it('switches to the time-aware graph and shows each entity validity period', async () => {
+    await mountTemporal();
+    await flush();
+    expect(button('Time-aware')).not.toBeNull();
+    expect(container.querySelector('[data-node-id="org:99"]')).toBeNull();
+
+    click('Time-aware');
+    expect(container.querySelector('[data-node-id="org:99"]')).not.toBeNull();
+    expect(container.querySelector('[data-node-id="ip:203.0.113.7"]')).not.toBeNull();
+    act(() => { (container.querySelector('[data-node-id="org:99"]') as HTMLButtonElement).click(); });
+    const detail = container.querySelector('.gv-detail')?.textContent ?? '';
+    expect(detail).toContain('Valid from');
+    expect(detail).toContain('still valid');
+    expect(detail).toContain('DNS link');
+
+    click('Structural');
+    expect(container.querySelector('[data-node-id="org:99"]')).toBeNull();
   });
 });

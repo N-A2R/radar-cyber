@@ -361,7 +361,8 @@ export type GraphNodeKind =
   | "family"
   | "dept"
   | "group"
-  | "asset";
+  | "asset"
+  | "ip";
 
 /**
  * Nœud du graphe. Les champs optionnels sont portés par l'API quand ils sont
@@ -381,12 +382,21 @@ export type GraphNode = {
   city?: string | null;
   dept?: string | null;
   url?: string | null;
+  /** Période de validité portée par GET /api/graph/temporal. */
+  validFrom?: string;
+  validTo?: string | null;
 };
 
 /** Types de liens : structurelle (`rattache`), rattachement mesuré
  *  (`has_event`, `targeted_by`, `reported_by`) ou relation enregistrée
  *  (`exploits`, `uses_infra`, `owned_by`, …). */
-export type GraphLink = { source: string; target: string; type: string };
+export type GraphLink = {
+  source: string;
+  target: string;
+  type: string;
+  validFrom?: string;
+  validTo?: string | null;
+};
 
 export type Graph = { nodes: GraphNode[]; links: GraphLink[] };
 
@@ -1085,6 +1095,8 @@ export const api = {
     return get<TodayResponse>(`/today${suffix ? `?${suffix}` : ""}`, signal);
   },
   graph: (days = 90) => get<Graph>(`/graph?days=${days}`),
+  /** Graphe temporel : période de validité des entités et des relations. */
+  graphTemporal: () => get<Graph>("/graph/temporal"),
   sources: () => get<Source[]>("/sources"),
   statsDepartements: (signal?: AbortSignal) => get<StatsDepartements>("/today/departements", signal),
   /** Écran Corpus : volumes, couverture des domaines et croissance. */
