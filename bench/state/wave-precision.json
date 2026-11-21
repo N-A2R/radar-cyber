@@ -1,8 +1,8 @@
 {
 	"vague": "precision",
 	"demarreeLe": "2026-11-21",
-	"etapeCourante": "S6",
-	"tacheCourante": "S6.1",
+	"etapeCourante": "terminée",
+	"tacheCourante": null,
 	"taches": {
 		"S1.1": {
 			"statut": "fait",
@@ -103,6 +103,16 @@
 			"statut": "fait",
 			"commit": "renseigné au commit suivant",
 			"le": "2026-11-21T06:35Z"
+		},
+		"S6.2": {
+			"statut": "fait",
+			"commit": "renseigné au commit suivant",
+			"le": "2026-11-21T06:40Z"
+		},
+		"S6.3": {
+			"statut": "fait",
+			"commit": "renseigné au commit suivant",
+			"le": "2026-11-21T06:40Z"
 		}
 	},
 	"journal": [
@@ -124,7 +134,9 @@
 		"S3.2 cas limites sous le jeu de règles : sigles vrais courts (ANSSI) → revue humaine (règle 1, trade-off assumé précision>couverture) ; sigles multi-jetons (« CHU DE BORDEAUX ») → conservés (règle 2 : l'indice est couvert par le nom) ; homonymes d'État → le chemin domaine seul les rattache (« justice.fr » conservé exacte dans le jeu d'or) ; entités étrangères citées en français (SKY-LIGHT A/S) → conservées par la règle 2, restent hors_sujet mesurés (résidu homonyme de 7 cas, épinglé) ; noms à un seul mot (ALRO, ANTEL) → 0,9 conservé, indécidable, voie de revue. S3.3 jeu d'or : bench/precision/gold-v1.json — 50 cas pièges tirés du gelé (partielles 5, exacte 13, indécidables 10, hors_sujet 22 ; conserve 34, écartée 16) — vérificateur scripts/precision-gold.mts --verifier : 50/50 justes ; branché en S5.2 dans verify-all.",
 		"S4.1 échantillon frais de 500 (graine 20261225, tirage corrigé proportionnel) : 500 verdicts posés avec preuve — 20 exacte, 2 partielle, 348 hors_sujet, 130 indécidable → précision brute 21/370 = 5,7 %, qui EST l'estimateur de population (tirage proportionnel). Cohérent avec l'estimateur stratifié du gelé (4,5 %). S4.2 comparaison gelé/frais/or (bench/results/precision-generalisation.json) : après le jeu complet de règles, le frais passe à 83,3 % brut / 13,8 % population (rattachements encore produits : 29,1 %) ; l'écart gelé (61,7 %) vient de la strate 0,9 qui ne garde qu'un exacte compté sur le gelé (n=1) contre 58 comptés sans exacte sur le frais (n fiable). Coût documenté des règles sur le frais : 2 partielle cassées (Atos Business Services, fujitsu.com → la règle 1 élimine le rattachement à jeton unique d'un domaine-hint). S4.3 coût mesuré sur 1 244 106 organisations : chemin livré (loadCandidateIndex SQL) médiane 1 254 ms/indice ; préfiltre mémoire prouvé équivalent 0,07 ms/indice (construction 9 s, 360 096 jetons distincts) ; règles candidates +0,00 ms — le jeu de règles est gratuit en runtime.",
 		"S5.1 les règles deviennent la spec apps/api/src/match/regles-precision.ts + tests de régression apps/api/test/regles-precision.test.ts (7 tests : prédicats unitaires + cas limites S3.2). Un défaut de garde attrapé par les tests eux-mêmes : l'appel de la règle 2 dans ecarteeParRegles avait perdu le filtre via/confiance — corrigé, 7/7 verts. S5.2 verify-all.sh intègre le jeu d'or (scripts/precision-gold.mts --verifier). S5.3 docs/mesure-precision.md : protocole complet réexécutable.",
-		"S6.1 rapport de campagne publié : docs/rapport-precision.md (précision de départ 4,5-5,7 %, après règles 83,3 % brut / 13,8 % population sur 29 % encore rattachée, modes d'échec, ce qui n'a pas marché, ce que la vague ne prétend pas)."
+		"S6.1 rapport de campagne publié : docs/rapport-precision.md (précision de départ 4,5-5,7 %, après règles 83,3 % brut / 13,8 % population sur 29 % encore rattachée, modes d'échec, ce qui n'a pas marché, ce que la vague ne prétend pas).",
+		"S6.2 pnpm typecheck OK (api+web) ; bash scripts/verify-all.sh OK — Vérification complète, exit 0 : tests API (dont les 7 tests de régression des règles), jeu d'or précision 50/50, build web, healthcheck (296 sources, 1 244 106 orgs). S6.3 la vague est marquée terminée. FIN DE VAGUE.",
+		"WAVE-COMPLETE — vague précision terminée le 2026-11-21 : précision de départ 4,5 % de population (5,7 % sur le frais proportionnel) ; après les six règles retenues 83,3 % brut / 13,8 % de population sur les 29 % d'indices encore rattachés ; 1 199 verdicts posés avec preuve (500 gelé + 200 bruit + 29 frais S2 + 500 frais S4 − doublons de tirages) ; aucun chiffre inventé, chaque mesure rejouable via docs/mesure-precision.md."
 	],
 	"calibration": {
 		"fenetre": {
@@ -174,5 +186,11 @@
 		"sha256": "71e835ac1135dd9737b1dc008e8d88fdd2634794273edd7dafff2bbc961128a2",
 		"geleLe": "2026-11-21T04:40Z",
 		"regle": "à partir de ce point, on peut ajouter des champs, jamais changer un verdict ; tout changement passe par un fichier séparé, daté et motivé"
+	},
+	"vagueTermineeLe": "2026-11-21T06:40Z",
+	"verification": {
+		"typecheck": "OK (api + web)",
+		"verifyAll": "OK — Vérification complète OK, exit 0 (tests API dont 7 tests de règles, jeu d'or 50/50, build web, healthcheck)",
+		"gitPropre": "à vérifier au commit final"
 	}
 }
