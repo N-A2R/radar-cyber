@@ -1,12 +1,12 @@
 {
-  "date_mesure": "2026-11-21T17:22:27+01:00",
+  "date_mesure": "2026-11-21T17:24:47+01:00",
   "base": "PostgreSQL 18.6, localhost:5433/radar, SELECT seuls (BEGIN READ ONLY)",
   "fenetre": "event.created_at >= now() - interval '24 hours'",
   "mesures": {
     "sources_total": 312,
     "sources_actives": 202,
     "sources_avec_evenement_24h": 80,
-    "evenements_24h": 5977
+    "evenements_24h": 5981
   },
   "definition_sources_actives": "source.enabled IS TRUE, sélecteur réel de la collecte (apps/api/src/collectors/generic.ts:1041)",
   "top5": [
@@ -42,27 +42,37 @@
     }
   ],
   "requetes_sql": {
+    "sources_total": "SELECT count(*) FROM source",
     "sources_actives": "SELECT count(*) FROM source WHERE enabled",
     "sources_avec_evenement_24h": "SELECT count(DISTINCT source_id) FROM event WHERE created_at >= now() - interval '24 hours'",
     "evenements_24h": "SELECT count(*) FROM event WHERE created_at >= now() - interval '24 hours'",
-    "top5": "SELECT e.source_id, s.name, count(*) FROM event e LEFT JOIN source s ON s.id = e.source_id WHERE e.created_at >= now() - interval '24 hours' GROUP BY 1, 2 ORDER BY count(*) DESC, 1 LIMIT 5"
+    "top5": "SELECT e.source_id, s.name, count(*) FROM event e LEFT JOIN source s ON s.id = e.source_id WHERE e.created_at >= now() - interval '24 hours' GROUP BY e.source_id, s.name ORDER BY count(*) DESC, e.source_id LIMIT 5"
   },
   "comparaison": {
-    "releve_precedent": "bench/results/cadence.json",
-    "date_releve_precedent": "2026-11-21T16:55:23+01:00",
-    "precision": "aucun fichier releve-collecte-<date>.json antérieur ; cadence.json est le relevé de collecte le plus récent et utilise la même définition enabled",
+    "releve_precedent": "bench/results/releve-collecte-2026-11-21.json (version 2026-11-21T17:22:27+01:00, commit 98513f5)",
+    "date_releve_precedent": "2026-11-21T17:22:27+01:00",
     "deltas": {
       "sources_total": {
-        "avant": 296,
+        "avant": 312,
         "apres": 312,
-        "delta": 16
+        "delta": 0
       },
       "sources_actives": {
-        "avant": 186,
+        "avant": 202,
         "apres": 202,
-        "delta": 16
+        "delta": 0
+      },
+      "sources_avec_evenement_24h": {
+        "avant": 80,
+        "apres": 80,
+        "delta": 0
+      },
+      "evenements_24h": {
+        "avant": 5977,
+        "apres": 5981,
+        "delta": 4
       }
     },
-    "non_comparable": "cadence.json ne contient ni événements sur 24 h ni top sources"
+    "top5": "inchangé : mêmes source_id, noms et volumes"
   }
 }
