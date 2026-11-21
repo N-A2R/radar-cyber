@@ -34,30 +34,52 @@ sudo bash scripts/deploy/install.sh --source "$PWD" \
 Les mots de passe sont générés (hexadécimal 48 caractères) s'ils ne sont pas
 fournis. Ils ne sont jamais écrits dans `state.json`.
 
-### Entrée courte : `scripts/install.sh` (PostgreSQL 18)
+### Entrée courte : `scripts/install.sh` (PostgreSQL 18, pile complète)
 
-Pour une machine neuve où l'on veut uniquement l'API (pas le front, pas de
-release immuable), `scripts/install.sh` est le chemin court. Il installe
-PostgreSQL **18** depuis le dépôt PGDG, restaure un dump optionnel, applique
-`db/init.sql` et les migrations, installe les dépendances, construit le front,
-installe l'unité système `radar-api` et prouve `/api/health` en HTTP 200.
+`scripts/install.sh` déploie l'API **et** l'interface en une commande sur une
+machine Debian/Ubuntu neuve : PostgreSQL 18 (dépôt PGDG), restauration d'un
+dump optionnel, `db/init.sql`, migrations, dépendances, build du front, unité
+systemd `radar-api`, puis preuve HTTP. L'API sert elle-même `apps/web/dist` :
+une seule adresse et un seul processus à tenir, `http://127.0.0.1:8080/` pour
+l'interface et `/api/health` pour la santé (plus d'unité `radar-web`).
 
 ```bash
 sudo bash scripts/install.sh --admin-password 'MOT-DE-PASSE' \
   [--dump /srv/sauvegardes/radar.dump]
+# sans dépôt local :
+curl -fsSL https://raw.githubusercontent.com/j0ltdevv/radar-cyber/main/scripts/install.sh \
+  | sudo bash -s -- --admin-password 'MOT-DE-PASSE'
 ```
 
-Il est idempotent : un rejeu réutilise la release et n'applique que les
-migrations manquantes. Désinstallation (données conservées par défaut) :
+Ports : `--db-port` (défaut 5432) et `--api-port` (défaut 8080). Rejeu
+idempotent ; vérification sans root ni écriture :
+
+```bash
+bash scripts/install.sh --check --api-port 18100
+# PREUVE : GET http://127.0.0.1:18100/api/health → HTTP 200 {"ok":true,...}
+# PREUVE : GET http://127.0.0.1:18100/ → HTTP 200 (shell React, /assets/… → HTTP 200)
+```
+
+Désinstallation (données conservées par défaut) :
 
 ```bash
 sudo bash scripts/install.sh --uninstall
-sudo bash scripts/install.sh --uninstall --purge-data   # supprime aussi base, rôle, cluster
+sudo bash scripts/install.sh --uninstall --purge-data   # base, rôle et cluster aussi
 ```
 
-> URL et branche du clone : `RADAR_REPO_URL` (défaut
-> `https://github.com/j0ltdevv/radar-cyber.git`) et `RADAR_REF` (défaut `main`).
-> Pour déployer une branche non fusionnée : `RADAR_REF=ma-branche ... bash -s -- ...`.
+Test automatisé (base de test sur 5433, API sur un port >= 18100, front
+compilé dans un répertoire jetable) :
+
+```bash
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/postgres \
+  pnpm -F @radar/api test test/deploiement-install.test.ts
+```
+
+Mesuré en local : 11,9 s au rejeu (23,4 s à froid) du lancement au résultat du
+test, dont build du front 7,1 s et contrôle `--check` 128 ms. L'installation
+système complète n'a pas été rejouée sur une machine vierge ici : elle reste
+couverte par `scripts/deploy/fresh-machine-test.sh` pour l'installateur
+historique.
 
 ## Options
 

@@ -3,9 +3,10 @@
 #
 # Installe PostgreSQL 18 (dépôt PGDG), restaure optionnellement un dump, crée
 # le schéma, applique les migrations, installe les dépendances, construit le
-# front, installe l'unité système radar-api, la démarre et prouve que
-# /api/health répond 200. Rejouable sans duplication ; `--uninstall` retire
-# l'installation (les données restent sauf `--purge-data`).
+# front servi par l'API à `/`, installe l'unité radar-api, la démarre et prouve
+# que `/` et `/api/health` répondent 200. `--check` rejoue la preuve sans root.
+# Rejouable sans duplication ; `--uninstall` retire l'installation
+# (les données restent sauf `--purge-data`).
 #
 #   sudo bash scripts/install.sh --admin-password 'MOT-DE-PASSE' \
 #        [--dump /srv/sauvegardes/radar.dump]
@@ -65,6 +66,7 @@ Usage : sudo bash scripts/install.sh [options]
   --admin-email EMAIL     e-mail de ce compte (défaut admin@radar.local)
   --uninstall             retire le service et les fichiers installés
   --purge-data            avec --uninstall : supprime aussi base, rôle et cluster
+  --check                 vérifie seulement / et /api/health (aucun root requis)
   --help                  cette aide
 
 Variables utiles : RADAR_DB_URL (base existante, aucun paquet/cluster créé),
@@ -88,12 +90,13 @@ while [ $# -gt 0 ]; do
     --admin-email) ADMIN_EMAIL="${2:-}"; shift 2 ;;
     --uninstall) MODE="uninstall"; shift ;;
     --purge-data) PURGE_DATA=1; shift ;;
+    --check) MODE="check"; shift ;;
     --help|-h) usage; exit 0 ;;
     *) die "option inconnue : $1 (voir --help)" ;;
   esac
 done
 
-[ "$(id -u)" -eq 0 ] || die "cette installation doit être lancée en root (sudo)"
+[ "$(id -u)" -eq 0 ] || [ "$MODE" = "check" ] || die "cette installation doit être lancée en root (sudo)"
 STATE_FILE="$STATE_DIR/install.env"
 BACKUP_DIR="$STATE_DIR/backups"
 
@@ -139,7 +142,7 @@ preflight() {
   [[ "$DB_NAME" =~ ^[A-Za-z_][A-Za-z0-9_-]*$ ]] || die "nom de base invalide : $DB_NAME"
   [[ "$DB_USER" =~ ^[A-Za-z_][A-Za-z0-9_-]*$ ]] || die "nom de rôle invalide : $DB_USER"
   case "$DB_PORT$API_PORT" in (*[!0-9]*) die "ports invalides : $DB_PORT / $API_PORT" ;; esac
-  [ -n "$DUMP" ] && [ -r "$DUMP" ] || die "dump illisible : ${DUMP:-aucun}"
+  [ -z "$DUMP" ] || [ -r "$DUMP" ] || die "dump illisible : $DUMP"
   if [ -z "$DB_URL" ] && port_open "$DB_PORT" && [ -z "$(pg_cluster_for_port 2>/dev/null || true)" ]; then
     die "port PostgreSQL $DB_PORT déjà occupé par un autre service"
   fi
@@ -330,6 +333,7 @@ ensure_code() {
   CURRENT_DIR="$INSTALL_DIR/current"
   (cd "$CURRENT_DIR" && "$PNPM_BIN" install --frozen-lockfile)
   (cd "$CURRENT_DIR" && "$PNPM_BIN" -F @radar/web build)
+  [ -f "$CURRENT_DIR/apps/web/dist/index.html" ] || die "front non construit : apps/web/dist/index.html absent"
   log "Dépendances installées et front construit ($CURRENT_DIR/apps/web/dist)."
 }
 
@@ -427,25 +431,47 @@ install_unit() {
   systemctl restart radar-api.service
   log "Unité radar-api installée et démarrée."
 }
-verify_health() {
-  local i code body tmp
+verify_endpoints() {
+  local i code body tmp asset asset_code health_ok=0
+  for cmd in curl jq; do
+    command -v "$cmd" >/dev/null 2>&1 || die "commande requise absente : $cmd"
+  done
   tmp="$(mktemp)"
-  for i in $(seq 1 60); do
-    if systemctl is-active --quiet radar-api.service; then
+  for i in $(seq 1 30); do
+    if [ "$MODE" = "check" ] || systemctl is-active --quiet radar-api.service 2>/dev/null; then
       code="$(curl -sS -o "$tmp" -w '%{http_code}' --max-time 5 "http://127.0.0.1:$API_PORT/api/health" 2>/dev/null || echo 000)"
       body="$(cat "$tmp")"
-      if [ "$code" = "200" ] && { printf '%s' "$body" | jq -e '.ok == true' >/dev/null 2>&1 || printf '%s' "$body" | grep -Eq '"ok"[[:space:]]*:[[:space:]]*true'; }; then
-        log "PREUVE : GET http://127.0.0.1:$API_PORT/api/health → HTTP ${code} $body"
-        rm -f "$tmp"
-        return 0
+      if [ "$code" = "200" ] && printf '%s' "$body" | jq -e '.ok == true' >/dev/null 2>&1; then
+        health_ok=1
+        break
       fi
     fi
     sleep 2
   done
+  if [ "$health_ok" -ne 1 ]; then
+    rm -f "$tmp"
+    journalctl -u radar-api.service -n 50 --no-pager 2>/dev/null || true
+    die "/api/health ne répond pas 200"
+  fi
+  log "PREUVE : GET http://127.0.0.1:$API_PORT/api/health → HTTP $code $body"
+
+  code="$(curl -sS -o "$tmp" -w '%{http_code}' --max-time 5 "http://127.0.0.1:$API_PORT/" 2>/dev/null || echo 000)"
+  body="$(cat "$tmp")"
+  asset="$(printf '%s' "$body" | grep -oE '/assets/[A-Za-z0-9._-]+\.js' | head -n 1 || true)"
+  if [ "$code" = "200" ] && printf '%s' "$body" | grep -q 'id="root"' && [ -n "$asset" ]; then
+    asset_code="$(curl -sS -o /dev/null -w '%{http_code}' --max-time 5 "http://127.0.0.1:$API_PORT$asset" 2>/dev/null || echo 000)"
+    if [ "$asset_code" = "200" ]; then
+      log "PREUVE : GET http://127.0.0.1:$API_PORT/ → HTTP 200 (shell React, $asset → HTTP 200)"
+      rm -f "$tmp"
+      return 0
+    fi
+    log "Point d'entrée $asset en HTTP $asset_code"
+  else
+    log "Racine en HTTP $code, shell React ou point d'entrée JS absent"
+  fi
   rm -f "$tmp"
-  log "Sonde de santé non confirmée ; journal radar-api :"
   journalctl -u radar-api.service -n 50 --no-pager 2>/dev/null || true
-  die "/api/health ne répond pas 200"
+  die "/ ne sert pas l'interface (front non construit ou API obsolète ?)"
 }
 
 # --- Désinstallation ---------------------------------------------------------
@@ -497,6 +523,10 @@ do_uninstall() {
   return 0
 }
 
+if [ "$MODE" = "check" ]; then
+  verify_endpoints
+  exit 0
+fi
 if [ "$MODE" = "uninstall" ]; then do_uninstall; exit 0; fi
 
 if [ -z "$DB_PASSWORD" ]; then
@@ -514,7 +544,8 @@ ensure_schema
 ensure_user_dirs
 write_env_file
 install_unit
-verify_health
+verify_endpoints
 T1="$(date +%s%N)"
 log "Installation terminée : $(( (T1 - T0) / 1000000 )) ms (total $(( $(date +%s) - START_EPOCH )) s)."
-log "API : http://127.0.0.1:$API_PORT/api/health — logs : journalctl -u radar-api -f"
+log "API : http://127.0.0.1:$API_PORT/api/health — interface : http://127.0.0.1:$API_PORT/"
+log "Preuve rejouable : bash scripts/install.sh --check --api-port $API_PORT"
