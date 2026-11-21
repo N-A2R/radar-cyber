@@ -1,0 +1,96 @@
+{
+	"vague": "precision",
+	"etape": "S4.2",
+	"date": "2026-11-21",
+	"protocole": "comparaison des trois instruments : corpus gelé (tirage à allocation égale, estimateur brut ET stratifié), échantillon frais de 500 (graine 20261225, tirage corrigé proportionnel — son estimateur brut EST l'estimateur de population), jeu d'or (50 verdicts épinglés)",
+	"corpusGele": {
+		"n": 500,
+		"verdicts": {
+			"hors_sujet": 282,
+			"exacte": 77,
+			"indecidable": 136,
+			"partielle": 5
+		},
+		"precisionBrute": 0.2184065934065934,
+		"precisionPopulationStratifiee": 0.04527911646586345
+	},
+	"echantillonFrais": {
+		"n": 500,
+		"graine": 20261225,
+		"verdicts": {
+			"hors_sujet": 348,
+			"exacte": 20,
+			"indecidable": 130,
+			"partielle": 2
+		},
+		"precisionBrutePopulation": 0.05675675675675676,
+		"note": "tirage proportionnel : l'estimateur brut est directement l'estimateur de population",
+		"apresRegles": {
+			"brute": 0.8333333333333334,
+			"population": 0.1379310344827586,
+			"rattachementsEncoreProduits": 0.291,
+			"ecartees": 417,
+			"casses": {
+				"hors_sujet": 344,
+				"indecidable": 71,
+				"partielle": 2
+			}
+		}
+	},
+	"jeuDOr": {
+		"n": 50,
+		"verdicts": {
+			"partielle/conserve": 4,
+			"partielle/ecartee": 1,
+			"exacte/conserve": 13,
+			"indecidable/conserve": 10,
+			"hors_sujet/conserve": 7,
+			"hors_sujet/ecartee": 15
+		},
+		"verification": "50/50 cas justes (scripts/precision-gold.mts --verifier)"
+	},
+	"reglesGeléFrais": {
+		"avant": {
+			"populationGelee": 0.0453,
+			"populationFrais": 0.043
+		},
+		"apresJeuComplet": {
+			"populationGelee": 0.616695352839931,
+			"populationFrais": 0.1379310344827586
+		},
+		"explicationEcart": "après règles, la strate nom-égalité (0,9) ne garde que ses cas comptés : sur le gelé, 1 exacte seule (P=100 %, n=1) ; sur le frais, 58 comptés sans aucun exacte (P=0 %) — la vraie valeur de la strate est entre les deux et le chiffre frais (n=58) est le seul fiable ; l'estimation consolidée après règles est celle du frais : 13,8 % de population (83,3 % brut)",
+		"cassesParLesRegles": {
+			"gele": {
+				"hors_sujet": 271,
+				"partielle": 1,
+				"indecidable": 13
+			},
+			"frais": {
+				"hors_sujet": 344,
+				"indecidable": 71,
+				"partielle": 2
+			},
+			"note": "sur le frais, la règle 1 casse une partielle (fujitsu.com → FUJITSU TECHNOLOGY SOLUTIONS : indice-domaine à jeton unique, le nom de l'org porte fujitsu) — coût documenté de la règle 1"
+		}
+	},
+	"cout": {
+		"cheminLivre": {
+			"msMedian": 1253.5,
+			"msMoyen": 1539.925,
+			"n": 40,
+			"matchs": 8
+		},
+		"prefiltreMemoire": {
+			"msMedian": 0.06610799999907613,
+			"msMoyen": 1.7014587966665566,
+			"n": 300,
+			"matchs": 38
+		},
+		"avecRegles": {
+			"msMedian": 0.000552999998035375,
+			"msMoyen": 0.00527060666650262,
+			"n": 300,
+			"rattachementsRetenus": 38
+		}
+	}
+}

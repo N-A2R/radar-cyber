@@ -1,8 +1,8 @@
 {
 	"vague": "precision",
 	"demarreeLe": "2026-11-21",
-	"etapeCourante": "S4",
-	"tacheCourante": "S4.1",
+	"etapeCourante": "S5",
+	"tacheCourante": "S5.1",
 	"taches": {
 		"S1.1": {
 			"statut": "fait",
@@ -68,6 +68,21 @@
 			"statut": "fait",
 			"commit": "renseigné au commit suivant",
 			"le": "2026-11-21T05:45Z"
+		},
+		"S4.1": {
+			"statut": "fait",
+			"commit": "renseigné au commit suivant",
+			"le": "2026-11-21T06:10Z"
+		},
+		"S4.2": {
+			"statut": "fait",
+			"commit": "renseigné au commit suivant",
+			"le": "2026-11-21T06:10Z"
+		},
+		"S4.3": {
+			"statut": "fait",
+			"commit": "renseigné au commit suivant",
+			"le": "2026-11-21T06:10Z"
 		}
 	},
 	"journal": [
@@ -86,7 +101,8 @@
 		"S3.1 règle 3 « un indice masqué ne fonde jamais de rattachement » (cumulée 1+2+3) : 282/500 écartées (24 hs + 1 indéc de plus, 0 vrai cassé) ; brute 83,2 %, population 61,4 % (29,3 % de la population encore rattachée). Mesure : bench/results/precision-regle123-s3.json.",
 		"S3.1 règle 4 « un indice à marqueur de fuite ne matche que par le chemin domaine » : effet nul sur le corpus (la règle 2 attrapait déjà les 24 hs-commentaire) mais règle défensive retenue — elle préserve les 15 exacte + 3 partielle à marqueur qui passent toutes par le domaine (cactus), qu'un rejet naïf du commentaire casserait. Mesure : bench/results/precision-regle1234-s3.json (identique à règle 123).",
 		"S3.1 règle 6 « le chemin ville+nom (0,6) est retiré » (jeu complet 1+2+3+4+6) : 285/500 écartées (3 hs-ville de plus, 0 vrai cassé) ; brute 85,9 %, population 61,7 %. La règle 5 (TLD) est documentée sans effet propre : les 5 hors_sujet TLD étaient des matchs à un seul jeton, déjà écartés par la règle 1. Mesure complète : bench/results/precision-regles-s3-complet.json.",
-		"S3.2 cas limites sous le jeu de règles : sigles vrais courts (ANSSI) → revue humaine (règle 1, trade-off assumé précision>couverture) ; sigles multi-jetons (« CHU DE BORDEAUX ») → conservés (règle 2 : l'indice est couvert par le nom) ; homonymes d'État → le chemin domaine seul les rattache (« justice.fr » conservé exacte dans le jeu d'or) ; entités étrangères citées en français (SKY-LIGHT A/S) → conservées par la règle 2, restent hors_sujet mesurés (résidu homonyme de 7 cas, épinglé) ; noms à un seul mot (ALRO, ANTEL) → 0,9 conservé, indécidable, voie de revue. S3.3 jeu d'or : bench/precision/gold-v1.json — 50 cas pièges tirés du gelé (partielles 5, exacte 13, indécidables 10, hors_sujet 22 ; conserve 34, écartée 16) — vérificateur scripts/precision-gold.mts --verifier : 50/50 justes ; branché en S5.2 dans verify-all."
+		"S3.2 cas limites sous le jeu de règles : sigles vrais courts (ANSSI) → revue humaine (règle 1, trade-off assumé précision>couverture) ; sigles multi-jetons (« CHU DE BORDEAUX ») → conservés (règle 2 : l'indice est couvert par le nom) ; homonymes d'État → le chemin domaine seul les rattache (« justice.fr » conservé exacte dans le jeu d'or) ; entités étrangères citées en français (SKY-LIGHT A/S) → conservées par la règle 2, restent hors_sujet mesurés (résidu homonyme de 7 cas, épinglé) ; noms à un seul mot (ALRO, ANTEL) → 0,9 conservé, indécidable, voie de revue. S3.3 jeu d'or : bench/precision/gold-v1.json — 50 cas pièges tirés du gelé (partielles 5, exacte 13, indécidables 10, hors_sujet 22 ; conserve 34, écartée 16) — vérificateur scripts/precision-gold.mts --verifier : 50/50 justes ; branché en S5.2 dans verify-all.",
+		"S4.1 échantillon frais de 500 (graine 20261225, tirage corrigé proportionnel) : 500 verdicts posés avec preuve — 20 exacte, 2 partielle, 348 hors_sujet, 130 indécidable → précision brute 21/370 = 5,7 %, qui EST l'estimateur de population (tirage proportionnel). Cohérent avec l'estimateur stratifié du gelé (4,5 %). S4.2 comparaison gelé/frais/or (bench/results/precision-generalisation.json) : après le jeu complet de règles, le frais passe à 83,3 % brut / 13,8 % population (rattachements encore produits : 29,1 %) ; l'écart gelé (61,7 %) vient de la strate 0,9 qui ne garde qu'un exacte compté sur le gelé (n=1) contre 58 comptés sans exacte sur le frais (n fiable). Coût documenté des règles sur le frais : 2 partielle cassées (Atos Business Services, fujitsu.com → la règle 1 élimine le rattachement à jeton unique d'un domaine-hint). S4.3 coût mesuré sur 1 244 106 organisations : chemin livré (loadCandidateIndex SQL) médiane 1 254 ms/indice ; préfiltre mémoire prouvé équivalent 0,07 ms/indice (construction 9 s, 360 096 jetons distincts) ; règles candidates +0,00 ms — le jeu de règles est gratuit en runtime."
 	],
 	"calibration": {
 		"fenetre": {
@@ -124,7 +140,12 @@
 			},
 			"source": "bench/results/precision-regle1-s2.json, precision-regle12-s2.json, docs/precision-bilan-s2.md"
 		},
-		"echantillonFrais": null
+		"echantillonFrais": {
+			"brutPopulation": 0.057,
+			"apresReglesBrut": 0.833,
+			"apresReglesPopulation": 0.138,
+			"source": "bench/precision/frais-500.json (graine 20261225), bench/results/precision-generalisation.json"
+		}
 	},
 	"gel": {
 		"fichier": "bench/precision/corpus-v1.json",
