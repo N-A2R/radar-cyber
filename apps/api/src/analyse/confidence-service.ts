@@ -25,6 +25,12 @@ import { corpusPresence, loadValidatedCorpus, type ValidatedCorpus } from "./val
 /** Même fenêtre que le regroupement de corroboration déjà utilisé dans l'API. */
 export const FACT_WINDOW_MS = 72 * 3_600_000;
 
+/** Mêmes assertions que `/api/corpus/stats` : les indicateurs ne sont pas des incidents. */
+const INCIDENT_ASSERTIONS: Record<string, true> = {
+	confirmed_incident: true,
+	third_party_claim: true,
+};
+
 /** Familles éditées par des producteurs directs (CERT, éditeurs de référence). */
 const PRIMARY_FAMILIES: Record<string, true> = {
 	cert: true,
@@ -57,6 +63,7 @@ export type Fact = {
 	orgId: number | null;
 	title: string;
 	events: EventForScore[];
+	incident: boolean;
 	start: string;
 	end: string;
 	sources: FactSource[];
@@ -80,10 +87,25 @@ export type ScoredAttachment = {
 	score: ConfidenceScore;
 };
 
+/** Score du fait lui-même, avant les surcharges propres à chaque source. */
+export type FactScore = {
+	factKey: string;
+	family: string;
+	orgId: number | null;
+	title: string;
+	start: string;
+	end: string;
+	sourcesDistinct: number;
+	eventIds: number[];
+	incident: boolean;
+	score: ConfidenceScore;
+};
+
 export type ConfidenceBatch = {
 	events: ScoredEvent[];
 	attachments: ScoredAttachment[];
 	facts: { total: number; corroborated: number; singleSource: number };
+	factScores: FactScore[];
 };
 
 /**
@@ -177,6 +199,7 @@ export function groupFactsWithCorpus(
 			orgId: group.orgId,
 			title: group.title,
 			events: group.items,
+			incident: group.items.some((event) => INCIDENT_ASSERTIONS[event.assertionType] === true),
 			start,
 			end,
 			sources: [...seen.values()],
@@ -190,12 +213,12 @@ export function groupFactsWithCorpus(
 	});
 }
 
-function overridesFor(event: EventForScore, now: Date): ScoreOverrides {
+function overridesFor(event: EventForScore, now: Date, corpus: ValidatedCorpus): ScoreOverrides {
 	return {
 		rank: sourceRank(event),
 		precision: datePrecision(event, now),
 		date: event.observedAt ?? event.at,
-		corpusPresence: corpusPresence(event, loadValidatedCorpus()),
+		corpusPresence: corpusPresence(event, corpus),
 	};
 }
 
@@ -218,7 +241,7 @@ export function computeConfidence(
 					end: fact.end,
 					corpusPresence: fact.corpusPresence,
 				},
-				overridesFor(event, now),
+				overridesFor(event, now, corpus),
 				now,
 			);
 			const distinct = score.measures.independentSources;
@@ -243,6 +266,18 @@ export function computeConfidence(
 			corroborated: facts.filter((f) => f.sources.length >= 2).length,
 			singleSource: facts.filter((f) => f.sources.length === 1).length,
 		},
+		factScores: facts.map((fact) => ({
+			factKey: fact.key,
+			family: fact.family,
+			orgId: fact.orgId,
+			title: fact.title,
+			start: fact.start,
+			end: fact.end,
+			sourcesDistinct: fact.sources.length,
+			eventIds: fact.events.map((event) => event.id),
+			incident: fact.incident,
+			score: fact.score,
+		})),
 	};
 }
 

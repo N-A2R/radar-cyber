@@ -22,6 +22,7 @@ import { closePools, query } from "../src/db.js";
 import { hashSessionToken } from "../src/auth.js";
 import { resolveUser } from "../src/middleware/auth.js";
 import alertsRoute from "../src/routes/alerts.js";
+import confidenceRoute from "../src/routes/confidence.js";
 import authRoute from "../src/routes/auth.js";
 import directoryRoute from "../src/routes/directory.js";
 import dossierRoute from "../src/routes/dossier.js";
@@ -127,6 +128,10 @@ const SCHEMAS = {
     truncated: z.boolean(), tookMs: z.number(),
   }),
   "/api/dossier": z.strictObject({ etat: objet, dossier: objet }),
+  "/api/confidence/distribution": z.strictObject({
+    generatedAt: z.string(), weights: objet, levels: objet,
+    scores: objets, facts: objet,
+  }),
   "/api/events": z.array(evenement),
   "/api/flows": z.strictObject({ arcs: objets, total: z.number(), truncated: z.boolean() }),
   "/api/graph": z.strictObject({ nodes: objets, links: objets }),
@@ -208,6 +213,7 @@ before(async () => {
     alertsRoute, authRoute, directoryRoute, dossierRoute, enrichRoute, eventsRoute,
     flowsRoute, graphRoute, healthCausesRoute, healthDetailRoute, journalRoute,
     naRoute, orgsLieesHistoriqueRoute, orgsLieesRoute, orgsRoute, quarantineRoute,
+    confidenceRoute,
     reviewRoute, searchRoute, sourcesRoute,
     // statsRoute porte déjà /stats/departements ; ne pas monter le plugin
     // stats-departements.ts qui déclare la même route.
