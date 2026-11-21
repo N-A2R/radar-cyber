@@ -934,9 +934,9 @@ type JournalReviewResponseRaw = {
 
 export type JournalReviewResponse = {
   rows: JournalDecision[];
-  limit: number;
-  /** Cursor for the next page; null = last page. */
-  nextCursor: number | null;
+  limite: number;
+  /** Next-page cursor; null = last page. */
+  avant: number | null;
 };
 
 export type ReviewAction = "promote" | "reject" | "review" | "undo";
