@@ -88,6 +88,7 @@ sources → collecteurs → PostgreSQL → API Fastify → front React
 | GET | `/api/health` | état et sources |
 | GET | `/api/stats` | compteurs, répartitions |
 | GET | `/api/stats/departements` | organisations, événements 7 j et sources actives par département |
+| GET | `/api/couverture` | taux publié, motifs, départements, secteurs, date et empreinte du corpus |
 | GET | `/api/today/departements` | départements du fil 24 h (organisations, événements) |
 | GET | `/api/orgs` | organisations + nombre d'événements |
 | GET | `/api/orgs/:slug` | détail + 50 derniers événements |

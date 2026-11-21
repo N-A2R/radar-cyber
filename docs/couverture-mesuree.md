@@ -150,3 +150,12 @@ DATABASE_URL=… apps/api/node_modules/.bin/tsx scripts/mesure-couverture.mts --
 Corpus : `bench/fixtures/corpus-reference-na.json` (versionné). Sortie console
 et JSON de cette mesure : `scripts/mesure-couverture.mts`, champs `dateMesure`,
 `corpus`, `couverture` et `incidents`.
+
+## API
+
+`GET /api/couverture` sert cette mesure sans recalcul : `dateCalcul` reprend
+`dateMesure`, `hashCorpus` est le SHA-256 hexadécimal du fichier de corpus
+versionné, et `fenetre` borne la période. Les quatre sections sont `global`
+(`vus` / `total` / `taux`), `parMotif` (effectifs et parts), `parDepartement` et
+`parSecteur` (vus / total / taux). Les 18 incidents `hors_fenetre` n'entrent
+ni dans le taux ni dans les décompositions.
