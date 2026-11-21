@@ -1,0 +1,453 @@
+{
+  "version": 1,
+  "snapshots": [
+    {
+      "date": "2026-11-21",
+      "depts": {
+        "16": {
+          "declarees": 5,
+          "productives": 4,
+          "rouges": 1,
+          "orgsAvecDomaine": 7,
+          "incidents": 10
+        },
+        "17": {
+          "declarees": 3,
+          "productives": 2,
+          "rouges": 1,
+          "orgsAvecDomaine": 0,
+          "incidents": 12
+        },
+        "19": {
+          "declarees": 7,
+          "productives": 1,
+          "rouges": 7,
+          "orgsAvecDomaine": 0,
+          "incidents": 9
+        },
+        "23": {
+          "declarees": 5,
+          "productives": 2,
+          "rouges": 4,
+          "orgsAvecDomaine": 1,
+          "incidents": 9
+        },
+        "24": {
+          "declarees": 4,
+          "productives": 3,
+          "rouges": 3,
+          "orgsAvecDomaine": 0,
+          "incidents": 13
+        },
+        "33": {
+          "declarees": 6,
+          "productives": 3,
+          "rouges": 3,
+          "orgsAvecDomaine": 1,
+          "incidents": 14
+        },
+        "40": {
+          "declarees": 6,
+          "productives": 2,
+          "rouges": 6,
+          "orgsAvecDomaine": 0,
+          "incidents": 9
+        },
+        "47": {
+          "declarees": 7,
+          "productives": 3,
+          "rouges": 4,
+          "orgsAvecDomaine": 0,
+          "incidents": 11
+        },
+        "64": {
+          "declarees": 2,
+          "productives": 2,
+          "rouges": 0,
+          "orgsAvecDomaine": 0,
+          "incidents": 10
+        },
+        "79": {
+          "declarees": 3,
+          "productives": 1,
+          "rouges": 2,
+          "orgsAvecDomaine": 0,
+          "incidents": 9
+        },
+        "86": {
+          "declarees": 3,
+          "productives": 2,
+          "rouges": 1,
+          "orgsAvecDomaine": 0,
+          "incidents": 8
+        },
+        "87": {
+          "declarees": 3,
+          "productives": 2,
+          "rouges": 2,
+          "orgsAvecDomaine": 0,
+          "incidents": 8
+        },
+        "hors-na": {
+          "declarees": 0,
+          "productives": 0,
+          "rouges": 0,
+          "orgsAvecDomaine": 0,
+          "incidents": 0
+        }
+      },
+      "familles": {
+        "presse": {
+          "declarees": 1,
+          "productives": 0,
+          "rouges": 1,
+          "orgsAvecDomaine": 0,
+          "incidents": 0
+        },
+        "cti": {
+          "declarees": 50,
+          "productives": 27,
+          "rouges": 30,
+          "orgsAvecDomaine": 0,
+          "incidents": 0
+        },
+        "presse_cyber": {
+          "declarees": 1,
+          "productives": 0,
+          "rouges": 1,
+          "orgsAvecDomaine": 0,
+          "incidents": 0
+        },
+        "reputation": {
+          "declarees": 1,
+          "productives": 0,
+          "rouges": 1,
+          "orgsAvecDomaine": 0,
+          "incidents": 0
+        },
+        "leaks": {
+          "declarees": 1,
+          "productives": 0,
+          "rouges": 1,
+          "orgsAvecDomaine": 0,
+          "incidents": 0
+        },
+        "sans-famille": {
+          "declarees": 0,
+          "productives": 0,
+          "rouges": 0,
+          "orgsAvecDomaine": 9,
+          "incidents": 0
+        },
+        "ransomware": {
+          "declarees": 0,
+          "productives": 0,
+          "rouges": 0,
+          "orgsAvecDomaine": 0,
+          "incidents": 18
+        },
+        "phishing": {
+          "declarees": 0,
+          "productives": 0,
+          "rouges": 0,
+          "orgsAvecDomaine": 0,
+          "incidents": 20
+        },
+        "compromission": {
+          "declarees": 0,
+          "productives": 0,
+          "rouges": 0,
+          "orgsAvecDomaine": 0,
+          "incidents": 36
+        },
+        "fuite": {
+          "declarees": 0,
+          "productives": 0,
+          "rouges": 0,
+          "orgsAvecDomaine": 0,
+          "incidents": 39
+        },
+        "hameçonnage": {
+          "declarees": 0,
+          "productives": 0,
+          "rouges": 0,
+          "orgsAvecDomaine": 0,
+          "incidents": 1
+        },
+        "defacement": {
+          "declarees": 0,
+          "productives": 0,
+          "rouges": 0,
+          "orgsAvecDomaine": 0,
+          "incidents": 1
+        },
+        "deni-de-service": {
+          "declarees": 0,
+          "productives": 0,
+          "rouges": 0,
+          "orgsAvecDomaine": 0,
+          "incidents": 1
+        },
+        "ddos": {
+          "declarees": 0,
+          "productives": 0,
+          "rouges": 0,
+          "orgsAvecDomaine": 0,
+          "incidents": 2
+        },
+        "cyberattaque": {
+          "declarees": 0,
+          "productives": 0,
+          "rouges": 0,
+          "orgsAvecDomaine": 0,
+          "incidents": 1
+        },
+        "autre": {
+          "declarees": 0,
+          "productives": 0,
+          "rouges": 0,
+          "orgsAvecDomaine": 0,
+          "incidents": 2
+        },
+        "escroquerie": {
+          "declarees": 0,
+          "productives": 0,
+          "rouges": 0,
+          "orgsAvecDomaine": 0,
+          "incidents": 1
+        }
+      },
+      "total": {
+        "declarees": 54,
+        "productives": 27,
+        "rouges": 34,
+        "orgsAvecDomaine": 9,
+        "incidents": 122
+      }
+    },
+    {
+      "date": "2026-11-21",
+      "depts": {
+        "16": {
+          "declarees": 5,
+          "productives": 4,
+          "rouges": 1,
+          "orgsAvecDomaine": 7,
+          "incidents": 10
+        },
+        "17": {
+          "declarees": 3,
+          "productives": 2,
+          "rouges": 1,
+          "orgsAvecDomaine": 0,
+          "incidents": 12
+        },
+        "19": {
+          "declarees": 7,
+          "productives": 1,
+          "rouges": 7,
+          "orgsAvecDomaine": 0,
+          "incidents": 9
+        },
+        "23": {
+          "declarees": 5,
+          "productives": 2,
+          "rouges": 4,
+          "orgsAvecDomaine": 1,
+          "incidents": 9
+        },
+        "24": {
+          "declarees": 4,
+          "productives": 3,
+          "rouges": 3,
+          "orgsAvecDomaine": 0,
+          "incidents": 13
+        },
+        "33": {
+          "declarees": 6,
+          "productives": 3,
+          "rouges": 3,
+          "orgsAvecDomaine": 1,
+          "incidents": 14
+        },
+        "40": {
+          "declarees": 6,
+          "productives": 2,
+          "rouges": 6,
+          "orgsAvecDomaine": 0,
+          "incidents": 9
+        },
+        "47": {
+          "declarees": 7,
+          "productives": 3,
+          "rouges": 4,
+          "orgsAvecDomaine": 0,
+          "incidents": 11
+        },
+        "64": {
+          "declarees": 2,
+          "productives": 2,
+          "rouges": 0,
+          "orgsAvecDomaine": 0,
+          "incidents": 10
+        },
+        "79": {
+          "declarees": 3,
+          "productives": 1,
+          "rouges": 2,
+          "orgsAvecDomaine": 0,
+          "incidents": 9
+        },
+        "86": {
+          "declarees": 3,
+          "productives": 2,
+          "rouges": 1,
+          "orgsAvecDomaine": 0,
+          "incidents": 8
+        },
+        "87": {
+          "declarees": 3,
+          "productives": 2,
+          "rouges": 2,
+          "orgsAvecDomaine": 0,
+          "incidents": 8
+        },
+        "hors-na": {
+          "declarees": 0,
+          "productives": 0,
+          "rouges": 0,
+          "orgsAvecDomaine": 0,
+          "incidents": 0
+        }
+      },
+      "familles": {
+        "presse": {
+          "declarees": 1,
+          "productives": 0,
+          "rouges": 1,
+          "orgsAvecDomaine": 0,
+          "incidents": 0
+        },
+        "cti": {
+          "declarees": 50,
+          "productives": 27,
+          "rouges": 30,
+          "orgsAvecDomaine": 0,
+          "incidents": 0
+        },
+        "presse_cyber": {
+          "declarees": 1,
+          "productives": 0,
+          "rouges": 1,
+          "orgsAvecDomaine": 0,
+          "incidents": 0
+        },
+        "reputation": {
+          "declarees": 1,
+          "productives": 0,
+          "rouges": 1,
+          "orgsAvecDomaine": 0,
+          "incidents": 0
+        },
+        "leaks": {
+          "declarees": 1,
+          "productives": 0,
+          "rouges": 1,
+          "orgsAvecDomaine": 0,
+          "incidents": 0
+        },
+        "sans-famille": {
+          "declarees": 0,
+          "productives": 0,
+          "rouges": 0,
+          "orgsAvecDomaine": 9,
+          "incidents": 0
+        },
+        "ransomware": {
+          "declarees": 0,
+          "productives": 0,
+          "rouges": 0,
+          "orgsAvecDomaine": 0,
+          "incidents": 18
+        },
+        "phishing": {
+          "declarees": 0,
+          "productives": 0,
+          "rouges": 0,
+          "orgsAvecDomaine": 0,
+          "incidents": 20
+        },
+        "compromission": {
+          "declarees": 0,
+          "productives": 0,
+          "rouges": 0,
+          "orgsAvecDomaine": 0,
+          "incidents": 36
+        },
+        "fuite": {
+          "declarees": 0,
+          "productives": 0,
+          "rouges": 0,
+          "orgsAvecDomaine": 0,
+          "incidents": 39
+        },
+        "hameçonnage": {
+          "declarees": 0,
+          "productives": 0,
+          "rouges": 0,
+          "orgsAvecDomaine": 0,
+          "incidents": 1
+        },
+        "defacement": {
+          "declarees": 0,
+          "productives": 0,
+          "rouges": 0,
+          "orgsAvecDomaine": 0,
+          "incidents": 1
+        },
+        "deni-de-service": {
+          "declarees": 0,
+          "productives": 0,
+          "rouges": 0,
+          "orgsAvecDomaine": 0,
+          "incidents": 1
+        },
+        "ddos": {
+          "declarees": 0,
+          "productives": 0,
+          "rouges": 0,
+          "orgsAvecDomaine": 0,
+          "incidents": 2
+        },
+        "cyberattaque": {
+          "declarees": 0,
+          "productives": 0,
+          "rouges": 0,
+          "orgsAvecDomaine": 0,
+          "incidents": 1
+        },
+        "autre": {
+          "declarees": 0,
+          "productives": 0,
+          "rouges": 0,
+          "orgsAvecDomaine": 0,
+          "incidents": 2
+        },
+        "escroquerie": {
+          "declarees": 0,
+          "productives": 0,
+          "rouges": 0,
+          "orgsAvecDomaine": 0,
+          "incidents": 1
+        }
+      },
+      "total": {
+        "declarees": 54,
+        "productives": 27,
+        "rouges": 34,
+        "orgsAvecDomaine": 9,
+        "incidents": 122
+      }
+    }
+  ]
+}
