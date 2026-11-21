@@ -59,6 +59,7 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/flows", niveau: "public" },
   { methode: "GET", route: "/api/stats", niveau: "public" },
   { methode: "GET", route: "/api/stats/departements", niveau: "public" },
+  { methode: "GET", route: "/api/siret/establishments/count", niveau: "public", motif: "public counter: SIRET establishments linked to headquarters" },
   { methode: "GET", route: "/api/sources", niveau: "public" },
   { methode: "GET", route: "/api/directory", niveau: "public" },
   { methode: "GET", route: "/api/public-mandates", niveau: "public" },
