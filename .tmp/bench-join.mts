@@ -1,0 +1,10 @@
+import { ingestQuery, closePools } from "../apps/api/src/db.js";
+import { readFileSync } from "node:fs";
+const posts = JSON.parse(readFileSync(".tmp/rl_posts_2026.json", "utf8")) as {post_title:string}[];
+const norm = (s:string)=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g," ").replace(/\b(sarl|sas|sa|eurl|sci|scp|association|assoc|groupe|group|inc|llc|ltd|france|fr)\b/g," ").replace(/\s+/g," ").trim();
+const names = [...new Set(posts.map(p=>norm(p.post_title)).filter(n=>n.length>=5))];
+const depts = ['16','17','19','23','24','33','40','47','64','79','86','87'];
+const t0=Date.now();
+const r = await ingestQuery<{norm:string;id:number;name:string;dept:string|null}>("WITH n AS (SELECT DISTINCT unnest($1::text[]) AS norm) SELECT n.norm, o.id, o.name, o.dept FROM n JOIN org o ON o.name_norm = n.norm AND o.dept = ANY($2::text[])", [names, depts]);
+console.log("names",names.length,"matches",r.rows.length,"ms",Date.now()-t0);
+await closePools();
