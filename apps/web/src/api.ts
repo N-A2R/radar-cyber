@@ -138,6 +138,8 @@ export type Source = {
   enabled: boolean;
   intervalSec: number;
   lastOkAt: string | null;
+  /** Dernier fait produit (ISO) ; absent sur un serveur antérieur à ce champ. */
+  lastEventAt?: string | null;
   lastErrorAt: string | null;
   lastError: string | null;
   itemsTotal: number | null;
@@ -808,6 +810,8 @@ export type ReviewOutcome = {
 
 export const api = {
   login: (email: string, password: string) => postJson<LoginResponse>("/auth/login", { email, password }),
+  /** Relance manuelle d'une collecte : le serveur répond avant la fin du run. */
+  collecte: (sourceId: string) => post<{ id: string; lancee: true }>(`/sources/${encodeURIComponent(sourceId)}/collecte`),
   logout: () => post<{ ok: boolean }>("/auth/logout"),
   orgs: (asOf?: string) => get<Org[]>(asOf ? `/orgs?asOf=${encodeURIComponent(asOf)}` : "/orgs"),
   naOverview: () => get<NaOverview>("/na/overview"),
