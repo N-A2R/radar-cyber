@@ -13,16 +13,17 @@
  *     été publié le jour de sa parution, puis passé à la porte d'admission du
  *     contrat (`admitEvent`) — la même que celle de l'ingestion.
  *  2. **On interroge le moteur pour de vrai.** Le texte de l'incident traverse
- *     le gazetteer sur les 34 330 organisations réelles. Pas de simulation.
+ *     le gazetteer réellement en base. Pas de simulation.
  *  3. **Tout refus est motivé.** « Pas vu » n'est jamais une case vide : c'est
  *     une des quatre raisons connues (`pas_collecte`, `pas_admis`,
  *     `pas_rattache`, `hors_fenetre`). Un chiffre sans motif n'est pas publiable.
  *
- *   tsx scripts/mesure-couverture.mts                 # affiche
- *   tsx scripts/mesure-couverture.mts --json=out.json # publie dans un fichier
+ *   tsx scripts/mesure-couverture.mts                    # 12 mois clos glissants
+ *   tsx scripts/mesure-couverture.mts --fin=2026-10-31   # fenêtre figée (rejeu)
+ *   tsx scripts/mesure-couverture.mts --json=out.json    # publie dans un fichier
  *
  * Le résultat est destiné à être committé : c'est la mesure du projet, pas un
- * rapport interne. Voir docs/mesure-couverture.md.
+ * rapport interne. Voir docs/mesure-couverture.md et docs/couverture-mesuree.md.
  */
 import { createHash } from "node:crypto";
 import { readFileSync, writeFileSync } from "node:fs";
@@ -32,13 +33,45 @@ import { admitEvent } from "../apps/api/src/contract/admit.js";
 import { getGazetteer } from "../apps/api/src/collectors/org-gazetteer.js";
 import { preparerGazetteer, designateOrganization } from "../apps/api/src/collectors/relevance.js";
 import { resoudre } from "../apps/api/src/match/gazetteer.js";
+import { mediane } from "../apps/api/src/analyse/mediane.js";
 
 const argv = process.argv.slice(2);
 const SORTIE_JSON = argv.find((a) => a.startsWith("--json="))?.split("=")[1] ?? null;
 const CORPUS = fileURLToPath(new URL("../bench/fixtures/corpus-reference-na.json", import.meta.url));
+const DATE_MESURE = new Date().toISOString().slice(0, 10);
 
-/** Fenêtre mesurée : les douze derniers mois clos du corpus. */
-const FENETRE = { debut: "2025-11-01", fin: "2026-10-31" };
+/**
+ * Fenêtre glissante de douze mois calendaires clos.
+ *
+ * Par défaut elle s'arrête au dernier mois complet avant la mesure : le mois
+ * en cours n'a pas de publication complète et le faire entrer dans le
+ * dénominateur donnerait un taux qui baisse chaque jour pour des raisons de
+ * calendrier. `--fin=YYYY-MM-DD` fixe le dernier mois inclus, pour rejouer une
+ * mesure sans attendre la date d'exécution.
+ */
+function fenetreGlissante(dateMesure: string): { debut: string; fin: string } {
+	const choisi = argv.find((a) => a.startsWith("--fin="))?.split("=")[1];
+	let annee: number;
+	let mois: number;
+	if (choisi) {
+		[annee, mois] = choisi.split("-").map(Number) as [number, number];
+	} else {
+		const [a, m] = dateMesure.split("-").map(Number) as [number, number];
+		const dernierClos = new Date(Date.UTC(a, m - 1, 0));
+		annee = dernierClos.getUTCFullYear();
+		mois = dernierClos.getUTCMonth() + 1;
+	}
+	if (!Number.isInteger(annee) || !Number.isInteger(mois) || mois < 1 || mois > 12) {
+		throw new Error(`--fin invalide : ${choisi ?? dateMesure} (attendu YYYY-MM-DD)`);
+	}
+	const iso = (d: Date) => d.toISOString().slice(0, 10);
+	return {
+		debut: iso(new Date(Date.UTC(annee, mois - 12, 1))),
+		fin: iso(new Date(Date.UTC(annee, mois, 0))),
+	};
+}
+
+const FENETRE = fenetreGlissante(DATE_MESURE);
 
 type Incident = {
 	id: string;
@@ -145,6 +178,9 @@ type Resultat = {
 	motif: Motif;
 	/** Délai entre publication et rattachement. `null` quand non vu. */
 	delaiJours: number | null;
+	dateIncident: string | null;
+	/** Délai fait → première publication : borne basse de la détection. */
+	delaiPublicationJours: number | null;
 	organismeTrouve: string | null;
 	/** Ce que la porte d'admission a objecté, quand elle a refusé. */
 	refusAdmission: string[] | null;
@@ -194,6 +230,53 @@ function joursEntre(depuis: string, jusqua: string): number {
 	return Math.round((b - a) / 86_400_000);
 }
 
+type StatsMois = {
+	mois: string;
+	publies: number;
+	vus: number;
+	taux: number | null;
+	delaiPublication: {
+		n: number;
+		medianeJours: number | null;
+		maxJours: number | null;
+		incoherents: number;
+	};
+};
+
+/** Tous les mois de la fenêtre, y compris ceux sans incident publié. */
+function moisDeFenetre(fenetre: { debut: string; fin: string }): string[] {
+	const [debutAnnee, debutMois] = fenetre.debut.split("-").map(Number) as [number, number];
+	const [finAnnee, finMois] = fenetre.fin.split("-").map(Number) as [number, number];
+	const mois: string[] = [];
+	for (let i = debutAnnee * 12 + debutMois; i <= finAnnee * 12 + finMois; i++) {
+		const annee = Math.floor((i - 1) / 12);
+		const numero = ((i - 1) % 12) + 1;
+		mois.push(`${annee}-${String(numero).padStart(2, "0")}`);
+	}
+	return mois;
+}
+
+const nombreFr = (n: number): string => String(n).replace(".", ",");
+
+/** Un mois sans publication est une barre vide, pas une ligne omise. */
+function graphiqueDelai(stats: StatsMois[]): string[] {
+	const maximum = Math.max(0, ...stats.map((m) => m.delaiPublication.medianeJours ?? 0));
+	const largeur = 36;
+	const pas = Math.max(1, Math.ceil(maximum / largeur));
+	const lignes = [
+		`Délai médian fait → publication (1 # = ${pas} jour${pas > 1 ? "s" : ""}) :`,
+	];
+	for (const m of stats) {
+		const delai = m.delaiPublication.medianeJours;
+		const barres = delai === null ? "" : "#".repeat(Math.max(delai === 0 ? 0 : 1, Math.min(largeur, Math.ceil(delai / pas))));
+		const valeur = delai === null ? "—" : `${nombreFr(delai)} j`;
+		lignes.push(
+			`  ${m.mois} |${barres.padEnd(largeur)}| ${valeur.padStart(7)}  (${m.vus}/${m.publies} vus, n=${m.delaiPublication.n})`,
+		);
+	}
+	return lignes;
+}
+
 async function main(): Promise<void> {
 	const corpus = JSON.parse(readFileSync(CORPUS, "utf8")) as {
 		meta: { fenetre?: [string, string] };
@@ -205,7 +288,7 @@ async function main(): Promise<void> {
 	const organismes = Number(orgs[0]?.n ?? 0);
 
 	const resultats: Resultat[] = [];
-	const dateMesure = new Date().toISOString().slice(0, 10);
+	const dateMesure = DATE_MESURE;
 
 	/**
 	 * L'organisation citée existe-t-elle au référentiel ?
@@ -279,6 +362,10 @@ async function main(): Promise<void> {
 			id: incident.id,
 			entite: incident.entite,
 			datePublique: incident.datePublique,
+			dateIncident: incident.dateIncident ?? null,
+			delaiPublicationJours: dansLaFenetre && incident.dateIncident
+				? joursEntre(incident.dateIncident, incident.datePublique)
+				: null,
 			organismeAttendu: incident.entite,
 			motif,
 			// Le délai n'est PAS mesurable ici : le corpus est rejoué contre le
@@ -317,6 +404,44 @@ async function main(): Promise<void> {
 		hors_sujet: vus.filter((r) => r.qualite === "hors_sujet").length,
 	};
 	const vusDefendables = parQualite.exacte + parQualite.partielle;
+
+	/**
+	 * Délai de détection mesurable sur le corpus : entre la date du fait et sa
+	 * première publication. C'est une borne basse — le radar ne peut pas voir
+	 * avant la publication — et non la latence de notre collecte, qui se mesure
+	 * sur le flux (`scripts/mesure-delai.mts`). Les mois vides restent dans la
+	 * série : une absence de publication est une information.
+	 */
+	const parMois: StatsMois[] = moisDeFenetre(FENETRE).map((mois) => {
+		const publies = dansFenetre.filter((r) => r.datePublique.startsWith(mois));
+		const vusMois = publies.filter((r) => r.motif === "vu");
+		const delais = publies
+			.map((r) => r.delaiPublicationJours)
+			.filter((d): d is number => d !== null && d >= 0);
+		return {
+			mois,
+			publies: publies.length,
+			vus: vusMois.length,
+			taux: publies.length === 0 ? null : Math.round((vusMois.length / publies.length) * 1000) / 10,
+			delaiPublication: {
+				n: delais.length,
+				medianeJours: mediane(delais),
+				maxJours: delais.length === 0 ? null : Math.max(...delais),
+				incoherents: publies.filter((r) => r.delaiPublicationJours !== null && r.delaiPublicationJours < 0).length,
+			},
+		};
+	});
+	const tousDelais = dansFenetre
+		.map((r) => r.delaiPublicationJours)
+		.filter((d): d is number => d !== null && d >= 0);
+	const delaiPublication = {
+		n: tousDelais.length,
+		medianeJours: mediane(tousDelais),
+		maxJours: tousDelais.length === 0 ? null : Math.max(...tousDelais),
+		incoherents: dansFenetre.filter((r) => r.delaiPublicationJours !== null && r.delaiPublicationJours < 0).length,
+		sansDate: dansFenetre.filter((r) => r.dateIncident === null).length,
+		limite: "Borne basse : fait → première publication. Le délai de collecte du radar n'est pas mesurable sur un rejeu ; voir scripts/mesure-delai.mts.",
+	};
 
 	// Le référentiel entreprises : publié à côté du taux, jamais caché.
 	const couvertureSecteurs = await query<{ secteur: string; n: string }>(
@@ -357,6 +482,8 @@ async function main(): Promise<void> {
 			// moteur. Une couverture de 33 % qui ne dit pas cela ne décide de rien.
 			causes: parCause,
 		},
+		parMois,
+		delaiPublication,
 		referentielEntreprises: {
 			// Lignes présentes dans les secteurs hors numérique ; le trou, s'il y
 			// en a un, est publié à côté du taux, en clair.
@@ -369,9 +496,10 @@ async function main(): Promise<void> {
 		},
 		method: {
 			porte: "contract/admit.ts — même admission que l'ingestion",
-			moteur: "match/gazetteer.ts — 34 330 organisations réelles",
+			moteur: `match/gazetteer.ts — ${organismes} organisations en base`,
+			fenetre: "douze mois calendaires clos, glissants ; --fin=YYYY-MM-DD fige le dernier mois inclus",
 			limite:
-				"La mesure suppose que la source publie le jour de l'incident et que le texte désigne l'organisation. Elle ne mesure pas le délai réel de collecte, seulement la capacité à reconnaître un incident publié.",
+				"Le rejeu mesure la capacité à reconnaître un incident publié. Le délai fait → publication est une borne basse ; la latence réelle de collecte se mesure sur le flux (scripts/mesure-delai.mts).",
 		},
 		incidents: resultats,
 	};
@@ -404,6 +532,13 @@ async function main(): Promise<void> {
 			`, ${parQualite.hors_sujet} hors sujet — ${vusDefendables}/${dansFenetre.length}` +
 			` (${Math.round((vusDefendables / Math.max(1, dansFenetre.length)) * 1000) / 10} %) défendable(s)`,
 	);
+	console.log(
+		`\nDélai fait → publication : ${delaiPublication.medianeJours === null ? "non mesuré" : `${nombreFr(delaiPublication.medianeJours)} jour(s)`}` +
+			` sur ${delaiPublication.n} incident(s) daté(s) · max ${delaiPublication.maxJours === null ? "—" : `${nombreFr(delaiPublication.maxJours)} j`}` +
+			` · sans date ${delaiPublication.sansDate} · incohérent(s) ${delaiPublication.incoherents}`,
+	);
+	for (const ligne of graphiqueDelai(parMois)) console.log(ligne);
+	console.log("  (borne basse : le radar ne peut voir avant la publication ; pas un délai de collecte)");
 	console.log(
 		`Référentiel entreprises : ${synthese.referentielEntreprises.lignesHorsNumerique} ligne(s) en agro/industrie/BTP/commerce`,
 	);
