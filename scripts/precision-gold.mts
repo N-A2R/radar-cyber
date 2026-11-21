@@ -15,7 +15,11 @@
  * Le vérificateur (`--verifier`) rejoue les règles sur chaque cas et échoue
  * au premier écart : un verdict qui bouge, un rattachement conservé qui
  * devient écarté (ou l'inverse) = le jeu d'or est cassé, la modification
- * qui l'a cassé ne passe pas (S5.2 le branchera dans verify-all).
+ * qui l'a cassé ne passe pas (S5.2 le branchera dans verify-all). Depuis la
+ * vague branchement (S3.3), il exige en plus la **parité moteur** : la
+ * fonction de production (`ecarteeParRegles`, src/match/regles-precision.ts,
+ * appelée par la promotion derrière PRECISION_RULES) doit dire la même chose
+ * que la copie locale sur chacun des 50 cas.
  *
  * Rejouer :
  *
@@ -24,6 +28,7 @@
 import { readFileSync } from "node:fs";
 import { closePools } from "../apps/api/src/db.js";
 import { normalizeName, GENERIC_TOKENS } from "../apps/api/src/quarantine/promote.js";
+import { ecarteeParRegles } from "../apps/api/src/match/regles-precision.js";
 
 const argv = process.argv.slice(2);
 const option = (nom: string): string | undefined =>
@@ -93,6 +98,23 @@ if (argv.includes("--verifier")) {
 			continue;
 		}
 		const regle = elimineRegles(e);
+		// Parité moteur (vague branchement, S3.3) : la fonction de production
+		// appelée par la promotion doit dire la même chose que la copie
+		// locale — sinon le moteur branché diverge de la spec que le jeu
+		// d'or épingle, et il faut le savoir avant tout commit.
+		const regleMoteur = ecarteeParRegles({
+			indice: e.indice,
+			via: e.via === "domain" ? "domain" : "name",
+			confidence: e.confiance,
+			orgName: e.org.name,
+		});
+		if (regleMoteur !== regle) {
+			console.error(
+				`PIÈGE divergent #${cas.ordreCorpus} « ${cas.indice.slice(0, 50)} » : copie locale ${regle ?? "conserve"}, moteur ${regleMoteur ?? "conserve"}`,
+			);
+			echecs++;
+			continue;
+		}
 		const comportement: "conserve" | "ecartee" = regle === null ? "conserve" : "ecartee";
 		if (comportement !== cas.comportementAttendu) {
 			console.error(

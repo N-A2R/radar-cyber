@@ -2,8 +2,8 @@
 	"vague": "regles",
 	"demarreeLe": "2026-11-21",
 	"plan": "docs/plans/wave-regles.md",
-	"etapeCourante": "S3",
-	"tacheCourante": "S3.1",
+	"etapeCourante": "S4",
+	"tacheCourante": "S4.1",
 	"taches": {
 		"S1.1": { "statut": "fait", "commit": "renseigné au commit suivant", "le": "2026-11-21T09:20Z" },
 		"S1.2": { "statut": "fait", "commit": "renseigné au commit suivant", "le": "2026-11-21T09:20Z" },
@@ -11,9 +11,9 @@
 		"S2.1": { "statut": "fait", "commit": "renseigné au commit suivant", "le": "2026-11-21T09:45Z" },
 		"S2.2": { "statut": "fait", "commit": "renseigné au commit suivant", "le": "2026-11-21T09:45Z" },
 		"S2.3": { "statut": "fait", "commit": "renseigné au commit suivant", "le": "2026-11-21T09:45Z" },
-		"S3.1": { "statut": "à faire", "commit": null, "le": null },
-		"S3.2": { "statut": "à faire", "commit": null, "le": null },
-		"S3.3": { "statut": "à faire", "commit": null, "le": null },
+		"S3.1": { "statut": "fait", "commit": "renseigné au commit suivant", "le": "2026-11-21T10:05Z" },
+		"S3.2": { "statut": "fait", "commit": "renseigné au commit suivant", "le": "2026-11-21T10:05Z" },
+		"S3.3": { "statut": "fait", "commit": "renseigné au commit suivant", "le": "2026-11-21T10:05Z" },
 		"S4.1": { "statut": "à faire", "commit": null, "le": null },
 		"S4.2": { "statut": "à faire", "commit": null, "le": null },
 		"S4.3": { "statut": "à faire", "commit": null, "le": null }
@@ -37,6 +37,7 @@
 	"journal": [
 		"Début de vague : lecture intégrale de docs/plans/wave-regles.md et docs/rapport-precision.md ; relecture des chiffres contre bench/results (3 écarts consignés, ci-dessus) ; base de dev sur 5433 en place (220 faits pending à indice, 16 901 claims au total).",
 		"S1.1/S1.2/S1.3 : les six règles (ecarteeParRegles) appelées aux deux points de décision de promote.ts — promoteMatches (auto : refus → le fait reste en file, refus compté par règle et journalisé, dédoublonné par (sujet, règle) car le scan repasse toutes les 30 min) et promoteOneTx (manuel : la promotion de l'analyste reste posée, seul le rattachement produit par le moteur est refusé et journalisé dans la même transaction). Drapeau PRECISION_RULES=on|off lu à l'appel (défaut off), +0 refus journalisé en dryRun. Nouveau kind journal : match.refuse (payload : regle, indice, orgId, orgName, via, confidence, drapeau). Résultats enrichis : PromotionResult.refusRegles/refus, PromoteOneResult.refuseParRegle. .env.example documente le drapeau. Vérification : typecheck api OK, 441/441 tests API verts (RADAR_TEST_ADMIN_URL sur 5433 — le lancement pnpm nu échoue sur le 5432 d'un autre serveur, comme documenté dans AGENTS.md).",
-		"S2.1/S2.2/S2.3 (scripts/precision-branchement.mts → bench/results/precision-branchement.json, les deux régimes dans le même binaire, refus évalués par la fonction de production refusParRegles) : GELÉ — off : 500/500 rattachements, 21,8 % brut / 4,5 % population ; on : 215/500 (43,0 % par unité), 85,9 % brut / 61,7 % population stratifiée, poids strates actives 29,2 % ; refus : 1-sigle 140, 2-homonyme 93, 3-masquage 25, 4-commentaire 24, 6-ville 3 ; verdicts des écartées : 271 hs, 13 indéc, 1 partielle (Atos — conforme à la vague précision). FRAIS (graine 20261225) — off : 5,7 % brut ; on : 83/500 (16,6 % par unité), 83,3 % brut / 13,8 % population stratifiée, poids strates actives 29,1 % (le « 29 % » publié = borne haute par strates, la survie par unité est 16,6 % — les deux publiés ensemble) ; verdicts des écartées : 344 hs, 71 indéc, 2 partielles (fujitsu.com par 1-sigle, Atos par 2-homonyme — conformes). FLUX RÉEL (file pending à indice, chemin livré) : 220 faits, 204 sans rattachement, 16 rattachés off → 0 rattachés on ; refus : 1-sigle 14, 2-homonyme 2 ; aucun des 16 n'atteignait le seuil auto (0,85) : les règles changent la proposition de revue, pas ce qui aurait été auto-promu. Tous les totaux se recoupent avec precision-generalisation.json (285/417 écartées, 29,1 %)."
+		"S2.1/S2.2/S2.3 (scripts/precision-branchement.mts → bench/results/precision-branchement.json, les deux régimes dans le même binaire, refus évalués par la fonction de production refusParRegles) : GELÉ — off : 500/500 rattachements, 21,8 % brut / 4,5 % population ; on : 215/500 (43,0 % par unité), 85,9 % brut / 61,7 % population stratifiée, poids strates actives 29,2 % ; refus : 1-sigle 140, 2-homonyme 93, 3-masquage 25, 4-commentaire 24, 6-ville 3 ; verdicts des écartées : 271 hs, 13 indéc, 1 partielle (Atos — conforme à la vague précision). FRAIS (graine 20261225) — off : 5,7 % brut ; on : 83/500 (16,6 % par unité), 83,3 % brut / 13,8 % population stratifiée, poids strates actives 29,1 % (le « 29 % » publié = borne haute par strates, la survie par unité est 16,6 % — les deux publiés ensemble) ; verdicts des écartées : 344 hs, 71 indéc, 2 partielles (fujitsu.com par 1-sigle, Atos par 2-homonyme — conformes). FLUX RÉEL (file pending à indice, chemin livré) : 220 faits, 204 sans rattachement, 16 rattachés off → 0 rattachés on ; refus : 1-sigle 14, 2-homonyme 2 ; aucun des 16 n'atteignait le seuil auto (0,85) : les règles changent la proposition de revue, pas ce qui aurait été auto-promu. Tous les totaux se recoupent avec precision-generalisation.json (285/417 écartées, 29,1 %).",
+		"S3.1/S3.2/S3.3 : tests moteurs apps/api/test/promote-regles.test.ts (5 tests, les deux régimes verrouillés sur la promotion, pas seulement les prédicats) — wakao.co.jp → CO & CO ne produit plus de rattachement dans les deux régimes ; drapeau off : l'indice masqué F*****H est rattaché à 0,9 (le tort documenté, baseline) ; drapeau on : le même indice est refusé (3-masquage), le fait reste en file, le refus est journalisé avec la règle et non réécrit au passage suivant (dédoublonnage vérifié) ; voie manuelle : la promotion de l'analyste reste posée (refuseParRegle=3-masquage, événement non rattaché, refus journalisé dans la transaction) ; les cas sûrs (domaine-clé 0,95, égalité de nom 0,9) continuent d'être rattachés avec les règles actives, refusRegles vide. Jeu d'or : scripts/precision-gold.mts --verifier étendu d'un contrôle de parité moteur — ecarteeParRegles (fonction de production) doit rendre la même règle que la copie locale sur chacun des 50 cas : 50/50 justes. Suite API complète : 446/446 verts. Défaut attrapé en route : le test on n'avait pas posé le drapeau (attrapé par sa propre assertion matched=1, corrigé)."
 	]
 }
