@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { ApiError } from "../api";
 import "./sources-rouges.css";
+import { EmptyState, LoadingSkeleton } from "./Skeleton";
 
 /** Résultat brut d'une relance : le nombre d'événements réellement admis. */
 export type RelanceOutcome = {
@@ -36,15 +37,23 @@ function messageErreur(error: unknown): string {
 }
 
 /** Résultat d'une relance, rendu à part pour être vérifiable en SSR. */
-export function RelanceResultat({ etat }: { etat: RelanceEtat }) {
+export function RelanceResultat({ etat, onRelance }: { etat: RelanceEtat; onRelance?: () => void }) {
   if (etat.kind === "idle") return null;
-  if (etat.kind === "en-cours") return <span className="relance-resultat" role="status">relance en cours…</span>;
+  if (etat.kind === "en-cours") {
+    return <div className="relance-resultat" role="status"><LoadingSkeleton label="relance en cours…" /></div>;
+  }
   if (etat.kind === "lancee") return <span className="relance-resultat" data-resultat="lancee" role="status">collecte lancée</span>;
   if (etat.kind === "erreur") {
     return <span className="relance-resultat" data-resultat="erreur" role="alert">erreur · {etat.message}</span>;
   }
   if (etat.kind === "vide") {
-    return <span className="relance-resultat" data-resultat="vide" role="status">0 nouvel événement</span>;
+    return (
+      <div className="relance-resultat" data-resultat="vide" role="status">
+        {onRelance
+          ? <EmptyState message="0 nouvel événement" actionLabel="Relancer" onAction={onRelance} />
+          : "0 nouvel événement"}
+      </div>
+    );
   }
   const n = etat.inserted;
   return (
@@ -75,7 +84,7 @@ export default function RelancerButton({ sourceId, sourceName, onRelance, disabl
   }
 
   return (
-    <span className="relance-cellule">
+    <div className="relance-cellule">
       <button
         type="button"
         className="relance-bouton"
@@ -85,7 +94,8 @@ export default function RelancerButton({ sourceId, sourceName, onRelance, disabl
       >
         Relancer
       </button>
-      <RelanceResultat etat={etat} />
-    </span>
+
+      <RelanceResultat etat={etat} onRelance={() => void relancer()} />
+    </div>
   );
 }

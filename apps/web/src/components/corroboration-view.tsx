@@ -10,6 +10,7 @@
  * sans navigateur ni base.
  */
 import type { Corroboration, Historique } from "../api";
+import { EmptyState } from "./Skeleton";
 
 /** « 12 h », « 2 j » : l'écart lisible entre le premier signalement et une reprise. */
 function delai(heures: number): string {
@@ -24,16 +25,19 @@ const FORCE_LABEL: Record<string, string> = {
   etabli: "3 sources ou plus",
 };
 
-export function renduCorroboration(corr: Corroboration | null) {
+export function renduCorroboration(corr: Corroboration | null, onAction?: () => void) {
   // Serveur antérieur à l'analyse multi-sources : on ne fait pas semblant.
   if (corr === null) {
     return (
       <section className="orgsheet__section" data-testid="corroboration-absente">
         <h3 className="orgsheet__section-title">faits</h3>
-        <p className="orgsheet__empty">regroupement multi-sources non disponible sur ce serveur</p>
+        {onAction
+          ? <EmptyState message="regroupement multi-sources non disponible sur ce serveur" actionLabel="Fermer la fiche" onAction={onAction} />
+          : <p className="orgsheet__empty">regroupement multi-sources non disponible sur ce serveur</p>}
       </section>
     );
   }
+
 
   const { resume, groupes, desaccords } = corr;
 
@@ -56,7 +60,9 @@ export function renduCorroboration(corr: Corroboration | null) {
         )}
       </p>
 
-      {resume.faits === 0 && <p className="orgsheet__empty">aucun fait sur 180 jours</p>}
+      {resume.faits === 0 && (onAction
+        ? <EmptyState message="aucun fait sur 180 jours" actionLabel="Fermer la fiche" onAction={onAction} />
+        : <p className="orgsheet__empty">aucun fait sur 180 jours</p>)}
 
       {groupes.length > 0 && (
         <ul className="orgsheet__list">
@@ -130,12 +136,14 @@ function moisLisible(iso: string | null): string {
  * le temps ? Sans cette distinction, l'organisation qui apparaît dans trois
  * faits ressemble à celle qui en a trente sur deux ans.
  */
-export function renduHistorique(histo: Historique | null) {
+export function renduHistorique(histo: Historique | null, onAction?: () => void) {
   if (histo === null) {
     return (
       <section className="orgsheet__section" data-testid="historique-absent">
         <h3 className="orgsheet__section-title">historique</h3>
-        <p className="orgsheet__empty">profil historique non disponible sur ce serveur</p>
+        {onAction
+          ? <EmptyState message="profil historique non disponible sur ce serveur" actionLabel="Fermer la fiche" onAction={onAction} />
+          : <p className="orgsheet__empty">profil historique non disponible sur ce serveur</p>}
       </section>
     );
   }
@@ -148,7 +156,9 @@ export function renduHistorique(histo: Historique | null) {
         historique <span className="orgsheet__count">{histo.faits} faits / 12 mois</span>
       </h3>
       {histo.faits === 0 ? (
-        <p className="orgsheet__empty">aucun fait sur douze mois</p>
+        onAction
+          ? <EmptyState message="aucun fait sur douze mois" actionLabel="Fermer la fiche" onAction={onAction} />
+          : <p className="orgsheet__empty">aucun fait sur douze mois</p>
       ) : (
         <>
           <p className="orgsheet__meta" data-tendance={histo.tendance}>

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { api, type ReviewAction, type ReviewQueueResponse, type ReviewRow } from "../api";
 import type { ReviewViewProps } from "../contracts";
 import { reduceSelection, reviewIntent, reviewTargets, type ReviewKeyState } from "../review-keys";
+import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./quarantine-review.css";
 
 /**
@@ -78,6 +79,14 @@ export default function ReviewView({ canWrite, server, onUnauthorized, onOpenOrg
 	}, [server, bucket, source, status, query, page, onUnauthorized]);
 
 	useEffect(() => load(), [load]);
+
+	const reinitialiser = useCallback(() => {
+		setBucket("");
+		setSource("");
+		setStatus("");
+		setQuery("");
+		setPage(0);
+	}, []);
 
 	useEffect(() => {
 		if (rejecting) reasonRef.current?.focus();
@@ -258,9 +267,13 @@ export default function ReviewView({ canWrite, server, onUnauthorized, onOpenOrg
 			<div className="review__body">
 				<div className="review__list" ref={listRef} role="listbox" aria-label="Faits à revoir">
 					{loading && rows.length === 0 ? (
-						<p className="review__state">Chargement de la file…</p>
+						<LoadingSkeleton label="Chargement de la file…" />
 					) : rows.length === 0 ? (
-						<p className="review__state">Aucun fait ne correspond. Élargissez les filtres.</p>
+						<EmptyState
+							message="Aucun fait ne correspond. Élargissez les filtres."
+							actionLabel="Effacer les filtres"
+							onAction={reinitialiser}
+						/>
 					) : rows.map((row, index) => (
 						<div
 							key={row.id}

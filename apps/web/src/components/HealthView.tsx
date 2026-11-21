@@ -9,6 +9,7 @@ import {
   formatRelative,
   truncate,
 } from "./SourcesView";
+import { EmptyState, LoadingSkeleton } from "./Skeleton";
 
 type SortKey = "status" | "name" | "family" | "lastOkAt" | "lastError" | "lastItems";
 type SortDir = "asc" | "desc";
@@ -84,6 +85,10 @@ export type HealthViewProps = {
    * En mode démonstration, passer `mockData.sources`.
    */
   sources: Source[];
+  /** Chargement des sources, piloté par le parent. */
+  loading?: boolean;
+  /** Relance le chargement depuis un état vide. */
+  onRetry?: () => void;
 };
 
 /**
@@ -95,7 +100,7 @@ export type HealthViewProps = {
  * où `sources` est l'état chargé via `api.sources()` (ou `mockData.sources`
  * en mode démonstration).
  */
-export default function HealthView({ sources }: HealthViewProps) {
+export default function HealthView({ sources, loading = false, onRetry }: HealthViewProps) {
   const [family, setFamily] = useState<string>("all");
   const [status, setStatus] = useState<SourceStatus | "all">("all");
   const [sortKey, setSortKey] = useState<SortKey>("status");
@@ -140,6 +145,7 @@ export default function HealthView({ sources }: HealthViewProps) {
           jamais collectés
         </p>
       </header>
+
 
       <div style={TOOLBAR_STYLE}>
         <label style={FIELD_STYLE}>
@@ -228,10 +234,16 @@ export default function HealthView({ sources }: HealthViewProps) {
           })}
           {visible.length === 0 && (
             <tr>
-              <td colSpan={COLUMNS.length} style={{ color: "var(--faint)" }}>
-                {sources.length === 0
-                  ? "Aucun flux déclaré."
-                  : "Aucun flux ne correspond aux filtres."}
+              <td colSpan={COLUMNS.length}>
+                {loading ? (
+                  <LoadingSkeleton label="lecture des sources…" />
+                ) : (
+                  <EmptyState
+                    message={sources.length === 0 ? "Aucun flux déclaré." : "Aucun flux ne correspond aux filtres."}
+                    actionLabel={onRetry ? "Recharger les flux" : "Effacer les filtres"}
+                    onAction={onRetry ?? (() => { setFamily("all"); setStatus("all"); })}
+                  />
+                )}
               </td>
             </tr>
           )}

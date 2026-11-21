@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { InspectorProps } from "../contracts";
 import { api, type EventEnrichment, type Org } from "../api";
 import { renduRattachement } from "./rattachement-view";
+import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./inspector.css";
 
 type LoadState =
@@ -31,6 +32,7 @@ function hasValue(value: unknown): boolean {
 
 export default function Inspector({ eventId, orgId, onClose, onOpenOrg }: InspectorProps) {
   const [state, setState] = useState<LoadState>({ status: "idle" });
+  const [reloadSignal, setReloadSignal] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -91,7 +93,7 @@ export default function Inspector({ eventId, orgId, onClose, onOpenOrg }: Inspec
     return () => {
       cancelled = true;
     };
-  }, [eventId, orgId]);
+  }, [eventId, orgId, reloadSignal]);
 
   let title = "Inspecteur";
   if (state.status === "ready-event" && state.data.event) {
@@ -128,21 +130,29 @@ export default function Inspector({ eventId, orgId, onClose, onOpenOrg }: Inspec
 
       <div className="inspector__body">
         {!hasSelection && (
-          <p className="inspector__empty">rien de sélectionné</p>
+          <EmptyState
+            message="rien de sélectionné"
+            actionLabel="Fermer l'inspecteur"
+            onAction={onClose}
+          />
         )}
 
         {hasSelection && state.status === "loading" && (
-          <p className="inspector__status" role="status">Chargement…</p>
+          <LoadingSkeleton label="Chargement…" />
         )}
 
         {hasSelection && state.status === "error" && (
-          <p className="inspector__status inspector__status--error" role="alert">
-            {state.message}
-          </p>
+          <EmptyState
+            className="inspector__status inspector__status--error"
+            message={state.message}
+            role="alert"
+            actionLabel="Recharger l'inspecteur"
+            onAction={() => setReloadSignal((n) => n + 1)}
+          />
         )}
 
         {state.status === "ready-event" && (
-          <EventDetail data={state.data} />
+          <EventDetail data={state.data} onClose={onClose} />
         )}
 
         {state.status === "ready-org" && <OrgDetail org={state.org} />}
@@ -151,10 +161,16 @@ export default function Inspector({ eventId, orgId, onClose, onOpenOrg }: Inspec
   );
 }
 
-function EventDetail({ data }: { data: EventEnrichment }) {
+function EventDetail({ data, onClose }: { data: EventEnrichment; onClose: () => void }) {
   const event = data.event;
   if (!event) {
-    return <p className="inspector__empty">Événement indisponible.</p>;
+    return (
+      <EmptyState
+        message="Événement indisponible."
+        actionLabel="Fermer l'inspecteur"
+        onAction={onClose}
+      />
+    );
   }
 
   const observed = formatDate(event.observed_at);
@@ -221,7 +237,7 @@ function EventDetail({ data }: { data: EventEnrichment }) {
         le nom est écrit noir sur blanc ou parce qu'un département a départagé
         deux homonymes — ce sont deux niveaux de confiance très différents.
       */}
-      {renduRattachement(data.rattachement ?? null, data.org !== null)}
+      {renduRattachement(data.rattachement ?? null, data.org !== null, onClose)}
 
       {data.org && (
         <section className="inspector__section">

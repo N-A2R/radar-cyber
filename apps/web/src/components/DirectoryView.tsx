@@ -3,6 +3,7 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 import { api, type DirectoryFacet, type DirectoryResponse, type DirectoryRow } from "../api";
 import { DEFAULT_DIRECTORY, type DirectoryUrlState } from "../url-state";
 import type { DirectoryProps } from "../contracts";
+import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./directory.css";
 
 /**
@@ -92,6 +93,7 @@ export default function DirectoryView({
 	urlState,
 	onUrlStateChange,
 	onCopyLink,
+	onRetry,
 }: DirectoryProps) {
 	const [query, setQuery] = useState(urlState?.q ?? "");
 	const [kind, setKind] = useState<string | null>(urlState?.kind ?? null);
@@ -118,6 +120,16 @@ export default function DirectoryView({
 		setPage(0);
 		setActiveRow(0);
 	}, []);
+
+	const reinitialiser = useCallback(() => {
+		setQuery("");
+		setKind(null);
+		setSector(null);
+		setDept(null);
+		setWithEvents(false);
+		setWithoutEvents(false);
+		resetPage();
+	}, [resetPage]);
 
 	useEffect(() => {
 		if (!server) return;
@@ -362,11 +374,13 @@ export default function DirectoryView({
 			{problem ? <p className="directory__error" role="alert">{problem}</p> : null}
 
 			{busy && rows.length === 0 ? (
-				<p className="directory__state">Chargement du référentiel…</p>
+				<LoadingSkeleton label="Chargement du référentiel…" />
 			) : total === 0 ? (
-				<p className="directory__state">
-					Aucune organisation ne correspond. {query ? "Essayez un terme plus court." : "Élargissez les filtres."}
-				</p>
+				<EmptyState
+					message={`Aucune organisation ne correspond. ${query ? "Essayez un terme plus court." : "Élargissez les filtres."}`}
+					actionLabel={onRetry ? "Recharger l'annuaire" : "Effacer les filtres"}
+					onAction={onRetry ?? reinitialiser}
+				/>
 			) : (
 				<div
 					className="directory__table"

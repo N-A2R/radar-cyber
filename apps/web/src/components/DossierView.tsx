@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { api } from "../api";
+import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./dossier.css";
 
 type DossierPayload = {
@@ -29,7 +30,7 @@ export default function DossierView() {
 	const [data, setData] = useState<DossierPayload | null>(null);
 	const [error, setError] = useState<string | null>(null);
 	const [loading, setLoading] = useState(true);
-
+	const [reloadSignal, setReloadSignal] = useState(0);
 	useEffect(() => {
 		let cancelled = false;
 		api
@@ -49,9 +50,9 @@ export default function DossierView() {
 		return () => {
 			cancelled = true;
 		};
-	}, []);
+	}, [reloadSignal]);
 
-	if (loading) return <section className="dossier"><p className="dossier__status">chargement du dossier…</p></section>;
+	if (loading) return <section className="dossier"><LoadingSkeleton label="chargement du dossier…" /></section>;
 	if (error) return <section className="dossier"><p className="dossier__status dossier__status--error">{error}</p></section>;
 	if (!data) return null;
 
@@ -76,6 +77,14 @@ export default function DossierView() {
 					</ul>
 				</section>
 			))}
+
+			{data.dossier.sections.length === 0 ? (
+				<EmptyState
+					message="Aucune section dans le dossier de reprise."
+					actionLabel="Recharger le dossier"
+					onAction={() => setReloadSignal((n) => n + 1)}
+				/>
+			) : null}
 
 			<section className="dossier__section">
 				<h2 className="dossier__title">État chiffré (JSON)</h2>

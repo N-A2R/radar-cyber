@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import type { LiveAlert } from "../api";
+import { EmptyState } from "./Skeleton";
 import "./live-alerts.css";
 
 /**
@@ -153,7 +154,12 @@ export default function LiveAlerts({
           {unseen > 1 ? <span className="live-alerts__more">+{unseen - 1}</span> : null}
         </button>
       ) : (
-        <span className="live-alerts__idle">No live alerts at the moment</span>
+        <EmptyState
+          className="live-alerts__idle"
+          message="aucune alerte en direct pour l'instant"
+          actionLabel="Voir les alertes"
+          onAction={onOpenAlerts}
+        />
       )}
 
       <div className="live-alerts__controls">

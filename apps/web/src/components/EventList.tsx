@@ -1,6 +1,7 @@
 import type { Event } from "../api";
 import type { FeedProps } from "../contracts";
 import FamilyFilter from "./FamilyFilter";
+import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./feed.css";
 
 function formatRelative(iso: string | null): string {
@@ -43,6 +44,7 @@ export default function EventList({
   onSelectEvent,
   loading,
   error,
+  onRetry,
 }: FeedProps) {
   return (
     <section className="feed" aria-label="Fil d'événements">
@@ -53,7 +55,7 @@ export default function EventList({
 
       <FamilyFilter byFamily={byFamily} family={family} onFamily={onFamily} />
 
-      {loading ? <p className="feed__status">chargement</p> : null}
+      {loading ? <LoadingSkeleton label="chargement du fil" /> : null}
       {error ? <p className="feed__status feed__status--error">{error}</p> : null}
 
       <ul className="feed__list">
@@ -98,6 +100,13 @@ export default function EventList({
           );
         })}
       </ul>
+      {!loading && !error && events.length === 0 ? (
+        <EmptyState
+          message="Aucun événement dans ce fil."
+          actionLabel={onRetry ? "Recharger le fil" : "Effacer le filtre"}
+          onAction={onRetry ?? (() => onFamily(null))}
+        />
+      ) : null}
     </section>
   );
 }

@@ -3,6 +3,7 @@ import { api, type ApiError, type OrgDetail as OrgDetailData, type OrgLien } fro
 import { renduCorroboration, renduHistorique } from "./corroboration-view";
 import { mockOrgDetail } from "../mock";
 import { DroitReponseBloc } from "./DroitReponseSection";
+import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./orgsheet.css";
 
 type LoadState =
@@ -46,6 +47,7 @@ export default function OrgSheet({
   mock?: boolean;
 }) {
   const [state, setState] = useState<LoadState>({ status: "loading" });
+  const [reloadSignal, setReloadSignal] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -68,7 +70,7 @@ export default function OrgSheet({
     return () => {
       cancelled = true;
     };
-  }, [orgId, mock]);
+  }, [orgId, mock, reloadSignal]);
 
   return <OrgSheetContenu state={state} onClose={onClose} />;
 }
@@ -92,18 +94,19 @@ export function OrgSheetContenu({
         </button>
       </header>
 
-      {state.status === "loading" && (
-        <p className="orgsheet__status" role="status">chargement de la fiche…</p>
-      )}
+      {state.status === "loading" && <LoadingSkeleton label="chargement de la fiche…" />}
       {state.status === "notfound" && (
-        <p className="orgsheet__status" role="status">organisation inconnue</p>
+        <EmptyState message="organisation inconnue" actionLabel="Fermer la fiche" onAction={onClose} />
       )}
       {state.status === "error" && (
-        <p className="orgsheet__status orgsheet__status--error" role="alert">
-          API : {state.message}
-        </p>
+        <EmptyState
+          message={`API : ${state.message}`}
+          role="alert"
+          actionLabel="Recharger la fiche"
+          onAction={() => setReloadSignal((n) => n + 1)}
+        />
       )}
-      {state.status === "ready" && <OrgSheetBody data={state.data} />}
+      {state.status === "ready" && <OrgSheetBody data={state.data} onClose={onClose} />}
     </aside>
   );
 }
@@ -111,7 +114,7 @@ export function OrgSheetContenu({
 // Exportée pour la vérification hors navigateur (test/etat-rendu.tsx et
 // test/orgsheet-verif.tsx) : le rendu statique n'exécute pas les effets, donc
 // le corps de la fiche se vérifie en le rendant avec des données chargées.
-export function OrgSheetBody({ data }: { data: OrgDetailData }) {
+export function OrgSheetBody({ data, onClose }: { data: OrgDetailData; onClose?: () => void }) {
   const { org, assets, events, claims, exposure } = data;
   const aliases = data.aliases ?? [];
   const domains = data.domains ?? [];
@@ -188,15 +191,17 @@ export function OrgSheetBody({ data }: { data: OrgDetailData }) {
         regroupé par fait. Cinq lignes d'événements peuvent raconter un seul
         incident relayé par cinq sources — ou cinq incidents.
       */}
-      {renduHistorique(data.historique ?? null)}
-      {renduCorroboration(data.corroboration ?? null)}
+      {renduHistorique(data.historique ?? null, onClose)}
+      {renduCorroboration(data.corroboration ?? null, onClose)}
 
       <section className="orgsheet__section">
         <h3 className="orgsheet__section-title">
           actifs <span className="orgsheet__count">{assets.total}</span>
         </h3>
         {assets.total === 0 ? (
-          <p className="orgsheet__empty">aucun actif découvert</p>
+          onClose
+            ? <EmptyState className="orgsheet__empty" message="aucun actif découvert" actionLabel="Fermer la fiche" onAction={onClose} />
+            : <p className="orgsheet__empty">aucun actif découvert</p>
         ) : (
           <>
             <p className="orgsheet__breakdown">
@@ -227,7 +232,9 @@ export function OrgSheetBody({ data }: { data: OrgDetailData }) {
           événements récents <span className="orgsheet__count">{events.total}</span>
         </h3>
         {events.total === 0 ? (
-          <p className="orgsheet__empty">aucun événement rattaché</p>
+          onClose
+            ? <EmptyState className="orgsheet__empty" message="aucun événement rattaché" actionLabel="Fermer la fiche" onAction={onClose} />
+            : <p className="orgsheet__empty">aucun événement rattaché</p>
         ) : (
           <>
             <p className="orgsheet__note">{events.recent.length} plus récents affichés</p>
@@ -256,7 +263,9 @@ export function OrgSheetBody({ data }: { data: OrgDetailData }) {
           revendications <span className="orgsheet__count">{claims.total}</span>
         </h3>
         {claims.total === 0 ? (
-          <p className="orgsheet__empty">aucune revendication</p>
+          onClose
+            ? <EmptyState className="orgsheet__empty" message="aucune revendication" actionLabel="Fermer la fiche" onAction={onClose} />
+            : <p className="orgsheet__empty">aucune revendication</p>
         ) : (
           <ul className="orgsheet__list">
             {claims.recent.map((c) => (

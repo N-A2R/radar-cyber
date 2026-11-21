@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import { authHeaders } from "../api";
 import { isReviewTypingTarget, reduceSelection, reviewIntent, type ReviewKeyState } from "../review-keys";
+import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./review.css";
 import { type ReviewUrlState, type RevueBucket } from "../url-state";
 export type { RevueBucket } from "../url-state";
@@ -211,6 +212,13 @@ export default function ReviewView({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [urlKey]);
 
+
+  const reinitialiser = useCallback(() => {
+    setBucket("");
+    setSearch("");
+    setQuery("");
+    setPage(0);
+  }, []);
   useEffect(() => {
     if (openRow !== null) reasonRef.current?.focus();
   }, [openRow]);
@@ -511,17 +519,23 @@ export default function ReviewView({
 
       {notice ? <p className="revue__notice" role="status">{notice}</p> : null}
       {error ? <p className="revue__error" role="alert">{error}</p> : null}
-      {loading ? <p className="revue__state" role="status">Loading review queue…</p> : null}
+      {loading ? <LoadingSkeleton label="Chargement de la file de revue…" /> : null}
       {!loading && visibleRows.length === 0 && !error && server ? (
-        <div className="revue__state revue__empty" role="status">
-          <strong>{total === 0 ? "No claims left to review." : "Nothing matches these filters."}</strong>
-          <span>
-            {total === 0
-              ? "The queue is clear: every public claim has a recorded decision."
-              : "Try another priority, family or search term."}
-          </span>
-          {filtersActive ? <button type="button" onClick={clearFilters}>Clear filters</button> : null}
-        </div>
+        <EmptyState
+          className="revue__empty"
+          message={
+            <>
+              <strong>{total === 0 ? "No claims left to review." : "Nothing matches these filters."}</strong>
+              <span>
+                {total === 0
+                  ? "The queue is clear: every public claim has a recorded decision."
+                  : "Try another priority, family or search term."}
+              </span>
+            </>
+          }
+          actionLabel={filtersActive ? "Clear filters" : "Recharger la file"}
+          onAction={filtersActive ? clearFilters : refresh}
+        />
       ) : null}
       {!server ? <p className="revue__state">The review queue requires the API — no decision is simulated.</p> : null}
       {!canWrite ? <p className="revue__state">Read-only: sign in to record decisions.</p> : null}

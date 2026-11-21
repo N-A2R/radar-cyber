@@ -13,7 +13,7 @@ import { useMemo } from "react";
 import departementsGeojson from "../map/departements-na.geojson";
 import type { NaOverview, NaFil, Org } from "../api";
 import type { NaViewProps } from "../contracts";
-
+import { EmptyState, LoadingSkeleton } from "./Skeleton";
 /** Les douze départements, dans l'ordre du geojson (props : code, nom). */
 const FEATURES = departementsGeojson.features as {
   properties: { code: string; nom: string };
@@ -114,7 +114,7 @@ export function overviewDepuisOrgs(orgs: Org[]): NaOverview {
   };
 }
 
-export default function NaView({ orgs, overview, fil, loading, error, dept, onSelectDept, onOpenOrg }: NaViewProps) {
+export default function NaView({ orgs, overview, fil, loading, error, dept, onSelectDept, onOpenOrg, onRetry }: NaViewProps) {
   const compteParDept = useMemo(() => {
     const m = new Map<string, { nom: string; evenements: number; orgs: number; orgsAvecEvenement: number }>();
     for (const f of FEATURES) {
@@ -152,7 +152,7 @@ export default function NaView({ orgs, overview, fil, loading, error, dept, onSe
   if (loading && !overview && orgs.length === 0) {
     return (
       <section className="na-view">
-        <p className="na-vide">Chargement du référentiel Nouvelle-Aquitaine…</p>
+        <LoadingSkeleton label="Chargement du référentiel Nouvelle-Aquitaine…" />
       </section>
     );
   }
@@ -236,10 +236,14 @@ export default function NaView({ orgs, overview, fil, loading, error, dept, onSe
           {dept !== null && (
             <>
               {evtsDept === 0 && (
-                <p className="na-vide" data-testid="na-vide-dept">
-                  Aucun événement sur ce département. {compteParDept.get(dept)?.orgs.toLocaleString("fr-FR")}{" "}
-                  organisations au référentiel, aucune touchée à ce jour — le trou est affiché, pas caché.
-                </p>
+                <div data-testid="na-vide-dept">
+                  <EmptyState
+                    className="na-vide"
+                    message={`Aucun événement sur ce département. ${compteParDept.get(dept)?.orgs.toLocaleString("fr-FR")} organisations au référentiel, aucune touchée à ce jour — le trou est affiché, pas caché.`}
+                    actionLabel={onRetry ? "Recharger la région" : "Voir toute la région"}
+                    onAction={onRetry ?? (() => onSelectDept(null))}
+                  />
+                </div>
               )}
               {fil && fil.dept === dept && fil.events.length > 0 && (
                 <>
@@ -295,10 +299,12 @@ export default function NaView({ orgs, overview, fil, loading, error, dept, onSe
                 </>
               ) : (
                 evtsDept > 0 && (
-                  <p className="na-vide">
-                    Des événements régionaux concernent ce département sans être rattachés à une organisation du
-                    référentiel — voir le fil « toute la région ».
-                  </p>
+                  <EmptyState
+                    className="na-vide"
+                    message="Des événements régionaux concernent ce département sans être rattachés à une organisation du référentiel — voir le fil « toute la région »."
+                    actionLabel="Voir toute la région"
+                    onAction={() => onSelectDept(null)}
+                  />
                 )
               )}
             </>

@@ -9,21 +9,23 @@
  * devine pas ».
  */
 import type { RattachementExplication } from "../api";
-
+import { EmptyState } from "./Skeleton";
 /** Phrase et détails d'un rattachement. `null` = événement d'avant la trace. */
 export function renduRattachement(
   explication: RattachementExplication | null,
   rattache = explication !== null && explication.motif !== "aucun" && explication.motif !== "ambiant" && explication.motif !== "ambigu",
+  onAction?: () => void,
 ) {
   if (explication === null) {
     // Un événement ingéré avant que le pourquoi soit conservé : le dire vaut
     // mieux que laisser croire qu'il n'y avait rien à dire.
+    const message = rattache ? "organisé, motif non conservé" : "aucune organisation rattachée, motif non conservé";
     return (
       <section className="inspector__section">
         <h3 className="inspector__section-title">Rattachement</h3>
-        <p className="inspector__muted">
-          {rattache ? "organisé, motif non conservé" : "aucune organisation rattachée, motif non conservé"}
-        </p>
+        {onAction
+          ? <EmptyState message={message} actionLabel="Fermer l'inspecteur" onAction={onAction} />
+          : <p className="inspector__muted">{message}</p>}
       </section>
     );
   }
