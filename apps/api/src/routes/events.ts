@@ -1,3 +1,4 @@
+import { unauthorized } from "../errors.js";
 import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
 import { resolveUser } from "../middleware/auth.js";
@@ -66,8 +67,7 @@ export default async function (app: FastifyInstance) {
   app.get("/events", async (req, reply) => {
     const user = await resolveUser(req);
     if (!user) {
-      reply.code(401).send({ error: "unauthorized" });
-      return;
+      throw unauthorized();
     }
 
     const q = req.query as Record<string, string | undefined>;

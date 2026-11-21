@@ -1,0 +1,37 @@
+{
+	"date": "2026-11-21",
+	"protocole": "lecture seule. File gelée 220 : chaque sigle tiré d'un rattachement à 0,7 est résolu par l'ancien régime puis par l'index SIRENE, sans puis avec contexte. File vivante : indices pending classés sigles par classifierIndice().",
+	"index": {
+		"alias": 8662,
+		"sigles": 6785,
+		"ambigus": 830
+	},
+	"fileGelee": {
+		"volume": 220,
+		"rattachementsMoteur": 16,
+		"sigles": 1,
+		"detail": [
+			{
+				"id": 644182,
+				"indice": "bastion.internal",
+				"sigle": "BASTION",
+				"contexte": {
+					"dept": "64",
+					"domain": "bastion.internal"
+				},
+				"candidatsAvant": 37,
+				"decisionAvant": "ambigu",
+				"candidatsApres": 2,
+				"sansContexte": "ambigu",
+				"avecContexte": "ambigu",
+				"orgIdAvant": 51099,
+				"orgIdApres": null
+			}
+		]
+	},
+	"fileVivante": {
+		"volume": 200,
+		"siglesStrict": 0,
+		"detail": []
+	}
+}

@@ -291,3 +291,117 @@ export function isActionableIndicator(value: string, type: string, idx: ActiveIn
 	if (!host) return { keep: false, reason: "global" };
 	return classifyHost(host, idx);
 }
+
+/**
+ * Détection de langue fr/en des événements, sans dépendance externe.
+ *
+ * Les flux du radar sont majoritairement anglais, mais les dépêches locales
+ * sont françaises. Deux listes **exclusives** de mots outils et de mots-clés
+ * cyber suffisent : chaque token ne contribue qu'à une langue. Les lettres
+ * accentées sont un indice fort, plafonné pour qu'un nom propre ne décide pas
+ * seul. À score égal, l'anglais l'emporte (langue par défaut des flux tech).
+ */
+export type Language = "fr" | "en";
+
+export interface LanguageDetection {
+	language: Language;
+	scores: Readonly<{ fr: number; en: number }>;
+}
+
+export interface LanguageVerdict extends LanguageDetection {
+	/** Vrai si la langue est autorisée par `RADAR_LANGUAGES`. */
+	keep: boolean;
+}
+
+const FR_WORDS: Record<string, true> = {
+	"d": true, "l": true, "de": true, "des": true, "du": true, "le": true, "la": true, "les": true,
+	"un": true, "une": true, "et": true, "est": true, "sont": true, "été": true, "ont": true,
+	"avait": true, "sera": true, "seront": true, "dans": true, "sur": true, "pour": true,
+	"avec": true, "par": true, "au": true, "aux": true, "en": true, "vers": true, "chez": true,
+	"sous": true, "entre": true, "contre": true, "depuis": true, "après": true, "avant": true,
+	"pendant": true, "hors": true, "ce": true, "cet": true, "cette": true, "ces": true, "son": true,
+	"sa": true, "ses": true, "leur": true, "leurs": true, "nous": true, "vous": true, "il": true,
+	"elle": true, "ils": true, "elles": true, "qui": true, "que": true, "dont": true, "où": true,
+	"se": true, "ne": true, "pas": true, "plus": true, "moins": true, "lorsque": true, "ainsi": true,
+	"aussi": true, "encore": true, "déjà": true, "très": true, "bien": true, "tous": true,
+	"toute": true, "tout": true, "toutes": true, "même": true, "autre": true, "autres": true,
+	"nouveau": true, "nouvelle": true, "notamment": true, "selon": true, "notre": true,
+	"votre": true, "nos": true, "vos": true, "donc": true, "car": true, "mais": true, "à": true,
+	"aucune": true, "aucun": true, "vulnérabilité": true, "vulnérabilités": true,
+	"attaque": true, "attaques": true, "cyberattaque": true, "entreprise": true,
+	"entreprises": true, "logiciel": true, "logiciels": true, "sécurité": true, "réseau": true,
+	"réseaux": true, "système": true, "systèmes": true, "données": true, "donnée": true,
+	"utilisateurs": true, "menace": true, "menaces": true, "failles": true, "faille": true,
+	"correctif": true, "publié": true, "publiée": true, "rapport": true, "étude": true,
+	"gouvernement": true, "ministère": true, "mairie": true, "collectivité": true,
+	"signalé": true, "déclare": true, "affirme": true, "victime": true, "victimes": true,
+};
+
+const EN_WORDS: Record<string, true> = {
+	"the": true, "and": true, "of": true, "in": true, "to": true, "is": true, "are": true,
+	"was": true, "were": true, "be": true, "been": true, "being": true, "for": true, "with": true,
+	"on": true, "at": true, "by": true, "from": true, "as": true, "that": true, "this": true,
+	"these": true, "those": true, "it": true, "its": true, "has": true, "have": true, "had": true,
+	"will": true, "would": true, "can": true, "could": true, "should": true, "may": true,
+	"might": true, "must": true, "not": true, "no": true, "into": true, "about": true,
+	"over": true, "under": true, "between": true, "after": true, "before": true, "during": true,
+	"than": true, "then": true, "also": true, "more": true, "most": true, "some": true,
+	"any": true, "all": true, "each": true, "other": true, "another": true, "new": true,
+	"our": true, "your": true, "their": true, "they": true, "them": true, "he": true, "she": true,
+	"we": true, "you": true, "who": true, "which": true, "what": true, "when": true, "where": true,
+	"why": true, "how": true, "because": true, "but": true, "or": true, "if": true,
+	"report": true, "reports": true, "say": true, "says": true, "said": true, "according": true,
+	"using": true, "used": true, "user": true, "users": true, "vulnerability": true,
+	"vulnerabilities": true, "attack": true, "attacks": true, "security": true, "research": true,
+	"researchers": true, "software": true, "threat": true, "threats": true, "malware": true,
+	"phishing": true, "breach": true, "breached": true, "compromise": true, "compromised": true,
+	"exploit": true, "exploited": true, "patch": true, "patched": true, "update": true,
+	"updated": true, "data": true, "company": true, "companies": true, "government": true,
+	"officials": true, "agency": true, "network": true, "networks": true, "systems": true,
+	"devices": true, "incident": true, "incidents": true, "disclosure": true, "disclosed": true,
+	"critical": true, "risk": true, "targeting": true, "targeted": true, "campaign": true,
+	"actor": true, "actors": true, "published": true,
+};
+
+const FR_ACCENT = /[àâçéèêëîïôöùûüÿœæ]/i;
+
+/** Langue du texte (titre + résumé), avec les scores détaillés. */
+export function detectLanguage(text: string): LanguageDetection {
+	const tokens = String(text ?? "").toLowerCase().match(/[a-zà-ÿœæ]+/g) ?? [];
+	let fr = 0;
+	let en = 0;
+	let accents = 0;
+	for (const token of tokens) {
+		if (FR_WORDS[token] === true) fr++;
+		else if (EN_WORDS[token] === true) en++;
+		if (FR_ACCENT.test(token)) accents++;
+	}
+	fr += Math.min(accents, 3);
+	return { language: fr > en ? "fr" : "en", scores: { fr, en } };
+}
+
+/** Langues à ingérer (`RADAR_LANGUAGES`, séparées par des virgules). Vide/inconnu = fr et en. */
+export function configuredLanguages(env: NodeJS.ProcessEnv = process.env): Set<Language> {
+	const allowed = new Set<Language>();
+	for (const token of (env.RADAR_LANGUAGES ?? "").toLowerCase().split(/[,\s;]+/)) {
+		if (token === "fr" || token === "en") allowed.add(token);
+	}
+	if (allowed.size === 0) {
+		allowed.add("fr");
+		allowed.add("en");
+	}
+	return allowed;
+}
+
+/**
+ * Verdict unique pour un événement : la langue détectée et son admission.
+ * `allowed` peut être calculé une fois par run puis passé en paramètre.
+ */
+export function languageVerdict(
+	title: string,
+	summary: string | null | undefined,
+	allowed: ReadonlySet<Language> = configuredLanguages(),
+): LanguageVerdict {
+	const detection = detectLanguage(`${title ?? ""} ${summary ?? ""}`);
+	return { ...detection, keep: allowed.has(detection.language) };
+}

@@ -2,6 +2,7 @@ import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
 import { hashPassword, verifyPassword, newToken, hashSessionToken } from "../auth.js";
 import { requireAuth, requireRole } from "../middleware/auth.js";
+import { badRequest, conflict, forbidden, unauthorized } from "../errors.js";
 
 const SESSION_TTL_MS = 7 * 24 * 3600 * 1000;
 
@@ -16,22 +17,19 @@ export default async function (app: FastifyInstance) {
     const email = body.email?.trim().toLowerCase();
     const password = body.password ?? "";
     if (!email || !password) {
-      reply.code(400).send({ error: "email and password required" });
-      return;
+      throw badRequest("email and password required");
     }
     // premier utilisateur autorisé ; sinon admin requis
     const count = await query<{ n: number }>("SELECT count(*)::int AS n FROM app_user");
     if ((count.rows[0]?.n ?? 0) > 0) {
       const u = req.user;
       if (!u || u.role !== "admin") {
-        reply.code(403).send({ error: "admin required" });
-        return;
+        throw forbidden("admin required");
       }
     }
     const existing = await query("SELECT id FROM app_user WHERE email = $1", [email]);
     if (existing.rowCount) {
-      reply.code(409).send({ error: "email exists" });
-      return;
+      throw conflict("email exists");
     }
     const role = body.role && ["admin", "analyste", "lecteur"].includes(body.role) ? body.role : "lecteur";
     // premier utilisateur devient admin (bootstrap) ; impossible de choisir un autre rôle
@@ -54,8 +52,7 @@ export default async function (app: FastifyInstance) {
     );
     const row = r.rows[0];
     if (!row || !(await verifyPassword(password, row.password_hash))) {
-      reply.code(401).send({ error: "invalid credentials" });
-      return;
+      throw unauthorized("invalid credentials");
     }
     const token = newToken();
     const expires = new Date(Date.now() + SESSION_TTL_MS);

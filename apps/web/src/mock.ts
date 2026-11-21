@@ -263,9 +263,9 @@ export function mockOrgDetail(orgId: number): OrgDetail | null {
       total: org.lat === null ? 0 : 3,
       byKind: [{ kind: "domain", n: 1 }, { kind: "subdomain", n: 2 }],
       recent: [
-        { value: domain, kind: "domain", createdAt: ago(60 * 24 * 30), source: "mock" },
-        { value: `www.${domain}`, kind: "subdomain", createdAt: ago(60 * 24 * 20), source: "mock" },
-        { value: `vpn.${domain}`, kind: "subdomain", createdAt: ago(60 * 24 * 12), source: "mock" },
+        { value: domain, kind: "domain", firstSeen: ago(60 * 24 * 30), source: "mock" },
+        { value: `www.${domain}`, kind: "subdomain", firstSeen: ago(60 * 24 * 20), source: "mock" },
+        { value: `vpn.${domain}`, kind: "subdomain", firstSeen: ago(60 * 24 * 12), source: "mock" },
       ],
     },
     // Démonstration : un historique court pour que la fiche montre des barres.

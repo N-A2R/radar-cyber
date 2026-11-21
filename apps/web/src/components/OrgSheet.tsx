@@ -211,7 +211,7 @@ export function OrgSheetBody({ data }: { data: OrgDetailData }) {
                   <span className="orgsheet__mono">{a.value}</span>
                   <span className="orgsheet__meta">
                     {assetLabel(a.kind)}
-                    {formatDate(a.createdAt) ? ` · ${formatDate(a.createdAt)}` : ""}
+                    {formatDate(a.firstSeen) ? ` · ${formatDate(a.firstSeen)}` : ""}
                     {a.source ? ` · ${a.source}` : ""}
                   </span>
                 </li>

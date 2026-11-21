@@ -1,6 +1,6 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { creerMemoire, etatDonnees, type Instantane } from "./offline";
-import { api, clearAuthToken, getAuthToken, setAuthToken, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type Stats, type TodayResponse } from "./api";
+import { api, clearAuthToken, getAuthToken, setAuthToken, type CouverturePublique, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type Stats, type TodayResponse } from "./api";
 import { mockData } from "./mock";
 const Map3D = lazy(() => import("./map/Map3D"));
 const GraphView = lazy(() => import("./graph/GraphView"));
@@ -12,12 +12,13 @@ const Inspector = lazy(() => import("./components/Inspector"));
 const OrgSheet = lazy(() => import("./components/OrgSheet"));
 const DirectoryView = lazy(() => import("./components/DirectoryView"));
 const CommandPalette = lazy(() => import("./components/CommandPalette"));
-const LiveAlerts = lazy(() => import("./components/LiveAlerts"));
+import LiveAlerts, { addLiveAlert, connectLiveAlerts } from "./components/LiveAlerts";
 const ReviewView = lazy(() => import("./components/ReviewView"));
 const JournalView = lazy(() => import("./components/JournalView"));
 const DossierView = lazy(() => import("./components/DossierView"));
 const NaView = lazy(() => import("./components/NaView"));
 const TodayView = lazy(() => import("./components/TodayView"));
+const CouvertureView = lazy(() => import("./components/CouvertureView"));
 const AlertsView = lazy(() => import("./components/AlertsView"));
 const LoginScreen = lazy(() => import("./components/LoginScreen"));
 import type { ViewKey } from "./contracts";
@@ -41,6 +42,7 @@ const MOCK_MODE = import.meta.env.VITE_DATA_MODE === "mock";
 
 const VIEWS: { id: ViewKey; label: string }[] = [
   { id: "today", label: "Aujourd'hui" },
+  { id: "couverture", label: "Coverage" },
   { id: "map", label: "Carte" },
   { id: "review", label: "Revue" },
   { id: "journal", label: "Journal" },
@@ -69,6 +71,9 @@ export default function App() {
   const [todayData, setTodayData] = useState<TodayResponse | null>(null);
   const [todayLoading, setTodayLoading] = useState(!MOCK_MODE);
   const [todayError, setTodayError] = useState<string | null>(null);
+  const [couvertureData, setCouvertureData] = useState<CouverturePublique | null>(null);
+  const [couvertureLoading, setCouvertureLoading] = useState(false);
+  const [couvertureError, setCouvertureError] = useState<string | null>(null);
   const [statsDepartements, setStatsDepartements] = useState<DeptStat[]>([]);
   const [graph, setGraph] = useState<Graph>({ nodes: [], links: [] });
   const [flows, setFlows] = useState<FlowArc[]>([]);
@@ -190,23 +195,11 @@ export default function App() {
     if (!token) return;
     // `EventSource` ne peut pas poser d'en-tête : le jeton passe en query,
     // accepté par la seule route /api/stream côté serveur.
-    const streamToken = getAuthToken();
-    const stream = new EventSource(
-      streamToken ? `/api/stream?token=${encodeURIComponent(streamToken)}` : "/api/stream"
-    );
-    stream.onopen = () => setConnected(true);
-    stream.onerror = () => setConnected(false);
-    stream.addEventListener("alert", (raw) => {
-      setConnected(true);
-      try {
-        const alert = JSON.parse((raw as MessageEvent).data) as LiveAlert;
-        setLiveAlerts((prev) => [alert, ...prev.filter((a) => a.id !== alert.id)].slice(0, LIVE_ALERT_LIMIT));
-        setUnseenAlerts((n) => n + 1);
-        setAlertSignal((n) => n + 1);
-      } catch {
-        // charge utile illisible : on ignore sans casser le flux
-      }
-    });
+    const stream = connectLiveAlerts({ token: getAuthToken(), onConnection: setConnected, onAlert: (a) => {
+      setLiveAlerts((prev) => addLiveAlert(prev, a, LIVE_ALERT_LIMIT));
+      setUnseenAlerts((n) => n + 1);
+      setAlertSignal((n) => n + 1);
+    } });
     stream.addEventListener("new", (raw) => {
       setConnected(true);
       try {
@@ -242,7 +235,7 @@ export default function App() {
         // Charge utile illisible : on ignore le message plutôt que de casser le flux.
       }
     });
-    return () => stream.close();
+    return stream.close;
   }, [token, portee]);
 
   // Les arcs réels (org → hébergement) sont rares ; à défaut on affiche les
@@ -393,6 +386,26 @@ export default function App() {
     };
   }, [view, token]);
 
+  // The coverage figure is a published measurement: one request when the view
+  // is opened, aborted as soon as the user leaves it.
+  useEffect(() => {
+    if (view !== "couverture" || (!token && !MOCK_MODE)) return;
+    const controller = new AbortController();
+    setCouvertureLoading(true);
+    setCouvertureError(null);
+    api.couverture(controller.signal)
+      .then(setCouvertureData)
+      .catch((err: unknown) => {
+        if (!controller.signal.aborted) {
+          setCouvertureError(err instanceof Error ? err.message : "unavailable");
+        }
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setCouvertureLoading(false);
+      });
+    return () => controller.abort();
+  }, [view, token]);
+
   const byFamily = useMemo(() => {
     const counts: Record<string, number> = {};
     for (const e of events) counts[e.family] = (counts[e.family] ?? 0) + 1;
@@ -487,6 +500,13 @@ export default function App() {
         && prev.directory.page === directory.page
         && prev.directory.size === directory.size;
       return same ? prev : { ...prev, directory };
+    });
+  }, []);
+
+  const onReviewStateChange = useCallback((review: AppUrlState["review"]) => {
+    setUrlState((prev) => {
+      const same = prev.review.bucket === review.bucket && prev.review.q === review.q;
+      return same ? prev : { ...prev, review };
     });
   }, []);
 
@@ -717,6 +737,9 @@ export default function App() {
               }}
             />
           ) : null}
+          {view === "couverture" ? (
+            <CouvertureView data={couvertureData} loading={couvertureLoading} error={couvertureError} />
+          ) : null}
           {view === "map" ? (
             <Map3D
               orgs={orgs}
@@ -765,6 +788,8 @@ export default function App() {
               server={!MOCK_MODE}
               onUnauthorized={onUnauthorized}
               onOpenOrg={openOrgSheet}
+              urlState={urlState.review}
+              onUrlStateChange={onReviewStateChange}
             />
           ) : null}
           {view === "journal" ? <JournalView onUnauthorized={onUnauthorized} /> : null}

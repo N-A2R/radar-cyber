@@ -5,7 +5,7 @@
 	"regle": "sigle-confirme",
 	"protocole": "file des 220 relevée gelée dans bench/results/precision-branchement.json (16 rattachements du moteur) : avant = règles S2/S3 sans décision du registre, après = même appel avec la décision sigle-confirme calculée sur la base réelle (5433), sans écriture. Jeu d'or : 50 pièges rejoués avec la même décision de production.",
 	"requetesSQL": {
-		"candidats": "\nSELECT id, name FROM (\n  SELECT o.id, o.name\n  FROM org o\n  WHERE replace(o.name_norm, '.', '') LIKE '%' || $1::text || '%'\n    AND ' ' || regexp_replace(replace(o.name_norm, '.', ''), '[^a-z0-9]+', ' ', 'g') || ' '\n        LIKE '% ' || $1::text || ' %'\n  UNION\n  SELECT o.id, o.name\n  FROM org_alias a\n  JOIN org o ON o.id = a.org_id\n  WHERE a.source IN ('annuaire-entreprises', 'usage')\n    AND regexp_replace(regexp_replace(upper(a.alias), '\\.', '', 'g'), '[^A-Z0-9]+', '', 'g') = $2::text\n) candidats\nORDER BY id",
+		"candidats": "\nSELECT id, name, dept, domain, website FROM (\n  SELECT o.id, o.name, o.dept, o.domain, o.website\n  FROM org o\n  WHERE replace(o.name_norm, '.', '') LIKE '%' || $1::text || '%'\n    AND ' ' || regexp_replace(replace(o.name_norm, '.', ''), '[^a-z0-9]+', ' ', 'g') || ' '\n        LIKE '% ' || $1::text || ' %'\n  UNION\n  SELECT o.id, o.name, o.dept, o.domain, o.website\n  FROM org_alias a\n  JOIN org o ON o.id = a.org_id\n  WHERE a.source IN ('annuaire-entreprises', 'usage')\n    AND regexp_replace(regexp_replace(upper(a.alias), '\\.', '', 'g'), '[^A-Z0-9]+', '', 'g') = $2::text\n) candidats\nORDER BY id",
 		"aliasSigle": "\nSELECT o.id, o.name, o.slug, o.kind, o.city, o.domain, o.website\nFROM org_alias a\nJOIN org o ON o.id = a.org_id\nWHERE a.source IN ('annuaire-entreprises', 'usage')\n  AND regexp_replace(regexp_replace(upper(a.alias), '\\.', '', 'g'), '[^A-Z0-9]+', '', 'g') = $1::text\nORDER BY o.id"
 	},
 	"file220": {
@@ -318,7 +318,7 @@
 		"ecarts": []
 	},
 	"temoinsRegistre": {
-		"acceptes": 2,
+		"acceptes": 4,
 		"total": 7,
 		"detail": [
 			{
@@ -377,15 +377,17 @@
 				},
 				"decision": {
 					"sigle": "FNC",
-					"accepte": false,
-					"candidats": 3,
-					"motif": "ambigu"
+					"accepte": true,
+					"candidats": 1,
+					"motif": "confirme",
+					"orgId": 34388,
+					"orgName": "Fédération Nationale des Chasseurs"
 				},
-				"regle": "sigle-confirme",
+				"regle": "accepte",
 				"trace": {
 					"regle": "sigle-confirme",
-					"accepte": false,
-					"motif": "ambigu"
+					"accepte": true,
+					"motif": "confirme"
 				}
 			},
 			{
@@ -427,15 +429,17 @@
 				},
 				"decision": {
 					"sigle": "UNSS",
-					"accepte": false,
-					"candidats": 6,
-					"motif": "ambigu"
+					"accepte": true,
+					"candidats": 1,
+					"motif": "confirme",
+					"orgId": 45004,
+					"orgName": "Union nationale du sport scolaire"
 				},
-				"regle": "sigle-confirme",
+				"regle": "accepte",
 				"trace": {
 					"regle": "sigle-confirme",
-					"accepte": false,
-					"motif": "ambigu"
+					"accepte": true,
+					"motif": "confirme"
 				}
 			},
 			{

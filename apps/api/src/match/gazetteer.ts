@@ -35,7 +35,7 @@ import {
 	MOTS_ROLE,
 	nomDeLieu,
 } from "./generique.js";
-import { CarteIndexee, CarteLectureSeule, CartePremiersJetons, construireIndex } from "./index-compact.js";
+import { CarteIndexee, CarteLectureSeule, CartePremiersJetons, construireIndex, construireIndexTrie } from "./index-compact.js";
 
 export type GazetteerOrg = {
 	id: number;
@@ -56,7 +56,12 @@ export type GazetteerRow = {
 	city: string | null;
 	sector: string | null;
 	alias: string;
-	/** Source de la ligne d'alias : les alias d'usage posés à la main ont un traitement préférentiel. */
+	/**
+	 * Clé d'alias déjà normalisée, matérialisée par `org_alias.nom_normalise`.
+	 * Absente des lignes fabriquées en mémoire (tests, bench) : dans ce cas
+	 * seulement, `jetonsAlias` la recalcule.
+	 */
+	nom_normalise?: string | null;
 	source?: string | null;
 };
 
@@ -216,6 +221,16 @@ export function normaliser(texte: string): string[] {
 	return propre === "" ? [] : propre.split(" ");
 }
 
+/**
+ * Jetons de l'alias : lus de la colonne générée en base, recalculés seulement
+ * pour les lignes fabriquées en mémoire (tests, bench). Le cas vide est traité
+ * ici pour garder le contrat de `normaliser` (`[]`, pas `[""]`).
+ */
+function jetonsAlias(row: GazetteerRow): string[] {
+	const cle = row.nom_normalise ?? normaliser(row.alias).join(" ");
+	return cle === "" ? [] : cle.split(" ");
+}
+
 const GENERIQUES = new Set<string>([...MOTS_GENERIQUES, ...MOTS_GENERIQUES_ENTREPRISE]);
 const jeuMotsGeneriques = new Set<string>([...MOTS_GENERIQUES, ...MOTS_GENERIQUES_ENTREPRISE]);
 
@@ -248,7 +263,7 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 	const clesAmbigues = new Set<string>();
 	const clesTerritoire = new Set<string>();
 	for (const row of rows) {
-		const jetons = normaliser(row.alias);
+		const jetons = jetonsAlias(row);
 		if (jetons.length === 0) continue;
 		const cle = jetons.join(" ");
 		const premier = premierIdParCle.get(cle);
@@ -280,7 +295,7 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 		}
 
 		// --- décision : alias indexés ----------------------------------------
-		const jetons = normaliser(row.alias);
+		const jetons = jetonsAlias(row);
 		if (jetons.length === 0) continue;
 		const cle = jetons.join(" ");
 		if (cle.length < MIN_KEY_LENGTH) continue;
@@ -367,11 +382,12 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 	}
 
 	const indexAlias = construireIndex(aliasCles, aliasIds);
-	const tokenCles: string[] = [];
+	const tokenClesTriees = [...orgsParToken.keys()].sort();
+	const tokenClesParId: string[] = [];
 	const tokenIds: number[] = [];
-	for (const [jeton, ids] of orgsParToken) {
-		for (const id of ids) {
-			tokenCles.push(jeton);
+	for (const jeton of tokenClesTriees) {
+		for (const id of orgsParToken.get(jeton) as number[]) {
+			tokenClesParId.push(jeton);
 			tokenIds.push(id);
 		}
 	}
@@ -383,7 +399,7 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 		lieuTokens,
 		roleTokens,
 		maxTokens,
-		orgsByToken: new CarteIndexee(construireIndex(tokenCles, tokenIds), (ids) => new Set<number>(ids)),
+		orgsByToken: new CarteIndexee(construireIndexTrie(tokenClesParId, tokenIds), (ids) => new Set<number>(ids)),
 		orgsById: orgs,
 		curatedOrgsByAliasKey: new CarteIndexee(construireIndex(cureCles, cureIds), (ids) => new Set<number>(ids)),
 	};

@@ -1,137 +1,137 @@
 /**
- * Table des décisions de revue consignées dans le journal.
- * Composant de rendu pur : filtres, états (chargement, erreur, vide) et
- * pagination sont visibles sans API, donc vérifiables en SSR.
+ * Table of review decisions recorded in the journal.
+ * Pure rendering component: filters, states (loading, error, empty) and
+ * pagination are visible without an API, so they can be checked via SSR.
  */
 import type { JournalDecision } from "../api";
 import "./journal.css";
 
-/** Valeur du sélect décision pour les faits sans décision consignée. */
-export const DECISION_NON_PRECISEE = "non-precisee";
+/** Select value for facts with no recorded decision. */
+export const DECISION_UNSPECIFIED = "unspecified";
 
-export type JournalFiltres = {
-  acteur?: string;
+export type JournalFilters = {
+  actor?: string;
   decision?: string | null;
-  du?: string;
-  au?: string;
+  from?: string;
+  to?: string;
 };
 
 export const DECISION_LABEL: Record<Exclude<JournalDecision["decision"], null>, string> = {
-  accepter: "accepter",
-  refuser: "refuser",
-  creer: "creer",
+  accepter: "Accept",
+  refuser: "Reject",
+  creer: "Create",
 };
 
 type Props = {
   rows: JournalDecision[];
-  /** Nombre de lignes retenues après filtrage, toutes pages confondues. */
-  resultats: number;
-  filtres: JournalFiltres;
-  onFiltre: (patch: JournalFiltres) => void;
+  /** Number of rows kept after filtering, across all pages. */
+  resultCount: number;
+  filters: JournalFilters;
+  onFilterChange: (patch: JournalFilters) => void;
   onReset: () => void;
-  /** Le journal dépasse le plafond de 10 000 lignes chargées. */
-  tronque: boolean;
+  /** The journal exceeds the 10,000-row loading cap. */
+  truncated: boolean;
   loading: boolean;
   error: string | null;
   page: number;
   pageCount: number;
-  onPrecedent: () => void;
-  onSuivant: () => void;
+  onPrevious: () => void;
+  onNext: () => void;
 };
 
-export default function JournalListe({
-  rows, resultats, filtres, onFiltre, onReset, tronque,
-  loading, error, page, pageCount, onPrecedent, onSuivant,
+export default function JournalList({
+  rows, resultCount, filters, onFilterChange, onReset, truncated,
+  loading, error, page, pageCount, onPrevious, onNext,
 }: Props) {
   return (
-    <section className="journal" aria-label="Journal des décisions de revue">
+    <section className="journal" aria-label="Review decision journal">
       <header className="journal__head">
         <h1>Journal</h1>
-        <p className="journal__count">décisions de revue enregistrées, les plus récentes d'abord</p>
+        <p className="journal__count">review decisions recorded, most recent first</p>
       </header>
 
-      <div className="journal__filters" role="group" aria-label="Filtrer le journal">
+      <div className="journal__filters" role="group" aria-label="Filter journal">
         <div className="journal__field">
-          <label htmlFor="journal-acteur">acteur</label>
+          <label htmlFor="journal-actor">Actor</label>
           <input
-            id="journal-acteur"
+            id="journal-actor"
             type="search"
-            placeholder="nom ou partie du nom…"
-            value={filtres.acteur ?? ""}
-            onChange={(event) => onFiltre({ acteur: event.target.value })}
+            placeholder="name or part of a name…"
+            value={filters.actor ?? ""}
+            onChange={(event) => onFilterChange({ actor: event.target.value })}
           />
         </div>
         <div className="journal__field">
-          <label htmlFor="journal-decision">décision</label>
+          <label htmlFor="journal-decision">Decision</label>
           <select
             id="journal-decision"
-            value={filtres.decision ?? ""}
-            onChange={(event) => onFiltre({ decision: event.target.value || undefined })}
+            value={filters.decision ?? ""}
+            onChange={(event) => onFilterChange({ decision: event.target.value || undefined })}
           >
-            <option value="">toutes</option>
+            <option value="">All</option>
             {(Object.keys(DECISION_LABEL) as Array<keyof typeof DECISION_LABEL>).map((d) => (
               <option key={d} value={d}>{DECISION_LABEL[d]}</option>
             ))}
-            <option value={DECISION_NON_PRECISEE}>non précisée</option>
+            <option value={DECISION_UNSPECIFIED}>Not specified</option>
           </select>
         </div>
         <div className="journal__field">
-          <label htmlFor="journal-du">du</label>
+          <label htmlFor="journal-from">From</label>
           <input
-            id="journal-du"
+            id="journal-from"
             type="date"
-            value={filtres.du ?? ""}
-            onChange={(event) => onFiltre({ du: event.target.value })}
+            value={filters.from ?? ""}
+            onChange={(event) => onFilterChange({ from: event.target.value })}
           />
         </div>
         <div className="journal__field">
-          <label htmlFor="journal-au">au</label>
+          <label htmlFor="journal-to">To</label>
           <input
-            id="journal-au"
+            id="journal-to"
             type="date"
-            value={filtres.au ?? ""}
-            onChange={(event) => onFiltre({ au: event.target.value })}
+            value={filters.to ?? ""}
+            onChange={(event) => onFilterChange({ to: event.target.value })}
           />
         </div>
-        <button type="button" onClick={onReset}>Réinitialiser</button>
+        <button type="button" onClick={onReset}>Reset</button>
       </div>
 
-      {tronque ? (
+      {truncated ? (
         <p className="journal__truncated" role="status">
-          Journal tronqué aux 10 000 décisions les plus récentes : filtrez pour atteindre les autres.
+          Journal truncated to the 10,000 most recent decisions: filter to reach the others.
         </p>
       ) : null}
-      {error ? <p className="journal__error" role="alert">API : {error}</p> : null}
-      {loading ? <p className="journal__state" role="status">Chargement du journal…</p> : null}
+      {error ? <p className="journal__error" role="alert">API: {error}</p> : null}
+      {loading ? <p className="journal__state" role="status">Loading journal…</p> : null}
       {!loading && !error && rows.length === 0
-        ? <p className="journal__state">aucune décision enregistrée</p>
+        ? <p className="journal__state">no decisions recorded</p>
         : null}
 
       <div className="journal__scroll">
         <table className="journal__table">
           <thead>
             <tr>
-              <th scope="col">horodatage</th>
-              <th scope="col">acteur</th>
-              <th scope="col">décision</th>
-              <th scope="col">indice</th>
-              <th scope="col">raison</th>
+              <th scope="col">Timestamp</th>
+              <th scope="col">Actor</th>
+              <th scope="col">Decision</th>
+              <th scope="col">Clue</th>
+              <th scope="col">Reason</th>
             </tr>
           </thead>
           <tbody>
             {rows.map((row) => (
               <tr key={row.id}>
                 <td>
-                  {/* `recorded_at::text` arrive en `2026-11-21 14:03:12+00` :
-                      on tronque sans réinventer de fuseau via `Date`. */}
+                  {/* `recorded_at::text` arrives as `2026-11-21 14:03:12+00`:
+                      truncate it without inventing a time zone via `Date`. */}
                   <time dateTime={row.horodatage}>
                     {row.horodatage.slice(0, 16).replace("T", " ")}
                   </time>
                 </td>
                 <td>{row.acteur}</td>
                 <td>
-                  <span className="journal__decision" data-decision={row.decision ?? "inconnue"}>
-                    {row.decision ? DECISION_LABEL[row.decision] : "non précisée"}
+                  <span className="journal__decision" data-decision={row.decision ?? "unknown"}>
+                    {row.decision ? DECISION_LABEL[row.decision] : "Not specified"}
                   </span>
                 </td>
                 <td>{row.indice ?? "—"}</td>
@@ -143,12 +143,12 @@ export default function JournalListe({
       </div>
 
       <footer className="journal__foot">
-        <button type="button" onClick={onPrecedent} disabled={loading || page <= 1}>
-          Précédent
+        <button type="button" onClick={onPrevious} disabled={loading || page <= 1}>
+          Previous
         </button>
-        <span>{resultats} résultat{resultats > 1 ? "s" : ""} — page {page} / {pageCount}</span>
-        <button type="button" onClick={onSuivant} disabled={loading || page >= pageCount}>
-          Suivant
+        <span>{resultCount} result{resultCount > 1 ? "s" : ""} — page {page} / {pageCount}</span>
+        <button type="button" onClick={onNext} disabled={loading || page >= pageCount}>
+          Next
         </button>
       </footer>
     </section>

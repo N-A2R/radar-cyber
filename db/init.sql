@@ -51,7 +51,10 @@ CREATE TABLE IF NOT EXISTS event (
   assertion_type text NOT NULL,             -- confirmed_incident | third_party_claim | technical_indicator | suggested_relation | ambient_signal
   title          text NOT NULL,
   summary        text,
+  langue         text,                         -- fr | en ; NULL = antérieur à la migration 047
   observed_at    timestamptz,
+  valid_at       timestamptz NOT NULL DEFAULT now(), -- quand le fait était vrai dans le monde
+  at             timestamptz NOT NULL DEFAULT now(), -- quand le radar l'a appris
   collected_at   timestamptz NOT NULL DEFAULT now(),
   severity       smallint NOT NULL DEFAULT 3,
   confidence     text,                      -- code Admiralty A-F / 1-6, ex "B2"

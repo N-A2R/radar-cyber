@@ -1,3 +1,4 @@
+import { notFound } from "../errors.js";
 import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
 import { enrichIndicator } from "../enrich/index.js";
@@ -21,7 +22,7 @@ export default async function (app: FastifyInstance) {
     const id = Number(req.params.id);
     const ir = await query("SELECT * FROM indicator WHERE id=$1", [id]);
     const ind = ir.rows[0];
-    if (!ind) return { error: "not found" };
+    if (!ind) throw notFound();
     const key = `ind:${id}`;
     let enrichment = await cacheGet(key);
     if (!enrichment) {
@@ -48,7 +49,7 @@ export default async function (app: FastifyInstance) {
     const id = Number(req.params.id);
     const er = await query("SELECT * FROM event WHERE id=$1", [id]);
     const ev = er.rows[0];
-    if (!ev) return { error: "not found" };
+    if (!ev) throw notFound();
     // Le pourquoi du rattachement, tel qu'il a été décidé à l'ingestion. Il vit
     // dans `evidence` : aucune colonne, aucun recalcul, donc aucun risque qu'il
     // change après coup — c'est une trace, pas une déduction.

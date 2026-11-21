@@ -1,3 +1,4 @@
+import { serviceUnavailable, unauthorized } from "../errors.js";
 import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
 import { resolveUser } from "../middleware/auth.js";
@@ -17,12 +18,10 @@ export default async function (app: FastifyInstance) {
   app.get("/stream", async (req, reply) => {
     const user = await resolveUser(req);
     if (!user) {
-      reply.code(401).send({ error: "unauthorized" });
-      return;
+      throw unauthorized();
     }
     if (clients >= MAX_CLIENTS) {
-      reply.code(503).send({ error: "too many SSE clients" });
-      return;
+      throw serviceUnavailable("too many SSE clients");
     }
     clients++;
     let closed = false;

@@ -20,11 +20,13 @@
  * `ransomware-revendication` pour générer l'alerte.
  */
 import { admitEvent } from "../contract/admit.js";
+import { languageVerdict } from "../collectors/filter.js";
 import { ingestQuery, query, withTransaction } from "../db.js";
 import { consigner, consignerAvec } from "../journal/index.js";
 import { ecarteeParRegles, REGLE_SIGLE, type TraceRegle } from "../match/regles-precision.js";
 import {
 	chargerOrgParAliasSigle,
+	contexteSigleDepuisSource,
 	deciderSigleDepuisRegistre,
 	estSigle,
 	normaliseSigle,
@@ -158,7 +160,10 @@ export async function resoudreSigle(
 	}
 	const sigle = sigleDeIndice(indice, orgName);
 	if (!sigle) return { match, orgName };
-	const decision = await deciderSigleDepuisRegistre(sigle);
+	// Le département de l'organisation proposée par le moteur et le domaine
+	// porté par l'indice départagent les sigles partagés au registre.
+	const contexte = await contexteSigleDepuisSource(match?.orgId ?? null, indice);
+	const decision = await deciderSigleDepuisRegistre(sigle, contexte);
 
 	if (decision.accepte && decision.orgId !== undefined && decision.orgId !== match?.orgId) {
 		return {
@@ -736,10 +741,14 @@ async function insertClaimEventRow(
     throw new Error(`promotion refusée par le contrat (${admitted.rejections.join(", ")}) : ${admitted.hint}`);
   }
   const event = admitted.event;
+  const langue = languageVerdict(event.title, event.summary);
+  if (!langue.keep) {
+    throw new Error(`promotion refusée : langue ${langue.language} absente de RADAR_LANGUAGES`);
+  }
   const portee = porteeRegionale(`${event.title} ${event.summary ?? ""}`, orgId);
-  const sql = `INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at, severity, confidence,
+  const sql = `INSERT INTO event (dedup_key, family, assertion_type, title, summary, langue, observed_at, severity, confidence,
        source_id, source_url, evidence, geo_type, org_id, tlp, tlp_source, regional, regional_motif)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17)
+     VALUES ($1,$2,$3,$4,$5,$18,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17)
      ON CONFLICT (dedup_key) DO UPDATE SET observed_at = COALESCE(event.observed_at, EXCLUDED.observed_at)
      RETURNING id, (xmax = 0) AS inserted`;
   const values = [
@@ -760,6 +769,7 @@ async function insertClaimEventRow(
     row.source,
     portee.regional,
     portee.motif,
+    langue.language,
   ];
   const r = await run<{ id: number; inserted: boolean }>(sql, values);
   await consignerAvec((sql, params) => run(sql, params as unknown[]), {

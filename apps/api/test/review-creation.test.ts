@@ -13,6 +13,7 @@ import { hashSessionToken } from "../src/auth.js";
 import { closePools, query } from "../src/db.js";
 import authRoute from "../src/routes/auth.js";
 import reviewRoute from "../src/routes/review.js";
+import { installErrorHandler } from "../src/errors.js";
 
 const TAG = `rc${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 const SOURCE = `${TAG}-source`;
@@ -37,6 +38,7 @@ before(async () => {
 		[hashSessionToken(TOKEN), user.rows[0].id],
 	);
 	app = Fastify();
+	installErrorHandler(app);
 	await app.register(authRoute, { prefix: "/api" });
 	await app.register(reviewRoute, { prefix: "/api" });
 	await app.ready();
@@ -180,23 +182,23 @@ test("creer : indice inexploitable, orgId interdit et motif requis", async () =>
 	const empty = await claim("   ");
 	const bad = await decide(empty, { decision: "creer", raison: RAISON });
 	assert.equal(bad.statusCode, 400);
-	assert.equal(bad.json<{ error: string }>().error, "indice inexploitable");
+	assert.equal(bad.json<{ error: { code: string; message: string } }>().error.message, "indice inexploitable");
 
 	const junk = await claim("???");
 	const junkRes = await decide(junk, { decision: "creer", raison: RAISON });
 	assert.equal(junkRes.statusCode, 400);
-	assert.equal(junkRes.json<{ error: string }>().error, "indice inexploitable");
+	assert.equal(junkRes.json<{ error: { code: string; message: string } }>().error.message, "indice inexploitable");
 
 	const withOrg = await claim(HINT);
 	const refused = await decide(withOrg, { decision: "creer", orgId: 1, raison: RAISON });
 	assert.equal(refused.statusCode, 400);
-	assert.equal(refused.json<{ error: string }>().error, "invalid input");
-	assert.ok(refused.json<{ details: Array<{ path: string }> }>().details.some((d) => d.path === "orgId"));
+	assert.equal(refused.json<{ error: { code: string; message: string } }>().error.message, "invalid input");
+	assert.ok(refused.json<{ error: { details: Array<{ path: string }> } }>().error.details.some((d) => d.path === "orgId"));
 
 	const noReason = await claim(HINT);
 	const missing = await decide(noReason, { decision: "creer" });
 	assert.equal(missing.statusCode, 400);
-	assert.ok(missing.json<{ details: Array<{ path: string }> }>().details.some((d) => d.path === "raison"));
+	assert.ok(missing.json<{ error: { details: Array<{ path: string }> } }>().error.details.some((d) => d.path === "raison"));
 
 	const pending = await query<{ n: number }>(
 		`SELECT count(*)::int AS n FROM quarantine_raw WHERE source=$1 AND id=ANY($2::int[]) AND promoted=false AND status='pending'`,

@@ -138,6 +138,8 @@ export type Source = {
   enabled: boolean;
   intervalSec: number;
   lastOkAt: string | null;
+  /** Dernier fait produit (ISO) ; absent sur un serveur antérieur à ce champ. */
+  lastEventAt?: string | null;
   lastErrorAt: string | null;
   lastError: string | null;
   itemsTotal: number | null;
@@ -294,16 +296,61 @@ export type TodayResponse = {
   evenements: TodayEvent[];
 };
 
-/** Département du fil « Aujourd'hui » (GET /api/stats/departements). */
+/** Département du fil « Aujourd'hui » (GET /api/today/departements). */
 export type DeptStat = { dept: string; evenements: number; organisations: number };
 
-/** Réponse de GET /api/stats/departements : un département = un filtre utile. */
+/** Réponse de GET /api/today/departements : un département = un filtre utile. */
 export type StatsDepartements = { departements: DeptStat[] };
+/** One coverage line: incidents seen, incidents in scope and rate in percent. */
+export type CouvertureLigne = { vus: number; total: number; taux: number };
 
-export type Graph = {
-  nodes: { id: string; label: string; kind: "org" | "family" | "group" | "asset" | "dept" }[];
-  links: { source: string; target: string; type: string }[];
+/** Response of GET /api/couverture: a frozen measurement and its breakdowns. */
+export type CouverturePublique = {
+  dateCalcul: string;
+  hashCorpus: string;
+  fenetre: { debut: string; fin: string };
+  global: CouvertureLigne;
+  parMotif: Array<{ motif: string; incidents: number; part: number }>;
+  parDepartement: Array<CouvertureLigne & { departement: string }>;
+  parSecteur: Array<CouvertureLigne & { secteur: string }>;
 };
+
+/** Nature d'un nœud du graphe relationnel (GET /api/graph). */
+export type GraphNodeKind =
+  | "org"
+  | "event"
+  | "source"
+  | "family"
+  | "dept"
+  | "group"
+  | "asset";
+
+/**
+ * Nœud du graphe. Les champs optionnels sont portés par l'API quand ils sont
+ * mesurés en base (jamais inférés par correspondance de texte).
+ */
+export type GraphNode = {
+  id: string;
+  label: string;
+  kind: GraphNodeKind | string;
+  family?: string;
+  severity?: number;
+  observedAt?: string | null;
+  sourceId?: string;
+  sourceUrl?: string | null;
+  assertionType?: string;
+  orgKind?: string;
+  city?: string | null;
+  dept?: string | null;
+  url?: string | null;
+};
+
+/** Types de liens : structurelle (`rattache`), rattachement mesuré
+ *  (`has_event`, `targeted_by`, `reported_by`) ou relation enregistrée
+ *  (`exploits`, `uses_infra`, `owned_by`, …). */
+export type GraphLink = { source: string; target: string; type: string };
+
+export type Graph = { nodes: GraphNode[]; links: GraphLink[] };
 
 /** Réponse de GET /api/health : vitalité du backend et id des sources connues. */
 export type Health = {
@@ -523,7 +570,8 @@ export type EventEnrichment = {
 export type OrgAsset = {
   value: string;
   kind: string;
-  createdAt: string;
+  /** Première observation renvoyée par GET /api/orgs/:id (champ SQL first_seen). */
+  firstSeen: string | null;
   source: string | null;
 };
 
@@ -774,11 +822,17 @@ export type JournalDecision = {
   raison: string | null;
 };
 
-export type JournalReviewResponse = {
+type JournalReviewResponseRaw = {
   rows: JournalDecision[];
   limite: number;
-  /** Curseur de la page suivante ; null = dernière page. */
   avant: number | null;
+};
+
+export type JournalReviewResponse = {
+  rows: JournalDecision[];
+  limit: number;
+  /** Cursor for the next page; null = last page. */
+  nextCursor: number | null;
 };
 
 export type ReviewAction = "promote" | "reject" | "review" | "undo";
@@ -794,6 +848,8 @@ export type ReviewOutcome = {
 
 export const api = {
   login: (email: string, password: string) => postJson<LoginResponse>("/auth/login", { email, password }),
+  /** Relance manuelle d'une collecte : le serveur répond avant la fin du run. */
+  collecte: (sourceId: string) => post<{ id: string; lancee: true }>(`/sources/${encodeURIComponent(sourceId)}/collecte`),
   logout: () => post<{ ok: boolean }>("/auth/logout"),
   orgs: (asOf?: string) => get<Org[]>(asOf ? `/orgs?asOf=${encodeURIComponent(asOf)}` : "/orgs"),
   naOverview: () => get<NaOverview>("/na/overview"),
@@ -809,11 +865,16 @@ export const api = {
   },
   reviewAction: (ids: number[], action: ReviewAction, reason?: string) =>
     postJson<ReviewOutcome>("/quarantine/review", { ids, action, reason: reason ?? "" }),
-  /** Journal des décisions de revue — lecture seule, pagination par curseur. */
-  journalReview: (limite = 100, avant: number | null = null, signal?: AbortSignal) => {
-    const qs = new URLSearchParams({ limite: String(limite) });
-    if (avant !== null) qs.set("avant", String(avant));
-    return get<JournalReviewResponse>(`/journal/review?${qs.toString()}`, signal);
+  /** Review decision journal — read-only, cursor-based pagination. */
+  journalReview: async (limit = 100, before: number | null = null, signal?: AbortSignal) => {
+    const qs = new URLSearchParams({ limite: String(limit) });
+    if (before !== null) qs.set("avant", String(before));
+    const response = await get<JournalReviewResponseRaw>(`/journal/review?${qs.toString()}`, signal);
+    return {
+      rows: response.rows,
+      limit: response.limite,
+      nextCursor: response.avant,
+    };
   },
   directory: (params: DirectoryQuery = {}, signal?: AbortSignal) => {
     const qs = new URLSearchParams();
@@ -847,7 +908,9 @@ export const api = {
   },
   graph: (days = 90) => get<Graph>(`/graph?days=${days}`),
   sources: () => get<Source[]>("/sources"),
-  statsDepartements: (signal?: AbortSignal) => get<StatsDepartements>("/stats/departements", signal),
+  statsDepartements: (signal?: AbortSignal) => get<StatsDepartements>("/today/departements", signal),
+  /** Published coverage measurement, with an optional abort signal. */
+  couverture: (signal?: AbortSignal) => get<CouverturePublique>("/couverture", signal),
   stats: () => get<Stats>("/stats"),
   healthDetail: () => get<HealthDetail>("/health/detail"),
   healthCauses: () => get<HealthCauses>("/health/causes"),

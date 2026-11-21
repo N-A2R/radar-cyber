@@ -1,4 +1,5 @@
 import { AdmissionTally, admitEvent } from "./contract/admit.js";
+import { languageVerdict } from "./collectors/filter.js";
 import type { CollectContext, Collector, NormalizedEvent } from "@radar/shared";
 import cors from "@fastify/cors";
 import helmet from "@fastify/helmet";
@@ -21,11 +22,14 @@ import { deliverPendingAlerts, readDeliveryConfig } from "./notify/alert-deliver
 import { runRetention } from "./maintenance/retention.js";
 import { runDetectionPass } from "./detect/incremental.js";
 import { capterAlertesRupture } from "./analyse/rupture.js";
+import { capterAgentsCpu } from "./analyse/agents-cpu.js";
 import healthDetailRoute from "./routes/health-detail.js";
 import healthCausesRoute from "./routes/health-causes.js";
 import eventsRoute from "./routes/events.js";
+import historyRoute from "./routes/history.js";
 import todayRoute from "./routes/today.js";
 import statsDepartementsRoute from "./routes/stats-departements.js";
+import couvertureRoute from "./routes/couverture.js";
 import flowsRoute from "./routes/flows.js";
 import graphRoute from "./routes/graph.js";
 import orgsRoute from "./routes/orgs.js";
@@ -42,7 +46,8 @@ import journalRoute from "./routes/journal.js";
 import orgsLieesRoute from "./routes/orgs-liees.js";
 import orgsLieesHistoriqueRoute from "./routes/orgs-liees-historique.js";
 import ingestRoute from "./routes/ingest.js";
-import { resolveUser } from "./middleware/auth.js";
+import { requireRole, resolveUser } from "./middleware/auth.js";
+import { installErrorHandler, unauthorized } from "./errors.js";
 
 const port = Number(process.env.PORT ?? 8080);
 /** Cadence de la boucle de collecte. */
@@ -55,6 +60,7 @@ const QUARANTINE_MS = Number(process.env.RADAR_QUARANTINE_TICK_MS ?? 30 * 60 * 1
 const ALERT_DELIVERY_MS = Number(process.env.RADAR_ALERT_DELIVERY_TICK_MS ?? 2 * 60 * 1000);
 
 const app = Fastify({ logger: true });
+installErrorHandler(app);
 
 /** Origines autorisées pour le cross-origin, séparées par des virgules.
  *  Vide = aucune origine croisée (le front est servi depuis la même origine). */
@@ -93,7 +99,7 @@ if (existsSync(webDist)) {
  * écritures protégées. Un token valide est attaché à la requête s'il est fourni,
  * ce qui permet au front d'adapter l'UI au rôle.
  */
-const PUBLIC_READ = /^\/api\/(health|stats|sources|flows|search|directory|graph|stream|events|orgs|enrich|alerts|quarantine|dossier|healthz|na|today)(\/|$|\?)/;
+const PUBLIC_READ = /^\/api\/(health|stats|sources|flows|search|directory|graph|stream|events|history|orgs|enrich|alerts|quarantine|dossier|healthz|na|today|couverture)(\/|$|\?)/;
 
 app.addHook("onRequest", async (req, reply) => {
   const url = req.url.split("?")[0];
@@ -105,7 +111,7 @@ app.addHook("onRequest", async (req, reply) => {
   if (url.startsWith("/api/auth/")) return;
   const user = await resolveUser(req);
   if (req.method !== "GET" || !PUBLIC_READ.test(url)) {
-    if (!user) { reply.code(401).send({ error: "unauthorized" }); return; }
+    if (!user) throw unauthorized();
   }
   if (user) req.user = user;
 });
@@ -116,10 +122,12 @@ app.get("/api/health", async () => {
 });
 
 await app.register(eventsRoute, { prefix: "/api" });
+await app.register(historyRoute, { prefix: "/api" });
 await app.register(healthDetailRoute, { prefix: "/api" });
 await app.register(healthCausesRoute, { prefix: "/api" });
 await app.register(todayRoute, { prefix: "/api" });
 await app.register(statsDepartementsRoute, { prefix: "/api" });
+await app.register(couvertureRoute, { prefix: "/api" });
 await app.register(flowsRoute, { prefix: "/api" });
 await app.register(orgsRoute, { prefix: "/api" });
 
@@ -177,10 +185,12 @@ async function lastRunAgeSec(sourceId: string): Promise<number> {
 	return Number.isNaN(age) ? Infinity : age;
 }
 
-async function runCollectors(): Promise<void> {
+async function runCollectors(options?: { onlyId?: string; force?: boolean }): Promise<void> {
 	for (const c of collectors) {
-		const age = await lastRunAgeSec(c.id);
-		if (age < c.intervalSec * 0.8) continue;
+	if (options?.onlyId && c.id !== options.onlyId) continue;
+	const force = options?.force === true;
+	const age = force ? Infinity : await lastRunAgeSec(c.id);
+	if (age < c.intervalSec * 0.8) continue;
 
 		const { rows } = await query<{ cursor: unknown; statut: string; enabled: boolean }>(
 			"SELECT cursor, statut, enabled FROM source WHERE id=$1", [c.id],
@@ -193,6 +203,7 @@ async function runCollectors(): Promise<void> {
 
 		let itemsIn = 0;
 		let itemsNew = 0;
+		let langueSkipped = 0;
 		try {
 			const result = await executerCollecteur(c, makeContext(cursor, (m) => app.log.info(m)));
 			itemsIn = result.events.length;
@@ -209,12 +220,18 @@ async function runCollectors(): Promise<void> {
 				contract.record(admitted);
 				if (!admitted.ok) continue;
 				const event = admitted.event;
+				const langue = languageVerdict(event.title, event.summary);
+				if (!langue.keep) {
+					langueSkipped++;
+					continue;
+				}
 				const portee = porteeRegionale(`${event.title} ${event.summary ?? ""}`, null);
 				const r = await ingestQuery(
-					`INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at, severity, confidence, source_id, source_url, evidence, geo_type, lat, lon, regional, regional_motif)
-					 VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16)
+					`INSERT INTO event (dedup_key, family, assertion_type, title, summary, langue, observed_at, valid_at, severity, confidence, source_id, source_url, evidence, geo_type, lat, lon, regional, regional_motif)
+					 VALUES ($1,$2,$3,$4,$5,$18,$6,$17,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16)
 					 ON CONFLICT (dedup_key) DO UPDATE SET observed_at = COALESCE(event.observed_at, EXCLUDED.observed_at)`,
-					[event.dedupKey, event.family, event.assertionType, event.title, event.summary ?? null, event.observedAt ?? null, event.severity, event.confidence ?? null, event.sourceId, event.sourceUrl ?? null, JSON.stringify(event.evidence ?? {}), event.geoType, event.lat ?? null, event.lon ?? null, portee.regional, portee.motif]
+					[event.dedupKey, event.family, event.assertionType, event.title, event.summary ?? null, event.observedAt ?? null,
+					 event.observedAt ?? new Date().toISOString(), event.severity, event.confidence ?? null, event.sourceId, event.sourceUrl ?? null, JSON.stringify(event.evidence ?? {}), event.geoType, event.lat ?? null, event.lon ?? null, portee.regional, portee.motif, langue.language]
 				);
 				if ((r.rowCount ?? 0) > 0) {
 					itemsNew++;
@@ -239,7 +256,7 @@ async function runCollectors(): Promise<void> {
 			const newCursor = result.cursor ?? cursor;
 			await ingestQuery("UPDATE source SET cursor=$1, last_ok_at=now() WHERE id=$2", [JSON.stringify(newCursor), c.id]);
 			await ingestQuery("INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new) VALUES ($1, now(), 'ok', $2, $3)", [c.id, itemsIn, itemsNew]);
-			app.log.info(`collecteur ${c.id} : ${itemsIn} élément(s), ${itemsNew} nouveau(x)`);
+			app.log.info(`collecteur ${c.id} : ${itemsIn} élément(s), ${itemsNew} nouveau(x)${langueSkipped > 0 ? `, ${langueSkipped} langue(s) exclue(s)` : ""}`);
 			const contractLine = contract.logLine();
 			if (contractLine) app.log.warn(`collecteur ${c.id} : contrat — ${contractLine}`);
 		} catch (e: unknown) {
@@ -275,6 +292,40 @@ async function guarded(name: string, fn: () => Promise<void>): Promise<void> {
 }
 
 const log = (m: string) => app.log.info(m);
+/** Relance manuelle d'une source : le bouton « relancer » du registre. */
+const relancesEnCours = new Set<string>();
+app.post<{ Params: { id: string } }>(
+  "/api/sources/:id/collecte",
+  { preHandler: requireRole("admin") },
+  async (req, reply) => {
+    const id = req.params.id;
+    const { rows } = await query<{ id: string; enabled: boolean; kind: string }>(
+      "SELECT id, enabled, kind FROM source WHERE id=$1",
+      [id],
+    );
+    const source = rows[0];
+    if (!source) return reply.code(404).send({ error: "source introuvable" });
+    if (!source.enabled) return reply.code(409).send({ error: "source désactivée" });
+    if (relancesEnCours.has(id)) return reply.code(409).send({ error: "collecte déjà en cours" });
+
+    const dedie = collectors.find((c) => c.id === id);
+    const tache = dedie
+      ? () => runCollectors({ onlyId: id, force: true })
+      : id === "hermes_radar_cyber"
+        ? () => runHermesCollector(log)
+        : source.kind === "quarantine"
+          ? () => runQuarantineCollector(log)
+          : () => runGenericSources(log, { sourceIds: [id], force: true });
+
+    relancesEnCours.add(id);
+    void tache().catch((e: unknown) => {
+      app.log.error(e);
+    }).finally(() => {
+      relancesEnCours.delete(id);
+    });
+    return reply.code(202).send({ id, lancee: true });
+  },
+);
 
 /** RADAR_COLLECT=0 : API seule, sans boucle de collecte (dev, UI, déploiement séparé). */
 const COLLECT = process.env.RADAR_COLLECT !== "0";
@@ -290,11 +341,19 @@ if (COLLECT) {
 		log(`detection initiale : ${pass.alerts} alerte(s) sur ${pass.events} evenement(s)`);
 	});
 	// Agents de rupture : même cadence que la détection, alertes persistées dans
-	// la revue (scope 'rupture', une ligne par agent × organisation).
+	// la revue (scope 'rupture-revue', une ligne par agent × organisation), jamais diffusées.
 	void guarded("ruptures", async () => {
 		const r = await capterAlertesRupture();
 		if (r.emises > 0) {
 			log(`ruptures : ${r.emises} alerte(s) — ${r.creees} nouvelle(s), ${r.misesAJour} mise(s) à jour, ${r.lacunes} lacune(s)`);
+		}
+	});
+	// Agents CPU : trois détecteurs supplémentaires, même cadence, même file de
+	// revue (scope 'agents-cpu'), jamais diffusés.
+	void guarded("agents-cpu", async () => {
+		const r = await capterAgentsCpu();
+		if (r.emises > 0) {
+			log(`agents-cpu : ${r.emises} alerte(s) — ${r.creees} nouvelle(s), ${r.misesAJour} mise(s) à jour, ${r.lacunes} lacune(s)`);
 		}
 	});
 	void guarded("quarantaine", () => runQuarantineCollector(log));
@@ -324,6 +383,13 @@ if (COLLECT) {
 			capterAlertesRupture().then((r) => {
 				if (r.emises > 0) {
 					log(`ruptures : ${r.emises} alerte(s) — ${r.creees} nouvelle(s), ${r.misesAJour} mise(s) à jour, ${r.lacunes} lacune(s)`);
+				}
+			}),
+		);
+		void guarded("agents-cpu", () =>
+			capterAgentsCpu().then((r) => {
+				if (r.emises > 0) {
+					log(`agents-cpu : ${r.emises} alerte(s) — ${r.creees} nouvelle(s), ${r.misesAJour} mise(s) à jour, ${r.lacunes} lacune(s)`);
 				}
 			}),
 		);

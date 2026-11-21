@@ -1,6 +1,6 @@
-/* File de décision des rattachements : une ligne = une revendication,
-   ses candidats et trois décisions. Le motif est saisi à la ligne, jamais
-   proposé d'avance : c'est une pièce du journal, pas un libellé décoratif. */
+/* Attachment decision queue: one row = one claim, its candidates and three
+   decisions. The reason is entered on the row, never pre-filled: it is a
+   journal record, not decorative copy. */
 
 .revue {
   display: flex;
@@ -16,6 +16,8 @@
 .revue__label { display: block; margin-bottom: 4px; font: 500 10px/1 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-faint); }
 
 .revue__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.revue__tools { display: flex; gap: 6px; flex-wrap: wrap; }
+.revue__refresh { white-space: nowrap; }
 .revue__search { display: flex; align-items: flex-end; gap: 6px; flex-wrap: wrap; }
 .revue__search .revue__label { flex: 1 0 100%; }
 .revue__search input {
@@ -34,13 +36,18 @@
 .revue button:hover:not(:disabled) { color: var(--color-accent); }
 .revue button:disabled { color: var(--color-faint); background: var(--color-plate); box-shadow: inset 0 0 0 1px var(--color-edge-lo); opacity: 1; cursor: not-allowed; }
 .revue button:active:not(:disabled) { background: var(--color-plate-3); color: var(--color-accent); }
-.revue button:focus-visible, .revue input:focus-visible, .revue textarea:focus-visible {
+.revue button:focus-visible, .revue input:focus-visible, .revue select:focus-visible, .revue textarea:focus-visible {
   outline: 2px solid var(--color-accent); outline-offset: 2px;
 }
 
-.revue__buckets { display: flex; gap: 6px; flex-wrap: wrap; }
-.revue__buckets button[aria-pressed="true"] { color: var(--color-accent); background: var(--color-well); box-shadow: var(--sink); }
+.revue__buckets, .revue__families { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.revue__filter-label { font: 500 10px/1 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-faint); }
+.revue__families button[aria-pressed="true"], .revue__buckets button[aria-pressed="true"] { color: var(--color-accent); background: var(--color-well); box-shadow: var(--sink); }
+.revue__family-count { margin-left: 6px; color: var(--color-faint); font-weight: 400; }
 
+.revue__empty { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: 16px; border: 1px dashed var(--color-edge-lo); }
+.revue__empty strong { font: 500 12px/1.4 var(--font-display); color: var(--color-ink); }
+.revue__empty button { margin-top: 6px; }
 .revue__state, .revue__notice, .revue__error {
   margin: 0; padding: 8px 10px; border-radius: var(--radius);
   font: 400 11px/1.5 var(--font-display);
@@ -48,6 +55,32 @@
 .revue__state { color: var(--color-muted); }
 .revue__notice { background: var(--color-well); box-shadow: var(--sink); color: var(--color-ink-2); }
 .revue__error { background: var(--color-well); color: var(--sev-5); }
+
+.revue__bulk {
+  display: flex; flex-direction: column; gap: 8px;
+  padding: 12px; border-radius: var(--radius);
+  background: var(--color-plate); box-shadow: var(--raise);
+}
+.revue__bulk-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.revue__select { display: inline-flex; align-items: center; gap: 8px; min-height: 32px; font: 400 11px/1.4 var(--font-display); color: var(--color-ink-2); cursor: pointer; }
+.revue__select input { width: 16px; height: 16px; margin: 0; accent-color: var(--color-accent); cursor: pointer; }
+.revue__select input:disabled { cursor: not-allowed; }
+.revue__bulk-count { font: 500 11px/1.4 var(--font-mono); color: var(--color-ink-2); }
+.revue__bulk-targets { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.revue__bulk-targets li { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px; border-radius: var(--radius); background: var(--color-well); box-shadow: var(--sink); }
+.revue__bulk-hint { font: 500 11px/1.4 var(--font-display); color: var(--color-ink); overflow-wrap: anywhere; }
+.revue__bulk-org { display: flex; flex-direction: column; gap: 4px; font: 400 10px/1.3 var(--font-mono); color: var(--color-muted); }
+.revue__bulk-org select {
+  min-height: 32px; padding: 6px 8px; border: 0; border-radius: var(--radius);
+  background: var(--color-plate-2); font: 400 11px/1.3 var(--font-display); color: var(--color-ink);
+}
+.revue__bulk-raison {
+  width: 100%; padding: 8px 10px; border: 0; border-radius: var(--radius);
+  background: var(--color-well); box-shadow: var(--sink); resize: vertical;
+  font: 400 12px/1.5 var(--font-display); color: var(--color-ink);
+}
+.revue__bulk-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.revue__progress { margin: 0; font: 500 11px/1.4 var(--font-mono); color: var(--color-accent); }
 
 .revue__list { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; list-style: none; }
 .revue__row {
@@ -116,8 +149,20 @@
 }
 .revue__help-card dt { color: var(--color-accent); }
 .revue__help-card dd { margin: 0; }
-
+.revue__help-note { margin: 0; font: 400 10px/1.4 var(--font-mono); color: var(--color-muted); }
 @media (max-width: 1000px) {
   .revue__row { grid-template-columns: minmax(0, 1fr); }
   .revue__actions { flex-direction: row; flex-wrap: wrap; }
+}
+
+/* 375 px — la file reste une pile de cartes ; seuls les champs et les
+   boutons se réorganisent pour ne jamais déborder du panneau. */
+@media (max-width: 600px) {
+  .revue { padding: 0 2px; }
+  .revue__search { width: 100%; }
+  .revue__search input { min-width: 0; width: 100%; }
+  .revue__row { padding: 8px 10px; }
+  .revue__actions button { flex: 1 1 auto; min-height: 36px; }
+  .revue__decision textarea { min-width: 0; }
+  .revue__help-card dl { grid-template-columns: minmax(0, 1fr); }
 }
