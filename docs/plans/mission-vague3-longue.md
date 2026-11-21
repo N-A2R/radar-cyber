@@ -36,13 +36,13 @@ motif — elle ne se maquille pas avec du vide.
 
 Méthode éprouvée : `tsx scripts/lot-reprise-na.mts --lot=N`, un commit par lot.
 
-- [ ] Lots restants, par lots de 10 (≈ 15 lots)
-- [ ] Chaque entité : site → mentions légales → registre
+- [x] Lots restants, par lots de 10 (≈ 15 lots)
+- [x] Chaque entité : site → mentions légales → registre
       (`recherche-entreprises.api.gouv.fr`) → preuve verbatim
-- [ ] **Trois tentatives maximum** par entité, puis `nonResolues` avec sa raison
-- [ ] Les 4 en arbitrage humain (ch-sf.fr, Chu De Rennes, coteg-azam.fr,
+- [x] **Trois tentatives maximum** par entité, puis `nonResolues` avec sa raison
+- [x] Les 4 en arbitrage humain (ch-sf.fr, Chu De Rennes, coteg-azam.fr,
       homonymies du lot 1) : trancher avec preuve ou documenter le doute
-- [ ] Commit par lot ; clôture avec `cohorte.traitees == 199` et le taux publié
+- [x] Commit par lot ; clôture avec `cohorte.traitees == 199` et le taux publié
 
 **Critère :** le taux global est arithmétiquement vérifiable en une commande.
 
@@ -50,14 +50,15 @@ Méthode éprouvée : `tsx scripts/lot-reprise-na.mts --lot=N`, un commit par lo
 
 Par lots de 25, quatre lots.
 
-- [ ] `scripts/source-health.mts --json` → la liste, avec son âge
-- [ ] Chaque source : fetch réel, code HTTP, date du dernier item, motif parmi
+- [x] `scripts/source-health.mts --json` → la liste, avec son âge
+- [x] Chaque source : fetch réel, code HTTP, date du dernier item, motif parmi
       `parse-casse` / `vide-legitime` / `format-change` / `bloque-externe`
-- [ ] **`parse-casse`** : réparer le parser, prouver avant/après sur un cas réel
-- [ ] Morte depuis > 30 j : désactiver **en journalisant** (`kind` du journal),
-      jamais de désactivation silencieuse
-- [ ] Publier `bench/results/sources-muettes-vague3.json` (lot par lot)
-- [ ] Commit par lot
+- [x] **`parse-casse`** : démonstration faite qu'il n'y en a pas (chaque source
+      200 OK a ses items décodés puis rejetés par la porte, motif consigné)
+- [x] Morte depuis > 30 j : désactiver **en journalisant** (`kind` du journal),
+      jamais de désactivation silencieuse — 5 désactivées, `source.changed`
+- [x] Publier `bench/results/sources-muettes-vague3.json` (lot par lot)
+- [x] Commit par lot
 
 **Critère :** 101/101 classées, aucune sans motif. Au moins 5 réparations
 prouvées, ou la démonstration qu'il n'y en a pas.
@@ -67,42 +68,60 @@ prouvées, ou la démonstration qu'il n'y en a pas.
 Le rapport de nuit a établi que les fils **généralistes** n'y portent aucun
 incident cyber. Ne pas en rajouter.
 
-- [ ] Pour 40, 47, 23, 19 : chercher des sources **d'incident** (faits divers
+- [x] Pour 40, 47, 23, 19 : chercher des sources **d'incident** (faits divers
       cyber de la presse locale, préfectures, ARS, collectivités, CCI)
-- [ ] Fetch réel de chacune, et contenu vérifié : publie-t-elle des incidents ?
-- [ ] Si oui : câbler. Si non : écrire la liste testée avec son verdict
-- [ ] Commit : `feat(sources): sources d'incident pour les 4 départements vides`
+- [x] Fetch réel de chacune, et contenu vérifié : publie-t-elle des incidents ?
+      — incidents NA prouvés dans les flux existants (Tarnos, Altillac,
+      Stade Montois, mairies du 47)
+- [x] Verdict : rien à câbler — sources d'incident déjà en place
+      (gn-40/47/23/19), candidats testés écartés avec preuve
+      (`bench/results/sources-incidents-4depts-vague3.json`) ; le trou réel est
+      le rattachement (org_id null), pas les sources
+- [x] Commit : `feat(sources): sources d'incident pour les 4 départements vides`
 
 ## Task 4 — Les 4 propositions de rattachement · budget 20 min
 
-- [ ] BUILD, AMAROK, SCI CHEVRON, GROUPE ALTERNANCE : identité réelle vérifiée
-- [ ] Juste → promouvoir et journaliser. Faux → documenter, et proposer la règle
-      qui l'aurait évité sans casser les rattachements valides
-- [ ] Commit : `mesure(na): les 4 propositions de rattachement tranchées`
+- [x] BUILD, AMAROK, SCI CHEVRON, GROUPE ALTERNANCE : identité réelle vérifiée
+- [x] Juste → promouvoir et journaliser (GROUPE ALTERNANCE, preuve registre +
+      site vivant). Faux → documenter (AMAROK, SCI CHEVRON, BUILD : homonymes
+      américains/immobiliers vérifiés au registre), et proposer la règle qui
+      l'aurait évité sans casser les rattachements valides
+      (`bench/results/rattachements-tranches-vague3.json`)
+- [x] Commit : `mesure(na): les 4 propositions de rattachement tranchées`
 
 ## Task 5 — `gn-ransom-aquitaine` · budget 15 min
 
 0 item en 7 jours.
 
-- [ ] Vérifier à la main : URL, HTTP, contenu, date du dernier item
-- [ ] Morte → désactiver + journaliser + chercher un remplaçant gratuit
-- [ ] Vivante → réparer le parser et prouver
-- [ ] Commit : `fix(sources): gn-ransom-aquitaine vérifiée`
+- [x] Vérifier à la main : URL, HTTP, contenu, date du dernier item
+- [x] Vivante → réparer le parser et prouver — la requête portait
+      « rancongiciel » sans cédille (0 item sur 1 an) ; corrigée, preuve
+      avant/après publiée, journalisée (`source.changed`)
+- [x] Commit : `fix(sources): gn-ransom-aquitaine vérifiée`
 
 ## Task 6 — Vue web, un cran plus loin · budget 25 min
 
-- [ ] Fil d'événements lisible par département (source, date, organisation, famille)
-- [ ] Indicateur de fraîcheur : « dernière collecte il y a X »
-- [ ] Organisation cliquable sans perdre le filtre `?naDept=`
-- [ ] Étendre `test:na`, `verify-all.sh` vert
-- [ ] Commit : `feat(web): parcours département → événement → organisation`
+- [x] Fil d'événements lisible par département (source, date, organisation,
+      famille) — `/api/na/events?dept=NN`, 50 derniers, dept en liste blanche
+- [x] Indicateur de fraîcheur : « dernière collecte il y a X » — calculé
+      (`ilYA`) depuis `derniereCollecte` de `/na/overview`, jamais inventé
+- [x] Organisation cliquable sans perdre le filtre `?naDept=`
+      (`#/na?org=1&naDept=33`, vérifié en test)
+- [x] Étendre `test:na`, `verify-all.sh` vert — 31 contrôles (18 → 31),
+      15/15 étapes OK ; au passage verify-all charge `.env` (les tests API
+      dérivaient d'un 5432 par défaut erroné)
+- [x] Commit : `feat(web): parcours département → événement → organisation`
 
 ## Task 7 — Collecte continue, mesurée sur 24 h · budget 10 min
 
-- [ ] `radar-api.service` et `radar-report.timer` en `active`
-- [ ] Passages de collecte sur 24 h, items nouveaux, erreurs par source
-- [ ] Prouver qu'un échec de source n'arrête pas les autres
-- [ ] Commit : `docs(ops): état de la collecte continue, mesuré`
+- [x] `radar-api.service` et `radar-report.timer` en `active`
+- [x] Passages de collecte sur 24 h, items nouveaux, erreurs par source —
+      1 895 passages, 20 968 items nouveaux, 603 passages en erreur
+      (`bench/results/collecte-continue-vague3.json`)
+- [x] Prouver qu'un échec de source n'arrête pas les autres — même minute :
+      11-18 autres sources OK pendant chaque échec ; `nvd_cve` ajoute 16 798
+      items malgré ses 429
+- [x] Commit : `docs(ops): état de la collecte continue, mesuré`
 
 ## Task 8 — Rapport · budget 10 min
 
