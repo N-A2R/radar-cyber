@@ -1,0 +1,84 @@
+import { useState } from "react";
+import type { ApiError } from "../api";
+
+/** Résultat brut d'une relance : le nombre d'événements réellement admis. */
+export type RelanceOutcome = {
+  inserted: number;
+  skipped?: number;
+};
+
+/** État affiché après un clic ; jamais déduit d'un espoir, seulement du retour. */
+export type RelanceEtat =
+  | { kind: "idle" }
+  | { kind: "en-cours" }
+  | { kind: "succes"; inserted: number; skipped: number }
+  | { kind: "vide" }
+  | { kind: "erreur"; message: string };
+
+export type RelancerButtonProps = {
+  sourceId: string;
+  sourceName: string;
+  /** Appel du chemin de collecte existant, fourni par le parent. */
+  onRelance: (sourceId: string) => Promise<RelanceOutcome>;
+  disabled?: boolean;
+};
+
+function messageErreur(error: unknown): string {
+  if (error instanceof Error) {
+    const status = (error as ApiError).status;
+    return status === undefined ? error.message : `${error.message} (HTTP ${status})`;
+  }
+  return "réponse inattendue";
+}
+
+/** Résultat d'une relance, rendu à part pour être vérifiable en SSR. */
+export function RelanceResultat({ etat }: { etat: RelanceEtat }) {
+  if (etat.kind === "idle") return null;
+  if (etat.kind === "en-cours") return <span className="relance-resultat" role="status">relance en cours…</span>;
+  if (etat.kind === "erreur") {
+    return <span className="relance-resultat" data-resultat="erreur" role="alert">erreur · {etat.message}</span>;
+  }
+  if (etat.kind === "vide") {
+    return <span className="relance-resultat" data-resultat="vide" role="status">0 nouvel événement</span>;
+  }
+  const n = etat.inserted;
+  return (
+    <span className="relance-resultat" data-resultat="succes" role="status">
+      succès · {n} {n > 1 ? "nouveaux" : "nouvel"} événement{n > 1 ? "s" : ""}
+      {etat.skipped > 0 ? ` · ${etat.skipped} ignoré${etat.skipped > 1 ? "s" : ""}` : ""}
+    </span>
+  );
+}
+
+export default function RelancerButton({ sourceId, sourceName, onRelance, disabled = false }: RelancerButtonProps) {
+  const [etat, setEtat] = useState<RelanceEtat>({ kind: "idle" });
+
+  async function relancer(): Promise<void> {
+    setEtat({ kind: "en-cours" });
+    try {
+      const outcome = await onRelance(sourceId);
+      setEtat(
+        outcome.inserted > 0
+          ? { kind: "succes", inserted: outcome.inserted, skipped: outcome.skipped ?? 0 }
+          : { kind: "vide" },
+      );
+    } catch (error) {
+      setEtat({ kind: "erreur", message: messageErreur(error) });
+    }
+  }
+
+  return (
+    <span className="relance-cellule">
+      <button
+        type="button"
+        className="relance-bouton"
+        onClick={() => void relancer()}
+        disabled={disabled || etat.kind === "en-cours"}
+        aria-label={`Relancer la collecte de ${sourceName}`}
+      >
+        Relancer
+      </button>
+      <RelanceResultat etat={etat} />
+    </span>
+  );
+}
