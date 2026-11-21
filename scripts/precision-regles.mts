@@ -81,9 +81,46 @@ function elimineHomonyme(e: Entree): boolean {
 	return false;
 }
 
+/** Marqueurs de commentaire de fuite dans un indice : le texte ne nomme pas
+ * une victime, il décrit une fuite. */
+const MARQUEURS_COMMENTAIRE =
+	/hacked|leaked|data leak|disclosed|\d\s?(gb|tb)\b|file tree|announcement|will be leaked|you are welcome|welcome in our chat|part \d/i;
+
+/** Règle n°3 : un indice masqué (contenant des * ou ??) ne fonde jamais de
+ * rattachement — ce n'est pas un nom. Le masque prouve la non-identité quand
+ * sa longueur ne correspond pas au nom de l'org, et laisse l'ambiguïté
+ * entière quand il pourrait correspondre : dans les deux cas, la revue
+ * humaine décide. Mesuré sur le corpus : 24 hors_sujet, 1 indécidable, 0
+ * exacte ou partielle sur des indices masqués. */
+function elimineMasquage(e: Entree): boolean {
+	return /\*|\?\?/.test(e.indice);
+}
+
+/** Règle n°4 : un indice à marqueur de commentaire de fuite ne fonde un
+ * rattachement que par le chemin domaine — les jetons du commentaire
+ * (« hacked », « 200 GB », « DISCLOSED ») ne désignent personne. Mesuré sur
+ * le corpus : les 15 exacte et 3 partielle à marqueur passent toutes par le
+ * domaine et survivent ; les 24 hors_sujet à marqueur passaient tous par le
+ * nom et disparaissent. */
+function elimineCommentaire(e: Entree): boolean {
+	return MARQUEURS_COMMENTAIRE.test(e.indice) && e.via !== "domain";
+}
+
+/** Règle n°6 : le chemin ville+nom (0,6) est retiré — la ville citée ne
+ * désigne pas l'organisation. Mesuré sur le corpus : 3 hors_sujet sur 3
+ * unités de strate ville, 0 exacte ou partielle. Les organisations dont le
+ * nom porte la ville restent couvertes par le chemin nom. */
+function elimineVille(e: Entree): boolean {
+	return e.confiance === 0.6;
+}
+
 const REGLES_DISPONIBLES: Record<number, { elimine: (e: Entree) => boolean; description: string }> = {
 	1: { elimine: elimineSigle, description: "sigle : via=name à 0,7 (jeton unique) éliminé" },
 	2: { elimine: elimineHomonyme, description: "homonyme : à 0,75, l'indice doit être couvert par le nom de l'org" },
+	3: { elimine: elimineMasquage, description: "masquage : un indice masqué (*/??) ne fonde jamais de rattachement" },
+	4: { elimine: elimineCommentaire, description: "commentaire : un indice à marqueur de fuite ne matche que par le chemin domaine" },
+	5: { elimine: () => false, description: "TLD : déjà couvert par la règle 1 (les 5 hors_sujet TLD étaient des matchs à un seul jeton) — règle documentée, sans effet propre" },
+	6: { elimine: elimineVille, description: "ville : le chemin ville+nom (0,6) est retiré" },
 };
 
 const AUJOURDHUI = new Intl.DateTimeFormat("fr-CA", { timeZone: "Europe/Paris" }).format(new Date());
