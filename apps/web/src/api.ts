@@ -300,10 +300,42 @@ export type DeptStat = { dept: string; evenements: number; organisations: number
 /** Réponse de GET /api/today/departements : un département = un filtre utile. */
 export type StatsDepartements = { departements: DeptStat[] };
 
-export type Graph = {
-  nodes: { id: string; label: string; kind: "org" | "family" | "group" | "asset" | "dept" }[];
-  links: { source: string; target: string; type: string }[];
+/** Nature d'un nœud du graphe relationnel (GET /api/graph). */
+export type GraphNodeKind =
+  | "org"
+  | "event"
+  | "source"
+  | "family"
+  | "dept"
+  | "group"
+  | "asset";
+
+/**
+ * Nœud du graphe. Les champs optionnels sont portés par l'API quand ils sont
+ * mesurés en base (jamais inférés par correspondance de texte).
+ */
+export type GraphNode = {
+  id: string;
+  label: string;
+  kind: GraphNodeKind | string;
+  family?: string;
+  severity?: number;
+  observedAt?: string | null;
+  sourceId?: string;
+  sourceUrl?: string | null;
+  assertionType?: string;
+  orgKind?: string;
+  city?: string | null;
+  dept?: string | null;
+  url?: string | null;
 };
+
+/** Types de liens : structurelle (`rattache`), rattachement mesuré
+ *  (`has_event`, `targeted_by`, `reported_by`) ou relation enregistrée
+ *  (`exploits`, `uses_infra`, `owned_by`, …). */
+export type GraphLink = { source: string; target: string; type: string };
+
+export type Graph = { nodes: GraphNode[]; links: GraphLink[] };
 
 /** Réponse de GET /api/health : vitalité du backend et id des sources connues. */
 export type Health = {
