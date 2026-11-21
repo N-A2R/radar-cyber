@@ -1,0 +1,435 @@
+{
+  "genere_le": "2026-11-21T18:59:09.382Z",
+  "bases": {
+    "avant": {
+      "ref": "60500802e3799af4c3d478cbc29fec15017f2226",
+      "description": "état du dépôt avant ce chantier, extrait par git archive"
+    },
+    "apres": {
+      "description": "parseSource() courant, avec canonicalisation et diagnostics"
+    }
+  },
+  "methode": {
+    "fetch": "un GET par URL, redirect:follow, timeout 15 s, mêmes en-têtes que le collecteur ; corps non versionnés",
+    "mesure": "les deux parseurs tournent sur les mêmes octets, une seule fois par source",
+    "complet": "item porteur des quatre champs title/date/link/summary (avant : équivalence par alias de clés)",
+    "base": "aucune écriture en base"
+  },
+  "sources": [
+    {
+      "source": "cert-fr-feed",
+      "url": "https://www.cert.ssi.gouv.fr/feed/",
+      "format": "RSS 2.0",
+      "code_http_note": "ok",
+      "octets": 23182,
+      "avant": {
+        "strategie": "rss-2",
+        "items": 40,
+        "complets": 40,
+        "chemin": "rss.channel.item"
+      },
+      "apres": {
+        "format": "rss-2",
+        "strategie": "rss-2",
+        "items": 40,
+        "complets": 40,
+        "diagnostic": []
+      }
+    },
+    {
+      "source": "krebsonsecurity-feed",
+      "url": "https://krebsonsecurity.com/feed/",
+      "format": "RSS 2.0",
+      "code_http_note": "ok",
+      "octets": 125258,
+      "avant": {
+        "strategie": "rss-2",
+        "items": 10,
+        "complets": 10,
+        "chemin": "rss.channel.item"
+      },
+      "apres": {
+        "format": "rss-2",
+        "strategie": "rss-2",
+        "items": 10,
+        "complets": 10,
+        "diagnostic": []
+      }
+    },
+    {
+      "source": "thehackernews-feed",
+      "url": "https://feeds.feedburner.com/TheHackersNews",
+      "format": "RSS 2.0",
+      "code_http_note": "ok",
+      "octets": 59774,
+      "avant": {
+        "strategie": "rss-2",
+        "items": 50,
+        "complets": 50,
+        "chemin": "rss.channel.item"
+      },
+      "apres": {
+        "format": "rss-2",
+        "strategie": "rss-2",
+        "items": 50,
+        "complets": 50,
+        "diagnostic": []
+      }
+    },
+    {
+      "source": "securelist-feed",
+      "url": "https://securelist.com/feed/",
+      "format": "RSS 2.0",
+      "code_http_note": "ok",
+      "octets": 428577,
+      "avant": {
+        "strategie": "rss-2",
+        "items": 10,
+        "complets": 10,
+        "chemin": "rss.channel.item"
+      },
+      "apres": {
+        "format": "rss-2",
+        "strategie": "rss-2",
+        "items": 10,
+        "complets": 10,
+        "diagnostic": []
+      }
+    },
+    {
+      "source": "helpnetsecurity-feed",
+      "url": "https://www.helpnetsecurity.com/feed/",
+      "format": "RSS 2.0",
+      "code_http_note": "ok",
+      "octets": 18413,
+      "avant": {
+        "strategie": "rss-2",
+        "items": 10,
+        "complets": 10,
+        "chemin": "rss.channel.item"
+      },
+      "apres": {
+        "format": "rss-2",
+        "strategie": "rss-2",
+        "items": 10,
+        "complets": 10,
+        "diagnostic": []
+      }
+    },
+    {
+      "source": "infosecurity-magazine-feed",
+      "url": "https://www.infosecurity-magazine.com/rss/news/",
+      "format": "RSS 2.0",
+      "code_http_note": "ok",
+      "octets": 132717,
+      "avant": {
+        "strategie": "rss-2",
+        "items": 250,
+        "complets": 250,
+        "chemin": "rss.channel.item"
+      },
+      "apres": {
+        "format": "rss-2",
+        "strategie": "rss-2",
+        "items": 250,
+        "complets": 250,
+        "diagnostic": []
+      }
+    },
+    {
+      "source": "securityaffairs-feed",
+      "url": "https://securityaffairs.co/wordpress/feed",
+      "format": "RSS 2.0",
+      "code_http_note": "ok",
+      "octets": 91224,
+      "avant": {
+        "strategie": "rss-2",
+        "items": 10,
+        "complets": 10,
+        "chemin": "rss.channel.item"
+      },
+      "apres": {
+        "format": "rss-2",
+        "strategie": "rss-2",
+        "items": 10,
+        "complets": 10,
+        "diagnostic": []
+      }
+    },
+    {
+      "source": "welivesecurity-feed",
+      "url": "https://www.welivesecurity.com/feed/",
+      "format": "RSS 2.0",
+      "code_http_note": "ok",
+      "octets": 70183,
+      "avant": {
+        "strategie": "rss-2",
+        "items": 100,
+        "complets": 100,
+        "chemin": "rss.channel.item"
+      },
+      "apres": {
+        "format": "rss-2",
+        "strategie": "rss-2",
+        "items": 100,
+        "complets": 100,
+        "diagnostic": []
+      }
+    },
+    {
+      "source": "jpcert-atom",
+      "url": "https://blogs.jpcert.or.jp/en/atom.xml",
+      "format": "Atom 1.0",
+      "code_http_note": "ok",
+      "octets": 271808,
+      "avant": {
+        "strategie": "atom",
+        "items": 15,
+        "complets": 15,
+        "chemin": "feed.entry"
+      },
+      "apres": {
+        "format": "atom",
+        "strategie": "atom",
+        "items": 15,
+        "complets": 15,
+        "diagnostic": []
+      }
+    },
+    {
+      "source": "rust-releases-atom",
+      "url": "https://github.com/rust-lang/rust/releases.atom",
+      "format": "Atom 1.0",
+      "code_http_note": "ok",
+      "octets": 131788,
+      "avant": {
+        "strategie": "atom",
+        "items": 10,
+        "complets": 10,
+        "chemin": "feed.entry"
+      },
+      "apres": {
+        "format": "atom",
+        "strategie": "atom",
+        "items": 10,
+        "complets": 10,
+        "diagnostic": []
+      }
+    },
+    {
+      "source": "github-blog-article",
+      "url": "https://github.blog/open-source/maintainers/the-best-things-in-open-source-are-built-together/",
+      "format": "JSON-LD",
+      "code_http_note": "ok",
+      "octets": 182497,
+      "avant": {
+        "strategie": "json-ld",
+        "items": 1,
+        "complets": 1,
+        "chemin": "@graph"
+      },
+      "apres": {
+        "format": "json-ld",
+        "strategie": "json-ld",
+        "items": 1,
+        "complets": 1,
+        "diagnostic": []
+      }
+    },
+    {
+      "source": "bleepingcomputer-article",
+      "url": "https://www.bleepingcomputer.com/news/security/badbox-30-botnet-returns-with-record-breaking-40-billion-daily-ad-requests/",
+      "format": "JSON-LD",
+      "code_http_note": "ok",
+      "octets": 91634,
+      "avant": {
+        "strategie": "json-ld",
+        "items": 1,
+        "complets": 1,
+        "chemin": "@graph"
+      },
+      "apres": {
+        "format": "json-ld",
+        "strategie": "json-ld",
+        "items": 1,
+        "complets": 1,
+        "diagnostic": []
+      }
+    },
+    {
+      "source": "theregister-article",
+      "url": "https://www.theregister.com/security/2026/11/20/signal-slams-door-on-prying-ai-agents-to-protect-privacy/5311466",
+      "format": "JSON-LD",
+      "code_http_note": "ok",
+      "octets": 182867,
+      "avant": {
+        "strategie": "json-ld",
+        "items": 1,
+        "complets": 1,
+        "chemin": "@graph"
+      },
+      "apres": {
+        "format": "json-ld",
+        "strategie": "json-ld",
+        "items": 1,
+        "complets": 1,
+        "diagnostic": []
+      }
+    },
+    {
+      "source": "certfr-avis",
+      "url": "https://www.cert.cyber.gouv.fr/avis/CERTFR-2026-AVI-1344/",
+      "format": "HTML <article>",
+      "code_http_note": "ok",
+      "octets": 32593,
+      "avant": {
+        "strategie": "html-article",
+        "items": 1,
+        "complets": 0,
+        "chemin": "article"
+      },
+      "apres": {
+        "format": "html",
+        "strategie": "html-article",
+        "items": 1,
+        "complets": 1,
+        "diagnostic": []
+      }
+    },
+    {
+      "source": "krebsonsecurity-article",
+      "url": "https://krebsonsecurity.com/2026/11/cto-of-ransomwarehelp-indicted-for-wire-fraud/",
+      "format": "HTML <article>",
+      "code_http_note": "ok",
+      "octets": 56965,
+      "avant": {
+        "strategie": "html-article",
+        "items": 1,
+        "complets": 0,
+        "chemin": "article"
+      },
+      "apres": {
+        "format": "html",
+        "strategie": "html-article",
+        "items": 1,
+        "complets": 1,
+        "diagnostic": []
+      }
+    },
+    {
+      "source": "cisa-advisories",
+      "url": "https://www.cisa.gov/news-events/cybersecurity-advisories",
+      "format": "HTML <main>",
+      "code_http_note": "ok",
+      "octets": 164904,
+      "avant": {
+        "strategie": "html-links",
+        "items": 107,
+        "complets": 0,
+        "chemin": "a[href]"
+      },
+      "apres": {
+        "format": "html",
+        "strategie": "html-article",
+        "items": 12,
+        "complets": 12,
+        "diagnostic": []
+      }
+    },
+    {
+      "source": "nvd-cve-api",
+      "url": "https://services.nvd.nist.gov/rest/json/cves/2.0?resultsPerPage=20",
+      "format": "JSON maison",
+      "code_http_note": "ok",
+      "octets": 46225,
+      "avant": {
+        "strategie": "json-nested-array",
+        "items": 20,
+        "complets": 0,
+        "chemin": "vulnerabilities"
+      },
+      "apres": {
+        "format": "json",
+        "strategie": "json-nested-array",
+        "items": 20,
+        "complets": 0,
+        "diagnostic": []
+      }
+    },
+    {
+      "source": "cisa-kev-json",
+      "url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
+      "format": "JSON maison",
+      "code_http_note": "ok",
+      "octets": 1871127,
+      "avant": {
+        "strategie": "json-nested-array",
+        "items": 1790,
+        "complets": 0,
+        "chemin": "vulnerabilities"
+      },
+      "apres": {
+        "format": "json",
+        "strategie": "json-nested-array",
+        "items": 1790,
+        "complets": 0,
+        "diagnostic": []
+      }
+    },
+    {
+      "source": "ransomwatch-posts",
+      "url": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+      "format": "JSON maison",
+      "code_http_note": "ok",
+      "octets": 2287524,
+      "avant": {
+        "strategie": "json-root-array",
+        "items": 16072,
+        "complets": 0,
+        "chemin": ""
+      },
+      "apres": {
+        "format": "json",
+        "strategie": "json-root-array",
+        "items": 16071,
+        "complets": 0,
+        "diagnostic": []
+      }
+    },
+    {
+      "source": "ransomlook-recent",
+      "url": "https://ransomlook.io/api/recent",
+      "format": "JSON maison",
+      "code_http_note": "ok",
+      "octets": 90228,
+      "avant": {
+        "strategie": "json-root-array",
+        "items": 100,
+        "complets": 82,
+        "chemin": ""
+      },
+      "apres": {
+        "format": "json",
+        "strategie": "json-root-array",
+        "items": 100,
+        "complets": 82,
+        "diagnostic": []
+      }
+    }
+  ],
+  "totaux": {
+    "sources": 20,
+    "items_avant": 18599,
+    "items_apres": 18503,
+    "items_complets_avant": 590,
+    "items_complets_apres": 604,
+    "sources_avec_items_avant": 20,
+    "sources_avec_items_apres": 20,
+    "sources_en_erreur": []
+  },
+  "limites": [
+    "Mesure ponctuelle : le contenu des sites évolue ; les deux colonnes portent sur le même corps figé au moment du GET.",
+    "Un item 'complet' peut manquer légitimement de lien ou de date selon la source (ex. NVD sans URL d'article) : le comptage décrit les champs fournis, pas une exigence métier.",
+    "Le nombre d'items n'est pas un score de qualité : avant, les pages d'article produisaient des dizaines de liens de menu, désormais écartés."
+  ]
+}

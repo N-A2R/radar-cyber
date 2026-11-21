@@ -54,6 +54,54 @@ domaines (texte libre) restent `narrative`. Condition fautive d'origine :
 Tableau historique du 13/11 (avant la distinction `rss-2`/`atom` et l'ajout de `json-ld`/`html-article`).
 Mesure du 21/11 sur 10 sources réelles : `bench/results/parseurs-formats-4-avant-apres.json`.
 
+## Parseurs complets — cinq formats, 20 sources réelles
+
+`apps/api/src/collectors/parsers/index.ts` expose `parseSource(corps, contentType,
+{ baseUrl })` : une seule entrée pour RSS 2.0, Atom, JSON-LD, HTML `<article>`/`<main>`
+et flux JSON maison. Chaque parseur détecte le format dans le **corps** (le
+content-type annoncé n'est qu'un indice), ramène `title`, `date`, `link`,
+`summary` sans jeter les champs d'origine, et remplit `empty`, `ok` et
+`diagnostics` au lieu de lever une exception. `detectItems()` du collecteur
+utilise le même chemin : la canonicalisation profite à l'ingestion réelle.
+
+| Format | Détection | Champs principaux | Test échantillon réel |
+| --- | --- | --- | --- |
+| RSS 2.0 | racine `<rss>`, chemin `rss.channel.item` | `pubDate`, `guid`, `description`, `content:encoded` | `rss2.xml` (CERT, 40 items) |
+| Atom | racine `<feed>`, chemin `feed.entry` | `<link href rel=alternate>`, `published`/`updated`, `summary` | `atom.xml` (ZDNet, 25 entries) |
+| JSON-LD | `@type: NewsArticle`/`Article` dans `@graph` ou un script | `headline`, `datePublished`, `url`, `description` | `jsonld-article.html` (BleepingComputer) |
+| HTML `<article>`/`<main>` | blocs article, cartes de listing, sections de main | titre, `<time datetime>`/meta, canonique, paragraphe | `html-article.html`, `html-main.html`, `html-sections.html` |
+| JSON maison | tableau racine ou tableau nommé (`items`, `vulnerabilities`, `posts`…) | `cveID`/`post_title`, `dateAdded`/`discovered`, `link`, `shortDescription`/`descriptions[]` | `json-maison.json` (NVD, 2 CVE) |
+
+Les extraits figés sont décrits dans `apps/api/test/fixtures/parseurs/README.md`.
+Les tests `apps/api/test/parseurs-sources-complets.test.ts` couvrent en plus le
+JSON invalide, le XML invalide, un bloc JSON-LD cassé à côté d'un bloc valide,
+les corps vides/absents, les tableaux vides et les pages sans bloc article.
+
+Mesure du 21/11 sur **20 sources réelles** (`scripts/mesure-parseurs-20.mts`,
+résultats dans `bench/results/parseurs-20-avant-apres.json`) : un GET par URL,
+puis l'ancien `detectItems()` (extrait par `git archive` du commit précédent) et
+le nouveau `parseSource()` sur **les mêmes octets**.
+
+| Format | Sources | Items avant | Items après | Items à 4 champs avant → après |
+| --- | ---: | ---: | ---: | ---: |
+| RSS 2.0 | 8 | 480 | 480 | 480 → 480 |
+| Atom 1.0 | 2 | 25 | 25 | 25 → 25 |
+| JSON-LD | 3 | 3 | 3 | 3 → 3 |
+| HTML `<article>` | 2 | 2 | 2 | 0 → 2 |
+| HTML `<main>` | 1 | 107 | 12 | 0 → 12 |
+| JSON maison | 4 | 17 982 | 17 981 | 82 → 82 |
+| **Total** | **20** | **18 599** | **18 503** | **590 → 604** |
+
+Lecture : les flux gardent leurs items (480 RSS, 25 Atom) et gagnent des dates
+ISO, des titres décodés et des résumés nets. La page CISA passe de 107 liens de
+menu à 12 cartes réelles, toutes datées ; les deux pages d'article passent de
+zéro item complet à deux. Le léger déficit global (−96 items, dont −95 sur la
+page CISA) est donc une **disparition de bruit**, pas une perte d'articles. Les
+17 981 items JSON proviennent des vrais flux NVD/KEV/ransomwatch (un doublon
+éliminé) : le volume est conservé, les champs sont désormais lisibles.
+
+### Historique du 13/11 (avant RSS-2/Atom/JSON-LD/HTML-article)
+
 | Stratégie | Sources |
 | --- | ---: |
 | rss-atom | 10 |
