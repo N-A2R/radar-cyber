@@ -9,8 +9,8 @@
   },
   "method": "lecture du site (fetch, titre et meta verbatim) + recherche-entreprises.api.gouv.fr sans clé ; requêtes et réponses consignées ; SIREN recoupé, jamais inventé",
   "compte": {
-    "present": 2,
-    "absent": 6,
+    "present": 3,
+    "absent": 5,
     "cannot_verify": 2
   },
   "resolutions": [
@@ -97,8 +97,8 @@
     {
       "nomLisible": "paysdelaloire.fr",
       "domaine": "paysdelaloire.fr",
-      "verdict": "absent",
-      "raison": "aucune identité légale française au registre (requête consignée) ; site : « Site du Conseil régional des Pays de la Loire | Accueil »",
+      "verdict": "present",
+      "raison": "SIREN 234400034 REGION DES PAYS DE LA LOIRE au registre (état A, NANTES 44), recoupé avec le titre « Site du Conseil régional des Pays de la Loire » ; correction documentée",
       "site": {
         "url": "https://paysdelaloire.fr",
         "http": 200,
@@ -109,7 +109,8 @@
         "requete": "https://recherche-entreprises.api.gouv.fr/search?q=paysdelaloire&page=1&per_page=5",
         "http": 200,
         "resultats": []
-      }
+      },
+      "sirenCorrige": "234400034"
     },
     {
       "nomLisible": "Pharma Force",
@@ -280,6 +281,18 @@
         ]
       },
       "chargeEnBase": true
+    }
+  ],
+  "corrections": [
+    {
+      "nomLisible": "paysdelaloire.fr",
+      "erreurOriginale": "verdict absent — le script n'a interrogé que la racine « paysdelaloire » (0 résultat)",
+      "correction": "SIREN 234400034 REGION DES PAYS DE LA LOIRE (NANTES 44, état A), recoupé avec le titre « Site du Conseil régional des Pays de la Loire | Accueil » ; requête par nom de l'entité publique",
+      "preuve": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=REGION%20PAYS%20DE%20LA%20LOIRE&page=1&per_page=5",
+        "http": 200,
+        "resultat": "234400034 | REGION DES PAYS DE LA LOIRE | A | NANTES 44"
+      }
     }
   ]
 }

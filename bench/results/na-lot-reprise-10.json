@@ -9,9 +9,9 @@
   },
   "method": "lecture du site (fetch, titre et meta verbatim) + recherche-entreprises.api.gouv.fr sans clé ; requêtes et réponses consignées ; SIREN recoupé, jamais inventé",
   "compte": {
-    "present": 4,
+    "present": 3,
     "absent": 4,
-    "cannot_verify": 2
+    "cannot_verify": 3
   },
   "resolutions": [
     {
@@ -66,7 +66,7 @@
       "nomLisible": "mj-donnais.fr",
       "domaine": "mj-donnais.fr",
       "verdict": "cannot_verify",
-      "raison": "site ou registre inaccessible : TypeError: fetch failed",
+      "raison": "relance : site vivant http 200 titre « DONNAIS : Accueil » (https 000) ; registre sans candidat recoupable (q=mj-donnais 0, q=DONNAIS homonymes) — arbitrage humain",
       "site": {
         "url": "https://mj-donnais.fr",
         "http": null,
@@ -105,8 +105,8 @@
     {
       "nomLisible": "mpm.fr",
       "domaine": "mpm.fr",
-      "verdict": "present",
-      "raison": "SIREN 951105261 au registre (état A, SETE 34), recoupé avec mpm.fr",
+      "verdict": "cannot_verify",
+      "raison": "relance : site https et http injoignables (000), 5 candidats « MPM » au registre sans recoupement réel — org chargée supprimée, arbitrage humain",
       "site": {
         "url": "https://mpm.fr",
         "http": null,
@@ -277,6 +277,19 @@
           }
         ]
       }
+    }
+  ],
+  "relances": [
+    {
+      "nomLisible": "mpm.fr",
+      "preuve": "DNS 217.70.184.55 ; https 000 (script+curl), http 000 ; registre : 5 candidats « MPM » (Sète, Salies-du-Salat, Landaville, Plouedern, La Chapelle-d'Alagnon) sans lien avec le site",
+      "verdictRelance": "cannot_verify",
+      "note": "org 951105261 supprimée de la base — recoupement limité au jeton mpm"
+    },
+    {
+      "nomLisible": "mj-donnais.fr",
+      "preuve": "DNS 54.38.69.81 ; https 000 ; http 200, titre « DONNAIS : Accueil » (Apache Tapestry 5.3.8) ; registre q=mj-donnais 0, q=DONNAIS homonymes (personnes physiques 54), q=MJ DONNAIS 0",
+      "verdictRelance": "cannot_verify"
     }
   ]
 }
