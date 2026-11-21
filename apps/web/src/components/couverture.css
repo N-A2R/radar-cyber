@@ -1,215 +1,319 @@
-/* Coverage screen: a measured figure, not a live counter. Values stay in
-   tabular monospace and every bar is labelled with its number, so the chart
-   never relies on colour or width alone. */
-.couverture {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
+/* Écran Coverage : jetons sémantiques uniquement, aucun hex ici.
+   Le grand chiffre porte la mesure ; les barres et le tableau portent la
+   décomposition. La couleur n'est jamais le seul signal : chaque barre a son
+   libellé et ses nombres, chaque état du corpus est écrit en toutes lettres. */
+
+.coverage {
+  box-sizing: border-box;
   height: 100%;
-  min-height: 0;
+  max-width: 1500px;
+  overflow-x: hidden;
   overflow-y: auto;
   padding: var(--space-6);
-  background: var(--bg);
-  color: var(--text);
 }
 
-.couverture__head {
-  padding-bottom: var(--space-4);
-  border-bottom: 1px solid var(--line-strong);
-}
-
-.couverture__kicker {
-  margin: 0 0 var(--space-1);
-  color: var(--accent);
-  font: 600 11px/1.5 var(--font-mono);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.couverture__title {
-  margin: 0;
-  font: 600 26px/1.2 var(--font-sans);
-}
-
-.couverture__subtitle,
-.couverture__meta,
-.couverture__status {
-  margin: var(--space-2) 0 0;
-  color: var(--muted);
-  font: 400 13px/1.5 var(--font-sans);
-}
-
-.couverture__meta {
-  color: var(--faint);
-  font-family: var(--font-mono);
-}
-
-.couverture__meta time {
-  color: var(--text);
-}
-
-.couverture__status--error {
-  color: var(--sev-5);
-}
-
-.couverture__hero {
-  display: flex;
-  flex-direction: column;
+.coverage__header {
   align-items: flex-start;
-  gap: var(--space-1);
-  padding: var(--space-5) var(--space-6);
-  border: 1px solid var(--line-strong);
-  border-left: 3px solid var(--accent);
-  border-radius: var(--radius);
-  background: var(--surface-2);
-}
-
-.couverture__hero-label {
-  margin: 0;
-  color: var(--muted);
-  font: 600 11px/1.5 var(--font-mono);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.couverture__figure {
-  margin: 0;
-  color: var(--text);
-  font: 600 clamp(48px, 8vw, 88px)/1 var(--font-mono);
-  font-variant-numeric: tabular-nums;
-}
-
-.couverture__hero-detail {
-  margin: 0;
-  color: var(--muted);
-  font: 400 13px/1.5 var(--font-mono);
-  font-variant-numeric: tabular-nums;
-}
-
-.couverture__panel {
-  padding: var(--space-4);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--surface);
-}
-
-.couverture__panel-head {
+  border-bottom: 1px solid var(--line);
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  gap: var(--space-4);
   justify-content: space-between;
-  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+
+.coverage__header h2 {
+  font-size: var(--text-title);
+  font-weight: 500;
+  margin: 0;
+}
+
+.coverage__subtitle,
+.coverage__window,
+.coverage__hint {
+  color: var(--muted);
+  margin: var(--space-1) 0 0;
+}
+
+.coverage__window {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.coverage__warning {
+  background: var(--surface-2);
+  border: 1px solid var(--line-strong);
+  border-left: 4px solid var(--sev-4);
+  color: var(--text);
+  margin-bottom: var(--space-6);
+  padding: var(--space-3) var(--space-4);
+}
+
+.coverage__warning strong {
+  color: var(--sev-4);
+}
+
+.coverage__hero {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  margin-bottom: var(--space-6);
+}
+
+/* La mesure est la première chose lue : chiffres tabulaires, aucun arrondi
+   approximatif, et le dénominateur toujours à côté. */
+.coverage__hero-number {
+  color: var(--accent);
+  font: 500 clamp(64px, 9vw, 128px) / 0.95 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.05em;
+  margin: 0;
+  min-width: 4ch;
+}
+
+.coverage__hero-number span {
+  font-size: 0.5em;
+  letter-spacing: 0;
+  margin-left: var(--space-1);
+}
+
+.coverage__hero-context {
+  max-width: 52ch;
+}
+
+.coverage__hero-count,
+.coverage__hero-note {
+  margin: 0;
+}
+
+.coverage__hero-count {
+  font-size: var(--text-read);
+}
+
+.coverage__hero-count b {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.coverage__hero-note {
+  color: var(--muted);
+  margin-top: var(--space-2);
+}
+
+.coverage__placeholder {
+  color: var(--faint);
+  font: 400 var(--text-title) / 1.2 var(--font-mono);
+}
+
+.coverage__loading,
+.coverage__empty {
+  color: var(--muted);
+  margin: var(--space-3) 0;
+}
+
+.coverage__error {
+  background: var(--surface-2);
+  border-left: 4px solid var(--sev-5);
+  color: var(--text);
+  margin: 0 0 var(--space-4);
+  padding: var(--space-3);
+}
+
+.coverage__section {
+  border-top: 1px solid var(--line);
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+}
+
+.coverage__section h3,
+.coverage__provenance h3 {
+  font-size: var(--text-body);
+  font-weight: 600;
+  margin: 0 0 var(--space-1);
+}
+
+.coverage__hint {
   margin-bottom: var(--space-4);
 }
 
-.couverture__panel-head h2 {
-  margin: 0;
-  font: 600 15px/1.5 var(--font-sans);
-}
-
-.couverture__panel-head p {
-  margin: 0;
-  color: var(--faint);
-  font: 400 12px/1.5 var(--font-mono);
-}
-
-.couverture__bars {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
+.coverage__breakdown,
+.coverage__months {
+  list-style: none;
   margin: 0;
   padding: 0;
-  list-style: none;
 }
 
-.couverture__bar {
-  display: grid;
-  grid-template-columns: minmax(120px, 200px) minmax(0, 1fr) 96px;
+.coverage__breakdown-row,
+.coverage__month {
   align-items: center;
+  display: grid;
   gap: var(--space-3);
+  grid-template-columns: minmax(180px, 1fr) minmax(120px, 2fr) minmax(150px, auto);
+  padding: var(--space-2) 0;
 }
 
-.couverture__bar-label {
-  color: var(--text);
-  font: 400 13px/1.5 var(--font-sans);
+.coverage__breakdown-label,
+.coverage__breakdown-value,
+.coverage__month-value {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
 }
 
-.couverture__bar-track {
+.coverage__breakdown-label code,
+.coverage__provenance code {
+  color: var(--muted);
+  font-family: var(--font-mono);
+}
+
+.coverage__breakdown-value,
+.coverage__month-value {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.coverage__breakdown-value span,
+.coverage__month-value span,
+.coverage__month-label {
+  color: var(--muted);
+}
+
+.coverage__bar {
+  background: var(--surface-3);
+  border: 1px solid var(--line);
   display: block;
   height: 12px;
-  background: var(--surface-2);
-  border-radius: var(--radius);
+  min-width: 0;
+  overflow: hidden;
 }
 
-.couverture__bar-fill {
+.coverage__bar-fill {
+  background: var(--accent);
   display: block;
   height: 100%;
-  background: var(--accent);
-  border-radius: var(--radius);
+  transition: width 180ms ease-out;
 }
 
-.couverture__bar-value {
-  color: var(--muted);
-  font: 400 12px/1.5 var(--font-mono);
+.coverage__scroll {
+  overflow-x: auto;
+}
+
+.coverage__table {
+  border-collapse: collapse;
   font-variant-numeric: tabular-nums;
+  min-width: 520px;
+  width: 100%;
+}
+
+.coverage__table th,
+.coverage__table td {
+  border-bottom: 1px solid var(--line);
+  padding: var(--space-2) var(--space-3);
   text-align: right;
+}
+
+.coverage__table thead th {
+  border-bottom-color: var(--line-strong);
+  padding: 0;
   white-space: nowrap;
 }
 
-.couverture__table-wrap {
-  min-width: 0;
-  overflow-x: auto;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-}
-
-.couverture__table {
-  width: 100%;
-  border-collapse: collapse;
-  font: 400 13px/1.5 var(--font-sans);
-}
-
-.couverture__table th,
-.couverture__table td {
-  padding: var(--space-2) var(--space-3);
-  border-bottom: 1px solid var(--line);
+.coverage__table thead th:first-child,
+.coverage__table tbody th {
   text-align: left;
 }
 
-.couverture__table thead th {
+.coverage__table tbody th {
+  font-weight: 400;
+}
+
+/* Cible d'au moins 44 px : le tri reste utilisable au doigt comme au clavier. */
+.coverage__sort {
+  align-items: center;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--muted);
+  display: inline-flex;
+  justify-content: flex-end;
+  min-height: 44px;
+  min-width: 44px;
+  padding: var(--space-2) var(--space-3);
+  white-space: nowrap;
+}
+
+.coverage__sort:hover {
   background: var(--surface-2);
-  color: var(--faint);
-  font: 600 11px/1.5 var(--font-mono);
-  letter-spacing: 0.08em;
+  color: var(--text);
+}
+
+.coverage__table thead th:first-child .coverage__sort {
+  justify-content: flex-start;
+}
+
+.coverage__table [aria-sort="ascending"] .coverage__sort,
+.coverage__table [aria-sort="descending"] .coverage__sort {
+  color: var(--accent);
+}
+
+.coverage__month {
+  grid-template-columns: 96px minmax(120px, 1fr) minmax(150px, auto);
+}
+
+.coverage__month-label {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.coverage__provenance {
+  border-top: 1px solid var(--line);
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+}
+
+.coverage__provenance dl {
+  display: grid;
+  gap: var(--space-3) var(--space-6);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  margin: var(--space-2) 0 0;
+}
+
+.coverage__provenance dt {
+  color: var(--muted);
+  font-size: var(--text-label);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
-.couverture__table tbody th {
-  color: var(--text);
-  font-weight: 500;
-}
-
-.couverture__table tbody td {
-  color: var(--muted);
-  font: 400 13px/1.5 var(--font-mono);
+.coverage__provenance dd {
+  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
-  text-align: right;
-}
-
-.couverture__table tbody tr:last-child th,
-.couverture__table tbody tr:last-child td {
-  border-bottom: 0;
-}
-
-.couverture__fingerprint {
-  margin: 0;
+  margin: var(--space-1) 0 0;
   overflow-wrap: anywhere;
-  color: var(--faint);
-  font: 400 11px/1.5 var(--font-mono);
 }
 
-@media (max-width: 600px) {
-  .couverture { padding: var(--space-3); }
-  .couverture__bar { grid-template-columns: minmax(0, 1fr) 88px; }
-  .couverture__bar-track { grid-column: 1 / -1; grid-row: 2; }
+@media (max-width: 800px) {
+  .coverage {
+    padding: var(--space-4);
+  }
+
+  .coverage__breakdown-row,
+  .coverage__month {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .coverage__breakdown-value,
+  .coverage__month-value {
+    justify-content: flex-start;
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coverage__bar-fill {
+    transition: none;
+  }
 }
