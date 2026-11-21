@@ -25,6 +25,7 @@ import { consigner, consignerAvec } from "../journal/index.js";
 import { ecarteeParRegles, REGLE_SIGLE, type TraceRegle } from "../match/regles-precision.js";
 import {
 	chargerOrgParAliasSigle,
+	contexteSigleDepuisSource,
 	deciderSigleDepuisRegistre,
 	estSigle,
 	normaliseSigle,
@@ -155,7 +156,10 @@ export async function resoudreSigle(
 	}
 	const sigle = sigleDeIndice(indice, orgName);
 	if (!sigle) return { match, orgName };
-	const decision = await deciderSigleDepuisRegistre(sigle);
+	// Le département de l'organisation proposée par le moteur et le domaine
+	// porté par l'indice départagent les sigles partagés au registre.
+	const contexte = await contexteSigleDepuisSource(match?.orgId ?? null, indice);
+	const decision = await deciderSigleDepuisRegistre(sigle, contexte);
 
 	if (decision.accepte && decision.orgId !== undefined && decision.orgId !== match?.orgId) {
 		return {
