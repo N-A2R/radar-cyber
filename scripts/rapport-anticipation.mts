@@ -1,10 +1,11 @@
 /**
  * Rapport d'anticipation — script reproductible.
  *
- * Lit le corpus de référence et l'instantané J-21 versionnés, vérifie leur
- * cohérence, puis écrit `docs/anticipation.md`. Sans base, sans réseau, sans
- * horodatage : mêmes entrées, mêmes octets. `--verifier` permet de constater
- * une dérive sans rien écrire (utile en CI).
+ * Lit le corpus de couverture des 50 incidents et l'instantané J-21
+ * versionnés, vérifie leur cohérence, puis écrit `docs/anticipation.md`.
+ * Sans base, sans réseau, sans horodatage : mêmes entrées, mêmes octets.
+ * `--verifier` permet de constater une dérive sans rien écrire (utile en CI).
+ * Le corpus JSON historique reste accepté via `--corpus=…json`.
  *
  *   apps/api/node_modules/.bin/tsx scripts/rapport-anticipation.mts
  *   apps/api/node_modules/.bin/tsx scripts/rapport-anticipation.mts --verifier
@@ -17,6 +18,7 @@ import {
 	ErreurRapportAnticipation,
 	genererRapport,
 	lireCorpus,
+	lireCorpusJsonl,
 	lireInstantanes,
 } from "../apps/api/src/analyse/rapport-anticipation.js";
 
@@ -26,7 +28,7 @@ function option(nom: string, defaut: string): string {
 }
 
 const racine = fileURLToPath(new URL("../", import.meta.url));
-const cheminCorpus = option("corpus", `${racine}bench/fixtures/corpus-reference-na.json`);
+const cheminCorpus = option("corpus", `${racine}bench/couverture/incidents.jsonl`);
 const cheminSnapshot = option("snapshot", `${racine}bench/anticipation/J-21.jsonl`);
 const cheminSortie = option("sortie", `${racine}docs/anticipation.md`);
 const cheminJson = option("json", "");
@@ -40,7 +42,7 @@ function main(): void {
 	const corpusTexte = readFileSync(cheminCorpus, "utf8");
 	const snapshotTexte = readFileSync(cheminSnapshot, "utf8");
 	const rapport = genererRapport({
-		corpus: lireCorpus(corpusTexte),
+		corpus: cheminCorpus.endsWith(".jsonl") ? lireCorpusJsonl(corpusTexte) : lireCorpus(corpusTexte),
 		instantanes: lireInstantanes(snapshotTexte),
 		empreintes: { corpus: empreinte(corpusTexte), instantane: empreinte(snapshotTexte) },
 	});

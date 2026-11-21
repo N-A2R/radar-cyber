@@ -1,18 +1,20 @@
 /**
  * Corpus d'anticipation — instantané à J-21.
  *
- * Pour chaque incident du corpus de couverture
- * (`bench/fixtures/corpus-reference-na.json`), on écrit une ligne JSONL avec
- * l'état du radar 21 jours avant le fait : événements des 21 jours précédant
- * cette date, sources actives et organisations citées par ces événements.
+ * Pour chacun des 50 incidents de `bench/couverture/incidents.jsonl`, on écrit
+ * une ligne JSONL avec l'état du radar 21 jours avant le fait : événements des
+ * 21 jours précédant cette date, sources actives et organisations citées par
+ * ces événements. Le corpus JSON historique reste accepté via `--corpus=…json`.
  *
  * Règle d'or : aucune donnée postérieure à J-21 ne sort du script. La borne
  * haute est **exclusive** et porte sur `event.valid_at` (date à laquelle le
  * fait était vrai), pas sur `observed_at`/`collected_at`/`created_at`, qui
- * peuvent être remplis bien plus tard. Les champs des sources qui portent une
- * date d'activité postérieure sont tronqués à la borne ; les métadonnées de
- * l'incident lui-même ne sont pas des données du instantané et restent
- * limitées à son identifiant, son nom et sa date de référence.
+ * peuvent être remplis bien plus tard. La borne est appliquée en SQL puis
+ * revérifiée en mémoire ; tout événement rejeté est compté et publié.
+ * Les champs des sources qui portent une date d'activité postérieure sont
+ * tronqués à la borne ; les métadonnées de l'incident lui-même ne sont pas des
+ * données de l'instantané et restent limitées à son identifiant, son nom et
+ * sa date de référence.
  *
  *   DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
  *     apps/api/node_modules/.bin/tsx scripts/anticipation.mts
@@ -29,7 +31,7 @@ function option(nom: string, defaut: string): string {
 	return argv.find((a) => a.startsWith(`--${nom}=`))?.slice(nom.length + 3) ?? defaut;
 }
 
-const CHEMIN_CORPUS = option("corpus", fileURLToPath(new URL("../bench/fixtures/corpus-reference-na.json", import.meta.url)));
+const CHEMIN_CORPUS = option("corpus", fileURLToPath(new URL("../bench/couverture/incidents.jsonl", import.meta.url)));
 const CHEMIN_SORTIE = option("sortie", fileURLToPath(new URL("../bench/anticipation/J-21.jsonl", import.meta.url)));
 const JOURS = 21;
 
@@ -43,6 +45,10 @@ type Incident = {
 	entite: string;
 	dateIncident: string | null;
 	datePublique: string;
+	departement?: string | null;
+	type?: string | null;
+	resume?: string | null;
+	source?: string | null;
 };
 
 type Evenement = {
@@ -95,11 +101,68 @@ function jour(date: Date): string {
 	return iso(date).slice(0, 10);
 }
 
-async function main(): Promise<void> {
-	const corpus = JSON.parse(readFileSync(CHEMIN_CORPUS, "utf8")) as { incidents: Incident[] };
-	const lignes: string[] = [];
+/** Lecture du corpus de couverture (JSONL) ou du corpus historique (JSON). */
+function lireIncidents(chemin: string): Incident[] {
+	const texte = readFileSync(chemin, "utf8").trim();
+	if (!texte) return [];
+	const objets: Record<string, unknown>[] = chemin.endsWith(".jsonl")
+		? texte
+				.split("\n")
+				.filter((ligne) => ligne.trim().length > 0)
+				.map((ligne, index) => {
+					let brut: unknown;
+					try {
+						brut = JSON.parse(ligne);
+					} catch (erreur) {
+						throw new Error(`${chemin} ligne ${index + 1} : JSON illisible (${String(erreur)})`);
+					}
+					if (typeof brut !== "object" || brut === null || Array.isArray(brut)) {
+						throw new Error(`${chemin} ligne ${index + 1} : entrée non objet`);
+					}
+					return brut as Record<string, unknown>;
+				})
+		: (() => {
+				const brut = JSON.parse(texte) as { incidents?: unknown[] };
+				if (!Array.isArray(brut.incidents)) throw new Error(`${chemin} : clé incidents manquante`);
+				return brut.incidents as Record<string, unknown>[];
+			})();
 
-	for (const incident of corpus.incidents) {
+	const vus = new Set<string>();
+	return objets.map((objet, index) => {
+		const chaine = (cle: string) => (typeof objet[cle] === "string" ? (objet[cle] as string) : "");
+		const id = chaine("id");
+		const entite = chaine("organisation") || chaine("entite");
+		const dateIncident = chaine("date_incident") || chaine("dateIncident") || null;
+		const datePublique = chaine("date_publication") || chaine("datePublique");
+		if (!id || !entite || (!dateIncident && !datePublique)) {
+			throw new Error(`${chemin} entrée ${index + 1} : id, entité et une date sont requis`);
+		}
+		if (vus.has(id)) throw new Error(`${chemin} : id d'incident dupliqué ${id}`);
+		vus.add(id);
+		const dateReference = dateIncident ?? datePublique;
+		const reference = dateDuJour(dateReference);
+		if (Number.isNaN(reference.getTime()) || jour(reference) !== dateReference.slice(0, 10)) {
+			throw new Error(`${chemin} entrée ${index + 1} : date de référence invalide (${dateReference})`);
+		}
+		return {
+			id,
+			entite,
+			dateIncident,
+			datePublique,
+			departement: chaine("departement") || null,
+			type: chaine("type") || null,
+			resume: chaine("resume") || null,
+			source: chaine("source") || null,
+		};
+	});
+}
+
+async function main(): Promise<void> {
+	const incidents = lireIncidents(CHEMIN_CORPUS);
+	const lignes: string[] = [];
+	let horsBorne = 0;
+
+	for (const incident of incidents) {
 		// Une entrée du corpus n'a pas de date d'incident. On le dit dans la
 		// ligne plutôt que d'inventer une date : la date publique sert alors
 		// de référence, explicitement marquée comme telle.
@@ -120,6 +183,15 @@ async function main(): Promise<void> {
 			  ORDER BY e.valid_at, e.id`,
 			[debut, fin],
 		);
+
+		// Deuxième barrière, côté machine : même si une requête était modifiée
+		// plus tard, aucun événement postérieur à J-21 ne peut sortir d'ici.
+		const retenus = evenements.filter((evenement) => {
+			const instant = evenement.valid_at.getTime();
+			if (instant >= debut.getTime() && instant < fin.getTime()) return true;
+			horsBorne++;
+			return false;
+		});
 
 		// Une source n'est dite active ici que si elle a produit au moins un
 		// événement dont `valid_at` est antérieur à J-21. On ne décide pas à
@@ -169,11 +241,11 @@ async function main(): Promise<void> {
 				fenetre: { debut: jour(debut), fin: jour(j21), jours: JOURS },
 				comptes: {
 					evenements_avant_j21: totaux[0]?.avant ?? 0,
-					evenements_fenetre: totaux[0]?.fenetre ?? 0,
+					evenements_fenetre: retenus.length,
 					sources_actives: sources.length,
 					organisations_citees: organisations.length,
 				},
-				evenements: evenements.map((e) => ({
+				evenements: retenus.map((e) => ({
 					id: e.id,
 					family: e.family,
 					assertion_type: e.assertion_type,
@@ -198,7 +270,10 @@ async function main(): Promise<void> {
 
 	mkdirSync(dirname(CHEMIN_SORTIE), { recursive: true });
 	writeFileSync(CHEMIN_SORTIE, `${lignes.join("\n")}\n`, "utf8");
-	console.log(`${lignes.length} incident(s) → ${CHEMIN_SORTIE}`);
+	console.log(
+		`${lignes.length} incident(s) → ${CHEMIN_SORTIE} ; ` +
+			`${horsBorne} événement(s) rejeté(s) par la borne J-21 sur valid_at`,
+	);
 	await closePools();
 }
 

@@ -16,6 +16,7 @@ import {
 	extraireJetons,
 	genererRapport,
 	lireCorpus,
+	lireCorpusJsonl,
 	lireInstantanes,
 	type EvenementInstantane,
 	type IncidentCorpus,
@@ -223,20 +224,54 @@ test("les entrées malformées s'arrêtent avec un code explicite", () => {
 	);
 });
 
+test("le corpus de couverture JSONL est lu sans inventer de date", () => {
+	const corpus = lireCorpusJsonl(
+		[
+			JSON.stringify({ id: "a", organisation: "Mairie de X", date_publication: "2026-01-10", departement: "Gironde" }),
+			JSON.stringify({ id: "b", organisation: "Y", date_incident: "2026-02-01", date_publication: "2026-02-03" }),
+		].join("\n"),
+	);
+	assert.equal(corpus.length, 2);
+	assert.equal(corpus[0]?.dateIncident, null);
+	assert.equal(corpus[0]?.datePublique, "2026-01-10");
+	assert.equal(corpus[1]?.dateIncident, "2026-02-01");
+	assert.throws(() => lireCorpusJsonl("{"), (e: unknown) =>
+		e instanceof ErreurRapportAnticipation && e.code === "CORPUS_INVALIDE");
+});
+
+test("l'instantané ne contient aucun événement postérieur à J-21 sur valid_at", () => {
+	const racine = new URL("../../../", import.meta.url);
+	const instantanes = lireInstantanes(readFileSync(new URL("bench/anticipation/J-21.jsonl", racine), "utf8"));
+	assert.equal(instantanes.length, 50);
+	for (const instantane of instantanes) {
+		const fin = new Date(`${instantane.j21}T00:00:00.000Z`).getTime() + 86_400_000;
+		const debut = new Date(`${instantane.fenetre.debut}T00:00:00.000Z`).getTime();
+		for (const evenement of instantane.evenements) {
+			const validAt = new Date(evenement.valid_at).getTime();
+			assert.ok(
+				validAt >= debut && validAt < fin,
+				`${instantane.incident.id} : ${evenement.valid_at} hors de la fenêtre J-21`,
+			);
+		}
+	}
+});
+
 test("le document publié est exactement celui que le script régénère", () => {
 	const racine = new URL("../../../", import.meta.url);
-	const corpusTexte = readFileSync(new URL("bench/fixtures/corpus-reference-na.json", racine), "utf8");
+	const corpusTexte = readFileSync(new URL("bench/couverture/incidents.jsonl", racine), "utf8");
 	const snapshotTexte = readFileSync(new URL("bench/anticipation/J-21.jsonl", racine), "utf8");
 	const publie = readFileSync(new URL("docs/anticipation.md", racine), "utf8");
 	const resultat = genererRapport({
-		corpus: lireCorpus(corpusTexte),
+		corpus: lireCorpusJsonl(corpusTexte),
 		instantanes: lireInstantanes(snapshotTexte),
 		empreintes: {
 			corpus: createHash("sha256").update(corpusTexte).digest("hex"),
 			instantane: createHash("sha256").update(snapshotTexte).digest("hex"),
 		},
 	});
-	assert.equal(resultat.dossiers.length, 60);
+	assert.equal(resultat.dossiers.length, 50);
 	assert.equal(resultat.resume.avecSignal, 0);
+	assert.match(resultat.markdown, /Incidents avec signal retenu \| 0 \/ 50/);
+	assert.match(resultat.markdown, /Incidents sans signal retenu \| 50 \/ 50/);
 	assert.equal(resultat.markdown, publie);
 });
