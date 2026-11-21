@@ -2,9 +2,10 @@
  * Contrat HTTP consommé par l'écran Coverage.
  *
  * La route sert une mesure figée : on vérifie ici les champs que l'UI lit,
- * leur cohérence arithmétique et la stabilité de l'ETag. `stale` et `parMois`
- * sont des ajouts en cours de publication : le test les valide dès qu'ils
- * apparaissent dans la réponse, sans faire échouer la suite avant leur arrivée.
+ * leur cohérence arithmétique et la stabilité de l'ETag. La décomposition par
+ * type d'incident est servie sous `parType` ; `parSecteur` n'existe pas dans
+ * le contrat de `main` et n'est donc pas exigé ici. `stale` et `parMois` sont
+ * des ajouts en cours de publication : le test les valide dès qu'ils
  */
 import assert from "node:assert/strict";
 import { after, before, test } from "node:test";
@@ -19,7 +20,7 @@ type Corps = {
   global: Ligne;
   parMotif: Array<{ motif: string; incidents: number; part: number }>;
   parDepartement: Array<Ligne & { departement: string }>;
-  parSecteur: Array<Ligne & { secteur: string }>;
+  parType: Array<Ligne & { type: string }>;
   parMois?: Array<Ligne & { mois: string }>;
   stale?: boolean;
 };
@@ -54,12 +55,12 @@ test("GET /api/couverture fournit les sections affichées par Coverage", async (
     corps.parMotif.reduce((somme, motif) => somme + motif.incidents, 0),
     corps.global.total,
   );
-  for (const section of [corps.parDepartement, corps.parSecteur]) {
+  for (const section of [corps.parDepartement, corps.parType]) {
     assert.equal(section.reduce((somme, ligne) => somme + ligne.total, 0), corps.global.total);
     assert.equal(section.reduce((somme, ligne) => somme + ligne.vus, 0), corps.global.vus);
   }
   assert.ok(corps.parDepartement.every((ligne) => ligne.departement.length > 0));
-  assert.ok(corps.parSecteur.every((ligne) => ligne.secteur.length > 0));
+  assert.ok(corps.parType.every((ligne) => ligne.type.length > 0));
 
   if (corps.parMois !== undefined) {
     assert.ok(corps.parMois.length > 0);
