@@ -10,6 +10,7 @@ import type { FastifyInstance } from "fastify";
 import { z } from "zod";
 import { query, withTransaction } from "../db.js";
 import { requireAuth, requireRole } from "../middleware/auth.js";
+import { etagOu304 } from "../etag.js";
 import { evaluateEvent } from "../detect/engine.js";
 import { domainFromHint } from "../match/domaine.js";
 import { estSigle } from "../match/sigles.js";
@@ -127,7 +128,7 @@ export default async function (app: FastifyInstance) {
 			q: q ?? null,
 		});
 		const contextes = await contextesDes(result.rows.map((row) => row.id));
-		return {
+		const corps = {
 			rows: result.rows.map((row) => ({
 				id: row.id,
 				source: row.source,
@@ -154,10 +155,12 @@ export default async function (app: FastifyInstance) {
 			counts: result.counts,
 			tookMs: result.tookMs,
 		};
+		if (etagOu304(reply, corps)) return;
+		return corps;
 	});
 
 	/** Comptes lus en base : file, décisions humaines et promotions. */
-	app.get("/review/stats", { preHandler: requireAuth() }, async () => {
+	app.get("/review/stats", { preHandler: requireAuth() }, async (_req, reply) => {
 		const [pending, acceptees, refusees, promues] = await Promise.all([
 			query<{ n: number }>(
 				`SELECT count(*)::int AS n FROM quarantine_raw
@@ -176,12 +179,14 @@ export default async function (app: FastifyInstance) {
 			),
 			query<{ n: number }>("SELECT count(*)::int AS n FROM quarantine_raw WHERE promoted=true"),
 		]);
-		return {
+		const corps = {
 			pending: pending.rows[0]?.n ?? 0,
 			acceptees: acceptees.rows[0]?.n ?? 0,
 			refusees: refusees.rows[0]?.n ?? 0,
 			promues: promues.rows[0]?.n ?? 0,
 		};
+		if (etagOu304(reply, corps)) return;
+		return corps;
 	});
 
 	/**
