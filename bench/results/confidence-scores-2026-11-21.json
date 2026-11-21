@@ -1,0 +1,313 @@
+{
+  "generatedAt": "2026-11-21T20:52:31.951Z",
+  "method": {
+    "weights": {
+      "independentSources": 0.35,
+      "sourceQuality": 0.25,
+      "temporalCoherence": 0.2,
+      "validatedCorpus": 0.2
+    },
+    "levels": {
+      "high": 70,
+      "medium": 40
+    },
+    "factWindowHours": 72,
+    "corpusIncidents": 60
+  },
+  "totals": {
+    "eventsLoaded": 27873,
+    "eventsScored": 27873,
+    "attachmentsScored": 121
+  },
+  "facts": {
+    "total": 27495,
+    "corroborated": 173,
+    "singleSource": 27322,
+    "eventsInCorroboratedFacts": 482,
+    "eventsInSingleSourceFacts": 27391
+  },
+  "incidents": {
+    "total": 1739,
+    "corroborated": 0,
+    "singleSource": 1739
+  },
+  "scoreDistribution": [
+    {
+      "score": 34,
+      "events": 1182
+    },
+    {
+      "score": 36,
+      "events": 36
+    },
+    {
+      "score": 40,
+      "events": 2115
+    },
+    {
+      "score": 44,
+      "events": 1
+    },
+    {
+      "score": 46,
+      "events": 14219
+    },
+    {
+      "score": 48,
+      "events": 71
+    },
+    {
+      "score": 50,
+      "events": 14
+    },
+    {
+      "score": 52,
+      "events": 9773
+    },
+    {
+      "score": 54,
+      "events": 19
+    },
+    {
+      "score": 60,
+      "events": 9
+    },
+    {
+      "score": 62,
+      "events": 97
+    },
+    {
+      "score": 64,
+      "events": 2
+    },
+    {
+      "score": 66,
+      "events": 65
+    },
+    {
+      "score": 68,
+      "events": 38
+    },
+    {
+      "score": 78,
+      "events": 1
+    },
+    {
+      "score": 80,
+      "events": 231
+    }
+  ],
+  "levelDistribution": [
+    {
+      "level": "high",
+      "events": 232
+    },
+    {
+      "level": "low",
+      "events": 1218
+    },
+    {
+      "level": "medium",
+      "events": 26423
+    }
+  ],
+  "examples": [
+    {
+      "factKey": "vuln|na|cve 2026 58873 in adddragdroplistener of windowmanagerservice|2026-11-02T20:17:35.373Z",
+      "family": "vuln",
+      "orgId": null,
+      "title": "CVE-2026-58873: In addDragDropListener of WindowManagerService.",
+      "start": "2026-11-02T20:17:35.373Z",
+      "end": "2026-11-02T20:17:35.373Z",
+      "sourcesDistinct": 1,
+      "eventIds": [
+        13218
+      ],
+      "incident": false,
+      "score": {
+        "score": 46,
+        "level": "medium",
+        "components": {
+          "independentSources": 0.2,
+          "sourceQuality": 1,
+          "temporalCoherence": 0.7,
+          "validatedCorpus": 0
+        },
+        "breakdown": [
+          {
+            "key": "independentSources",
+            "label": "Independent sources",
+            "value": 0.2,
+            "weight": 0.35,
+            "points": 7,
+            "reason": "one source: nothing corroborates it"
+          },
+          {
+            "key": "sourceQuality",
+            "label": "Source quality",
+            "value": 1,
+            "weight": 0.25,
+            "points": 25,
+            "reason": "1 primary, 0 secondary"
+          },
+          {
+            "key": "temporalCoherence",
+            "label": "Temporal coherence",
+            "value": 0.7,
+            "weight": 0.2,
+            "points": 14,
+            "reason": "date inferred from the text"
+          },
+          {
+            "key": "validatedCorpus",
+            "label": "Validated corpus",
+            "value": 0,
+            "weight": 0.2,
+            "points": 0,
+            "reason": "Absent from the validated corpus"
+          }
+        ],
+        "measures": {
+          "independentSources": 1,
+          "primarySources": 1,
+          "secondarySources": 0,
+          "gapHours": 0,
+          "precision": "inferred",
+          "corpusPresence": "absent"
+        }
+      }
+    },
+    {
+      "factKey": "cert_fr|na|vulnerabilite dans vmware tanzu 19 novembre 2026|2026-11-19T00:00:00.000Z",
+      "family": "cert_fr",
+      "orgId": null,
+      "title": "Vulnérabilité dans VMware Tanzu (19 novembre 2026)",
+      "start": "2026-11-19T00:00:00.000Z",
+      "end": "2026-11-19T00:00:00.000Z",
+      "sourcesDistinct": 3,
+      "eventIds": [
+        51155,
+        52241,
+        130430
+      ],
+      "incident": false,
+      "score": {
+        "score": 80,
+        "level": "high",
+        "components": {
+          "independentSources": 1,
+          "sourceQuality": 1,
+          "temporalCoherence": 1,
+          "validatedCorpus": 0
+        },
+        "breakdown": [
+          {
+            "key": "independentSources",
+            "label": "Independent sources",
+            "value": 1,
+            "weight": 0.35,
+            "points": 35,
+            "reason": "3 independent sources"
+          },
+          {
+            "key": "sourceQuality",
+            "label": "Source quality",
+            "value": 1,
+            "weight": 0.25,
+            "points": 25,
+            "reason": "3 primary, 0 secondary"
+          },
+          {
+            "key": "temporalCoherence",
+            "label": "Temporal coherence",
+            "value": 1,
+            "weight": 0.2,
+            "points": 20,
+            "reason": "date published by the source"
+          },
+          {
+            "key": "validatedCorpus",
+            "label": "Validated corpus",
+            "value": 0,
+            "weight": 0.2,
+            "points": 0,
+            "reason": "Absent from the validated corpus"
+          }
+        ],
+        "measures": {
+          "independentSources": 3,
+          "primarySources": 3,
+          "secondarySources": 0,
+          "gapHours": 0,
+          "precision": "certain",
+          "corpusPresence": "absent"
+        }
+      }
+    },
+    {
+      "factKey": "cti|151753|campagnac des techniques pour contrer les cyberattaques centre presse aveyron|2026-11-13T20:38:00.000Z",
+      "family": "cti",
+      "orgId": 151753,
+      "title": "Campagnac. Des techniques pour contrer les cyberattaques - Centre Presse Aveyron",
+      "start": "2026-11-13T20:38:00.000Z",
+      "end": "2026-11-13T20:38:00.000Z",
+      "sourcesDistinct": 1,
+      "eventIds": [
+        77201
+      ],
+      "incident": false,
+      "score": {
+        "score": 34,
+        "level": "low",
+        "components": {
+          "independentSources": 0.2,
+          "sourceQuality": 0.5,
+          "temporalCoherence": 0.7,
+          "validatedCorpus": 0
+        },
+        "breakdown": [
+          {
+            "key": "independentSources",
+            "label": "Independent sources",
+            "value": 0.2,
+            "weight": 0.35,
+            "points": 7,
+            "reason": "one source: nothing corroborates it"
+          },
+          {
+            "key": "sourceQuality",
+            "label": "Source quality",
+            "value": 0.5,
+            "weight": 0.25,
+            "points": 12.5,
+            "reason": "0 primary, 1 secondary"
+          },
+          {
+            "key": "temporalCoherence",
+            "label": "Temporal coherence",
+            "value": 0.7,
+            "weight": 0.2,
+            "points": 14,
+            "reason": "date inferred from the text"
+          },
+          {
+            "key": "validatedCorpus",
+            "label": "Validated corpus",
+            "value": 0,
+            "weight": 0.2,
+            "points": 0,
+            "reason": "Absent from the validated corpus"
+          }
+        ],
+        "measures": {
+          "independentSources": 1,
+          "primarySources": 0,
+          "secondarySources": 1,
+          "gapHours": 0,
+          "precision": "inferred",
+          "corpusPresence": "absent"
+        }
+      }
+    }
+  ]
+}
