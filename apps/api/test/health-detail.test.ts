@@ -4,7 +4,8 @@
  * Un test de forme (les clés) ne suffit pas : une route peut renvoyer des clés
  * correctes avec des compteurs inventés. Chaque entier est donc comparé à une
  * requête indépendante, exécutée ici dans la base de test — le même geste que
- * `psql` sur la base réelle.
+ * `psql` sur la base réelle. La latence, la taille et les volumes de la base
+ * sont relus de la même façon ; le statut « morte » est déclaré en base.
  *
  * Isolation : cinq sources, une organisation, des événements et trois files
  * jetables, supprimés dans `after`.
@@ -33,9 +34,9 @@ let app: FastifyInstance;
 before(async () => {
   for (const [key, id] of Object.entries(IDS)) {
     await query(
-      `INSERT INTO source (id, name, family, url, enabled)
-       VALUES ($1,$2,'cti','https://exemple.invalid/${key}',$3)`,
-      [id, `${key} (test ${TAG})`, key !== "disabled"],
+      `INSERT INTO source (id, name, family, url, enabled, statut)
+       VALUES ($1,$2,'cti','https://exemple.invalid/${key}',$3,$4)`,
+      [id, `${key} (test ${TAG})`, key !== "disabled", key === "disabled" ? "morte" : "active"],
     );
   }
   const org = await query<{ id: number }>(
@@ -109,7 +110,7 @@ test("la route porte toutes les clés attendues et des entiers", async () => {
   assert.equal(body.windowDays, 7);
   assert.ok(Date.parse(body.generatedAt) > 0);
   assert.deepEqual(Object.keys(body).sort(), [
-    "events24h", "families", "generatedAt", "ok", "orgs7j", "queues", "sources", "windowDays",
+    "db", "events24h", "families", "generatedAt", "ok", "orgs7j", "queues", "sources", "windowDays",
   ]);
   assert.deepEqual(Object.keys(body.sources).sort(), [
     "actives7j", "bySource", "declared", "enabled", "muettes7j",
@@ -123,11 +124,38 @@ test("la route porte toutes les clés attendues et des entiers", async () => {
   for (const n of entiers) assert.ok(Number.isInteger(n) && n >= 0, `entier attendu : ${n}`);
   for (const s of body.sources.bySource) {
     assert.ok(s.ageHours === null || (Number.isInteger(s.ageHours) && s.ageHours >= 0));
+    assert.ok(["ok", "rouge", "morte"].includes(s.status), `statut attendu : ${s.status}`);
+    assert.equal(s.lastProducedAt, s.lastEventAt);
   }
   for (const f of body.families) {
     assert.ok(f.ageHours === null || Number.isInteger(f.ageHours));
     assert.ok(f.ageDays === null || Number.isInteger(f.ageDays));
   }
+});
+
+test("latence, taille et volumes viennent de la base de test", async () => {
+  const b = await lire();
+  assert.deepEqual(Object.keys(b.db).sort(), [
+    "aliases", "events", "latencyMs", "orgs", "sizeBytes",
+  ]);
+  assert.ok(Number.isFinite(b.db.latencyMs) && b.db.latencyMs >= 0, `latence : ${b.db.latencyMs}`);
+  const mesure = await query<{
+    taille: string;
+    orgs: number;
+    aliases: number;
+    events: number;
+  }>(`
+    SELECT pg_database_size(current_database())::text AS taille,
+           (SELECT count(*)::int FROM org) AS orgs,
+           (SELECT count(*)::int FROM org_alias) AS aliases,
+           (SELECT count(*)::int FROM event) AS events
+  `);
+  const m = mesure.rows[0];
+  assert.ok(Number(m.taille) > 0, "la base de test occupe de l'espace");
+  assert.equal(b.db.sizeBytes, Number(m.taille));
+  assert.equal(b.db.orgs, Number(m.orgs));
+  assert.equal(b.db.aliases, Number(m.aliases));
+  assert.equal(b.db.events, Number(m.events));
 });
 
 test("les compteurs sont ceux de la base, pas une estimation", async () => {
@@ -175,23 +203,39 @@ test("les compteurs sont ceux de la base, pas une estimation", async () => {
 test("chaque source et chaque famille porte le bon âge et la bonne couleur", async () => {
   const b = await lire();
   const parId = new Map(b.sources.bySource.map((s) => [s.id, s]));
-  const attendus: [keyof typeof IDS, string, number | null][] = [
-    ["green", "green", 2],
-    ["orange", "orange", 72],
-    ["red", "red", 240],
-    ["muette", "red", null],
-    ["disabled", "green", 2],
+  const attendus: [
+    keyof typeof IDS,
+    string,
+    number | null,
+    HealthDetail["sources"]["bySource"][number]["status"],
+  ][] = [
+    ["green", "green", 2, "ok"],
+    ["orange", "orange", 72, "ok"],
+    ["red", "red", 240, "rouge"],
+    ["muette", "red", null, "rouge"],
+    ["disabled", "green", 2, "morte"],
   ];
-  for (const [key, tone, age] of attendus) {
+  for (const [key, tone, age, statut] of attendus) {
     const s = parId.get(IDS[key]);
     assert.ok(s, `source ${key} absente de la réponse`);
-    assert.equal(s.tone, tone, `couleur de ${key}`);
+    assert.equal(s.status, statut, `statut de ${key}`);
     if (age === null) {
       assert.equal(s.ageHours, null, "une source sans fait n'a pas d'âge mesuré");
-      assert.equal(s.lastEventAt, null);
+      assert.equal(s.lastProducedAt, null);
     } else {
       assert.ok(s.ageHours !== null && Math.abs(s.ageHours - age) <= 1, `âge de ${key}`);
     }
+    const production = await query<{ at: string | null }>(
+      `SELECT max(COALESCE(observed_at, collected_at))::text AS at
+         FROM event WHERE source_id=$1`,
+      [IDS[key]],
+    );
+    const at = production.rows[0]?.at ?? null;
+    assert.equal(
+      s.lastProducedAt === null ? null : Date.parse(s.lastProducedAt),
+      at === null ? null : Date.parse(at),
+      `production de ${key}`,
+    );
     const collecte = await query<{ at: string | null }>(
       `SELECT COALESCE(max(finished_at), s.last_ok_at)::text AS at
          FROM collector_run r RIGHT JOIN source s ON s.id=r.source_id
