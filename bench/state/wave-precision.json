@@ -1,8 +1,8 @@
 {
 	"vague": "precision",
 	"demarreeLe": "2026-11-21",
-	"etapeCourante": "S2",
-	"tacheCourante": "S2.1",
+	"etapeCourante": "S3",
+	"tacheCourante": "S3.1",
 	"taches": {
 		"S1.1": {
 			"statut": "fait",
@@ -38,6 +38,26 @@
 			"statut": "fait",
 			"commit": "renseigné au commit suivant",
 			"le": "2026-11-21T05:10Z"
+		},
+		"S2.1": {
+			"statut": "fait",
+			"commit": "renseigné au commit suivant",
+			"le": "2026-11-21T05:25Z"
+		},
+		"S2.2": {
+			"statut": "fait",
+			"commit": "renseigné au commit suivant",
+			"le": "2026-11-21T05:25Z"
+		},
+		"S2.3": {
+			"statut": "fait",
+			"commit": "renseigné au commit suivant",
+			"le": "2026-11-21T05:26Z"
+		},
+		"S2.4": {
+			"statut": "fait",
+			"commit": "renseigné au commit suivant",
+			"le": "2026-11-21T05:26Z"
 		}
 	},
 	"journal": [
@@ -51,7 +71,8 @@
 		"S1.3b lot 6/6 (ordres 451-500) + clôture S1.2 : 500/500 verdicts posés, chacun avec preuve (registre requête+réponse consignée — SIREN, code d'entité à 9 chiffres ou recherche par nom — et site URL+extrait verbatim quand il en existe un). Répartition finale : 77 exacte, 5 partielle, 282 hors_sujet, 136 indécidable → précision brute 79,5/364 = 21,8 %. Cadence mesurée sur les six lots : 310 → 260 → 240 → 215 → 200 verdicts/h (dérive lente au fil des strates sigle, majoritaires et plus indécidables).",
 		"S1.4 gel du corpus : bench/precision/corpus-v1.json figé, SHA-256 71e835ac1135dd9737b1dc008e8d88fdd2634794273edd7dafff2bbc961128a2 ; 500 entrées, 500 verdicts avec preuve. Les tirages de bruit S1.5 et l'échantillon frais S4 ne se réutilisent pas : graines neuves.",
 		"S1.5 baseline + bruit. DÉFAUT TROUVÉ ET CORRIGÉ : le round-robin du tirage S1.1 produisait une allocation ÉGALE entre strates (sigle 137/500 au lieu du quota 352/500) — l'estimateur brut du corpus gelé (21,8 %) surestime la population : les strates domaine (4 % de la population, P≈95 %) y pèsent 16 %, la strate sigle (70 %, P≈0 %) y pèse 27 %. Le corpus gelé n'est pas modifié (verdicts valables, SHA inchangée) ; la précision de population est donnée par l'estimateur stratifié pondéré : 4,5 %. Bruit à n=100 (deux tirages neufs de 100, 200 verdicts posés avec preuve) : P1 3,9 %, P2 4,4 %, écart 0,5 pt — estimateur stable. scripts/precision-echantillon.mts corrigé pour les tirages suivants (S4).",
-		"S1.6 modes d'échec : les 282 hors_sujet du corpus gelé classés dans bench/precision/modes-echec-v1.json (fichier séparé — le gelé n'est pas modifié) : sigle 123 (un seul jeton fonde le match — strate dominante de la population), homonyme 95, commentaire 30 (jetons du commentaire de fuite ou d'un titre d'œuvre), masquage 24 (mode nouveau : noms masqués matched sur des orgs de 1-2 lettres), TLD 5, ville 3, encodage 2 (mode nouveau : mojibake Santélys → « santa »). Les deux modes dominants pour S2 : sigle (un jeton ne fonde pas un rattachement) et masquage (la longueur du masque prouve la non-identité)."
+		"S1.6 modes d'échec : les 282 hors_sujet du corpus gelé classés dans bench/precision/modes-echec-v1.json (fichier séparé — le gelé n'est pas modifié) : sigle 123 (un seul jeton fonde le match — strate dominante de la population), homonyme 95, commentaire 30 (jetons du commentaire de fuite ou d'un titre d'œuvre), masquage 24 (mode nouveau : noms masqués matched sur des orgs de 1-2 lettres), TLD 5, ville 3, encodage 2 (mode nouveau : mojibake Santélys → « santa »). Les deux modes dominants pour S2 : sigle (un jeton ne fonde pas un rattachement) et masquage (la longueur du masque prouve la non-identité).",
+		"S2 règles candidates sur les deux modes dominants, mesurées gelé + frais et RETENUES (règle 4 de la vague : toutes deux tiennent sur le frais). Règle 1 « un seul jeton ne fonde pas un rattachement » : 140/500 écartées sur le gelé (128 hs, 12 indéc, 0 exacte cassée), population 4,5 % → 15,4 % ; frais (29 survivants vérifiés) 13,2 % vs 15,4 % prédits — tient. Règle 2 « le nom doit couvrir l'indice » (cumulée) : 257/500 écartées (116 hs de plus, 1 partielle cassée — Atos Business Services, prévue ; 0 exacte cassée), brute 66,4 %, population 19,1 % ; frais 66,7 % brut / 22,8 % population — tient. Bilan : docs/precision-bilan-s2.md ; reste pour S3 : masquage 24, commentaire ~12, TLD 2 + la masse d'indécidables (voie de revue, pas une règle)."
 	],
 	"calibration": {
 		"fenetre": {
@@ -74,7 +95,21 @@
 			},
 			"source": "bench/results/precision-baseline.json"
 		},
-		"apresRegles": null,
+		"apresRegles": {
+			"regle1": {
+				"population": 0.154,
+				"brute": 0.337,
+				"tientSurFrais": true
+			},
+			"regle12": {
+				"population": 0.191,
+				"brute": 0.664,
+				"fraisBrut": 0.667,
+				"fraisPopulation": 0.228,
+				"tientSurFrais": true
+			},
+			"source": "bench/results/precision-regle1-s2.json, precision-regle12-s2.json, docs/precision-bilan-s2.md"
+		},
 		"echantillonFrais": null
 	},
 	"gel": {
