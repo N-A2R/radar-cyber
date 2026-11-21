@@ -34,9 +34,63 @@ sudo bash scripts/deploy/install.sh --source "$PWD" \
 Les mots de passe sont générés (hexadécimal 48 caractères) s'ils ne sont pas
 fournis. Ils ne sont jamais écrits dans `state.json`.
 
-> URL et branche du clone : `RADAR_REPO_URL` (défaut
-> `https://github.com/j0ltdevv/radar-cyber.git`) et `RADAR_REF` (défaut `main`).
-> Pour déployer une branche non fusionnée : `RADAR_REF=ma-branche ... bash -s -- ...`.
+### Entrée courte : `scripts/install.sh` (PostgreSQL 18, pile complète)
+
+`scripts/install.sh` déploie l'API **et** l'interface en une commande sur une
+machine Debian/Ubuntu neuve : PostgreSQL 18 (dépôt PGDG), restauration d'un
+dump optionnel, `db/init.sql`, migrations, dépendances, build du front, unité
+systemd `radar-api`, puis preuve HTTP. L'API sert elle-même `apps/web/dist` :
+une seule adresse et un seul processus à tenir, `http://127.0.0.1:8080/` pour
+l'interface et `/api/health` pour la santé (plus d'unité `radar-web`).
+
+```bash
+sudo bash scripts/install.sh --admin-password 'MOT-DE-PASSE' \
+  [--dump /srv/sauvegardes/radar.dump]
+# sans dépôt local :
+curl -fsSL https://raw.githubusercontent.com/j0ltdevv/radar-cyber/main/scripts/install.sh \
+  | sudo bash -s -- --admin-password 'MOT-DE-PASSE'
+```
+
+Ports : `--db-port` (défaut 5432) et `--api-port` (défaut 8080). Rejeu
+idempotent, y compris sur une machine qui a déjà PostgreSQL 18 installé depuis
+PGDG : une source `apt.postgresql.org` existante est laissée intacte (aucun
+`Signed-By` concurrent), le paquet n'est pas réinstallé et le second
+`apt-get update` est supprimé. Si l'ajout d'une source fait échouer APT, la
+source créée est retirée avant la sortie. `--prepare-packages` ne joue que
+cette étape. Vérification sans root ni écriture :
+
+```bash
+bash scripts/install.sh --check --api-port 18100
+# PREUVE : GET http://127.0.0.1:18100/api/health → HTTP 200 {"ok":true,...}
+# PREUVE : GET http://127.0.0.1:18100/ → HTTP 200 (shell React, /assets/… → HTTP 200)
+```
+
+Désinstallation (données conservées par défaut) :
+
+```bash
+sudo bash scripts/install.sh --uninstall
+sudo bash scripts/install.sh --uninstall --purge-data   # base, rôle et cluster aussi
+```
+
+Test automatisé (base de test sur 5433, API sur un port >= 18100, front
+compilé dans un répertoire jetable) :
+
+```bash
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/postgres \
+  pnpm -F @radar/api test test/install-pgd.test.ts test/deploiement-install.test.ts
+```
+
+`install-pgd.test.ts` simule apt/dpkg dans un bac à sable : source PGDG déjà
+présente + PG 18 installé, échec d'`apt-get update` avec retrait de la source,
+et machine neuve. Les 5 tests passent.
+
+Mesuré en local : 11,9 s au rejeu (23,4 s à froid) du lancement au résultat du
+test, dont build du front 7,1 s et contrôle `--check` 128 ms. Rejoué aussi dans
+un conteneur Debian 13 avec une vraie source PGDG (`Signed-By` distinct) et
+PostgreSQL 18.7 installé : `Source PGDG déjà présente`, `PostgreSQL 18 déjà
+installé`, aucun `radar-postgresql.list` créé, `SCRIPT_EXIT=0` puis
+`APT_UPDATE_EXIT=0`. L'installation API + systemd complète sur machine vierge
+reste couverte par `scripts/deploy/fresh-machine-test.sh`.
 
 ## Options
 
