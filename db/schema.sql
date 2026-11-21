@@ -52,6 +52,8 @@ CREATE TABLE IF NOT EXISTS event (
   title          text NOT NULL,
   summary        text,
   observed_at    timestamptz,
+  valid_at       timestamptz NOT NULL DEFAULT now(), -- quand le fait était vrai dans le monde
+  at             timestamptz NOT NULL DEFAULT now(), -- quand le radar l'a appris
   collected_at   timestamptz NOT NULL DEFAULT now(),
   severity       smallint NOT NULL DEFAULT 3,
   confidence     text,                      -- code Admiralty A-F / 1-6, ex "B2"
