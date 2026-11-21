@@ -1,0 +1,612 @@
+{
+  "meta": {
+    "date": "2026-11-21",
+    "objet": "Corpus gelé de 100 items réels — pertinence cyber",
+    "protocole": "Titres réels extraits de event (sources gn-*, presse-*, eco-*), triés par md5(id||graine). 70 items cyber explicites et 30 items non cyber étiquetés à la lecture du titre, sans consulter le moteur de score. Aucun item synthétique.",
+    "graine_pos": "pert-pos",
+    "graine_neg": "pert-neg",
+    "limite": "Population cyber déjà admise par l’ancienne porte : mesure de faux positifs sur contenu retenu, pas rappel sur flux bruts."
+  },
+  "items": [
+    {
+      "id": 24378,
+      "source": "gn-mairie-cyber",
+      "titre": "Chambourcy : une cyberattaque contraint la mairie à couper son réseau informatique et à revenir au papier - Cyberattaque.org",
+      "label": "cyber"
+    },
+    {
+      "id": 24394,
+      "source": "gn-mairie-cyber",
+      "titre": "Fuite de données chez Expedia, des millions de voyageurs potentiellement concernés - French Breaches",
+      "label": "cyber"
+    },
+    {
+      "id": 24349,
+      "source": "gn-40",
+      "titre": "Vol de 6,3 milliards en cryptomonnaie : accusée par le FBI, la Corée du Nord nie être impliquée dans le piratage de Binance - Sud Ouest",
+      "label": "cyber"
+    },
+    {
+      "id": 52526,
+      "source": "gn-47",
+      "titre": "Les réfrigérateurs du don du sang à leur tour ciblés par une cyberattaque - 20 Minutes",
+      "label": "cyber"
+    },
+    {
+      "id": 52607,
+      "source": "gn-mairie-cyber",
+      "titre": "Decoset : fuite de données touchant les usagers du PASS déchèterie - Fuites Infos",
+      "label": "cyber"
+    },
+    {
+      "id": 52603,
+      "source": "gn-mairie-cyber",
+      "titre": "Les adresses email des usagers des déchèteries de Toulouse menacées après une cyberattaque - French Breaches",
+      "label": "cyber"
+    },
+    {
+      "id": 24390,
+      "source": "gn-mairie-cyber",
+      "titre": "Cyberattaque en Ardèche : 21 sites liés aux collectivités et à des entreprises visés - French Breaches",
+      "label": "cyber"
+    },
+    {
+      "id": 24283,
+      "source": "gn-64",
+      "titre": "Des milliers de réfrigérateurs à nouveau visés par une nouvelle cyberattaque en Europe - 20 Minutes",
+      "label": "cyber"
+    },
+    {
+      "id": 81786,
+      "source": "gn-fuite-metropoles",
+      "titre": "Vos données ont été volées lors d’une cyberattaque ? Voici comment le savoir et vous protéger face aux risques de fraude - Ouest-France",
+      "label": "cyber"
+    },
+    {
+      "id": 77183,
+      "source": "gn-17",
+      "titre": "\"Merci beaucoup\", \"Félicitations\" : une cyberattaque s’empare de 15 000 cartes-cadeaux en France - Centre Presse Aveyron",
+      "label": "cyber"
+    },
+    {
+      "id": 47948,
+      "source": "gn-47",
+      "titre": "Binance victime d’une cyberattaque, trois milliards de dollars gelés - 20 Minutes",
+      "label": "cyber"
+    },
+    {
+      "id": 52578,
+      "source": "gn-79",
+      "titre": "Hockey sur glace. La Fédération internationale victime d’une cyberattaque - maville.com",
+      "label": "cyber"
+    },
+    {
+      "id": 77174,
+      "source": "gn-17",
+      "titre": "Après avoir été attaquée numériquement en janvier, la Fédération nationale des chasseurs aurait de nouveau été piratée, inquiétant près de 5 000 utilisateurs selon les chiffres du hacker - PetitBleu.fr",
+      "label": "cyber"
+    },
+    {
+      "id": 24373,
+      "source": "gn-fuite-metropoles",
+      "titre": "ARTE : fuite de données revendiquée touchant 524 000 adresses e-mail - Fuites Infos",
+      "label": "cyber"
+    },
+    {
+      "id": 24334,
+      "source": "gn-79",
+      "titre": "\"Sans eau potable, tout s’arrête\" : les élus de ce syndicat d’eau de Thouars formés à la lutte contre les cyberattaques - lanouvellerepublique.fr",
+      "label": "cyber"
+    },
+    {
+      "id": 24205,
+      "source": "gn-17",
+      "titre": "Incognito.fr : 21 352 commandes en fuite après une cyberattaque - Cyberattaque.org",
+      "label": "cyber"
+    },
+    {
+      "id": 24337,
+      "source": "gn-79",
+      "titre": "Cyberattaques : pour les éviter, cette experte délivre les bonnes pratiques à appliquer dans son quotidien - Ouest-France",
+      "label": "cyber"
+    },
+    {
+      "id": 109075,
+      "source": "gn-47",
+      "titre": "Visé par une cyberattaque massive, le géant des cryptomonnaies Binance gèle ses opérations et craint un préjudice de 6,3 milliards de dollars - franceinfo",
+      "label": "cyber"
+    },
+    {
+      "id": 24330,
+      "source": "gn-47",
+      "titre": "Un hacker affirme avoir mis la main sur 4,1 millions de données chez Renaissance, le parti de Gabriel Attal dément la fuite de données - ladepeche.fr",
+      "label": "cyber"
+    },
+    {
+      "id": 79624,
+      "source": "gn-press-lamontagne",
+      "titre": "Cyberattaque sur les frigos de supermarchés français : l’Iran suspecté d’avoir mis en place l’offensive - La Montagne",
+      "label": "cyber"
+    },
+    {
+      "id": 47901,
+      "source": "gn-33",
+      "titre": "Cyberattaque de l’Etablissement français du sang : cessons de romantiser les pirates informatiques - Libération",
+      "label": "cyber"
+    },
+    {
+      "id": 24346,
+      "source": "gn-79",
+      "titre": "Canicules et cyberattaque : ce spécialiste du froid fête ses 70 ans après une année « extraordinaire » - Ouest-France",
+      "label": "cyber"
+    },
+    {
+      "id": 24355,
+      "source": "gn-87",
+      "titre": "Olivier Riquet (Azursoft) : « Cyberattaque des frigos : et si le vrai sujet était l'alarme ? » - Les Cahiers Techniques du Bâtiment",
+      "label": "cyber"
+    },
+    {
+      "id": 77177,
+      "source": "gn-17",
+      "titre": "Leur température avoisinait les 50 degrés : la France soupçonne l'Iran d'être derrière les cyberattaques contre les frigos des supermarchés - L'Indépendant",
+      "label": "cyber"
+    },
+    {
+      "id": 24209,
+      "source": "gn-23",
+      "titre": "Une enquête ouverte après la cyberattaque visant des chambres froides de l’Établissement français du sang - Le Populaire du Centre",
+      "label": "cyber"
+    },
+    {
+      "id": 24212,
+      "source": "gn-16",
+      "titre": "Crédit Mutuel Arkéa : la banque victime d'une cyberattaque et d'opérations frauduleuses, des pertes supérieures à 100 millions d’euros - Sud Ouest",
+      "label": "cyber"
+    },
+    {
+      "id": 24261,
+      "source": "gn-24",
+      "titre": "Cherry Rocher : une cyberattaque expose les données personnelles des clients - Cyberattaque.org",
+      "label": "cyber"
+    },
+    {
+      "id": 46140,
+      "source": "gn-fuite-metropoles",
+      "titre": "Des réseaux de contrôle technique dont Sécuritest victimes d’une fuite de données massive : 23 millions d’automobilistes potentiellement concernés - Midi Libre",
+      "label": "cyber"
+    },
+    {
+      "id": 52534,
+      "source": "gn-47",
+      "titre": "La menace « cyber » atteint un niveau « grave et inédit » s’alarme Lecornu - 20 Minutes",
+      "label": "cyber"
+    },
+    {
+      "id": 24278,
+      "source": "gn-33",
+      "titre": "« Les noms et adresses des clients pourraient avoir été consultés » : l’entreprise Smartbox victime d’une cyberattaque - Sud Ouest",
+      "label": "cyber"
+    },
+    {
+      "id": 109077,
+      "source": "gn-79",
+      "titre": "\"Extrêmement préoccupantes\" : des cyberattaques frappent des réfrigérateurs de supermarchés partout en Europe - lanouvellerepublique.fr",
+      "label": "cyber"
+    },
+    {
+      "id": 78340,
+      "source": "gn-23",
+      "titre": "Piratage d’eSignFlow en Belgique : quelles données ont fuité ? - Tinynews",
+      "label": "cyber"
+    },
+    {
+      "id": 77201,
+      "source": "gn-17",
+      "titre": "Campagnac. Des techniques pour contrer les cyberattaques - Centre Presse Aveyron",
+      "label": "cyber"
+    },
+    {
+      "id": 47982,
+      "source": "gn-33",
+      "titre": "Cybersécurité : deux ans après sa première lecture au Sénat, le projet de loi arrive enfin ce lundi à l’Assemblée nationale - Sud Ouest",
+      "label": "cyber"
+    },
+    {
+      "id": 24286,
+      "source": "gn-17",
+      "titre": "Cryptomonnaies : comment la cyberattaque de Binance, d’un préjudice de 5,6 milliards d’euros, a-t-elle pu arriver ? - Sud Ouest",
+      "label": "cyber"
+    },
+    {
+      "id": 79621,
+      "source": "gn-press-lamontagne",
+      "titre": "Incendie dans le centre de Clermont-Ferrand, 70.000 forces de l'ordre mobilisées, cyberattaque massive... L'actu de ce vendredi - La Montagne",
+      "label": "cyber"
+    },
+    {
+      "id": 24319,
+      "source": "gn-47",
+      "titre": "Cyberattaque des chambres froides de l'Établissement français du sang : une enquête ouverte, le parquet de Paris saisit la DGSI et l'Office anti-cybercriminalité - France 3 Régions",
+      "label": "cyber"
+    },
+    {
+      "id": 52600,
+      "source": "gn-fuite-metropoles",
+      "titre": "Fournishop, spécialiste des bijoux, visé par une fuite de données de milliers de clients - French Breaches",
+      "label": "cyber"
+    },
+    {
+      "id": 52472,
+      "source": "gn-33",
+      "titre": "Menace cyber : un niveau « grave et inédit », 200 millions d’euros consacrés au développement de l’intelligence artificielle dans la lutte contre les attaques - Sud Ouest",
+      "label": "cyber"
+    },
+    {
+      "id": 24295,
+      "source": "gn-16",
+      "titre": "Cryptomonnaies : après le piratage, Binance prévoit de réautoriser les retraits dimanche - Sud Ouest",
+      "label": "cyber"
+    },
+    {
+      "id": 74060,
+      "source": "gn-64",
+      "titre": "Mourenx : les industriels et administrations sensibilisés face à la cybercriminalité - La République des Pyrénées",
+      "label": "cyber"
+    },
+    {
+      "id": 24248,
+      "source": "gn-33",
+      "titre": "L’Établissement français du sang a été également visé par une cyberattaque - Courrier international",
+      "label": "cyber"
+    },
+    {
+      "id": 24293,
+      "source": "gn-47",
+      "titre": "Deux cyberattaques par jour en Occitanie : comment ce nouvel observatoire régional veut aider les entreprises à se défendre - France 3 Régions",
+      "label": "cyber"
+    },
+    {
+      "id": 110597,
+      "source": "gn-33",
+      "titre": "Pays basque : un passeport et des bons plans pour lutter contre les cyberattaques - Sud Ouest",
+      "label": "cyber"
+    },
+    {
+      "id": 71479,
+      "source": "gn-fuite-metropoles",
+      "titre": "SCI Horizon visée par une fuite de données concernant plus de 450 000 contacts - French Breaches",
+      "label": "cyber"
+    },
+    {
+      "id": 71448,
+      "source": "gn-16",
+      "titre": "Près d’un million de plaques d’immatriculation volées dans une fuite de données : quels risques pour les automobilistes - Charente Libre",
+      "label": "cyber"
+    },
+    {
+      "id": 24297,
+      "source": "gn-33",
+      "titre": "Panne mondiale d’Outlook : les réparations de Microsoft ne se passent « pas comme prévu », « aucun signe d’action malveillante ou de cyberattaque »… Ce que l’on sait - Sud Ouest",
+      "label": "cyber"
+    },
+    {
+      "id": 52434,
+      "source": "gn-17",
+      "titre": "La Commission européenne a été visée fin octobre par une cyberattaque assistée par l’intelligence artificielle - Sud Ouest",
+      "label": "cyber"
+    },
+    {
+      "id": 24372,
+      "source": "gn-cyber-na",
+      "titre": "Cyberattaque contre l'Établissement français du sang : une enquête ouverte par le parquet de Paris - Le Bien Public",
+      "label": "cyber"
+    },
+    {
+      "id": 123345,
+      "source": "gn-17",
+      "titre": "Piratage du site des impôts : un deuxième suspect, âgé de 16 ans, mis en examen - L'Indépendant",
+      "label": "cyber"
+    },
+    {
+      "id": 24387,
+      "source": "gn-cyber-na",
+      "titre": "Piratage de Maileva : quelles données ont été volées lors de l'une des plus importantes cyberattaques commises en France - Actu.fr",
+      "label": "cyber"
+    },
+    {
+      "id": 86712,
+      "source": "gn-mairie-cyber",
+      "titre": "Entre Bièvre et Rhône visée par une revendication cyber - Zataz",
+      "label": "cyber"
+    },
+    {
+      "id": 77121,
+      "source": "gn-17",
+      "titre": "Elle a permis des \"opérations frauduleuses\" : ce que l’on sait de la cyberattaque qui a visé le Crédit Mutuel - Centre Presse Aveyron",
+      "label": "cyber"
+    },
+    {
+      "id": 79623,
+      "source": "gn-press-lamontagne",
+      "titre": "Cryptomonnaies : Binance annonce une cyberattaque massive estimée à 6,3 milliards de dollars, le Bitcoin décroche - La Montagne",
+      "label": "cyber"
+    },
+    {
+      "id": 47941,
+      "source": "gn-47",
+      "titre": "Cyberattaque de l'Établissement français du sang : les pirates ont fait chauffer des réserves de sang à 110 °C... \"À cette température-là, ça devient du boudin !\" - ladepeche.fr",
+      "label": "cyber"
+    },
+    {
+      "id": 44655,
+      "source": "gn-fuite-metropoles",
+      "titre": "Altéal : fuite de données chez Maileva, des clients du bailleur concernés - Fuites Infos",
+      "label": "cyber"
+    },
+    {
+      "id": 52593,
+      "source": "gn-fuite-metropoles",
+      "titre": "Cyberattaque chez Maileva, filiale de La Poste : ce que l’on sait du vol des données personnelles de 22 millions de personnes - Le Figaro",
+      "label": "cyber"
+    },
+    {
+      "id": 24254,
+      "source": "gn-16",
+      "titre": "Cyberattaque : la plateforme de fanfictions AO3 paralysée, des millions de lecteurs privés d’histoires - Sud Ouest",
+      "label": "cyber"
+    },
+    {
+      "id": 24331,
+      "source": "gn-79",
+      "titre": "Cyberattaques : pour les éviter, cette experte délivre les bonnes pratiques à appliquer dans son quotidien - maville.com",
+      "label": "cyber"
+    },
+    {
+      "id": 24214,
+      "source": "gn-16",
+      "titre": "Cyberattaque contre des frigos connectés : la France accuse officiellement l’Iran - Sud Ouest",
+      "label": "cyber"
+    },
+    {
+      "id": 24246,
+      "source": "gn-24",
+      "titre": "Burda Style : les données personnelles de ses clients exposées après une cyberattaque - Cyberattaque.org",
+      "label": "cyber"
+    },
+    {
+      "id": 24313,
+      "source": "gn-16",
+      "titre": "Des milliers de sites déconnectés en urgence, dont ceux des préfectures françaises : comment une faille géante découverte par l’IA fait paniquer le web mondial - Charente Libre",
+      "label": "cyber"
+    },
+    {
+      "id": 116532,
+      "source": "gn-64",
+      "titre": "Pyrénées-Atlantiques : face à une hausse de 37,4 % des infractions numériques, élus et industriels s’arment contre la cybercriminalité - Sud Ouest",
+      "label": "cyber"
+    },
+    {
+      "id": 24307,
+      "source": "gn-16",
+      "titre": "De -30 à 110 degrés : les frigos du don du sang ciblés par une cyberattaque - Charente Libre",
+      "label": "cyber"
+    },
+    {
+      "id": 24277,
+      "source": "gn-64",
+      "titre": "Inovie : les données de patients de plusieurs laboratoires compromises après la cyberattaque de Maileva - Cyberattaque.org",
+      "label": "cyber"
+    },
+    {
+      "id": 52591,
+      "source": "gn-fuite-metropoles",
+      "titre": "France Projecteurs visé par une fuite de données concernant ses clients et visiteurs - French Breaches",
+      "label": "cyber"
+    },
+    {
+      "id": 47878,
+      "source": "gn-17",
+      "titre": "Soyez prudents si vous avez acheté une Smartbox : le géant des coffrets cadeaux victime d’une cyberattaque, vos données ont peut-être été volées - Midi Libre",
+      "label": "cyber"
+    },
+    {
+      "id": 52453,
+      "source": "gn-33",
+      "titre": "Après un été de cyberattaques et un an de blocage, la loi « résilience » de retour à l’Assemblée nationale - Le Monde.fr",
+      "label": "cyber"
+    },
+    {
+      "id": 48007,
+      "source": "gn-86",
+      "titre": "Cyberattaque sur les données des centres de contrôles techniques dont Securitest et Auto Sécurité France, présents à Vienne - Vivre villes",
+      "label": "cyber"
+    },
+    {
+      "id": 79628,
+      "source": "gn-press-lamontagne",
+      "titre": "“Répandre la peur dans les pays occidentaux” : pourquoi le groupe cyber iranien Shahid Kaveh s’attaque à nos frigos - La Montagne",
+      "label": "cyber"
+    },
+    {
+      "id": 24131,
+      "source": "eco-sudouest",
+      "titre": "« Nous avons mis l’élevage au cœur d’Agrinovembre », une première pour Agrinove et ses partenaires",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 24311,
+      "source": "gn-33",
+      "titre": "Sécurité en Europe : une quarantaine de pays inscrivent leurs « principes-clés » dans une charte commune face aux menaces hybrides - Sud Ouest",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 24358,
+      "source": "gn-86",
+      "titre": "Home-Jacking dans la Vienne, les voleurs repartent avec des armes à feu après avoir menacé un septuagénaire - Ouest-France",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 24379,
+      "source": "gn-fuite-metropoles",
+      "titre": "“J’avais peur que ma mère soit morte” : Louise Montangon appelle la police en pleine nuit suite à des menaces - Closer",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 24389,
+      "source": "gn-cyber-na",
+      "titre": "Plusieurs alertes à la bombe dans des écoles en France ce jeudi : ce que risquent les auteurs de ces menaces - Actu.fr",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 24776,
+      "source": "presse-france3-na",
+      "titre": "\"Je veux casser les préjugés\" : à 18 ans, Yanis brigue le titre de Mister Agricole 2027 pour la troisième fois",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 24856,
+      "source": "presse-rue89bordeaux",
+      "titre": "Légalisation du cannabis : une nouvelle étude rallume le débat",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 24881,
+      "source": "presse-sudouest",
+      "titre": "République tchèque : manifestation massive à Prague contre la réforme des médias publics",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 24885,
+      "source": "presse-sudouest",
+      "titre": "Grippe, Covid, bronchiolite… Comment mieux se préparer pour lutter contre les virus hivernaux",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 24895,
+      "source": "presse-sudouest-pyrenees",
+      "titre": "Mourenx : neuf ateliers gratuits au menu de la 6e édition d’Art en stock samedi 21 novembre",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 44931,
+      "source": "presse-sudouest-gironde",
+      "titre": "Rugby (Nationale 2) : Salles a fait trembler l’invincible Nantes",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 47754,
+      "source": "eco-charentelibre",
+      "titre": "L’IA menace de plus en plus d’emplois : voici les métiers les plus exposés, les premiers signes sont déjà là",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 48043,
+      "source": "gn-47",
+      "titre": "Un virus mortel pour les lièvres inquiète les chasseurs du Lot-et-Garonne - 20 Minutes",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 48544,
+      "source": "presse-france3-na",
+      "titre": "Une adolescente sert d'appât, il tombe dans un traquenard : violemment agressé, un jeune homme de 17 ans parvient à donner l'alerte",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 48618,
+      "source": "presse-rue89bordeaux",
+      "titre": "Un apprenti ivoirien de 18 ans menacé d’expulsion après son arrestation sur son lieu de travail",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 52865,
+      "source": "presse-france3-na",
+      "titre": "\"Tout s'écroule\" : l'émotion après l'annonce de la fermeture de la verrerie de Vayres et la suppression de 170 postes en Gironde",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 52967,
+      "source": "presse-sudouest",
+      "titre": "France - Argentine : « Je n’ai pas souvenir d’avoir eu un match simple contre l’Argentine », déclare Antoine Dupont",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 72003,
+      "source": "presse-sudouest",
+      "titre": "XV de France : « Je n’ai pas souvenir d’avoir eu un match simple contre l’Argentine », déclare Antoine Dupont",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 72288,
+      "source": "presse-france3-na",
+      "titre": "Élus menacés de mort, votes sur les travaux : un mois après l'incendie de l'Hôtel de ville de Limoges, le conseil municipal nouveau réuni",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 79616,
+      "source": "presse-sudouest-charente",
+      "titre": "Deux individus interpellés en Charente après avoir volé une voiture à Bordeaux sous la menace d’un couteau",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 79626,
+      "source": "presse-sudouest-lot-et-garonne",
+      "titre": "« Notre collègue a vécu une situation traumatisante » : FO vent debout après la relaxe d’un homme soupçonné d’avoir menacé un surveillant de prison devant son domicile",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 79627,
+      "source": "gn-press-lamontagne",
+      "titre": "L’Iran menace de frapper des bases américaines en Europe si elles servent à lancer des attaques - La Montagne",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 112417,
+      "source": "presse-sudouest-charente",
+      "titre": "Charente et Charente-Maritime : le cognac renouvelle ses instances sous un ciel toujours lourd de menaces",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 115936,
+      "source": "presse-france3-na",
+      "titre": "Pionnière du grand large et militante pour la planète : l’incroyable histoire d’Isabelle Autissier retracée dans un documentaire exceptionnel",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 118380,
+      "source": "presse-sudouest",
+      "titre": "Polynésie française : à bord d’un Falcon 50 de la Marine nationale pour surveiller la plus vaste aire marine protégée du monde",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 119466,
+      "source": "presse-sudouest-lot-et-garonne",
+      "titre": "Ivre, il assène une gifle à une personne et menace d’un couteau une seconde à Agen",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 127938,
+      "source": "presse-france3-creuse",
+      "titre": "\"Les mesures de protection ne sont jamais efficaces à 100%\" : attaques de loup, préfet et agriculteurs toujours en quête de solutions",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 127939,
+      "source": "presse-france3-landes",
+      "titre": "\"Cette année, la catastrophe est arrivée\" : les récoltes de maïs sont divisées par deux après un été de sécheresse",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 127940,
+      "source": "presse-republicain-47",
+      "titre": "Un marché de Noël au milieu des ânes : près de Marmande, cette exploitation organise un week-end insolite",
+      "label": "hors_sujet"
+    },
+    {
+      "id": 128922,
+      "source": "presse-france3-na",
+      "titre": "\"Le risque est d'avoir des impasses thérapeutiques\" : pourquoi la résistance aux antibiotiques devient une menace croissante pour la santé",
+      "label": "hors_sujet"
+    }
+  ]
+}

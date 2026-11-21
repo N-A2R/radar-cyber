@@ -1,10 +1,14 @@
-# Filtre de pertinence — audit mesuré (10/11/2026)
+# Filtre de pertinence — audit mesuré (10/11/2026, historique)
+
+> Ce document relate l'état du filtre **avant** le score et la configuration.
+> Le comportement courant, la mesure de faux positifs sur 100 items réels et
+> les variables `RADAR_CYBER_*` sont décrits dans [docs/pertinence.md](pertinence.md).
 
 Mesuré par `scripts/audit-filter.mts` (lecture seule, prédicats importés) sur les 72 sources `narrative` + `relevance='context'` et 3 sources à indicateurs.
 
 ## Règles réelles
 1. `isRelevant` ne s'applique qu'aux sources `relevance != 'strict'` (72 des 213 sources `narrative`) ; les 141 `strict` passent outre, sans test.
-2. Il teste dans l'ordre les 29 `CYBER_KEYWORDS` (francophones, sauf `ransomware`/`phishing`/`zero-day`/`DDoS`/`APT`/`CVE-`) sur titre+résumé+URL+sourceUrl, puis le nom d'org normalisé (≥4 car.) ou son domaine/asset sur titre+résumé seulement. Présence = vrai, aucun score.
+2. À l'époque : les 29 `CYBER_KEYWORDS` (francophones) testaient titre+résumé+URL+sourceUrl, puis le nom d'org normalisé (≥4 car.) ou son domaine/asset sur titre+résumé seulement. Présence = vrai, aucun score. Depuis : mêmes signaux, mais pondérés et seuillés (voir `docs/pertinence.md`).
 3. « Bruit » ≠ « hors périmètre » : bruit = `filterIndicators` (dénylist MISP des valeurs courantes) + `isActionableIndicator` (ni org, ni sous-domaine, ni /24 d'asset, ni CVE connue) sur les indicateurs ; hors périmètre éditorial = `isRelevant`, qui jette du cyber non rattaché.
 4. Aucune fenêtre d'âge dans `generic.ts`. `last_items` = lignes insérées (`xmax = 0`) : 0 = « rien de neuf », pas « tout filtré ». `items_new` d'une source à indicateurs compte aussi les `ON CONFLICT DO UPDATE` et surestime le neuf.
 

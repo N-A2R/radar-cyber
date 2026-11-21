@@ -18,6 +18,7 @@
     "mesure:couverture": "apps/api/node_modules/.bin/tsx scripts/mesure-couverture.mts",
     "mesure:manques": "apps/api/node_modules/.bin/tsx scripts/manques-referentiel.mts",
     "mesure:anticipation": "apps/api/node_modules/.bin/tsx scripts/mesure-anticipation.mts",
+    "mesure:pertinence": "apps/api/node_modules/.bin/tsx scripts/mesure-pertinence.mts",
     "corpus:hash": "apps/api/node_modules/.bin/tsx scripts/corpus-hash.mts"
   },
   "devDependencies": {

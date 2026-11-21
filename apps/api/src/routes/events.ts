@@ -48,6 +48,9 @@ function redactEvent(row: Record<string, unknown>) {
     dateConfidence: row.date_confidence,
     tlp: row.tlp,
     tlpSource: row.tlp_source,
+    langue: row.langue ?? null,
+    pertinenceScore: row.pertinence_score ?? null,
+    pertinenceRule: row.pertinence_rule ?? null,
     // Les deux axes que le fil ne disait pas : quand, et à quel point on le
     // sait. Calculés ici, une fois, pour que l'écran n'ait rien à déduire.
     fraicheur: fraicheurDe({
@@ -105,7 +108,7 @@ export default async function (app: FastifyInstance) {
     // sources distinctes parlent de la même organisation sur 30 jours. Sans
     // elle, le fil ne peut pas distinguer une revendication isolée d'un
     // incident dont trois rédactions font état.
-    const sql = `SELECT e.id, e.dedup_key, e.family, e.assertion_type, e.title, e.summary, e.observed_at, e.collected_at, e.severity, e.confidence, e.source_id, e.source_url, e.evidence, e.geo_type, e.lat, e.lon, e.org_id, e.date_source, e.date_confidence, e.tlp, e.tlp_source, e.regional, e.regional_motif,
+    const sql = `SELECT e.id, e.dedup_key, e.family, e.assertion_type, e.title, e.summary, e.observed_at, e.collected_at, e.severity, e.confidence, e.source_id, e.source_url, e.evidence, e.geo_type, e.lat, e.lon, e.org_id, e.date_source, e.date_confidence, e.tlp, e.tlp_source, e.regional, e.regional_motif, e.langue, e.pertinence_score, e.pertinence_rule,
              COALESCE((SELECT COUNT(DISTINCT e2.source_id) FROM event e2
                         WHERE e2.org_id = e.org_id
                           AND e.org_id IS NOT NULL
