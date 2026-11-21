@@ -1,0 +1,649 @@
+{
+ "dateMesure": "2026-11-21",
+ "plan": "docs/plans/mission-vague3-longue.md — Task 2",
+ "baseline": {
+  "muettes": 101,
+  "source": "source-health.mts --json du 2026-11-21 02:18 (re-mesure : 101, liste identique)"
+ },
+ "methode": "sonde (scripts/sonde-muettes.mts : fetchResilient + parsers du dépôt) + dernier passage de collecte (collector_run) + dates brutes des corps RSS ; chaque motif porte sa preuve. Motifs : parse-casse / vide-legitime / format-change / bloque-externe ; morte-plus-30j = désactivation journalisée (kind source.changed)",
+ "compte": {
+  "vide-legitime": 80,
+  "bloque-externe": 13,
+  "format-change": 3,
+  "morte-plus-30j": 5,
+  "parse-casse": 0
+ },
+ "parseCasse": "aucune source muette ne présente de parser cassé : démonstration lot par lot — les sources 200 OK ont leurs items décodés et rejetés par la porte (vide-legitime), ou un site qui ne sert plus le format attendu (format-change), ou un blocage externe (bloque-externe)",
+ "lots": {
+  "lot1": [
+   {
+    "id": "presse-01net",
+    "name": "01net (RSS)",
+    "family": "presse",
+    "url": "https://www.01net.com/rss",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 30 items reçus au dernier passage (2026-11-21), tous rejetés par la porte ({\"motif\": \"filtre\", \"presse\": 30}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 42872,
+     "itemsDecodes": 30,
+     "dernierItem": "2026-11-20T18:51:02+00:00",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "30",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 30}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "presse-ouestfrance-rss",
+    "name": "Ouest-France (RSS)",
+    "family": "presse",
+    "url": "https://www.ouest-france.fr/rss/france",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 10 items reçus au dernier passage (2026-11-21), tous rejetés par la porte ({\"motif\": \"filtre\", \"presse\": 10}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 18283,
+     "itemsDecodes": 10,
+     "dernierItem": "2026-11-20T17:51:20.000Z",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "10",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 10}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "feodo-ip",
+    "name": "Feodo Tracker (abuse.ch) IP blocklist",
+    "family": "reputation",
+    "url": "https://feodotracker.abuse.ch/downloads/ipblocklist.json",
+    "kind": "indicator",
+    "format": "json",
+    "motif": "morte-plus-30j",
+    "raison": "dernier item 2026-03-04 (flux en ligne figé 8 mois)",
+    "preuve": {
+     "http": 200,
+     "bytes": 1763,
+     "itemsDecodes": 5,
+     "dernierItem": "2026-03-04T13:28:39.000Z",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "3",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"non_actionnable\": 3}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "feed:firehol:blocklist_de_apache",
+    "name": "FireHOL blocklist_de_apache",
+    "family": "reputation",
+    "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_apache.ipset",
+    "kind": "indicator",
+    "format": "txt",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 10227 items reçus au dernier passage (2026-11-20), tous rejetés par la porte ({\"motif\": \"filtre\", \"non_actionnable\": 10227}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 145802,
+     "itemsDecodes": 10227,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "10227",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"non_actionnable\": 10227}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "presse-undernews",
+    "name": "UnderNews (feed)",
+    "family": "presse",
+    "url": "https://www.undernews.fr/feed",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 20 items reçus au dernier passage (2026-11-21), tous rejetés par la porte ({\"motif\": \"filtre\", \"presse\": 20}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 34568,
+     "itemsDecodes": 20,
+     "dernierItem": "2026-11-20T08:15:13+00:00",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "20",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 20}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "ransom-emsisoft-decrypt",
+    "name": "Emsisoft ransomware decryption",
+    "family": "ransomware",
+    "url": "https://www.emsisoft.com/en/ransomware-decryption/",
+    "kind": "narrative",
+    "format": "html",
+    "motif": "vide-legitime",
+    "raison": "annuaire de décrypteurs : 321 entrées vues, 1 nouvelle en 30 j, 0 event jamais — rien d'admissible NA",
+    "preuve": {
+     "http": 200,
+     "bytes": 189597,
+     "itemsDecodes": 211,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-17",
+      "status": "ok",
+      "itemsIn": "321",
+      "itemsNew": "1",
+      "rejets": "{\"hors_sujet\": 2, \"menu_token\": 96, \"menu_source\": 1}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "ctlog",
+    "name": "Certificate Transparency (crt.sh)",
+    "family": "cti",
+    "url": "https://crt.sh/",
+    "kind": "indicator",
+    "format": "json",
+    "motif": "vide-legitime",
+    "raison": "collecteur dédié : 0 asset « domaine confirmé » au référentiel — rien à surveiller sur crt.sh, 0 event légitime",
+    "preuve": {
+     "http": 200,
+     "bytes": 5897,
+     "itemsDecodes": 0,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "0",
+      "itemsNew": "0",
+      "rejets": "",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "feed:firehol:blocklist_de_ftp",
+    "name": "FireHOL blocklist_de_ftp",
+    "family": "reputation",
+    "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_ftp.ipset",
+    "kind": "indicator",
+    "format": "txt",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 390 items reçus au dernier passage (2026-11-20), tous rejetés par la porte ({\"motif\": \"filtre\", \"non_actionnable\": 390}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 6417,
+     "itemsDecodes": 390,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "390",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"non_actionnable\": 390}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "presse-sudouest-charente-maritime",
+    "name": "Sud Ouest — Charente-Maritime (RSS)",
+    "family": "cti",
+    "url": "https://www.sudouest.fr/charente-maritime/rss.xml",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 20 items reçus au dernier passage (2026-11-21), tous rejetés par la porte ({\"motif\": \"filtre\", \"presse\": 20}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 29445,
+     "itemsDecodes": 20,
+     "dernierItem": "2026-11-20T23:28:21+01:00",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "20",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 20}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "feed:firehol:blocklist_de_bots",
+    "name": "FireHOL blocklist_de_bots",
+    "family": "reputation",
+    "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_bots.ipset",
+    "kind": "indicator",
+    "format": "txt",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 3546 items reçus au dernier passage (2026-11-20), tous rejetés par la porte ({\"motif\": \"filtre\", \"non_actionnable\": 3546}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 51716,
+     "itemsDecodes": 3546,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "3546",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"non_actionnable\": 3546}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "ransom-nomoreransom",
+    "name": "No More Ransom",
+    "family": "ransomware",
+    "url": "https://www.nomoreransom.org/",
+    "kind": "narrative",
+    "format": "html",
+    "motif": "vide-legitime",
+    "raison": "annuaire statique de décrypteurs : 14 liens décodés, mise à jour rare",
+    "preuve": {
+     "http": 200,
+     "bytes": 22039,
+     "itemsDecodes": 14,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-17",
+      "status": "ok",
+      "itemsIn": "28",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"hors_sujet\": 1, \"menu_token\": 10, \"menu_source\": 1}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "presse-lemonde-tech",
+    "name": "Le Monde Technologies (RSS)",
+    "family": "presse",
+    "url": "https://www.lemonde.fr/technologies/rss_full.xml",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 20 items reçus au dernier passage (2026-11-21), tous rejetés par la porte ({\"motif\": \"filtre\", \"presse\": 20}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 27742,
+     "itemsDecodes": 20,
+     "dernierItem": "2026-11-21T01:25:13+00:00",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "20",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 20}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "presse-francetvinfo",
+    "name": "Franceinfo (RSS titres)",
+    "family": "presse",
+    "url": "https://www.franceinfo.fr/titres.rss",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 29 items reçus au dernier passage (2026-11-21), tous rejetés par la porte ({\"motif\": \"filtre\", \"presse\": 29}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 33377,
+     "itemsDecodes": 29,
+     "dernierItem": "2026-11-21T02:25:02+01:00",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "29",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 29}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "presse-lmi-feedburner",
+    "name": "Le Monde Informatique (Feedburner)",
+    "family": "presse",
+    "url": "https://feeds.feedburner.com/LeMondeInformatique",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "morte-plus-30j",
+    "raison": "dernier item 2009-03-15 (feedburner figé, doublon de presse-lmi-rss)",
+    "preuve": {
+     "http": 200,
+     "bytes": 31805,
+     "itemsDecodes": 10,
+     "dernierItem": "2009-03-15T04:05:39+00:00",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "10",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 7, \"menu_token\": 3}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "presse-lemonde-une",
+    "name": "Le Monde (RSS une)",
+    "family": "presse",
+    "url": "https://www.lemonde.fr/rss/une.xml",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 16 items reçus au dernier passage (2026-11-21), tous rejetés par la porte ({\"motif\": \"filtre\", \"presse\": 16}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 22527,
+     "itemsDecodes": 16,
+     "dernierItem": "2026-11-21T01:33:30+01:00",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "16",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 16}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "presse-lefigaro-actu",
+    "name": "Le Figaro (RSS actu)",
+    "family": "presse",
+    "url": "https://www.lefigaro.fr/rss/figaro_actualites.xml",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 19 items reçus au dernier passage (2026-11-21), tous rejetés par la porte ({\"motif\": \"filtre\", \"presse\": 19}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 30549,
+     "itemsDecodes": 19,
+     "dernierItem": "2026-11-21T02:23:05+01:00",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "19",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 19}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "presse-silicon",
+    "name": "Silicon (feed)",
+    "family": "presse",
+    "url": "https://www.silicon.fr/feed",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 50 items reçus au dernier passage (2026-11-21), tous rejetés par la porte ({\"motif\": \"filtre\", \"presse\": 50}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 455649,
+     "itemsDecodes": 50,
+     "dernierItem": "2026-11-20T16:39:06+00:00",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "50",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 50}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "presse-sudouest-rss",
+    "name": "Sud Ouest (RSS)",
+    "family": "presse",
+    "url": "https://www.sudouest.fr/rss.xml",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 20 items reçus au dernier passage (2026-11-21), tous rejetés par la porte ({\"motif\": \"filtre\", \"presse\": 20}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 29602,
+     "itemsDecodes": 20,
+     "dernierItem": "2026-11-20T22:37:18+01:00",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "20",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 20}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "presse-lmi-rss",
+    "name": "Le Monde Informatique (RSS)",
+    "family": "presse",
+    "url": "https://www.lemondeinformatique.fr/flux-rss/rss.xml",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 50 items reçus au dernier passage (2026-11-21), tous rejetés par la porte ({\"motif\": \"filtre\", \"presse\": 50}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 50793,
+     "itemsDecodes": 50,
+     "dernierItem": "2026-11-20T15:53:21.000Z",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "50",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 50}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "presse-sudouest-deux-sevres",
+    "name": "Sud Ouest — Deux-Sèvres (RSS)",
+    "family": "cti",
+    "url": "https://www.sudouest.fr/deux-sevres/rss.xml",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 20 items reçus au dernier passage (2026-11-21), tous rejetés par la porte ({\"motif\": \"filtre\", \"presse\": 20}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 29656,
+     "itemsDecodes": 20,
+     "dernierItem": "2026-11-20T06:30:00+01:00",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "20",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 20}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "presse-sudouest-landes",
+    "name": "Sud Ouest — Landes (RSS)",
+    "family": "cti",
+    "url": "https://www.sudouest.fr/landes/rss.xml",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 20 items reçus au dernier passage (2026-11-21), tous rejetés par la porte ({\"motif\": \"filtre\", \"presse\": 20}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 29860,
+     "itemsDecodes": 20,
+     "dernierItem": "2026-11-20T22:16:21+01:00",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "20",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 20}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "gn-ransom-aquitaine",
+    "name": "Google News — « ransomware Aquitaine »",
+    "family": "cti",
+    "url": "https://news.google.com/rss/search?q=rancongiciel+(Gironde+OR+Dordogne+OR+Landes+OR+Pyr%C3%A9n%C3%A9es-Atlantiques)+when:7d&hl=fr&gl=FR&ceid=FR:fr",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "vide-legitime",
+    "raison": "RSS Google News valide (HTTP 200, en-tête complet), 0 <item> : aucun résultat pour « rançongiciel + 4 départements » sur 7 j — vérification approfondie en Task 5",
+    "preuve": {
+     "http": 200,
+     "bytes": 1268,
+     "itemsDecodes": 0,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "0",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"selecteur\"}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "cat-huntress-blog",
+    "name": "Huntress Blog",
+    "family": "cti",
+    "url": "https://www.huntress.com/blog/rss.xml",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "bloque-externe",
+    "raison": "HTTP 403 (SourceBlockedError, client du collecteur) — blocage externe, ne pas contourner",
+    "preuve": {
+     "http": null,
+     "bytes": null,
+     "itemsDecodes": null,
+     "dernierItem": null,
+     "erreur": "SourceBlockedError: Source blocked (403) for https://www.huntress.com/blog/rss.xml",
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "error",
+      "itemsIn": "0",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"reseau\"}",
+      "erreurCollecte": "Source blocked (403) for https://www.huntress.com/blog/rss.x"
+     }
+    }
+   },
+   {
+    "id": "cat-gbhackers",
+    "name": "GBHackers Security News",
+    "family": "cti",
+    "url": "https://gbhackers.com/feed/",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "bloque-externe",
+    "raison": "HTTP 520 + interstitiel Cloudflare dans le corps reçu — blocage externe, ne pas contourner",
+    "preuve": {
+     "http": 520,
+     "bytes": 7356,
+     "itemsDecodes": 0,
+     "dernierItem": null,
+     "erreur": "interstitiel Cloudflare dans le corps reçu",
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "3",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 2, \"menu_token\": 1}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "presse-zataz",
+    "name": "Zataz (feed)",
+    "family": "presse",
+    "url": "https://www.zataz.com/feed/",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 10 items reçus au dernier passage (2026-11-21), tous rejetés par la porte ({\"motif\": \"filtre\", \"presse\": 10}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 15149,
+     "itemsDecodes": 10,
+     "dernierItem": "2026-11-20T16:09:30+00:00",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "10",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 10}",
+      "erreurCollecte": ""
+     }
+    }
+   }
+  ]
+ },
+ "publie": {
+  "lot1": 25
+ }
+}
