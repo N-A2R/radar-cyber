@@ -14,7 +14,7 @@ import { runHermesCollector } from "./collectors/hermes.collector.js";
 import { runQuarantineCollector } from "./collectors/quarantine.collector.js";
 import { promoteMatches } from "./quarantine/promote.js";
 import { fetchResilient } from "./collectors/http.js";
-import { collectors, executerCollecteur } from "./collectors/index.js";
+import { collectors, executerCollecteur, executerPlan, planifierCycle, ratisserSourcesJamaisCollectees } from "./collectors/index.js";
 import { consignerLot, type JournalEntry } from "./journal/index.js";
 import { porteeRegionale } from "./match/territorial.js";
 import { closePools, ingestQuery, query } from "./db.js";
@@ -174,32 +174,23 @@ function makeContext(cursor: Record<string, unknown>, log: (msg: string) => void
 	};
 }
 
-/** Dernier passage réussi par collecteur, pour respecter `intervalSec`. */
-async function lastRunAgeSec(sourceId: string): Promise<number> {
-	const { rows } = await query<{ age: string | null }>(
-		"SELECT EXTRACT(EPOCH FROM (now() - max(finished_at)))::text AS age FROM collector_run WHERE source_id=$1 AND status='ok'",
-		[sourceId]
-	);
-	const age = Number(rows[0]?.age ?? NaN);
-	return Number.isNaN(age) ? Infinity : age;
-}
-
+/**
+ * Un cycle est planifié puis exécuté source par source : santé, backoff et
+ * priorité aux sources jamais collectées sont décidés dans le registre, et
+ * `executerPlan` isole chaque échec pour que la suite du cycle ait lieu.
+ */
 async function runCollectors(options?: { onlyId?: string; force?: boolean }): Promise<void> {
-	for (const c of collectors) {
-	if (options?.onlyId && c.id !== options.onlyId) continue;
-	const force = options?.force === true;
-	const age = force ? Infinity : await lastRunAgeSec(c.id);
-	if (age < c.intervalSec * 0.8) continue;
-
-		const { rows } = await query<{ cursor: unknown; statut: string; enabled: boolean }>(
-			"SELECT cursor, statut, enabled FROM source WHERE id=$1", [c.id],
-		);
-		// Une source morte (décision admin ou 5 échecs) ne doit plus être collectée.
-		if (rows[0]?.statut === "morte" || rows[0]?.enabled === false) continue;
-		// Colonne jsonb : la forme réelle n'est connue qu'à l'exécution.
-		const stored: unknown = rows[0]?.cursor;
-		const cursor = stored !== null && typeof stored === "object" ? (stored as Record<string, unknown>) : {};
-
+	const plan = await planifierCycle({
+		onlyId: options?.onlyId,
+		force: options?.force,
+		log: (m) => app.log.info(m),
+	});
+	for (const sautee of plan.sautees) {
+		app.log.debug(`collecteur ${sautee.sourceId} sauté : ${sautee.raison}`);
+	}
+	const resultat = await executerPlan(plan, async (etape) => {
+		const c = etape.collecteur;
+		const cursor = etape.curseur;
 		let itemsIn = 0;
 		let itemsNew = 0;
 		let langueSkipped = 0;
@@ -264,7 +255,20 @@ async function runCollectors(options?: { onlyId?: string; force?: boolean }): Pr
 			await ingestQuery("UPDATE source SET last_error_at=now(), last_error=$1 WHERE id=$2", [err, c.id]).catch(() => {});
 			await ingestQuery("INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, error) VALUES ($1, now(), 'error', $2, $3, $4)", [c.id, itemsIn, itemsNew, err]).catch(() => {});
 		}
+	}, { log: (m) => app.log.info(m) });
+
+	let restants: string[] = [];
+	if (!options?.onlyId) {
+		restants = await ratisserSourcesJamaisCollectees(
+			async (ids) => runGenericSources((m) => app.log.info(m), { sourceIds: ids, force: true }),
+			{ log: (m) => app.log.warn(m) },
+		);
 	}
+	app.log.info(
+		`cycle collecteurs : ${resultat.reussis} source(s) traitée(s), ${resultat.echecs} échec(s), ` +
+		`memoire ${resultat.memoire.avantMo}→${resultat.memoire.apresMo} Mo, ` +
+		`${restants.length} source(s) jamais collectée(s)`,
+	);
 }
 
 /**
