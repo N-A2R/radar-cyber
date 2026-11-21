@@ -45,7 +45,7 @@ await query(
 	"INSERT INTO app_session (token, user_id, expires_at) VALUES ($1,$2, now() + interval '1 hour')",
 	[createHash("sha256").update(token).digest("hex"), user.rows[0].id],
 );
-const app = Fastify({ logger: true });
+const app = Fastify({ logger: false });
 await app.register(reviewRoute, { prefix: "/api" });
 await app.listen({ host: "127.0.0.1", port: 0 });
 const address = app.server.address();
