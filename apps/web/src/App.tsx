@@ -1,27 +1,40 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { creerMemoire, etatDonnees, type Instantane } from "./offline";
 import { api, clearAuthToken, getAuthToken, setAuthToken, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type Stats, type TodayResponse } from "./api";
 import { mockData } from "./mock";
-import Map3D from "./map/Map3D";
-import GraphView from "./graph/GraphView";
-import SourcesView from "./components/SourcesView";
-import HealthView from "./components/HealthView";
-import HealthDetailView from "./components/HealthDetailView";
-import EventList from "./components/EventList";
-import Inspector from "./components/Inspector";
-import OrgSheet from "./components/OrgSheet";
-import DirectoryView from "./components/DirectoryView";
-import CommandPalette from "./components/CommandPalette";
-import LiveAlerts from "./components/LiveAlerts";
-import ReviewView from "./components/ReviewView";
-import JournalView from "./components/JournalView";
-import DossierView from "./components/DossierView";
-import NaView from "./components/NaView";
-import TodayView from "./components/TodayView";
-import AlertsView from "./components/AlertsView";
-import LoginScreen from "./components/LoginScreen";
+const Map3D = lazy(() => import("./map/Map3D"));
+const GraphView = lazy(() => import("./graph/GraphView"));
+const SourcesView = lazy(() => import("./components/SourcesView"));
+const HealthView = lazy(() => import("./components/HealthView"));
+const HealthDetailView = lazy(() => import("./components/HealthDetailView"));
+const EventList = lazy(() => import("./components/EventList"));
+const Inspector = lazy(() => import("./components/Inspector"));
+const OrgSheet = lazy(() => import("./components/OrgSheet"));
+const DirectoryView = lazy(() => import("./components/DirectoryView"));
+const CommandPalette = lazy(() => import("./components/CommandPalette"));
+const LiveAlerts = lazy(() => import("./components/LiveAlerts"));
+const ReviewView = lazy(() => import("./components/ReviewView"));
+const JournalView = lazy(() => import("./components/JournalView"));
+const DossierView = lazy(() => import("./components/DossierView"));
+const NaView = lazy(() => import("./components/NaView"));
+const TodayView = lazy(() => import("./components/TodayView"));
+const AlertsView = lazy(() => import("./components/AlertsView"));
+const LoginScreen = lazy(() => import("./components/LoginScreen"));
 import type { ViewKey } from "./contracts";
 import { parseHash, toHash, shareableUrl, type AppUrlState } from "./url-state";
+
+// Chaque écran chargé à la demande garde sa place dans le shell : le
+// squelette occupe la même zone jusqu'à l'arrivée du chunk.
+function ViewSkeleton() {
+  return (
+    <div className="view-skeleton" role="status" aria-live="polite">
+      <span className="view-skeleton__label">chargement…</span>
+      <span className="view-skeleton__line" />
+      <span className="view-skeleton__line" />
+      <span className="view-skeleton__line" />
+    </div>
+  );
+}
 
 // Mode démonstration : données simulées, jamais d'appel API.
 const MOCK_MODE = import.meta.env.VITE_DATA_MODE === "mock";
@@ -501,7 +514,11 @@ export default function App() {
 
   // Sans jeton (hors démonstration), le shell n'est jamais monté : seul
   // l'écran de connexion est rendu, aucune requête authentifiée ne part.
-  if (!token && !MOCK_MODE) return <LoginScreen onAuthenticated={onAuthenticated} />;
+  if (!token && !MOCK_MODE) return (
+    <Suspense fallback={<ViewSkeleton />}>
+      <LoginScreen onAuthenticated={onAuthenticated} />
+    </Suspense>
+  );
 
   return (
     <div className="shell">
@@ -566,6 +583,7 @@ export default function App() {
         ) : null}
       </header>
 
+      <Suspense fallback={null}>
       <LiveAlerts
         alerts={liveAlerts}
         unseen={unseenAlerts}
@@ -580,6 +598,7 @@ export default function App() {
           setUnseenAlerts(0);
         }}
       />
+      </Suspense>
 
       {error ? <p className="shell__error">API : {error}</p> : null}
       {/* Hors ligne assumé : on dit l'âge des données plutôt que de faire
@@ -631,19 +650,21 @@ export default function App() {
                 <span>vulnérabilités</span>
               </button>
             </div>
-            <EventList
-              events={ordered}
-              byFamily={byFamily}
-              family={family}
-              onFamily={setFamily}
-              selectedEventId={selectedEventId}
-              onSelectEvent={(id) => {
-                setSelectedEventId(id);
-                setSelectedOrgId(null);
-              }}
-              loading={loading}
-              error={null}
-            />
+            <Suspense fallback={<ViewSkeleton />}>
+              <EventList
+                events={ordered}
+                byFamily={byFamily}
+                family={family}
+                onFamily={setFamily}
+                selectedEventId={selectedEventId}
+                onSelectEvent={(id) => {
+                  setSelectedEventId(id);
+                  setSelectedOrgId(null);
+                }}
+                loading={loading}
+                error={null}
+              />
+            </Suspense>
         </aside>
         ) : (
           <button
@@ -658,6 +679,7 @@ export default function App() {
         )}
 
         <main className="shell__stage">
+          <Suspense fallback={<ViewSkeleton />}>
           {view === "today" ? (
             <TodayView
               data={todayData}
@@ -763,10 +785,12 @@ export default function App() {
             />
           ) : null}
 
+          </Suspense>
         </main>
 
         {inspectorOpen ? (
           <section className="shell__inspect">
+            <Suspense fallback={<ViewSkeleton />}>
             {sheetOrgId !== null ? (
               <OrgSheet orgId={sheetOrgId} onClose={() => setSheetOrgId(null)} mock={MOCK_MODE} />
             ) : (
@@ -781,10 +805,12 @@ export default function App() {
                 }}
               />
             )}
+            </Suspense>
           </section>
         ) : null}
       </div>
 
+      <Suspense fallback={null}>
       <CommandPalette
         open={paletteOpen}
         onClose={() => setPaletteOpen(false)}
@@ -796,6 +822,7 @@ export default function App() {
         }}
         mock={MOCK_MODE ? { orgs, events } : null}
       />
+      </Suspense>
     </div>
   );
 }
