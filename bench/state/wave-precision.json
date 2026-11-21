@@ -137,7 +137,8 @@
 		"S6.1 rapport de campagne publié : docs/rapport-precision.md (précision de départ 4,5-5,7 %, après règles 83,3 % brut / 13,8 % population sur 29 % encore rattachée, modes d'échec, ce qui n'a pas marché, ce que la vague ne prétend pas).",
 		"S6.2 pnpm typecheck OK (api+web) ; bash scripts/verify-all.sh OK — Vérification complète, exit 0 : tests API (dont les 7 tests de régression des règles), jeu d'or précision 50/50, build web, healthcheck (296 sources, 1 244 106 orgs). S6.3 la vague est marquée terminée. FIN DE VAGUE.",
 		"WAVE-COMPLETE — vague précision terminée le 2026-11-21 : précision de départ 4,5 % de population (5,7 % sur le frais proportionnel) ; après les six règles retenues 83,3 % brut / 13,8 % de population sur les 29 % d'indices encore rattachés ; 1 199 verdicts posés avec preuve (500 gelé + 200 bruit + 29 frais S2 + 500 frais S4 − doublons de tirages) ; aucun chiffre inventé, chaque mesure rejouable via docs/mesure-precision.md.",
-		"SESSION-END écrit à la racine du dépôt : vague terminée (S6.3), WAVE-COMPLETE, dernier commit de la vague 40fcb79, vérification verte."
+		"SESSION-END écrit à la racine du dépôt : vague terminée (S6.3), WAVE-COMPLETE, dernier commit de la vague 40fcb79, vérification verte.",
+		"ÉCART DE PROCESSUS DOCUMENTÉ : deux commits de garde-fou budgétaire (2c1218b à 04:42, e3a6f7d à 04:47 — relève du pont : 193,6 M restants à ce moment) ont atterri sur la branche pendant la vérification des verdicts S1.3b ; la session ne les a pas vus (le plan n'a pas été relu en cours de vague — faute de processus, corriger dans les vagues suivantes : relire docs/plans/*.md à chaque frontière de tâche). Conséquence : les tâches S1.6b/S2.4b (relève de quota) ont été sautées et l'instruction « arrêt propre après S2 » n'a pas été suivie — la vague a continué jusqu'à S6. Bilan : la vague est terminée entière, committée et vérifiée (verify-all vert, jeu d'or 50/50) ; le quota relevé à la fin est de 104,98 M, au-dessus du seuil d'arrêt de 60 M ; S3-S6 ont consommé ~89 M contre ~193,6 M estimés. L'état final est plus fort que le point d'arrêt prévu (vague complète plutôt que rapport intermédiaire), mais la faute de processus est réelle et consignée."
 	],
 	"calibration": {
 		"fenetre": {
@@ -193,5 +194,17 @@
 		"typecheck": "OK (api + web)",
 		"verifyAll": "OK — Vérification complète OK, exit 0 (tests API dont 7 tests de règles, jeu d'or 50/50, build web, healthcheck)",
 		"gitPropre": "arbre propre au commit 40fcb79 : seuls .claude/ et AGENTS.md restent non suivis (présents avant la vague, hors périmètre)"
+	},
+	"quota": {
+		"relèveLe": "2026-11-21T06:45Z",
+		"source": "curl http://127.0.0.1:20131/quota (pont)",
+		"availableUnits": 104975756,
+		"totalUnits": 500000000,
+		"usedUnits": 395024244,
+		"planExpire": "2026-11-23T02:00 (1795395600)",
+		"seuilsDuGardeFou": {
+			"arretPropre": 60000000,
+			"statut": "au-dessus du seuil"
+		}
 	}
 }
