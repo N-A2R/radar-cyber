@@ -1,0 +1,604 @@
+{
+  "dateMesure": "2026-11-21",
+  "commande": "DATABASE_URL=$DATABASE_URL tsx scripts/mesure-anomalies-series.mts --json=bench/results/anomalies-series-2026-11-21.json --verdicts=bench/results/anomalies-series-verdicts.json --echantillon=20",
+  "base": {
+    "evenements": 27879,
+    "organisations": 74,
+    "sources": 107,
+    "premierFait": "2015-07-24",
+    "dernierFait": "2026-11-21",
+    "joursDistincts": 934
+  },
+  "seuils": {
+    "fenetreJours": 28,
+    "observationsMin": 10,
+    "seuilZ": 3,
+    "ecartMin": 3
+  },
+  "total": {
+    "alertes": 7,
+    "parAxe": {
+      "organisation": {
+        "alertes": 0,
+        "groupes": 73,
+        "groupesEligibles": 0,
+        "maxJoursObserves": 4,
+        "pointsJours": 89
+      },
+      "secteur": {
+        "alertes": 0,
+        "groupes": 17,
+        "groupesEligibles": 0,
+        "maxJoursObserves": 9,
+        "pointsJours": 55
+      },
+      "source": {
+        "alertes": 7,
+        "groupes": 107,
+        "groupesEligibles": 15,
+        "maxJoursObserves": 434,
+        "pointsJours": 2070
+      }
+    }
+  },
+  "echantillon": {
+    "taille": 7,
+    "classes": 7,
+    "vraies": 1,
+    "fausses": 6,
+    "nonClassables": 0,
+    "tauxFaussesAlertes": 85.7
+  },
+  "top5": [
+    {
+      "cle": "source:cisa_kev:2026-04-13",
+      "explication": "source cisa_kev : 7 faits le 2026-04-13 contre médiane 0.0 sur 28 j (11 actifs), MAD 0.0, échelle 1.48 ; écart +7.0, z 4.7 > 3.0",
+      "z": 4.72,
+      "faits": [
+        {
+          "id": "763",
+          "titre": "CVE-2025-60710 — Microsoft Windows Link Following Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-60710"
+        },
+        {
+          "id": "761",
+          "titre": "CVE-2012-1854 — Microsoft Visual Basic for Applications Insecure Library Loading Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2012-1854"
+        },
+        {
+          "id": "765",
+          "titre": "CVE-2023-21529 — Microsoft Exchange Server Deserialization of Untrusted Data Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-21529"
+        }
+      ]
+    },
+    {
+      "cle": "source:cisa_kev:2026-09-02",
+      "explication": "source cisa_kev : 7 faits le 2026-09-02 contre médiane 0.0 sur 28 j (12 actifs), MAD 0.0, échelle 1.48 ; écart +7.0, z 4.7 > 3.0",
+      "z": 4.72,
+      "faits": [
+        {
+          "id": "541",
+          "titre": "CVE-2026-83548 — SonicWall SMA1000 Appliances Server-Side Request Forgery Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-83548"
+        },
+        {
+          "id": "518",
+          "titre": "CVE-2026-59822 — BerriAI LiteLLM Improper Authentication Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-59822"
+        },
+        {
+          "id": "528",
+          "titre": "CVE-2026-49869 — Kestra OSS OS Command Injection Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-49869"
+        }
+      ]
+    },
+    {
+      "cle": "source:cisa_kev:2026-05-20",
+      "explication": "source cisa_kev : 6 faits le 2026-05-20 contre médiane 0.0 sur 28 j (10 actifs), MAD 0.0, échelle 1.48 ; écart +6.0, z 4.0 > 3.0",
+      "z": 4.05,
+      "faits": [
+        {
+          "id": "713",
+          "titre": "CVE-2026-41091 — Microsoft Defender Link Following Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-41091"
+        },
+        {
+          "id": "708",
+          "titre": "CVE-2009-3459 — Adobe Acrobat and Reader Heap-Based Buffer Overflow Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2009-3459"
+        },
+        {
+          "id": "705",
+          "titre": "CVE-2008-4250 — Microsoft Windows Buffer Overflow Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2008-4250"
+        }
+      ]
+    },
+    {
+      "cle": "source:cisa_kev:2026-08-26",
+      "explication": "source cisa_kev : 6 faits le 2026-08-26 contre médiane 0.0 sur 28 j (11 actifs), MAD 0.0, échelle 1.48 ; écart +6.0, z 4.0 > 3.0",
+      "z": 4.05,
+      "faits": [
+        {
+          "id": "574",
+          "titre": "CVE-2021-23758 — Ajax.NET Professional Deserialization of Untrusted Data Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-23758"
+        },
+        {
+          "id": "593",
+          "titre": "CVE-2026-8452 — Citrix NetScaler ADC and NetScaler Gateway Improper Restriction of Operations within the Bounds of a Memory Buffer Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-8452"
+        },
+        {
+          "id": "589",
+          "titre": "CVE-2022-0995 — Linux Kernel Out-of-Bounds Write Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-0995"
+        }
+      ]
+    },
+    {
+      "cle": "source:poc_github:2026-11-20",
+      "explication": "source poc_github : 6 faits le 2026-11-20 contre médiane 0.0 sur 28 j (11 actifs), MAD 0.0, échelle 1.48 ; écart +6.0, z 4.0 > 3.0",
+      "z": 4.05,
+      "faits": [
+        {
+          "id": "119649",
+          "titre": "CVE-2026-99491 — PoC public disponible",
+          "famille": "vuln",
+          "url": "https://github.com/woshigenm/CVE-2026-99491"
+        },
+        {
+          "id": "119678",
+          "titre": "CVE-2026-97555 — PoC public disponible",
+          "famille": "vuln",
+          "url": "https://github.com/woshigenm/CVE-2026-97555"
+        },
+        {
+          "id": "119684",
+          "titre": "CVE-2026-97205 — PoC public disponible",
+          "famille": "vuln",
+          "url": "https://github.com/suominen/CVE-2026-97205"
+        }
+      ]
+    }
+  ],
+  "alertes": [
+    {
+      "cle": "source:cisa_kev:2026-04-13",
+      "axe": "source",
+      "groupe": "cisa_kev",
+      "date": "2026-04-13",
+      "valeur": 7,
+      "z": 4.72,
+      "explication": "source cisa_kev : 7 faits le 2026-04-13 contre médiane 0.0 sur 28 j (11 actifs), MAD 0.0, échelle 1.48 ; écart +7.0, z 4.7 > 3.0"
+    },
+    {
+      "cle": "source:cisa_kev:2026-09-02",
+      "axe": "source",
+      "groupe": "cisa_kev",
+      "date": "2026-09-02",
+      "valeur": 7,
+      "z": 4.72,
+      "explication": "source cisa_kev : 7 faits le 2026-09-02 contre médiane 0.0 sur 28 j (12 actifs), MAD 0.0, échelle 1.48 ; écart +7.0, z 4.7 > 3.0"
+    },
+    {
+      "cle": "source:cisa_kev:2026-05-20",
+      "axe": "source",
+      "groupe": "cisa_kev",
+      "date": "2026-05-20",
+      "valeur": 6,
+      "z": 4.05,
+      "explication": "source cisa_kev : 6 faits le 2026-05-20 contre médiane 0.0 sur 28 j (10 actifs), MAD 0.0, échelle 1.48 ; écart +6.0, z 4.0 > 3.0"
+    },
+    {
+      "cle": "source:cisa_kev:2026-08-26",
+      "axe": "source",
+      "groupe": "cisa_kev",
+      "date": "2026-08-26",
+      "valeur": 6,
+      "z": 4.05,
+      "explication": "source cisa_kev : 6 faits le 2026-08-26 contre médiane 0.0 sur 28 j (11 actifs), MAD 0.0, échelle 1.48 ; écart +6.0, z 4.0 > 3.0"
+    },
+    {
+      "cle": "source:poc_github:2026-11-20",
+      "axe": "source",
+      "groupe": "poc_github",
+      "date": "2026-11-20",
+      "valeur": 6,
+      "z": 4.05,
+      "explication": "source poc_github : 6 faits le 2026-11-20 contre médiane 0.0 sur 28 j (11 actifs), MAD 0.0, échelle 1.48 ; écart +6.0, z 4.0 > 3.0"
+    },
+    {
+      "cle": "source:cat-cert-pl:2026-07-29",
+      "axe": "source",
+      "groupe": "cat-cert-pl",
+      "date": "2026-07-29",
+      "valeur": 5,
+      "z": 3.37,
+      "explication": "source cat-cert-pl : 5 faits le 2026-07-29 contre médiane 0.0 sur 28 j (11 actifs), MAD 0.0, échelle 1.48 ; écart +5.0, z 3.4 > 3.0"
+    },
+    {
+      "cle": "source:cisa_kev:2026-10-20",
+      "axe": "source",
+      "groupe": "cisa_kev",
+      "date": "2026-10-20",
+      "valeur": 6,
+      "z": 3.03,
+      "explication": "source cisa_kev : 6 faits le 2026-10-20 contre médiane 0.5 sur 28 j (14 actifs), MAD 0.5, échelle 1.82 ; écart +5.5, z 3.0 > 3.0"
+    }
+  ],
+  "echantillonDetail": [
+    {
+      "cle": "source:cat-cert-pl:2026-07-29",
+      "axe": "source",
+      "groupe": "cat-cert-pl",
+      "date": "2026-07-29",
+      "valeur": 5,
+      "ecart": 5,
+      "z": 3.37,
+      "explication": "source cat-cert-pl : 5 faits le 2026-07-29 contre médiane 0.0 sur 28 j (11 actifs), MAD 0.0, échelle 1.48 ; écart +5.0, z 3.4 > 3.0",
+      "faits": [
+        {
+          "id": "129186",
+          "titre": "Vulnerability in diff-so-fancy software",
+          "famille": "vuln",
+          "url": "https://cert.pl/en/posts/2026/07/CVE-2026-50642/"
+        },
+        {
+          "id": "129187",
+          "titre": "Vulnerabilities in GNU Bison software",
+          "famille": "vuln",
+          "url": "https://cert.pl/en/posts/2026/07/CVE-2026-56389/"
+        },
+        {
+          "id": "129185",
+          "titre": "Vulnerability in Quick.CMS software",
+          "famille": "vuln",
+          "url": "https://cert.pl/en/posts/2026/07/CVE-2026-33385/"
+        },
+        {
+          "id": "129183",
+          "titre": "Vulnerabilities in MWDB Core software",
+          "famille": "vuln",
+          "url": "https://cert.pl/en/posts/2026/07/CVE-2026-66723/"
+        },
+        {
+          "id": "129184",
+          "titre": "Vulnerability in Streamsoft Business Intelligence software",
+          "famille": "vuln",
+          "url": "https://cert.pl/en/posts/2026/07/CVE-2026-50641/"
+        }
+      ],
+      "verdict": {
+        "classement": "fausse",
+        "raison": "rattrapage : 5 avis CERT distincts observés le 29/07 mais collectés le 21/11 (115 j de retard), import différé sans nouveauté le jour dit"
+      }
+    },
+    {
+      "cle": "source:cisa_kev:2026-04-13",
+      "axe": "source",
+      "groupe": "cisa_kev",
+      "date": "2026-04-13",
+      "valeur": 7,
+      "ecart": 7,
+      "z": 4.72,
+      "explication": "source cisa_kev : 7 faits le 2026-04-13 contre médiane 0.0 sur 28 j (11 actifs), MAD 0.0, échelle 1.48 ; écart +7.0, z 4.7 > 3.0",
+      "faits": [
+        {
+          "id": "763",
+          "titre": "CVE-2025-60710 — Microsoft Windows Link Following Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-60710"
+        },
+        {
+          "id": "761",
+          "titre": "CVE-2012-1854 — Microsoft Visual Basic for Applications Insecure Library Loading Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2012-1854"
+        },
+        {
+          "id": "765",
+          "titre": "CVE-2023-21529 — Microsoft Exchange Server Deserialization of Untrusted Data Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-21529"
+        },
+        {
+          "id": "767",
+          "titre": "CVE-2023-36424 — Microsoft Windows Out-of-Bounds Read Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-36424"
+        },
+        {
+          "id": "770",
+          "titre": "CVE-2026-21643 — Fortinet FortiClient EMS SQL Injection Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-21643"
+        },
+        {
+          "id": "772",
+          "titre": "CVE-2026-34621 — Adobe Acrobat and Reader Prototype Pollution Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34621"
+        }
+      ],
+      "verdict": {
+        "classement": "fausse",
+        "raison": "rattrapage : 6 CVE KEV observées le 13/04 et collectées le 13/11 (215 j), lot d'import historique"
+      }
+    },
+    {
+      "cle": "source:cisa_kev:2026-05-20",
+      "axe": "source",
+      "groupe": "cisa_kev",
+      "date": "2026-05-20",
+      "valeur": 6,
+      "ecart": 6,
+      "z": 4.05,
+      "explication": "source cisa_kev : 6 faits le 2026-05-20 contre médiane 0.0 sur 28 j (10 actifs), MAD 0.0, échelle 1.48 ; écart +6.0, z 4.0 > 3.0",
+      "faits": [
+        {
+          "id": "713",
+          "titre": "CVE-2026-41091 — Microsoft Defender Link Following Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-41091"
+        },
+        {
+          "id": "708",
+          "titre": "CVE-2009-3459 — Adobe Acrobat and Reader Heap-Based Buffer Overflow Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2009-3459"
+        },
+        {
+          "id": "705",
+          "titre": "CVE-2008-4250 — Microsoft Windows Buffer Overflow Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2008-4250"
+        },
+        {
+          "id": "706",
+          "titre": "CVE-2009-1537 — Microsoft DirectX NULL Byte Overwrite Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2009-1537"
+        },
+        {
+          "id": "709",
+          "titre": "CVE-2010-0249 — Microsoft Internet Explorer Use-After-Free Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2010-0249"
+        },
+        {
+          "id": "711",
+          "titre": "CVE-2010-0806 — Microsoft Internet Explorer Use-After-Free Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2010-0806"
+        }
+      ],
+      "verdict": {
+        "classement": "fausse",
+        "raison": "rattrapage : 6 CVE KEV observées le 20/05 et collectées le 13/11 (178 j), lot d'import historique"
+      }
+    },
+    {
+      "cle": "source:cisa_kev:2026-08-26",
+      "axe": "source",
+      "groupe": "cisa_kev",
+      "date": "2026-08-26",
+      "valeur": 6,
+      "ecart": 6,
+      "z": 4.05,
+      "explication": "source cisa_kev : 6 faits le 2026-08-26 contre médiane 0.0 sur 28 j (11 actifs), MAD 0.0, échelle 1.48 ; écart +6.0, z 4.0 > 3.0",
+      "faits": [
+        {
+          "id": "574",
+          "titre": "CVE-2021-23758 — Ajax.NET Professional Deserialization of Untrusted Data Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-23758"
+        },
+        {
+          "id": "593",
+          "titre": "CVE-2026-8452 — Citrix NetScaler ADC and NetScaler Gateway Improper Restriction of Operations within the Bounds of a Memory Buffer Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-8452"
+        },
+        {
+          "id": "589",
+          "titre": "CVE-2022-0995 — Linux Kernel Out-of-Bounds Write Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-0995"
+        },
+        {
+          "id": "598",
+          "titre": "CVE-2019-1068 — Microsoft SQL Server Remote Code Execution Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2019-1068"
+        },
+        {
+          "id": "578",
+          "titre": "CVE-2015-3246 — Red Hat Libuser Race Condition Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2015-3246"
+        },
+        {
+          "id": "582",
+          "titre": "CVE-2015-5287 — Red Hat Automatic Bug Reporting Tool Privilege Escalation Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2015-5287"
+        }
+      ],
+      "verdict": {
+        "classement": "fausse",
+        "raison": "rattrapage : 6 CVE KEV observées le 26/08 et collectées le 13/11 (80 j), lot d'import historique"
+      }
+    },
+    {
+      "cle": "source:cisa_kev:2026-09-02",
+      "axe": "source",
+      "groupe": "cisa_kev",
+      "date": "2026-09-02",
+      "valeur": 7,
+      "ecart": 7,
+      "z": 4.72,
+      "explication": "source cisa_kev : 7 faits le 2026-09-02 contre médiane 0.0 sur 28 j (12 actifs), MAD 0.0, échelle 1.48 ; écart +7.0, z 4.7 > 3.0",
+      "faits": [
+        {
+          "id": "541",
+          "titre": "CVE-2026-83548 — SonicWall SMA1000 Appliances Server-Side Request Forgery Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-83548"
+        },
+        {
+          "id": "518",
+          "titre": "CVE-2026-59822 — BerriAI LiteLLM Improper Authentication Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-59822"
+        },
+        {
+          "id": "528",
+          "titre": "CVE-2026-49869 — Kestra OSS OS Command Injection Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-49869"
+        },
+        {
+          "id": "523",
+          "titre": "CVE-2026-48710 — Kludex Starlette HTTP Request/Response Smuggling Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-48710"
+        },
+        {
+          "id": "533",
+          "titre": "CVE-2026-82329 — JFrog Artifactory Improper Authentication Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-82329"
+        },
+        {
+          "id": "546",
+          "titre": "CVE-2026-83549 — SonicWall SMA1000 Appliances OS Command Injection Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-83549"
+        }
+      ],
+      "verdict": {
+        "classement": "fausse",
+        "raison": "rattrapage : 7 CVE KEV observées le 02/09 et collectées le 13/11 (73 j), lot d'import historique"
+      }
+    },
+    {
+      "cle": "source:cisa_kev:2026-10-20",
+      "axe": "source",
+      "groupe": "cisa_kev",
+      "date": "2026-10-20",
+      "valeur": 6,
+      "ecart": 5.5,
+      "z": 3.03,
+      "explication": "source cisa_kev : 6 faits le 2026-10-20 contre médiane 0.5 sur 28 j (14 actifs), MAD 0.5, échelle 1.82 ; écart +5.5, z 3.0 > 3.0",
+      "faits": [
+        {
+          "id": "348",
+          "titre": "CVE-2026-96656 — Plex Media Server External Control of File Name or Path Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-96656"
+        },
+        {
+          "id": "347",
+          "titre": "CVE-2026-106931 — EG Secure Solutions SiteGuard Server Edition OS Command Injection Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-106931"
+        },
+        {
+          "id": "350",
+          "titre": "CVE-2026-96655 — Plex Media Server Server-Side Request Forgery (SSRF) Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-96655"
+        },
+        {
+          "id": "352",
+          "titre": "CVE-2026-96654 — Plex Media Server Improper Neutralization of Encoded URI Schemes in a Web Page Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-96654"
+        },
+        {
+          "id": "359",
+          "titre": "CVE-2026-110936 — Siemens Software Center Uncontrolled Search Path Element Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110936"
+        },
+        {
+          "id": "355",
+          "titre": "CVE-2026-96652 — Plex Media Server Server-Side Request Forgery (SSRF) Vulnerability",
+          "famille": "vuln",
+          "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-96652"
+        }
+      ],
+      "verdict": {
+        "classement": "fausse",
+        "raison": "rattrapage : 6 CVE KEV observées le 20/10 et collectées le 13/11 (25 j), lot d'import historique"
+      }
+    },
+    {
+      "cle": "source:poc_github:2026-11-20",
+      "axe": "source",
+      "groupe": "poc_github",
+      "date": "2026-11-20",
+      "valeur": 6,
+      "ecart": 6,
+      "z": 4.05,
+      "explication": "source poc_github : 6 faits le 2026-11-20 contre médiane 0.0 sur 28 j (11 actifs), MAD 0.0, échelle 1.48 ; écart +6.0, z 4.0 > 3.0",
+      "faits": [
+        {
+          "id": "119649",
+          "titre": "CVE-2026-99491 — PoC public disponible",
+          "famille": "vuln",
+          "url": "https://github.com/woshigenm/CVE-2026-99491"
+        },
+        {
+          "id": "119678",
+          "titre": "CVE-2026-97555 — PoC public disponible",
+          "famille": "vuln",
+          "url": "https://github.com/woshigenm/CVE-2026-97555"
+        },
+        {
+          "id": "119684",
+          "titre": "CVE-2026-97205 — PoC public disponible",
+          "famille": "vuln",
+          "url": "https://github.com/suominen/CVE-2026-97205"
+        },
+        {
+          "id": "119651",
+          "titre": "CVE-2026-99312 — PoC public disponible",
+          "famille": "vuln",
+          "url": "https://github.com/jmginer/pve-cve-2026-99312"
+        },
+        {
+          "id": "119654",
+          "titre": "CVE-2026-98937 — PoC public disponible",
+          "famille": "vuln",
+          "url": "https://github.com/woshigenm/CVE-2026-98937"
+        },
+        {
+          "id": "119655",
+          "titre": "CVE-2026-98499 — PoC public disponible",
+          "famille": "vuln",
+          "url": "https://github.com/woshigenm/CVE-2026-98499"
+        }
+      ],
+      "verdict": {
+        "classement": "vraie",
+        "raison": "6 PoC publics distincts, URLs GitHub distinctes, collectés le 21/11 (moins d'un jour) : rafale réelle et exploitable"
+      }
+    }
+  ]
+}
