@@ -1,0 +1,242 @@
+/**
+ * Rapport d'anticipation : reproductibilité, zéro franc et cas limites.
+ *
+ * Un rapport généré qui change sans que les données changent ne vaut rien ;
+ * un rapport qui transforme du bruit en signal ne vaut pas mieux. Ces tests
+ * couvrent les deux risques, plus les entrées vides et malformées.
+ */
+import { test } from "node:test";
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
+import {
+	ErreurRapportAnticipation,
+	detecterRuptures,
+	evaluerEvenement,
+	extraireJetons,
+	genererRapport,
+	lireCorpus,
+	lireInstantanes,
+	type EvenementInstantane,
+	type IncidentCorpus,
+	type Instantane,
+} from "../src/analyse/rapport-anticipation.js";
+
+const EMPREINTES = { corpus: "corpus-test", instantane: "instantane-test" };
+
+function incident(surcharge: Partial<IncidentCorpus> = {}): IncidentCorpus {
+	return {
+		id: "test-001",
+		entite: "Ymed (éditeur de la plateforme Sooncare)",
+		commune: "Bègles",
+		dateIncident: "2026-04-06",
+		datePublique: "2026-04-09",
+		type: "fuite",
+		...surcharge,
+	};
+}
+
+function evenement(surcharge: Partial<EvenementInstantane> = {}): EvenementInstantane {
+	return {
+		id: 1,
+		family: "cti",
+		assertion_type: "ambient_signal",
+		titre: "Veille internationale sans rapport avec l'entité",
+		valid_at: "2026-03-10T00:00:00.000Z",
+		source_id: "cat-cti",
+		org_id: null,
+		...surcharge,
+	};
+}
+
+function instantane(surcharge: Partial<Instantane> = {}): Instantane {
+	return {
+		incident: {
+			id: "test-001",
+			entite: "Ymed (éditeur de la plateforme Sooncare)",
+			dateReference: "2026-04-06",
+			typeReference: "dateIncident",
+		},
+		j21: "2026-03-16",
+		fenetre: { debut: "2026-02-24", fin: "2026-03-16", jours: 21 },
+		comptes: {
+			evenements_avant_j21: 100,
+			evenements_fenetre: 0,
+			sources_actives: 0,
+			organisations_citees: 0,
+		},
+		evenements: [],
+		sources_actives: [],
+		organisations_citees: [],
+		...surcharge,
+	};
+}
+
+function rapport(donnees: { corpus?: IncidentCorpus[]; instantanes?: Instantane[] } = {}) {
+	return genererRapport({
+		corpus: donnees.corpus ?? [incident()],
+		instantanes: donnees.instantanes ?? [instantane()],
+		empreintes: EMPREINTES,
+	});
+}
+
+test("les jetons normalisent accents, ponctuation et mots-outils", () => {
+	assert.deepEqual(extraireJetons("Mairie de Marennes-Hiers-Brouage"), ["marennes", "hiers", "brouage"]);
+	assert.deepEqual(extraireJetons("Ymed (éditeur de la plateforme Sooncare)"), ["ymed", "editeur", "plateforme", "sooncare"]);
+	assert.deepEqual(extraireJetons("Ville de Tarnos"), ["tarnos"]);
+});
+
+test("une mention nominative est un signal, un mot générique ne l'est pas", () => {
+	const base = instantane();
+	const direct = evaluerEvenement(
+		evenement({ titre: "Ymed et Sooncare : incident de sécurité" }),
+		["ymed", "sooncare"],
+		["begles"],
+		undefined,
+		base,
+	);
+	assert.equal(direct.force, "fort");
+	assert.equal(direct.avanceJours, 27);
+
+	const generique = evaluerEvenement(
+		evenement({ titre: "Police municipale : une alerte" }),
+		["police"],
+		[],
+		undefined,
+		base,
+	);
+	assert.equal(generique.force, "bruit");
+
+	const commune = evaluerEvenement(
+		evenement({ titre: "Travaux à Bègles" }),
+		["ymed"],
+		["begles"],
+		undefined,
+		base,
+	);
+	assert.equal(commune.force, "faible");
+	assert.equal(commune.type, "commune");
+});
+
+test("un indicateur technique sans cible reste un candidat, pas une preuve", () => {
+	const candidat = evaluerEvenement(
+		evenement({ assertion_type: "technical_indicator", titre: "Indicateur découvert sur un serveur" }),
+		["ymed"],
+		[],
+		undefined,
+		instantane(),
+	);
+	assert.equal(candidat.force, "faible");
+	assert.equal(candidat.nature, "indicateur");
+});
+
+test("un rattachement sans recoupement est du bruit, pas un signal", () => {
+	const bruit = evaluerEvenement(
+		evenement({
+			org_id: 482872,
+			titre: "Kritieke SQL-injectie in GeoTools open source Java-bibliotheek",
+		}),
+		["espelette"],
+		[],
+		{ id: 482872, name: "OPEN SOURCE" },
+		instantane(),
+	);
+	assert.equal(bruit.force, "bruit");
+	assert.equal(bruit.type, "rattachement");
+});
+
+test("les ruptures ne se déclenchent que sur des événements de l'entité", () => {
+	const base = instantane();
+	assert.deepEqual(detecterRuptures(base, []), []);
+
+	const trois = [10, 12, 14].map((jour) =>
+		evenement({ id: jour, family: "cti", valid_at: `2026-03-${jour}T00:00:00.000Z` }),
+	);
+	const rafale = detecterRuptures(base, trois);
+	assert.equal(rafale.length, 1);
+	assert.equal(rafale[0]?.detecteur, "rafale");
+
+	const uneParFamille = [
+		evenement({ id: 1, family: "cti" }),
+		evenement({ id: 2, family: "leaks", valid_at: "2026-03-15T00:00:00.000Z" }),
+	];
+	const changement = detecterRuptures(base, uneParFamille);
+	assert.equal(changement.length, 1);
+	assert.equal(changement[0]?.detecteur, "changement-nature");
+});
+
+test("un signal nominatif change le verdict et alimente la synthèse", () => {
+	const resultat = rapport({
+		instantanes: [
+			instantane({
+				comptes: { evenements_avant_j21: 10, evenements_fenetre: 1, sources_actives: 1, organisations_citees: 0 },
+				evenements: [evenement({ titre: "Ymed Sooncare victime d'une attaque" })],
+				sources_actives: [{ id: "cat-cti" }],
+			}),
+		],
+	});
+	assert.equal(resultat.dossiers[0]?.verdict, "signal");
+	assert.equal(resultat.resume.avecSignal, 1);
+	assert.equal(resultat.resume.partPct, 100);
+	assert.equal(resultat.resume.avanceMedianeJours, 27);
+});
+
+test("un corpus vide donne une mesure vide, pas un pourcentage", () => {
+	const resultat = rapport({ corpus: [], instantanes: [] });
+	assert.match(resultat.markdown, /La mesure est \*\*vide\*\*, pas nulle/);
+	assert.equal(resultat.resume.faits, 0);
+	assert.equal(resultat.resume.partPct, 0);
+});
+
+test("une fenêtre vide produit un « rien » explicite et aucune division par zéro", () => {
+	const resultat = rapport();
+	assert.match(resultat.markdown, /rien.*fenêtre vide/);
+	assert.equal(resultat.stats.fenetresVides, 1);
+	assert.equal(resultat.resume.avanceMedianeJours, null);
+	assert.match(resultat.markdown, /\*\*Sources actives\*\* \(0\) : aucune/);
+});
+
+test("les incohérences de comptes sont signalées sans invalider le document", () => {
+	const resultat = rapport({
+		instantanes: [instantane({
+			comptes: { evenements_avant_j21: 10, evenements_fenetre: 7, sources_actives: 0, organisations_citees: 0 },
+		})],
+	});
+	assert.ok(resultat.anomalies.some((a) => a.code === "COMPTE_EVENEMENTS"));
+	assert.match(resultat.markdown, /COMPTE_EVENEMENTS/);
+});
+
+test("les entrées malformées s'arrêtent avec un code explicite", () => {
+	assert.throws(() => lireCorpus("{"), (e: unknown) =>
+		e instanceof ErreurRapportAnticipation && e.code === "CORPUS_INVALIDE");
+	assert.throws(
+		() => lireCorpus(JSON.stringify({ incidents: [{ id: "x", entite: "a" }, { id: "x", entite: "b" }] })),
+		(e: unknown) => e instanceof ErreurRapportAnticipation && e.code === "INCIDENT_DUPLIQUE",
+	);
+	assert.throws(() => lireInstantanes("{pas du json"), (e: unknown) =>
+		e instanceof ErreurRapportAnticipation && e.code === "LIGNE_INVALIDE");
+	assert.throws(() => rapport({ instantanes: [] }), (e: unknown) =>
+		e instanceof ErreurRapportAnticipation && e.code === "INSTANTANE_MANQUANT");
+	assert.throws(
+		() => rapport({ corpus: [incident({ dateIncident: null, datePublique: null })] }),
+		(e: unknown) => e instanceof ErreurRapportAnticipation && e.code === "DATE_MANQUANTE",
+	);
+});
+
+test("le document publié est exactement celui que le script régénère", () => {
+	const racine = new URL("../../../", import.meta.url);
+	const corpusTexte = readFileSync(new URL("bench/fixtures/corpus-reference-na.json", racine), "utf8");
+	const snapshotTexte = readFileSync(new URL("bench/anticipation/J-21.jsonl", racine), "utf8");
+	const publie = readFileSync(new URL("docs/anticipation.md", racine), "utf8");
+	const resultat = genererRapport({
+		corpus: lireCorpus(corpusTexte),
+		instantanes: lireInstantanes(snapshotTexte),
+		empreintes: {
+			corpus: createHash("sha256").update(corpusTexte).digest("hex"),
+			instantane: createHash("sha256").update(snapshotTexte).digest("hex"),
+		},
+	});
+	assert.equal(resultat.dossiers.length, 60);
+	assert.equal(resultat.resume.avecSignal, 0);
+	assert.equal(resultat.markdown, publie);
+});

@@ -22,9 +22,7 @@ export type IndexCompact<T> = {
  * ids d'une même clé et conserve leur ordre d'insertion.
  */
 export function construireIndex(cles: readonly string[], ids: readonly number[]): IndexCompact<number> {
-	const n = cles.length;
-	if (n === 0) return { cles: [], offsets: new Uint32Array(1), valeurs: new Uint32Array(0) };
-	const ordre = Array.from({ length: n }, (_, i) => i);
+	const ordre = Array.from({ length: cles.length }, (_, i) => i);
 	ordre.sort((a, b) => {
 		const ca = cles[a] as string;
 		const cb = cles[b] as string;
@@ -32,7 +30,17 @@ export function construireIndex(cles: readonly string[], ids: readonly number[])
 		if (ca > cb) return 1;
 		return a - b; // départage explicite : garde l'ordre d'apparition
 	});
+	return assembler(cles, ids, ordre);
+}
 
+/** Variante quand les clés sont déjà triées : `clesParId` aligne une clé par id. */
+export function construireIndexTrie(clesParId: readonly string[], ids: readonly number[]): IndexCompact<number> {
+	return assembler(clesParId, ids, Array.from({ length: ids.length }, (_, i) => i));
+}
+
+function assembler(cles: readonly string[], ids: readonly number[], ordre: readonly number[]): IndexCompact<number> {
+	const n = cles.length;
+	if (n === 0) return { cles: [], offsets: new Uint32Array(1), valeurs: new Uint32Array(0) };
 	const clesTriees: string[] = [];
 	const bornes: number[] = [0];
 	const idsUniques: number[] = [];

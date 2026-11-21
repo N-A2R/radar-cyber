@@ -21,6 +21,8 @@ export const SEUIL_EVENEMENTS_RECENTS = 3;
 /** 90 j : la période sans aucune apparition qui précède la fenêtre récente. */
 export const FENETRE_ABSENCE_JOURS = 90;
 
+export const AGENT_ORGANISATION_SURGISSANTE = "organisation-surgissante" as const;
+
 export type EvenementOrganisation = {
 	/** Identifiant de l'événement, renvoyé tel quel dans l'alerte. */
 	id: number | string;

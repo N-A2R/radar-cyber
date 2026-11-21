@@ -334,15 +334,32 @@
 }
 
 /* Largeurs par colonne : le nom respire, les nombres ne se cassent pas. */
-.sources-table__col--name { width: 24%; }
+.sources-table__col--name { width: 20%; }
 .sources-table__col--family { width: 8%; }
 .sources-table__col--status { width: 9%; }
-.sources-table__col--lastOkAt { width: 11%; }
-.sources-table__col--lastErrorAt { width: 11%; }
-.sources-table__col--entrees { width: 8%; }
-.sources-table__col--evenements30j { width: 8%; }
-.sources-table__col--rendement { width: 8%; }
-.sources-table__col--motif { width: 13%; }
+.sources-table__col--lastProduction { width: 11%; }
+.sources-table__col--lastErrorAt { width: 10%; }
+.sources-table__col--entrees { width: 7%; }
+.sources-table__col--evenements30j { width: 7%; }
+.sources-table__col--rendement { width: 7%; }
+.sources-table__col--motif { width: 10%; }
+.sources-table__col--action { width: 11%; }
+
+.sources-view__red-count {
+  margin: 0;
+  padding: 0 16px 8px;
+  font-size: 11px;
+  color: var(--sev-5);
+  font-weight: 600;
+}
+
+.sources-table__red-badge {
+  display: block;
+  margin-top: 3px;
+  font-size: 10px;
+  color: var(--sev-5);
+  white-space: nowrap;
+}
 
 /* Une date relative et un nombre ne se coupent pas en deux. */
 .sources-table td,

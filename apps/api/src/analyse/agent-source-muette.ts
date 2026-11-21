@@ -25,11 +25,16 @@ export const FENETRE_CADENCE_JOURS = 7;
 
 export const AGENT_SOURCE_MUETTE = "source-muette" as const;
 
-export type EvenementSource = { date: string };
+export type EvenementSource = {
+	/** Date ISO 8601. L'identifiant, quand il est connu, est rendu dans l'alerte. */
+	date: string;
+	id?: number | string;
+};
 
 export type SourceSurveillee = {
 	id: string;
-	evenements: readonly EvenementSource[];
+	/** Tableau construit par l'adaptateur base ; le détecteur reste pur. */
+	evenements: EvenementSource[];
 };
 
 export type AlerteSourceMuette = {
@@ -40,6 +45,8 @@ export type AlerteSourceMuette = {
 	silenceJours: number;
 	/** Événements rendus pendant la fenêtre de cadence, hors silence. */
 	evenementsCadence: number;
+	/** Identifiants des faits de cadence, quand le producteur les fournit. */
+	faitsCadence: Array<number | string>;
 	explication: string;
 };
 
@@ -53,10 +60,11 @@ export function detecterSourceMuette(
 	source: SourceSurveillee,
 	maintenant: number = Date.now(),
 ): AlerteSourceMuette | null {
-	const instants = source.evenements
-		.map((e) => Date.parse(e.date))
-		.filter((t): t is number => Number.isFinite(t));
-	if (instants.length === 0) return null;
+	const valides = source.evenements
+		.map((e) => ({ evenement: e, instant: Date.parse(e.date) }))
+		.filter((e) => Number.isFinite(e.instant));
+	if (valides.length === 0) return null;
+	const instants = valides.map((e) => e.instant);
 
 	const limiteSilence = maintenant - SEUIL_SILENCE_JOURS * JOUR_MS;
 	const dernier = Math.max(...instants);
@@ -69,10 +77,10 @@ export function detecterSourceMuette(
 	const finCadence = limiteSilence;
 	const debutCadence = finCadence - FENETRE_CADENCE_JOURS * JOUR_MS;
 	const joursActifs = new Set<number>();
-	let evenementsCadence = 0;
-	for (const instant of instants) {
+	const faitsCadence: Array<number | string> = [];
+	for (const { evenement, instant } of valides) {
 		if (instant < debutCadence || instant >= finCadence) continue;
-		evenementsCadence++;
+		faitsCadence.push(evenement.id ?? evenement.date);
 		joursActifs.add(Math.ceil((finCadence - instant) / JOUR_MS));
 	}
 	if (joursActifs.size !== FENETRE_CADENCE_JOURS) return null;
@@ -83,8 +91,9 @@ export function detecterSourceMuette(
 		sourceId: source.id,
 		motif: `source quotidienne muette depuis ${silenceJours} j`,
 		silenceJours,
-		evenementsCadence,
-		explication: `${evenementsCadence} événements sur ${FENETRE_CADENCE_JOURS} jours consécutifs avant le silence ; dernier il y a ${silenceJours} j`,
+		evenementsCadence: faitsCadence.length,
+		faitsCadence,
+		explication: `${faitsCadence.length} événements sur ${FENETRE_CADENCE_JOURS} jours consécutifs avant le silence ; dernier il y a ${silenceJours} j`,
 	};
 }
 

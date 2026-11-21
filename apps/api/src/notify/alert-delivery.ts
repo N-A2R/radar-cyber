@@ -1,5 +1,5 @@
 import { ingestQuery } from "../db.js";
-import { ALERT_SCOPE_RUPTURE_REVUE } from "../alert-scope.js";
+import { ALERT_SCOPES_REVUE } from "../alert-scope.js";
 
 export const MAX_ATTEMPTS = 10;
 /** Limite par passage pour ne jamais bloquer la collecte. */
@@ -77,12 +77,12 @@ LEFT JOIN source s ON s.id = e.source_id
 WHERE a.delivered_at IS NULL
   AND a.attempts < $1
   AND (a.next_attempt_at IS NULL OR a.next_attempt_at <= now())
-  AND a.scope <> $3
+  AND a.scope <> ALL($3::text[])
 ORDER BY a.created_at ASC, a.id ASC
 LIMIT $2`;
 
 export async function fetchPendingAlerts(limit = BATCH_LIMIT): Promise<DeliveryAlert[]> {
-  const r = await ingestQuery<DeliveryAlert>(SELECT_PENDING, [MAX_ATTEMPTS, limit, ALERT_SCOPE_RUPTURE_REVUE]);
+  const r = await ingestQuery<DeliveryAlert>(SELECT_PENDING, [MAX_ATTEMPTS, limit, [...ALERT_SCOPES_REVUE]]);
   return r.rows;
 }
 

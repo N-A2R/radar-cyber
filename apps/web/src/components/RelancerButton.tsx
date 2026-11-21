@@ -1,16 +1,20 @@
 import { useState } from "react";
 import type { ApiError } from "../api";
+import "./sources-rouges.css";
 
 /** Résultat brut d'une relance : le nombre d'événements réellement admis. */
 export type RelanceOutcome = {
   inserted: number;
   skipped?: number;
+  /** Le serveur a lancé le run sans attendre son résultat (POST /collecte). */
+  lancee?: boolean;
 };
 
 /** État affiché après un clic ; jamais déduit d'un espoir, seulement du retour. */
 export type RelanceEtat =
   | { kind: "idle" }
   | { kind: "en-cours" }
+  | { kind: "lancee" }
   | { kind: "succes"; inserted: number; skipped: number }
   | { kind: "vide" }
   | { kind: "erreur"; message: string };
@@ -35,6 +39,7 @@ function messageErreur(error: unknown): string {
 export function RelanceResultat({ etat }: { etat: RelanceEtat }) {
   if (etat.kind === "idle") return null;
   if (etat.kind === "en-cours") return <span className="relance-resultat" role="status">relance en cours…</span>;
+  if (etat.kind === "lancee") return <span className="relance-resultat" data-resultat="lancee" role="status">collecte lancée</span>;
   if (etat.kind === "erreur") {
     return <span className="relance-resultat" data-resultat="erreur" role="alert">erreur · {etat.message}</span>;
   }
@@ -58,9 +63,11 @@ export default function RelancerButton({ sourceId, sourceName, onRelance, disabl
     try {
       const outcome = await onRelance(sourceId);
       setEtat(
-        outcome.inserted > 0
-          ? { kind: "succes", inserted: outcome.inserted, skipped: outcome.skipped ?? 0 }
-          : { kind: "vide" },
+        outcome.lancee
+          ? { kind: "lancee" }
+          : outcome.inserted > 0
+            ? { kind: "succes", inserted: outcome.inserted, skipped: outcome.skipped ?? 0 }
+            : { kind: "vide" },
       );
     } catch (error) {
       setEtat({ kind: "erreur", message: messageErreur(error) });
