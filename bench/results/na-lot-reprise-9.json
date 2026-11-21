@@ -1,0 +1,306 @@
+{
+  "dateMesure": "2026-11-21",
+  "plan": "docs/plans/mission-nuit-na.md — Task 4 (reprise vague 2)",
+  "lot": 9,
+  "source": {
+    "ref": "bench/results/manques-referentiel-2026-11-15.json",
+    "traites": "bench/results/manques-glm-vague2.json",
+    "entiteSource": "lot-reprise-na"
+  },
+  "method": "lecture du site (fetch, titre et meta verbatim) + recherche-entreprises.api.gouv.fr sans clé ; requêtes et réponses consignées ; SIREN recoupé, jamais inventé",
+  "compte": {
+    "present": 2,
+    "absent": 5,
+    "cannot_verify": 3
+  },
+  "resolutions": [
+    {
+      "nomLisible": "maisonloisy.fr",
+      "domaine": "maisonloisy.fr",
+      "verdict": "cannot_verify",
+      "raison": "site ou registre inaccessible : TypeError: fetch failed",
+      "site": {
+        "url": "https://maisonloisy.fr",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=maisonloisy&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "maleosante.fr",
+      "domaine": "maleosante.fr",
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : « Assurances Maleo, comparateur de mutuelles depuis plus de 10 ans »",
+      "site": {
+        "url": "https://maleosante.fr",
+        "http": 200,
+        "titre": "Assurances Maleo, comparateur de mutuelles depuis plus de 10 ans",
+        "metaDescription": "Nos conseillers sont à l&#039;écoute de vos besoins et vous accompagnent pour trouver la mutuelle qui vous convient au meilleur prix."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=maleosante&page=1&per_page=5",
+        "http": 200,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "Manoir Saint-Sauveur",
+      "domaine": null,
+      "verdict": "cannot_verify",
+      "raison": "candidat(s) au registre mais aucun recoupement avec null — arbitrage humain",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Manoir%20Saint-Sauveur&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "GAEC DU MANOIR",
+            "siren": "392451654",
+            "commune": "SAINT-SAUVEUR-LE-VICOMTE",
+            "dept": "50",
+            "etat": "A"
+          },
+          {
+            "denomination": "ASSOCIATION AMIS MANOIR DE  LA FOULERIE",
+            "siren": "433292273",
+            "commune": "SAINT-SAUVEUR-VILLAGES",
+            "dept": "50",
+            "etat": "C"
+          },
+          {
+            "denomination": "SCI L'ENCLOS DU MANOIR",
+            "siren": "305524308",
+            "commune": "CAEN",
+            "dept": "14",
+            "etat": "C"
+          },
+          {
+            "denomination": "FAUT VIVRE",
+            "siren": "499084598",
+            "commune": "SAINT-SAUVEUR-LA-POMMERAYE",
+            "dept": "50",
+            "etat": "A"
+          },
+          {
+            "denomination": "MICHAEL LECOUEY",
+            "siren": "353782063",
+            "commune": "GOUVILLE-SUR-MER",
+            "dept": "50",
+            "etat": "A"
+          }
+        ]
+      }
+    },
+    {
+      "nomLisible": "Marans Weisz & Newman, LLC",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Marans%20Weisz%20%26%20Newman%2C%20LLC&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "Marseille Provence",
+      "domaine": null,
+      "verdict": "cannot_verify",
+      "raison": "candidat(s) au registre mais aucun recoupement avec null — arbitrage humain",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Marseille%20Provence&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "MARSEILLE PROVENCE",
+            "siren": "408186153",
+            "commune": "MARSEILLE",
+            "dept": "13",
+            "etat": "A"
+          },
+          {
+            "denomination": "MARSEILLE PROVENCE",
+            "siren": "302784624",
+            "commune": "MARSEILLE 1",
+            "dept": "13",
+            "etat": "C"
+          },
+          {
+            "denomination": "METROPOLE D'AIX-MARSEILLE-PROVENCE (AMP)",
+            "siren": "200054807",
+            "commune": "MARSEILLE",
+            "dept": "13",
+            "etat": "A"
+          },
+          {
+            "denomination": "GYNECO MARSEILLE PROVENCE",
+            "siren": "944943406",
+            "commune": "AIX-EN-PROVENCE",
+            "dept": "13",
+            "etat": "A"
+          },
+          {
+            "denomination": "MARSEILLE PROVENCE RESTAURANTS",
+            "siren": "508970506",
+            "commune": "AUBAGNE",
+            "dept": "13",
+            "etat": "A"
+          }
+        ]
+      }
+    },
+    {
+      "nomLisible": "Martin Mechanical (martin.local)",
+      "domaine": "martin.local",
+      "verdict": "present",
+      "raison": "SIREN 300967239 au registre (état A, CURAN 12), recoupé avec martin.local",
+      "site": {
+        "url": "https://martin.local",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=martin&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "MARTIN",
+            "siren": "300967239",
+            "commune": "CURAN",
+            "dept": "12",
+            "etat": "A"
+          },
+          {
+            "denomination": "MARTIN",
+            "siren": "809360837",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "MARTIN",
+            "siren": "900311655",
+            "commune": "LE VESINET",
+            "dept": "78",
+            "etat": "A"
+          },
+          {
+            "denomination": "MARTIN",
+            "siren": "833706450",
+            "commune": "SAINT-MARTIN-DE-SANZAY",
+            "dept": "79",
+            "etat": "A"
+          },
+          {
+            "denomination": "MARTIN",
+            "siren": "942728197",
+            "commune": "SAINT-VINCENT-DES-LANDES",
+            "dept": "44",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "Massy Distribution Limited",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Massy%20Distribution%20Limited&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "mauguio-carnon.com",
+      "domaine": "mauguio-carnon.com",
+      "verdict": "present",
+      "raison": "SIREN 490478567 au registre (état A, MAUGUIO 34), recoupé avec mauguio-carnon.com",
+      "site": {
+        "url": "https://mauguio-carnon.com",
+        "http": 200,
+        "titre": "Accueil - Mairie de Mauguio Carnon",
+        "metaDescription": "Bienvenue sur le site officiel de la Mairie de Mauguio-Carnon : informations, actualités, services, démarches en ligne..."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=mauguio-carnon&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "MAUGUIO CARNON TRIATHLON",
+            "siren": "490478567",
+            "commune": "MAUGUIO",
+            "dept": "34",
+            "etat": "A"
+          },
+          {
+            "denomination": "MAUGUIO CARNON ATHLETISME",
+            "siren": "518125620",
+            "commune": "MAUGUIO",
+            "dept": "34",
+            "etat": "A"
+          },
+          {
+            "denomination": "UNION SPORTIVE MAUGUIO CARNON",
+            "siren": "394287460",
+            "commune": "MAUGUIO",
+            "dept": "34",
+            "etat": "A"
+          },
+          {
+            "denomination": "CLUB CANIN MAUGUIO CARNON",
+            "siren": "791466964",
+            "commune": "MAUGUIO",
+            "dept": "34",
+            "etat": "A"
+          },
+          {
+            "denomination": "YACHT CLUB DE MAUGUIO CARNON (YCMC)",
+            "siren": "398123646",
+            "commune": "MAUGUIO",
+            "dept": "34",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "MeridianLink fails to file with the SEC..so we do it for them + 24 hours to pay",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=MeridianLink%20fails%20to%20file%20with%20the%20SEC..so%20we%20do%20it%20for%20the&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "midipapierspeints.fr",
+      "domaine": "midipapierspeints.fr",
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : « Midi Papiers Peints | Magazine du revêtement mural &amp; poseurs par ville | Mid »",
+      "site": {
+        "url": "https://midipapierspeints.fr",
+        "http": 200,
+        "titre": "Midi Papiers Peints | Magazine du revêtement mural &amp; poseurs par ville | Midi Papiers Peints",
+        "metaDescription": "Midi Papiers Peints, le magazine du mur habillé : guides de choix papier peint et peinture, simulateur de prix au m² et devis de poseurs près de chez vous."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=midipapierspeints&page=1&per_page=5",
+        "http": 200,
+        "resultats": []
+      }
+    }
+  ]
+}
