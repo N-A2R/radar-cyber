@@ -92,6 +92,37 @@ export function genererInstants(fenetre: Fenetre): number[] {
 	return instants;
 }
 
+/**
+ * État de la base au moment de la mesure : un taux publié sans le volume
+ * observé n'est pas reproductible. Une seule requête, annotée ici, fournit
+ * les trois compteurs et la dernière date d'observation des faits en base.
+ */
+async function compterBase(): Promise<{
+	evenements: number;
+	organisations: number;
+	sources: number;
+	derniereObservation: string | null;
+}> {
+	const r = await query<{
+		evenements: string;
+		organisations: string;
+		sources: string;
+		derniereObservation: string | null;
+	}>(
+		`SELECT (SELECT count(*) FROM event)::text AS evenements,
+		        (SELECT count(*) FROM org)::text AS organisations,
+		        (SELECT count(*) FROM source)::text AS sources,
+		        (SELECT max(observed_at)::date::text FROM event) AS "derniereObservation"`,
+	);
+	const ligne = r.rows[0];
+	return {
+		evenements: Number(ligne?.evenements ?? 0),
+		organisations: Number(ligne?.organisations ?? 0),
+		sources: Number(ligne?.sources ?? 0),
+		derniereObservation: ligne?.derniereObservation ?? null,
+	};
+}
+
 /** Au-delà de la couverture du corpus + tolérance, on ne peut pas classer. */
 export function estClassable(instant: number, maxDateCorpus: number, toleranceJours: number): boolean {
 	return instant <= maxDateCorpus + toleranceJours * JOUR_MS;
@@ -394,6 +425,10 @@ async function main(): Promise<void> {
 		console.log(`  FAUSSE [${e.agent}] ${e.instant} ${e.cle} (${e.raison}) — ${e.motif}`);
 	}
 	console.log(`Diagnostic source au ${diagnosticSources.instant} : ${diagnosticSources.sourcesAvecEvenementsRecents} source(s) avec faits récents, ${diagnosticSources.sourcesQuotidiennesSurCadence} avec une cadence quotidienne sur ${FENETRE_CADENCE_JOURS} j — sans cadence, aucun silence n'est mesurable.`);
+	// Comptée avant l'écriture : le JSON publié porte l'état de la base qui a
+	// produit ses taux, pas un volume relevé après coup.
+	const base = await compterBase();
+	console.log(`Base au rejeu : ${base.evenements} événements, ${base.organisations} organisations, ${base.sources} sources · derniers faits observés le ${base.derniereObservation ?? "inconnu"}`);
 	if (classees.length === 0) {
 		console.log("Aucune alerte émise sur la fenêtre : les seuils en place ne tirent pas sur cette base — taux non calculable par absence, pas par qualité.");
 	}
@@ -402,6 +437,7 @@ async function main(): Promise<void> {
 		writeFileSync(SORTIE_JSON, `${JSON.stringify({
 			dateMesure: new Date().toISOString().slice(0, 10),
 			commande: COMMANDE_REJEU,
+			base,
 			fenetre: FENETRE,
 			pasJours: PAS_REJEU_JOURS,
 			rejeux,
