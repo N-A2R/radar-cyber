@@ -1268,10 +1268,638 @@
      }
     }
    }
+  ],
+  "lot3": [
+   {
+    "id": "feed:firehol:cleantalk_7d",
+    "name": "FireHOL cleantalk_7d",
+    "family": "reputation",
+    "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cleantalk_7d.ipset",
+    "kind": "indicator",
+    "format": "txt",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 9233 items reçus au dernier passage (2026-11-20), tous rejetés par la porte ({\"motif\": \"filtre\", \"non_actionnable\": 9233}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 132005,
+     "itemsDecodes": 9233,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "9233",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"non_actionnable\": 9233}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "feed:firehol:blocklist_net_ua",
+    "name": "FireHOL blocklist_net_ua",
+    "family": "reputation",
+    "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_net_ua.ipset",
+    "kind": "indicator",
+    "format": "txt",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 233791 items reçus au dernier passage (2026-11-20), tous rejetés par la porte ({\"motif\": \"filtre\", \"non_actionnable\": 233791}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 3329524,
+     "itemsDecodes": 233791,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "233791",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"non_actionnable\": 233791}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "poc_github",
+    "name": "PoC publics GitHub (nomi-sec/PoC-in-GitHub)",
+    "family": "vuln",
+    "url": "https://github.com/nomi-sec/PoC-in-GitHub",
+    "kind": "indicator",
+    "format": "json",
+    "motif": "vide-legitime",
+    "raison": "source indicator vivante : 5 nouveaux indicateurs en 30 j (dernier 2026-11-13) — events_30d=0 est structurel",
+    "preuve": {
+     "http": 200,
+     "bytes": 246776,
+     "itemsDecodes": 0,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "53",
+      "itemsNew": "5",
+      "rejets": "{\"warninglist\": 48}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "feed:firehol:cleantalk",
+    "name": "FireHOL cleantalk",
+    "family": "reputation",
+    "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cleantalk.ipset",
+    "kind": "indicator",
+    "format": "txt",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 494 items reçus au dernier passage (2026-11-20), tous rejetés par la porte ({\"motif\": \"filtre\", \"non_actionnable\": 494}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 7719,
+     "itemsDecodes": 494,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "494",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"non_actionnable\": 494}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "feed:firehol:botscout_7d",
+    "name": "FireHOL botscout_7d",
+    "family": "reputation",
+    "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botscout_7d.ipset",
+    "kind": "indicator",
+    "format": "txt",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 925 items reçus au dernier passage (2026-11-20), tous rejetés par la porte ({\"motif\": \"filtre\", \"non_actionnable\": 925}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 14551,
+     "itemsDecodes": 939,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "925",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"non_actionnable\": 925}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "univ-larochelle",
+    "name": "Université de La Rochelle (RSS)",
+    "family": "cti",
+    "url": "https://www.univ-lr.fr/rss",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "morte-plus-30j",
+    "raison": "dernier item 2026-10-16 (36 jours)",
+    "preuve": {
+     "http": 200,
+     "bytes": 212924,
+     "itemsDecodes": 20,
+     "dernierItem": "2026-10-16T14:22:25+00:00",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "20",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 20}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "feed:firehol:botscout_1d",
+    "name": "FireHOL botscout_1d",
+    "family": "reputation",
+    "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botscout_1d.ipset",
+    "kind": "indicator",
+    "format": "txt",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 157 items reçus au dernier passage (2026-11-20), tous rejetés par la porte ({\"motif\": \"filtre\", \"non_actionnable\": 157}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 3535,
+     "itemsDecodes": 162,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "157",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"non_actionnable\": 157}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "chu-poitiers",
+    "name": "CHU de Poitiers (RSS)",
+    "family": "cti",
+    "url": "https://www.chu-poitiers.fr/rss",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 10 items reçus au dernier passage (2026-11-20), tous rejetés par la porte ({\"motif\": \"filtre\", \"presse\": 10}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 52963,
+     "itemsDecodes": 10,
+     "dernierItem": "2026-11-20T12:16:41+00:00",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "10",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 10}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "feed:firehol:botvrij_dst",
+    "name": "FireHOL botvrij_dst",
+    "family": "reputation",
+    "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botvrij_dst.ipset",
+    "kind": "indicator",
+    "format": "txt",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 134 items reçus au dernier passage (2026-11-20), tous rejetés par la porte ({\"motif\": \"filtre\", \"non_actionnable\": 134}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 2891,
+     "itemsDecodes": 134,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "134",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"non_actionnable\": 134}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "feed:firehol:abuseipdb_30d",
+    "name": "FireHOL abuseipdb_30d",
+    "family": "reputation",
+    "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/abuseipdb_30d.ipset",
+    "kind": "indicator",
+    "format": "txt",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 155129 items reçus au dernier passage (2026-11-20), tous rejetés par la porte ({\"motif\": \"filtre\", \"non_actionnable\": 155129}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 2205099,
+     "itemsDecodes": 155129,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "155129",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"non_actionnable\": 155129}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "feed:firehol:cleantalk_1d",
+    "name": "FireHOL cleantalk_1d",
+    "family": "reputation",
+    "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cleantalk_1d.ipset",
+    "kind": "indicator",
+    "format": "txt",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 1900 items reçus au dernier passage (2026-11-20), tous rejetés par la porte ({\"motif\": \"filtre\", \"non_actionnable\": 1900}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 27621,
+     "itemsDecodes": 1900,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "1900",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"non_actionnable\": 1900}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "eco-aquitaine-robotics",
+    "name": "Aquitaine Robotics (RSS)",
+    "family": "cti",
+    "url": "https://www.aquitaine-robotics.com/feed",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "morte-plus-30j",
+    "raison": "dernier item 2026-10-08 (44 jours)",
+    "preuve": {
+     "http": 200,
+     "bytes": 11901,
+     "itemsDecodes": 4,
+     "dernierItem": "2026-10-08T15:02:00+00:00",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "0",
+      "itemsNew": "0",
+      "rejets": "",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "eco-unitec",
+    "name": "Unitec (incubateur Bordeaux, RSS)",
+    "family": "cti",
+    "url": "https://unitec.fr/feed/",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "vide-legitime",
+    "raison": "dernier passage 2026-11-21: 0 item reçu () ; contenu servi inchangé",
+    "preuve": {
+     "http": 200,
+     "bytes": 135145,
+     "itemsDecodes": 10,
+     "dernierItem": "2026-10-23T08:45:31+00:00",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "0",
+      "itemsNew": "0",
+      "rejets": "",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "feed:firehol:blocklist_de_bruteforce",
+    "name": "FireHOL blocklist_de_bruteforce",
+    "family": "reputation",
+    "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_bruteforce.ipset",
+    "kind": "indicator",
+    "format": "txt",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 962 items reçus au dernier passage (2026-11-20), tous rejetés par la porte ({\"motif\": \"filtre\", \"non_actionnable\": 962}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 14479,
+     "itemsDecodes": 962,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "962",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"non_actionnable\": 962}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "feed:firehol:blocklist_de_ssh",
+    "name": "FireHOL blocklist_de_ssh",
+    "family": "reputation",
+    "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_ssh.ipset",
+    "kind": "indicator",
+    "format": "txt",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 5656 items reçus au dernier passage (2026-11-20), tous rejetés par la porte ({\"motif\": \"filtre\", \"non_actionnable\": 5656}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 81904,
+     "itemsDecodes": 5656,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "5656",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"non_actionnable\": 5656}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "eco-rep-pyrenees",
+    "name": "La République des Pyrénées Économie (RSS)",
+    "family": "cti",
+    "url": "https://www.larepubliquedespyrenees.fr/economie/rss.xml",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 20 items reçus au dernier passage (2026-11-21), tous rejetés par la porte ({\"motif\": \"filtre\", \"presse\": 20}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 30142,
+     "itemsDecodes": 20,
+     "dernierItem": "2026-11-20T21:03:14+01:00",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "20",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 20}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "feed:firehol:blocklist_de_imap",
+    "name": "FireHOL blocklist_de_imap",
+    "family": "reputation",
+    "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_imap.ipset",
+    "kind": "indicator",
+    "format": "txt",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 4700 items reçus au dernier passage (2026-11-20), tous rejetés par la porte ({\"motif\": \"filtre\", \"non_actionnable\": 4700}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 67752,
+     "itemsDecodes": 4700,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "4700",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"non_actionnable\": 4700}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "feed:firehol:botscout_30d",
+    "name": "FireHOL botscout_30d",
+    "family": "reputation",
+    "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botscout_30d.ipset",
+    "kind": "indicator",
+    "format": "txt",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 2919 items reçus au dernier passage (2026-11-20), tous rejetés par la porte ({\"motif\": \"filtre\", \"non_actionnable\": 2919}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 43741,
+     "itemsDecodes": 2978,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "2919",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"non_actionnable\": 2919}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "eco-jde-na",
+    "name": "Le Journal des Entreprises Nouvelle-Aquitaine (RSS)",
+    "family": "cti",
+    "url": "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 20 items reçus au dernier passage (2026-11-21), tous rejetés par la porte ({\"motif\": \"filtre\", \"presse\": 20}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 15981,
+     "itemsDecodes": 20,
+     "dernierItem": "2026-11-20T10:36:05+01:00",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "20",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 20}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "eco-technowest",
+    "name": "Bordeaux Technowest (RSS)",
+    "family": "cti",
+    "url": "https://technowest.com/feed/",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "vide-legitime",
+    "raison": "dernier passage 2026-11-21: 0 item reçu () ; contenu servi inchangé",
+    "preuve": {
+     "http": 200,
+     "bytes": 238896,
+     "itemsDecodes": 10,
+     "dernierItem": "2026-11-17T09:56:36+00:00",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "0",
+      "itemsNew": "0",
+      "rejets": "",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "epss",
+    "name": "FIRST EPSS",
+    "family": "vuln",
+    "url": "https://www.first.org/epss/",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "vide-legitime",
+    "raison": "collecteur dédié : les scores EPSS vont dans la table epss (410485 lignes, maj 2026-11-20 18:23) — 0 événement par conception (documentée dans epss.collector.ts)",
+    "preuve": {
+     "http": 200,
+     "bytes": 26668,
+     "itemsDecodes": 0,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "0",
+      "itemsNew": "0",
+      "rejets": "",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "feed:firehol:cleantalk_new_7d",
+    "name": "FireHOL cleantalk_new_7d",
+    "family": "reputation",
+    "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cleantalk_new_7d.ipset",
+    "kind": "indicator",
+    "format": "txt",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 3911 items reçus au dernier passage (2026-11-20), tous rejetés par la porte ({\"motif\": \"filtre\", \"non_actionnable\": 3911}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 56272,
+     "itemsDecodes": 3948,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "3911",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"non_actionnable\": 3911}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "cat-cert-ee",
+    "name": "CERT-EE / RIA News",
+    "family": "cert",
+    "url": "https://www.ria.ee/en/news-feed/all/feed",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "bloque-externe",
+    "raison": "HTTP 403 (SourceBlockedError, client du collecteur) — blocage externe, ne pas contourner",
+    "preuve": {
+     "http": null,
+     "bytes": null,
+     "itemsDecodes": null,
+     "dernierItem": null,
+     "erreur": "SourceBlockedError: Source blocked (403) for https://www.ria.ee/en/news-feed/all/feed",
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "error",
+      "itemsIn": "0",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"reseau\"}",
+      "erreurCollecte": "Source blocked (403) for https://www.ria.ee/en/news-feed/all"
+     }
+    }
+   },
+   {
+    "id": "feed:firehol:blocklist_de_sip",
+    "name": "FireHOL blocklist_de_sip",
+    "family": "reputation",
+    "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_sip.ipset",
+    "kind": "indicator",
+    "format": "txt",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 193 items reçus au dernier passage (2026-11-20), tous rejetés par la porte ({\"motif\": \"filtre\", \"non_actionnable\": 193}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 3607,
+     "itemsDecodes": 193,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "193",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"non_actionnable\": 193}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "feed:firehol:cybercrime",
+    "name": "FireHOL cybercrime",
+    "family": "reputation",
+    "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cybercrime.ipset",
+    "kind": "indicator",
+    "format": "txt",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 533 items reçus au dernier passage (2026-11-20), tous rejetés par la porte ({\"motif\": \"filtre\", \"non_actionnable\": 533}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 8367,
+     "itemsDecodes": 533,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "533",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"non_actionnable\": 533}",
+      "erreurCollecte": ""
+     }
+    }
+   }
   ]
  },
  "publie": {
   "lot1": 25,
-  "lot2": 25
+  "lot2": 25,
+  "lot3": 25
  }
 }
