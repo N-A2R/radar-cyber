@@ -1,0 +1,1781 @@
+{
+  "dateCalcul": "2026-11-21",
+  "hashCorpus": "a367e4f3642c64972dfca8498afeafb21b96f1507899c90107539bd9b20cf78e",
+  "fenetre": {
+    "debut": "2024-04-19",
+    "fin": "2026-09-15"
+  },
+  "sequenceCorpus": "stable",
+  "base": {
+    "derniere_collecte": "2026-11-21",
+    "derniere_execution": "2026-11-21",
+    "evenements": 26719,
+    "evenements_archives": 4710,
+    "sources": 312,
+    "organisations": "1673151",
+    "empreinte": "80de9f90ae633b31c35d5598cafad74302207a6f14d65676b5a1e49198a53282"
+  },
+  "global": {
+    "vus": 0,
+    "total": 20,
+    "taux": 0
+  },
+  "parMotif": [
+    {
+      "motif": "vu",
+      "incidents": 0,
+      "part": 0
+    },
+    {
+      "motif": "pas_collecte",
+      "incidents": 20,
+      "part": 100
+    },
+    {
+      "motif": "pas_rattache",
+      "incidents": 0,
+      "part": 0
+    },
+    {
+      "motif": "pas_juge_cyber",
+      "incidents": 0,
+      "part": 0
+    },
+    {
+      "motif": "indetermine",
+      "incidents": 0,
+      "part": 0
+    }
+  ],
+  "parDepartement": [
+    {
+      "departement": "Charente",
+      "vus": 0,
+      "total": 2,
+      "taux": 0
+    },
+    {
+      "departement": "Charente-Maritime",
+      "vus": 0,
+      "total": 2,
+      "taux": 0
+    },
+    {
+      "departement": "Corrèze",
+      "vus": 0,
+      "total": 1,
+      "taux": 0
+    },
+    {
+      "departement": "Creuse",
+      "vus": 0,
+      "total": 1,
+      "taux": 0
+    },
+    {
+      "departement": "Deux-Sèvres",
+      "vus": 0,
+      "total": 1,
+      "taux": 0
+    },
+    {
+      "departement": "Dordogne",
+      "vus": 0,
+      "total": 1,
+      "taux": 0
+    },
+    {
+      "departement": "Gironde",
+      "vus": 0,
+      "total": 6,
+      "taux": 0
+    },
+    {
+      "departement": "Haute-Vienne",
+      "vus": 0,
+      "total": 1,
+      "taux": 0
+    },
+    {
+      "departement": "Landes",
+      "vus": 0,
+      "total": 1,
+      "taux": 0
+    },
+    {
+      "departement": "Lot-et-Garonne",
+      "vus": 0,
+      "total": 1,
+      "taux": 0
+    },
+    {
+      "departement": "Pyrénées-Atlantiques",
+      "vus": 0,
+      "total": 1,
+      "taux": 0
+    },
+    {
+      "departement": "Vienne",
+      "vus": 0,
+      "total": 2,
+      "taux": 0
+    }
+  ],
+  "parType": [
+    {
+      "type": "compromission",
+      "vus": 0,
+      "total": 3,
+      "taux": 0
+    },
+    {
+      "type": "defacement",
+      "vus": 0,
+      "total": 1,
+      "taux": 0
+    },
+    {
+      "type": "fuite",
+      "vus": 0,
+      "total": 8,
+      "taux": 0
+    },
+    {
+      "type": "ransomware",
+      "vus": 0,
+      "total": 8,
+      "taux": 0
+    }
+  ],
+  "delaiMedianHeures": null,
+  "incidents": [
+    {
+      "id": "na-couv-001",
+      "organisation": "Ville de Floirac",
+      "datePublication": "2024-04-19",
+      "departement": "Gironde",
+      "type": "compromission",
+      "source": "France 3 Nouvelle-Aquitaine",
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/aucune-donnee-n-a-ete-exfiltree-victime-d-une-cyberattaque-une-mairie-est-privee-d-acces-a-internet-2957996.html",
+      "vu": false,
+      "motif": "pas_collecte",
+      "delaiHeures": null,
+      "premiereCollecte": null,
+      "correspondance": null,
+      "sources": [
+        {
+          "id": "presse-france3-correze",
+          "nom": "France 3 NA — Correze (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-france3-creuse",
+          "nom": "France 3 NA — Creuse (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-france3-landes",
+          "nom": "France 3 NA — Landes (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-france3-na",
+          "nom": "France 3 Nouvelle-Aquitaine (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        }
+      ],
+      "collecteeCeJour": false,
+      "familleSortie": "cti",
+      "filtreRefuse": false,
+      "famillesProduites": [],
+      "preuve": "aucune collecte le 2024-04-19 pour France 3 NA — Correze (RSS)",
+      "requetes": {
+        "evenements": {
+          "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
+          "params": [
+            "france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/aucune-donnee-n-a-ete-exfiltree-victime-d-une-cyberattaque-une-mairie-est-privee-d-acces-a-internet-2957996.html",
+            "aucune donnee n a ete exfiltree victime d une cyberattaque une mairie est privee d acces a internet",
+            "ville de floirac",
+            "2024-04-19"
+          ]
+        },
+        "collecte": {
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "params": [
+            "france3-regions.franceinfo.fr",
+            "france 3 nouvelle aquitaine",
+            "2024-04-19"
+          ]
+        },
+        "filtre": {
+          "sql": "WITH demande AS (SELECT $1::date AS jour)\nSELECT coalesce(e.family, '(aucune)') AS famille, count(*)::int AS evenements\n  FROM event e CROSS JOIN demande d\n WHERE e.source_id = ANY($2::text[])\n   AND e.collected_at::date BETWEEN d.jour - INTERVAL '7 days' AND d.jour + INTERVAL '7 days'\n GROUP BY 1 ORDER BY 2 DESC, 1",
+          "params": [
+            "2024-04-19",
+            [
+              "presse-france3-correze",
+              "presse-france3-creuse",
+              "presse-france3-landes",
+              "presse-france3-na"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "na-couv-002",
+      "organisation": "CCI Béarn et Soule : aéroport Pau-Pyrénées, école de commerce Eklore et campus numérique de Pau",
+      "datePublication": "2024-05-15",
+      "departement": "Pyrénées-Atlantiques",
+      "type": "ransomware",
+      "source": "Sud Ouest",
+      "url": "https://www.sudouest.fr/economie/cybersecurite/info-sud-ouest-pau-l-aeroport-et-l-ecole-de-commerce-victimes-d-une-cyberattaque-19716881.php",
+      "vu": false,
+      "motif": "pas_collecte",
+      "delaiHeures": null,
+      "premiereCollecte": null,
+      "correspondance": null,
+      "sources": [
+        {
+          "id": "eco-sudouest",
+          "nom": "Sud Ouest Éco (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest",
+          "nom": "Sud Ouest (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-charente",
+          "nom": "Sud Ouest — Charente (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-charente-maritime",
+          "nom": "Sud Ouest — Charente-Maritime (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-deux-sevres",
+          "nom": "Sud Ouest — Deux-Sèvres (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-dordogne",
+          "nom": "Sud Ouest — Dordogne (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-gironde",
+          "nom": "Sud Ouest — Gironde (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-landes",
+          "nom": "Sud Ouest — Landes (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-lot-et-garonne",
+          "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-mont-de-marsan",
+          "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-pyrenees",
+          "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-rss",
+          "nom": "Sud Ouest (RSS)",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        }
+      ],
+      "collecteeCeJour": false,
+      "familleSortie": "cti",
+      "filtreRefuse": false,
+      "famillesProduites": [],
+      "preuve": "aucune collecte le 2024-05-15 pour Sud Ouest Éco (RSS)",
+      "requetes": {
+        "evenements": {
+          "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
+          "params": [
+            "sudouest.fr/economie/cybersecurite/info-sud-ouest-pau-l-aeroport-et-l-ecole-de-commerce-victimes-d-une-cyberattaque-19716881.php",
+            "info sud ouest pau l aeroport et l ecole de commerce victimes d une cyberattaque",
+            "cci bearn et soule aeroport pau pyrenees ecole de commerce eklore et campus numerique de pau",
+            "2024-05-15"
+          ]
+        },
+        "collecte": {
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "params": [
+            "sudouest.fr",
+            "sud ouest",
+            "2024-05-15"
+          ]
+        },
+        "filtre": {
+          "sql": "WITH demande AS (SELECT $1::date AS jour)\nSELECT coalesce(e.family, '(aucune)') AS famille, count(*)::int AS evenements\n  FROM event e CROSS JOIN demande d\n WHERE e.source_id = ANY($2::text[])\n   AND e.collected_at::date BETWEEN d.jour - INTERVAL '7 days' AND d.jour + INTERVAL '7 days'\n GROUP BY 1 ORDER BY 2 DESC, 1",
+          "params": [
+            "2024-05-15",
+            [
+              "eco-sudouest",
+              "presse-sudouest",
+              "presse-sudouest-charente",
+              "presse-sudouest-charente-maritime",
+              "presse-sudouest-deux-sevres",
+              "presse-sudouest-dordogne",
+              "presse-sudouest-gironde",
+              "presse-sudouest-landes",
+              "presse-sudouest-lot-et-garonne",
+              "presse-sudouest-mont-de-marsan",
+              "presse-sudouest-pyrenees",
+              "presse-sudouest-rss"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "na-couv-003",
+      "organisation": "SPSTI 16 — service de prévention et de santé au travail interentreprises de la Charente",
+      "datePublication": "2024-06-14",
+      "departement": "Charente",
+      "type": "ransomware",
+      "source": "Charente Libre",
+      "url": "https://www.charentelibre.fr/sante/la-medecine-du-travail-de-charente-victime-d-une-cyberattaque-des-donnees-personnelles-de-salaries-piratees-20132500.php",
+      "vu": false,
+      "motif": "pas_collecte",
+      "delaiHeures": null,
+      "premiereCollecte": null,
+      "correspondance": null,
+      "sources": [
+        {
+          "id": "eco-charentelibre",
+          "nom": "Charente Libre Économie (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-charentelibre",
+          "nom": "Charente Libre (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        }
+      ],
+      "collecteeCeJour": false,
+      "familleSortie": "cti",
+      "filtreRefuse": false,
+      "famillesProduites": [],
+      "preuve": "aucune collecte le 2024-06-14 pour Charente Libre Économie (RSS)",
+      "requetes": {
+        "evenements": {
+          "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
+          "params": [
+            "charentelibre.fr/sante/la-medecine-du-travail-de-charente-victime-d-une-cyberattaque-des-donnees-personnelles-de-salaries-piratees-20132500.php",
+            "la medecine du travail de charente victime d une cyberattaque des donnees personnelles de salaries piratees",
+            "spsti 16 service de prevention et de sante au travail interentreprises de la charente",
+            "2024-06-14"
+          ]
+        },
+        "collecte": {
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "params": [
+            "charentelibre.fr",
+            "charente libre",
+            "2024-06-14"
+          ]
+        },
+        "filtre": {
+          "sql": "WITH demande AS (SELECT $1::date AS jour)\nSELECT coalesce(e.family, '(aucune)') AS famille, count(*)::int AS evenements\n  FROM event e CROSS JOIN demande d\n WHERE e.source_id = ANY($2::text[])\n   AND e.collected_at::date BETWEEN d.jour - INTERVAL '7 days' AND d.jour + INTERVAL '7 days'\n GROUP BY 1 ORDER BY 2 DESC, 1",
+          "params": [
+            "2024-06-14",
+            [
+              "eco-charentelibre",
+              "presse-charentelibre"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "na-couv-004",
+      "organisation": "Théâtre de la Coursive (billetterie Sirius), La Rochelle",
+      "datePublication": "2024-07-01",
+      "departement": "Charente-Maritime",
+      "type": "fuite",
+      "source": "ICI / Radio France",
+      "url": "https://www.ici.fr/infos/faits-divers-justice/la-billetterie-du-theatre-de-la-coursive-a-la-rochelle-victime-d-une-attaque-informatique-1178940",
+      "vu": false,
+      "motif": "pas_collecte",
+      "delaiHeures": null,
+      "premiereCollecte": null,
+      "correspondance": null,
+      "sources": [
+        {
+          "id": "presse-ici-creuse",
+          "nom": "ICI Creuse — a la une (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-ici-limousin-infos",
+          "nom": "ICI Limousin — infos (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        }
+      ],
+      "collecteeCeJour": false,
+      "familleSortie": "cti",
+      "filtreRefuse": false,
+      "famillesProduites": [],
+      "preuve": "aucune collecte le 2024-07-01 pour ICI Creuse — a la une (RSS)",
+      "requetes": {
+        "evenements": {
+          "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
+          "params": [
+            "ici.fr/infos/faits-divers-justice/la-billetterie-du-theatre-de-la-coursive-a-la-rochelle-victime-d-une-attaque-informatique-1178940",
+            "la billetterie du theatre de la coursive a la rochelle victime d une attaque informatique",
+            "theatre de la coursive billetterie sirius la rochelle",
+            "2024-07-01"
+          ]
+        },
+        "collecte": {
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "params": [
+            "ici.fr",
+            "ici radio france",
+            "2024-07-01"
+          ]
+        },
+        "filtre": {
+          "sql": "WITH demande AS (SELECT $1::date AS jour)\nSELECT coalesce(e.family, '(aucune)') AS famille, count(*)::int AS evenements\n  FROM event e CROSS JOIN demande d\n WHERE e.source_id = ANY($2::text[])\n   AND e.collected_at::date BETWEEN d.jour - INTERVAL '7 days' AND d.jour + INTERVAL '7 days'\n GROUP BY 1 ORDER BY 2 DESC, 1",
+          "params": [
+            "2024-07-01",
+            [
+              "presse-ici-creuse",
+              "presse-ici-limousin-infos"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "na-couv-005",
+      "organisation": "Safed — Service d'accompagnement des familles en difficulté, Périgueux",
+      "datePublication": "2024-11-27",
+      "departement": "Dordogne",
+      "type": "compromission",
+      "source": "Sud Ouest",
+      "url": "https://www.sudouest.fr/economie/social/dordogne-un-service-aux-personnes-en-difficulte-subit-une-attaque-informatique-22308319.php",
+      "vu": false,
+      "motif": "pas_collecte",
+      "delaiHeures": null,
+      "premiereCollecte": null,
+      "correspondance": null,
+      "sources": [
+        {
+          "id": "eco-sudouest",
+          "nom": "Sud Ouest Éco (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest",
+          "nom": "Sud Ouest (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-charente",
+          "nom": "Sud Ouest — Charente (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-charente-maritime",
+          "nom": "Sud Ouest — Charente-Maritime (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-deux-sevres",
+          "nom": "Sud Ouest — Deux-Sèvres (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-dordogne",
+          "nom": "Sud Ouest — Dordogne (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-gironde",
+          "nom": "Sud Ouest — Gironde (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-landes",
+          "nom": "Sud Ouest — Landes (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-lot-et-garonne",
+          "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-mont-de-marsan",
+          "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-pyrenees",
+          "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-rss",
+          "nom": "Sud Ouest (RSS)",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        }
+      ],
+      "collecteeCeJour": false,
+      "familleSortie": "cti",
+      "filtreRefuse": false,
+      "famillesProduites": [],
+      "preuve": "aucune collecte le 2024-11-27 pour Sud Ouest Éco (RSS)",
+      "requetes": {
+        "evenements": {
+          "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
+          "params": [
+            "sudouest.fr/economie/social/dordogne-un-service-aux-personnes-en-difficulte-subit-une-attaque-informatique-22308319.php",
+            "dordogne un service d aide aux personnes en difficulte subit une attaque informatique",
+            "safed service d accompagnement des familles en difficulte perigueux",
+            "2024-11-27"
+          ]
+        },
+        "collecte": {
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "params": [
+            "sudouest.fr",
+            "sud ouest",
+            "2024-11-27"
+          ]
+        },
+        "filtre": {
+          "sql": "WITH demande AS (SELECT $1::date AS jour)\nSELECT coalesce(e.family, '(aucune)') AS famille, count(*)::int AS evenements\n  FROM event e CROSS JOIN demande d\n WHERE e.source_id = ANY($2::text[])\n   AND e.collected_at::date BETWEEN d.jour - INTERVAL '7 days' AND d.jour + INTERVAL '7 days'\n GROUP BY 1 ORDER BY 2 DESC, 1",
+          "params": [
+            "2024-11-27",
+            [
+              "eco-sudouest",
+              "presse-sudouest",
+              "presse-sudouest-charente",
+              "presse-sudouest-charente-maritime",
+              "presse-sudouest-deux-sevres",
+              "presse-sudouest-dordogne",
+              "presse-sudouest-gironde",
+              "presse-sudouest-landes",
+              "presse-sudouest-lot-et-garonne",
+              "presse-sudouest-mont-de-marsan",
+              "presse-sudouest-pyrenees",
+              "presse-sudouest-rss"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "na-couv-006",
+      "organisation": "Collège privé La Salle de Brive-la-Gaillarde",
+      "datePublication": "2025-02-14",
+      "departement": "Corrèze",
+      "type": "ransomware",
+      "source": "La Dépêche",
+      "url": "https://www.ladepeche.fr/2025/02/14/nous-avons-perdu-tous-les-bulletins-scolaires-apres-une-cyberattaque-les-malfrats-reclament-une-rancon-a-ce-college-prive-12513326.php",
+      "vu": false,
+      "motif": "pas_collecte",
+      "delaiHeures": null,
+      "premiereCollecte": null,
+      "correspondance": null,
+      "sources": [
+        {
+          "id": "presse-ladepeche-47",
+          "nom": "La Depeche — Lot-et-Garonne (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        }
+      ],
+      "collecteeCeJour": false,
+      "familleSortie": "cti",
+      "filtreRefuse": false,
+      "famillesProduites": [],
+      "preuve": "aucune collecte le 2025-02-14 pour La Depeche — Lot-et-Garonne (RSS)",
+      "requetes": {
+        "evenements": {
+          "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
+          "params": [
+            "ladepeche.fr/2025/02/14/nous-avons-perdu-tous-les-bulletins-scolaires-apres-une-cyberattaque-les-malfrats-reclament-une-rancon-a-ce-college-prive-12513326.php",
+            "nous avons perdu tous les bulletins scolaires apres une cyberattaque les malfrats reclament une rancon a ce college prive",
+            "college prive la salle de brive la gaillarde",
+            "2025-02-14"
+          ]
+        },
+        "collecte": {
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "params": [
+            "ladepeche.fr",
+            "la depeche",
+            "2025-02-14"
+          ]
+        },
+        "filtre": {
+          "sql": "WITH demande AS (SELECT $1::date AS jour)\nSELECT coalesce(e.family, '(aucune)') AS famille, count(*)::int AS evenements\n  FROM event e CROSS JOIN demande d\n WHERE e.source_id = ANY($2::text[])\n   AND e.collected_at::date BETWEEN d.jour - INTERVAL '7 days' AND d.jour + INTERVAL '7 days'\n GROUP BY 1 ORDER BY 2 DESC, 1",
+          "params": [
+            "2025-02-14",
+            [
+              "presse-ladepeche-47"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "na-couv-007",
+      "organisation": "Mairie de Berson",
+      "datePublication": "2025-03-01",
+      "departement": "Gironde",
+      "type": "ransomware",
+      "source": "actu.fr",
+      "url": "https://actu.fr/nouvelle-aquitaine/berson_33047/suite-a-une-cyberattaque-une-mairie-de-gironde-a-perdu-des-donnees-officielles-on-nous-reclame-une-rancon_62315310.html",
+      "vu": false,
+      "motif": "pas_collecte",
+      "delaiHeures": null,
+      "premiereCollecte": null,
+      "correspondance": null,
+      "sources": [
+        {
+          "id": "presse-republicain-47",
+          "nom": "Le Republicain Lot-et-Garonne — actu.fr (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        }
+      ],
+      "collecteeCeJour": false,
+      "familleSortie": "cti",
+      "filtreRefuse": false,
+      "famillesProduites": [],
+      "preuve": "aucune collecte le 2025-03-01 pour Le Republicain Lot-et-Garonne — actu.fr (RSS)",
+      "requetes": {
+        "evenements": {
+          "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
+          "params": [
+            "actu.fr/nouvelle-aquitaine/berson_33047/suite-a-une-cyberattaque-une-mairie-de-gironde-a-perdu-des-donnees-officielles-on-nous-reclame-une-rancon_62315310.html",
+            "suite a une cyberattaque une mairie de gironde a perdu des donnees officielles on nous reclame une rancon",
+            "mairie de berson",
+            "2025-03-01"
+          ]
+        },
+        "collecte": {
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "params": [
+            "actu.fr",
+            "actu fr",
+            "2025-03-01"
+          ]
+        },
+        "filtre": {
+          "sql": "WITH demande AS (SELECT $1::date AS jour)\nSELECT coalesce(e.family, '(aucune)') AS famille, count(*)::int AS evenements\n  FROM event e CROSS JOIN demande d\n WHERE e.source_id = ANY($2::text[])\n   AND e.collected_at::date BETWEEN d.jour - INTERVAL '7 days' AND d.jour + INTERVAL '7 days'\n GROUP BY 1 ORDER BY 2 DESC, 1",
+          "params": [
+            "2025-03-01",
+            [
+              "presse-republicain-47"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "na-couv-008",
+      "organisation": "Mairie d'Évaux-les-Bains — camping municipal",
+      "datePublication": "2025-07-11",
+      "departement": "Creuse",
+      "type": "defacement",
+      "source": "France 3 Nouvelle-Aquitaine",
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/gueret/le-site-internet-du-camping-de-cette-commune-thermale-victime-d-une-attaque-informatique-il-vante-les-services-d-une-escort-girl-3186765.html",
+      "vu": false,
+      "motif": "pas_collecte",
+      "delaiHeures": null,
+      "premiereCollecte": null,
+      "correspondance": null,
+      "sources": [
+        {
+          "id": "presse-france3-correze",
+          "nom": "France 3 NA — Correze (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-france3-creuse",
+          "nom": "France 3 NA — Creuse (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-france3-landes",
+          "nom": "France 3 NA — Landes (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-france3-na",
+          "nom": "France 3 Nouvelle-Aquitaine (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        }
+      ],
+      "collecteeCeJour": false,
+      "familleSortie": "cti",
+      "filtreRefuse": false,
+      "famillesProduites": [],
+      "preuve": "aucune collecte le 2025-07-11 pour France 3 NA — Correze (RSS)",
+      "requetes": {
+        "evenements": {
+          "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
+          "params": [
+            "france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/gueret/le-site-internet-du-camping-de-cette-commune-thermale-victime-d-une-attaque-informatique-il-vante-les-services-d-une-escort-girl-3186765.html",
+            "le site internet du camping de cette commune thermale victime d une attaque informatique il vante les services d une escort girl",
+            "mairie d evaux les bains camping municipal",
+            "2025-07-11"
+          ]
+        },
+        "collecte": {
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "params": [
+            "france3-regions.franceinfo.fr",
+            "france 3 nouvelle aquitaine",
+            "2025-07-11"
+          ]
+        },
+        "filtre": {
+          "sql": "WITH demande AS (SELECT $1::date AS jour)\nSELECT coalesce(e.family, '(aucune)') AS famille, count(*)::int AS evenements\n  FROM event e CROSS JOIN demande d\n WHERE e.source_id = ANY($2::text[])\n   AND e.collected_at::date BETWEEN d.jour - INTERVAL '7 days' AND d.jour + INTERVAL '7 days'\n GROUP BY 1 ORDER BY 2 DESC, 1",
+          "params": [
+            "2025-07-11",
+            [
+              "presse-france3-correze",
+              "presse-france3-creuse",
+              "presse-france3-landes",
+              "presse-france3-na"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "na-couv-009",
+      "organisation": "Ville de Poitiers et communauté urbaine de Grand Poitiers",
+      "datePublication": "2025-09-05",
+      "departement": "Vienne",
+      "type": "ransomware",
+      "source": "Ouest-France",
+      "url": "https://www.ouest-france.fr/societe/cyberattaque/cyberattaque-contre-la-mairie-de-poitiers-lobjectif-etait-de-reclamer-une-rancon-7ce05bb4-8a66-11f0-9cca-a0ceea2b93f6",
+      "vu": false,
+      "motif": "pas_collecte",
+      "delaiHeures": null,
+      "premiereCollecte": null,
+      "correspondance": null,
+      "sources": [
+        {
+          "id": "presse-ouestfrance-rss",
+          "nom": "Ouest-France (RSS)",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        }
+      ],
+      "collecteeCeJour": false,
+      "familleSortie": "presse",
+      "filtreRefuse": true,
+      "famillesProduites": [],
+      "preuve": "aucune collecte le 2025-09-05 pour Ouest-France (RSS)",
+      "requetes": {
+        "evenements": {
+          "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
+          "params": [
+            "ouest-france.fr/societe/cyberattaque/cyberattaque-contre-la-mairie-de-poitiers-lobjectif-etait-de-reclamer-une-rancon-7ce05bb4-8a66-11f0-9cca-a0ceea2b93f6",
+            "cyberattaque contre la mairie de poitiers l objectif etait de reclamer une rancon",
+            "ville de poitiers et communaute urbaine de grand poitiers",
+            "2025-09-05"
+          ]
+        },
+        "collecte": {
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "params": [
+            "ouest-france.fr",
+            "ouest france",
+            "2025-09-05"
+          ]
+        },
+        "filtre": {
+          "sql": "WITH demande AS (SELECT $1::date AS jour)\nSELECT coalesce(e.family, '(aucune)') AS famille, count(*)::int AS evenements\n  FROM event e CROSS JOIN demande d\n WHERE e.source_id = ANY($2::text[])\n   AND e.collected_at::date BETWEEN d.jour - INTERVAL '7 days' AND d.jour + INTERVAL '7 days'\n GROUP BY 1 ORDER BY 2 DESC, 1",
+          "params": [
+            "2025-09-05",
+            [
+              "presse-ouestfrance-rss"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "na-couv-010",
+      "organisation": "Ville de Fumel",
+      "datePublication": "2025-10-03",
+      "departement": "Lot-et-Garonne",
+      "type": "ransomware",
+      "source": "France 3 Nouvelle-Aquitaine",
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/lot-et-garonne/agen/une-cyberattaque-paralyse-la-mairie-un-cartel-malaisien-suspecte-3227429.html",
+      "vu": false,
+      "motif": "pas_collecte",
+      "delaiHeures": null,
+      "premiereCollecte": null,
+      "correspondance": null,
+      "sources": [
+        {
+          "id": "presse-france3-correze",
+          "nom": "France 3 NA — Correze (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-france3-creuse",
+          "nom": "France 3 NA — Creuse (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-france3-landes",
+          "nom": "France 3 NA — Landes (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-france3-na",
+          "nom": "France 3 Nouvelle-Aquitaine (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        }
+      ],
+      "collecteeCeJour": false,
+      "familleSortie": "cti",
+      "filtreRefuse": false,
+      "famillesProduites": [],
+      "preuve": "aucune collecte le 2025-10-03 pour France 3 NA — Correze (RSS)",
+      "requetes": {
+        "evenements": {
+          "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
+          "params": [
+            "france3-regions.franceinfo.fr/nouvelle-aquitaine/lot-et-garonne/agen/une-cyberattaque-paralyse-la-mairie-un-cartel-malaisien-suspecte-3227429.html",
+            "une cyberattaque paralyse la mairie un cartel malaisien suspecte",
+            "ville de fumel",
+            "2025-10-03"
+          ]
+        },
+        "collecte": {
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "params": [
+            "france3-regions.franceinfo.fr",
+            "france 3 nouvelle aquitaine",
+            "2025-10-03"
+          ]
+        },
+        "filtre": {
+          "sql": "WITH demande AS (SELECT $1::date AS jour)\nSELECT coalesce(e.family, '(aucune)') AS famille, count(*)::int AS evenements\n  FROM event e CROSS JOIN demande d\n WHERE e.source_id = ANY($2::text[])\n   AND e.collected_at::date BETWEEN d.jour - INTERVAL '7 days' AND d.jour + INTERVAL '7 days'\n GROUP BY 1 ORDER BY 2 DESC, 1",
+          "params": [
+            "2025-10-03",
+            [
+              "presse-france3-correze",
+              "presse-france3-creuse",
+              "presse-france3-landes",
+              "presse-france3-na"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "na-couv-011",
+      "organisation": "Ville de La Rochelle — prestataire Synbird",
+      "datePublication": "2025-11-27",
+      "departement": "Charente-Maritime",
+      "type": "fuite",
+      "source": "Sud Ouest",
+      "url": "https://www.sudouest.fr/charente-maritime/la-rochelle/fuite-de-donnees-chez-synbird-la-rochelle-touchee-comme-1-300-communes-de-france-26875312.php",
+      "vu": false,
+      "motif": "pas_collecte",
+      "delaiHeures": null,
+      "premiereCollecte": null,
+      "correspondance": null,
+      "sources": [
+        {
+          "id": "eco-sudouest",
+          "nom": "Sud Ouest Éco (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest",
+          "nom": "Sud Ouest (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-charente",
+          "nom": "Sud Ouest — Charente (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-charente-maritime",
+          "nom": "Sud Ouest — Charente-Maritime (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-deux-sevres",
+          "nom": "Sud Ouest — Deux-Sèvres (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-dordogne",
+          "nom": "Sud Ouest — Dordogne (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-gironde",
+          "nom": "Sud Ouest — Gironde (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-landes",
+          "nom": "Sud Ouest — Landes (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-lot-et-garonne",
+          "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-mont-de-marsan",
+          "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-pyrenees",
+          "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-rss",
+          "nom": "Sud Ouest (RSS)",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        }
+      ],
+      "collecteeCeJour": false,
+      "familleSortie": "cti",
+      "filtreRefuse": false,
+      "famillesProduites": [],
+      "preuve": "aucune collecte le 2025-11-27 pour Sud Ouest Éco (RSS)",
+      "requetes": {
+        "evenements": {
+          "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
+          "params": [
+            "sudouest.fr/charente-maritime/la-rochelle/fuite-de-donnees-chez-synbird-la-rochelle-touchee-comme-1-300-communes-de-france-26875312.php",
+            "fuite de donnees chez synbird la rochelle touchee comme 1 300 communes de france",
+            "ville de la rochelle prestataire synbird",
+            "2025-11-27"
+          ]
+        },
+        "collecte": {
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "params": [
+            "sudouest.fr",
+            "sud ouest",
+            "2025-11-27"
+          ]
+        },
+        "filtre": {
+          "sql": "WITH demande AS (SELECT $1::date AS jour)\nSELECT coalesce(e.family, '(aucune)') AS famille, count(*)::int AS evenements\n  FROM event e CROSS JOIN demande d\n WHERE e.source_id = ANY($2::text[])\n   AND e.collected_at::date BETWEEN d.jour - INTERVAL '7 days' AND d.jour + INTERVAL '7 days'\n GROUP BY 1 ORDER BY 2 DESC, 1",
+          "params": [
+            "2025-11-27",
+            [
+              "eco-sudouest",
+              "presse-sudouest",
+              "presse-sudouest-charente",
+              "presse-sudouest-charente-maritime",
+              "presse-sudouest-deux-sevres",
+              "presse-sudouest-dordogne",
+              "presse-sudouest-gironde",
+              "presse-sudouest-landes",
+              "presse-sudouest-lot-et-garonne",
+              "presse-sudouest-mont-de-marsan",
+              "presse-sudouest-pyrenees",
+              "presse-sudouest-rss"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "na-couv-012",
+      "organisation": "EHPAD Résidence du Parc de Champdeniers",
+      "datePublication": "2025-12-11",
+      "departement": "Deux-Sèvres",
+      "type": "ransomware",
+      "source": "ICI Poitou",
+      "url": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+      "vu": false,
+      "motif": "pas_collecte",
+      "delaiHeures": null,
+      "premiereCollecte": null,
+      "correspondance": null,
+      "sources": [
+        {
+          "id": "presse-ici-creuse",
+          "nom": "ICI Creuse — a la une (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-ici-limousin-infos",
+          "nom": "ICI Limousin — infos (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        }
+      ],
+      "collecteeCeJour": false,
+      "familleSortie": "cti",
+      "filtreRefuse": false,
+      "famillesProduites": [],
+      "preuve": "aucune collecte le 2025-12-11 pour ICI Creuse — a la une (RSS)",
+      "requetes": {
+        "evenements": {
+          "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
+          "params": [
+            "ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+            "deux sevres un ehpad de champdeniers victime d une cyberattaque avec demande de rancon",
+            "ehpad residence du parc de champdeniers",
+            "2025-12-11"
+          ]
+        },
+        "collecte": {
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "params": [
+            "ici.fr",
+            "ici poitou",
+            "2025-12-11"
+          ]
+        },
+        "filtre": {
+          "sql": "WITH demande AS (SELECT $1::date AS jour)\nSELECT coalesce(e.family, '(aucune)') AS famille, count(*)::int AS evenements\n  FROM event e CROSS JOIN demande d\n WHERE e.source_id = ANY($2::text[])\n   AND e.collected_at::date BETWEEN d.jour - INTERVAL '7 days' AND d.jour + INTERVAL '7 days'\n GROUP BY 1 ORDER BY 2 DESC, 1",
+          "params": [
+            "2025-12-11",
+            [
+              "presse-ici-creuse",
+              "presse-ici-limousin-infos"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "na-couv-013",
+      "organisation": "Fédération Nationale des Chasseurs — espace adhérents (dont adhérents charentais)",
+      "datePublication": "2026-01-22",
+      "departement": "Charente",
+      "type": "fuite",
+      "source": "Fédération Nationale des Chasseurs (communiqué officiel)",
+      "url": "https://www.chasseurdefrance.com/actualites/la-fnc-victime-dun-incident-de-securite-informatique/",
+      "vu": false,
+      "motif": "pas_collecte",
+      "delaiHeures": null,
+      "premiereCollecte": null,
+      "correspondance": null,
+      "sources": [],
+      "collecteeCeJour": false,
+      "familleSortie": null,
+      "filtreRefuse": null,
+      "famillesProduites": [],
+      "preuve": "média absent de la table source",
+      "requetes": {
+        "evenements": {
+          "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
+          "params": [
+            "chasseurdefrance.com/actualites/la-fnc-victime-dun-incident-de-securite-informatique",
+            "la fnc victime d un incident de securite informatique",
+            "federation nationale des chasseurs espace adherents dont adherents charentais",
+            "2026-01-22"
+          ]
+        },
+        "collecte": {
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "params": [
+            "chasseurdefrance.com",
+            "federation nationale des chasseurs communique officiel",
+            "2026-01-22"
+          ]
+        },
+        "filtre": {
+          "sql": "WITH demande AS (SELECT $1::date AS jour)\nSELECT coalesce(e.family, '(aucune)') AS famille, count(*)::int AS evenements\n  FROM event e CROSS JOIN demande d\n WHERE e.source_id = ANY($2::text[])\n   AND e.collected_at::date BETWEEN d.jour - INTERVAL '7 days' AND d.jour + INTERVAL '7 days'\n GROUP BY 1 ORDER BY 2 DESC, 1",
+          "params": [
+            "2026-01-22",
+            []
+          ]
+        }
+      }
+    },
+    {
+      "id": "na-couv-014",
+      "organisation": "UNSS — outil de gestion OPUSS (intrusion via le rectorat de Bordeaux)",
+      "datePublication": "2026-03-02",
+      "departement": "Gironde",
+      "type": "fuite",
+      "source": "UNSS (communiqué officiel)",
+      "url": "https://denys-puech.mon-ent-occitanie.fr/lectureFichiergw.do?ID_FICHIER=11393",
+      "vu": false,
+      "motif": "pas_collecte",
+      "delaiHeures": null,
+      "premiereCollecte": null,
+      "correspondance": null,
+      "sources": [],
+      "collecteeCeJour": false,
+      "familleSortie": null,
+      "filtreRefuse": null,
+      "famillesProduites": [],
+      "preuve": "média absent de la table source",
+      "requetes": {
+        "evenements": {
+          "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
+          "params": [
+            "denys-puech.mon-ent-occitanie.fr/lecturefichiergw.do",
+            "incident de cybersecurite publication illegale de donnees issues de l outil opuss",
+            "unss outil de gestion opuss intrusion via le rectorat de bordeaux",
+            "2026-03-02"
+          ]
+        },
+        "collecte": {
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "params": [
+            "denys-puech.mon-ent-occitanie.fr",
+            "unss communique officiel",
+            "2026-03-02"
+          ]
+        },
+        "filtre": {
+          "sql": "WITH demande AS (SELECT $1::date AS jour)\nSELECT coalesce(e.family, '(aucune)') AS famille, count(*)::int AS evenements\n  FROM event e CROSS JOIN demande d\n WHERE e.source_id = ANY($2::text[])\n   AND e.collected_at::date BETWEEN d.jour - INTERVAL '7 days' AND d.jour + INTERVAL '7 days'\n GROUP BY 1 ORDER BY 2 DESC, 1",
+          "params": [
+            "2026-03-02",
+            []
+          ]
+        }
+      }
+    },
+    {
+      "id": "na-couv-015",
+      "organisation": "Vivaticket France (Chasseneuil-du-Poitou)",
+      "datePublication": "2026-03-15",
+      "departement": "Vienne",
+      "type": "compromission",
+      "source": "La Nouvelle République",
+      "url": "https://www.lanouvellerepublique.fr/vienne/commune/chasseneuil-du-poitou/prestataire-de-billetterie-pour-des-musees-monuments-et-parcs-de-loisirs-vivaticket-victime-d-une-cyberattaque-1773588253",
+      "vu": false,
+      "motif": "pas_collecte",
+      "delaiHeures": null,
+      "premiereCollecte": null,
+      "correspondance": null,
+      "sources": [
+        {
+          "id": "presse-lnr-deuxsevres",
+          "nom": "La Nouvelle République — Deux-Sèvres (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-lnr-vienne",
+          "nom": "La Nouvelle République — Vienne (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        }
+      ],
+      "collecteeCeJour": false,
+      "familleSortie": "cti",
+      "filtreRefuse": false,
+      "famillesProduites": [],
+      "preuve": "aucune collecte le 2026-03-15 pour La Nouvelle République — Deux-Sèvres (RSS)",
+      "requetes": {
+        "evenements": {
+          "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
+          "params": [
+            "lanouvellerepublique.fr/vienne/commune/chasseneuil-du-poitou/prestataire-de-billetterie-pour-des-musees-monuments-et-parcs-de-loisirs-vivaticket-victime-d-une-cyberattaque-1773588253",
+            "prestataire de billetterie pour des musees monuments et parcs de loisirs vivaticket victime d une cyberattaque",
+            "vivaticket france chasseneuil du poitou",
+            "2026-03-15"
+          ]
+        },
+        "collecte": {
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "params": [
+            "lanouvellerepublique.fr",
+            "la nouvelle republique",
+            "2026-03-15"
+          ]
+        },
+        "filtre": {
+          "sql": "WITH demande AS (SELECT $1::date AS jour)\nSELECT coalesce(e.family, '(aucune)') AS famille, count(*)::int AS evenements\n  FROM event e CROSS JOIN demande d\n WHERE e.source_id = ANY($2::text[])\n   AND e.collected_at::date BETWEEN d.jour - INTERVAL '7 days' AND d.jour + INTERVAL '7 days'\n GROUP BY 1 ORDER BY 2 DESC, 1",
+          "params": [
+            "2026-03-15",
+            [
+              "presse-lnr-deuxsevres",
+              "presse-lnr-vienne"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "na-couv-016",
+      "organisation": "Ymed SAS — éditeur de la plateforme SoonCare (Gironde)",
+      "datePublication": "2026-04-09",
+      "departement": "Gironde",
+      "type": "fuite",
+      "source": "Sud Ouest",
+      "url": "https://www.sudouest.fr/sante/fuite-de-donnees-personnelles-et-medicales-alerte-sur-une-cyberattaque-visant-une-entreprise-de-gironde-28628427.php",
+      "vu": false,
+      "motif": "pas_collecte",
+      "delaiHeures": null,
+      "premiereCollecte": null,
+      "correspondance": null,
+      "sources": [
+        {
+          "id": "eco-sudouest",
+          "nom": "Sud Ouest Éco (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest",
+          "nom": "Sud Ouest (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-charente",
+          "nom": "Sud Ouest — Charente (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-charente-maritime",
+          "nom": "Sud Ouest — Charente-Maritime (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-deux-sevres",
+          "nom": "Sud Ouest — Deux-Sèvres (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-dordogne",
+          "nom": "Sud Ouest — Dordogne (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-gironde",
+          "nom": "Sud Ouest — Gironde (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-landes",
+          "nom": "Sud Ouest — Landes (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-lot-et-garonne",
+          "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-mont-de-marsan",
+          "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-pyrenees",
+          "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-rss",
+          "nom": "Sud Ouest (RSS)",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        }
+      ],
+      "collecteeCeJour": false,
+      "familleSortie": "cti",
+      "filtreRefuse": false,
+      "famillesProduites": [],
+      "preuve": "aucune collecte le 2026-04-09 pour Sud Ouest Éco (RSS)",
+      "requetes": {
+        "evenements": {
+          "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
+          "params": [
+            "sudouest.fr/sante/fuite-de-donnees-personnelles-et-medicales-alerte-sur-une-cyberattaque-visant-une-entreprise-de-gironde-28628427.php",
+            "fuite de donnees personnelles et medicales alerte sur une cyberattaque visant une entreprise de gironde",
+            "ymed sas editeur de la plateforme sooncare gironde",
+            "2026-04-09"
+          ]
+        },
+        "collecte": {
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "params": [
+            "sudouest.fr",
+            "sud ouest",
+            "2026-04-09"
+          ]
+        },
+        "filtre": {
+          "sql": "WITH demande AS (SELECT $1::date AS jour)\nSELECT coalesce(e.family, '(aucune)') AS famille, count(*)::int AS evenements\n  FROM event e CROSS JOIN demande d\n WHERE e.source_id = ANY($2::text[])\n   AND e.collected_at::date BETWEEN d.jour - INTERVAL '7 days' AND d.jour + INTERVAL '7 days'\n GROUP BY 1 ORDER BY 2 DESC, 1",
+          "params": [
+            "2026-04-09",
+            [
+              "eco-sudouest",
+              "presse-sudouest",
+              "presse-sudouest-charente",
+              "presse-sudouest-charente-maritime",
+              "presse-sudouest-deux-sevres",
+              "presse-sudouest-dordogne",
+              "presse-sudouest-gironde",
+              "presse-sudouest-landes",
+              "presse-sudouest-lot-et-garonne",
+              "presse-sudouest-mont-de-marsan",
+              "presse-sudouest-pyrenees",
+              "presse-sudouest-rss"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "na-couv-017",
+      "organisation": "Ville de Gradignan — police municipale",
+      "datePublication": "2026-05-13",
+      "departement": "Gironde",
+      "type": "fuite",
+      "source": "Sud Ouest",
+      "url": "https://www.sudouest.fr/gironde/gradignan/gironde-carte-grise-depot-de-plainte-des-donnees-derobees-lors-d-une-attaque-informatique-qui-a-touche-la-police-municipale-de-gradignan-29049109.php",
+      "vu": false,
+      "motif": "pas_collecte",
+      "delaiHeures": null,
+      "premiereCollecte": null,
+      "correspondance": null,
+      "sources": [
+        {
+          "id": "eco-sudouest",
+          "nom": "Sud Ouest Éco (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest",
+          "nom": "Sud Ouest (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-charente",
+          "nom": "Sud Ouest — Charente (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-charente-maritime",
+          "nom": "Sud Ouest — Charente-Maritime (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-deux-sevres",
+          "nom": "Sud Ouest — Deux-Sèvres (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-dordogne",
+          "nom": "Sud Ouest — Dordogne (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-gironde",
+          "nom": "Sud Ouest — Gironde (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-landes",
+          "nom": "Sud Ouest — Landes (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-lot-et-garonne",
+          "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-mont-de-marsan",
+          "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-pyrenees",
+          "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "presse-sudouest-rss",
+          "nom": "Sud Ouest (RSS)",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        }
+      ],
+      "collecteeCeJour": false,
+      "familleSortie": "cti",
+      "filtreRefuse": false,
+      "famillesProduites": [],
+      "preuve": "aucune collecte le 2026-05-13 pour Sud Ouest Éco (RSS)",
+      "requetes": {
+        "evenements": {
+          "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
+          "params": [
+            "sudouest.fr/gironde/gradignan/gironde-carte-grise-depot-de-plainte-des-donnees-derobees-lors-d-une-attaque-informatique-qui-a-touche-la-police-municipale-de-gradignan-29049109.php",
+            "carte grise depot de plainte des donnees derobees lors d une attaque informatique qui a touche la police municipale de gradignan",
+            "ville de gradignan police municipale",
+            "2026-05-13"
+          ]
+        },
+        "collecte": {
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "params": [
+            "sudouest.fr",
+            "sud ouest",
+            "2026-05-13"
+          ]
+        },
+        "filtre": {
+          "sql": "WITH demande AS (SELECT $1::date AS jour)\nSELECT coalesce(e.family, '(aucune)') AS famille, count(*)::int AS evenements\n  FROM event e CROSS JOIN demande d\n WHERE e.source_id = ANY($2::text[])\n   AND e.collected_at::date BETWEEN d.jour - INTERVAL '7 days' AND d.jour + INTERVAL '7 days'\n GROUP BY 1 ORDER BY 2 DESC, 1",
+          "params": [
+            "2026-05-13",
+            [
+              "eco-sudouest",
+              "presse-sudouest",
+              "presse-sudouest-charente",
+              "presse-sudouest-charente-maritime",
+              "presse-sudouest-deux-sevres",
+              "presse-sudouest-dordogne",
+              "presse-sudouest-gironde",
+              "presse-sudouest-landes",
+              "presse-sudouest-lot-et-garonne",
+              "presse-sudouest-mont-de-marsan",
+              "presse-sudouest-pyrenees",
+              "presse-sudouest-rss"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "na-couv-018",
+      "organisation": "Ville de Limoges — centre de vaccination municipal et campagne HPV",
+      "datePublication": "2026-06-29",
+      "departement": "Haute-Vienne",
+      "type": "fuite",
+      "source": "Ville de Limoges (communiqué officiel)",
+      "url": "https://www.limoges.fr/actualites/la-ville-de-limoges-vous-informe-en-toute-transparence-dun-incident-de-securite",
+      "vu": false,
+      "motif": "pas_collecte",
+      "delaiHeures": null,
+      "premiereCollecte": null,
+      "correspondance": null,
+      "sources": [],
+      "collecteeCeJour": false,
+      "familleSortie": null,
+      "filtreRefuse": null,
+      "famillesProduites": [],
+      "preuve": "média absent de la table source",
+      "requetes": {
+        "evenements": {
+          "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
+          "params": [
+            "limoges.fr/actualites/la-ville-de-limoges-vous-informe-en-toute-transparence-dun-incident-de-securite",
+            "la ville de limoges vous informe en toute transparence d un incident de securite informatique",
+            "ville de limoges centre de vaccination municipal et campagne hpv",
+            "2026-06-29"
+          ]
+        },
+        "collecte": {
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "params": [
+            "limoges.fr",
+            "ville de limoges communique officiel",
+            "2026-06-29"
+          ]
+        },
+        "filtre": {
+          "sql": "WITH demande AS (SELECT $1::date AS jour)\nSELECT coalesce(e.family, '(aucune)') AS famille, count(*)::int AS evenements\n  FROM event e CROSS JOIN demande d\n WHERE e.source_id = ANY($2::text[])\n   AND e.collected_at::date BETWEEN d.jour - INTERVAL '7 days' AND d.jour + INTERVAL '7 days'\n GROUP BY 1 ORDER BY 2 DESC, 1",
+          "params": [
+            "2026-06-29",
+            []
+          ]
+        }
+      }
+    },
+    {
+      "id": "na-couv-019",
+      "organisation": "Ville de Tarnos",
+      "datePublication": "2026-08-28",
+      "departement": "Landes",
+      "type": "ransomware",
+      "source": "Ville de Tarnos (communiqué officiel)",
+      "url": "https://www.ville-tarnos.fr/actualites/incident-de-cybersecurite/",
+      "vu": false,
+      "motif": "pas_collecte",
+      "delaiHeures": null,
+      "premiereCollecte": null,
+      "correspondance": null,
+      "sources": [],
+      "collecteeCeJour": false,
+      "familleSortie": null,
+      "filtreRefuse": null,
+      "famillesProduites": [],
+      "preuve": "média absent de la table source",
+      "requetes": {
+        "evenements": {
+          "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
+          "params": [
+            "ville-tarnos.fr/actualites/incident-de-cybersecurite",
+            "incident de cybersecurite",
+            "ville de tarnos",
+            "2026-08-28"
+          ]
+        },
+        "collecte": {
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "params": [
+            "ville-tarnos.fr",
+            "ville de tarnos communique officiel",
+            "2026-08-28"
+          ]
+        },
+        "filtre": {
+          "sql": "WITH demande AS (SELECT $1::date AS jour)\nSELECT coalesce(e.family, '(aucune)') AS famille, count(*)::int AS evenements\n  FROM event e CROSS JOIN demande d\n WHERE e.source_id = ANY($2::text[])\n   AND e.collected_at::date BETWEEN d.jour - INTERVAL '7 days' AND d.jour + INTERVAL '7 days'\n GROUP BY 1 ORDER BY 2 DESC, 1",
+          "params": [
+            "2026-08-28",
+            []
+          ]
+        }
+      }
+    },
+    {
+      "id": "na-couv-020",
+      "organisation": "Bordeaux Sciences Agro",
+      "datePublication": "2026-09-15",
+      "departement": "Gironde",
+      "type": "fuite",
+      "source": "Bordeaux Sciences Agro (communiqué officiel)",
+      "url": "https://www.agro-bordeaux.fr/incident-de-securite-concernant-lapplication-de-gestion-des-conventions-de-stage/",
+      "vu": false,
+      "motif": "pas_collecte",
+      "delaiHeures": null,
+      "premiereCollecte": null,
+      "correspondance": null,
+      "sources": [],
+      "collecteeCeJour": false,
+      "familleSortie": null,
+      "filtreRefuse": null,
+      "famillesProduites": [],
+      "preuve": "média absent de la table source",
+      "requetes": {
+        "evenements": {
+          "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
+          "params": [
+            "agro-bordeaux.fr/incident-de-securite-concernant-lapplication-de-gestion-des-conventions-de-stage",
+            "incident de securite concernant l application de gestion des conventions de stage",
+            "bordeaux sciences agro",
+            "2026-09-15"
+          ]
+        },
+        "collecte": {
+          "sql": "WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),\nsources AS (\n\tSELECT s.* FROM source s CROSS JOIN demande d\n\t WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)\n\t    OR (d.media <> '' AND (\n\t          position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0\n\t       OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))\n)\nSELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,\n       (SELECT count(*)::int FROM collector_run r\n         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,\n       (SELECT count(*)::int FROM event e\n         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,\n       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution\n  FROM sources s CROSS JOIN demande d\n ORDER BY s.id",
+          "params": [
+            "agro-bordeaux.fr",
+            "bordeaux sciences agro communique officiel",
+            "2026-09-15"
+          ]
+        },
+        "filtre": {
+          "sql": "WITH demande AS (SELECT $1::date AS jour)\nSELECT coalesce(e.family, '(aucune)') AS famille, count(*)::int AS evenements\n  FROM event e CROSS JOIN demande d\n WHERE e.source_id = ANY($2::text[])\n   AND e.collected_at::date BETWEEN d.jour - INTERVAL '7 days' AND d.jour + INTERVAL '7 days'\n GROUP BY 1 ORDER BY 2 DESC, 1",
+          "params": [
+            "2026-09-15",
+            []
+          ]
+        }
+      }
+    }
+  ],
+  "method": {
+    "vu": "un événement de event ou event_archive correspond à l'incident et porte un org_id non nul",
+    "priorite": [
+      "vu",
+      "pas_collecte",
+      "pas_rattache",
+      "pas_juge_cyber",
+      "indetermine"
+    ],
+    "delai": "heures entre la publication (00:00 UTC) et collected_at du premier événement correspondant",
+    "collecte": "collector_run ou event le jour de publication pour le média déclaré, ou last_ok_at ce jour",
+    "correspondance": "URL normalisée identique, ou titre normalisé identique le jour de publication, ou organisation normalisée le jour de publication",
+    "filtreCyber": "classifyFamily() du collecteur : une sortie 'presse' est refusée à l'admission"
+  }
+}
