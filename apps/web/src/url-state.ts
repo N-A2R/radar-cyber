@@ -12,7 +12,7 @@
  * Fonctions pures : testables sans navigateur.
  */
 
-export const VIEWS = ["today", "couverture", "map", "directory", "review", "journal", "graph", "sources", "health", "alerts", "dossier", "na"] as const;
+export const VIEWS = ["today", "coverage", "review", "journal", "corpus", "sources", "map", "directory", "graph", "health", "alerts", "dossier", "na"] as const;
 export type ViewId = (typeof VIEWS)[number];
 
 /** Filtres de la file de revue, portés par l'URL (`#/review?bucket=…&q=…`). */
@@ -87,11 +87,15 @@ function isView(value: string | null): value is ViewId {
 	return value !== null && (VIEWS as readonly string[]).includes(value);
 }
 
+/** Anciens noms encore partageables : un lien `#/couverture` ouvre Coverage. */
+const LEGACY_VIEWS: Record<string, ViewId> = { couverture: "coverage" };
+
 export function parseHash(hash: string): AppUrlState {
 	const clean = hash.replace(/^#\/?/, "");
 	const [path, search = ""] = clean.split("?");
 	const params = new URLSearchParams(search);
-	const view = isView(path) ? path : DEFAULT_STATE.view;
+	const route = LEGACY_VIEWS[path] ?? path;
+	const view = isView(route) ? route : DEFAULT_STATE.view;
 
 	const size = Number(params.get("size"));
 	const page = Number(params.get("page"));

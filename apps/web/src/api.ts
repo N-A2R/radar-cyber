@@ -313,6 +313,46 @@ export type CouverturePublique = {
   parSecteur: Array<CouvertureLigne & { secteur: string }>;
 };
 
+/** Une ligne de barre empilée : un département, réparti par famille. */
+export type CorpusDepartment = {
+  /** Code INSEE, ou "" pour les sources sans département inférable. */
+  department: string;
+  label: string;
+  total: number;
+  families: Record<string, number>;
+};
+export type CorpusIncident = {
+  id: string;
+  title: string;
+  organisation: string | null;
+  department: string | null;
+  date: string | null;
+  type: string;
+  family: string;
+  sourceName: string;
+  sourceUrl: string | null;
+};
+
+/** Réponse de GET /api/corpus/stats : un seul appel pour tout l'écran Corpus. */
+export type CorpusStats = {
+  generatedAt: string;
+  windowHours: number;
+  totals: { sources: number; sourcesLocalised: number; organisations: number; incidents: number };
+  families: string[];
+  byDepartment: CorpusDepartment[];
+  domainCoverage: { withDomain: number; organisations: number; percent: number | null };
+  /** Croissance des événements ingérés sur 24 h vs les 24 h précédentes. */
+  sinceLastReport: {
+    windowHours: number;
+    newEvents: number;
+    previousEvents: number;
+    change: number;
+    percentChange: number | null;
+    comparedTo: string;
+  };
+  recentIncidents: CorpusIncident[];
+};
+
 /** Nature d'un nœud du graphe relationnel (GET /api/graph). */
 export type GraphNodeKind =
   | "org"
@@ -972,6 +1012,8 @@ export const api = {
   graph: (days = 90) => get<Graph>(`/graph?days=${days}`),
   sources: () => get<Source[]>("/sources"),
   statsDepartements: (signal?: AbortSignal) => get<StatsDepartements>("/today/departements", signal),
+  /** Écran Corpus : volumes, couverture des domaines et croissance. */
+  corpusStats: (signal?: AbortSignal) => get<CorpusStats>("/corpus/stats", signal),
   stats: () => get<Stats>("/stats"),
   /** Couverture mesurée : une seule lecture, identique d'un appel à l'autre. */
   couverture: (signal?: AbortSignal) => get<CouvertureResponse>("/couverture", signal),

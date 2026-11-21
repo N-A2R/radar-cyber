@@ -120,8 +120,12 @@ describe("CouvertureView", () => {
     }
   });
 
-  it("exposes the coverage view as a shareable hash route", () => {
-    expect(parseHash("#/couverture").view).toBe("couverture");
-    expect(toHash({ ...parseHash("#/couverture"), view: "couverture" })).toBe("#/couverture");
+  it("exposes Coverage and Corpus as shareable hash routes", () => {
+    expect(parseHash("#/coverage").view).toBe("coverage");
+    expect(parseHash("#/corpus").view).toBe("corpus");
+    // An old shared `#/couverture` link still opens the coverage screen.
+    expect(parseHash("#/couverture").view).toBe("coverage");
+    expect(toHash({ ...parseHash("#/coverage"), view: "coverage" })).toBe("#/coverage");
+    expect(toHash({ ...parseHash("#/corpus"), view: "corpus" })).toBe("#/corpus");
   });
 });
