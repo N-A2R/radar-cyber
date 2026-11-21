@@ -1,0 +1,357 @@
+/* Corpus — une page de mesures, pas un tableau de bord décoratif.
+   Chaque panel porte son titre et sa réserve ; les barres sont lisibles sans
+   couleur (valeur + libellé), la couleur ne sert qu'à distinguer les familles. */
+
+.corpus {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  padding: var(--space-5) var(--space-6) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.corpus__header h1 {
+  margin: var(--space-1) 0 var(--space-1);
+  font: 500 var(--text-title)/1.2 var(--font-mono);
+  color: var(--text);
+}
+
+.corpus__header p {
+  margin: 0;
+  max-width: 72ch;
+  font: 400 var(--text-body)/1.5 var(--font-sans);
+  color: var(--muted);
+}
+
+.corpus__state,
+.corpus__error,
+.corpus__stale {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  font: 400 var(--text-body)/1.5 var(--font-sans);
+  color: var(--muted);
+}
+
+.corpus__error { color: var(--sev-5); border-color: var(--sev-5); }
+.corpus__stale { color: var(--sev-3); }
+
+.corpus__kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-2);
+}
+
+.corpus__kpi {
+  min-width: 0;
+  padding: var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.corpus__kpi strong {
+  font: 500 26px/1.1 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.corpus__panel {
+  min-width: 0;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.corpus__panel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-3);
+}
+
+.corpus__panel h2 {
+  margin: 0;
+  font: 500 var(--text-read)/1.3 var(--font-sans);
+  color: var(--text);
+}
+
+.corpus__panel-meta {
+  font: 400 var(--text-label)/1.4 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--faint);
+}
+
+.corpus__note {
+  margin: var(--space-3) 0 0;
+  max-width: 90ch;
+  font: 400 var(--text-label)/1.5 var(--font-sans);
+  color: var(--faint);
+}
+
+.corpus__note code,
+.corpus__footer code {
+  font-family: var(--font-mono);
+  color: var(--muted);
+}
+
+.corpus__empty {
+  margin: 0;
+  padding: var(--space-3);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius);
+  font: 400 var(--text-body)/1.5 var(--font-sans);
+  color: var(--muted);
+}
+
+/* Croissance : le chiffre est la réponse à la question du titre. */
+.corpus__growth-value {
+  font: 500 34px/1.1 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+}
+
+.corpus__growth-value[data-trend="down"] { color: var(--sev-4); }
+.corpus__growth-value[data-trend="flat"] { color: var(--muted); }
+
+.corpus__growth-caption,
+.corpus__growth-compare {
+  margin: var(--space-1) 0 0;
+  font: 400 var(--text-body)/1.5 var(--font-sans);
+  color: var(--muted);
+}
+
+.corpus__growth-compare strong { color: var(--text); }
+
+.corpus__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+  gap: var(--space-3);
+  align-items: start;
+}
+
+@media (max-width: 1000px) {
+  .corpus__grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Barres empilées : la largeur d'un segment est le compte exact du champ. */
+.corpus__bars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.corpus__bar-row {
+  display: grid;
+  grid-template-columns: minmax(120px, 1.2fr) minmax(80px, 3fr) 44px;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.corpus__bar-label {
+  min-width: 0;
+  font: 400 var(--text-label)/1.4 var(--font-sans);
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.corpus__dept-code {
+  margin-left: var(--space-1);
+  font: 400 10px/1.4 var(--font-mono);
+  color: var(--faint);
+}
+
+.corpus__bar {
+  display: flex;
+  height: 14px;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+}
+
+.corpus__bar-segment {
+  display: block;
+  height: 100%;
+  flex: 0 0 auto;
+  border-right: 1px solid var(--bg);
+  background: var(--family-cti, var(--data-steel));
+}
+
+.corpus__bar-segment[data-family="ransomware"] { background: var(--family-ransomware); }
+.corpus__bar-segment[data-family="vuln"] { background: var(--family-vuln); }
+.corpus__bar-segment[data-family="phishing"] { background: var(--family-phishing); }
+.corpus__bar-segment[data-family="malware"] { background: var(--family-malware); }
+.corpus__bar-segment[data-family="cert"] { background: var(--family-cert); }
+.corpus__bar-segment[data-family="cert_fr"] { background: var(--family-cert-fr); }
+.corpus__bar-segment[data-family="typosquat"] { background: var(--family-typosquat); }
+.corpus__bar-segment[data-family="reputation"] { background: var(--family-reputation); }
+.corpus__bar-segment[data-family="cti"] { background: var(--family-cti); }
+.corpus__bar-segment[data-family="presse"] { background: var(--family-presse); }
+.corpus__bar-segment[data-family="presse_cyber"] { background: var(--data-teal); }
+.corpus__bar-segment[data-family="warninglist"] { background: var(--data-steel); }
+.corpus__bar-segment[data-family="leaks"] { background: var(--sev-5); }
+.corpus__bar-segment[data-family="paste"] { background: var(--sev-2); }
+
+.corpus__bar-total {
+  text-align: right;
+  font: 500 var(--text-label)/1.4 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+.corpus__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  margin-top: var(--space-1);
+}
+
+.corpus__legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font: 400 var(--text-label)/1.4 var(--font-sans);
+  color: var(--muted);
+}
+
+.corpus__swatch {
+  width: 8px;
+  height: 8px;
+  border-radius: 1px;
+  background: var(--family-cti, var(--data-steel));
+}
+
+.corpus__swatch[data-family="ransomware"] { background: var(--family-ransomware); }
+.corpus__swatch[data-family="vuln"] { background: var(--family-vuln); }
+.corpus__swatch[data-family="phishing"] { background: var(--family-phishing); }
+.corpus__swatch[data-family="malware"] { background: var(--family-malware); }
+.corpus__swatch[data-family="cert"] { background: var(--family-cert); }
+.corpus__swatch[data-family="cert_fr"] { background: var(--family-cert-fr); }
+.corpus__swatch[data-family="typosquat"] { background: var(--family-typosquat); }
+.corpus__swatch[data-family="reputation"] { background: var(--family-reputation); }
+.corpus__swatch[data-family="cti"] { background: var(--family-cti); }
+.corpus__swatch[data-family="presse"] { background: var(--family-presse); }
+.corpus__swatch[data-family="presse_cyber"] { background: var(--data-teal); }
+.corpus__swatch[data-family="warninglist"] { background: var(--data-steel); }
+.corpus__swatch[data-family="leaks"] { background: var(--sev-5); }
+.corpus__swatch[data-family="paste"] { background: var(--sev-2); }
+
+.corpus__gauge-value {
+  margin-bottom: var(--space-2);
+  font: 500 26px/1.1 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+}
+
+.corpus__gauge {
+  width: 100%;
+  height: 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  overflow: hidden;
+}
+
+.corpus__gauge-fill {
+  display: block;
+  height: 100%;
+  min-width: 2px;
+  background: var(--accent);
+}
+
+.corpus__gauge-caption {
+  margin: var(--space-2) 0 0;
+  font: 400 var(--text-body)/1.5 var(--font-sans);
+  color: var(--muted);
+}
+
+.corpus__gauge-caption strong {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+.corpus__incidents {
+  padding-bottom: var(--space-2);
+}
+
+.corpus__incident-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.corpus__incident {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr) minmax(120px, 200px);
+  align-items: baseline;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.corpus__incident-date {
+  font: 400 var(--text-label)/1.4 var(--font-mono);
+  color: var(--faint);
+  white-space: nowrap;
+}
+
+.corpus__incident-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 2px;
+}
+
+.corpus__incident-title {
+  font: 400 var(--text-body)/1.4 var(--font-sans);
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.corpus__incident-meta {
+  font: 400 var(--text-label)/1.4 var(--font-sans);
+  color: var(--faint);
+  overflow-wrap: anywhere;
+}
+
+.corpus__incident-source {
+  justify-self: end;
+  text-align: right;
+  font: 400 var(--text-label)/1.4 var(--font-sans);
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  overflow-wrap: anywhere;
+}
+
+.corpus__incident-source--missing {
+  color: var(--faint);
+  text-decoration: none;
+}
+
+.corpus__footer {
+  font: 400 var(--text-label)/1.5 var(--font-mono);
+  color: var(--faint);
+}
+
+@media (max-width: 720px) {
+  .corpus { padding: var(--space-3); }
+  .corpus__bar-row { grid-template-columns: minmax(90px, 1fr) minmax(60px, 2fr) 36px; }
+  .corpus__incident { grid-template-columns: minmax(0, 1fr); gap: var(--space-1); }
+  .corpus__incident-source { justify-self: start; text-align: left; }
+}
