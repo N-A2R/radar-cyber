@@ -1,0 +1,38 @@
+{
+  "generatedAt": "2026-11-21T22:08:54.375Z",
+  "scope": {
+    "region": "Nouvelle-Aquitaine",
+    "departments": [
+      "16",
+      "17",
+      "19",
+      "23",
+      "24",
+      "33",
+      "40",
+      "47",
+      "64",
+      "79",
+      "86",
+      "87"
+    ]
+  },
+  "base": {
+    "organizations": 1673221,
+    "sources": 376,
+    "events": 27882
+  },
+  "metric": {
+    "organizationsWithSiren": 1604767,
+    "structurallyInvalid": 14,
+    "homonymGroups": 12544,
+    "ambiguous": 26237,
+    "verified": 1578516,
+    "verifiedWithoutCorroboration": 1578416,
+    "rate": 0.9836418620273224,
+    "ratePercent": "98.36%",
+    "rateWithoutCorroborationPercent": "98.36%"
+  },
+  "method": "SIREN verified = 9 digits + INSEE Luhn + identity group without a competing SIREN, or resolved by an independent register snapshot / traceable proof",
+  "command": "DATABASE_URL=postgres://radar:radar@localhost:5433/radar apps/api/node_modules/.bin/tsx scripts/audit-siren.mts --json=bench/results/siren-verifie.json"
+}
