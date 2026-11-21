@@ -7,7 +7,7 @@
  * jeu de données, jamais d'un total absolu codé en dur.
  */
 import { renderToStaticMarkup } from "react-dom/server";
-import LieesCard, { LieesContenu, type OrgsLiees } from "../src/components/LieesCard";
+import LieesCard, { LieesContenu, type HistoriquePoint, type OrgsLiees } from "../src/components/LieesCard";
 import TodayView from "../src/components/TodayView";
 
 let failures = 0;
@@ -30,6 +30,12 @@ const mesure: OrgsLiees = {
   ],
 };
 
+const historique: HistoriquePoint[] = [
+  { jour: "2026-11-19", semaine: 10, total: 40, enAttente: 3, examinees: 1 },
+  { jour: "2026-11-20", semaine: 14, total: 42, enAttente: 4, examinees: 2 },
+  { jour: "2026-11-21", semaine: 26, total: 46, enAttente: 5, examinees: 3 },
+];
+
 const avecDonnees = renderToStaticMarkup(
   <LieesContenu data={mesure} loading={false} error={null} />,
 );
@@ -39,6 +45,21 @@ check("depuis toujours / attente / examinées", avecDonnees.includes(`>${mesure.
   && avecDonnees.includes(`>${mesure.enAttente}</dd>`) && avecDonnees.includes(`>${mesure.examinees}</dd>`));
 check("top 5 départements", avecDonnees.includes(">33</span>") && avecDonnees.includes(">8</span>")
   && avecDonnees.includes(">75</span>") && (avecDonnees.match(/class="liees__dept"/g) ?? []).length === 5);
+
+const avecCourbe = renderToStaticMarkup(
+  <LieesContenu data={mesure} loading={false} error={null} historique={historique} />,
+);
+check("micro-courbe quand l'historique existe", avecCourbe.includes('class="liees__courbe"')
+  && avecCourbe.includes('class="liees__courbe-trait"')
+  && avecCourbe.includes("30 derniers jours"));
+check("aucune courbe quand l'historique manque", !avecDonnees.includes("liees__courbe"));
+
+const unSeulPoint = renderToStaticMarkup(
+  <LieesContenu data={mesure} loading={false} error={null} historique={historique.slice(-1)} />,
+);
+check("un seul relevé : un point, pas une courbe vide",
+  unSeulPoint.includes('class="liees__courbe-point"')
+  && !unSeulPoint.includes("liees__courbe-trait"));
 
 const chargement = renderToStaticMarkup(
   <LieesContenu data={null} loading error={null} />,

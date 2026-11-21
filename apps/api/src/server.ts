@@ -37,6 +37,7 @@ import alertsRoute from "./routes/alerts.js";
 import quarantineRoute from "./routes/quarantine.js";
 import reviewRoute from "./routes/review.js";
 import orgsLieesRoute from "./routes/orgs-liees.js";
+import orgsLieesHistoriqueRoute from "./routes/orgs-liees-historique.js";
 import ingestRoute from "./routes/ingest.js";
 import { resolveUser } from "./middleware/auth.js";
 
@@ -130,6 +131,7 @@ await app.register(alertsRoute, { prefix: "/api" });
 await app.register(quarantineRoute, { prefix: "/api" });
 await app.register(reviewRoute, { prefix: "/api" });
 await app.register(orgsLieesRoute, { prefix: "/api" });
+await app.register(orgsLieesHistoriqueRoute, { prefix: "/api" });
 await app.register(ingestRoute, { prefix: "/api" });
 await app.register((await import("./routes/dossier.js")).default, { prefix: "/api" });
 
@@ -340,6 +342,21 @@ if (COLLECT) {
 		setInterval(deliver, ALERT_DELIVERY_MS);
 	}
 }
+
+/**
+ * Relevé quotidien des compteurs de la carte « organisations reliées ».
+ * Un point par jour dans orgs_liees_historique, même quand la collecte est
+ * désactivée (RADAR_COLLECT=0) : la mesure ne dépend pas des collecteurs.
+ */
+const MESURE_ORGS_LIEES_MS = 24 * 3600 * 1000;
+async function mesurerOrgsLiees(): Promise<void> {
+  await query("SELECT enregistrer_orgs_liees()");
+  log("organisations reliées : relevé du jour enregistré");
+}
+void guarded("mesure organisations reliées", mesurerOrgsLiees);
+setInterval(() => {
+  void guarded("mesure organisations reliées", mesurerOrgsLiees);
+}, MESURE_ORGS_LIEES_MS);
 
 for (const signal of ["SIGINT", "SIGTERM"] as const) {
 	process.once(signal, () => {
