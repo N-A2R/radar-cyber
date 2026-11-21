@@ -136,7 +136,8 @@
 		"S5.1 les règles deviennent la spec apps/api/src/match/regles-precision.ts + tests de régression apps/api/test/regles-precision.test.ts (7 tests : prédicats unitaires + cas limites S3.2). Un défaut de garde attrapé par les tests eux-mêmes : l'appel de la règle 2 dans ecarteeParRegles avait perdu le filtre via/confiance — corrigé, 7/7 verts. S5.2 verify-all.sh intègre le jeu d'or (scripts/precision-gold.mts --verifier). S5.3 docs/mesure-precision.md : protocole complet réexécutable.",
 		"S6.1 rapport de campagne publié : docs/rapport-precision.md (précision de départ 4,5-5,7 %, après règles 83,3 % brut / 13,8 % population sur 29 % encore rattachée, modes d'échec, ce qui n'a pas marché, ce que la vague ne prétend pas).",
 		"S6.2 pnpm typecheck OK (api+web) ; bash scripts/verify-all.sh OK — Vérification complète, exit 0 : tests API (dont les 7 tests de régression des règles), jeu d'or précision 50/50, build web, healthcheck (296 sources, 1 244 106 orgs). S6.3 la vague est marquée terminée. FIN DE VAGUE.",
-		"WAVE-COMPLETE — vague précision terminée le 2026-11-21 : précision de départ 4,5 % de population (5,7 % sur le frais proportionnel) ; après les six règles retenues 83,3 % brut / 13,8 % de population sur les 29 % d'indices encore rattachés ; 1 199 verdicts posés avec preuve (500 gelé + 200 bruit + 29 frais S2 + 500 frais S4 − doublons de tirages) ; aucun chiffre inventé, chaque mesure rejouable via docs/mesure-precision.md."
+		"WAVE-COMPLETE — vague précision terminée le 2026-11-21 : précision de départ 4,5 % de population (5,7 % sur le frais proportionnel) ; après les six règles retenues 83,3 % brut / 13,8 % de population sur les 29 % d'indices encore rattachés ; 1 199 verdicts posés avec preuve (500 gelé + 200 bruit + 29 frais S2 + 500 frais S4 − doublons de tirages) ; aucun chiffre inventé, chaque mesure rejouable via docs/mesure-precision.md.",
+		"SESSION-END écrit à la racine du dépôt : vague terminée (S6.3), WAVE-COMPLETE, dernier commit de la vague 40fcb79, vérification verte."
 	],
 	"calibration": {
 		"fenetre": {
@@ -191,6 +192,6 @@
 	"verification": {
 		"typecheck": "OK (api + web)",
 		"verifyAll": "OK — Vérification complète OK, exit 0 (tests API dont 7 tests de règles, jeu d'or 50/50, build web, healthcheck)",
-		"gitPropre": "à vérifier au commit final"
+		"gitPropre": "arbre propre au commit 40fcb79 : seuls .claude/ et AGENTS.md restent non suivis (présents avant la vague, hors périmètre)"
 	}
 }

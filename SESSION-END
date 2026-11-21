@@ -1,0 +1,28 @@
+SESSION-END — vague « précision » TERMINÉE (WAVE-COMPLETE)
+
+Date : 2026-11-21, fin de session unique (la vague s'est achevée en une nuit).
+
+Étape et tâche atteintes : S6.3 fait — la vague est terminée (S1 → S6 complet).
+Vérification : pnpm typecheck OK ; scripts/verify-all.sh OK (exit 0), dont le
+jeu d'or précision 50/50 intégré ; dernier commit : 40fcb79.
+
+Bilan en trois chiffres :
+- précision de départ du rattachement : 4,5 % de population (5,7 % sur
+  l'échantillon frais proportionnel) ;
+- après les six règles retenues (mesurées gelé + frais, tenantes toutes
+  deux) : 83,3 % brut / 13,8 % de population, sur les 29 % d'indices que le
+  moteur rattache encore ;
+- coût des règles en runtime : +0,00 ms par indice (mesuré).
+
+1 199 verdicts posés avec preuve (registre + site) sur les quatre échantillons
+(corpus gelé 500, bruit 2×100, frais S2 100, frais S4 500 — chevauchements
+décomptés). Chaque mesure est rejouable : docs/mesure-precision.md.
+
+Corbeille assumée et documentée dans le rapport (docs/rapport-precision.md) :
+le défaut d'allocation du tirage S1.1 (corrigé par l'estimateur stratifié),
+les trois itérations de préfiltre mémoire, les 2 partielles cassées par les
+règles sur le frais, les deux domaines faux du référentiel (hors périmètre).
+
+Prochaine étape naturelle (hors cette vague, plan à écrire avant d'enchaîner) :
+brancher les règles (apps/api/src/match/regles-precision.ts) dans le moteur
+livré promote.ts — couvert par les tests et le jeu d'or.
