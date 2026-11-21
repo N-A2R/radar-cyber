@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { api } from "../api";
+import { ErrorRetry } from "./ErrorRetry";
 import "./dossier.css";
 
 type DossierPayload = {
@@ -29,6 +30,7 @@ export default function DossierView() {
 	const [data, setData] = useState<DossierPayload | null>(null);
 	const [error, setError] = useState<string | null>(null);
 	const [loading, setLoading] = useState(true);
+	const [retryTick, setRetryTick] = useState(0);
 
 	useEffect(() => {
 		let cancelled = false;
@@ -49,10 +51,10 @@ export default function DossierView() {
 		return () => {
 			cancelled = true;
 		};
-	}, []);
+	}, [retryTick]);
 
 	if (loading) return <section className="dossier"><p className="dossier__status">chargement du dossier…</p></section>;
-	if (error) return <section className="dossier"><p className="dossier__status dossier__status--error">{error}</p></section>;
+	if (error) return <section className="dossier"><ErrorRetry message={error} onRetry={() => setRetryTick((n) => n + 1)} className="dossier__status dossier__status--error" /></section>;
 	if (!data) return null;
 
 	return (

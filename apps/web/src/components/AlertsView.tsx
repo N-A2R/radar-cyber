@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { api, authHeaders, type Alert, type AlertConfidence, type AlertStatRow, type AlertStatus } from "../api";
+import { ErrorRetry } from "./ErrorRetry";
 import type { AlertsViewProps } from "../contracts";
 import "./alerts.css";
 
@@ -198,7 +199,7 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent, refr
         ))}
       </div>
 
-      {error ? <p className="alerts__error">{error}</p> : null}
+      {error ? <ErrorRetry message={error} onRetry={reload} className="alerts__error" /> : null}
       {loading ? <p className="alerts__status">chargement</p> : null}
 
       <ul className="alerts__list">

@@ -1,5 +1,11 @@
 const BASE = "/api";
 
+/** Délai maximum d'une tentative, en millisecondes. */
+const TIMEOUT_MS = 10_000;
+/** Attentes avant la 2e et la 3e tentative — deux retentatives au total. */
+const RETRY_DELAYS_MS = [250, 500] as const;
+const MAX_ATTEMPTS = RETRY_DELAYS_MS.length + 1;
+
 /** Clé de stockage du jeton de session. */
 const TOKEN_KEY = "radar_token";
 
@@ -12,37 +18,123 @@ export function authHeaders(): HeadersInit {
   return t ? { Authorization: `Bearer ${t}` } : {};
 }
 
-/** Erreur d'API portant le code HTTP, pour distinguer 401 de 500 dans l'UI. */
-export type ApiError = Error & { status?: number };
+export type ApiErrorKind = "http" | "network" | "timeout";
 
-function apiError(path: string, status: number): ApiError {
-  const err = new Error(`${path} → ${status}`) as ApiError;
-  err.status = status;
-  return err;
+/** Erreur d'API lisible : la nature du problème et, s'il y a lieu, le statut. */
+export class ApiError extends Error {
+  readonly kind: ApiErrorKind;
+  readonly status?: number;
+
+  constructor(message: string, kind: ApiErrorKind, status?: number) {
+    super(message);
+    this.name = "ApiError";
+    this.kind = kind;
+    this.status = status;
+  }
+}
+
+function httpError(path: string, status: number): ApiError {
+  const cause = status >= 500 ? "erreur du serveur"
+    : status === 401 ? "session expirée"
+    : "requête refusée";
+  return new ApiError(`${cause} (HTTP ${status}) sur ${path}`, "http", status);
+}
+
+function networkError(path: string): ApiError {
+  return new ApiError(`réseau indisponible sur ${path}`, "network");
+}
+
+function timeoutError(path: string): ApiError {
+  return new ApiError(`délai de 10 s dépassé sur ${path}`, "timeout");
+}
+
+function abortReason(signal: AbortSignal): unknown {
+  return signal.reason ?? new DOMException("Requête annulée", "AbortError");
+}
+
+/** Attente interrompable : une annulation ne doit pas retenir l'UI en otage. */
+function attendre(ms: number, signal?: AbortSignal): Promise<void> {
+  return new Promise((resolve, reject) => {
+    if (signal?.aborted) {
+      reject(abortReason(signal));
+      return;
+    }
+    let timer: ReturnType<typeof setTimeout>;
+    const nettoyer = () => signal?.removeEventListener("abort", annuler);
+    const annuler = () => {
+      clearTimeout(timer);
+      nettoyer();
+      reject(abortReason(signal!));
+    };
+    timer = setTimeout(() => {
+      nettoyer();
+      resolve();
+    }, ms);
+    signal?.addEventListener("abort", annuler, { once: true });
+  });
+}
+
+/**
+ * Une requête, au plus trois tentatives : erreurs réseau, timeouts et 5xx
+ * seulement. Les 4xx sont des réponses définitives, jamais rejouées.
+ */
+async function request<T>(path: string, init: RequestInit, signal?: AbortSignal): Promise<T> {
+  for (let tentative = 0; ; tentative += 1) {
+    if (signal?.aborted) throw abortReason(signal);
+    const controller = new AbortController();
+    let expire = false;
+    const timer = setTimeout(() => {
+      expire = true;
+      controller.abort(timeoutError(path));
+    }, TIMEOUT_MS);
+    const onAbort = () => controller.abort(abortReason(signal!));
+    signal?.addEventListener("abort", onAbort, { once: true });
+
+    try {
+      const res = await fetch(BASE + path, { ...init, signal: controller.signal });
+      if (!res.ok) {
+        const err = httpError(path, res.status);
+        if (res.status < 500 || tentative === MAX_ATTEMPTS - 1) throw err;
+        await attendre(RETRY_DELAYS_MS[tentative], signal);
+        continue;
+      }
+      if (expire) throw timeoutError(path);
+      return (await res.json()) as T;
+    } catch (err) {
+      if (signal?.aborted) throw abortReason(signal);
+      const retryable = expire
+        || err instanceof TypeError
+        || (err instanceof ApiError && err.kind !== "http")
+        || (err instanceof Error && err.name === "AbortError");
+      if (retryable && tentative < MAX_ATTEMPTS - 1) {
+        await attendre(RETRY_DELAYS_MS[tentative], signal);
+        continue;
+      }
+      if (err instanceof ApiError) throw err;
+      throw expire ? timeoutError(path) : networkError(path);
+    } finally {
+      clearTimeout(timer);
+      if (signal) signal.removeEventListener("abort", onAbort);
+    }
+  }
 }
 
 async function get<T>(path: string, signal?: AbortSignal): Promise<T> {
-  const res = await fetch(BASE + path, { headers: authHeaders(), signal });
-  if (!res.ok) throw apiError(path, res.status);
-  return res.json() as Promise<T>;
+  return request<T>(path, { headers: authHeaders() }, signal);
 }
 
 /** POST authentifié (ack / resolve) : le token est relu à chaque appel. */
 async function post<T>(path: string): Promise<T> {
-  const res = await fetch(BASE + path, { method: "POST", headers: authHeaders() });
-  if (!res.ok) throw apiError(path, res.status);
-  return res.json() as Promise<T>;
+  return request<T>(path, { method: "POST", headers: authHeaders() });
 }
 
 /** POST avec corps JSON ; le jeton est joint quand il existe (login : aucun). */
 async function postJson<T>(path: string, body: unknown): Promise<T> {
-  const res = await fetch(BASE + path, {
+  return request<T>(path, {
     method: "POST",
     headers: { "Content-Type": "application/json", ...authHeaders() },
     body: JSON.stringify(body),
   });
-  if (!res.ok) throw apiError(path, res.status);
-  return res.json() as Promise<T>;
 }
 
 /** Utilisateur renvoyé par `POST /auth/login`. */

@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { motifLabel, sourceStatus, sourceYield, type Source, type SourceStatus, type SourceYield } from "../api";
 import type { SourcesViewProps } from "../contracts";
 import "./sources.css";
+import { ErrorRetry } from "./ErrorRetry";
 
 /** Libellés français des familles de sources (le reste est affiché brut). */
 export const FAMILY_LABEL: Record<string, string> = {
@@ -194,7 +195,7 @@ function compareSources(a: Source, b: Source, key: SortKey, dir: SortDir): numbe
  * La pastille d'état vient de `sourceStatus()` : bleu pour un succès,
  * orange pour une erreur, gris tant que rien n'a été collecté.
  */
-export default function SourcesView({ sources, loading, error }: SourcesViewProps) {
+export default function SourcesView({ sources, loading, error, onRetry }: SourcesViewProps) {
   const [query, setQuery] = useState("");
   // Par défaut : les sources qui rapportent le moins en tête, et parmi elles
   // d'abord celles qui lisent sans rien rendre — c'est là qu'un parseur cassé
@@ -263,6 +264,7 @@ export default function SourcesView({ sources, loading, error }: SourcesViewProp
           </p>
         )}
       </header>
+      {error ? <ErrorRetry message={error} onRetry={onRetry} /> : null}
 
       <div className="sources-view__toolbar">
         <label className="sources-view__search">

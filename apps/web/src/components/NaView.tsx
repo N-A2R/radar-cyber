@@ -13,6 +13,7 @@ import { useMemo } from "react";
 import departementsGeojson from "../map/departements-na.geojson";
 import type { NaOverview, NaFil, Org } from "../api";
 import type { NaViewProps } from "../contracts";
+import { ErrorRetry } from "./ErrorRetry";
 
 /** Les douze départements, dans l'ordre du geojson (props : code, nom). */
 const FEATURES = departementsGeojson.features as {
@@ -114,7 +115,7 @@ export function overviewDepuisOrgs(orgs: Org[]): NaOverview {
   };
 }
 
-export default function NaView({ orgs, overview, fil, loading, error, dept, onSelectDept, onOpenOrg }: NaViewProps) {
+export default function NaView({ orgs, overview, fil, loading, error, dept, onSelectDept, onOpenOrg, onRetry }: NaViewProps) {
   const compteParDept = useMemo(() => {
     const m = new Map<string, { nom: string; evenements: number; orgs: number; orgsAvecEvenement: number }>();
     for (const f of FEATURES) {
@@ -175,7 +176,7 @@ export default function NaView({ orgs, overview, fil, loading, error, dept, onSe
             {ilYA(overview?.derniereCollecte ?? null)}
           </p>
         )}
-        {error && <p className="na-erreur">{error}</p>}
+        {error ? <ErrorRetry message={error} onRetry={onRetry} className="na-erreur" /> : null}
         {dept && (
           <button type="button" className="na-reset" onClick={() => onSelectDept(null)}>
             ← toute la région (filtre actuel : {nomDept})

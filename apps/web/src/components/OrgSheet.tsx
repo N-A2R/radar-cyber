@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { api, type ApiError, type OrgDetail as OrgDetailData } from "../api";
+import { ErrorRetry } from "./ErrorRetry";
 import { renduCorroboration, renduHistorique } from "./corroboration-view";
 import { mockOrgDetail } from "../mock";
 import "./orgsheet.css";
@@ -40,6 +41,7 @@ export default function OrgSheet({
   mock?: boolean;
 }) {
   const [state, setState] = useState<LoadState>({ status: "loading" });
+  const [retryTick, setRetryTick] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -62,7 +64,7 @@ export default function OrgSheet({
     return () => {
       cancelled = true;
     };
-  }, [orgId, mock]);
+  }, [orgId, mock, retryTick]);
 
   const title = state.status === "ready" ? state.data.org.name : "Organisation";
 
@@ -77,7 +79,7 @@ export default function OrgSheet({
 
       {state.status === "loading" && <p className="orgsheet__status">chargement…</p>}
       {state.status === "notfound" && <p className="orgsheet__status">organisation inconnue</p>}
-      {state.status === "error" && <p className="orgsheet__status orgsheet__status--error">{state.message}</p>}
+      {state.status === "error" && <ErrorRetry message={state.message} onRetry={() => setRetryTick((n) => n + 1)} className="orgsheet__status orgsheet__status--error" />}
       {state.status === "ready" && <OrgSheetBody data={state.data} />}
     </aside>
   );

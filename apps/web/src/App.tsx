@@ -20,6 +20,7 @@ import NaView from "./components/NaView";
 import TodayView from "./components/TodayView";
 import AlertsView from "./components/AlertsView";
 import LoginScreen from "./components/LoginScreen";
+import { ErrorRetry } from "./components/ErrorRetry";
 import type { ViewKey } from "./contracts";
 import { parseHash, toHash, shareableUrl, type AppUrlState } from "./url-state";
 
@@ -70,6 +71,8 @@ export default function App() {
     setUrlState((prev) => (prev.view === next ? prev : { ...prev, view: next }));
   }, []);
   const [error, setError] = useState<string | null>(null);
+  const [rechargement, setRechargement] = useState(0);
+  const recharger = useCallback(() => setRechargement((n) => n + 1), []);
   /**
    * Hors ligne : quand l'API ne répond pas, on continue d'afficher le dernier
    * état connu de la carte, avec son âge. Un écran vide en dit moins qu'un
@@ -300,7 +303,7 @@ export default function App() {
       setFlows(arcs);
     };
     void load();
-  }, [loadFlows, token, portee]);
+  }, [loadFlows, token, portee, rechargement]);
 
   // Rafraîchit statistiques, graphe et arcs toutes les 30 s.
   useEffect(() => {
@@ -329,7 +332,7 @@ export default function App() {
       .naEvents(urlState.naDept)
       .then((f) => setNaFil(f))
       .catch(() => setNaFil(null));
-  }, [urlState.naDept, token]);
+  }, [urlState.naDept, token, rechargement]);
 
   // Écran d'accueil : un seul appel donne les compteurs et le fil. Les filtres
   // vivent dans l'URL, donc un lien partagé recharge exactement la même liste.
@@ -359,7 +362,7 @@ export default function App() {
       controller.abort();
       clearInterval(timer);
     };
-  }, [view, urlState.today.family, urlState.today.dept, token]);
+  }, [view, urlState.today.family, urlState.today.dept, token, rechargement]);
 
   const byFamily = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -581,7 +584,7 @@ export default function App() {
         }}
       />
 
-      {error ? <p className="shell__error">API : {error}</p> : null}
+      {error ? <ErrorRetry message={`API : ${error}`} onRetry={recharger} className="shell__error" /> : null}
       {/* Hors ligne assumé : on dit l'âge des données plutôt que de faire
           croire à un temps réel qu'on n'a plus. */}
       {error && instantaneData ? (
@@ -663,6 +666,7 @@ export default function App() {
               data={todayData}
               loading={todayLoading}
               error={todayError}
+              onRetry={recharger}
               family={urlState.today.family}
               dept={urlState.today.dept}
               onFamily={onTodayFamily}
@@ -710,6 +714,7 @@ export default function App() {
               loading={loading}
               error={error}
               onOpenOrg={openOrgSheet}
+              onRetry={recharger}
               server={!MOCK_MODE}
               urlState={urlState.directory}
               onUrlStateChange={onDirectoryStateChange}
@@ -727,11 +732,11 @@ export default function App() {
           ) : null}
           {view === "journal" ? <JournalView onUnauthorized={onUnauthorized} /> : null}
 
-          {view === "sources" ? <SourcesView sources={sources} loading={loading} error={error} /> : null}
+          {view === "sources" ? <SourcesView sources={sources} loading={loading} error={error} onRetry={recharger} /> : null}
 
           {view === "health" ? (
             <>
-              <HealthDetailView detail={healthDetail} causes={healthCauses} loading={loading} error={error} />
+              <HealthDetailView detail={healthDetail} causes={healthCauses} loading={loading} error={error} onRetry={recharger} />
               <HealthView sources={sources} />
             </>
           ) : null}
@@ -748,6 +753,7 @@ export default function App() {
               dept={urlState.naDept}
               onSelectDept={(d) => setUrlState((prev) => (prev.naDept === d ? prev : { ...prev, naDept: d }))}
               onOpenOrg={setSheetOrgId}
+              onRetry={recharger}
             />
           ) : null}
 

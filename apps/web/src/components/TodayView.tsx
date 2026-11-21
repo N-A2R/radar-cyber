@@ -6,6 +6,7 @@
  * zéro qui prétendrait mesurer quelque chose.
  */
 import type { TodayEvent } from "../api";
+import { ErrorRetry } from "./ErrorRetry";
 import type { TodayViewProps } from "../contracts";
 import "./today.css";
 import LieesCard from "./LieesCard";
@@ -47,6 +48,7 @@ export default function TodayView({
   onDept,
   onOpenOrg,
   onOpenEvent,
+  onRetry,
 }: TodayViewProps) {
   const evenements = triRecents(data?.evenements ?? []);
   const familles = options(evenements.map((e) => e.famille), family);
@@ -100,7 +102,7 @@ export default function TodayView({
       </div>
 
       {loading ? <p className="today__statut" role="status">chargement des événements…</p> : null}
-      {error ? <p className="today__statut today__statut--erreur" role="alert">API : {error}</p> : null}
+      {error ? <ErrorRetry message={`API : ${error}`} onRetry={onRetry} className="today__statut today__statut--erreur" /> : null}
 
       {vide ? (
         <div className="today__vide" role="status">

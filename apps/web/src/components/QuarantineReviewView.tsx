@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { api, type ReviewAction, type ReviewQueueResponse, type ReviewRow } from "../api";
+import { ErrorRetry } from "./ErrorRetry";
 import type { ReviewViewProps } from "../contracts";
 import { reduceSelection, reviewIntent, reviewTargets, type ReviewKeyState } from "../review-keys";
 import "./quarantine-review.css";
@@ -220,7 +221,7 @@ export default function ReviewView({ canWrite, server, onUnauthorized, onOpenOrg
 				mais hors file ».
 			</p>
 
-			{error ? <p className="review__error" role="alert">{error}</p> : null}
+			{error ? <ErrorRetry message={error} onRetry={load} className="review__error" /> : null}
 
 			<div className="review__bar">
 				<span className="review__selection">

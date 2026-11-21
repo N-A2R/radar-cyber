@@ -1,4 +1,5 @@
 import type { HealthCauses, HealthDetail } from "../api";
+import { ErrorRetry } from "./ErrorRetry";
 import { FAMILY_LABEL, formatDate, formatNumber, formatRelative } from "./SourcesView";
 import "./health-detail.css";
 
@@ -7,6 +8,7 @@ export type HealthDetailViewProps = {
   causes?: HealthCauses | null;
   loading?: boolean;
   error?: string | null;
+  onRetry?: () => void;
 };
 
 /** Étiquette écrite à côté de la couleur : la teinte n'est jamais le seul signal. */
@@ -28,12 +30,12 @@ function ageLabel(ageHours: number | null): string {
  * sa requête SQL dans `apps/api/src/routes/health-detail.ts`. La répartition
  * des causes vient de `GET /api/health/causes` et n'est jamais déduite ici.
  */
-export default function HealthDetailView({ detail, causes = null, loading = false, error = null }: HealthDetailViewProps) {
+export default function HealthDetailView({ detail, causes = null, loading = false, error = null, onRetry }: HealthDetailViewProps) {
   if (loading && detail === null) {
     return <section className="health-detail"><p>lecture de l’état du système…</p></section>;
   }
   if (error && detail === null) {
-    return <section className="health-detail"><p role="alert">état indisponible : {error}</p></section>;
+    return <section className="health-detail"><ErrorRetry message={`état indisponible : ${error}`} onRetry={onRetry} /></section>;
   }
   if (detail === null || !detail.ok) {
     return <section className="health-detail"><p>état non mesuré</p></section>;

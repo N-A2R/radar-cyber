@@ -8,6 +8,7 @@
 import { useEffect, useState } from "react";
 import { authHeaders } from "../api";
 import "./liees.css";
+import { ErrorRetry } from "./ErrorRetry";
 
 export type OrgsLiees = {
   semaine: number;
@@ -35,6 +36,7 @@ export type LieesEtat = {
   data: OrgsLiees | null;
   loading: boolean;
   error: string | null;
+  onRetry?: () => void;
 };
 
 function nombre(value: number): string {
@@ -83,7 +85,7 @@ function MicroCourbe({ points }: { points: HistoriquePoint[] }) {
 }
 
 /** Présentation pure : permet de vérifier chaque état sans réseau. */
-export function LieesContenu({ data, loading, error, historique = [] }: LieesContenuProps) {
+export function LieesContenu({ data, loading, error, historique = [], onRetry }: LieesContenuProps) {
   const vide = !loading && !error && data !== null
     && data.semaine === 0 && data.total === 0
     && data.enAttente === 0 && data.examinees === 0;
@@ -97,7 +99,7 @@ export function LieesContenu({ data, loading, error, historique = [] }: LieesCon
       </header>
 
       {loading ? <p className="liees__statut" role="status">chargement des organisations reliées…</p> : null}
-      {error ? <p className="liees__statut liees__erreur" role="alert">API : {error}</p> : null}
+      {error ? <ErrorRetry message={`API : ${error}`} onRetry={onRetry} className="liees__statut liees__erreur" /> : null}
       {vide ? (
         <p className="liees__vide" role="status">aucune organisation reliée mesurée</p>
       ) : null}
@@ -151,6 +153,7 @@ export default function LieesCard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [historique, setHistorique] = useState<HistoriquePoint[]>([]);
+  const [retryTick, setRetryTick] = useState(0);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -187,7 +190,7 @@ export default function LieesCard() {
       })
       .catch(() => { /* historique indisponible : aucune courbe, pas un tracé vide */ });
     return () => controller.abort();
-  }, []);
+  }, [retryTick]);
 
-  return <LieesContenu data={data} loading={loading} error={error} historique={historique} />;
+  return <LieesContenu data={data} loading={loading} error={error} historique={historique} onRetry={() => setRetryTick((n) => n + 1)} />;
 }

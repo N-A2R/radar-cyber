@@ -20,7 +20,9 @@
     "test:aujourdhui": "vite build --ssr test/aujourdhui-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/aujourdhui-verif.js",
     "test:liees": "vite build --ssr test/liees-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/liees-verif.js",
     "test:sources-rouges": "vite build --ssr test/sources-rouges-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/sources-rouges-verif.js",
-    "test:journal": "vite build --ssr test/journal-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/journal-verif.js"
+    "test:journal": "vite build --ssr test/journal-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/journal-verif.js",
+    "test:api": "vite build --ssr test/api-retry-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/api-retry-verif.js",
+    "test:erreur": "vite build --ssr test/erreur-retry-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/erreur-retry-verif.js"
   },
   "dependencies": {
     "@radar/shared": "workspace:*",

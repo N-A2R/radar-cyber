@@ -8,6 +8,7 @@
  */
 import { useCallback, useEffect, useState } from "react";
 import { api, type JournalDecision } from "../api";
+import { ErrorRetry } from "./ErrorRetry";
 import JournalListe from "./JournalListe";
 
 const LIMITE = 100;
@@ -23,6 +24,8 @@ export default function JournalView({ onUnauthorized }: Props) {
   const [precedents, setPrecedents] = useState<number[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [retryTick, setRetryTick] = useState(0);
+  const retry = useCallback(() => setRetryTick((n) => n + 1), []);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -44,7 +47,7 @@ export default function JournalView({ onUnauthorized }: Props) {
         if (!controller.signal.aborted) setLoading(false);
       });
     return () => controller.abort();
-  }, [curseur, onUnauthorized]);
+  }, [curseur, onUnauthorized, retryTick]);
 
   const allerSuivant = useCallback(() => {
     if (suivant === null) return;
@@ -63,6 +66,7 @@ export default function JournalView({ onUnauthorized }: Props) {
       rows={rows}
       loading={loading}
       error={error}
+      onRetry={retry}
       suivant={suivant}
       page={precedents.length + 1}
       onPrecedent={allerPrecedent}

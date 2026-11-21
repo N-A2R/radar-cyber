@@ -4,6 +4,7 @@ import { api, type DirectoryFacet, type DirectoryResponse, type DirectoryRow } f
 import { DEFAULT_DIRECTORY, type DirectoryUrlState } from "../url-state";
 import type { DirectoryProps } from "../contracts";
 import "./directory.css";
+import { ErrorRetry } from "./ErrorRetry";
 
 /**
  * Annuaire des organisations — pagination, facettes et recherche côté serveur.
@@ -92,6 +93,7 @@ export default function DirectoryView({
 	urlState,
 	onUrlStateChange,
 	onCopyLink,
+	onRetry,
 }: DirectoryProps) {
 	const [query, setQuery] = useState(urlState?.q ?? "");
 	const [kind, setKind] = useState<string | null>(urlState?.kind ?? null);
@@ -108,6 +110,11 @@ export default function DirectoryView({
 	const [remote, setRemote] = useState<DirectoryResponse | null>(null);
 	const [remoteLoading, setRemoteLoading] = useState(server);
 	const [remoteError, setRemoteError] = useState<string | null>(null);
+	const [reloadTick, setReloadTick] = useState(0);
+	const retry = useCallback(() => {
+		setReloadTick((n) => n + 1);
+		onRetry?.();
+	}, [onRetry]);
 
 	const debouncedQuery = useDebounced(query, 220);
 	const scrollRef = useRef<HTMLDivElement>(null);
@@ -149,7 +156,7 @@ export default function DirectoryView({
 				setRemoteLoading(false);
 			});
 		return () => controller.abort();
-	}, [server, debouncedQuery, kind, sector, dept, withEvents, withoutEvents, sort, dir, page, size]);
+	}, [server, debouncedQuery, kind, sector, dept, withEvents, withoutEvents, sort, dir, page, size, reloadTick]);
 
 	// L'URL suit l'état : un lien se copie et se partage tel quel.
 	useEffect(() => {
@@ -359,7 +366,7 @@ export default function DirectoryView({
 				</p>
 			) : null}
 
-			{problem ? <p className="directory__error" role="alert">{problem}</p> : null}
+			{problem ? <ErrorRetry message={problem} onRetry={retry} className="directory__error" /> : null}
 
 			{busy && rows.length === 0 ? (
 				<p className="directory__state">Chargement du référentiel…</p>

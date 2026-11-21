@@ -4,6 +4,7 @@
  * pagination sont visibles sans API, donc vérifiables en SSR.
  */
 import type { JournalDecision } from "../api";
+import { ErrorRetry } from "./ErrorRetry";
 import "./journal.css";
 
 export const DECISION_LABEL: Record<Exclude<JournalDecision["decision"], null>, string> = {
@@ -21,10 +22,11 @@ type Props = {
   page: number;
   onPrecedent: () => void;
   onSuivant: () => void;
+  onRetry?: () => void;
 };
 
 export default function JournalListe({
-  rows, loading, error, suivant, page, onPrecedent, onSuivant,
+  rows, loading, error, onRetry, suivant, page, onPrecedent, onSuivant,
 }: Props) {
   return (
     <section className="journal" aria-label="Journal des décisions de revue">
@@ -33,7 +35,7 @@ export default function JournalListe({
         <p className="journal__count">décisions de revue enregistrées, les plus récentes d'abord</p>
       </header>
 
-      {error ? <p className="journal__error" role="alert">API : {error}</p> : null}
+      {error ? <ErrorRetry message={`API : ${error}`} onRetry={onRetry} className="journal__error" /> : null}
       {loading ? <p className="journal__state" role="status">Chargement du journal…</p> : null}
       {!loading && !error && rows.length === 0
         ? <p className="journal__state">aucune décision enregistrée</p>

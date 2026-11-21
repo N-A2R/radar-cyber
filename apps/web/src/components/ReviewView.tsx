@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import { authHeaders } from "../api";
+import { ErrorRetry } from "./ErrorRetry";
 import "./review.css";
 
 export type RevueBucket = "chaud" | "tiede" | "froid";
@@ -103,6 +104,8 @@ export default function ReviewView({
   const [actionError, setActionError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const reasonRef = useRef<HTMLTextAreaElement>(null);
+  const [retryTick, setRetryTick] = useState(0);
+  const retry = useCallback(() => setRetryTick((n) => n + 1), []);
 
   useEffect(() => {
     if (!server) {
@@ -136,7 +139,7 @@ export default function ReviewView({
         if (!controller.signal.aborted) setLoading(false);
       });
     return () => controller.abort();
-  }, [server, bucket, query, page, onUnauthorized]);
+  }, [server, bucket, query, page, onUnauthorized, retryTick]);
 
   useEffect(() => {
     if (openRow !== null) reasonRef.current?.focus();
@@ -235,7 +238,7 @@ export default function ReviewView({
       </div>
 
       {notice ? <p className="revue__notice" role="status">{notice}</p> : null}
-      {error ? <p className="revue__error" role="alert">{error}</p> : null}
+      {error ? <ErrorRetry message={error} onRetry={retry} className="revue__error" /> : null}
       {loading ? <p className="revue__state" role="status">Chargement de la file de revue…</p> : null}
       {!loading && rows.length === 0 && !error
         ? <p className="revue__state">Aucune revendication à revoir.</p>

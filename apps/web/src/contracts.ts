@@ -10,6 +10,7 @@ export type TodayViewProps = {
   data: TodayResponse | null;
   loading: boolean;
   error: string | null;
+  onRetry?: () => void;
   family: string | null;
   dept: string | null;
   onFamily: (family: string | null) => void;
@@ -53,6 +54,7 @@ export type NaViewProps = {
   fil: NaFil | null;
   loading: boolean;
   error: string | null;
+  onRetry?: () => void;
   /** Département sélectionné dans l'URL (`?naDept=33`), `null` = région. */
   dept: string | null;
   onSelectDept: (dept: string | null) => void;
@@ -73,6 +75,7 @@ export type SourcesViewProps = {
   sources: Source[];
   loading: boolean;
   error: string | null;
+  onRetry?: () => void;
 };
 
 /** Contrat de la vue santé. */
@@ -105,6 +108,7 @@ export type DirectoryProps = {
   orgs: Org[];
   loading: boolean;
   error: string | null;
+  onRetry?: () => void;
   onOpenOrg: (orgId: number) => void;
   /** true : l'API filtre, classe et pagine ; false : tout en mémoire (démo). */
   server?: boolean;
