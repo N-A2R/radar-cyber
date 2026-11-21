@@ -44,18 +44,19 @@ démarrée depuis ce worktree avec `DATABASE_URL=postgres://radar:radar@localhos
     `apps/api/test/contrat-routes.test.ts:150` et client
     `apps/web/src/api.ts:799` inchangés. Le chemin bitemporel `asOf` est paginé
     de la même façon.
-  - `db/migrate-047-orgs-list-indexes.sql:21,23` : `org_name_id_idx` sur
+  - `db/migrate-048-orgs-list-indexes.sql:21,23` : `org_name_id_idx` sur
     `org (name, id)` et `org_history_name_id_idx` sur `org_history (name, id)`.
     Index `IF NOT EXISTS`, rejouables, sans modification de données.
 - **Mesures après** :
-  - `GET /api/orgs` (défaut) : **56 ms**, 500 objets, 121 587 octets,
-    `X-Total-Count: 1673151`, `X-Limit: 500`, `X-Offset: 0`.
+  - `GET /api/orgs` (défaut) : **56 ms** à chaud (**211 ms** sur la branche
+    finale après fusion de `origin/main` et vidage des caches), 500 objets,
+    121 587 octets, `X-Total-Count: 1673151`, `X-Limit: 500`, `X-Offset: 0`.
   - `GET /api/orgs?limit=2000&offset=1000` : **42 ms**, 459 041 octets.
   - `EXPLAIN ANALYZE` de la requête paginée : **8,97 ms** (`Index Scan` sur
     `org_name_id_idx`, puis `Index Only Scan` sur `event_org_idx` pour 500
     lignes). Le comptage séparé du total (~95 ms à froid) reste sous le seuil.
-- **Objectif < 500 ms pour 500 lignes : atteint** (56 ms bout en bout, soit
-  environ 336× plus rapide que les 18 848 ms mesurés avant).
+- **Objectif < 500 ms pour 500 lignes : atteint** (56 à 211 ms bout en bout,
+  soit 89× à 336× plus rapide que les 18 848 ms mesurés avant).
 
 ## 3. Écrans `carte`, `graphe`, `revue` vides
 
@@ -67,7 +68,7 @@ démarrée depuis ce worktree avec `DATABASE_URL=postgres://radar:radar@localhos
   désérialiser 396 Mo avant de pouvoir alimenter la carte, le graphe et la
   revue. Aucun correctif d'affichage spécifique n'était nécessaire.
 - **État : corrigé à la source** par les points 1 et 2. Le rendu visuel des
-  trois écrans n'a pas été rejoué dans le navigateeur dans ce worktree (aucun
+  trois écrans n'a pas été rejoué dans le navigateur dans ce worktree (aucun
   `dist` web construit) : seule la disponibilité des deux endpoints a été
   vérifiée.
 
@@ -75,5 +76,5 @@ démarrée depuis ce worktree avec `DATABASE_URL=postgres://radar:radar@localhos
 
 - `pnpm -r typecheck` : `apps/api` et `apps/web` OK.
 - `cd apps/api && RADAR_TEST_ADMIN_URL='postgres://radar:radar@localhost:5433/postgres' node_modules/.bin/tsx test/run.ts` :
-  **644 tests, 644 pass, 0 fail**.
-- Commit effectué dans le worktree isolé, sans push ni PR.
+  **648 tests, 648 pass, 0 fail**.
+- Commits effectués dans le worktree isolé, sans push ni PR.

@@ -1,4 +1,4 @@
--- 047 — Index de tri pour la liste paginée des organisations (GET /api/orgs)
+-- 048 — Index de tri pour la liste paginée des organisations (GET /api/orgs)
 --
 -- Mesure sur la base 5433 (1 673 151 organisations), avant correction :
 --
