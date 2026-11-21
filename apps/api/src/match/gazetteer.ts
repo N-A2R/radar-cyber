@@ -29,11 +29,9 @@
  */
 import {
 	commenceParRoleEtablissement,
-	commenceParUnRole,
 	MOTS_GENERIQUES,
 	MOTS_GENERIQUES_ENTREPRISE,
 	MOTS_ROLE,
-	nomDeLieu,
 } from "./generique.js";
 import { CarteIndexee, CarteLectureSeule, CartePremiersJetons, construireIndex, construireIndexTrie } from "./index-compact.js";
 
@@ -206,8 +204,27 @@ const SOURCES_ALIAS_USAGE = new Set<string>(["annuaire-entreprises"]);
 /** En deçà, un alias n'est pas une preuve. Aligné sur `core.MIN_ALIAS_LENGTH`. */
 const MIN_KEY_LENGTH = 4;
 
-/** Normalisation alignée sur `match/core.ts` : mêmes jetons des deux côtés. */
-export function normaliser(texte: string): string[] {
+/**
+ * Table de normalisation des caractères Latin-1 vers l'alphabet ASCII.
+ * 0 = séparateur. Les ligatures (œ, æ) et les caractères au-delà de 255
+ * passent par la voie lente, qui reproduit exactement `match/core.ts`.
+ */
+const TABLE_JETONS = new Uint8Array(256);
+for (let c = 48; c <= 57; c++) TABLE_JETONS[c] = c;
+for (let c = 65; c <= 90; c++) TABLE_JETONS[c] = c + 32;
+for (let c = 97; c <= 122; c++) TABLE_JETONS[c] = c;
+for (const [debut, fin, lettre] of [
+	[192, 197, 97], [199, 199, 99], [200, 203, 101], [204, 207, 105],
+	[209, 209, 110], [210, 214, 111], [217, 220, 117], [221, 221, 121],
+	[224, 229, 97], [231, 231, 99], [232, 235, 101], [236, 239, 105],
+	[241, 241, 110], [242, 246, 111], [249, 252, 117], [253, 253, 121],
+	[255, 255, 121],
+] as const) {
+	for (let c = debut; c <= fin; c++) TABLE_JETONS[c] = lettre;
+}
+
+/** Voie lente, réservée aux ligatures et aux caractères hors Latin-1. */
+function normaliserUnicode(texte: string): string[] {
 	const propre = texte
 		.replace(/œ/g, "oe")
 		.replace(/Œ/g, "OE")
@@ -221,14 +238,40 @@ export function normaliser(texte: string): string[] {
 	return propre === "" ? [] : propre.split(" ");
 }
 
-/**
- * Jetons de l'alias : lus de la colonne générée en base, recalculés seulement
- * pour les lignes fabriquées en mémoire (tests, bench). Le cas vide est traité
- * ici pour garder le contrat de `normaliser` (`[]`, pas `[""]`).
- */
-function jetonsAlias(row: GazetteerRow): string[] {
-	const cle = row.nom_normalise ?? normaliser(row.alias).join(" ");
-	return cle === "" ? [] : cle.split(" ");
+/** Normalisation alignée sur `match/core.ts` : mêmes jetons des deux côtés. */
+export function normaliser(texte: string): string[] {
+	const jetons: string[] = [];
+	let jeton = "";
+	for (let i = 0; i < texte.length; i++) {
+		const code = texte.charCodeAt(i) as number;
+		if (code >= 256 || code === 198 || code === 230 || code === 338 || code === 339) {
+			return normaliserUnicode(texte);
+		}
+		const lettre = TABLE_JETONS[code] as number;
+		if (lettre !== 0) jeton += String.fromCharCode(lettre);
+		else if (jeton !== "") {
+			jetons.push(jeton);
+			jeton = "";
+		}
+	}
+	if (jeton !== "") jetons.push(jeton);
+	return jetons;
+}
+
+/** Nombre de jetons après les particules et les mots de rôle de tête. */
+function nbJetonsLieu(jetons: readonly string[]): number {
+	let debut = 0;
+	while (debut < jetons.length) {
+		const jeton = jetons[debut] as string;
+		if (jeton === "de" || jeton === "du" || jeton === "des" || jeton === "d"
+			|| jeton === "la" || jeton === "le" || jeton === "les" || jeton === "l"
+			|| MOTS_ROLE.includes(jeton)) {
+			debut++;
+			continue;
+		}
+		break;
+	}
+	return jetons.length - debut;
 }
 
 const GENERIQUES = new Set<string>([...MOTS_GENERIQUES, ...MOTS_GENERIQUES_ENTREPRISE]);
@@ -255,131 +298,164 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 	const lieuTokens = new Set<string>();
 	const roleTokens = new Set<string>();
 
-	// Pré-passe : deux jugements se prennent sur l'ensemble des lignes, pas
-	// ligne par ligne — combien d'organisations portent cette clé d'alias, et
-	// lesquelles de ces clés sont le nom d'un territoire du référentiel.
-	// Un id témoin suffit : on ne retient que le caractère ambigu de la clé.
+	// Une seule passe sur les lignes : la clé d'alias, les jetons du nom et
+	// les faits de décision sont calculés une fois. Les jugements qui portent
+	// sur l'ensemble (ambiguïté, territoire) sont appliqués ensuite sur des
+	// tableaux typés, pas en parcourant de nouveau les objets PG.
+	const F_ROLE = 1;
+	const F_LIEU_MULTI = 2;
+	const F_SOURCE_NOMMEUSE = 4;
+	const F_COLLECTIVITE = 8;
+	const F_SIRENE_NOM = 16;
+	const F_TERRITOIRE = 32;
+	const F_DEPARTEMENT = 64;
+	const F_CURE = 128;
+
 	const premierIdParCle = new Map<string, number>();
 	const clesAmbigues = new Set<string>();
 	const clesTerritoire = new Set<string>();
-	for (const row of rows) {
-		const jetons = jetonsAlias(row);
-		if (jetons.length === 0) continue;
-		const cle = jetons.join(" ");
-		const premier = premierIdParCle.get(cle);
-		if (premier === undefined) premierIdParCle.set(cle, row.org_id);
-		else if (premier !== row.org_id) clesAmbigues.add(cle);
-		if (TERRITOIRES.has(row.sector ?? "")) clesTerritoire.add(cle);
-	}
-
 	// Paires (clé, id) en ordre d'apparition : triées et compactées une seule
 	// fois en fin de construction, elles évitent une Map et un tableau par clé.
 	const aliasCles: string[] = [];
 	const aliasIds: number[] = [];
+	const aliasFlags = new Uint8Array(rows.length);
+	const aliasPorteurs = new Uint8Array(rows.length);
+	const aliasNbJetons = new Uint8Array(rows.length);
 	// Les jetons de noms sont bien plus nombreux que les alias : un bucket par
 	// jeton distinct évite de trier des millions de paires pour si peu de clés.
 	const orgsParToken = new Map<string, number[]>();
 	const cureCles: string[] = [];
 	const cureIds: number[] = [];
-	let maxTokens = 1;
 
-	for (const row of rows) {
+	for (let i = 0; i < rows.length; i++) {
+		const row = rows[i] as GazetteerRow;
 		orgs.ajouter(row);
 
+		// La clé d'alias est calculée une fois. Dans 92 % des lignes du stock,
+		// l'alias est le nom légal : ses jetons servent aussi à la porte
+		// d'admission, sans refaire la normalisation du nom.
+		let cle: string;
+		let jetonsAlias: string[] | null = null;
+		if (row.nom_normalise != null) {
+			cle = row.nom_normalise === "" ? "" : row.nom_normalise.split(" ").join(" ");
+		} else {
+			jetonsAlias = normaliser(row.alias);
+			cle = jetonsAlias.join(" ");
+		}
 		// --- porte d'admission : tous les jetons des noms, sans exception -----
-		for (const jeton of normaliser(row.name)) {
+		const jetonsNom = row.alias === row.name && jetonsAlias !== null
+			? jetonsAlias
+			: normaliser(row.name);
+		for (const jeton of jetonsNom) {
 			if (jeton.length < 3) continue;
 			const bucket = orgsParToken.get(jeton);
 			if (bucket) bucket.push(row.org_id);
 			else orgsParToken.set(jeton, [row.org_id]);
 		}
 
+		if (cle === "") continue;
+		// Un id témoin suffit : on ne retient que le caractère ambigu de la clé.
+		const premier = premierIdParCle.get(cle);
+		if (premier === undefined) premierIdParCle.set(cle, row.org_id);
+		else if (premier !== row.org_id) clesAmbigues.add(cle);
+		const territoire = TERRITOIRES.has(row.sector ?? "");
+		if (territoire) clesTerritoire.add(cle);
+
 		// --- décision : alias indexés ----------------------------------------
-		const jetons = jetonsAlias(row);
-		if (jetons.length === 0) continue;
-		const cle = jetons.join(" ");
 		if (cle.length < MIN_KEY_LENGTH) continue;
+		const jetons = jetonsAlias ?? cle.split(" ");
 		if (jetons.length > MAX_ALIAS_TOKENS) continue;
 
-		// Seul un rôle d'établissement peut trancher. « Département de la Gironde »
-		// reste un indice, jamais une preuve : c'est de la géographie.
+		let flags = 0;
+		// Seul un rôle d'établissement peut trancher. « Département de la
+		// Gironde » reste un indice, jamais une preuve : c'est de la géographie.
 		const role = commenceParRoleEtablissement(jetons);
-		const lieu = nomDeLieu(jetons);
-		// Un alias d'un seul jeton sans rôle est un nom de lieu, pas une
-		// organisation : il n'entre pas dans l'index de décision.
-		//
-		// Sauf s'il ne désigne qu'**une** organisation du référentiel et qu'il
-		// n'est le nom d'aucun territoire. « Ymed », « Weda », « Cdiscount »
-		// sont des marques, pas des communes — les exclure rendait la mesure
-		// muette sur cinq incidents où l'organisation est pourtant en base.
-		// « Intermarché » (182 porteurs) et « Orange » (54) restent dehors :
-		// leur ambiguïté est réelle, pas un défaut de la garde.
-		if (!role && lieu.split(" ").length < 2) {
-			const unique = !clesAmbigues.has(cle);
-			// Seule une source qui *nomme* l'organisation peut trancher sur un mot
-			// seul : alias posés à la main (`usage`) ou annuaire officiel des
-			// entreprises. Les alias dérivés en masse sont des fragments de
-			// raison sociale — « clair », « personnelles » sont uniques dans
-			// l'index et pourtant des mots ordinaires : mesuré le 2026-11-17,
-			// ils ont fabriqué trois faux positifs d'un coup.
-			const sourceNommeuse = row.source === "usage" || row.source === "annuaire-entreprises";
-			if (!unique || clesTerritoire.has(cle) || row.kind === "collectivite" || !sourceNommeuse) continue;
+		if (role) flags |= F_ROLE;
+		if (nbJetonsLieu(jetons) >= 2) flags |= F_LIEU_MULTI;
+		// Seule une source qui *nomme* l'organisation peut trancher sur un mot
+		// seul : alias posés à la main (`usage`) ou annuaire officiel des
+		// entreprises. Les alias dérivés en masse sont des fragments de raison
+		// sociale — « clair », « personnelles » sont uniques dans l'index et
+		// pourtant des mots ordinaires : mesuré le 2026-11-17, ils ont fabriqué
+		// trois faux positifs d'un coup.
+		if (row.source === "usage" || row.source === "annuaire-entreprises") flags |= F_SOURCE_NOMMEUSE;
+		if (row.kind === "collectivite") flags |= F_COLLECTIVITE;
+		if (row.source === "sirene-nom") flags |= F_SIRENE_NOM;
+		if (territoire) flags |= F_TERRITOIRE;
+		// Garde anti-toponyme : « pyrenees atlantiques » d'une association
+		// colombophile rattachait tout texte citant le département (ERNAT, 15/11).
+		if (CLES_DEPARTEMENTS.has(cle)) flags |= F_DEPARTEMENT;
+		if (SOURCES_ALIAS_USAGE.has(row.source ?? "")) flags |= F_CURE;
+		// Un alias composé uniquement de mots génériques ne vaut pas mieux.
+		let porteurs = 0;
+		for (const jeton of jetons) {
+			if (!GENERIQUES.has(jeton) && jeton.length > 2) porteurs++;
 		}
 
-		// Garde anti-toponyme : un alias qui est exactement le nom d'un
-		// département désigne le département, jamais l'organisation qui le
-		// porte dans son nom légal. Sans cette garde, l'alias distinctif
-		// « pyrenees atlantiques » d'une association colombophile rattachait
-		// tout texte citant le département (constaté sur la mesure du 15
-		// novembre 2026, incident ERNAT).
-		if (!role && CLES_DEPARTEMENTS.has(cle)) continue;
+		const slot = aliasCles.length;
+		aliasCles.push(cle);
+		aliasIds.push(row.org_id);
+		aliasFlags[slot] = flags;
+		aliasPorteurs[slot] = porteurs;
+		aliasNbJetons[slot] = jetons.length;
+	}
 
-		// Un alias composé uniquement de mots génériques ne vaut pas mieux.
-		const porteurs = jetons.filter((j) => !GENERIQUES.has(j) && j.length > 2);
-		if (porteurs.length === 0) continue;
-
+	// Les deux jugements d'ensemble sont connus : on filtre les paires en
+	// place, sans toucher aux lignes, puis on compacte les tableaux.
+	let maxTokens = 1;
+	let ecriture = 0;
+	for (let i = 0; i < aliasCles.length; i++) {
+		const cle = aliasCles[i] as string;
+		const flags = aliasFlags[i] as number;
+		const role = (flags & F_ROLE) !== 0;
+		// Un alias d'un seul jeton sans rôle est un nom de lieu, pas une
+		// organisation : il n'entre pas dans l'index de décision. Sauf s'il ne
+		// désigne qu'une organisation et n'est le nom d'aucun territoire :
+		// « Ymed », « Weda », « Cdiscount » sont des marques. « Intermarché »
+		// (182 porteurs) et « Orange » (54) restent dehors : ambiguïté réelle.
+		if (!role && (flags & F_LIEU_MULTI) === 0) {
+			if (clesAmbigues.has(cle) || clesTerritoire.has(cle)) continue;
+			if ((flags & F_COLLECTIVITE) !== 0 || (flags & F_SOURCE_NOMMEUSE) === 0) continue;
+		}
+		if (!role && (flags & F_DEPARTEMENT) !== 0) continue;
+		const porteurs = aliasPorteurs[i] as number;
+		if (porteurs === 0) continue;
 		// Confiance par source : les alias auto-dérivés du stock (`sirene-nom`)
-		// ne désignent qu'avec au moins deux mots propres. Une organisation
-		// baptisée « A CE JOUR » rattachait sinon tout texte contenant la
-		// phrase — constaté sur la mesure du 15 novembre 2026 (incident ERNAT).
-		// Les alias posés ou établis (usage, enseigne, usuelle) gardent la
-		// règle ordinaire : un seul mot propre suffit.
-		if (row.source === "sirene-nom" && !role && porteurs.length < 2) continue;
-
-		// Un territoire n'est pas une organisation. Le secteur vient des données :
-		// commune, EPCI, département, région. Sans rôle de tête (« ville de »,
-		// « mairie de »), son nom est celui d'un lieu — il reste consultable,
-		// mais il ne tranche aucun rattachement.
-		const territoire = TERRITOIRES.has(row.sector ?? "");
-		// Le rôle se lit sur le nom **légal** de l'organisation, pas sur l'alias.
-		// « Département de la Gironde » est un territoire dont le nom porte un
-		// rôle ; une entreprise dont l'alias est « Société X » n'en est pas un.
-		const roleLieu = role && TERRITOIRES.has(row.sector ?? "");
+		// ne désignent qu'avec au moins deux mots propres. « A CE JOUR »
+		// rattachait sinon tout texte contenant la phrase (ERNAT, 15/11).
+		if ((flags & F_SIRENE_NOM) !== 0 && !role && porteurs < 2) continue;
+		const territoire = (flags & F_TERRITOIRE) !== 0;
+		// Le rôle se lit sur le nom légal, pas sur l'alias : une entreprise
+		// dont l'alias est « Société X » n'est pas une collectivité.
+		const roleLieu = role && territoire;
 		if (territoire && !roleLieu) {
 			lieuKeys.add(cle);
-			lieuTokens.add(jetons[0] as string);
+			const espace = cle.indexOf(" ");
+			lieuTokens.add(espace < 0 ? cle : cle.slice(0, espace));
 			continue;
 		}
-
 		if (roleLieu) {
 			roleKeys.add(cle);
-			// Les jetons du rôle lui-même (« ville », « mairie ») servent à la
-			// porte : un texte qui les emploie parle d'une organisation.
-			for (const jeton of jetons) {
+			// Les jetons du rôle (« ville », « mairie ») servent à la porte :
+			// un texte qui les emploie parle d'une organisation.
+			for (const jeton of cle.split(" ")) {
 				if (jeuMotsGeneriques.has(jeton) && MOTS_ROLE.includes(jeton)) roleTokens.add(jeton);
 			}
 		}
-
-		aliasCles.push(cle);
-		aliasIds.push(row.org_id);
-		// L'alias d'usage se souvient des organisations qu'il désigne : c'est
-		// lui qui tranche quand l'enseigne est devenue ambiguë au stock.
-		if (SOURCES_ALIAS_USAGE.has(row.source ?? "")) {
+		const id = aliasIds[i] as number;
+		aliasCles[ecriture] = cle;
+		aliasIds[ecriture] = id;
+		// L'alias d'usage désigne le réseau, pas une unité légale au hasard.
+		if ((flags & F_CURE) !== 0) {
 			cureCles.push(cle);
-			cureIds.push(row.org_id);
+			cureIds.push(id);
 		}
-		if (jetons.length > maxTokens) maxTokens = jetons.length;
+		const nbJetons = aliasNbJetons[i] as number;
+		if (nbJetons > maxTokens) maxTokens = nbJetons;
+		ecriture++;
 	}
+	aliasCles.length = ecriture;
+	aliasIds.length = ecriture;
 
 	const indexAlias = construireIndex(aliasCles, aliasIds);
 	const tokenClesTriees = [...orgsParToken.keys()].sort();

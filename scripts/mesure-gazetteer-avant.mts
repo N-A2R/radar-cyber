@@ -34,9 +34,12 @@ async function main() {
 	const t2 = performance.now();
 	const gaz = buildGazetteer(rows);
 	const t3 = performance.now();
+	// Même méthode que la sonde livrée : on relâche les lignes PG avant de
+	// mesurer le tas résident.
+	rows.length = 0;
 	const apresIndex = memoire();
 	console.log(`index         : ${Math.round(t3 - t2)} ms · rss ${apresIndex.rssMo} Mo · tas ${apresIndex.tasMo} Mo`);
-	console.log(`delta index   : +${apresIndex.tasMo - apresChargement.tasMo} Mo de tas · +${apresIndex.rssMo - apresChargement.rssMo} Mo de rss`);
+	console.log(`delta index   : +${apresIndex.tasMo - apresChargement.tasMo} Mo de tas · +${apresIndex.rssMo - apresChargement.rssMo} Mo de rss (lignes relâchées)`);
 	console.log(`clés d'alias  : ${gaz.byAliasKey.size}`);
 }
 

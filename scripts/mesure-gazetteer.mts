@@ -43,9 +43,12 @@ async function main() {
 	const t2 = performance.now();
 	const gaz = buildGazetteer(rows);
 	const t3 = performance.now();
+	// Le service vivant ne garde que l'index : les lignes PG sont libérées
+	// avant de mesurer le tas résident, sinon on mesure le chargeur, pas le moteur.
+	rows.length = 0;
 	const apresIndex = memoire();
 	console.log(`index         : ${Math.round(t3 - t2)} ms · rss ${apresIndex.rssMo} Mo · tas ${apresIndex.tasMo} Mo`);
-	console.log(`delta index   : +${apresIndex.tasMo - apresChargement.tasMo} Mo de tas · +${apresIndex.rssMo - apresChargement.rssMo} Mo de rss`);
+	console.log(`delta index   : +${apresIndex.tasMo - apresChargement.tasMo} Mo de tas · +${apresIndex.rssMo - apresChargement.rssMo} Mo de rss (lignes relâchées)`);
 	console.log(`clés d'alias  : ${gaz.byAliasKey.size}`);
 }
 

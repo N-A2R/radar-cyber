@@ -1,7 +1,7 @@
 /** Les vues Map de l'index compact doivent rester interchangeables avec l'ancien stockage. */
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { buildGazetteer, type GazetteerRow } from "../src/match/gazetteer.js";
+import { buildGazetteer, normaliser, type GazetteerRow } from "../src/match/gazetteer.js";
 
 function ligne(org_id: number, alias: string, name: string): GazetteerRow {
 	return {
@@ -42,4 +42,41 @@ test("l'ordre d'insertion des ids est conservé à clé égale", () => {
 		ligne(3, "Etablissement Test", "Trois"),
 	]);
 	assert.deepEqual(gaz.byAliasKey.get("etablissement test")?.map((o) => o.id), [3, 1]);
+});
+
+test("la normalisation rapide garde les jetons de la référence Unicode", () => {
+	const reference = (texte: string): string[] => {
+		const propre = texte
+			.replace(/œ/g, "oe")
+			.replace(/Œ/g, "OE")
+			.replace(/æ/g, "ae")
+			.replace(/Æ/g, "AE")
+			.normalize("NFD")
+			.replace(/\p{Diacritic}/gu, "")
+			.toLowerCase()
+			.replace(/[^a-z0-9]+/g, " ")
+			.trim();
+		return propre === "" ? [] : propre.split(" ");
+	};
+	for (const texte of [
+		"Œuvre d'Édon", "Commune de Édon", "CA de Tarnos", "ÀÉÎÕÜÿ",
+		"Æther", "SDIS des Landes", "A  CE   JOUR", "—", "", "XY123",
+	]) {
+		assert.deepEqual(normaliser(texte), reference(texte), texte);
+	}
+});
+
+test("la passe unique garde les règles d'ambiguïté et de territoire", () => {
+	const gaz = buildGazetteer([
+		{ ...ligne(1, "Weda", "Weda"), source: "usage" },
+		ligne(2, "Orange", "Orange"),
+		ligne(3, "Orange", "Orange"),
+		{ ...ligne(4, "Ville de Tarnos", "Ville de Tarnos"), sector: "commune" },
+		{ ...ligne(5, "Tarnos Agglo", "Tarnos Agglo"), sector: "commune" },
+	]);
+	assert.deepEqual(gaz.byAliasKey.get("weda")?.map((o) => o.id), [1]);
+	assert.equal(gaz.byAliasKey.has("orange"), false);
+	assert.equal(gaz.roleKeys.has("ville de tarnos"), true);
+	assert.equal(gaz.lieuKeys.has("tarnos agglo"), true);
+	assert.equal(gaz.byAliasKey.has("tarnos agglo"), false);
 });
