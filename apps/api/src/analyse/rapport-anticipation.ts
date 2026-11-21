@@ -15,6 +15,7 @@
  */
 
 import { resumerAnticipation, type NatureSignal, type ResumeAnticipation } from "./anticipation.js";
+import type { HistoriqueReel } from "./instantane-anticipation.js";
 
 export const JOURS_AVANCE = 21;
 const JOUR_MS = 86_400_000;
@@ -690,7 +691,8 @@ function rapportVide(empreintes: { corpus: string; instantane: string }): string
 export function genererRapport(entrees: {
 	corpus: readonly IncidentCorpus[];
 	instantanes: readonly Instantane[];
-	empreintes?: { corpus: string; instantane: string };
+	empreintes?: { corpus: string; instantane: string; historique?: string };
+	historique?: HistoriqueReel | null;
 }): Rapport {
 	const empreintes = entrees.empreintes ?? { corpus: "non fournie", instantane: "non fournie" };
 	if (entrees.corpus.length === 0) {
@@ -768,15 +770,16 @@ export function genererRapport(entrees: {
 		dateMesure: dates.at(-1) ?? "—",
 	};
 
-	return { markdown: rendreMarkdown(dossiers, anomalies, resume, stats, empreintes), dossiers, anomalies, resume, stats };
+	return { markdown: rendreMarkdown(dossiers, anomalies, resume, stats, empreintes, entrees.historique), dossiers, anomalies, resume, stats };
 }
 
 function rendreMarkdown(
 	dossiers: readonly Dossier[],
 	anomalies: readonly Anomalie[],
 	resume: Resume,
-	stats: ReturnType<typeof genererRapport>["stats"],
-	empreintes: { corpus: string; instantane: string },
+	stats: StatistiquesRapport,
+	empreintes: { corpus: string; instantane: string; historique?: string },
+	historique: HistoriqueReel | null | undefined,
 ): string {
 	const lignes: string[] = [];
 	const p = (...textes: string[]) => {
@@ -798,7 +801,7 @@ function rendreMarkdown(
 		`> Document généré par \`scripts/rapport-anticipation.mts\` à partir du corpus de couverture (${stats.incidents} incidents) et de`,
 		"> l'instantané `bench/anticipation/J-21.jsonl`. **Ne pas éditer à la main** : modifier une entrée",
 		"> puis relancer le script, sinon le contrôle `--verifier` échouera.",
-		`> Empreintes sha256 des entrées : corpus \`${empreintes.corpus}\` · instantané \`${empreintes.instantane}\`.`,
+		`> Empreintes sha256 des entrées : corpus \`${empreintes.corpus}\` · instantané \`${empreintes.instantane}\`${empreintes.historique ? ` · historique \`${empreintes.historique}\`` : ""}.`,
 		`> Dernière date d'incident du corpus : ${stats.dateMesure}. Aucune donnée postérieure à chaque J-21 n'entre dans l'analyse.`,
 		"",
 		"## 1. La question posée",
@@ -848,7 +851,15 @@ function rendreMarkdown(
 		`| Incidents avec signal retenu | ${avecSignal} / ${dossiers.length} |`,
 		`| Incidents sans signal retenu | ${dossiers.length - avecSignal} / ${dossiers.length} (dont ${avecCandidat} candidat(s) écarté(s)) |`,
 		`| Incidents avec « rien » franc | ${sansSignal} / ${dossiers.length} |`,
-		"",
+
+		...(historique
+			? [
+					`**Historique réel disponible** : ${historique.jours_calendaires} jour(s) calendaires, du ${historique.premiere_collecte} au ${historique.derniere_collecte} inclus ; des événements ont été collectés sur ${historique.jours_avec_collecte} journée(s) (${historique.evenements} événements).`,
+					`Les dates \`valid_at\` couvrent ${historique.jours_couverts_par_valid_at} jour(s), du ${historique.plus_ancien_valid_at} au ${historique.plus_recent_valid_at} : ce sont des dates de faits remontées par les flux, **pas** des jours d'observation par le radar. Le zéro ci-dessous est un état de couverture, pas une preuve d'absence de signaux dans le passé.`,
+					"",
+			  ]
+			: []),
+
 		"Répartition des natures d'événements (chaque événement compte une fois) :",
 		"",
 	);
@@ -1060,14 +1071,19 @@ function rendreMarkdown(
 		"## 10. Reproduction",
 		"",
 		"```bash",
-		"# régénérer l'instantané des 50 incidents depuis PostgreSQL (filtre strict sur valid_at) :",
+		"# régénérer l'instantané et la mesure d'historique réel depuis PostgreSQL (filtre strict sur valid_at) :",
 		"apps/api/node_modules/.bin/tsx scripts/anticipation.mts",
 		"# produire / vérifier ce document sans base :",
 		"apps/api/node_modules/.bin/tsx scripts/rapport-anticipation.mts",
 		"apps/api/node_modules/.bin/tsx scripts/rapport-anticipation.mts --verifier",
+		"# prouver sur des données synthétiques que le filtre laisse passer le signal d'avant J-21",
+		"# et rejette celui d'après (base de test dédiée, jamais la base de développement) :",
+		"cd apps/api && tsx test/run.ts test/instantane-anticipation.test.ts",
 		"```",
 		"",
-		"Le résultat est déterministe : mêmes entrées (empreintes ci-dessus), même octets en sortie.",
+		"Le résultat est déterministe : mêmes entrées (empreintes ci-dessus), mêmes octets en sortie. Les jours",
+		"d'historique réel sont une mesure datée du fichier `bench/anticipation/historique-reel.json` : si la",
+		"collecte avance, régénérer les deux fichiers puis ce document.",
 		"",
 	);
 	return lignes.join("\n");

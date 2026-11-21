@@ -12,7 +12,7 @@
  *   apps/api/node_modules/.bin/tsx scripts/rapport-anticipation.mts --json=bench/results/anticipation-rapport.json
  */
 import { createHash } from "node:crypto";
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import {
 	ErreurRapportAnticipation,
@@ -22,6 +22,8 @@ import {
 	lireInstantanes,
 } from "../apps/api/src/analyse/rapport-anticipation.js";
 
+import type { HistoriqueReel } from "../apps/api/src/analyse/instantane-anticipation.js";
+
 const argv = process.argv.slice(2);
 function option(nom: string, defaut: string): string {
 	return argv.find((a) => a.startsWith(`--${nom}=`))?.slice(nom.length + 3) ?? defaut;
@@ -30,6 +32,7 @@ function option(nom: string, defaut: string): string {
 const racine = fileURLToPath(new URL("../", import.meta.url));
 const cheminCorpus = option("corpus", `${racine}bench/couverture/incidents.jsonl`);
 const cheminSnapshot = option("snapshot", `${racine}bench/anticipation/J-21.jsonl`);
+const cheminHistorique = option("historique", `${racine}bench/anticipation/historique-reel.json`);
 const cheminSortie = option("sortie", `${racine}docs/anticipation.md`);
 const cheminJson = option("json", "");
 const verifier = argv.includes("--verifier");
@@ -41,10 +44,17 @@ function empreinte(texte: string): string {
 function main(): void {
 	const corpusTexte = readFileSync(cheminCorpus, "utf8");
 	const snapshotTexte = readFileSync(cheminSnapshot, "utf8");
+	const historiqueTexte = existsSync(cheminHistorique) ? readFileSync(cheminHistorique, "utf8") : null;
+	const historique = historiqueTexte ? (JSON.parse(historiqueTexte) as HistoriqueReel) : null;
 	const rapport = genererRapport({
 		corpus: cheminCorpus.endsWith(".jsonl") ? lireCorpusJsonl(corpusTexte) : lireCorpus(corpusTexte),
 		instantanes: lireInstantanes(snapshotTexte),
-		empreintes: { corpus: empreinte(corpusTexte), instantane: empreinte(snapshotTexte) },
+		empreintes: {
+			corpus: empreinte(corpusTexte),
+			instantane: empreinte(snapshotTexte),
+			...(historiqueTexte ? { historique: empreinte(historiqueTexte) } : {}),
+		},
+		historique,
 	});
 
 	if (verifier) {
@@ -70,7 +80,12 @@ function main(): void {
 			cheminJson,
 			`${JSON.stringify(
 				{
-					empreintes: { corpus: empreinte(corpusTexte), instantane: empreinte(snapshotTexte) },
+					empreintes: {
+						corpus: empreinte(corpusTexte),
+						instantane: empreinte(snapshotTexte),
+						...(historiqueTexte ? { historique: empreinte(historiqueTexte) } : {}),
+					},
+					historique,
 					stats: rapport.stats,
 					resume: rapport.resume,
 					anomalies: rapport.anomalies,

@@ -20,8 +20,23 @@
  *     apps/api/node_modules/.bin/tsx scripts/anticipation.mts
  *   apps/api/node_modules/.bin/tsx scripts/anticipation.mts --sortie=bench/anticipation/J-21.jsonl
  *
- * Lecture seule sur la base ; seule la sortie JSONL est écrite.
+ * Écrit aussi `bench/anticipation/historique-reel.json` : le nombre exact de
+ * jours où le radar a réellement collecté (`collected_at`), distinct de
+ * l'ancienneté des dates `valid_at` remontées par les flux.
  */
+import {
+	SQL,
+	bornesFenetre,
+	construireInstantane,
+	dateDuJour,
+	filtrerEvenements,
+	jour,
+	type EvenementBrut,
+	type HistoriqueReel,
+	type OrganisationBrut,
+	type SourceBrut,
+	type TotauxBrut,
+} from "../apps/api/src/analyse/instantane-anticipation.js";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -33,7 +48,7 @@ function option(nom: string, defaut: string): string {
 
 const CHEMIN_CORPUS = option("corpus", fileURLToPath(new URL("../bench/couverture/incidents.jsonl", import.meta.url)));
 const CHEMIN_SORTIE = option("sortie", fileURLToPath(new URL("../bench/anticipation/J-21.jsonl", import.meta.url)));
-const JOURS = 21;
+const CHEMIN_HISTORIQUE = option("historique", fileURLToPath(new URL("../bench/anticipation/historique-reel.json", import.meta.url)));
 
 // Les autres scripts de mesure pointent sur la base de développement 5433 ;
 // db.ts lit DATABASE_URL au moment de son import, donc on le pose avant.
@@ -51,55 +66,6 @@ type Incident = {
 	source?: string | null;
 };
 
-type Evenement = {
-	id: number;
-	family: string;
-	assertion_type: string;
-	titre: string;
-	valid_at: Date;
-	source_id: string;
-	org_id: number | null;
-};
-
-type Source = {
-	id: string;
-	name: string;
-	family: string | null;
-	url: string | null;
-	dernier_ok: Date | null;
-	evenements_fenetre: number;
-	evenements_avant: number;
-};
-
-type Organisation = {
-	id: number;
-	name: string;
-	kind: string | null;
-	sector: string | null;
-	dept: string | null;
-	city: string | null;
-	evenements_fenetre: number;
-};
-
-/** Date UTC d'un `YYYY-MM-DD` du corpus, sans fuseau ni heure locale. */
-function dateDuJour(valeur: string): Date {
-	return new Date(`${valeur.slice(0, 10)}T00:00:00.000Z`);
-}
-
-function iso(date: Date): string {
-	return date.toISOString();
-}
-
-/** J-21 : 21 jours calendaires avant la date de référence, à 00:00 UTC. */
-function veille(dateReference: Date): Date {
-	const j21 = new Date(dateReference.getTime());
-	j21.setUTCDate(j21.getUTCDate() - JOURS);
-	return j21;
-}
-
-function jour(date: Date): string {
-	return iso(date).slice(0, 10);
-}
 
 /** Lecture du corpus de couverture (JSONL) ou du corpus historique (JSON). */
 function lireIncidents(chemin: string): Incident[] {
@@ -162,118 +128,66 @@ async function main(): Promise<void> {
 	const lignes: string[] = [];
 	let horsBorne = 0;
 
+	// Une seule mesure globale : les jours où le radar a réellement collecté.
+	// Les flux peuvent remonter des `valid_at` anciens ; ce n'est pas de
+	// l'historique d'observation et le rapport ne doit pas les confondre.
+	const { rows: historiqueRows } = await query<HistoriqueReel>(SQL.historique, [null]);
+	const historique = historiqueRows[0];
+	if (!historique) throw new Error("historique réel : aucune mesure retournée");
+
 	for (const incident of incidents) {
 		// Une entrée du corpus n'a pas de date d'incident. On le dit dans la
 		// ligne plutôt que d'inventer une date : la date publique sert alors
 		// de référence, explicitement marquée comme telle.
 		const dateReference = incident.dateIncident ?? incident.datePublique;
 		const typeReference = incident.dateIncident ? "dateIncident" : "datePublique";
-		const j21 = veille(dateDuJour(dateReference));
+		const bornes = bornesFenetre(dateDuJour(dateReference));
+		const params = [bornes.debut, bornes.fin];
 
 		// Borne haute exclusive : toute la journée de J-21 est incluse, rien
 		// d'après ne l'est. `valid_at` est le seul critère temporel des faits.
-		const fin = new Date(j21.getTime() + 86_400_000);
-		const debut = new Date(fin.getTime() - JOURS * 86_400_000);
-
-		const { rows: evenements } = await query<Evenement>(
-			`SELECT e.id, e.family, e.assertion_type, left(e.title, 200) AS titre,
-			        e.valid_at, e.source_id, e.org_id
-			   FROM event e
-			  WHERE e.valid_at >= $1 AND e.valid_at < $2
-			  ORDER BY e.valid_at, e.id`,
-			[debut, fin],
-		);
+		const { rows: evenements } = await query<EvenementBrut>(SQL.evenements, params);
 
 		// Deuxième barrière, côté machine : même si une requête était modifiée
 		// plus tard, aucun événement postérieur à J-21 ne peut sortir d'ici.
-		const retenus = evenements.filter((evenement) => {
-			const instant = evenement.valid_at.getTime();
-			if (instant >= debut.getTime() && instant < fin.getTime()) return true;
-			horsBorne++;
-			return false;
-		});
+		const { retenus, horsBorne: rejetes } = filtrerEvenements(evenements, bornes);
+		horsBorne += rejetes;
 
 		// Une source n'est dite active ici que si elle a produit au moins un
 		// événement dont `valid_at` est antérieur à J-21. On ne décide pas à
 		// partir de `created_at`/`last_ok_at` : ces champs n'ont pas de
 		// `valid_at` et sont des états de configuration actuels.
-		const { rows: sources } = await query<Source>(
-			`SELECT s.id, s.name, s.family, s.url,
-			        CASE WHEN s.last_ok_at < $2 THEN s.last_ok_at END AS dernier_ok,
-			        (SELECT count(*)::int FROM event e
-			          WHERE e.source_id = s.id AND e.valid_at >= $1 AND e.valid_at < $2) AS evenements_fenetre,
-			        (SELECT count(*)::int FROM event e
-			          WHERE e.source_id = s.id AND e.valid_at < $2) AS evenements_avant
-			   FROM source s
-			  WHERE s.enabled = true
-			    AND EXISTS (SELECT 1 FROM event e
-			                 WHERE e.source_id = s.id AND e.valid_at < $2)
-			  ORDER BY s.id`,
-			[debut, fin],
-		);
-
-		const { rows: organisations } = await query<Organisation>(
-			`SELECT o.id, o.name, o.kind, o.sector, o.dept, o.city,
-			        count(*)::int AS evenements_fenetre
-			   FROM event e JOIN org o ON o.id = e.org_id
-			  WHERE e.valid_at >= $1 AND e.valid_at < $2
-			  GROUP BY o.id, o.name, o.kind, o.sector, o.dept, o.city
-			  ORDER BY o.id`,
-			[debut, fin],
-		);
-
-		const { rows: totaux } = await query<{ avant: number; fenetre: number }>(
-			`SELECT count(*) FILTER (WHERE valid_at < $2)::int AS avant,
-			        count(*) FILTER (WHERE valid_at >= $1 AND valid_at < $2)::int AS fenetre
-			   FROM event`,
-			[debut, fin],
-		);
+		const { rows: sources } = await query<SourceBrut>(SQL.sources, params);
+		const { rows: organisations } = await query<OrganisationBrut>(SQL.organisations, params);
+		const { rows: totaux } = await query<TotauxBrut>(SQL.totaux, params);
 
 		lignes.push(
-			JSON.stringify({
-				incident: {
-					id: incident.id,
-					entite: incident.entite,
-					dateReference,
-					typeReference,
-				},
-				j21: jour(j21),
-				fenetre: { debut: jour(debut), fin: jour(j21), jours: JOURS },
-				comptes: {
-					evenements_avant_j21: totaux[0]?.avant ?? 0,
-					evenements_fenetre: retenus.length,
-					sources_actives: sources.length,
-					organisations_citees: organisations.length,
-				},
-				evenements: retenus.map((e) => ({
-					id: e.id,
-					family: e.family,
-					assertion_type: e.assertion_type,
-					titre: e.titre,
-					valid_at: iso(e.valid_at),
-					source_id: e.source_id,
-					org_id: e.org_id,
-				})),
-				sources_actives: sources.map((s) => ({
-					id: s.id,
-					name: s.name,
-					family: s.family,
-					url: s.url,
-					dernier_ok_avant_j21: s.dernier_ok ? iso(s.dernier_ok) : null,
-					evenements_fenetre: s.evenements_fenetre,
-					evenements_avant: s.evenements_avant,
-				})),
-				organisations_citees: organisations,
-			}),
+			JSON.stringify(
+				construireInstantane(
+					{ id: incident.id, entite: incident.entite, dateReference, typeReference },
+					bornes,
+					retenus,
+					sources,
+					organisations,
+					totaux,
+				),
+			),
 		);
 	}
 
 	mkdirSync(dirname(CHEMIN_SORTIE), { recursive: true });
 	writeFileSync(CHEMIN_SORTIE, `${lignes.join("\n")}\n`, "utf8");
+	writeFileSync(CHEMIN_HISTORIQUE, `${JSON.stringify(historique, null, 2)}\n`, "utf8");
 	console.log(
 		`${lignes.length} incident(s) → ${CHEMIN_SORTIE} ; ` +
 			`${horsBorne} événement(s) rejeté(s) par la borne J-21 sur valid_at`,
 	);
+	console.log(
+		`Historique réel : ${historique.jours_avec_collecte} journée(s) avec collecte sur ` +
+			`${historique.jours_calendaires} jour(s) calendaires (${historique.premiere_collecte} → ` +
+			`${historique.derniere_collecte}) → ${CHEMIN_HISTORIQUE}`,
+	);
+
 	await closePools();
 }
 
