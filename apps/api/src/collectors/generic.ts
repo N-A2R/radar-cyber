@@ -40,6 +40,7 @@ import { parseJsonItems as parseJsonItemsNew } from "./parsers/json.js";
 import { parseEmbeddedJson } from "./parsers/embedded-json.js";
 import { parseSource, type SourceFormat } from "./parsers/formats.js";
 import { parseLandingNotice } from "./parsers/landing.js";
+import { parseMalformedOnion } from "./parsers/malformed.js";
 import { constaterTransition } from "./reveil.js";
 import { libelleMotif, versEvidence, type ExplicationRattachement } from "../journal/rattachement.js";
 
@@ -255,6 +256,7 @@ export type DetectionStrategy =
   | "embedded-json"
   | "telegram-contact"
   | "landing-notice"
+  | "malformed-html"
   | "none";
 
 const STRATEGY_BY_FORMAT: Record<SourceFormat, DetectionStrategy> = {
@@ -479,6 +481,8 @@ export function detectItems(body: string, contentType: string | null): Detection
 
   const notice = parseLandingNotice(text);
   if (notice) return { strategy: "landing-notice", items: notice, path: "notice" };
+  const malformed = parseMalformedOnion(text);
+  if (malformed) return { strategy: "malformed-html", items: malformed, path: "repaired" };
 
   return { strategy: "none", items: [], path: null };
 }

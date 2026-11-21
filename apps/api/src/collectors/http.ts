@@ -5,6 +5,13 @@
 import { request as httpRequest } from "node:http";
 import { request as httpsRequest } from "node:https";
 import { SocksProxyAgent } from "socks-proxy-agent";
+import { decodeBody } from "./parsers/decode.js";
+import {
+  noteTorFailure,
+  resetTorBackoff,
+  rotatedTorSocks,
+  torBackoffRemainingMs,
+} from "./tor/tor-circuit.js";
 
 export class SourceBlockedError extends Error {
   permanent: boolean;
@@ -40,7 +47,7 @@ function fetchThroughSocks(
   headers: Record<string, string>,
   timeoutMs: number,
 ): Promise<{ status: number; buffer: Buffer; contentType: string | null }> {
-  const socks = torSocks();
+  const socks = rotatedTorSocks(url) ?? torSocks();
   if (!socks) {
     throw new SourceBlockedError(
       `URL .onion sans RADAR_TOR_SOCKS — collecte Tor refusée (aucun repli clearnet) : ${url}`,
@@ -216,15 +223,19 @@ export async function fetchResilient(
   opts: FetchResilientOpts = {},
 ): Promise<FetchResilientResult> {
   const source = opts.source?.trim() || url;
-  const remaining = sourceBackoffRemainingMs(source);
+  const remaining = Math.max(sourceBackoffRemainingMs(source), torBackoffRemainingMs(source));
   if (remaining > 0) throw new SourceBackoffError(source, remaining);
   try {
     const result = await fetchResilientOnce(url, opts);
-    if (isTransientStatus(result.status)) noteSourceFailure(source);
+    if (isOnionUrl(url)) {
+      if (isTransientStatus(result.status)) noteTorFailure(source, `HTTP ${result.status}`);
+      else resetTorBackoff(source);
+    } else if (isTransientStatus(result.status)) noteSourceFailure(source);
     else resetSourceBackoff(source);
     return result;
   } catch (err) {
-    if (isTransientError(err)) noteSourceFailure(source);
+    if (isOnionUrl(url)) noteTorFailure(source, err);
+    else if (isTransientError(err)) noteSourceFailure(source);
     throw err;
   }
 }
@@ -256,7 +267,7 @@ async function fetchResilientOnce(
     }
     return {
       status: r.status,
-      text: r.buffer.toString("utf8"),
+      text: decodeBody(r.buffer, r.contentType).text,
       notModified: false,
       buffer: r.buffer,
       contentType: r.contentType,
