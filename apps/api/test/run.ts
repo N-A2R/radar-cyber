@@ -21,11 +21,19 @@ async function testFiles(): Promise<string[]> {
 	return entries.filter((f) => f.endsWith(".test.ts")).sort().map((f) => `test/${f}`);
 }
 
+// Un test peut laisser un handle ouvert : le processus ne sort alors jamais et
+// le step de CI reste bloqué indéfiniment. Cette borne tue la suite et échoue.
+const GLOBAL_TIMEOUT_MS = 20 * 60 * 1000;
+
 function run(cmd: string, args: string[], env: NodeJS.ProcessEnv): Promise<number> {
 	const { promise, resolve, reject } = Promise.withResolvers<number>();
 	const child = spawn(cmd, args, { stdio: "inherit", env });
-	child.on("error", reject);
-	child.on("close", (code, signal) => resolve(signal ? 1 : (code ?? 1)));
+	const garde = setTimeout(() => {
+		console.error(`Suite de tests interrompue après ${GLOBAL_TIMEOUT_MS / 60000} min : un handle est resté ouvert.`);
+		child.kill("SIGKILL");
+	}, GLOBAL_TIMEOUT_MS);
+	child.on("error", (err) => { clearTimeout(garde); reject(err); });
+	child.on("close", (code, signal) => { clearTimeout(garde); resolve(signal ? 1 : (code ?? 1)); });
 	return promise;
 }
 

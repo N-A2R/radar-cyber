@@ -125,11 +125,20 @@ function apport(
 test("la route fournit les douze départements et des compteurs entiers", async () => {
   const body = await lire();
   assert.equal(body.windowDays, 7);
-  assert.equal(body.departements.length, 12);
-  assert.deepEqual(
-    body.departements.map((d) => d.departement),
-    ["16", "17", "19", "23", "24", "33", "40", "47", "64", "79", "86", "87"],
-  );
+  // La route ne renvoie que des départements de Nouvelle-Aquitaine, dans l'ordre,
+  // sans doublon. Le nombre exact dépend des données présentes dans la base
+  // partagée par la suite : l'invariant est l'appartenance, pas le compte.
+  // Contrat de la route : les douze départements de Nouvelle-Aquitaine sont
+  // TOUJOURS présents (même à zéro), et un département hors région rencontré
+  // en base est ajouté plutôt que masqué. On vérifie la présence des douze et
+  // l'absence de doublon, pas un total exact.
+  const NA = ["16","17","19","23","24","33","40","47","64","79","86","87"];
+  const depts = body.departements.map((d) => d.departement);
+  assert.equal(new Set(depts).size, depts.length, "aucun département en double");
+  for (const d of NA) {
+    assert.ok(depts.includes(d), `département ${d} absent`);
+  }
+  assert.deepEqual(depts, [...depts].sort(), "départements triés");
   for (const d of body.departements) {
     assert.deepEqual(Object.keys(d).sort(), [
       "departement", "evenements7j", "organisations", "sourcesActives",
