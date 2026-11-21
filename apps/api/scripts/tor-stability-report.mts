@@ -109,6 +109,17 @@ function main(): void {
     methode:
       "77 sources .onion, un fetch réel chacune via fetchResilient, maxAttempts=1, " +
       "timeout 45 s. Les deux passes utilisent la même liste et le même échantillon.",
+    contexte_consigne: {
+      annonce: "77 sources .onion, 37 productives, 45 pages en quarantaine (plan de vague)",
+      observation:
+        `Les 77 sources sont bien présentes. La mesure live compte ${before.ok} puis ${after.ok} sources exploitables ; ` +
+        `${before.causes.invalid_content ?? 0} puis ${after.causes.invalid_content ?? 0} pages HTTP 200 sans item extractible, ` +
+        `et ${Object.values(before.par_source).filter((m) => !m.ok).length} puis ` +
+        `${Object.values(after.par_source).filter((m) => !m.ok).length} sources en échec toutes causes confondues.`,
+      quarantaine_raw:
+        "Aucune ligne onion dans quarantine_raw dans la base de test : les 45 pages annoncées par la consigne ne s'y trouvent pas. " +
+        "Chaque échec observé est expliqué ci-dessous, sans inventer de quarantaine absente.",
+    },
     avant: {
       at: before.at,
       total: before.total,
