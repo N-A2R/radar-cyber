@@ -37,7 +37,9 @@
     "enrichissement:appliquer": "apps/api/node_modules/.bin/tsx scripts/enrichir-referentiel.mts --appliquer",
     "domaines:reels": "apps/api/node_modules/.bin/tsx scripts/domaines-reels.mts",
     "sources:generate": "node scripts/generer-sources-actives.mts",
-    "sources:measure": "node scripts/measure-active-sources.mts"
+    "sources:measure": "node scripts/measure-active-sources.mts",
+    "measure:naf-detail": "apps/api/node_modules/.bin/tsx scripts/mesure-naf-detail.mts",
+    "backfill:naf-detail": "apps/api/node_modules/.bin/tsx scripts/backfill-naf-detail.mts"
   },
   "devDependencies": {
     "embedded-postgres": "18.6.0-beta.19"
