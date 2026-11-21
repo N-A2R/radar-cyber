@@ -1,7 +1,9 @@
 /**
  * Compteurs par département : organisations, événements sur 7 jours, sources
  * actives. Réponse : `{ windowDays, departements: [{ departement, organisations,
- * evenements7j, sourcesActives }] }`, avec `departement` = code INSEE (ex. « 33 »).
+ * evenements7j, sourcesActives }], departements24h: [{ dept, evenements,
+ * organisations }] }`, avec `departement`/`dept` = code INSEE (ex. « 33 »).
+ * `departements24h` alimente le filtre de l'écran « Aujourd'hui ».
  *
  * LIMITE À CONNAÎTRE AVANT DE SE FIER AUX CHIFFRES :
  * `source` n'a NI colonne département, NI code postal. Le département d'une
@@ -118,7 +120,7 @@ function ajouter(compteurs: Map<string, number>, code: string, valeur: number): 
 
 export default async function (app: FastifyInstance) {
 	app.get("/stats/departements", async () => {
-		const [orgs, evenementsOrg, evenementsSource, sources] = await Promise.all([
+		const [orgs, evenementsOrg, evenementsSource, sources, evenements24h] = await Promise.all([
 			query<{ dept: string; n: number }>(
 				`SELECT dept, count(*)::int AS n FROM org
 				  WHERE dept IS NOT NULL AND btrim(dept) <> '' GROUP BY dept`,
@@ -140,6 +142,19 @@ export default async function (app: FastifyInstance) {
 			// Aucun filtre SQL : l'inférence du département se fait en JS, avec
 			// les alias et la règle d'ambiguïté documentés en tête de fichier.
 			query<SourceRow>("SELECT id, name, url, description, enabled FROM source"),
+			// 24 h pour le filtre « Aujourd'hui » : seuls les départements
+			// porteurs d'un événement rattaché sur la période sont utiles.
+			query<{ dept: string; evenements: number; organisations: number }>(
+				`SELECT o.dept,
+				        count(*)::int AS evenements,
+				        count(DISTINCT o.id)::int AS organisations
+				   FROM event e
+				   JOIN org o ON o.id = e.org_id
+				  WHERE o.dept IS NOT NULL AND o.dept <> ''
+				    AND COALESCE(e.observed_at, e.collected_at) >= now() - interval '24 hours'
+				  GROUP BY o.dept
+				  ORDER BY evenements DESC, o.dept ASC`,
+			),
 		]);
 
 		const parOrg = new Map<string, number>();
@@ -177,6 +192,11 @@ export default async function (app: FastifyInstance) {
 				organisations: parOrg.get(code) ?? 0,
 				evenements7j: parEvenement.get(code) ?? 0,
 				sourcesActives: parSourceActive.get(code) ?? 0,
+			})),
+			departements24h: evenements24h.rows.map((r) => ({
+				dept: r.dept,
+				evenements: Number(r.evenements),
+				organisations: Number(r.organisations),
 			})),
 		};
 	});
