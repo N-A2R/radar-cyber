@@ -85,6 +85,8 @@ export type LigneBenchmark = IncidentDatum & {
   radarDernier: boolean;
   /** Média le plus précoce, tous médias confondus. */
   premierMedia: CanalMedia | null;
+  /** Date du média le plus précoce, jamais inventée. */
+  datePremierMedia: string | null;
   /** Heures entre le premier média daté et la première trace radar. */
   delaiHeures: number | null;
 };
@@ -144,13 +146,11 @@ export function calculerBenchmark(incidents: IncidentDatum[]): BilanBenchmark {
     const plusAncien = Math.min(...datables.map((d) => d.j));
     const plusRecent = Math.max(...datables.map((d) => d.j));
     const medias = datables.filter((d) => d.canal !== "radar");
-    const premierMedia = medias.length > 0
-      ? medias.reduce((a, b) => (b.j < a.j ? b : a)).canal as CanalMedia
+    const plusAncienMedia = medias.length > 0
+      ? medias.reduce((a, b) => (b.j < a.j ? b : a))
       : null;
     const radar = datables.find((d) => d.canal === "radar");
-    const delaiJours = radar && premierMedia
-      ? radar.j - (medias.find((d) => d.canal === premierMedia)?.j ?? radar.j)
-      : null;
+    const delaiJours = radar && plusAncienMedia ? radar.j - plusAncienMedia.j : null;
 
     return {
       ...incident,
@@ -159,7 +159,8 @@ export function calculerBenchmark(incidents: IncidentDatum[]): BilanBenchmark {
       radarPremier: datables.some((d) => d.canal === "radar" && d.j === plusAncien),
       radarPremierFaceMedia: Boolean(radar && medias.length > 0 && radar.j === plusAncien),
       radarDernier: datables.some((d) => d.canal === "radar" && d.j === plusRecent),
-      premierMedia,
+      premierMedia: plusAncienMedia ? (plusAncienMedia.canal as CanalMedia) : null,
+      datePremierMedia: plusAncienMedia?.date ?? null,
       delaiHeures: delaiJours === null ? null : delaiJours * 24,
     };
   });
