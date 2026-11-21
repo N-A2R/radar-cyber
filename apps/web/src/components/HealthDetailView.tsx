@@ -1,9 +1,10 @@
-import type { HealthDetail } from "../api";
+import type { HealthCauses, HealthDetail } from "../api";
 import { FAMILY_LABEL, formatDate, formatNumber, formatRelative } from "./SourcesView";
 import "./health-detail.css";
 
 export type HealthDetailViewProps = {
   detail: HealthDetail | null;
+  causes?: HealthCauses | null;
   loading?: boolean;
   error?: string | null;
 };
@@ -24,9 +25,10 @@ function ageLabel(ageHours: number | null): string {
 /**
  * État du système en un coup d'œil : la réponse de `GET /api/health/detail`
  * est affichée telle quelle, sans recalcul côté navigateur. Chaque chiffre a
- * sa requête SQL dans `apps/api/src/routes/health-detail.ts`.
+ * sa requête SQL dans `apps/api/src/routes/health-detail.ts`. La répartition
+ * des causes vient de `GET /api/health/causes` et n'est jamais déduite ici.
  */
-export default function HealthDetailView({ detail, loading = false, error = null }: HealthDetailViewProps) {
+export default function HealthDetailView({ detail, causes = null, loading = false, error = null }: HealthDetailViewProps) {
   if (loading && detail === null) {
     return <section className="health-detail"><p>lecture de l’état du système…</p></section>;
   }
@@ -67,6 +69,61 @@ export default function HealthDetailView({ detail, loading = false, error = null
           </div>
         ))}
       </dl>
+
+      {causes ? (
+        <>
+          <h3>pourquoi {formatNumber(causes.rouges)} sources sont-elles rouges ?</h3>
+          <p className="health-detail__legend">
+            {formatNumber(causes.sansTrace)} sources rouges n’ont aucune trace de collecte sur 30 jours.
+            {" "}{causes.stockage.explication}
+          </p>
+          {!causes.stockage.causeStockee ? (
+            <p className="health-detail__proposition">
+              Champ proposé : <code>{causes.stockage.champPropose.table}.{causes.stockage.champPropose.colonne}</code>
+              {" — "}{causes.stockage.champPropose.definition}
+            </p>
+          ) : null}
+          <div className="health-detail__scroll">
+            <table className="data">
+              <thead>
+                <tr>
+                  <th scope="col">cause</th>
+                  <th scope="col">sources</th>
+                  <th scope="col">origine</th>
+                  <th scope="col">exemples (3 au plus)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {causes.causes.map((c) => (
+                  <tr key={c.code}>
+                    <td>{c.libelle}</td>
+                    <td className="num">{formatNumber(c.sources)}</td>
+                    <td>{c.origine === "compteur_run" ? "compteur de collecte" : "message d’erreur"}</td>
+                    <td>
+                      {c.exemples.length === 0 ? (
+                        <span className="health-detail__vide">aucun exemple stocké</span>
+                      ) : (
+                        <ul className="health-detail__exemples">
+                          {c.exemples.map((ex) => (
+                            <li key={ex.source}>
+                              <span>{ex.source}</span>
+                              {" — "}<span className="mono" title={ex.detail}>{ex.detail}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="health-detail__legend">
+            Une source peut figurer dans plusieurs causes : ces catégories ne sont pas exclusives.
+            {" "}Règles de déduction : {causes.causes.map((c) => `${c.libelle} = ${c.regle}`).join(" · ")}.
+          </p>
+        </>
+      ) : null}
 
       <h3>dernier fait par famille</h3>
       <div className="health-detail__scroll">

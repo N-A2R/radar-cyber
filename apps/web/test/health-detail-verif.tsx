@@ -6,14 +6,18 @@
  */
 import { renderToStaticMarkup } from "react-dom/server";
 import HealthDetailView from "../src/components/HealthDetailView";
-import type { HealthDetail } from "../src/api";
+import type { HealthCauses, HealthDetail } from "../src/api";
 
 const API = process.env.RADAR_API_ORIGIN ?? "http://127.0.0.1:18106";
 
 const res = await fetch(`${API}/api/health/detail`);
 if (!res.ok) throw new Error(`GET /api/health/detail → HTTP ${res.status}`);
 const detail = (await res.json()) as HealthDetail;
-const html = renderToStaticMarkup(<HealthDetailView detail={detail} />);
+
+const causesRes = await fetch(`${API}/api/health/causes`);
+if (!causesRes.ok) throw new Error(`GET /api/health/causes → HTTP ${causesRes.status}`);
+const causes = (await causesRes.json()) as HealthCauses;
+const html = renderToStaticMarkup(<HealthDetailView detail={detail} causes={causes} />);
 
 function verifier(condition: boolean, message: string): void {
   if (!condition) throw new Error(`rendu : ${message}`);
@@ -44,4 +48,20 @@ verifier(
   html.includes("moins de 24 h") && html.includes("plus de 7 jours"),
   "chaque couleur porte une étiquette lisible",
 );
+
+verifier(html.includes(`pourquoi ${causes.rouges.toLocaleString("fr-FR")} sources sont-elles rouges ?`), "titre de la répartition affiché");
+verifier(html.includes(`${causes.sansTrace.toLocaleString("fr-FR")} sources rouges n’ont aucune trace`), "nombre de sources sans trace affiché");
+for (const cause of causes.causes) {
+  verifier(html.includes(cause.libelle), `libellé « ${cause.libelle} » affiché`);
+  verifier(html.includes(cause.sources.toLocaleString("fr-FR")), `compte réel de « ${cause.code} » affiché (${cause.sources})`);
+}
+if (!causes.stockage.causeStockee) {
+  verifier(
+    html.includes(`${causes.stockage.champPropose.table}.${causes.stockage.champPropose.colonne}`),
+    "champ manquant proposé à l'écran",
+  );
+}
+for (const ex of causes.causes.flatMap((c) => c.exemples)) {
+  verifier(html.includes(ex.source), `exemple réel affiché (${ex.source})`);
+}
 console.log(`\nrendu vérifié sur ${detail.sources.bySource.length} sources et ${detail.families.length} familles`);

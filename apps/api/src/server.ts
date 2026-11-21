@@ -22,6 +22,7 @@ import { runRetention } from "./maintenance/retention.js";
 import { runDetectionPass } from "./detect/incremental.js";
 import { capterAlertesRupture } from "./analyse/rupture.js";
 import healthDetailRoute from "./routes/health-detail.js";
+import healthCausesRoute from "./routes/health-causes.js";
 import eventsRoute from "./routes/events.js";
 import todayRoute from "./routes/today.js";
 import flowsRoute from "./routes/flows.js";
@@ -112,6 +113,7 @@ app.get("/api/health", async () => {
 
 await app.register(eventsRoute, { prefix: "/api" });
 await app.register(healthDetailRoute, { prefix: "/api" });
+await app.register(healthCausesRoute, { prefix: "/api" });
 await app.register(todayRoute, { prefix: "/api" });
 await app.register(flowsRoute, { prefix: "/api" });
 await app.register(orgsRoute, { prefix: "/api" });

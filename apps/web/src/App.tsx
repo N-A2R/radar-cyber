@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { creerMemoire, etatDonnees, type Instantane } from "./offline";
-import { api, clearAuthToken, getAuthToken, setAuthToken, type Event, type FlowArc, type Graph, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type Stats, type TodayResponse } from "./api";
+import { api, clearAuthToken, getAuthToken, setAuthToken, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type Stats, type TodayResponse } from "./api";
 import { mockData } from "./mock";
 import Map3D from "./map/Map3D";
 import GraphView from "./graph/GraphView";
@@ -48,6 +48,7 @@ export default function App() {
   const [sources, setSources] = useState<Source[]>([]);
   const [stats, setStats] = useState<Stats | null>(null);
   const [healthDetail, setHealthDetail] = useState<HealthDetail | null>(null);
+  const [healthCauses, setHealthCauses] = useState<HealthCauses | null>(null);
   const [naOverview, setNaOverview] = useState<NaOverview | null>(null);
   const [naFil, setNaFil] = useState<NaFil | null>(null);
   const [todayData, setTodayData] = useState<TodayResponse | null>(null);
@@ -262,7 +263,7 @@ export default function App() {
     // son `statement_timeout` — le `Promise.all` rejetait, et organisations,
     // événements, sources et statistiques n'étaient jamais posés en état.
     const load = async () => {
-      const labels = ["organisations", "événements", "sources", "statistiques", "graphe", "vue NA", "état détaillé"] as const;
+      const labels = ["organisations", "événements", "sources", "statistiques", "graphe", "vue NA", "état détaillé", "causes des sources rouges"] as const;
       const results = await Promise.allSettled([
         api.orgs(),
         api.events(FEED_LIMIT, "regional", portee),
@@ -271,8 +272,9 @@ export default function App() {
         api.graph(90),
         api.naOverview(),
         api.healthDetail(),
+        api.healthCauses(),
       ]);
-      const [o, e, s, st, g, na, hd] = results;
+      const [o, e, s, st, g, na, hd, hc] = results;
       if (o.status === "fulfilled") setOrgs(o.value);
       if (e.status === "fulfilled") setEvents(e.value);
       if (o.status === "fulfilled" && e.status === "fulfilled") {
@@ -288,6 +290,7 @@ export default function App() {
       if (g.status === "fulfilled") setGraph(g.value);
       if (na.status === "fulfilled") setNaOverview(na.value);
       if (hd.status === "fulfilled") setHealthDetail(hd.value);
+      if (hc.status === "fulfilled") setHealthCauses(hc.value);
       const failed = results.flatMap((r, i) => (r.status === "rejected" ? [labels[i]] : []));
       setError(failed.length > 0 ? `indisponible : ${failed.join(", ")}` : null);
       setLoading(false);
@@ -304,6 +307,7 @@ export default function App() {
       api.stats().then(setStats).catch(() => {});
       api.graph(90).then(setGraph).catch(() => {});
       api.healthDetail().then(setHealthDetail).catch(() => {});
+      api.healthCauses().then(setHealthCauses).catch(() => {});
       api.naOverview().then(setNaOverview).catch(() => {});
       loadFlows().then(setFlows).catch(() => {});
     }, 30000);
@@ -724,7 +728,7 @@ export default function App() {
 
           {view === "health" ? (
             <>
-              <HealthDetailView detail={healthDetail} loading={loading} error={error} />
+              <HealthDetailView detail={healthDetail} causes={healthCauses} loading={loading} error={error} />
               <HealthView sources={sources} />
             </>
           ) : null}
