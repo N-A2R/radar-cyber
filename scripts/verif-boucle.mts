@@ -39,7 +39,7 @@ function argValue(name: string): string | undefined {
 }
 
 const API_URL = (argValue("api") ?? process.env.RADAR_API_URL ?? "http://127.0.0.1:18100").replace(/\/+$/, "");
-const RAISON = argValue("raison") ?? "Vérification de bout en bout : indice étranger créé puis rattaché";
+const RAISON = argValue("raison") ?? "société absente du registre";
 
 const resultats: { label: string; ok: boolean }[] = [];
 let echecs = 0;
@@ -101,14 +101,15 @@ async function appel(path: string, init: RequestInit, token: string): Promise<Re
   return { status: res.status, body, raw };
 }
 
-function extraitCompteur(body: unknown): number | null {
+type Compteur = { semaine: number; total: number };
+
+function releveCompteur(body: unknown): Compteur | null {
   if (typeof body !== "object" || body === null) return null;
   const o = body as Record<string, unknown>;
-  // `semaine` est la définition livrée : distinct org_id d'événements sur 7 j.
-  for (const cle of ["semaine", "liees"]) {
-    if (typeof o[cle] === "number" && Number.isFinite(o[cle])) return o[cle];
-  }
-  return null;
+  // `total` = promotions depuis toujours ; c'est lui qui doit monter de 1.
+  // `semaine` (7 j) est relevé aussi, pour prouver le retour à l'état initial.
+  if (typeof o.semaine !== "number" || typeof o.total !== "number") return null;
+  return { semaine: o.semaine, total: o.total };
 }
 
 const client = new Client({ connectionString: DB_URL });
@@ -123,6 +124,7 @@ let orgName: string | null = null;
 let eventId: number | null = null;
 let cree: boolean | null = null;
 let dejaPromu = false;
+let compteurAvant: Compteur | null = null;
 
 const debut = new Date();
 const supprimes: Record<string, number | string> = {};
@@ -178,10 +180,6 @@ async function nettoie(): Promise<void> {
       supprimes["quarantaine_restauree"] = u.rowCount ?? 0;
     }
 
-    if (sessionCreee && tokenEmprunte) {
-      const s = await client.query("DELETE FROM app_session WHERE token=$1", [hashToken(tokenEmprunte)]);
-      supprimes["session_supprimee"] = s.rowCount ?? 0;
-    }
 
     await client.query("COMMIT");
   } catch (err) {
@@ -218,6 +216,38 @@ async function nettoie(): Promise<void> {
     problemes.push(texteErreur(err));
   }
 
+  if (compteurAvant && tokenEmprunte) {
+    try {
+      const relu = await appel("/api/orgs/liees", { method: "GET" }, tokenEmprunte);
+      const c = releveCompteur(relu.body);
+      if (relu.status !== 200 || !c) {
+        problemes.push(`compteur après nettoyage : HTTP ${relu.status} — ${relu.raw.slice(0, 400)}`);
+      } else {
+        console.log(`RELEVÉ  après nettoyage — semaine=${c.semaine} (départ ${compteurAvant.semaine}), total=${c.total} (départ ${compteurAvant.total})`);
+        if (c.semaine !== compteurAvant.semaine) problemes.push(`semaine ${c.semaine} ≠ départ ${compteurAvant.semaine}`);
+        if (c.total !== compteurAvant.total) problemes.push(`total ${c.total} ≠ départ ${compteurAvant.total}`);
+      }
+    } catch (err) {
+      problemes.push(`compteur après nettoyage : ${texteErreur(err)}`);
+    }
+  }
+
+  if (sessionCreee && tokenEmprunte) {
+    try {
+      await client.query("BEGIN");
+      const s = await client.query("DELETE FROM app_session WHERE token=$1", [hashToken(tokenEmprunte)]);
+      await client.query("COMMIT");
+      supprimes["session_supprimee"] = s.rowCount ?? 0;
+    } catch (err) {
+      try {
+        await client.query("ROLLBACK");
+      } catch {
+        // L'erreur principale est déjà signalée dans problemes.
+      }
+      problemes.push(`session non supprimée : ${texteErreur(err)}`);
+    }
+  }
+
   if (problemes.length > 0) {
     console.error(`!!!! NETTOYAGE INCOMPLET — ${problemes.join(" ; ")}`);
     etape("Nettoyage", false, problemes.join(" ; "));
@@ -225,7 +255,7 @@ async function nettoie(): Promise<void> {
   }
 
   const detail = Object.entries(supprimes).map(([k, v]) => `${k}=${v}`).join(", ");
-  etape("Nettoyage", true, `${detail || "rien à supprimer"}; journal conservé (table append-only)`);
+  etape("Nettoyage", true, `${detail || "rien à supprimer"}; comptages revenus au départ; journal conservé (table append-only)`);
 }
 
 async function main(): Promise<void> {
@@ -244,10 +274,10 @@ async function main(): Promise<void> {
          FROM quarantine_raw q
        ) q
       WHERE q.kind='claim' AND q.status='pending' AND q.promoted=false
-        AND (q.org_hint ILIKE '%.com' OR q.org_hint ILIKE '%.edu')
-      ORDER BY q.libre DESC, q.id DESC
+        AND q.org_hint ILIKE '%.com' AND q.libre = true
+      ORDER BY q.id DESC
       LIMIT 1`);
-  if (!lignes[0]) throw new Error("aucune quarantaine en attente avec un indice .com/.edu");
+  if (!lignes[0]) throw new Error("aucune quarantaine en attente avec un indice .com absent du registre (domaine et nom)");
   cible = lignes[0];
   etape("Cible choisie", true,
     `id=${cible.id} source=${String(cible.source)} indice=${String(cible.org_hint)} libre=${Boolean(cible.libre)}`);
@@ -279,31 +309,20 @@ async function main(): Promise<void> {
   }
 
   const avant = await appel("/api/orgs/liees", { method: "GET" }, tokenEmprunte!);
-  const semaineAvant = extraitCompteur(avant.body);
-  if (avant.status !== 200 || semaineAvant === null) {
+  const compteur = releveCompteur(avant.body);
+  if (avant.status !== 200 || !compteur) {
     throw new Error(`compteur avant : HTTP ${avant.status} — ${avant.raw.slice(0, 800)}`);
   }
-  etape("Compteur /orgs/liees avant", true, `semaine=${semaineAvant}`);
+  compteurAvant = compteur;
+  etape("Compteur /orgs/liees avant", true, `semaine=${compteur.semaine} total=${compteur.total} (cible : total)`);
 
   const corps = JSON.stringify({ decision: "creer", raison: RAISON });
-  const essais: string[] = [];
-  let reponse: Reponse | null = null;
-  let cheminRetenu = "";
-  for (const chemin of [`/api/review/${cible.id}`, `/api/review/${cible.id}/decision`]) {
-    const r = await appel(chemin, { method: "POST", body: corps }, tokenEmprunte!);
-    essais.push(`${chemin} → HTTP ${r.status} — ${r.raw.slice(0, 800)}`);
-    if (r.status === 200) {
-      reponse = r;
-      cheminRetenu = chemin;
-      break;
-    }
-    // On ne tente la route historique qu'en cas d'absence de route (404).
-    if (r.status !== 404) break;
+  const chemin = `/api/review/${cible.id}/decision`;
+  const reponse = await appel(chemin, { method: "POST", body: corps }, tokenEmprunte!);
+  if (reponse.status !== 200) {
+    throw new Error(`endpoint indisponible : ${chemin} → HTTP ${reponse.status} — ${reponse.raw.slice(0, 800)}`);
   }
-  if (!reponse) {
-    throw new Error(`endpoint indisponible, erreurs exactes : ${essais.join(" | ")}`);
-  }
-  etape("Décision POST /review/:id", true, `${cheminRetenu} → HTTP 200`);
+  etape("Décision POST /api/review/:id/decision", true, `${chemin} → HTTP 200`);
 
   const body = reponse.body as Record<string, unknown>;
   orgId = typeof body.orgId === "number" ? body.orgId : null;
@@ -317,12 +336,12 @@ async function main(): Promise<void> {
   }
 
   const apres = await appel("/api/orgs/liees", { method: "GET" }, tokenEmprunte!);
-  const semaineApres = extraitCompteur(apres.body);
-  if (apres.status !== 200 || semaineApres === null) {
+  const compteurApres = releveCompteur(apres.body);
+  if (apres.status !== 200 || !compteurApres) {
     throw new Error(`compteur après : HTTP ${apres.status} — ${apres.raw.slice(0, 800)}`);
   }
-  etape("Compteur /orgs/liees après", semaineApres === semaineAvant + 1,
-    `semaine ${semaineAvant} → ${semaineApres} (attendu ${semaineAvant + 1})`);
+  etape("Compteur /orgs/liees après", compteurApres.total === compteurAvant!.total + 1,
+    `semaine ${compteurAvant!.semaine} → ${compteurApres.semaine}, total ${compteurAvant!.total} → ${compteurApres.total} (attendu ${compteurAvant!.total + 1})`);
 
   const evenement = await query<{ id: number; org_id: number | null; dedup_key: string }>(client,
     "SELECT id, org_id, dedup_key FROM event WHERE id=$1", [eventId]);
