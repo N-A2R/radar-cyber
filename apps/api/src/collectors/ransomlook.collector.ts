@@ -1,5 +1,5 @@
 import type { Collector, NormalizedEvent } from "@radar/shared";
-import { createHash } from "node:crypto";
+import { publishedAt, selectNewClaimPosts, type ClaimFeedCursor } from "./claim-feed.js";
 
 type Post = {
   post_title?: unknown;
@@ -11,29 +11,22 @@ type Post = {
 export const collector: Collector = {
   id: "ransomlook",
   family: "ransomware",
-  intervalSec: 3600,
+  intervalSec: 300,
   async run(ctx) {
     const raw = await ctx.fetchJson<Post[]>("https://www.ransomlook.io/api/recent");
     const posts = Array.isArray(raw) ? raw : [];
-    const cursor = ctx.cursor as { lastDate?: string };
-    const lastTs = cursor?.lastDate ? Date.parse(cursor.lastDate) : NaN;
-
+    const selection = selectNewClaimPosts(posts, ctx.cursor as ClaimFeedCursor, { now: ctx.now() });
     const events: NormalizedEvent[] = [];
-    let maxObserved = cursor?.lastDate ?? "";
 
-    for (const post of posts) {
+    for (let index = 0; index < selection.posts.length; index++) {
+      const post = selection.posts[index]!;
       const title = String(post.post_title ?? "").trim();
       const group = String(post.group_name ?? "").trim();
-      const discovered = String(post.discovered ?? "").trim();
       const description = String(post.description ?? "").trim();
-
-      const observedAt = discovered ? new Date(discovered).toISOString() : undefined;
-      if (!observedAt) continue;
-      if (!Number.isNaN(lastTs) && Date.parse(observedAt) <= lastTs) continue;
+      const observedAt = publishedAt(post)!;
 
       // Revendication : on ne la présente jamais comme un incident confirmé.
-      const seed = `${group}|${title}|${discovered}`;
-      const dedupKey = `ransomlook:${createHash("sha256").update(seed).digest("hex").slice(0, 24)}`;
+      const dedupKey = `ransomlook:${selection.keys[index]}`;
 
       events.push({
         dedupKey,
@@ -50,9 +43,8 @@ export const collector: Collector = {
         geoType: "claimed_origin",
       });
 
-      if (observedAt > maxObserved) maxObserved = observedAt;
     }
 
-    return { events, cursor: { lastDate: maxObserved || cursor?.lastDate } };
+    return { events, cursor: selection.cursor };
   },
 };

@@ -1,0 +1,50 @@
+{
+  "generatedAt": "2026-11-21T22:04:50.441Z",
+  "windowDays": 7,
+  "targetHours": 1,
+  "definition": "delay from claim publication to first radar record, in hours",
+  "fingerprint": {
+    "organisations": 1673151,
+    "sources": 312,
+    "events": 26688,
+    "archives": 4710,
+    "quarantineClaims": 16901,
+    "sha256": "ca9bc7b704396f4a1951e64cdf06b33d08cf95bd152df42bd7ee66b634016018"
+  },
+  "feed": {
+    "count": 247,
+    "p50Hours": 19.07,
+    "p90Hours": 43.64,
+    "maxHours": 47.6,
+    "withinOneHour": 41,
+    "withinOneHourPct": 16.6,
+    "naCount": 7,
+    "naP50Hours": 16.06,
+    "naWithinOneHour": 1,
+    "bySource": [
+      {
+        "source": "ransomlook",
+        "count": 247,
+        "p50Hours": 19.07
+      }
+    ]
+  },
+  "leakSites": {
+    "count": 228,
+    "p50Hours": 26.95,
+    "p90Hours": 48.61,
+    "maxHours": 55.34,
+    "withinOneHour": 0,
+    "withinOneHourPct": 0,
+    "naCount": 0,
+    "naP50Hours": 0,
+    "naWithinOneHour": 0,
+    "bySource": [
+      {
+        "source": "ransomware.live",
+        "count": 228,
+        "p50Hours": 26.95
+      }
+    ]
+  }
+}
