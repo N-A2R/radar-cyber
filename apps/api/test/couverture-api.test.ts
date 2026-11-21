@@ -100,20 +100,19 @@ test("GET /api/couverture renvoie le hash et les décompositions du corpus", asy
 	}
 });
 
-test("GET /api/couverture refuse le 0 % actuel et donne la raison", async () => {
+test("GET /api/couverture publie le 0 % du corpus de 50 incidents (quatre seuils franchis)", async () => {
 	const corps = await lireReponse();
+	assert.equal(corps.global.vus, 0);
+	assert.equal(corps.global.total, 50);
 	assert.equal(corps.global.taux, 0);
-	assert.equal(corps.publiable, false);
-	assert.equal(corps.mention, "refus de publication");
-	assert.deepEqual(
-		corps.publication.refus.map((r) => r.code),
-		["corpus_trop_petit"],
-	);
-	assert.match(corps.raison ?? "", /Corpus trop petit : 20 incident\(s\)/);
-	assert.equal(corps.publication.corpus.dansFenetre, 20);
-	assert.ok(corps.publication.corpus.jours >= 90, "fenêtre suffisamment longue");
-	assert.ok(corps.publication.sources.distinctes >= 5, "assez d'éditeurs");
-	assert.ok(corps.publication.sources.partMax <= 0.5, "aucun éditeur dominant");
+	assert.equal(corps.publiable, true);
+	assert.equal(corps.mention, null);
+	assert.equal(corps.raison, null);
+	assert.deepEqual(corps.publication.refus, []);
+	assert.equal(corps.publication.corpus.dansFenetre, 50);
+	assert.equal(corps.publication.corpus.jours, 909);
+	assert.equal(corps.publication.sources.distinctes, 17);
+	assert.equal(corps.publication.sources.partMax, 0.3);
 	assert.equal(corps.publication.referentiel.partSecteurs, 1);
 });
 
