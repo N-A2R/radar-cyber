@@ -2,10 +2,16 @@
 `apps/api/src/collectors/generic.ts` : un `parser.itemsPath` vide ou stérile ne rend plus
 la source muette.
 ## Priorité (`detectItems`)
-1. **`itemsPath` déclaré et valide** — comportement historique intact.
+0. **`itemsPath` déclaré et valide** — comportement historique intact, avant détection.
+1. **JSON-LD** (`parsers/jsonld.ts`) : `NewsArticle`/`Article`/`BlogPosting` dans
+   `<script type="application/ld+json">` ou document JSON-LD pur. Les `@graph` sont
+   parcourus, les doublons de même URL dédupliqués ; un `Organization` ou un fil
+   d'Ariane seul ne déclenche rien.
 2. JSON **tableau racine** (objets uniquement).
 3. JSON **premier tableau d'objets**, profondeur ≤ 4, chemin reporté (`data.items`).
-4. **RSS / Atom / RDF** : `rss.channel.item`, `channel.item`, `feed.entry`, `rdf:RDF.item`.
+4. **RSS 2.0 / Atom / RDF** : la racine XML choisit la stratégie `rss-2`, `atom` ou
+   `rss-atom` ; les champs namespaceés sont ramenés aux champs du collecteur
+   (`dc:date`, `content:encoded`, `<link href>` Atom, `guid`).
 5. **JSON embarqué** (`parsers/embedded-json.ts`) : `<script type="application/json">`,
    `data-page` Inertia, `__NEXT_DATA__`. Les tableaux d'objets porteurs de titres
    sont lus même si la fin du JSON est tronquée (87 victimes sur Everest).
@@ -23,11 +29,14 @@ la source muette.
    les ingérer remplissait le fil de bruit.
 9. **Contact Telegram** (`parsers/telegram.ts`) : page `Telegram: Contact @…`,
    sans message public. Une seule identité est extraite, pas des liens d'interface.
-10. **HTML** : liens `<a href>` significatifs (hors `#`, `javascript:`, libellés < 4 car.).
-11. **Page d'accueil HTML** (`parsers/landing.ts`) : annonce explicite (`notice`,
+10. **Article HTML** (`parsers/article.ts`) : blocs `<article>` de premier niveau,
+    hors commentaires et encarts. Titre, URL canonique, date et premier paragraphe
+    substantiel ; un bloc sans résumé n'est pas compté.
+11. **HTML** : liens `<a href>` significatifs (hors `#`, `javascript:`, libellés < 4 car.).
+12. **Page d'accueil HTML** (`parsers/landing.ts`) : annonce explicite (`notice`,
     `top-band`, paragraphe substantiel). Les pages de challenge ou squelettes JS
     sans texte restent refusées : aucun item n'est inventé.
-12. Sinon refus explicite : `[collect] <source> : format non reconnu — refus explicite`.
+13. Sinon refus explicite : `[collect] <source> : format non reconnu — refus explicite`.
     Pour une page `.onion`, le corps illisible part en `quarantine_raw` : le jeter
     rendait 64 sources muettes invisibles.
 Flux `indicator` en JSON/CSV/RSS : valeurs tirées de `value|indicator|ip|domain|host|url|
@@ -41,6 +50,10 @@ extension : domaine seul, `domaine.tld/chemin`, liste de domaines, préfixe
 `async`/`sync` et URL complète sont reconnus. Les lignes qui ne sont pas des
 domaines (texte libre) restent `narrative`. Condition fautive d'origine :
 `/\.(txt|csv|json|zip)(\?|$)/i.test(url)`.
+
+Tableau historique du 13/11 (avant la distinction `rss-2`/`atom` et l'ajout de `json-ld`/`html-article`).
+Mesure du 21/11 sur 10 sources réelles : `bench/results/parseurs-formats-4-avant-apres.json`.
+
 | Stratégie | Sources |
 | --- | ---: |
 | rss-atom | 10 |
