@@ -37,13 +37,17 @@ SELECT count(*) FROM source
 | Compteur | Valeur observée avant intégration | Après intégration |
 |---|---:|---:|
 | Organisations | 1 673 221 | 1 673 221 |
-| Sources | 418 | 431 |
+| Sources | 418 | 435 |
 | Événements | 27 882 | 27 882 |
 
 Les compteurs diffèrent du repère de la consigne (1 673 151 organisations,
 312 sources) : la mesure porte sur la base réellement présente au moment du
 travail, pas sur un chiffre recopié. Aucune organisation ni aucun événement
 n'a été ajouté ou modifié : seul le registre des sources évolue.
+
+Quatre sources sans rapport avec ce chantier ont été ajoutées par un autre
+workstream entre deux mesures (431 puis 435) : le compte de sources occitanes
+et basques reste 13 dans les deux relevés.
 
 ## Étapes testables
 
