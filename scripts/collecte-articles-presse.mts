@@ -9,16 +9,18 @@
  * Usage :
  *   apps/api/node_modules/.bin/tsx scripts/collecte-articles-presse.mts \
  *     --concurrence=24 --max=900
- */
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { dirname, resolve } from 'node:path';
+import { DEPARTEMENTS_NA } from './presse-communale-lib.mjs';
 import {
 	dateDepuisHtml,
 	extraitDepuisHtml,
+	itemsFlux,
+	liensAlternatifsFlux,
 	liensArticle,
 	motsCyberDetectes,
+	sitemapsEnfants,
 	titreDepuisHtml,
 	type ArticleLigne,
+	urlsSitemap,
 } from './articles-presse-lib.mts';
 
 const COMMUNE_CORPUS = resolve('bench/corpus/presse-communale.jsonl');

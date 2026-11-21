@@ -43,18 +43,18 @@ function attribut(html: string, motif: RegExp): string | null {
 	return trouve?.[1] ? decodeHtml(trouve[1]) : null;
 }
 
-function dateValide(valeur: string): string | null {
+function dateDepuisTexte(valeur: string): string | null {
 	const iso = /^(\d{4})-(\d{2})-(\d{2})/.exec(valeur.trim());
-	if (!iso) return null;
-	const annee = Number(iso[1]);
-	const mois = Number(iso[2]);
-	const jour = Number(iso[3]);
-	const maintenant = new Date();
-	if (annee < 2015 || annee > maintenant.getUTCFullYear() + 1 || mois < 1 || mois > 12 || jour < 1 || jour > 31) {
-		return null;
-	}
-	return `${iso[1]}-${iso[2]}-${iso[3]}`;
+	if (iso) return dateValide(`${iso[1]}-${iso[2]}-${iso[3]}`);
+	const temps = Date.parse(valeur);
+	return Number.isFinite(temps) ? dateValide(new Date(temps).toISOString()) : null;
 }
+
+/** Zones horaires et formats de flux (RFC 2822) acceptés sans invention de date. */
+export function dateFlux(valeur: string | null | undefined): string | null {
+	return valeur ? dateDepuisTexte(valeur) : null;
+}
+
 
 function parcoursJsonLd(noeud: unknown, sortie: { date: string | null; titre: string | null }): void {
 	if (!noeud || typeof noeud !== 'object') return;
@@ -87,9 +87,7 @@ export function dateDepuisHtml(html: string): { date: string | null; titre: stri
 		}
 	}
 	if (!sortie.date) {
-		const date = attribut(html, /<meta\b[^>]*(?:property|name)\s*=\s*["'](?:article:published_time|og:article:published_time|datePublished|date|DC\.date\.issued)["'][^>]*content\s*=\s*["']([^"']+)["']/i)
-			?? attribut(html, /<time\b[^>]*datetime\s*=\s*["']([^"']+)["']/i);
-		sortie.date = date ? dateValide(date) : null;
+		sortie.date = date ? dateDepuisTexte(date) : null;
 	}
 	return sortie;
 }
@@ -170,4 +168,95 @@ export function motsCyberDetectes(texte: string): string[] {
 		if (motif.test(contenu)) trouves.push(etiquette);
 	}
 	return trouves;
+}
+
+export type ItemFlux = {
+	url: string;
+	date: string | null;
+	titre: string | null;
+	extrait: string;
+};
+
+function texteXml(brut: string | undefined): string {
+	if (!brut) return '';
+	return decodeHtml(brut.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1').replace(/<[^>]+>/g, ' '));
+}
+
+function urlInterne(href: string | undefined, base: string): string | null {
+	if (!href) return null;
+	try {
+		const source = new URL(base);
+		const cible = new URL(decodeHtml(href.trim()), base);
+		if (!/^https?:$/.test(cible.protocol)) return null;
+		const hote = source.hostname.replace(/^www\./, '');
+		if (cible.hostname.replace(/^www\./, '') !== hote) return null;
+		cible.hash = '';
+		return cible.toString();
+	} catch {
+		return null;
+	}
+}
+
+/** Articles annoncés par un flux RSS/Atom : les URLs servent seulement à la découverte. */
+export function itemsFlux(xml: string, base: string, limite = 100): ItemFlux[] {
+	const sortie: ItemFlux[] = [];
+	const vus = new Set<string>();
+	const blocs = /<(item|entry)\b[^>]*>([\s\S]*?)<\/\1\s*>/gi;
+	let correspondance: RegExpExecArray | null;
+	while ((correspondance = blocs.exec(xml)) !== null && sortie.length < limite) {
+		const bloc = correspondance[2]!;
+		const href = /<link\b[^>]*href\s*=\s*["']([^"']+)["']/i.exec(bloc)?.[1]
+			?? /<link\b[^>]*>([\s\S]*?)<\/link>/i.exec(bloc)?.[1]
+			?? /<guid\b[^>]*>([\s\S]*?)<\/guid>/i.exec(bloc)?.[1];
+		const url = urlInterne(href, base);
+		if (!url || vus.has(url)) continue;
+		vus.add(url);
+		const dateBrute = /<(?:pubDate|dc:date|published|updated|modified)\b[^>]*>([\s\S]*?)<\/(?:pubDate|dc:date|published|updated|modified)>/i.exec(bloc)?.[1];
+		const titre = texteXml(/<title\b[^>]*>([\s\S]*?)<\/title>/i.exec(bloc)?.[1]);
+		const extrait = texteXml(/<(?:description|summary)\b[^>]*>([\s\S]*?)<\/(?:description|summary)>/i.exec(bloc)?.[1]);
+		sortie.push({ url, date: dateFlux(dateBrute), titre, extrait });
+	}
+	return sortie;
+}
+
+/** Liens de flux annoncés par une page d'accueil (balises <link rel="alternate">). */
+export function liensAlternatifsFlux(html: string, base: string): string[] {
+	const sortie: string[] = [];
+	const motif = /<link\b[^>]*>/gi;
+	let correspondance: RegExpExecArray | null;
+	while ((correspondance = motif.exec(html)) !== null) {
+		const balise = correspondance[0];
+		if (!/rss\+xml|atom\+xml/i.test(balise) || !/rel\s*=\s*["']alternate["']/i.test(balise)) continue;
+		const url = urlInterne(/href\s*=\s*["']([^"']+)["']/i.exec(balise)?.[1], base);
+		if (url && !sortie.includes(url)) sortie.push(url);
+	}
+	return sortie.slice(0, 4);
+}
+
+/** URLs d'articles d'un sitemap ; la date de publication reste lue sur la page. */
+export function urlsSitemap(xml: string, base: string, limite = 200): string[] {
+	const sortie: string[] = [];
+	const blocs = /<url\b[^>]*>([\s\S]*?)<\/url>/gi;
+	let correspondance: RegExpExecArray | null;
+	while ((correspondance = blocs.exec(xml)) !== null && sortie.length < limite) {
+		const loc = /<loc\b[^>]*>([\s\S]*?)<\/loc>/i.exec(correspondance[1]!)?.[1];
+		const url = urlInterne(loc, base);
+		if (!url || /\.(?:pdf|jpe?g|png|gif|svg|webp|zip|mp[34]|css|js)(?:$|\?)/i.test(url)) continue;
+		if (/\/(?:contact|mentions-legales|politique-de-confidentialite|plan-de-site|annuaire|faq)(?:$|[/?#])/i.test(new URL(url).pathname)) continue;
+		if (!sortie.includes(url)) sortie.push(url);
+	}
+	return sortie;
+}
+
+/** Sitemaps enfants d'un index, pour les sites qui segmentent leurs URLs. */
+export function sitemapsEnfants(xml: string, base: string): string[] {
+	const sortie: string[] = [];
+	const blocs = /<sitemap\b[^>]*>([\s\S]*?)<\/sitemap>/gi;
+	let correspondance: RegExpExecArray | null;
+	while ((correspondance = blocs.exec(xml)) !== null && sortie.length < 4) {
+		const loc = /<loc\b[^>]*>([\s\S]*?)<\/loc>/i.exec(correspondance[1]!)?.[1];
+		const url = urlInterne(loc, base);
+		if (url && !sortie.includes(url)) sortie.push(url);
+	}
+	return sortie;
 }
