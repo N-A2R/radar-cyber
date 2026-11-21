@@ -12,6 +12,7 @@ import { randomBytes } from "node:crypto";
 import Fastify, { type FastifyInstance } from "fastify";
 import { closePools, query } from "../src/db.js";
 import statsRoute, { departementDeLaSource } from "../src/routes/stats.js";
+import statsDepartementsRoute from "../src/routes/stats-departements.js";
 
 const TAG = `sd${Date.now().toString(36)}${randomBytes(3).toString("hex")}`;
 const IDS = {
@@ -175,4 +176,23 @@ test("l'inférence accepte les alias connus et refuse les indices contradictoire
   assert.equal(departementDeLaSource(source("x", "Flux CD33", "https://exemple.invalid")), "33");
   assert.equal(departementDeLaSource(source("x", "Aucun indice", "https://exemple.invalid/feed")), null);
   assert.equal(departementDeLaSource(source("x", "Charente et Charente-Maritime", "https://exemple.invalid")), null);
+});
+
+test("les deux routes départements coexistent sans collision au démarrage", async () => {
+  const serveur = Fastify();
+  try {
+    await serveur.register(statsDepartementsRoute, { prefix: "/api" });
+    await serveur.register(statsRoute, { prefix: "/api" });
+    await serveur.ready();
+
+    const fil = await serveur.inject({ method: "GET", url: "/api/today/departements" });
+    assert.equal(fil.statusCode, 200, fil.body);
+    assert.ok(Array.isArray(fil.json().departements));
+
+    const stats = await serveur.inject({ method: "GET", url: "/api/stats/departements" });
+    assert.equal(stats.statusCode, 200, stats.body);
+    assert.equal(stats.json().windowDays, 7);
+  } finally {
+    await serveur.close();
+  }
 });
