@@ -12,7 +12,14 @@ interface DohAnswer {
 }
 
 interface DohResponse {
+  Status?: number;
   Answer?: DohAnswer[];
+}
+
+/** Réponse DoH brute : le statut permet de distinguer NXDOMAIN (3) d'une panne. */
+export interface DohQueryResult {
+  status: number;
+  answers: string[];
 }
 
 // Le cache est typé par l'appelant : la valeur stockée est inconnue jusqu'au cast.
@@ -24,7 +31,14 @@ function cached<T>(key: string, fn: () => Promise<T>, ttlMs = 60_000): Promise<T
   return fn().then((v) => { cache.set(key, { value: v, exp: Date.now() + ttlMs }); return v; });
 }
 
-export async function doh(name: string, type: string): Promise<string[]> {
+/**
+ * Interroge DoH et rend le statut DNS avec les réponses.
+ *
+ * `doh()` reste le raccourci historique (tableau vide sur panne) ; l'historique
+ * DNS a besoin de distinguer « pas d'enregistrement » (NXDOMAIN, statut 3) de
+ * « source en panne » pour ne pas fabriquer un faux changement.
+ */
+export async function dohQuery(name: string, type: string): Promise<DohQueryResult> {
   const ctrl = new AbortController();
   const t = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
   try {
@@ -32,10 +46,19 @@ export async function doh(name: string, type: string): Promise<string[]> {
       headers: { Accept: "application/dns-json" },
       signal: ctrl.signal,
     });
-    if (!res.ok) return [];
+    if (!res.ok) throw new Error(`DoH HTTP ${res.status}`);
     const j = (await res.json()) as DohResponse;
-    return (j.Answer ?? []).map((a) => a.data).filter((d): d is string => Boolean(d));
+    const answers = (j.Answer ?? []).map((a) => a.data).filter((d): d is string => Boolean(d));
+    return { status: j.Status ?? 0, answers };
   } finally { clearTimeout(t); }
+}
+
+export async function doh(name: string, type: string): Promise<string[]> {
+  try {
+    return (await dohQuery(name, type)).answers;
+  } catch {
+    return [];
+  }
 }
 
 export async function resolveDomain(domain: string): Promise<DnsResolution> {
