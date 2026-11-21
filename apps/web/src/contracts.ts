@@ -1,7 +1,7 @@
-import type { Alert, DeptStat, Event, Graph, Health, NaFil, NaOverview, Org, Source, Stats, TodayResponse } from "./api";
+import type { Alert, CouverturePublique, DeptStat, Event, Graph, Health, NaFil, NaOverview, Org, Source, Stats, TodayResponse } from "./api";
 
 /** Les vues de l'application, dans l'ordre du rail. */
-export type ViewKey = "today" | "map" | "directory" | "review" | "journal" | "graph" | "sources" | "health" | "alerts" | "dossier" | "na";
+export type ViewKey = "today" | "couverture" | "map" | "directory" | "review" | "journal" | "graph" | "sources" | "health" | "alerts" | "dossier" | "na";
 
 
 /** Contrat de l'écran d'accueil « Aujourd'hui ». */
@@ -20,6 +20,13 @@ export type TodayViewProps = {
   onDept: (dept: string | null) => void;
   onOpenOrg: (orgId: number) => void;
   onOpenEvent: (eventId: string) => void;
+};
+
+/** Contract of the coverage screen (GET /api/couverture). */
+export type CouvertureViewProps = {
+  data: CouverturePublique | null;
+  loading: boolean;
+  error: string | null;
 };
 /** Contrat du fil d'événements (colonne de gauche). */
 export type FeedProps = {
