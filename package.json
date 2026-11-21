@@ -10,6 +10,7 @@
     "dev": "pnpm -r --parallel dev",
     "dev:api": "pnpm -F @radar/api dev",
     "dev:web": "pnpm -F @radar/web dev",
+    "test:offline": "pnpm -F @radar/web exec playwright test test/offline.spec.ts",
     "typecheck": "pnpm -r typecheck",
     "verify": "bash scripts/verify-all.sh",
     "verify:journal": "apps/api/node_modules/.bin/tsx scripts/verify-journal.mts",
