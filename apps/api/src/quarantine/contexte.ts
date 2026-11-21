@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 /**
  * Contexte d'une ligne de la file de revue.
  *
@@ -29,9 +30,20 @@ export type ContexteLigne = {
 	candidats: ContexteCandidat[];
 };
 
+/** Données de contexte lues en une seule requête pour toute la page. */
+export type DonneesLigne = {
+	/** Titre du collecteur, sinon première ligne non vide du texte brut. */
+	titre: string | null;
+	/** Début du texte brut (240 caractères), conservé par la file historique. */
+	debut: string | null;
+	contexte: ContexteLigne;
+};
+
 export type LigneAContexte = { id: number; orgHint: string | null };
 
 const EXTRAIT_MAX = 300;
+const TITRE_MAX = 200;
+const DEBUT_MAX = 240;
 const RAYON = Math.floor(EXTRAIT_MAX / 2);
 const CANDIDATS_MAX = 3;
 /** Trigrammes trop fréquents (« commun», « des »…) : plus sélectifs ailleurs. */
@@ -39,10 +51,32 @@ const POSTINGS_MAX = 120;
 /** Organisation soumises au scoreur après recoupement des trigrammes. */
 const SHORTLIST_MAX = 60;
 
+/** Titre structuré par le collecteur, sinon première ligne non vide du brut. */
+function titreExtrait(debut: string | null, titreSource: string | null): string | null {
+	const titre = (titreSource ?? "").trim();
+	if (titre) return titre.slice(0, TITRE_MAX);
+	const premiereLigne = (debut ?? "")
+		.split(/\r?\n/)
+		.map((ligne) => ligne.trim())
+		.find((ligne) => ligne.length > 0);
+	return premiereLigne ? premiereLigne.slice(0, TITRE_MAX) : null;
+}
+
 type SimilarityIndex = {
 	byGram: Map<number, number[]>;
 	orgs: OrgIndexEntry[];
 };
+
+// Le référentiel change rarement : reconstruire l'index à chaque ouverture de
+// file coûte ~65 ms pour 4 462 organisations. La signature (ids + noms) rend
+// le cache invalide dès qu'une organisation est ajoutée, renommée ou retirée.
+let cache: { signature: string; index: SimilarityIndex } | null = null;
+
+function signatureDe(orgs: readonly OrgIndexEntry[]): string {
+	const hash = createHash("sha256");
+	for (const entry of orgs) hash.update(`${entry.id}:${entry.nameNorm}\n`);
+	return hash.digest("hex");
+}
 
 /** Trigrammes d'une clé normalisée, encodés sur un entier (a-z, 0-9, espace). */
 function trigrammes(key: string): number[] {
@@ -55,6 +89,9 @@ function trigrammes(key: string): number[] {
 }
 
 export function buildSimilarityIndex(orgs: readonly OrgIndexEntry[]): SimilarityIndex {
+	const signature = signatureDe(orgs);
+	if (cache?.signature === signature) return cache.index;
+
 	const listes: number[][] = orgs.map((entry) => trigrammes(entry.nameNorm));
 	const frequence = new Map<number, number>();
 	for (const grams of listes) {
@@ -69,7 +106,9 @@ export function buildSimilarityIndex(orgs: readonly OrgIndexEntry[]): Similarity
 			else byGram.set(gram, [position]);
 		}
 	});
-	return { byGram, orgs: [...orgs] };
+	const index = { byGram, orgs: [...orgs] };
+	cache = { signature, index };
+	return index;
 }
 
 /** Borne supérieure exacte du ratio : 200 * min(l1,l2) / (l1+l2), ramenée à [0,1]. */
@@ -120,7 +159,7 @@ export function organisationsProches(
 export async function contextesDes(
 	lignes: readonly LigneAContexte[],
 	orgs: readonly OrgIndexEntry[],
-): Promise<Map<number, ContexteLigne>> {
+): Promise<Map<number, DonneesLigne>> {
 	if (lignes.length === 0) return new Map();
 
 	const values: unknown[] = [];
@@ -128,20 +167,35 @@ export async function contextesDes(
 		values.push(ligne.id, (ligne.orgHint ?? "").trim().slice(0, 300));
 		return `($${values.length - 1}::bigint, $${values.length}::text)`;
 	}).join(", ");
-	const result = await query<{ id: string; extrait: string | null }>(
+	const result = await query<{
+		id: string;
+		extrait: string | null;
+		debut: string | null;
+		titre_source: string | null;
+	}>(
 		`WITH demandes(id, indice) AS (VALUES ${tuples})
 		    SELECT d.id,
 		           substring(q.raw_body FROM GREATEST(1,
-		             strpos(lower(q.raw_body), lower(d.indice)) - ${RAYON}) FOR ${EXTRAIT_MAX}) AS extrait
+		             strpos(lower(q.raw_body), lower(d.indice)) - ${RAYON}) FOR ${EXTRAIT_MAX}) AS extrait,
+		           left(q.raw_body, 500) AS debut,
+		           COALESCE(NULLIF(btrim(extracted->>'title'), ''),
+		                    NULLIF(btrim(extracted->>'titre_brut'), '')) AS titre_source
 		      FROM demandes d
 		      JOIN quarantine_raw q ON q.id = d.id`,
 		values,
 	);
-	const extraits = new Map(result.rows.map((row) => [Number(row.id), row.extrait ?? null]));
+	const extraits = new Map(result.rows.map((row) => [Number(row.id), row]));
 	const index = buildSimilarityIndex(orgs);
 
-	return new Map(lignes.map((ligne) => [ligne.id, {
-		extrait: extraits.get(ligne.id) ?? null,
-		candidats: organisationsProches(ligne.orgHint, index),
-	}]));
+	return new Map(lignes.map((ligne) => {
+		const row = extraits.get(ligne.id);
+		return [ligne.id, {
+			titre: titreExtrait(row?.debut ?? null, row?.titre_source ?? null),
+			debut: row?.debut === null || row?.debut === undefined ? null : row.debut.slice(0, DEBUT_MAX),
+			contexte: {
+				extrait: row?.extrait ?? null,
+				candidats: organisationsProches(ligne.orgHint, index),
+			},
+		}];
+	}));
 }

@@ -85,6 +85,9 @@ export type QueueRow = {
 	rejectRule?: string | null;
 	city?: string | null;
 	dept?: string | null;
+	/** Présents seulement sur la file de revue humaine (`avecContexte`). */
+	titre?: string | null;
+	extrait?: string | null;
 	/** Présent seulement sur la file de revue humaine (`avecContexte`). */
 	contexte?: ContexteLigne | null;
 };
@@ -321,7 +324,12 @@ export async function reviewQueue(params: QueueParams = {}): Promise<QueueResult
 			rows.map((row) => ({ id: row.id, orgHint: row.orgHint })),
 			orgIndex,
 		);
-		for (const row of rows) row.contexte = contextes.get(row.id) ?? null;
+		for (const row of rows) {
+			const donnees = contextes.get(row.id);
+			row.titre = donnees?.titre ?? null;
+			row.extrait = donnees?.debut ?? null;
+			row.contexte = donnees?.contexte ?? null;
+		}
 	}
 
 	return {

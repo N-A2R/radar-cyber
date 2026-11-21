@@ -22,40 +22,6 @@ import { normalizeName, promoteOneTx, type PromoteOneResult } from "../quarantin
 import { appendReview, applyReview, reviewQueue, type ReviewEntry } from "../quarantine/review.js";
 import type { TriageBucket } from "../quarantine/triage.js";
 
-const TITRE_MAX = 200;
-const EXTRAIT_MAX = 240;
-
-/**
- * Contexte minimum pour décider : le titre structuré par le collecteur quand
- * il existe, sinon la première ligne non vide du texte brut. L'extrait reste
- * une tranche brute de `raw_body`, sans mise en forme.
- */
-function titreExtrait(rawBody: string | null, titreSource: string | null): string | null {
-	const titre = (titreSource ?? "").trim();
-	if (titre) return titre.slice(0, TITRE_MAX);
-	const premiereLigne = (rawBody ?? "")
-		.split(/\r?\n/)
-		.map((ligne) => ligne.trim())
-		.find((ligne) => ligne.length > 0);
-	return premiereLigne ? premiereLigne.slice(0, TITRE_MAX) : null;
-}
-
-/** Une seule requête groupée : la file affiche au plus 200 lignes. */
-async function contextesDes(ids: readonly number[]): Promise<Map<number, { titre: string | null; extrait: string | null }>> {
-	if (ids.length === 0) return new Map();
-	const r = await query<{ id: number; raw_body: string | null; titre_source: string | null }>(
-		`SELECT id, left(raw_body, 500) AS raw_body,
-		        COALESCE(NULLIF(btrim(extracted->>'title'), ''),
-		                 NULLIF(btrim(extracted->>'titre_brut'), '')) AS titre_source
-		   FROM quarantine_raw WHERE id = ANY($1::bigint[])`,
-		[ids],
-	);
-	return new Map(r.rows.map((row) => [Number(row.id), {
-		titre: titreExtrait(row.raw_body, row.titre_source),
-		extrait: row.raw_body === null ? null : row.raw_body.slice(0, EXTRAIT_MAX),
-	}]));
-}
-
 const QueueQuery = z.object({
 	limit: z.coerce.number().int().min(1).max(200).default(50),
 	page: z.coerce.number().int().min(0).default(0),
@@ -133,7 +99,6 @@ export default async function (app: FastifyInstance) {
 			bucket: bucket as TriageBucket | undefined,
 			q: q ?? null,
 		});
-		const contextes = await contextesDes(result.rows.map((row) => row.id));
 		const corps = {
 			rows: result.rows.map((row) => ({
 				id: row.id,
@@ -150,8 +115,8 @@ export default async function (app: FastifyInstance) {
 				city: row.city ?? null,
 				dept: row.dept ?? null,
 				review: row.review,
-				titre: contextes.get(row.id)?.titre ?? null,
-				extrait: contextes.get(row.id)?.extrait ?? null,
+				titre: row.titre ?? null,
+				extrait: row.extrait ?? null,
 				contexte: row.contexte ?? null,
 			})),
 			total: result.total,
