@@ -2,8 +2,10 @@
  * Couverture globale — porte de publication du chiffre.
  *
  * Calculer un taux ne suffit pas à le publier. Ce script applique avant toute
- * publication les trois seuils documentés dans `docs/seuils-couverture.md` :
- * corpus trop petit, référentiel trop troué, sources trop peu productives.
+ * publication les quatre seuils documentés dans `docs/seuils-couverture.md` :
+ * corpus trop petit, référentiel trop troué, sources trop peu productives,
+ * fenêtre trop courte. Les seuils vivent dans `analyse/seuils-couverture.ts`
+ * et sont partagés avec la mesure servie par GET /api/couverture.
  * Quand un seuil échoue, le refus est explicite (`refus de publication : …`),
  * le code de sortie vaut 1 et aucun JSON n'est écrit — y compris avec
  * `--json=`, pour ne pas laisser un chiffre interdit traîner dans un fichier.
@@ -31,21 +33,21 @@ import {
 	type FaitCouverture,
 } from "../apps/api/src/analyse/couverture.js";
 import {
-	verifierPubliabilite,
-	type VerdictPublication,
-} from "../apps/api/src/analyse/publiabilite.js";
+	evaluerSeuilsCouverture,
+	exigerPublication,
+	type VerdictSeuilsCouverture,
+} from "../apps/api/src/analyse/seuils-couverture.js";
 
-/** Mention exacte du refus : c'est elle que les lecteurs de la sortie cherchent. */
-export const REFUS_PUBLICATION = "refus de publication";
-
-/** Incidents dans la fenêtre, pas lignes brutes du fichier. */
-export const SEUIL_CORPUS_MIN = 30;
-
-/** Réutilise le seuil déjà défini dans `analyse/publiabilite.ts` (3 secteurs sur 4). */
-export { SEUIL_SECTEURS_PUBLIABLES } from "../apps/api/src/analyse/publiabilite.js";
-
-export const SEUIL_SOURCES_DISTINCTES_MIN = 5;
-export const SEUIL_PART_SOURCE_MAX = 0.5;
+export {
+	ErreurRefusPublication,
+	exigerPublication,
+	REFUS_PUBLICATION,
+	SEUIL_CORPUS_MIN,
+	SEUIL_FENETRE_JOURS_MIN,
+	SEUIL_PART_SOURCE_MAX,
+	SEUIL_SOURCES_DISTINCTES_MIN,
+	SEUIL_SECTEURS_PUBLIABLES,
+} from "../apps/api/src/analyse/seuils-couverture.js";
 
 export const FENETRE_DEFAUT = { debut: "2025-11-01", fin: "2026-10-31" };
 
@@ -64,23 +66,7 @@ export type IncidentCorpus = {
 	preuve?: { editeur?: string; url?: string };
 };
 
-export type CodeRefus =
-	| "corpus_trop_petit"
-	| "referentiel_trop_troue"
-	| "sources_trop_peu_productives";
-
-export type RaisonRefus = { code: CodeRefus; raison: string };
-
-export type VerdictSeuils = {
-	publiable: boolean;
-	/** `null` quand le chiffre peut être publié. */
-	mention: typeof REFUS_PUBLICATION | null;
-	/** Toutes les raisons : un seul refus ne doit pas masquer le suivant. */
-	refus: RaisonRefus[];
-	corpus: { total: number; dansFenetre: number; fenetre: Fenetre };
-	sources: { distinctes: number; partMax: number; parEditeur: Record<string, number> };
-	referentiel: VerdictPublication;
-};
+export type VerdictSeuils = VerdictSeuilsCouverture;
 
 export function incidentsDansFenetre(
 	incidents: readonly IncidentCorpus[],
@@ -91,75 +77,20 @@ export function incidentsDansFenetre(
 	);
 }
 
-/** Une source = un `preuve.editeur`, insensible à la casse. Sans éditeur, pas de source. */
-function sourcesDes(incidents: readonly IncidentCorpus[]): VerdictSeuils["sources"] {
-	const parEditeur = new Map<string, number>();
-	let avecEditeur = 0;
-	for (const incident of incidents) {
-		const editeur = incident.preuve?.editeur?.trim();
-		if (!editeur) continue;
-		avecEditeur++;
-		const cle = editeur.toLowerCase();
-		parEditeur.set(cle, (parEditeur.get(cle) ?? 0) + 1);
-	}
-	const partMax = avecEditeur === 0 ? 0 : Math.max(...parEditeur.values()) / avecEditeur;
-	return {
-		distinctes: parEditeur.size,
-		partMax,
-		parEditeur: Object.fromEntries([...parEditeur.entries()].sort((a, b) => b[1] - a[1])),
-	};
-}
-
-/** Évalue les trois seuils à partir des seuls faits disponibles avant publication. */
+/** Adapte le corpus du bench (datePublique / preuve.editeur) au contrat partagé. */
 export function evaluerSeuils(intrants: {
 	incidents: readonly IncidentCorpus[];
 	fenetre: Fenetre;
 	parSecteur: Readonly<Record<string, number>>;
 }): VerdictSeuils {
-	const dansFenetre = incidentsDansFenetre(intrants.incidents, intrants.fenetre);
-	const sources = sourcesDes(dansFenetre);
-	const referentiel = verifierPubliabilite(intrants.parSecteur);
-	const refus: RaisonRefus[] = [];
-
-	if (dansFenetre.length < SEUIL_CORPUS_MIN) {
-		refus.push({
-			code: "corpus_trop_petit",
-			raison: `Corpus trop petit : ${dansFenetre.length} incident(s) dans la fenêtre ${intrants.fenetre.debut} → ${intrants.fenetre.fin}, seuil minimal ${SEUIL_CORPUS_MIN}.`,
-		});
-	}
-	if (!referentiel.publiable && referentiel.raison !== null) {
-		refus.push({ code: "referentiel_trop_troue", raison: referentiel.raison });
-	}
-	if (sources.distinctes < SEUIL_SOURCES_DISTINCTES_MIN || sources.partMax > SEUIL_PART_SOURCE_MAX) {
-		refus.push({
-			code: "sources_trop_peu_productives",
-			raison:
-				`Sources trop peu productives : ${sources.distinctes} éditeur(s) distinct(s)` +
-				` (seuil ${SEUIL_SOURCES_DISTINCTES_MIN}), part maximale ${Math.round(sources.partMax * 100)} %` +
-				` (plafond ${Math.round(SEUIL_PART_SOURCE_MAX * 100)} %).`,
-		});
-	}
-
-	return {
-		publiable: refus.length === 0,
-		mention: refus.length === 0 ? null : REFUS_PUBLICATION,
-		refus,
-		corpus: { total: intrants.incidents.length, dansFenetre: dansFenetre.length, fenetre: intrants.fenetre },
-		sources,
-		referentiel,
-	};
-}
-
-export class ErreurRefusPublication extends Error {
-	constructor(readonly verdict: VerdictSeuils) {
-		super(`${REFUS_PUBLICATION} : ${verdict.refus.map((r) => `${r.code} — ${r.raison}`).join(" ; ")}`);
-		this.name = "ErreurRefusPublication";
-	}
-}
-
-/** Refus explicite : le chiffre ne sort pas, même si un `--json=` a été demandé. */
-export function exigerPublication(verdict: VerdictSeuils): void {
-	if (!verdict.publiable) throw new ErreurRefusPublication(verdict);
+	return evaluerSeuilsCouverture({
+		incidents: intrants.incidents.map((incident) => ({
+			date: incident.datePublique,
+			source: incident.preuve?.editeur,
+		})),
+		fenetre: intrants.fenetre,
+		parSecteur: intrants.parSecteur,
+	});
 }
 
 /** Même correspondance que `scripts/mesure-couverture.mts` (le contrat n'a pas ces familles). */

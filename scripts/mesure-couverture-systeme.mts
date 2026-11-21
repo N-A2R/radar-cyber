@@ -57,6 +57,8 @@ export function divergences(publie: RapportCouverture, frais: RapportCouverture)
 		["vus", publie.global.vus, frais.global.vus],
 		["total", publie.global.total, frais.global.total],
 		["taux", publie.global.taux, frais.global.taux],
+		["publiable", publie.publication?.publiable, frais.publication?.publiable],
+		["raison", publie.publication?.raison, frais.publication?.raison],
 	] as const) {
 		if (a !== b) ecarts.push(`${cle}: publié ${chaine(a)} / script ${chaine(b)}`);
 	}
@@ -99,6 +101,11 @@ async function main(): Promise<void> {
 		console.log(
 			"motifs : " +
 				rapport.parMotif.map((m) => `${m.motif}=${m.incidents}`).join(" · "),
+		);
+		console.log(
+			rapport.publication.publiable
+				? "publication : chiffre publiable (quatre seuils franchis)"
+				: `publication : ${rapport.publication.mention} : ${rapport.publication.raison}`,
 		);
 		console.log(`rapport publié : ${relative(RACINE, cible)}`);
 	} finally {

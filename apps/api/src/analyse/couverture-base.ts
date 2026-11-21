@@ -18,6 +18,10 @@ import {
 	type CorpusConsolide,
 	type IncidentCorpus,
 } from "./corpus-couverture.js";
+import {
+	evaluerSeuilsCouverture,
+	type VerdictSeuilsCouverture,
+} from "./seuils-couverture.js";
 
 /** Requête exécutable sur un pool PG ; garde l'injection possible pour les tests. */
 export type ExecuteurSQL = <T = any>(texte: string, params?: unknown[]) => Promise<{ rows: T[] }>;
@@ -89,6 +93,11 @@ SELECT (SELECT max(collected_at)::date FROM event) AS derniere_collecte,
        (SELECT count(*)::int FROM event_archive) AS evenements_archives,
        (SELECT count(*)::int FROM source) AS sources,
        (SELECT count(*)::text FROM org) AS organisations`.trim();
+
+/** Référentiel entreprises : les secteurs attendus sont vérifiés avant publication. */
+export const SQL_SECTEURS = `
+SELECT COALESCE(sector, kind) AS secteur, count(*)::text AS n
+  FROM org WHERE kind = 'entreprise' GROUP BY 1 ORDER BY 2 DESC`.trim();
 
 type EvenementRow = {
 	table_source: "event" | "event_archive";
@@ -172,6 +181,8 @@ export type RapportCouverture = {
 	fenetre: { debut: string; fin: string };
 	sequenceCorpus: string;
 	base: EtatBaseRow & { empreinte: string };
+	/** Verdict des quatre seuils de publication, calculé avant le taux. */
+	publication: VerdictSeuilsCouverture;
 	global: LigneCouverture;
 	parMotif: Array<{ motif: Motif; incidents: number; part: number }>;
 	parDepartement: Array<LigneCouverture & { departement: string }>;
@@ -274,7 +285,11 @@ export async function mesurerCouverture(options?: {
 }): Promise<RapportCouverture> {
 	const sql = options?.query ?? (queryBase as ExecuteurSQL);
 	const corpus = options?.corpus ?? consoliderCorpus();
-	const etatBrut = (await sql<EtatBaseRow>(SQL_ETAT_BASE)).rows[0];
+	const [etatResultat, secteurs] = await Promise.all([
+		sql<EtatBaseRow>(SQL_ETAT_BASE),
+		sql<{ secteur: string; n: string }>(SQL_SECTEURS),
+	]);
+	const etatBrut = etatResultat.rows[0];
 	const etat: EtatBaseRow = etatBrut
 		? {
 				...etatBrut,
@@ -290,6 +305,12 @@ export async function mesurerCouverture(options?: {
 				organisations: "0",
 			};
 	const empreinteBase = createHash("sha256").update(JSON.stringify(etatBrut ?? null)).digest("hex");
+	const dates = corpus.incidents.map((i) => i.date_publication).sort();
+	const publication = evaluerSeuilsCouverture({
+		incidents: corpus.incidents.map((i) => ({ date: i.date_publication, source: i.source })),
+		fenetre: { debut: dates[0], fin: dates[dates.length - 1] },
+		parSecteur: Object.fromEntries(secteurs.rows.map((r) => [r.secteur, Number(r.n)])),
+	});
 
 	const incidents: PreuveIncident[] = [];
 	for (const incident of corpus.incidents) {
@@ -405,7 +426,6 @@ export async function mesurerCouverture(options?: {
 		return { motif, incidents: nb, part: tauxPourcent(nb, total) };
 	});
 	const verdicts = new Map(incidents.map((i) => [i.id, i]));
-	const dates = corpus.incidents.map((i) => i.date_publication).sort();
 
 	return {
 		dateCalcul: etat?.derniere_collecte ?? etat?.derniere_execution ?? "inconnue",
@@ -413,6 +433,7 @@ export async function mesurerCouverture(options?: {
 		fenetre: { debut: dates[0], fin: dates[dates.length - 1] },
 		sequenceCorpus: corpus.doublons.length === 0 ? "stable" : `doublons ignorés : ${corpus.doublons.join(", ")}`,
 		base: { ...etat, empreinte: empreinteBase },
+		publication,
 		global: { vus, total, taux: tauxPourcent(vus, total) },
 		parMotif,
 		parDepartement: decomposer(
