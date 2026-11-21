@@ -21,40 +21,7 @@ import { createOrgFromHintTx, InvalidHintError, type CreateOrgFromHintResult } f
 import { normalizeName, promoteOneTx, type PromoteOneResult } from "../quarantine/promote.js";
 import { appendReview, applyReview, reviewQueue, type ReviewEntry } from "../quarantine/review.js";
 import type { TriageBucket } from "../quarantine/triage.js";
-
-const TITRE_MAX = 200;
-const EXTRAIT_MAX = 240;
-
-/**
- * Contexte minimum pour décider : le titre structuré par le collecteur quand
- * il existe, sinon la première ligne non vide du texte brut. L'extrait reste
- * une tranche brute de `raw_body`, sans mise en forme.
- */
-function titreExtrait(rawBody: string | null, titreSource: string | null): string | null {
-	const titre = (titreSource ?? "").trim();
-	if (titre) return titre.slice(0, TITRE_MAX);
-	const premiereLigne = (rawBody ?? "")
-		.split(/\r?\n/)
-		.map((ligne) => ligne.trim())
-		.find((ligne) => ligne.length > 0);
-	return premiereLigne ? premiereLigne.slice(0, TITRE_MAX) : null;
-}
-
-/** Une seule requête groupée : la file affiche au plus 200 lignes. */
-async function contextesDes(ids: readonly number[]): Promise<Map<number, { titre: string | null; extrait: string | null }>> {
-	if (ids.length === 0) return new Map();
-	const r = await query<{ id: number; raw_body: string | null; titre_source: string | null }>(
-		`SELECT id, left(raw_body, 500) AS raw_body,
-		        COALESCE(NULLIF(btrim(extracted->>'title'), ''),
-		                 NULLIF(btrim(extracted->>'titre_brut'), '')) AS titre_source
-		   FROM quarantine_raw WHERE id = ANY($1::bigint[])`,
-		[ids],
-	);
-	return new Map(r.rows.map((row) => [Number(row.id), {
-		titre: titreExtrait(row.raw_body, row.titre_source),
-		extrait: row.raw_body === null ? null : row.raw_body.slice(0, EXTRAIT_MAX),
-	}]));
-}
+import { parseBody, invalidBody } from "./body-validation.js";
 
 const QueueQuery = z.object({
 	limit: z.coerce.number().int().min(1).max(200).default(50),
@@ -76,11 +43,6 @@ const DecisionBody = z.object({
 	(body) => body.decision !== "creer" || body.orgId === undefined,
 	{ message: "orgId interdit pour une création", path: ["orgId"] },
 );
-
-function zodBadRequest(error: z.ZodError): never {
-	throw badRequest("invalid input",
-		error.issues.map((issue) => ({ path: issue.path.join("."), message: issue.message })));
-}
 
 /** Refus massif : une seule raison, un seul lot journalisé. */
 const RefuserSansIndiceBody = z.object({
@@ -118,13 +80,14 @@ export default async function (app: FastifyInstance) {
 	const ecritureRateLimit = rateLimit({ max: 20, windowMs: 60_000 });
 	/** Revendications en attente avec indice, candidats et règle de refus. */
 	app.get("/review/queue", { preHandler: requireAuth() }, async (req, reply) => {
-		const parsed = QueueQuery.safeParse(req.query ?? {});
-		if (!parsed.success) zodBadRequest(parsed.error);
+		const parsed = parseBody(QueueQuery, req.query ?? {});
+		if (!parsed.success) return invalidBody(reply, parsed.error);
 		const { limit, page, offset, cursor, bucket, q } = parsed.data;
 		const result = await reviewQueue({
 			status: "pending",
 			onlyPendingWithHint: true,
 			enriched: true,
+			avecContexte: true,
 			limit,
 			page,
 			offset,
@@ -132,7 +95,6 @@ export default async function (app: FastifyInstance) {
 			bucket: bucket as TriageBucket | undefined,
 			q: q ?? null,
 		});
-		const contextes = await contextesDes(result.rows.map((row) => row.id));
 		const corps = {
 			rows: result.rows.map((row) => ({
 				id: row.id,
@@ -149,8 +111,9 @@ export default async function (app: FastifyInstance) {
 				city: row.city ?? null,
 				dept: row.dept ?? null,
 				review: row.review,
-				titre: contextes.get(row.id)?.titre ?? null,
-				extrait: contextes.get(row.id)?.extrait ?? null,
+				titre: row.titre ?? null,
+				extrait: row.extrait ?? null,
+				contexte: row.contexte ?? null,
 			})),
 			total: result.total,
 			page: result.page,
@@ -205,8 +168,8 @@ export default async function (app: FastifyInstance) {
 		"/review/refuser-sans-indice",
 		{ preHandler: [ecritureRateLimit, requireRole("admin")] },
 		async (req, reply) => {
-			const parsed = RefuserSansIndiceBody.safeParse(req.body ?? {});
-			if (!parsed.success) zodBadRequest(parsed.error);
+			const parsed = parseBody(RefuserSansIndiceBody, req.body);
+			if (!parsed.success) return invalidBody(reply, parsed.error);
 			const { raison } = parsed.data;
 			const acteur = req.user!.email;
 			const entry: ReviewEntry = {
@@ -268,8 +231,8 @@ export default async function (app: FastifyInstance) {
 			if (!Number.isInteger(id) || id <= 0) {
 				throw badRequest("invalid id");
 			}
-			const parsed = DecisionBody.safeParse(req.body ?? {});
-			if (!parsed.success) zodBadRequest(parsed.error);
+			const parsed = parseBody(DecisionBody, req.body);
+			if (!parsed.success) return invalidBody(reply, parsed.error);
 			const { decision, raison } = parsed.data;
 			const orgId = parsed.data.orgId;
 			const actor = req.user!.email;

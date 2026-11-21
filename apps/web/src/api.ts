@@ -776,6 +776,44 @@ export type OrgDetail = {
   corroboration?: Corroboration;
   /** Absent des serveurs antérieurs au profil historique. */
   historique?: Historique;
+  /** Réponses publiées au titre du droit de réponse (serveur récent). */
+  rectifications?: RectificationsOrg;
+};
+
+/** Motif d'une demande de rectification (droit de réponse, RGPD). */
+export type MotifRectification = "inexactitude" | "omission" | "suppression" | "autre";
+
+/** Réponse publiée, affichée sur la fiche de l'organisation. */
+export type RectificationPubliee = {
+  id: number;
+  reference: string;
+  organisation: string;
+  motif: MotifRectification;
+  message: string;
+  publishedAt: string | null;
+  decisionMotif: string | null;
+};
+
+export type RectificationsOrg = { total: number; items: RectificationPubliee[] };
+
+/** Corps envoyé par une organisation nommée pour demander une rectification. */
+export type DemandeRectification = {
+  orgId: number;
+  organisation: string;
+  contactNom?: string;
+  email: string;
+  domaine?: string;
+  motif: MotifRectification;
+  message: string;
+  pieceJointeRef?: string;
+};
+
+export type AccuseRectification = {
+  id: number;
+  reference: string;
+  statut: string;
+  createdAt: string;
+  prochaineEtape: string;
 };
 
 /** Alerte poussée par le flux SSE (`event: alert`). */
@@ -894,31 +932,49 @@ export type ReviewQueueResponse = {
   tookMs: number;
 };
 
-/** Une décision de revue telle que consignée dans le journal (GET /api/journal/review). */
+/** One auditable entry: every journal kind, with its proof (raw payload). */
 export type JournalDecision = {
   id: number;
+  /** Exact journal kind: review.decided, org.created, org.changed, alert.changed… */
+  kind: string;
   sujet: string;
-  /** Auteur brut du journal : `humain:email`, `moteur:triage`… */
+  /** Raw author from the journal: `humain:email`, `moteur:triage`… */
   acteur: string;
-  /** Horodatage d'enregistrement du fait (recorded_at), ISO ou texte PG. */
+  /** Recording timestamp (recorded_at), ISO or PostgreSQL text. */
   horodatage: string;
   decision: "accepter" | "refuser" | "creer" | null;
-  /** Indice de la revendication, ou sujet du fait quand il n'y en a pas. */
+  /** Claim hint, or the subject when there is none. */
   indice: string | null;
   raison: string | null;
+  /** Human-readable summary written at the time of the fact. */
+  resume: string | null;
+  /** Raw payload: the evidence and context of the entry. */
+  preuve: Record<string, unknown>;
+};
+
+export type JournalReviewParams = {
+  limite?: number;
+  avant?: number | null;
+  /** "all" (default), "review", "publication", "correction" or an exact kind. */
+  kind?: string;
+  actor?: string;
+  q?: string;
+  du?: string;
+  au?: string;
 };
 
 type JournalReviewResponseRaw = {
   rows: JournalDecision[];
   limite: number;
+  /** Next-page cursor; null = last page. */
   avant: number | null;
 };
 
 export type JournalReviewResponse = {
   rows: JournalDecision[];
-  limit: number;
-  /** Cursor for the next page; null = last page. */
-  nextCursor: number | null;
+  limite: number;
+  /** Next-page cursor; null = last page. */
+  avant: number | null;
 };
 
 export type ReviewAction = "promote" | "reject" | "review" | "undo";
@@ -948,6 +1004,18 @@ export type CouvertureResponse = {
   /** Vrai quand le hash servi diverge de la référence : chiffre non publiable. */
   stale: boolean;
 };
+/** Query string shared by the JSON journal and its CSV export. */
+function journalQuery(params: JournalReviewParams, withCursor = true): string {
+  const qs = new URLSearchParams();
+  if (withCursor && params.limite !== undefined) qs.set("limite", String(params.limite));
+  if (withCursor && params.avant !== undefined && params.avant !== null) qs.set("avant", String(params.avant));
+  if (params.kind && params.kind !== "all") qs.set("kind", params.kind);
+  if (params.actor) qs.set("acteur", params.actor);
+  if (params.q) qs.set("q", params.q);
+  if (params.du) qs.set("du", params.du);
+  if (params.au) qs.set("au", params.au);
+  return qs.toString();
+}
 
 export const api = {
   login: (email: string, password: string) => postJson<LoginResponse>("/auth/login", { email, password }),
@@ -968,16 +1036,21 @@ export const api = {
   },
   reviewAction: (ids: number[], action: ReviewAction, reason?: string) =>
     postJson<ReviewOutcome>("/quarantine/review", { ids, action, reason: reason ?? "" }),
-  /** Review decision journal — read-only, cursor-based pagination. */
-  journalReview: async (limit = 100, before: number | null = null, signal?: AbortSignal) => {
-    const qs = new URLSearchParams({ limite: String(limit) });
-    if (before !== null) qs.set("avant", String(before));
-    const response = await get<JournalReviewResponseRaw>(`/journal/review?${qs.toString()}`, signal);
-    return {
-      rows: response.rows,
-      limit: response.limite,
-      nextCursor: response.avant,
-    };
+  /** Auditable journal — every decision kind, filtered, cursor-paginated. */
+  journalReview: (params: JournalReviewParams = {}, signal?: AbortSignal) => {
+    return get<JournalReviewResponse>(`/journal/review?${journalQuery(params)}`, signal);
+  },
+  /**
+   * CSV of the very same filtered list. The token cannot be sent through a
+   * plain link (the export is admin-only), so we fetch a Blob and let the
+   * browser download it with the filename from Content-Disposition.
+   */
+  journalExport: async (params: JournalReviewParams = {}, signal?: AbortSignal): Promise<Blob> => {
+    const res = await fetch(`${BASE}/journal/review/export.csv?${journalQuery(params, false)}`, {
+      headers: authHeaders(), signal,
+    });
+    if (!res.ok) throw apiError("/journal/review/export.csv", res.status);
+    return res.blob();
   },
   directory: (params: DirectoryQuery = {}, signal?: AbortSignal) => {
     const qs = new URLSearchParams();
@@ -995,6 +1068,8 @@ export const api = {
     return get<DirectoryResponse>(`/directory${suffix ? `?${suffix}` : ""}`, signal);
   },
   orgDetail: (id: number) => get<OrgDetail>(`/orgs/${id}`),
+  rectificationsOrg: (orgId: number) => get<RectificationsOrg>(`/orgs/${orgId}/rectifications`),
+  demanderRectification: (body: DemandeRectification) => postJson<AccuseRectification>("/rectifications", body),
   search: (q: string) => get<SearchResponse>(`/search?q=${encodeURIComponent(q)}`),
   events: (
     limit = 100,

@@ -4,7 +4,9 @@ import { query } from "../db.js";
 import { requireAuth, resolveUser } from "../middleware/auth.js";
 import { createOrgFromHint, createOrgFromHintSchema } from "../quarantine/from-hint.js";
 import { desaccords, regrouper, resume } from "../analyse/corroboration.js";
+import { publieesPourOrg } from "../domain/rectification.js";
 import { construireHistorique } from "../analyse/historique.js";
+import { parseBody, invalidBody } from "./body-validation.js";
 
 type OrgListRow = {
   id: number;
@@ -106,13 +108,8 @@ export default async function (app: FastifyInstance) {
    * par la source et la preuve, journalisées avec la création.
    */
   app.post("/orgs/from-hint", { preHandler: requireAuth() }, async (req, reply) => {
-    const parsed = createOrgFromHintSchema.safeParse(req.body);
-    if (!parsed.success) {
-      throw badRequest("invalid input", parsed.error.issues.map((issue) => ({
-        champ: issue.path.join("."),
-        message: issue.message,
-      })));
-    }
+    const parsed = parseBody(createOrgFromHintSchema, req.body);
+    if (!parsed.success) return invalidBody(reply, parsed.error);
     const result = await createOrgFromHint(parsed.data);
     reply.code(result.created ? 201 : 200);
     return result;
@@ -215,6 +212,7 @@ export default async function (app: FastifyInstance) {
       domainRows,
       relatedRows,
       sourceCountRows,
+      rectifications,
     ] = await Promise.all([
       query<CountRow>("SELECT COUNT(*)::int AS n FROM asset WHERE org_id=$1", [orgId]),
       query<KindRow>(
@@ -305,6 +303,7 @@ export default async function (app: FastifyInstance) {
         "SELECT COUNT(DISTINCT source_id)::int AS n FROM event WHERE org_id=$1",
         [orgId]
       ),
+      publieesPourOrg(orgId),
     ]);
 
     // Ce que l'organisation a vécu, regroupé par fait plutôt que par ligne.
@@ -415,6 +414,9 @@ export default async function (app: FastifyInstance) {
       // qu'on la voit tout le temps ? 12 mois de recul, tendance sur 90 jours
       // contre les 90 précédents.
       historique: construireHistorique(groupes),
+      // Droit de réponse : seules les rectifications publiées sont exposées
+      // sur la fiche. Les demandes en cours restent dans l'outil d'instruction.
+      rectifications,
     };
   });
 }

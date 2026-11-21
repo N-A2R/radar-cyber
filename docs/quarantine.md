@@ -87,9 +87,15 @@ appliquée et son poids sont affichés — sur une fenêtre bornée de 2 000 fai
 (`RADAR_REVIEW_WINDOW`), avec facettes et filtres.
 
 `GET /api/review/queue` ajoute à chaque ligne `titre` (métadonnée du collecteur,
-sinon première ligne non vide du texte brut) et `extrait` (`raw_body` tronqué à
-240 caractères) : c'est le contexte nécessaire aux indices de famille `nom`,
-qui n'ont ni domaine ni sigle pour guider la décision.
+sinon première ligne non vide du texte brut), `extrait` (début de `raw_body`
+tronqué à 240 caractères) et `contexte` : `extrait` est une fenêtre de 300
+caractères du texte source centrée sur l'indice, `candidats` liste les trois
+organisations dont le nom a la plus forte similarité (`ratio` rapidfuzz,
+bornent le coût : la mesure A/B locale (12 paires, 50 lignes, 4 462
+organisations) donne +48 ms de temps CPU en moyenne, +39 ms sur la médiane.
+Le temps mural n'est pas comparable sous la charge partagée de la machine
+(plusieurs其他 travaux concurrently) : la mesure initiale, avant ajout, était
+de 114,5 ms en moyenne (p50 109,6 ms, p95 148,3 ms).
 
 Les décisions sont journalisées dans `extracted->_review` (`{at, by, action,
 reason}`), **retiré du champ `extracted` renvoyé** et exposé par un champ `review`

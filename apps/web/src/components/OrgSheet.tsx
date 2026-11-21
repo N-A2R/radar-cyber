@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { api, type ApiError, type OrgDetail as OrgDetailData, type OrgLien } from "../api";
 import { renduCorroboration, renduHistorique } from "./corroboration-view";
 import { mockOrgDetail } from "../mock";
+import { DroitReponseBloc } from "./DroitReponseSection";
 import "./orgsheet.css";
 
 type LoadState =
@@ -271,6 +272,13 @@ export function OrgSheetBody({ data }: { data: OrgDetailData }) {
           </ul>
         )}
       </section>
+
+      <DroitReponseBloc
+        orgId={org.id}
+        organisation={org.name}
+        domain={org.domain}
+        initial={data.rectifications}
+      />
 
       <section className="orgsheet__section">
         <h3 className="orgsheet__section-title">exposition sur 12 mois</h3>

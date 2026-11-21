@@ -3,7 +3,6 @@ import { languageVerdict } from "./collectors/filter.js";
 import { scoreEventPertinence } from "./collectors/pertinence.js";
 import type { CollectContext, Collector, NormalizedEvent } from "@radar/shared";
 import cors from "@fastify/cors";
-import helmet from "@fastify/helmet";
 import rateLimit from "@fastify/rate-limit";
 import fastifyStatic from "@fastify/static";
 import { existsSync } from "node:fs";
@@ -25,33 +24,11 @@ import { runRetention } from "./maintenance/retention.js";
 import { runDetectionPass } from "./detect/incremental.js";
 import { capterAlertesRupture } from "./analyse/rupture.js";
 import { capterAgentsCpu } from "./analyse/agents-cpu.js";
-import healthDetailRoute from "./routes/health-detail.js";
-import healthCausesRoute from "./routes/health-causes.js";
-import collecteMetricsRoute from "./routes/collecte-metrics.js";
-import eventsRoute from "./routes/events.js";
-import historyRoute from "./routes/history.js";
-import todayRoute from "./routes/today.js";
-import statsDepartementsRoute from "./routes/stats-departements.js";
-import couvertureRoute from "./routes/couverture.js";
-import flowsRoute from "./routes/flows.js";
-import graphRoute from "./routes/graph.js";
-import orgsRoute from "./routes/orgs.js";
-import directoryRoute from "./routes/directory.js";
-import naRoute from "./routes/na.js";
-import searchRoute from "./routes/search.js";
-import sourcesRoute from "./routes/sources.js";
-import statsRoute from "./routes/stats.js";
-import corpusStatsRoute from "./routes/corpus-stats.js";
-import streamRoute from "./routes/stream.js";
-import alertsRoute from "./routes/alerts.js";
-import quarantineRoute from "./routes/quarantine.js";
-import reviewRoute from "./routes/review.js";
-import journalRoute from "./routes/journal.js";
-import orgsLieesRoute from "./routes/orgs-liees.js";
-import orgsLieesHistoriqueRoute from "./routes/orgs-liees-historique.js";
-import ingestRoute from "./routes/ingest.js";
-import { requireRole, resolveUser } from "./middleware/auth.js";
-import { installErrorHandler, unauthorized } from "./errors.js";
+import { requireRole } from "./middleware/auth.js";
+import { registerApiRoutes } from "./routes/index.js";
+import { installAccessControl } from "./security/rbac.js";
+import { installSecurityHeaders } from "./security/headers.js";
+import { installErrorHandler } from "./errors.js";
 
 const port = Number(process.env.PORT ?? 8080);
 /** Cadence de la boucle de collecte. */
@@ -63,8 +40,10 @@ const QUARANTINE_MS = Number(process.env.RADAR_QUARANTINE_TICK_MS ?? 30 * 60 * 1
 /** Cadence de diffusion des alertes (défaut : 2 min). Aucun effet si non configuré. */
 const ALERT_DELIVERY_MS = Number(process.env.RADAR_ALERT_DELIVERY_TICK_MS ?? 2 * 60 * 1000);
 
-const app = Fastify({ logger: true });
+const app = Fastify({ logger: true, bodyLimit: 1024 * 1024 });
 installErrorHandler(app);
+// Avant toute route : matrices d'accès, identifiant de corrélation et audit.
+installAccessControl(app);
 
 /** Origines autorisées pour le cross-origin, séparées par des virgules.
  *  Vide = aucune origine croisée (le front est servi depuis la même origine). */
@@ -74,14 +53,26 @@ const corsOrigins = (process.env.RADAR_CORS_ORIGINS ?? "")
   .filter(Boolean);
 
 await app.register(cors, { origin: corsOrigins.length > 0 ? corsOrigins : false });
+await installSecurityHeaders(app);
 
-/** En-têtes de sécurité sur toutes les réponses (nosniff, frameguard,
- *  referrer-policy, HSTS). Le CSP reste à la charge de la couche qui sert du
- *  HTML (le dist statique sur la box) : l'API ne sert que du JSON. */
-await app.register(helmet, { contentSecurityPolicy: false });
-
-/* Limite globale généreuse ; les routes sensibles resserrent via config.rateLimit. */
-await app.register(rateLimit, { global: false });
+/**
+ * Limite globale, par utilisateur authentifié ou par adresse IP. Les routes
+ * sensibles resserrent la limite via `config.rateLimit` (connexion, demande
+ * de rectification). Le payload d'erreur garde le format `{ error: {...} }`.
+ */
+await app.register(rateLimit, {
+  global: true,
+  max: Number(process.env.RADAR_RATE_LIMIT_MAX ?? 300),
+  timeWindow: Number(process.env.RADAR_RATE_LIMIT_WINDOW_MS ?? 60_000),
+  keyGenerator: (req) => (req.user ? `user:${req.user.id}` : `ip:${req.ip}`),
+  errorResponseBuilder: (_req, context) => ({
+    error: {
+      code: "RATE_LIMIT_EXCEEDED",
+      message: "too many requests",
+      details: { retryAfter: Number(context.after), max: context.max },
+    },
+  }),
+});
 
 /**
  * Porte d'entrée : le dist de `apps/web` servi par l'API même — une seule
@@ -98,62 +89,9 @@ if (existsSync(webDist)) {
   app.log.warn(`front statique absent (${webDist}) : pnpm -F @radar/web build`);
 }
 
-/**
- * Auth : lectures publiques (observatoire consultable sur le réseau local),
- * écritures protégées. Un token valide est attaché à la requête s'il est fourni,
- * ce qui permet au front d'adapter l'UI au rôle.
- */
-const PUBLIC_READ = /^\/api\/(health|stats|sources|collecte|flows|search|directory|graph|stream|events|history|orgs|enrich|alerts|quarantine|dossier|healthz|na|today|couverture|corpus)(\/|$|\?)/;
-
-app.addHook("onRequest", async (req, reply) => {
-  const url = req.url.split("?")[0];
-  // Hors `/api` : le front statique. Fichiers publics (HTML, JS, CSS) — la
-  // garde d'authentification ne s'applique qu'aux routes API, sinon la racine
-  // répond 401 et rien n'est ouvrable.
-  if (!url.startsWith("/api/")) return;
-  if (url === "/api/health") return;
-  if (url.startsWith("/api/auth/")) return;
-  const user = await resolveUser(req);
-  if (req.method !== "GET" || !PUBLIC_READ.test(url)) {
-    if (!user) throw unauthorized();
-  }
-  if (user) req.user = user;
-});
-
-app.get("/api/health", async () => {
-  const r = await query<{ n: string }>("SELECT count(*)::text AS n FROM source");
-  return { ok: true, sources: Number(r.rows[0]?.n ?? 0) };
-});
-
-await app.register(eventsRoute, { prefix: "/api" });
-await app.register(historyRoute, { prefix: "/api" });
-await app.register(healthDetailRoute, { prefix: "/api" });
-await app.register(healthCausesRoute, { prefix: "/api" });
-await app.register(collecteMetricsRoute, { prefix: "/api" });
-await app.register(todayRoute, { prefix: "/api" });
-await app.register(statsDepartementsRoute, { prefix: "/api" });
-await app.register(couvertureRoute, { prefix: "/api" });
-await app.register(flowsRoute, { prefix: "/api" });
-await app.register(orgsRoute, { prefix: "/api" });
-
-await app.register(directoryRoute, { prefix: "/api" });
-await app.register(naRoute, { prefix: "/api" });
-await app.register(graphRoute, { prefix: "/api" });
-await app.register(streamRoute, { prefix: "/api" });
-await app.register(sourcesRoute, { prefix: "/api" });
-await app.register(statsRoute, { prefix: "/api" });
-await app.register(corpusStatsRoute, { prefix: "/api" });
-await app.register(searchRoute, { prefix: "/api" });
-await app.register((await import("./routes/enrich.js")).default, { prefix: "/api" });
-await app.register((await import("./routes/auth.js")).default, { prefix: "/api" });
-await app.register(alertsRoute, { prefix: "/api" });
-await app.register(quarantineRoute, { prefix: "/api" });
-await app.register(reviewRoute, { prefix: "/api" });
-await app.register(journalRoute, { prefix: "/api" });
-await app.register(orgsLieesRoute, { prefix: "/api" });
-await app.register(orgsLieesHistoriqueRoute, { prefix: "/api" });
-await app.register(ingestRoute, { prefix: "/api" });
-await app.register((await import("./routes/dossier.js")).default, { prefix: "/api" });
+/** Toutes les routes API sont déclarées dans un registre unique, audité par
+ *  le test de couverture des règles d'accès. */
+await registerApiRoutes(app);
 
 /** Contexte fourni aux collecteurs : HTTP résilient, jamais de fetch nu. */
 function makeContext(cursor: Record<string, unknown>, log: (msg: string) => void): CollectContext {
@@ -413,7 +351,7 @@ if (COLLECT) {
 	void guarded("quarantaine", () => runQuarantineCollector(log));
 	void guarded("rétention", async () => {
 		const r = await runRetention(log);
-		log(`rétention : ${r.events} événement(s), ${r.indicators} indicateur(s), ${r.collectorRuns} run(s), ${r.cyclesSupervision} cycle(s) purgé(s)`);
+		log(`rétention : ${r.events} événement(s), ${r.indicators} indicateur(s), ${r.collectorRuns} run(s), ${r.cyclesSupervision} cycle(s) purgé(s), ${r.accessLog} accès`);
 	});
 
 	// Détection : après chaque vague de collecte, sur un lot borné. Sans ce
@@ -459,7 +397,7 @@ if (COLLECT) {
 		void guarded("hermes", () => runHermesCollector(log));
 		void guarded("rétention", async () => {
 			const r = await runRetention(log);
-			log(`rétention : ${r.events} événement(s), ${r.indicators} indicateur(s), ${r.collectorRuns} run(s), ${r.cyclesSupervision} cycle(s) purgé(s)`);
+			log(`rétention : ${r.events} événement(s), ${r.indicators} indicateur(s), ${r.collectorRuns} run(s), ${r.cyclesSupervision} cycle(s) purgé(s), ${r.accessLog} accès`);
 		});
 	}, RETENTION_MS);
 

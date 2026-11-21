@@ -1,14 +1,15 @@
 /**
- * Vérification du filtre pur et du rendu SSR de l'écran Journal.
- * Aucune base, aucun navigateur — les composants sont alimentés par un jeu de
- * données typé, exactement comme le navigateur le sera par l'API.
+ * Unit checks for the audit journal: pure filtering and SSR rendering.
+ * No database, no browser — the components receive the same typed rows the
+ * browser gets from GET /api/journal/review.
  */
 import type { ComponentProps } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import type { JournalDecision } from "../src/api";
 import JournalList, { DECISION_UNSPECIFIED } from "../src/components/JournalListe";
-import JournalView, { filterJournal } from "../src/components/JournalView";
-import type { JournalFilters } from "../src/components/JournalView";
+import JournalView, {
+  filterJournal, journalApiParams, type JournalFilters,
+} from "../src/components/JournalView";
 
 let failures = 0;
 function check(label: string, ok: boolean, detail = "") {
@@ -16,71 +17,123 @@ function check(label: string, ok: boolean, detail = "") {
   if (!ok) failures++;
 }
 
-const decisions: JournalDecision[] = [
-  { id: 46, sujet: "quarantine:21", acteur: "humain:analyste@radar.local", horodatage: "2026-11-21 14:03:12+00", decision: "accepter", indice: "Hôpital de Pessac", raison: "alias vérifié sur le site officiel" },
-  { id: 45, sujet: "quarantine:20", acteur: "HUMAIN:admin@radar.local", horodatage: "2026-11-21 11:20:00+00", decision: "refuser", indice: "Groupe fictif", raison: "indice hors périmètre" },
-  { id: 44, sujet: "quarantine:19", acteur: "moteur:triage", horodatage: "2026-11-20 09:00:00+00", decision: "creer", indice: "CHU Bordeaux", raison: "domaine officiel confirmé" },
-  { id: 43, sujet: "quarantine:18", acteur: "moteur:triage", horodatage: "2026-11-20 07:12:00+00", decision: null, indice: null, raison: null },
-  { id: 42, sujet: "quarantine:17", acteur: "humain:relecteur@radar.local", horodatage: "2026-11-19 18:30:00+00", decision: "accepter", indice: "Institut Pasteur", raison: "source institutionnelle" },
-  { id: 41, sujet: "quarantine:16", acteur: "humain:analyste@radar.local", horodatage: "2026-11-19 08:15:00+00", decision: "refuser", indice: "Association bidon", raison: "aucune trace publique" },
+const rows: JournalDecision[] = [
+  {
+    id: 46, kind: "review.decided", sujet: "quarantine:21",
+    acteur: "humain:analyste@radar.local", horodatage: "2026-11-21 14:03:12+00",
+    decision: "accepter", indice: "Hôpital de Pessac",
+    raison: "alias verified on the official site", resume: "accept by analyste — alias verified",
+    preuve: { decision: "accepter", reason: "alias verified on the official site", orgId: 101 },
+  },
+  {
+    id: 45, kind: "review.decided", sujet: "quarantine:20",
+    acteur: "HUMAIN:admin@radar.local", horodatage: "2026-11-21 11:20:00+00",
+    decision: "refuser", indice: "Groupe fictif", raison: "claim outside the scope",
+    resume: "reject by admin — claim outside the scope", preuve: { action: "reject", orgId: null },
+  },
+  {
+    id: 44, kind: "org.created", sujet: "org:chu-bordeaux",
+    acteur: "moteur:triage", horodatage: "2026-11-20 09:00:00+00",
+    decision: "creer", indice: "CHU Bordeaux", raison: "official domain confirmed",
+    resume: "organisation created from the claim CHU Bordeaux",
+    preuve: { preuve: "https://www.chu-bordeaux.fr", orgId: 102, nomBrut: "CHU Bordeaux" },
+  },
+  {
+    id: 43, kind: "org.changed", sujet: "org:chu-bordeaux",
+    acteur: "moteur:triage", horodatage: "2026-11-20 07:12:00+00",
+    decision: null, indice: "CHU Bordeaux", raison: "name completed",
+    resume: "CHU Bordeaux : name completed",
+    preuve: { changements: { name: { avant: null, apres: "CHU Bordeaux" } } },
+  },
+  {
+    id: 42, kind: "alert.changed", sujet: "alert:rupture:effectif:77",
+    acteur: "moteur:rupture@1", horodatage: "2026-11-19 18:30:00+00",
+    decision: null, indice: "Institut Pasteur", raison: "staff drop detected",
+    resume: "rupture : alert created — staff drop detected",
+    preuve: { agent: "effectif", orgId: 77, score: 0.91 },
+  },
+  {
+    id: 41, kind: "match.refuse", sujet: "quarantine:17",
+    acteur: "humain:relecteur@radar.local", horodatage: "2026-11-19 08:15:00+00",
+    decision: null, indice: "Association bidon", raison: "no public trace",
+    resume: "rattachement refused by the precision rule",
+    preuve: { regle: "PAS_DE_TRACE", quarantineId: 17 },
+  },
 ];
 
-/** Identifiants dans l'ordre, pour vérifier à la fois le filtre et l'ordre d'origine. */
-const ids = (rows: JournalDecision[]) => rows.map((row) => row.id).join(",");
-const filtre = (patch: JournalFilters) => filterJournal(decisions, patch);
+const ids = (found: JournalDecision[]) => found.map((row) => row.id).join(",");
+const filtre = (patch: JournalFilters) => filterJournal(rows, patch);
 
-/* Filtre pur : toutes les combinaisons sont déterministes et sans effet de bord. */
-check("acteur : sous-chaîne insensible à la casse",
-  ids(filtre({ actor: "ANALYSTE" })) === "46,41");
-check("acteur : sous-chaîne au milieu d'un acteur déjà en majuscules",
+/* Pure filter: deterministic, side-effect free, original order preserved. */
+check("actor: case-insensitive substring",
+  ids(filtre({ actor: "ANALYSTE" })) === "46");
+check("actor: substring in an already uppercase actor",
   ids(filtre({ actor: "Moteur:TRIAGE" })) === "44,43");
-check("acteur absent ou vide : aucune restriction",
-  ids(filtre({})) === "46,45,44,43,42,41" && ids(filtre({ actor: "" })) === ids(filtre({})));
-check("acteur sans correspondance : liste vide", filtre({ actor: "robot" }).length === 0);
+check("actor absent or blank: no restriction",
+  ids(filtre({})) === "46,45,44,43,42,41" && ids(filtre({ actor: "  " })) === ids(filtre({})));
+check("actor with no match: empty list", filtre({ actor: "robot" }).length === 0);
 
-check("décision accepter", ids(filtre({ decision: "accepter" })) === "46,42");
-check("décision refuser", ids(filtre({ decision: "refuser" })) === "45,41");
-check("décision creer", ids(filtre({ decision: "creer" })) === "44");
-check("décision non précisée", ids(filtre({ decision: DECISION_UNSPECIFIED })) === "43");
-check("décision absente ou vide : aucune restriction",
-  ids(filtre({ decision: undefined })) === ids(filtre({})) && ids(filtre({ decision: "" })) === ids(filtre({})));
+check("type: review decisions only",
+  ids(filtre({ kind: "review" })) === "46,45");
+check("type: publications only",
+  ids(filtre({ kind: "publication" })) === "44,42");
+check("type: corrections only",
+  ids(filtre({ kind: "correction" })) === "43,41");
+check("type: exact journal kind",
+  ids(filtre({ kind: "org.created" })) === "44");
+check("type: 'all' or blank: no restriction",
+  ids(filtre({ kind: "all" })) === ids(filtre({})) && ids(filtre({ kind: "" })) === ids(filtre({})));
 
-check("borne du seulement", ids(filtre({ from: "2026-11-20" })) === "46,45,44,43");
-check("borne au seulement", ids(filtre({ to: "2026-11-20" })) === "44,43,42,41");
-check("bornes inclusives sur un même jour",
+check("search: subject, summary and reason",
+  ids(filtre({ q: "ALIAS VERIFIED" })) === "46"
+  && ids(filtre({ q: "name completed" })) === "43"
+  && ids(filtre({ q: "alert:rupture" })) === "42");
+check("search: raw evidence (URL and rule)",
+  ids(filtre({ q: "chu-bordeaux.fr" })) === "44"
+  && ids(filtre({ q: "PAS_DE_TRACE" })) === "41");
+check("search: actor", ids(filtre({ q: "relecteur" })) === "41");
+check("search: blank or absent: no restriction",
+  ids(filtre({ q: "  " })) === ids(filtre({})) && ids(filtre({ q: "nothing here" })) === "");
+
+check("from bound only", ids(filtre({ from: "2026-11-20" })) === "46,45,44,43");
+check("to bound only", ids(filtre({ to: "2026-11-20" })) === "44,43,42,41");
+check("inclusive bounds on the same day",
   ids(filtre({ from: "2026-11-20", to: "2026-11-20" })) === "44,43");
-check("deux bornes distinctes",
+check("distinct bounds",
   ids(filtre({ from: "2026-11-19", to: "2026-11-20" })) === "44,43,42,41");
-check("plage sans aucune ligne",
-  filtre({ from: "2026-11-22", to: "2026-11-30" }).length === 0);
+check("range with no rows", filtre({ from: "2026-11-22", to: "2026-11-30" }).length === 0);
 
-check("combinaison acteur + décision + plage",
-  ids(filtre({ actor: "humain", decision: "accepter", from: "2026-11-19", to: "2026-11-21" })) === "46,42");
-check("combinaison moteur + non précisée + borne du",
-  ids(filtre({ actor: "moteur", decision: DECISION_UNSPECIFIED, from: "2026-11-20" })) === "43");
+check("combination actor + type + period",
+  ids(filtre({ actor: "humain", kind: "review", from: "2026-11-19", to: "2026-11-21" })) === "46,45");
+check("combination search + correction",
+  ids(filtre({ q: "PAS_DE_TRACE", kind: "correction" })) === "41");
 
-const sansFiltre = filtre({});
-check("aucun filtre : mêmes lignes, même ordre, mêmes références",
-  sansFiltre.length === decisions.length
-  && sansFiltre.every((row, i) => row === decisions[i])
-  && sansFiltre !== decisions);
-check("champs vides : même résultat que sans filtre",
-  ids(filtre({ actor: "", decision: "", from: "", to: "" })) === ids(sansFiltre));
+const all = filtre({});
+check("no filter: same rows, same order, same references, new array",
+  all.length === rows.length && all.every((row, i) => row === rows[i]) && all !== rows);
+check("blank fields: same result as no filter",
+  ids(filtre({ actor: "", kind: "", q: "", from: "", to: "" })) === ids(all));
 
-const avant = JSON.stringify(decisions);
-const references = [...decisions];
-const apresFiltre = filtre({ actor: "moteur", decision: "refuser" });
-check("filtrage sans mutation du tableau source",
-  apresFiltre.length === 0 && JSON.stringify(decisions) === avant
-  && decisions.every((row, i) => row === references[i]));
+const before = JSON.stringify(rows);
+const references = [...rows];
+const filtered = filtre({ actor: "moteur", kind: "review" });
+check("filtering does not mutate the source",
+  filtered.length === 0 && JSON.stringify(rows) === before
+  && rows.every((row, i) => row === references[i]));
 
-/* Rendu SSR : mêmes props qu'en navigateur, sans API ni interaction. */
-type PropsListe = ComponentProps<typeof JournalList>;
-function rendreListe(surcharges: Partial<PropsListe> = {}) {
+check("API params: filter names and trimming",
+  JSON.stringify(journalApiParams({ actor: " analyste ", q: " alias ", kind: "review", from: "2026-11-19", to: "2026-11-21" }))
+  === JSON.stringify({ kind: "review", actor: "analyste", q: "alias", du: "2026-11-19", au: "2026-11-21" }));
+check("API params: empty filters stay unset",
+  JSON.stringify(journalApiParams({})) === JSON.stringify({ kind: "all", actor: undefined, q: undefined, du: undefined, au: undefined }));
+
+/* SSR rendering: the same props as in the browser, without API or interaction. */
+type Props = ComponentProps<typeof JournalList>;
+function render(overrides: Partial<Props> = {}) {
   return renderToStaticMarkup(
     <JournalList
-      rows={decisions}
-      resultCount={decisions.length}
+      rows={rows}
+      resultCount={rows.length}
       filters={{}}
       onFilterChange={() => {}}
       onReset={() => {}}
@@ -91,86 +144,123 @@ function rendreListe(surcharges: Partial<PropsListe> = {}) {
       pageCount={2}
       onPrevious={() => {}}
       onNext={() => {}}
-      {...surcharges}
+      selected={null}
+      onSelect={() => {}}
+      onCloseDetail={() => {}}
+      onExport={() => {}}
+      exporting={false}
+      exportError={null}
+      {...overrides}
     />,
   );
 }
 
-const rendu = rendreListe();
-check("en-têtes des cinq colonnes",
-  ["Timestamp", "Actor", "Decision", "Clue", "Reason"].every((col) => rendu.includes(`>${col}</th>`)));
-check("acteur et horodatage affichés",
-  rendu.includes("humain:analyste@radar.local")
-  && rendu.includes('dateTime="2026-11-21 14:03:12+00"')
-  && rendu.includes("2026-11-21 14:03"));
-check("trois décisions (accepter / refuser / creer)",
-  (["accepter", "refuser", "creer"] as const).every((d) => rendu.includes(`data-decision="${d}"`)));
-check("indices et raisons affichés",
-  ["Hôpital de Pessac", "Groupe fictif", "CHU Bordeaux", "Institut Pasteur", "Association bidon",
-    "alias vérifié sur le site officiel", "indice hors périmètre", "domaine officiel confirmé",
-    "source institutionnelle", "aucune trace publique"].every((texte) => rendu.includes(texte)));
-check("ordre du plus récent au plus ancien",
-  rendu.indexOf("Hôpital de Pessac") < rendu.indexOf("Groupe fictif")
-  && rendu.indexOf("Groupe fictif") < rendu.indexOf("CHU Bordeaux")
-  && rendu.indexOf("CHU Bordeaux") < rendu.indexOf("Institut Pasteur")
-  && rendu.indexOf("Institut Pasteur") < rendu.indexOf("Association bidon"));
-check("compteur de résultats et libellé page X / Y",
-  rendu.includes("6 results — page 1 / 2"));
+const html = render();
+check("English column headers",
+  ["Date (UTC)", "Type", "Actor", "Decision", "Summary"].every((col) => html.includes(`>${col}</th>`)));
+check("actor and UTC timestamp rendered",
+  html.includes("humain:analyste@radar.local")
+  && html.includes('dateTime="2026-11-21 14:03:12+00"')
+  && html.includes("2026-11-21 14:03 UTC"));
+check("all three decision categories rendered",
+  ["Review decision", "Organisation created", "Organisation correction", "Alert change", "Match rejected"]
+    .every((label) => html.includes(label)));
+check("decisions are written out",
+  (["accepter", "refuser", "creer"] as const).every((d) => html.includes(`data-decision="${d}"`))
+  && html.includes("Accepted") && html.includes("Rejected") && html.includes("Created"));
+check("summaries are rendered, newest first",
+  html.indexOf("accept by analyste") < html.indexOf("reject by admin")
+  && html.indexOf("reject by admin") < html.indexOf("organisation created from the claim")
+  && html.includes("rattachement refused by the precision rule"));
+check("result count and page label in English",
+  html.includes("6 entries — page 1 / 2"));
 
-const borneHaute = rendreListe({ page: 2 });
-check("première page : Previous désactivé, Next actif",
-  /<button[^>]*disabled=""[^>]*>Previous<\/button>/.test(rendu)
-  && /<button(?![^>]*disabled)[^>]*>Next<\/button>/.test(rendu));
-check("dernière page : Next désactivé, Previous actif",
-  borneHaute.includes("page 2 / 2")
-  && /<button[^>]*disabled=""[^>]*>Next<\/button>/.test(borneHaute)
-  && /<button(?![^>]*disabled)[^>]*>Previous<\/button>/.test(borneHaute));
+check("search, actor, type, period, reset and export controls",
+  html.includes('id="journal-q"') && html.includes("subject, actor, reason, evidence…")
+  && html.includes('id="journal-actor"') && html.includes('id="journal-kind"')
+  && ["All types", "Review decisions", "Publications", "Corrections"]
+    .every((option) => html.includes(`>${option}</option>`))
+  && html.includes('id="journal-from"') && html.includes('id="journal-to"')
+  && html.includes(">Reset</button>") && html.includes("Export filtered CSV"));
 
-const filtresRendus = rendreListe({
-  filters: { actor: "ANALYSTE", decision: DECISION_UNSPECIFIED, from: "2026-11-19", to: "2026-11-21" },
-  resultCount: 2,
+check("first page: Previous disabled, Next enabled",
+  /<button[^>]*disabled=""[^>]*>Previous<\/button>/.test(html)
+  && /<button(?![^>]*disabled)[^>]*>Next<\/button>/.test(html));
+const lastPage = render({ page: 2 });
+check("last page: Next disabled, Previous enabled",
+  lastPage.includes("page 2 / 2")
+  && /<button[^>]*disabled=""[^>]*>Next<\/button>/.test(lastPage)
+  && /<button(?![^>]*disabled)[^>]*>Previous<\/button>/.test(lastPage));
+
+const filteredHtml = render({
+  filters: { actor: "moteur", kind: "publication", q: "staff", from: "2026-11-19", to: "2026-11-21" },
+  rows: [rows[4]], resultCount: 1,
 });
-const optionSelectionnee = (filtresRendus.match(/<option[^>]*selected=""[^>]*>/g) ?? []).join("");
-check("filtres affichés dans les champs",
-  filtresRendus.includes('id="journal-actor"')
-  && filtresRendus.includes('value="ANALYSTE"')
-  && optionSelectionnee.includes(`value="${DECISION_UNSPECIFIED}"`)
-  && /id="journal-from"[^>]*value="2026-11-19"/.test(filtresRendus)
-  && /id="journal-to"[^>]*value="2026-11-21"/.test(filtresRendus));
-check("compteur adapté aux résultats filtrés",
-  filtresRendus.includes("2 results — page 1 / 2"));
+check("filters reflected in the fields",
+  filteredHtml.includes('value="moteur"')
+  && /<option(?=[^>]*value="publication")(?=[^>]*selected)[^>]*>/.test(filteredHtml));
+check("search and period reflected in the fields",
+  /id="journal-q"[^>]*value="staff"/.test(filteredHtml)
+  && /id="journal-from"[^>]*value="2026-11-19"/.test(filteredHtml)
+  && /id="journal-to"[^>]*value="2026-11-21"/.test(filteredHtml));
+check("singular result label", filteredHtml.includes("1 entry — page 1 / 2"));
 
-const tronqueRendu = rendreListe({ truncated: true });
-check("troncature annoncée",
-  tronqueRendu.includes('role="status"')
-  && tronqueRendu.includes("Journal truncated to the 10,000 most recent decisions"));
+const detail = render({ selected: rows[3] });
+check("detail panel: metadata and unmodified summary",
+  detail.includes("Details of journal entry 43")
+  && detail.includes("Entry #43") && detail.includes("Organisation correction")
+  && detail.includes("moteur:triage") && detail.includes("Not specified")
+  && detail.includes("CHU Bordeaux : name completed") && detail.includes("name completed"));
+check("detail panel: context from the payload",
+  detail.includes(">Context</h3>") && detail.includes("changements")
+  && detail.includes("&quot;avant&quot;") && detail.includes("&quot;apres&quot;"));
+check("detail panel: explicit empty evidence",
+  detail.includes(">Evidence</h3>") && detail.includes("No evidence recorded for this entry."));
 
-const chargement = rendreListe({ rows: [], resultCount: 0, loading: true });
-check("état de chargement annoncé", chargement.includes('role="status"')
-  && chargement.includes("Loading journal…")
-  && (chargement.match(/disabled=""/g) ?? []).length === 2);
+const withProof = render({ selected: rows[2] });
+check("detail panel: proof extracted from the payload",
+  withProof.includes("https://www.chu-bordeaux.fr")
+  && withProof.includes(">Evidence</h3>") && withProof.includes(">Context</h3>")
+  && withProof.includes("nomBrut"));
 
-const erreur = rendreListe({ rows: [], resultCount: 0, error: "/api/journal/review → 500" });
-check("erreur affichée sans prétendre que la liste est vide",
-  erreur.includes('role="alert"') && erreur.includes("API: /api/journal/review → 500")
-  && !erreur.includes("no decisions recorded"));
+const truncated = render({ truncated: true });
+check("truncation is announced",
+  truncated.includes('role="status"')
+  && truncated.includes("Showing the 10,000 most recent entries only"));
 
-const vide = rendreListe({ rows: [], resultCount: 0, pageCount: 1 });
-check("état vide explicite", vide.includes("no decisions recorded")
-  && vide.includes("0 result — page 1 / 1") && !vide.includes('role="alert"'));
+const loading = render({ rows: [], resultCount: 0, loading: true });
+check("loading state announced and controls disabled",
+  loading.includes('role="status"') && loading.includes("Loading journal…")
+  && (loading.match(/disabled=""/g) ?? []).length >= 3);
 
-const sansDecision = rendreListe({
-  rows: [{ ...decisions[3], decision: null, raison: null, indice: null }],
-  resultCount: 1,
-  pageCount: 1,
+const error = render({ rows: [], resultCount: 0, error: "/api/journal/review → 500" });
+check("error shown without claiming the list is empty",
+  error.includes('role="alert"') && error.includes("API: /api/journal/review → 500")
+  && !error.includes("No journal entries recorded yet."));
+
+const empty = render({ rows: [], resultCount: 0, pageCount: 1 });
+check("explicit empty state without filters",
+  empty.includes("No journal entries recorded yet.")
+  && empty.includes("0 entries — page 1 / 1") && !empty.includes('role="alert"'));
+const noMatch = render({ rows: [], resultCount: 0, pageCount: 1, filters: { q: "none" } });
+check("explicit empty state with filters",
+  noMatch.includes("No journal entries match these filters."));
+
+const exportError = render({ exportError: "CSV export requires administrator access." });
+check("export error is distinct from the API error",
+  exportError.includes("CSV export requires administrator access.")
+  && exportError.includes("Export filtered CSV"));
+
+const unspecified = render({
+  rows: [{ ...rows[3] }], resultCount: 1, pageCount: 1,
 });
-check("fait sans décision ni raison reste lisible",
-  sansDecision.includes("Not specified") && sansDecision.includes('data-decision="unknown"')
-  && sansDecision.includes("—"));
+check("entry without decision stays readable",
+  unspecified.includes("Not specified") && unspecified.includes(`data-decision="${DECISION_UNSPECIFIED}"`));
 
-const ecran = renderToStaticMarkup(<JournalView />);
-check("écran monté en chargement avant la réponse API",
-  ecran.includes("Loading journal…") && ecran.includes("Journal"));
+const view = renderToStaticMarkup(<JournalView />);
+check("screen mounted in loading state before the API answers",
+  view.includes("Loading journal…") && view.includes("Audit journal")
+  && view.includes("Export filtered CSV"));
 
-console.log(failures === 0 ? "\nJournal : tous les contrôles passent." : `\nJournal : ${failures} contrôle(s) en échec.`);
+console.log(failures === 0 ? "\nJournal: all checks pass." : `\nJournal: ${failures} check(s) failed.`);
 process.exit(failures === 0 ? 0 : 1);

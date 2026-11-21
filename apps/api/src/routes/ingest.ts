@@ -7,29 +7,30 @@ import { requireAuth } from "../middleware/auth.js";
 import { AdmissionTally, admitEvent } from "../contract/admit.js";
 import { languageVerdict } from "../collectors/filter.js";
 import { scoreEventPertinence } from "../collectors/pertinence.js";
+import { z } from "zod";
+import { parseBody, invalidBody } from "./body-validation.js";
 
 /**
- * Ingestion externe (bots Hermes, scripts).
- *
- * Le mode « fichier » du collecteur Hermes écrit dans `out/` ; ce endpoint
- * permet la remontée HTTP directe quand la box joignable en HTTPS.
- * Protégé par authentification : n'importe qui sur le réseau ne peut pas
- * injecter des événements.
+ * Événement poussé par un bot. `z.object` tolère les clés inconnues : les
+ * collecteurs ajoutent parfois des champs, on ne veut pas casser un bot pour
+ * une clé supplémentaire. Les réparations métier restent dans `admitEvent`.
  */
-interface IngestEvent {
-  dedup_key: string;
-  family?: string;
-  assertion_type?: string;
-  title: string;
-  summary?: string | null;
-  observed_at?: string | null;
-  severity?: number;
-  confidence?: string;
-  source_id?: string;
-  source_url?: string | null;
-  org_name?: string | null;
-  evidence?: unknown;
-}
+const eventSchema = z.object({
+  dedup_key: z.string(),
+  title: z.string(),
+  family: z.string().optional(),
+  assertion_type: z.string().optional(),
+  summary: z.string().nullable().optional(),
+  observed_at: z.string().nullable().optional(),
+  severity: z.number().optional(),
+  confidence: z.string().optional(),
+  source_id: z.string().optional(),
+  source_url: z.string().nullable().optional(),
+  org_name: z.string().nullable().optional(),
+  evidence: z.unknown().optional(),
+});
+
+type IngestEvent = z.infer<typeof eventSchema>;
 
 /**
  * Source par défaut des bots Hermes.
@@ -42,19 +43,23 @@ interface IngestEvent {
  */
 const DEFAULT_SOURCE_ID = "hermes_radar_cyber";
 
-interface IngestBody {
-  generated_at?: string;
-  profile?: string;
-  items_in?: number;
-  events?: IngestEvent[];
-}
+const ingestBodySchema = z.object({
+  generated_at: z.string().optional(),
+  profile: z.string().optional(),
+  items_in: z.number().optional(),
+  events: z.array(eventSchema),
+});
+
+type IngestBody = z.infer<typeof ingestBodySchema>;
 
 export default async function (app: FastifyInstance) {
   // Fenêtre glissante partagée par les écritures d'ingestion de ce serveur.
   const writeRateLimit = rateLimit({ max: 20, windowMs: 60_000 });
   app.post<{ Body: IngestBody }>("/ingest", { preHandler: [writeRateLimit, requireAuth()] }, async (req, reply) => {
-    const events = Array.isArray(req.body?.events) ? req.body.events : [];
-    if (events.length === 0) return { inserted: 0, skipped: 0 };
+    const parsed = parseBody(ingestBodySchema, req.body);
+    if (!parsed.success) return invalidBody(reply, parsed.error);
+    const body = parsed.data;
+    const events = body.events;
 
     let inserted = 0;
     let skipped = 0;
@@ -88,7 +93,7 @@ export default async function (app: FastifyInstance) {
         sourceId: e.source_id ?? DEFAULT_SOURCE_ID,
         sourceUrl: e.source_url ?? undefined,
         orgHint: e.org_name ?? undefined,
-        evidence: { hermes: true, profile: req.body?.profile ?? null, org_name: e.org_name ?? null, evidence: e.evidence ?? {} },
+        evidence: { hermes: true, profile: body.profile ?? null, org_name: e.org_name ?? null, evidence: e.evidence ?? {} },
         geoType: "unknown",
       });
       contract.record(admitted);
