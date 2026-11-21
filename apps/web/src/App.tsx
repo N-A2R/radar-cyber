@@ -14,6 +14,7 @@ import DirectoryView from "./components/DirectoryView";
 import CommandPalette from "./components/CommandPalette";
 import LiveAlerts from "./components/LiveAlerts";
 import ReviewView from "./components/ReviewView";
+import JournalView from "./components/JournalView";
 import DossierView from "./components/DossierView";
 import NaView from "./components/NaView";
 import TodayView from "./components/TodayView";
@@ -29,6 +30,7 @@ const VIEWS: { id: ViewKey; label: string }[] = [
   { id: "today", label: "Aujourd'hui" },
   { id: "map", label: "Carte" },
   { id: "review", label: "Revue" },
+  { id: "journal", label: "Journal" },
   { id: "graph", label: "Graphe" },
   { id: "sources", label: "Sources" },
   { id: "health", label: "Santé" },
@@ -723,6 +725,7 @@ export default function App() {
               onOpenOrg={openOrgSheet}
             />
           ) : null}
+          {view === "journal" ? <JournalView onUnauthorized={onUnauthorized} /> : null}
 
           {view === "sources" ? <SourcesView sources={sources} loading={loading} error={error} /> : null}
 
