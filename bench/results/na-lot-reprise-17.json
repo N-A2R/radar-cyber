@@ -9,16 +9,16 @@
   },
   "method": "lecture du site (fetch, titre et meta verbatim) + recherche-entreprises.api.gouv.fr sans clé ; requêtes et réponses consignées ; SIREN recoupé, jamais inventé",
   "compte": {
-    "present": 6,
+    "present": 4,
     "absent": 2,
-    "cannot_verify": 1
+    "cannot_verify": 3
   },
   "resolutions": [
     {
       "nomLisible": "www.actionsantetravail.fr",
       "domaine": "actionsantetravail.fr",
-      "verdict": "cannot_verify",
-      "raison": "candidat(s) au registre mais aucun recoupement avec actionsantetravail.fr — arbitrage humain",
+      "verdict": "present",
+      "raison": "SIREN 783936891 ACTION SANTE TRAVAIL (AST) au registre (état A, AIX-NOULETTE 62), recoupé avec le titre « AST - La prévention en action | Action Santé Travail » ; correction documentée",
       "site": {
         "url": "https://actionsantetravail.fr",
         "http": 200,
@@ -37,7 +37,8 @@
             "etat": "A"
           }
         ]
-      }
+      },
+      "sirenCorrige": "783936891"
     },
     {
       "nomLisible": "www.iph-bet.fr",
@@ -76,8 +77,8 @@
     {
       "nomLisible": "www.mpm.fr",
       "domaine": "mpm.fr",
-      "verdict": "present",
-      "raison": "SIREN 951105261 au registre (état A, SETE 34), recoupé avec mpm.fr",
+      "verdict": "cannot_verify",
+      "raison": "correction : cf. lot 10 — 5 candidats MPM sans recoupement, site injoignable — arbitrage humain",
       "site": {
         "url": "https://mpm.fr",
         "http": null,
@@ -185,8 +186,8 @@
     {
       "nomLisible": "www.scara.fr",
       "domaine": "scara.fr",
-      "verdict": "present",
-      "raison": "SIREN 522019611 au registre (état A, EMERAINVILLE 77), recoupé avec scara.fr",
+      "verdict": "cannot_verify",
+      "raison": "correction : cinq candidats SCARA sans recoupement réel, site https 000 — arbitrage humain",
       "site": {
         "url": "https://scara.fr",
         "http": null,
@@ -295,7 +296,7 @@
       "nomLisible": "www.sfr.fr",
       "domaine": "sfr.fr",
       "verdict": "present",
-      "raison": "SIREN 851675181 au registre (état A, CERNAY 68), recoupé avec sfr.fr",
+      "raison": "SIREN 343059564 SOCIETE FRANCAISE DU RADIOTELEPHONE - S.F.R, déjà au référentiel (correction du lot 13) ; correction d'homonymie",
       "site": {
         "url": "https://sfr.fr",
         "http": 200,
@@ -343,13 +344,14 @@
           }
         ]
       },
-      "chargeEnBase": true
+      "chargeEnBase": true,
+      "sirenCorrige": "343059564"
     },
     {
       "nomLisible": "www.ville-chevilly-larue.fr",
       "domaine": "ville-chevilly-larue.fr",
       "verdict": "present",
-      "raison": "SIREN 493955637 au registre (état A, CHEVILLY-LARUE 94), recoupé avec ville-chevilly-larue.fr",
+      "raison": "SIREN 219400215 COMMUNE DE CHEVILLY LARUE au registre (état A, CHEVILLY-LARUE 94), recoupé avec le titre « Accueil - Chevilly-Larue » ; correction d'homonymie",
       "site": {
         "url": "https://ville-chevilly-larue.fr",
         "http": 200,
@@ -397,7 +399,53 @@
           }
         ]
       },
-      "chargeEnBase": true
+      "chargeEnBase": true,
+      "sirenCorrige": "219400215"
+    }
+  ],
+  "corrections": [
+    {
+      "nomLisible": "www.sfr.fr",
+      "erreurOriginale": "SIREN 851675181 (SFR, CERNAY 68) — même homonymie que lot 13",
+      "correction": "org supprimée ; le SIREN correct 343059564 SOCIETE FRANCAISE DU RADIOTELEPHONE - S.F.R est déjà au référentiel depuis la correction du lot 13 (même entité légale)",
+      "preuve": {
+        "reference": "corrections du lot 13 (requête registre consignée)"
+      }
+    },
+    {
+      "nomLisible": "www.mpm.fr",
+      "erreurOriginale": "SIREN 951105261 — même homonymie que lot 10 (5 candidats MPM, site mort)",
+      "correction": "org supprimée ; verdict cannot_verify, cf. correction du lot 10",
+      "preuve": {
+        "reference": "corrections du lot 10"
+      }
+    },
+    {
+      "nomLisible": "www.ville-chevilly-larue.fr",
+      "erreurOriginale": "SIREN 493955637 ASS SYND LIBRE ENS IMMO CHEVILLY LARUE COEUR DE VILLE I — association, pas la commune",
+      "correction": "org supprimée ; SIREN 219400215 COMMUNE DE CHEVILLY LARUE (CHEVILLY-LARUE 94, état A) — déjà consigné dans registre.resultats du lot ; titre « Accueil - Chevilly-Larue »",
+      "preuve": {
+        "source": "resultats consignés du lot",
+        "resultat": "219400215 | COMMUNE DE CHEVILLY LARUE | CHEVILLY-LARUE 94 | A"
+      }
+    },
+    {
+      "nomLisible": "www.scara.fr",
+      "erreurOriginale": "SIREN 522019611 SCARA (EMERAINVILLE 77) chargé — premier candidat, site mort",
+      "correction": "org supprimée ; verdict cannot_verify — cinq candidats SCARA (dont coopérative agricole et syndicat), site https 000, aucun recoupement réel",
+      "preuve": {
+        "registreConsigne": "5 candidats SCARA consignés ; scara.fr https 000 (curl)"
+      }
+    },
+    {
+      "nomLisible": "www.actionsantetravail.fr",
+      "erreurOriginale": "cannot_verify — la requête racine ne renvoyait que MEDINTER",
+      "correction": "SIREN 783936891 ACTION SANTE TRAVAIL (AST) (AIX-NOULETTE 62, état A) — titre « AST - La prévention en action | Action Santé Travail » ; le second candidat (ACTION SANTE AU TRAVAIL DU DOUBS, Besançon) porte un autre nom",
+      "preuve": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=ACTION%20SANTE%20TRAVAIL&page=1&per_page=5",
+        "http": 200,
+        "resultat": "783936891 | ACTION SANTE TRAVAIL (AST) | A | AIX-NOULETTE 62"
+      }
     }
   ]
 }

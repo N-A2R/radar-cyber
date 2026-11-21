@@ -9,9 +9,9 @@
   },
   "method": "lecture du site (fetch, titre et meta verbatim) + recherche-entreprises.api.gouv.fr sans clé ; requêtes et réponses consignées ; SIREN recoupé, jamais inventé",
   "compte": {
-    "present": 3,
-    "absent": 5,
-    "cannot_verify": 2
+    "present": 6,
+    "absent": 4,
+    "cannot_verify": 1
   },
   "resolutions": [
     {
@@ -45,8 +45,8 @@
     {
       "nomLisible": "ville-bouchemaine.fr",
       "domaine": "ville-bouchemaine.fr",
-      "verdict": "cannot_verify",
-      "raison": "candidat(s) au registre mais aucun recoupement avec ville-bouchemaine.fr — arbitrage humain",
+      "verdict": "present",
+      "raison": "SIREN 214900359 COMMUNE DE BOUCHEMAINE au registre (état A, BOUCHEMAINE 49), recoupé avec le titre « Ville de Bouchemaine (49) » ; correction documentée",
       "site": {
         "url": "https://ville-bouchemaine.fr",
         "http": 200,
@@ -93,13 +93,14 @@
             "etat": "A"
           }
         ]
-      }
+      },
+      "sirenCorrige": "214900359"
     },
     {
       "nomLisible": "ville-faulquemont.fr",
       "domaine": "ville-faulquemont.fr",
-      "verdict": "cannot_verify",
-      "raison": "candidat(s) au registre mais aucun recoupement avec ville-faulquemont.fr — arbitrage humain",
+      "verdict": "present",
+      "raison": "SIREN 215702093 COMMUNE DE FAULQUEMONT au registre (état A, FAULQUEMONT 57), déjà consigné dans les résultats du lot ; correction documentée",
       "site": {
         "url": "https://ville-faulquemont.fr",
         "http": 200,
@@ -146,13 +147,14 @@
             "etat": "A"
           }
         ]
-      }
+      },
+      "sirenCorrige": "215702093"
     },
     {
       "nomLisible": "villemandeure.fr",
       "domaine": "villemandeure.fr",
       "verdict": "present",
-      "raison": "SIREN 848179552 au registre (état A, MANDEURE 25), recoupé avec villemandeure.fr",
+      "raison": "SIREN 212503676 COMMUNE DE MANDEURE au registre (état A, MANDEURE 25), recoupé avec le titre « Ville de Mandeure » ; correction d'homonymie",
       "site": {
         "url": "https://villemandeure.fr",
         "http": 200,
@@ -200,7 +202,8 @@
           }
         ]
       },
-      "chargeEnBase": true
+      "chargeEnBase": true,
+      "sirenCorrige": "212503676"
     },
     {
       "nomLisible": "Virginia Defense Force",
@@ -216,8 +219,8 @@
     {
       "nomLisible": "voyageursdumonde.fr",
       "domaine": "voyageursdumonde.fr",
-      "verdict": "absent",
-      "raison": "aucune identité légale française au registre (requête consignée) ; site : « Voyage sur mesure & road trip à contre-courant | Voyageurs du Monde »",
+      "verdict": "present",
+      "raison": "SIREN 315459016 VOYAGEURS DU MONDE au registre (état A, PARIS 75), recoupé avec le titre du site ; correction documentée",
       "site": {
         "url": "https://voyageursdumonde.fr",
         "http": 200,
@@ -228,13 +231,14 @@
         "requete": "https://recherche-entreprises.api.gouv.fr/search?q=voyageursdumonde&page=1&per_page=5",
         "http": 200,
         "resultats": []
-      }
+      },
+      "sirenCorrige": "315459016"
     },
     {
       "nomLisible": "wannago.cloud",
       "domaine": "wannago.cloud",
-      "verdict": "present",
-      "raison": "SIREN 529788267 au registre (état C, PERTUIS 84), recoupé avec wannago.cloud",
+      "verdict": "cannot_verify",
+      "raison": "correction : deux candidats WANNAGO cessés (529788267 PERTUIS, 432853422 WANNAGO FRANCE), site injoignable — arbitrage humain",
       "site": {
         "url": "https://wannago.cloud",
         "http": null,
@@ -301,6 +305,55 @@
         ]
       },
       "chargeEnBase": true
+    }
+  ],
+  "corrections": [
+    {
+      "nomLisible": "villemandeure.fr",
+      "erreurOriginale": "SIREN 848179552 SOCIETE DES SAPEURS POMPIERS DE LA VILLE DE MANDEURE — association, pas la commune",
+      "correction": "org supprimée ; SIREN 212503676 COMMUNE DE MANDEURE (MANDEURE 25, état A) — titre « Ville de Mandeure »",
+      "preuve": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=COMMUNE%20DE%20MANDEURE&page=1&per_page=5",
+        "http": 200,
+        "resultat": "212503676 | COMMUNE DE MANDEURE | A | MANDEURE 25"
+      }
+    },
+    {
+      "nomLisible": "ville-bouchemaine.fr",
+      "erreurOriginale": "cannot_verify — candidats sans rapport (comité de jumelage, cantine scolaire cessée, SCI)",
+      "correction": "SIREN 214900359 COMMUNE DE BOUCHEMAINE (BOUCHEMAINE 49, état A) — titre « Ville de Bouchemaine (49) »",
+      "preuve": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=COMMUNE%20DE%20BOUCHEMAINE&page=1&per_page=5",
+        "http": 200,
+        "resultat": "214900359 | COMMUNE DE BOUCHEMAINE | A | BOUCHEMAINE 49"
+      }
+    },
+    {
+      "nomLisible": "ville-faulquemont.fr",
+      "erreurOriginale": "cannot_verify — le candidat exact était pourtant dans les résultats consignés",
+      "correction": "SIREN 215702093 COMMUNE DE FAULQUEMONT (FAULQUEMONT 57, état A) — déjà consigné dans registre.resultats du lot ; titre « Site de la ville de FAULQUEMONT »",
+      "preuve": {
+        "source": "resultats consignés du lot",
+        "resultat": "215702093 | COMMUNE DE FAULQUEMONT | FAULQUEMONT 57 | A"
+      }
+    },
+    {
+      "nomLisible": "voyageursdumonde.fr",
+      "erreurOriginale": "verdict absent — requête racine « voyageursdumonde » (0 résultat), entité publique non cherchée par son nom",
+      "correction": "SIREN 315459016 VOYAGEURS DU MONDE (PARIS 75, état A) — titre « Voyage sur mesure & road trip à contre-courant | Voyageurs du Monde »",
+      "preuve": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=VOYAGEURS%20DU%20MONDE&page=1&per_page=5",
+        "http": 200,
+        "resultat": "315459016 | VOYAGEURS DU MONDE | A | PARIS 75"
+      }
+    },
+    {
+      "nomLisible": "wannago.cloud",
+      "erreurOriginale": "SIREN 529788267 WANNAGO (PERTUIS 84) chargé — état C",
+      "correction": "org supprimée ; verdict cannot_verify — deux candidats WANNAGO cessés (529788267 PERTUIS 84, 432853422 WANNAGO FRANCE PARIS 8), site mort, arbitrage humain",
+      "preuve": {
+        "registreConsigne": "529788267 WANNAGO PERTUIS 84 C / 432853422 WANNAGO FRANCE PARIS 8 C"
+      }
     }
   ]
 }
