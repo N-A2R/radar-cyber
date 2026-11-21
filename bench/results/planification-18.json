@@ -1,0 +1,268 @@
+{
+  "genere_le": "2026-11-21T16:20:00Z",
+  "source": "bench/results/rejouer-38.json (38 sources rejouées le 2026-11-21) + lecture seule de la base de test 5433",
+  "perimetre": "Les 18 sources exclues de la collecte pour raison de planification, sur les 38 du rejeu",
+  "mecanisme": {
+    "selecteur": "apps/api/src/collectors/generic.ts:1033-1041 — runGenericSources()",
+    "requete": "SELECT id, name, family, url, kind, format, parser, interval_sec, last_ok_at, last_error_at, relevance FROM source WHERE enabled AND kind <> 'quarantine' AND id NOT IN ('cert_fr','cisa_kev','ransomlook','epss','hermes_radar_cyber','nvd_cve','ctlog') [AND id = ANY($n)] [LIMIT $n]",
+    "ordonnanceur": "apps/api/src/server.ts:45,244-318 — tick de 60 s (TICK_MS=60000), garde anti-réentrance, appel au démarrage et à chaque tick ; RADAR_COLLECT=0 le désactive",
+    "cadence": "pas de table de planification dédiée : source.interval_sec (défaut 3600) + last_ok_at/last_error_at, avec hystérésis de 0,8 en generic.ts:947-952",
+    "champs_etat": ["source.enabled", "source.kind", "source.statut", "source.disabled_at", "source.disabled_reason", "source.interval_sec"],
+    "exclusions_possibles": [
+      "enabled = false → écartée par WHERE enabled",
+      "kind = 'quarantine' → écartée par kind <> 'quarantine' (collecteur dédié quarantine.collector.ts)",
+      "id dans la liste des 7 collecteurs dédiés → écartée par id NOT IN",
+      "fenêtre interval_sec × 0,8 non écoulée → retour anticipé dans processSource()"
+    ],
+    "verifie_en_base": "Aucune table source_planification / collecte_plan n'existe sur 5433 (21 tables publiques). Les 18 sources ont un interval_sec non NULL."
+  },
+  "comptes": {
+    "sources_analysees": 18,
+    "par_cause_mecanique": {
+      "drapeau_enabled_false": 18,
+      "intervalle_null": 0,
+      "absent_de_table_de_planification": 0,
+      "filtre_de_selection": 0,
+      "fenêtre_intervalle_non_ecoulee": 0
+    },
+    "par_sous_cause": {
+      "jamais_activee_sans_motif": 12,
+      "quarantine_collecteur_dedie": 3,
+      "morte_30j_decision_explicite": 2,
+      "warninglist_script_dedie": 1
+    },
+    "reconciliation_avec_rejouer_38": "Le bench rangeait 14 de ces sources dans « planification / items_sans_insertion » ; les 4 autres (onion:ccw:anubis, onion:ccw:arcusmedia, onion:rl:orova, wl:misp:cisco-top1m) étaient comptées dans « illisibles_sans_item ». Toutes les 18 ont le même drapeau enabled=false en base."
+  },
+  "cause_dominante": {
+    "nom": "Sources .onion enregistrées éteintes en attente d'activation manuelle, jamais activées",
+    "compte": 12,
+    "part": "12/18 (67 %)",
+    "preuve": "db/sources-onion-cybercrime.sql (commit 2a0a448, 2026-11-10) les insère avec enabled=false, sans disabled_at ni disabled_reason ; 77 sources .onion ont été semées ainsi, « les autres attendent pour ne pas saturer un cycle de collecte ». Le rejeu du 2026-11-21 montre que 9 d'entre elles livrent de 1 à 87 items via detectItems().",
+    "pourquoi_pas_les_autres": "2 désactivations « morte > 30 j » sont des décisions explicites (scripts/disable-muettes-vague3.mts, migrate-042) ; 3 sont des quarantaines à collecteur dédié ; 1 est un référentiel MISP consommé par scripts/build-warninglist.mts."
+  },
+  "cause_par_source": [
+    {
+      "id": "cat-cert-si-news",
+      "cause": "drapeau désactivé — décision explicite « morte > 30 j », flux CERT figé depuis 2026-05-29",
+      "sous_cause": "morte_30j_decision_explicite",
+      "kind": "narrative",
+      "interval_sec": 7200,
+      "items_au_fetch": 10,
+      "categorie_bench": "planification",
+      "action": "non modifiée : décision produit à prendre pour réactiver"
+    },
+    {
+      "id": "eco-aquitaine-robotics",
+      "cause": "drapeau désactivé — décision explicite « morte > 30 j », dernier item 2026-10-08 (44 j)",
+      "sous_cause": "morte_30j_decision_explicite",
+      "kind": "narrative",
+      "interval_sec": 7200,
+      "items_au_fetch": 4,
+      "categorie_bench": "planification",
+      "action": "non modifiée : décision produit à prendre pour réactiver"
+    },
+    {
+      "id": "onion:ccw:anubis",
+      "cause": "drapeau désactivé à l'insertion, jamais activé ; aucun motif en base ; page de challenge au rejeu",
+      "sous_cause": "jamais_activee_sans_motif",
+      "kind": "narrative",
+      "interval_sec": 3600,
+      "items_au_fetch": 0,
+      "categorie_bench": "illisibles_sans_item (format)",
+      "action": "motif documenté par migrate-044, source laissée éteinte"
+    },
+    {
+      "id": "onion:ccw:arcusmedia",
+      "cause": "drapeau désactivé à l'insertion, jamais activé ; aucun motif en base ; circuit Tor en échec au rejeu",
+      "sous_cause": "jamais_activee_sans_motif",
+      "kind": "narrative",
+      "interval_sec": 3600,
+      "items_au_fetch": 0,
+      "categorie_bench": "illisibles_sans_item (autre)",
+      "action": "motif documenté par migrate-044, source laissée éteinte"
+    },
+    {
+      "id": "onion:ccw:byod",
+      "cause": "drapeau désactivé à l'insertion, jamais activé ; aucun motif en base ; 1 item lisible au rejeu",
+      "sous_cause": "jamais_activee_sans_motif",
+      "kind": "narrative",
+      "interval_sec": 3600,
+      "items_au_fetch": 1,
+      "categorie_bench": "planification",
+      "action": "réactivée par migrate-044"
+    },
+    {
+      "id": "onion:ccw:dark-project",
+      "cause": "drapeau désactivé à l'insertion, jamais activé ; aucun motif en base ; 9 items lisibles au rejeu",
+      "sous_cause": "jamais_activee_sans_motif",
+      "kind": "narrative",
+      "interval_sec": 3600,
+      "items_au_fetch": 9,
+      "categorie_bench": "planification",
+      "action": "réactivée par migrate-044"
+    },
+    {
+      "id": "onion:ccw:eclipse",
+      "cause": "drapeau désactivé à l'insertion, jamais activé ; aucun motif en base ; 10 items lisibles au rejeu",
+      "sous_cause": "jamais_activee_sans_motif",
+      "kind": "narrative",
+      "interval_sec": 3600,
+      "items_au_fetch": 10,
+      "categorie_bench": "planification",
+      "action": "réactivée par migrate-044"
+    },
+    {
+      "id": "onion:ccw:everest",
+      "cause": "drapeau désactivé à l'insertion, jamais activé ; aucun motif en base ; 87 items lisibles au rejeu",
+      "sous_cause": "jamais_activee_sans_motif",
+      "kind": "narrative",
+      "interval_sec": 3600,
+      "items_au_fetch": 87,
+      "categorie_bench": "planification",
+      "action": "réactivée par migrate-044 ; source de la preuve de collecte réelle"
+    },
+    {
+      "id": "onion:ccw:lockbit4",
+      "cause": "drapeau désactivé à l'insertion, jamais activé ; aucun motif en base ; 1 item lisible au rejeu",
+      "sous_cause": "jamais_activee_sans_motif",
+      "kind": "narrative",
+      "interval_sec": 3600,
+      "items_au_fetch": 1,
+      "categorie_bench": "planification",
+      "action": "réactivée par migrate-044"
+    },
+    {
+      "id": "onion:ccw:titan",
+      "cause": "drapeau désactivé à l'insertion, jamais activé ; aucun motif en base ; 56 items lisibles au rejeu",
+      "sous_cause": "jamais_activee_sans_motif",
+      "kind": "narrative",
+      "interval_sec": 3600,
+      "items_au_fetch": 56,
+      "categorie_bench": "planification",
+      "action": "réactivée par migrate-044"
+    },
+    {
+      "id": "onion:ccw:vypr",
+      "cause": "drapeau désactivé à l'insertion, jamais activé ; aucun motif en base ; 7 items lisibles au rejeu",
+      "sous_cause": "jamais_activee_sans_motif",
+      "kind": "narrative",
+      "interval_sec": 3600,
+      "items_au_fetch": 7,
+      "categorie_bench": "planification",
+      "action": "réactivée par migrate-044"
+    },
+    {
+      "id": "onion:ccw:whitearmor",
+      "cause": "drapeau désactivé à l'insertion, jamais activé ; aucun motif en base ; 1 item lisible au rejeu",
+      "sous_cause": "jamais_activee_sans_motif",
+      "kind": "narrative",
+      "interval_sec": 3600,
+      "items_au_fetch": 1,
+      "categorie_bench": "planification",
+      "action": "réactivée par migrate-044"
+    },
+    {
+      "id": "onion:rl:byod",
+      "cause": "drapeau désactivé à l'insertion, jamais activé ; aucun motif en base ; 1 item lisible au rejeu",
+      "sous_cause": "jamais_activee_sans_motif",
+      "kind": "narrative",
+      "interval_sec": 3600,
+      "items_au_fetch": 1,
+      "categorie_bench": "planification",
+      "action": "réactivée par migrate-044"
+    },
+    {
+      "id": "onion:rl:orova",
+      "cause": "drapeau désactivé à l'insertion, jamais activé ; aucun motif en base ; clé publique qTox sans stratégie d'extraction",
+      "sous_cause": "jamais_activee_sans_motif",
+      "kind": "narrative",
+      "interval_sec": 3600,
+      "items_au_fetch": 0,
+      "categorie_bench": "illisibles_sans_item (format)",
+      "action": "motif documenté par migrate-044, source laissée éteinte"
+    },
+    {
+      "id": "ransom-ichi-ecosystem",
+      "cause": "kind='quarantine' : collecteur dédié, hors moteur générique (et enabled=false)",
+      "sous_cause": "quarantine_collecteur_dedie",
+      "kind": "quarantine",
+      "interval_sec": 3600,
+      "items_au_fetch": 4,
+      "categorie_bench": "planification",
+      "action": "non modifiée : collecteur dédié à vérifier séparément"
+    },
+    {
+      "id": "ransom-look-leaks",
+      "cause": "kind='quarantine' : collecteur dédié, hors moteur générique (et enabled=false)",
+      "sous_cause": "quarantine_collecteur_dedie",
+      "kind": "quarantine",
+      "interval_sec": 21600,
+      "items_au_fetch": 2000,
+      "categorie_bench": "planification",
+      "action": "non modifiée : collecteur dédié à vérifier séparément"
+    },
+    {
+      "id": "ransomleak-fulcrumsec",
+      "cause": "kind='quarantine' : collecteur dédié, hors moteur générique (et enabled=false)",
+      "sous_cause": "quarantine_collecteur_dedie",
+      "kind": "quarantine",
+      "interval_sec": 3600,
+      "items_au_fetch": 4,
+      "categorie_bench": "planification",
+      "action": "non modifiée : collecteur dédié à vérifier séparément"
+    },
+    {
+      "id": "wl:misp:cisco-top1m",
+      "cause": "kind='warninglist' + enabled=false : référentiel consommé par scripts/build-warninglist.mts, pas par le polling",
+      "sous_cause": "warninglist_script_dedie",
+      "kind": "warninglist",
+      "interval_sec": 604800,
+      "items_au_fetch": 0,
+      "categorie_bench": "illisibles_sans_item (format)",
+      "action": "non modifiée : circuit dédié"
+    }
+  ],
+  "correctif": {
+    "fichier": "db/migrate-044-activer-onion-verifiees.sql",
+    "applique": "9 sources .onion vérifiées repassent enabled=true (disabled_at/disabled_reason remis à NULL), avec une entrée de journal 'source.changed' / actor 'migration:044' par source ; les 3 sources illisibles reçoivent enfin un disabled_reason explicite",
+    "sources_reactivees": [
+      "onion:ccw:byod", "onion:ccw:dark-project", "onion:ccw:eclipse", "onion:ccw:everest",
+      "onion:ccw:lockbit4", "onion:ccw:titan", "onion:ccw:vypr", "onion:ccw:whitearmor", "onion:rl:byod"
+    ],
+    "non_touche": "cadence (interval_sec), sources mortes, quarantaines, warninglist, production 5432",
+    "validation_sql": "Migration exécutée dans un schéma jetable sur 5433 : 9 UPDATE effectifs, 3 motifs posés, 9 entrées de journal, puis schéma supprimé",
+    "portee_production": "Aucune écriture en production : le fichier est une migration à déployer, pas une exécution sur 5432"
+  },
+  "preuve": {
+    "source_testee": "onion:ccw:everest",
+    "methode": "Schéma de test isolé planif18 sur 5433 : copies des tables mutables avec l'état de dédup de public, tables de référence lues dans public via search_path=planif18,public. Même UPDATE que migrate-044 appliqué à la copie de source, puis runGenericSources({sourceIds:['onion:ccw:everest']}) avec RADAR_TOR_SOCKS=socks5h://127.0.0.1:9050",
+    "candidats_vus_par_le_collecteur": 1,
+    "avant_correctif": "La requête de runGenericSources ne renvoie aucun candidat pour cette source (enabled=false) : 0 collecte, 0 événement",
+    "collector_run": {
+      "id_dans_le_schema_de_test": 7563,
+      "status": "ok",
+      "items_in": 87,
+      "items_new": 47,
+      "items_skipped": 34,
+      "items_rejected": { "hors_sujet": 6, "menu_token": 28 }
+    },
+    "evenements_reellement_insertes": 47,
+    "mesure": "SELECT count(*) FROM planif18.event WHERE source_id='onion:ccw:everest' → 47, concordant avec collector_run.items_new",
+    "exemples": [
+      { "id": 127993, "title": "L&P Aesthetics", "family": "ransomware" },
+      { "id": 127992, "title": "Asopagos S.A.", "family": "ransomware" },
+      { "id": 127991, "title": "AKM Enterprises INC", "family": "ransomware" },
+      { "id": 127990, "title": "Sidra Kuwait Hospital", "family": "ransomware" }
+    ],
+    "proprete": "Schéma planif18 supprimé après mesure ; vérification : public.source.onion:ccw:everest reste enabled=false, 0 événement public pour cette source, 0 collector_run public pour cette source, 0 entrée de journal actor=migration:044"
+  },
+  "decision_produit": {
+    "prise": false,
+    "description": "Aucune cadence n'a été modifiée. Réactiver les 9 sources vérifiées exécute une activation déjà décidée lors de leur ajout (2a0a448 : « activées à la main par le parent une fois la collecte validée »), validée ici par le rejeu du 2026-11-21.",
+    "propositions": [
+      "Décider si les 68 autres sources .onion encore éteintes doivent être activées ; proposition : les activer par lots de 10 avec surveillance du taux d'erreur Tor et des événements insérés, sans toucher à interval_sec.",
+      "Décider si les 2 sources « morte > 30 j » (cat-cert-si-news, eco-aquitaine-robotics) doivent être réactivées : le rejeu montre qu'elles livrent encore 10 et 4 items, mais leur désactivation est une décision explicite antérieure.",
+      "Faire tourner les collecteurs dédiés des 3 sources quarantine et mesurer leurs insertions avant de modifier leur kind ou leur enabled."
+    ]
+  }
+}
