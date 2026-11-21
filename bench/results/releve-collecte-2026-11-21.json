@@ -1,12 +1,12 @@
 {
-  "date_mesure": "2026-11-21T17:24:47+01:00",
+  "date_mesure": "2026-11-21T17:27:46+01:00",
   "base": "PostgreSQL 18.6, localhost:5433/radar, SELECT seuls (BEGIN READ ONLY)",
   "fenetre": "event.created_at >= now() - interval '24 hours'",
   "mesures": {
     "sources_total": 312,
     "sources_actives": 202,
-    "sources_avec_evenement_24h": 80,
-    "evenements_24h": 5981
+    "sources_avec_evenement_24h": 69,
+    "evenements_24h": 5397
   },
   "definition_sources_actives": "source.enabled IS TRUE, sélecteur réel de la collecte (apps/api/src/collectors/generic.ts:1041)",
   "top5": [
@@ -36,9 +36,9 @@
     },
     {
       "rang": 5,
-      "source_id": "cat-ncsc-nl-news",
-      "nom": "NCSC-NL Nieuws",
-      "evenements": 117
+      "source_id": "leak:ransomlook:recent-api",
+      "nom": "RansomLook — victimes récentes (API JSON)",
+      "evenements": 104
     }
   ],
   "requetes_sql": {
@@ -49,8 +49,8 @@
     "top5": "SELECT e.source_id, s.name, count(*) FROM event e LEFT JOIN source s ON s.id = e.source_id WHERE e.created_at >= now() - interval '24 hours' GROUP BY e.source_id, s.name ORDER BY count(*) DESC, e.source_id LIMIT 5"
   },
   "comparaison": {
-    "releve_precedent": "bench/results/releve-collecte-2026-11-21.json (version 2026-11-21T17:22:27+01:00, commit 98513f5)",
-    "date_releve_precedent": "2026-11-21T17:22:27+01:00",
+    "releve_precedent": "bench/results/releve-collecte-2026-11-21.json (version 2026-11-21T17:24:47+01:00, commit c11b4dc)",
+    "date_releve_precedent": "2026-11-21T17:24:47+01:00",
     "deltas": {
       "sources_total": {
         "avant": 312,
@@ -64,15 +64,15 @@
       },
       "sources_avec_evenement_24h": {
         "avant": 80,
-        "apres": 80,
-        "delta": 0
+        "apres": 69,
+        "delta": -11
       },
       "evenements_24h": {
-        "avant": 5977,
-        "apres": 5981,
-        "delta": 4
+        "avant": 5981,
+        "apres": 5397,
+        "delta": -584
       }
     },
-    "top5": "inchangé : mêmes source_id, noms et volumes"
+    "top5": "les quatre premiers inchangés ; cat-ncsc-nl-news (117) sort du top 5, remplacé en 5e position par leak:ransomlook:recent-api (104)"
   }
 }
