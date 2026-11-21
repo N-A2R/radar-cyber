@@ -10,9 +10,10 @@ import { fileURLToPath } from "node:url";
 import {
 	candidatsCommunes,
 	candidatsEpci,
-	candidatsEtat,
+	candidatsPrefectures,
 	candidatsSante,
 	candidatsScolaires,
+	candidatsSdis,
 	evaluerPage,
 	jetonsAttendus,
 	ligneCorpus,
@@ -47,9 +48,9 @@ test("texte visible : scripts, styles et entités HTML sont écartés", () => {
 });
 
 test("preuve : le nom discriminant dans la page confirme l'institution", () => {
-	const确认 = evaluerPage("<title>Mairie de Test-sur-Mer</title>", CANDIDAT.nom);
-	assert.equal(确认.confirme, true);
-	assert.deepEqual(确认.jetons, ["test", "mer"]);
+	const confirme = evaluerPage("<title>Mairie de Test-sur-Mer</title>", CANDIDAT.nom);
+	assert.equal(confirme.confirme, true);
+	assert.deepEqual(confirme.jetons, ["test", "mer"]);
 	const autre = evaluerPage("<title>Actualités de la région</title>", CANDIDAT.nom);
 	assert.equal(autre.confirme, false);
 });
@@ -101,19 +102,39 @@ test("écoles : le SIREN est extrait du SIRET et le type est normalisé", () => 
 	assert.equal(candidats[0]!.commune, "Montmorillon");
 });
 
-test("État : préfectures et SDIS sont rattachés au bon département", () => {
-	const candidats = candidatsEtat([
+test("SDIS : un seul candidat par département, avec le SIREN Wikidata", () => {
+	const candidats = candidatsSdis([
 		{ label: "préfecture de la Charente", siren: "171600013", site: "https://www.charente.gouv.fr/" },
-		{ label: "préfecture de la Charente-Maritime", siren: "171700015", site: "https://www.charente-maritime.gouv.fr/" },
 		{ label: "service départemental d'incendie et de secours de la Charente", siren: "281600014", site: "https://www.sdis16.fr/" },
 	], [
 		{ code: "16", nom: "Charente" },
 		{ code: "17", nom: "Charente-Maritime" },
-		{ code: "86", nom: "Vienne" },
 	]);
-	assert.deepEqual(candidats.map((c) => [c.type, c.siren]), [
-		["prefecture", "171600013"], ["sdis", "281600014"], ["prefecture", "171700015"],
+	assert.deepEqual(candidats.map((c) => [c.id, c.type, c.siren]), [["na-etat-sdis-16", "sdis", "281600014"]]);
+});
+
+test("préfectures : site officiel et SIREN de l'annuaire des entreprises", () => {
+	const sirens = new Map([["charente", "171600018"], ["nouvelle aquitaine", "173300005"]]);
+	const candidats = candidatsPrefectures([
+		{ code: "16", nom: "Charente" },
+		{ code: "17", nom: "Charente-Maritime" },
+	], sirens);
+	assert.deepEqual(candidats.map((c) => [c.id, c.nom, c.siren, c.url]), [
+		["na-etat-prefecture-16", "Préfecture de Charente", "171600018", "https://www.charente.gouv.fr/"],
+		["na-etat-prefecture-75", "Préfecture de la région Nouvelle-Aquitaine", "173300005", "https://www.nouvelle-aquitaine.gouv.fr/"],
 	]);
+});
+
+test("écoles : deux campus avec le même UAI reçoivent des identifiants distincts", () => {
+	const commune = new Map([["033", "Gironde"]]);
+	const candidats = candidatsScolaires([1, 2].map((i) => ({
+		identifiant_de_l_etablissement: "0332497K",
+		nom_etablissement: `Lycée Saint-Vincent ${i}`,
+		nom_commune: "Bordeaux", code_departement: "033",
+		web: `https://etablissement-${i}.fr`, siren_siret: "78184276000012",
+		type_etablissement: "Lycée",
+	})), commune);
+	assert.deepEqual(candidats.map((c) => c.id), ["na-edu-0332497K", "na-edu-0332497K-2"]);
 });
 
 test("santé : seules les entrées avec SIREN et URL sont conservées", () => {
@@ -146,4 +167,32 @@ test("corpus versionné : 200 institutions minimum, toutes prouvées et pourvues
 		assert.ok(types.has(categorie), `catégorie absente : ${categorie}`);
 	}
 	assert.ok(types.has("collège") || types.has("lycée"), "aucun établissement scolaire");
+});
+
+test("corpus versionné : les 12 préfectures départementales sont prouvées", () => {
+	const chemin = fileURLToPath(new URL("../../../bench/corpus/institutions-complet.jsonl", import.meta.url));
+	const lignes = readFileSync(chemin, "utf8").split(/\r?\n/).filter(Boolean).map((l) => JSON.parse(l));
+	const prefectures = lignes.filter((l) => l.type === "prefecture");
+	assert.ok(prefectures.length >= 13, `${prefectures.length} préfectures`);
+	assert.equal(new Set(prefectures.map((l) => l.departement)).size, 13);
+	for (const l of prefectures) {
+		assert.match(l.nom, /^Préfecture/);
+		assert.match(l.siren, /^\d{9}$/);
+		assert.equal(l.preuve.http_status, 200);
+		assert.ok(l.preuve.extrait);
+	}
+});
+
+test("rapport : retenus et répartition par type collent au corpus versionné", () => {
+	const dossier = new URL("../../../bench/", import.meta.url);
+	const lignes = readFileSync(new URL("corpus/institutions-complet.jsonl", dossier), "utf8")
+		.split(/\r?\n/).filter(Boolean);
+	const rapport = JSON.parse(readFileSync(new URL("results/institutions-complet.json", dossier), "utf8"));
+	assert.equal(rapport.retenus, lignes.length);
+	assert.equal(rapport.avecSiren, lignes.length);
+	const parType: Record<string, number> = {};
+	for (const l of lignes.map((ligne) => JSON.parse(ligne))) {
+		parType[l.type] = (parType[l.type] ?? 0) + 1;
+	}
+	assert.deepEqual(rapport.parType, parType);
 });

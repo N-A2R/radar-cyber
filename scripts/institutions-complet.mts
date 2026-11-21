@@ -81,8 +81,8 @@ export function jetonsAttendus(nom: string): string[] {
 }
 
 const NOMS_ENTITES: Record<string, string> = {
-	amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " ", eacute: "e",
-	egrave: "e", agrave: "a", ccedil: "c", ecirc: "e", ugrave: "u",
+	amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " ", eacute: "é",
+	egrave: "è", agrave: "à", ccedil: "ç", ecirc: "ê", ugrave: "ù",
 };
 
 export function texteVisible(html: string): string {
@@ -208,61 +208,98 @@ type RecordEducation = {
 };
 
 export function candidatsScolaires(records: RecordEducation[], nomsDep: Map<string, string>): Candidat[] {
+	const ids = new Map<string, number>();
 	return records
 		.filter((r) => /^https?:\/\//i.test(r.web ?? "") && /^\d{14}$/.test(r.siren_siret ?? ""))
-		.map((r) => ({
-			id: `na-edu-${r.identifiant_de_l_etablissement}`,
-			nom: r.nom_etablissement,
-			type: normaliser(r.type_etablissement) === "college" ? "collège" : "lycée",
-			commune: r.nom_commune ?? "",
-			departement: nomsDep.get(r.code_departement) ?? r.code_departement,
-			siren: r.siren_siret.slice(0, 9),
-			url: r.web.trim(),
-			source: "education.gouv.fr:annuaire",
-			sourceSiren: "education.gouv.fr:siren_siret (9 premiers chiffres)",
-		}));
+		.map((r) => {
+			const base = `na-edu-${r.identifiant_de_l_etablissement}`;
+			const occurrence = ids.get(base) ?? 0;
+			ids.set(base, occurrence + 1);
+			return {
+				id: occurrence ? `${base}-${occurrence + 1}` : base,
+				nom: r.nom_etablissement,
+				type: normaliser(r.type_etablissement) === "college" ? "collège" : "lycée",
+				commune: r.nom_commune ?? "",
+				departement: nomsDep.get(r.code_departement) ?? r.code_departement,
+				siren: r.siren_siret.slice(0, 9),
+				url: r.web.trim(),
+				source: "education.gouv.fr:annuaire",
+				sourceSiren: "education.gouv.fr:siren_siret (9 premiers chiffres)",
+			};
+		});
 }
 
-/** Préfectures et SDIS de NA : Wikidata fournit le SIREN et le site officiel. */
-export function candidatsEtat(
+/** Sites officiels des préfectures de Nouvelle-Aquitaine (12 départements et région). */
+const SITES_PREFECTURES: Record<string, string> = {
+	"16": "https://www.charente.gouv.fr/",
+	"17": "https://www.charente-maritime.gouv.fr/",
+	"19": "https://www.correze.gouv.fr/",
+	"23": "https://www.creuse.gouv.fr/",
+	"24": "https://www.dordogne.gouv.fr/",
+	"33": "https://www.gironde.gouv.fr/",
+	"40": "https://www.landes.gouv.fr/",
+	"47": "https://www.lot-et-garonne.gouv.fr/",
+	"64": "https://www.pyrenees-atlantiques.gouv.fr/",
+	"79": "https://www.deux-sevres.gouv.fr/",
+	"86": "https://www.vienne.gouv.fr/",
+	"87": "https://www.haute-vienne.gouv.fr/",
+	"75": "https://www.nouvelle-aquitaine.gouv.fr/",
+};
+
+type Territoire = { code: string; nom: string };
+
+/** SDIS : Wikidata fournit le SIREN et le site officiel. */
+export function candidatsSdis(
 	entre: { label: string; siren: string; site: string }[],
-	nomsDep: { code: string; nom: string }[],
+	nomsDep: Territoire[],
 ): Candidat[] {
 	const propres = entre.filter((e) => /^https?:\/\//i.test(e.site) && /^\d{9}$/.test(e.siren));
-	const resultats: Candidat[] = [];
-	for (const d of nomsDep) {
+	return nomsDep.flatMap((d) => {
 		const departement = normaliser(d.nom);
-		const correspond = (prefix: string) => propres.find((e) => {
+		const trouve = propres.find((e) => {
 			const label = normaliser(e.label);
-			return label.startsWith(prefix) && label.endsWith(departement);
+			return label.startsWith("service departemental d incendie") && label.endsWith(departement);
 		});
-		for (const [i, prefix] of ["prefecture", "service departemental d incendie"].entries()) {
-			const trouve = correspond(prefix);
-			if (!trouve) continue;
-			resultats.push({
-				id: `na-etat-${i ? "sdis" : "prefecture"}-${d.code}`,
-				nom: i ? `SDIS ${d.nom}` : `Préfecture de ${d.nom}`,
-				type: i ? "sdis" : "prefecture",
-				commune: "",
-				departement: d.nom,
-				siren: trouve.siren,
-				url: trouve.site,
-				source: "wikidata:P1616+P856",
-				sourceSiren: "wikidata:P1616",
-			});
-		}
-	}
-	const region = propres.find((e) => normaliser(e.label).includes("prefecture de la region nouvelle aquitaine"));
-	if (region) resultats.push({
+		return trouve ? [{
+			id: `na-etat-sdis-${d.code}`,
+			nom: `SDIS ${d.nom}`,
+			type: "sdis",
+			commune: "",
+			departement: d.nom,
+			siren: trouve.siren,
+			url: trouve.site,
+			source: "wikidata:P1616+P856",
+			sourceSiren: "wikidata:P1616",
+		}] : [];
+	});
+}
+
+/** Préfectures : SIREN de l'annuaire des entreprises, site officiel du département. */
+export function candidatsPrefectures(nomsDep: Territoire[], sirens: Map<string, string>): Candidat[] {
+	const resultats: Candidat[] = nomsDep
+		.filter((d) => SITES_PREFECTURES[d.code] && /^\d{9}$/.test(sirens.get(normaliser(d.nom)) ?? ""))
+		.map((d) => ({
+			id: `na-etat-prefecture-${d.code}`,
+			nom: `Préfecture de ${d.nom}`,
+			type: "prefecture",
+			commune: "",
+			departement: d.nom,
+			siren: sirens.get(normaliser(d.nom))!,
+			url: SITES_PREFECTURES[d.code]!,
+			source: "prefectures.gouv.fr:site-officiel",
+			sourceSiren: "recherche-entreprises.api.gouv.fr",
+		}));
+	const sirenRegion = sirens.get("nouvelle aquitaine");
+	if (/^\d{9}$/.test(sirenRegion ?? "")) resultats.push({
 		id: "na-etat-prefecture-75",
 		nom: "Préfecture de la région Nouvelle-Aquitaine",
 		type: "prefecture",
 		commune: "Bordeaux",
 		departement: "Nouvelle-Aquitaine",
-		siren: region.siren,
-		url: region.site,
-		source: "wikidata:P1616+P856",
-		sourceSiren: "wikidata:P1616",
+		siren: sirenRegion!,
+		url: SITES_PREFECTURES["75"]!,
+		source: "prefectures.gouv.fr:site-officiel",
+		sourceSiren: "recherche-entreprises.api.gouv.fr",
 	});
 	return resultats;
 }
@@ -283,6 +320,27 @@ export function candidatsSante(lignes: Record<string, unknown>[], nomsDep: Map<s
 		}));
 }
 
+/** SIREN des préfectures, depuis l'annuaire officiel des entreprises (API ouverte). */
+export async function sirensPrefectures(nomsDep: Territoire[]): Promise<Map<string, string>> {
+	const cibles = [
+		...nomsDep.map((d) => ({ cle: normaliser(d.nom), requete: `prefecture de departement ${d.nom}` })),
+		{ cle: "nouvelle aquitaine", requete: "prefecture de region Nouvelle-Aquitaine" },
+	];
+	const paires = await Promise.all(cibles.map(async ({ cle, requete }) => {
+		const url = new URL("https://recherche-entreprises.api.gouv.fr/search");
+		url.searchParams.set("q", requete);
+		url.searchParams.set("per_page", "10");
+		try {
+			const json = await getJson<{ results: { nom_complet: string; siren: string }[] }>(url);
+			const attendu = normaliser(requete);
+			const trouve = json.results.find((r) => normaliser(r.nom_complet) === attendu);
+			return [cle, trouve?.siren ?? ""] as const;
+		} catch {
+			return [cle, ""] as const;
+		}
+	}));
+	return new Map(paires.filter(([, siren]) => /^\d{9}$/.test(siren)));
+}
 async function getJson<T>(url: URL, timeoutMs = 60_000): Promise<T> {
 	const reponse = await fetch(url, {
 		signal: AbortSignal.timeout(timeoutMs),
@@ -413,25 +471,24 @@ if (estLanceDirectement()) {
 	for (const l of lireJsonl(CORPUS_COMMUNES)) {
 		if (l.statut_http === 200 && typeof l.url_finale === "string") communesVerifiees.set(String(l.code_insee), l.url_finale);
 	}
-	console.error("Récupération des sites depuis Wikidata et l'annuaire de l'Éducation nationale…");
-	const [parCode, parSiren, education, etat] = await Promise.all([
+	console.error("Récupération des sites depuis Wikidata, de l'annuaire de l'Éducation nationale et de l'annuaire des entreprises…");
+	const [parCode, parSiren, education, etat, sirens] = await Promise.all([
 		sitesWikidata(ref.communes.filter((c) => c.type === "commune-actuelle" && c.population > 5000).map((c) => c.code), "P374"),
 		sitesWikidata(ref.epci.map((e) => e.code), "P1616"),
 		annuaireEducation(),
 		sparql<{ label: { value: string }; siren: { value: string }; site: { value: string } }>(
-			`SELECT ?item ?label ?siren ?site WHERE { ?item wdt:P856 ?site ; wdt:P1616 ?siren ; rdfs:label ?label . FILTER(LANG(?label)="fr") FILTER(CONTAINS(LCASE(?label),"préfecture") || CONTAINS(LCASE(?label),"incendie et de secours")) }`,
+			`SELECT ?item ?label ?siren ?site WHERE { ?item wdt:P856 ?site ; wdt:P1616 ?siren ; rdfs:label ?label . FILTER(LANG(?label)="fr") FILTER(CONTAINS(LCASE(?label),"incendie et de secours")) }`,
 		).then((lignes) => lignes.map((l) => ({ label: l.label.value, siren: l.siren.value, site: l.site.value }))),
+		sirensPrefectures(ref.departements),
 	]);
 	const candidats = [
 		...candidatsCommunes(ref, parCode, communesVerifiees),
 		...candidatsEpci(ref, parSiren),
-		...candidatsEtat(etat, ref.departements),
+		...candidatsSdis(etat, ref.departements),
+		...candidatsPrefectures(ref.departements, sirens),
 		...candidatsScolaires(education, nomsDep),
 		...candidatsSante(lireJsonl(CORPUS_SANTE), nomsDep),
 	];
-	const retenusCandidats = Number.isFinite(LIMITE) ? candidats.slice(0, LIMITE) : candidats;
-	console.error(`${retenusCandidats.length} candidats à vérifier (${candidats.length} au total)…`);
-	const { retenus, echecs } = await verifierTous(retenusCandidats);
 	const parType: Record<string, number> = {};
 	for (const l of retenus) parType[String(l.type)] = (parType[String(l.type)] ?? 0) + 1;
 	const rapport = {
@@ -448,7 +505,7 @@ if (estLanceDirectement()) {
 		sources: {
 			communes: "referentiel-na.json + wikidata:P374/P856 + corpus communes",
 			epci: "referentiel-na.json + wikidata:P1616/P856",
-			prefectures_sdis: "wikidata:P1616/P856",
+			prefectures_sdis: "wikidata:P1616+P856 (SDIS) + recherche-entreprises.api.gouv.fr (préfectures)",
 			education: "data.education.gouv.fr fr-en-annuaire-education",
 			sante: "corpus sante-enseignement (FINESS + annuaire sante.fr)",
 		},
