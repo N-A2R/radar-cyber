@@ -1,6 +1,6 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { creerMemoire, etatDonnees, type Instantane } from "./offline";
-import { api, clearAuthToken, getAuthToken, setAuthToken, type CouvertureResponse, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type Stats, type TodayResponse } from "./api";
+import { api, clearAuthToken, getAuthToken, setAuthToken, type CouvertureResponse, type CorpusStats, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type Stats, type TodayResponse } from "./api";
 import { mockData } from "./mock";
 const Map3D = lazy(() => import("./map/Map3D"));
 const GraphView = lazy(() => import("./graph/GraphView"));
@@ -21,6 +21,7 @@ const TodayView = lazy(() => import("./components/TodayView"));
 const CouvertureView = lazy(() => import("./components/CouvertureView"));
 const AlertsView = lazy(() => import("./components/AlertsView"));
 const LoginScreen = lazy(() => import("./components/LoginScreen"));
+const CorpusView = lazy(() => import("./components/CorpusView"));
 import type { ViewKey } from "./contracts";
 import { parseHash, toHash, shareableUrl, type AppUrlState } from "./url-state";
 
@@ -42,8 +43,15 @@ const MOCK_MODE = import.meta.env.VITE_DATA_MODE === "mock";
 
 const VIEWS: { id: ViewKey; label: string }[] = [
   { id: "today", label: "Today" },
-  { id: "couverture", label: "Coverage" },
+  { id: "coverage", label: "Coverage" },
   { id: "review", label: "Review" },
+  { id: "journal", label: "Journal" },
+  { id: "corpus", label: "Corpus" },
+  { id: "sources", label: "Sources" },
+  { id: "map", label: "Map" },
+  { id: "graph", label: "Graph" },
+  { id: "health", label: "Health" },
+  { id: "alerts", label: "Alerts" },
   { id: "journal", label: "Journal" },
   { id: "dossier", label: "Corpus" },
   { id: "sources", label: "Sources" },
@@ -74,6 +82,9 @@ export default function App() {
   const [couvertureData, setCouvertureData] = useState<CouvertureResponse | null>(null);
   const [couvertureLoading, setCouvertureLoading] = useState(false);
   const [couvertureError, setCouvertureError] = useState<string | null>(null);
+  const [corpusData, setCorpusData] = useState<CorpusStats | null>(null);
+  const [corpusLoading, setCorpusLoading] = useState(false);
+  const [corpusError, setCorpusError] = useState<string | null>(null);
   const [statsDepartements, setStatsDepartements] = useState<DeptStat[]>([]);
   const [graph, setGraph] = useState<Graph>({ nodes: [], links: [] });
   const [flows, setFlows] = useState<FlowArc[]>([]);
@@ -368,6 +379,37 @@ export default function App() {
     };
   }, [view, urlState.today.family, urlState.today.dept, token]);
 
+  // Corpus : lecture publique, indépendante du token et du fil d'événements.
+  // Un appel à l'ouverture, puis toutes les minutes pour que la réponse à
+  // « est-ce que mon corpus grossit ? » ne soit pas une mesure périmée.
+  useEffect(() => {
+    if (MOCK_MODE || view !== "corpus") return;
+    const controller = new AbortController();
+    const charger = () => {
+      setCorpusLoading(true);
+      api
+        .corpusStats(controller.signal)
+        .then((donnees) => {
+          setCorpusData(donnees);
+          setCorpusError(null);
+        })
+        .catch((err: unknown) => {
+          if (!controller.signal.aborted) {
+            setCorpusError(err instanceof Error ? err.message : "indisponible");
+          }
+        })
+        .finally(() => {
+          if (!controller.signal.aborted) setCorpusLoading(false);
+        });
+    };
+    charger();
+    const timer = setInterval(charger, 60_000);
+    return () => {
+      controller.abort();
+      clearInterval(timer);
+    };
+  }, [view]);
+
   // La liste des départements vient de l'agrégat serveur, pas du fil courant :
   // un filtre appliqué ne doit pas faire disparaître les autres départements.
   useEffect(() => {
@@ -389,7 +431,7 @@ export default function App() {
   // The coverage figure is a published measurement: one request when the view
   // is opened, aborted as soon as the user leaves it.
   useEffect(() => {
-    if (view !== "couverture" || (!token && !MOCK_MODE)) return;
+    if (view !== "coverage") return;
     const controller = new AbortController();
     setCouvertureLoading(true);
     setCouvertureError(null);
@@ -404,7 +446,7 @@ export default function App() {
         if (!controller.signal.aborted) setCouvertureLoading(false);
       });
     return () => controller.abort();
-  }, [view, token]);
+  }, [view]);
 
   const byFamily = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -737,7 +779,7 @@ export default function App() {
               }}
             />
           ) : null}
-          {view === "couverture" ? (
+          {view === "coverage" ? (
             <CouvertureView data={couvertureData} loading={couvertureLoading} error={couvertureError} />
           ) : null}
           {view === "map" ? (
@@ -794,6 +836,9 @@ export default function App() {
           ) : null}
           {view === "journal" ? <JournalView onUnauthorized={onUnauthorized} /> : null}
 
+          {view === "corpus" ? (
+            <CorpusView data={corpusData} loading={corpusLoading} error={corpusError} />
+          ) : null}
           {view === "sources" ? <SourcesView sources={sources} loading={loading} error={error} /> : null}
 
           {view === "health" ? (
