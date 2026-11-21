@@ -1,0 +1,33 @@
+{
+  "base": "postgres://radar:radar@localhost:5433/radar",
+  "filtre": "promoted=false AND kind='claim' AND status='pending' AND btrim(org_hint) <> ''",
+  "total": 220,
+  "total_attente": 365,
+  "attente_sans_indice": 145,
+  "comptes": {
+    "domaine": 184,
+    "sigle": 0,
+    "nom": 36,
+    "vide": 0
+  },
+  "exemples": {
+    "domaine": [
+      "eivp-paris.fr",
+      "lyonhealy.com",
+      "ibafrance.fr",
+      "www.nicecloud.nl",
+      "hotel-ampere-paris.com"
+    ],
+    "sigle": [],
+    "nom": [
+      "Universite Paris Sud",
+      "Сompilation of lawyers France",
+      "Marseille Provence",
+      "Paris Society",
+      "torann-france.f..."
+    ],
+    "vide": []
+  },
+  "sha256_corpus": "b28ac5d169db30ffdc86429f15f8c9809a2da581be57fde2edc4a89da3d8bd1c",
+  "sha256_methode": "SHA-256 des org_hint ordonnés par id, joints par \\n avec un \\n final (UTF-8)"
+}

@@ -11,8 +11,11 @@ import { z } from "zod";
 import { query, withTransaction } from "../db.js";
 import { requireAuth } from "../middleware/auth.js";
 import { evaluateEvent } from "../detect/engine.js";
+import { domainFromHint } from "../match/domaine.js";
+import { estSigle } from "../match/sigles.js";
 import { consignerAvec } from "../journal/index.js";
-import { promoteOneTx } from "../quarantine/promote.js";
+import { createOrgFromHintTx, InvalidHintError, type CreateOrgFromHintResult } from "../quarantine/from-hint.js";
+import { normalizeName, promoteOneTx, type PromoteOneResult } from "../quarantine/promote.js";
 import { appendReview, applyReview, reviewQueue, type ReviewEntry } from "../quarantine/review.js";
 import type { TriageBucket } from "../quarantine/triage.js";
 
@@ -24,12 +27,15 @@ const QueueQuery = z.object({
 });
 
 const DecisionBody = z.object({
-	decision: z.enum(["accepter", "refuser"]),
+	decision: z.enum(["accepter", "refuser", "creer"]),
 	orgId: z.number().int().positive().optional(),
 	raison: z.string().trim().min(1).max(500),
 }).strict().refine(
 	(body) => body.decision !== "accepter" || body.orgId !== undefined,
 	{ message: "orgId requis pour une acceptation", path: ["orgId"] },
+).refine(
+	(body) => body.decision !== "creer" || body.orgId === undefined,
+	{ message: "orgId interdit pour une création", path: ["orgId"] },
 );
 
 function badRequest(reply: { code: (n: number) => { send: (body: unknown) => unknown } }, error: z.ZodError) {
@@ -37,6 +43,33 @@ function badRequest(reply: { code: (n: number) => { send: (body: unknown) => unk
 		error: "invalid input",
 		details: error.issues.map((issue) => ({ path: issue.path.join("."), message: issue.message })),
 	});
+}
+
+/**
+ * Traduit l'indice de quarantaine en entrée du service de création.
+ * Sans domaine ni jeton alphabétique exploitable, on ne fabrique pas une
+ * organisation : la décision est refusée avant toute écriture.
+ */
+function inputDepuisIndice(
+	orgHint: string | null,
+	quarantineId: number,
+	acteur: string,
+	raison: string,
+): { nom: string; domaine: string | null; source: string; preuve: string } | null {
+	const hint = (orgHint ?? "").trim();
+	if (!hint) return null;
+	const domaine = domainFromHint(hint);
+	const nom = hint.slice(0, 300);
+	if (!domaine && !estSigle(nom)) {
+		const jetons = normalizeName(nom).split(" ").filter((jeton) => jeton.length >= 2 && /[a-z]/.test(jeton));
+		if (jetons.length === 0) return null;
+	}
+	return {
+		nom,
+		domaine,
+		source: `quarantine:${quarantineId}`.slice(0, 200),
+		preuve: `décision creer par ${acteur} — ${raison}`.slice(0, 2000),
+	};
 }
 
 export default async function (app: FastifyInstance) {
@@ -110,9 +143,10 @@ export default async function (app: FastifyInstance) {
 	});
 
 	/**
-	 * Décision sur une ligne : accepter attache l'organisation choisie en créant
-	 * l'événement public, refuser classe la ligne. Les deux écrivent le motif et
-	 * l'auteur dans le journal et dans l'historique de la ligne.
+	 * Décision sur une ligne : accepter attache l'organisation choisie, creer
+	 * crée (ou réutilise) l'organisation portée par l'indice, refuser classe la
+	 * ligne. Chaque décision écrit le motif et l'auteur dans le journal et dans
+	 * l'historique de la ligne.
 	 */
 	app.post<{ Params: { id: string } }>(
 		"/review/:id/decision",
@@ -128,8 +162,8 @@ export default async function (app: FastifyInstance) {
 			const orgId = parsed.data.orgId;
 			const actor = req.user!.email;
 
-			const current = await query<{ status: string; promoted: boolean }>(
-				"SELECT status, promoted FROM quarantine_raw WHERE id=$1", [id],
+			const current = await query<{ status: string; promoted: boolean; org_hint: string | null }>(
+				"SELECT status, promoted, org_hint FROM quarantine_raw WHERE id=$1", [id],
 			);
 			if (!current.rows[0]) return reply.code(404).send({ error: "not found" });
 			if (current.rows[0].promoted || current.rows[0].status !== "pending") {
@@ -178,6 +212,67 @@ export default async function (app: FastifyInstance) {
 					id, decision, orgId, orgName: org.rows[0].name,
 					status: "promoted", eventId: promoted.eventId, alerts,
 					reason: raison, by: actor,
+				};
+			}
+
+			if (decision === "creer") {
+				const input = inputDepuisIndice(current.rows[0].org_hint, id, actor, raison);
+				if (!input) return reply.code(400).send({ error: "indice inexploitable" });
+				const entry: ReviewEntry = {
+					at: new Date().toISOString(), by: actor, action: "promote", reason: raison,
+				};
+				let decided: { result: PromoteOneResult; creation: CreateOrgFromHintResult } | null;
+				try {
+					// Création, rattachement, trace et décision : un seul commit,
+					// ou rien du tout si une écriture échoue.
+					decided = await withTransaction(async (client) => {
+						const creation = await createOrgFromHintTx(client, input);
+						const org = creation.org;
+						const result = await promoteOneTx(client, id, actor, {
+							orgId: org.id, orgName: org.name,
+						});
+						if (!result.found || result.alreadyPromoted) return null;
+						await appendReview(id, entry, client);
+						const trace = await consignerAvec(
+							(sql, params) => client.query(sql, params as unknown[]),
+							{
+								kind: "review.decided",
+								subject: `quarantine:${id}`,
+								summary: `creer par ${actor} — ${raison}`,
+								actor: `humain:${actor}`,
+								payload: {
+									decision: "creer",
+									action: "promote",
+									reason: raison,
+									orgId: org.id,
+									orgName: org.name,
+									cree: creation.created,
+									matchedBy: creation.matchedBy,
+									statutApplique: "promoted",
+									eventId: result.eventId,
+									quarantineId: id,
+								},
+							},
+						);
+						if (!trace.ok) throw new Error(`journal indisponible : ${trace.error}`);
+						return { result, creation };
+					});
+				} catch (error) {
+					if (error instanceof InvalidHintError) {
+						return reply.code(400).send({ error: "indice inexploitable", details: error.message });
+					}
+					throw error;
+				}
+				if (!decided) return reply.code(409).send({ error: "already decided" });
+				const { result: promoted, creation } = decided;
+				const org = creation.org;
+				const alerts = promoted.inserted && promoted.eventId !== null
+					? await evaluateEvent(promoted.eventId, { force: true })
+					: 0;
+				return {
+					ok: true, id, decision, orgId: org.id, orgName: org.name,
+					eventId: promoted.eventId, cree: creation.created,
+					status: "promoted", reason: raison, by: actor, alerts,
 				};
 			}
 
