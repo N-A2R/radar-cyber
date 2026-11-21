@@ -135,6 +135,24 @@ function hashKey(value: string): string {
   return createHash("sha256").update(value).digest("base64url").slice(0, 24);
 }
 
+/** Même normalisation que migrate-045 : accents tombés, ponctuation = espace. */
+function normalizeTitle(title: string): string {
+  return title
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+/** Identité d'un article : titre normalisé + jour UTC + source (migration 045). */
+function fingerprintOf(title: string, at: Date | null, sourceId: string): string {
+  const day = at === null
+    ? "sans-date"
+    : `${at.getUTCFullYear()}-${String(at.getUTCMonth() + 1).padStart(2, "0")}-${String(at.getUTCDate()).padStart(2, "0")}`;
+  return `${normalizeTitle(title)}|${day}|${sourceId}`;
+}
+
 /** Champs portant un identifiant CVE en plus du titre (OSV `aliases`, `cve`…). */
 const CVE_ALIAS_FIELDS = ["aliases", "cve", "cveID", "cves", "vulnerabilityId", "identifiers"];
 
@@ -790,12 +808,13 @@ async function ingestNarrative(
     // défaut il retombe sur l'instant de collecte, ce qui évite les
     // observed_at NULL qui s'accumulaient en fin de fil.
     const parsed = parseObservedAt(dateRaw, { fetchedAt });
-    // La clé portait l'identifiant de la source : le même article, repris par
-    // les douze flux départementaux, devenait douze événements identiques dans
-    // le fil. Elle portait ensuite le lien, mais Google News sert la même
-    // dépêche sous une URL différente par requête — huit copies du même titre
-    // sont passées par là. L'identité d'un article, c'est son titre.
-    const dedupKey = `feed:${hashKey(title)}`;
+    // L'identité d'un article, c'est son titre normalisé + son jour UTC + sa
+    // source (migration 045). La clé historique ne portait que le titre brut :
+    // une casse, un accent ou des espaces différents créaient un doublon.
+    // La clé dérive de l'empreinte pour qu'un conflit sur l'une soit toujours
+    // un conflit sur l'autre — un seul ON CONFLICT suffit alors à l'insertion.
+    const fingerprint = fingerprintOf(title, parsed.at, source.id);
+    const dedupKey = `feed:${hashKey(fingerprint)}`;
     // Porte cyber : le texte décide. Une dépêche régionale publiée par une
     // source déclarée `cti` n'est pas du renseignement. Elle était classée
     // `presse` et conservée ; sur décision utilisateur du 10 novembre, elle
@@ -810,8 +829,6 @@ async function ingestNarrative(
       continue;
     }
 
-    // DO UPDATE : un événement déjà connu mais sans date (ingéré avant la
-    // correction) reçoit enfin observed_at. Sans ça, re-parser ne répare rien.
     // Marqueur d'admission : une organisation rattachée prime ; sinon la règle
     // qui a fait passer l'item, sinon null (admis par la porte de pertinence).
     const admissionRule: "org" | "epss" | "dept" | null = orgId !== null ? "org" : admission;
@@ -849,18 +866,14 @@ async function ingestNarrative(
     const event = admitted.event;
     const r = await ingestQuery<{ inserted: boolean }>(
       `INSERT INTO event (dedup_key, family, assertion_type, title, summary, org_id, observed_at, date_source, date_confidence, severity, confidence,
-        source_id, source_url, evidence, geo_type, admission_rule, regional, regional_motif)
-       VALUES ($1,$2,$13,$3,$10,$11,$4,$5,$6,$14,$15,$7,$8,$9,$16,$12,$17,$18)
-       ON CONFLICT (dedup_key) DO UPDATE SET
-         observed_at      = COALESCE(event.observed_at, EXCLUDED.observed_at),
-         date_source      = COALESCE(event.date_source, EXCLUDED.date_source),
-         date_confidence  = COALESCE(event.date_confidence, EXCLUDED.date_confidence),
-         admission_rule   = COALESCE(event.admission_rule, EXCLUDED.admission_rule)
+        source_id, source_url, evidence, geo_type, admission_rule, regional, regional_motif, fingerprint)
+       VALUES ($1,$2,$13,$3,$10,$11,$4,$5,$6,$14,$15,$7,$8,$9,$16,$12,$17,$18,$19)
+       ON CONFLICT (fingerprint) WHERE fingerprint IS NOT NULL DO NOTHING
        RETURNING (xmax = 0) AS inserted`,
       [event.dedupKey, event.family, event.title, event.observedAt ?? null, parsed.source, parsed.confidence,
         event.sourceId, event.sourceUrl ?? null, JSON.stringify(event.evidence ?? {}), event.summary ?? null, orgId, admissionRule,
         event.assertionType, event.severity, event.confidence ?? "C3", event.geoType,
-        portee.regional, portee.motif]
+        portee.regional, portee.motif, fingerprint]
     );
     if (r.rows[0]?.inserted) added++;
     faits.push({

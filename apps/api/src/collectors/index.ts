@@ -7,4 +7,7 @@ import { collector as ctlog } from "./ctlog.collector.js";
 import { collector as poc } from "./poc.collector.js";
 import type { Collector } from "@radar/shared";
 
+// L'insertion des événements de flux — et son `ON CONFLICT (fingerprint) DO NOTHING`
+// (migration 045) — vit dans generic.ts : ce fichier ne fait que lister les
+// collecteurs dédiés, appelés depuis server.ts.
 export const collectors: Collector[] = [certfr, kev, ransomlook, epss, nvd, ctlog, poc];
