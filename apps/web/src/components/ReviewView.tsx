@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import { authHeaders } from "../api";
+import { isReviewTypingTarget, reviewIntent, type ReviewKeyState } from "../review-keys";
 import "./review.css";
 
 export type RevueBucket = "chaud" | "tiede" | "froid";
@@ -61,6 +62,7 @@ const DECISION_LABEL: Record<RevueDecision, string> = {
   refuser: "Refus",
   creer: "Création d'organisation",
 };
+const NO_SELECTION: ReadonlySet<number> = new Set();
 
 /** Le serveur renvoie `{ error, details }` : on affiche son message, pas un code générique. */
 async function apiMessage(res: Response, fallback: string): Promise<string> {
@@ -97,6 +99,8 @@ export default function ReviewView({
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [openRow, setOpenRow] = useState<number | null>(null);
+  const [active, setActive] = useState(0);
+  const [help, setHelp] = useState(false);
   const [decision, setDecision] = useState<RevueDecision>("accepter");
   const [orgId, setOrgId] = useState<number | null>(null);
   const [raison, setRaison] = useState("");
@@ -126,6 +130,7 @@ export default function ReviewView({
         setTotal(data.total);
         setOpenRow(null);
         setRaison("");
+        setActive((index) => Math.min(index, Math.max(0, data.rows.length - 1)));
         setOrgId(null);
         setNotice(null);
       })
@@ -156,6 +161,46 @@ export default function ReviewView({
     setRaison("");
     setActionError(null);
   }, []);
+
+  const keyState: ReviewKeyState = useMemo(() => ({
+    count: rows.length,
+    active,
+    selected: NO_SELECTION,
+    ids: rows.map((row) => row.id),
+    rejecting: openRow !== null,
+    help,
+  }), [rows, active, openRow, help]);
+
+  function onKeyDown(event: ReactKeyboardEvent<HTMLElement>) {
+    if (event.altKey || event.ctrlKey || event.metaKey) return;
+    const intent = reviewIntent(event.key, event.shiftKey, {
+      ...keyState,
+      typing: isReviewTypingTarget(event.target),
+    });
+    if (intent.kind === "none") return;
+    event.preventDefault();
+    if (intent.kind === "move") {
+      setActive(intent.active);
+      return;
+    }
+    if (intent.kind === "help") {
+      setHelp((open) => !open);
+      return;
+    }
+    if (intent.kind === "cancelReject") {
+      closeAction();
+      return;
+    }
+    if (intent.kind === "clear") {
+      setHelp(false);
+      return;
+    }
+    if (!canWrite || submitting) return;
+    const id = rows[active]?.id;
+    if (id === undefined) return;
+    if (intent.kind === "askReject") openAction(id, "refuser");
+    else if (intent.kind === "decide") openAction(id, intent.decision);
+  }
 
   async function decide(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -195,11 +240,18 @@ export default function ReviewView({
   }
 
   return (
-    <section className="revue" aria-label="Revue des rattachements">
+    <section
+      className="revue"
+      aria-label="Revue des rattachements"
+      role="region"
+      tabIndex={0}
+      onKeyDown={onKeyDown}
+    >
       <header className="revue__head">
         <div>
           <h1>Revue</h1>
           <p className="revue__count">{total} revendication{total === 1 ? "" : "s"} en attente d'une décision</p>
+          <button type="button" onClick={() => setHelp(true)}>? Raccourcis</button>
         </div>
         <form
           className="revue__search"
@@ -244,8 +296,8 @@ export default function ReviewView({
       {!canWrite ? <p className="revue__state">Lecture seule : connectez-vous pour décider.</p> : null}
 
       <ul className="revue__list">
-        {rows.map((row) => (
-          <li className="revue__row" key={row.id} data-bucket={row.triage.bucket}>
+        {rows.map((row, index) => (
+          <li className="revue__row" key={row.id} data-bucket={row.triage.bucket} data-active={index === active ? "true" : undefined}>
             <div className="revue__main">
               <strong className="revue__hint">{row.orgHint || "(sans indice)"}</strong>
               <span className="revue__source">{row.source}</span>
@@ -340,6 +392,23 @@ export default function ReviewView({
           Suivant
         </button>
       </footer>
+
+      {help ? (
+        <div className="revue__help" role="dialog" aria-modal="true" aria-labelledby="revue-help-title">
+          <div className="revue__help-card">
+            <h2 id="revue-help-title">Raccourcis clavier</h2>
+            <dl>
+              <dt>J / K</dt><dd>Descendre / monter la sélection</dd>
+              <dt>A</dt><dd>Accepter le fait courant</dd>
+              <dt>R</dt><dd>Refuser le fait courant</dd>
+              <dt>C</dt><dd>Créer une organisation</dd>
+              <dt>?</dt><dd>Afficher cette aide</dd>
+              <dt>Échap</dt><dd>Fermer l'aide ou la décision en cours</dd>
+            </dl>
+            <button type="button" onClick={() => setHelp(false)}>Fermer</button>
+          </div>
+        </div>
+      ) : null}
     </section>
   );
 }
