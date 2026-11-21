@@ -1,0 +1,212 @@
+/* File de revue : deux colonnes, liste à gauche, décision à droite.
+   Mêmes jetons que le reste du poste. La couleur porte le seau, jamais
+   une décoration ; le poids de chaque règle est lisible en mono. */
+
+.review {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1 1 auto;
+  min-height: 0;
+  outline: none;
+}
+
+.review:focus-visible { outline: 2px solid var(--color-accent); outline-offset: -2px; }
+
+.review h1 { margin: 0; font: 500 17px/1.2 var(--font-display); color: var(--color-ink); }
+.review h2 { margin: 0 0 6px; font: 500 14px/1.35 var(--font-display); color: var(--color-ink); word-break: break-word; }
+.review h3 { margin: 14px 0 6px; font: 500 10px/1 var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-faint); }
+
+.review__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.review__tally { margin: 4px 0 0; font: 400 11px/1 var(--font-mono); color: var(--color-muted); font-variant-numeric: tabular-nums; }
+.review__tally b { color: var(--color-ink); font-weight: 500; }
+.review__timing { color: var(--color-faint); }
+
+.review__filters { display: flex; gap: 6px; flex-wrap: wrap; }
+.review__filters input,
+.review__filters select {
+  font: 400 11px/1 var(--font-display);
+  padding: 7px 9px;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--color-well);
+  box-shadow: var(--sink);
+  color: var(--color-ink);
+}
+.review__filters input { min-width: 180px; }
+.review__filters input:focus-visible,
+.review__filters select:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 1px; }
+
+.review__bar {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  padding: 7px 10px;
+  border-radius: var(--radius);
+  background: var(--color-plate);
+  box-shadow: var(--raise-sm);
+}
+.review__selection { font: 500 10px/1 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-faint); }
+.review__actions { display: flex; gap: 6px; flex-wrap: wrap; }
+.review__actions button,
+.review__reason button,
+.review__pager button {
+  border: 0; border-radius: var(--radius);
+  padding: 6px 9px;
+  background: var(--color-plate-2);
+  box-shadow: var(--raise-sm);
+  font: 500 10px/1 var(--font-mono);
+  color: var(--color-ink-2);
+  cursor: pointer;
+}
+.review__actions button:hover:not(:disabled),
+.review__pager button:hover:not(:disabled) { color: var(--color-accent); }
+.review__actions button:disabled,
+.review__pager button:disabled { color: var(--color-faint); cursor: default; box-shadow: none; }
+.review__actions button:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.review__actions kbd {
+  margin-left: 5px; padding: 1px 4px;
+  border-radius: 3px; background: var(--color-well);
+  font: 500 9px/1.3 var(--font-mono); color: var(--color-faint);
+}
+
+.review__reason { display: flex; gap: 6px; flex: 1 1 auto; }
+.review__reason input {
+  flex: 1 1 auto; min-width: 200px;
+  padding: 6px 9px; border: 0; border-radius: var(--radius);
+  background: var(--color-well); box-shadow: var(--sink);
+  font: 400 11px/1 var(--font-display); color: var(--color-ink);
+}
+
+.review__body { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 10px; flex: 1 1 auto; min-height: 0; }
+
+.review__list {
+  overflow: auto; min-height: 0;
+  border-radius: var(--radius);
+  background: var(--color-plate);
+  box-shadow: var(--raise);
+}
+
+.review__item {
+  display: grid;
+  grid-template-columns: 18px 30px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--color-hair);
+  cursor: pointer;
+}
+.review__item[data-active="true"] { background: var(--color-well); box-shadow: inset 2px 0 0 var(--color-accent); }
+.review__item:hover { background: var(--color-well); }
+
+.review__score {
+  font: 500 11px/1 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  color: var(--color-faint);
+}
+.review__item[data-bucket="chaud"] .review__score { color: var(--sev-5); }
+.review__item[data-bucket="tiede"] .review__score { color: var(--sev-3); }
+
+.review__hint {
+  font: 400 12px/1.3 var(--font-display); color: var(--color-ink);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.review__meta { font: 400 10px/1 var(--font-mono); color: var(--color-muted); grid-column: 3; }
+
+.review__flag {
+  grid-row: 1 / span 2; grid-column: 4;
+  padding: 2px 6px; border-radius: var(--radius);
+  font: 500 9px/1.4 var(--font-mono);
+  background: var(--color-well); color: var(--color-muted);
+  max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.review__flag[data-kind="gap"] { color: var(--sev-3); }
+.review__flag[data-kind="conflict"] { color: var(--sev-4); }
+.review__flag[data-kind="org"] { color: var(--color-accent); }
+
+.review__detail {
+  overflow: auto; min-height: 0;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  background: var(--color-plate);
+  box-shadow: var(--raise);
+}
+.review__prov { margin: 0 0 4px; font: 400 10px/1.5 var(--font-mono); color: var(--color-muted); }
+.review__tlp { margin-right: 6px; padding: 1px 5px; border-radius: 3px; background: var(--color-well); color: var(--sev-5); }
+.review__tlp[data-tlp="CLEAR"], .review__tlp[data-tlp="GREEN"] { color: var(--color-muted); }
+
+.review__suggest { margin: 10px 0 6px; font: 400 11px/1 var(--font-display); color: var(--color-ink-2); }
+.review__bucket { margin-left: 8px; padding: 2px 6px; border-radius: var(--radius); background: var(--color-well); font: 500 10px/1.4 var(--font-mono); }
+.review__bucket[data-bucket="chaud"] { color: var(--sev-5); }
+.review__bucket[data-bucket="tiede"] { color: var(--sev-3); }
+
+.review__org { margin: 0 0 6px; font: 400 11px/1.5 var(--font-display); color: var(--color-ink-2); }
+.review__org--none { color: var(--color-faint); }
+.review__org button { border: 0; background: none; padding: 0; font: inherit; color: var(--color-accent); cursor: pointer; text-decoration: underline; }
+
+.review__gap {
+  margin: 8px 0; padding: 8px 10px;
+  border-radius: var(--radius);
+  background: var(--color-well); box-shadow: var(--sink);
+  font: 400 11px/1.5 var(--font-display); color: var(--color-ink-2);
+}
+
+.review__reasons, .review__journal { margin: 0; padding: 0; list-style: none; }
+.review__reasons li, .review__journal li {
+  display: flex; gap: 8px; align-items: baseline;
+  padding: 3px 0;
+  font: 400 11px/1.45 var(--font-display); color: var(--color-ink-2);
+}
+.review__weight {
+  flex: 0 0 34px; text-align: right;
+  font: 500 10px/1.45 var(--font-mono); font-variant-numeric: tabular-nums;
+  color: var(--color-faint);
+}
+.review__weight[data-sign="plus"] { color: var(--color-accent); }
+.review__weight[data-sign="minus"] { color: var(--sev-4); }
+.review__journal li { display: block; font: 400 10px/1.6 var(--font-mono); color: var(--color-muted); }
+.review__mono { font-variant-numeric: tabular-nums; color: var(--color-faint); }
+
+.review__source { margin: 12px 0 0; font: 400 10px/1.5 var(--font-mono); color: var(--color-faint); }
+.review__source a { color: var(--color-accent); }
+
+.review__state { margin: 0; padding: 14px; font: 400 11px/1.6 var(--font-display); color: var(--color-muted); }
+.review__error { margin: 0; padding: 8px 10px; border-radius: var(--radius); background: var(--color-well); font: 400 11px/1.5 var(--font-display); color: var(--sev-5); }
+.review__truncated { margin: 0; padding: 6px 10px; border-radius: var(--radius); background: var(--color-well); box-shadow: var(--sink); font: 400 11px/1.4 var(--font-display); color: var(--color-ink-2); }
+
+.review__foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.review__hint { font: 400 10px/1 var(--font-mono); color: var(--color-faint); }
+.review__pager { display: flex; align-items: center; gap: 6px; font: 400 10px/1 var(--font-mono); color: var(--color-muted); }
+
+.review__toast {
+  position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 14px;
+  border-radius: var(--radius);
+  background: var(--color-plate-2);
+  box-shadow: var(--raise);
+  font: 400 11px/1 var(--font-display); color: var(--color-ink);
+  z-index: 40;
+}
+.review__toast button { border: 0; background: none; font: 500 10px/1 var(--font-mono); color: var(--color-accent); cursor: pointer; }
+
+@media (max-width: 1100px) {
+  .review__body { grid-template-columns: minmax(0, 1fr); }
+  .review__detail { max-height: 40vh; }
+}
+
+/* Ce que la file est, et ce qu'elle n'est pas. Sans cette phrase, 16 000
+   lignes en attente se lisent comme un travail en retard — alors que la
+   plupart sont là pour être écartées. */
+.review__intro {
+  margin: 0;
+  padding: 10px 12px;
+  border-left: 2px solid var(--line-strong);
+  font-size: var(--text-body);
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 78ch;
+}
+
+.review__intro + * {
+  margin-top: var(--space-3);
+}
