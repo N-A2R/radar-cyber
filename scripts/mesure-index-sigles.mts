@@ -6,10 +6,9 @@
  *    relevé S2.3 avait trouvé un seul sigle exploitable ;
  *  - la file vivante (quarantine_raw pending), classée par `classifierIndice`.
  *
- * Pour chaque sigle trouvé, on compare l'ancien régime (alias
- * annuaire-entreprises/usage + dénomination) au nouveau (index des usuelles
- * SIRENE), avec et sans contexte de la source (département de l'organisation
- * proposée, domaine de l'indice). Aucune écriture en base.
+ * Pour chaque sigle trouvé, on compare l'ancien régime (index des usuelles
+ * seules) au registre complet (toutes sources actives + dénominations), avec
+ * et sans contexte de la source. Aucune écriture en base.
  *
  * Rejouer :
  *   DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
@@ -19,11 +18,12 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { closePools, query } from "../apps/api/src/db.js";
 import { classifierIndice } from "../apps/api/src/match/famille-indice.js";
 import {
-	SQL_CANDIDATS_SIGLE,
+	candidatsSigleDepuisIndex,
 	candidatsSigleDepuisRegistre,
 	contexteSigleDepuisSource,
 	decideSigle,
 	deciderSigleDepuisRegistre,
+	normaliseSigle,
 	sigleDeIndice,
 	statistiquesIndexSigles,
 	type CandidatSigle,
@@ -42,11 +42,9 @@ type Refus = {
 	confidence: number;
 };
 
-/** Candidats de l'ancien régime, sans les usuelles SIRENE. */
+/** Candidats de l'ancien régime : l'index des usuelles seules. */
 async function candidatsAvant(sigle: string): Promise<CandidatSigle[]> {
-	const s = sigleDeIndice(sigle, "") ?? sigle.toUpperCase();
-	const r = await query<{ id: number; name: string }>(SQL_CANDIDATS_SIGLE, [s.toLowerCase(), s]);
-	return r.rows.map((o) => ({ orgId: Number(o.id), orgName: o.name }));
+	return candidatsSigleDepuisIndex(normaliseSigle(sigle));
 }
 
 const branchement = JSON.parse(readFileSync("bench/results/precision-branchement.json", "utf8")) as {
@@ -95,7 +93,7 @@ for (const r of fileVivante) {
 const sortie = {
 	date: new Intl.DateTimeFormat("fr-CA", { timeZone: "Europe/Paris" }).format(new Date()),
 	protocole:
-		"lecture seule. File gelée 220 : chaque sigle tiré d'un rattachement à 0,7 est résolu par l'ancien régime puis par l'index SIRENE, sans puis avec contexte. File vivante : indices pending classés sigles par classifierIndice().",
+		"lecture seule. File gelée 220 : chaque sigle tiré d'un rattachement à 0,7 est résolu par l'index des usuelles seules puis par le registre complet (toutes sources actives), sans puis avec contexte. File vivante : indices pending classés sigles par classifierIndice().",
 	index,
 	fileGelee: {
 		volume: branchement.fluxReel.volume,

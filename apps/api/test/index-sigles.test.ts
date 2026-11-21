@@ -77,3 +77,31 @@ test("un domaine seul départage quand l'indice n'a pas d'organisation proposée
 	]).get("BETA") ?? [];
 	assert.deepEqual(desambiguiserSigles(candidats, { domain: "beta-pro.fr" }).map((c) => c.orgId), [21]);
 });
+
+test("la décision départage elle-même un sigle partagé quand on lui donne le contexte", () => {
+	const candidats = buildIndexSigles(registre).get("AMF") ?? [];
+	assert.equal(decideSigle("A.M.F.", candidats).motif, "ambigu");
+	const decision = decideSigle("A.M.F.", candidats, { dept: "64" });
+	assert.equal(decision.accepte, true);
+	assert.equal(decision.orgId, 2);
+	assert.equal(decideSigle("AMF", candidats, { dept: "75" }).motif, "ambigu");
+});
+
+test("un alias-domaine et un domaine racine départagent, y compris avec www.", () => {
+	const candidats = buildIndexSigles([
+		ligne("GAMMA", 30, { dept: "33", domain: "gamma1.fr" }),
+		ligne("GAMMA", 31, { dept: "33", domain_aliases: ["www.sous.gamma2.fr"] }),
+		ligne("GAMMA", 32, { dept: "64" }),
+	]).get("GAMMA") ?? [];
+	assert.deepEqual(
+		desambiguiserSigles(candidats, { dept: "33", domain: "https://www.gamma2.fr/contact" }).map((c) => c.orgId),
+		[31],
+	);
+});
+
+test("index vide : le sigle est inconnu, sans exception", () => {
+	const decision = decideSigle("ZZZ", []);
+	assert.equal(decision.motif, "inconnu");
+	assert.equal(decision.candidats, 0);
+	assert.equal(buildIndexSigles([]).size, 0);
+});

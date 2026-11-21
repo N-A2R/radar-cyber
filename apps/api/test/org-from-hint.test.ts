@@ -211,3 +211,67 @@ test("route : Bearer requis, validation 400, création 201 puis 200", async () =
     await query("DELETE FROM app_user WHERE id=$1", [inserted.rows[0]!.id]);
   }
 });
+
+test("réutilisation par domaine racine : www. et sous-domaine ne créent pas de doublon", async () => {
+	const existant = await createOrgFromHint({
+		...base,
+		nom: `Racine ${TAG}`,
+		domaine: `racine-${TAG}.example`,
+	});
+	recordSlug(existant.org.slug);
+	assert.equal(existant.created, true);
+
+	const variante = await createOrgFromHint({
+		...base,
+		nom: `Variante ${TAG}`,
+		domaine: `https://user:pass@www.sous.racine-${TAG}.example:8443/contact`,
+	});
+	assert.equal(variante.created, false);
+	assert.equal(variante.matchedBy, "domaine");
+	assert.equal(variante.org.id, existant.org.id);
+});
+
+test("réutilisation par alias-domaine portant un sous-domaine", async () => {
+	const existant = await createOrgFromHint({
+		...base,
+		nom: `Alias domaine ${TAG}`,
+		domaine: `alias-${TAG}.example`,
+	});
+	recordSlug(existant.org.slug);
+	const variante = await createOrgFromHint({
+		...base,
+		nom: `Autre alias ${TAG}`,
+		domaine: `www.alias-${TAG}.example`,
+	});
+	assert.equal(variante.created, false);
+	assert.equal(variante.matchedBy, "domaine");
+	assert.equal(variante.org.id, existant.org.id);
+});
+
+test("réutilisation par site web stocké en URL", async () => {
+	const existant = await createOrgFromHint({
+		...base,
+		nom: `Site ${TAG}`,
+		domaine: `site-${TAG}.example`,
+	});
+	recordSlug(existant.org.slug);
+	await query("UPDATE org SET website=$1 WHERE id=$2", [
+		`https://www.site-${TAG}.example/contact`,
+		existant.org.id,
+	]);
+	const variante = await createOrgFromHint({
+		...base,
+		nom: `Site variante ${TAG}`,
+		domaine: `www.site-${TAG}.example`,
+	});
+	assert.equal(variante.created, false);
+	assert.equal(variante.matchedBy, "domaine");
+	assert.equal(variante.org.id, existant.org.id);
+});
+
+test("domaine invalide : aucun rattachement SILENCIEUX et erreur explicite", async () => {
+	await assert.rejects(
+		createOrgFromHint({ ...base, nom: `Invalide ${TAG}`, domaine: "pas un domaine" }),
+		InvalidHintError,
+	);
+});

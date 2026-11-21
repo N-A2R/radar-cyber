@@ -20,7 +20,7 @@ import type { PoolClient } from "pg";
 import { z } from "zod";
 import { withTransaction } from "../db.js";
 import { consignerAvec } from "../journal/index.js";
-import { normalizeDomainValue } from "../match/domaine.js";
+import { domaineRacine, normalizeDomainValue } from "../match/domaine.js";
 import { normalizeDomain, normalizeName } from "./promote.js";
 
 export const createOrgFromHintSchema = z.object({
@@ -77,7 +77,8 @@ export type CreateOrgFromHintResult = {
   journal: { ok: boolean; ecrit: boolean; error?: string };
 };
 
-const ORG_COLUMNS = "id, name, slug, kind, city, domain, status";
+const ORG_COLUMNS = "o.id, o.name, o.slug, o.kind, o.city, o.domain, o.status";
+const ORG_RETURN_COLUMNS = "id, name, slug, kind, city, domain, status";
 
 const DOMAIN_RE =
   /^(?=.{1,253}$)[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)+$/;
@@ -88,28 +89,72 @@ function nameTokens(nomNorm: string): string[] {
   return tokens.length > 0 ? tokens : nomNorm ? [nomNorm] : [];
 }
 
+type LigneOrg = OrgFromHint & { site_web: string | null };
+
+/**
+ * Organisation déjà porteuse du domaine, du site ou d'un alias-domaine.
+ *
+ * La comparaison porte sur la **racine** : `www.sous.exemple.com` et
+ * `exemple.com` désignent la même organisation. Le préfiltre SQL est un
+ * sur-ensemble (égalité ou suffixe de domaine) ; la décision se prend en
+ * TypeScript avec `domaineRacine`, seul endroit où les suffixes publics
+ * composés sont connus. Un suffixe nu (`com.br`) ne peut donc jamais faire
+ * réutiliser une organisation arbitraire.
+ */
+async function findExistingParDomaine(
+  client: PoolClient,
+  domain: string,
+): Promise<{ org: OrgFromHint; matchedBy: "domaine" } | null> {
+  const racine = domaineRacine(domain);
+  if (!racine) return null;
+  const variantes = [...new Set([domain, racine])];
+
+  const parOrg = await client.query<LigneOrg>(
+    `SELECT ${ORG_COLUMNS}, o.website AS site_web
+       FROM org o
+      WHERE lower(o.domain) = ANY($1::text[])
+         OR lower(o.website) = ANY($1::text[])
+         OR lower(COALESCE(o.domain, '')) LIKE '%' || $2 || '%'
+         OR lower(COALESCE(o.website, '')) LIKE '%' || $2 || '%'
+      ORDER BY o.id
+      LIMIT 200`,
+    [variantes, racine],
+  );
+  for (const row of parOrg.rows) {
+    if (domaineRacine(row.domain) === racine || domaineRacine(row.site_web) === racine) {
+      const { site_web: _site, ...org } = row;
+      return { org, matchedBy: "domaine" };
+    }
+  }
+
+  const parAlias = await client.query<OrgFromHint & { alias_domaine: string | null }>(
+    `SELECT ${ORG_COLUMNS}, a.alias AS alias_domaine
+       FROM org_alias a JOIN org o ON o.id = a.org_id
+      WHERE a.status = 'active' AND a.valid_to IS NULL AND a.source = 'domain'
+        AND (lower(a.alias) = ANY($1::text[])
+             OR lower(a.alias) LIKE '%.' || $2
+             OR $2 LIKE '%.' || lower(a.alias))
+      ORDER BY o.id
+      LIMIT 200`,
+    [variantes, racine],
+  );
+  for (const row of parAlias.rows) {
+    if (domaineRacine(row.alias_domaine) === racine) {
+      const { alias_domaine: _alias, ...org } = row;
+      return { org, matchedBy: "domaine" };
+    }
+  }
+  return null;
+ }
+
 async function findExisting(
   client: PoolClient,
   domain: string | null,
   nomNorm: string,
 ): Promise<{ org: OrgFromHint; matchedBy: "domaine" | "nom" } | null> {
   if (domain) {
-    const byDomain = await client.query<OrgFromHint>(
-      `SELECT ${ORG_COLUMNS} FROM org WHERE lower(domain) = $1 LIMIT 1`,
-      [domain],
-    );
-    if (byDomain.rows[0]) return { org: byDomain.rows[0], matchedBy: "domaine" };
-
-    // Le chargeur de référentiel matérialise aussi les domaines en alias : un
-    // domaine connu sous cette forme ne doit pas recréer l'organisation.
-    const byAlias = await client.query<OrgFromHint>(
-      `SELECT o.id, o.name, o.slug, o.kind, o.city, o.domain, o.status
-         FROM org_alias a JOIN org o ON o.id = a.org_id
-        WHERE lower(a.alias) = $1 AND a.status = 'active' AND a.valid_to IS NULL
-        LIMIT 1`,
-      [domain],
-    );
-    if (byAlias.rows[0]) return { org: byAlias.rows[0], matchedBy: "domaine" };
+    const parDomaine = await findExistingParDomaine(client, domain);
+    if (parDomaine) return parDomaine;
   }
 
   const patterns = nameTokens(nomNorm).map((token) => `%${token}%`);
@@ -118,8 +163,8 @@ async function findExisting(
     // Le préfiltre est large ; la décision se prend côté TypeScript avec la
     // MÊME normalisation que celle du nom fourni, pour ne rien inventer.
     const byName = await client.query<OrgFromHint>(
-      `SELECT ${ORG_COLUMNS} FROM org
-        WHERE name_norm = $1 OR name_norm ILIKE ANY($2::text[])
+      `SELECT ${ORG_COLUMNS} FROM org o
+        WHERE o.name_norm = $1 OR o.name_norm ILIKE ANY($2::text[])
         LIMIT 500`,
       [nomNorm, patterns],
     );
@@ -173,7 +218,7 @@ export async function createOrgFromHintTx(
   const inserted = await client.query<OrgFromHint>(
     `INSERT INTO org (name, slug, kind, city, domain, status, entity_source)
      VALUES ($1, $2, 'entreprise', $3, $4, 'a_confirmer', $5)
-     RETURNING ${ORG_COLUMNS}`,
+     RETURNING ${ORG_RETURN_COLUMNS}`,
     [nom, slug, input.ville?.trim() ?? null, domain, `hint:${input.source}`],
   );
   const org = inserted.rows[0]!;

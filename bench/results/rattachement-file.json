@@ -1,0 +1,70 @@
+{
+  "date": "2026-11-21T19:05:36.732Z",
+  "base": "postgres://radar:radar@localhost:5433/radar",
+  "protocole": "lecture seule. File pending non promue avec indice ; sur-ensemble d'orgs chargé par racine de domaine, puis moteur pur (resoudreDomaine, matchOrgInIndex, decideSigle avec contexte du domaine et du département de la source). Aucune écriture, aucun org injecté.",
+  "sha256_file": "c765bc800b7ab0decb3d0c1d2c720a00c2b59b0ef539371238f2017150a2afd8",
+  "taille": {
+    "indices": 200,
+    "organisationsAvecDomaine": 88,
+    "organisationsParNom": 14,
+    "siglesIndexes": 6785
+  },
+  "familles": {
+    "domaine": 163,
+    "sigle": 0,
+    "nom": 37,
+    "vide": 0
+  },
+  "detail": {
+    "domaines": {
+      "exact": 0,
+      "racine": 2,
+      "nom": 0,
+      "refuses": 161
+    },
+    "sigles": {
+      "cherches": 4,
+      "confirmes": 0,
+      "confirmesAvecDeptPropose": 0,
+      "ambigus": 4,
+      "inconnus": 0
+    }
+  },
+  "attacheParFamille": {
+    "domaine": 2,
+    "sigle": 0,
+    "nom": 1,
+    "vide": 0
+  },
+  "rattachements": {
+    "proposes": 3,
+    "automatiques": 0,
+    "tauxProposes": 0.015
+  },
+  "exemples": [
+    {
+      "id": "257864",
+      "indice": "owens-minor.com",
+      "famille": "domaine",
+      "orgId": 317544,
+      "confiance": 0.75,
+      "voie": "domaine-racine"
+    },
+    {
+      "id": "290141",
+      "indice": "pizwich.com",
+      "famille": "domaine",
+      "orgId": 2139850,
+      "confiance": 0.75,
+      "voie": "domaine-racine"
+    },
+    {
+      "id": "644182",
+      "indice": "bastion.internal",
+      "famille": "nom",
+      "orgId": 700230,
+      "confiance": 0.7,
+      "voie": "nom-name"
+    }
+  ]
+}

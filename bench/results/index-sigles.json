@@ -1,6 +1,6 @@
 {
 	"date": "2026-11-21",
-	"protocole": "lecture seule. File gelée 220 : chaque sigle tiré d'un rattachement à 0,7 est résolu par l'ancien régime puis par l'index SIRENE, sans puis avec contexte. File vivante : indices pending classés sigles par classifierIndice().",
+	"protocole": "lecture seule. File gelée 220 : chaque sigle tiré d'un rattachement à 0,7 est résolu par l'index des usuelles seules puis par le registre complet (toutes sources actives), sans puis avec contexte. File vivante : indices pending classés sigles par classifierIndice().",
 	"index": {
 		"alias": 8662,
 		"sigles": 6785,
@@ -19,8 +19,8 @@
 					"dept": "64",
 					"domain": "bastion.internal"
 				},
-				"candidatsAvant": 37,
-				"decisionAvant": "ambigu",
+				"candidatsAvant": 0,
+				"decisionAvant": "inconnu",
 				"candidatsApres": 2,
 				"sansContexte": "ambigu",
 				"avecContexte": "ambigu",

@@ -25,7 +25,8 @@
  * `contexteSigleDepuisSource` touchent la base.
  */
 import { query } from "../db.js";
-import { domainFromHint, normalizeDomainValue } from "./domaine.js";
+import { codeDepartement } from "./dept.js";
+import { domainFromHint, domaineRacine, normalizeDomainValue } from "./domaine.js";
 
 /** Organisation candidate trouvée dans le registre. */
 export type CandidatSigle = { orgId: number; orgName: string };
@@ -41,6 +42,8 @@ export type LigneAliasSigle = {
 	dept: string | null;
 	domain: string | null;
 	website: string | null;
+	/** Alias `source='domain'` de l'org, pour départager par domaine racine. */
+	domain_aliases?: readonly string[] | null;
 };
 
 /** Candidat indexé : le département et les domaines viennent de l'org. */
@@ -48,6 +51,7 @@ export type CandidatSigleIndexe = CandidatSigle & {
 	dept: string | null;
 	domain: string | null;
 	website: string | null;
+	domainAliases: readonly string[];
 	slug: string;
 	kind: string;
 	city: string | null;
@@ -107,24 +111,33 @@ export function estMotCourant(texte: string): boolean {
 
 /**
  * Décision pure : un seul candidat accepte, zéro ou plusieurs refusent.
- * Le motif est écrit dans la décision, donc dans la trace d'évaluation.
+ * Un contexte (département ou domaine de la source) départage les homonymes
+ * avant la décision ; sans lui, un sigle partagé reste ambigu. Le motif est
+ * écrit dans la décision, donc dans la trace d'évaluation.
  */
-export function decideSigle(indice: string, candidats: CandidatSigle[]): DecisionSigle {
+export function decideSigle(
+  indice: string,
+  candidats: ReadonlyArray<CandidatSigle>,
+  contexte?: ContexteSigle,
+): DecisionSigle {
 	const sigle = normaliseSigle(indice);
-	const uniques = [...new Map(candidats.map((c) => [c.orgId, c])).values()];
+	const distincts = [...new Map(candidats.map((c) => [c.orgId, c])).values()];
+	const retenus = contexte
+		? desambiguiserSigles(distincts, contexte)
+		: distincts;
 	if (!estSigle(sigle)) {
 		return {
 			sigle,
 			accepte: false,
-			candidats: uniques.length,
+			candidats: retenus.length,
 			motif: estMotCourant(sigle) ? "mot-courant" : "non-sigle",
 		};
 	}
-	if (uniques.length === 0) return { sigle, accepte: false, candidats: 0, motif: "inconnu" };
-	if (uniques.length > 1) {
-		return { sigle, accepte: false, candidats: uniques.length, motif: "ambigu" };
+	if (retenus.length === 0) return { sigle, accepte: false, candidats: 0, motif: "inconnu" };
+	if (retenus.length > 1) {
+		return { sigle, accepte: false, candidats: retenus.length, motif: "ambigu" };
 	}
-	const seul = uniques[0]!;
+	const seul = retenus[0]!;
 	return {
 		sigle,
 		accepte: true,
@@ -168,9 +181,16 @@ export function sigleDeIndice(indice: string, orgName: string): string | null {
 
 /** Une seule requête charge tout le registre des sigles (76 799 usuelles). */
 export const SQL_INDEX_SIGLES = `
-SELECT a.alias, o.id AS org_id, o.name, o.slug, o.kind, o.city, o.dept, o.domain, o.website
+SELECT a.alias, o.id AS org_id, o.name, o.slug, o.kind, o.city, o.dept, o.domain, o.website,
+       d.domaines AS domain_aliases
 FROM org_alias a
 JOIN org o ON o.id = a.org_id
+LEFT JOIN LATERAL (
+  SELECT array_agg(al.alias ORDER BY al.alias) AS domaines
+    FROM org_alias al
+   WHERE al.org_id = o.id AND al.source = 'domain'
+     AND al.status = 'active' AND al.valid_to IS NULL
+) d ON true
 WHERE a.status = 'active' AND a.source IN ('sirene-usuelle', 'sirene-sigle', 'annuaire-entreprises', 'usage')`;
 
 let indexSiglesPromise: Promise<IndexSigles> | null = null;
@@ -194,6 +214,7 @@ export function buildIndexSigles(rows: ReadonlyArray<LigneAliasSigle>): IndexSig
 			dept: row.dept ?? null,
 			domain: row.domain ?? null,
 			website: row.website ?? null,
+			domainAliases: row.domain_aliases ?? [],
 			slug: row.slug,
 			kind: row.kind,
 			city: row.city ?? null,
@@ -236,33 +257,60 @@ export async function statistiquesIndexSigles(): Promise<{
 	return { alias, sigles: index.size, ambigus };
 }
 
-function memesDomainesSigle(a: string | null, b: string | null): boolean {
+/**
+ * Égalité de domaines **racines** : `www.sous.beta.fr` et `beta.fr`
+ * désignent la même organisation, pas deux homonymes. Un suffixe public
+ * composé est conservé entier par `domaineRacine`.
+ */
+function memesDomainesSigle(a: string | null | undefined, b: string | null | undefined): boolean {
+	const ra = domaineRacine(a);
+	const rb = domaineRacine(b);
+	if (ra !== null && rb !== null) return ra === rb;
 	const na = normalizeDomainValue(a);
 	const nb = normalizeDomainValue(b);
 	return na !== null && nb !== null && na === nb;
 }
+/** Candidat muni, ou non, du contexte chargé depuis le registre. */
+type CandidatContextuel = CandidatSigle & {
+	dept?: string | null;
+	domain?: string | null;
+	website?: string | null;
+	domainAliases?: readonly string[];
+};
 
 /**
  * Désambiguïsation : on garde le sous-ensemble le plus discriminant —
  * intersection département ∧ domaine, puis département, puis domaine. Un
  * filtre sans résultat est ignoré ; plusieurs organisations restantes
- * restent ambiguës (la décision refusera).
+ * restent ambiguës (la décision refusera). Le département accepte aussi bien
+ * un code INSEE qu'un libellé, et le domaine est comparé à sa racine.
  */
-export function desambiguiserSigles(
-	candidats: ReadonlyArray<CandidatSigleIndexe>,
+export function desambiguiserSigles<T extends CandidatContextuel>(
+	candidats: readonly T[],
 	contexte?: ContexteSigle,
-): CandidatSigleIndexe[] {
+): T[] {
 	const uniques = [...new Map(candidats.map((c) => [c.orgId, c])).values()];
 	if (uniques.length <= 1 || !contexte) return uniques;
-	const parDept = contexte.dept
-		? uniques.filter((c) => c.dept !== null && c.dept === contexte.dept)
+	const dept = codeDepartement(contexte.dept);
+	const parDept = dept
+		? uniques.filter((c) => codeDepartement(c.dept) === dept)
 		: [];
-	const parDomaine = contexte.domain
-		? uniques.filter(
-				(c) => memesDomainesSigle(c.domain, contexte.domain ?? null) ||
-					memesDomainesSigle(c.website, contexte.domain ?? null),
+	const domaineContexte = normalizeDomainValue(contexte.domain);
+	const parDomaineExact = domaineContexte
+		? uniques.filter((c) =>
+				[c.domain, c.website, ...(c.domainAliases ?? [])].some(
+					(d) => normalizeDomainValue(d) === domaineContexte,
+				),
 			)
 		: [];
+	const parDomaineRacine = contexte.domain
+		? uniques.filter((c) =>
+				[c.domain, c.website, ...(c.domainAliases ?? [])].some((d) => memesDomainesSigle(d, contexte.domain)),
+			)
+		: [];
+	// Le domaine exact l'emporte sur la racine : deux organisations peuvent
+	// partager `exemple.com` sans partager `sous1`/`sous2`.
+	const parDomaine = parDomaineExact.length > 0 ? parDomaineExact : parDomaineRacine;
 	const croise = parDept.filter((c) => parDomaine.some((d) => d.orgId === c.orgId));
 	if (croise.length > 0) return croise;
 	if (parDept.length > 0) return parDept;
@@ -313,11 +361,14 @@ SELECT id, name, dept, domain, website FROM (
     AND ' ' || regexp_replace(replace(o.name_norm, '.', ''), '[^a-z0-9]+', ' ', 'g') || ' '
         LIKE '% ' || $1::text || ' %'
   UNION
+  -- Toutes les sources actives : limiter aux usuelles faisait « confirmer »
+  -- BMW ou AIR alors que cinq organisations portaient ce sigle au registre.
   SELECT o.id, o.name, o.dept, o.domain, o.website
   FROM org_alias a
   JOIN org o ON o.id = a.org_id
-  WHERE a.source IN ('annuaire-entreprises', 'usage')
-    AND regexp_replace(regexp_replace(upper(a.alias), '\\.', '', 'g'), '[^A-Z0-9]+', '', 'g') = $2::text
+  WHERE a.status = 'active'
+    AND (lower(a.alias) = $1::text
+         OR regexp_replace(regexp_replace(upper(a.alias), '\\.', '', 'g'), '[^A-Z0-9]+', '', 'g') = $2::text)
 ) candidats
 ORDER BY id`;
 
@@ -326,8 +377,9 @@ export const SQL_ALIAS_SIGLE = `
 SELECT o.id, o.name, o.slug, o.kind, o.city, o.domain, o.website
 FROM org_alias a
 JOIN org o ON o.id = a.org_id
-WHERE a.source IN ('annuaire-entreprises', 'usage')
-  AND regexp_replace(regexp_replace(upper(a.alias), '\\.', '', 'g'), '[^A-Z0-9]+', '', 'g') = $1::text
+WHERE a.status = 'active'
+  AND (lower(a.alias) = lower($1::text)
+       OR regexp_replace(regexp_replace(upper(a.alias), '\\.', '', 'g'), '[^A-Z0-9]+', '', 'g') = $1::text)
 ORDER BY o.id`;
 
 /**
@@ -355,6 +407,7 @@ export async function candidatsSigleDepuisRegistre(
 			dept: o.dept ?? null,
 			domain: o.domain ?? null,
 			website: o.website ?? null,
+			domainAliases: [],
 			slug: "",
 			kind: "",
 			city: null,

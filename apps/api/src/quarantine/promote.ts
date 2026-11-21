@@ -597,7 +597,7 @@ export function matchOrgInIndex(hint: string, index: OrgIndexEntry[]): OrgMatch 
   let resolution: ResolutionDomaine | null = null;
   let borne: number | null = null;
   if (hintDomain) {
-    resolution = resoudreDomaine(trimmed, index);
+    resolution = resoudreDomaine(trimmed, index, { domain: trimmed });
     if (resolution.etape === "exact") {
       return { orgId: resolution.orgId!, confidence: resolution.confidence, via: "domain" };
     }

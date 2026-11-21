@@ -18,9 +18,9 @@
  * Aucun des deux ne devine : une ambiguïté restante rend `orgId: null`.
  */
 import { query } from "../db.js";
-import { DEPT_LABELS } from "../collectors/relevance.js";
 import { normalize } from "./core.js";
-import { domainFromHint, normalizeDomainValue } from "./domaine.js";
+import { codeDepartement } from "./dept.js";
+import { domainFromHint, domaineRacine, normalizeDomainValue } from "./domaine.js";
 import { MOTS_GENERIQUES, MOTS_GENERIQUES_ENTREPRISE } from "./generique.js";
 
 /** Fiche d'incident du corpus (les deux champs obligatoires suffisent). */
@@ -67,21 +67,6 @@ const GENERIQUES = new Set<string>([
   "agglomeration", "metropole", "departement", "conseil", "prefecture",
 ]);
 
-/** Code INSEE d'un département, reconnu sous forme de code ou de libellé. */
-function codeDepartement(valeur: string | null | undefined): string | null {
-  if (!valeur) return null;
-  const brut = valeur.trim();
-  if (/^\d{2,3}$/.test(brut)) return brut;
-  const normalise = normalize(brut);
-  if (!normalise) return null;
-  for (const [code, libelle] of Object.entries(DEPT_LABELS)) {
-    if (normalise === libelle || normalise === libelle.replace(/-/g, " ")) return code;
-  }
-  // `Gironde (33)` et autres libellés enrichis : le code reste la clé la plus sûre.
-  const code = brut.match(/(?:^|\D)(\d{2,3})(?:\D|$)/);
-  return code?.[1] ?? normalise;
-}
-
 /** Jetons propres d'un nom, utiles seulement à titre de garde-fou. */
 function jetonsDistinctifs(texte: string): string[] {
   return normalize(texte)
@@ -89,14 +74,21 @@ function jetonsDistinctifs(texte: string): string[] {
     .filter((jeton) => jeton.length >= 4 && !/^\d+$/.test(jeton) && !GENERIQUES.has(jeton));
 }
 
+/**
+ * Domaines reconnus pour une organisation : la valeur normalisée **et** sa
+ * racine, afin qu'un `www.sous.exemple.com` retrouve `exemple.com` porté par
+ * `org.domain` ou par un alias de type domaine.
+ */
 function domainesDe(org: OrganisationCorpus): string[] {
   const valeurs = [org.domain, org.website, ...(org.aliases ?? [])];
-  const domaines: string[] = [];
+  const domaines = new Set<string>();
   for (const valeur of valeurs) {
     const domaine = normalizeDomainValue(valeur);
-    if (domaine) domaines.push(domaine);
+    if (domaine) domaines.add(domaine);
+    const racine = domaineRacine(valeur);
+    if (racine) domaines.add(racine);
   }
-  return domaines;
+  return [...domaines];
 }
 
 /**
@@ -132,8 +124,10 @@ export function rattacherCorpus(
 ): ResultatRattachement {
   const nom = normalize(incident.organisation ?? "");
   const commune = normalize(incident.commune ?? "");
-  const domaine = normalizeDomainValue(incident.domaine) ?? domainFromHint(incident.organisation ?? "");
-  if (nom === "" && domaine === null) return { orgId: null, motif: "organisation-vide" };
+  const domaineBrut = normalizeDomainValue(incident.domaine) ?? domainFromHint(incident.organisation ?? "");
+  const racine = domaineBrut ? domaineRacine(domaineBrut) : null;
+  const domainesIncident = [...new Set([domaineBrut, racine].filter((d): d is string => d !== null))];
+  if (nom === "" && domainesIncident.length === 0) return { orgId: null, motif: "organisation-vide" };
 
   const dept = codeDepartement(incident.departement);
   const jetonsIncident = jetonsDistinctifs(nom);
@@ -148,7 +142,7 @@ export function rattacherCorpus(
     const aliasOrgs = (org.aliases ?? []).map(normalize);
     const nomTrouve = nom !== "" && nomOrg === nom;
     const aliasTrouve = nom !== "" && !nomTrouve && aliasOrgs.includes(nom);
-    const domaineTrouve = domaine !== null && domainesDe(org).includes(domaine);
+    const domaineTrouve = domainesIncident.some((d) => domainesDe(org).includes(d));
     const jetonsOrg = new Set([
       ...jetonsDistinctifs(nomOrg),
       ...(org.aliases ?? []).flatMap(jetonsDistinctifs),
@@ -207,6 +201,7 @@ export async function chargerOrganisationsCorpus(
   const nom = normalize(incident.organisation ?? "");
   const motifs = jetonsDistinctifs(nom).map((jeton) => `%${jeton}%`);
   const domaine = normalizeDomainValue(incident.domaine) ?? domainFromHint(incident.organisation ?? "") ?? "";
+  const racine = domaine ? domaineRacine(domaine) ?? "" : "";
   const commune = normalize(incident.commune ?? "");
 
   const { rows } = await query<LigneOrg>(
@@ -222,15 +217,21 @@ export async function chargerOrganisationsCorpus(
          OR o.name_norm ILIKE ANY($2::text[])
          OR lower(COALESCE(o.domain, '')) = $3
          OR lower(COALESCE(o.website, '')) = $3
+         OR lower(COALESCE(o.domain, '')) LIKE '%.' || $5
+         OR lower(COALESCE(o.website, '')) LIKE '%.' || $5
+         OR $5 LIKE '%.' || lower(COALESCE(o.domain, ''))
+         OR $5 LIKE '%.' || lower(COALESCE(o.website, ''))
          OR lower(COALESCE(o.city, '')) = $4
          OR EXISTS (
            SELECT 1 FROM org_alias al2
             WHERE al2.org_id = o.id AND al2.status = 'active' AND al2.valid_to IS NULL
-              AND (lower(al2.alias) = $1 OR al2.alias ILIKE ANY($2::text[]) OR lower(al2.alias) = $3)
+              AND (lower(al2.alias) = $1 OR al2.alias ILIKE ANY($2::text[])
+                   OR lower(al2.alias) = $3 OR lower(al2.alias) = $5
+                   OR lower(al2.alias) LIKE '%.' || $5 OR $5 LIKE '%.' || lower(al2.alias))
          )
       ORDER BY o.id
       LIMIT 1000`,
-    [nom, motifs, domaine, commune],
+    [nom, motifs, domaine, commune, racine],
   );
   return rows;
 }

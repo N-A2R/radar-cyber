@@ -16,6 +16,7 @@
  * de quarantaine et testé sur les cas limites sans PostgreSQL.
  */
 
+import { codeDepartement } from "./dept.js";
 import { MOTS_GENERIQUES, MOTS_GENERIQUES_ENTREPRISE } from "./generique.js";
 
 /** Schéma d'URL : retiré avant le chemin, sinon `https://…` devient `https:`. */
@@ -52,11 +53,15 @@ export const SOUS_DOMAINES_GENERIQUES: Record<string, true> = {
  * `.com.br` : quatre faux positifs de ce type sur le lot mesuré.
  */
 const SUFFIXES_PUBLICS_COMPOSES: ReadonlySet<string> = new Set([
-	"ac.uk", "co.in", "co.jp", "co.ke", "co.kr", "co.mz", "co.nz", "co.th",
-	"co.uk", "co.us", "co.za", "com.ar", "com.au", "com.br", "com.cn", "com.ec",
-	"com.hk", "com.mx", "com.pa", "com.pe", "com.ph", "com.sg", "com.tr",
-	"com.tw", "com.ua", "com.vn", "gob.pe", "gov.ph", "gov.uk", "net.au",
-	"net.br", "net.id", "net.nz", "org.au", "org.br", "org.mk", "org.uk",
+	"ac.uk", "ac.za", "co.id", "co.in", "co.il", "co.jp", "co.ke", "co.kr",
+	"co.mz", "co.nz", "co.th", "co.tz", "co.uk", "co.us", "co.ug", "co.za",
+	"com.ar", "com.au", "com.bo", "com.br", "com.cn", "com.co", "com.do",
+	"com.ec", "com.gt", "com.hk", "com.mx", "com.my", "com.ng", "com.pa",
+	"com.pe", "com.ph", "com.sa", "com.sg", "com.sv", "com.tr", "com.tw",
+	"com.ua", "com.vn", "com.ve", "gob.mx", "gob.pe", "go.jp", "gov.br",
+	"gov.in", "gov.ph", "gov.uk", "ne.jp", "net.au", "net.br", "net.id",
+	"net.ng", "net.nz", "or.jp", "org.au", "org.br", "org.mk", "org.ng",
+	"org.tr", "org.uk", "org.za",
 ]);
 
 /**
@@ -79,17 +84,20 @@ export function domaineRacine(value: string | null | undefined): string | null {
  * Normalise une valeur de domaine. Renvoie `null` si la valeur n'est pas un
  * domaine (chemin seul, adresse e-mail, nom d'organisation…).
  *
- * L'ordre importe : on retire le schéma **avant** de couper sur `/`, puis le
- * chemin avant le port, ce qui évite de confondre `:` de scheme et de port.
+ * L'ordre importe : on retire le schéma **avant** de couper sur `/`, puis les
+ * éventuels identifiants (`user:pass@`) avant le port, ce qui évite de
+ * confondre `:` de scheme, d'authentification et de port.
  */
 export function normalizeDomainValue(value: string | null | undefined): string | null {
-	if (!value) return null;
+	if (!value || typeof value !== "string") return null;
 	let s = value.trim().toLowerCase();
 	if (!s) return null;
 	s = s.replace(SCHEME_RE, "");
 	s = s.split(/[/?#]/, 1)[0] ?? "";
+	const at = s.lastIndexOf("@");
+	if (at >= 0) s = s.slice(at + 1);
 	s = s.split(":", 1)[0] ?? "";
-	s = s.replace(/\.+$/, "");
+	s = s.replace(/^\.+/, "").replace(/\.+$/, "");
 	while (s.startsWith("www.")) s = s.slice(4);
 	return HOST_RE.test(s) ? s : null;
 }
@@ -171,6 +179,7 @@ export type OrgDomaine = {
   slug: string;
   name: string;
   nameNorm?: string;
+  dept?: string | null;
   domain?: string | null;
   website?: string | null;
   domainNorm?: string | null;
@@ -178,6 +187,9 @@ export type OrgDomaine = {
   /** Alias `org_alias.source='domain'` portés par l'organisation. */
   domainAliases?: readonly string[];
 };
+
+/** Contexte de la source, utilisé seulement quand plusieurs orgs sont candidates. */
+export type ContexteDomaine = { dept?: string | null; domain?: string | null };
 
 /** Résultat de la chaîne : premier étage qui réussit, sinon la revue. */
 export type ResolutionDomaine = {
@@ -193,6 +205,52 @@ function nameWords(value: string): string[] {
   return value.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean);
 }
 
+/** Valeurs de domaine enregistrées pour une organisation, avec leur racine. */
+function domainesDe(org: OrgDomaine): string[] {
+  const valeurs = [org.domainNorm ?? org.domain, org.websiteDomain ?? org.website, ...(org.domainAliases ?? [])];
+  const domaines: string[] = [];
+  for (const valeur of valeurs) {
+    const normalise = normalizeDomainValue(valeur);
+    if (normalise) domaines.push(normalise);
+    const racine = domaineRacine(valeur);
+    if (racine) domaines.push(racine);
+  }
+  return domaines;
+}
+
+/**
+ * Départage d'un domaine partagé : le département et le domaine de la source
+ * sont des contextes indépendants. On garde l'intersection quand elle existe,
+ * sinon le meilleur des deux critères. Un filtre sans résultat n'est jamais
+ * imposé : un départage ne doit pas transformer une ambiguïté en erreur.
+ */
+function departageParContexte(
+  candidats: readonly OrgDomaine[],
+  contexte?: ContexteDomaine,
+): OrgDomaine[] {
+  if (candidats.length <= 1 || !contexte) return [...candidats];
+  const dept = codeDepartement(contexte.dept);
+  const domaine = normalizeDomainValue(contexte.domain);
+  const racine = domaineRacine(contexte.domain);
+  const parDept = dept
+    ? candidats.filter((o) => codeDepartement(o.dept) === dept)
+    : [];
+  const parDomaineExact = domaine
+    ? candidats.filter((o) => domainesDe(o).includes(domaine))
+    : [];
+  const parDomaineRacine = racine
+    ? candidats.filter((o) => domainesDe(o).includes(racine))
+    : [];
+  // Un domaine plus précis que la racine départage avant elle : deux orgs
+  // peuvent partager `exemple.com` sans partager `sous1`/`sous2`.
+  const parDomaine = parDomaineExact.length > 0 ? parDomaineExact : parDomaineRacine;
+  const croise = parDept.filter((o) => parDomaine.includes(o));
+  if (croise.length > 0) return croise;
+  if (parDept.length > 0) return parDept;
+  if (parDomaine.length > 0) return parDomaine;
+  return [...candidats];
+}
+
 /**
  * Chaîne de résolution d'un indice-domaine, dans l'ordre imposé :
  *  1. domaine racine exact (`domain`, `website` ou alias de type domaine) ;
@@ -200,22 +258,29 @@ function nameWords(value: string): string[] {
  *     **une seule** candidate, sinon refus motivé ;
  *  3. aucun rattachement : l'indice part en revue.
  *
- * En cas d'égalité sur l'étage 1, l'identifiant le plus faible gagne
- * (déterminisme du moteur existant).
+ * En cas d'égalité sur l'étage 1 sans contexte, l'identifiant le plus faible
+ * gagne (déterminisme du moteur existant). Avec un contexte (département ou
+ * domaine de la source), plusieurs candidats restent ambigus et sont refusés :
+ * on ne tire pas au sort une organisation pour une clé partagée.
  */
-export function resoudreDomaine(hint: string, orgs: readonly OrgDomaine[]): ResolutionDomaine {
+export function resoudreDomaine(
+  hint: string,
+  orgs: readonly OrgDomaine[],
+  contexte?: ContexteDomaine,
+): ResolutionDomaine {
   const racine = domaineRacine(hint);
   if (!racine) return { etape: "aucune", orgId: null, confidence: 0, raison: "pas un domaine" };
 
   const exact = orgs
-    .filter((o) =>
-      memesDomaines(racine, domaineRacine(o.domainNorm ?? o.domain)) ||
-      memesDomaines(racine, domaineRacine(o.websiteDomain ?? o.website)) ||
-      (o.domainAliases ?? []).some((alias) => memesDomaines(racine, domaineRacine(alias))),
-    )
-    .map((o) => o.id)
-    .sort((a, b) => a - b);
-  if (exact.length > 0) return { etape: "exact", orgId: exact[0]!, confidence: 0.95 };
+    .filter((o) => domainesDe(o).includes(racine))
+    .sort((a, b) => a.id - b.id);
+  if (exact.length > 0) {
+    const retenus = departageParContexte(exact, contexte);
+    if (contexte && retenus.length > 1) {
+      return { etape: "aucune", orgId: null, confidence: 0, raison: `${retenus.length} organisations pour ce domaine` };
+    }
+    return { etape: "exact", orgId: retenus[0]!.id, confidence: 0.95 };
+  }
 
   const root = racineDomaine(racine);
   if (!root) return { etape: "aucune", orgId: null, confidence: 0, raison: "racine trop courte" };
@@ -226,7 +291,14 @@ export function resoudreDomaine(hint: string, orgs: readonly OrgDomaine[]): Reso
     return { etape: "aucune", orgId: null, confidence: 0, raison: "aucune candidate par racine" };
   }
   if (byRoot.length > 1) {
-    return { etape: "aucune", orgId: null, confidence: 0, raison: `${byRoot.length} candidates par racine` };
+    const retenus = departageParContexte(byRoot, contexte);
+    const motif = contexte && retenus.length < byRoot.length
+      ? `${retenus.length} candidates après départage`
+      : `${byRoot.length} candidates par racine`;
+    if (retenus.length !== 1) {
+      return { etape: "aucune", orgId: null, confidence: 0, raison: motif };
+    }
+    return { etape: "racine", orgId: retenus[0]!.id, confidence: 0.75 };
   }
   return { etape: "racine", orgId: byRoot[0]!.id, confidence: 0.75 };
 }

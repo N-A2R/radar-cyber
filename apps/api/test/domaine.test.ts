@@ -193,3 +193,61 @@ test("contrôle : 10 domaines réels rattachés quand org.porte le domaine", () 
 		assert.equal(r.orgId, 100 + i);
 	}
 });
+
+test("URL avec identifiants : domaine racine inchangé", () => {
+	assert.equal(normalizeDomainValue("https://user:pass@WWW.Exemple.com:8443/contact?a=1"), "exemple.com");
+	assert.equal(domaineRacine("https://user:pass@www.sous.exemple.com/x"), "exemple.com");
+});
+
+test("un suffixe public composé observé dans la file n'est pas une racine", () => {
+	assert.equal(domaineRacine("franc-oiloffshore.com.ng"), "franc-oiloffshore.com.ng");
+	const index = [
+		org(1, "Autre", { domain: "autre.com.ng" }),
+		org(2, "Franc Oil", { domain: "franc-oiloffshore.com.ng" }),
+	];
+	const r = resoudreDomaine("www.franc-oiloffshore.com.ng", index);
+	assert.equal(r.etape, "exact");
+	assert.equal(r.orgId, 2);
+});
+
+test("états vides : ni domaine ni organisation ne fondent un rattachement", () => {
+	assert.equal(normalizeDomainValue(null), null);
+	assert.equal(normalizeDomainValue("   "), null);
+	assert.deepEqual(resoudreDomaine("", []), {
+		etape: "aucune", orgId: null, confidence: 0, raison: "pas un domaine",
+	});
+	assert.equal(matchOrgInIndex("", []), null);
+});
+
+test("un domaine partagé est départagé par le département de la source", () => {
+	const index = [
+		{ ...org(1, "Alpha", { domain: "exemple.com" }), dept: "33" },
+		{ ...org(2, "Beta", { domain: "exemple.com" }), dept: "64" },
+	];
+	assert.equal(resoudreDomaine("www.exemple.com", index).orgId, 1);
+	assert.equal(resoudreDomaine("www.exemple.com", index, { dept: "Gironde" }).orgId, 1);
+	assert.equal(resoudreDomaine("www.exemple.com", index, { dept: "64" }).orgId, 2);
+	const refuse = resoudreDomaine("www.exemple.com", index, { dept: "75" });
+	assert.equal(refuse.orgId, null);
+	assert.match(refuse.raison ?? "", /2 organisations/);
+});
+
+test("un domaine partagé est départagé par le domaine exact de la source", () => {
+	const index = [
+		org(1, "Alpha", { domain: "sous1.exemple.com" }),
+		org(2, "Beta", { domain: "sous2.exemple.com" }),
+	];
+	assert.equal(resoudreDomaine("www.exemple.com", index).orgId, 1);
+	assert.equal(
+		resoudreDomaine("www.exemple.com", index, { domain: "https://sous2.exemple.com/contact" }).orgId,
+		2,
+	);
+});
+
+test("le moteur ne tranche pas au hasard entre deux orgs portant le même domaine", () => {
+	const index = [
+		org(1, "Alpha", { domain: "exemple.com" }),
+		org(2, "Beta", { domain: "exemple.com" }),
+	];
+	assert.equal(matchOrgInIndex("www.exemple.com", index), null);
+});
