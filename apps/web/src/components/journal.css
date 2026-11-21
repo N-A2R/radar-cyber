@@ -122,3 +122,48 @@
   font: 400 11px/1.4 var(--font-mono);
   color: var(--color-muted);
 }
+
+/* 375 px — les cinq colonnes deviennent une carte par décision : la raison
+   n'est plus comprimée dans 60 px, la décision reste écrite en toutes lettres. */
+@media (max-width: 600px) {
+  .journal { padding: 0 2px; }
+  .journal__filters {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-2);
+  }
+  .journal__field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .journal__field input,
+  .journal__field select { width: 100%; min-width: 0; }
+  .journal__filters > button { grid-column: 1 / -1; min-height: 40px; }
+
+  .journal__scroll { overflow-x: hidden; }
+  .journal__table,
+  .journal__table tbody { display: block; width: 100%; }
+  .journal__table thead { display: none; }
+  .journal__table tr {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--space-3);
+    border-bottom: 1px solid var(--color-edge-lo);
+  }
+  .journal__table td {
+    display: block;
+    width: 100%;
+    padding: 2px 0;
+    border: 0;
+  }
+  .journal__table td::before {
+    display: block;
+    color: var(--color-muted);
+    font: 500 10px/1.4 var(--font-mono);
+    text-transform: uppercase;
+  }
+  .journal__table td:nth-child(1)::before { content: "horodatage"; }
+  .journal__table td:nth-child(2)::before { content: "acteur"; }
+  .journal__table td:nth-child(3)::before { content: "décision"; }
+  .journal__table td:nth-child(4)::before { content: "indice"; }
+  .journal__table td:nth-child(5)::before { content: "raison"; }
+  .journal__foot { flex-wrap: wrap; justify-content: center; }
+}

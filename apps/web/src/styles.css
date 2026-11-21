@@ -1131,3 +1131,38 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* 375 px — la barre de vues devient un menu compact sur deux colonnes :
+   aucune navigation horizontale, tous les onglets restent accessibles. */
+@media (max-width: 480px) {
+  .rail {
+    flex-wrap: wrap;
+    gap: 8px;
+    height: auto;
+    padding: 10px;
+  }
+  .wordmark { flex: 1 1 auto; min-width: 0; }
+  .wordmark span,
+  .rail__live,
+  .rail__spacer { display: none; }
+  .rail__toggle { min-height: 32px; font-size: 11px; }
+  .rail__nav {
+    order: 3;
+    flex: 1 1 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px;
+  }
+  .rail__nav button {
+    min-height: 34px;
+    padding: 6px 8px;
+    border: 1px solid var(--color-edge-lo);
+    text-align: left;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    line-height: 1.2;
+  }
+  .rail__nav button[aria-current="page"] {
+    border-color: var(--color-accent);
+  }
+}

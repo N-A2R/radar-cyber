@@ -363,3 +363,76 @@
   font-weight: 500;
   line-height: 1.4;
 }
+
+/* 375 px — le registre passe de neuf colonnes à une fiche par source.
+   La largeur minimale du tableau et le défilement horizontal disparaissent
+   avec la grille : chaque valeur garde son libellé, rien n'est rogné. */
+@media (max-width: 600px) {
+  .sources-view__head { padding: 8px 12px; }
+  .sources-view__summary,
+  .sources-view__yield { padding: 6px 12px; }
+  .sources-view__toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--color-edge-lo);
+  }
+  .sources-view__search { margin-left: 0; width: 100%; }
+  .sources-view__search input { width: 100%; min-width: 0; }
+  .sources-view__scroll { overflow-x: hidden; overflow-y: auto; }
+
+  .sources-table { display: block; width: 100%; min-width: 0; }
+  .sources-table colgroup,
+  .sources-table thead { display: none; }
+  .sources-table tbody { display: block; }
+  .sources-table tbody tr {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px 12px;
+    padding: 12px;
+  }
+  .sources-table tbody tr:hover { background: none; }
+  .sources-table tbody th,
+  .sources-table tbody td {
+    display: block;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    text-align: left;
+    white-space: normal;
+  }
+  .sources-table tbody td:nth-child(n + 4) { white-space: normal; }
+  .sources-table tbody th { grid-column: 1 / -1; font-size: 13px; }
+  .sources-table tbody td::before {
+    display: block;
+    margin-bottom: 2px;
+    color: var(--color-muted);
+    font: 500 10px/1.4 var(--font-mono);
+  }
+  .sources-table tbody td:nth-child(2)::before { content: "famille"; }
+  .sources-table tbody td:nth-child(3)::before { content: "état"; }
+  .sources-table tbody td:nth-child(4)::before { content: "dernier succès"; }
+  .sources-table tbody td:nth-child(5)::before { content: "dernier échec"; }
+  .sources-table tbody td:nth-child(6)::before { content: "lues 30 j"; }
+  .sources-table tbody td:nth-child(7)::before { content: "évén. 30 j"; }
+  .sources-table tbody td:nth-child(8)::before { content: "rendement"; }
+  .sources-table tbody td:nth-child(9)::before { content: "unicité"; }
+  .sources-table tbody td:nth-child(10)::before { content: "motif de rejet"; }
+  .sources-table tbody th::before {
+    content: "source";
+    display: block;
+    color: var(--color-muted);
+    font: 500 10px/1.4 var(--font-mono);
+  }
+  .sources-table__empty { grid-column: 1 / -1; }
+  .sources-table__reason,
+  .sources-table__motif,
+  .sources-motif {
+    display: block;
+    max-width: none;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+  }
+}

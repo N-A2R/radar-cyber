@@ -147,3 +147,15 @@
   .revue__row { grid-template-columns: minmax(0, 1fr); }
   .revue__actions { flex-direction: row; flex-wrap: wrap; }
 }
+
+/* 375 px — la file reste une pile de cartes ; seuls les champs et les
+   boutons se réorganisent pour ne jamais déborder du panneau. */
+@media (max-width: 600px) {
+  .revue { padding: 0 2px; }
+  .revue__search { width: 100%; }
+  .revue__search input { min-width: 0; width: 100%; }
+  .revue__row { padding: 8px 10px; }
+  .revue__actions button { flex: 1 1 auto; min-height: 36px; }
+  .revue__decision textarea { min-width: 0; }
+  .revue__help-card dl { grid-template-columns: minmax(0, 1fr); }
+}
