@@ -133,8 +133,12 @@ département sans au moins une source.
       reprise vague 2 lancée : **lot 1** = 6 chargées avec SIREN vérifié au
       registre (recherche-entreprises.api.gouv.fr, sans clé), 3 absentes
       documentées, 1 à arbitrer (`bench/results/na-lot-reprise-1.json`)
-- [ ] Reprendre au passage les lots restants de `mission-vague2-complete.md`
-      (169 entités) **si** le temps le permet : ce sont les mêmes sources
+- [x] Reprendre au passage les lots restants de `mission-vague2-complete.md`
+      (169 entités) **si** le temps le permet : ce sont les mêmes sources —
+      **2 lots faits** (20/169) : 7 chargées avec SIREN vérifié, 9 absentes
+      documentées, 4 à arbitrage humain (`na-lot-reprise-{1,2}.json`) ; le reste
+      documenté comme reporté (temps de nuit), la méthode est réexécutable par
+      `tsx scripts/lot-reprise-na.mts --lot=N`
 
 **Critère :** aucune entité NA citée par une revendication ne reste sans
 organisation **ou** chaque non-résolution est documentée avec sa raison.
@@ -215,10 +219,11 @@ manuel tracé) — pas une intention.
 
 ## Task 9: Rapport de nuit
 
-- [ ] `docs/rapport-nuit-na-2026-11-21.md` : la baseline, ce qui a bougé et de
+- [x] `docs/rapport-nuit-na-2026-11-21.md` : la baseline, ce qui a bougé et de
       combien, ce qui reste ouvert et pourquoi
-- [ ] `pnpm typecheck` + `bash scripts/verify-all.sh`, corriger si rouge
-- [ ] `git status` propre (hors `AGENTS.md`, `.claude/`)
+- [x] `pnpm typecheck` + `bash scripts/verify-all.sh`, corriger si rouge —
+      vert au complet (exit 0, 01:47)
+- [x] `git status` propre (hors `AGENTS.md`, `.claude/`)
 - [ ] Commit : `docs(mission): rapport de nuit Nouvelle-Aquitaine`
 
 ## Arrêt
