@@ -141,10 +141,17 @@ organisation **ou** chaque non-résolution est documentée avec sa raison.
 
 ## Task 5: Qualité du rattachement
 
-- [ ] Rejouer la mesure de qualité (`scripts/mesure-couverture.mts`) sur NA :
-      rattachements `exacte` / `partielle` / `hors_sujet`
-- [ ] Si `hors_sujet` > 20 % : corriger le motif dominant, re-mesurer
-- [ ] Publier `bench/results/na-rattachement.json`
+- [x] Rejouer la mesure de qualité (`scripts/mesure-couverture.mts`) sur NA :
+      rattachements `exacte` / `partielle` / `hors_sujet` — 23 exacte(s),
+      5 partielle(s), 3 hors sujet sur 31 vus (73,8 % de couverture, 66,7 %
+      défendable)
+- [x] Si `hors_sujet` > 20 % : corriger le motif dominant, re-mesurer —
+      **non applicable** : 3/31 = 9,7 % < 20 %. Les 3 cas : « carrefour city »
+      pour des magasins Béarnais, « alumnforce » pour le Réseau Alumni de
+      l'Université de Bordeaux, et « FFRandonnée » → Fédération française de la
+      randonnée pédestre (même organisation, heuristique de sigle qui rate —
+      étiquette débattable, écrite telle quelle)
+- [x] Publier `bench/results/na-rattachement.json`
 - [ ] Commit : `mesure(na): qualité du rattachement publiée`
 
 ## Task 6: Interface — une vraie vue Nouvelle-Aquitaine
