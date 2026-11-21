@@ -1,0 +1,14 @@
+/**
+ * Plan de collecte tel que le cycle le consomme.
+ *
+ * La réponse expose les sources retenues, leur rang, leur fréquence attendue,
+ * leur état de santé et — pour celles qui sont écartées — le motif. C'est le
+ * même objet que `chargerPlanCycle()` fournit au moteur : aucune seconde
+ * règle de calcul côté route, aucun chiffre recalculé à l'affichage.
+ */
+import type { FastifyInstance } from "fastify";
+import { chargerPlanCycle } from "../collectors/plan.js";
+
+export default async function (app: FastifyInstance): Promise<void> {
+  app.get("/collecte/plan", async () => chargerPlanCycle());
+}

@@ -7,6 +7,7 @@
 import { createHash } from "node:crypto";
 import { XMLParser } from "fast-xml-parser";
 import { ingestQuery } from "../db.js";
+import { chargerPlanCycle, sourcesDuCycle } from "./plan.js";
 import { parseObservedAt } from "./dates.js";
 import { fetchResilient } from "./http.js";
 import {
@@ -1004,6 +1005,8 @@ function looksLikeBlocklist(url: string, body?: string): boolean {
 }
 
 async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], coverage: CoverageContext, pertinenceConfig: RelevanceConfig, force = false): Promise<void> {
+  // Le filtre « fréquence écoulée + santé » vit dans plan.ts : le moteur ne
+  // reçoit que des sources que le cycle a effectivement retenues.
   // Une source qui n'a jamais réussi (last_ok_at NULL) ne doit pas être
   // retentée à chaque tick : le dernier échec sert de référence.
   const lastOk = source.last_ok_at ? Date.parse(source.last_ok_at) : NaN;
@@ -1097,25 +1100,25 @@ export async function runGenericSources(
 ): Promise<void> {
 	// Les sources ci-dessous ont un collecteur dédié (collectors/index.ts) :
 	// le moteur générique ne doit pas tenter de les parser comme des flux.
-	const params: unknown[] = [];
-	let sql =
-		"SELECT id, name, family, url, kind, format, parser, interval_sec, last_ok_at, last_error_at, relevance FROM source WHERE enabled AND kind <> 'quarantine' AND id NOT IN ('cert_fr','cisa_kev','ransomlook','epss','hermes_radar_cyber','nvd_cve','ctlog','poc')";
-	if (opts?.sourceIds?.length) {
-		params.push(opts.sourceIds);
-		sql += ` AND id = ANY($${params.length})`;
-	}
-	// Jamais collectées d'abord : avec une concurrence bornée, une source sans
-	// aucun run sinon restait au bout de la file à chaque cycle.
-	sql += ` ORDER BY CASE WHEN last_ok_at IS NULL AND NOT EXISTS
-	            (SELECT 1 FROM collector_run r WHERE r.source_id = source.id) THEN 0 ELSE 1 END,
-	            last_ok_at ASC NULLS FIRST, id`;
-	if (opts?.limit) {
-		params.push(opts.limit);
-		sql += ` LIMIT $${params.length}`;
-	}
-	const { rows } = await ingestQuery<SourceRow>(sql, params);
-  log(`ingestion générique : ${rows.length} sources candidat(es)`);
+	const exclus: Readonly<Record<string, true>> = {
+		cert_fr: true, cisa_kev: true, ransomlook: true, epss: true,
+		hermes_radar_cyber: true, nvd_cve: true, ctlog: true, poc: true,
+	};
+	const plan = await chargerPlanCycle(ingestQuery);
+	const retenus = sourcesDuCycle(plan, { forcer: opts?.sourceIds })
+		.filter((id) => !exclus[id]);
+	const ids = opts?.limit && opts.limit > 0 ? retenus.slice(0, opts.limit) : retenus;
+  log(`ingestion générique : ${ids.length} source(s) retenue(s) sur ${plan.totaux.sources} (${plan.totaux.dues} dues)`);
   runLog = log;
+  if (ids.length === 0) return;
+
+  const { rows } = await ingestQuery<SourceRow>(
+		`SELECT id, name, family, url, kind, format, parser, interval_sec, last_ok_at, last_error_at, relevance
+		   FROM source
+		  WHERE enabled AND kind <> 'quarantine' AND id = ANY($1::text[])
+		  ORDER BY array_position($1::text[], id)`,
+		[ids],
+	);
   const pertinenceConfig = loadRelevanceConfig();
   log(`pertinence : ${pertinenceConfig.keywords.length} terme(s), ${pertinenceConfig.exclusions.length} exclusion(s), seuil ${pertinenceConfig.minScore}`);
   for (const warning of pertinenceConfig.warnings) log(`[pertinence] ${warning}`);

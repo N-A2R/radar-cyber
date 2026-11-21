@@ -13,6 +13,7 @@ import healthDetailRoute from "./health-detail.js";
 import healthCausesRoute from "./health-causes.js";
 import collecteMetricsRoute from "./collecte-metrics.js";
 import corpusStatsRoute from "./corpus-stats.js";
+import collectePlanRoute from "./collecte-plan.js";
 import todayRoute from "./today.js";
 import statsDepartementsRoute from "./stats-departements.js";
 import couvertureRoute from "./couverture.js";
@@ -41,7 +42,7 @@ import auditRoute from "./audit.js";
 export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
   for (const route of [
     healthRoute, eventsRoute, historyRoute, healthDetailRoute, healthCausesRoute,
-    collecteMetricsRoute, corpusStatsRoute,
+    collecteMetricsRoute, corpusStatsRoute, collectePlanRoute,
     todayRoute, statsDepartementsRoute, couvertureRoute, flowsRoute, orgsRoute,
     directoryRoute, naRoute, graphRoute, streamRoute, sourcesRoute, statsRoute,
     searchRoute, enrichRoute, authRoute, alertsRoute, quarantineRoute, reviewRoute,
