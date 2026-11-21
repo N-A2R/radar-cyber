@@ -15,7 +15,7 @@ const TTL_MS = 10 * 60 * 1000;
 
 async function charger(): Promise<Gazetteer> {
 	const { rows } = await ingestQuery<GazetteerRow>(
-		`SELECT a.org_id, o.name, o.kind, o.dept, o.city, o.sector, a.alias, a.source
+		`SELECT a.org_id, o.name, o.kind, o.dept, o.city, o.sector, a.alias, a.nom_normalise, a.source
 		   FROM org_alias a
 		   JOIN org o ON o.id = a.org_id
 		  WHERE a.status = 'active'`,
