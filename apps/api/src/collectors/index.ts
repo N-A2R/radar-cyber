@@ -5,6 +5,7 @@ import { collector as epss } from "./epss.collector.js";
 import { collector as nvd } from "./nvd.collector.js";
 import { collector as ctlog } from "./ctlog.collector.js";
 import { collector as poc } from "./poc.collector.js";
+import { collector as fuites } from "./fuites.collector.js";
 import { resetGazetteer } from "./org-gazetteer.js";
 import type { CollectContext, Collector, NormalizedEvent } from "@radar/shared";
 import { consignerAvec, type JournalEntry } from "../journal/index.js";
@@ -13,7 +14,7 @@ import { query, withTransaction } from "../db.js";
 // L'insertion des événements de flux — et son `ON CONFLICT (fingerprint) DO NOTHING`
 // (migration 045) — vit dans generic.ts : ce fichier ne fait que lister les
 // collecteurs dédiés, appelés depuis server.ts.
-export const collectors: Collector[] = [certfr, kev, ransomlook, epss, nvd, ctlog, poc];
+export const collectors: Collector[] = [certfr, kev, ransomlook, epss, nvd, ctlog, poc, fuites];
 
 /** Sources dont le flux est lu par un collecteur dédié, jamais par le moteur générique. */
 export const COLLECTEURS_DEDIES_IDS: readonly string[] = collectors.map((c) => c.id);
