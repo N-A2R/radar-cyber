@@ -1,0 +1,309 @@
+{
+  "dateMesure": "2026-11-21",
+  "plan": "docs/plans/mission-nuit-na.md — Task 4 (reprise vague 2)",
+  "lot": 5,
+  "source": {
+    "ref": "bench/results/manques-referentiel-2026-11-15.json",
+    "traites": "bench/results/manques-glm-vague2.json",
+    "entiteSource": "lot-reprise-na"
+  },
+  "method": "lecture du site (fetch, titre et meta verbatim) + recherche-entreprises.api.gouv.fr sans clé ; requêtes et réponses consignées ; SIREN recoupé, jamais inventé",
+  "compte": {
+    "present": 2,
+    "absent": 3,
+    "cannot_verify": 5
+  },
+  "resolutions": [
+    {
+      "nomLisible": "fugybat.fr",
+      "domaine": "fugybat.fr",
+      "verdict": "present",
+      "raison": "SIREN 321277279 au registre (état C, PFASTATT 68), recoupé avec fugybat.fr",
+      "site": {
+        "url": "https://fugybat.fr",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=fugybat&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "ETS FUGYBAT",
+            "siren": "321277279",
+            "commune": "PFASTATT",
+            "dept": "68",
+            "etat": "C"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "Gallier Orléans",
+      "domaine": null,
+      "verdict": "cannot_verify",
+      "raison": "candidat(s) au registre mais aucun recoupement avec null — arbitrage humain",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Gallier%20Orl%C3%A9ans&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "GALLIER ORLEANS ELECTRICITE G.O.E. (CAR ET MA - AUR & BA)",
+            "siren": "412141384",
+            "commune": "SAINT-JEAN-DE-LA-RUELLE",
+            "dept": "45",
+            "etat": "A"
+          },
+          {
+            "denomination": "CATHERINE GALLIER",
+            "siren": "941721599",
+            "commune": "ORLEANS",
+            "dept": "45",
+            "etat": "A"
+          },
+          {
+            "denomination": "MARIE GALLIER",
+            "siren": "503388878",
+            "commune": "ORLEANS",
+            "dept": "45",
+            "etat": "A"
+          },
+          {
+            "denomination": "SOPHIE REVEILLAS (GALLIX)",
+            "siren": "951755271",
+            "commune": "ORLEANS",
+            "dept": "45",
+            "etat": "A"
+          },
+          {
+            "denomination": "CLAUDINE LEMITRE (GALLIER)",
+            "siren": "333045045",
+            "commune": "BLENEAU",
+            "dept": "89",
+            "etat": "A"
+          }
+        ]
+      }
+    },
+    {
+      "nomLisible": "germaintoiture.fr",
+      "domaine": "germaintoiture.fr",
+      "verdict": "cannot_verify",
+      "raison": "site ou registre inaccessible : TypeError: fetch failed",
+      "site": {
+        "url": "https://germaintoiture.fr",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=germaintoiture&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "glnf.fr",
+      "domaine": "glnf.fr",
+      "verdict": "present",
+      "raison": "SIREN 785426016 au registre (état A, PARIS 75), recoupé avec glnf.fr",
+      "site": {
+        "url": "https://glnf.fr",
+        "http": 403,
+        "titre": "Just a moment...",
+        "metaDescription": null
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=glnf&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "GRANDE LOGE NATIONALE FRANCAISE (GLNF)",
+            "siren": "785426016",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "GROUPEMENT LITTERAIRE NORD DE LA FRANCE (GLNF)",
+            "siren": "387762982",
+            "commune": "DUNKERQUE",
+            "dept": "59",
+            "etat": "A"
+          },
+          {
+            "denomination": "SCI CHRISTINE DE PISAN",
+            "siren": "350831582",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "TOUT FAIRE POUR UN SOURIRE D'ENFANT",
+            "siren": "793711011",
+            "commune": "RILLIEUX-LA-PAPE",
+            "dept": "69",
+            "etat": "A"
+          },
+          {
+            "denomination": "LES QUATRE AS",
+            "siren": "991771932",
+            "commune": "BAIE-MAHAULT",
+            "dept": "971",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "GNS Cloud Hacked",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=GNS%20Cloud%20Hacked&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "gorrias-mercedes-benz.fr",
+      "domaine": "gorrias-mercedes-benz.fr",
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : « Poids lourds &amp; utilitaires Mercedes-Benz Hauts-de-France »",
+      "site": {
+        "url": "https://gorrias-mercedes-benz.fr",
+        "http": 200,
+        "titre": "Poids lourds &amp; utilitaires Mercedes-Benz Hauts-de-France",
+        "metaDescription": "Distributeur et réparateur agréé Mercedes-Benz Trucks &amp; Vans en Hauts-de-France et Normandie : vente et entretien de poids lourds et utilitaires."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=gorrias-mercedes-benz&page=1&per_page=5",
+        "http": 200,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "Grand Annecy Agglomeration",
+      "domaine": null,
+      "verdict": "cannot_verify",
+      "raison": "candidat(s) au registre mais aucun recoupement avec null — arbitrage humain",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Grand%20Annecy%20Agglomeration&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "AGENCE ECOMOBILITE SAVOIE MONT-BLANC",
+            "siren": "851533505",
+            "commune": "CHAMBERY",
+            "dept": "73",
+            "etat": "A"
+          },
+          {
+            "denomination": "SOCIETE INTERCOMMUNALE DES BUS DE LA REGION ANNECIENNE (SIBRA)",
+            "siren": "318163094",
+            "commune": "ANNECY",
+            "dept": "74",
+            "etat": "A"
+          },
+          {
+            "denomination": "SA MONT-BLANC SOCIETE ANONYME D'HLM",
+            "siren": "310764816",
+            "commune": "ANNECY",
+            "dept": "74",
+            "etat": "A"
+          },
+          {
+            "denomination": "TERACTEM",
+            "siren": "325920064",
+            "commune": "ANNECY",
+            "dept": "74",
+            "etat": "A"
+          }
+        ]
+      }
+    },
+    {
+      "nomLisible": "Grand Homes",
+      "domaine": null,
+      "verdict": "cannot_verify",
+      "raison": "candidat(s) au registre mais aucun recoupement avec null — arbitrage humain",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Grand%20Homes&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "MANA HOMES MONT-BLANC",
+            "siren": "900837196",
+            "commune": "LES HOUCHES",
+            "dept": "74",
+            "etat": "A"
+          },
+          {
+            "denomination": "AZUR HOMES",
+            "siren": "942959404",
+            "commune": "NICE",
+            "dept": "06",
+            "etat": "A"
+          },
+          {
+            "denomination": "HOME'S WORLD (HOME'S WORLD)",
+            "siren": "808072920",
+            "commune": "VILLE-LA-GRAND",
+            "dept": "74",
+            "etat": "A"
+          },
+          {
+            "denomination": "AQUITAINE HOMES",
+            "siren": "514535202",
+            "commune": "SAINTE-FOY-LA-GRANDE",
+            "dept": "33",
+            "etat": "A"
+          },
+          {
+            "denomination": "THE D HOMES",
+            "siren": "894193937",
+            "commune": "LA CROIX-VALMER",
+            "dept": "83",
+            "etat": "A"
+          }
+        ]
+      }
+    },
+    {
+      "nomLisible": "Grand Power Systems",
+      "domaine": null,
+      "verdict": "cannot_verify",
+      "raison": "candidat(s) au registre mais aucun recoupement avec null — arbitrage humain",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Grand%20Power%20Systems&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "SCI LE GRAND CALME",
+            "siren": "320636103",
+            "commune": "VIENNE",
+            "dept": "38",
+            "etat": "A"
+          }
+        ]
+      }
+    },
+    {
+      "nomLisible": "Grand Valley State University",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Grand%20Valley%20State%20University&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    }
+  ]
+}
