@@ -11,7 +11,7 @@ import { closePools, query } from "../src/db.js";
 import { hashSessionToken } from "../src/auth.js";
 import orgsRoute from "../src/routes/orgs.js";
 import { lireJournal } from "../src/journal/index.js";
-import { createOrgFromHint, InvalidHintError } from "../src/quarantine/from-hint.js";
+import { createOrgFromHint, InvalidHintError, nomDepuisIndice } from "../src/quarantine/from-hint.js";
 
 const TAG = `oh${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
 const createdSlugs: string[] = [];
@@ -20,6 +20,10 @@ function recordSlug(slug: string): string {
   createdSlugs.push(slug);
   return slug;
 }
+
+test("nomDepuisIndice : un indice-domaine perd son www.", () => {
+  assert.equal(nomDepuisIndice("www.exemple.com"), "exemple.com");
+});
 
 const base = {
   nom: `Établissement Connectwell ${TAG}`,
@@ -65,6 +69,22 @@ test("création : organisation, domaine, ville et deux alias", async () => {
 
   const entite = await query<{ entity_source: string }>("SELECT entity_source FROM org WHERE id=$1", [result.org.id]);
   assert.equal(entite.rows[0]?.entity_source, `hint:${base.source}`);
+});
+
+test("création depuis un indice www. : le nom stocké est sans www., le journal garde le brut", async () => {
+  const indice = `www.${TAG}.exemple.com`;
+  const result = await createOrgFromHint({
+    nom: indice,
+    ville: "Bordeaux",
+    source: `quarantine:www-${TAG}`,
+    preuve: `revendication ${TAG} — indice domaine`,
+  });
+  recordSlug(result.org.slug);
+  assert.equal(result.created, true);
+  assert.equal(result.org.name, `${TAG}.exemple.com`);
+
+  const faits = await lireJournal({ kind: "org.created", subject: `org:${result.org.slug}`, limite: 10 });
+  assert.equal(faits[0]?.payload?.nomBrut, indice);
 });
 
 test("doublon par domaine : organisation existante rendue, sans écriture", async () => {

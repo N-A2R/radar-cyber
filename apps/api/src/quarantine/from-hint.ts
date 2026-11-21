@@ -20,6 +20,7 @@ import type { PoolClient } from "pg";
 import { z } from "zod";
 import { withTransaction } from "../db.js";
 import { consignerAvec } from "../journal/index.js";
+import { normalizeDomainValue } from "../match/domaine.js";
 import { normalizeDomain, normalizeName } from "./promote.js";
 
 export const createOrgFromHintSchema = z.object({
@@ -37,6 +38,22 @@ export class InvalidHintError extends Error {
     super(message);
     this.name = "InvalidHintError";
   }
+}
+
+/**
+ * Nom à stocker pour un indice : l'indice lui-même, normalisé.
+ *
+ * Les indices-domaines passent par la normalisation du moteur (scheme, port,
+ * chemin, `www.`, point final). Les autres gardent leur forme de nom : on
+ * abaisse la casse, on retire un `www.` initial et les points finaux, sans
+ * transformer la ponctuation (c'est `normalizeName` qui s'en charge ensuite
+ * pour les alias et le préfiltre).
+ */
+export function nomDepuisIndice(hint: string): string {
+  const brut = hint.trim().toLowerCase();
+  const domaine = normalizeDomainValue(brut);
+  if (domaine) return domaine;
+  return brut.replace(/^www\./, "").replace(/\.+$/, "").slice(0, 300);
 }
 
 export type OrgFromHint = {
@@ -133,8 +150,11 @@ export async function createOrgFromHintTx(
     throw new InvalidHintError(first ? `${first.path.join(".") || "entrée"} : ${first.message}` : "entrée invalide");
   }
   const input = parsed.data;
-  const nomNorm = normalizeName(input.nom);
-  if (!nomNorm) throw new InvalidHintError("nom invalide");
+  // Le nom stocké est l'indice normalisé : « www.x.com » donne « x.com », et
+  // non « www x com ». L'indice brut reste consigné tel quel dans le journal.
+  const nom = nomDepuisIndice(input.nom);
+  const nomNorm = normalizeName(nom);
+  if (!nom || !nomNorm) throw new InvalidHintError("nom invalide");
 
   const domain = input.domaine ? normalizeDomain(input.domaine) : null;
   if (domain && !DOMAIN_RE.test(domain)) throw new InvalidHintError("domaine invalide");
@@ -154,7 +174,7 @@ export async function createOrgFromHintTx(
     `INSERT INTO org (name, slug, kind, city, domain, status, entity_source)
      VALUES ($1, $2, 'entreprise', $3, $4, 'a_confirmer', $5)
      RETURNING ${ORG_COLUMNS}`,
-    [input.nom.trim(), slug, input.ville?.trim() ?? null, domain, `hint:${input.source}`],
+    [nom, slug, input.ville?.trim() ?? null, domain, `hint:${input.source}`],
   );
   const org = inserted.rows[0]!;
 
