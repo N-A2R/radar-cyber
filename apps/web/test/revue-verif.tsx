@@ -11,6 +11,7 @@
 import { JSDOM } from "jsdom";
 import type { Root } from "react-dom/client";
 import type { RevueQueue, RevueRow } from "../src/components/ReviewView";
+import { parseHash, toHash, type ReviewUrlState } from "../src/url-state";
 
 // jsdom doit exister avant l'évaluation de React : les imports du composant
 // sont différés exprès, sinon React fige son environnement hors navigateur.
@@ -66,6 +67,13 @@ let holdQueue = false;
 let releaseQueue: (() => void) | null = null;
 let unauthorized = 0;
 const opened: number[] = [];
+let urlState: ReviewUrlState = { q: "", bucket: "" };
+function persistUrl(next: ReviewUrlState): void {
+  urlState = next;
+  dom.window.history.replaceState(null, "", toHash({
+    ...parseHash("#/review"), view: "review", review: next,
+  }));
+}
 
 function row(id: number, hint: string, bucket: "chaud" | "tiede" | "froid"): RevueRow {
   return {
@@ -132,7 +140,14 @@ async function release(): Promise<void> {
   await act(async () => { releaseQueue?.(); releaseQueue = null; });
   await flush();
 }
-async function mount(options: { canWrite?: boolean; server?: boolean } = {}): Promise<void> {
+async function settle(ms: number): Promise<void> {
+  const { promise, resolve } = Promise.withResolvers<void>();
+  setTimeout(resolve, ms);
+  await act(async () => { await promise; });
+  await flush();
+}
+
+async function mount(options: { canWrite?: boolean; server?: boolean; url?: ReviewUrlState } = {}): Promise<void> {
   await act(async () => {
     root = createRoot(container);
     root.render(
@@ -141,6 +156,8 @@ async function mount(options: { canWrite?: boolean; server?: boolean } = {}): Pr
         server={options.server ?? true}
         onUnauthorized={() => { unauthorized++; }}
         onOpenOrg={(id) => { opened.push(id); }}
+        urlState={options.url ?? urlState}
+        onUrlStateChange={persistUrl}
       />,
     );
   });
@@ -195,6 +212,14 @@ async function main(): Promise<void> {
   createRoot = reactDom.createRoot;
   ReviewView = view.default;
 
+  // --- état d'URL : aller-retour et validation --------------------------
+  const deep = parseHash("#/review?q=acme&bucket=tiede");
+  check("URL revue : q et bucket relus", deep.view === "review"
+    && deep.review.q === "acme" && deep.review.bucket === "tiede", deep.review);
+  check("URL revue : sérialisation complète", toHash(deep) === "#/review?q=acme&bucket=tiede", toHash(deep));
+  check("URL revue : bucket invalide neutralisé", parseHash("#/review?bucket=mordor").review.bucket === "");
+  check("URL revue : q ne contamine pas l'annuaire", parseHash("#/review?q=acme").directory.q === "");
+
   // --- chargement puis file rendue --------------------------------------
   holdQueue = true;
   await mount();
@@ -209,21 +234,28 @@ async function main(): Promise<void> {
   check("candidats avec score affichés", (container.textContent ?? "").includes("Mairie de Pessac")
     && (container.textContent ?? "").includes("0.86"));
 
-  // --- filtres ----------------------------------------------------------
+  // --- filtres : bucket, recherche debouncée et URL --------------------
   click(buttonIn(container.querySelector(".revue__buckets")!, "Tiède"));
   await flush();
   check("filtre bucket envoyé", lastCall("/api/review/queue")?.url.includes("bucket=tiede") === true, lastCall("/api/review/queue")?.url);
-  click(buttonIn(container.querySelector(".revue__buckets")!, "Tous"));
-  await flush();
+  check("URL après clic : bucket=tiede", dom.window.location.hash.includes("bucket=tiede"), dom.window.location.hash);
 
   setField(container.querySelector("#revue-q") as HTMLInputElement, "acme");
-  click(buttonIn(container.querySelector(".revue__search")!, "Rechercher"));
-  await flush();
-  check("recherche q envoyée et page remise à zéro", lastCall("/api/review/queue")?.url.includes("q=acme") === true
-    && lastCall("/api/review/queue")?.url.includes("page=0") === true, lastCall("/api/review/queue")?.url);
+  check("URL après frappe : q=acme et bucket=tiede",
+    dom.window.location.hash.includes("q=acme") && dom.window.location.hash.includes("bucket=tiede"),
+    dom.window.location.hash);
+  check("aucun appel API avant la fin du debounce",
+    lastCall("/api/review/queue")?.url.includes("q=acme") !== true, lastCall("/api/review/queue")?.url);
+  await settle(340);
+  check("recherche q envoyée après 300 ms et page remise à zéro",
+    lastCall("/api/review/queue")?.url.includes("q=acme") === true
+      && lastCall("/api/review/queue")?.url.includes("page=0") === true, lastCall("/api/review/queue")?.url);
+
   setField(container.querySelector("#revue-q") as HTMLInputElement, "");
-  click(buttonIn(container.querySelector(".revue__search")!, "Rechercher"));
+  await settle(340);
+  click(buttonIn(container.querySelector(".revue__buckets")!, "Tous"));
   await flush();
+  check("URL nettoyée quand les filtres reviennent au défaut", dom.window.location.hash === "#/review", dom.window.location.hash);
 
   // --- états erreur et vide --------------------------------------------
   queueStatus = 500;
@@ -237,7 +269,10 @@ async function main(): Promise<void> {
   queueBody = payload([]);
   click(buttonIn(container.querySelector(".revue__buckets")!, "Chaud"));
   await flush();
-  check("état vide explicite", (container.textContent ?? "").includes("Aucune revendication à revoir"));
+  check("compteur de résultats reflète la file filtrée",
+    (container.querySelector(".revue__count")?.textContent ?? "").includes("0 résultat"),
+    container.querySelector(".revue__count")?.textContent);
+
   queueBody = payload();
   click(buttonIn(container.querySelector(".revue__buckets")!, "Tous"));
   await flush();
@@ -326,6 +361,22 @@ async function main(): Promise<void> {
   check("401 signalée à l'application", unauthorized > 0);
   check("401 : message d'erreur rendu", (container.querySelector(".revue__error")?.textContent ?? "").includes("file indisponible"));
   queueStatus = 200;
+
+  // --- lien profond : l'URL pilote les filtres au montage ---------------
+  await unmount();
+  persistUrl({ q: "pessac", bucket: "chaud" });
+  calls.length = 0;
+  await mount();
+  check("lien profond : recherche reprise de l'URL",
+    (container.querySelector("#revue-q") as HTMLInputElement)?.value === "pessac");
+  check("lien profond : seau repris de l'URL",
+    buttonIn(container.querySelector(".revue__buckets")!, "Chaud").getAttribute("aria-pressed") === "true");
+  check("lien profond : filtres envoyés à l'API",
+    lastCall("/api/review/queue")?.url.includes("q=pessac") === true
+      && lastCall("/api/review/queue")?.url.includes("bucket=chaud") === true,
+    lastCall("/api/review/queue")?.url);
+  await unmount();
+  persistUrl({ q: "", bucket: "" });
 
   // --- lecture seule et mode sans API ---------------------------------
   await unmount();

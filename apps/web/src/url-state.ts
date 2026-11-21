@@ -31,10 +31,18 @@ export type DirectoryUrlState = {
 	page: number;
 	size: number;
 };
+/** Seaux de tri de la file de revue, tels que l'API les accepte. */
+export const REVIEW_BUCKETS = ["chaud", "tiede", "froid"] as const;
+export type ReviewBucket = (typeof REVIEW_BUCKETS)[number];
+/** Filtres de la file de revue, portés par l'URL pour être partageables. */
+export type ReviewUrlState = { q: string; bucket: ReviewBucket | "" };
 
 export type AppUrlState = {
 	view: ViewId;
 	directory: DirectoryUrlState;
+	/** Filtres de la file de revue (`#/review?q=…&bucket=…`). */
+	review: ReviewUrlState;
+
 	/** Fiche organisation ouverte, pour un lien direct. */
 	org: number | null;
 	/** Filtres de l'écran « Aujourd'hui » (`#/today?family=…&dept=…`). */
@@ -58,11 +66,14 @@ export const DEFAULT_DIRECTORY: DirectoryUrlState = {
 	page: 0,
 	size: 50,
 };
+export const DEFAULT_REVIEW: ReviewUrlState = { q: "", bucket: "" };
 
 export const DEFAULT_STATE: AppUrlState = {
 	// Le matin, on ouvre l'actualité du jour — pas la carte.
 	view: "today",
 	directory: DEFAULT_DIRECTORY,
+	review: DEFAULT_REVIEW,
+
 	today: DEFAULT_TODAY,
 	org: null,
 	naDept: null,
@@ -87,6 +98,7 @@ export function parseHash(hash: string): AppUrlState {
 	const sort = params.get("sort") ?? "";
 	const family = params.get("family");
 	const naDept = params.get("naDept");
+	const bucket = params.get("bucket");
 
 	return {
 		view,
@@ -96,8 +108,12 @@ export function parseHash(hash: string): AppUrlState {
 		},
 		org: Number.isInteger(org) && org > 0 ? org : null,
 		naDept: naDept && /^[0-9]{2}$/.test(naDept) ? naDept : null,
+		review: {
+			q: view === "review" ? (params.get("q") ?? "").trim().slice(0, 200) : "",
+			bucket: view === "review" && REVIEW_BUCKETS.includes(bucket as ReviewBucket) ? bucket as ReviewBucket : "",
+		},
 		directory: {
-			q: params.get("q") ?? "",
+			q: view === "directory" ? (params.get("q") ?? "") : "",
 			kind: params.get("kind") || null,
 			sector: params.get("sector") || null,
 			dept: dept && /^[0-9ABab]{2,3}$/.test(dept) ? dept : null,
@@ -134,6 +150,11 @@ export function toHash(state: AppUrlState): string {
 		if (d.dir !== DEFAULT_DIRECTORY.dir) params.set("dir", d.dir);
 		if (d.page > 0) params.set("page", String(d.page));
 		if (d.size !== DEFAULT_DIRECTORY.size) params.set("size", String(d.size));
+	}
+	if (state.view === "review") {
+		const r = state.review ?? DEFAULT_REVIEW;
+		if (r.q) params.set("q", r.q);
+		if (r.bucket) params.set("bucket", r.bucket);
 	}
 	if (state.org !== null) params.set("org", String(state.org));
 	if (state.naDept) params.set("naDept", state.naDept);

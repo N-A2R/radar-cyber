@@ -458,6 +458,12 @@ export default function App() {
     });
   }, []);
 
+  const onReviewStateChange = useCallback((review: AppUrlState["review"]) => {
+    setUrlState((prev) => (prev.review.q === review.q && prev.review.bucket === review.bucket
+      ? prev
+      : { ...prev, review }));
+  }, []);
+
   const onTodayFamily = useCallback((family: string | null) => {
     setUrlState((prev) => (prev.today.family === family ? prev : { ...prev, today: { ...prev.today, family } }));
   }, []);
@@ -723,6 +729,8 @@ export default function App() {
               server={!MOCK_MODE}
               onUnauthorized={onUnauthorized}
               onOpenOrg={openOrgSheet}
+              urlState={urlState.review}
+              onUrlStateChange={onReviewStateChange}
             />
           ) : null}
           {view === "journal" ? <JournalView onUnauthorized={onUnauthorized} /> : null}

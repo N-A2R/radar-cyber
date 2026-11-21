@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import { authHeaders } from "../api";
+import { DEFAULT_REVIEW, type ReviewBucket, type ReviewUrlState } from "../url-state";
 import "./review.css";
 
-export type RevueBucket = "chaud" | "tiede" | "froid";
 export type RevueDecision = "accepter" | "refuser" | "creer";
 
 export type RevueCandidate = {
@@ -23,7 +23,7 @@ export type RevueRow = {
   claimedAt: string | null;
   receivedAt: string;
   tlp: string;
-  triage: { score: number; bucket: RevueBucket; suggested: string; reasons: Array<{ label: string; weight: number }> };
+  triage: { score: number; bucket: ReviewBucket; suggested: string; reasons: Array<{ label: string; weight: number }> };
   candidates: RevueCandidate[];
   rejectRule: string | null;
   city: string | null;
@@ -47,10 +47,13 @@ type Props = {
   server?: boolean;
   onUnauthorized?: () => void;
   onOpenOrg?: (orgId: number) => void;
+  /** Filtres lus dans l'URL au montage, pour un lien profond. */
+  urlState?: ReviewUrlState;
+  onUrlStateChange?: (state: ReviewUrlState) => void;
 };
 
 const LIMIT = 50;
-const BUCKETS: Array<{ value: RevueBucket | ""; label: string }> = [
+const BUCKETS: Array<{ value: ReviewBucket | ""; label: string }> = [
   { value: "", label: "Tous" },
   { value: "chaud", label: "Chaud" },
   { value: "tiede", label: "Tiède" },
@@ -80,18 +83,31 @@ async function apiMessage(res: Response, fallback: string): Promise<string> {
   return `${fallback} (${res.status})`;
 }
 
+/** Une frappe n'interroge pas l'API : on attend 300 ms de silence. */
+function useDebounced<T>(value: T, delay: number): T {
+  const [debounced, setDebounced] = useState(value);
+  useEffect(() => {
+    const timer = setTimeout(() => setDebounced(value), delay);
+    return () => clearTimeout(timer);
+  }, [value, delay]);
+  return debounced;
+}
+
 /** File de décision des rattachements : GET /api/review/queue, POST /api/review/:id/decision. */
 export default function ReviewView({
   canWrite = false,
   server = true,
   onUnauthorized,
   onOpenOrg,
+  urlState,
+  onUrlStateChange,
 }: Props) {
+  const initial = urlState ?? DEFAULT_REVIEW;
   const [rows, setRows] = useState<RevueRow[]>([]);
   const [total, setTotal] = useState(0);
-  const [bucket, setBucket] = useState<RevueBucket | "">("");
-  const [search, setSearch] = useState("");
-  const [query, setQuery] = useState("");
+  const [bucket, setBucket] = useState<ReviewBucket | "">(initial.bucket);
+  const [search, setSearch] = useState(initial.q);
+  const query = useDebounced(search.trim(), 300);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(server);
   const [error, setError] = useState<string | null>(null);
@@ -103,6 +119,11 @@ export default function ReviewView({
   const [actionError, setActionError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const reasonRef = useRef<HTMLTextAreaElement>(null);
+
+  // Un changement de recherche repart de la première page, avant l'appel API.
+  useEffect(() => {
+    setPage(0);
+  }, [query]);
 
   useEffect(() => {
     if (!server) {
@@ -141,6 +162,21 @@ export default function ReviewView({
   useEffect(() => {
     if (openRow !== null) reasonRef.current?.focus();
   }, [openRow]);
+
+  // L'URL suit les filtres : le lien copié montre la file réellement affichée.
+  useEffect(() => {
+    onUrlStateChange?.({ q: search, bucket });
+  }, [onUrlStateChange, search, bucket]);
+
+  // Et les filtres suivent l'URL : retour navigateur et lien collé filtrent la file.
+  const urlKey = urlState ? `${urlState.q}\u0000${urlState.bucket}` : "";
+  useEffect(() => {
+    if (!urlState) return;
+    setSearch(urlState.q);
+    setBucket(urlState.bucket);
+    setPage(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [urlKey]);
 
   const openAction = useCallback((id: number, next: RevueDecision) => {
     setOpenRow(id);
@@ -199,16 +235,14 @@ export default function ReviewView({
       <header className="revue__head">
         <div>
           <h1>Revue</h1>
-          <p className="revue__count">{total} revendication{total === 1 ? "" : "s"} en attente d'une décision</p>
+          <p className="revue__count" role="status">
+            {total} résultat{total === 1 ? "" : "s"} en attente d'une décision
+            {bucket || query
+              ? ` · ${[bucket ? `seau ${bucket}` : "", query ? `« ${query} »` : ""].filter(Boolean).join(" · ")}`
+              : ""}
+          </p>
         </div>
-        <form
-          className="revue__search"
-          onSubmit={(event) => {
-            event.preventDefault();
-            setQuery(search.trim());
-            setPage(0);
-          }}
-        >
+        <div className="revue__search">
           <label className="revue__label" htmlFor="revue-q">Rechercher un indice ou un groupe</label>
           <input
             id="revue-q"
@@ -217,8 +251,7 @@ export default function ReviewView({
             placeholder="Indice ou groupe…"
             onChange={(event) => setSearch(event.target.value)}
           />
-          <button type="submit">Rechercher</button>
-        </form>
+        </div>
       </header>
 
       <div className="revue__buckets" role="group" aria-label="Filtrer par seau">
