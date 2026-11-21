@@ -7,7 +7,7 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import DirectoryView from "../src/components/DirectoryView";
 import CommandPalette from "../src/components/CommandPalette";
-import ReviewView from "../src/components/ReviewView";
+import QuarantineReviewView from "../src/components/QuarantineReviewView";
 import { reduceSelection, reviewIntent, reviewTargets, type ReviewKeyState } from "../src/review-keys";
 import { mockData, mockOrgDetail } from "../src/mock";
 import { DEFAULT_DIRECTORY, parseHash, shareableUrl, toHash } from "../src/url-state";
@@ -131,13 +131,13 @@ check("clavier : touche inconnue sans effet", intentOf("z").kind === "none");
 
 // --- file de revue ---------------------------------------------------------
 const reviewOffline = renderToStaticMarkup(
-	<ReviewView canWrite={false} server={false} onUnauthorized={() => {}} onOpenOrg={() => {}} />,
+	<QuarantineReviewView canWrite={false} server={false} onUnauthorized={() => {}} onOpenOrg={() => {}} />,
 );
 check("revue hors ligne : explique l'exigence d'API", reviewOffline.includes("exige l") && reviewOffline.includes("API"));
 check("revue hors ligne : aucune décision simulée", !reviewOffline.includes("Promouvoir"));
 
 const reviewLoading = renderToStaticMarkup(
-	<ReviewView canWrite server onUnauthorized={() => {}} onOpenOrg={() => {}} />,
+	<QuarantineReviewView canWrite server onUnauthorized={() => {}} onOpenOrg={() => {}} />,
 );
 check("revue rendue en mode serveur", reviewLoading.includes("Chargement de la file"));
 check("revue : raccourcis clavier annoncés", reviewLoading.includes("J/K parcourir") && reviewLoading.includes("Maj+A"));
@@ -145,7 +145,7 @@ check("revue : actions presentes", reviewLoading.includes("Promouvoir") && revie
 check("revue : compteurs affiches", reviewLoading.includes("en attente") && reviewLoading.includes("rejetés"));
 
 const reviewReadOnly = renderToStaticMarkup(
-	<ReviewView canWrite={false} server onUnauthorized={() => {}} onOpenOrg={() => {}} />,
+	<QuarantineReviewView canWrite={false} server onUnauthorized={() => {}} onOpenOrg={() => {}} />,
 );
 check("revue lecture seule : actions désactivées", reviewReadOnly.includes("Lecture seule") && reviewReadOnly.includes("disabled"));
 

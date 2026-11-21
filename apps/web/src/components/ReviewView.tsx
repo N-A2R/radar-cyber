@@ -1,391 +1,345 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { api, type ReviewAction, type ReviewQueueResponse, type ReviewRow } from "../api";
-import type { ReviewViewProps } from "../contracts";
-import { reduceSelection, reviewIntent, reviewTargets, type ReviewKeyState } from "../review-keys";
+import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
+import { authHeaders } from "../api";
 import "./review.css";
 
-/**
- * File de revue de la quarantaine — l'écran qui n'existait pas.
- *
- * La route API rendait les faits par date d'arrivée, sans interface : 16 235
- * faits dormaient sans qu'on puisse les trier. Cet écran est un poste de
- * triage au clavier, pensé pour une seule personne qui enchaîne les décisions.
- *
- * Clavier : J/K ou flèches pour parcourir, X pour cocher, P promouvoir,
- * R rejeter (motif obligatoire), M marquer revu, U annuler, Échap tout
- * désélectionner. Chaque décision est journalisée côté serveur avec son
- * auteur et son motif ; un rejet sans motif est refusé par l'API.
- *
- * Le panneau de droite montre **pourquoi** le fait est classé là : chaque
- * règle appliquée et son poids. Un classement qu'on ne peut pas contester
- * n'est pas un classement, c'est une boîte noire.
- */
+export type RevueBucket = "chaud" | "tiede" | "froid";
+export type RevueDecision = "accepter" | "refuser" | "creer";
 
-const BUCKET_LABEL: Record<string, string> = { chaud: "Chaud", tiede: "Tiède", froid: "Froid" };
-const SUGGESTION_LABEL: Record<string, string> = {
-	promote: "promouvoir",
-	review: "à vérifier",
-	reject: "rejeter",
-};
-const ACTION_LABEL: Record<ReviewAction, string> = {
-	promote: "promu(s)",
-	reject: "rejeté(s)",
-	review: "marqué(s) revu(s)",
-	undo: "remis en attente",
+export type RevueCandidate = {
+  id: number;
+  name: string;
+  score: number;
+  via: string;
+  city: string | null;
+  dept: string | null;
 };
 
-function shortDate(iso: string | null): string {
-	if (!iso) return "date inconnue";
-	return iso.slice(0, 10);
+export type RevueRow = {
+  id: number;
+  source: string;
+  sourceUrl: string | null;
+  groupe: string | null;
+  orgHint: string | null;
+  claimedAt: string | null;
+  receivedAt: string;
+  tlp: string;
+  triage: { score: number; bucket: RevueBucket; suggested: string; reasons: Array<{ label: string; weight: number }> };
+  candidates: RevueCandidate[];
+  rejectRule: string | null;
+  city: string | null;
+  dept: string | null;
+  review: Array<{ at: string; by: string; action: string; reason: string | null }>;
+};
+
+export type RevueQueue = {
+  rows: RevueRow[];
+  total: number;
+  page: number;
+  limit: number;
+  window: number;
+  truncated: boolean;
+  counts: Record<string, number>;
+  tookMs: number;
+};
+
+type Props = {
+  canWrite?: boolean;
+  server?: boolean;
+  onUnauthorized?: () => void;
+  onOpenOrg?: (orgId: number) => void;
+};
+
+const LIMIT = 50;
+const BUCKETS: Array<{ value: RevueBucket | ""; label: string }> = [
+  { value: "", label: "Tous" },
+  { value: "chaud", label: "Chaud" },
+  { value: "tiede", label: "Tiède" },
+  { value: "froid", label: "Froid" },
+];
+const DECISION_LABEL: Record<RevueDecision, string> = {
+  accepter: "Acceptation",
+  refuser: "Refus",
+  creer: "Création d'organisation",
+};
+
+/** Le serveur renvoie `{ error, details }` : on affiche son message, pas un code générique. */
+async function apiMessage(res: Response, fallback: string): Promise<string> {
+  try {
+    const body = await res.json() as { error?: unknown; details?: unknown; message?: unknown };
+    if (Array.isArray(body.details) && body.details.length > 0) {
+      const details = body.details
+        .map((item) => (item && typeof item === "object" && "message" in item ? String(item.message) : String(item)))
+        .join(", ");
+      return `${typeof body.error === "string" ? body.error : "requête invalide"} : ${details}`;
+    }
+    if (typeof body.error === "string") return body.error;
+    if (typeof body.message === "string") return body.message;
+  } catch {
+    // réponse sans corps JSON : le statut reste le seul fait certain
+  }
+  return `${fallback} (${res.status})`;
 }
 
-export default function ReviewView({ canWrite, server, onUnauthorized, onOpenOrg }: ReviewViewProps) {
-	const [data, setData] = useState<ReviewQueueResponse | null>(null);
-	const [loading, setLoading] = useState(server);
-	const [error, setError] = useState<string | null>(null);
-	const [bucket, setBucket] = useState<string>("");
-	const [source, setSource] = useState<string>("");
-	const [status, setStatus] = useState<string>("");
-	const [query, setQuery] = useState("");
-	const [page, setPage] = useState(0);
-	const [active, setActive] = useState(0);
-	const [selected, setSelected] = useState<Set<number>>(new Set());
-	const [rejecting, setRejecting] = useState(false);
-	const [reason, setReason] = useState("");
-	const [busy, setBusy] = useState(false);
-	const [toast, setToast] = useState<{ text: string; undoable: boolean; ids: number[] } | null>(null);
-	const listRef = useRef<HTMLDivElement>(null);
-	const reasonRef = useRef<HTMLInputElement>(null);
+/** File de décision des rattachements : GET /api/review/queue, POST /api/review/:id/decision. */
+export default function ReviewView({
+  canWrite = false,
+  server = true,
+  onUnauthorized,
+  onOpenOrg,
+}: Props) {
+  const [rows, setRows] = useState<RevueRow[]>([]);
+  const [total, setTotal] = useState(0);
+  const [bucket, setBucket] = useState<RevueBucket | "">("");
+  const [search, setSearch] = useState("");
+  const [query, setQuery] = useState("");
+  const [page, setPage] = useState(0);
+  const [loading, setLoading] = useState(server);
+  const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
+  const [openRow, setOpenRow] = useState<number | null>(null);
+  const [decision, setDecision] = useState<RevueDecision>("accepter");
+  const [orgId, setOrgId] = useState<number | null>(null);
+  const [raison, setRaison] = useState("");
+  const [actionError, setActionError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const reasonRef = useRef<HTMLTextAreaElement>(null);
 
-	const load = useCallback(() => {
-		if (!server) return;
-		const controller = new AbortController();
-		setLoading(true);
-		setError(null);
-		api.reviewQueue({ bucket, source, status, q: query, page, limit: 50 }, controller.signal)
-			.then((result) => {
-				setData(result);
-				setLoading(false);
-				setActive((index) => Math.min(index, Math.max(0, result.rows.length - 1)));
-			})
-			.catch((err: Error & { status?: number }) => {
-				if (err.name === "AbortError") return;
-				if (err.status === 401) onUnauthorized();
-				setError(err.message);
-				setLoading(false);
-			});
-		return () => controller.abort();
-	}, [server, bucket, source, status, query, page, onUnauthorized]);
+  useEffect(() => {
+    if (!server) {
+      setLoading(false);
+      return;
+    }
+    const controller = new AbortController();
+    const params = new URLSearchParams({ limit: String(LIMIT), page: String(page) });
+    if (bucket) params.set("bucket", bucket);
+    if (query) params.set("q", query);
+    setLoading(true);
+    setError(null);
+    fetch(`/api/review/queue?${params.toString()}`, { headers: authHeaders(), signal: controller.signal })
+      .then(async (res) => {
+        if (res.status === 401) onUnauthorized?.();
+        if (!res.ok) throw new Error(await apiMessage(res, "File de revue indisponible"));
+        return res.json() as Promise<RevueQueue>;
+      })
+      .then((data) => {
+        setRows(data.rows);
+        setTotal(data.total);
+        setOpenRow(null);
+        setRaison("");
+        setOrgId(null);
+        setNotice(null);
+      })
+      .catch((err: Error) => {
+        if (err.name !== "AbortError") setError(err.message);
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setLoading(false);
+      });
+    return () => controller.abort();
+  }, [server, bucket, query, page, onUnauthorized]);
 
-	useEffect(() => load(), [load]);
+  useEffect(() => {
+    if (openRow !== null) reasonRef.current?.focus();
+  }, [openRow]);
 
-	useEffect(() => {
-		if (rejecting) reasonRef.current?.focus();
-	}, [rejecting]);
+  const openAction = useCallback((id: number, next: RevueDecision) => {
+    setOpenRow(id);
+    setDecision(next);
+    setOrgId(null);
+    setRaison("");
+    setActionError(null);
+  }, []);
 
-	const rows = useMemo(() => data?.rows ?? [], [data]);
-	const current: ReviewRow | null = rows[active] ?? null;
+  const closeAction = useCallback(() => {
+    setOpenRow(null);
+    setOrgId(null);
+    setRaison("");
+    setActionError(null);
+  }, []);
 
-	const act = useCallback(async (action: ReviewAction, ids: number[], motif?: string) => {
-		if (!canWrite || ids.length === 0 || busy) return;
-		setBusy(true);
-		setError(null);
-		try {
-			const outcome = await api.reviewAction(ids, action, motif);
-			const skipped = outcome.skipped.length ? ` · ${outcome.skipped.length} ignoré(s)` : "";
-			const alerts = outcome.alerts ? ` · ${outcome.alerts} alerte(s)` : "";
-			setToast({
-				text: `${outcome.changed} fait(s) ${ACTION_LABEL[action]}${alerts}${skipped}`,
-				undoable: action === "reject" || action === "review",
-				ids,
-			});
-			setSelected(new Set());
-			setRejecting(false);
-			setReason("");
-			load();
-		} catch (err) {
-			const e = err as Error & { status?: number };
-			if (e.status === 401) onUnauthorized();
-			setError(e.message);
-		} finally {
-			setBusy(false);
-		}
-	}, [canWrite, busy, load, onUnauthorized]);
+  async function decide(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (openRow === null || submitting) return;
+    const motif = raison.trim();
+    if (!motif) {
+      setActionError("Le motif est obligatoire.");
+      return;
+    }
+    if (decision === "accepter" && orgId === null) {
+      setActionError("Choisissez une organisation candidate.");
+      return;
+    }
+    const body: { decision: RevueDecision; raison: string; orgId?: number } = { decision, raison: motif };
+    if (decision === "accepter" && orgId !== null) body.orgId = orgId;
+    setSubmitting(true);
+    setActionError(null);
+    try {
+      const res = await fetch(`/api/review/${openRow}/decision`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...authHeaders() },
+        body: JSON.stringify(body),
+      });
+      if (res.status === 401) onUnauthorized?.();
+      if (!res.ok) throw new Error(await apiMessage(res, "Décision refusée"));
+      const decidedId = openRow;
+      // La ligne sort de la liste immédiatement : aucun rechargement de la file.
+      setRows((prev) => prev.filter((row) => row.id !== decidedId));
+      setTotal((n) => Math.max(0, n - 1));
+      setNotice(`${DECISION_LABEL[decision]} enregistrée : ${motif}`);
+      closeAction();
+    } catch (err) {
+      setActionError(err instanceof Error ? err.message : "Décision impossible");
+    } finally {
+      setSubmitting(false);
+    }
+  }
 
-	const keyState: ReviewKeyState = useMemo(() => ({
-		count: rows.length,
-		active,
-		selected,
-		ids: rows.map((row) => row.id),
-		rejecting,
-	}), [rows, active, selected, rejecting]);
+  return (
+    <section className="revue" aria-label="Revue des rattachements">
+      <header className="revue__head">
+        <div>
+          <h1>Revue</h1>
+          <p className="revue__count">{total} revendication{total === 1 ? "" : "s"} en attente d'une décision</p>
+        </div>
+        <form
+          className="revue__search"
+          onSubmit={(event) => {
+            event.preventDefault();
+            setQuery(search.trim());
+            setPage(0);
+          }}
+        >
+          <label className="revue__label" htmlFor="revue-q">Rechercher un indice ou un groupe</label>
+          <input
+            id="revue-q"
+            type="search"
+            value={search}
+            placeholder="Indice ou groupe…"
+            onChange={(event) => setSearch(event.target.value)}
+          />
+          <button type="submit">Rechercher</button>
+        </form>
+      </header>
 
-	const targetIds = useCallback(() => reviewTargets(keyState), [keyState]);
+      <div className="revue__buckets" role="group" aria-label="Filtrer par seau">
+        {BUCKETS.map((item) => (
+          <button
+            key={item.value}
+            type="button"
+            aria-pressed={bucket === item.value}
+            onClick={() => { setBucket(item.value); setPage(0); }}
+          >
+            {item.label}
+          </button>
+        ))}
+      </div>
 
-	function onKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
-		// Dans un champ de saisie, les lettres appartiennent au texte.
-		const target = event.target as HTMLElement;
-		if (target.tagName === "INPUT" || target.tagName === "SELECT" || target.tagName === "TEXTAREA") return;
-		const intent = reviewIntent(event.key, event.shiftKey, keyState);
-		if (intent.kind === "none") return;
-		if (intent.kind !== "clear") event.preventDefault();
-		switch (intent.kind) {
-			case "move":
-			case "toggle":
-			case "selectAll":
-			case "clear": {
-				const next = reduceSelection(intent, keyState);
-				setActive(next.active);
-				setSelected(next.selected);
-				break;
-			}
-			case "askReject":
-				setRejecting(true);
-				break;
-			case "cancelReject":
-				setRejecting(false);
-				setReason("");
-				break;
-			case "act":
-				void act(intent.action, intent.ids, intent.action === "review" ? "revu au clavier" : undefined);
-				break;
-		}
-	}
+      {notice ? <p className="revue__notice" role="status">{notice}</p> : null}
+      {error ? <p className="revue__error" role="alert">{error}</p> : null}
+      {loading ? <p className="revue__state" role="status">Chargement de la file de revue…</p> : null}
+      {!loading && rows.length === 0 && !error
+        ? <p className="revue__state">Aucune revendication à revoir.</p>
+        : null}
+      {!server ? <p className="revue__state">La file de revue exige l'API : aucune décision n'est simulée.</p> : null}
+      {!canWrite ? <p className="revue__state">Lecture seule : connectez-vous pour décider.</p> : null}
 
-	if (!server) {
-		return (
-			<section className="review">
-				<h1>Revue</h1>
-				<p className="review__state">
-					La file de revue exige l'API : chaque décision est journalisée en base avec son auteur
-					et son motif. Le mode démonstration ne simule pas de décisions.
-				</p>
-			</section>
-		);
-	}
+      <ul className="revue__list">
+        {rows.map((row) => (
+          <li className="revue__row" key={row.id} data-bucket={row.triage.bucket}>
+            <div className="revue__main">
+              <strong className="revue__hint">{row.orgHint || "(sans indice)"}</strong>
+              <span className="revue__source">{row.source}</span>
+              <time className="revue__date" dateTime={row.claimedAt ?? row.receivedAt}>
+                {(row.claimedAt ?? row.receivedAt)?.slice(0, 10) ?? "date inconnue"}
+              </time>
+              <span className="revue__bucket">{row.triage.bucket}</span>
+            </div>
 
-	return (
-		<section className="review" onKeyDown={onKeyDown} tabIndex={0} role="region" aria-label="File de revue">
-			<header className="review__head">
-				<div>
-					<h1>Revue</h1>
-					<p className="review__tally">
-						<b>{data?.counts.pending ?? 0}</b> en attente
-						<span aria-hidden="true"> · </span>{data?.counts.reviewed ?? 0} revus
-						<span aria-hidden="true"> · </span>{data?.counts.rejected ?? 0} rejetés
-						<span aria-hidden="true"> · </span>{data?.counts.promoted ?? 0} promus
-						{data ? <span className="review__timing"> · {data.tookMs} ms</span> : null}
-					</p>
-				</div>
-				<div className="review__filters">
-					<label className="sr-only" htmlFor="review-q">Filtrer la file</label>
-					<input id="review-q" type="search" placeholder="Indice ou groupe…" value={query}
-						onChange={(e) => { setQuery(e.target.value); setPage(0); }} />
-					<label className="sr-only" htmlFor="review-bucket">Seau</label>
-					<select id="review-bucket" value={bucket} onChange={(e) => { setBucket(e.target.value); setPage(0); }}>
-						<option value="">Tous les seaux</option>
-						{(data?.facets.bucket ?? []).map((facet) => (
-							<option key={facet.value} value={facet.value}>
-								{BUCKET_LABEL[facet.value] ?? facet.value} ({facet.count})
-							</option>
-						))}
-					</select>
-					<label className="sr-only" htmlFor="review-status">Statut</label>
-					<select id="review-status" value={status} onChange={(e) => { setStatus(e.target.value); setPage(0); }}>
-						<option value="">En attente et revus</option>
-						<option value="pending">En attente</option>
-						<option value="reviewed">Revus</option>
-						<option value="rejected">Rejetés</option>
-					</select>
-					<label className="sr-only" htmlFor="review-source">Source</label>
-					<select id="review-source" value={source} onChange={(e) => { setSource(e.target.value); setPage(0); }}>
-						<option value="">Toutes sources</option>
-						{(data?.facets.source ?? []).map((facet) => (
-							<option key={facet.value} value={facet.value}>{facet.value} ({facet.count})</option>
-						))}
-					</select>
-				</div>
-			</header>
+            <div className="revue__candidates">
+              <span className="revue__label">Candidats</span>
+              {row.candidates.length === 0 ? <span className="revue__none">aucun candidat</span> : null}
+              {row.candidates.map((candidate) => (
+                <button
+                  className="revue__candidate"
+                  key={candidate.id}
+                  type="button"
+                  onClick={() => onOpenOrg?.(candidate.id)}
+                  title={candidate.dept ? `Département ${candidate.dept}` : undefined}
+                >
+                  {candidate.name}
+                  <span className="revue__candidate-score">{candidate.score.toFixed(2)} · {candidate.via}</span>
+                </button>
+              ))}
+            </div>
 
-			{data?.truncated ? (
-				<p className="review__truncated" role="status">
-					La file porte sur les {data.window} faits les plus récents. Filtrez pour atteindre le reste du stock.
-				</p>
-			) : null}
+            <div className="revue__actions">
+              <button type="button" disabled={!canWrite || submitting} onClick={() => openAction(row.id, "accepter")}>
+                Accepter
+              </button>
+              <button type="button" disabled={!canWrite || submitting} onClick={() => openAction(row.id, "refuser")}>
+                Refuser
+              </button>
+              <button type="button" disabled={!canWrite || submitting} onClick={() => openAction(row.id, "creer")}>
+                Créer cette organisation
+              </button>
+            </div>
 
-			<p className="review__intro">
-				Chaque ligne est une revendication brute, telle que publiée par sa source. Rien n'est
-				rattaché automatiquement : la revue décide si le fait entre au dossier. Les seaux
-				classent par probabilité d'appartenance à la région — « froid » signifie « conservé,
-				mais hors file ».
-			</p>
+            {openRow === row.id ? (
+              <form className="revue__decision" onSubmit={decide}>
+                <p className="revue__decision-title">{DECISION_LABEL[decision]} — {row.orgHint}</p>
+                {decision === "accepter" ? (
+                  <fieldset className="revue__orgs">
+                    <legend>Organisation à rattacher</legend>
+                    {row.candidates.length === 0 ? <p className="revue__none">Aucun candidat : refusez ou créez l'organisation.</p> : null}
+                    {row.candidates.map((candidate) => (
+                      <label className="revue__org" key={candidate.id}>
+                        <input
+                          type="radio"
+                          name={`org-${row.id}`}
+                          value={candidate.id}
+                          checked={orgId === candidate.id}
+                          onChange={() => setOrgId(candidate.id)}
+                        />
+                        {candidate.name}
+                      </label>
+                    ))}
+                  </fieldset>
+                ) : null}
+                <label className="revue__label" htmlFor={`raison-${row.id}`}>Motif de la décision (obligatoire)</label>
+                <textarea
+                  id={`raison-${row.id}`}
+                  ref={reasonRef}
+                  required
+                  rows={2}
+                  value={raison}
+                  placeholder="Écrivez le motif de cette décision"
+                  onChange={(event) => setRaison(event.target.value)}
+                />
+                {actionError ? <p className="revue__error" role="alert">{actionError}</p> : null}
+                <div className="revue__decision-actions">
+                  <button
+                    type="submit"
+                    disabled={submitting || !raison.trim() || (decision === "accepter" && orgId === null)}
+                  >
+                    Confirmer
+                  </button>
+                  <button type="button" onClick={closeAction}>Annuler</button>
+                </div>
+              </form>
+            ) : null}
+          </li>
+        ))}
+      </ul>
 
-			{error ? <p className="review__error" role="alert">{error}</p> : null}
-
-			<div className="review__bar">
-				<span className="review__selection">
-					{selected.size > 0 ? `${selected.size} coché(s)` : current ? "fait courant" : "aucun fait"}
-				</span>
-				{rejecting ? (
-					<form className="review__reason" onSubmit={(e) => { e.preventDefault(); if (reason.trim()) void act("reject", targetIds(), reason.trim()); }}>
-						<label className="sr-only" htmlFor="review-motif">Motif du rejet</label>
-						<input id="review-motif" ref={reasonRef} value={reason} onChange={(e) => setReason(e.target.value)}
-							onKeyDown={(e) => { if (e.key === "Escape") { setRejecting(false); setReason(""); } }}
-							placeholder="Motif du rejet (obligatoire)" />
-						<button type="submit" disabled={!reason.trim() || busy}>Confirmer</button>
-						<button type="button" onClick={() => { setRejecting(false); setReason(""); }}>Annuler</button>
-					</form>
-				) : (
-					<div className="review__actions">
-						<button type="button" onClick={() => void act("promote", targetIds())} disabled={!canWrite || busy || targetIds().length === 0}>
-							Promouvoir <kbd>P</kbd>
-						</button>
-						<button type="button" onClick={() => setRejecting(true)} disabled={!canWrite || busy || targetIds().length === 0}>
-							Rejeter <kbd>R</kbd>
-						</button>
-						<button type="button" onClick={() => void act("review", targetIds(), "revu au clavier")} disabled={!canWrite || busy || targetIds().length === 0}>
-							Marquer revu <kbd>M</kbd>
-						</button>
-						<button type="button" onClick={() => void act("undo", targetIds())} disabled={!canWrite || busy || targetIds().length === 0}>
-							Annuler la décision <kbd>U</kbd>
-						</button>
-					</div>
-				)}
-			</div>
-
-			{!canWrite ? <p className="review__state">Lecture seule : connectez-vous pour décider.</p> : null}
-
-			<div className="review__body">
-				<div className="review__list" ref={listRef} role="listbox" aria-label="Faits à revoir">
-					{loading && rows.length === 0 ? (
-						<p className="review__state">Chargement de la file…</p>
-					) : rows.length === 0 ? (
-						<p className="review__state">Aucun fait ne correspond. Élargissez les filtres.</p>
-					) : rows.map((row, index) => (
-						<div
-							key={row.id}
-							role="option"
-							aria-selected={index === active}
-							className="review__item"
-							data-active={index === active}
-							data-bucket={row.triage.bucket}
-							onClick={() => setActive(index)}
-						>
-							<input
-								type="checkbox"
-								checked={selected.has(row.id)}
-								onChange={() => setSelected((prev) => {
-									const next = new Set(prev);
-									if (next.has(row.id)) next.delete(row.id);
-									else next.add(row.id);
-									return next;
-								})}
-								onClick={(e) => e.stopPropagation()}
-								aria-label={`Cocher le fait ${row.id}`}
-							/>
-							<span className="review__score">{row.triage.score}</span>
-							<span className="review__hint">{row.orgHint || "(sans indice)"}</span>
-							<span className="review__meta">
-								{row.groupe ?? "groupe inconnu"} · {shortDate(row.claimedAt)}
-							</span>
-							{row.triage.referentialGap ? <span className="review__flag" data-kind="gap">référentiel</span> : null}
-							{row.triage.disagreement ? <span className="review__flag" data-kind="conflict">désaccord</span> : null}
-							{row.org ? <span className="review__flag" data-kind="org">{row.org.name}</span> : null}
-						</div>
-					))}
-				</div>
-
-				<aside className="review__detail" aria-label="Détail du fait">
-					{current === null ? (
-						<p className="review__state">Sélectionnez un fait.</p>
-					) : (
-						<>
-							<h2>{current.orgHint || "(sans indice)"}</h2>
-							<p className="review__prov">
-								<span className="review__tlp" data-tlp={current.tlp}>TLP:{current.tlp}</span>
-								{current.source} · {current.groupe ?? "groupe inconnu"} · revendiqué le {shortDate(current.claimedAt)}
-							</p>
-							<p className="review__prov">
-								Entré dans la file le {shortDate(current.receivedAt)} · statut {current.status}
-								{current.hasDescription ? " · description disponible" : " · pas de description"}
-							</p>
-							<p className="review__suggest">
-								Suggestion : <b>{SUGGESTION_LABEL[current.triage.suggested]}</b>
-								<span className="review__bucket" data-bucket={current.triage.bucket}>
-									{BUCKET_LABEL[current.triage.bucket]} · {current.triage.score}
-								</span>
-							</p>
-
-							{current.org ? (
-								<p className="review__org">
-									Rattaché à{" "}
-									<button type="button" onClick={() => onOpenOrg(current.org!.id)}>{current.org.name}</button>
-									{current.orgConfidence !== null ? ` (confiance ${current.orgConfidence.toFixed(2)})` : ""}
-								</p>
-							) : (
-								<p className="review__org review__org--none">Aucune organisation du référentiel ne correspond.</p>
-							)}
-
-							{current.triage.referentialGap ? (
-								<p className="review__gap">
-									Indice français sans organisation connue : c'est un trou du référentiel, pas
-									nécessairement du bruit. Envisagez d'ajouter l'entité plutôt que de rejeter.
-								</p>
-							) : null}
-
-							<h3>Pourquoi ce score</h3>
-							<ul className="review__reasons">
-								{current.triage.reasons.map((reasonItem, index) => (
-									<li key={index}>
-										<span className="review__weight" data-sign={reasonItem.weight > 0 ? "plus" : reasonItem.weight < 0 ? "minus" : "zero"}>
-											{reasonItem.weight > 0 ? "+" : ""}{reasonItem.weight}
-										</span>
-										{reasonItem.label}
-									</li>
-								))}
-							</ul>
-
-							{current.review.length > 0 ? (
-								<>
-									<h3>Journal de revue</h3>
-									<ul className="review__journal">
-										{current.review.map((entry, index) => (
-											<li key={index}>
-												<span className="review__mono">{entry.at.slice(0, 16).replace("T", " ")}</span>
-												{" "}{entry.by} — {entry.action}{entry.reason ? ` : ${entry.reason}` : ""}
-											</li>
-										))}
-									</ul>
-								</>
-							) : null}
-
-							<p className="review__source">
-								<a href={current.sourceUrl} target="_blank" rel="noreferrer noopener">provenance</a>
-								{" · le corps brut n'est jamais exposé"}
-							</p>
-						</>
-					)}
-				</aside>
-			</div>
-
-			<footer className="review__foot">
-				<span className="review__hint">J/K parcourir · X cocher · Maj+A tout cocher · P/R/M/U décider · Échap désélectionner</span>
-				<div className="review__pager">
-					<button type="button" onClick={() => setPage((p) => Math.max(0, p - 1))} disabled={page === 0}>Précédent</button>
-					<span className="review__mono">{page + 1} / {Math.max(1, Math.ceil((data?.total ?? 0) / 50))}</span>
-					<button type="button" onClick={() => setPage((p) => p + 1)} disabled={(page + 1) * 50 >= (data?.total ?? 0)}>Suivant</button>
-				</div>
-			</footer>
-
-			{toast ? (
-				<div className="review__toast" role="status">
-					{toast.text}
-					{toast.undoable ? (
-						<button type="button" onClick={() => { void act("undo", toast.ids); setToast(null); }}>Annuler</button>
-					) : null}
-					<button type="button" onClick={() => setToast(null)} aria-label="Fermer">×</button>
-				</div>
-			) : null}
-		</section>
-	);
+      <footer className="revue__foot">
+        <button type="button" disabled={loading || page === 0} onClick={() => setPage((p) => Math.max(0, p - 1))}>
+          Précédent
+        </button>
+        <span>Page {page + 1} / {Math.max(1, Math.ceil(total / LIMIT))}</span>
+        <button type="button" disabled={loading || (page + 1) * LIMIT >= total} onClick={() => setPage((p) => p + 1)}>
+          Suivant
+        </button>
+      </footer>
+    </section>
+  );
 }

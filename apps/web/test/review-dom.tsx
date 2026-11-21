@@ -17,7 +17,7 @@ import type { ReviewQueueResponse, ReviewRow } from "../src/api";
 // composant dynamiquement — sinon React part sur ses replis « hors navigateur ».
 type ReactModule = typeof import("react");
 type DomModule = typeof import("react-dom/client");
-type ViewModule = typeof import("../src/components/ReviewView");
+type ViewModule = typeof import("../src/components/QuarantineReviewView");
 let act: ReactModule["act"];
 let createRoot: DomModule["createRoot"];
 let ReviewView: ViewModule["default"];
@@ -127,7 +127,7 @@ function buttonByText(text: string): HTMLButtonElement | undefined {
 async function main(): Promise<void> {
 	const react = await import("react");
 	const reactDom = await import("react-dom/client");
-	const view = await import("../src/components/ReviewView");
+	const view = await import("../src/components/QuarantineReviewView");
 	act = react.act;
 	createRoot = reactDom.createRoot;
 	ReviewView = view.default;
