@@ -36,7 +36,7 @@ export type CertificatCT = {
 
 /** Hôtes agrégateurs ou non institutionnels présents dans les corpus NA. */
 const HOTES_EXCLUS: Record<string, true> = {
-	wikipedia.org: true, "sante.fr": true, "service-public.fr": true, "gouv.fr": true,
+	"wikipedia.org": true, "sante.fr": true, "service-public.fr": true, "gouv.fr": true,
 	"france.fr": true, "youtube.com": true, "facebook.com": true, "instagram.com": true,
 	"linkedin.com": true, "twitter.com": true, "x.com": true, "google.com": true,
 	"bing.com": true, "wixsite.com": true, "wordpress.com": true, "blogspot.com": true,
@@ -66,6 +66,17 @@ export type Tentative = {
 	ok: boolean;
 	erreur: string | null;
 	dureeMs: number;
+};
+
+export type SousDomaineInventaire = {
+	sous_domaine: string;
+	domaine: string;
+	organisation: string;
+	source: Fournisseur;
+	premiere_vue: string;
+	certificat_id: string | null;
+	emetteur: string | null;
+};
 
 const HOTE_RE = /^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,}$/;
 const JOUR_MS = 86_400_000;
