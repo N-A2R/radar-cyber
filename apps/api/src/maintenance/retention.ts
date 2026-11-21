@@ -10,6 +10,8 @@ export interface RetentionResult {
   /** Cycles de supervision purgés (même fenêtre que les runs). */
   cyclesSupervision: number;
   archived: number;
+  /** Lignes du journal des accès supprimées par la rétention RGPD. */
+  accessLog: number;
 }
 
 const BATCH = 10000;
@@ -45,9 +47,10 @@ export async function runRetention(
   const days = opts?.days ?? Number(process.env.RADAR_RETENTION_DAYS ?? 90);
   const indicatorDays = opts?.indicatorDays ?? Number(process.env.RADAR_RETENTION_INDICATOR_DAYS ?? 365);
   const dryRun = opts?.dryRun ?? false;
+  const auditDays = Number(process.env.RADAR_AUDIT_RETENTION_DAYS ?? 90);
   const tables = opts?.tables ?? ["event", "indicator", "collector_run", "collecte_cycle"];
 
-  const result: RetentionResult = { events: 0, indicators: 0, collectorRuns: 0, cyclesSupervision: 0, archived: 0 };
+  const result: RetentionResult = { events: 0, indicators: 0, collectorRuns: 0, cyclesSupervision: 0, archived: 0, accessLog: 0 };
 
   for (const table of tables) {
     const tableDays = table === "indicator" && opts?.days === undefined ? indicatorDays : days;
@@ -133,6 +136,21 @@ export async function runRetention(
     else if (table === "collecte_cycle") result.cyclesSupervision = total;
     else result.collectorRuns = total;
   }
+
+  // Rétention du journal des accès : seule suppression autorisée sur cette
+  // table. Les refus restent dans le journal de vérité, non soumis à cette
+  // rétention, ce qui conserve la preuve d'un incident même après 90 jours.
+  if (dryRun) {
+    const { rows } = await ingestQuery<{ c: string }>(
+      "SELECT count(*)::text AS c FROM access_log WHERE recorded_at < now() - ($1 || ' days')::interval",
+      [auditDays],
+    );
+    result.accessLog = Number(rows[0]?.c ?? 0);
+  } else {
+    const { rows } = await ingestQuery<{ n: number }>("SELECT purger_access_log($1) AS n", [auditDays]);
+    result.accessLog = Number(rows[0]?.n ?? 0);
+  }
+  if (result.accessLog > 0) log(`journal des accès : ${result.accessLog} ligne(s) purgée(s) (${auditDays} j)`);
 
   return result;
 }

@@ -3,7 +3,8 @@ import type { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
 import { query } from "../db.js";
 import { hashSessionToken } from "../auth.js";
 
-export type AuthUser = { id: number; email: string; role: string; displayName: string | null };
+export type Role = "admin" | "analyste" | "lecteur";
+export type AuthUser = { id: number; email: string; role: Role | string; displayName: string | null };
 
 declare module "fastify" {
   interface FastifyRequest {
@@ -57,19 +58,25 @@ export function requireAuth() {
   };
 }
 
-export function requireRole(role: string) {
-  return async (req: FastifyRequest, reply: FastifyReply) => {
+/**
+ * Hiérarchie : lecteur < analyste < admin. Un admin satisfait toutes les
+ * gardes ; un analyste satisfait les gardes analyste et lecteur.
+ * L'ancienne version portait deux fois le même test, ce qui masquait
+ * l'intention sans changer le résultat.
+ */
+const RANG: Record<Role, number> = { lecteur: 1, analyste: 2, admin: 3 };
+
+export function roleSuffit(role: string, requis: Role): boolean {
+  const rang = RANG[role as Role];
+  return rang !== undefined && rang >= RANG[requis];
+}
+
+export function requireRole(role: Role) {
+  return async (req: FastifyRequest, _reply: FastifyReply) => {
     const u = req.user ?? (await resolveUser(req));
-    if (!u) {
-      throw unauthorized();
-    }
+    if (!u) throw unauthorized();
     req.user = u;
-    if (u.role !== role && u.role !== "admin") {
-      throw forbidden();
-    }
-    // exact role check for non-admin target? admin bypass allowed
-    if (role !== "admin" && u.role !== role) {
-      throw forbidden();
-    }
+    if (!roleSuffit(u.role, role)) throw forbidden();
   };
 }
+

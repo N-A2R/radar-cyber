@@ -152,7 +152,7 @@ const SCHEMAS = {
     org: objet, aliases: z.array(json), domains: z.array(z.string()),
     relatedOrgs: objets, sourceCount: z.number(), assets: objet,
     events: objet, claims: objet, exposure: objets, corroboration: objet,
-    historique: objet,
+    historique: objet, rectifications: objet,
   }),
   "/api/quarantine": z.array(faitQuarantaine),
   "/api/quarantine/stats": z.strictObject({

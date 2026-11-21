@@ -122,7 +122,8 @@ run_step "tests sources" "$PNPM_BIN" -F @radar/web run test:sources
 run_step "tests inspecteur" "$PNPM_BIN" -F @radar/web run test:inspecteur
 run_step "tests fil"      "$PNPM_BIN" -F @radar/web run test:fil
 run_step "tests corroboration" "$PNPM_BIN" -F @radar/web run test:corroboration
-run_step "tests hors ligne"   "$PNPM_BIN" -F @radar/web run test:offline
+run_step "tests fiche organisation" "$PNPM_BIN" -F @radar/web run test:orgsheet
+run_step "tests droit de réponse" "$PNPM_BIN" -F @radar/web run test:droit-reponse
 run_step "tests nouvelle-aquitaine" "$PNPM_BIN" -F @radar/web run test:na
 run_step "jeu d'or précision (50 cas pièges, vague précision S5.2)" \
   "$TSX" scripts/precision-gold.mts --verifier

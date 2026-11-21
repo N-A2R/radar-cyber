@@ -4,6 +4,7 @@ import { query } from "../db.js";
 import { requireAuth, resolveUser } from "../middleware/auth.js";
 import { createOrgFromHint, createOrgFromHintSchema } from "../quarantine/from-hint.js";
 import { desaccords, regrouper, resume } from "../analyse/corroboration.js";
+import { publieesPourOrg } from "../domain/rectification.js";
 import { construireHistorique } from "../analyse/historique.js";
 
 type OrgListRow = {
@@ -215,6 +216,7 @@ export default async function (app: FastifyInstance) {
       domainRows,
       relatedRows,
       sourceCountRows,
+      rectifications,
     ] = await Promise.all([
       query<CountRow>("SELECT COUNT(*)::int AS n FROM asset WHERE org_id=$1", [orgId]),
       query<KindRow>(
@@ -305,6 +307,7 @@ export default async function (app: FastifyInstance) {
         "SELECT COUNT(DISTINCT source_id)::int AS n FROM event WHERE org_id=$1",
         [orgId]
       ),
+      publieesPourOrg(orgId),
     ]);
 
     // Ce que l'organisation a vécu, regroupé par fait plutôt que par ligne.
@@ -415,6 +418,9 @@ export default async function (app: FastifyInstance) {
       // qu'on la voit tout le temps ? 12 mois de recul, tendance sur 90 jours
       // contre les 90 précédents.
       historique: construireHistorique(groupes),
+      // Droit de réponse : seules les rectifications publiées sont exposées
+      // sur la fiche. Les demandes en cours restent dans l'outil d'instruction.
+      rectifications,
     };
   });
 }

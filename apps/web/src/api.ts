@@ -776,6 +776,44 @@ export type OrgDetail = {
   corroboration?: Corroboration;
   /** Absent des serveurs antérieurs au profil historique. */
   historique?: Historique;
+  /** Réponses publiées au titre du droit de réponse (serveur récent). */
+  rectifications?: RectificationsOrg;
+};
+
+/** Motif d'une demande de rectification (droit de réponse, RGPD). */
+export type MotifRectification = "inexactitude" | "omission" | "suppression" | "autre";
+
+/** Réponse publiée, affichée sur la fiche de l'organisation. */
+export type RectificationPubliee = {
+  id: number;
+  reference: string;
+  organisation: string;
+  motif: MotifRectification;
+  message: string;
+  publishedAt: string | null;
+  decisionMotif: string | null;
+};
+
+export type RectificationsOrg = { total: number; items: RectificationPubliee[] };
+
+/** Corps envoyé par une organisation nommée pour demander une rectification. */
+export type DemandeRectification = {
+  orgId: number;
+  organisation: string;
+  contactNom?: string;
+  email: string;
+  domaine?: string;
+  motif: MotifRectification;
+  message: string;
+  pieceJointeRef?: string;
+};
+
+export type AccuseRectification = {
+  id: number;
+  reference: string;
+  statut: string;
+  createdAt: string;
+  prochaineEtape: string;
 };
 
 /** Alerte poussée par le flux SSE (`event: alert`). */
@@ -1030,6 +1068,8 @@ export const api = {
     return get<DirectoryResponse>(`/directory${suffix ? `?${suffix}` : ""}`, signal);
   },
   orgDetail: (id: number) => get<OrgDetail>(`/orgs/${id}`),
+  rectificationsOrg: (orgId: number) => get<RectificationsOrg>(`/orgs/${orgId}/rectifications`),
+  demanderRectification: (body: DemandeRectification) => postJson<AccuseRectification>("/rectifications", body),
   search: (q: string) => get<SearchResponse>(`/search?q=${encodeURIComponent(q)}`),
   events: (
     limit = 100,

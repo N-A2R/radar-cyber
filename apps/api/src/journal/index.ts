@@ -40,7 +40,13 @@ export type JournalKind =
 	/** Un fait visé n'a pas pu être écrit : le journal se souvient du trou. */
 	| "journal.lacune"
 	/** Un lot d'événements a été retiré de la table de lecture — jamais sans archive. */
-	| "event.purge";
+	| "event.purge"
+	/** Un accès API a été refusé (rôle, jeton, route inconnue, débit). */
+	| "acces.refus"
+	/** Une organisation nommée a demandé une rectification. */
+	| "droit_reponse.demande"
+	/** Une demande de rectification a changé de statut (publication comprise). */
+	| "droit_reponse.decision";
 
 export type JournalEntry = {
 	kind: JournalKind;

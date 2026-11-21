@@ -318,5 +318,21 @@ export function mockOrgDetail(orgId: number): OrgDetail | null {
     events: { total: events.length, byFamily, recent: events },
     claims: { total: 0, recent: [] },
     exposure: months,
+    // Démonstration : une réponse publiée sur une seule fiche, afin que
+    // l'état vide et l'état rempli soient tous deux visibles en mode mock.
+    rectifications: orgId === MOCK_ORGS[0]?.id
+      ? {
+          total: 1,
+          items: [{
+            id: 9001,
+            reference: "DR-2026-000001",
+            organisation: org.name,
+            motif: "inexactitude" as const,
+            message: "La date annoncée dans le signal concernait une autre entité du même groupe.",
+            publishedAt: ago(10 * 24 * 30),
+            decisionMotif: "Correction confirmée par la source d'origine",
+          }],
+        }
+      : { total: 0, items: [] },
   };
 }
