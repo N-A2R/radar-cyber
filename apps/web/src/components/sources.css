@@ -63,7 +63,7 @@
 }
 
 .sources-view__search input:hover {
-  border-color: rgba(255, 255, 255, 0.24);
+  border-color: var(--line-strong);
 }
 
 .sources-view__search input::placeholder {
@@ -249,7 +249,8 @@
   .sources-view__search input,
   .sources-table__sort,
   .sources-table tbody tr {
-    transition: none;
+    animation: none !important;
+    transition: none !important;
   }
 }
 

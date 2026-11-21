@@ -34,7 +34,6 @@
 }
 
 .palette__input::placeholder { color: var(--color-faint); }
-.palette__input:focus { outline: none; }
 
 .palette__hint {
   margin: 0;
@@ -109,5 +108,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .palette__scrim { backdrop-filter: none; }
+  .palette__scrim {
+    backdrop-filter: none;
+    animation: none !important;
+    transition: none !important;
+  }
 }
