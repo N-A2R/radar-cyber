@@ -1,3 +1,4 @@
+import { badRequest } from "../errors.js";
 import type { FastifyInstance } from "fastify";
 import { queryDirectory, type DirectoryDir, type DirectorySort } from "../directory/query.js";
 
@@ -41,13 +42,11 @@ export default async function (app: FastifyInstance) {
 		const dept = q.dept?.trim();
 		// Un département est un code INSEE de deux ou trois caractères.
 		if (dept && !/^[0-9ABab]{2,3}$/.test(dept)) {
-			reply.code(400).send({ error: "invalid dept" });
-			return;
+			throw badRequest("invalid dept");
 		}
 		const text = q.q?.trim() ?? "";
 		if (text.length > 120) {
-			reply.code(400).send({ error: "query too long" });
-			return;
+			throw badRequest("query too long");
 		}
 		return queryDirectory({
 			q: text,

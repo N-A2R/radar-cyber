@@ -28,6 +28,7 @@ import eventsRoute from "./routes/events.js";
 import historyRoute from "./routes/history.js";
 import todayRoute from "./routes/today.js";
 import statsDepartementsRoute from "./routes/stats-departements.js";
+import couvertureRoute from "./routes/couverture.js";
 import flowsRoute from "./routes/flows.js";
 import graphRoute from "./routes/graph.js";
 import orgsRoute from "./routes/orgs.js";
@@ -45,6 +46,7 @@ import orgsLieesRoute from "./routes/orgs-liees.js";
 import orgsLieesHistoriqueRoute from "./routes/orgs-liees-historique.js";
 import ingestRoute from "./routes/ingest.js";
 import { resolveUser } from "./middleware/auth.js";
+import { installErrorHandler, unauthorized } from "./errors.js";
 
 const port = Number(process.env.PORT ?? 8080);
 /** Cadence de la boucle de collecte. */
@@ -57,6 +59,7 @@ const QUARANTINE_MS = Number(process.env.RADAR_QUARANTINE_TICK_MS ?? 30 * 60 * 1
 const ALERT_DELIVERY_MS = Number(process.env.RADAR_ALERT_DELIVERY_TICK_MS ?? 2 * 60 * 1000);
 
 const app = Fastify({ logger: true });
+installErrorHandler(app);
 
 /** Origines autorisées pour le cross-origin, séparées par des virgules.
  *  Vide = aucune origine croisée (le front est servi depuis la même origine). */
@@ -95,7 +98,7 @@ if (existsSync(webDist)) {
  * écritures protégées. Un token valide est attaché à la requête s'il est fourni,
  * ce qui permet au front d'adapter l'UI au rôle.
  */
-const PUBLIC_READ = /^\/api\/(health|stats|sources|flows|search|directory|graph|stream|events|history|orgs|enrich|alerts|quarantine|dossier|healthz|na|today)(\/|$|\?)/;
+const PUBLIC_READ = /^\/api\/(health|stats|sources|flows|search|directory|graph|stream|events|history|orgs|enrich|alerts|quarantine|dossier|healthz|na|today|couverture)(\/|$|\?)/;
 
 app.addHook("onRequest", async (req, reply) => {
   const url = req.url.split("?")[0];
@@ -107,7 +110,7 @@ app.addHook("onRequest", async (req, reply) => {
   if (url.startsWith("/api/auth/")) return;
   const user = await resolveUser(req);
   if (req.method !== "GET" || !PUBLIC_READ.test(url)) {
-    if (!user) { reply.code(401).send({ error: "unauthorized" }); return; }
+    if (!user) throw unauthorized();
   }
   if (user) req.user = user;
 });
@@ -123,6 +126,7 @@ await app.register(healthDetailRoute, { prefix: "/api" });
 await app.register(healthCausesRoute, { prefix: "/api" });
 await app.register(todayRoute, { prefix: "/api" });
 await app.register(statsDepartementsRoute, { prefix: "/api" });
+await app.register(couvertureRoute, { prefix: "/api" });
 await app.register(flowsRoute, { prefix: "/api" });
 await app.register(orgsRoute, { prefix: "/api" });
 

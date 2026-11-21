@@ -1,10 +1,10 @@
 /**
- * Décisions clavier de la file de revue — fonction pure.
+ * Keyboard decisions for the review queue — pure function.
  *
- * Sortie du composant pour être testable sans DOM : le poste de triage se
- * pilote au clavier, et un raccourci qui décide à la place de l'analyste est
- * un bug de fond, pas de mise en page. Le composant applique l'intention ;
- * ce module ne fait que la calculer.
+ * Kept out of the component so it can be tested without a DOM: this is a
+ * triage workstation, and a shortcut deciding on the analyst's behalf would
+ * be a fundamental bug, not a layout detail. The component applies the
+ * intent; this module only computes it.
  */
 import type { ReviewAction } from "./api.js";
 
@@ -14,9 +14,9 @@ export type ReviewKeyState = {
 	selected: ReadonlySet<number>;
 	ids: readonly number[];
 	rejecting: boolean;
-	/** Aide ouverte : seule Échap répond, pour la fermer. */
+	/** Help is open: only Escape answers, to close it. */
 	help?: boolean;
-	/** Focus dans un champ : les caractères appartiennent au texte. */
+	/** Focus is in a field: characters belong to the text. */
 	typing?: boolean;
 };
 
@@ -34,7 +34,7 @@ export type ReviewIntent =
 	| { kind: "help" }
 	| { kind: "act"; action: ReviewAction; ids: number[] };
 
-/** Champs où une lettre est du texte, pas un raccourci. */
+/** Fields where a letter is text, not a shortcut. */
 export function isReviewTypingTarget(target: EventTarget | null): boolean {
 	if (!target) return false;
 	const el = target as { tagName?: string; isContentEditable?: boolean };
@@ -43,7 +43,7 @@ export function isReviewTypingTarget(target: EventTarget | null): boolean {
 }
 
 
-/** Cibles d'une décision : la sélection si elle existe, sinon le fait courant. */
+/** Targets of a decision: the selection when present, otherwise the current row. */
 export function reviewTargets(state: ReviewKeyState): number[] {
 	if (state.selected.size > 0) return [...state.selected];
 	const id = state.ids[state.active];
@@ -51,9 +51,9 @@ export function reviewTargets(state: ReviewKeyState): number[] {
 }
 
 /**
- * Traduit une touche en intention. `key` est la valeur brute de l'événement ;
- * `shift` sert à Maj+A et à `?`. Dans un champ, aucune touche ne décide —
- * sauf Échap, qui referme l'aide ou la décision en cours.
+ * Turns a raw key into an intent. `shift` is used for Shift+A and `?`.
+ * Inside a field no key decides — except Escape, which closes help or the
+ * decision form.
  */
 export function reviewIntent(key: string, shift: boolean, state: ReviewKeyState): ReviewIntent {
 	if (state.typing && key !== "Escape") return { kind: "none" };

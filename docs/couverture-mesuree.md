@@ -1,152 +1,212 @@
-# Couverture mesurée — 21 novembre 2026
+# Couverture mesurée — corpus de 20 incidents (21 novembre 2026)
 
-Ce document retranscrit la sortie de `scripts/mesure-couverture.mts`, rejoué le
-**2026-11-21** (`dateMesure`) sur la fenêtre **2025-11-01 → 2026-10-31**. Aucun
-chiffre ci-dessous n'est estimé : ils sont tous tirés de la sortie console et du
-JSON publiés par le script.
+## **0 % de couverture : 0 incident vu sur 20.**
 
-Corpus : **60 incidents**, dont **42 dans la fenêtre** et **18 hors fenêtre**.
-La mesure a tourné avec **4 480 organisations en base** (`organisationsEnBase`).
+Ce chiffre est calculé, pas estimé. Il vient de `bench/results/couverture-mesuree.json`,
+produit par `scripts/mesure-couverture-systeme.mts` sur la base de travail
+`postgres://radar:radar@localhost:5433/radar`, le **2026-11-21** (dernière collecte en base).
+Aucun délai médian n'est publié : aucun incident n'est vu, donc aucun délai n'est mesurable.
 
-## Résultat global
+- Corpus : `bench/couverture/incidents.jsonl`, 20 incidents, publications du
+  2024-04-19 au 2026-09-15.
+- Empreinte SHA-256 du corpus consolidé :
+  `a367e4f3642c64972dfca8498afeafb21b96f1507899c90107539bd9b20cf78e`.
+- État de la base au calcul : 312 sources, 26 719 événements, 4 710 événements
+  archivés, 1 673 151 organisations ; 7 781 exécutions de collecte du
+  2026-11-13 au 2026-11-21. Empreinte des lignes lues :
+  `80de9f90ae633b31c35d5598cafad74302207a6f14d65676b5a1e49198a53282`.
 
-> **Couverture : 28 / 42 (66,7 %)**
+La route `GET /api/couverture` sert exactement ce rapport : `global`,
+`parMotif`, `parDepartement`, `parType`, `dateCalcul`, `hashCorpus` et les
+preuves par incident. Le test `apps/api/test/couverture-api.test.ts` rejoue le
+script sur la base et échoue si le chiffre servi diverge, même d'un incident.
 
-Le dénominateur est le nombre d'incidents dans la fenêtre (42), pas la taille du
-corpus (60). Les 18 incidents hors fenêtre sont conservés comme contexte et
-exclus du taux.
+## Décomposition
 
-Le script publie aussi une lecture plus exigeante du même résultat : sur les 28
-incidents « vus », le rattachement est **exact 21 fois**, **partiel 5 fois** et
-**hors sujet 2 fois**, soit **26 / 42 (61,9 %) de rattachements défendables**.
-Les deux rattachements hors sujet comptent dans le taux brut de 66,7 %.
+| Motif | Incidents | Part |
+| --- | ---: | ---: |
+| `vu` | 0 | 0 % |
+| `pas_collecte` | 20 | 100 % |
+| `pas_rattache` | 0 | 0 % |
+| `pas_juge_cyber` | 0 | 0 % |
+| `indetermine` | 0 | 0 % |
+| **Total** | **20** | **100 %** |
 
-## Répartition des motifs
+Par département (vus / total) : Charente 0/2, Charente-Maritime 0/2, Corrèze
+0/1, Creuse 0/1, Deux-Sèvres 0/1, Dordogne 0/1, Gironde 0/6, Haute-Vienne 0/1,
+Landes 0/1, Lot-et-Garonne 0/1, Pyrénées-Atlantiques 0/1, Vienne 0/2.
 
-Sur les 42 incidents de la fenêtre :
+Par type (vus / total) : compromission 0/3, defacement 0/1, fuite 0/8,
+ransomware 0/8.
 
-| Motif | Incidents | Détail |
-| --- | --- | --- |
-| `vu` | 28 | 21 exacts, 5 partiels, 2 hors sujet |
-| `pas_admis` | 0 | aucune refus à la porte d'admission du contrat |
-| `pas_rattache` | 14 | 14 `absent_du_referentiel`, 0 `au_referentiel_mais_non_reconnu` |
-| **Total** | **42** | |
+Délai de collecte : non mesurable (0 incident vu). Le rapport expose tout de
+même `delaiMedianHeures: null` plutôt qu'un zéro, qui laisserait croire à une
+collecte instantanée.
 
-Les 18 incidents restants du corpus ont le motif `hors_fenetre` ; ils ne
-contribuent ni au numérateur ni au dénominateur du taux.
+### Preuve par incident
 
-Le script signale par ailleurs **0 ligne** d'entreprise en agroalimentaire,
-industrie, construction et commerce dans le référentiel utilisé.
+| Incident | Publication | Département | Motif | Délai (h) | Preuve |
+| --- | --- | --- | --- | ---: | --- |
+| na-couv-001 | 2024-04-19 | Gironde | pas_collecte | — | aucune collecte le 2024-04-19 pour France 3 NA — Correze (RSS) |
+| na-couv-002 | 2024-05-15 | Pyrénées-Atlantiques | pas_collecte | — | aucune collecte le 2024-05-15 pour Sud Ouest Éco (RSS) |
+| na-couv-003 | 2024-06-14 | Charente | pas_collecte | — | aucune collecte le 2024-06-14 pour Charente Libre Économie (RSS) |
+| na-couv-004 | 2024-07-01 | Charente-Maritime | pas_collecte | — | aucune collecte le 2024-07-01 pour ICI Creuse — a la une (RSS) |
+| na-couv-005 | 2024-11-27 | Dordogne | pas_collecte | — | aucune collecte le 2024-11-27 pour Sud Ouest Éco (RSS) |
+| na-couv-006 | 2025-02-14 | Corrèze | pas_collecte | — | aucune collecte le 2025-02-14 pour La Depeche — Lot-et-Garonne (RSS) |
+| na-couv-007 | 2025-03-01 | Gironde | pas_collecte | — | aucune collecte le 2025-03-01 pour Le Republicain Lot-et-Garonne — actu.fr (RSS) |
+| na-couv-008 | 2025-07-11 | Creuse | pas_collecte | — | aucune collecte le 2025-07-11 pour France 3 NA — Correze (RSS) |
+| na-couv-009 | 2025-09-05 | Vienne | pas_collecte | — | aucune collecte le 2025-09-05 pour Ouest-France (RSS) |
+| na-couv-010 | 2025-10-03 | Lot-et-Garonne | pas_collecte | — | aucune collecte le 2025-10-03 pour France 3 NA — Correze (RSS) |
+| na-couv-011 | 2025-11-27 | Charente-Maritime | pas_collecte | — | aucune collecte le 2025-11-27 pour Sud Ouest Éco (RSS) |
+| na-couv-012 | 2025-12-11 | Deux-Sèvres | pas_collecte | — | aucune collecte le 2025-12-11 pour ICI Creuse — a la une (RSS) |
+| na-couv-013 | 2026-01-22 | Charente | pas_collecte | — | média absent de la table source |
+| na-couv-014 | 2026-03-02 | Gironde | pas_collecte | — | média absent de la table source |
+| na-couv-015 | 2026-03-15 | Vienne | pas_collecte | — | aucune collecte le 2026-03-15 pour La Nouvelle République — Deux-Sèvres (RSS) |
+| na-couv-016 | 2026-04-09 | Gironde | pas_collecte | — | aucune collecte le 2026-04-09 pour Sud Ouest Éco (RSS) |
+| na-couv-017 | 2026-05-13 | Gironde | pas_collecte | — | aucune collecte le 2026-05-13 pour Sud Ouest Éco (RSS) |
+| na-couv-018 | 2026-06-29 | Haute-Vienne | pas_collecte | — | média absent de la table source |
+| na-couv-019 | 2026-08-28 | Landes | pas_collecte | — | média absent de la table source |
+| na-couv-020 | 2026-09-15 | Gironde | pas_collecte | — | média absent de la table source |
 
-## Incident par incident
+Le JSON publié contient, pour chaque ligne, les trois requêtes SQL exécutées,
+leurs paramètres, les sources examinées et les événements éventuellement
+correspondants (`incidents[].requetes`).
 
-« Vu » porte sur l'appartenance à la fenêtre **et** le rattachement par le
-moteur. « Délai (j) » reproduit le champ `delaiJours` de la sortie JSON : il vaut
-`null` pour les 60 incidents, noté `—` dans le tableau. « Motif d'absence »
-reprend le motif calculé par le script et, pour `pas_rattache`, la cause
-diagnostiquée. « Qualité » ne renseigne que les incidents vus.
+## Méthode
 
-| Incident | Entité | Publication | Vu | Délai (j) | Motif d'absence | Qualité |
-| --- | --- | --- | --- | --- | --- | --- |
-| na-2026-001 | Ymed (éditeur de la plateforme Sooncare) | 2026-04-09 | non | — | `pas_rattache` · `absent_du_referentiel` | — |
-| na-2026-002 | Mairie de Marennes-Hiers-Brouage | 2026-08-19 | oui | — | — | exacte |
-| na-2026-003 | Ville de Tarnos | 2026-08-29 | oui | — | — | exacte |
-| na-2026-004 | Mairie d'Espelette | 2026-09-16 | oui | — | — | exacte |
-| na-2026-005 | EHPAD Résidence du Parc de Champdeniers | 2025-12-11 | non | — | `pas_rattache` · `absent_du_referentiel` | — |
-| na-2026-006 | Ville de Gradignan — police municipale | 2026-05-13 | oui | — | — | exacte |
-| na-2026-007 | Mairie de Fumel | 2025-10-03 | non | — | `hors_fenetre` (hors dénominateur) | — |
-| na-2026-008 | Collège privé La Salle de Brive-la-Gaillarde | 2025-02-14 | non | — | `hors_fenetre` (hors dénominateur) | — |
-| na-2026-009 | Bordeaux Sciences Agro | 2026-09-15 | oui | — | — | exacte |
-| na-2026-010 | Vignobles Toutigeac | 2026-07-16 | oui | — | — | exacte |
-| na-2026-011 | SICSOE (Solution Vin Logistique) | 2026-07-23 | oui | — | — | exacte |
-| na-2026-012 | Intermarché d'Altillac | 2026-10-13 | oui | — | — | exacte |
-| na-2026-013 | Magasins de grande distribution touchés en Béarn et Soule (dont Intermarché Pau et Monein) | 2026-10-12 | oui | — | — | partielle |
-| na-2026-014 | Coaxis | 2026-11-10 | non | — | `hors_fenetre` (hors dénominateur) | — |
-| na-2026-015 | Mairie de Sarran | 2025-06-20 | non | — | `hors_fenetre` (hors dénominateur) | — |
-| na-2026-016 | Fédération Nationale des Chasseurs / chasseurs charentais | 2026-01-22 | non | — | `pas_rattache` · `absent_du_referentiel` | — |
-| na-2026-017 | Ville de Poitiers et Grand Poitiers | 2025-09-05 | non | — | `hors_fenetre` (hors dénominateur) | — |
-| na-2026-018 | Fédération Française de Cyclisme — membres en Nouvelle-Aquitaine | 2025-12-10 | non | — | `pas_rattache` · `absent_du_referentiel` | — |
-| na-2026-019 | Delicity — service de livraison de repas disponible à Bordeaux, Pau et Limoges | 2026-09-07 | non | — | `pas_rattache` · `absent_du_referentiel` | — |
-| na-2026-020 | Euskal Moneta (association support de la monnaie locale Eusko) | 2026-08-28 | oui | — | — | exacte |
-| na-2026-021 | SDIS des Landes | 2026-07-27 | non | — | `pas_rattache` · `absent_du_referentiel` | — |
-| na-2026-022 | Institut Bergonié | 2026-04-09 | non | — | `pas_rattache` · `absent_du_referentiel` | — |
-| na-2026-023 | ERNAT (Études Réalisations Négoce Assistance Technique) | 2026-08-07 | oui | — | — | exacte |
-| na-2026-024 | Rectorat de l'académie de Poitiers | 2026-08-31 | non | — | `pas_rattache` · `absent_du_referentiel` | — |
-| na-2026-025 | UPPA Alumni — réseau des anciens de l'Université de Pau et des Pays de l'Adour | 2026-04-10 | oui | — | — | exacte |
-| na-2026-026 | Réseau Alumni de l'Université de Bordeaux | 2026-04-10 | oui | — | — | hors_sujet |
-| na-2026-027 | UNSS (Union nationale du sport scolaire) — exfiltration OPUSS | 2026-03-02 | oui | — | — | partielle |
-| na-2026-028 | Ville de La Rochelle — fuite via le prestataire Synbird | 2025-11-24 | oui | — | — | exacte |
-| na-2026-029 | Bordeaux Métropole — portail de la taxe de séjour | 2026-04-27 | non | — | `pas_rattache` · `absent_du_referentiel` | — |
-| na-2026-030 | Ministère de l'Intérieur — intrusion initiale depuis un service local de Charente-Maritime | 2025-12-12 | non | — | `pas_rattache` · `absent_du_referentiel` | — |
-| na-2026-031 | Vivaticket France (Chasseneuil-du-Poitou) | 2026-03-15 | non | — | `pas_rattache` · `absent_du_referentiel` | — |
-| na-2026-032 | Intermarché de Gradignan, Parempuyre, Macau et La Teste-de-Buch | 2026-10-13 | oui | — | — | exacte |
-| na-2026-033 | Supermarchés des Deux-Sèvres (Hyper U Parthenay, Intermarché Saint-Varent et Saint-Maixent-l'École, Super U Champdeniers, Celles-sur-Belle, Leclerc Thouars-Sainte-Verge) | 2026-10-12 | oui | — | — | partielle |
-| na-2026-034 | Cinq Intermarché de Dordogne (Hautefort, Tocane-Saint-Apre, Port-Sainte-Foy-et-Ponchapt, Trélissac, Saint-Médard-de-Mussidan) | 2026-10-12 | oui | — | — | partielle |
-| na-2026-035 | E.Leclerc de Surgères | 2026-10-12 | oui | — | — | exacte |
-| na-2026-036 | Magasins de la Vienne (Intermarché Chauvigny et Gençay, Super U Vouillé, Leclerc Poitiers, Auchan Saint-Genest-d'Ambière) | 2026-10-12 | oui | — | — | partielle |
-| na-2026-037 | Super U de Morcenx-la-Nouvelle et Carrefour Express de Rion-des-Landes | 2026-10-12 | oui | — | — | exacte |
-| na-2026-038 | Intermarché et Carrefour Market de Marmande | 2026-10-12 | oui | — | — | exacte |
-| na-2026-039 | Cerballiance — réseau de laboratoires de biologie médicale | 2026-03-28 | non | — | `pas_rattache` · `absent_du_referentiel` | — |
-| na-2026-040 | Cegedim Santé — logiciel MonLogicielMedical (MLM) | 2026-02-26 | non | — | `pas_rattache` · `absent_du_referentiel` | — |
-| na-2026-041 | Polyclinique Bordeaux Nord Aquitaine | 2026-04-09 | oui | — | — | exacte |
-| na-2026-042 | Ville de Limoges — centre de vaccination municipal et campagne HPV | 2026-06-26 | oui | — | — | exacte |
-| na-2026-043 | Weda — logiciel médical (cabinets touchés jusqu'en Charente) | 2025-11-13 | oui | — | — | exacte |
-| na-2026-044 | FFRandonnée — fichier adhérents | 2026-02-05 | oui | — | — | hors_sujet |
-| na-2026-045 | Association des maires de France (AMF) | 2026-09-04 | oui | — | — | exacte |
-| na-2026-046 | Office français de la biodiversité — fichier des permis de chasser | 2026-02-22 | oui | — | — | exacte |
-| na-2026-047 | Université de Pau et des Pays de l'Adour (UPPA) — revendication Nova | 2025-09-29 | non | — | `hors_fenetre` (hors dénominateur) | — |
-| na-2026-048 | Ville de Bergerac — QR codes des horodateurs (quishing) | 2025-08-11 | non | — | `hors_fenetre` (hors dénominateur) | — |
-| na-2026-049 | Mairie de Berson | 2025-02-28 | non | — | `hors_fenetre` (hors dénominateur) | — |
-| na-2026-050 | Fédération française de tir (FFTir) — retombées en Haute-Vienne | 2025-10-23 | non | — | `hors_fenetre` (hors dénominateur) | — |
-| na-2026-051 | Arsoé de Soual — plateforme Synel d'identification des bovins et ovins | 2024-12-31 | non | — | `hors_fenetre` (hors dénominateur) | — |
-| na-2026-052 | Camping municipal d'Évaux-les-Bains | 2025-07-11 | non | — | `hors_fenetre` (hors dénominateur) | — |
-| na-2026-053 | GoCap (Mostiglass) — Hinx | 2025-02-20 | non | — | `hors_fenetre` (hors dénominateur) | — |
-| na-2026-054 | Artiga — atelier de linge basque à Magescq | 2025-10-06 | non | — | `hors_fenetre` (hors dénominateur) | — |
-| na-2026-055 | Université de Limoges — vol de données personnelles par un agent | 2025-06-27 | non | — | `hors_fenetre` (hors dénominateur) | — |
-| na-2026-056 | Aéroport Pau-Pyrénées et écoles Eklore (CCI Pau Béarn) | 2024-05-15 | non | — | `hors_fenetre` (hors dénominateur) | — |
-| na-2026-057 | Sites internet des villes de Bordeaux et Pau et du département des Landes (DDoS) | 2025-01-02 | non | — | `hors_fenetre` (hors dénominateur) | — |
-| na-2026-058 | SPSTI 16 — service de prévention et de santé au travail interentreprises de la Charente | 2024-06-14 | non | — | `hors_fenetre` (hors dénominateur) | — |
-| na-2026-059 | Centre hospitalier de Girac (Angoulême) | 2025-09-09 | non | — | `hors_fenetre` (hors dénominateur) | — |
-| na-2026-060 | Cdiscount — extraction frauduleuse de données clients (Cestas) | 2025-12-09 | non | — | `pas_rattache` · `absent_du_referentiel` | — |
+1. **Consolidation.** `scripts/consolider-corpus-couverture.mts` lit les
+   `bench/couverture/*.jsonl`, valide les champs obligatoires, déduplique par
+   `id` et trie par `id`. Le SHA-256 porte sur les lignes JSON resérialisées,
+   triées, terminées par `\n`. Pour un seul fichier déjà trié, cela équivaut au
+   `sha256sum` du fichier source. L'empreinte est écrite dans
+   `bench/couverture/HASH` et vérifiée par `--check`.
+2. **Correspondance.** Pour chaque incident, `event` et `event_archive` sont
+   interrogés par URL normalisée (schéma, `www.`, requête et slash final
+   supprimés), par titre normalisé (accent et ponctuation supprimés) le jour de
+   publication, ou par organisation normalisée le même jour. Un incident est
+   **vu** seulement si un événement correspondant porte un `org_id` non nul.
+3. **Motif d'absence**, par priorité : `vu` → `pas_rattache` (événement
+   correspondant sans `org_id`) → `pas_juge_cyber` (média collecté ce jour-là
+   et `classifyFamily()` renvoie `presse`) → `pas_collecte` (aucune exécution,
+   aucun événement ni `last_ok_at` ce jour-là) → `indetermine`.
+4. **Délai.** Heures écoulées entre la publication (minuit UTC) et le
+   `collected_at` du premier événement correspondant, arrondies au dixième.
+   `null` si l'incident n'est pas vu.
+5. **Reproductibilité.** Aucun appel réseau, aucune date murale : `dateCalcul`
+   est la dernière date de collecte en base. Deux exécutions de suite sur une
+   base inchangée produisent des fichiers octet pour octet identiques. Le test
+   d'intégration compare la réponse HTTP à un nouveau passage du script.
 
+## Requête de reproduction
+
+```bash
+cd /home/jolt/radar-cyber
+DATABASE_URL='postgres://radar:radar@localhost:5433/radar' pnpm couverture:corpus
+DATABASE_URL='postgres://radar:radar@localhost:5433/radar' pnpm couverture:mesurer
+pnpm couverture:verifier
+pnpm -r typecheck
+cd apps/api && RADAR_TEST_ADMIN_URL='postgres://radar:radar@localhost:5433/postgres' node_modules/.bin/tsx test/run.ts test/couverture-api.test.ts
+```
+
+`pnpm couverture:mesurer --stdout` affiche le JSON seul ; `--check` compare la
+publication à un nouveau calcul sans écrire. Les trois requêtes exécutées pour
+chaque incident (les paramètres sont ceux de `incidents[].requetes` dans le
+JSON) :
+
+```sql
+-- 1. Un événement correspond-il ? $1=URL normalisée, $2=titre normalisé,
+--    $3=organisation normalisée, $4=date de publication.
+WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),
+tout AS (
+  SELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,
+         e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at
+    FROM event e
+  UNION ALL
+  SELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,
+         a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at
+    FROM event_archive a
+)
+SELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,
+       t.source_url, t.title, t.observed_at, t.collected_at
+  FROM tout t CROSS JOIN demande d
+ WHERE (t.source_url IS NOT NULL
+        AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url),
+              '^https?://(www\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)
+    OR (t.title IS NOT NULL
+        AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre
+        AND t.observed_at::date = d.jour)
+    OR (t.org_name IS NOT NULL
+        AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org
+        AND t.observed_at::date = d.jour)
+ ORDER BY t.collected_at ASC LIMIT 100;
+```
+
+```sql
+-- 2. Le média a-t-il été collecté le jour de publication ?
+--    $1=hôte de l'URL, $2=nom du média normalisé, $3=date de publication.
+WITH demande AS (SELECT $1::text AS host, $2::text AS media, $3::date AS jour),
+sources AS (
+  SELECT s.* FROM source s CROSS JOIN demande d
+   WHERE (d.host <> '' AND position(d.host in lower(coalesce(s.url, ''))) > 0)
+      OR (d.media <> '' AND (
+            position(d.media in trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g'))) > 0
+         OR position(trim(regexp_replace(unaccent(lower(s.name)), '[^a-z0-9]+', ' ', 'g')) in d.media) > 0))
+)
+SELECT s.id, s.name, s.family, s.url, s.enabled, s.last_ok_at,
+       (SELECT count(*)::int FROM collector_run r
+         WHERE r.source_id = s.id AND r.started_at::date = d.jour) AS executions_du_jour,
+       (SELECT count(*)::int FROM event e
+         WHERE e.source_id = s.id AND e.collected_at::date = d.jour) AS evenements_du_jour,
+       (SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id) AS derniere_execution
+  FROM sources s CROSS JOIN demande d
+ ORDER BY s.id;
+```
+
+```sql
+-- 3. Qu'a produit la collecte du média autour de cette date ?
+--    $1=date de publication, $2=identifiants des sources trouvées en 2.
+WITH demande AS (SELECT $1::date AS jour)
+SELECT coalesce(e.family, '(aucune)') AS famille, count(*)::int AS evenements
+  FROM event e CROSS JOIN demande d
+ WHERE e.source_id = ANY($2::text[])
+   AND e.collected_at::date BETWEEN d.jour - INTERVAL '7 days' AND d.jour + INTERVAL '7 days'
+ GROUP BY 1 ORDER BY 2 DESC, 1;
+```
+
+Contrôle rapide sur le premier incident, sans paramètres :
+
+```bash
+psql 'postgres://radar:radar@localhost:5433/radar' -c \
+  "SELECT count(*) FROM event WHERE lower(source_url) LIKE '%floirac%';"
+# 0
+```
 
 ## Ce que ce chiffre ne dit pas
 
-- **Il ne dit rien du délai.** Le champ `delaiJours` est `null` pour les 60
-  incidents : le corpus est rejoué contre le moteur, il n'est pas ingéré. Un
-  « délai médian de 0 jour » calculé sur cette simulation serait un chiffre faux.
-  Le délai réel de collecte se mesure sur le flux collecté, pas ici.
-- **Il ne mesure pas l'exhaustivité des incidents.** Le corpus ne contient que
-  des incidents rendus publics et vérifiés sur pièce. Les incidents non
-  médiatisés, les tentatives bloquées sans communication et les articles
-  payants non lisibles échappent au dénominateur par construction.
-- **Il ne mesure pas la qualité de la source.** La porte d'admission est
-  rejouée telle quelle ; `pas_admis` vaut 0 ici, ce qui signifie que la nature
-  des incidents du corpus ne déclenche aucun refus, pas que toute source réelle
-  serait admise.
-- **66,7 % n'est pas 61,9 %.** Deux rattachements « vus » sont classés hors
-  sujet par le script : le taux brut les compte, le taux défendable les exclut.
-  Le premier est une capacité de reconnaissance, le second une capacité à
-  désigner la bonne organisation.
-- **14 absences sont des absences de référentiel, pas des refus du moteur.**
-  Le diagnostic `absent_du_referentiel` vaut pour les 14 incidents non rattachés
-  de la fenêtre ; aucun n'est classé `au_referentiel_mais_non_reconnu` dans
-  cette mesure. Le travail porterait donc sur les données, pas sur la règle de
-  désignation.
-- **Il est lié à l'état de la base au moment du re-jeu.** La sortie annonce
-  4 480 organisations en base et 0 ligne dans les secteurs agroalimentaire,
-  industrie, construction et commerce. Le libellé `34 330 organisations
-  réelles` figurant dans le champ `method.moteur` du script est une chaîne
-  codée en dur, pas un comptage : c'est le comptage de la sortie qui fait foi,
-  et un autre état de base donnerait un autre taux.
-
-## Reproductible
-
-```bash
-DATABASE_URL=… apps/api/node_modules/.bin/tsx scripts/mesure-couverture.mts
-DATABASE_URL=… apps/api/node_modules/.bin/tsx scripts/mesure-couverture.mts --json=out.json
-```
-
-Corpus : `bench/fixtures/corpus-reference-na.json` (versionné). Sortie console
-et JSON de cette mesure : `scripts/mesure-couverture.mts`, champs `dateMesure`,
-`corpus`, `couverture` et `incidents`.
+- **Il ne mesure pas l'exhaustivité.** Les 20 lignes sont un échantillon
+  vérifié une par une, pas l'ensemble des incidents publics de la région. Le
+  taux décrit ce jeu de 20 faits, rien d'autre.
+- **« Pas collecté » ne signifie pas « jamais vu ».** L'historique de
+  `collector_run` ne couvre que le 13 au 21 novembre 2026, alors que les
+  publications vont d'avril 2024 à septembre 2026. Le motif constate l'absence
+  de preuve de collecte le jour de publication ; la recherche d'événements
+  correspondants dans les 26 719 événements et 4 710 archives n'a également
+  rien trouvé, mais une correspondance par paraphrase échapperait à la règle
+  d'URL/titre/organisation normalisés.
+- **Aucun délai n'est mesurable.** Le délai médian est `null`, pas zéro.
+  Publier « 0 h » laisserait croire à une collecte instantanée.
+- **Le chiffre est une photographie.** Il est lié à l'empreinte du corpus et à
+  l'état de la base ci-dessus. Ajouter un incident au corpus, collecter l'un
+  d'eux ou modifier la table `source` change le résultat : il faut alors
+  republier le rapport, pas adapter la prose.
+- **Il ne juge ni la qualité du rattachement ni la pertinence des autres
+  flux.** Les 26 719 événements comprennent surtout des CVE et des revendications
+  extérieures à la Nouvelle-Aquitaine ; un taux régional différent demanderait
+  un autre corpus et une autre mesure.
+- **Il n'est pas comparable au 66,7 % publié précédemment.** Ce dernier venait
+  d'un autre corpus (60 incidents, 42 dans une fenêtre glissante) rejoué à
+  travers la porte d'admission ; ce rapport-ci mesure 20 incidents datés de
+  2024 à 2026 directement contre `event`, `event_archive` et `collector_run`.
+- **Il ne dit rien des incidents non publics** : victimes qui ne communiquent
+  pas, faits sans article accessible, ou événements dont la source est derrière
+  un paywall et jamais collectée.

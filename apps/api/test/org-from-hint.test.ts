@@ -10,6 +10,7 @@ import Fastify from "fastify";
 import { closePools, query } from "../src/db.js";
 import { hashSessionToken } from "../src/auth.js";
 import orgsRoute from "../src/routes/orgs.js";
+import { installErrorHandler } from "../src/errors.js";
 import { lireJournal } from "../src/journal/index.js";
 import { createOrgFromHint, InvalidHintError, nomDepuisIndice } from "../src/quarantine/from-hint.js";
 
@@ -163,6 +164,7 @@ test("route : Bearer requis, validation 400, création 201 puis 200", async () =
   );
 
   const app = Fastify();
+  installErrorHandler(app);
   await app.register(orgsRoute, { prefix: "/api" });
   await app.ready();
   try {
@@ -180,7 +182,7 @@ test("route : Bearer requis, validation 400, création 201 puis 200", async () =
       payload: { ...base, nom: "  ", preuve: "" },
     });
     assert.equal(vide.statusCode, 400);
-    const champs = (vide.json().details as { champ: string }[]).map((d) => d.champ);
+    const champs = vide.json<{ error: { details: Array<{ champ: string }> } }>().error.details.map((d) => d.champ);
     assert.ok(champs.includes("nom") && champs.includes("preuve"), JSON.stringify(champs));
 
     const cree = await app.inject({

@@ -8,6 +8,7 @@
  * compte ses propres appels.
  */
 import type { FastifyReply, FastifyRequest } from "fastify";
+import { ApiError } from "../errors.js";
 
 export interface RateLimitOptions {
   /** Nombre d'appels acceptés par fenêtre et par clé. */
@@ -42,8 +43,7 @@ export function rateLimit({ max, windowMs }: RateLimitOptions) {
     if (timestamps.length >= max) {
       const retryAfter = Math.max(1, Math.ceil((timestamps[0]! + windowMs - now) / 1000));
       reply.header("Retry-After", String(retryAfter));
-      reply.code(429).send({ error: "too many requests", retryAfter });
-      return;
+      throw new ApiError(429, "too many requests", { details: { retryAfter } });
     }
 
     timestamps.push(now);

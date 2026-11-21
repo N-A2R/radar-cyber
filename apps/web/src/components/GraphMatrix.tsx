@@ -1,27 +1,26 @@
 import { useMemo, type CSSProperties } from "react";
-import type { Graph } from "../api";
+import type { GraphLink, GraphNode } from "../graph/graphModel";
 import "./graphmatrix.css";
 
 type Props = {
-  nodes: Graph["nodes"];
-  links: Graph["links"];
+  nodes: readonly GraphNode[];
+  links: readonly GraphLink[];
 };
 
-/** Cell key: famille puis département, séparés par un NUL (absent des labels). */
+/** Cell key: family then department, separated by NUL (absent from labels). */
 const cellKey = (family: string, dept: string) => `${family}\u0000${dept}`;
 
 const byTotalThenLabel = (a: { label: string; total: number }, b: { label: string; total: number }) =>
-  b.total - a.total || a.label.localeCompare(b.label, "fr");
+  b.total - a.total || a.label.localeCompare(b.label, "en");
 
 /**
- * Matrice famille × département construite à partir du graphe /api/graph.
- * `rattache` (org → dept) donne la colonne, `has_event` / `mentions`
- * (org → famille) donnent la ligne ; chaque org incrémente au plus une fois
- * par couple (famille, département).
+ * Family × department matrix built from the graph: `rattache` (org → dept)
+ * gives the column, `has_event` / `mentions` (org → family) gives the row.
+ * Each organisation increments at most once per (family, department) pair.
  */
 export default function GraphMatrix({ nodes, links }: Props) {
   const matrix = useMemo(() => {
-    const nodeById = new Map<string, Graph["nodes"][number]>();
+    const nodeById = new Map<string, GraphNode>();
     for (const node of nodes) nodeById.set(node.id, node);
 
     const deptsOfOrg = new Map<string, Set<string>>();
@@ -38,8 +37,8 @@ export default function GraphMatrix({ nodes, links }: Props) {
       const target = nodeById.get(link.target);
       if (!source || !target) continue;
 
-      let org: Graph["nodes"][number];
-      let other: Graph["nodes"][number];
+      let org: GraphNode;
+      let other: GraphNode;
       if (source.kind === "org") {
         org = source;
         other = target;
@@ -88,8 +87,8 @@ export default function GraphMatrix({ nodes, links }: Props) {
   const { counts, columns, rows, max, contributingOrgs } = matrix;
   const summary = (
     <p className="gm-summary">
-      <b>{contributingOrgs}</b> organisations · <b>{columns.length}</b> départements ·{" "}
-      <b>{rows.length}</b> familles
+      <b>{contributingOrgs}</b> organisations · <b>{columns.length}</b> departments ·{" "}
+      <b>{rows.length}</b> families
     </p>
   );
 
@@ -97,7 +96,7 @@ export default function GraphMatrix({ nodes, links }: Props) {
     return (
       <div className="gm-root">
         {summary}
-        <p className="gm-empty">Aucune corrélation famille × département sur la période.</p>
+        <p className="gm-empty">No family × department correlation for the selected period.</p>
       </div>
     );
   }
@@ -106,11 +105,11 @@ export default function GraphMatrix({ nodes, links }: Props) {
     <div className="gm-root">
       {summary}
       <div className="gm-scroll">
-        <table className="gm-table" aria-label="Organisations par famille et département">
+        <table className="gm-table" aria-label="Organisations by family and department">
           <thead>
             <tr>
               <th scope="col" className="gm-corner">
-                Famille · Département
+                Family · Department
               </th>
               {columns.map((column) => (
                 <th key={column.label} scope="col" className="gm-col" title={`${column.label} · ${column.total}`}>
@@ -136,7 +135,7 @@ export default function GraphMatrix({ nodes, links }: Props) {
                       key={column.label}
                       className="gm-cell"
                       style={style}
-                      title={`${row.label} · ${column.label} : ${count}`}
+                      title={`${row.label} · ${column.label}: ${count}`}
                     >
                       {count}
                     </td>

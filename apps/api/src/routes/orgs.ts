@@ -1,3 +1,4 @@
+import { badRequest, notFound, unauthorized } from "../errors.js";
 import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
 import { requireAuth, resolveUser } from "../middleware/auth.js";
@@ -107,14 +108,10 @@ export default async function (app: FastifyInstance) {
   app.post("/orgs/from-hint", { preHandler: requireAuth() }, async (req, reply) => {
     const parsed = createOrgFromHintSchema.safeParse(req.body);
     if (!parsed.success) {
-      reply.code(400).send({
-        error: "invalid input",
-        details: parsed.error.issues.map((issue) => ({
-          champ: issue.path.join("."),
-          message: issue.message,
-        })),
-      });
-      return;
+      throw badRequest("invalid input", parsed.error.issues.map((issue) => ({
+        champ: issue.path.join("."),
+        message: issue.message,
+      })));
     }
     const result = await createOrgFromHint(parsed.data);
     reply.code(result.created ? 201 : 200);
@@ -179,14 +176,12 @@ export default async function (app: FastifyInstance) {
   app.get("/orgs/:id", async (req, reply) => {
     const user = await resolveUser(req);
     if (!user) {
-      reply.code(401).send({ error: "unauthorized" });
-      return;
+      throw unauthorized();
     }
 
     const rawId = (req.params as { id: string }).id;
     if (!/^\d+$/.test(rawId)) {
-      reply.code(404).send({ error: "not found" });
-      return;
+      throw notFound();
     }
     const orgId = Number(rawId);
 
@@ -197,8 +192,7 @@ export default async function (app: FastifyInstance) {
     );
     const org = orgRes.rows[0];
     if (!org) {
-      reply.code(404).send({ error: "not found" });
-      return;
+      throw notFound();
     }
 
     // Les revendications ne portent qu'un libellé libre : on le confronte au
