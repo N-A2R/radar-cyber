@@ -5,7 +5,7 @@
  * Les sources hors catalogue (collecteurs dédiés) sont gérées par server.ts.
  */
 import { createHash } from "node:crypto";
-import { XMLParser, XMLValidator } from "fast-xml-parser";
+import { XMLParser } from "fast-xml-parser";
 import { ingestQuery } from "../db.js";
 import { parseObservedAt } from "./dates.js";
 import { fetchResilient } from "./http.js";
@@ -36,8 +36,7 @@ import { consignerLot, MOTEURS, type JournalEntry } from "../journal/index.js";
 import { parseFeedDetection, parseRssItems } from "./parsers/xml.js";
 import { parseJsonLd } from "./parsers/jsonld.js";
 import { parseHtmlArticles } from "./parsers/article.js";
-import { parseJsonFeed, parseJsonItems as parseJsonItemsNew } from "./parsers/json.js";
-import { canonicalizeItems, type CanonicalItem } from "./parsers/canonical.js";
+import { parseJsonItems as parseJsonItemsNew } from "./parsers/json.js";
 import { parseEmbeddedJson } from "./parsers/embedded-json.js";
 import { parseSource, type SourceFormat } from "./parsers/formats.js";
 import { parseLandingNotice } from "./parsers/landing.js";
@@ -267,23 +266,49 @@ const STRATEGY_BY_FORMAT: Record<SourceFormat, DetectionStrategy> = {
   unknown: "none",
 };
 
-export type DetectionDiagnostic = {
-  code: string;
-  detail: string;
-  severity: "error" | "warning";
-};
-
 export type DetectionResult = {
   strategy: DetectionStrategy;
-  items: CanonicalItem[];
+  items: Record<string, unknown>[];
   path: string | null;
-  empty: boolean;
-  diagnostics: DetectionDiagnostic[];
 };
 
-export type DetectOptions = { baseUrl?: string | null; itemsPath?: string | null };
-
+const MAX_DETECT_DEPTH = 4;
 const MAX_HTML_LINKS = 2000;
+
+function isObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function toObjectArray(value: unknown[]): Record<string, unknown>[] {
+  return value.filter(isObject);
+}
+
+/** Premier tableau d'objets rencontré, avec son chemin (`data.items`…). */
+function findObjectArrayWithPath(
+  node: unknown,
+  depth: number,
+  path: string[],
+): { items: Record<string, unknown>[]; path: string } | null {
+  if (depth > MAX_DETECT_DEPTH) return null;
+  if (Array.isArray(node)) {
+    const objects = toObjectArray(node);
+    if (objects.length > 0) return { items: objects, path: path.join(".") };
+    for (let i = 0; i < node.length; i += 1) {
+      const found = findObjectArrayWithPath(node[i], depth + 1, [...path, String(i)]);
+      if (found) return found;
+    }
+    return null;
+  }
+  if (isObject(node)) {
+    for (const [key, value] of Object.entries(node)) {
+      const found = findObjectArrayWithPath(value, depth + 1, [...path, key]);
+      if (found) return found;
+    }
+  }
+  return null;
+}
+
+
 function splitCsvLine(line: string, delimiter: string): string[] {
   const cells: string[] = [];
   let cell = "";
@@ -354,10 +379,8 @@ function parseHtmlLinks(body: string): { items: Record<string, unknown>[]; path:
  * Détection automatique du format d'un corps de flux. Pure et sans effet de
  * bord : le diagnostic (`scripts/diagnose-parsers.mts`) l'appelle tel quel.
  */
-function detectItemsBrut(body: string, contentType: string | null, opts: DetectOptions = {}): { strategy: DetectionStrategy; items: Record<string, unknown>[]; path: string | null } {
+export function detectItems(body: string, contentType: string | null): DetectionResult {
   const text = body.trim();
-  if (!text) return { strategy: "none", items: [], path: null };
-
   const declared = (contentType ?? "").toLowerCase();
   const parsed = parseSource(text, { contentType: declared });
   if (parsed.items.length > 0) {
@@ -372,12 +395,26 @@ function detectItemsBrut(body: string, contentType: string | null, opts: DetectO
   if (jsonLd) return { strategy: "json-ld", items: jsonLd, path: "@graph" };
 
   if (text.startsWith("[") || text.startsWith("{")) {
-    const jsonFeed = parseJsonFeed(text, { itemsPath: opts.itemsPath, baseUrl: opts.baseUrl });
-    if (jsonFeed && jsonFeed.items.length > 0) {
-      return { strategy: jsonFeed.strategy, items: jsonFeed.items, path: jsonFeed.path };
+    let data: unknown;
+    try {
+      data = JSON.parse(text);
+    } catch {
+      data = undefined;
+    }
+    if (Array.isArray(data)) {
+      const objects = toObjectArray(data);
+      if (objects.length > 0) return { strategy: "json-root-array", items: objects, path: "" };
+    }
+    if (data !== undefined) {
+      const nested = findObjectArrayWithPath(data, 0, []);
+      if (nested) return { strategy: "json-nested-array", items: nested.items, path: nested.path };
     }
   }
 
+  if (declared.includes("json") && !declared.includes("xml")) {
+    // JSON annoncé mais illisible : on continue quand même, le corps peut être
+    // une page d'erreur HTML servie avec le bon content-type.
+  }
 
   const feed = parseFeedDetection(text);
   if (feed) return { strategy: feed.kind, items: feed.items, path: feed.path };
@@ -435,7 +472,7 @@ function detectItemsBrut(body: string, contentType: string | null, opts: DetectO
       path: "tgme_username_link",
     };
   }
-  const article = parseHtmlArticles(text, opts.baseUrl);
+  const article = parseHtmlArticles(text);
   if (article) return { strategy: "html-article", items: article, path: "article" };
   const links = parseHtmlLinks(text);
   if (links) return { strategy: "html-links", items: links.items, path: links.path };
@@ -444,57 +481,6 @@ function detectItemsBrut(body: string, contentType: string | null, opts: DetectO
   if (notice) return { strategy: "landing-notice", items: notice, path: "notice" };
 
   return { strategy: "none", items: [], path: null };
-}
-
-/** Diagnostics d'un corps : erreurs de lecture, états vides et replis utilisés. */
-function diagnostiquer(body: string, contentType: string | null, brut: { strategy: DetectionStrategy; items: Record<string, unknown>[] }): DetectionDiagnostic[] {
-  const text = body.trim();
-  const out: DetectionDiagnostic[] = [];
-  const add = (code: string, detail: string, severity: DetectionDiagnostic["severity"]): void => {
-    out.push({ code, detail, severity });
-  };
-
-  if (!text) add("corps-vide", "Corps vide ou absent", "error");
-  if (text.startsWith("{") || text.startsWith("[")) {
-    try { JSON.parse(text); } catch (e) {
-      add("json-invalide", (e as Error).message.slice(0, 160), brut.items.length > 0 ? "warning" : "error");
-    }
-  }
-  if (/^\s*(?:<\?xml|<rss|<feed|<rdf:RDF)/i.test(text)) {
-    const valid = XMLValidator.validate(text);
-    if (valid !== true) add("xml-invalide", valid.err.msg, brut.items.length > 0 ? "warning" : "error");
-  }
-  if (/application\/ld\+json/i.test(text)) {
-    const scripts = [...text.matchAll(/<script\b[^>]*application\/ld\+json[^>]*>([\s\S]*?)<\/script\s*>/gi)];
-    if (scripts.some((script) => {
-      try { JSON.parse(script[1] ?? ""); return false; } catch { return true; }
-    })) add("json-ld-invalide", "Au moins un bloc JSON-LD illisible a été ignoré", brut.items.length > 0 ? "warning" : "error");
-  }
-  if (text && brut.strategy === "none") add("format-non-reconnu", "Aucun parseur ne reconnaît ce corps", "error");
-  if (text && brut.items.length === 0 && brut.strategy !== "none") {
-    add("aucun-item", `Stratégie ${brut.strategy} retenue sans item extractible`, "error");
-  }
-  if (brut.items.length === 0 && /text\/html/i.test(contentType ?? "") && !/<(?:article|main)\b/i.test(text)) {
-    add("sans-bloc-article", "Page HTML sans bloc <article> ni <main>", "warning");
-  }
-  return out;
-}
-
-/**
- * Point d'entrée public : détection automatique, extraction canonique et
- * états explicites (`empty`, `diagnostics`). Ne jette jamais : un corps cassé
- * produit zéro item et un diagnostic, jamais une exception dans le collecteur.
- */
-export function detectItems(body: string, contentType: string | null, opts: DetectOptions = {}): DetectionResult {
-  const brut = detectItemsBrut(body ?? "", contentType, opts);
-  const items = canonicalizeItems(brut.items, { baseUrl: opts.baseUrl, respectExisting: true });
-  return {
-    strategy: brut.strategy,
-    items,
-    path: brut.path,
-    empty: items.length === 0,
-    diagnostics: diagnostiquer(body ?? "", contentType, { ...brut, items }),
-  };
 }
 
 /** Champs d'objet portant une valeur d'indicateur dans un flux structuré. */
