@@ -1,13 +1,14 @@
 import { ingestQuery } from "../db.js";
 import { consigner, MOTEURS } from "../journal/index.js";
 
-type Table = "event" | "indicator" | "collector_run";
+type Table = "event" | "indicator" | "collector_run" | "collecte_cycle";
 
 export interface RetentionResult {
   events: number;
   indicators: number;
   collectorRuns: number;
-  /** Événements déplacés vers l'archive avant suppression (chantier 2). */
+  /** Cycles de supervision purgés (même fenêtre que les runs). */
+  cyclesSupervision: number;
   archived: number;
 }
 
@@ -16,7 +17,10 @@ const BATCH = 10000;
 function cutoffExpr(table: Table): string {
   if (table === "event") return "COALESCE(observed_at, collected_at) < $1";
   if (table === "indicator") return "last_seen < $1";
-  return "finished_at < $1::timestamptz - interval '60 days'";
+  if (table === "collector_run" || table === "collecte_cycle") {
+    return "finished_at < $1::timestamptz - interval '60 days'";
+  }
+  return "finished_at < $1::timestamptz";
 }
 
 /**
@@ -41,9 +45,9 @@ export async function runRetention(
   const days = opts?.days ?? Number(process.env.RADAR_RETENTION_DAYS ?? 90);
   const indicatorDays = opts?.indicatorDays ?? Number(process.env.RADAR_RETENTION_INDICATOR_DAYS ?? 365);
   const dryRun = opts?.dryRun ?? false;
-  const tables = opts?.tables ?? ["event", "indicator", "collector_run"];
+  const tables = opts?.tables ?? ["event", "indicator", "collector_run", "collecte_cycle"];
 
-  const result: RetentionResult = { events: 0, indicators: 0, collectorRuns: 0, archived: 0 };
+  const result: RetentionResult = { events: 0, indicators: 0, collectorRuns: 0, cyclesSupervision: 0, archived: 0 };
 
   for (const table of tables) {
     const tableDays = table === "indicator" && opts?.days === undefined ? indicatorDays : days;
@@ -126,6 +130,7 @@ export async function runRetention(
     }
     if (table === "event") result.events = total;
     else if (table === "indicator") result.indicators = total;
+    else if (table === "collecte_cycle") result.cyclesSupervision = total;
     else result.collectorRuns = total;
   }
 

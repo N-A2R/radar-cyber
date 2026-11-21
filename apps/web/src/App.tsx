@@ -1,12 +1,13 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { creerMemoire, etatDonnees, type Instantane } from "./offline";
-import { api, clearAuthToken, getAuthToken, setAuthToken, type CouvertureResponse, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type Stats, type TodayResponse } from "./api";
+import { api, clearAuthToken, getAuthToken, setAuthToken, type CollecteMetrics, type CouvertureResponse, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type Stats, type TodayResponse } from "./api";
 import { mockData } from "./mock";
 const Map3D = lazy(() => import("./map/Map3D"));
 const GraphView = lazy(() => import("./graph/GraphView"));
 const SourcesView = lazy(() => import("./components/SourcesView"));
 const HealthView = lazy(() => import("./components/HealthView"));
 const HealthDetailView = lazy(() => import("./components/HealthDetailView"));
+const CollecteMetricsView = lazy(() => import("./components/CollecteMetricsView"));
 const EventList = lazy(() => import("./components/EventList"));
 const Inspector = lazy(() => import("./components/Inspector"));
 const OrgSheet = lazy(() => import("./components/OrgSheet"));
@@ -66,6 +67,7 @@ export default function App() {
   const [stats, setStats] = useState<Stats | null>(null);
   const [healthDetail, setHealthDetail] = useState<HealthDetail | null>(null);
   const [healthCauses, setHealthCauses] = useState<HealthCauses | null>(null);
+  const [collecteMetrics, setCollecteMetrics] = useState<CollecteMetrics | null>(null);
   const [naOverview, setNaOverview] = useState<NaOverview | null>(null);
   const [naFil, setNaFil] = useState<NaFil | null>(null);
   const [todayData, setTodayData] = useState<TodayResponse | null>(null);
@@ -272,7 +274,7 @@ export default function App() {
     // son `statement_timeout` — le `Promise.all` rejetait, et organisations,
     // événements, sources et statistiques n'étaient jamais posés en état.
     const load = async () => {
-      const labels = ["organisations", "événements", "sources", "statistiques", "graphe", "vue NA", "état détaillé", "causes des sources rouges"] as const;
+      const labels = ["organisations", "événements", "sources", "statistiques", "graphe", "vue NA", "état détaillé", "causes des sources rouges", "supervision de la collecte"] as const;
       const results = await Promise.allSettled([
         api.orgs(),
         api.events(FEED_LIMIT, "regional", portee),
@@ -282,8 +284,9 @@ export default function App() {
         api.naOverview(),
         api.healthDetail(),
         api.healthCauses(),
+        api.collecteMetrics(),
       ]);
-      const [o, e, s, st, g, na, hd, hc] = results;
+      const [o, e, s, st, g, na, hd, hc, cm] = results;
       if (o.status === "fulfilled") setOrgs(o.value);
       if (e.status === "fulfilled") setEvents(e.value);
       if (o.status === "fulfilled" && e.status === "fulfilled") {
@@ -300,6 +303,7 @@ export default function App() {
       if (na.status === "fulfilled") setNaOverview(na.value);
       if (hd.status === "fulfilled") setHealthDetail(hd.value);
       if (hc.status === "fulfilled") setHealthCauses(hc.value);
+      if (cm.status === "fulfilled") setCollecteMetrics(cm.value);
       const failed = results.flatMap((r, i) => (r.status === "rejected" ? [labels[i]] : []));
       setError(failed.length > 0 ? `indisponible : ${failed.join(", ")}` : null);
       setLoading(false);
@@ -317,6 +321,7 @@ export default function App() {
       api.graph(90).then(setGraph).catch(() => {});
       api.healthDetail().then(setHealthDetail).catch(() => {});
       api.healthCauses().then(setHealthCauses).catch(() => {});
+      api.collecteMetrics().then(setCollecteMetrics).catch(() => {});
       api.naOverview().then(setNaOverview).catch(() => {});
       loadFlows().then(setFlows).catch(() => {});
     }, 30000);
@@ -799,6 +804,7 @@ export default function App() {
           {view === "health" ? (
             <>
               <HealthDetailView detail={healthDetail} causes={healthCauses} loading={loading} error={error} />
+              <CollecteMetricsView metrics={collecteMetrics} loading={loading} error={error} />
               <HealthView sources={sources} />
             </>
           ) : null}

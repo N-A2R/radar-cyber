@@ -16,6 +16,7 @@ import { runQuarantineCollector } from "./collectors/quarantine.collector.js";
 import { promoteMatches } from "./quarantine/promote.js";
 import { fetchResilient } from "./collectors/http.js";
 import { collectors, executerCollecteur, executerPlan, planifierCycle, ratisserSourcesJamaisCollectees } from "./collectors/index.js";
+import { enregistrerCycleCollecte } from "./collecte/supervision.js";
 import { consignerLot, type JournalEntry } from "./journal/index.js";
 import { porteeRegionale } from "./match/territorial.js";
 import { closePools, ingestQuery, query } from "./db.js";
@@ -26,6 +27,7 @@ import { capterAlertesRupture } from "./analyse/rupture.js";
 import { capterAgentsCpu } from "./analyse/agents-cpu.js";
 import healthDetailRoute from "./routes/health-detail.js";
 import healthCausesRoute from "./routes/health-causes.js";
+import collecteMetricsRoute from "./routes/collecte-metrics.js";
 import eventsRoute from "./routes/events.js";
 import historyRoute from "./routes/history.js";
 import todayRoute from "./routes/today.js";
@@ -100,7 +102,7 @@ if (existsSync(webDist)) {
  * écritures protégées. Un token valide est attaché à la requête s'il est fourni,
  * ce qui permet au front d'adapter l'UI au rôle.
  */
-const PUBLIC_READ = /^\/api\/(health|stats|sources|flows|search|directory|graph|stream|events|history|orgs|enrich|alerts|quarantine|dossier|healthz|na|today|couverture)(\/|$|\?)/;
+const PUBLIC_READ = /^\/api\/(health|stats|sources|collecte|flows|search|directory|graph|stream|events|history|orgs|enrich|alerts|quarantine|dossier|healthz|na|today|couverture)(\/|$|\?)/;
 
 app.addHook("onRequest", async (req, reply) => {
   const url = req.url.split("?")[0];
@@ -126,6 +128,7 @@ await app.register(eventsRoute, { prefix: "/api" });
 await app.register(historyRoute, { prefix: "/api" });
 await app.register(healthDetailRoute, { prefix: "/api" });
 await app.register(healthCausesRoute, { prefix: "/api" });
+await app.register(collecteMetricsRoute, { prefix: "/api" });
 await app.register(todayRoute, { prefix: "/api" });
 await app.register(statsDepartementsRoute, { prefix: "/api" });
 await app.register(couvertureRoute, { prefix: "/api" });
@@ -298,6 +301,49 @@ async function guarded(name: string, fn: () => Promise<void>): Promise<void> {
 }
 
 const log = (m: string) => app.log.info(m);
+
+/**
+ * Un cycle de collecte = les collecteurs dédiés et génériques lancés ensemble,
+ * chronométrés, puis enregistrés avec leurs alertes. Les deux tâches restent
+ * concurrentes : `allSettled` évite qu'un collecteur en erreur empêche l'autre
+ * de finir, et le garde de ré-entrance de `guarded` empêche les cycles empilés.
+ */
+async function executerCycleCollecte(): Promise<void> {
+	const startedAt = new Date();
+	const memoireAvant = process.memoryUsage();
+	const taches: { nom: string; run: () => Promise<void> }[] = [
+		{ nom: "collecteurs", run: runCollectors },
+		{ nom: "ingestion générique", run: () => runGenericSources(log) },
+	];
+	const resultats = await Promise.allSettled(taches.map((t) => t.run()));
+	const etats = resultats.map((r, i) => ({
+		nom: taches[i].nom,
+		erreur: r.status === "rejected" ? messageErreur(r.reason) : null,
+	}));
+	for (const etat of etats) {
+		if (etat.erreur) app.log.error(`${etat.nom} : ${etat.erreur}`);
+	}
+	const fin = process.memoryUsage();
+	const { cycle, alertes } = await enregistrerCycleCollecte({
+		startedAt,
+		finishedAt: new Date(),
+		memoireAvant: { rss: memoireAvant.rss, heapUsed: memoireAvant.heapUsed },
+		memoireApres: { rss: fin.rss, heapUsed: fin.heapUsed },
+		taches: etats,
+	});
+	log(
+		`cycle ${cycle.id} : ${cycle.statut}, ${cycle.dureeMs} ms, ` +
+		`${cycle.sourcesOk} source(s) ok, ${cycle.sourcesError} en erreur, ` +
+		`${cycle.itemsIn} élément(s), ${cycle.itemsNew} nouveau(x), ` +
+		`${alertes.length} alerte(s) de supervision`,
+	);
+}
+
+function messageErreur(reason: unknown): string {
+	if (reason instanceof Error) return reason.message;
+	if (typeof reason === "string") return reason;
+	return String(reason);
+}
 /** Relance manuelle d'une source : le bouton « relancer » du registre. */
 const relancesEnCours = new Set<string>();
 app.post<{ Params: { id: string } }>(
@@ -338,10 +384,10 @@ const COLLECT = process.env.RADAR_COLLECT !== "0";
 
 if (COLLECT) {
 	// Un premier passage au démarrage, puis un tick régulier par tâche.
-	void guarded("collecteurs", runCollectors);
+	// Collecteurs dédiés et génériques forment un seul cycle mesuré.
+	void guarded("cycle de collecte", executerCycleCollecte);
 	void guarded("corrélation", () => correlateEvents(log));
 	void guarded("hermes", () => runHermesCollector(log));
-	void guarded("ingestion générique", () => runGenericSources(log));
 	void guarded("détection", async () => {
 		const pass = await runDetectionPass();
 		log(`detection initiale : ${pass.alerts} alerte(s) sur ${pass.events} evenement(s)`);
@@ -365,7 +411,7 @@ if (COLLECT) {
 	void guarded("quarantaine", () => runQuarantineCollector(log));
 	void guarded("rétention", async () => {
 		const r = await runRetention(log);
-		log(`rétention : ${r.events} événement(s), ${r.indicators} indicateur(s), ${r.collectorRuns} run(s) purgé(s)`);
+		log(`rétention : ${r.events} événement(s), ${r.indicators} indicateur(s), ${r.collectorRuns} run(s), ${r.cyclesSupervision} cycle(s) purgé(s)`);
 	});
 
 	// Détection : après chaque vague de collecte, sur un lot borné. Sans ce
@@ -381,9 +427,8 @@ if (COLLECT) {
 	};
 
 	setInterval(() => {
-		void guarded("collecteurs", runCollectors);
+		void guarded("cycle de collecte", executerCycleCollecte);
 		void guarded("corrélation", () => correlateEvents(log));
-		void guarded("ingestion générique", () => runGenericSources(log));
 		void guarded("détection", detect);
 		void guarded("ruptures", () =>
 			capterAlertesRupture().then((r) => {
@@ -412,7 +457,7 @@ if (COLLECT) {
 		void guarded("hermes", () => runHermesCollector(log));
 		void guarded("rétention", async () => {
 			const r = await runRetention(log);
-			log(`rétention : ${r.events} événement(s), ${r.indicators} indicateur(s), ${r.collectorRuns} run(s) purgé(s)`);
+			log(`rétention : ${r.events} événement(s), ${r.indicators} indicateur(s), ${r.collectorRuns} run(s), ${r.cyclesSupervision} cycle(s) purgé(s)`);
 		});
 	}, RETENTION_MS);
 

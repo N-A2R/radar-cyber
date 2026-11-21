@@ -410,6 +410,54 @@ export type HealthCauses = {
   }[];
 };
 
+/** Réponse de GET /api/collecte/metrics : supervision des cycles de collecte. */
+export type CollecteResume = {
+  cycles: number;
+  cyclesEchoues: number;
+  dureeMoyenneMs: number;
+  dureeMaxMs: number;
+  sourcesOk: number;
+  sourcesError: number;
+  itemsIn: number;
+  itemsNew: number;
+  memoireMaxOctets: number;
+};
+
+export type CycleCollecte = {
+  id: number;
+  startedAt: string;
+  finishedAt: string;
+  dureeMs: number;
+  statut: "ok" | "degraded" | "error";
+  sourcesOk: number;
+  sourcesError: number;
+  itemsIn: number;
+  itemsNew: number;
+  memoireRssOctets: number;
+  memoireHeapOctets: number;
+  memoireDeltaOctets: number;
+  erreur: string | null;
+};
+
+export type AlerteSupervision = {
+  id: number;
+  ruleId: string;
+  titre: string;
+  severite: number;
+  statut: string;
+  sourceId: string | null;
+  cycleId: number | null;
+  createdAt: string;
+};
+
+export type CollecteMetrics = {
+  generatedAt: string;
+  fenetreHeures: 24;
+  resume: CollecteResume;
+  cycles: CycleCollecte[];
+  alertes: AlerteSupervision[];
+};
+
 /** Arc géographique pour la carte 3D (GET /api/flows). */
 export type FlowArc = {
   id: string;
@@ -931,6 +979,8 @@ export const api = {
   healthCauses: () => get<HealthCauses>("/health/causes"),
   health: () => get<Health>("/health"),
   flows: (days = 30, limit = 300, mode = "arcs") => get<Flows>(`/flows?days=${days}&limit=${limit}&mode=${mode}`),
+  collecteMetrics: (limit = 20, signal?: AbortSignal) =>
+    get<CollecteMetrics>(`/collecte/metrics?limit=${limit}`, signal),
   alerts: (params: AlertQuery = {}) => {
     const qs = new URLSearchParams();
     if (params.status) qs.set("status", params.status);
