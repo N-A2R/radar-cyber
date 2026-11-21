@@ -11,6 +11,7 @@
     "test:dom": "vite build --ssr test/review-dom.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/review-dom.js",
     "test:revue": "vite build --ssr test/revue-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/revue-verif.js",
     "test:bulk": "vitest run test/ReviewView.bulk.test.tsx --environment jsdom",
+    "test:review-keys": "vitest run test/ReviewView.keys.test.tsx --environment jsdom",
     "test:sources": "vite build --ssr test/sources-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/sources-verif.js",
     "test:inspecteur": "vite build --ssr test/inspecteur-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/inspecteur-verif.js",
     "test:fil": "vite build --ssr test/fil-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/fil-verif.js",
