@@ -523,7 +523,8 @@ export type EventEnrichment = {
 export type OrgAsset = {
   value: string;
   kind: string;
-  createdAt: string;
+  /** Première observation renvoyée par GET /api/orgs/:id (champ SQL first_seen). */
+  firstSeen: string | null;
   source: string | null;
 };
 
