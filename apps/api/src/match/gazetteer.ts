@@ -35,6 +35,7 @@ import {
 	MOTS_ROLE,
 	nomDeLieu,
 } from "./generique.js";
+import { CarteIndexee, CarteLectureSeule, CartePremiersJetons, construireIndex } from "./index-compact.js";
 
 export type GazetteerOrg = {
 	id: number;
@@ -112,6 +113,81 @@ export type GazetteerMatch = {
 	tied: GazetteerOrg[];
 };
 
+/**
+ * Organisations rangées par colonnes typées. Avec 1,6 M d'organisations, un
+ * objet par ligne doublé d'une entrée de `Map` coûte plusieurs centaines de
+ * Mo : on ne fabrique l'objet public qu'à la première consultation de l'id.
+ */
+class OrgCompactes extends CarteLectureSeule<number, GazetteerOrg> {
+	private readonly positions = new Map<number, number>();
+	private readonly ids: number[] = [];
+	private readonly noms: string[] = [];
+	private readonly kinds: string[] = [];
+	private readonly depts: (string | null)[] = [];
+	private readonly cities: (string | null)[] = [];
+	private readonly sectors: (string | null)[] = [];
+	private readonly orgs: (GazetteerOrg | undefined)[] = [];
+
+	get size(): number {
+		return this.ids.length;
+	}
+
+	/** La dernière ligne portant un id fournit ses champs, comme autrefois. */
+	ajouter(row: GazetteerRow): void {
+		let slot = this.positions.get(row.org_id);
+		if (slot === undefined) {
+			slot = this.ids.length;
+			this.positions.set(row.org_id, slot);
+			this.ids.push(row.org_id);
+			this.orgs.push(undefined);
+		}
+		this.noms[slot] = row.name;
+		this.kinds[slot] = row.kind;
+		this.depts[slot] = row.dept;
+		this.cities[slot] = row.city;
+		this.sectors[slot] = row.sector;
+	}
+
+	get(id: number): GazetteerOrg | undefined {
+		const slot = this.positions.get(id);
+		if (slot === undefined) return undefined;
+		let org = this.orgs[slot];
+		if (!org) {
+			org = {
+				id,
+				name: this.noms[slot] as string,
+				kind: this.kinds[slot] as string,
+				dept: this.depts[slot] ?? null,
+				city: this.cities[slot] ?? null,
+				sector: this.sectors[slot] ?? null,
+			};
+			this.orgs[slot] = org;
+		}
+		return org;
+	}
+
+	has(id: number): boolean {
+		return this.positions.has(id);
+	}
+
+	*entries(): MapIterator<[number, GazetteerOrg]> {
+		for (let slot = 0; slot < this.ids.length; slot++) {
+			const id = this.ids[slot] as number;
+			yield [id, this.get(id) as GazetteerOrg];
+		}
+	}
+
+	*keys(): MapIterator<number> {
+		yield* this.ids;
+	}
+
+	*values(): MapIterator<GazetteerOrg> {
+		for (let slot = 0; slot < this.ids.length; slot++) {
+			yield this.get(this.ids[slot] as number) as GazetteerOrg;
+		}
+	}
+}
+
 /** Secteurs territoriaux : leur nom est un lieu, pas une organisation. */
 const TERRITOIRES = new Set<string>(["commune", "epci", "departement", "region"]);
 
@@ -158,49 +234,49 @@ const MAX_ALIAS_TOKENS = 6;
  * porte d'admission, jamais de preuve de rattachement.
  */
 export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
-	const byAliasKey = new Map<string, GazetteerOrg[]>();
-	const aliasKeysByFirstToken = new Map<string, string[]>();
+	const orgs = new OrgCompactes();
 	const roleKeys = new Set<string>();
 	const lieuKeys = new Set<string>();
 	const lieuTokens = new Set<string>();
+	const roleTokens = new Set<string>();
 
 	// Pré-passe : deux jugements se prennent sur l'ensemble des lignes, pas
 	// ligne par ligne — combien d'organisations portent cette clé d'alias, et
 	// lesquelles de ces clés sont le nom d'un territoire du référentiel.
-	const orgsParCle = new Map<string, Set<number>>();
+	// Un id témoin suffit : on ne retient que le caractère ambigu de la clé.
+	const premierIdParCle = new Map<string, number>();
+	const clesAmbigues = new Set<string>();
 	const clesTerritoire = new Set<string>();
 	for (const row of rows) {
 		const jetons = normaliser(row.alias);
 		if (jetons.length === 0) continue;
 		const cle = jetons.join(" ");
-		const porteurs = orgsParCle.get(cle) ?? new Set<number>();
-		porteurs.add(row.org_id);
-		orgsParCle.set(cle, porteurs);
+		const premier = premierIdParCle.get(cle);
+		if (premier === undefined) premierIdParCle.set(cle, row.org_id);
+		else if (premier !== row.org_id) clesAmbigues.add(cle);
 		if (TERRITOIRES.has(row.sector ?? "")) clesTerritoire.add(cle);
 	}
-	const roleTokens = new Set<string>();
-	const orgsByToken = new Map<string, Set<number>>();
-	const orgsById = new Map<number, GazetteerOrg>();
-	const curatedOrgsByAliasKey = new Map<string, Set<number>>();
+
+	// Paires (clé, id) en ordre d'apparition : triées et compactées une seule
+	// fois en fin de construction, elles évitent une Map et un tableau par clé.
+	const aliasCles: string[] = [];
+	const aliasIds: number[] = [];
+	// Les jetons de noms sont bien plus nombreux que les alias : un bucket par
+	// jeton distinct évite de trier des millions de paires pour si peu de clés.
+	const orgsParToken = new Map<string, number[]>();
+	const cureCles: string[] = [];
+	const cureIds: number[] = [];
 	let maxTokens = 1;
 
 	for (const row of rows) {
-		const org: GazetteerOrg = {
-			id: row.org_id,
-			name: row.name,
-			kind: row.kind,
-			dept: row.dept,
-			city: row.city,
-			sector: row.sector,
-		};
-		orgsById.set(org.id, org);
+		orgs.ajouter(row);
 
 		// --- porte d'admission : tous les jetons des noms, sans exception -----
-		for (const jeton of new Set(normaliser(row.name))) {
+		for (const jeton of normaliser(row.name)) {
 			if (jeton.length < 3) continue;
-			const set = orgsByToken.get(jeton) ?? new Set<number>();
-			set.add(row.org_id);
-			orgsByToken.set(jeton, set);
+			const bucket = orgsParToken.get(jeton);
+			if (bucket) bucket.push(row.org_id);
+			else orgsParToken.set(jeton, [row.org_id]);
 		}
 
 		// --- décision : alias indexés ----------------------------------------
@@ -224,7 +300,7 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 		// « Intermarché » (182 porteurs) et « Orange » (54) restent dehors :
 		// leur ambiguïté est réelle, pas un défaut de la garde.
 		if (!role && lieu.split(" ").length < 2) {
-			const unique = orgsParCle.get(cle)?.size === 1;
+			const unique = !clesAmbigues.has(cle);
 			// Seule une source qui *nomme* l'organisation peut trancher sur un mot
 			// seul : alias posés à la main (`usage`) ou annuaire officiel des
 			// entreprises. Les alias dérivés en masse sont des fragments de
@@ -279,37 +355,37 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 			}
 		}
 
-		const bucket = byAliasKey.get(cle);
-		if (bucket) {
-			if (!bucket.some((o) => o.id === org.id)) bucket.push(org);
-		} else {
-			byAliasKey.set(cle, [org]);
-			const premier = jetons[0] as string;
-			const cles = aliasKeysByFirstToken.get(premier) ?? [];
-			cles.push(cle);
-			aliasKeysByFirstToken.set(premier, cles);
-		}
+		aliasCles.push(cle);
+		aliasIds.push(row.org_id);
 		// L'alias d'usage se souvient des organisations qu'il désigne : c'est
 		// lui qui tranche quand l'enseigne est devenue ambiguë au stock.
 		if (SOURCES_ALIAS_USAGE.has(row.source ?? "")) {
-			const set = curatedOrgsByAliasKey.get(cle) ?? new Set<number>();
-			set.add(org.id);
-			curatedOrgsByAliasKey.set(cle, set);
+			cureCles.push(cle);
+			cureIds.push(row.org_id);
 		}
 		if (jetons.length > maxTokens) maxTokens = jetons.length;
 	}
 
+	const indexAlias = construireIndex(aliasCles, aliasIds);
+	const tokenCles: string[] = [];
+	const tokenIds: number[] = [];
+	for (const [jeton, ids] of orgsParToken) {
+		for (const id of ids) {
+			tokenCles.push(jeton);
+			tokenIds.push(id);
+		}
+	}
 	return {
-		byAliasKey,
-		aliasKeysByFirstToken,
+		byAliasKey: new CarteIndexee(indexAlias, (ids) => Array.from(ids, (id) => orgs.get(id) as GazetteerOrg)),
+		aliasKeysByFirstToken: new CartePremiersJetons(indexAlias.cles),
 		roleKeys,
 		lieuKeys,
 		lieuTokens,
 		roleTokens,
 		maxTokens,
-		orgsByToken,
-		orgsById,
-		curatedOrgsByAliasKey,
+		orgsByToken: new CarteIndexee(construireIndex(tokenCles, tokenIds), (ids) => new Set<number>(ids)),
+		orgsById: orgs,
+		curatedOrgsByAliasKey: new CarteIndexee(construireIndex(cureCles, cureIds), (ids) => new Set<number>(ids)),
 	};
 }
 
@@ -332,7 +408,7 @@ const PARTICULES: Record<string, true> = {
 function aliasFrappes(gaz: Gazetteer, jetons: readonly string[]): Frappe[] {
 	const frappes: Frappe[] = [];
 	for (let debut = 0; debut < jetons.length; debut++) {
-		if (!gaz.aliasKeysByFirstToken.get(jetons[debut] as string)) continue;
+		if (!gaz.aliasKeysByFirstToken.has(jetons[debut] as string)) continue;
 		// Deux familles de fenêtres, essayées de la plus longue à la plus courte :
 		//  1. contiguës — comportement historique, indispensable car les alias du
 		//     référentiel contiennent eux-mêmes des particules (« Ville de Tarnos ») ;
