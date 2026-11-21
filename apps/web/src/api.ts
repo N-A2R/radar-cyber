@@ -269,6 +269,31 @@ export type Stats = {
   byAssertion: { assertion_type: string; n: number }[];
 };
 
+/** Ligne de l'écran « Aujourd'hui » (GET /api/today). */
+export type TodayEvent = {
+  id: number | string;
+  titre: string;
+  famille: string;
+  severite: number;
+  date: string | null;
+  dateSource: "observee" | "collecte";
+  source: string;
+  url: string | null;
+  orgId: number | null;
+  organisation: string | null;
+  dept: string | null;
+};
+
+/** Compteurs et fil de GET /api/today : une seule vérité, côté serveur. */
+export type TodayResponse = {
+  compteurs: {
+    evenements24h: number;
+    organisations7j: number;
+    derniereCollecte: string | null;
+  };
+  evenements: TodayEvent[];
+};
+
 export type Graph = {
   nodes: { id: string; label: string; kind: "org" | "family" | "group" | "asset" | "dept" }[];
   links: { source: string; target: string; type: string }[];
@@ -700,6 +725,14 @@ export const api = {
     order: "regional" | "recent" = "regional",
     portee: "region" | "toutes" | "vulnerabilites" = "region",
   ) => get<Event[]>(`/events?limit=${limit}&order=${order}&portee=${portee}`),
+  /** Écran d'accueil : compteurs 24 h / 7 j et fil filtrable, en un appel. */
+  today: (params: { family?: string | null; dept?: string | null } = {}, signal?: AbortSignal) => {
+    const qs = new URLSearchParams();
+    if (params.family) qs.set("family", params.family);
+    if (params.dept) qs.set("dept", params.dept);
+    const suffix = qs.toString();
+    return get<TodayResponse>(`/today${suffix ? `?${suffix}` : ""}`, signal);
+  },
   graph: (days = 90) => get<Graph>(`/graph?days=${days}`),
   sources: () => get<Source[]>("/sources"),
   stats: () => get<Stats>("/stats"),

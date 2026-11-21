@@ -1,0 +1,214 @@
+/* Écran d'accueil : le contenu se lit, rien ne clignote, pas de couleur
+   comme seul signal. Les valeurs restent en mono tabulaire comme le reste de
+   l'observatoire. */
+.today {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--space-6);
+  background: var(--bg);
+  color: var(--text);
+}
+
+.today__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.today__kicker {
+  margin: 0 0 var(--space-1);
+  color: var(--accent);
+  font: 600 11px/1.5 var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.today__titre {
+  margin: 0;
+  font: 600 26px/1.2 var(--font-sans);
+  color: var(--text);
+}
+
+.today__sous-titre {
+  margin: var(--space-2) 0 0;
+  color: var(--muted);
+  font: 400 13px/1.5 var(--font-sans);
+}
+
+.today__compteurs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.today__compteur {
+  display: flex;
+  flex-direction: column;
+  min-width: 148px;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+}
+
+.today__valeur {
+  font: 600 26px/1.2 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+.today__libelle {
+  margin-top: var(--space-1);
+  color: var(--faint);
+  font: 600 11px/1.5 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.today__filtres {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-3);
+}
+
+.today__filtre {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  color: var(--muted);
+  font: 600 11px/1.5 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.today__filtre select {
+  min-height: 44px;
+  min-width: 200px;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  color: var(--text);
+  font: 400 13px/1.5 var(--font-sans);
+  text-transform: none;
+}
+
+.today__filtre select:focus-visible,
+.today__lien-titre:focus-visible,
+.today__lien-org:focus-visible,
+.today__table a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.today__collecte {
+  margin: 0;
+  color: var(--faint);
+  font: 400 13px/1.5 var(--font-mono);
+}
+
+.today__statut {
+  margin: 0;
+  color: var(--muted);
+  font: 400 13px/1.5 var(--font-sans);
+}
+
+.today__statut--erreur {
+  color: var(--sev-5);
+}
+
+.today__vide {
+  padding: var(--space-6);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.today__vide-titre {
+  margin: 0;
+  font: 600 16px/1.5 var(--font-sans);
+  color: var(--text);
+}
+
+.today__vide-detail {
+  margin: var(--space-2) 0 0;
+  color: var(--muted);
+  font: 400 13px/1.5 var(--font-sans);
+}
+
+.today__table-wrap {
+  min-width: 0;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.today__table {
+  width: 100%;
+  border-collapse: collapse;
+  font: 400 13px/1.5 var(--font-sans);
+}
+
+.today__table th,
+.today__table td {
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.today__table th {
+  position: sticky;
+  top: 0;
+  background: var(--surface-2);
+  color: var(--faint);
+  font: 600 11px/1.5 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.today__table time {
+  white-space: nowrap;
+  color: var(--muted);
+  font: 400 13px/1.5 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.today__cellule-titre {
+  min-width: 240px;
+}
+
+.today__lien-titre,
+.today__lien-org {
+  min-height: 44px;
+  padding: var(--space-2);
+  border: 0;
+  border-radius: var(--radius);
+  background: none;
+  color: var(--text);
+  font: 500 13px/1.5 var(--font-sans);
+  text-align: left;
+  cursor: pointer;
+}
+
+.today__lien-titre:hover,
+.today__lien-org:hover,
+.today__table a:hover {
+  color: var(--accent);
+}
+
+.today__table a {
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
