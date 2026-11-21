@@ -306,9 +306,16 @@ async function interrogerRegistre(entree: Entree): Promise<PreuveRegistre> {
 const corpus = JSON.parse(readFileSync(CORPUS, "utf8")) as Corpus;
 
 if (MODE_COLLECTE) {
-	const cibles = corpus.entrees.filter(
-		(e) => e.ordre >= DE && e.ordre <= A && (e.preuve === undefined || (REGISTRE_SEULEMENT && e.preuve.registre === null)),
-	);
+	const registreAEcarter = (e: Entree): boolean => {
+		if (e.preuve === undefined) return true;
+		if (!REGISTRE_SEULEMENT) return false;
+		if (e.preuve.registre === null) return true;
+		// Une preuve obtenue par recherche de nom est plus faible qu'une
+		// preuve par identifiant : dès que l'org a un code registre connu,
+		// on reprend le canal pour l'aligner sur le protocole.
+		return (e.preuve.registre.requete ?? "").includes("recherche par nom") && cibleRegistre(e) !== null && !cibleRegistre(e)!.quoi.startsWith("recherche par nom");
+	};
+	const cibles = corpus.entrees.filter((e) => e.ordre >= DE && e.ordre <= A && registreAEcarter(e));
 	console.log(
 		`Collecte de preuves pour ${cibles.length} entrées (ordre ${DE}–${A}${REGISTRE_SEULEMENT ? ", canal registre seulement" : ""})…`,
 	);

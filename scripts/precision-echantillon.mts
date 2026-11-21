@@ -691,16 +691,32 @@ async function phaseTirage(): Promise<void> {
 	);
 
 	const prochain = mulberry32(GRAINE);
-	// Mélange par strate (graine), puis entrelacement round-robin sur strates
-	// triées : les premiers numéros d'ordre échantillonnent toutes les strates
-	// — la calibration S1.3a verra la population entière, pas un coin.
+	// Mélange par strate (graine), puis SÉLECTION SELON LES QUOTAS — le
+	// round-robin seul prenait une unité par strate à chaque tour et produisait
+	// une allocation égale au lieu de l'allocation proportionnelle (défaut
+	// trouvé en S1.5 : le corpus gelé, vérifié sur cette base, reste valable
+	// comme tirage mais son estimateur brut n'est pas celui de la population ;
+	// l'estimateur stratifié pondéré le corrige). L'entrelacement round-robin
+	// des unités SÉLECTIONNÉES conserve son seul rôle : que les premiers
+	// numéros d'ordre échantillonnent toutes les strates pour la calibration.
 	const files = cles.map((cle) => melanger([...(effectifs.get(cle) as Unite[])], prochain));
+	const fileParCle = new Map<string, Unite[]>();
+	for (const [i, cle] of cles.entries()) {
+		const quota = quotas.get(cle) ?? 0;
+		fileParCle.set(cle, (files[i] as Unite[]).slice(0, quota));
+	}
 	const tirees: Unite[] = [];
 	while (tirees.length < demande) {
-		for (const file of files) {
-			const suivant = file.shift();
-			if (suivant && tirees.length < demande) tirees.push(suivant);
+		let progres = false;
+		for (const cle of cles) {
+			if (tirees.length >= demande) break;
+			const suivante = fileParCle.get(cle)?.shift();
+			if (suivante) {
+				tirees.push(suivante);
+				progres = true;
+			}
 		}
+		if (!progres) break;
 	}
 
 	// Enrichissement : le référentiel tel que la vérification en aura besoin.
