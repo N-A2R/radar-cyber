@@ -179,7 +179,7 @@ const SCHEMAS = {
     sources: z.strictObject({ total: z.number(), active: z.number(), ok: z.number(), err: z.number() }),
     byFamily: objets, byAssertion: objets,
   }),
-  "/api/stats/departements": z.strictObject({ windowDays: z.number(), departements: objets }),
+  "/api/stats/departements": z.strictObject({ windowDays: z.number(), departements: objets, departements24h: objets }),
   "/api/today": z.strictObject({ compteurs: objet, evenements: objets }),
 } satisfies Record<string, z.ZodType>;
 
