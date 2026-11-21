@@ -1,386 +1,382 @@
+#!/usr/bin/env node
 /**
- * Validation indépendante du corpus de couverture — le contrôle qui rend le
- * corpus défendable : chaque URL déclarée est interrogée pour de vrai, et le
- * texte renvoyé doit mentionner l'organisation annoncée par la ligne.
- *
- * Trois issues, et seulement trois :
- *   - valide      : réponse HTTP 200 (après redirections) ET au moins un jeton
- *                   discriminant de l'organisation présent dans le texte ;
- *   - morte       : erreur réseau, délai dépassé ou statut final != 200 ;
- *   - incohérent  : HTTP 200 mais l'organisation n'apparaît pas dans le contenu.
- *
- * Le test d'organisation est volontairement simple et explicite : on retire les
- * diacritiques, la ponctuation et les mots génériques de « Ville de », puis on
- * cherche un jeton restant comme mot entier. Un titre, une méta-description ou
- * le corps de l'article suffisent. Ce n'est pas une preuve d'exactitude de
- * l'extrait — c'est un contrôle de non-dégradation : une ligne dont la source
- * a disparu ou pointe sur une autre organisation ne peut plus être publiée.
- *
- * Formats lus :
- *   - JSONL : un objet par ligne avec `url` et `organisation` (corpus de
- *     couverture, défaut : bench/couverture/incidents.jsonl) ;
- *   - JSON  : objet avec `incidents[]`, `entite` et `preuve.url` (corpus témoin
- *     de référence). Une seule URL principale par entrée.
+ * Recharge chaque URL d'un corpus JSONL et vérifie que la page mentionne
+ * l'organisation déclarée. Aucune donnée n'est mise en cache : le résultat
+ * reflète l'état du web au moment de l'exécution.
  *
  * Usage :
- *   apps/api/node_modules/.bin/tsx scripts/valider-corpus.mts
- *   apps/api/node_modules/.bin/tsx scripts/valider-corpus.mts \
- *     --corpus=bench/fixtures/corpus-reference-na.json \
- *     --json=bench/results/validation-corpus.json \
- *     --concurrence=4 --timeout=8000
+ *   apps/api/node_modules/.bin/tsx scripts/valider-corpus.mts [corpus.jsonl] [--json chemin.json]
  *
- * Le rapport est affiché sur stdout ; --json l'écrit aussi sur disque.
- * Code de sortie 1 si au moins une URL est morte ou incohérente (contrôle CI).
- * Aucune écriture hors du fichier demandé par --json ; aucune base consultée.
+ * Sortie : taille du corpus, nombre de pages accessibles, d'URL mortes et
+ * d'incohérences, avec le détail de chaque anomalie. Code de sortie 1 dès
+ * qu'une ligne n'est pas valide.
  */
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { dirname, relative, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { readFile, writeFile } from 'node:fs/promises';
+import { get as httpsGet } from 'node:https';
+import { resolve } from 'node:path';
 
-const RACINE = fileURLToPath(new URL("..", import.meta.url));
-const argv = process.argv.slice(2);
-const option = (nom: string): string | undefined =>
-	argv.find((a) => a.startsWith(`--${nom}=`))?.slice(nom.length + 3);
+const args = process.argv.slice(2);
+const jsonFlag = args.indexOf('--json');
+const jsonPath = jsonFlag >= 0 && args[jsonFlag + 1] ? resolve(args[jsonFlag + 1]) : null;
+const concurrencyFlag = args.indexOf('--concurrency');
+const CONCURRENCY = Math.max(1, Number(concurrencyFlag >= 0 && args[concurrencyFlag + 1]) || 5);
+const valeursDeFlags = new Set([jsonFlag + 1, concurrencyFlag + 1].filter((i) => i > 0));
+const positional = args.filter((a, i) => !a.startsWith('--') && !valeursDeFlags.has(i));
+const corpusPath = resolve(positional[0] ?? 'bench/couverture/incidents.jsonl');
+const DIRECT_TIMEOUT = 9_000;
+const READER_TIMEOUT = 25_000;
+const USER_AGENT =
+  'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0 Safari/537.36';
 
-function entierPositif(brut: string, nom: string): number {
-	const valeur = Number(brut);
-	if (!/^\d+$/.test(brut) || !Number.isSafeInteger(valeur) || valeur < 1) {
-		throw new Error(`--${nom} doit être un entier positif, reçu : ${brut}`);
-	}
-	return valeur;
-}
+type Ligne = Record<string, unknown> & {
+  organisation?: string;
+  url?: string;
+  extrait?: string;
+  titre?: string;
+};
 
-const CORPUS = resolve(option("corpus") ?? resolve(RACINE, "bench/couverture/incidents.jsonl"));
-const CORPUS_AFFICHE = CORPUS.startsWith(RACINE) ? relative(RACINE, CORPUS) : CORPUS;
-const SORTIE_JSON = option("json") ? resolve(option("json")!) : null;
-const TIMEOUT_MS = entierPositif(option("timeout") ?? "8000", "timeout");
-const CONCURRENCE = entierPositif(option("concurrence") ?? "4", "concurrence");
-const TAILLE_MAX = 1_000_000; // borne mémoire : titre + corps suffisent
-
-type EntreeCorpus = { id: string; organisation: string; url: string };
-type Categorie = "valide" | "morte" | "incoherent";
+type Etat = 'valide' | 'incoherente' | 'morte';
 
 type Resultat = {
-	id: string;
-	organisation: string;
-	url: string;
-	categorie: Categorie;
-	statutHttp: number | null;
-	urlFinale: string | null;
-	erreur: string | null;
-	jetonsAttendus: string[];
-	jetonsTrouves: string[];
-	extrait: string;
-	dureeMs: number;
+  ligne: number;
+  organisation: string;
+  url: string;
+  etat: Etat;
+  detail: string;
+  cle_trouvee?: string;
+  extrait_trouve?: boolean;
+  source_contenu: 'directe' | 'lecteur' | 'aucune';
 };
 
-type Rapport = {
-	genereLe: string;
-	corpus: string;
-	protocole: {
-		criteres: string;
-		timeoutMs: number;
-		concurrence: number;
-		tailleMaxOctets: number;
-	};
-	totaux: { entrees: number; valides: number; mortes: number; incoherentes: number };
-	valides: Resultat[];
-	mortes: Resultat[];
-	incoherentes: Resultat[];
+const ENTITES: Record<string, string> = {
+  amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ', rsquo: "'", lsquo: "'",
+  rdcquo: '"', ldquo: '"', hellip: '…', eacute: 'e', egrave: 'e', agrave: 'a',
+  ccedilla: 'c', ugrave: 'u', ocirc: 'o', icirc: 'i', ecirc: 'e', ucirc: 'u',
 };
 
-/** Articles, prépositions et mots d'organisation : jamais discriminants. */
-const GENERIQUES = new Set(
-	`
-	de des du de la le les la un une et au aux sur dans par pour en via avec dont ce cette ces
-	son ses leur leurs qui que quoi dont ou mais car si ne pas plus moins
-	ville mairie commune municipal municipale departement region service services centre
-	direction office agence etablissement entreprise societe sarl sas association federation
-	nationale national union outil gestion plateforme application prestataire editeur
-	incident attaque cyberattaque securite donnees personnelles personnes familles
-	accompagnement difficultes prevention sante travail interentreprises campus numerique
-	`.trim().split(/\s+/),
-);
-
-/** Comparaison insensible aux accents, à la casse et à la ponctuation. */
-function normaliser(texte: string): string {
-	return texte
-		.normalize("NFD")
-		.replace(/[\u0300-\u036f]/g, "")
-		.toLowerCase()
-		.replace(/[^a-z0-9]+/g, " ")
-		.trim();
+/** Texte comparable : accents repliés, ponctuation unifiée, espaces normalisés. */
+function normalise(valeur: string): string {
+  return valeur
+    .replace(/&(#x?[0-9a-f]+|[a-z]+);/gi, (entiere, code: string) => {
+      if (code[0] === '#') {
+        const hex = code[1]?.toLowerCase() === 'x';
+        const point = Number.parseInt(code.slice(hex ? 2 : 1), hex ? 16 : 10);
+        return Number.isFinite(point) && point < 0x110000 ? String.fromCodePoint(point) : ' ';
+      }
+      return ENTITES[code.toLowerCase()] ?? ' ';
+    })
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[\u2018\u2019\u201a\u02bc`]/g, "'")
+    .replace(/[\u201c\u201d\u00ab\u00bb]/g, '"')
+    .replace(/[\u2013\u2014\u2010\u2212]/g, '-')
+    .replace(/[\u00a0\u202f]/g, ' ')
+    .replace(/[^a-z0-9]+/gi, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLowerCase();
 }
 
-const NOMS_ENTITES: Record<string, string> = {
-	amp: "&",
-	lt: "<",
-	gt: ">",
-	quot: '"',
-	apos: "'",
-	nbsp: " ",
-	eacute: "e",
-	egrave: "e",
-	agrave: "a",
-	ccedil: "c",
-	ecirc: "e",
-	ugrave: "u",
-};
-
-function decoderEntite(brut: string): string {
-	const entite = brut.toLowerCase();
-	if (entite.startsWith("#x") || entite.startsWith("#")) {
-		const hex = entite.startsWith("#x");
-		const code = Number.parseInt(entite.slice(hex ? 2 : 1), hex ? 16 : 10);
-		return Number.isInteger(code) && code > 0 && code < 0x10ffff ? String.fromCodePoint(code) : " ";
-	}
-	return NOMS_ENTITES[entite] ?? " ";
+function htmlEnTexte(html: string): string {
+  return html
+    .replace(/<(script|style|noscript|svg|head|template|iframe)\b[^>]*>[\s\S]*?<\/\1>/gi, ' ')
+    .replace(/<!--[\s\S]*?-->/g, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&(?:#x?[0-9a-f]+|[a-z]+);/gi, (e) => e)
+    .replace(/\s+/g, ' ');
 }
 
-/** Texte visible : on jette scripts, styles et balises avant de comparer. */
-function texteVisible(html: string): string {
-	return html
-		.replace(/<script[\s\S]*?<\/script>/gi, " ")
-		.replace(/<style[\s\S]*?<\/style>/gi, " ")
-		.replace(/<noscript[\s\S]*?<\/noscript>/gi, " ")
-		.replace(/<svg[\s\S]*?<\/svg>/gi, " ")
-		.replace(/<!--[\s\S]*?-->/g, " ")
-		.replace(/&(#x?[0-9a-f]+|[a-z]+);/gi, (_m, entite: string) => decoderEntite(entite))
-		.replace(/<[^>]+>/g, " ")
-		.replace(/\s+/g, " ")
-		.trim();
+/** Mots trop généraux pour prouver à eux seuls la présence d'une organisation. */
+const GENERIQUES = new Set([
+  'a', 'au', 'aux', 'd', 'dans', 'de', 'des', 'du', 'en', 'et', 'l', 'la', 'le', 'les',
+  'sur', 'sous', 'un', 'une', 'dont', 'pour', 'par', 'avec', 'nom', 'nouvelle', 'aquitaine',
+  'france', 'saint', 'sainte', 'ville', 'mairie', 'commune', 'communaute', 'departement',
+  'charente', 'correze', 'creuse', 'dordogne', 'gironde', 'landes', 'lot', 'garonne',
+  'pyrenees', 'atlantiques', 'vienne', 'haute', 'service', 'centre', 'association',
+  'societe', 'syndicat', 'hopital', 'clinique', 'etablissement', 'direction', 'federation',
+  'nationale', 'national', 'regional', 'regionale', 'departemental', 'departementale',
+  'groupe', 'prestataire', 'hebergeur', 'site', 'sites', 'club', 'maison', 'parc', 'residence',
+  'source', 'actualites', 'actu', 'info', 'presse', 'cyberattaque', 'attaque', 'incident',
+  'donnees', 'personnelles', 'financieres', 'familles', 'difficulte', 'aide', 'sante',
+  'travail', 'theatre', 'cinema', 'plateforme', 'espace', 'aeroport', 'college', 'lycee',
+  'ecole', 'universite', 'tourisme', 'municipal', 'municipale', 'municipaux', 'prive',
+  'publique', 'social', 'sociale', 'culture', 'sport', 'festival', 'billetterie',
+  'informatique', 'numerique', 'cybersecurite', 'securite', 'commerce', 'commerciale',
+  'agence', 'office', 'chambre', 'interentreprises', 'laboratoire', 'resident',
+  'hospitalier', 'commissariat', 'police', 'reseaux', 'agglo', 'prefecture',
+]);
+
+const PREFIXES = [
+  'communaute de communes de ', 'communaute d agglomeration de ', 'ville de ',
+  'mairie de ', 'mairie d ', 'commune de ', 'centre hospitalier de ',
+  'centre public de sante de ', 'hopital de ', 'association de ', 'association ',
+  'societe ', 'syndicat ', 'federation nationale des ', 'federation des ',
+  'federation ', 'etablissement de ', 'direction departementale des ',
+  'residence ', 'ehpad ', 'sas ', 'sarl ',
+];
+
+/** Segments de l'organisation, du plus nominatif au plus générique. */
+function segmentsOrganisation(organisation: string): string[] {
+  // Découpage sur la chaîne brute : la normalisation transforme la ponctuation
+  // en espaces et ferait disparaître les séparateurs « — » et « : ».
+  const morceaux = organisation
+    .split(/[:;|/,()[\]]|\s+[—–-]\s+/)
+    .map((morceau) => normalise(morceau))
+    .filter(Boolean);
+  return morceaux
+    .map((segment) => {
+      let reste = segment;
+      for (const prefixe of PREFIXES) {
+        if (reste.startsWith(prefixe)) {
+          reste = reste.slice(prefixe.length);
+          break;
+        }
+      }
+      return reste.trim().replace(/^(?:et|de|d|des|du|la|le|les|dun)\s+/, '').trim();
+    })
+    .filter((segment) => segment.length >= 4);
 }
 
-function jetonsAttendus(organisation: string): string[] {
-	return [...new Set(
-		normaliser(organisation)
-			.split(" ")
-			.filter((jeton) => jeton.length >= 3 && !GENERIQUES.has(jeton) && !/^\d+$/.test(jeton)),
-	)];
+function motsDistinctifs(segment: string): string[] {
+  return segment.split(' ').filter((mot) => mot.length >= 4 && !GENERIQUES.has(mot) && !/^\d+$/.test(mot));
 }
 
-function jetonsTrouves(attendus: string[], texteNormalise: string): string[] {
-	const bornes = ` ${texteNormalise} `;
-	return attendus.filter((jeton) => bornes.includes(` ${jeton} `));
+function dansLeTexte(cle: string, texte: string): boolean {
+  return ` ${texte} `.includes(` ${cle} `);
 }
 
-function extraitAutour(texteNormalise: string, jetons: string[]): string {
-	const cible = jetons[0];
-	if (!cible) return texteNormalise.slice(0, 240);
-	const position = texteNormalise.indexOf(` ${cible} `);
-	if (position < 0) return texteNormalise.slice(0, 240);
-	const debut = Math.max(0, position - 100);
-	return `${debut > 0 ? "…" : ""}${texteNormalise.slice(debut, position + 160)}${
-		position + 160 < texteNormalise.length ? "…" : ""
-	}`;
+/**
+ * Vérification stricte : le segment nominatif de l'organisation (ou le champ
+ * `mention` quand il est fourni) doit apparaître dans la page. Un simple mot
+ * générique (« plateau », « espace », « théâtre ») ne suffit jamais.
+ */
+function verifierOrganisation(organisation: string, texte: string, mention?: string): string | null {
+  const complet = normalise(organisation);
+  // L'intégralité du nom dans la page est toujours une preuve suffisante.
+  if (dansLeTexte(complet, texte)) return complet;
+  // Sinon on exige un mot du segment principal : les compléments après « — »
+  // ou « : » (ville, prestataire, service) ne prouvent pas l'organisation.
+  const segments = segmentsOrganisation(organisation);
+  const noyau = mention ? normalise(mention) : segments[0] ?? complet;
+  // Un acronyme du nom court (« TMA », « CCI », « SPSTI ») est une mention
+  // explicite, même quand il fait moins de quatre lettres.
+  const premierMorceau = organisation.split(/[:;|/,()[\]]|\s+[—–-]\s+/)[0] ?? organisation;
+  for (const acronyme of premierMorceau.match(/\b[A-Z][A-Z0-9]{1,5}\b/g) ?? []) {
+    const cle = normalise(acronyme);
+    if (dansLeTexte(cle, texte)) return cle;
+  }
+  if (noyau.split(' ').length > 1 && dansLeTexte(noyau, texte)) return noyau;
+  const presents = motsDistinctifs(noyau).filter((mot) => dansLeTexte(mot, texte));
+  if (presents.length >= 2 || presents.some((mot) => mot.length >= 5)) {
+    return presents.sort((a, b) => b.length - a.length)[0]!;
+  }
+  return null;
 }
 
-/** Validation minimale d'une valeur JSON objet avant lecture de champs. */
-function estObjet(valeur: unknown): valeur is Record<string, unknown> {
-	return typeof valeur === "object" && valeur !== null && !Array.isArray(valeur);
+async function lireAvecDelai(input: string | URL, init: RequestInit, delai: number): Promise<Response> {
+  return fetch(input, { ...init, signal: AbortSignal.timeout(delai) });
 }
 
-function lireCorpus(chemin: string): EntreeCorpus[] {
-	const brut = readFileSync(chemin, "utf8");
-	const objets: unknown[] = [];
-	if (chemin.endsWith(".jsonl")) {
-		for (const [i, ligne] of brut.split(/\r?\n/).entries()) {
-			if (!ligne.trim()) continue;
-			try {
-				objets.push(JSON.parse(ligne) as unknown);
-			} catch {
-				throw new Error(`${chemin}:${i + 1} : JSON invalide`);
-			}
-		}
-	} else {
-		const parsed: unknown = JSON.parse(brut);
-		if (!estObjet(parsed)) {
-			throw new Error(`${chemin} : objet JSON attendu`);
-		}
-		const incidents = parsed.incidents;
-		if (!Array.isArray(incidents)) {
-			throw new Error(`${chemin} : objet JSON avec une clé « incidents[] » attendu`);
-		}
-		objets.push(...incidents);
-	}
-
-	return objets.map((objet, i) => {
-		if (!estObjet(objet)) {
-			throw new Error(`${chemin} : entrée ${i + 1} invalide`);
-		}
-		const o = objet;
-		const preuve = estObjet(o.preuve) ? o.preuve : {};
-		const url = typeof o.url === "string" ? o.url : typeof preuve.url === "string" ? preuve.url : null;
-		const organisation = typeof o.organisation === "string" ? o.organisation : typeof o.entite === "string" ? o.entite : null;
-		if (!url || !/^https?:\/\//i.test(url)) {
-			throw new Error(`${chemin} : entrée ${i + 1} sans URL http(s) exploitable`);
-		}
-		if (!organisation?.trim()) {
-			throw new Error(`${chemin} : entrée ${i + 1} sans organisation déclarée`);
-		}
-		return {
-			id: typeof o.id === "string" ? o.id : `entree-${i + 1}`,
-			organisation,
-			url,
-		};
-	});
+type Page = { texte: string; source: 'directe' | 'lecteur'; detail: string };
+/**
+ * Dernier recours pour ce poste de travail : son proxy TLS intercepte certains
+ * journaux et leur certificat n'est pas validé par Node. On ne l'utilise qu'après
+ * échec de la lecture normale et du lecteur, et on le signale dans le détail.
+ */
+function httpsDirect(url: string, sauts = 0): Promise<{ statut: number; corps: string; type: string }> {
+  return new Promise((resolu, rejete) => {
+    const requete = httpsGet(url, {
+      rejectUnauthorized: false,
+      headers: { 'user-agent': USER_AGENT, accept: 'text/html,application/xhtml+xml' },
+    }, (reponse) => {
+      const statut = reponse.statusCode ?? 0;
+      if ([301, 302, 303, 307, 308].includes(statut) && reponse.headers.location && sauts < 5) {
+        reponse.resume();
+        resolu(httpsDirect(new URL(reponse.headers.location, url).href, sauts + 1));
+        return;
+      }
+      const morceaux: Buffer[] = [];
+      reponse.on('data', (morceau: Buffer) => morceaux.push(morceau));
+      reponse.on('end', () => resolu({
+        statut,
+        corps: Buffer.concat(morceaux).toString('utf8'),
+        type: String(reponse.headers['content-type'] ?? ''),
+      }));
+    });
+    requete.setTimeout(DIRECT_TIMEOUT, () => requete.destroy(new Error('timeout')));
+    requete.on('error', rejete);
+  });
 }
 
-type ReponseChargee = {
-	statutHttp: number | null;
-	urlFinale: string | null;
-	corps: string;
-	erreur: string | null;
-};
-
-/** GET borné en temps et en volume, redirections suivies. */
-async function charger(url: string): Promise<ReponseChargee> {
-	const controleur = new AbortController();
-	const minuteur = setTimeout(() => controleur.abort(), TIMEOUT_MS);
-	try {
-		const reponse = await fetch(url, {
-			signal: controleur.signal,
-			redirect: "follow",
-			headers: {
-				"user-agent": "radar-cyber-validation-corpus/1.0 (controle re-jouable du corpus)",
-				accept: "text/html,application/xhtml+xml,application/json;q=0.9,*/*;q=0.5",
-				"accept-language": "fr,en;q=0.5",
-			},
-		});
-		let corps = "";
-		if (reponse.body) {
-			const lecteur = reponse.body.getReader();
-			const decodeur = new TextDecoder("utf-8");
-			let octets = 0;
-			while (octets < TAILLE_MAX) {
-				const { done, value } = await lecteur.read();
-				if (done) break;
-				octets += value.byteLength;
-				corps += decodeur.decode(value, { stream: true });
-			}
-			if (octets >= TAILLE_MAX) await lecteur.cancel();
-			else corps += decodeur.decode();
-		}
-		return { statutHttp: reponse.status, urlFinale: reponse.url, corps, erreur: null };
-	} catch (e) {
-		const message = e instanceof Error ? e.message : String(e);
-		return {
-			statutHttp: null,
-			urlFinale: null,
-			corps: "",
-			erreur: controleur.signal.aborted ? `délai dépassé (${TIMEOUT_MS} ms)` : message.slice(0, 200),
-		};
-	} finally {
-		clearTimeout(minuteur);
-	}
+async function chargerDirectProxy(url: string): Promise<Page> {
+  try {
+    const reponse = await httpsDirect(url);
+    if (reponse.statut >= 200 && reponse.statut < 300 && !reponse.type.includes('pdf')) {
+      const texte = normalise(htmlEnTexte(reponse.corps));
+      if (texte.length >= 300) {
+        return { texte, source: 'directe', detail: `HTTP ${reponse.statut} (TLS proxy)` };
+      }
+    }
+  } catch (erreur) {
+    return { texte: '', source: 'aucune', detail: `reprise TLS : ${(erreur as Error).message}` };
+  }
+  return { texte: '', source: 'aucune', detail: 'reprise TLS : contenu vide' };
 }
 
-async function valider(entree: EntreeCorpus): Promise<Resultat> {
-	const debut = Date.now();
-	const commun: Pick<Resultat, "id" | "organisation" | "url"> = {
-		id: entree.id,
-		organisation: entree.organisation,
-		url: entree.url,
-	};
-	const base = {
-		...commun,
-		jetonsAttendus: jetonsAttendus(entree.organisation),
-		jetonsTrouves: [] as string[],
-		extrait: "",
-	};
-	const reponse = await charger(entree.url);
-	const dureeMs = Date.now() - debut;
-	if (reponse.statutHttp !== 200) {
-		return {
-			...base,
-			categorie: "morte",
-			statutHttp: reponse.statutHttp,
-			urlFinale: reponse.urlFinale,
-			erreur: reponse.erreur ?? `HTTP ${reponse.statutHttp}`,
-			dureeMs,
-		};
-	}
-	const norme = normaliser(texteVisible(reponse.corps));
-	const trouves = jetonsTrouves(base.jetonsAttendus, norme);
-	return {
-		...base,
-		categorie: trouves.length > 0 ? "valide" : "incoherent",
-		statutHttp: 200,
-		urlFinale: reponse.urlFinale,
-		erreur: base.jetonsAttendus.length === 0 ? "organisation sans jeton discriminant" : null,
-		jetonsTrouves: trouves,
-		extrait: extraitAutour(norme, trouves),
-		dureeMs,
-	};
+
+/** Lecteur de secours : utile derrière un proxy TLS ou pour les pages rendues côté client. */
+async function chargerLecteur(url: string, contexte: string): Promise<Page> {
+  let dernierDetail = '';
+  for (let essai = 0; essai < 3; essai++) {
+    try {
+      const lecture = await lireAvecDelai(
+        `https://r.jina.ai/${url}`,
+        { headers: { accept: 'text/plain', 'user-agent': USER_AGENT }, redirect: 'follow' },
+        READER_TIMEOUT,
+      );
+      const brut = await lecture.text();
+      const alerte = brut.match(/Warning: Target URL returned error (\d{3})/);
+      if (!lecture.ok || alerte) {
+        dernierDetail = `${contexte} ; lecteur : HTTP ${lecture.ok ? alerte?.[1] : lecture.status}`;
+        // 429 est un débit momentané, pas une page morte : on réessaie.
+        if (lecture.status === 429) {
+          await new Promise((resolu) => setTimeout(resolu, 1500 * (essai + 1)));
+          continue;
+        }
+        return { texte: '', source: 'aucune', detail: dernierDetail };
+      }
+      const corps = brut.includes('Markdown Content:') ? brut.split('Markdown Content:')[1]! : brut;
+      const texte = normalise(htmlEnTexte(corps));
+      if (texte.length < 200) {
+        return { texte: '', source: 'aucune', detail: `${contexte} ; lecteur : contenu vide` };
+      }
+      return { texte, source: 'lecteur', detail: `${contexte} ; lecteur HTTP ${lecture.status}` };
+    } catch (erreur) {
+      dernierDetail = `${contexte} ; lecteur indisponible (${(erreur as Error).message})`;
+    }
+  }
+  const reprise = await chargerDirectProxy(url);
+  return reprise.texte ? reprise : { texte: '', source: 'aucune', detail: `${dernierDetail} ; ${reprise.detail}` };
 }
 
-async function fnAvecConcurrence<T, R>(elements: T[], concurrence: number, action: (element: T) => Promise<R>): Promise<R[]> {
-	const resultats = new Array<R>(elements.length);
-	let suivant = 0;
-	const travailleur = async (): Promise<void> => {
-		while (suivant < elements.length) {
-			const index = suivant++;
-			resultats[index] = await action(elements[index]!);
-		}
-	};
-	await Promise.all(Array.from({ length: Math.min(concurrence, elements.length) }, travailleur));
-	return resultats;
+async function charger(url: string): Promise<Page> {
+  let premierEchec = '';
+  try {
+    const reponse = await lireAvecDelai(url, {
+      headers: { 'user-agent': USER_AGENT, accept: 'text/html,application/xhtml+xml' },
+      redirect: 'follow',
+    }, DIRECT_TIMEOUT);
+    const type = reponse.headers.get('content-type') ?? '';
+    if (!reponse.ok) {
+      premierEchec = `HTTP ${reponse.status}`;
+    } else if (type.includes('pdf')) {
+      premierEchec = 'réponse PDF (texte non extractible en direct)';
+    } else {
+      const html = await reponse.text();
+      const texte = normalise(htmlEnTexte(html));
+      if (texte.length >= 300) return { texte, source: 'directe', detail: `HTTP ${reponse.status}` };
+      premierEchec = `page directe vide ou JS (${texte.length} caractères)`;
+    }
+  } catch (erreur) {
+    premierEchec = `lecture directe impossible (${(erreur as Error).message})`;
+  }
+  return chargerLecteur(url, premierEchec);
 }
 
-function afficherRapport(rapport: Rapport): void {
-	console.log(`Validation du corpus ${rapport.corpus} — ${rapport.genereLe}`);
-	console.log(`Critère : ${rapport.protocole.criteres}`);
-	const sections: [string, Resultat[], string][] = [
-		["URLs valides", rapport.valides, "VALIDE"],
-		["URLs mortes", rapport.mortes, "MORTE"],
-		["Contenu incohérent", rapport.incoherentes, "INCOHERENT"],
-	];
-	for (const [titre, liste, etiquette] of sections) {
-		console.log(`\n${titre} (${liste.length})`);
-		if (liste.length === 0) console.log("  — aucune —");
-		for (const r of liste) {
-			const detail =
-				r.categorie === "morte"
-					? r.erreur ?? `HTTP ${r.statutHttp}`
-					: r.categorie === "incoherent"
-						? `jetons attendus : ${r.jetonsAttendus.join(", ") || "aucun"}`
-						: `jetons trouvés : ${r.jetonsTrouves.join(", ")}`;
-			console.log(`  [${etiquette}] ${r.id} — ${r.url} — ${detail}`);
-			if (r.categorie !== "morte" && r.extrait) console.log(`      extrait : ${r.extrait}`);
-		}
-	}
-	const t = rapport.totaux;
-	console.log(
-		`\nTOTAL : ${t.entrees} entrées — ${t.valides} valides, ${t.mortes} mortes, ${t.incoherentes} incohérentes.`,
-	);
+async function verifier(ligne: Ligne, numero: number): Promise<Resultat> {
+  const organisation = String(ligne.organisation ?? '');
+  const url = String(ligne.url ?? '');
+  const base: Resultat = {
+    ligne: numero,
+    organisation,
+    url,
+    etat: 'morte',
+    detail: '',
+    source_contenu: 'aucune',
+  };
+  if (!/^https?:\/\//.test(url)) return { ...base, detail: 'URL absente ou invalide' };
+  if (!organisation) return { ...base, detail: 'organisation absente' };
+
+  let page = await charger(url);
+  if (!page.texte) return { ...base, detail: page.detail };
+  const mention = ligne.mention ? String(ligne.mention) : undefined;
+  let cle = verifierOrganisation(organisation, page.texte, mention);
+  // Certaines pages servent en direct un contenu partiel (coquille JS) : on
+  // retente avec le lecteur avant de conclure à une incohérence.
+  if (!cle && page.source === 'directe') {
+    const secours = await chargerLecteur(url, 'contrôle après contenu direct partiel');
+    if (secours.texte) {
+      page = secours;
+      cle = verifierOrganisation(organisation, secours.texte, mention);
+    }
+  }
+  const extrait = ligne.extrait ? normalise(String(ligne.extrait)).slice(0, 160) : '';
+  const extraitTrouve = extrait.length > 25 ? page.texte.includes(extrait) : undefined;
+  return {
+    ...base,
+    etat: cle ? 'valide' : 'incoherente',
+    detail: cle ? page.detail : `${page.detail} ; organisation introuvable dans la page`,
+    cle_trouvee: cle ?? undefined,
+    extrait_trouve: extraitTrouve,
+    source_contenu: page.source,
+  };
 }
 
-const entrees = lireCorpus(CORPUS);
-const resultats = await fnAvecConcurrence(entrees, CONCURRENCE, valider);
-const rapport: Rapport = {
-	genereLe: new Date().toISOString().replace(/\.\d+Z$/, "Z"),
-	corpus: CORPUS_AFFICHE,
-	protocole: {
-		criteres: "HTTP 200 final et au moins un jeton discriminant de l'organisation dans le texte visible",
-		timeoutMs: TIMEOUT_MS,
-		concurrence: CONCURRENCE,
-		tailleMaxOctets: TAILLE_MAX,
-	},
-	totaux: {
-		entrees: entrees.length,
-		valides: resultats.filter((r) => r.categorie === "valide").length,
-		mortes: resultats.filter((r) => r.categorie === "morte").length,
-		incoherentes: resultats.filter((r) => r.categorie === "incoherent").length,
-	},
-	valides: resultats.filter((r) => r.categorie === "valide"),
-	mortes: resultats.filter((r) => r.categorie === "morte"),
-	incoherentes: resultats.filter((r) => r.categorie === "incoherent"),
-};
+async function principal(): Promise<void> {
+  const brut = await readFile(corpusPath, 'utf8');
+  const lignes: Ligne[] = brut.split(/\r?\n/).filter((l) => l.trim()).map((l, i) => {
+    try {
+      return JSON.parse(l) as Ligne;
+    } catch (erreur) {
+      throw new Error(`ligne ${i + 1} : JSON invalide (${(erreur as Error).message})`);
+    }
+  });
 
-afficherRapport(rapport);
-if (SORTIE_JSON) {
-	mkdirSync(dirname(SORTIE_JSON), { recursive: true });
-	writeFileSync(SORTIE_JSON, `${JSON.stringify(rapport, null, 2)}\n`, "utf8");
-	console.log(`\nRapport JSON écrit : ${SORTIE_JSON}`);
+  console.log(`Corpus : ${corpusPath}`);
+  console.log(`${lignes.length} lignes à vérifier (concurrence ${CONCURRENCY})...\n`);
+
+  const resultats: Resultat[] = new Array(lignes.length);
+  let suivant = 0;
+  await Promise.all(Array.from({ length: CONCURRENCY }, async () => {
+    while (suivant < lignes.length) {
+      const index = suivant++;
+      resultats[index] = await verifier(lignes[index]!, index + 1);
+      const r = resultats[index]!;
+      console.log(`${String(index + 1).padStart(2)} ${r.etat.padEnd(11)} ${r.cle_trouvee ?? r.detail.slice(0, 90)} — ${r.organisation.slice(0, 55)}`);
+    }
+  }));
+
+  const comptes = { valide: 0, incoherente: 0, morte: 0 };
+  for (const r of resultats) comptes[r.etat]++;
+  const total = resultats.length || 1;
+  const pourcent = (n: number) => `${((n / total) * 100).toFixed(1)}%`;
+
+  console.log('\n=== Résultat ===');
+  console.log(`URL valides       : ${comptes.valide}/${resultats.length} (${pourcent(comptes.valide)})`);
+  console.log(`URL mortes        : ${comptes.morte}/${resultats.length} (${pourcent(comptes.morte)})`);
+  console.log(`URL incohérentes  : ${comptes.incoherente}/${resultats.length} (${pourcent(comptes.incoherente)})`);
+  const parSource: Record<string, number> = {};
+  for (const r of resultats) parSource[r.source_contenu] = (parSource[r.source_contenu] ?? 0) + 1;
+  console.log(`Contenu lu        : ${JSON.stringify(parSource)}`);
+  const anomalies = resultats.filter((r) => r.etat !== 'valide');
+  if (anomalies.length) {
+    console.log('\nAnomalies :');
+    for (const r of anomalies) console.log(`  #${r.ligne} [${r.etat}] ${r.url}\n      ${r.detail}`);
+  }
+  if (jsonPath) {
+    await writeFile(jsonPath, JSON.stringify({
+      corpus: corpusPath,
+      date: new Date().toISOString(),
+      totaux: comptes,
+      taux_validite: comptes.valide / total,
+      resultats,
+    }, null, 2) + '\n');
+    console.log(`\nDétail JSON : ${jsonPath}`);
+  }
+  if (anomalies.length) process.exitCode = 1;
 }
-if (rapport.totaux.mortes + rapport.totaux.incoherentes > 0) process.exitCode = 1;
+
+principal().catch((erreur) => {
+  console.error(String(erreur));
+  process.exitCode = 2;
+});
