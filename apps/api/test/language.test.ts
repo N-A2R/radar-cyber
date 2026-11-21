@@ -1,5 +1,5 @@
 /**
- * Détection de langue des événements : 20 textes représentatifs des flux
+ * Détection de langue des événements : 30 textes représentatifs des flux
  * (dépêches locales françaises, avis et bulletins techniques anglais).
  * Le taux de réussite est affiché pour que la mesure reste lisible en CI.
  */
@@ -33,9 +33,19 @@ const CORPUS: ReadonlyArray<{ text: string; expected: Language }> = [
 	{ text: "Officials said the incident affected several systems", expected: "en" },
 	{ text: "Microsoft releases patch for vulnerability in Windows", expected: "en" },
 	{ text: "New report details how attackers targeted the agency", expected: "en" },
+	{ text: "La commune de Niort a été victime d'un rançongiciel", expected: "fr" },
+	{ text: "Des données personnelles ont été exposées lors d'une fuite", expected: "fr" },
+	{ text: "Le syslog a détecté une intrusion sur le réseau interne", expected: "fr" },
+	{ text: "Les experts français ont publié une étude sur les menaces", expected: "fr" },
+	{ text: "D'après l'ANSSI, la faille a été corrigée dans la journée", expected: "fr" },
+	{ text: "Patch disponible pour la vulnérabilité critique de Windows", expected: "fr" },
+	{ text: "A new vulnerability has been disclosed in the widely used library", expected: "en" },
+	{ text: "The company confirmed that user credentials were stolen in the breach", expected: "en" },
+	{ text: "Security researchers warn of an active exploit campaign targeting servers", expected: "en" },
+	{ text: "Officials said the incident did not affect personal data", expected: "en" },
 ];
 
-test("détection fr/en sur 20 textes", () => {
+test("détection fr/en sur 30 textes", () => {
 	let ok = 0;
 	const erreurs: string[] = [];
 	for (const [i, sample] of CORPUS.entries()) {
@@ -63,4 +73,23 @@ test("RADAR_LANGUAGES vide ou inconnu garde les deux langues", () => {
 	assert.deepEqual([...configuredLanguages({})], ["fr", "en"]);
 	assert.deepEqual([...configuredLanguages({ RADAR_LANGUAGES: "de" })], ["fr", "en"]);
 	assert.deepEqual([...configuredLanguages({ RADAR_LANGUAGES: "EN, fr" })], ["en", "fr"]);
+});
+
+test("états vides et textes sans indice", () => {
+	const vide = detectLanguage("");
+	assert.equal(vide.confidence, 0);
+	assert.deepEqual(vide.scores, { fr: 0, en: 0 });
+	assert.equal(detectLanguage("12345 🚨 🔒").confidence, 0);
+	// null / undefined arrivent des parseurs : aucun ne doit lever.
+	assert.equal(detectLanguage(null as unknown as string).confidence, 0);
+	assert.equal(detectLanguage(undefined as unknown as string).language, "en");
+});
+
+test("la confiance reflète la marge entre les deux scores", () => {
+	const francais = detectLanguage("La faille a été exploitée par des pirates");
+	const anglais = detectLanguage("The vulnerability was exploited by attackers");
+	assert.ok(francais.scores.fr > francais.scores.en);
+	assert.ok(anglais.scores.en > anglais.scores.fr);
+	assert.ok(francais.confidence > 0 && francais.confidence <= 1);
+	assert.ok(anglais.confidence > 0 && anglais.confidence <= 1);
 });

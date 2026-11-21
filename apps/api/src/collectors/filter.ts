@@ -306,8 +306,9 @@ export type Language = "fr" | "en";
 export interface LanguageDetection {
 	language: Language;
 	scores: Readonly<{ fr: number; en: number }>;
+	/** 0 pour un texte sans indice ( vide, chiffres, emoji ) ; 1 pour un texte tranché. */
+	confidence: number;
 }
-
 export interface LanguageVerdict extends LanguageDetection {
 	/** Vrai si la langue est autorisée par `RADAR_LANGUAGES`. */
 	keep: boolean;
@@ -365,7 +366,12 @@ const EN_WORDS: Record<string, true> = {
 
 const FR_ACCENT = /[àâçéèêëîïôöùûüÿœæ]/i;
 
-/** Langue du texte (titre + résumé), avec les scores détaillés. */
+/**
+ * Langue du texte (titre + résumé), avec les scores détaillés.
+ *
+ * Entrées mal formées tolérées : null, undefined, nombre ou chaîne vide
+ * donnent `confidence: 0` et l'anglais par défaut (langue des flux techniques).
+ */
 export function detectLanguage(text: string): LanguageDetection {
 	const tokens = String(text ?? "").toLowerCase().match(/[a-zà-ÿœæ]+/g) ?? [];
 	let fr = 0;
@@ -377,7 +383,12 @@ export function detectLanguage(text: string): LanguageDetection {
 		if (FR_ACCENT.test(token)) accents++;
 	}
 	fr += Math.min(accents, 3);
-	return { language: fr > en ? "fr" : "en", scores: { fr, en } };
+	const total = fr + en;
+	return {
+		language: fr > en ? "fr" : "en",
+		scores: { fr, en },
+		confidence: total === 0 ? 0 : Math.abs(fr - en) / total,
+	};
 }
 
 /** Langues à ingérer (`RADAR_LANGUAGES`, séparées par des virgules). Vide/inconnu = fr et en. */

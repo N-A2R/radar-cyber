@@ -6,6 +6,7 @@ import { rateLimit } from "../middleware/rate-limit.js";
 import { requireAuth } from "../middleware/auth.js";
 import { AdmissionTally, admitEvent } from "../contract/admit.js";
 import { languageVerdict } from "../collectors/filter.js";
+import { scoreEventPertinence } from "../collectors/pertinence.js";
 
 /**
  * Ingestion externe (bots Hermes, scripts).
@@ -69,6 +70,7 @@ export default async function (app: FastifyInstance) {
     );
     for (const e of events) {
       const langue = languageVerdict(e.title, e.summary);
+      const pertinence = scoreEventPertinence({ title: e.title, summary: e.summary, sourceUrl: e.source_url });
       if (!langue.keep) {
         skipped++;
         rejected.push({ dedupKey: e.dedup_key ?? null, reasons: [`langue_${langue.language}`] });
@@ -104,8 +106,8 @@ export default async function (app: FastifyInstance) {
       const r = await ingestQuery<{ inserted: boolean }>(
         `INSERT INTO event (dedup_key, family, assertion_type, title, summary, langue, observed_at,
            severity, confidence, source_id, source_url, evidence, geo_type,
-           regional, regional_motif)
-         VALUES ($1,$2,$3,$4,$5,$15,$6,$7,$8,$9,$10,$11,$12,$13,$14)
+           regional, regional_motif, pertinence_score, pertinence_rule)
+         VALUES ($1,$2,$3,$4,$5,$15,$6,$7,$8,$9,$10,$11,$12,$13,$14,$16,$17)
          ON CONFLICT (dedup_key) DO NOTHING
          RETURNING (xmax = 0) AS inserted`,
         [
@@ -124,7 +126,7 @@ export default async function (app: FastifyInstance) {
           ...(() => {
             const p = porteeRegionale(`${event.title} ${event.summary ?? ""}`, null);
             return [p.regional, p.motif];
-          })(), langue.language,
+          })(), langue.language, pertinence.score, pertinence.rule,
         ]
       );
       if (r.rows[0]?.inserted) {

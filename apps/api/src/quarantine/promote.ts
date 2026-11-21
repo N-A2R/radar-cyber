@@ -21,6 +21,7 @@
  */
 import { admitEvent } from "../contract/admit.js";
 import { languageVerdict } from "../collectors/filter.js";
+import { scoreEventPertinence } from "../collectors/pertinence.js";
 import { ingestQuery, query, withTransaction } from "../db.js";
 import { consigner, consignerAvec } from "../journal/index.js";
 import { ecarteeParRegles, REGLE_SIGLE, type TraceRegle } from "../match/regles-precision.js";
@@ -742,13 +743,14 @@ async function insertClaimEventRow(
   }
   const event = admitted.event;
   const langue = languageVerdict(event.title, event.summary);
+  const pertinence = scoreEventPertinence({ title: event.title, summary: event.summary, sourceUrl: event.sourceUrl });
   if (!langue.keep) {
     throw new Error(`promotion refusée : langue ${langue.language} absente de RADAR_LANGUAGES`);
   }
   const portee = porteeRegionale(`${event.title} ${event.summary ?? ""}`, orgId);
   const sql = `INSERT INTO event (dedup_key, family, assertion_type, title, summary, langue, observed_at, severity, confidence,
-       source_id, source_url, evidence, geo_type, org_id, tlp, tlp_source, regional, regional_motif)
-     VALUES ($1,$2,$3,$4,$5,$18,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17)
+       source_id, source_url, evidence, geo_type, org_id, tlp, tlp_source, regional, regional_motif, pertinence_score, pertinence_rule)
+     VALUES ($1,$2,$3,$4,$5,$18,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$19,$20)
      ON CONFLICT (dedup_key) DO UPDATE SET observed_at = COALESCE(event.observed_at, EXCLUDED.observed_at)
      RETURNING id, (xmax = 0) AS inserted`;
   const values = [
@@ -770,6 +772,8 @@ async function insertClaimEventRow(
     portee.regional,
     portee.motif,
     langue.language,
+    pertinence.score,
+    pertinence.rule,
   ];
   const r = await run<{ id: number; inserted: boolean }>(sql, values);
   await consignerAvec((sql, params) => run(sql, params as unknown[]), {
