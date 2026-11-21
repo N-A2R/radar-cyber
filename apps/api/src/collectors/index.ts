@@ -251,24 +251,28 @@ export async function executerPlan(
  * reprend une par une. Même un échec y écrit un `collector_run`, donc une
  * source tentée n'est plus « jamais collectée » — elle est désormais mesurable.
  */
-export async function sourcesJamaisCollectees(limite = 100): Promise<string[]> {
-	const { rows } = await query<{ id: string }>(
-		`SELECT s.id FROM source s
+export async function sourcesJamaisCollectees(limite = 100, ids?: readonly string[]): Promise<string[]> {
+	const params: unknown[] = [[...COLLECTEURS_DEDIES_IDS, "hermes_radar_cyber"]];
+	let sql = `SELECT s.id FROM source s
 		  WHERE s.enabled AND s.statut <> 'morte' AND s.kind <> 'quarantine'
 		    AND s.id <> ALL($1::text[])
-		    AND NOT EXISTS (SELECT 1 FROM collector_run r WHERE r.source_id = s.id)
-		  ORDER BY s.id LIMIT $2`,
-		[[...COLLECTEURS_DEDIES_IDS, "hermes_radar_cyber"], limite],
-	);
+		    AND NOT EXISTS (SELECT 1 FROM collector_run r WHERE r.source_id = s.id)`;
+	if (ids?.length) {
+		params.push([...ids]);
+		sql += ` AND s.id = ANY($2::text[])`;
+	}
+	params.push(limite);
+	sql += ` ORDER BY s.id LIMIT $${params.length}`;
+	const { rows } = await query<{ id: string }>(sql, params);
 	return rows.map((r) => r.id);
 }
 
 export async function ratisserSourcesJamaisCollectees(
 	traiter: (ids: string[]) => Promise<void>,
-	options: { limite?: number; log?: (msg: string) => void } = {},
+	options: { limite?: number; ids?: readonly string[]; log?: (msg: string) => void } = {},
 ): Promise<string[]> {
 	const limite = options.limite ?? 100;
-	const ids = await sourcesJamaisCollectees(limite);
+	const ids = await sourcesJamaisCollectees(limite, options.ids);
 	for (const id of ids) {
 		try {
 			await traiter([id]);
@@ -276,7 +280,7 @@ export async function ratisserSourcesJamaisCollectees(
 			options.log?.(`ratissage : ${id} en échec, on continue — ${String(e)}`);
 		}
 	}
-	return sourcesJamaisCollectees(limite);
+	return sourcesJamaisCollectees(limite, options.ids);
 }
 
 /** Libère l'index partagé en fin de cycle : le processus reste sous son budget. */
