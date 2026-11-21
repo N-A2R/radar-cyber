@@ -3,6 +3,7 @@ import { languageVerdict } from "./collectors/filter.js";
 import { scoreEventPertinence } from "./collectors/pertinence.js";
 import type { CollectContext, Collector, NormalizedEvent } from "@radar/shared";
 import cors from "@fastify/cors";
+import helmet from "@fastify/helmet";
 import rateLimit from "@fastify/rate-limit";
 import fastifyStatic from "@fastify/static";
 import { existsSync } from "node:fs";
@@ -59,6 +60,11 @@ const corsOrigins = (process.env.RADAR_CORS_ORIGINS ?? "")
 
 await app.register(cors, { origin: corsOrigins.length > 0 ? corsOrigins : false });
 await installSecurityHeaders(app);
+
+/** En-têtes de sécurité sur toutes les réponses (nosniff, frameguard,
+ *  referrer-policy, HSTS). Le CSP reste à la charge de la couche qui sert du
+ *  HTML (le dist statique sur la box) : l'API ne sert que du JSON. */
+await app.register(helmet, { contentSecurityPolicy: false });
 
 /**
  * Limite globale, par utilisateur authentifié ou par adresse IP. Les routes
