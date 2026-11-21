@@ -1,0 +1,250 @@
+{
+  "dateMesure": "2026-11-21",
+  "objet": "Sources d actualite retenues pour les quatre departements sans couverture locale (40 Landes, 47 Lot-et-Garonne, 23 Creuse, 19 Correze)",
+  "methode": "curl -L -sS -A 'Mozilla/5.0 (X11; Linux x86_64) radar-mesure/1.0' --max-time 25 ; comptage des balises <item> pour les flux, dates distinctes visibles pour les pages HTML",
+  "depts": {
+    "40": {
+      "nom": "Landes",
+      "retenues": [
+        {
+          "id": "presse-france3-landes",
+          "provenance": "France 3 Nouvelle-Aquitaine, rubrique Landes (presse locale)",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes/rss",
+          "http": 200,
+          "items": 30,
+          "detail": "dernier 2026-11-21 16:01+01"
+        },
+        {
+          "id": "presse-sudouest-mont-de-marsan",
+          "provenance": "Sud Ouest, edition Mont-de-Marsan (presse locale)",
+          "url": "https://www.sudouest.fr/landes/mont-de-marsan/rss.xml",
+          "http": 200,
+          "items": 20,
+          "detail": "dernier 2026-11-21 16:32+01"
+        },
+        {
+          "id": "presse-aquitaineonline-landes",
+          "provenance": "Aquitaine OnLine, rubrique Landes (presse locale)",
+          "url": "https://www.aquitaineonline.com/actualites-en-aquitaine/landes/feed/rss/",
+          "http": 200,
+          "items": 10,
+          "detail": "dernier 2026-11-20 13:39+01"
+        },
+        {
+          "id": "pref40-communiques-2026",
+          "provenance": "Prefecture des Landes, salle de presse (institution)",
+          "url": "https://www.landes.gouv.fr/Actualites/Salle-de-presse/Communiques-de-presse/2026",
+          "http": 200,
+          "items": 10,
+          "detail": "actualités datées (21/11 au 07/10/2026)"
+        }
+      ],
+      "ecartes": [
+        {
+          "url": "https://www.landes.gouv.fr/rss",
+          "http": 200,
+          "items": 0,
+          "detail": "flux vide, 0 item"
+        },
+        {
+          "url": "https://www.landes.gouv.fr/syndication/flux/rss_feed_66",
+          "http": 200,
+          "items": 0,
+          "detail": "flux vide, 0 item"
+        },
+        {
+          "url": "https://www.landes.gouv.fr/syndication/flux/rss_feed_69",
+          "http": 200,
+          "items": 0,
+          "detail": "flux vide, 0 item"
+        },
+        {
+          "url": "https://www.landes.fr/actualites",
+          "http": 403,
+          "detail": "Cloudflare"
+        },
+        {
+          "url": "https://www.xlandes-info.fr/actualites",
+          "http": 200,
+          "detail": "page botstopper sans articles"
+        }
+      ]
+    },
+    "47": {
+      "nom": "Lot-et-Garonne",
+      "retenues": [
+        {
+          "id": "presse-ladepeche-47",
+          "provenance": "La Depeche du Midi, rubrique Lot-et-Garonne (presse locale)",
+          "url": "https://www.ladepeche.fr/communes/lot-et-garonne,47/rss.xml",
+          "http": 200,
+          "items": 25,
+          "detail": "dernier 2026-11-21 16:51+01"
+        },
+        {
+          "id": "presse-republicain-47",
+          "provenance": "Le Republicain Lot-et-Garonne sur actu.fr (presse locale)",
+          "url": "https://actu.fr/le-republicain-lot-et-garonne/rss.xml",
+          "http": 200,
+          "items": 20,
+          "detail": "dernier 2026-11-21 14:56+01"
+        },
+        {
+          "id": "cd47-actualites-rss",
+          "provenance": "Conseil departemental de Lot-et-Garonne (institution)",
+          "url": "https://www.lotetgaronne.fr/actualites/rss",
+          "http": 200,
+          "items": 12,
+          "detail": "dernier 2026-11-20T14:42:57Z"
+        },
+        {
+          "id": "pref47-dernieres-infos",
+          "provenance": "Prefecture de Lot-et-Garonne, dernieres informations (institution)",
+          "url": "https://www.lot-et-garonne.gouv.fr/Actualites/Dernieres-informations",
+          "http": 200,
+          "items": 11,
+          "detail": "dates distinctes visibles"
+        }
+      ],
+      "ecartes": [
+        {
+          "url": "https://www.lot-et-garonne.gouv.fr/rss",
+          "http": 200,
+          "items": 0,
+          "detail": "flux vide, 0 item"
+        },
+        {
+          "url": "https://www.lot-et-garonne.gouv.fr/syndication/flux/rss_feed_66",
+          "http": 200,
+          "items": 0,
+          "detail": "flux vide, 0 item"
+        },
+        {
+          "url": "https://www.lot-et-garonne.gouv.fr/syndication/flux/rss_feed_69",
+          "http": 200,
+          "items": 0,
+          "detail": "flux vide, 0 item"
+        },
+        {
+          "url": "https://www.petitbleu.fr/",
+          "http": 200,
+          "detail": "page d accueil non retenue : pas de flux ni de rubrique departementale ciblee"
+        }
+      ]
+    },
+    "23": {
+      "nom": "Creuse",
+      "retenues": [
+        {
+          "id": "presse-ici-creuse",
+          "provenance": "ICI Creuse, radio locale (presse locale)",
+          "url": "https://www.ici.fr/rss/creuse/a-la-une.xml",
+          "http": 200,
+          "items": 40,
+          "detail": "dernier 2026-11-21 16:53+01"
+        },
+        {
+          "id": "presse-france3-creuse",
+          "provenance": "France 3 Nouvelle-Aquitaine, rubrique Creuse (presse locale)",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/rss",
+          "http": 200,
+          "items": 30,
+          "detail": "dernier 2026-11-18 15:43+01"
+        },
+        {
+          "id": "pref23-actualites",
+          "provenance": "Prefecture de la Creuse, actualites (institution)",
+          "url": "https://www.creuse.gouv.fr/Actualites",
+          "http": 200,
+          "items": 9,
+          "detail": "dates distinctes visibles"
+        },
+        {
+          "id": "cd23-a-la-une",
+          "provenance": "Conseil departemental de la Creuse (institution)",
+          "url": "https://www.creuse.fr/A-la-une",
+          "http": 200,
+          "items": 104,
+          "detail": "dates distinctes visibles"
+        }
+      ],
+      "ecartes": [
+        {
+          "url": "https://www.creuse.gouv.fr/syndication/flux/actualites",
+          "http": 200,
+          "items": 0,
+          "detail": "flux vide, 0 item"
+        },
+        {
+          "url": "https://www.ici.fr/rss/creuse/rubrique/infos.xml",
+          "http": 200,
+          "items": 20,
+          "detail": "doublon thematique avec a-la-une, non retenu"
+        }
+      ]
+    },
+    "19": {
+      "nom": "Correze",
+      "retenues": [
+        {
+          "id": "presse-france3-correze",
+          "provenance": "France 3 Nouvelle-Aquitaine, rubrique Correze (presse locale)",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/rss",
+          "http": 200,
+          "items": 30,
+          "detail": "dernier 2026-11-20 18:33+01"
+        },
+        {
+          "id": "pref19-actualites-rss",
+          "provenance": "Prefecture de la Correze, flux Actualites (institution)",
+          "url": "https://www.correze.gouv.fr/syndication/flux/rss_feed_62",
+          "http": 200,
+          "items": 20,
+          "detail": "dernier 2026-11-21 15:53 UTC"
+        },
+        {
+          "id": "presse-lamontagne-correze",
+          "provenance": "La Montagne, rubrique Correze (presse locale)",
+          "url": "https://www.lamontagne.fr/correze",
+          "http": 200,
+          "items": 3,
+          "detail": "dates distinctes visibles"
+        },
+        {
+          "id": "presse-ici-limousin-infos",
+          "provenance": "ICI Limousin, rubrique Infos (presse locale couvrant la Correze)",
+          "url": "https://www.ici.fr/rss/limousin/rubrique/infos.xml",
+          "http": 200,
+          "items": 20,
+          "detail": "dernier 2026-11-21 16:52+01"
+        }
+      ],
+      "ecartes": [
+        {
+          "url": "https://www.correze.gouv.fr/syndication/flux/actualites",
+          "http": 200,
+          "items": 0,
+          "detail": "flux vide, 0 item"
+        },
+        {
+          "url": "https://www.correze.gouv.fr/syndication/flux/presse",
+          "http": 200,
+          "items": 3,
+          "detail": "dont deux de 2010/2015 — non retenu"
+        },
+        {
+          "url": "https://www.correze.fr/actualites/",
+          "http": 404,
+          "detail": "404"
+        },
+        {
+          "url": "https://www.sportmag.fr/category/nouvelle-aquitaine/correze/feed/",
+          "http": 200,
+          "items": 10,
+          "detail": "theme sportif uniquement"
+        }
+      ]
+    }
+  },
+  "dejaPresent": "sudouest.fr/landes/rss.xml (presse-sudouest-landes), sudouest.fr/lot-et-garonne/rss.xml (presse-sudouest-lot-et-garonne) et les flux gn-40/47/23/19 (db/migrate-037-sources-presse-ciblee.sql) existaient deja et n'ont pas ete reajoutes."
+}
