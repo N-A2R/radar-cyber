@@ -28375,7 +28375,28 @@
 				"entitySource": "sirene",
 				"entityCode": "993593631"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice est un commentaire de fuite (« Who is the real Bad Guys here? ») ; l'org THE GUYS (Mignaloux-Beauvoir) n'est liée que par les jetons « the guys » du commentaire.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=993593631&per_page=1&page=1 — SIREN 993593631",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"993593631\",\"nomComplet\":\"THE GUYS\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"MIGNALOUX-BEAUVOIR\",\"cpSiege\":\"86550\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=993593631&per_page=1&page=1 — SIREN 993593631",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"993593631\",\"nomComplet\":\"THE GUYS\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"MIGNALOUX-BEAUVOIR\",\"cpSiege\":\"86550\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:26Z"
+			}
 		},
 		{
 			"ordre": 452,
@@ -28409,7 +28430,28 @@
 				"entitySource": "sirene",
 				"entityCode": "108409699"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice « ConForm Automotive » désigne une entité à deux jetons ; l'org ST AUTOMOTIVE SERVICE (Anglet) ne partage que « automotive », « conform » absent.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=108409699&per_page=1&page=1 — SIREN 108409699",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"108409699\",\"nomComplet\":\"ST AUTOMOTIVE SERVICE\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"ANGLET\",\"cpSiege\":\"64600\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=108409699&per_page=1&page=1 — SIREN 108409699",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"108409699\",\"nomComplet\":\"ST AUTOMOTIVE SERVICE\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"ANGLET\",\"cpSiege\":\"64600\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:26Z"
+			}
 		},
 		{
 			"ordre": 453,
@@ -28443,7 +28485,28 @@
 				"entitySource": "sirene",
 				"entityCode": "498614023"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "indecidable",
+				"motif": "L'indice « North Island » égale le nom de l'org NORTH ISLAND (Bruges) mais sans domaine ni site rien ne tranche ce que la revendication Spook désigne.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=498614023&per_page=1&page=1 — SIREN 498614023",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"498614023\",\"nomComplet\":\"NORTH ISLAND\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"BRUGES\",\"cpSiege\":\"33520\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=498614023&per_page=1&page=1 — SIREN 498614023",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"498614023\",\"nomComplet\":\"NORTH ISLAND\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"BRUGES\",\"cpSiege\":\"33520\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:26Z"
+			}
 		},
 		{
 			"ordre": 454,
@@ -28477,7 +28540,28 @@
 				"entitySource": "sirene",
 				"entityCode": "918563438"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice « Law Office of Michael H Joseph » désigne un cabinet californien ; l'org L'OFFICE [LAW OFFICE] (Bordeaux) ne partage que « law office », « michael joseph » absent.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=918563438&per_page=1&page=1 — SIREN 918563438",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"918563438\",\"nomComplet\":\"L'OFFICE [LAW OFFICE] (L'OFFICE LAW OFFICE)\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"BORDEAUX\",\"cpSiege\":\"33000\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=918563438&per_page=1&page=1 — SIREN 918563438",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"918563438\",\"nomComplet\":\"L'OFFICE [LAW OFFICE] (L'OFFICE LAW OFFICE)\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"BORDEAUX\",\"cpSiege\":\"33000\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:26Z"
+			}
 		},
 		{
 			"ordre": 455,
@@ -28511,7 +28595,28 @@
 				"entitySource": "sirene",
 				"entityCode": "528491004"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice « Concord Orthopaedics » désigne une entité à deux jetons ; l'org CONCORD (Bordeaux) ne partage que « concord », « orthopaedics » absent.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=528491004&per_page=1&page=1 — SIREN 528491004",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"528491004\",\"nomComplet\":\"CONCORD\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"BORDEAUX\",\"cpSiege\":\"33300\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=528491004&per_page=1&page=1 — SIREN 528491004",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"528491004\",\"nomComplet\":\"CONCORD\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"BORDEAUX\",\"cpSiege\":\"33300\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:26Z"
+			}
 		},
 		{
 			"ordre": 456,
@@ -28545,7 +28650,28 @@
 				"entitySource": "sirene",
 				"entityCode": "932759020"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "indecidable",
+				"motif": "L'indice « Jones » est un patronyme ambigu sans domaine ni site ; registre : JONES à Lège-Cap-Ferret (hôtel) — rien ne tranche ce que la revendication BianLian désigne.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=932759020&per_page=1&page=1 — SIREN 932759020",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"932759020\",\"nomComplet\":\"JONES\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"LEGE-CAP-FERRET\",\"cpSiege\":\"33950\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=932759020&per_page=1&page=1 — SIREN 932759020",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"932759020\",\"nomComplet\":\"JONES\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"LEGE-CAP-FERRET\",\"cpSiege\":\"33950\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:26Z"
+			}
 		},
 		{
 			"ordre": 457,
@@ -28579,7 +28705,28 @@
 				"entitySource": "sirene",
 				"entityCode": "849577861"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice désigne l'Eastern Cape Gambling Board (Afrique du Sud) ; l'org THE 10 COMPANY (Lee, 64) n'est liée que par le jeton générique « company » du commentaire.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=849577861&per_page=1&page=1 — SIREN 849577861",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"849577861\",\"nomComplet\":\"THE 10 COMPANY\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"LEE\",\"cpSiege\":\"64320\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=849577861&per_page=1&page=1 — SIREN 849577861",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"849577861\",\"nomComplet\":\"THE 10 COMPANY\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"LEE\",\"cpSiege\":\"64320\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:26Z"
+			}
 		},
 		{
 			"ordre": 458,
@@ -28613,7 +28760,28 @@
 				"entitySource": "sirene",
 				"entityCode": "102460201"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice « Indonesia Power » désigne l'utility indonésienne ; l'org MP POWER (Labenne) ne partage que « power », « indonesia » absent.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=102460201&per_page=1&page=1 — SIREN 102460201",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"102460201\",\"nomComplet\":\"MP POWER\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"LABENNE\",\"cpSiege\":\"40530\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=102460201&per_page=1&page=1 — SIREN 102460201",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"102460201\",\"nomComplet\":\"MP POWER\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"LABENNE\",\"cpSiege\":\"40530\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:26Z"
+			}
 		},
 		{
 			"ordre": 459,
@@ -28647,7 +28815,28 @@
 				"entitySource": "sirene",
 				"entityCode": "412759508"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "indecidable",
+				"motif": "L'indice « Apex » est un mot commun ambigu ; registre : APEX à La Rochelle (68.10Z) — rien ne tranche ce que la revendication BlackByte désigne.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=412759508&per_page=1&page=1 — SIREN 412759508",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"412759508\",\"nomComplet\":\"APEX\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"LA ROCHELLE\",\"cpSiege\":\"17000\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=412759508&per_page=1&page=1 — SIREN 412759508",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"412759508\",\"nomComplet\":\"APEX\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"LA ROCHELLE\",\"cpSiege\":\"17000\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:26Z"
+			}
 		},
 		{
 			"ordre": 460,
@@ -28681,7 +28870,28 @@
 				"entitySource": "sirene",
 				"entityCode": "801285768"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice « The International School of Management » désigne une école américaine ; l'org INTERNATIONAL SCHOOL 33 (Gradignan) partage « international school » mais « of management » et « 33 » diffèrent — noms différents.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=801285768&per_page=1&page=1 — SIREN 801285768",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"801285768\",\"nomComplet\":\"INTERNATIONAL SCHOOL 33 (IS 33)\",\"sigle\":\"IS 33\",\"etatAdministratif\":\"A\",\"communeSiege\":\"GRADIGNAN\",\"cpSiege\":\"33170\",\"activitePrincipale\":null,\"trancheEffectif\":\"12\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=801285768&per_page=1&page=1 — SIREN 801285768",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"801285768\",\"nomComplet\":\"INTERNATIONAL SCHOOL 33 (IS 33)\",\"sigle\":\"IS 33\",\"etatAdministratif\":\"A\",\"communeSiege\":\"GRADIGNAN\",\"cpSiege\":\"33170\",\"activitePrincipale\":null,\"trancheEffectif\":\"12\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:26Z"
+			}
 		},
 		{
 			"ordre": 461,
@@ -28715,7 +28925,28 @@
 				"entitySource": "sirene",
 				"entityCode": "102460201"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice « Tata Power » désigne l'utility indienne ; l'org MP POWER (Labenne) ne partage que « power », « tata » absent.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=102460201&per_page=1&page=1 — SIREN 102460201",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"102460201\",\"nomComplet\":\"MP POWER\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"LABENNE\",\"cpSiege\":\"40530\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=102460201&per_page=1&page=1 — SIREN 102460201",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"102460201\",\"nomComplet\":\"MP POWER\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"LABENNE\",\"cpSiege\":\"40530\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:26Z"
+			}
 		},
 		{
 			"ordre": 462,
@@ -28749,7 +28980,28 @@
 				"entitySource": "sirene",
 				"entityCode": "909234924"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "indecidable",
+				"motif": "L'indice « Genea » égale le nom de l'org GENEA (La Teste-de-Buch) mais sans domaine ni site rien ne tranche ce que la revendication Termite désigne.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=909234924&per_page=1&page=1 — SIREN 909234924",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"909234924\",\"nomComplet\":\"GENEA\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"LA TESTE-DE-BUCH\",\"cpSiege\":\"33260\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=909234924&per_page=1&page=1 — SIREN 909234924",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"909234924\",\"nomComplet\":\"GENEA\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"LA TESTE-DE-BUCH\",\"cpSiege\":\"33260\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:26Z"
+			}
 		},
 		{
 			"ordre": 463,
@@ -28783,7 +29035,46 @@
 				"entitySource": "sirene",
 				"entityCode": "820433027"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "wartsila.com est Wärtsilä (marine et énergie, Finlande) ; l'org MORE AND MORE... (association Rochefort) n'est liée que par le jeton « more » du commentaire.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=820433027&per_page=1&page=1 — SIREN 820433027",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"820433027\",\"nomComplet\":\"MORE AND MORE...\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"ROCHEFORT\",\"cpSiege\":\"17300\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": {
+					"url": "https://www.wartsila.com/",
+					"demande": "https://wartsila.com",
+					"statutHttp": 200,
+					"erreur": null,
+					"titre": "The global leader in innovative technologies and lifecycle solutions for the marine and energy markets | Wärtsilä",
+					"nomSite": null,
+					"description": "Wärtsilä is a global leader in innovative technologies and lifecycle solutions for the marine and energy markets",
+					"extrait": "The global leader in innovative technologies and lifecycle solutions for the marine and energy markets | Wärtsilä Home Energy Marine Company Insights Wärtsilä Portals Shaping the decarbonisation of marine and energy Our everyday lives depend on a steady supply of electricity and goods shipped to us from across the world. Yet, marine and energy generate over a third of global greenhouse gases. That’s why we’re shaping the decarbonisation of marine and energy. About us 2050 net-zero target year for shipping and energy 180 countries with our energy installations 110,000 vessels sailing worldwide,"
+				},
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=820433027&per_page=1&page=1 — SIREN 820433027",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"820433027\",\"nomComplet\":\"MORE AND MORE...\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"ROCHEFORT\",\"cpSiege\":\"17300\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": {
+					"url": "https://www.wartsila.com/",
+					"demande": "https://wartsila.com",
+					"statutHttp": 200,
+					"erreur": null,
+					"titre": "The global leader in innovative technologies and lifecycle solutions for the marine and energy markets | Wärtsilä",
+					"nomSite": null,
+					"description": "Wärtsilä is a global leader in innovative technologies and lifecycle solutions for the marine and energy markets",
+					"extrait": "The global leader in innovative technologies and lifecycle solutions for the marine and energy markets | Wärtsilä Home Energy Marine Company Insights Wärtsilä Portals Shaping the decarbonisation of marine and energy Our everyday lives depend on a steady supply of electricity and goods shipped to us from across the world. Yet, marine and energy generate over a third of global greenhouse gases. That’s why we’re shaping the decarbonisation of marine and energy. About us 2050 net-zero target year for shipping and energy 180 countries with our energy installations 110,000 vessels sailing worldwide,"
+				},
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:27Z"
+			}
 		},
 		{
 			"ordre": 464,
@@ -28817,7 +29108,28 @@
 				"entitySource": "sirene",
 				"entityCode": "493838205"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice « Diamond Box » désigne une entité à deux jetons ; l'org DIAMOND (Chasseneuil-du-Poitou) ne partage que « diamond », « box » absent.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=493838205&per_page=1&page=1 — SIREN 493838205",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"493838205\",\"nomComplet\":\"DIAMOND\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"CHASSENEUIL-DU-POITOU\",\"cpSiege\":\"86360\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=493838205&per_page=1&page=1 — SIREN 493838205",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"493838205\",\"nomComplet\":\"DIAMOND\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"CHASSENEUIL-DU-POITOU\",\"cpSiege\":\"86360\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:26Z"
+			}
 		},
 		{
 			"ordre": 465,
@@ -28851,7 +29163,28 @@
 				"entitySource": "sirene",
 				"entityCode": "442341871"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice « C???e????? ????????????? » est un nom masqué de ~30 caractères en deux mots ; l'org C E (Ribérac, 2 lettres) ne peut pas correspondre — artefact de masquage.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=442341871&per_page=1&page=1 — SIREN 442341871",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"442341871\",\"nomComplet\":\"C E\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"RIBERAC\",\"cpSiege\":\"24600\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=442341871&per_page=1&page=1 — SIREN 442341871",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"442341871\",\"nomComplet\":\"C E\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"RIBERAC\",\"cpSiege\":\"24600\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:26Z"
+			}
 		},
 		{
 			"ordre": 466,
@@ -28885,7 +29218,28 @@
 				"entitySource": "sirene",
 				"entityCode": "849577861"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice « The Plastic Forming Company » désigne une entité à quatre jetons ; l'org THE 10 COMPANY (Lee, 64) ne partage que les jetons génériques « the company ».",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=849577861&per_page=1&page=1 — SIREN 849577861",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"849577861\",\"nomComplet\":\"THE 10 COMPANY\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"LEE\",\"cpSiege\":\"64320\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=849577861&per_page=1&page=1 — SIREN 849577861",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"849577861\",\"nomComplet\":\"THE 10 COMPANY\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"LEE\",\"cpSiege\":\"64320\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:26Z"
+			}
 		},
 		{
 			"ordre": 467,
@@ -28919,7 +29273,28 @@
 				"entitySource": "sirene",
 				"entityCode": "994579423"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice « Capital Trade » désigne une entité à deux jetons ; l'org RC CAPITAL (Bordeaux) ne partage que « capital », « trade » absent.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=994579423&per_page=1&page=1 — SIREN 994579423",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"994579423\",\"nomComplet\":\"RC CAPITAL\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"BORDEAUX\",\"cpSiege\":\"33200\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=994579423&per_page=1&page=1 — SIREN 994579423",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"994579423\",\"nomComplet\":\"RC CAPITAL\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"BORDEAUX\",\"cpSiege\":\"33200\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:26Z"
+			}
 		},
 		{
 			"ordre": 468,
@@ -28953,7 +29328,28 @@
 				"entitySource": "sirene",
 				"entityCode": "380331975"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "indecidable",
+				"motif": "L'indice « Oakland » est un toponyme ambigu ; registre : OAKLAND à Valence-en-Poitou (46.49Z) — rien ne tranche ce que la revendication Play désigne.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=380331975&per_page=1&page=1 — SIREN 380331975",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"380331975\",\"nomComplet\":\"OAKLAND\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"VALENCE-EN-POITOU\",\"cpSiege\":\"86700\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=380331975&per_page=1&page=1 — SIREN 380331975",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"380331975\",\"nomComplet\":\"OAKLAND\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"VALENCE-EN-POITOU\",\"cpSiege\":\"86700\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:26Z"
+			}
 		},
 		{
 			"ordre": 469,
@@ -28987,7 +29383,46 @@
 				"entitySource": "sirene",
 				"entityCode": "820433027"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "bafnagroup.com est Bafna Group ; l'org MORE AND MORE... (association Rochefort) n'est liée que par le jeton « more » du commentaire.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=820433027&per_page=1&page=1 — SIREN 820433027",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"820433027\",\"nomComplet\":\"MORE AND MORE...\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"ROCHEFORT\",\"cpSiege\":\"17300\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": {
+					"url": "https://bafnagroup.com/",
+					"demande": "https://bafnagroup.com",
+					"statutHttp": 200,
+					"erreur": null,
+					"titre": "Bafna Group",
+					"nomSite": null,
+					"description": null,
+					"extrait": "Bafna Group"
+				},
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=820433027&per_page=1&page=1 — SIREN 820433027",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"820433027\",\"nomComplet\":\"MORE AND MORE...\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"ROCHEFORT\",\"cpSiege\":\"17300\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": {
+					"url": "https://bafnagroup.com/",
+					"demande": "https://bafnagroup.com",
+					"statutHttp": 200,
+					"erreur": null,
+					"titre": "Bafna Group",
+					"nomSite": null,
+					"description": null,
+					"extrait": "Bafna Group"
+				},
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:28Z"
+			}
 		},
 		{
 			"ordre": 470,
@@ -29021,7 +29456,28 @@
 				"entitySource": null,
 				"entityCode": null
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice « Noyen Construction » désigne une entité à deux jetons ; l'org HD CONSTRUCTION (Niort) ne partage que le jeton générique « construction », « noyen » absent.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=383533296&per_page=1&page=1 — SIREN 383533296",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"383533296\",\"nomComplet\":\"HD CONSTRUCTION\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"NIORT\",\"cpSiege\":\"79000\",\"activitePrincipale\":null,\"trancheEffectif\":\"01\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=383533296&per_page=1&page=1 — SIREN 383533296",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"383533296\",\"nomComplet\":\"HD CONSTRUCTION\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"NIORT\",\"cpSiege\":\"79000\",\"activitePrincipale\":null,\"trancheEffectif\":\"01\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:27Z"
+			}
 		},
 		{
 			"ordre": 471,
@@ -29055,7 +29511,46 @@
 				"entitySource": "exa-manques",
 				"entityCode": "853000982"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "indecidable",
+				"motif": "L'indice « AKTO » égale le nom au registre (AKTO, Paris 19e, état A) et le site de l'org (akto.fr) confirme l'OPCO ; sans indice côté revendication (pas de domaine, pas de site à confronter), l'homonymie ne peut pas être écartée.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=853000982&per_page=1&page=1 — code d'entité 853000982 (exa-manques)",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"853000982\",\"nomComplet\":\"AKTO\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"PARIS\",\"cpSiege\":\"75019\",\"activitePrincipale\":null,\"trancheEffectif\":\"42\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": {
+					"url": "https://www.akto.fr/",
+					"demande": "https://akto.fr",
+					"statutHttp": 200,
+					"erreur": null,
+					"titre": "AKTO - OPCO partenaire de vos projets emploi et formation !",
+					"nomSite": "AKTO",
+					"description": "A​KTO accompagne les entreprises des services à haute intensité de main d'oeuvre en faveur de leurs projets RH formation, recrutements etc",
+					"extrait": "AKTO - OPCO partenaire de vos projets emploi et formation ! Observatoire des Métiers Espace Formation Mon Espace Entreprise Anticiper mes besoins Réaliser mon diagnostic Préparer mes entretiens de parcours professionnel Planifier mes besoins sur l'année Attirer et recruter Faire connaître mes métiers Recruter en alternance avec AKTO Recruter de nouveaux salariés Développer les compétences Développer les compétences de base Former les salariés de mon entreprise Certifier les compétences Accompagner un salarié en situation de handicap Financer Connaître la prise en charge d'AKTO Déposer une dema"
+				},
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=853000982&per_page=1&page=1 — code d'entité 853000982 (exa-manques)",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"853000982\",\"nomComplet\":\"AKTO\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"PARIS\",\"cpSiege\":\"75019\",\"activitePrincipale\":null,\"trancheEffectif\":\"42\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": {
+					"url": "https://www.akto.fr/",
+					"demande": "https://akto.fr",
+					"statutHttp": 200,
+					"erreur": null,
+					"titre": "AKTO - OPCO partenaire de vos projets emploi et formation !",
+					"nomSite": "AKTO",
+					"description": "A​KTO accompagne les entreprises des services à haute intensité de main d'oeuvre en faveur de leurs projets RH formation, recrutements etc",
+					"extrait": "AKTO - OPCO partenaire de vos projets emploi et formation ! Observatoire des Métiers Espace Formation Mon Espace Entreprise Anticiper mes besoins Réaliser mon diagnostic Préparer mes entretiens de parcours professionnel Planifier mes besoins sur l'année Attirer et recruter Faire connaître mes métiers Recruter en alternance avec AKTO Recruter de nouveaux salariés Développer les compétences Développer les compétences de base Former les salariés de mon entreprise Certifier les compétences Accompagner un salarié en situation de handicap Financer Connaître la prise en charge d'AKTO Déposer une dema"
+				},
+				"le": "2026-11-21T03:34:28Z"
+			}
 		},
 		{
 			"ordre": 472,
@@ -29089,7 +29584,28 @@
 				"entitySource": "sirene",
 				"entityCode": "984603159"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "indecidable",
+				"motif": "L'indice « Terra Energy » couvre les jetons de l'org TERRA ENERGY 87 (Saint-Hilaire-les-Places) au suffixe de département près : identité plausible mais aucun domaine ni site pour la confirmer.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=984603159&per_page=1&page=1 — SIREN 984603159",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"984603159\",\"nomComplet\":\"TERRA ENERGY 87\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"SAINT-HILAIRE-LES-PLACES\",\"cpSiege\":\"87800\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=984603159&per_page=1&page=1 — SIREN 984603159",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"984603159\",\"nomComplet\":\"TERRA ENERGY 87\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"SAINT-HILAIRE-LES-PLACES\",\"cpSiege\":\"87800\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:31Z"
+			}
 		},
 		{
 			"ordre": 473,
@@ -29123,7 +29639,28 @@
 				"entitySource": "sirene",
 				"entityCode": "921488144"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice « Summit Appliance » désigne une entité à deux jetons ; l'org SUMMIT (Bordeaux, fonds de placement) ne partage que « summit », « appliance » absent.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=921488144&per_page=1&page=1 — SIREN 921488144",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"921488144\",\"nomComplet\":\"SUMMIT\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"BORDEAUX\",\"cpSiege\":\"33000\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=921488144&per_page=1&page=1 — SIREN 921488144",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"921488144\",\"nomComplet\":\"SUMMIT\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"BORDEAUX\",\"cpSiege\":\"33000\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:27Z"
+			}
 		},
 		{
 			"ordre": 474,
@@ -29157,7 +29694,28 @@
 				"entitySource": "sirene",
 				"entityCode": "432041382"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice « C******* **N*** » est un nom masqué de ~15 caractères en deux mots ; l'org C.N (Confolens, 2 lettres) ne peut pas correspondre — artefact de masquage.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=432041382&per_page=1&page=1 — SIREN 432041382",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"432041382\",\"nomComplet\":\"C.N\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"CONFOLENS\",\"cpSiege\":\"16500\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=432041382&per_page=1&page=1 — SIREN 432041382",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"432041382\",\"nomComplet\":\"C.N\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"CONFOLENS\",\"cpSiege\":\"16500\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:27Z"
+			}
 		},
 		{
 			"ordre": 475,
@@ -29191,7 +29749,46 @@
 				"entitySource": "sirene",
 				"entityCode": "341163764"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "auto-pieces.fr est le site d'AUTO PIÈCES à Reims (casse automobile agréée) ; l'org PIECES AUTO SERVICE (La Teste-de-Buch) est un homonyme d'un autre territoire — le domaine appartient à l'entreprise rémoise.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=341163764&per_page=1&page=1 — SIREN 341163764",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"341163764\",\"nomComplet\":\"PIECES AUTO SERVICE\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"LA TESTE-DE-BUCH\",\"cpSiege\":\"33260\",\"activitePrincipale\":null,\"trancheEffectif\":\"00\"}"
+				},
+				"siteIndice": {
+					"url": "https://www.auto-pieces.fr/",
+					"demande": "https://auto-pieces.fr",
+					"statutHttp": 200,
+					"erreur": null,
+					"titre": "Casse automobile : un professionnel agréé à Reims | AUTO PIÈCES",
+					"nomSite": null,
+					"description": "Notre entreprise AUTO PIÈCES, située à Reims dans le département de la Marne vous accueille du lundi au vendredi au sein de notre casse automobile.",
+					"extrait": "Casse automobile : un professionnel agréé à Reims | AUTO PIÈCES Accueil Achat de pièces d'occasion Destruction de véhicules Pièces détachées Centre de montage Contact APPELEZ-NOUS Casse automobile - Centre VHU agréé AUTO PI&Egrave;CES à Reims Nous mettons notre expérience à votre service pour vous offrir une prestation de qualité CONTACTEZ-NOUS Casse auto : votre centre de destruction automobile Casse automobile agréée : destruction de véhicules Depuis en 1979, AUTO PI&Egrave;CES, à Reims dans le département de la Marne (51), vous propose ses prestations dans les domaines de la destruction de "
+				},
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=341163764&per_page=1&page=1 — SIREN 341163764",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"341163764\",\"nomComplet\":\"PIECES AUTO SERVICE\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"LA TESTE-DE-BUCH\",\"cpSiege\":\"33260\",\"activitePrincipale\":null,\"trancheEffectif\":\"00\"}"
+				},
+				"siteIndice": {
+					"url": "https://www.auto-pieces.fr/",
+					"demande": "https://auto-pieces.fr",
+					"statutHttp": 200,
+					"erreur": null,
+					"titre": "Casse automobile : un professionnel agréé à Reims | AUTO PIÈCES",
+					"nomSite": null,
+					"description": "Notre entreprise AUTO PIÈCES, située à Reims dans le département de la Marne vous accueille du lundi au vendredi au sein de notre casse automobile.",
+					"extrait": "Casse automobile : un professionnel agréé à Reims | AUTO PIÈCES Accueil Achat de pièces d'occasion Destruction de véhicules Pièces détachées Centre de montage Contact APPELEZ-NOUS Casse automobile - Centre VHU agréé AUTO PI&Egrave;CES à Reims Nous mettons notre expérience à votre service pour vous offrir une prestation de qualité CONTACTEZ-NOUS Casse auto : votre centre de destruction automobile Casse automobile agréée : destruction de véhicules Depuis en 1979, AUTO PI&Egrave;CES, à Reims dans le département de la Marne (51), vous propose ses prestations dans les domaines de la destruction de "
+				},
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:28Z"
+			}
 		},
 		{
 			"ordre": 476,
@@ -29225,7 +29822,28 @@
 				"entitySource": "sirene",
 				"entityCode": "890433436"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice « Cortez Resources » désigne une entité à deux jetons ; l'org LP CONSULTING & RESOURCES (Aigondigné) ne partage que « resources », « cortez » absent.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=890433436&per_page=1&page=1 — SIREN 890433436",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"890433436\",\"nomComplet\":\"LP CONSULTING & RESOURCES (LP CONSULTING & RESOURCES)\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"AIGONDIGNE\",\"cpSiege\":\"79370\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=890433436&per_page=1&page=1 — SIREN 890433436",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"890433436\",\"nomComplet\":\"LP CONSULTING & RESOURCES (LP CONSULTING & RESOURCES)\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"AIGONDIGNE\",\"cpSiege\":\"79370\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:27Z"
+			}
 		},
 		{
 			"ordre": 477,
@@ -29259,7 +29877,28 @@
 				"entitySource": "sirene",
 				"entityCode": "399229913"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice « D*** » est un nom masqué de 4 caractères ; l'org D (Mérignac, 1 lettre) ne peut pas correspondre — artefact de masquage.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=399229913&per_page=1&page=1 — SIREN 399229913",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"399229913\",\"nomComplet\":\"D\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"MERIGNAC\",\"cpSiege\":\"33700\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=399229913&per_page=1&page=1 — SIREN 399229913",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"399229913\",\"nomComplet\":\"D\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"MERIGNAC\",\"cpSiege\":\"33700\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:28Z"
+			}
 		},
 		{
 			"ordre": 478,
@@ -29293,7 +29932,28 @@
 				"entitySource": "sirene",
 				"entityCode": "813768249"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice « pro office Büro + Wohnkultur GmbH » désigne une société allemande ; l'org PRO OFFICE SOLUTIONS (Limoges) ne partage que « pro office », le reste du nom désigné absent.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=813768249&per_page=1&page=1 — SIREN 813768249",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"813768249\",\"nomComplet\":\"PRO OFFICE SOLUTIONS (SASU PRO OFFICE SOLUTIONS)\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"LIMOGES\",\"cpSiege\":\"87100\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=813768249&per_page=1&page=1 — SIREN 813768249",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"813768249\",\"nomComplet\":\"PRO OFFICE SOLUTIONS (SASU PRO OFFICE SOLUTIONS)\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"LIMOGES\",\"cpSiege\":\"87100\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:28Z"
+			}
 		},
 		{
 			"ordre": 479,
@@ -29327,7 +29987,28 @@
 				"entitySource": "sirene",
 				"entityCode": "834910531"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice « Telecom Namibia » désigne l'opérateur namibien ; l'org AM-TELECOM (Anglet) ne partage que « telecom », « namibia » absent.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=834910531&per_page=1&page=1 — SIREN 834910531",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"834910531\",\"nomComplet\":\"AM-TELECOM (AM-TELECOM)\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"ANGLET\",\"cpSiege\":\"64600\",\"activitePrincipale\":null,\"trancheEffectif\":\"11\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=834910531&per_page=1&page=1 — SIREN 834910531",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"834910531\",\"nomComplet\":\"AM-TELECOM (AM-TELECOM)\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"ANGLET\",\"cpSiege\":\"64600\",\"activitePrincipale\":null,\"trancheEffectif\":\"11\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:28Z"
+			}
 		},
 		{
 			"ordre": 480,
@@ -29361,7 +30042,28 @@
 				"entitySource": "sirene",
 				"entityCode": "453637837"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "indecidable",
+				"motif": "L'indice « Brandao » est un patronyme ambigu ; registre : BRANDAO à Sainte-Eulalie-en-Born (épicerie) — rien ne tranche ce que la revendication 8base désigne.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=453637837&per_page=1&page=1 — SIREN 453637837",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"453637837\",\"nomComplet\":\"BRANDAO\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"SAINTE-EULALIE-EN-BORN\",\"cpSiege\":\"40200\",\"activitePrincipale\":null,\"trancheEffectif\":\"01\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=453637837&per_page=1&page=1 — SIREN 453637837",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"453637837\",\"nomComplet\":\"BRANDAO\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"SAINTE-EULALIE-EN-BORN\",\"cpSiege\":\"40200\",\"activitePrincipale\":null,\"trancheEffectif\":\"01\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:28Z"
+			}
 		},
 		{
 			"ordre": 481,
@@ -29395,7 +30097,28 @@
 				"entitySource": "sirene",
 				"entityCode": "103246211"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice « Saint Jean Industries » désigne le groupe d'ingénierie ; l'org LE SAINT JEAN (Lussat) ne partage que « saint jean », « industries » absent.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=103246211&per_page=1&page=1 — SIREN 103246211",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"103246211\",\"nomComplet\":\"LE SAINT JEAN\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"LUSSAT\",\"cpSiege\":\"23170\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=103246211&per_page=1&page=1 — SIREN 103246211",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"103246211\",\"nomComplet\":\"LE SAINT JEAN\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"LUSSAT\",\"cpSiege\":\"23170\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:28Z"
+			}
 		},
 		{
 			"ordre": 482,
@@ -29429,7 +30152,28 @@
 				"entitySource": "sirene",
 				"entityCode": "403306566"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "indecidable",
+				"motif": "L'indice « Owens Group » couvre le jeton de l'org OWENS & CO (Sendets) au jeton générique « group » près ; sans domaine ni site, impossible de trancher.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=403306566&per_page=1&page=1 — SIREN 403306566",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"403306566\",\"nomComplet\":\"OWENS & CO\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"SENDETS\",\"cpSiege\":\"64320\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=403306566&per_page=1&page=1 — SIREN 403306566",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"403306566\",\"nomComplet\":\"OWENS & CO\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"SENDETS\",\"cpSiege\":\"64320\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:28Z"
+			}
 		},
 		{
 			"ordre": 483,
@@ -29463,7 +30207,28 @@
 				"entitySource": "sirene",
 				"entityCode": "488480450"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "indecidable",
+				"motif": "L'indice « Apollo » est un nom ambigu ; registre : APOLLO à Bordeaux (68.10Z) — rien ne tranche ce que la revendication Conti désigne.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=488480450&per_page=1&page=1 — SIREN 488480450",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"488480450\",\"nomComplet\":\"APOLLO\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"BORDEAUX\",\"cpSiege\":\"33000\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=488480450&per_page=1&page=1 — SIREN 488480450",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"488480450\",\"nomComplet\":\"APOLLO\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"BORDEAUX\",\"cpSiege\":\"33000\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:28Z"
+			}
 		},
 		{
 			"ordre": 484,
@@ -29497,7 +30262,28 @@
 				"entitySource": "sirene",
 				"entityCode": "513638783"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice « SBK Real Estate » désigne une entité à trois jetons ; l'org SCI EP REAL ESTATE (Bayonne) ne partage que « real estate », « sbk » absent.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=513638783&per_page=1&page=1 — SIREN 513638783",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"513638783\",\"nomComplet\":\"SCI EP REAL ESTATE\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"BAYONNE\",\"cpSiege\":\"64100\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=513638783&per_page=1&page=1 — SIREN 513638783",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"513638783\",\"nomComplet\":\"SCI EP REAL ESTATE\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"BAYONNE\",\"cpSiege\":\"64100\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:30Z"
+			}
 		},
 		{
 			"ordre": 485,
@@ -29531,7 +30317,28 @@
 				"entitySource": "sirene",
 				"entityCode": "479577785"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice « Bronzino Engineering » désigne une entité à deux jetons ; l'org SCI BRONZINO (Tonnay-Charente) ne partage que « bronzino », « engineering » absent.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=479577785&per_page=1&page=1 — SIREN 479577785",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"479577785\",\"nomComplet\":\"SCI BRONZINO\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"TONNAY-CHARENTE\",\"cpSiege\":\"17430\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=479577785&per_page=1&page=1 — SIREN 479577785",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"479577785\",\"nomComplet\":\"SCI BRONZINO\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"TONNAY-CHARENTE\",\"cpSiege\":\"17430\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:30Z"
+			}
 		},
 		{
 			"ordre": 486,
@@ -29565,7 +30372,28 @@
 				"entitySource": "sirene",
 				"entityCode": "489796011"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "indecidable",
+				"motif": "L'indice « Sabin » égale le nom de l'org SABIN (La Chapelle-Aubareil) mais sans domaine ni site rien ne tranche ce que la revendication Nokoyawa désigne.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=489796011&per_page=1&page=1 — SIREN 489796011",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"489796011\",\"nomComplet\":\"SABIN\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"LA CHAPELLE AUBAREIL\",\"cpSiege\":\"24290\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=489796011&per_page=1&page=1 — SIREN 489796011",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"489796011\",\"nomComplet\":\"SABIN\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"LA CHAPELLE AUBAREIL\",\"cpSiege\":\"24290\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:30Z"
+			}
 		},
 		{
 			"ordre": 487,
@@ -29599,7 +30427,28 @@
 				"entitySource": "sirene",
 				"entityCode": "828579425"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice désigne « Garage Living, The Dispenser USA » ; l'org THE LIVING (Toulenne) n'est liée que par les jetons « the living » du commentaire.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=828579425&per_page=1&page=1 — SIREN 828579425",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"828579425\",\"nomComplet\":\"THE LIVING\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"TOULENNE\",\"cpSiege\":\"33210\",\"activitePrincipale\":null,\"trancheEffectif\":\"00\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=828579425&per_page=1&page=1 — SIREN 828579425",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"828579425\",\"nomComplet\":\"THE LIVING\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"TOULENNE\",\"cpSiege\":\"33210\",\"activitePrincipale\":null,\"trancheEffectif\":\"00\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:29Z"
+			}
 		},
 		{
 			"ordre": 488,
@@ -29633,7 +30482,28 @@
 				"entitySource": "sirene",
 				"entityCode": "413613969"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice « CIMT College » désigne un collège canadien ; l'org SCI DU COLLEGE (Guéret) ne partage que « college », « cimt » absent.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=413613969&per_page=1&page=1 — SIREN 413613969",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"413613969\",\"nomComplet\":\"SCI DU COLLEGE\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"GUERET\",\"cpSiege\":\"23000\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=413613969&per_page=1&page=1 — SIREN 413613969",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"413613969\",\"nomComplet\":\"SCI DU COLLEGE\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"GUERET\",\"cpSiege\":\"23000\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:29Z"
+			}
 		},
 		{
 			"ordre": 489,
@@ -29667,7 +30537,28 @@
 				"entitySource": "sirene",
 				"entityCode": "830764130"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "indecidable",
+				"motif": "L'indice « Associates » est un mot commun ambigu ; registre : ASSOCIATES à Ares (70.22Z) — rien ne tranche ce que la revendication BianLian désigne.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=830764130&per_page=1&page=1 — SIREN 830764130",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"830764130\",\"nomComplet\":\"ASSOCIATES\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"ARES\",\"cpSiege\":\"33740\",\"activitePrincipale\":null,\"trancheEffectif\":\"03\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=830764130&per_page=1&page=1 — SIREN 830764130",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"830764130\",\"nomComplet\":\"ASSOCIATES\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"ARES\",\"cpSiege\":\"33740\",\"activitePrincipale\":null,\"trancheEffectif\":\"03\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:29Z"
+			}
 		},
 		{
 			"ordre": 490,
@@ -29701,7 +30592,28 @@
 				"entitySource": "sirene",
 				"entityCode": "403636335"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice « Sea Mar Community Health Centers » désigne les centres de santé de Washington State ; l'org SEA MAR (Bordeaux) ne partage que « sea mar », le reste du nom absent.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=403636335&per_page=1&page=1 — SIREN 403636335",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"403636335\",\"nomComplet\":\"SEA MAR\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"BORDEAUX\",\"cpSiege\":\"33000\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=403636335&per_page=1&page=1 — SIREN 403636335",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"403636335\",\"nomComplet\":\"SEA MAR\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"BORDEAUX\",\"cpSiege\":\"33000\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:29Z"
+			}
 		},
 		{
 			"ordre": 491,
@@ -29735,7 +30647,28 @@
 				"entitySource": "sirene",
 				"entityCode": "910264191"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice « Jahesh Innovation » désigne une entité à deux jetons ; l'org 14 INNOVATION (Bordeaux) ne partage que « innovation », « jahesh » absent.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=910264191&per_page=1&page=1 — SIREN 910264191",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"910264191\",\"nomComplet\":\"14 INNOVATION\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"BORDEAUX\",\"cpSiege\":\"33000\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=910264191&per_page=1&page=1 — SIREN 910264191",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"910264191\",\"nomComplet\":\"14 INNOVATION\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"BORDEAUX\",\"cpSiege\":\"33000\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:29Z"
+			}
 		},
 		{
 			"ordre": 492,
@@ -29769,7 +30702,28 @@
 				"entitySource": "sirene",
 				"entityCode": "831526348"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "indecidable",
+				"motif": "L'indice « ANTEL » est un sigle ambigu (opérateur uruguayen du même nom) sans domaine ni site ; registre : ANTEL à Saint-Palais-sur-Mer (64.30Z) — impossible de trancher.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=831526348&per_page=1&page=1 — SIREN 831526348",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"831526348\",\"nomComplet\":\"ANTEL\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"SAINT-PALAIS-SUR-MER\",\"cpSiege\":\"17420\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=831526348&per_page=1&page=1 — SIREN 831526348",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"831526348\",\"nomComplet\":\"ANTEL\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"SAINT-PALAIS-SUR-MER\",\"cpSiege\":\"17420\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:29Z"
+			}
 		},
 		{
 			"ordre": 493,
@@ -29803,7 +30757,28 @@
 				"entitySource": "sirene",
 				"entityCode": "501921761"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice « Inland Audio Visual » désigne une entité à trois jetons ; l'org VISUAL AUDIO (Cadaujac, association) ne partage que « visual audio », « inland » absent.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=501921761&per_page=1&page=1 — SIREN 501921761",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"501921761\",\"nomComplet\":\"VISUAL AUDIO\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"CADAUJAC\",\"cpSiege\":\"33140\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=501921761&per_page=1&page=1 — SIREN 501921761",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"501921761\",\"nomComplet\":\"VISUAL AUDIO\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"CADAUJAC\",\"cpSiege\":\"33140\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:30Z"
+			}
 		},
 		{
 			"ordre": 494,
@@ -29837,7 +30812,28 @@
 				"entitySource": "sirene",
 				"entityCode": "103308847"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice « PKF Antares » désigne un cabinet du réseau PKF ; l'org ANTARES (Saintes) ne partage que « antares », « pkf » absent.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=103308847&per_page=1&page=1 — SIREN 103308847",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"103308847\",\"nomComplet\":\"ANTARES\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"SAINTES\",\"cpSiege\":\"17100\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=103308847&per_page=1&page=1 — SIREN 103308847",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"103308847\",\"nomComplet\":\"ANTARES\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"SAINTES\",\"cpSiege\":\"17100\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:30Z"
+			}
 		},
 		{
 			"ordre": 495,
@@ -29871,7 +30867,28 @@
 				"entitySource": "sirene",
 				"entityCode": "521328369"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "indecidable",
+				"motif": "L'indice « CIMEX » est un sigle ambigu sans domaine ni site ; registre : CIMEX à Saintes (ingénierie, état A) — rien ne tranche ce que la revendication Hive désigne.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=521328369&per_page=1&page=1 — SIREN 521328369",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"521328369\",\"nomComplet\":\"CIMEX (CIMEX) (CIMEX)\",\"sigle\":\"CIMEX\",\"etatAdministratif\":\"A\",\"communeSiege\":\"SAINTES\",\"cpSiege\":\"17100\",\"activitePrincipale\":null,\"trancheEffectif\":\"01\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=521328369&per_page=1&page=1 — SIREN 521328369",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"521328369\",\"nomComplet\":\"CIMEX (CIMEX) (CIMEX)\",\"sigle\":\"CIMEX\",\"etatAdministratif\":\"A\",\"communeSiege\":\"SAINTES\",\"cpSiege\":\"17100\",\"activitePrincipale\":null,\"trancheEffectif\":\"01\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:31Z"
+			}
 		},
 		{
 			"ordre": 496,
@@ -29905,7 +30922,28 @@
 				"entitySource": "sirene",
 				"entityCode": "922500053"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice est une annonce de fuite sur « Groupe Fructa Partner » ; l'org WILL GROUPE (Chabanais) n'est liée que par les jetons « will... groupe » du commentaire.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=922500053&per_page=1&page=1 — SIREN 922500053",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"922500053\",\"nomComplet\":\"WILL GROUPE\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"CHABANAIS\",\"cpSiege\":\"16150\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=922500053&per_page=1&page=1 — SIREN 922500053",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"922500053\",\"nomComplet\":\"WILL GROUPE\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"CHABANAIS\",\"cpSiege\":\"16150\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:31Z"
+			}
 		},
 		{
 			"ordre": 497,
@@ -29939,7 +30977,28 @@
 				"entitySource": "sirene",
 				"entityCode": "814983169"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice « Bethany Hospital » désigne un hôpital ; l'org SCI DE L'HOSPITAL (Argentat-sur-Dordogne) ne partage que « hospital », « bethany » absent.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=814983169&per_page=1&page=1 — SIREN 814983169",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"814983169\",\"nomComplet\":\"SCI DE L'HOSPITAL\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"ARGENTAT-SUR-DORDOGNE\",\"cpSiege\":\"19400\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=814983169&per_page=1&page=1 — SIREN 814983169",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"814983169\",\"nomComplet\":\"SCI DE L'HOSPITAL\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"ARGENTAT-SUR-DORDOGNE\",\"cpSiege\":\"19400\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:31Z"
+			}
 		},
 		{
 			"ordre": 498,
@@ -29973,7 +31032,28 @@
 				"entitySource": "sirene",
 				"entityCode": "340369255"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "indecidable",
+				"motif": "L'indice « Sodiba » égale le sigle au registre (SODIBA, Urrugne, état C) mais sans domaine ni site rien ne tranche ce que la revendication Quantum désigne.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=340369255&per_page=1&page=1 — SIREN 340369255",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"340369255\",\"nomComplet\":\"SODIBA (SODIBA)\",\"sigle\":\"SODIBA\",\"etatAdministratif\":\"C\",\"communeSiege\":\"URRUGNE\",\"cpSiege\":\"64122\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=340369255&per_page=1&page=1 — SIREN 340369255",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"340369255\",\"nomComplet\":\"SODIBA (SODIBA)\",\"sigle\":\"SODIBA\",\"etatAdministratif\":\"C\",\"communeSiege\":\"URRUGNE\",\"cpSiege\":\"64122\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:30Z"
+			}
 		},
 		{
 			"ordre": 499,
@@ -30007,7 +31087,28 @@
 				"entitySource": "sirene",
 				"entityCode": "900836990"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice « Accipiter Capital Management, LLC » désigne un gestionnaire américain ; l'org AG CAPITAL MANAGEMENT (Saint-Aubin-de-Médoc) partage « capital management » mais « accipiter » et « ag » diffèrent — noms différents.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=900836990&per_page=1&page=1 — SIREN 900836990",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"900836990\",\"nomComplet\":\"AG CAPITAL MANAGEMENT\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"SAINT-AUBIN-DE-MEDOC\",\"cpSiege\":\"33160\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=900836990&per_page=1&page=1 — SIREN 900836990",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"900836990\",\"nomComplet\":\"AG CAPITAL MANAGEMENT\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"SAINT-AUBIN-DE-MEDOC\",\"cpSiege\":\"33160\",\"activitePrincipale\":null,\"trancheEffectif\":\"NN\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:30Z"
+			}
 		},
 		{
 			"ordre": 500,
@@ -30041,7 +31142,28 @@
 				"entitySource": "sirene",
 				"entityCode": "391731155"
 			},
-			"verdict": null
+			"verdict": {
+				"verdict": "hors_sujet",
+				"motif": "L'indice « APVL ingénierie » désigne une entité à deux jetons ; l'org I G INGENIERIE (Listrac-Médoc) ne partage que « ingenierie », « apvl » absent.",
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=391731155&per_page=1&page=1 — SIREN 391731155",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"391731155\",\"nomComplet\":\"I G INGENIERIE\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"LISTRAC-MEDOC\",\"cpSiege\":\"33480\",\"activitePrincipale\":null,\"trancheEffectif\":\"01\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:36:45Z"
+			},
+			"preuve": {
+				"registre": {
+					"requete": "https://recherche-entreprises.api.gouv.fr/search?q=391731155&per_page=1&page=1 — SIREN 391731155",
+					"statutHttp": 200,
+					"reponse": "{\"total\":1,\"siren\":\"391731155\",\"nomComplet\":\"I G INGENIERIE\",\"sigle\":null,\"etatAdministratif\":\"A\",\"communeSiege\":\"LISTRAC-MEDOC\",\"cpSiege\":\"33480\",\"activitePrincipale\":null,\"trancheEffectif\":\"01\"}"
+				},
+				"siteIndice": null,
+				"siteOrg": null,
+				"le": "2026-11-21T03:34:31Z"
+			}
 		}
 	]
 }
