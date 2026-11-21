@@ -9,6 +9,9 @@ import type { CollectContext, Collector, NormalizedEvent } from "@radar/shared";
 import { query, withTransaction } from "../db.js";
 import { consignerAvec } from "../journal/index.js";
 
+// L'insertion des événements de flux — et son `ON CONFLICT (fingerprint) DO NOTHING`
+// (migration 045) — vit dans generic.ts : ce fichier ne fait que lister les
+// collecteurs dédiés, appelés depuis server.ts.
 export const collectors: Collector[] = [certfr, kev, ransomlook, epss, nvd, ctlog, poc];
 
 /** Nombre d'échecs consécutifs au-delà duquel une source est déclarée morte. */
