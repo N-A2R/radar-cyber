@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { creerMemoire, etatDonnees, type Instantane } from "./offline";
-import { api, clearAuthToken, getAuthToken, setAuthToken, type Event, type FlowArc, type Graph, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type Stats } from "./api";
+import { api, clearAuthToken, getAuthToken, setAuthToken, type Event, type FlowArc, type Graph, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type Stats, type TodayResponse } from "./api";
 import { mockData } from "./mock";
 import Map3D from "./map/Map3D";
 import GraphView from "./graph/GraphView";
@@ -16,17 +16,18 @@ import LiveAlerts from "./components/LiveAlerts";
 import ReviewView from "./components/ReviewView";
 import DossierView from "./components/DossierView";
 import NaView from "./components/NaView";
-import { parseHash, toHash, shareableUrl, type AppUrlState } from "./url-state";
+import TodayView from "./components/TodayView";
 import AlertsView from "./components/AlertsView";
 import LoginScreen from "./components/LoginScreen";
 import type { ViewKey } from "./contracts";
+import { parseHash, toHash, shareableUrl, type AppUrlState } from "./url-state";
 
 // Mode démonstration : données simulées, jamais d'appel API.
 const MOCK_MODE = import.meta.env.VITE_DATA_MODE === "mock";
 
 const VIEWS: { id: ViewKey; label: string }[] = [
+  { id: "today", label: "Aujourd'hui" },
   { id: "map", label: "Carte" },
-  { id: "directory", label: "Annuaire" },
   { id: "review", label: "Revue" },
   { id: "graph", label: "Graphe" },
   { id: "sources", label: "Sources" },
@@ -49,6 +50,9 @@ export default function App() {
   const [healthDetail, setHealthDetail] = useState<HealthDetail | null>(null);
   const [naOverview, setNaOverview] = useState<NaOverview | null>(null);
   const [naFil, setNaFil] = useState<NaFil | null>(null);
+  const [todayData, setTodayData] = useState<TodayResponse | null>(null);
+  const [todayLoading, setTodayLoading] = useState(!MOCK_MODE);
+  const [todayError, setTodayError] = useState<string | null>(null);
   const [graph, setGraph] = useState<Graph>({ nodes: [], links: [] });
   const [flows, setFlows] = useState<FlowArc[]>([]);
   // L'URL porte la vue, les filtres de l'annuaire et la fiche ouverte :
@@ -321,6 +325,36 @@ export default function App() {
       .catch(() => setNaFil(null));
   }, [urlState.naDept, token]);
 
+  // Écran d'accueil : un seul appel donne les compteurs et le fil. Les filtres
+  // vivent dans l'URL, donc un lien partagé recharge exactement la même liste.
+  useEffect(() => {
+    if (MOCK_MODE || !token || view !== "today") return;
+    const controller = new AbortController();
+    const charger = () => {
+      setTodayLoading(true);
+      api
+        .today({ family: urlState.today.family, dept: urlState.today.dept }, controller.signal)
+        .then((donnees) => {
+          setTodayData(donnees);
+          setTodayError(null);
+        })
+        .catch((err: unknown) => {
+          if (!controller.signal.aborted) {
+            setTodayError(err instanceof Error ? err.message : "indisponible");
+          }
+        })
+        .finally(() => {
+          if (!controller.signal.aborted) setTodayLoading(false);
+        });
+    };
+    charger();
+    const timer = setInterval(charger, 60_000);
+    return () => {
+      controller.abort();
+      clearInterval(timer);
+    };
+  }, [view, urlState.today.family, urlState.today.dept, token]);
+
   const byFamily = useMemo(() => {
     const counts: Record<string, number> = {};
     for (const e of events) counts[e.family] = (counts[e.family] ?? 0) + 1;
@@ -418,6 +452,13 @@ export default function App() {
     });
   }, []);
 
+  const onTodayFamily = useCallback((family: string | null) => {
+    setUrlState((prev) => (prev.today.family === family ? prev : { ...prev, today: { ...prev.today, family } }));
+  }, []);
+  const onTodayDept = useCallback((dept: string | null) => {
+    setUrlState((prev) => (prev.today.dept === dept ? prev : { ...prev, today: { ...prev.today, dept } }));
+  }, []);
+
   const copyDirectoryLink = useCallback(() => {
     if (typeof window === "undefined") return;
     const url = shareableUrl(urlState, window.location.origin, window.location.pathname);
@@ -447,9 +488,9 @@ export default function App() {
   const [feedOpen, setFeedOpen] = useState(true);
   const feedWidth = feedOpen ? "352px" : "44px";
   const bodyStyle = {
-    gridTemplateColumns: inspectorOpen
-      ? `${feedWidth} minmax(0,1fr) 320px`
-      : `${feedWidth} minmax(0,1fr)`,
+    gridTemplateColumns: view === "today"
+      ? (inspectorOpen ? "minmax(0,1fr) 320px" : "minmax(0,1fr)")
+      : (inspectorOpen ? `${feedWidth} minmax(0,1fr) 320px` : `${feedWidth} minmax(0,1fr)`),
   };
 
   // Sans jeton (hors démonstration), le shell n'est jamais monté : seul
@@ -545,7 +586,7 @@ export default function App() {
       ) : null}
 
       <div className="shell__body" style={bodyStyle}>
-        {feedOpen ? (
+        {view === "today" ? null : feedOpen ? (
         <aside className="shell__feed">
             <button
               type="button"
@@ -611,6 +652,23 @@ export default function App() {
         )}
 
         <main className="shell__stage">
+          {view === "today" ? (
+            <TodayView
+              data={todayData}
+              loading={todayLoading}
+              error={todayError}
+              family={urlState.today.family}
+              dept={urlState.today.dept}
+              onFamily={onTodayFamily}
+              onDept={onTodayDept}
+              onOpenOrg={openOrgSheet}
+              onOpenEvent={(id) => {
+                setSelectedEventId(id);
+                setSelectedOrgId(null);
+                setSheetOrgId(null);
+              }}
+            />
+          ) : null}
           {view === "map" ? (
             <Map3D
               orgs={orgs}

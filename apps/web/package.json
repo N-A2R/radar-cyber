@@ -15,7 +15,8 @@
     "test:corroboration": "vite build --ssr test/corroboration-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/corroboration-verif.js",
     "test:offline": "vite build --ssr test/offline-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/offline-verif.js",
     "test:na": "vite build --ssr test/na-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/na-verif.js",
-    "test:health": "vite build --ssr test/health-detail-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/health-detail-verif.js"
+    "test:health": "vite build --ssr test/health-detail-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/health-detail-verif.js",
+    "test:aujourdhui": "vite build --ssr test/aujourdhui-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/aujourdhui-verif.js"
   },
   "dependencies": {
     "@radar/shared": "workspace:*",

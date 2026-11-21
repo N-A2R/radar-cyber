@@ -1,8 +1,22 @@
-import type { Alert, Event, Graph, Health, NaFil, NaOverview, Org, Source, Stats } from "./api";
+import type { Alert, Event, Graph, Health, NaFil, NaOverview, Org, Source, Stats, TodayResponse } from "./api";
 
 /** Les vues de l'application, dans l'ordre du rail. */
-export type ViewKey = "map" | "directory" | "review" | "graph" | "sources" | "health" | "alerts" | "dossier" | "na";
+export type ViewKey = "today" | "map" | "directory" | "review" | "graph" | "sources" | "health" | "alerts" | "dossier" | "na";
 
+
+/** Contrat de l'écran d'accueil « Aujourd'hui ». */
+export type TodayViewProps = {
+  /** Réponse complète de GET /api/today, ou null tant qu'elle n'est pas là. */
+  data: TodayResponse | null;
+  loading: boolean;
+  error: string | null;
+  family: string | null;
+  dept: string | null;
+  onFamily: (family: string | null) => void;
+  onDept: (dept: string | null) => void;
+  onOpenOrg: (orgId: number) => void;
+  onOpenEvent: (eventId: string) => void;
+};
 /** Contrat du fil d'événements (colonne de gauche). */
 export type FeedProps = {
   events: Event[];

@@ -12,9 +12,12 @@
  * Fonctions pures : testables sans navigateur.
  */
 
-export const VIEWS = ["map", "directory", "review", "graph", "sources", "health", "alerts", "dossier", "na"] as const;
+export const VIEWS = ["today", "map", "directory", "review", "graph", "sources", "health", "alerts", "dossier", "na"] as const;
 export type ViewId = (typeof VIEWS)[number];
 
+
+/** Filtres de l'écran d'accueil, portés par l'URL pour être partageables. */
+export type TodayUrlState = { family: string | null; dept: string | null };
 export type DirectoryUrlState = {
 	q: string;
 	kind: string | null;
@@ -34,9 +37,12 @@ export type AppUrlState = {
 	directory: DirectoryUrlState;
 	/** Fiche organisation ouverte, pour un lien direct. */
 	org: number | null;
+	/** Filtres de l'écran « Aujourd'hui » (`#/today?family=…&dept=…`). */
+	today: TodayUrlState;
 	/** Vue Nouvelle-Aquitaine : département sélectionné, `null` = toute la région. */
 	naDept: string | null;
 };
+export const DEFAULT_TODAY: TodayUrlState = { family: null, dept: null };
 
 export const DEFAULT_DIRECTORY: DirectoryUrlState = {
 	q: "",
@@ -54,8 +60,10 @@ export const DEFAULT_DIRECTORY: DirectoryUrlState = {
 };
 
 export const DEFAULT_STATE: AppUrlState = {
-	view: "map",
+	// Le matin, on ouvre l'actualité du jour — pas la carte.
+	view: "today",
 	directory: DEFAULT_DIRECTORY,
+	today: DEFAULT_TODAY,
 	org: null,
 	naDept: null,
 };
@@ -70,17 +78,22 @@ export function parseHash(hash: string): AppUrlState {
 	const clean = hash.replace(/^#\/?/, "");
 	const [path, search = ""] = clean.split("?");
 	const params = new URLSearchParams(search);
-	const view = isView(path) ? path : "map";
+	const view = isView(path) ? path : DEFAULT_STATE.view;
 
 	const size = Number(params.get("size"));
 	const page = Number(params.get("page"));
 	const org = Number(params.get("org"));
 	const dept = params.get("dept");
 	const sort = params.get("sort") ?? "";
+	const family = params.get("family");
 	const naDept = params.get("naDept");
 
 	return {
 		view,
+		today: {
+			family: family && /^[A-Za-z0-9_-]{1,64}$/.test(family) ? family : null,
+			dept: dept && /^[0-9ABab]{2,3}$/.test(dept) ? dept : null,
+		},
 		org: Number.isInteger(org) && org > 0 ? org : null,
 		naDept: naDept && /^[0-9]{2}$/.test(naDept) ? naDept : null,
 		directory: {
@@ -106,6 +119,10 @@ export function parseHash(hash: string): AppUrlState {
 export function toHash(state: AppUrlState): string {
 	const params = new URLSearchParams();
 	const d = state.directory;
+	if (state.view === "today") {
+		if (state.today.family) params.set("family", state.today.family);
+		if (state.today.dept) params.set("dept", state.today.dept);
+	}
 	if (state.view === "directory") {
 		if (d.q) params.set("q", d.q);
 		if (d.kind) params.set("kind", d.kind);
