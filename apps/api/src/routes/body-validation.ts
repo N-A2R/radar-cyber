@@ -21,10 +21,13 @@ export function parseBody<T>(schema: z.ZodType<T>, body: unknown): ParsedBody<T>
 
 export function invalidBody(reply: FastifyReply, error: z.ZodError) {
   return reply.code(400).send({
-    error: "invalid input",
-    details: error.issues.map((issue) => ({
-      path: issue.path.join("."),
-      message: issue.message,
-    })),
+    error: {
+      code: "BAD_REQUEST",
+      message: "invalid input",
+      details: error.issues.map((issue) => ({
+        path: issue.path.join("."),
+        message: issue.message,
+      })),
+    },
   });
 }

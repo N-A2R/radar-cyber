@@ -95,16 +95,17 @@ after(async () => {
 });
 function assertInvalid(res: { statusCode: number; json(): unknown }, requirePath = true): Detail[] {
   assert.equal(res.statusCode, 400, JSON.stringify(res.json()).slice(0, 400));
-  const body = res.json() as { error?: string; details?: Detail[] };
-  assert.equal(body.error, "invalid input");
-  assert.ok(Array.isArray(body.details) && body.details.length > 0, JSON.stringify(body));
+  const body = res.json() as { error?: { message?: string; details?: Detail[] } };
+  assert.equal(body.error?.message, "invalid input");
+  const details = body.error?.details;
+  assert.ok(Array.isArray(details) && details.length > 0, JSON.stringify(body));
   if (requirePath) {
     assert.ok(
-      body.details.some((d) => typeof d.path === "string" && d.path.length > 0),
-      JSON.stringify(body.details),
+      details.some((d) => typeof d.path === "string" && d.path.length > 0),
+      JSON.stringify(details),
     );
   }
-  return body.details!;
+  return details!;
 }
 for (const url of REQUIRED_BODY) {
   test(`POST ${url} : corps vide -> 400 avec un chemin de champ`, async () => {
