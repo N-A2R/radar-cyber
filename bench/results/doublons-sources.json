@@ -1,0 +1,1979 @@
+{
+  "genere_le": "2026-11-21T21:52:09.986460+00:00",
+  "perimetre": "catalogue versionné des sources, db/*.sql (INSERT INTO source)",
+  "regles": [
+    "URL canonique : schéma/www/slash final/fragment ignorés, UTM et suivi retirés, paramètres triés",
+    "URL finale après redirection identique",
+    "contenu : au moins 3 des 5 premiers items partagent un lien canonique identique"
+  ],
+  "avant": 187,
+  "apres": 179,
+  "sources_en_moins": 8,
+  "groupes": [
+    {
+      "garder": "cert-fr-feed",
+      "garder_nom": "CERT-FR feed",
+      "doublons": [
+        "cert-fr-avis",
+        "cert_fr"
+      ],
+      "preuves": [
+        "cert-fr-avis ~ cert-fr-feed : contenu identique (3/5 items)",
+        "cert-fr-avis ~ cert_fr : contenu identique (3/5 items)",
+        "cert-fr-feed ~ cert_fr : contenu identique (5/5 items)",
+        "cert-fr-feed ~ cert_fr : même URL après redirection",
+        "cert-fr-feed ~ cert_fr : url canonique identique"
+      ]
+    },
+    {
+      "garder": "leak:ransomlook:recent-api",
+      "garder_nom": "RansomLook — victimes récentes (API JSON)",
+      "doublons": [
+        "ransomlook"
+      ],
+      "preuves": [
+        "leak:ransomlook:recent-api ~ ransomlook : contenu identique (5/5 items)",
+        "leak:ransomlook:recent-api ~ ransomlook : même URL après redirection",
+        "leak:ransomlook:recent-api ~ ransomlook : url canonique identique"
+      ]
+    },
+    {
+      "garder": "onion:ccw:aoqin",
+      "garder_nom": "aoqin",
+      "doublons": [
+        "onion:ccw:aoqin-leaks"
+      ],
+      "preuves": [
+        "onion:ccw:aoqin ~ onion:ccw:aoqin-leaks : url canonique identique"
+      ]
+    },
+    {
+      "garder": "onion:rl:byod",
+      "garder_nom": "byod",
+      "doublons": [
+        "onion:ccw:byod"
+      ],
+      "preuves": [
+        "onion:ccw:byod ~ onion:rl:byod : url canonique identique"
+      ]
+    },
+    {
+      "garder": "onion:ccw:gammax",
+      "garder_nom": "gammax",
+      "doublons": [
+        "onion:rl:gammax"
+      ],
+      "preuves": [
+        "onion:ccw:gammax ~ onion:rl:gammax : url canonique identique"
+      ]
+    },
+    {
+      "garder": "onion:ccw:genesis",
+      "garder_nom": "genesis",
+      "doublons": [
+        "onion:rl:genesis"
+      ],
+      "preuves": [
+        "onion:ccw:genesis ~ onion:rl:genesis : url canonique identique"
+      ]
+    },
+    {
+      "garder": "presse-sudouest",
+      "garder_nom": "Sud Ouest (RSS)",
+      "doublons": [
+        "presse-sudouest-rss"
+      ],
+      "preuves": [
+        "presse-sudouest ~ presse-sudouest-rss : contenu identique (5/5 items)",
+        "presse-sudouest ~ presse-sudouest-rss : même URL après redirection",
+        "presse-sudouest ~ presse-sudouest-rss : url canonique identique"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "cd23-a-la-une",
+      "nom": "Conseil departemental de la Creuse — a la une",
+      "url": "https://www.creuse.fr/A-la-une",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 0,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "cd47-actualites-rss",
+      "nom": "Conseil departemental du Lot-et-Garonne — actualites (RSS)",
+      "url": "https://www.lotetgaronne.fr/actualites/rss",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 1,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "cert-cisa-advisories",
+      "nom": "CISA cyber advisories (XML)",
+      "url": "https://www.cisa.gov/cybersecurity-advisories/all.xml",
+      "fichier": "sources-expansion.sql",
+      "groupe": 2,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "cert-eu-page",
+      "nom": "CERT-EU advisories (page)",
+      "url": "https://cert.europa.eu/publications/security-advisories",
+      "fichier": "sources-expansion.sql",
+      "groupe": 3,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "cert-fr-alerte",
+      "nom": "CERT-FR alerte",
+      "url": "https://www.cert.ssi.gouv.fr/alerte/feed/",
+      "fichier": "sources-expansion.sql",
+      "groupe": 4,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "cert-fr-avis",
+      "nom": "CERT-FR avis",
+      "url": "https://www.cert.ssi.gouv.fr/avis/feed/",
+      "fichier": "sources-expansion.sql",
+      "groupe": 5,
+      "decision": "doublon de cert-fr-feed",
+      "erreur_sonde": null
+    },
+    {
+      "id": "cert-fr-feed",
+      "nom": "CERT-FR feed",
+      "url": "https://www.cert.ssi.gouv.fr/feed/",
+      "fichier": "sources-expansion.sql",
+      "groupe": 5,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "cert_fr",
+      "nom": "CERT-FR / ANSSI",
+      "url": "https://www.cert.ssi.gouv.fr/feed/",
+      "fichier": "sources.sql",
+      "groupe": 5,
+      "decision": "doublon de cert-fr-feed",
+      "erreur_sonde": null
+    },
+    {
+      "id": "chu-poitiers",
+      "nom": "CHU de Poitiers (RSS)",
+      "url": "https://www.chu-poitiers.fr/rss",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 8,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "cisa_kev",
+      "nom": "CISA Known Exploited Vulnerabilities",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "fichier": "sources.sql",
+      "groupe": 9,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "ctlog",
+      "nom": "Certificate Transparency (crt.sh)",
+      "url": "https://crt.sh/",
+      "fichier": "sources-ctlog.sql",
+      "groupe": 10,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "epss",
+      "nom": "FIRST EPSS",
+      "url": "https://www.first.org/epss/",
+      "fichier": "sources.sql",
+      "groupe": 11,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:abuseipdb_1d",
+      "nom": "FireHOL abuseipdb_1d",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/abuseipdb_1d.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 12,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:abuseipdb_30d",
+      "nom": "FireHOL abuseipdb_30d",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/abuseipdb_30d.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 13,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:blocklist_de",
+      "nom": "FireHOL blocklist_de",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 14,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:blocklist_de_apache",
+      "nom": "FireHOL blocklist_de_apache",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_apache.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 15,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:blocklist_de_bots",
+      "nom": "FireHOL blocklist_de_bots",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_bots.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 16,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:blocklist_de_bruteforce",
+      "nom": "FireHOL blocklist_de_bruteforce",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_bruteforce.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 17,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:blocklist_de_ftp",
+      "nom": "FireHOL blocklist_de_ftp",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_ftp.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 18,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:blocklist_de_imap",
+      "nom": "FireHOL blocklist_de_imap",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_imap.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 19,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:blocklist_de_mail",
+      "nom": "FireHOL blocklist_de_mail",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_mail.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 20,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:blocklist_de_sip",
+      "nom": "FireHOL blocklist_de_sip",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_sip.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 21,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:blocklist_de_ssh",
+      "nom": "FireHOL blocklist_de_ssh",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_ssh.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 22,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:blocklist_de_strongips",
+      "nom": "FireHOL blocklist_de_strongips",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_strongips.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 23,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:blocklist_net_ua",
+      "nom": "FireHOL blocklist_net_ua",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_net_ua.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 24,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:botscout",
+      "nom": "FireHOL botscout",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botscout.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 25,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:botscout_1d",
+      "nom": "FireHOL botscout_1d",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botscout_1d.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 26,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:botscout_30d",
+      "nom": "FireHOL botscout_30d",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botscout_30d.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 27,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:botscout_7d",
+      "nom": "FireHOL botscout_7d",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botscout_7d.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 28,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:botvrij_dst",
+      "nom": "FireHOL botvrij_dst",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botvrij_dst.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 29,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:botvrij_src",
+      "nom": "FireHOL botvrij_src",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botvrij_src.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 30,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:bruteforceblocker",
+      "nom": "FireHOL bruteforceblocker",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/bruteforceblocker.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 31,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:c2_tracker",
+      "nom": "FireHOL c2_tracker",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/c2_tracker.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 32,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:ciarmy",
+      "nom": "FireHOL ciarmy",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/ciarmy.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 33,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:cidr_report_bogons",
+      "nom": "FireHOL cidr_report_bogons",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cidr_report_bogons.netset",
+      "fichier": "sources-osint.sql",
+      "groupe": 34,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:cleantalk",
+      "nom": "FireHOL cleantalk",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cleantalk.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 35,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:cleantalk_1d",
+      "nom": "FireHOL cleantalk_1d",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cleantalk_1d.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 36,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:cleantalk_30d",
+      "nom": "FireHOL cleantalk_30d",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cleantalk_30d.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 37,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:cleantalk_7d",
+      "nom": "FireHOL cleantalk_7d",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cleantalk_7d.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 38,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:cleantalk_new_1d",
+      "nom": "FireHOL cleantalk_new_1d",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cleantalk_new_1d.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 39,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:cleantalk_new_30d",
+      "nom": "FireHOL cleantalk_new_30d",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cleantalk_new_30d.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 40,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:cleantalk_new_7d",
+      "nom": "FireHOL cleantalk_new_7d",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cleantalk_new_7d.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 41,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:cybercrime",
+      "nom": "FireHOL cybercrime",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cybercrime.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 42,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feed:firehol:cybercure",
+      "nom": "FireHOL cybercure",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cybercure.ipset",
+      "fichier": "sources-osint.sql",
+      "groupe": 43,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "feodo-ip",
+      "nom": "Feodo Tracker (abuse.ch) IP blocklist",
+      "url": "https://feodotracker.abuse.ch/downloads/ipblocklist.json",
+      "fichier": "sources-national.sql",
+      "groupe": 44,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "gn-16",
+      "nom": "Google News — cyber Charente (30 j)",
+      "url": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Charente+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "fichier": "migrate-037-sources-presse-ciblee.sql",
+      "groupe": 45,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "gn-17",
+      "nom": "Google News — cyber Charente-Maritime (30 j)",
+      "url": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Charente-Maritime+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "fichier": "migrate-037-sources-presse-ciblee.sql",
+      "groupe": 46,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "gn-19",
+      "nom": "Google News — cyber Corrèze (30 j)",
+      "url": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Corrèze+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "fichier": "migrate-037-sources-presse-ciblee.sql",
+      "groupe": 47,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "gn-23",
+      "nom": "Google News — cyber Creuse (30 j)",
+      "url": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Creuse+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "fichier": "migrate-037-sources-presse-ciblee.sql",
+      "groupe": 48,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "gn-24",
+      "nom": "Google News — cyber Dordogne (30 j)",
+      "url": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Dordogne+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "fichier": "migrate-037-sources-presse-ciblee.sql",
+      "groupe": 49,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "gn-33",
+      "nom": "Google News — cyber Gironde (30 j)",
+      "url": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Gironde+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "fichier": "migrate-037-sources-presse-ciblee.sql",
+      "groupe": 50,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "gn-40",
+      "nom": "Google News — cyber Landes (30 j)",
+      "url": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Landes+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "fichier": "migrate-037-sources-presse-ciblee.sql",
+      "groupe": 51,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "gn-47",
+      "nom": "Google News — cyber Lot-et-Garonne (30 j)",
+      "url": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Lot-et-Garonne+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "fichier": "migrate-037-sources-presse-ciblee.sql",
+      "groupe": 52,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "gn-64",
+      "nom": "Google News — cyber Pyrénées-Atlantiques (30 j)",
+      "url": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Pyrénées-Atlantiques+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "fichier": "migrate-037-sources-presse-ciblee.sql",
+      "groupe": 53,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "gn-79",
+      "nom": "Google News — cyber Deux-Sèvres (30 j)",
+      "url": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Deux-Sèvres+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "fichier": "migrate-037-sources-presse-ciblee.sql",
+      "groupe": 54,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "gn-86",
+      "nom": "Google News — cyber Vienne (30 j)",
+      "url": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Vienne+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "fichier": "migrate-037-sources-presse-ciblee.sql",
+      "groupe": 55,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "gn-87",
+      "nom": "Google News — cyber Haute-Vienne (30 j)",
+      "url": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Haute-Vienne+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "fichier": "migrate-037-sources-presse-ciblee.sql",
+      "groupe": 56,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "gn-cyber-na",
+      "nom": "Google News — « cyberattaque Nouvelle-Aquitaine »",
+      "url": "https://news.google.com/rss/search?q=cyberattaque+Nouvelle-Aquitaine+when:7d&hl=fr&gl=FR&ceid=FR:fr",
+      "fichier": "migrate-037-sources-presse-ciblee.sql",
+      "groupe": 57,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "gn-fuite-metropoles",
+      "nom": "Google News — « fuite de données » métropoles NA",
+      "url": "https://news.google.com/rss/search?q=%22fuite+de+donn%C3%A9es%22+(Bordeaux+OR+Limoges+OR+Poitiers+OR+%22La+Rochelle%22+OR+Pau)+when:7d&hl=fr&gl=FR&ceid=FR:fr",
+      "fichier": "migrate-037-sources-presse-ciblee.sql",
+      "groupe": 58,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "gn-mairie-cyber",
+      "nom": "Google News — « cyberattaque mairie »",
+      "url": "https://news.google.com/rss/search?q=cyberattaque+(mairie+OR+communaut%C3%A9+de+communes)+when:7d&hl=fr&gl=FR&ceid=FR:fr",
+      "fichier": "migrate-037-sources-presse-ciblee.sql",
+      "groupe": 59,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "gn-ransom-aquitaine",
+      "nom": "Google News — « ransomware Aquitaine »",
+      "url": "https://news.google.com/rss/search?q=rancongiciel+(Gironde+OR+Dordogne+OR+Landes+OR+Pyr%C3%A9n%C3%A9es-Atlantiques)+when:7d&hl=fr&gl=FR&ceid=FR:fr",
+      "fichier": "migrate-037-sources-presse-ciblee.sql",
+      "groupe": 60,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "hermes_radar_cyber",
+      "nom": "Hermes Agent — bot de veille radar-cyber",
+      "url": "box hermes / profil radar-cyber",
+      "fichier": "sources.sql",
+      "groupe": 61,
+      "decision": "garder",
+      "erreur_sonde": "ValueError: unknown url type: 'box%20hermes%20/%20profil%20radar-cyber'"
+    },
+    {
+      "id": "inria-bordeaux",
+      "nom": "Inria Bordeaux (RSS)",
+      "url": "https://www.inria.fr/rss",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 62,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "leak:databreaches:feed",
+      "nom": "DataBreaches.net — flux des fuites de données",
+      "url": "https://www.databreaches.net/feed/",
+      "fichier": "sources-paste-leaks.sql",
+      "groupe": 63,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "leak:hibp:breaches-index",
+      "nom": "Have I Been Pwned — index des violations (JSON public)",
+      "url": "https://haveibeenpwned.com/api/v3/breaches",
+      "fichier": "sources-paste-leaks.sql",
+      "groupe": 64,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "leak:hibp:latest-breaches",
+      "nom": "Have I Been Pwned — dernières violations (RSS)",
+      "url": "https://feeds.feedburner.com/HaveIBeenPwnedLatestBreaches",
+      "fichier": "sources-paste-leaks.sql",
+      "groupe": 65,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "leak:hipaajournal:feed",
+      "nom": "HIPAA Journal — incidents et fuites (RSS)",
+      "url": "https://www.hipaajournal.com/feed/",
+      "fichier": "sources-paste-leaks.sql",
+      "groupe": 66,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "leak:ransomlook:recent-api",
+      "nom": "RansomLook — victimes récentes (API JSON)",
+      "url": "https://ransomlook.io/api/recent",
+      "fichier": "sources-paste-leaks.sql",
+      "groupe": 67,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "ransomlook",
+      "nom": "RansomLook",
+      "url": "https://www.ransomlook.io/api/recent",
+      "fichier": "sources.sql",
+      "groupe": 67,
+      "decision": "doublon de leak:ransomlook:recent-api",
+      "erreur_sonde": null
+    },
+    {
+      "id": "leak:ransomware-live:recent-rss",
+      "nom": "ransomware.live — revendications récentes (RSS)",
+      "url": "https://www.ransomware.live/rss.xml",
+      "fichier": "sources-paste-leaks.sql",
+      "groupe": 68,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "leak:ransomwatch:posts",
+      "nom": "Ransomwatch — publications (JSON public)",
+      "url": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+      "fichier": "sources-paste-leaks.sql",
+      "groupe": 69,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "nvd_cve",
+      "nom": "NVD CVE 2.0",
+      "url": "https://services.nvd.nist.gov/rest/json/cves/2.0",
+      "fichier": "sources-nvd.sql",
+      "groupe": 70,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "onion:ccw:anubis",
+      "nom": "anubis",
+      "url": "http://6g3aoky5hft4mvzcqt2bugo4r465woaorjhd7em2k2v24sr2exaro5id.onion/",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 71,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:aoqin",
+      "nom": "aoqin",
+      "url": "http://aoqinwwrizxbrwm3qb6l4jzgujgmcetp4jaug7fqylbf3xcwqwzvbuid.onion",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 72,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:aoqin-leaks",
+      "nom": "aoqin-leaks",
+      "url": "http://aoqinwwrizxbrwm3qb6l4jzgujgmcetp4jaug7fqylbf3xcwqwzvbuid.onion/",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 72,
+      "decision": "doublon de onion:ccw:aoqin",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:apt73",
+      "nom": "apt73",
+      "url": "http://basherq53eniermxovo3bkduw5qqq5bkqcml3qictfmamgvmzovykyqd.onion",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 74,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:arcusmedia",
+      "nom": "arcusmedia",
+      "url": "http://arcuufpr5xxbbkin4mlidt7itmr6znlppk63jbtkeguuhszmc5g7qdyd.onion",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 75,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:atomsilo",
+      "nom": "atomsilo",
+      "url": "http://npmh5ahrgakbniuntyc7io4adm6ietbdbuejrfonowqtyqn24or556qd.onion",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 76,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:auditteam",
+      "nom": "auditteam",
+      "url": "http://6tdqqaxftvradka5d2frzgwixis7fmro7rfh4ettzcx7jfapkebe6jad.onion",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 77,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:aurora",
+      "nom": "aurora",
+      "url": "http://u6lieui2dakbctcjea2bz4r4q32r7t36nwljovqbv7mxs6o2smgxixid.onion",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 78,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:barracuda",
+      "nom": "barracuda",
+      "url": "http://qr6uopkqxmq254osyct3oibil32xp3qsimkkbqdscsrsb4zqbagnifad.onion",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 79,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:bavacai",
+      "nom": "bavacai",
+      "url": "http://t33zoj4qwv455fog7qnb2azi5xcdxkixughmmduzbw2rtdgryqfbh6id.onion",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 80,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:blacknevas",
+      "nom": "blacknevas",
+      "url": "http://ctyfftrjgtwdjzlgqh4avbd35sqrs6tde4oyam2ufbjch6oqpqtkdtid.onion",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 81,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:blackout",
+      "nom": "blackout",
+      "url": "http://rqqn25k3hgmfkh7ykjbmakjgidwweomr7cbpy6pfecpxs57r5iwzwtyd.onion",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 82,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:booba-project",
+      "nom": "booba-project",
+      "url": "http://7t3zi3e7ki6iseun77ofqtr6wmbpgnpc2ada6gstcxp54lw6q2zb7jad.onion",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 83,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:byod",
+      "nom": "byod",
+      "url": "http://byodxn5s7sua6oyyjj74rycgn6afncfckprt5ezskt3cni6lg3wdrgad.onion/",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 84,
+      "decision": "doublon de onion:rl:byod",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:rl:byod",
+      "nom": "byod",
+      "url": "http://byodxn5s7sua6oyyjj74rycgn6afncfckprt5ezskt3cni6lg3wdrgad.onion/",
+      "fichier": "sources-onion-ransomlook.sql",
+      "groupe": 84,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:ciphbit",
+      "nom": "ciphbit",
+      "url": "http://kryzon3qa22ib23qwka2wcr2yfxhtrfxgurup7bzbtxmnvilu7iagfqd.onion",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 85,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:climax",
+      "nom": "climax",
+      "url": "http://climaxf4srk4qzr5g7smfodx6q5ocpiwmls5qujfl7g3j33us4cksdad.onion/page/2/",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 86,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:dark-project",
+      "nom": "dark-project",
+      "url": "http://3i5px2hibsyityv6jixnqba35yz25jekbwwumjdxjqzt3euqsygjx5id.onion/",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 87,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:destello",
+      "nom": "destello",
+      "url": "http://destell6tk2la7w4d7d4apfzsywbt2lsdpui7i2rsfyrike7pxolrbyd.onion/",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 88,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:direwolf",
+      "nom": "direwolf",
+      "url": "http://direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 89,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:doommageddon",
+      "nom": "doommageddon",
+      "url": "http://iacjvmxjb2ivqkxxzmde4w6g53gn6ym7c3g6mfifvejyhqtp4wrkypyd.onion",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 90,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:eclipse",
+      "nom": "eclipse",
+      "url": "http://yecdjimqiaekprxza6wkqecma4bwt757qiyfjngsaxg7rkjv4xukpwad.onion/",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 91,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:endzone",
+      "nom": "endzone",
+      "url": "http://endzonezgz3sqzmtqg4acp4z7ao7xc6vunfhezjsnfqrm2ksudsredyd.onion",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 92,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:ethics",
+      "nom": "ethics",
+      "url": "http://ethics67vxjomvlcugjovv4fc3g6ru5tpwotg533d4j3uf2btmnndead.onion",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 93,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:everest",
+      "nom": "everest",
+      "url": "http://everestndkvzcibcje2cqxhre2hmmybl3rn2gwzwsblz7gx6uryn5rad.onion",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 94,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:everstake",
+      "nom": "everstake",
+      "url": "http://everstakewfma6sxdpshoq4ebtnqamsxnajrtzu2cflai77kfup5kzyd.onion/",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 95,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:exitium",
+      "nom": "exitium",
+      "url": "http://m3ksukzn2glzfdvlusohril7n3iyk4z4fudf6mm22lwhpbpt5aiee5qd.onion",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 96,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:gammax",
+      "nom": "gammax",
+      "url": "http://gammax6w3dkfdjfrjthtmqzsioue52vzy6lz54qy6jcvmogfpubutjyd.onion",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 97,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:rl:gammax",
+      "nom": "gammax",
+      "url": "http://gammax6w3dkfdjfrjthtmqzsioue52vzy6lz54qy6jcvmogfpubutjyd.onion/",
+      "fichier": "sources-onion-ransomlook.sql",
+      "groupe": 97,
+      "decision": "doublon de onion:ccw:gammax",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:genesis",
+      "nom": "genesis",
+      "url": "http://genesis6ixpb5mcy4kudybtw5op2wqlrkocfogbnenz3c647ibqixiad.onion",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 98,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:rl:genesis",
+      "nom": "genesis",
+      "url": "http://genesis6ixpb5mcy4kudybtw5op2wqlrkocfogbnenz3c647ibqixiad.onion/",
+      "fichier": "sources-onion-ransomlook.sql",
+      "groupe": 98,
+      "decision": "doublon de onion:ccw:genesis",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:global-secret-group",
+      "nom": "global-secret-group",
+      "url": "http://b5gozwifyvy5bhys3bsiq5tedhpot345udggjyb54fsjd2m7nteftkad.onion/",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 99,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:helix",
+      "nom": "helix",
+      "url": "http://helixr2sncrd3ndsz5oho6mzqw3x5u7mvox5zcsngc5wm7v4l5k7oryd.onion/leaks/",
+      "fichier": "sources-onion-cybercrime.sql",
+      "groupe": 100,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:rl:3am",
+      "nom": "3am",
+      "url": "http://threeamkelxicjsaf2czjyz2lc4q3ngqkxhhlexyfcp2o6raw4rphyad.onion",
+      "fichier": "sources-onion-ransomlook.sql",
+      "groupe": 101,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:rl:abyss-data",
+      "nom": "abyss-data",
+      "url": "http://3ev4metjirohtdpshsqlkrqcmxq6zu3d7obrdhglpy5jpbr7whmlfgqd.onion",
+      "fichier": "sources-onion-ransomlook.sql",
+      "groupe": 102,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:rl:eraleign-apt73",
+      "nom": "eraleign (apt73)",
+      "url": "http://basheqtvzqwz4vp6ks5lm2ocq7i6tozqgf6vjcasj4ezmsy4bkpshhyd.onion/",
+      "fichier": "sources-onion-ransomlook.sql",
+      "groupe": 104,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:rl:fulcrumsec",
+      "nom": "fulcrumsec",
+      "url": "http://4e3p3in2bl67hxchuwza7qvnpe7pyeloyztr5fnh257fxkovfhappjyd.onion/",
+      "fichier": "sources-onion-ransomlook.sql",
+      "groupe": 105,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:rl:global-secret-group",
+      "nom": "global secret group",
+      "url": "http://o5lsqyar7ox25z734k6zaxt2vf7bsyi4q5rturi5iyxzqo3ica7bjsad.onion/",
+      "fichier": "sources-onion-ransomlook.sql",
+      "groupe": 108,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:rl:kazu",
+      "nom": "kazu",
+      "url": "http://6czlbd2jfiy6765fbnbnzuwuqocg57ebvp3tbm35kib425k4qnmiiiqd.onion/",
+      "fichier": "sources-onion-ransomlook.sql",
+      "groupe": 109,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:rl:netrunner",
+      "nom": "netrunner",
+      "url": "http://netrunrs65cn2yidokrmxn5rrur2gjpuyuwrt6mkfy6lek4jnqojn4qd.onion/",
+      "fichier": "sources-onion-ransomlook.sql",
+      "groupe": 110,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:rl:orova",
+      "nom": "orova",
+      "url": "http://maa2yprc5pldyr5hjn246hw7i66wdhglnostqgqkcbuh4vyyeos4xxyd.onion/",
+      "fichier": "sources-onion-ransomlook.sql",
+      "groupe": 111,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:rl:ransomhouse",
+      "nom": "ransomhouse",
+      "url": "http://da763kyxwe3mf67gui5tb5igvpnt4w6cps5svrw2wkizyrzqgamdxtid.onion/",
+      "fichier": "sources-onion-ransomlook.sql",
+      "groupe": 112,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:rl:sarcoma",
+      "nom": "sarcoma",
+      "url": "http://zp6bziy6wljpkg6i3uxzzcxyajodxzoc7acf5egb2vhzzrot23y3mpyd.onion/",
+      "fichier": "sources-onion-ransomlook.sql",
+      "groupe": 113,
+      "decision": "garder",
+      "erreur_sonde": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "openphish",
+      "nom": "OpenPhish community feed",
+      "url": "https://openphish.com/feed.txt",
+      "fichier": "sources-national.sql",
+      "groupe": 114,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "osint-abusech",
+      "nom": "abuse.ch (site)",
+      "url": "https://www.abuse.ch/",
+      "fichier": "sources-expansion.sql",
+      "groupe": 115,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "osint-hibp",
+      "nom": "Have I Been Pwned (site)",
+      "url": "https://haveibeenpwned.com/",
+      "fichier": "sources-expansion.sql",
+      "groupe": 116,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "osint-otx",
+      "nom": "AlienVault OTX (site)",
+      "url": "https://otx.alienvault.com/",
+      "fichier": "sources-expansion.sql",
+      "groupe": 117,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "osint-shodan",
+      "nom": "Shodan (site)",
+      "url": "https://www.shodan.io/",
+      "fichier": "sources-expansion.sql",
+      "groupe": 118,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "osint-threatfox",
+      "nom": "ThreatFox (site)",
+      "url": "https://threatfox.abuse.ch/",
+      "fichier": "sources-expansion.sql",
+      "groupe": 119,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "osint-urlhaus",
+      "nom": "URLhaus (site)",
+      "url": "https://urlhaus.abuse.ch/",
+      "fichier": "sources-expansion.sql",
+      "groupe": 120,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "osint-virustotal",
+      "nom": "VirusTotal (site)",
+      "url": "https://www.virustotal.com/",
+      "fichier": "sources-expansion.sql",
+      "groupe": 121,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "paste:github:gists-public-feed",
+      "nom": "GitHub — gists publics (flux narratif)",
+      "url": "https://api.github.com/gists/public?per_page=30",
+      "fichier": "sources-paste-leaks.sql",
+      "groupe": 122,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "poc_github",
+      "nom": "PoC publics GitHub (nomi-sec/PoC-in-GitHub)",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub",
+      "fichier": "sources-poc.sql",
+      "groupe": 123,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "pref19-actualites-rss",
+      "nom": "Prefecture de la Correze — actualites (RSS)",
+      "url": "https://www.correze.gouv.fr/syndication/flux/rss_feed_62",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 124,
+      "decision": "garder",
+      "erreur_sonde": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "id": "pref23-actualites",
+      "nom": "Prefecture de la Creuse — actualites",
+      "url": "https://www.creuse.gouv.fr/Actualites",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 125,
+      "decision": "garder",
+      "erreur_sonde": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "id": "pref40-communiques-2026",
+      "nom": "Prefecture des Landes — communiques de presse 2026",
+      "url": "https://www.landes.gouv.fr/Actualites/Salle-de-presse/Communiques-de-presse/2026",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 126,
+      "decision": "garder",
+      "erreur_sonde": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "id": "pref47-dernieres-infos",
+      "nom": "Prefecture du Lot-et-Garonne — dernieres informations",
+      "url": "https://www.lot-et-garonne.gouv.fr/Actualites/Dernieres-informations",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 127,
+      "decision": "garder",
+      "erreur_sonde": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "id": "presse-01net",
+      "nom": "01net (RSS)",
+      "url": "https://www.01net.com/rss",
+      "fichier": "sources-expansion.sql",
+      "groupe": 128,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-aquitaineonline-landes",
+      "nom": "Aquitaine OnLine — Landes (RSS)",
+      "url": "https://www.aquitaineonline.com/actualites-en-aquitaine/landes/feed/rss/",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 129,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-charentelibre",
+      "nom": "Charente Libre (RSS)",
+      "url": "https://www.charentelibre.fr/rss.xml",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 130,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-france3-correze",
+      "nom": "France 3 NA — Correze (RSS)",
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/rss",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 131,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-france3-creuse",
+      "nom": "France 3 NA — Creuse (RSS)",
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/rss",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 132,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-france3-landes",
+      "nom": "France 3 NA — Landes (RSS)",
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes/rss",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 133,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-france3-na",
+      "nom": "France 3 Nouvelle-Aquitaine (RSS)",
+      "url": "https://france3-regions.francetvinfo.fr/nouvelle-aquitaine/rss",
+      "fichier": "migrate-033-sources-regionales.sql",
+      "groupe": 134,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-francebleu-rss",
+      "nom": "France Bleu (RSS)",
+      "url": "https://www.francebleu.fr/rss",
+      "fichier": "sources-expansion.sql",
+      "groupe": 135,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-francetvinfo",
+      "nom": "Franceinfo (RSS titres)",
+      "url": "https://www.francetvinfo.fr/titres.rss",
+      "fichier": "sources-expansion.sql",
+      "groupe": 136,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-generationnt",
+      "nom": "Generation NT (RSS)",
+      "url": "https://www.generation-nt.com/rss.xml",
+      "fichier": "sources-expansion.sql",
+      "groupe": 137,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-ici-creuse",
+      "nom": "ICI Creuse — a la une (RSS)",
+      "url": "https://www.ici.fr/rss/creuse/a-la-une.xml",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 138,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-ici-limousin-infos",
+      "nom": "ICI Limousin — infos (RSS)",
+      "url": "https://www.ici.fr/rss/limousin/rubrique/infos.xml",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 139,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-ladepeche-47",
+      "nom": "La Depeche — Lot-et-Garonne (RSS)",
+      "url": "https://www.ladepeche.fr/communes/lot-et-garonne,47/rss.xml",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 140,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-lamontagne-correze",
+      "nom": "La Montagne — Correze (page actualites)",
+      "url": "https://www.lamontagne.fr/correze",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 141,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-lefigaro-actu",
+      "nom": "Le Figaro (RSS actu)",
+      "url": "https://www.lefigaro.fr/rss/figaro_actualites.xml",
+      "fichier": "sources-expansion.sql",
+      "groupe": 142,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-lemonde-tech",
+      "nom": "Le Monde Technologies (RSS)",
+      "url": "https://www.lemonde.fr/technologies/rss_full.xml",
+      "fichier": "sources-expansion.sql",
+      "groupe": 143,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-lemonde-une",
+      "nom": "Le Monde (RSS une)",
+      "url": "https://www.lemonde.fr/rss/une.xml",
+      "fichier": "sources-expansion.sql",
+      "groupe": 144,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-lmi-feedburner",
+      "nom": "Le Monde Informatique (Feedburner)",
+      "url": "https://feeds.feedburner.com/LeMondeInformatique",
+      "fichier": "sources-expansion.sql",
+      "groupe": 145,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-lmi-rss",
+      "nom": "Le Monde Informatique (RSS)",
+      "url": "https://www.lemondeinformatique.fr/flux-rss/rss.xml",
+      "fichier": "sources-expansion.sql",
+      "groupe": 146,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-mediacites",
+      "nom": "Médiacités (feed national, enquêtes locales)",
+      "url": "https://www.mediacites.fr/feed/",
+      "fichier": "migrate-033-sources-regionales.sql",
+      "groupe": 147,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-numerama",
+      "nom": "Numerama (feed)",
+      "url": "https://www.numerama.com/feed/",
+      "fichier": "sources-expansion.sql",
+      "groupe": 148,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-ouestfrance-rss",
+      "nom": "Ouest-France (RSS)",
+      "url": "https://www.ouest-france.fr/rss.xml",
+      "fichier": "sources-expansion.sql",
+      "groupe": 149,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-republicain-47",
+      "nom": "Le Republicain Lot-et-Garonne — actu.fr (RSS)",
+      "url": "https://actu.fr/le-republicain-lot-et-garonne/rss.xml",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 150,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-rue89bordeaux",
+      "nom": "Rue89 Bordeaux (feed)",
+      "url": "https://www.rue89bordeaux.com/feed",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 151,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-silicon",
+      "nom": "Silicon (feed)",
+      "url": "https://www.silicon.fr/feed",
+      "fichier": "sources-expansion.sql",
+      "groupe": 152,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-sudouest",
+      "nom": "Sud Ouest (RSS)",
+      "url": "https://www.sudouest.fr/rss.xml",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 153,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-sudouest-rss",
+      "nom": "Sud Ouest (RSS)",
+      "url": "https://www.sudouest.fr/rss.xml",
+      "fichier": "sources-expansion.sql",
+      "groupe": 153,
+      "decision": "doublon de presse-sudouest",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-sudouest-charente",
+      "nom": "Sud Ouest — Charente (RSS)",
+      "url": "https://www.sudouest.fr/charente/rss.xml",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 154,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-sudouest-charente-maritime",
+      "nom": "Sud Ouest — Charente-Maritime (RSS)",
+      "url": "https://www.sudouest.fr/charente-maritime/rss.xml",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 155,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-sudouest-deux-sevres",
+      "nom": "Sud Ouest — Deux-Sèvres (RSS)",
+      "url": "https://www.sudouest.fr/deux-sevres/rss.xml",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 156,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-sudouest-dordogne",
+      "nom": "Sud Ouest — Dordogne (RSS)",
+      "url": "https://www.sudouest.fr/dordogne/rss.xml",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 157,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-sudouest-gironde",
+      "nom": "Sud Ouest — Gironde (RSS)",
+      "url": "https://www.sudouest.fr/gironde/rss.xml",
+      "fichier": "migrate-033-sources-regionales.sql",
+      "groupe": 158,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-sudouest-landes",
+      "nom": "Sud Ouest — Landes (RSS)",
+      "url": "https://www.sudouest.fr/landes/rss.xml",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 159,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-sudouest-lot-et-garonne",
+      "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
+      "url": "https://www.sudouest.fr/lot-et-garonne/rss.xml",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 160,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-sudouest-mont-de-marsan",
+      "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
+      "url": "https://www.sudouest.fr/landes/mont-de-marsan/rss.xml",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 161,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-sudouest-pyrenees",
+      "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
+      "url": "https://www.sudouest.fr/pyrenees-atlantiques/rss.xml",
+      "fichier": "migrate-033-sources-regionales.sql",
+      "groupe": 162,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-undernews",
+      "nom": "UnderNews (feed)",
+      "url": "https://www.undernews.fr/feed",
+      "fichier": "sources-expansion.sql",
+      "groupe": 164,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "presse-zataz",
+      "nom": "Zataz (feed)",
+      "url": "https://www.zataz.com/feed/",
+      "fichier": "sources-expansion.sql",
+      "groupe": 165,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "ransom-ransomlook",
+      "nom": "RansomLook (site)",
+      "url": "https://www.ransomlook.io/",
+      "fichier": "sources-expansion.sql",
+      "groupe": 166,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "ransom-ransomwarelive",
+      "nom": "Ransomware.live (site)",
+      "url": "https://ransomware.live/",
+      "fichier": "sources-expansion.sql",
+      "groupe": 167,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "secteur-renater",
+      "nom": "RENATER (feed)",
+      "url": "https://www.renater.fr/feed",
+      "fichier": "sources-expansion.sql",
+      "groupe": 169,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "secteur-sante-fr",
+      "nom": "Sante.fr (RSS)",
+      "url": "https://www.sante.fr/rss",
+      "fichier": "sources-expansion.sql",
+      "groupe": 170,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "tg-cert-eu",
+      "nom": "Telegram CERT_EU (web)",
+      "url": "https://t.me/s/CERT_EU",
+      "fichier": "sources-expansion.sql",
+      "groupe": 171,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "tg-certfr",
+      "nom": "Telegram CERT_FR (web)",
+      "url": "https://t.me/s/CERT_FR",
+      "fichier": "sources-expansion.sql",
+      "groupe": 172,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "tg-cti",
+      "nom": "Telegram CTI (web)",
+      "url": "https://t.me/s/CTI",
+      "fichier": "sources-expansion.sql",
+      "groupe": 173,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "tg-cyberdefence",
+      "nom": "Telegram cyberdefence (web)",
+      "url": "https://t.me/s/cyberdefence",
+      "fichier": "sources-expansion.sql",
+      "groupe": 174,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "tg-cybersecurity",
+      "nom": "Telegram cybersecurity (web)",
+      "url": "https://t.me/s/cybersecurity",
+      "fichier": "sources-expansion.sql",
+      "groupe": 175,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "tg-intelfeed",
+      "nom": "Telegram IntelFeed (web)",
+      "url": "https://t.me/s/IntelFeed",
+      "fichier": "sources-expansion.sql",
+      "groupe": 176,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "tg-intelowl",
+      "nom": "Telegram IntelOwl (web)",
+      "url": "https://t.me/s/IntelOwl",
+      "fichier": "sources-expansion.sql",
+      "groupe": 177,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "tg-malware-traffic",
+      "nom": "Telegram malware_traffic (web)",
+      "url": "https://t.me/s/malware_traffic",
+      "fichier": "sources-expansion.sql",
+      "groupe": 178,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "tg-osint",
+      "nom": "Telegram OSINT (web)",
+      "url": "https://t.me/s/OSINT",
+      "fichier": "sources-expansion.sql",
+      "groupe": 179,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "tg-osint-techniques",
+      "nom": "Telegram OSINT_Techniques (web)",
+      "url": "https://t.me/s/OSINT_Techniques",
+      "fichier": "sources-expansion.sql",
+      "groupe": 180,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "tg-osintdefender",
+      "nom": "Telegram OSINTdefender (web)",
+      "url": "https://t.me/s/OSINTdefender",
+      "fichier": "sources-expansion.sql",
+      "groupe": 181,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "tg-ransomware",
+      "nom": "Telegram ransomware (web)",
+      "url": "https://t.me/s/ransomware",
+      "fichier": "sources-expansion.sql",
+      "groupe": 182,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "tg-threatintel",
+      "nom": "Telegram threatintel (web)",
+      "url": "https://t.me/s/threatintel",
+      "fichier": "sources-expansion.sql",
+      "groupe": 183,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "tg-threatintel-daily",
+      "nom": "Telegram threatintel_daily (web)",
+      "url": "https://t.me/s/threatintel_daily",
+      "fichier": "sources-expansion.sql",
+      "groupe": 184,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "univ-larochelle",
+      "nom": "Université de La Rochelle (RSS)",
+      "url": "https://www.univ-lr.fr/rss",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 185,
+      "decision": "garder",
+      "erreur_sonde": null
+    },
+    {
+      "id": "univ-limoges",
+      "nom": "Université de Limoges (RSS)",
+      "url": "https://www.unilim.fr/rss",
+      "fichier": "migrate-020-sources-regional.sql",
+      "groupe": 186,
+      "decision": "garder",
+      "erreur_sonde": null
+    }
+  ],
+  "sondes_en_echec": [
+    {
+      "id": "hermes_radar_cyber",
+      "erreur": "ValueError: unknown url type: 'box%20hermes%20/%20profil%20radar-cyber'"
+    },
+    {
+      "id": "onion:ccw:anubis",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:aoqin",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:aoqin-leaks",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:apt73",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:arcusmedia",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:atomsilo",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:auditteam",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:aurora",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:barracuda",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:bavacai",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:blacknevas",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:blackout",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:booba-project",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:byod",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:ciphbit",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:climax",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:dark-project",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:destello",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:direwolf",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:doommageddon",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:eclipse",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:endzone",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:ethics",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:everest",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:everstake",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:exitium",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:gammax",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:genesis",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:global-secret-group",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:ccw:helix",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:rl:3am",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:rl:abyss-data",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:rl:byod",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:rl:eraleign-apt73",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:rl:fulcrumsec",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:rl:gammax",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:rl:genesis",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:rl:global-secret-group",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:rl:kazu",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:rl:netrunner",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:rl:orova",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:rl:ransomhouse",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "onion:rl:sarcoma",
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    {
+      "id": "pref19-actualites-rss",
+      "erreur": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "id": "pref23-actualites",
+      "erreur": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "id": "pref40-communiques-2026",
+      "erreur": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    {
+      "id": "pref47-dernieres-infos",
+      "erreur": "RemoteDisconnected: Remote end closed connection without response"
+    }
+  ],
+  "controles": {
+    "sources_entrees": 187,
+    "sources_dans_les_decisions": 187,
+    "groupes": 179,
+    "somme_groupes": 187,
+    "coherent": true
+  }
+}
