@@ -301,8 +301,6 @@ export type DeptStat = { dept: string; evenements: number; organisations: number
 
 /** Réponse de GET /api/today/departements : un département = un filtre utile. */
 export type StatsDepartements = { departements: DeptStat[] };
-/** One coverage line: incidents seen, incidents in scope and rate in percent. */
-export type CouvertureLigne = { vus: number; total: number; taux: number };
 
 /** Response of GET /api/couverture: a frozen measurement and its breakdowns. */
 export type CouverturePublique = {
@@ -926,8 +924,6 @@ export const api = {
   graph: (days = 90) => get<Graph>(`/graph?days=${days}`),
   sources: () => get<Source[]>("/sources"),
   statsDepartements: (signal?: AbortSignal) => get<StatsDepartements>("/today/departements", signal),
-  /** Published coverage measurement, with an optional abort signal. */
-  couverture: (signal?: AbortSignal) => get<CouverturePublique>("/couverture", signal),
   stats: () => get<Stats>("/stats"),
   /** Couverture mesurée : une seule lecture, identique d'un appel à l'autre. */
   couverture: (signal?: AbortSignal) => get<CouvertureResponse>("/couverture", signal),
