@@ -117,8 +117,6 @@ Scripts de mesure/revue (fichiers présents) :
 ./apps/api/node_modules/.bin/tsx scripts/reconcile-orgs.mts                # dry-run rattachements texte
 ./apps/api/node_modules/.bin/tsx scripts/quarantine-review.mts pending     # usage: pending|promote <id>|reject <id>|purge
 ./apps/api/node_modules/.bin/tsx scripts/geocode-orgs.mts --dry-run --limit=30
-./apps/api/node_modules/.bin/tsx scripts/enrichir-referentiel.mts --rapport --limite=5000
-./apps/api/node_modules/.bin/tsx scripts/enrichir-referentiel.mts --appliquer --champ=siren,geo   # écrit la provenance et les colonnes vides
 ```
 
 > Mesures/exécutions 2026-11-10 : `reconcile-orgs.mts` (dry-run) — 530 examinés, 2 confirmés par le texte, 522 non justifiés, 6 vers une autre organisation. `quarantine-review.mts` affiche l'usage en l'absence d'arguments valides mais son exécution directe échoue dans cet environnement sur `import 'pg'` (`ERR_MODULE_NOT_FOUND`) ; le fichier existe.
