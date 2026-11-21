@@ -1,0 +1,28 @@
+{
+  "titre": "Articles de presse locale et régionale datés — Nouvelle-Aquitaine",
+  "genere_le": "2026-11-21",
+  "method": {
+    "verification": "HTTP 200 + title >= 12 caractères + date de publication lue dans la page (JSON-LD/métadonnée/<time>)",
+    "cyber": "heuristique de mots-clés sur le titre et l’extrait ; candidats à la revue, pas des incidents confirmés",
+    "sources": {
+      "communes_verifiees": 524,
+      "presse": 187
+    }
+  },
+  "comptes": {
+    "sources_interrogees": 711,
+    "pages_liste_avec_liens": 120,
+    "articles_collectes": 35,
+    "articles_dates": 35,
+    "par_origine": {
+      "presse": 35
+    },
+    "par_annee": {
+      "2026": 35
+    },
+    "candidats_cyber": 0,
+    "communes_avec_candidat_cyber": 0,
+    "articles_par_source_retenus": 43
+  },
+  "candidats_cyber": []
+}

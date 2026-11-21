@@ -1,0 +1,80 @@
+{
+  "titre": "Presse communale exhaustive — Nouvelle-Aquitaine",
+  "genere_le": "2026-11-21",
+  "population": {
+    "jeu": "communes-france-2026.csv.gz",
+    "url": "https://static.data.gouv.fr/resources/communes-et-villes-de-france-en-csv-excel-json-parquet-et-feather/20260617-160400/communes-france-2026.csv.gz",
+    "dataset_id": "6745d9ae4524d845d2138193",
+    "ressource_id": "c63fd0b1-7987-46f6-b779-8b3ed889090c",
+    "filtre": "reg_code = 75 (Nouvelle-Aquitaine) ET population > 2000"
+  },
+  "sites": {
+    "primaire": "Wikidata P856 (site officiel), requête SPARQL par VALUES ?insee",
+    "repli": "URL confirmées du corpus communes.jsonl + domaines mairie-/ville- déduits",
+    "verification": "HTTP 200 + text/html + >= 150 caractères + jeton distinctif du nom de la commune"
+  },
+  "comptes": {
+    "communes_cibles": 559,
+    "avec_source_verifiee": 524,
+    "sans_source": 35,
+    "taux_couverture_pct": 93.7,
+    "par_type": {
+      "page actualité mairie": 243,
+      "site officiel mairie": 44,
+      "journal municipal": 237
+    },
+    "par_departement": {
+      "16": {
+        "cibles": 36,
+        "verifies": 34
+      },
+      "17": {
+        "cibles": 78,
+        "verifies": 72
+      },
+      "19": {
+        "cibles": 19,
+        "verifies": 18
+      },
+      "23": {
+        "cibles": 5,
+        "verifies": 5
+      },
+      "24": {
+        "cibles": 34,
+        "verifies": 33
+      },
+      "33": {
+        "cibles": 140,
+        "verifies": 130
+      },
+      "40": {
+        "cibles": 40,
+        "verifies": 39
+      },
+      "47": {
+        "cibles": 32,
+        "verifies": 28
+      },
+      "64": {
+        "cibles": 60,
+        "verifies": 59
+      },
+      "79": {
+        "cibles": 38,
+        "verifies": 34
+      },
+      "86": {
+        "cibles": 47,
+        "verifies": 43
+      },
+      "87": {
+        "cibles": 30,
+        "verifies": 29
+      }
+    },
+    "raisons_sans_source": {
+      "aucune URL connue": 35
+    }
+  }
+}
