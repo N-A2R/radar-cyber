@@ -13,6 +13,7 @@ import Fastify, { type FastifyInstance } from "fastify";
 import { hashSessionToken } from "../src/auth.js";
 import { closePools, query } from "../src/db.js";
 import orgsRoute from "../src/routes/orgs.js";
+import { installErrorHandler } from "../src/errors.js";
 
 const TAG = `fiche${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 const EMAIL = `${TAG}@orgs-fiche.test`;
@@ -97,6 +98,7 @@ before(async () => {
   }
 
   app = Fastify({ logger: false });
+  installErrorHandler(app);
   await app.register(orgsRoute, { prefix: "/api" });
   await app.ready();
 });
@@ -143,7 +145,7 @@ test("404 explicite quand l'organisation est absente", async () => {
   for (const url of [`/api/orgs/${orgId + 1_000_000}`, "/api/orgs/pas-un-id"]) {
     const res = await app.inject({ method: "GET", url, headers: auth });
     assert.equal(res.statusCode, 404, `${url} : ${res.body.slice(0, 200)}`);
-    assert.deepEqual(res.json(), { error: "not found" });
+    assert.deepEqual(res.json(), { error: { code: "NOT_FOUND", message: "not found", details: null } });
   }
 });
 

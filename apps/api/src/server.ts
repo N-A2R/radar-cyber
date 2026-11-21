@@ -45,6 +45,7 @@ import orgsLieesRoute from "./routes/orgs-liees.js";
 import orgsLieesHistoriqueRoute from "./routes/orgs-liees-historique.js";
 import ingestRoute from "./routes/ingest.js";
 import { resolveUser } from "./middleware/auth.js";
+import { installErrorHandler, unauthorized } from "./errors.js";
 
 const port = Number(process.env.PORT ?? 8080);
 /** Cadence de la boucle de collecte. */
@@ -57,6 +58,7 @@ const QUARANTINE_MS = Number(process.env.RADAR_QUARANTINE_TICK_MS ?? 30 * 60 * 1
 const ALERT_DELIVERY_MS = Number(process.env.RADAR_ALERT_DELIVERY_TICK_MS ?? 2 * 60 * 1000);
 
 const app = Fastify({ logger: true });
+installErrorHandler(app);
 
 /** Origines autorisées pour le cross-origin, séparées par des virgules.
  *  Vide = aucune origine croisée (le front est servi depuis la même origine). */
@@ -107,7 +109,7 @@ app.addHook("onRequest", async (req, reply) => {
   if (url.startsWith("/api/auth/")) return;
   const user = await resolveUser(req);
   if (req.method !== "GET" || !PUBLIC_READ.test(url)) {
-    if (!user) { reply.code(401).send({ error: "unauthorized" }); return; }
+    if (!user) throw unauthorized();
   }
   if (user) req.user = user;
 });

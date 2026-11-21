@@ -1,3 +1,4 @@
+import { badRequest } from "../errors.js";
 /**
  * Journal des décisions de revue — lecture seule.
  *
@@ -34,11 +35,9 @@ type JournalLigne = {
   raison: string | null;
 };
 
-function badRequest(reply: { code: (n: number) => { send: (body: unknown) => unknown } }, error: z.ZodError) {
-  return reply.code(400).send({
-    error: "invalid input",
-    details: error.issues.map((issue) => ({ path: issue.path.join("."), message: issue.message })),
-  });
+function zodBadRequest(error: z.ZodError): never {
+  throw badRequest("invalid input",
+    error.issues.map((issue) => ({ path: issue.path.join("."), message: issue.message })));
 }
 
 const ENTETE_CSV = "date,acteur,decision,indice,org_id,raison,quarantine_id\r\n";
@@ -125,7 +124,7 @@ export default async function (app: FastifyInstance) {
   /** Décisions de revue, les plus récentes d'abord. Garde identique à /review/*. */
   app.get("/journal/review", { preHandler: requireAuth() }, async (req, reply) => {
     const parsed = JournalQuery.safeParse(req.query ?? {});
-    if (!parsed.success) return badRequest(reply, parsed.error);
+    if (!parsed.success) zodBadRequest(parsed.error);
     const { limite, avant } = parsed.data;
 
     // +1 pour savoir s'il reste une page, sans second compte sur la table.

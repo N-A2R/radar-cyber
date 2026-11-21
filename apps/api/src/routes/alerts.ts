@@ -2,14 +2,12 @@ import type { FastifyInstance, FastifyRequest } from "fastify";
 import { query } from "../db.js";
 import { requireAuth, resolveUser } from "../middleware/auth.js";
 import { scoreAlert } from "../detect/confidence.js";
+import { badRequest, notFound, unauthorized } from "../errors.js";
 
 export default async function (app: FastifyInstance) {
   app.get("/alerts", async (req: FastifyRequest, reply) => {
     const user = await resolveUser(req);
-    if (!user) {
-      reply.code(401).send({ error: "unauthorized" });
-      return;
-    }
+    if (!user) throw unauthorized();
     const q = req.query as Record<string, string | undefined>;
     let limit = Number(q.limit ?? 100);
     if (!Number.isFinite(limit)) limit = 100;
@@ -77,10 +75,7 @@ export default async function (app: FastifyInstance) {
 
   app.get("/alerts/stats", async (req: FastifyRequest, reply) => {
     const user = await resolveUser(req);
-    if (!user) {
-      reply.code(401).send({ error: "unauthorized" });
-      return;
-    }
+    if (!user) throw unauthorized();
     const r = await query("SELECT status, severity, COUNT(*)::text AS count FROM alert GROUP BY status, severity");
     return r.rows;
   });
@@ -88,8 +83,7 @@ export default async function (app: FastifyInstance) {
   app.get<{ Params: { id: string } }>("/alerts/:id", { preHandler: requireAuth() }, async (req, reply) => {
     const id = Number(req.params.id);
     if (!Number.isInteger(id) || id <= 0) {
-      reply.code(400).send({ error: "invalid id" });
-      return;
+      throw badRequest("invalid id");
     }
 
     const alertRow = await query<{
@@ -110,7 +104,7 @@ export default async function (app: FastifyInstance) {
       [id]
     );
     const alert = alertRow.rows[0];
-    if (!alert) { reply.code(404).send({ error: "not found" }); return; }
+    if (!alert) throw notFound();
 
     const eventRow = alert.event_id === null
       ? null
@@ -220,14 +214,14 @@ export default async function (app: FastifyInstance) {
     const id = Number(req.params.id);
     const u = req.user!;
     const r = await query("UPDATE alert SET status='ack', acked_at=now(), acked_by=$2, updated_at=now() WHERE id=$1 RETURNING id", [id, u.id]);
-    if (!r.rowCount) { reply.code(404).send({ error: "not found" }); return; }
+    if (!r.rowCount) throw notFound();
     return { ok: true };
   });
 
   app.post<{ Params: { id: string } }>("/alerts/:id/resolve", { preHandler: requireAuth() }, async (req, reply) => {
     const id = Number(req.params.id);
     const r = await query("UPDATE alert SET status='resolved', updated_at=now() WHERE id=$1 RETURNING id", [id]);
-    if (!r.rowCount) { reply.code(404).send({ error: "not found" }); return; }
+    if (!r.rowCount) throw notFound();
     return { ok: true };
   });
 }

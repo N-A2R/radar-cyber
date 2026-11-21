@@ -1,3 +1,4 @@
+import { badRequest } from "../errors.js";
 /**
  * Historique des compteurs « organisations reliées ».
  *
@@ -30,7 +31,7 @@ export default async function (app: FastifyInstance) {
       const valeur = Array.isArray(brut.jours) ? brut.jours[0] : brut.jours;
       const jours = valeur === undefined ? JOURS_DEFAUT : Number(valeur);
       if (!Number.isInteger(jours) || jours < 1 || jours > JOURS_MAX) {
-        return reply.code(400).send({ error: "jours doit être un entier entre 1 et 365" });
+        throw badRequest("jours doit être un entier entre 1 et 365");
       }
 
       const r = await query<PointRow>(

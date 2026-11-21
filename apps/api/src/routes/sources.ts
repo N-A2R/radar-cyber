@@ -1,3 +1,4 @@
+import { badRequest, notFound } from "../errors.js";
 import type { FastifyInstance } from "fastify";
 import { z } from "zod";
 import { query, withTransaction } from "../db.js";
@@ -218,13 +219,10 @@ export default async function (app: FastifyInstance) {
     async (req, reply) => {
       const parsed = MorteBody.safeParse(req.body ?? {});
       if (!parsed.success) {
-        return reply.code(400).send({
-          error: "invalid input",
-          details: parsed.error.issues.map((issue) => ({
-            path: issue.path.join("."),
-            message: issue.message,
-          })),
-        });
+        throw badRequest("invalid input", parsed.error.issues.map((issue) => ({
+          path: issue.path.join("."),
+          message: issue.message,
+        })));
       }
 
       const raison = parsed.data.raison;
@@ -267,7 +265,7 @@ export default async function (app: FastifyInstance) {
         return row;
       });
 
-      if (!updated) return reply.code(404).send({ error: "source introuvable" });
+      if (!updated) throw notFound("source introuvable");
       return {
         id: updated.id,
         statut: updated.statut,
@@ -323,7 +321,7 @@ export default async function (app: FastifyInstance) {
         return row;
       });
 
-      if (!updated) return reply.code(404).send({ error: "source introuvable ou déjà active" });
+      if (!updated) throw notFound("source introuvable ou déjà active");
       return {
         id: updated.id,
         statut: updated.statut,
