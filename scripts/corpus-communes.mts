@@ -1,200 +1,240 @@
+#!/usr/bin/env -S npx tsx
 /**
- * Construit le corpus des sites de mairies des communes de Nouvelle-Aquitaine.
+ * Corpus des sites officiels des communes de Nouvelle-Aquitaine de plus de
+ * 10 000 habitants.
  *
- * La liste des communes provient de la source INSEE publique exposée par
- * `https://geo.api.gouv.fr/communes` (code région INSEE 75), avec les champs
- * `nom,code,codeDepartement,population`. Seules les communes dont la
- * population est strictement supérieure à 10 000 sont retenues.
+ *   apps/api/node_modules/.bin/tsx scripts/corpus-communes.mts
+ *   DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
+ *     apps/api/node_modules/.bin/tsx scripts/corpus-communes.mts --appliquer
  *
- * Pour chaque commune, quatre URL candidates sont sondées dans l'ordre :
- * `https://mairie-<slug>.fr`, `https://mairie-<compact>.fr`,
- * `https://<slug>.fr`, `https://<compact>.fr` (slug ASCII minuscule à
- * séparateurs `-`, variante compacte sans tirets). Un site n'est confirmé
- * que si la requête GET répond strictement HTTP 200 ; on s'arrête au premier
- * succès. Les doublons d'URL sont ignorés et la concurrence est bornée.
+ * Les communes viennent du référentiel versionné (`db/data/referentiel-na.json`).
+ * Leur site est cherché sur Wikidata (propriété P856 de l'item portant le code
+ * INSEE P374), jamais deviné depuis le nom. Chaque candidat est ensuite omis
+ * sauf si le serveur répond 200 avec une page qui mentionne la commune.
  *
- * Usage :
- *   apps/api/node_modules/.bin/tsx scripts/corpus-communes.mts                    # rapport, aucune écriture
- *   apps/api/node_modules/.bin/tsx scripts/corpus-communes.mts --appliquer         # écrit bench/corpus/communes.jsonl
- *   apps/api/node_modules/.bin/tsx scripts/corpus-communes.mts --help
- *
- * Par défaut, le script affiche seulement un rapport. `--appliquer` écrit
- * `bench/corpus/communes.jsonl` : une ligne JSON par commune, avec les clés
- * `nom`, `code_insee`, `departement`, `url` et `statut`, triées par code INSEE.
+ * Par défaut : rapport stdout + `bench/corpus/communes.jsonl` uniquement.
+ * `--appliquer` est la seule porte d'écriture en base : complète `org.website`
+ * et `org.domain` des communes confirmées, sans écraser une valeur existante.
  */
+import { readFileSync } from "node:fs";
 import { mkdir, writeFile } from "node:fs/promises";
-import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { closePools } from "../apps/api/src/db.js";
+import {
+	appliquerPlan,
+	candidatsDepuisWikidata,
+	communesCibles,
+	evaluerReponse,
+	ligneCorpus,
+	planApplication,
+	trierCandidats,
+	type CandidatSite,
+	type CommuneCible,
+	type LigneCorpus,
+	type Tentative,
+	type Verification,
+} from "../apps/api/src/corpus/communes.js";
+import type { ReferentielNA } from "../apps/api/src/referentiel/model.js";
 
-const API_COMMUNES = "https://geo.api.gouv.fr/communes?codeRegion=75&fields=nom,code,codeDepartement,population&format=json";
-const USER_AGENT = "RadarCyberCorpusCommunes/1.0";
-const TIMEOUT_MS = 5_500;
-const CONCURRENCE = 8;
-const OUTPUT_FILE = fileURLToPath(new URL("../bench/corpus/communes.jsonl", import.meta.url));
-
-interface Commune {
-	nom: string;
-	code: string;
-	departement: string;
-	population: number;
+const argv = process.argv.slice(2);
+const APPLIQUER = argv.includes("--appliquer");
+const AIDE = argv.includes("--help") || argv.includes("-h");
+const INCONNU = argv.find((a) => a !== "--appliquer" && a !== "--help" && a !== "-h");
+if (AIDE) {
+	console.log("Usage : tsx scripts/corpus-communes.mts [--appliquer]");
+	process.exit(0);
+}
+if (INCONNU) {
+	console.error(`Argument inconnu : ${INCONNU}`);
+	process.exit(2);
+}
+if (APPLIQUER && !process.env.DATABASE_URL) {
+	console.error("DATABASE_URL est requis pour --appliquer (ex. postgres://radar:radar@localhost:5433/radar)");
+	process.exit(2);
 }
 
-interface Ligne {
-	nom: string;
-	code_insee: string;
-	departement: string;
-	url: string | null;
-	statut: number | null;
-}
+const SORTIE = new URL("../bench/corpus/communes.jsonl", import.meta.url);
+// UA navigateur standard : plusieurs WAF municipaux renvoient une page
+// « Request Denied » en 200 dès que l'UA porte un suffixe non standard.
+const USER_AGENT =
+	"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36";
+const DELAI_MS = 12_000;
+const CONCURRENCE = 6;
+const MAX_CANDIDATS = 3;
 
-function usage(): string {
-	return [
-		"Usage : tsx scripts/corpus-communes.mts [--appliquer]",
-		"  défaut       : rapport des communes et des sites confirmés, aucune écriture",
-		"  --appliquer  : écrit bench/corpus/communes.jsonl (une ligne JSON par commune)",
-		"  --help, -h   : affiche cette aide",
-	].join("\n");
-}
-
-function parseArgs(argv: string[]): { apply: boolean } {
-	let apply = false;
-	for (const arg of argv) {
-		if (arg === "--appliquer") apply = true;
-		else if (arg === "--help" || arg === "-h") {
-			process.stdout.write(usage() + "\n");
-			process.exit(0);
-		} else {
-			throw new Error(`argument inconnu : ${arg}`);
-		}
+function causeReseau(error: unknown): string | null {
+	if (error instanceof Error && "cause" in error) {
+		const cause = error.cause;
+		if (cause instanceof Error && "code" in cause && typeof cause.code === "string") return cause.code;
 	}
-	return { apply };
+	return null;
 }
 
-function message(error: unknown): string {
-	return error instanceof Error ? error.message : String(error);
+function messageErreur(error: unknown): string {
+	return (error instanceof Error ? error.message : String(error)).slice(0, 140);
 }
 
-async function recupererCommunes(): Promise<Commune[]> {
-	let response: Response;
+async function jsonSPARQL<T>(url: string): Promise<T> {
+	const reponse = await fetch(url, {
+		headers: { "User-Agent": USER_AGENT, Accept: "application/sparql-results+json" },
+		signal: AbortSignal.timeout(30_000),
+	});
+	if (!reponse.ok) throw new Error(`Wikidata SPARQL : HTTP ${reponse.status}`);
+	return (await reponse.json()) as T;
+}
+
+/** Une tentative réseau est toujours tracée, y compris en échec. */
+type Sondage = { verification: Verification; tentative: Tentative };
+
+async function sonder(candidat: CandidatSite, commune: CommuneCible): Promise<Sondage> {
+	let statut: number | null = null;
+	let urlFinale: string | null = null;
 	try {
-		response = await fetch(API_COMMUNES, {
-			method: "GET",
-			headers: { "user-agent": USER_AGENT, accept: "application/json" },
-			signal: AbortSignal.timeout(TIMEOUT_MS),
-		});
-	} catch (error) {
-		throw new Error(`impossible de récupérer la liste des communes sur ${API_COMMUNES} : ${message(error)}`);
-	}
-	if (response.status !== 200) {
-		await response.body?.cancel().catch(() => {});
-		throw new Error(`liste des communes : HTTP ${String(response.status)} attendu 200`);
-	}
-
-	let parsed: unknown;
-	try {
-		parsed = await response.json();
-	} catch (error) {
-		throw new Error(`liste des communes : JSON illisible : ${message(error)}`);
-	}
-	if (!Array.isArray(parsed)) throw new Error("liste des communes : tableau JSON attendu");
-
-	const communes: Commune[] = [];
-	for (const record of parsed) {
-		if (record === null || typeof record !== "object" || Array.isArray(record)) {
-			throw new Error("liste des communes : entrée invalide");
-		}
-		const entree = record as Record<string, unknown>;
-		const { nom, code, codeDepartement, population } = entree;
-		if (typeof nom !== "string" || typeof code !== "string" || typeof codeDepartement !== "string") {
-			throw new Error(`liste des communes : champs manquants pour ${JSON.stringify(entree)}`);
-		}
-		if (typeof population !== "number" || !Number.isFinite(population)) continue;
-		if (population <= 10_000) continue;
-		communes.push({ nom, code, departement: codeDepartement, population });
-	}
-	return communes;
-}
-
-function slugify(value: string): string {
-	return value
-		.normalize("NFD")
-		.replace(/\p{M}/gu, "")
-		.toLowerCase()
-		.replace(/[^a-z0-9]+/g, "-")
-		.replace(/^-+|-+$/g, "");
-}
-
-async function confirme(url: string): Promise<number | null> {
-	try {
-		const response = await fetch(url, {
-			method: "GET",
-			headers: { "user-agent": USER_AGENT, accept: "*/*" },
+		const reponse = await fetch(candidat.url, {
+			headers: { "User-Agent": USER_AGENT, "Accept-Language": "fr-FR,fr;q=0.9" },
 			redirect: "follow",
-			signal: AbortSignal.timeout(TIMEOUT_MS),
+			signal: AbortSignal.timeout(DELAI_MS),
 		});
-		await response.body?.cancel().catch(() => {});
-		return response.status === 200 ? 200 : null;
+		statut = reponse.status;
+		urlFinale = reponse.url;
+		// Au-delà, les pages de portail ne servent plus à la cohérence : on
+		// garde le coût mémoire borné pour 74 communes vérifiées en parallèle.
+		const html = (await reponse.text()).slice(0, 300_000);
+		const verification = evaluerReponse({ statut, urlFinale, html, nom: commune.nom });
+		return {
+			verification,
+			tentative: { url: candidat.url, statut, issue: verification.raison },
+		};
+	} catch (error) {
+		const code = causeReseau(error);
+		const issue = `réseau ${code ? `(${code}) ` : ""}: ${messageErreur(error)}`;
+		return {
+			verification: {
+				confirme: false,
+				raison: issue,
+				statut,
+				urlFinale,
+				extrait: null,
+				correspondance: null,
+			},
+			tentative: { url: candidat.url, statut, issue },
+		};
+	}
+}
+
+/** Une seule variante : le même hôte, l'autre protocole. Jamais un nom deviné. */
+function varianteProtocole(candidat: CandidatSite): CandidatSite | null {
+	let url: URL;
+	try {
+		url = new URL(candidat.url);
 	} catch {
 		return null;
 	}
+	url.protocol = url.protocol === "http:" ? "https:" : "http:";
+	return { ...candidat, url: url.toString() };
 }
 
-async function sonder(commune: Commune): Promise<Ligne> {
-	const slug = slugify(commune.nom);
-	const compact = slug.replace(/-/g, "");
-	const candidats = [...new Set([
-		slug === "" ? null : `https://mairie-${slug}.fr`,
-		compact === "" ? null : `https://mairie-${compact}.fr`,
-		slug === "" ? null : `https://${slug}.fr`,
-		compact === "" ? null : `https://${compact}.fr`,
-	].filter((url): url is string => url !== null))];
+async function traiter(
+	commune: CommuneCible,
+	parCode: Map<string, CandidatSite[]>,
+	verifieLe: string,
+): Promise<LigneCorpus> {
+	const candidats = trierCandidats(parCode.get(commune.code) ?? [], commune.nom);
+	if (candidats.length === 0) {
+		return ligneCorpus(
+			commune,
+			null,
+			{
+				confirme: false,
+				raison: "aucun site officiel référencé (Wikidata P856)",
+				statut: null,
+				urlFinale: null,
+				extrait: null,
+				correspondance: null,
+			},
+			[],
+			verifieLe,
+		);
+	}
 
-	for (const url of candidats) {
-		const statut = await confirme(url);
-		if (statut === 200) {
-			return { nom: commune.nom, code_insee: commune.code, departement: commune.departement, url, statut };
+	const tentatives: Tentative[] = [];
+	let meilleur: Sondage | null = null;
+	let meilleurCandidat = candidats[0]!;
+	for (const candidat of candidats.slice(0, MAX_CANDIDATS)) {
+		for (const essai of [candidat, varianteProtocole(candidat)].filter((c): c is CandidatSite => c !== null)) {
+			const sondage = await sonder(essai, commune);
+			tentatives.push(sondage.tentative);
+			if (sondage.verification.confirme) {
+				return ligneCorpus(commune, essai, sondage.verification, tentatives, verifieLe);
+			}
+			// Un statut HTTP est plus informatif qu'une panne réseau : c'est lui
+			// qu'on publie comme raison si aucune tentative n'aboutit.
+			if (!meilleur || (meilleur.verification.statut === null && sondage.verification.statut !== null)) {
+				meilleur = sondage;
+				meilleurCandidat = essai;
+			}
 		}
 	}
-	return { nom: commune.nom, code_insee: commune.code, departement: commune.departement, url: null, statut: null };
+	return ligneCorpus(commune, meilleurCandidat, meilleur!.verification, tentatives, verifieLe);
 }
 
-async function sonderToutes(communes: Commune[]): Promise<Ligne[]> {
-	const lignes: (Ligne | undefined)[] = new Array(communes.length);
-	let suivant = 0;
-	const travailleur = async (): Promise<void> => {
-		while (true) {
-			const index = suivant++;
-			if (index >= communes.length) return;
-			lignes[index] = await sonder(communes[index]);
-		}
-	};
-	await Promise.all(Array.from({ length: Math.min(CONCURRENCE, communes.length) }, travailleur));
-	return lignes.filter((ligne): ligne is Ligne => ligne !== undefined);
+function pct(n: number, d: number): string {
+	return d === 0 ? "—" : `${((n / d) * 100).toFixed(1)} %`;
 }
 
 async function main(): Promise<void> {
-	const { apply } = parseArgs(process.argv.slice(2));
-	const communes = await recupererCommunes();
-	const lignes = await sonderToutes(communes);
-	lignes.sort((a, b) => (a.code_insee < b.code_insee ? -1 : a.code_insee > b.code_insee ? 1 : 0));
-	const confirmes = lignes.filter((ligne) => ligne.statut === 200).length;
+	const ref = JSON.parse(
+		readFileSync(new URL("../db/data/referentiel-na.json", import.meta.url), "utf8"),
+	) as ReferentielNA;
+	const communes = communesCibles(ref);
+	const codes = communes.map((c) => c.code);
+	console.log(`Communes de NA > ${10_000} habitants : ${communes.length}`);
 
-	console.log(`communes (population > 10000) : ${String(lignes.length)}`);
-	console.log(`sites confirmés (HTTP 200) : ${String(confirmes)}`);
-	if (!apply) {
-		console.log("aucune écriture (ajouter --appliquer pour écrire bench/corpus/communes.jsonl)");
-		return;
+	const requete = `SELECT ?item ?insee ?site WHERE {
+		VALUES ?insee { ${codes.map((c) => `"${c}"`).join(" ")} }
+		?item wdt:P374 ?insee .
+		OPTIONAL { ?item wdt:P856 ?site }
+	}`;
+	const url = `https://query.wikidata.org/sparql?query=${encodeURIComponent(requete)}&format=json`;
+	const parCode = candidatsDepuisWikidata(await jsonSPARQL<unknown>(url));
+	console.log(`Sites candidats Wikidata : ${[...parCode.values()].reduce((n, l) => n + l.length, 0)}`);
+
+	const verifieLe = new Date().toISOString().slice(0, 10);
+	const lignes: LigneCorpus[] = [];
+	for (let i = 0; i < communes.length; i += CONCURRENCE) {
+		const lot = await Promise.all(communes.slice(i, i + CONCURRENCE).map((c) => traiter(c, parCode, verifieLe)));
+		lignes.push(...lot);
+	}
+	lignes.sort((a, b) => a.code_insee.localeCompare(b.code_insee));
+
+	await mkdir(new URL("./", SORTIE), { recursive: true });
+	await writeFile(SORTIE, lignes.map((l) => JSON.stringify(l)).join("\n") + "\n", "utf8");
+	console.log(`Corpus écrit : ${fileURLToPath(SORTIE)} (${lignes.length} lignes)`);
+
+	const confirmes = lignes.filter((l) => l.confirme);
+	const echecs = lignes.filter((l) => !l.confirme);
+	console.log(`\nSites confirmés : ${confirmes.length}/${lignes.length} (${pct(confirmes.length, lignes.length)})`);
+	console.log(`Échecs : ${echecs.length}`);
+	for (const e of echecs) {
+		console.log(`  - ${e.code_insee} ${e.nom} (${e.departement}) : ${e.raison} — ${e.url_candidate || "aucune URL"}`);
 	}
 
-	await mkdir(dirname(OUTPUT_FILE), { recursive: true });
-	const contenu = lignes.map((ligne) => JSON.stringify(ligne)).join("\n");
-	await writeFile(OUTPUT_FILE, contenu === "" ? "" : `${contenu}\n`, "utf8");
-	console.log(`écrit : ${OUTPUT_FILE} (${String(lignes.length)} ligne(s))`);
+	if (APPLIQUER) {
+		const plan = planApplication(lignes);
+		const resultat = await appliquerPlan(plan);
+		console.log(
+			`\nBase : ${resultat.organisations} organisation(s) mise(s) à jour sur ${plan.length} site(s) confirmé(s).`,
+		);
+	} else {
+		console.log("\nMode rapport : aucune écriture en base (ajouter --appliquer).");
+	}
 }
 
-try {
-	await main();
-} catch (error) {
-	process.stderr.write(`corpus-communes: ${message(error)}\n`);
-	process.exitCode = 1;
-}
+main()
+	.catch((error: unknown) => {
+		console.error(error);
+		process.exitCode = 1;
+	})
+	.finally(async () => {
+		await closePools();
+	});
