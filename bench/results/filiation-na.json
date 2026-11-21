@@ -1,0 +1,26 @@
+{
+  "scope": "Nouvelle-Aquitaine (12 departments)",
+  "rule": "14-digit SIRET establishment -> its 9-digit SIREN prefix, both current and in Nouvelle-Aquitaine",
+  "source": "INSEE SIRENE stock (public data, no paid service)",
+  "candidates": 14956,
+  "established": 14956,
+  "byDepartment": {
+    "16": 749,
+    "17": 2087,
+    "19": 647,
+    "23": 220,
+    "24": 1018,
+    "33": 3707,
+    "40": 1462,
+    "47": 670,
+    "64": 2306,
+    "79": 585,
+    "86": 814,
+    "87": 691
+  },
+  "sql": {
+    "candidates": "SELECT count(*)::text AS n FROM org c JOIN org p\n\t\tON p.entity_source = 'sirene' AND p.entity_code = left(c.entity_code, 9)\n\t\tAND p.valid_to IS NULL AND p.dept IN ('16','17','19','23','24','33','40','47','64','79','86','87')\n\t\tWHERE c.entity_source = 'sirene-site' AND c.valid_to IS NULL AND c.dept IN ('16','17','19','23','24','33','40','47','64','79','86','87') AND c.entity_code ~ '^[0-9]{14}$'",
+    "established": "SELECT count(*)::text AS n FROM org c JOIN org p ON p.id = c.parent_org_id\n\t\tWHERE c.parent_evidence->>'method' = 'siren-prefix'\n\t\tAND c.valid_to IS NULL AND p.valid_to IS NULL\n\t\tAND c.dept IN ('16','17','19','23','24','33','40','47','64','79','86','87') AND p.dept IN ('16','17','19','23','24','33','40','47','64','79','86','87')",
+    "byDepartment": "SELECT c.dept, count(*)::text AS n FROM org c JOIN org p ON p.id = c.parent_org_id\n\t\tWHERE c.parent_evidence->>'method' = 'siren-prefix'\n\t\tAND c.valid_to IS NULL AND p.valid_to IS NULL\n\t\tAND c.dept IN ('16','17','19','23','24','33','40','47','64','79','86','87') AND p.dept IN ('16','17','19','23','24','33','40','47','64','79','86','87')\n\t\tGROUP BY c.dept ORDER BY c.dept"
+  }
+}
