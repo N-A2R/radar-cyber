@@ -2554,5 +2554,46 @@
   "lot2": 25,
   "lot3": 25,
   "lot4": 26
+ },
+ "desactivations": [
+  {
+   "id": "feodo-ip",
+   "motif": "morte-plus-30j",
+   "preuve": "dernier item 2026-03-04",
+   "journal": "source.changed, actor humain:mission-vague3"
+  },
+  {
+   "id": "presse-lmi-feedburner",
+   "motif": "morte-plus-30j",
+   "preuve": "dernier item 2009-03-15",
+   "journal": "source.changed"
+  },
+  {
+   "id": "cat-cert-si-news",
+   "motif": "morte-plus-30j",
+   "preuve": "dernier item 2026-05-29",
+   "journal": "source.changed"
+  },
+  {
+   "id": "univ-larochelle",
+   "motif": "morte-plus-30j",
+   "preuve": "dernier item 2026-10-16 (36 j)",
+   "journal": "source.changed"
+  },
+  {
+   "id": "eco-aquitaine-robotics",
+   "motif": "morte-plus-30j",
+   "preuve": "dernier item 2026-10-08 (44 j)",
+   "journal": "source.changed"
+  }
+ ],
+ "mesureApres": {
+  "date": "2026-11-21 (re-mesure)",
+  "sourcesActivees": 186,
+  "avant": 191,
+  "commande": "SELECT count(*) FROM source WHERE enabled ; source-health.mts --json",
+  "muettesReMesure": 100,
+  "note": "source-health ne filtre pas enabled : 4 des 5 désactivées apparaissent encore dans sa liste (cat-cert-si-news passe dormante). Muettes effectives restantes : 96, toutes classées dans ce fichier",
+  "criptere": "les 5 désactivations sont journalisées (kind source.changed) — aucune désactivation silencieuse"
  }
 }
