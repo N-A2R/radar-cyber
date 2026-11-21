@@ -7,6 +7,11 @@ produit par `scripts/mesure-couverture-systeme.mts` sur la base de travail
 `postgres://radar:radar@localhost:5433/radar`, le **2026-11-21** (dernière collecte en base).
 Aucun délai médian n'est publié : aucun incident n'est vu, donc aucun délai n'est mesurable.
 
+**Ce chiffre est mesuré mais non publiable** au sens de
+`docs/seuils-couverture.md` : le corpus ne compte que 20 incidents sur les 30
+exigés. `GET /api/couverture` renvoie `publiable: false` et la raison détaillée
+sous `publication` ; les motifs ci-dessous restent servis comme preuves.
+
 - Corpus : `bench/couverture/incidents.jsonl`, 20 incidents, publications du
   2024-04-19 au 2026-09-15.
 - Empreinte SHA-256 du corpus consolidé :
@@ -16,10 +21,10 @@ Aucun délai médian n'est publié : aucun incident n'est vu, donc aucun délai 
   2026-11-13 au 2026-11-21. Empreinte des lignes lues :
   `80de9f90ae633b31c35d5598cafad74302207a6f14d65676b5a1e49198a53282`.
 
-La route `GET /api/couverture` sert exactement ce rapport : `global`,
-`parMotif`, `parDepartement`, `parType`, `dateCalcul`, `hashCorpus` et les
-preuves par incident. Le test `apps/api/test/couverture-api.test.ts` rejoue le
-script sur la base et échoue si le chiffre servi diverge, même d'un incident.
+La route `GET /api/couverture` sert exactement ce rapport, avec `publiable`,
+`mention`, `raison` et le verdict détaillé sous `publication` en tête de
+réponse. Le test `apps/api/test/couverture-api.test.ts` rejoue le script sur la
+base et échoue si le chiffre servi diverge, même d'un incident.
 
 ## Décomposition
 

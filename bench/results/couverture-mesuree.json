@@ -15,6 +15,53 @@
     "organisations": "1673151",
     "empreinte": "80de9f90ae633b31c35d5598cafad74302207a6f14d65676b5a1e49198a53282"
   },
+  "publication": {
+    "publiable": false,
+    "mention": "refus de publication",
+    "raison": "Corpus trop petit : 20 incident(s) dans la fenêtre 2024-04-19 → 2026-09-15, seuil minimal 30.",
+    "refus": [
+      {
+        "code": "corpus_trop_petit",
+        "raison": "Corpus trop petit : 20 incident(s) dans la fenêtre 2024-04-19 → 2026-09-15, seuil minimal 30."
+      }
+    ],
+    "corpus": {
+      "total": 20,
+      "dansFenetre": 20,
+      "fenetre": {
+        "debut": "2024-04-19",
+        "fin": "2026-09-15"
+      },
+      "jours": 880
+    },
+    "sources": {
+      "distinctes": 14,
+      "partMax": 0.25,
+      "parEditeur": {
+        "sud ouest": 5,
+        "france 3 nouvelle-aquitaine": 3,
+        "charente libre": 1,
+        "ici / radio france": 1,
+        "la dépêche": 1,
+        "actu.fr": 1,
+        "ouest-france": 1,
+        "ici poitou": 1,
+        "fédération nationale des chasseurs (communiqué officiel)": 1,
+        "unss (communiqué officiel)": 1,
+        "la nouvelle république": 1,
+        "ville de limoges (communiqué officiel)": 1,
+        "ville de tarnos (communiqué officiel)": 1,
+        "bordeaux sciences agro (communiqué officiel)": 1
+      }
+    },
+    "referentiel": {
+      "publiable": true,
+      "mention": null,
+      "raison": null,
+      "partSecteurs": 1,
+      "secteursManquants": []
+    }
+  },
   "global": {
     "vus": 0,
     "total": 20,

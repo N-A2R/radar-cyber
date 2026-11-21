@@ -25,6 +25,15 @@ type Corps = {
 	dateCalcul: string;
 	hashCorpus: string;
 	fenetre: { debut: string; fin: string };
+	publiable: boolean;
+	mention: string | null;
+	raison: string | null;
+	publication: {
+		refus: Array<{ code: string; raison: string }>;
+		corpus: { dansFenetre: number; jours: number };
+		sources: { distinctes: number; partMax: number };
+		referentiel: { partSecteurs: number };
+	};
 	global: Ligne;
 	parMotif: Array<{ motif: string; incidents: number; part: number }>;
 	parDepartement: Array<Ligne & { departement: string }>;
@@ -89,6 +98,23 @@ test("GET /api/couverture renvoie le hash et les décompositions du corpus", asy
 		if (incident.vu) assert.ok(typeof incident.delaiHeures === "number");
 		else assert.equal(incident.delaiHeures, null, "aucun délai pour un incident non vu");
 	}
+});
+
+test("GET /api/couverture refuse le 0 % actuel et donne la raison", async () => {
+	const corps = await lireReponse();
+	assert.equal(corps.global.taux, 0);
+	assert.equal(corps.publiable, false);
+	assert.equal(corps.mention, "refus de publication");
+	assert.deepEqual(
+		corps.publication.refus.map((r) => r.code),
+		["corpus_trop_petit"],
+	);
+	assert.match(corps.raison ?? "", /Corpus trop petit : 20 incident\(s\)/);
+	assert.equal(corps.publication.corpus.dansFenetre, 20);
+	assert.ok(corps.publication.corpus.jours >= 90, "fenêtre suffisamment longue");
+	assert.ok(corps.publication.sources.distinctes >= 5, "assez d'éditeurs");
+	assert.ok(corps.publication.sources.partMax <= 0.5, "aucun éditeur dominant");
+	assert.equal(corps.publication.referentiel.partSecteurs, 1);
 });
 
 const baseTravail = process.env.RADAR_TEST_ADMIN_URL
