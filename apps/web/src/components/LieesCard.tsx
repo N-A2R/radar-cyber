@@ -17,6 +17,20 @@ export type OrgsLiees = {
   parDepartement: { dept: string; n: number }[];
 };
 
+/** Un relevé quotidien, tel que renvoyé par GET /api/orgs/liees/historique. */
+export type HistoriquePoint = {
+  jour: string;
+  semaine: number;
+  total: number;
+  enAttente: number;
+  examinees: number;
+};
+
+type LieesContenuProps = LieesEtat & {
+  /** Vide quand aucun relevé n'a encore été écrit : aucune courbe affichée. */
+  historique?: HistoriquePoint[];
+};
+
 export type LieesEtat = {
   data: OrgsLiees | null;
   loading: boolean;
@@ -27,8 +41,49 @@ function nombre(value: number): string {
   return Number.isFinite(value) ? value.toLocaleString("fr-FR") : "—";
 }
 
+/** Micro-courbe des relevés quotidiens : un seul point ne trace pas une ligne. */
+function MicroCourbe({ points }: { points: HistoriquePoint[] }) {
+  if (points.length === 0) return null;
+
+  const largeur = 120;
+  const hauteur = 28;
+  const marge = 2;
+  const valeurs = points.map((p) => p.semaine);
+  const min = Math.min(...valeurs);
+  const max = Math.max(...valeurs);
+  const y = (valeur: number) =>
+    max === min
+      ? hauteur / 2
+      : marge + (1 - (valeur - min) / (max - min)) * (hauteur - 2 * marge);
+  const coordonnees = points.map((p, i) => ({
+    x: points.length === 1
+      ? largeur / 2
+      : marge + (i / (points.length - 1)) * (largeur - 2 * marge),
+    y: y(p.semaine),
+  }));
+  const dernier = coordonnees[coordonnees.length - 1];
+
+  return (
+    <div className="liees__historique">
+      <p className="liees__historique-label">reliées · 30 derniers jours</p>
+      <svg className="liees__courbe" viewBox={`0 0 ${largeur} ${hauteur}`}
+        role="img" aria-label={`${points.length} relevé(s) des 30 derniers jours`}>
+        {coordonnees.length > 1 ? (
+          <polyline
+            className="liees__courbe-trait"
+            points={coordonnees.map((c) => `${c.x},${c.y}`).join(" ")}
+          />
+        ) : null}
+        {dernier ? (
+          <circle className="liees__courbe-point" cx={dernier.x} cy={dernier.y} r={2.5} />
+        ) : null}
+      </svg>
+    </div>
+  );
+}
+
 /** Présentation pure : permet de vérifier chaque état sans réseau. */
-export function LieesContenu({ data, loading, error }: LieesEtat) {
+export function LieesContenu({ data, loading, error, historique = [] }: LieesContenuProps) {
   const vide = !loading && !error && data !== null
     && data.semaine === 0 && data.total === 0
     && data.enAttente === 0 && data.examinees === 0;
@@ -82,6 +137,10 @@ export function LieesContenu({ data, loading, error }: LieesEtat) {
           )}
         </>
       ) : null}
+
+      {!loading && !error && historique.length > 0 ? (
+        <MicroCourbe points={historique} />
+      ) : null}
     </article>
   );
 }
@@ -91,10 +150,12 @@ export default function LieesCard() {
   const [data, setData] = useState<OrgsLiees | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [historique, setHistorique] = useState<HistoriquePoint[]>([]);
 
   useEffect(() => {
     const controller = new AbortController();
     setLoading(true);
+    setHistorique([]);
     setError(null);
     fetch("/api/orgs/liees", { headers: authHeaders(), signal: controller.signal })
       .then(async (res) => {
@@ -114,8 +175,19 @@ export default function LieesCard() {
         }
       })
       .finally(() => { if (!controller.signal.aborted) setLoading(false); });
+    fetch("/api/orgs/liees/historique?jours=30", { headers: authHeaders(), signal: controller.signal })
+      .then(async (res) => res.ok
+        ? await res.json() as { points?: HistoriquePoint[] }
+        : { points: [] })
+      .then((json) => {
+        if (controller.signal.aborted) return;
+        const points = Array.isArray(json?.points) ? json.points : [];
+        setHistorique(points.filter((p) =>
+          p && typeof p.jour === "string" && Number.isFinite(p.semaine)));
+      })
+      .catch(() => { /* historique indisponible : aucune courbe, pas un tracé vide */ });
     return () => controller.abort();
   }, []);
 
-  return <LieesContenu data={data} loading={loading} error={error} />;
+  return <LieesContenu data={data} loading={loading} error={error} historique={historique} />;
 }
