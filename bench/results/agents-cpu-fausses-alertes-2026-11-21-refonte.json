@@ -2,7 +2,7 @@
   "dateMesure": "2026-11-21",
   "commande": "tsx scripts/mesure-agents-cpu.mts --json=bench/results/agents-cpu-fausses-alertes-2026-11-21-refonte.json",
   "base": {
-    "evenements": 26719,
+    "evenements": 27870,
     "organisations": 1673151,
     "sources": 312,
     "derniereObservation": "2026-11-21"
@@ -46,16 +46,16 @@
   },
   "diagnosticSources": {
     "instant": "2026-11-21",
-    "sourcesAvecEvenementsRecents": 98,
+    "sourcesAvecEvenementsRecents": 105,
     "sourcesQuotidiennesSurCadence": 1
   },
   "total": {
-    "emises": 2,
+    "emises": 3,
     "vraies": 0,
-    "fausses": 0,
+    "fausses": 1,
     "nonClassables": 2,
-    "classables": 0,
-    "tauxFaussesAlertes": null
+    "classables": 1,
+    "tauxFaussesAlertes": 100
   },
   "parAgent": {
     "organisation-surgissante": {
@@ -77,12 +77,14 @@
       }
     },
     "source-muette": {
-      "emises": 0,
+      "emises": 1,
       "vraies": 0,
-      "fausses": 0,
+      "fausses": 1,
       "nonClassables": 0,
-      "taux": null,
-      "raisons": {}
+      "taux": 100,
+      "raisons": {
+        "reprise_transitoire": 1
+      }
     }
   },
   "alertes": [
@@ -144,7 +146,7 @@
       "agent": "bascule-secteur",
       "cle": "bascule-secteur:associations",
       "instant": "2026-11-20",
-      "motif": "bascule-secteur — bascule du secteur associations (z=4.1)",
+      "motif": "bascule-secteur — bascule du secteur associations (z=5.2)",
       "classement": "non_classable",
       "raison": "secteur_sans_verite",
       "faits": [
@@ -152,7 +154,34 @@
         51872,
         51362,
         51960,
+        130419,
         52347
+      ]
+    },
+    {
+      "agent": "source-muette",
+      "cle": "source-muette:gn-17",
+      "instant": "2026-11-18",
+      "motif": "source-muette — source quotidienne muette depuis 3 j",
+      "classement": "fausse",
+      "raison": "reprise_transitoire",
+      "faits": [
+        139528,
+        139599,
+        139602,
+        24243,
+        24227,
+        47878,
+        24233,
+        77167,
+        77177,
+        130547,
+        130581,
+        130611,
+        130617,
+        130644,
+        77192,
+        77201
       ]
     }
   ]

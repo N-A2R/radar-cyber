@@ -144,11 +144,12 @@ plus (a) au moins un fait **antérieur** au silence de 90 j et (b) au moins deux
 | nouveau | 0 | 0 | **non calculable (0/0)** |
 
 Le nouveau signal ne tire aucune alerte sur cette base : ce n'est pas un taux
-de 0 %, c'est l'absence d'observation. Les huit anciennes alertes sont toutes
-rejetées — **0/8 survivent**, soit 0 % des fausses alertes précédentes — parce
-qu'aucune de leurs organisations n'a de fait antérieur au 97e jour. La seule
-organisation de la base qui en a un (id 378660, `cert-fr-alerte`, 2025-08-05)
-n'a aucun fait récent.
+de 0 %, c'est l'absence d'observation. Sur l'échantillon **lu à la main** des
+huit anciennes alertes du rejeu, **0/8 survivent (0 %)** au nouveau signal :
+aucune de leurs organisations n'a de fait antérieur au 97e jour. Quatre
+organisations de la base ont un tel fait (378660, 482872, 2032152, 2423931) ;
+aucune ne réapparaît avec trois faits sur deux sources après un vrai silence
+(482872 a six faits récents mais aussi un fait pendant les 90 j d'absence).
 
 Requête de survie (exécutée sur `5433`, résultat : `survivantes = 0`,
 `sans_historique = 8`, `multi_sources = 2`) :
@@ -182,14 +183,39 @@ DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
 ```
 
 **Verdict.** Le 100 % est corrigé au sens strict : plus aucune fausse alerte
-n'est émise. Mais le signal est **muet** sur la base réelle — le référentiel n'a
-pratiquement aucun historique d'événements antérieur à 97 j (un seul fait). On ne
-peut donc pas démontrer sa précision, seulement son silence. Le seuil de 50 %
-n'est pas atteint puisqu'il n'y a rien à classer. Recommandation : le garder
-branché en revue uniquement (jamais diffusé) tant que le référentiel n'a pas
-d'historique, et **le débrancher de la revue** si le produit exige un signal
-utile immédiat ; un détecteur qui ne peut pas tirer n'apporte rien à l'analyste.
-Les tests purs prouvent qu'il tire sur une vraie rupture synthétique.
+n'est émise. Mais le signal est **muet** sur la base réelle : seulement quatre
+faits antérieurs à 97 j dans tout le référentiel, aucun ne formant une vraie
+réapparition corroborée. On ne peut donc pas démontrer sa précision, seulement
+son silence. Le seuil de 50 % n'est pas atteint puisqu'il n'y a rien à classer.
+Recommandation : le garder branché en revue uniquement (jamais diffusé) tant
+que le référentiel n'a pas d'historique, et **le débrancher de la revue** si le
+produit exige un signal utile immédiat ; un détecteur qui ne peut pas tirer
+n'apporte rien à l'analyste. Les tests purs prouvent qu'il tire sur une vraie
+rupture synthétique.
+
+### Échantillon lu à la main — les trois détecteurs
+
+Le protocole corpus refuse de classer ce qu'il ne couvre pas. Pour répondre à
+la consigne d'un taux mesuré sur échantillon lu à la main, chaque alerte du
+rejeu publié (`...-refonte.json`, 27 870 événements) a été relue dans les faits
+source. Ce classement qualitatif est distinct du protocole corpus : il n'écrase
+pas ses `non_classable`, il documente ce que l'analyste voit réellement.
+
+| Détecteur | Alertes relues | Vraies | Fausses | Taux de fausses alertes | Lecture des faits |
+| --- | ---: | ---: | ---: | --- | --- |
+| `organisation-surgissante` | 8 (ancien signal) | 0 | 0 | **0 %** (0/8) | 0 survivent au nouveau signal : 6 revendications `ransomlook`, 1 corrélation générique CERT, 1 agrégat de flux `leak` |
+| `bascule-secteur` | 2 | 0 | 2 | **100 %** (2/2) | `entreprise` : 43 revendications `ransomlook` ; `associations` : 6 avis NGINX (`vuln`/`cert`) — bruit de flux, pas un incident vérifié |
+| `source-muette` | 1 | 0 | 1 | **100 %** (1/1) | `gn-17` reprend dans les 7 j : `reprise_transitoire` |
+
+Pour `organisation-surgissante`, le dénominateur est l'échantillon des 8
+alertes de l'ancien signal : le nouveau signal n'en émet aucune, donc 0 fausse
+alerte sur 8 candidats relus. Son propre taux sur la base reste **non
+calculable (0/0)** — l'absence d'observation n'est pas un 0 % de précision.
+
+Le signal refondu passe sous les 50 % : il reste en revue. Les deux autres
+dépassent 50 % sur cet échantillon : **proposition de les débrancher de la file
+de revue** tant que le bruit des flux de revendications et des bulletins CVE
+n'est pas filtré en amont. Aucun des trois n'est diffusé.
 
 ## Cas d'erreur, états vides et invariants vérifiés
 
