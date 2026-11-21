@@ -1,0 +1,306 @@
+{
+  "dateMesure": "2026-11-21",
+  "plan": "docs/plans/mission-nuit-na.md — Task 4 (reprise vague 2)",
+  "lot": 16,
+  "source": {
+    "ref": "bench/results/manques-referentiel-2026-11-15.json",
+    "traites": "bench/results/manques-glm-vague2.json",
+    "entiteSource": "lot-reprise-na"
+  },
+  "method": "lecture du site (fetch, titre et meta verbatim) + recherche-entreprises.api.gouv.fr sans clé ; requêtes et réponses consignées ; SIREN recoupé, jamais inventé",
+  "compte": {
+    "present": 3,
+    "absent": 5,
+    "cannot_verify": 2
+  },
+  "resolutions": [
+    {
+      "nomLisible": "vdbassocies.fr",
+      "domaine": "vdbassocies.fr",
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : « Accueil - VDB ASSOCIES cabinet d&#039;expertise comptable Amiens »",
+      "site": {
+        "url": "https://vdbassocies.fr",
+        "http": 200,
+        "titre": "Accueil - VDB ASSOCIES cabinet d&#039;expertise comptable Amiens",
+        "metaDescription": "Cabinet d&#039;Expertise Comptable et d&#039;Audit implanté sur Amiens. Accompagnement, conseil, assistance au dirigeant d&#039;entreprise"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=vdbassocies&page=1&per_page=5",
+        "http": 200,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "Vernon Milling",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Vernon%20Milling&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "ville-bouchemaine.fr",
+      "domaine": "ville-bouchemaine.fr",
+      "verdict": "cannot_verify",
+      "raison": "candidat(s) au registre mais aucun recoupement avec ville-bouchemaine.fr — arbitrage humain",
+      "site": {
+        "url": "https://ville-bouchemaine.fr",
+        "http": 200,
+        "titre": "Ville de Bouchemaine (49)",
+        "metaDescription": null
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=ville-bouchemaine&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "COMITE JUMELAGE BOUCHEMAINE",
+            "siren": "799931118",
+            "commune": "BOUCHEMAINE",
+            "dept": "49",
+            "etat": "A"
+          },
+          {
+            "denomination": "DE HAUTE VILLE",
+            "siren": "379591373",
+            "commune": "BOUCHEMAINE",
+            "dept": "49",
+            "etat": "A"
+          },
+          {
+            "denomination": "CANTINE SCOLAIRE DE BOUCHEMAINE",
+            "siren": "294900493",
+            "commune": "BOUCHEMAINE",
+            "dept": "49",
+            "etat": "C"
+          },
+          {
+            "denomination": "SCI BASSE VILLE TROUVE",
+            "siren": "409242351",
+            "commune": "LE BOUSCAT",
+            "dept": "33",
+            "etat": "A"
+          },
+          {
+            "denomination": "GFA LA MELLETRIE",
+            "siren": "407665215",
+            "commune": "STE GEMMES SUR LOIRE",
+            "dept": "49",
+            "etat": "A"
+          }
+        ]
+      }
+    },
+    {
+      "nomLisible": "ville-faulquemont.fr",
+      "domaine": "ville-faulquemont.fr",
+      "verdict": "cannot_verify",
+      "raison": "candidat(s) au registre mais aucun recoupement avec ville-faulquemont.fr — arbitrage humain",
+      "site": {
+        "url": "https://ville-faulquemont.fr",
+        "http": 200,
+        "titre": "Site de la ville de FAULQUEMONT bientôt disponible",
+        "metaDescription": null
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=ville-faulquemont&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "COMMUNE DE FAULQUEMONT",
+            "siren": "215702093",
+            "commune": "FAULQUEMONT",
+            "dept": "57",
+            "etat": "A"
+          },
+          {
+            "denomination": "LE SOUVENIR FRANCAIS",
+            "siren": "775676182",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "UNIVET",
+            "siren": "503027534",
+            "commune": "MOUGINS",
+            "dept": "06",
+            "etat": "A"
+          },
+          {
+            "denomination": "SELARL PHARMACIE FAULQUEMONT",
+            "siren": "829365469",
+            "commune": "FAULQUEMONT",
+            "dept": "57",
+            "etat": "A"
+          },
+          {
+            "denomination": "DIRECTION INTERREGIONALE DES DOUANES GRAND EST (DID)",
+            "siren": "175702307",
+            "commune": "METZ",
+            "dept": "57",
+            "etat": "A"
+          }
+        ]
+      }
+    },
+    {
+      "nomLisible": "villemandeure.fr",
+      "domaine": "villemandeure.fr",
+      "verdict": "present",
+      "raison": "SIREN 848179552 au registre (état A, MANDEURE 25), recoupé avec villemandeure.fr",
+      "site": {
+        "url": "https://villemandeure.fr",
+        "http": 200,
+        "titre": "Ville de Mandeure",
+        "metaDescription": "Bienvenue sur le site officiel de la Ville de Mandeure. Informations pratiques, actualités et démarches en lignes."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Ville%20de%20Mandeure&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "SOCIETE DES SAPEURS POMPIERS DE LA VILLE DE MANDEURE",
+            "siren": "848179552",
+            "commune": "MANDEURE",
+            "dept": "25",
+            "etat": "A"
+          },
+          {
+            "denomination": "AMICALE BOULES BEAULIEU-MANDEURE (A.B.B.M.)",
+            "siren": "847664398",
+            "commune": "MANDEURE",
+            "dept": "25",
+            "etat": "A"
+          },
+          {
+            "denomination": "CAISSE CREDIT MUTUEL DE MANDEURE",
+            "siren": "778323824",
+            "commune": "MANDEURE",
+            "dept": "25",
+            "etat": "C"
+          },
+          {
+            "denomination": "CENTRE DE CONSEIL ET DE SERVICE -CCS",
+            "siren": "504514555",
+            "commune": "NANTES",
+            "dept": "44",
+            "etat": "A"
+          },
+          {
+            "denomination": "BAYRAM EROL",
+            "siren": "440866978",
+            "commune": "MANDEURE",
+            "dept": "25",
+            "etat": "C"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "Virginia Defense Force",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Virginia%20Defense%20Force&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "voyageursdumonde.fr",
+      "domaine": "voyageursdumonde.fr",
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : « Voyage sur mesure & road trip à contre-courant | Voyageurs du Monde »",
+      "site": {
+        "url": "https://voyageursdumonde.fr",
+        "http": 200,
+        "titre": "Voyage sur mesure & road trip à contre-courant | Voyageurs du Monde",
+        "metaDescription": "Voyageurs du Monde : l"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=voyageursdumonde&page=1&per_page=5",
+        "http": 200,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "wannago.cloud",
+      "domaine": "wannago.cloud",
+      "verdict": "present",
+      "raison": "SIREN 529788267 au registre (état C, PERTUIS 84), recoupé avec wannago.cloud",
+      "site": {
+        "url": "https://wannago.cloud",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=wannago&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "WANNAGO",
+            "siren": "529788267",
+            "commune": "PERTUIS",
+            "dept": "84",
+            "etat": "C"
+          },
+          {
+            "denomination": "WANNAGO FRANCE",
+            "siren": "432853422",
+            "commune": "PARIS 8",
+            "dept": "75",
+            "etat": "C"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "Wendy Wu Tours",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Wendy%20Wu%20Tours&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "www.acomen.fr",
+      "domaine": "acomen.fr",
+      "verdict": "present",
+      "raison": "SIREN 341433829 au registre (état A, MONTPELLIER 34), recoupé avec acomen.fr",
+      "site": {
+        "url": "https://acomen.fr",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=acomen&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "GRP ACT CONCERTE MEDECINE NUCLEAIRE SUD (ACOMEN)",
+            "siren": "341433829",
+            "commune": "MONTPELLIER",
+            "dept": "34",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    }
+  ]
+}
