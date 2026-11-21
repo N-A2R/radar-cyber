@@ -62,11 +62,11 @@ export async function withClient<T>(fn: (client: PoolClient) => Promise<T>): Pro
  *
  * Sans ce helper, les chemins qui écrivent deux fois (promotion d'une
  * revendication puis création de l'événement, archivage puis projection)
- * laissaient la base dans un état intermédiaire quand la seconde écriture
- * échouait — et le client rendu au pool gardait une transaction ouverte.
+ * laissaient la base dans un état intermédiaire quand le client rendu au pool
+ * gardait une transaction ouverte.
  */
-export async function withTransaction<T>(fn: (client: PoolClient) => Promise<T>): Promise<T> {
-	const client = await pool.connect();
+async function transactionOn<T>(target: Pool, fn: (client: PoolClient) => Promise<T>): Promise<T> {
+	const client = await target.connect();
 	try {
 		await client.query("BEGIN");
 		const result = await fn(client);
@@ -78,6 +78,15 @@ export async function withTransaction<T>(fn: (client: PoolClient) => Promise<T>)
 	} finally {
 		client.release();
 	}
+}
+
+export function withTransaction<T>(fn: (client: PoolClient) => Promise<T>): Promise<T> {
+	return transactionOn(pool, fn);
+}
+
+/** Bulk maintenance writes: same transaction contract, wider statement timeout. */
+export function withIngestTransaction<T>(fn: (client: PoolClient) => Promise<T>): Promise<T> {
+	return transactionOn(ingestPool, fn);
 }
 
 /** Ferme proprement les deux pools (arrêt du process). */
