@@ -70,7 +70,7 @@ export default async function (app: FastifyInstance) {
         SELECT source_id,
                count(*) FILTER (WHERE COALESCE(observed_at, collected_at) >= now() - interval '30 days')::int AS evenements_30j,
                count(*)::int AS evenements_total,
-               max(COALESCE(observed_at, collected_at))::text AS last_event_at,
+               max(COALESCE(observed_at, collected_at))::text AS last_event_at
           FROM event
          GROUP BY source_id
       )
