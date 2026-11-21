@@ -69,7 +69,12 @@ Les indécidables sortent du dénominateur et se comptent à part.
 - [ ] **S1.2** Vérification d'identité : registre
       (`recherche-entreprises.api.gouv.fr`, requête + réponse consignées), puis
       site de l'entité si le registre ne tranche pas (URL + extrait verbatim)
-- [ ] **S1.3** Verdicts + preuves pour les 500, en 5 lots de 100, un commit par lot
+- [ ] **S1.3a CALIBRATION** Les **50 premiers verdicts** seulement, puis écrire
+      dans l'état le **rythme mesuré** (`verdictsParHeure`) et la **projection**
+      du temps restant pour les 500. C'est cette projection qui décide si la
+      vague tient en 2 sessions ou en 6 — pas une estimation à vue.
+- [ ] **S1.3b** Les 450 restants, en lots de 100, un commit par lot, en tenant la
+      cadence mesurée (si la cadence dérive, le noter)
 - [ ] **S1.4** Gel : `bench/precision/corpus-v1.json` est figé, empreinte SHA-256
       écrite dans l'état et dans le rapport
 - [ ] **S1.5** `bench/results/precision-baseline.json` : précision, répartition
