@@ -1,0 +1,153 @@
+/* Hallmark · v2.0.0 · shape: app screen · genre: modern-minimal (inferred) · built: the project
+ * Critique: dense data, no ornament; colours and faces all come from the project tokens. */
+.corpus {
+  min-width: 0;
+  padding: var(--space-5);
+  overflow-y: auto;
+}
+
+.corpus__tete {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.corpus__titre {
+  margin: 0 0 var(--space-1);
+  font: 500 var(--text-title) / 1.2 var(--font-sans);
+  color: var(--text);
+}
+
+.corpus__intro,
+.corpus__note,
+.corpus__detail,
+.corpus__attente,
+.corpus__vide {
+  margin: 0;
+  color: var(--muted);
+  font: var(--text-body) / 1.5 var(--font-body);
+}
+
+.corpus__intro { max-width: 64ch; }
+
+.corpus__action {
+  flex: none;
+  min-height: 36px;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  color: var(--text);
+  font: var(--text-body) / 1.4 var(--font-sans);
+}
+
+.corpus__action:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.corpus__action:disabled { color: var(--faint); cursor: default; }
+
+.corpus__alerte {
+  margin: 0 0 var(--space-4);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--sev-4);
+  color: var(--text);
+  font: var(--text-body) / 1.5 var(--font-body);
+}
+
+.corpus__chiffres {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-3);
+  margin: 0 0 var(--space-5);
+}
+
+.corpus__chiffre {
+  min-width: 0;
+  overflow-wrap: break-word;
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.corpus__chiffre dt {
+  color: var(--muted);
+  font: var(--text-label) / 1.4 var(--font-sans);
+}
+
+.corpus__chiffre dd {
+  margin: var(--space-2) 0 0;
+  color: var(--text);
+  font: 500 var(--text-title) / 1.2 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: break-word;
+}
+
+.corpus__detail { margin-top: var(--space-2); font-size: var(--text-label); }
+
+.corpus__grille {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-3);
+}
+
+.corpus__panneau {
+  min-width: 0;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.corpus__sous-titre {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--line);
+  font: 500 var(--text-body) / 1.4 var(--font-sans);
+  color: var(--text);
+}
+
+.corpus__table {
+  width: 100%;
+  border-collapse: collapse;
+  font: var(--text-body) / 1.5 var(--font-body);
+}
+
+.corpus__table th {
+  padding: var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font: var(--text-label) / 1.4 var(--font-sans);
+  text-align: left;
+}
+
+.corpus__table td {
+  padding: var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--line);
+  color: var(--text);
+  vertical-align: middle;
+}
+
+.corpus__table tbody tr:last-child td { border-bottom: none; }
+.corpus__num { text-align: right; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+.corpus__libelle { display: block; min-width: 0; overflow-wrap: break-word; }
+
+.corpus__barre {
+  display: block;
+  width: 100%;
+  height: 4px;
+  margin-top: var(--space-1);
+  background: var(--surface-3);
+}
+
+.corpus__barre > span { display: block; height: 100%; background: var(--accent); opacity: 0.75; }
+
+.corpus__note { margin-top: var(--space-4); font-size: var(--text-label); }
+
+.corpus__squelette {
+  display: block;
+  height: 56px;
+  margin-top: var(--space-3);
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.corpus__vide { padding: var(--space-3) var(--space-4); }

@@ -1,7 +1,7 @@
-import type { Alert, DeptStat, Event, Graph, Health, NaFil, NaOverview, Org, Source, Stats, TodayResponse } from "./api";
+import type { Alert, CorpusStats, DeptStat, Event, Graph, Health, NaFil, NaOverview, Org, Source, Stats, TodayResponse } from "./api";
 
 /** Les vues de l'application, dans l'ordre du rail. */
-export type ViewKey = "today" | "map" | "directory" | "review" | "journal" | "graph" | "sources" | "health" | "alerts" | "dossier" | "na";
+export type ViewKey = "today" | "map" | "directory" | "review" | "journal" | "graph" | "sources" | "corpus" | "health" | "alerts" | "dossier" | "na";
 
 
 /** Contrat de l'écran d'accueil « Aujourd'hui ». */
@@ -77,6 +77,14 @@ export type SourcesViewProps = {
   sources: Source[];
   loading: boolean;
   error: string | null;
+};
+
+/** Contrat de la vue « corpus » : chiffres agrégés par GET /api/corpus/stats. */
+export type CorpusViewProps = {
+  data: CorpusStats | null;
+  loading: boolean;
+  error: string | null;
+  onRefresh: () => void;
 };
 
 /** Contrat de la vue santé. */

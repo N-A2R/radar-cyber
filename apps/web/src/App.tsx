@@ -1,10 +1,11 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { creerMemoire, etatDonnees, type Instantane } from "./offline";
-import { api, clearAuthToken, getAuthToken, setAuthToken, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type Stats, type TodayResponse } from "./api";
+import { api, clearAuthToken, getAuthToken, setAuthToken, sourceYield, type CorpusStats, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type Stats, type TodayResponse } from "./api";
 import { mockData } from "./mock";
 const Map3D = lazy(() => import("./map/Map3D"));
 const GraphView = lazy(() => import("./graph/GraphView"));
 const SourcesView = lazy(() => import("./components/SourcesView"));
+const CorpusView = lazy(() => import("./components/CorpusView"));
 const HealthView = lazy(() => import("./components/HealthView"));
 const HealthDetailView = lazy(() => import("./components/HealthDetailView"));
 const EventList = lazy(() => import("./components/EventList"));
@@ -46,6 +47,7 @@ const VIEWS: { id: ViewKey; label: string }[] = [
   { id: "journal", label: "Journal" },
   { id: "graph", label: "Graphe" },
   { id: "sources", label: "Sources" },
+  { id: "corpus", label: "Corpus" },
   { id: "health", label: "Santé" },
   { id: "alerts", label: "Alertes" },
   { id: "dossier", label: "Dossier" },
@@ -70,6 +72,10 @@ export default function App() {
   const [todayLoading, setTodayLoading] = useState(!MOCK_MODE);
   const [todayError, setTodayError] = useState<string | null>(null);
   const [statsDepartements, setStatsDepartements] = useState<DeptStat[]>([]);
+  const [corpusStats, setCorpusStats] = useState<CorpusStats | null>(null);
+  const [corpusLoading, setCorpusLoading] = useState(false);
+  const [corpusError, setCorpusError] = useState<string | null>(null);
+  const [corpusReload, setCorpusReload] = useState(0);
   const [graph, setGraph] = useState<Graph>({ nodes: [], links: [] });
   const [flows, setFlows] = useState<FlowArc[]>([]);
   // L'URL porte la vue, les filtres de l'annuaire et la fiche ouverte :
@@ -392,6 +398,40 @@ export default function App() {
       clearInterval(timer);
     };
   }, [view, token]);
+
+  // Écran Corpus : un appel dédié, seulement quand la vue est ouverte. En
+  // démonstration, les chiffres sont dérivés du jeu simulé, jamais inventés.
+  useEffect(() => {
+    if (MOCK_MODE) {
+      const sources = mockData.sources;
+      const familles = new Map<string, number>();
+      for (const s of sources) familles.set(s.family, (familles.get(s.family) ?? 0) + 1);
+      const productives = sources.filter((s) => sourceYield(s) === "productive").length;
+      setCorpusStats({
+        sourcesParDepartement: [],
+        sourcesParFamille: [...familles].map(([family, n]) => ({ family, sources: n })),
+        organisationsAvecDomaine: mockData.orgs.filter((o) => o.domain && o.domain.trim() !== "").length,
+        incidentsCorpus: mockData.events.filter((e) => e.assertionType === "confirmed_incident").length,
+        sourcesProductives: productives,
+        sourcesTotales: sources.length,
+        tauxSourcesProductives: sources.length > 0 ? Math.round((productives / sources.length) * 1000) / 10 : null,
+        windowDays: 30,
+      });
+      setCorpusError(null);
+      setCorpusLoading(false);
+      return;
+    }
+    if (!token || view !== "corpus") return;
+    const controller = new AbortController();
+    setCorpusLoading(true);
+    api.corpusStats(controller.signal)
+      .then((donnees) => { setCorpusStats(donnees); setCorpusError(null); })
+      .catch((err: unknown) => {
+        if (!controller.signal.aborted) setCorpusError(err instanceof Error ? err.message : "indisponible");
+      })
+      .finally(() => { if (!controller.signal.aborted) setCorpusLoading(false); });
+    return () => controller.abort();
+  }, [view, token, corpusReload]);
 
   const byFamily = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -779,6 +819,14 @@ export default function App() {
           {view === "journal" ? <JournalView onUnauthorized={onUnauthorized} /> : null}
 
           {view === "sources" ? <SourcesView sources={sources} loading={loading} error={error} /> : null}
+          {view === "corpus" ? (
+            <CorpusView
+              data={corpusStats}
+              loading={corpusLoading}
+              error={corpusError}
+              onRefresh={() => setCorpusReload((n) => n + 1)}
+            />
+          ) : null}
 
           {view === "health" ? (
             <>

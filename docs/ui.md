@@ -1,6 +1,6 @@
 # Interface — Radar Cyber Nouvelle-Aquitaine
 
-Cinq vues, une seule coquille. Ce document décrit ce que le code fait, pas ce
+Les vues, une seule coquille. Ce document décrit ce que le code fait, pas ce
 qu'on aimerait qu'il fasse : chaque composant cité existe dans
 `apps/web/src/`, chaque fichier CSS cité est réellement importé.
 
@@ -25,13 +25,14 @@ En haut : la marque, le rail de vues, le sélecteur de fond de carte
 Sans jeton de session, `LoginScreen` remplace toute la coquille : aucune requête
 authentifiée ne part avant la connexion.
 
-## Les cinq vues
+## Les vues
 
 | Vue | Composant | Ce qu'elle montre |
 |---|---|---|
 | **Carte** | `map/Map3D.tsx` | Carte MapLibre GL 6 : fond satellite IGN ou plan sombre, terrain, bâtiments extrudés OpenFreeMap, choroplèthe de densité par département, arcs de flux, points d'organisation cliquables, événements agrégés au-delà de 5 000 points. |
 | **Graphe** | `graph/GraphView.tsx` | Deux rendus du même graphe : réseau force-dirigé (`react-force-graph-2d`) et matrice famille × département (`components/GraphMatrix.tsx`). Bascule en haut à droite. |
 | **Sources** | `components/SourcesView.tsx` | Registre des flux : état, dernier succès, dernier échec, nombre d'éléments, recherche. |
+| **Corpus** | `components/CorpusView.tsx` | Tableau de bord de `GET /api/corpus/stats` : sources par famille et par département, organisations avec domaine, incidents confirmés et taux de sources productives sur 30 jours. |
 | **Santé** | `components/HealthView.tsx` | Même donnée, orientée diagnostic : répartition par famille et par état. |
 | **Alertes** | `components/AlertsView.tsx` | File d'alertes, séparée en incidents d'organisation et avis régionaux, filtres statut et sévérité, détail dépliable avec provenance, corroboration et note de confiance sur 100. |
 

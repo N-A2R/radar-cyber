@@ -35,6 +35,7 @@ import directoryRoute from "./routes/directory.js";
 import naRoute from "./routes/na.js";
 import searchRoute from "./routes/search.js";
 import sourcesRoute from "./routes/sources.js";
+import corpusRoute from "./routes/corpus.js";
 import statsRoute from "./routes/stats.js";
 import streamRoute from "./routes/stream.js";
 import alertsRoute from "./routes/alerts.js";
@@ -95,7 +96,7 @@ if (existsSync(webDist)) {
  * écritures protégées. Un token valide est attaché à la requête s'il est fourni,
  * ce qui permet au front d'adapter l'UI au rôle.
  */
-const PUBLIC_READ = /^\/api\/(health|stats|sources|flows|search|directory|graph|stream|events|history|orgs|enrich|alerts|quarantine|dossier|healthz|na|today)(\/|$|\?)/;
+const PUBLIC_READ = /^\/api\/(health|stats|sources|flows|search|directory|graph|stream|events|history|orgs|enrich|alerts|quarantine|dossier|healthz|na|today|corpus)(\/|$|\?)/;
 
 app.addHook("onRequest", async (req, reply) => {
   const url = req.url.split("?")[0];
@@ -132,6 +133,7 @@ await app.register(graphRoute, { prefix: "/api" });
 await app.register(streamRoute, { prefix: "/api" });
 await app.register(sourcesRoute, { prefix: "/api" });
 await app.register(statsRoute, { prefix: "/api" });
+await app.register(corpusRoute, { prefix: "/api" });
 await app.register(searchRoute, { prefix: "/api" });
 await app.register((await import("./routes/enrich.js")).default, { prefix: "/api" });
 await app.register((await import("./routes/auth.js")).default, { prefix: "/api" });

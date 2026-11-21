@@ -260,6 +260,23 @@ export type NaFil = {
 	events: NaEvenement[];
 };
 
+/** Réponse de GET /api/corpus/stats : état du corpus en un appel. */
+export type CorpusStats = {
+  /** Sources dont le département a pu être inféré, douze de NA inclus. */
+  sourcesParDepartement: { departement: string; sources: number }[];
+  /** Famille déclarée par la source (`source.family`). */
+  sourcesParFamille: { family: string; sources: number }[];
+  organisationsAvecDomaine: number;
+  /** Événements dont l'assertion est `confirmed_incident`. */
+  incidentsCorpus: number;
+  sourcesProductives: number;
+  sourcesTotales: number;
+  /** Pourcentage 0-100 arrondi à 0,1 point ; null si aucune source. */
+  tauxSourcesProductives: number | null;
+  /** Fenêtre de productivité, en jours. */
+  windowDays: number;
+};
+
 export type Stats = {
   orgs: number;
   events: number;
@@ -850,6 +867,7 @@ export const api = {
   sources: () => get<Source[]>("/sources"),
   statsDepartements: (signal?: AbortSignal) => get<StatsDepartements>("/today/departements", signal),
   stats: () => get<Stats>("/stats"),
+  corpusStats: (signal?: AbortSignal) => get<CorpusStats>("/corpus/stats", signal),
   healthDetail: () => get<HealthDetail>("/health/detail"),
   healthCauses: () => get<HealthCauses>("/health/causes"),
   health: () => get<Health>("/health"),

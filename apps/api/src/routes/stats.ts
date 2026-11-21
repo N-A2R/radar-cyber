@@ -39,7 +39,7 @@ const PREFECTURE_PAR_CODE: ReadonlyMap<string, string> = new Map(
 		.filter((entrée): entrée is readonly [string, string] => entrée[0] !== undefined),
 );
 
-type SourceRow = {
+export type SourceRow = {
 	id: string;
 	name: string;
 	url: string;
