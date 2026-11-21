@@ -9,9 +9,9 @@
   },
   "method": "lecture du site (fetch, titre et meta verbatim) + recherche-entreprises.api.gouv.fr sans clé ; requêtes et réponses consignées ; SIREN recoupé, jamais inventé",
   "compte": {
-    "present": 3,
+    "present": 2,
     "absent": 5,
-    "cannot_verify": 2
+    "cannot_verify": 3
   },
   "resolutions": [
     {
@@ -230,8 +230,8 @@
     {
       "nomLisible": "rmn.fr",
       "domaine": "rmn.fr",
-      "verdict": "present",
-      "raison": "SIREN 910038751 au registre (état A, ELVEN 56), recoupé avec rmn.fr",
+      "verdict": "cannot_verify",
+      "raison": "correction : quatre homonymes « RMN » au registre, site injoignable (3 tentatives) — arbitrage humain",
       "site": {
         "url": "https://rmn.fr",
         "http": null,
@@ -292,6 +292,14 @@
         "requete": "https://recherche-entreprises.api.gouv.fr/search?q=REGION%20PAYS%20DE%20LA%20LOIRE&page=1&per_page=5",
         "http": 200,
         "resultat": "234400034 | REGION DES PAYS DE LA LOIRE | A | NANTES 44"
+      }
+    },
+    {
+      "nomLisible": "rmn.fr",
+      "erreurOriginale": "SIREN 910038751 RMN (ELVEN 56) chargé — premier candidat, recoupement limité au jeton « rmn »",
+      "correction": "org supprimée ; verdict cannot_verify — site https mort (fetch failed, script) et (curl 000) ; quatre candidats RMN actifs (ELVEN 56, LES ANDELYS 27, EVRY-COURCOURONNES 91, BETHUNE 62) sans preuve de désignation",
+      "preuve": {
+        "registreConsigne": "q=rmn HTTP 200 : 910038751 / 949223929 / 105441018 / 935116335 — homonymes de sigle"
       }
     }
   ]
