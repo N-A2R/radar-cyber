@@ -729,6 +729,27 @@ export type ReviewQueueResponse = {
   tookMs: number;
 };
 
+/** Une décision de revue telle que consignée dans le journal (GET /api/journal/review). */
+export type JournalDecision = {
+  id: number;
+  sujet: string;
+  /** Auteur brut du journal : `humain:email`, `moteur:triage`… */
+  acteur: string;
+  /** Horodatage d'enregistrement du fait (recorded_at), ISO ou texte PG. */
+  horodatage: string;
+  decision: "accepter" | "refuser" | "creer" | null;
+  /** Indice de la revendication, ou sujet du fait quand il n'y en a pas. */
+  indice: string | null;
+  raison: string | null;
+};
+
+export type JournalReviewResponse = {
+  rows: JournalDecision[];
+  limite: number;
+  /** Curseur de la page suivante ; null = dernière page. */
+  avant: number | null;
+};
+
 export type ReviewAction = "promote" | "reject" | "review" | "undo";
 
 export type ReviewOutcome = {
@@ -757,6 +778,12 @@ export const api = {
   },
   reviewAction: (ids: number[], action: ReviewAction, reason?: string) =>
     postJson<ReviewOutcome>("/quarantine/review", { ids, action, reason: reason ?? "" }),
+  /** Journal des décisions de revue — lecture seule, pagination par curseur. */
+  journalReview: (limite = 100, avant: number | null = null, signal?: AbortSignal) => {
+    const qs = new URLSearchParams({ limite: String(limite) });
+    if (avant !== null) qs.set("avant", String(avant));
+    return get<JournalReviewResponse>(`/journal/review?${qs.toString()}`, signal);
+  },
   directory: (params: DirectoryQuery = {}, signal?: AbortSignal) => {
     const qs = new URLSearchParams();
     if (params.q) qs.set("q", params.q);

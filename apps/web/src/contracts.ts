@@ -1,7 +1,7 @@
 import type { Alert, Event, Graph, Health, NaFil, NaOverview, Org, Source, Stats, TodayResponse } from "./api";
 
 /** Les vues de l'application, dans l'ordre du rail. */
-export type ViewKey = "today" | "map" | "directory" | "review" | "graph" | "sources" | "health" | "alerts" | "dossier" | "na";
+export type ViewKey = "today" | "map" | "directory" | "review" | "journal" | "graph" | "sources" | "health" | "alerts" | "dossier" | "na";
 
 
 /** Contrat de l'écran d'accueil « Aujourd'hui ». */
