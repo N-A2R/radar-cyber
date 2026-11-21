@@ -517,7 +517,8 @@ export default function App() {
 
   const onReviewStateChange = useCallback((review: AppUrlState["review"]) => {
     setUrlState((prev) => {
-      const same = prev.review.bucket === review.bucket && prev.review.q === review.q;
+      const same = prev.review.bucket === review.bucket && prev.review.q === review.q
+        && prev.review.famille === review.famille;
       return same ? prev : { ...prev, review };
     });
   }, []);
