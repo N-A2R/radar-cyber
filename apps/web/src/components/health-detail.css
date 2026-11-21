@@ -1,0 +1,75 @@
+/* État détaillé du système : jetons sémantiques uniquement, aucun hex ici.
+   La couleur accompagne toujours une étiquette lisible. */
+.health-detail {
+  max-width: 1500px;
+  padding-bottom: var(--space-6);
+}
+
+.health-detail header h2 {
+  font-size: var(--text-title);
+  font-weight: 500;
+  margin: 0;
+}
+
+.health-detail header p,
+.health-detail__legend {
+  color: var(--muted);
+  margin: var(--space-1) 0 var(--space-4);
+}
+
+.health-detail h3 {
+  font-size: var(--text-body);
+  font-weight: 500;
+  margin: var(--space-6) 0 var(--space-2);
+}
+
+.health-detail__metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-3);
+  margin: 0 0 var(--space-6);
+}
+
+.health-detail__metric {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: var(--space-3);
+}
+
+.health-detail__metric dt {
+  color: var(--muted);
+  font-size: var(--text-label);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.health-detail__metric dd {
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+  margin: var(--space-1) 0;
+}
+
+.health-detail__metric span {
+  color: var(--muted);
+  font-size: var(--text-label);
+}
+
+.health-detail__scroll {
+  overflow-x: auto;
+}
+
+.health-detail__tone {
+  align-items: center;
+  border-left: 3px solid currentColor;
+  display: inline-flex;
+  font-variant-numeric: tabular-nums;
+  padding-left: var(--space-2);
+  white-space: nowrap;
+}
+
+.health-detail__tone[data-tone="green"] { color: var(--family-reputation); }
+.health-detail__tone[data-tone="orange"] { color: var(--sev-4); }
+.health-detail__tone[data-tone="red"] { color: var(--sev-5); }

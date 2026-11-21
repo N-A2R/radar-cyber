@@ -280,6 +280,39 @@ export type Health = {
   sources: string[];
 };
 
+/** Réponse de GET /api/health/detail : état du système en une requête. */
+export type HealthDetail = {
+  ok: boolean;
+  generatedAt: string;
+  windowDays: 7;
+  sources: {
+    declared: number;
+    enabled: number;
+    actives7j: number;
+    muettes7j: number;
+    bySource: {
+      id: string;
+      name: string;
+      family: string;
+      enabled: boolean;
+      lastCollectedAt: string | null;
+      lastEventAt: string | null;
+      ageHours: number | null;
+      tone: "green" | "orange" | "red";
+    }[];
+  };
+  events24h: number;
+  orgs7j: number;
+  queues: { pending: number; reviewed: number; promoted: number };
+  families: {
+    family: string;
+    lastEventAt: string | null;
+    ageHours: number | null;
+    ageDays: number | null;
+    tone: "green" | "orange" | "red";
+  }[];
+};
+
 /** Arc géographique pour la carte 3D (GET /api/flows). */
 export type FlowArc = {
   id: string;
@@ -703,6 +736,7 @@ export const api = {
   graph: (days = 90) => get<Graph>(`/graph?days=${days}`),
   sources: () => get<Source[]>("/sources"),
   stats: () => get<Stats>("/stats"),
+  healthDetail: () => get<HealthDetail>("/health/detail"),
   health: () => get<Health>("/health"),
   flows: (days = 30, limit = 300, mode = "arcs") => get<Flows>(`/flows?days=${days}&limit=${limit}&mode=${mode}`),
   alerts: (params: AlertQuery = {}) => {
