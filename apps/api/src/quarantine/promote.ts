@@ -779,11 +779,23 @@ export type PromoteOneResult = {
   refuseParRegle: string | null;
 };
 
+/** Organisation choisie par un analyste : le moteur ne tranche plus. */
+export type OrgOverride = { orgId: number; orgName: string };
+
 /**
  * Promotion manuelle d'un fait (décision d'analyste). Promeut même sans
  * correspondance d'organisation : l'événement reste rattachable plus tard.
+ *
+ * `override` vient de la file de revue : l'humain a désigné l'organisation.
+ * Les règles de précision et le modèle ne reprennent pas la main sur ce choix,
+ * mais l'écriture de l'événement et du journal reste exactement la même.
  */
-export async function promoteOneTx(client: PoolClient, id: number, promotedBy: string): Promise<PromoteOneResult> {
+export async function promoteOneTx(
+  client: PoolClient,
+  id: number,
+  promotedBy: string,
+  override?: OrgOverride,
+): Promise<PromoteOneResult> {
   const base = {
     found: true,
     id,
@@ -806,22 +818,38 @@ export async function promoteOneTx(client: PoolClient, id: number, promotedBy: s
   if (!row) return { ...base, found: false, id };
   if (row.promoted) return { ...base, alreadyPromoted: true };
 
-  const index = await loadOrgIndex();
-  const m = matchOrgInIndex(row.org_hint ?? "", index);
-  // Les règles de précision tranchent avant le modèle : un rapprochement
-  // refusé ne demande pas d'arbitrage et n'attache rien — même promu à la
-  // main. L'analyste décide de la promotion ; le rattachement reste une
-  // production du moteur, tenue aux mêmes règles qu'en automatique.
-  const regle = m
-    ? refusParRegles(
-        row.org_hint ?? "",
-        m,
-        index.find((e) => e.id === m.orgId)?.name ?? "",
-      )
-    : null;
-  const confirmed = m && !regle
-    ? await confirmMatch(row.org_hint ?? "", m.orgId, new Map(index.map((e) => [e.id, e.name])), m.via)
-    : false;
+  let orgId: number | null = null;
+  let attachedOrgId: number | null = null;
+  let orgName: string | null = null;
+  let confidence: number | null = null;
+  let regle: string | null = null;
+  let matchedOrgName = "";
+  let m: OrgMatch | null = null;
+  if (override) {
+    const org = await client.query<{ name: string }>("SELECT name FROM org WHERE id=$1", [override.orgId]);
+    if (!org.rows[0]) throw new Error(`promotion : organisation ${override.orgId} introuvable`);
+    orgId = override.orgId;
+    attachedOrgId = override.orgId;
+    orgName = override.orgName || org.rows[0].name;
+    confidence = 1;
+  } else {
+    const index = await loadOrgIndex();
+    m = matchOrgInIndex(row.org_hint ?? "", index);
+    // Les règles de précision tranchent avant le modèle : un rapprochement
+    // refusé ne demande pas d'arbitrage et n'attache rien — même promu à la
+    // main. L'analyste décide de la promotion ; le rattachement reste une
+    // production du moteur, tenue aux mêmes règles qu'en automatique.
+    const match = m;
+    const matchName = match ? index.find((e) => e.id === match.orgId)?.name ?? "" : "";
+    regle = match ? refusParRegles(row.org_hint ?? "", match, matchName) : null;
+    const confirmed = match && !regle
+      ? await confirmMatch(row.org_hint ?? "", match.orgId, new Map(index.map((e) => [e.id, e.name])), match.via)
+      : false;
+    orgId = match?.orgId ?? null;
+    orgName = match ? matchName || null : null;
+    matchedOrgName = matchName;
+    attachedOrgId = confirmed && match && !regle ? match.orgId : null;
+  }
 
   const upd = await client.query(
     `UPDATE quarantine_raw SET promoted=true, promoted_at=now(), promoted_by=$2, status='promoted'
@@ -834,7 +862,7 @@ export async function promoteOneTx(client: PoolClient, id: number, promotedBy: s
   const ev = await insertClaimEventRow(
     runnerOf(client),
     row,
-    confirmed && m && !regle ? m.orgId : null,
+    attachedOrgId,
     promotedBy,
   );
   if (regle && m) {
@@ -850,7 +878,7 @@ export async function promoteOneTx(client: PoolClient, id: number, promotedBy: s
         regle,
         indice: row.org_hint ?? "",
         orgId: m.orgId,
-        orgName: index.find((e) => e.id === m.orgId)?.name ?? "",
+        orgName: matchedOrgName,
         via: m.via,
         confidence: m.confidence,
         drapeau: "PRECISION_RULES=on",
@@ -861,9 +889,9 @@ export async function promoteOneTx(client: PoolClient, id: number, promotedBy: s
     found: true,
     id,
     alreadyPromoted: false,
-    orgId: m?.orgId ?? null,
-    orgName: m ? (index.find((e) => e.id === m.orgId)?.name ?? null) : null,
-    confidence: m?.confidence ?? null,
+    orgId,
+    orgName,
+    confidence,
     eventId: ev.eventId,
     inserted: ev.inserted,
     alertsCreated: 0,
