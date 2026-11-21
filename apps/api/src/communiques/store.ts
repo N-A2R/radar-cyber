@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { isoWeek } from "./window.js";
 import { ingestQuery, query } from "../db.js";
 import { canonicalUrl } from "./dedupe.js";
+import { consigner } from "../journal/index.js";
 import { OFFICIAL_SOURCES, type OfficialStatement } from "./model.js";
 
 export const STATEMENT_FAMILY = "official_statement";
@@ -62,8 +63,27 @@ export async function storeStatements(items: OfficialStatement[]): Promise<Store
         }),
       ],
     );
-    if (result.rowCount === 1) inserted += 1;
-    else duplicates += 1;
+    if (result.rowCount === 1) {
+      inserted += 1;
+      // The admission fact is written with the event, not by a later backfill:
+      // who saw this statement, where, and when are known at insertion time.
+      // The title is deliberately omitted from the journal payload.
+      await consigner({
+        kind: "event.admitted",
+        subject: dedupKey,
+        summary: `${item.sourceId}: official statement admitted`,
+        actor: "collecteur:na-official-statements",
+        payload: {
+          sourceId: item.sourceId,
+          sourceUrl: item.url,
+          department: item.department,
+          collector: "na-official-statements",
+          family: STATEMENT_FAMILY,
+          assertionType: "ambient_signal",
+        },
+        validAt: item.publishedAt,
+      });
+    } else duplicates += 1;
   }
   return { inserted, duplicates };
 }
