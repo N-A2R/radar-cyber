@@ -18,7 +18,7 @@
 import type { PoolClient } from "pg";
 import { query, withClient, withTransaction } from "../db.js";
 import { buildAliasIndex, analyzeAliasIndex, type AliasRow } from "../match/core.js";
-import { loadOrgIndex, matchOrgInIndex, promoteOne, promoteOneTx, type OrgIndexEntry } from "./promote.js";
+import { loadOrgIndex, matchOrgInIndex, promoteOne, promoteOneTx, refusParRegles, type OrgIndexEntry } from "./promote.js";
 import { evaluateEvent } from "../detect/engine.js";
 import { consignerLot, type JournalEntry } from "../journal/index.js";
 import { buildCandidateIndex, candidatesFor } from "./candidates.js";
@@ -39,9 +39,22 @@ export type QueueParams = {
 	source?: string | null;
 	groupe?: string | null;
 	q?: string | null;
+	/** File de revue humaine : seulement les faits en attente avec un indice. */
+	onlyPendingWithHint?: boolean;
+	/** Joint les candidats, la règle de refus et la géographie de l'org. */
+	enriched?: boolean;
 	page?: number;
 	limit?: number;
 	window?: number;
+};
+
+export type QueueCandidate = {
+	id: number;
+	name: string;
+	score: number;
+	via: "domain" | "name";
+	city: string | null;
+	dept: string | null;
 };
 
 export type QueueRow = {
@@ -62,6 +75,11 @@ export type QueueRow = {
 	org: { id: number; name: string; kind: string; city: string | null } | null;
 	orgConfidence: number | null;
 	review: ReviewEntry[];
+	/** Présents seulement sur la file de revue humaine (`enriched`). */
+	candidates?: QueueCandidate[];
+	rejectRule?: string | null;
+	city?: string | null;
+	dept?: string | null;
 };
 
 export type QueueFacet = { value: string; count: number };
@@ -142,8 +160,12 @@ export async function reviewQueue(params: QueueParams = {}): Promise<QueueResult
 		values.push(value);
 		clauses.push(clause.replace("?", `$${values.length}`));
 	};
+	if (params.onlyPendingWithHint) {
+		clauses.push("org_hint IS NOT NULL", "btrim(org_hint) <> ''");
+		if (!params.status) clauses.push("status = 'pending'");
+	}
 	if (params.status) add("status = ?", params.status);
-	else clauses.push("status IN ('pending','reviewed')");
+	else if (!params.onlyPendingWithHint) clauses.push("status IN ('pending','reviewed')");
 	if (params.source) add("source = ?", params.source);
 	if (params.groupe) add("groupe = ?", params.groupe);
 	const search = (params.q ?? "").trim();
@@ -175,7 +197,50 @@ export async function reviewQueue(params: QueueParams = {}): Promise<QueueResult
 	const truncated = raw.rows.length > window;
 	const candidates = buildCandidateIndex(orgIndex);
 	const orgById = new Map<number, OrgIndexEntry>(orgIndex.map((entry) => [entry.id, entry]));
+
+	// La file humaine montre plusieurs candidats, pas seulement le vainqueur
+	// du moteur : c'est à l'analyste de trancher. Le préfiltre reste emprunté
+	// au moteur, et le score de chaque candidat est calculé par le moteur lui-même.
+	const enrichments = new Map<number, { candidates: QueueCandidate[]; city: string | null; dept: string | null }>();
+	if (params.enriched) {
+		const shown = raw.rows.slice(0, window);
+		const perRow = shown.map((row) => {
+			const hint = row.org_hint ?? "";
+			const pool = candidatesFor(hint, candidates);
+			const list: QueueCandidate[] = [];
+			for (const entry of pool.length > 200 ? pool.slice(0, 200) : pool) {
+				const match = matchOrgInIndex(hint, [entry]);
+				if (!match) continue;
+				list.push({
+					id: entry.id,
+					name: entry.name,
+					score: match.confidence,
+					via: match.via,
+					city: entry.city,
+					dept: null,
+				});
+			}
+			return list.sort((a, b) => b.score - a.score || a.id - b.id).slice(0, 5);
+		});
+		const ids = [...new Set(perRow.flat().map((candidate) => candidate.id))];
+		const deptRows = ids.length > 0
+			? (await query<{ id: number; dept: string | null }>(
+				"SELECT id, dept FROM org WHERE id = ANY($1::int[])", [ids],
+			)).rows
+			: [];
+		const deptById = new Map(deptRows.map((dept) => [dept.id, dept.dept]));
+		shown.forEach((row, index) => {
+			const list = perRow[index];
+			for (const candidate of list) candidate.dept = deptById.get(candidate.id) ?? null;
+			enrichments.set(Number(row.id), {
+				candidates: list,
+				city: list[0]?.city ?? null,
+				dept: list[0]?.dept ?? null,
+			});
+		});
+	}
 	const now = new Date();
+
 
 	const scored: QueueRow[] = raw.rows.slice(0, window).map((row) => {
 		const hint = row.org_hint ?? "";
@@ -215,6 +280,8 @@ export async function reviewQueue(params: QueueParams = {}): Promise<QueueResult
 			org: org ? { id: org.id, name: org.name, kind: org.kind, city: org.city } : null,
 			orgConfidence: primary?.confidence ?? null,
 			review: Array.isArray(row.review) ? row.review : [],
+			...enrichments.get(Number(row.id)),
+			rejectRule: primary ? refusParRegles(hint, primary, org?.name ?? "") : null,
 		};
 	});
 
@@ -372,7 +439,7 @@ export async function applyReview(
 	return outcome;
 }
 
-async function appendReview(id: number, entry: ReviewEntry, client?: PoolClient): Promise<void> {
+export async function appendReview(id: number, entry: ReviewEntry, client?: PoolClient): Promise<void> {
 	const run = client
 		? (text: string, params?: unknown[]) => client.query(text, params)
 		: query;
