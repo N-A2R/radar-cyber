@@ -19,7 +19,7 @@ import { randomBytes } from "node:crypto";
 import type { PoolClient } from "pg";
 import { z } from "zod";
 import { withTransaction } from "../db.js";
-import { consigner } from "../journal/index.js";
+import { consignerAvec } from "../journal/index.js";
 import { normalizeDomain, normalizeName } from "./promote.js";
 
 export const createOrgFromHintSchema = z.object({
@@ -118,8 +118,13 @@ function slugFor(domain: string | null, nomNorm: string): string {
   return `hint-${clean || "organisation"}-${randomBytes(4).toString("hex")}`;
 }
 
-/** Crée l'organisation, ou rend l'existante sans la modifier. */
-export async function createOrgFromHint(
+/**
+ * Crée l'organisation, ou rend l'existante sans la modifier, dans la
+ * transaction de l'appelant. Promotion ou journal peuvent ainsi échouer sans
+ * laisser une organisation orpheline.
+ */
+export async function createOrgFromHintTx(
+  client: PoolClient,
   raw: unknown,
 ): Promise<CreateOrgFromHintResult> {
   const parsed = createOrgFromHintSchema.safeParse(raw);
@@ -134,49 +139,50 @@ export async function createOrgFromHint(
   const domain = input.domaine ? normalizeDomain(input.domaine) : null;
   if (domain && !DOMAIN_RE.test(domain)) throw new InvalidHintError("domaine invalide");
 
-  const result = await withTransaction(async (client) => {
-    const found = await findExisting(client, domain, nomNorm);
-    if (found) return { ...found, created: false, aliases: 0 };
+  const found = await findExisting(client, domain, nomNorm);
+  if (found) return { ...found, created: false, aliases: 0, journal: { ok: true, ecrit: false } };
 
-    await client.query("SELECT pg_advisory_xact_lock(hashtext($1))", [
-      domain ? `domaine:${domain}` : `nom:${nomNorm}`,
-    ]);
-    // Le verrou posé, on revérifie : un appel concurrent a pu créer entre-temps.
-    const afterLock = await findExisting(client, domain, nomNorm);
-    if (afterLock) return { ...afterLock, created: false, aliases: 0 };
+  await client.query("SELECT pg_advisory_xact_lock(hashtext($1))", [
+    domain ? `domaine:${domain}` : `nom:${nomNorm}`,
+  ]);
+  // Le verrou posé, on revérifie : un appel concurrent a pu créer entre-temps.
+  const afterLock = await findExisting(client, domain, nomNorm);
+  if (afterLock) return { ...afterLock, created: false, aliases: 0, journal: { ok: true, ecrit: false } };
 
-    const slug = slugFor(domain, nomNorm);
-    const inserted = await client.query<OrgFromHint>(
-      `INSERT INTO org (name, slug, kind, city, domain, status, entity_source)
-       VALUES ($1, $2, 'entreprise', $3, $4, 'a_confirmer', $5)
-       RETURNING ${ORG_COLUMNS}`,
-      [input.nom.trim(), slug, input.ville?.trim() ?? null, domain, `hint:${input.source}`],
+  const slug = slugFor(domain, nomNorm);
+  const inserted = await client.query<OrgFromHint>(
+    `INSERT INTO org (name, slug, kind, city, domain, status, entity_source)
+     VALUES ($1, $2, 'entreprise', $3, $4, 'a_confirmer', $5)
+     RETURNING ${ORG_COLUMNS}`,
+    [input.nom.trim(), slug, input.ville?.trim() ?? null, domain, `hint:${input.source}`],
+  );
+  const org = inserted.rows[0]!;
+
+  // Alias de rattachement : nom entier déaccentué (jamais la ville seule,
+  // migrate-016) et domaine nu. Ce sont les deux formes que portent les
+  // revendications.
+  const aliases: { alias: string; source: string }[] = [
+    { alias: nomNorm, source: "name-full" },
+    ...(domain ? [{ alias: domain, source: "domain" }] : []),
+  ];
+  let count = 0;
+  for (const alias of aliases) {
+    const r = await client.query(
+      `INSERT INTO org_alias (org_id, alias, source) VALUES ($1, $2, $3)
+       ON CONFLICT (org_id, alias) DO NOTHING`,
+      [org.id, alias.alias, alias.source],
     );
-    const org = inserted.rows[0]!;
+    count += r.rowCount ?? 0;
+  }
+  const result: Omit<CreateOrgFromHintResult, "journal"> = {
+    org, created: true, matchedBy: null, aliases: count,
+  };
 
-    // Alias de rattachement : nom entier déaccentué (jamais la ville seule,
-    // migrate-016) et domaine nu. Ce sont les deux formes que portent les
-    // revendications.
-    const aliases: { alias: string; source: string }[] = [
-      { alias: nomNorm, source: "name-full" },
-      ...(domain ? [{ alias: domain, source: "domain" }] : []),
-    ];
-    let count = 0;
-    for (const alias of aliases) {
-      const r = await client.query(
-        `INSERT INTO org_alias (org_id, alias, source) VALUES ($1, $2, $3)
-         ON CONFLICT (org_id, alias) DO NOTHING`,
-        [org.id, alias.alias, alias.source],
-      );
-      count += r.rowCount ?? 0;
-    }
-    return { org, created: true, matchedBy: null, aliases: count };
-  });
   // Un appel qui rend une organisation existante n'écrit rien : sinon chaque
   // revue du même indice ajouterait un fait « création » au journal.
-  let journal: CreateOrgFromHintResult["journal"] = { ok: true, ecrit: false };
-  if (result.created) {
-    const ecrit = await consigner({
+  const ecrit = await consignerAvec(
+    (sql, params) => client.query(sql, params as unknown[]),
+    {
       kind: "org.created",
       subject: `org:${result.org.slug}`,
       summary: `organisation créée depuis l'indice « ${input.nom} » (source ${input.source})`,
@@ -190,15 +196,15 @@ export async function createOrgFromHint(
         orgId: result.org.id,
         slug: result.org.slug,
       },
-    });
-    journal = { ok: ecrit.ok, ecrit: true, ...(ecrit.error ? { error: ecrit.error } : {}) };
-  }
-
+    },
+  );
   return {
-    org: result.org,
-    created: result.created,
-    matchedBy: result.matchedBy,
-    aliases: result.aliases,
-    journal,
+    ...result,
+    journal: { ok: ecrit.ok, ecrit: true, ...(ecrit.error ? { error: ecrit.error } : {}) },
   };
+}
+
+/** Crée l'organisation dans sa propre transaction (appel historique). */
+export async function createOrgFromHint(raw: unknown): Promise<CreateOrgFromHintResult> {
+  return withTransaction((client) => createOrgFromHintTx(client, raw));
 }

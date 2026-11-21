@@ -56,6 +56,9 @@ after(async () => {
 		const rest = await query<{ n: number }>("SELECT count(*)::int AS n FROM org WHERE id=$1", [orgId]);
 		assert.equal(rest.rows[0]?.n, 0, `organisation ${orgId} supprimée`);
 	}
+	// Filet pour un org créé par un appel qui a échoué avant son enregistrement.
+	await query("DELETE FROM org_alias WHERE org_id IN (SELECT id FROM org WHERE domain LIKE $1)", [`${TAG}%`]);
+	await query("DELETE FROM org WHERE domain LIKE $1", [`${TAG}%`]);
 	await query("DELETE FROM quarantine_raw WHERE source=$1", [SOURCE]);
 	const rows = await query<{ n: number }>("SELECT count(*)::int AS n FROM quarantine_raw WHERE source=$1", [SOURCE]);
 	assert.equal(rows.rows[0]?.n, 0, "lignes de quarantaine supprimées");
@@ -66,9 +69,9 @@ after(async () => {
 	await closePools();
 });
 
-async function claim(hint: string | null): Promise<number> {
+async function claim(hint: string | null, hashOverride?: string): Promise<number> {
 	seq += 1;
-	const hash = createHash("sha256").update(`${TAG}-claim-${seq}`).digest("hex");
+	const hash = hashOverride ?? createHash("sha256").update(`${TAG}-claim-${seq}`).digest("hex");
 	const r = await query<{ id: number }>(
 		`INSERT INTO quarantine_raw
 		   (source, source_url, groupe, org_hint, claimed_at, extracted, tlp, content_hash, status)
@@ -200,4 +203,46 @@ test("creer : indice inexploitable, orgId interdit et motif requis", async () =>
 		[SOURCE, [empty, junk, withOrg, noReason]],
 	);
 	assert.equal(pending.rows[0]?.n, 4, "aucune ligne décidée après un refus 400");
+});
+
+test("creer : panne après la création → rollback intégral, 0 organisation", async () => {
+	const domain = `${TAG}-rollback.example`;
+	const hash = createHash("sha256").update(`${TAG}-rollback`).digest("hex");
+	const id = await claim(domain, hash);
+	const fn = `fail_event_${TAG}`;
+	await query(`CREATE FUNCTION ${fn}() RETURNS trigger LANGUAGE plpgsql AS $fn$
+BEGIN
+  IF NEW.dedup_key = 'quarantine:${hash}' THEN
+    RAISE EXCEPTION 'panne simulee sur evenement de test';
+  END IF;
+  RETURN NEW;
+END
+$fn$`);
+	await query(`CREATE TRIGGER ${fn} BEFORE INSERT ON event FOR EACH ROW EXECUTE FUNCTION ${fn}()`);
+
+	const avantOrg = await query<{ n: number }>("SELECT count(*)::int AS n FROM org WHERE domain=$1", [domain]);
+	const avantEvent = await query<{ n: number }>("SELECT count(*)::int AS n FROM event");
+	const res = await decide(id, { decision: "creer", raison: RAISON }).finally(async () => {
+		await query(`DROP TRIGGER IF EXISTS ${fn} ON event`);
+		await query(`DROP FUNCTION IF EXISTS ${fn}()`);
+	});
+	assert.equal(res.statusCode, 500, `la panne doit remonter : ${res.body}`);
+
+	const apresOrg = await query<{ n: number }>("SELECT count(*)::int AS n FROM org WHERE domain=$1", [domain]);
+	const apresEvent = await query<{ n: number }>("SELECT count(*)::int AS n FROM event");
+	console.log(
+		`rollback : orgs ${avantOrg.rows[0]?.n}→${apresOrg.rows[0]?.n}, ` +
+		`events ${avantEvent.rows[0]?.n}→${apresEvent.rows[0]?.n}`,
+	);
+	assert.equal(apresOrg.rows[0]?.n, 0, "aucune organisation de cet indice ne subsiste");
+	assert.equal(apresEvent.rows[0]?.n, avantEvent.rows[0]?.n, "aucun événement fantôme");
+	const ligne = await query<{ promoted: boolean; status: string }>(
+		"SELECT promoted, status FROM quarantine_raw WHERE id=$1", [id],
+	);
+	assert.equal(ligne.rows[0]?.promoted, false, "la promotion est annulée");
+	assert.equal(ligne.rows[0]?.status, "pending");
+	const trace = await query<{ n: number }>(
+		"SELECT count(*)::int AS n FROM journal WHERE kind='review.decided' AND subject=$1", [`quarantine:${id}`],
+	);
+	assert.equal(trace.rows[0]?.n, 0, "aucune décision journalisée sans promotion");
 });

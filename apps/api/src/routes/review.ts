@@ -14,8 +14,8 @@ import { evaluateEvent } from "../detect/engine.js";
 import { domainFromHint } from "../match/domaine.js";
 import { estSigle } from "../match/sigles.js";
 import { consignerAvec } from "../journal/index.js";
-import { createOrgFromHint, InvalidHintError, type CreateOrgFromHintResult } from "../quarantine/from-hint.js";
-import { normalizeName, promoteOneTx } from "../quarantine/promote.js";
+import { createOrgFromHintTx, InvalidHintError, type CreateOrgFromHintResult } from "../quarantine/from-hint.js";
+import { normalizeName, promoteOneTx, type PromoteOneResult } from "../quarantine/promote.js";
 import { appendReview, applyReview, reviewQueue, type ReviewEntry } from "../quarantine/review.js";
 import type { TriageBucket } from "../quarantine/triage.js";
 
@@ -218,52 +218,54 @@ export default async function (app: FastifyInstance) {
 			if (decision === "creer") {
 				const input = inputDepuisIndice(current.rows[0].org_hint, id, actor, raison);
 				if (!input) return reply.code(400).send({ error: "indice inexploitable" });
-				let creation: CreateOrgFromHintResult;
+				const entry: ReviewEntry = {
+					at: new Date().toISOString(), by: actor, action: "promote", reason: raison,
+				};
+				let decided: { result: PromoteOneResult; creation: CreateOrgFromHintResult } | null;
 				try {
-					creation = await createOrgFromHint(input);
+					// Création, rattachement, trace et décision : un seul commit,
+					// ou rien du tout si une écriture échoue.
+					decided = await withTransaction(async (client) => {
+						const creation = await createOrgFromHintTx(client, input);
+						const org = creation.org;
+						const result = await promoteOneTx(client, id, actor, {
+							orgId: org.id, orgName: org.name,
+						});
+						if (!result.found || result.alreadyPromoted) return null;
+						await appendReview(id, entry, client);
+						const trace = await consignerAvec(
+							(sql, params) => client.query(sql, params as unknown[]),
+							{
+								kind: "review.decided",
+								subject: `quarantine:${id}`,
+								summary: `creer par ${actor} — ${raison}`,
+								actor: `humain:${actor}`,
+								payload: {
+									decision: "creer",
+									action: "promote",
+									reason: raison,
+									orgId: org.id,
+									orgName: org.name,
+									cree: creation.created,
+									matchedBy: creation.matchedBy,
+									statutApplique: "promoted",
+									eventId: result.eventId,
+									quarantineId: id,
+								},
+							},
+						);
+						if (!trace.ok) throw new Error(`journal indisponible : ${trace.error}`);
+						return { result, creation };
+					});
 				} catch (error) {
 					if (error instanceof InvalidHintError) {
 						return reply.code(400).send({ error: "indice inexploitable", details: error.message });
 					}
 					throw error;
 				}
+				if (!decided) return reply.code(409).send({ error: "already decided" });
+				const { result: promoted, creation } = decided;
 				const org = creation.org;
-				const entry: ReviewEntry = {
-					at: new Date().toISOString(), by: actor, action: "promote", reason: raison,
-				};
-				// Le service de création porte sa propre transaction (réutilisé tel
-				// quel) ; promotion, trace de revue et décision sont atomiques ici.
-				const promoted = await withTransaction(async (client) => {
-					const result = await promoteOneTx(client, id, actor, {
-						orgId: org.id, orgName: org.name,
-					});
-					if (!result.found || result.alreadyPromoted) return null;
-					await appendReview(id, entry, client);
-					const trace = await consignerAvec(
-						(sql, params) => client.query(sql, params as unknown[]),
-						{
-							kind: "review.decided",
-							subject: `quarantine:${id}`,
-							summary: `creer par ${actor} — ${raison}`,
-							actor: `humain:${actor}`,
-							payload: {
-								decision: "creer",
-								action: "promote",
-								reason: raison,
-								orgId: org.id,
-								orgName: org.name,
-								cree: creation.created,
-								matchedBy: creation.matchedBy,
-								statutApplique: "promoted",
-								eventId: result.eventId,
-								quarantineId: id,
-							},
-						},
-					);
-					if (!trace.ok) throw new Error(`journal indisponible : ${trace.error}`);
-					return result;
-				});
-				if (!promoted) return reply.code(409).send({ error: "already decided" });
 				const alerts = promoted.inserted && promoted.eventId !== null
 					? await evaluateEvent(promoted.eventId, { force: true })
 					: 0;
