@@ -23,6 +23,8 @@
  *
  * Le résultat est destiné à être committé : c'est la mesure du projet, pas un
  * rapport interne. Voir docs/mesure-couverture.md.
+ * Le JSON publié et la sortie console citent le SHA-256 du corpus consolidé
+ * (`bench/corpus/HASH`, calculé par `scripts/corpus-hash.mts`).
  */
 import { createHash } from "node:crypto";
 import { readFileSync, writeFileSync } from "node:fs";
@@ -33,6 +35,7 @@ import { getGazetteer } from "../apps/api/src/collectors/org-gazetteer.js";
 import { preparerGazetteer, designateOrganization } from "../apps/api/src/collectors/relevance.js";
 import { resoudre } from "../apps/api/src/match/gazetteer.js";
 import { SECTEURS_ATTENDUS, verifierPubliabilite } from "../apps/api/src/analyse/publiabilite.js";
+import { lireHashCorpus } from "./corpus-hash.mjs";
 
 const argv = process.argv.slice(2);
 const SORTIE_JSON = argv.find((a) => a.startsWith("--json="))?.split("=")[1] ?? null;
@@ -207,6 +210,7 @@ async function main(): Promise<void> {
 
 	const resultats: Resultat[] = [];
 	const dateMesure = new Date().toISOString().slice(0, 10);
+	const sha256Corpus = lireHashCorpus();
 
 	/**
 	 * L'organisation citée existe-t-elle au référentiel ?
@@ -346,6 +350,7 @@ async function main(): Promise<void> {
 		dateMesure,
 		fenetre: FENETRE,
 		corpus: {
+			sha256: sha256Corpus,
 			incidents: corpus.incidents.length,
 			dansLaFenetre: dansFenetre.length,
 			horsFenetre: resultats.length - dansFenetre.length,
@@ -382,7 +387,7 @@ async function main(): Promise<void> {
 	};
 
 	console.log(`Mesure de couverture — ${dateMesure}`);
-	console.log(`Fenêtre ${FENETRE.debut} → ${FENETRE.fin} · corpus ${corpus.incidents.length} incidents`);
+	console.log(`Fenêtre ${FENETRE.debut} → ${FENETRE.fin} · corpus ${corpus.incidents.length} incidents · SHA-256 ${sha256Corpus}`);
 	console.log(`Organisations en base : ${organismes}\n`);
 
 	for (const r of dansFenetre) {
