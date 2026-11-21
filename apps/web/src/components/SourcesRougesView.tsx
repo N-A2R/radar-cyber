@@ -59,13 +59,13 @@ export default function SourcesRougesView({
   const rouges = useMemo(() => (detail ? sourcesRouges(detail) : []), [detail]);
 
   if (loading && detail === null) {
-    return <section className="sources-rouges"><p>lecture des sources rouges…</p></section>;
+    return <section className="sources-rouges"><p role="status" aria-live="polite">lecture des sources rouges…</p></section>;
   }
   if (error && detail === null) {
-    return <section className="sources-rouges"><p role="alert">sources indisponibles : {error}</p></section>;
+    return <section className="sources-rouges"><p role="alert" aria-live="assertive">sources indisponibles : {error}</p></section>;
   }
   if (detail === null || !detail.ok) {
-    return <section className="sources-rouges"><p>état non mesuré</p></section>;
+    return <section className="sources-rouges"><p role="status" aria-live="polite">état non mesuré</p></section>;
   }
 
   return (

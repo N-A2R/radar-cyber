@@ -51,8 +51,8 @@ export default function DossierView() {
 		};
 	}, []);
 
-	if (loading) return <section className="dossier"><p className="dossier__status">chargement du dossier…</p></section>;
-	if (error) return <section className="dossier"><p className="dossier__status dossier__status--error">{error}</p></section>;
+	if (loading) return <section className="dossier"><p className="dossier__status" role="status" aria-live="polite">chargement du dossier…</p></section>;
+	if (error) return <section className="dossier"><p className="dossier__status dossier__status--error" role="alert" aria-live="assertive">{error}</p></section>;
 	if (!data) return null;
 
 	return (

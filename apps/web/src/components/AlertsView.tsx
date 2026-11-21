@@ -198,8 +198,8 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent, refr
         ))}
       </div>
 
-      {error ? <p className="alerts__error">{error}</p> : null}
-      {loading ? <p className="alerts__status">chargement</p> : null}
+      {error ? <p className="alerts__error" role="alert" aria-live="assertive">{error}</p> : null}
+      {loading ? <p className="alerts__status" role="status" aria-live="polite">chargement</p> : null}
 
       <ul className="alerts__list">
         {visibleRows.map((alert) => (
@@ -258,8 +258,8 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent, refr
               </span>
             ) : null}
 
-            {openId === alert.id ? (
-              <div className="alerts__detail">
+              {openId === alert.id ? (
+                <div className="alerts__detail" role="region" aria-live="polite" aria-label="Détail de l'alerte">
                 {detailError ? <p className="alerts__detail-line">{detailError}</p> : null}
                 {!detail && !detailError ? <p className="alerts__detail-line">chargement du détail</p> : null}
                 {detail ? (
@@ -309,7 +309,7 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent, refr
       </ul>
 
       {!loading && visibleRows.length === 0 ? (
-        <div className="alerts__empty">
+        <div className="alerts__empty" role="status" aria-live="polite">
           <p className="alerts__empty-title">Aucune alerte sur ce filtre</p>
           <p className="alerts__empty-text">
             Le radar n'alerte que sur un score suffisant : un fait isolé, sans corroboration ni incident

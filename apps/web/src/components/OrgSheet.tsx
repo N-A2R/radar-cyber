@@ -75,9 +75,9 @@ export default function OrgSheet({
         </button>
       </header>
 
-      {state.status === "loading" && <p className="orgsheet__status">chargement…</p>}
-      {state.status === "notfound" && <p className="orgsheet__status">organisation inconnue</p>}
-      {state.status === "error" && <p className="orgsheet__status orgsheet__status--error">{state.message}</p>}
+      {state.status === "loading" && <p className="orgsheet__status" role="status" aria-live="polite">chargement…</p>}
+      {state.status === "notfound" && <p className="orgsheet__status" role="status" aria-live="polite">organisation inconnue</p>}
+      {state.status === "error" && <p className="orgsheet__status orgsheet__status--error" role="alert" aria-live="assertive">{state.message}</p>}
       {state.status === "ready" && <OrgSheetBody data={state.data} />}
     </aside>
   );

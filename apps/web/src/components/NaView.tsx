@@ -152,7 +152,7 @@ export default function NaView({ orgs, overview, fil, loading, error, dept, onSe
   if (loading && !overview && orgs.length === 0) {
     return (
       <section className="na-view">
-        <p className="na-vide">Chargement du référentiel Nouvelle-Aquitaine…</p>
+        <p className="na-vide" role="status" aria-live="polite">Chargement du référentiel Nouvelle-Aquitaine…</p>
       </section>
     );
   }
@@ -161,7 +161,7 @@ export default function NaView({ orgs, overview, fil, loading, error, dept, onSe
     <section className="na-view">
       <header className="na-header">
         <h2>Nouvelle-Aquitaine</h2>
-        <p className="na-totaux">
+        <p className="na-totaux" role="status" aria-live="polite">
           {total.orgs.toLocaleString("fr-FR")} organisations · {total.orgsAvecEvenement} touchées · {total.evenements}{" "}
           événements
           {total.deptsSansEvenement.length > 0 && (
@@ -203,7 +203,17 @@ export default function NaView({ orgs, overview, fil, loading, error, dept, onSe
                 fill={couleurPour(evts, maxEvts)}
                 stroke={actif ? "#1d3a5f" : "#ffffff"}
                 strokeWidth={actif ? 2.5 : 0.8}
+                role="button"
+                tabIndex={0}
+                aria-label={`${compteParDept.get(code)?.nom ?? code}, ${evts} événement(s)`}
+                aria-pressed={actif}
                 onClick={() => onSelectDept(actif ? null : code)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    onSelectDept(actif ? null : code);
+                  }
+                }}
               >
                 <title>{`${code} — ${compteParDept.get(code)?.nom ?? code} : ${evts} événement(s)`}</title>
               </path>

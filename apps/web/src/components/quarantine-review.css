@@ -47,7 +47,7 @@
   background: var(--color-plate);
   box-shadow: var(--raise-sm);
 }
-.review__selection { font: 500 10px/1 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-faint); }
+.review__selection { font: 500 10px/1 var(--font-mono); letter-spacing: 0; text-transform: none; color: var(--color-faint); }
 .review__actions { display: flex; gap: 6px; flex-wrap: wrap; }
 .review__actions button,
 .review__reason button,

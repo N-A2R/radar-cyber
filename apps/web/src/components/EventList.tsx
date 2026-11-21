@@ -48,13 +48,13 @@ export default function EventList({
     <section className="feed" aria-label="Fil d'événements">
       <header className="feed__header">
         <h2 className="feed__title">Fil d'événements</h2>
-        <span className="feed__count">{events.length}</span>
+        <span className="feed__count" role="status" aria-live="polite">{events.length}</span>
       </header>
 
       <FamilyFilter byFamily={byFamily} family={family} onFamily={onFamily} />
 
-      {loading ? <p className="feed__status">chargement</p> : null}
-      {error ? <p className="feed__status feed__status--error">{error}</p> : null}
+      {loading ? <p className="feed__status" role="status" aria-live="polite">chargement</p> : null}
+      {error ? <p className="feed__status feed__status--error" role="alert" aria-live="assertive">{error}</p> : null}
 
       <ul className="feed__list">
         {events.map((event) => {

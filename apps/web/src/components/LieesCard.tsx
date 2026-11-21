@@ -133,7 +133,7 @@ export function LieesContenu({ data, loading, error, historique = [] }: LieesCon
               ))}
             </ol>
           ) : (
-            <p className="liees__vide">aucun département renseigné</p>
+            <p className="liees__vide" role="status" aria-live="polite">aucun département renseigné</p>
           )}
         </>
       ) : null}

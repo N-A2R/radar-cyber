@@ -168,7 +168,7 @@ export default function HealthView({ sources }: HealthViewProps) {
             <option value="pending">jamais collectés ({counts.pending})</option>
           </select>
         </label>
-        <span style={{ color: "var(--faint)", fontSize: 12 }}>
+        <span role="status" aria-live="polite" style={{ color: "var(--faint)", fontSize: 12 }}>
           {visible.length} flux affiché{visible.length > 1 ? "s" : ""}
         </span>
       </div>
@@ -183,16 +183,18 @@ export default function HealthView({ sources }: HealthViewProps) {
                 aria-sort={
                   sortKey === col.key ? (sortDir === "asc" ? "ascending" : "descending") : "none"
                 }
-                style={{
-                  cursor: "pointer",
-                  userSelect: "none",
-                  textAlign: col.num ? "right" : undefined,
-                }}
-                title={sortKey === col.key ? "inverser le tri" : "trier"}
-                onClick={() => toggleSort(col.key)}
+                style={{ textAlign: col.num ? "right" : undefined }}
               >
-                {col.label}
-                {sortKey === col.key ? (sortDir === "asc" ? " ↑" : " ↓") : ""}
+                <button
+                  type="button"
+                  className="data__sort"
+                  title={sortKey === col.key ? "inverser le tri" : "trier"}
+                  aria-label={`Trier par ${col.label}`}
+                  onClick={() => toggleSort(col.key)}
+                >
+                  {col.label}
+                  {sortKey === col.key ? (sortDir === "asc" ? " ↑" : " ↓") : ""}
+                </button>
               </th>
             ))}
           </tr>
@@ -228,7 +230,7 @@ export default function HealthView({ sources }: HealthViewProps) {
           })}
           {visible.length === 0 && (
             <tr>
-              <td colSpan={COLUMNS.length} style={{ color: "var(--faint)" }}>
+              <td colSpan={COLUMNS.length} role="status" aria-live="polite" style={{ color: "var(--faint)" }}>
                 {sources.length === 0
                   ? "Aucun flux déclaré."
                   : "Aucun flux ne correspond aux filtres."}

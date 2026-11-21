@@ -234,14 +234,14 @@ export default function ReviewView({
         ))}
       </div>
 
-      {notice ? <p className="revue__notice" role="status">{notice}</p> : null}
-      {error ? <p className="revue__error" role="alert">{error}</p> : null}
-      {loading ? <p className="revue__state" role="status">Chargement de la file de revue…</p> : null}
+      {notice ? <p className="revue__notice" role="status" aria-live="polite">{notice}</p> : null}
+      {error ? <p className="revue__error" role="alert" aria-live="assertive">{error}</p> : null}
+      {loading ? <p className="revue__state" role="status" aria-live="polite">Chargement de la file de revue…</p> : null}
       {!loading && rows.length === 0 && !error
-        ? <p className="revue__state">Aucune revendication à revoir.</p>
+        ? <p className="revue__state" role="status" aria-live="polite">Aucune revendication à revoir.</p>
         : null}
-      {!server ? <p className="revue__state">La file de revue exige l'API : aucune décision n'est simulée.</p> : null}
-      {!canWrite ? <p className="revue__state">Lecture seule : connectez-vous pour décider.</p> : null}
+      {!server ? <p className="revue__state" role="status" aria-live="polite">La file de revue exige l'API : aucune décision n'est simulée.</p> : null}
+      {!canWrite ? <p className="revue__state" role="status" aria-live="polite">Lecture seule : connectez-vous pour décider.</p> : null}
 
       <ul className="revue__list">
         {rows.map((row) => (

@@ -30,7 +30,7 @@ export function renduCorroboration(corr: Corroboration | null) {
     return (
       <section className="orgsheet__section" data-testid="corroboration-absente">
         <h3 className="orgsheet__section-title">faits</h3>
-        <p className="orgsheet__empty">regroupement multi-sources non disponible sur ce serveur</p>
+        <p className="orgsheet__empty" role="status" aria-live="polite">regroupement multi-sources non disponible sur ce serveur</p>
       </section>
     );
   }
@@ -43,10 +43,10 @@ export function renduCorroboration(corr: Corroboration | null) {
         faits <span className="orgsheet__count">{resume.faits}</span>
       </h3>
       <p className="orgsheet__breakdown">
-        <span className="orgsheet__chip">
+        <span className="orgsheet__chip" role="status" aria-live="polite">
           corroborés <b>{resume.corrobores}</b>
         </span>
-        <span className="orgsheet__chip">
+        <span className="orgsheet__chip" role="status" aria-live="polite">
           isolés <b>{resume.isoles}</b>
         </span>
         {resume.desaccords > 0 && (

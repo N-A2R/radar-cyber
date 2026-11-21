@@ -36,7 +36,7 @@ export default function JournalListe({
       {error ? <p className="journal__error" role="alert">API : {error}</p> : null}
       {loading ? <p className="journal__state" role="status">Chargement du journal…</p> : null}
       {!loading && !error && rows.length === 0
-        ? <p className="journal__state">aucune décision enregistrée</p>
+        ? <p className="journal__state" role="status" aria-live="polite">aucune décision enregistrée</p>
         : null}
 
       <div className="journal__scroll">

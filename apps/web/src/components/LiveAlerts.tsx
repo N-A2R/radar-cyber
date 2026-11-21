@@ -83,7 +83,7 @@ export default function LiveAlerts({
 					{unseen > 1 ? <span className="live-alerts__more">+{unseen - 1}</span> : null}
 				</button>
 			) : (
-				<span className="live-alerts__idle">aucune alerte en direct pour l'instant</span>
+				<span className="live-alerts__idle" role="status" aria-live="polite">aucune alerte en direct pour l'instant</span>
 			)}
 
 			<div className="live-alerts__controls">

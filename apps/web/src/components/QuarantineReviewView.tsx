@@ -258,9 +258,9 @@ export default function ReviewView({ canWrite, server, onUnauthorized, onOpenOrg
 			<div className="review__body">
 				<div className="review__list" ref={listRef} role="listbox" aria-label="Faits à revoir">
 					{loading && rows.length === 0 ? (
-						<p className="review__state">Chargement de la file…</p>
+						<p className="review__state" role="status" aria-live="polite">Chargement de la file…</p>
 					) : rows.length === 0 ? (
-						<p className="review__state">Aucun fait ne correspond. Élargissez les filtres.</p>
+						<p className="review__state" role="status" aria-live="polite">Aucun fait ne correspond. Élargissez les filtres.</p>
 					) : rows.map((row, index) => (
 						<div
 							key={row.id}
@@ -297,7 +297,7 @@ export default function ReviewView({ canWrite, server, onUnauthorized, onOpenOrg
 
 				<aside className="review__detail" aria-label="Détail du fait">
 					{current === null ? (
-						<p className="review__state">Sélectionnez un fait.</p>
+						<p className="review__state" role="status" aria-live="polite">Sélectionnez un fait.</p>
 					) : (
 						<>
 							<h2>{current.orgHint || "(sans indice)"}</h2>

@@ -75,8 +75,8 @@
   --space-6: 24px;
 
   /* Échelle typographique. Le corps monte à 13 px et la lecture à 15 px :
-     à 12 px, un tableau dense se lit mal, et 11 px ne doit plus servir qu'à
-     des libellés en capitales. */
+     à 12 px, un tableau dense se lit mal. La casse des libellés est pilotée
+     par text-transform (none), jamais par des capitales suivies et espacées. */
   --text-label: 11px;
   --text-body: 13px;
   --text-read: 15px;
@@ -99,7 +99,30 @@ body {
 button, input, select { font: inherit; color: inherit; }
 button { cursor: pointer; }
 
-:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+:where(a[href], button, input, select, textarea, summary, [tabindex]:not([tabindex="-1"]), [role="button"], [role="option"], [role="switch"], [role="checkbox"], [role="tab"], [role="combobox"]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+path[role="button"]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  stroke: var(--accent);
+  stroke-width: 3;
+}
+:where(button, select, input[type="button"], input[type="checkbox"], input[type="radio"], [role="button"], [role="switch"], [role="checkbox"], [role="tab"]):not([hidden]) {
+  min-width: 24px;
+  min-height: 24px;
+}
+table.data th button {
+  min-width: 24px;
+  min-height: 24px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
 
 h1, h2 { text-wrap: balance; }
 
@@ -117,8 +140,8 @@ h1, h2 { text-wrap: balance; }
   background: var(--accent);
   color: var(--accent-ink);
   font: 500 9px/1.4 var(--font-mono);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   text-align: center;
 }
 .mock-banner[data-active="true"] { display: block; }
@@ -130,8 +153,8 @@ h1, h2 { text-wrap: balance; }
 
 .micro {
   font: 600 9px/1.2 var(--font-mono);
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--faint);
   white-space: nowrap;
 }
@@ -183,8 +206,8 @@ body { caret-color: var(--accent); }
   background: transparent;
   color: var(--muted);
   font: 500 11px/1 var(--font-mono);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
 }
 .nav button:hover { color: var(--text); border-color: var(--line-strong); }
 .nav button[aria-current="page"] {
@@ -199,8 +222,8 @@ body { caret-color: var(--accent); }
   align-items: center;
   gap: 7px;
   font: 500 10px/1 var(--font-mono);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--muted);
   white-space: nowrap;
 }
@@ -227,8 +250,8 @@ body { caret-color: var(--accent); }
   background: transparent;
   color: var(--muted);
   font: 500 9.5px/1 var(--font-mono);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
 }
 .basemap-picker button + button { border-left: 1px solid var(--line-strong); }
 .basemap-picker button:hover { color: var(--text); }
@@ -249,8 +272,8 @@ body { caret-color: var(--accent); }
   background: transparent;
   color: var(--muted);
   font: 500 9.5px/1 var(--font-mono);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
 }
 .theme-picker:hover { color: var(--text); }
 .theme-picker:active { background: var(--color-plate-3); }
@@ -307,8 +330,8 @@ body { caret-color: var(--accent); }
 .inspector__body .kind {
   margin-top: 2px;
   font: 500 9px/1.3 var(--font-mono);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--accent);
 }
 
@@ -323,8 +346,8 @@ body { caret-color: var(--accent); }
 .kv dt {
   color: var(--muted);
   font-size: var(--text-label);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
 }
 .kv dd {
   margin: 0;
@@ -394,8 +417,8 @@ table.data td {
 table.data th {
   color: var(--muted);
   font: 500 var(--text-label) / 1.3 var(--font-mono);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   white-space: nowrap;
 }
 table.data tr:hover td { background: var(--surface); }
@@ -417,8 +440,8 @@ table.data a:hover { text-decoration: underline; }
   background: transparent;
   color: var(--muted);
   font: 500 9px/1.2 var(--font-mono);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   white-space: nowrap;
 }
 .badge[data-tone="confirmed"] { color: var(--accent); border-color: var(--accent); }
@@ -879,8 +902,8 @@ body {
   background: var(--surface);
   color: var(--muted);
   font-size: var(--text-label);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   writing-mode: vertical-rl;
   cursor: pointer;
   transition: color 120ms ease, border-color 120ms ease;

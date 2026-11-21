@@ -30,13 +30,13 @@ function ageLabel(ageHours: number | null): string {
  */
 export default function HealthDetailView({ detail, causes = null, loading = false, error = null }: HealthDetailViewProps) {
   if (loading && detail === null) {
-    return <section className="health-detail"><p>lecture de l’état du système…</p></section>;
+    return <section className="health-detail"><p role="status" aria-live="polite">lecture de l’état du système…</p></section>;
   }
   if (error && detail === null) {
-    return <section className="health-detail"><p role="alert">état indisponible : {error}</p></section>;
+    return <section className="health-detail"><p role="alert" aria-live="assertive">état indisponible : {error}</p></section>;
   }
   if (detail === null || !detail.ok) {
-    return <section className="health-detail"><p>état non mesuré</p></section>;
+    return <section className="health-detail"><p role="status" aria-live="polite">état non mesuré</p></section>;
   }
 
   const { sources, queues } = detail;

@@ -401,13 +401,15 @@ export default function SourcesView({ sources, loading, error }: SourcesViewProp
             {rows.length === 0 && (
               <tr>
                 <td colSpan={COLUMNS.length} className="sources-table__empty">
-                  {loading
-                    ? "chargement des sources…"
-                    : error
-                      ? error
-                      : sources.length === 0
-                        ? "aucune source déclarée"
-                        : "aucune source ne correspond à la recherche"}
+                  <span role="status" aria-live="polite">
+                    {loading
+                      ? "chargement des sources…"
+                      : error
+                        ? error
+                        : sources.length === 0
+                          ? "aucune source déclarée"
+                          : "aucune source ne correspond à la recherche"}
+                  </span>
                 </td>
               </tr>
             )}

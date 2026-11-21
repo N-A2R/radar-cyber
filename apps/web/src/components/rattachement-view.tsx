@@ -21,7 +21,7 @@ export function renduRattachement(
     return (
       <section className="inspector__section">
         <h3 className="inspector__section-title">Rattachement</h3>
-        <p className="inspector__muted">
+        <p className="inspector__muted" role="status" aria-live="polite">
           {rattache ? "organisé, motif non conservé" : "aucune organisation rattachée, motif non conservé"}
         </p>
       </section>
@@ -31,7 +31,7 @@ export function renduRattachement(
   return (
     <section className="inspector__section">
       <h3 className="inspector__section-title">Rattachement</h3>
-      <p className="inspector__why" data-motif={explication.motif}>
+      <p className="inspector__why" data-motif={explication.motif} role="status" aria-live="polite">
         {explication.libelle}
       </p>
       <dl className="inspector__meta">

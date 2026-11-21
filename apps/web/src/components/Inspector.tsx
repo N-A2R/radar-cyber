@@ -132,11 +132,11 @@ export default function Inspector({ eventId, orgId, onClose, onOpenOrg }: Inspec
         )}
 
         {hasSelection && state.status === "loading" && (
-          <p className="inspector__status" role="status">Chargement…</p>
+          <p className="inspector__status" role="status" aria-live="polite">Chargement…</p>
         )}
 
         {hasSelection && state.status === "error" && (
-          <p className="inspector__status inspector__status--error" role="alert">
+          <p className="inspector__status inspector__status--error" role="alert" aria-live="assertive">
             {state.message}
           </p>
         )}

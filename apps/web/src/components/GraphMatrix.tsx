@@ -87,7 +87,7 @@ export default function GraphMatrix({ nodes, links }: Props) {
 
   const { counts, columns, rows, max, contributingOrgs } = matrix;
   const summary = (
-    <p className="gm-summary">
+    <p className="gm-summary" role="status" aria-live="polite">
       <b>{contributingOrgs}</b> organisations · <b>{columns.length}</b> départements ·{" "}
       <b>{rows.length}</b> familles
     </p>
@@ -97,7 +97,7 @@ export default function GraphMatrix({ nodes, links }: Props) {
     return (
       <div className="gm-root">
         {summary}
-        <p className="gm-empty">Aucune corrélation famille × département sur la période.</p>
+        <p className="gm-empty" role="status" aria-live="polite">Aucune corrélation famille × département sur la période.</p>
       </div>
     );
   }

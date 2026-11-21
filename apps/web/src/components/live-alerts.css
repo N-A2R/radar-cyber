@@ -58,7 +58,7 @@
 
 .live-alerts__sev {
   font: 500 9px/1 var(--font-mono);
-  letter-spacing: 0.1em;
+  letter-spacing: 0;
   color: var(--color-faint);
   flex: 0 0 auto;
 }
@@ -114,8 +114,8 @@
   padding: 4px 7px;
   border-radius: var(--radius);
   font: 500 9px/1 var(--font-mono);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--color-faint);
   cursor: pointer;
 }
