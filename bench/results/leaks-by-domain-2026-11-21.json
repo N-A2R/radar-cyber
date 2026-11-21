@@ -1,0 +1,34 @@
+{
+  "command": "pnpm measure:leaks-by-domain",
+  "scope": "nouvelle-aquitaine",
+  "basis": "domain",
+  "count": 2,
+  "claimsRead": 16756,
+  "domainOrganizationsRead": 88,
+  "matchedOrganizations": 2,
+  "baseline": {
+    "organizations": 1673151,
+    "sources": 312,
+    "events": 26688
+  },
+  "attachments": [
+    {
+      "claimId": "14826",
+      "orgId": 168102,
+      "domain": "sefiso-atlantique.fr",
+      "source": "ransomwatch"
+    },
+    {
+      "claimId": "15319",
+      "orgId": 604869,
+      "domain": "fol-23.fr",
+      "source": "ransomwatch"
+    }
+  ],
+  "sql": {
+    "organizations": "SELECT id, dept AS department, domain, website\n                  FROM org\n                  WHERE domain IS NOT NULL OR website IS NOT NULL",
+    "claims": "SELECT id::text AS id, source, org_hint AS \"domainHint\", status\n           FROM quarantine_raw\n           WHERE kind = 'claim' AND org_hint IS NOT NULL",
+    "baseline": "SELECT (SELECT count(*) FROM org)::int AS organizations,\n                    (SELECT count(*) FROM source)::int AS sources,\n                    (SELECT count(*) FROM event)::int AS events"
+  },
+  "measuredAt": "2026-11-21T22:07:26.321Z"
+}

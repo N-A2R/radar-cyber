@@ -49,6 +49,7 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/today", niveau: "public" },
   { methode: "GET", route: "/api/today/departements", niveau: "public" },
   { methode: "GET", route: "/api/couverture", niveau: "public" },
+  { methode: "GET", route: "/api/leaks/by-domain", niveau: "public" },
   { methode: "GET", route: "/api/corpus/stats", niveau: "public" },
   { methode: "GET", route: "/api/confidence/distribution", niveau: "public" },
   { methode: "GET", route: "/api/confidence/events/:eventId", niveau: "public" },

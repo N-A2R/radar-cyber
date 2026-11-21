@@ -25,6 +25,7 @@
     "anticipation:rapport": "apps/api/node_modules/.bin/tsx scripts/rapport-anticipation.mts",
     "mesure:pertinence": "apps/api/node_modules/.bin/tsx scripts/mesure-pertinence.mts",
     "mesure:confiance": "apps/api/node_modules/.bin/tsx scripts/compute-confidence-scores.mts",
+    "measure:leaks-by-domain": "apps/api/node_modules/.bin/tsx scripts/measure-leaks-by-domain.mts",
     "corpus:hash": "apps/api/node_modules/.bin/tsx scripts/corpus-hash.mts",
     "corpus:import": "apps/api/node_modules/.bin/tsx scripts/importer-corpus.mts",
     "mesure:typosquat": "apps/api/node_modules/.bin/tsx scripts/phishing-typosquat.mts"
