@@ -104,6 +104,11 @@
 }
 
 .live-alerts__ctl {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  min-height: 24px;
   border: 0;
   background: none;
   padding: 4px 7px;
@@ -117,6 +122,7 @@
 
 .live-alerts__ctl:hover { color: var(--color-ink-2); }
 .live-alerts__ctl[aria-pressed="true"] { color: var(--color-accent); }
+.live-alerts__ctl:active { background: var(--color-plate-3); }
 .live-alerts__ctl:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 1px; }
 
 /* Compteur d'alertes non vues, sur l'onglet du rail. */
@@ -136,5 +142,5 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .live-alerts__hit[data-level="5"] .live-alerts__dot { animation: none; }
+  .live-alerts__hit[data-level="5"] .live-alerts__dot { animation: none !important; }
 }

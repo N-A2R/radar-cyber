@@ -75,7 +75,7 @@
 }
 
 .login__field input:hover {
-  border-color: rgba(255, 255, 255, 0.22);
+  border-color: var(--line-strong);
 }
 
 .login__field input:focus-visible {
@@ -125,6 +125,7 @@
 @media (prefers-reduced-motion: reduce) {
   .login__field input,
   .login__submit {
-    transition: none;
+    animation: none !important;
+    transition: none !important;
   }
 }

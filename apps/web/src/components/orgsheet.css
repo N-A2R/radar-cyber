@@ -29,7 +29,11 @@
 }
 
 .orgsheet__close {
+  display: inline-flex;
+  align-items: center;
   flex: none;
+  min-height: 24px;
+  min-width: 24px;
   padding: 2px 0;
   border: 0;
   background: none;
@@ -223,7 +227,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .orgsheet__bar {
-    transition: none;
+    animation: none !important;
+    transition: none !important;
   }
 }
 
@@ -279,7 +284,7 @@
   display: flex;
   align-items: flex-end;
   height: 100%;
-  background: var(--color-plate-2, rgba(255, 255, 255, 0.03));
+  background: var(--color-plate-2, var(--line));
   border-radius: 1px;
 }
 
@@ -287,19 +292,19 @@
    l'information, pas la hauteur des barres. */
 .orgsheet__mois-item[data-vide="oui"] {
   background: transparent;
-  outline: 1px dotted var(--color-edge, rgba(255, 255, 255, 0.08));
+  outline: 1px dotted var(--line-strong);
   outline-offset: -1px;
 }
 
 .orgsheet__mois-barre {
   width: 100%;
   min-height: 2px;
-  background: var(--color-ink-2, #9aa7b8);
+  background: var(--color-ink-2, var(--muted));
   border-radius: 1px;
 }
 
 .orgsheet__mois-item[data-vide="non"] .orgsheet__mois-barre {
-  background: var(--sev-3, #8ea3c0);
+  background: var(--sev-3, var(--color-ink-2));
 }
 
 .orgsheet__meta[data-tendance="en hausse"],

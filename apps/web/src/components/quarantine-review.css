@@ -26,6 +26,7 @@
 .review__filters input,
 .review__filters select {
   font: 400 11px/1 var(--font-display);
+  min-height: 24px;
   padding: 7px 9px;
   border: 0;
   border-radius: var(--radius);
@@ -36,6 +37,8 @@
 .review__filters input { min-width: 180px; }
 .review__filters input:focus-visible,
 .review__filters select:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 1px; }
+.review__filters input:active,
+.review__filters select:active { background: var(--color-plate-3); }
 
 .review__bar {
   display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
@@ -60,7 +63,7 @@
 .review__actions button:hover:not(:disabled),
 .review__pager button:hover:not(:disabled) { color: var(--color-accent); }
 .review__actions button:disabled,
-.review__pager button:disabled { color: var(--color-faint); cursor: default; box-shadow: none; }
+.review__pager button:disabled { color: var(--color-faint); background: var(--color-plate); box-shadow: inset 0 0 0 1px var(--color-edge-lo); opacity: 1; cursor: not-allowed; }
 .review__actions button:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
 .review__actions kbd {
   margin-left: 5px; padding: 1px 4px;
@@ -141,7 +144,8 @@
 
 .review__org { margin: 0 0 6px; font: 400 11px/1.5 var(--font-display); color: var(--color-ink-2); }
 .review__org--none { color: var(--color-faint); }
-.review__org button { border: 0; background: none; padding: 0; font: inherit; color: var(--color-accent); cursor: pointer; text-decoration: underline; }
+.review__org button { display: inline-flex; align-items: center; min-height: 24px; min-width: 24px; border: 0; background: none; padding: 0; font: inherit; color: var(--color-accent); cursor: pointer; text-decoration: underline; }
+.review__org button:active { background: var(--color-plate-3); color: var(--color-accent); }
 
 .review__gap {
   margin: 8px 0; padding: 8px 10px;
@@ -187,7 +191,8 @@
   font: 400 11px/1 var(--font-display); color: var(--color-ink);
   z-index: 40;
 }
-.review__toast button { border: 0; background: none; font: 500 10px/1 var(--font-mono); color: var(--color-accent); cursor: pointer; }
+.review__toast button { display: inline-flex; align-items: center; min-height: 24px; min-width: 24px; border: 0; background: none; font: 500 10px/1 var(--font-mono); color: var(--color-accent); cursor: pointer; }
+.review__toast button:active { background: var(--color-plate-3); color: var(--color-accent); }
 
 @media (max-width: 1100px) {
   .review__body { grid-template-columns: minmax(0, 1fr); }

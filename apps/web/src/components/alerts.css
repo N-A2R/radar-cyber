@@ -48,6 +48,9 @@
 }
 
 .alerts__filters button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
   font: inherit;
   font-size: 12px;
   background: none;
@@ -63,6 +66,7 @@
 }
 
 .alerts__filters button:active {
+  background: var(--color-plate-3);
   color: var(--color-ink);
 }
 
@@ -87,7 +91,7 @@
   display: flex;
   gap: var(--space-1);
   padding: var(--space-2) var(--space-4);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--line);
 }
 
 .alerts__sections button {
@@ -95,7 +99,7 @@
   border: none;
   padding: 4px 0;
   font: inherit;
-  font-size: var(--text-sm);
+  font-size: var(--text-label);
   color: var(--color-ink-2);
   cursor: pointer;
   border-bottom: 2px solid transparent;
@@ -115,7 +119,7 @@
 }
 
 .alerts__sections button:focus-visible {
-  outline: 2px solid var(--color-border-hi);
+  outline: 2px solid var(--line-strong);
   outline-offset: 2px;
 }
 
@@ -268,10 +272,11 @@
 }
 
 .alerts__actions button:disabled {
-  color: var(--color-muted);
+  color: var(--color-faint);
+  background: var(--color-plate-2);
+  box-shadow: inset 0 0 0 1px var(--color-edge-lo);
+  opacity: 1;
   cursor: not-allowed;
-  box-shadow: none;
-  opacity: 0.55;
 }
 
 .alerts__status {
@@ -293,7 +298,7 @@
   .alerts__filters button,
   .alerts__row,
   .alerts__actions button {
-    transition: none;
+    transition: none !important;
   }
 }
 

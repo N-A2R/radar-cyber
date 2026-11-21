@@ -21,10 +21,9 @@
 
   --text: #e6e9ef;
   --muted: #8b93a1;
-  /* #5b6472 donnait 3,2:1 sur --surface : sous le seuil de 4,5:1 pour du
-     texte courant. Le gris faible sert maintenant aux libellés courts, et il
-     reste lisible (4,5:1). */
-  --faint: #737c8b;
+  /* Mesuré à 4,64:1 sur --surface-3 : au-dessus du seuil 4,5:1 pour du texte
+     courant. Le gris faible sert aux libellés courts. */
+  --faint: #7c8594;
 
   --accent: #3ddbd9;
   --accent-ink: #05080a;
@@ -36,6 +35,13 @@
   --sev-4: #e8833a;
   --sev-5: #e0483c;
 
+  /* Palette des données : une teinte par famille, dérivées de l'accent teal
+     et des sévérités existantes. Contraste >= 4,5:1 sur --surface dans les
+     quatre thèmes (terminal et souverain héritent des valeurs sombres). */
+  --data-teal: #3ddbd9;  /* accent teal du système */
+  --data-steel: #6b8fb5; /* entre --sev-2 et --muted */
+  --data-green: #5fbf87; /* vert désaturé dérivé du teal */
+
   /* Familles d'événement */
   --family-ransomware: #e0483c;
   --family-vuln: #e8833a;
@@ -43,17 +49,17 @@
   --family-malware: #c964b0;
   --family-cert: #4a90d9;
   --family-cert-fr: #67e8f9;
-  --family-typosquat: #a855f7;
-  --family-reputation: #22c55e;
-  --family-cti: #3b82f6;
-  --family-presse: #94a3b8;
+  --family-typosquat: var(--data-teal);
+  --family-reputation: var(--data-green);
+  --family-cti: var(--data-steel);
+  --family-presse: var(--muted);
 
   /* Natures d'organisation */
   --org-sante: #f05545;
   --org-collectivite: #4a90d9;
   --org-entreprise: #f0a63c;
-  --org-enseignement: #a855f7;
-  --org-recherche: #22c55e;
+  --org-enseignement: var(--data-teal);
+  --org-recherche: var(--data-green);
   --org-operateur: #e0483c;
 
   --font-sans: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -65,6 +71,7 @@
   --space-2: 8px;
   --space-3: 12px;
   --space-4: 16px;
+  --space-5: 20px;
   --space-6: 24px;
 
   /* Échelle typographique. Le corps monte à 13 px et la lecture à 15 px :
@@ -106,7 +113,7 @@ h1, h2 { text-wrap: balance; }
 .mock-banner {
   display: none;
   flex: 0 0 auto;
-  padding: 4px var(--space-4);
+  padding: var(--space-1) var(--space-4);
   background: var(--accent);
   color: var(--accent-ink);
   font: 500 9px/1.4 var(--font-mono);
@@ -130,12 +137,19 @@ h1, h2 { text-wrap: balance; }
 }
 .micro b { color: var(--muted); font-weight: 500; }
 
+::selection { background: var(--accent); color: var(--accent-ink); }
+html { scrollbar-color: var(--line-strong) var(--surface-2); }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--surface-2); }
+::-webkit-scrollbar-thumb { background: var(--line-strong); border: 2px solid var(--surface-2); border-radius: var(--radius); }
+body { caret-color: var(--accent); }
+
 /* ── Barre supérieure ────────────────────────────────────────── */
 .topbar {
   flex: 0 0 44px;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: var(--space-5);
   padding: 0 14px;
   background: var(--surface);
   border-bottom: 1px solid var(--line);
@@ -144,7 +158,7 @@ h1, h2 { text-wrap: balance; }
 .wordmark {
   display: flex;
   align-items: baseline;
-  gap: 8px;
+  gap: var(--space-2);
   white-space: nowrap;
 }
 .wordmark b {
@@ -163,7 +177,7 @@ h1, h2 { text-wrap: balance; }
   gap: 2px;
 }
 .nav button {
-  padding: 8px 11px;
+  padding: var(--space-2) 11px;
   border: 1px solid transparent;
   border-radius: var(--radius);
   background: transparent;
@@ -205,6 +219,10 @@ h1, h2 { text-wrap: balance; }
 }
 .basemap-picker button {
   padding: 6px 9px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  min-width: 24px;
   border: 0;
   background: transparent;
   color: var(--muted);
@@ -218,9 +236,14 @@ h1, h2 { text-wrap: balance; }
   background: var(--accent);
   color: var(--accent-ink);
 }
+.basemap-picker button:active { background: var(--color-plate-3); color: var(--text); }
 
 .theme-picker {
   padding: 5px 6px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  min-width: 24px;
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
   background: transparent;
@@ -230,6 +253,7 @@ h1, h2 { text-wrap: balance; }
   text-transform: uppercase;
 }
 .theme-picker:hover { color: var(--text); }
+.theme-picker:active { background: var(--color-plate-3); }
 
 /* ── Corps ───────────────────────────────────────────────────── */
 .workspace {
@@ -259,7 +283,7 @@ h1, h2 { text-wrap: balance; }
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
-  padding: 10px 14px 8px;
+  padding: 10px 14px var(--space-2);
   border-bottom: 1px solid var(--line);
 }
 
@@ -291,7 +315,7 @@ h1, h2 { text-wrap: balance; }
 .kv {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
-  gap: 6px 12px;
+  gap: 6px var(--space-3);
   margin: 14px 0 0;
   font: 400 11px/1.4 var(--font-mono);
   font-variant-numeric: tabular-nums;
@@ -424,7 +448,7 @@ table.data a:hover { text-decoration: underline; }
 
 .maplibregl-ctrl-attrib { font-size: 10px; }
 .maplibregl-ctrl-attrib a { color: var(--muted); }
-.maplibregl-canvas:focus-visible { outline: none; }
+.maplibregl-canvas:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 
 /* ── Variantes de design ─────────────────────────────────────── */
 html[data-theme="terminal"] {
@@ -438,7 +462,7 @@ html[data-theme="terminal"] {
   --line-strong: rgba(120, 255, 170, 0.2);
   --text: #cdffd8;
   --muted: #8cbf9c;
-  --faint: #5d8469;
+  --faint: #648b70;
   --accent: #4dff88;
   --accent-ink: #001a0a;
   --font-sans: ui-monospace, "JetBrains Mono", Menlo, monospace;
@@ -456,7 +480,7 @@ html[data-theme="souverain"] {
   --line-strong: rgba(255, 232, 200, 0.18);
   --text: #f2ebe2;
   --muted: #b3a596;
-  --faint: #8a7d70;
+  --faint: #918477;
   --accent: #e8b44a;
   --accent-ink: #1a1206;
   --font-sans: system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -474,7 +498,7 @@ html[data-theme="clair"] {
   --line-strong: rgba(16, 24, 38, 0.22);
   --text: #131a24;
   --muted: #4a5668;
-  --faint: #616d7d;
+  --faint: #5c6878;
   --accent: #0b62c4;
   --accent-ink: #ffffff;
   --sev-1: #616d7d;
@@ -482,21 +506,24 @@ html[data-theme="clair"] {
   --sev-3: #8a6410;
   --sev-4: #b45309;
   --sev-5: #c02a20;
+  --data-teal: #0b62c4;
+  --data-steel: #3d5f80;
+  --data-green: #256b42;
   --family-ransomware: #c02a20;
   --family-vuln: #b45309;
   --family-phishing: #8a6410;
   --family-malware: #a3287a;
   --family-cert: #2f6fb5;
   --family-cert-fr: #0e7490;
-  --family-typosquat: #7c3aed;
-  --family-reputation: #15803d;
-  --family-cti: #1d4ed8;
-  --family-presse: #616d7d;
+  --family-typosquat: var(--data-teal);
+  --family-reputation: var(--data-green);
+  --family-cti: var(--data-steel);
+  --family-presse: var(--muted);
   --org-sante: #c62f22;
   --org-collectivite: #2f6fb5;
   --org-entreprise: #b56f14;
-  --org-enseignement: #7c3aed;
-  --org-recherche: #15803d;
+  --org-enseignement: var(--data-teal);
+  --org-recherche: var(--data-green);
   --org-operateur: #c62f22;
 }
 
@@ -508,7 +535,11 @@ html[data-theme="clair"] {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -572,15 +603,15 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding: 12px 12px 12px;
+  padding: var(--space-3) var(--space-3) var(--space-3);
   gap: 0;
   box-sizing: border-box;
 }
 
 .shell__mock {
   flex: 0 0 auto;
-  margin-bottom: 8px;
-  padding: 5px 12px;
+  margin-bottom: var(--space-2);
+  padding: 5px var(--space-3);
   border-radius: 4px;
   font-size: 11px;
   color: var(--color-accent-ink);
@@ -590,7 +621,7 @@ body {
 /* Hors ligne : neutre, pas alarmant. L'incident n'est pas la panne réseau. */
 .shell__offline {
   flex: 0 0 auto;
-  margin: 0 0 8px;
+  margin: 0 0 var(--space-2);
   padding: 6px 14px;
   border-radius: 4px;
   font-size: 11px;
@@ -606,8 +637,8 @@ body {
 
 .shell__error {
   flex: 0 0 auto;
-  margin: 0 0 8px;
-  padding: 8px 14px;
+  margin: 0 0 var(--space-2);
+  padding: var(--space-2) 14px;
   border-radius: 4px;
   font-size: 12px;
   color: var(--color-alarm);
@@ -676,7 +707,7 @@ body {
 .wordmark {
   display: flex;
   align-items: baseline;
-  gap: 8px;
+  gap: var(--space-2);
   font-weight: 600;
   font-size: 15px;
   letter-spacing: -0.03em;
@@ -697,7 +728,7 @@ body {
 .rail__nav {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: var(--space-5);
 }
 
 .rail__nav button {
@@ -705,7 +736,7 @@ body {
   font-size: 12px;
   background: none;
   border: 0;
-  padding: 4px 0;
+  padding: var(--space-1) 0;
   color: var(--color-muted);
   cursor: pointer;
   transition: color 90ms ease, box-shadow 90ms ease;
@@ -739,7 +770,7 @@ body {
   color: var(--color-ink-2);
   background: none;
   border: 0;
-  padding: 4px 0;
+  padding: var(--space-1) 0;
   cursor: pointer;
   box-shadow: inset 0 -1px 0 var(--color-edge-hi);
   transition: color 90ms ease, box-shadow 90ms ease;
@@ -792,7 +823,9 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .rail__nav button,
   .rail__toggle {
-    transition: none;
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
   }
 }
 
@@ -900,7 +933,7 @@ body {
   background: var(--surface-2);
   color: var(--text);
   border-radius: var(--radius);
-  padding: 4px 10px;
+  padding: var(--space-1) 10px;
   cursor: pointer;
 }
 
@@ -969,7 +1002,7 @@ body {
   background: transparent;
   color: var(--text);
   border-radius: var(--radius);
-  padding: 6px 8px;
+  padding: 6px var(--space-2);
   cursor: pointer;
 }
 
@@ -1042,9 +1075,12 @@ body {
 
 .na-ligne-org-bouton {
   background: none;
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
   border: none;
   padding: 0;
-  color: var(--accent, #6fb1e3);
+  color: var(--accent);
   cursor: pointer;
   text-align: left;
   font: inherit;
@@ -1054,6 +1090,7 @@ body {
 .na-ligne-org-bouton:hover {
   text-decoration: underline;
 }
+.na-ligne-org-bouton:active { background: var(--color-plate-3); }
 
 @media (max-width: 900px) {
   .na-corps {
