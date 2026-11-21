@@ -1,0 +1,127 @@
+{
+  "scope": "Nouvelle-Aquitaine (12 departments)",
+  "definition": "Hours from the first worldwide observation of a campaign to its first observation flagged as Nouvelle-Aquitaine",
+  "detectionRule": "a campaign is identifiable at its second incident (analyse/campagnes.ts)",
+  "privacy": "event id, observation time, source id and regional flag only; no victim data",
+  "source": "public and grey publicly reachable campaign sources already ingested in the radar",
+  "measuredAt": "2026-11-21T23:42:47.543Z",
+  "campaigns": 10,
+  "medianPropagationHours": 180.865,
+  "medianPropagationDays": 7.54,
+  "medianWarningLeadHours": 144.54500000000002,
+  "minPropagationHours": 0,
+  "maxPropagationHours": 258.02,
+  "selectedCampaigns": [
+    {
+      "key": "cmp:ransomware:safepay:2026-11-14:23038",
+      "label": "safepay",
+      "globalFirstAt": "2026-11-14T16:31:08.599Z",
+      "detectionAt": "2026-11-21T15:34:01.618Z",
+      "regionalFirstAt": "2026-11-21T15:34:01.618Z",
+      "incidentCount": 11,
+      "regionalIncidentCount": 1,
+      "propagationHours": 167.05,
+      "warningLeadHours": 0
+    },
+    {
+      "key": "cmp:ransomware:lockbit3:2026-11-21:82931",
+      "label": "lockbit3",
+      "globalFirstAt": "2026-11-21T01:10:17.462Z",
+      "detectionAt": "2026-11-21T15:33:57.458Z",
+      "regionalFirstAt": "2026-11-21T01:10:17.462Z",
+      "incidentCount": 9,
+      "regionalIncidentCount": 9,
+      "propagationHours": 0,
+      "warningLeadHours": 0
+    },
+    {
+      "key": "cmp:ransomware:hellcat:2026-11-13:21350",
+      "label": "hellcat",
+      "globalFirstAt": "2026-11-13T21:35:10.267Z",
+      "detectionAt": "2026-11-21T01:10:51.761Z",
+      "regionalFirstAt": "2026-11-21T01:10:51.761Z",
+      "incidentCount": 2,
+      "regionalIncidentCount": 1,
+      "propagationHours": 171.59,
+      "warningLeadHours": 0
+    },
+    {
+      "key": "cmp:ransomware:krybit:2026-11-13:3706",
+      "label": "krybit",
+      "globalFirstAt": "2026-11-13T06:21:09.400Z",
+      "detectionAt": "2026-11-19T00:17:55.074Z",
+      "regionalFirstAt": "2026-11-21T15:34:02.096Z",
+      "incidentCount": 5,
+      "regionalIncidentCount": 1,
+      "propagationHours": 201.21,
+      "warningLeadHours": 63.27
+    },
+    {
+      "key": "cmp:ransomware:vexy:2026-11-16:46827",
+      "label": "vexy",
+      "globalFirstAt": "2026-11-16T17:19:16.006Z",
+      "detectionAt": "2026-11-16T17:19:16.960Z",
+      "regionalFirstAt": "2026-11-21T15:34:01.758Z",
+      "incidentCount": 6,
+      "regionalIncidentCount": 3,
+      "propagationHours": 118.25,
+      "warningLeadHours": 118.25
+    },
+    {
+      "key": "cmp:ransomware:cactus:2026-11-13:21351",
+      "label": "cactus",
+      "globalFirstAt": "2026-11-13T21:35:11.104Z",
+      "detectionAt": "2026-11-13T21:35:11.175Z",
+      "regionalFirstAt": "2026-11-21T00:25:24.362Z",
+      "incidentCount": 22,
+      "regionalIncidentCount": 19,
+      "propagationHours": 170.84,
+      "warningLeadHours": 170.84
+    },
+    {
+      "key": "cmp:ransomware:bravox:2026-11-13:3689",
+      "label": "bravox",
+      "globalFirstAt": "2026-11-13T17:25:50.554Z",
+      "detectionAt": "2026-11-13T17:25:51.547Z",
+      "regionalFirstAt": "2026-11-21T15:34:01.431Z",
+      "incidentCount": 3,
+      "regionalIncidentCount": 1,
+      "propagationHours": 190.14,
+      "warningLeadHours": 190.14
+    },
+    {
+      "key": "cmp:ransomware:curiousworm:2026-11-11:3714",
+      "label": "curiousworm",
+      "globalFirstAt": "2026-11-11T18:21:24.000Z",
+      "detectionAt": "2026-11-11T18:21:24.000Z",
+      "regionalFirstAt": "2026-11-21T15:34:01.699Z",
+      "incidentCount": 16,
+      "regionalIncidentCount": 1,
+      "propagationHours": 237.21,
+      "warningLeadHours": 237.21
+    },
+    {
+      "key": "cmp:ransomware:darkproject:2026-11-11:3745",
+      "label": "darkproject",
+      "globalFirstAt": "2026-11-11T01:07:58.105Z",
+      "detectionAt": "2026-11-11T01:07:58.984Z",
+      "regionalFirstAt": "2026-11-21T15:34:01.522Z",
+      "incidentCount": 6,
+      "regionalIncidentCount": 1,
+      "propagationHours": 254.43,
+      "warningLeadHours": 254.43
+    },
+    {
+      "key": "cmp:ransomware:incransom:2026-11-10:3767",
+      "label": "incransom",
+      "globalFirstAt": "2026-11-10T21:33:06.270Z",
+      "detectionAt": "2026-11-10T21:33:07.123Z",
+      "regionalFirstAt": "2026-11-21T15:34:02.167Z",
+      "incidentCount": 37,
+      "regionalIncidentCount": 1,
+      "propagationHours": 258.02,
+      "warningLeadHours": 258.02
+    }
+  ],
+  "sql": "\nSELECT c.cle, c.label, e.id, e.observed_at, e.source_id, e.regional\nFROM campaign c\nCROSS JOIN LATERAL unnest(c.incidents) AS i(id)\nJOIN event e ON e.id = i.id\nORDER BY c.cle, e.observed_at, e.id"
+}
