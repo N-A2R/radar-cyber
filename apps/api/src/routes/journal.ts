@@ -23,7 +23,7 @@ import { badRequest } from "../errors.js";
 import { pool, query } from "../db.js";
 import { requireAuth, requireRole } from "../middleware/auth.js";
 
-const JournalQuery = z.object({
+export const JournalQuery = z.object({
   limite: z.coerce.number().int().min(1).max(500).default(100),
   avant: z.coerce.number().int().positive().optional(),
   /** "all" (default), a category ("review", "publication", "correction") or an exact kind. */

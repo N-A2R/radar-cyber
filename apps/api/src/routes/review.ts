@@ -23,7 +23,7 @@ import { appendReview, applyReview, reviewQueue, type ReviewEntry } from "../qua
 import type { TriageBucket } from "../quarantine/triage.js";
 import { parseBody, invalidBody } from "./body-validation.js";
 
-const QueueQuery = z.object({
+export const QueueQuery = z.object({
 	limit: z.coerce.number().int().min(1).max(200).default(50),
 	page: z.coerce.number().int().min(0).default(0),
 	offset: z.coerce.number().int().min(0).optional(),
@@ -32,7 +32,7 @@ const QueueQuery = z.object({
 	q: z.string().trim().max(200).optional(),
 });
 
-const DecisionBody = z.object({
+export const DecisionBody = z.object({
 	decision: z.enum(["accepter", "refuser", "creer"]),
 	orgId: z.number().int().positive().optional(),
 	raison: z.string().trim().min(1).max(500),
@@ -45,7 +45,7 @@ const DecisionBody = z.object({
 );
 
 /** Refus massif : une seule raison, un seul lot journalisé. */
-const RefuserSansIndiceBody = z.object({
+export const RefuserSansIndiceBody = z.object({
 	raison: z.string().trim().min(1).max(500),
 }).strict();
 
