@@ -1,0 +1,36 @@
+{
+  "scope": "Nouvelle-Aquitaine (12 departments)",
+  "languages": {
+    "oc": "Occitan",
+    "eu": "Basque"
+  },
+  "rule": "enabled source with language in (oc, eu) and region = nouvelle-aquitaine",
+  "integratedSources": 13,
+  "occitanSources": 5,
+  "basqueSources": 8,
+  "departmentsCovered": 1,
+  "byLanguageAndDepartment": [
+    {
+      "language": "eu",
+      "department": "64",
+      "sources": 8
+    },
+    {
+      "language": "oc",
+      "department": "64",
+      "sources": 5
+    }
+  ],
+  "corpusSources": 13,
+  "corpusMatchesDatabase": true,
+  "baseline": {
+    "organisations": 1673221,
+    "sources": 431,
+    "events": 27882
+  },
+  "sql": {
+    "count": "\n  SELECT count(*)::int AS total,\n         count(*) FILTER (WHERE language = 'oc')::int AS occitan,\n         count(*) FILTER (WHERE language = 'eu')::int AS basque,\n         count(DISTINCT department)::int AS departments\n    FROM source\n   WHERE language IN ('oc', 'eu')\n     AND region = 'nouvelle-aquitaine'\n     AND enabled\n",
+    "breakdown": "\n  SELECT language, department, count(*)::int AS sources\n    FROM source\n   WHERE language IN ('oc', 'eu')\n     AND region = 'nouvelle-aquitaine'\n     AND enabled\n   GROUP BY language, department\n   ORDER BY language, department\n",
+    "baseline": "\n  SELECT (SELECT count(*)::int FROM org) AS organisations,\n         (SELECT count(*)::int FROM source) AS sources,\n         (SELECT count(*)::int FROM event) AS events\n"
+  }
+}
