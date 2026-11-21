@@ -1,0 +1,300 @@
+{
+  "dateMesure": "2026-11-21",
+  "plan": "docs/plans/mission-nuit-na.md — Task 4 (reprise vague 2)",
+  "lot": 13,
+  "source": {
+    "ref": "bench/results/manques-referentiel-2026-11-15.json",
+    "traites": "bench/results/manques-glm-vague2.json",
+    "entiteSource": "lot-reprise-na"
+  },
+  "method": "lecture du site (fetch, titre et meta verbatim) + recherche-entreprises.api.gouv.fr sans clé ; requêtes et réponses consignées ; SIREN recoupé, jamais inventé",
+  "compte": {
+    "present": 4,
+    "absent": 5,
+    "cannot_verify": 1
+  },
+  "resolutions": [
+    {
+      "nomLisible": "Royal Smilde",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Royal%20Smilde&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "Royal Star & Garter",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Royal%20Star%20%26%20Garter&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "Rush Energy Services Inc [You have 48 hours]",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Rush%20Energy%20Services%20Inc%20%5BYou%20have%2048%20hours%5D&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "sadeco.fr",
+      "domaine": "sadeco.fr",
+      "verdict": "present",
+      "raison": "SIREN 343646931 au registre (état A, THIAIS 94), recoupé avec sadeco.fr",
+      "site": {
+        "url": "https://sadeco.fr",
+        "http": 200,
+        "titre": "SADECO",
+        "metaDescription": null
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=sadeco&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "SADECO",
+            "siren": "343646931",
+            "commune": "THIAIS",
+            "dept": "94",
+            "etat": "A"
+          },
+          {
+            "denomination": "SADECO",
+            "siren": "399415389",
+            "commune": "FORT-DE-FRANCE",
+            "dept": "972",
+            "etat": "A"
+          },
+          {
+            "denomination": "SADECO (SADECO)",
+            "siren": "919057794",
+            "commune": "BORDEAUX",
+            "dept": "33",
+            "etat": "A"
+          },
+          {
+            "denomination": "SADECO",
+            "siren": "518912266",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "SADECO",
+            "siren": "430409888",
+            "commune": "SAINT-MAUR-DES-FOSSES",
+            "dept": "94",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "saintcloud.fr",
+      "domaine": "saintcloud.fr",
+      "verdict": "cannot_verify",
+      "raison": "candidat(s) au registre mais aucun recoupement avec saintcloud.fr — arbitrage humain",
+      "site": {
+        "url": "https://saintcloud.fr",
+        "http": 200,
+        "titre": "Accueil | Ville de Saint-Cloud",
+        "metaDescription": "Saint-Cloud dispose d’un cadre privilégié, à quelques pas de Paris. Une ville à taille humaine composées de six quartiers. En plus du Domaine national de Saint-Cloud, elle possède nombreux parcs et jardins qui font de Saint-Cloud une ville exceptionnellement verte. C&#039;est une ville de culture, qui offre à ses habitants une vraie richesse culturelle. Cinéma, théâtre, musique, arts… il y en a pour tous les goûts ! Sans oublier les associations qui contribuent également au rayonnement culturel "
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=saintcloud&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "DU CENTRE DE COBALTHERAPIE DE BOULOGNE",
+            "siren": "321357766",
+            "commune": "BOULOGNE-BILLANCOURT",
+            "dept": "92",
+            "etat": "C"
+          }
+        ]
+      }
+    },
+    {
+      "nomLisible": "sarassure.fr",
+      "domaine": "sarassure.fr",
+      "verdict": "present",
+      "raison": "SIREN 953786886 au registre (état A, TOURCOING 59), recoupé avec sarassure.fr",
+      "site": {
+        "url": "https://sarassure.fr",
+        "http": 200,
+        "titre": "Home - SaRa’ssure",
+        "metaDescription": null
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=sarassure&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "SARASSURE",
+            "siren": "953786886",
+            "commune": "TOURCOING",
+            "dept": "59",
+            "etat": "A"
+          },
+          {
+            "denomination": "SARA'SSURE",
+            "siren": "892845314",
+            "commune": "BOURGOIN-JALLIEU",
+            "dept": "38",
+            "etat": "A"
+          },
+          {
+            "denomination": "MANATHE",
+            "siren": "987592367",
+            "commune": "BOURGOIN-JALLIEU",
+            "dept": "38",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "SBM & Co [You have 48 hours. Check your e-mail]",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=SBM%20%26%20Co%20%5BYou%20have%2048%20hours.%20Check%20your%20e-mail%5D&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "Serfilco, RP Adams,  Baron Blakeslee, Pac er, Service Filtrati on of Canada, Polyma r.",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Serfilco%2C%20RP%20Adams%2C%20%20Baron%20Blakeslee%2C%20Pac%20er%2C%20Service%20Filtra&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "sfr.fr",
+      "domaine": "sfr.fr",
+      "verdict": "present",
+      "raison": "SIREN 851675181 au registre (état A, CERNAY 68), recoupé avec sfr.fr",
+      "site": {
+        "url": "https://sfr.fr",
+        "http": 200,
+        "titre": "SFR | Internet Fibre et ADSL, Forfaits 5G, Téléphone, TV",
+        "metaDescription": "Découvrez les offres Internet et mobile sur SFR.FR : Box fibre et Très Haut Débit, forfaits mobiles, smartphones, box 5G, bouquets TV, et maison sécurisée."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=sfr&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "SFR",
+            "siren": "851675181",
+            "commune": "CERNAY",
+            "dept": "68",
+            "etat": "A"
+          },
+          {
+            "denomination": "FINANCIERE ROBARDEY (SFR)",
+            "siren": "390143170",
+            "commune": "CHELLES",
+            "dept": "77",
+            "etat": "A"
+          },
+          {
+            "denomination": "SFR-CONSEIL (SFR)",
+            "siren": "344106455",
+            "commune": "BIOT",
+            "dept": "06",
+            "etat": "A"
+          },
+          {
+            "denomination": "SOC FR RADIOLOGIE IMAGERIE MEDICALE (SFR)",
+            "siren": "353601693",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "SOCIETE FINANCIERE ROUGNY (SFR)",
+            "siren": "353693757",
+            "commune": "GAP",
+            "dept": "05",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "sides.fr",
+      "domaine": "sides.fr",
+      "verdict": "present",
+      "raison": "SIREN 006580195 au registre (état A, PARIS 75), recoupé avec sides.fr",
+      "site": {
+        "url": "https://sides.fr",
+        "http": 200,
+        "titre": "Véhicule de lutte contre l'incendie de fabrication française",
+        "metaDescription": null
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=sides&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "SOCIETE INDUSTRIELLE POUR LE DEVELOPPEMENT DE LA SECURITE (SIDES)",
+            "siren": "006580195",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "ALTIS (SIDES)",
+            "siren": "402996888",
+            "commune": "PLAISIR",
+            "dept": "78",
+            "etat": "A"
+          },
+          {
+            "denomination": "ELIOR RESTAURATION FRANCE (ELIOR RESTAURATION ENSEIGNEMENT - ELIOR RESTAURATION SANTE)",
+            "siren": "662025196",
+            "commune": "CRETEIL",
+            "dept": "94",
+            "etat": "A"
+          },
+          {
+            "denomination": "SIDES",
+            "siren": "921684205",
+            "commune": "CERGY",
+            "dept": "95",
+            "etat": "A"
+          },
+          {
+            "denomination": "SIDES",
+            "siren": "494684756",
+            "commune": "PLAISIR",
+            "dept": "78",
+            "etat": "C"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    }
+  ]
+}
