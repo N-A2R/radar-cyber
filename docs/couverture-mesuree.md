@@ -21,6 +21,25 @@ La réponse est mauvaise mois par mois : **décembre 2025 (1/4, 25 %)** et
 de publication passe de **25 jours en février 2026** à **1 jour en octobre**.
 La moyenne annuelle cache ces trous ; ils sont publiés ci-dessous.
 
+**Ce chiffre est mesuré mais non publiable** au sens de
+`docs/seuils-couverture.md` : le corpus ne compte que 20 incidents sur les 30
+exigés. `GET /api/couverture` renvoie `publiable: false` et la raison détaillée
+sous `publication` ; les motifs ci-dessous restent servis comme preuves.
+
+- Corpus : `bench/couverture/incidents.jsonl`, 20 incidents, publications du
+  2024-04-19 au 2026-09-15.
+- Empreinte SHA-256 du corpus consolidé :
+  `a367e4f3642c64972dfca8498afeafb21b96f1507899c90107539bd9b20cf78e`.
+- État de la base au calcul : 312 sources, 26 719 événements, 4 710 événements
+  archivés, 1 673 151 organisations ; 7 781 exécutions de collecte du
+  2026-11-13 au 2026-11-21. Empreinte des lignes lues :
+  `80de9f90ae633b31c35d5598cafad74302207a6f14d65676b5a1e49198a53282`.
+
+La route `GET /api/couverture` sert exactement ce rapport, avec `publiable`,
+`mention`, `raison` et le verdict détaillé sous `publication` en tête de
+réponse. Le test `apps/api/test/couverture-api.test.ts` rejoue le script sur la
+base et échoue si le chiffre servi diverge, même d'un incident.
+
 ## Mois par mois
 
 | Mois de publication | Publiés | Vus | Couverture | Délai médian fait → publication | Délai max |

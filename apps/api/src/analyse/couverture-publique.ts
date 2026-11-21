@@ -26,6 +26,11 @@ export function lireCouverturePublique(): CouverturePublique {
 			`couverture-mesuree.json décrit l'empreinte ${rapport.hashCorpus} mais le corpus vaut ${empreinte} ; rejouer scripts/mesure-couverture-systeme.mts`,
 		);
 	}
+	if (typeof rapport.publication?.publiable !== "boolean") {
+		throw new Error(
+			"couverture-mesuree.json ne porte pas le verdict des seuils de publication ; rejouer scripts/mesure-couverture-systeme.mts",
+		);
+	}
 	return rapport;
 }
 
