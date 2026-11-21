@@ -1,0 +1,83 @@
+{
+  "genere_le": "2026-11-21T15:31:30Z",
+  "source": "bench/results/causes-sources.json",
+  "regles": {
+    "a_bug_collecteur": "code_http = 200 : la source répond avec du contenu, ce n'est pas une panne ; relancer ne changera rien (bug de collecteur).",
+    "b_transitoire": "timeout, HTTP 5xx ou HTTP 429 : panne réellement transitoire, seule population méritant une relance.",
+    "c_morte_ou_bloquee": "HTTP 404, 410 ou 403 : source disparue ou bloquée, aucune relance pertinente."
+  },
+  "comptes": {
+    "total": 40,
+    "a_bug_collecteur": 38,
+    "b_transitoire": 0,
+    "c_morte_ou_bloquee": 2
+  },
+  "detail_par_code_et_cause": {
+    "a_bug_collecteur": {
+      "code_http_200": 38,
+      "dont_avec_items": 19,
+      "dont_sans_items": 19,
+      "dont_contenu_non_parsable": 9,
+      "dont_flux_vide": 1
+    },
+    "b_transitoire": {
+      "timeout": 0,
+      "http_5xx": 0,
+      "http_429": 0
+    },
+    "c_morte_ou_bloquee": {
+      "http_404": 1,
+      "http_410": 0,
+      "http_403": 1
+    }
+  },
+  "sources": {
+    "a_bug_collecteur": [
+      "tg-malware-traffic",
+      "gn-ransom-aquitaine",
+      "leak:ransomwatch:posts",
+      "eco-technowest",
+      "onion:ccw:arcusmedia",
+      "cat-jpcert-blog",
+      "onion:ccw:anubis",
+      "onion:ccw:titan",
+      "onion:ccw:whitearmor",
+      "tg-cert-eu",
+      "eco-aquitaine-robotics",
+      "et-compromised",
+      "feed:firehol:cleantalk_7d",
+      "ransom-ichi-ecosystem",
+      "gn-19",
+      "onion:ccw:eclipse",
+      "feed:firehol:botscout_7d",
+      "wl:misp:cisco-top1m",
+      "feed:firehol:c2_tracker",
+      "ransom-look-leaks",
+      "feed:firehol:botscout",
+      "cat-cert-si-news",
+      "onion:ccw:everest",
+      "onion:ccw:lockbit4",
+      "feed:firehol:blocklist_de_apache",
+      "onion:rl:orova",
+      "onion:ccw:vypr",
+      "ransomleak-fulcrumsec",
+      "cat-cert-lv",
+      "onion:rl:byod",
+      "eco-unitec",
+      "cinsscore-badguys",
+      "feed:firehol:botscout_30d",
+      "presse-01net",
+      "onion:ccw:byod",
+      "tg-certfr",
+      "cat-gbhackers",
+      "onion:ccw:dark-project"
+    ],
+    "b_transitoire": [],
+    "c_morte_ou_bloquee": [
+      { "id": "inria-bordeaux", "code_http": 404, "cause": "disparue" },
+      { "id": "danmeuk-torlist", "code_http": 403, "cause": "bloquée" }
+    ]
+  },
+  "seuil_relance": 5,
+  "verdict": "Population (b) = 0 source, bien en dessous du seuil de 5 : la relance n'est pas là où est le gain. Arrêt à l'étape 1, comme demandé : aucun script de relance écrit, aucune relance exécutée, aucun fichier relance-transitoires.json produit. Le gain éventuel est du côté du collecteur (38 sources en HTTP 200, dont 9 contenus non parsables et 1 flux vide), pas d'une nouvelle collecte."
+}
