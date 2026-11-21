@@ -10,15 +10,15 @@
   "method": "lecture du site (fetch, titre et meta verbatim) + recherche-entreprises.api.gouv.fr sans clé ; requêtes et réponses consignées ; SIREN recoupé, jamais inventé",
   "compte": {
     "present": 2,
-    "absent": 5,
-    "cannot_verify": 3
+    "absent": 6,
+    "cannot_verify": 2
   },
   "resolutions": [
     {
       "nomLisible": "maisonloisy.fr",
       "domaine": "maisonloisy.fr",
-      "verdict": "cannot_verify",
-      "raison": "site ou registre inaccessible : TypeError: fetch failed",
+      "verdict": "absent",
+      "raison": "relance : DNS 51.68.126.186, https 000 et http 404 ; registre HTTP 200 q=maisonloisy 0 résultat",
       "site": {
         "url": "https://maisonloisy.fr",
         "http": null,
@@ -157,8 +157,8 @@
     {
       "nomLisible": "Martin Mechanical (martin.local)",
       "domaine": "martin.local",
-      "verdict": "present",
-      "raison": "SIREN 300967239 au registre (état A, CURAN 12), recoupé avec martin.local",
+      "verdict": "cannot_verify",
+      "raison": "correction : org SIREN 300967239 supprimée — recoupement limité au jeton « martin » ; domaine .local non routable, aucun candidat ne porte « mechanical » — arbitrage humain",
       "site": {
         "url": "https://martin.local",
         "http": null,
@@ -300,6 +300,23 @@
         "requete": "https://recherche-entreprises.api.gouv.fr/search?q=midipapierspeints&page=1&per_page=5",
         "http": 200,
         "resultats": []
+      }
+    }
+  ],
+  "relances": [
+    {
+      "nomLisible": "maisonloisy.fr",
+      "preuve": "DNS 51.68.126.186 ; https 000, http 404 (page absente) ; registre HTTP 200 q=maisonloisy, 0 résultat",
+      "verdictRelance": "absent"
+    }
+  ],
+  "corrections": [
+    {
+      "nomLisible": "Martin Mechanical (martin.local)",
+      "erreurOriginale": "SIREN 300967239 (MARTIN, CURAN 12) chargé — recoupement limité au jeton « martin »",
+      "correction": "org supprimée ; verdict cannot_verify : domaine .local non routable, candidats registre = homonymes du nom MARTIN sans rapport",
+      "preuve": {
+        "registreConsigne": "300967239 MARTIN CURAN 12 / 809360837 MARTIN PARIS / 900311655 MARTIN LE VESINET — aucun ne porte « mechanical »"
       }
     }
   ]

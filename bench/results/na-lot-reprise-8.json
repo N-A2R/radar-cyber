@@ -10,8 +10,8 @@
   "method": "lecture du site (fetch, titre et meta verbatim) + recherche-entreprises.api.gouv.fr sans clé ; requêtes et réponses consignées ; SIREN recoupé, jamais inventé",
   "compte": {
     "present": 4,
-    "absent": 3,
-    "cannot_verify": 3
+    "absent": 5,
+    "cannot_verify": 1
   },
   "resolutions": [
     {
@@ -81,8 +81,8 @@
     {
       "nomLisible": "lapostermobile.fr",
       "domaine": "lapostermobile.fr",
-      "verdict": "cannot_verify",
-      "raison": "site ou registre inaccessible : TypeError: fetch failed",
+      "verdict": "absent",
+      "raison": "relance : DNS absent, registre HTTP 200 q=lapostermobile 0 résultat ; probable coquille de lapostemobile.fr (résolue vague 2)",
       "site": {
         "url": "https://lapostermobile.fr",
         "http": null,
@@ -99,8 +99,8 @@
     {
       "nomLisible": "LASOLTEL.FR",
       "domaine": "lasoltel.fr",
-      "verdict": "cannot_verify",
-      "raison": "site ou registre inaccessible : TypeError: fetch failed",
+      "verdict": "absent",
+      "raison": "relance : DNS absent (lasoltel.fr), registre HTTP 200 q=lasoltel 0 résultat ; double casse de LASOTEL.FR résolue dans le même lot",
       "site": {
         "url": "https://lasoltel.fr",
         "http": null,
@@ -254,7 +254,7 @@
       "nomLisible": "loiret.fr",
       "domaine": "loiret.fr",
       "verdict": "present",
-      "raison": "SIREN 444551675 au registre (état A, BOSSAY-SUR-CLAISE 37), recoupé avec loiret.fr",
+      "raison": "SIREN 224500017 DEPARTEMENT DU LOIRET au registre (état A, ORLEANS 45), recoupé avec le titre « Conseil départemental du Loiret » ; correction d'homonymie dans corrections",
       "site": {
         "url": "https://loiret.fr",
         "http": 200,
@@ -302,13 +302,14 @@
           }
         ]
       },
-      "chargeEnBase": true
+      "chargeEnBase": true,
+      "sirenCorrige": "224500017"
     },
     {
       "nomLisible": "lpahorticole.faylbillot.educagri.fr",
       "domaine": "lpahorticole.faylbillot.educagri.fr",
       "verdict": "cannot_verify",
-      "raison": "site ou registre inaccessible : TypeError: fetch failed",
+      "raison": "relance : DNS 193.48.1.21, https et http refusés (000, 3 tentatives) ; EPLEFPA FAYL-BILLOT 195207410 cessé (état C) — arbitrage humain",
       "site": {
         "url": "https://lpahorticole.faylbillot.educagri.fr",
         "http": null,
@@ -320,6 +321,38 @@
         "requete": "https://recherche-entreprises.api.gouv.fr/search?q=lpahorticole.faylbillot.educagri&page=1&per_page=5",
         "http": null,
         "resultats": []
+      }
+    }
+  ],
+  "relances": [
+    {
+      "nomLisible": "lapostermobile.fr",
+      "preuve": "DNS absent (getent) ; registre HTTP 200 q=lapostermobile, 0 résultat",
+      "verdictRelance": "absent",
+      "note": "probable coquille de lapostemobile.fr, résolue vague 2"
+    },
+    {
+      "nomLisible": "LASOLTEL.FR",
+      "preuve": "DNS absent (getent, lasoltel.fr) ; registre HTTP 200 q=lasoltel, 0 résultat",
+      "verdictRelance": "absent",
+      "note": "double casse de LASOTEL.FR, résolue dans le même lot (453007437)"
+    },
+    {
+      "nomLisible": "lpahorticole.faylbillot.educagri.fr",
+      "preuve": "DNS 193.48.1.21 ; https ET http refusés (curl 000) ; registre : EPLEFPA FAYL-BILLOT 195207410 état C, associations sans rapport",
+      "verdictRelance": "cannot_verify",
+      "note": "établissement cessé, site mort — arbitrage humain"
+    }
+  ],
+  "corrections": [
+    {
+      "nomLisible": "loiret.fr",
+      "erreurOriginale": "SIREN 444551675 (BOSSAY-SUR-CLAISE 37) — homonymie de domaine",
+      "correction": "org supprimée ; SIREN corrigé 224500017 DEPARTEMENT DU LOIRET (ORLEANS 45, état A) — titre du site « Conseil départemental du Loiret »",
+      "preuve": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=DEPARTEMENT%20DU%20LOIRET&page=1&per_page=5",
+        "http": 200,
+        "resultat": "224500017 | DEPARTEMENT DU LOIRET | A | ORLEANS 45"
       }
     }
   ]
