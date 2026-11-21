@@ -22,6 +22,7 @@ import { loadOrgIndex, matchOrgInIndex, promoteOne, promoteOneTx, refusParRegles
 import { evaluateEvent } from "../detect/engine.js";
 import { consignerLot, type JournalEntry } from "../journal/index.js";
 import { buildCandidateIndex, candidatesFor } from "./candidates.js";
+import { contextesDes, type ContexteLigne } from "./contexte.js";
 import { compareQueueEntries, triageClaim, type TriageBucket, type TriageResult } from "./triage.js";
 
 export type ReviewAction = "promote" | "reject" | "review" | "undo";
@@ -48,6 +49,8 @@ export type QueueParams = {
 	cursor?: number | null;
 	limit?: number;
 	window?: number;
+	/** Joint le contexte décisionnel : extrait centré sur l'indice + 3 noms proches. */
+	avecContexte?: boolean;
 };
 
 export type QueueCandidate = {
@@ -82,6 +85,8 @@ export type QueueRow = {
 	rejectRule?: string | null;
 	city?: string | null;
 	dept?: string | null;
+	/** Présent seulement sur la file de revue humaine (`avecContexte`). */
+	contexte?: ContexteLigne | null;
 };
 
 export type QueueFacet = { value: string; count: number };
@@ -311,6 +316,13 @@ export async function reviewQueue(params: QueueParams = {}): Promise<QueueResult
 
 	const rows = filtered.slice(start, start + limit);
 	const hasMore = start + limit < filtered.length || (truncated && rows.length === limit);
+	if (params.avecContexte) {
+		const contextes = await contextesDes(
+			rows.map((row) => ({ id: row.id, orgHint: row.orgHint })),
+			orgIndex,
+		);
+		for (const row of rows) row.contexte = contextes.get(row.id) ?? null;
+	}
 
 	return {
 		rows,
