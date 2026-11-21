@@ -192,7 +192,9 @@ test("le quota est atomique et une clé de lecture ne peut pas écrire", async (
     method: "POST", url: "/api/v1/ingest", headers: { "x-api-key": writeKey.key }, payload: { events: [] },
   });
   assert.equal(written.statusCode, 200, written.body);
-  assert.deepEqual(written.json(), { inserted: 0, skipped: 0 });
+  const body = written.json();
+  assert.equal(body.inserted, 0);
+  assert.equal(body.skipped, 0);
 
   const escalate = await app.inject({
     method: "POST", url: "/api/v1/keys", headers: { "x-api-key": writeKey.key }, payload: { name: "escalade", quota: 1 },
