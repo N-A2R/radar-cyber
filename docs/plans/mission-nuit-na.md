@@ -106,12 +106,19 @@ département sans au moins une source.
 
 ## Task 3: Revendications ransomware — rattachement NA
 
-- [ ] Prendre les revendications des 30 derniers jours et chercher celles qui
+- [x] Prendre les revendications des 30 derniers jours et chercher celles qui
       citent une organisation NA (par nom, par domaine, par ville des 12 depts)
-- [ ] Mesurer le taux de rattachement **avant** tout changement
-- [ ] Réparer le motif dominant d'échec s'il y en a un (parser, alias, préfiltre
-      accentué — défaut connu de `promote.ts`)
-- [ ] Re-mesurer après, publier avant/après dans `bench/results/na-ransomware.json`
+      — 303 revendications, 180 avec org_hint, verdicts par indice dans le JSON
+- [x] Mesurer le taux de rattachement **avant** tout changement — 13 propositions
+      ≥ 0,5 dont **9 faux positifs vérifiés un par un** (CO & CO ×6 par jetons
+      dupliqués, LIMITED, H CONSULTING, MEDIA INVEST, SCI JP & CO) ; 0 automatique
+- [x] Réparer le motif dominant d'échec s'il y en a un (parser, alias, préfiltre
+      accentué — défaut connu de `promote.ts`) — **deux motifs réparés** :
+      le préfiltre accentué annoncé (migration 041 `org.name_norm`, sans gain
+      sur la fenêtre 30 j — écrit tel quel) et le motif dominant mesuré
+      (jetons dupliqués + génériques + 2 lettres dans `scoreEntry`) :
+      13 → 4 propositions, 434 tests verts, régressions ajoutées
+- [x] Re-mesurer après, publier avant/après dans `bench/results/na-ransomware.json`
 - [ ] Commit : `mesure(na): rattachement ransomware avant/après`
 
 ## Task 4: Trou référentiel — entités NA sans organisation

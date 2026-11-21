@@ -34,6 +34,11 @@ test("le préfiltre SQL rend le même rattachement que l'index complet", async (
 	const blackStar = await insertOrg("EARL BLACK STAR", { city: "Poitiers" });
 	const sadeco = await insertOrg("SADECO", { domain: "sadeco.example" });
 	const unrelated = await insertOrg("BOULANGERIE DU COIN", { domain: "boulangerie-coin.example" });
+	// Nom accentué : le préfiltre d'origine (migration 041 non appliquée)
+	// cherchait « %epicerie% » dans un nom qui porte « Épicerie » et ne le
+	// trouvait jamais — l'organisation était invisible du préfiltre alors que
+	// le moteur, lui, normalise les accents des deux côtés.
+	const epicerie = await insertOrg("Épicerie Régionale d'Espérance", { city: "Niort" });
 
 	const hints = [
 		"black-star.fr",
@@ -43,6 +48,7 @@ test("le préfiltre SQL rend le même rattachement que l'index complet", async (
 		"conecuhsausage.com",
 		"SADECO",
 		"Poitiers",
+		"epicerie-regionale-esperance.fr",
 	];
 
 	const full = await loadOrgIndex();
@@ -61,4 +67,10 @@ test("le préfiltre SQL rend le même rattachement que l'index complet", async (
 	assert.equal(byName?.orgId, blackStar);
 	assert.equal(byName?.confidence, 0.75);
 	assert.notEqual(matchOrgInIndex("conecuhsausage.com", full)?.orgId, unrelated);
+	// Le nom accentué est trouvé par le préfiltre déaccentué (name_norm) et
+	// rattaché par le moteur à 0,75 — tous les jetons distinctifs sont
+	// présents dans l'indice.
+	const byAccent = matchOrgInIndex("epicerie-regionale-esperance.fr", await loadCandidateIndex("epicerie-regionale-esperance.fr"));
+	assert.equal(byAccent?.orgId, epicerie);
+	assert.equal(byAccent?.confidence, 0.75);
 });
