@@ -35,6 +35,14 @@ import { porteeRegionale } from "../match/territorial.js";
 import type { PoolClient, QueryResultRow } from "pg";
 import { evaluateEvent } from "../detect/engine.js";
 import { confirmOrganization } from "../match/decide.js";
+import {
+  domainAffinity,
+  domainFromHint,
+  memesDomaines,
+  normalizeDomainValue,
+  resoudreDomaine,
+  type ResolutionDomaine,
+} from "../match/domaine.js";
 
 /** Organisme tel que lu en base. */
 export type OrgRow = {
@@ -224,18 +232,18 @@ export function normalizeName(s: string): string {
   return stripAccents(s).replace(/[^a-z0-9]+/g, " ").trim();
 }
 
-/** Normalise un domaine : minuscules, sans `www.`, sans chemin, sans point final. */
+/**
+ * Normalise un domaine (côté `org.domain` ou URL).
+ * Le module `match/domaine` porte la règle ; la forme ancienne reste en repli
+ * pour les valeurs qui ne sont pas des domaines (historique de données).
+ */
 export function normalizeDomain(d: string): string {
-  return stripAccents(d.trim()).replace(/^www\./, "").replace(/\/.*$/, "").replace(/\.$/, "");
+  return normalizeDomainValue(d) ?? stripAccents(d.trim()).replace(/^www\./, "").replace(/\/.*$/, "").replace(/\.$/, "");
 }
 
-/** Candidat domaine dans un indice (URL ou nom de domaine nu). */
-const DOMAIN_RE = /(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,}/i;
-
-/** Extrait le domaine d'un indice, ou null s'il n'en porte pas. */
+/** Extrait le domaine d'un indice, y compris avec scheme, port ou chemin. */
 export function extractDomain(hint: string): string | null {
-  const m = hint.match(DOMAIN_RE);
-  return m ? normalizeDomain(m[0]) : null;
+  return domainFromHint(hint);
 }
 
 /**
@@ -280,6 +288,16 @@ export async function loadOrgIndex(filter?: { where: string; params?: unknown[] 
   return r.rows.map((o) => toIndexEntry(o));
 }
 
+
+/**
+ * Expression SQL miroir de `normalizeDomainValue`, utilisée seulement pour
+ * **élargir** le préfiltre : une org dont le domaine est stocké avec un
+ * scheme, un port ou un `www.` doit rester visible du moteur, qui tranche
+ * ensuite avec la normalisation TypeScript.
+ */
+function sqlDomain(column: string): string {
+  return `regexp_replace(regexp_replace(regexp_replace(regexp_replace(regexp_replace(lower(btrim(${column})), '^https?://', ''), '[/?#].*$', ''), ':\\d+$', ''), '\\.$', ''), '^www\\.', '')`;
+}
 /**
  * Organisations candidates pour un indice — sans charger 1,24 M de lignes.
  *
@@ -310,8 +328,10 @@ export async function loadCandidateIndex(hint: string): Promise<OrgIndexEntry[]>
   if (domain) {
     params.push(domain);
     const d = `$${params.length}`;
+    const nd = sqlDomain("domain");
+    const nw = sqlDomain("website");
     clauses.push(
-      `(lower(domain) = ${d} OR lower(domain) LIKE '%.' || ${d} OR ${d} LIKE '%.' || lower(domain) OR lower(coalesce(website, '')) LIKE '%' || ${d})`,
+      `(${nd} = ${d} OR ${nd} LIKE '%.' || ${d} OR ${d} LIKE '%.' || ${nd} OR ${nw} = ${d} OR ${nw} LIKE '%.' || ${d} OR lower(coalesce(website, '')) LIKE '%' || ${d})`,
     );
   }
   // « A.M.F. » ne laisse que des jetons d'une lettre : pas de préfiltre par
@@ -437,18 +457,15 @@ function scoreEntry(
             .filter((t) => t.length >= 2)
         );
 
-  // 1. Domaine : égalité exacte, puis sous-domaine / parent.
+  // 1. Domaine : la normalisation et la prudence sur les sous-domaines
+  // génériques vivent dans `match/domaine` (mail.exemple.com ≠ exemple.com).
   if (hintDomain) {
-    if (e.domainNorm) {
-      if (hintDomain === e.domainNorm) {
-        best = Math.max(best, 0.95);
-        viaDomain = true;
-      } else if (hintDomain.endsWith("." + e.domainNorm) || e.domainNorm.endsWith("." + hintDomain)) {
-        best = Math.max(best, 0.85);
-        viaDomain = true;
-      }
+    const d = domainAffinity(hintDomain, e.domainNorm);
+    if (d > 0) {
+      best = Math.max(best, d);
+      viaDomain = true;
     }
-    if (e.websiteDomain && hintDomain === e.websiteDomain) {
+    if (memesDomaines(hintDomain, e.websiteDomain)) {
       best = Math.max(best, 0.9);
       viaDomain = true;
     }
@@ -515,13 +532,31 @@ export function matchOrgInIndex(hint: string, index: OrgIndexEntry[]): OrgMatch 
   if (!hintNorm && !hintDomain) return null;
   const hintTokens = new Set(hintNorm.split(" ").filter(Boolean));
 
+  // Chaîne de résolution des indices-domaines. On s'arrête au premier étage
+  // qui réussit : un refus pour ambiguïté à l'étage 2 n'est jamais contourné
+  // par le score de nom, qui n'exige pas l'unicité des candidates.
+  let resolution: ResolutionDomaine | null = null;
+  let borne: number | null = null;
+  if (hintDomain) {
+    resolution = resoudreDomaine(trimmed, index);
+    if (resolution.etape === "exact") {
+      return { orgId: resolution.orgId!, confidence: resolution.confidence, via: "domain" };
+    }
+    if (resolution.etape !== "racine") return null; // étage 3 : revue
+    borne = resolution.orgId;
+  }
+
   let best: OrgMatch | null = null;
   for (const e of index) {
+    if (borne !== null && e.id !== borne) continue;
     const { score, via } = scoreEntry(hintNorm, hintTokens, hintDomain, e);
     if (score < MIN_CONFIDENCE) continue;
     if (!best || score > best.confidence || (score === best.confidence && e.id < best.orgId)) {
       best = { orgId: e.id, confidence: score, via };
     }
+  }
+  if (!best && resolution?.orgId !== null && resolution?.orgId !== undefined) {
+    best = { orgId: resolution.orgId, confidence: resolution.confidence, via: "name" };
   }
   return best;
 }
