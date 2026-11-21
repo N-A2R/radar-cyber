@@ -16,6 +16,8 @@
 import { test, after } from "node:test";
 import assert from "node:assert/strict";
 import { query, closePools } from "../src/db.js";
+import { ALERT_SCOPE_RUPTURE_REVUE } from "../src/alert-scope.js";
+import { fetchPendingAlerts } from "../src/notify/alert-delivery.js";
 import {
 	detecterRupturesDepuisBase,
 	capterAlertesRupture,
@@ -156,20 +158,26 @@ test("capterAlertesRupture persiste dans la revue, sans dupliquer, avec journal"
 
 	const lignes = await query<{ id: number; rule_id: string; org_id: number; evidence: Record<string, unknown> }>(
 		`SELECT a.id, a.rule_id, a.org_id, a.evidence FROM alert a
-		  WHERE a.scope = 'rupture' AND a.org_id = ANY($1)`,
-		[created.orgs],
+		  WHERE a.scope = $1 AND a.org_id = ANY($2)`,
+		[ALERT_SCOPE_RUPTURE_REVUE, created.orgs],
 	);
 	for (const l of lignes.rows) created.alertes.push(l.id);
 	const laMienne = lignes.rows.find(
 		(l) => l.rule_id === "rupture:changement-nature" && l.org_id === org,
 	);
 	assert.ok(laMienne, "la ligne de revue existe pour le détecteur sur notre organisation");
+
 	assert.equal(String(laMienne.evidence.motif), "nouveau type d'incident plus grave (cti)");
+	const diffusion = await fetchPendingAlerts(100_000);
+	const diffusees = new Set(diffusion.map((a) => Number(a.id)));
+	for (const l of lignes.rows) {
+		assert.ok(!diffusees.has(Number(l.id)), `alerte de revue #${l.id} ne doit pas être diffusée`);
+	}
 
 	const deuxieme = await capterAlertesRupture();
 	const apres = await query<{ n: string }>(
-		`SELECT count(*)::text AS n FROM alert WHERE scope = 'rupture' AND org_id = ANY($1)`,
-		[created.orgs],
+		`SELECT count(*)::text AS n FROM alert WHERE scope = $1 AND org_id = ANY($2)`,
+		[ALERT_SCOPE_RUPTURE_REVUE, created.orgs],
 	);
 	assert.equal(Number(apres.rows[0]?.n ?? 0), lignes.rows.length, "le second passage ne duplique pas");
 	assert.ok(deuxieme.journal >= 1, "le second passage consigne une mise à jour");

@@ -293,7 +293,7 @@ if (COLLECT) {
 		log(`detection initiale : ${pass.alerts} alerte(s) sur ${pass.events} evenement(s)`);
 	});
 	// Agents de rupture : même cadence que la détection, alertes persistées dans
-	// la revue (scope 'rupture', une ligne par agent × organisation).
+	// la revue (scope 'rupture-revue', une ligne par agent × organisation), jamais diffusées.
 	void guarded("ruptures", async () => {
 		const r = await capterAlertesRupture();
 		if (r.emises > 0) {
