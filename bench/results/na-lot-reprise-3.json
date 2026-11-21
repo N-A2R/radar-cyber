@@ -1,0 +1,511 @@
+{
+  "dateMesure": "2026-11-21",
+  "plan": "docs/plans/mission-nuit-na.md — Task 4 (reprise vague 2)",
+  "lot": 3,
+  "source": {
+    "ref": "bench/results/manques-referentiel-2026-11-15.json",
+    "traites": "bench/results/manques-glm-vague2.json",
+    "entiteSource": "lot-reprise-na"
+  },
+  "method": "lecture du site (fetch, titre et meta verbatim) + recherche-entreprises.api.gouv.fr sans clé ; requêtes et réponses consignées ; SIREN recoupé, jamais inventé",
+  "compte": {
+    "present": 6,
+    "absent": 0,
+    "cannot_verify": 4
+  },
+  "resolutions": [
+    {
+      "nomLisible": "coteg-toulouse.dom",
+      "domaine": "coteg-toulouse.dom",
+      "verdict": "cannot_verify",
+      "raison": "candidat(s) au registre mais aucun recoupement avec coteg-toulouse.dom — arbitrage humain",
+      "site": {
+        "url": "https://coteg-toulouse.dom",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=coteg-toulouse&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "COTEG AVOCATS",
+            "siren": "680802352",
+            "commune": "TOULOUSE",
+            "dept": "31",
+            "etat": "A"
+          },
+          {
+            "denomination": "OLIVIER BOUISSOU",
+            "siren": "434058541",
+            "commune": "TOULOUSE",
+            "dept": "31",
+            "etat": "A"
+          },
+          {
+            "denomination": "PETER ALEFELD",
+            "siren": "451350227",
+            "commune": "TOULOUSE",
+            "dept": "31",
+            "etat": "A"
+          },
+          {
+            "denomination": "LAURY PAPAIS",
+            "siren": "809238546",
+            "commune": "TOULOUSE",
+            "dept": "31",
+            "etat": "A"
+          },
+          {
+            "denomination": "LAURENT NOUGAROLIS",
+            "siren": "399812650",
+            "commune": "TOULOUSE",
+            "dept": "31",
+            "etat": "A"
+          }
+        ]
+      }
+    },
+    {
+      "nomLisible": "cyceron.fr",
+      "domaine": "cyceron.fr",
+      "verdict": "present",
+      "raison": "SIREN 180089187 au registre (état A, CAEN 14), recoupé avec cyceron.fr",
+      "site": {
+        "url": "https://cyceron.fr",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=cyceron&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "GIP CYCERON",
+            "siren": "180089187",
+            "commune": "CAEN",
+            "dept": "14",
+            "etat": "A"
+          },
+          {
+            "denomination": "CENTRE NATIONAL DE LA RECHERCHE SCIENTIFIQUE (CNRS)",
+            "siren": "180089013",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "INSTITUT NATIONAL DE LA SANTE ET DE LA RECHERCHE MEDICALE (INSERM)",
+            "siren": "180036048",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "LYS THERAPEUTICS",
+            "siren": "895069904",
+            "commune": "CAEN",
+            "dept": "14",
+            "etat": "A"
+          },
+          {
+            "denomination": "OP2LYSIS",
+            "siren": "819697707",
+            "commune": "CAEN",
+            "dept": "14",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "deganis.fr",
+      "domaine": "deganis.fr",
+      "verdict": "present",
+      "raison": "SIREN 440106342 au registre (état A, SAUSHEIM 68), recoupé avec deganis.fr",
+      "site": {
+        "url": "https://deganis.fr",
+        "http": 200,
+        "titre": "Accueil - Deganis",
+        "metaDescription": "Entreprise générale du bâtiment, Deganis réalise des travaux de construction, rénovation et réhabilitation pour tous types de bâtiments en Alsace."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=deganis&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "DEGANIS",
+            "siren": "440106342",
+            "commune": "SAUSHEIM",
+            "dept": "68",
+            "etat": "A"
+          },
+          {
+            "denomination": "PHILIPPE DEGANIS",
+            "siren": "494053689",
+            "commune": "SAINT-BALDOPH",
+            "dept": "73",
+            "etat": "A"
+          },
+          {
+            "denomination": "LOU DEGANIS (LOU DEGANIS)",
+            "siren": "933954505",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "DAMIEN DEGANIS",
+            "siren": "885106906",
+            "commune": "CHALLES-LES-EAUX",
+            "dept": "73",
+            "etat": "A"
+          },
+          {
+            "denomination": "JEAN-PIERRE DEGANIS (JEAN-PIERRE DEGANIS PHOTOGRAPHIE)",
+            "siren": "832966535",
+            "commune": "PIERREVILLERS",
+            "dept": "57",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "Département de La Réunion",
+      "domaine": null,
+      "verdict": "cannot_verify",
+      "raison": "candidat(s) au registre mais aucun recoupement avec null — arbitrage humain",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=D%C3%A9partement%20de%20La%20R%C3%A9union&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "DEPARTEMENT DE LA REUNION",
+            "siren": "229740014",
+            "commune": "SAINT-DENIS",
+            "dept": "974",
+            "etat": "A"
+          },
+          {
+            "denomination": "SOCIETE IMMOBILIERE DEPARTEMENT REUNION (SIDR)",
+            "siren": "310863592",
+            "commune": "SAINT-DENIS",
+            "dept": "974",
+            "etat": "A"
+          },
+          {
+            "denomination": "SOCIETE D'EQUIPEMENT DU DEPARTEMENT DE LA REUNION (SEDRE)",
+            "siren": "310863378",
+            "commune": "SAINT-DENIS",
+            "dept": "974",
+            "etat": "A"
+          },
+          {
+            "denomination": "ASSOCIATION DEPARTEMENT DE LA REUNION",
+            "siren": "377750096",
+            "commune": "SAINT-DENIS",
+            "dept": "974",
+            "etat": "A"
+          },
+          {
+            "denomination": "COMITE DEPARTEMENT AEROMODELISME REUNION (CDAMR)",
+            "siren": "449011469",
+            "commune": "LE TAMPON",
+            "dept": "974",
+            "etat": "A"
+          }
+        ]
+      }
+    },
+    {
+      "nomLisible": "dollinger-pierre.fr",
+      "domaine": "dollinger-pierre.fr",
+      "verdict": "present",
+      "raison": "SIREN 348178989 au registre (état A, BERSTHEIM 67), recoupé avec dollinger-pierre.fr",
+      "site": {
+        "url": "https://dollinger-pierre.fr",
+        "http": 200,
+        "titre": "Dollinger Pierrre Installateur de chauffage, électricité, salle de bain, sanitaire - Haguenau &amp; région",
+        "metaDescription": "L&#039;entreprise Dollinger intervient en climatisation, chauffage, électricité générale, énergies renouvelables, rénovation globale et installations sanitaires."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=dollinger-pierre&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "ETS DOLLINGER PIERRE",
+            "siren": "348178989",
+            "commune": "BERSTHEIM",
+            "dept": "67",
+            "etat": "A"
+          },
+          {
+            "denomination": "SCI LES CIGOGNES",
+            "siren": "384319976",
+            "commune": "SCHWEIGHOUSE-SUR-MODER",
+            "dept": "67",
+            "etat": "A"
+          },
+          {
+            "denomination": "SCI ED",
+            "siren": "534246699",
+            "commune": "BERSTHEIM",
+            "dept": "67",
+            "etat": "A"
+          },
+          {
+            "denomination": "SCI LES CORBEAUX",
+            "siren": "384319919",
+            "commune": "WINTERSHOUSE",
+            "dept": "67",
+            "etat": "A"
+          },
+          {
+            "denomination": "ERIC DOLLINGER",
+            "siren": "819717844",
+            "commune": "STRASBOURG",
+            "dept": "67",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "dragages-ports.fr",
+      "domaine": "dragages-ports.fr",
+      "verdict": "present",
+      "raison": "SIREN 317665420 au registre (état A, ROUEN 76), recoupé avec dragages-ports.fr",
+      "site": {
+        "url": "https://dragages-ports.fr",
+        "http": 200,
+        "titre": "Dragages-ports",
+        "metaDescription": null
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=dragages-ports&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "DRAGAGES PORTS",
+            "siren": "317665420",
+            "commune": "ROUEN",
+            "dept": "76",
+            "etat": "A"
+          },
+          {
+            "denomination": "DEPARTEMENT DE LA CHARENTE-MARITIME",
+            "siren": "221700016",
+            "commune": "LA ROCHELLE",
+            "dept": "17",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "ds-granit.fr",
+      "domaine": "ds-granit.fr",
+      "verdict": "present",
+      "raison": "SIREN 794859769 au registre (état A, PLAISIR 78), recoupé avec ds-granit.fr",
+      "site": {
+        "url": "https://ds-granit.fr",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=ds-granit&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "DS GRANIT (DS GRANIT)",
+            "siren": "794859769",
+            "commune": "PLAISIR",
+            "dept": "78",
+            "etat": "A"
+          },
+          {
+            "denomination": "DS GRANIT",
+            "siren": "534574520",
+            "commune": "OBERHASLACH",
+            "dept": "67",
+            "etat": "C"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "effigest.fr",
+      "domaine": "effigest.fr",
+      "verdict": "present",
+      "raison": "SIREN 432966927 au registre (état A, SAINT-GERMAIN-EN-LAYE 78), recoupé avec effigest.fr",
+      "site": {
+        "url": "https://effigest.fr",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=effigest&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "EFFIGEST",
+            "siren": "432966927",
+            "commune": "SAINT-GERMAIN-EN-LAYE",
+            "dept": "78",
+            "etat": "A"
+          },
+          {
+            "denomination": "EFFIGEST",
+            "siren": "494516503",
+            "commune": "TADEN",
+            "dept": "22",
+            "etat": "A"
+          },
+          {
+            "denomination": "EFFIGEST",
+            "siren": "489729582",
+            "commune": "ROQUEVAIRE",
+            "dept": "13",
+            "etat": "A"
+          },
+          {
+            "denomination": "EFFIGEST",
+            "siren": "383525425",
+            "commune": "NORMANVILLE",
+            "dept": "27",
+            "etat": "C"
+          },
+          {
+            "denomination": "EFFIGEST",
+            "siren": "391794294",
+            "commune": "LYON 3EME",
+            "dept": "69",
+            "etat": "C"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "eivp-paris.fr",
+      "domaine": "eivp-paris.fr",
+      "verdict": "cannot_verify",
+      "raison": "candidat(s) au registre mais aucun recoupement avec eivp-paris.fr — arbitrage humain",
+      "site": {
+        "url": "https://eivp-paris.fr",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=eivp-paris&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "GALA EIVP",
+            "siren": "911396372",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "BDS EIVP",
+            "siren": "924258718",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "BUREAU DES JEUX EIVP",
+            "siren": "929704559",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "BUREAU DES ARTS DE L'EIVP",
+            "siren": "988015640",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "SOCIETE DES AMIS DE L'E.I.V.P. (SAEIVP)",
+            "siren": "424638369",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          }
+        ]
+      }
+    },
+    {
+      "nomLisible": "epr-groupe.fr",
+      "domaine": "epr-groupe.fr",
+      "verdict": "cannot_verify",
+      "raison": "candidat(s) au registre mais aucun recoupement avec epr-groupe.fr — arbitrage humain",
+      "site": {
+        "url": "https://epr-groupe.fr",
+        "http": 200,
+        "titre": "EPR Groupe – Sûreté, protection et sécurité privée depuis 1994",
+        "metaDescription": "Groupe français de sûreté depuis 1994 : protection rapprochée, enquêtes privées, sécurité événementielle, surveillance armée, contre-mesures TSCM et formation."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=epr-groupe&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "AZAC GROUP",
+            "siren": "108108002",
+            "commune": null,
+            "dept": null,
+            "etat": "A"
+          },
+          {
+            "denomination": "ONYX GROUP LIMITED",
+            "siren": "979135472",
+            "commune": null,
+            "dept": null,
+            "etat": "A"
+          },
+          {
+            "denomination": "UNIAN GROUP LIMITED",
+            "siren": "109565689",
+            "commune": null,
+            "dept": null,
+            "etat": "A"
+          },
+          {
+            "denomination": "ASSET GROUP PLUS S.R.O",
+            "siren": "132213885",
+            "commune": null,
+            "dept": null,
+            "etat": "A"
+          },
+          {
+            "denomination": "CHINA LESA GROUP CO LIMITED",
+            "siren": "104078605",
+            "commune": null,
+            "dept": null,
+            "etat": "A"
+          }
+        ]
+      }
+    }
+  ]
+}
