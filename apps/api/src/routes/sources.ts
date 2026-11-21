@@ -5,12 +5,16 @@ import { query, withTransaction } from "../db.js";
 import { consignerAvec } from "../journal/index.js";
 import { requireRole } from "../middleware/auth.js";
 import { regrouper } from "../analyse/corroboration.js";
+import { parseBody, invalidBody } from "./body-validation.js";
 import { evaluerValeur } from "../analyse/valeur-source.js";
 
 /** Une source ne meurt que sur décision explicite, avec un motif. */
 const MorteBody = z.object({
   raison: z.string().trim().min(1).max(1000),
 }).strict();
+
+/** La réactivation n'attend aucun corps. */
+const EmptyBody = z.strictObject({});
 
 type SourceRow = {
   id: string;
@@ -222,13 +226,8 @@ export default async function (app: FastifyInstance) {
     "/sources/:id/morte",
     { preHandler: requireRole("admin") },
     async (req, reply) => {
-      const parsed = MorteBody.safeParse(req.body ?? {});
-      if (!parsed.success) {
-        throw badRequest("invalid input", parsed.error.issues.map((issue) => ({
-          path: issue.path.join("."),
-          message: issue.message,
-        })));
-      }
+      const parsed = parseBody(MorteBody, req.body);
+      if (!parsed.success) return invalidBody(reply, parsed.error);
 
       const raison = parsed.data.raison;
       const id = req.params.id;
@@ -291,6 +290,8 @@ export default async function (app: FastifyInstance) {
     "/sources/:id/reactiver",
     { preHandler: requireRole("admin") },
     async (req, reply) => {
+      const parsed = parseBody(EmptyBody, req.body);
+      if (!parsed.success) return invalidBody(reply, parsed.error);
       const id = req.params.id;
       const acteur = `humain:${req.user?.email ?? "admin"}`;
 

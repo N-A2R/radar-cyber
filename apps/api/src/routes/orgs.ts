@@ -5,6 +5,7 @@ import { requireAuth, resolveUser } from "../middleware/auth.js";
 import { createOrgFromHint, createOrgFromHintSchema } from "../quarantine/from-hint.js";
 import { desaccords, regrouper, resume } from "../analyse/corroboration.js";
 import { construireHistorique } from "../analyse/historique.js";
+import { parseBody, invalidBody } from "./body-validation.js";
 
 type OrgListRow = {
   id: number;
@@ -106,13 +107,8 @@ export default async function (app: FastifyInstance) {
    * par la source et la preuve, journalisées avec la création.
    */
   app.post("/orgs/from-hint", { preHandler: requireAuth() }, async (req, reply) => {
-    const parsed = createOrgFromHintSchema.safeParse(req.body);
-    if (!parsed.success) {
-      throw badRequest("invalid input", parsed.error.issues.map((issue) => ({
-        champ: issue.path.join("."),
-        message: issue.message,
-      })));
-    }
+    const parsed = parseBody(createOrgFromHintSchema, req.body);
+    if (!parsed.success) return invalidBody(reply, parsed.error);
     const result = await createOrgFromHint(parsed.data);
     reply.code(result.created ? 201 : 200);
     return result;
