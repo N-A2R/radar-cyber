@@ -105,6 +105,20 @@ async function registreSearch(q: string): Promise<{ requete: string; http: numbe
 	}
 }
 
+/** Recoupement par nom pur : tous les jetons significatifs de l'entité apparaissent dans la dénomination du registre. */
+function recoupeParNom(registreNom: string, nomEntite: string): boolean {
+	const norm = (x: string) => x.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+	const jetons = norm(nomEntite)
+		.split(/[^a-z0-9]+/)
+		.filter((w) => w.length >= 3 && !["sarl", "sas", "earl", "sci", "france"].includes(w));
+	// Moins de trois jetons : « Chu De Rennes » (2 jetons) recoupait LA MAISON
+	// DES FEMMES DU CHU DE RENNES, une sous-organisation — mauvais niveau,
+	// arbitrage humain plutôt qu'un SIREN faux.
+	if (jetons.length < 3) return false;
+	const rn = norm(registreNom);
+	return jetons.every((w) => rn.includes(w));
+}
+
 /** Recoupement : le nom du registre répond-il au domaine / au titre du site ? */
 function recoupe(registreNom: string, domaine: string | null, titre: string | null): boolean {
 	const norm = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
@@ -144,10 +158,14 @@ async function main(): Promise<void> {
 		const titre = res.site?.titre ?? null;
 
 		// 2. Registre SIRENE : d'abord la racine du domaine (le plus fidèle à
-		//    l'entité citée), sinon le titre du site.
+		//    l'entité citée), sinon le titre du site, sinon le nom lisible —
+		//    une entité sans domaine est cherchée par son NOM, jamais marquée
+		//    « absente » sans requête.
 		const racine = domaine?.replace(/\.[a-z]+$/, "").replace(/^www\./, "") ?? null;
+		const nomPropre = m.nomLisible.replace(/\(old\)/g, "").replace(/<Updated>/g, "").replace(/FOR SALE.*/i, "").trim();
 		const queries = racine ? [racine] : [];
 		if (titre && titre.length >= 3) queries.push(titre.slice(0, 60));
+		if (queries.length === 0 && nomPropre.length >= 3) queries.push(nomPropre.slice(0, 60));
 		let meilleur: { r: Awaited<ReturnType<typeof registreSearch>>; nom: string } | null = null;
 		for (const q of queries) {
 			const r = await registreSearch(q);
@@ -163,10 +181,12 @@ async function main(): Promise<void> {
 		const candidats = (res.registre?.resultats ?? []).filter((x) => /^\d{9}$/.test(x.siren));
 		const actifs = candidats.filter((x) => x.etat === "Actif" || x.etat === "actif");
 		const retenus = actifs.length > 0 ? actifs : candidats;
-		const recoupeOK = retenus.find((x) => recoupe(x.denomination, domaine, titre));
+		const recoupeOK = retenus.find(
+			(x) => recoupe(x.denomination, domaine, titre) || (racine === null && recoupeParNom(x.denomination, nomPropre)),
+		);
 		if (recoupeOK) {
 			res.verdict = "present";
-			res.raison = `SIREN ${recoupeOK.siren} au registre (état ${recoupeOK.etat}, ${recoupeOK.commune ?? "commune ?"} ${recoupeOK.dept ?? "?"}), recoupé avec ${domaine ?? titre}`;
+			res.raison = `SIREN ${recoupeOK.siren} au registre (état ${recoupeOK.etat}, ${recoupeOK.commune ?? "commune ?"} ${recoupeOK.dept ?? "?"}), recoupé avec ${domaine ?? (titre ? "le titre du site" : "le nom cité : " + nomPropre)}`;
 			// 4. Chargement idempotent (verdict `present` + SIREN à 9 chiffres).
 			const name = recoupeOK.denomination.slice(0, 200);
 			const slug = `${name.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60) || "org"}-${recoupeOK.siren}`;
