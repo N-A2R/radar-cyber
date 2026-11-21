@@ -18,7 +18,8 @@
     "test:na": "vite build --ssr test/na-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/na-verif.js",
     "test:health": "vite build --ssr test/health-detail-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/health-detail-verif.js",
     "test:aujourdhui": "vite build --ssr test/aujourdhui-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/aujourdhui-verif.js",
-    "test:liees": "vite build --ssr test/liees-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/liees-verif.js"
+    "test:liees": "vite build --ssr test/liees-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/liees-verif.js",
+    "test:sources-rouges": "vite build --ssr test/sources-rouges-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/sources-rouges-verif.js"
   },
   "dependencies": {
     "@radar/shared": "workspace:*",

@@ -1,0 +1,71 @@
+/* Vue d'action « sources rouges » : jetons sémantiques uniquement. */
+
+.sources-rouges {
+  max-width: 1500px;
+  padding-bottom: var(--space-6);
+}
+
+.sources-rouges header h2 {
+  font-size: var(--text-title);
+  font-weight: 500;
+  margin: 0;
+}
+
+.sources-rouges header p {
+  color: var(--muted);
+  margin: var(--space-1) 0 var(--space-4);
+}
+
+.sources-rouges__scroll {
+  overflow-x: auto;
+}
+
+.sources-rouges__table {
+  width: 100%;
+}
+
+.sources-rouges__etat {
+  border-left: 3px solid currentColor;
+  padding-left: var(--space-2);
+  white-space: nowrap;
+}
+
+.sources-rouges__etat[data-enabled="true"] { color: var(--family-reputation); }
+.sources-rouges__etat[data-enabled="false"] { color: var(--muted); }
+
+.relance-cellule {
+  align-items: center;
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.relance-bouton {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--text-label);
+  min-height: 32px;
+  padding: var(--space-1) var(--space-2);
+  white-space: nowrap;
+}
+
+.relance-bouton:hover:not(:disabled) {
+  border-color: var(--text);
+}
+
+.relance-bouton:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.relance-resultat {
+  font-size: var(--text-label);
+  white-space: nowrap;
+}
+
+.relance-resultat[data-resultat="succes"] { color: var(--family-reputation); }
+.relance-resultat[data-resultat="vide"] { color: var(--sev-4); }
+.relance-resultat[data-resultat="erreur"] { color: var(--sev-5); }
