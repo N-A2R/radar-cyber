@@ -1,0 +1,76 @@
+{
+  "genere_le": "2026-11-21T15:27:45Z",
+  "contexte": "9 des 40 sources rouges sondées (22,5 %) répondaient HTTP 200 avec un contenu que detectItems() ne comprenait pas (bench/results/causes-sources.json). Toutes étaient déclarées format=html : le format réel a été identifié en relisant le corps reçu une fois, pas en relançant la sonde.",
+  "methode": {
+    "corps": "GET unique le 2026-11-21, redirect:follow, User-Agent radar-cyber-red-sources-probe/1.0, même transport que la sonde (Tor pour .onion). Tailles identiques à celles enregistrées dans causes-sources.json.",
+    "extraits": "Fenêtre de 500 caractères du corps réel, copiée telle quelle dans apps/api/test/parseurs-formats.test.ts. Chaque extrait commence à l'offset indiqué ci-dessous.",
+    "mesure": "detectItems(extrait, 'text/html; charset=utf-8') avant et après correctif ; nombre d'objets retournés. Aucune écriture en base, aucune source relancée pour obtenir un meilleur résultat.",
+    "base": "5433 non touchée"
+  },
+  "groupement_9_cas": [
+    {
+      "format_reel": "page d'accueil HTML sans flux (annonce, squelette JS ou challenge)",
+      "sources": ["onion:ccw:anubis", "onion:ccw:whitearmor", "onion:ccw:everest", "onion:ccw:lockbit4", "onion:ccw:byod", "onion:rl:byod"],
+      "nombre": 6
+    },
+    { "format_reel": "page de contact Telegram (profil, aucun message public)", "sources": ["tg-cert-eu", "tg-certfr"], "nombre": 2 },
+    { "format_reel": "clé publique qTox en texte brut", "sources": ["onion:rl:orova"], "nombre": 1 }
+  ],
+  "formats": [
+    {
+      "rang": 1,
+      "format_reel": "page d'accueil HTML sans flux",
+      "sous_cas_reels": ["annonce WhiteArmor", "annonce BYOD (x2)", "bandeau LockBit + nouvelle adresse .onion", "challenge Anubis", "coquille Inertia Everest"],
+      "sources": ["onion:ccw:whitearmor", "onion:ccw:lockbit4", "onion:ccw:byod", "onion:rl:byod", "onion:ccw:anubis", "onion:ccw:everest"],
+      "extrait_source": "onion:ccw:whitearmor",
+      "extrait_offset": 330,
+      "extrait_longueur": 500,
+      "extrait": "\" href=\"/\">WHITEARMOR</a>\n    </div>\n</header>\n\n<div class=\"notice\">\n    <p>Companies listed below were contacted. If negotiations fail, data will be published here.</p>\n</div>\n\n<div class=\"container\">\n    <div class=\"list-head\">Publications</div>\n    <div class=\"grid\" id=\"grid\">\n        <div class=\"empty\" id=\"empty\">Loading…</div>\n    </div>\n</div>\n\n<footer>\n    <div class=\"footer-inner\">\n        <span>WhiteArmor</span>\n    </div>\n</footer>\n\n<script src=\"/common.js\"></script>\n<script src=\"/join",
+      "avant": { "strategie": "none", "items": 0 },
+      "apres": { "strategie": "landing-notice", "items": 1 },
+      "corps_entier": { "whitearmor_avant": 0, "whitearmor_apres": 1, "lockbit4_avant": 0, "lockbit4_apres": 1, "byod_avant": 0, "byod_apres": 1, "anubis_avant": 0, "anubis_apres": 0 },
+      "note": "Anubis est une page de challenge sans annonce : elle reste volontairement à 0 item, aucun événement n'est inventé."
+    },
+    {
+      "rang": 2,
+      "format_reel": "page de contact Telegram au lieu d'un flux",
+      "sources": ["tg-cert-eu", "tg-certfr"],
+      "extrait_source": "tg-cert-eu",
+      "extrait_offset": 7600,
+      "extrait_longueur": 500,
+      "extrait": "        <div class=\"tgme_page_icon\">\n  <i class=\"tgme_icon_user\"></i>\n</div>\n<div class=\"tgme_page_description\">\n  If you have <strong>Telegram</strong>, you can contact <a class=\"tgme_username_link\" href=\"tg://resolve?domain=CERT_EU\">@CERT_EU</a> right away.\n</div>\n<div class=\"tgme_page_action\">\n  <a class=\"tgme_action_button_new\" href=\"tg://resolve?domain=CERT_EU\">Send Message</a>\n</div>\n<!-- WEBOGRAM_BTN -->\n<!-- PRIVACY_BTN -->\n        </div>\n        \n      </div>\n    </div>\n\n    <div id=\"tg",
+      "avant": { "strategie": "none", "items": 0 },
+      "apres": { "strategie": "telegram-contact", "items": 1 },
+      "corps_entier": { "tg-cert-eu_avant": 0, "tg-cert-eu_apres": 1, "tg-certfr_avant": 0, "tg-certfr_apres": 1 },
+      "note": "L'item est l'identité @CERT_EU / @CERT_FR, pas un faux message : la page ne contient aucun tgme_widget_message_text."
+    },
+    {
+      "rang": 3,
+      "format_reel": "JSON embarqué dans le HTML (Inertia data-page), tronqué dans l'extrait",
+      "sources": ["onion:ccw:everest"],
+      "extrait_source": "onion:ccw:everest",
+      "extrait_offset": 12550,
+      "extrait_longueur": 500,
+      "extrait": "\":null},\"categories\":[{\"id\":\"87\",\"slug\":\"grundbaulabor-trier-gmbh\",\"title\":\"Grundbaulabor Trier GmbH\",\"image\":\"\\/storage\\/uploads\\/20261114\\/BKJh6tpNVAMiSHcJCNYykBLgcLRAy7iO4bBoN4mK.jpg\",\"opens\":10191,\"postCount\":2,\"date\":\"Nov 14\",\"hue\":274,\"locked\":false},{\"id\":\"97\",\"slug\":\"alkf\",\"title\":\"ALKF\",\"image\":\"\\/storage\\/uploads\\/20261120\\/pFKooGs8wSCXDf4Zo6jEb6Fm3iAsAlcj0usqiNJ6.jpg\",\"opens\":1380,\"postCount\":2,\"date\":\"17h\",\"hue\":166,\"locked\":false},{\"id\":\"96\",\"slug\":\"vizrt\",\"title\":\"Vizrt\",\"image\":\"\\",
+      "avant": { "strategie": "none", "items": 0 },
+      "apres": { "strategie": "embedded-json", "items": 2 },
+      "corps_entier": { "everest_avant": 0, "everest_apres": 87 },
+      "note": "Deux objets complets survivent à la troncature à 500 caractères ; le corps entier contient 87 catégories/victimes. Ce format arrive à égalité avec la clé qTox (1 source chacun) mais il est retenu car il rend 87 enregistrements réels et correspond à un motif de framework réutilisable."
+    }
+  ],
+  "hors_top_3": [
+    {
+      "format_reel": "clé publique qTox en texte brut (83 octets, sans balise)",
+      "sources": ["onion:rl:orova"],
+      "avant": 0,
+      "apres": 0,
+      "note": "Non corrigé : un identifiant de contact isolé n'est pas un événement, et inventer un item serait pire que le refus explicite."
+    }
+  ],
+  "dependance_externe": "aucune ; regex, JSON.parse et le fast-xml-parser déjà présent suffisent",
+  "verification": {
+    "tests": "apps/api/test/parseurs-formats.test.ts (3 tests, extraits réels) + claims.test.ts : verts via tsx --test",
+    "typecheck": "pnpm -F @radar/api typecheck : vert",
+    "test_harness": "pnpm -F @radar/api test échoue sur un test DB préexistant (mot de passe radar refusé sur 5433), sans rapport avec ces correctifs"
+  }
+}

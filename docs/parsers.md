@@ -6,22 +6,30 @@ la source muette.
 2. JSON **tableau racine** (objets uniquement).
 3. JSON **premier tableau d'objets**, profondeur ≤ 4, chemin reporté (`data.items`).
 4. **RSS / Atom / RDF** : `rss.channel.item`, `channel.item`, `feed.entry`, `rdf:RDF.item`.
-5. **CSV** : en-tête nommé (≥ 2 colonnes) + lignes cohérentes.
-6. **Cartes de revendication** (`parsers/claims.ts`) : pages de sites de fuite.
+5. **JSON embarqué** (`parsers/embedded-json.ts`) : `<script type="application/json">`,
+   `data-page` Inertia, `__NEXT_DATA__`. Les tableaux d'objets porteurs de titres
+   sont lus même si la fin du JSON est tronquée (87 victimes sur Everest).
+6. **CSV** : en-tête nommé (≥ 2 colonnes) + lignes cohérentes.
+7. **Cartes de revendication** (`parsers/claims.ts`) : pages de sites de fuite.
    Deux structures observées — fenêtre modale (`h3` + `div.meta` « secteur · pays »)
    et carte de projet (`h3.card-title` + `.card-country` + `.card-description`
    en champs `Clé: valeur` séparés par `|`). Une carte n'est retenue que si elle
    porte un champ de revendication (secteur, statut, pays, résumé) : un menu de
    navigation ne suffit pas. Les titres entre crochets (`[ ABOUT US ]`) sont
    écartés, c'étaient des titres de section comptés comme victimes.
-7. **Messages Telegram** (`parsers/telegram.ts`) : `div.tgme_widget_message_text`
+8. **Messages Telegram** (`parsers/telegram.ts`) : `div.tgme_widget_message_text`
    avec la date du message la plus proche en amont. Les libellés d'interface
    (« Media is too big », « VIEW IN TELEGRAM », « Join chat ») sont filtrés :
    les ingérer remplissait le fil de bruit.
-8. **HTML** : liens `<a href>` significatifs (hors `#`, `javascript:`, libellés < 4 car.).
-9. Sinon refus explicite : `[collect] <source> : format non reconnu — refus explicite`.
-   Pour une page `.onion`, le corps illisible part en `quarantine_raw` : le jeter
-   rendait 64 sources muettes invisibles.
+9. **Contact Telegram** (`parsers/telegram.ts`) : page `Telegram: Contact @…`,
+   sans message public. Une seule identité est extraite, pas des liens d'interface.
+10. **HTML** : liens `<a href>` significatifs (hors `#`, `javascript:`, libellés < 4 car.).
+11. **Page d'accueil HTML** (`parsers/landing.ts`) : annonce explicite (`notice`,
+    `top-band`, paragraphe substantiel). Les pages de challenge ou squelettes JS
+    sans texte restent refusées : aucun item n'est inventé.
+12. Sinon refus explicite : `[collect] <source> : format non reconnu — refus explicite`.
+    Pour une page `.onion`, le corps illisible part en `quarantine_raw` : le jeter
+    rendait 64 sources muettes invisibles.
 Flux `indicator` en JSON/CSV/RSS : valeurs tirées de `value|indicator|ip|domain|host|url|
 link|cidr|title|description`, puis filtre warninglists. Un `304` ne remet plus `last_items` à 0.
 Diagnostic lecture seule : `apps/api/node_modules/.bin/tsx scripts/diagnose-parsers.mts`
