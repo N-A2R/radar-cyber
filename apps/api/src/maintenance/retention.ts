@@ -61,10 +61,10 @@ export async function runRetention(
           `INSERT INTO event_archive
              (dedup_key, family, assertion_type, org_id, org_name, org_kind, dept,
               source_id, source_url, severity, confidence, admission_rule,
-              observed_at, collected_at)
+              observed_at, collected_at, valid_at, at)
            SELECT e.dedup_key, e.family, e.assertion_type, e.org_id, o.name, o.kind, o.dept,
                   e.source_id, e.source_url, e.severity, e.confidence, e.admission_rule,
-                  e.observed_at, e.collected_at
+                  e.observed_at, e.collected_at, e.valid_at, e.at
              FROM event e
              LEFT JOIN org o ON o.id = e.org_id
             WHERE COALESCE(e.observed_at, e.collected_at) < $1
@@ -77,10 +77,10 @@ export async function runRetention(
         const archivage = await ingestQuery(
           `INSERT INTO archive_event
              (id, dedup_key, family, assertion_type, title, summary,
-              observed_at, collected_at, severity, confidence, source_id,
+              observed_at, collected_at, valid_at, at, severity, confidence, source_id,
               source_url, evidence, geo_type, lat, lon, org_id, asset_id, created_at)
            SELECT e.id, e.dedup_key, e.family, e.assertion_type, e.title, e.summary,
-                  e.observed_at, e.collected_at, e.severity, e.confidence, e.source_id,
+                  e.observed_at, e.collected_at, e.valid_at, e.at, e.severity, e.confidence, e.source_id,
                   e.source_url, e.evidence, e.geo_type, e.lat, e.lon, e.org_id, e.asset_id, e.created_at
              FROM event e
             WHERE COALESCE(e.observed_at, e.collected_at) < $1

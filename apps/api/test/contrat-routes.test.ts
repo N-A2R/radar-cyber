@@ -108,7 +108,7 @@ const source = z.strictObject({
   disabledAt: chaineNullable, disabledReason: chaineNullable,
   statut: z.string(), derniereErreur: chaineNullable, ok: z.boolean(),
   entrees: nombreNullable, rejets: nombreNullable,
-  evenements30j: z.number(), evenementsTotal: z.number(),
+  evenements30j: z.number(), evenementsTotal: z.number(), lastEventAt: chaineNullable,
   dernierRun: chaineNullable, dernierRunStatut: chaineNullable,
   motifs: json, motifDominant: chaineNullable, rendement: nombreNullable,
   // Enrichissement optionnel (ValeurSource), absent sans données de valeur.

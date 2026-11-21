@@ -45,7 +45,7 @@ import journalRoute from "./routes/journal.js";
 import orgsLieesRoute from "./routes/orgs-liees.js";
 import orgsLieesHistoriqueRoute from "./routes/orgs-liees-historique.js";
 import ingestRoute from "./routes/ingest.js";
-import { resolveUser } from "./middleware/auth.js";
+import { requireRole, resolveUser } from "./middleware/auth.js";
 import { installErrorHandler, unauthorized } from "./errors.js";
 
 const port = Number(process.env.PORT ?? 8080);
@@ -184,10 +184,12 @@ async function lastRunAgeSec(sourceId: string): Promise<number> {
 	return Number.isNaN(age) ? Infinity : age;
 }
 
-async function runCollectors(): Promise<void> {
+async function runCollectors(options?: { onlyId?: string; force?: boolean }): Promise<void> {
 	for (const c of collectors) {
-		const age = await lastRunAgeSec(c.id);
-		if (age < c.intervalSec * 0.8) continue;
+	if (options?.onlyId && c.id !== options.onlyId) continue;
+	const force = options?.force === true;
+	const age = force ? Infinity : await lastRunAgeSec(c.id);
+	if (age < c.intervalSec * 0.8) continue;
 
 		const { rows } = await query<{ cursor: unknown; statut: string; enabled: boolean }>(
 			"SELECT cursor, statut, enabled FROM source WHERE id=$1", [c.id],
@@ -289,6 +291,40 @@ async function guarded(name: string, fn: () => Promise<void>): Promise<void> {
 }
 
 const log = (m: string) => app.log.info(m);
+/** Relance manuelle d'une source : le bouton « relancer » du registre. */
+const relancesEnCours = new Set<string>();
+app.post<{ Params: { id: string } }>(
+  "/api/sources/:id/collecte",
+  { preHandler: requireRole("admin") },
+  async (req, reply) => {
+    const id = req.params.id;
+    const { rows } = await query<{ id: string; enabled: boolean; kind: string }>(
+      "SELECT id, enabled, kind FROM source WHERE id=$1",
+      [id],
+    );
+    const source = rows[0];
+    if (!source) return reply.code(404).send({ error: "source introuvable" });
+    if (!source.enabled) return reply.code(409).send({ error: "source désactivée" });
+    if (relancesEnCours.has(id)) return reply.code(409).send({ error: "collecte déjà en cours" });
+
+    const dedie = collectors.find((c) => c.id === id);
+    const tache = dedie
+      ? () => runCollectors({ onlyId: id, force: true })
+      : id === "hermes_radar_cyber"
+        ? () => runHermesCollector(log)
+        : source.kind === "quarantine"
+          ? () => runQuarantineCollector(log)
+          : () => runGenericSources(log, { sourceIds: [id], force: true });
+
+    relancesEnCours.add(id);
+    void tache().catch((e: unknown) => {
+      app.log.error(e);
+    }).finally(() => {
+      relancesEnCours.delete(id);
+    });
+    return reply.code(202).send({ id, lancee: true });
+  },
+);
 
 /** RADAR_COLLECT=0 : API seule, sans boucle de collecte (dev, UI, déploiement séparé). */
 const COLLECT = process.env.RADAR_COLLECT !== "0";

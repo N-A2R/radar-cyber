@@ -11,7 +11,10 @@
     "test:dom": "vite build --ssr test/review-dom.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/review-dom.js",
     "test:revue": "vite build --ssr test/revue-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/revue-verif.js",
     "test:bulk": "vitest run test/ReviewView.bulk.test.tsx --environment jsdom",
+    "test:alerts": "vitest run test/alerts-live.test.tsx --environment jsdom",
+    "test:review-keys": "vitest run test/ReviewView.keys.test.tsx --environment jsdom",
     "test:sources": "vite build --ssr test/sources-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/sources-verif.js",
+    "test:sources-tri": "vite build --ssr test/sources-tri-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/sources-tri-verif.js",
     "test:inspecteur": "vite build --ssr test/inspecteur-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/inspecteur-verif.js",
     "test:fil": "vite build --ssr test/fil-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/fil-verif.js",
     "test:etat": "vite build --ssr test/etat-rendu.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/etat-rendu.js",
@@ -24,7 +27,8 @@
     "test:liees": "vite build --ssr test/liees-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/liees-verif.js",
     "test:sources-rouges": "vite build --ssr test/sources-rouges-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/sources-rouges-verif.js",
     "test:journal": "vite build --ssr test/journal-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/journal-verif.js",
-    "test:orgsheet": "vite build --ssr test/orgsheet-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/orgsheet-verif.js"
+    "test:orgsheet": "vite build --ssr test/orgsheet-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/orgsheet-verif.js",
+    "test:couverture": "vitest run test/CouvertureView.test.tsx --environment jsdom"
   },
   "dependencies": {
     "@radar/shared": "workspace:*",
