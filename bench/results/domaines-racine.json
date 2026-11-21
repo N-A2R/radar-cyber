@@ -1,0 +1,226 @@
+{
+  "date": "2026-11-21",
+  "base": "postgres://radar:radar@localhost:5433/radar",
+  "filtre": "promoted = false AND kind = 'claim' AND status = 'pending'\n  AND org_hint IS NOT NULL AND btrim(org_hint) <> ''",
+  "cohorte": "indices en attente + indices promus depuis 2026-11-21 15:33:57+00 (220 indices / 184 domaines au relevé)",
+  "sha256_corpus": "b28ac5d169db30ffdc86429f15f8c9809a2da581be57fde2edc4a89da3d8bd1c",
+  "organisationsAvecDomaine": 88,
+  "aliasDomaine": 19,
+  "fille_active": {
+    "stats": {
+      "indicesAvecIndice": 200,
+      "indicesDomaine": 163,
+      "etage1DomaineExact": 0,
+      "etage2RacineUnique": 0,
+      "etage2AmbigusRefuses": 0,
+      "etage2AucuneCandidate": 141,
+      "racineTropCourte": 22,
+      "rattaches": 0
+    },
+    "rattaches": []
+  },
+  "cohorte_184": {
+    "stats": {
+      "indicesAvecIndice": 220,
+      "indicesDomaine": 182,
+      "etage1DomaineExact": 19,
+      "etage2RacineUnique": 0,
+      "etage2AmbigusRefuses": 0,
+      "etage2AucuneCandidate": 141,
+      "racineTropCourte": 22,
+      "rattaches": 19
+    },
+    "rattaches": [
+      {
+        "id": "3699",
+        "indice": "eivp-paris.fr",
+        "racine": "eivp-paris.fr",
+        "orgId": 2423925,
+        "par": [
+          "org.domain",
+          "org_alias.domain"
+        ]
+      },
+      {
+        "id": "5535",
+        "indice": "lyonhealy.com",
+        "racine": "lyonhealy.com",
+        "orgId": 2423926,
+        "par": [
+          "org.domain",
+          "org_alias.domain"
+        ]
+      },
+      {
+        "id": "7234",
+        "indice": "ibafrance.fr",
+        "racine": "ibafrance.fr",
+        "orgId": 2423927,
+        "par": [
+          "org.domain",
+          "org_alias.domain"
+        ]
+      },
+      {
+        "id": "9232",
+        "indice": "www.nicecloud.nl",
+        "racine": "nicecloud.nl",
+        "orgId": 2423928,
+        "par": [
+          "org.domain",
+          "org_alias.domain"
+        ]
+      },
+      {
+        "id": "9292",
+        "indice": "hotel-ampere-paris.com",
+        "racine": "hotel-ampere-paris.com",
+        "orgId": 2423929,
+        "par": [
+          "org.domain",
+          "org_alias.domain"
+        ]
+      },
+      {
+        "id": "10150",
+        "indice": "lyonshipyard.com",
+        "racine": "lyonshipyard.com",
+        "orgId": 2423930,
+        "par": [
+          "org.domain",
+          "org_alias.domain"
+        ]
+      },
+      {
+        "id": "10392",
+        "indice": "lyon.co.uk",
+        "racine": "lyon.co.uk",
+        "orgId": 2423931,
+        "par": [
+          "org.domain",
+          "org_alias.domain"
+        ]
+      },
+      {
+        "id": "11702",
+        "indice": "aev-iledefrance.fr",
+        "racine": "aev-iledefrance.fr",
+        "orgId": 2423933,
+        "par": [
+          "org.domain",
+          "org_alias.domain"
+        ]
+      },
+      {
+        "id": "13750",
+        "indice": "agapefrance.org",
+        "racine": "agapefrance.org",
+        "orgId": 2423934,
+        "par": [
+          "org.domain",
+          "org_alias.domain"
+        ]
+      },
+      {
+        "id": "16201",
+        "indice": "graphiquedefrance.com",
+        "racine": "graphiquedefrance.com",
+        "orgId": 2423935,
+        "par": [
+          "org.domain",
+          "org_alias.domain"
+        ]
+      },
+      {
+        "id": "80862",
+        "indice": "www.worldwidefittings.com",
+        "racine": "worldwidefittings.com",
+        "orgId": 2423936,
+        "par": [
+          "org.domain",
+          "org_alias.domain"
+        ]
+      },
+      {
+        "id": "80863",
+        "indice": "www.ccmcnet.com",
+        "racine": "ccmcnet.com",
+        "orgId": 2423937,
+        "par": [
+          "org.domain",
+          "org_alias.domain"
+        ]
+      },
+      {
+        "id": "80870",
+        "indice": "toyokiki-thailand.com",
+        "racine": "toyokiki-thailand.com",
+        "orgId": 2423938,
+        "par": [
+          "org.domain",
+          "org_alias.domain"
+        ]
+      },
+      {
+        "id": "80871",
+        "indice": "benchmarkseniorliving.com",
+        "racine": "benchmarkseniorliving.com",
+        "orgId": 2423939,
+        "par": [
+          "org.domain",
+          "org_alias.domain"
+        ]
+      },
+      {
+        "id": "80873",
+        "indice": "upperweb.com.br",
+        "racine": "upperweb.com.br",
+        "orgId": 2423940,
+        "par": [
+          "org.domain",
+          "org_alias.domain"
+        ]
+      },
+      {
+        "id": "80874",
+        "indice": "www.osiiminppal.com",
+        "racine": "osiiminppal.com",
+        "orgId": 2423941,
+        "par": [
+          "org.domain",
+          "org_alias.domain"
+        ]
+      },
+      {
+        "id": "80875",
+        "indice": "franc-oiloffshore.com.ng",
+        "racine": "com.ng",
+        "orgId": 2423942,
+        "par": [
+          "org.domain",
+          "org_alias.domain"
+        ]
+      },
+      {
+        "id": "80877",
+        "indice": "cey-tech.com",
+        "racine": "cey-tech.com",
+        "orgId": 2423943,
+        "par": [
+          "org.domain",
+          "org_alias.domain"
+        ]
+      },
+      {
+        "id": "80878",
+        "indice": "axiscades.com",
+        "racine": "axiscades.com",
+        "orgId": 2423944,
+        "par": [
+          "org.domain",
+          "org_alias.domain"
+        ]
+      }
+    ]
+  }
+}

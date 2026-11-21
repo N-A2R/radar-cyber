@@ -14,6 +14,7 @@ import {
 	isDomainHint,
 	normalizeDomainValue,
 	racineDomaine,
+	domaineRacine,
 	resoudreDomaine,
 	type OrgDomaine,
 } from "../src/match/domaine.js";
@@ -64,6 +65,14 @@ test("racine : un tiret découpé, un service générique refusé", () => {
 	assert.equal(racineDomaine("library.uta.edu"), null);
 });
 
+test("domaine racine : sous-domaines, port, chemin et suffixe composé", () => {
+	assert.equal(domaineRacine("https://www.library.uta.edu:8443/a"), "uta.edu");
+	assert.equal(domaineRacine("WWW.Exemple.FR."), "exemple.fr");
+	assert.equal(domaineRacine("solarium.com.br"), "solarium.com.br");
+	assert.equal(domaineRacine("com.br"), null);
+	assert.equal(domaineRacine("Chu De Rennes"), null);
+});
+
 // ── Prudence ─────────────────────────────────────────────────────────────
 
 test("un TLD ne se compense pas : .fr ≠ .com", () => {
@@ -71,11 +80,14 @@ test("un TLD ne se compense pas : .fr ≠ .com", () => {
 	assert.equal(domainAffinity("exemple.com", "exemple.fr"), 0);
 });
 
-test("un sous-domaine générique ne rattaché pas au parent", () => {
+test("un sous-domaine générique est ramené à la racine pour le rattachement", () => {
+	// La prudence locale reste vraie (domainAffinity refuse le parent), mais
+	// la clé de rattachement est désormais la racine : www/library/ns… ne sont
+	// plus des obstacles à la résolution de l'organisation.
 	assert.equal(domainAffinity("mail.exemple.com", "exemple.com"), 0);
 	assert.equal(racineDomaine("mail.exemple.com"), null);
 	const index = [org(1, "EXEMPLE", { domain: "exemple.com" })];
-	assert.equal(matchOrgInIndex("mail.exemple.com", index), null);
+	assert.equal(matchOrgInIndex("mail.exemple.com", index)?.orgId, 1);
 });
 
 test("un sous-domaine spécifique reste une clé secondaire", () => {
@@ -108,6 +120,21 @@ test("étage 2 : racine unique contre slug ou nom", () => {
 	});
 	const byName = [org(4, "Mvsd11", { domain: null })];
 	assert.equal(resoudreDomaine("www.mvsd11.org", byName).orgId, 4);
+});
+
+test("étage 1 : la racine trouve un alias de type domaine", () => {
+	const parAlias = { ...org(9, "Association locale"), domainAliases: ["exemple.com"] };
+	const r = resoudreDomaine("https://www.sous.exemple.com:443/contact", [parAlias]);
+	assert.equal(r.etape, "exact");
+	assert.equal(r.orgId, 9);
+	assert.equal(r.confidence, 0.95);
+});
+
+test("étage 1 : un suffixe public composé ne rassemble pas les organisations", () => {
+	const index = [org(8, "Upperweb", { domain: "upperweb.com.br" })];
+	assert.equal(resoudreDomaine("solarium.com.br", index).orgId, null);
+	assert.equal(resoudreDomaine("www.solarium.com.br", index).orgId, null);
+	assert.equal(resoudreDomaine("upperweb.com.br", index).orgId, 8);
 });
 
 test("étage 2 : deux candidates = refus motivé, jamais de tirage", () => {

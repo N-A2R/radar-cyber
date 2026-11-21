@@ -74,3 +74,16 @@ test("le préfiltre SQL rend le même rattachement que l'index complet", async (
 	assert.equal(byAccent?.orgId, epicerie);
 	assert.equal(byAccent?.confidence, 0.75);
 });
+
+test("un alias de type domaine suffit à retrouver l'organisation par sa racine", async () => {
+	const orgId = await insertOrg("Structure Alpha");
+	await query(
+		"INSERT INTO org_alias (org_id, alias, source) VALUES ($1,$2,'domain')",
+		[orgId, "zephyr-recated.example"],
+	);
+	const hint = "https://www.sous.zephyr-recated.example:8443/contact";
+	const m = matchOrgInIndex(hint, await loadCandidateIndex(hint));
+	assert.equal(m?.orgId, orgId);
+	assert.equal(m?.confidence, 0.95);
+	assert.equal(m?.via, "domain");
+});

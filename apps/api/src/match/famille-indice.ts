@@ -11,7 +11,7 @@
  *   - `nom` : le reste (noms, phrases, casse mixte) ;
  *   - `vide` : indice absent ou blanc.
  */
-import { domainFromHint } from "./domaine.js";
+import { domaineRacine } from "./domaine.js";
 import { MOTS_GENERIQUES, MOTS_GENERIQUES_ENTREPRISE } from "./generique.js";
 import { estMotCourant, estSigle, normaliseSigle } from "./sigles.js";
 
@@ -24,7 +24,7 @@ const SIGLE_RE = /^[A-Z]{2,6}$/;
  * Suffixes acceptés : ceux réellement observés dans le lot (com, org, ca, fr,
  * edu, br, us, mx, pe, au, ph, it, vn, uk, sa, pa, nl, ng, net, mz, mk, ma,
  * ke, jp, ir, in, ie, id, hk, es, ec, de, ar, ae) et les génériques courants.
- * `domainFromHint()` accepte toute étiquette alphabétique d'au moins 2 lettres
+ * `domaineRacine()` accepte toute étiquette alphabétique d'au moins 2 lettres
  * : sans ce filtre, un nom d'hôte interne serait classé « domaine ».
  */
 const TLD_RECONNUS: ReadonlySet<string> = new Set([
@@ -70,7 +70,9 @@ function estTldAutorise(domain: string): boolean {
  */
 export function classifierIndice(hint: string): FamilleIndice {
 	if (!hint || hint.trim() === "") return "vide";
-	const domain = domainFromHint(hint);
+	// La racine (eTLD+1) retire www., les sous-domaines, le port et le chemin :
+	// `www.library.uta.edu` et `uta.edu` désignent le même domaine racine.
+	const domain = domaineRacine(hint);
 	// Un suffixe non public n'est pas un domaine d'organisation : on tombe
 	// directement en « nom », sans laisser la porte ouverte au cas « sigle ».
 	if (domain) return estTldAutorise(domain) ? "domaine" : "nom";

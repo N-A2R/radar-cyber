@@ -41,6 +41,7 @@ import {
   memesDomaines,
   normalizeDomainValue,
   resoudreDomaine,
+  domaineRacine,
   type ResolutionDomaine,
 } from "../match/domaine.js";
 
@@ -64,6 +65,8 @@ export type OrgIndexEntry = OrgRow & {
   nameTokens: string[];
   /** Alias officiel exact qui a fait entrer l'organisation dans l'index. */
   aliasSigle?: string;
+  /** Alias `org_alias.source='domain'` portés par l'organisation. */
+  domainAliases?: string[];
 };
 
 
@@ -285,7 +288,47 @@ async function chargerEntreesAliasSigle(hint: string): Promise<OrgIndexEntry[]> 
 export async function loadOrgIndex(filter?: { where: string; params?: unknown[] }): Promise<OrgIndexEntry[]> {
   const sql = `SELECT id, name, slug, kind, city, domain, website FROM org${filter ? ` WHERE ${filter.where}` : ""}`;
   const r = await query<OrgRow>(sql, filter?.params ?? []);
-  return r.rows.map((o) => toIndexEntry(o));
+  return attacherAliasDomaines(r.rows.map((o) => toIndexEntry(o)), await chargerAliasDomaines());
+}
+
+/**
+ * Alias matérialisés en domaine par le chargeur de référentiel et par
+ * `createOrgFromHint`. 19 lignes mesurées sur la base de test : la table
+ * entière tient en mémoire, aucun préfiltre SQL n'est nécessaire ici.
+ */
+const SQL_ALIAS_DOMAINE = `
+SELECT o.id, o.name, o.slug, o.kind, o.city, o.domain, o.website, a.alias
+  FROM org_alias a JOIN org o ON o.id = a.org_id
+ WHERE a.source = 'domain' AND a.status = 'active' AND a.valid_to IS NULL
+ ORDER BY o.id, a.alias`;
+
+type AliasDomaineRow = OrgRow & { alias: string };
+
+/** Toutes les lignes alias-domaine, ou seulement celles de la racine visée. */
+async function chargerAliasDomaines(racine?: string): Promise<AliasDomaineRow[]> {
+  const r = await query<AliasDomaineRow>(SQL_ALIAS_DOMAINE);
+  return racine ? r.rows.filter((row) => domaineRacine(row.alias) === racine) : r.rows;
+}
+
+/** Attache les alias-domaine aux entrées présentes, en créant les manquantes. */
+function attacherAliasDomaines(
+  entrees: OrgIndexEntry[],
+  rows: readonly AliasDomaineRow[],
+): OrgIndexEntry[] {
+  const parId = new Map(entrees.map((e) => [e.id, e]));
+  for (const row of rows) {
+    const entree = parId.get(row.id) ?? toIndexEntry(row);
+    const liste = (entree.domainAliases ??= []);
+    if (!liste.includes(row.alias)) liste.push(row.alias);
+    parId.set(row.id, entree);
+  }
+  return [...parId.values()];
+}
+
+async function avecAliasDomaines(hint: string, entrees: OrgIndexEntry[]): Promise<OrgIndexEntry[]> {
+  const racine = domaineRacine(hint);
+  if (!racine) return entrees;
+  return attacherAliasDomaines(entrees, await chargerAliasDomaines(racine));
 }
 
 
@@ -334,6 +377,17 @@ export async function loadCandidateIndex(hint: string): Promise<OrgIndexEntry[]>
       `(${nd} = ${d} OR ${nd} LIKE '%.' || ${d} OR ${d} LIKE '%.' || ${nd} OR ${nw} = ${d} OR ${nw} LIKE '%.' || ${d} OR lower(coalesce(website, '')) LIKE '%' || ${d})`,
     );
   }
+  // Un sous-domaine (`www.library.uta.edu`) n'est pas la clé : c'est la racine
+  // (`uta.edu`) qui doit retrouver l'organisation, y compris si son domaine
+  // stocké porte lui-même un sous-domaine.
+  const racine = domaineRacine(hint);
+  if (racine && racine !== domain) {
+    params.push(racine);
+    const r = `$${params.length}`;
+    const nd = sqlDomain("domain");
+    const nw = sqlDomain("website");
+    clauses.push(`(${nd} = ${r} OR ${nd} LIKE '%.' || ${r} OR ${nw} = ${r} OR ${nw} LIKE '%.' || ${r})`);
+  }
   // « A.M.F. » ne laisse que des jetons d'une lettre : pas de préfiltre par
   // nom, mais l'alias exact suffit — charger 1,24 M de lignes serait absurde.
   if (clauses.length === 0) {
@@ -343,7 +397,7 @@ export async function loadCandidateIndex(hint: string): Promise<OrgIndexEntry[]>
     `SELECT id, name, slug, kind, city, domain, website FROM org WHERE ${clauses.join(" OR ")}`,
     params,
   );
-  return avecAlias(hint, r.rows.map((o) => toIndexEntry(o)));
+  return avecAliasDomaines(hint, await avecAlias(hint, r.rows.map((o) => toIndexEntry(o))));
 }
 
 /** Ajoute les organisations trouvées par alias sans doublon d'identifiant. */
