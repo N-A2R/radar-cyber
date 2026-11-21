@@ -25,7 +25,7 @@ import {
 	type RelevanceOrg,
 } from "./relevance.js";
 import { estTexteFrancais, porteeRegionale } from "../match/territorial.js";
-import { isActionableIndicator, loadActiveIndex, type ActiveIndex } from "./filter.js";
+import { configuredLanguages, isActionableIndicator, languageVerdict, loadActiveIndex, type ActiveIndex } from "./filter.js";
 import { filterIndicators } from "./warninglist.js";
 import { classifyFamily, isFamily } from "./classify.js";
 import { AdmissionTally, admitEvent } from "../contract/admit.js";
@@ -688,6 +688,7 @@ async function ingestNarrative(
   // Porte de pertinence : un flux de presse généraliste livre sa une, pas de
   // la cyber. Seules les sources `strict` (déjà cyber) passent sans filtre.
   const gate = source.relevance !== "strict";
+  const allowedLanguages = configuredLanguages();
   // L'hôte du flux est exclu du matching d'entités (voir relevance.ts).
   let sourceHost = "";
   try {
@@ -720,6 +721,13 @@ async function ingestNarrative(
     const title = decodeEntities(explicitOr(item, parser.titleField, TITLE_FIELDS)).slice(0, 400);
     const summary = decodeEntities(explicitOr(item, parser.summaryField, SUMMARY_FIELDS)).slice(0, 2000);
     if (!title) continue;
+    const langue = languageVerdict(title, summary, allowedLanguages);
+    if (!langue.keep) {
+      const motif = `langue_${langue.language}`;
+      rejectedBy[motif] = (rejectedBy[motif] ?? 0) + 1;
+      skipped++;
+      continue;
+    }
     if (menuFilter) {
       const reason = isMenuEntry(title, source.name);
       if (reason) {
@@ -848,9 +856,9 @@ async function ingestNarrative(
     }
     const event = admitted.event;
     const r = await ingestQuery<{ inserted: boolean }>(
-      `INSERT INTO event (dedup_key, family, assertion_type, title, summary, org_id, observed_at, valid_at, at, date_source, date_confidence, severity, confidence,
+      `INSERT INTO event (dedup_key, family, assertion_type, title, summary, langue, org_id, observed_at, valid_at, at, date_source, date_confidence, severity, confidence,
         source_id, source_url, evidence, geo_type, admission_rule, regional, regional_motif, fingerprint)
-       VALUES ($1,$2,$13,$3,$10,$11,$4,$20,$21,$5,$6,$14,$15,$7,$8,$9,$16,$12,$17,$18,$19)
+       VALUES ($1,$2,$13,$3,$10,$22,$11,$4,$20,$21,$5,$6,$14,$15,$7,$8,$9,$16,$12,$17,$18,$19)
        ON CONFLICT (fingerprint) WHERE fingerprint IS NOT NULL DO NOTHING
        RETURNING (xmax = 0) AS inserted`,
       [event.dedupKey, event.family, event.title, event.observedAt ?? null, parsed.source, parsed.confidence,
@@ -858,7 +866,7 @@ async function ingestNarrative(
         event.assertionType, event.severity, event.confidence ?? "C3", event.geoType,
         portee.regional, portee.motif, fingerprint,
         // valid_at : la date de l'article ; at : le moment où on l'a lu.
-        event.observedAt ?? fetchedAt.toISOString(), fetchedAt.toISOString()]
+        event.observedAt ?? fetchedAt.toISOString(), fetchedAt.toISOString(), langue.language]
     );
     if (r.rows[0]?.inserted) added++;
     faits.push({
