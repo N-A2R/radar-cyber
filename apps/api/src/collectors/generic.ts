@@ -39,6 +39,7 @@ import { parseEmbeddedJson } from "./parsers/embedded-json.js";
 import { parseLandingNotice } from "./parsers/landing.js";
 import { constaterTransition } from "./reveil.js";
 import { libelleMotif, versEvidence, type ExplicationRattachement } from "../journal/rattachement.js";
+import { dedicatedSourceIds } from "./index.js";
 
 type SourceRow = {
   id: string;
@@ -53,6 +54,82 @@ type SourceRow = {
   last_error_at: string | null;
   relevance: string;
 };
+
+export type CycleSourceRow = SourceRow & {
+	enabled: boolean;
+	derniere_collecte: Date | string | null;
+};
+
+export type ExclusionReason = "disabled" | "quarantine_kind" | "dedicated_collector" | "interval_not_elapsed";
+
+/** Timestamp parseable, ou NaN quand la valeur est absente/invalide. */
+function parseSourceTime(value: Date | string | null | undefined): number {
+	if (value === null || value === undefined) return NaN;
+	const ms = value instanceof Date ? value.getTime() : Date.parse(value);
+	return Number.isNaN(ms) ? NaN : ms;
+}
+
+/**
+ * Décide quelles sources génériques sont collectées ce cycle.
+ * Fonction pure : aucune E/S, `nowMs` injectable pour un test déterministe.
+ */
+export function selectCycleSources(
+	rows: readonly CycleSourceRow[],
+	nowMs?: number,
+): { selected: CycleSourceRow[]; excluded: { id: string; reason: ExclusionReason; detail: string }[] } {
+	const now = nowMs ?? Date.now();
+	const selected: CycleSourceRow[] = [];
+	const excluded: { id: string; reason: ExclusionReason; detail: string }[] = [];
+
+	for (const row of rows) {
+		if (!row.enabled) {
+			excluded.push({ id: row.id, reason: "disabled", detail: "désactivée (enabled=false)" });
+			continue;
+		}
+		if ((row.kind as string) === "quarantine") {
+			excluded.push({ id: row.id, reason: "quarantine_kind", detail: "kind='quarantine' : collecteur dédié" });
+			continue;
+		}
+		if (dedicatedSourceIds.includes(row.id)) {
+			excluded.push({ id: row.id, reason: "dedicated_collector", detail: `collecteur dédié (id=${row.id})` });
+			continue;
+		}
+
+		const timestamps = [
+			parseSourceTime(row.last_ok_at),
+			parseSourceTime(row.last_error_at),
+			parseSourceTime(row.derniere_collecte),
+		].filter((ts) => !Number.isNaN(ts));
+		const reference = Math.max(...timestamps);
+		if (Number.isFinite(reference)) {
+			const seuilMs = (row.interval_sec ?? 3600) * 1000 * 0.8;
+			const ageMs = now - reference;
+			if (ageMs < seuilMs) {
+				excluded.push({
+					id: row.id,
+					reason: "interval_not_elapsed",
+					detail: `intervalle non écoulé : ${Math.max(0, Math.floor(ageMs / 1000))}s < ${Math.floor(seuilMs / 1000)}s`,
+				});
+				continue;
+			}
+		}
+		selected.push(row);
+	}
+
+	selected.sort((a, b) => {
+		const aJamais = a.derniere_collecte === null;
+		const bJamais = b.derniere_collecte === null;
+		if (aJamais !== bJamais) return aJamais ? -1 : 1;
+		if (!aJamais && !bJamais) {
+			const at = parseSourceTime(a.derniere_collecte);
+			const bt = parseSourceTime(b.derniere_collecte);
+			if (!Number.isNaN(at) && !Number.isNaN(bt) && at !== bt) return at - bt;
+		}
+		return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
+	});
+
+	return { selected, excluded };
+}
 
 /** `skipped` = éléments écartés (porte de pertinence ou filtre anti-bruit). */
 /**
@@ -943,13 +1020,6 @@ function looksLikeBlocklist(url: string, body?: string): boolean {
 }
 
 async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], coverage: CoverageContext): Promise<void> {
-  // Une source qui n'a jamais réussi (last_ok_at NULL) ne doit pas être
-  // retentée à chaque tick : le dernier échec sert de référence.
-  const lastOk = source.last_ok_at ? Date.parse(source.last_ok_at) : NaN;
-  const lastAttempt = source.last_error_at ? Date.parse(source.last_error_at) : NaN;
-  const reference = Number.isNaN(lastOk) ? lastAttempt : lastOk;
-  const minInterval = (source.interval_sec ?? 3600) * 1000 * 0.8;
-  if (!Number.isNaN(reference) && Date.now() - reference < minInterval) return;
 
   try {
     const body = await fetchText(source.url);
@@ -1034,23 +1104,23 @@ export async function runGenericSources(
 	log: (msg: string) => void,
 	opts?: { sourceIds?: string[]; limit?: number },
 ): Promise<void> {
-	// Les sources ci-dessous ont un collecteur dédié (collectors/index.ts) :
-	// le moteur générique ne doit pas tenter de les parser comme des flux.
 	const params: unknown[] = [];
 	let sql =
-		"SELECT id, name, family, url, kind, format, parser, interval_sec, last_ok_at, last_error_at, relevance FROM source WHERE enabled AND kind <> 'quarantine' AND id NOT IN ('cert_fr','cisa_kev','ransomlook','epss','hermes_radar_cyber','nvd_cve','ctlog')";
+		"SELECT s.id, s.name, s.family, s.url, s.kind, s.format, s.parser, s.interval_sec, s.last_ok_at, s.last_error_at, s.relevance, s.enabled, r.derniere_collecte FROM source s LEFT JOIN (SELECT source_id, max(finished_at) AS derniere_collecte FROM collector_run GROUP BY source_id) r ON r.source_id = s.id";
 	if (opts?.sourceIds?.length) {
 		params.push(opts.sourceIds);
-		sql += ` AND id = ANY($${params.length})`;
+		sql += ` WHERE s.id = ANY($${params.length})`;
 	}
-	sql += " ORDER BY id";
-	if (opts?.limit) {
-		params.push(opts.limit);
-		sql += ` LIMIT $${params.length}`;
+	const { rows } = await ingestQuery<CycleSourceRow>(sql, params);
+	const { selected, excluded } = selectCycleSources(rows);
+	for (const ex of excluded) {
+		log(`[planification] source ${ex.id} écartée : ${ex.detail} (${ex.reason})`);
 	}
-	const { rows } = await ingestQuery<SourceRow>(sql, params);
-  log(`ingestion générique : ${rows.length} sources candidat(es)`);
-  runLog = log;
+	if (opts?.limit !== undefined && selected.length > opts.limit) {
+		selected.length = opts.limit;
+	}
+	log(`ingestion générique : ${selected.length} source(s) retenue(s) sur ${rows.length} candidat(es)`);
+	runLog = log;
 
   // Index de pertinence chargé une seule fois par run (392 orgs + domaines).
   const { rows: orgRows } = await ingestQuery<{ name: string; domain: string | null; assets: string[] | null }>(
@@ -1075,8 +1145,8 @@ export async function runGenericSources(
   const CONCURRENCY = 8;
   let index = 0;
   const workers = Array.from({ length: CONCURRENCY }, async () => {
-    while (index < rows.length) {
-      const source = rows[index++];
+    while (index < selected.length) {
+      const source = selected[index++];
       await processSource(source, orgIndex, coverage);
     }
   });

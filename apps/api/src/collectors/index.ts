@@ -8,3 +8,6 @@ import { collector as poc } from "./poc.collector.js";
 import type { Collector } from "@radar/shared";
 
 export const collectors: Collector[] = [certfr, kev, ransomlook, epss, nvd, ctlog, poc];
+
+/** Ids réservés aux collecteurs dédiés (server.ts), y compris Hermès. */
+export const dedicatedSourceIds: string[] = [...new Set([...collectors.map((c) => c.id), "hermes_radar_cyber"])];

@@ -176,8 +176,18 @@ async function lastRunAgeSec(sourceId: string): Promise<number> {
 async function runCollectors(): Promise<void> {
 	for (const c of collectors) {
 		const age = await lastRunAgeSec(c.id);
-		if (age < c.intervalSec * 0.8) continue;
-
+		const seuil = c.intervalSec * 0.8;
+		if (!Number.isFinite(age)) {
+			app.log.info(`[planification] collecteur ${c.id} : première collecte`);
+		} else {
+			app.log.info(`[planification] collecteur ${c.id} : âge ${Math.round(age)}s (seuil ${Math.round(seuil)}s)`);
+		}
+		if (age < seuil) {
+			app.log.info(
+				`[planification] collecteur ${c.id} écarté : intervalle non écoulé (${Math.round(age)}s < ${Math.round(seuil)}s)`
+			);
+			continue;
+		}
 		const { rows } = await query<{ cursor: unknown }>("SELECT cursor FROM source WHERE id=$1", [c.id]);
 		// Colonne jsonb : la forme réelle n'est connue qu'à l'exécution.
 		const stored: unknown = rows[0]?.cursor;
