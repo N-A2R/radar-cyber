@@ -102,18 +102,18 @@ describe("ReviewView — décisions groupées", () => {
       for (const check of rowChecks) {
         await act(async () => { check.click(); });
       }
-      expect(host.querySelector(".revue__bulk-count")?.textContent).toContain("3 sélectionnés");
-      expect(host.querySelector<HTMLInputElement>('input[aria-label="Tout sélectionner"]')?.checked).toBe(true);
+      expect(host.querySelector(".revue__bulk-count")?.textContent).toContain("3 selected out of 3");
+      expect(host.querySelector<HTMLInputElement>('input[aria-label="Select all"]')?.checked).toBe(true);
 
       const accept = [...host.querySelectorAll("button")]
-        .find((button) => button.textContent?.includes("Accepter la sélection"));
+        .find((button) => button.textContent?.includes("Accept selection"));
       expect(accept?.disabled).toBe(true);
       setField(host.querySelector<HTMLTextAreaElement>("#revue-bulk-raison")!, "rattachement vérifié au registre");
       expect(accept?.disabled).toBe(false);
 
       await act(async () => { accept!.click(); });
       await flush();
-      expect(host.textContent).toContain("Décisions 0/3 envoyées");
+      expect(host.textContent).toContain("Decisions 0/3 sent");
 
       await act(async () => { firstDecision.resolve(); });
       await flush();
@@ -133,8 +133,8 @@ describe("ReviewView — décisions groupées", () => {
       ]);
       expect(maxActive).toBe(1);
       expect(calls.filter((call) => call.url.includes("/api/review/queue"))).toHaveLength(2);
-      expect(host.querySelector(".revue__notice")?.textContent).toContain("Acceptations enregistrées");
-      expect(host.querySelector(".revue__bulk-count")?.textContent).toContain("0 sélectionné");
+      expect(host.querySelector(".revue__notice")?.textContent).toContain("Acceptances recorded");
+      expect(host.querySelector(".revue__bulk-count")?.textContent).toContain("0 selected out of 3");
     } finally {
       await act(async () => { root?.unmount(); });
       host.remove();

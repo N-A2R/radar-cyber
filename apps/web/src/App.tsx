@@ -1,6 +1,6 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { creerMemoire, etatDonnees, type Instantane } from "./offline";
-import { api, clearAuthToken, getAuthToken, setAuthToken, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type Stats, type TodayResponse } from "./api";
+import { api, clearAuthToken, getAuthToken, setAuthToken, type CouverturePublique, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type Stats, type TodayResponse } from "./api";
 import { mockData } from "./mock";
 const Map3D = lazy(() => import("./map/Map3D"));
 const GraphView = lazy(() => import("./graph/GraphView"));
@@ -18,6 +18,7 @@ const JournalView = lazy(() => import("./components/JournalView"));
 const DossierView = lazy(() => import("./components/DossierView"));
 const NaView = lazy(() => import("./components/NaView"));
 const TodayView = lazy(() => import("./components/TodayView"));
+const CouvertureView = lazy(() => import("./components/CouvertureView"));
 const AlertsView = lazy(() => import("./components/AlertsView"));
 const LoginScreen = lazy(() => import("./components/LoginScreen"));
 import type { ViewKey } from "./contracts";
@@ -41,6 +42,7 @@ const MOCK_MODE = import.meta.env.VITE_DATA_MODE === "mock";
 
 const VIEWS: { id: ViewKey; label: string }[] = [
   { id: "today", label: "Aujourd'hui" },
+  { id: "couverture", label: "Coverage" },
   { id: "map", label: "Carte" },
   { id: "review", label: "Revue" },
   { id: "journal", label: "Journal" },
@@ -69,6 +71,9 @@ export default function App() {
   const [todayData, setTodayData] = useState<TodayResponse | null>(null);
   const [todayLoading, setTodayLoading] = useState(!MOCK_MODE);
   const [todayError, setTodayError] = useState<string | null>(null);
+  const [couvertureData, setCouvertureData] = useState<CouverturePublique | null>(null);
+  const [couvertureLoading, setCouvertureLoading] = useState(false);
+  const [couvertureError, setCouvertureError] = useState<string | null>(null);
   const [statsDepartements, setStatsDepartements] = useState<DeptStat[]>([]);
   const [graph, setGraph] = useState<Graph>({ nodes: [], links: [] });
   const [flows, setFlows] = useState<FlowArc[]>([]);
@@ -379,6 +384,26 @@ export default function App() {
       controller.abort();
       clearInterval(timer);
     };
+  }, [view, token]);
+
+  // The coverage figure is a published measurement: one request when the view
+  // is opened, aborted as soon as the user leaves it.
+  useEffect(() => {
+    if (view !== "couverture" || (!token && !MOCK_MODE)) return;
+    const controller = new AbortController();
+    setCouvertureLoading(true);
+    setCouvertureError(null);
+    api.couverture(controller.signal)
+      .then(setCouvertureData)
+      .catch((err: unknown) => {
+        if (!controller.signal.aborted) {
+          setCouvertureError(err instanceof Error ? err.message : "unavailable");
+        }
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setCouvertureLoading(false);
+      });
+    return () => controller.abort();
   }, [view, token]);
 
   const byFamily = useMemo(() => {
@@ -711,6 +736,9 @@ export default function App() {
                 setSheetOrgId(null);
               }}
             />
+          ) : null}
+          {view === "couverture" ? (
+            <CouvertureView data={couvertureData} loading={couvertureLoading} error={couvertureError} />
           ) : null}
           {view === "map" ? (
             <Map3D

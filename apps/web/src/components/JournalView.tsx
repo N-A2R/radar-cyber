@@ -1,46 +1,22 @@
 /**
- * Écran Journal : lit GET /api/journal/review en lecture seule.
+ * Journal screen: reads GET /api/journal/review read-only.
  *
- * Les pages API de 500 lignes sont accumulées jusqu'à épuisement du curseur
- * `avant` (plafond documenté de 10 000 lignes), puis filtrées et paginées
- * côté navigateur par tranches de 50. Le AbortController annule les requêtes
- * périmées lorsque l'écran est quitté.
+ * API pages of 500 rows are accumulated until the `before` cursor is exhausted
+ * (documented cap of 10,000 rows), then filtered and paginated in the browser
+ * in pages of 50. The AbortController cancels stale requests on unmount.
  */
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { api, type JournalDecision } from "../api";
-import JournalListe, { DECISION_NON_PRECISEE, type JournalFiltres } from "./JournalListe";
+import JournalList, { type JournalFilters } from "./JournalListe";
+import { filterJournal } from "./journalFilter";
 
-export { DECISION_NON_PRECISEE } from "./JournalListe";
-export type { JournalFiltres } from "./JournalListe";
+export { DECISION_UNSPECIFIED } from "./JournalListe";
+export type { JournalFilters } from "./JournalListe";
+export { filterJournal } from "./journalFilter";
 
-const LIMITE_API = 500;
-const PLAFOND = 10_000;
-const LIGNES_PAR_PAGE = 50;
-
-/**
- * Filtre pur : aucune mutation, ordre d'origine conservé.
- * Acteur = sous-chaîne insensible à la casse ; décision = correspondance
- * exacte (chaîne vide ou absence = aucune restriction) ; dates = bornes
- * inclusives sur les dix premiers caractères de l'horodatage (YYYY-MM-DD).
- */
-export function filtrerJournal(
-  rows: JournalDecision[],
-  filtres: JournalFiltres,
-): JournalDecision[] {
-  const acteur = filtres.acteur?.toLowerCase() ?? "";
-  const decision = filtres.decision === DECISION_NON_PRECISEE ? null : filtres.decision;
-  const du = filtres.du ?? "";
-  const au = filtres.au ?? "";
-
-  return rows.filter((row) => {
-    if (acteur && !row.acteur.toLowerCase().includes(acteur)) return false;
-    if (decision !== undefined && decision !== "" && row.decision !== decision) return false;
-    const jour = row.horodatage.slice(0, 10);
-    if (du && jour < du) return false;
-    if (au && jour > au) return false;
-    return true;
-  });
-}
+const API_LIMIT = 500;
+const MAX_ROWS = 10_000;
+const ROWS_PER_PAGE = 50;
 
 type Props = {
   onUnauthorized?: () => void;
@@ -48,11 +24,11 @@ type Props = {
 
 export default function JournalView({ onUnauthorized }: Props) {
   const [rows, setRows] = useState<JournalDecision[]>([]);
-  const [filtres, setFiltres] = useState<JournalFiltres>({});
+  const [filters, setFilters] = useState<JournalFilters>({});
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [tronque, setTronque] = useState(false);
+  const [truncated, setTruncated] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -60,33 +36,33 @@ export default function JournalView({ onUnauthorized }: Props) {
     setError(null);
 
     (async () => {
-      const charge: JournalDecision[] = [];
-      let avant: number | null = null;
-      let troncation = false;
+      const loaded: JournalDecision[] = [];
+      let cursor: number | null = null;
+      let truncatedResult = false;
       try {
         for (;;) {
-          const data = await api.journalReview(LIMITE_API, avant, controller.signal);
+          const data = await api.journalReview(API_LIMIT, cursor, controller.signal);
           if (controller.signal.aborted) return;
 
-          const reste = PLAFOND - charge.length;
-          charge.push(...data.rows.slice(0, reste));
-          if (data.rows.length > reste) troncation = true;
-          if (data.avant === null || data.rows.length === 0) break;
-          if (charge.length >= PLAFOND || data.avant === avant) {
-            // Curseur épuisé par le plafond ou non progressif : on s'arrête.
-            troncation = true;
+          const remaining = MAX_ROWS - loaded.length;
+          loaded.push(...data.rows.slice(0, remaining));
+          if (data.rows.length > remaining) truncatedResult = true;
+          if (data.nextCursor === null || data.rows.length === 0) break;
+          if (loaded.length >= MAX_ROWS || data.nextCursor === cursor) {
+            // Cursor exhausted by the cap or not progressing: stop here.
+            truncatedResult = true;
             break;
           }
-          avant = data.avant;
+          cursor = data.nextCursor;
         }
-        setRows(charge);
-        setTronque(troncation);
+        setRows(loaded);
+        setTruncated(truncatedResult);
       } catch (err: unknown) {
         if (controller.signal.aborted) return;
         if (typeof err === "object" && err !== null && "status" in err && err.status === 401) {
           onUnauthorized?.();
         }
-        setError(err instanceof Error ? err.message : "journal indisponible");
+        setError(err instanceof Error ? err.message : "journal unavailable");
       } finally {
         if (!controller.signal.aborted) setLoading(false);
       }
@@ -95,41 +71,41 @@ export default function JournalView({ onUnauthorized }: Props) {
     return () => controller.abort();
   }, [onUnauthorized]);
 
-  const filtrees = useMemo(() => filtrerJournal(rows, filtres), [rows, filtres]);
-  const pageCount = Math.max(1, Math.ceil(filtrees.length / LIGNES_PAR_PAGE));
-  const pageCourante = Math.min(page, pageCount);
-  const visibles = filtrees.slice(
-    (pageCourante - 1) * LIGNES_PAR_PAGE,
-    pageCourante * LIGNES_PAR_PAGE,
+  const filteredRows = useMemo(() => filterJournal(rows, filters), [rows, filters]);
+  const pageCount = Math.max(1, Math.ceil(filteredRows.length / ROWS_PER_PAGE));
+  const currentPage = Math.min(page, pageCount);
+  const visibleRows = filteredRows.slice(
+    (currentPage - 1) * ROWS_PER_PAGE,
+    currentPage * ROWS_PER_PAGE,
   );
 
-  const changerFiltre = useCallback((patch: JournalFiltres) => {
-    setFiltres((precedents) => ({ ...precedents, ...patch }));
+  const changeFilter = useCallback((patch: JournalFilters) => {
+    setFilters((previous) => ({ ...previous, ...patch }));
     setPage(1);
   }, []);
 
-  const reinitialiser = useCallback(() => {
-    setFiltres({});
+  const resetFilters = useCallback(() => {
+    setFilters({});
     setPage(1);
   }, []);
 
-  const allerPrecedent = useCallback(() => setPage((p) => Math.max(1, p - 1)), []);
-  const allerSuivant = useCallback(() => setPage((p) => Math.min(pageCount, p + 1)), [pageCount]);
+  const goToPrevious = useCallback(() => setPage((p) => Math.max(1, p - 1)), []);
+  const goToNext = useCallback(() => setPage((p) => Math.min(pageCount, p + 1)), [pageCount]);
 
   return (
-    <JournalListe
-      rows={visibles}
-      resultats={filtrees.length}
-      filtres={filtres}
-      onFiltre={changerFiltre}
-      onReset={reinitialiser}
-      tronque={tronque}
+    <JournalList
+      rows={visibleRows}
+      resultCount={filteredRows.length}
+      filters={filters}
+      onFilterChange={changeFilter}
+      onReset={resetFilters}
+      truncated={truncated}
       loading={loading}
       error={error}
-      page={pageCourante}
+      page={currentPage}
       pageCount={pageCount}
-      onPrecedent={allerPrecedent}
-      onSuivant={allerSuivant}
+      onPrevious={goToPrevious}
+      onNext={goToNext}
     />
   );
 }
