@@ -29,6 +29,8 @@ export const SEUIL_PART_SOURCE_MAX = 0.5;
 export const SEUIL_FENETRE_JOURS_MIN = 90;
 
 export type FenetreSeuil = { debut: string; fin: string };
+/** Corpus vide : pas de bornes à afficher, mais un refus correctement formé. */
+export const FENETRE_SANS_DONNEES: FenetreSeuil = { debut: "", fin: "" };
 
 /** Un incident n'apporte à la porte que sa date de publication et son éditeur. */
 export type IncidentSeuil = { date: string; source?: string | null };
@@ -62,8 +64,12 @@ export function incidentsDansFenetre(
 	);
 }
 
-/** Nombre de jours calendaires de la fenêtre, bornes incluses. */
+/**
+ * Nombre de jours calendaires de la fenêtre, bornes incluses.
+ * Un corpus sans aucune date n'a pas de fenêtre : zéro jour, pas d'exception.
+ */
 export function joursFenetre(fenetre: FenetreSeuil): number {
+	if (fenetre.debut === "" && fenetre.fin === "") return 0;
 	const debut = Date.parse(`${fenetre.debut}T00:00:00Z`);
 	const fin = Date.parse(`${fenetre.fin}T00:00:00Z`);
 	if (Number.isNaN(debut) || Number.isNaN(fin) || fin < debut) {
@@ -104,9 +110,13 @@ export function evaluerSeuilsCouverture(intrants: {
 	const refus: RaisonRefus[] = [];
 
 	if (dansFenetre.length < SEUIL_CORPUS_MIN) {
+		const fenetreLue =
+			intrants.fenetre.debut === ""
+				? "aucune date de publication"
+				: `la fenêtre ${intrants.fenetre.debut} → ${intrants.fenetre.fin}`;
 		refus.push({
 			code: "corpus_trop_petit",
-			raison: `Corpus trop petit : ${dansFenetre.length} incident(s) dans la fenêtre ${intrants.fenetre.debut} → ${intrants.fenetre.fin}, seuil minimal ${SEUIL_CORPUS_MIN}.`,
+			raison: `Corpus trop petit : ${dansFenetre.length} incident(s) dans ${fenetreLue}, seuil minimal ${SEUIL_CORPUS_MIN}.`,
 		});
 	}
 	if (!referentiel.publiable && referentiel.raison !== null) {
@@ -125,8 +135,11 @@ export function evaluerSeuilsCouverture(intrants: {
 		refus.push({
 			code: "fenetre_courte",
 			raison:
-				`Fenêtre trop courte : ${jours} jour(s) de ${intrants.fenetre.debut} à ${intrants.fenetre.fin},` +
-				` seuil minimal ${SEUIL_FENETRE_JOURS_MIN} jours.`,
+			intrants.fenetre.debut === ""
+				? `Fenêtre trop courte : aucune fenêtre mesurable (0 jour(s)),` +
+					` seuil minimal ${SEUIL_FENETRE_JOURS_MIN} jours.`
+				: `Fenêtre trop courte : ${jours} jour(s) de ${intrants.fenetre.debut} à ${intrants.fenetre.fin},` +
+					` seuil minimal ${SEUIL_FENETRE_JOURS_MIN} jours.`,
 		});
 	}
 

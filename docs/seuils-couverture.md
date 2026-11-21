@@ -26,10 +26,11 @@ dans `apps/api/src/analyse/publiabilite.ts`, sans second seuil parallèle.
 
 ### Corpus : au moins 30 incidents dans la fenêtre
 
-Un corpus de 5 lignes ne permet aucune affirmation générale : à effectif égal,
-l'intervalle de confiance à 95 % d'un taux observé fait ±30 points autour du
-chiffre. Le seuil de 30 le ramène à environ ±17 points au pire endroit (taux de
-50 %). Il s'applique au dénominateur réel — les incidents hors fenêtre restent
+Un corpus de 5 lignes ne permet aucune affirmation générale : avec 0 incident
+vu sur 5, la borne supérieure de l'intervalle de Wilson à 95 % est 43,5 % ;
+elle tombe à 11,4 % pour 30 incidents et 7,1 % pour 50. À taux de 50 %, la
+demi-largeur passe d'environ ±33 points (n=5) à ±17 points (n=30).
+Il s'applique au dénominateur réel — les incidents hors fenêtre restent
 du contexte et ne comptent pas pour franchir le seuil.
 
 ### Référentiel : au moins trois secteurs attendus sur quatre
@@ -61,6 +62,35 @@ de 365 jours, le nombre mensuel varie de 1 (janvier, mai et juin) à 9 (octobre
 Le plancher de 90 jours couvre un trimestre, assez pour ne pas résumer la
 période à un seul pic. La fenêtre du corpus mesuré va du 2024-04-19 au
 2026-10-14, soit 909 jours : elle passe largement.
+
+
+## Repères mesurés (21 novembre 2026)
+
+Chaque seuil a été confronté aux corpus versionnés et à la base de travail :
+
+| Garde-fou | Mesure relevée | Seuil |
+| --- | --- | --- |
+| Corpus | 42 incidents de fenêtre sur 60 dans le corpus de référence ; 50 dans le corpus consolidé servi | ≥ 30 |
+| Référentiel | 4/4 secteurs : agroalimentaire 11 209, industrie 48 895, construction 115 581, commerce 175 250 (`org`, base de travail) | ≥ 3/4 |
+| Sources | 27 éditeurs sur 42 dans le corpus de référence ; 17 éditeurs, part max 30 % (Sud Ouest 15/50) dans le corpus servi | ≥ 5 et ≤ 50 % |
+| Fenêtre | 1 à 9 incidents par mois sur les 12 mois du corpus de référence ; 909 jours dans le corpus servi | ≥ 90 |
+
+```bash
+# 42 / 27 / 1–9 : corpus de référence, fenêtre 2025-11-01 → 2026-10-31
+jq -r '.incidents | map(select(.datePublique >= "2025-11-01" and .datePublique <= "2026-10-31")) as $w |
+  "dans fenetre: \($w|length) ; editeurs: \($w|map(.preuve.editeur // empty)|unique|length) ; " +
+  "mois min-max: \([$w|group_by(.datePublique[0:7])[]|length]|min)-\([$w|group_by(.datePublique[0:7])[]|length]|max)"' \
+  bench/fixtures/corpus-reference-na.json
+
+# 11 209 / 48 895 / 115 581 / 175 250 : base de travail, port 5433
+psql 'postgres://radar:radar@localhost:5433/radar' -Atc \
+  "SELECT COALESCE(sector,kind), count(*) FROM org WHERE kind='entreprise'
+    AND COALESCE(sector,kind) IN ('agroalimentaire','industrie','construction','commerce') GROUP BY 1 ORDER BY 1"
+```
+
+Un corpus sans aucune date ne lève plus d'exception : la fenêtre vaut
+`{ debut: "", fin: "" }`, `corpus.jours` vaut 0 et trois refus sont renvoyés,
+dont « aucune fenêtre mesurable ».
 
 ## Ce que le refus dit, et ce qu'il ne dit pas
 
@@ -102,11 +132,12 @@ apps/api/node_modules/.bin/tsx scripts/couverture-globale.mts --corpus=bench/fix
 ```
 
 `apps/api/test/couverture-publication.test.ts` rejoue la mesure sur 5 lignes
-(refus avec raison chiffrée) et sur 50 lignes (publication) ; un troisième cas
-vérifie le refus d'une fenêtre de 30 jours.
+(refus avec raison chiffrée), sur 50 lignes (publication), sur une fenêtre de
+30 jours et sur un corpus vide (refus sans exception).
 `apps/api/test/couverture-api.test.ts` vérifie le verdict tel que servi par
-`GET /api/couverture`, et `apps/api/test/couverture-globale.test.ts` couvre la
-porte du script global.
+`GET /api/couverture`, y compris le passage à `publiable: false` avec sa raison
+quand le rapport passe sous le seuil ; `apps/api/test/couverture-globale.test.ts`
+couvre la porte du script global (référentiel, éditeurs, fenêtre).
 
 ```bash
 cd apps/api && RADAR_TEST_ADMIN_URL='postgres://radar:radar@localhost:5433/postgres' \
