@@ -1,0 +1,1410 @@
+{
+  "genereLe": "2026-11-21T21:05:21Z",
+  "dureeMs": 1425,
+  "protocole": {
+    "repertoire": "../../../../../../tmp/sante-sample",
+    "timeoutMs": 10000,
+    "concurrence": 10,
+    "tentatives": 3,
+    "lecteur": null,
+    "tailleMaxOctets": 1000000,
+    "criteres": "2xx et texte exploitable ; incohérente si aucun jeton du nom déclaré ; repli lecteur si blocage"
+  },
+  "totaux": {
+    "lignes": 49,
+    "urls": 49,
+    "valide": 49,
+    "morte": 0,
+    "sans contenu": 0,
+    "incoherent": 0,
+    "sansUrl": 0,
+    "lecteur": 0,
+    "fichiers": 1,
+    "taux": 100
+  },
+  "parFichier": [
+    {
+      "fichier": "additions.jsonl",
+      "lignes": 49,
+      "urls": 49,
+      "valide": 49,
+      "morte": 0,
+      "sans contenu": 0,
+      "incoherent": 0,
+      "sansUrl": 0,
+      "lecteur": 0,
+      "taux": 100
+    }
+  ],
+  "resultats": [
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 1,
+      "id": "na-sante-0001",
+      "nom": "Ch hopital centre hospitalier d'angouleme",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/angouleme/ch-hopital-centre-hospitalier-dangouleme",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/centre-hospitalier-ch/angouleme/ch-hopital-centre-hospitalier-dangouleme",
+      "octets": 121603,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "hopital",
+        "hospitalier",
+        "angouleme"
+      ],
+      "trouves": [
+        "hopital",
+        "hospitalier",
+        "angouleme"
+      ],
+      "extrait": "ch hopital centre hospitalier d angouleme sante fr aller au contenu principal republique francaise menu sante fr l information fiable utile po…",
+      "dureeMs": 1087
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 2,
+      "id": "na-sante-0009",
+      "nom": "Ehpad - la chalotine",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/brillac/ehpad-la-chalotine-0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/brillac/ehpad-la-chalotine-0",
+      "octets": 69988,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "chalotine"
+      ],
+      "trouves": [
+        "ehpad",
+        "chalotine"
+      ],
+      "extrait": "… categories etablissement d hebergement pour personnes agees dependantes brillac ehpad la chalotine ehpad la chalotine fermer information etablissement d hebergement pour personnes agees dependantes en cas d urgence vita…",
+      "dureeMs": 1056
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 3,
+      "id": "na-sante-0017",
+      "nom": "Usld ch hopital centre hospitalier confolens",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/confolens/usld-ch-hopital-centre-hospitalier-confolens",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-de-soins-longue-duree/confolens/usld-ch-hopital-centre-hospitalier-confolens",
+      "octets": 68514,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "usld",
+        "hopital",
+        "hospitalier",
+        "confolens"
+      ],
+      "trouves": [
+        "usld",
+        "hopital",
+        "hospitalier",
+        "confolens"
+      ],
+      "extrait": "…acebook twitter accueil categories etablissement de soins longue duree confolens usld ch hopital centre hospitalier confolens usld ch hopital centre hospitalier confolens fermer information en cas d urgence vitale contac…",
+      "dureeMs": 1061
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 4,
+      "id": "na-sante-0025",
+      "nom": "Usld ch hopital centre hospitalier la rochefoucauld",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/la-rochefoucauld-en-angoumois/usld-ch-hopital-centre-hospitalier-la-rochefoucauld",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-de-soins-longue-duree/la-rochefoucauld-en-angoumois/usld-ch-hopital-centre-hospitalier-la-rochefoucauld",
+      "octets": 68900,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "usld",
+        "hopital",
+        "hospitalier",
+        "rochefoucauld"
+      ],
+      "trouves": [
+        "usld",
+        "hopital",
+        "hospitalier",
+        "rochefoucauld"
+      ],
+      "extrait": "…eil categories etablissement de soins longue duree la rochefoucauld en angoumois usld ch hopital centre hospitalier la rochefoucauld usld ch hopital centre hospitalier la rochefoucauld fermer information en cas d urgence…",
+      "dureeMs": 1079
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 5,
+      "id": "na-sante-0033",
+      "nom": "Ehpad residence les jonquilles",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/val-de-bonnieure/ehpad-residence-les-jonquilles-0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/val-de-bonnieure/ehpad-residence-les-jonquilles-0",
+      "octets": 70421,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "residence",
+        "jonquilles"
+      ],
+      "trouves": [
+        "ehpad",
+        "residence",
+        "jonquilles"
+      ],
+      "extrait": "…es etablissement d hebergement pour personnes agees dependantes val de bonnieure ehpad residence les jonquilles ehpad residence les jonquilles fermer information etablissement d hebergement pour personnes agees dependant…",
+      "dureeMs": 1083
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 6,
+      "id": "na-sante-0041",
+      "nom": "Ehpad residence darcy-brun",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/etaules/ehpad-residence-darcy-brun-0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/etaules/ehpad-residence-darcy-brun-0",
+      "octets": 72540,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "residence",
+        "darcy",
+        "brun"
+      ],
+      "trouves": [
+        "ehpad",
+        "residence",
+        "darcy",
+        "brun"
+      ],
+      "extrait": "… categories etablissement d hebergement pour personnes agees dependantes etaules ehpad residence darcy brun ehpad residence darcy brun fermer information etablissement d hebergement pour personnes agees dependantes en ca…",
+      "dureeMs": 1086
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 7,
+      "id": "na-sante-0049",
+      "nom": "Ehpad les jardins de loulay",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/loulay/ehpad-les-jardins-de-loulay-0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/loulay/ehpad-les-jardins-de-loulay-0",
+      "octets": 73692,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "jardins",
+        "loulay"
+      ],
+      "trouves": [
+        "ehpad",
+        "jardins",
+        "loulay"
+      ],
+      "extrait": "…l categories etablissement d hebergement pour personnes agees dependantes loulay ehpad les jardins de loulay ehpad les jardins de loulay fermer information etablissement d hebergement pour personnes agees dependantes en …",
+      "dureeMs": 1086
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 8,
+      "id": "na-sante-0057",
+      "nom": "Cl clinique pasteur - royan",
+      "url": "https://www.sante.fr/etablissement-de-soins-pluridisciplinaire/royan-cedex/cl-clinique-pasteur-royan",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-de-soins-pluridisciplinaire/royan-cedex/cl-clinique-pasteur-royan",
+      "octets": 94489,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "clinique",
+        "pasteur",
+        "royan"
+      ],
+      "trouves": [
+        "clinique",
+        "pasteur",
+        "royan"
+      ],
+      "extrait": "cl clinique pasteur royan sante fr aller au contenu principal republique francaise menu sante fr l information fiable utile pour votre sante s…",
+      "dureeMs": 1089
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 9,
+      "id": "na-sante-0065",
+      "nom": "Ehpad - residence valpastour",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saint-medard-daunis/ehpad-residence-valpastour-0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saint-medard-daunis/ehpad-residence-valpastour-0",
+      "octets": 72179,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "residence",
+        "valpastour"
+      ],
+      "trouves": [
+        "ehpad",
+        "residence",
+        "valpastour"
+      ],
+      "extrait": "…tablissement d hebergement pour personnes agees dependantes saint medard d aunis ehpad residence valpastour ehpad residence valpastour fermer information etablissement d hebergement pour personnes agees dependantes en ca…",
+      "dureeMs": 1108
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 10,
+      "id": "na-sante-0073",
+      "nom": "Ehpad les jardins des hauts de thenac",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/thenac/ehpad-les-jardins-des-hauts-de-thenac-0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/thenac/ehpad-les-jardins-des-hauts-de-thenac-0",
+      "octets": 69645,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "jardins",
+        "hauts",
+        "thenac"
+      ],
+      "trouves": [
+        "ehpad",
+        "jardins",
+        "hauts",
+        "thenac"
+      ],
+      "extrait": "…l categories etablissement d hebergement pour personnes agees dependantes thenac ehpad les jardins des hauts de thenac ehpad les jardins des hauts de thenac fermer information etablissement d hebergement pour personnes a…",
+      "dureeMs": 1113
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 11,
+      "id": "na-sante-0081",
+      "nom": "Maison de retraite protestante - montauban",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/montauban/maison-de-retraite-protestante-montauban",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/montauban/maison-de-retraite-protestante-montauban",
+      "octets": 70312,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "maison",
+        "retraite",
+        "protestante",
+        "montauban"
+      ],
+      "trouves": [
+        "maison",
+        "retraite",
+        "protestante",
+        "montauban"
+      ],
+      "extrait": "…ategories etablissement d hebergement pour personnes agees dependantes montauban maison de retraite protestante montauban maison de retraite protestante montauban fermer information etablissement d hebergement pour perso…",
+      "dureeMs": 82
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 12,
+      "id": "na-sante-0089",
+      "nom": "Usld ch hopital centre hospitalier d'ussel",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/ussel-cedex/usld-ch-hopital-centre-hospitalier-dussel",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-de-soins-longue-duree/ussel-cedex/usld-ch-hopital-centre-hospitalier-dussel",
+      "octets": 68531,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "usld",
+        "hopital",
+        "hospitalier",
+        "ussel"
+      ],
+      "trouves": [
+        "usld",
+        "hopital",
+        "hospitalier",
+        "ussel"
+      ],
+      "extrait": "…ebook twitter accueil categories etablissement de soins longue duree ussel cedex usld ch hopital centre hospitalier d ussel usld ch hopital centre hospitalier d ussel fermer information en cas d urgence vitale contactez …",
+      "dureeMs": 62
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 13,
+      "id": "na-sante-0097",
+      "nom": "Ehpad les bouquets",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/bellegarde-en-marche/ehpad-les-bouquets",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/bellegarde-en-marche/ehpad-les-bouquets",
+      "octets": 69365,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "bouquets"
+      ],
+      "trouves": [
+        "ehpad",
+        "bouquets"
+      ],
+      "extrait": "…tablissement d hebergement pour personnes agees dependantes bellegarde en marche ehpad les bouquets ehpad les bouquets fermer information etablissement d hebergement pour personnes agees dependantes en cas d urgence vita…",
+      "dureeMs": 51
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 14,
+      "id": "na-sante-0105",
+      "nom": "Ehpad residence jean mazet",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/felletin/ehpad-residence-jean-mazet-0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/felletin/ehpad-residence-jean-mazet-0",
+      "octets": 70186,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "residence",
+        "jean",
+        "mazet"
+      ],
+      "trouves": [
+        "ehpad",
+        "residence",
+        "jean",
+        "mazet"
+      ],
+      "extrait": "…categories etablissement d hebergement pour personnes agees dependantes felletin ehpad residence jean mazet ehpad residence jean mazet fermer information etablissement d hebergement pour personnes agees dependantes en ca…",
+      "dureeMs": 41
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 15,
+      "id": "na-sante-0113",
+      "nom": "Usld ch hopital centre hospitalier de gueret",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/gueret/usld-ch-hopital-centre-hospitalier-de-gueret",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-de-soins-longue-duree/gueret/usld-ch-hopital-centre-hospitalier-de-gueret",
+      "octets": 68440,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "usld",
+        "hopital",
+        "hospitalier",
+        "gueret"
+      ],
+      "trouves": [
+        "usld",
+        "hopital",
+        "hospitalier",
+        "gueret"
+      ],
+      "extrait": "…l facebook twitter accueil categories etablissement de soins longue duree gueret usld ch hopital centre hospitalier de gueret usld ch hopital centre hospitalier de gueret fermer information en cas d urgence vitale contac…",
+      "dureeMs": 99
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 16,
+      "id": "na-sante-0121",
+      "nom": "Ehpad le logis de valric",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saint-vaury/ehpad-le-logis-de-valric-0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saint-vaury/ehpad-le-logis-de-valric-0",
+      "octets": 71894,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "logis",
+        "valric"
+      ],
+      "trouves": [
+        "ehpad",
+        "logis",
+        "valric"
+      ],
+      "extrait": "…egories etablissement d hebergement pour personnes agees dependantes saint vaury ehpad le logis de valric ehpad le logis de valric fermer information etablissement d hebergement pour personnes agees dependantes en cas d …",
+      "dureeMs": 100
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 17,
+      "id": "na-sante-0129",
+      "nom": "Ehpad residence saint joseph",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/chiche/ehpad-residence-saint-joseph-0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/chiche/ehpad-residence-saint-joseph-0",
+      "octets": 71051,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "residence",
+        "saint",
+        "joseph"
+      ],
+      "trouves": [
+        "ehpad",
+        "residence",
+        "saint",
+        "joseph"
+      ],
+      "extrait": "…l categories etablissement d hebergement pour personnes agees dependantes chiche ehpad residence saint joseph ehpad residence saint joseph fermer information etablissement d hebergement pour personnes agees dependantes e…",
+      "dureeMs": 101
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 18,
+      "id": "na-sante-0137",
+      "nom": "Ehpad - ch de mauleon",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/mauleon/ehpad-ch-de-mauleon-0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/mauleon/ehpad-ch-de-mauleon-0",
+      "octets": 71749,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "mauleon"
+      ],
+      "trouves": [
+        "ehpad",
+        "mauleon"
+      ],
+      "extrait": "… categories etablissement d hebergement pour personnes agees dependantes mauleon ehpad ch de mauleon ehpad ch de mauleon fermer information etablissement d hebergement pour personnes agees dependantes en cas d urgence vi…",
+      "dureeMs": 101
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 19,
+      "id": "na-sante-0145",
+      "nom": "Ehpad residence sacre-coeur",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/niort/ehpad-residence-sacre-coeur-0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/niort/ehpad-residence-sacre-coeur-0",
+      "octets": 71700,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "residence",
+        "sacre",
+        "coeur"
+      ],
+      "trouves": [
+        "ehpad",
+        "residence",
+        "sacre",
+        "coeur"
+      ],
+      "extrait": "…il categories etablissement d hebergement pour personnes agees dependantes niort ehpad residence sacre coeur ehpad residence sacre coeur fermer information etablissement d hebergement pour personnes agees dependantes en …",
+      "dureeMs": 85
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 20,
+      "id": "na-sante-0153",
+      "nom": "Ehpad la cheneraie",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/bassillac-et-auberoche/ehpad-la-cheneraie-0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/bassillac-et-auberoche/ehpad-la-cheneraie-0",
+      "octets": 70211,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "cheneraie"
+      ],
+      "trouves": [
+        "ehpad",
+        "cheneraie"
+      ],
+      "extrait": "…blissement d hebergement pour personnes agees dependantes bassillac et auberoche ehpad la cheneraie ehpad la cheneraie fermer information etablissement d hebergement pour personnes agees dependantes en cas d urgence vita…",
+      "dureeMs": 86
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 21,
+      "id": "na-sante-0161",
+      "nom": "Ehpad residence les chaminades",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/champagnac-de-belair/ehpad-residence-les-chaminades-0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/champagnac-de-belair/ehpad-residence-les-chaminades-0",
+      "octets": 72324,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "residence",
+        "chaminades"
+      ],
+      "trouves": [
+        "ehpad",
+        "residence",
+        "chaminades"
+      ],
+      "extrait": "…tablissement d hebergement pour personnes agees dependantes champagnac de belair ehpad residence les chaminades ehpad residence les chaminades fermer information etablissement d hebergement pour personnes agees dependant…",
+      "dureeMs": 89
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 22,
+      "id": "na-sante-0169",
+      "nom": "Ehpad eugene le roy",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/montignac/ehpad-eugene-le-roy-0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/montignac/ehpad-eugene-le-roy-0",
+      "octets": 69305,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "eugene",
+        "roy"
+      ],
+      "trouves": [
+        "ehpad",
+        "eugene",
+        "roy"
+      ],
+      "extrait": "…ategories etablissement d hebergement pour personnes agees dependantes montignac ehpad eugene le roy ehpad eugene le roy fermer information etablissement d hebergement pour personnes agees dependantes en cas d urgence vi…",
+      "dureeMs": 94
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 23,
+      "id": "na-sante-0177",
+      "nom": "Ch hôpital centre hospitalier de perigueux",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/perigueux-cedex/ch-hopital-centre-hospitalier-de-perigueux",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/centre-hospitalier-ch/perigueux-cedex/ch-hopital-centre-hospitalier-de-perigueux",
+      "octets": 124987,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "hopital",
+        "hospitalier",
+        "perigueux"
+      ],
+      "trouves": [
+        "hopital",
+        "hospitalier",
+        "perigueux"
+      ],
+      "extrait": "ch hopital centre hospitalier de perigueux sante fr aller au contenu principal republique francaise menu sante fr l information fiable utile p…",
+      "dureeMs": 98
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 24,
+      "id": "na-sante-0185",
+      "nom": "Ehpad la meynardie",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saint-privat-en-perigord/ehpad-la-meynardie-0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saint-privat-en-perigord/ehpad-la-meynardie-0",
+      "octets": 70923,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "meynardie"
+      ],
+      "trouves": [
+        "ehpad",
+        "meynardie"
+      ],
+      "extrait": "…issement d hebergement pour personnes agees dependantes saint privat en perigord ehpad la meynardie ehpad la meynardie fermer information etablissement d hebergement pour personnes agees dependantes en cas d urgence vita…",
+      "dureeMs": 90
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 25,
+      "id": "na-sante-0193",
+      "nom": "Ch hopital centre hospitalier  de bazas",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/bazas/ch-hopital-centre-hospitalier-de-bazas",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/centre-hospitalier-ch/bazas/ch-hopital-centre-hospitalier-de-bazas",
+      "octets": 69544,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "hopital",
+        "hospitalier",
+        "bazas"
+      ],
+      "trouves": [
+        "hopital",
+        "hospitalier",
+        "bazas"
+      ],
+      "extrait": "ch hopital centre hospitalier de bazas sante fr aller au contenu principal republique francaise menu sante fr l information fiable utile pour …",
+      "dureeMs": 30
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 26,
+      "id": "na-sante-0201",
+      "nom": "Cl clinique ophtalmologique thiers - bordeaux",
+      "url": "https://www.sante.fr/etablissement-de-soins-chirurgicaux/bordeaux/cl-clinique-ophtalmologique-thiers-bordeaux",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-de-soins-chirurgicaux/bordeaux/cl-clinique-ophtalmologique-thiers-bordeaux",
+      "octets": 72175,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "clinique",
+        "ophtalmologique",
+        "thiers",
+        "bordeaux"
+      ],
+      "trouves": [
+        "clinique",
+        "ophtalmologique",
+        "thiers",
+        "bordeaux"
+      ],
+      "extrait": "cl clinique ophtalmologique thiers bordeaux sante fr aller au contenu principal republique francaise menu sante fr l information fiable utile …",
+      "dureeMs": 35
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 27,
+      "id": "na-sante-0209",
+      "nom": "Pcl polyclinique bordeaux-nord aquitaine pbna",
+      "url": "https://www.sante.fr/etablissement-de-soins-pluridisciplinaire/bordeaux/pcl-polyclinique-bordeaux-nord-aquitaine-pbna",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-de-soins-pluridisciplinaire/bordeaux/pcl-polyclinique-bordeaux-nord-aquitaine-pbna",
+      "octets": 105230,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "pcl",
+        "polyclinique",
+        "bordeaux",
+        "nord",
+        "pbna"
+      ],
+      "trouves": [
+        "pcl",
+        "polyclinique",
+        "bordeaux",
+        "nord",
+        "pbna"
+      ],
+      "extrait": "…ok twitter accueil categories etablissement de soins pluridisciplinaire bordeaux pcl polyclinique bordeaux nord aquitaine pbna pcl polyclinique bordeaux nord aquitaine pbna fermer information hopitaux cliniques en cas d …",
+      "dureeMs": 42
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 28,
+      "id": "na-sante-0217",
+      "nom": "Ch hopital centre hospitalier  sud gironde - site de la reole",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/la-reole/ch-hopital-centre-hospitalier-sud-gironde-site-de-la-reole",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/centre-hospitalier-ch/la-reole/ch-hopital-centre-hospitalier-sud-gironde-site-de-la-reole",
+      "octets": 74396,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "hopital",
+        "hospitalier",
+        "sud",
+        "gironde",
+        "reole"
+      ],
+      "trouves": [
+        "hopital",
+        "hospitalier",
+        "sud",
+        "gironde",
+        "reole"
+      ],
+      "extrait": "ch hopital centre hospitalier sud gironde site de la reole sante fr aller au contenu principal republique francaise menu sante fr l informatio…",
+      "dureeMs": 44
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 29,
+      "id": "na-sante-0225",
+      "nom": "Ehpad residence la boetie",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/le-taillan-medoc/ehpad-residence-la-boetie-0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/le-taillan-medoc/ehpad-residence-la-boetie-0",
+      "octets": 72067,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "residence",
+        "boetie"
+      ],
+      "trouves": [
+        "ehpad",
+        "residence",
+        "boetie"
+      ],
+      "extrait": "…es etablissement d hebergement pour personnes agees dependantes le taillan medoc ehpad residence la boetie ehpad residence la boetie fermer information etablissement d hebergement pour personnes agees dependantes en cas …",
+      "dureeMs": 41
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 30,
+      "id": "na-sante-0233",
+      "nom": "Ehpad les parenteles",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/merignac/ehpad-les-parenteles-0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/merignac/ehpad-les-parenteles-0",
+      "octets": 71765,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "parenteles"
+      ],
+      "trouves": [
+        "ehpad",
+        "parenteles"
+      ],
+      "extrait": "…categories etablissement d hebergement pour personnes agees dependantes merignac ehpad les parenteles ehpad les parenteles fermer information etablissement d hebergement pour personnes agees dependantes en cas d urgence …",
+      "dureeMs": 44
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 31,
+      "id": "na-sante-0241",
+      "nom": "Cl clinique bethanie - talence",
+      "url": "https://www.sante.fr/maison-de-sante-pour-maladies-mentales/talence/cl-clinique-bethanie-talence",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/maison-de-sante-pour-maladies-mentales/talence/cl-clinique-bethanie-talence",
+      "octets": 69397,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "clinique",
+        "bethanie",
+        "talence"
+      ],
+      "trouves": [
+        "clinique",
+        "bethanie",
+        "talence"
+      ],
+      "extrait": "cl clinique bethanie talence sante fr aller au contenu principal republique francaise menu sante fr l information fiable utile pour votre sant…",
+      "dureeMs": 43
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 32,
+      "id": "na-sante-0249",
+      "nom": "Ehpad residence du puy-chat",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/chateauneuf-la-foret/ehpad-residence-du-puy-chat",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/chateauneuf-la-foret/ehpad-residence-du-puy-chat",
+      "octets": 74612,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "residence",
+        "puy",
+        "chat"
+      ],
+      "trouves": [
+        "ehpad",
+        "residence",
+        "puy",
+        "chat"
+      ],
+      "extrait": "…tablissement d hebergement pour personnes agees dependantes chateauneuf la foret ehpad residence du puy chat ehpad residence du puy chat fermer information etablissement d hebergement pour personnes agees dependantes en …",
+      "dureeMs": 47
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 33,
+      "id": "na-sante-0257",
+      "nom": "Ch esquirol -  centre proximite van gogh hopital de jour",
+      "url": "https://www.sante.fr/centre-hospitalier-specialise-de-lutte-contre-les-maladies-mentales/limoges/ch-esquirol-centre-proximite-van-gogh-hopital-de-jour",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/centre-hospitalier-specialise-de-lutte-contre-les-maladies-mentales/limoges/ch-esquirol-centre-proximite-van-gogh-hopital-de-jour",
+      "octets": 71177,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "esquirol",
+        "proximite",
+        "van",
+        "gogh",
+        "hopital",
+        "jour"
+      ],
+      "trouves": [
+        "esquirol",
+        "proximite",
+        "van",
+        "gogh",
+        "hopital",
+        "jour"
+      ],
+      "extrait": "ch esquirol centre proximite van gogh hopital de jour sante fr aller au contenu principal republique francaise menu sante fr l information fia…",
+      "dureeMs": 41
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 34,
+      "id": "na-sante-0265",
+      "nom": "Ehpad marcel faure",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/limoges/ehpad-marcel-faure-0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/limoges/ehpad-marcel-faure-0",
+      "octets": 70766,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "marcel",
+        "faure"
+      ],
+      "trouves": [
+        "ehpad",
+        "marcel",
+        "faure"
+      ],
+      "extrait": "… categories etablissement d hebergement pour personnes agees dependantes limoges ehpad marcel faure ehpad marcel faure fermer information etablissement d hebergement pour personnes agees dependantes en cas d urgence vita…",
+      "dureeMs": 45
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 35,
+      "id": "na-sante-0273",
+      "nom": "Usld ch hopital centre hospitalier saint junien",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/saint-junien/usld-ch-hopital-centre-hospitalier-saint-junien",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-de-soins-longue-duree/saint-junien/usld-ch-hopital-centre-hospitalier-saint-junien",
+      "octets": 68578,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "usld",
+        "hopital",
+        "hospitalier",
+        "saint",
+        "junien"
+      ],
+      "trouves": [
+        "usld",
+        "hopital",
+        "hospitalier",
+        "saint",
+        "junien"
+      ],
+      "extrait": "…book twitter accueil categories etablissement de soins longue duree saint junien usld ch hopital centre hospitalier saint junien usld ch hopital centre hospitalier saint junien fermer information en cas d urgence vitale …",
+      "dureeMs": 38
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 36,
+      "id": "na-sante-0281",
+      "nom": "Ehpad leon dubedat",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/biscarrosse/ehpad-leon-dubedat-0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/biscarrosse/ehpad-leon-dubedat-0",
+      "octets": 73947,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "leon",
+        "dubedat"
+      ],
+      "trouves": [
+        "ehpad",
+        "leon",
+        "dubedat"
+      ],
+      "extrait": "…egories etablissement d hebergement pour personnes agees dependantes biscarrosse ehpad leon dubedat ehpad leon dubedat fermer information etablissement d hebergement pour personnes agees dependantes en cas d urgence vita…",
+      "dureeMs": 40
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 37,
+      "id": "na-sante-0289",
+      "nom": "Ehpad du pays d'albret",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/labrit/ehpad-du-pays-dalbret-0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/labrit/ehpad-du-pays-dalbret-0",
+      "octets": 70076,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "pays",
+        "albret"
+      ],
+      "trouves": [
+        "ehpad",
+        "pays",
+        "albret"
+      ],
+      "extrait": "…l categories etablissement d hebergement pour personnes agees dependantes labrit ehpad du pays d albret ehpad du pays d albret fermer information etablissement d hebergement pour personnes agees dependantes en cas d urge…",
+      "dureeMs": 32
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 38,
+      "id": "na-sante-0297",
+      "nom": "Ehpad a noste",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/onesse-laharie/ehpad-noste-0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/onesse-laharie/ehpad-noste-0",
+      "octets": 70717,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "noste"
+      ],
+      "trouves": [
+        "ehpad",
+        "noste"
+      ],
+      "extrait": "…ries etablissement d hebergement pour personnes agees dependantes onesse laharie ehpad a noste ehpad a noste fermer information etablissement d hebergement pour personnes agees dependantes en cas d urgence vitale contact…",
+      "dureeMs": 47
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 39,
+      "id": "na-sante-0305",
+      "nom": "Ehpad residence saint pierre",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saint-pierre-du-mont/ehpad-residence-saint-pierre-0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saint-pierre-du-mont/ehpad-residence-saint-pierre-0",
+      "octets": 71229,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "residence",
+        "saint",
+        "pierre"
+      ],
+      "trouves": [
+        "ehpad",
+        "residence",
+        "saint",
+        "pierre"
+      ],
+      "extrait": "…tablissement d hebergement pour personnes agees dependantes saint pierre du mont ehpad residence saint pierre ehpad residence saint pierre fermer information etablissement d hebergement pour personnes agees dependantes e…",
+      "dureeMs": 51
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 40,
+      "id": "na-sante-0313",
+      "nom": "Ehpad pompeyrie",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/agen/ehpad-pompeyrie-0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/agen/ehpad-pompeyrie-0",
+      "octets": 75255,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "pompeyrie"
+      ],
+      "trouves": [
+        "ehpad",
+        "pompeyrie"
+      ],
+      "extrait": "…eil categories etablissement d hebergement pour personnes agees dependantes agen ehpad pompeyrie ehpad pompeyrie fermer information etablissement d hebergement pour personnes agees dependantes en cas d urgence vitale con…",
+      "dureeMs": 48
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 41,
+      "id": "na-sante-0321",
+      "nom": "Ehpad maison saint martin",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/layrac/ehpad-maison-saint-martin-0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/layrac/ehpad-maison-saint-martin-0",
+      "octets": 70151,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "maison",
+        "saint",
+        "martin"
+      ],
+      "trouves": [
+        "ehpad",
+        "maison",
+        "saint",
+        "martin"
+      ],
+      "extrait": "…l categories etablissement d hebergement pour personnes agees dependantes layrac ehpad maison saint martin ehpad maison saint martin fermer information etablissement d hebergement pour personnes agees dependantes en cas …",
+      "dureeMs": 49
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 42,
+      "id": "na-sante-0329",
+      "nom": "Ehpad de nerac",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/nerac/ehpad-de-nerac",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/nerac/ehpad-de-nerac",
+      "octets": 72702,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "nerac"
+      ],
+      "trouves": [
+        "ehpad",
+        "nerac"
+      ],
+      "extrait": "…il categories etablissement d hebergement pour personnes agees dependantes nerac ehpad de nerac ehpad de nerac fermer information etablissement d hebergement pour personnes agees dependantes en cas d urgence vitale conta…",
+      "dureeMs": 48
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 43,
+      "id": "na-sante-0337",
+      "nom": "Usld alzheimer chic hopital centre hospitalier intercommunal marmande-tonneins",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/tonneins/usld-alzheimer-chic-hopital-centre-hospitalier-intercommunal-marmande-tonneins",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-de-soins-longue-duree/tonneins/usld-alzheimer-chic-hopital-centre-hospitalier-intercommunal-marmande-tonneins",
+      "octets": 69148,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "usld",
+        "alzheimer",
+        "chic",
+        "hopital",
+        "hospitalier",
+        "intercommunal"
+      ],
+      "trouves": [
+        "usld",
+        "alzheimer",
+        "chic",
+        "hopital",
+        "hospitalier",
+        "intercommunal"
+      ],
+      "extrait": "…facebook twitter accueil categories etablissement de soins longue duree tonneins usld alzheimer chic hopital centre hospitalier intercommunal marmande tonneins usld alzheimer chic hopital centre hospitalier intercommunal…",
+      "dureeMs": 44
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 44,
+      "id": "na-sante-0345",
+      "nom": "Ch hopital centre hospitalier  cote basque - bayonne",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/bayonne-cedex/ch-hopital-centre-hospitalier-cote-basque-bayonne",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/centre-hospitalier-ch/bayonne-cedex/ch-hopital-centre-hospitalier-cote-basque-bayonne",
+      "octets": 110505,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "hopital",
+        "hospitalier",
+        "cote",
+        "basque",
+        "bayonne"
+      ],
+      "trouves": [
+        "hopital",
+        "hospitalier",
+        "cote",
+        "basque",
+        "bayonne"
+      ],
+      "extrait": "ch hopital centre hospitalier cote basque bayonne sante fr aller au contenu principal republique francaise menu sante fr l information fiable …",
+      "dureeMs": 46
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 45,
+      "id": "na-sante-0353",
+      "nom": "Usld arrayade ch hopital centre hospitalier de bayonne",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/bayonne/usld-arrayade-ch-hopital-centre-hospitalier-de-bayonne",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-de-soins-longue-duree/bayonne/usld-arrayade-ch-hopital-centre-hospitalier-de-bayonne",
+      "octets": 68648,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "usld",
+        "arrayade",
+        "hopital",
+        "hospitalier",
+        "bayonne"
+      ],
+      "trouves": [
+        "usld",
+        "arrayade",
+        "hopital",
+        "hospitalier",
+        "bayonne"
+      ],
+      "extrait": "… facebook twitter accueil categories etablissement de soins longue duree bayonne usld arrayade ch hopital centre hospitalier de bayonne usld arrayade ch hopital centre hospitalier de bayonne fermer information en cas d u…",
+      "dureeMs": 42
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 46,
+      "id": "na-sante-0361",
+      "nom": "Ehpad  le clos st jean",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/gan/ehpad-le-clos-st-jean-1",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/gan/ehpad-le-clos-st-jean-1",
+      "octets": 70015,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "clos",
+        "jean"
+      ],
+      "trouves": [
+        "ehpad",
+        "clos",
+        "jean"
+      ],
+      "extrait": "…ueil categories etablissement d hebergement pour personnes agees dependantes gan ehpad le clos st jean ehpad le clos st jean fermer information etablissement d hebergement pour personnes agees dependantes en cas d urgenc…",
+      "dureeMs": 75
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 47,
+      "id": "na-sante-0369",
+      "nom": "Ehpad saint joseph",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/nay/ehpad-saint-joseph-0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/nay/ehpad-saint-joseph-0",
+      "octets": 74448,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "saint",
+        "joseph"
+      ],
+      "trouves": [
+        "ehpad",
+        "saint",
+        "joseph"
+      ],
+      "extrait": "…ueil categories etablissement d hebergement pour personnes agees dependantes nay ehpad saint joseph ehpad saint joseph fermer information etablissement d hebergement pour personnes agees dependantes en cas d urgence vita…",
+      "dureeMs": 71
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 48,
+      "id": "na-sante-0377",
+      "nom": "Chcb - site polyclinique cote basque",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/saint-jean-de-luz/chcb-site-polyclinique-cote-basque-0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/centre-hospitalier-ch/saint-jean-de-luz/chcb-site-polyclinique-cote-basque-0",
+      "octets": 71311,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "chcb",
+        "polyclinique",
+        "cote",
+        "basque"
+      ],
+      "trouves": [
+        "chcb",
+        "polyclinique",
+        "cote",
+        "basque"
+      ],
+      "extrait": "…riel facebook twitter accueil categories centre hospitalier ch saint jean de luz chcb site polyclinique cote basque chcb site polyclinique cote basque fermer information hopitaux cliniques en cas d urgence vitale contact…",
+      "dureeMs": 74
+    },
+    {
+      "fichier": "additions.jsonl",
+      "ligne": 49,
+      "id": "na-sante-0385",
+      "nom": "Ehpad korian villa ortis",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/jardin/ehpad-korian-villa-ortis-0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/jardin/ehpad-korian-villa-ortis-0",
+      "octets": 69693,
+      "typeContenu": "text/html; charset=UTF-8",
+      "tentatives": 1,
+      "lecteur": null,
+      "erreur": null,
+      "attendus": [
+        "ehpad",
+        "korian",
+        "villa",
+        "ortis"
+      ],
+      "trouves": [
+        "ehpad",
+        "korian",
+        "villa",
+        "ortis"
+      ],
+      "extrait": "…l categories etablissement d hebergement pour personnes agees dependantes jardin ehpad korian villa ortis ehpad korian villa ortis fermer information etablissement d hebergement pour personnes agees dependantes en cas d …",
+      "dureeMs": 70
+    }
+  ]
+}

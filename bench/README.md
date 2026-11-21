@@ -187,6 +187,34 @@ tête marqués `referentialGap`. Le tri fonctionne ; c'est le **périmètre du
 référentiel** qui ne couvre pas ces entreprises. Détails :
 `docs/research/file-de-revue.md`.
 
+## D — Extension du corpus santé/enseignement
+
+Les 457 premières lignes de `bench/corpus/sante-enseignement.jsonl` sont
+conservées telles quelles. Les lignes `na-sante-*` viennent des fiches publiques
+de l'annuaire Santé.fr ; chaque URL est chargée et n'est retenue que si la page
+répond 200 et mentionne au moins deux jetons du nom.
+
+```bash
+apps/api/node_modules/.bin/tsx scripts/corpus-sante-extension.mts
+apps/api/node_modules/.bin/tsx scripts/corpus-sante-extension.mts \
+  --departements=Gironde,Charente --appliquer
+
+# Rejeu indépendant du validateur commun sur un échantillon de 50 lignes
+mkdir -p /tmp/sante-sample
+python3 - <<'PY'
+import json
+lignes = [l for l in open('bench/corpus/sante-enseignement.jsonl')
+          if '"source":"sante.fr fiche établissement"' in l]
+open('/tmp/sante-sample/additions.jsonl', 'w').write(''.join(lignes[::8][:50]))
+PY
+apps/api/node_modules/.bin/tsx scripts/valider-corpus.mts \
+  --dir=/tmp/sante-sample --json=bench/results/validation-sante-extension-echantillon.json \
+  --lecteur=off --concurrence=10
+```
+
+Sans `--appliquer`, rien n'est écrit. Le rapport cumulé est
+`bench/results/extension-sante-enseignement.json`.
+
 ## Ce que ces benches ne mesurent pas
 
 - **Le rendement bout-en-bout des sources** (`fetched → parsed → admitted →

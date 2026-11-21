@@ -1,0 +1,5465 @@
+{
+  "genereLe": "2026-11-21T21:03:08.564Z",
+  "corpus": "/mnt/data/jolt-home/relocated/tmp/wt-CorpusSante/bench/corpus/sante-enseignement.jsonl",
+  "protocole": {
+    "source": "Santé.fr, annuaire public des établissements (API solr/request/ajax)",
+    "criteres": "HTTP 200 et au moins deux jetons distincts du nom dans le texte visible",
+    "timeoutMs": 15000,
+    "concurrence": 10,
+    "pages": 1,
+    "departements": [
+      "Lot-et-Garonne",
+      "Pyrénées-Atlantiques",
+      "Vienne"
+    ]
+  },
+  "totaux": {
+    "fichesVues": 252,
+    "candidatsNouveaux": 80,
+    "verifies": 80,
+    "valides": 80,
+    "tauxValidite": 1,
+    "ajoutsCumules": 391
+  },
+  "parDepartement": {
+    "Lot-et-Garonne": 28,
+    "Pyrénées-Atlantiques": 44,
+    "Vienne": 8
+  },
+  "parType": {
+    "ch": 19,
+    "clinique": 15,
+    "ehpad": 46
+  },
+  "ajouts": [
+    {
+      "id": "na-sante-0001",
+      "nom": "Ch hopital centre hospitalier d'angouleme",
+      "type": "ch",
+      "commune": "Angouleme",
+      "département": "Charente",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/angouleme/ch-hopital-centre-hospitalier-dangouleme",
+      "jetons_trouves": [
+        "angouleme"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0002",
+      "nom": "Cl clinique saint-joseph - angouleme",
+      "type": "clinique",
+      "commune": "Angouleme",
+      "département": "Charente",
+      "url": "https://www.sante.fr/etablissement-de-soins-chirurgicaux/angouleme-cedex/cl-clinique-saint-joseph-angouleme",
+      "jetons_trouves": [
+        "saint",
+        "joseph",
+        "angouleme"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0003",
+      "nom": "Ehpad beaulieu",
+      "type": "ehpad",
+      "commune": "Angoulême",
+      "département": "Charente",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/angouleme/ehpad-beaulieu-0",
+      "jetons_trouves": [
+        "ehpad",
+        "beaulieu"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0004",
+      "nom": "Ehpad les charentes",
+      "type": "ehpad",
+      "commune": "Angoulême",
+      "département": "Charente",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/angouleme/ehpad-les-charentes-0",
+      "jetons_trouves": [
+        "ehpad",
+        "charentes"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0005",
+      "nom": "Ehpad les jardins de la garenne",
+      "type": "ehpad",
+      "commune": "Angoulême",
+      "département": "Charente",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/angouleme/ehpad-les-jardins-de-la-garenne-0",
+      "jetons_trouves": [
+        "ehpad",
+        "jardins",
+        "garenne"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0006",
+      "nom": "Ch hopital centre hospitalier hopitaux sud charente - barbezieux",
+      "type": "ch",
+      "commune": "Barbezieux-Saint-Hilaire",
+      "département": "Charente",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/barbezieux-saint-hilaire/ch-hopital-centre-hospitalier-hopitaux-sud-charente-barbezieux",
+      "jetons_trouves": [
+        "sud",
+        "charente",
+        "barbezieux"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0007",
+      "nom": "Ehpad residence boris bordes",
+      "type": "ehpad",
+      "commune": "Barbezieux-Saint-Hilaire",
+      "département": "Charente",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/barbezieux-saint-hilaire/ehpad-residence-boris-bordes-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "boris",
+        "bordes"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0008",
+      "nom": "Usld ch hopital centre hospitalier sud charente - barbezieux",
+      "type": "ch",
+      "commune": "Barbezieux-Saint-Hilaire",
+      "département": "Charente",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/barbezieux-saint-hilaire/usld-ch-hopital-centre-hospitalier-sud-charente-barbezieux",
+      "jetons_trouves": [
+        "usld",
+        "sud",
+        "charente",
+        "barbezieux"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0009",
+      "nom": "Ehpad - la chalotine",
+      "type": "ehpad",
+      "commune": "Brillac",
+      "département": "Charente",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/brillac/ehpad-la-chalotine-0",
+      "jetons_trouves": [
+        "ehpad",
+        "chalotine"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0010",
+      "nom": "Ehpad - le villard",
+      "type": "ehpad",
+      "commune": "Champagne-Mouton",
+      "département": "Charente",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/champagne-mouton/ehpad-le-villard-0",
+      "jetons_trouves": [
+        "ehpad",
+        "villard"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0011",
+      "nom": "Ehpad la vallee d'argence",
+      "type": "ehpad",
+      "commune": "Champniers",
+      "département": "Charente",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/champniers/ehpad-la-vallee-dargence",
+      "jetons_trouves": [
+        "ehpad",
+        "vallee",
+        "argence"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0012",
+      "nom": "Ehpad le fil d'argent",
+      "type": "ehpad",
+      "commune": "Chasseneuil-sur-Bonnieure",
+      "département": "Charente",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/chasseneuil-sur-bonnieure/ehpad-le-fil-dargent-0",
+      "jetons_trouves": [
+        "ehpad",
+        "fil",
+        "argent"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0013",
+      "nom": "Ch hopital centre hospitalier de chateauneuf",
+      "type": "ch",
+      "commune": "Châteauneuf-sur-Charente",
+      "département": "Charente",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/chateauneuf-sur-charente/ch-hopital-centre-hospitalier-de-chateauneuf",
+      "jetons_trouves": [
+        "chateauneuf"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0014",
+      "nom": "Usld ch hopital centre hospitalier chateauneuf",
+      "type": "ch",
+      "commune": "Châteauneuf-sur-Charente",
+      "département": "Charente",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/chateauneuf-sur-charente/usld-ch-hopital-centre-hospitalier-chateauneuf",
+      "jetons_trouves": [
+        "usld",
+        "chateauneuf"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0015",
+      "nom": "Ehpad charles d'orleans",
+      "type": "ehpad",
+      "commune": "Cognac",
+      "département": "Charente",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/cognac/ehpad-charles-dorleans-0",
+      "jetons_trouves": [
+        "ehpad",
+        "charles",
+        "orleans"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0016",
+      "nom": "Ch hopital centre hospitalier de confolens",
+      "type": "ch",
+      "commune": "Confolens",
+      "département": "Charente",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/confolens/ch-hopital-centre-hospitalier-de-confolens",
+      "jetons_trouves": [
+        "confolens"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0017",
+      "nom": "Usld ch hopital centre hospitalier confolens",
+      "type": "ch",
+      "commune": "Confolens",
+      "département": "Charente",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/confolens/usld-ch-hopital-centre-hospitalier-confolens",
+      "jetons_trouves": [
+        "usld",
+        "confolens"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0018",
+      "nom": "Ehpad ch angouleme - site gd pontouvre",
+      "type": "ehpad",
+      "commune": "Gond-Pontouvre",
+      "département": "Charente",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/gond-pontouvre/ehpad-ch-angouleme-site-gd-pontouvre",
+      "jetons_trouves": [
+        "ehpad",
+        "angouleme",
+        "site",
+        "pontouvre"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0019",
+      "nom": "Ehpad - la picaudrie",
+      "type": "ehpad",
+      "commune": "Hiersac",
+      "département": "Charente",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/hiersac/ehpad-la-picaudrie-0",
+      "jetons_trouves": [
+        "ehpad",
+        "picaudrie"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0020",
+      "nom": "Maison de retraite le grand parc",
+      "type": "ehpad",
+      "commune": "Hiersac",
+      "département": "Charente",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/hiersac/maison-de-retraite-le-grand-parc-0",
+      "jetons_trouves": [
+        "grand",
+        "parc"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0021",
+      "nom": "Ehpad rms jarnac",
+      "type": "ehpad",
+      "commune": "Jarnac",
+      "département": "Charente",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/jarnac/ehpad-rms-jarnac-0",
+      "jetons_trouves": [
+        "ehpad",
+        "rms",
+        "jarnac"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0022",
+      "nom": "Ehpad residence mutualiste la source",
+      "type": "ehpad",
+      "commune": "L Isle-d Espagnac",
+      "département": "Charente",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/lisle-despagnac/ehpad-residence-mutualiste-la-source-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "mutualiste",
+        "source"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0023",
+      "nom": "Hopital centre hospitalier camille claudel - la couronne",
+      "type": "ch",
+      "commune": "La Couronne",
+      "département": "Charente",
+      "url": "https://www.sante.fr/centre-hospitalier-specialise-de-lutte-contre-les-maladies-mentales/la-couronne/hopital-centre-hospitalier-camille-claudel-la-couronne",
+      "jetons_trouves": [
+        "camille",
+        "claudel",
+        "couronne"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0024",
+      "nom": "Ch hopital centre hospitalier de la rochefoucauld",
+      "type": "ch",
+      "commune": "La Rochefoucauld-en-Angoumois",
+      "département": "Charente",
+      "url": "https://www.sante.fr/centre-hospitalier-ex-hopital-local/la-rochefoucauld-en-angoumois/ch-hopital-centre-hospitalier-de-la-rochefoucauld",
+      "jetons_trouves": [
+        "rochefoucauld"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0025",
+      "nom": "Usld ch hopital centre hospitalier la rochefoucauld",
+      "type": "ch",
+      "commune": "La Rochefoucauld-en-Angoumois",
+      "département": "Charente",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/la-rochefoucauld-en-angoumois/usld-ch-hopital-centre-hospitalier-la-rochefoucauld",
+      "jetons_trouves": [
+        "usld",
+        "rochefoucauld"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0026",
+      "nom": "Ehpad - cos les fins bois",
+      "type": "ehpad",
+      "commune": "Mérignac",
+      "département": "Charente",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/merignac/ehpad-cos-les-fins-bois-0",
+      "jetons_trouves": [
+        "ehpad",
+        "cos",
+        "fins",
+        "bois"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0027",
+      "nom": "Ehpad la roseraie",
+      "type": "ehpad",
+      "commune": "Rouillac",
+      "département": "Charente",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/rouillac/ehpad-la-roseraie-0",
+      "jetons_trouves": [
+        "ehpad",
+        "roseraie"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0028",
+      "nom": "Ehpad residence les hyades",
+      "type": "ehpad",
+      "commune": "Rouillac",
+      "département": "Charente",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/rouillac/ehpad-residence-les-hyades-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "hyades"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0029",
+      "nom": "Ch hopital centre hospitalier de ruffec",
+      "type": "ch",
+      "commune": "Ruffec",
+      "département": "Charente",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/ruffec/ch-hopital-centre-hospitalier-de-ruffec",
+      "jetons_trouves": [
+        "ruffec"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0030",
+      "nom": "Ehpad l'abbaye",
+      "type": "ehpad",
+      "commune": "Saint-Amant-de-Boixe",
+      "département": "Charente",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saint-amant-de-boixe/ehpad-labbaye-0",
+      "jetons_trouves": [
+        "ehpad",
+        "abbaye"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0031",
+      "nom": "Ehpad les lis",
+      "type": "ehpad",
+      "commune": "Saint-Yrieix-sur-Charente",
+      "département": "Charente",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saint-yrieix-sur-charente/ehpad-les-lis-0",
+      "jetons_trouves": [
+        "ehpad",
+        "lis"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0032",
+      "nom": "Ehpad les charmilles",
+      "type": "ehpad",
+      "commune": "Terres-de-Haute-Charente",
+      "département": "Charente",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/terres-de-haute-charente/ehpad-les-charmilles-1",
+      "jetons_trouves": [
+        "ehpad",
+        "charmilles"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0033",
+      "nom": "Ehpad residence les jonquilles",
+      "type": "ehpad",
+      "commune": "Val-de-Bonnieure",
+      "département": "Charente",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/val-de-bonnieure/ehpad-residence-les-jonquilles-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "jonquilles"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0034",
+      "nom": "Cl clinique d'angoulins sur mer",
+      "type": "clinique",
+      "commune": "Angoulins",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-de-sante-prive-autorise-en-soins-de-suite-et-de-readaptation-ssr/angoulins/cl-clinique-dangoulins-sur-mer",
+      "jetons_trouves": [
+        "angoulins",
+        "mer"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0035",
+      "nom": "Ehpad residence du parc",
+      "type": "ehpad",
+      "commune": "Archiac",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/archiac/ehpad-residence-du-parc-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "parc"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0036",
+      "nom": "Ehpad residence beausejour",
+      "type": "ehpad",
+      "commune": "Arvert",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/arvert/ehpad-residence-beausejour-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "beausejour"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0037",
+      "nom": "Ehpad - residence du verger moret",
+      "type": "ehpad",
+      "commune": "Bernay-Saint-Martin",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/bernay-saint-martin/ehpad-residence-du-verger-moret-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "verger",
+        "moret"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0038",
+      "nom": "Ch hopital centre hospitalier  boscamnant",
+      "type": "ch",
+      "commune": "Boscamnant",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/boscamnant/ch-hopital-centre-hospitalier-boscamnant",
+      "jetons_trouves": [
+        "boscamnant"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0039",
+      "nom": "Ehpad residence le domaine",
+      "type": "ehpad",
+      "commune": "Cravans",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/cravans/ehpad-residence-le-domaine-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "domaine"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0040",
+      "nom": "Ehpad - les brises marines",
+      "type": "ehpad",
+      "commune": "Esnandes",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/esnandes/ehpad-les-brises-marines-0",
+      "jetons_trouves": [
+        "ehpad",
+        "brises",
+        "marines"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0041",
+      "nom": "Ehpad residence darcy-brun",
+      "type": "ehpad",
+      "commune": "Étaules",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/etaules/ehpad-residence-darcy-brun-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "darcy",
+        "brun"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0042",
+      "nom": "Ch hopital centre hospitalier  jonzac",
+      "type": "ch",
+      "commune": "Jonzac",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/jonzac-cedex/ch-hopital-centre-hospitalier-jonzac",
+      "jetons_trouves": [
+        "jonzac"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0043",
+      "nom": "Ehpad jean moulin",
+      "type": "ehpad",
+      "commune": "Jonzac",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/jonzac/ehpad-jean-moulin-0",
+      "jetons_trouves": [
+        "ehpad",
+        "jean",
+        "moulin"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0044",
+      "nom": "Ch hopital centre hospitalier saint-louis - la rochelle",
+      "type": "ch",
+      "commune": "La rochelle",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/la-rochelle/ch-hopital-centre-hospitalier-saint-louis-la-rochelle",
+      "jetons_trouves": [
+        "saint",
+        "louis",
+        "rochelle"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0045",
+      "nom": "Centre de crise hopital st louis",
+      "type": "ch",
+      "commune": "La Rochelle",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/la-rochelle/centre-de-crise-hopital-st-louis",
+      "jetons_trouves": [
+        "crise",
+        "louis"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0046",
+      "nom": "Ehpad residence la claire fontaine",
+      "type": "ehpad",
+      "commune": "La Rochelle",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/la-rochelle/ehpad-residence-la-claire-fontaine-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "claire",
+        "fontaine"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0047",
+      "nom": "Ehpad residence les bengalis",
+      "type": "ehpad",
+      "commune": "La Tremblade",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/la-tremblade/ehpad-residence-les-bengalis-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "bengalis"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0048",
+      "nom": "Ehpad la coralline",
+      "type": "ehpad",
+      "commune": "Le Gua",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/le-gua/ehpad-la-coralline",
+      "jetons_trouves": [
+        "ehpad",
+        "coralline"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0049",
+      "nom": "Ehpad les jardins de loulay",
+      "type": "ehpad",
+      "commune": "Loulay",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/loulay/ehpad-les-jardins-de-loulay-0",
+      "jetons_trouves": [
+        "ehpad",
+        "jardins",
+        "loulay"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0050",
+      "nom": "Ch hopital centre hospitalier  dubois meynardie - marennes",
+      "type": "ch",
+      "commune": "Marennes-Hiers-Brouage",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/centre-hospitalier-ex-hopital-local/marennes-hiers-brouage/ch-hopital-centre-hospitalier-dubois-meynardie-marennes",
+      "jetons_trouves": [
+        "dubois",
+        "meynardie",
+        "marennes"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0051",
+      "nom": "Ehpad du ch marennes",
+      "type": "ehpad",
+      "commune": "Marennes-Hiers-Brouage",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/marennes-hiers-brouage/ehpad-du-ch-marennes-0",
+      "jetons_trouves": [
+        "ehpad",
+        "marennes"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0052",
+      "nom": "Ehpad - les jardins de go",
+      "type": "ehpad",
+      "commune": "Nieul-sur-Mer",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/nieul-sur-mer/ehpad-les-jardins-de-go-0",
+      "jetons_trouves": [
+        "ehpad",
+        "jardins"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0053",
+      "nom": "Cl clinique de l'atlantique - puilboreau",
+      "type": "clinique",
+      "commune": "Puilboreau",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-de-soins-pluridisciplinaire/puilboreau/cl-clinique-de-latlantique-puilboreau",
+      "jetons_trouves": [
+        "atlantique",
+        "puilboreau"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0054",
+      "nom": "Ch hopital centre hospitalier  rochefort",
+      "type": "ch",
+      "commune": "Rochefort",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/rochefort-cedex/ch-hopital-centre-hospitalier-rochefort",
+      "jetons_trouves": [
+        "rochefort"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0055",
+      "nom": "Ehpad le clos des fontaines",
+      "type": "ehpad",
+      "commune": "Rochefort",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/rochefort/ehpad-le-clos-des-fontaines-0",
+      "jetons_trouves": [
+        "ehpad",
+        "clos",
+        "fontaines"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0056",
+      "nom": "Usld - ch hopital centre hospitalier centre hospitalier rochefort",
+      "type": "ch",
+      "commune": "Rochefort",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/rochefort-cedex/usld-ch-hopital-centre-hospitalier-centre-hospitalier-rochefort",
+      "jetons_trouves": [
+        "usld",
+        "rochefort"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0057",
+      "nom": "Cl clinique pasteur - royan",
+      "type": "clinique",
+      "commune": "Royan",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-de-soins-pluridisciplinaire/royan-cedex/cl-clinique-pasteur-royan",
+      "jetons_trouves": [
+        "pasteur",
+        "royan"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0058",
+      "nom": "Ehpad les jardins du marais",
+      "type": "ehpad",
+      "commune": "Saint-Agnant",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saint-agnant/ehpad-les-jardins-du-marais-0",
+      "jetons_trouves": [
+        "ehpad",
+        "jardins",
+        "marais"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0059",
+      "nom": "Ehpad residence le littoral",
+      "type": "ehpad",
+      "commune": "Saint-Augustin",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saint-augustin/ehpad-residence-le-littoral-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "littoral"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0060",
+      "nom": "Ehpad - residence les parasols",
+      "type": "ehpad",
+      "commune": "Saint-Georges-de-Didonne",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saint-georges-de-didonne/ehpad-residence-les-parasols-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "parasols"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0061",
+      "nom": "Pcl polyclinique st georges",
+      "type": "clinique",
+      "commune": "Saint-Georges-de-Didonne",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-de-soins-pluridisciplinaire/saint-georges-de-didonne/pcl-polyclinique-st-georges",
+      "jetons_trouves": [
+        "pcl",
+        "georges"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0062",
+      "nom": "Ch hopital centre hospitalier  st-jean d'angely",
+      "type": "ch",
+      "commune": "Saint-Jean-d angely",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/saint-jean-dangely/ch-hopital-centre-hospitalier-st-jean-dangely",
+      "jetons_trouves": [
+        "jean",
+        "angely"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0063",
+      "nom": "Ehpad residence du pays d'aunis",
+      "type": "ehpad",
+      "commune": "Saint-Jean-de-Liversay",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saint-jean-de-liversay/ehpad-residence-du-pays-daunis-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "pays",
+        "aunis"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0064",
+      "nom": "Ch hopital st honore - saint-martin-de-re",
+      "type": "ch",
+      "commune": "Saint-Martin-de-Ré",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/saint-martin-de-re/ch-hopital-st-honore-saint-martin-de-re",
+      "jetons_trouves": [
+        "honore",
+        "saint",
+        "martin"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0065",
+      "nom": "Ehpad - residence valpastour",
+      "type": "ehpad",
+      "commune": "Saint-Médard-d Aunis",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saint-medard-daunis/ehpad-residence-valpastour-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "valpastour"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0066",
+      "nom": "Ch hopital centre hospitalier  st-pierre d'oleron",
+      "type": "ch",
+      "commune": "Saint-Pierre-d Oléron",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/centre-hospitalier-ex-hopital-local/saint-pierre-doleron/ch-hopital-centre-hospitalier-st-pierre-doleron",
+      "jetons_trouves": [
+        "pierre",
+        "oleron"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0067",
+      "nom": "Ehpad la villa amelie",
+      "type": "ehpad",
+      "commune": "Saint-Rogatien",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saint-rogatien/ehpad-la-villa-amelie-0",
+      "jetons_trouves": [
+        "ehpad",
+        "villa",
+        "amelie"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0068",
+      "nom": "Ehpad les couleurs du temps",
+      "type": "ehpad",
+      "commune": "Saint-Savinien",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saint-savinien/ehpad-les-couleurs-du-temps-0",
+      "jetons_trouves": [
+        "ehpad",
+        "couleurs",
+        "temps"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0069",
+      "nom": "Ch hopital centre hospitalier  de saintonge - saintes",
+      "type": "ch",
+      "commune": "Saintes",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/saintes-cedex/ch-hopital-centre-hospitalier-de-saintonge-saintes",
+      "jetons_trouves": [
+        "saintonge",
+        "saintes"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0070",
+      "nom": "Cl clinique sur moreau",
+      "type": "clinique",
+      "commune": "Saintes",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-de-sante-prive-autorise-en-soins-de-suite-et-de-readaptation-ssr/saintes/cl-clinique-sur-moreau",
+      "jetons_trouves": [
+        "moreau"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0071",
+      "nom": "Ehpad la providence",
+      "type": "ehpad",
+      "commune": "Saintes",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saintes/ehpad-la-providence-0",
+      "jetons_trouves": [
+        "ehpad",
+        "providence"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0072",
+      "nom": "Ehpad la recouvrance",
+      "type": "ehpad",
+      "commune": "Saintes",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saintes/ehpad-la-recouvrance-0",
+      "jetons_trouves": [
+        "ehpad",
+        "recouvrance"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0073",
+      "nom": "Ehpad les jardins des hauts de thenac",
+      "type": "ehpad",
+      "commune": "Thénac",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/thenac/ehpad-les-jardins-des-hauts-de-thenac-0",
+      "jetons_trouves": [
+        "ehpad",
+        "jardins",
+        "hauts",
+        "thenac"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0074",
+      "nom": "Ehpad - les jardins de voltonia",
+      "type": "ehpad",
+      "commune": "Tonnay-Boutonne",
+      "département": "Charente-Maritime",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/tonnay-boutonne/ehpad-les-jardins-de-voltonia-0",
+      "jetons_trouves": [
+        "ehpad",
+        "jardins",
+        "voltonia"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0075",
+      "nom": "Ch hopital centre hospitalier - bort-les-orgues",
+      "type": "ch",
+      "commune": "Bort-les-Orgues",
+      "département": "Corrèze",
+      "url": "https://www.sante.fr/centre-hospitalier-ex-hopital-local/bort-les-orgues/ch-hopital-centre-hospitalier-bort-les-orgues",
+      "jetons_trouves": [
+        "bort",
+        "orgues"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0076",
+      "nom": "Ch hopital centre hospitalier dubois brive-la-gaillarde",
+      "type": "ch",
+      "commune": "Brive la gaillarde",
+      "département": "Corrèze",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/brive-la-gaillarde-cedex/ch-hopital-centre-hospitalier-dubois-brive-la-gaillarde",
+      "jetons_trouves": [
+        "dubois",
+        "brive",
+        "gaillarde"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0077",
+      "nom": "Cidag du vih et des hepatites ch hopital centre hospitalier de brive",
+      "type": "ch",
+      "commune": "Brive-la-Gaillarde",
+      "département": "Corrèze",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/brive-la-gaillarde/cidag-du-vih-et-des-hepatites-ch-hopital-centre-hospitalier-de-brive",
+      "jetons_trouves": [
+        "cidag",
+        "vih",
+        "hepatites",
+        "brive"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0078",
+      "nom": "Usld bel air ch hopital centre hospitalier de brive",
+      "type": "ch",
+      "commune": "Brive-la-Gaillarde",
+      "département": "Corrèze",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/brive-la-gaillarde/usld-bel-air-ch-hopital-centre-hospitalier-de-brive",
+      "jetons_trouves": [
+        "usld",
+        "bel",
+        "air",
+        "brive"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0079",
+      "nom": "Usld ch hopital centre hospitalier jean marie dauzier - cornil",
+      "type": "ch",
+      "commune": "Cornil",
+      "département": "Corrèze",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/cornil/usld-ch-hopital-centre-hospitalier-jean-marie-dauzier-cornil",
+      "jetons_trouves": [
+        "usld",
+        "jean",
+        "marie",
+        "dauzier",
+        "cornil"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0080",
+      "nom": "Centre hospitalier de mauriac",
+      "type": "ch",
+      "commune": "Mauriac",
+      "département": "Corrèze",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/mauriac/centre-hospitalier-de-mauriac",
+      "jetons_trouves": [
+        "mauriac"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0081",
+      "nom": "Maison de retraite protestante - montauban",
+      "type": "ehpad",
+      "commune": "Montauban",
+      "département": "Corrèze",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/montauban/maison-de-retraite-protestante-montauban",
+      "jetons_trouves": [
+        "protestante",
+        "montauban"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0082",
+      "nom": "Maison de retraite communale eugene aujaleu - negrepelisse",
+      "type": "ehpad",
+      "commune": "Nègrepelisse",
+      "département": "Corrèze",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/negrepelisse/maison-de-retraite-communale-eugene-aujaleu-negrepelisse",
+      "jetons_trouves": [
+        "communale",
+        "eugene",
+        "aujaleu",
+        "negrepelisse"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0083",
+      "nom": "Maison de retraite les roches",
+      "type": "ehpad",
+      "commune": "Pontaumur",
+      "département": "Corrèze",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/pontaumur/maison-de-retraite-les-roches-0",
+      "jetons_trouves": [
+        "roches"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0084",
+      "nom": "Ch hopital centre hospitalier j boutard saint-yrieix-la-perche",
+      "type": "ch",
+      "commune": "Saint-Yrieix-la-Perche",
+      "département": "Corrèze",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/saint-yrieix-la-perche/ch-hopital-centre-hospitalier-j-boutard-saint-yrieix-la-perche",
+      "jetons_trouves": [
+        "boutard",
+        "saint",
+        "yrieix",
+        "perche"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0085",
+      "nom": "Chu limoges - antenne smur st yrieix",
+      "type": "chu",
+      "commune": "Saint-Yrieix-la-Perche",
+      "département": "Corrèze",
+      "url": "https://www.sante.fr/centre-hospitalier-regional-chr/saint-yrieix-la-perche/chu-limoges-antenne-smur-st-yrieix",
+      "jetons_trouves": [
+        "chu",
+        "limoges",
+        "antenne",
+        "smur",
+        "yrieix"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0086",
+      "nom": "Chu limoges - site ch saint yrieix",
+      "type": "chu",
+      "commune": "Saint-Yrieix-la-Perche",
+      "département": "Corrèze",
+      "url": "https://www.sante.fr/centre-hospitalier-regional-chr/saint-yrieix-la-perche/chu-limoges-site-ch-saint-yrieix",
+      "jetons_trouves": [
+        "chu",
+        "limoges",
+        "site",
+        "saint",
+        "yrieix"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0087",
+      "nom": "Ch hopital centre hospitalier tulle",
+      "type": "ch",
+      "commune": "Tulle",
+      "département": "Corrèze",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/tulle-cedex/ch-hopital-centre-hospitalier-tulle",
+      "jetons_trouves": [
+        "tulle"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0088",
+      "nom": "Ch hôpital centre hospitalier d'ussel",
+      "type": "ch",
+      "commune": "Ussel",
+      "département": "Corrèze",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/ussel-cedex/ch-hopital-centre-hospitalier-dussel",
+      "jetons_trouves": [
+        "ussel"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0089",
+      "nom": "Usld ch hopital centre hospitalier d'ussel",
+      "type": "ch",
+      "commune": "Ussel",
+      "département": "Corrèze",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/ussel-cedex/usld-ch-hopital-centre-hospitalier-dussel",
+      "jetons_trouves": [
+        "usld",
+        "ussel"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0090",
+      "nom": "Usld ch hopital centre hospitalier alexis boyer - uzerche",
+      "type": "ch",
+      "commune": "Uzerche",
+      "département": "Corrèze",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/uzerche/usld-ch-hopital-centre-hospitalier-alexis-boyer-uzerche",
+      "jetons_trouves": [
+        "usld",
+        "alexis",
+        "boyer",
+        "uzerche"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0091",
+      "nom": "Ehpad les signolles",
+      "type": "ehpad",
+      "commune": "Ajain",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/ajain/ehpad-les-signolles-0",
+      "jetons_trouves": [
+        "ehpad",
+        "signolles"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0092",
+      "nom": "Ch hopital centre hospitalier d'aubusson - site le mont",
+      "type": "ch",
+      "commune": "Aubusson",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/aubusson/ch-hopital-centre-hospitalier-daubusson-site-le-mont",
+      "jetons_trouves": [
+        "aubusson",
+        "site",
+        "mont"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0093",
+      "nom": "Ehpad le mont",
+      "type": "ehpad",
+      "commune": "Aubusson",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/aubusson/ehpad-le-mont",
+      "jetons_trouves": [
+        "ehpad",
+        "mont"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0094",
+      "nom": "Usld - ch hopital centre hospitalier d'aubusson",
+      "type": "ch",
+      "commune": "Aubusson",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/aubusson/usld-ch-hopital-centre-hospitalier-daubusson",
+      "jetons_trouves": [
+        "usld",
+        "aubusson"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0095",
+      "nom": "Ehpad le bois joli",
+      "type": "ehpad",
+      "commune": "Auzances",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/auzances/ehpad-le-bois-joli-0",
+      "jetons_trouves": [
+        "ehpad",
+        "bois",
+        "joli"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0096",
+      "nom": "Ehpad le monastere",
+      "type": "ehpad",
+      "commune": "Azerables",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/azerables/ehpad-le-monastere",
+      "jetons_trouves": [
+        "ehpad",
+        "monastere"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0097",
+      "nom": "Ehpad les bouquets",
+      "type": "ehpad",
+      "commune": "Bellegarde-en-Marche",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/bellegarde-en-marche/ehpad-les-bouquets",
+      "jetons_trouves": [
+        "ehpad",
+        "bouquets"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0098",
+      "nom": "Ch hopital centre hospitalier bernard desplas - bourganeuf",
+      "type": "ch",
+      "commune": "Bourganeuf",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/bourganeuf/ch-hopital-centre-hospitalier-bernard-desplas-bourganeuf",
+      "jetons_trouves": [
+        "bernard",
+        "desplas",
+        "bourganeuf"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0099",
+      "nom": "Ehpad du thaurion",
+      "type": "ehpad",
+      "commune": "Bourganeuf",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/bourganeuf/ehpad-du-thaurion-0",
+      "jetons_trouves": [
+        "ehpad",
+        "thaurion"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0100",
+      "nom": "Usld ch hopital centre hospitalier bernard desplas - bourganeuf",
+      "type": "ch",
+      "commune": "Bourganeuf",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/bourganeuf/usld-ch-hopital-centre-hospitalier-bernard-desplas-bourganeuf",
+      "jetons_trouves": [
+        "usld",
+        "bernard",
+        "desplas",
+        "bourganeuf"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0101",
+      "nom": "Ehpad eugene romaine",
+      "type": "ehpad",
+      "commune": "Boussac",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/boussac/ehpad-eugene-romaine",
+      "jetons_trouves": [
+        "ehpad",
+        "eugene",
+        "romaine"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0102",
+      "nom": "Ehpad le chant des rivieres",
+      "type": "ehpad",
+      "commune": "Chambon-sur-Voueize",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/chambon-sur-voueize/ehpad-le-chant-des-rivieres-0",
+      "jetons_trouves": [
+        "ehpad",
+        "chant",
+        "rivieres"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0103",
+      "nom": "Ehpad les genets d'or",
+      "type": "ehpad",
+      "commune": "Évaux-les-Bains",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/evaux-les-bains/ehpad-les-genets-dor-0",
+      "jetons_trouves": [
+        "ehpad",
+        "genets"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0104",
+      "nom": "Usld ch hopital centre hospitalier - evaux les bains",
+      "type": "ch",
+      "commune": "Évaux-les-Bains",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/evaux-les-bains/usld-ch-hopital-centre-hospitalier-evaux-les-bains",
+      "jetons_trouves": [
+        "usld",
+        "evaux",
+        "bains"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0105",
+      "nom": "Ehpad residence jean mazet",
+      "type": "ehpad",
+      "commune": "Felletin",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/felletin/ehpad-residence-jean-mazet-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "jean",
+        "mazet"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0106",
+      "nom": "Ehpad les nadauds",
+      "type": "ehpad",
+      "commune": "Fursac",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/fursac/ehpad-les-nadauds",
+      "jetons_trouves": [
+        "ehpad",
+        "nadauds"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0107",
+      "nom": "Ehpad les myosotis",
+      "type": "ehpad",
+      "commune": "Gouzon",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/gouzon/ehpad-les-myosotis-0",
+      "jetons_trouves": [
+        "ehpad",
+        "myosotis"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0108",
+      "nom": "Ch hopital centre hospitalier gueret",
+      "type": "ch",
+      "commune": "Gueret",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/gueret-cedex/ch-hopital-centre-hospitalier-gueret",
+      "jetons_trouves": [
+        "gueret"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0109",
+      "nom": "Ch la valette - hôpital de jour enfants gueret",
+      "type": "ch",
+      "commune": "Guéret",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/centre-hospitalier-specialise-de-lutte-contre-les-maladies-mentales/gueret/ch-la-valette-hopital-de-jour-enfants-gueret",
+      "jetons_trouves": [
+        "valette",
+        "jour",
+        "enfants",
+        "gueret"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0110",
+      "nom": "Ch la valette - hôpital de jour le berry",
+      "type": "ch",
+      "commune": "Guéret",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/centre-hospitalier-specialise-de-lutte-contre-les-maladies-mentales/gueret/ch-la-valette-hopital-de-jour-le-berry",
+      "jetons_trouves": [
+        "valette",
+        "jour",
+        "berry"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0111",
+      "nom": "Ch la valette - hôpital de jour le maupuy",
+      "type": "ch",
+      "commune": "Guéret",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/centre-hospitalier-specialise-de-lutte-contre-les-maladies-mentales/gueret/ch-la-valette-hopital-de-jour-le-maupuy",
+      "jetons_trouves": [
+        "valette",
+        "jour",
+        "maupuy"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0112",
+      "nom": "Ehpad anna quinquaud",
+      "type": "ehpad",
+      "commune": "Guéret",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/gueret/ehpad-anna-quinquaud-0",
+      "jetons_trouves": [
+        "ehpad",
+        "anna",
+        "quinquaud"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0113",
+      "nom": "Usld ch hopital centre hospitalier de gueret",
+      "type": "ch",
+      "commune": "Guéret",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/gueret/usld-ch-hopital-centre-hospitalier-de-gueret",
+      "jetons_trouves": [
+        "usld",
+        "gueret"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0114",
+      "nom": "Ehpad la chapelaude",
+      "type": "ehpad",
+      "commune": "La Chapelle-Taillefert",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/la-chapelle-taillefert/ehpad-la-chapelaude",
+      "jetons_trouves": [
+        "ehpad",
+        "chapelaude"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0115",
+      "nom": "Ch hopital centre hospital moyen sejour - la souterraine",
+      "type": "ch",
+      "commune": "La Souterraine",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/la-souterraine/ch-hopital-centre-hospital-moyen-sejour-la-souterraine",
+      "jetons_trouves": [
+        "hospital",
+        "moyen",
+        "sejour",
+        "souterraine"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0116",
+      "nom": "Ehpad et unite protegee la souterraine",
+      "type": "ehpad",
+      "commune": "La Souterraine",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/la-souterraine/ehpad-et-unite-protegee-la-souterraine-0",
+      "jetons_trouves": [
+        "ehpad",
+        "unite",
+        "protegee",
+        "souterraine"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0117",
+      "nom": "Usld ch hopital centre hospitalier - la souterraine",
+      "type": "ch",
+      "commune": "La Souterraine",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/la-souterraine/usld-ch-hopital-centre-hospitalier-la-souterraine",
+      "jetons_trouves": [
+        "usld",
+        "souterraine"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0118",
+      "nom": "Ch hopital centre hospitalier d'aubusson - site croix blanche",
+      "type": "ch",
+      "commune": "Moutier-Rozeille",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/moutier-rozeille/ch-hopital-centre-hospitalier-daubusson-site-croix-blanche",
+      "jetons_trouves": [
+        "aubusson",
+        "site",
+        "croix",
+        "blanche"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0119",
+      "nom": "Ehpad royere de vassiviere",
+      "type": "ehpad",
+      "commune": "Royère-de-Vassivière",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/royere-de-vassiviere/ehpad-royere-de-vassiviere",
+      "jetons_trouves": [
+        "ehpad",
+        "royere",
+        "vassiviere"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0120",
+      "nom": "Ch hopital centre hospitalier la valette",
+      "type": "ch",
+      "commune": "Saint-Vaury",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/centre-hospitalier-specialise-de-lutte-contre-les-maladies-mentales/saint-vaury/ch-hopital-centre-hospitalier-la-valette",
+      "jetons_trouves": [
+        "valette"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0121",
+      "nom": "Ehpad le logis de valric",
+      "type": "ehpad",
+      "commune": "Saint-Vaury",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saint-vaury/ehpad-le-logis-de-valric-0",
+      "jetons_trouves": [
+        "ehpad",
+        "logis",
+        "valric"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0122",
+      "nom": "Ehpad de sainte-feyre",
+      "type": "ehpad",
+      "commune": "Sainte-Feyre",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/sainte-feyre/ehpad-de-sainte-feyre",
+      "jetons_trouves": [
+        "ehpad",
+        "sainte",
+        "feyre"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0123",
+      "nom": "Cl clinique chatelguyon viersat",
+      "type": "clinique",
+      "commune": "Viersat",
+      "département": "Creuse",
+      "url": "https://www.sante.fr/maison-de-sante-pour-maladies-mentales/viersat/cl-clinique-chatelguyon-viersat",
+      "jetons_trouves": [
+        "chatelguyon",
+        "viersat"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0124",
+      "nom": "Ehpad les jardins d'aiffres",
+      "type": "ehpad",
+      "commune": "Aiffres",
+      "département": "Deux-Sèvres",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/aiffres/ehpad-les-jardins-daiffres",
+      "jetons_trouves": [
+        "ehpad",
+        "jardins",
+        "aiffres"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0125",
+      "nom": "Ehpad l'age d'or",
+      "type": "ehpad",
+      "commune": "Arçais",
+      "département": "Deux-Sèvres",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/arcais/ehpad-lage-dor",
+      "jetons_trouves": [
+        "ehpad",
+        "age"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0126",
+      "nom": "Ehpad les buissonnets",
+      "type": "ehpad",
+      "commune": "Béceleuf",
+      "département": "Deux-Sèvres",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/beceleuf/ehpad-les-buissonnets-0",
+      "jetons_trouves": [
+        "ehpad",
+        "buissonnets"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0127",
+      "nom": "Ehpad residence allonneau",
+      "type": "ehpad",
+      "commune": "Bressuire",
+      "département": "Deux-Sèvres",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/bressuire/ehpad-residence-allonneau-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "allonneau"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0128",
+      "nom": "Ehpad residence la cressonniere",
+      "type": "ehpad",
+      "commune": "Cerizay",
+      "département": "Deux-Sèvres",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/cerizay/ehpad-residence-la-cressonniere-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "cressonniere"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0129",
+      "nom": "Ehpad residence saint joseph",
+      "type": "ehpad",
+      "commune": "Chiché",
+      "département": "Deux-Sèvres",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/chiche/ehpad-residence-saint-joseph-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "saint",
+        "joseph"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0130",
+      "nom": "Ch hopital centre hospitalier nord deux sevres - site faye l'abbesse",
+      "type": "ch",
+      "commune": "Faye-l Abbesse",
+      "département": "Deux-Sèvres",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/faye-labbesse/ch-hopital-centre-hospitalier-nord-deux-sevres-site-faye-labbesse",
+      "jetons_trouves": [
+        "nord",
+        "deux",
+        "sevres",
+        "site",
+        "faye",
+        "abbesse"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0131",
+      "nom": "Ehpad - au bon accueil",
+      "type": "ehpad",
+      "commune": "La Chapelle-Saint-Laurent",
+      "département": "Deux-Sèvres",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/la-chapelle-saint-laurent/ehpad-au-bon-accueil-0",
+      "jetons_trouves": [
+        "ehpad",
+        "bon",
+        "accueil"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0132",
+      "nom": "Ehpad residence les fontaines",
+      "type": "ehpad",
+      "commune": "La Mothe-Saint-Héray",
+      "département": "Deux-Sèvres",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/la-mothe-saint-heray/ehpad-residence-les-fontaines-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "fontaines"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0133",
+      "nom": "Ehpad residence clodomir arnaud",
+      "type": "ehpad",
+      "commune": "La Rochénard",
+      "département": "Deux-Sèvres",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/la-rochenard/ehpad-residence-clodomir-arnaud-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "clodomir",
+        "arnaud"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0134",
+      "nom": "Ehpad residence fondation dussouil",
+      "type": "ehpad",
+      "commune": "Lezay",
+      "département": "Deux-Sèvres",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/lezay/ehpad-residence-fondation-dussouil-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "fondation",
+        "dussouil"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0135",
+      "nom": "Ehpad residence fondation brothiers",
+      "type": "ehpad",
+      "commune": "Limalonges",
+      "département": "Deux-Sèvres",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/limalonges/ehpad-residence-fondation-brothiers-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "fondation",
+        "brothiers"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0136",
+      "nom": "Ch hopital centre hospitalier de mauleon",
+      "type": "ch",
+      "commune": "Mauléon",
+      "département": "Deux-Sèvres",
+      "url": "https://www.sante.fr/centre-hospitalier-ex-hopital-local/mauleon/ch-hopital-centre-hospitalier-de-mauleon",
+      "jetons_trouves": [
+        "mauleon"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0137",
+      "nom": "Ehpad - ch de mauleon",
+      "type": "ehpad",
+      "commune": "Mauléon",
+      "département": "Deux-Sèvres",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/mauleon/ehpad-ch-de-mauleon-0",
+      "jetons_trouves": [
+        "ehpad",
+        "mauleon"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0138",
+      "nom": "Ch hopital centre hospitalier haut val sevre & mellois - melle",
+      "type": "ch",
+      "commune": "Melle",
+      "département": "Deux-Sèvres",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/melle/ch-hopital-centre-hospitalier-haut-val-sevre-mellois-melle",
+      "jetons_trouves": [
+        "haut",
+        "val",
+        "sevre",
+        "mellois",
+        "melle"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0139",
+      "nom": "Ehpad la chagnee",
+      "type": "ehpad",
+      "commune": "Melle",
+      "département": "Deux-Sèvres",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/melle/ehpad-la-chagnee-0",
+      "jetons_trouves": [
+        "ehpad",
+        "chagnee"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0140",
+      "nom": "Ehpad residence les charmilles",
+      "type": "ehpad",
+      "commune": "Melle",
+      "département": "Deux-Sèvres",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/melle/ehpad-residence-les-charmilles-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "charmilles"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0141",
+      "nom": "Ehpad maison de retraite protestante",
+      "type": "ehpad",
+      "commune": "Nantes",
+      "département": "Deux-Sèvres",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/nantes/ehpad-maison-de-retraite-protestante",
+      "jetons_trouves": [
+        "ehpad",
+        "protestante"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0142",
+      "nom": "Ch hopital centre hospitalier georges renon - niort",
+      "type": "ch",
+      "commune": "Niort",
+      "département": "Deux-Sèvres",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/niort-cedex/ch-hopital-centre-hospitalier-georges-renon-niort",
+      "jetons_trouves": [
+        "georges",
+        "renon",
+        "niort"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0143",
+      "nom": "Ehpad residence l'angelique",
+      "type": "ehpad",
+      "commune": "Niort",
+      "département": "Deux-Sèvres",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/niort/ehpad-residence-langelique",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "angelique"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0144",
+      "nom": "Ehpad residence la caravelle",
+      "type": "ehpad",
+      "commune": "Niort",
+      "département": "Deux-Sèvres",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/niort/ehpad-residence-la-caravelle-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "caravelle"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0145",
+      "nom": "Ehpad residence sacre-coeur",
+      "type": "ehpad",
+      "commune": "Niort",
+      "département": "Deux-Sèvres",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/niort/ehpad-residence-sacre-coeur-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "sacre",
+        "coeur"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0146",
+      "nom": "Ehpad residence les orangers",
+      "type": "ehpad",
+      "commune": "Parthenay",
+      "département": "Deux-Sèvres",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/parthenay/ehpad-residence-les-orangers-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "orangers"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0147",
+      "nom": "Ehpad residence de la plaine",
+      "type": "ehpad",
+      "commune": "Thénezay",
+      "département": "Deux-Sèvres",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/thenezay/ehpad-residence-de-la-plaine-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "plaine"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0148",
+      "nom": "Ehpad les charmes de fleury",
+      "type": "ehpad",
+      "commune": "Thouars",
+      "département": "Deux-Sèvres",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/thouars/ehpad-les-charmes-de-fleury-0",
+      "jetons_trouves": [
+        "ehpad",
+        "charmes",
+        "fleury"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0149",
+      "nom": "Ehpad residence gatebourse",
+      "type": "ehpad",
+      "commune": "Vasles",
+      "département": "Deux-Sèvres",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/vasles/ehpad-residence-gatebourse-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "gatebourse"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0150",
+      "nom": "Puv la roseliere",
+      "type": "ehpad",
+      "commune": "Vouillé",
+      "département": "Deux-Sèvres",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/vouille/puv-la-roseliere-0",
+      "jetons_trouves": [
+        "puv",
+        "roseliere"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0151",
+      "nom": "Ehpad les chenes verts",
+      "type": "ehpad",
+      "commune": "Agonac",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/agonac/ehpad-les-chenes-verts-0",
+      "jetons_trouves": [
+        "ehpad",
+        "chenes",
+        "verts"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0152",
+      "nom": "Ch hopital centre hospitalier de lanmary - antonne et trigonant",
+      "type": "ch",
+      "commune": "Antonne-et-Trigonant",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/antonne-et-trigonant/ch-hopital-centre-hospitalier-de-lanmary-antonne-et-trigonant",
+      "jetons_trouves": [
+        "lanmary",
+        "antonne",
+        "trigonant"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0153",
+      "nom": "Ehpad la cheneraie",
+      "type": "ehpad",
+      "commune": "Bassillac et Auberoche",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/bassillac-et-auberoche/ehpad-la-cheneraie-0",
+      "jetons_trouves": [
+        "ehpad",
+        "cheneraie"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0154",
+      "nom": "Ch hopital centre hospitalier de bergerac",
+      "type": "ch",
+      "commune": "Bergerac",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/bergerac/ch-hopital-centre-hospitalier-de-bergerac",
+      "jetons_trouves": [
+        "bergerac"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0155",
+      "nom": "Cl clinique pasteur - bergerac",
+      "type": "clinique",
+      "commune": "Bergerac",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/etablissement-de-soins-pluridisciplinaire/bergerac/cl-clinique-pasteur-bergerac",
+      "jetons_trouves": [
+        "pasteur",
+        "bergerac"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0156",
+      "nom": "Ehpad la madeleine",
+      "type": "ehpad",
+      "commune": "Bergerac",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/bergerac/ehpad-la-madeleine-2",
+      "jetons_trouves": [
+        "ehpad",
+        "madeleine"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0157",
+      "nom": "Had hospitalisation a domicile de la clinique pasteur",
+      "type": "clinique",
+      "commune": "Bergerac",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/hospitalisation-domicile-had/bergerac/had-hospitalisation-domicile-de-la-clinique-pasteur",
+      "jetons_trouves": [
+        "had",
+        "hospitalisation",
+        "domicile",
+        "pasteur"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0158",
+      "nom": "Cl clinique pierre de brantome",
+      "type": "clinique",
+      "commune": "Brantôme en Périgord",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/etablissement-de-sante-prive-autorise-en-soins-de-suite-et-de-readaptation-ssr/brantome-en-perigord/cl-clinique-pierre-de-brantome",
+      "jetons_trouves": [
+        "pierre",
+        "brantome"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0159",
+      "nom": "Ehpad saint- rome",
+      "type": "ehpad",
+      "commune": "Carsac-Aillac",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/carsac-aillac/ehpad-saint-rome-0",
+      "jetons_trouves": [
+        "ehpad",
+        "saint",
+        "rome"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0160",
+      "nom": "Ehpad du canton de saint-cyprien",
+      "type": "ehpad",
+      "commune": "Castels et Bézenac",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/castels-et-bezenac/ehpad-du-canton-de-saint-cyprien-0",
+      "jetons_trouves": [
+        "ehpad",
+        "canton",
+        "saint",
+        "cyprien"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0161",
+      "nom": "Ehpad residence les chaminades",
+      "type": "ehpad",
+      "commune": "Champagnac-de-Belair",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/champagnac-de-belair/ehpad-residence-les-chaminades-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "chaminades"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0162",
+      "nom": "Ehpad docteur jean gallet",
+      "type": "ehpad",
+      "commune": "Coulounieix-Chamiers",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/coulounieix-chamiers/ehpad-docteur-jean-gallet-0",
+      "jetons_trouves": [
+        "ehpad",
+        "docteur",
+        "jean",
+        "gallet"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0163",
+      "nom": "Ch hopital centre hospitalier de domme",
+      "type": "ch",
+      "commune": "Domme",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/centre-hospitalier-ex-hopital-local/domme/ch-hopital-centre-hospitalier-de-domme",
+      "jetons_trouves": [
+        "domme"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0164",
+      "nom": "Ehpad du ch de domme",
+      "type": "ehpad",
+      "commune": "Domme",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/domme/ehpad-du-ch-de-domme-0",
+      "jetons_trouves": [
+        "ehpad",
+        "domme"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0165",
+      "nom": "Ch hopital centre hospitalier d'excideuil",
+      "type": "ch",
+      "commune": "Excideuil",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/centre-hospitalier-ex-hopital-local/excideuil/ch-hopital-centre-hospitalier-dexcideuil",
+      "jetons_trouves": [
+        "excideuil"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0166",
+      "nom": "Ehpad la porte d'aquitaine",
+      "type": "ehpad",
+      "commune": "La Roche-Chalais",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/la-roche-chalais/ehpad-la-porte-daquitaine-0",
+      "jetons_trouves": [
+        "ehpad",
+        "porte"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0167",
+      "nom": "Ehpad residence sainte-marthe",
+      "type": "ehpad",
+      "commune": "La Tour-Blanche-Cercles",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/la-tour-blanche-cercles/ehpad-residence-sainte-marthe-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "sainte",
+        "marthe"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0168",
+      "nom": "Ehpad les jardins d'iroise",
+      "type": "ehpad",
+      "commune": "Lamothe-Montravel",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/lamothe-montravel/ehpad-les-jardins-diroise-0",
+      "jetons_trouves": [
+        "ehpad",
+        "jardins",
+        "iroise"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0169",
+      "nom": "Ehpad eugene le roy",
+      "type": "ehpad",
+      "commune": "Montignac",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/montignac/ehpad-eugene-le-roy-0",
+      "jetons_trouves": [
+        "ehpad",
+        "eugene",
+        "roy"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0170",
+      "nom": "Hopital centre hospitalier vauclaire",
+      "type": "ch",
+      "commune": "Montpon-Ménestérol",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/centre-hospitalier-specialise-de-lutte-contre-les-maladies-mentales/montpon-menesterol/hopital-centre-hospitalier-vauclaire",
+      "jetons_trouves": [
+        "vauclaire"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0171",
+      "nom": "Ehpad les vignes",
+      "type": "ehpad",
+      "commune": "Moulin-Neuf",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/moulin-neuf/ehpad-les-vignes-0",
+      "jetons_trouves": [
+        "ehpad",
+        "vignes"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0172",
+      "nom": "Ch hopital centre hospitalier de nontron",
+      "type": "ch",
+      "commune": "Nontron",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/centre-hospitalier-ex-hopital-local/nontron/ch-hopital-centre-hospitalier-de-nontron",
+      "jetons_trouves": [
+        "nontron"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0173",
+      "nom": "Ehpad du ch de nontron",
+      "type": "ehpad",
+      "commune": "Nontron",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/nontron/ehpad-du-ch-de-nontron",
+      "jetons_trouves": [
+        "ehpad",
+        "nontron"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0174",
+      "nom": "Usld ch hopital centre hospitalier nontron",
+      "type": "ch",
+      "commune": "Nontron",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/nontron/usld-ch-hopital-centre-hospitalier-nontron",
+      "jetons_trouves": [
+        "usld",
+        "nontron"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0175",
+      "nom": "Ch hopital centre hospitalier de belves",
+      "type": "ch",
+      "commune": "Pays de Belvès",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/centre-hospitalier-ex-hopital-local/pays-de-belves/ch-hopital-centre-hospitalier-de-belves",
+      "jetons_trouves": [
+        "belves"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0176",
+      "nom": "Ehpad du ch de belves",
+      "type": "ehpad",
+      "commune": "Pays de Belvès",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/pays-de-belves/ehpad-du-ch-de-belves-0",
+      "jetons_trouves": [
+        "ehpad",
+        "belves"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0177",
+      "nom": "Ch hôpital centre hospitalier de perigueux",
+      "type": "ch",
+      "commune": "Perigueux",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/perigueux-cedex/ch-hopital-centre-hospitalier-de-perigueux",
+      "jetons_trouves": [
+        "perigueux"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0178",
+      "nom": "Cl clinique du parc - perigueux",
+      "type": "clinique",
+      "commune": "Perigueux",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/etablissement-de-soins-chirurgicaux/perigueux-cedex/cl-clinique-du-parc-perigueux",
+      "jetons_trouves": [
+        "parc",
+        "perigueux"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0179",
+      "nom": "Pcl polyclinique francheville - perigueux",
+      "type": "clinique",
+      "commune": "Perigueux",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/etablissement-de-soins-pluridisciplinaire/perigueux-cedex/pcl-polyclinique-francheville-perigueux",
+      "jetons_trouves": [
+        "pcl",
+        "francheville",
+        "perigueux"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0180",
+      "nom": "Ehpad beaufort magne",
+      "type": "ehpad",
+      "commune": "Périgueux",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/perigueux/ehpad-beaufort-magne-0",
+      "jetons_trouves": [
+        "ehpad",
+        "beaufort",
+        "magne"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0181",
+      "nom": "Ehpad la feuilleraie",
+      "type": "ehpad",
+      "commune": "Razac-sur-l Isle",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/razac-sur-lisle/ehpad-la-feuilleraie-0",
+      "jetons_trouves": [
+        "ehpad",
+        "feuilleraie"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0182",
+      "nom": "Ch hopital centre hospitalier de riberac",
+      "type": "ch",
+      "commune": "Ribérac",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/centre-hospitalier-ex-hopital-local/riberac/ch-hopital-centre-hospitalier-de-riberac",
+      "jetons_trouves": [
+        "riberac"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0183",
+      "nom": "Ehpad de riberac",
+      "type": "ehpad",
+      "commune": "Ribérac",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/riberac/ehpad-de-riberac-0",
+      "jetons_trouves": [
+        "ehpad",
+        "riberac"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0184",
+      "nom": "Chic rdd ehpad de saint aulaye",
+      "type": "ehpad",
+      "commune": "Saint Aulaye-Puymangou",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saint-aulaye-puymangou/chic-rdd-ehpad-de-saint-aulaye",
+      "jetons_trouves": [
+        "chic",
+        "rdd",
+        "ehpad",
+        "saint",
+        "aulaye"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0185",
+      "nom": "Ehpad la meynardie",
+      "type": "ehpad",
+      "commune": "Saint Privat en Périgord",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saint-privat-en-perigord/ehpad-la-meynardie-0",
+      "jetons_trouves": [
+        "ehpad",
+        "meynardie"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0186",
+      "nom": "Ch hopital centre hospitalier de saint-astier",
+      "type": "ch",
+      "commune": "Saint-Astier",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/centre-hospitalier-ex-hopital-local/saint-astier/ch-hopital-centre-hospitalier-de-saint-astier",
+      "jetons_trouves": [
+        "saint",
+        "astier"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0187",
+      "nom": "Ehpad de saint leon sur l'isle",
+      "type": "ehpad",
+      "commune": "Saint-Léon-sur-l Isle",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saint-leon-sur-lisle/ehpad-de-saint-leon-sur-lisle-0",
+      "jetons_trouves": [
+        "ehpad",
+        "saint",
+        "leon",
+        "isle"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0188",
+      "nom": "Centre Hospitalier Jean Leclaire - Sarlat",
+      "type": "ch",
+      "commune": "Sarlat la caneda",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/sarlat-la-caneda/centre-hospitalier-jean-leclaire-sarlat",
+      "jetons_trouves": [
+        "jean",
+        "leclaire",
+        "sarlat"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0189",
+      "nom": "Ehpad les jardins de thenon",
+      "type": "ehpad",
+      "commune": "Thenon",
+      "département": "Dordogne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/thenon/ehpad-les-jardins-de-thenon-0",
+      "jetons_trouves": [
+        "ehpad",
+        "jardins",
+        "thenon"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0190",
+      "nom": "Ehpad louise michel",
+      "type": "ehpad",
+      "commune": "Ambarès-et-Lagrave",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/ambares-et-lagrave/ehpad-louise-michel-0",
+      "jetons_trouves": [
+        "ehpad",
+        "louise",
+        "michel"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0191",
+      "nom": "Maison de retraite les bouleaux",
+      "type": "ehpad",
+      "commune": "Arbanats",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/arbanats/maison-de-retraite-les-bouleaux-0",
+      "jetons_trouves": [
+        "bouleaux"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0192",
+      "nom": "Hopital  prive wallerstein - ares",
+      "type": "clinique",
+      "commune": "Ares",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-de-soins-pluridisciplinaire/ares/hopital-prive-wallerstein-ares",
+      "jetons_trouves": [
+        "prive",
+        "wallerstein",
+        "ares"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0193",
+      "nom": "Ch hopital centre hospitalier  de bazas",
+      "type": "ch",
+      "commune": "Bazas",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/bazas/ch-hopital-centre-hospitalier-de-bazas",
+      "jetons_trouves": [
+        "bazas"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0194",
+      "nom": "Ehpad du ch de bazas",
+      "type": "ehpad",
+      "commune": "Bazas",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/bazas/ehpad-du-ch-de-bazas",
+      "jetons_trouves": [
+        "ehpad",
+        "bazas"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0195",
+      "nom": "Ehpad bon secours",
+      "type": "ehpad",
+      "commune": "Begles",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/begles/ehpad-bon-secours-0",
+      "jetons_trouves": [
+        "ehpad",
+        "bon",
+        "secours"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0196",
+      "nom": "Ch hopital centre hospitalier de la haute gironde - blaye",
+      "type": "ch",
+      "commune": "Blaye",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/blaye-cedex/ch-hopital-centre-hospitalier-de-la-haute-gironde-blaye",
+      "jetons_trouves": [
+        "haute",
+        "gironde",
+        "blaye"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0197",
+      "nom": "Chu hopital centre hospitalier universitaire  pellegrin - bordeaux",
+      "type": "chu",
+      "commune": "Bordeaux",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/centre-hospitalier-regional-chr/bordeaux-cedex/chu-hopital-centre-hospitalier-universitaire-pellegrin-bordeaux",
+      "jetons_trouves": [
+        "chu",
+        "universitaire",
+        "pellegrin",
+        "bordeaux"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0198",
+      "nom": "Chu hopital centre hospitalier universitaire  saint-andre - bordeaux",
+      "type": "chu",
+      "commune": "Bordeaux",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/centre-hospitalier-regional-chr/bordeaux-cedex/chu-hopital-centre-hospitalier-universitaire-saint-andre-bordeaux",
+      "jetons_trouves": [
+        "chu",
+        "universitaire",
+        "saint",
+        "andre",
+        "bordeaux"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0199",
+      "nom": "Chu hopital centre hospitalier universitaire centre jean abadie - bordeaux",
+      "type": "chu",
+      "commune": "Bordeaux",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/centre-hospitalier-regional-chr/bordeaux-cedex/chu-hopital-centre-hospitalier-universitaire-centre-jean-abadie-bordeaux",
+      "jetons_trouves": [
+        "chu",
+        "universitaire",
+        "jean",
+        "abadie",
+        "bordeaux"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0200",
+      "nom": "Cl clinique anouste - bordeaux",
+      "type": "clinique",
+      "commune": "Bordeaux",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/maison-de-sante-pour-maladies-mentales/bordeaux/cl-clinique-anouste-bordeaux",
+      "jetons_trouves": [
+        "anouste",
+        "bordeaux"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0201",
+      "nom": "Cl clinique ophtalmologique thiers - bordeaux",
+      "type": "clinique",
+      "commune": "Bordeaux",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-de-soins-chirurgicaux/bordeaux/cl-clinique-ophtalmologique-thiers-bordeaux",
+      "jetons_trouves": [
+        "ophtalmologique",
+        "thiers",
+        "bordeaux"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0202",
+      "nom": "Cl clinique tivoli-ducos - bordeaux",
+      "type": "clinique",
+      "commune": "Bordeaux",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-de-soins-pluridisciplinaire/bordeaux/cl-clinique-tivoli-ducos-bordeaux",
+      "jetons_trouves": [
+        "tivoli",
+        "ducos",
+        "bordeaux"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0203",
+      "nom": "Ehpad cos villa pia",
+      "type": "ehpad",
+      "commune": "Bordeaux",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/bordeaux/ehpad-cos-villa-pia-0",
+      "jetons_trouves": [
+        "ehpad",
+        "cos",
+        "villa",
+        "pia"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0204",
+      "nom": "Ehpad le petit trianon",
+      "type": "ehpad",
+      "commune": "Bordeaux",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/bordeaux/ehpad-le-petit-trianon-0",
+      "jetons_trouves": [
+        "ehpad",
+        "petit",
+        "trianon"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0205",
+      "nom": "Ehpad ma maison",
+      "type": "ehpad",
+      "commune": "Bordeaux",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/bordeaux/ehpad-ma-maison",
+      "jetons_trouves": [
+        "ehpad"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0206",
+      "nom": "Ehpad villa des cinq sentes",
+      "type": "ehpad",
+      "commune": "Bordeaux",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/bordeaux/ehpad-villa-des-cinq-sentes-0",
+      "jetons_trouves": [
+        "ehpad",
+        "villa",
+        "cinq",
+        "sentes"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0207",
+      "nom": "Hopital centre hospitalier charles perrens",
+      "type": "ch",
+      "commune": "Bordeaux",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/centre-hospitalier-specialise-de-lutte-contre-les-maladies-mentales/bordeaux/hopital-centre-hospitalier-charles-perrens",
+      "jetons_trouves": [
+        "charles",
+        "perrens"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0208",
+      "nom": "Pcl polyclinique bordeaux-cauderan",
+      "type": "clinique",
+      "commune": "Bordeaux",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-de-soins-pluridisciplinaire/bordeaux/pcl-polyclinique-bordeaux-cauderan",
+      "jetons_trouves": [
+        "pcl",
+        "bordeaux",
+        "cauderan"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0209",
+      "nom": "Pcl polyclinique bordeaux-nord aquitaine pbna",
+      "type": "clinique",
+      "commune": "Bordeaux",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-de-soins-pluridisciplinaire/bordeaux/pcl-polyclinique-bordeaux-nord-aquitaine-pbna",
+      "jetons_trouves": [
+        "pcl",
+        "bordeaux",
+        "nord",
+        "pbna"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0210",
+      "nom": "Pcl polyclinique jean villar - bruges",
+      "type": "clinique",
+      "commune": "Bruges",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-de-soins-pluridisciplinaire/bruges-cedex/pcl-polyclinique-jean-villar-bruges",
+      "jetons_trouves": [
+        "pcl",
+        "jean",
+        "villar",
+        "bruges"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0211",
+      "nom": "Ch hopital centre hospitalier de cadillac",
+      "type": "ch",
+      "commune": "Cadillac",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/centre-hospitalier-specialise-de-lutte-contre-les-maladies-mentales/cadillac/ch-hopital-centre-hospitalier-de-cadillac",
+      "jetons_trouves": [
+        "cadillac"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0212",
+      "nom": "Ehpad les jardins d'ombeline",
+      "type": "ehpad",
+      "commune": "Carbon-Blanc",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/carbon-blanc/ehpad-les-jardins-dombeline-0",
+      "jetons_trouves": [
+        "ehpad",
+        "jardins",
+        "ombeline"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0213",
+      "nom": "Maison de retraite l'orchidee",
+      "type": "ehpad",
+      "commune": "Carignan-de-Bordeaux",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/carignan-de-bordeaux/maison-de-retraite-lorchidee-0",
+      "jetons_trouves": [
+        "orchidee"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0214",
+      "nom": "Ehpad residence le vigean",
+      "type": "ehpad",
+      "commune": "Eysines",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/eysines/ehpad-residence-le-vigean-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "vigean"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0215",
+      "nom": "Cl nouvelle clinique bordeaux tondu",
+      "type": "clinique",
+      "commune": "Floirac",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-de-soins-pluridisciplinaire/floirac/cl-nouvelle-clinique-bordeaux-tondu",
+      "jetons_trouves": [
+        "bordeaux",
+        "tondu"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0216",
+      "nom": "Ehpad res btp rms fontaines de monjous",
+      "type": "ehpad",
+      "commune": "Gradignan",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/gradignan/ehpad-res-btp-rms-fontaines-de-monjous",
+      "jetons_trouves": [
+        "ehpad",
+        "res",
+        "btp",
+        "rms",
+        "fontaines",
+        "monjous"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0217",
+      "nom": "Ch hopital centre hospitalier  sud gironde - site de la reole",
+      "type": "ch",
+      "commune": "La reole",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/la-reole/ch-hopital-centre-hospitalier-sud-gironde-site-de-la-reole",
+      "jetons_trouves": [
+        "sud",
+        "gironde",
+        "site",
+        "reole"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0218",
+      "nom": "Ehpad  st georges",
+      "type": "ehpad",
+      "commune": "La Teste-de-Buch",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/la-teste-de-buch/ehpad-st-georges-1",
+      "jetons_trouves": [
+        "ehpad",
+        "georges"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0219",
+      "nom": "Ehpad residence de pyla mer",
+      "type": "ehpad",
+      "commune": "La Teste-de-Buch",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/la-teste-de-buch/ehpad-residence-de-pyla-mer-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "pyla",
+        "mer"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0220",
+      "nom": "Ehpad le retou",
+      "type": "ehpad",
+      "commune": "Lamarque",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/lamarque/ehpad-le-retou-0",
+      "jetons_trouves": [
+        "ehpad",
+        "retou"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0221",
+      "nom": "Ch hopital centre hospitalier sud gironde - site de langon",
+      "type": "ch",
+      "commune": "Langon",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/langon-cedex/ch-hopital-centre-hospitalier-sud-gironde-site-de-langon",
+      "jetons_trouves": [
+        "sud",
+        "gironde",
+        "site",
+        "langon"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0222",
+      "nom": "Ehpad le val de brion",
+      "type": "ehpad",
+      "commune": "Langon",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/langon/ehpad-le-val-de-brion",
+      "jetons_trouves": [
+        "ehpad",
+        "val",
+        "brion"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0223",
+      "nom": "Ehpad villa de valrose",
+      "type": "ehpad",
+      "commune": "Latresne",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/latresne/ehpad-villa-de-valrose-0",
+      "jetons_trouves": [
+        "ehpad",
+        "villa",
+        "valrose"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0224",
+      "nom": "Ch hopital centre hospitalier suburbain du bouscat",
+      "type": "clinique",
+      "commune": "Le bouscat",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-de-soins-pluridisciplinaire/le-bouscat-cedex/ch-hopital-centre-hospitalier-suburbain-du-bouscat",
+      "jetons_trouves": [
+        "suburbain",
+        "bouscat"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0225",
+      "nom": "Ehpad residence la boetie",
+      "type": "ehpad",
+      "commune": "Le Taillan-Médoc",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/le-taillan-medoc/ehpad-residence-la-boetie-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "boetie"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0226",
+      "nom": "Cl clinique rose des sables - le teich",
+      "type": "clinique",
+      "commune": "Le Teich",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-de-sante-prive-autorise-en-soins-de-suite-et-de-readaptation-ssr/le-teich/cl-clinique-rose-des-sables-le-teich",
+      "jetons_trouves": [
+        "rose",
+        "sables",
+        "teich"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0227",
+      "nom": "Cl clinique mutualiste du medoc",
+      "type": "clinique",
+      "commune": "Lesparre-Médoc",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-de-soins-pluridisciplinaire/lesparre-medoc/cl-clinique-mutualiste-du-medoc",
+      "jetons_trouves": [
+        "mutualiste",
+        "medoc"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0228",
+      "nom": "Ehpad fondation saint-leonard",
+      "type": "ehpad",
+      "commune": "Lesparre-Médoc",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/lesparre-medoc/ehpad-fondation-saint-leonard-0",
+      "jetons_trouves": [
+        "ehpad",
+        "fondation",
+        "saint",
+        "leonard"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0229",
+      "nom": "Ch hopital centre hospitalier  robert boulin - libourne",
+      "type": "ch",
+      "commune": "Libourne",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/libourne/ch-hopital-centre-hospitalier-robert-boulin-libourne",
+      "jetons_trouves": [
+        "robert",
+        "boulin",
+        "libourne"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0230",
+      "nom": "Ehpad residence les dagueys",
+      "type": "ehpad",
+      "commune": "Libourne",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/libourne/ehpad-residence-les-dagueys-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "dagueys"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0231",
+      "nom": "Gcs cl clinique chirurgicale libournais",
+      "type": "clinique",
+      "commune": "Libourne",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/groupement-de-cooperation-sanitaire-etablissement-de-sante/libourne/gcs-cl-clinique-chirurgicale-libournais",
+      "jetons_trouves": [
+        "gcs",
+        "chirurgicale",
+        "libournais"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0232",
+      "nom": "Cl clinique du sport de bordeaux-merignac",
+      "type": "clinique",
+      "commune": "Mérignac",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-de-soins-chirurgicaux/merignac/cl-clinique-du-sport-de-bordeaux-merignac",
+      "jetons_trouves": [
+        "sport",
+        "bordeaux",
+        "merignac"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0233",
+      "nom": "Ehpad les parenteles",
+      "type": "ehpad",
+      "commune": "Mérignac",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/merignac/ehpad-les-parenteles-0",
+      "jetons_trouves": [
+        "ehpad",
+        "parenteles"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0234",
+      "nom": "Ehpad les jardins d'eleonore",
+      "type": "ehpad",
+      "commune": "Monségur",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/monsegur/ehpad-les-jardins-deleonore-0",
+      "jetons_trouves": [
+        "ehpad",
+        "jardins",
+        "eleonore"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0235",
+      "nom": "Chu hopital centre hospitalier universitaire haut-leveque - bordeaux",
+      "type": "chu",
+      "commune": "Pessac",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/centre-hospitalier-regional-chr/pessac-cedex/chu-hopital-centre-hospitalier-universitaire-haut-leveque-bordeaux",
+      "jetons_trouves": [
+        "chu",
+        "universitaire",
+        "haut",
+        "leveque",
+        "bordeaux"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0236",
+      "nom": "Chu hopital centre hospitalier universitaire usld unite de soins de longue duree henri choussat - pessac",
+      "type": "chu",
+      "commune": "Pessac",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/pessac-cedex/chu-hopital-centre-hospitalier-universitaire-usld-unite-de-soins-de-longue-duree-henri-choussat",
+      "jetons_trouves": [
+        "chu",
+        "universitaire",
+        "usld",
+        "unite",
+        "soins",
+        "longue",
+        "duree",
+        "henri",
+        "choussat",
+        "pessac"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0237",
+      "nom": "Maison de retraite  les mimosas",
+      "type": "ehpad",
+      "commune": "Plassac",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/plassac/maison-de-retraite-les-mimosas",
+      "jetons_trouves": [
+        "mimosas"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0238",
+      "nom": "Ch hopital centre hospitalier  de sainte foy la grande",
+      "type": "ch",
+      "commune": "Sainte-Foy-la-Grande",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/sainte-foy-la-grande/ch-hopital-centre-hospitalier-de-sainte-foy-la-grande",
+      "jetons_trouves": [
+        "sainte",
+        "foy",
+        "grande"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0239",
+      "nom": "Usld ch hopital centre hospitalier ste-foy-la-grande",
+      "type": "ch",
+      "commune": "Sainte-Foy-la-Grande",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/sainte-foy-la-grande/usld-ch-hopital-centre-hospitalier-ste-foy-la-grande",
+      "jetons_trouves": [
+        "usld",
+        "ste",
+        "foy",
+        "grande"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0240",
+      "nom": "Ehpad st jacques de compostelle",
+      "type": "ehpad",
+      "commune": "Soulac-sur-Mer",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/soulac-sur-mer/ehpad-st-jacques-de-compostelle-0",
+      "jetons_trouves": [
+        "ehpad",
+        "jacques",
+        "compostelle"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0241",
+      "nom": "Cl clinique bethanie - talence",
+      "type": "clinique",
+      "commune": "Talence",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/maison-de-sante-pour-maladies-mentales/talence/cl-clinique-bethanie-talence",
+      "jetons_trouves": [
+        "bethanie",
+        "talence"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0242",
+      "nom": "Ehpad korian villa bontemps",
+      "type": "ehpad",
+      "commune": "Talence",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/talence/ehpad-korian-villa-bontemps-0",
+      "jetons_trouves": [
+        "ehpad",
+        "korian",
+        "villa",
+        "bontemps"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0243",
+      "nom": "Ehpad marie-josee lalanne",
+      "type": "ehpad",
+      "commune": "Vendays-Montalivet",
+      "département": "Gironde",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/vendays-montalivet/ehpad-marie-josee-lalanne",
+      "jetons_trouves": [
+        "ehpad",
+        "marie",
+        "josee",
+        "lalanne"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0244",
+      "nom": "Hihl hopital intercommunal du haut limousin - bellac",
+      "type": "ch",
+      "commune": "Bellac",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/centre-hospitalier-ex-hopital-local/bellac/hihl-hopital-intercommunal-du-haut-limousin-bellac",
+      "jetons_trouves": [
+        "hihl",
+        "intercommunal",
+        "haut",
+        "limousin",
+        "bellac"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0245",
+      "nom": "Usld hihl hopital intercommunal du haut limousin - bellac",
+      "type": "ch",
+      "commune": "Bellac",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/bellac/usld-hihl-hopital-intercommunal-du-haut-limousin-bellac",
+      "jetons_trouves": [
+        "usld",
+        "hihl",
+        "intercommunal",
+        "haut",
+        "limousin",
+        "bellac"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0246",
+      "nom": "Ehpad le hameau du buis",
+      "type": "ehpad",
+      "commune": "Boisseuil",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/boisseuil/ehpad-le-hameau-du-buis-0",
+      "jetons_trouves": [
+        "ehpad",
+        "hameau",
+        "buis"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0247",
+      "nom": "Ehpad jalouneix bertroff",
+      "type": "ehpad",
+      "commune": "Bujaleuf",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/bujaleuf/ehpad-jalouneix-bertroff",
+      "jetons_trouves": [
+        "ehpad",
+        "jalouneix",
+        "bertroff"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0248",
+      "nom": "Ehpad residence le nid",
+      "type": "ehpad",
+      "commune": "Châlus",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/chalus/ehpad-residence-le-nid-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "nid"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0249",
+      "nom": "Ehpad residence du puy-chat",
+      "type": "ehpad",
+      "commune": "Châteauneuf-la-Forêt",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/chateauneuf-la-foret/ehpad-residence-du-puy-chat",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "puy",
+        "chat"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0250",
+      "nom": "Ehpad le cantou",
+      "type": "ehpad",
+      "commune": "Condat-sur-Vienne",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/condat-sur-vienne/ehpad-le-cantou-0",
+      "jetons_trouves": [
+        "ehpad",
+        "cantou"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0251",
+      "nom": "Ehpad residence les chenes",
+      "type": "ehpad",
+      "commune": "Couzeix",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/couzeix/ehpad-residence-les-chenes-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "chenes"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0252",
+      "nom": "Ehpad residence la valoine",
+      "type": "ehpad",
+      "commune": "Feytiat",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/feytiat/ehpad-residence-la-valoine-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "valoine"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0253",
+      "nom": "Ehpad d'isle",
+      "type": "ehpad",
+      "commune": "Isle",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/isle/ehpad-disle-0",
+      "jetons_trouves": [
+        "ehpad",
+        "isle"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0254",
+      "nom": "Cl clinique st maurice",
+      "type": "clinique",
+      "commune": "La Jonchère-Saint-Maurice",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/maison-de-sante-pour-maladies-mentales/la-jonchere-saint-maurice/cl-clinique-st-maurice",
+      "jetons_trouves": [
+        "maurice"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0255",
+      "nom": "Hihl hopital intercommunal du haut limousin - le dorat",
+      "type": "ch",
+      "commune": "Le Dorat",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/centre-hospitalier-ex-hopital-local/le-dorat/hihl-hopital-intercommunal-du-haut-limousin-le-dorat",
+      "jetons_trouves": [
+        "hihl",
+        "intercommunal",
+        "haut",
+        "limousin",
+        "dorat"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0256",
+      "nom": "Usld hihl hopital intercommunal du haut limousin - le dorat",
+      "type": "ch",
+      "commune": "Le Dorat",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/le-dorat/usld-hihl-hopital-intercommunal-du-haut-limousin-le-dorat",
+      "jetons_trouves": [
+        "usld",
+        "hihl",
+        "intercommunal",
+        "haut",
+        "limousin",
+        "dorat"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0257",
+      "nom": "Ch esquirol -  centre proximite van gogh hopital de jour",
+      "type": "ch",
+      "commune": "Limoges",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/centre-hospitalier-specialise-de-lutte-contre-les-maladies-mentales/limoges/ch-esquirol-centre-proximite-van-gogh-hopital-de-jour",
+      "jetons_trouves": [
+        "esquirol",
+        "proximite",
+        "van",
+        "gogh",
+        "jour"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0258",
+      "nom": "Ch esquirol - centre du patient age sainte claire hopital de jour",
+      "type": "ch",
+      "commune": "Limoges",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/centre-hospitalier-specialise-de-lutte-contre-les-maladies-mentales/limoges/ch-esquirol-centre-du-patient-age-sainte-claire-hopital-de-jour",
+      "jetons_trouves": [
+        "esquirol",
+        "patient",
+        "age",
+        "sainte",
+        "claire",
+        "jour"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0259",
+      "nom": "Chu hôpital centre hospitalier universitaire dupuytren - limoges",
+      "type": "chu",
+      "commune": "Limoges",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/centre-hospitalier-regional-chr/limoges-cedex-1/chu-hopital-centre-hospitalier-universitaire-dupuytren-limoges",
+      "jetons_trouves": [
+        "chu",
+        "universitaire",
+        "dupuytren",
+        "limoges"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0260",
+      "nom": "Cl clinique des emailleurs - limoges",
+      "type": "clinique",
+      "commune": "Limoges",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/etablissement-de-soins-pluridisciplinaire/limoges-cedex-1/cl-clinique-des-emailleurs-limoges",
+      "jetons_trouves": [
+        "emailleurs",
+        "limoges"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0261",
+      "nom": "Cl clinique francois chenieux - limoges",
+      "type": "clinique",
+      "commune": "Limoges",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/etablissement-de-soins-pluridisciplinaire/limoges-cedex-1/cl-clinique-francois-chenieux-limoges",
+      "jetons_trouves": [
+        "francois",
+        "chenieux",
+        "limoges"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0262",
+      "nom": "Ehpad le mas rome",
+      "type": "ehpad",
+      "commune": "Limoges",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/limoges/ehpad-le-mas-rome-0",
+      "jetons_trouves": [
+        "ehpad",
+        "mas",
+        "rome"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0263",
+      "nom": "Ehpad le roussillon",
+      "type": "ehpad",
+      "commune": "Limoges",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/limoges/ehpad-le-roussillon-0",
+      "jetons_trouves": [
+        "ehpad",
+        "roussillon"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0264",
+      "nom": "Ehpad les 5 sens",
+      "type": "ehpad",
+      "commune": "Limoges",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/limoges/ehpad-les-5-sens-0",
+      "jetons_trouves": [
+        "ehpad",
+        "sens"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0265",
+      "nom": "Ehpad marcel faure",
+      "type": "ehpad",
+      "commune": "Limoges",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/limoges/ehpad-marcel-faure-0",
+      "jetons_trouves": [
+        "ehpad",
+        "marcel",
+        "faure"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0266",
+      "nom": "Ehpad pr joseph de leobardy",
+      "type": "ehpad",
+      "commune": "Limoges",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/limoges/ehpad-pr-joseph-de-leobardy-0",
+      "jetons_trouves": [
+        "ehpad",
+        "joseph",
+        "leobardy"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0267",
+      "nom": "Hopital de la femme, de la mere et de l'enfant",
+      "type": "ch",
+      "commune": "Limoges",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/centre-hospitalier-regional-chr/limoges/hopital-de-la-femme-de-la-mere-et-de-lenfant",
+      "jetons_trouves": [
+        "femme",
+        "mere",
+        "enfant"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0268",
+      "nom": "Residence saint-martial",
+      "type": "ehpad",
+      "commune": "Limoges",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/limoges/residence-saint-martial",
+      "jetons_trouves": [
+        "residence",
+        "saint",
+        "martial"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0269",
+      "nom": "Ch esquirol - centre proximite  haut limousin hopital de jour",
+      "type": "ch",
+      "commune": "Magnac-Laval",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/centre-hospitalier-specialise-de-lutte-contre-les-maladies-mentales/magnac-laval/ch-esquirol-centre-proximite-haut-limousin-hopital-de-jour",
+      "jetons_trouves": [
+        "esquirol",
+        "proximite",
+        "haut",
+        "limousin",
+        "jour"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0270",
+      "nom": "Ehpad hihl - magnac-laval",
+      "type": "ehpad",
+      "commune": "Magnac-Laval",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/magnac-laval/ehpad-hihl-magnac-laval",
+      "jetons_trouves": [
+        "ehpad",
+        "hihl",
+        "magnac",
+        "laval"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0271",
+      "nom": "Hihl hopital intercommunal du haut limousin - magnac-laval",
+      "type": "ch",
+      "commune": "Magnac-Laval",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/centre-hospitalier-ex-hopital-local/magnac-laval/hihl-hopital-intercommunal-du-haut-limousin-magnac-laval",
+      "jetons_trouves": [
+        "hihl",
+        "intercommunal",
+        "haut",
+        "limousin",
+        "magnac",
+        "laval"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0272",
+      "nom": "Ch hopital centre hospitalier saint-junien",
+      "type": "ch",
+      "commune": "Saint-Junien",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/saint-junien/ch-hopital-centre-hospitalier-saint-junien",
+      "jetons_trouves": [
+        "saint",
+        "junien"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0273",
+      "nom": "Usld ch hopital centre hospitalier saint junien",
+      "type": "ch",
+      "commune": "Saint-Junien",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/saint-junien/usld-ch-hopital-centre-hospitalier-saint-junien",
+      "jetons_trouves": [
+        "usld",
+        "saint",
+        "junien"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0274",
+      "nom": "Residence les pins",
+      "type": "ehpad",
+      "commune": "Saint-Laurent-sur-Gorre",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saint-laurent-sur-gorre/residence-les-pins-0",
+      "jetons_trouves": [
+        "residence",
+        "pins"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0275",
+      "nom": "Ch esquirol - centre proximite saint-leonard hopital de jour",
+      "type": "ch",
+      "commune": "Saint-Léonard-de-Noblat",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/centre-hospitalier-specialise-de-lutte-contre-les-maladies-mentales/saint-leonard-de-noblat/ch-esquirol-centre-proximite-saint-leonard-hopital-de-jour",
+      "jetons_trouves": [
+        "esquirol",
+        "proximite",
+        "saint",
+        "leonard",
+        "jour"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0276",
+      "nom": "Ch esquirol - centre proximite bassin aredien hopital de jour",
+      "type": "ch",
+      "commune": "Saint-Yrieix-la-Perche",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/centre-hospitalier-specialise-de-lutte-contre-les-maladies-mentales/saint-yrieix-la-perche/ch-esquirol-centre-proximite-bassin-aredien-hopital-de-jour",
+      "jetons_trouves": [
+        "esquirol",
+        "proximite",
+        "bassin",
+        "aredien",
+        "jour"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0277",
+      "nom": "Usld ch hopital centre hospitalier j boutard - st yrieix",
+      "type": "ch",
+      "commune": "Saint-Yrieix-la-Perche",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/saint-yrieix-la-perche/usld-ch-hopital-centre-hospitalier-j-boutard-st-yrieix",
+      "jetons_trouves": [
+        "usld",
+        "boutard",
+        "yrieix"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0278",
+      "nom": "Ehpad la chenaie",
+      "type": "ehpad",
+      "commune": "Verneuil-sur-Vienne",
+      "département": "Haute-Vienne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/verneuil-sur-vienne/ehpad-la-chenaie-0",
+      "jetons_trouves": [
+        "ehpad",
+        "chenaie"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0279",
+      "nom": "Cl clinique fsef aire-sur-l'adour",
+      "type": "clinique",
+      "commune": "Aire-sur-l Adour",
+      "département": "Landes",
+      "url": "https://www.sante.fr/maison-de-sante-pour-maladies-mentales/aire-sur-ladour/cl-clinique-fsef-aire-sur-ladour",
+      "jetons_trouves": [
+        "fsef",
+        "aire",
+        "adour"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0280",
+      "nom": "Ehpad les peupliers",
+      "type": "ehpad",
+      "commune": "Amou",
+      "département": "Landes",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/amou/ehpad-les-peupliers-0",
+      "jetons_trouves": [
+        "ehpad",
+        "peupliers"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0281",
+      "nom": "Ehpad leon dubedat",
+      "type": "ehpad",
+      "commune": "Biscarrosse",
+      "département": "Landes",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/biscarrosse/ehpad-leon-dubedat-0",
+      "jetons_trouves": [
+        "ehpad",
+        "leon",
+        "dubedat"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0282",
+      "nom": "Ehpad eugenie desjobert",
+      "type": "ehpad",
+      "commune": "Capbreton",
+      "département": "Landes",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/capbreton/ehpad-eugenie-desjobert-0",
+      "jetons_trouves": [
+        "ehpad",
+        "eugenie",
+        "desjobert"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0283",
+      "nom": "Ch hopital centre hospitalier  de dax - site du lanot",
+      "type": "ch",
+      "commune": "Dax",
+      "département": "Landes",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/dax/ch-hopital-centre-hospitalier-de-dax-site-du-lanot",
+      "jetons_trouves": [
+        "dax",
+        "site",
+        "lanot"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0284",
+      "nom": "Cl clinique capio jean le bon - dax",
+      "type": "clinique",
+      "commune": "Dax",
+      "département": "Landes",
+      "url": "https://www.sante.fr/etablissement-de-soins-pluridisciplinaire/dax/cl-clinique-capio-jean-le-bon-dax",
+      "jetons_trouves": [
+        "capio",
+        "jean",
+        "bon",
+        "dax"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0285",
+      "nom": "Ehpad alex lizal",
+      "type": "ehpad",
+      "commune": "Dax",
+      "département": "Landes",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/dax/ehpad-alex-lizal-0",
+      "jetons_trouves": [
+        "ehpad",
+        "alex",
+        "lizal"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0286",
+      "nom": "Ehpad du louts",
+      "type": "ehpad",
+      "commune": "Gamarde-les-Bains",
+      "département": "Landes",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/gamarde-les-bains/ehpad-du-louts-0",
+      "jetons_trouves": [
+        "ehpad",
+        "louts"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0287",
+      "nom": "Ehpad de coujon",
+      "type": "ehpad",
+      "commune": "Grenade-sur-l Adour",
+      "département": "Landes",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/grenade-sur-ladour/ehpad-de-coujon-0",
+      "jetons_trouves": [
+        "ehpad",
+        "coujon"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0288",
+      "nom": "Ehpad maisons du part'age - labastide",
+      "type": "ehpad",
+      "commune": "Labastide-d Armagnac",
+      "département": "Landes",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/labastide-darmagnac/ehpad-maisons-du-partage-labastide",
+      "jetons_trouves": [
+        "ehpad",
+        "maisons",
+        "part",
+        "age",
+        "labastide"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0289",
+      "nom": "Ehpad du pays d'albret",
+      "type": "ehpad",
+      "commune": "Labrit",
+      "département": "Landes",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/labrit/ehpad-du-pays-dalbret-0",
+      "jetons_trouves": [
+        "ehpad",
+        "pays",
+        "albret"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0290",
+      "nom": "Ehpad le chant des pins",
+      "type": "ehpad",
+      "commune": "Mimizan",
+      "département": "Landes",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/mimizan/ehpad-le-chant-des-pins-0",
+      "jetons_trouves": [
+        "ehpad",
+        "chant",
+        "pins"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0291",
+      "nom": "Chi hopital centre hospitalier intercommunal mont de marsan et pays des sources",
+      "type": "ch",
+      "commune": "Mont de marsan",
+      "département": "Landes",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/mont-de-marsan-cedex/chi-hopital-centre-hospitalier-intercommunal-mont-de-marsan-et-pays-des-sources",
+      "jetons_trouves": [
+        "chi",
+        "intercommunal",
+        "mont",
+        "marsan",
+        "pays",
+        "sources"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0292",
+      "nom": "Ehpad les rives du midou",
+      "type": "ehpad",
+      "commune": "Mont-de-Marsan",
+      "département": "Landes",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/mont-de-marsan/ehpad-les-rives-du-midou",
+      "jetons_trouves": [
+        "ehpad",
+        "rives",
+        "midou"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0293",
+      "nom": "Cl clinique montpribat - montfort en chalosse",
+      "type": "clinique",
+      "commune": "Montfort-en-Chalosse",
+      "département": "Landes",
+      "url": "https://www.sante.fr/etablissement-de-sante-prive-autorise-en-soins-de-suite-et-de-readaptation-ssr/montfort-en-chalosse/cl-clinique-montpribat-montfort-en-chalosse",
+      "jetons_trouves": [
+        "montpribat",
+        "montfort",
+        "chalosse"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0294",
+      "nom": "Ehpad des cent marches",
+      "type": "ehpad",
+      "commune": "Montfort-en-Chalosse",
+      "département": "Landes",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/montfort-en-chalosse/ehpad-des-cent-marches-0",
+      "jetons_trouves": [
+        "ehpad",
+        "cent",
+        "marches"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0295",
+      "nom": "Ehpad - maison de retraite de morcenx",
+      "type": "ehpad",
+      "commune": "Morcenx-la-Nouvelle",
+      "département": "Landes",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/morcenx-la-nouvelle/ehpad-maison-de-retraite-de-morcenx",
+      "jetons_trouves": [
+        "ehpad",
+        "morcenx"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0296",
+      "nom": "Cl clinique maylis - narrosse",
+      "type": "clinique",
+      "commune": "Narrosse",
+      "département": "Landes",
+      "url": "https://www.sante.fr/maison-de-sante-pour-maladies-mentales/narrosse/cl-clinique-maylis-narrosse",
+      "jetons_trouves": [
+        "maylis",
+        "narrosse"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0297",
+      "nom": "Ehpad a noste",
+      "type": "ehpad",
+      "commune": "Onesse-Laharie",
+      "département": "Landes",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/onesse-laharie/ehpad-noste-0",
+      "jetons_trouves": [
+        "ehpad",
+        "noste"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0298",
+      "nom": "Ehpad la grande lande",
+      "type": "ehpad",
+      "commune": "Pissos",
+      "département": "Landes",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/pissos/ehpad-la-grande-lande-0",
+      "jetons_trouves": [
+        "ehpad",
+        "grande",
+        "lande"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0299",
+      "nom": "Ehpad le conte",
+      "type": "ehpad",
+      "commune": "Pomarez",
+      "département": "Landes",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/pomarez/ehpad-le-conte-0",
+      "jetons_trouves": [
+        "ehpad",
+        "conte"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0300",
+      "nom": "Cl clinique saint martin de seignanx",
+      "type": "clinique",
+      "commune": "Saint-Martin-de-Seignanx",
+      "département": "Landes",
+      "url": "https://www.sante.fr/etablissement-de-sante-prive-autorise-en-soins-de-suite-et-de-readaptation-ssr/saint-martin-de-seignanx/cl-clinique-saint-martin-de-seignanx",
+      "jetons_trouves": [
+        "saint",
+        "martin",
+        "seignanx"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0301",
+      "nom": "Ehpad la martiniere",
+      "type": "ehpad",
+      "commune": "Saint-Martin-de-Seignanx",
+      "département": "Landes",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saint-martin-de-seignanx/ehpad-la-martiniere-0",
+      "jetons_trouves": [
+        "ehpad",
+        "martiniere"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0302",
+      "nom": "Ehpad lou coq hardit",
+      "type": "ehpad",
+      "commune": "Saint-Martin-de-Seignanx",
+      "département": "Landes",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saint-martin-de-seignanx/ehpad-lou-coq-hardit-0",
+      "jetons_trouves": [
+        "ehpad",
+        "lou",
+        "coq",
+        "hardit"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0303",
+      "nom": "Cl clinique napoleon",
+      "type": "clinique",
+      "commune": "Saint-Paul-lès-Dax",
+      "département": "Landes",
+      "url": "https://www.sante.fr/etablissement-de-sante-prive-autorise-en-soins-de-suite-et-de-readaptation-ssr/saint-paul-les-dax/cl-clinique-napoleon",
+      "jetons_trouves": [
+        "napoleon"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0304",
+      "nom": "Ehpad l'oustaou",
+      "type": "ehpad",
+      "commune": "Saint-Paul-lès-Dax",
+      "département": "Landes",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saint-paul-les-dax/ehpad-loustaou-0",
+      "jetons_trouves": [
+        "ehpad",
+        "oustaou"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0305",
+      "nom": "Ehpad residence saint pierre",
+      "type": "ehpad",
+      "commune": "Saint-Pierre-du-Mont",
+      "département": "Landes",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saint-pierre-du-mont/ehpad-residence-saint-pierre-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "saint",
+        "pierre"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0306",
+      "nom": "Ch hopital centre hospitalier  de saint sever",
+      "type": "ch",
+      "commune": "Saint-Sever",
+      "département": "Landes",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/saint-sever/ch-hopital-centre-hospitalier-de-saint-sever",
+      "jetons_trouves": [
+        "saint",
+        "sever"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0307",
+      "nom": "Ehpad usld ch hopital centre hospitalier de st sever",
+      "type": "ehpad",
+      "commune": "Saint-Sever",
+      "département": "Landes",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/saint-sever/ehpad-usld-ch-hopital-centre-hospitalier-de-st-sever",
+      "jetons_trouves": [
+        "ehpad",
+        "usld",
+        "sever"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0308",
+      "nom": "Ehpad l'alaoude",
+      "type": "ehpad",
+      "commune": "Seignosse",
+      "département": "Landes",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/seignosse/ehpad-lalaoude-0",
+      "jetons_trouves": [
+        "ehpad",
+        "alaoude"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0309",
+      "nom": "Clinique smr primerose",
+      "type": "clinique",
+      "commune": "Soorts-Hossegor",
+      "département": "Landes",
+      "url": "https://www.sante.fr/etablissement-de-sante-prive-autorise-en-soins-de-suite-et-de-readaptation-ssr/soorts-hossegor/clinique-smr-primerose",
+      "jetons_trouves": [
+        "smr",
+        "primerose"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0310",
+      "nom": "Ehpad des 5 rivieres",
+      "type": "ehpad",
+      "commune": "Souprosse",
+      "département": "Landes",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/souprosse/ehpad-des-5-rivieres-0",
+      "jetons_trouves": [
+        "ehpad",
+        "rivieres"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0311",
+      "nom": "Ehpad le berceau",
+      "type": "ehpad",
+      "commune": "St vincent de paul",
+      "département": "Landes",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/st-vincent-de-paul/ehpad-le-berceau",
+      "jetons_trouves": [
+        "ehpad",
+        "berceau"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0312",
+      "nom": "Centre Hospitalier Agen Nérac - Hôpital Saint-Esprit - site d'Agen",
+      "type": "ch",
+      "commune": "Agen",
+      "département": "Lot-et-Garonne",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/agen/centre-hospitalier-agen-nerac-hopital-saint-esprit-site-dagen",
+      "jetons_trouves": [
+        "agen",
+        "nerac",
+        "saint",
+        "esprit",
+        "site"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0313",
+      "nom": "Ehpad pompeyrie",
+      "type": "ehpad",
+      "commune": "Agen",
+      "département": "Lot-et-Garonne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/agen/ehpad-pompeyrie-0",
+      "jetons_trouves": [
+        "ehpad",
+        "pompeyrie"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0314",
+      "nom": "Ch hopital centre hospitalier de casteljaloux",
+      "type": "ch",
+      "commune": "Casteljaloux",
+      "département": "Lot-et-Garonne",
+      "url": "https://www.sante.fr/centre-hospitalier-ex-hopital-local/casteljaloux/ch-hopital-centre-hospitalier-de-casteljaloux",
+      "jetons_trouves": [
+        "casteljaloux"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0315",
+      "nom": "Cl clinique la paloumere",
+      "type": "clinique",
+      "commune": "Caubeyres",
+      "département": "Lot-et-Garonne",
+      "url": "https://www.sante.fr/etablissement-de-sante-prive-autorise-en-soins-de-suite-et-de-readaptation-ssr/caubeyres/cl-clinique-la-paloumere-0",
+      "jetons_trouves": [
+        "paloumere"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0316",
+      "nom": "Ehpad les capucins",
+      "type": "ehpad",
+      "commune": "Clairac",
+      "département": "Lot-et-Garonne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/clairac/ehpad-les-capucins-0",
+      "jetons_trouves": [
+        "ehpad",
+        "capucins"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0317",
+      "nom": "Ehpad capuran",
+      "type": "ehpad",
+      "commune": "Damazan",
+      "département": "Lot-et-Garonne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/damazan/ehpad-capuran-0",
+      "jetons_trouves": [
+        "ehpad",
+        "capuran"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0318",
+      "nom": "Ehpad korian bellevue",
+      "type": "ehpad",
+      "commune": "Duras",
+      "département": "Lot-et-Garonne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/duras/ehpad-korian-bellevue-0",
+      "jetons_trouves": [
+        "ehpad",
+        "korian",
+        "bellevue"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0319",
+      "nom": "Ehpad du centre hospitalier de fumel",
+      "type": "ehpad",
+      "commune": "Fumel",
+      "département": "Lot-et-Garonne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/fumel/ehpad-du-centre-hospitalier-de-fumel-0",
+      "jetons_trouves": [
+        "ehpad",
+        "fumel"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0320",
+      "nom": "Ehpad louis ix",
+      "type": "ehpad",
+      "commune": "Lamontjoie",
+      "département": "Lot-et-Garonne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/lamontjoie/ehpad-louis-ix-0",
+      "jetons_trouves": [
+        "ehpad",
+        "louis"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0321",
+      "nom": "Ehpad maison saint martin",
+      "type": "ehpad",
+      "commune": "Layrac",
+      "département": "Lot-et-Garonne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/layrac/ehpad-maison-saint-martin-0",
+      "jetons_trouves": [
+        "ehpad",
+        "saint",
+        "martin"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0322",
+      "nom": "Chic centre hospitalier de marmande",
+      "type": "ch",
+      "commune": "Marmande",
+      "département": "Lot-et-Garonne",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/marmande/chic-centre-hospitalier-de-marmande",
+      "jetons_trouves": [
+        "chic",
+        "marmande"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0323",
+      "nom": "Ehpad jean destang",
+      "type": "ehpad",
+      "commune": "Marmande",
+      "département": "Lot-et-Garonne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/marmande/ehpad-jean-destang-0",
+      "jetons_trouves": [
+        "ehpad",
+        "jean",
+        "destang"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0324",
+      "nom": "Ehpad residence saint exupery",
+      "type": "ehpad",
+      "commune": "Marmande",
+      "département": "Lot-et-Garonne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/marmande/ehpad-residence-saint-exupery-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "saint",
+        "exupery"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0325",
+      "nom": "Ehpad fondation soussial",
+      "type": "ehpad",
+      "commune": "Miramont-de-Guyenne",
+      "département": "Lot-et-Garonne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/miramont-de-guyenne/ehpad-fondation-soussial-0",
+      "jetons_trouves": [
+        "ehpad",
+        "fondation",
+        "soussial"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0326",
+      "nom": "Ehpad rene andrieu",
+      "type": "ehpad",
+      "commune": "Monflanquin",
+      "département": "Lot-et-Garonne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/monflanquin/ehpad-rene-andrieu-0",
+      "jetons_trouves": [
+        "ehpad",
+        "rene",
+        "andrieu"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0327",
+      "nom": "Ch hopital centre hospitalier  agen nerac - site de nerac",
+      "type": "ch",
+      "commune": "Nérac",
+      "département": "Lot-et-Garonne",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/nerac/ch-hopital-centre-hospitalier-agen-nerac-site-de-nerac",
+      "jetons_trouves": [
+        "agen",
+        "nerac",
+        "site"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0328",
+      "nom": "Ch hopital centre hospitalier agen nerac - antenne smur de nerac",
+      "type": "ch",
+      "commune": "Nérac",
+      "département": "Lot-et-Garonne",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/nerac/ch-hopital-centre-hospitalier-agen-nerac-antenne-smur-de-nerac",
+      "jetons_trouves": [
+        "agen",
+        "nerac",
+        "antenne",
+        "smur"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0329",
+      "nom": "Ehpad de nerac",
+      "type": "ehpad",
+      "commune": "Nérac",
+      "département": "Lot-et-Garonne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/nerac/ehpad-de-nerac",
+      "jetons_trouves": [
+        "ehpad",
+        "nerac"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0330",
+      "nom": "Ehpad le chateau",
+      "type": "ehpad",
+      "commune": "Nérac",
+      "département": "Lot-et-Garonne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/nerac/ehpad-le-chateau-0",
+      "jetons_trouves": [
+        "ehpad",
+        "chateau"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0331",
+      "nom": "Ch hopital centre hospitalier penne agenais",
+      "type": "ch",
+      "commune": "Penne-d Agenais",
+      "département": "Lot-et-Garonne",
+      "url": "https://www.sante.fr/centre-hospitalier-ex-hopital-local/penne-dagenais/ch-hopital-centre-hospitalier-penne-agenais",
+      "jetons_trouves": [
+        "penne",
+        "agenais"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0332",
+      "nom": "Chd hopital centre hospitalier departemental de la candelie - pont ducasse",
+      "type": "ch",
+      "commune": "Pont-du-Casse",
+      "département": "Lot-et-Garonne",
+      "url": "https://www.sante.fr/centre-hospitalier-specialise-de-lutte-contre-les-maladies-mentales/pont-du-casse/chd-hopital-centre-hospitalier-departemental-de-la-candelie-pont-ducasse",
+      "jetons_trouves": [
+        "chd",
+        "departemental",
+        "candelie",
+        "pont",
+        "ducasse"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0333",
+      "nom": "Ehpad sainte catherine",
+      "type": "ehpad",
+      "commune": "Port ste marie",
+      "département": "Lot-et-Garonne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/port-ste-marie/ehpad-sainte-catherine",
+      "jetons_trouves": [
+        "ehpad",
+        "sainte",
+        "catherine"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0334",
+      "nom": "Ehpad le hameau de prayssas",
+      "type": "ehpad",
+      "commune": "Prayssas",
+      "département": "Lot-et-Garonne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/prayssas/ehpad-le-hameau-de-prayssas-0",
+      "jetons_trouves": [
+        "ehpad",
+        "hameau",
+        "prayssas"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0335",
+      "nom": "Ch hopital centre hospitalier tonneins",
+      "type": "ch",
+      "commune": "Tonneins",
+      "département": "Lot-et-Garonne",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/tonneins/ch-hopital-centre-hospitalier-tonneins",
+      "jetons_trouves": [
+        "tonneins"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0336",
+      "nom": "Ehpad le soleil d'automne",
+      "type": "ehpad",
+      "commune": "Tonneins",
+      "département": "Lot-et-Garonne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/tonneins/ehpad-le-soleil-dautomne-0",
+      "jetons_trouves": [
+        "ehpad",
+        "soleil",
+        "automne"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0337",
+      "nom": "Usld alzheimer chic hopital centre hospitalier intercommunal marmande-tonneins",
+      "type": "ch",
+      "commune": "Tonneins",
+      "département": "Lot-et-Garonne",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/tonneins/usld-alzheimer-chic-hopital-centre-hospitalier-intercommunal-marmande-tonneins",
+      "jetons_trouves": [
+        "usld",
+        "alzheimer",
+        "chic",
+        "intercommunal",
+        "marmande",
+        "tonneins"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0338",
+      "nom": "Ehpad le port de gajac",
+      "type": "ehpad",
+      "commune": "Villeneuve-sur-Lot",
+      "département": "Lot-et-Garonne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/villeneuve-sur-lot/ehpad-le-port-de-gajac",
+      "jetons_trouves": [
+        "ehpad",
+        "port",
+        "gajac"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0339",
+      "nom": "Ehpad residence beurre",
+      "type": "ehpad",
+      "commune": "Villeneuve-sur-Lot",
+      "département": "Lot-et-Garonne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/villeneuve-sur-lot/ehpad-residence-beurre-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "beurre"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0340",
+      "nom": "Cl clinique mirambeau - anglet",
+      "type": "clinique",
+      "commune": "Anglet",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/maison-de-sante-pour-maladies-mentales/anglet/cl-clinique-mirambeau-anglet",
+      "jetons_trouves": [
+        "mirambeau",
+        "anglet"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0341",
+      "nom": "Ehpad maharin anglet",
+      "type": "ehpad",
+      "commune": "Anglet",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/anglet/ehpad-maharin-anglet-0",
+      "jetons_trouves": [
+        "ehpad",
+        "maharin",
+        "anglet"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0342",
+      "nom": "Cl clinique medicale et cardiologique aressy",
+      "type": "clinique",
+      "commune": "Aressy",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-de-soins-medicaux/aressy/cl-clinique-medicale-et-cardiologique-aressy",
+      "jetons_trouves": [
+        "medicale",
+        "cardiologique",
+        "aressy"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0343",
+      "nom": "Ehpad adina",
+      "type": "ehpad",
+      "commune": "Ascain",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/ascain/ehpad-adina-0",
+      "jetons_trouves": [
+        "ehpad",
+        "adina"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0344",
+      "nom": "Centre hemodialyse clinique delay - bayonne",
+      "type": "clinique",
+      "commune": "Bayonne",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/centre-de-dialyse/bayonne/centre-hemodialyse-clinique-delay-bayonne",
+      "jetons_trouves": [
+        "hemodialyse",
+        "delay",
+        "bayonne"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0345",
+      "nom": "Ch hopital centre hospitalier  cote basque - bayonne",
+      "type": "ch",
+      "commune": "Bayonne",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/bayonne-cedex/ch-hopital-centre-hospitalier-cote-basque-bayonne",
+      "jetons_trouves": [
+        "cote",
+        "basque",
+        "bayonne"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0346",
+      "nom": "Ch hôpital centre hospitalier cote basque - site cam de prats",
+      "type": "ch",
+      "commune": "Bayonne",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/bayonne/ch-hopital-centre-hospitalier-cote-basque-site-cam-de-prats",
+      "jetons_trouves": [
+        "cote",
+        "basque",
+        "site",
+        "cam",
+        "prats"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0347",
+      "nom": "Ch hôpital centre hospitalier de la cote basque - site lormand",
+      "type": "ch",
+      "commune": "Bayonne",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/bayonne/ch-hopital-centre-hospitalier-de-la-cote-basque-site-lormand",
+      "jetons_trouves": [
+        "cote",
+        "basque",
+        "site",
+        "lormand"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0348",
+      "nom": "Cl clinique belharra - bayonne",
+      "type": "clinique",
+      "commune": "Bayonne",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-de-soins-pluridisciplinaire/bayonne/cl-clinique-belharra-bayonne",
+      "jetons_trouves": [
+        "belharra",
+        "bayonne"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0349",
+      "nom": "Cl clinique chateau caradoc",
+      "type": "clinique",
+      "commune": "Bayonne",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/maison-de-sante-pour-maladies-mentales/bayonne/cl-clinique-chateau-caradoc",
+      "jetons_trouves": [
+        "chateau",
+        "caradoc"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0350",
+      "nom": "Cl clinique delay - bayonne",
+      "type": "clinique",
+      "commune": "Bayonne",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-de-soins-pluridisciplinaire/bayonne/cl-clinique-delay-bayonne",
+      "jetons_trouves": [
+        "delay",
+        "bayonne"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0351",
+      "nom": "Ehpad le prisse - chcb bayonne",
+      "type": "ehpad",
+      "commune": "Bayonne",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/bayonne/ehpad-le-prisse-chcb-bayonne-0",
+      "jetons_trouves": [
+        "ehpad",
+        "prisse",
+        "chcb",
+        "bayonne"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0352",
+      "nom": "Ehpad le seque",
+      "type": "ehpad",
+      "commune": "Bayonne",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/bayonne/ehpad-le-seque-0",
+      "jetons_trouves": [
+        "ehpad",
+        "seque"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0353",
+      "nom": "Usld arrayade ch hopital centre hospitalier de bayonne",
+      "type": "ch",
+      "commune": "Bayonne",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/bayonne/usld-arrayade-ch-hopital-centre-hospitalier-de-bayonne",
+      "jetons_trouves": [
+        "usld",
+        "arrayade",
+        "bayonne"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0354",
+      "nom": "Cl clinique capio aguilera - biarritz",
+      "type": "clinique",
+      "commune": "Biarritz",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-de-soins-pluridisciplinaire/biarritz-cedex/cl-clinique-capio-aguilera-biarritz",
+      "jetons_trouves": [
+        "capio",
+        "aguilera",
+        "biarritz"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0355",
+      "nom": "Ehpad antoine de bourbon",
+      "type": "ehpad",
+      "commune": "Billère",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/billere/ehpad-antoine-de-bourbon-0",
+      "jetons_trouves": [
+        "ehpad",
+        "antoine",
+        "bourbon"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0356",
+      "nom": "Cl clinique de medecine physique marienia - cambo le bains",
+      "type": "clinique",
+      "commune": "Cambo-les-Bains",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-de-sante-prive-autorise-en-soins-de-suite-et-de-readaptation-ssr/cambo-les-bains/cl-clinique-de-medecine-physique-marienia-cambo-le-bains",
+      "jetons_trouves": [
+        "medecine",
+        "physique",
+        "marienia",
+        "cambo",
+        "bains"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0357",
+      "nom": "Cl clinique la maison basque - cambo les bains",
+      "type": "clinique",
+      "commune": "Cambo-les-Bains",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-de-sante-prive-autorise-en-soins-de-suite-et-de-readaptation-ssr/cambo-les-bains/cl-clinique-la-maison-basque-cambo-les-bains",
+      "jetons_trouves": [
+        "basque",
+        "cambo",
+        "bains"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0358",
+      "nom": "Clinique grancher cyrano",
+      "type": "clinique",
+      "commune": "Cambo-les-Bains",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-de-sante-prive-autorise-en-soins-de-suite-et-de-readaptation-ssr/cambo-les-bains/clinique-grancher-cyrano",
+      "jetons_trouves": [
+        "grancher",
+        "cyrano"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0359",
+      "nom": "Ehpad bon air",
+      "type": "ehpad",
+      "commune": "Cambo-les-Bains",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/cambo-les-bains/ehpad-bon-air-0",
+      "jetons_trouves": [
+        "ehpad",
+        "bon",
+        "air"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0360",
+      "nom": "Ehpad musdehalsuenia",
+      "type": "ehpad",
+      "commune": "Cambo-les-Bains",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/cambo-les-bains/ehpad-musdehalsuenia-0",
+      "jetons_trouves": [
+        "ehpad",
+        "musdehalsuenia"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0361",
+      "nom": "Ehpad  le clos st jean",
+      "type": "ehpad",
+      "commune": "Gan",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/gan/ehpad-le-clos-st-jean-1",
+      "jetons_trouves": [
+        "ehpad",
+        "clos",
+        "jean"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0362",
+      "nom": "Ehpad residence eskualduna",
+      "type": "ehpad",
+      "commune": "Guéthary",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/guethary/ehpad-residence-eskualduna",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "eskualduna"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0363",
+      "nom": "Ehpad rene gabe c.a.p.a.",
+      "type": "ehpad",
+      "commune": "Gurmençon",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/gurmencon/ehpad-rene-gabe-capa-0",
+      "jetons_trouves": [
+        "ehpad",
+        "rene",
+        "gabe"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0364",
+      "nom": "Ch hopital centre hospitalier marin hendaye",
+      "type": "ch",
+      "commune": "Hendaye",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/centre-hospitalier-regional-chr/hendaye-cedex/ch-hopital-centre-hospitalier-marin-hendaye",
+      "jetons_trouves": [
+        "marin",
+        "hendaye"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0365",
+      "nom": "Ehpad lembeye",
+      "type": "ehpad",
+      "commune": "Lembeye",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/lembeye/ehpad-lembeye-0",
+      "jetons_trouves": [
+        "ehpad",
+        "lembeye"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0366",
+      "nom": "Ehpad  les foyers",
+      "type": "ehpad",
+      "commune": "Lons",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/lons/ehpad-les-foyers-0",
+      "jetons_trouves": [
+        "ehpad",
+        "foyers"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0367",
+      "nom": "Ehpad du ch de mauleon",
+      "type": "ehpad",
+      "commune": "Mauléon-Licharre",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/mauleon-licharre/ehpad-du-ch-de-mauleon",
+      "jetons_trouves": [
+        "ehpad",
+        "mauleon"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0368",
+      "nom": "Ehpad unite soleil de morlanne",
+      "type": "ehpad",
+      "commune": "Morlanne",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/morlanne/ehpad-unite-soleil-de-morlanne-0",
+      "jetons_trouves": [
+        "ehpad",
+        "unite",
+        "soleil",
+        "morlanne"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0369",
+      "nom": "Ehpad saint joseph",
+      "type": "ehpad",
+      "commune": "Nay",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/nay/ehpad-saint-joseph-0",
+      "jetons_trouves": [
+        "ehpad",
+        "saint",
+        "joseph"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0370",
+      "nom": "Ch hopital centre hospitalier  oloron sainte marie",
+      "type": "ch",
+      "commune": "Oloron ste marie",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/oloron-ste-marie/ch-hopital-centre-hospitalier-oloron-sainte-marie",
+      "jetons_trouves": [
+        "oloron",
+        "sainte",
+        "marie"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0371",
+      "nom": "Ch hopital centre hospitalier  d'orthez",
+      "type": "ch",
+      "commune": "Orthez",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/orthez/ch-hopital-centre-hospitalier-dorthez",
+      "jetons_trouves": [
+        "orthez"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0372",
+      "nom": "Ch hopital centre hospitalier des pyrenees",
+      "type": "ch",
+      "commune": "Pau",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/centre-hospitalier-specialise-de-lutte-contre-les-maladies-mentales/pau-cedex/ch-hopital-centre-hospitalier-des-pyrenees",
+      "jetons_trouves": [
+        "pyrenees"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0373",
+      "nom": "Ehpad les jardins d'iroise de pau",
+      "type": "ehpad",
+      "commune": "Pau",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/pau/ehpad-les-jardins-diroise-de-pau-0",
+      "jetons_trouves": [
+        "ehpad",
+        "jardins",
+        "iroise",
+        "pau"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0374",
+      "nom": "Ehpad residence des lierres",
+      "type": "ehpad",
+      "commune": "Pau",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/pau/ehpad-residence-des-lierres-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "lierres"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0375",
+      "nom": "Pcl polyclinique pau pyrenees site marzet",
+      "type": "clinique",
+      "commune": "Pau",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-de-soins-pluridisciplinaire/pau/pcl-polyclinique-pau-pyrenees-site-marzet",
+      "jetons_trouves": [
+        "pcl",
+        "pau",
+        "pyrenees",
+        "site",
+        "marzet"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0376",
+      "nom": "Polyclinique Pau Pyrénées - site Navarre",
+      "type": "clinique",
+      "commune": "Pau",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-de-soins-pluridisciplinaire/pau-cedex/polyclinique-pau-pyrenees-site-navarre",
+      "jetons_trouves": [
+        "pau",
+        "pyrenees",
+        "site",
+        "navarre"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0377",
+      "nom": "Chcb - site polyclinique cote basque",
+      "type": "clinique",
+      "commune": "Saint-Jean-de-Luz",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/saint-jean-de-luz/chcb-site-polyclinique-cote-basque-0",
+      "jetons_trouves": [
+        "chcb",
+        "site",
+        "cote",
+        "basque"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0378",
+      "nom": "Usld trikaldi ch hopital centre hospitalier de bayonne - st jean de luz",
+      "type": "ch",
+      "commune": "Saint-Jean-de-Luz",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-de-soins-longue-duree/saint-jean-de-luz/usld-trikaldi-ch-hopital-centre-hospitalier-de-bayonne-st-jean-de-luz",
+      "jetons_trouves": [
+        "usld",
+        "trikaldi",
+        "bayonne",
+        "jean",
+        "luz"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0379",
+      "nom": "Ch hopital centre hospitalier  de saint-palais",
+      "type": "ch",
+      "commune": "Saint-Palais",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/centre-hospitalier-ch/saint-palais/ch-hopital-centre-hospitalier-de-saint-palais",
+      "jetons_trouves": [
+        "saint",
+        "palais"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0380",
+      "nom": "Ehpad residence les pins",
+      "type": "ehpad",
+      "commune": "Saint-Pierre-d Irube",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saint-pierre-dirube/ehpad-residence-les-pins-0",
+      "jetons_trouves": [
+        "ehpad",
+        "residence",
+        "pins"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0381",
+      "nom": "Ehpad jean dithurbide",
+      "type": "ehpad",
+      "commune": "Sare",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/sare/ehpad-jean-dithurbide-0",
+      "jetons_trouves": [
+        "ehpad",
+        "jean",
+        "dithurbide"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0382",
+      "nom": "Ehpad des ets de coulomme",
+      "type": "ehpad",
+      "commune": "Sauveterre-de-Béarn",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/sauveterre-de-bearn/ehpad-des-ets-de-coulomme-0",
+      "jetons_trouves": [
+        "ehpad",
+        "ets",
+        "coulomme"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0383",
+      "nom": "Ehpad putillenea",
+      "type": "ehpad",
+      "commune": "Urrugne",
+      "département": "Pyrénées-Atlantiques",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/urrugne/ehpad-putillenea-0",
+      "jetons_trouves": [
+        "ehpad",
+        "putillenea"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0384",
+      "nom": "Ehpad  \"maison de retraite\"st joseph",
+      "type": "ehpad",
+      "commune": "Annonay",
+      "département": "Vienne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/annonay/ehpad-maison-de-retraitest-joseph",
+      "jetons_trouves": [
+        "ehpad",
+        "joseph"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0385",
+      "nom": "Ehpad korian villa ortis",
+      "type": "ehpad",
+      "commune": "Jardin",
+      "département": "Vienne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/jardin/ehpad-korian-villa-ortis-0",
+      "jetons_trouves": [
+        "ehpad",
+        "korian",
+        "villa",
+        "ortis"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0386",
+      "nom": "Maison de retraite lamartine",
+      "type": "ehpad",
+      "commune": "Saint-Étienne",
+      "département": "Vienne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/saint-etienne/maison-de-retraite-lamartine",
+      "jetons_trouves": [
+        "lamartine"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0387",
+      "nom": "Clinique trenel",
+      "type": "clinique",
+      "commune": "Sainte-Colombe",
+      "département": "Vienne",
+      "url": "https://www.sante.fr/etablissement-de-soins-pluridisciplinaire/sainte-colombe/clinique-trenel",
+      "jetons_trouves": [
+        "trenel"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0388",
+      "nom": "Ehpad du ch lucien hussel",
+      "type": "ehpad",
+      "commune": "Vienne",
+      "département": "Vienne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/vienne/ehpad-du-ch-lucien-hussel",
+      "jetons_trouves": [
+        "ehpad",
+        "lucien",
+        "hussel"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0389",
+      "nom": "Ehpad l'argentiere",
+      "type": "ehpad",
+      "commune": "Vienne",
+      "département": "Vienne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/vienne/ehpad-largentiere",
+      "jetons_trouves": [
+        "ehpad",
+        "argentiere"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0390",
+      "nom": "Ehpad notre-dame-de-l'isle v",
+      "type": "ehpad",
+      "commune": "Vienne",
+      "département": "Vienne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/vienne/ehpad-notre-dame-de-lisle-v",
+      "jetons_trouves": [
+        "ehpad",
+        "notre",
+        "dame",
+        "isle"
+      ],
+      "verifie_le": "2026-11-21"
+    },
+    {
+      "id": "na-sante-0391",
+      "nom": "Ehpad victor hugo vienne",
+      "type": "ehpad",
+      "commune": "Vienne",
+      "département": "Vienne",
+      "url": "https://www.sante.fr/etablissement-dhebergement-pour-personnes-agees-dependantes/vienne/ehpad-victor-hugo-vienne-0",
+      "jetons_trouves": [
+        "ehpad",
+        "victor",
+        "hugo",
+        "vienne"
+      ],
+      "verifie_le": "2026-11-21"
+    }
+  ],
+  "echecs": [],
+  "parDepartementCumul": {
+    "Charente": 33,
+    "Charente-Maritime": 41,
+    "Corrèze": 16,
+    "Creuse": 33,
+    "Deux-Sèvres": 27,
+    "Dordogne": 39,
+    "Gironde": 54,
+    "Haute-Vienne": 35,
+    "Landes": 33,
+    "Lot-et-Garonne": 28,
+    "Pyrénées-Atlantiques": 44,
+    "Vienne": 8
+  },
+  "parTypeCumul": {
+    "ch": 108,
+    "chu": 8,
+    "clinique": 51,
+    "ehpad": 224
+  }
+}
