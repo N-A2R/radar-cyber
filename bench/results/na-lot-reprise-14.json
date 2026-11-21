@@ -1,0 +1,218 @@
+{
+  "dateMesure": "2026-11-21",
+  "plan": "docs/plans/mission-nuit-na.md — Task 4 (reprise vague 2)",
+  "lot": 14,
+  "source": {
+    "ref": "bench/results/manques-referentiel-2026-11-15.json",
+    "traites": "bench/results/manques-glm-vague2.json",
+    "entiteSource": "lot-reprise-na"
+  },
+  "method": "lecture du site (fetch, titre et meta verbatim) + recherche-entreprises.api.gouv.fr sans clé ; requêtes et réponses consignées ; SIREN recoupé, jamais inventé",
+  "compte": {
+    "present": 3,
+    "absent": 4,
+    "cannot_verify": 3
+  },
+  "resolutions": [
+    {
+      "nomLisible": "sieam.fr",
+      "domaine": "sieam.fr",
+      "verdict": "present",
+      "raison": "SIREN 847958535 au registre (état A, HAGUENAU 67), recoupé avec sieam.fr",
+      "site": {
+        "url": "https://sieam.fr",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=sieam&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "SIEAM",
+            "siren": "847958535",
+            "commune": "HAGUENAU",
+            "dept": "67",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "SOFPO (Exideuil)",
+      "domaine": null,
+      "verdict": "cannot_verify",
+      "raison": "candidat(s) au registre mais aucun recoupement avec null — arbitrage humain",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=SOFPO%20(Exideuil)&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "SOC FRANCAISE FABRICAT PAPIERS ONDULES (SOFPO)",
+            "siren": "591820410",
+            "commune": "EXIDEUIL-SUR-VIENNE",
+            "dept": "16",
+            "etat": "A"
+          }
+        ]
+      }
+    },
+    {
+      "nomLisible": "St Benet Biscop",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=St%20Benet%20Biscop&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "St. Cloud Florida",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=St.%20Cloud%20Florida&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "stt-logistique.fr",
+      "domaine": "stt-logistique.fr",
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : « STT logistique est spécialisé dans le transport, la logistique, les palettes sur »",
+      "site": {
+        "url": "https://stt-logistique.fr",
+        "http": 200,
+        "titre": "STT logistique est spécialisé dans le transport, la logistique, les palettes sur mesure et la location de box",
+        "metaDescription": "Accompagnement sur mesure dans toute la chaîne de transport de marchandises et de logistique, ajouté à la production de palettes et la location de box."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=stt-logistique&page=1&per_page=5",
+        "http": 200,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "SVA Jean Rozé - sva-jeanroze.fr",
+      "domaine": "sva-jeanroze.fr",
+      "verdict": "cannot_verify",
+      "raison": "site ou registre inaccessible : TypeError: fetch failed",
+      "site": {
+        "url": "https://sva-jeanroze.fr",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=sva-jeanroze&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "sva-avignon.concession-landrover.fr",
+      "domaine": "sva-avignon.concession-landrover.fr",
+      "verdict": "cannot_verify",
+      "raison": "site ou registre inaccessible : TypeError: fetch failed",
+      "site": {
+        "url": "https://sva-avignon.concession-landrover.fr",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=sva-avignon.concession-landrover&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "Syndicat Général des Vignerons de la Champagne",
+      "domaine": null,
+      "verdict": "present",
+      "raison": "SIREN 106576960 au registre (état A, TALUS-SAINT-PRIX 51), recoupé avec le nom cité : Syndicat Général des Vignerons de la Champagne",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Syndicat%20G%C3%A9n%C3%A9ral%20des%20Vignerons%20de%20la%20Champagne&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "SYNDICAT GENERAL DES VIGNERONS DE CHAMPAGNE (SGV)",
+            "siren": "106576960",
+            "commune": "TALUS-SAINT-PRIX",
+            "dept": "51",
+            "etat": "A"
+          },
+          {
+            "denomination": "COOPERATIVE SYNDICAT GENERAL VIGNERONS (CSGV)",
+            "siren": "780382032",
+            "commune": "EPERNAY",
+            "dept": "51",
+            "etat": "A"
+          },
+          {
+            "denomination": "SOCIETE D'AMENAGEMENT FONCIER ET D'ETABLISSEMENT RURAL GRAND EST (S.A.F.E.R. GRAND EST)",
+            "siren": "736220377",
+            "commune": "WITRY-LES-REIMS",
+            "dept": "51",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "syredis.fr",
+      "domaine": "syredis.fr",
+      "verdict": "present",
+      "raison": "SIREN 843046103 au registre (état A, LIEUSAINT 77), recoupé avec syredis.fr",
+      "site": {
+        "url": "https://syredis.fr",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=syredis&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "SYREDIS",
+            "siren": "843046103",
+            "commune": "LIEUSAINT",
+            "dept": "77",
+            "etat": "A"
+          },
+          {
+            "denomination": "MSL68",
+            "siren": "130271117",
+            "commune": "LIEUSAINT",
+            "dept": "77",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "TaxPros of Clermont",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=TaxPros%20of%20Clermont&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    }
+  ]
+}
