@@ -158,12 +158,20 @@ organisation **ou** chaque non-résolution est documentée avec sa raison.
 
 L'UI web existe (`apps/web`), la carte NA aussi (`departements-na.geojson`).
 
-- [ ] Une vue « Nouvelle-Aquitaine » : carte des 12 départements colorée par
-      volume d'événements, liste filtrable, accès à la fiche organisation
-- [ ] Un filtre département persistant dans l'URL (`url-state.ts` existe)
-- [ ] Un état vide honnête : « aucun événement sur ce département » plutôt qu'un
-      écran blanc
-- [ ] Tests front : rendu de la vue, filtre appliqué, état vide
+- [x] Une vue « Nouvelle-Aquitaine » : carte des 12 départements colorée par
+      volume d'événements, liste filtrable, accès à la fiche organisation —
+      `NaView.tsx` : SVG projeté depuis `departements-na.geojson` (pas de WebGL,
+      rendu SSR testable), palette honnête (zéro = neutre), liste des 12, clic
+      → panneau du département avec les orgs touchées → fiche
+- [x] Un filtre département persistant dans l'URL (`url-state.ts` existe) —
+      `?naDept=33` sérialisé/parsé, testé en aller-retour
+- [x] Un état vide honnête : « aucun événement sur ce département » plutôt qu'un
+      écran blanc — le message ajoute le volume du référentiel et les
+      départements à zéro sont listés d'emblée dans l'en-tête
+- [x] Tests front : rendu de la vue, filtre appliqué, état vide —
+      `apps/web/test/na-verif.tsx` : 18 contrôles (12 paths, 12 lignes,
+      filtre, état vide, URL round-trip, agrégat serveur prioritaire), inclus
+      dans `verify-all.sh`
 - [ ] Commit : `feat(web): vue Nouvelle-Aquitaine`
 
 **Critère :** `verify-all.sh` vert, et une capture ou un test qui prouve la vue.

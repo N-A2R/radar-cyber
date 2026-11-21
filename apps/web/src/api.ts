@@ -235,6 +235,12 @@ export function sourceStatus(source: Pick<Source, "lastOkAt" | "lastErrorAt">): 
   return "pending";
 }
 
+/** Vue Nouvelle-Aquitaine : agrégats par département (GET /api/na/overview). */
+export type NaOverview = {
+	depts: { dept: string; orgs: number; orgsAvecEvenement: number; evenements: number }[];
+	total: { orgs: number; orgsAvecEvenement: number; evenements: number; deptsSansEvenement: string[] };
+};
+
 export type Stats = {
   orgs: number;
   events: number;
@@ -640,6 +646,7 @@ export const api = {
   login: (email: string, password: string) => postJson<LoginResponse>("/auth/login", { email, password }),
   logout: () => post<{ ok: boolean }>("/auth/logout"),
   orgs: (asOf?: string) => get<Org[]>(asOf ? `/orgs?asOf=${encodeURIComponent(asOf)}` : "/orgs"),
+  naOverview: () => get<NaOverview>("/na/overview"),
   dossier: () => get<{ etat: Record<string, unknown>; dossier: { genere: string; sections: { cle: string; titre: string; points: string[] }[] } }>("/dossier"),
   reviewQueue: (params: { status?: string; bucket?: string; source?: string; groupe?: string; q?: string; page?: number; limit?: number } = {}, signal?: AbortSignal) => {
     const qs = new URLSearchParams();
