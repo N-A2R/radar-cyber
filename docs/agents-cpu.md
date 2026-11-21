@@ -91,6 +91,29 @@ Jeu de vérité et verdicts détaillés :
 instants, couverture du corpus, diagnostic source, seuils, raisons par agent et
 chaque alerte classée).
 
+### Rejeu du même jour sur la base courante
+
+La base a évolué depuis la mesure ci-dessus : 26 719 événements, 1 673 151
+organisations, 312 sources, derniers faits observés le 2026-11-21. Ces quatre
+chiffres sont portés par le JSON publié, avec la requête qui les produit
+(`scripts/mesure-agents-cpu.mts`, `compterBase()`). Le rejeu garde les mêmes
+32 instants, les mêmes seuils et le même corpus : seules les données ont bougé
+— des faits sont entrés dans les fenêtres d'absence de trois organisations,
+ce qui retire leurs alertes sans changer la règle.
+
+| Agent | Alertes dédupliquées | Vraies | Fausses | Non classables | Taux de fausses alertes |
+| --- | ---: | ---: | ---: | ---: | --- |
+| `organisation-surgissante` | 8 | 0 | 8 | 0 | **100 %** (8/8 classables) |
+| `bascule-secteur` | 2 | 0 | 0 | 2 | non calculable (0 classable) |
+| `source-muette` | 0 | 0 | 0 | 0 | non calculable (0/0) |
+| **Total** | **10** | **0** | **8** | **2** | **100 % sur 8 classables** |
+
+Jeu de vérité et verdicts du rejeu :
+`bench/results/agents-cpu-fausses-alertes-2026-11-21-rejeu.json`. Les trois
+taux, dans l'ordre des agents, sont **100 %**, **non calculable**, **non
+calculable** : le premier chiffre est mesuré, les deux autres sont des absences
+de vérité terrain, pas des taux flatteurs.
+
 Reproduction :
 
 ```bash
@@ -99,6 +122,9 @@ DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
   --json=bench/results/agents-cpu-fausses-alertes-2026-11-21.json
 # --depuis=AAAA-MM-JJ --jusqua=AAAA-MM-JJ --pas=N pour une autre fenêtre
 ```
+
+Le rejeu sur base courante se reproduit avec la même commande, en remplaçant
+le `--json` par `bench/results/agents-cpu-fausses-alertes-2026-11-21-rejeu.json`.
 
 ## Cas d'erreur, états vides et invariants vérifiés
 
