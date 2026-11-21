@@ -1,0 +1,1487 @@
+{
+  "genere_le": "2026-11-21T15:22:00.587Z",
+  "base": "postgres://radar:radar@localhost:5433/radar",
+  "filtre": "promoted=false AND kind='claim' AND status='pending' AND btrim(org_hint) <> ''",
+  "mode": "dry-run",
+  "regle": "famille-indice.ts:classifierIndice(indice) === 'domaine'",
+  "total_attente": 365,
+  "total_avec_indice": 220,
+  "total_domaines": 184,
+  "avec_organisation": 0,
+  "sans_organisation": 184,
+  "limite": null,
+  "lignes": [
+    {
+      "id": "3699",
+      "indice": "eivp-paris.fr",
+      "domaine": "eivp-paris.fr",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "5535",
+      "indice": "lyonhealy.com",
+      "domaine": "lyonhealy.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "7234",
+      "indice": "ibafrance.fr",
+      "domaine": "ibafrance.fr",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "9232",
+      "indice": "www.nicecloud.nl",
+      "domaine": "nicecloud.nl",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "9292",
+      "indice": "hotel-ampere-paris.com",
+      "domaine": "hotel-ampere-paris.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "10150",
+      "indice": "lyonshipyard.com",
+      "domaine": "lyonshipyard.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "10392",
+      "indice": "lyon.co.uk",
+      "domaine": "lyon.co.uk",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "10580",
+      "indice": "coteg-toulouse.dom",
+      "domaine": "coteg-toulouse.dom",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "11702",
+      "indice": "aev-iledefrance.fr",
+      "domaine": "aev-iledefrance.fr",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "13750",
+      "indice": "agapefrance.org",
+      "domaine": "agapefrance.org",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "16201",
+      "indice": "graphiquedefrance.com",
+      "domaine": "graphiquedefrance.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80862",
+      "indice": "www.worldwidefittings.com",
+      "domaine": "worldwidefittings.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80863",
+      "indice": "www.ccmcnet.com",
+      "domaine": "ccmcnet.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80870",
+      "indice": "toyokiki-thailand.com",
+      "domaine": "toyokiki-thailand.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80871",
+      "indice": "benchmarkseniorliving.com",
+      "domaine": "benchmarkseniorliving.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80873",
+      "indice": "upperweb.com.br",
+      "domaine": "upperweb.com.br",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80874",
+      "indice": "www.osiiminppal.com",
+      "domaine": "osiiminppal.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80875",
+      "indice": "franc-oiloffshore.com.ng",
+      "domaine": "franc-oiloffshore.com.ng",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80877",
+      "indice": "cey-tech.com",
+      "domaine": "cey-tech.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80878",
+      "indice": "axiscades.com",
+      "domaine": "axiscades.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80879",
+      "indice": "promantra.us",
+      "domaine": "promantra.us",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80881",
+      "indice": "www.library.uta.edu",
+      "domaine": "library.uta.edu",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80882",
+      "indice": "www.yorku.ca",
+      "domaine": "yorku.ca",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80884",
+      "indice": "www.milb.com",
+      "domaine": "milb.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80885",
+      "indice": "eicoh.com",
+      "domaine": "eicoh.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80886",
+      "indice": "vinsonprocess.com",
+      "domaine": "vinsonprocess.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80890",
+      "indice": "sacheminc.com",
+      "domaine": "sacheminc.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80891",
+      "indice": "sbhny.org",
+      "domaine": "sbhny.org",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80892",
+      "indice": "shannonhealth.com",
+      "domaine": "shannonhealth.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80893",
+      "indice": "baronandbudd.com",
+      "domaine": "baronandbudd.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80894",
+      "indice": "raleighortho.com",
+      "domaine": "raleighortho.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80896",
+      "indice": "lifelinescreening.com",
+      "domaine": "lifelinescreening.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80897",
+      "indice": "safcodental.com",
+      "domaine": "safcodental.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80898",
+      "indice": "marquiscompanies.com",
+      "domaine": "marquiscompanies.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80899",
+      "indice": "atlashp.com",
+      "domaine": "atlashp.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80900",
+      "indice": "prinsel.com.mx",
+      "domaine": "prinsel.com.mx",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80901",
+      "indice": "na.org.mk",
+      "domaine": "na.org.mk",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80902",
+      "indice": "solarium.com.br",
+      "domaine": "solarium.com.br",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80903",
+      "indice": "bllcpas.com",
+      "domaine": "bllcpas.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80904",
+      "indice": "alanmokengineering.com",
+      "domaine": "alanmokengineering.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80905",
+      "indice": "triad.co.ke",
+      "domaine": "triad.co.ke",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80906",
+      "indice": "ninv.com",
+      "domaine": "ninv.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80907",
+      "indice": "imas.es",
+      "domaine": "imas.es",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80908",
+      "indice": "sielke.com",
+      "domaine": "sielke.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80909",
+      "indice": "gruposancristobal.com.mx",
+      "domaine": "gruposancristobal.com.mx",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80910",
+      "indice": "municieneguilla.gob.pe",
+      "domaine": "municieneguilla.gob.pe",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80911",
+      "indice": "darrequipment.com",
+      "domaine": "darrequipment.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80912",
+      "indice": "resotechlaurentides.com",
+      "domaine": "resotechlaurentides.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80913",
+      "indice": "humboldt.ca",
+      "domaine": "humboldt.ca",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80914",
+      "indice": "orennia.com",
+      "domaine": "orennia.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80915",
+      "indice": "clancysystems.com",
+      "domaine": "clancysystems.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80916",
+      "indice": "unitedpharmacy.sa",
+      "domaine": "unitedpharmacy.sa",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80917",
+      "indice": "megatrans.com.ar",
+      "domaine": "megatrans.com.ar",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80918",
+      "indice": "esri-southafrica.com",
+      "domaine": "esri-southafrica.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80920",
+      "indice": "gvsd.ca",
+      "domaine": "gvsd.ca",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80925",
+      "indice": "www.oru.edu",
+      "domaine": "oru.edu",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80927",
+      "indice": "sunnierhomes.com",
+      "domaine": "sunnierhomes.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80929",
+      "indice": "awo.org",
+      "domaine": "awo.org",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80930",
+      "indice": "www.nysnacks.com",
+      "domaine": "nysnacks.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80931",
+      "indice": "www.broexp.com",
+      "domaine": "broexp.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80932",
+      "indice": "www.signworx.net",
+      "domaine": "signworx.net",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80934",
+      "indice": "www.bvchd.com",
+      "domaine": "bvchd.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80937",
+      "indice": "mtm-o.com",
+      "domaine": "mtm-o.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80938",
+      "indice": "tcadarwin.com.au",
+      "domaine": "tcadarwin.com.au",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80940",
+      "indice": "www.acclaimhealth.ca",
+      "domaine": "acclaimhealth.ca",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80941",
+      "indice": "www.dayoneri.org",
+      "domaine": "dayoneri.org",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80942",
+      "indice": "www.elportalimaging.com",
+      "domaine": "elportalimaging.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80943",
+      "indice": "www.colliersportsmedicine.com",
+      "domaine": "colliersportsmedicine.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80944",
+      "indice": "www.georgetownsleepcenter.com",
+      "domaine": "georgetownsleepcenter.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80945",
+      "indice": "www.ctg.com",
+      "domaine": "ctg.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80946",
+      "indice": "madisonhonda.com",
+      "domaine": "madisonhonda.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80947",
+      "indice": "customfloorsunlimited.com",
+      "domaine": "customfloorsunlimited.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80948",
+      "indice": "mvsd11.org",
+      "domaine": "mvsd11.org",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80949",
+      "indice": "ridgway.k12.co.us",
+      "domaine": "ridgway.k12.co.us",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80950",
+      "indice": "southwestortho.com",
+      "domaine": "southwestortho.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80951",
+      "indice": "assiniboinedentalgroup.com",
+      "domaine": "assiniboinedentalgroup.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80952",
+      "indice": "elmcrest.org",
+      "domaine": "elmcrest.org",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80953",
+      "indice": "conecuhsausage.com",
+      "domaine": "conecuhsausage.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80957",
+      "indice": "raymondjames.com",
+      "domaine": "raymondjames.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "80958",
+      "indice": "gamechangerwm.com",
+      "domaine": "gamechangerwm.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257855",
+      "indice": "pepsico.com",
+      "domaine": "pepsico.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257856",
+      "indice": "paychex.com",
+      "domaine": "paychex.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257857",
+      "indice": "cignaglobal.com",
+      "domaine": "cignaglobal.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257858",
+      "indice": "amd.com",
+      "domaine": "amd.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257860",
+      "indice": "carringtonmortgage.com",
+      "domaine": "carringtonmortgage.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257861",
+      "indice": "apellis.com",
+      "domaine": "apellis.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257862",
+      "indice": "castlebiosciences.com",
+      "domaine": "castlebiosciences.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257863",
+      "indice": "carislifesciences.com",
+      "domaine": "carislifesciences.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257864",
+      "indice": "owens-minor.com",
+      "domaine": "owens-minor.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257866",
+      "indice": "instantaccess-co.com",
+      "domaine": "instantaccess-co.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257869",
+      "indice": "risingpharma.com",
+      "domaine": "risingpharma.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257870",
+      "indice": "radienzliving.com",
+      "domaine": "radienzliving.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257873",
+      "indice": "jbrosbakerysupply.com",
+      "domaine": "jbrosbakerysupply.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257875",
+      "indice": "burneywealth.com",
+      "domaine": "burneywealth.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257876",
+      "indice": "rickhindererknives.com",
+      "domaine": "rickhindererknives.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257878",
+      "indice": "interdent.com",
+      "domaine": "interdent.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257879",
+      "indice": "watermangroup.com",
+      "domaine": "watermangroup.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257880",
+      "indice": "www.acudor.com",
+      "domaine": "acudor.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257882",
+      "indice": "trustbridge.org",
+      "domaine": "trustbridge.org",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257897",
+      "indice": "www.srmtech.com",
+      "domaine": "srmtech.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257898",
+      "indice": "overeasyoffice.com",
+      "domaine": "overeasyoffice.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257899",
+      "indice": "omniprintonline.com",
+      "domaine": "omniprintonline.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257900",
+      "indice": "www.sekisuihouse-global.com",
+      "domaine": "sekisuihouse-global.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257902",
+      "indice": "petstop.com",
+      "domaine": "petstop.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257903",
+      "indice": "ubc.ca",
+      "domaine": "ubc.ca",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257904",
+      "indice": "gorcon.ca",
+      "domaine": "gorcon.ca",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257910",
+      "indice": "www.strategicproperties.com",
+      "domaine": "strategicproperties.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257911",
+      "indice": "www.ashlandwatergroup.com",
+      "domaine": "ashlandwatergroup.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257912",
+      "indice": "www.ncip.gov.ph",
+      "domaine": "ncip.gov.ph",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257913",
+      "indice": "www.airwaysaviation.com",
+      "domaine": "airwaysaviation.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257914",
+      "indice": "www.ayalaproperty.com.ph",
+      "domaine": "ayalaproperty.com.ph",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257915",
+      "indice": "www.californiacrossdock.com",
+      "domaine": "californiacrossdock.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257916",
+      "indice": "www.fahrenheit.com.pe",
+      "domaine": "fahrenheit.com.pe",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257917",
+      "indice": "www.hybrytec.com",
+      "domaine": "hybrytec.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257918",
+      "indice": "www.ims-gmbh.de",
+      "domaine": "ims-gmbh.de",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257919",
+      "indice": "www.systems4pt.com",
+      "domaine": "systems4pt.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257920",
+      "indice": "www.aimcashandcarry.ie",
+      "domaine": "aimcashandcarry.ie",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257921",
+      "indice": "www.powerequipment.com.au",
+      "domaine": "powerequipment.com.au",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257922",
+      "indice": "www.arrigoni.it",
+      "domaine": "arrigoni.it",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257923",
+      "indice": "themandrelgroup.com",
+      "domaine": "themandrelgroup.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257924",
+      "indice": "plasmagen.co.in",
+      "domaine": "plasmagen.co.in",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257925",
+      "indice": "connectwell.com",
+      "domaine": "connectwell.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257926",
+      "indice": "godrej.com",
+      "domaine": "godrej.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257927",
+      "indice": "fiber.net.id",
+      "domaine": "fiber.net.id",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257929",
+      "indice": "spicorp-invest.com",
+      "domaine": "spicorp-invest.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257930",
+      "indice": "www.ibeam.hk",
+      "domaine": "ibeam.hk",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257937",
+      "indice": "missouriweldinginstitute.com",
+      "domaine": "missouriweldinginstitute.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257945",
+      "indice": "tdstech.com.vn",
+      "domaine": "tdstech.com.vn",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257946",
+      "indice": "hensun.com",
+      "domaine": "hensun.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257947",
+      "indice": "khanehsazii.ir",
+      "domaine": "khanehsazii.ir",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257948",
+      "indice": "www.indiabulls.com",
+      "domaine": "indiabulls.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257949",
+      "indice": "theheartlandconstructiongroup.com",
+      "domaine": "theheartlandconstructiongroup.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257950",
+      "indice": "www.aeis.com",
+      "domaine": "aeis.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257951",
+      "indice": "www.apexspace.com",
+      "domaine": "apexspace.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "257952",
+      "indice": "www.oregonlinen.com",
+      "domaine": "oregonlinen.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290097",
+      "indice": "dts.edu",
+      "domaine": "dts.edu",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290098",
+      "indice": "wakao.co.jp",
+      "domaine": "wakao.co.jp",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290099",
+      "indice": "ibu.org",
+      "domaine": "ibu.org",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290100",
+      "indice": "www.sdjeng.com",
+      "domaine": "sdjeng.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290101",
+      "indice": "njrise.org",
+      "domaine": "njrise.org",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290102",
+      "indice": "epochresidential.com",
+      "domaine": "epochresidential.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290103",
+      "indice": "boeing.com",
+      "domaine": "boeing.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290104",
+      "indice": "fifa.com",
+      "domaine": "fifa.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290107",
+      "indice": "autozoneinc.com",
+      "domaine": "autozoneinc.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290110",
+      "indice": "smith-wesson.com",
+      "domaine": "smith-wesson.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290113",
+      "indice": "shopbottools.com",
+      "domaine": "shopbottools.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290114",
+      "indice": "nobleoilfieldservices.com",
+      "domaine": "nobleoilfieldservices.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290115",
+      "indice": "unitedmd.com",
+      "domaine": "unitedmd.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290116",
+      "indice": "metosystems.com",
+      "domaine": "metosystems.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290117",
+      "indice": "arnapa.com",
+      "domaine": "arnapa.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290118",
+      "indice": "mchra.com",
+      "domaine": "mchra.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290119",
+      "indice": "thevantgroup.com",
+      "domaine": "thevantgroup.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290120",
+      "indice": "skysolutions.com.pa",
+      "domaine": "skysolutions.com.pa",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290121",
+      "indice": "merrittwoodwork.com",
+      "domaine": "merrittwoodwork.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290122",
+      "indice": "laempereich.com",
+      "domaine": "laempereich.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290123",
+      "indice": "ppbh.org",
+      "domaine": "ppbh.org",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290124",
+      "indice": "codinter.com",
+      "domaine": "codinter.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290125",
+      "indice": "aurorahealthmgt.com",
+      "domaine": "aurorahealthmgt.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290126",
+      "indice": "tulsafoot.com",
+      "domaine": "tulsafoot.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290128",
+      "indice": "northshorehealth.org",
+      "domaine": "northshorehealth.org",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290129",
+      "indice": "agapechc.org",
+      "domaine": "agapechc.org",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290130",
+      "indice": "adaristech.com",
+      "domaine": "adaristech.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290132",
+      "indice": "wigginschilds.com",
+      "domaine": "wigginschilds.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290133",
+      "indice": "msnattorneys.com",
+      "domaine": "msnattorneys.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290135",
+      "indice": "movilfrio.com",
+      "domaine": "movilfrio.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290136",
+      "indice": "credipaz.com",
+      "domaine": "credipaz.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290137",
+      "indice": "biomedicine.com",
+      "domaine": "biomedicine.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290141",
+      "indice": "pizwich.com",
+      "domaine": "pizwich.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290142",
+      "indice": "eecinter.com",
+      "domaine": "eecinter.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290143",
+      "indice": "www.mntextiles.com",
+      "domaine": "mntextiles.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290145",
+      "indice": "www.sleepboxbymiracle.com",
+      "domaine": "sleepboxbymiracle.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290146",
+      "indice": "eni.it",
+      "domaine": "eni.it",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290147",
+      "indice": "www.leadersaluminium.ae",
+      "domaine": "leadersaluminium.ae",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290148",
+      "indice": "alumil.com",
+      "domaine": "alumil.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290160",
+      "indice": "terminais.co.mz",
+      "domaine": "terminais.co.mz",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290187",
+      "indice": "cobblestonesoftware.com",
+      "domaine": "cobblestonesoftware.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290190",
+      "indice": "acmanagement.ma",
+      "domaine": "acmanagement.ma",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290192",
+      "indice": "cih.com.vn",
+      "domaine": "cih.com.vn",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290193",
+      "indice": "laguarda.com.ec",
+      "domaine": "laguarda.com.ec",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290194",
+      "indice": "umraocashmere.com",
+      "domaine": "umraocashmere.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290195",
+      "indice": "primecareofmi.com",
+      "domaine": "primecareofmi.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "290196",
+      "indice": "softlinefurniture.com",
+      "domaine": "softlinefurniture.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "644182",
+      "indice": "bastion.internal",
+      "domaine": "bastion.internal",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    },
+    {
+      "id": "644192",
+      "indice": "www.vanmor.com",
+      "domaine": "vanmor.com",
+      "organisation_existe": false,
+      "organisation_existante": null,
+      "action_proposee": "creer"
+    }
+  ]
+}
