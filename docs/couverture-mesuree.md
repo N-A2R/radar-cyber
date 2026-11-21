@@ -144,6 +144,8 @@ doutes, pas les absorber.
 - Le script est déterministe : ni date murale, ni réseau, ni ordre aléatoire.
   La date de calcul vient de la dernière collecte en base. `--check` compare le
   rapport publié à un rejeu, `--stdout` ne écrit aucun fichier.
+- La procédure complète, hors réseau et en une commande, est
+  `docs/reproduction-couverture.md` : `bash scripts/reproduire.sh`.
 - La fenêtre de la mesure complémentaire est calculée : 12 mois calendaires
   clos, du premier jour du mois douze mois avant au dernier jour du mois
   précédant la mesure. Le mois en cours est exclu pour ne pas faire baisser le
