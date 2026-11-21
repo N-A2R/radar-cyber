@@ -1,25 +1,44 @@
 import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
 import { likeLiteral } from "../directory/query.js";
+const SEARCH_LIMIT = 50;
+
 export default async function (app: FastifyInstance) {
   app.get("/search", async (req) => {
-    const q = (req.query as Record<string, string | undefined>).q ?? "";
-    if (q.trim().length < 3) {
+    const q = ((req.query as Record<string, string | undefined>).q ?? "").trim();
+    if (q.length < 3) {
       return { orgs: [], events: [], indicators: [] };
     }
-	const like = `%${likeLiteral(q)}%`;
+    const limitParams = [q, SEARCH_LIMIT];
+    // websearch_to_tsquery accepte la saisie libre (tirets, guillemets,
+    // ponctuation) sans lever d'erreur de syntaxe, et applique la stemming
+    // française. ts_rank_cd favorise les correspondances de nom contiguës.
     const [orgsRes, eventsRes, indicatorsRes] = await Promise.all([
       query<Record<string, unknown>>(
-        "SELECT id, name, slug, kind, city, dept, domain, lat, lon FROM org WHERE name ILIKE $1 OR domain ILIKE $1 LIMIT 20",
-        [like]
+        `SELECT o.id, o.name, o.slug, o.kind, o.city, o.dept, o.domain, o.lat, o.lon,
+                ts_rank_cd(o.search_tsv, tsq.q) AS relevance
+           FROM websearch_to_tsquery('french', french_search_input($1)) AS tsq(q), org o
+          WHERE o.search_tsv @@ tsq.q
+          ORDER BY
+            CASE WHEN french_search_input(o.name) = french_search_input($1) THEN 1 ELSE 0 END DESC,
+            relevance DESC, o.id
+          LIMIT $2`,
+        limitParams
       ),
       query<Record<string, unknown>>(
-        "SELECT id, dedup_key, family, assertion_type, title, summary, observed_at, severity, confidence, source_id, source_url, evidence, geo_type, lat, lon, org_id FROM event WHERE title ILIKE $1 OR summary ILIKE $1 LIMIT 20",
-        [like]
+        `SELECT e.id, e.dedup_key, e.family, e.assertion_type, e.title, e.summary,
+                e.observed_at, e.severity, e.confidence, e.source_id, e.source_url,
+                e.evidence, e.geo_type, e.lat, e.lon, e.org_id,
+                ts_rank_cd(e.search_tsv, tsq.q) AS relevance
+           FROM websearch_to_tsquery('french', french_search_input($1)) AS tsq(q), event e
+          WHERE e.search_tsv @@ tsq.q
+          ORDER BY relevance DESC, e.id
+          LIMIT $2`,
+        limitParams
       ),
       query<Record<string, unknown>>(
-        "SELECT id, type, value, first_seen, last_seen, tlp, confidence, source_id FROM indicator WHERE value ILIKE $1 LIMIT 20",
-        [like]
+        "SELECT id, type, value, first_seen, last_seen, tlp, confidence, source_id FROM indicator WHERE value ILIKE $1 LIMIT $2",
+        [`%${likeLiteral(q)}%`, SEARCH_LIMIT]
       ),
     ]);
     return {
