@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-11-21T23:22:04.431Z",
+  "target": {
+    "brier": 0.22,
+    "direction": "lower is better"
+  },
+  "method": {
+    "labels": "bench/pertinence/corpus-100.json (frozen human labels from titles)",
+    "labelIndependence": "labels assigned from titles without reading the score or its components",
+    "scope": "events from Nouvelle-Aquitaine project sources (gn-*, presse-*, eco-*)",
+    "folds": 5,
+    "bins": 4,
+    "priorWeight": 1,
+    "databaseReadsOnly": true
+  },
+  "dataset": {
+    "labeled": 100,
+    "matched": 100,
+    "missingScores": 0,
+    "positives": 70,
+    "negatives": 30
+  },
+  "results": {
+    "rawBrier": 0.29525999999999997,
+    "calibratedBrier": 0.21179951229097263,
+    "baselineBrier": 0.20999999999999983,
+    "target": 0.22,
+    "achieved": true,
+    "improvement": 0.28266777656650866
+  },
+  "reliability": [
+    {
+      "lower": 0,
+      "upper": 0.25,
+      "count": 0,
+      "positives": 0,
+      "meanRawProbability": 0,
+      "observedRate": 0,
+      "calibratedProbability": 0.7
+    },
+    {
+      "lower": 0.25,
+      "upper": 0.5,
+      "count": 76,
+      "positives": 55,
+      "meanRawProbability": 0.3771052631578944,
+      "observedRate": 0.7236842105263158,
+      "calibratedProbability": 0.7230769230769231
+    },
+    {
+      "lower": 0.5,
+      "upper": 0.75,
+      "count": 24,
+      "positives": 15,
+      "meanRawProbability": 0.59,
+      "observedRate": 0.625,
+      "calibratedProbability": 0.6307692307692307
+    },
+    {
+      "lower": 0.75,
+      "upper": 1,
+      "count": 0,
+      "positives": 0,
+      "meanRawProbability": 0,
+      "observedRate": 0,
+      "calibratedProbability": 0.7
+    }
+  ],
+  "limitations": [
+    "100 human labels: the confidence interval is wide; this is a measurement, not a population estimate.",
+    "The label is cyber relevance, not incident truth: corpus-derived incident labels are excluded because they feed the score.",
+    "Reliability bins with few samples are smoothed towards the base rate."
+  ]
+}
