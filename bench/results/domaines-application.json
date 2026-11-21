@@ -1,0 +1,44 @@
+{
+  "genere_le": "2026-11-21T15:34:47Z",
+  "script": "scripts/traiter-domaines.mts --appliquer http://127.0.0.1:18100 --max 20",
+  "api": "http://127.0.0.1:18100",
+  "base": "postgres://radar:radar@localhost:5433/radar",
+  "compteur_avant": {
+    "semaine": 26,
+    "total": 26,
+    "enAttente": 220,
+    "examinees": 16577
+  },
+  "compteur_apres": {
+    "semaine": 46,
+    "total": 46,
+    "enAttente": 200,
+    "examinees": 16586
+  },
+  "creations_reussies": 20,
+  "creations_effectives": 20,
+  "reutilisations": 0,
+  "echecs": 0,
+  "raisons_echecs": [],
+  "premiers_org_ids": [2423925, 2423926, 2423927, 2423928, 2423929],
+  "delta_compteur": 20,
+  "coherence": "46 = 26 + 20 : le compteur total est monté exactement du nombre de créations réussies, aucune anomalie d'événement manquant.",
+  "nouvelle_ligne_de_base": {
+    "total": 46,
+    "mesure": "GET /api/orgs/liees sur la base 5433 après les 20 créations du lot domaines"
+  },
+  "portee": "Instantané local : la base 5433 est un instantané distinct de la production (220 indices-domaines sur 16 576 examinés ici, contre 365 sur 14 258 en production) — ces 20 créations ne disent rien du compteur de production.",
+  "corrections_compteurs_codes_en_dur": [
+    {
+      "fichier": "apps/web/test/liees-verif.tsx",
+      "avant": "fixture figée semaine=26, total=26, enAttente=220, examinees=16576 présentée comme relevé réel",
+      "apres": "valeurs de démonstration et assertions dérivées du jeu de données, aucun total absolu codé en dur"
+    },
+    {
+      "fichier": "apps/web/test/aujourdhui-verif.tsx",
+      "avant": "organisations7j=26 présenté comme relevé réel",
+      "apres": "valeur de démonstration et assertion dérivée du jeu de données"
+    }
+  ],
+  "verification_delta_deja_en_place": "scripts/verif-boucle.mts mesure un delta (compteurApres.total === compteurAvant.total + 1) : aucun changement nécessaire."
+}
