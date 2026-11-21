@@ -1,0 +1,52 @@
+{
+ "dateMesure": "2026-11-21 02:50",
+ "plan": "docs/plans/mission-vague3-longue.md — Task 7",
+ "services": {
+  "radar-api.service": "active (depuis 2026-11-21 01:39:40 CET)",
+  "radar-report.timer": "active — prochain passage lundi 2026-11-23 07:02 CET",
+  "radar-report.service": "inactive (à la demande du timer)",
+  "verif": "systemctl --user is-active radar-api.service radar-report.timer"
+ },
+ "collecte24h": {
+  "passages": 1895,
+  "sourcesActives": 191,
+  "itemsNouveaux": 20968,
+  "passagesEnErreur": 603,
+  "requete": "SELECT count(*), sum(items_new), count(*) FILTER (WHERE error IS NOT NULL AND error <> ''), count(DISTINCT source_id) FROM collector_run WHERE started_at >= now() - interval '24 hours'"
+ },
+ "erreursParSource": [
+  {
+   "source": "actu-itsecurityguru",
+   "passages": 370,
+   "erreur": "fetch failed / 403 Source blocked (bloque-externe, classée en Task 2)"
+  },
+  {
+   "source": "nvd_cve",
+   "passages": 214,
+   "items": 16798,
+   "erreur": "429 rate limit Cloudflare + réponses HTML — mais 16 798 items ajoutés quand même"
+  },
+  {
+   "source": "cat-huntress-blog",
+   "passages": 6,
+   "erreur": "403 Source blocked (classée bloque-externe, Task 2)"
+  },
+  {
+   "source": "cat-cert-ee",
+   "passages": 6,
+   "erreur": "403 (désactivée en Task 2, morte > 30 j)"
+  },
+  {
+   "source": "leak:ransomware-live:recent-rss",
+   "passages": 8,
+   "erreur": "fetch failed intermittent — 32 items ajoutés"
+  }
+ ],
+ "echecIsole": {
+  "question": "un échec de source arrête-t-il les autres ?",
+  "methode": "pour chaque source en échec dans les 2 dernières heures, on compte les sources qui ont réussi DANS LA MÊME MINUTE",
+  "resultat": "00:51 : actu-itsecurityguru en échec, 11 autres sources OK dans la même minute ; 00:52 : nvd_cve et cat-huntress-blog en échec, 18 autres sources OK dans la même minute",
+  "requete": "WITH echecs AS (SELECT date_trunc('minute', started_at) AS m, source_id FROM collector_run WHERE started_at >= now() - interval '2 hours' AND error IS NOT NULL AND error <> '') SELECT e.source_id, count(DISTINCT r.source_id) FROM echecs e JOIN collector_run r ON date_trunc('minute', r.started_at) = e.m AND r.source_id <> e.source_id AND (r.error IS NULL OR r.error = '') GROUP BY 1,2"
+ },
+ "nbMuettesApres": "96 muettes effectives (Task 2 : 101 classées, 5 désactivées journalisées)"
+}

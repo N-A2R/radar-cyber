@@ -552,3 +552,19 @@ Deux points à garder en tête :
 
 Pour un observatoire, une revendication de quatre mois reste une information
 utile : la fenêtre est un choix produit, pas une évidence technique.
+
+## État de la collecte continue — mesuré (vague 3, 2026-11-21)
+
+`radar-api.service` et `radar-report.timer` en `active` (le service de rapport
+se déclenche lundi 07:02 CET). Sur les 24 dernières heures : **1 895 passages
+de collecte** sur 191 sources actives, **20 968 items nouveaux**, 603 passages
+en erreur répartis sur une poignée de sources (détail dans
+`bench/results/collecte-continue-vague3.json`).
+
+Un échec de source n'arrête pas les autres — preuve par minute : à 00:51, `nvd_cve`
+et `cat-cert-ee` échouaient tandis que **11 autres sources réussissaient dans la
+même minute** ; à 00:52, 18 autres sources OK pendant les échecs de
+`cat-huntress-blog` et `nvd_cve`. Mieux : `nvd_cve` a ajouté **16 798 items en
+24 h** malgré ses 429 Cloudflare intermittents. La re-mesure de santé donne
+**96 sources muettes effectives** (101 classées le jour même, 5 désactivées en
+journalisant — `sources-muettes-vague3.json`).
