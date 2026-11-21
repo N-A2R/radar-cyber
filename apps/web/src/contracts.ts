@@ -1,4 +1,4 @@
-import type { Alert, Event, Graph, Health, NaFil, NaOverview, Org, Source, Stats, TodayResponse } from "./api";
+import type { Alert, DeptStat, Event, Graph, Health, NaFil, NaOverview, Org, Source, Stats, TodayResponse } from "./api";
 
 /** Les vues de l'application, dans l'ordre du rail. */
 export type ViewKey = "today" | "map" | "directory" | "review" | "journal" | "graph" | "sources" | "health" | "alerts" | "dossier" | "na";
@@ -12,6 +12,10 @@ export type TodayViewProps = {
   error: string | null;
   family: string | null;
   dept: string | null;
+  /** Départements proposés par GET /api/stats/departements (24 h). */
+  departements: DeptStat[];
+  /** Instant de référence de la timeline ; `Date.now()` par défaut. */
+  maintenant?: number;
   onFamily: (family: string | null) => void;
   onDept: (dept: string | null) => void;
   onOpenOrg: (orgId: number) => void;

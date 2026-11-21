@@ -5,7 +5,7 @@
  * numérique : tant que la réponse n'est pas là, on affiche un tiret, pas un
  * zéro qui prétendrait mesurer quelque chose.
  */
-import type { TodayEvent } from "../api";
+import type { DeptStat, TodayEvent } from "../api";
 import type { TodayViewProps } from "../contracts";
 import "./today.css";
 import LieesCard from "./LieesCard";
@@ -18,17 +18,66 @@ export function dateLisible(iso: string | null): string {
   return `${d.toISOString().slice(0, 16).replace("T", " ")} UTC`;
 }
 
-function instant(iso: string | null): number {
-  if (!iso) return Number.NEGATIVE_INFINITY;
-  const t = Date.parse(iso.replace(" ", "T"));
-  return Number.isFinite(t) ? t : 0;
+/** Date de l'API Postgres (`2026-11-21 13:37:22+01`) → millisecondes UTC. */
+function horodatage(iso: string | null): number | null {
+  if (!iso) return null;
+  // Date.parse exige `+01:00` ; PostgreSQL renvoie `+01`.
+  const normalisee = iso.replace(/([+-]\d{2})$/, "$1:00");
+  const t = Date.parse(normalisee);
+  return Number.isFinite(t) ? t : null;
 }
 
 /** L'API trie déjà ; on retrie pour tenir le contrat même avec un vieux serveur. */
 export function triRecents(evenements: TodayEvent[]): TodayEvent[] {
   return [...evenements].sort(
-    (a, b) => instant(b.date) - instant(a.date) || Number(b.id) - Number(a.id),
+    (a, b) => (horodatage(b.date) ?? Number.NEGATIVE_INFINITY) - (horodatage(a.date) ?? Number.NEGATIVE_INFINITY)
+      || Number(b.id) - Number(a.id),
   );
+}
+
+const TRANCHE_MS = 2 * 60 * 60 * 1000;
+const NOMBRE_TRANCHES = 12;
+
+export type TrancheTimeline = {
+  /** Début de la tranche, en millisecondes UTC. */
+  debut: number;
+  fin: number;
+  /** Libellé court de l'heure de début, en UTC. */
+  label: string;
+  evenements: number;
+};
+
+
+/**
+ * Répartit les événements en 12 tranches de 2 h couvrant les 24 h qui
+ * précèdent `maintenant`. Les bornes sont alignées sur UTC (00h, 02h, …),
+ * donc deux appels avec le même instant donnent exactement les mêmes barres.
+ * Les dates invalides, absentes ou postérieures à l'instant sont écartées :
+ * on ne dessine pas d'activité qui n'a pas encore eu lieu.
+ */
+export function aggregerTimeline(
+  evenements: readonly TodayEvent[],
+  maintenant: number = Date.now(),
+): TrancheTimeline[] {
+  const reference = Number.isFinite(maintenant) ? maintenant : Date.now();
+  const fin = (Math.floor(reference / TRANCHE_MS) + 1) * TRANCHE_MS;
+  const debut = fin - NOMBRE_TRANCHES * TRANCHE_MS;
+  const tranches: TrancheTimeline[] = Array.from({ length: NOMBRE_TRANCHES }, (_, i) => {
+    const t = debut + i * TRANCHE_MS;
+    return {
+      debut: t,
+      fin: t + TRANCHE_MS,
+      label: `${new Date(t).toISOString().slice(11, 13)}h`,
+      evenements: 0,
+    };
+  });
+
+  for (const evenement of evenements) {
+    const t = horodatage(evenement.date);
+    if (t === null || t < debut || t >= fin || t > reference) continue;
+    tranches[Math.floor((t - debut) / TRANCHE_MS)].evenements += 1;
+  }
+  return tranches;
 }
 
 function options(valeurs: (string | null)[], courant: string | null): string[] {
@@ -43,6 +92,8 @@ export default function TodayView({
   error,
   family,
   dept,
+  departements,
+  maintenant,
   onFamily,
   onDept,
   onOpenOrg,
@@ -50,7 +101,11 @@ export default function TodayView({
 }: TodayViewProps) {
   const evenements = triRecents(data?.evenements ?? []);
   const familles = options(evenements.map((e) => e.famille), family);
-  const depts = options(evenements.map((e) => e.dept), dept);
+  const parDept = new Map(departements.map((d: DeptStat) => [d.dept, d.evenements]));
+  const depts = options([...parDept.keys(), ...evenements.map((e) => e.dept)], dept);
+  const tranches = aggregerTimeline(evenements, maintenant);
+  const maxTranche = Math.max(0, ...tranches.map((t) => t.evenements));
+  const totalTranche = tranches.reduce((n, t) => n + t.evenements, 0);
   const compteurs = data?.compteurs;
   const vide = data !== null && !loading && !error && evenements.length === 0;
 
@@ -98,6 +153,34 @@ export default function TodayView({
           <p className="today__collecte">dernière collecte : {dateLisible(compteurs.derniereCollecte)}</p>
         ) : null}
       </div>
+
+      {data ? (
+        <section className="today__timeline" aria-labelledby="today-timeline-titre">
+          <div className="today__timeline-head">
+            <h2 id="today-timeline-titre">activité · 24 h</h2>
+            <p>{totalTranche} événement{totalTranche > 1 ? "s" : ""} · tranches de 2 h · UTC</p>
+          </div>
+          <div className="today__timeline-graphe" role="list" aria-label="Répartition horaire des événements sur 24 heures">
+            {tranches.map((t) => (
+              <div
+                className="today__timeline-tranche"
+                role="listitem"
+                key={t.debut}
+                aria-label={`${t.label} : ${t.evenements} événement${t.evenements > 1 ? "s" : ""}`}
+              >
+                <span className="today__timeline-valeur">{t.evenements}</span>
+                <div className="today__timeline-piste" aria-hidden="true">
+                  <div
+                    className="today__timeline-barre"
+                    style={{ height: maxTranche > 0 ? `${(t.evenements / maxTranche) * 100}%` : "0%" }}
+                  />
+                </div>
+                <time className="today__timeline-heure" dateTime={new Date(t.debut).toISOString()}>{t.label}</time>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       {loading ? <p className="today__statut" role="status">chargement des événements…</p> : null}
       {error ? <p className="today__statut today__statut--erreur" role="alert">API : {error}</p> : null}

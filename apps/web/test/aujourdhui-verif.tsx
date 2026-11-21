@@ -51,7 +51,7 @@ const donnees: TodayResponse = {
 };
 
 const html = renderToStaticMarkup(
-	<TodayView data={donnees} loading={false} error={null} family={null} dept={null}
+	<TodayView data={donnees} loading={false} error={null} family={null} dept={null} departements={[]}
 		onFamily={() => {}} onDept={() => {}} onOpenOrg={() => {}} onOpenEvent={() => {}} />,
 );
 
@@ -66,13 +66,13 @@ check("tri décroissant", html.indexOf("FBI hacked again") < html.indexOf("Polyn
 	`ordre : ${triRecents(donnees.evenements).map((e) => e.id).join(", ")}`);
 
 const sansDonnees = renderToStaticMarkup(
-	<TodayView data={null} loading error={null} family={null} dept={null}
+	<TodayView data={null} loading error={null} family={null} dept={null} departements={[]}
 		onFamily={() => {}} onDept={() => {}} onOpenOrg={() => {}} onOpenEvent={() => {}} />,
 );
 check("aucun chiffre inventé avant la réponse", sansDonnees.includes("—") && !sansDonnees.includes("693"));
 
 const vide = renderToStaticMarkup(
-	<TodayView data={{ compteurs, evenements: [] }} loading={false} error={null} family="leaks" dept="33"
+	<TodayView data={{ compteurs, evenements: [] }} loading={false} error={null} family="leaks" dept="33" departements={[]}
 		onFamily={() => {}} onDept={() => {}} onOpenOrg={() => {}} onOpenEvent={() => {}} />,
 );
 check("état vide explicite", vide.includes("Aucun incident sur cette période"));
@@ -86,7 +86,7 @@ check("filtre invalide neutralisé", parseHash("#/today?family=<script>&dept=zzz
 	&& parseHash("#/today?family=<script>&dept=zzz").today.dept === null);
 
 const filtreRendu = renderToStaticMarkup(
-	<TodayView data={donnees} loading={false} error={null} family="leaks" dept="33"
+	<TodayView data={donnees} loading={false} error={null} family="leaks" dept="33" departements={[]}
 		onFamily={() => {}} onDept={() => {}} onOpenOrg={() => {}} onOpenEvent={() => {}} />,
 );
 check("le filtre s'applique au rendu", filtreRendu.includes('value="leaks"') && filtreRendu.includes('value="33"'));
