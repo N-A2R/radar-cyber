@@ -1,0 +1,98 @@
+{
+  "date_mesure": "2026-11-21T16:55:23+01:00",
+  "question": "Cadence réelle de collecte, durée d'une collecte et temps d'un cycle des 296 sources",
+  "methode": {
+    "base": "PostgreSQL 18.6, localhost:5433/base radar, SELECT seuls (collecteur_run, source)",
+    "logs": "journalctl --user -u radar-api.service (logs JSON du service de collecte)",
+    "fenetre_courante": "depuis le dernier démarrage du service, 2026-11-21T15:35:28+01:00, 1,32 h (79 ticks)",
+    "fenetre_24h": "collector_run.started_at >= now() - interval '24 hours'",
+    "fenetre_heures_pleines": "22 heures pleines entre 2026-11-20 17:00 et 2026-11-21 16:00 (heure 20:00 absente des traces)",
+    "appariement_lots_traces": "chaque ligne 'ingestion générique : X s' est appariée aux lignes collector_run dont started_at tombe dans [fin_du_lot - X - 0,5 s, fin_du_lot + 0,5 s]",
+    "regle": "aucune estimation : chaque nombre est calculé à partir des traces et logs ci-dessous ; les valeurs dérivées sont nommées comme telles"
+  },
+  "catalogue": {
+    "sources_total": 296,
+    "sources_activees": 186,
+    "sources_desactivees": 110,
+    "sans_collecte_reussie_last_ok_at_null": 102,
+    "desactivees_sans_collecte_reussie": 100,
+    "requete_sql": "SELECT count(*) FROM source ; SELECT count(*) FROM source WHERE enabled"
+  },
+  "cadence_actuelle": {
+    "configuration_effective": {
+      "tick_ms": 60000,
+      "source": "RADAR_TICK_MS absent de l'unité systemd, du fichier d'environnement et de /proc/<pid>/environ ; défaut de apps/api/src/server.ts:44",
+      "intervalle_entre_ticks_logues_s": {
+        "n": 78,
+        "moyenne": 60.8,
+        "mediane": 60.0,
+        "p95": 60.03,
+        "min": 59.93,
+        "max": 122.53
+      }
+    },
+    "sources_candidates_par_tick": 180,
+    "executions_collecte_par_heure": {
+      "fenetre_courante": 272.9,
+      "moyenne_22_heures_pleines": 260.3,
+      "mediane_22_heures_pleines": 270.5,
+      "min_22_heures_pleines": 112,
+      "max_22_heures_pleines": 394,
+      "glissant_24h": 248.7,
+      "total_glissant_24h": 5968
+    },
+    "collectes_generiques_par_heure_fenetre_courante": 209.2,
+    "sources_distinctes_par_heure": {
+      "moyenne_22_heures_pleines": 122.3,
+      "glissant_24h": 7.96,
+      "distinctes_glissant_24h": 191,
+      "precision": "122,3 = nombre moyen d'identifiants distincts vus dans chaque heure ; 7,96 = 191 identifiants uniques sur 24 h"
+    },
+    "concentration": {
+      "executions_glissant_24h_source_unique": {
+        "actu-itsecurityguru": 1135,
+        "nvd_cve": 679,
+        "cisa_kev": 400
+      },
+      "part_top3_fenetre_courante_pourcent": 44.7,
+      "commentaire": "deux sources en erreur sont retentées à chaque tick et occupent près de la moitié des exécutions observées"
+    }
+  },
+  "duree_collecte": {
+    "lots_logues_fenetre_courante": {
+      "n": 79,
+      "duree_moyenne_s": 12.75,
+      "duree_mediane_s": 6.1,
+      "duree_p95_s": 48.1,
+      "duree_min_s": 3.4,
+      "duree_max_s": 71.5,
+      "source": "ligne 'ingestion générique : X s' du service"
+    },
+    "sources_reellement_collectees_par_lot": {
+      "n_lots_apparies": 79,
+      "moyenne": 3.49,
+      "mediane": 2.0,
+      "max": 19,
+      "source": "traces collector_run appariées au lot"
+    },
+    "duree_moyenne_par_collecte_derivee_s": 3.65,
+    "calcul_derive": "somme des durées de lots / somme des collectes réelles appariées = 1007,2 s / 276 collectes",
+    "modele_derive": {
+      "forme": "duree_lot_s = 4,26 + 2,43 * nombre_de_collectes",
+      "source": "régression linéaire sur les 79 lots appariés",
+      "commentaire": "le catalogue parcourt 180 candidats mais n'en collecte réellement que 3,49 par tick (filtre interval_sec * 0,8)"
+    },
+    "limite": "aucune durée par source n'est journalisée : la durée par collecte est dérivée des durées de lot et des traces, elle n'est pas chronométrée directement"
+  },
+  "cycle_296_sources": {
+    "au_rythme_reel_distinct_heures": 37.2,
+    "calcul": "296 / 7,96 sources distinctes par heure",
+    "si_toutes_eligibles_minutes": 18.0,
+    "calcul_eligible": "296 * 3,65 s de temps de lot par collecte, en supposant toutes les sources éligibles et collectées consécutivement",
+    "avec_overhead_lot_minutes": 12.1,
+    "calcul_overhead": "4,26 + 2,43 * 296 = 724 s (modèle dérivé des 79 lots)",
+    "hypothese_refutee": "296 / 260,3 runs par heure = 1,14 h supposerait un run par source distincte ; les traces donnent 191 identifiants distincts sur 24 h",
+    "faisabilite_configuration_actuelle": "impossible : 110 sources sont désactivées et ne sont jamais sélectionnées par runGenericSources ; plafond observé 191 sources sur 296"
+  },
+  "conclusion": "Non : la cadence actuelle ne couvre que 191 des 296 sources en 24 h (7,96 sources distinctes/h, 60 s par tick) et un cycle complet prendrait 37,2 h à ce rythme ; il faut gagner 105 sources distinctes par jour, soit +55 % de cadence de couverture, et réactiver les 110 sources désactivées, car accélérer le tick seul ne les collectera pas."
+}
