@@ -230,7 +230,7 @@ check("truncation is announced",
 
 const loading = render({ rows: [], resultCount: 0, loading: true });
 check("loading state announced and controls disabled",
-  loading.includes('role="status"') && loading.includes("Loading journal…")
+  loading.includes('role="status"') && loading.includes("Chargement du journal…")
   && (loading.match(/disabled=""/g) ?? []).length >= 3);
 
 const error = render({ rows: [], resultCount: 0, error: "/api/journal/review → 500" });
@@ -259,7 +259,7 @@ check("entry without decision stays readable",
 
 const view = renderToStaticMarkup(<JournalView />);
 check("screen mounted in loading state before the API answers",
-  view.includes("Loading journal…") && view.includes("Audit journal")
+  view.includes("Chargement du journal…") && view.includes("Audit journal")
   && view.includes("Export filtered CSV"));
 
 console.log(failures === 0 ? "\nJournal: all checks pass." : `\nJournal: ${failures} check(s) failed.`);

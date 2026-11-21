@@ -94,6 +94,7 @@ export default function JournalView({ onUnauthorized }: Props) {
   const [truncated, setTruncated] = useState(false);
   const [exporting, setExporting] = useState(false);
   const [exportError, setExportError] = useState<string | null>(null);
+  const [reloadSignal, setReloadSignal] = useState(0);
 
   // Avoid a second identical request on mount: the initial `applied` object
   // already matches the initial `filters`.
@@ -148,7 +149,7 @@ export default function JournalView({ onUnauthorized }: Props) {
     })();
 
     return () => controller.abort();
-  }, [applied, onUnauthorized]);
+  }, [applied, onUnauthorized, reloadSignal]);
 
   const filteredRows = useMemo(() => filterJournal(rows, applied), [rows, applied]);
   const pageCount = Math.max(1, Math.ceil(filteredRows.length / ROWS_PER_PAGE));
@@ -212,6 +213,7 @@ export default function JournalView({ onUnauthorized }: Props) {
       onExport={exportCsv}
       exporting={exporting}
       exportError={exportError}
+      onRetry={() => setReloadSignal((n) => n + 1)}
     />
   );
 }

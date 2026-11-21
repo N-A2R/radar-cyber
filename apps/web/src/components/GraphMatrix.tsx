@@ -1,10 +1,15 @@
 import { useMemo, type CSSProperties } from "react";
 import type { GraphLink, GraphNode } from "../graph/graphModel";
+import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./graphmatrix.css";
 
 type Props = {
   nodes: readonly GraphNode[];
   links: readonly GraphLink[];
+  /** Chargement du graphe par le parent. */
+  loading?: boolean;
+  /** Relance le chargement depuis un état vide. */
+  onRetry?: () => void;
 };
 
 /** Cell key: family then department, separated by NUL (absent from labels). */
@@ -18,7 +23,7 @@ const byTotalThenLabel = (a: { label: string; total: number }, b: { label: strin
  * gives the column, `has_event` / `mentions` (org → family) gives the row.
  * Each organisation increments at most once per (family, department) pair.
  */
-export default function GraphMatrix({ nodes, links }: Props) {
+export default function GraphMatrix({ nodes, links, loading = false, onRetry }: Props) {
   const matrix = useMemo(() => {
     const nodeById = new Map<string, GraphNode>();
     for (const node of nodes) nodeById.set(node.id, node);
@@ -92,11 +97,27 @@ export default function GraphMatrix({ nodes, links }: Props) {
     </p>
   );
 
+  if (loading && nodes.length === 0) {
+    return (
+      <div className="gm-root">
+        <LoadingSkeleton label="chargement du graphe…" />
+      </div>
+    );
+  }
+
   if (columns.length === 0 || rows.length === 0) {
     return (
       <div className="gm-root">
         {summary}
-        <p className="gm-empty">No family × department correlation for the selected period.</p>
+        {onRetry ? (
+          <EmptyState
+            message="Aucune corrélation famille × département sur la période."
+            actionLabel="Recharger le graphe"
+            onAction={onRetry}
+          />
+        ) : (
+          <p className="gm-empty">Aucune corrélation famille × département sur la période.</p>
+        )}
       </div>
     );
   }

@@ -212,7 +212,7 @@ async function main(): Promise<void> {
   // --- chargement puis file rendue --------------------------------------
   holdQueue = true;
   await mount();
-  check("chargement affiché", (container.textContent ?? "").includes("Loading review queue"));
+  check("chargement affiché", (container.textContent ?? "").includes("Chargement de la file de revue…"));
   const firstGet = lastCall("/api/review/queue");
   check("GET /api/review/queue en 50 par page", firstGet?.url.includes("limit=50") === true && firstGet?.url.includes("page=0") === true, firstGet?.url);
   await release();

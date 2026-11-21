@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { api } from "../api";
 import type { CommandPaletteProps, SearchHit } from "../contracts";
+import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./palette.css";
 
 /**
@@ -185,6 +186,7 @@ export default function CommandPalette({ open, onClose, onOpenOrg, onOpenEvent, 
 					onChange={(e) => setQuery(e.target.value)}
 				/>
 				<p className="palette__hint" role="status">{hint}</p>
+				{loading && query.trim().length >= MIN_QUERY ? <LoadingSkeleton label="Recherche…" /> : null}
 				{results.length > 0 ? (
 					<ul className="palette__list" id="palette-list" role="listbox" ref={listRef} aria-label="Résultats">
 						{results.map((hit, i) => (
@@ -204,6 +206,13 @@ export default function CommandPalette({ open, onClose, onOpenOrg, onOpenEvent, 
 							</li>
 						))}
 					</ul>
+				) : null}
+				{!loading && !error && query.trim().length >= MIN_QUERY && results.length === 0 ? (
+					<EmptyState
+						message="Aucun résultat."
+						actionLabel="Effacer la recherche"
+						onAction={() => setQuery("")}
+					/>
 				) : null}
 				<footer className="palette__foot">↑ ↓ parcourir · Entrée ouvrir · Échap fermer</footer>
 			</div>

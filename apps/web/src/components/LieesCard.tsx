@@ -7,6 +7,7 @@
  */
 import { useEffect, useState } from "react";
 import { authHeaders } from "../api";
+import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./liees.css";
 
 export type OrgsLiees = {
@@ -29,6 +30,8 @@ export type HistoriquePoint = {
 type LieesContenuProps = LieesEtat & {
   /** Vide quand aucun relevé n'a encore été écrit : aucune courbe affichée. */
   historique?: HistoriquePoint[];
+  /** Relance la lecture du compteur depuis un état vide. */
+  onRetry?: () => void;
 };
 
 export type LieesEtat = {
@@ -83,7 +86,7 @@ function MicroCourbe({ points }: { points: HistoriquePoint[] }) {
 }
 
 /** Présentation pure : permet de vérifier chaque état sans réseau. */
-export function LieesContenu({ data, loading, error, historique = [] }: LieesContenuProps) {
+export function LieesContenu({ data, loading, error, historique = [], onRetry }: LieesContenuProps) {
   const vide = !loading && !error && data !== null
     && data.semaine === 0 && data.total === 0
     && data.enAttente === 0 && data.examinees === 0;
@@ -96,11 +99,12 @@ export function LieesContenu({ data, loading, error, historique = [] }: LieesCon
         <p className="liees__kicker">rattachements mesurés en base</p>
       </header>
 
-      {loading ? <p className="liees__statut" role="status">chargement des organisations reliées…</p> : null}
+      {loading ? <LoadingSkeleton label="chargement des organisations reliées…" /> : null}
       {error ? <p className="liees__statut liees__erreur" role="alert">API : {error}</p> : null}
-      {vide ? (
-        <p className="liees__vide" role="status">aucune organisation reliée mesurée</p>
-      ) : null}
+      {vide ? (onRetry
+        ? <EmptyState className="liees__vide" message="aucune organisation reliée mesurée" actionLabel="Recharger le compteur" onAction={onRetry} />
+        : <p className="liees__vide" role="status">aucune organisation reliée mesurée</p>)
+        : null}
 
       {mesure && data ? (
         <>
@@ -133,7 +137,9 @@ export function LieesContenu({ data, loading, error, historique = [] }: LieesCon
               ))}
             </ol>
           ) : (
-            <p className="liees__vide">aucun département renseigné</p>
+            onRetry
+              ? <EmptyState message="aucun département renseigné" actionLabel="Recharger le compteur" onAction={onRetry} />
+              : <p className="liees__vide">aucun département renseigné</p>
           )}
         </>
       ) : null}
@@ -151,6 +157,7 @@ export default function LieesCard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [historique, setHistorique] = useState<HistoriquePoint[]>([]);
+  const [reloadSignal, setReloadSignal] = useState(0);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -187,7 +194,7 @@ export default function LieesCard() {
       })
       .catch(() => { /* historique indisponible : aucune courbe, pas un tracé vide */ });
     return () => controller.abort();
-  }, []);
+  }, [reloadSignal]);
 
-  return <LieesContenu data={data} loading={loading} error={error} historique={historique} />;
+  return <LieesContenu data={data} loading={loading} error={error} historique={historique} onRetry={() => setReloadSignal((n) => n + 1)} />;
 }

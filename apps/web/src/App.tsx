@@ -111,6 +111,8 @@ export default function App() {
   }, []);
   const instantaneData = useMemo(() => etatDonnees(instantane, horloge), [instantane, horloge]);
   const [loading, setLoading] = useState(!MOCK_MODE);
+  const [reloadSignal, setReloadSignal] = useState(0);
+  const recharger = useCallback(() => setReloadSignal((n) => n + 1), []);
   const [family, setFamily] = useState<string | null>(null);
   // Ordre du fil : « régional d'abord » par défaut, « tout » = ordre de l'API.
   const [regionalFirst, setRegionalFirst] = useState(true);
@@ -315,7 +317,7 @@ export default function App() {
       setFlows(arcs);
     };
     void load();
-  }, [loadFlows, token, portee]);
+  }, [loadFlows, token, portee, reloadSignal]);
 
   // Rafraîchit statistiques, graphe et arcs toutes les 30 s.
   useEffect(() => {
@@ -375,7 +377,7 @@ export default function App() {
       controller.abort();
       clearInterval(timer);
     };
-  }, [view, urlState.today.family, urlState.today.dept, token]);
+  }, [view, urlState.today.family, urlState.today.dept, token, reloadSignal]);
 
   // Corpus : lecture publique, indépendante du token et du fil d'événements.
   // Un appel à l'ouverture, puis toutes les minutes pour que la réponse à
@@ -742,6 +744,7 @@ export default function App() {
                 }}
                 loading={loading}
                 error={null}
+                onRetry={recharger}
               />
             </Suspense>
         </aside>
@@ -769,6 +772,7 @@ export default function App() {
               onFamily={onTodayFamily}
               onDept={onTodayDept}
               departements={statsDepartements}
+              onRetry={recharger}
               onOpenOrg={openOrgSheet}
               onOpenEvent={(id) => {
                 setSelectedEventId(id);
@@ -806,6 +810,7 @@ export default function App() {
                 if (id) handleSelectOrg(id);
               }}
               theme="observatoire"
+              loading={loading}
             />
           ) : null}
 
@@ -819,6 +824,7 @@ export default function App() {
               urlState={urlState.directory}
               onUrlStateChange={onDirectoryStateChange}
               onCopyLink={copyDirectoryLink}
+              onRetry={recharger}
             />
           ) : null}
 
@@ -837,13 +843,12 @@ export default function App() {
           {view === "corpus" ? (
             <CorpusView data={corpusData} loading={corpusLoading} error={corpusError} />
           ) : null}
-          {view === "sources" ? <SourcesView sources={sources} loading={loading} error={error} /> : null}
+          {view === "sources" ? <SourcesView sources={sources} loading={loading} error={error} onRetry={recharger} /> : null}
 
           {view === "health" ? (
             <>
-              <HealthDetailView detail={healthDetail} causes={healthCauses} loading={loading} error={error} />
-              <CollecteMetricsView metrics={collecteMetrics} loading={loading} error={error} />
-              <HealthView sources={sources} />
+              <HealthDetailView detail={healthDetail} causes={healthCauses} loading={loading} error={error} onRetry={recharger} />
+              <HealthView sources={sources} loading={loading} onRetry={recharger} />
             </>
           ) : null}
 
@@ -859,6 +864,7 @@ export default function App() {
               dept={urlState.naDept}
               onSelectDept={(d) => setUrlState((prev) => (prev.naDept === d ? prev : { ...prev, naDept: d }))}
               onOpenOrg={setSheetOrgId}
+              onRetry={recharger}
             />
           ) : null}
 

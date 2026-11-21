@@ -1,4 +1,5 @@
 import type { Alert, CouverturePublique, DeptStat, Event, Graph, Health, NaFil, NaOverview, Org, Source, Stats, TodayResponse } from "./api";
+import type { DirectoryUrlState } from "./url-state";
 
 /** Les vues de l'application, dans l'ordre du rail. */
 export type ViewKey = "today" | "coverage" | "review" | "journal" | "corpus" | "sources" | "map" | "directory" | "graph" | "health" | "alerts" | "dossier" | "na";
@@ -20,6 +21,8 @@ export type TodayViewProps = {
   onDept: (dept: string | null) => void;
   onOpenOrg: (orgId: number) => void;
   onOpenEvent: (eventId: string) => void;
+  /** Relance le chargement derrière l'état vide (sinon, action locale). */
+  onRetry?: () => void;
 };
 
 /** Contract of the coverage screen (GET /api/couverture). */
@@ -38,6 +41,8 @@ export type FeedProps = {
   onSelectEvent: (id: string) => void;
   loading: boolean;
   error: string | null;
+  /** Relance le chargement derrière l'état vide (sinon, action locale). */
+  onRetry?: () => void;
 };
 
 /** Contrat de l'inspecteur (panneau de droite). */
@@ -68,6 +73,8 @@ export type NaViewProps = {
   dept: string | null;
   onSelectDept: (dept: string | null) => void;
   onOpenOrg: (orgId: number) => void;
+  /** Relance le chargement derrière l'état vide (sinon, action locale). */
+  onRetry?: () => void;
 };
 
 /** Contrat de la vue alertes. */
@@ -84,6 +91,8 @@ export type SourcesViewProps = {
   sources: Source[];
   loading: boolean;
   error: string | null;
+  /** Relance le chargement derrière l'état vide (sinon, action locale). */
+  onRetry?: () => void;
 };
 
 /** Contrat de la vue santé. */
@@ -120,9 +129,11 @@ export type DirectoryProps = {
   /** true : l'API filtre, classe et pagine ; false : tout en mémoire (démo). */
   server?: boolean;
   /** État lu dans l'URL au montage, pour un lien profond. */
-  urlState?: import("./url-state").DirectoryUrlState;
-  onUrlStateChange?: (state: import("./url-state").DirectoryUrlState) => void;
+  urlState?: DirectoryUrlState;
+  onUrlStateChange?: (state: DirectoryUrlState) => void;
   onCopyLink?: () => void;
+  /** Relance le chargement derrière l'état vide (sinon, action locale). */
+  onRetry?: () => void;
 };
 
 /** Résultat de recherche globale, toutes natures confondues. */

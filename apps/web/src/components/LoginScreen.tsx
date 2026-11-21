@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { api } from "../api";
+import { LoadingSkeleton } from "./Skeleton";
 import "./login.css";
 
 type LoginScreenProps = {
@@ -71,6 +72,7 @@ export default function LoginScreen({ onAuthenticated }: LoginScreenProps) {
         <button type="submit" className="login__submit" disabled={busy}>
           entrer
         </button>
+        {busy ? <LoadingSkeleton label="connexion en cours…" /> : null}
 
         <p className="login__error" role="status" aria-live="polite">
           {error ?? ""}

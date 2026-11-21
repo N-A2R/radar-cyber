@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { api, motifLabel, sourceStatus, sourceYield, type Source, type SourceStatus, type SourceYield } from "../api";
 import type { SourcesViewProps } from "../contracts";
+import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./sources.css";
 import RelancerButton from "./RelancerButton";
 
@@ -220,7 +221,7 @@ function compareSources(a: Source, b: Source, key: SortKey, dir: SortDir): numbe
  * La pastille d'état vient de `sourceStatus()` : bleu pour un succès,
  * orange pour une erreur, gris tant que rien n'a été collecté.
  */
-export default function SourcesView({ sources, loading, error }: SourcesViewProps) {
+export default function SourcesView({ sources, loading, error, onRetry }: SourcesViewProps) {
   const [query, setQuery] = useState("");
   // Le registre est un outil de triage : ce qui n'a rien produit depuis le
   // plus longtemps remonte en tête, « jamais produit » en tout premier.
@@ -444,13 +445,19 @@ export default function SourcesView({ sources, loading, error }: SourcesViewProp
             {rows.length === 0 && (
               <tr>
                 <td colSpan={COLUMNS.length + 1} className="sources-table__empty">
-                  {loading
-                    ? "chargement des sources…"
-                    : error
-                      ? error
-                      : sources.length === 0
+                  {loading ? (
+                    <LoadingSkeleton label="chargement des sources…" />
+                  ) : error ? (
+                    <span role="alert">{error}</span>
+                  ) : (
+                    <EmptyState
+                      message={sources.length === 0
                         ? "aucune source déclarée"
                         : "aucune source ne correspond à la recherche"}
+                      actionLabel={onRetry ? "Recharger les sources" : "Effacer la recherche"}
+                      onAction={onRetry ?? (() => setQuery(""))}
+                    />
+                  )}
                 </td>
               </tr>
             )}

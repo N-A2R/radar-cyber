@@ -7,6 +7,7 @@
  */
 import type { DeptStat, TodayEvent } from "../api";
 import type { TodayViewProps } from "../contracts";
+import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./today.css";
 import LieesCard from "./LieesCard";
 
@@ -98,6 +99,7 @@ export default function TodayView({
   onDept,
   onOpenOrg,
   onOpenEvent,
+  onRetry,
 }: TodayViewProps) {
   const evenements = triRecents(data?.evenements ?? []);
   const familles = options(evenements.map((e) => e.famille), family);
@@ -182,18 +184,25 @@ export default function TodayView({
         </section>
       ) : null}
 
-      {loading ? <p className="today__statut" role="status">chargement des événements…</p> : null}
+      {loading ? <LoadingSkeleton label="chargement des événements…" /> : null}
       {error ? <p className="today__statut today__statut--erreur" role="alert">API : {error}</p> : null}
 
       {vide ? (
-        <div className="today__vide" role="status">
-          <p className="today__vide-titre">Aucun incident sur cette période</p>
-          <p className="today__vide-detail">
-            {family || dept
-              ? `Filtres actifs : ${family ? `famille « ${family} »` : ""}${family && dept ? ", " : ""}${dept ? `département ${dept}` : ""}.`
-              : "Aucun filtre actif."}
-          </p>
-        </div>
+        <EmptyState
+          className="today__vide"
+          message={
+            <>
+              <strong className="today__vide-titre">Aucun incident sur cette période</strong>
+              <span className="today__vide-detail">
+                {family || dept
+                  ? `Filtres actifs : ${family ? `famille « ${family} »` : ""}${family && dept ? ", " : ""}${dept ? `département ${dept}` : ""}.`
+                  : "Aucun filtre actif."}
+              </span>
+            </>
+          }
+          actionLabel={onRetry ? "Recharger la période" : "Effacer les filtres"}
+          onAction={onRetry ?? (() => { onFamily(null); onDept(null); })}
+        />
       ) : null}
 
       {evenements.length > 0 ? (

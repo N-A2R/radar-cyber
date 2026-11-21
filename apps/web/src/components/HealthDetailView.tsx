@@ -1,5 +1,6 @@
 import type { HealthCauses, HealthDetail } from "../api";
 import { FAMILY_LABEL, formatDate, formatNumber, formatRelative } from "./SourcesView";
+import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./health-detail.css";
 
 export type HealthDetailViewProps = {
@@ -7,6 +8,8 @@ export type HealthDetailViewProps = {
   causes?: HealthCauses | null;
   loading?: boolean;
   error?: string | null;
+  /** Relance la lecture de l'état depuis un écran sans donnée. */
+  onRetry?: () => void;
 };
 
 /** Étiquette écrite à côté de la couleur : la teinte n'est jamais le seul signal. */
@@ -28,15 +31,21 @@ function ageLabel(ageHours: number | null): string {
  * sa requête SQL dans `apps/api/src/routes/health-detail.ts`. La répartition
  * des causes vient de `GET /api/health/causes` et n'est jamais déduite ici.
  */
-export default function HealthDetailView({ detail, causes = null, loading = false, error = null }: HealthDetailViewProps) {
+export default function HealthDetailView({ detail, causes = null, loading = false, error = null, onRetry }: HealthDetailViewProps) {
   if (loading && detail === null) {
-    return <section className="health-detail"><p>lecture de l’état du système…</p></section>;
+    return <section className="health-detail"><LoadingSkeleton label="lecture de l’état du système…" /></section>;
   }
   if (error && detail === null) {
     return <section className="health-detail"><p role="alert">état indisponible : {error}</p></section>;
   }
   if (detail === null || !detail.ok) {
-    return <section className="health-detail"><p>état non mesuré</p></section>;
+    return (
+      <section className="health-detail">
+        {onRetry
+          ? <EmptyState message="état non mesuré" actionLabel="Recharger l'état" onAction={onRetry} />
+          : <p>état non mesuré</p>}
+      </section>
+    );
   }
 
   const { sources, queues } = detail;
@@ -150,7 +159,11 @@ export default function HealthDetailView({ detail, causes = null, loading = fals
               </tr>
             ))}
             {detail.families.length === 0 && (
-              <tr><td colSpan={4}>aucun fait mesuré</td></tr>
+              <tr><td colSpan={4}>
+                {onRetry
+                  ? <EmptyState message="aucun fait mesuré" actionLabel="Recharger l'état" onAction={onRetry} />
+                  : "aucun fait mesuré"}
+              </td></tr>
             )}
           </tbody>
         </table>
@@ -189,7 +202,11 @@ export default function HealthDetailView({ detail, causes = null, loading = fals
               </tr>
             ))}
             {sources.bySource.length === 0 && (
-              <tr><td colSpan={5}>aucune source déclarée</td></tr>
+              <tr><td colSpan={5}>
+                {onRetry
+                  ? <EmptyState message="aucune source déclarée" actionLabel="Recharger l'état" onAction={onRetry} />
+                  : "aucune source déclarée"}
+              </td></tr>
             )}
           </tbody>
         </table>

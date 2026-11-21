@@ -1,0 +1,71 @@
+/* États asynchrones partagés : squelette de chargement et état vide actionnable.
+   Couleurs, espacements et rayons viennent des jetons de styles.css. */
+.skeleton {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-3) 0;
+}
+
+.skeleton__line {
+  display: block;
+  height: 10px;
+  border-radius: var(--radius);
+  background: linear-gradient(90deg, var(--surface-2), var(--surface-3), var(--surface-2));
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+}
+
+.skeleton__line:nth-child(2) { width: 76%; }
+.skeleton__line:nth-child(3) { width: 54%; }
+
+.skeleton__label {
+  margin-top: var(--space-1);
+  color: var(--muted);
+  font: var(--text-label) / 1.4 var(--font-mono);
+}
+
+@keyframes skeleton-shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+.empty-state {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.empty-state__message {
+  margin: 0;
+  color: var(--muted);
+}
+
+.empty-state__action {
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface-3);
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.empty-state__action:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.empty-state__action:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton__line { animation: none; }
+}

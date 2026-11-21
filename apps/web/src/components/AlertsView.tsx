@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { api, authHeaders, type Alert, type AlertConfidence, type AlertStatRow, type AlertStatus } from "../api";
 import type { AlertsViewProps } from "../contracts";
+import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./alerts.css";
 
 /** Réponse de `GET /api/alerts/:id` : provenance et corroboration d'une alerte. */
@@ -251,7 +252,7 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent, refr
       </div>
 
       {error ? <p className="alerts__error" role="alert">{error}</p> : null}
-      {loading ? <p className="alerts__status" role="status">Loading alerts…</p> : null}
+      {loading ? <LoadingSkeleton label="chargement des alertes" /> : null}
       {!loading && stats && totalCount > rows.length ? (
         <p className="alerts__status">
           Showing the {rows.length} most recent alerts out of {totalCount}.
@@ -335,7 +336,7 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent, refr
             {openId === alert.id ? (
               <div className="alerts__detail" data-testid="alert-detail">
                 {detailError ? <p className="alerts__detail-line" role="alert">{detailError}</p> : null}
-                {!detail && !detailError ? <p className="alerts__detail-line" role="status">Loading evidence…</p> : null}
+                {!detail && !detailError ? <LoadingSkeleton label="chargement du détail" /> : null}
                 {detail ? (
                   <>
                     <p className="alerts__detail-line">
@@ -421,17 +422,25 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent, refr
       </ul>
 
       {!loading && visibleRows.length === 0 ? (
-        <div className="alerts__empty">
-          <p className="alerts__empty-title">No alert on this filter</p>
-          <p className="alerts__empty-text">
-            The radar only raises an alert when the score is high enough: an isolated fact, without corroboration
-            or a confirmed incident, stays in the event feed. An alert appears when the same organisation is
-            hit by several sources, when an incident is confirmed, or when a detection agent identifies a break.
-          </p>
-          <p className="alerts__empty-hint">
-            Admitted events that did not raise an alert can be read in <strong>Map → Event feed</strong>.
-          </p>
-        </div>
+        <EmptyState
+          className="alerts__empty"
+          message={
+            <>
+              <strong className="alerts__empty-title">Aucune alerte sur ce filtre</strong>
+              <span className="alerts__empty-text">
+                Le radar n'alerte que sur un score suffisant : un fait isolé, sans corroboration ni incident
+                confirmé, reste dans le fil d'événements. Une alerte apparaît quand la même organisation est
+                touchée par plusieurs sources, quand l'incident est confirmé, ou quand un agent de détection
+                identifie une rupture.
+              </span>
+              <span className="alerts__empty-hint">
+                Les événements admis mais non alertés se lisent dans Carte → Fil d'événements.
+              </span>
+            </>
+          }
+          actionLabel="Voir toutes les alertes"
+          onAction={() => { setStatus("all"); setSeverity(null); }}
+        />
       ) : null}
     </section>
   );

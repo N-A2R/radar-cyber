@@ -5,6 +5,7 @@
  * is visible without an API, so the screen can be verified through SSR.
  */
 import type { JournalDecision } from "../api";
+import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import "./journal.css";
 
 /** Select value for facts with no recorded decision. */
@@ -147,12 +148,14 @@ type Props = {
   onExport: () => void;
   exporting: boolean;
   exportError: string | null;
+  /** Relance la lecture du journal depuis l'état vide. */
+  onRetry?: () => void;
 };
 
 export default function JournalList({
   rows, resultCount, filters, onFilterChange, onReset, truncated,
   loading, error, page, pageCount, onPrevious, onNext,
-  selected, onSelect, onCloseDetail, onExport, exporting, exportError,
+  selected, onSelect, onCloseDetail, onExport, exporting, exportError, onRetry,
 }: Props) {
   const hasFilters = Boolean(
     filters.actor || filters.q || (filters.kind && filters.kind !== "all") || filters.from || filters.to,
@@ -239,11 +242,13 @@ export default function JournalList({
       ) : null}
       {error ? <p className="journal__error" role="alert">API: {error}</p> : null}
       {exportError ? <p className="journal__error" role="alert">{exportError}</p> : null}
-      {loading ? <p className="journal__state" role="status">Loading journal…</p> : null}
+      {loading ? <LoadingSkeleton label="Chargement du journal…" /> : null}
       {!loading && !error && rows.length === 0 ? (
-        <p className="journal__state">
-          {hasFilters ? "No journal entries match these filters." : "No journal entries recorded yet."}
-        </p>
+        <EmptyState
+          message={hasFilters ? "No journal entries match these filters." : "No journal entries recorded yet."}
+          actionLabel={onRetry ? "Recharger le journal" : "Page précédente"}
+          onAction={onRetry ?? onPrevious}
+        />
       ) : null}
 
       <div className="journal__scroll">

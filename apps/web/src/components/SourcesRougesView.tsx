@@ -7,6 +7,7 @@ import {
   formatDate,
   formatRelative,
 } from "./SourcesView";
+import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import RelancerButton, { type RelanceOutcome } from "./RelancerButton";
 import "./sources-rouges.css";
 
@@ -20,6 +21,8 @@ export type SourcesRougesViewProps = {
   error?: string | null;
   /** Appel du chemin de collecte existant — aucun nouveau chemin côté web. */
   onRelance: (sourceId: string) => Promise<RelanceOutcome>;
+  /** Relance la lecture de l'état depuis un écran sans mesure. */
+  onRetry?: () => void;
 };
 
 function timestamp(value: string | null): number | null {
@@ -54,18 +57,25 @@ export default function SourcesRougesView({
   loading = false,
   error = null,
   onRelance,
+  onRetry,
 }: SourcesRougesViewProps) {
   const parId = useMemo(() => new Map(sources.map((s) => [s.id, s])), [sources]);
   const rouges = useMemo(() => (detail ? sourcesRouges(detail) : []), [detail]);
 
   if (loading && detail === null) {
-    return <section className="sources-rouges"><p>lecture des sources rouges…</p></section>;
+    return <section className="sources-rouges"><LoadingSkeleton label="lecture des sources rouges…" /></section>;
   }
   if (error && detail === null) {
     return <section className="sources-rouges"><p role="alert">sources indisponibles : {error}</p></section>;
   }
   if (detail === null || !detail.ok) {
-    return <section className="sources-rouges"><p>état non mesuré</p></section>;
+    return (
+      <section className="sources-rouges">
+        {onRetry
+          ? <EmptyState message="état non mesuré" actionLabel="Recharger l'état" onAction={onRetry} />
+          : <p>état non mesuré</p>}
+      </section>
+    );
   }
 
   return (
@@ -123,7 +133,11 @@ export default function SourcesRougesView({
               );
             })}
             {rouges.length === 0 && (
-              <tr><td colSpan={6}>aucune source rouge mesurée</td></tr>
+              <tr><td colSpan={6}>
+                {onRetry
+                  ? <EmptyState message="aucune source rouge mesurée" actionLabel="Recharger l'état" onAction={onRetry} />
+                  : "aucune source rouge mesurée"}
+              </td></tr>
             )}
           </tbody>
         </table>
