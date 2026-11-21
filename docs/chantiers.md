@@ -71,9 +71,10 @@ dont on n'a pas besoin.
 
 ## 2. Mémoire longue
 
-Aujourd'hui : `runRetention` supprime les événements de plus de 90 jours, **au
-démarrage du serveur**. Impossible de répondre à une question portant sur
-12 mois.
+Aujourd'hui : `runRetention` supprime les événements de plus de 90 jours du brut,
+mais `event_archive` (migration 028) en garde l'essentiel. `GET /api/history`
+lit la vue unifiée `v_event_all` et répond sur douze mois glissants, brut et
+archive confondus, agrégés par mois (test `apps/api/test/history.test.ts`).
 
 **Critère de sortie.** Une requête répond sur 12 mois glissants alors que le
 brut est purgé à 90 jours ; le rejeu d'une période donne le même résultat qu'à
