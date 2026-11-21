@@ -116,7 +116,7 @@ check("clavier : X coche le fait courant", intentOf("x").kind === "toggle" && (i
 check("clavier : X décoche un fait déjà coché",
 	reduceSelection(intentOf("x"), { ...keyBase, selected: new Set([12]) }).selected.size === 0);
 check("clavier : Maj+A coche toute la page", reduceSelection(intentOf("A", true), keyBase).selected.size === 5);
-check("clavier : a minuscule ne coche pas tout", intentOf("a", false).kind === "none");
+check("clavier : A accepte le fait courant", intentOf("a", false).kind === "decide");
 check("clavier : Échap désélectionne", reduceSelection(intentOf("Escape"), { ...keyBase, selected: new Set([10]) }).selected.size === 0);
 check("clavier : R ouvre la saisie du motif", intentOf("r").kind === "askReject");
 check("clavier : aucune décision pendant la saisie du motif",
