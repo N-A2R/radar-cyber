@@ -338,6 +338,27 @@ export type HealthDetail = {
   }[];
 };
 
+/** Réponse de GET /api/health/causes : répartition réelle des causes de rougeur. */
+export type HealthCauses = {
+  ok: true;
+  generatedAt: string;
+  rouges: number;
+  sansTrace: number;
+  stockage: {
+    causeStockee: boolean;
+    explication: string;
+    champPropose: { table: string; colonne: string; definition: string };
+  };
+  causes: {
+    code: "404" | "403" | "5xx" | "timeout" | "parse" | "vide";
+    libelle: string;
+    sources: number;
+    exemples: { source: string; detail: string }[];
+    origine: "message_erreur" | "compteur_run";
+    regle: string;
+  }[];
+};
+
 /** Arc géographique pour la carte 3D (GET /api/flows). */
 export type FlowArc = {
   id: string;
@@ -770,6 +791,7 @@ export const api = {
   sources: () => get<Source[]>("/sources"),
   stats: () => get<Stats>("/stats"),
   healthDetail: () => get<HealthDetail>("/health/detail"),
+  healthCauses: () => get<HealthCauses>("/health/causes"),
   health: () => get<Health>("/health"),
   flows: (days = 30, limit = 300, mode = "arcs") => get<Flows>(`/flows?days=${days}&limit=${limit}&mode=${mode}`),
   alerts: (params: AlertQuery = {}) => {

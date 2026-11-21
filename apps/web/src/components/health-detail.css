@@ -73,3 +73,32 @@
 .health-detail__tone[data-tone="green"] { color: var(--family-reputation); }
 .health-detail__tone[data-tone="orange"] { color: var(--sev-4); }
 .health-detail__tone[data-tone="red"] { color: var(--sev-5); }
+
+/* Répartition des causes : le libellé et l'origine portent l'information,
+   la mise en forme ne fait que la rendre lisible. */
+.health-detail__proposition {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--sev-4);
+  color: var(--text);
+  margin: 0 0 var(--space-4);
+  padding: var(--space-3);
+}
+
+.health-detail__proposition code {
+  font-family: var(--font-mono);
+}
+
+.health-detail__exemples {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.health-detail__exemples li + li {
+  margin-top: var(--space-1);
+}
+
+.health-detail__vide {
+  color: var(--muted);
+}
