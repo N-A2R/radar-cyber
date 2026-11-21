@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import { authHeaders } from "../api";
-import { isReviewTypingTarget, reviewIntent, type ReviewKeyState } from "../review-keys";
+import { isReviewTypingTarget, reduceSelection, reviewIntent, type ReviewKeyState } from "../review-keys";
 import "./review.css";
 
 export type RevueBucket = "chaud" | "tiede" | "froid";
@@ -62,7 +62,8 @@ const DECISION_LABEL: Record<RevueDecision, string> = {
   refuser: "Refus",
   creer: "Création d'organisation",
 };
-const NO_SELECTION: ReadonlySet<number> = new Set();
+type BulkDecision = "accepter" | "refuser";
+const BULK_LABEL: Record<BulkDecision, string> = { accepter: "Acceptations", refuser: "Refus" };
 
 /** Le serveur renvoie `{ error, details }` : on affiche son message, pas un code générique. */
 async function apiMessage(res: Response, fallback: string): Promise<string> {
@@ -106,7 +107,17 @@ export default function ReviewView({
   const [raison, setRaison] = useState("");
   const [actionError, setActionError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [selected, setSelected] = useState<Set<number>>(() => new Set());
+  const [selectedOrgs, setSelectedOrgs] = useState<Record<number, number>>({});
+  const [bulkReason, setBulkReason] = useState("");
+  const [bulkError, setBulkError] = useState<string | null>(null);
+  const [progress, setProgress] = useState<{ done: number; total: number } | null>(null);
+  const [reloadKey, setReloadKey] = useState(0);
+  const pendingNotice = useRef<string | null>(null);
+  const selectAllRef = useRef<HTMLInputElement>(null);
   const reasonRef = useRef<HTMLTextAreaElement>(null);
+  const selectedRows = useMemo(() => rows.filter((row) => selected.has(row.id)), [rows, selected]);
+  const allSelected = rows.length > 0 && selectedRows.length === rows.length;
 
   useEffect(() => {
     if (!server) {
@@ -132,20 +143,47 @@ export default function ReviewView({
         setRaison("");
         setActive((index) => Math.min(index, Math.max(0, data.rows.length - 1)));
         setOrgId(null);
-        setNotice(null);
+        setSelected(new Set());
+        setSelectedOrgs({});
+        setBulkReason("");
+        setProgress(null);
+        setNotice(pendingNotice.current);
+        pendingNotice.current = null;
       })
       .catch((err: Error) => {
         if (err.name !== "AbortError") setError(err.message);
+        pendingNotice.current = null;
+        setProgress(null);
       })
       .finally(() => {
         if (!controller.signal.aborted) setLoading(false);
       });
     return () => controller.abort();
-  }, [server, bucket, query, page, onUnauthorized]);
+  }, [server, bucket, query, page, reloadKey, onUnauthorized]);
 
   useEffect(() => {
     if (openRow !== null) reasonRef.current?.focus();
   }, [openRow]);
+
+  useEffect(() => {
+    if (selectAllRef.current) {
+      const picked = rows.filter((row) => selected.has(row.id)).length;
+      selectAllRef.current.indeterminate = picked > 0 && picked < rows.length;
+    }
+  }, [rows, selected]);
+
+  const toggleSelected = useCallback((id: number) => {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }, []);
+
+  const toggleAll = useCallback(() => {
+    setSelected(allSelected ? new Set() : new Set(rows.map((row) => row.id)));
+  }, [allSelected, rows]);
 
   const openAction = useCallback((id: number, next: RevueDecision) => {
     setOpenRow(id);
@@ -165,11 +203,11 @@ export default function ReviewView({
   const keyState: ReviewKeyState = useMemo(() => ({
     count: rows.length,
     active,
-    selected: NO_SELECTION,
+    selected,
     ids: rows.map((row) => row.id),
     rejecting: openRow !== null,
     help,
-  }), [rows, active, openRow, help]);
+  }), [rows, active, selected, openRow, help]);
 
   function onKeyDown(event: ReactKeyboardEvent<HTMLElement>) {
     if (event.altKey || event.ctrlKey || event.metaKey) return;
@@ -193,6 +231,12 @@ export default function ReviewView({
     }
     if (intent.kind === "clear") {
       setHelp(false);
+      return;
+    }
+    if (intent.kind === "toggle" || intent.kind === "selectAll") {
+      const next = reduceSelection(intent, keyState);
+      setActive(next.active);
+      setSelected(next.selected);
       return;
     }
     if (!canWrite || submitting) return;
@@ -229,6 +273,12 @@ export default function ReviewView({
       const decidedId = openRow;
       // La ligne sort de la liste immédiatement : aucun rechargement de la file.
       setRows((prev) => prev.filter((row) => row.id !== decidedId));
+      setSelected((prev) => {
+        if (!prev.has(decidedId)) return prev;
+        const next = new Set(prev);
+        next.delete(decidedId);
+        return next;
+      });
       setTotal((n) => Math.max(0, n - 1));
       setNotice(`${DECISION_LABEL[decision]} enregistrée : ${motif}`);
       closeAction();
@@ -236,6 +286,66 @@ export default function ReviewView({
       setActionError(err instanceof Error ? err.message : "Décision impossible");
     } finally {
       setSubmitting(false);
+    }
+  }
+
+  async function bulkDecide(kind: BulkDecision) {
+    if (submitting) return;
+    const motif = bulkReason.trim();
+    if (!motif) {
+      setBulkError("Le motif est obligatoire.");
+      return;
+    }
+    const targets = selectedRows;
+    if (targets.length === 0) return;
+
+    // L'API exige un orgId par acceptation : on part du meilleur candidat de
+    // chaque ligne, modifiable dans le panneau avant l'envoi.
+    const payloads: Array<{ id: number; body: { decision: BulkDecision; raison: string; orgId?: number } }> = [];
+    let skipped = 0;
+    for (const row of targets) {
+      if (kind === "refuser") {
+        payloads.push({ id: row.id, body: { decision: kind, raison: motif } });
+        continue;
+      }
+      const orgId = selectedOrgs[row.id] ?? row.candidates[0]?.id;
+      if (orgId === undefined) {
+        skipped += 1;
+        continue;
+      }
+      payloads.push({ id: row.id, body: { decision: kind, raison: motif, orgId } });
+    }
+    if (payloads.length === 0) {
+      setBulkError("Aucune ligne sélectionnée n'a de candidat à rattacher.");
+      return;
+    }
+
+    setSubmitting(true);
+    setBulkError(null);
+    setNotice(null);
+    setProgress({ done: 0, total: payloads.length });
+    let done = 0;
+    try {
+      // Série volontaire : le journal enregistre les décisions dans l'ordre
+      // de la file, et une erreur arrête le lot au lieu d'enchaîner.
+      for (const item of payloads) {
+        const res = await fetch(`/api/review/${item.id}/decision`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", ...authHeaders() },
+          body: JSON.stringify(item.body),
+        });
+        if (res.status === 401) onUnauthorized?.();
+        if (!res.ok) throw new Error(await apiMessage(res, "Décision refusée"));
+        done += 1;
+        setProgress({ done, total: payloads.length });
+      }
+      pendingNotice.current = `${BULK_LABEL[kind]} enregistrées : ${motif} (${done}/${payloads.length})`;
+      if (skipped > 0) pendingNotice.current += ` — ${skipped} ligne(s) sans candidat ignorée(s)`;
+    } catch (err) {
+      setBulkError(`${done}/${payloads.length} décisions envoyées. ${err instanceof Error ? err.message : "Décision impossible"}`);
+    } finally {
+      setSubmitting(false);
+      setReloadKey((key) => key + 1);
     }
   }
 
@@ -295,10 +405,96 @@ export default function ReviewView({
       {!server ? <p className="revue__state">La file de revue exige l'API : aucune décision n'est simulée.</p> : null}
       {!canWrite ? <p className="revue__state">Lecture seule : connectez-vous pour décider.</p> : null}
 
+      {rows.length > 0 && server ? (
+        <div className="revue__bulk" aria-label="Décisions groupées">
+          <div className="revue__bulk-head">
+            <label className="revue__select">
+              <input
+                ref={selectAllRef}
+                type="checkbox"
+                aria-label="Tout sélectionner"
+                checked={allSelected}
+                disabled={!canWrite || submitting}
+                onChange={toggleAll}
+              />
+              <span>Tout sélectionner</span>
+            </label>
+            <span className="revue__bulk-count" role="status">
+              {selectedRows.length} sélectionné{selectedRows.length === 1 ? "" : "s"} sur {rows.length}
+            </span>
+          </div>
+
+          {selectedRows.length > 0 ? (
+            <ul className="revue__bulk-targets">
+              {selectedRows.map((row) => (
+                <li key={row.id}>
+                  <span className="revue__bulk-hint">{row.orgHint ?? "(sans indice)"}</span>
+                  <label className="revue__bulk-org">
+                    Organisation à rattacher (acceptation)
+                    <select
+                      aria-label={`Organisation pour ${row.orgHint ?? "cette ligne"}`}
+                      value={selectedOrgs[row.id] ?? row.candidates[0]?.id ?? ""}
+                      disabled={!canWrite || submitting}
+                      onChange={(event) => setSelectedOrgs((prev) => ({ ...prev, [row.id]: Number(event.target.value) }))}
+                    >
+                      {row.candidates.length === 0 ? <option value="">aucun candidat</option> : null}
+                      {row.candidates.map((candidate) => (
+                        <option key={candidate.id} value={candidate.id}>{candidate.name}</option>
+                      ))}
+                    </select>
+                  </label>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+
+          <label className="revue__label" htmlFor="revue-bulk-raison">Motif commun (obligatoire)</label>
+          <textarea
+            id="revue-bulk-raison"
+            className="revue__bulk-raison"
+            rows={2}
+            value={bulkReason}
+            disabled={!canWrite || submitting}
+            placeholder="Motif appliqué à toutes les lignes sélectionnées"
+            onChange={(event) => { setBulkReason(event.target.value); setBulkError(null); }}
+          />
+          <div className="revue__bulk-actions">
+            <button
+              type="button"
+              disabled={!canWrite || submitting || selectedRows.length === 0 || !bulkReason.trim()}
+              onClick={() => bulkDecide("accepter")}
+            >
+              Accepter la sélection
+            </button>
+            <button
+              type="button"
+              disabled={!canWrite || submitting || selectedRows.length === 0 || !bulkReason.trim()}
+              onClick={() => bulkDecide("refuser")}
+            >
+              Refuser la sélection
+            </button>
+          </div>
+          {progress ? (
+            <p className="revue__progress" role="status">Décisions {progress.done}/{progress.total} envoyées…</p>
+          ) : null}
+          {bulkError ? <p className="revue__error" role="alert">{bulkError}</p> : null}
+        </div>
+      ) : null}
+
       <ul className="revue__list">
         {rows.map((row, index) => (
           <li className="revue__row" key={row.id} data-bucket={row.triage.bucket} data-active={index === active ? "true" : undefined}>
             <div className="revue__main">
+              <label className="revue__select">
+                <input
+                  type="checkbox"
+                  aria-label={`Sélectionner ${row.orgHint ?? "cette ligne"}`}
+                  checked={selected.has(row.id)}
+                  disabled={!canWrite || !server || submitting}
+                  onChange={() => toggleSelected(row.id)}
+                />
+                <span>Sélectionner</span>
+              </label>
               <strong className="revue__hint">{row.orgHint || "(sans indice)"}</strong>
               <span className="revue__source">{row.source}</span>
               <time className="revue__date" dateTime={row.claimedAt ?? row.receivedAt}>

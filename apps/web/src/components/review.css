@@ -34,7 +34,7 @@
 .revue button:hover:not(:disabled) { color: var(--color-accent); }
 .revue button:disabled { color: var(--color-faint); background: var(--color-plate); box-shadow: inset 0 0 0 1px var(--color-edge-lo); opacity: 1; cursor: not-allowed; }
 .revue button:active:not(:disabled) { background: var(--color-plate-3); color: var(--color-accent); }
-.revue button:focus-visible, .revue input:focus-visible, .revue textarea:focus-visible {
+.revue button:focus-visible, .revue input:focus-visible, .revue select:focus-visible, .revue textarea:focus-visible {
   outline: 2px solid var(--color-accent); outline-offset: 2px;
 }
 
@@ -48,6 +48,32 @@
 .revue__state { color: var(--color-muted); }
 .revue__notice { background: var(--color-well); box-shadow: var(--sink); color: var(--color-ink-2); }
 .revue__error { background: var(--color-well); color: var(--sev-5); }
+
+.revue__bulk {
+  display: flex; flex-direction: column; gap: 8px;
+  padding: 12px; border-radius: var(--radius);
+  background: var(--color-plate); box-shadow: var(--raise);
+}
+.revue__bulk-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.revue__select { display: inline-flex; align-items: center; gap: 8px; min-height: 32px; font: 400 11px/1.4 var(--font-display); color: var(--color-ink-2); cursor: pointer; }
+.revue__select input { width: 16px; height: 16px; margin: 0; accent-color: var(--color-accent); cursor: pointer; }
+.revue__select input:disabled { cursor: not-allowed; }
+.revue__bulk-count { font: 500 11px/1.4 var(--font-mono); color: var(--color-ink-2); }
+.revue__bulk-targets { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.revue__bulk-targets li { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px; border-radius: var(--radius); background: var(--color-well); box-shadow: var(--sink); }
+.revue__bulk-hint { font: 500 11px/1.4 var(--font-display); color: var(--color-ink); overflow-wrap: anywhere; }
+.revue__bulk-org { display: flex; flex-direction: column; gap: 4px; font: 400 10px/1.3 var(--font-mono); color: var(--color-muted); }
+.revue__bulk-org select {
+  min-height: 32px; padding: 6px 8px; border: 0; border-radius: var(--radius);
+  background: var(--color-plate-2); font: 400 11px/1.3 var(--font-display); color: var(--color-ink);
+}
+.revue__bulk-raison {
+  width: 100%; padding: 8px 10px; border: 0; border-radius: var(--radius);
+  background: var(--color-well); box-shadow: var(--sink); resize: vertical;
+  font: 400 12px/1.5 var(--font-display); color: var(--color-ink);
+}
+.revue__bulk-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.revue__progress { margin: 0; font: 500 11px/1.4 var(--font-mono); color: var(--color-accent); }
 
 .revue__list { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; list-style: none; }
 .revue__row {
