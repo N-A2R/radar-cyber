@@ -56,8 +56,8 @@ Le chantier a révélé deux défauts de câblage, corrigés :
    Le rejeu historique était impossible — c'est pourtant lui qui mesure.
 
 Le branchement sur la revue est fait et testé : `capterAlertesRupture()`
-persiste une ligne par (agent, organisation) dans `alert` (scope `rupture`,
-dédupliqué par index unique partiel — migration 040), met à jour l'evidence
+persiste une ligne par (agent, organisation) dans `alert` (scope `rupture-revue`,
+dédupliqué par index unique partiel — migrations 040 et 047), met à jour l'evidence
 sans jamais rouvrir une alerte traitée, et consigne un fait `alert.changed`
 par écriture. Les agents tournent à la cadence de la détection
 (`server.ts`), et `dossier` continue de les exposer en direct.
