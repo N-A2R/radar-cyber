@@ -122,7 +122,7 @@ function normaliserGroupe(valeur: unknown): string | null {
 		.replace(/[\u0300-\u036f]/g, "")
 		.toLowerCase()
 		.replace(/[^a-z0-9]/g, "");
-	if (nettoye.length < 3 || ["unknown", "aucun", "none", "false"].includes(nettoye)) return null;
+	if (nettoye.length < 3 || ["unknown", "aucun", "none", "false", "inconnu", "inconnue"].includes(nettoye)) return null;
 	return nettoye.replace(/(ransomware|group)$/, "").length >= 3
 		? nettoye.replace(/(ransomware|group)$/, "")
 		: nettoye;
@@ -259,11 +259,6 @@ function ancreDe(communs: readonly Signal[]): Signal | null {
 	);
 }
 
-function compatibles(a: readonly Signal[], b: readonly Signal[]): Signal[] {
-	const clefs = new Set(b.map(cleSignal));
-	return a.filter((signal) => clefs.has(cleSignal(signal)));
-}
-
 function instant(evenement: EvenementCampagne): number {
 	return new Date(evenement.observedAt as string).getTime();
 }
@@ -367,7 +362,7 @@ export function analyserCampagnes(evenements: readonly EvenementCampagne[]): Ana
 		for (const position of [...candidats].sort((a, b) => a - b)) {
 			const cluster = clusters[position];
 			if (!cluster || cluster.membres[0]?.family !== evenement.family) continue;
-			const communs = compatibles(signaux, cluster.signaux);
+			const communs = signaux.filter((signal) => cluster.signaux.get(signal.type)?.has(signal.valeur));
 			const ancre = ancreDe(communs);
 			if (ancre === null) continue;
 
@@ -437,7 +432,7 @@ export function analyserCampagnes(evenements: readonly EvenementCampagne[]): Ana
 		.filter((c) => c.membres.length >= 2)
 		.map((c) => finaliser(c, (c.membres[0] as EvenementCampagne).family))
 		.sort((a, b) => b.debut.localeCompare(a.debut) || a.cle.localeCompare(b.cle));
-
+	for (const campagne of campagnes) for (const id of campagne.incidents) affectes.add(id);
 	const isoles: IncidentIsole[] = evenements
 		.filter((e) => !affectes.has(e.id))
 		.map((e) => ({ id: e.id, raison: raisonIsolement(e, indexAncrage) }));

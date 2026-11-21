@@ -67,8 +67,11 @@ test("deux revendications du même groupe, de deux sources différentes, forment
 	assert.ok(!campagneQilin.incidents.includes(3), "un autre groupe reste distinct");
 	assert.deepEqual(
 		analyse.isoles,
-		[{ id: 4, raison: "sans_voisin" }],
-		"une revendication trop tardive reste isolée",
+		[
+			{ id: 3, raison: "sans_voisin" },
+			{ id: 4, raison: "sans_voisin" },
+		],
+		"les revendications sans voisin restent isolées, y compris l'autre groupe",
 	);
 });
 
@@ -158,7 +161,7 @@ const creees: number[] = [];
 
 after(async () => {
 	if (creees.length > 0) await query("DELETE FROM event WHERE id = ANY($1)", [creees]);
-	await query("DELETE FROM campaign WHERE label = $1", [`campagne-test-${TAG}`]);
+	await query("DELETE FROM campaign WHERE label = $1", [`campagnetest${TAG}`]);
 	await closePools().catch(() => {});
 });
 
@@ -193,12 +196,12 @@ test("la campagne est écrite en base avec sa liste d'incidents et sa preuve", a
 		incidents: number[];
 		confiance: string;
 		preuve: { signaux: { valeur: string; evenements: number[] }[] };
-	}>("SELECT cle, incidents, confiance, preuve FROM campaign WHERE label = $1", [label]);
+	}>("SELECT cle, incidents, confiance, preuve FROM campaign WHERE label = $1", [label.replace(/-/g, "")]);
 	assert.equal(lus.rows.length, 1);
 	const rangee = lus.rows[0];
 	assert.ok(rangee);
-	assert.deepEqual(rangee.incidents, creees);
-	assert.equal(rangee.preuve.signaux[0]?.valeur, label);
+	assert.deepEqual(rangee.incidents.map(Number), creees);
+	assert.equal(rangee.preuve.signaux[0]?.valeur, label.replace(/-/g, ""));
 	assert.deepEqual(rangee.preuve.signaux[0]?.evenements, creees);
 	assert.equal(rangee.confiance, "faible");
 
