@@ -1,7 +1,15 @@
 import type { FastifyInstance } from "fastify";
-import { query } from "../db.js";
+import { z } from "zod";
+import { query, withTransaction } from "../db.js";
+import { consignerAvec } from "../journal/index.js";
+import { requireRole } from "../middleware/auth.js";
 import { regrouper } from "../analyse/corroboration.js";
 import { evaluerValeur } from "../analyse/valeur-source.js";
+
+/** Une source ne meurt que sur décision explicite, avec un motif. */
+const MorteBody = z.object({
+  raison: z.string().trim().min(1).max(1000),
+}).strict();
 
 type SourceRow = {
   id: string;
@@ -19,6 +27,10 @@ type SourceRow = {
   last_items: number | null;
   disabled_at: string | null;
   disabled_reason: string | null;
+  /** Statut déclaré : active | morte (migration 042). */
+  statut: string;
+  /** Motif du passage à morte (migration 042). */
+  derniere_erreur: string | null;
   /** Entrées lues sur 30 jours, tous runs confondus. */
   entrees: number | null;
   /** Entrées rejetées sur 30 jours (compteur du collecteur, pas une estimation). */
@@ -60,7 +72,7 @@ export default async function (app: FastifyInstance) {
       )
       SELECT s.id, s.name, s.family, s.url, s.kind, s.format, s.enabled, s.interval_sec,
              s.last_ok_at, s.last_error_at, s.last_error, s.items_total, s.last_items,
-             s.disabled_at, s.disabled_reason,
+             s.disabled_at, s.disabled_reason, s.statut, s.derniere_erreur,
              r.entrees, r.rejets, r.dernier_run, r.dernier_run_statut, r.motifs,
              COALESCE(e.evenements_30j, 0) AS evenements_30j,
              COALESCE(e.evenements_total, 0) AS evenements_total
@@ -133,6 +145,8 @@ export default async function (app: FastifyInstance) {
         lastItems: s.last_items,
         disabledAt: s.disabled_at,
         disabledReason: s.disabled_reason,
+        statut: s.statut,
+        derniereErreur: s.derniere_erreur,
         ok: s.last_error_at === null && s.last_ok_at !== null,
         entrees,
         rejets: s.rejets === null ? null : Number(s.rejets),
@@ -189,4 +203,78 @@ export default async function (app: FastifyInstance) {
     statsCache = { at: Date.now(), body }
     return body
   })
+
+  /**
+   * Passage au statut « morte » : décision réservée aux admins. Le motif est
+   * obligatoire, écrit dans la source ET dans le journal dans la même
+   * transaction — un marquage sans trace, ou une trace sans marquage, ne
+   * doivent pas pouvoir arriver. Aucune ligne n'est supprimée : l'historique
+   * de la source reste intact, on la désactive seulement pour arrêter la
+   * collecte (même convention que scripts/disable-muettes-vague3.mts).
+   */
+  app.post<{ Params: { id: string } }>(
+    "/sources/:id/morte",
+    { preHandler: requireRole("admin") },
+    async (req, reply) => {
+      const parsed = MorteBody.safeParse(req.body ?? {});
+      if (!parsed.success) {
+        return reply.code(400).send({
+          error: "invalid input",
+          details: parsed.error.issues.map((issue) => ({
+            path: issue.path.join("."),
+            message: issue.message,
+          })),
+        });
+      }
+
+      const raison = parsed.data.raison;
+      const id = req.params.id;
+      const acteur = `humain:${req.user?.email ?? "admin"}`;
+
+      const updated = await withTransaction(async (client) => {
+        const r = await client.query<{
+          id: string;
+          statut: string;
+          derniere_erreur: string | null;
+          enabled: boolean;
+        }>(
+          `UPDATE source
+              SET statut = 'morte',
+                  derniere_erreur = $1,
+                  enabled = false,
+                  disabled_at = COALESCE(disabled_at, now()),
+                  disabled_reason = $1
+            WHERE id = $2
+            RETURNING id, statut, derniere_erreur, enabled`,
+          [raison, id],
+        );
+        const row = r.rows[0];
+        if (!row) return null;
+
+        const trace = await consignerAvec(
+          (sql, params) => client.query(sql, params as unknown[]),
+          {
+            kind: "source.changed",
+            subject: id,
+            summary: `source ${id} marquée morte — ${raison}`,
+            actor: acteur,
+            payload: { transition: "morte", raison, statut: "morte" },
+          },
+        );
+        // Le journal est la condition de succès : s'il refuse, la transaction
+        // entière est annulée, la source n'est pas marquée à moitié.
+        if (!trace.ok) throw new Error(`journal indisponible : ${trace.error}`);
+        return row;
+      });
+
+      if (!updated) return reply.code(404).send({ error: "source introuvable" });
+      return {
+        id: updated.id,
+        statut: updated.statut,
+        derniereErreur: updated.derniere_erreur,
+        enabled: updated.enabled,
+        journalise: true,
+      };
+    },
+  );
 }
