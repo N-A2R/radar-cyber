@@ -58,7 +58,7 @@ try {
 	const cmd = existsSync(LOCAL_TSX) ? LOCAL_TSX : "tsx";
 	exitCode = await run(
 		cmd,
-		["--test", "--test-concurrency=1", ...flags, ...files],
+		["--test", "--test-concurrency=1", "--test-timeout=120000", ...flags, ...files],
 		{ ...process.env, DATABASE_URL: db.url }
 	);
 } catch (err) {
