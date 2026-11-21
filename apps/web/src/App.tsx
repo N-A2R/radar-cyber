@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { creerMemoire, etatDonnees, type Instantane } from "./offline";
-import { api, clearAuthToken, getAuthToken, setAuthToken, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type Stats, type TodayResponse } from "./api";
+import { api, clearAuthToken, getAuthToken, setAuthToken, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type Stats, type TodayResponse } from "./api";
 import { mockData } from "./mock";
 import Map3D from "./map/Map3D";
 import GraphView from "./graph/GraphView";
@@ -56,6 +56,7 @@ export default function App() {
   const [todayData, setTodayData] = useState<TodayResponse | null>(null);
   const [todayLoading, setTodayLoading] = useState(!MOCK_MODE);
   const [todayError, setTodayError] = useState<string | null>(null);
+  const [statsDepartements, setStatsDepartements] = useState<DeptStat[]>([]);
   const [graph, setGraph] = useState<Graph>({ nodes: [], links: [] });
   const [flows, setFlows] = useState<FlowArc[]>([]);
   // L'URL porte la vue, les filtres de l'annuaire et la fiche ouverte :
@@ -360,6 +361,24 @@ export default function App() {
       clearInterval(timer);
     };
   }, [view, urlState.today.family, urlState.today.dept, token]);
+
+  // La liste des départements vient de l'agrégat serveur, pas du fil courant :
+  // un filtre appliqué ne doit pas faire disparaître les autres départements.
+  useEffect(() => {
+    if (MOCK_MODE || !token || view !== "today") return;
+    const controller = new AbortController();
+    const charger = () => {
+      api.statsDepartements(controller.signal)
+        .then((reponse) => setStatsDepartements(reponse.departements))
+        .catch(() => { /* le fil reste utilisable avec les dept du fil */ });
+    };
+    charger();
+    const timer = setInterval(charger, 60_000);
+    return () => {
+      controller.abort();
+      clearInterval(timer);
+    };
+  }, [view, token]);
 
   const byFamily = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -667,6 +686,7 @@ export default function App() {
               dept={urlState.today.dept}
               onFamily={onTodayFamily}
               onDept={onTodayDept}
+              departements={statsDepartements}
               onOpenOrg={openOrgSheet}
               onOpenEvent={(id) => {
                 setSelectedEventId(id);

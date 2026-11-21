@@ -212,3 +212,79 @@
   align-items: center;
   min-height: 44px;
 }
+
+/* Timeline : 12 barres de 2 h, lues par la valeur chiffrée et l'heure, pas
+   seulement par la hauteur. Aucune animation : la donnée est un relevé, pas
+   un spectacle. */
+.today__timeline {
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.today__timeline-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.today__timeline-head h2 {
+  margin: 0;
+  color: var(--text);
+  font: 600 14px/1.5 var(--font-sans);
+  letter-spacing: 0.02em;
+}
+
+.today__timeline-head p {
+  margin: 0;
+  color: var(--muted);
+  font: 400 12px/1.5 var(--font-mono);
+}
+
+.today__timeline-graphe {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.today__timeline-tranche {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.today__timeline-valeur {
+  color: var(--text);
+  font: 600 12px/1.2 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.today__timeline-piste {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  height: 96px;
+  border-bottom: 1px solid var(--line-strong);
+  background: var(--surface-2);
+}
+
+.today__timeline-barre {
+  width: 100%;
+  background: var(--accent);
+}
+
+.today__timeline-heure {
+  color: var(--faint);
+  font: 400 12px/1.5 var(--font-mono);
+}
+
+@media (max-width: 720px) {
+  .today__timeline-graphe { gap: 4px; }
+  .today__timeline-heure { font-size: 11px; }
+}

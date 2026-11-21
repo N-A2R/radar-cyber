@@ -294,6 +294,12 @@ export type TodayResponse = {
   evenements: TodayEvent[];
 };
 
+/** Département du fil « Aujourd'hui » (GET /api/stats/departements). */
+export type DeptStat = { dept: string; evenements: number; organisations: number };
+
+/** Réponse de GET /api/stats/departements : un département = un filtre utile. */
+export type StatsDepartements = { departements: DeptStat[] };
+
 export type Graph = {
   nodes: { id: string; label: string; kind: "org" | "family" | "group" | "asset" | "dept" }[];
   links: { source: string; target: string; type: string }[];
@@ -841,6 +847,7 @@ export const api = {
   },
   graph: (days = 90) => get<Graph>(`/graph?days=${days}`),
   sources: () => get<Source[]>("/sources"),
+  statsDepartements: (signal?: AbortSignal) => get<StatsDepartements>("/stats/departements", signal),
   stats: () => get<Stats>("/stats"),
   healthDetail: () => get<HealthDetail>("/health/detail"),
   healthCauses: () => get<HealthCauses>("/health/causes"),
