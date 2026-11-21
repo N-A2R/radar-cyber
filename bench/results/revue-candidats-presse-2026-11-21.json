@@ -1,0 +1,13 @@
+{
+  "passe": "passe-2026-11-21",
+  "auteur": "agent:regle-signaux@1",
+  "regle": "confirmer si au moins un signal d'incident et aucun signal de prévention, sinon refuser",
+  "dryRun": false,
+  "candidatsEnFile": 56,
+  "traitesDansPasse": 56,
+  "decisionsEnregistrees": 56,
+  "confirme": 43,
+  "refuse": 13,
+  "reclasses": 0,
+  "tauxConfirmation": 76.8
+}

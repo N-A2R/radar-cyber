@@ -15,6 +15,7 @@ const DirectoryView = lazy(() => import("./components/DirectoryView"));
 const CommandPalette = lazy(() => import("./components/CommandPalette"));
 import LiveAlerts, { addLiveAlert, connectLiveAlerts } from "./components/LiveAlerts";
 const ReviewView = lazy(() => import("./components/ReviewView"));
+const PresseCandidatsView = lazy(() => import("./components/PresseCandidatsView"));
 const JournalView = lazy(() => import("./components/JournalView"));
 const DossierView = lazy(() => import("./components/DossierView"));
 const NaView = lazy(() => import("./components/NaView"));
@@ -46,6 +47,7 @@ const VIEWS: { id: ViewKey; label: string }[] = [
   { id: "couverture", label: "Coverage" },
   { id: "review", label: "Review" },
   { id: "journal", label: "Journal" },
+  { id: "presse", label: "Candidats presse" },
   { id: "dossier", label: "Corpus" },
   { id: "sources", label: "Sources" },
   { id: "map", label: "Map" },
@@ -796,6 +798,9 @@ export default function App() {
               urlState={urlState.review}
               onUrlStateChange={onReviewStateChange}
             />
+          ) : null}
+          {view === "presse" ? (
+            <PresseCandidatsView canWrite={Boolean(token)} onUnauthorized={onUnauthorized} />
           ) : null}
           {view === "journal" ? <JournalView onUnauthorized={onUnauthorized} /> : null}
 
