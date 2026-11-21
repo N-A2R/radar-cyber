@@ -1,0 +1,427 @@
+{
+  "dateMesure": "2026-11-21",
+  "plan": "docs/plans/mission-nuit-na.md — Task 4 (reprise vague 2)",
+  "lot": 7,
+  "source": {
+    "ref": "bench/results/manques-referentiel-2026-11-15.json",
+    "traites": "bench/results/manques-glm-vague2.json",
+    "entiteSource": "lot-reprise-na"
+  },
+  "method": "lecture du site (fetch, titre et meta verbatim) + recherche-entreprises.api.gouv.fr sans clé ; requêtes et réponses consignées ; SIREN recoupé, jamais inventé",
+  "compte": {
+    "present": 7,
+    "absent": 3,
+    "cannot_verify": 0
+  },
+  "resolutions": [
+    {
+      "nomLisible": "https://www.dgm-industrie.fr",
+      "domaine": "dgm-industrie.fr",
+      "verdict": "present",
+      "raison": "SIREN 437632227 au registre (état A, JOSSIGNY 77), recoupé avec dgm-industrie.fr",
+      "site": {
+        "url": "https://dgm-industrie.fr",
+        "http": 200,
+        "titre": "DGM Industrie, Contrôle CND, fabrication idustrielle et travaux sur corde",
+        "metaDescription": "DGM Industrie, spécialisé dans le contrôle CND, la fabrication et maintenance industrielles, usinage et chaudronnerie et travaux sur corde."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=dgm-industrie&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "DGM INDUSTRIE",
+            "siren": "437632227",
+            "commune": "JOSSIGNY",
+            "dept": "77",
+            "etat": "A"
+          },
+          {
+            "denomination": "SCI LES CHENES",
+            "siren": "791552300",
+            "commune": "GRIGNY",
+            "dept": "91",
+            "etat": "A"
+          },
+          {
+            "denomination": "DGM INDUSTRIES",
+            "siren": "798012373",
+            "commune": "CHAMPTOCE-SUR-LOIRE",
+            "dept": "49",
+            "etat": "A"
+          },
+          {
+            "denomination": "SCI LES CHARMES",
+            "siren": "804893956",
+            "commune": "JOSSIGNY",
+            "dept": "77",
+            "etat": "A"
+          },
+          {
+            "denomination": "PRESSE INDUSTRIES DGM",
+            "siren": "487705113",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "https://www.lille.fr",
+      "domaine": "lille.fr",
+      "verdict": "present",
+      "raison": "SIREN 434149993 au registre (état A, SAINT-AVOLD 57), recoupé avec lille.fr",
+      "site": {
+        "url": "https://lille.fr",
+        "http": 200,
+        "titre": "Ville de Lille",
+        "metaDescription": "Site officiel de la Ville de Lille. Retrouvez toute l’actualité, l’agenda culturel, les démarches administratives et les grands projets en cours."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=lille&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "LILLE",
+            "siren": "434149993",
+            "commune": "SAINT-AVOLD",
+            "dept": "57",
+            "etat": "A"
+          },
+          {
+            "denomination": "LILLE",
+            "siren": "492543087",
+            "commune": "CANNES",
+            "dept": "06",
+            "etat": "A"
+          },
+          {
+            "denomination": "LILLE",
+            "siren": "920250743",
+            "commune": "SAINT-GREGOIRE",
+            "dept": "35",
+            "etat": "A"
+          },
+          {
+            "denomination": "LILLE",
+            "siren": "484509955",
+            "commune": "DEVOLUY",
+            "dept": "05",
+            "etat": "A"
+          },
+          {
+            "denomination": "LILLE",
+            "siren": "953027307",
+            "commune": "STRASBOURG",
+            "dept": "67",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "ibafrance.fr",
+      "domaine": "ibafrance.fr",
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : « Accueil - IBA »",
+      "site": {
+        "url": "https://ibafrance.fr",
+        "http": 200,
+        "titre": "Accueil - IBA",
+        "metaDescription": null
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=ibafrance&page=1&per_page=5",
+        "http": 200,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "iledefrance-nature.fr",
+      "domaine": "iledefrance-nature.fr",
+      "verdict": "present",
+      "raison": "SIREN 411305956 au registre (état A, MONTREUIL 93), recoupé avec iledefrance-nature.fr",
+      "site": {
+        "url": "https://iledefrance-nature.fr",
+        "http": 200,
+        "titre": "Île-de-France Nature",
+        "metaDescription": "Pour améliorer le quotidien des Franciliens, l’Île-de-France Nature imagine, aménage et protège les espaces naturels de la Région. Depuis plus de 40 ans, ses experts mobilisent l’intelligence collective des acteurs du territoire pour préserver le fragile équilibre entre la ville et la nature."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=%C3%8Ele-de-France%20Nature&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "NATURE ET PROGRES ILE DE FRANCE",
+            "siren": "411305956",
+            "commune": "MONTREUIL",
+            "dept": "93",
+            "etat": "A"
+          },
+          {
+            "denomination": "AGENCE DES ESPACES VERTS DE LA REGION ILE-DE-FRANCE - ILE-DE-FRANCE NATURE",
+            "siren": "287500052",
+            "commune": "SAINT-OUEN-SUR-SEINE",
+            "dept": "93",
+            "etat": "A"
+          },
+          {
+            "denomination": "BRIGADES NATURE ILE DE FRANCE (BN IDF)",
+            "siren": "941705832",
+            "commune": "LES MUREAUX",
+            "dept": "78",
+            "etat": "A"
+          },
+          {
+            "denomination": "SPORT ET NATURE ILE DE FRANCE",
+            "siren": "402227821",
+            "commune": "ISSY-LES-MOULINEAUX",
+            "dept": "92",
+            "etat": "A"
+          },
+          {
+            "denomination": "AMIS DE LA NATURE ILE-DE-FRANCE/CENTRE (AN-IDFC)",
+            "siren": "447924895",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "iRely LLC's Grand Failure",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=iRely%20LLC's%20Grand%20Failure&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "iseta.fr (institut des Sciences de l'Environnement et des Territoires d'Annecy)",
+      "domaine": "iseta.fr",
+      "verdict": "present",
+      "raison": "SIREN 413076332 au registre (état A, LA BROQUE 67), recoupé avec iseta.fr",
+      "site": {
+        "url": "https://iseta.fr",
+        "http": 200,
+        "titre": "Bienvenue sur le site de l&#039;ISETA-ECA",
+        "metaDescription": "L&#039;école ISETA-ECA propose des formations de la quatrième à la licence en passant par le CAP, le BAC et les BTS, et la formation adulte."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=iseta&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "ISETA",
+            "siren": "413076332",
+            "commune": "LA BROQUE",
+            "dept": "67",
+            "etat": "A"
+          },
+          {
+            "denomination": "ISETA",
+            "siren": "401706593",
+            "commune": "BAYONNE",
+            "dept": "64",
+            "etat": "C"
+          },
+          {
+            "denomination": "ISETA - ECA (ISETA - ECA)",
+            "siren": "776603060",
+            "commune": "POISY",
+            "dept": "74",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "isosteo.fr",
+      "domaine": "isosteo.fr",
+      "verdict": "present",
+      "raison": "SIREN 512913757 au registre (état A, ECULLY 69), recoupé avec isosteo.fr",
+      "site": {
+        "url": "https://isosteo.fr",
+        "http": 200,
+        "titre": "ISOstéo Lyon | École d'Ostéopathie humaine et animale",
+        "metaDescription": "Depuis 1991, ISOstéo Lyon enseigne l"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=isosteo&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "ISOSTEO LYON (INSTITUT SUPERIEUR D'OSTEOPATHIE)",
+            "siren": "512913757",
+            "commune": "ECULLY",
+            "dept": "69",
+            "etat": "A"
+          },
+          {
+            "denomination": "ISOSTEO POUR LA RECHERCHE EN OSTEOPATHIE (ISOSTEO PRO)",
+            "siren": "823175963",
+            "commune": "ECULLY",
+            "dept": "69",
+            "etat": "A"
+          },
+          {
+            "denomination": "BDS ISOSTEO LYON",
+            "siren": "132573874",
+            "commune": "ECULLY",
+            "dept": "69",
+            "etat": "A"
+          },
+          {
+            "denomination": "ASSO'NIMAUX D'ISOSTEO LYON",
+            "siren": "991398744",
+            "commune": "ECULLY",
+            "dept": "69",
+            "etat": "A"
+          },
+          {
+            "denomination": "ISOSTEO LYON ALUMNI ASSOCIATION",
+            "siren": "829028067",
+            "commune": "ECULLY",
+            "dept": "69",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "jacquart.fr",
+      "domaine": "jacquart.fr",
+      "verdict": "present",
+      "raison": "SIREN 919985846 au registre (état A, BERMERIES 59), recoupé avec jacquart.fr",
+      "site": {
+        "url": "https://jacquart.fr",
+        "http": 200,
+        "titre": "Accueil - JACQUART ET FILS",
+        "metaDescription": "Découvrez Jacquart et Fils, Fabriquant Français de literie depuis 1949 à Tourcoing dans les Hauts-de-France"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=jacquart&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "JACQUART",
+            "siren": "919985846",
+            "commune": "BERMERIES",
+            "dept": "59",
+            "etat": "A"
+          },
+          {
+            "denomination": "JACQUART",
+            "siren": "880085972",
+            "commune": "LOUDEAC",
+            "dept": "22",
+            "etat": "A"
+          },
+          {
+            "denomination": "JEREMY JACQUART",
+            "siren": "811845502",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "JULIETTE JACQUART",
+            "siren": "801919002",
+            "commune": "LILLE",
+            "dept": "59",
+            "etat": "A"
+          },
+          {
+            "denomination": "WILLIAM JACQUART",
+            "siren": "790915953",
+            "commune": "VERDELOT",
+            "dept": "77",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "jrichard-paysage.fr",
+      "domaine": "jrichard-paysage.fr",
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : « Groupe J.Richard : paysagistes et élagueurs dans le Loiret »",
+      "site": {
+        "url": "https://jrichard-paysage.fr",
+        "http": 200,
+        "titre": "Groupe J.Richard : paysagistes et élagueurs dans le Loiret",
+        "metaDescription": "Le Groupe J.Richard rassemble des paysagistes et des élagueurs dans le Loiret pour concevoir, créer et entretenir vos espaces verts."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=jrichard-paysage&page=1&per_page=5",
+        "http": 200,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "justice.fr",
+      "domaine": "justice.fr",
+      "verdict": "present",
+      "raison": "SIREN 823432356 au registre (état A, RIBERAC 24), recoupé avec justice.fr ; SIREN déjà au référentiel, org existante rattrapée (pas de doublon)",
+      "site": {
+        "url": "https://justice.fr",
+        "http": 200,
+        "titre": "Justice.fr | Vos droits et démarches",
+        "metaDescription": "Le portail de référence de la justice : une information fiable, des simulateurs et des formulaires à destination des particuliers et des professionnels."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=justice&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "JUSTICE",
+            "siren": "823432356",
+            "commune": "RIBERAC",
+            "dept": "24",
+            "etat": "A"
+          },
+          {
+            "denomination": "JUSTICE (CASSIUS RECORDS)",
+            "siren": "419793393",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "JUSTICE",
+            "siren": "992333922",
+            "commune": "POGNY",
+            "dept": "51",
+            "etat": "A"
+          },
+          {
+            "denomination": "JUSTICE",
+            "siren": "931031637",
+            "commune": "SAVENAY",
+            "dept": "44",
+            "etat": "A"
+          },
+          {
+            "denomination": "JUSTICE",
+            "siren": "823652714",
+            "commune": "CHARLEVILLE-MEZIERES",
+            "dept": "08",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    }
+  ]
+}
