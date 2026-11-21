@@ -1,0 +1,435 @@
+{
+  "genereLe": "2026-11-21T18:17:28Z",
+  "corpus": "bench/couverture/incidents.jsonl",
+  "protocole": {
+    "criteres": "HTTP 200 final et au moins un jeton discriminant de l'organisation dans le texte visible",
+    "timeoutMs": 10000,
+    "concurrence": 5,
+    "tailleMaxOctets": 1000000
+  },
+  "totaux": {
+    "entrees": 20,
+    "valides": 17,
+    "mortes": 3,
+    "incoherentes": 0
+  },
+  "valides": [
+    {
+      "id": "na-couv-001",
+      "organisation": "Ville de Floirac",
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/aucune-donnee-n-a-ete-exfiltree-victime-d-une-cyberattaque-une-mairie-est-privee-d-acces-a-internet-2957996.html",
+      "jetonsAttendus": [
+        "floirac"
+      ],
+      "jetonsTrouves": [
+        "floirac"
+      ],
+      "extrait": "…ltree victime d une cyberattaque une mairie est privee d acces a internet les services numeriques de floirac ont ete victimes d une cyberattaque ce jeudi 18 avril alexandre marchi maxppp julie chapman publie le 19 04 2024 a 16h21 temps de lecture 1 min nouvell…",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/aucune-donnee-n-a-ete-exfiltree-victime-d-une-cyberattaque-une-mairie-est-privee-d-acces-a-internet-2957996.html",
+      "erreur": null,
+      "dureeMs": 1177
+    },
+    {
+      "id": "na-couv-002",
+      "organisation": "CCI Béarn et Soule : aéroport Pau-Pyrénées, école de commerce Eklore et campus numérique de Pau",
+      "url": "https://www.sudouest.fr/economie/cybersecurite/info-sud-ouest-pau-l-aeroport-et-l-ecole-de-commerce-victimes-d-une-cyberattaque-19716881.php",
+      "jetonsAttendus": [
+        "cci",
+        "bearn",
+        "soule",
+        "aeroport",
+        "pau",
+        "pyrenees",
+        "ecole",
+        "commerce",
+        "eklore"
+      ],
+      "jetonsTrouves": [
+        "cci",
+        "bearn",
+        "aeroport",
+        "pau",
+        "pyrenees",
+        "ecole",
+        "commerce",
+        "eklore"
+      ],
+      "extrait": "… application voir les trois institutions touchees sont liees a la chambre de commerce et d industrie cci credit photo quentin top lecture 1 min accueil economie entreprises cybersecurite info sud ouest pau l aeroport et l ecole de commerce victimes d une cyber…",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sudouest.fr/economie/cybersecurite/info-sud-ouest-pau-l-aeroport-et-l-ecole-de-commerce-victimes-d-une-cyberattaque-19716881.php",
+      "erreur": null,
+      "dureeMs": 1276
+    },
+    {
+      "id": "na-couv-003",
+      "organisation": "SPSTI 16 — service de prévention et de santé au travail interentreprises de la Charente",
+      "url": "https://www.charentelibre.fr/sante/la-medecine-du-travail-de-charente-victime-d-une-cyberattaque-des-donnees-personnelles-de-salaries-piratees-20132500.php",
+      "jetonsAttendus": [
+        "spsti",
+        "charente"
+      ],
+      "jetonsTrouves": [
+        "spsti",
+        "charente"
+      ],
+      "extrait": "…ossiers medicaux comptes rendus medicaux des donnees personnelles de certains salaries suivis par le spsti ont ete piratees ainsi que des donnees de facturation et le rib des adherents l e service de prevention et de sante au travail interentreprises de la cha…",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.charentelibre.fr/sante/la-medecine-du-travail-de-charente-victime-d-une-cyberattaque-des-donnees-personnelles-de-salaries-piratees-20132500.php",
+      "erreur": null,
+      "dureeMs": 2147
+    },
+    {
+      "id": "na-couv-004",
+      "organisation": "Théâtre de la Coursive (billetterie Sirius), La Rochelle",
+      "url": "https://www.ici.fr/infos/faits-divers-justice/la-billetterie-du-theatre-de-la-coursive-a-la-rochelle-victime-d-une-attaque-informatique-1178940",
+      "jetonsAttendus": [
+        "theatre",
+        "coursive",
+        "billetterie",
+        "sirius",
+        "rochelle"
+      ],
+      "jetonsTrouves": [
+        "theatre",
+        "coursive",
+        "billetterie",
+        "sirius",
+        "rochelle"
+      ],
+      "extrait": "la billetterie du theatre de la coursive a la rochelle victime d une attaque informatique ici passer au contenu passer au pied de page samedi 21 novembre fete des rufus et marie…",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.ici.fr/infos/faits-divers-justice/la-billetterie-du-theatre-de-la-coursive-a-la-rochelle-victime-d-une-attaque-informatique-1178940",
+      "erreur": null,
+      "dureeMs": 2381
+    },
+    {
+      "id": "na-couv-005",
+      "organisation": "Safed — Service d'accompagnement des familles en difficulté, Périgueux",
+      "url": "https://www.sudouest.fr/economie/social/dordogne-un-service-aux-personnes-en-difficulte-subit-une-attaque-informatique-22308319.php",
+      "jetonsAttendus": [
+        "safed",
+        "difficulte",
+        "perigueux"
+      ],
+      "jetonsTrouves": [
+        "safed",
+        "difficulte",
+        "perigueux"
+      ],
+      "extrait": "…mmes lieu d ecoute et d aide a perigueux pour celles qui sont victimes de violences est porte par le safed credit photo archives michel faure lecture 1 min accueil economie entreprises social dordogne un service d aide aux personnes en difficulte subit une att…",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sudouest.fr/economie/social/dordogne-un-service-aux-personnes-en-difficulte-subit-une-attaque-informatique-22308319.php",
+      "erreur": null,
+      "dureeMs": 3187
+    },
+    {
+      "id": "na-couv-006",
+      "organisation": "Collège privé La Salle de Brive-la-Gaillarde",
+      "url": "https://www.ladepeche.fr/2025/02/14/nous-avons-perdu-tous-les-bulletins-scolaires-apres-une-cyberattaque-les-malfrats-reclament-une-rancon-a-ce-college-prive-12513326.php",
+      "jetonsAttendus": [
+        "college",
+        "prive",
+        "salle",
+        "brive",
+        "gaillarde"
+      ],
+      "jetonsTrouves": [
+        "college",
+        "prive",
+        "salle",
+        "brive",
+        "gaillarde"
+      ],
+      "extrait": "…ons perdu tous les bulletins scolaires apres une cyberattaque les malfrats reclament une rancon a ce college prive ladepeche fr ma ville france monde faits divers sport eco tv people sante sorties immo services annonces avis de deces menu samedi 21 novembre 20…",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.ladepeche.fr/2025/02/14/nous-avons-perdu-tous-les-bulletins-scolaires-apres-une-cyberattaque-les-malfrats-reclament-une-rancon-a-ce-college-prive-12513326.php",
+      "erreur": null,
+      "dureeMs": 2766
+    },
+    {
+      "id": "na-couv-007",
+      "organisation": "Mairie de Berson",
+      "url": "https://actu.fr/nouvelle-aquitaine/berson_33047/suite-a-une-cyberattaque-une-mairie-de-gironde-a-perdu-des-donnees-officielles-on-nous-reclame-une-rancon_62315310.html",
+      "jetonsAttendus": [
+        "berson"
+      ],
+      "jetonsTrouves": [
+        "berson"
+      ],
+      "extrait": "…presidentielle 2027 ces raisons qui l ont pousse a se retirer fermer actu nouvelle aquitaine gironde berson suite a une cyberattaque une mairie de gironde a perdu des donnees officielles on nous reclame une rancon vendredi 21 fevrier la mairie de berson a ete …",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://actu.fr/nouvelle-aquitaine/berson_33047/suite-a-une-cyberattaque-une-mairie-de-gironde-a-perdu-des-donnees-officielles-on-nous-reclame-une-rancon_62315310.html",
+      "erreur": null,
+      "dureeMs": 3227
+    },
+    {
+      "id": "na-couv-008",
+      "organisation": "Mairie d'Évaux-les-Bains — camping municipal",
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/gueret/le-site-internet-du-camping-de-cette-commune-thermale-victime-d-une-attaque-informatique-il-vante-les-services-d-une-escort-girl-3186765.html",
+      "jetonsAttendus": [
+        "evaux",
+        "bains",
+        "camping"
+      ],
+      "jetonsTrouves": [
+        "evaux",
+        "bains",
+        "camping"
+      ],
+      "extrait": "…cort girl qui apparaissent sur la page d accueil du camping municipal de la paisible cite thermale d evaux les bains en creuse une attaque informatique sans grande consequence qui vient percuter le cliche d une ville dediee aux cures thermales la premiere mati…",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/gueret/le-site-internet-du-camping-de-cette-commune-thermale-victime-d-une-attaque-informatique-il-vante-les-services-d-une-escort-girl-3186765.html",
+      "erreur": null,
+      "dureeMs": 87
+    },
+    {
+      "id": "na-couv-009",
+      "organisation": "Ville de Poitiers et communauté urbaine de Grand Poitiers",
+      "url": "https://www.ouest-france.fr/societe/cyberattaque/cyberattaque-contre-la-mairie-de-poitiers-lobjectif-etait-de-reclamer-une-rancon-7ce05bb4-8a66-11f0-9cca-a0ceea2b93f6",
+      "jetonsAttendus": [
+        "poitiers",
+        "communaute",
+        "urbaine",
+        "grand"
+      ],
+      "jetonsTrouves": [
+        "poitiers",
+        "communaute",
+        "urbaine",
+        "grand"
+      ],
+      "extrait": "cyberattaque contre la mairie de poitiers l objectif etait de reclamer une rancon site infos divers article cyber security c13545 site infos divers article cyber security c13545 precedent a li…",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.ouest-france.fr/societe/cyberattaque/cyberattaque-contre-la-mairie-de-poitiers-lobjectif-etait-de-reclamer-une-rancon-7ce05bb4-8a66-11f0-9cca-a0ceea2b93f6",
+      "erreur": null,
+      "dureeMs": 2340
+    },
+    {
+      "id": "na-couv-010",
+      "organisation": "Ville de Fumel",
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/lot-et-garonne/agen/une-cyberattaque-paralyse-la-mairie-un-cartel-malaisien-suspecte-3227429.html",
+      "jetonsAttendus": [
+        "fumel"
+      ],
+      "jetonsTrouves": [
+        "fumel"
+      ],
+      "extrait": "…a pied d uvre pour securiser les donnees et assurer un retour a la normale au plus vite la mairie de fumel est en etat d alerte depuis vendredi la collectivite fait face a une cyberattaque massive c est un agent qui s en est rendu compte le premier de la journ…",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/lot-et-garonne/agen/une-cyberattaque-paralyse-la-mairie-un-cartel-malaisien-suspecte-3227429.html",
+      "erreur": null,
+      "dureeMs": 62
+    },
+    {
+      "id": "na-couv-011",
+      "organisation": "Ville de La Rochelle — prestataire Synbird",
+      "url": "https://www.sudouest.fr/charente-maritime/la-rochelle/fuite-de-donnees-chez-synbird-la-rochelle-touchee-comme-1-300-communes-de-france-26875312.php",
+      "jetonsAttendus": [
+        "rochelle",
+        "synbird"
+      ],
+      "jetonsTrouves": [
+        "rochelle",
+        "synbird"
+      ],
+      "extrait": "fuite de donnees chez synbird la rochelle touchee comme 1 300 communes de france s abonner lire le journal acces illimite mon compte mon compte se connecter menu a la une mon actu departements…",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sudouest.fr/charente-maritime/la-rochelle/fuite-de-donnees-chez-synbird-la-rochelle-touchee-comme-1-300-communes-de-france-26875312.php",
+      "erreur": null,
+      "dureeMs": 225
+    },
+    {
+      "id": "na-couv-012",
+      "organisation": "EHPAD Résidence du Parc de Champdeniers",
+      "url": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+      "jetonsAttendus": [
+        "ehpad",
+        "residence",
+        "parc",
+        "champdeniers"
+      ],
+      "jetonsTrouves": [
+        "ehpad",
+        "residence",
+        "parc",
+        "champdeniers"
+      ],
+      "extrait": "deux sevres un ehpad de champdeniers victime d une cyberattaque avec demande de rancon ici passer au contenu passer au pied de page samedi 21 novembre fete des rufus et marie…",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+      "erreur": null,
+      "dureeMs": 239
+    },
+    {
+      "id": "na-couv-013",
+      "organisation": "Fédération Nationale des Chasseurs — espace adhérents (dont adhérents charentais)",
+      "url": "https://www.chasseurdefrance.com/actualites/la-fnc-victime-dun-incident-de-securite-informatique/",
+      "jetonsAttendus": [
+        "chasseurs",
+        "espace",
+        "adherents",
+        "charentais"
+      ],
+      "jetonsTrouves": [
+        "chasseurs",
+        "espace",
+        "adherents"
+      ],
+      "extrait": "la fnc victime d un incident de securite informatique federation nationale des chasseurs comprendre decouvrir agir pratiquer evenement le 22 01 2026 la fnc victime d un incident de securite informatique partager lien copie comprendre nous…",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.chasseurdefrance.com/actualites/la-fnc-victime-dun-incident-de-securite-informatique/",
+      "erreur": null,
+      "dureeMs": 2869
+    },
+    {
+      "id": "na-couv-016",
+      "organisation": "Ymed SAS — éditeur de la plateforme SoonCare (Gironde)",
+      "url": "https://www.sudouest.fr/sante/fuite-de-donnees-personnelles-et-medicales-alerte-sur-une-cyberattaque-visant-une-entreprise-de-gironde-28628427.php",
+      "jetonsAttendus": [
+        "ymed",
+        "sooncare",
+        "gironde"
+      ],
+      "jetonsTrouves": [
+        "ymed",
+        "sooncare",
+        "gironde"
+      ],
+      "extrait": "…nnecter sud ouest toute l actualite de votre region en continu sur notre application voir la societe ymed a ecrit a tous les patients ayant pris un jour un rendez vous sur sa plateforme sooncare un message d alerte credit photo e a c reserve aux abonnes lectur…",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sudouest.fr/sante/fuite-de-donnees-personnelles-et-medicales-alerte-sur-une-cyberattaque-visant-une-entreprise-de-gironde-28628427.php",
+      "erreur": null,
+      "dureeMs": 61
+    },
+    {
+      "id": "na-couv-017",
+      "organisation": "Ville de Gradignan — police municipale",
+      "url": "https://www.sudouest.fr/gironde/gradignan/gironde-carte-grise-depot-de-plainte-des-donnees-derobees-lors-d-une-attaque-informatique-qui-a-touche-la-police-municipale-de-gradignan-29049109.php",
+      "jetonsAttendus": [
+        "gradignan",
+        "police"
+      ],
+      "jetonsTrouves": [
+        "gradignan",
+        "police"
+      ],
+      "extrait": "…de plainte des donnees derobees lors d une attaque informatique qui a touche la police municipale de gradignan s abonner lire le journal acces illimite mon compte mon compte se connecter menu a la une mon actu departements charente maritime dordogne gironde la…",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.sudouest.fr/gironde/gradignan/gironde-carte-grise-depot-de-plainte-des-donnees-derobees-lors-d-une-attaque-informatique-qui-a-touche-la-police-municipale-de-gradignan-29049109.php",
+      "erreur": null,
+      "dureeMs": 415
+    },
+    {
+      "id": "na-couv-019",
+      "organisation": "Ville de Tarnos",
+      "url": "https://www.ville-tarnos.fr/actualites/incident-de-cybersecurite/",
+      "jetonsAttendus": [
+        "tarnos"
+      ],
+      "jetonsTrouves": [
+        "tarnos"
+      ],
+      "extrait": "incident de cybersecurite actualites ville de tarnos aller au contenu perturbations tournage en cours lire la suite tarnos site officiel de la ville menu fermer le menu de navigation mon quotidien mes lois…",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.ville-tarnos.fr/actualites/incident-de-cybersecurite/",
+      "erreur": null,
+      "dureeMs": 2906
+    },
+    {
+      "id": "na-couv-020",
+      "organisation": "Bordeaux Sciences Agro",
+      "url": "https://www.agro-bordeaux.fr/incident-de-securite-concernant-lapplication-de-gestion-des-conventions-de-stage/",
+      "jetonsAttendus": [
+        "bordeaux",
+        "sciences",
+        "agro"
+      ],
+      "jetonsTrouves": [
+        "bordeaux",
+        "sciences",
+        "agro"
+      ],
+      "extrait": "incident de securite concernant l application de gestion des conventions de stage bordeaux sciences agro aller au contenu en je suis candidat etudiant partenaire academique entreprise ent bordeaux sciences agro grande ecole publique pour l a…",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "urlFinale": "https://www.agro-bordeaux.fr/incident-de-securite-concernant-lapplication-de-gestion-des-conventions-de-stage/",
+      "erreur": null,
+      "dureeMs": 3130
+    }
+  ],
+  "mortes": [
+    {
+      "id": "na-couv-014",
+      "organisation": "UNSS — outil de gestion OPUSS (intrusion via le rectorat de Bordeaux)",
+      "url": "https://denys-puech.mon-ent-occitanie.fr/lectureFichiergw.do?ID_FICHIER=11393",
+      "jetonsAttendus": [
+        "unss",
+        "opuss",
+        "intrusion",
+        "rectorat",
+        "bordeaux"
+      ],
+      "jetonsTrouves": [],
+      "extrait": "",
+      "categorie": "morte",
+      "statutHttp": null,
+      "urlFinale": null,
+      "erreur": "fetch failed",
+      "dureeMs": 2736
+    },
+    {
+      "id": "na-couv-015",
+      "organisation": "Vivaticket France (Chasseneuil-du-Poitou)",
+      "url": "https://www.lanouvellerepublique.fr/vienne/commune/chasseneuil-du-poitou/prestataire-de-billetterie-pour-des-musees-monuments-et-parcs-de-loisirs-vivaticket-victime-d-une-cyberattaque-1773588253",
+      "jetonsAttendus": [
+        "vivaticket",
+        "france",
+        "chasseneuil",
+        "poitou"
+      ],
+      "jetonsTrouves": [],
+      "extrait": "",
+      "categorie": "morte",
+      "statutHttp": 403,
+      "urlFinale": "https://www.lanouvellerepublique.fr/vienne/commune/chasseneuil-du-poitou/prestataire-de-billetterie-pour-des-musees-monuments-et-parcs-de-loisirs-vivaticket-victime-d-une-cyberattaque-1773588253",
+      "erreur": "HTTP 403",
+      "dureeMs": 2332
+    },
+    {
+      "id": "na-couv-018",
+      "organisation": "Ville de Limoges — centre de vaccination municipal et campagne HPV",
+      "url": "https://www.limoges.fr/actualites/la-ville-de-limoges-vous-informe-en-toute-transparence-dun-incident-de-securite",
+      "jetonsAttendus": [
+        "limoges",
+        "vaccination",
+        "campagne",
+        "hpv"
+      ],
+      "jetonsTrouves": [],
+      "extrait": "",
+      "categorie": "morte",
+      "statutHttp": 403,
+      "urlFinale": "https://www.limoges.fr/actualites/la-ville-de-limoges-vous-informe-en-toute-transparence-dun-incident-de-securite",
+      "erreur": "HTTP 403",
+      "dureeMs": 2812
+    }
+  ],
+  "incoherentes": []
+}
