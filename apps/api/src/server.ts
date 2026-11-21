@@ -35,6 +35,7 @@ import streamRoute from "./routes/stream.js";
 import alertsRoute from "./routes/alerts.js";
 import quarantineRoute from "./routes/quarantine.js";
 import reviewRoute from "./routes/review.js";
+import orgsLieesRoute from "./routes/orgs-liees.js";
 import ingestRoute from "./routes/ingest.js";
 import { resolveUser } from "./middleware/auth.js";
 
@@ -126,6 +127,7 @@ await app.register((await import("./routes/auth.js")).default, { prefix: "/api" 
 await app.register(alertsRoute, { prefix: "/api" });
 await app.register(quarantineRoute, { prefix: "/api" });
 await app.register(reviewRoute, { prefix: "/api" });
+await app.register(orgsLieesRoute, { prefix: "/api" });
 await app.register(ingestRoute, { prefix: "/api" });
 await app.register((await import("./routes/dossier.js")).default, { prefix: "/api" });
 
