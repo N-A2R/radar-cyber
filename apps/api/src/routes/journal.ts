@@ -9,10 +9,12 @@
  * incrémenté à chaque fait : l'ordre descendant est l'ordre chronologique, et
  * contrairement à un timestamp il ne produit pas de doublon entre deux pages.
  */
+import { Readable } from "node:stream";
 import type { FastifyInstance } from "fastify";
+import { Query } from "pg";
 import { z } from "zod";
-import { query } from "../db.js";
-import { requireAuth } from "../middleware/auth.js";
+import { pool, query } from "../db.js";
+import { requireAuth, requireRole } from "../middleware/auth.js";
 
 const JournalQuery = z.object({
   limite: z.coerce.number().int().min(1).max(500).default(100),
@@ -37,6 +39,86 @@ function badRequest(reply: { code: (n: number) => { send: (body: unknown) => unk
     error: "invalid input",
     details: error.issues.map((issue) => ({ path: issue.path.join("."), message: issue.message })),
   });
+}
+
+const ENTETE_CSV = "date,acteur,decision,indice,org_id,raison,quarantine_id\r\n";
+
+/** Mêmes colonnes que /journal/review, aplaties pour un tableur. */
+const EXPORT_SQL = `
+  SELECT to_char(j.recorded_at AT TIME ZONE 'UTC', 'YYYY-MM-DD"T"HH24:MI:SS"Z"') AS date,
+         j.actor AS acteur,
+         COALESCE(j.payload->>'decision',
+                  CASE j.payload->>'action'
+                    WHEN 'promote' THEN 'accepter'
+                    WHEN 'reject' THEN 'refuser'
+                  END) AS decision,
+         COALESCE(NULLIF(btrim(q.org_hint), ''), j.subject) AS indice,
+         j.payload->>'orgId' AS org_id,
+         COALESCE(NULLIF(btrim(j.payload->>'reason'), ''),
+                  NULLIF(btrim(j.payload->>'motif'), ''),
+                  NULLIF(btrim(j.summary), '')) AS raison,
+         COALESCE(substring(j.subject FROM '^quarantine:([0-9]+)$'),
+                  j.payload->>'quarantineId') AS quarantine_id
+    FROM journal j
+    LEFT JOIN quarantine_raw q ON j.subject = 'quarantine:' || q.id::text
+   WHERE j.kind = 'review.decided'
+   ORDER BY j.id ASC`;
+
+type ExportLigne = {
+  date: string;
+  acteur: string;
+  decision: string | null;
+  indice: string | null;
+  org_id: string | null;
+  raison: string | null;
+  quarantine_id: string | null;
+};
+/** Signal réveillé à chaque ligne, erreur ou fin du curseur. */
+type SignalFlux = { promise: Promise<void>; resolve: () => void };
+
+function celluleCsv(valeur: string | null | undefined): string {
+  if (valeur === null || valeur === undefined) return "";
+  const texte = String(valeur);
+  return /[",\r\n]/.test(texte) ? `"${texte.replaceAll('"', '""')}"` : texte;
+}
+
+/**
+ * Une connexion pour tout le flux : `Query` émet les lignes au fur et à mesure
+ * et n'accumule pas le résultat. Si le consommateur abandonne, la connexion
+ * est détruite plutôt que rendue au pool avec une requête en cours.
+ */
+async function* fluxCsv(): AsyncGenerator<string> {
+  const client = await pool.connect();
+  const curseur = new Query<ExportLigne>(EXPORT_SQL);
+  const tampon: string[] = [];
+  let echec: Error | null = null;
+  let fini = false;
+  let attente: SignalFlux | null = null;
+  const reveiller = () => {
+    attente?.resolve();
+    attente = null;
+  };
+  curseur.on("row", (row: ExportLigne) => {
+    tampon.push([
+      row.date, row.acteur, row.decision, row.indice,
+      row.org_id, row.raison, row.quarantine_id,
+    ].map(celluleCsv).join(",") + "\r\n");
+    reveiller();
+  });
+  curseur.on("error", (err: Error) => { echec = err; reveiller(); });
+  curseur.on("end", () => { fini = true; reveiller(); });
+  try {
+    client.query(curseur);
+    while (true) {
+      if (tampon.length > 0) { yield tampon.shift()!; continue; }
+      if (echec) throw echec;
+      if (fini) return;
+      attente ??= Promise.withResolvers<void>();
+      await attente.promise;
+    }
+  } finally {
+    client.release(echec !== null || !fini);
+  }
 }
 
 export default async function (app: FastifyInstance) {
@@ -83,5 +165,16 @@ export default async function (app: FastifyInstance) {
       limite,
       avant: lignes.length > limite && rows.length > 0 ? rows[rows.length - 1].id : null,
     };
+  });
+
+  /** Export d'audit : les mêmes décisions, en CSV streamé (admin seulement). */
+  app.get("/journal/review/export.csv", { preHandler: requireRole("admin") }, (_req, reply) => {
+    reply.header("Content-Type", "text/csv; charset=utf-8");
+    reply.header("Content-Disposition", 'attachment; filename="journal-review.csv"');
+    reply.header("Cache-Control", "no-store");
+    return reply.send(Readable.from((async function* () {
+      yield ENTETE_CSV;
+      yield* fluxCsv();
+    })()));
   });
 }
