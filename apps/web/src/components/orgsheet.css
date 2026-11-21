@@ -317,3 +317,111 @@
 .orgsheet__meta[data-tendance="nouveau"] {
   color: var(--sev-3, var(--color-ink-2));
 }
+
+/* Droit de réponse : même grammaire visuelle que le reste de la fiche, sans
+   encadré coloré. Le texte publié reste lisible en tant que tel. */
+.droit-reponse__liste {
+  display: grid;
+  gap: 10px;
+}
+
+.droit-reponse__publication {
+  padding-left: 10px;
+  border-left: 2px solid var(--line-strong, var(--line));
+}
+
+.droit-reponse__reference {
+  margin: 0 0 3px;
+  color: var(--muted);
+  font-size: 11px;
+  font-family: var(--font-mono, monospace);
+}
+
+.droit-reponse__message {
+  margin: 0 0 3px;
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+
+.droit-reponse__ouvrir {
+  margin-top: 8px;
+  padding: 4px 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.droit-reponse__ouvrir:hover { text-decoration: underline; }
+
+.droit-reponse__form {
+  display: grid;
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.droit-reponse__champ {
+  display: grid;
+  gap: 3px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.droit-reponse__champ input,
+.droit-reponse__champ select,
+.droit-reponse__champ textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px 7px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 12px;
+}
+
+.droit-reponse__champ textarea { resize: vertical; }
+
+.droit-reponse__champ input[aria-invalid="true"],
+.droit-reponse__champ textarea[aria-invalid="true"] {
+  border-color: var(--sev-5);
+}
+
+.droit-reponse__erreur-champ,
+.droit-reponse__erreur {
+  margin: 0;
+  color: var(--sev-5);
+  font-size: 11px;
+}
+
+.droit-reponse__succes {
+  margin: 8px 0 0;
+  color: var(--sev-2, var(--text));
+  font-size: 12px;
+}
+
+.droit-reponse__actions {
+  display: flex;
+  gap: 10px;
+}
+
+.droit-reponse__actions button {
+  padding: 5px 10px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.droit-reponse__actions button:first-child {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.droit-reponse__actions button:disabled { opacity: 0.6; cursor: default; }

@@ -125,6 +125,13 @@ Scripts de mesure/revue (fichiers présents) :
 
 Modèle de décision typé (`mercury-decide`) utilisé pour la portée régionale (`apps/api/src/detect/scope.ts`) et l'arbitrage de rattachements (`apps/api/src/match/decide.ts`). Voir [`docs/decision-model.md`](docs/decision-model.md).
 
+## Sécurité et conformité
+
+Rôles appliqués route par route, journal des accès, limitation de débit,
+en-têtes de sécurité et droit de réponse des organisations : voir
+[`docs/conformite.md`](docs/conformite.md). Configuration dans `.env.example`
+(notamment `RADAR_AUDIT_PEPPER`, obligatoire en production).
+
 ## Limites et constats mesurés (2026-11-10)
 
 - Authentification par jeton de session en base (scrypt) ; usage interne.
