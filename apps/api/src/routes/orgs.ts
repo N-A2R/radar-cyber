@@ -52,6 +52,10 @@ type ClaimRecentRow = {
 
 type ExposureRow = { month: string; n: number };
 
+type AliasRow = { alias: string };
+type DomainRow = { value: string };
+type RelatedOrgRow = { id: number; name: string; kind: string; relation: string };
+
 function mapOrg(row: OrgListRow) {
   return {
     id: row.id,
@@ -128,10 +132,10 @@ export default async function (app: FastifyInstance) {
   });
 
   /**
-   * Fiche complète d'une organisation : état, actifs, événements,
-   * revendications en quarantaine et courbe d'exposition sur 12 mois.
-   * Chaque bloc est renseigné par une requête bornée dédiée (pas de
-   * chargement de table en mémoire).
+   * Fiche complète d'une organisation : identité (alias, domaines, liens),
+   * événements récents (20), actifs, revendications, exposition et profil
+   * multi-sources. Chaque bloc est une requête bornée dédiée, exécutée en
+   * parallèle : aucun chargement de table en mémoire.
    */
   app.get("/orgs/:id", async (req, reply) => {
     const user = await resolveUser(req);
@@ -174,6 +178,10 @@ export default async function (app: FastifyInstance) {
       claimsTotal,
       claimsRecent,
       exposure,
+      aliasRows,
+      domainRows,
+      relatedRows,
+      sourceCountRows,
     ] = await Promise.all([
       query<CountRow>("SELECT COUNT(*)::int AS n FROM asset WHERE org_id=$1", [orgId]),
       query<KindRow>(
@@ -201,7 +209,7 @@ export default async function (app: FastifyInstance) {
         `SELECT id, title, family, severity, observed_at
          FROM event WHERE org_id=$1
          ORDER BY observed_at DESC NULLS LAST, id DESC
-         LIMIT 10`,
+         LIMIT 20`,
         [orgId]
       ),
       query<CountRow>(
@@ -226,6 +234,42 @@ export default async function (app: FastifyInstance) {
            ON e.org_id=$1 AND e.observed_at >= m AND e.observed_at < m + interval '1 month'
          GROUP BY m
          ORDER BY m`,
+        [orgId]
+      ),
+      query<AliasRow>(
+        `SELECT a.alias FROM org_alias a
+          WHERE a.org_id=$1 AND a.status='active' AND a.valid_to IS NULL
+          ORDER BY lower(a.alias) LIMIT 50`,
+        [orgId]
+      ),
+      query<DomainRow>(
+        `WITH candidats AS (
+           SELECT value FROM asset WHERE org_id=$1 AND kind IN ('domain','subdomain')
+           UNION ALL SELECT domain FROM org WHERE id=$1
+           UNION ALL SELECT website FROM org WHERE id=$1
+         ), normes AS (
+           SELECT regexp_replace(
+                    regexp_replace(regexp_replace(lower(btrim(value)), '^https?://', ''),
+                                   '^www\\.', ''),
+                    '/.*$', '') AS value
+           FROM candidats
+         )
+         SELECT DISTINCT value FROM normes WHERE value <> '' ORDER BY value LIMIT 50`,
+        [orgId]
+      ),
+      query<RelatedOrgRow>(
+        `SELECT id, name, kind, relation FROM (
+           SELECT p.id, p.name, p.kind, 'mere'::text AS relation
+             FROM org p JOIN org o ON o.parent_org_id=p.id
+            WHERE o.id=$1 AND o.valid_to IS NULL
+           UNION
+           SELECT c.id, c.name, c.kind, 'etablissement'::text
+             FROM org c WHERE c.parent_org_id=$1 AND c.valid_to IS NULL
+         ) l ORDER BY name LIMIT 20`,
+        [orgId]
+      ),
+      query<CountRow>(
+        "SELECT COUNT(DISTINCT source_id)::int AS n FROM event WHERE org_id=$1",
         [orgId]
       ),
     ]);
@@ -284,6 +328,15 @@ export default async function (app: FastifyInstance) {
         lon: org.lon,
         created_at: org.created_at,
       },
+      aliases: aliasRows.rows.map((r) => r.alias),
+      domains: domainRows.rows.map((r) => r.value),
+      relatedOrgs: relatedRows.rows.map((r) => ({
+        id: r.id,
+        name: r.name,
+        kind: r.kind,
+        relation: r.relation === "mere" ? ("mere" as const) : ("etablissement" as const),
+      })),
+      sourceCount: sourceCountRows.rows[0]?.n ?? 0,
       assets: {
         total: assetsTotal.rows[0]?.n ?? 0,
         byKind: assetsByKind.rows.map((r) => ({ kind: r.kind, n: r.n })),

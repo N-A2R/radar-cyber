@@ -110,6 +110,12 @@
   font-size: 12px;
 }
 
+.orgsheet__note {
+  margin: 0 0 8px;
+  color: var(--faint);
+  font-size: 12px;
+}
+
 .orgsheet__breakdown {
   display: flex;
   flex-wrap: wrap;

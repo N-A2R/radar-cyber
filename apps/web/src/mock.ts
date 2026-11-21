@@ -251,6 +251,14 @@ export function mockOrgDetail(orgId: number): OrgDetail | null {
   }
   return {
     org,
+    aliases: [...new Set([org.slug, org.name.toLowerCase()])].filter((a) => a !== org.name),
+    domains: [...new Set([org.domain, domain, `www.${domain}`]
+      .filter((v): v is string => typeof v === "string" && v.length > 0))],
+    relatedOrgs: MOCK_ORGS
+      .filter((o) => o.id !== orgId && (o.dept === org.dept || o.kind === org.kind))
+      .slice(0, 3)
+      .map((o) => ({ id: o.id, name: o.name, kind: o.kind, relation: "etablissement" as const })),
+    sourceCount: new Set(events.map((e) => e.sourceId)).size,
     assets: {
       total: org.lat === null ? 0 : 3,
       byKind: [{ kind: "domain", n: 1 }, { kind: "subdomain", n: 2 }],
