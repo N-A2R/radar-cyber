@@ -9,9 +9,9 @@
   },
   "method": "lecture du site (fetch, titre et meta verbatim) + recherche-entreprises.api.gouv.fr sans clé ; requêtes et réponses consignées ; SIREN recoupé, jamais inventé",
   "compte": {
-    "present": 2,
+    "present": 1,
     "absent": 6,
-    "cannot_verify": 2
+    "cannot_verify": 3
   },
   "resolutions": [
     {

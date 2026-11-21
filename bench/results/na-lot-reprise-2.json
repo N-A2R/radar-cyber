@@ -234,5 +234,28 @@
         ]
       }
     }
+  ],
+  "arbitrages": [
+    {
+      "nomLisible": "Chu De Rennes",
+      "date": "2026-11-21",
+      "preuve": "4 requêtes registre consignées (CENTRE HOSPITALIER UNIVERSITAIRE DE RENNES ×2 dont page étendue per_page=20, CHU RENNES) : le CHU lui-même n'y apparaît pas, seules des sous-organisations (LA MAISON DES FEMMES DU CHU DE RENNES 892695958, FONDS NOMINOE - CHU RENNES 803752211, AMICALE CULTURELLE SPORTIVE 448204289)",
+      "arbitrage": "doute documenté — aucun rattachement au niveau CHU prouvable par le registre ; aucun SIREN chargé",
+      "verdict": "cannot_verify"
+    },
+    {
+      "nomLisible": "ch-sf.fr (old)",
+      "date": "2026-11-21",
+      "preuve": "site https 000 (3 tentatives, script+curl) ; registre q=ch-sf : candidats sans rapport (SF CH ROSA BIANCA NICE 290600352, FIONA CH THONON 990906844) ; q=CENTRE HOSPITALIER SAINT FRANCOIS : rien de probant",
+      "arbitrage": "doute documenté — le site est mort et aucune identité ne recoupe le domaine ; aucun SIREN chargé",
+      "verdict": "cannot_verify"
+    },
+    {
+      "nomLisible": "coteg-azam.fr",
+      "date": "2026-11-21",
+      "preuve": "site https 000 (3 tentatives, script+curl) ; registre q=COTEG : COTEG AVOCATS 680802352 (TOULOUSE 31, A) candidat plausible par la racine « coteg » mais le lien avec « azam » n'est pas prouvé ; q=COTEG AZAM : personnes physiques sans rapport",
+      "arbitrage": "doute documenté — COTEG AVOCATS candidat plausible non chargé faute de preuve ; aucun SIREN chargé",
+      "verdict": "cannot_verify"
+    }
   ]
 }
