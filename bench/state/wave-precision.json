@@ -1,0 +1,13 @@
+{
+  "vague": "precision",
+  "demarreeLe": "2026-11-21",
+  "etapeCourante": "S1",
+  "tacheCourante": "S1.2",
+  "taches": {
+    "S1.1": { "statut": "fait", "commit": "renseigné au commit suivant (hash inconnu avant commit)", "le": "2026-11-21T04:05Z" }
+  },
+  "journal": [
+    "S1.1 population calculée : 16 752 lignes de quarantaine à indice, 15 918 indices distincts, 203 sans témoin, 1 992 unités (paires indice/org) rattachées par le moteur livré ; préfiltre mémoire (union jetons + chemins nom/ville/domaine, candidature prouvée sur-ensemble du moteur) vérifié équivalent au préfiltre livré sur 40 indices après deux désaccords corrigés (plasma therm : union exigée sur tous les jetons de l'indice, pas le plus rare) ; corpus-v1.json tiré : 500 entrées, graine 20261121, allocation proportionnelle par strate, ordre entrelacé round-robin pour la calibration."
+  ],
+  "precisions": { "baseline": null, "apresRegles": null, "echantillonFrais": null }
+}
