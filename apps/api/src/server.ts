@@ -10,6 +10,7 @@ import { fileURLToPath } from "node:url";
 import Fastify from "fastify";
 import { correlateEvents } from "./collectors/correlate.js";
 import { runGenericSources } from "./collectors/generic.js";
+import { runScheduledDiscovery } from "./discovery/discover.js";
 import { runHermesCollector } from "./collectors/hermes.collector.js";
 import { runQuarantineCollector } from "./collectors/quarantine.collector.js";
 import { promoteMatches } from "./quarantine/promote.js";
@@ -253,6 +254,7 @@ async function executerCycleCollecte(): Promise<void> {
 	const memoireAvant = process.memoryUsage();
 	const taches: { nom: string; run: () => Promise<void> }[] = [
 		{ nom: "collecteurs", run: runCollectors },
+		{ nom: "sitemap discovery", run: () => runScheduledDiscovery(log) },
 		{ nom: "ingestion générique", run: () => runGenericSources(log) },
 	];
 	const resultats = await Promise.allSettled(taches.map((t) => t.run()));
