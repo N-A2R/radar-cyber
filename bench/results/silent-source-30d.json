@@ -1,0 +1,18 @@
+{
+  "generatedFrom": "2026-11-21T21:00:00.000Z",
+  "windowStart": "2026-10-22T21:00:00.000Z",
+  "anchor": "2026-11-21T21:00:00.000Z",
+  "firstRun": "2026-11-13T20:38:42.000Z",
+  "runs": 8430,
+  "sources": 57,
+  "episodes": 57,
+  "productionRows": 3967,
+  "summary": {
+    "count": 57,
+    "p50Hours": 12.77,
+    "p90Hours": 12.83,
+    "maxHours": 12.85,
+    "under24h": 57
+  },
+  "fingerprint": "207802d9fb469d6a"
+}

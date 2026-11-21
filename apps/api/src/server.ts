@@ -23,6 +23,7 @@ import { closePools, ingestQuery, query } from "./db.js";
 import { deliverPendingAlerts, readDeliveryConfig } from "./notify/alert-delivery.js";
 import { runRetention } from "./maintenance/retention.js";
 import { runDetectionPass } from "./detect/incremental.js";
+import { runSilentSourceCheck } from "./detect/silent-source-monitor.js";
 import { capterAlertesRupture } from "./analyse/rupture.js";
 import { capterAgentsCpu } from "./analyse/agents-cpu.js";
 import { requireRole } from "./middleware/auth.js";
@@ -334,6 +335,7 @@ if (COLLECT) {
 		const pass = await runDetectionPass();
 		log(`detection initiale : ${pass.alerts} alerte(s) sur ${pass.events} evenement(s)`);
 	});
+	void guarded("silent sources", () => runSilentSourceCheck().then(() => undefined));
 	// Agents de rupture : même cadence que la détection, alertes persistées dans
 	// la revue (scope 'rupture-revue', une ligne par agent × organisation), jamais diffusées.
 	void guarded("ruptures", async () => {
@@ -372,6 +374,7 @@ if (COLLECT) {
 		void guarded("cycle de collecte", executerCycleCollecte);
 		void guarded("corrélation", () => correlateEvents(log));
 		void guarded("détection", detect);
+		void guarded("silent sources", () => runSilentSourceCheck().then(() => undefined));
 		void guarded("ruptures", () =>
 			capterAlertesRupture().then((r) => {
 				if (r.emises > 0) {
