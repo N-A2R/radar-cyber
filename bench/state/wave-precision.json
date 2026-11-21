@@ -2,7 +2,7 @@
 	"vague": "precision",
 	"demarreeLe": "2026-11-21",
 	"etapeCourante": "S1",
-	"tacheCourante": "S1.4",
+	"tacheCourante": "S1.5",
 	"taches": {
 		"S1.1": {
 			"statut": "fait",
@@ -23,6 +23,11 @@
 			"statut": "fait",
 			"commit": "renseigné au commit suivant",
 			"le": "2026-11-21T04:37Z"
+		},
+		"S1.4": {
+			"statut": "fait",
+			"commit": "renseigné au commit suivant",
+			"le": "2026-11-21T04:40Z"
 		}
 	},
 	"journal": [
@@ -33,7 +38,8 @@
 		"S1.3b lot 3/6 (ordres 151-250) : 100 verdicts posés avec preuve en ~25 min — cadence ≈ 240 verdicts/h (dérive lente confirmée, portée au journal). Mi-parcours : 62 exacte, 4 partielle, 124 hors_sujet, 60 indécidable → précision 64/190 = 33,7 %. Deux erreurs de domaine dans le référentiel repérées (mauguio-carnon.com, iledefrance-nature.fr) et un artefact d'encodage (Santélys) notés pour S1.6/S2.",
 		"S1.3b lot 4/6 (ordres 251-350) : 100 verdicts posés avec preuve en ~28 min — cadence ≈ 215 verdicts/h (dérive continue notée : les strates sigle dominent et demandent plus d'indécidables). Courant : 77 exacte, 5 partielle, 181 hors_sujet, 87 indécidable → précision 79,5/263 = 30,2 %.",
 		"S1.3b lot 5/6 (ordres 351-450) : 100 verdicts posés avec preuve en ~30 min — cadence ≈ 200 verdicts/h. Courant : 77 exacte, 5 partielle, 247 hors_sujet, 121 indécidable → précision 79,5/329 = 24,2 %. La précision baisse au fil des strates : le tirage entrelacé a mis les strates sigle (90 % hors_sujet) en fin de corpus.",
-		"S1.3b lot 6/6 (ordres 451-500) + clôture S1.2 : 500/500 verdicts posés, chacun avec preuve (registre requête+réponse consignée — SIREN, code d'entité à 9 chiffres ou recherche par nom — et site URL+extrait verbatim quand il en existe un). Répartition finale : 77 exacte, 5 partielle, 282 hors_sujet, 136 indécidable → précision brute 79,5/364 = 21,8 %. Cadence mesurée sur les six lots : 310 → 260 → 240 → 215 → 200 verdicts/h (dérive lente au fil des strates sigle, majoritaires et plus indécidables)."
+		"S1.3b lot 6/6 (ordres 451-500) + clôture S1.2 : 500/500 verdicts posés, chacun avec preuve (registre requête+réponse consignée — SIREN, code d'entité à 9 chiffres ou recherche par nom — et site URL+extrait verbatim quand il en existe un). Répartition finale : 77 exacte, 5 partielle, 282 hors_sujet, 136 indécidable → précision brute 79,5/364 = 21,8 %. Cadence mesurée sur les six lots : 310 → 260 → 240 → 215 → 200 verdicts/h (dérive lente au fil des strates sigle, majoritaires et plus indécidables).",
+		"S1.4 gel du corpus : bench/precision/corpus-v1.json figé, SHA-256 71e835ac1135dd9737b1dc008e8d88fdd2634794273edd7dafff2bbc961128a2 ; 500 entrées, 500 verdicts avec preuve. Les tirages de bruit S1.5 et l'échantillon frais S4 ne se réutilisent pas : graines neuves."
 	],
 	"calibration": {
 		"fenetre": {
@@ -49,5 +55,11 @@
 		"baseline": null,
 		"apresRegles": null,
 		"echantillonFrais": null
+	},
+	"gel": {
+		"fichier": "bench/precision/corpus-v1.json",
+		"sha256": "71e835ac1135dd9737b1dc008e8d88fdd2634794273edd7dafff2bbc961128a2",
+		"geleLe": "2026-11-21T04:40Z",
+		"regle": "à partir de ce point, on peut ajouter des champs, jamais changer un verdict ; tout changement passe par un fichier séparé, daté et motivé"
 	}
 }
