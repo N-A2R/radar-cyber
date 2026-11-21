@@ -1,0 +1,379 @@
+{
+  "dateMesure": "2026-11-21",
+  "plan": "docs/plans/mission-nuit-na.md — Task 4 (reprise vague 2)",
+  "lot": 1,
+  "source": {
+    "ref": "bench/results/manques-referentiel-2026-11-15.json",
+    "traites": "bench/results/manques-glm-vague2.json",
+    "entiteSource": "lot-reprise-na"
+  },
+  "method": "lecture du site (fetch, titre et meta verbatim) + recherche-entreprises.api.gouv.fr sans clé ; requêtes et réponses consignées ; SIREN recoupé, jamais inventé",
+  "compte": {
+    "present": 6,
+    "absent": 3,
+    "cannot_verify": 1
+  },
+  "resolutions": [
+    {
+      "nomLisible": "adveo.com",
+      "domaine": "adveo.com",
+      "verdict": "present",
+      "raison": "SIREN 538851205 au registre (état A, DAMMARTIN-EN-GOELE 77), recoupé avec adveo.com",
+      "site": {
+        "url": "https://adveo.com",
+        "http": 200,
+        "titre": "Page Redirection",
+        "metaDescription": null
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=adveo&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "ADVEO FRANCE",
+            "siren": "538851205",
+            "commune": "DAMMARTIN-EN-GOELE",
+            "dept": "77",
+            "etat": "A"
+          },
+          {
+            "denomination": "ADVEO RETAIL",
+            "siren": "922423538",
+            "commune": "DAMMARTIN-EN-GOELE",
+            "dept": "77",
+            "etat": "A"
+          },
+          {
+            "denomination": "AARPI ADVEO AVOCATS",
+            "siren": "913870630",
+            "commune": "BORDEAUX",
+            "dept": "33",
+            "etat": "A"
+          },
+          {
+            "denomination": "NEW TOP CREIL",
+            "siren": "952099588",
+            "commune": "DAMMARTIN-EN-GOELE",
+            "dept": "77",
+            "etat": "A"
+          },
+          {
+            "denomination": "NEW TOP CHALON SUR SAONE",
+            "siren": "952072668",
+            "commune": "DAMMARTIN-EN-GOELE",
+            "dept": "77",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "demos.fr",
+      "domaine": "demos.fr",
+      "verdict": "present",
+      "raison": "SIREN 722030277 au registre (état A, PUTEAUX 92), recoupé avec demos.fr",
+      "site": {
+        "url": "https://demos.fr",
+        "http": 200,
+        "titre": "Demos - Organisme de formation professionnelle - Demos",
+        "metaDescription": "Organisme de formation professionnelle, Demos propose des formations inter, intra, sur-mesure, e-learning, certifiantes, diplômantes…"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=demos&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "DEMOS (DEMOS TRAINING)",
+            "siren": "722030277",
+            "commune": "PUTEAUX",
+            "dept": "92",
+            "etat": "A"
+          },
+          {
+            "denomination": "DEMOS",
+            "siren": "809411432",
+            "commune": "SAINT-JULIEN",
+            "dept": "83",
+            "etat": "A"
+          },
+          {
+            "denomination": "DEMOS",
+            "siren": "902344779",
+            "commune": "SAINT-DENIS",
+            "dept": "93",
+            "etat": "A"
+          },
+          {
+            "denomination": "DEMOS",
+            "siren": "992711838",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "DEMOS",
+            "siren": "885409755",
+            "commune": "SAINT-FERREOL",
+            "dept": "74",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "lumiplan.com",
+      "domaine": "lumiplan.com",
+      "verdict": "present",
+      "raison": "SIREN 951323997 au registre (état A, SAINT-HERBLAIN 44), recoupé avec lumiplan.com",
+      "site": {
+        "url": "https://lumiplan.com",
+        "http": 200,
+        "titre": "Accueil - Lumiplan",
+        "metaDescription": "Lumiplan, votre partenaire pour l&#039;information et la communication en temps réel sur votre territoire. 4000 clients nous font confiance."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=lumiplan&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "LUMIPLAN",
+            "siren": "951323997",
+            "commune": "SAINT-HERBLAIN",
+            "dept": "44",
+            "etat": "A"
+          },
+          {
+            "denomination": "LUMIPLAN",
+            "siren": "402205199",
+            "commune": "SAINT-HERBLAIN",
+            "dept": "44",
+            "etat": "C"
+          },
+          {
+            "denomination": "LUMIPLAN MONTAGNE",
+            "siren": "432911469",
+            "commune": "SAINT-HERBLAIN",
+            "dept": "44",
+            "etat": "A"
+          },
+          {
+            "denomination": "LUMIPLAN TRANSPORT",
+            "siren": "325230308",
+            "commune": "SAINT-HERBLAIN",
+            "dept": "44",
+            "etat": "A"
+          },
+          {
+            "denomination": "LUMIPLAN VILLE",
+            "siren": "305165532",
+            "commune": "SAINT-HERBLAIN",
+            "dept": "44",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "millimages.com",
+      "domaine": "millimages.com",
+      "verdict": "present",
+      "raison": "SIREN 382954279 au registre (état A, PARIS 75), recoupé avec millimages.com",
+      "site": {
+        "url": "https://millimages.com",
+        "http": 200,
+        "titre": "Millimages | From sketch to global family entertainment",
+        "metaDescription": "From sketch to global family entertainment"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=millimages&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "MILLIMAGES",
+            "siren": "382954279",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "CATALOGUE MAJESTIC",
+            "siren": "413577743",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "MILLIMAGES LICENCES",
+            "siren": "437858699",
+            "commune": "PARIS 11",
+            "dept": "75",
+            "etat": "C"
+          },
+          {
+            "denomination": "MILLIMAGES ONLINE",
+            "siren": "434008660",
+            "commune": "PARIS 11",
+            "dept": "75",
+            "etat": "C"
+          },
+          {
+            "denomination": "MA VIDEO",
+            "siren": "503815433",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "Universite Paris Sud",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "(aucune requête : ni domaine ni titre)",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "Gloria Cales",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "(aucune requête : ni domaine ni titre)",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "Royal Glass",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "(aucune requête : ni domaine ni titre)",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "semna.fr",
+      "domaine": "semna.fr",
+      "verdict": "present",
+      "raison": "SIREN 333502391 au registre (état A, NANTERRE 92), recoupé avec semna.fr",
+      "site": {
+        "url": "https://semna.fr",
+        "http": 200,
+        "titre": "SEMNA &#8211; AU CŒUR DE NOTRE MÉTIER, LA VILLE",
+        "metaDescription": null
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=semna&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "ECONOMIE MIXTE AMENAGEM GESTION NANTERRE (SEMNA)",
+            "siren": "333502391",
+            "commune": "NANTERRE",
+            "dept": "92",
+            "etat": "A"
+          },
+          {
+            "denomination": "SEMRA & ALAIN",
+            "siren": "810652263",
+            "commune": "BESSIERES",
+            "dept": "31",
+            "etat": "A"
+          },
+          {
+            "denomination": "SCI GDA",
+            "siren": "388599672",
+            "commune": "SEPTEMES-LES-VALLONS",
+            "dept": "13",
+            "etat": "A"
+          },
+          {
+            "denomination": "SCI NANTERRE",
+            "siren": "805358017",
+            "commune": "LYON",
+            "dept": "69",
+            "etat": "A"
+          },
+          {
+            "denomination": "ANEF 03-63 (ANEF 63)",
+            "siren": "501464838",
+            "commune": "CLERMONT-FERRAND",
+            "dept": "63",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "www.normandydiesel.fr",
+      "domaine": "normandydiesel.fr",
+      "verdict": "cannot_verify",
+      "raison": "site ou registre inaccessible : TypeError: fetch failed",
+      "site": {
+        "url": "https://normandydiesel.fr",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=normandydiesel&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "iseta.fr",
+      "domaine": "iseta.fr",
+      "verdict": "present",
+      "raison": "SIREN 413076332 au registre (état A, LA BROQUE 67), recoupé avec iseta.fr",
+      "site": {
+        "url": "https://iseta.fr",
+        "http": 200,
+        "titre": "Bienvenue sur le site de l&#039;ISETA-ECA",
+        "metaDescription": "L&#039;école ISETA-ECA propose des formations de la quatrième à la licence en passant par le CAP, le BAC et les BTS, et la formation adulte."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=iseta&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "ISETA",
+            "siren": "413076332",
+            "commune": "LA BROQUE",
+            "dept": "67",
+            "etat": "A"
+          },
+          {
+            "denomination": "ISETA",
+            "siren": "401706593",
+            "commune": "BAYONNE",
+            "dept": "64",
+            "etat": "C"
+          },
+          {
+            "denomination": "ISETA - ECA (ISETA - ECA)",
+            "siren": "776603060",
+            "commune": "POISY",
+            "dept": "74",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    }
+  ]
+}

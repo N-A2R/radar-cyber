@@ -123,10 +123,16 @@ département sans au moins une source.
 
 ## Task 4: Trou référentiel — entités NA sans organisation
 
-- [ ] Lister les entités citées par les revendications NA qui n'ont **aucune**
-      organisation correspondante
-- [ ] Les résoudre avec la méthode des lots (sources gratuites, preuves citées),
-      par lots de 10, un commit par lot
+- [x] Lister les entités citées par les revendications NA qui n'ont **aucune**
+      organisation correspondante — **liste vide côté NA** : 241 indices en
+      attente, 23 rapprochés par le moteur corrigé, les 8 restantes du périmètre
+      français sont toutes Île-de-France/Paris (`bench/results/na-entites-sans-org.json`) ;
+      aucun indice non-domaine ne cite une commune NA (requête consignée)
+- [x] Les résoudre avec la méthode des lots (sources gratuites, preuves citées),
+      par lots de 10, un commit par lot — non applicable côté NA (liste vide) ;
+      reprise vague 2 lancée : **lot 1** = 6 chargées avec SIREN vérifié au
+      registre (recherche-entreprises.api.gouv.fr, sans clé), 3 absentes
+      documentées, 1 à arbitrer (`bench/results/na-lot-reprise-1.json`)
 - [ ] Reprendre au passage les lots restants de `mission-vague2-complete.md`
       (169 entités) **si** le temps le permet : ce sont les mêmes sources
 
