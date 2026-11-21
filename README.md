@@ -98,6 +98,22 @@ sources → collecteurs → PostgreSQL → API Fastify → front React
 | GET | `/api/sources` | état détaillé des flux |
 | GET | `/api/stream` | SSE — pousse chaque nouvel événement |
 
+
+### API publique documentée
+
+- `GET /api/docs` — Swagger UI ; `GET /api/openapi.json` — spec OpenAPI 3.1
+  générée depuis les schémas Zod des routes. Les deux préfixes `/api` et
+  `/api/v1` exposent les mêmes opérations ; la version est renvoyée dans
+  l'en-tête `X-API-Version`.
+- Lectures publiques limitées par adresse IP (120 req/min par défaut) ;
+  écritures réservées à une session ou à une clé de portée `write`. Les clés
+  se créent avec `POST /api/v1/keys` (session admin pour `write`), ne sont
+  renvoyées qu'une fois en clair, et consomment un quota atomique par
+  fenêtre de 60 s. Une clé à quota zéro répond `429 API_KEY_QUOTA_EXCEEDED`.
+- Client TypeScript généré : `pnpm api:client` régénère
+  `apps/api/src/openapi/client.generated.ts` depuis `OPERATIONS` ; aucun appel
+  manuel n'est à écrire pour ajouter une route au client.
+
 ## Contrôles
 
 `pnpm verify` enchaîne contrat hors base, diagnostic du socle, typechecks, tests
