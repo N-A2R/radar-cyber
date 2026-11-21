@@ -71,6 +71,8 @@ export const SQL = {
 	 * « Historique réel » = jours où le radar a effectivement collecté des
 	 * événements (`collected_at`), par opposition à l'ancienneté des dates
 	 * `valid_at` que les flux peuvent remonter rétrospectivement.
+	 * `$1` filtre sur une source quand le test synthétique le fournit ;
+	 * le script de mesure passe `null` pour mesurer tout le corpus.
 	 */
 	historique: `SELECT count(DISTINCT collected_at::date)::int AS jours_avec_collecte,
 			        min(collected_at::date)::text AS premiere_collecte,
@@ -80,7 +82,8 @@ export const SQL = {
 			        min(valid_at::date)::text AS plus_ancien_valid_at,
 			        max(valid_at::date)::text AS plus_recent_valid_at,
 			        (max(valid_at::date) - min(valid_at::date) + 1)::int AS jours_couverts_par_valid_at
-			   FROM event`,
+			   FROM event
+			  WHERE $1::text IS NULL OR source_id = $1`,
 } as const;
 
 export type EvenementBrut = {

@@ -131,7 +131,7 @@ async function main(): Promise<void> {
 	// Une seule mesure globale : les jours où le radar a réellement collecté.
 	// Les flux peuvent remonter des `valid_at` anciens ; ce n'est pas de
 	// l'historique d'observation et le rapport ne doit pas les confondre.
-	const { rows: historiqueRows } = await query<HistoriqueReel>(SQL.historique);
+	const { rows: historiqueRows } = await query<HistoriqueReel>(SQL.historique, [null]);
 	const historique = historiqueRows[0];
 	if (!historique) throw new Error("historique réel : aucune mesure retournée");
 

@@ -173,7 +173,9 @@ test("le mécanisme complet retient un signal synthétique antérieur, pas le po
 });
 
 test("l'historique réel compte les jours de collecte, pas l'ancienneté des valid_at", async () => {
-	const { rows } = await query<HistoriqueReel>(SQL.historique);
+	// La base de test est partagée : limiter la mesure à la source synthétique
+	// garantit que les événements des autres suites ne changent pas le résultat.
+	const { rows } = await query<HistoriqueReel>(SQL.historique, [SOURCE]);
 	const mesure = rows[0];
 	assert.ok(mesure);
 	assert.equal(mesure.jours_avec_collecte, 3);
