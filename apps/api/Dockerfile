@@ -40,8 +40,8 @@ COPY apps/api/tsconfig.json apps/api/tsconfig.json
 COPY apps/api/src apps/api/src
 COPY packages/shared/src packages/shared/src
 COPY db db
-COPY bench/fixtures/corpus-reference-na.json bench/fixtures/corpus-reference-na.json
-COPY bench/results/couverture-2026-11-15-gazetteer4.json bench/results/couverture-2026-11-15-gazetteer4.json
+COPY bench/couverture bench/couverture
+COPY bench/results/couverture-mesuree.json bench/results/couverture-mesuree.json
 COPY scripts/migrate.mts scripts/migrate.mts
 
 USER radar
