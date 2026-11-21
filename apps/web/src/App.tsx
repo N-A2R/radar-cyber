@@ -382,7 +382,7 @@ export default function App() {
     const controller = new AbortController();
     const charger = () => {
       api.statsDepartements(controller.signal)
-        .then((reponse) => setStatsDepartements(reponse.departements))
+        .then((reponse) => setStatsDepartements(reponse.departements24h))
         .catch(() => { /* le fil reste utilisable avec les dept du fil */ });
     };
     charger();

@@ -25,7 +25,6 @@ import healthDetailRoute from "./routes/health-detail.js";
 import healthCausesRoute from "./routes/health-causes.js";
 import eventsRoute from "./routes/events.js";
 import todayRoute from "./routes/today.js";
-import statsDepartementsRoute from "./routes/stats-departements.js";
 import flowsRoute from "./routes/flows.js";
 import graphRoute from "./routes/graph.js";
 import orgsRoute from "./routes/orgs.js";
@@ -119,7 +118,6 @@ await app.register(eventsRoute, { prefix: "/api" });
 await app.register(healthDetailRoute, { prefix: "/api" });
 await app.register(healthCausesRoute, { prefix: "/api" });
 await app.register(todayRoute, { prefix: "/api" });
-await app.register(statsDepartementsRoute, { prefix: "/api" });
 await app.register(flowsRoute, { prefix: "/api" });
 await app.register(orgsRoute, { prefix: "/api" });
 

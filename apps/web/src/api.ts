@@ -297,8 +297,8 @@ export type TodayResponse = {
 /** Département du fil « Aujourd'hui » (GET /api/stats/departements). */
 export type DeptStat = { dept: string; evenements: number; organisations: number };
 
-/** Réponse de GET /api/stats/departements : un département = un filtre utile. */
-export type StatsDepartements = { departements: DeptStat[] };
+/** Réponse de GET /api/stats/departements : fenêtres 7 j (carte) et 24 h (filtre Aujourd'hui). */
+export type StatsDepartements = { departements24h: DeptStat[] };
 
 export type Graph = {
   nodes: { id: string; label: string; kind: "org" | "family" | "group" | "asset" | "dept" }[];

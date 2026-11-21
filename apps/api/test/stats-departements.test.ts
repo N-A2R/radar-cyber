@@ -27,6 +27,7 @@ const ALL_IDS = Object.values(IDS);
 
 let app: FastifyInstance;
 let base: Map<string, StatDept>;
+let base24h: Map<string, Dept24h>;
 const ORG_SLUGS: string[] = [];
 
 type StatDept = {
@@ -36,6 +37,8 @@ type StatDept = {
   sourcesActives: number;
 };
 
+type Dept24h = { dept: string; evenements: number; organisations: number };
+
 before(async () => {
   // La base de test contient déjà les sources des migrations : on mesure
   // l'apport de nos fixtures, pas le total absolu.
@@ -44,6 +47,7 @@ before(async () => {
   await app.ready();
   const avant = await lire();
   base = new Map(avant.departements.map((d) => [d.departement, d]));
+  base24h = new Map(avant.departements24h.map((d) => [d.dept, d]));
   const sources: Array<[string, string, string, boolean]> = [
     [IDS.gironde, `Sud Ouest — Gironde (test ${TAG})`, "https://exemple.invalid/gironde/rss", true],
     [IDS.landes, `Sud Ouest — Landes (test ${TAG})`, "https://exemple.invalid/landes/rss", true],
@@ -104,7 +108,7 @@ after(async () => {
   await closePools();
 });
 
-async function lire(): Promise<{ windowDays: number; departements: StatDept[] }> {
+async function lire(): Promise<{ windowDays: number; departements: StatDept[]; departements24h: Dept24h[] }> {
   const res = await app.inject({ method: "GET", url: "/api/stats/departements" });
   assert.equal(res.statusCode, 200, res.body);
   return res.json();
@@ -132,6 +136,23 @@ test("la route fournit les douze départements et des compteurs entiers", async 
     for (const n of [d.organisations, d.evenements7j, d.sourcesActives]) {
       assert.ok(Number.isInteger(n) && n >= 0, `compteur invalide pour ${d.departement} : ${n}`);
     }
+  }
+});
+
+test("le filtre 24 h ne propose que les départements actifs sur la période", async () => {
+  const apres = new Map((await lire()).departements24h.map((d) => [d.dept, d]));
+  const delta = (dept: string, cle: "evenements" | "organisations") =>
+    (apres.get(dept)?.[cle] ?? 0) - (base24h.get(dept)?.[cle] ?? 0);
+
+  // Un seul fait rattaché il y a 1 h dans le jeu de fixtures.
+  assert.equal(delta("33", "evenements"), 1);
+  assert.equal(delta("33", "organisations"), 1);
+  // Les faits à 2, 3 et 10 jours sont hors de la fenêtre courte.
+  assert.equal(delta("40", "evenements"), 0);
+  assert.equal(delta("47", "evenements"), 0);
+  for (const d of apres.values()) {
+    assert.ok(Number.isInteger(d.evenements) && d.evenements > 0);
+    assert.ok(Number.isInteger(d.organisations) && d.organisations > 0);
   }
 });
 
