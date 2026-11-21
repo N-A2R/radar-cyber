@@ -9,9 +9,9 @@
   },
   "method": "lecture du site (fetch, titre et meta verbatim) + recherche-entreprises.api.gouv.fr sans clé ; requêtes et réponses consignées ; SIREN recoupé, jamais inventé",
   "compte": {
-    "present": 3,
+    "present": 4,
     "absent": 4,
-    "cannot_verify": 3
+    "cannot_verify": 2
   },
   "resolutions": [
     {
@@ -102,8 +102,8 @@
     {
       "nomLisible": "SVA Jean Rozé - sva-jeanroze.fr",
       "domaine": "sva-jeanroze.fr",
-      "verdict": "cannot_verify",
-      "raison": "site ou registre inaccessible : TypeError: fetch failed",
+      "verdict": "present",
+      "raison": "SIREN 913440624 SVA JEAN ROZE au registre (état A, VITRE 35), nom exact de l'entité citée + domaine sva-jeanroze.fr ; site https/http mort (000, 3 tentatives), consigné",
       "site": {
         "url": "https://sva-jeanroze.fr",
         "http": null,
@@ -115,13 +115,14 @@
         "requete": "https://recherche-entreprises.api.gouv.fr/search?q=sva-jeanroze&page=1&per_page=5",
         "http": null,
         "resultats": []
-      }
+      },
+      "sirenCorrige": "913440624"
     },
     {
       "nomLisible": "sva-avignon.concession-landrover.fr",
       "domaine": "sva-avignon.concession-landrover.fr",
       "verdict": "cannot_verify",
-      "raison": "site ou registre inaccessible : TypeError: fetch failed",
+      "raison": "relance : site https 000 (3 tentatives) ; registre q=SVA AVIGNON : SUD VAUCLUSE AUTOMOBILES (S.V.A.) AVIGNON 84 cessé (état C) — arbitrage humain",
       "site": {
         "url": "https://sva-avignon.concession-landrover.fr",
         "http": null,
@@ -213,6 +214,19 @@
         "http": null,
         "resultats": []
       }
+    }
+  ],
+  "relances": [
+    {
+      "nomLisible": "SVA Jean Rozé - sva-jeanroze.fr",
+      "preuve": "site https ET http 000 (3 tentatives) ; registre q=SVA JEAN ROZE : 913440624 SVA JEAN ROZE (VITRE 35, état A), nom exact de l'entité citée",
+      "verdictRelance": "present",
+      "note": "chargé : nom exact au registre + correspondance du domaine, site mort consigné"
+    },
+    {
+      "nomLisible": "sva-avignon.concession-landrover.fr",
+      "preuve": "site https 000 (3 tentatives) ; registre q=SVA AVIGNON : 537877144 SUD VAUCLUSE AUTOMOBILES (S.V.A.) AVIGNON 84 état C — cessé",
+      "verdictRelance": "cannot_verify"
     }
   ]
 }

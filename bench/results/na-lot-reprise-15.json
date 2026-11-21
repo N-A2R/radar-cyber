@@ -9,9 +9,9 @@
   },
   "method": "lecture du site (fetch, titre et meta verbatim) + recherche-entreprises.api.gouv.fr sans clé ; requêtes et réponses consignées ; SIREN recoupé, jamais inventé",
   "compte": {
-    "present": 1,
+    "present": 2,
     "absent": 7,
-    "cannot_verify": 2
+    "cannot_verify": 1
   },
   "resolutions": [
     {
@@ -36,8 +36,8 @@
     {
       "nomLisible": "thaonlesvosges.fr",
       "domaine": "thaonlesvosges.fr",
-      "verdict": "cannot_verify",
-      "raison": "candidat(s) au registre mais aucun recoupement avec thaonlesvosges.fr — arbitrage humain",
+      "verdict": "present",
+      "raison": "SIREN 200059939 COMMUNE DE THAON-LES-VOSGES au registre (état A), recoupé avec le titre « Accueil - Thaon-les-Vosges » ; correction documentée",
       "site": {
         "url": "https://thaonlesvosges.fr",
         "http": 200,
@@ -70,7 +70,8 @@
             "etat": "C"
           }
         ]
-      }
+      },
+      "sirenCorrige": "200059939"
     },
     {
       "nomLisible": "The De Montfort School",
@@ -173,6 +174,18 @@
         "requete": "https://recherche-entreprises.api.gouv.fr/search?q=University%20Institute%20of%20Technology%20of%20Paris&page=1&per_page=5",
         "http": null,
         "resultats": []
+      }
+    }
+  ],
+  "corrections": [
+    {
+      "nomLisible": "thaonlesvosges.fr",
+      "erreurOriginale": "cannot_verify — la requête racine renvoyait des entreprises locales (ACCUEIL AUTO PIECES 88, JEAN CHAXEL, CCAS cessé)",
+      "correction": "SIREN 200059939 COMMUNE DE THAON-LES-VOSGES (état A) — titre du site « Accueil - Thaon-les-Vosges » ; l'ancienne commune 218804656 est cessée (commune nouvelle)",
+      "preuve": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=COMMUNE%20DE%20THAON%20LES%20VOSGES&page=1&per_page=5",
+        "http": 200,
+        "resultat": "200059939 | COMMUNE DE THAON-LES-VOSGES | A | THAON-LES-VOSGES 88"
       }
     }
   ]

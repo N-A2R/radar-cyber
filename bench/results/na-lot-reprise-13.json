@@ -9,9 +9,9 @@
   },
   "method": "lecture du site (fetch, titre et meta verbatim) + recherche-entreprises.api.gouv.fr sans clé ; requêtes et réponses consignées ; SIREN recoupé, jamais inventé",
   "compte": {
-    "present": 4,
+    "present": 5,
     "absent": 5,
-    "cannot_verify": 1
+    "cannot_verify": 0
   },
   "resolutions": [
     {
@@ -104,8 +104,8 @@
     {
       "nomLisible": "saintcloud.fr",
       "domaine": "saintcloud.fr",
-      "verdict": "cannot_verify",
-      "raison": "candidat(s) au registre mais aucun recoupement avec saintcloud.fr — arbitrage humain",
+      "verdict": "present",
+      "raison": "SIREN 219200649 COMMUNE DE SAINT CLOUD au registre (état A, SAINT-CLOUD 92), recoupé avec le titre « Accueil | Ville de Saint-Cloud » ; correction documentée",
       "site": {
         "url": "https://saintcloud.fr",
         "http": 200,
@@ -124,7 +124,8 @@
             "etat": "C"
           }
         ]
-      }
+      },
+      "sirenCorrige": "219200649"
     },
     {
       "nomLisible": "sarassure.fr",
@@ -192,7 +193,7 @@
       "nomLisible": "sfr.fr",
       "domaine": "sfr.fr",
       "verdict": "present",
-      "raison": "SIREN 851675181 au registre (état A, CERNAY 68), recoupé avec sfr.fr",
+      "raison": "SIREN 343059564 SOCIETE FRANCAISE DU RADIOTELEPHONE - S.F.R au registre (état A, PARIS 15 75), recoupé avec le titre « SFR | Internet Fibre et ADSL… » ; correction d'homonymie",
       "site": {
         "url": "https://sfr.fr",
         "http": 200,
@@ -240,7 +241,8 @@
           }
         ]
       },
-      "chargeEnBase": true
+      "chargeEnBase": true,
+      "sirenCorrige": "343059564"
     },
     {
       "nomLisible": "sides.fr",
@@ -295,6 +297,28 @@
         ]
       },
       "chargeEnBase": true
+    }
+  ],
+  "corrections": [
+    {
+      "nomLisible": "sfr.fr",
+      "erreurOriginale": "SIREN 851675181 (SFR, CERNAY 68) — homonymie de sigle",
+      "correction": "org supprimée ; SIREN 343059564 SOCIETE FRANCAISE DU RADIOTELEPHONE - S.F.R (PARIS 15, 75, état A) — titre du site « SFR | Internet Fibre et ADSL, Forfaits 5G, Téléphone, TV »",
+      "preuve": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=SOCIETE%20FRANCAISE%20DU%20RADIOTELEPHONE&page=1&per_page=5",
+        "http": 200,
+        "resultat": "343059564 | SOCIETE FRANCAISE DU RADIOTELEPHONE - S.F.R | A | PARIS 15 75"
+      }
+    },
+    {
+      "nomLisible": "saintcloud.fr",
+      "erreurOriginale": "cannot_verify — la requête racine « saintcloud » ne renvoyait qu'un centre de cobalthérapie",
+      "correction": "SIREN 219200649 COMMUNE DE SAINT CLOUD (SAINT-CLOUD 92, état A) — titre du site « Accueil | Ville de Saint-Cloud »",
+      "preuve": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=COMMUNE%20DE%20SAINT-CLOUD&page=1&per_page=5",
+        "http": 200,
+        "resultat": "219200649 | COMMUNE DE SAINT CLOUD | A | SAINT-CLOUD 92"
+      }
     }
   ]
 }
