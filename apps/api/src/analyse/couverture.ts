@@ -19,6 +19,7 @@
  */
 import { isCyberText } from "../collectors/classify.js";
 import { mediane } from "./mediane.js";
+import { normaliserTexte } from "./couverture-base.js";
 
 export type StatutCouverture =
 	| "vu"
@@ -105,7 +106,7 @@ const GENERIQUES: Record<string, true> = {
 export function motsDiscriminants(texte: string): string[] {
 	const principal = texte.split(/[(—–]/)[0] ?? texte;
 	return [...new Set(
-		normaliser(principal)
+		normaliserTexte(principal)
 			.split(" ")
 			.filter((mot) => mot.length >= 4 && !GENERIQUES[mot]),
 	)];
@@ -172,7 +173,7 @@ function correspondance(
 	];
 	if (cherches.length === 0) return null;
 	const motsTexte = new Set(
-		normaliser(`${evenement.titre} ${evenement.resume ?? ""}`).split(" ").filter(Boolean),
+		normaliserTexte(`${evenement.titre} ${evenement.resume ?? ""}`).split(" ").filter(Boolean),
 	);
 	const presents = cherches.filter((mot) => motsTexte.has(mot));
 	if (presents.length === 0) return null;
@@ -314,5 +315,80 @@ export function synthetiser(resultats: readonly ResultatIncident[]) {
 			pas_jugé_cyber: statuts.pas_jugé_cyber,
 		},
 		delaiMedianJours: mediane(vus.map((r) => r.delaiJours).filter((d): d is number => d !== null)),
+	};
+}
+
+/**
+ * Classification historique conservée telle quelle : `couverture.test.ts` et
+ * `scripts/couverture-globale.mts` importent ces motifs et `classerCouverture`.
+ * Le moteur de comparaison de cette branche reste l'implémentation de référence
+ * pour `analyserIncident` ; les deux surfaces ne se confondent pas.
+ */
+export const MOTIFS_COUVERTURE = {
+	vu: "vu",
+	pasCollecte: "pas_collecte",
+	pasRattache: "pas_rattache",
+	pasJugeCyber: "pas_juge_cyber",
+	fauxPositif: "faux_positif",
+} as const;
+
+export type MotifCouverture = (typeof MOTIFS_COUVERTURE)[keyof typeof MOTIFS_COUVERTURE];
+
+export type Collecte = {
+	/** Date ISO (YYYY-MM-DD) à laquelle le texte de l'incident est entré. */
+	date: string;
+};
+
+export type Rattachement = {
+	orgId: string;
+	/** Date ISO (YYYY-MM-DD) du rattachement retenu. */
+	date: string;
+	/** Un rattachement à la mauvaise organisation n'est pas une couverture. */
+	correct: boolean;
+};
+
+export type FaitCouverture = {
+	id: string;
+	/** Date ISO (YYYY-MM-DD) de publication publique de l'incident. */
+	datePublication: string;
+	collecte: Collecte | null;
+	/** Vrai quand la porte de pertinence cyber a admis l'incident. */
+	jugeCyber: boolean;
+	rattachement: Rattachement | null;
+};
+
+export type ResultatCouverture = {
+	id: string;
+	motif: MotifCouverture;
+	/** Jours entre publication et rattachement ; null tant que l'incident n'est pas vu. */
+	delaiJours: number | null;
+};
+
+function joursEntre(depuis: string, jusqua: string): number {
+	const a = Date.parse(`${depuis}T00:00:00Z`);
+	const b = Date.parse(`${jusqua}T00:00:00Z`);
+	if (Number.isNaN(a) || Number.isNaN(b)) {
+		throw new Error(`date de couverture invalide : ${depuis} → ${jusqua}`);
+	}
+	return Math.round((b - a) / 86_400_000);
+}
+
+/** Classifie un incident : un motif, et un délai seulement s'il est vu. */
+export function classerCouverture(fait: FaitCouverture): ResultatCouverture {
+	const refus = (motif: MotifCouverture): ResultatCouverture => ({
+		id: fait.id,
+		motif,
+		delaiJours: null,
+	});
+
+	if (!fait.collecte) return refus(MOTIFS_COUVERTURE.pasCollecte);
+	if (!fait.jugeCyber) return refus(MOTIFS_COUVERTURE.pasJugeCyber);
+	if (!fait.rattachement) return refus(MOTIFS_COUVERTURE.pasRattache);
+	if (!fait.rattachement.correct) return refus(MOTIFS_COUVERTURE.fauxPositif);
+
+	return {
+		id: fait.id,
+		motif: MOTIFS_COUVERTURE.vu,
+		delaiJours: joursEntre(fait.datePublication, fait.rattachement.date),
 	};
 }
