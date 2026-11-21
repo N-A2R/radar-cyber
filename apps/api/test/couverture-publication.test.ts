@@ -123,3 +123,19 @@ test("mesure sur 50 lignes en 30 jours : fenêtre trop courte", async () => {
 	);
 	assert.match(rapport.publication.raison ?? "", /Fenêtre trop courte : 30 jour\(s\)/);
 });
+
+test("corpus vide : refus explicite sans lever d'exception", async () => {
+	const rapport = await mesurerCouverture({
+		corpus: { incidents: [], canonique: "", sha256: "vide", fichiers: [], doublons: [] },
+		query: sql,
+	});
+	assert.equal(rapport.global.total, 0);
+	assert.equal(rapport.publication.publiable, false);
+	assert.equal(rapport.publication.corpus.jours, 0);
+	assert.deepEqual(
+		rapport.publication.refus.map((r) => r.code),
+		["corpus_trop_petit", "sources_trop_peu_productives", "fenetre_courte"],
+	);
+	assert.match(rapport.publication.raison ?? "", /Corpus trop petit : 0 incident\(s\) dans aucune date de publication/);
+	assert.match(rapport.publication.raison ?? "", /aucune fenêtre mesurable/);
+});

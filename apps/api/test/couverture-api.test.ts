@@ -14,6 +14,7 @@ import { after, before, test } from "node:test";
 import { fileURLToPath } from "node:url";
 import Fastify, { type FastifyInstance } from "fastify";
 import couvertureRoute from "../src/routes/couverture.js";
+import { COUVERTURE_PUBLIQUE } from "../src/analyse/couverture-publique.js";
 
 const RACINE = fileURLToPath(new URL("../../../", import.meta.url));
 const CORPUS = fileURLToPath(new URL("../../../bench/couverture/incidents.jsonl", import.meta.url));
@@ -114,6 +115,30 @@ test("GET /api/couverture publie le 0 % du corpus de 50 incidents (quatre seuils
 	assert.equal(corps.publication.sources.distinctes, 17);
 	assert.equal(corps.publication.sources.partMax, 0.3);
 	assert.equal(corps.publication.referentiel.partSecteurs, 1);
+});
+
+test("GET /api/couverture sous le seuil : publiable false et raison explicite", async () => {
+	const publication = COUVERTURE_PUBLIQUE.publication;
+	const precedent = structuredClone(publication);
+	const raison =
+		"Corpus trop petit : 5 incident(s) dans la fenêtre 2026-01-01 → 2026-04-30, seuil minimal 30.";
+	try {
+		Object.assign(publication, {
+			publiable: false,
+			mention: "refus de publication",
+			raison,
+			refus: [{ code: "corpus_trop_petit", raison }],
+			corpus: { ...publication.corpus, dansFenetre: 5 },
+		});
+		const corps = await lireReponse();
+		assert.equal(corps.publiable, false);
+		assert.equal(corps.mention, "refus de publication");
+		assert.equal(corps.raison, raison);
+		assert.deepEqual(corps.publication.refus.map((r) => r.code), ["corpus_trop_petit"]);
+		assert.equal(corps.publication.corpus.dansFenetre, 5);
+	} finally {
+		Object.assign(publication, precedent);
+	}
 });
 
 const baseTravail = process.env.RADAR_TEST_ADMIN_URL

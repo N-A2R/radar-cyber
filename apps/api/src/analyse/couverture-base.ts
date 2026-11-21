@@ -19,6 +19,7 @@ import {
 	type IncidentCorpus,
 } from "./corpus-couverture.js";
 import {
+	FENETRE_SANS_DONNEES,
 	evaluerSeuilsCouverture,
 	type VerdictSeuilsCouverture,
 } from "./seuils-couverture.js";
@@ -306,9 +307,12 @@ export async function mesurerCouverture(options?: {
 			};
 	const empreinteBase = createHash("sha256").update(JSON.stringify(etatBrut ?? null)).digest("hex");
 	const dates = corpus.incidents.map((i) => i.date_publication).sort();
+	const fenetre = dates.length === 0
+		? FENETRE_SANS_DONNEES
+		: { debut: dates[0], fin: dates[dates.length - 1] };
 	const publication = evaluerSeuilsCouverture({
 		incidents: corpus.incidents.map((i) => ({ date: i.date_publication, source: i.source })),
-		fenetre: { debut: dates[0], fin: dates[dates.length - 1] },
+		fenetre,
 		parSecteur: Object.fromEntries(secteurs.rows.map((r) => [r.secteur, Number(r.n)])),
 	});
 
@@ -430,7 +434,7 @@ export async function mesurerCouverture(options?: {
 	return {
 		dateCalcul: etat?.derniere_collecte ?? etat?.derniere_execution ?? "inconnue",
 		hashCorpus: corpus.sha256,
-		fenetre: { debut: dates[0], fin: dates[dates.length - 1] },
+		fenetre,
 		sequenceCorpus: corpus.doublons.length === 0 ? "stable" : `doublons ignorés : ${corpus.doublons.join(", ")}`,
 		base: { ...etat, empreinte: empreinteBase },
 		publication,
