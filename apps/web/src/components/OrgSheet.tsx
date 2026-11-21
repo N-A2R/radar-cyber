@@ -72,16 +72,18 @@ export default function OrgSheet({
     };
   }, [orgId, mock, reloadSignal]);
 
-  return <OrgSheetContenu state={state} onClose={onClose} />;
+  return <OrgSheetContenu state={state} onClose={onClose} onRetry={() => setReloadSignal((n) => n + 1)} />;
 }
 
 /** Présentation pure : chaque état est vérifiable sans réseau ni effet React. */
 export function OrgSheetContenu({
   state,
   onClose,
+  onRetry,
 }: {
   state: LoadState;
   onClose: () => void;
+  onRetry?: () => void;
 }) {
   const title = state.status === "ready" ? state.data.org.name : "Organisation";
 
@@ -103,7 +105,7 @@ export function OrgSheetContenu({
           message={`API : ${state.message}`}
           role="alert"
           actionLabel="Recharger la fiche"
-          onAction={() => setReloadSignal((n) => n + 1)}
+          onAction={onRetry ?? onClose}
         />
       )}
       {state.status === "ready" && <OrgSheetBody data={state.data} onClose={onClose} />}

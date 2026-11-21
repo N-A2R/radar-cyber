@@ -8,6 +8,7 @@
 import ForceGraph2D, { type ForceGraphMethods, type LinkObject, type NodeObject } from 'react-force-graph-2d';
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import GraphMatrix from '../components/GraphMatrix';
+import { LoadingSkeleton } from '../components/Skeleton';
 import {
   buildGraph,
   canonicalFamily,
@@ -488,6 +489,9 @@ export default function GraphView(props: GraphViewProps) {
 
   return (
     <div className="gv-root" style={{ backgroundColor: bg, fontFamily: 'var(--font-body)' }}>
+      {props.loading && data.nodes.length === 0 ? (
+        <LoadingSkeleton label="chargement du graphe…" />
+      ) : null}
       <div className="gv-mode-bar" role="tablist" aria-label="Graph display">
         <button
           type="button" role="tab" aria-selected={mode === 'network'} aria-current={mode === 'network' ? 'true' : undefined}

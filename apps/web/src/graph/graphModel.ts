@@ -72,6 +72,8 @@ export interface GraphViewProps {
   theme?: string;
   /** Reference time for the period filter (tests can pin it). */
   now?: number;
+  /** Chargement du graphe côté parent : squelette tant qu'il n'y a rien à dessiner. */
+  loading?: boolean;
 }
 
 export interface GraphData {

@@ -92,14 +92,18 @@ async function main(): Promise<void> {
 	check("fil : pas d'état vide avec des événements", container.querySelector(".empty-state") === null);
 
 	// 2. Journal ------------------------------------------------------------
-	await render(<JournalListe rows={[]} loading error={null} suivant={null} page={1}
-		onPrecedent={() => {}} onSuivant={() => {}} onRetry={onRetry} />);
+	await render(<JournalListe rows={[]} resultCount={0} filters={{}} onFilterChange={() => {}} onReset={() => {}}
+		truncated={false} loading error={null} page={1} pageCount={1} onPrevious={() => {}} onNext={() => {}}
+		selected={null} onSelect={() => {}} onCloseDetail={() => {}} onExport={() => {}} exporting={false}
+		exportError={null} onRetry={onRetry} />);
 	check("journal : 3 lignes de squelette pendant l'appel", skeletons() === 3);
 	check("journal : libellé de chargement annoncé",
 		container.querySelector(".skeleton__label")?.textContent === "Chargement du journal…");
-	await render(<JournalListe rows={[]} loading={false} error={null} suivant={null} page={1}
-		onPrecedent={() => {}} onSuivant={() => {}} onRetry={onRetry} />);
-	check("journal : état vide explicite", container.querySelector(".empty-state__message")?.textContent === "aucune décision enregistrée");
+	await render(<JournalListe rows={[]} resultCount={0} filters={{}} onFilterChange={() => {}} onReset={() => {}}
+		truncated={false} loading={false} error={null} page={1} pageCount={1} onPrevious={() => {}} onNext={() => {}}
+		selected={null} onSelect={() => {}} onCloseDetail={() => {}} onExport={() => {}} exporting={false}
+		exportError={null} onRetry={onRetry} />);
+	check("journal : état vide explicite", container.querySelector(".empty-state__message")?.textContent === "No journal entries recorded yet.");
 	check("journal : squelette retiré après chargement", skeletons() === 0);
 	await click(emptyButton("Recharger le journal"));
 	check("journal : l'action de l'état vide recharge", retries === 2);
