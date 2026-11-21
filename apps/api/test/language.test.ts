@@ -23,6 +23,11 @@ const CORPUS: ReadonlyArray<{ text: string; expected: Language }> = [
 	{ text: "Cette vulnérabilité est exploitée par des pirates", expected: "fr" },
 	{ text: "Les clients de l'entreprise ont été prévenus du risque", expected: "fr" },
 	{ text: "Selon le ministère, aucune donnée n'a été volée", expected: "fr" },
+	{ text: "La mairie de Limoges a signalé une intrusion dans son réseau informatique", expected: "fr" },
+	{ text: "Les données des clients ont été exposées après une cyberattaque", expected: "fr" },
+	{ text: "Cette faille de sécurité affecte plusieurs serveurs de l'entreprise", expected: "fr" },
+	{ text: "Le ministère annonce une vague de cyberattaques contre des hôpitaux", expected: "fr" },
+	{ text: "Nous avons détecté une anomalie sur le réseau de la commune", expected: "fr" },
 	{ text: "Critical vulnerability in Apache Struts exploited in the wild", expected: "en" },
 	{ text: "The ransomware attack targeted a city in France", expected: "en" },
 	{ text: "Researchers disclose new flaw in widely used software", expected: "en" },
@@ -33,9 +38,14 @@ const CORPUS: ReadonlyArray<{ text: string; expected: Language }> = [
 	{ text: "Officials said the incident affected several systems", expected: "en" },
 	{ text: "Microsoft releases patch for vulnerability in Windows", expected: "en" },
 	{ text: "New report details how attackers targeted the agency", expected: "en" },
+	{ text: "A critical vulnerability in the company's network was disclosed", expected: "en" },
+	{ text: "The attackers exploited a flaw to steal sensitive data", expected: "en" },
+	{ text: "Security researchers say the ransomware gang leaked customer records", expected: "en" },
+	{ text: "Microsoft has released a patch for the critical flaw", expected: "en" },
+	{ text: "Officials said the incident affected several government systems", expected: "en" },
 ];
 
-test("détection fr/en sur 20 textes", () => {
+test("détection fr/en sur 30 textes", () => {
 	let ok = 0;
 	const erreurs: string[] = [];
 	for (const [i, sample] of CORPUS.entries()) {

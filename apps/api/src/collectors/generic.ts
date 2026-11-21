@@ -17,7 +17,6 @@ import {
 	EPSS_ADMISSION_THRESHOLD,
 	PREFECTURES,
 	type CoverageContext,
-	isRelevant,
 	loadRelevanceOrgIndex,
 	designateOrganization,
 	expliquerRattachement,
@@ -25,7 +24,15 @@ import {
 	type RelevanceOrg,
 } from "./relevance.js";
 import { estTexteFrancais, porteeRegionale } from "../match/territorial.js";
-import { configuredLanguages, isActionableIndicator, languageVerdict, loadActiveIndex, type ActiveIndex } from "./filter.js";
+import {
+	configuredLanguages,
+	evaluatePertinence,
+	isActionableIndicator,
+	languageVerdict,
+	loadActiveIndex,
+	loadRelevanceConfig,
+	type ActiveIndex,
+} from "./filter.js";
 import { filterIndicators } from "./warninglist.js";
 import { classifyFamily, isFamily } from "./classify.js";
 import { AdmissionTally, admitEvent } from "../contract/admit.js";
@@ -778,26 +785,32 @@ async function ingestNarrative(
       }
     }
     const link = explicitOr(item, parser.linkField, LINK_FIELDS);
-    // Couverture élargie : un item rebuté par la porte peut être admis par la
-    // règle (a) (CVE dont le score EPSS en base dépasse le seuil) ou (b) (un
-    // département de Nouvelle-Aquitaine est cité en mot entier). L'URL reste
-    // hors du texte examiné par (b).
-    let admission: "epss" | "dept" | null = null;
-    // La porte consulte le gazetteer : un toponyme nu ne suffit plus, un nom
-    // distinctif ou un rôle institutionnel suffit. Sans cet appui, la porte
-    // reste sur les mots-clés cyber (et les deux règles de couverture).
-    const porte = gate
-      ? isRelevant({ title, url: link, sourceUrl: link }, { orgs: orgIndex, ignoreDomains: [sourceHost] })
-      : { relevant: true, reason: "keyword" as const };
-    const nomme = gate && !porte.relevant ? designateOrganization(`${title} ${summary}`) : null;
-    if (gate && !porte.relevant && nomme === null) {
-      if (admitByEpss(cveTextOf(item, title, summary), coverage) !== null) admission = "epss";
-      else if (admitsDepartment(`${title} ${summary}`, coverage.deptNames)) admission = "dept";
-      if (admission === null) {
-        rejectedBy["hors_sujet"] = (rejectedBy["hors_sujet"] ?? 0) + 1;
-        skipped++;
-        continue;
-      }
+    // Couverture élargie : l'EPSS et le département sont des signaux comme les
+    // autres, ils montent le score au lieu de contourner la porte. L'URL reste
+    // hors du texte examiné par la règle département.
+    const epssHit = gate ? admitByEpss(cveTextOf(item, title, summary), coverage) : null;
+    const department = gate && admitsDepartment(`${title} ${summary}`, coverage.deptNames);
+    let pertinence = evaluatePertinence(
+      { title, summary, url: link, sourceUrl: link },
+      { orgs: orgIndex, ignoreDomains: [sourceHost], epss: epssHit, department },
+    );
+    // La porte consulte aussi le gazetteer : un nom distinctif absent de
+    // l'index de pertinence peut encore admettre l'item. Le score suit alors
+    // ce rattachement, sinon l'événement serait admis avec un score de rejet.
+    const nomme = gate && !pertinence.relevant ? designateOrganization(`${title} ${summary}`) : null;
+    if (nomme !== null) {
+      pertinence = {
+        ...pertinence,
+        score: Math.min(10, Math.max(pertinence.score, 3) + 3),
+        relevant: true,
+        reason: "org",
+        rule: "org",
+      };
+    }
+    if (gate && !pertinence.relevant) {
+      rejectedBy["hors_sujet"] = (rejectedBy["hors_sujet"] ?? 0) + 1;
+      skipped++;
+      continue;
     }
     let orgId: number | null = null;
     let explication: ExplicationRattachement = {
@@ -863,7 +876,7 @@ async function ingestNarrative(
 
     // Marqueur d'admission : une organisation rattachée prime ; sinon la règle
     // qui a fait passer l'item, sinon null (admis par la porte de pertinence).
-    const admissionRule: "org" | "epss" | "dept" | null = orgId !== null ? "org" : admission;
+    const admissionRule: "org" | "epss" | "dept" | null = orgId !== null ? "org" : pertinence.rule;
 
     // Contrat partagé : c'est lui qui tranche désormais, pas les troncatures
     // ad hoc d'ici. Une famille hors contrat ne passe plus (avant l'élargissement
@@ -884,7 +897,7 @@ async function ingestNarrative(
       sourceId: source.id,
       sourceUrl: link || undefined,
       // La preuve porte le pourquoi du rattachement, pas seulement la source.
-      evidence: { feed: source.name, rattachement: versEvidence(explication) },
+      evidence: { feed: source.name, rattachement: versEvidence(explication), pertinence: { score: pertinence.score, motif: pertinence.reason, termes: pertinence.matches.map((m) => m.term) } },
       geoType: "unknown",
     });
     contract.record(admitted);
@@ -898,8 +911,8 @@ async function ingestNarrative(
     const event = admitted.event;
     const r = await ingestQuery<{ inserted: boolean }>(
       `INSERT INTO event (dedup_key, family, assertion_type, title, summary, langue, org_id, observed_at, valid_at, at, date_source, date_confidence, severity, confidence,
-        source_id, source_url, evidence, geo_type, admission_rule, regional, regional_motif, fingerprint)
-       VALUES ($1,$2,$13,$3,$10,$22,$11,$4,$20,$21,$5,$6,$14,$15,$7,$8,$9,$16,$12,$17,$18,$19)
+        source_id, source_url, evidence, geo_type, admission_rule, regional, regional_motif, fingerprint, pertinence_score, pertinence_rule)
+       VALUES ($1,$2,$13,$3,$10,$22,$11,$4,$20,$21,$5,$6,$14,$15,$7,$8,$9,$16,$12,$17,$18,$19,$23,$24)
        ON CONFLICT (fingerprint) WHERE fingerprint IS NOT NULL DO NOTHING
        RETURNING (xmax = 0) AS inserted`,
       [event.dedupKey, event.family, event.title, event.observedAt ?? null, parsed.source, parsed.confidence,
@@ -907,7 +920,8 @@ async function ingestNarrative(
         event.assertionType, event.severity, event.confidence ?? "C3", event.geoType,
         portee.regional, portee.motif, fingerprint,
         // valid_at : la date de l'article ; at : le moment où on l'a lu.
-        event.observedAt ?? fetchedAt.toISOString(), fetchedAt.toISOString(), langue.language]
+        event.observedAt ?? fetchedAt.toISOString(), fetchedAt.toISOString(), langue.language,
+        pertinence.score, pertinence.rule]
     );
     if (r.rows[0]?.inserted) added++;
     faits.push({
@@ -1098,6 +1112,9 @@ export async function runGenericSources(
 	const { rows } = await ingestQuery<SourceRow>(sql, params);
   log(`ingestion générique : ${rows.length} sources candidat(es)`);
   runLog = log;
+  const relevanceConfig = loadRelevanceConfig();
+  log(`pertinence : ${relevanceConfig.keywords.length} terme(s), ${relevanceConfig.exclusions.length} exclusion(s), seuil ${relevanceConfig.minScore}`);
+  for (const warning of relevanceConfig.warnings) log(`[pertinence] ${warning}`);
 
   // Index de pertinence chargé une seule fois par run (392 orgs + domaines).
   const { rows: orgRows } = await ingestQuery<{ name: string; domain: string | null; assets: string[] | null }>(

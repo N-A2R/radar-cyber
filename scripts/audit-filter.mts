@@ -501,7 +501,7 @@ function mentionsOrg(text: string, orgs: RelevanceOrg[]): boolean {
 	return false;
 }
 
-/** Lexique cyber anglais : CYBER_KEYWORDS est intégralement francophone. */
+/** Lexique anglais autonome de l'audit : mesure historique, indépendant du moteur actuel. */
 const EN_LEXICON: readonly (readonly [string, RegExp])[] = [
 	["vulnerab", /\bvulnerab/i],
 	["exploit", /\bexploit/i],
