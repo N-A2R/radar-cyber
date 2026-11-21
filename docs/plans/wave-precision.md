@@ -81,6 +81,23 @@ Les indécidables sortent du dénominateur et se comptent à part.
 
 ---
 
+
+## Garde-fou budgétaire (ajouté en cours de vague)
+
+Le plan ZCode expire le **2026-11-23 à 02:00** et le débit mesuré est de
+**~21,6 M tokens/h**. Une vague de 38 h humaines ne tient donc **pas** dans le
+quota restant. Règle, à appliquer sans discussion :
+
+- [ ] **S2.4b** Après S2, relever `available_units` sur `/quota` du pont
+      (`curl -s http://127.0.0.1:20131/quota`) et l'écrire dans l'état.
+- [ ] **Décision automatique** : s'il reste **moins de 80 M**, arrêter la vague
+      après S3 et écrire un rapport intermédiaire (`docs/rapport-precision-partiel.md`)
+      qui dit ce qui est prouvé, ce qui reste, et à quelle étape reprendre.
+- [ ] S'il reste **plus de 80 M**, continuer S4 → S6 normalement.
+
+Un arrêt propre au bon endroit vaut mieux qu'une vague qui meurt à court de
+jetons au milieu de S5, sans rapport. L'état commité garantit la reprise.
+
 ## S1 — L'appareil de mesure et la vérité terrain
 
 - [ ] **S1.1** `scripts/precision-echantillon.mts` : tirage **stratifié**
