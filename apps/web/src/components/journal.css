@@ -122,3 +122,46 @@
   font: 400 11px/1.4 var(--font-mono);
   color: var(--color-muted);
 }
+
+/* 375 px : une décision = une carte, avec le libellé de chaque champ.
+   Le tableau reste intact au-delà de ce seuil, pour la lecture dense. */
+@media (max-width: 600px) {
+  .journal { gap: var(--space-3); }
+  .journal__scroll { overflow-x: hidden; background: none; box-shadow: none; }
+  .journal__table,
+  .journal__table tbody,
+  .journal__table tr,
+  .journal__table td { display: block; width: 100%; box-sizing: border-box; }
+  .journal__table thead { display: none; }
+  .journal__table tr {
+    padding: var(--space-3);
+    margin-bottom: var(--space-3);
+    border: 1px solid var(--color-edge-lo);
+    border-radius: var(--radius);
+    background: var(--color-plate);
+    box-shadow: var(--raise-sm);
+  }
+  .journal__table td {
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--color-edge-lo);
+    font-size: var(--text-body);
+    overflow-wrap: anywhere;
+  }
+  .journal__table td:last-child { border-bottom: 0; padding-bottom: 0; }
+  .journal__table td::before {
+    display: block;
+    margin-bottom: var(--space-1);
+    color: var(--color-faint);
+    font: 500 11px/1.4 var(--font-mono);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .journal__table td:nth-child(1)::before { content: "horodatage"; }
+  .journal__table td:nth-child(2)::before { content: "acteur"; }
+  .journal__table td:nth-child(3)::before { content: "décision"; }
+  .journal__table td:nth-child(4)::before { content: "indice"; }
+  .journal__table td:nth-child(5)::before { content: "raison"; }
+  .journal__table td:nth-child(1),
+  .journal__table td:nth-child(3) { font-size: var(--text-body); }
+  .journal__foot button { min-height: 44px; }
+}

@@ -212,3 +212,54 @@
   align-items: center;
   min-height: 44px;
 }
+
+/* 375 px : le tableau devient une pile de cartes. Les en-têtes ne sont plus
+   une barre défilante ; chaque cellule garde son libellé, donc son sens. */
+@media (max-width: 600px) {
+  .today { padding: var(--space-4); gap: var(--space-3); }
+  .today__titre { font-size: 22px; }
+  .today__compteurs,
+  .today__filtres { width: 100%; }
+  .today__compteur { flex: 1 1 120px; min-width: 0; }
+  .today__filtre { flex: 1 1 100%; }
+  .today__filtre select { min-width: 0; width: 100%; box-sizing: border-box; }
+
+  .today__table-wrap { overflow: visible; border: 0; }
+  .today__table,
+  .today__table tbody,
+  .today__table tr,
+  .today__table td { display: block; width: 100%; box-sizing: border-box; }
+  .today__table thead { display: none; }
+  .today__table tr {
+    padding: var(--space-3);
+    margin-bottom: var(--space-3);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface-2);
+  }
+  .today__table td {
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--line);
+    overflow-wrap: anywhere;
+  }
+  .today__table td:last-child { border-bottom: 0; padding-bottom: 0; }
+  .today__table td::before {
+    display: block;
+    margin-bottom: var(--space-1);
+    color: var(--faint);
+    font: 600 11px/1.4 var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .today__table td:nth-child(1)::before { content: "date"; }
+  .today__table td:nth-child(2)::before { content: "titre"; }
+  .today__table td:nth-child(3)::before { content: "organisation"; }
+  .today__table td:nth-child(4)::before { content: "source"; }
+  .today__table td:nth-child(5)::before { content: "famille"; }
+  .today__table td:nth-child(6)::before { content: "lien"; }
+  .today__cellule-titre { min-width: 0; }
+  .today__table time { white-space: normal; }
+  .today__lien-titre,
+  .today__lien-org { padding: var(--space-2) 0; }
+  .today__table a { max-width: 100%; overflow-wrap: anywhere; }
+}

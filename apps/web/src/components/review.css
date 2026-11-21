@@ -101,3 +101,19 @@
   .revue__row { grid-template-columns: minmax(0, 1fr); }
   .revue__actions { flex-direction: row; flex-wrap: wrap; }
 }
+
+/* 375 px : la file est déjà en cartes ; on garde les libellés lisibles et
+   des cibles tactiles au moins égales à 44 px. */
+@media (max-width: 600px) {
+  .revue { padding: 0 var(--space-1) var(--space-1); gap: var(--space-2); }
+  .revue__search,
+  .revue__buckets { width: 100%; }
+  .revue__search input {
+    min-width: 0; width: 100%; height: 44px; box-sizing: border-box; font-size: 16px;
+  }
+  .revue button { min-height: 44px; padding: var(--space-2); }
+  .revue__row { padding: var(--space-3); }
+  .revue__candidate { overflow-wrap: anywhere; }
+  .revue__decision textarea { min-height: 88px; font-size: 16px; }
+  .revue__decision-actions { flex-wrap: wrap; }
+}
