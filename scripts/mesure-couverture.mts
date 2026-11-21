@@ -20,6 +20,7 @@
  *
  *   tsx scripts/mesure-couverture.mts                 # affiche
  *   tsx scripts/mesure-couverture.mts --json=out.json # publie dans un fichier
+ *   tsx scripts/mesure-couverture.mts --cout              # + coût par phase
  *
  * Le résultat est destiné à être committé : c'est la mesure du projet, pas un
  * rapport interne. Voir docs/mesure-couverture.md.
@@ -35,6 +36,7 @@ import { resoudre } from "../apps/api/src/match/gazetteer.js";
 import { SECTEURS_ATTENDUS, verifierPubliabilite } from "../apps/api/src/analyse/publiabilite.js";
 
 const argv = process.argv.slice(2);
+const COUT = argv.includes("--cout");
 const SORTIE_JSON = argv.find((a) => a.startsWith("--json="))?.split("=")[1] ?? null;
 const CORPUS = fileURLToPath(new URL("../bench/fixtures/corpus-reference-na.json", import.meta.url));
 
@@ -195,14 +197,57 @@ function joursEntre(depuis: string, jusqua: string): number {
 	return Math.round((b - a) / 86_400_000);
 }
 
-async function main(): Promise<void> {
-	const corpus = JSON.parse(readFileSync(CORPUS, "utf8")) as {
-		meta: { fenetre?: [string, string] };
-		incidents: Incident[];
+type Phase = "collecte" | "index" | "moteur" | "sondes" | "mesure";
+const phases: Record<Phase, number> = { collecte: 0, index: 0, moteur: 0, sondes: 0, mesure: 0 };
+
+/** Instruments désactivés par défaut : le chemin normal reste identique. */
+function chrono<T>(phase: Phase, fn: () => T): T {
+	if (!COUT) return fn();
+	const debut = performance.now();
+	try {
+		return fn();
+	} finally {
+		phases[phase] += performance.now() - debut;
+	}
+}
+
+async function chronoAsync<T>(phase: Phase, fn: () => Promise<T>): Promise<T> {
+	if (!COUT) return fn();
+	const debut = performance.now();
+	try {
+		return await fn();
+	} finally {
+		phases[phase] += performance.now() - debut;
+	}
+}
+
+function resourceSnapshot() {
+	const u = process.resourceUsage();
+	return {
+		cpuMs: (u.userCPUTime + u.systemCPUTime) / 1000,
+		maxRssKib: u.maxRSS,
+		rssKib: process.memoryUsage().rss / 1024,
+		fsRead: u.fsRead,
+		fsWrite: u.fsWrite,
+		minorPageFault: u.minorPageFault,
+		majorPageFault: u.majorPageFault,
 	};
-	const gaz = await getGazetteer();
-	await preparerGazetteer();
-	const { rows: orgs } = await query<{ n: string }>("SELECT count(*)::text AS n FROM org");
+}
+
+async function main(): Promise<void> {
+	const debutTotal = performance.now();
+	const ressourcesAvant = COUT ? resourceSnapshot() : null;
+	const corpus = await chronoAsync("collecte", async () =>
+		JSON.parse(readFileSync(CORPUS, "utf8")) as {
+			meta: { fenetre?: [string, string] };
+			incidents: Incident[];
+		},
+	);
+	const gaz = await chronoAsync("index", () => getGazetteer());
+	await chronoAsync("index", () => preparerGazetteer());
+	const { rows: orgs } = await chronoAsync("index", () =>
+		query<{ n: string }>("SELECT count(*)::text AS n FROM org"),
+	);
 	const organismes = Number(orgs[0]?.n ?? 0);
 
 	const resultats: Resultat[] = [];
@@ -244,7 +289,7 @@ async function main(): Promise<void> {
 			incident.datePublique >= FENETRE.debut && incident.datePublique <= FENETRE.fin;
 
 		// 1. Admettrait-on cet incident s'il arrivait aujourd'hui ?
-		const evt = {
+		const evt = chrono("collecte", () => ({
 			dedupKey: `feed:mesure:${hashKey(incident.preuve?.url ?? incident.id)}`,
 			family: familleDe(incident.type),
 			assertionType: "third_party_claim",
@@ -255,13 +300,15 @@ async function main(): Promise<void> {
 			sourceId: "mesure-corpus",
 			sourceUrl: incident.preuve?.url ?? null,
 			observedAt: incident.datePublique,
-		};
-		const admission = admitEvent(evt as unknown as Record<string, unknown>);
+		}));
+		const admission = chrono("collecte", () =>
+			admitEvent(evt as unknown as Record<string, unknown>),
+		);
 		const texte = `${incident.entite} ${incident.resume}`;
 		// Le moteur de production, pas le gazetteer brut : `resoudre` ignore
 		// les rôles institutionnels et les communes, et sous-estimait donc la
 		// couverture réelle (5/15 mesuré contre 9/20 par le moteur qui tourne).
-		const match = designateOrganization(texte);
+		const match = chrono("moteur", () => designateOrganization(texte));
 
 		let motif: Motif;
 		if (!dansLaFenetre) motif = "hors_fenetre";
@@ -271,11 +318,17 @@ async function main(): Promise<void> {
 
 		const cause: Cause =
 			motif === "pas_rattache"
-				? (await existeAuReferentiel(incident.entite))
+				? (await chronoAsync("sondes", () => existeAuReferentiel(incident.entite)))
 					? "au_referentiel_mais_non_reconnu"
 					: "absent_du_referentiel"
 				: null;
 
+		const qualite =
+			motif === "vu"
+				? chrono("mesure", () =>
+						qualiteRattachement(incident.entite, match?.explication?.alias ?? ""),
+					)
+				: null;
 		resultats.push({
 			id: incident.id,
 			entite: incident.entite,
@@ -292,9 +345,10 @@ async function main(): Promise<void> {
 			refusAdmission: admission.ok ? null : (admission.rejections as string[]),
 			raisonMoteur: match?.explication?.motif ?? null,
 			cause,
-			qualite: motif === "vu" ? qualiteRattachement(incident.entite, match?.explication?.alias ?? "") : null,
+			qualite,
 		});
 	}
+	const apresBoucle = performance.now();
 
 	const dansFenetre = resultats.filter((r) => r.motif !== "hors_fenetre");
 	const vus = dansFenetre.filter((r) => r.motif === "vu");
@@ -420,6 +474,36 @@ async function main(): Promise<void> {
 		console.log(`\nmesure publiée : ${SORTIE_JSON}`);
 	}
 	await closePools();
+	if (COUT && ressourcesAvant) {
+		const ressourcesApres = resourceSnapshot();
+		const wallMs = performance.now() - debutTotal;
+		phases.mesure = performance.now() - apresBoucle;
+		const arrondi = (n: number) => Math.round(n * 10) / 10;
+		console.log(
+			`COUT ${JSON.stringify({
+				corpus: corpus.incidents.length,
+				dansLaFenetre: dansFenetre.length,
+				wallMs: arrondi(wallMs),
+				phasesMs: {
+					collecte: arrondi(phases.collecte),
+					rattachement: arrondi(phases.index + phases.moteur + phases.sondes),
+					mesure: arrondi(phases.mesure),
+				},
+				sousPhasesRattachementMs: {
+					index: arrondi(phases.index),
+					moteur: arrondi(phases.moteur),
+					sondesReferentiel: arrondi(phases.sondes),
+				},
+				cpuMs: arrondi(ressourcesApres.cpuMs - ressourcesAvant.cpuMs),
+				maxRssKib: ressourcesApres.maxRssKib,
+				rssKibFinal: arrondi(ressourcesApres.rssKib),
+				fsReadBytes: ressourcesApres.fsRead - ressourcesAvant.fsRead,
+				fsWriteBytes: ressourcesApres.fsWrite - ressourcesAvant.fsWrite,
+				minorPageFaults: ressourcesApres.minorPageFault - ressourcesAvant.minorPageFault,
+				majorPageFaults: ressourcesApres.majorPageFault - ressourcesAvant.majorPageFault,
+			})}`,
+		);
+	}
 }
 
 main().catch(async (error: unknown) => {
