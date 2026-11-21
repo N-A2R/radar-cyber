@@ -26,9 +26,10 @@ export const Ok = z.object({ ok: z.boolean() }).passthrough();
 export const Health = z.object({ ok: z.boolean(), sources: z.number().int() });
 export const Event = z.object({ id: Id, title: z.string(), family: z.string() }).passthrough();
 export const EventList = z.object({ events: z.array(Event) }).passthrough();
+export const EventRows = z.array(Event);
 export const Org = z.object({ id: Id, name: z.string(), slug: nullableString.optional() }).passthrough();
 export const OrgList = z.object({ rows: z.array(Org), total: z.number().int() }).passthrough();
-export const OrgDetail = Org.passthrough();
+export const OrgDetail = z.object({ org: Org }).passthrough();
 export const Directory = z.object({
   rows: z.array(Org.passthrough()),
   total: z.number().int(),
@@ -64,11 +65,11 @@ export const KeyList = z.object({ keys: z.array(KeyRow) });
 export const KeyCreated = KeyRow.extend({ key: z.string() });
 export const DecisionResult = z.object({ ok: z.boolean() }).passthrough();
 export const AuthLogin = z.object({ token: z.string(), user: z.object({ id: z.number().int(), email: z.string(), role: z.string() }).passthrough() });
-export const AuthUser = z.object({ id: z.number().int(), email: z.string(), role: z.string(), displayName: nullableString });
+export const AuthUser = z.object({ id: z.number().int(), email: z.string(), role: z.string(), displayName: nullableString.optional() });
 
 /** Carte des composants réutilisables : chaque entrée devient un $ref OpenAPI. */
 export const SCHEMAS = {
-  ErrorBody, Ok, Health, Event, EventList, Org, OrgList, OrgDetail, Directory,
+  ErrorBody, Ok, Health, Event, EventList, EventRows, Org, OrgList, OrgDetail, Directory,
   SourceList, Stats, Flows, Graph, SearchResults, Today, Alerts, Quarantine,
   Journal, ReviewQueue, Coverage, HealthDetail, Enrichment, Dossier, Stream, Csv,
   KeyRow, KeyList, KeyCreated, DecisionResult, AuthLogin, AuthUser,

@@ -9,6 +9,8 @@ import {
   JournalQuery, QueueQuery, DecisionBody, RefuserSansIndiceBody, MorteBody, CreateKeyBody,
   type SchemaName,
 } from "./schemas.js";
+import { createOrgFromHintSchema } from "../quarantine/from-hint.js";
+export { createOrgFromHintSchema };
 
 export type Method = "get" | "post" | "delete";
 export type Security = "public" | "session" | "public-or-session" | "key" | "write-key";
@@ -29,10 +31,12 @@ export type Operation = {
   contentType?: string;
 };
 
-const intQuery = (max: number, fallback?: number) =>
-  z.coerce.number().int().min(0).max(max).optional().describe(fallback === undefined ? undefined : `Défaut : ${fallback}`);
+const intQuery = (max: number, fallback?: number) => {
+  const schema = z.coerce.number().int().min(0).max(max).optional();
+  return fallback === undefined ? schema : schema.describe(`Défaut : ${fallback}`);
+};
 
-const EventsQuery = z.object({
+export const EventsQuery = z.object({
   limit: intQuery(500, 100),
   family: z.string().optional(),
   orgId: z.coerce.number().int().positive().optional(),
@@ -44,7 +48,7 @@ const EventsQuery = z.object({
   sort: z.enum(["observed", "collected"]).optional(),
 });
 
-const DirectoryQuery = z.object({
+export const DirectoryQuery = z.object({
   q: z.string().max(120).optional(),
   kind: z.string().optional(),
   sector: z.string().optional(),
@@ -57,34 +61,44 @@ const DirectoryQuery = z.object({
   limit: z.coerce.number().int().min(1).max(200).optional(),
 });
 
-const OrgsQuery = z.object({
+export const OrgsQuery = z.object({
   limit: intQuery(500),
   offset: intQuery(100000),
   asOf: z.string().optional(),
   as_of: z.string().optional(),
 });
 
-const SearchQuery = z.object({ q: z.string().max(200).optional() });
-const FlowsQuery = z.object({
+export const SearchQuery = z.object({ q: z.string().max(200).optional() });
+export const FlowsQuery = z.object({
   mode: z.enum(["arcs", "departements", "secteurs"]).optional(),
   days: z.coerce.number().int().min(1).max(365).optional(),
   limit: z.coerce.number().int().min(1).max(200).optional(),
 });
-const DaysQuery = z.object({ days: z.coerce.number().int().min(1).max(365).optional() });
-const HistoryQuery = z.object({
+export const DaysQuery = z.object({ days: z.coerce.number().int().min(1).max(365).optional() });
+export const HistoryQuery = z.object({
   from: z.string().optional(), to: z.string().optional(),
   org: z.string().optional(), limit: intQuery(500),
 });
-const QuarantineQuery = z.object({
+export const QuarantineQuery = z.object({
   limit: intQuery(200), page: intQuery(1000), q: z.string().max(200).optional(),
   bucket: z.enum(["chaud", "tiede", "froid"]).optional(),
 });
-const StreamQuery = z.object({ token: z.string().optional(), sinceId: z.coerce.number().int().optional() });
-const TodayQuery = z.object({ jours: intQuery(365), dept: z.string().optional() });
-const DeptQuery = z.object({ jours: intQuery(365) });
-const IdParam = z.object({ id: z.string().min(1) });
-const ValueParam = z.object({ value: z.string().min(1) });
-const IngestBody = z.object({ events: z.array(z.object({}).passthrough()) });
+export const StreamQuery = z.object({ token: z.string().optional(), sinceId: z.coerce.number().int().optional() });
+export const TodayQuery = z.object({ jours: intQuery(365), dept: z.string().optional() });
+export const DeptQuery = z.object({ jours: intQuery(365) });
+export const IdParam = z.object({ id: z.string().min(1) });
+export const ValueParam = z.object({ value: z.string().min(1) });
+export const IngestBody = z.object({ events: z.array(z.object({}).passthrough()) });
+export const RegisterBody = z.object({
+  email: z.string().trim(), password: z.string().min(1),
+  role: z.enum(["admin", "analyste", "lecteur"]).optional(), displayName: z.string().optional(),
+});
+export const LoginBody = z.object({ email: z.string().trim(), password: z.string().min(1) });
+export const ReviewBody = z.object({
+  ids: z.array(z.union([z.string(), z.number()])).min(1).max(500),
+  action: z.enum(["promote", "reject", "review", "undo"]),
+  reason: z.string().max(500).optional(),
+});
 
 /** Chaque entrée = une opération réellement enregistrée dans app.ts. */
 export const OPERATIONS: Operation[] = [
@@ -92,7 +106,7 @@ export const OPERATIONS: Operation[] = [
   { method: "get", path: "/health/detail", operationId: "getHealthDetail", summary: "État détaillé des collecteurs et des sources", tag: "Système", response: "HealthDetail", security: "public" },
   { method: "get", path: "/health/causes", operationId: "getHealthCauses", summary: "Causes des sources en échec", tag: "Système", response: "Stats", security: "public" },
 
-  { method: "get", path: "/events", operationId: "getEvents", summary: "Événements filtrés et paginés", tag: "Événements", response: "EventList", security: "public-or-session", query: EventsQuery },
+  { method: "get", path: "/events", operationId: "getEvents", summary: "Événements filtrés et paginés", tag: "Événements", response: "EventRows", security: "public-or-session", query: EventsQuery },
   { method: "get", path: "/history", operationId: "getHistory", summary: "Historique des événements", tag: "Événements", response: "EventList", security: "public", query: HistoryQuery },
   { method: "get", path: "/today", operationId: "getToday", summary: "Compteurs et événements du jour", tag: "Événements", response: "Today", security: "public", query: TodayQuery },
   { method: "get", path: "/today/departements", operationId: "getTodayDepartements", summary: "Activité par département aujourd'hui", tag: "Territoire", response: "Stats", security: "public" },
@@ -105,7 +119,7 @@ export const OPERATIONS: Operation[] = [
   { method: "get", path: "/directory", operationId: "getDirectory", summary: "Annuaire paginé et facetté", tag: "Organisations", response: "Directory", security: "public", query: DirectoryQuery },
   { method: "get", path: "/orgs/liees", operationId: "getOrgsLiees", summary: "Organisations reliées entre elles", tag: "Organisations", response: "OrgList", security: "session" },
   { method: "get", path: "/orgs/liees/historique", operationId: "getOrgsLieesHistorique", summary: "Historique des organisations reliées", tag: "Organisations", response: "Stats", security: "public", query: DaysQuery },
-  { method: "post", path: "/orgs/from-hint", operationId: "createOrgFromHint", summary: "Créer une organisation depuis un indice", tag: "Organisations", response: "OrgDetail", security: "session", status: 201 },
+  { method: "post", path: "/orgs/from-hint", operationId: "createOrgFromHint", summary: "Créer une organisation depuis un indice", tag: "Organisations", response: "OrgDetail", security: "session", status: 201, body: createOrgFromHintSchema },
 
   { method: "get", path: "/search", operationId: "search", summary: "Recherche organisations, événements, indicateurs", tag: "Recherche", response: "SearchResults", security: "public", query: SearchQuery },
   { method: "get", path: "/graph", operationId: "getGraph", summary: "Graphe des relations", tag: "Recherche", response: "Graph", security: "public", query: DaysQuery },
@@ -119,7 +133,7 @@ export const OPERATIONS: Operation[] = [
   { method: "post", path: "/sources/:id/collecte", operationId: "recollectSource", summary: "Relancer la collecte d'une source", tag: "Sources", response: "Ok", security: "session", params: IdParam, status: 202 },
   { method: "post", path: "/sources/:id/morte", operationId: "markSourceDead", summary: "Déclarer une source morte", tag: "Sources", response: "Ok", security: "session", params: IdParam, body: MorteBody },
   { method: "post", path: "/sources/:id/reactiver", operationId: "reactivateSource", summary: "Réactiver une source", tag: "Sources", response: "Ok", security: "session", params: IdParam, body: MorteBody },
-  { method: "post", path: "/ingest", operationId: "ingestEvents", summary: "Ingérer des événements", tag: "Écriture", response: "DecisionResult", security: "session", body: IngestBody, status: 202 },
+  { method: "post", path: "/ingest", operationId: "ingestEvents", summary: "Ingérer des événements", tag: "Écriture", response: "DecisionResult", security: "session", body: IngestBody, status: 200 },
 
   { method: "get", path: "/enrich/indicator/:id", operationId: "getIndicatorEnrichment", summary: "Enrichissement d'un indicateur", tag: "Enrichissement", response: "Enrichment", security: "public", params: IdParam },
   { method: "get", path: "/enrich/domain/:value", operationId: "getDomainEnrichment", summary: "Enrichissement d'un domaine", tag: "Enrichissement", response: "Enrichment", security: "public", params: ValueParam },
@@ -134,7 +148,7 @@ export const OPERATIONS: Operation[] = [
   { method: "get", path: "/quarantine", operationId: "getQuarantine", summary: "Faits en quarantaine", tag: "Quarantaine", response: "Quarantine", security: "public", query: QuarantineQuery },
   { method: "get", path: "/quarantine/stats", operationId: "getQuarantineStats", summary: "Statistiques de la quarantaine", tag: "Quarantaine", response: "Stats", security: "public" },
   { method: "get", path: "/quarantine/queue", operationId: "getQuarantineQueue", summary: "File de revue de la quarantaine", tag: "Quarantaine", response: "ReviewQueue", security: "public", query: QueueQuery },
-  { method: "post", path: "/quarantine/review", operationId: "reviewQuarantine", summary: "Décider d'un fait en quarantaine", tag: "Quarantaine", response: "DecisionResult", security: "session" },
+  { method: "post", path: "/quarantine/review", operationId: "reviewQuarantine", summary: "Décider d'un fait en quarantaine", tag: "Quarantaine", response: "DecisionResult", security: "session", body: ReviewBody },
   { method: "post", path: "/quarantine/:id/promote", operationId: "promoteQuarantine", summary: "Promouvoir un fait en événement", tag: "Quarantaine", response: "DecisionResult", security: "session", params: IdParam },
 
   { method: "get", path: "/review/queue", operationId: "getReviewQueue", summary: "File de revue", tag: "Revue", response: "ReviewQueue", security: "session", query: QueueQuery },
@@ -145,12 +159,12 @@ export const OPERATIONS: Operation[] = [
   { method: "get", path: "/journal/review", operationId: "getReviewJournal", summary: "Journal des décisions de revue", tag: "Revue", response: "Journal", security: "session", query: JournalQuery },
   { method: "get", path: "/journal/review/export.csv", operationId: "exportReviewJournal", summary: "Exporter le journal en CSV", tag: "Revue", response: "Csv", security: "session", contentType: "text/csv" },
 
-  { method: "post", path: "/auth/register", operationId: "register", summary: "Créer un compte (admin requis après le bootstrap)", tag: "Authentification", response: "AuthUser", security: "public", status: 201 },
-  { method: "post", path: "/auth/login", operationId: "login", summary: "Obtenir un jeton de session", tag: "Authentification", response: "AuthLogin", security: "public" },
+  { method: "post", path: "/auth/register", operationId: "register", summary: "Créer un compte (admin requis après le bootstrap)", tag: "Authentification", response: "AuthUser", security: "public", status: 201, body: RegisterBody },
+  { method: "post", path: "/auth/login", operationId: "login", summary: "Obtenir un jeton de session", tag: "Authentification", response: "AuthLogin", security: "public", body: LoginBody },
   { method: "post", path: "/auth/logout", operationId: "logout", summary: "Révoquer le jeton de session", tag: "Authentification", response: "Ok", security: "session" },
   { method: "get", path: "/auth/me", operationId: "getMe", summary: "Compte authentifié", tag: "Authentification", response: "AuthUser", security: "session" },
 
   { method: "post", path: "/keys", operationId: "createApiKey", summary: "Créer une clé d'API avec quota", tag: "Clés d'API", response: "KeyCreated", security: "session", status: 201, body: CreateKeyBody },
   { method: "get", path: "/keys", operationId: "listApiKeys", summary: "Lister ses clés d'API", tag: "Clés d'API", response: "KeyList", security: "session" },
-  { method: "delete", path: "/keys/:id", operationId: "revokeApiKey", summary: "Révoquer une clé d'API", tag: "Clés d'API", response: "Ok", security: "session" },
+  { method: "delete", path: "/keys/:id", operationId: "revokeApiKey", summary: "Révoquer une clé d'API", tag: "Clés d'API", response: "Ok", security: "session", params: IdParam },
 ];

@@ -82,8 +82,9 @@ export async function consumeApiKey(key: ApiKey): Promise<void> {
             window_start = CASE WHEN window_start IS NULL OR window_start <= now() - interval '1 minute'
                                 THEN now() ELSE window_start END,
             last_used_at = now()
-      WHERE id = $1 AND revoked_at IS NULL
-        AND (window_start IS NULL OR window_start <= now() - interval '1 minute' OR used < quota)
+      WHERE id = $1 AND revoked_at IS NULL AND quota > 0
+        AND (window_start IS NOT NULL AND window_start > now() - interval '1 minute' AND used < quota
+             OR window_start IS NULL OR window_start <= now() - interval '1 minute')
       RETURNING used, quota, window_start + interval '1 minute' AS reset_at`,
     [key.id],
   );

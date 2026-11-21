@@ -1,7 +1,7 @@
 /** Génération de la spec OpenAPI 3.1 à partir des schémas Zod du catalogue. */
 import { z } from "zod";
 import { OPERATIONS, type Operation, type Security } from "./catalog.js";
-import { SCHEMAS } from "./schemas.js";
+import { SCHEMAS, INPUT_SCHEMAS } from "./schemas.js";
 import { API_VERSION } from "./version.js";
 
 type Doc = Record<string, any>;
@@ -82,7 +82,7 @@ export function buildOpenApi(): Doc {
       SessionBearer: { type: "http", scheme: "bearer", description: "Jeton obtenu via POST /auth/login." },
     },
   };
-  for (const [name, schema] of Object.entries(SCHEMAS)) {
+  for (const [name, schema] of Object.entries({ ...SCHEMAS, ...INPUT_SCHEMAS })) {
     components.schemas[name] = jsonSchema(schema);
   }
   return {

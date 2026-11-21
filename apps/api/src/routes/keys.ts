@@ -3,7 +3,7 @@
  * session (requireAuth) : une clé ne peut pas créer d'autres clés. La clé en
  * clair n'est renvoyée qu'une seule fois, lors de sa création.
  */
-import type { FastifyInstance } from "fastify";
+import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 import { generateApiKey, hashApiKey } from "../api-key.js";
 import { query } from "../db.js";
@@ -45,9 +45,14 @@ function publicKey(row: KeyRow) {
     revokedAt: row.revoked_at,
   };
 }
+/** Une clé, même en écriture, ne peut pas créer ni révoquer de clé. */
+const sessionOnly = async (req: FastifyRequest, reply: FastifyReply) => {
+  if (req.apiKey) throw forbidden("api keys cannot manage api keys");
+  await requireAuth()(req, reply);
+};
 
 export default async function keysRoute(app: FastifyInstance) {
-  app.post("/keys", { preHandler: requireAuth() }, async (req, reply) => {
+  app.post("/keys", { preHandler: sessionOnly }, async (req, reply) => {
     const parsed = CreateKeyBody.safeParse(req.body ?? {});
     if (!parsed.success) {
       throw badRequest("invalid input", parsed.error.issues.map((i) => ({ path: i.path.join("."), message: i.message })));
@@ -65,7 +70,7 @@ export default async function keysRoute(app: FastifyInstance) {
     return reply.code(201).send({ ...publicKey(r.rows[0]!), key });
   });
 
-  app.get("/keys", { preHandler: requireAuth() }, async (req) => {
+  app.get("/keys", { preHandler: sessionOnly }, async (req) => {
     const r = await query<KeyRow>(
       "SELECT * FROM api_key WHERE user_id = $1 ORDER BY id DESC",
       [req.user!.id],
@@ -73,7 +78,7 @@ export default async function keysRoute(app: FastifyInstance) {
     return { keys: r.rows.map(publicKey) };
   });
 
-  app.delete<{ Params: { id: string } }>("/keys/:id", { preHandler: requireAuth() }, async (req) => {
+  app.delete<{ Params: { id: string } }>("/keys/:id", { preHandler: sessionOnly }, async (req) => {
     const parsed = KeyIdParams.safeParse(req.params);
     if (!parsed.success) throw badRequest("invalid key id");
     const r = await query<{ id: number }>(

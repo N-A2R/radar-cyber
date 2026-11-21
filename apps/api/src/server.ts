@@ -30,6 +30,7 @@ import { registerApiRoutes } from "./routes/index.js";
 import { installAccessControl } from "./security/rbac.js";
 import { installSecurityHeaders } from "./security/headers.js";
 import { installErrorHandler } from "./errors.js";
+import { installPublicApi } from "./openapi/install.js";
 
 const port = Number(process.env.PORT ?? 8080);
 /** Cadence de la boucle de collecte. */
@@ -45,6 +46,9 @@ const app = Fastify({ logger: true, bodyLimit: 1024 * 1024 });
 installErrorHandler(app);
 // Avant toute route : matrices d'accès, identifiant de corrélation et audit.
 installAccessControl(app);
+
+// API publique versionnée, documentée et à quotas (déclarée avant les routes historiques).
+await installPublicApi(app);
 
 /** Origines autorisées pour le cross-origin, séparées par des virgules.
  *  Vide = aucune origine croisée (le front est servi depuis la même origine). */
