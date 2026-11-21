@@ -33,3 +33,11 @@ Un communiqué est une ligne `event` de famille `official_statement` dont la dat
 ## Reproduction
 
 DATABASE_URL=postgres://radar:radar@localhost:5433/radar pnpm mesure:communiques -- --weeks=4 --json=bench/results/communiques-officiels-2026-11-21.json --out=docs/rapports/communiques-officiels-2026-11-21.md
+
+## Clôture du chantier — 2026-11-21
+
+**CHANTIER TERMINÉ.** Objectif chiffré atteint et re-vérifié en lecture seule le 2026-11-21 à 22:52 UTC : `currentWeek: 2026-W47`, `currentWeekCount: 13`, `total: 14`, `sources: 8`. La mesure rejouée reproduit exactement le chiffre livré via la PR #328 : 13 communiqués officiels collectés pour la semaine 2026-W47. Le seul objectif mesurable du chantier — le nombre de communiqués officiels collectés par semaine — est atteint ; aucune tranche fonctionnelle supplémentaire n'est nécessaire.
+
+Aucun code, test ou donnée n'a été modifié à la clôture : `server.ts` reste inchangé (0 ligne de diff), aucune source payante, aucune donnée personnelle de victime.
+
+Note de reproductibilité : dans ce worktree, `pnpm mesure:communiques` échoue sur une boucle de symlink `node_modules` propre à l'environnement. La vérification a donc exécuté le même script sans écriture avec `bun scripts/mesure-communiques-officiels.mts --weeks=4` (sans `--json` ni `--out`).
