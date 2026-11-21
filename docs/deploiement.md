@@ -34,6 +34,27 @@ sudo bash scripts/deploy/install.sh --source "$PWD" \
 Les mots de passe sont générés (hexadécimal 48 caractères) s'ils ne sont pas
 fournis. Ils ne sont jamais écrits dans `state.json`.
 
+### Entrée courte : `scripts/install.sh` (PostgreSQL 18)
+
+Pour une machine neuve où l'on veut uniquement l'API (pas le front, pas de
+release immuable), `scripts/install.sh` est le chemin court. Il installe
+PostgreSQL **18** depuis le dépôt PGDG, restaure un dump optionnel, applique
+`db/init.sql` et les migrations, installe les dépendances, construit le front,
+installe l'unité système `radar-api` et prouve `/api/health` en HTTP 200.
+
+```bash
+sudo bash scripts/install.sh --admin-password 'MOT-DE-PASSE' \
+  [--dump /srv/sauvegardes/radar.dump]
+```
+
+Il est idempotent : un rejeu réutilise la release et n'applique que les
+migrations manquantes. Désinstallation (données conservées par défaut) :
+
+```bash
+sudo bash scripts/install.sh --uninstall
+sudo bash scripts/install.sh --uninstall --purge-data   # supprime aussi base, rôle, cluster
+```
+
 > URL et branche du clone : `RADAR_REPO_URL` (défaut
 > `https://github.com/j0ltdevv/radar-cyber.git`) et `RADAR_REF` (défaut `main`).
 > Pour déployer une branche non fusionnée : `RADAR_REF=ma-branche ... bash -s -- ...`.
