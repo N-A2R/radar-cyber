@@ -10,6 +10,16 @@ import { ingestQuery } from "../db.js";
 import { parseObservedAt } from "./dates.js";
 import { fetchResilient } from "./http.js";
 import {
+  cycleCourant,
+  demarrerCycle,
+  formatRapportCycle,
+  marquerTraitee,
+  mesurerCycle,
+  planifierCycle,
+  terminerCycle,
+} from "./cycle.js";
+import { enregistrerEchecSource, enregistrerSuccesSource } from "./sante-source.js";
+import {
 	admitsDepartment,
 	admitByEpss,
 	DEPT_LABELS,
@@ -54,6 +64,12 @@ type SourceRow = {
   last_ok_at: string | null;
   last_error_at: string | null;
   relevance: string;
+  /** Champs de santé ajoutés par la migration 049. */
+  sante: string;
+  statut: string;
+  enabled: boolean;
+  echecs_consecutifs: number;
+  prochaine_tentative_at: string | null;
 };
 
 /** `skipped` = éléments écartés (porte de pertinence ou filtre anti-bruit). */
@@ -502,12 +518,13 @@ function parseJsonItems(body: string, parser: Record<string, unknown>): Record<s
 /**
  * Récupère le corps d'un flux via le client résilient (Retry-After, backoff,
  * GET conditionnel). Un 304 renvoie une chaîne vide : la source est déjà à jour.
+ * `sourceId` clé le backoff HTTP par source, pas par URL partagée.
  */
-async function fetchText(url: string, timeoutMs = 30000): Promise<string> {
+async function fetchText(url: string, sourceId?: string, timeoutMs = 30000): Promise<string> {
   // Les API abuse.ch (URLhaus, SSLBL) exigent un en-tête Auth-Key depuis 2025.
   const key = process.env.ABUSECH_AUTH_KEY;
   const extra = key && /(^|\.)abuse\.ch$/i.test(new URL(url).hostname) ? { "Auth-Key": key } : undefined;
-  const res = await fetchResilient(url, { timeoutMs, headers: extra });
+  const res = await fetchResilient(url, { timeoutMs, headers: extra, source: sourceId });
   if (res.notModified) return "";
   const buf = (res as any).buffer as Buffer | undefined;
   if (buf) {
@@ -948,28 +965,37 @@ function looksLikeBlocklist(url: string, body?: string): boolean {
   return /blocklist|blacklist|hostfile|feed-osint/i.test(url);
 }
 
-async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], coverage: CoverageContext): Promise<void> {
-  // Une source qui n'a jamais réussi (last_ok_at NULL) ne doit pas être
-  // retentée à chaque tick : le dernier échec sert de référence.
-  const lastOk = source.last_ok_at ? Date.parse(source.last_ok_at) : NaN;
-  const lastAttempt = source.last_error_at ? Date.parse(source.last_error_at) : NaN;
-  const reference = Number.isNaN(lastOk) ? lastAttempt : lastOk;
+type IssueTraitement = "ok" | "erreur" | "reporte";
+
+/**
+ * Traite une source. Ne lève jamais vers l'appelant : un échec est un état,
+ * pas une exception qui doit interrompre le tour des autres sources. Rend
+ * l'issue pour que le cycle puisse compter les sources réellement collectées.
+ */
+async function processSource(
+  source: SourceRow,
+  orgIndex: RelevanceOrg[],
+  coverage: CoverageContext,
+  fetcher: (url: string, sourceId: string) => Promise<string>,
+): Promise<IssueTraitement> {
+  // Une source déjà vue dans son intervalle n'est pas un échec ni une
+  // collecte : le cycle ne la recompte pas dans les sources collectées.
+  const reference = source.last_ok_at ?? source.last_error_at;
+  const age = reference ? Date.now() - Date.parse(reference) : NaN;
   const minInterval = (source.interval_sec ?? 3600) * 1000 * 0.8;
-  if (!Number.isNaN(reference) && Date.now() - reference < minInterval) return;
+  if (Number.isFinite(age) && age < minInterval) return "reporte";
 
   try {
-    const body = await fetchText(source.url);
+    const body = await fetcher(source.url, source.id);
     // 304 Not Modified : rien de neuf, la source reste saine.
     if (body === "") {
-      await ingestQuery(
-        "UPDATE source SET last_ok_at=now(), last_error=NULL, last_error_at=NULL WHERE id=$1",
-        [source.id]
-      );
+      await enregistrerSuccesSource(source.id);
       await ingestQuery(
         "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new) VALUES ($1, now(), 'ok', 0, 0)",
-        [source.id]
+        [source.id],
       );
-      return;
+      await constaterTransition(source.id, "ok", 0);
+      return "ok";
     }
     const asIndicator = source.kind === "indicator" || (source.format !== "rss" && looksLikeBlocklist(source.url, body));
     // Filtre anti-bruit : les blocklists mondiales (réputation, phishing) ne
@@ -997,10 +1023,7 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], covera
       const fallback = await ingestIndicator(source, body);
       if (fallback.items > 0) result = fallback;
     }
-    await ingestQuery(
-      "UPDATE source SET last_ok_at=now(), last_error=NULL, last_error_at=NULL, items_total=$1, last_items=$2 WHERE id=$3",
-      [result.items, result.added, source.id]
-    );
+    await enregistrerSuccesSource(source.id, { items: result.items, ajoutes: result.added });
     const motifRun = classerMotifEchec({ itemsExtraits: result.items, itemsRetenus: result.added });
     const rejectedAvecMotif = motifRun
       ? { ...(result.rejected ?? {}), motif: motifRun }
@@ -1024,69 +1047,119 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], covera
     // information qui distingue une source qui vient de casser d'une source qui
     // n'a jamais rien valu.
     await constaterTransition(source.id, "ok", result.added);
+    return "ok";
   } catch (e) {
     const err = String((e as Error)?.message ?? e);
-    await ingestQuery("UPDATE source SET last_error_at=now(), last_error=$1 WHERE id=$2", [err, source.id]).catch(() => {});
+    const issue = await enregistrerEchecSource(source.id, err, (m) => runLog?.(m));
+    if (issue?.morte) {
+      runLog?.(`[santé] ${source.id} : morte après ${issue.echecs} échecs consécutifs`);
+    } else if (issue) {
+      runLog?.(`[santé] ${source.id} : rouge (${issue.echecs}/5), nouvelle tentative dans ${Math.round(issue.delaiMs / 1000)} s`);
+    }
     const motifErr = classerMotifEchec({ erreur: err }) ?? "reseau";
     await ingestQuery(
       "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, items_rejected, error) VALUES ($1, now(), 'error', 0, 0, $2, $3)",
       [source.id, JSON.stringify({ motif: motifErr }), err]
     ).catch(() => {});
     await constaterTransition(source.id, "error", 0, err);
+    return "erreur";
   }
 }
 
 export async function runGenericSources(
-	log: (msg: string) => void,
-	opts?: { sourceIds?: string[]; limit?: number },
+  log: (msg: string) => void,
+  opts?: {
+    sourceIds?: string[];
+    limit?: number;
+    /** Point d'injection pour la mesure : même contrat que `fetchText`. */
+    fetchTexte?: (url: string, sourceId: string) => Promise<string>;
+  },
 ): Promise<void> {
-	// Les sources ci-dessous ont un collecteur dédié (collectors/index.ts) :
-	// le moteur générique ne doit pas tenter de les parser comme des flux.
-	const params: unknown[] = [];
-	let sql =
-		"SELECT id, name, family, url, kind, format, parser, interval_sec, last_ok_at, last_error_at, relevance FROM source WHERE enabled AND kind <> 'quarantine' AND id NOT IN ('cert_fr','cisa_kev','ransomlook','epss','hermes_radar_cyber','nvd_cve','ctlog')";
-	if (opts?.sourceIds?.length) {
-		params.push(opts.sourceIds);
-		sql += ` AND id = ANY($${params.length})`;
-	}
-	sql += " ORDER BY id";
-	if (opts?.limit) {
-		params.push(opts.limit);
-		sql += ` LIMIT $${params.length}`;
-	}
-	const { rows } = await ingestQuery<SourceRow>(sql, params);
-  log(`ingestion générique : ${rows.length} sources candidat(es)`);
+  // Les sources ci-dessous ont un collecteur dédié (collectors/index.ts) :
+  // le moteur générique ne doit pas tenter de les parser comme des flux.
+  const params: unknown[] = [];
+  let sql =
+    "SELECT id, name, family, url, kind, format, parser, interval_sec, last_ok_at, last_error_at, relevance, sante, statut, enabled, echecs_consecutifs, prochaine_tentative_at FROM source WHERE enabled AND kind <> 'quarantine' AND id NOT IN ('cert_fr','cisa_kev','ransomlook','epss','hermes_radar_cyber','nvd_cve','ctlog')";
+  if (opts?.sourceIds?.length) {
+    params.push(opts.sourceIds);
+    sql += ` AND id = ANY($${params.length})`;
+  }
+  sql += " ORDER BY id";
+  if (opts?.limit) {
+    params.push(opts.limit);
+    sql += ` LIMIT $${params.length}`;
+  }
+  const avant = process.memoryUsage();
+  const { rows } = await ingestQuery<SourceRow>(sql, params);
+  const plan = planifierCycle(rows, Date.now());
+  log(
+    `ingestion générique : ${rows.length} source(s) candidate(s), ${plan.aCollecter.length} à collecter, ` +
+      `${plan.jamaisCollectees} jamais collectée(s), ${plan.reportees.length} en backoff, ${plan.exclues.length} exclue(s)`,
+  );
+  const cycle = await demarrerCycle(plan.aCollecter, {
+    jamaisCollectees: plan.jamaisCollectees,
+    rssAvantOctets: avant.rss,
+  });
+  if (cycle.reprise) {
+    log(`reprise du cycle interrompu : ${cycle.aCollecter.length} source(s) restante(s) sur ${cycle.restantesAvant}`);
+  }
   runLog = log;
 
-  // Index de pertinence chargé une seule fois par run (392 orgs + domaines).
-  const { rows: orgRows } = await ingestQuery<{ name: string; domain: string | null; assets: string[] | null }>(
-    "SELECT o.name, o.domain, array_remove(array_agg(DISTINCT a.value), NULL) AS assets FROM org o LEFT JOIN asset a ON a.org_id = o.id AND a.kind IN ('domain','subdomain') GROUP BY o.id"
-  );
-  const orgIndex = loadRelevanceOrgIndex(orgRows.map((o) => ({ name: o.name, domain: o.domain, assets: o.assets ?? [] })));
-  // Le rattachement s'appuie sur le gazetteer (alias + rôles), chargé une seule
-  // fois par run : un index de 52 000 alias coûte ~1 s, pas une requête par item.
-  const aliasIndexes = await preparerGazetteer();
-  log(`gazetteer : ${aliasIndexes} alias indexés pour le rattachement`);
-  activeIndex = await loadActiveIndex();
-
-  // Couverture élargie : colonne `admission_rule` (migration idempotente),
-  // scores EPSS de la source `epss` déjà en base (aucun appel réseau) et
-  // vocabulaire des départements de Nouvelle-Aquitaine présents dans `org`,
-  // complété par les préfectures.
-  await ensureCoverageSchema();
-  const coverage = await loadCoverageContext();
-  log(`couverture : ${coverage.epssByCve.size} score(s) EPSS, seuil ${coverage.epssThreshold}, ${coverage.deptNames.length} lieu(x)`);
-  log(`filtre : ${activeIndex.domains.size} domaine(s), ${activeIndex.ips.size} IP, ${activeIndex.cves.size} CVE(s)`);
-
-  const CONCURRENCY = 8;
-  let index = 0;
-  const workers = Array.from({ length: CONCURRENCY }, async () => {
-    while (index < rows.length) {
-      const source = rows[index++];
-      await processSource(source, orgIndex, coverage);
+  try {
+    if (cycle.aCollecter.length === 0) {
+      // État vide : un cycle sans source éligible est un cycle terminé, pas
+      // une erreur et surtout pas une raison de charger le gazetteer.
+      log("cycle vide : aucune source éligible (backoff, mortes ou toutes à jour)");
+      return;
     }
-  });
-  await Promise.all(workers);
+
+    // Index de pertinence chargé une seule fois par run (392 orgs + domaines).
+    const { rows: orgRows } = await ingestQuery<{ name: string; domain: string | null; assets: string[] | null }>(
+      "SELECT o.name, o.domain, array_remove(array_agg(DISTINCT a.value), NULL) AS assets FROM org o LEFT JOIN asset a ON a.org_id = o.id AND a.kind IN ('domain','subdomain') GROUP BY o.id"
+    );
+    const orgIndex = loadRelevanceOrgIndex(orgRows.map((o) => ({ name: o.name, domain: o.domain, assets: o.assets ?? [] })));
+    // Le rattachement s'appuie sur le gazetteer, chargé une seule fois par run.
+    const aliasIndexes = await preparerGazetteer();
+    log(`gazetteer : ${aliasIndexes} alias indexés pour le rattachement`);
+    activeIndex = await loadActiveIndex();
+
+    // Couverture élargie : colonne `admission_rule` (migration idempotente),
+    // scores EPSS de la source `epss` déjà en base (aucun appel réseau) et
+    // vocabulaire des départements présents dans `org`.
+    await ensureCoverageSchema();
+    const coverage = await loadCoverageContext();
+    log(`couverture : ${coverage.epssByCve.size} score(s) EPSS, seuil ${coverage.epssThreshold}, ${coverage.deptNames.length} lieu(x)`);
+    log(`filtre : ${activeIndex.domains.size} domaine(s), ${activeIndex.ips.size} IP, ${activeIndex.cves.size} CVE(s)`);
+
+    const parId = new Map(rows.map((s) => [s.id, s]));
+    const fetcher = opts?.fetchTexte ?? ((url: string, sourceId: string) => fetchText(url, sourceId));
+    const CONCURRENCY = 8;
+    let index = 0;
+    const workers = Array.from({ length: CONCURRENCY }, async () => {
+      while (index < cycle.aCollecter.length) {
+        const id = cycle.aCollecter[index++] as string;
+        const source = parId.get(id);
+        if (!source) continue;
+        let issue: IssueTraitement = "erreur";
+        try {
+          // Filet de sécurité : `processSource` gère ses erreurs, mais une
+          // panne inattendue ne doit jamais empêcher les sources suivantes.
+          issue = await processSource(source, orgIndex, coverage, fetcher);
+        } catch (e) {
+          log(`[collect] ${id} : échec inattendu — ${String(e)}`);
+        }
+        await marquerTraitee(id, issue).catch((e: unknown) => {
+          log(`[cycle] ${id} : point de reprise non écrit — ${String(e)}`);
+        });
+      }
+    });
+    await Promise.all(workers);
+  } finally {
+    const apres = process.memoryUsage();
+    await terminerCycle(apres.rss).catch((e: unknown) => log(`[cycle] clôture non écrite — ${String(e)}`));
+    const etat = await cycleCourant().catch(() => null);
+    log(formatRapportCycle(mesurerCycle(avant, apres, etat)));
+  }
 }
 
 /**

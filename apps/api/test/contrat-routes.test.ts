@@ -106,7 +106,7 @@ const source = z.strictObject({
   lastErrorAt: chaineNullable, lastError: chaineNullable,
   itemsTotal: nombreNullable, lastItems: nombreNullable,
   disabledAt: chaineNullable, disabledReason: chaineNullable,
-  statut: z.string(), derniereErreur: chaineNullable, ok: z.boolean(),
+  statut: z.string(), sante: z.string(), derniereErreur: chaineNullable, ok: z.boolean(),
   entrees: nombreNullable, rejets: nombreNullable,
   evenements30j: z.number(), evenementsTotal: z.number(),
   dernierRun: chaineNullable, dernierRunStatut: chaineNullable,

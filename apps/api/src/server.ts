@@ -14,6 +14,7 @@ import { runHermesCollector } from "./collectors/hermes.collector.js";
 import { runQuarantineCollector } from "./collectors/quarantine.collector.js";
 import { promoteMatches } from "./quarantine/promote.js";
 import { fetchResilient } from "./collectors/http.js";
+import { planifierCycle } from "./collectors/cycle.js";
 import { collectors, executerCollecteur } from "./collectors/index.js";
 import { consignerLot, type JournalEntry } from "./journal/index.js";
 import { porteeRegionale } from "./match/territorial.js";
@@ -184,8 +185,28 @@ async function lastRunAgeSec(sourceId: string): Promise<number> {
 	return Number.isNaN(age) ? Infinity : age;
 }
 
+/** Collecteurs dédiés éligibles, jamais collectés en tête (migration 049). */
+async function collecteursDuCycle(): Promise<Collector[]> {
+	const ids = collectors.map((c) => c.id);
+	const { rows } = await query<{
+		id: string; sante: string | null; statut: string | null; enabled: boolean;
+		echecs_consecutifs: number; prochaine_tentative_at: string | null;
+		last_ok_at: string | null; last_error_at: string | null;
+	}>(
+		`SELECT id, sante, statut, enabled, echecs_consecutifs, prochaine_tentative_at,
+		        last_ok_at, last_error_at
+		   FROM source WHERE id = ANY($1)`, [ids],
+	);
+	const parId = new Map(rows.map((r) => [r.id, r]));
+	const etats = collectors.map((c) => parId.get(c.id) ?? { id: c.id, last_ok_at: null, last_error_at: null });
+	const ordre = planifierCycle(etats).aCollecter;
+	return collectors
+		.filter((c) => ordre.includes(c.id))
+		.sort((a, b) => ordre.indexOf(a.id) - ordre.indexOf(b.id));
+}
+
 async function runCollectors(): Promise<void> {
-	for (const c of collectors) {
+	for (const c of await collecteursDuCycle()) {
 		const age = await lastRunAgeSec(c.id);
 		if (age < c.intervalSec * 0.8) continue;
 

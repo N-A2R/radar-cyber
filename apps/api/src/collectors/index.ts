@@ -6,16 +6,14 @@ import { collector as nvd } from "./nvd.collector.js";
 import { collector as ctlog } from "./ctlog.collector.js";
 import { collector as poc } from "./poc.collector.js";
 import type { CollectContext, Collector, NormalizedEvent } from "@radar/shared";
-import { query, withTransaction } from "../db.js";
-import { consignerAvec } from "../journal/index.js";
+import { enregistrerEchecSource, enregistrerSuccesSource, SEUIL_ECHECS_MORTE } from "./sante-source.js";
 
 // L'insertion des événements de flux — et son `ON CONFLICT (fingerprint) DO NOTHING`
 // (migration 045) — vit dans generic.ts : ce fichier ne fait que lister les
 // collecteurs dédiés, appelés depuis server.ts.
 export const collectors: Collector[] = [certfr, kev, ransomlook, epss, nvd, ctlog, poc];
 
-/** Nombre d'échecs consécutifs au-delà duquel une source est déclarée morte. */
-export const SEUIL_ECHECS_MORTE = 5;
+export { SEUIL_ECHECS_MORTE };
 
 type ResultatCollecte = { events: NormalizedEvent[]; cursor?: Record<string, unknown> };
 
@@ -30,7 +28,7 @@ type ResultatCollecte = { events: NormalizedEvent[]; cursor?: Record<string, unk
 export async function executerCollecteur(c: Collector, ctx: CollectContext): Promise<ResultatCollecte> {
 	try {
 		const resultat = await c.run(ctx);
-		await query("UPDATE source SET echecs_consecutifs = 0 WHERE id = $1", [c.id]).catch((e) => {
+		await enregistrerSuccesSource(c.id).catch((e: unknown) => {
 			ctx.log(`collecteur ${c.id} : compteur d'échecs non remis à zéro — ${e}`);
 		});
 		return resultat;
@@ -42,50 +40,11 @@ export async function executerCollecteur(c: Collector, ctx: CollectContext): Pro
 }
 
 async function constaterEchec(sourceId: string, erreur: unknown, log: (msg: string) => void): Promise<void> {
-	const message = erreur instanceof Error ? erreur.message : String(erreur);
-	try {
-		const constat = await withTransaction(async (client) => {
-			const compteur = await client.query<{ echecs_consecutifs: number }>(
-				`UPDATE source
-				    SET echecs_consecutifs = echecs_consecutifs + 1
-				  WHERE id = $1 AND statut = 'active'
-				  RETURNING echecs_consecutifs`,
-				[sourceId],
-			);
-			const echecs = compteur.rows[0]?.echecs_consecutifs;
-			// Source inconnue, ou déjà morte : rien à compter.
-			if (echecs === undefined) return null;
-			if (echecs < SEUIL_ECHECS_MORTE) return { echecs, morte: false };
-
-			const morte = await client.query(
-				`UPDATE source
-				    SET statut = 'morte',
-				        derniere_erreur = $1,
-				        enabled = false,
-				        disabled_at = COALESCE(disabled_at, now()),
-				        disabled_reason = $1
-				  WHERE id = $2 AND statut = 'active'
-				  RETURNING id`,
-				[message, sourceId],
-			);
-			if (!morte.rows[0]) return null;
-
-			const trace = await consignerAvec((sql, params) => client.query(sql, params as unknown[]), {
-				kind: "source.morte",
-				subject: sourceId,
-				summary: `source ${sourceId} marquée morte après ${echecs} échecs consécutifs — ${message}`,
-				actor: `collecteur:${sourceId}`,
-				payload: { seuil: SEUIL_ECHECS_MORTE, echecsConsecutifs: echecs, raison: message.slice(0, 300) },
-			});
-			if (!trace.ok) throw new Error(`journal indisponible : ${trace.error}`);
-			return { echecs, morte: true };
-		});
-		if (constat?.morte) {
-			log(`collecteur ${sourceId} : ${SEUIL_ECHECS_MORTE} échecs consécutifs, source marquée morte`);
-		}
-	} catch (e) {
-		// Un compteur indisponible ne doit pas faire perdre la collecte : on laisse
-		// remonter l'erreur d'origine et on signale le trou dans les logs.
-		log(`collecteur ${sourceId} : compteur d'échecs non mis à jour — ${String(e)}`);
+	// Compteur, backoff, état « rouge » / « morte » et journal sont tenus par le
+	// module de santé partagé avec l'ingestion générique : une seule politique,
+	// que le collecteur soit dédié ou non.
+	const constat = await enregistrerEchecSource(sourceId, erreur, log);
+	if (constat?.morte) {
+		log(`collecteur ${sourceId} : ${SEUIL_ECHECS_MORTE} échecs consécutifs, source marquée morte`);
 	}
 }

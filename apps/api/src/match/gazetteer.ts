@@ -35,7 +35,7 @@ import {
 	MOTS_ROLE,
 	nomDeLieu,
 } from "./generique.js";
-import { CarteIndexee, CarteLectureSeule, CartePremiersJetons, construireIndex } from "./index-compact.js";
+import { CarteIndexee, CarteLectureSeule, CartePremiersJetons, indexTrie, trierPaires } from "./index-compact.js";
 
 export type GazetteerOrg = {
 	id: number;
@@ -137,11 +137,16 @@ class OrgCompactes extends CarteLectureSeule<number, GazetteerOrg> {
 		return this.ids.length;
 	}
 
-	/** La dernière ligne portant un id fournit ses champs, comme autrefois. */
-	ajouter(row: GazetteerRow): void {
-		let slot = this.positions.get(row.org_id);
-		if (slot === undefined) {
-			slot = this.ids.length;
+	/**
+	 * La dernière ligne portant un id fournit ses champs, comme autrefois.
+	 * Rend `true` à la première occurrence de l'id : les jetons du nom n'ont
+	 * besoin d'être indexés qu'une fois par organisation, pas une fois par alias.
+	 */
+	ajouter(row: GazetteerRow): boolean {
+		const existe = this.positions.get(row.org_id);
+		const nouveau = existe === undefined;
+		const slot = existe ?? this.ids.length;
+		if (nouveau) {
 			this.positions.set(row.org_id, slot);
 			this.ids.push(row.org_id);
 			this.orgs.push(undefined);
@@ -151,6 +156,7 @@ class OrgCompactes extends CarteLectureSeule<number, GazetteerOrg> {
 		this.depts[slot] = row.dept;
 		this.cities[slot] = row.city;
 		this.sectors[slot] = row.sector;
+		return nouveau;
 	}
 
 	get(id: number): GazetteerOrg | undefined {
@@ -241,167 +247,184 @@ const jeuMotsGeneriques = new Set<string>([...MOTS_GENERIQUES, ...MOTS_GENERIQUE
  */
 const MAX_ALIAS_TOKENS = 6;
 
+/** Bits des drapeaux compactés par alias (un octet par paire, pas un objet). */
+const F_ROLE = 1;
+const F_TERRITOIRE = 2;
+const F_ROLE_LIEU = 4;
+const F_NOMMEUSE = 8;
+const F_USAGE = 16;
+const F_DEPARTEMENT = 32;
+const F_LIEU_UNI = 64;
+const F_SANS_PORTEUR = 128;
+const F_SIRENE_FAIBLE = 256;
+const F_AUTRE_SOURCE = 512;
+const F_COLLECTIVITE = 1024;
+
 /**
- * Construit le gazetteer depuis les lignes `org` + `org_alias` actives.
- *
- * Les alias génériques (« école primaire », « pharmacie du centre ») sont
- * volontairement **exclus de l'index de décision** : ils servent de signal à la
- * porte d'admission, jamais de preuve de rattachement.
+ * Constructeur incrémental : les lignes peuvent arriver par lots, ce qui permet
+ * au chargement de prod de ne jamais garder 1,7 M d'objets `GazetteerRow` en
+ * mémoire. Les jugements portant sur l'ensemble (ambigüité d'une clé, nom d'un
+ * territoire) sont pris après un tri unique des paires, sans Map géante.
  */
-export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
-	const orgs = new OrgCompactes();
-	const roleKeys = new Set<string>();
-	const lieuKeys = new Set<string>();
-	const lieuTokens = new Set<string>();
-	const roleTokens = new Set<string>();
+export class ConstructeurGazetteer {
+	private readonly orgs = new OrgCompactes();
+	private readonly roleKeys = new Set<string>();
+	private readonly lieuKeys = new Set<string>();
+	private readonly lieuTokens = new Set<string>();
+	private readonly roleTokens = new Set<string>();
+	private readonly aliasCles: string[] = [];
+	private readonly aliasIds: number[] = [];
+	private readonly aliasDrapeaux: number[] = [];
+	private readonly tokenCles: string[] = [];
+	private readonly tokenIds: number[] = [];
+	private maxTokens = 1;
 
-	// Pré-passe : deux jugements se prennent sur l'ensemble des lignes, pas
-	// ligne par ligne — combien d'organisations portent cette clé d'alias, et
-	// lesquelles de ces clés sont le nom d'un territoire du référentiel.
-	// Un id témoin suffit : on ne retient que le caractère ambigu de la clé.
-	const premierIdParCle = new Map<string, number>();
-	const clesAmbigues = new Set<string>();
-	const clesTerritoire = new Set<string>();
-	for (const row of rows) {
-		const jetons = jetonsAlias(row);
-		if (jetons.length === 0) continue;
-		const cle = jetons.join(" ");
-		const premier = premierIdParCle.get(cle);
-		if (premier === undefined) premierIdParCle.set(cle, row.org_id);
-		else if (premier !== row.org_id) clesAmbigues.add(cle);
-		if (TERRITOIRES.has(row.sector ?? "")) clesTerritoire.add(cle);
-	}
-
-	// Paires (clé, id) en ordre d'apparition : triées et compactées une seule
-	// fois en fin de construction, elles évitent une Map et un tableau par clé.
-	const aliasCles: string[] = [];
-	const aliasIds: number[] = [];
-	// Les jetons de noms sont bien plus nombreux que les alias : un bucket par
-	// jeton distinct évite de trier des millions de paires pour si peu de clés.
-	const orgsParToken = new Map<string, number[]>();
-	const cureCles: string[] = [];
-	const cureIds: number[] = [];
-	let maxTokens = 1;
-
-	for (const row of rows) {
-		orgs.ajouter(row);
-
-		// --- porte d'admission : tous les jetons des noms, sans exception -----
-		for (const jeton of normaliser(row.name)) {
-			if (jeton.length < 3) continue;
-			const bucket = orgsParToken.get(jeton);
-			if (bucket) bucket.push(row.org_id);
-			else orgsParToken.set(jeton, [row.org_id]);
-		}
-
-		// --- décision : alias indexés ----------------------------------------
-		const jetons = jetonsAlias(row);
-		if (jetons.length === 0) continue;
-		const cle = jetons.join(" ");
-		if (cle.length < MIN_KEY_LENGTH) continue;
-		if (jetons.length > MAX_ALIAS_TOKENS) continue;
-
-		// Seul un rôle d'établissement peut trancher. « Département de la Gironde »
-		// reste un indice, jamais une preuve : c'est de la géographie.
-		const role = commenceParRoleEtablissement(jetons);
-		const lieu = nomDeLieu(jetons);
-		// Un alias d'un seul jeton sans rôle est un nom de lieu, pas une
-		// organisation : il n'entre pas dans l'index de décision.
-		//
-		// Sauf s'il ne désigne qu'**une** organisation du référentiel et qu'il
-		// n'est le nom d'aucun territoire. « Ymed », « Weda », « Cdiscount »
-		// sont des marques, pas des communes — les exclure rendait la mesure
-		// muette sur cinq incidents où l'organisation est pourtant en base.
-		// « Intermarché » (182 porteurs) et « Orange » (54) restent dehors :
-		// leur ambiguïté est réelle, pas un défaut de la garde.
-		if (!role && lieu.split(" ").length < 2) {
-			const unique = !clesAmbigues.has(cle);
-			// Seule une source qui *nomme* l'organisation peut trancher sur un mot
-			// seul : alias posés à la main (`usage`) ou annuaire officiel des
-			// entreprises. Les alias dérivés en masse sont des fragments de
-			// raison sociale — « clair », « personnelles » sont uniques dans
-			// l'index et pourtant des mots ordinaires : mesuré le 2026-11-17,
-			// ils ont fabriqué trois faux positifs d'un coup.
-			const sourceNommeuse = row.source === "usage" || row.source === "annuaire-entreprises";
-			if (!unique || clesTerritoire.has(cle) || row.kind === "collectivite" || !sourceNommeuse) continue;
-		}
-
-		// Garde anti-toponyme : un alias qui est exactement le nom d'un
-		// département désigne le département, jamais l'organisation qui le
-		// porte dans son nom légal. Sans cette garde, l'alias distinctif
-		// « pyrenees atlantiques » d'une association colombophile rattachait
-		// tout texte citant le département (constaté sur la mesure du 15
-		// novembre 2026, incident ERNAT).
-		if (!role && CLES_DEPARTEMENTS.has(cle)) continue;
-
-		// Un alias composé uniquement de mots génériques ne vaut pas mieux.
-		const porteurs = jetons.filter((j) => !GENERIQUES.has(j) && j.length > 2);
-		if (porteurs.length === 0) continue;
-
-		// Confiance par source : les alias auto-dérivés du stock (`sirene-nom`)
-		// ne désignent qu'avec au moins deux mots propres. Une organisation
-		// baptisée « A CE JOUR » rattachait sinon tout texte contenant la
-		// phrase — constaté sur la mesure du 15 novembre 2026 (incident ERNAT).
-		// Les alias posés ou établis (usage, enseigne, usuelle) gardent la
-		// règle ordinaire : un seul mot propre suffit.
-		if (row.source === "sirene-nom" && !role && porteurs.length < 2) continue;
-
-		// Un territoire n'est pas une organisation. Le secteur vient des données :
-		// commune, EPCI, département, région. Sans rôle de tête (« ville de »,
-		// « mairie de »), son nom est celui d'un lieu — il reste consultable,
-		// mais il ne tranche aucun rattachement.
-		const territoire = TERRITOIRES.has(row.sector ?? "");
-		// Le rôle se lit sur le nom **légal** de l'organisation, pas sur l'alias.
-		// « Département de la Gironde » est un territoire dont le nom porte un
-		// rôle ; une entreprise dont l'alias est « Société X » n'en est pas un.
-		const roleLieu = role && TERRITOIRES.has(row.sector ?? "");
-		if (territoire && !roleLieu) {
-			lieuKeys.add(cle);
-			lieuTokens.add(jetons[0] as string);
-			continue;
-		}
-
-		if (roleLieu) {
-			roleKeys.add(cle);
-			// Les jetons du rôle lui-même (« ville », « mairie ») servent à la
-			// porte : un texte qui les emploie parle d'une organisation.
-			for (const jeton of jetons) {
-				if (jeuMotsGeneriques.has(jeton) && MOTS_ROLE.includes(jeton)) roleTokens.add(jeton);
+	ajouter(row: GazetteerRow): void {
+		if (this.orgs.ajouter(row)) {
+			// Un nom d'org se répète sur chacun de ses alias : indexer ses jetons
+			// une seule fois divise le coût de `orgsByToken` par le nombre d'alias.
+			for (const jeton of normaliser(row.name)) {
+				if (jeton.length < 3) continue;
+				this.tokenCles.push(jeton);
+				this.tokenIds.push(row.org_id);
 			}
 		}
 
-		aliasCles.push(cle);
-		aliasIds.push(row.org_id);
-		// L'alias d'usage se souvient des organisations qu'il désigne : c'est
-		// lui qui tranche quand l'enseigne est devenue ambiguë au stock.
-		if (SOURCES_ALIAS_USAGE.has(row.source ?? "")) {
-			cureCles.push(cle);
-			cureIds.push(row.org_id);
+		const jetons = jetonsAlias(row);
+		if (jetons.length === 0) return;
+		const cle = jetons.join(" ");
+		if (cle.length < MIN_KEY_LENGTH || jetons.length > MAX_ALIAS_TOKENS) return;
+
+		const role = commenceParRoleEtablissement(jetons);
+		const territoire = TERRITOIRES.has(row.sector ?? "");
+		const roleLieu = role && territoire;
+		const source = row.source ?? "";
+		const nommeuse = source === "usage" || source === "annuaire-entreprises";
+		const porteurs = jetons.filter((j) => !GENERIQUES.has(j) && j.length > 2);
+
+		let drapeaux = 0;
+		if (role) drapeaux |= F_ROLE;
+		if (territoire) drapeaux |= F_TERRITOIRE;
+		if (roleLieu) drapeaux |= F_ROLE_LIEU;
+		if (nommeuse) drapeaux |= F_NOMMEUSE;
+		if (SOURCES_ALIAS_USAGE.has(source)) drapeaux |= F_USAGE;
+		if (CLES_DEPARTEMENTS.has(cle)) drapeaux |= F_DEPARTEMENT;
+		if (nomDeLieu(jetons).split(" ").length < 2) drapeaux |= F_LIEU_UNI;
+		if (porteurs.length === 0) drapeaux |= F_SANS_PORTEUR;
+		if (source === "sirene-nom" && !role && porteurs.length < 2) drapeaux |= F_SIRENE_FAIBLE;
+		if (source !== "sirene-nom") drapeaux |= F_AUTRE_SOURCE;
+		if (row.kind === "collectivite") drapeaux |= F_COLLECTIVITE;
+
+		if (roleLieu) {
+			for (const jeton of jetons) {
+				if (jeuMotsGeneriques.has(jeton) && MOTS_ROLE.includes(jeton)) this.roleTokens.add(jeton);
+			}
 		}
-		if (jetons.length > maxTokens) maxTokens = jetons.length;
+		this.aliasCles.push(cle);
+		this.aliasIds.push(row.org_id);
+		this.aliasDrapeaux.push(drapeaux);
 	}
 
-	const indexAlias = construireIndex(aliasCles, aliasIds);
-	const tokenCles: string[] = [];
-	const tokenIds: number[] = [];
-	for (const [jeton, ids] of orgsParToken) {
-		for (const id of ids) {
-			tokenCles.push(jeton);
-			tokenIds.push(id);
+	construire(): Gazetteer {
+		const tries = trierPaires(this.aliasCles, this.aliasIds, this.aliasDrapeaux);
+		// Le tri possède ses propres tableaux : on rend immédiatement les nôtres.
+		this.aliasCles.length = 0;
+		this.aliasIds.length = 0;
+		this.aliasDrapeaux.length = 0;
+
+		const cles: string[] = [];
+		const ids: number[] = [];
+		const bornes: number[] = [0];
+		const cureCles: string[] = [];
+		const cureIds: number[] = [];
+		const bornesCure: number[] = [0];
+
+		for (let i = 0; i < tries.cles.length; i++) {
+			const debut = tries.offsets[i] as number;
+			const fin = tries.offsets[i + 1] as number;
+			let drapeaux = 0;
+			for (let j = debut; j < fin; j++) drapeaux |= tries.drapeaux[j] as number;
+
+			const role = (drapeaux & F_ROLE) !== 0;
+			const territoire = (drapeaux & F_TERRITOIRE) !== 0;
+			const roleLieu = (drapeaux & F_ROLE_LIEU) !== 0;
+			// Une clé portée par plusieurs organisations est ambiguë : c'est
+			// cette information qui remplace l'ancienne Map `clesAmbigues`.
+			const ambigu = fin - debut > 1;
+
+			// Un mot seul sans rôle n'est une preuve que si une seule organisation
+			// le porte, qu'il n'est le nom d'aucun territoire et qu'une source
+			// qui *nomme* l'organisation l'a posé.
+			if (!role && (drapeaux & F_LIEU_UNI)
+				&& (ambigu || (drapeaux & F_TERRITOIRE) || (drapeaux & F_COLLECTIVITE) || !(drapeaux & F_NOMMEUSE))) continue;
+			if (!role && (drapeaux & F_DEPARTEMENT)) continue;
+			if (drapeaux & F_SANS_PORTEUR) continue;
+			// Un alias dérivé en masse d'une raison sociale avec un seul mot propre
+			// ne désigne rien ; les sources posées à la main gardent la règle ordinaire.
+			if ((drapeaux & F_SIRENE_FAIBLE) && !(drapeaux & F_AUTRE_SOURCE)) continue;
+
+			const cle = tries.cles[i] as string;
+			if (territoire && !roleLieu) {
+				this.lieuKeys.add(cle);
+				this.lieuTokens.add(cle.split(" ", 1)[0] as string);
+				continue;
+			}
+			if (roleLieu) this.roleKeys.add(cle);
+
+			const cureAvant = cureIds.length;
+			for (let j = debut; j < fin; j++) {
+				const id = tries.ids[j] as number;
+				ids.push(id);
+				// Le drapeau d'usage est propre à la paire : l'enseigne posée à la
+				// main désigne le réseau, pas toutes les unités légales du stock.
+				if ((tries.drapeaux[j] as number) & F_USAGE) {
+					cureCles.push(cle);
+					cureIds.push(id);
+				}
+			}
+			cles.push(cle);
+			bornes.push(ids.length);
+			if (cureIds.length > cureAvant) bornesCure.push(cureIds.length);
+			const tokens = cle.split(" ").length;
+			if (tokens > this.maxTokens) this.maxTokens = tokens;
 		}
+
+		const jetonsTries = trierPaires(this.tokenCles, this.tokenIds);
+		this.tokenCles.length = 0;
+		this.tokenIds.length = 0;
+		const orgs = this.orgs;
+		return {
+			byAliasKey: new CarteIndexee(
+				indexTrie(cles, Uint32Array.from(bornes), Uint32Array.from(ids)),
+				(ids) => Array.from(ids, (id) => orgs.get(id) as GazetteerOrg),
+			),
+			aliasKeysByFirstToken: new CartePremiersJetons(cles),
+			roleKeys: this.roleKeys,
+			lieuKeys: this.lieuKeys,
+			lieuTokens: this.lieuTokens,
+			roleTokens: this.roleTokens,
+			maxTokens: this.maxTokens,
+			orgsByToken: new CarteIndexee(
+				indexTrie(jetonsTries.cles, jetonsTries.offsets, jetonsTries.ids),
+				(ids) => new Set<number>(ids),
+			),
+			orgsById: orgs,
+			curatedOrgsByAliasKey: new CarteIndexee(
+				indexTrie(cureCles, Uint32Array.from(bornesCure), Uint32Array.from(cureIds)),
+				(ids) => new Set<number>(ids),
+			),
+		};
 	}
-	return {
-		byAliasKey: new CarteIndexee(indexAlias, (ids) => Array.from(ids, (id) => orgs.get(id) as GazetteerOrg)),
-		aliasKeysByFirstToken: new CartePremiersJetons(indexAlias.cles),
-		roleKeys,
-		lieuKeys,
-		lieuTokens,
-		roleTokens,
-		maxTokens,
-		orgsByToken: new CarteIndexee(construireIndex(tokenCles, tokenIds), (ids) => new Set<number>(ids)),
-		orgsById: orgs,
-		curatedOrgsByAliasKey: new CarteIndexee(construireIndex(cureCles, cureIds), (ids) => new Set<number>(ids)),
-	};
+}
+
+/**
+ * Construit le gazetteer depuis les lignes `org` + `org_alias` actives.
+ * Accepte un iterable (tableau, générateur) : la prod charge par lots.
+ */
+export function buildGazetteer(rows: Iterable<GazetteerRow>): Gazetteer {
+	const constructeur = new ConstructeurGazetteer();
+	for (const row of rows) constructeur.ajouter(row);
+	return constructeur.construire();
 }
 
 /** Tous les alias qui apparaissent dans `jetons`, en gardant le plus long par position. */

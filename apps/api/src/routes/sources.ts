@@ -30,7 +30,8 @@ type SourceRow = {
   disabled_reason: string | null;
   /** Statut déclaré : active | morte (migration 042). */
   statut: string;
-  /** Motif du passage à morte (migration 042). */
+  /** État de santé calculé : ok | rouge | morte (migration 049). */
+  sante: string;
   derniere_erreur: string | null;
   /** Entrées lues sur 30 jours, tous runs confondus. */
   entrees: number | null;
@@ -73,7 +74,7 @@ export default async function (app: FastifyInstance) {
       )
       SELECT s.id, s.name, s.family, s.url, s.kind, s.format, s.enabled, s.interval_sec,
              s.last_ok_at, s.last_error_at, s.last_error, s.items_total, s.last_items,
-             s.disabled_at, s.disabled_reason, s.statut, s.derniere_erreur,
+             s.disabled_at, s.disabled_reason, s.statut, s.sante, s.derniere_erreur,
              r.entrees, r.rejets, r.dernier_run, r.dernier_run_statut, r.motifs,
              COALESCE(e.evenements_30j, 0) AS evenements_30j,
              COALESCE(e.evenements_total, 0) AS evenements_total
@@ -147,6 +148,7 @@ export default async function (app: FastifyInstance) {
         disabledAt: s.disabled_at,
         disabledReason: s.disabled_reason,
         statut: s.statut,
+        sante: s.sante,
         derniereErreur: s.derniere_erreur,
         ok: s.last_error_at === null && s.last_ok_at !== null,
         entrees,
@@ -238,6 +240,7 @@ export default async function (app: FastifyInstance) {
         }>(
           `UPDATE source
               SET statut = 'morte',
+                  sante = 'morte',
                   derniere_erreur = $1,
                   enabled = false,
                   disabled_at = COALESCE(disabled_at, now()),
@@ -295,8 +298,11 @@ export default async function (app: FastifyInstance) {
         }>(
           `UPDATE source
               SET statut = 'active',
+                  sante = 'ok',
                   enabled = true,
                   echecs_consecutifs = 0,
+                  backoff_niveau = 0,
+                  prochaine_tentative_at = NULL,
                   derniere_erreur = NULL,
                   disabled_at = NULL,
                   disabled_reason = NULL

@@ -206,6 +206,11 @@ export default function HealthView({ sources }: HealthViewProps) {
                   <span className="badge" data-tone={SOURCE_STATUS_TONE[st]}>
                     {SOURCE_STATUS_LABEL[st]}
                   </span>
+                  {s.sante && s.sante !== "ok" ? (
+                    <span className="badge" data-tone={s.sante === "morte" ? "critical" : "warning"} title="santé calculée du cycle">
+                      {s.sante}
+                    </span>
+                  ) : null}
                 </td>
                 <td>
                   <div>{s.name}</div>

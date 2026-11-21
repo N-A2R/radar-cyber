@@ -146,6 +146,8 @@ export type Source = {
   /** Désactivation : datée et motivée, ou jamais désactivée. */
   disabledAt: string | null;
   disabledReason: string | null;
+  /** État de santé calculé par le cycle : ok | rouge | morte. */
+  sante?: "ok" | "rouge" | "morte";
   /** Entrées lues par le collecteur sur 30 jours ; `null` = aucune mesure. */
   entrees: number | null;
   /** Entrées écartées par la porte ou le contrat, sur 30 jours. */

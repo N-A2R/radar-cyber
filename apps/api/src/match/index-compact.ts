@@ -8,6 +8,10 @@
  * valeur qu'à la demande. Le coût d'une consultation passe de O(1) à O(log n)
  * sur des chaînes, soit ~20 comparaisons : négligeable devant la construction
  * des fenêtres de jetons faite par `resoudre`.
+ *
+ * `trierPaires` est le point d'entrée unique du tri : le gazetteer trie ses
+ * alias *une seule fois* (clés, ids et drapeaux dans la même permutation) au
+ * lieu de construire deux Maps géantes pour détecter les clés ambiguës.
  */
 
 /** Clés triées, uniques ; `offsets[i]..offsets[i+1]` délimite les valeurs de la clé i. */
@@ -17,25 +21,44 @@ export type IndexCompact<T> = {
 	valeurs: ArrayLike<T>;
 };
 
+/** Paires triées par clé puis par id, sans doublon (clé, id). */
+export type PairesTriees = {
+	cles: string[];
+	offsets: Uint32Array;
+	ids: Uint32Array;
+	/** Drapeaux de la paire ; `OR` de ceux des doublons fusionnés. */
+	drapeaux: Uint16Array;
+};
+
 /**
  * Trie des paires (clé, id) collectées en ordre d'apparition, déduplique les
  * ids d'une même clé et conserve leur ordre d'insertion.
+ *
+ * La permutation est un `Uint32Array` (4 octets par entrée) plutôt qu'un
+ * tableau JS : à 1,7 M d'alias, c'est 7 Mo au lieu d'un tableau de pointeurs.
  */
-export function construireIndex(cles: readonly string[], ids: readonly number[]): IndexCompact<number> {
+export function trierPaires(
+	cles: readonly string[],
+	ids: readonly number[],
+	drapeaux?: readonly number[],
+): PairesTriees {
 	const n = cles.length;
-	if (n === 0) return { cles: [], offsets: new Uint32Array(1), valeurs: new Uint32Array(0) };
-	const ordre = Array.from({ length: n }, (_, i) => i);
+	if (n === 0) {
+		return { cles: [], offsets: new Uint32Array(1), ids: new Uint32Array(0), drapeaux: new Uint16Array(0) };
+	}
+	const ordre = Uint32Array.from({ length: n }, (_, i) => i);
 	ordre.sort((a, b) => {
 		const ca = cles[a] as string;
 		const cb = cles[b] as string;
 		if (ca < cb) return -1;
 		if (ca > cb) return 1;
-		return a - b; // départage explicite : garde l'ordre d'apparition
+		return (a - b); // départage explicite : garde l'ordre d'apparition
 	});
 
 	const clesTriees: string[] = [];
 	const bornes: number[] = [0];
 	const idsUniques: number[] = [];
+	const drapeauxUniques: number[] = [];
 	const vus = new Set<number>();
 	let debut = 0;
 	for (let i = 1; i <= n; i++) {
@@ -43,10 +66,15 @@ export function construireIndex(cles: readonly string[], ids: readonly number[])
 		clesTriees.push(cles[ordre[debut] as number] as string);
 		vus.clear();
 		for (let j = debut; j < i; j++) {
-			const id = ids[ordre[j] as number] as number;
-			if (vus.has(id)) continue;
+			const position = ordre[j] as number;
+			const id = ids[position] as number;
+			if (vus.has(id)) {
+				if (drapeaux) drapeauxUniques[drapeauxUniques.length - 1] |= drapeaux[position] as number;
+				continue;
+			}
 			vus.add(id);
 			idsUniques.push(id);
+			drapeauxUniques.push(drapeaux ? (drapeaux[position] as number) : 0);
 		}
 		bornes.push(idsUniques.length);
 		debut = i;
@@ -54,8 +82,14 @@ export function construireIndex(cles: readonly string[], ids: readonly number[])
 	return {
 		cles: clesTriees,
 		offsets: Uint32Array.from(bornes),
-		valeurs: Uint32Array.from(idsUniques),
+		ids: Uint32Array.from(idsUniques),
+		drapeaux: Uint16Array.from(drapeauxUniques),
 	};
+}
+
+/** Construit un index depuis des paires déjà triées et dédupliquées. */
+export function indexTrie(cles: string[], offsets: Uint32Array, ids: Uint32Array): IndexCompact<number> {
+	return { cles, offsets, valeurs: ids };
 }
 
 /** Vue `Map` en lecture seule : mutations et itération conforme à Map. */
