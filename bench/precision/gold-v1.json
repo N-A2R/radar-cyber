@@ -1,0 +1,517 @@
+{
+	"vague": "precision",
+	"etape": "S3.3",
+	"date": "2026-11-21",
+	"fichierSource": "bench/precision/corpus-v1.json (gelé)",
+	"protocole": "50 cas pièges tirés du corpus gelé (PRNG mulberry32, graine 20261220, échantillon documenté) : toutes les partielles, tous les exacte par nom, 15 exacte par domaine, 10 indécidables, 7 hors_sujet survivants, 15 hors_sujet écartés (3 par règle). Chaque cas épingle un verdict et un comportement de règles",
+	"effectifs": {
+		"partielle/conserve": 4,
+		"partielle/ecartee": 1,
+		"exacte/conserve": 13,
+		"indecidable/conserve": 10,
+		"hors_sujet/conserve": 7,
+		"hors_sujet/ecartee": 15
+	},
+	"cas": [
+		{
+			"ordreCorpus": 12,
+			"indice": "se.com",
+			"orgId": 34354,
+			"orgName": "SCHNEIDER ELECTRIC FRANCE",
+			"verdictAttendu": "partielle",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "haute|ransomwatch|domaine"
+		},
+		{
+			"ordreCorpus": 28,
+			"indice": "Atos (Business Services · France)",
+			"orgId": 38255,
+			"orgName": "ATOS FRANCE",
+			"verdictAttendu": "partielle",
+			"comportementAttendu": "ecartee",
+			"regleResponsable": "2-homonyme",
+			"strate": "moyenne|ransomwatch|nom"
+		},
+		{
+			"ordreCorpus": 142,
+			"indice": "se.com\\$$33.5B\\France\\1.5TB\\&lt;1%DISCLOSED",
+			"orgId": 34354,
+			"orgName": "SCHNEIDER ELECTRIC FRANCE",
+			"verdictAttendu": "partielle",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "haute|ransomwatch|domaine"
+		},
+		{
+			"ordreCorpus": 250,
+			"indice": "se.com\\$$33.5B\\France\\1.5TB\\&lt;1%DISCLOSED\\DATA SALE",
+			"orgId": 34354,
+			"orgName": "SCHNEIDER ELECTRIC FRANCE",
+			"verdictAttendu": "partielle",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "haute|ransomwatch|domaine"
+		},
+		{
+			"ordreCorpus": 274,
+			"indice": "se.com\\$33.5B\\France\\1.5TB\\100%DISCLOSED\\",
+			"orgId": 34354,
+			"orgName": "SCHNEIDER ELECTRIC FRANCE",
+			"verdictAttendu": "partielle",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "haute|ransomwatch|domaine"
+		},
+		{
+			"ordreCorpus": 5,
+			"indice": "groupe-alternance.com",
+			"orgId": 422363,
+			"orgName": "GROUPE ALTERNANCE",
+			"verdictAttendu": "exacte",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "moyenne|ransomware.live|nom"
+		},
+		{
+			"ordreCorpus": 96,
+			"indice": "Groupe Delcourt",
+			"orgId": 34349,
+			"orgName": "SAS Groupe Delcourt",
+			"verdictAttendu": "exacte",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "moyenne|ransomwatch|nom"
+		},
+		{
+			"ordreCorpus": 175,
+			"indice": "Schneider Electric - France",
+			"orgId": 34354,
+			"orgName": "SCHNEIDER ELECTRIC FRANCE",
+			"verdictAttendu": "exacte",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "haute|ransomwatch|nom"
+		},
+		{
+			"ordreCorpus": 270,
+			"indice": "villemandeure.fr",
+			"orgId": 1994889,
+			"orgName": "COMMUNE DE MANDEURE",
+			"verdictAttendu": "exacte",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "haute|ransomwatch|domaine"
+		},
+		{
+			"ordreCorpus": 306,
+			"indice": "https://www.lille.fr",
+			"orgId": 1994851,
+			"orgName": "COMMUNE DE LILLE",
+			"verdictAttendu": "exacte",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "haute|ransomwatch|domaine"
+		},
+		{
+			"ordreCorpus": 138,
+			"indice": "sarassure.fr",
+			"orgId": 1994869,
+			"orgName": "SARASSURE",
+			"verdictAttendu": "exacte",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "haute|ransomwatch|domaine"
+		},
+		{
+			"ordreCorpus": 214,
+			"indice": "saintcloud.fr",
+			"orgId": 1994877,
+			"orgName": "COMMUNE DE SAINT CLOUD",
+			"verdictAttendu": "exacte",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "haute|ransomwatch|domaine"
+		},
+		{
+			"ordreCorpus": 294,
+			"indice": "http://www.neodomos.fr",
+			"orgId": 1994841,
+			"orgName": "NEODOMOS",
+			"verdictAttendu": "exacte",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "haute|ransomwatch|domaine"
+		},
+		{
+			"ordreCorpus": 206,
+			"indice": "semna.fr",
+			"orgId": 1994808,
+			"orgName": "ECONOMIE MIXTE AMENAGEM GESTION NANTERRE (SEMNA)",
+			"verdictAttendu": "exacte",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "haute|ransomwatch|domaine"
+		},
+		{
+			"ordreCorpus": 286,
+			"indice": "www.odalys-vacances.com\\$151.1M\\France\\548gb\\1%Disclosed",
+			"orgId": 1994884,
+			"orgName": "ODALYS VACANCES",
+			"verdictAttendu": "exacte",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "haute|ransomwatch|domaine"
+		},
+		{
+			"ordreCorpus": 50,
+			"indice": "odalys-vacances.com\\$151.1M\\France\\548gb\\100%DISCLOSED",
+			"orgId": 1994884,
+			"orgName": "ODALYS VACANCES",
+			"verdictAttendu": "exacte",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "haute|ransomwatch|domaine"
+		},
+		{
+			"ordreCorpus": 258,
+			"indice": "isosteo.fr",
+			"orgId": 1994848,
+			"orgName": "ISOSTEO LYON (INSTITUT SUPERIEUR D'OSTEOPATHIE)",
+			"verdictAttendu": "exacte",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "haute|ransomwatch|domaine"
+		},
+		{
+			"ordreCorpus": 166,
+			"indice": "estpm.fr",
+			"orgId": 1994819,
+			"orgName": "ETUDES SERVICES TRAVAUX PARISIENS ET MATERIELS (ESTPM) (ESTPM)",
+			"verdictAttendu": "exacte",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "haute|ransomwatch|domaine"
+		},
+		{
+			"ordreCorpus": 200,
+			"indice": "Mark-Taylor",
+			"orgId": 1602174,
+			"orgName": "TAYLOR MARK",
+			"verdictAttendu": "indecidable",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "moyenne|ransomwatch|nom"
+		},
+		{
+			"ordreCorpus": 492,
+			"indice": "ANTEL",
+			"orgId": 465614,
+			"orgName": "ANTEL",
+			"verdictAttendu": "indecidable",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "haute|ransomwatch|nom"
+		},
+		{
+			"ordreCorpus": 187,
+			"indice": "ASI",
+			"orgId": 38506,
+			"orgName": "ASI",
+			"verdictAttendu": "indecidable",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "haute|ransomwatch|nom"
+		},
+		{
+			"ordreCorpus": 224,
+			"indice": "Precision Steel Services",
+			"orgId": 42233,
+			"orgName": "STEEL PRECISION",
+			"verdictAttendu": "indecidable",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "moyenne|ransomwatch|nom"
+		},
+		{
+			"ordreCorpus": 348,
+			"indice": "Pacifica",
+			"orgId": 340903,
+			"orgName": "PACIFICA",
+			"verdictAttendu": "indecidable",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "haute|ransomwatch|nom"
+		},
+		{
+			"ordreCorpus": 379,
+			"indice": "Sport Vision",
+			"orgId": 395633,
+			"orgName": "VISION SPORT",
+			"verdictAttendu": "indecidable",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "moyenne|ransomwatch|nom"
+		},
+		{
+			"ordreCorpus": 394,
+			"indice": "Amplitude Laser",
+			"orgId": 206075,
+			"orgName": "AMPLITUDE LASER GROUP",
+			"verdictAttendu": "indecidable",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "moyenne|ransomwatch|nom"
+		},
+		{
+			"ordreCorpus": 215,
+			"indice": "HDI",
+			"orgId": 426852,
+			"orgName": "HDI",
+			"verdictAttendu": "indecidable",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "haute|ransomwatch|nom"
+		},
+		{
+			"ordreCorpus": 414,
+			"indice": "Ausa",
+			"orgId": 63342,
+			"orgName": "AUSA",
+			"verdictAttendu": "indecidable",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "haute|ransomwatch|nom"
+		},
+		{
+			"ordreCorpus": 489,
+			"indice": "Associates",
+			"orgId": 463534,
+			"orgName": "ASSOCIATES",
+			"verdictAttendu": "indecidable",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "haute|ransomwatch|nom"
+		},
+		{
+			"ordreCorpus": 44,
+			"indice": "oak-brook.org",
+			"orgId": 553464,
+			"orgName": "S.C.I. OAK BROOK",
+			"verdictAttendu": "hors_sujet",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "moyenne|ransomwatch|nom"
+		},
+		{
+			"ordreCorpus": 152,
+			"indice": "www.black-star.fr",
+			"orgId": 472217,
+			"orgName": "EARL BLACK STAR",
+			"verdictAttendu": "hors_sujet",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "moyenne|ransomwatch|nom"
+		},
+		{
+			"ordreCorpus": 172,
+			"indice": "Sea Force IX",
+			"orgId": 638224,
+			"orgName": "CF SEA FORCE",
+			"verdictAttendu": "hors_sujet",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "moyenne|ransomwatch|nom"
+		},
+		{
+			"ordreCorpus": 202,
+			"indice": "mauguio-carnon.com",
+			"orgId": 1994859,
+			"orgName": "MAUGUIO CARNON TRIATHLON",
+			"verdictAttendu": "hors_sujet",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "haute|ransomwatch|domaine"
+		},
+		{
+			"ordreCorpus": 222,
+			"indice": "iledefrance-nature.fr",
+			"orgId": 1994846,
+			"orgName": "NATURE ET PROGRES ILE DE FRANCE",
+			"verdictAttendu": "hors_sujet",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "haute|ransomwatch|domaine"
+		},
+		{
+			"ordreCorpus": 284,
+			"indice": "Est Ensemble",
+			"orgId": 505472,
+			"orgName": "ON EST ENSEMBLE",
+			"verdictAttendu": "hors_sujet",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "moyenne|ransomwatch|nom"
+		},
+		{
+			"ordreCorpus": 331,
+			"indice": "Black Cat Networks",
+			"orgId": 692649,
+			"orgName": "SCI BLACK CAT",
+			"verdictAttendu": "hors_sujet",
+			"comportementAttendu": "conserve",
+			"regleResponsable": null,
+			"strate": "moyenne|ransomwatch|nom"
+		},
+		{
+			"ordreCorpus": 233,
+			"indice": "Lerch Bates",
+			"orgId": 250883,
+			"orgName": "SCI BATES",
+			"verdictAttendu": "hors_sujet",
+			"comportementAttendu": "ecartee",
+			"regleResponsable": "1-sigle",
+			"strate": "moyenne|ransomwatch|sigle"
+		},
+		{
+			"ordreCorpus": 350,
+			"indice": "nautic.com",
+			"orgId": 98085,
+			"orgName": "SCI NAUTIC",
+			"verdictAttendu": "hors_sujet",
+			"comportementAttendu": "ecartee",
+			"regleResponsable": "1-sigle",
+			"strate": "moyenne|ransomwatch|sigle"
+		},
+		{
+			"ordreCorpus": 253,
+			"indice": "Chariton Valley",
+			"orgId": 589793,
+			"orgName": "VALLEY",
+			"verdictAttendu": "hors_sujet",
+			"comportementAttendu": "ecartee",
+			"regleResponsable": "1-sigle",
+			"strate": "moyenne|ransomwatch|sigle"
+		},
+		{
+			"ordreCorpus": 108,
+			"indice": "New York & Company",
+			"orgId": 343746,
+			"orgName": "SNC LE NEW YORK",
+			"verdictAttendu": "hors_sujet",
+			"comportementAttendu": "ecartee",
+			"regleResponsable": "2-homonyme",
+			"strate": "moyenne|ransomwatch|nom"
+		},
+		{
+			"ordreCorpus": 412,
+			"indice": "Horizon Pool & Spa",
+			"orgId": 557971,
+			"orgName": "POOL N SPA",
+			"verdictAttendu": "hors_sujet",
+			"comportementAttendu": "ecartee",
+			"regleResponsable": "2-homonyme",
+			"strate": "moyenne|ransomwatch|nom"
+		},
+		{
+			"ordreCorpus": 400,
+			"indice": "Henry Oil & Gas",
+			"orgId": 263189,
+			"orgName": "GAS OIL",
+			"verdictAttendu": "hors_sujet",
+			"comportementAttendu": "ecartee",
+			"regleResponsable": "2-homonyme",
+			"strate": "moyenne|ransomwatch|nom"
+		},
+		{
+			"ordreCorpus": 405,
+			"indice": "A***** *** * ******* S*******",
+			"orgId": 66129,
+			"orgName": "A&S",
+			"verdictAttendu": "hors_sujet",
+			"comportementAttendu": "ecartee",
+			"regleResponsable": "3-masquage",
+			"strate": "haute|ransomwatch|nom"
+		},
+		{
+			"ordreCorpus": 143,
+			"indice": "**l***** C***********",
+			"orgId": 242483,
+			"orgName": "L.C.",
+			"verdictAttendu": "hors_sujet",
+			"comportementAttendu": "ecartee",
+			"regleResponsable": "3-masquage",
+			"strate": "haute|ransomwatch|nom"
+		},
+		{
+			"ordreCorpus": 423,
+			"indice": "A****** ********* **o*****",
+			"orgId": 623035,
+			"orgName": "A.O",
+			"verdictAttendu": "hors_sujet",
+			"comportementAttendu": "ecartee",
+			"regleResponsable": "3-masquage",
+			"strate": "haute|ransomwatch|nom"
+		},
+		{
+			"ordreCorpus": 469,
+			"indice": "BAFNAGROUP.COM - HACKED AND MORE THEN 20 GB DATA LEAKED",
+			"orgId": 440177,
+			"orgName": "MORE AND MORE...",
+			"verdictAttendu": "hors_sujet",
+			"comportementAttendu": "ecartee",
+			"regleResponsable": "4-commentaire",
+			"strate": "moyenne|ransomwatch|nom"
+		},
+		{
+			"ordreCorpus": 288,
+			"indice": "FajarPaper was hacked. The most dangerous company to cooperate with in Indonesia may pose",
+			"orgId": 33213,
+			"orgName": "THE 10 COMPANY",
+			"verdictAttendu": "hors_sujet",
+			"comportementAttendu": "ecartee",
+			"regleResponsable": "4-commentaire",
+			"strate": "moyenne|ransomwatch|nom"
+		},
+		{
+			"ordreCorpus": 382,
+			"indice": "reliancenj.com - HACKED AND MORE THEN 200GB DATA LEAKED",
+			"orgId": 440177,
+			"orgName": "MORE AND MORE...",
+			"verdictAttendu": "hors_sujet",
+			"comportementAttendu": "ecartee",
+			"regleResponsable": "4-commentaire",
+			"strate": "moyenne|ransomwatch|nom"
+		},
+		{
+			"ordreCorpus": 18,
+			"indice": "Venture General Agen cy",
+			"orgId": 18485,
+			"orgName": "Section d'enseignement général et professionnel adapté du collège privé La Salle Félix Aunac",
+			"verdictAttendu": "hors_sujet",
+			"comportementAttendu": "ecartee",
+			"regleResponsable": "6-ville",
+			"strate": "faible|ransomwatch|ville"
+		},
+		{
+			"ordreCorpus": 1,
+			"indice": "Saint-Bar (saintbar.be)",
+			"orgId": 309026,
+			"orgName": "SAINT EUGENE",
+			"verdictAttendu": "hors_sujet",
+			"comportementAttendu": "ecartee",
+			"regleResponsable": "6-ville",
+			"strate": "faible|ransomwatch|ville"
+		},
+		{
+			"ordreCorpus": 10,
+			"indice": "Aéroport de Pau",
+			"orgId": 644462,
+			"orgName": "TAXI 64 AEROPORT & MEDICAL",
+			"verdictAttendu": "hors_sujet",
+			"comportementAttendu": "ecartee",
+			"regleResponsable": "6-ville",
+			"strate": "faible|ransomwatch|ville"
+		}
+	]
+}
