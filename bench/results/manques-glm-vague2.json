@@ -1579,5 +1579,23 @@
       ],
       "verdict": "cannot_verify"
     }
-  ]
+  ],
+  "resolutionGlobale": {
+    "calculeeLe": "2026-11-21",
+    "methode": "agrégation des 17 fichiers bench/results/na-lot-reprise-N.json (169 entités) + les 30 entités de la cohorte traitée en lots A-C",
+    "commande": "python3 - <<'EOF' sur glob('bench/results/na-lot-reprise-*.json')",
+    "entites": 199,
+    "resolues": 76,
+    "taux": "76/199",
+    "detail": {
+      "vague2LotsAC": 12,
+      "lotsRepriseNA": {
+        "present": 64,
+        "absent": 71,
+        "cannot_verify": 34
+      }
+    },
+    "aRevoir": 34,
+    "note": "le bloc `resolution` ci-dessus reste l'instantané des lots A-C (12/30) ; celui-ci est le compte de la cohorte entière"
+  }
 }
