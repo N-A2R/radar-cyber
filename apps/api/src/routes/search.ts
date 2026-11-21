@@ -12,15 +12,16 @@ export default async function (app: FastifyInstance) {
     const limitParams = [q, SEARCH_LIMIT];
     // websearch_to_tsquery accepte la saisie libre (tirets, guillemets,
     // ponctuation) sans lever d'erreur de syntaxe, et applique la stemming
-    // française. ts_rank_cd favorise les correspondances de nom contiguës.
+    // française. `ts_rank` classe les correspondances : `ts_rank_cd`, plus
+    // coûteux, explose quand un terme commun touche des milliers de lignes.
     const [orgsRes, eventsRes, indicatorsRes] = await Promise.all([
       query<Record<string, unknown>>(
         `SELECT o.id, o.name, o.slug, o.kind, o.city, o.dept, o.domain, o.lat, o.lon,
-                ts_rank_cd(o.search_tsv, tsq.q) AS relevance
+                ts_rank(o.search_tsv, tsq.q) AS relevance
            FROM websearch_to_tsquery('french', french_search_input($1)) AS tsq(q), org o
           WHERE o.search_tsv @@ tsq.q
           ORDER BY
-            CASE WHEN french_search_input(o.name) = french_search_input($1) THEN 1 ELSE 0 END DESC,
+            CASE WHEN o.name_norm = french_search_input($1) THEN 1 ELSE 0 END DESC,
             relevance DESC, o.id
           LIMIT $2`,
         limitParams
@@ -29,7 +30,7 @@ export default async function (app: FastifyInstance) {
         `SELECT e.id, e.dedup_key, e.family, e.assertion_type, e.title, e.summary,
                 e.observed_at, e.severity, e.confidence, e.source_id, e.source_url,
                 e.evidence, e.geo_type, e.lat, e.lon, e.org_id,
-                ts_rank_cd(e.search_tsv, tsq.q) AS relevance
+                ts_rank(e.search_tsv, tsq.q) AS relevance
            FROM websearch_to_tsquery('french', french_search_input($1)) AS tsq(q), event e
           WHERE e.search_tsv @@ tsq.q
           ORDER BY relevance DESC, e.id

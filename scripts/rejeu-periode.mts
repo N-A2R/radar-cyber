@@ -11,11 +11,13 @@
  *   tsx scripts/rejeu-periode.mts --depuis=2024-01-01 --jusqu-a=2025-01-01 --dry-run
  *   tsx scripts/rejeu-periode.mts --depuis=2024-01-01 --jusqu-a=2025-01-01 --mesurer-idempotence
  *
- * La période porte sur COALESCE(observed_at, collected_at), la même horloge que
- * la rétention. L'écriture est une projection : INSERT ... ON CONFLICT DO
- * NOTHING pour les événements disparus du brut, UPDATE de org_id seulement pour
- * ceux qui sont revenus, et un fait de journal pour toute décision nouvelle.
- * Relancer la même période ne réécrit rien : c'est la mesure d'idempotence.
+ * La période porte sur `valid_at` (quand le fait était vrai), avec repli sur
+ * `observed_at` puis `collected_at` pour les archives antérieures à la
+ * migration 049. C'est la même horloge que `/api/history`. L'écriture est une
+ * projection : INSERT ... ON CONFLICT DO NOTHING pour les événements disparus
+ * du brut, UPDATE de org_id seulement pour ceux qui sont revenus, et un fait
+ * de journal pour toute décision nouvelle. Relancer la même période ne réécrit
+ * rien : c'est la mesure d'idempotence.
  */
 import { createHash } from "node:crypto";
 import { closePools, query, withTransaction } from "../apps/api/src/db.js";
@@ -37,9 +39,12 @@ function lireArguments(argv: string[]): Arguments {
 	const jusquA = option("jusqu-a") ?? option("jusqua");
 	const depuis = option("depuis");
 	for (const [nom, valeur] of [["--depuis", depuis], ["--jusqu-a", jusquA]] as const) {
-		if (valeur !== null && Number.isNaN(Date.parse(valeur))) {
-			throw new Error(`${nom} invalide : ${valeur}`);
+		if (valeur !== null && (!/^\d{4}-\d{2}-\d{2}(?:T|$)/.test(valeur) || Number.isNaN(Date.parse(valeur)))) {
+			throw new Error(`${nom} invalide : ${valeur} (attendu YYYY-MM-DD ou ISO)`);
 		}
+	}
+	if (depuis !== null && jusquA !== null && Date.parse(depuis) >= Date.parse(jusquA)) {
+		throw new Error(`période vide ou inversée : --depuis=${depuis} doit précéder --jusqu-a=${jusquA}`);
 	}
 	if (depuis === null && jusquA === null) {
 		throw new Error("une période est obligatoire : --depuis=… et/ou --jusqu-a=…");
@@ -67,8 +72,9 @@ type ArchiveLigne = {
 	admission_rule: string | null;
 	observed_at: Date | null;
 	collected_at: Date;
+	valid_at: Date | null;
+	at: Date;
 };
-
 type Decision = {
 	ligne: ArchiveLigne;
 	orgId: number | null;
@@ -117,11 +123,11 @@ function periodeSql(args: Arguments): { where: string; params: unknown[] } {
 	const params: unknown[] = [];
 	if (args.depuis !== null) {
 		params.push(args.depuis);
-		conditions.push(`COALESCE(a.observed_at, a.collected_at) >= $${params.length}::timestamptz`);
+		conditions.push(`COALESCE(a.valid_at, a.observed_at, a.collected_at) >= $${params.length}::timestamptz`);
 	}
 	if (args.jusquA !== null) {
 		params.push(args.jusquA);
-		conditions.push(`COALESCE(a.observed_at, a.collected_at) < $${params.length}::timestamptz`);
+		conditions.push(`COALESCE(a.valid_at, a.observed_at, a.collected_at) < $${params.length}::timestamptz`);
 	}
 	return { where: conditions.length ? `WHERE ${conditions.join(" AND ")}` : "", params };
 }
@@ -133,7 +139,7 @@ async function lireArchives(args: Arguments): Promise<ArchiveLigne[]> {
 		        a.org_id AS org_archive_id,
 		        COALESCE(a.org_name, oa.name) AS org_archive_nom,
 		        a.source_id, a.source_url, a.severity, a.confidence, a.admission_rule,
-		        a.observed_at, a.collected_at
+		        a.observed_at, a.collected_at, a.valid_at, a.at
 		   FROM event_archive a
 		   LEFT JOIN org oa ON oa.id = a.org_id
 		   ${where}
@@ -145,6 +151,7 @@ async function lireArchives(args: Arguments): Promise<ArchiveLigne[]> {
 
 /** Le moteur courant, exactement sur le chemin qu'utilise l'ingestion. */
 async function decider(lignes: ArchiveLigne[]): Promise<Decision[]> {
+	if (lignes.length === 0) return [];
 	const tailleIndex = await preparerGazetteer();
 	const gaz = gazetteerCharge();
 	if (!gaz) throw new Error("gazetteer indisponible : rejeu refusé plutôt que de tout détacher");
@@ -197,7 +204,7 @@ function colonnes(decisions: Decision[]): {
 	cles: string[]; orgIds: (number | null)[]; familles: string[]; types: string[]; titres: string[];
 	observes: (string | null)[]; collectes: string[]; severites: number[]; confidences: (string | null)[];
 	sources: string[]; urls: (string | null)[]; admissions: (string | null)[]; avantIds: (number | null)[];
-	avantNoms: (string | null)[];
+	avantNoms: (string | null)[]; valides: (string | null)[]; su: string[];
 } {
 	return {
 		cles: decisions.map((d) => d.ligne.dedup_key),
@@ -214,6 +221,8 @@ function colonnes(decisions: Decision[]): {
 		admissions: decisions.map((d) => d.ligne.admission_rule),
 		avantIds: decisions.map((d) => d.ligne.org_archive_id),
 		avantNoms: decisions.map((d) => d.ligne.org_archive_nom),
+		valides: decisions.map((d) => iso(d.ligne.valid_at)),
+		su: decisions.map((d) => iso(d.ligne.at) ?? iso(d.ligne.collected_at) ?? new Date(0).toISOString()),
 	};
 }
 
@@ -226,21 +235,24 @@ async function ecrire(decisions: Decision[], journaux: JournalEntry[]): Promise<
 		// défaut. La preuve de provenance est dans `evidence`, pas dans le titre.
 		const insert = await client.query(
 			`INSERT INTO event
-			   (dedup_key, family, assertion_type, title, observed_at, collected_at,
+			   (dedup_key, family, assertion_type, title, observed_at, collected_at, valid_at, at,
 			    severity, confidence, source_id, source_url, admission_rule, evidence, org_id)
 			 SELECT d.cle, d.famille, d.type, d.titre, d.observe::timestamptz, d.collecte::timestamptz,
+			        COALESCE(d.valide, d.observe)::timestamptz, d.su::timestamptz,
 			        d.severite, d.confiance, d.source, d.url, d.admission,
 			        jsonb_build_object('rejeu', 'event_archive', 'orgArchiveId', d.avant_id,
 			                           'orgArchiveNom', d.avant_nom),
 			        d.org_id
 			   FROM unnest($1::text[], $2::text[], $3::text[], $4::text[], $5::timestamptz[],
 			               $6::timestamptz[], $7::smallint[], $8::text[], $9::text[], $10::text[],
-			               $11::text[], $12::int[], $13::text[], $14::text[])
+			               $11::text[], $12::int[], $13::text[], $14::text[],
+			               $15::timestamptz[], $16::timestamptz[])
 			        AS d(cle, famille, type, titre, observe, collecte, severite, confiance,
-			             source, url, admission, org_id, avant_id, avant_nom)
+			             source, url, admission, org_id, avant_id, avant_nom, valide, su)
 			   ON CONFLICT (dedup_key) DO NOTHING`,
 			[c.cles, c.familles, c.types, c.titres, c.observes, c.collectes, c.severites,
-				c.confidences, c.sources, c.urls, c.admissions, c.orgIds, c.avantIds, c.avantNoms],
+				c.confidences, c.sources, c.urls, c.admissions, c.orgIds, c.avantIds, c.avantNoms,
+				c.valides, c.su],
 		);
 		// Un événement encore présent au brut garde son texte : seul le
 		// rattachement est rejoué, jamais les champs que l'archive n'a pas.
@@ -274,7 +286,7 @@ async function rejouer(args: Arguments, afficher: boolean): Promise<Resultat> {
 		if (avantId === d.orgId) continue;
 		changements.push({
 			dedup_key: d.ligne.dedup_key,
-			date: (iso(d.ligne.observed_at) ?? iso(d.ligne.collected_at) ?? "").slice(0, 10),
+			date: (iso(d.ligne.valid_at) ?? iso(d.ligne.observed_at) ?? iso(d.ligne.collected_at) ?? "").slice(0, 10),
 			avantId,
 			avantNom: d.ligne.org_archive_nom,
 			apresId: d.orgId,
@@ -299,7 +311,7 @@ async function rejouer(args: Arguments, afficher: boolean): Promise<Resultat> {
 			subject: d.ligne.dedup_key,
 			summary: `rejeu ${MOTEURS.rattachement} : ${avant} → ${apres}`,
 			actor: `moteur:${MOTEURS.rattachement}:rejeu`,
-			validAt: d.ligne.observed_at ?? d.ligne.collected_at,
+			validAt: d.ligne.valid_at ?? d.ligne.observed_at ?? d.ligne.collected_at,
 			payload: {
 				orgId: d.orgId,
 				moteur: MOTEURS.rattachement,
@@ -315,6 +327,7 @@ async function rejouer(args: Arguments, afficher: boolean): Promise<Resultat> {
 
 	const sortie: string[] = [];
 	sortie.push(`Archives lues : ${lignes.length} (${lignes.filter((l) => l.org_archive_id !== null).length} avec organisation archivée)`);
+	if (lignes.length === 0) sortie.push("Aucune archive sur la période : aucun rattachement à rejouer.");
 	sortie.push(`Rattachements : ${decisions.length - changements.length} identiques, ${changements.length} changés ` +
 		`(${parNature("nouveau")} nouveaux, ${parNature("perdu")} perdus, ${parNature("modifie")} modifiés)`);
 	sortie.push(`Empreinte du diff (sha256/16) : ${diffSha}`);
@@ -357,7 +370,7 @@ async function main(): Promise<void> {
 	const args = lireArguments(process.argv.slice(2));
 	const periode = `[${args.depuis ?? "−∞"}, ${args.jusquA ?? "+∞"})`;
 	console.log(`Rejeu event_archive → event — période ${periode}`);
-	console.log(`Horloge : COALESCE(observed_at, collected_at) ; texte représenté au moteur : org_name archivé`);
+	console.log(`Horloge : COALESCE(valid_at, observed_at, collected_at) ; texte représenté au moteur : org_name archivé`);
 
 	const premier = await rejouer(args, true);
 	if (!args.mesurer) return;

@@ -1,0 +1,2107 @@
+{
+  "genereLe": "2026-11-21T18:54:16Z",
+  "corpus": "bench/corpus/institutions.jsonl",
+  "protocole": {
+    "criteres": "champs requis présents, HTTP 200 final et au moins un jeton discriminant de l'organisation dans le texte visible",
+    "timeoutMs": 12000,
+    "concurrence": 8,
+    "tailleMaxOctets": 1000000,
+    "frequence": "classe qualitative déclarée, non mesurée par ce contrôle"
+  },
+  "totaux": {
+    "entrees": 116,
+    "valides": 116,
+    "invalides": 0,
+    "mortes": 0,
+    "incoherentes": 0,
+    "tauxValidite": "100.0 %",
+    "parType": {
+      "ars": {
+        "total": 9,
+        "valides": 9
+      },
+      "cci": {
+        "total": 12,
+        "valides": 12
+      },
+      "conseil_departemental": {
+        "total": 22,
+        "valides": 22
+      },
+      "prefecture": {
+        "total": 9,
+        "valides": 9
+      },
+      "sdis": {
+        "total": 26,
+        "valides": 26
+      },
+      "universite": {
+        "total": 26,
+        "valides": 26
+      },
+      "urbanisme": {
+        "total": 12,
+        "valides": 12
+      }
+    }
+  },
+  "resultats": [
+    {
+      "id": "na-inst-001",
+      "nom": "ARS Nouvelle-Aquitaine",
+      "type": "ars",
+      "departement": "Nouvelle-Aquitaine",
+      "url": "https://www.nouvelle-aquitaine.ars.sante.fr/",
+      "dureeMs": 569,
+      "urlFinale": "https://www.nouvelle-aquitaine.ars.sante.fr/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "ars",
+        "nouvelle",
+        "aquitaine"
+      ],
+      "extrait": "…e nouvelle aquitaine agir pour la sante de tous aller au menu principal aller au contenu l ars nouvelle aquitaine travailler a l ars nouvelle aquitaine emplois et concours fph contact presse lettres d information ars facebook nouvelle aquitaine twitter nouvelle aquitaine linkedin agir pour…"
+    },
+    {
+      "id": "na-inst-002",
+      "nom": "ARS Nouvelle-Aquitaine — Emploi-concours fonction hospitalière en Nouvelle-Aquitaine",
+      "type": "ars",
+      "departement": "Nouvelle-Aquitaine",
+      "url": "https://www.nouvelle-aquitaine.ars.sante.fr/emploi-concours-fonction-hospitaliere-en-nouvelle-aquitaine",
+      "dureeMs": 434,
+      "urlFinale": "https://www.nouvelle-aquitaine.ars.sante.fr/emploi-concours-fonction-hospitaliere-en-nouvelle-aquitaine",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "ars",
+        "nouvelle",
+        "aquitaine"
+      ],
+      "extrait": "…ne agence regionale de sante nouvelle aquitaine aller au menu principal aller au contenu l ars nouvelle aquitaine travailler a l ars nouvelle aquitaine emplois et concours fph contact presse lettres d information ars facebook nouvelle aquitaine twitter nouvelle aquitaine linkedin agir pour…"
+    },
+    {
+      "id": "na-inst-003",
+      "nom": "ARS Nouvelle-Aquitaine — Actualités",
+      "type": "ars",
+      "departement": "Nouvelle-Aquitaine",
+      "url": "https://www.nouvelle-aquitaine.ars.sante.fr/liste-actualites?archive=0",
+      "dureeMs": 438,
+      "urlFinale": "https://www.nouvelle-aquitaine.ars.sante.fr/liste-actualites?archive=0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "ars",
+        "nouvelle",
+        "aquitaine"
+      ],
+      "extrait": "les actualites de l ars nouvelle aquitaine agence regionale de sante nouvelle aquitaine aller au menu principal aller au contenu l ars nouvelle aquitaine travailler a l ars nouvelle aquitaine emplois et concours fph con…"
+    },
+    {
+      "id": "na-inst-004",
+      "nom": "ARS Nouvelle-Aquitaine — Espace presse",
+      "type": "ars",
+      "departement": "Nouvelle-Aquitaine",
+      "url": "https://www.nouvelle-aquitaine.ars.sante.fr/liste-communiques-presse",
+      "dureeMs": 453,
+      "urlFinale": "https://www.nouvelle-aquitaine.ars.sante.fr/liste-communiques-presse",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "ars",
+        "nouvelle",
+        "aquitaine"
+      ],
+      "extrait": "l espace presse de l ars nouvelle aquitaine agence regionale de sante nouvelle aquitaine aller au menu principal aller au contenu l ars nouvelle aquitaine travailler a l ars nouvelle aquitaine emplois et concours fph con…"
+    },
+    {
+      "id": "na-inst-005",
+      "nom": "ARS Nouvelle-Aquitaine — Agenda",
+      "type": "ars",
+      "departement": "Nouvelle-Aquitaine",
+      "url": "https://www.nouvelle-aquitaine.ars.sante.fr/liste-evenements",
+      "dureeMs": 363,
+      "urlFinale": "https://www.nouvelle-aquitaine.ars.sante.fr/liste-evenements",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "ars",
+        "nouvelle",
+        "aquitaine"
+      ],
+      "extrait": "…ne agence regionale de sante nouvelle aquitaine aller au menu principal aller au contenu l ars nouvelle aquitaine travailler a l ars nouvelle aquitaine emplois et concours fph contact presse lettres d information ars facebook nouvelle aquitaine twitter nouvelle aquitaine linkedin agir pour…"
+    },
+    {
+      "id": "na-inst-006",
+      "nom": "ARS Nouvelle-Aquitaine — L ARS Nouvelle-Aquitaine",
+      "type": "ars",
+      "departement": "Nouvelle-Aquitaine",
+      "url": "https://www.nouvelle-aquitaine.ars.sante.fr/qui-sommes-nous-4",
+      "dureeMs": 387,
+      "urlFinale": "https://www.nouvelle-aquitaine.ars.sante.fr/qui-sommes-nous-4",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "ars",
+        "nouvelle",
+        "aquitaine"
+      ],
+      "extrait": "…us agence regionale de sante nouvelle aquitaine aller au menu principal aller au contenu l ars nouvelle aquitaine travailler a l ars nouvelle aquitaine emplois et concours fph contact presse lettres d information ars facebook nouvelle aquitaine twitter nouvelle aquitaine linkedin agir pour…"
+    },
+    {
+      "id": "na-inst-007",
+      "nom": "ARS Nouvelle-Aquitaine — Presse",
+      "type": "ars",
+      "departement": "Nouvelle-Aquitaine",
+      "url": "https://www.nouvelle-aquitaine.ars.sante.fr/tous-les-communiques-et-dossiers-de-presse-de-lars-nouvelle-aquitaine",
+      "dureeMs": 421,
+      "urlFinale": "https://www.nouvelle-aquitaine.ars.sante.fr/tous-les-communiques-et-dossiers-de-presse-de-lars-nouvelle-aquitaine",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "ars",
+        "nouvelle",
+        "aquitaine"
+      ],
+      "extrait": "tous les communiques et dossiers de presse de l ars nouvelle aquitaine agence regionale de sante nouvelle aquitaine aller au menu principal aller au contenu l ars nouvelle aquitaine travailler a l ars nouvelle aquitaine emplois et concours fph con…"
+    },
+    {
+      "id": "na-inst-008",
+      "nom": "ARS Nouvelle-Aquitaine — Emplois et stages à l ARS NA",
+      "type": "ars",
+      "departement": "Nouvelle-Aquitaine",
+      "url": "https://www.nouvelle-aquitaine.ars.sante.fr/travailler-lars-nouvelle-aquitaine",
+      "dureeMs": 459,
+      "urlFinale": "https://www.nouvelle-aquitaine.ars.sante.fr/travailler-lars-nouvelle-aquitaine",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "ars",
+        "nouvelle",
+        "aquitaine"
+      ],
+      "extrait": "travailler a l ars nouvelle aquitaine agence regionale de sante nouvelle aquitaine aller au menu principal aller au contenu l ars nouvelle aquitaine travailler a l ars nouvelle aquitaine emplois et concours fph con…"
+    },
+    {
+      "id": "na-inst-009",
+      "nom": "ARS Nouvelle-Aquitaine — Signalements",
+      "type": "ars",
+      "departement": "Nouvelle-Aquitaine",
+      "url": "https://www.nouvelle-aquitaine.ars.sante.fr/veille-sanitaire-et-gestion-de-situations-sanitaires-exceptionnelles-0",
+      "dureeMs": 130,
+      "urlFinale": "https://www.nouvelle-aquitaine.ars.sante.fr/veille-sanitaire-et-gestion-de-situations-sanitaires-exceptionnelles-0",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "ars",
+        "nouvelle",
+        "aquitaine"
+      ],
+      "extrait": "…ts agence regionale de sante nouvelle aquitaine aller au menu principal aller au contenu l ars nouvelle aquitaine travailler a l ars nouvelle aquitaine emplois et concours fph contact presse lettres d information ars facebook nouvelle aquitaine twitter nouvelle aquitaine linkedin agir pour…"
+    },
+    {
+      "id": "na-inst-010",
+      "nom": "CCI des Landes — Cybersécurité dans les Landes : diagnostic, accompagnement et montée e",
+      "type": "cci",
+      "departement": "Landes",
+      "url": "https://www.landes.cci.fr/cybersecurite-dans-les-landes/",
+      "dureeMs": 389,
+      "urlFinale": "https://www.landes.cci.fr/cybersecurite-dans-les-landes/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "cci",
+        "landes"
+      ],
+      "extrait": "cybersecurite landes diagnostic accompagnement cci entreprendre creer ou reprendre une entreprise transmission d entreprise maison de la micro les formalites se developper transition numerique nos accompagnements en webmarketing accompagnements e…"
+    },
+    {
+      "id": "na-inst-011",
+      "nom": "CCI des Landes — Numérique",
+      "type": "cci",
+      "departement": "Landes",
+      "url": "https://www.landes.cci.fr/numerique/",
+      "dureeMs": 485,
+      "urlFinale": "https://www.landes.cci.fr/numerique/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "cci",
+        "landes"
+      ],
+      "extrait": "… ecoles campus landes apprentissage pass metiers verser votre taxe d apprentissage avec la cci des landes louer une salle et organiser un evenement reservation de salle pour evenements espace de coworking votre cci elections cci 2027 chiffres cle de l economie enquetes de conjoncture les e…"
+    },
+    {
+      "id": "na-inst-012",
+      "nom": "CCI des Landes — Transition numérique",
+      "type": "cci",
+      "departement": "Landes",
+      "url": "https://www.landes.cci.fr/transition-numerique/",
+      "dureeMs": 426,
+      "urlFinale": "https://www.landes.cci.fr/transition-numerique/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "cci",
+        "landes"
+      ],
+      "extrait": "transition numerique cci des landes entreprendre creer ou reprendre une entreprise transmission d entreprise maison de la micro les formalites se developper transition numerique nos accompagnements en webmarketing accomp…"
+    },
+    {
+      "id": "na-inst-013",
+      "nom": "CCI Dordogne — Créez une identité et communiquez sur votre restaurant",
+      "type": "cci",
+      "departement": "Dordogne",
+      "url": "https://dordogne.cci.fr/catalogue-prestations/creez-identite-communiquez-restaurant/",
+      "dureeMs": 525,
+      "urlFinale": "https://dordogne.cci.fr/catalogue-prestations/creez-identite-communiquez-restaurant/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "cci",
+        "dordogne"
+      ],
+      "extrait": "creez une identite et communiquez sur votre restaurant cci dordogne creez une identite et communiquez sur votre restaurant cci dordogne displaytag display none main title arimo arial websave arial theme enfold mmm mega main menu 2 1 2 woocommerce woocomm…"
+    },
+    {
+      "id": "na-inst-014",
+      "nom": "CCI Dordogne — Les défis numériques",
+      "type": "cci",
+      "departement": "Dordogne",
+      "url": "https://dordogne.cci.fr/developpement-de-votre-entreprise/developpez-performance-de-entreprise/les-defis-numeriques/",
+      "dureeMs": 643,
+      "urlFinale": "https://dordogne.cci.fr/developpement-de-votre-entreprise/developpez-performance-de-entreprise/les-defis-numeriques/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "cci",
+        "dordogne"
+      ],
+      "extrait": "les defis numeriques cci dordogne les defis numeriques cci dordogne 0 panier 0553358080 contactez nous menu creation d entreprise les matinees de la creation ateliers du createur la formation creation entreprise identifi…"
+    },
+    {
+      "id": "na-inst-015",
+      "nom": "CCI Dordogne — Protection des données",
+      "type": "cci",
+      "departement": "Dordogne",
+      "url": "https://dordogne.cci.fr/notre-engagement-a-proteger-vos-donnees-generees-par-nos-interactions-sur-ce-site-internet/",
+      "dureeMs": 704,
+      "urlFinale": "https://dordogne.cci.fr/notre-engagement-a-proteger-vos-donnees-generees-par-nos-interactions-sur-ce-site-internet/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "cci",
+        "dordogne"
+      ],
+      "extrait": "notre engagement a proteger vos donnees generees par nos interactions sur ce site internet cci dordogne notre engagement a proteger vos donnees generees par nos interactions sur ce site internet cci dordogne 0 panier 0553358080 contactez nous menu creation d entreprise les matinees de la c…"
+    },
+    {
+      "id": "na-inst-016",
+      "nom": "CCI Pau Béarn",
+      "type": "cci",
+      "departement": "Pyrénées-Atlantiques",
+      "url": "https://pau.cci.fr/",
+      "dureeMs": 3847,
+      "urlFinale": "https://pau.cci.fr/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "cci",
+        "pau",
+        "bearn"
+      ],
+      "extrait": "accueil cci pau bearn skip to content bienvenue sur le site de la cci pau bearn linkedin square instagram facebook square votre cci qui sommes nous elections 2027 nos engagements notre territoire coordonnees…"
+    },
+    {
+      "id": "na-inst-017",
+      "nom": "CCI Pau Béarn — Tous vos rendez-vous",
+      "type": "cci",
+      "departement": "Pyrénées-Atlantiques",
+      "url": "https://pau.cci.fr/agenda/",
+      "dureeMs": 3962,
+      "urlFinale": "https://pau.cci.fr/agenda/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "cci",
+        "pau",
+        "bearn"
+      ],
+      "extrait": "evenements depuis 21 nov 2 dec cci pau bearn skip to content bienvenue sur le site de la cci pau bearn linkedin square instagram facebook square votre cci qui sommes nous elections 2027 nos engagements notre territoire coordonnees…"
+    },
+    {
+      "id": "na-inst-018",
+      "nom": "CCI Pau Béarn",
+      "type": "cci",
+      "departement": "Pyrénées-Atlantiques",
+      "url": "https://pau.cci.fr/product/defis-numeriques/",
+      "dureeMs": 2896,
+      "urlFinale": "https://pau.cci.fr/product/defis-numeriques/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "cci",
+        "pau",
+        "bearn"
+      ],
+      "extrait": "mon entreprise visible sur le web les defis numeriques des tpe cci pau bearn skip to content bienvenue sur le site de la cci pau bearn linkedin square instagram facebook square votre cci qui sommes nous elections 2027 nos engagements notre territoire coordonnees…"
+    },
+    {
+      "id": "na-inst-019",
+      "nom": "CCI Poitiers — Commerces saccagés : votre CCI est en support",
+      "type": "cci",
+      "departement": "Vienne",
+      "url": "https://www.poitiers.cci.fr/actualites/commerces-saccages-votre-cci-est-en-support/",
+      "dureeMs": 836,
+      "urlFinale": "https://www.poitiers.cci.fr/actualites/commerces-saccages-votre-cci-est-en-support/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "cci",
+        "poitiers"
+      ],
+      "extrait": "commerces saccages votre cci est en support cci vienne 1er accelerateur des entreprises 05 49 60 98 00 solutions entreprise solutions entreprise solutions entreprise solutions entreprise un projet pour votre entreprise la cc…"
+    },
+    {
+      "id": "na-inst-020",
+      "nom": "CCI Poitiers — Élections de votre CCI en 2027 : je vérifie mon inscription",
+      "type": "cci",
+      "departement": "Vienne",
+      "url": "https://www.poitiers.cci.fr/actualites/elections-de-votre-cci-en-2027/",
+      "dureeMs": 945,
+      "urlFinale": "https://www.poitiers.cci.fr/actualites/elections-de-votre-cci-en-2027/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "cci",
+        "poitiers"
+      ],
+      "extrait": "elections de votre cci en 2027 je verifie mon inscription cci vienne 1er accelerateur des entreprises 05 49 60 98 00 solutions entreprise solutions entreprise solutions entreprise solutions entreprise un projet pour vo…"
+    },
+    {
+      "id": "na-inst-021",
+      "nom": "CCI Poitiers — Politique de protection des données personnelles",
+      "type": "cci",
+      "departement": "Vienne",
+      "url": "https://www.poitiers.cci.fr/donnees-personnelles/",
+      "dureeMs": 710,
+      "urlFinale": "https://www.poitiers.cci.fr/donnees-personnelles/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "cci",
+        "poitiers"
+      ],
+      "extrait": "politique de protection des donnees personnelles cci vienne 1er accelerateur des entreprises 05 49 60 98 00 solutions entreprise solutions entreprise solutions entreprise solutions entreprise un projet pour votre entreprise la cci vous accompagne a…"
+    },
+    {
+      "id": "na-inst-022",
+      "nom": "Conseil départemental de la Charente-Maritime — Espace Presse",
+      "type": "conseil_departemental",
+      "departement": "Charente-Maritime",
+      "url": "https://la.charente-maritime.fr/espace-presse",
+      "dureeMs": 2962,
+      "urlFinale": "https://la.charente-maritime.fr/espace-presse",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "departemental",
+        "charente",
+        "maritime"
+      ],
+      "extrait": "…cheques sport culture sport scolaire sport et handicap sport de haut niveau centre sportif departemental de boyardville emploi sportif nautisme comites sportifs departementaux skatepark en fete culture patrimoine voir toute la rubrique l agenda l archeologie vous etes une association vous …"
+    },
+    {
+      "id": "na-inst-023",
+      "nom": "Conseil départemental de la Charente-Maritime — Les dossiers de presse",
+      "type": "conseil_departemental",
+      "departement": "Charente-Maritime",
+      "url": "https://la.charente-maritime.fr/espace-presse/dossiers-presse",
+      "dureeMs": 3130,
+      "urlFinale": "https://la.charente-maritime.fr/espace-presse/dossiers-presse",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "departemental",
+        "charente",
+        "maritime"
+      ],
+      "extrait": "…cheques sport culture sport scolaire sport et handicap sport de haut niveau centre sportif departemental de boyardville emploi sportif nautisme comites sportifs departementaux skatepark en fete culture patrimoine voir toute la rubrique l agenda l archeologie vous etes une association vous …"
+    },
+    {
+      "id": "na-inst-024",
+      "nom": "Conseil départemental de la Charente-Maritime — Inclusion numérique",
+      "type": "conseil_departemental",
+      "departement": "Charente-Maritime",
+      "url": "https://la.charente-maritime.fr/inclusion-numerique",
+      "dureeMs": 129,
+      "urlFinale": "https://la.charente-maritime.fr/inclusion-numerique",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "departemental",
+        "charente",
+        "maritime"
+      ],
+      "extrait": "…cheques sport culture sport scolaire sport et handicap sport de haut niveau centre sportif departemental de boyardville emploi sportif nautisme comites sportifs departementaux skatepark en fete culture patrimoine voir toute la rubrique l agenda l archeologie vous etes une association vous …"
+    },
+    {
+      "id": "na-inst-025",
+      "nom": "Conseil départemental de la Corrèze — La publication des actes",
+      "type": "conseil_departemental",
+      "departement": "Corrèze",
+      "url": "https://www.correze.fr/la-publication-des-actes",
+      "dureeMs": 286,
+      "urlFinale": "https://www.correze.fr/la-publication-des-actes",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "conseil",
+        "departemental",
+        "correze"
+      ],
+      "extrait": "la publication des actes conseil departemental de la correze precedent suivant tous les sites menu le departement nos missions services en ligne 1 les services pres de chez vous les maisons du departement vous accueillent po…"
+    },
+    {
+      "id": "na-inst-026",
+      "nom": "Conseil départemental de la Corrèze — La téléphonie mobile",
+      "type": "conseil_departemental",
+      "departement": "Corrèze",
+      "url": "https://www.correze.fr/nos-missions/developpement-des-territoires/le-numerique/la-telephonie-mobile",
+      "dureeMs": 197,
+      "urlFinale": "https://www.correze.fr/nos-missions/developpement-des-territoires/le-numerique/la-telephonie-mobile",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "conseil",
+        "departemental",
+        "correze"
+      ],
+      "extrait": "la telephonie mobile conseil departemental de la correze precedent suivant tous les sites menu le departement nos missions services en ligne 1 les services pres de chez vous les maisons du departement vous accueillent po…"
+    },
+    {
+      "id": "na-inst-027",
+      "nom": "Conseil départemental de la Corrèze — Corrèze Santé Animale",
+      "type": "conseil_departemental",
+      "departement": "Corrèze",
+      "url": "https://www.correze.fr/sante-animale",
+      "dureeMs": 154,
+      "urlFinale": "https://www.correze.fr/sante-animale",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "conseil",
+        "departemental",
+        "correze"
+      ],
+      "extrait": "correze sante animale conseil departemental de la correze precedent suivant tous les sites menu le departement nos missions services en ligne 1 les services pres de chez vous les maisons du departement vous accueillent po…"
+    },
+    {
+      "id": "na-inst-028",
+      "nom": "Conseil départemental de la Creuse — Espace presse",
+      "type": "conseil_departemental",
+      "departement": "Creuse",
+      "url": "https://www.creuse.fr/Espace-presse",
+      "dureeMs": 200,
+      "urlFinale": "https://www.creuse.fr/Espace-presse",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "conseil",
+        "departemental",
+        "creuse"
+      ],
+      "extrait": "espace presse conseil departemental de la creuse le conseil departemental le fonctionnement l administration le budget visitez l hotel du departement la demarche d attractivite nos services enfance famille jeuness…"
+    },
+    {
+      "id": "na-inst-029",
+      "nom": "Conseil départemental de la Creuse — Le Conseil départemental",
+      "type": "conseil_departemental",
+      "departement": "Creuse",
+      "url": "https://www.creuse.fr/Le-Conseil-departemental",
+      "dureeMs": 145,
+      "urlFinale": "https://www.creuse.fr/Le-Conseil-departemental",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "conseil",
+        "departemental",
+        "creuse"
+      ],
+      "extrait": "le conseil departemental conseil departemental de la creuse le conseil departemental le fonctionnement l administration le budget visitez l hotel du departement la demarche d attractivite nos services e…"
+    },
+    {
+      "id": "na-inst-030",
+      "nom": "Conseil départemental de la Creuse — Les services du Conseil départemental",
+      "type": "conseil_departemental",
+      "departement": "Creuse",
+      "url": "https://www.creuse.fr/Nos-services",
+      "dureeMs": 117,
+      "urlFinale": "https://www.creuse.fr/Nos-services",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "conseil",
+        "departemental",
+        "creuse"
+      ],
+      "extrait": "nos services conseil departemental de la creuse le conseil departemental le fonctionnement l administration le budget visitez l hotel du departement la demarche d attractivite nos services enfance famille jeuness…"
+    },
+    {
+      "id": "na-inst-031",
+      "nom": "Conseil départemental de la Gironde — Forum des assistantes et assistants maternels de Gironde",
+      "type": "conseil_departemental",
+      "departement": "Gironde",
+      "url": "https://www.gironde.fr/actualites/forum-des-assistantes-et-assistants-maternels-de-gironde",
+      "dureeMs": 234,
+      "urlFinale": "https://www.gironde.fr/actualites/forum-des-assistantes-et-assistants-maternels-de-gironde",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "conseil",
+        "departemental",
+        "gironde"
+      ],
+      "extrait": "…re les violences la jeunesse la jeunesse retour la vie au college projets et evenements le conseil departemental des jeunes cdj l insertion sociale et professionnelle la prevention sante les outils pour les partenaires les mobilites les mobilites retour inforoutes les travaux sur nos route…"
+    },
+    {
+      "id": "na-inst-032",
+      "nom": "Conseil départemental de la Gironde — Le collège de Montussan lauréat du label BiodiverCity® Construction",
+      "type": "conseil_departemental",
+      "departement": "Gironde",
+      "url": "https://www.gironde.fr/actualites/le-college-de-montussan-laureat-du-label-biodivercityr-construction",
+      "dureeMs": 280,
+      "urlFinale": "https://www.gironde.fr/actualites/le-college-de-montussan-laureat-du-label-biodivercityr-construction",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "conseil",
+        "departemental",
+        "gironde"
+      ],
+      "extrait": "…re les violences la jeunesse la jeunesse retour la vie au college projets et evenements le conseil departemental des jeunes cdj l insertion sociale et professionnelle la prevention sante les outils pour les partenaires les mobilites les mobilites retour inforoutes les travaux sur nos route…"
+    },
+    {
+      "id": "na-inst-033",
+      "nom": "Conseil départemental de la Gironde — Projets et événements",
+      "type": "conseil_departemental",
+      "departement": "Gironde",
+      "url": "https://www.gironde.fr/la-jeunesse/les-projets-et-evenements",
+      "dureeMs": 289,
+      "urlFinale": "https://www.gironde.fr/la-jeunesse/les-projets-et-evenements",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "conseil",
+        "departemental",
+        "gironde"
+      ],
+      "extrait": "…re les violences la jeunesse la jeunesse retour la vie au college projets et evenements le conseil departemental des jeunes cdj l insertion sociale et professionnelle la prevention sante les outils pour les partenaires les mobilites les mobilites retour inforoutes les travaux sur nos route…"
+    },
+    {
+      "id": "na-inst-034",
+      "nom": "Conseil départemental de la Vienne",
+      "type": "conseil_departemental",
+      "departement": "Vienne",
+      "url": "https://www.cd86.fr/",
+      "dureeMs": 473,
+      "urlFinale": "https://www.cd86.fr/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "departemental"
+      ],
+      "extrait": "cd 86 bienvenue comite departemental 86 petanque jeu provencal"
+    },
+    {
+      "id": "na-inst-035",
+      "nom": "Conseil départemental de Lot-et-Garonne — La présidente",
+      "type": "conseil_departemental",
+      "departement": "Lot-et-Garonne",
+      "url": "https://www.lotetgaronne.fr/le-conseil-departemental/la-presidente",
+      "dureeMs": 240,
+      "urlFinale": "https://www.lotetgaronne.fr/le-conseil-departemental/la-presidente",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "conseil",
+        "departemental",
+        "lot",
+        "garonne"
+      ],
+      "extrait": "…ts budgetaires les archives budgetaires l organigramme des services la charte graphique du conseil departemental egalite femmes hommes les aides europeennes le fonds social europeen volet territorial des programmes europeens fonds europeens de developpement biens a vendre les biens mobilie…"
+    },
+    {
+      "id": "na-inst-036",
+      "nom": "Conseil départemental de Lot-et-Garonne — L Assemblée départementale",
+      "type": "conseil_departemental",
+      "departement": "Lot-et-Garonne",
+      "url": "https://www.lotetgaronne.fr/le-conseil-departemental/lassemblee-departementale",
+      "dureeMs": 231,
+      "urlFinale": "https://www.lotetgaronne.fr/le-conseil-departemental/lassemblee-departementale",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "conseil",
+        "departemental",
+        "lot",
+        "garonne"
+      ],
+      "extrait": "…ts budgetaires les archives budgetaires l organigramme des services la charte graphique du conseil departemental egalite femmes hommes les aides europeennes le fonds social europeen volet territorial des programmes europeens fonds europeens de developpement biens a vendre les biens mobilie…"
+    },
+    {
+      "id": "na-inst-037",
+      "nom": "Conseil départemental de Lot-et-Garonne — Les vice-président(e)s",
+      "type": "conseil_departemental",
+      "departement": "Lot-et-Garonne",
+      "url": "https://www.lotetgaronne.fr/le-conseil-departemental/les-vice-presidentes",
+      "dureeMs": 134,
+      "urlFinale": "https://www.lotetgaronne.fr/le-conseil-departemental/les-vice-presidentes",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "conseil",
+        "departemental",
+        "lot",
+        "garonne"
+      ],
+      "extrait": "…ts budgetaires les archives budgetaires l organigramme des services la charte graphique du conseil departemental egalite femmes hommes les aides europeennes le fonds social europeen volet territorial des programmes europeens fonds europeens de developpement biens a vendre les biens mobilie…"
+    },
+    {
+      "id": "na-inst-038",
+      "nom": "Conseil départemental des Deux-Sèvres — La sécurité alimentaire et sanitaire",
+      "type": "conseil_departemental",
+      "departement": "Deux-Sèvres",
+      "url": "https://www.deux-sevres.fr/nos-missions/lagriculture/securite-alimentaire-et-sanitaire-le-laboratoire-qualyse",
+      "dureeMs": 131,
+      "urlFinale": "https://www.deux-sevres.fr/nos-missions/lagriculture/securite-alimentaire-et-sanitaire-le-laboratoire-qualyse",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "conseil",
+        "departemental",
+        "deux",
+        "sevres"
+      ],
+      "extrait": "…iale a l hebergement ash la protection des personnes vulnerables le soutien aux aidants le conseil departemental de la citoyennete et de l autonomie cdca l accueil familial vivre bien entoure preserver son autonomie un temps d information et de decouverte des aides techniques du quotidien …"
+    },
+    {
+      "id": "na-inst-039",
+      "nom": "Conseil départemental des Deux-Sèvres — Agenda de la prévention pour les aînés et leurs proches aidants",
+      "type": "conseil_departemental",
+      "departement": "Deux-Sèvres",
+      "url": "https://www.deux-sevres.fr/nos-missions/les-personnes-agees/agenda-de-la-prevention-pour-les-aines-et-leurs-proches-aidants",
+      "dureeMs": 73,
+      "urlFinale": "https://www.deux-sevres.fr/nos-missions/les-personnes-agees/agenda-de-la-prevention-pour-les-aines-et-leurs-proches-aidants",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "conseil",
+        "departemental",
+        "deux",
+        "sevres"
+      ],
+      "extrait": "…iale a l hebergement ash la protection des personnes vulnerables le soutien aux aidants le conseil departemental de la citoyennete et de l autonomie cdca l accueil familial vivre bien entoure preserver son autonomie un temps d information et de decouverte des aides techniques du quotidien …"
+    },
+    {
+      "id": "na-inst-040",
+      "nom": "Conseil départemental des Deux-Sèvres — Le Conseil Départemental de la Citoyenneté et de l Autonomie (CDCA)",
+      "type": "conseil_departemental",
+      "departement": "Deux-Sèvres",
+      "url": "https://www.deux-sevres.fr/nos-missions/les-personnes-agees/le-conseil-departemental-de-la-citoyennete-et-de-lautonomie-cdca",
+      "dureeMs": 174,
+      "urlFinale": "https://www.deux-sevres.fr/nos-missions/les-personnes-agees/le-conseil-departemental-de-la-citoyennete-et-de-lautonomie-cdca",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "conseil",
+        "departemental",
+        "deux",
+        "sevres"
+      ],
+      "extrait": "le conseil departemental de la citoyennete et de l autonomie cdca departement des deux sevres aller au contenu principal aller au menu aller a la recherche contact nos missions nos missions le departeme…"
+    },
+    {
+      "id": "na-inst-041",
+      "nom": "Conseil départemental des Pyrénées-Atlantiques — Faire don de votre temps à un voisin ou une collectivité",
+      "type": "conseil_departemental",
+      "departement": "Pyrénées-Atlantiques",
+      "url": "https://le64.fr/lactualite-du-departement/le-departement-des-pyrenees-atlantiques-passe-lheure-civique",
+      "dureeMs": 264,
+      "urlFinale": "https://le64.fr/lactualite-du-departement/le-departement-des-pyrenees-atlantiques-passe-lheure-civique",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "conseil",
+        "departemental",
+        "pyrenees",
+        "atlantiques"
+      ],
+      "extrait": "…une association precedent en visite dans le 64 precedent vous souhaitez precedent venir au conseil departemental precedent donner votre avis precedent postuler au conseil departemental 64 precedent devenir assistant familial precedent repondre a un appel a projets precedent contacter les s…"
+    },
+    {
+      "id": "na-inst-042",
+      "nom": "Conseil départemental des Pyrénées-Atlantiques — Postuler au Conseil départemental 64",
+      "type": "conseil_departemental",
+      "departement": "Pyrénées-Atlantiques",
+      "url": "https://le64.fr/recherche-offres-demploi",
+      "dureeMs": 188,
+      "urlFinale": "https://le64.fr/recherche-offres-demploi",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "conseil",
+        "departemental",
+        "pyrenees",
+        "atlantiques"
+      ],
+      "extrait": "…une association precedent en visite dans le 64 precedent vous souhaitez precedent venir au conseil departemental precedent donner votre avis precedent postuler au conseil departemental 64 precedent devenir assistant familial precedent repondre a un appel a projets precedent contacter les s…"
+    },
+    {
+      "id": "na-inst-043",
+      "nom": "Conseil départemental des Pyrénées-Atlantiques — VOIR TOUTES LES ACTUALITÉS",
+      "type": "conseil_departemental",
+      "departement": "Pyrénées-Atlantiques",
+      "url": "https://www.le64.fr/lactualite-du-departement",
+      "dureeMs": 264,
+      "urlFinale": "https://www.le64.fr/lactualite-du-departement",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "conseil",
+        "departemental",
+        "pyrenees",
+        "atlantiques"
+      ],
+      "extrait": "…une association precedent en visite dans le 64 precedent vous souhaitez precedent venir au conseil departemental precedent donner votre avis precedent postuler au conseil departemental 64 precedent devenir assistant familial precedent repondre a un appel a projets precedent contacter les s…"
+    },
+    {
+      "id": "na-inst-044",
+      "nom": "Préfecture de la région Nouvelle-Aquitaine",
+      "type": "prefecture",
+      "departement": "Nouvelle-Aquitaine",
+      "url": "https://www.nouvelle-aquitaine.gouv.fr/",
+      "dureeMs": 304,
+      "urlFinale": "https://www.nouvelle-aquitaine.gouv.fr/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "prefecture",
+        "nouvelle",
+        "aquitaine"
+      ],
+      "extrait": "…ntissage marches publics les services de l etat dans la region nouvelle aquitaine charente prefecture de la charente charente maritime prefecture de la charente maritime correze prefecture de la correze creuse prefecture de la creuse dordogne prefecture de la dordogne gironde prefecture de…"
+    },
+    {
+      "id": "na-inst-045",
+      "nom": "Préfecture de la région Nouvelle-Aquitaine — Environnement",
+      "type": "prefecture",
+      "departement": "Nouvelle-Aquitaine",
+      "url": "https://www.nouvelle-aquitaine.gouv.fr/actions-de-letat/environnement-developpement-durable-et-prevention-des-risques",
+      "dureeMs": 461,
+      "urlFinale": "https://www.nouvelle-aquitaine.gouv.fr/actions-de-letat/environnement-developpement-durable-et-prevention-des-risques",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "nouvelle",
+        "aquitaine"
+      ],
+      "extrait": "environnement developpement durable et prevention des risques les services de l etat en nouvelle aquitaine vers le contenu principal aller au menu aller au pied de page prefete de la region nouvelle aquitaine rechercher menu les services de l etat en nouvelle aquitaine nous contacter pa…"
+    },
+    {
+      "id": "na-inst-046",
+      "nom": "Préfecture de la région Nouvelle-Aquitaine — Lutte contre la pauvreté",
+      "type": "prefecture",
+      "departement": "Nouvelle-Aquitaine",
+      "url": "https://www.nouvelle-aquitaine.gouv.fr/actions-de-letat/prevention-et-lutte-contre-la-pauvrete",
+      "dureeMs": 257,
+      "urlFinale": "https://www.nouvelle-aquitaine.gouv.fr/actions-de-letat/prevention-et-lutte-contre-la-pauvrete",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "nouvelle",
+        "aquitaine"
+      ],
+      "extrait": "prevention et lutte contre la pauvrete les services de l etat en nouvelle aquitaine vers le contenu principal aller au menu aller au pied de page prefete de la region nouvelle aquitaine rechercher menu les services de l etat en nouvelle aquitaine nous contacter pa…"
+    },
+    {
+      "id": "na-inst-047",
+      "nom": "Préfecture de la région Nouvelle-Aquitaine — Santé et solidarités",
+      "type": "prefecture",
+      "departement": "Nouvelle-Aquitaine",
+      "url": "https://www.nouvelle-aquitaine.gouv.fr/actions-de-letat/sante",
+      "dureeMs": 296,
+      "urlFinale": "https://www.nouvelle-aquitaine.gouv.fr/actions-de-letat/sante",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "nouvelle",
+        "aquitaine"
+      ],
+      "extrait": "sante les services de l etat en nouvelle aquitaine vers le contenu principal aller au menu aller au pied de page prefete de la region nouvelle aquitaine rechercher menu les services de l etat en nouvelle aquitaine nous contacter pa…"
+    },
+    {
+      "id": "na-inst-048",
+      "nom": "Préfecture de la région Nouvelle-Aquitaine — Toutes les actualités",
+      "type": "prefecture",
+      "departement": "Nouvelle-Aquitaine",
+      "url": "https://www.nouvelle-aquitaine.gouv.fr/actualites",
+      "dureeMs": 138,
+      "urlFinale": "https://www.nouvelle-aquitaine.gouv.fr/actualites",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "nouvelle",
+        "aquitaine"
+      ],
+      "extrait": "actualites les services de l etat en nouvelle aquitaine vers le contenu principal aller au menu aller au pied de page prefete de la region nouvelle aquitaine rechercher menu les services de l etat en nouvelle aquitaine nous contacter pa…"
+    },
+    {
+      "id": "na-inst-049",
+      "nom": "Préfecture de la région Nouvelle-Aquitaine — Voir toute la rubrique",
+      "type": "prefecture",
+      "departement": "Nouvelle-Aquitaine",
+      "url": "https://www.nouvelle-aquitaine.gouv.fr/publications-accueil",
+      "dureeMs": 292,
+      "urlFinale": "https://www.nouvelle-aquitaine.gouv.fr/publications-accueil",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "nouvelle",
+        "aquitaine"
+      ],
+      "extrait": "les publications des services de l etat les services de l etat en nouvelle aquitaine vers le contenu principal aller au menu aller au pied de page prefete de la region nouvelle aquitaine rechercher menu les services de l etat en nouvelle aquitaine nous contacter pa…"
+    },
+    {
+      "id": "na-inst-050",
+      "nom": "Préfecture de la région Nouvelle-Aquitaine — Consultations publiques",
+      "type": "prefecture",
+      "departement": "Nouvelle-Aquitaine",
+      "url": "https://www.nouvelle-aquitaine.gouv.fr/publications/consultations-publiques",
+      "dureeMs": 387,
+      "urlFinale": "https://www.nouvelle-aquitaine.gouv.fr/publications/consultations-publiques",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "nouvelle",
+        "aquitaine"
+      ],
+      "extrait": "consultations publiques les services de l etat en nouvelle aquitaine vers le contenu principal aller au menu aller au pied de page prefete de la region nouvelle aquitaine rechercher menu les services de l etat en nouvelle aquitaine nous contacter pa…"
+    },
+    {
+      "id": "na-inst-051",
+      "nom": "Préfecture de la région Nouvelle-Aquitaine — Lettres d actualités régionales",
+      "type": "prefecture",
+      "departement": "Nouvelle-Aquitaine",
+      "url": "https://www.nouvelle-aquitaine.gouv.fr/publications/lettres-dactualite-des-services-de-letat",
+      "dureeMs": 240,
+      "urlFinale": "https://www.nouvelle-aquitaine.gouv.fr/publications/lettres-dactualite-des-services-de-letat",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "nouvelle",
+        "aquitaine"
+      ],
+      "extrait": "lettres d actualite des services de l etat les services de l etat en nouvelle aquitaine vers le contenu principal aller au menu aller au pied de page prefete de la region nouvelle aquitaine rechercher menu les services de l etat en nouvelle aquitaine nous contacter pa…"
+    },
+    {
+      "id": "na-inst-052",
+      "nom": "Préfecture de la région Nouvelle-Aquitaine — Marchés publics",
+      "type": "prefecture",
+      "departement": "Nouvelle-Aquitaine",
+      "url": "https://www.nouvelle-aquitaine.gouv.fr/publications/marches-publics",
+      "dureeMs": 265,
+      "urlFinale": "https://www.nouvelle-aquitaine.gouv.fr/publications/marches-publics",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "nouvelle",
+        "aquitaine"
+      ],
+      "extrait": "marches publics les services de l etat en nouvelle aquitaine vers le contenu principal aller au menu aller au pied de page prefete de la region nouvelle aquitaine rechercher menu les services de l etat en nouvelle aquitaine nous contacter pa…"
+    },
+    {
+      "id": "na-inst-053",
+      "nom": "SDIS de la Charente — Informations utiles",
+      "type": "sdis",
+      "departement": "Charente",
+      "url": "https://www.pompiers-charente.org/index-module-orki-page-view-id-17.html",
+      "dureeMs": 198,
+      "urlFinale": "https://www.pompiers-charente.org/index-module-orki-page-view-id-17.html",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sdis",
+        "charente"
+      ],
+      "extrait": "informations utiles 18 112 appel d urgence navigation qui sommes nous organisation du sdis 16 organisation territoriale organisation fonctionnelle les groupements direction groupement technique et logistique groupement ressources humaines finances et formation groupement operations gr…"
+    },
+    {
+      "id": "na-inst-054",
+      "nom": "SDIS de la Charente — Feux conseils utiles",
+      "type": "sdis",
+      "departement": "Charente",
+      "url": "https://www.pompiers-charente.org/index-module-orki-page-view-id-55.html",
+      "dureeMs": 204,
+      "urlFinale": "https://www.pompiers-charente.org/index-module-orki-page-view-id-55.html",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sdis",
+        "charente"
+      ],
+      "extrait": "…eux les bonnes pratiques 18 112 appel d urgence navigation qui sommes nous organisation du sdis 16 organisation territoriale organisation fonctionnelle les groupements direction groupement technique et logistique groupement ressources humaines finances et formation groupement operations gr…"
+    },
+    {
+      "id": "na-inst-055",
+      "nom": "SDIS de la Charente — Conseils de s curit",
+      "type": "sdis",
+      "departement": "Charente",
+      "url": "https://www.pompiers-charente.org/index-module-orki-page-view-id-8.html",
+      "dureeMs": 142,
+      "urlFinale": "https://www.pompiers-charente.org/index-module-orki-page-view-id-8.html",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sdis",
+        "charente"
+      ],
+      "extrait": "conseils de securite 18 112 appel d urgence navigation qui sommes nous organisation du sdis 16 organisation territoriale organisation fonctionnelle les groupements direction groupement technique et logistique groupement ressources humaines finances et formation groupement operations gr…"
+    },
+    {
+      "id": "na-inst-056",
+      "nom": "SDIS de la Charente-Maritime — CONSEILS DE SÉCURITÉ ET PRÉVENTIONS",
+      "type": "sdis",
+      "departement": "Charente-Maritime",
+      "url": "https://sdis17.fr/conseils-securite-et-prevention/",
+      "dureeMs": 2029,
+      "urlFinale": "https://sdis17.fr/conseils-securite-et-prevention/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sdis",
+        "charente",
+        "maritime"
+      ],
+      "extrait": "conseils securite et prevention sdis 17 sapeurs pompiers de la charente maritime aller au contenu decouvrir le sdis 17 fermer decouvrir le sdis 17 ouvrir decouvrir le sdis 17 decouvrez le sdis17 qui compose le service departemental…"
+    },
+    {
+      "id": "na-inst-057",
+      "nom": "SDIS de la Charente-Maritime — Alerter la CeSO",
+      "type": "sdis",
+      "departement": "Charente-Maritime",
+      "url": "https://sdis17.fr/formulaire-de-signalement-du-sdis-17/",
+      "dureeMs": 2057,
+      "urlFinale": "https://sdis17.fr/formulaire-de-signalement-du-sdis-17/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sdis",
+        "charente",
+        "maritime"
+      ],
+      "extrait": "formulaire de signalement du sdis 17 sdis 17 sapeurs pompiers de la charente maritime aller au contenu decouvrir le sdis 17 fermer decouvrir le sdis 17 ouvrir decouvrir le sdis 17 decouvrez le sdis17 qui compose le service depar…"
+    },
+    {
+      "id": "na-inst-058",
+      "nom": "SDIS de la Charente-Maritime — Politique générale de protection des données",
+      "type": "sdis",
+      "departement": "Charente-Maritime",
+      "url": "https://sdis17.fr/politique-de-protection-des-donnees/",
+      "dureeMs": 2051,
+      "urlFinale": "https://sdis17.fr/politique-de-protection-des-donnees/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sdis",
+        "charente",
+        "maritime"
+      ],
+      "extrait": "politique de confidentialite sdis 17 sapeurs pompiers de la charente maritime aller au contenu decouvrir le sdis 17 fermer decouvrir le sdis 17 ouvrir decouvrir le sdis 17 decouvrez le sdis17 qui compose le service departemental…"
+    },
+    {
+      "id": "na-inst-059",
+      "nom": "SDIS de la Creuse — Télécharger le rapport d'activité du SDIS 23",
+      "type": "sdis",
+      "departement": "Creuse",
+      "url": "https://www.sdis23.fr/2026/04/07/rapport-activite-sdis-23-2025/",
+      "dureeMs": 179,
+      "urlFinale": "https://www.sdis23.fr/2026/04/07/rapport-activite-sdis-23-2025/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sdis",
+        "creuse"
+      ],
+      "extrait": "rapport d activite sdis 23 2025 consultez le skip to content actualites medias marches publics udsp23 liens utiles glossaire nous connaitre les missions l organisation les moyens centres d incendie et de secours le con…"
+    },
+    {
+      "id": "na-inst-060",
+      "nom": "SDIS de la Creuse — Voir toutes les actus",
+      "type": "sdis",
+      "departement": "Creuse",
+      "url": "https://www.sdis23.fr/actualites/",
+      "dureeMs": 243,
+      "urlFinale": "https://www.sdis23.fr/actualites/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sdis",
+        "creuse"
+      ],
+      "extrait": "… l organisation les moyens centres d incendie et de secours le conseil d administration le sdis 23 en chiffres sdacr glossaire des sapeurs pompiers nous rejoindre sapeur pompier professionnel spp sapeur pompier volontaire spv sapeur pompier du service de sante et de secours medical sssm pe…"
+    },
+    {
+      "id": "na-inst-061",
+      "nom": "SDIS de la Creuse — Le Sdis 23 en chiffres",
+      "type": "sdis",
+      "departement": "Creuse",
+      "url": "https://www.sdis23.fr/rapports-activite-sdis23/",
+      "dureeMs": 204,
+      "urlFinale": "https://www.sdis23.fr/rapports-activite-sdis23/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sdis",
+        "creuse"
+      ],
+      "extrait": "rapport d activite du sdis 23 skip to content actualites medias marches publics udsp23 liens utiles glossaire nous connaitre les missions l organisation les moyens centres d incendie et de secours le conseil d administrat…"
+    },
+    {
+      "id": "na-inst-062",
+      "nom": "SDIS de la Dordogne — Actualités",
+      "type": "sdis",
+      "departement": "Dordogne",
+      "url": "https://www.sdis24.fr/category/actualites/",
+      "dureeMs": 210,
+      "urlFinale": "https://www.sdis24.fr/category/actualites/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sdis",
+        "dordogne"
+      ],
+      "extrait": "archives des actualites sdis 24 aller au contenu principal aller au contenu sdis 24 menu data close icon data full width yes nous connaitre notre organisation nos missions nos specialites nos moyens carte interactive nous r…"
+    },
+    {
+      "id": "na-inst-063",
+      "nom": "SDIS de la Dordogne — Publication des actes administratifs",
+      "type": "sdis",
+      "departement": "Dordogne",
+      "url": "https://www.sdis24.fr/publication-des-actes-administratifs/",
+      "dureeMs": 251,
+      "urlFinale": "https://www.sdis24.fr/publication-des-actes-administratifs/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sdis",
+        "dordogne"
+      ],
+      "extrait": "publication des actes administratifs sdis 24 aller au contenu principal aller au contenu sdis 24 menu data close icon data full width yes nous connaitre notre organisation nos missions nos specialites nos moyens carte interactive nous r…"
+    },
+    {
+      "id": "na-inst-064",
+      "nom": "SDIS de la Dordogne — Rejoindre le service de santé et de secours médical",
+      "type": "sdis",
+      "departement": "Dordogne",
+      "url": "https://www.sdis24.fr/rejoindre-le-service-de-sante-et-de-secours-medical/",
+      "dureeMs": 198,
+      "urlFinale": "https://www.sdis24.fr/rejoindre-le-service-de-sante-et-de-secours-medical/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sdis"
+      ],
+      "extrait": "rejoindre le service de sante et de secours medical sdis 24 aller au contenu principal aller au contenu sdis 24 menu data close icon data full width yes nous connaitre notre organisation nos missions nos specialites nos moyens carte interactive nous r…"
+    },
+    {
+      "id": "na-inst-065",
+      "nom": "SDIS de la Gironde — Evènement Bienvenue aux nouveaux arrivants, belle retraite aux collègu",
+      "type": "sdis",
+      "departement": "Gironde",
+      "url": "https://www.pompiers33.fr/actualites/bienvenue-aux-nouveaux-arrivants-belle-retraite-aux-collegues-partants/",
+      "dureeMs": 168,
+      "urlFinale": "https://www.pompiers33.fr/actualites/bienvenue-aux-nouveaux-arrivants-belle-retraite-aux-collegues-partants/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sdis",
+        "gironde"
+      ],
+      "extrait": "…sions notre organisation nos equipes nos moyens notre histoire la gouvernance le budget du sdis de la gironde le code general des collectivites territoriales cgct les statistiques du sdis de la gironde les risques en gironde la carte du sdis de la gironde notre organigramme les sapeurs pom…"
+    },
+    {
+      "id": "na-inst-066",
+      "nom": "SDIS de la Gironde — Formation FMPA Garde au drapeau",
+      "type": "sdis",
+      "departement": "Gironde",
+      "url": "https://www.pompiers33.fr/actualites/fmpa-garde-au-drapeau/",
+      "dureeMs": 160,
+      "urlFinale": "https://www.pompiers33.fr/actualites/fmpa-garde-au-drapeau/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sdis",
+        "gironde"
+      ],
+      "extrait": "…sions notre organisation nos equipes nos moyens notre histoire la gouvernance le budget du sdis de la gironde le code general des collectivites territoriales cgct les statistiques du sdis de la gironde les risques en gironde la carte du sdis de la gironde notre organigramme les sapeurs pom…"
+    },
+    {
+      "id": "na-inst-067",
+      "nom": "SDIS de la Gironde — Cérémonie Retour en images sur l hommage national",
+      "type": "sdis",
+      "departement": "Gironde",
+      "url": "https://www.pompiers33.fr/actualites/retour-en-images-sur/",
+      "dureeMs": 1137,
+      "urlFinale": "https://www.pompiers33.fr/actualites/retour-en-images-sur/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sdis",
+        "gironde"
+      ],
+      "extrait": "…sions notre organisation nos equipes nos moyens notre histoire la gouvernance le budget du sdis de la gironde le code general des collectivites territoriales cgct les statistiques du sdis de la gironde les risques en gironde la carte du sdis de la gironde notre organigramme les sapeurs pom…"
+    },
+    {
+      "id": "na-inst-068",
+      "nom": "SDIS de Lot-et-Garonne — Les indicateurs de condition physique",
+      "type": "sdis",
+      "departement": "Lot-et-Garonne",
+      "url": "https://www.sdis47.fr/actualites/les-indicateurs-de-condition-physique/",
+      "dureeMs": 627,
+      "urlFinale": "https://www.sdis47.fr/actualites/les-indicateurs-de-condition-physique/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sdis",
+        "lot",
+        "garonne"
+      ],
+      "extrait": "les indicateurs de condition physique sdis47 navigation acces extranet rds sdis 47 apis formation identification memoriser mot de passe oublie devenez sapeur pompier suivez les conseils des sapeurs pompiers facebook instagram linkedin appelez les secours composez le 18 sdis…"
+    },
+    {
+      "id": "na-inst-069",
+      "nom": "SDIS de Lot-et-Garonne — La sécurité routière",
+      "type": "sdis",
+      "departement": "Lot-et-Garonne",
+      "url": "https://www.sdis47.fr/les-partenaires/la-securite-routiere/",
+      "dureeMs": 726,
+      "urlFinale": "https://www.sdis47.fr/les-partenaires/la-securite-routiere/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sdis"
+      ],
+      "extrait": "la securite routiere sdis47 navigation acces extranet rds sdis 47 apis formation identification memoriser mot de passe oublie devenez sapeur pompier suivez les conseils des sapeurs pompiers facebook instagram linkedin appelez les secours composez le 18 sdis…"
+    },
+    {
+      "id": "na-inst-070",
+      "nom": "SDIS de Lot-et-Garonne — Les cadets de la sécurité civile",
+      "type": "sdis",
+      "departement": "Lot-et-Garonne",
+      "url": "https://www.sdis47.fr/les-partenaires/les-cadets-de-la-securite-civile/",
+      "dureeMs": 636,
+      "urlFinale": "https://www.sdis47.fr/les-partenaires/les-cadets-de-la-securite-civile/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sdis"
+      ],
+      "extrait": "les cadets de la securite civile sdis47 navigation acces extranet rds sdis 47 apis formation identification memoriser mot de passe oublie devenez sapeur pompier suivez les conseils des sapeurs pompiers facebook instagram linkedin appelez les secours composez le 18 sdis…"
+    },
+    {
+      "id": "na-inst-071",
+      "nom": "SDIS des Deux-Sèvres — Toutes les actualités",
+      "type": "sdis",
+      "departement": "Deux-Sèvres",
+      "url": "https://www.sdis79.fr/actualites-generales/",
+      "dureeMs": 4479,
+      "urlFinale": "https://www.sdis79.fr/actualites-generales/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sdis",
+        "deux",
+        "sevres"
+      ],
+      "extrait": "actualites generales sdis79 sdis 79 sapeurs pompiers menu accueil decouvrir le sdis 79 l organisation du sdis79 les moyens l activite operationnelle les risques du departement se former avec le sdis 79 formations tout public fo…"
+    },
+    {
+      "id": "na-inst-072",
+      "nom": "SDIS des Deux-Sèvres — Les risques du département",
+      "type": "sdis",
+      "departement": "Deux-Sèvres",
+      "url": "https://www.sdis79.fr/decouvrir-le-sdis-79/risques-departement79/",
+      "dureeMs": 736,
+      "urlFinale": "https://www.sdis79.fr/decouvrir-le-sdis-79/risques-departement79/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sdis",
+        "deux",
+        "sevres"
+      ],
+      "extrait": "les risques du departement sdis79 sdis 79 sapeurs pompiers menu accueil decouvrir le sdis 79 l organisation du sdis79 les moyens l activite operationnelle les risques du departement se former avec le sdis 79 formations tout public fo…"
+    },
+    {
+      "id": "na-inst-073",
+      "nom": "SDIS des Deux-Sèvres — Espace presse",
+      "type": "sdis",
+      "departement": "Deux-Sèvres",
+      "url": "https://www.sdis79.fr/espace-presse/",
+      "dureeMs": 828,
+      "urlFinale": "https://www.sdis79.fr/espace-presse/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sdis",
+        "deux",
+        "sevres"
+      ],
+      "extrait": "espace presse sdis79 sdis 79 sapeurs pompiers menu accueil decouvrir le sdis 79 l organisation du sdis79 les moyens l activite operationnelle les risques du departement se former avec le sdis 79 formations tout public fo…"
+    },
+    {
+      "id": "na-inst-074",
+      "nom": "SDIS des Landes",
+      "type": "sdis",
+      "departement": "Landes",
+      "url": "https://www.sdis40.fr/",
+      "dureeMs": 506,
+      "urlFinale": "https://www.sdis40.fr/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sdis",
+        "landes"
+      ],
+      "extrait": "…al d incendie et de secours des landes sortez de l ordinaire devenez volontaire accueil le sdis 40 rejoignez nous sapeurs pompiers volontaires spv sapeurs pompiers professionnels spp personnels administratifs techniques et specialises pats sssm service de secours et de sante medical volont…"
+    },
+    {
+      "id": "na-inst-075",
+      "nom": "SDIS des Landes — SSSM Service de Secours et de Santé Médical",
+      "type": "sdis",
+      "departement": "Landes",
+      "url": "https://www.sdis40.fr/sssm-service-de-secours-et-de-sante-medical/",
+      "dureeMs": 192,
+      "urlFinale": "https://www.sdis40.fr/sssm-service-de-secours-et-de-sante-medical/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sdis",
+        "landes"
+      ],
+      "extrait": "…al d incendie et de secours des landes sortez de l ordinaire devenez volontaire accueil le sdis 40 rejoignez nous sapeurs pompiers volontaires spv sapeurs pompiers professionnels spp personnels administratifs techniques et specialises pats sssm service de secours et de sante medical volont…"
+    },
+    {
+      "id": "na-inst-076",
+      "nom": "SDIS des Pyrénées-Atlantiques — Le conseil d’administration",
+      "type": "sdis",
+      "departement": "Pyrénées-Atlantiques",
+      "url": "https://www.sdis64.fr/le-conseil-dadministration-2/",
+      "dureeMs": 300,
+      "urlFinale": "https://www.sdis64.fr/le-conseil-dadministration-2/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sdis",
+        "pyrenees",
+        "atlantiques"
+      ],
+      "extrait": "le conseil d administration sdis 64 le sdis le sdis64 en quelques chiffres organigramme le conseil d administration les specialites formations documentation recueil des actes administratifs demande d attestation nous rejoindre …"
+    },
+    {
+      "id": "na-inst-077",
+      "nom": "SDIS des Pyrénées-Atlantiques — Les actualités du SDIS 64",
+      "type": "sdis",
+      "departement": "Pyrénées-Atlantiques",
+      "url": "https://www.sdis64.fr/les-actualites-du-sdis-64/",
+      "dureeMs": 1113,
+      "urlFinale": "https://www.sdis64.fr/les-actualites-du-sdis-64/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sdis",
+        "pyrenees",
+        "atlantiques"
+      ],
+      "extrait": "les actualites du sdis 64 sdis 64 le sdis le sdis64 en quelques chiffres organigramme le conseil d administration les specialites formations documentation recueil des actes administratifs demande d attestation nous re…"
+    },
+    {
+      "id": "na-inst-078",
+      "nom": "SDIS des Pyrénées-Atlantiques — Vos randonnées en toute sécurité !",
+      "type": "sdis",
+      "departement": "Pyrénées-Atlantiques",
+      "url": "https://www.sdis64.fr/vos-randonnees-toute-securite/",
+      "dureeMs": 491,
+      "urlFinale": "https://www.sdis64.fr/vos-randonnees-toute-securite/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sdis",
+        "pyrenees",
+        "atlantiques"
+      ],
+      "extrait": "vos randonnees en toute securite sdis 64 le sdis le sdis64 en quelques chiffres organigramme le conseil d administration les specialites formations documentation recueil des actes administratifs demande d attestation nous rejoindre …"
+    },
+    {
+      "id": "na-inst-079",
+      "nom": "Bordeaux INP — Toutes les actualités",
+      "type": "universite",
+      "departement": "Gironde",
+      "url": "https://www.bordeaux-inp.fr/fr/actualites",
+      "dureeMs": 280,
+      "urlFinale": "https://www.bordeaux-inp.fr/fr/actualites",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "bordeaux",
+        "inp"
+      ],
+      "extrait": "…hebergee personnel etudiant rechercher menu rechercher profil reseaux sociaux acces direct bordeaux inp toggle submenu presentation bordeaux inp en bref chiffres cles grands projets partenaires bordeaux inp en videos nos engagements decouvrir les ecoles les ecoles bordeaux inp les ecoles p…"
+    },
+    {
+      "id": "na-inst-080",
+      "nom": "Bordeaux INP — Données personnelles",
+      "type": "universite",
+      "departement": "Gironde",
+      "url": "https://www.bordeaux-inp.fr/fr/donnees-personnelles",
+      "dureeMs": 413,
+      "urlFinale": "https://www.bordeaux-inp.fr/fr/donnees-personnelles",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "bordeaux",
+        "inp"
+      ],
+      "extrait": "…hebergee personnel etudiant rechercher menu rechercher profil reseaux sociaux acces direct bordeaux inp toggle submenu presentation bordeaux inp en bref chiffres cles grands projets partenaires bordeaux inp en videos nos engagements decouvrir les ecoles les ecoles bordeaux inp les ecoles p…"
+    },
+    {
+      "id": "na-inst-081",
+      "nom": "Bordeaux INP — Actualités de la recherche",
+      "type": "universite",
+      "departement": "Gironde",
+      "url": "https://www.bordeaux-inp.fr/fr/du-cote-de-la-recherche-du-transfert-de-technologie",
+      "dureeMs": 370,
+      "urlFinale": "https://www.bordeaux-inp.fr/fr/du-cote-de-la-recherche-du-transfert-de-technologie",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "bordeaux",
+        "inp"
+      ],
+      "extrait": "…hebergee personnel etudiant rechercher menu rechercher profil reseaux sociaux acces direct bordeaux inp toggle submenu presentation bordeaux inp en bref chiffres cles grands projets partenaires bordeaux inp en videos nos engagements decouvrir les ecoles les ecoles bordeaux inp les ecoles p…"
+    },
+    {
+      "id": "na-inst-082",
+      "nom": "École nationale supérieure d'arts et métiers Bordeaux — + d actualités",
+      "type": "universite",
+      "departement": "Gironde",
+      "url": "https://artsetmetiers.fr/fr/actualites",
+      "dureeMs": 213,
+      "urlFinale": "https://artsetmetiers.fr/fr/actualites",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "ecole",
+        "superieure",
+        "arts",
+        "metiers",
+        "bordeaux"
+      ],
+      "extrait": "…ic actualites presse recrutement taxe d apprentissage intranet etudiants arts et metiers l ecole l etablissement strategie gouvernance les campus arts et metiers logo et charte graphique plaquette et fiches formation phototheque soutenir les projets arts et metiers vie etudiante associatio…"
+    },
+    {
+      "id": "na-inst-083",
+      "nom": "École nationale supérieure d'arts et métiers Bordeaux — Vérifier un diplôme Arts et Métiers",
+      "type": "universite",
+      "departement": "Gironde",
+      "url": "https://artsetmetiers.fr/fr/attestation-numerique-diplome-arts-et-metiers",
+      "dureeMs": 204,
+      "urlFinale": "https://artsetmetiers.fr/fr/attestation-numerique-diplome-arts-et-metiers",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "ecole",
+        "superieure",
+        "arts",
+        "metiers",
+        "bordeaux"
+      ],
+      "extrait": "…ic actualites presse recrutement taxe d apprentissage intranet etudiants arts et metiers l ecole l etablissement strategie gouvernance les campus arts et metiers logo et charte graphique plaquette et fiches formation phototheque soutenir les projets arts et metiers vie etudiante associatio…"
+    },
+    {
+      "id": "na-inst-084",
+      "nom": "École nationale supérieure d'arts et métiers Bordeaux — Observatoire des données",
+      "type": "universite",
+      "departement": "Gironde",
+      "url": "https://artsetmetiers.fr/fr/observatoire-des-donnees",
+      "dureeMs": 100,
+      "urlFinale": "https://artsetmetiers.fr/fr/observatoire-des-donnees",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "ecole",
+        "superieure",
+        "arts",
+        "metiers",
+        "bordeaux"
+      ],
+      "extrait": "…ic actualites presse recrutement taxe d apprentissage intranet etudiants arts et metiers l ecole l etablissement strategie gouvernance les campus arts et metiers logo et charte graphique plaquette et fiches formation phototheque soutenir les projets arts et metiers vie etudiante associatio…"
+    },
+    {
+      "id": "na-inst-085",
+      "nom": "ENSCPB Bordeaux",
+      "type": "universite",
+      "departement": "Gironde",
+      "url": "https://www.enscpb.fr/",
+      "dureeMs": 491,
+      "urlFinale": "https://www.enscpb.fr/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "bordeaux"
+      ],
+      "extrait": "ouvrez la porte de la science ecole chimie formation bordeaux formation chimie demystifier la chimie ouvrez la porte de la science a travers une formation engageante si vous avez toujours ete curieux de la composition de notre monde et des reactions qu…"
+    },
+    {
+      "id": "na-inst-086",
+      "nom": "IUT de Bordeaux",
+      "type": "universite",
+      "departement": "Gironde",
+      "url": "https://www.iut.u-bordeaux.fr/",
+      "dureeMs": 209,
+      "urlFinale": "https://www.iut.u-bordeaux.fr/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "iut",
+        "bordeaux"
+      ],
+      "extrait": "…cceder au contenu principal acceder a la table des matieres intranet de l ub intranet de l iut menu fermer iut de bordeaux nous decouvrir notre institut l equipe de direction le conseil de l iut nos espaces technologiques salons et portes ouvertes nos 4 sites de formation agen bordeaux bas…"
+    },
+    {
+      "id": "na-inst-087",
+      "nom": "Sciences Po Bordeaux — Christine Musselin lue Pr sidente du Conseil d administration de Scien",
+      "type": "universite",
+      "departement": "Gironde",
+      "url": "https://www.sciencespobordeaux.fr/fr/actualites-a-la-une/election-au-conseil-d-administration-de-sciences-po-bordeaux.html",
+      "dureeMs": 195,
+      "urlFinale": "https://www.sciencespobordeaux.fr/fr/actualites-a-la-une/election-au-conseil-d-administration-de-sciences-po-bordeaux.html",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sciences",
+        "bordeaux"
+      ],
+      "extrait": "election au conseil d administration de sciences po bordeaux vous etes international students enseignant vacataire ancien eleve professionnel presse acceder a l ent rechercher dans le site en 1 clic vous etes international students enseign…"
+    },
+    {
+      "id": "na-inst-088",
+      "nom": "Sciences Po Bordeaux — Election des personnalit s ext rieures au conseil d administration pou",
+      "type": "universite",
+      "departement": "Gironde",
+      "url": "https://www.sciencespobordeaux.fr/fr/actualites-a-la-une/election-des-personnalites-exterieures-au-conseil-d-administration-pour-proposition-de-nomination-par-le-recteur-d-academie.html",
+      "dureeMs": 190,
+      "urlFinale": "https://www.sciencespobordeaux.fr/fr/actualites-a-la-une/election-des-personnalites-exterieures-au-conseil-d-administration-pour-proposition-de-nomination-par-le-recteur-d-academie.html",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sciences",
+        "bordeaux"
+      ],
+      "extrait": "…s etudiants internationaux admissions vos rendez vous d orientation integrer le dipl me de sciences po bordeaux inscriptions administratives droits d inscription etudiants etrangers s inscrire aux prepa concours s inscrire en formation continue s inscrire en doctorat recherche actualites g…"
+    },
+    {
+      "id": "na-inst-089",
+      "nom": "Sciences Po Bordeaux — Presse",
+      "type": "universite",
+      "departement": "Gironde",
+      "url": "https://www.sciencespobordeaux.fr/fr/presse.html",
+      "dureeMs": 159,
+      "urlFinale": "https://www.sciencespobordeaux.fr/fr/presse.html",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "sciences",
+        "bordeaux"
+      ],
+      "extrait": "…s etudiants internationaux admissions vos rendez vous d orientation integrer le dipl me de sciences po bordeaux inscriptions administratives droits d inscription etudiants etrangers s inscrire aux prepa concours s inscrire en formation continue s inscrire en doctorat recherche actualites g…"
+    },
+    {
+      "id": "na-inst-090",
+      "nom": "Université de Bordeaux — Sant publique",
+      "type": "universite",
+      "departement": "Gironde",
+      "url": "https://www.u-bordeaux.fr/recherche/structures-de-recherche/departements-de-recherche/sante-publique",
+      "dureeMs": 1414,
+      "urlFinale": "https://www.u-bordeaux.fr/recherche/structures-de-recherche/departements-de-recherche/sante-publique",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "universite",
+        "bordeaux"
+      ],
+      "extrait": "sante publique universite de bordeaux aller au contenu formation formation catalogue des formations choisir une formation choisir une formation les etudes a l universite alternance alternance apprentissage contrat …"
+    },
+    {
+      "id": "na-inst-091",
+      "nom": "Université de Bordeaux — Sciences et technologies pour la sant (STS)",
+      "type": "universite",
+      "departement": "Gironde",
+      "url": "https://www.u-bordeaux.fr/recherche/structures-de-recherche/departements-de-recherche/sciences-technologies-pour-la-sante",
+      "dureeMs": 1389,
+      "urlFinale": "https://www.u-bordeaux.fr/recherche/structures-de-recherche/departements-de-recherche/sciences-technologies-pour-la-sante",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "universite",
+        "bordeaux"
+      ],
+      "extrait": "sciences et technologies pour la sante sts universite de bordeaux aller au contenu formation formation catalogue des formations choisir une formation choisir une formation les etudes a l universite alternance alternance apprentissage contrat …"
+    },
+    {
+      "id": "na-inst-092",
+      "nom": "Université de Bordeaux — Former la m diation et aux sciences participatives",
+      "type": "universite",
+      "departement": "Gironde",
+      "url": "https://www.u-bordeaux.fr/universite/nos-engagements/science-et-societe/former-la-mediation-aux-sciences-participatives-et-aux-donnees-ouvertes",
+      "dureeMs": 1323,
+      "urlFinale": "https://www.u-bordeaux.fr/universite/nos-engagements/science-et-societe/former-la-mediation-aux-sciences-participatives-et-aux-donnees-ouvertes",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "universite",
+        "bordeaux"
+      ],
+      "extrait": "former a la mediation et aux sciences participatives universite de bordeaux aller au contenu formation formation catalogue des formations choisir une formation choisir une formation les etudes a l universite alternance alternance apprentissage contrat …"
+    },
+    {
+      "id": "na-inst-093",
+      "nom": "Université de La Rochelle — Espace Presse",
+      "type": "universite",
+      "departement": "Charente-Maritime",
+      "url": "https://www.univ-larochelle.fr/luniversite/espace-presse/",
+      "dureeMs": 173,
+      "urlFinale": "https://www.univ-larochelle.fr/luniversite/espace-presse/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "universite",
+        "rochelle"
+      ],
+      "extrait": "consultez l espace presse de la rochelle universite fr francais english je suis etudiant futur etudiant entreprises partenaires diplome acces rapide taxe d apprentissage ent intranet paiement en ligne contact elections des representants des…"
+    },
+    {
+      "id": "na-inst-094",
+      "nom": "Université de La Rochelle — Communiqués de presse de La Rochelle Université",
+      "type": "universite",
+      "departement": "Charente-Maritime",
+      "url": "https://www.univ-larochelle.fr/luniversite/espace-presse/communiques-de-presse/",
+      "dureeMs": 199,
+      "urlFinale": "https://www.univ-larochelle.fr/luniversite/espace-presse/communiques-de-presse/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "universite",
+        "rochelle"
+      ],
+      "extrait": "communiques de presse de l universite de la rochelle fr francais english je suis etudiant futur etudiant entreprises partenaires diplome acces rapide taxe d apprentissage ent intranet paiement en ligne contact elections des re…"
+    },
+    {
+      "id": "na-inst-095",
+      "nom": "Université de La Rochelle — Le numérique responsable",
+      "type": "universite",
+      "departement": "Charente-Maritime",
+      "url": "https://www.univ-larochelle.fr/luniversite/nos-engagements-societaux/developpement-durable/le-numerique-responsable/",
+      "dureeMs": 97,
+      "urlFinale": "https://www.univ-larochelle.fr/luniversite/nos-engagements-societaux/developpement-durable/le-numerique-responsable/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "universite",
+        "rochelle"
+      ],
+      "extrait": "le numerique responsable la rochelle universite fr francais english je suis etudiant futur etudiant entreprises partenaires diplome acces rapide taxe d apprentissage ent intranet paiement en ligne contact elections des representants des…"
+    },
+    {
+      "id": "na-inst-096",
+      "nom": "Université de Limoges — [...]",
+      "type": "universite",
+      "departement": "Haute-Vienne",
+      "url": "https://www.unilim.fr/cybermois-universite-limoges-engagee/",
+      "dureeMs": 1100,
+      "urlFinale": "https://www.unilim.fr/cybermois-universite-limoges-engagee/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "universite",
+        "limoges"
+      ],
+      "extrait": "evenements i l universite engagee pour le cybermois universite de limoges menu vous etes rechercher jobteaser taxe d apprentissage accessibilite facil iti politique d accessibilite plan du site allez au contenu all…"
+    },
+    {
+      "id": "na-inst-097",
+      "nom": "Université de Limoges — Professionnels Formation I DU Usages et Bonnes Pratiques en Santé Numé",
+      "type": "universite",
+      "departement": "Haute-Vienne",
+      "url": "https://www.unilim.fr/du-usages-et-bonnes-pratiques-en-sante-numerique/",
+      "dureeMs": 1199,
+      "urlFinale": "https://www.unilim.fr/du-usages-et-bonnes-pratiques-en-sante-numerique/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "universite",
+        "limoges"
+      ],
+      "extrait": "…s pratiques en sante numerique se former pour faire evoluer ses pratiques professionnelles universite de limoges menu vous etes rechercher jobteaser taxe d apprentissage accessibilite facil iti politique d accessibilite plan du site allez au contenu allez au menu rechercher dans le site bi…"
+    },
+    {
+      "id": "na-inst-098",
+      "nom": "Université de Limoges — Sécurité sociale et mutuelles",
+      "type": "universite",
+      "departement": "Haute-Vienne",
+      "url": "https://www.unilim.fr/scolarite/securite-sociale-et-mutuelles-2/",
+      "dureeMs": 2188,
+      "urlFinale": "https://www.unilim.fr/scolarite/securite-sociale-et-mutuelles-2/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "universite",
+        "limoges"
+      ],
+      "extrait": "securite sociale et mutuelles universite de limoges menu vous etes rechercher jobteaser taxe d apprentissage accessibilite facil iti politique d accessibilite plan du site allez au contenu allez au menu rechercher dans le site bi…"
+    },
+    {
+      "id": "na-inst-099",
+      "nom": "Université de Pau et des Pays de l'Adour — Sécurité",
+      "type": "universite",
+      "departement": "Pyrénées-Atlantiques",
+      "url": "https://organisation.univ-pau.fr/fr/securite.html",
+      "dureeMs": 952,
+      "urlFinale": "https://organisation.univ-pau.fr/fr/securite.html",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "universite",
+        "pau",
+        "pays",
+        "adour"
+      ],
+      "extrait": "securite l universite universite de pau et des pays de l adour uppa securite aller au contenu a la recherche au menu l universite formation recherche international orientation evenements votre recherche porte s…"
+    },
+    {
+      "id": "na-inst-100",
+      "nom": "Université de Pau et des Pays de l'Adour — Vigipirate",
+      "type": "universite",
+      "departement": "Pyrénées-Atlantiques",
+      "url": "https://organisation.univ-pau.fr/fr/securite/que-faire-en-cas-d-urgence/vigipirate-reagir-en-cas-d-attaque-terroriste.html",
+      "dureeMs": 394,
+      "urlFinale": "https://organisation.univ-pau.fr/fr/securite/que-faire-en-cas-d-urgence/vigipirate-reagir-en-cas-d-attaque-terroriste.html",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "universite",
+        "pau",
+        "pays",
+        "adour"
+      ],
+      "extrait": "vigipirate reagir en cas d attaque terroriste l universite universite de pau et des pays de l adour uppa vigipirate reagir en cas d attaque terroriste aller au contenu a la recherche au menu l universite formation recherche international orientati…"
+    },
+    {
+      "id": "na-inst-101",
+      "nom": "Université de Pau et des Pays de l'Adour — Actualités",
+      "type": "universite",
+      "departement": "Pyrénées-Atlantiques",
+      "url": "https://ri.univ-pau.fr/fr/actualites.html",
+      "dureeMs": 179,
+      "urlFinale": "https://ri.univ-pau.fr/fr/actualites.html",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "universite",
+        "pau",
+        "pays",
+        "adour"
+      ],
+      "extrait": "actualites international universite de pau et des pays de l adour uppa actualites aller au contenu a la recherche au menu l universite formation recherche international orientation evenements votre recherche porte sur une fo…"
+    },
+    {
+      "id": "na-inst-102",
+      "nom": "Université de Poitiers — Sciences de l’ingénieur et du numérique",
+      "type": "universite",
+      "departement": "Vienne",
+      "url": "https://www.univ-poitiers.fr/decouvrir-la-recherche/equipes-de-recherche/les-laboratoires/les-laboratoires-en-sciences-de-lingenieur-et-du-numerique/",
+      "dureeMs": 618,
+      "urlFinale": "https://www.univ-poitiers.fr/decouvrir-la-recherche/equipes-de-recherche/les-laboratoires/les-laboratoires-en-sciences-de-lingenieur-et-du-numerique/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "universite",
+        "poitiers"
+      ],
+      "extrait": "les laboratoires en sciences de l ingenieur et du numerique universite de poitiers aller au contenu au menu a la recherche dyslexie contraste a a a fr es en acces directs espace etudiant es candidature inscription rechercher menu acces directs accessibilite n…"
+    },
+    {
+      "id": "na-inst-103",
+      "nom": "Université de Poitiers — Lire l'actu Du 02 novembre 2026 au 25 novembre 2026 Actualités et évén",
+      "type": "universite",
+      "departement": "Vienne",
+      "url": "https://www.univ-poitiers.fr/fete-de-lhiver/",
+      "dureeMs": 589,
+      "urlFinale": "https://www.univ-poitiers.fr/fete-de-lhiver/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "universite",
+        "poitiers"
+      ],
+      "extrait": "fete de l hiver 2026 universite de poitiers aller au contenu au menu a la recherche dyslexie contraste a a a fr es en acces directs espace etudiant es candidature inscription rechercher menu acces directs accessibilite n…"
+    },
+    {
+      "id": "na-inst-104",
+      "nom": "Université de Poitiers — Lire l'actu Du 18 novembre 2026 au 26 novembre 2026 Actualités et évén",
+      "type": "universite",
+      "departement": "Vienne",
+      "url": "https://www.univ-poitiers.fr/journee-internationale-de-lutte-contre-les-violences-faites-aux-femmes/",
+      "dureeMs": 623,
+      "urlFinale": "https://www.univ-poitiers.fr/journee-internationale-de-lutte-contre-les-violences-faites-aux-femmes/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "universite",
+        "poitiers"
+      ],
+      "extrait": "journee de lutte contre les violences faites aux femmes une semaine d animations a l universite universite de poitiers aller au contenu au menu a la recherche dyslexie contraste a a a fr es en acces directs espace etudiant es candidature inscription rechercher menu acces directs acce…"
+    },
+    {
+      "id": "na-inst-105",
+      "nom": "A'urba — agence d'urbanisme Bordeaux Aquitaine",
+      "type": "urbanisme",
+      "departement": "Gironde",
+      "url": "https://www.aurba.org/",
+      "dureeMs": 364,
+      "urlFinale": "https://www.aurba.org/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "urba",
+        "urbanisme",
+        "bordeaux",
+        "aquitaine"
+      ],
+      "extrait": "accueil a urba nous rejoindre ressources newsletter les productions amenagement urbain et paysage 146 economie et emploi 53 environnement et climat 85 habitat 87 mobilites et deplacements 115 planification ter…"
+    },
+    {
+      "id": "na-inst-106",
+      "nom": "A'urba — agence d'urbanisme Bordeaux Aquitaine — productions",
+      "type": "urbanisme",
+      "departement": "Gironde",
+      "url": "https://www.aurba.org/productions/",
+      "dureeMs": 229,
+      "urlFinale": "https://www.aurba.org/productions/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "urba",
+        "urbanisme",
+        "bordeaux",
+        "aquitaine"
+      ],
+      "extrait": "productions a urba nous rejoindre ressources newsletter les productions amenagement urbain et paysage 146 economie et emploi 53 environnement et climat 85 habitat 87 mobilites et deplacements 115 planification ter…"
+    },
+    {
+      "id": "na-inst-107",
+      "nom": "A'urba — agence d'urbanisme Bordeaux Aquitaine — ressources",
+      "type": "urbanisme",
+      "departement": "Gironde",
+      "url": "https://www.aurba.org/ressources/",
+      "dureeMs": 141,
+      "urlFinale": "https://www.aurba.org/ressources/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "urba",
+        "urbanisme",
+        "bordeaux",
+        "aquitaine"
+      ],
+      "extrait": "ressources a urba nous rejoindre ressources newsletter les productions amenagement urbain et paysage 146 economie et emploi 53 environnement et climat 85 habitat 87 mobilites et deplacements 115 planification ter…"
+    },
+    {
+      "id": "na-inst-108",
+      "nom": "A'urba — agence d'urbanisme Bordeaux Aquitaine — amenagement-urbain",
+      "type": "urbanisme",
+      "departement": "Gironde",
+      "url": "https://www.aurba.org/themes/amenagement-urbain/",
+      "dureeMs": 174,
+      "urlFinale": "https://www.aurba.org/themes/amenagement-urbain/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "urba",
+        "urbanisme",
+        "bordeaux",
+        "aquitaine"
+      ],
+      "extrait": "amenagement urbain et paysage a urba nous rejoindre ressources newsletter les productions amenagement urbain et paysage 146 economie et emploi 53 environnement et climat 85 habitat 87 mobilites et deplacements 115 planification ter…"
+    },
+    {
+      "id": "na-inst-109",
+      "nom": "A'urba — agence d'urbanisme Bordeaux Aquitaine — economie-emploi",
+      "type": "urbanisme",
+      "departement": "Gironde",
+      "url": "https://www.aurba.org/themes/economie-emploi/",
+      "dureeMs": 147,
+      "urlFinale": "https://www.aurba.org/themes/economie-emploi/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "urba",
+        "urbanisme",
+        "bordeaux",
+        "aquitaine"
+      ],
+      "extrait": "economie et emploi a urba nous rejoindre ressources newsletter les productions amenagement urbain et paysage 146 economie et emploi 53 environnement et climat 85 habitat 87 mobilites et deplacements 115 planification ter…"
+    },
+    {
+      "id": "na-inst-110",
+      "nom": "A'urba — agence d'urbanisme Bordeaux Aquitaine — environnement-paysage",
+      "type": "urbanisme",
+      "departement": "Gironde",
+      "url": "https://www.aurba.org/themes/environnement-paysage/",
+      "dureeMs": 145,
+      "urlFinale": "https://www.aurba.org/themes/environnement-paysage/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "urba",
+        "urbanisme",
+        "bordeaux",
+        "aquitaine"
+      ],
+      "extrait": "environnement et climat a urba nous rejoindre ressources newsletter les productions amenagement urbain et paysage 146 economie et emploi 53 environnement et climat 85 habitat 87 mobilites et deplacements 115 planification ter…"
+    },
+    {
+      "id": "na-inst-111",
+      "nom": "A'urba — agence d'urbanisme Bordeaux Aquitaine — habitat",
+      "type": "urbanisme",
+      "departement": "Gironde",
+      "url": "https://www.aurba.org/themes/habitat/",
+      "dureeMs": 140,
+      "urlFinale": "https://www.aurba.org/themes/habitat/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "urba",
+        "urbanisme",
+        "bordeaux",
+        "aquitaine"
+      ],
+      "extrait": "habitat a urba nous rejoindre ressources newsletter les productions amenagement urbain et paysage 146 economie et emploi 53 environnement et climat 85 habitat 87 mobilites et deplacements 115 planification ter…"
+    },
+    {
+      "id": "na-inst-112",
+      "nom": "A'urba — agence d'urbanisme Bordeaux Aquitaine — planification-territoriale",
+      "type": "urbanisme",
+      "departement": "Gironde",
+      "url": "https://www.aurba.org/themes/planification-territoriale/",
+      "dureeMs": 133,
+      "urlFinale": "https://www.aurba.org/themes/planification-territoriale/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "urba",
+        "urbanisme",
+        "bordeaux",
+        "aquitaine"
+      ],
+      "extrait": "planification territoriale a urba nous rejoindre ressources newsletter les productions amenagement urbain et paysage 146 economie et emploi 53 environnement et climat 85 habitat 87 mobilites et deplacements 115 planification ter…"
+    },
+    {
+      "id": "na-inst-113",
+      "nom": "A'urba — agence d'urbanisme Bordeaux Aquitaine — populations-et-modes-de-vies",
+      "type": "urbanisme",
+      "departement": "Gironde",
+      "url": "https://www.aurba.org/themes/populations-et-modes-de-vies/",
+      "dureeMs": 165,
+      "urlFinale": "https://www.aurba.org/themes/populations-et-modes-de-vies/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "urba",
+        "urbanisme",
+        "bordeaux",
+        "aquitaine"
+      ],
+      "extrait": "populations et modes de vies a urba nous rejoindre ressources newsletter les productions amenagement urbain et paysage 146 economie et emploi 53 environnement et climat 85 habitat 87 mobilites et deplacements 115 planification ter…"
+    },
+    {
+      "id": "na-inst-114",
+      "nom": "A'urba — agence d'urbanisme Bordeaux Aquitaine — transports-et-mobilites",
+      "type": "urbanisme",
+      "departement": "Gironde",
+      "url": "https://www.aurba.org/themes/transports-et-mobilites/",
+      "dureeMs": 136,
+      "urlFinale": "https://www.aurba.org/themes/transports-et-mobilites/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "urba",
+        "urbanisme",
+        "bordeaux",
+        "aquitaine"
+      ],
+      "extrait": "mobilites et deplacements a urba nous rejoindre ressources newsletter les productions amenagement urbain et paysage 146 economie et emploi 53 environnement et climat 85 habitat 87 mobilites et deplacements 115 planification ter…"
+    },
+    {
+      "id": "na-inst-115",
+      "nom": "Fédération nationale des agences d'urbanisme",
+      "type": "urbanisme",
+      "departement": "Nouvelle-Aquitaine",
+      "url": "https://fnau.org/fr/les-agences-durbanisme/",
+      "dureeMs": 2878,
+      "urlFinale": "https://fnau.org/fr/les-agences-durbanisme/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "agences",
+        "urbanisme"
+      ],
+      "extrait": "… rechercher rechercher menu library fa solid data widget type nav menu default la fnau les agences publications les clubs rencontres focus emplois europe international la fnau les agences publications les clubs rencontres focus emplois europe international menu fermer rechercher library da…"
+    },
+    {
+      "id": "na-inst-116",
+      "nom": "Fédération nationale des agences d’urbanisme (FNAU) — Annuaire des agences",
+      "type": "urbanisme",
+      "departement": "Nouvelle-Aquitaine",
+      "url": "https://fnau.org/fr/les-agences-durbanisme/annuaire/",
+      "dureeMs": 3546,
+      "urlFinale": "https://fnau.org/fr/les-agences-durbanisme/annuaire/",
+      "categorie": "valide",
+      "statutHttp": 200,
+      "erreur": null,
+      "jetonsTrouves": [
+        "agences",
+        "urbanisme",
+        "fnau"
+      ],
+      "extrait": "… rechercher rechercher menu library fa solid data widget type nav menu default la fnau les agences publications les clubs rencontres focus emplois europe international la fnau les agences publications les clubs rencontres focus emplois europe international menu fermer rechercher library da…"
+    }
+  ]
+}

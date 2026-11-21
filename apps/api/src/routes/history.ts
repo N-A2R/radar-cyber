@@ -1,10 +1,15 @@
 /**
  * GET /api/history?from=&to=&org= — mémoire longue des événements.
  *
- * Le brut n'est gardé que 90 jours (`runRetention`), l'archive (`event_archive`,
- * migration 028) garde l'essentiel des faits purgés. Cette route lit la vue
- * `v_event_all` pour que douze mois de questions aient douze mois de réponses,
+ * Le brut n'est gardé que 90 jours (`runRetention`), les archives (migrations
+ * 028, 046 et 049) gardent les faits et leurs deux horloges. Cette route lit
+ * la vue `v_event_all` : douze mois de questions ont douze mois de réponses,
  * sans que l'appelant sache où la ligne est stockée.
+ *
+ * L'horloge de la requête est `valid_at` — quand le fait était vrai — avec
+ * repli sur `observed_at` puis `collected_at` pour les lignes antérieures à la
+ * migration 046. La rétention, elle, purge sur `observed_at` : un fait ancien
+ * retrouvé dans l'archive continue donc de répondre à la question des 12 mois.
  *
  * Les deux tables se recouvrent brièvement pendant une purge, et un événement
  * peut réapparaître sous la même clé de déduplication : un seul fait par
@@ -33,13 +38,26 @@ function premier(brut: string | string[] | undefined): string | undefined {
 
 /** Accepte `YYYY-MM`, `YYYY-MM-DD` ou un horodatage ISO ; défaut UTC. */
 function lireDate(brut: string, nom: string): Date {
-  const texte = /^\d{4}-\d{2}$/.test(brut)
-    ? `${brut}-01T00:00:00Z`
-    : /^\d{4}-\d{2}-\d{2}$/.test(brut)
-      ? `${brut}T00:00:00Z`
+  const moisMatch = /^(\d{4})-(\d{2})$/.exec(brut);
+  const jourMatch = /^(\d{4})-(\d{2})-(\d{2})$/.exec(brut);
+  const isoMatch = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d{1,3})?)?(?:Z|[+-]\d{2}:\d{2})$/.exec(brut);
+  if (moisMatch) {
+    const mois = Number(moisMatch[2]);
+    if (mois < 1 || mois > 12) throw badRequest(`${nom} doit être une date ISO`);
+  } else if (!jourMatch && !isoMatch) {
+    throw badRequest(`${nom} doit être une date ISO`);
+  }
+  const texte = moisMatch ? `${moisMatch[1]}-${moisMatch[2]}-01T00:00:00Z`
+    : jourMatch ? `${brut}T00:00:00Z`
       : brut;
   const date = new Date(texte);
   if (!Number.isFinite(date.getTime())) throw badRequest(`${nom} doit être une date ISO`);
+  // JS déborde silencieusement 2026-02-30 en mars : on refuse la date inexistante.
+  if (jourMatch && (
+    date.getUTCFullYear() !== Number(jourMatch[1])
+    || date.getUTCMonth() + 1 !== Number(jourMatch[2])
+    || date.getUTCDate() !== Number(jourMatch[3])
+  )) throw badRequest(`${nom} doit être une date ISO`);
   return date;
 }
 
@@ -95,10 +113,10 @@ export default async function (app: FastifyInstance) {
     const r = await query<MoisRow>(
       `WITH unifies AS (
          SELECT DISTINCT ON (dedup_key) dedup_key, origine,
-                COALESCE(observed_at, collected_at) AS instant
+                COALESCE(valid_at, observed_at, collected_at) AS instant
            FROM v_event_all
-          WHERE COALESCE(observed_at, collected_at) >= $1
-            AND COALESCE(observed_at, collected_at) < $2
+          WHERE COALESCE(valid_at, observed_at, collected_at) >= $1
+            AND COALESCE(valid_at, observed_at, collected_at) < $2
             AND ($3::int IS NULL OR org_id = $3)
           ORDER BY dedup_key, CASE origine WHEN 'brut' THEN 0 ELSE 1 END
        )
@@ -126,8 +144,8 @@ export default async function (app: FastifyInstance) {
     }
 
     return {
+      horloge: "valid_at",
       from: from.toISOString(),
-      to: to.toISOString(),
       org,
       total: parMois.reduce((n, m) => n + m.total, 0),
       brut: parMois.reduce((n, m) => n + m.brut, 0),

@@ -6,14 +6,20 @@
 -- colonne GÉNÉRÉE STORED : elle ne peut pas diverger de l'alias, et le SELECT du
 -- collecteur n'a plus qu'à la lire.
 --
--- L'expression est IMMUTABLE (lower/replace/translate/regexp_replace/btrim) et
--- reproduit `normaliser()` dans gazetteer.ts sur les lettres françaises :
---  1. lower puis œ→oe, æ→ae (NFD ne décompose pas ces deux ligatures, d'où
---     les remplacements explicites des deux côtés) ;
---  2. translate des diacritiques français vers leur base ASCII ;
+-- L'expression est IMMUTABLE (lower, pg_catalog.normalize, regexp_replace,
+-- replace, btrim). Elle reproduit `normaliser()` dans gazetteer.ts :
+--  1. lower puis NFD, suppression de tous les signes diacritiques combinants
+--     (les mêmes blocs Unicode que `\p{Diacritic}`) ;
+--  2. œ→oe, æ→ae — ces ligatures ne se décomposent pas en NFD et sont
+--     remplacées explicitement des deux côtés ;
 --  3. tout ce qui n'est pas [a-z0-9] devient une espace, au plus une par
 --     séquence, puis btrim retire les espaces de bord — exactement le
 --     `[^a-z0-9]+` + trim de la fonction TypeScript.
+--
+-- Une table de translate limitée aux lettres françaises passait l'échantillon
+-- mais divergeait sur Ẽ ou Ō, présents dans les raisons sociales : la mesure
+-- complète des 1 678 185 alias a trouvé ces cas. La décomposition Unicode
+-- couvre tous les caractères que le JS sait traiter.
 --
 -- L'index est partiel sur les alias actifs : ce sont les seuls que charge le
 -- gazetteer, et un index sur la table entière paierait pour les alias rejetés.
@@ -23,10 +29,17 @@ ALTER TABLE org_alias
   GENERATED ALWAYS AS (
     btrim(
       regexp_replace(
-        translate(
-          replace(replace(lower(alias), 'œ', 'oe'), 'æ', 'ae'),
-          'àáâãäåçéèêëìíîïñòóôõöùúûüýÿ',
-          'aaaaaaceeeeiiiinooooouuuuyy'
+        replace(
+          replace(
+            regexp_replace(
+              pg_catalog.normalize(lower(alias), 'NFD'),
+              U&'[\0300-\036F\1AB0-\1AFF\1DC0-\1DFF\20D0-\20FF\FE20-\FE2F]' UESCAPE '\',
+              '',
+              'g'
+            ),
+            'œ', 'oe'
+          ),
+          'æ', 'ae'
         ),
         '[^a-z0-9]+',
         ' ',
