@@ -1,6 +1,9 @@
 # Agents de rupture
 
 Trois détecteurs déterministes (sans LLM) dans `apps/api/src/analyse/rupture.ts`.
+Les **trois agents CPU** livrés ensuite (organisation surgissante, bascule
+sectorielle par z-score, source muette) sont documentés et mesurés dans
+`docs/agents-cpu.md`.
 
 ## 1. Nouvelle organisation (`nouvelle-organisation`)
 Déclenche quand une organisation existe au référentiel depuis au moins 180 j

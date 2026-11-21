@@ -1,11 +1,16 @@
 /**
- * Agent de rupture sectorielle : la répartition des événements par secteur a-t-elle
+ * Agent de bascule sectorielle : la répartition des événements par secteur a-t-elle
  * changé dans les 7 derniers jours par rapport aux 90 jours qui les précèdent ?
  *
- * Détecteur déterministe, sans LLM : χ² de conformité simplifié. La répartition
- * de référence donne les probabilités attendues, ramenées à l'effectif récent ;
- * on mesure l'écart global, puis on ne lève l'alerte que s'il dépasse le seuil.
- * Comme les autres agents de `rupture.ts`, chaque constante porte sa justification.
+ * Détecteur déterministe, sans LLM : z-score binomial par secteur. Pour chaque
+ * secteur, on compare l'effectif observé dans la fenêtre récente à l'effectif
+ * attendu sous la répartition de référence ; le plus grand |z| porte l'alerte
+ * et son signe dit le sens de la bascule. Un lissage add-one évite l'attendu
+ * nul d'un secteur jamais vu dans la référence.
+ *
+ * Les seuils sont explicitement calibrés par la mesure du taux de fausses
+ * alertes (`scripts/mesure-agents-cpu.mts`, publiée dans docs/agents-cpu.md),
+ * pas choisis pour qu'une jolie alerte apparaisse sur un jeu synthétique.
  */
 
 const JOUR_MS = 86_400_000;
@@ -14,10 +19,14 @@ const JOUR_MS = 86_400_000;
 export const FENETRE_RECENTE_JOURS = 7;
 /** 90 j : les 90 jours *précédents* la fenêtre récente, pas les 90 derniers jours. */
 export const FENETRE_REFERENCE_JOURS = 90;
-/** χ² à 4 ddl, p ≈ 0,05 (quatre secteurs éditoriaux). Non mesuré sur nos données. */
-export const SEUIL_CHI2 = 9.488;
-/** En dessous, un χ² sur quelques faits ne prouve rien : on ne publie pas d'alerte. Non mesuré. */
+/** z ≈ 3 écarts-types sous l'hypothèse d'une répartition inchangée. */
+export const SEUIL_Z = 3;
+/** En dessous, un z sur quelques faits ne prouve rien : on ne publie pas d'alerte. */
 export const EFFECTIF_MIN = 10;
+/** Un fait isolé dans un secteur rare n'est pas une bascule de distribution. */
+export const OBSERVES_MIN_SECTEUR = 3;
+
+export const AGENT_BASCULE_SECTEUR = "bascule-secteur" as const;
 
 export type DistributionSecteurs = Readonly<Record<string, number>>;
 
@@ -36,21 +45,25 @@ export type ContributionSecteur = {
 	secteur: string;
 	observe: number;
 	attendu: number;
-	/** (observé − attendu) / √attendu : le signe dit le sens de la rupture. */
-	residu: number;
-	/** residu² : la part de ce secteur dans le χ² total. */
+	/** Part du secteur dans la distribution de référence (après lissage). */
+	proportionReference: number;
+	/** (observé − attendu) / √(attendu × (1 − p)) : le signe dit le sens de la bascule. */
+	z: number;
+	/** z² : la part de ce secteur dans l'écart global. */
 	contribution: number;
 };
 
 export type ResultatRuptureSecteur = {
-	/** χ² calculé, ou null si une des deux fenêtres est vide. */
-	chi2: number | null;
+	/** z signé du secteur porteur, ou null si aucune fenêtre n'est exploitable. */
+	zCritique: number | null;
+	/** Secteur porteur de l'alerte, ou null en état vide. */
+	secteurCritique: string | null;
 	seuil: number;
 	alerte: boolean;
 	/** Faux si une fenêtre est trop pauvre : le score existe mais n'est pas publié. */
 	fiable: boolean;
 	effectifs: { recent: number; reference: number };
-	/** Trié par contribution décroissante : le premier secteur explique l'alerte. */
+	/** Trié par |z| décroissante : le premier secteur explique l'écart global. */
 	parSecteur: ContributionSecteur[];
 };
 
@@ -58,6 +71,7 @@ export type ResultatRuptureSecteur = {
 function nettoyer(distribution: DistributionSecteurs): Record<string, number> {
 	const propre: Record<string, number> = Object.create(null);
 	for (const [secteur, n] of Object.entries(distribution)) {
+		if (!secteur.trim()) continue;
 		if (typeof n === "number" && Number.isFinite(n) && n > 0) {
 			propre[secteur] = (propre[secteur] ?? 0) + n;
 		}
@@ -99,24 +113,25 @@ export function repartirEnFenetres(
 /**
  * Compare deux distributions de secteurs et décide d'alerter.
  *
- * Lissage add-one sur la référence : un secteur apparu récemment mais absent
- * de la référence aurait un attendu nul, donc un χ² infini. Le prior évite le
- * déni de division par zéro sans inventer d'alerte sur un effectif trop faible.
+ * La variance binomiale `n·p·(1−p)` est calculée sur la probabilité lissée de
+ * la référence. Un secteur qui monopolise la fenêtre récente est détecté, un
+ * secteur qui disparaît l'est aussi — c'est le même test, avec un z négatif.
  */
 export function detecterRuptureSecteur(input: {
 	recente: DistributionSecteurs;
 	reference: DistributionSecteurs;
-	/** Seuil de χ² au-delà duquel on alerte ; remplace SEUIL_CHI2. */
+	/** Seuil de |z| au-delà duquel on alerte ; remplace SEUIL_Z. */
 	seuil?: number;
 }): ResultatRuptureSecteur {
-	const seuil = input.seuil ?? SEUIL_CHI2;
+	const seuil = input.seuil ?? SEUIL_Z;
 	const recente = nettoyer(input.recente);
 	const reference = nettoyer(input.reference);
 	const secteurs = [...new Set([...Object.keys(recente), ...Object.keys(reference)])].sort();
 	const effectifs = { recent: total(recente), reference: total(reference) };
 
 	const vide: ResultatRuptureSecteur = {
-		chi2: null,
+		zCritique: null,
+		secteurCritique: null,
 		seuil,
 		alerte: false,
 		fiable: false,
@@ -126,22 +141,28 @@ export function detecterRuptureSecteur(input: {
 	if (effectifs.recent === 0 || effectifs.reference === 0 || secteurs.length === 0) return vide;
 
 	const taille = secteurs.length;
-	let chi2 = 0;
 	const parSecteur = secteurs.map((secteur) => {
 		const observe = recente[secteur] ?? 0;
-		const attendu = ((reference[secteur] ?? 0) + 1) * effectifs.recent / (effectifs.reference + taille);
-		const residu = (observe - attendu) / Math.sqrt(attendu);
-		const contribution = residu * residu;
-		chi2 += contribution;
-		return { secteur, observe, attendu, residu, contribution };
+		const proportionReference = ((reference[secteur] ?? 0) + 1) / (effectifs.reference + taille);
+		const attendu = proportionReference * effectifs.recent;
+		const variance = attendu * (1 - proportionReference);
+		const z = variance > 0 ? (observe - attendu) / Math.sqrt(variance) : 0;
+		return { secteur, observe, attendu, proportionReference, z, contribution: z * z };
 	});
-	parSecteur.sort((a, b) => b.contribution - a.contribution);
+	parSecteur.sort((a, b) => b.contribution - a.contribution || a.secteur.localeCompare(b.secteur));
 
+	// Le secteur porteur doit avoir assez de faits pour qu'on parle de
+	// distribution : un secteur rare avec un z énorme sur un fait isolé ne
+	// doit pas masquer une bascule réelle portée par un secteur fréquent.
+	const porteur = parSecteur.find((p) => p.observe >= OBSERVES_MIN_SECTEUR);
+	const critique = porteur ?? parSecteur[0];
 	const fiable = effectifs.recent >= EFFECTIF_MIN && effectifs.reference >= EFFECTIF_MIN;
+	const alerte = fiable && porteur !== undefined && Math.abs(porteur.z) > seuil;
 	return {
-		chi2,
+		zCritique: critique?.z ?? null,
+		secteurCritique: critique?.secteur ?? null,
 		seuil,
-		alerte: fiable && chi2 > seuil,
+		alerte,
 		fiable,
 		effectifs,
 		parSecteur,
