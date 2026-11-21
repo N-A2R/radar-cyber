@@ -1,0 +1,353 @@
+{
+  "dateMesure": "2026-11-21",
+  "plan": "docs/plans/mission-nuit-na.md — Task 4 (reprise vague 2)",
+  "lot": 4,
+  "source": {
+    "ref": "bench/results/manques-referentiel-2026-11-15.json",
+    "traites": "bench/results/manques-glm-vague2.json",
+    "entiteSource": "lot-reprise-na"
+  },
+  "method": "lecture du site (fetch, titre et meta verbatim) + recherche-entreprises.api.gouv.fr sans clé ; requêtes et réponses consignées ; SIREN recoupé, jamais inventé",
+  "compte": {
+    "present": 6,
+    "absent": 4,
+    "cannot_verify": 0
+  },
+  "resolutions": [
+    {
+      "nomLisible": "Erbilbil Bilgisayar (You have 72 hours)",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Erbilbil%20Bilgisayar%20(You%20have%2072%20hours)&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "Establishment of the Agency for the Environmental Protection of the Marche Region",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Establishment%20of%20the%20Agency%20for%20the%20Environmental%20Protection&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "estpm.fr",
+      "domaine": "estpm.fr",
+      "verdict": "present",
+      "raison": "SIREN 330466103 au registre (état A, SAINT-PIERRE-DU-PERRAY 91), recoupé avec estpm.fr",
+      "site": {
+        "url": "https://estpm.fr",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=estpm&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "ETUDES SERVICES TRAVAUX PARISIENS ET MATERIELS (ESTPM) (ESTPM)",
+            "siren": "330466103",
+            "commune": "SAINT-PIERRE-DU-PERRAY",
+            "dept": "91",
+            "etat": "A"
+          },
+          {
+            "denomination": "FIVE SERVICES (ESTPM)",
+            "siren": "441226057",
+            "commune": "CERGY",
+            "dept": "95",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "euromip.fr",
+      "domaine": "euromip.fr",
+      "verdict": "present",
+      "raison": "SIREN 380394015 au registre (état A, MONTIGNY-LE-BRETONNEUX 78), recoupé avec euromip.fr",
+      "site": {
+        "url": "https://euromip.fr",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=euromip&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "EUROMIP",
+            "siren": "380394015",
+            "commune": "MONTIGNY-LE-BRETONNEUX",
+            "dept": "78",
+            "etat": "A"
+          },
+          {
+            "denomination": "SANDRA UNGEMACH-BENEDITE",
+            "siren": "441504784",
+            "commune": "TOULOUSE",
+            "dept": "31",
+            "etat": "C"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "exco.fr",
+      "domaine": "exco.fr",
+      "verdict": "present",
+      "raison": "SIREN 443895974 au registre (état A, PARIS 75), recoupé avec exco.fr",
+      "site": {
+        "url": "https://exco.fr",
+        "http": 200,
+        "titre": "Expert-comptable, Audit, Conseil, Fiscalité, Social et Paie",
+        "metaDescription": "Votre votre cabinet comptable : Expert-comptable, Conseil, Audit, Fiscalité, Paie... Exco le cabinet d&#039;expertise comptable qui fertilise vos projets !"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=exco&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "EXCO",
+            "siren": "443895974",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "EXCO",
+            "siren": "482441631",
+            "commune": "GIERES",
+            "dept": "38",
+            "etat": "A"
+          },
+          {
+            "denomination": "EXCO (EXCO)",
+            "siren": "801767468",
+            "commune": "MAUBEUGE",
+            "dept": "59",
+            "etat": "A"
+          },
+          {
+            "denomination": "EXCO",
+            "siren": "335004404",
+            "commune": "VEYRAC",
+            "dept": "87",
+            "etat": "A"
+          },
+          {
+            "denomination": "EXCO",
+            "siren": "480731504",
+            "commune": "SAINT-GEORGES-LES-BAINS",
+            "dept": "07",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "fandi.fr",
+      "domaine": "fandi.fr",
+      "verdict": "present",
+      "raison": "SIREN 750770034 au registre (état A, ORLY 94), recoupé avec fandi.fr",
+      "site": {
+        "url": "https://fandi.fr",
+        "http": 200,
+        "titre": "Fandi - Votre générateur de solutions industrielles dans le Nord",
+        "metaDescription": "Fandi générateur de solutions industrielles en emballage, conditionnement, logistique, e-commerce, aménagement, qualité et réparation"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=fandi&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "FANDI",
+            "siren": "750770034",
+            "commune": "ORLY",
+            "dept": "94",
+            "etat": "A"
+          },
+          {
+            "denomination": "FANDI",
+            "siren": "533185450",
+            "commune": "SAINT-GRATIEN",
+            "dept": "95",
+            "etat": "A"
+          },
+          {
+            "denomination": "FANDI (EUROPACK ET FANDI)",
+            "siren": "424609808",
+            "commune": "CARVIN",
+            "dept": "62",
+            "etat": "A"
+          },
+          {
+            "denomination": "FANDI",
+            "siren": "752017475",
+            "commune": "SAINT-CLAUDE",
+            "dept": "971",
+            "etat": "A"
+          },
+          {
+            "denomination": "FINANCIERE FANDI",
+            "siren": "388941890",
+            "commune": "OPIO",
+            "dept": "06",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "fimadev.fr",
+      "domaine": "fimadev.fr",
+      "verdict": "present",
+      "raison": "SIREN 983675240 au registre (état A, PARIS 75), recoupé avec fimadev.fr",
+      "site": {
+        "url": "https://fimadev.fr",
+        "http": 200,
+        "titre": "Fimadev - Conseil et Service aux entreprises",
+        "metaDescription": "Centre Relations Clients I Centre d’Affaires Plus I Excelliance Recrutement I Fimainfo Développement informatique I Inlingua I Smits and Partners Formation"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=fimadev&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "FIMADEV",
+            "siren": "983675240",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "FIMADEV",
+            "siren": "433888229",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "FIMADEV",
+            "siren": "431930528",
+            "commune": "AHUY",
+            "dept": "21",
+            "etat": "A"
+          },
+          {
+            "denomination": "EXCELLIANCE BOURGOGNE-FRANCHE COMTE",
+            "siren": "912110129",
+            "commune": "AHUY",
+            "dept": "21",
+            "etat": "A"
+          },
+          {
+            "denomination": "EXCELLIANCE (EXCELLIANCE)",
+            "siren": "432232361",
+            "commune": "AHUY",
+            "dept": "21",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "fol-23.fr",
+      "domaine": "fol-23.fr",
+      "verdict": "present",
+      "raison": "SIREN 921467312 au registre (état A, BUSSIERE-SAINT-GEORGES 23), recoupé avec fol-23.fr ; SIREN déjà au référentiel, org existante rattrapée (pas de doublon)",
+      "site": {
+        "url": "https://fol-23.fr",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=fol-23&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "23 NOT' FOLLES",
+            "siren": "921467312",
+            "commune": "BUSSIERE-SAINT-GEORGES",
+            "dept": "23",
+            "etat": "A"
+          },
+          {
+            "denomination": "CATHERINE FOL (VAUDIAU)",
+            "siren": "793533209",
+            "commune": "RUFFEY-LES-BEAUNE",
+            "dept": "21",
+            "etat": "A"
+          },
+          {
+            "denomination": "GILLES LE FOL",
+            "siren": "413469503",
+            "commune": "FONDETTES",
+            "dept": "37",
+            "etat": "A"
+          },
+          {
+            "denomination": "LA COMPAGNIE DU FOL ESPOIR",
+            "siren": "788811768",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "LES GALETTES FOLLES DE BITUME",
+            "siren": "929782514",
+            "commune": "CUILLE",
+            "dept": "53",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "franckbeun.fr",
+      "domaine": "franckbeun.fr",
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : « GROUPE FRANCK BEUN | TRAVAUX DE RENOVATION »",
+      "site": {
+        "url": "https://franckbeun.fr",
+        "http": 200,
+        "titre": "GROUPE FRANCK BEUN | TRAVAUX DE RENOVATION",
+        "metaDescription": "Entreprise de rénovation en Indre et Loire, le Groupe Franck Beun intervient sur les zones de Richelieu, Chinon, Saumur, Tours et Amboise. Tous corps d"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=franckbeun&page=1&per_page=5",
+        "http": 200,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "Freightliner of Grand Rapids &amp; Kalamazoo",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Freightliner%20of%20Grand%20Rapids%20%26amp%3B%20Kalamazoo&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    }
+  ]
+}

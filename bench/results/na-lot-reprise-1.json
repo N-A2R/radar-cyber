@@ -339,7 +339,7 @@
       "nomLisible": "iseta.fr",
       "domaine": "iseta.fr",
       "verdict": "present",
-      "raison": "SIREN 413076332 au registre (état A, LA BROQUE 67), recoupé avec iseta.fr",
+      "raison": "SIREN 776603060 ISETA - ECA (correction du lot 7, même domaine) ; cf. corrections du lot 7",
       "site": {
         "url": "https://iseta.fr",
         "http": 200,
@@ -373,7 +373,27 @@
           }
         ]
       },
-      "chargeEnBase": true
+      "chargeEnBase": true,
+      "sirenCorrige": "776603060"
+    }
+  ],
+  "arbitrages": [
+    {
+      "nomLisible": "www.normandydiesel.fr",
+      "date": "2026-11-21",
+      "preuve": "site https 000 (3 tentatives, script+curl) ; registre q=NORMANDY DIESEL HTTP 200 : 301188736 NORMANDY DIESEL (A), 433896636 NORMANDY DIESEL 27 (A), 529205726 NORMANDY DIESEL DIEPPE (A), 451142483 NORMANDY DIESEL SERVICES (C) — quatre entités du même groupe au même siège (SAINT-ETIENNE-DU-ROUVRAY 76)",
+      "arbitrage": "doute documenté — le domaine ne désigne pas une seule entité du groupe ; aucun SIREN chargé",
+      "verdict": "cannot_verify"
+    }
+  ],
+  "corrections": [
+    {
+      "nomLisible": "iseta.fr",
+      "erreurOriginale": "SIREN 413076332 ISETA (LA BROQUE 67) chargé lors de la nuit — homonymie (le site est celui d'ISETA-ECA)",
+      "correction": "org corrigée dans le lot 7 (même domaine, même entité légale) vers 776603060 ISETA - ECA (POISY 74, état A) ; cf. corrections du lot 7",
+      "preuve": {
+        "reference": "corrections du lot 7"
+      }
     }
   ]
 }

@@ -191,16 +191,30 @@ async function main(): Promise<void> {
 			const name = recoupeOK.denomination.slice(0, 200);
 			const slug = `${name.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60) || "org"}-${recoupeOK.siren}`;
 			const deptOk = recoupeOK.dept && /^\d{2}$/.test(recoupeOK.dept) ? recoupeOK.dept : null;
-			await query(
-				`INSERT INTO org (name, slug, kind, city, dept, domain, website, entity_code, entity_source, status)
-				 VALUES ($1,$2,'entreprise',$3,$4,$5,$6,$7,$8,'confirme')
-				 ON CONFLICT (entity_source, entity_code) WHERE entity_code IS NOT NULL AND entity_source IS NOT NULL
-				 DO UPDATE SET domain = COALESCE(org.domain, EXCLUDED.domain),
-				   website = COALESCE(org.website, EXCLUDED.website),
-				   city = COALESCE(org.city, EXCLUDED.city),
-				   dept = COALESCE(org.dept, EXCLUDED.dept)`,
-				[name, slug, recoupeOK.commune ?? null, deptOk, domaine, domaine ? `https://${domaine}` : null, recoupeOK.siren, ENTITY_SOURCE],
-			);
+			try {
+				await query(
+					`INSERT INTO org (name, slug, kind, city, dept, domain, website, entity_code, entity_source, status)
+					 VALUES ($1,$2,'entreprise',$3,$4,$5,$6,$7,$8,'confirme')
+					 ON CONFLICT (entity_source, entity_code) WHERE entity_code IS NOT NULL AND entity_source IS NOT NULL
+					 DO UPDATE SET domain = COALESCE(org.domain, EXCLUDED.domain),
+					   website = COALESCE(org.website, EXCLUDED.website),
+					   city = COALESCE(org.city, EXCLUDED.city),
+					   dept = COALESCE(org.dept, EXCLUDED.dept)`,
+					[name, slug, recoupeOK.commune ?? null, deptOk, domaine, domaine ? `https://${domaine}` : null, recoupeOK.siren, ENTITY_SOURCE],
+				);
+			} catch (e) {
+				// Conflit de slug : la même entité légale (même SIREN) est déjà au
+				// référentiel par une autre voie (import SIRENE…). On rattrape cette
+				// org existante — jamais de doublon de SIREN.
+				if ((e as { code?: string }).code !== "23505") throw e;
+				await query(
+					`UPDATE org SET domain = COALESCE(domain, $2), website = COALESCE(website, $3),
+					   city = COALESCE(city, $4), dept = COALESCE(dept, $5)
+					 WHERE slug = $1`,
+					[slug, domaine, domaine ? `https://${domaine}` : null, recoupeOK.commune ?? null, deptOk],
+				);
+				res.raison += " ; SIREN déjà au référentiel, org existante rattrapée (pas de doublon)";
+			}
 			res.chargeEnBase = true;
 		} else if (candidats.length === 0 && (res.registre?.erreur || res.site?.erreur)) {
 			res.verdict = "cannot_verify";

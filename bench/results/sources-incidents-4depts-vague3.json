@@ -1,0 +1,101 @@
+{
+ "dateMesure": "2026-11-21",
+ "plan": "docs/plans/mission-vague3-longue.md — Task 3",
+ "depts": [
+  "40",
+  "47",
+  "23",
+  "19"
+ ],
+ "baseline": {
+  "evenementsRattaches": "0 pour chaque dept (na-baseline-2026-11-21.json)",
+  "note": "le rapport de nuit conclut que les fils généralistes n'y portent aucun incident : ne pas en rajouter"
+ },
+ "sourcesIncidentExistantes": {
+  "gn-40": {
+   "url": "news.google.com: (cyberattaque OR piratage OR rançongiciel) Landes when:30d",
+   "items7j": 7,
+   "evenements": 7,
+   "avecOrg": 0
+  },
+  "gn-47": {
+   "url": "news.google.com: (cyberattaque OR piratage OR rançongiciel) Lot-et-Garonne when:30d",
+   "items7j": 24,
+   "evenements": 24,
+   "avecOrg": 0
+  },
+  "gn-23": {
+   "url": "news.google.com: (cyberattaque OR piratage OR rançongiciel) Creuse when:30d",
+   "items7j": 7,
+   "evenements": 7,
+   "avecOrg": 0
+  },
+  "gn-19": {
+   "url": "news.google.com: (cyberattaque OR piratage OR rançongiciel) Corrèze when:30d",
+   "items7j": 1,
+   "evenements": 1,
+   "avecOrg": 0
+  },
+  "presse-sudouest-landes": "items reçus, tous rejetés par la porte presse (cf. sources-muettes-vague3.json)",
+  "presse-sudouest-lot-et-garonne": "idem (rejetées : family presse ne peut jamais admettre — generic.ts:785)",
+  "gn-press-lamontagne": "couvre La Montagne (Corrèze/Creuse) par mots-clés cyber"
+ },
+ "incidentsProuvesDansLesFlux": [
+  "« Landes : la Ville de Tarnos victime d'une cyberattaque avec demande de rançon » — Sud Ouest (flux GN Landes when:1y)",
+  "« Les pompiers des Landes victimes d'une cyberattaque, des données personnelles ont été extraites » — Actu.fr (GN Landes villes when:2y)",
+  "« Le Stade Montois Omnisports victime d'une cyberattaque » — Sud Ouest (GN villes when:2y)",
+  "« Cyberattaque des supermarchés : l'Intermarché d'Altillac, dans le sud de la Corrèze, fait partie des magasins touchés » — ici.fr (GN Corrèze when:1y)",
+  "« À Altillac, en Corrèze, le supermarché Intermarché victime d'une cyberattaque » — La Montagne (GN Corrèze when:1y)",
+  "« Une mairie du Lot-et-Garonne attaquée par des hackeurs malaisiens » — 20 Minutes (GN LotGaronne+Agen+Villeneuve when:2y)",
+  "« Une petite commune du Lot-et-Garonne piratée… par un cartel malaisien » — TF1 Info (idem)"
+ ],
+ "candidatsTestes": [
+  {
+   "url": "https://www.ars.nouvelle-aquitaine.sante.gouv.fr/rss.xml",
+   "resultat": "0 item — pas de RSS servi",
+   "verdict": "écarté"
+  },
+  {
+   "url": "https://www.landes.gouv.fr/rss",
+   "resultat": "0 item (pas de RSS, plateforme Orphea)",
+   "verdict": "écarté"
+  },
+  {
+   "url": "https://www.lot-et-garonne.gouv.fr/rss",
+   "resultat": "0 item",
+   "verdict": "écarté"
+  },
+  {
+   "url": "https://actu.fr/landes/rss + actu.fr/rss",
+   "resultat": "0 item (pas de RSS public)",
+   "verdict": "écarté"
+  },
+  {
+   "url": "https://www.lamontagne.fr/rss.xml",
+   "resultat": "0 item (pas de RSS public — cf. description gn-press-lepopulaire)",
+   "verdict": "écarté"
+  },
+  {
+   "url": "https://ici.fr/rss",
+   "resultat": "0 item",
+   "verdict": "écarté"
+  },
+  {
+   "url": "https://www.francebleu.fr/rss/a-la-une.xml",
+   "resultat": "42 items mais fil NATIONAL généraliste",
+   "verdict": "écarté — le plan interdit d'ajouter du généraliste"
+  },
+  {
+   "url": "GN « Creuse » when:1y",
+   "resultat": "homonymie « creuse » (verbe) : résultats nationaux hors dept",
+   "verdict": "la requête gn-23 existante reste la meilleure forme"
+  },
+  {
+   "url": "GN « Lot-et-Garonne » when:1y",
+   "resultat": "0 item en 1 an ; variante +Agen+Villeneuve : 43 items en 2y (mairies piratées)",
+   "verdict": "le flux gn-47 existant couvre déjà"
+  }
+ ],
+ "constatStructurel": "La porte d'admission (generic.ts:785) refuse toute famille « presse » : un flux presse régional ne peut jamais admettre, même pour un texte explicitement cyber (« Tarnos victime d'une cyberattaque » rejeté). Les incidents NA locaux entrent donc uniquement via les flux gn-* (family cti), admis avec org_id null. Le trou des 4 départements n'est pas les sources : c'est le rattachement (34 000+ orgs, presque aucune rattachée) — chantier Task 4 / repair-rattachements.",
+ "verdict": "RIEN À CÂBLER : les sources d'incident des 4 départements existent (gn-40/47/23/19 + gn-press-lamontagne) et livrent des items ; tous les candidats supplémentaires testés échouent au fetch ou au contenu. Liste testée publiée ci-dessus."
+}

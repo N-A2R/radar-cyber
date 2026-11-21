@@ -1,0 +1,2502 @@
+[
+	{
+		"ordre": 1,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Aéroport de Pau » désigne une entité plus précise que l'org rattachée : « pau» fait partie du nom désigné et manque à TAXI 64 AEROPORT & MEDICAL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 2,
+		"verdict": "exacte",
+		"motif": "L'indice désigne lumiplan.com ; l'org LUMIPLAN (44) déclare ce domaine et le site en ligne l'affiche — même entité."
+	},
+	{
+		"ordre": 3,
+		"verdict": "exacte",
+		"motif": "L'indice désigne lumiplan.com ; l'org LUMIPLAN (44) déclare ce domaine et le site en ligne l'affiche — même entité."
+	},
+	{
+		"ordre": 4,
+		"verdict": "indecidable",
+		"motif": "L'indice « lo » est un fragment ou une troncation (liste de fuite) ; le rapprochement avec LO est littéral mais le texte ne permet pas d'établir l'identité."
+	},
+	{
+		"ordre": 5,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « amarok.com » désigne une entité plus précise que l'org rattachée : « com» fait partie du nom désigné et manque à AMAROK — homonyme ou mot générique."
+	},
+	{
+		"ordre": 6,
+		"verdict": "indecidable",
+		"motif": "L'indice « Apex Capital Corp » égale (au jeton près) le nom de l'org APEX CAPITAL mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 7,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Cleveland Brothers » désigne une entité plus précise que l'org rattachée : « cleveland» fait partie du nom désigné et manque à A&A BROTHERS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 8,
+		"verdict": "exacte",
+		"motif": "L'indice désigne odalys-vacances.com ; l'org ODALYS VACANCES (75) déclare ce domaine et le site en ligne l'affiche — même entité."
+	},
+	{
+		"ordre": 9,
+		"verdict": "indecidable",
+		"motif": "L'indice « BDX » égale (au jeton près) le nom de l'org BDX mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 10,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « MCV Holding Company LLC » désigne une entité plus précise que l'org rattachée : « llc», « mcv» fait partie du nom désigné et manque à M COMPANY HOLDING — homonyme ou mot générique."
+	},
+	{
+		"ordre": 11,
+		"verdict": "indecidable",
+		"motif": "L'indice « RABAT » égale (au jeton près) le nom de l'org SCI DE RABAT mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 12,
+		"verdict": "exacte",
+		"motif": "L'indice désigne justice.fr ; l'org MINISTERE DE LA JUSTICE (75) déclare ce domaine et le site en ligne l'affiche — même entité."
+	},
+	{
+		"ordre": 13,
+		"verdict": "indecidable",
+		"motif": "L'indice « FCC » égale (au jeton près) le nom de l'org FCC mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 14,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « New York Racing Association » désigne une entité plus précise que l'org rattachée : « association», « racing» fait partie du nom désigné et manque à SNC LE NEW YORK — homonyme ou mot générique."
+	},
+	{
+		"ordre": 15,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Energy China » désigne une entité plus précise que l'org rattachée : « china» fait partie du nom désigné et manque à ENERGY 2N — homonyme ou mot générique."
+	},
+	{
+		"ordre": 16,
+		"verdict": "exacte",
+		"motif": "L'indice désigne iseta.fr ; l'org ISETA - ECA (ISETA - ECA) (74) déclare ce domaine et le site en ligne l'affiche — même entité."
+	},
+	{
+		"ordre": 17,
+		"verdict": "indecidable",
+		"motif": "L'indice « IdeaLab » égale (au jeton près) le nom de l'org IDEALAB mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 18,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Seven Seas Technology » désigne une entité plus précise que l'org rattachée : « technology» fait partie du nom désigné et manque à SEVEN SEAS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 19,
+		"verdict": "indecidable",
+		"motif": "L'indice « Temple, Inc. » égale (au jeton près) le nom de l'org DU TEMPLE mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 20,
+		"verdict": "exacte",
+		"motif": "L'indice désigne glnf.fr ; l'org GRANDE LOGE NATIONALE FRANCAISE (GLNF) (75) déclare ce domaine et le site en ligne l'affiche — même entité."
+	},
+	{
+		"ordre": 21,
+		"verdict": "indecidable",
+		"motif": "L'indice « EBM » égale (au jeton près) le nom de l'org EBM mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 22,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Hudson River Housing » désigne une entité plus précise que l'org rattachée : « housing» fait partie du nom désigné et manque à HUDSON RIVER — homonyme ou mot générique."
+	},
+	{
+		"ordre": 23,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « HSPG & Associates » désigne une entité plus précise que l'org rattachée : « hspg» fait partie du nom désigné et manque à DIGITAL ASSOCIATES (DIGITAL ASSOCIATES) — homonyme ou mot générique."
+	},
+	{
+		"ordre": 24,
+		"verdict": "exacte",
+		"motif": "L'indice désigne odalys-vacances.com ; l'org ODALYS VACANCES (75) déclare ce domaine et le site en ligne l'affiche — même entité."
+	},
+	{
+		"ordre": 25,
+		"verdict": "indecidable",
+		"motif": "L'indice « E-T-A » égale (au jeton près) le nom de l'org E.T.A mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 26,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « sky-light.com\\$26.4M\\Denmark\\50GB\\&lt;1% DISCLOSED » désigne une entité plus précise que l'org rattachée : « 50gb», « com» fait partie du nom désigné et manque à LA SKY LIGHT — homonyme ou mot générique."
+	},
+	{
+		"ordre": 27,
+		"verdict": "indecidable",
+		"motif": "L'indice « Insula Group » égale (au jeton près) le nom de l'org SAS INSULA mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 28,
+		"verdict": "exacte",
+		"motif": "L'indice désigne loiret.fr ; l'org DEPARTEMENT DU LOIRET (45) déclare ce domaine et le site en ligne l'affiche — même entité."
+	},
+	{
+		"ordre": 29,
+		"verdict": "indecidable",
+		"motif": "L'indice « HDI » égale (au jeton près) le nom de l'org HDI mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 30,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Costa Del Sol Hotels » désigne une entité plus précise que l'org rattachée : « costa», « hotels» fait partie du nom désigné et manque à LA MI DEL SOL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 31,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Digital Engineering » désigne une entité plus précise que l'org rattachée : « digital» fait partie du nom désigné et manque à LC ENGINEERING — homonyme ou mot générique."
+	},
+	{
+		"ordre": 32,
+		"verdict": "exacte",
+		"motif": "L'indice désigne locaparc.fr ; l'org LOCAPARC (LOCAPARC) (44) déclare ce domaine et le site en ligne l'affiche — même entité."
+	},
+	{
+		"ordre": 33,
+		"verdict": "indecidable",
+		"motif": "L'indice « Neovia » égale (au jeton près) le nom de l'org NEOVIA mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 34,
+		"verdict": "indecidable",
+		"motif": "L'indice « art-eco.it » égale (au jeton près) le nom de l'org ECO-ART (ECO-ART) mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 35,
+		"verdict": "indecidable",
+		"motif": "L'indice « Mirai » égale (au jeton près) le nom de l'org LE MIRAI mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 36,
+		"verdict": "exacte",
+		"motif": "L'indice désigne lille.fr ; l'org COMMUNE DE LILLE (59) déclare ce domaine et le site en ligne l'affiche — même entité."
+	},
+	{
+		"ordre": 37,
+		"verdict": "indecidable",
+		"motif": "L'indice « ARC » égale (au jeton près) le nom de l'org ARC mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 38,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « oak-brook.org » désigne une entité plus précise que l'org rattachée : « org» fait partie du nom désigné et manque à S.C.I. OAK BROOK — homonyme ou mot générique."
+	},
+	{
+		"ordre": 39,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Firmdale Hotels » désigne une entité plus précise que l'org rattachée : « firmdale» fait partie du nom désigné et manque à LC HOTELS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 40,
+		"verdict": "exacte",
+		"motif": "L'indice désigne lamaisonducitron.com ; l'org MAISON GANNAC (Alpes-Maritimes) déclare ce domaine et le site en ligne l'affiche — même entité."
+	},
+	{
+		"ordre": 41,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « M??? T?????? » désigne une entité plus précise que l'org rattachée :  fait partie du nom désigné et manque à M&T — homonyme ou mot générique."
+	},
+	{
+		"ordre": 42,
+		"verdict": "hors_sujet",
+		"motif": "Les jetons du commentaire de fuite fondent le rattachement à MORE AND MORE... — le commentaire ne désigne personne (le nom de victime cité n'est pas celui de l'org)."
+	},
+	{
+		"ordre": 43,
+		"verdict": "indecidable",
+		"motif": "L'indice « Metro.Us » égale (au jeton près) le nom de l'org SCI METRO mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 44,
+		"verdict": "exacte",
+		"motif": "L'indice désigne neatem.fr ; l'org NEATEM (CONTROL) (77) déclare ce domaine et le site en ligne l'affiche — même entité."
+	},
+	{
+		"ordre": 45,
+		"verdict": "indecidable",
+		"motif": "L'indice « ATL » égale (au jeton près) le nom de l'org ATL mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 46,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « www.black-star.fr » désigne une entité plus précise que l'org rattachée : « www» fait partie du nom désigné et manque à EARL BLACK STAR — homonyme ou mot générique."
+	},
+	{
+		"ordre": 47,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Mediprobe Research » désigne une entité plus précise que l'org rattachée : « mediprobe» fait partie du nom désigné et manque à DH RESEARCH — homonyme ou mot générique."
+	},
+	{
+		"ordre": 48,
+		"verdict": "exacte",
+		"motif": "L'indice désigne sides.fr ; l'org SOCIETE INDUSTRIELLE POUR LE DEVELOPPEMENT DE LA SECURITE (SIDES) (75) déclare ce domaine et le site en ligne l'affiche — même entité."
+	},
+	{
+		"ordre": 49,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « M*******l*** » désigne une entité plus précise que l'org rattachée :  fait partie du nom désigné et manque à M & L — homonyme ou mot générique."
+	},
+	{
+		"ordre": 50,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Combined Pool and Spa » désigne une entité plus précise que l'org rattachée : « and», « combined» fait partie du nom désigné et manque à POOL N SPA — homonyme ou mot générique."
+	},
+	{
+		"ordre": 51,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Aluminerie Alouette » désigne une entité plus précise que l'org rattachée : « aluminerie» fait partie du nom désigné et manque à I.M.E. DE L' ALOUETTE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 52,
+		"verdict": "exacte",
+		"motif": "L'indice désigne euromip.fr ; l'org EUROMIP (78) déclare ce domaine et le site en ligne l'affiche — même entité."
+	},
+	{
+		"ordre": 53,
+		"verdict": "indecidable",
+		"motif": "L'indice « LCMH » égale (au jeton près) le nom de l'org LCMH mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 54,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Courageous Home Care » désigne une entité plus précise que l'org rattachée : « courageous» fait partie du nom désigné et manque à HOME CARE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 55,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « USA company » désigne une entité plus précise que l'org rattachée : « usa» fait partie du nom désigné et manque à HA COMPANY — homonyme ou mot générique."
+	},
+	{
+		"ordre": 56,
+		"verdict": "exacte",
+		"motif": "L'indice désigne labelians.fr ; l'org LABELIANS (77) déclare ce domaine et le site en ligne l'affiche — même entité."
+	},
+	{
+		"ordre": 57,
+		"verdict": "indecidable",
+		"motif": "L'indice « Lexco » égale (au jeton près) le nom de l'org LEXCO mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 58,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Saint Jean Industries  - MORE THEN 1.5 TB DATA LEAKED » désigne une entité plus précise que l'org rattachée : « data», « industries» fait partie du nom désigné et manque à LE SAINT JEAN — homonyme ou mot générique."
+	},
+	{
+		"ordre": 59,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Jacobs Farm » désigne une entité plus précise que l'org rattachée : « farm» fait partie du nom désigné et manque à JACOBS BO — homonyme ou mot générique."
+	},
+	{
+		"ordre": 60,
+		"verdict": "exacte",
+		"motif": "L'indice désigne effigest.fr ; l'org EFFIGEST (78) déclare ce domaine et le site en ligne l'affiche — même entité."
+	},
+	{
+		"ordre": 61,
+		"verdict": "indecidable",
+		"motif": "L'indice « SCI » est un fragment ou une troncation (liste de fuite) ; le rapprochement avec SCI est littéral mais le texte ne permet pas d'établir l'identité."
+	},
+	{
+		"ordre": 62,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « New York & Company » désigne une entité plus précise que l'org rattachée : « company» fait partie du nom désigné et manque à SNC LE NEW YORK — homonyme ou mot générique."
+	},
+	{
+		"ordre": 63,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « DAYTON PROGRESS » désigne une entité plus précise que l'org rattachée : « dayton» fait partie du nom désigné et manque à NET-PROGRESS (NET-PROGRESS) (NP) — homonyme ou mot générique."
+	},
+	{
+		"ordre": 64,
+		"verdict": "exacte",
+		"motif": "L'indice désigne neatem.fr ; l'org NEATEM (CONTROL) (77) déclare ce domaine et le site en ligne l'affiche — même entité."
+	},
+	{
+		"ordre": 65,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « *a*** I********* » désigne une entité plus précise que l'org rattachée :  fait partie du nom désigné et manque à A I — homonyme ou mot générique."
+	},
+	{
+		"ordre": 66,
+		"verdict": "partielle",
+		"motif": "L'indice désigne le groupe Atos via se.com (site mondial) ; l'org rattachée est la filiale française ATOS FRANCE (registre SIREN 408024719) : bonne enseigne, mauvaise entité."
+	},
+	{
+		"ordre": 67,
+		"verdict": "indecidable",
+		"motif": "L'indice « ardes.bg » égale (au jeton près) le nom de l'org ARDES mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 68,
+		"verdict": "exacte",
+		"motif": "L'indice désigne lumiplan.com ; l'org LUMIPLAN (44) déclare ce domaine et le site en ligne l'affiche — même entité."
+	},
+	{
+		"ordre": 69,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « A** ****** » désigne une entité plus précise que l'org rattachée :  fait partie du nom désigné et manque à A . — homonyme ou mot générique."
+	},
+	{
+		"ordre": 70,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Access Capital Partners SA » désigne une entité plus précise que l'org rattachée : « access» fait partie du nom désigné et manque à LC CAPITAL PARTNERS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 71,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Charles Trent » désigne une entité plus précise que l'org rattachée : « trent» fait partie du nom désigné et manque à C&V ST CHARLES — homonyme ou mot générique."
+	},
+	{
+		"ordre": 72,
+		"verdict": "exacte",
+		"motif": "L'indice désigne lasotel.fr ; l'org LASOTEL (69) déclare ce domaine et le site en ligne l'affiche — même entité."
+	},
+	{
+		"ordre": 73,
+		"verdict": "indecidable",
+		"motif": "L'indice « AFD » égale (au jeton près) le nom de l'org AFD mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 74,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « New World Travel, Inc. » désigne une entité plus précise que l'org rattachée : « inc», « travel» fait partie du nom désigné et manque à SAS NEW WORLD — homonyme ou mot générique."
+	},
+	{
+		"ordre": 75,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Byerly Aviation » désigne une entité plus précise que l'org rattachée : « byerly» fait partie du nom désigné et manque à JM AVIATION — homonyme ou mot générique."
+	},
+	{
+		"ordre": 76,
+		"verdict": "exacte",
+		"motif": "L'indice désigne fimm.fr ; l'org FIMM (FIMM) (89) déclare ce domaine et le site en ligne l'affiche — même entité."
+	},
+	{
+		"ordre": 77,
+		"verdict": "indecidable",
+		"motif": "L'indice « FAYAT » égale (au jeton près) le nom de l'org FAYAT mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 78,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « San Francisco Ballet » désigne une entité plus précise que l'org rattachée : « ballet» fait partie du nom désigné et manque à SAN FRANCISCO — homonyme ou mot générique."
+	},
+	{
+		"ordre": 79,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « IDS Infotech » désigne une entité plus précise que l'org rattachée : « ids» fait partie du nom désigné et manque à INFOTECH — homonyme ou mot générique."
+	},
+	{
+		"ordre": 80,
+		"verdict": "indecidable",
+		"motif": "L'indice « EDER » égale (au jeton près) le nom de l'org EDER mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 81,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « ATB SA Ingénieurs-conseils SIA » désigne une entité plus précise que l'org rattachée : « atb», « sia» fait partie du nom désigné et manque à I.E.S.INGENIEURS CONSEILS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 82,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Phyton Biotech » désigne une entité plus précise que l'org rattachée : « phyton» fait partie du nom désigné et manque à BIOTECH CONSULTING — homonyme ou mot générique."
+	},
+	{
+		"ordre": 83,
+		"verdict": "indecidable",
+		"motif": "L'indice « EPF » égale (au jeton près) le nom de l'org EPF mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 84,
+		"verdict": "hors_sujet",
+		"motif": "Les jetons du commentaire de fuite fondent le rattachement à MORE AND MORE... — le commentaire ne désigne personne (le nom de victime cité n'est pas celui de l'org)."
+	},
+	{
+		"ordre": 85,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « BMW France » désigne une entité plus précise que l'org rattachée : « bmw» fait partie du nom désigné et manque à FRANCE 2R (FRANCE 2R) — homonyme ou mot générique."
+	},
+	{
+		"ordre": 86,
+		"verdict": "indecidable",
+		"motif": "L'indice « ASI » égale (au jeton près) le nom de l'org ASI mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 87,
+		"verdict": "indecidable",
+		"motif": "L'indice « Groupe Gambetta » égale (au jeton près) le nom de l'org GROUPE GAMBETTA 33 mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 88,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Porto Seguro » désigne une entité plus précise que l'org rattachée : « seguro» fait partie du nom désigné et manque à PORTO — homonyme ou mot générique."
+	},
+	{
+		"ordre": 89,
+		"verdict": "indecidable",
+		"motif": "L'indice « archi+ » égale (au jeton près) le nom de l'org ARCHI mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 90,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « CENTRE D'AUTO P.R.N. SALABERRY IN » désigne une entité plus précise que l'org rattachée : « salaberry» fait partie du nom désigné et manque à CENTRE AUTO 87 — homonyme ou mot générique."
+	},
+	{
+		"ordre": 91,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Mega Vision » désigne une entité plus précise que l'org rattachée : « mega» fait partie du nom désigné et manque à D'VISION — homonyme ou mot générique."
+	},
+	{
+		"ordre": 92,
+		"verdict": "indecidable",
+		"motif": "L'indice « brittany/ » égale (au jeton près) le nom de l'org BRITTANY mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 93,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « NIJMAN / ZEETANK International Transport Sp. z o. o. » désigne une entité plus précise que l'org rattachée : « nijman», « zeetank» fait partie du nom désigné et manque à INTERNATIONAL TRANSPORT SOLUTIONS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 94,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « performance-therapies » désigne une entité plus précise que l'org rattachée : « therapies» fait partie du nom désigné et manque à DATA PERFORMANCE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 95,
+		"verdict": "indecidable",
+		"motif": "L'indice « TLC » égale (au jeton près) le nom de l'org TLC mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 96,
+		"verdict": "hors_sujet",
+		"motif": "Les jetons du commentaire de fuite fondent le rattachement à THE 10 COMPANY — le commentaire ne désigne personne (le nom de victime cité n'est pas celui de l'org)."
+	},
+	{
+		"ordre": 97,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Hawkins Sales » désigne une entité plus précise que l'org rattachée : « sales» fait partie du nom désigné et manque à SCI HAWKINS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 98,
+		"verdict": "indecidable",
+		"motif": "L'indice « Revi » égale (au jeton près) le nom de l'org REVI + mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 99,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « The Plastic Forming Company » désigne une entité plus précise que l'org rattachée : « forming», « plastic» fait partie du nom désigné et manque à THE 10 COMPANY — homonyme ou mot générique."
+	},
+	{
+		"ordre": 100,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Modular Mining » désigne une entité plus précise que l'org rattachée : « modular» fait partie du nom désigné et manque à MINING LIMITED — homonyme ou mot générique."
+	},
+	{
+		"ordre": 101,
+		"verdict": "indecidable",
+		"motif": "L'indice « virtus- » égale (au jeton près) le nom de l'org VIRTUS mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 102,
+		"verdict": "hors_sujet",
+		"motif": "Les jetons du commentaire de fuite fondent le rattachement à INTO THE CODE — le commentaire ne désigne personne (le nom de victime cité n'est pas celui de l'org)."
+	},
+	{
+		"ordre": 103,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « MUTUAL MATERIALS » désigne une entité plus précise que l'org rattachée : « mutual» fait partie du nom désigné et manque à 6 MATERIALS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 104,
+		"verdict": "indecidable",
+		"motif": "L'indice « Imprimerie Peau » égale (au jeton près) le nom de l'org IMPRIMERIE PEAU mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 105,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Groupe Marchand Architecture & Design Inc » désigne une entité plus précise que l'org rattachée : « groupe», « inc» fait partie du nom désigné et manque à DESIGN & ARCHITECTURE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 106,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Laebon Homes » désigne une entité plus précise que l'org rattachée : « laebon» fait partie du nom désigné et manque à SJ HOMES — homonyme ou mot générique."
+	},
+	{
+		"ordre": 107,
+		"verdict": "indecidable",
+		"motif": "L'indice « DGC » égale (au jeton près) le nom de l'org DGC mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 108,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « New World Development Company Limited (NWD) » désigne une entité plus précise que l'org rattachée : « company», « development» fait partie du nom désigné et manque à SAS NEW WORLD — homonyme ou mot générique."
+	},
+	{
+		"ordre": 109,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « March Elevator » désigne une entité plus précise que l'org rattachée : « elevator» fait partie du nom désigné et manque à MARCH — homonyme ou mot générique."
+	},
+	{
+		"ordre": 110,
+		"verdict": "indecidable",
+		"motif": "L'indice « MCS » égale (au jeton près) le nom de l'org MCS mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 111,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Accipiter Capital Management, LLC » désigne une entité plus précise que l'org rattachée : « accipiter», « llc» fait partie du nom désigné et manque à AG CAPITAL MANAGEMENT — homonyme ou mot générique."
+	},
+	{
+		"ordre": 112,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Delmar International » désigne une entité plus précise que l'org rattachée : « delmar» fait partie du nom désigné et manque à B ET A INTERNATIONAL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 113,
+		"verdict": "indecidable",
+		"motif": "L'indice « .com » est un fragment ou une troncation (liste de fuite) ; le rapprochement avec COM est littéral mais le texte ne permet pas d'établir l'identité."
+	},
+	{
+		"ordre": 114,
+		"verdict": "indecidable",
+		"motif": "L'indice « Artemis Holding » égale (au jeton près) le nom de l'org DV ARTEMIS HOLDING mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 115,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Lee Spring » désigne une entité plus précise que l'org rattachée : « lee» fait partie du nom désigné et manque à SPRING — homonyme ou mot générique."
+	},
+	{
+		"ordre": 116,
+		"verdict": "indecidable",
+		"motif": "L'indice « ARPEGE » égale (au jeton près) le nom de l'org ARPEGE mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 117,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « THE  FIRST SHAMING » désigne une entité plus précise que l'org rattachée : « shaming» fait partie du nom désigné et manque à SCI THE FIRST — homonyme ou mot générique."
+	},
+	{
+		"ordre": 118,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « National Beverage » désigne une entité plus précise que l'org rattachée : « beverage» fait partie du nom désigné et manque à LE NATIONAL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 119,
+		"verdict": "indecidable",
+		"motif": "L'indice « MGF » égale (au jeton près) le nom de l'org MGF mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 120,
+		"verdict": "hors_sujet",
+		"motif": "Les jetons du commentaire de fuite fondent le rattachement à MORE AND MORE... — le commentaire ne désigne personne (le nom de victime cité n'est pas celui de l'org)."
+	},
+	{
+		"ordre": 121,
+		"verdict": "indecidable",
+		"motif": "L'indice « Jules B » égale (au jeton près) le nom de l'org JULES mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 122,
+		"verdict": "indecidable",
+		"motif": "L'indice « OLYMPIA » égale (au jeton près) le nom de l'org OLYMPIA mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 123,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Rush Energy Services Inc [You have 48 hours] » désigne une entité plus précise que l'org rattachée : « have», « hours» fait partie du nom désigné et manque à ENERGY 4 YOU — homonyme ou mot générique."
+	},
+	{
+		"ordre": 124,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Ronmor Holdings » désigne une entité plus précise que l'org rattachée : « ronmor» fait partie du nom désigné et manque à GN HOLDINGS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 125,
+		"verdict": "indecidable",
+		"motif": "L'indice « ioi » égale (au jeton près) le nom de l'org IOI mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 126,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « waiwhetu-medical-centre » désigne une entité plus précise que l'org rattachée : « waiwhetu» fait partie du nom désigné et manque à SCI DU CENTRE MEDICAL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 127,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Copper Mountain » désigne une entité plus précise que l'org rattachée : « copper» fait partie du nom désigné et manque à MR MOUNTAIN — homonyme ou mot générique."
+	},
+	{
+		"ordre": 128,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « H********** ********* *** » est un nom masqué dont la longueur ne correspond pas à l'org H — artefact de masquage, l'entité désignée ne peut pas être celle-ci."
+	},
+	{
+		"ordre": 129,
+		"verdict": "indecidable",
+		"motif": "L'indice « Precision Steel Services » égale (au jeton près) le nom de l'org STEEL PRECISION mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 130,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Robuck Homes » désigne une entité plus précise que l'org rattachée : « robuck» fait partie du nom désigné et manque à SJ HOMES — homonyme ou mot générique."
+	},
+	{
+		"ordre": 131,
+		"verdict": "indecidable",
+		"motif": "L'indice « CADRE » égale (au jeton près) le nom de l'org CADRE mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 132,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Sea Force IX » désigne une entité plus précise que l'org rattachée :  fait partie du nom désigné et manque à CF SEA FORCE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 133,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Schneider & Branch » désigne une entité plus précise que l'org rattachée : « branch» fait partie du nom désigné et manque à SCI SCHNEIDER — homonyme ou mot générique."
+	},
+	{
+		"ordre": 134,
+		"verdict": "indecidable",
+		"motif": "L'indice « CIMEX » égale (au jeton près) le nom de l'org CIMEX mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 135,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « William Jackson Food Group » désigne une entité plus précise que l'org rattachée : « food», « group» fait partie du nom désigné et manque à JACKSON WILLIAM — homonyme ou mot générique."
+	},
+	{
+		"ordre": 136,
+		"verdict": "indecidable",
+		"motif": "L'indice « ALIZON » égale (au jeton près) le nom de l'org SCI ALIZON mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 137,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « C**********M » est un nom masqué dont la longueur ne correspond pas à l'org C&M — artefact de masquage, l'entité désignée ne peut pas être celle-ci."
+	},
+	{
+		"ordre": 138,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « University of the West of Scotland » désigne une entité plus précise que l'org rattachée : « scotland», « university» fait partie du nom désigné et manque à SCI GO TO THE WEST — homonyme ou mot générique."
+	},
+	{
+		"ordre": 139,
+		"verdict": "indecidable",
+		"motif": "L'indice « Requena » égale (au jeton près) le nom de l'org SCI REQUENA mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 140,
+		"verdict": "indecidable",
+		"motif": "L'indice « L?? C??e » égale (au jeton près) le nom de l'org L.C.E mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 141,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Sea Mar Community Health Centers » désigne une entité plus précise que l'org rattachée : « centers», « community» fait partie du nom désigné et manque à SEA MAR — homonyme ou mot générique."
+	},
+	{
+		"ordre": 142,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Famous Supply » désigne une entité plus précise que l'org rattachée : « famous» fait partie du nom désigné et manque à K&S SUPPLY — homonyme ou mot générique."
+	},
+	{
+		"ordre": 143,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « A????? ????k » est un nom masqué dont la longueur ne correspond pas à l'org A.K — artefact de masquage, l'entité désignée ne peut pas être celle-ci."
+	},
+	{
+		"ordre": 144,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « WestcoastSmile Dental Studio » désigne une entité plus précise que l'org rattachée : « westcoastsmile» fait partie du nom désigné et manque à STUDIO DENTAL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 145,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Landmark Builders » désigne une entité plus précise que l'org rattachée : « landmark» fait partie du nom désigné et manque à R &G BUILDERS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 146,
+		"verdict": "indecidable",
+		"motif": "L'indice « MainVest » égale (au jeton près) le nom de l'org MAINVEST mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 147,
+		"verdict": "hors_sujet",
+		"motif": "Les jetons du commentaire de fuite fondent le rattachement à BLACK LOCAL — le commentaire ne désigne personne (le nom de victime cité n'est pas celui de l'org)."
+	},
+	{
+		"ordre": 148,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Berga Recycling » désigne une entité plus précise que l'org rattachée : « recycling» fait partie du nom désigné et manque à BERGA — homonyme ou mot générique."
+	},
+	{
+		"ordre": 149,
+		"verdict": "indecidable",
+		"motif": "L'indice « La Providence » égale (au jeton près) le nom de l'org LA PROVIDENCE mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 150,
+		"verdict": "indecidable",
+		"motif": "L'indice « Therabel Lucien Pharma SAS » égale (au jeton près) le nom de l'org THERABEL LUCIEN PHARMA mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 151,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Sandhills Center » désigne une entité plus précise que l'org rattachée : « sandhills» fait partie du nom désigné et manque à SCI CENTER — homonyme ou mot générique."
+	},
+	{
+		"ordre": 152,
+		"verdict": "indecidable",
+		"motif": "L'indice « Rsp » égale (au jeton près) le nom de l'org RSP mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 153,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Bel-Air Bay Club » désigne une entité plus précise que l'org rattachée : « bay», « club» fait partie du nom désigné et manque à BEL AIR SOFTWARE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 154,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Wild Republic » désigne une entité plus précise que l'org rattachée : « wild» fait partie du nom désigné et manque à REPUBLIC 86 — homonyme ou mot générique."
+	},
+	{
+		"ordre": 155,
+		"verdict": "indecidable",
+		"motif": "L'indice « Concord » égale (au jeton près) le nom de l'org CONCORD mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 156,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Hong Kong Special Care Dentistry Association Limited » désigne une entité plus précise que l'org rattachée : « association», « care» fait partie du nom désigné et manque à EURL HONG KONG — homonyme ou mot générique."
+	},
+	{
+		"ordre": 157,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Excel Security » désigne une entité plus précise que l'org rattachée : « security» fait partie du nom désigné et manque à EXCEL CORPORATION — homonyme ou mot générique."
+	},
+	{
+		"ordre": 158,
+		"verdict": "indecidable",
+		"motif": "L'indice « Skynet » égale (au jeton près) le nom de l'org SKYNET mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 159,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Mid-America Real Estate Group » désigne une entité plus précise que l'org rattachée : « america», « group» fait partie du nom désigné et manque à SCI EP REAL ESTATE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 160,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Roncelli Plastics » désigne une entité plus précise que l'org rattachée : « roncelli» fait partie du nom désigné et manque à EC PLASTICS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 161,
+		"verdict": "indecidable",
+		"motif": "L'indice « Boni » égale (au jeton près) le nom de l'org BONI mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 162,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « New World Travel, In c. » désigne une entité plus précise que l'org rattachée : « travel» fait partie du nom désigné et manque à SAS NEW WORLD — homonyme ou mot générique."
+	},
+	{
+		"ordre": 163,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Alliance Steel » désigne une entité plus précise que l'org rattachée : « steel» fait partie du nom désigné et manque à L'ALLIANCE 5 MA — homonyme ou mot générique."
+	},
+	{
+		"ordre": 164,
+		"verdict": "indecidable",
+		"motif": "L'indice « AKTO » égale (au jeton près) le nom de l'org AKTO mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 165,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Mark A. O'neal and Associates » désigne une entité plus précise que l'org rattachée : « and», « associates» fait partie du nom désigné et manque à NEAL MARK — homonyme ou mot générique."
+	},
+	{
+		"ordre": 166,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Royal Smilde » désigne une entité plus précise que l'org rattachée : « smilde» fait partie du nom désigné et manque à ROYAL 33 — homonyme ou mot générique."
+	},
+	{
+		"ordre": 167,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « P* ***** **** L****** *** » est un nom masqué dont la longueur ne correspond pas à l'org P&L — artefact de masquage, l'entité désignée ne peut pas être celle-ci."
+	},
+	{
+		"ordre": 168,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Ogden Golf & Country Club » désigne une entité plus précise que l'org rattachée : « country», « ogden» fait partie du nom désigné et manque à LE GOLF CLUB 33 — homonyme ou mot générique."
+	},
+	{
+		"ordre": 169,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Miami University » désigne une entité plus précise que l'org rattachée : « university» fait partie du nom désigné et manque à LE MIAMI — homonyme ou mot générique."
+	},
+	{
+		"ordre": 170,
+		"verdict": "indecidable",
+		"motif": "L'indice « Sabin » égale (au jeton près) le nom de l'org SABIN mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 171,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « SANTA MARIA LABORATORIO » désigne une entité plus précise que l'org rattachée : « laboratorio» fait partie du nom désigné et manque à SANTA MARIA — homonyme ou mot générique."
+	},
+	{
+		"ordre": 172,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « DEL Packaging » désigne une entité plus précise que l'org rattachée : « del» fait partie du nom désigné et manque à SOLUTIONS PACKAGING — homonyme ou mot générique."
+	},
+	{
+		"ordre": 173,
+		"verdict": "indecidable",
+		"motif": "L'indice « IRIS Informatique » égale (au jeton près) le nom de l'org IRIS INFORMATIQUE mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 174,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Fimmick CRM Hong Kong (www.fimmick.com) » désigne une entité plus précise que l'org rattachée : « com», « crm» fait partie du nom désigné et manque à EURL HONG KONG — homonyme ou mot générique."
+	},
+	{
+		"ordre": 175,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Odessa College » désigne une entité plus précise que l'org rattachée : « odessa» fait partie du nom désigné et manque à SCI DU COLLEGE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 176,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « C******* **N*** » est un nom masqué dont la longueur ne correspond pas à l'org C.N — artefact de masquage, l'entité désignée ne peut pas être celle-ci."
+	},
+	{
+		"ordre": 177,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « The Fashion Group International » désigne une entité plus précise que l'org rattachée : « group», « the» fait partie du nom désigné et manque à FASHION K INTERNATIONAL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 178,
+		"verdict": "indecidable",
+		"motif": "L'indice « Construct » égale (au jeton près) le nom de l'org MF CONSTRUCT mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 179,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « A*****D » est un nom masqué dont la longueur ne correspond pas à l'org A D — artefact de masquage, l'entité désignée ne peut pas être celle-ci."
+	},
+	{
+		"ordre": 180,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « ORLANDO IMPORT-EXPORT 2001 SRL » désigne une entité plus précise que l'org rattachée : « 2001», « orlando» fait partie du nom désigné et manque à CG IMPORT EXPORT (CG IMPORT EXPORT) — homonyme ou mot générique."
+	},
+	{
+		"ordre": 181,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « SVP Groupe » désigne une entité plus précise que l'org rattachée : « svp» fait partie du nom désigné et manque à GROUPE 3W (3W) — homonyme ou mot générique."
+	},
+	{
+		"ordre": 182,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « A?????L S?????????? ???? » est un nom masqué dont la longueur ne correspond pas à l'org A.L.S. — artefact de masquage, l'entité désignée ne peut pas être celle-ci."
+	},
+	{
+		"ordre": 183,
+		"verdict": "hors_sujet",
+		"motif": "Les jetons du commentaire de fuite fondent le rattachement à MORE AND MORE... — le commentaire ne désigne personne (le nom de victime cité n'est pas celui de l'org)."
+	},
+	{
+		"ordre": 184,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Visage Imaging » désigne une entité plus précise que l'org rattachée : « imaging» fait partie du nom désigné et manque à SARL VISAGE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 185,
+		"verdict": "indecidable",
+		"motif": "L'indice « cgm » égale (au jeton près) le nom de l'org CGM mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 186,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « ASMFC: Atlantic States Marine Fisheries Commission » désigne une entité plus précise que l'org rattachée : « asmfc», « commission» fait partie du nom désigné et manque à MARINE ATLANTIC — homonyme ou mot générique."
+	},
+	{
+		"ordre": 187,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Lopesan Hotels » désigne une entité plus précise que l'org rattachée : « lopesan» fait partie du nom désigné et manque à LC HOTELS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 188,
+		"verdict": "indecidable",
+		"motif": "L'indice « ACS » égale (au jeton près) le nom de l'org ACS mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 189,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Law Office of Michael H Joseph » désigne une entité plus précise que l'org rattachée : « joseph», « michael» fait partie du nom désigné et manque à L'OFFICE [LAW OFFICE] — homonyme ou mot générique."
+	},
+	{
+		"ordre": 190,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Roche Bobois » désigne une entité plus précise que l'org rattachée : « bobois» fait partie du nom désigné et manque à LA ROCHE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 191,
+		"verdict": "indecidable",
+		"motif": "L'indice « Hayat » égale (au jeton près) le nom de l'org HAYAT mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 192,
+		"verdict": "hors_sujet",
+		"motif": "Les jetons du commentaire de fuite fondent le rattachement à GOOD ONE — le commentaire ne désigne personne (le nom de victime cité n'est pas celui de l'org)."
+	},
+	{
+		"ordre": 193,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Barber Emerson » désigne une entité plus précise que l'org rattachée : « emerson» fait partie du nom désigné et manque à BS BARBER — homonyme ou mot générique."
+	},
+	{
+		"ordre": 194,
+		"verdict": "indecidable",
+		"motif": "L'indice « giraud » égale (au jeton près) le nom de l'org GIRAUD mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 195,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Hong Kong College of Technology » désigne une entité plus précise que l'org rattachée : « college», « technology» fait partie du nom désigné et manque à EURL HONG KONG — homonyme ou mot générique."
+	},
+	{
+		"ordre": 196,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Community Alliance » désigne une entité plus précise que l'org rattachée : « alliance» fait partie du nom désigné et manque à M & J COMMUNITY — homonyme ou mot générique."
+	},
+	{
+		"ordre": 197,
+		"verdict": "indecidable",
+		"motif": "L'indice « Urban » égale (au jeton près) le nom de l'org URBAN mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 198,
+		"verdict": "hors_sujet",
+		"motif": "Les jetons du commentaire de fuite fondent le rattachement à SENSITIVE AND CO — le commentaire ne désigne personne (le nom de victime cité n'est pas celui de l'org)."
+	},
+	{
+		"ordre": 199,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « DVision Architecture » désigne une entité plus précise que l'org rattachée : « dvision» fait partie du nom désigné et manque à AG.A.U.R.A.ARCHITECTURE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 200,
+		"verdict": "indecidable",
+		"motif": "L'indice « Pacifica » égale (au jeton près) le nom de l'org PACIFICA mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 201,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « American International Industries » désigne une entité plus précise que l'org rattachée : « international» fait partie du nom désigné et manque à AMERICAN INDUSTRIES — homonyme ou mot générique."
+	},
+	{
+		"ordre": 202,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Delta Pipeline » désigne une entité plus précise que l'org rattachée : « pipeline» fait partie du nom désigné et manque à DELTA CODE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 203,
+		"verdict": "indecidable",
+		"motif": "L'indice « wp » est un fragment ou une troncation (liste de fuite) ; le rapprochement avec WP est littéral mais le texte ne permet pas d'établir l'identité."
+	},
+	{
+		"ordre": 204,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Pincu Barkan, Law Office and Notary » désigne une entité plus précise que l'org rattachée : « and», « barkan» fait partie du nom désigné et manque à L'OFFICE [LAW OFFICE] — homonyme ou mot générique."
+	},
+	{
+		"ordre": 205,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Albina Asphalt » désigne une entité plus précise que l'org rattachée : « asphalt» fait partie du nom désigné et manque à SCI ALBINA — homonyme ou mot générique."
+	},
+	{
+		"ordre": 206,
+		"verdict": "indecidable",
+		"motif": "L'indice « chip » égale (au jeton près) le nom de l'org CHIP mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 207,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « By design » désigne une entité plus précise que l'org rattachée :  fait partie du nom désigné et manque à VT DESIGN — homonyme ou mot générique."
+	},
+	{
+		"ordre": 208,
+		"verdict": "indecidable",
+		"motif": "L'indice « Pim » est un fragment ou une troncation (liste de fuite) ; le rapprochement avec PIM est littéral mais le texte ne permet pas d'établir l'identité."
+	},
+	{
+		"ordre": 209,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Electricity company » désigne une entité plus précise que l'org rattachée : « electricity» fait partie du nom désigné et manque à HA COMPANY — homonyme ou mot générique."
+	},
+	{
+		"ordre": 210,
+		"verdict": "indecidable",
+		"motif": "L'indice « TSC » égale (au jeton près) le nom de l'org TSC mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 211,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Believe Productions » désigne une entité plus précise que l'org rattachée : « believe» fait partie du nom désigné et manque à R D PRODUCTIONS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 212,
+		"verdict": "indecidable",
+		"motif": "L'indice « ABC Group » égale (au jeton près) le nom de l'org ABC GROUP mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 213,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « wings.travel » désigne une entité plus précise que l'org rattachée : « wings» fait partie du nom désigné et manque à M & Y TRAVEL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 214,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Curtidos Barbero » désigne une entité plus précise que l'org rattachée : « curtidos» fait partie du nom désigné et manque à BARBERO — homonyme ou mot générique."
+	},
+	{
+		"ordre": 215,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « CLX Logistics » désigne une entité plus précise que l'org rattachée : « clx» fait partie du nom désigné et manque à GT LOGISTICS.06 — homonyme ou mot générique."
+	},
+	{
+		"ordre": 216,
+		"verdict": "indecidable",
+		"motif": "L'indice « mango.bg » égale (au jeton près) le nom de l'org MANGO mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 217,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Little Elm » désigne une entité plus précise que l'org rattachée : « elm» fait partie du nom désigné et manque à SCI LITTLE D — homonyme ou mot générique."
+	},
+	{
+		"ordre": 218,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Royal Laser » désigne une entité plus précise que l'org rattachée : « laser» fait partie du nom désigné et manque à ROYAL 33 — homonyme ou mot générique."
+	},
+	{
+		"ordre": 219,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « ACER FINANCE » désigne une entité plus précise que l'org rattachée : « acer» fait partie du nom désigné et manque à HT FINANCE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 220,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Vermeer Mexico » désigne une entité plus précise que l'org rattachée : « mexico» fait partie du nom désigné et manque à SCI VERMEER — homonyme ou mot générique."
+	},
+	{
+		"ordre": 221,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Daylesford Organic » désigne une entité plus précise que l'org rattachée : « daylesford» fait partie du nom désigné et manque à 13 ORGANIC — homonyme ou mot générique."
+	},
+	{
+		"ordre": 222,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Access Intelligence » désigne une entité plus précise que l'org rattachée : « intelligence» fait partie du nom désigné et manque à AI ACCESS (AI ACCESS) — homonyme ou mot générique."
+	},
+	{
+		"ordre": 223,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Harry Rosen » désigne une entité plus précise que l'org rattachée : « rosen» fait partie du nom désigné et manque à SCI HARRY — homonyme ou mot générique."
+	},
+	{
+		"ordre": 224,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Victoria Park » désigne une entité plus précise que l'org rattachée : « park» fait partie du nom désigné et manque à VICTORIA — homonyme ou mot générique."
+	},
+	{
+		"ordre": 225,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Autosoft company » désigne une entité plus précise que l'org rattachée : « autosoft» fait partie du nom désigné et manque à HA COMPANY — homonyme ou mot générique."
+	},
+	{
+		"ordre": 226,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Wilson Lewis » désigne une entité plus précise que l'org rattachée : « lewis» fait partie du nom désigné et manque à SCI WILSON — homonyme ou mot générique."
+	},
+	{
+		"ordre": 227,
+		"verdict": "indecidable",
+		"motif": "L'indice « grace.com » égale (au jeton près) le nom de l'org SCI LA GRACE mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 228,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « GROUP4 AUSTRALIA » désigne une entité plus précise que l'org rattachée : « group4» fait partie du nom désigné et manque à AUSTRALIA — homonyme ou mot générique."
+	},
+	{
+		"ordre": 229,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Asahi Glass » désigne une entité plus précise que l'org rattachée : « asahi» fait partie du nom désigné et manque à LC GLASS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 230,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Scharco Elektronik » désigne une entité plus précise que l'org rattachée : « elektronik» fait partie du nom désigné et manque à SCI SCHARCO — homonyme ou mot générique."
+	},
+	{
+		"ordre": 231,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Private Company » désigne une entité plus précise que l'org rattachée : « private» fait partie du nom désigné et manque à HA COMPANY — homonyme ou mot générique."
+	},
+	{
+		"ordre": 232,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Metro Transit » désigne une entité plus précise que l'org rattachée : « transit» fait partie du nom désigné et manque à SCI METRO — homonyme ou mot générique."
+	},
+	{
+		"ordre": 233,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Generator-power » désigne une entité plus précise que l'org rattachée : « generator» fait partie du nom désigné et manque à MP POWER — homonyme ou mot générique."
+	},
+	{
+		"ordre": 234,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « ville-sa » désigne une entité plus précise que l'org rattachée :  fait partie du nom désigné et manque à SCI LA VILLE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 235,
+		"verdict": "indecidable",
+		"motif": "L'indice « arrow.com » égale (au jeton près) le nom de l'org ARROW mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 236,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Leadership Strategies » désigne une entité plus précise que l'org rattachée : « leadership» fait partie du nom désigné et manque à STRATEGIES — homonyme ou mot générique."
+	},
+	{
+		"ordre": 237,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Cummins-Wagner » désigne une entité plus précise que l'org rattachée : « cummins» fait partie du nom désigné et manque à SCI WAGNER — homonyme ou mot générique."
+	},
+	{
+		"ordre": 238,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Arun Estates » désigne une entité plus précise que l'org rattachée : « arun» fait partie du nom désigné et manque à SCI 7N ESTATES — homonyme ou mot générique."
+	},
+	{
+		"ordre": 239,
+		"verdict": "indecidable",
+		"motif": "L'indice « jackson.com » égale (au jeton près) le nom de l'org SCI JACKSON mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 240,
+		"verdict": "indecidable",
+		"motif": "L'indice « Elevate Services » égale (au jeton près) le nom de l'org ELEVATE 24 mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 241,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « ComNet Communications » désigne une entité plus précise que l'org rattachée : « comnet» fait partie du nom désigné et manque à 2 L COMMUNICATIONS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 242,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Yingling Aviation » désigne une entité plus précise que l'org rattachée : « yingling» fait partie du nom désigné et manque à JM AVIATION — homonyme ou mot générique."
+	},
+	{
+		"ordre": 243,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Altice International » désigne une entité plus précise que l'org rattachée : « altice» fait partie du nom désigné et manque à B ET A INTERNATIONAL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 244,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Jonti-Craft » désigne une entité plus précise que l'org rattachée : « jonti» fait partie du nom désigné et manque à HP CRAFT — homonyme ou mot générique."
+	},
+	{
+		"ordre": 245,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Magnolia Steel » désigne une entité plus précise que l'org rattachée : « steel» fait partie du nom désigné et manque à SCI LE MAGNOLIA — homonyme ou mot générique."
+	},
+	{
+		"ordre": 246,
+		"verdict": "indecidable",
+		"motif": "L'indice « MONDIAL » égale (au jeton près) le nom de l'org MONDIAL 24 mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 247,
+		"verdict": "indecidable",
+		"motif": "L'indice « EQUITY Bank » égale (au jeton près) le nom de l'org EQUITY mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 248,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Innovative Surfaces » désigne une entité plus précise que l'org rattachée : « innovative» fait partie du nom désigné et manque à SURFACES MEDIA — homonyme ou mot générique."
+	},
+	{
+		"ordre": 249,
+		"verdict": "indecidable",
+		"motif": "L'indice « Standard Calibrations » égale (au jeton près) le nom de l'org STANDARD mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 250,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « RTI Surgical » désigne une entité plus précise que l'org rattachée : « rti» fait partie du nom désigné et manque à PF SURGICAL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 251,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « SRH Holding » désigne une entité plus précise que l'org rattachée : « srh» fait partie du nom désigné et manque à E.E HOLDING & SERVICES — homonyme ou mot générique."
+	},
+	{
+		"ordre": 252,
+		"verdict": "indecidable",
+		"motif": "L'indice « Springer Eubank » égale (au jeton près) le nom de l'org SCI SPRINGER mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 253,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Image Craft » désigne une entité plus précise que l'org rattachée : « image» fait partie du nom désigné et manque à HP CRAFT — homonyme ou mot générique."
+	},
+	{
+		"ordre": 254,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « baa.legal » désigne une entité plus précise que l'org rattachée : « baa» fait partie du nom désigné et manque à SCI LEGAL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 255,
+		"verdict": "indecidable",
+		"motif": "L'indice « terminal.com » égale (au jeton près) le nom de l'org TERMINAL C mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 256,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Chambers Construction » désigne une entité plus précise que l'org rattachée : « chambers» fait partie du nom désigné et manque à HD CONSTRUCTION — homonyme ou mot générique."
+	},
+	{
+		"ordre": 257,
+		"verdict": "indecidable",
+		"motif": "L'indice « Sentinel Systems » égale (au jeton près) le nom de l'org SENTINEL mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 258,
+		"verdict": "hors_sujet",
+		"motif": "Le domaine yano.tokyo appartient à une entité étrangère (site en ligne : contenu en langue/secteur étranger) ; l'org SC TOKYO est un homonyme français — le site tranche : hors_sujet."
+	},
+	{
+		"ordre": 259,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Maristes Hermitage » désigne une entité plus précise que l'org rattachée : « maristes» fait partie du nom désigné et manque à SCI DE L HERMITAGE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 260,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Myton School » désigne une entité plus précise que l'org rattachée : « myton» fait partie du nom désigné et manque à MX SCHOOL 17 — homonyme ou mot générique."
+	},
+	{
+		"ordre": 261,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Tri-Supply » désigne une entité plus précise que l'org rattachée : « tri» fait partie du nom désigné et manque à K&S SUPPLY — homonyme ou mot générique."
+	},
+	{
+		"ordre": 262,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Amino Transport » désigne une entité plus précise que l'org rattachée : « amino» fait partie du nom désigné et manque à ML TRANSPORT — homonyme ou mot générique."
+	},
+	{
+		"ordre": 263,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « ZEUS Scientific » désigne une entité plus précise que l'org rattachée : « zeus» fait partie du nom désigné et manque à B&I SCIENTIFIC — homonyme ou mot générique."
+	},
+	{
+		"ordre": 264,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Sunward Pharmaceutical (Sunward) » désigne une entité plus précise que l'org rattachée : « sunward» fait partie du nom désigné et manque à L&A PHARMACEUTICAL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 265,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « World inquest » désigne une entité plus précise que l'org rattachée : « inquest» fait partie du nom désigné et manque à E WORLD MEDIA — homonyme ou mot générique."
+	},
+	{
+		"ordre": 266,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « David Engineers » désigne une entité plus précise que l'org rattachée : « engineers» fait partie du nom désigné et manque à EARL DAVID — homonyme ou mot générique."
+	},
+	{
+		"ordre": 267,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Succes Schoonmaak » désigne une entité plus précise que l'org rattachée : « schoonmaak» fait partie du nom désigné et manque à SCI SUCCES — homonyme ou mot générique."
+	},
+	{
+		"ordre": 268,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Victor Fauconnier » désigne une entité plus précise que l'org rattachée : « fauconnier» fait partie du nom désigné et manque à VICTOR N'BO SCI — homonyme ou mot générique."
+	},
+	{
+		"ordre": 269,
+		"verdict": "indecidable",
+		"motif": "L'indice « Asahi Group » égale (au jeton près) le nom de l'org SCI ASAHI mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 270,
+		"verdict": "hors_sujet",
+		"motif": "Le domaine marti.com appartient à une entité étrangère (site en ligne : contenu en langue/secteur étranger) ; l'org MARTI 2 est un homonyme français — le site tranche : hors_sujet."
+	},
+	{
+		"ordre": 271,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Summit Appliance » désigne une entité plus précise que l'org rattachée : « appliance» fait partie du nom désigné et manque à SUMMIT — homonyme ou mot générique."
+	},
+	{
+		"ordre": 272,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « JE Owens » désigne une entité plus précise que l'org rattachée :  fait partie du nom désigné et manque à OWENS & CO — homonyme ou mot générique."
+	},
+	{
+		"ordre": 273,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Worthen Industries » désigne une entité plus précise que l'org rattachée : « worthen» fait partie du nom désigné et manque à AS INDUSTRIES — homonyme ou mot générique."
+	},
+	{
+		"ordre": 274,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Adina Design » désigne une entité plus précise que l'org rattachée : « adina» fait partie du nom désigné et manque à VT DESIGN — homonyme ou mot générique."
+	},
+	{
+		"ordre": 275,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Heritage Golf » désigne une entité plus précise que l'org rattachée : « golf» fait partie du nom désigné et manque à T.HERITAGE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 276,
+		"verdict": "indecidable",
+		"motif": "L'indice « Middleton Reutlinger » égale (au jeton près) le nom de l'org MIDDLETON mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 277,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Yurtiçi Kargo » désigne une entité plus précise que l'org rattachée : « yurtici» fait partie du nom désigné et manque à SARL KARGO — homonyme ou mot générique."
+	},
+	{
+		"ordre": 278,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Superior Communications » désigne une entité plus précise que l'org rattachée : « superior» fait partie du nom désigné et manque à 2 L COMMUNICATIONS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 279,
+		"verdict": "indecidable",
+		"motif": "L'indice « Allard » égale (au jeton près) le nom de l'org EARL ALLARD TM mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 280,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Premier Technology » désigne une entité plus précise que l'org rattachée : « technology» fait partie du nom désigné et manque à SCI DU PREMIER — homonyme ou mot générique."
+	},
+	{
+		"ordre": 281,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Leaders Staffing » désigne une entité plus précise que l'org rattachée : « leaders» fait partie du nom désigné et manque à CJ STAFFING SOLUTIONS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 282,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Active Concepts » désigne une entité plus précise que l'org rattachée : « concepts» fait partie du nom désigné et manque à ACTIVE NETWORK — homonyme ou mot générique."
+	},
+	{
+		"ordre": 283,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Holler-Classic » désigne une entité plus précise que l'org rattachée : « holler» fait partie du nom désigné et manque à GT CLASSIC — homonyme ou mot générique."
+	},
+	{
+		"ordre": 284,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Suneva Medical » désigne une entité plus précise que l'org rattachée : « suneva» fait partie du nom désigné et manque à SARL MEDICAL 17 — homonyme ou mot générique."
+	},
+	{
+		"ordre": 285,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « ProMotion Holdings » désigne une entité plus précise que l'org rattachée : « promotion» fait partie du nom désigné et manque à GN HOLDINGS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 286,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Faultless Brands » désigne une entité plus précise que l'org rattachée : « faultless» fait partie du nom désigné et manque à TM BRANDS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 287,
+		"verdict": "indecidable",
+		"motif": "L'indice « Mercy Home » égale (au jeton près) le nom de l'org MERCY mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 288,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Petro Serve » désigne une entité plus précise que l'org rattachée : « petro» fait partie du nom désigné et manque à SERVE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 289,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Toyota Brazil » désigne une entité plus précise que l'org rattachée : « toyota» fait partie du nom désigné et manque à DO BRAZIL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 290,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Mayfield School » désigne une entité plus précise que l'org rattachée : « mayfield» fait partie du nom désigné et manque à MX SCHOOL 17 — homonyme ou mot générique."
+	},
+	{
+		"ordre": 291,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Jon Richard » désigne une entité plus précise que l'org rattachée : « jon» fait partie du nom désigné et manque à RICHARD CONSULTING — homonyme ou mot générique."
+	},
+	{
+		"ordre": 292,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Galveston College » désigne une entité plus précise que l'org rattachée : « galveston» fait partie du nom désigné et manque à SCI DU COLLEGE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 293,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Guilford College » désigne une entité plus précise que l'org rattachée : « guilford» fait partie du nom désigné et manque à SCI DU COLLEGE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 294,
+		"verdict": "indecidable",
+		"motif": "L'indice « porter.in » égale (au jeton près) le nom de l'org PORTER mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 295,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « europe-qualité » désigne une entité plus précise que l'org rattachée : « qualite» fait partie du nom désigné et manque à EUROPE 2 — homonyme ou mot générique."
+	},
+	{
+		"ordre": 296,
+		"verdict": "indecidable",
+		"motif": "L'indice « HOULE » égale (au jeton près) le nom de l'org LA HOULE mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 297,
+		"verdict": "indecidable",
+		"motif": "L'indice « Milan Institute » égale (au jeton près) le nom de l'org MILAN SARL mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 298,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Cogal Industry » désigne une entité plus précise que l'org rattachée : « cogal» fait partie du nom désigné et manque à M.G.M. INDUSTRY — homonyme ou mot générique."
+	},
+	{
+		"ordre": 299,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Amphenol Canada » désigne une entité plus précise que l'org rattachée : « amphenol» fait partie du nom désigné et manque à SCI CANADA — homonyme ou mot générique."
+	},
+	{
+		"ordre": 300,
+		"verdict": "indecidable",
+		"motif": "L'indice « Nunez Dental » égale (au jeton près) le nom de l'org NUNEZ mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 301,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « CP Communications » désigne une entité plus précise que l'org rattachée :  fait partie du nom désigné et manque à 2 L COMMUNICATIONS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 302,
+		"verdict": "indecidable",
+		"motif": "L'indice « safed.in » égale (au jeton près) le nom de l'org SCI SAFED mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 303,
+		"verdict": "indecidable",
+		"motif": "L'indice « SESAM Informatics » égale (au jeton près) le nom de l'org SESAM mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 304,
+		"verdict": "indecidable",
+		"motif": "L'indice « https://century... » égale (au jeton près) le nom de l'org SCI CENTURY mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 305,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Affirm Agency » désigne une entité plus précise que l'org rattachée : « affirm» fait partie du nom désigné et manque à AGENCY — homonyme ou mot générique."
+	},
+	{
+		"ordre": 306,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Partners Air » désigne une entité plus précise que l'org rattachée : « air» fait partie du nom désigné et manque à BG PARTNERS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 307,
+		"verdict": "hors_sujet",
+		"motif": "Les jetons du commentaire de fuite fondent le rattachement à RD CONTACT — le commentaire ne désigne personne (le nom de victime cité n'est pas celui de l'org)."
+	},
+	{
+		"ordre": 308,
+		"verdict": "indecidable",
+		"motif": "L'indice « Pierce » égale (au jeton près) le nom de l'org PIERCE & PIERCE mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 309,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Premise Health » désigne une entité plus précise que l'org rattachée : « premise» fait partie du nom désigné et manque à VM HEALTH — homonyme ou mot générique."
+	},
+	{
+		"ordre": 310,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Taylor University » désigne une entité plus précise que l'org rattachée : « university» fait partie du nom désigné et manque à SK TAYLOR — homonyme ou mot générique."
+	},
+	{
+		"ordre": 311,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Robison Engineering » désigne une entité plus précise que l'org rattachée : « robison» fait partie du nom désigné et manque à LC ENGINEERING — homonyme ou mot générique."
+	},
+	{
+		"ordre": 312,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Market Pioneer » désigne une entité plus précise que l'org rattachée : « pioneer» fait partie du nom désigné et manque à WR MARKET — homonyme ou mot générique."
+	},
+	{
+		"ordre": 313,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Key Construction » désigne une entité plus précise que l'org rattachée : « key» fait partie du nom désigné et manque à HD CONSTRUCTION — homonyme ou mot générique."
+	},
+	{
+		"ordre": 314,
+		"verdict": "indecidable",
+		"motif": "L'indice « NATUS.COM » égale (au jeton près) le nom de l'org NATUS mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 315,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Suntrust Properties » désigne une entité plus précise que l'org rattachée : « suntrust» fait partie du nom désigné et manque à M & A PROPERTIES — homonyme ou mot générique."
+	},
+	{
+		"ordre": 316,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Jerue Companies » désigne une entité plus précise que l'org rattachée : « jerue» fait partie du nom désigné et manque à CN COMPANIES — homonyme ou mot générique."
+	},
+	{
+		"ordre": 317,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Southland Holdings » désigne une entité plus précise que l'org rattachée : « southland» fait partie du nom désigné et manque à GN HOLDINGS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 318,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Wesco Equipment » désigne une entité plus précise que l'org rattachée : « equipment» fait partie du nom désigné et manque à WESCO — homonyme ou mot générique."
+	},
+	{
+		"ordre": 319,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Astra Products » désigne une entité plus précise que l'org rattachée : « products» fait partie du nom désigné et manque à SCI ASTRA — homonyme ou mot générique."
+	},
+	{
+		"ordre": 320,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Concord Orthopaedics » désigne une entité plus précise que l'org rattachée : « orthopaedics» fait partie du nom désigné et manque à CONCORD — homonyme ou mot générique."
+	},
+	{
+		"ordre": 321,
+		"verdict": "indecidable",
+		"motif": "L'indice « Patton » égale (au jeton près) le nom de l'org SCI PATTON mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 322,
+		"verdict": "indecidable",
+		"motif": "L'indice « pandol.com » égale (au jeton près) le nom de l'org PANDOL mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 323,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « SPEC Engineering » désigne une entité plus précise que l'org rattachée : « spec» fait partie du nom désigné et manque à LC ENGINEERING — homonyme ou mot générique."
+	},
+	{
+		"ordre": 324,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « OTA Management » désigne une entité plus précise que l'org rattachée : « ota» fait partie du nom désigné et manque à BR MANAGEMENT — homonyme ou mot générique."
+	},
+	{
+		"ordre": 325,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « SPARSH Hospital » désigne une entité plus précise que l'org rattachée : « sparsh» fait partie du nom désigné et manque à SCI DE L'HOSPITAL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 326,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Jakob Becker » désigne une entité plus précise que l'org rattachée : « jakob» fait partie du nom désigné et manque à BECKER M — homonyme ou mot générique."
+	},
+	{
+		"ordre": 327,
+		"verdict": "indecidable",
+		"motif": "L'indice « Optica » égale (au jeton près) le nom de l'org SCI OPTICA 17 mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 328,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « SENADO Argentina » désigne une entité plus précise que l'org rattachée : « senado» fait partie du nom désigné et manque à SCI ARGENTINA — homonyme ou mot générique."
+	},
+	{
+		"ordre": 329,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « learning_resources » désigne une entité plus précise que l'org rattachée : « resources» fait partie du nom désigné et manque à LR LEARNING — homonyme ou mot générique."
+	},
+	{
+		"ordre": 330,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Benefit Management » désigne une entité plus précise que l'org rattachée : « benefit» fait partie du nom désigné et manque à BR MANAGEMENT — homonyme ou mot générique."
+	},
+	{
+		"ordre": 331,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « SALUS Controls » désigne une entité plus précise que l'org rattachée : « salus» fait partie du nom désigné et manque à DB CONTROLS SARL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 332,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Sisu Healthcare » désigne une entité plus précise que l'org rattachée : « sisu» fait partie du nom désigné et manque à MG HEALTHCARE GROUP — homonyme ou mot générique."
+	},
+	{
+		"ordre": 333,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Woodport Doors » désigne une entité plus précise que l'org rattachée : « woodport» fait partie du nom désigné et manque à SCI DOORS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 334,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Berge Bulk » désigne une entité plus précise que l'org rattachée : « bulk» fait partie du nom désigné et manque à SCI BERGE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 335,
+		"verdict": "hors_sujet",
+		"motif": "Le domaine colorado.edu appartient à une entité étrangère (site en ligne : contenu en langue/secteur étranger) ; l'org COLORADO est un homonyme français — le site tranche : hors_sujet."
+	},
+	{
+		"ordre": 336,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « sigma-alimentos... » désigne une entité plus précise que l'org rattachée : « alimentos» fait partie du nom désigné et manque à SIGMA CONSULTING — homonyme ou mot générique."
+	},
+	{
+		"ordre": 337,
+		"verdict": "indecidable",
+		"motif": "L'indice « Royce Corporation » égale (au jeton près) le nom de l'org ROYCE WS mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 338,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « ACE Glass » désigne une entité plus précise que l'org rattachée : « ace» fait partie du nom désigné et manque à LC GLASS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 339,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Driver Group » désigne une entité plus précise que l'org rattachée : « group» fait partie du nom désigné et manque à MY DRIVER'IN — homonyme ou mot générique."
+	},
+	{
+		"ordre": 340,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « AMS-Gruppe » désigne une entité plus précise que l'org rattachée : « ams» fait partie du nom désigné et manque à SCI LA GRUPPE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 341,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Unimed Belem » désigne une entité plus précise que l'org rattachée : « unimed» fait partie du nom désigné et manque à BELEM 7.0. — homonyme ou mot générique."
+	},
+	{
+		"ordre": 342,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Martinaire Aviation » désigne une entité plus précise que l'org rattachée : « martinaire» fait partie du nom désigné et manque à JM AVIATION — homonyme ou mot générique."
+	},
+	{
+		"ordre": 343,
+		"verdict": "indecidable",
+		"motif": "L'indice « Paul Stuart » égale (au jeton près) le nom de l'org STUART mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 344,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Liberty Lines » désigne une entité plus précise que l'org rattachée : « lines» fait partie du nom désigné et manque à LIBERTY — homonyme ou mot générique."
+	},
+	{
+		"ordre": 345,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « MILLS GROUP » désigne une entité plus précise que l'org rattachée : « group» fait partie du nom désigné et manque à SCI MILLS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 346,
+		"verdict": "indecidable",
+		"motif": "L'indice « Research Partnership » égale (au jeton près) le nom de l'org DH RESEARCH mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 347,
+		"verdict": "indecidable",
+		"motif": "L'indice « Jasper Products » égale (au jeton près) le nom de l'org JASPER mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 348,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Blackburn College » désigne une entité plus précise que l'org rattachée : « blackburn» fait partie du nom désigné et manque à SCI DU COLLEGE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 349,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Influence Communication » désigne une entité plus précise que l'org rattachée : « influence» fait partie du nom désigné et manque à CR COMMUNICATION — homonyme ou mot générique."
+	},
+	{
+		"ordre": 350,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Reading Electric » désigne une entité plus précise que l'org rattachée : « reading» fait partie du nom désigné et manque à B ELECTRIC — homonyme ou mot générique."
+	},
+	{
+		"ordre": 351,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « United Tractors » désigne une entité plus précise que l'org rattachée : « tractors» fait partie du nom désigné et manque à UNITED 4L — homonyme ou mot générique."
+	},
+	{
+		"ordre": 352,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Miki Travel » désigne une entité plus précise que l'org rattachée : « miki» fait partie du nom désigné et manque à M & Y TRAVEL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 353,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Liberty Resources » désigne une entité plus précise que l'org rattachée : « resources» fait partie du nom désigné et manque à LIBERTY — homonyme ou mot générique."
+	},
+	{
+		"ordre": 354,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « AIC STEEL » désigne une entité plus précise que l'org rattachée : « aic» fait partie du nom désigné et manque à STEEL SYSTEM — homonyme ou mot générique."
+	},
+	{
+		"ordre": 355,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Nano Health » désigne une entité plus précise que l'org rattachée : « nano» fait partie du nom désigné et manque à VM HEALTH — homonyme ou mot générique."
+	},
+	{
+		"ordre": 356,
+		"verdict": "hors_sujet",
+		"motif": "Le domaine nuance.com appartient à une entité étrangère (site en ligne : contenu en langue/secteur étranger) ; l'org NUANCE est un homonyme français — le site tranche : hors_sujet."
+	},
+	{
+		"ordre": 357,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Growers Express » désigne une entité plus précise que l'org rattachée : « growers» fait partie du nom désigné et manque à BK EXPRESS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 358,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Jacobs & Thompson » désigne une entité plus précise que l'org rattachée : « thompson» fait partie du nom désigné et manque à JACOBS BO — homonyme ou mot générique."
+	},
+	{
+		"ordre": 359,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Kikkerland Design » désigne une entité plus précise que l'org rattachée : « kikkerland» fait partie du nom désigné et manque à VT DESIGN — homonyme ou mot générique."
+	},
+	{
+		"ordre": 360,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Operation Jane » désigne une entité plus précise que l'org rattachée : « jane» fait partie du nom désigné et manque à OPERATION — homonyme ou mot générique."
+	},
+	{
+		"ordre": 361,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Defected Records » désigne une entité plus précise que l'org rattachée : « defected» fait partie du nom désigné et manque à U RECORDS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 362,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Hannon Transport » désigne une entité plus précise que l'org rattachée : « hannon» fait partie du nom désigné et manque à ML TRANSPORT — homonyme ou mot générique."
+	},
+	{
+		"ordre": 363,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Mikro Trading » désigne une entité plus précise que l'org rattachée : « mikro» fait partie du nom désigné et manque à 2M TRADING — homonyme ou mot générique."
+	},
+	{
+		"ordre": 364,
+		"verdict": "hors_sujet",
+		"motif": "Les jetons du commentaire de fuite fondent le rattachement à HA COMPANY — le commentaire ne désigne personne (le nom de victime cité n'est pas celui de l'org)."
+	},
+	{
+		"ordre": 365,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Carvin Software » désigne une entité plus précise que l'org rattachée : « software» fait partie du nom désigné et manque à SCI CARVIN — homonyme ou mot générique."
+	},
+	{
+		"ordre": 366,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Roof Management » désigne une entité plus précise que l'org rattachée : « roof» fait partie du nom désigné et manque à BR MANAGEMENT — homonyme ou mot générique."
+	},
+	{
+		"ordre": 367,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « MAH Machine » désigne une entité plus précise que l'org rattachée : « mah» fait partie du nom désigné et manque à MACHINE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 368,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Unique Imaging » désigne une entité plus précise que l'org rattachée : « imaging» fait partie du nom désigné et manque à L'UNIQUE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 369,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « CETEC Ingénierie » désigne une entité plus précise que l'org rattachée : « cetec» fait partie du nom désigné et manque à I G INGENIERIE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 370,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Commercial Solutions » désigne une entité plus précise que l'org rattachée : « solutions» fait partie du nom désigné et manque à EURL M.O COMMERCIAL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 371,
+		"verdict": "hors_sujet",
+		"motif": "Les jetons du commentaire de fuite fondent le rattachement à HA COMPANY — le commentaire ne désigne personne (le nom de victime cité n'est pas celui de l'org)."
+	},
+	{
+		"ordre": 372,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « AnVa Industries » désigne une entité plus précise que l'org rattachée : « anva» fait partie du nom désigné et manque à AS INDUSTRIES — homonyme ou mot générique."
+	},
+	{
+		"ordre": 373,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Venture Plastics » désigne une entité plus précise que l'org rattachée : « venture» fait partie du nom désigné et manque à EC PLASTICS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 374,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « CIMT College » désigne une entité plus précise que l'org rattachée : « cimt» fait partie du nom désigné et manque à SCI DU COLLEGE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 375,
+		"verdict": "indecidable",
+		"motif": "L'indice « econocom » égale (au jeton près) le nom de l'org ECONOCOM SERVICES & SOLUTIONS (ECONOCOM SERVICES & SOLUTIONS) mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 376,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « New Partners » désigne une entité plus précise que l'org rattachée : « new» fait partie du nom désigné et manque à BG PARTNERS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 377,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « EMX Enterprises » désigne une entité plus précise que l'org rattachée : « emx» fait partie du nom désigné et manque à OG ENTERPRISES — homonyme ou mot générique."
+	},
+	{
+		"ordre": 378,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Rockbridge Capital » désigne une entité plus précise que l'org rattachée : « rockbridge» fait partie du nom désigné et manque à RC CAPITAL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 379,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Summit Care » désigne une entité plus précise que l'org rattachée : « care» fait partie du nom désigné et manque à SUMMIT — homonyme ou mot générique."
+	},
+	{
+		"ordre": 380,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « MA Engineering » désigne une entité plus précise que l'org rattachée :  fait partie du nom désigné et manque à LC ENGINEERING — homonyme ou mot générique."
+	},
+	{
+		"ordre": 381,
+		"verdict": "indecidable",
+		"motif": "L'indice « Miller Edge » égale (au jeton près) le nom de l'org MILLER mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 382,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Legends Limousine » désigne une entité plus précise que l'org rattachée : « legends» fait partie du nom désigné et manque à LA LIMOUSINE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 383,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Legrand CRM » désigne une entité plus précise que l'org rattachée : « crm» fait partie du nom désigné et manque à SELARL LEGRAND — homonyme ou mot générique."
+	},
+	{
+		"ordre": 384,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Studio LAMBDA » désigne une entité plus précise que l'org rattachée : « lambda» fait partie du nom désigné et manque à AT OM STUDIO — homonyme ou mot générique."
+	},
+	{
+		"ordre": 385,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Traxall France » désigne une entité plus précise que l'org rattachée : « traxall» fait partie du nom désigné et manque à FRANCE 2R (FRANCE 2R) — homonyme ou mot générique."
+	},
+	{
+		"ordre": 386,
+		"verdict": "indecidable",
+		"motif": "L'indice « Optimum Technology » égale (au jeton près) le nom de l'org OPTIMUM C.S.I. mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 387,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Active-PCB » désigne une entité plus précise que l'org rattachée : « pcb» fait partie du nom désigné et manque à ACTIVE NETWORK — homonyme ou mot générique."
+	},
+	{
+		"ordre": 388,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Compass Communications » désigne une entité plus précise que l'org rattachée : « communications» fait partie du nom désigné et manque à E-COMPASS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 389,
+		"verdict": "indecidable",
+		"motif": "L'indice « Acorn Sales » égale (au jeton près) le nom de l'org ACORN mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 390,
+		"verdict": "indecidable",
+		"motif": "L'indice « San Carlo » égale (au jeton près) le nom de l'org CARLO mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 391,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « City Projects » désigne une entité plus précise que l'org rattachée : « city» fait partie du nom désigné et manque à CR PROJECTS & SOLUTIONS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 392,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « H-Hotels » désigne une entité plus précise que l'org rattachée :  fait partie du nom désigné et manque à LC HOTELS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 393,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Mercury Theatre » désigne une entité plus précise que l'org rattachée : « mercury» fait partie du nom désigné et manque à DU THEATRE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 394,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Uxbridge College » désigne une entité plus précise que l'org rattachée : « uxbridge» fait partie du nom désigné et manque à SCI DU COLLEGE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 395,
+		"verdict": "indecidable",
+		"motif": "L'indice « Admiral Merchants » égale (au jeton près) le nom de l'org ADMIRAL mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 396,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Albert Bartlett » désigne une entité plus précise que l'org rattachée : « bartlett» fait partie du nom désigné et manque à ALBERT — homonyme ou mot générique."
+	},
+	{
+		"ordre": 397,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Credit Central » désigne une entité plus précise que l'org rattachée : « credit» fait partie du nom désigné et manque à SCI LE CENTRAL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 398,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « ETC Companies » désigne une entité plus précise que l'org rattachée : « etc» fait partie du nom désigné et manque à CN COMPANIES — homonyme ou mot générique."
+	},
+	{
+		"ordre": 399,
+		"verdict": "indecidable",
+		"motif": "L'indice « chevalerias.com » égale (au jeton près) le nom de l'org SCI CHEVALERIAS mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 400,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Plastics Plus » désigne une entité plus précise que l'org rattachée : « plus» fait partie du nom désigné et manque à EC PLASTICS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 401,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Transsion Holdings » désigne une entité plus précise que l'org rattachée : « transsion» fait partie du nom désigné et manque à GN HOLDINGS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 402,
+		"verdict": "indecidable",
+		"motif": "L'indice « Madero » égale (au jeton près) le nom de l'org SAS MADERO mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 403,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Crimson Interactive » désigne une entité plus précise que l'org rattachée : « crimson» fait partie du nom désigné et manque à INTERACTIVE SOLUTION — homonyme ou mot générique."
+	},
+	{
+		"ordre": 404,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Bemis Associates » désigne une entité plus précise que l'org rattachée : « bemis» fait partie du nom désigné et manque à DIGITAL ASSOCIATES (DIGITAL ASSOCIATES) — homonyme ou mot générique."
+	},
+	{
+		"ordre": 405,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Olschewski Davie » désigne une entité plus précise que l'org rattachée : « olschewski» fait partie du nom désigné et manque à DAVIE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 406,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Cambridge College » désigne une entité plus précise que l'org rattachée : « cambridge» fait partie du nom désigné et manque à SCI DU COLLEGE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 407,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Betenbough Homes » désigne une entité plus précise que l'org rattachée : « betenbough» fait partie du nom désigné et manque à SJ HOMES — homonyme ou mot générique."
+	},
+	{
+		"ordre": 408,
+		"verdict": "indecidable",
+		"motif": "L'indice « aliat.group » égale (au jeton près) le nom de l'org ALIAT mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 409,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Groupe Goyette » désigne une entité plus précise que l'org rattachée : « goyette» fait partie du nom désigné et manque à GROUPE 3W (3W) — homonyme ou mot générique."
+	},
+	{
+		"ordre": 410,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Modern Kitchens » désigne une entité plus précise que l'org rattachée : « kitchens» fait partie du nom désigné et manque à MODERN — homonyme ou mot générique."
+	},
+	{
+		"ordre": 411,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Falcon Gaming » désigne une entité plus précise que l'org rattachée : « gaming» fait partie du nom désigné et manque à FALCON SOLUTIONS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 412,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Creation Baumann » désigne une entité plus précise que l'org rattachée : « baumann» fait partie du nom désigné et manque à D.J.A.CREATION — homonyme ou mot générique."
+	},
+	{
+		"ordre": 413,
+		"verdict": "indecidable",
+		"motif": "L'indice « Alternatives, Inc. » égale (au jeton près) le nom de l'org ALTERNATIVES mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 414,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Easy Automation » désigne une entité plus précise que l'org rattachée : « easy» fait partie du nom désigné et manque à MS AUTOMATION — homonyme ou mot générique."
+	},
+	{
+		"ordre": 415,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Aeris Energy » désigne une entité plus précise que l'org rattachée : « aeris» fait partie du nom désigné et manque à ENERGY 2N — homonyme ou mot générique."
+	},
+	{
+		"ordre": 416,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Bertelkamp Automation » désigne une entité plus précise que l'org rattachée : « bertelkamp» fait partie du nom désigné et manque à MS AUTOMATION — homonyme ou mot générique."
+	},
+	{
+		"ordre": 417,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « SEA-invest » désigne une entité plus précise que l'org rattachée : « sea» fait partie du nom désigné et manque à NS INVEST — homonyme ou mot générique."
+	},
+	{
+		"ordre": 418,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Carmel College » désigne une entité plus précise que l'org rattachée : « carmel» fait partie du nom désigné et manque à SCI DU COLLEGE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 419,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Excelsior Orthopaedics » désigne une entité plus précise que l'org rattachée : « orthopaedics» fait partie du nom désigné et manque à SCI  EXCELSIOR — homonyme ou mot générique."
+	},
+	{
+		"ordre": 420,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Valley Rentals » désigne une entité plus précise que l'org rattachée : « valley» fait partie du nom désigné et manque à SCI RENTALS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 421,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Pavilion Construction » désigne une entité plus précise que l'org rattachée : « pavilion» fait partie du nom désigné et manque à HD CONSTRUCTION — homonyme ou mot générique."
+	},
+	{
+		"ordre": 422,
+		"verdict": "indecidable",
+		"motif": "L'indice « Saratoga Liquor » égale (au jeton près) le nom de l'org SARATOGA mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 423,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « WELCOME HOTELS » désigne une entité plus précise que l'org rattachée : « hotels» fait partie du nom désigné et manque à WELCOME — homonyme ou mot générique."
+	},
+	{
+		"ordre": 424,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Charlie Hebdo » désigne une entité plus précise que l'org rattachée : « hebdo» fait partie du nom désigné et manque à CHARLIE IT — homonyme ou mot générique."
+	},
+	{
+		"ordre": 425,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Bayhealth Hospital » désigne une entité plus précise que l'org rattachée : « bayhealth» fait partie du nom désigné et manque à SCI DE L'HOSPITAL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 426,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Royal Chemical » désigne une entité plus précise que l'org rattachée : « chemical» fait partie du nom désigné et manque à ROYAL 33 — homonyme ou mot générique."
+	},
+	{
+		"ordre": 427,
+		"verdict": "hors_sujet",
+		"motif": "Le domaine spectre.dk appartient à une entité étrangère (site en ligne : contenu en langue/secteur étranger) ; l'org SCI SPECTRE est un homonyme français — le site tranche : hors_sujet."
+	},
+	{
+		"ordre": 428,
+		"verdict": "indecidable",
+		"motif": "L'indice « prima.com » égale (au jeton près) le nom de l'org PRIMA CONSULTING mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 429,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Sierra College » désigne une entité plus précise que l'org rattachée : « college» fait partie du nom désigné et manque à SCI SIERRA — homonyme ou mot générique."
+	},
+	{
+		"ordre": 430,
+		"verdict": "indecidable",
+		"motif": "L'indice « AXIOM » égale (au jeton près) le nom de l'org AXIOM CONSULTING mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 431,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Community Brands » désigne une entité plus précise que l'org rattachée : « brands» fait partie du nom désigné et manque à M & J COMMUNITY — homonyme ou mot générique."
+	},
+	{
+		"ordre": 432,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Stratton Finance » désigne une entité plus précise que l'org rattachée : « stratton» fait partie du nom désigné et manque à HT FINANCE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 433,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Fic Expertise » désigne une entité plus précise que l'org rattachée : « fic» fait partie du nom désigné et manque à CLOUD & .NET EXPERTISE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 434,
+		"verdict": "partielle",
+		"motif": "L'indice désigne fujitsu.com (groupe Fujitsu, domaine historique du groupe) ; l'org rattachée est l'entité française FUJITSU TECHNOLOGY SOLUTIONS (registre SIREN 301940011, Courbevoie) : bonne enseigne, mauvaise entité (filiale ≠ groupe)."
+	},
+	{
+		"ordre": 435,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Jordan Drug » désigne une entité plus précise que l'org rattachée : « drug» fait partie du nom désigné et manque à SCI JORDAN — homonyme ou mot générique."
+	},
+	{
+		"ordre": 436,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Unicity International » désigne une entité plus précise que l'org rattachée : « unicity» fait partie du nom désigné et manque à B ET A INTERNATIONAL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 437,
+		"verdict": "hors_sujet",
+		"motif": "Le domaine wendy.mx appartient à une entité étrangère (site en ligne : contenu en langue/secteur étranger) ; l'org WENDY est un homonyme français — le site tranche : hors_sujet."
+	},
+	{
+		"ordre": 438,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Alpha Data » désigne une entité plus précise que l'org rattachée : « data» fait partie du nom désigné et manque à ALPHA I SARL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 439,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Tricon Energy » désigne une entité plus précise que l'org rattachée : « tricon» fait partie du nom désigné et manque à ENERGY 2N — homonyme ou mot générique."
+	},
+	{
+		"ordre": 440,
+		"verdict": "indecidable",
+		"motif": "L'indice « Ingeniería FULCRUM » égale (au jeton près) le nom de l'org SCI FULCRUM mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 441,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Miami Management » désigne une entité plus précise que l'org rattachée : « miami» fait partie du nom désigné et manque à BR MANAGEMENT — homonyme ou mot générique."
+	},
+	{
+		"ordre": 442,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « LmayInteroute agency » désigne une entité plus précise que l'org rattachée : « lmayinteroute» fait partie du nom désigné et manque à AGENCY — homonyme ou mot générique."
+	},
+	{
+		"ordre": 443,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Lexington Electric » désigne une entité plus précise que l'org rattachée : « lexington» fait partie du nom désigné et manque à B ELECTRIC — homonyme ou mot générique."
+	},
+	{
+		"ordre": 444,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Commonwealth Capital » désigne une entité plus précise que l'org rattachée : « commonwealth» fait partie du nom désigné et manque à RC CAPITAL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 445,
+		"verdict": "hors_sujet",
+		"motif": "Le domaine landal.com appartient à une entité étrangère (site en ligne : contenu en langue/secteur étranger) ; l'org LANDAL est un homonyme français — le site tranche : hors_sujet."
+	},
+	{
+		"ordre": 446,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Wapiti Energy » désigne une entité plus précise que l'org rattachée : « wapiti» fait partie du nom désigné et manque à ENERGY 2N — homonyme ou mot générique."
+	},
+	{
+		"ordre": 447,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « ConForm Automotive » désigne une entité plus précise que l'org rattachée : « conform» fait partie du nom désigné et manque à ST AUTOMOTIVE SERVICE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 448,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « MONTERO & SEGURA » désigne une entité plus précise que l'org rattachée : « segura» fait partie du nom désigné et manque à MONTERO MONTERO — homonyme ou mot générique."
+	},
+	{
+		"ordre": 449,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « SAWA INTERNATIONAL » désigne une entité plus précise que l'org rattachée : « sawa» fait partie du nom désigné et manque à B ET A INTERNATIONAL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 450,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Handi Quilter » désigne une entité plus précise que l'org rattachée : « quilter» fait partie du nom désigné et manque à HANDI H.A.R.T 64 — homonyme ou mot générique."
+	},
+	{
+		"ordre": 451,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Chroma Color » désigne une entité plus précise que l'org rattachée : « chroma» fait partie du nom désigné et manque à COLOR — homonyme ou mot générique."
+	},
+	{
+		"ordre": 452,
+		"verdict": "indecidable",
+		"motif": "L'indice « gregoire.fr » égale (au jeton près) le nom de l'org SARL GREGOIRE mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 453,
+		"verdict": "indecidable",
+		"motif": "L'indice « Affinity Education » égale (au jeton près) le nom de l'org AFFINITY mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 454,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Critical Content » désigne une entité plus précise que l'org rattachée : « critical» fait partie du nom désigné et manque à CONTENT 4U — homonyme ou mot générique."
+	},
+	{
+		"ordre": 455,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Jones & Mayer » désigne une entité plus précise que l'org rattachée : « jones» fait partie du nom désigné et manque à MAYER — homonyme ou mot générique."
+	},
+	{
+		"ordre": 456,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « XPress Cargo » désigne une entité plus précise que l'org rattachée : « xpress» fait partie du nom désigné et manque à CARGO — homonyme ou mot générique."
+	},
+	{
+		"ordre": 457,
+		"verdict": "indecidable",
+		"motif": "L'indice « Sterling Solutions » égale (au jeton près) le nom de l'org SCI DE STERLING mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 458,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Equator Worldwide » désigne une entité plus précise que l'org rattachée : « equator» fait partie du nom désigné et manque à AR WORLDWIDE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 459,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Muncy Homes » désigne une entité plus précise que l'org rattachée : « muncy» fait partie du nom désigné et manque à SJ HOMES — homonyme ou mot générique."
+	},
+	{
+		"ordre": 460,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Hartnell College » désigne une entité plus précise que l'org rattachée : « hartnell» fait partie du nom désigné et manque à SCI DU COLLEGE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 461,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Kingsmill Resort » désigne une entité plus précise que l'org rattachée : « kingsmill» fait partie du nom désigné et manque à RESORT 17 — homonyme ou mot générique."
+	},
+	{
+		"ordre": 462,
+		"verdict": "indecidable",
+		"motif": "L'indice « Voice Technologies » égale (au jeton près) le nom de l'org IN VOICE TECHNOLOGIES mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 463,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Ideal Living » désigne une entité plus précise que l'org rattachée : « living» fait partie du nom désigné et manque à IDEAL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 464,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Active Dynamics » désigne une entité plus précise que l'org rattachée : « dynamics» fait partie du nom désigné et manque à ACTIVE NETWORK — homonyme ou mot générique."
+	},
+	{
+		"ordre": 465,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « GOV Brazil » désigne une entité plus précise que l'org rattachée : « gov» fait partie du nom désigné et manque à DO BRAZIL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 466,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Pulaski academy » désigne une entité plus précise que l'org rattachée : « pulaski» fait partie du nom désigné et manque à DH ACADEMY — homonyme ou mot générique."
+	},
+	{
+		"ordre": 467,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Saltire Energy » désigne une entité plus précise que l'org rattachée : « saltire» fait partie du nom désigné et manque à ENERGY 2N — homonyme ou mot générique."
+	},
+	{
+		"ordre": 468,
+		"verdict": "indecidable",
+		"motif": "L'indice « Benthanh Group » égale (au jeton près) le nom de l'org BENTHANH mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 469,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « WCM Europe » désigne une entité plus précise que l'org rattachée : « wcm» fait partie du nom désigné et manque à EUROPE 2 — homonyme ou mot générique."
+	},
+	{
+		"ordre": 470,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Project Partners » désigne une entité plus précise que l'org rattachée : « project» fait partie du nom désigné et manque à BG PARTNERS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 471,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « SCREEN Holdings » désigne une entité plus précise que l'org rattachée : « screen» fait partie du nom désigné et manque à GN HOLDINGS — homonyme ou mot générique."
+	},
+	{
+		"ordre": 472,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Sunshine Center » désigne une entité plus précise que l'org rattachée : « sunshine» fait partie du nom désigné et manque à SCI CENTER — homonyme ou mot générique."
+	},
+	{
+		"ordre": 473,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « LaBella Associates » désigne une entité plus précise que l'org rattachée : « labella» fait partie du nom désigné et manque à DIGITAL ASSOCIATES (DIGITAL ASSOCIATES) — homonyme ou mot générique."
+	},
+	{
+		"ordre": 474,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « C & C Industries » désigne une entité plus précise que l'org rattachée :  fait partie du nom désigné et manque à AS INDUSTRIES — homonyme ou mot générique."
+	},
+	{
+		"ordre": 475,
+		"verdict": "indecidable",
+		"motif": "L'indice « Dental One » égale (au jeton près) le nom de l'org SCI DENTAL mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 476,
+		"verdict": "indecidable",
+		"motif": "L'indice « Atlas Oil » égale (au jeton près) le nom de l'org ATLAS mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 477,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « ChemStation International » désigne une entité plus précise que l'org rattachée : « chemstation» fait partie du nom désigné et manque à B ET A INTERNATIONAL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 478,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Perfumes & Companhia » désigne une entité plus précise que l'org rattachée : « perfumes» fait partie du nom désigné et manque à EN COMPANHIA — homonyme ou mot générique."
+	},
+	{
+		"ordre": 479,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « FERRE BARNIEDO » désigne une entité plus précise que l'org rattachée : « barniedo» fait partie du nom désigné et manque à SARL FERRE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 480,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « For Press » désigne une entité plus précise que l'org rattachée : « for» fait partie du nom désigné et manque à PRESS NET — homonyme ou mot générique."
+	},
+	{
+		"ordre": 481,
+		"verdict": "indecidable",
+		"motif": "L'indice « cassini-technol... » est un fragment ou une troncation (liste de fuite) ; le rapprochement avec CASSINI est littéral mais le texte ne permet pas d'établir l'identité."
+	},
+	{
+		"ordre": 482,
+		"verdict": "indecidable",
+		"motif": "L'indice « cornu.ch » égale (au jeton près) le nom de l'org SCI LE CORNU mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 483,
+		"verdict": "indecidable",
+		"motif": "L'indice « SOUCY » égale (au jeton près) le nom de l'org NO SOUCY mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 484,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « GDB International » désigne une entité plus précise que l'org rattachée : « gdb» fait partie du nom désigné et manque à B ET A INTERNATIONAL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 485,
+		"verdict": "indecidable",
+		"motif": "L'indice « Navarra & Marzano » égale (au jeton près) le nom de l'org SCI NAVARRA mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 486,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Brain:IT » désigne une entité plus précise que l'org rattachée :  fait partie du nom désigné et manque à WEB BRAIN — homonyme ou mot générique."
+	},
+	{
+		"ordre": 487,
+		"verdict": "indecidable",
+		"motif": "L'indice « Sabian Inc » égale (au jeton près) le nom de l'org SABIAN mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 488,
+		"verdict": "indecidable",
+		"motif": "L'indice « Grover Corparation » égale (au jeton près) le nom de l'org SCI GROVER mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 489,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Universal Companies » désigne une entité plus précise que l'org rattachée : « universal» fait partie du nom désigné et manque à CN COMPANIES — homonyme ou mot générique."
+	},
+	{
+		"ordre": 490,
+		"verdict": "indecidable",
+		"motif": "L'indice « Compact Mould » égale (au jeton près) le nom de l'org COMPACT (COMPACT) mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 491,
+		"verdict": "indecidable",
+		"motif": "L'indice « Innotec, Corp. » égale (au jeton près) le nom de l'org INNOTEC mais sans domaine ni site rien ne tranche ce que la revendication désigne (homonymie non écartée)."
+	},
+	{
+		"ordre": 492,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Medical File » désigne une entité plus précise que l'org rattachée : « file» fait partie du nom désigné et manque à SARL MEDICAL 17 — homonyme ou mot générique."
+	},
+	{
+		"ordre": 493,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « APR Supply » désigne une entité plus précise que l'org rattachée : « apr» fait partie du nom désigné et manque à K&S SUPPLY — homonyme ou mot générique."
+	},
+	{
+		"ordre": 494,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « SsangYong Motor » désigne une entité plus précise que l'org rattachée : « ssangyong» fait partie du nom désigné et manque à MOTOR S — homonyme ou mot générique."
+	},
+	{
+		"ordre": 495,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « TaxLeaf Corporate » désigne une entité plus précise que l'org rattachée : « taxleaf» fait partie du nom désigné et manque à A.X.E.L. CORPORATE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 496,
+		"verdict": "hors_sujet",
+		"motif": "Le domaine pilini.bg appartient à une entité étrangère (site en ligne : contenu en langue/secteur étranger) ; l'org SCI PILINI est un homonyme français — le site tranche : hors_sujet."
+	},
+	{
+		"ordre": 497,
+		"verdict": "hors_sujet",
+		"motif": "Le domaine lenax.com appartient à une entité étrangère (site en ligne : contenu en langue/secteur étranger) ; l'org LENAX est un homonyme français — le site tranche : hors_sujet."
+	},
+	{
+		"ordre": 498,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Ferretti International » désigne une entité plus précise que l'org rattachée : « ferretti» fait partie du nom désigné et manque à B ET A INTERNATIONAL — homonyme ou mot générique."
+	},
+	{
+		"ordre": 499,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Summit College » désigne une entité plus précise que l'org rattachée : « summit» fait partie du nom désigné et manque à SCI DU COLLEGE — homonyme ou mot générique."
+	},
+	{
+		"ordre": 500,
+		"verdict": "hors_sujet",
+		"motif": "L'indice « Conway Electrics » désigne une entité plus précise que l'org rattachée : « conway» fait partie du nom désigné et manque à GLOBAL ELECTRICS — homonyme ou mot générique."
+	}
+]

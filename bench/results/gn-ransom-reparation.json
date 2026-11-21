@@ -1,0 +1,38 @@
+{
+ "dateMesure": "2026-11-21",
+ "plan": "docs/plans/mission-vague3-longue.md — Task 5",
+ "source": "gn-ransom-aquitaine — Google News RSS « rançongiciel + (Gironde, Dordogne, Landes, Pyrénées-Atlantiques) »",
+ "verificationManuelle": {
+  "url": "https://news.google.com/rss/search?q=rancongiciel+…+when:7d (avant réparation)",
+  "http": 200,
+  "contenu": "RSS valide (en-tête complet : title, link, language, copyright), 0 <item>",
+  "dateDernierItem": "aucun item — le flux n'a jamais rien livré"
+ },
+ "diagnostic": {
+  "cause": "la requête portait « rancongiciel » sans cédille ; Google News ne l'assimile pas à « rançongiciel »",
+  "preuveA_B": [
+   {
+    "variante": "sans cédille, when:7d (URL exacte)",
+    "items": 0
+   },
+   {
+    "variante": "sans cédille, when:1y",
+    "items": 0
+   },
+   {
+    "variante": "avec cédille, when:1y",
+    "items": 1,
+    "titre": "« Cyberattaques en série : pourquoi les pirates informatiques demandent-ils de plus en plus de rançons en cryptomonnaies ? » — Sud Ouest"
+   },
+   {
+    "variante": "avec cédille, when:30d",
+    "items": 0
+   }
+  ]
+ },
+ "reparation": {
+  "action": "URL corrigée (rancongiciel → ran%C3%A7ongiciel), description mise à jour, journalisée (kind source.changed, actor humain:mission-vague3)",
+  "remplacement": "non applicable — la source est vivante, pas morte",
+  "etatApres": "activée ; 0 item sur 30 j à ce jour (aucun rançongiciel médiatisé sur les 4 départements ce mois) — sa santé se suivra au rapport hebdomadaire"
+ }
+}

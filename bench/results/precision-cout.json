@@ -1,0 +1,46 @@
+{
+	"vague": "precision",
+	"etape": "S4.3",
+	"date": "2026-11-21",
+	"referentiel": {
+		"organisations": 1244106,
+		"jetonsDiscriminants": 360096,
+		"orgsSansTemoin": 11654,
+		"orgsAvecDomaineOuSite": 69
+	},
+	"prefiltreMemoire": {
+		"msConstruction": 9011,
+		"note": "construit une fois par process, réutilisé pour tout le flux"
+	},
+	"echantillon": {
+		"graine": 20261230,
+		"indicesDisponibles": 15917,
+		"memoire": 300,
+		"livre": 40
+	},
+	"coutParIndice": {
+		"cheminLivre": {
+			"msMedian": 1253.5,
+			"msMoyen": 1539.925,
+			"n": 40,
+			"matchs": 8
+		},
+		"prefiltreMemoire": {
+			"msMedian": 0.06610799999907613,
+			"msMoyen": 1.7014587966665566,
+			"n": 300,
+			"matchs": 38
+		},
+		"avecRegles": {
+			"msMedian": 0.000552999998035375,
+			"msMoyen": 0.00527060666650262,
+			"n": 300,
+			"rattachementsRetenus": 38
+		}
+	},
+	"passagePopulation": {
+		"indicesDistincts": 15918,
+		"dureeSecondes": 16,
+		"source": "passage S1.1 (après construction du préfiltre)"
+	}
+}

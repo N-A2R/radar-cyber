@@ -6,7 +6,7 @@
   "cohorte": {
     "zone": "france",
     "total": 199,
-    "traitees": 30
+    "traitees": 199
   },
   "resolution": {
     "resolues": 12,
@@ -56,7 +56,142 @@
         "total": 10
       }
     ],
-    "tauxGlobal": "20/40"
+    "tauxGlobal": "20/40",
+    "clotureVague3": {
+      "date": "2026-11-21",
+      "cohorte": "199 entités zone france de bench/results/manques-referentiel-2026-11-15.json",
+      "resolues": 76,
+      "nonResolues": 123,
+      "tauxGlobal": "76/199",
+      "vague2LotsABC": {
+        "resolues": 12,
+        "total": 30,
+        "nonResolues": 18
+      },
+      "parLot": [
+        {
+          "lot": 1,
+          "entites": 10,
+          "present": 6,
+          "absent": 3,
+          "cannot_verify": 1
+        },
+        {
+          "lot": 2,
+          "entites": 10,
+          "present": 1,
+          "absent": 6,
+          "cannot_verify": 3
+        },
+        {
+          "lot": 3,
+          "entites": 10,
+          "present": 6,
+          "absent": 0,
+          "cannot_verify": 4
+        },
+        {
+          "lot": 4,
+          "entites": 10,
+          "present": 6,
+          "absent": 4,
+          "cannot_verify": 0
+        },
+        {
+          "lot": 5,
+          "entites": 10,
+          "present": 2,
+          "absent": 4,
+          "cannot_verify": 4
+        },
+        {
+          "lot": 6,
+          "entites": 10,
+          "present": 5,
+          "absent": 3,
+          "cannot_verify": 2
+        },
+        {
+          "lot": 7,
+          "entites": 10,
+          "present": 7,
+          "absent": 3,
+          "cannot_verify": 0
+        },
+        {
+          "lot": 8,
+          "entites": 10,
+          "present": 4,
+          "absent": 5,
+          "cannot_verify": 1
+        },
+        {
+          "lot": 9,
+          "entites": 10,
+          "present": 1,
+          "absent": 6,
+          "cannot_verify": 3
+        },
+        {
+          "lot": 10,
+          "entites": 10,
+          "present": 3,
+          "absent": 4,
+          "cannot_verify": 3
+        },
+        {
+          "lot": 11,
+          "entites": 10,
+          "present": 2,
+          "absent": 5,
+          "cannot_verify": 3
+        },
+        {
+          "lot": 12,
+          "entites": 10,
+          "present": 0,
+          "absent": 6,
+          "cannot_verify": 4
+        },
+        {
+          "lot": 13,
+          "entites": 10,
+          "present": 5,
+          "absent": 5,
+          "cannot_verify": 0
+        },
+        {
+          "lot": 14,
+          "entites": 10,
+          "present": 4,
+          "absent": 4,
+          "cannot_verify": 2
+        },
+        {
+          "lot": 15,
+          "entites": 10,
+          "present": 2,
+          "absent": 7,
+          "cannot_verify": 1
+        },
+        {
+          "lot": 16,
+          "entites": 10,
+          "present": 5,
+          "absent": 4,
+          "cannot_verify": 1
+        },
+        {
+          "lot": 17,
+          "entites": 9,
+          "present": 5,
+          "absent": 2,
+          "cannot_verify": 2
+        }
+      ],
+      "sources": "manques-glm-vague2.json (lots A/B/C vague 2) ; na-lot-reprise-{1..17}.json (nuit + mission vague 3)",
+      "verifiable": "jq '[.resolution.clotureVague3.parLot[].present] | add' bench/results/manques-glm-vague2.json = 64 ; + 12 vague 2 = 76/199"
+    }
   },
   "manques": [
     {
@@ -1444,5 +1579,23 @@
       ],
       "verdict": "cannot_verify"
     }
-  ]
+  ],
+  "resolutionGlobale": {
+    "calculeeLe": "2026-11-21",
+    "methode": "agrégation des 17 fichiers bench/results/na-lot-reprise-N.json (169 entités) + les 30 entités de la cohorte traitée en lots A-C",
+    "commande": "python3 - <<'EOF' sur glob('bench/results/na-lot-reprise-*.json')",
+    "entites": 199,
+    "resolues": 76,
+    "taux": "76/199",
+    "detail": {
+      "vague2LotsAC": 12,
+      "lotsRepriseNA": {
+        "present": 64,
+        "absent": 71,
+        "cannot_verify": 34
+      }
+    },
+    "aRevoir": 34,
+    "note": "le bloc `resolution` ci-dessus reste l'instantané des lots A-C (12/30) ; celui-ci est le compte de la cohorte entière"
+  }
 }

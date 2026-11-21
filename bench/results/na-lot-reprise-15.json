@@ -1,0 +1,192 @@
+{
+  "dateMesure": "2026-11-21",
+  "plan": "docs/plans/mission-nuit-na.md — Task 4 (reprise vague 2)",
+  "lot": 15,
+  "source": {
+    "ref": "bench/results/manques-referentiel-2026-11-15.json",
+    "traites": "bench/results/manques-glm-vague2.json",
+    "entiteSource": "lot-reprise-na"
+  },
+  "method": "lecture du site (fetch, titre et meta verbatim) + recherche-entreprises.api.gouv.fr sans clé ; requêtes et réponses consignées ; SIREN recoupé, jamais inventé",
+  "compte": {
+    "present": 2,
+    "absent": 7,
+    "cannot_verify": 1
+  },
+  "resolutions": [
+    {
+      "nomLisible": "Taylor and Martin",
+      "domaine": null,
+      "verdict": "cannot_verify",
+      "raison": "candidat(s) au registre mais aucun recoupement avec null — arbitrage humain",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Taylor%20and%20Martin&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "STEWART AND BRENDA TAYLOR",
+            "siren": "444206106",
+            "commune": "SAINT MARTIN",
+            "dept": "978",
+            "etat": "C"
+          }
+        ]
+      }
+    },
+    {
+      "nomLisible": "thaonlesvosges.fr",
+      "domaine": "thaonlesvosges.fr",
+      "verdict": "present",
+      "raison": "SIREN 200059939 COMMUNE DE THAON-LES-VOSGES au registre (état A), recoupé avec le titre « Accueil - Thaon-les-Vosges » ; correction documentée",
+      "site": {
+        "url": "https://thaonlesvosges.fr",
+        "http": 200,
+        "titre": "Accueil - Thaon-les-Vosges",
+        "metaDescription": null
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Accueil%20-%20Thaon-les-Vosges&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "ACCUEIL AUTO PIECES 88",
+            "siren": "813822814",
+            "commune": "THAON-LES-VOSGES",
+            "dept": "88",
+            "etat": "A"
+          },
+          {
+            "denomination": "JEAN CHAXEL",
+            "siren": "310653902",
+            "commune": "THAON-LES-VOSGES",
+            "dept": "88",
+            "etat": "A"
+          },
+          {
+            "denomination": "CENTRE COMMUNAL D'ACTION SOCIALE",
+            "siren": "268800554",
+            "commune": "THAON-LES-VOSGES",
+            "dept": "88",
+            "etat": "C"
+          }
+        ]
+      },
+      "sirenCorrige": "200059939"
+    },
+    {
+      "nomLisible": "The De Montfort School",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=The%20De%20Montfort%20School&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "The Grand Bahama Port Authority",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=The%20Grand%20Bahama%20Port%20Authority&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "The Louis G Freeman",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=The%20Louis%20G%20Freeman&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "The Royal Commission for Riyadh City (RCRC)",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=The%20Royal%20Commission%20for%20Riyadh%20City%20(RCRC)&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "The Royal Family of Great Britain",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=The%20Royal%20Family%20of%20Great%20Britain&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "theus-industries.fr",
+      "domaine": "theus-industries.fr",
+      "verdict": "present",
+      "raison": "SIREN 391221280 au registre (état A, CAVAILLON 84), recoupé avec theus-industries.fr",
+      "site": {
+        "url": "https://theus-industries.fr",
+        "http": 200,
+        "titre": "THEUS INDUSTRIES",
+        "metaDescription": null
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=theus-industries&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "THEUS INDUSTRIES",
+            "siren": "391221280",
+            "commune": "CAVAILLON",
+            "dept": "84",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "Unione dei Comuni Terre di Pianura",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Unione%20dei%20Comuni%20Terre%20di%20Pianura&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "University Institute of Technology of Paris",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=University%20Institute%20of%20Technology%20of%20Paris&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    }
+  ],
+  "corrections": [
+    {
+      "nomLisible": "thaonlesvosges.fr",
+      "erreurOriginale": "cannot_verify — la requête racine renvoyait des entreprises locales (ACCUEIL AUTO PIECES 88, JEAN CHAXEL, CCAS cessé)",
+      "correction": "SIREN 200059939 COMMUNE DE THAON-LES-VOSGES (état A) — titre du site « Accueil - Thaon-les-Vosges » ; l'ancienne commune 218804656 est cessée (commune nouvelle)",
+      "preuve": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=COMMUNE%20DE%20THAON%20LES%20VOSGES&page=1&per_page=5",
+        "http": 200,
+        "resultat": "200059939 | COMMUNE DE THAON-LES-VOSGES | A | THAON-LES-VOSGES 88"
+      }
+    }
+  ]
+}

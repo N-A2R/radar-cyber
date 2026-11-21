@@ -1,0 +1,359 @@
+{
+  "dateMesure": "2026-11-21",
+  "plan": "docs/plans/mission-nuit-na.md — Task 4 (reprise vague 2)",
+  "lot": 8,
+  "source": {
+    "ref": "bench/results/manques-referentiel-2026-11-15.json",
+    "traites": "bench/results/manques-glm-vague2.json",
+    "entiteSource": "lot-reprise-na"
+  },
+  "method": "lecture du site (fetch, titre et meta verbatim) + recherche-entreprises.api.gouv.fr sans clé ; requêtes et réponses consignées ; SIREN recoupé, jamais inventé",
+  "compte": {
+    "present": 4,
+    "absent": 5,
+    "cannot_verify": 1
+  },
+  "resolutions": [
+    {
+      "nomLisible": "labelians.fr",
+      "domaine": "labelians.fr",
+      "verdict": "present",
+      "raison": "SIREN 857200885 au registre (état A, NEMOURS 77), recoupé avec labelians.fr",
+      "site": {
+        "url": "https://labelians.fr",
+        "http": 200,
+        "titre": "Distributeur de solutions pour laboratoires | LABELIANS",
+        "metaDescription": "Distributeur de solutions pour laboratoires : consommables, équipements, services et expertise au service de la biologie médicale."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=labelians&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "LABELIANS",
+            "siren": "857200885",
+            "commune": "NEMOURS",
+            "dept": "77",
+            "etat": "A"
+          },
+          {
+            "denomination": "LABELIAN (TECHNIMARK)",
+            "siren": "753529437",
+            "commune": "BRON",
+            "dept": "69",
+            "etat": "C"
+          },
+          {
+            "denomination": "ANNE PERRET (LABELIANE)",
+            "siren": "434065983",
+            "commune": "LE CANNET-DES-MAURES",
+            "dept": "83",
+            "etat": "C"
+          },
+          {
+            "denomination": "GIE DIAGDIRECT",
+            "siren": "442434973",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "lanormandise.fr",
+      "domaine": "lanormandise.fr",
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : « NORMANDISE Pet Food - Combler nos amis chiens &amp; chats et satisfaire leur maî »",
+      "site": {
+        "url": "https://lanormandise.fr",
+        "http": 200,
+        "titre": "NORMANDISE Pet Food - Combler nos amis chiens &amp; chats et satisfaire leur maître",
+        "metaDescription": "NORMANDISE Pet Food contribue au bien-être et à la santé des chiens et des chats en préservant leur nature et leur instinct"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=lanormandise&page=1&per_page=5",
+        "http": 200,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "lapostermobile.fr",
+      "domaine": "lapostermobile.fr",
+      "verdict": "absent",
+      "raison": "relance : DNS absent, registre HTTP 200 q=lapostermobile 0 résultat ; probable coquille de lapostemobile.fr (résolue vague 2)",
+      "site": {
+        "url": "https://lapostermobile.fr",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=lapostermobile&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "LASOLTEL.FR",
+      "domaine": "lasoltel.fr",
+      "verdict": "absent",
+      "raison": "relance : DNS absent (lasoltel.fr), registre HTTP 200 q=lasoltel 0 résultat ; double casse de LASOTEL.FR résolue dans le même lot",
+      "site": {
+        "url": "https://lasoltel.fr",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=lasoltel&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "LASOTEL.FR",
+      "domaine": "lasotel.fr",
+      "verdict": "present",
+      "raison": "SIREN 453007437 au registre (état A, VAULX-EN-VELIN 69), recoupé avec lasotel.fr",
+      "site": {
+        "url": "https://lasotel.fr",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=lasotel&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "LASOTEL",
+            "siren": "453007437",
+            "commune": "VAULX-EN-VELIN",
+            "dept": "69",
+            "etat": "A"
+          },
+          {
+            "denomination": "LASOTEL GROUPE",
+            "siren": "835012006",
+            "commune": "VAULX-EN-VELIN",
+            "dept": "69",
+            "etat": "A"
+          },
+          {
+            "denomination": "AIC TELECOMS",
+            "siren": "752616656",
+            "commune": "VAULX-EN-VELIN",
+            "dept": "69",
+            "etat": "A"
+          },
+          {
+            "denomination": "ENTITE DE GESTION DE LA PORTABILITE (EGP)",
+            "siren": "489859249",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "legilog.fr",
+      "domaine": "legilog.fr",
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : « Accueil - Legilog »",
+      "site": {
+        "url": "https://legilog.fr",
+        "http": 200,
+        "titre": "Accueil - Legilog",
+        "metaDescription": null
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=legilog&page=1&per_page=5",
+        "http": 200,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "lhotellerie-restauration.fr",
+      "domaine": "lhotellerie-restauration.fr",
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : « Journal L&#x2019;H&#xF4;tellerie Restauration »",
+      "site": {
+        "url": "https://lhotellerie-restauration.fr",
+        "http": 200,
+        "titre": "Journal L&#x2019;H&#xF4;tellerie Restauration",
+        "metaDescription": "Journal : Offres d&#x2019;emploi, actualit&#xE9;s et infos pratiques, Oph&#xE9;lia assistante IA, fonds de commerce et annonces dans l&#x2019;h&#xF4;tellerie restauration"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=lhotellerie-restauration&page=1&per_page=5",
+        "http": 200,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "locaparc.fr",
+      "domaine": "locaparc.fr",
+      "verdict": "present",
+      "raison": "SIREN 949435283 au registre (état A, CARQUEFOU 44), recoupé avec locaparc.fr",
+      "site": {
+        "url": "https://locaparc.fr",
+        "http": 200,
+        "titre": "Loca-Parc | Location de véhicules industriels avec et sans conducteurs",
+        "metaDescription": "130 salariés, présent sur 4 sites en Bretagne, Loca-Parc propose des locations courte et longue durée de tous types de véhicules industriels avec et sans conducteurs."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=locaparc&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "LOCAPARC (LOCAPARC)",
+            "siren": "949435283",
+            "commune": "CARQUEFOU",
+            "dept": "44",
+            "etat": "A"
+          },
+          {
+            "denomination": "LOCAPARC",
+            "siren": "792237091",
+            "commune": "ECULLY",
+            "dept": "69",
+            "etat": "A"
+          },
+          {
+            "denomination": "LOCAPARC",
+            "siren": "823974274",
+            "commune": "VAUHALLAN",
+            "dept": "91",
+            "etat": "A"
+          },
+          {
+            "denomination": "LOCAPARC",
+            "siren": "789194727",
+            "commune": "LE RAINCY",
+            "dept": "93",
+            "etat": "C"
+          },
+          {
+            "denomination": "LOCAPARC",
+            "siren": "897905634",
+            "commune": "MARSEILLE",
+            "dept": "13",
+            "etat": "C"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "loiret.fr",
+      "domaine": "loiret.fr",
+      "verdict": "present",
+      "raison": "SIREN 224500017 DEPARTEMENT DU LOIRET au registre (état A, ORLEANS 45), recoupé avec le titre « Conseil départemental du Loiret » ; correction d'homonymie dans corrections",
+      "site": {
+        "url": "https://loiret.fr",
+        "http": 200,
+        "titre": "Conseil départemental du Loiret",
+        "metaDescription": null
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=loiret&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "LOIRET",
+            "siren": "444551675",
+            "commune": "BOSSAY-SUR-CLAISE",
+            "dept": "37",
+            "etat": "A"
+          },
+          {
+            "denomination": "LOIRET",
+            "siren": "753663301",
+            "commune": "MEUNG-SUR-LOIRE",
+            "dept": "45",
+            "etat": "A"
+          },
+          {
+            "denomination": "LOIRET",
+            "siren": "537549578",
+            "commune": "BATZ-SUR-MER",
+            "dept": "44",
+            "etat": "A"
+          },
+          {
+            "denomination": "DEPARTEMENT DU LOIRET",
+            "siren": "224500017",
+            "commune": "ORLEANS",
+            "dept": "45",
+            "etat": "A"
+          },
+          {
+            "denomination": "LOIRET",
+            "siren": "511046690",
+            "commune": "BOUSSAY",
+            "dept": "44",
+            "etat": "C"
+          }
+        ]
+      },
+      "chargeEnBase": true,
+      "sirenCorrige": "224500017"
+    },
+    {
+      "nomLisible": "lpahorticole.faylbillot.educagri.fr",
+      "domaine": "lpahorticole.faylbillot.educagri.fr",
+      "verdict": "cannot_verify",
+      "raison": "relance : DNS 193.48.1.21, https et http refusés (000, 3 tentatives) ; EPLEFPA FAYL-BILLOT 195207410 cessé (état C) — arbitrage humain",
+      "site": {
+        "url": "https://lpahorticole.faylbillot.educagri.fr",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=lpahorticole.faylbillot.educagri&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    }
+  ],
+  "relances": [
+    {
+      "nomLisible": "lapostermobile.fr",
+      "preuve": "DNS absent (getent) ; registre HTTP 200 q=lapostermobile, 0 résultat",
+      "verdictRelance": "absent",
+      "note": "probable coquille de lapostemobile.fr, résolue vague 2"
+    },
+    {
+      "nomLisible": "LASOLTEL.FR",
+      "preuve": "DNS absent (getent, lasoltel.fr) ; registre HTTP 200 q=lasoltel, 0 résultat",
+      "verdictRelance": "absent",
+      "note": "double casse de LASOTEL.FR, résolue dans le même lot (453007437)"
+    },
+    {
+      "nomLisible": "lpahorticole.faylbillot.educagri.fr",
+      "preuve": "DNS 193.48.1.21 ; https ET http refusés (curl 000) ; registre : EPLEFPA FAYL-BILLOT 195207410 état C, associations sans rapport",
+      "verdictRelance": "cannot_verify",
+      "note": "établissement cessé, site mort — arbitrage humain"
+    }
+  ],
+  "corrections": [
+    {
+      "nomLisible": "loiret.fr",
+      "erreurOriginale": "SIREN 444551675 (BOSSAY-SUR-CLAISE 37) — homonymie de domaine",
+      "correction": "org supprimée ; SIREN corrigé 224500017 DEPARTEMENT DU LOIRET (ORLEANS 45, état A) — titre du site « Conseil départemental du Loiret »",
+      "preuve": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=DEPARTEMENT%20DU%20LOIRET&page=1&per_page=5",
+        "http": 200,
+        "resultat": "224500017 | DEPARTEMENT DU LOIRET | A | ORLEANS 45"
+      }
+    }
+  ]
+}

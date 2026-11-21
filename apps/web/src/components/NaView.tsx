@@ -11,7 +11,7 @@
  */
 import { useMemo } from "react";
 import departementsGeojson from "../map/departements-na.geojson";
-import type { NaOverview, Org } from "../api";
+import type { NaOverview, NaFil, Org } from "../api";
 import type { NaViewProps } from "../contracts";
 
 /** Les douze départements, dans l'ordre du geojson (props : code, nom). */
@@ -62,6 +62,29 @@ function cheminDe(geometry: { type: string; coordinates: unknown }): string {
   return parties.join(" ");
 }
 
+/**
+ * « Dernière collecte il y a X » — calculé, jamais affirmé. Renvoie null si la
+ * date est absente : on n'invente pas une fraîcheur.
+ */
+export function ilYA(iso: string | null): string | null {
+  if (!iso) return null;
+  const t = new Date(iso).getTime();
+  if (Number.isNaN(t)) return null;
+  const minutes = Math.max(1, Math.round((Date.now() - t) / 60000));
+  if (minutes < 60) return `dernière collecte il y a ${minutes} min`;
+  const heures = Math.round(minutes / 60);
+  if (heures < 24) return `dernière collecte il y a ${heures} h`;
+  const jours = Math.round(heures / 24);
+  return `dernière collecte il y a ${jours} j`;
+}
+
+/** Date lisible du fil : observée si elle existe, sinon collectée. */
+function dateFil(e: { observedAt: string | null; collectedAt: string }): string {
+  const d = e.observedAt ?? e.collectedAt;
+  const t = new Date(d);
+  return Number.isNaN(t.getTime()) ? d : t.toLocaleString("fr-FR", { dateStyle: "short", timeStyle: "short" });
+}
+
 /** Construit les agrégats par département depuis la liste d'organisations seule. */
 export function overviewDepuisOrgs(orgs: Org[]): NaOverview {
   const parDept = new Map<string, { orgs: number; orgsAvecEvenement: number; evenements: number }>();
@@ -80,6 +103,8 @@ export function overviewDepuisOrgs(orgs: Org[]): NaOverview {
   }));
   return {
     depts,
+    // Le calcul local ne sait rien de la collecte : null, pas une fraîcheur inventée.
+    derniereCollecte: null,
     total: {
       orgs: depts.reduce((a, d) => a + d.orgs, 0),
       orgsAvecEvenement: depts.reduce((a, d) => a + d.orgsAvecEvenement, 0),
@@ -89,7 +114,7 @@ export function overviewDepuisOrgs(orgs: Org[]): NaOverview {
   };
 }
 
-export default function NaView({ orgs, overview, loading, error, dept, onSelectDept, onOpenOrg }: NaViewProps) {
+export default function NaView({ orgs, overview, fil, loading, error, dept, onSelectDept, onOpenOrg }: NaViewProps) {
   const compteParDept = useMemo(() => {
     const m = new Map<string, { nom: string; evenements: number; orgs: number; orgsAvecEvenement: number }>();
     for (const f of FEATURES) {
@@ -145,6 +170,11 @@ export default function NaView({ orgs, overview, loading, error, dept, onSelectD
             </>
           )}
         </p>
+        {ilYA(overview?.derniereCollecte ?? null) && (
+          <p className="na-fraicheur" data-testid="na-fraicheur">
+            {ilYA(overview?.derniereCollecte ?? null)}
+          </p>
+        )}
         {error && <p className="na-erreur">{error}</p>}
         {dept && (
           <button type="button" className="na-reset" onClick={() => onSelectDept(null)}>
@@ -210,6 +240,33 @@ export default function NaView({ orgs, overview, loading, error, dept, onSelectD
                   Aucun événement sur ce département. {compteParDept.get(dept)?.orgs.toLocaleString("fr-FR")}{" "}
                   organisations au référentiel, aucune touchée à ce jour — le trou est affiché, pas caché.
                 </p>
+              )}
+              {fil && fil.dept === dept && fil.events.length > 0 && (
+                <>
+                  <p className="na-note">Fil des événements (50 derniers) :</p>
+                  <ul className="na-fil" data-testid="na-fil">
+                    {fil.events.map((e) => (
+                      <li key={e.id} className="na-fil-ligne">
+                        <span className="na-fil-date">{dateFil(e)}</span>
+                        <span className="na-fil-titre">{e.title}</span>
+                        <span className="na-fil-meta">
+                          {e.family} · source {e.source}
+                          {e.orgName ? " · " : ""}
+                        </span>
+                        {e.orgName && (
+                          <button
+                            type="button"
+                            className="na-ligne-org-bouton"
+                            data-org={e.orgId}
+                            onClick={() => onOpenOrg(e.orgId)}
+                          >
+                            {e.orgName}
+                          </button>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </>
               )}
               {orgsDeptTouchees.length > 0 ? (
                 <>

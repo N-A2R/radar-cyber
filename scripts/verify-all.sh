@@ -18,6 +18,15 @@ API_URL="${API_URL:-http://127.0.0.1:8080}"
 TMP_API_PORT="${VERIFY_API_PORT:-18080}"
 TMP_WEB_PORT="${VERIFY_WEB_PORT:-15173}"
 WEB_URL="${WEB_URL:-http://127.0.0.1:5173}"
+
+# Les tests API dérivent leur URL d'administration de DATABASE_URL : charge
+# .env s'il existe, sinon ils tapent le 5432 par défaut — l'autre serveur.
+if [[ -f "$REPO_DIR/.env" ]]; then
+  set -a
+  # shellcheck disable=SC1091
+  source "$REPO_DIR/.env" 2>/dev/null || true
+  set +a
+fi
 log()  { printf '[%s] %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"; }
 step() { printf '\n=== %s ===\n' "$*"; }
 
@@ -115,6 +124,8 @@ run_step "tests fil"      "$PNPM_BIN" -F @radar/web run test:fil
 run_step "tests corroboration" "$PNPM_BIN" -F @radar/web run test:corroboration
 run_step "tests hors ligne"   "$PNPM_BIN" -F @radar/web run test:offline
 run_step "tests nouvelle-aquitaine" "$PNPM_BIN" -F @radar/web run test:na
+run_step "jeu d'or précision (50 cas pièges, vague précision S5.2)" \
+  "$TSX" scripts/precision-gold.mts --verifier
 run_step "build web"     "$PNPM_BIN" -F @radar/web build
 
 step "healthcheck local"

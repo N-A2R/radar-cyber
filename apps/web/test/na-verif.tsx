@@ -11,7 +11,7 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import NaView, { overviewDepuisOrgs } from "../src/components/NaView";
 import { parseHash, toHash, DEFAULT_STATE, type AppUrlState } from "../src/url-state";
-import type { NaOverview, Org } from "../src/api";
+import type { NaFil, NaOverview, Org } from "../src/api";
 
 let failures = 0;
 function check(label: string, ok: boolean, detail = "") {
@@ -49,6 +49,7 @@ const overview: NaOverview = overviewDepuisOrgs(orgs);
 const baseProps = {
 	orgs,
 	overview,
+	fil: null,
 	loading: false,
 	error: null,
 	dept: null,
@@ -100,7 +101,7 @@ const baseProps = {
 // 4. État vide honnête en mode chargement (ni carte fausse, ni écran blanc).
 {
 	const html = renderToStaticMarkup(
-		<NaView orgs={[]} overview={null} loading={true} error={null} dept={null} onSelectDept={() => {}} onOpenOrg={() => {}} />,
+		<NaView orgs={[]} overview={null} fil={null} loading={true} error={null} dept={null} onSelectDept={() => {}} onOpenOrg={() => {}} />,
 	);
 	check("chargement annoncé", html.includes("Chargement du référentiel Nouvelle-Aquitaine"), "");
 }
@@ -120,10 +121,55 @@ const baseProps = {
 {
 	const serveur: NaOverview = {
 		depts: overview.depts.map((d) => (d.dept === "33" ? { ...d, evenements: 99 } : d)),
+		derniereCollecte: new Date(Date.now() - 45 * 60000).toISOString(),
 		total: { ...overview.total, evenements: 101 },
 	};
 	const html = renderToStaticMarkup(<NaView {...baseProps} overview={serveur} />);
 	check("l'agrégat serveur fait foi", html.includes("99 événements"), "");
+	check(
+		"indicateur de fraîcheur calculé (il y a X)",
+		/dernière collecte il y a \d+ (min|h|j)/.test(html),
+		(html.match(/dernière collecte il y a [^<]*/) ?? ["absent"])[0],
+	);
+	check("sans collecte, pas de fraîcheur inventée", !renderToStaticMarkup(<NaView {...baseProps} />).includes("dernière collecte"), "");
+
+}
+
+// 7. Fil d'événements du département : source, date, organisation, famille.
+{
+	const fil: NaFil = {
+		dept: "33",
+		events: [
+			{
+				id: 9001,
+				title: "Cyberattaque sur une collectivité girondine",
+				family: "ransomware",
+				observedAt: "2026-11-20T10:00:00Z",
+				collectedAt: "2026-11-20T11:05:00Z",
+				source: "gn-33",
+				orgId: 1,
+				orgName: "Ville de Bordeaux",
+			},
+		],
+	};
+	const html = renderToStaticMarkup(<NaView {...baseProps} dept="33" fil={fil} />);
+	check("le fil d'événements est rendu", html.includes('data-testid="na-fil"'), "");
+	check("le titre de l'événement est lisible", html.includes("Cyberattaque sur une collectivité girondine"), "");
+	check("la source est nommée", html.includes("source gn-33"), "");
+	check("la famille est affichée", html.includes("ransomware"), "");
+	check("la date est affichée (observée)", html.includes("2026"), "");
+	check("l'organisation du fil est cliquable (data-org)", html.includes('data-org="1"'), "");
+	check("l'organisation du fil porte son nom", html.includes("Ville de Bordeaux"), "");
+	// Une org cliquée n'efface pas le filtre : l'URL garde naDept.
+	const hash = toHash({ ...DEFAULT_STATE, view: "na", naDept: "33", org: 1 });
+	check("le filtre ?naDept survit à l'ouverture d'une fiche org", hash === "#/na?org=1&naDept=33", hash);
+}
+
+// 8. Fil d'un autre département ou vide : rien d'inventé.
+{
+	const html = renderToStaticMarkup(<NaView {...baseProps} dept="40" fil={{ dept: "33", events: [] }} />);
+	check("fil d'un autre dept : aucun événement rendu", !html.includes("data-testid=\"na-fil\""), "");
+	check("fil vide du bon dept : pas de bloc inventé", !renderToStaticMarkup(<NaView {...baseProps} dept="40" fil={{ dept: "40", events: [] }} />).includes("data-testid=\"na-fil\""), "");
 }
 
 console.log(`\n${failures === 0 ? "na-verif : tous les contrôles passent" : `na-verif : ${failures} contrôle(s) en échec`}`);

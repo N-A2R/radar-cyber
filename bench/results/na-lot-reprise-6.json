@@ -1,0 +1,343 @@
+{
+  "dateMesure": "2026-11-21",
+  "plan": "docs/plans/mission-nuit-na.md — Task 4 (reprise vague 2)",
+  "lot": 6,
+  "source": {
+    "ref": "bench/results/manques-referentiel-2026-11-15.json",
+    "traites": "bench/results/manques-glm-vague2.json",
+    "entiteSource": "lot-reprise-na"
+  },
+  "method": "lecture du site (fetch, titre et meta verbatim) + recherche-entreprises.api.gouv.fr sans clé ; requêtes et réponses consignées ; SIREN recoupé, jamais inventé",
+  "compte": {
+    "present": 5,
+    "absent": 3,
+    "cannot_verify": 2
+  },
+  "resolutions": [
+    {
+      "nomLisible": "Grande Stevens",
+      "domaine": null,
+      "verdict": "cannot_verify",
+      "raison": "candidat(s) au registre mais aucun recoupement avec null — arbitrage humain",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Grande%20Stevens&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "SCI R&R",
+            "siren": "810570895",
+            "commune": "CAP-D'AIL",
+            "dept": "06",
+            "etat": "A"
+          },
+          {
+            "denomination": "STEVEN LE GRAND",
+            "siren": "417787231",
+            "commune": "PONT-AVEN",
+            "dept": "29",
+            "etat": "A"
+          },
+          {
+            "denomination": "STEVEN LE GRAND (S.L.G CARRELAGE)",
+            "siren": "809138019",
+            "commune": "LARMOR-PLAGE",
+            "dept": "56",
+            "etat": "A"
+          },
+          {
+            "denomination": "SNC GRANDE BRASSERIE STEVEN KEVIN",
+            "siren": "514751502",
+            "commune": "MONTPELLIER",
+            "dept": "34",
+            "etat": "A"
+          },
+          {
+            "denomination": "STEVEN LE GRAND",
+            "siren": "100712876",
+            "commune": "ROSPORDEN",
+            "dept": "29",
+            "etat": "A"
+          }
+        ]
+      }
+    },
+    {
+      "nomLisible": "GRANVILLE FOOD CARE  LIMITED",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=GRANVILLE%20FOOD%20CARE%20%20LIMITED&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "groupe-sobotram.fr",
+      "domaine": "groupe-sobotram.fr",
+      "verdict": "cannot_verify",
+      "raison": "candidat(s) au registre mais aucun recoupement avec groupe-sobotram.fr — arbitrage humain",
+      "site": {
+        "url": "https://groupe-sobotram.fr",
+        "http": 200,
+        "titre": "Transports et logistique  &#0149; Transport et logistique - Sobotram &#0149;",
+        "metaDescription": "Transport et logistique - France et international"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=groupe-sobotram&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "SOFIGADER",
+            "siren": "490804499",
+            "commune": "BOURG-EN-BRESSE",
+            "dept": "01",
+            "etat": "C"
+          },
+          {
+            "denomination": "SCI DES CONFRERIES",
+            "siren": "347811721",
+            "commune": "CRISSEY",
+            "dept": "71",
+            "etat": "C"
+          }
+        ]
+      }
+    },
+    {
+      "nomLisible": "Herrs (You have 72 hours)",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Herrs%20(You%20have%2072%20hours)&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "http://FIMM.FR",
+      "domaine": "fimm.fr",
+      "verdict": "present",
+      "raison": "SIREN 339173767 au registre (état A, JOIGNY 89), recoupé avec fimm.fr",
+      "site": {
+        "url": "https://fimm.fr",
+        "http": 200,
+        "titre": "FIMM | Diables, chariots, gerbeurs - fabricant français",
+        "metaDescription": "Fimm conçoit et fabrique en France du matériel de manutention professionnel : diables, chariots, gerbeurs, solutions sur mesure etc."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=fimm&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "FIMM (FIMM)",
+            "siren": "339173767",
+            "commune": "JOIGNY",
+            "dept": "89",
+            "etat": "A"
+          },
+          {
+            "denomination": "FIMM",
+            "siren": "913027181",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "FIMM (FIMM)",
+            "siren": "382595999",
+            "commune": "SAVIGNY-SUR-ORGE",
+            "dept": "91",
+            "etat": "A"
+          },
+          {
+            "denomination": "FIMM",
+            "siren": "384781811",
+            "commune": "COURNONSEC",
+            "dept": "34",
+            "etat": "A"
+          },
+          {
+            "denomination": "FROID INDUSTRIEL MARITIME DU MIDI (FIMM)",
+            "siren": "348180563",
+            "commune": "MARSEILLE",
+            "dept": "13",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "http://soprovise.fr",
+      "domaine": "soprovise.fr",
+      "verdict": "present",
+      "raison": "SIREN 342334422 au registre (état A, BOULBON 13), recoupé avec soprovise.fr",
+      "site": {
+        "url": "https://soprovise.fr",
+        "http": 200,
+        "titre": "Soprovise | L’expert de l’Échafaudages et l’Isolation",
+        "metaDescription": null
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=soprovise&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "SOCIETE PROVENCALE D'ISOLATION ECHAFAUDAGES (SOPROVISE)",
+            "siren": "342334422",
+            "commune": "BOULBON",
+            "dept": "13",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "http://www.neodomos.fr",
+      "domaine": "neodomos.fr",
+      "verdict": "present",
+      "raison": "SIREN 501794333 au registre (état A, AIX-EN-PROVENCE 13), recoupé avec neodomos.fr",
+      "site": {
+        "url": "https://neodomos.fr",
+        "http": 200,
+        "titre": "Courtier en assurance loyer impayé sur Aix-en-Provence et partout en France - NEODOMOS",
+        "metaDescription": "NeoDomos, SARL indépendante de Courtage d"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=neodomos&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "NEODOMOS",
+            "siren": "501794333",
+            "commune": "AIX-EN-PROVENCE",
+            "dept": "13",
+            "etat": "A"
+          },
+          {
+            "denomination": "NEODOMO",
+            "siren": "488998766",
+            "commune": "BAISIEUX",
+            "dept": "59",
+            "etat": "A"
+          },
+          {
+            "denomination": "NEODOMO",
+            "siren": "750881336",
+            "commune": "ANGLET",
+            "dept": "64",
+            "etat": "C"
+          },
+          {
+            "denomination": "CYRILLE MERLE (NEODOMO)",
+            "siren": "882621899",
+            "commune": "RENNES",
+            "dept": "35",
+            "etat": "C"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "http://www.soprovise.fr",
+      "domaine": "soprovise.fr",
+      "verdict": "present",
+      "raison": "SIREN 342334422 au registre (état A, BOULBON 13), recoupé avec soprovise.fr",
+      "site": {
+        "url": "https://soprovise.fr",
+        "http": 200,
+        "titre": "Soprovise | L’expert de l’Échafaudages et l’Isolation",
+        "metaDescription": null
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=soprovise&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "SOCIETE PROVENCALE D'ISOLATION ECHAFAUDAGES (SOPROVISE)",
+            "siren": "342334422",
+            "commune": "BOULBON",
+            "dept": "13",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "http://www.sovitrat.fr",
+      "domaine": "sovitrat.fr",
+      "verdict": "present",
+      "raison": "SIREN 314887126 au registre (état A, LYON 69), recoupé avec sovitrat.fr",
+      "site": {
+        "url": "https://sovitrat.fr",
+        "http": 200,
+        "titre": "Sovitrat",
+        "metaDescription": "Une agence, une appli, un talent."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=sovitrat&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "SOVITRAT 01 (GROUPE SOVITRAT)",
+            "siren": "314887126",
+            "commune": "LYON",
+            "dept": "69",
+            "etat": "A"
+          },
+          {
+            "denomination": "SOVITRAT 06",
+            "siren": "484140777",
+            "commune": "LYON",
+            "dept": "69",
+            "etat": "A"
+          },
+          {
+            "denomination": "SOVITRAT 03",
+            "siren": "450040928",
+            "commune": "LYON",
+            "dept": "69",
+            "etat": "A"
+          },
+          {
+            "denomination": "SOVITRAT 11",
+            "siren": "484592563",
+            "commune": "LYON",
+            "dept": "69",
+            "etat": "A"
+          },
+          {
+            "denomination": "SOVITRAT 02",
+            "siren": "421183658",
+            "commune": "LYON",
+            "dept": "69",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "https://smdea09.fr/",
+      "domaine": "smdea09.fr",
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : « SMDEA - Syndicat Mixte Départemental de l&#039;Eau et de l&#039;Assainissement A »",
+      "site": {
+        "url": "https://smdea09.fr",
+        "http": 200,
+        "titre": "SMDEA - Syndicat Mixte Départemental de l&#039;Eau et de l&#039;Assainissement Ariège Pyrénées",
+        "metaDescription": "Le SMDEA 09 est un outil de coopération départemental. Il distribue et préserve la qualité de l&#039;eau et aménage le territoire pour garantir un service de qualité."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=smdea09&page=1&per_page=5",
+        "http": 200,
+        "resultats": []
+      }
+    }
+  ]
+}

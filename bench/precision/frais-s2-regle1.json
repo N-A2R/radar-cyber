@@ -1,0 +1,472 @@
+{
+	"vague": "precision",
+	"etape": "S2",
+	"date": "2026-11-21",
+	"corpus": "bench/precision/tirage-frais-s2.json",
+	"label": "frais-regle1",
+	"regles": [
+		{
+			"numero": 1,
+			"description": "sigle : via=name à 0,7 (jeton unique) éliminé"
+		}
+	],
+	"population": {
+		"unitesDistinctes": 1992,
+		"taillesStrates": {
+			"haute|ransomwatch|nom": 257,
+			"moyenne|ransomwatch|nom": 243,
+			"moyenne|ransomwatch|sigle": 1403,
+			"haute|ransomwatch-echantillon|domaine": 4,
+			"haute|ransomwatch|domaine": 76,
+			"faible|ransomwatch|ville": 3,
+			"moyenne|ransomware.live|sigle": 3,
+			"moyenne|ransomware.live|nom": 1,
+			"moyenne|ransomwatch-echantillon|nom": 2
+		}
+	},
+	"effect": {
+		"entrees": 100,
+		"conservees": 29,
+		"ecartees": 71,
+		"verdictsDesEcartees": {
+			"non vérifié": 71
+		}
+	},
+	"precisionBrute": {
+		"avant": 0.2222222222222222,
+		"apres": 0.2222222222222222
+	},
+	"precisionStratifiee": {
+		"avant": 0.13194444444444445,
+		"apres": 0.13194444444444445,
+		"note": "la précision « après » est renormalisée sur la population que le moteur rattache encore (les strates entièrement écartées sortent du dénominateur)"
+	},
+	"entreesEcartees": [
+		{
+			"ordre": 4,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "precision.com",
+			"verdict": null
+		},
+		{
+			"ordre": 8,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Bayhealth Hospital",
+			"verdict": null
+		},
+		{
+			"ordre": 12,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Jules B",
+			"verdict": null
+		},
+		{
+			"ordre": 16,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Reliable Parts",
+			"verdict": null
+		},
+		{
+			"ordre": 19,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Schepisi Communications",
+			"verdict": null
+		},
+		{
+			"ordre": 22,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "IDS Infotech",
+			"verdict": null
+		},
+		{
+			"ordre": 25,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Cardinal MetalWorks",
+			"verdict": null
+		},
+		{
+			"ordre": 28,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Jerue Companies",
+			"verdict": null
+		},
+		{
+			"ordre": 31,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Visage Imaging",
+			"verdict": null
+		},
+		{
+			"ordre": 34,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Creation Baumann",
+			"verdict": null
+		},
+		{
+			"ordre": 37,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "CVR Associates",
+			"verdict": null
+		},
+		{
+			"ordre": 40,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Powersports Marketing",
+			"verdict": null
+		},
+		{
+			"ordre": 42,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Amaveca Salud",
+			"verdict": null
+		},
+		{
+			"ordre": 43,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Community Hospital",
+			"verdict": null
+		},
+		{
+			"ordre": 44,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "ville-saintaffr...",
+			"verdict": null
+		},
+		{
+			"ordre": 45,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Southeastern University",
+			"verdict": null
+		},
+		{
+			"ordre": 46,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Links Unlimited",
+			"verdict": null
+		},
+		{
+			"ordre": 47,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Sun Holdings",
+			"verdict": null
+		},
+		{
+			"ordre": 48,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Electrical Connections",
+			"verdict": null
+		},
+		{
+			"ordre": 49,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "popolo.bg",
+			"verdict": null
+		},
+		{
+			"ordre": 50,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Innovative Surfaces",
+			"verdict": null
+		},
+		{
+			"ordre": 51,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "GEMS Education",
+			"verdict": null
+		},
+		{
+			"ordre": 52,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "cassini-technol...",
+			"verdict": null
+		},
+		{
+			"ordre": 53,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Heritage Cooperative",
+			"verdict": null
+		},
+		{
+			"ordre": 54,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Elevator One",
+			"verdict": null
+		},
+		{
+			"ordre": 55,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Betenbough Homes",
+			"verdict": null
+		},
+		{
+			"ordre": 56,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Brookshire Dental",
+			"verdict": null
+		},
+		{
+			"ordre": 57,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Charles Trent",
+			"verdict": null
+		},
+		{
+			"ordre": 58,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Community Brands",
+			"verdict": null
+		},
+		{
+			"ordre": 59,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Olympus Financial",
+			"verdict": null
+		},
+		{
+			"ordre": 60,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Wings Etc",
+			"verdict": null
+		},
+		{
+			"ordre": 61,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Simply Placed",
+			"verdict": null
+		},
+		{
+			"ordre": 62,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "carcajou.fr",
+			"verdict": null
+		},
+		{
+			"ordre": 63,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "APR Supply",
+			"verdict": null
+		},
+		{
+			"ordre": 64,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Access Intelligence",
+			"verdict": null
+		},
+		{
+			"ordre": 65,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "CABINET CAZANAVE",
+			"verdict": null
+		},
+		{
+			"ordre": 66,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Sabre Corporation",
+			"verdict": null
+		},
+		{
+			"ordre": 67,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "nuance.com",
+			"verdict": null
+		},
+		{
+			"ordre": 68,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Biocair International",
+			"verdict": null
+		},
+		{
+			"ordre": 69,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "MILLS GROUP",
+			"verdict": null
+		},
+		{
+			"ordre": 70,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Second Punch",
+			"verdict": null
+		},
+		{
+			"ordre": 71,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Ronmor Holdings",
+			"verdict": null
+		},
+		{
+			"ordre": 72,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Malongo France",
+			"verdict": null
+		},
+		{
+			"ordre": 73,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "BRYCON Construction",
+			"verdict": null
+		},
+		{
+			"ordre": 74,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "ADMIN_2",
+			"verdict": null
+		},
+		{
+			"ordre": 75,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Elliott Group",
+			"verdict": null
+		},
+		{
+			"ordre": 76,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Williams Construction",
+			"verdict": null
+		},
+		{
+			"ordre": 77,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "yano.tokyo",
+			"verdict": null
+		},
+		{
+			"ordre": 78,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Bridger Insurance",
+			"verdict": null
+		},
+		{
+			"ordre": 79,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Provenza Floors",
+			"verdict": null
+		},
+		{
+			"ordre": 80,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Apex America",
+			"verdict": null
+		},
+		{
+			"ordre": 81,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Interforos Casting",
+			"verdict": null
+		},
+		{
+			"ordre": 82,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Scott Engineering",
+			"verdict": null
+		},
+		{
+			"ordre": 83,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Auckland Transport",
+			"verdict": null
+		},
+		{
+			"ordre": 84,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Centura College",
+			"verdict": null
+		},
+		{
+			"ordre": 85,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Grover Corparation",
+			"verdict": null
+		},
+		{
+			"ordre": 86,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Toyota Brazil",
+			"verdict": null
+		},
+		{
+			"ordre": 87,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Amoria Bond",
+			"verdict": null
+		},
+		{
+			"ordre": 88,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "GPF Lewis",
+			"verdict": null
+		},
+		{
+			"ordre": 89,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Benefit Management",
+			"verdict": null
+		},
+		{
+			"ordre": 90,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Diamond Schmitt",
+			"verdict": null
+		},
+		{
+			"ordre": 91,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Cafe Britt",
+			"verdict": null
+		},
+		{
+			"ordre": 92,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Colors Dress",
+			"verdict": null
+		},
+		{
+			"ordre": 93,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Springer & Steinberg",
+			"verdict": null
+		},
+		{
+			"ordre": 94,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Varna Packaging",
+			"verdict": null
+		},
+		{
+			"ordre": 95,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Jacobs Farm",
+			"verdict": null
+		},
+		{
+			"ordre": 96,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "COURTOISE MOTORS",
+			"verdict": null
+		},
+		{
+			"ordre": 97,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Kingsmill Resort",
+			"verdict": null
+		},
+		{
+			"ordre": 98,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Optimum Technology",
+			"verdict": null
+		},
+		{
+			"ordre": 99,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Transport Lutztulln",
+			"verdict": null
+		},
+		{
+			"ordre": 100,
+			"strate": "moyenne|ransomwatch|sigle",
+			"indice": "Miranda Brokerage",
+			"verdict": null
+		}
+	]
+}

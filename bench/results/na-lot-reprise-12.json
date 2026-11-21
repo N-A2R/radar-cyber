@@ -1,0 +1,202 @@
+{
+  "dateMesure": "2026-11-21",
+  "plan": "docs/plans/mission-nuit-na.md — Task 4 (reprise vague 2)",
+  "lot": 12,
+  "source": {
+    "ref": "bench/results/manques-referentiel-2026-11-15.json",
+    "traites": "bench/results/manques-glm-vague2.json",
+    "entiteSource": "lot-reprise-na"
+  },
+  "method": "lecture du site (fetch, titre et meta verbatim) + recherche-entreprises.api.gouv.fr sans clé ; requêtes et réponses consignées ; SIREN recoupé, jamais inventé",
+  "compte": {
+    "present": 0,
+    "absent": 6,
+    "cannot_verify": 4
+  },
+  "resolutions": [
+    {
+      "nomLisible": "Robins & Morton",
+      "domaine": null,
+      "verdict": "cannot_verify",
+      "raison": "candidat(s) au registre mais aucun recoupement avec null — arbitrage humain",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Robins%20%26%20Morton&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "CHARLENE ROBIN (L ATELIER DE C)",
+            "siren": "801797747",
+            "commune": "SAINT-MEARD-DE-GURCON",
+            "dept": "24",
+            "etat": "A"
+          }
+        ]
+      }
+    },
+    {
+      "nomLisible": "Royal Brunei Airlines Sdn Bhd",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Royal%20Brunei%20Airlines%20Sdn%20Bhd&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "Royal Centre",
+      "domaine": null,
+      "verdict": "cannot_verify",
+      "raison": "candidat(s) au registre mais aucun recoupement avec null — arbitrage humain",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Royal%20Centre&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "CENTRE DE PONT ROYAL (CPR)",
+            "siren": "409109568",
+            "commune": "MALLEMORT",
+            "dept": "13",
+            "etat": "A"
+          },
+          {
+            "denomination": "SCI ROYAL CENTRE",
+            "siren": "442625372",
+            "commune": "LE BROC",
+            "dept": "06",
+            "etat": "A"
+          },
+          {
+            "denomination": "CENTRE PORT ROYAL SEMINAIRES",
+            "siren": "304514870",
+            "commune": "SAINT-LAMBERT",
+            "dept": "78",
+            "etat": "A"
+          },
+          {
+            "denomination": "ROYAL CENTRE DE BEAUTE INDIENNE",
+            "siren": "943581066",
+            "commune": "VENISSIEUX",
+            "dept": "69",
+            "etat": "A"
+          },
+          {
+            "denomination": "CENTRE PORT-ROYAL SAS",
+            "siren": "922095864",
+            "commune": "SAINT-LAMBERT",
+            "dept": "78",
+            "etat": "A"
+          }
+        ]
+      }
+    },
+    {
+      "nomLisible": "Royal Chemical",
+      "domaine": null,
+      "verdict": "cannot_verify",
+      "raison": "candidat(s) au registre mais aucun recoupement avec null — arbitrage humain",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Royal%20Chemical&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "INVEST AND CHEMICALS",
+            "siren": "484988605",
+            "commune": "CHATENOY-LE-ROYAL",
+            "dept": "71",
+            "etat": "C"
+          }
+        ]
+      }
+    },
+    {
+      "nomLisible": "Royal College of Phy sicians and Surgeons of Glasgow",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Royal%20College%20of%20Phy%20sicians%20and%20Surgeons%20of%20Glasgow&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "Royal Dirkzwager",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Royal%20Dirkzwager&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "ROYAL GATEWAY CO., LTD",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=ROYAL%20GATEWAY%20CO.%2C%20LTD&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "ROYAL INSIGNIA",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=ROYAL%20INSIGNIA&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "Royal Laser",
+      "domaine": null,
+      "verdict": "cannot_verify",
+      "raison": "candidat(s) au registre mais aucun recoupement avec null — arbitrage humain",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Royal%20Laser&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "LASER ENVIRONNEMENT",
+            "siren": "390277259",
+            "commune": "ROCROI",
+            "dept": "08",
+            "etat": "A"
+          },
+          {
+            "denomination": "CENTRE LASER",
+            "siren": "533207395",
+            "commune": "VERSAILLES",
+            "dept": "78",
+            "etat": "C"
+          },
+          {
+            "denomination": "LASER MODE",
+            "siren": "411986847",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          }
+        ]
+      }
+    },
+    {
+      "nomLisible": "Royal Oak Pet Clinic",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Royal%20Oak%20Pet%20Clinic&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    }
+  ]
+}
