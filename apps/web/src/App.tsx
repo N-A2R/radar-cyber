@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { creerMemoire, etatDonnees, type Instantane } from "./offline";
-import { api, clearAuthToken, getAuthToken, setAuthToken, type Event, type FlowArc, type Graph, type LiveAlert, type NaOverview, type Org, type Source, type Stats } from "./api";
+import { api, clearAuthToken, getAuthToken, setAuthToken, type Event, type FlowArc, type Graph, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type Stats } from "./api";
 import { mockData } from "./mock";
 import Map3D from "./map/Map3D";
 import GraphView from "./graph/GraphView";
@@ -46,6 +46,7 @@ export default function App() {
   const [sources, setSources] = useState<Source[]>([]);
   const [stats, setStats] = useState<Stats | null>(null);
   const [naOverview, setNaOverview] = useState<NaOverview | null>(null);
+  const [naFil, setNaFil] = useState<NaFil | null>(null);
   const [graph, setGraph] = useState<Graph>({ nodes: [], links: [] });
   const [flows, setFlows] = useState<FlowArc[]>([]);
   // L'URL porte la vue, les filtres de l'annuaire et la fiche ouverte :
@@ -299,6 +300,21 @@ export default function App() {
     }, 30000);
     return () => clearInterval(timer);
   }, [loadFlows, token]);
+
+  // Le fil d'événements suit le filtre département (?naDept=) : rechargé à
+  // chaque changement, et une org cliquée dans le fil n'efface pas le filtre —
+  // elle ouvre la fiche, l'URL reste `#/na?naDept=NN`.
+  useEffect(() => {
+    if (MOCK_MODE || !token) return;
+    if (!urlState.naDept) {
+      setNaFil(null);
+      return;
+    }
+    api
+      .naEvents(urlState.naDept)
+      .then((f) => setNaFil(f))
+      .catch(() => setNaFil(null));
+  }, [urlState.naDept, token]);
 
   const byFamily = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -651,6 +667,7 @@ export default function App() {
             <NaView
               orgs={orgs}
               overview={naOverview}
+              fil={naFil}
               loading={loading}
               error={error}
               dept={urlState.naDept}

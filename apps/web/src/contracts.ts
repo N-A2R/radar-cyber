@@ -1,4 +1,4 @@
-import type { Alert, Event, Graph, Health, NaOverview, Org, Source, Stats } from "./api";
+import type { Alert, Event, Graph, Health, NaFil, NaOverview, Org, Source, Stats } from "./api";
 
 /** Les vues de l'application, dans l'ordre du rail. */
 export type ViewKey = "map" | "directory" | "review" | "graph" | "sources" | "health" | "alerts" | "dossier" | "na";
@@ -35,6 +35,8 @@ export type MapViewProps = {
 export type NaViewProps = {
   orgs: Org[];
   overview: NaOverview | null;
+  /** Fil d'événements du département filtré (GET /api/na/events). */
+  fil: NaFil | null;
   loading: boolean;
   error: string | null;
   /** Département sélectionné dans l'URL (`?naDept=33`), `null` = région. */

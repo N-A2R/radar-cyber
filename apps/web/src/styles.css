@@ -1004,6 +1004,57 @@ body {
   color: var(--muted);
 }
 
+.na-fraicheur {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* Fil d'événements d'un département : une ligne = date, titre, source, org. */
+.na-fil {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.na-fil-ligne {
+  display: grid;
+  gap: 2px;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.na-fil-date {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.na-fil-titre {
+  color: var(--text);
+}
+
+.na-fil-meta {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.na-ligne-org-bouton {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--accent, #6fb1e3);
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  font-size: 0.85rem;
+}
+
+.na-ligne-org-bouton:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 900px) {
   .na-corps {
     grid-template-columns: 1fr;

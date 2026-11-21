@@ -238,7 +238,26 @@ export function sourceStatus(source: Pick<Source, "lastOkAt" | "lastErrorAt">): 
 /** Vue Nouvelle-Aquitaine : agrégats par département (GET /api/na/overview). */
 export type NaOverview = {
 	depts: { dept: string; orgs: number; orgsAvecEvenement: number; evenements: number }[];
+	/** Dernier passage de collecte (ISO) — « il y a X » se calcule côté client. */
+	derniereCollecte: string | null;
 	total: { orgs: number; orgsAvecEvenement: number; evenements: number; deptsSansEvenement: string[] };
+};
+
+/** Une ligne du fil d'événements d'un département (GET /api/na/events?dept=NN). */
+export type NaEvenement = {
+	id: number;
+	title: string;
+	family: string;
+	observedAt: string | null;
+	collectedAt: string;
+	source: string;
+	orgId: number;
+	orgName: string;
+};
+
+export type NaFil = {
+	dept: string;
+	events: NaEvenement[];
 };
 
 export type Stats = {
@@ -647,6 +666,7 @@ export const api = {
   logout: () => post<{ ok: boolean }>("/auth/logout"),
   orgs: (asOf?: string) => get<Org[]>(asOf ? `/orgs?asOf=${encodeURIComponent(asOf)}` : "/orgs"),
   naOverview: () => get<NaOverview>("/na/overview"),
+  naEvents: (dept: string) => get<NaFil>(`/na/events?dept=${encodeURIComponent(dept)}`),
   dossier: () => get<{ etat: Record<string, unknown>; dossier: { genere: string; sections: { cle: string; titre: string; points: string[] }[] } }>("/dossier"),
   reviewQueue: (params: { status?: string; bucket?: string; source?: string; groupe?: string; q?: string; page?: number; limit?: number } = {}, signal?: AbortSignal) => {
     const qs = new URLSearchParams();

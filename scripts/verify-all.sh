@@ -18,6 +18,15 @@ API_URL="${API_URL:-http://127.0.0.1:8080}"
 TMP_API_PORT="${VERIFY_API_PORT:-18080}"
 TMP_WEB_PORT="${VERIFY_WEB_PORT:-15173}"
 WEB_URL="${WEB_URL:-http://127.0.0.1:5173}"
+
+# Les tests API dérivent leur URL d'administration de DATABASE_URL : charge
+# .env s'il existe, sinon ils tapent le 5432 par défaut — l'autre serveur.
+if [[ -f "$REPO_DIR/.env" ]]; then
+  set -a
+  # shellcheck disable=SC1091
+  source "$REPO_DIR/.env" 2>/dev/null || true
+  set +a
+fi
 log()  { printf '[%s] %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"; }
 step() { printf '\n=== %s ===\n' "$*"; }
 
