@@ -63,21 +63,24 @@ before(async () => {
   };
   const lignes: string[] = [];
   for (let i = 0; i < 12; i++) {
+    const date = dateMois(i).toISOString();
     lignes.push(
       `(${marque(`${TAG}:cible:${i}`)},'ransomware','confirmed_incident','Fait cible ${i}',` +
-        `${marque(SOURCE)},${marque(cibleId)},${marque(dateMois(i).toISOString())})`,
+        `${marque(SOURCE)},${marque(cibleId)},${marque(date)},${marque(date)})`,
     );
   }
   // Deux faits d'une autre organisation, un ancien et un récent : le filtre
   // `org` doit les écarter sans toucher aux comptes de la cible.
+  const ancien = dateMois(2).toISOString();
+  const recent = new Date(Date.now() - 86_400_000).toISOString();
   lignes.push(
     `(${marque(`${TAG}:autre:ancien`)},'phishing','confirmed_incident','Fait tiers ancien',` +
-      `${marque(SOURCE)},${marque(autreId)},${marque(dateMois(2).toISOString())})`,
+      `${marque(SOURCE)},${marque(autreId)},${marque(ancien)},${marque(ancien)})`,
     `(${marque(`${TAG}:autre:recent`)},'phishing','confirmed_incident','Fait tiers récent',` +
-      `${marque(SOURCE)},${marque(autreId)},${marque(new Date(Date.now() - 86_400_000).toISOString())})`,
+      `${marque(SOURCE)},${marque(autreId)},${marque(recent)},${marque(recent)})`,
   );
   await query(
-    `INSERT INTO event (dedup_key, family, assertion_type, title, source_id, org_id, observed_at)
+    `INSERT INTO event (dedup_key, family, assertion_type, title, source_id, org_id, observed_at, valid_at)
      VALUES ${lignes.join(", ")}`,
     valeurs,
   );
@@ -88,7 +91,7 @@ before(async () => {
 
 after(async () => {
   if (app) await app.close();
-  await query("DELETE FROM event_archive WHERE dedup_key LIKE $1", [`${TAG}:%`]);
+  await query("DELETE FROM archive_event WHERE dedup_key LIKE $1", [`${TAG}:%`]);
   await query("DELETE FROM event WHERE source_id = $1", [SOURCE]);
   await query("DELETE FROM source WHERE id = $1", [SOURCE]);
   await query("DELETE FROM org WHERE slug LIKE $1", [`${TAG}-%`]);
@@ -143,6 +146,32 @@ test("le filtre org accepte un slug et ne mélange pas les organisations", async
 test("les paramètres invalides sont refusés sans interroger l'archive", async () => {
   const mauvaiseDate = await app.inject({ method: "GET", url: "/api/history?from=pas-une-date" });
   assert.equal(mauvaiseDate.statusCode, 400);
+  const dateImpossible = await app.inject({ method: "GET", url: "/api/history?from=2026-02-30" });
+  assert.equal(dateImpossible.statusCode, 400);
+  const moisImpossible = await app.inject({ method: "GET", url: "/api/history?from=2026-13-01" });
+  assert.equal(moisImpossible.statusCode, 400);
+  const inverse = await app.inject({ method: "GET", url: `/api/history?from=${TO}&to=${FROM}` });
+  assert.equal(inverse.statusCode, 400);
+  const demesure = await app.inject({ method: "GET", url: "/api/history?from=2000-01-01&to=2026-11-30" });
+  assert.equal(demesure.statusCode, 400);
   const sansOrg = await app.inject({ method: "GET", url: "/api/history?org=organisation-inexistante" });
   assert.equal(sansOrg.statusCode, 404);
+});
+
+test("une organisation sans fait répond douze mois vides, pas une erreur", async () => {
+  const slug = `${TAG}-vide`;
+  const org = await query<{ id: number }>(
+    "INSERT INTO org (name, slug, kind, dept) VALUES ($1,$2,'entreprise','33') RETURNING id",
+    [`Organisation vide ${TAG}`, slug],
+  );
+  try {
+    const vide = await lire(`/api/history?from=${FROM}&to=${TO}&org=${org.rows[0].id}`);
+    assert.equal(vide.total, 0);
+    assert.equal(vide.brut, 0);
+    assert.equal(vide.archive, 0);
+    assert.deepEqual(vide.parMois.map((m) => m.mois), MOIS_ATTENDUS);
+    assert.ok(vide.parMois.every((m) => m.total === 0), "tous les mois sont à zéro");
+  } finally {
+    await query("DELETE FROM org WHERE id = $1", [org.rows[0].id]).catch(() => {});
+  }
 });
