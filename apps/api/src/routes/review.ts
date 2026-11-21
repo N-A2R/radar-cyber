@@ -56,6 +56,8 @@ async function contextesDes(ids: readonly number[]): Promise<Map<number, { titre
 const QueueQuery = z.object({
 	limit: z.coerce.number().int().min(1).max(200).default(50),
 	page: z.coerce.number().int().min(0).default(0),
+	offset: z.coerce.number().int().min(0).optional(),
+	cursor: z.coerce.number().int().positive().optional(),
 	bucket: z.enum(["chaud", "tiede", "froid"]).optional(),
 	q: z.string().trim().max(200).optional(),
 });
@@ -116,13 +118,15 @@ export default async function (app: FastifyInstance) {
 	app.get("/review/queue", { preHandler: requireAuth() }, async (req, reply) => {
 		const parsed = QueueQuery.safeParse(req.query ?? {});
 		if (!parsed.success) return badRequest(reply, parsed.error);
-		const { limit, page, bucket, q } = parsed.data;
+		const { limit, page, offset, cursor, bucket, q } = parsed.data;
 		const result = await reviewQueue({
 			status: "pending",
 			onlyPendingWithHint: true,
 			enriched: true,
 			limit,
 			page,
+			offset,
+			cursor,
 			bucket: bucket as TriageBucket | undefined,
 			q: q ?? null,
 		});
@@ -150,7 +154,7 @@ export default async function (app: FastifyInstance) {
 			page: result.page,
 			limit: result.limit,
 			window: result.window,
-			truncated: result.truncated,
+			nextCursor: result.nextCursor,
 			counts: result.counts,
 			tookMs: result.tookMs,
 		};
