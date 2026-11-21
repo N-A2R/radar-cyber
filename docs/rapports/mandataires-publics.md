@@ -106,3 +106,16 @@ personnelles. Il ne prétend donc pas répondre à une recherche par personne, n
 couvrir des fonctions hors du découpage territorial (préfets, par exemple).
 Le chargement en base n'a pas été appliqué à la base de travail : la commande
 `--apply` est fournie pour un déploiement explicite.
+
+## Clôture — 21 novembre 2026
+
+**CHANTIER TERMINÉ.** Objectif mesurable atteint et re-mesuré à la clôture :
+**4 462 mandats publics** (4 293 maires, 156 présidents d'EPCI, 12 présidents de
+département, 1 président de région), **0 champ personnel, 0 donnée de victime,
+0 avertissement** — un mandat par autorité du périmètre Nouvelle-Aquitaine.
+
+Re-vérifié le 21 novembre 2026 : mesure reproductible
+`scripts/mesure-public-mandates.mts --with-db` (4 462 / 0 / 0 ; 418 sources actives
+dans la base de travail contre 376 au relevé initial, d'autres chantiers ayant
+ajouté des sources depuis) et 14 tests / 14 réussis, un comportement par test.
+`server.ts` inchangé (0 ligne de diff vs `origin/main`). Livré via la PR #314.
