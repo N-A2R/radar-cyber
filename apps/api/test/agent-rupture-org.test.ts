@@ -42,3 +42,26 @@ test("une série synthétique déclenche exactement une alerte", () => {
     [101, 102, 103],
   );
 });
+
+test("file vide et dates invalides : aucune alerte, aucune exception", () => {
+  assert.deepEqual(detecterRupturesOrg([], MAINTENANT), []);
+  assert.deepEqual(detecterRupturesOrg([
+    { id: 1, orgId: 1, date: "pas-une-date" },
+    { id: 2, orgId: 1, date: "" },
+    { id: 3, orgId: 1, date: new Date(MAINTENANT + JOUR_MS).toISOString() },
+  ], MAINTENANT), []);
+});
+
+test("une seule apparition dans les 90 j d'absence suffit à exclure l'organisation", () => {
+  const alertes = detecterRupturesOrg([
+    evenement(1, 1, 89),
+    evenement(2, 1, 6),
+    evenement(3, 1, 3),
+    evenement(4, 1, 1),
+    evenement(5, 2, 99),
+    evenement(6, 2, 6),
+    evenement(7, 2, 3),
+    evenement(8, 2, 1),
+  ], MAINTENANT);
+  assert.deepEqual(alertes.map((a) => a.orgId), [2], "89 j = encore dans l'absence, 99 j = hors fenêtre");
+});
