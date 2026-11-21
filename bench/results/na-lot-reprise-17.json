@@ -1,0 +1,403 @@
+{
+  "dateMesure": "2026-11-21",
+  "plan": "docs/plans/mission-nuit-na.md — Task 4 (reprise vague 2)",
+  "lot": 17,
+  "source": {
+    "ref": "bench/results/manques-referentiel-2026-11-15.json",
+    "traites": "bench/results/manques-glm-vague2.json",
+    "entiteSource": "lot-reprise-na"
+  },
+  "method": "lecture du site (fetch, titre et meta verbatim) + recherche-entreprises.api.gouv.fr sans clé ; requêtes et réponses consignées ; SIREN recoupé, jamais inventé",
+  "compte": {
+    "present": 6,
+    "absent": 2,
+    "cannot_verify": 1
+  },
+  "resolutions": [
+    {
+      "nomLisible": "www.actionsantetravail.fr",
+      "domaine": "actionsantetravail.fr",
+      "verdict": "cannot_verify",
+      "raison": "candidat(s) au registre mais aucun recoupement avec actionsantetravail.fr — arbitrage humain",
+      "site": {
+        "url": "https://actionsantetravail.fr",
+        "http": 200,
+        "titre": "AST - La prévention en action | Action Santé Travail",
+        "metaDescription": "Action Santé Travail agit aux côtés des entreprises pour préserver la santé et la sécurité des salariés et promouvoir une culture active de prévention."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=AST%20-%20La%20pr%C3%A9vention%20en%20action%20%7C%20Action%20Sant%C3%A9%20Travail&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "MEDINTER",
+            "siren": "421091125",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          }
+        ]
+      }
+    },
+    {
+      "nomLisible": "www.iph-bet.fr",
+      "domaine": "iph-bet.fr",
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : « IPH Ingénierie &#8211; Bureau d&#039;études, maîtrise d&#039;oeuvre dans le doma »",
+      "site": {
+        "url": "https://iph-bet.fr",
+        "http": 200,
+        "titre": "IPH Ingénierie &#8211; Bureau d&#039;études, maîtrise d&#039;oeuvre dans le domaine du bâtiment",
+        "metaDescription": null
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=iph-bet&page=1&per_page=5",
+        "http": 200,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "www.legilog.fr",
+      "domaine": "legilog.fr",
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : « Accueil - Legilog »",
+      "site": {
+        "url": "https://legilog.fr",
+        "http": 200,
+        "titre": "Accueil - Legilog",
+        "metaDescription": null
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=legilog&page=1&per_page=5",
+        "http": 200,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "www.mpm.fr",
+      "domaine": "mpm.fr",
+      "verdict": "present",
+      "raison": "SIREN 951105261 au registre (état A, SETE 34), recoupé avec mpm.fr",
+      "site": {
+        "url": "https://mpm.fr",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=mpm&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "MPM (MPM) (MPM)",
+            "siren": "951105261",
+            "commune": "SETE",
+            "dept": "34",
+            "etat": "A"
+          },
+          {
+            "denomination": "MPM",
+            "siren": "838555720",
+            "commune": "SALIES-DU-SALAT",
+            "dept": "31",
+            "etat": "A"
+          },
+          {
+            "denomination": "MPM",
+            "siren": "753390947",
+            "commune": "LANDAVILLE",
+            "dept": "88",
+            "etat": "A"
+          },
+          {
+            "denomination": "MPM (FENETRE DISCOUNT)",
+            "siren": "921546719",
+            "commune": "PLOUEDERN",
+            "dept": "29",
+            "etat": "A"
+          },
+          {
+            "denomination": "MPM",
+            "siren": "842368383",
+            "commune": "LA CHAPELLE D'ALAGNON",
+            "dept": "15",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "www.odalys-vacances.com",
+      "domaine": "odalys-vacances.com",
+      "verdict": "present",
+      "raison": "SIREN 414684308 au registre (état C, PARIS 1 75), recoupé avec odalys-vacances.com",
+      "site": {
+        "url": "https://odalys-vacances.com",
+        "http": 200,
+        "titre": "Location vacances et location saisonnière en Résidence Odalys",
+        "metaDescription": "Odalys c"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=odalys-vacances&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "ODALYS VACANCES",
+            "siren": "414684308",
+            "commune": "PARIS 1",
+            "dept": "75",
+            "etat": "C"
+          },
+          {
+            "denomination": "ODALYS SA",
+            "siren": "411780463",
+            "commune": "AIX-EN-PROVENCE",
+            "dept": "13",
+            "etat": "C"
+          },
+          {
+            "denomination": "ODALYS",
+            "siren": "443301718",
+            "commune": "AIX-EN-PROVENCE",
+            "dept": "13",
+            "etat": "C"
+          },
+          {
+            "denomination": "VAL LOCATION",
+            "siren": "402456057",
+            "commune": "VAL D'ISERE",
+            "dept": "73",
+            "etat": "C"
+          },
+          {
+            "denomination": "VALERIE GUIOT (COULOMB)",
+            "siren": "437755721",
+            "commune": "PORT-SAINT-LOUIS-DU-RHONE",
+            "dept": "13",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "www.scara.fr",
+      "domaine": "scara.fr",
+      "verdict": "present",
+      "raison": "SIREN 522019611 au registre (état A, EMERAINVILLE 77), recoupé avec scara.fr",
+      "site": {
+        "url": "https://scara.fr",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=scara&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "SCARA",
+            "siren": "522019611",
+            "commune": "EMERAINVILLE",
+            "dept": "77",
+            "etat": "A"
+          },
+          {
+            "denomination": "SCARA (MAYEUX INSTITUT DU CHEVEU)",
+            "siren": "804821007",
+            "commune": "VALENCIENNES",
+            "dept": "59",
+            "etat": "A"
+          },
+          {
+            "denomination": "SOC COOP AGRICOLE REGION ARCIS-SUR-AUBE (SCARA)",
+            "siren": "302768296",
+            "commune": "VILLETTE-SUR-AUBE",
+            "dept": "10",
+            "etat": "A"
+          },
+          {
+            "denomination": "SYNDICAT CIES AERIENNES AUTONOMES (SCARA)",
+            "siren": "407555192",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "SCARA",
+            "siren": "400284584",
+            "commune": "NIMES",
+            "dept": "30",
+            "etat": "C"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "www.sefiso-atlantique.fr",
+      "domaine": "sefiso-atlantique.fr",
+      "verdict": "present",
+      "raison": "SIREN 412013211 au registre (état A, MERIGNAC 33), recoupé avec sefiso-atlantique.fr ; SIREN déjà au référentiel, org existante rattrapée (pas de doublon)",
+      "site": {
+        "url": "https://sefiso-atlantique.fr",
+        "http": 200,
+        "titre": "Sefiso Atlantique - Votre partenaire immobilier en Nouvelle Aquitaine",
+        "metaDescription": "Sefiso Atlantique propose à ses clients des opérations de logements neufs ou anciens, collectifs ou individuels groupés dans le grand sud ouest."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=sefiso-atlantique&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "SEFISO ATLANTIQUE",
+            "siren": "412013211",
+            "commune": "MERIGNAC",
+            "dept": "33",
+            "etat": "A"
+          },
+          {
+            "denomination": "SCI LES JARDINS DU LAC",
+            "siren": "484667548",
+            "commune": "BRUGES",
+            "dept": "33",
+            "etat": "A"
+          },
+          {
+            "denomination": "SCI LE DOMAINE D ARNAUCHAC",
+            "siren": "488663246",
+            "commune": "BRUGES",
+            "dept": "33",
+            "etat": "A"
+          },
+          {
+            "denomination": "OHAINA",
+            "siren": "911832376",
+            "commune": "MERIGNAC",
+            "dept": "33",
+            "etat": "A"
+          },
+          {
+            "denomination": "PESSAC HAUT LEVEQUE",
+            "siren": "828968248",
+            "commune": "MERIGNAC",
+            "dept": "33",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "www.sfr.fr",
+      "domaine": "sfr.fr",
+      "verdict": "present",
+      "raison": "SIREN 851675181 au registre (état A, CERNAY 68), recoupé avec sfr.fr",
+      "site": {
+        "url": "https://sfr.fr",
+        "http": 200,
+        "titre": "SFR | Internet Fibre et ADSL, Forfaits 5G, Téléphone, TV",
+        "metaDescription": "Découvrez les offres Internet et mobile sur SFR.FR : Box fibre et Très Haut Débit, forfaits mobiles, smartphones, box 5G, bouquets TV, et maison sécurisée."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=sfr&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "SFR",
+            "siren": "851675181",
+            "commune": "CERNAY",
+            "dept": "68",
+            "etat": "A"
+          },
+          {
+            "denomination": "FINANCIERE ROBARDEY (SFR)",
+            "siren": "390143170",
+            "commune": "CHELLES",
+            "dept": "77",
+            "etat": "A"
+          },
+          {
+            "denomination": "SFR-CONSEIL (SFR)",
+            "siren": "344106455",
+            "commune": "BIOT",
+            "dept": "06",
+            "etat": "A"
+          },
+          {
+            "denomination": "SOC FR RADIOLOGIE IMAGERIE MEDICALE (SFR)",
+            "siren": "353601693",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "SOCIETE FINANCIERE ROUGNY (SFR)",
+            "siren": "353693757",
+            "commune": "GAP",
+            "dept": "05",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "www.ville-chevilly-larue.fr",
+      "domaine": "ville-chevilly-larue.fr",
+      "verdict": "present",
+      "raison": "SIREN 493955637 au registre (état A, CHEVILLY-LARUE 94), recoupé avec ville-chevilly-larue.fr",
+      "site": {
+        "url": "https://ville-chevilly-larue.fr",
+        "http": 200,
+        "titre": "Accueil - Chevilly-Larue",
+        "metaDescription": "Retrouvez tous les services et démarches, les informations pratiques, les actualités et événements de la Ville de Chevilly-Larue."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=ville-chevilly-larue&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "ASS SYND LIBRE ENS IMMO CHEVILLY LARUE COEUR DE VILLE ILOT ROOSEVELT",
+            "siren": "493955637",
+            "commune": "CHEVILLY-LARUE",
+            "dept": "94",
+            "etat": "A"
+          },
+          {
+            "denomination": "COMMUNE DE CHEVILLY LARUE",
+            "siren": "219400215",
+            "commune": "CHEVILLY-LARUE",
+            "dept": "94",
+            "etat": "A"
+          },
+          {
+            "denomination": "SOCIETE PUBLIQUE LOCAL D'ENERGIE ET MAINTENANCE A L'HAY LES ROSES CHEVILLY LARUE ET VILLEJUIF (SEMHACH)",
+            "siren": "345250278",
+            "commune": "CHEVILLY-LARUE",
+            "dept": "94",
+            "etat": "A"
+          },
+          {
+            "denomination": "SOCIETE D'AMENAGEMENT ET DEVELOPPEMENT DES VILLES ET DU DEPARTEMENT DU VAL DE MARNE (SADEV 94)",
+            "siren": "341214971",
+            "commune": "VINCENNES",
+            "dept": "94",
+            "etat": "A"
+          },
+          {
+            "denomination": "SIVU POUR LA GEOTHERMIE A CHEVILLY-LARUE ,L'HAY-LES-ROSES ET VILLEJUIF",
+            "siren": "259400802",
+            "commune": "CHEVILLY-LARUE",
+            "dept": "94",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    }
+  ]
+}
