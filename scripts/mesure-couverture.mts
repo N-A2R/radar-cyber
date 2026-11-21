@@ -32,6 +32,7 @@ import { admitEvent } from "../apps/api/src/contract/admit.js";
 import { getGazetteer } from "../apps/api/src/collectors/org-gazetteer.js";
 import { preparerGazetteer, designateOrganization } from "../apps/api/src/collectors/relevance.js";
 import { resoudre } from "../apps/api/src/match/gazetteer.js";
+import { SECTEURS_ATTENDUS, verifierPubliabilite } from "../apps/api/src/analyse/publiabilite.js";
 
 const argv = process.argv.slice(2);
 const SORTIE_JSON = argv.find((a) => a.startsWith("--json="))?.split("=")[1] ?? null;
@@ -319,13 +320,17 @@ async function main(): Promise<void> {
 	const vusDefendables = parQualite.exacte + parQualite.partielle;
 
 	// Le référentiel entreprises : publié à côté du taux, jamais caché.
-	const couvertureSecteurs = await query<{ secteur: string; n: string }>(
-		`SELECT COALESCE(sector, kind) AS secteur, count(*)::text AS n
-		   FROM org WHERE kind = 'entreprise' GROUP BY 1 ORDER BY 2 DESC`,
+	const parSecteur = Object.fromEntries(
+		(await query<{ secteur: string; n: string }>(
+			`SELECT COALESCE(sector, kind) AS secteur, count(*)::text AS n
+			   FROM org WHERE kind = 'entreprise' GROUP BY 1 ORDER BY 2 DESC`,
+		)).rows.map((r) => [r.secteur, Number(r.n)]),
 	);
+	const publication = verifierPubliabilite(parSecteur);
+	const listeSecteurs = SECTEURS_ATTENDUS.map((s) => `'${s}'`).join(", ");
 	const lignesHorsNumerique = await query<{ n: string }>(
 		`SELECT count(*)::text AS n FROM org
-		  WHERE kind = 'entreprise' AND sector IN ('agroalimentaire','industrie','construction','commerce')`,
+		  WHERE kind = 'entreprise' AND sector IN (${listeSecteurs})`,
 	);
 
 	// Précision : parmi ce qu'on a rattaché, combien de fois au bon organisme ?
@@ -357,15 +362,15 @@ async function main(): Promise<void> {
 			// moteur. Une couverture de 33 % qui ne dit pas cela ne décide de rien.
 			causes: parCause,
 		},
+		publication,
 		referentielEntreprises: {
 			// Lignes présentes dans les secteurs hors numérique ; le trou, s'il y
 			// en a un, est publié à côté du taux, en clair.
 			lignesHorsNumerique: Number(lignesHorsNumerique.rows[0]?.n ?? 0),
-			parSecteur: Object.fromEntries(couvertureSecteurs.rows.map((r) => [r.secteur, Number(r.n)])),
+			parSecteur,
 			avertissement:
-				Number(lignesHorsNumerique.rows[0]?.n ?? 0) === 0
-					? "Le référentiel entreprises couvre le numérique et les secteurs critiques à partir de 50 salariés, mais contient zéro ligne en agroalimentaire, industrie, construction et commerce. La couverture ci-dessus est donc flatteuse pour ces secteurs."
-					: `Le référentiel entreprises couvre ${Number(lignesHorsNumerique.rows[0]?.n ?? 0)} ligne(s) hors numérique (commerce, industrie, construction, agroalimentaire).`,
+				publication.raison ??
+				`Le référentiel entreprises couvre ${Number(lignesHorsNumerique.rows[0]?.n ?? 0)} ligne(s) hors numérique (commerce, industrie, construction, agroalimentaire).`,
 		},
 		method: {
 			porte: "contract/admit.ts — même admission que l'ingestion",
@@ -395,6 +400,7 @@ async function main(): Promise<void> {
 		`\nCouverture : ${parMotif.vu}/${dansFenetre.length} (${synthese.couverture.taux} %)` +
 			` · non admis ${parMotif.pas_admis} · non rattachés ${parMotif.pas_rattache}`,
 	);
+	if (!publication.publiable) console.log(`  ${publication.mention} : ${publication.raison}`);
 	console.log(
 		`  dont ${parCause.absent_du_referentiel} organisation(s) absente(s) du référentiel` +
 			` et ${parCause.au_referentiel_mais_non_reconnu} présente(s) mais non reconnue(s) par le moteur`,
