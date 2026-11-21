@@ -1,0 +1,4157 @@
+{
+  "regles": {
+    "vu": "un événement correspondant porte un org_id non nul dans event ou event_archive",
+    "priorite": [
+      "vu",
+      "pas_rattache",
+      "pas_juge_cyber",
+      "pas_collecte",
+      "indetermine"
+    ],
+    "collecte": "exécution collector_run, événement collecté ou last_ok_at le jour de publication",
+    "correspondance": "URL normalisée identique, ou titre normalisé identique et même jour",
+    "filtreCyber": "classifyFamily() du collecteur : une sortie 'presse' est refusée à l'entrée"
+  },
+  "corpus": {
+    "fichier": "bench/fixtures/corpus-reference-na.json",
+    "sha256": "a6634b37f84e896f2c3395e21004aea8d289e6b6362f3908a64bdcd017cdd995",
+    "incidents": 60
+  },
+  "base": {
+    "empreinte": "c915887087579628505f26db91237d6592dc247af772e60561478bc50e6c6ae1",
+    "sources": 312,
+    "executions": 7695,
+    "fenetreExecutions": [
+      "2026-11-13",
+      "2026-11-21"
+    ],
+    "evenements": 26688,
+    "evenementsArchives": 4710,
+    "organisations": 1673151
+  },
+  "resume": {
+    "incidents": 60,
+    "vus": 0,
+    "nonVus": 60,
+    "motifs": {
+      "pas_collecte": 60,
+      "pas_juge_cyber": 0,
+      "pas_rattache": 0,
+      "indetermine": 0
+    },
+    "sourcesDeclarees": 40,
+    "collecteesCeJour": 0,
+    "evenementsSansOrg": 0,
+    "filtreCyberRefuse": 6
+  },
+  "incidents": [
+    {
+      "id": "na-2026-001",
+      "entite": "Ymed (éditeur de la plateforme Sooncare)",
+      "datePublication": "2026-04-09",
+      "editeur": "Sud Ouest",
+      "url": "https://www.sudouest.fr/sante/fuite-de-donnees-personnelles-et-medicales-alerte-sur-une-cyberattaque-visant-une-entreprise-de-gironde-28628427.php",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2026-04-09",
+        "sources": [
+          {
+            "id": "eco-sudouest",
+            "nom": "Sud Ouest Éco (RSS)",
+            "url": "https://www.sudouest.fr/economie/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "strict",
+            "derniereReussite": "2026-11-21T16:06:53.873Z"
+          },
+          {
+            "id": "presse-sudouest",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:55.148Z"
+          },
+          {
+            "id": "presse-sudouest-charente",
+            "nom": "Sud Ouest — Charente (RSS)",
+            "url": "https://www.sudouest.fr/charente/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:30:59.514Z"
+          },
+          {
+            "id": "presse-sudouest-charente-maritime",
+            "nom": "Sud Ouest — Charente-Maritime (RSS)",
+            "url": "https://www.sudouest.fr/charente-maritime/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.489Z"
+          },
+          {
+            "id": "presse-sudouest-deux-sevres",
+            "nom": "Sud Ouest — Deux-Sèvres (RSS)",
+            "url": "https://www.sudouest.fr/deux-sevres/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:00.311Z"
+          },
+          {
+            "id": "presse-sudouest-dordogne",
+            "nom": "Sud Ouest — Dordogne (RSS)",
+            "url": "https://www.sudouest.fr/dordogne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:29:10.007Z"
+          },
+          {
+            "id": "presse-sudouest-gironde",
+            "nom": "Sud Ouest — Gironde (RSS)",
+            "url": "https://www.sudouest.fr/gironde/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:58.867Z"
+          },
+          {
+            "id": "presse-sudouest-landes",
+            "nom": "Sud Ouest — Landes (RSS)",
+            "url": "https://www.sudouest.fr/landes/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:04.039Z"
+          },
+          {
+            "id": "presse-sudouest-lot-et-garonne",
+            "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
+            "url": "https://www.sudouest.fr/lot-et-garonne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.506Z"
+          },
+          {
+            "id": "presse-sudouest-mont-de-marsan",
+            "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
+            "url": "https://www.sudouest.fr/landes/mont-de-marsan/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:16.372Z"
+          },
+          {
+            "id": "presse-sudouest-pyrenees",
+            "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
+            "url": "https://www.sudouest.fr/pyrenees-atlantiques/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:33:00.362Z"
+          },
+          {
+            "id": "presse-sudouest-rss",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "presse",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:52.742Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:16.393Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2026-04-09 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-002",
+      "entite": "Mairie de Marennes-Hiers-Brouage",
+      "datePublication": "2026-08-19",
+      "editeur": "Sud Ouest",
+      "url": "https://www.sudouest.fr/charente-maritime/marennes-hiers-brouage/charente-maritime-a-marennes-une-cyberattaque-a-cible-la-mairie-et-ses-messageries-electroniques-30305378.php",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2026-08-19",
+        "sources": [
+          {
+            "id": "eco-sudouest",
+            "nom": "Sud Ouest Éco (RSS)",
+            "url": "https://www.sudouest.fr/economie/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "strict",
+            "derniereReussite": "2026-11-21T16:06:53.873Z"
+          },
+          {
+            "id": "presse-sudouest",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:55.148Z"
+          },
+          {
+            "id": "presse-sudouest-charente",
+            "nom": "Sud Ouest — Charente (RSS)",
+            "url": "https://www.sudouest.fr/charente/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:30:59.514Z"
+          },
+          {
+            "id": "presse-sudouest-charente-maritime",
+            "nom": "Sud Ouest — Charente-Maritime (RSS)",
+            "url": "https://www.sudouest.fr/charente-maritime/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.489Z"
+          },
+          {
+            "id": "presse-sudouest-deux-sevres",
+            "nom": "Sud Ouest — Deux-Sèvres (RSS)",
+            "url": "https://www.sudouest.fr/deux-sevres/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:00.311Z"
+          },
+          {
+            "id": "presse-sudouest-dordogne",
+            "nom": "Sud Ouest — Dordogne (RSS)",
+            "url": "https://www.sudouest.fr/dordogne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:29:10.007Z"
+          },
+          {
+            "id": "presse-sudouest-gironde",
+            "nom": "Sud Ouest — Gironde (RSS)",
+            "url": "https://www.sudouest.fr/gironde/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:58.867Z"
+          },
+          {
+            "id": "presse-sudouest-landes",
+            "nom": "Sud Ouest — Landes (RSS)",
+            "url": "https://www.sudouest.fr/landes/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:04.039Z"
+          },
+          {
+            "id": "presse-sudouest-lot-et-garonne",
+            "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
+            "url": "https://www.sudouest.fr/lot-et-garonne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.506Z"
+          },
+          {
+            "id": "presse-sudouest-mont-de-marsan",
+            "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
+            "url": "https://www.sudouest.fr/landes/mont-de-marsan/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:16.372Z"
+          },
+          {
+            "id": "presse-sudouest-pyrenees",
+            "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
+            "url": "https://www.sudouest.fr/pyrenees-atlantiques/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:33:00.362Z"
+          },
+          {
+            "id": "presse-sudouest-rss",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "presse",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:52.742Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:16.393Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2026-08-19 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-003",
+      "entite": "Ville de Tarnos",
+      "datePublication": "2026-08-29",
+      "editeur": "Sud Ouest",
+      "url": "https://www.sudouest.fr/landes/tarnos/landes-la-ville-de-tarnos-victime-d-une-cyberattaque-avec-demande-de-rancon-30413165.php",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2026-08-29",
+        "sources": [
+          {
+            "id": "eco-sudouest",
+            "nom": "Sud Ouest Éco (RSS)",
+            "url": "https://www.sudouest.fr/economie/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "strict",
+            "derniereReussite": "2026-11-21T16:06:53.873Z"
+          },
+          {
+            "id": "presse-sudouest",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:55.148Z"
+          },
+          {
+            "id": "presse-sudouest-charente",
+            "nom": "Sud Ouest — Charente (RSS)",
+            "url": "https://www.sudouest.fr/charente/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:30:59.514Z"
+          },
+          {
+            "id": "presse-sudouest-charente-maritime",
+            "nom": "Sud Ouest — Charente-Maritime (RSS)",
+            "url": "https://www.sudouest.fr/charente-maritime/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.489Z"
+          },
+          {
+            "id": "presse-sudouest-deux-sevres",
+            "nom": "Sud Ouest — Deux-Sèvres (RSS)",
+            "url": "https://www.sudouest.fr/deux-sevres/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:00.311Z"
+          },
+          {
+            "id": "presse-sudouest-dordogne",
+            "nom": "Sud Ouest — Dordogne (RSS)",
+            "url": "https://www.sudouest.fr/dordogne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:29:10.007Z"
+          },
+          {
+            "id": "presse-sudouest-gironde",
+            "nom": "Sud Ouest — Gironde (RSS)",
+            "url": "https://www.sudouest.fr/gironde/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:58.867Z"
+          },
+          {
+            "id": "presse-sudouest-landes",
+            "nom": "Sud Ouest — Landes (RSS)",
+            "url": "https://www.sudouest.fr/landes/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:04.039Z"
+          },
+          {
+            "id": "presse-sudouest-lot-et-garonne",
+            "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
+            "url": "https://www.sudouest.fr/lot-et-garonne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.506Z"
+          },
+          {
+            "id": "presse-sudouest-mont-de-marsan",
+            "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
+            "url": "https://www.sudouest.fr/landes/mont-de-marsan/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:16.372Z"
+          },
+          {
+            "id": "presse-sudouest-pyrenees",
+            "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
+            "url": "https://www.sudouest.fr/pyrenees-atlantiques/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:33:00.362Z"
+          },
+          {
+            "id": "presse-sudouest-rss",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "presse",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:52.742Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:16.393Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2026-08-29 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-004",
+      "entite": "Mairie d'Espelette",
+      "datePublication": "2026-09-16",
+      "editeur": "Sud Ouest",
+      "url": "https://www.sudouest.fr/pyrenees-atlantiques/espelette/pays-basque-la-commune-d-espelette-victime-d-un-piratage-des-mails-pieges-portant-un-virus-sont-automatiquement-envoyes-par-la-mairie-30651628.php",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2026-09-16",
+        "sources": [
+          {
+            "id": "eco-sudouest",
+            "nom": "Sud Ouest Éco (RSS)",
+            "url": "https://www.sudouest.fr/economie/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "strict",
+            "derniereReussite": "2026-11-21T16:06:53.873Z"
+          },
+          {
+            "id": "presse-sudouest",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:55.148Z"
+          },
+          {
+            "id": "presse-sudouest-charente",
+            "nom": "Sud Ouest — Charente (RSS)",
+            "url": "https://www.sudouest.fr/charente/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:30:59.514Z"
+          },
+          {
+            "id": "presse-sudouest-charente-maritime",
+            "nom": "Sud Ouest — Charente-Maritime (RSS)",
+            "url": "https://www.sudouest.fr/charente-maritime/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.489Z"
+          },
+          {
+            "id": "presse-sudouest-deux-sevres",
+            "nom": "Sud Ouest — Deux-Sèvres (RSS)",
+            "url": "https://www.sudouest.fr/deux-sevres/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:00.311Z"
+          },
+          {
+            "id": "presse-sudouest-dordogne",
+            "nom": "Sud Ouest — Dordogne (RSS)",
+            "url": "https://www.sudouest.fr/dordogne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:29:10.007Z"
+          },
+          {
+            "id": "presse-sudouest-gironde",
+            "nom": "Sud Ouest — Gironde (RSS)",
+            "url": "https://www.sudouest.fr/gironde/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:58.867Z"
+          },
+          {
+            "id": "presse-sudouest-landes",
+            "nom": "Sud Ouest — Landes (RSS)",
+            "url": "https://www.sudouest.fr/landes/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:04.039Z"
+          },
+          {
+            "id": "presse-sudouest-lot-et-garonne",
+            "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
+            "url": "https://www.sudouest.fr/lot-et-garonne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.506Z"
+          },
+          {
+            "id": "presse-sudouest-mont-de-marsan",
+            "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
+            "url": "https://www.sudouest.fr/landes/mont-de-marsan/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:16.372Z"
+          },
+          {
+            "id": "presse-sudouest-pyrenees",
+            "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
+            "url": "https://www.sudouest.fr/pyrenees-atlantiques/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:33:00.362Z"
+          },
+          {
+            "id": "presse-sudouest-rss",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "presse",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:52.742Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:16.393Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2026-09-16 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-005",
+      "entite": "EHPAD Résidence du Parc de Champdeniers",
+      "datePublication": "2025-12-11",
+      "editeur": "ICI Poitou",
+      "url": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2025-12-11",
+        "sources": [
+          {
+            "id": "presse-ici-creuse",
+            "nom": "ICI Creuse — a la une (RSS)",
+            "url": "https://www.ici.fr/rss/creuse/a-la-une.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:02.541Z"
+          },
+          {
+            "id": "presse-ici-limousin-infos",
+            "nom": "ICI Limousin — infos (RSS)",
+            "url": "https://www.ici.fr/rss/limousin/rubrique/infos.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.486Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:14.490Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2025-12-11 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-006",
+      "entite": "Ville de Gradignan — police municipale",
+      "datePublication": "2026-05-13",
+      "editeur": "Sud Ouest",
+      "url": "https://www.sudouest.fr/gironde/gradignan/gironde-carte-grise-depot-de-plainte-des-donnees-derobees-lors-d-une-attaque-informatique-qui-a-touche-la-police-municipale-de-gradignan-29049109.php",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2026-05-13",
+        "sources": [
+          {
+            "id": "eco-sudouest",
+            "nom": "Sud Ouest Éco (RSS)",
+            "url": "https://www.sudouest.fr/economie/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "strict",
+            "derniereReussite": "2026-11-21T16:06:53.873Z"
+          },
+          {
+            "id": "presse-sudouest",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:55.148Z"
+          },
+          {
+            "id": "presse-sudouest-charente",
+            "nom": "Sud Ouest — Charente (RSS)",
+            "url": "https://www.sudouest.fr/charente/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:30:59.514Z"
+          },
+          {
+            "id": "presse-sudouest-charente-maritime",
+            "nom": "Sud Ouest — Charente-Maritime (RSS)",
+            "url": "https://www.sudouest.fr/charente-maritime/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.489Z"
+          },
+          {
+            "id": "presse-sudouest-deux-sevres",
+            "nom": "Sud Ouest — Deux-Sèvres (RSS)",
+            "url": "https://www.sudouest.fr/deux-sevres/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:00.311Z"
+          },
+          {
+            "id": "presse-sudouest-dordogne",
+            "nom": "Sud Ouest — Dordogne (RSS)",
+            "url": "https://www.sudouest.fr/dordogne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:29:10.007Z"
+          },
+          {
+            "id": "presse-sudouest-gironde",
+            "nom": "Sud Ouest — Gironde (RSS)",
+            "url": "https://www.sudouest.fr/gironde/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:58.867Z"
+          },
+          {
+            "id": "presse-sudouest-landes",
+            "nom": "Sud Ouest — Landes (RSS)",
+            "url": "https://www.sudouest.fr/landes/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:04.039Z"
+          },
+          {
+            "id": "presse-sudouest-lot-et-garonne",
+            "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
+            "url": "https://www.sudouest.fr/lot-et-garonne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.506Z"
+          },
+          {
+            "id": "presse-sudouest-mont-de-marsan",
+            "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
+            "url": "https://www.sudouest.fr/landes/mont-de-marsan/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:16.372Z"
+          },
+          {
+            "id": "presse-sudouest-pyrenees",
+            "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
+            "url": "https://www.sudouest.fr/pyrenees-atlantiques/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:33:00.362Z"
+          },
+          {
+            "id": "presse-sudouest-rss",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "presse",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:52.742Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:16.393Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2026-05-13 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-007",
+      "entite": "Mairie de Fumel",
+      "datePublication": "2025-10-03",
+      "editeur": "France 3 Nouvelle-Aquitaine",
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/lot-et-garonne/agen/une-cyberattaque-paralyse-la-mairie-un-cartel-malaisien-suspecte-3227429.html",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2025-10-03",
+        "sources": [
+          {
+            "id": "presse-france3-correze",
+            "nom": "France 3 NA — Correze (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:34:01.456Z"
+          },
+          {
+            "id": "presse-france3-creuse",
+            "nom": "France 3 NA — Creuse (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.468Z"
+          },
+          {
+            "id": "presse-france3-landes",
+            "nom": "France 3 NA — Landes (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.709Z"
+          },
+          {
+            "id": "presse-france3-na",
+            "nom": "France 3 Nouvelle-Aquitaine (RSS)",
+            "url": "https://france3-regions.francetvinfo.fr/nouvelle-aquitaine/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.468Z"
+          },
+          {
+            "id": "presse-francetvinfo",
+            "nom": "Franceinfo (RSS titres)",
+            "url": "https://www.franceinfo.fr/titres.rss",
+            "famille": "presse",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:16:20.106Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:16.373Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2025-10-03 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-008",
+      "entite": "Collège privé La Salle de Brive-la-Gaillarde",
+      "datePublication": "2025-02-14",
+      "editeur": "La Dépêche",
+      "url": "https://www.ladepeche.fr/2025/02/14/nous-avons-perdu-tous-les-bulletins-scolaires-apres-une-cyberattaque-les-malfrats-reclament-une-rancon-a-ce-college-prive-12513326.php",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2025-02-14",
+        "sources": [
+          {
+            "id": "presse-ladepeche-47",
+            "nom": "La Depeche — Lot-et-Garonne (RSS)",
+            "url": "https://www.ladepeche.fr/communes/lot-et-garonne,47/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.486Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:14.489Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2025-02-14 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-009",
+      "entite": "Bordeaux Sciences Agro",
+      "datePublication": "2026-09-15",
+      "editeur": "Bordeaux Sciences Agro",
+      "url": "https://www.agro-bordeaux.fr/incident-de-securite-concernant-lapplication-de-gestion-des-conventions-de-stage/",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": false,
+        "collecteeCeJour": false,
+        "date": "2026-09-15",
+        "sources": [],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": null
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": null,
+        "texteCyber": false,
+        "familleSortie": null,
+        "rejette": null
+      },
+      "preuve": "média absent de la table source"
+    },
+    {
+      "id": "na-2026-010",
+      "entite": "Vignobles Toutigeac",
+      "datePublication": "2026-07-16",
+      "editeur": "FrenchBreaches",
+      "url": "https://frenchbreaches.com/alertes/vignobles-toutigeac-rw_Vm1sbmJtOWliR1Z6SUZSdmRYUnBaMlZoWTBCMGFHVm5aVzUwYkdWdFpXNA",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": false,
+        "collecteeCeJour": false,
+        "date": "2026-07-16",
+        "sources": [],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": null
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": null,
+        "texteCyber": true,
+        "familleSortie": null,
+        "rejette": null
+      },
+      "preuve": "média absent de la table source"
+    },
+    {
+      "id": "na-2026-011",
+      "entite": "SICSOE (Solution Vin Logistique)",
+      "datePublication": "2026-07-23",
+      "editeur": "FrenchBreaches",
+      "url": "https://frenchbreaches.com/alertes/sicsoe-rw_VTBsRFUwOUZRSFJvWldkbGJuUnNaVzFsYmc",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": false,
+        "collecteeCeJour": false,
+        "date": "2026-07-23",
+        "sources": [],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": null
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": null,
+        "texteCyber": true,
+        "familleSortie": null,
+        "rejette": null
+      },
+      "preuve": "média absent de la table source"
+    },
+    {
+      "id": "na-2026-012",
+      "entite": "Intermarché d'Altillac",
+      "datePublication": "2026-10-13",
+      "editeur": "France 3 Nouvelle-Aquitaine",
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/brive/temoignage-on-a-ete-obliges-de-jeter-tout-le-surgele-la-stupefaction-des-gerants-de-ce-supermarche-frappe-par-la-cyberattaque-nationale-3432960.html",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2026-10-13",
+        "sources": [
+          {
+            "id": "presse-france3-correze",
+            "nom": "France 3 NA — Correze (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:34:01.456Z"
+          },
+          {
+            "id": "presse-france3-creuse",
+            "nom": "France 3 NA — Creuse (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.468Z"
+          },
+          {
+            "id": "presse-france3-landes",
+            "nom": "France 3 NA — Landes (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.709Z"
+          },
+          {
+            "id": "presse-france3-na",
+            "nom": "France 3 Nouvelle-Aquitaine (RSS)",
+            "url": "https://france3-regions.francetvinfo.fr/nouvelle-aquitaine/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.468Z"
+          },
+          {
+            "id": "presse-francetvinfo",
+            "nom": "Franceinfo (RSS titres)",
+            "url": "https://www.franceinfo.fr/titres.rss",
+            "famille": "presse",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:16:20.106Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:16.373Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2026-10-13 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-013",
+      "entite": "Magasins de grande distribution touchés en Béarn et Soule (dont Intermarché Pau et Monein)",
+      "datePublication": "2026-10-12",
+      "editeur": "La République des Pyrénées",
+      "url": "https://www.larepubliquedespyrenees.fr/societe/securite/ce-n-etait-plus-un-congelateur-c-etait-un-four-plusieurs-magasins-bearnais-touches-par-la-cyberattaque-dans-les-supermarches-31037847.php",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2026-10-12",
+        "sources": [
+          {
+            "id": "eco-rep-pyrenees",
+            "nom": "La République des Pyrénées Économie (RSS)",
+            "url": "https://www.larepubliquedespyrenees.fr/economie/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "strict",
+            "derniereReussite": "2026-11-21T16:05:03.492Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:05:03.496Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2026-10-12 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-014",
+      "entite": "Coaxis",
+      "datePublication": "2026-11-10",
+      "editeur": "Sud Ouest",
+      "url": "https://www.sudouest.fr/lot-et-garonne/marmande/des-tentatives-de-piratage-tous-les-jours-d-une-enquete-locale-a-une-traque-internationale-une-entreprise-de-lot-et-garonne-victime-de-malveillance-temoigne-dans-un-documentaire-choc-31417296.php",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2026-11-10",
+        "sources": [
+          {
+            "id": "eco-sudouest",
+            "nom": "Sud Ouest Éco (RSS)",
+            "url": "https://www.sudouest.fr/economie/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "strict",
+            "derniereReussite": "2026-11-21T16:06:53.873Z"
+          },
+          {
+            "id": "presse-sudouest",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:55.148Z"
+          },
+          {
+            "id": "presse-sudouest-charente",
+            "nom": "Sud Ouest — Charente (RSS)",
+            "url": "https://www.sudouest.fr/charente/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:30:59.514Z"
+          },
+          {
+            "id": "presse-sudouest-charente-maritime",
+            "nom": "Sud Ouest — Charente-Maritime (RSS)",
+            "url": "https://www.sudouest.fr/charente-maritime/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.489Z"
+          },
+          {
+            "id": "presse-sudouest-deux-sevres",
+            "nom": "Sud Ouest — Deux-Sèvres (RSS)",
+            "url": "https://www.sudouest.fr/deux-sevres/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:00.311Z"
+          },
+          {
+            "id": "presse-sudouest-dordogne",
+            "nom": "Sud Ouest — Dordogne (RSS)",
+            "url": "https://www.sudouest.fr/dordogne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:29:10.007Z"
+          },
+          {
+            "id": "presse-sudouest-gironde",
+            "nom": "Sud Ouest — Gironde (RSS)",
+            "url": "https://www.sudouest.fr/gironde/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:58.867Z"
+          },
+          {
+            "id": "presse-sudouest-landes",
+            "nom": "Sud Ouest — Landes (RSS)",
+            "url": "https://www.sudouest.fr/landes/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:04.039Z"
+          },
+          {
+            "id": "presse-sudouest-lot-et-garonne",
+            "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
+            "url": "https://www.sudouest.fr/lot-et-garonne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.506Z"
+          },
+          {
+            "id": "presse-sudouest-mont-de-marsan",
+            "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
+            "url": "https://www.sudouest.fr/landes/mont-de-marsan/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:16.372Z"
+          },
+          {
+            "id": "presse-sudouest-pyrenees",
+            "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
+            "url": "https://www.sudouest.fr/pyrenees-atlantiques/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:33:00.362Z"
+          },
+          {
+            "id": "presse-sudouest-rss",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "presse",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:52.742Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:16.393Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2026-11-10 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-015",
+      "entite": "Mairie de Sarran",
+      "datePublication": "2025-06-20",
+      "editeur": "France 3 Nouvelle-Aquitaine",
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/brive/j-en-ai-pleure-victime-d-une-cyberattaque-cette-mairie-perd-44-000-euros-de-son-budget-3174492.html",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2025-06-20",
+        "sources": [
+          {
+            "id": "presse-france3-correze",
+            "nom": "France 3 NA — Correze (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:34:01.456Z"
+          },
+          {
+            "id": "presse-france3-creuse",
+            "nom": "France 3 NA — Creuse (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.468Z"
+          },
+          {
+            "id": "presse-france3-landes",
+            "nom": "France 3 NA — Landes (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.709Z"
+          },
+          {
+            "id": "presse-france3-na",
+            "nom": "France 3 Nouvelle-Aquitaine (RSS)",
+            "url": "https://france3-regions.francetvinfo.fr/nouvelle-aquitaine/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.468Z"
+          },
+          {
+            "id": "presse-francetvinfo",
+            "nom": "Franceinfo (RSS titres)",
+            "url": "https://www.franceinfo.fr/titres.rss",
+            "famille": "presse",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:16:20.106Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:16.373Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2025-06-20 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-016",
+      "entite": "Fédération Nationale des Chasseurs / chasseurs charentais",
+      "datePublication": "2026-01-22",
+      "editeur": "Fédération Nationale des Chasseurs",
+      "url": "https://www.chasseurdefrance.com/actualites/la-fnc-victime-dun-incident-de-securite-informatique/",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": false,
+        "collecteeCeJour": false,
+        "date": "2026-01-22",
+        "sources": [],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": null
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": null,
+        "texteCyber": true,
+        "familleSortie": null,
+        "rejette": null
+      },
+      "preuve": "média absent de la table source"
+    },
+    {
+      "id": "na-2026-017",
+      "entite": "Ville de Poitiers et Grand Poitiers",
+      "datePublication": "2025-09-05",
+      "editeur": "Ouest-France",
+      "url": "https://www.ouest-france.fr/societe/cyberattaque/cyberattaque-contre-la-mairie-de-poitiers-lobjectif-etait-de-reclamer-une-rancon-7ce05bb4-8a66-11f0-9cca-a0ceea2b93f6",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2025-09-05",
+        "sources": [
+          {
+            "id": "presse-ouestfrance-rss",
+            "nom": "Ouest-France (RSS)",
+            "url": "https://www.ouest-france.fr/rss/france",
+            "famille": "presse",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:22:57.814Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:22:57.852Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "presse",
+        "texteCyber": true,
+        "familleSortie": "presse",
+        "rejette": true
+      },
+      "preuve": "aucune collecte le 2025-09-05 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-018",
+      "entite": "Fédération Française de Cyclisme — membres en Nouvelle-Aquitaine",
+      "datePublication": "2025-12-10",
+      "editeur": "Fédération Française de Cyclisme",
+      "url": "https://structures.ffc.fr/incident-securite-informatique/",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": false,
+        "collecteeCeJour": false,
+        "date": "2025-12-10",
+        "sources": [],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": null
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": null,
+        "texteCyber": true,
+        "familleSortie": null,
+        "rejette": null
+      },
+      "preuve": "média absent de la table source"
+    },
+    {
+      "id": "na-2026-019",
+      "entite": "Delicity — service de livraison de repas disponible à Bordeaux, Pau et Limoges",
+      "datePublication": "2026-09-07",
+      "editeur": "Nice-Matin",
+      "url": "https://www.nicematin.com/faits-divers/clients-restaurateurs-livreurs-le-service-de-livraison-de-repas-nicois-delicity-victime-d-une-cyberattaque-voici-les-donnees-personnelles-piratees-10719698",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": false,
+        "collecteeCeJour": false,
+        "date": "2026-09-07",
+        "sources": [],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": null
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": null,
+        "texteCyber": true,
+        "familleSortie": null,
+        "rejette": null
+      },
+      "preuve": "média absent de la table source"
+    },
+    {
+      "id": "na-2026-020",
+      "entite": "Euskal Moneta (association support de la monnaie locale Eusko)",
+      "datePublication": "2026-08-28",
+      "editeur": "Sud Ouest",
+      "url": "https://www.sudouest.fr/pyrenees-atlantiques/pays-basque/pays-basque-l-euskal-moneta-l-association-support-de-la-monnaie-locale-eusko-cible-d-une-cyberattaque-30389667.php",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2026-08-28",
+        "sources": [
+          {
+            "id": "eco-sudouest",
+            "nom": "Sud Ouest Éco (RSS)",
+            "url": "https://www.sudouest.fr/economie/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "strict",
+            "derniereReussite": "2026-11-21T16:06:53.873Z"
+          },
+          {
+            "id": "presse-sudouest",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:55.148Z"
+          },
+          {
+            "id": "presse-sudouest-charente",
+            "nom": "Sud Ouest — Charente (RSS)",
+            "url": "https://www.sudouest.fr/charente/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:30:59.514Z"
+          },
+          {
+            "id": "presse-sudouest-charente-maritime",
+            "nom": "Sud Ouest — Charente-Maritime (RSS)",
+            "url": "https://www.sudouest.fr/charente-maritime/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.489Z"
+          },
+          {
+            "id": "presse-sudouest-deux-sevres",
+            "nom": "Sud Ouest — Deux-Sèvres (RSS)",
+            "url": "https://www.sudouest.fr/deux-sevres/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:00.311Z"
+          },
+          {
+            "id": "presse-sudouest-dordogne",
+            "nom": "Sud Ouest — Dordogne (RSS)",
+            "url": "https://www.sudouest.fr/dordogne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:29:10.007Z"
+          },
+          {
+            "id": "presse-sudouest-gironde",
+            "nom": "Sud Ouest — Gironde (RSS)",
+            "url": "https://www.sudouest.fr/gironde/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:58.867Z"
+          },
+          {
+            "id": "presse-sudouest-landes",
+            "nom": "Sud Ouest — Landes (RSS)",
+            "url": "https://www.sudouest.fr/landes/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:04.039Z"
+          },
+          {
+            "id": "presse-sudouest-lot-et-garonne",
+            "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
+            "url": "https://www.sudouest.fr/lot-et-garonne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.506Z"
+          },
+          {
+            "id": "presse-sudouest-mont-de-marsan",
+            "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
+            "url": "https://www.sudouest.fr/landes/mont-de-marsan/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:16.372Z"
+          },
+          {
+            "id": "presse-sudouest-pyrenees",
+            "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
+            "url": "https://www.sudouest.fr/pyrenees-atlantiques/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:33:00.362Z"
+          },
+          {
+            "id": "presse-sudouest-rss",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "presse",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:52.742Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:16.393Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2026-08-28 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-021",
+      "entite": "SDIS des Landes",
+      "datePublication": "2026-07-27",
+      "editeur": "actu.fr (Actu Landes)",
+      "url": "https://actu.fr/nouvelle-aquitaine/mont-de-marsan_40192/les-pompiers-des-landes-victimes-d-une-cyberattaque-des-donnees-personnelles-ont-ete-extraites_64593363.html",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2026-07-27",
+        "sources": [
+          {
+            "id": "presse-republicain-47",
+            "nom": "Le Republicain Lot-et-Garonne — actu.fr (RSS)",
+            "url": "https://actu.fr/le-republicain-lot-et-garonne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.473Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:14.482Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2026-07-27 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-022",
+      "entite": "Institut Bergonié",
+      "datePublication": "2026-04-09",
+      "editeur": "Institut Bergonié",
+      "url": "https://www.bergonie.fr/mesures-attaque-prestataire/",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": false,
+        "collecteeCeJour": false,
+        "date": "2026-04-09",
+        "sources": [],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": null
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": null,
+        "texteCyber": true,
+        "familleSortie": null,
+        "rejette": null
+      },
+      "preuve": "média absent de la table source"
+    },
+    {
+      "id": "na-2026-023",
+      "entite": "ERNAT (Études Réalisations Négoce Assistance Technique)",
+      "datePublication": "2026-08-07",
+      "editeur": "FrenchBreaches",
+      "url": "https://frenchbreaches.com/alertes/ernat-rw_ZDNkM0xtVnlibUYwTFdKMWNtVmhkUzFsZEhWa1pYTXVabkpBYTNKNVltbDA",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": false,
+        "collecteeCeJour": false,
+        "date": "2026-08-07",
+        "sources": [],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": null
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": null,
+        "texteCyber": true,
+        "familleSortie": null,
+        "rejette": null
+      },
+      "preuve": "média absent de la table source"
+    },
+    {
+      "id": "na-2026-024",
+      "entite": "Rectorat de l'académie de Poitiers",
+      "datePublication": "2026-08-31",
+      "editeur": "UNSA Éducation",
+      "url": "https://www.unsa-education.com/articles-regional-/poitiers-cyberattaque-a-lacademie-de-poitiers-le-recteur-fait-le-point/",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": false,
+        "collecteeCeJour": false,
+        "date": "2026-08-31",
+        "sources": [],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": null
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": null,
+        "texteCyber": true,
+        "familleSortie": null,
+        "rejette": null
+      },
+      "preuve": "média absent de la table source"
+    },
+    {
+      "id": "na-2026-025",
+      "entite": "UPPA Alumni — réseau des anciens de l'Université de Pau et des Pays de l'Adour",
+      "datePublication": "2026-04-10",
+      "editeur": "Cyber Breaches",
+      "url": "https://www.cyberbreaches.org/fr/incidents/uppa-alumni-2026-04-10-blf",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": false,
+        "collecteeCeJour": false,
+        "date": "2026-04-10",
+        "sources": [],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": null
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": null,
+        "texteCyber": true,
+        "familleSortie": null,
+        "rejette": null
+      },
+      "preuve": "média absent de la table source"
+    },
+    {
+      "id": "na-2026-026",
+      "entite": "Réseau Alumni de l'Université de Bordeaux",
+      "datePublication": "2026-04-10",
+      "editeur": "Cyberattaque.org",
+      "url": "https://www.cyberattaque.org/alumnforce-2-7-millions-etudiants-exposes/",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": false,
+        "collecteeCeJour": false,
+        "date": "2026-04-10",
+        "sources": [],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": null
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": null,
+        "texteCyber": true,
+        "familleSortie": null,
+        "rejette": null
+      },
+      "preuve": "média absent de la table source"
+    },
+    {
+      "id": "na-2026-027",
+      "entite": "UNSS (Union nationale du sport scolaire) — exfiltration OPUSS",
+      "datePublication": "2026-03-02",
+      "editeur": "UNSS (communiqué officiel du 2 mars 2026)",
+      "url": "https://denys-puech.mon-ent-occitanie.fr/lectureFichiergw.do?ID_FICHIER=11393",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": false,
+        "collecteeCeJour": false,
+        "date": "2026-03-02",
+        "sources": [],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": null
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": null,
+        "texteCyber": true,
+        "familleSortie": null,
+        "rejette": null
+      },
+      "preuve": "média absent de la table source"
+    },
+    {
+      "id": "na-2026-028",
+      "entite": "Ville de La Rochelle — fuite via le prestataire Synbird",
+      "datePublication": "2025-11-24",
+      "editeur": "Sud Ouest",
+      "url": "https://www.sudouest.fr/charente-maritime/la-rochelle/fuite-de-donnees-chez-synbird-la-rochelle-touchee-comme-1-300-communes-de-france-26875312.php",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2025-11-24",
+        "sources": [
+          {
+            "id": "eco-sudouest",
+            "nom": "Sud Ouest Éco (RSS)",
+            "url": "https://www.sudouest.fr/economie/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "strict",
+            "derniereReussite": "2026-11-21T16:06:53.873Z"
+          },
+          {
+            "id": "presse-sudouest",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:55.148Z"
+          },
+          {
+            "id": "presse-sudouest-charente",
+            "nom": "Sud Ouest — Charente (RSS)",
+            "url": "https://www.sudouest.fr/charente/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:30:59.514Z"
+          },
+          {
+            "id": "presse-sudouest-charente-maritime",
+            "nom": "Sud Ouest — Charente-Maritime (RSS)",
+            "url": "https://www.sudouest.fr/charente-maritime/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.489Z"
+          },
+          {
+            "id": "presse-sudouest-deux-sevres",
+            "nom": "Sud Ouest — Deux-Sèvres (RSS)",
+            "url": "https://www.sudouest.fr/deux-sevres/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:00.311Z"
+          },
+          {
+            "id": "presse-sudouest-dordogne",
+            "nom": "Sud Ouest — Dordogne (RSS)",
+            "url": "https://www.sudouest.fr/dordogne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:29:10.007Z"
+          },
+          {
+            "id": "presse-sudouest-gironde",
+            "nom": "Sud Ouest — Gironde (RSS)",
+            "url": "https://www.sudouest.fr/gironde/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:58.867Z"
+          },
+          {
+            "id": "presse-sudouest-landes",
+            "nom": "Sud Ouest — Landes (RSS)",
+            "url": "https://www.sudouest.fr/landes/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:04.039Z"
+          },
+          {
+            "id": "presse-sudouest-lot-et-garonne",
+            "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
+            "url": "https://www.sudouest.fr/lot-et-garonne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.506Z"
+          },
+          {
+            "id": "presse-sudouest-mont-de-marsan",
+            "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
+            "url": "https://www.sudouest.fr/landes/mont-de-marsan/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:16.372Z"
+          },
+          {
+            "id": "presse-sudouest-pyrenees",
+            "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
+            "url": "https://www.sudouest.fr/pyrenees-atlantiques/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:33:00.362Z"
+          },
+          {
+            "id": "presse-sudouest-rss",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "presse",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:52.742Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:16.393Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2025-11-24 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-029",
+      "entite": "Bordeaux Métropole — portail de la taxe de séjour",
+      "datePublication": "2026-04-27",
+      "editeur": "Cyber Breaches",
+      "url": "https://www.cyberbreaches.org/fr/incidents/bordeaux-metropole-fuite-de-11-000-declarants-de-la-taxe-de-sejour-et-adresses-de-locations-touristiques",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": false,
+        "collecteeCeJour": false,
+        "date": "2026-04-27",
+        "sources": [],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": null
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": null,
+        "texteCyber": false,
+        "familleSortie": null,
+        "rejette": null
+      },
+      "preuve": "média absent de la table source"
+    },
+    {
+      "id": "na-2026-030",
+      "entite": "Ministère de l'Intérieur — intrusion initiale depuis un service local de Charente-Maritime",
+      "datePublication": "2025-12-12",
+      "editeur": "RTL",
+      "url": "https://www.rtl.fr/actu/justice-faits-divers/cyberattaque-au-ministere-de-l-interieur-une-enquete-ouverte-apres-une-intrusion-informatique-inedite-7900577156",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": false,
+        "collecteeCeJour": false,
+        "date": "2025-12-12",
+        "sources": [],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": null
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": null,
+        "texteCyber": true,
+        "familleSortie": null,
+        "rejette": null
+      },
+      "preuve": "média absent de la table source"
+    },
+    {
+      "id": "na-2026-031",
+      "entite": "Vivaticket France (Chasseneuil-du-Poitou)",
+      "datePublication": "2026-03-15",
+      "editeur": "La Nouvelle République",
+      "url": "https://www.lanouvellerepublique.fr/vienne/commune/chasseneuil-du-poitou/prestataire-de-billetterie-pour-des-musees-monuments-et-parcs-de-loisirs-vivaticket-victime-d-une-cyberattaque-1773588253",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2026-03-15",
+        "sources": [
+          {
+            "id": "presse-lnr-deuxsevres",
+            "nom": "La Nouvelle République — Deux-Sèvres (RSS)",
+            "url": "https://www.lanouvellerepublique.fr/api/v1/rss/5e2072f9f30f8cdd4c8b4594",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:39:01.941Z"
+          },
+          {
+            "id": "presse-lnr-vienne",
+            "nom": "La Nouvelle République — Vienne (RSS)",
+            "url": "https://www.lanouvellerepublique.fr/api/v1/rss/5e20732239a34f77578b457c",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:42:00.733Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:42:01.081Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2026-03-15 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-032",
+      "entite": "Intermarché de Gradignan, Parempuyre, Macau et La Teste-de-Buch",
+      "datePublication": "2026-10-13",
+      "editeur": "Bouger à Bordeaux",
+      "url": "https://www.bougerabordeaux.com/actu/news/cyberattaque-supermarches-intermarche-gironde-octobre-2026/",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": false,
+        "collecteeCeJour": false,
+        "date": "2026-10-13",
+        "sources": [],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": null
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": null,
+        "texteCyber": true,
+        "familleSortie": null,
+        "rejette": null
+      },
+      "preuve": "média absent de la table source"
+    },
+    {
+      "id": "na-2026-033",
+      "entite": "Supermarchés des Deux-Sèvres (Hyper U Parthenay, Intermarché Saint-Varent et Saint-Maixent-l'École, Super U Champdeniers, Celles-sur-Belle, Leclerc Thouars-Sainte-Verge)",
+      "datePublication": "2026-10-12",
+      "editeur": "La Nouvelle République",
+      "url": "https://www.lanouvellerepublique.fr/parthenay/cyberattaque-d-ampleur-nationale-des-supermarches-des-deux-sevres-contraints-de-jeter-des-produits-frais-et-surgeles-1791821248",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2026-10-12",
+        "sources": [
+          {
+            "id": "presse-lnr-deuxsevres",
+            "nom": "La Nouvelle République — Deux-Sèvres (RSS)",
+            "url": "https://www.lanouvellerepublique.fr/api/v1/rss/5e2072f9f30f8cdd4c8b4594",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:39:01.941Z"
+          },
+          {
+            "id": "presse-lnr-vienne",
+            "nom": "La Nouvelle République — Vienne (RSS)",
+            "url": "https://www.lanouvellerepublique.fr/api/v1/rss/5e20732239a34f77578b457c",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:42:00.733Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:42:01.081Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2026-10-12 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-034",
+      "entite": "Cinq Intermarché de Dordogne (Hautefort, Tocane-Saint-Apre, Port-Sainte-Foy-et-Ponchapt, Trélissac, Saint-Médard-de-Mussidan)",
+      "datePublication": "2026-10-12",
+      "editeur": "Le Démocrate de Bergerac",
+      "url": "https://www.ledemocratedebergerac.fr/une-cyberattaque-met-en-surchauffe-les-frigos-de-plusieurs-enseignes-de-la-grande-distribution/",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": false,
+        "collecteeCeJour": false,
+        "date": "2026-10-12",
+        "sources": [],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": null
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": null,
+        "texteCyber": true,
+        "familleSortie": null,
+        "rejette": null
+      },
+      "preuve": "média absent de la table source"
+    },
+    {
+      "id": "na-2026-035",
+      "entite": "E.Leclerc de Surgères",
+      "datePublication": "2026-10-12",
+      "editeur": "actu.fr",
+      "url": "https://actu.fr/nouvelle-aquitaine/surgeres_17434/en-charente-maritime-ce-magasin-e-leclerc-est-victime-de-la-cyberattaque-les-vitrines-et-bacs-sont-vides-entierement_64912834.html",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2026-10-12",
+        "sources": [
+          {
+            "id": "presse-republicain-47",
+            "nom": "Le Republicain Lot-et-Garonne — actu.fr (RSS)",
+            "url": "https://actu.fr/le-republicain-lot-et-garonne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.473Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:14.482Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2026-10-12 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-036",
+      "entite": "Magasins de la Vienne (Intermarché Chauvigny et Gençay, Super U Vouillé, Leclerc Poitiers, Auchan Saint-Genest-d'Ambière)",
+      "datePublication": "2026-10-12",
+      "editeur": "La Nouvelle République",
+      "url": "https://www.lanouvellerepublique.fr/poitiers/cyberattaque-contre-des-supermarches-des-etablissements-touches-dans-la-vienne-1791810880",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2026-10-12",
+        "sources": [
+          {
+            "id": "presse-lnr-deuxsevres",
+            "nom": "La Nouvelle République — Deux-Sèvres (RSS)",
+            "url": "https://www.lanouvellerepublique.fr/api/v1/rss/5e2072f9f30f8cdd4c8b4594",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:39:01.941Z"
+          },
+          {
+            "id": "presse-lnr-vienne",
+            "nom": "La Nouvelle République — Vienne (RSS)",
+            "url": "https://www.lanouvellerepublique.fr/api/v1/rss/5e20732239a34f77578b457c",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:42:00.733Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:42:01.081Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2026-10-12 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-037",
+      "entite": "Super U de Morcenx-la-Nouvelle et Carrefour Express de Rion-des-Landes",
+      "datePublication": "2026-10-12",
+      "editeur": "Sud Ouest",
+      "url": "https://www.sudouest.fr/landes/morcenx/cyberattaque-dans-les-supermarches-un-vrai-gachis-a-morcenx-la-nouvelle-le-super-u-fait-face-a-des-rayons-vides-31042504.php",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2026-10-12",
+        "sources": [
+          {
+            "id": "eco-sudouest",
+            "nom": "Sud Ouest Éco (RSS)",
+            "url": "https://www.sudouest.fr/economie/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "strict",
+            "derniereReussite": "2026-11-21T16:06:53.873Z"
+          },
+          {
+            "id": "presse-sudouest",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:55.148Z"
+          },
+          {
+            "id": "presse-sudouest-charente",
+            "nom": "Sud Ouest — Charente (RSS)",
+            "url": "https://www.sudouest.fr/charente/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:30:59.514Z"
+          },
+          {
+            "id": "presse-sudouest-charente-maritime",
+            "nom": "Sud Ouest — Charente-Maritime (RSS)",
+            "url": "https://www.sudouest.fr/charente-maritime/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.489Z"
+          },
+          {
+            "id": "presse-sudouest-deux-sevres",
+            "nom": "Sud Ouest — Deux-Sèvres (RSS)",
+            "url": "https://www.sudouest.fr/deux-sevres/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:00.311Z"
+          },
+          {
+            "id": "presse-sudouest-dordogne",
+            "nom": "Sud Ouest — Dordogne (RSS)",
+            "url": "https://www.sudouest.fr/dordogne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:29:10.007Z"
+          },
+          {
+            "id": "presse-sudouest-gironde",
+            "nom": "Sud Ouest — Gironde (RSS)",
+            "url": "https://www.sudouest.fr/gironde/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:58.867Z"
+          },
+          {
+            "id": "presse-sudouest-landes",
+            "nom": "Sud Ouest — Landes (RSS)",
+            "url": "https://www.sudouest.fr/landes/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:04.039Z"
+          },
+          {
+            "id": "presse-sudouest-lot-et-garonne",
+            "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
+            "url": "https://www.sudouest.fr/lot-et-garonne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.506Z"
+          },
+          {
+            "id": "presse-sudouest-mont-de-marsan",
+            "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
+            "url": "https://www.sudouest.fr/landes/mont-de-marsan/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:16.372Z"
+          },
+          {
+            "id": "presse-sudouest-pyrenees",
+            "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
+            "url": "https://www.sudouest.fr/pyrenees-atlantiques/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:33:00.362Z"
+          },
+          {
+            "id": "presse-sudouest-rss",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "presse",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:52.742Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:16.393Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2026-10-12 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-038",
+      "entite": "Intermarché et Carrefour Market de Marmande",
+      "datePublication": "2026-10-12",
+      "editeur": "Sud Ouest",
+      "url": "https://www.sudouest.fr/economie/cybersecurite/cyberattaque-dans-les-supermarches-75-000-euros-de-pertes-a-intermarche-marmande-un-acte-ecoeurant-selon-la-directrice-31038815.php",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2026-10-12",
+        "sources": [
+          {
+            "id": "eco-sudouest",
+            "nom": "Sud Ouest Éco (RSS)",
+            "url": "https://www.sudouest.fr/economie/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "strict",
+            "derniereReussite": "2026-11-21T16:06:53.873Z"
+          },
+          {
+            "id": "presse-sudouest",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:55.148Z"
+          },
+          {
+            "id": "presse-sudouest-charente",
+            "nom": "Sud Ouest — Charente (RSS)",
+            "url": "https://www.sudouest.fr/charente/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:30:59.514Z"
+          },
+          {
+            "id": "presse-sudouest-charente-maritime",
+            "nom": "Sud Ouest — Charente-Maritime (RSS)",
+            "url": "https://www.sudouest.fr/charente-maritime/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.489Z"
+          },
+          {
+            "id": "presse-sudouest-deux-sevres",
+            "nom": "Sud Ouest — Deux-Sèvres (RSS)",
+            "url": "https://www.sudouest.fr/deux-sevres/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:00.311Z"
+          },
+          {
+            "id": "presse-sudouest-dordogne",
+            "nom": "Sud Ouest — Dordogne (RSS)",
+            "url": "https://www.sudouest.fr/dordogne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:29:10.007Z"
+          },
+          {
+            "id": "presse-sudouest-gironde",
+            "nom": "Sud Ouest — Gironde (RSS)",
+            "url": "https://www.sudouest.fr/gironde/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:58.867Z"
+          },
+          {
+            "id": "presse-sudouest-landes",
+            "nom": "Sud Ouest — Landes (RSS)",
+            "url": "https://www.sudouest.fr/landes/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:04.039Z"
+          },
+          {
+            "id": "presse-sudouest-lot-et-garonne",
+            "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
+            "url": "https://www.sudouest.fr/lot-et-garonne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.506Z"
+          },
+          {
+            "id": "presse-sudouest-mont-de-marsan",
+            "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
+            "url": "https://www.sudouest.fr/landes/mont-de-marsan/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:16.372Z"
+          },
+          {
+            "id": "presse-sudouest-pyrenees",
+            "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
+            "url": "https://www.sudouest.fr/pyrenees-atlantiques/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:33:00.362Z"
+          },
+          {
+            "id": "presse-sudouest-rss",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "presse",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:52.742Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:16.393Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2026-10-12 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-039",
+      "entite": "Cerballiance — réseau de laboratoires de biologie médicale",
+      "datePublication": "2026-03-28",
+      "editeur": "franceinfo",
+      "url": "https://www.franceinfo.fr/internet/securite-sur-internet/cyberattaques/les-laboratoires-de-biologie-medicale-cerballiance-vises-par-un-vol-massif-de-donnees_7900568.html",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2026-03-28",
+        "sources": [
+          {
+            "id": "presse-france3-correze",
+            "nom": "France 3 NA — Correze (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:34:01.456Z"
+          },
+          {
+            "id": "presse-france3-creuse",
+            "nom": "France 3 NA — Creuse (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.468Z"
+          },
+          {
+            "id": "presse-france3-landes",
+            "nom": "France 3 NA — Landes (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.709Z"
+          },
+          {
+            "id": "presse-francetvinfo",
+            "nom": "Franceinfo (RSS titres)",
+            "url": "https://www.franceinfo.fr/titres.rss",
+            "famille": "presse",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:16:20.106Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:16.373Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2026-03-28 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-040",
+      "entite": "Cegedim Santé — logiciel MonLogicielMedical (MLM)",
+      "datePublication": "2026-02-26",
+      "editeur": "Cegedim Santé (communiqué officiel)",
+      "url": "https://www.cegedim-sante.com/le-blog/precisions-complementaires-cp-mlm/",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": false,
+        "collecteeCeJour": false,
+        "date": "2026-02-26",
+        "sources": [],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": null
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": null,
+        "texteCyber": false,
+        "familleSortie": null,
+        "rejette": null
+      },
+      "preuve": "média absent de la table source"
+    },
+    {
+      "id": "na-2026-041",
+      "entite": "Polyclinique Bordeaux Nord Aquitaine",
+      "datePublication": "2026-04-09",
+      "editeur": "Sud Ouest",
+      "url": "https://www.sudouest.fr/sante/fuite-de-donnees-personnelles-et-medicales-alerte-sur-une-cyberattaque-visant-une-entreprise-de-gironde-28628427.php",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2026-04-09",
+        "sources": [
+          {
+            "id": "eco-sudouest",
+            "nom": "Sud Ouest Éco (RSS)",
+            "url": "https://www.sudouest.fr/economie/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "strict",
+            "derniereReussite": "2026-11-21T16:06:53.873Z"
+          },
+          {
+            "id": "presse-sudouest",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:55.148Z"
+          },
+          {
+            "id": "presse-sudouest-charente",
+            "nom": "Sud Ouest — Charente (RSS)",
+            "url": "https://www.sudouest.fr/charente/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:30:59.514Z"
+          },
+          {
+            "id": "presse-sudouest-charente-maritime",
+            "nom": "Sud Ouest — Charente-Maritime (RSS)",
+            "url": "https://www.sudouest.fr/charente-maritime/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.489Z"
+          },
+          {
+            "id": "presse-sudouest-deux-sevres",
+            "nom": "Sud Ouest — Deux-Sèvres (RSS)",
+            "url": "https://www.sudouest.fr/deux-sevres/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:00.311Z"
+          },
+          {
+            "id": "presse-sudouest-dordogne",
+            "nom": "Sud Ouest — Dordogne (RSS)",
+            "url": "https://www.sudouest.fr/dordogne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:29:10.007Z"
+          },
+          {
+            "id": "presse-sudouest-gironde",
+            "nom": "Sud Ouest — Gironde (RSS)",
+            "url": "https://www.sudouest.fr/gironde/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:58.867Z"
+          },
+          {
+            "id": "presse-sudouest-landes",
+            "nom": "Sud Ouest — Landes (RSS)",
+            "url": "https://www.sudouest.fr/landes/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:04.039Z"
+          },
+          {
+            "id": "presse-sudouest-lot-et-garonne",
+            "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
+            "url": "https://www.sudouest.fr/lot-et-garonne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.506Z"
+          },
+          {
+            "id": "presse-sudouest-mont-de-marsan",
+            "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
+            "url": "https://www.sudouest.fr/landes/mont-de-marsan/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:16.372Z"
+          },
+          {
+            "id": "presse-sudouest-pyrenees",
+            "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
+            "url": "https://www.sudouest.fr/pyrenees-atlantiques/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:33:00.362Z"
+          },
+          {
+            "id": "presse-sudouest-rss",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "presse",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:52.742Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:16.393Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2026-04-09 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-042",
+      "entite": "Ville de Limoges — centre de vaccination municipal et campagne HPV",
+      "datePublication": "2026-06-26",
+      "editeur": "Ville de Limoges (communiqué officiel)",
+      "url": "https://www.limoges.fr/actualites/la-ville-de-limoges-vous-informe-en-toute-transparence-dun-incident-de-securite",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": false,
+        "collecteeCeJour": false,
+        "date": "2026-06-26",
+        "sources": [],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": null
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": null,
+        "texteCyber": true,
+        "familleSortie": null,
+        "rejette": null
+      },
+      "preuve": "média absent de la table source"
+    },
+    {
+      "id": "na-2026-043",
+      "entite": "Weda — logiciel médical (cabinets touchés jusqu'en Charente)",
+      "datePublication": "2025-11-13",
+      "editeur": "Charente Libre",
+      "url": "https://www.charentelibre.fr/sante/une-cyberattaque-paralyse-les-cabinets-medicaux-depuis-48-heures-26710347.php",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2025-11-13",
+        "sources": [
+          {
+            "id": "eco-charentelibre",
+            "nom": "Charente Libre Économie (RSS)",
+            "url": "https://www.charentelibre.fr/economie/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "strict",
+            "derniereReussite": "2026-11-21T16:05:03.454Z"
+          },
+          {
+            "id": "presse-charentelibre",
+            "nom": "Charente Libre (RSS)",
+            "url": "https://www.charentelibre.fr/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:20:52.753Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:20:52.794Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2025-11-13 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-044",
+      "entite": "FFRandonnée — fichier adhérents",
+      "datePublication": "2026-02-05",
+      "editeur": "FFRandonnée (message aux clubs, relayé)",
+      "url": "https://www.randolmesavelana.fr/informations-importantes",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": false,
+        "collecteeCeJour": false,
+        "date": "2026-02-05",
+        "sources": [],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": null
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": null,
+        "texteCyber": true,
+        "familleSortie": null,
+        "rejette": null
+      },
+      "preuve": "média absent de la table source"
+    },
+    {
+      "id": "na-2026-045",
+      "entite": "Association des maires de France (AMF)",
+      "datePublication": "2026-09-04",
+      "editeur": "Clubic",
+      "url": "https://www.clubic.com/actualite-628315-alerte-fuite-de-donnees-l-association-des-maires-de-france-touchee-par-une-cyberattaque.html",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": false,
+        "collecteeCeJour": false,
+        "date": "2026-09-04",
+        "sources": [],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": null
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": null,
+        "texteCyber": true,
+        "familleSortie": null,
+        "rejette": null
+      },
+      "preuve": "média absent de la table source"
+    },
+    {
+      "id": "na-2026-046",
+      "entite": "Office français de la biodiversité — fichier des permis de chasser",
+      "datePublication": "2026-02-22",
+      "editeur": "Charente Libre",
+      "url": "https://www.charentelibre.fr/charente/piratage-informatique-l-inquietante-acceleration-des-menaces-27816776.php",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2026-02-22",
+        "sources": [
+          {
+            "id": "eco-charentelibre",
+            "nom": "Charente Libre Économie (RSS)",
+            "url": "https://www.charentelibre.fr/economie/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "strict",
+            "derniereReussite": "2026-11-21T16:05:03.454Z"
+          },
+          {
+            "id": "presse-charentelibre",
+            "nom": "Charente Libre (RSS)",
+            "url": "https://www.charentelibre.fr/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:20:52.753Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:20:52.794Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2026-02-22 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-047",
+      "entite": "Université de Pau et des Pays de l'Adour (UPPA) — revendication Nova",
+      "datePublication": "2025-09-29",
+      "editeur": "ZATAZ",
+      "url": "https://www.zataz.com/fuite-et-raas-le-groupe-nova-expose-ses-victimes/",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2025-09-29",
+        "sources": [
+          {
+            "id": "presse-zataz",
+            "nom": "Zataz (feed)",
+            "url": "https://www.zataz.com/feed/",
+            "famille": "presse",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:22:57.478Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:22:57.519Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "presse",
+        "texteCyber": true,
+        "familleSortie": "presse",
+        "rejette": true
+      },
+      "preuve": "aucune collecte le 2025-09-29 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-048",
+      "entite": "Ville de Bergerac — QR codes des horodateurs (quishing)",
+      "datePublication": "2025-08-11",
+      "editeur": "Sud Ouest",
+      "url": "https://www.sudouest.fr/economie/cybersecurite/les-qr-codes-d-horodateurs-pirates-en-dordogne-25534143.php",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2025-08-11",
+        "sources": [
+          {
+            "id": "eco-sudouest",
+            "nom": "Sud Ouest Éco (RSS)",
+            "url": "https://www.sudouest.fr/economie/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "strict",
+            "derniereReussite": "2026-11-21T16:06:53.873Z"
+          },
+          {
+            "id": "presse-sudouest",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:55.148Z"
+          },
+          {
+            "id": "presse-sudouest-charente",
+            "nom": "Sud Ouest — Charente (RSS)",
+            "url": "https://www.sudouest.fr/charente/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:30:59.514Z"
+          },
+          {
+            "id": "presse-sudouest-charente-maritime",
+            "nom": "Sud Ouest — Charente-Maritime (RSS)",
+            "url": "https://www.sudouest.fr/charente-maritime/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.489Z"
+          },
+          {
+            "id": "presse-sudouest-deux-sevres",
+            "nom": "Sud Ouest — Deux-Sèvres (RSS)",
+            "url": "https://www.sudouest.fr/deux-sevres/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:00.311Z"
+          },
+          {
+            "id": "presse-sudouest-dordogne",
+            "nom": "Sud Ouest — Dordogne (RSS)",
+            "url": "https://www.sudouest.fr/dordogne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:29:10.007Z"
+          },
+          {
+            "id": "presse-sudouest-gironde",
+            "nom": "Sud Ouest — Gironde (RSS)",
+            "url": "https://www.sudouest.fr/gironde/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:58.867Z"
+          },
+          {
+            "id": "presse-sudouest-landes",
+            "nom": "Sud Ouest — Landes (RSS)",
+            "url": "https://www.sudouest.fr/landes/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:04.039Z"
+          },
+          {
+            "id": "presse-sudouest-lot-et-garonne",
+            "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
+            "url": "https://www.sudouest.fr/lot-et-garonne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.506Z"
+          },
+          {
+            "id": "presse-sudouest-mont-de-marsan",
+            "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
+            "url": "https://www.sudouest.fr/landes/mont-de-marsan/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:16.372Z"
+          },
+          {
+            "id": "presse-sudouest-pyrenees",
+            "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
+            "url": "https://www.sudouest.fr/pyrenees-atlantiques/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:33:00.362Z"
+          },
+          {
+            "id": "presse-sudouest-rss",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "presse",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:52.742Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:16.393Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": false,
+        "familleSortie": "presse",
+        "rejette": true
+      },
+      "preuve": "aucune collecte le 2025-08-11 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-049",
+      "entite": "Mairie de Berson",
+      "datePublication": "2025-02-28",
+      "editeur": "Sud Ouest",
+      "url": "https://www.sudouest.fr/gironde/berson/meme-nos-sauvegardes-ne-nous-sont-plus-accessibles-en-gironde-ce-village-victime-d-une-cyberattaque-23443299.php",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2025-02-28",
+        "sources": [
+          {
+            "id": "eco-sudouest",
+            "nom": "Sud Ouest Éco (RSS)",
+            "url": "https://www.sudouest.fr/economie/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "strict",
+            "derniereReussite": "2026-11-21T16:06:53.873Z"
+          },
+          {
+            "id": "presse-sudouest",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:55.148Z"
+          },
+          {
+            "id": "presse-sudouest-charente",
+            "nom": "Sud Ouest — Charente (RSS)",
+            "url": "https://www.sudouest.fr/charente/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:30:59.514Z"
+          },
+          {
+            "id": "presse-sudouest-charente-maritime",
+            "nom": "Sud Ouest — Charente-Maritime (RSS)",
+            "url": "https://www.sudouest.fr/charente-maritime/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.489Z"
+          },
+          {
+            "id": "presse-sudouest-deux-sevres",
+            "nom": "Sud Ouest — Deux-Sèvres (RSS)",
+            "url": "https://www.sudouest.fr/deux-sevres/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:00.311Z"
+          },
+          {
+            "id": "presse-sudouest-dordogne",
+            "nom": "Sud Ouest — Dordogne (RSS)",
+            "url": "https://www.sudouest.fr/dordogne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:29:10.007Z"
+          },
+          {
+            "id": "presse-sudouest-gironde",
+            "nom": "Sud Ouest — Gironde (RSS)",
+            "url": "https://www.sudouest.fr/gironde/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:58.867Z"
+          },
+          {
+            "id": "presse-sudouest-landes",
+            "nom": "Sud Ouest — Landes (RSS)",
+            "url": "https://www.sudouest.fr/landes/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:04.039Z"
+          },
+          {
+            "id": "presse-sudouest-lot-et-garonne",
+            "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
+            "url": "https://www.sudouest.fr/lot-et-garonne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.506Z"
+          },
+          {
+            "id": "presse-sudouest-mont-de-marsan",
+            "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
+            "url": "https://www.sudouest.fr/landes/mont-de-marsan/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:16.372Z"
+          },
+          {
+            "id": "presse-sudouest-pyrenees",
+            "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
+            "url": "https://www.sudouest.fr/pyrenees-atlantiques/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:33:00.362Z"
+          },
+          {
+            "id": "presse-sudouest-rss",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "presse",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:52.742Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:16.393Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2025-02-28 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-050",
+      "entite": "Fédération française de tir (FFTir) — retombées en Haute-Vienne",
+      "datePublication": "2025-10-23",
+      "editeur": "France 3 Nouvelle-Aquitaine",
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/deux-pistolets-derobes-au-domicile-d-un-tireur-sportif-apres-un-vol-de-donnees-informatiques-3253453.html",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2025-10-23",
+        "sources": [
+          {
+            "id": "presse-france3-correze",
+            "nom": "France 3 NA — Correze (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:34:01.456Z"
+          },
+          {
+            "id": "presse-france3-creuse",
+            "nom": "France 3 NA — Creuse (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.468Z"
+          },
+          {
+            "id": "presse-france3-landes",
+            "nom": "France 3 NA — Landes (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.709Z"
+          },
+          {
+            "id": "presse-france3-na",
+            "nom": "France 3 Nouvelle-Aquitaine (RSS)",
+            "url": "https://france3-regions.francetvinfo.fr/nouvelle-aquitaine/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.468Z"
+          },
+          {
+            "id": "presse-francetvinfo",
+            "nom": "Franceinfo (RSS titres)",
+            "url": "https://www.franceinfo.fr/titres.rss",
+            "famille": "presse",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:16:20.106Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:16.373Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2025-10-23 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-051",
+      "entite": "Arsoé de Soual — plateforme Synel d'identification des bovins et ovins",
+      "datePublication": "2024-12-31",
+      "editeur": "France 3 Nouvelle-Aquitaine",
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/impossible-d-acceder-a-cette-page-cette-cyberattaque-qui-rend-la-vie-impossible-aux-eleveurs-du-sud-ouest-depuis-la-mi-decembre-3085180.html",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2024-12-31",
+        "sources": [
+          {
+            "id": "presse-france3-correze",
+            "nom": "France 3 NA — Correze (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:34:01.456Z"
+          },
+          {
+            "id": "presse-france3-creuse",
+            "nom": "France 3 NA — Creuse (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.468Z"
+          },
+          {
+            "id": "presse-france3-landes",
+            "nom": "France 3 NA — Landes (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.709Z"
+          },
+          {
+            "id": "presse-france3-na",
+            "nom": "France 3 Nouvelle-Aquitaine (RSS)",
+            "url": "https://france3-regions.francetvinfo.fr/nouvelle-aquitaine/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.468Z"
+          },
+          {
+            "id": "presse-francetvinfo",
+            "nom": "Franceinfo (RSS titres)",
+            "url": "https://www.franceinfo.fr/titres.rss",
+            "famille": "presse",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:16:20.106Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:16.373Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2024-12-31 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-052",
+      "entite": "Camping municipal d'Évaux-les-Bains",
+      "datePublication": "2025-07-11",
+      "editeur": "France 3 Nouvelle-Aquitaine",
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/gueret/le-site-internet-du-camping-de-cette-commune-thermale-victime-d-une-attaque-informatique-il-vante-les-services-d-une-escort-girl-3186765.html",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2025-07-11",
+        "sources": [
+          {
+            "id": "presse-france3-correze",
+            "nom": "France 3 NA — Correze (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:34:01.456Z"
+          },
+          {
+            "id": "presse-france3-creuse",
+            "nom": "France 3 NA — Creuse (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.468Z"
+          },
+          {
+            "id": "presse-france3-landes",
+            "nom": "France 3 NA — Landes (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.709Z"
+          },
+          {
+            "id": "presse-france3-na",
+            "nom": "France 3 Nouvelle-Aquitaine (RSS)",
+            "url": "https://france3-regions.francetvinfo.fr/nouvelle-aquitaine/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.468Z"
+          },
+          {
+            "id": "presse-francetvinfo",
+            "nom": "Franceinfo (RSS titres)",
+            "url": "https://www.franceinfo.fr/titres.rss",
+            "famille": "presse",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:16:20.106Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:16.373Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2025-07-11 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-053",
+      "entite": "GoCap (Mostiglass) — Hinx",
+      "datePublication": "2025-02-20",
+      "editeur": "Sud Ouest",
+      "url": "https://www.sudouest.fr/societe/comment-un-chantage-a-la-reputation-a-failli-couter-a-gocap-son-innovation-anti-moustiques-22953955.php",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2025-02-20",
+        "sources": [
+          {
+            "id": "eco-sudouest",
+            "nom": "Sud Ouest Éco (RSS)",
+            "url": "https://www.sudouest.fr/economie/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "strict",
+            "derniereReussite": "2026-11-21T16:06:53.873Z"
+          },
+          {
+            "id": "presse-sudouest",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:55.148Z"
+          },
+          {
+            "id": "presse-sudouest-charente",
+            "nom": "Sud Ouest — Charente (RSS)",
+            "url": "https://www.sudouest.fr/charente/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:30:59.514Z"
+          },
+          {
+            "id": "presse-sudouest-charente-maritime",
+            "nom": "Sud Ouest — Charente-Maritime (RSS)",
+            "url": "https://www.sudouest.fr/charente-maritime/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.489Z"
+          },
+          {
+            "id": "presse-sudouest-deux-sevres",
+            "nom": "Sud Ouest — Deux-Sèvres (RSS)",
+            "url": "https://www.sudouest.fr/deux-sevres/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:00.311Z"
+          },
+          {
+            "id": "presse-sudouest-dordogne",
+            "nom": "Sud Ouest — Dordogne (RSS)",
+            "url": "https://www.sudouest.fr/dordogne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:29:10.007Z"
+          },
+          {
+            "id": "presse-sudouest-gironde",
+            "nom": "Sud Ouest — Gironde (RSS)",
+            "url": "https://www.sudouest.fr/gironde/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:58.867Z"
+          },
+          {
+            "id": "presse-sudouest-landes",
+            "nom": "Sud Ouest — Landes (RSS)",
+            "url": "https://www.sudouest.fr/landes/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:04.039Z"
+          },
+          {
+            "id": "presse-sudouest-lot-et-garonne",
+            "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
+            "url": "https://www.sudouest.fr/lot-et-garonne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.506Z"
+          },
+          {
+            "id": "presse-sudouest-mont-de-marsan",
+            "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
+            "url": "https://www.sudouest.fr/landes/mont-de-marsan/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:16.372Z"
+          },
+          {
+            "id": "presse-sudouest-pyrenees",
+            "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
+            "url": "https://www.sudouest.fr/pyrenees-atlantiques/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:33:00.362Z"
+          },
+          {
+            "id": "presse-sudouest-rss",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "presse",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:52.742Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:16.393Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": false,
+        "familleSortie": "presse",
+        "rejette": true
+      },
+      "preuve": "aucune collecte le 2025-02-20 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-054",
+      "entite": "Artiga — atelier de linge basque à Magescq",
+      "datePublication": "2025-10-06",
+      "editeur": "France 3 Nouvelle-Aquitaine",
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/pyrenees-atlantiques/bayonne/victimes-d-une-escroquerie-ils-pensaient-vendre-des-rideaux-basques-a-la-sorbonne-et-perdent-15-000-euros-3228284.html",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2025-10-06",
+        "sources": [
+          {
+            "id": "presse-france3-correze",
+            "nom": "France 3 NA — Correze (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:34:01.456Z"
+          },
+          {
+            "id": "presse-france3-creuse",
+            "nom": "France 3 NA — Creuse (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.468Z"
+          },
+          {
+            "id": "presse-france3-landes",
+            "nom": "France 3 NA — Landes (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.709Z"
+          },
+          {
+            "id": "presse-france3-na",
+            "nom": "France 3 Nouvelle-Aquitaine (RSS)",
+            "url": "https://france3-regions.francetvinfo.fr/nouvelle-aquitaine/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.468Z"
+          },
+          {
+            "id": "presse-francetvinfo",
+            "nom": "Franceinfo (RSS titres)",
+            "url": "https://www.franceinfo.fr/titres.rss",
+            "famille": "presse",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:16:20.106Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:16.373Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": false,
+        "familleSortie": "presse",
+        "rejette": true
+      },
+      "preuve": "aucune collecte le 2025-10-06 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-055",
+      "entite": "Université de Limoges — vol de données personnelles par un agent",
+      "datePublication": "2025-06-27",
+      "editeur": "France 3 Nouvelle-Aquitaine",
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/temoignages-une-intrusion-dans-notre-vie-privee-affaire-de-vol-de-donnees-personnelles-a-l-universite-de-limoges-ce-que-l-on-sait-3178572.html",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2025-06-27",
+        "sources": [
+          {
+            "id": "presse-france3-correze",
+            "nom": "France 3 NA — Correze (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:34:01.456Z"
+          },
+          {
+            "id": "presse-france3-creuse",
+            "nom": "France 3 NA — Creuse (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.468Z"
+          },
+          {
+            "id": "presse-france3-landes",
+            "nom": "France 3 NA — Landes (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.709Z"
+          },
+          {
+            "id": "presse-france3-na",
+            "nom": "France 3 Nouvelle-Aquitaine (RSS)",
+            "url": "https://france3-regions.francetvinfo.fr/nouvelle-aquitaine/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.468Z"
+          },
+          {
+            "id": "presse-francetvinfo",
+            "nom": "Franceinfo (RSS titres)",
+            "url": "https://www.franceinfo.fr/titres.rss",
+            "famille": "presse",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:16:20.106Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:16.373Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2025-06-27 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-056",
+      "entite": "Aéroport Pau-Pyrénées et écoles Eklore (CCI Pau Béarn)",
+      "datePublication": "2024-05-15",
+      "editeur": "Sud Ouest",
+      "url": "https://www.sudouest.fr/economie/cybersecurite/info-sud-ouest-pau-l-aeroport-et-l-ecole-de-commerce-victimes-d-une-cyberattaque-19716881.php",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2024-05-15",
+        "sources": [
+          {
+            "id": "eco-sudouest",
+            "nom": "Sud Ouest Éco (RSS)",
+            "url": "https://www.sudouest.fr/economie/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "strict",
+            "derniereReussite": "2026-11-21T16:06:53.873Z"
+          },
+          {
+            "id": "presse-sudouest",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:55.148Z"
+          },
+          {
+            "id": "presse-sudouest-charente",
+            "nom": "Sud Ouest — Charente (RSS)",
+            "url": "https://www.sudouest.fr/charente/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:30:59.514Z"
+          },
+          {
+            "id": "presse-sudouest-charente-maritime",
+            "nom": "Sud Ouest — Charente-Maritime (RSS)",
+            "url": "https://www.sudouest.fr/charente-maritime/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.489Z"
+          },
+          {
+            "id": "presse-sudouest-deux-sevres",
+            "nom": "Sud Ouest — Deux-Sèvres (RSS)",
+            "url": "https://www.sudouest.fr/deux-sevres/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:00.311Z"
+          },
+          {
+            "id": "presse-sudouest-dordogne",
+            "nom": "Sud Ouest — Dordogne (RSS)",
+            "url": "https://www.sudouest.fr/dordogne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:29:10.007Z"
+          },
+          {
+            "id": "presse-sudouest-gironde",
+            "nom": "Sud Ouest — Gironde (RSS)",
+            "url": "https://www.sudouest.fr/gironde/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:58.867Z"
+          },
+          {
+            "id": "presse-sudouest-landes",
+            "nom": "Sud Ouest — Landes (RSS)",
+            "url": "https://www.sudouest.fr/landes/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:04.039Z"
+          },
+          {
+            "id": "presse-sudouest-lot-et-garonne",
+            "nom": "Sud Ouest — Lot-et-Garonne (RSS)",
+            "url": "https://www.sudouest.fr/lot-et-garonne/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:32:03.506Z"
+          },
+          {
+            "id": "presse-sudouest-mont-de-marsan",
+            "nom": "Sud Ouest — Mont-de-Marsan (RSS)",
+            "url": "https://www.sudouest.fr/landes/mont-de-marsan/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:16.372Z"
+          },
+          {
+            "id": "presse-sudouest-pyrenees",
+            "nom": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
+            "url": "https://www.sudouest.fr/pyrenees-atlantiques/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:33:00.362Z"
+          },
+          {
+            "id": "presse-sudouest-rss",
+            "nom": "Sud Ouest (RSS)",
+            "url": "https://www.sudouest.fr/rss.xml",
+            "famille": "presse",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:23:52.742Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:16.393Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2024-05-15 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-057",
+      "entite": "Sites internet des villes de Bordeaux et Pau et du département des Landes (DDoS)",
+      "datePublication": "2025-01-02",
+      "editeur": "France 3 Nouvelle-Aquitaine",
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/cyberattaque-de-sites-internet-assez-peu-de-consequences-aucune-fuite-de-donnees-a-bordeaux-et-pau-deux-villes-ciblees-par-les-hackers-3085051.html",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2025-01-02",
+        "sources": [
+          {
+            "id": "presse-france3-correze",
+            "nom": "France 3 NA — Correze (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:34:01.456Z"
+          },
+          {
+            "id": "presse-france3-creuse",
+            "nom": "France 3 NA — Creuse (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.468Z"
+          },
+          {
+            "id": "presse-france3-landes",
+            "nom": "France 3 NA — Landes (RSS)",
+            "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.709Z"
+          },
+          {
+            "id": "presse-france3-na",
+            "nom": "France 3 Nouvelle-Aquitaine (RSS)",
+            "url": "https://france3-regions.francetvinfo.fr/nouvelle-aquitaine/rss",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:35:14.468Z"
+          },
+          {
+            "id": "presse-francetvinfo",
+            "nom": "Franceinfo (RSS titres)",
+            "url": "https://www.franceinfo.fr/titres.rss",
+            "famille": "presse",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:16:20.106Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:35:16.373Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2025-01-02 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-058",
+      "entite": "SPSTI 16 — service de prévention et de santé au travail interentreprises de la Charente",
+      "datePublication": "2024-06-14",
+      "editeur": "Charente Libre",
+      "url": "https://www.charentelibre.fr/sante/la-medecine-du-travail-de-charente-victime-d-une-cyberattaque-des-donnees-personnelles-de-salaries-piratees-20132500.php",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2024-06-14",
+        "sources": [
+          {
+            "id": "eco-charentelibre",
+            "nom": "Charente Libre Économie (RSS)",
+            "url": "https://www.charentelibre.fr/economie/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "strict",
+            "derniereReussite": "2026-11-21T16:05:03.454Z"
+          },
+          {
+            "id": "presse-charentelibre",
+            "nom": "Charente Libre (RSS)",
+            "url": "https://www.charentelibre.fr/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:20:52.753Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:20:52.794Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2024-06-14 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-059",
+      "entite": "Centre hospitalier de Girac (Angoulême)",
+      "datePublication": "2025-09-09",
+      "editeur": "Charente Libre",
+      "url": "https://www.charentelibre.fr/charente/piratage-informatique-agents-menottes-mediation-le-climat-est-toujours-deletere-a-girac-25790864.php",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2025-09-09",
+        "sources": [
+          {
+            "id": "eco-charentelibre",
+            "nom": "Charente Libre Économie (RSS)",
+            "url": "https://www.charentelibre.fr/economie/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "strict",
+            "derniereReussite": "2026-11-21T16:05:03.454Z"
+          },
+          {
+            "id": "presse-charentelibre",
+            "nom": "Charente Libre (RSS)",
+            "url": "https://www.charentelibre.fr/rss.xml",
+            "famille": "cti",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:20:52.753Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:20:52.794Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "cti",
+        "texteCyber": true,
+        "familleSortie": "cti",
+        "rejette": false
+      },
+      "preuve": "aucune collecte le 2025-09-09 (0 exécution(s))"
+    },
+    {
+      "id": "na-2026-060",
+      "entite": "Cdiscount — extraction frauduleuse de données clients (Cestas)",
+      "datePublication": "2025-12-09",
+      "editeur": "Le Figaro",
+      "url": "https://www.lefigaro.fr/bordeaux/un-ex-cadre-de-cdiscount-juge-pour-avoir-tente-de-revendre-les-donnees-de-32-millions-d-utilisateurs-sur-le-darknet-20251209",
+      "vu": false,
+      "motif": "pas_collecte",
+      "collecte": {
+        "sourceDeclaree": true,
+        "collecteeCeJour": false,
+        "date": "2025-12-09",
+        "sources": [
+          {
+            "id": "presse-lefigaro-actu",
+            "nom": "Le Figaro (RSS actu)",
+            "url": "https://www.lefigaro.fr/rss/figaro_actualites.xml",
+            "famille": "presse",
+            "active": true,
+            "relevance": "context",
+            "derniereReussite": "2026-11-21T16:16:17.538Z"
+          }
+        ],
+        "executionsDuJour": [],
+        "evenementsDuJour": 0,
+        "derniereExecution": "2026-11-21T16:16:17.542Z"
+      },
+      "evenement": {
+        "avecOrg": false,
+        "sansOrg": false,
+        "correspondances": []
+      },
+      "filtreCyber": {
+        "sourceFamille": "presse",
+        "texteCyber": false,
+        "familleSortie": "presse",
+        "rejette": true
+      },
+      "preuve": "aucune collecte le 2025-12-09 (0 exécution(s))"
+    }
+  ]
+}

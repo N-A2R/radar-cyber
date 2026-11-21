@@ -12,8 +12,18 @@
  * Fonctions pures : testables sans navigateur.
  */
 
-export const VIEWS = ["today", "map", "directory", "review", "journal", "graph", "sources", "health", "alerts", "dossier", "na"] as const;
+export const VIEWS = ["today", "couverture", "map", "directory", "review", "journal", "graph", "sources", "health", "alerts", "dossier", "na"] as const;
 export type ViewId = (typeof VIEWS)[number];
+
+/** Filtres de la file de revue, portés par l'URL (`#/review?bucket=…&q=…`). */
+export const REVUE_BUCKETS = ["chaud", "tiede", "froid"] as const;
+export type RevueBucket = (typeof REVUE_BUCKETS)[number];
+export type ReviewUrlState = { bucket: RevueBucket | ""; q: string };
+export const DEFAULT_REVIEW: ReviewUrlState = { bucket: "", q: "" };
+
+function isRevueBucket(value: string | null): value is RevueBucket {
+	return value !== null && (REVUE_BUCKETS as readonly string[]).includes(value);
+}
 
 
 /** Filtres de l'écran d'accueil, portés par l'URL pour être partageables. */
@@ -41,6 +51,8 @@ export type AppUrlState = {
 	today: TodayUrlState;
 	/** Vue Nouvelle-Aquitaine : département sélectionné, `null` = toute la région. */
 	naDept: string | null;
+	/** Filtres de la file de revue (`#/review?bucket=…&q=…`). */
+	review: ReviewUrlState;
 };
 export const DEFAULT_TODAY: TodayUrlState = { family: null, dept: null };
 
@@ -64,6 +76,7 @@ export const DEFAULT_STATE: AppUrlState = {
 	view: "today",
 	directory: DEFAULT_DIRECTORY,
 	today: DEFAULT_TODAY,
+	review: DEFAULT_REVIEW,
 	org: null,
 	naDept: null,
 };
@@ -87,12 +100,17 @@ export function parseHash(hash: string): AppUrlState {
 	const sort = params.get("sort") ?? "";
 	const family = params.get("family");
 	const naDept = params.get("naDept");
+	const bucket = params.get("bucket");
 
 	return {
 		view,
 		today: {
 			family: family && /^[A-Za-z0-9_-]{1,64}$/.test(family) ? family : null,
 			dept: dept && /^[0-9ABab]{2,3}$/.test(dept) ? dept : null,
+		},
+		review: {
+			bucket: isRevueBucket(bucket) ? bucket : "",
+			q: params.get("q") ?? "",
 		},
 		org: Number.isInteger(org) && org > 0 ? org : null,
 		naDept: naDept && /^[0-9]{2}$/.test(naDept) ? naDept : null,
@@ -134,6 +152,10 @@ export function toHash(state: AppUrlState): string {
 		if (d.dir !== DEFAULT_DIRECTORY.dir) params.set("dir", d.dir);
 		if (d.page > 0) params.set("page", String(d.page));
 		if (d.size !== DEFAULT_DIRECTORY.size) params.set("size", String(d.size));
+	}
+	if (state.view === "review") {
+		if (state.review.bucket) params.set("bucket", state.review.bucket);
+		if (state.review.q) params.set("q", state.review.q);
 	}
 	if (state.org !== null) params.set("org", String(state.org));
 	if (state.naDept) params.set("naDept", state.naDept);

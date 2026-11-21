@@ -36,6 +36,7 @@ import { resoudre } from "../apps/api/src/match/gazetteer.js";
 import { mediane } from "../apps/api/src/analyse/mediane.js";
 
 const argv = process.argv.slice(2);
+const COUT = argv.includes("--cout");
 const SORTIE_JSON = argv.find((a) => a.startsWith("--json="))?.split("=")[1] ?? null;
 const CORPUS = fileURLToPath(new URL("../bench/fixtures/corpus-reference-na.json", import.meta.url));
 const DATE_MESURE = new Date().toISOString().slice(0, 10);
@@ -282,9 +283,22 @@ async function main(): Promise<void> {
 		meta: { fenetre?: [string, string] };
 		incidents: Incident[];
 	};
-	const gaz = await getGazetteer();
-	await preparerGazetteer();
-	const { rows: orgs } = await query<{ n: string }>("SELECT count(*)::text AS n FROM org");
+}
+
+async function main(): Promise<void> {
+	const debutTotal = performance.now();
+	const ressourcesAvant = COUT ? resourceSnapshot() : null;
+	const corpus = await chronoAsync("collecte", async () =>
+		JSON.parse(readFileSync(CORPUS, "utf8")) as {
+			meta: { fenetre?: [string, string] };
+			incidents: Incident[];
+		},
+	);
+	const gaz = await chronoAsync("index", () => getGazetteer());
+	await chronoAsync("index", () => preparerGazetteer());
+	const { rows: orgs } = await chronoAsync("index", () =>
+		query<{ n: string }>("SELECT count(*)::text AS n FROM org"),
+	);
 	const organismes = Number(orgs[0]?.n ?? 0);
 
 	const resultats: Resultat[] = [];
@@ -326,7 +340,7 @@ async function main(): Promise<void> {
 			incident.datePublique >= FENETRE.debut && incident.datePublique <= FENETRE.fin;
 
 		// 1. Admettrait-on cet incident s'il arrivait aujourd'hui ?
-		const evt = {
+		const evt = chrono("collecte", () => ({
 			dedupKey: `feed:mesure:${hashKey(incident.preuve?.url ?? incident.id)}`,
 			family: familleDe(incident.type),
 			assertionType: "third_party_claim",
@@ -337,13 +351,15 @@ async function main(): Promise<void> {
 			sourceId: "mesure-corpus",
 			sourceUrl: incident.preuve?.url ?? null,
 			observedAt: incident.datePublique,
-		};
-		const admission = admitEvent(evt as unknown as Record<string, unknown>);
+		}));
+		const admission = chrono("collecte", () =>
+			admitEvent(evt as unknown as Record<string, unknown>),
+		);
 		const texte = `${incident.entite} ${incident.resume}`;
 		// Le moteur de production, pas le gazetteer brut : `resoudre` ignore
 		// les rôles institutionnels et les communes, et sous-estimait donc la
 		// couverture réelle (5/15 mesuré contre 9/20 par le moteur qui tourne).
-		const match = designateOrganization(texte);
+		const match = chrono("moteur", () => designateOrganization(texte));
 
 		let motif: Motif;
 		if (!dansLaFenetre) motif = "hors_fenetre";
@@ -353,11 +369,17 @@ async function main(): Promise<void> {
 
 		const cause: Cause =
 			motif === "pas_rattache"
-				? (await existeAuReferentiel(incident.entite))
+				? (await chronoAsync("sondes", () => existeAuReferentiel(incident.entite)))
 					? "au_referentiel_mais_non_reconnu"
 					: "absent_du_referentiel"
 				: null;
 
+		const qualite =
+			motif === "vu"
+				? chrono("mesure", () =>
+						qualiteRattachement(incident.entite, match?.explication?.alias ?? ""),
+					)
+				: null;
 		resultats.push({
 			id: incident.id,
 			entite: incident.entite,
@@ -378,9 +400,10 @@ async function main(): Promise<void> {
 			refusAdmission: admission.ok ? null : (admission.rejections as string[]),
 			raisonMoteur: match?.explication?.motif ?? null,
 			cause,
-			qualite: motif === "vu" ? qualiteRattachement(incident.entite, match?.explication?.alias ?? "") : null,
+			qualite,
 		});
 	}
+	const apresBoucle = performance.now();
 
 	const dansFenetre = resultats.filter((r) => r.motif !== "hors_fenetre");
 	const vus = dansFenetre.filter((r) => r.motif === "vu");
@@ -444,13 +467,17 @@ async function main(): Promise<void> {
 	};
 
 	// Le référentiel entreprises : publié à côté du taux, jamais caché.
-	const couvertureSecteurs = await query<{ secteur: string; n: string }>(
-		`SELECT COALESCE(sector, kind) AS secteur, count(*)::text AS n
-		   FROM org WHERE kind = 'entreprise' GROUP BY 1 ORDER BY 2 DESC`,
+	const parSecteur = Object.fromEntries(
+		(await query<{ secteur: string; n: string }>(
+			`SELECT COALESCE(sector, kind) AS secteur, count(*)::text AS n
+			   FROM org WHERE kind = 'entreprise' GROUP BY 1 ORDER BY 2 DESC`,
+		)).rows.map((r) => [r.secteur, Number(r.n)]),
 	);
+	const publication = verifierPubliabilite(parSecteur);
+	const listeSecteurs = SECTEURS_ATTENDUS.map((s) => `'${s}'`).join(", ");
 	const lignesHorsNumerique = await query<{ n: string }>(
 		`SELECT count(*)::text AS n FROM org
-		  WHERE kind = 'entreprise' AND sector IN ('agroalimentaire','industrie','construction','commerce')`,
+		  WHERE kind = 'entreprise' AND sector IN (${listeSecteurs})`,
 	);
 
 	// Précision : parmi ce qu'on a rattaché, combien de fois au bon organisme ?
@@ -466,6 +493,7 @@ async function main(): Promise<void> {
 		dateMesure,
 		fenetre: FENETRE,
 		corpus: {
+			sha256: sha256Corpus,
 			incidents: corpus.incidents.length,
 			dansLaFenetre: dansFenetre.length,
 			horsFenetre: resultats.length - dansFenetre.length,
@@ -488,11 +516,10 @@ async function main(): Promise<void> {
 			// Lignes présentes dans les secteurs hors numérique ; le trou, s'il y
 			// en a un, est publié à côté du taux, en clair.
 			lignesHorsNumerique: Number(lignesHorsNumerique.rows[0]?.n ?? 0),
-			parSecteur: Object.fromEntries(couvertureSecteurs.rows.map((r) => [r.secteur, Number(r.n)])),
+			parSecteur,
 			avertissement:
-				Number(lignesHorsNumerique.rows[0]?.n ?? 0) === 0
-					? "Le référentiel entreprises couvre le numérique et les secteurs critiques à partir de 50 salariés, mais contient zéro ligne en agroalimentaire, industrie, construction et commerce. La couverture ci-dessus est donc flatteuse pour ces secteurs."
-					: `Le référentiel entreprises couvre ${Number(lignesHorsNumerique.rows[0]?.n ?? 0)} ligne(s) hors numérique (commerce, industrie, construction, agroalimentaire).`,
+				publication.raison ??
+				`Le référentiel entreprises couvre ${Number(lignesHorsNumerique.rows[0]?.n ?? 0)} ligne(s) hors numérique (commerce, industrie, construction, agroalimentaire).`,
 		},
 		method: {
 			porte: "contract/admit.ts — même admission que l'ingestion",
@@ -505,7 +532,7 @@ async function main(): Promise<void> {
 	};
 
 	console.log(`Mesure de couverture — ${dateMesure}`);
-	console.log(`Fenêtre ${FENETRE.debut} → ${FENETRE.fin} · corpus ${corpus.incidents.length} incidents`);
+	console.log(`Fenêtre ${FENETRE.debut} → ${FENETRE.fin} · corpus ${corpus.incidents.length} incidents · SHA-256 ${sha256Corpus}`);
 	console.log(`Organisations en base : ${organismes}\n`);
 
 	for (const r of dansFenetre) {
@@ -523,6 +550,7 @@ async function main(): Promise<void> {
 		`\nCouverture : ${parMotif.vu}/${dansFenetre.length} (${synthese.couverture.taux} %)` +
 			` · non admis ${parMotif.pas_admis} · non rattachés ${parMotif.pas_rattache}`,
 	);
+	if (!publication.publiable) console.log(`  ${publication.mention} : ${publication.raison}`);
 	console.log(
 		`  dont ${parCause.absent_du_referentiel} organisation(s) absente(s) du référentiel` +
 			` et ${parCause.au_referentiel_mais_non_reconnu} présente(s) mais non reconnue(s) par le moteur`,
@@ -549,6 +577,36 @@ async function main(): Promise<void> {
 		console.log(`\nmesure publiée : ${SORTIE_JSON}`);
 	}
 	await closePools();
+	if (COUT && ressourcesAvant) {
+		const ressourcesApres = resourceSnapshot();
+		const wallMs = performance.now() - debutTotal;
+		phases.mesure = performance.now() - apresBoucle;
+		const arrondi = (n: number) => Math.round(n * 10) / 10;
+		console.log(
+			`COUT ${JSON.stringify({
+				corpus: corpus.incidents.length,
+				dansLaFenetre: dansFenetre.length,
+				wallMs: arrondi(wallMs),
+				phasesMs: {
+					collecte: arrondi(phases.collecte),
+					rattachement: arrondi(phases.index + phases.moteur + phases.sondes),
+					mesure: arrondi(phases.mesure),
+				},
+				sousPhasesRattachementMs: {
+					index: arrondi(phases.index),
+					moteur: arrondi(phases.moteur),
+					sondesReferentiel: arrondi(phases.sondes),
+				},
+				cpuMs: arrondi(ressourcesApres.cpuMs - ressourcesAvant.cpuMs),
+				maxRssKib: ressourcesApres.maxRssKib,
+				rssKibFinal: arrondi(ressourcesApres.rssKib),
+				fsReadBytes: ressourcesApres.fsRead - ressourcesAvant.fsRead,
+				fsWriteBytes: ressourcesApres.fsWrite - ressourcesAvant.fsWrite,
+				minorPageFaults: ressourcesApres.minorPageFault - ressourcesAvant.minorPageFault,
+				majorPageFaults: ressourcesApres.majorPageFault - ressourcesAvant.majorPageFault,
+			})}`,
+		);
+	}
 }
 
 main().catch(async (error: unknown) => {

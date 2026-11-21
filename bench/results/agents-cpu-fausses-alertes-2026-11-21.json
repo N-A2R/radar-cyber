@@ -1,0 +1,321 @@
+{
+  "dateMesure": "2026-11-21",
+  "commande": "tsx scripts/mesure-agents-cpu.mts --json=bench/results/agents-cpu-fausses-alertes-2026-11-21.json",
+  "fenetre": {
+    "debut": "2026-10-22",
+    "fin": "2026-11-21"
+  },
+  "pasJours": 1,
+  "rejeux": 32,
+  "toleranceJours": 35,
+  "seuils": {
+    "organisation": {
+      "evenements": 3,
+      "fenetreJours": 7,
+      "absenceJours": 90
+    },
+    "secteur": {
+      "z": 3,
+      "effectifMin": 10,
+      "observesMin": 3,
+      "fenetreJours": 7,
+      "referenceJours": 90
+    },
+    "source": {
+      "silenceJours": 3,
+      "cadenceJours": 7,
+      "horizonRepriseJours": 7
+    }
+  },
+  "couvertureCorpus": {
+    "maxDatePublique": "2026-11-10",
+    "couvreFenetre": false
+  },
+  "veriteTerrain": {
+    "organisations": 4,
+    "incidentsNonResolus": 6,
+    "secteurs": 2
+  },
+  "diagnosticSources": {
+    "instant": "2026-11-21",
+    "sourcesAvecEvenementsRecents": 98,
+    "sourcesQuotidiennesSurCadence": 1
+  },
+  "total": {
+    "emises": 14,
+    "vraies": 0,
+    "fausses": 11,
+    "nonClassables": 3,
+    "classables": 11,
+    "tauxFaussesAlertes": 100
+  },
+  "parAgent": {
+    "organisation-surgissante": {
+      "emises": 11,
+      "vraies": 0,
+      "fausses": 11,
+      "nonClassables": 0,
+      "taux": 100,
+      "raisons": {
+        "aucun_incident_corpus": 11
+      }
+    },
+    "bascule-secteur": {
+      "emises": 3,
+      "vraies": 0,
+      "fausses": 0,
+      "nonClassables": 3,
+      "taux": null,
+      "raisons": {
+        "secteur_sans_verite": 3
+      }
+    },
+    "source-muette": {
+      "emises": 0,
+      "vraies": 0,
+      "fausses": 0,
+      "nonClassables": 0,
+      "taux": null,
+      "raisons": {}
+    }
+  },
+  "alertes": [
+    {
+      "agent": "bascule-secteur",
+      "cle": "bascule-secteur:entreprise",
+      "instant": "2026-11-21",
+      "motif": "bascule-secteur — bascule du secteur entreprise (z=6.3)",
+      "classement": "non_classable",
+      "raison": "secteur_sans_verite",
+      "faits": [
+        82931,
+        82932,
+        82933,
+        82934,
+        82935,
+        82936,
+        82937,
+        83875,
+        83876,
+        83877,
+        46822,
+        48144,
+        126770,
+        126771,
+        126772,
+        126773,
+        126774,
+        126775,
+        126776,
+        126777,
+        126778,
+        126779,
+        126780,
+        126781,
+        126782,
+        126783,
+        126784,
+        126785,
+        126786,
+        126787,
+        126788,
+        126789,
+        46611,
+        81249,
+        81250,
+        81251,
+        81252,
+        81253,
+        81254,
+        81255,
+        81256,
+        81258,
+        81259,
+        81260
+      ]
+    },
+    {
+      "agent": "organisation-surgissante",
+      "cle": "organisation-surgissante:1994804",
+      "instant": "2026-11-21",
+      "motif": "organisation-surgissante — 4 apparitions en 7 j après 90 j d'absence",
+      "classement": "fausse",
+      "raison": "aucun_incident_corpus",
+      "faits": [
+        81255,
+        81256,
+        82936,
+        82937
+      ]
+    },
+    {
+      "agent": "organisation-surgissante",
+      "cle": "organisation-surgissante:1994805",
+      "instant": "2026-11-21",
+      "motif": "organisation-surgissante — 4 apparitions en 7 j après 90 j d'absence",
+      "classement": "fausse",
+      "raison": "aucun_incident_corpus",
+      "faits": [
+        81251,
+        81252,
+        81260,
+        82932
+      ]
+    },
+    {
+      "agent": "organisation-surgissante",
+      "cle": "organisation-surgissante:1994806",
+      "instant": "2026-11-21",
+      "motif": "organisation-surgissante — 4 apparitions en 7 j après 90 j d'absence",
+      "classement": "fausse",
+      "raison": "aucun_incident_corpus",
+      "faits": [
+        81253,
+        81254,
+        82933,
+        82935
+      ]
+    },
+    {
+      "agent": "organisation-surgissante",
+      "cle": "organisation-surgissante:1994807",
+      "instant": "2026-11-21",
+      "motif": "organisation-surgissante — 4 apparitions en 7 j après 90 j d'absence",
+      "classement": "fausse",
+      "raison": "aucun_incident_corpus",
+      "faits": [
+        81249,
+        81250,
+        81258,
+        81259
+      ]
+    },
+    {
+      "agent": "organisation-surgissante",
+      "cle": "organisation-surgissante:1994884",
+      "instant": "2026-11-21",
+      "motif": "organisation-surgissante — 3 apparitions en 7 j après 90 j d'absence",
+      "classement": "fausse",
+      "raison": "aucun_incident_corpus",
+      "faits": [
+        83875,
+        83876,
+        83877
+      ]
+    },
+    {
+      "agent": "organisation-surgissante",
+      "cle": "organisation-surgissante:482872",
+      "instant": "2026-11-21",
+      "motif": "organisation-surgissante — 5 apparitions en 7 j après 90 j d'absence",
+      "classement": "fausse",
+      "raison": "aucun_incident_corpus",
+      "faits": [
+        51151,
+        52347,
+        51872,
+        51362,
+        51960
+      ]
+    },
+    {
+      "agent": "bascule-secteur",
+      "cle": "bascule-secteur:associations",
+      "instant": "2026-11-20",
+      "motif": "bascule-secteur — bascule du secteur associations (z=6.9)",
+      "classement": "non_classable",
+      "raison": "secteur_sans_verite",
+      "faits": [
+        51151,
+        52347,
+        51960,
+        51872,
+        51362
+      ]
+    },
+    {
+      "agent": "organisation-surgissante",
+      "cle": "organisation-surgissante:2423943",
+      "instant": "2026-11-19",
+      "motif": "organisation-surgissante — 3 apparitions en 7 j après 90 j d'absence",
+      "classement": "fausse",
+      "raison": "aucun_incident_corpus",
+      "faits": [
+        1046,
+        24653,
+        3706
+      ]
+    },
+    {
+      "agent": "organisation-surgissante",
+      "cle": "organisation-surgissante:34354",
+      "instant": "2026-11-19",
+      "motif": "organisation-surgissante — 3 apparitions en 7 j après 90 j d'absence",
+      "classement": "fausse",
+      "raison": "aucun_incident_corpus",
+      "faits": [
+        21351,
+        21352,
+        21353
+      ]
+    },
+    {
+      "agent": "organisation-surgissante",
+      "cle": "organisation-surgissante:2190093",
+      "instant": "2026-11-18",
+      "motif": "organisation-surgissante — 3 apparitions en 7 j après 90 j d'absence",
+      "classement": "fausse",
+      "raison": "aucun_incident_corpus",
+      "faits": [
+        1,
+        23511,
+        23502
+      ]
+    },
+    {
+      "agent": "organisation-surgissante",
+      "cle": "organisation-surgissante:2423939",
+      "instant": "2026-11-18",
+      "motif": "organisation-surgissante — 4 apparitions en 7 j après 90 j d'absence",
+      "classement": "fausse",
+      "raison": "aucun_incident_corpus",
+      "faits": [
+        24457,
+        896,
+        48144,
+        46611
+      ]
+    },
+    {
+      "agent": "organisation-surgissante",
+      "cle": "organisation-surgissante:2423941",
+      "instant": "2026-11-18",
+      "motif": "organisation-surgissante — 3 apparitions en 7 j après 90 j d'absence",
+      "classement": "fausse",
+      "raison": "aucun_incident_corpus",
+      "faits": [
+        885,
+        24443,
+        46822
+      ]
+    },
+    {
+      "agent": "bascule-secteur",
+      "cle": "bascule-secteur:activites-specialisees",
+      "instant": "2026-11-16",
+      "motif": "bascule-secteur — bascule du secteur activites-specialisees (z=4.8)",
+      "classement": "non_classable",
+      "raison": "secteur_sans_verite",
+      "faits": [
+        3690,
+        3741,
+        23511,
+        1292,
+        23502,
+        1,
+        3764,
+        46140
+      ]
+    }
+  ]
+}

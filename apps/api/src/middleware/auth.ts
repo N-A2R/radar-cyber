@@ -1,3 +1,4 @@
+import { forbidden, unauthorized } from "../errors.js";
 import type { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
 import { query } from "../db.js";
 import { hashSessionToken } from "../auth.js";
@@ -50,8 +51,7 @@ export function requireAuth() {
   return async (req: FastifyRequest, reply: FastifyReply) => {
     const u = await resolveUser(req);
     if (!u) {
-      reply.code(401).send({ error: "unauthorized" });
-      return;
+      throw unauthorized();
     }
     req.user = u;
   };
@@ -61,17 +61,15 @@ export function requireRole(role: string) {
   return async (req: FastifyRequest, reply: FastifyReply) => {
     const u = req.user ?? (await resolveUser(req));
     if (!u) {
-      reply.code(401).send({ error: "unauthorized" });
-      return;
+      throw unauthorized();
     }
     req.user = u;
     if (u.role !== role && u.role !== "admin") {
-      reply.code(403).send({ error: "forbidden" });
-      return;
+      throw forbidden();
     }
     // exact role check for non-admin target? admin bypass allowed
     if (role !== "admin" && u.role !== role) {
-      reply.code(403).send({ error: "forbidden" });
+      throw forbidden();
     }
   };
 }

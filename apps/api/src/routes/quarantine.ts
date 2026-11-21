@@ -1,3 +1,4 @@
+import { badRequest, notFound, unauthorized } from "../errors.js";
 import type { FastifyInstance, FastifyRequest } from "fastify";
 import { query } from "../db.js";
 import { requireAuth, resolveUser } from "../middleware/auth.js";
@@ -37,8 +38,7 @@ export default async function (app: FastifyInstance) {
   app.get("/quarantine", async (req: FastifyRequest, reply) => {
     const user = await resolveUser(req);
     if (!user) {
-      reply.code(401).send({ error: "unauthorized" });
-      return;
+      throw unauthorized();
     }
     const q = req.query as Record<string, string | undefined>;
     let limit = Number(q.limit ?? 100);
@@ -105,8 +105,7 @@ export default async function (app: FastifyInstance) {
   app.get("/quarantine/stats", async (req: FastifyRequest, reply) => {
     const user = await resolveUser(req);
     if (!user) {
-      reply.code(401).send({ error: "unauthorized" });
-      return;
+      throw unauthorized();
     }
     const total = await query<{ n: string }>("SELECT count(*)::text AS n FROM quarantine_raw");
     const pending = await query<{ n: string }>(
@@ -138,8 +137,7 @@ export default async function (app: FastifyInstance) {
   app.get("/quarantine/queue", async (req, reply) => {
     const user = await resolveUser(req);
     if (!user) {
-      reply.code(401).send({ error: "unauthorized" });
-      return;
+      throw unauthorized();
     }
     const q = req.query as Record<string, string | undefined>;
     const bucket = q.bucket && ["chaud", "tiede", "froid"].includes(q.bucket)
@@ -166,22 +164,18 @@ export default async function (app: FastifyInstance) {
     const body = (req.body ?? {}) as { ids?: unknown; action?: string; reason?: string };
     const action = body.action as ReviewAction;
     if (!["promote", "reject", "review", "undo"].includes(action)) {
-      reply.code(400).send({ error: "invalid action" });
-      return;
+      throw badRequest("invalid action");
     }
     if (!Array.isArray(body.ids) || body.ids.length === 0 || body.ids.length > 500) {
-      reply.code(400).send({ error: "ids must be a non-empty array of at most 500" });
-      return;
+      throw badRequest("ids must be a non-empty array of at most 500");
     }
     const ids = body.ids.map((value) => Number(value));
     if (ids.some((id) => !Number.isInteger(id) || id <= 0)) {
-      reply.code(400).send({ error: "invalid id" });
-      return;
+      throw badRequest("invalid id");
     }
     const reason = typeof body.reason === "string" ? body.reason.trim().slice(0, 500) : "";
     if (action === "reject" && reason === "") {
-      reply.code(400).send({ error: "reason required for rejection" });
-      return;
+      throw badRequest("reason required for rejection");
     }
     return applyReview(ids, action, reason || null, req.user!.email);
   });
@@ -193,13 +187,11 @@ export default async function (app: FastifyInstance) {
     async (req, reply) => {
       const id = Number(req.params.id);
       if (!Number.isInteger(id) || id <= 0) {
-        reply.code(400).send({ error: "invalid id" });
-        return;
+        throw badRequest("invalid id");
       }
       const result = await promoteOne(id, req.user!.email);
       if (!result.found) {
-        reply.code(404).send({ error: "not found" });
-        return;
+        throw notFound();
       }
       return result;
     }

@@ -288,3 +288,63 @@
   .today__timeline-graphe { gap: 4px; }
   .today__timeline-heure { font-size: 11px; }
 }
+
+/* 375 px — le fil ne défile plus horizontalement : chaque événement devient
+   une carte, avec le libellé de sa colonne conservé au-dessus de la valeur. */
+@media (max-width: 600px) {
+  .today { padding: var(--space-3); }
+  .today__head { align-items: flex-start; }
+  .today__filtres,
+  .today__filtre,
+  .today__filtre select { width: 100%; min-width: 0; }
+  .today__compteur { min-width: 0; flex: 1 1 140px; }
+  .today__collecte { overflow-wrap: anywhere; }
+
+  .today__table-wrap {
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+  }
+  .today__table,
+  .today__table tbody { display: block; width: 100%; }
+  .today__table thead { display: none; }
+  .today__table tr {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: var(--space-3);
+    padding: var(--space-3);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+  .today__table td,
+  .today__cellule-titre {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    padding: 3px 0;
+    border: 0;
+  }
+  .today__table td::before {
+    display: block;
+    margin-bottom: 1px;
+    color: var(--faint);
+    font: 600 10px/1.4 var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .today__table td:nth-child(1)::before { content: "date"; }
+  .today__table td:nth-child(2)::before { content: "titre"; }
+  .today__table td:nth-child(3)::before { content: "organisation"; }
+  .today__table td:nth-child(4)::before { content: "source"; }
+  .today__table td:nth-child(5)::before { content: "famille"; }
+  .today__table td:nth-child(6)::before { content: "lien"; }
+  .today__table td:nth-child(2) { font-weight: 600; }
+  .today__table time { white-space: normal; }
+  .today__lien-titre,
+  .today__lien-org { padding: var(--space-1) 0; }
+
+  .today__timeline { padding: var(--space-3); }
+  .today__timeline-graphe { gap: 2px; }
+}

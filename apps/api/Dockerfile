@@ -40,6 +40,8 @@ COPY apps/api/tsconfig.json apps/api/tsconfig.json
 COPY apps/api/src apps/api/src
 COPY packages/shared/src packages/shared/src
 COPY db db
+COPY bench/couverture bench/couverture
+COPY bench/results/couverture-mesuree.json bench/results/couverture-mesuree.json
 COPY scripts/migrate.mts scripts/migrate.mts
 
 USER radar

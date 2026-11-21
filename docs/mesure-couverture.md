@@ -12,6 +12,12 @@ verbatim de sa source et sa date de consultation. Dix-huit entrées portent sur
 des incidents antérieurs à la fenêtre : conservées comme contexte, exclues du
 dénominateur.
 
+**Citation obligatoire.** Toute mesure de couverture publiée cite le SHA-256 du
+corpus consolidé : `scripts/corpus-hash.mts` hache les lignes triées de tous les
+`bench/corpus/*.jsonl` et écrit l'empreinte dans `bench/corpus/HASH`. La sortie
+JSON de `scripts/mesure-couverture.mts` la porte dans `corpus.sha256` et sa
+sortie console l'affiche. Ajouter une ligne au corpus change l'empreinte.
+
 ## Le résultat, sans arrangement
 
 ```

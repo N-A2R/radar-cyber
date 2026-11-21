@@ -1,3 +1,4 @@
+import { badRequest, notFound, unauthorized } from "../errors.js";
 import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
 import { requireAuth, resolveUser } from "../middleware/auth.js";
@@ -73,6 +74,30 @@ function mapOrg(row: OrgListRow) {
   };
 }
 
+const ORGS_LIMIT_DEFAULT = 500;
+const ORGS_LIMIT_MAX = 2000;
+
+/** `limit`/`offset` bornés : la forme historique (tableau d'orgs) est conservée. */
+function paginationOrgs(q: Record<string, string | undefined>) {
+  const lire = (brut: string | undefined, defaut: number, min: number, max: number) => {
+    const n = Number(brut);
+    if (!Number.isSafeInteger(n) || n < min) return defaut;
+    return Math.min(n, max);
+  };
+  return {
+    limit: lire(q.limit, ORGS_LIMIT_DEFAULT, 1, ORGS_LIMIT_MAX),
+    offset: lire(q.offset, 0, 0, Number.MAX_SAFE_INTEGER),
+  };
+}
+
+const ORGS_ASOF_CTE = `WITH valides AS (
+     SELECT id, name, slug, kind, sector, city, dept, website, domain, lat, lon
+     FROM org WHERE valid_from <= $1::timestamptz AND (valid_to IS NULL OR valid_to > $1::timestamptz)
+     UNION ALL
+     SELECT org_id AS id, name, slug, kind, sector, city, dept, website, domain, lat, lon
+     FROM org_history WHERE valid_from <= $1::timestamptz AND (valid_to IS NULL OR valid_to > $1::timestamptz)
+   )`;
+
 export default async function (app: FastifyInstance) {
 
   /**
@@ -83,52 +108,63 @@ export default async function (app: FastifyInstance) {
   app.post("/orgs/from-hint", { preHandler: requireAuth() }, async (req, reply) => {
     const parsed = createOrgFromHintSchema.safeParse(req.body);
     if (!parsed.success) {
-      reply.code(400).send({
-        error: "invalid input",
-        details: parsed.error.issues.map((issue) => ({
-          champ: issue.path.join("."),
-          message: issue.message,
-        })),
-      });
-      return;
+      throw badRequest("invalid input", parsed.error.issues.map((issue) => ({
+        champ: issue.path.join("."),
+        message: issue.message,
+      })));
     }
     const result = await createOrgFromHint(parsed.data);
     reply.code(result.created ? 201 : 200);
     return result;
   });
-  app.get("/orgs", async (req) => {
+  app.get("/orgs", async (req, reply) => {
     const q = (req.query as Record<string, string | undefined>) ?? {};
+    const { limit, offset } = paginationOrgs(q);
     const asOfRaw = q.asOf ?? (q as Record<string, string | undefined>).as_of ?? null;
     let asOf: string | null = null;
     if (asOfRaw) {
       const t = Date.parse(asOfRaw);
       if (!Number.isNaN(t)) asOf = new Date(t).toISOString();
     }
+    const entetes = (total: number) => {
+      reply.header("X-Total-Count", String(total));
+      reply.header("X-Limit", String(limit));
+      reply.header("X-Offset", String(offset));
+    };
     if (!asOf) {
-      const r = await query<OrgListRow>(`
-      SELECT o.id, o.name, o.slug, o.kind, o.sector, o.city, o.dept, o.website, o.domain, o.lat, o.lon, COUNT(e.id)::int AS event_count
-      FROM org o LEFT JOIN event e ON e.org_id=o.id
-      WHERE o.valid_to IS NULL
-      GROUP BY o.id ORDER BY o.name
-    `);
-      return r.rows.map(mapOrg);
+      // La page est triée par (name, id) via org_name_id_idx ; seuls ses
+      // événements sont comptés (event_org_idx). Trier et agréger 1,67 M
+      // organisations coûtait 18 s et 396 Mo de JSON.
+      const [page, total] = await Promise.all([
+        query<OrgListRow>(
+          `WITH page AS (
+             SELECT o.id, o.name, o.slug, o.kind, o.sector, o.city, o.dept, o.website, o.domain, o.lat, o.lon
+             FROM org o WHERE o.valid_to IS NULL
+             ORDER BY o.name, o.id LIMIT $1 OFFSET $2
+           )
+           SELECT p.id, p.name, p.slug, p.kind, p.sector, p.city, p.dept, p.website, p.domain, p.lat, p.lon,
+                  (SELECT count(*)::int FROM event e WHERE e.org_id = p.id) AS event_count
+           FROM page p ORDER BY p.name, p.id`,
+          [limit, offset],
+        ),
+        query<{ n: number }>("SELECT count(*)::int AS n FROM org WHERE valid_to IS NULL"),
+      ]);
+      entetes(total.rows[0]?.n ?? page.rows.length);
+      return page.rows.map(mapOrg);
     }
-    const r = await query<OrgListRow>(
-      `WITH valides AS (
-         SELECT id, name, slug, kind, sector, city, dept, website, domain, lat, lon
-         FROM org WHERE valid_from <= $1::timestamptz AND (valid_to IS NULL OR valid_to > $1::timestamptz)
-         UNION ALL
-         SELECT org_id AS id, name, slug, kind, sector, city, dept, website, domain, lat, lon
-         FROM org_history WHERE valid_from <= $1::timestamptz AND (valid_to IS NULL OR valid_to > $1::timestamptz)
-       )
-       SELECT v.id, v.name, v.slug, v.kind, v.sector, v.city, v.dept, v.website, v.domain, v.lat, v.lon,
-              COUNT(e.id)::int AS event_count
-       FROM valides v LEFT JOIN event e ON e.org_id=v.id
-       GROUP BY v.id, v.name, v.slug, v.kind, v.sector, v.city, v.dept, v.website, v.domain, v.lat, v.lon
-       ORDER BY v.name`,
-      [asOf],
-    );
-    return r.rows.map(mapOrg);
+    const [page, total] = await Promise.all([
+      query<OrgListRow>(
+        `${ORGS_ASOF_CTE},
+         page AS (SELECT v.* FROM valides v ORDER BY v.name, v.id LIMIT $2 OFFSET $3)
+         SELECT p.id, p.name, p.slug, p.kind, p.sector, p.city, p.dept, p.website, p.domain, p.lat, p.lon,
+                (SELECT count(*)::int FROM event e WHERE e.org_id = p.id) AS event_count
+         FROM page p ORDER BY p.name, p.id`,
+        [asOf, limit, offset],
+      ),
+      query<{ n: number }>(`${ORGS_ASOF_CTE} SELECT count(*)::int AS n FROM valides`, [asOf]),
+    ]);
+    entetes(total.rows[0]?.n ?? page.rows.length);
+    return page.rows.map(mapOrg);
   });
 
   /**
@@ -140,14 +176,12 @@ export default async function (app: FastifyInstance) {
   app.get("/orgs/:id", async (req, reply) => {
     const user = await resolveUser(req);
     if (!user) {
-      reply.code(401).send({ error: "unauthorized" });
-      return;
+      throw unauthorized();
     }
 
     const rawId = (req.params as { id: string }).id;
     if (!/^\d+$/.test(rawId)) {
-      reply.code(404).send({ error: "not found" });
-      return;
+      throw notFound();
     }
     const orgId = Number(rawId);
 
@@ -158,8 +192,7 @@ export default async function (app: FastifyInstance) {
     );
     const org = orgRes.rows[0];
     if (!org) {
-      reply.code(404).send({ error: "not found" });
-      return;
+      throw notFound();
     }
 
     // Les revendications ne portent qu'un libellé libre : on le confronte au

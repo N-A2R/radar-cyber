@@ -89,6 +89,7 @@
 
 .alerts__sections {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-1);
   padding: var(--space-2) var(--space-4);
   border-bottom: 1px solid var(--line);
@@ -337,4 +338,36 @@
 .alerts__empty-hint strong {
   color: var(--muted);
   font-weight: 600;
+}
+
+/* Détail de preuve : le panneau passe sous la ligne, les liens restent discrets. */
+.alerts__item { flex-wrap: wrap; }
+.alerts__detail {
+  flex: 1 0 100%;
+  padding: 10px 16px 12px 46px;
+  background: var(--color-well);
+  border-top: 1px solid var(--color-edge-lo);
+}
+.alerts__detail-line {
+  margin: 0 0 5px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--color-ink-2);
+  overflow-wrap: anywhere;
+}
+.alerts__detail-line button,
+.alerts__detail-line a {
+  font: inherit;
+  color: var(--color-accent);
+  background: none;
+  border: 0;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+.alerts__detail-line button:focus-visible,
+.alerts__detail-line a:focus-visible {
+  outline: 2px solid var(--color-accent-2);
+  outline-offset: 2px;
 }

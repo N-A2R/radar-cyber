@@ -71,9 +71,14 @@ dont on n'a pas besoin.
 
 ## 2. Mémoire longue
 
-Aujourd'hui : `runRetention` supprime les événements de plus de 90 jours, **au
-démarrage du serveur**. Impossible de répondre à une question portant sur
-12 mois.
+Aujourd'hui : `runRetention` supprime le brut de plus de 90 jours **après** avoir
+archivé chaque fait dans `event_archive` (résumé) et `archive_event` (copie
+intégrale). La migration 049 conserve les deux horloges (`valid_at`, `at`) dans
+les deux archives. `GET /api/history` lit la vue unifiée `v_event_all` et répond
+sur douze mois glissants de `valid_at`, brut et archive confondus, agrégés par
+mois (`apps/api/test/history.test.ts`). `scripts/rejeu-periode.mts` rejoue une
+période avec le moteur courant et imprime le diff nominatif des rattachements
+corrigés (`docs/rejeu.md`).
 
 **Critère de sortie.** Une requête répond sur 12 mois glissants alors que le
 brut est purgé à 90 jours ; le rejeu d'une période donne le même résultat qu'à
@@ -96,6 +101,9 @@ apparaît trois fois ; un secteur qui bascule ; une source qui se tait.
 
 **Critère de sortie.** Trois agents, chacun avec un taux de fausses alertes
 mesuré sur le corpus, branchés sur la file de revue et non sur la diffusion.
+
+**Livré le 21 novembre 2026.** Trois détecteurs, file de revue `agents-cpu`,
+taux et verdicts publiés dans `docs/agents-cpu.md`.
 
 ## 5. Anticipation — étage 4
 

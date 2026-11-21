@@ -5,6 +5,7 @@ import { porteeRegionale } from "../match/territorial.js";
 import { rateLimit } from "../middleware/rate-limit.js";
 import { requireAuth } from "../middleware/auth.js";
 import { AdmissionTally, admitEvent } from "../contract/admit.js";
+import { languageVerdict } from "../collectors/filter.js";
 
 /**
  * Ingestion externe (bots Hermes, scripts).
@@ -67,6 +68,12 @@ export default async function (app: FastifyInstance) {
       (await ingestQuery<{ id: string }>("SELECT id FROM source")).rows.map((r) => r.id)
     );
     for (const e of events) {
+      const langue = languageVerdict(e.title, e.summary);
+      if (!langue.keep) {
+        skipped++;
+        rejected.push({ dedupKey: e.dedup_key ?? null, reasons: [`langue_${langue.language}`] });
+        continue;
+      }
       const admitted = admitEvent({
         dedupKey: e.dedup_key,
         family: e.family ?? "cti",
@@ -95,10 +102,10 @@ export default async function (app: FastifyInstance) {
       }
       const event = admitted.event;
       const r = await ingestQuery<{ inserted: boolean }>(
-        `INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at,
+        `INSERT INTO event (dedup_key, family, assertion_type, title, summary, langue, observed_at,
            severity, confidence, source_id, source_url, evidence, geo_type,
            regional, regional_motif)
-         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)
+         VALUES ($1,$2,$3,$4,$5,$15,$6,$7,$8,$9,$10,$11,$12,$13,$14)
          ON CONFLICT (dedup_key) DO NOTHING
          RETURNING (xmax = 0) AS inserted`,
         [
@@ -117,7 +124,7 @@ export default async function (app: FastifyInstance) {
           ...(() => {
             const p = porteeRegionale(`${event.title} ${event.summary ?? ""}`, null);
             return [p.regional, p.motif];
-          })(),
+          })(), langue.language,
         ]
       );
       if (r.rows[0]?.inserted) {

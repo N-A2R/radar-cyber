@@ -35,7 +35,7 @@ import {
 	MOTS_ROLE,
 	nomDeLieu,
 } from "./generique.js";
-import { CarteIndexee, CarteLectureSeule, CartePremiersJetons, construireIndex } from "./index-compact.js";
+import { CarteIndexee, CarteLectureSeule, CartePremiersJetons, construireIndex, construireIndexTrie } from "./index-compact.js";
 
 export type GazetteerOrg = {
 	id: number;
@@ -382,11 +382,12 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 	}
 
 	const indexAlias = construireIndex(aliasCles, aliasIds);
-	const tokenCles: string[] = [];
+	const tokenClesTriees = [...orgsParToken.keys()].sort();
+	const tokenClesParId: string[] = [];
 	const tokenIds: number[] = [];
-	for (const [jeton, ids] of orgsParToken) {
-		for (const id of ids) {
-			tokenCles.push(jeton);
+	for (const jeton of tokenClesTriees) {
+		for (const id of orgsParToken.get(jeton) as number[]) {
+			tokenClesParId.push(jeton);
 			tokenIds.push(id);
 		}
 	}
@@ -398,7 +399,7 @@ export function buildGazetteer(rows: readonly GazetteerRow[]): Gazetteer {
 		lieuTokens,
 		roleTokens,
 		maxTokens,
-		orgsByToken: new CarteIndexee(construireIndex(tokenCles, tokenIds), (ids) => new Set<number>(ids)),
+		orgsByToken: new CarteIndexee(construireIndexTrie(tokenClesParId, tokenIds), (ids) => new Set<number>(ids)),
 		orgsById: orgs,
 		curatedOrgsByAliasKey: new CarteIndexee(construireIndex(cureCles, cureIds), (ids) => new Set<number>(ids)),
 	};

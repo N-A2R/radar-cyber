@@ -25,7 +25,7 @@ import {
 	type RelevanceOrg,
 } from "./relevance.js";
 import { estTexteFrancais, porteeRegionale } from "../match/territorial.js";
-import { isActionableIndicator, loadActiveIndex, type ActiveIndex } from "./filter.js";
+import { configuredLanguages, isActionableIndicator, languageVerdict, loadActiveIndex, type ActiveIndex } from "./filter.js";
 import { filterIndicators } from "./warninglist.js";
 import { classifyFamily, isFamily } from "./classify.js";
 import { AdmissionTally, admitEvent } from "../contract/admit.js";
@@ -38,6 +38,7 @@ import { parseJsonLd } from "./parsers/jsonld.js";
 import { parseHtmlArticles } from "./parsers/article.js";
 import { parseJsonItems as parseJsonItemsNew } from "./parsers/json.js";
 import { parseEmbeddedJson } from "./parsers/embedded-json.js";
+import { parseSource, type SourceFormat } from "./parsers/formats.js";
 import { parseLandingNotice } from "./parsers/landing.js";
 import { constaterTransition } from "./reveil.js";
 import { libelleMotif, versEvidence, type ExplicationRattachement } from "../journal/rattachement.js";
@@ -256,6 +257,15 @@ export type DetectionStrategy =
   | "landing-notice"
   | "none";
 
+const STRATEGY_BY_FORMAT: Record<SourceFormat, DetectionStrategy> = {
+  rss2: "rss-2",
+  atom: "atom",
+  jsonld: "json-ld",
+  html: "html-article",
+  json: "json-nested-array",
+  unknown: "none",
+};
+
 export type DetectionResult = {
   strategy: DetectionStrategy;
   items: Record<string, unknown>[];
@@ -372,7 +382,14 @@ function parseHtmlLinks(body: string): { items: Record<string, unknown>[]; path:
 export function detectItems(body: string, contentType: string | null): DetectionResult {
   const text = body.trim();
   const declared = (contentType ?? "").toLowerCase();
-  if (!text) return { strategy: "none", items: [], path: null };
+  const parsed = parseSource(text, { contentType: declared });
+  if (parsed.items.length > 0) {
+    return {
+      strategy: STRATEGY_BY_FORMAT[parsed.format],
+      items: parsed.items.map((item) => ({ ...item })),
+      path: parsed.path || null,
+    };
+  }
 
   const jsonLd = parseJsonLd(text);
   if (jsonLd) return { strategy: "json-ld", items: jsonLd, path: "@graph" };
@@ -603,7 +620,31 @@ function isMenuEntry(title: string, sourceName: string): "menu_path" | "menu_tok
   return null;
 }
 
-function parseNarrativeItems(body: string, parser: Record<string, unknown>, declaredFormat: string): Record<string, unknown>[] {
+/**
+ * Extraction content-first, puis fusion avec l'ancien chemin : les champs
+ * spécifiques déclarés dans `source.parser` (`aliases`, `cveID`…) restent
+ * accessibles au contrat d'admission, les cinq champs canoniques sont écrits
+ * par-dessus. Quand les deux lectures ne s'alignent pas, la lecture structurée
+ * gagne : elle ne ramène pas les menus d'une page comme le faisait `html-links`.
+ */
+export function parseNarrativeItems(body: string, parser: Record<string, unknown>, declaredFormat: string): Record<string, unknown>[] {
+  const parsed = parseSource(body, {
+    itemsPath: typeof parser.itemsPath === "string" ? parser.itemsPath : undefined,
+  });
+  if (parsed.items.length === 0) return legacyNarrativeItems(body, parser, declaredFormat);
+  // Sans champ déclaré dans `parser`, refaire l'ancienne lecture ne servirait
+  // qu'à doubler le coût d'un flux de plusieurs Mo.
+  if (!Object.keys(parser).some((key) => key !== "itemsPath")) {
+    return parsed.items.map((item) => ({ ...item }));
+  }
+  const legacy = legacyNarrativeItems(body, parser, declaredFormat);
+  return parsed.items.map((item, i) => {
+    const original = legacy.length === parsed.items.length ? legacy[i] : undefined;
+    return original ? { ...original, ...item } : { ...item };
+  });
+}
+
+function legacyNarrativeItems(body: string, parser: Record<string, unknown>, declaredFormat: string): Record<string, unknown>[] {
   const trimmed = body.trimStart();
   const looksFeed = /^<\?xml|^<(?:rss|feed|rdf:RDF)\b|^<rdf:RDF\b/i.test(trimmed) || /<(?:[\w.-]+:)?(?:item|entry)[\s>]/i.test(trimmed.slice(0, 20000));
   const looksJson = trimmed.startsWith("{") || trimmed.startsWith("[");
@@ -688,6 +729,7 @@ async function ingestNarrative(
   // Porte de pertinence : un flux de presse généraliste livre sa une, pas de
   // la cyber. Seules les sources `strict` (déjà cyber) passent sans filtre.
   const gate = source.relevance !== "strict";
+  const allowedLanguages = configuredLanguages();
   // L'hôte du flux est exclu du matching d'entités (voir relevance.ts).
   let sourceHost = "";
   try {
@@ -720,6 +762,13 @@ async function ingestNarrative(
     const title = decodeEntities(explicitOr(item, parser.titleField, TITLE_FIELDS)).slice(0, 400);
     const summary = decodeEntities(explicitOr(item, parser.summaryField, SUMMARY_FIELDS)).slice(0, 2000);
     if (!title) continue;
+    const langue = languageVerdict(title, summary, allowedLanguages);
+    if (!langue.keep) {
+      const motif = `langue_${langue.language}`;
+      rejectedBy[motif] = (rejectedBy[motif] ?? 0) + 1;
+      skipped++;
+      continue;
+    }
     if (menuFilter) {
       const reason = isMenuEntry(title, source.name);
       if (reason) {
@@ -848,9 +897,9 @@ async function ingestNarrative(
     }
     const event = admitted.event;
     const r = await ingestQuery<{ inserted: boolean }>(
-      `INSERT INTO event (dedup_key, family, assertion_type, title, summary, org_id, observed_at, valid_at, at, date_source, date_confidence, severity, confidence,
+      `INSERT INTO event (dedup_key, family, assertion_type, title, summary, langue, org_id, observed_at, valid_at, at, date_source, date_confidence, severity, confidence,
         source_id, source_url, evidence, geo_type, admission_rule, regional, regional_motif, fingerprint)
-       VALUES ($1,$2,$13,$3,$10,$11,$4,$20,$21,$5,$6,$14,$15,$7,$8,$9,$16,$12,$17,$18,$19)
+       VALUES ($1,$2,$13,$3,$10,$22,$11,$4,$20,$21,$5,$6,$14,$15,$7,$8,$9,$16,$12,$17,$18,$19)
        ON CONFLICT (fingerprint) WHERE fingerprint IS NOT NULL DO NOTHING
        RETURNING (xmax = 0) AS inserted`,
       [event.dedupKey, event.family, event.title, event.observedAt ?? null, parsed.source, parsed.confidence,
@@ -858,7 +907,7 @@ async function ingestNarrative(
         event.assertionType, event.severity, event.confidence ?? "C3", event.geoType,
         portee.regional, portee.motif, fingerprint,
         // valid_at : la date de l'article ; at : le moment où on l'a lu.
-        event.observedAt ?? fetchedAt.toISOString(), fetchedAt.toISOString()]
+        event.observedAt ?? fetchedAt.toISOString(), fetchedAt.toISOString(), langue.language]
     );
     if (r.rows[0]?.inserted) added++;
     faits.push({
@@ -940,14 +989,14 @@ function looksLikeBlocklist(url: string, body?: string): boolean {
   return /blocklist|blacklist|hostfile|feed-osint/i.test(url);
 }
 
-async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], coverage: CoverageContext): Promise<void> {
+async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], coverage: CoverageContext, force = false): Promise<void> {
   // Une source qui n'a jamais réussi (last_ok_at NULL) ne doit pas être
   // retentée à chaque tick : le dernier échec sert de référence.
   const lastOk = source.last_ok_at ? Date.parse(source.last_ok_at) : NaN;
   const lastAttempt = source.last_error_at ? Date.parse(source.last_error_at) : NaN;
   const reference = Number.isNaN(lastOk) ? lastAttempt : lastOk;
   const minInterval = (source.interval_sec ?? 3600) * 1000 * 0.8;
-  if (!Number.isNaN(reference) && Date.now() - reference < minInterval) return;
+  if (!force && !Number.isNaN(reference) && Date.now() - reference < minInterval) return;
 
   try {
     const body = await fetchText(source.url);
@@ -1030,7 +1079,7 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], covera
 
 export async function runGenericSources(
 	log: (msg: string) => void,
-	opts?: { sourceIds?: string[]; limit?: number },
+	opts?: { sourceIds?: string[]; limit?: number; force?: boolean },
 ): Promise<void> {
 	// Les sources ci-dessous ont un collecteur dédié (collectors/index.ts) :
 	// le moteur générique ne doit pas tenter de les parser comme des flux.
@@ -1075,7 +1124,7 @@ export async function runGenericSources(
   const workers = Array.from({ length: CONCURRENCY }, async () => {
     while (index < rows.length) {
       const source = rows[index++];
-      await processSource(source, orgIndex, coverage);
+      await processSource(source, orgIndex, coverage, opts?.force === true);
     }
   });
   await Promise.all(workers);

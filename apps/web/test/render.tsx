@@ -97,6 +97,12 @@ check("palette fermée ne rend rien", renderToStaticMarkup(
 // --- la vue « revue » est une URL partageable --------------------------------
 check("URL : la vue revue est reconnue", parseHash("#/review").view === "review");
 check("URL : la vue revue survit à un aller-retour", parseHash(toHash({ ...parseHash("#/review"), view: "review" })).view === "review");
+const revueHash = "#/review?bucket=tiede&q=acme";
+const revueState = parseHash(revueHash);
+check("URL revue : bucket et q relus", revueState.review.bucket === "tiede" && revueState.review.q === "acme");
+check("URL revue : bucket et q sérialisés", toHash({ ...revueState, view: "review" }) === revueHash,
+	toHash({ ...revueState, view: "review" }));
+check("URL revue : bucket invalide neutralisé", parseHash("#/review?bucket=nimportequoi").review.bucket === "");
 
 // --- clavier de la file de revue (fonction pure) ---------------------------
 const keyBase: ReviewKeyState = { count: 5, active: 2, selected: new Set(), ids: [10, 11, 12, 13, 14], rejecting: false };
