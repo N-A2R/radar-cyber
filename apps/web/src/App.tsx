@@ -12,7 +12,7 @@ const Inspector = lazy(() => import("./components/Inspector"));
 const OrgSheet = lazy(() => import("./components/OrgSheet"));
 const DirectoryView = lazy(() => import("./components/DirectoryView"));
 const CommandPalette = lazy(() => import("./components/CommandPalette"));
-const LiveAlerts = lazy(() => import("./components/LiveAlerts"));
+import LiveAlerts, { addLiveAlert, connectLiveAlerts } from "./components/LiveAlerts";
 const ReviewView = lazy(() => import("./components/ReviewView"));
 const JournalView = lazy(() => import("./components/JournalView"));
 const DossierView = lazy(() => import("./components/DossierView"));
@@ -190,23 +190,11 @@ export default function App() {
     if (!token) return;
     // `EventSource` ne peut pas poser d'en-tête : le jeton passe en query,
     // accepté par la seule route /api/stream côté serveur.
-    const streamToken = getAuthToken();
-    const stream = new EventSource(
-      streamToken ? `/api/stream?token=${encodeURIComponent(streamToken)}` : "/api/stream"
-    );
-    stream.onopen = () => setConnected(true);
-    stream.onerror = () => setConnected(false);
-    stream.addEventListener("alert", (raw) => {
-      setConnected(true);
-      try {
-        const alert = JSON.parse((raw as MessageEvent).data) as LiveAlert;
-        setLiveAlerts((prev) => [alert, ...prev.filter((a) => a.id !== alert.id)].slice(0, LIVE_ALERT_LIMIT));
-        setUnseenAlerts((n) => n + 1);
-        setAlertSignal((n) => n + 1);
-      } catch {
-        // charge utile illisible : on ignore sans casser le flux
-      }
-    });
+    const stream = connectLiveAlerts({ token: getAuthToken(), onConnection: setConnected, onAlert: (a) => {
+      setLiveAlerts((prev) => addLiveAlert(prev, a, LIVE_ALERT_LIMIT));
+      setUnseenAlerts((n) => n + 1);
+      setAlertSignal((n) => n + 1);
+    } });
     stream.addEventListener("new", (raw) => {
       setConnected(true);
       try {
@@ -242,7 +230,7 @@ export default function App() {
         // Charge utile illisible : on ignore le message plutôt que de casser le flux.
       }
     });
-    return () => stream.close();
+    return stream.close;
   }, [token, portee]);
 
   // Les arcs réels (org → hébergement) sont rares ; à défaut on affiche les
