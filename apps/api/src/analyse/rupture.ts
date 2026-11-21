@@ -7,6 +7,7 @@
  * porte son justification.
  */
 
+import { ALERT_SCOPE_RUPTURE_REVUE } from "../alert-scope.js";
 import { mediane } from "./mediane.js";
 import { consignerLot, type JournalEntry } from "../journal/index.js";
 
@@ -326,7 +327,7 @@ function severiteDe(score: number): number {
  * analyste n'est jamais rouverte par un passage (le statut ne se touche pas
  * ici). Chaque écriture est consignée comme `alert.changed` — un fait par
  * alerte, hors transaction : une lacune de journal ne doit pas perdre une
- * alerte de revue.
+ * alerte de revue (type dédié, exclu de la diffusion).
  */
 export async function capterAlertesRupture(maintenant: number = Date.now()): Promise<ResultatRuptures> {
 	const alertes = await detecterRupturesDepuisBase(maintenant);
@@ -339,8 +340,8 @@ export async function capterAlertesRupture(maintenant: number = Date.now()): Pro
 	for (const a of alertes) {
 		const ins = await ingestQuery<{ id: number; nouveau: boolean }>(
 			`INSERT INTO alert (rule_id, title, severity, org_id, evidence, scope)
-			 VALUES ($1, $2, $3, $4, $5, 'rupture')
-			 ON CONFLICT (rule_id, org_id) WHERE scope = 'rupture' AND org_id IS NOT NULL DO UPDATE
+			 VALUES ($1, $2, $3, $4, $5, $6)
+			 ON CONFLICT (rule_id, org_id) WHERE scope = $6 AND org_id IS NOT NULL DO UPDATE
 			   SET evidence = EXCLUDED.evidence, severity = EXCLUDED.severity, updated_at = now()
 			 RETURNING id, (xmax = 0) AS nouveau`,
 			[
@@ -349,6 +350,7 @@ export async function capterAlertesRupture(maintenant: number = Date.now()): Pro
 				severiteDe(a.score),
 				a.orgId,
 				JSON.stringify({ motif: a.motif, score: a.score, explication: a.explication, faits: a.faits }),
+				ALERT_SCOPE_RUPTURE_REVUE,
 			],
 		);
 		const ligne = ins.rows[0];
