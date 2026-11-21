@@ -47,7 +47,16 @@ const fiche: OrgDetail = {
   domains: ["chu-bordeaux.fr", "www.chu-bordeaux.fr"],
   relatedOrgs: liees,
   sourceCount: 7,
-  assets: { total: 0, byKind: [], recent: [] },
+  assets: {
+    total: 1,
+    byKind: [{ kind: "subdomain", n: 1 }],
+    recent: [{
+      value: "vpn.chu-bordeaux.fr",
+      kind: "subdomain",
+      firstSeen: "2026-10-05T10:00:00Z",
+      source: "certificate-transparency",
+    }],
+  },
   events: { total: 23, byFamily: [{ family: "phishing", n: 20 }], recent: evenements },
   claims: { total: 0, recent: [] },
   exposure: [],
@@ -72,6 +81,11 @@ check(
 );
 check("nombre de sources affiché", pret.includes(`>${fiche.sourceCount}<`));
 check("bouton de fermeture présent", pret.includes('aria-label="Fermer la fiche"'));
+check(
+  "actif et date de première observation (champ firstSeen de l'API)",
+  pret.includes("vpn.chu-bordeaux.fr") && pret.includes("05 oct. 2026")
+    && pret.includes("certificate-transparency") && pret.includes("sous-domaine"),
+);
 check("corps rendu depuis la réponse typée", renderToStaticMarkup(<OrgSheetBody data={fiche} />).length > 0);
 
 const vide: OrgDetail = {
@@ -80,17 +94,21 @@ const vide: OrgDetail = {
   domains: [],
   relatedOrgs: [],
   sourceCount: 0,
+  assets: { total: 0, byKind: [], recent: [] },
   events: { total: 0, byFamily: [], recent: [] },
 };
 const htmlVide = renderToStaticMarkup(
   <OrgSheetContenu state={{ status: "ready", data: vide }} onClose={() => {}} />,
 );
+const manquantsVides = ["aucun alias connu", "aucun domaine connu", "aucune organisation liée", "aucune source", "aucun événement rattaché", "aucun actif découvert"]
+  .filter((message) => !htmlVide.includes(message));
+check("états vides explicites", manquantsVides.length === 0, manquantsVides.join(", "));
 check(
-  "états vides explicites",
-  ["aucun alias connu", "aucun domaine connu", "aucune organisation liée", "aucune source", "aucun événement rattaché"]
-    .every((message) => htmlVide.includes(message)),
+  "état vide : aucune donnée inventée",
+  !htmlVide.includes("Signal 01") && !htmlVide.includes(">7<") && !htmlVide.includes("vpn.chu-bordeaux.fr"),
+  [htmlVide.includes("Signal 01") && "Signal 01", htmlVide.includes(">7<") && ">7<",
+    htmlVide.includes("vpn.chu-bordeaux.fr") && "actif"].filter(Boolean).join(", "),
 );
-check("état vide : aucune donnée inventée", !htmlVide.includes("Signal 01") && !htmlVide.includes(">7<"));
 
 const erreur = renderToStaticMarkup(
   <OrgSheetContenu state={{ status: "error", message: "/api/orgs/42 → 500" }} onClose={() => {}} />,
