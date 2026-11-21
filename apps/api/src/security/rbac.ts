@@ -61,6 +61,7 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/stats/departements", niveau: "public" },
   { methode: "GET", route: "/api/sources", niveau: "public" },
   { methode: "GET", route: "/api/directory", niveau: "public" },
+  { methode: "GET", route: "/api/public-mandates", niveau: "public" },
   { methode: "GET", route: "/api/graph", niveau: "public" },
   { methode: "GET", route: "/api/graph/temporal", niveau: "public", motif: "observatoire : lecture du graphe temporel" },
   { methode: "GET", route: "/api/stream", niveau: "public" },
