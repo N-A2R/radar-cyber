@@ -1,0 +1,51 @@
+{
+ "dateMesure": "2026-11-21",
+ "plan": "docs/plans/mission-vague3-longue.md — Task 4",
+ "source": "docs/rapport-nuit-na-2026-11-21.md §4 — 4 propositions ≥ 0,5 en attente de revue",
+ "decisions": [
+  {
+   "claim": "groupe-alternance.com (thegentlemen, 2026-11-12)",
+   "proposition": "GROUPE ALTERNANCE (422363, 17) @ 0.75",
+   "verdict": "JUSTE — promue",
+   "preuve": {
+    "registre": "811756584 GROUPE ALTERNANCE, ROCHEFORT 17, état A, APE 70.10Z",
+    "site": "https://groupe-alternance.com HTTP 200, titre « Groupe Alternance : École supérieure en alternance : + de 70 campus en France »",
+    "revendication": "« Groupe Alternance is a French private education group »"
+   }
+  },
+  {
+   "claim": "amarok.com (chaos, 2026-11-16)",
+   "proposition": "AMAROK (650238, 79) @ 0.7",
+   "verdict": "FAUX — rejetée",
+   "preuve": {
+    "registre": "942467440 AMAROK, ARDIN 79, APE 68.20B (location de biens immobiliers)",
+    "revendication": "« AMAROK specializes in integrated commercial electric fencing solutions » — société américaine, homonyme de nom"
+   }
+  },
+  {
+   "claim": "chevron.com (ShadowByt3$, 2026-11-16)",
+   "proposition": "SCI CHEVRON (162264, 24)",
+   "verdict": "FAUX — rejetée",
+   "preuve": {
+    "registre": "408976173 SCI CHEVRON, MONTPON-MENESTEROL 24, APE 68.20B",
+    "revendication": "chevron.com = Chevron Corporation (États-Unis) — homonyme"
+   }
+  },
+  {
+   "claim": "harbingerconcrete.build (SoulGroup, 2026-11-19)",
+   "proposition": "BUILD (416185, 33) @ 0.7",
+   "verdict": "FAUX — rejetée",
+   "preuve": {
+    "registre": "809316680 BUILD, MERIGNAC 33, APE 68.20B",
+    "revendication": "« Wichita, Kansas City and other areas of Kansas. Revenue: $2.9 million » — entrepreneur béton américain ; le jeton « build » vient du TLD du hint"
+   }
+  }
+ ],
+ "journalisation": "4 entrées review.decided (actor humain:mission-vague3) + 1 promotion (quarantine_raw 80921) + 3 rejets (257871, 257901, 290134)",
+ "regleProposee": {
+  "defaut": "le jeton du TLD d'un hint en forme de domaine peut matcher une org courte (harbingerconcrete.build → « build » → BUILD) ; l'exclusion du TLD existe pour hintDomain (promote.ts:253, slice(0,-1)) mais pas pour les jetons du texte du hint (promote.ts:269, hintNorm.split)",
+  "regle": "quand le hint est un domaine (la regex domaine de départ le détecte), exclure le dernier label des hintTokens — même règle que les étiquettes de domaine",
+  "pourquoiCaNeCassePasLesValides": "les rattachements valides passent par la racine du domaine (« groupe-alternance » → {groupe, alternance}) ou par le texte hors TLD ; vérifié sur les 4 propositions : GROUPE ALTERNANCE garde ses jetons, les 3 homonymes perdent le jeton-TLD",
+  "statut": "proposé, non implémenté — la revue humaine reste la porte (décision de la nuit : « l'identité réelle se vérifie en revue, pas en automatique »)"
+ }
+}
