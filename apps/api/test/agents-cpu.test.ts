@@ -98,22 +98,44 @@ async function makeEvent(opts: {
 	return id;
 }
 
-test("l'organisation surgissante se lit en base avec ses trois faits", async () => {
+test("l'organisation surgissante se lit en base avec son histoire et deux sources", async () => {
 	const maintenant = Date.now();
-	const source = await makeSource(true);
+	const sourceA = await makeSource(true);
+	const sourceB = await makeSource(true);
 	const org = await makeOrg();
 	const control = await makeOrg();
-	const faits = await Promise.all([1, 3, 6].map((j) => makeEvent({ sourceId: source, orgId: org, joursAvant: j, maintenant })));
-	// Une présence ancienne ne contredit pas l'absence des 90 j précédents.
-	await makeEvent({ sourceId: source, orgId: org, joursAvant: 120, maintenant });
-	await Promise.all([2, 5].map((j) => makeEvent({ sourceId: source, orgId: control, joursAvant: j, maintenant })));
+	const faits = [
+		await makeEvent({ sourceId: sourceA, orgId: org, joursAvant: 1, maintenant }),
+		await makeEvent({ sourceId: sourceB, orgId: org, joursAvant: 3, maintenant }),
+		await makeEvent({ sourceId: sourceA, orgId: org, joursAvant: 6, maintenant }),
+	];
+	// Un fait ancien prouve que l'organisation était déjà suivie avant le silence.
+	await makeEvent({ sourceId: sourceB, orgId: org, joursAvant: 120, maintenant });
+	await Promise.all([2, 5].map((j) => makeEvent({ sourceId: sourceA, orgId: control, joursAvant: j, maintenant })));
 
 	const alertes = await detecterAgentsCpuDepuisBase(maintenant);
 	const trouvee = alertes.find((a) => a.agent === "organisation-surgissante" && a.orgId === org);
-	assert.ok(trouvee, "l'organisation à trois apparitions doit alerter");
+	assert.ok(trouvee, "l'organisation déjà vue et corroborée doit alerter");
 	assert.deepEqual(trouvee.faits.sort((a, b) => a - b), faits.sort((a, b) => a - b));
 	assert.equal(trouvee.severity, severiteDeScore(trouvee.score));
+	assert.equal(trouvee.evidence.sourcesDistinctes, 2);
+	assert.equal(trouvee.evidence.evenementsAnciens, 1);
 	assert.ok(!alertes.some((a) => a.orgId === control), "deux faits ne suffisent pas");
+});
+
+test("une organisation nouvelle au référentiel ne déclenche pas d'alerte CPU", async () => {
+	const maintenant = Date.now();
+	const sourceA = await makeSource(true);
+	const sourceB = await makeSource(true);
+	const org = await makeOrg();
+	// Quatre faits récents sur deux sources, mais aucun fait antérieur : c'est
+	// une arrivée dans le référentiel, pas une rupture.
+	for (const [j, source] of [[1, sourceA], [3, sourceB], [5, sourceA], [6, sourceB]] as const) {
+		await makeEvent({ sourceId: source, orgId: org, joursAvant: j, maintenant });
+	}
+
+	const alertes = await detecterAgentsCpuDepuisBase(maintenant);
+	assert.ok(!alertes.some((a) => a.agent === "organisation-surgissante" && a.orgId === org));
 });
 
 test("la bascule sectorielle se lit en base, même sans organisation sur l'alerte", async () => {
@@ -162,11 +184,13 @@ test("la source muette se lit en base ; une source désactivée est exclue", asy
 test("la revue persiste les trois agents, déduplique et ne rouvre pas une alerte traitée", async () => {
 	const maintenant = Date.now();
 	const source = await makeSource(true);
-	const sourceOrg = await makeSource(true);
+	const sourceOrgA = await makeSource(true);
+	const sourceOrgB = await makeSource(true);
 	const org = await makeOrg();
-	for (const j of [1, 3, 6]) {
-		await makeEvent({ sourceId: sourceOrg, orgId: org, joursAvant: j, maintenant });
+	for (const [j, source] of [[1, sourceOrgA], [3, sourceOrgB], [6, sourceOrgA]] as const) {
+		await makeEvent({ sourceId: source, orgId: org, joursAvant: j, maintenant });
 	}
+	await makeEvent({ sourceId: sourceOrgB, orgId: org, joursAvant: 120, maintenant });
 	for (const j of [4, 5, 6, 7, 8, 9, 10]) {
 		await makeEvent({ sourceId: source, joursAvant: j, maintenant, family: "cti" });
 	}

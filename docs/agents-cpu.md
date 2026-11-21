@@ -10,7 +10,7 @@ simulation de leurs seuils.
 
 | Agent | Règle observée | Garde-fou |
 | --- | --- | --- |
-| `organisation-surgissante` | au moins 3 événements d'une organisation dans les 7 j, aucun dans les 90 j qui précèdent | dates invalides ignorées ; les 90 j d'absence jouxtent la fenêtre récente, ils ne la recouvrent pas |
+| `organisation-surgissante` | au moins 3 événements dans les 7 j, aucun dans les 90 j qui précèdent, **au moins 1 fait antérieur à ce silence** et **2 sources distinctes** | dates invalides/futures ignorées ; un fait ancien prouve que l'org était déjà suivie, deux sources écartent une revendication unique répétée |
 | `bascule-secteur` | z-score binomial par secteur, 7 j contre les 90 j précédents ; le secteur porteur a le plus grand \|z\| significatif | effectifs ≥ 10 dans chaque fenêtre, ≥ 3 faits dans le secteur porteur, lissage add-one (attendu jamais nul), z négatif = disparition |
 | `source-muette` | une source active a produit chaque jour des 7 j précédant le silence, puis rien depuis au moins 3 j | source désactivée exclue, historique vide jamais condamné, une case par tranche de 24 h glissante |
 
@@ -126,6 +126,71 @@ DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
 Le rejeu sur base courante se reproduit avec la même commande, en remplaçant
 le `--json` par `bench/results/agents-cpu-fausses-alertes-2026-11-21-rejeu.json`.
 
+### Refonte du détecteur d'organisation — mesure du 21 novembre 2026
+
+**Ancien signal** : 100 % de fausses alertes, 8/8 classables (rejeu ci-dessus).
+Les huit organisations étaient **nouvelles au référentiel** : aucun fait
+antérieur au silence, donc le test « 90 j sans événement » ne distinguait pas
+une organisation qui se tait d'une organisation que le référentiel vient
+d'ajouter. Deux d'entre elles avaient même deux sources, ce qui ne suffit pas.
+
+**Nouveau signal** : les mêmes 32 instants, les mêmes données, mais il faut en
+plus (a) au moins un fait **antérieur** au silence de 90 j et (b) au moins deux
+**sources distinctes** dans la fenêtre récente. Mesure :
+
+| Signal | Alertes émises | Dont fausses | Taux de fausses alertes |
+| --- | ---: | ---: | --- |
+| ancien | 8 | 8 | **100 %** (8/8) |
+| nouveau | 0 | 0 | **non calculable (0/0)** |
+
+Le nouveau signal ne tire aucune alerte sur cette base : ce n'est pas un taux
+de 0 %, c'est l'absence d'observation. Les huit anciennes alertes sont toutes
+rejetées — **0/8 survivent**, soit 0 % des fausses alertes précédentes — parce
+qu'aucune de leurs organisations n'a de fait antérieur au 97e jour. La seule
+organisation de la base qui en a un (id 378660, `cert-fr-alerte`, 2025-08-05)
+n'a aucun fait récent.
+
+Requête de survie (exécutée sur `5433`, résultat : `survivantes = 0`,
+`sans_historique = 8`, `multi_sources = 2`) :
+
+```sql
+WITH anciennes(org_id, instant) AS (VALUES
+ (1994804,'2026-11-21 23:59:59Z'::timestamptz),(1994805,'2026-11-21 23:59:59Z'::timestamptz),
+ (1994806,'2026-11-21 23:59:59Z'::timestamptz),(1994807,'2026-11-21 23:59:59Z'::timestamptz),
+ (1994884,'2026-11-21 23:59:59Z'::timestamptz),(34354,'2026-11-19 23:59:59Z'::timestamptz),
+ (2190093,'2026-11-18 23:59:59Z'::timestamptz),(2423939,'2026-11-18 23:59:59Z'::timestamptz)),
+features AS (
+ SELECT a.org_id, a.instant,
+  count(*) FILTER (WHERE e.observed_at < a.instant - interval '97 days') AS anciens,
+  count(*) FILTER (WHERE e.observed_at >= a.instant - interval '7 days' AND e.observed_at <= a.instant) AS recents,
+  count(DISTINCT e.source_id) FILTER (WHERE e.observed_at >= a.instant - interval '7 days' AND e.observed_at <= a.instant) AS sources
+ FROM anciennes a JOIN event e ON e.org_id=a.org_id AND e.observed_at <= a.instant
+ GROUP BY 1,2)
+SELECT count(*) AS anciennes_alertes,
+       count(*) FILTER (WHERE anciens>=1 AND recents>=3 AND sources>=2) AS survivantes,
+       count(*) FILTER (WHERE anciens=0) AS sans_historique,
+       count(*) FILTER (WHERE sources>=2) AS multi_sources
+FROM features;
+```
+
+Reproduction du nouveau taux :
+
+```bash
+DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
+  apps/api/node_modules/.bin/tsx scripts/mesure-agents-cpu.mts \
+  --json=bench/results/agents-cpu-fausses-alertes-2026-11-21-refonte.json
+```
+
+**Verdict.** Le 100 % est corrigé au sens strict : plus aucune fausse alerte
+n'est émise. Mais le signal est **muet** sur la base réelle — le référentiel n'a
+pratiquement aucun historique d'événements antérieur à 97 j (un seul fait). On ne
+peut donc pas démontrer sa précision, seulement son silence. Le seuil de 50 %
+n'est pas atteint puisqu'il n'y a rien à classer. Recommandation : le garder
+branché en revue uniquement (jamais diffusé) tant que le référentiel n'a pas
+d'historique, et **le débrancher de la revue** si le produit exige un signal
+utile immédiat ; un détecteur qui ne peut pas tirer n'apporte rien à l'analyste.
+Les tests purs prouvent qu'il tire sur une vraie rupture synthétique.
+
 ## Cas d'erreur, états vides et invariants vérifiés
 
 - base sans fait dans les fenêtres : `[]`, `capterAgentsCpu()` rend
@@ -152,10 +217,10 @@ Tests : `apps/api/test/agent-rupture-org.test.ts`,
 - la résolution exacte des alias laisse 6 incidents sur 10 non résolus dans la
   fenêtre : les alertes concernant ces organisations ne peuvent pas être
   déclarées vraies, même si un incident réel existait derrière ;
-- les seuils n'ont pas été ajustés après mesure : le 100 % de fausses alertes
-  de l'agent d'organisation est publié tel quel. Le corriger demanderait une
-  exigence de corroboration (sources distinctes, fait confirmé) — un changement
-  de règle, pas un réglage de chiffre.
+- l'agent d'organisation exige maintenant un fait antérieur au silence (preuve
+  d'histoire) et deux sources distinctes. Ce n'est pas un réglage de chiffre :
+  la règle a changé après la mesure du 100 %, et le nouveau taux — non
+  calculable faute d'alertes — est publié tel quel ci-dessus.
 
 ---
 

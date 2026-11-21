@@ -112,18 +112,26 @@ export async function detecterAgentsCpuDepuisBase(
 	const debut97 = new Date(maintenant - (JOURS_SECTEUR + FENETRE_REFERENCE_JOURS) * JOUR_MS).toISOString();
 	const alertes: AlerteAgentCpu[] = [];
 
-	// 1. Organisation absente puis surgissante. Une seule requête sur la
-	//    fenêtre jointe : le détecteur pur trie les deux sous-fenêtres.
-	const evenementsOrg = await query<{ id: string; orgId: number; date: string }>(
-		`SELECT e.id::text AS id, e.org_id AS "orgId", e.observed_at::text AS date
+	// 1. Organisation déjà vue puis surgissante. Le détecteur pur trie les
+	//    trois zones : fait ancien (preuve d'histoire), silence de 90 j,
+	//    réapparition corroborée par plusieurs sources. Aucune borne basse sur
+	//    les dates : un fait ancien peut être très loin dans le passé, et il
+	//    n'y a que 109 événements rattachés à une organisation dans la base.
+	const evenementsOrg = await query<{ id: string; orgId: number; date: string; sourceId: string }>(
+		`SELECT e.id::text AS id, e.org_id AS "orgId", e.observed_at::text AS date,
+		        e.source_id AS "sourceId"
 		   FROM event e
 		  WHERE e.org_id IS NOT NULL
-		    AND e.observed_at >= $1::timestamptz
-		    AND e.observed_at <= $2::timestamptz`,
-		[debut97, fin],
+		    AND e.observed_at <= $1::timestamptz`,
+		[fin],
 	);
 	for (const a of detecterRupturesOrg(
-		evenementsOrg.rows.map((e) => ({ id: e.id, orgId: Number(e.orgId), date: e.date })),
+		evenementsOrg.rows.map((e) => ({
+			id: e.id,
+			orgId: Number(e.orgId),
+			date: e.date,
+			sourceId: e.sourceId,
+		})),
 		maintenant,
 	)) {
 		const faits = idsFinis(a.evenementsDeclencheurs.map((e) => e.id));
@@ -131,12 +139,17 @@ export async function detecterAgentsCpuDepuisBase(
 		alertes.push(alerte(
 			AGENT_ORGANISATION_SURGISSANTE,
 			`${AGENT_ORGANISATION_SURGISSANTE}:${a.orgId}`,
-			`${n} apparitions en ${JOURS_ORG} j après ${FENETRE_ABSENCE_JOURS} j d'absence`,
+			`${n} apparitions en ${JOURS_ORG} j après ${FENETRE_ABSENCE_JOURS} j d'absence (${a.sourcesDistinctes} sources, ${a.evenementsAnciens} faits antérieurs)`,
 			Math.min(1, n / 5),
 			a.orgId,
 			faits,
-			`organisation ${a.orgId} : ${n} faits récents, aucun sur les ${FENETRE_ABSENCE_JOURS} j précédents`,
-			{ orgId: a.orgId, apparitions: n },
+			`organisation ${a.orgId} : ${n} faits récents sur ${a.sourcesDistinctes} sources, aucun sur les ${FENETRE_ABSENCE_JOURS} j précédents, ${a.evenementsAnciens} fait(s) antérieur(s)`,
+			{
+				orgId: a.orgId,
+				apparitions: n,
+				sourcesDistinctes: a.sourcesDistinctes,
+				evenementsAnciens: a.evenementsAnciens,
+			},
 		));
 	}
 

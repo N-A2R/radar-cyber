@@ -33,7 +33,9 @@ import { detecterAgentsCpuDepuisBase } from "../apps/api/src/analyse/agents-cpu.
 import {
 	FENETRE_ABSENCE_JOURS,
 	FENETRE_RECENTE_JOURS as JOURS_ORG,
+	HISTORIQUE_ANCIEN_MIN,
 	SEUIL_EVENEMENTS_RECENTS,
+	SOURCES_DISTINCTES_MIN,
 } from "../apps/api/src/analyse/agent-rupture-org.js";
 import {
 	EFFECTIF_MIN,
@@ -407,7 +409,7 @@ async function main(): Promise<void> {
 	console.log("Mesure du taux de fausses alertes — agents CPU (chantier 4)");
 	console.log(`Fenêtre ${FENETRE.debut} → ${FENETRE.fin} · rejeu tous les ${PAS_REJEU_JOURS} j (${rejeux} instants, calés depuis la fin)`);
 	console.log(`Vérité terrain : ${veriteTerrain.size} organisation(s) du corpus résolue(s), ${incidentsNonResolus} incident(s) non résolu(s) · corpus couvert jusqu'au ${new Date(maxDateCorpus).toISOString().slice(0, 10)}`);
-	console.log(`Seuils : organisation ${SEUIL_EVENEMENTS_RECENTS} faits/${JOURS_ORG} j après ${FENETRE_ABSENCE_JOURS} j · secteur |z|>${SEUIL_Z}, n≥${EFFECTIF_MIN}, ≥${OBSERVES_MIN_SECTEUR} faits · source ${SEUIL_SILENCE_JOURS} j de silence après ${FENETRE_CADENCE_JOURS} j de cadence\n`);
+	console.log(`Seuils : organisation ${SEUIL_EVENEMENTS_RECENTS} faits/${JOURS_ORG} j après ${FENETRE_ABSENCE_JOURS} j d'absence, ≥${HISTORIQUE_ANCIEN_MIN} fait antérieur et ${SOURCES_DISTINCTES_MIN} sources distinctes · secteur |z|>${SEUIL_Z}, n≥${EFFECTIF_MIN}, ≥${OBSERVES_MIN_SECTEUR} faits · source ${SEUIL_SILENCE_JOURS} j de silence après ${FENETRE_CADENCE_JOURS} j de cadence\n`);
 
 	for (const [agent, s] of parAgent) {
 		console.log(`  ${agent.padEnd(26)} émises ${String(s.emises).padStart(3)} · vraies ${String(s.vraies).padStart(3)} · fausses ${String(s.fausses).padStart(3)} · non classables ${String(s.nonClassables).padStart(3)} · taux ${s.taux === null ? "—" : `${s.taux} %`}`);
@@ -443,7 +445,7 @@ async function main(): Promise<void> {
 			rejeux,
 			toleranceJours: TOLERANCE_JOURS,
 			seuils: {
-				organisation: { evenements: SEUIL_EVENEMENTS_RECENTS, fenetreJours: JOURS_ORG, absenceJours: FENETRE_ABSENCE_JOURS },
+				organisation: { evenements: SEUIL_EVENEMENTS_RECENTS, fenetreJours: JOURS_ORG, absenceJours: FENETRE_ABSENCE_JOURS, historiqueAncienMin: HISTORIQUE_ANCIEN_MIN, sourcesDistinctesMin: SOURCES_DISTINCTES_MIN },
 				secteur: { z: SEUIL_Z, effectifMin: EFFECTIF_MIN, observesMin: OBSERVES_MIN_SECTEUR, fenetreJours: JOURS_SECTEUR, referenceJours: FENETRE_REFERENCE_JOURS },
 				source: { silenceJours: SEUIL_SILENCE_JOURS, cadenceJours: FENETRE_CADENCE_JOURS, horizonRepriseJours: HORIZON_REPRISE_JOURS },
 			},
