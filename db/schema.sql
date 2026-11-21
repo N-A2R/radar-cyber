@@ -52,6 +52,8 @@ CREATE TABLE IF NOT EXISTS event (
   title          text NOT NULL,
   summary        text,
   langue         text,                         -- fr | en ; NULL = antérieur à la migration 047
+  pertinence_score smallint,                   -- 0-10 ; NULL = antérieur à la migration 049
+  pertinence_rule  text,                       -- org | epss | dept ; NULL sinon
   observed_at    timestamptz,
   valid_at       timestamptz NOT NULL DEFAULT now(), -- quand le fait était vrai dans le monde
   at             timestamptz NOT NULL DEFAULT now(), -- quand le radar l'a appris

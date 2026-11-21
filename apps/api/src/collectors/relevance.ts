@@ -1,7 +1,12 @@
 // pertinence cyber pour les flux de presse généraliste
+// Le moteur de score et la configuration vivent dans pertinence.ts ; ce module
+// garde `isRelevant` comme porte historique et le rattachement d'organisations.
+import { evaluatePertinence } from "./pertinence.js";
+export { CYBER_KEYWORDS } from "./pertinence.js";
+import type { RelevanceConfig } from "./pertinence.js";
 import { ingestQuery } from "../db.js";
 import { getGazetteer } from "./org-gazetteer.js";
-import { buildGazetteer, designateUneOrganisation, normaliser, resoudre } from "../match/gazetteer.js";
+import { buildGazetteer, designateUneOrganisation, resoudre } from "../match/gazetteer.js";
 import { MOTS_GENERIQUES, MOTS_GENERIQUES_ENTREPRISE } from "../match/generique.js";
 import type { OrgRef } from "@radar/shared";
 import type { ExplicationRattachement } from "../journal/rattachement.js";
@@ -53,37 +58,6 @@ export interface RelevanceOrg {
   assets?: string[];
 }
 
-export const CYBER_KEYWORDS: string[] = [
-  "cyberattaque",
-  "cyber-attaque",
-  "ransomware",
-  "rançongiciel",
-  "fuite de données",
-  "violation de données",
-  "vulnérabilité",
-  "faille",
-  "CVE-",
-  "zero-day",
-  "phishing",
-  "hameçonnage",
-  "DDoS",
-  "ANSSI",
-  "CNIL",
-  "compromis",
-  "intrusion",
-  "piratage",
-  "rançon",
-  "données personnelles",
-  "sécurité informatique",
-  "maliciel",
-  "cheval de Troie",
-  "exfiltration",
-  "APT",
-  "botnet",
-  "serveur compromis",
-  "identifiants volés",
-  "revendication",
-];
 
 function normalize(s: string): string {
   return s
@@ -255,9 +229,6 @@ function normalizeOrgName(name: string): string {
   return n;
 }
 
-function stripAccents(s: string): string {
-  return s.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-}
 
 export function loadRelevanceOrgIndex(orgs: { name: string; slug?: string | null; domain?: string | null; assets?: string[] }[] = []): RelevanceOrg[] {
   return orgs.map((o) => ({
@@ -268,59 +239,36 @@ export function loadRelevanceOrgIndex(orgs: { name: string; slug?: string | null
   }));
 }
 
+/**
+ * Porte historique, conservée pour les appelants et les scripts d'audit.
+ * Elle délègue désormais au moteur de score : un texte ne passe plus parce
+ * qu'un mot ambigu (« menace », « attaque ») apparaît, et la configuration
+ * RADAR_CYBER_* s'applique partout.
+ */
 export function isRelevant(
   item: { title?: string | null; summary?: string | null; url?: string | null; sourceUrl?: string | null },
-  opts: { orgs: RelevanceOrg[]; ignoreDomains?: string[] },
-): { relevant: boolean; reason: "keyword" | "org" | "none"; match?: string } {
-  const haystack = [item.title, item.summary, item.url, item.sourceUrl]
-    .filter(Boolean)
-    .join(" ");
-  const hayNorm = normalize(haystack);
-  const hayNoAcc = stripAccents(haystack).toLowerCase();
-
-  // L'URL porte le nom du média (www.sudouest.fr → « sudouest ») : le matching
-  // d'entités se fait donc sur le TEXTE seul, sinon chaque article d'un média
-  // régional matche l'org « Sud Ouest » et passe la porte par sa propre URL.
-  const text = [item.title, item.summary].filter(Boolean).join(" ");
-  const textNorm = normalize(text);
-  const textLower = text.toLowerCase();
-
-  // mots-clés
-  for (const kw of CYBER_KEYWORDS) {
-    const kwNorm = normalize(kw);
-    const kwNoAcc = stripAccents(kw).toLowerCase();
-    if (hayNorm.includes(kwNorm) || hayNoAcc.includes(kwNoAcc)) {
-      return { relevant: true, reason: "keyword", match: kw };
-    }
-  }
-
-  // Entités org. `ignoreDomains` porte l'hôte du flux lui-même : sans ça, une
-  // org « Sud Ouest » fait matcher TOUS les articles de sudouest.fr par leur
-  // propre URL, et la porte de pertinence laisse passer la une entière.
-  const ignored = (opts.ignoreDomains ?? []).map((d) => d.toLowerCase().trim()).filter(Boolean);
-  const isSelfDomain = (dom: string): boolean =>
-    ignored.some((host) => host === dom || host.endsWith(`.${dom}`) || dom.endsWith(`.${host}`));
-
-  // entités org
-  for (const org of opts.orgs ?? []) {
-    const nameNorm = normalizeOrgName(org.name);
-    // Un nom de catégorie ne désigne personne : « une école primaire fermée »
-    // ouvrait la porte tant que le référentiel ne contenait que des
-    // collectivités, et l'ouvre grand dès qu'il contient 710 écoles du même
-    // nom. Le nom doit porter au moins un mot propre pour compter.
-    if (nameNorm && nameNorm.length >= 4 && nomPropre(nameNorm) && textNorm.includes(nameNorm)) {
-      return { relevant: true, reason: "org", match: org.name };
-    }
-    const candidates = [org.domain, ...(org.assets ?? [])].filter(Boolean) as string[];
-    for (const d of candidates) {
-      const dom = d.toLowerCase().trim();
-      if (dom && !isSelfDomain(dom) && textLower.includes(dom)) {
-        return { relevant: true, reason: "org", match: dom };
-      }
-    }
-  }
-
-  return { relevant: false, reason: "none" };
+  opts: { orgs: RelevanceOrg[]; ignoreDomains?: string[]; config?: RelevanceConfig },
+): { relevant: boolean; reason: "keyword" | "org" | "none"; match?: string; score: number } {
+  // Un nom de catégorie (« école primaire ») ne désigne personne : on ne
+  // garde alors que son domaine/actif, comme le faisait l'ancienne porte.
+  const orgs = (opts.orgs ?? []).map((org) => {
+    const name = normalizeOrgName(String(org.name ?? ""));
+    return name.length >= 4 && nomPropre(name) ? org : { ...org, name: "" };
+  });
+  const verdict = evaluatePertinence(item, {
+    orgs,
+    ignoreDomains: opts.ignoreDomains,
+    config: opts.config,
+  });
+  const reason = verdict.reason === "org" ? "org"
+    : verdict.relevant ? "keyword"
+    : "none";
+  return {
+    relevant: verdict.relevant,
+    reason,
+    match: verdict.exclusion ?? verdict.matches[0]?.term,
+    score: verdict.score,
+  };
 }
 
 // ---------------------------------------------------------------------------
