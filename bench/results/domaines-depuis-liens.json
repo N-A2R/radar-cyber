@@ -1,0 +1,835 @@
+{
+  "mode": "rapport (aucune écriture)",
+  "dureeMs": 23775,
+  "limite": null,
+  "http": {
+    "racinesTestees": 12,
+    "racinesOk200": 8,
+    "pairesOk200": 981,
+    "refus": 3,
+    "sansCoherence": 1,
+    "exemplesRefusHttp": [
+      {
+        "racine": "we-have-a-problem.com",
+        "statut": 0
+      },
+      {
+        "racine": "force.com",
+        "statut": 404
+      },
+      {
+        "racine": "vivo.ai",
+        "statut": 403
+      }
+    ],
+    "exemplesSansCoherence": [
+      "site.com"
+    ]
+  },
+  "validation": {
+    "pairesValidees": 979,
+    "organisationsRetenues": 8,
+    "egalitesEcartees": 0,
+    "pairesParRacine": [
+      {
+        "racine": "chromium.org",
+        "paires": 946
+      },
+      {
+        "racine": "juniper.net",
+        "paires": 18
+      },
+      {
+        "racine": "blackberry.com",
+        "paires": 9
+      },
+      {
+        "racine": "sophos.com",
+        "paires": 2
+      },
+      {
+        "racine": "ietf.org",
+        "paires": 1
+      },
+      {
+        "racine": "ci-isac.org.au",
+        "paires": 1
+      },
+      {
+        "racine": "chaos.com",
+        "paires": 1
+      },
+      {
+        "racine": "poste.it",
+        "paires": 1
+      }
+    ],
+    "orgsMultiDomaines": [],
+    "controle": [
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110913",
+        "event_id": "4308"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110914",
+        "event_id": "4309"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110915",
+        "event_id": "4310"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110916",
+        "event_id": "4311"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110917",
+        "event_id": "4312"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110918",
+        "event_id": "4313"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110919",
+        "event_id": "4314"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110920",
+        "event_id": "4315"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110921",
+        "event_id": "4316"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110922",
+        "event_id": "4317"
+      },
+      {
+        "org_id": 2391028,
+        "org": "IETF",
+        "domaine": "ietf.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.ietf.org/",
+        "titre_page": "IETF  | Internet Engineering Task Force",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-112377",
+        "event_id": "5392"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-112992",
+        "event_id": "6532"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-112993",
+        "event_id": "6533"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-112994",
+        "event_id": "6534"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-112995",
+        "event_id": "6535"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-112996",
+        "event_id": "6536"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-112997",
+        "event_id": "6537"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-112998",
+        "event_id": "6538"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-112999",
+        "event_id": "6539"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113000",
+        "event_id": "6540"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113001",
+        "event_id": "6541"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113002",
+        "event_id": "6542"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113003",
+        "event_id": "6543"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113004",
+        "event_id": "6544"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113005",
+        "event_id": "6545"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113006",
+        "event_id": "6546"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113007",
+        "event_id": "6547"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113008",
+        "event_id": "6548"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113009",
+        "event_id": "6549"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113010",
+        "event_id": "6550"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113011",
+        "event_id": "6551"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113012",
+        "event_id": "6552"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113013",
+        "event_id": "6553"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113014",
+        "event_id": "6554"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113015",
+        "event_id": "6555"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113016",
+        "event_id": "6556"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113017",
+        "event_id": "6557"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113018",
+        "event_id": "6558"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113019",
+        "event_id": "6559"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113020",
+        "event_id": "6560"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113021",
+        "event_id": "6561"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113022",
+        "event_id": "6562"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113023",
+        "event_id": "6563"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113024",
+        "event_id": "6564"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113025",
+        "event_id": "6565"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113026",
+        "event_id": "6566"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113027",
+        "event_id": "6567"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113028",
+        "event_id": "6568"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113029",
+        "event_id": "6569"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113030",
+        "event_id": "6570"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113031",
+        "event_id": "6571"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113032",
+        "event_id": "6572"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113033",
+        "event_id": "6573"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113034",
+        "event_id": "6574"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113035",
+        "event_id": "6575"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113036",
+        "event_id": "6576"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113037",
+        "event_id": "6577"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113038",
+        "event_id": "6578"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113039",
+        "event_id": "6579"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "url_testee": "https://www.chromium.org/",
+        "titre_page": "",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113040",
+        "event_id": "6580"
+      }
+    ]
+  },
+  "lecture": {
+    "evenementsLus": 27843,
+    "evenementsAvecDomaine": 6657,
+    "avecSourceUrl": 26790,
+    "avecAncresHtml": 649
+  },
+  "extraction": {
+    "occurrences": 7720,
+    "domainessUniques": 309,
+    "parOrigine": {
+      "ancre": 26,
+      "source_url": 45,
+      "texte": 7649
+    }
+  },
+  "rapprochement": {
+    "jetonsDistinctifs": 289,
+    "organisationsCandidates": 28408,
+    "paires": 1001,
+    "pairesSures": 1001,
+    "sansOrgCitee": 6110,
+    "ambiguesEvenement": 609,
+    "ambiguesOrganisation": 0
+  },
+  "ecriture": {
+    "applique": false,
+    "ecrits": 0,
+    "dejaPresents": 0,
+    "conflitsDomaineExistant": 0
+  },
+  "echantillon": [
+    {
+      "org_id": 241378,
+      "org": "CHROMIUM",
+      "domaine": "chromium.org",
+      "confiance": 0.95,
+      "motif": "nom+nom-complet",
+      "url_testee": "https://www.chromium.org/",
+      "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110913"
+    },
+    {
+      "org_id": 2391028,
+      "org": "IETF",
+      "domaine": "ietf.org",
+      "confiance": 0.95,
+      "motif": "nom+nom-complet",
+      "url_testee": "https://www.ietf.org/",
+      "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-112377"
+    },
+    {
+      "org_id": 445235,
+      "org": "ISAC",
+      "domaine": "ci-isac.org.au",
+      "confiance": 0.95,
+      "motif": "nom+nom-complet",
+      "url_testee": "https://ci-isac.org.au/",
+      "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-114119"
+    },
+    {
+      "org_id": 2411198,
+      "org": "JUNIPER",
+      "domaine": "juniper.net",
+      "confiance": 0.95,
+      "motif": "nom+nom-complet",
+      "url_testee": "https://www.hpe.com/us/en/home.html",
+      "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-103390"
+    },
+    {
+      "org_id": 2147317,
+      "org": "CHAOS",
+      "domaine": "chaos.com",
+      "confiance": 0.95,
+      "motif": "nom+nom-complet",
+      "url_testee": "https://www.chaos.com/",
+      "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-104989"
+    },
+    {
+      "org_id": 2138726,
+      "org": "BLACKBERRY",
+      "domaine": "blackberry.com",
+      "confiance": 0.95,
+      "motif": "nom+nom-complet",
+      "url_testee": "https://www.blackberry.com/fr",
+      "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40273"
+    },
+    {
+      "org_id": 580142,
+      "org": "POSTE",
+      "domaine": "poste.it",
+      "confiance": 0.95,
+      "motif": "nom+nom-complet",
+      "url_testee": "https://www.poste.it/",
+      "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-9661"
+    },
+    {
+      "org_id": 2092561,
+      "org": "SOPHOS",
+      "domaine": "sophos.com",
+      "confiance": 0.95,
+      "motif": "nom+nom-complet",
+      "url_testee": "https://www.sophos.com/fr-fr",
+      "article_url": null
+    }
+  ]
+}
