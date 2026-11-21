@@ -41,16 +41,16 @@ function ViewSkeleton() {
 const MOCK_MODE = import.meta.env.VITE_DATA_MODE === "mock";
 
 const VIEWS: { id: ViewKey; label: string }[] = [
-  { id: "today", label: "Aujourd'hui" },
+  { id: "today", label: "Today" },
   { id: "couverture", label: "Coverage" },
-  { id: "map", label: "Carte" },
-  { id: "review", label: "Revue" },
+  { id: "review", label: "Review" },
   { id: "journal", label: "Journal" },
-  { id: "graph", label: "Graphe" },
+  { id: "dossier", label: "Corpus" },
   { id: "sources", label: "Sources" },
-  { id: "health", label: "Santé" },
-  { id: "alerts", label: "Alertes" },
-  { id: "dossier", label: "Dossier" },
+  { id: "map", label: "Map" },
+  { id: "graph", label: "Graph" },
+  { id: "health", label: "Health" },
+  { id: "alerts", label: "Alerts" },
   { id: "na", label: "Nouvelle-Aquitaine" },
 ];
 
