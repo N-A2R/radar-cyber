@@ -35,7 +35,7 @@ type HibpBreach = {
   DataClasses?: unknown;
 };
 
-type OrgRow = { id: number; name: string; domain: string | null; website: string | null };
+type OrgRow = { id: number; name: string; domain: string | null; website: string | null; dept: string | null };
 
 export type ReferenceFuite = {
   id: string;
@@ -89,8 +89,19 @@ const HIBP_URL = "https://haveibeenpwned.com/api/v3/breaches";
 const DATABREACHES_URL = "https://www.databreaches.net/feed/";
 const LEAKIX_BASE = "https://leakix.net/search?scope=leak&q=";
 const PWNED_PREFIX = createHash("sha256").update("radar-cyber-nouvelle-aquitaine").digest("hex").slice(0, 5);
-const LEAKIX_PAR_CYCLE = 40;
+const LEAKIX_PAR_CYCLE = 4;
+const LEAKIX_PAUSE_MS = 1_500; // LeakIX limite les requêtes publiques : 429 au-delà de quelques appels.
 const MAX_TEXTE = 300;
+
+/** Nouvelle-Aquitaine : codes et libellés présents dans le référentiel. */
+const DEPARTEMENTS_NA: Record<string, true> = {
+  "16": true, "17": true, "18": true, "19": true, "23": true, "24": true,
+  "33": true, "40": true, "47": true, "64": true, "79": true, "86": true, "87": true,
+  "Charente": true, "Charente-Maritime": true, "Cher": true, "Corrèze": true,
+  "Creuse": true, "Dordogne": true, "Gironde": true, "Landes": true,
+  "Lot-et-Garonne": true, "Pyrénées-Atlantiques": true, "Deux-Sèvres": true,
+  "Vienne": true, "Haute-Vienne": true,
+};
 
 /** Nettoie les entités HTML minimales nécessaires aux flux RSS et à LeakIX. */
 function decoderHtml(texte: string): string {
@@ -109,6 +120,12 @@ function decoderHtml(texte: string): string {
 
 function tronquer(texte: string, max = MAX_TEXTE): string {
   return texte.length > max ? texte.slice(0, max - 1) + "…" : texte;
+}
+
+function pause(ms: number): Promise<void> {
+  const { promise, resolve } = Promise.withResolvers<void>();
+  setTimeout(resolve, ms);
+  return promise;
 }
 
 /** Date `YYYY-MM-DD`, ou null plutôt qu'une valeur fabriquée. */
@@ -150,7 +167,8 @@ export function extraireHitsLeakix(html: string, domaineOrg: string): HitLeakix[
   const hits: HitLeakix[] = [];
   const blocs = html.split(/<hr\s*\/?>/i);
   for (const bloc of blocs) {
-    const host = decoderHtml(bloc.match(/<a href="\/host\/[^"]*">\s*([^<]+?)\s*<\/a>/i)?.[1] ?? "");
+    const hote = bloc.match(/<a href="\/(?:host|domain)\/[^"]*">\s*([^<]+?)\s*<\/a>/i)?.[1] ?? "";
+    const host = decoderHtml(hote);
     if (!host || /^\d{1,3}(\.\d{1,3}){3}$/.test(host) || host.includes(":")) continue;
     const matchedBy = correspondreDomaine(host, domaineOrg);
     if (!matchedBy) continue;
@@ -251,12 +269,14 @@ async function insererStats(stats: StatSource[]): Promise<void> {
 /** Map domaine normalisé -> organisations du référentiel qui le portent. */
 export async function chargerDomainesOrganisations(): Promise<Map<string, OrgRow[]>> {
   const { rows } = await query<OrgRow>(
-    `SELECT id, name, domain, website FROM org
+    `SELECT id, name, domain, website, dept FROM org
       WHERE (domain IS NOT NULL AND btrim(domain) <> '')
          OR (website IS NOT NULL AND btrim(website) <> '')`,
   );
   const index = new Map<string, OrgRow[]>();
   for (const org of rows) {
+    // Un domaine sans rattachement géographique confirmé n'est pas une org de NA.
+    if (!org.dept || DEPARTEMENTS_NA[org.dept.trim()] !== true) continue;
     const domaines = new Set(
       [normalizeDomainValue(org.domain), normalizeDomainValue(org.website)].filter(
         (d): d is string => Boolean(d),
@@ -307,7 +327,10 @@ export async function collecterFuites(ctx: CollectContext): Promise<ResultatFuit
     const breaches = await ctx.fetchJson<HibpBreach[]>(HIBP_URL);
     const liste = Array.isArray(breaches) ? breaches : [];
     let avecDomaine = 0;
+    let ignores = 0;
     for (const b of liste) {
+      // « Rien de faux » : les violations non vérifiées ou fabriquées ne sont pas des faits.
+      if (b.IsVerified !== true || b.IsFabricated === true) { ignores++; continue; }
       const nom = tronquer(String(b.Name ?? "").trim(), 200);
       if (!nom) continue;
       const domaine = normalizeDomainValue(String(b.Domain ?? ""));
@@ -333,7 +356,7 @@ export async function collecterFuites(ctx: CollectContext): Promise<ResultatFuit
       references.push(reference);
       ajouterCorrespondances(reference, domaine, index, matches, "hibp");
     }
-    stats.push({ ...hibp, detail: { breaches: liste.length, avec_domaine: avecDomaine } });
+    stats.push({ ...hibp, detail: { breaches: liste.length, avec_domaine: avecDomaine, ignores_non_verifies: ignores } });
   } catch (e) {
     stats.push({ ...hibp, echecs: 1, detail: { erreur: tronquer(String(e), 200) } });
     ctx.log(`fuites: HIBP indisponible — ${String(e)}`);
@@ -383,7 +406,8 @@ export async function collecterFuites(ctx: CollectContext): Promise<ResultatFuit
     echecs: 0,
     detail: { domaines_du_referentiel: tousLesDomaines.length, domaines_interroges: lot.length, hits: 0 },
   };
-  for (const domaine of lot) {
+  for (const [i, domaine] of lot.entries()) {
+    if (i > 0) await pause(LEAKIX_PAUSE_MS);
     try {
       const html = await ctx.fetchText(`${LEAKIX_BASE}${encodeURIComponent(domaine)}`);
       for (const hit of extraireHitsLeakix(html, domaine)) {
@@ -433,13 +457,19 @@ export async function collecterFuites(ctx: CollectContext): Promise<ResultatFuit
     ctx.log(`fuites: Pwned Passwords indisponible — ${String(e)}`);
   }
 
-  await insererReferences(references);
-  await insererCorrespondances(matches);
+  // Un même hit peut apparaître deux fois sur une page LeakIX : PostgreSQL
+  // refuse un ON CONFLICT qui toucherait deux fois la même clé.
+  const refsUniques = [...new Map(references.map((r) => [r.id, r])).values()];
+  const matchesUniques = [
+    ...new Map(matches.map((m) => [`${m.fuiteId}:${m.orgId}`, m])).values(),
+  ];
+  await insererReferences(refsUniques);
+  await insererCorrespondances(matchesUniques);
   await insererStats(stats);
 
-  const organisations = new Set(matches.map((m) => m.orgId)).size;
+  const organisations = new Set(matchesUniques.map((m) => m.orgId)).size;
   ctx.log(
-    `fuites: ${references.length} référence(s), ${matches.length} rattachement(s), ` +
+    `fuites: ${refsUniques.length} référence(s), ${matchesUniques.length} rattachement(s), ` +
     `${organisations} organisation(s) NA, échecs ` +
     stats.map((s) => `${s.source} ${s.echecs}/${s.tentatives}`).join(", "),
   );
@@ -447,8 +477,8 @@ export async function collecterFuites(ctx: CollectContext): Promise<ResultatFuit
     ? 0
     : (depart + taille) % (tousLesDomaines.length || 1);
   return {
-    references: references.length,
-    correspondances: matches.length,
+    references: refsUniques.length,
+    correspondances: matchesUniques.length,
     organisations,
     domainesOrganisations: tousLesDomaines.length,
     stats,

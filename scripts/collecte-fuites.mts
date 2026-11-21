@@ -2,14 +2,16 @@
 /**
  * Passe réelle de collecte des fuites documentées (sources publiques).
  *
- *   apps/api/node_modules/.bin/tsx scripts/collecte-fuites.mts
+ *   apps/api/node_modules/.bin/tsx scripts/collecte-fuites.mts [--idx 4]
  *
  * Par défaut la base de test radar:5433 (jamais 5432). Le script interroge
  * HIBP, LeakIX, DataBreaches.net et Pwned Passwords, puis affiche le rapport :
  * sources interrogées, taux d'échec, références stockées, organisations NA
  * touchées. Aucun mot de passe, suffixe k-anonyme ni e-mail n'est écrit.
  */
-process.env.DATABASE_URL = process.env.DATABASE_URL ?? "postgres://radar:radar@localhost:5433/radar";
+
+const argIdx = process.argv.indexOf("--idx");
+const idx = argIdx >= 0 ? Math.max(0, Number(process.argv[argIdx + 1]) || 0) : 0;
 
 const { closePools, query } = await import("../apps/api/src/db.js");
 const { fetchResilient } = await import("../apps/api/src/collectors/http.js");
@@ -22,16 +24,21 @@ function sourceDe(url: string): string {
   return "fuites-pwned";
 }
 
+function verifier(url: string, status: number, text: string): string {
+  if (status >= 400) throw new Error(`${sourceDe(url)}: HTTP ${status} — ${text.slice(0, 120)}`);
+  return text;
+}
+
 const ctx = {
   fetchJson: async <T = unknown>(url: string): Promise<T> => {
     const res = await fetchResilient(url, { source: sourceDe(url), accept: "application/json" });
-    return JSON.parse(res.text) as T;
+    return JSON.parse(verifier(url, res.status, res.text)) as T;
   },
   fetchText: async (url: string): Promise<string> => {
     const res = await fetchResilient(url, { source: sourceDe(url), accept: "*/*" });
-    return res.text;
+    return verifier(url, res.status, res.text);
   },
-  cursor: { toutLeReferentiel: true },
+  cursor: { idx }, // lot de 4 domaines par passe : LeakIX renvoie 429 au-delà.
   log: (msg: string) => console.log(`[collecte-fuites] ${msg}`),
   now: () => new Date(),
 };
