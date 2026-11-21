@@ -1,8 +1,16 @@
 import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
+import { performance } from "node:perf_hooks";
 
 /** Couleur d'un indicateur de fraîcheur : < 24 h, 1–7 j, > 7 j. */
 export type TonFraicheur = "green" | "orange" | "red";
+
+/**
+ * État lisible d'une source : `ok` (fait sur 7 j), `rouge` (plus de 7 j sans
+ * fait, ou jamais de fait), `morte` (statut déclaré dans `source.statut`).
+ * Une source morte garde sa couleur rouge : le statut explicite prévaut.
+ */
+export type StatutSource = "ok" | "rouge" | "morte";
 
 export type DetailSource = {
   id: string;
@@ -13,9 +21,12 @@ export type DetailSource = {
   lastCollectedAt: string | null;
   /** Fait le plus récent attribué à la source, toutes familles confondues. */
   lastEventAt: string | null;
+  /** Date du dernier fait produit : horodatage du fait, pas de la collecte. */
+  lastProducedAt: string | null;
   /** Âge en heures du fait le plus récent ; null = la source n'a jamais produit. */
   ageHours: number | null;
   tone: TonFraicheur;
+  status: StatutSource;
 };
 
 export type DetailFamille = {
@@ -26,11 +37,23 @@ export type DetailFamille = {
   tone: TonFraicheur;
 };
 
+/** Mesures prises dans la base elle-même, pas déduites des compteurs métier. */
+export type DetailBase = {
+  /** Aller-retour d'un `SELECT 1`, en millisecondes. */
+  latencyMs: number;
+  /** Taille de la base courante, en octets (`pg_database_size`). */
+  sizeBytes: number;
+  orgs: number;
+  aliases: number;
+  events: number;
+};
+
 /** État du système en une seule requête HTTP (GET /api/health/detail). */
 export type HealthDetail = {
   ok: boolean;
   generatedAt: string;
   windowDays: 7;
+  db: DetailBase;
   sources: {
     declared: number;
     enabled: number;
@@ -58,8 +81,44 @@ export function tonDeFraicheur(ageHours: number | null): TonFraicheur {
   return "red";
 }
 
+/**
+ * `source.statut = 'morte'` est une décision explicite (migration 042) : elle
+ * prévaut sur la fraîcheur. Sinon, rouge suit exactement la définition de
+ * `/health/causes` : plus de 7 j sans fait, ou aucun fait. Orange (1 à 7 j)
+ * entre dans `ok` — il n'existe que trois états publiés.
+ */
+export function statutSource(statutDeclared: string, ageHours: number | null): StatutSource {
+  if (statutDeclared === "morte") return "morte";
+  return tonDeFraicheur(ageHours) === "red" ? "rouge" : "ok";
+}
+
 export default async function (app: FastifyInstance) {
   app.get("/health/detail", async () => {
+    // Latence réelle : chronomètre autour d'un aller-retour SELECT 1 sur le
+    // pool HTTP, pas une estimation ni la durée des autres requêtes.
+    const avantPing = performance.now();
+    await query("SELECT 1");
+    const latencyMs = Math.round((performance.now() - avantPing) * 100) / 100;
+
+    // Volumes et taille de la base courante. `pg_database_size` est un bigint :
+    // pg le restitue en texte, on le convertit une seule fois ici.
+    // Rejouable :
+    // SELECT pg_database_size(current_database())::text AS taille,
+    //        (SELECT count(*)::int FROM org) AS orgs,
+    //        (SELECT count(*)::int FROM org_alias) AS aliases,
+    //        (SELECT count(*)::int FROM event) AS events;
+    const base = await query<{
+      taille: string;
+      orgs: number;
+      aliases: number;
+      events: number;
+    }>(`
+      SELECT pg_database_size(current_database())::text AS taille,
+             (SELECT count(*)::int FROM org) AS orgs,
+             (SELECT count(*)::int FROM org_alias) AS aliases,
+             (SELECT count(*)::int FROM event) AS events
+    `);
+
     // Rejouable : SELECT count(*)::int AS n FROM source;
     const total = await query<{ n: number }>("SELECT count(*)::int AS n FROM source");
 
@@ -126,7 +185,7 @@ export default async function (app: FastifyInstance) {
     // `GREATEST(0, NULL)` vaut 0 en PostgreSQL : sans le CASE, une source qui
     // n'a jamais produit serait affichée « verte » avec un âge de 0 h.
     // Rejouable :
-    // SELECT s.id, s.name, s.family, s.enabled,
+    // SELECT s.id, s.name, s.family, s.enabled, s.statut,
     //        COALESCE(max(r.finished_at), s.last_ok_at) AS last_collected_at,
     //        max(COALESCE(e.observed_at, e.collected_at)) AS last_event_at,
     //        CASE WHEN max(COALESCE(e.observed_at, e.collected_at)) IS NULL THEN NULL
@@ -136,18 +195,19 @@ export default async function (app: FastifyInstance) {
     //   FROM source s
     //   LEFT JOIN collector_run r ON r.source_id = s.id
     //   LEFT JOIN event e ON e.source_id = s.id
-    //  GROUP BY s.id, s.name, s.family, s.enabled, s.last_ok_at
+    //  GROUP BY s.id, s.name, s.family, s.enabled, s.statut, s.last_ok_at
     //  ORDER BY age_hours NULLS LAST, s.name;
     const parSource = await query<{
       id: string;
       name: string;
       family: string;
       enabled: boolean;
+      statut: string;
       last_collected_at: string | null;
       last_event_at: string | null;
       age_hours: number | null;
     }>(`
-      SELECT s.id, s.name, s.family, s.enabled,
+      SELECT s.id, s.name, s.family, s.enabled, s.statut,
              COALESCE(max(r.finished_at), s.last_ok_at) AS last_collected_at,
              max(COALESCE(e.observed_at, e.collected_at)) AS last_event_at,
              CASE WHEN max(COALESCE(e.observed_at, e.collected_at)) IS NULL THEN NULL
@@ -157,7 +217,7 @@ export default async function (app: FastifyInstance) {
         FROM source s
         LEFT JOIN collector_run r ON r.source_id = s.id
         LEFT JOIN event e ON e.source_id = s.id
-       GROUP BY s.id, s.name, s.family, s.enabled, s.last_ok_at
+       GROUP BY s.id, s.name, s.family, s.enabled, s.statut, s.last_ok_at
        ORDER BY age_hours NULLS LAST, s.name
     `);
 
@@ -191,6 +251,7 @@ export default async function (app: FastifyInstance) {
     const file = files.rows[0];
     const bySource: DetailSource[] = parSource.rows.map((s) => {
       const ageHours = s.age_hours === null ? null : Number(s.age_hours);
+      const tone = tonDeFraicheur(ageHours);
       return {
         id: s.id,
         name: s.name,
@@ -198,8 +259,10 @@ export default async function (app: FastifyInstance) {
         enabled: s.enabled === true,
         lastCollectedAt: s.last_collected_at,
         lastEventAt: s.last_event_at,
+        lastProducedAt: s.last_event_at,
         ageHours,
-        tone: tonDeFraicheur(ageHours),
+        tone,
+        status: statutSource(s.statut, ageHours),
       };
     });
     const families: DetailFamille[] = parFamille.rows.map((f) => {
@@ -217,6 +280,13 @@ export default async function (app: FastifyInstance) {
       ok: true,
       generatedAt: new Date().toISOString(),
       windowDays: 7,
+      db: {
+        latencyMs,
+        sizeBytes: Number(base.rows[0]?.taille ?? 0),
+        orgs: Number(base.rows[0]?.orgs ?? 0),
+        aliases: Number(base.rows[0]?.aliases ?? 0),
+        events: Number(base.rows[0]?.events ?? 0),
+      },
       sources: {
         declared,
         enabled: habilitees,
