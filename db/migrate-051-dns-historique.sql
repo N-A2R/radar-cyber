@@ -1,4 +1,4 @@
--- 047 : historique DNS des domaines du référentiel de Nouvelle-Aquitaine.
+-- 051 : historique DNS des domaines du référentiel de Nouvelle-Aquitaine.
 --
 -- Objectif : suivre A/AAAA, MX et NS des domaines connus (colonne `org.domain`
 -- et hôte de `org.website`), à intervalle régulier, sans service payant.
@@ -8,7 +8,7 @@
 --   * dns_domaine    : le périmètre suivi, l'état du dernier relevé ;
 --   * dns_snapshot   : chaque observation, même identique (l'historique se
 --                      mesure, il ne se suppose pas) ;
---   * dns_changement : les différences entre deux observations, avec la valeur
+--   * dns_change      : les différences entre deux observations, avec la valeur
 --                      avant et après. Le libellé du fournisseur n'est pas
 --                      inventé : il vient de dns_fournisseur, appliqué aux MX,
 --                      NS et noms inverses (PTR).

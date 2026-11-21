@@ -185,14 +185,11 @@ export async function enregistrerSnapshot(snapshot: DnsSnapshot): Promise<number
 
 /** Panne totale : on consigne l'échec sans effacer le dernier relevé réussi. */
 export async function marquerEchec(domain: string, erreur: string): Promise<void> {
+	// Aucune observation vide ici : elle deviendrait la référence du prochain
+	// relevé et inventerait une bascule d'IP/MX/NS au retour du résolveur.
 	await ingestQuery(
 		"UPDATE dns_domaine SET last_try = now(), last_state = 'erreur' WHERE domain = $1",
 		[domain],
-	);
-	await ingestQuery(
-		`INSERT INTO dns_snapshot (domain, observed_at, errors)
-		 VALUES ($1, now(), ARRAY[$2]::text[])`,
-		[domain, `collecte: ${erreur}`.slice(0, 500)],
 	);
 }
 

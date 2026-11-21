@@ -17,6 +17,7 @@ import {
 	diffSnapshots,
 	type DnsChange,
 	type DnsFetcher,
+	measurementState,
 } from "./historique.js";
 import {
 	chargerCatalogue,
@@ -95,6 +96,15 @@ export async function effectuerReleve(options: OptionsReleve): Promise<RapportRe
 		try {
 			const avant = await dernierSnapshot(domain);
 			const snapshot = await collectDomain(domain, options.fetcher, { now: options.maintenant ?? new Date() });
+			// Résolveur totalement en panne : aucune observation exploitable.
+			// Ne pas l'enregistrer, sinon elle effacerait la dernière mesure
+			// saine et le retour du DNS fabriquerait une fausse bascule.
+			if (measurementState(snapshot) === "erreur") {
+				const message = snapshot.errors.join(" | ");
+				rapport.erreurs.push(`${domain}: ${message}`);
+				await marquerEchec(domain, message);
+				return;
+			}
 			const changements: DnsChange[] = diffSnapshots(avant, snapshot, catalogue);
 			const snapshotId = await enregistrerSnapshot(snapshot);
 			const enregistres = await enregistrerChangements(

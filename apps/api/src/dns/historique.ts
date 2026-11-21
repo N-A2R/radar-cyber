@@ -201,7 +201,7 @@ export function diffSnapshots(
 	after: DnsSnapshot,
 	catalogue: readonly DnsProvider[],
 ): DnsChange[] {
-	if (!before) return [];
+	if (!before || measurementState(before) === "erreur" || measurementState(after) === "erreur") return [];
 
 	const changes: DnsChange[] = [];
 	const aComparable = !typeFailed(before, "A") && !typeFailed(after, "A");

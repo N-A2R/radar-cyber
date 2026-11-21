@@ -29,6 +29,7 @@ const DOMAINES = Array.from(
 	{ length: NOMBRE_DOMAINES },
 	(_, i) => `hist-${TAG}-${String(i).padStart(2, "0")}.fr`,
 );
+const DOMAINE_PANNE = `aaa-panne-${TAG}.fr`;
 const T1 = new Date("2026-11-20T08:00:00.000Z");
 const T2 = new Date("2026-11-21T08:00:00.000Z");
 
@@ -105,6 +106,10 @@ before(async () => {
 		`INSERT INTO org (name, slug, kind, city, domain, status) VALUES ${values.join(", ")}`,
 		params,
 	);
+	await query(
+		"INSERT INTO org (name, slug, kind, city, domain, status) VALUES ($1, $2, 'entreprise', 'Bordeaux', $3, 'confirme')",
+		[`${TAG} panne`, `${TAG}-panne`, DOMAINE_PANNE],
+	);
 });
 
 after(async () => {
@@ -139,6 +144,38 @@ test("une panne DoH sur un type ne fabrique pas de changement d'IP", () => {
 	const avant = snapshot("exemple.fr", T1.toISOString());
 	const apres = snapshot("exemple.fr", T2.toISOString(), { errors: ["doh:A: timeout"] });
 	assert.equal(diffSnapshots(avant, apres, CATALOGUE).some((c) => c.kind === "ip"), false);
+});
+
+test("une observation dont tous les types DoH ont échoué ne sert pas de référence", () => {
+	const avant = snapshot("exemple.fr", T1.toISOString());
+	const enPanne = snapshot("exemple.fr", T2.toISOString(), {
+		a: [], aaaa: [], mx: [], ns: [], ptr: {},
+		errors: ["doh:A: timeout", "doh:AAAA: timeout", "doh:MX: timeout", "doh:NS: timeout"],
+	});
+	assert.deepEqual(diffSnapshots(enPanne, avant, CATALOGUE), []);
+	assert.deepEqual(diffSnapshots(avant, enPanne, CATALOGUE), []);
+});
+
+test("une collecte totalement en panne n'écrase pas le dernier relevé réussi", async () => {
+	const options = { concurrence: 1, limite: 1, sansSynchronisation: true };
+	await effectuerReleve({ fetcher: fetcher1, maintenant: T1, ...options, sansSynchronisation: false });
+
+	const enPanne: DnsFetcher = {
+		async doh() { throw new Error("résolveur indisponible"); },
+		async rdap() { throw new Error("RDAP indisponible"); },
+	};
+	const panne = await effectuerReleve({ fetcher: enPanne, maintenant: T2, ...options });
+	assert.equal(panne.domaines, 1);
+	assert.equal(panne.snapshots, 0);
+	assert.ok(panne.erreurs.some((e) => e.startsWith(DOMAINE_PANNE)));
+
+	const reprise = await effectuerReleve({ fetcher: fetcher1, maintenant: T2, ...options });
+	assert.equal(reprise.changements, 0);
+	const snapshots = await query<{ n: string }>(
+		"SELECT count(*) AS n FROM dns_snapshot WHERE domain = $1",
+		[DOMAINE_PANNE],
+	);
+	assert.equal(Number(snapshots.rows[0]!.n), 2);
 });
 
 test("deux relevés sur 60 domaines alimentent l'historique et détectent 30 changements", async () => {
