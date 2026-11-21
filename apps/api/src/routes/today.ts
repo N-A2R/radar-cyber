@@ -1,5 +1,6 @@
 import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
+import { etagOu304 } from "../etag.js";
 
 /**
  * Écran « Aujourd'hui » — tout ce qu'il faut pour ouvrir l'app et lire les
@@ -39,7 +40,7 @@ type TodayRow = {
 };
 
 export default async function (app: FastifyInstance) {
-	app.get("/today", async (req) => {
+	app.get("/today", async (req, reply) => {
 		const q = req.query as Record<string, string | undefined>;
 
 		// Compteurs en tête : en direct, sans rapport avec les filtres — ce sont
@@ -75,7 +76,7 @@ export default async function (app: FastifyInstance) {
 			params,
 		);
 
-		return {
+		const corps = {
 			compteurs: {
 				evenements24h: Number(compteurs.rows[0]?.evenements24h ?? 0),
 				organisations7j: Number(compteurs.rows[0]?.organisations7j ?? 0),
@@ -95,5 +96,7 @@ export default async function (app: FastifyInstance) {
 				dept: r.dept,
 			})),
 		};
+		if (etagOu304(reply, corps)) return;
+		return corps;
 	});
 }

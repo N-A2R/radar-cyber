@@ -20,6 +20,7 @@
 import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
 import { requireAuth } from "../middleware/auth.js";
+import { etagOu304 } from "../etag.js";
 
 type OrgsLieesRow = {
   semaine: number;
@@ -30,7 +31,7 @@ type OrgsLieesRow = {
 };
 
 export default async function (app: FastifyInstance) {
-  app.get("/orgs/liees", { preHandler: requireAuth() }, async () => {
+  app.get("/orgs/liees", { preHandler: requireAuth() }, async (_req, reply) => {
     const r = await query<OrgsLieesRow>(
       `WITH recentes AS (
          SELECT org_id FROM event
@@ -58,12 +59,14 @@ export default async function (app: FastifyInstance) {
          ), '[]'::json) AS "parDepartement"`,
     );
     const row = r.rows[0];
-    return {
+    const corps = {
       semaine: Number(row?.semaine ?? 0),
       total: Number(row?.total ?? 0),
       enAttente: Number(row?.enAttente ?? 0),
       examinees: Number(row?.examinees ?? 0),
       parDepartement: Array.isArray(row?.parDepartement) ? row.parDepartement : [],
     };
+    if (etagOu304(reply, corps)) return;
+    return corps;
   });
 }
