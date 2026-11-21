@@ -41,6 +41,7 @@ export type RevueQueue = {
   counts: Record<string, number>;
   tookMs: number;
 };
+type BulkProgress = { done: number; total: number; label: string; finished: boolean };
 
 type Props = {
   canWrite?: boolean;
@@ -102,7 +103,19 @@ export default function ReviewView({
   const [raison, setRaison] = useState("");
   const [actionError, setActionError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [selectedIds, setSelectedIds] = useState<number[]>([]);
+  const [bulkDecision, setBulkDecision] = useState<"accepter" | "refuser" | null>(null);
+  const [bulkReason, setBulkReason] = useState("");
+  const [bulkOrg, setBulkOrg] = useState<Record<number, number>>({});
+  const [bulkError, setBulkError] = useState<string | null>(null);
+  const [bulkProgress, setBulkProgress] = useState<BulkProgress | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
   const reasonRef = useRef<HTMLTextAreaElement>(null);
+  const selectAllRef = useRef<HTMLInputElement>(null);
+
+  const selectedRows = rows.filter((row) => selectedIds.includes(row.id));
+  const bulkRunning = bulkProgress !== null && !bulkProgress.finished;
+  const busy = submitting || bulkRunning;
 
   useEffect(() => {
     if (!server) {
@@ -127,7 +140,10 @@ export default function ReviewView({
         setOpenRow(null);
         setRaison("");
         setOrgId(null);
-        setNotice(null);
+        setSelectedIds([]);
+        setBulkDecision(null);
+        setBulkOrg({});
+        setBulkProgress(null);
       })
       .catch((err: Error) => {
         if (err.name !== "AbortError") setError(err.message);
@@ -136,14 +152,20 @@ export default function ReviewView({
         if (!controller.signal.aborted) setLoading(false);
       });
     return () => controller.abort();
-  }, [server, bucket, query, page, onUnauthorized]);
+  }, [server, bucket, query, page, refreshKey, onUnauthorized]);
 
   useEffect(() => {
     if (openRow !== null) reasonRef.current?.focus();
   }, [openRow]);
+  useEffect(() => {
+    if (selectAllRef.current) {
+      selectAllRef.current.indeterminate = selectedIds.length > 0 && selectedIds.length < rows.length;
+    }
+  }, [selectedIds, rows]);
 
   const openAction = useCallback((id: number, next: RevueDecision) => {
     setOpenRow(id);
+    setBulkDecision(null);
     setDecision(next);
     setOrgId(null);
     setRaison("");
@@ -193,7 +215,74 @@ export default function ReviewView({
       setSubmitting(false);
     }
   }
+  const toggleSelected = useCallback((id: number) => {
+    setSelectedIds((prev) => prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]);
+  }, []);
 
+  const openBulk = useCallback((next: "accepter" | "refuser") => {
+    const defaults: Record<number, number> = {};
+    for (const row of rows) {
+      if (selectedIds.includes(row.id) && row.candidates.length > 0) {
+        defaults[row.id] = row.candidates[0].id;
+      }
+    }
+    setBulkOrg(defaults);
+    setBulkDecision(next);
+    setBulkError(null);
+    setOpenRow(null);
+  }, [rows, selectedIds]);
+
+  const closeBulk = useCallback(() => {
+    setBulkDecision(null);
+    setBulkError(null);
+  }, []);
+
+  /** Décisions envoyées une par une : l'API unitaire journalise chaque ligne. */
+  async function submitBulk() {
+    if (bulkDecision === null || bulkRunning) return;
+    const motif = bulkReason.trim();
+    if (!motif) {
+      setBulkError("Le motif est obligatoire.");
+      return;
+    }
+    const targets = rows.filter((row) => selectedIds.includes(row.id));
+    if (targets.length === 0) return;
+    if (bulkDecision === "accepter" && targets.some((row) => !bulkOrg[row.id])) {
+      setBulkError("Choisissez une organisation pour chaque ligne acceptée.");
+      return;
+    }
+    const decision = bulkDecision;
+    setBulkError(null);
+    setBulkProgress({ done: 0, total: targets.length, label: DECISION_LABEL[decision], finished: false });
+    let done = 0;
+    try {
+      for (const row of targets) {
+        const body: { decision: RevueDecision; raison: string; orgId?: number } = { decision, raison: motif };
+        if (decision === "accepter") body.orgId = bulkOrg[row.id];
+        const res = await fetch(`/api/review/${row.id}/decision`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", ...authHeaders() },
+          body: JSON.stringify(body),
+        });
+        if (res.status === 401) onUnauthorized?.();
+        if (!res.ok) throw new Error(await apiMessage(res, `Décision refusée pour ${row.orgHint ?? row.id}`));
+        done += 1;
+        setBulkProgress({ done, total: targets.length, label: DECISION_LABEL[decision], finished: false });
+      }
+      setNotice(`${DECISION_LABEL[decision]} enregistrée pour ${done} ligne${done === 1 ? "" : "s"} : ${motif}`);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Décision impossible";
+      setBulkError(`${message} — ${done}/${targets.length} décision${done === 1 ? "" : "s"} enregistrée${done === 1 ? "" : "s"}`);
+      setNotice(`${done}/${targets.length} décisions enregistrées avant l'échec : ${message}`);
+    } finally {
+      setBulkProgress({ done, total: targets.length, label: DECISION_LABEL[decision], finished: true });
+      setBulkDecision(null);
+      setBulkReason("");
+      setBulkOrg({});
+      setSelectedIds([]);
+      setRefreshKey((n) => n + 1);
+    }
+  }
   return (
     <section className="revue" aria-label="Revue des rattachements">
       <header className="revue__head">
@@ -233,6 +322,79 @@ export default function ReviewView({
           </button>
         ))}
       </div>
+      <div className="revue__bulk" role="group" aria-label="Actions groupées">
+        <label className="revue__pick">
+          <input
+            ref={selectAllRef}
+            type="checkbox"
+            checked={rows.length > 0 && selectedIds.length === rows.length}
+            onChange={() => setSelectedIds((prev) => prev.length === rows.length ? [] : rows.map((row) => row.id))}
+            disabled={!canWrite || !server || rows.length === 0 || busy}
+          />
+          Tout sélectionner
+        </label>
+        <span className="revue__selection" role="status">
+          {selectedIds.length} ligne{selectedIds.length > 1 ? "s" : ""} sélectionnée{selectedIds.length > 1 ? "s" : ""} sur {rows.length}
+        </span>
+        <button type="button" disabled={!canWrite || !server || selectedIds.length === 0 || busy}
+          onClick={() => openBulk("accepter")}>Accepter la sélection</button>
+        <button type="button" disabled={!canWrite || !server || selectedIds.length === 0 || busy}
+          onClick={() => openBulk("refuser")}>Refuser la sélection</button>
+      </div>
+      {bulkDecision !== null ? (
+        <form className="revue__bulk-form" onSubmit={(event) => { event.preventDefault(); void submitBulk(); }}>
+          <p className="revue__decision-title">{DECISION_LABEL[bulkDecision]} groupée — {selectedRows.length} lignes</p>
+          <label className="revue__label" htmlFor="revue-bulk-raison">Motif commun (obligatoire)</label>
+          <textarea
+            id="revue-bulk-raison"
+            rows={2}
+            value={bulkReason}
+            placeholder="Écrivez le motif appliqué à toute la sélection"
+            onChange={(event) => setBulkReason(event.target.value)}
+          />
+          {bulkDecision === "accepter" ? (
+            <fieldset className="revue__orgs">
+              <legend>Organisation à rattacher par ligne</legend>
+              {selectedRows.map((row) => (
+                <label className="revue__org" key={row.id}>
+                  <span>{row.orgHint ?? row.source}</span>
+                  {row.candidates.length === 0 ? (
+                    <span className="revue__none">aucun candidat — retirez la ligne ou refusez-la</span>
+                  ) : (
+                    <select
+                      aria-label={`Organisation pour ${row.orgHint ?? row.source}`}
+                      value={bulkOrg[row.id] ?? row.candidates[0].id}
+                      onChange={(event) => setBulkOrg((prev) => ({ ...prev, [row.id]: Number(event.target.value) }))}
+                    >
+                      {row.candidates.map((candidate) => (
+                        <option key={candidate.id} value={candidate.id}>
+                          {candidate.name} ({candidate.score.toFixed(2)} · {candidate.via})
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                </label>
+              ))}
+            </fieldset>
+          ) : null}
+          <div className="revue__decision-actions">
+            <button
+              type="submit"
+              disabled={busy || !bulkReason.trim() || selectedRows.length === 0
+                || (bulkDecision === "accepter" && selectedRows.some((row) => row.candidates.length === 0))}
+            >
+              Confirmer ({selectedRows.length})
+            </button>
+            <button type="button" disabled={busy} onClick={closeBulk}>Annuler</button>
+          </div>
+        </form>
+      ) : null}
+      {bulkError ? <p className="revue__error" role="alert">{bulkError}</p> : null}
+      {bulkProgress ? (
+        <p className="revue__progress" role="status">
+          {bulkProgress.label} : {bulkProgress.done}/{bulkProgress.total} {bulkProgress.finished ? "terminé" : "en cours"}
+        </p>
+      ) : null}
 
       {notice ? <p className="revue__notice" role="status">{notice}</p> : null}
       {error ? <p className="revue__error" role="alert">{error}</p> : null}
@@ -246,6 +408,15 @@ export default function ReviewView({
       <ul className="revue__list">
         {rows.map((row) => (
           <li className="revue__row" key={row.id} data-bucket={row.triage.bucket}>
+            <label className="revue__check">
+              <input
+                type="checkbox"
+                aria-label={`Sélectionner ${row.orgHint ?? row.source}`}
+                checked={selectedIds.includes(row.id)}
+                onChange={() => toggleSelected(row.id)}
+                disabled={!canWrite || !server || busy}
+              />
+            </label>
             <div className="revue__main">
               <strong className="revue__hint">{row.orgHint || "(sans indice)"}</strong>
               <span className="revue__source">{row.source}</span>
@@ -273,13 +444,13 @@ export default function ReviewView({
             </div>
 
             <div className="revue__actions">
-              <button type="button" disabled={!canWrite || submitting} onClick={() => openAction(row.id, "accepter")}>
+              <button type="button" disabled={!canWrite || busy} onClick={() => openAction(row.id, "accepter")}>
                 Accepter
               </button>
-              <button type="button" disabled={!canWrite || submitting} onClick={() => openAction(row.id, "refuser")}>
+              <button type="button" disabled={!canWrite || busy} onClick={() => openAction(row.id, "refuser")}>
                 Refuser
               </button>
-              <button type="button" disabled={!canWrite || submitting} onClick={() => openAction(row.id, "creer")}>
+              <button type="button" disabled={!canWrite || busy} onClick={() => openAction(row.id, "creer")}>
                 Créer cette organisation
               </button>
             </div>
