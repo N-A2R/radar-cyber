@@ -2,8 +2,9 @@ import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent, type
 import { authHeaders } from "../api";
 import { isReviewTypingTarget, reviewIntent, type ReviewKeyState } from "../review-keys";
 import "./review.css";
+import { type ReviewUrlState, type RevueBucket } from "../url-state";
+export type { RevueBucket } from "../url-state";
 
-export type RevueBucket = "chaud" | "tiede" | "froid";
 export type RevueDecision = "accepter" | "refuser" | "creer";
 
 export type RevueCandidate = {
@@ -48,6 +49,9 @@ type Props = {
   server?: boolean;
   onUnauthorized?: () => void;
   onOpenOrg?: (orgId: number) => void;
+  /** Filtres de la file, portés par l'URL (`#/review?bucket=…&q=…`). */
+  urlState?: ReviewUrlState;
+  onUrlStateChange?: (next: ReviewUrlState) => void;
 };
 
 const LIMIT = 50;
@@ -88,12 +92,14 @@ export default function ReviewView({
   server = true,
   onUnauthorized,
   onOpenOrg,
+  urlState,
+  onUrlStateChange,
 }: Props) {
   const [rows, setRows] = useState<RevueRow[]>([]);
   const [total, setTotal] = useState(0);
-  const [bucket, setBucket] = useState<RevueBucket | "">("");
-  const [search, setSearch] = useState("");
-  const [query, setQuery] = useState("");
+  const [bucket, setBucket] = useState<RevueBucket | "">(urlState?.bucket ?? "");
+  const [search, setSearch] = useState(urlState?.q ?? "");
+  const [query, setQuery] = useState(urlState?.q ?? "");
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(server);
   const [error, setError] = useState<string | null>(null);
@@ -107,6 +113,17 @@ export default function ReviewView({
   const [actionError, setActionError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const reasonRef = useRef<HTMLTextAreaElement>(null);
+
+  // 300 ms de silence avant d'interroger l'API : une frappe, un seul appel.
+  useEffect(() => {
+    const next = search.trim();
+    if (next === query) return;
+    const timer = setTimeout(() => {
+      setQuery(next);
+      setPage(0);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [search, query]);
 
   useEffect(() => {
     if (!server) {
@@ -142,6 +159,24 @@ export default function ReviewView({
       });
     return () => controller.abort();
   }, [server, bucket, query, page, onUnauthorized]);
+
+  // L'URL suit les filtres : un lien copié reproduit exactement cette file.
+  useEffect(() => {
+    onUrlStateChange?.({ bucket, q: query });
+  }, [onUrlStateChange, bucket, query]);
+
+  // Et les filtres suivent l'URL : un retour navigateur doit changer la file.
+  const urlKey = urlState ? `${urlState.bucket}\u0000${urlState.q}` : "";
+  useEffect(() => {
+    if (!urlState) return;
+    setBucket(urlState.bucket);
+    // Une frappe en attente n'est pas écrasée par notre propre écriture URL.
+    if (urlState.q !== query) {
+      setSearch(urlState.q);
+      setQuery(urlState.q);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [urlKey]);
 
   useEffect(() => {
     if (openRow !== null) reasonRef.current?.focus();
@@ -257,8 +292,11 @@ export default function ReviewView({
           className="revue__search"
           onSubmit={(event) => {
             event.preventDefault();
-            setQuery(search.trim());
-            setPage(0);
+            const next = search.trim();
+            if (next !== query) {
+              setQuery(next);
+              setPage(0);
+            }
           }}
         >
           <label className="revue__label" htmlFor="revue-q">Rechercher un indice ou un groupe</label>
@@ -285,6 +323,9 @@ export default function ReviewView({
           </button>
         ))}
       </div>
+      <p className="revue__results" role="status">
+        {rows.length} {rows.length === 1 ? "résultat affiché" : "résultats affichés"} sur {total} pour ces filtres
+      </p>
 
       {notice ? <p className="revue__notice" role="status">{notice}</p> : null}
       {error ? <p className="revue__error" role="alert">{error}</p> : null}

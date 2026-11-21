@@ -490,6 +490,13 @@ export default function App() {
     });
   }, []);
 
+  const onReviewStateChange = useCallback((review: AppUrlState["review"]) => {
+    setUrlState((prev) => {
+      const same = prev.review.bucket === review.bucket && prev.review.q === review.q;
+      return same ? prev : { ...prev, review };
+    });
+  }, []);
+
   const onTodayFamily = useCallback((family: string | null) => {
     setUrlState((prev) => (prev.today.family === family ? prev : { ...prev, today: { ...prev.today, family } }));
   }, []);
@@ -765,6 +772,8 @@ export default function App() {
               server={!MOCK_MODE}
               onUnauthorized={onUnauthorized}
               onOpenOrg={openOrgSheet}
+              urlState={urlState.review}
+              onUrlStateChange={onReviewStateChange}
             />
           ) : null}
           {view === "journal" ? <JournalView onUnauthorized={onUnauthorized} /> : null}
