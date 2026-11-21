@@ -277,4 +277,60 @@ export default async function (app: FastifyInstance) {
       };
     },
   );
+
+  /**
+   * Réactivation d'une source morte : décision réservée aux admins. Le statut,
+   * le compteur d'échecs et les champs de désactivation sont remis à zéro ;
+   * l'historique (source, événements, journal) reste intact, la trace de la
+   * réactivation est ajoutée au journal dans la même transaction.
+   */
+  app.post<{ Params: { id: string } }>(
+    "/sources/:id/reactiver",
+    { preHandler: requireRole("admin") },
+    async (req, reply) => {
+      const id = req.params.id;
+      const acteur = `humain:${req.user?.email ?? "admin"}`;
+
+      const updated = await withTransaction(async (client) => {
+        const r = await client.query<{
+          id: string; statut: string; enabled: boolean; echecs_consecutifs: number;
+        }>(
+          `UPDATE source
+              SET statut = 'active',
+                  enabled = true,
+                  echecs_consecutifs = 0,
+                  derniere_erreur = NULL,
+                  disabled_at = NULL,
+                  disabled_reason = NULL
+            WHERE id = $1 AND statut = 'morte'
+            RETURNING id, statut, enabled, echecs_consecutifs`,
+          [id],
+        );
+        const row = r.rows[0];
+        if (!row) return null;
+
+        const trace = await consignerAvec(
+          (sql, params) => client.query(sql, params as unknown[]),
+          {
+            kind: "source.changed",
+            subject: id,
+            summary: `source ${id} réactivée`,
+            actor: acteur,
+            payload: { transition: "reactivation", statut: "active" },
+          },
+        );
+        if (!trace.ok) throw new Error(`journal indisponible : ${trace.error}`);
+        return row;
+      });
+
+      if (!updated) return reply.code(404).send({ error: "source introuvable ou déjà active" });
+      return {
+        id: updated.id,
+        statut: updated.statut,
+        enabled: updated.enabled,
+        echecsConsecutifs: updated.echecs_consecutifs,
+        journalise: true,
+      };
+    },
+  );
 }

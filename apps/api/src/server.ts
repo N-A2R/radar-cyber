@@ -13,7 +13,7 @@ import { runHermesCollector } from "./collectors/hermes.collector.js";
 import { runQuarantineCollector } from "./collectors/quarantine.collector.js";
 import { promoteMatches } from "./quarantine/promote.js";
 import { fetchResilient } from "./collectors/http.js";
-import { collectors } from "./collectors/index.js";
+import { collectors, executerCollecteur } from "./collectors/index.js";
 import { consignerLot, type JournalEntry } from "./journal/index.js";
 import { porteeRegionale } from "./match/territorial.js";
 import { closePools, ingestQuery, query } from "./db.js";
@@ -182,7 +182,11 @@ async function runCollectors(): Promise<void> {
 		const age = await lastRunAgeSec(c.id);
 		if (age < c.intervalSec * 0.8) continue;
 
-		const { rows } = await query<{ cursor: unknown }>("SELECT cursor FROM source WHERE id=$1", [c.id]);
+		const { rows } = await query<{ cursor: unknown; statut: string; enabled: boolean }>(
+			"SELECT cursor, statut, enabled FROM source WHERE id=$1", [c.id],
+		);
+		// Une source morte (décision admin ou 5 échecs) ne doit plus être collectée.
+		if (rows[0]?.statut === "morte" || rows[0]?.enabled === false) continue;
 		// Colonne jsonb : la forme réelle n'est connue qu'à l'exécution.
 		const stored: unknown = rows[0]?.cursor;
 		const cursor = stored !== null && typeof stored === "object" ? (stored as Record<string, unknown>) : {};
@@ -190,7 +194,7 @@ async function runCollectors(): Promise<void> {
 		let itemsIn = 0;
 		let itemsNew = 0;
 		try {
-			const result = await c.run(makeContext(cursor, (m) => app.log.info(m)));
+			const result = await executerCollecteur(c, makeContext(cursor, (m) => app.log.info(m)));
 			itemsIn = result.events.length;
 			// Le type `NormalizedEvent` n'était qu'une assertion du compilateur :
 			// les collecteurs renvoient ce qu'ils veulent à l'exécution. Le

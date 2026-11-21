@@ -35,6 +35,8 @@ export type JournalKind =
 	| "alert.changed"
 	/** Une source a changé d'état (cassée, réparée, désactivée). */
 	| "source.changed"
+	/** Une source a été déclarée morte après une série d'échecs. */
+	| "source.morte"
 	/** Un fait visé n'a pas pu être écrit : le journal se souvient du trou. */
 	| "journal.lacune"
 	/** Un lot d'événements a été retiré de la table de lecture — jamais sans archive. */
