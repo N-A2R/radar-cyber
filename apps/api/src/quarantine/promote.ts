@@ -6,13 +6,20 @@
  *   (matchOrg, score >= MIN_CONFIDENCE) ;
  * - manuelle via POST /api/quarantine/:id/promote.
  *
+ * Depuis la vague « branchement » (docs/rapport-regles-branchees.md), les six
+ * règles de précision (match/regles-precision.ts) sont consultées au point de
+ * décision, derrière le drapeau `PRECISION_RULES=on|off` : un rattachement
+ * refusé n'est pas écrit, et le refus est journalisé avec la règle qui l'a
+ * posé (kind `match.refuse`).
+ *
  * La promotion crée un événement `ransomware` / `third_party_claim`,
  * dédupliqué sur `content_hash`, puis déclenche la règle
  * `ransomware-revendication` pour générer l'alerte.
  */
 import { admitEvent } from "../contract/admit.js";
 import { ingestQuery, query, withTransaction } from "../db.js";
-import { consignerAvec } from "../journal/index.js";
+import { consigner, consignerAvec } from "../journal/index.js";
+import { ecarteeParRegles } from "../match/regles-precision.js";
 import { porteeRegionale } from "../match/territorial.js";
 import type { PoolClient, QueryResultRow } from "pg";
 import { evaluateEvent } from "../detect/engine.js";
@@ -61,6 +68,88 @@ export const MIN_CONFIDENCE = 0.5;
  * n'a pas le jugement d'un analyste : elle exige 0,85, l'humain garde 0,5.
  */
 export const AUTO_MIN_CONFIDENCE = 0.85;
+
+/**
+ * Règles de précision du rattachement actives ? (spec :
+ * `match/regles-precision.ts` — les six règles retenues par la campagne
+ * précision, branchées par la vague « branchement », S1.1.)
+ *
+ * Drapeau `PRECISION_RULES=on|off`, lu **à chaque appel** : les deux régimes
+ * se mesurent dans le même binaire. Absent = off : le comportement livré
+ * reste le défaut jusqu'à ce que l'exploitation choisisse — la mesure du
+ * compromis précision/couverture et la recommandation vivent dans
+ * `docs/rapport-regles-branchees.md`.
+ */
+export function reglesPrecisionActives(): boolean {
+	const v = (process.env.PRECISION_RULES ?? "").trim().toLowerCase();
+	return v === "on" || v === "1" || v === "true";
+}
+
+/** Un rattachement refusé par les règles de précision (drapeau actif). */
+export type RefusRegle = {
+	id: number;
+	/** La règle qui a refusé : sans elle, la baisse de couverture reste muette. */
+	regle: string;
+	indice: string;
+	orgId: number;
+	orgName: string;
+	via: "domain" | "name";
+	confidence: number;
+};
+
+/**
+ * Évalue les règles de précision sur un rapprochement du moteur. Renvoie le
+ * nom de la première règle qui refuse, ou null (drapeau off : null, le
+ * rattachement suit le chemin livré sans changement).
+ */
+export function refusParRegles(
+	indice: string,
+	m: Pick<OrgMatch, "via" | "confidence">,
+	orgName: string,
+): string | null {
+	if (!reglesPrecisionActives()) return null;
+	return ecarteeParRegles({ indice, via: m.via, confidence: m.confidence, orgName });
+}
+
+/**
+ * Consigne un refus de règle dans le journal de vérité. Le fait porte
+ * **quelle règle** a refusé (S1.2) : sans elle, on ne saurait jamais pourquoi
+ * la couverture a baissé.
+ *
+ * La promotion automatique rescanne les faits `pending` à chaque passage : le
+ * refus d'un fait est le même fait à chaque scan — on ne le réécrit pas
+ * (journal append-only, un seul fait par (sujet, règle)).
+ */
+async function consignerRefusRegle(
+	row: QuarantineRow,
+	orgId: number,
+	m: Pick<OrgMatch, "via" | "confidence">,
+	orgName: string,
+	regle: string,
+): Promise<{ ok: boolean; error?: string }> {
+	const subject = `quarantine:${row.content_hash}`;
+	const deja = await query<{ ok: number }>(
+		"SELECT 1 AS ok FROM journal WHERE kind='match.refuse' AND subject=$1 AND payload->>'regle'=$2 LIMIT 1",
+		[subject, regle],
+	);
+	if (deja.rows.length > 0) return { ok: true };
+	return consigner({
+		kind: "match.refuse",
+		subject,
+		summary: `rattachement refusé par la règle ${regle} (quarantine ${row.id})`,
+		actor: "moteur:regles-precision@1",
+		payload: {
+			quarantineId: Number(row.id),
+			regle,
+			indice: row.org_hint ?? "",
+			orgId,
+			orgName,
+			via: m.via,
+			confidence: m.confidence,
+			drapeau: "PRECISION_RULES=on",
+		},
+	});
+}
 
 /** Ligne de quarantaine nécessaire à la promotion. */
 type QuarantineRow = {
@@ -548,6 +637,10 @@ export type PromotionResult = {
   failures: { id: number; error: string }[];
   dryRun: boolean;
   matches: PromotionMatch[];
+  /** Rattachements refusés par les règles de précision, comptés par règle. */
+  refusRegles: Record<string, number>;
+  /** Détail des refus (borné au passage : au plus MAX_AUTO_PER_RUN). */
+  refus: RefusRegle[];
 };
 
 /**
@@ -576,6 +669,8 @@ export async function promoteMatches(
   );
 
   const matches: PromotionMatch[] = [];
+  const refusRegles: Record<string, number> = {};
+  const refus: RefusRegle[] = [];
   let promoted = 0;
   let eventsCreated = 0;
   let alertsCreated = 0;
@@ -590,6 +685,27 @@ export async function promoteMatches(
     const m = matchOrgInIndex(row.org_hint ?? "", candidates);
     if (!m || m.confidence < AUTO_MIN_CONFIDENCE) continue;
     const orgName = candidates.find((e) => e.id === m.orgId)?.name ?? "";
+    // Les règles de précision tranchent avant le modèle et avant l'écriture :
+    // un rattachement non fondé n'est ni confirmé, ni promu — le fait reste
+    // en file pour la revue humaine, avec la règle qui a refusé au journal.
+    const regle = refusParRegles(row.org_hint ?? "", m, orgName);
+    if (regle) {
+      refusRegles[regle] = (refusRegles[regle] ?? 0) + 1;
+      refus.push({
+        id: Number(row.id),
+        regle,
+        indice: row.org_hint ?? "",
+        orgId: m.orgId,
+        orgName,
+        via: m.via,
+        confidence: m.confidence,
+      });
+      if (!dryRun) {
+        const trace = await consignerRefusRegle(row, m.orgId, m, orgName, regle);
+        if (!trace.ok) log(`promotion : journal du refus indisponible (${trace.error})`);
+      }
+      continue;
+    }
     const orgNameById = new Map([[m.orgId, orgName]]);
     // Le modèle tranche avant écriture : un rapprochement nié n'attache rien.
     let confirmed = true;
@@ -627,7 +743,10 @@ export async function promoteMatches(
 
   log(
     `promotion : ${promoted} promu(s) / ${r.rows.length} candidat(s), ` +
-      `${matches.length} correspondance(s), ${eventsCreated} événement(s), ${alertsCreated} alerte(s)`
+      `${matches.length} correspondance(s), ${eventsCreated} événement(s), ${alertsCreated} alerte(s)` +
+      (Object.keys(refusRegles).length > 0
+        ? `, refus règles : ${Object.entries(refusRegles).map(([k, n]) => `${k}=${n}`).join(", ")}`
+        : "")
   );
   return {
     scanned: r.rows.length,
@@ -638,6 +757,8 @@ export async function promoteMatches(
     dryRun,
     matches,
     failures,
+    refusRegles,
+    refus,
   };
 }
 
@@ -652,6 +773,10 @@ export type PromoteOneResult = {
   alertsCreated: number;
   /** Vrai si l'événement vient d'être créé (faux si dédupliqué). */
   inserted: boolean;
+  /** Règle de précision qui a refusé le rattachement du moteur (drapeau
+   * `PRECISION_RULES=on`), ou null. La promotion d'un analyste reste posée :
+   * c'est le rattachement produit par le moteur qui est refusé. */
+  refuseParRegle: string | null;
 };
 
 /**
@@ -669,6 +794,7 @@ export async function promoteOneTx(client: PoolClient, id: number, promotedBy: s
     eventId: null,
     alertsCreated: 0,
     inserted: false,
+    refuseParRegle: null,
   } as const;
 
   const r = await query<QuarantineRow>(
@@ -682,7 +808,18 @@ export async function promoteOneTx(client: PoolClient, id: number, promotedBy: s
 
   const index = await loadOrgIndex();
   const m = matchOrgInIndex(row.org_hint ?? "", index);
-  const confirmed = m
+  // Les règles de précision tranchent avant le modèle : un rapprochement
+  // refusé ne demande pas d'arbitrage et n'attache rien — même promu à la
+  // main. L'analyste décide de la promotion ; le rattachement reste une
+  // production du moteur, tenue aux mêmes règles qu'en automatique.
+  const regle = m
+    ? refusParRegles(
+        row.org_hint ?? "",
+        m,
+        index.find((e) => e.id === m.orgId)?.name ?? "",
+      )
+    : null;
+  const confirmed = m && !regle
     ? await confirmMatch(row.org_hint ?? "", m.orgId, new Map(index.map((e) => [e.id, e.name])), m.via)
     : false;
 
@@ -697,9 +834,29 @@ export async function promoteOneTx(client: PoolClient, id: number, promotedBy: s
   const ev = await insertClaimEventRow(
     runnerOf(client),
     row,
-    confirmed && m ? m.orgId : null,
+    confirmed && m && !regle ? m.orgId : null,
     promotedBy,
   );
+  if (regle && m) {
+    // Le refus est écrit dans la même transaction que la promotion : le fait
+    // porte la règle, l'analyste peut lire pourquoi rien n'est attaché.
+    await consignerAvec((sql, params) => client.query(sql, params as unknown[]), {
+      kind: "match.refuse",
+      subject: `quarantine:${row.content_hash}`,
+      summary: `rattachement refusé par la règle ${regle} (quarantine ${row.id}, promotion ${promotedBy})`,
+      actor: "moteur:regles-precision@1",
+      payload: {
+        quarantineId: Number(row.id),
+        regle,
+        indice: row.org_hint ?? "",
+        orgId: m.orgId,
+        orgName: index.find((e) => e.id === m.orgId)?.name ?? "",
+        via: m.via,
+        confidence: m.confidence,
+        drapeau: "PRECISION_RULES=on",
+      },
+    });
+  }
   return {
     found: true,
     id,
@@ -710,6 +867,7 @@ export async function promoteOneTx(client: PoolClient, id: number, promotedBy: s
     eventId: ev.eventId,
     inserted: ev.inserted,
     alertsCreated: 0,
+    refuseParRegle: regle,
   };
 }
 

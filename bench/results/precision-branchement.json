@@ -1,0 +1,7344 @@
+{
+	"vague": "regles",
+	"etape": "S2",
+	"date": "2026-11-21",
+	"protocole": "les deux régimes tournent dans le même binaire (PRECISION_RULES lu à l'appel, basculé entre les passes) ; les refus sont évalués par la fonction de production refusParRegles → ecarteeParRegles (src/match/regles-precision.ts) ; le flux réel rejoue le chemin livré (loadCandidateIndex + matchOrgInIndex) sur la file pending, sans écrire",
+	"binaire": {
+		"drapeau": "PRECISION_RULES=on|off (défaut off)",
+		"regles": "apps/api/src/match/regles-precision.ts (les six règles retenues)",
+		"pointDeDecision": "apps/api/src/quarantine/promote.ts : promoteMatches (auto) et promoteOneTx (manuel)"
+	},
+	"corpusGele": {
+		"instrument": "corpus gelé (allocation égale, verdicts avec preuve)",
+		"n": 500,
+		"population": {
+			"unitesDistinctes": 1992,
+			"taillesStrates": {
+				"haute|ransomwatch|nom": 257,
+				"moyenne|ransomwatch|nom": 243,
+				"moyenne|ransomwatch|sigle": 1403,
+				"haute|ransomwatch-echantillon|domaine": 4,
+				"haute|ransomwatch|domaine": 76,
+				"faible|ransomwatch|ville": 3,
+				"moyenne|ransomware.live|sigle": 3,
+				"moyenne|ransomware.live|nom": 1,
+				"moyenne|ransomwatch-echantillon|nom": 2
+			}
+		},
+		"regimeOff": {
+			"rattachements": 500,
+			"couvertureParUnite": 1,
+			"precisionBrute": 0.2184065934065934,
+			"precisionPopulationStratifiee": 0.04527911646586345,
+			"poidsStratesActives": 1,
+			"precisionBruteAvantRegles": 0.2184065934065934,
+			"refusParRegle": {}
+		},
+		"regimeOn": {
+			"rattachements": 215,
+			"couvertureParUnite": 0.43,
+			"precisionBrute": 0.8586956521739131,
+			"precisionPopulationStratifiee": 0.616695352839931,
+			"poidsStratesActives": 0.2917,
+			"precisionBruteAvantRegles": 0.2184065934065934,
+			"refusParRegle": {
+				"6-ville": {
+					"n": 3,
+					"verdicts": {
+						"hors_sujet": 3
+					}
+				},
+				"1-sigle": {
+					"n": 140,
+					"verdicts": {
+						"hors_sujet": 128,
+						"indecidable": 12
+					}
+				},
+				"4-commentaire": {
+					"n": 24,
+					"verdicts": {
+						"hors_sujet": 24
+					}
+				},
+				"2-homonyme": {
+					"n": 93,
+					"verdicts": {
+						"hors_sujet": 92,
+						"partielle": 1
+					}
+				},
+				"3-masquage": {
+					"n": 25,
+					"verdicts": {
+						"hors_sujet": 24,
+						"indecidable": 1
+					}
+				}
+			}
+		},
+		"entreesRefusees": [
+			{
+				"ordre": 1,
+				"strate": "faible|ransomwatch|ville",
+				"indice": "Saint-Bar (saintbar.be)",
+				"via": "name",
+				"confiance": 0.6,
+				"org": "SAINT EUGENE",
+				"verdict": "hors_sujet",
+				"regle": "6-ville"
+			},
+			{
+				"ordre": 6,
+				"strate": "moyenne|ransomware.live|sigle",
+				"indice": "harbingerconcrete.build",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "BUILD",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 7,
+				"strate": "moyenne|ransomwatch-echantillon|nom",
+				"indice": "sky-light.com\\$26.4M\\Denmark\\50GB\\<1% DISCLOSED",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "LA SKY LIGHT",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 8,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Duty Free Americas (DFA)",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "LS DUTY FREE",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 9,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Detroit Stoker",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "DETROIT",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 10,
+				"strate": "faible|ransomwatch|ville",
+				"indice": "Aéroport de Pau",
+				"via": "name",
+				"confiance": 0.6,
+				"org": "TAXI 64 AEROPORT & MEDICAL",
+				"verdict": "hors_sujet",
+				"regle": "6-ville"
+			},
+			{
+				"ordre": 13,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "F*****H",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "F.H",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 14,
+				"strate": "moyenne|ransomware.live|sigle",
+				"indice": "amarok.com",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "AMAROK",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 15,
+				"strate": "moyenne|ransomwatch-echantillon|nom",
+				"indice": "thomas-lloyd.com\\$66.1M\\USA\\2.4TB\\<1% DISCLOSED",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "THOMAS LLOYD",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 16,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "National Rehabilitation Training Center",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "TRAINING CENTER",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 17,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Fraser Trebilcock",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI FRASER",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 18,
+				"strate": "faible|ransomwatch|ville",
+				"indice": "Venture General Agen cy",
+				"via": "name",
+				"confiance": 0.6,
+				"org": "Section d'enseignement général et professionnel adapté du collège privé La Salle Félix Aunac",
+				"verdict": "hors_sujet",
+				"regle": "6-ville"
+			},
+			{
+				"ordre": 22,
+				"strate": "moyenne|ransomware.live|sigle",
+				"indice": "chevron.com",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI CHEVRON",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 23,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "ryanhanley.ie - HACKED AND MORE THEN 200GB DATA LEAKED",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "MORE AND MORE...",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 24,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "IDEAL Fensterbau",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "IDEAL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 28,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Atos (Business Services · France)",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "ATOS FRANCE",
+				"verdict": "partielle",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 29,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Professionnel France",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "FRANCE 2R (FRANCE 2R)",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 32,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "FIRST 5 Santa Clara County",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SCI SANTA CLARA",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 33,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Indiana Dimension",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "DIMENSION IT",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 36,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "ASMFC: Atlantic States Marine Fisheries Commission",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "MARINE ATLANTIC",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 37,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "JVSmith Companies",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "CN COMPANIES",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 40,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Paul Davis Restoration",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "DAVIS PAUL",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 41,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Matco Electric",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "B ELECTRIC",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 43,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "T***** ***** *********t** *.*.",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "T & T",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 45,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Medigroup.ca",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCM MEDIGROUP",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 47,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "C**********M",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "C&M",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 48,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "waiwhetu-medical-centre",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SCI DU CENTRE MEDICAL",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 49,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "PBC Companies",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "CN COMPANIES",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 52,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "THE  FIRST SHAMING",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SCI THE FIRST",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 53,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Magic-Aire",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MAGIC RH",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 56,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "New Horizons Medical",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "AC NEW HORIZONS",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 57,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Gage Brothers",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "A&A BROTHERS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 59,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "K*****S",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "K S",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 60,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "12 Escape from the dark",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "THE DARK",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 61,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Kenall/Legrand",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SELARL LEGRAND",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 64,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Black Diamond Capital Management",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SCI BLACK DIAMOND",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 65,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Punto.bg",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SAS LE PUNTO",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 68,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Manoir Saint-Sauveur",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "EARL DE SAINT SAUVEUR",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 69,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Wilson Lewis",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI WILSON",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 72,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Ogden Golf & Country Club",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "LE GOLF CLUB 33",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 73,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Galveston College",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI DU COLLEGE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 76,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "CIG de la Grande Couronne",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "LA GRANDE COURONNE",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 77,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Lincoln Office",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SC - OFFICE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 80,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "SANTA MARIA LABORATORIO",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SANTA MARIA",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 81,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "HAYAT GROUP",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "HAYAT",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 84,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "New World Development Company Limited (NWD)",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SAS NEW WORLD",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 85,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "ATI Traduction",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "TRADUCTION & CONSULTING",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 88,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "[File Tree Full Data Dump, Evidance Pack 2]VOP CZ",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "FULL PACK",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 89,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Astre - Leaked",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ASTRE",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 92,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Les Miroirs St-Antoine Inc Data Leak",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "LES SERVICES D'ANTOINE",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 93,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Indiv Usa",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "INDIV GA.PA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 97,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Banco Caribe",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI CARIBE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 100,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Scottish Association for Mental Health",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "ASSOCIATION CO-MENTAL",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 101,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "XPress Cargo",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "CARGO",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 104,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "FRESH TASTE PRODUCE USA AND ASSOCIATES INC.",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "TASTE AND GO",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 105,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Align Technology",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ALIGN",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 108,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "New York & Company",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SNC LE NEW YORK",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 109,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Community Alliance",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "M & J COMMUNITY",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 112,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Mark A. O'neal and Associates",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "NEAL MARK",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 113,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Avana Electrotek",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "AVANA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 116,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Real Estate Systems Integrator",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SCI EP REAL ESTATE",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 117,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Lifetech Resources",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "LP CONSULTING & RESOURCES",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 119,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "D*****S",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "D.S",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 121,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "FHR Electric",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "B ELECTRIC",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 124,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "The Coffee Bean & Tea Leaf",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "O COFFEE TEA",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 125,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "EQUITY TRANSPORTATION",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "EQUITY",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 127,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "A*****D",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "A D",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 128,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "LJ Hooker Palm Beach",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SCI PALM BEACH",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 129,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Clima Lodi",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "CLIMA DT",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 132,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Saskatchewan Liquor and Gaming Authority",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SERVERS AND GAMING",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 133,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Commercial Solutions",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "EURL M.O COMMERCIAL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 136,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "CompaÃ±Ã­a Agricola San Felipe",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SCI SAN FELIPE",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 137,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Packaging Solutions",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SOLUTIONS PACKAGING",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 140,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "SUD TRADING COMPANY",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "TRADING COMPANY",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 141,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Sunrise Farms",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SUNRISE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 143,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "**l***** C***********",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "L.C.",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 144,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "ORLANDO IMPORT-EXPORT 2001 SRL",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "CG IMPORT EXPORT (CG IMPORT EXPORT)",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 145,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Keystone Engineering",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "LC ENGINEERING",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 148,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "voidinteractive.net you are welcome in our chat",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "BE AS YOU ARE",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 149,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "continental.com",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI LE CONTINENTAL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 153,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Elevator One",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MT ELEVATOR",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 156,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "CONSUMAX.COM.AR - WAS HACKED AND MORE THEN 2TB SENSETIVE DATA LEAKED",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "MORE AND MORE...",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 157,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Freeman Johnson",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "JOHNSON  & JOHNSON",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 160,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Network Pacific Real Estate - Leak",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SCI EP REAL ESTATE",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 161,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Omega Industries",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "OMEGA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 164,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Unique Engineering is the most collaborative and dangerous construction company in Asia",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "THE 10 COMPANY",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 165,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Audio Video",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "J.P.B.VIDEO",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 167,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "L?? C??e",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "L.C.E",
+				"verdict": "indecidable",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 168,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Gitlabs: Bolin Centre for Climate Research, X-lab group, Madia",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "CENTRE LAB",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 169,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Foursquare Healthcare",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MG HEALTHCARE GROUP",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 173,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Lumina Americas",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "LE LUMINA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 176,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Quilvest Capital Partners",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "LC CAPITAL PARTNERS",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 177,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "I-❤️-TEXAS",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "TEXAS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 180,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "International Trade Brokers and Forwarders",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SASU T AND S INTERNATIONAL",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 181,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Mikro Trading",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "2M TRADING",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 185,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Royce Corporation",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ROYCE WS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 189,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "porter.in",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "PORTER",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 192,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Esc Pau Etudes-Conseils",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "DF ETUDES-CONSEILS",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 193,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Innotec, Corp.",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "INNOTEC",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 196,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "William Jackson Food Group",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "JACKSON WILLIAM",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 197,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Perfumes & Companhia",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "EN COMPANHIA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 201,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "United Industries",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "AS INDUSTRIES",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 204,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "WICKERSHAMCONSTRUCTION.COM - HACKED AND MORE THEN 1000GB DATA LEAKED!",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "MORE AND MORE...",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 205,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Transport Lutztulln",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ML TRANSPORT",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 208,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Every one of you been a good customer this year",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "GOOD ONE",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 209,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "SantÃ©lys",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SANTA FE EA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 211,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "*a*** I*********",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "A I",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 212,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Daregal was hacked. The most insecure retail company allowed a huge amount of confidential",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "THE 10 COMPANY",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 213,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Filtration Control",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "BE CONTROL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 216,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Customer Elation - Business Information",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "BUSINESS INFORMATION SYSTEM (B.I.S)",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 217,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Daylesford Organic",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "13 ORGANIC",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 221,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Nissan Australia",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "AUSTRALIA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 225,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "SCREEN Holdings",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "GN HOLDINGS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 228,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Groupe Marchand Architecture & Design Inc",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "DESIGN & ARCHITECTURE",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 229,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Banco Sol",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "BANCO 34",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 232,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Pharmatech Repblica Dominicana was hacked. All sensitive company and customer information",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SENSITIVE AND CO",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 233,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Lerch Bates",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI BATES",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 236,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Mission Locale Montpellier",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "MISSION LOCALE",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 237,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Premier Energy",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ENERGY 2N",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 240,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "sppc.com.sa - HACKED and more then 900GB data leaked",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "MORE AND MORE...",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 241,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Infinitely Virtual",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "VIRTUAL 33",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 243,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "Y*********I",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "Y&I",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 245,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Torin Drive",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "DRIVE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 248,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "About Israel Fake news companies",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "FAKE NEWS",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 249,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Stratton Finance",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "HT FINANCE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 251,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "H??????? C??????????",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "H & C",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 252,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "TAP Air Leak of more than 1.5 million of customers and many other.",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "MORE AND MORE...",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 253,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Chariton Valley",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "VALLEY",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 255,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "**i* **s****",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "I-S",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 256,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "PWS - The Laundry Company",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "THE 10 COMPANY",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 257,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Centurion Stone",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI STONE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 259,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "F********** *********-************",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "F",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 260,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Forum Architecture &amp; Interior Design (forumarchitecture.com)",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "AMP ARCHITECTURE",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 261,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "BestPack Packaging",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SOLUTIONS PACKAGING",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 264,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "New York Law Firm with a National Presence",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SNC LE NEW YORK",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 265,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Prism Construction",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "HD CONSTRUCTION",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 268,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "ATB SA Ingénieurs-conseils SIA",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "I.E.S.INGENIEURS CONSEILS",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 269,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Construct",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MF CONSTRUCT",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 271,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "******MD",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "MD",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 272,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Therme Laa Hotel and Silent Spa",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "HOTEL & SPA CONSULTING",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 273,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "AnVa Industries",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "AS INDUSTRIES",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 276,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Pastor Real Estate",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SCI EP REAL ESTATE",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 277,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "TALIS GROUP",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "TALIS NETWORK",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 280,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Santa Cruz Seaside",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SANTA CRUZ",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 281,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Amphenol Canada",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI CANADA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 283,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "M??? ????k ??????",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "M K",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 285,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Woodbine Hospitality",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "HOSPITALITY",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 288,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "FajarPaper was hacked. The most dangerous company to cooperate with in Indonesia may pose",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "THE 10 COMPANY",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 289,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "GIBSON HomeWares",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SARL GIBSON",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 292,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "San Francisco Ballet",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SAN FRANCISCO",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 293,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "cotrelec.com",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "COTRELEC",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 296,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "KKDI.CO.ID including companies AICC, JBI, TJFI (part of the kddi.com holding company, whos",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "THE 10 COMPANY",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 297,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Compass Communications",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "E-COMPASS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 300,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Pincu Barkan, Law Office and Notary",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "L'OFFICE [LAW OFFICE]",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 301,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "The Summit",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SUMMIT",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 304,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Confidential and High Sensitive Data",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SENSITIVE AND CO",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 305,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "CNPC Sport",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "EL SPORT",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 308,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Western Digital Chronicles II: The Weekly Descent into Oblivion",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "INTO THE CODE",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 309,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Lakes Precision",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "T B PRECISION",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 312,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "www.fondation-vincent-de-paul.org",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "VINCENT PAUL",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 313,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "PBS AEROSPACE",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "A & T AEROSPACE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 316,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Duty Free Philippines",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "LS DUTY FREE",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 317,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "SAED International",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "B ET A INTERNATIONAL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 319,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "The Grand Bahama Port Authority",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SCI DU GRAND PORT",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 320,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "ECU Worldwide",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "AR WORLDWIDE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 322,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "American International Industries",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "AMERICAN INDUSTRIES",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 323,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "espera.com",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "LA ESPERA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 324,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "K***** **** ***********",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "K",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 325,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "hotel-ampere-paris.com",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "HOTEL DE PARIS",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 326,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Active Concepts",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ACTIVE NETWORK",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 328,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "TECHNICA - HACKED AND MORE THEN 300 GB DATA LEAKED!",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "MORE AND MORE...",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 329,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "baa.legal",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI LEGAL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 332,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Dublin",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "DUBLIN 11",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 334,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Center for Digestive Health",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "CONSULTING FOR GLOBAL HEALTH",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 335,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Wilhoit Properties",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "M & A PROPERTIES",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 337,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Groupe ACTIVA was hacked. The most unreliable insurance company in the world has once agai",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "THE 10 COMPANY",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 338,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Medical Reports",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SARL MEDICAL 17",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 340,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "KOBE BUSSAN - HACKED AND MORE THEN 500Gb DATA LEAKED",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "MORE AND MORE...",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 341,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Hello World",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "E WORLD MEDIA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 343,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Rush Energy Services Inc [You have 48 hours]",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "ENERGY 4 YOU",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 344,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Santa Rosa",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SANTA FE EA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 346,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Hospital Italiano de Buenos Aires",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SCI BUENOS AIRES",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 347,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Transsion Holdings",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "GN HOLDINGS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 350,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "nautic.com",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI NAUTIC",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 352,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Fimmick CRM Hong Kong (www.fimmick.com)",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "EURL HONG KONG",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 353,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "AFG Canada",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI CANADA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 355,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "National Office for centralized procurement",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "NATIONAL-FOR",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 356,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Agate Construction",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "HD CONSTRUCTION",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 358,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Total Patient Care LLC;A Sensitive Touch Home Health;Alphastar Home Health Care;Heart of T",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "HOME CARE",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 359,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "RAVEN Mechanical",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "RAVEN GROUP",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 361,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "The University of Notre Dame Australia (nd.edu.au)",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "NOTRE-DAME 77",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 362,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Powersports Marketing",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "JB MARKETING",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 364,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "New York Racing Association",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SNC LE NEW YORK",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 365,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Karman Inc",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "KARMAN",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 368,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Aqualectra Holdings",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "GN HOLDINGS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 369,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "G****** ******s",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "G.S.",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 370,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Bettuzzi And Partners",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "O AND O PARTNERS",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 371,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Penn Cinema",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "CINEMA Z",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 373,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Baton Rouge General",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SARL BATON ROUGE",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 374,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "BTC Power",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MP POWER",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 376,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Precision Tune Auto Care",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "AUTO CARE",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 377,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Equentis Wealth",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "WEALTH CONSULTING",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 380,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Notions Marketing",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "JB MARKETING",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 382,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "reliancenj.com - HACKED AND MORE THEN 200GB DATA LEAKED",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "MORE AND MORE...",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 383,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Mahindra Racing",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "GP RACING",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 384,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "M*******l***",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "M & L",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 385,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Access Capital Partners SA",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "LC CAPITAL PARTNERS",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 386,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Equatorial Energia",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ENERGIA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 388,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Bel-Air Bay Club",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "BEL AIR SOFTWARE",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 389,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "BRAZIL GOV",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "DO BRAZIL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 391,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Dragon Tax and Management INC",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "BK MANAGEMENT AND CONSULTING",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 392,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Mayberry Investments",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "BB INVESTMENTS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 395,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Pizza 73",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MX PIZZA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 397,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "BAHRA ELECTRIC - HACKED AND MORE THEN 800 GB DATA LEAKED",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "MORE AND MORE...",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 398,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "British Library",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SO BRITISH",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 400,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Henry Oil & Gas",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "GAS OIL",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 401,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Gloria Cales",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "GLORIA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 403,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "New York Sports Club",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SNC LE NEW YORK",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 404,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "museum-dingo",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI DINGO",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 405,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "A***** *** * ******* S*******",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "A&S",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 406,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "first_coast_logistics_services",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "FIRST LOGISTICS SERVICES",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 407,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Cogal Industry",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "M.G.M. INDUSTRY",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 410,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Sandhills Center",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI CENTER",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 412,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Horizon Pool & Spa",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "POOL N SPA",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 413,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "DRM Resources",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "LP CONSULTING & RESOURCES",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 415,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Richard Harris Personal Injury Law Firm",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "HARRIS RICHARD",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 416,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Fonseca Supermarkets",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "FONSECA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 417,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "M**** M************",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "M & M",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 418,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Courageous Home Care",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "HOME CARE",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 419,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "popolo.bg",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "POPOLO",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 422,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Interforos Casting",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "CASTING-WEB",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 423,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "A****** ********* **o*****",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "A.O",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 425,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "delarue.com",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI DELARUE",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 427,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Derrimon Trading was hacked. Critical data of the company and its customers was stolen",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "THE 10 COMPANY",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 428,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Schnee Berger",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI MY BERGER",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 430,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "The Fashion Group International",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "FASHION K INTERNATIONAL",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 431,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Nano Health",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "VM HEALTH",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 432,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "A** ******",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "A .",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 433,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "STTLK - HACKED AND MORE THEN 200GB DATA LEAKED",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "MORE AND MORE...",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 434,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Wesco Equipment",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "WESCO",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 436,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "The Recycler Core Company",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "THE 10 COMPANY",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 437,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Ribe-Groupe",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "GROUPE 3W (3W)",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 439,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "The Saint James Hospital Group",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SCI SAINT JAMES",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 440,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Bauer Built",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "BAUER SERVICE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 442,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Asian Network Pacific Home Care and Hospice",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "HOME CARE",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 443,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Gallier Orléans",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI D ORLEANS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 445,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Upstate Home Care",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "HOME CARE",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 446,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Guardian Capital",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "RC CAPITAL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 448,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Agile Sourcing Partners",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "GLOBAL SOURCING PARTNERS",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 449,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "laxmi.com",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "LAXMI",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 451,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Who is the real Bad Guys here? Or what recovery experts prefer to keep silent.",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "THE GUYS",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 452,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "ConForm Automotive",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ST AUTOMOTIVE SERVICE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 454,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Law Office of Michael H Joseph",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "L'OFFICE [LAW OFFICE]",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 455,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Concord Orthopaedics",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "CONCORD",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 457,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Eastern Cape Gambling Board was hacked. The most dangerous gambling company for cooperatio",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "THE 10 COMPANY",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 458,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Indonesia Power",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MP POWER",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 460,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "The International School of Management",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "INTERNATIONAL SCHOOL 33",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 461,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Tata Power",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MP POWER",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 463,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "WARTSILA.COM - HACKED AND MORE THEN 2000 GB DATA LEAKED",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "MORE AND MORE...",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 464,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Diamond Box",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "DIAMOND",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 465,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "C???e????? ?????????????",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "C E",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 466,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "The Plastic Forming Company",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "THE 10 COMPANY",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 467,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Capital Trade",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "RC CAPITAL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 469,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "BAFNAGROUP.COM - HACKED AND MORE THEN 20 GB DATA LEAKED",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "MORE AND MORE...",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 470,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Noyen Construction",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "HD CONSTRUCTION",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 473,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Summit Appliance",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SUMMIT",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 474,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "C******* **N***",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "C.N",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 476,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Cortez Resources",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "LP CONSULTING & RESOURCES",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 477,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "D***",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "D",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 478,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "pro office Büro + Wohnkultur GmbH",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "PRO OFFICE SOLUTIONS",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 479,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Telecom Namibia",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "AM-TELECOM (AM-TELECOM)",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 481,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Saint Jean Industries  - MORE THEN 1.5 TB DATA LEAKED",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "LE SAINT JEAN",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 482,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Owens Group",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "OWENS & CO",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 484,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "SBK Real Estate",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SCI EP REAL ESTATE",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 485,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Bronzino Engineering",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI BRONZINO",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 487,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Garage Living, The Dispenser USA",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "THE LIVING",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 488,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "CIMT College",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI DU COLLEGE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 490,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Sea Mar Community Health Centers",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SEA MAR",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 491,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Jahesh Innovation",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "14 INNOVATION",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 493,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Inland Audio Visual",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "VISUAL AUDIO",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 494,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "PKF Antares",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ANTARES",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 496,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Announcement: Groupe Fructa Partner will be leaked soon",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "WILL GROUPE",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 497,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Bethany Hospital",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI DE L'HOSPITAL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 499,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Accipiter Capital Management, LLC",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "AG CAPITAL MANAGEMENT",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 500,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "APVL ingénierie",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "I G INGENIERIE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			}
+		],
+		"fichier": "bench/precision/corpus-v1.json"
+	},
+	"corpusFrais": {
+		"instrument": "échantillon frais proportionnel (graine 20261225)",
+		"n": 500,
+		"population": {
+			"unitesDistinctes": 1992,
+			"taillesStrates": {
+				"haute|ransomwatch|nom": 257,
+				"moyenne|ransomwatch|nom": 243,
+				"moyenne|ransomwatch|sigle": 1403,
+				"haute|ransomwatch-echantillon|domaine": 4,
+				"haute|ransomwatch|domaine": 76,
+				"faible|ransomwatch|ville": 3,
+				"moyenne|ransomware.live|sigle": 3,
+				"moyenne|ransomware.live|nom": 1,
+				"moyenne|ransomwatch-echantillon|nom": 2
+			}
+		},
+		"regimeOff": {
+			"rattachements": 500,
+			"couvertureParUnite": 1,
+			"precisionBrute": 0.05675675675675676,
+			"precisionPopulationStratifiee": 0.04258254377153001,
+			"poidsStratesActives": 0.9985,
+			"precisionBruteAvantRegles": 0.05675675675675676,
+			"refusParRegle": {}
+		},
+		"regimeOn": {
+			"rattachements": 83,
+			"couvertureParUnite": 0.166,
+			"precisionBrute": 0.8333333333333334,
+			"precisionPopulationStratifiee": 0.1379310344827586,
+			"poidsStratesActives": 0.2912,
+			"precisionBruteAvantRegles": 0.05675675675675676,
+			"refusParRegle": {
+				"6-ville": {
+					"n": 1,
+					"verdicts": {
+						"hors_sujet": 1
+					}
+				},
+				"1-sigle": {
+					"n": 353,
+					"verdicts": {
+						"hors_sujet": 282,
+						"indecidable": 70,
+						"partielle": 1
+					}
+				},
+				"2-homonyme": {
+					"n": 45,
+					"verdicts": {
+						"hors_sujet": 44,
+						"partielle": 1
+					}
+				},
+				"4-commentaire": {
+					"n": 6,
+					"verdicts": {
+						"hors_sujet": 6
+					}
+				},
+				"3-masquage": {
+					"n": 12,
+					"verdicts": {
+						"hors_sujet": 11,
+						"indecidable": 1
+					}
+				}
+			}
+		},
+		"entreesRefusees": [
+			{
+				"ordre": 1,
+				"strate": "faible|ransomwatch|ville",
+				"indice": "Aéroport de Pau",
+				"via": "name",
+				"confiance": 0.6,
+				"org": "TAXI 64 AEROPORT & MEDICAL",
+				"verdict": "hors_sujet",
+				"regle": "6-ville"
+			},
+			{
+				"ordre": 5,
+				"strate": "moyenne|ransomware.live|sigle",
+				"indice": "amarok.com",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "AMAROK",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 7,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Cleveland Brothers",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "A&A BROTHERS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 10,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "MCV Holding Company LLC",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "M COMPANY HOLDING",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 11,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "RABAT",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI DE RABAT",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 14,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "New York Racing Association",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SNC LE NEW YORK",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 15,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Energy China",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ENERGY 2N",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 19,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Temple, Inc.",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "DU TEMPLE",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 22,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Hudson River Housing",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "HUDSON RIVER",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 23,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "HSPG & Associates",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "DIGITAL ASSOCIATES (DIGITAL ASSOCIATES)",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 26,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "sky-light.com\\$26.4M\\Denmark\\50GB\\&lt;1% DISCLOSED",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "LA SKY LIGHT",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 27,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Insula Group",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SAS INSULA",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 30,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Costa Del Sol Hotels",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "LA MI DEL SOL",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 31,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Digital Engineering",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "LC ENGINEERING",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 35,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Mirai",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "LE MIRAI",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 39,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Firmdale Hotels",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "LC HOTELS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 41,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "M??? T??????",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "M&T",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 42,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "STTLK - HACKED AND MORE THEN 200GB DATA LEAKED",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "MORE AND MORE...",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 43,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Metro.Us",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI METRO",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 47,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Mediprobe Research",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "DH RESEARCH",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 49,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "M*******l***",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "M & L",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 50,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Combined Pool and Spa",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "POOL N SPA",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 51,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Aluminerie Alouette",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "I.M.E. DE L' ALOUETTE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 54,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Courageous Home Care",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "HOME CARE",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 55,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "USA company",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "HA COMPANY",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 58,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Saint Jean Industries  - MORE THEN 1.5 TB DATA LEAKED",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "LE SAINT JEAN",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 59,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Jacobs Farm",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "JACOBS BO",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 62,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "New York & Company",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SNC LE NEW YORK",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 63,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "DAYTON PROGRESS",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "NET-PROGRESS (NET-PROGRESS) (NP)",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 65,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "*a*** I*********",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "A I",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 66,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Atos (Business Services · France)",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "ATOS FRANCE",
+				"verdict": "partielle",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 67,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "ardes.bg",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ARDES",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 69,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "A** ******",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "A .",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 70,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Access Capital Partners SA",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "LC CAPITAL PARTNERS",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 71,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Charles Trent",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "C&V ST CHARLES",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 74,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "New World Travel, Inc.",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SAS NEW WORLD",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 75,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Byerly Aviation",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "JM AVIATION",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 78,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "San Francisco Ballet",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SAN FRANCISCO",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 79,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "IDS Infotech",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "INFOTECH",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 81,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "ATB SA Ingénieurs-conseils SIA",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "I.E.S.INGENIEURS CONSEILS",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 82,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Phyton Biotech",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "BIOTECH CONSULTING",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 84,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "reliancenj.com - HACKED AND MORE THEN 200GB DATA LEAKED",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "MORE AND MORE...",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 85,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "BMW France",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "FRANCE 2R (FRANCE 2R)",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 88,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Porto Seguro",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "PORTO",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 90,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "CENTRE D'AUTO P.R.N. SALABERRY IN",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "CENTRE AUTO 87",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 91,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Mega Vision",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "D'VISION",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 93,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "NIJMAN / ZEETANK International Transport Sp. z o. o.",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "INTERNATIONAL TRANSPORT SOLUTIONS",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 94,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "performance-therapies",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "DATA PERFORMANCE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 96,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "First Coast Logistics Services, Inc. was founded in 1999. The Company's line of business i",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "THE 10 COMPANY",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 97,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Hawkins Sales",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI HAWKINS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 99,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "The Plastic Forming Company",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "THE 10 COMPANY",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 100,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Modular Mining",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MINING LIMITED",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 102,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Western Digital Chronicles II: The Weekly Descent into Oblivion",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "INTO THE CODE",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 103,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "MUTUAL MATERIALS",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "6 MATERIALS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 105,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Groupe Marchand Architecture & Design Inc",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "DESIGN & ARCHITECTURE",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 106,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Laebon Homes",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SJ HOMES",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 108,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "New World Development Company Limited (NWD)",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SAS NEW WORLD",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 109,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "March Elevator",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MARCH",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 111,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Accipiter Capital Management, LLC",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "AG CAPITAL MANAGEMENT",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 112,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Delmar International",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "B ET A INTERNATIONAL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 115,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Lee Spring",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SPRING",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 117,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "THE  FIRST SHAMING",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SCI THE FIRST",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 118,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "National Beverage",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "LE NATIONAL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 120,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "GLEN DIMPLEX GROUP UNITS WERE HACKED (DEFOND, DEFONDTECH AND OTHER). MORE THAN 1TB DATA WA",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "MORE AND MORE...",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 121,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Jules B",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "JULES",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 123,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Rush Energy Services Inc [You have 48 hours]",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "ENERGY 4 YOU",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 124,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Ronmor Holdings",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "GN HOLDINGS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 126,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "waiwhetu-medical-centre",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SCI DU CENTRE MEDICAL",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 127,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Copper Mountain",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MR MOUNTAIN",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 128,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "H********** ********* ***",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "H",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 130,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Robuck Homes",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SJ HOMES",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 133,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Schneider & Branch",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI SCHNEIDER",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 135,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "William Jackson Food Group",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "JACKSON WILLIAM",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 136,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "ALIZON",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI ALIZON",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 137,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "C**********M",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "C&M",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 138,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "University of the West of Scotland",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SCI GO TO THE WEST",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 139,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Requena",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI REQUENA",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 140,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "L?? C??e",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "L.C.E",
+				"verdict": "indecidable",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 141,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Sea Mar Community Health Centers",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SEA MAR",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 142,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Famous Supply",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "K&S SUPPLY",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 143,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "A????? ????k",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "A.K",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 144,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "WestcoastSmile Dental Studio",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "STUDIO DENTAL",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 145,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Landmark Builders",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "R &G BUILDERS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 147,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Black Creek Community Health Centre (bcch.local)",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "BLACK LOCAL",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 148,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Berga Recycling",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "BERGA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 151,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Sandhills Center",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI CENTER",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 153,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Bel-Air Bay Club",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "BEL AIR SOFTWARE",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 154,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Wild Republic",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "REPUBLIC 86",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 156,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Hong Kong Special Care Dentistry Association Limited",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "EURL HONG KONG",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 157,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Excel Security",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "EXCEL CORPORATION",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 159,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Mid-America Real Estate Group",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SCI EP REAL ESTATE",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 160,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Roncelli Plastics",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "EC PLASTICS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 162,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "New World Travel, In c.",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SAS NEW WORLD",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 163,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Alliance Steel",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "L'ALLIANCE 5 MA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 165,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Mark A. O'neal and Associates",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "NEAL MARK",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 166,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Royal Smilde",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ROYAL 33",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 167,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "P* ***** **** L****** ***",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "P&L",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 168,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Ogden Golf & Country Club",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "LE GOLF CLUB 33",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 169,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Miami University",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "LE MIAMI",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 171,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "SANTA MARIA LABORATORIO",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SANTA MARIA",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 172,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "DEL Packaging",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SOLUTIONS PACKAGING",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 174,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Fimmick CRM Hong Kong (www.fimmick.com)",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "EURL HONG KONG",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 175,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Odessa College",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI DU COLLEGE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 176,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "C******* **N***",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "C.N",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 177,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "The Fashion Group International",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "FASHION K INTERNATIONAL",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 178,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Construct",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MF CONSTRUCT",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 179,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "A*****D",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "A D",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 180,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "ORLANDO IMPORT-EXPORT 2001 SRL",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "CG IMPORT EXPORT (CG IMPORT EXPORT)",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 181,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "SVP Groupe",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "GROUPE 3W (3W)",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 182,
+				"strate": "haute|ransomwatch|nom",
+				"indice": "A?????L S?????????? ????",
+				"via": "name",
+				"confiance": 0.9,
+				"org": "A.L.S.",
+				"verdict": "hors_sujet",
+				"regle": "3-masquage"
+			},
+			{
+				"ordre": 183,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "CONSUMAX.COM.AR - WAS HACKED AND MORE THEN 2TB SENSETIVE DATA LEAKED",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "MORE AND MORE...",
+				"verdict": "hors_sujet",
+				"regle": "4-commentaire"
+			},
+			{
+				"ordre": 184,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Visage Imaging",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SARL VISAGE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 186,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "ASMFC: Atlantic States Marine Fisheries Commission",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "MARINE ATLANTIC",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 187,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Lopesan Hotels",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "LC HOTELS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 189,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Law Office of Michael H Joseph",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "L'OFFICE [LAW OFFICE]",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 190,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Roche Bobois",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "LA ROCHE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 192,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Every one of you been a good customer this year",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "GOOD ONE",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 193,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Barber Emerson",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "BS BARBER",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 195,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Hong Kong College of Technology",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "EURL HONG KONG",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 196,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Community Alliance",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "M & J COMMUNITY",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 198,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Confidential and High Sensitive Data",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "SENSITIVE AND CO",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 199,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "DVision Architecture",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "AG.A.U.R.A.ARCHITECTURE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 201,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "American International Industries",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "AMERICAN INDUSTRIES",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 202,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Delta Pipeline",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "DELTA CODE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 204,
+				"strate": "moyenne|ransomwatch|nom",
+				"indice": "Pincu Barkan, Law Office and Notary",
+				"via": "name",
+				"confiance": 0.75,
+				"org": "L'OFFICE [LAW OFFICE]",
+				"verdict": "hors_sujet",
+				"regle": "2-homonyme"
+			},
+			{
+				"ordre": 205,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Albina Asphalt",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI ALBINA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 207,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "By design",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "VT DESIGN",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 209,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Electricity company",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "HA COMPANY",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 211,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Believe Productions",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "R D PRODUCTIONS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 213,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "wings.travel",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "M & Y TRAVEL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 214,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Curtidos Barbero",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "BARBERO",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 215,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "CLX Logistics",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "GT LOGISTICS.06",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 216,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "mango.bg",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MANGO",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 217,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Little Elm",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI LITTLE D",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 218,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Royal Laser",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ROYAL 33",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 219,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "ACER FINANCE",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "HT FINANCE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 220,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Vermeer Mexico",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI VERMEER",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 221,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Daylesford Organic",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "13 ORGANIC",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 222,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Access Intelligence",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "AI ACCESS (AI ACCESS)",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 223,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Harry Rosen",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI HARRY",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 224,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Victoria Park",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "VICTORIA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 225,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Autosoft company",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "HA COMPANY",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 226,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Wilson Lewis",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI WILSON",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 227,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "grace.com",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI LA GRACE",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 228,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "GROUP4 AUSTRALIA",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "AUSTRALIA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 229,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Asahi Glass",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "LC GLASS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 230,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Scharco Elektronik",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI SCHARCO",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 231,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Private Company",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "HA COMPANY",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 232,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Metro Transit",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI METRO",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 233,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Generator-power",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MP POWER",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 234,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "ville-sa",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI LA VILLE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 235,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "arrow.com",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ARROW",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 236,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Leadership Strategies",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "STRATEGIES",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 237,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Cummins-Wagner",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI WAGNER",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 238,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Arun Estates",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI 7N ESTATES",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 239,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "jackson.com",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI JACKSON",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 240,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Elevate Services",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ELEVATE 24",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 241,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "ComNet Communications",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "2 L COMMUNICATIONS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 242,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Yingling Aviation",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "JM AVIATION",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 243,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Altice International",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "B ET A INTERNATIONAL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 244,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Jonti-Craft",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "HP CRAFT",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 245,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Magnolia Steel",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI LE MAGNOLIA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 246,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "MONDIAL",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MONDIAL 24",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 247,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "EQUITY Bank",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "EQUITY",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 248,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Innovative Surfaces",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SURFACES MEDIA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 249,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Standard Calibrations",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "STANDARD",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 250,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "RTI Surgical",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "PF SURGICAL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 251,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "SRH Holding",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "E.E HOLDING & SERVICES",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 252,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Springer Eubank",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI SPRINGER",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 253,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Image Craft",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "HP CRAFT",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 254,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "baa.legal",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI LEGAL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 255,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "terminal.com",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "TERMINAL C",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 256,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Chambers Construction",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "HD CONSTRUCTION",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 257,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Sentinel Systems",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SENTINEL",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 258,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "yano.tokyo",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SC TOKYO",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 259,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Maristes Hermitage",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI DE L HERMITAGE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 260,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Myton School",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MX SCHOOL 17",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 261,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Tri-Supply",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "K&S SUPPLY",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 262,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Amino Transport",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ML TRANSPORT",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 263,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "ZEUS Scientific",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "B&I SCIENTIFIC",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 264,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Sunward Pharmaceutical (Sunward)",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "L&A PHARMACEUTICAL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 265,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "World inquest",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "E WORLD MEDIA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 266,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "David Engineers",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "EARL DAVID",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 267,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Succes Schoonmaak",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI SUCCES",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 268,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Victor Fauconnier",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "VICTOR N'BO SCI",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 269,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Asahi Group",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI ASAHI",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 270,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "marti.com",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MARTI 2",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 271,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Summit Appliance",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SUMMIT",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 272,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "JE Owens",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "OWENS & CO",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 273,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Worthen Industries",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "AS INDUSTRIES",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 274,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Adina Design",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "VT DESIGN",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 275,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Heritage Golf",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "T.HERITAGE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 276,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Middleton Reutlinger",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MIDDLETON",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 277,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Yurtiçi Kargo",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SARL KARGO",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 278,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Superior Communications",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "2 L COMMUNICATIONS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 279,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Allard",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "EARL ALLARD TM",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 280,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Premier Technology",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI DU PREMIER",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 281,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Leaders Staffing",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "CJ STAFFING SOLUTIONS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 282,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Active Concepts",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ACTIVE NETWORK",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 283,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Holler-Classic",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "GT CLASSIC",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 284,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Suneva Medical",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SARL MEDICAL 17",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 285,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "ProMotion Holdings",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "GN HOLDINGS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 286,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Faultless Brands",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "TM BRANDS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 287,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Mercy Home",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MERCY",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 288,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Petro Serve",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SERVE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 289,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Toyota Brazil",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "DO BRAZIL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 290,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Mayfield School",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MX SCHOOL 17",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 291,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Jon Richard",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "RICHARD CONSULTING",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 292,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Galveston College",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI DU COLLEGE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 293,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Guilford College",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI DU COLLEGE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 294,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "porter.in",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "PORTER",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 295,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "europe-qualité",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "EUROPE 2",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 296,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "HOULE",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "LA HOULE",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 297,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Milan Institute",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MILAN SARL",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 298,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Cogal Industry",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "M.G.M. INDUSTRY",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 299,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Amphenol Canada",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI CANADA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 300,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Nunez Dental",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "NUNEZ",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 301,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "CP Communications",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "2 L COMMUNICATIONS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 302,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "safed.in",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI SAFED",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 303,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "SESAM Informatics",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SESAM",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 304,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "https://century...",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI CENTURY",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 305,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Affirm Agency",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "AGENCY",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 306,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Partners Air",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "BG PARTNERS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 307,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Contact us",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "RD CONTACT",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 308,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Pierce",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "PIERCE & PIERCE",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 309,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Premise Health",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "VM HEALTH",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 310,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Taylor University",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SK TAYLOR",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 311,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Robison Engineering",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "LC ENGINEERING",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 312,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Market Pioneer",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "WR MARKET",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 313,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Key Construction",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "HD CONSTRUCTION",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 314,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "NATUS.COM",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "NATUS",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 315,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Suntrust Properties",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "M & A PROPERTIES",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 316,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Jerue Companies",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "CN COMPANIES",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 317,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Southland Holdings",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "GN HOLDINGS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 318,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Wesco Equipment",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "WESCO",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 319,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Astra Products",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI ASTRA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 320,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Concord Orthopaedics",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "CONCORD",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 321,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Patton",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI PATTON",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 322,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "pandol.com",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "PANDOL",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 323,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "SPEC Engineering",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "LC ENGINEERING",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 324,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "OTA Management",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "BR MANAGEMENT",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 325,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "SPARSH Hospital",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI DE L'HOSPITAL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 326,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Jakob Becker",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "BECKER M",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 327,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Optica",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI OPTICA 17",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 328,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "SENADO Argentina",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI ARGENTINA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 329,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "learning_resources",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "LR LEARNING",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 330,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Benefit Management",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "BR MANAGEMENT",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 331,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "SALUS Controls",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "DB CONTROLS SARL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 332,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Sisu Healthcare",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MG HEALTHCARE GROUP",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 333,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Woodport Doors",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI DOORS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 334,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Berge Bulk",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI BERGE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 335,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "COLORADO.EDU",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "COLORADO",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 336,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "sigma-alimentos...",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SIGMA CONSULTING",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 337,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Royce Corporation",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ROYCE WS",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 338,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "ACE Glass",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "LC GLASS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 339,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Driver Group",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MY DRIVER'IN",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 340,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "AMS-Gruppe",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI LA GRUPPE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 341,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Unimed Belem",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "BELEM 7.0.",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 342,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Martinaire Aviation",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "JM AVIATION",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 343,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Paul Stuart",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "STUART",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 344,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Liberty Lines",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "LIBERTY",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 345,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "MILLS GROUP",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI MILLS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 346,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Research Partnership",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "DH RESEARCH",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 347,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Jasper Products",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "JASPER",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 348,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Blackburn College",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI DU COLLEGE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 349,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Influence Communication",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "CR COMMUNICATION",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 350,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Reading Electric",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "B ELECTRIC",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 351,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "United Tractors",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "UNITED 4L",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 352,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Miki Travel",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "M & Y TRAVEL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 353,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Liberty Resources",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "LIBERTY",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 354,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "AIC STEEL",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "STEEL SYSTEM",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 355,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Nano Health",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "VM HEALTH",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 356,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "nuance.com",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "NUANCE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 357,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Growers Express",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "BK EXPRESS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 358,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Jacobs & Thompson",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "JACOBS BO",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 359,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Kikkerland Design",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "VT DESIGN",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 360,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Operation Jane",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "OPERATION",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 361,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Defected Records",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "U RECORDS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 362,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Hannon Transport",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ML TRANSPORT",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 363,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Mikro Trading",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "2M TRADING",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 364,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "sti company",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "HA COMPANY",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 365,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Carvin Software",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI CARVIN",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 366,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Roof Management",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "BR MANAGEMENT",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 367,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "MAH Machine",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MACHINE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 368,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Unique Imaging",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "L'UNIQUE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 369,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "CETEC Ingénierie",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "I G INGENIERIE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 370,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Commercial Solutions",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "EURL M.O COMMERCIAL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 371,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Hausamman company",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "HA COMPANY",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 372,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "AnVa Industries",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "AS INDUSTRIES",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 373,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Venture Plastics",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "EC PLASTICS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 374,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "CIMT College",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI DU COLLEGE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 375,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "econocom",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ECONOCOM SERVICES & SOLUTIONS (ECONOCOM SERVICES & SOLUTIONS)",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 376,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "New Partners",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "BG PARTNERS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 377,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "EMX Enterprises",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "OG ENTERPRISES",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 378,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Rockbridge Capital",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "RC CAPITAL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 379,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Summit Care",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SUMMIT",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 380,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "MA Engineering",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "LC ENGINEERING",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 381,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Miller Edge",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MILLER",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 382,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Legends Limousine",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "LA LIMOUSINE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 383,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Legrand CRM",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SELARL LEGRAND",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 384,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Studio LAMBDA",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "AT OM STUDIO",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 385,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Traxall France",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "FRANCE 2R (FRANCE 2R)",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 386,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Optimum Technology",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "OPTIMUM C.S.I.",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 387,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Active-PCB",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ACTIVE NETWORK",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 388,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Compass Communications",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "E-COMPASS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 389,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Acorn Sales",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ACORN",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 390,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "San Carlo",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "CARLO",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 391,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "City Projects",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "CR PROJECTS & SOLUTIONS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 392,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "H-Hotels",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "LC HOTELS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 393,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Mercury Theatre",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "DU THEATRE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 394,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Uxbridge College",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI DU COLLEGE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 395,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Admiral Merchants",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ADMIRAL",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 396,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Albert Bartlett",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ALBERT",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 397,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Credit Central",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI LE CENTRAL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 398,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "ETC Companies",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "CN COMPANIES",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 399,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "chevalerias.com",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI CHEVALERIAS",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 400,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Plastics Plus",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "EC PLASTICS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 401,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Transsion Holdings",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "GN HOLDINGS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 402,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Madero",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SAS MADERO",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 403,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Crimson Interactive",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "INTERACTIVE SOLUTION",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 404,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Bemis Associates",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "DIGITAL ASSOCIATES (DIGITAL ASSOCIATES)",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 405,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Olschewski Davie",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "DAVIE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 406,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Cambridge College",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI DU COLLEGE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 407,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Betenbough Homes",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SJ HOMES",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 408,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "aliat.group",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ALIAT",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 409,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Groupe Goyette",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "GROUPE 3W (3W)",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 410,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Modern Kitchens",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MODERN",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 411,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Falcon Gaming",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "FALCON SOLUTIONS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 412,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Creation Baumann",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "D.J.A.CREATION",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 413,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Alternatives, Inc.",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ALTERNATIVES",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 414,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Easy Automation",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MS AUTOMATION",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 415,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Aeris Energy",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ENERGY 2N",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 416,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Bertelkamp Automation",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MS AUTOMATION",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 417,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "SEA-invest",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "NS INVEST",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 418,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Carmel College",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI DU COLLEGE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 419,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Excelsior Orthopaedics",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI  EXCELSIOR",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 420,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Valley Rentals",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI RENTALS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 421,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Pavilion Construction",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "HD CONSTRUCTION",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 422,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Saratoga Liquor",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SARATOGA",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 423,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "WELCOME HOTELS",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "WELCOME",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 424,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Charlie Hebdo",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "CHARLIE IT",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 425,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Bayhealth Hospital",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI DE L'HOSPITAL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 426,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Royal Chemical",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ROYAL 33",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 427,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "spectre.dk",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI SPECTRE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 428,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "prima.com",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "PRIMA CONSULTING",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 429,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Sierra College",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI SIERRA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 430,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "AXIOM",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "AXIOM CONSULTING",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 431,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Community Brands",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "M & J COMMUNITY",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 432,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Stratton Finance",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "HT FINANCE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 433,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Fic Expertise",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "CLOUD & .NET EXPERTISE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 434,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "fujitsu.com",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "FUJITSU TECHNOLOGY SOLUTIONS",
+				"verdict": "partielle",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 435,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Jordan Drug",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI JORDAN",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 436,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Unicity International",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "B ET A INTERNATIONAL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 437,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "wendy.mx",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "WENDY",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 438,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Alpha Data",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ALPHA I SARL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 439,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Tricon Energy",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ENERGY 2N",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 440,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Ingeniería FULCRUM",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI FULCRUM",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 441,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Miami Management",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "BR MANAGEMENT",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 442,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "LmayInteroute agency",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "AGENCY",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 443,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Lexington Electric",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "B ELECTRIC",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 444,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Commonwealth Capital",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "RC CAPITAL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 445,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "landal.com",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "LANDAL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 446,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Wapiti Energy",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ENERGY 2N",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 447,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "ConForm Automotive",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ST AUTOMOTIVE SERVICE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 448,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "MONTERO & SEGURA",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MONTERO MONTERO",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 449,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "SAWA INTERNATIONAL",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "B ET A INTERNATIONAL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 450,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Handi Quilter",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "HANDI H.A.R.T 64",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 451,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Chroma Color",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "COLOR",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 452,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "gregoire.fr",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SARL GREGOIRE",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 453,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Affinity Education",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "AFFINITY",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 454,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Critical Content",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "CONTENT 4U",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 455,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Jones & Mayer",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MAYER",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 456,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "XPress Cargo",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "CARGO",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 457,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Sterling Solutions",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI DE STERLING",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 458,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Equator Worldwide",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "AR WORLDWIDE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 459,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Muncy Homes",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SJ HOMES",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 460,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Hartnell College",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI DU COLLEGE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 461,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Kingsmill Resort",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "RESORT 17",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 462,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Voice Technologies",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "IN VOICE TECHNOLOGIES",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 463,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Ideal Living",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "IDEAL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 464,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Active Dynamics",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ACTIVE NETWORK",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 465,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "GOV Brazil",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "DO BRAZIL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 466,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Pulaski academy",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "DH ACADEMY",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 467,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Saltire Energy",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ENERGY 2N",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 468,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Benthanh Group",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "BENTHANH",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 469,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "WCM Europe",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "EUROPE 2",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 470,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Project Partners",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "BG PARTNERS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 471,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "SCREEN Holdings",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "GN HOLDINGS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 472,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Sunshine Center",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI CENTER",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 473,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "LaBella Associates",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "DIGITAL ASSOCIATES (DIGITAL ASSOCIATES)",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 474,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "C & C Industries",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "AS INDUSTRIES",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 475,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Dental One",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI DENTAL",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 476,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Atlas Oil",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "ATLAS",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 477,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "ChemStation International",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "B ET A INTERNATIONAL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 478,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Perfumes & Companhia",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "EN COMPANHIA",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 479,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "FERRE BARNIEDO",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SARL FERRE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 480,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "For Press",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "PRESS NET",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 481,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "cassini-technol...",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "CASSINI",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 482,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "cornu.ch",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI LE CORNU",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 483,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "SOUCY",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "NO SOUCY",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 484,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "GDB International",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "B ET A INTERNATIONAL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 485,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Navarra & Marzano",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI NAVARRA",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 486,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Brain:IT",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "WEB BRAIN",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 487,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Sabian Inc",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SABIAN",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 488,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Grover Corparation",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI GROVER",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 489,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Universal Companies",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "CN COMPANIES",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 490,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Compact Mould",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "COMPACT (COMPACT)",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 491,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Innotec, Corp.",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "INNOTEC",
+				"verdict": "indecidable",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 492,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Medical File",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SARL MEDICAL 17",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 493,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "APR Supply",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "K&S SUPPLY",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 494,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "SsangYong Motor",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "MOTOR S",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 495,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "TaxLeaf Corporate",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "A.X.E.L. CORPORATE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 496,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "pilini.bg",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI PILINI",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 497,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "lenax.com",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "LENAX",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 498,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Ferretti International",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "B ET A INTERNATIONAL",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 499,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Summit College",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "SCI DU COLLEGE",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			},
+			{
+				"ordre": 500,
+				"strate": "moyenne|ransomwatch|sigle",
+				"indice": "Conway Electrics",
+				"via": "name",
+				"confiance": 0.7,
+				"org": "GLOBAL ELECTRICS",
+				"verdict": "hors_sujet",
+				"regle": "1-sigle"
+			}
+		],
+		"fichier": "bench/precision/frais-500.json"
+	},
+	"fluxReel": {
+		"volume": 220,
+		"sansRattachement": 204,
+		"regimeOff": {
+			"rattaches": 16,
+			"dontSeuilAuto": 0,
+			"refusParRegle": {},
+			"refus": []
+		},
+		"regimeOn": {
+			"rattaches": 0,
+			"dontSeuilAuto": 0,
+			"refusParRegle": {
+				"1-sigle": 14,
+				"2-homonyme": 2
+			},
+			"refus": [
+				{
+					"id": 1019,
+					"regle": "1-sigle",
+					"indice": "Marseille Provence",
+					"orgId": 151413,
+					"orgName": "SCI PROVENCE",
+					"via": "name",
+					"confidence": 0.7
+				},
+				{
+					"id": 1573,
+					"regle": "1-sigle",
+					"indice": "Paris Society",
+					"orgId": 33954,
+					"orgName": "WEB SOCIETY 33",
+					"via": "name",
+					"confidence": 0.7
+				},
+				{
+					"id": 4601,
+					"regle": "1-sigle",
+					"indice": "HENSOLDT France",
+					"orgId": 26891,
+					"orgName": "FRANCE 2R (FRANCE 2R)",
+					"via": "name",
+					"confidence": 0.7
+				},
+				{
+					"id": 4923,
+					"regle": "1-sigle",
+					"indice": "INTERSPORT France",
+					"orgId": 26891,
+					"orgName": "FRANCE 2R (FRANCE 2R)",
+					"via": "name",
+					"confidence": 0.7
+				},
+				{
+					"id": 6018,
+					"regle": "1-sigle",
+					"indice": "BMW France",
+					"orgId": 26891,
+					"orgName": "FRANCE 2R (FRANCE 2R)",
+					"via": "name",
+					"confidence": 0.7
+				},
+				{
+					"id": 7593,
+					"regle": "1-sigle",
+					"indice": "Professionnel France",
+					"orgId": 26891,
+					"orgName": "FRANCE 2R (FRANCE 2R)",
+					"via": "name",
+					"confidence": 0.7
+				},
+				{
+					"id": 7851,
+					"regle": "1-sigle",
+					"indice": "Sartrouville  France",
+					"orgId": 26891,
+					"orgName": "FRANCE 2R (FRANCE 2R)",
+					"via": "name",
+					"confidence": 0.7
+				},
+				{
+					"id": 8265,
+					"regle": "1-sigle",
+					"indice": "Betton France",
+					"orgId": 26891,
+					"orgName": "FRANCE 2R (FRANCE 2R)",
+					"via": "name",
+					"confidence": 0.7
+				},
+				{
+					"id": 9114,
+					"regle": "1-sigle",
+					"indice": "Traxall France",
+					"orgId": 26891,
+					"orgName": "FRANCE 2R (FRANCE 2R)",
+					"via": "name",
+					"confidence": 0.7
+				},
+				{
+					"id": 9292,
+					"regle": "2-homonyme",
+					"indice": "hotel-ampere-paris.com",
+					"orgId": 149367,
+					"orgName": "HOTEL DE PARIS",
+					"via": "name",
+					"confidence": 0.75
+				},
+				{
+					"id": 10079,
+					"regle": "1-sigle",
+					"indice": "Malongo France",
+					"orgId": 26891,
+					"orgName": "FRANCE 2R (FRANCE 2R)",
+					"via": "name",
+					"confidence": 0.7
+				},
+				{
+					"id": 11420,
+					"regle": "1-sigle",
+					"indice": "LYON TERMINAL",
+					"orgId": 495061,
+					"orgName": "TERMINAL C",
+					"via": "name",
+					"confidence": 0.7
+				},
+				{
+					"id": 11525,
+					"regle": "1-sigle",
+					"indice": "Speedy France",
+					"orgId": 26891,
+					"orgName": "FRANCE 2R (FRANCE 2R)",
+					"via": "name",
+					"confidence": 0.7
+				},
+				{
+					"id": 12513,
+					"regle": "1-sigle",
+					"indice": "Francesco Parisi",
+					"orgId": 293894,
+					"orgName": "SCI PE-PARISI",
+					"via": "name",
+					"confidence": 0.7
+				},
+				{
+					"id": 15389,
+					"regle": "2-homonyme",
+					"indice": "Mission Locale Montpellier",
+					"orgId": 235292,
+					"orgName": "MISSION LOCALE",
+					"via": "name",
+					"confidence": 0.75
+				},
+				{
+					"id": 644182,
+					"regle": "1-sigle",
+					"indice": "bastion.internal",
+					"orgId": 51099,
+					"orgName": "LE BASTION",
+					"via": "name",
+					"confidence": 0.7
+				}
+			]
+		},
+		"perimetre": "quarantine_raw : status='pending', promoted=false, kind='claim', org_hint non vide — le volume que le prochain passage de promotion examine (le moteur plafonne chaque passage à 50 faits) ; le modèle de décision (confirmOrganization) n'est pas consulté ici : il arbitre entre match et écriture, hors périmètre des règles"
+	},
+	"noteCouverture": "couvertureParUnite = part des rattachements du moteur qui survivent aux règles (estimateur brut sur tirage proportionnel) ; poidsStratesActives = part de la population vivant dans des strates encore actives (borne haute, l'estimateur du « 29 % » publié par la vague précision) — les deux sont publiés ensemble"
+}
