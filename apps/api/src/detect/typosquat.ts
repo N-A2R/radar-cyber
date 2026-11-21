@@ -32,6 +32,7 @@ export interface PageSnapshot {
 export interface TyposquatFinding {
   orgId: number | null;
   orgName: string;
+  dept: string | null;
   officialDomains: string[];
   base: string;
   domain: string;
@@ -248,9 +249,20 @@ export function classerUsurpation(f: TyposquatFinding, maintenant = new Date()):
 
 export interface MesureFauxPositifs {
   echantillon: number;
+  alarmes: number;
   fauxPositifs: number;
   taux: number;
-  detail: { domain: string; usurpation: boolean; motifs: string[] }[];
+  detail: { domain: string; alarme: boolean; usurpation: boolean; motifs: string[] }[];
+}
+
+/**
+ * Signal brut avant lecture de la page : un DNS actif et un nom proche de
+ * l'organisation. C'est ce signal qui produirait une alerte sans vérification
+ * ; les faux positifs se mesurent donc parmi ces alertes. Le certificat et le
+ * contenu ne servent qu'à la décision, pour ne pas masquer le bruit mesuré.
+ */
+export function alarmeNaive(f: TyposquatFinding): boolean {
+  return (f.a.length > 0 || f.aaaa.length > 0) && f.similarity >= 0.8;
 }
 
 /** Échantillon déterministe, trié par domaine : la mesure est reproductible. */
@@ -265,13 +277,16 @@ export function mesurerFauxPositifs(
     .slice(0, taille);
   const detail = echantillon.map((f) => {
     const v = classerUsurpation(f, maintenant);
-    return { domain: f.domain, usurpation: v.usurpation, motifs: v.motifs };
+    const alarme = alarmeNaive(f);
+    return { domain: f.domain, alarme, usurpation: v.usurpation, motifs: v.motifs };
   });
-  const fauxPositifs = detail.filter((d) => !d.usurpation).length;
+  const alarmes = detail.filter((d) => d.alarme).length;
+  const fauxPositifs = detail.filter((d) => d.alarme && !d.usurpation).length;
   return {
     echantillon: detail.length,
+    alarmes,
     fauxPositifs,
-    taux: detail.length === 0 ? 0 : fauxPositifs / detail.length,
+    taux: alarmes === 0 ? 0 : fauxPositifs / alarmes,
     detail,
   };
 }
