@@ -22,6 +22,7 @@ import { deliverPendingAlerts, readDeliveryConfig } from "./notify/alert-deliver
 import { runRetention } from "./maintenance/retention.js";
 import { runDetectionPass } from "./detect/incremental.js";
 import { capterAlertesRupture } from "./analyse/rupture.js";
+import { capterAgentsCpu } from "./analyse/agents-cpu.js";
 import healthDetailRoute from "./routes/health-detail.js";
 import healthCausesRoute from "./routes/health-causes.js";
 import eventsRoute from "./routes/events.js";
@@ -311,6 +312,14 @@ if (COLLECT) {
 			log(`ruptures : ${r.emises} alerte(s) — ${r.creees} nouvelle(s), ${r.misesAJour} mise(s) à jour, ${r.lacunes} lacune(s)`);
 		}
 	});
+	// Agents CPU : trois détecteurs supplémentaires, même cadence, même file de
+	// revue (scope 'agents-cpu'), jamais diffusés.
+	void guarded("agents-cpu", async () => {
+		const r = await capterAgentsCpu();
+		if (r.emises > 0) {
+			log(`agents-cpu : ${r.emises} alerte(s) — ${r.creees} nouvelle(s), ${r.misesAJour} mise(s) à jour, ${r.lacunes} lacune(s)`);
+		}
+	});
 	void guarded("quarantaine", () => runQuarantineCollector(log));
 	void guarded("rétention", async () => {
 		const r = await runRetention(log);
@@ -338,6 +347,13 @@ if (COLLECT) {
 			capterAlertesRupture().then((r) => {
 				if (r.emises > 0) {
 					log(`ruptures : ${r.emises} alerte(s) — ${r.creees} nouvelle(s), ${r.misesAJour} mise(s) à jour, ${r.lacunes} lacune(s)`);
+				}
+			}),
+		);
+		void guarded("agents-cpu", () =>
+			capterAgentsCpu().then((r) => {
+				if (r.emises > 0) {
+					log(`agents-cpu : ${r.emises} alerte(s) — ${r.creees} nouvelle(s), ${r.misesAJour} mise(s) à jour, ${r.lacunes} lacune(s)`);
 				}
 			}),
 		);

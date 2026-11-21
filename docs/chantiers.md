@@ -98,6 +98,9 @@ apparaît trois fois ; un secteur qui bascule ; une source qui se tait.
 **Critère de sortie.** Trois agents, chacun avec un taux de fausses alertes
 mesuré sur le corpus, branchés sur la file de revue et non sur la diffusion.
 
+**Livré le 21 novembre 2026.** Trois détecteurs, file de revue `agents-cpu`,
+taux et verdicts publiés dans `docs/agents-cpu.md`.
+
 ## 5. Anticipation — étage 4
 
 **Critère de sortie.** Sur le corpus, la réponse à « qu'est-ce qui, dans les

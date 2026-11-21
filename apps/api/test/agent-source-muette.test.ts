@@ -44,3 +44,29 @@ test("quatre sources synthétiques : seule la source quotidienne silencieuse ale
 		["quotidienne-muette"],
 	);
 });
+
+test("états vides et cadence incomplète : jamais d'alerte par omission", () => {
+  const cas = [
+    { id: "sans-evenement", evenements: [] },
+    { id: "dates-invalides", evenements: [{ date: "pas-une-date" }, { date: "" }] },
+    { id: "six-jours-seulement", evenements: joursAvant(4, 5, 6, 7, 8, 9) },
+    { id: "trop-recemment", evenements: joursAvant(2, 3, 4, 5, 6, 7, 8, 9, 10) },
+  ];
+  assert.deepEqual(detecterSourcesMuettes(cas, NOW), []);
+});
+
+test("plusieurs faits le même jour ne comptent que pour une case de cadence", () => {
+  const alertes = detecterSourcesMuettes([
+    {
+      id: "quotidienne-muette",
+      evenements: [5, 5, 6, 7, 8, 9, 10].flatMap((j) => joursAvant(j)),
+    },
+  ], NOW);
+  assert.equal(alertes.length, 0, "un jour manquant reste un jour manquant");
+});
+
+test("les identifiants de faits de cadence sont conservés pour la revue", () => {
+  const evenements = joursAvant(4, 5, 6, 7, 8, 9, 10).map((e, i) => ({ ...e, id: i + 1 }));
+  const [alerte] = detecterSourcesMuettes([{ id: "quotidienne-muette", evenements }], NOW);
+  assert.deepEqual(alerte?.faitsCadence, [1, 2, 3, 4, 5, 6, 7]);
+});
