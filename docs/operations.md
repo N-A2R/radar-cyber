@@ -443,6 +443,36 @@ bash scripts/report-weekly.sh                        # test manuel
 journalctl --user -u radar-report.service -n 50      # logs
 ```
 
+## Collecte continue des sources NA (mission 2026-11-21)
+
+La collecte est **continue et déjà en place** : elle tourne dans `radar-api.service`
+(boucle interne, `scripts/…` des collecteurs appelés par `runCollectors`), pas dans une
+unité séparée. Le dire précisément :
+
+- **Fréquence** : par source, colonne `source.interval_sec` — 900 s pour les flux
+  CERT-FR, 1800 s pour la presse régionale NA (Sud Ouest départemental, LNR, Google
+  News départemental), 3600-86400 s pour le reste. Chaque passage est journalisé dans
+  la table `collector_run` (`items_in`, `items_new`, `error`).
+- **Unité** : `radar-api.service` (systemd --user, `Restart=on-failure`,
+  `RestartSec=5`) — un crash de l'API relance service et collecte.
+- **Journal** : `journalctl --user -u radar-api.service` (logs JSON Fastify) et
+  `SELECT … FROM collector_run` pour le rendement par source.
+- **En cas d'échec** : l'erreur est isolée par collecteur — une source qui répond 429
+  ou 403 est journalisée (`last_error`, `last_error_at`) et le cycle suivant retente ;
+  les autres collecteurs du même passage ne sont pas affectés (constaté en direct :
+  NVD rate-limité par Cloudflare pendant que la presse NA collecte).
+- **Une source muette ne disparaît pas** : la section « Sources actives muettes ou
+  dormantes (7 j) » du rapport hebdomadaire nomme toute source `enabled` sans
+  événement en 30 j (muette) ou sans collecte réussie en 7 j (dormante), les sources
+  NA d'abord — classification alignée sur `scripts/source-health.mts`. Les flux
+  d'indicateurs (FireHOL, reputation) n'y figurent que s'ils n'ont rien vu non plus
+  côté `indicator` sur 30 j.
+- **Preuves d'exécution du 2026-11-21** : `systemctl --user status radar-report.timer`
+  → activé (prochain déclenchement lundi 07:02) ; `collector_run` alimenté chaque
+  minute ; `bench/results/na-overview-capture-2026-11-21.json` (capture de
+  `GET /api/na/overview` après redémarrage du service) ;
+  `out/rapport-2026-11-21.md` généré avec la section muettes.
+
 ## Dépannage
 
 | Symptôme | Piste |

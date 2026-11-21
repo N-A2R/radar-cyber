@@ -178,11 +178,19 @@ L'UI web existe (`apps/web`), la carte NA aussi (`departements-na.geojson`).
 
 ## Task 7: Collecte continue
 
-- [ ] Vérifier ce qui tourne déjà (`scripts/systemd/*`, `radar-report.timer`)
-- [ ] Rendre la collecte des sources NA **continue** et le dire : fréquence,
-      unité, journal, et ce qui se passe en cas d'échec
-- [ ] Un contrôle de santé des sources : une source muette depuis N jours doit
-      apparaître dans un rapport, pas disparaître
+- [x] Vérifier ce qui tourne déjà (`scripts/systemd/*`, `radar-report.timer`) —
+      `radar-api.service` actif (collecte interne), `radar-backup.timer` actif,
+      `radar-report.timer` chargé mais **désactivé** → activé
+- [x] Rendre la collecte des sources NA **continue** et le dire : fréquence,
+      unité, journal, et ce qui se passe en cas d'échec — section « Collecte
+      continue des sources NA » dans `docs/operations.md` (fréquence par
+      `interval_sec`, unité `radar-api.service`, journal `collector_run` +
+      `journalctl`, échec isolé par collecteur et retenté)
+- [x] Un contrôle de santé des sources : une source muette depuis N jours doit
+      apparaître dans un rapport, pas disparaître — section « Sources actives
+      muettes ou dormantes (7 j) » ajoutée au rapport hebdomadaire (markdown +
+      HTML), sources NA d'abord, classification alignée sur
+      `scripts/source-health.mts`
 - [ ] Commit : `feat(ops): collecte NA continue et surveillée`
 
 **Critère :** une preuve d'exécution réelle (log, `systemctl status`, ou run
