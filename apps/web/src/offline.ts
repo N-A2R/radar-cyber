@@ -108,18 +108,18 @@ export function etatDonnees(instantane: Instantane<unknown> | null, maintenant =
 	ageMinutes: number | null;
 } {
 	if (instantane === null) {
-		return { etat: "absent", libelle: "aucune donnée en mémoire", ageMinutes: null };
+		return { etat: "absent", libelle: "no cached data", ageMinutes: null };
 	}
 	const ageMinutes = Math.max(0, Math.round((maintenant - instantane.at) / 60_000));
 	// Au-delà de 15 minutes, un instantané n'est plus « frais » : sur une carte
 	// d'incidents, quart d'heure est déjà une éternité.
 	if (ageMinutes <= 15) {
-		return { etat: "frais", libelle: "à jour", ageMinutes };
+		return { etat: "frais", libelle: "up to date", ageMinutes };
 	}
 	if (ageMinutes < 60) {
-		return { etat: "perime", libelle: `hors ligne · données de ${ageMinutes} min`, ageMinutes };
+		return { etat: "perime", libelle: `offline · data from ${ageMinutes} min ago`, ageMinutes };
 	}
 	const heures = Math.round(ageMinutes / 60);
-	if (heures < 48) return { etat: "perime", libelle: `hors ligne · données de ${heures} h`, ageMinutes };
-	return { etat: "perime", libelle: `hors ligne · données de ${Math.round(heures / 24)} j`, ageMinutes };
+	if (heures < 48) return { etat: "perime", libelle: `offline · data from ${heures} h ago`, ageMinutes };
+	return { etat: "perime", libelle: `offline · data from ${Math.round(heures / 24)} d ago`, ageMinutes };
 }

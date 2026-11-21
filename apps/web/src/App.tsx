@@ -28,7 +28,7 @@ import { parseHash, toHash, shareableUrl, type AppUrlState } from "./url-state";
 function ViewSkeleton() {
   return (
     <div className="view-skeleton" role="status" aria-live="polite">
-      <span className="view-skeleton__label">chargement…</span>
+      <span className="view-skeleton__label">Loading…</span>
       <span className="view-skeleton__line" />
       <span className="view-skeleton__line" />
       <span className="view-skeleton__line" />
@@ -40,16 +40,16 @@ function ViewSkeleton() {
 const MOCK_MODE = import.meta.env.VITE_DATA_MODE === "mock";
 
 const VIEWS: { id: ViewKey; label: string }[] = [
-  { id: "today", label: "Aujourd'hui" },
-  { id: "map", label: "Carte" },
-  { id: "review", label: "Revue" },
+  { id: "today", label: "Today" },
+  { id: "map", label: "Map" },
+  { id: "review", label: "Review" },
   { id: "journal", label: "Journal" },
-  { id: "graph", label: "Graphe" },
+  { id: "graph", label: "Graph" },
   { id: "sources", label: "Sources" },
-  { id: "health", label: "Santé" },
-  { id: "alerts", label: "Alertes" },
-  { id: "dossier", label: "Dossier" },
-  { id: "na", label: "Nouvelle-Aquitaine" },
+  { id: "health", label: "Health" },
+  { id: "alerts", label: "Alerts" },
+  { id: "dossier", label: "Corpus" },
+  { id: "na", label: "New Aquitaine" },
 ];
 
 const FEED_LIMIT = 300;
@@ -279,7 +279,7 @@ export default function App() {
     // son `statement_timeout` — le `Promise.all` rejetait, et organisations,
     // événements, sources et statistiques n'étaient jamais posés en état.
     const load = async () => {
-      const labels = ["organisations", "événements", "sources", "statistiques", "graphe", "vue NA", "état détaillé", "causes des sources rouges"] as const;
+      const labels = ["organizations", "events", "sources", "statistics", "graph", "NA overview", "detailed status", "red source causes"] as const;
       const results = await Promise.allSettled([
         api.orgs(),
         api.events(FEED_LIMIT, "regional", portee),
@@ -308,7 +308,7 @@ export default function App() {
       if (hd.status === "fulfilled") setHealthDetail(hd.value);
       if (hc.status === "fulfilled") setHealthCauses(hc.value);
       const failed = results.flatMap((r, i) => (r.status === "rejected" ? [labels[i]] : []));
-      setError(failed.length > 0 ? `indisponible : ${failed.join(", ")}` : null);
+      setError(failed.length > 0 ? `unavailable: ${failed.join(", ")}` : null);
       setLoading(false);
       const arcs = await loadFlows().catch(() => []);
       setFlows(arcs);
@@ -360,7 +360,7 @@ export default function App() {
         })
         .catch((err: unknown) => {
           if (!controller.signal.aborted) {
-            setTodayError(err instanceof Error ? err.message : "indisponible");
+            setTodayError(err instanceof Error ? err.message : "unavailable");
           }
         })
         .finally(() => {
@@ -548,15 +548,15 @@ export default function App() {
 
   return (
     <div className="shell">
-      {MOCK_MODE ? <div className="shell__mock">mode démonstration, données simulées</div> : null}
+      {MOCK_MODE ? <div className="shell__mock">demo mode, simulated data</div> : null}
 
       <header className="rail">
         <div className="wordmark">
           <b>Radar Cyber</b>
-          <span>Nouvelle-Aquitaine</span>
+          <span>New Aquitaine</span>
         </div>
 
-        <nav className="rail__nav" aria-label="vues">
+        <nav className="rail__nav" aria-label="Views">
           {VIEWS.map((v) => (
             <button
               key={v.id}
@@ -569,7 +569,7 @@ export default function App() {
             >
               {v.label}
               {v.id === "alerts" && unseenAlerts > 0 ? (
-                <span className="rail__badge" aria-label={`${unseenAlerts} alertes non vues`}>{unseenAlerts}</span>
+                <span className="rail__badge" aria-label={`${unseenAlerts} unread alerts`}>{unseenAlerts}</span>
               ) : null}
             </button>
           ))}
@@ -583,7 +583,7 @@ export default function App() {
           onClick={() => setPaletteOpen(true)}
           aria-keyshortcuts="Meta+K Control+K"
         >
-          rechercher ⌘K
+          Search ⌘K
         </button>
 
         {view === "map" ? (
@@ -593,18 +593,18 @@ export default function App() {
             aria-pressed={basemap === "sat"}
             onClick={() => setBasemap(basemap === "sat" ? "plan" : "sat")}
           >
-            {basemap === "sat" ? "satellite" : "plan"}
+            {basemap === "sat" ? "Satellite" : "Street map"}
           </button>
         ) : null}
 
         <span className="rail__live" data-on={connected}>
           <i aria-hidden="true" />
-          {connected ? "flux direct" : "flux coupé"}
+          {connected ? "Live feed" : "Feed offline"}
         </span>
 
         {token ? (
           <button type="button" className="rail__toggle" onClick={onUnauthorized}>
-            déconnexion
+            Sign out
           </button>
         ) : null}
       </header>
@@ -626,13 +626,13 @@ export default function App() {
       />
       </Suspense>
 
-      {error ? <p className="shell__error">API : {error}</p> : null}
+      {error ? <p className="shell__error">API: {error}</p> : null}
       {/* Hors ligne assumé : on dit l'âge des données plutôt que de faire
           croire à un temps réel qu'on n'a plus. */}
       {error && instantaneData ? (
         <p className="shell__offline" data-etat={instantaneData.etat}>
           {instantaneData.libelle}
-          {instantaneData.etat === "perime" ? " — carte figée sur la dernière réponse reçue" : null}
+          {instantaneData.etat === "perime" ? " — map frozen at the last response received" : null}
         </p>
       ) : null}
 
@@ -643,20 +643,20 @@ export default function App() {
               type="button"
               className="shell__feed-collapse"
               onClick={() => setFeedOpen(false)}
-              aria-label="Replier le fil d'événements"
-              title="Replier le fil"
+              aria-label="Collapse event feed"
+              title="Collapse feed"
             >
               ‹
             </button>
-            <div className="family-filter" role="group" aria-label="Portée du fil">
-              <span className="family-filter__label">portée</span>
+            <div className="family-filter" role="group" aria-label="Feed scope">
+              <span className="family-filter__label">Scope</span>
               <button
                 type="button"
                 className="family-filter__btn"
                 aria-pressed={portee === "region"}
                 onClick={() => { setPortee("region"); setRegionalFirst(true); }}
               >
-                <span>région</span>
+                <span>Region</span>
               </button>
               <button
                 type="button"
@@ -664,16 +664,16 @@ export default function App() {
                 aria-pressed={portee === "toutes"}
                 onClick={() => { setPortee("toutes"); setRegionalFirst(false); }}
               >
-                <span>tout</span>
+                <span>All</span>
               </button>
               <button
                 type="button"
                 className="family-filter__btn"
                 aria-pressed={portee === "vulnerabilites"}
                 onClick={() => { setPortee("vulnerabilites"); setRegionalFirst(false); }}
-                title="Bulletins de vulnérabilités : 87 % du flux brut, aucun fait régional"
+                title="Vulnerability bulletins: 87% of the raw feed, no regional findings"
               >
-                <span>vulnérabilités</span>
+                <span>Vulnerabilities</span>
               </button>
             </div>
             <Suspense fallback={<ViewSkeleton />}>
@@ -697,10 +697,10 @@ export default function App() {
             type="button"
             className="shell__feed-rail"
             onClick={() => setFeedOpen(true)}
-            aria-label="Déplier le fil d'événements"
-            title="Déplier le fil"
+            aria-label="Expand event feed"
+            title="Expand feed"
           >
-            fil
+            feed
           </button>
         )}
 

@@ -191,7 +191,7 @@ export function sourceYield(source: Pick<Source, "entrees" | "evenements30j" | "
   if (source.entrees !== null && source.entrees > 0) return "vide";
   if (source.dernierRun !== null) return "muette";
   if (source.evenementsTotal > 0) return "inconnue";
-  return source.lastOkAt ? "muette" : "inconnue";
+  return source.lastOkAt ? "silent" : "unknown";
 }
 
 /**
@@ -202,21 +202,21 @@ export function sourceYield(source: Pick<Source, "entrees" | "evenements30j" | "
  * en dernier recours — mieux vaut un mot bizarre qu'un silence.
  */
 export const MOTIF_LABEL: Record<string, string> = {
-  hors_sujet: "hors sujet (porte de pertinence)",
-  presse: "non cyber (classé presse)",
-  menu_path: "entrée de menu (lien de navigation)",
-  menu_token: "entrée de menu (libellé seul)",
-  menu_source: "entrée de menu (nom de la source)",
-  warninglist: "indicateur légitime (warninglist)",
-  non_actionnable: "indicateur non actionnable pour nos actifs",
-  doublon: "doublon dans le même flux",
+  hors_sujet: "off topic (relevance gate)",
+  presse: "non-cyber (classified as press)",
+  menu_path: "menu entry (navigation link)",
+  menu_token: "menu entry (label only)",
+  menu_source: "menu entry (source name)",
+  warninglist: "legitimate indicator (warninglist)",
+  non_actionnable: "indicator not actionable for our assets",
+  doublon: "duplicate in the same feed",
 };
 
 /** Libellé lisible d'un motif de rejet. Tolère l'absence : un serveur plus
  * ancien ne renvoie pas ce champ, et l'écran doit rester lisible. */
 export function motifLabel(motif: string | null | undefined): string {
-  if (typeof motif !== "string" || motif === "") return "non mesuré";
-  if (motif.startsWith("contrat:")) return `refusé par le contrat (${motif.slice(8)})`;
+  if (typeof motif !== "string" || motif === "") return "not measured";
+  if (motif.startsWith("contrat:")) return `rejected by contract (${motif.slice(8)})`;
   return MOTIF_LABEL[motif] ?? motif;
 }
 
