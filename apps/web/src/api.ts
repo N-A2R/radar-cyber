@@ -788,11 +788,17 @@ export type JournalDecision = {
   raison: string | null;
 };
 
-export type JournalReviewResponse = {
+type JournalReviewResponseRaw = {
   rows: JournalDecision[];
   limite: number;
-  /** Curseur de la page suivante ; null = dernière page. */
   avant: number | null;
+};
+
+export type JournalReviewResponse = {
+  rows: JournalDecision[];
+  limit: number;
+  /** Cursor for the next page; null = last page. */
+  nextCursor: number | null;
 };
 
 export type ReviewAction = "promote" | "reject" | "review" | "undo";
@@ -823,11 +829,16 @@ export const api = {
   },
   reviewAction: (ids: number[], action: ReviewAction, reason?: string) =>
     postJson<ReviewOutcome>("/quarantine/review", { ids, action, reason: reason ?? "" }),
-  /** Journal des décisions de revue — lecture seule, pagination par curseur. */
-  journalReview: (limite = 100, avant: number | null = null, signal?: AbortSignal) => {
-    const qs = new URLSearchParams({ limite: String(limite) });
-    if (avant !== null) qs.set("avant", String(avant));
-    return get<JournalReviewResponse>(`/journal/review?${qs.toString()}`, signal);
+  /** Review decision journal — read-only, cursor-based pagination. */
+  journalReview: async (limit = 100, before: number | null = null, signal?: AbortSignal) => {
+    const qs = new URLSearchParams({ limite: String(limit) });
+    if (before !== null) qs.set("avant", String(before));
+    const response = await get<JournalReviewResponseRaw>(`/journal/review?${qs.toString()}`, signal);
+    return {
+      rows: response.rows,
+      limit: response.limite,
+      nextCursor: response.avant,
+    };
   },
   directory: (params: DirectoryQuery = {}, signal?: AbortSignal) => {
     const qs = new URLSearchParams();
