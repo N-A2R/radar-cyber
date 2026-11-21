@@ -1,0 +1,45 @@
+{
+	"vague": "chantier-couverture",
+	"demarreeLe": "2026-11-21",
+	"plan": "docs/plans/chantier-couverture.md",
+	"etapeCourante": "S2",
+	"tacheCourante": "S2.3",
+	"taches": {
+		"S1.1": {
+			"statut": "fait",
+			"le": "2026-11-21T15:10Z",
+			"resume": "Inventaire : import-sirene.mts (API paginée), import-sirene-stock-na.mts (vague 1, sièges actifs nommés), import-sirene-vague2.mts (personnes + sites à enseigne + sirene-nom), sirene-commun.mts (streaming). Base : 1 244 106 orgs (1 164 985 sirene, 50 594 sirene-site, 1 247 246 aliases dont 1 107 796 sirene-nom), 20 628 orgs sans alias, 4 sans dept / 194 sans ville (négligeable). Écarts assumés restants : sièges FERMÉS (angle mort vague 1), dénominations usuelles posées seulement pour les orgs nouvelles à la vague 1 (jointure par slug — les 41 801 orgs d'avant ne les ont jamais reçues), et le stock local (4,9 Go) avait été supprimé après la vague : re-téléchargé en session (édition du 1ᵉʳ novembre 2026, même que vague 1). Mesure « avant » des absentes : bench/results/couverture-absentes-avant.json — 0/70 présentes (71 verdicts mais 70 noms distincts ; prédicat strict : nom ≥2 jetons entièrement contenu ou alias égal ; le bras jeton-unique du moteur écarté, c'est le piège FRANCE 2R)."
+		},
+		"S1.2": {
+			"statut": "fait",
+			"le": "2026-11-21T17:15Z",
+			"resume": "scripts/import-sirene-vague3.mts exécuté sur l'édition du 1ᵉʳ novembre 2026 (zips re-téléchargés, intégrité vérifiée : 2 892 689 384 et 984 970 049 octets). Résultats : 1 176 893 sirens en base au départ ; 1 256 449 sièges fermés NA hors base vus (2 456 déjà en base écartés) ; 429 025 organisations fermées insérées (personnes physiques fermées écartées : 816 027, collectivités fermées : 11 397) ; 103 445 aliases sirene-usuelle posés ; 354 101 sirene-nom des fermées sans usuelle. Journal : 1 fait consigné, 0 échec. Après : 1 673 131 orgs (+429 025), 1 678 146 aliases (+430 900 dont 76 799 usuelles nouvelles — le reste déjà présent, idempotence vérifiée). Défaut attrapé en route : stride de paramètres ($10 jamais référencé → 42P18) dans l'INSERT par paquets — corrigé (stride 9 pour 9 paramètres), relance complète ; aucune écriture avant l'échec, idempotence intacte."
+		},
+		"S1.3": {
+			"statut": "fait",
+			"le": "2026-11-21T17:20Z",
+			"resume": "Avant/après (scripts/mesure-absentes-vague3.mts → bench/results/couverture-absentes-{avant,apres}.json) : 0/70 présentes avant, 0/70 après. Lecture honnête : les 71 « absentes » de la cohorte sont des entités étrangères (Change Healthcare, City of St. Cloud Florida, Royal Brunei…) ou des domaines .fr sans identité légale NA sous leur nom — l'import du registre NA ne les rend pas présentes parce qu'elles ne sont pas au registre NA ; les verdicts des lots étaient justes. Ce que l'import apporte : les victimes cessées après incident (429 025 fermées — l'angle mort de la vague 1 refermé) et les sigles officiels du registre (76 799 usuelles nouvelles en alias) — le levier de la règle sigle (S2). Villes/départements : 4 sans dept / 194 sans ville, inchangés, négligeables."
+		},
+		"S2.2": {
+			"statut": "fait",
+			"le": "2026-11-21T16:05Z",
+			"resume": "Tests apps/api/test/sigle-registre.test.ts : 7 verts (forme de l'indice, registre tranché — dénomination / alias / ambiguïté / dédoublonnage, règles). Suite API complète : 453/453. Jeu d'or avec le contrôle sigle (scripts/precision-gold.mts --verifier) : 50/50 — le contrôle vérifie qu'aucun cas ÉCARTÉ dont l'indice est un sigle n'est confirmé au registre. Premier lancement : 2 faux échecs (ANTEL, Ausa) — cas « conserve » à verdict indécidable, déjà rattachés par égalité de nom 0,9 que la confirmation ne remplace pas (garde review.ts) ; contrôle resserré aux cas écartés, le jeu repasse 50/50. Découverte utile : les deux orgs homonymes françaises existent réellement (ANTEL, Saint-Palais-sur-Mer 17 ; AUSA, Bergerac 24) — des sigles d'étrangères tomberont dessus : c'est la revue humaine qui tranche."
+		},
+		"S2.1": {
+			"statut": "fait",
+			"le": "2026-11-21T15:35Z",
+			"resume": "apps/api/src/match/sigle-registre.ts : jetonSigle (un seul jeton discriminant ≥3, AUCUN domaine — chevron.com n'est pas un sigle) ; confirmerSigle (registre = dénominations en mot entier via name_norm trigram + alias actifs en égalité ; dédoublonnage org ; une seule organisation → confirmé, 0 ou ≥2 → null, jamais de tirage). CONFIANCE_SIGLE=0,8 : sous le seuil automatique 0,85 → proposition de revue, la preuve s'affiche, l'analyste accepte en un clic (S3). Branchée : regles-precision.ts (via='sigle' dans CandidatRattachement, doc 1-sigle), promote.ts (OrgMatch.via + RefusRegle.via + confirmMatch), review.ts (la confirmation remplit un trou ou remplace un candidat nom plus faible — jamais une égalité de nom 0,9 ni une clé de domaine 0,95 ; une requête par sigle distinct de la fenêtre). Découverte en test : 'technologies' est un jeton générique, donc 'AKKA TECHNOLOGIES' est de type sigle (1 jeton discriminant) — comportement voulu, test ajusté."
+		}
+	},
+	"quotaDemarrage": {
+		"le": "2026-11-21T14:30Z",
+		"source": "curl http://127.0.0.1:20131/quota",
+		"availableUnits": 90204302,
+		"seuilArret": 40000000,
+		"statut": "au-dessus du seuil"
+	},
+	"journal": [
+		"Début du chantier : état absent → créé, démarrage à S1.1. Lecture intégrale de docs/plans/chantier-couverture.md et docs/rapport-regles-branchees.md. Session 1 prévue : S1 (import registre NA) + S2 (règle des sigles).",
+		"S1 : le stock SIRENE local (4,9 Go) avait été supprimé après les vagues 1-2 — re-téléchargé de data.gouv.fr via l'API dataset (édition du 1ᵉʳ novembre 2026, la même que la vague 1 ; reprise curl -C - après une coupure réseau). Import vague 3 exécuté : 429 025 fermées + 103 445 usuelles + 354 101 noms. Mesure des 71 absentes avant/après : 0→0 — l'absence n'était pas un trou d'import (entités étrangères et domaines), publié tel quel."
+	]
+}

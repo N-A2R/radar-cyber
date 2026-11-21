@@ -1,0 +1,499 @@
+{
+	"date": "2026-11-21",
+	"source": "bench/results/na-lot-reprise-{1..17}.json (verdict absent)",
+	"methode": "jetons discriminants couverts par le nom de l'org, ou alias actif égal à la normalisation ; aucun SIREN inventé",
+	"cohorte": 70,
+	"presentes": 0,
+	"detail": [
+		{
+			"nom": "Change HealthCare - OPTUM Group - United HealthCare Group",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Change HealthCare - OPTUM Group - United HealthCare Group - FOR SALE",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Change Healthcare - Optum - UnitedHealth",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "City of St. Cloud, Florida",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Colmar Industrial Supplies",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Erbilbil Bilgisayar (You have 72 hours)",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Establishment of the Agency for the Environmental Protection of the Marche Region",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Freightliner of Grand Rapids &amp; Kalamazoo",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "GNS Cloud Hacked",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "GRANVILLE FOOD CARE  LIMITED",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Gloria Cales",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Grand Valley State University",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Herrs (You have 72 hours)",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "LASOLTEL.FR",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "MORTON WILLIAMS Data Leak",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Marans Weisz & Newman, LLC",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Massy Distribution Limited",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "MeridianLink fails to file with the SEC..so we do it for them + 24 hours to pay",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Moose, Martin, Haynes & Lundy",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "My Cloud Star",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Nexon Asia Pacific",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Orange County Pathology Medical Group",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Orange Public School District",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Paris High School",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "ROYAL GATEWAY CO., LTD",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "ROYAL INSIGNIA",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Royal Brunei Airlines Sdn Bhd",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Royal College of Phy sicians and Surgeons of Glasgow",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Royal Dirkzwager",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Royal Glass",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Royal Oak Pet Clinic",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Royal Smilde",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Royal Star & Garter",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Rush Energy Services Inc [You have 48 hours]",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "SBM & Co [You have 48 hours. Check your e-mail]",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Serfilco, RP Adams,  Baron Blakeslee, Pac er, Service Filtrati on of Canada, Polyma r.",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "St Benet Biscop",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "St. Cloud Florida",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "TaxPros of Clermont",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "The De Montfort School",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "The Grand Bahama Port Authority",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "The Louis G Freeman",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "The Royal Commission for Riyadh City (RCRC)",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "The Royal Family of Great Britain",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Unione dei Comuni Terre di Pianura",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Universite Paris Sud",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "University Institute of Technology of Paris",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Vernon Milling",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Virginia Defense Force",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "Wendy Wu Tours",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "franckbeun.fr",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "germaintoiture.fr",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "gorrias-mercedes-benz.fr",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "https://smdea09.fr/",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "iRely LLC's Grand Failure",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "ibafrance.fr",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "jrichard-paysage.fr",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "lanormandise.fr",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "lapostermobile.fr",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "legilog.fr",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "lhotellerie-restauration.fr",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "maisonloisy.fr",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "maleosante.fr",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "midipapierspeints.fr",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "plravocats.fr",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "pradiergranulats.fr",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "stt-logistique.fr",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "vdbassocies.fr",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "www.iph-bet.fr",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		},
+		{
+			"nom": "www.legilog.fr",
+			"presente": false,
+			"orgId": null,
+			"orgName": null,
+			"par": null
+		}
+	]
+}
