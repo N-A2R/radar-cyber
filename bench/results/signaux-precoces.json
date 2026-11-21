@@ -1,0 +1,967 @@
+{
+  "dateMesure": "2026-11-21",
+  "methode": "Gain = max(0, radar − signal) ; délai après = min(radar, signal) − presse, sur les incidents avec date de presse. Presse = référence avant, jamais un signal.",
+  "avant": {
+    "n": 77,
+    "medianeH": 8520
+  },
+  "apres": {
+    "n": 77,
+    "medianeH": 8160
+  },
+  "parPiste": {
+    "ct": {
+      "signaux": 0,
+      "incidentsCouverts": 0,
+      "incidentsAvecGain": 0,
+      "joursGagnes": {
+        "total": 0,
+        "medianeCouverts": null,
+        "medianeTous": 0,
+        "max": 0
+      },
+      "delaiApresH": {
+        "n": 77,
+        "mediane": 8520
+      }
+    },
+    "revendication": {
+      "signaux": 3,
+      "incidentsCouverts": 3,
+      "incidentsAvecGain": 3,
+      "joursGagnes": {
+        "total": 1496,
+        "medianeCouverts": 411,
+        "medianeTous": 0,
+        "max": 813
+      },
+      "delaiApresH": {
+        "n": 77,
+        "mediane": 8160
+      }
+    },
+    "fuites": {
+      "signaux": 2,
+      "incidentsCouverts": 2,
+      "incidentsAvecGain": 2,
+      "joursGagnes": {
+        "total": 217,
+        "medianeCouverts": 108.5,
+        "medianeTous": 0,
+        "max": 119
+      },
+      "delaiApresH": {
+        "n": 77,
+        "mediane": 8520
+      }
+    },
+    "dns": {
+      "signaux": 0,
+      "incidentsCouverts": 0,
+      "incidentsAvecGain": 0,
+      "joursGagnes": {
+        "total": 0,
+        "medianeCouverts": null,
+        "medianeTous": 0,
+        "max": 0
+      },
+      "delaiApresH": {
+        "n": 77,
+        "mediane": 8520
+      }
+    }
+  },
+  "toutesPistes": {
+    "signaux": 5,
+    "incidentsCouverts": 5,
+    "incidentsAvecGain": 5,
+    "joursGagnes": {
+      "total": 1713,
+      "medianeCouverts": 272,
+      "medianeTous": 0,
+      "max": 813
+    },
+    "delaiApresH": {
+      "n": 77,
+      "mediane": 8160
+    }
+  },
+  "pisteDominante": "revendication",
+  "disponibilite": {
+    "mesureLe": "2026-11-21",
+    "base": "PostgreSQL local radar sur localhost:5433",
+    "methode": "Comptages SQL sur la base de travail, puis recherche de correspondances avec les 100 incidents du benchmark (noms et domaines des 60 incidents témoins, 47 domaines extraits de leurs preuves). Aucun appel réseau vers crt.sh ou un site de revendication n'a été nécessaire pour ces comptages.",
+    "verifications": [
+      {
+        "piste": "ct",
+        "relation": "ct_sous_domaine",
+        "lignes": 0,
+        "sql": "select count(*) from ct_sous_domaine",
+        "lecture": "Aucun sous-domaine CT rattaché à une organisation du corpus."
+      },
+      {
+        "piste": "ct",
+        "relation": "ct_certificat_suspect",
+        "lignes": 0,
+        "sql": "select count(*) from ct_certificat_suspect",
+        "lecture": "Aucun certificat suspect collecté."
+      },
+      {
+        "piste": "dns",
+        "relation": "dns_change",
+        "lignes": 0,
+        "sql": "select count(*) from dns_change",
+        "lecture": "Aucun changement DNS détecté, donc aucune date de signal possible."
+      },
+      {
+        "piste": "dns",
+        "relation": "dns_snapshot",
+        "lignes": 155,
+        "sql": "select count(*) from dns_snapshot",
+        "lecture": "Instantanés du 21 novembre 2026 : état courant, pas d'historique de changement."
+      },
+      {
+        "piste": "fuites",
+        "relation": "fuite_reference",
+        "lignes": 1011,
+        "correspondancesCorpus": 0,
+        "sql": "select count(*) from fuite_reference",
+        "lecture": "Registre HIBP mondial : aucune correspondance de nom ou de domaine avec les 100 incidents."
+      },
+      {
+        "piste": "fuites",
+        "relation": "leak_claim",
+        "lignes": 0,
+        "sql": "select count(*) from leak_claim",
+        "lecture": "Aucune revendication de site de fuite stockée dans cette table."
+      }
+    ],
+    "limites": [
+      "Les flux CT (crt.sh Atom, Cert Spotter) et DNS passif existent comme sources mais aucune observation n'est rattachée à un incident du corpus : aucun jour gagné mesurable.",
+      "Les dates de revendication et de fuite du fichier signaux-precoces.jsonl sont des métadonnées publiques relevées le 21 novembre 2026 : elles datent l'existence du signal, pas son ingestion par un collecteur.",
+      "Aucune donnée volée n'est téléchargée ni hébergée : seules les métadonnées publiques sont utilisées."
+    ]
+  },
+  "incidents": [
+    {
+      "id": "na-2026-001",
+      "entite": "Ymed (éditeur de la plateforme Sooncare)",
+      "dateRadar": "2026-11-12",
+      "datePresse": "2026-04-09",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 5208
+    },
+    {
+      "id": "na-2026-002",
+      "entite": "Mairie de Marennes-Hiers-Brouage",
+      "dateRadar": "2026-11-12",
+      "datePresse": "2026-08-19",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 2040
+    },
+    {
+      "id": "na-2026-003",
+      "entite": "Ville de Tarnos",
+      "dateRadar": "2026-11-12",
+      "datePresse": "2026-08-29",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 1800
+    },
+    {
+      "id": "na-2026-004",
+      "entite": "Mairie d'Espelette",
+      "dateRadar": "2026-11-12",
+      "datePresse": "2026-09-16",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 1368
+    },
+    {
+      "id": "na-2026-005",
+      "entite": "EHPAD Résidence du Parc de Champdeniers",
+      "dateRadar": "2026-11-12",
+      "datePresse": "2025-12-11",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 8064
+    },
+    {
+      "id": "na-2026-006",
+      "entite": "Ville de Gradignan — police municipale",
+      "dateRadar": "2026-11-12",
+      "datePresse": "2026-05-13",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 4392
+    },
+    {
+      "id": "na-2026-007",
+      "entite": "Mairie de Fumel",
+      "dateRadar": "2026-11-12",
+      "datePresse": "2025-10-03",
+      "meilleur": {
+        "piste": "revendication",
+        "date": "2026-02-13",
+        "joursGagnes": 272
+      },
+      "delaiApresToutesPistesH": 3192
+    },
+    {
+      "id": "na-2026-008",
+      "entite": "Collège privé La Salle de Brive-la-Gaillarde",
+      "dateRadar": "2026-11-12",
+      "datePresse": "2025-02-14",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 15264
+    },
+    {
+      "id": "na-2026-009",
+      "entite": "Bordeaux Sciences Agro",
+      "dateRadar": "2026-11-12",
+      "datePresse": null,
+      "meilleur": null,
+      "delaiApresToutesPistesH": null
+    },
+    {
+      "id": "na-2026-010",
+      "entite": "Vignobles Toutigeac",
+      "dateRadar": "2026-11-12",
+      "datePresse": null,
+      "meilleur": {
+        "piste": "fuites",
+        "date": "2026-07-16",
+        "joursGagnes": 119
+      },
+      "delaiApresToutesPistesH": null
+    },
+    {
+      "id": "na-2026-011",
+      "entite": "SICSOE (Solution Vin Logistique)",
+      "dateRadar": "2026-11-12",
+      "datePresse": null,
+      "meilleur": null,
+      "delaiApresToutesPistesH": null
+    },
+    {
+      "id": "na-2026-012",
+      "entite": "Intermarché d'Altillac",
+      "dateRadar": "2026-11-12",
+      "datePresse": "2026-10-13",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 720
+    },
+    {
+      "id": "na-2026-013",
+      "entite": "Magasins de grande distribution touchés en Béarn et Soule (dont Intermarché Pau et Monein)",
+      "dateRadar": "2026-11-12",
+      "datePresse": "2026-10-12",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 744
+    },
+    {
+      "id": "na-2026-014",
+      "entite": "Coaxis",
+      "dateRadar": "2026-11-12",
+      "datePresse": "2026-11-10",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 48
+    },
+    {
+      "id": "na-2026-015",
+      "entite": "Mairie de Sarran",
+      "dateRadar": "2026-11-12",
+      "datePresse": "2025-06-20",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 12240
+    },
+    {
+      "id": "na-2026-016",
+      "entite": "Fédération Nationale des Chasseurs / chasseurs charentais",
+      "dateRadar": "2026-11-12",
+      "datePresse": null,
+      "meilleur": null,
+      "delaiApresToutesPistesH": null
+    },
+    {
+      "id": "na-2026-017",
+      "entite": "Ville de Poitiers et Grand Poitiers",
+      "dateRadar": "2026-11-12",
+      "datePresse": "2025-09-05",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 10392
+    },
+    {
+      "id": "na-2026-018",
+      "entite": "Fédération Française de Cyclisme — membres en Nouvelle-Aquitaine",
+      "dateRadar": "2026-11-12",
+      "datePresse": null,
+      "meilleur": null,
+      "delaiApresToutesPistesH": null
+    },
+    {
+      "id": "na-2026-019",
+      "entite": "Delicity — service de livraison de repas disponible à Bordeaux, Pau et Limoges",
+      "dateRadar": "2026-11-12",
+      "datePresse": "2026-09-07",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 1584
+    },
+    {
+      "id": "na-2026-020",
+      "entite": "Euskal Moneta (association support de la monnaie locale Eusko)",
+      "dateRadar": "2026-11-12",
+      "datePresse": "2026-08-28",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 1824
+    },
+    {
+      "id": "na-2026-021",
+      "entite": "SDIS des Landes",
+      "dateRadar": "2026-11-13",
+      "datePresse": "2026-07-27",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 2616
+    },
+    {
+      "id": "na-2026-022",
+      "entite": "Institut Bergonié",
+      "dateRadar": "2026-11-13",
+      "datePresse": null,
+      "meilleur": null,
+      "delaiApresToutesPistesH": null
+    },
+    {
+      "id": "na-2026-023",
+      "entite": "ERNAT (Études Réalisations Négoce Assistance Technique)",
+      "dateRadar": "2026-11-13",
+      "datePresse": null,
+      "meilleur": {
+        "piste": "fuites",
+        "date": "2026-08-07",
+        "joursGagnes": 98
+      },
+      "delaiApresToutesPistesH": null
+    },
+    {
+      "id": "na-2026-024",
+      "entite": "Rectorat de l'académie de Poitiers",
+      "dateRadar": "2026-11-14",
+      "datePresse": null,
+      "meilleur": null,
+      "delaiApresToutesPistesH": null
+    },
+    {
+      "id": "na-2026-025",
+      "entite": "UPPA Alumni — réseau des anciens de l'Université de Pau et des Pays de l'Adour",
+      "dateRadar": "2026-11-14",
+      "datePresse": null,
+      "meilleur": null,
+      "delaiApresToutesPistesH": null
+    },
+    {
+      "id": "na-2026-026",
+      "entite": "Réseau Alumni de l'Université de Bordeaux",
+      "dateRadar": "2026-11-14",
+      "datePresse": null,
+      "meilleur": null,
+      "delaiApresToutesPistesH": null
+    },
+    {
+      "id": "na-2026-027",
+      "entite": "UNSS (Union nationale du sport scolaire) — exfiltration OPUSS",
+      "dateRadar": "2026-11-14",
+      "datePresse": null,
+      "meilleur": null,
+      "delaiApresToutesPistesH": null
+    },
+    {
+      "id": "na-2026-028",
+      "entite": "Ville de La Rochelle — fuite via le prestataire Synbird",
+      "dateRadar": "2026-11-14",
+      "datePresse": "2025-11-24",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 8520
+    },
+    {
+      "id": "na-2026-029",
+      "entite": "Bordeaux Métropole — portail de la taxe de séjour",
+      "dateRadar": "2026-11-14",
+      "datePresse": null,
+      "meilleur": null,
+      "delaiApresToutesPistesH": null
+    },
+    {
+      "id": "na-2026-030",
+      "entite": "Ministère de l'Intérieur — intrusion initiale depuis un service local de Charente-Maritime",
+      "dateRadar": "2026-11-14",
+      "datePresse": "2025-12-12",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 8088
+    },
+    {
+      "id": "na-2026-031",
+      "entite": "Vivaticket France (Chasseneuil-du-Poitou)",
+      "dateRadar": "2026-11-14",
+      "datePresse": "2026-03-15",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 5856
+    },
+    {
+      "id": "na-2026-032",
+      "entite": "Intermarché de Gradignan, Parempuyre, Macau et La Teste-de-Buch",
+      "dateRadar": "2026-11-14",
+      "datePresse": null,
+      "meilleur": null,
+      "delaiApresToutesPistesH": null
+    },
+    {
+      "id": "na-2026-033",
+      "entite": "Supermarchés des Deux-Sèvres (Hyper U Parthenay, Intermarché Saint-Varent et Saint-Maixent-l'École, Super U Champdeniers, Celles-sur-Belle, Leclerc Thouars-Sainte-Verge)",
+      "dateRadar": "2026-11-14",
+      "datePresse": "2026-10-12",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 792
+    },
+    {
+      "id": "na-2026-034",
+      "entite": "Cinq Intermarché de Dordogne (Hautefort, Tocane-Saint-Apre, Port-Sainte-Foy-et-Ponchapt, Trélissac, Saint-Médard-de-Mussidan)",
+      "dateRadar": "2026-11-14",
+      "datePresse": "2026-10-12",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 792
+    },
+    {
+      "id": "na-2026-035",
+      "entite": "E.Leclerc de Surgères",
+      "dateRadar": "2026-11-14",
+      "datePresse": "2026-10-12",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 792
+    },
+    {
+      "id": "na-2026-036",
+      "entite": "Magasins de la Vienne (Intermarché Chauvigny et Gençay, Super U Vouillé, Leclerc Poitiers, Auchan Saint-Genest-d'Ambière)",
+      "dateRadar": "2026-11-14",
+      "datePresse": "2026-10-12",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 792
+    },
+    {
+      "id": "na-2026-037",
+      "entite": "Super U de Morcenx-la-Nouvelle et Carrefour Express de Rion-des-Landes",
+      "dateRadar": "2026-11-14",
+      "datePresse": "2026-10-12",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 792
+    },
+    {
+      "id": "na-2026-038",
+      "entite": "Intermarché et Carrefour Market de Marmande",
+      "dateRadar": "2026-11-14",
+      "datePresse": "2026-10-12",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 792
+    },
+    {
+      "id": "na-2026-039",
+      "entite": "Cerballiance — réseau de laboratoires de biologie médicale",
+      "dateRadar": "2026-11-14",
+      "datePresse": "2026-03-28",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 5544
+    },
+    {
+      "id": "na-2026-040",
+      "entite": "Cegedim Santé — logiciel MonLogicielMedical (MLM)",
+      "dateRadar": "2026-11-14",
+      "datePresse": null,
+      "meilleur": null,
+      "delaiApresToutesPistesH": null
+    },
+    {
+      "id": "na-2026-041",
+      "entite": "Polyclinique Bordeaux Nord Aquitaine",
+      "dateRadar": "2026-11-14",
+      "datePresse": "2026-04-09",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 5256
+    },
+    {
+      "id": "na-2026-042",
+      "entite": "Ville de Limoges — centre de vaccination municipal et campagne HPV",
+      "dateRadar": "2026-11-14",
+      "datePresse": null,
+      "meilleur": null,
+      "delaiApresToutesPistesH": null
+    },
+    {
+      "id": "na-2026-043",
+      "entite": "Weda — logiciel médical (cabinets touchés jusqu'en Charente)",
+      "dateRadar": "2026-11-14",
+      "datePresse": "2025-11-13",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 8784
+    },
+    {
+      "id": "na-2026-044",
+      "entite": "FFRandonnée — fichier adhérents",
+      "dateRadar": "2026-11-14",
+      "datePresse": null,
+      "meilleur": null,
+      "delaiApresToutesPistesH": null
+    },
+    {
+      "id": "na-2026-045",
+      "entite": "Association des maires de France (AMF)",
+      "dateRadar": "2026-11-14",
+      "datePresse": "2026-09-04",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 1704
+    },
+    {
+      "id": "na-2026-046",
+      "entite": "Office français de la biodiversité — fichier des permis de chasser",
+      "dateRadar": "2026-11-14",
+      "datePresse": "2026-02-22",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 6360
+    },
+    {
+      "id": "na-2026-047",
+      "entite": "Université de Pau et des Pays de l'Adour (UPPA) — revendication Nova",
+      "dateRadar": "2026-11-14",
+      "datePresse": "2025-09-29",
+      "meilleur": {
+        "piste": "revendication",
+        "date": "2025-09-29",
+        "joursGagnes": 411
+      },
+      "delaiApresToutesPistesH": 0
+    },
+    {
+      "id": "na-2026-048",
+      "entite": "Ville de Bergerac — QR codes des horodateurs (quishing)",
+      "dateRadar": "2026-11-14",
+      "datePresse": "2025-08-11",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 11040
+    },
+    {
+      "id": "na-2026-049",
+      "entite": "Mairie de Berson",
+      "dateRadar": "2026-11-14",
+      "datePresse": "2025-02-28",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 14976
+    },
+    {
+      "id": "na-2026-050",
+      "entite": "Fédération française de tir (FFTir) — retombées en Haute-Vienne",
+      "dateRadar": "2026-11-14",
+      "datePresse": "2025-10-23",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 9288
+    },
+    {
+      "id": "na-2026-051",
+      "entite": "Arsoé de Soual — plateforme Synel d'identification des bovins et ovins",
+      "dateRadar": "2026-11-14",
+      "datePresse": "2024-12-31",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 16392
+    },
+    {
+      "id": "na-2026-052",
+      "entite": "Camping municipal d'Évaux-les-Bains",
+      "dateRadar": "2026-11-14",
+      "datePresse": "2025-07-11",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 11784
+    },
+    {
+      "id": "na-2026-053",
+      "entite": "GoCap (Mostiglass) — Hinx",
+      "dateRadar": "2026-11-14",
+      "datePresse": "2025-02-20",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 15168
+    },
+    {
+      "id": "na-2026-054",
+      "entite": "Artiga — atelier de linge basque à Magescq",
+      "dateRadar": "2026-11-14",
+      "datePresse": "2025-10-06",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 9696
+    },
+    {
+      "id": "na-2026-055",
+      "entite": "Université de Limoges — vol de données personnelles par un agent",
+      "dateRadar": "2026-11-14",
+      "datePresse": "2025-06-27",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 12120
+    },
+    {
+      "id": "na-2026-056",
+      "entite": "Aéroport Pau-Pyrénées et écoles Eklore (CCI Pau Béarn)",
+      "dateRadar": "2026-11-14",
+      "datePresse": "2024-05-15",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 21912
+    },
+    {
+      "id": "na-2026-057",
+      "entite": "Sites internet des villes de Bordeaux et Pau et du département des Landes (DDoS)",
+      "dateRadar": "2026-11-14",
+      "datePresse": "2025-01-02",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 16344
+    },
+    {
+      "id": "na-2026-058",
+      "entite": "SPSTI 16 — service de prévention et de santé au travail interentreprises de la Charente",
+      "dateRadar": "2026-11-14",
+      "datePresse": "2024-06-14",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 21192
+    },
+    {
+      "id": "na-2026-059",
+      "entite": "Centre hospitalier de Girac (Angoulême)",
+      "dateRadar": "2026-11-14",
+      "datePresse": "2025-09-09",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 10344
+    },
+    {
+      "id": "na-2026-060",
+      "entite": "Cdiscount — extraction frauduleuse de données clients (Cestas)",
+      "dateRadar": "2026-11-14",
+      "datePresse": "2025-12-09",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 8160
+    },
+    {
+      "id": "na-charente-002",
+      "entite": "Christophe et Nathalie Paulet (Saint-Angeau, Charente)",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2024-08-01",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 20208
+    },
+    {
+      "id": "na-charente-003",
+      "entite": "Cité internationale de la bande dessinée et de l'image (Angoulême)",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2024-08-27",
+      "meilleur": {
+        "piste": "revendication",
+        "date": "2024-08-30",
+        "joursGagnes": 813
+      },
+      "delaiApresToutesPistesH": 72
+    },
+    {
+      "id": "na-charente-004",
+      "entite": "Carpa — ex-salariés de Sanifirst (Angoulême)",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2025-06-13",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 12624
+    },
+    {
+      "id": "na-charente-005",
+      "entite": "Centre hospitalier d'Angoulême — site de Girac",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2025-09-09",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 10512
+    },
+    {
+      "id": "na-charente-006",
+      "entite": "WEDA (logiciel médical) — cabinets médicaux de Charente",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2025-11-13",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 8952
+    },
+    {
+      "id": "na-charente-007",
+      "entite": "Clubs de tir charentais (Angoulême, Ruffec, Aussac-Vadalle)",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2026-01-23",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 7248
+    },
+    {
+      "id": "na-charente-008",
+      "entite": "Fédération nationale des chasseurs — Fédération des chasseurs de Charente",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2026-02-22",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 6528
+    },
+    {
+      "id": "na-charente-009",
+      "entite": "Empac Solutions (Rouillac, Charente)",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2026-02-22",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 6528
+    },
+    {
+      "id": "na-charente-010",
+      "entite": "Hennessy — billetterie des Visites Hennessy (Cognac)",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2026-04-03",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 5568
+    },
+    {
+      "id": "cm-inc-001",
+      "entite": "Théâtre de la Coursive (billetterie Sirius), La Rochelle",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2024-07-01",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 20952
+    },
+    {
+      "id": "cm-inc-002",
+      "entite": "Association de quartier du centre-ville d'Aytré (AQCVA)",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2025-02-07",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 15648
+    },
+    {
+      "id": "cm-inc-003",
+      "entite": "Communauté de communes de Haute-Saintonge / Ville de Jonzac",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2025-09-18",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 10296
+    },
+    {
+      "id": "cm-inc-004",
+      "entite": "Ville de La Rochelle — prestataire Synbird",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2025-11-27",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 8616
+    },
+    {
+      "id": "cm-inc-005",
+      "entite": "Commissariats de Charente-Maritime — messageries du ministère de l'Intérieur",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2025-12-11",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 8280
+    },
+    {
+      "id": "cm-inc-006",
+      "entite": "Commune de Saint-Denis-d’Oléron",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2026-02-25",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 6456
+    },
+    {
+      "id": "cm-inc-007",
+      "entite": "Soluris — syndicat informatique de la Charente-Maritime (Saintes)",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2026-06-15",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 3816
+    },
+    {
+      "id": "cm-inc-009",
+      "entite": "Commissariat de police de Royan (numéro usurpé)",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2026-09-08",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 1776
+    },
+    {
+      "id": "cm-inc-010",
+      "entite": "E.Leclerc de Surgères",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2026-10-12",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 960
+    },
+    {
+      "id": "cm-inc-011",
+      "entite": "Incognito.fr — laboratoire photographique, Saint-Martin-de-Ré",
+      "dateRadar": "2026-11-21",
+      "datePresse": null,
+      "meilleur": null,
+      "delaiApresToutesPistesH": null
+    },
+    {
+      "id": "cm-inc-012",
+      "entite": "Ville d’Aytré (identité usurpée)",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2026-11-12",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 216
+    },
+    {
+      "id": "cor-001",
+      "entite": "Mairie de Sarran",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2025-06-20",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 12456
+    },
+    {
+      "id": "cor-002",
+      "entite": "Collège privé La Salle de Brive-la-Gaillarde",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2025-02-12",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 15528
+    },
+    {
+      "id": "cor-003",
+      "entite": "Corrèze Fermeture (site d'Objat)",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2025-02-26",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 15192
+    },
+    {
+      "id": "cor-004",
+      "entite": "Établissement de l'élevage de la Corrèze (EDE 19)",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2025-01-16",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 16176
+    },
+    {
+      "id": "cor-005",
+      "entite": "Office de Tourisme Terres de Corrèze / Corrèze Tourisme",
+      "dateRadar": "2026-11-21",
+      "datePresse": null,
+      "meilleur": null,
+      "delaiApresToutesPistesH": null
+    },
+    {
+      "id": "cor-007",
+      "entite": "Fédération française de tir (FFTir) — club de tir en Corrèze",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2025-11-21",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 8760
+    },
+    {
+      "id": "cor-008",
+      "entite": "Novabio — réseau de laboratoires, dont le site de Brive-Rivet (Corrèze)",
+      "dateRadar": "2026-11-21",
+      "datePresse": null,
+      "meilleur": null,
+      "delaiApresToutesPistesH": null
+    },
+    {
+      "id": "cor-009",
+      "entite": "Novabio / groupe Inovie — incident chez le prestataire Maileva (patients des sites de Corrèze)",
+      "dateRadar": "2026-11-21",
+      "datePresse": null,
+      "meilleur": null,
+      "delaiApresToutesPistesH": null
+    },
+    {
+      "id": "na-creuse-001",
+      "entite": "Entreprise de maçonnerie de la Creuse (témoin anonymisé « Pierre »)",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2024-01-03",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 25272
+    },
+    {
+      "id": "na-creuse-002",
+      "entite": "Artisan de la Creuse client du Crédit Mutuel de Guéret",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2024-12-12",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 17016
+    },
+    {
+      "id": "na-creuse-004",
+      "entite": "APAJH 23 — Association pour adultes et jeunes handicapés de la Creuse",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2025-05-15",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 13320
+    },
+    {
+      "id": "na-creuse-005",
+      "entite": "Mairie d'Évaux-les-Bains — camping municipal",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2025-07-11",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 11952
+    },
+    {
+      "id": "na-creuse-006",
+      "entite": "Cabinet d'une rhumatologue libérale installée en Creuse — logiciel Weda",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2025-11-21",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 8760
+    },
+    {
+      "id": "na-creuse-007",
+      "entite": "Hébergeur de Creuse Sud Ouest (alerte Pro Tourisme Creuse)",
+      "dateRadar": "2026-11-21",
+      "datePresse": null,
+      "meilleur": null,
+      "delaiApresToutesPistesH": null
+    },
+    {
+      "id": "na-creuse-008",
+      "entite": "Hôtes Gîtes de France de la Creuse",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2026-08-05",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 2592
+    },
+    {
+      "id": "na-creuse-009",
+      "entite": "Direction départementale des territoires de la Creuse et DDETSPP de la Creuse (ministère de la Transition écologique)",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2026-09-02",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 1920
+    },
+    {
+      "id": "na-creuse-003",
+      "entite": "Fédération des Œuvres Laïques de la Creuse (FOL 23), Guéret",
+      "dateRadar": "2026-11-21",
+      "datePresse": null,
+      "meilleur": null,
+      "delaiApresToutesPistesH": null
+    },
+    {
+      "id": "na-ds-001",
+      "entite": "EHPAD Résidence du Parc, Champdeniers-Saint-Denis",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2025-12-10",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 8304
+    },
+    {
+      "id": "na-ds-002",
+      "entite": "Centre public de santé (CPDS) du Centre hospitalier Nord Deux-Sèvres — Faye-l'Abbesse, Parthenay, Thouars",
+      "dateRadar": "2026-11-21",
+      "datePresse": null,
+      "meilleur": null,
+      "delaiApresToutesPistesH": null
+    },
+    {
+      "id": "na-ds-003",
+      "entite": "MAIF Solutions Financières (MAIF), Niort",
+      "dateRadar": "2026-11-21",
+      "datePresse": "2025-03-26",
+      "meilleur": null,
+      "delaiApresToutesPistesH": 14520
+    }
+  ]
+}

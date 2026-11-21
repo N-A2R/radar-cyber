@@ -1,0 +1,55 @@
+{
+  "mesureLe": "2026-11-21",
+  "base": "PostgreSQL local radar sur localhost:5433",
+  "methode": "Comptages SQL sur la base de travail, puis recherche de correspondances avec les 100 incidents du benchmark (noms et domaines des 60 incidents témoins, 47 domaines extraits de leurs preuves). Aucun appel réseau vers crt.sh ou un site de revendication n'a été nécessaire pour ces comptages.",
+  "verifications": [
+    {
+      "piste": "ct",
+      "relation": "ct_sous_domaine",
+      "lignes": 0,
+      "sql": "select count(*) from ct_sous_domaine",
+      "lecture": "Aucun sous-domaine CT rattaché à une organisation du corpus."
+    },
+    {
+      "piste": "ct",
+      "relation": "ct_certificat_suspect",
+      "lignes": 0,
+      "sql": "select count(*) from ct_certificat_suspect",
+      "lecture": "Aucun certificat suspect collecté."
+    },
+    {
+      "piste": "dns",
+      "relation": "dns_change",
+      "lignes": 0,
+      "sql": "select count(*) from dns_change",
+      "lecture": "Aucun changement DNS détecté, donc aucune date de signal possible."
+    },
+    {
+      "piste": "dns",
+      "relation": "dns_snapshot",
+      "lignes": 155,
+      "sql": "select count(*) from dns_snapshot",
+      "lecture": "Instantanés du 21 novembre 2026 : état courant, pas d'historique de changement."
+    },
+    {
+      "piste": "fuites",
+      "relation": "fuite_reference",
+      "lignes": 1011,
+      "correspondancesCorpus": 0,
+      "sql": "select count(*) from fuite_reference",
+      "lecture": "Registre HIBP mondial : aucune correspondance de nom ou de domaine avec les 100 incidents."
+    },
+    {
+      "piste": "fuites",
+      "relation": "leak_claim",
+      "lignes": 0,
+      "sql": "select count(*) from leak_claim",
+      "lecture": "Aucune revendication de site de fuite stockée dans cette table."
+    }
+  ],
+  "limites": [
+    "Les flux CT (crt.sh Atom, Cert Spotter) et DNS passif existent comme sources mais aucune observation n'est rattachée à un incident du corpus : aucun jour gagné mesurable.",
+    "Les dates de revendication et de fuite du fichier signaux-precoces.jsonl sont des métadonnées publiques relevées le 21 novembre 2026 : elles datent l'existence du signal, pas son ingestion par un collecteur.",
+    "Aucune donnée volée n'est téléchargée ni hébergée : seules les métadonnées publiques sont utilisées."
+  ]
+}
