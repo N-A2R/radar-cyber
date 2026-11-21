@@ -22,6 +22,7 @@ import {
 	type IncidentCorpus,
 	type Instantane,
 } from "../src/analyse/rapport-anticipation.js";
+import type { HistoriqueReel } from "../src/analyse/instantane-anticipation.js";
 
 const EMPREINTES = { corpus: "corpus-test", instantane: "instantane-test" };
 
@@ -260,6 +261,7 @@ test("le document publié est exactement celui que le script régénère", () =>
 	const racine = new URL("../../../", import.meta.url);
 	const corpusTexte = readFileSync(new URL("bench/couverture/incidents.jsonl", racine), "utf8");
 	const snapshotTexte = readFileSync(new URL("bench/anticipation/J-21.jsonl", racine), "utf8");
+	const historiqueTexte = readFileSync(new URL("bench/anticipation/historique-reel.json", racine), "utf8");
 	const publie = readFileSync(new URL("docs/anticipation.md", racine), "utf8");
 	const resultat = genererRapport({
 		corpus: lireCorpusJsonl(corpusTexte),
@@ -267,7 +269,9 @@ test("le document publié est exactement celui que le script régénère", () =>
 		empreintes: {
 			corpus: createHash("sha256").update(corpusTexte).digest("hex"),
 			instantane: createHash("sha256").update(snapshotTexte).digest("hex"),
+			historique: createHash("sha256").update(historiqueTexte).digest("hex"),
 		},
+		historique: JSON.parse(historiqueTexte) as HistoriqueReel,
 	});
 	assert.equal(resultat.dossiers.length, 50);
 	assert.equal(resultat.resume.avecSignal, 0);

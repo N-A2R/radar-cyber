@@ -1,0 +1,10 @@
+{
+  "jours_avec_collecte": 6,
+  "premiere_collecte": "2026-11-13",
+  "derniere_collecte": "2026-11-21",
+  "jours_calendaires": 9,
+  "evenements": 27871,
+  "plus_ancien_valid_at": "2015-07-24",
+  "plus_recent_valid_at": "2026-11-21",
+  "jours_couverts_par_valid_at": 4139
+}

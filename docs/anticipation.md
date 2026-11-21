@@ -2,7 +2,7 @@
 > Document généré par `scripts/rapport-anticipation.mts` à partir du corpus de couverture (50 incidents) et de
 > l'instantané `bench/anticipation/J-21.jsonl`. **Ne pas éditer à la main** : modifier une entrée
 > puis relancer le script, sinon le contrôle `--verifier` échouera.
-> Empreintes sha256 des entrées : corpus `fee9681c3869baffa645ac20b1679edb82c45597433185923734c4cdf0397c26` · instantané `bc0c78fc022aa349ce4658c921c7c2bb0b9505e37d30f90a2cc3771dcfccc46d`.
+> Empreintes sha256 des entrées : corpus `fee9681c3869baffa645ac20b1679edb82c45597433185923734c4cdf0397c26` · instantané `bc0c78fc022aa349ce4658c921c7c2bb0b9505e37d30f90a2cc3771dcfccc46d` · historique `984f32b4526da0f5db5fa5dae494bd2fb3fa00a8c2ddf3b3a4642899b601e43f`.
 > Dernière date d'incident du corpus : 2026-10-14. Aucune donnée postérieure à chaque J-21 n'entre dans l'analyse.
 
 ## 1. La question posée
@@ -51,6 +51,8 @@ Ce document ne mesure pas une capacité prédictive hypothétique ; il décrit u
 | Incidents avec signal retenu | 0 / 50 |
 | Incidents sans signal retenu | 50 / 50 (dont 1 candidat(s) écarté(s)) |
 | Incidents avec « rien » franc | 49 / 50 |
+**Historique réel disponible** : 9 jour(s) calendaires, du 2026-11-13 au 2026-11-21 inclus ; des événements ont été collectés sur 6 journée(s) (27871 événements).
+Les dates `valid_at` couvrent 4139 jour(s), du 2015-07-24 au 2026-11-21 : ce sont des dates de faits remontées par les flux, **pas** des jours d'observation par le radar. Le zéro ci-dessous est un état de couverture, pas une preuve d'absence de signaux dans le passé.
 
 Répartition des natures d'événements (chaque événement compte une fois) :
 
@@ -921,11 +923,16 @@ comme des confirmations mutuelles.
 ## 10. Reproduction
 
 ```bash
-# régénérer l'instantané des 50 incidents depuis PostgreSQL (filtre strict sur valid_at) :
+# régénérer l'instantané et la mesure d'historique réel depuis PostgreSQL (filtre strict sur valid_at) :
 apps/api/node_modules/.bin/tsx scripts/anticipation.mts
 # produire / vérifier ce document sans base :
 apps/api/node_modules/.bin/tsx scripts/rapport-anticipation.mts
 apps/api/node_modules/.bin/tsx scripts/rapport-anticipation.mts --verifier
+# prouver sur des données synthétiques que le filtre laisse passer le signal d'avant J-21
+# et rejette celui d'après (base de test dédiée, jamais la base de développement) :
+cd apps/api && tsx test/run.ts test/instantane-anticipation.test.ts
 ```
 
-Le résultat est déterministe : mêmes entrées (empreintes ci-dessus), même octets en sortie.
+Le résultat est déterministe : mêmes entrées (empreintes ci-dessus), mêmes octets en sortie. Les jours
+d'historique réel sont une mesure datée du fichier `bench/anticipation/historique-reel.json` : si la
+collecte avance, régénérer les deux fichiers puis ce document.
