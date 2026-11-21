@@ -10,7 +10,7 @@ import type { CollectContext, Collector } from "@radar/shared";
 import { closePools, query } from "../src/db.js";
 import {
 	collectors, delaiBackoffMs, doitCollecter, executerCollecteur, executerPlan,
-	lireSanteSource, planifierCycle, ratisserSourcesJamaisCollectees,
+	lireSanteSource, planifierCycle, ratisserSourcesJamaisCollectees, sourcesJamaisCollectees,
 } from "../src/collectors/index.js";
 import { getGazetteer, resetGazetteer } from "../src/collectors/org-gazetteer.js";
 
@@ -179,6 +179,37 @@ test("zéro source jamais collectée après un cycle : le ratissage en écrit un
 	assert.equal(runs.rows.length, 1, "la tentative est mesurée, même en échec");
 });
 
+test("ratissage : 312 sources jamais collectées sont toutes reprises", async () => {
+	const prefix = `cycle312-${TAG}-`;
+	const ids = Array.from({ length: 312 }, (_, i) => `${prefix}${String(i).padStart(3, "0")}`);
+	await query(
+		`INSERT INTO source (id, name, family, url)
+		 SELECT id, 'Source ' || id, 'ransomware', 'https://exemple.test/' || id
+		   FROM unnest($1::text[]) AS id`,
+		[ids],
+	);
+	const avant = await sourcesJamaisCollectees(400, ids);
+	assert.equal(avant.length, 312, "les 312 sources sont bien sans run");
+
+	const vus: string[] = [];
+	const restants = await ratisserSourcesJamaisCollectees(async (lot) => {
+		vus.push(...lot);
+		await query(
+			`INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new)
+			 SELECT id, now(), 'error', 0, 0 FROM unnest($1::text[]) AS id`,
+			[lot],
+		);
+	}, { limite: 400, ids });
+
+	assert.equal(vus.length, 312, "aucune source du lot n'est sautée");
+	assert.deepEqual([...vus].sort(), [...ids].sort());
+	assert.deepEqual(restants, [], "aucune des 312 sources n'est oubliée");
+	const runs = await query<{ id: string }>(
+		"SELECT DISTINCT source_id AS id FROM collector_run WHERE source_id LIKE $1", [`${prefix}%`],
+	);
+	assert.equal(runs.rows.length, 312, "chaque source a un run, même en échec");
+});
+
 test("gazetteer columnaire : l'index garde les ids, les noms et les alias", async () => {
 	const orgId = `org-${TAG}`;
 	const { rows } = await query<{ id: number }>(
@@ -202,10 +233,38 @@ test("gazetteer columnaire : l'index garde les ids, les noms et les alias", asyn
 	}
 });
 
+test("gazetteer : la clé normalisée générée en base indexe l'alias accentué", async () => {
+	const slug = `org-${TAG}-cle`;
+	const { rows } = await query<{ id: number }>(
+		"INSERT INTO org (name, slug, kind, city, sector) VALUES ($1,$2,'entreprise','Bordeaux','informatique') RETURNING id",
+		[`Organisation ${TAG} clé`, slug],
+	);
+	const id = Number(rows[0]?.id);
+	const alias = `Hôpital Saint-André ${TAG}`;
+	await query(
+		"INSERT INTO org_alias (org_id, alias, source) VALUES ($1,$2,'usage')",
+		[id, alias],
+	);
+	const { rows: cleRows } = await query<{ nom_normalise: string }>(
+		"SELECT nom_normalise FROM org_alias WHERE org_id = $1", [id],
+	);
+	const cle = cleRows[0]?.nom_normalise ?? "";
+	resetGazetteer();
+	try {
+		const gaz = await getGazetteer();
+		assert.ok(cle.length > 0, "la colonne générée fournit la clé");
+		assert.equal(gaz.byAliasKey.get(cle)?.[0]?.id, id, "la clé générée en base indexe l'alias accentué");
+	} finally {
+		resetGazetteer();
+	}
+});
+
 after(async () => {
 	await query("DELETE FROM org_alias WHERE org_id IN (SELECT id FROM org WHERE slug LIKE $1)", [`org-${TAG}%`]).catch(() => {});
 	await query("DELETE FROM org WHERE slug LIKE $1", [`org-${TAG}%`]).catch(() => {});
 	await query("DELETE FROM collector_run WHERE source_id = ANY($1)", [IDS]).catch(() => {});
+	await query("DELETE FROM collector_run WHERE source_id LIKE $1", [`cycle312-${TAG}-%`]).catch(() => {});
+	await query("DELETE FROM source WHERE id LIKE $1", [`cycle312-${TAG}-%`]).catch(() => {});
 	await query("DELETE FROM source WHERE id = ANY($1)", [IDS]).catch(() => {});
 	await closePools();
 });

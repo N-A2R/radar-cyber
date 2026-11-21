@@ -10,9 +10,10 @@
  * 573 Mo de tas avant même `buildGazetteer`. Le chargement passe par un
  * curseur serveur (lots de 20 000) ; les textes sont stockés dans des blocs
  * `Buffer` et les identifiants dans des tableaux typés. Aucun objet de ligne
- * n'est retenu : `buildGazetteer` reçoit une vue qui réutilise une seule
- * ligne mutable. Le builder garde ce dont il a besoin (clés d'alias, noms),
- * les textes de transit disparaissent dès la fin de la construction.
+ * n'est retenu : `buildGazetteer` reçoit une vue qui réutilise une seule ligne
+ * mutable. La clé normalisée est lue dans `org_alias.nom_normalise`, pas
+ * recalculée deux fois : c'est le coût CPU dominant sur 1,7 M d'alias.
+ * Les textes de transit disparaissent dès la fin de la construction.
  */
 import { ingestPool } from "../db.js";
 import { buildGazetteer, normaliser, type Gazetteer, type GazetteerRow } from "../match/gazetteer.js";
@@ -90,6 +91,8 @@ type Colonnes = {
 	orgIds: Uint32Array;
 	nomAdresses: Uint32Array;
 	nomLongueurs: Uint32Array;
+	cleAdresses: Uint32Array;
+	cleLongueurs: Uint32Array;
 	aliasAdresses: Uint32Array;
 	aliasLongueurs: Uint32Array;
 	kinds: Uint16Array;
@@ -116,12 +119,15 @@ type LigneAlias = {
 	sector: string | null;
 	alias: string;
 	source: string | null;
+	nom_normalise: string | null;
 };
 
 async function chargerColonnes(): Promise<Colonnes> {
 	const orgIds: number[] = [];
 	const nomAdresses: number[] = [];
 	const nomLongueurs: number[] = [];
+	const cleAdresses: number[] = [];
+	const cleLongueurs: number[] = [];
 	const aliasAdresses: number[] = [];
 	const aliasLongueurs: number[] = [];
 	const kinds: number[] = [];
@@ -144,7 +150,7 @@ async function chargerColonnes(): Promise<Colonnes> {
 		await client.query("BEGIN");
 		await client.query(
 			`DECLARE radar_gazetteer_alias CURSOR FOR
-			   SELECT a.org_id, o.name, o.kind, o.dept, o.city, o.sector, a.alias, a.source
+			   SELECT a.org_id, o.name, o.kind, o.dept, o.city, o.sector, a.alias, a.source, a.nom_normalise
 			     FROM org_alias a
 			     JOIN org o ON o.id = a.org_id
 			    WHERE a.status = 'active'`,
@@ -154,6 +160,7 @@ async function chargerColonnes(): Promise<Colonnes> {
 			for (const row of rows) {
 				orgIds.push(row.org_id);
 				ajouterTexte(row.name, nomAdresses, nomLongueurs);
+				ajouterTexte(row.nom_normalise ?? "", cleAdresses, cleLongueurs);
 				ajouterTexte(row.alias, aliasAdresses, aliasLongueurs);
 				kinds.push(dicts.kinds.id(row.kind));
 				depts.push(dicts.depts.id(row.dept));
@@ -175,6 +182,8 @@ async function chargerColonnes(): Promise<Colonnes> {
 		orgIds: Uint32Array.from(orgIds),
 		nomAdresses: Uint32Array.from(nomAdresses),
 		nomLongueurs: Uint32Array.from(nomLongueurs),
+		cleAdresses: Uint32Array.from(cleAdresses),
+		cleLongueurs: Uint32Array.from(cleLongueurs),
 		aliasAdresses: Uint32Array.from(aliasAdresses),
 		aliasLongueurs: Uint32Array.from(aliasLongueurs),
 		kinds: Uint16Array.from(kinds),
@@ -189,8 +198,8 @@ async function chargerColonnes(): Promise<Colonnes> {
 
 /**
  * Vue conforme au contrat de `buildGazetteer` : deux parcours, aucune ligne
- * conservée. La normalisation est recalculée à chaque passe (~5 s sur 1,7 M
- * alias) plutôt que matérialisée, ce qui économise 100 Mo de chaînes.
+ * conservée. Les clés d'alias viennent de `org_alias.nom_normalise` : on
+ * évite 3,4 M appels à `normaliser` sur 1,7 M d'alias.
  */
 function vueLignes(c: Colonnes): GazetteerRow[] {
 	let position = -1;
@@ -218,7 +227,9 @@ function vueLignes(c: Colonnes): GazetteerRow[] {
 			return c.dicts.sources.valeur(c.sources[position] as number);
 		},
 		get nom_normalise(): string {
-			return normaliser(this.alias).join(" ");
+			const cle = c.textes.lire(c.cleAdresses[position] as number, c.cleLongueurs[position] as number);
+			// Une clé vide (2 lignes) reste vide, comme le veut `jetonsAlias`.
+			return cle === "" ? normaliser(this.alias).join(" ") : cle;
 		},
 	};
 	const n = c.orgIds.length;
