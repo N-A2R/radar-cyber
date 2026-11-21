@@ -38,7 +38,7 @@
  *     --collecter --de=1 --a=50
  */
 import { readFileSync, writeFileSync } from "node:fs";
-import { closePools } from "../apps/api/src/db.js";
+import { closePools, query } from "../apps/api/src/db.js";
 
 const argv = process.argv.slice(2);
 const option = (nom: string): string | undefined =>
@@ -51,6 +51,7 @@ const DE = Number(option("de") ?? 1);
 const A = Number(option("a") ?? Number.MAX_SAFE_INTEGER);
 const CONCURRENCE = Number(option("concurrence") ?? 4);
 const ADMETTRE_SANS_SITE = argv.includes("--admettre-sans-site");
+const REGISTRE_SEULEMENT = argv.includes("--registre-seulement");
 
 type PreuveRegistre = {
 	requete: string;
@@ -99,6 +100,8 @@ type Entree = {
 		domain: string | null;
 		siren: string | null;
 		naf: string | null;
+		entitySource?: string | null;
+		entityCode?: string | null;
 		obsolete?: boolean;
 	};
 	preuve?: Preuve | null;
@@ -241,10 +244,31 @@ function resumerRegistre(json: { results?: Array<Record<string, unknown>>; total
 
 const REGISTRE_BASE = "https://recherche-entreprises.api.gouv.fr";
 
+/** Interrogation du registre pour une entrée : SIREN quand il existe, sinon
+ * le code d'entité s'il a la forme d'un SIREN (9 chiffres), sinon une
+ * recherche par nom — la requête et la réponse restent consignées dans les
+ * trois cas, y compris l'absence de résultat. */
+function cibleRegistre(entree: Entree): { requete: string; quoi: string } | null {
+	if (entree.org.siren) {
+		return { requete: `${REGISTRE_BASE}/search?q=${encodeURIComponent(entree.org.siren.replace(/\s/g, ""))}&per_page=1&page=1`, quoi: `SIREN ${entree.org.siren}` };
+	}
+	const code = entree.org.entityCode ?? "";
+	if (/^\d{9}$/.test(code.replace(/\s/g, ""))) {
+		return { requete: `${REGISTRE_BASE}/search?q=${encodeURIComponent(code.replace(/\s/g, ""))}&per_page=1&page=1`, quoi: `code d'entité ${code} (${entree.org.entitySource ?? "?"})` };
+	}
+	const nom = entree.org.name.trim();
+	if (nom.length >= 2) {
+		return { requete: `${REGISTRE_BASE}/search?q=${encodeURIComponent(nom)}&per_page=5&page=1`, quoi: `recherche par nom « ${nom} » (pas d'identifiant registre)` };
+	}
+	return null;
+}
+
 /** Le registre public plafonne le débit ; on reste sous ~3 req/s et on
  * reprend sur 429 avec un délai croissant. */
-async function interrogeregistre(siren: string): Promise<PreuveRegistre> {
-	const requete = `${REGISTRE_BASE}/search?q=${encodeURIComponent(siren.replace(/\s/g, ""))}&per_page=1&page=1`;
+async function interrogerRegistre(entree: Entree): Promise<PreuveRegistre> {
+	const cible = cibleRegistre(entree);
+	if (!cible) return null;
+	const requete = cible.requete;
 	for (let essai = 0; essai < 3; essai++) {
 		if (essai > 0) await new Promise((r) => setTimeout(r, 1200 * essai));
 		const controleur = new AbortController();
@@ -265,16 +289,16 @@ async function interrogeregistre(siren: string): Promise<PreuveRegistre> {
 			} catch {
 				reponseResumee = texte.slice(0, 400);
 			}
-			return { requete, statutHttp: reponse.status, reponse: reponseResumee };
+			return { requete: `${requete} — ${cible.quoi}`, statutHttp: reponse.status, reponse: reponseResumee };
 		} catch (e) {
 			clearTimeout(minuteur);
 			const message = e instanceof Error ? e.message : String(e);
 			if (essai === 2) {
-				return { requete, statutHttp: null, reponse: `erreur : ${message.slice(0, 200)}` };
+				return { requete: `${requete} — ${cible.quoi}`, statutHttp: null, reponse: `erreur : ${message.slice(0, 200)}` };
 			}
 		}
 	}
-	return { requete, statutHttp: null, reponse: "erreur : trois essais échoués" };
+	return { requete: `${requete} — ${cible.quoi}`, statutHttp: null, reponse: "erreur : trois essais échoués" };
 }
 
 // ── Collecte ─────────────────────────────────────────────────────────────
@@ -283,23 +307,29 @@ const corpus = JSON.parse(readFileSync(CORPUS, "utf8")) as Corpus;
 
 if (MODE_COLLECTE) {
 	const cibles = corpus.entrees.filter(
-		(e) => e.ordre >= DE && e.ordre <= A && e.preuve === undefined,
+		(e) => e.ordre >= DE && e.ordre <= A && (e.preuve === undefined || (REGISTRE_SEULEMENT && e.preuve.registre === null)),
 	);
-	console.log(`Collecte de preuves pour ${cibles.length} entrées (ordre ${DE}–${A})…`);
+	console.log(
+		`Collecte de preuves pour ${cibles.length} entrées (ordre ${DE}–${A}${REGISTRE_SEULEMENT ? ", canal registre seulement" : ""})…`,
+	);
 	let fait = 0;
 	const file = [...cibles];
 	const ouvriers = Array.from({ length: Math.min(CONCURRENCE, Math.max(1, file.length)) }, async () => {
 		while (true) {
 			const entree = file.shift();
 			if (!entree) return;
-			// Canal 1 — le registre sur l'organisation proposée.
-			const registre = entree.org.siren
-				? await interrogeregistre(entree.org.siren)
-				: null;
+			if (REGISTRE_SEULEMENT) {
+				// Reprise du seul canal registre : les sites déjà consignés restent.
+				entree.preuve = { registre: await interrogerRegistre(entree), siteIndice: entree.preuve?.siteIndice ?? null, siteOrg: entree.preuve?.siteOrg ?? null, le: entree.preuve?.le ?? HORODATE() };
+				fait++;
+				if (fait % 10 === 0) console.log(`  ${fait}/${cibles.length}`);
+				continue;
+			}
 			// Petit délai : on reste sous le débit plafonné du registre.
 			await new Promise((r) => setTimeout(r, 350));
 			// Canal 2 — ce que le texte désigne (domaine cité) et ce que le
 			// référentiel prétend être (site de l'organisation).
+			const registre = await interrogerRegistre(entree);
 			const siteIndice = entree.domaineIndice
 				? await fetchSite(`https://${entree.domaineIndice}`)
 				: null;
@@ -350,6 +380,31 @@ if (FICHIER_VERDICTS) {
 	}
 	writeFileSync(CORPUS, JSON.stringify(corpus, null, "\t") + "\n");
 	console.log(`Verdicts posés : ${posees} (source : ${FICHIER_VERDICTS})`);
+}
+
+// ── Mise à jour des codes d'entité du référentiel dans le corpus ─────────
+
+/** Ajoute `entitySource`/`entityCode` aux orgs du corpus (champs du
+ * référentiel qui portent parfois le SIREN là où `siren` est nul). Ajout de
+ * champs, jamais de verdict : autorisé même après gel. */
+if (argv.includes("--maj-entity-codes")) {
+	const ids = [...new Set(corpus.entrees.map((e) => e.org.id))];
+	const r = await query<{ id: number; entity_source: string | null; entity_code: string | null }>(
+		"SELECT id, entity_source, entity_code FROM org WHERE id = ANY($1::int[])",
+		[ids],
+	);
+	const m = new Map(r.rows.map((x) => [x.id, x]));
+	let n = 0;
+	for (const e of corpus.entrees) {
+		const x = m.get(e.org.id);
+		if (x) {
+			if ((x.entity_source !== null || x.entity_code !== null) && e.org.entityCode === undefined) n++;
+			e.org.entitySource = x.entity_source;
+			e.org.entityCode = x.entity_code;
+		}
+	}
+	writeFileSync(CORPUS, JSON.stringify(corpus, null, "\t") + "\n");
+	console.log(`entity codes renseignés (${n} nouveaux) dans ${CORPUS}`);
 }
 
 // ── Dossiers compacts pour la lecture humaine des preuves ────────────────
