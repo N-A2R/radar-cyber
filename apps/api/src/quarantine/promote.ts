@@ -10,7 +10,10 @@
  * règles de précision (match/regles-precision.ts) sont consultées au point de
  * décision, derrière le drapeau `PRECISION_RULES=on|off` : un rattachement
  * refusé n'est pas écrit, et le refus est journalisé avec la règle qui l'a
- * posé (kind `match.refuse`).
+ * posé (kind `match.refuse`). Depuis le chantier couverture (S2.1), un
+ * rattachement par sigle n'est accepté que si le registre confirme une seule
+ * organisation ; la règle qui tranche est écrite dans la trace à l'acceptation
+ * comme au refus.
  *
  * La promotion crée un événement `ransomware` / `third_party_claim`,
  * dédupliqué sur `content_hash`, puis déclenche la règle
@@ -19,11 +22,27 @@
 import { admitEvent } from "../contract/admit.js";
 import { ingestQuery, query, withTransaction } from "../db.js";
 import { consigner, consignerAvec } from "../journal/index.js";
-import { ecarteeParRegles } from "../match/regles-precision.js";
+import { ecarteeParRegles, REGLE_SIGLE, type TraceRegle } from "../match/regles-precision.js";
+import {
+	chargerOrgParAliasSigle,
+	deciderSigleDepuisRegistre,
+	estSigle,
+	normaliseSigle,
+	sigleDeIndice,
+	type DecisionSigle,
+} from "../match/sigles.js";
 import { porteeRegionale } from "../match/territorial.js";
 import type { PoolClient, QueryResultRow } from "pg";
 import { evaluateEvent } from "../detect/engine.js";
 import { confirmOrganization } from "../match/decide.js";
+import {
+  domainAffinity,
+  domainFromHint,
+  memesDomaines,
+  normalizeDomainValue,
+  resoudreDomaine,
+  type ResolutionDomaine,
+} from "../match/domaine.js";
 
 /** Organisme tel que lu en base. */
 export type OrgRow = {
@@ -43,7 +62,10 @@ export type OrgIndexEntry = OrgRow & {
   websiteDomain: string | null;
   cityNorm: string | null;
   nameTokens: string[];
+  /** Alias officiel exact qui a fait entrer l'organisation dans l'index. */
+  aliasSigle?: string;
 };
+
 
 /** Résultat d'un rapprochement : orgId + score de confiance [0,1]. */
 export type OrgMatch = {
@@ -100,15 +122,49 @@ export type RefusRegle = {
 /**
  * Évalue les règles de précision sur un rapprochement du moteur. Renvoie le
  * nom de la première règle qui refuse, ou null (drapeau off : null, le
- * rattachement suit le chemin livré sans changement).
+ * rattachement suit le chemin livré sans changement). Le trace (fourni par
+ * la promotion) porte la règle qui a tranché, y compris quand elle accepte.
  */
 export function refusParRegles(
 	indice: string,
-	m: Pick<OrgMatch, "via" | "confidence">,
+	m: Pick<OrgMatch, "via" | "confidence" | "orgId">,
 	orgName: string,
+	opts: { sigle?: DecisionSigle; trace?: TraceRegle } = {},
 ): string | null {
 	if (!reglesPrecisionActives()) return null;
-	return ecarteeParRegles({ indice, via: m.via, confidence: m.confidence, orgName });
+	return ecarteeParRegles(
+		{ indice, via: m.via, confidence: m.confidence, orgName, orgId: m.orgId, sigle: opts.sigle },
+		opts.trace,
+	);
+}
+
+/**
+ * Résout un sigle au registre et rend le match à évaluer. Le sigle est
+ * l'indice lui-même quand il a forme de sigle, sinon le jeton unique du nom
+ * qui a fondé le 0,7. Un sigle confirmé fournit le match quand le moteur
+ * n'en avait pas (alias exact) ; confirmé sur une autre organisation, il
+ * laisse le match du moteur en place pour que la règle le refuse.
+ */
+export async function resoudreSigle(
+	indice: string,
+	match: OrgMatch | null,
+	orgName: string,
+): Promise<{ match: OrgMatch | null; orgName: string; decision?: DecisionSigle }> {
+	if (!reglesPrecisionActives() || (match && match.confidence !== 0.7)) {
+		return { match, orgName };
+	}
+	const sigle = sigleDeIndice(indice, orgName);
+	if (!sigle) return { match, orgName };
+	const decision = await deciderSigleDepuisRegistre(sigle);
+
+	if (decision.accepte && decision.orgId !== undefined && decision.orgId !== match?.orgId) {
+		return {
+			match: { orgId: decision.orgId, confidence: 0.7, via: "name" },
+			orgName: decision.orgName ?? "",
+			decision,
+		};
+	}
+	return { match, orgName, decision };
 }
 
 /**
@@ -176,24 +232,24 @@ export function normalizeName(s: string): string {
   return stripAccents(s).replace(/[^a-z0-9]+/g, " ").trim();
 }
 
-/** Normalise un domaine : minuscules, sans `www.`, sans chemin, sans point final. */
+/**
+ * Normalise un domaine (côté `org.domain` ou URL).
+ * Le module `match/domaine` porte la règle ; la forme ancienne reste en repli
+ * pour les valeurs qui ne sont pas des domaines (historique de données).
+ */
 export function normalizeDomain(d: string): string {
-  return stripAccents(d.trim()).replace(/^www\./, "").replace(/\/.*$/, "").replace(/\.$/, "");
+  return normalizeDomainValue(d) ?? stripAccents(d.trim()).replace(/^www\./, "").replace(/\/.*$/, "").replace(/\.$/, "");
 }
 
-/** Candidat domaine dans un indice (URL ou nom de domaine nu). */
-const DOMAIN_RE = /(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,}/i;
-
-/** Extrait le domaine d'un indice, ou null s'il n'en porte pas. */
+/** Extrait le domaine d'un indice, y compris avec scheme, port ou chemin. */
 export function extractDomain(hint: string): string | null {
-  const m = hint.match(DOMAIN_RE);
-  return m ? normalizeDomain(m[0]) : null;
+  return domainFromHint(hint);
 }
 
 /**
  * Ligne `org` → entrée d'index pré-normalisée.
  */
-function toIndexEntry(o: OrgRow): OrgIndexEntry {
+function toIndexEntry(o: OrgRow, aliasSigle?: string): OrgIndexEntry {
   const nameNorm = normalizeName(o.name);
   return {
     ...o,
@@ -204,7 +260,20 @@ function toIndexEntry(o: OrgRow): OrgIndexEntry {
     // Jetons distincts, et sans les termes techniques génériques : « CODE
     // 202 (CODE 202) » ne doit pas compter comme un nom à deux jetons.
     nameTokens: [...new Set(nameNorm.split(" ").filter((t) => t.length >= 4 && !GENERIC_TOKENS.has(t)))],
+    ...(aliasSigle ? { aliasSigle } : {}),
   };
+}
+
+/**
+ * Organisations dont l'alias officiel est exactement l'indice. Sans règle de
+ * précision active, le moteur livré ne les charge pas : c'est le drapeau qui
+ * décide de la couverture supplémentaire.
+ */
+async function chargerEntreesAliasSigle(hint: string): Promise<OrgIndexEntry[]> {
+  if (!reglesPrecisionActives() || !estSigle(hint)) return [];
+  const sigle = normaliseSigle(hint);
+  const orgs = await chargerOrgParAliasSigle(sigle);
+  return orgs.map((o) => toIndexEntry(o, sigle));
 }
 
 /**
@@ -216,9 +285,19 @@ function toIndexEntry(o: OrgRow): OrgIndexEntry {
 export async function loadOrgIndex(filter?: { where: string; params?: unknown[] }): Promise<OrgIndexEntry[]> {
   const sql = `SELECT id, name, slug, kind, city, domain, website FROM org${filter ? ` WHERE ${filter.where}` : ""}`;
   const r = await query<OrgRow>(sql, filter?.params ?? []);
-  return r.rows.map(toIndexEntry);
+  return r.rows.map((o) => toIndexEntry(o));
 }
 
+
+/**
+ * Expression SQL miroir de `normalizeDomainValue`, utilisée seulement pour
+ * **élargir** le préfiltre : une org dont le domaine est stocké avec un
+ * scheme, un port ou un `www.` doit rester visible du moteur, qui tranche
+ * ensuite avec la normalisation TypeScript.
+ */
+function sqlDomain(column: string): string {
+  return `regexp_replace(regexp_replace(regexp_replace(regexp_replace(regexp_replace(lower(btrim(${column})), '^https?://', ''), '[/?#].*$', ''), ':\\d+$', ''), '\\.$', ''), '^www\\.', '')`;
+}
 /**
  * Organisations candidates pour un indice — sans charger 1,24 M de lignes.
  *
@@ -249,16 +328,31 @@ export async function loadCandidateIndex(hint: string): Promise<OrgIndexEntry[]>
   if (domain) {
     params.push(domain);
     const d = `$${params.length}`;
+    const nd = sqlDomain("domain");
+    const nw = sqlDomain("website");
     clauses.push(
-      `(lower(domain) = ${d} OR lower(domain) LIKE '%.' || ${d} OR ${d} LIKE '%.' || lower(domain) OR lower(coalesce(website, '')) LIKE '%' || ${d})`,
+      `(${nd} = ${d} OR ${nd} LIKE '%.' || ${d} OR ${d} LIKE '%.' || ${nd} OR ${nw} = ${d} OR ${nw} LIKE '%.' || ${d} OR lower(coalesce(website, '')) LIKE '%' || ${d})`,
     );
   }
-  if (clauses.length === 0) return loadOrgIndex();
+  // « A.M.F. » ne laisse que des jetons d'une lettre : pas de préfiltre par
+  // nom, mais l'alias exact suffit — charger 1,24 M de lignes serait absurde.
+  if (clauses.length === 0) {
+    return reglesPrecisionActives() && estSigle(hint) ? avecAlias(hint, []) : loadOrgIndex();
+  }
   const r = await query<OrgRow>(
     `SELECT id, name, slug, kind, city, domain, website FROM org WHERE ${clauses.join(" OR ")}`,
     params,
   );
-  return r.rows.map(toIndexEntry);
+  return avecAlias(hint, r.rows.map((o) => toIndexEntry(o)));
+}
+
+/** Ajoute les organisations trouvées par alias sans doublon d'identifiant. */
+async function avecAlias(hint: string, entrees: OrgIndexEntry[]): Promise<OrgIndexEntry[]> {
+  const alias = await chargerEntreesAliasSigle(hint);
+  if (alias.length === 0) return entrees;
+  const parId = new Map(entrees.map((e) => [e.id, e]));
+  for (const e of alias) if (!parId.has(e.id)) parId.set(e.id, e);
+  return [...parId.values()];
 }
 
 /**
@@ -335,6 +429,13 @@ function scoreEntry(
   let best = 0;
   let viaDomain = false;
 
+  // Un alias officiel exact est un indice de nom, pas une clé : il arrive au
+  // même score 0,7 que le jeton unique, et c'est `sigle-confirme` qui tranche
+  // ensuite (ambiguïté, dénomination divergente).
+  if (e.aliasSigle && normaliseSigle(hintNorm) === e.aliasSigle) {
+    best = 0.7;
+  }
+
   // Étiquettes du domaine, TLD exclu : « black-star.fr » → { black, star }.
   //
   // Sans ce jeu de jetons, une revendication qui ne donne qu'un domaine ne
@@ -356,18 +457,15 @@ function scoreEntry(
             .filter((t) => t.length >= 2)
         );
 
-  // 1. Domaine : égalité exacte, puis sous-domaine / parent.
+  // 1. Domaine : la normalisation et la prudence sur les sous-domaines
+  // génériques vivent dans `match/domaine` (mail.exemple.com ≠ exemple.com).
   if (hintDomain) {
-    if (e.domainNorm) {
-      if (hintDomain === e.domainNorm) {
-        best = Math.max(best, 0.95);
-        viaDomain = true;
-      } else if (hintDomain.endsWith("." + e.domainNorm) || e.domainNorm.endsWith("." + hintDomain)) {
-        best = Math.max(best, 0.85);
-        viaDomain = true;
-      }
+    const d = domainAffinity(hintDomain, e.domainNorm);
+    if (d > 0) {
+      best = Math.max(best, d);
+      viaDomain = true;
     }
-    if (e.websiteDomain && hintDomain === e.websiteDomain) {
+    if (memesDomaines(hintDomain, e.websiteDomain)) {
       best = Math.max(best, 0.9);
       viaDomain = true;
     }
@@ -434,13 +532,31 @@ export function matchOrgInIndex(hint: string, index: OrgIndexEntry[]): OrgMatch 
   if (!hintNorm && !hintDomain) return null;
   const hintTokens = new Set(hintNorm.split(" ").filter(Boolean));
 
+  // Chaîne de résolution des indices-domaines. On s'arrête au premier étage
+  // qui réussit : un refus pour ambiguïté à l'étage 2 n'est jamais contourné
+  // par le score de nom, qui n'exige pas l'unicité des candidates.
+  let resolution: ResolutionDomaine | null = null;
+  let borne: number | null = null;
+  if (hintDomain) {
+    resolution = resoudreDomaine(trimmed, index);
+    if (resolution.etape === "exact") {
+      return { orgId: resolution.orgId!, confidence: resolution.confidence, via: "domain" };
+    }
+    if (resolution.etape !== "racine") return null; // étage 3 : revue
+    borne = resolution.orgId;
+  }
+
   let best: OrgMatch | null = null;
   for (const e of index) {
+    if (borne !== null && e.id !== borne) continue;
     const { score, via } = scoreEntry(hintNorm, hintTokens, hintDomain, e);
     if (score < MIN_CONFIDENCE) continue;
     if (!best || score > best.confidence || (score === best.confidence && e.id < best.orgId)) {
       best = { orgId: e.id, confidence: score, via };
     }
+  }
+  if (!best && resolution?.orgId !== null && resolution?.orgId !== undefined) {
+    best = { orgId: resolution.orgId, confidence: resolution.confidence, via: "name" };
   }
   return best;
 }
@@ -525,6 +641,7 @@ async function insertClaimEventRow(
   row: QuarantineRow,
   orgId: number | null,
   promotedBy: string,
+  regleTrace?: string,
 ): Promise<{ eventId: number; inserted: boolean }> {
   const sourceId = await resolveSourceId(row.source);
   const dedupKey = `quarantine:${row.content_hash}`;
@@ -598,7 +715,12 @@ async function insertClaimEventRow(
       ? `promotion : rattaché (quarantine ${row.id})`
       : `promotion : non rattaché (quarantine ${row.id})`,
     actor: `humain:${promotedBy}`,
-    payload: { orgId, quarantineId: row.id, promotedBy },
+    payload: {
+      orgId,
+      quarantineId: row.id,
+      promotedBy,
+      ...(regleTrace ? { regle: regleTrace } : {}),
+    },
     validAt: observedAt,
   });
   return { eventId: Number(r.rows[0].id), inserted: Boolean(r.rows[0].inserted) };
@@ -626,7 +748,10 @@ export type PromotionMatch = {
   orgId: number;
   orgName: string;
   confidence: number;
+  /** Règle qui a tranché l'acceptation (trace de `ecarteeParRegles`). */
+  regle?: string;
 };
+
 
 export type PromotionResult = {
   scanned: number;
@@ -682,13 +807,24 @@ export async function promoteMatches(
     // cycle. Le filtre trigramme rend un sur-ensemble exact des
     // correspondances possibles — le moteur, appliqué dessus, tranche.
     const candidates = await loadCandidateIndex(row.org_hint ?? "");
-    const m = matchOrgInIndex(row.org_hint ?? "", candidates);
-    if (!m || m.confidence < AUTO_MIN_CONFIDENCE) continue;
-    const orgName = candidates.find((e) => e.id === m.orgId)?.name ?? "";
+    let m = matchOrgInIndex(row.org_hint ?? "", candidates);
+    const matchInitial = m;
+    let orgName = matchInitial ? (candidates.find((e) => e.id === matchInitial.orgId)?.name ?? "") : "";
+    let decision: DecisionSigle | undefined;
+    if (!m || (m.via === "name" && m.confidence === 0.7)) {
+      const resolu = await resoudreSigle(row.org_hint ?? "", m, orgName);
+      m = resolu.match;
+      orgName = resolu.orgName;
+      decision = resolu.decision;
+    }
+    // Un sigle confirmé au registre est la seule exception au seuil auto :
+    // la confirmation tient lieu de clé, le modèle garde son arbitrage.
+    if (!m || (m.confidence < AUTO_MIN_CONFIDENCE && !decision?.accepte)) continue;
     // Les règles de précision tranchent avant le modèle et avant l'écriture :
     // un rattachement non fondé n'est ni confirmé, ni promu — le fait reste
     // en file pour la revue humaine, avec la règle qui a refusé au journal.
-    const regle = refusParRegles(row.org_hint ?? "", m, orgName);
+    const trace: TraceRegle = { regle: "", accepte: false };
+    const regle = refusParRegles(row.org_hint ?? "", m, orgName, { sigle: decision, trace });
     if (regle) {
       refusRegles[regle] = (refusRegles[regle] ?? 0) + 1;
       refus.push({
@@ -716,6 +852,7 @@ export async function promoteMatches(
       orgId: m.orgId,
       orgName,
       confidence: m.confidence,
+      ...(trace.accepte ? { regle: trace.regle } : {}),
     });
     if (dryRun) continue;
 
@@ -727,7 +864,7 @@ export async function promoteMatches(
           [row.id]
         );
         if ((u.rowCount ?? 0) === 0) return null;
-        return insertClaimEventRow(runnerOf(client), row, m.orgId, "auto");
+        return insertClaimEventRow(runnerOf(client), row, m.orgId, "auto", trace.accepte ? trace.regle : undefined);
       });
       if (upd === null) continue;
       promoted++;
@@ -777,13 +914,27 @@ export type PromoteOneResult = {
    * `PRECISION_RULES=on`), ou null. La promotion d'un analyste reste posée :
    * c'est le rattachement produit par le moteur qui est refusé. */
   refuseParRegle: string | null;
+  /** Règle qui a tranché (acceptation comprise) — trace de la décision. */
+  regleTrace?: string;
 };
+
+/** Organisation choisie par un analyste : le moteur ne tranche plus. */
+export type OrgOverride = { orgId: number; orgName: string };
 
 /**
  * Promotion manuelle d'un fait (décision d'analyste). Promeut même sans
  * correspondance d'organisation : l'événement reste rattachable plus tard.
+ *
+ * `override` vient de la file de revue : l'humain a désigné l'organisation.
+ * Les règles de précision et le modèle ne reprennent pas la main sur ce choix,
+ * mais l'écriture de l'événement et du journal reste exactement la même.
  */
-export async function promoteOneTx(client: PoolClient, id: number, promotedBy: string): Promise<PromoteOneResult> {
+export async function promoteOneTx(
+  client: PoolClient,
+  id: number,
+  promotedBy: string,
+  override?: OrgOverride,
+): Promise<PromoteOneResult> {
   const base = {
     found: true,
     id,
@@ -806,22 +957,45 @@ export async function promoteOneTx(client: PoolClient, id: number, promotedBy: s
   if (!row) return { ...base, found: false, id };
   if (row.promoted) return { ...base, alreadyPromoted: true };
 
-  const index = await loadOrgIndex();
-  const m = matchOrgInIndex(row.org_hint ?? "", index);
-  // Les règles de précision tranchent avant le modèle : un rapprochement
-  // refusé ne demande pas d'arbitrage et n'attache rien — même promu à la
-  // main. L'analyste décide de la promotion ; le rattachement reste une
-  // production du moteur, tenue aux mêmes règles qu'en automatique.
-  const regle = m
-    ? refusParRegles(
-        row.org_hint ?? "",
-        m,
-        index.find((e) => e.id === m.orgId)?.name ?? "",
-      )
-    : null;
-  const confirmed = m && !regle
-    ? await confirmMatch(row.org_hint ?? "", m.orgId, new Map(index.map((e) => [e.id, e.name])), m.via)
-    : false;
+  let orgId: number | null = null;
+  let attachedOrgId: number | null = null;
+  let orgName: string | null = null;
+  let confidence: number | null = null;
+  let regle: string | null = null;
+  let matchedOrgName = "";
+  let m: OrgMatch | null = null;
+  let trace: TraceRegle = { regle: "", accepte: false };
+  if (override) {
+    // Décision d'analyste : le moteur et les règles ne reprennent pas la main.
+    const org = await client.query<{ name: string }>("SELECT name FROM org WHERE id=$1", [override.orgId]);
+    if (!org.rows[0]) throw new Error(`promotion : organisation ${override.orgId} introuvable`);
+    orgId = override.orgId;
+    attachedOrgId = override.orgId;
+    orgName = override.orgName || org.rows[0].name;
+    confidence = 1;
+  } else {
+    const index = await avecAlias(row.org_hint ?? "", await loadOrgIndex());
+    m = matchOrgInIndex(row.org_hint ?? "", index);
+    const matchInitial = m;
+    const resolu = await resoudreSigle(
+      row.org_hint ?? "",
+      m,
+      matchInitial ? (index.find((e) => e.id === matchInitial.orgId)?.name ?? "") : "",
+    );
+    m = resolu.match;
+    orgName = resolu.orgName;
+    matchedOrgName = resolu.orgName ?? "";
+    // Les règles de précision tranchent avant le modèle : un rapprochement
+    // refusé ne demande pas d'arbitrage et n'attache rien.
+    trace = { regle: "", accepte: false };
+    regle = m ? refusParRegles(row.org_hint ?? "", m, orgName, { sigle: resolu.decision, trace }) : null;
+    const confirmed = m && !regle
+      ? await confirmMatch(row.org_hint ?? "", m.orgId, new Map(index.map((e) => [e.id, e.name])), m.via)
+      : false;
+    orgId = m?.orgId ?? null;
+    attachedOrgId = confirmed && m && !regle ? m.orgId : null;
+  }
+
 
   const upd = await client.query(
     `UPDATE quarantine_raw SET promoted=true, promoted_at=now(), promoted_by=$2, status='promoted'
@@ -834,8 +1008,9 @@ export async function promoteOneTx(client: PoolClient, id: number, promotedBy: s
   const ev = await insertClaimEventRow(
     runnerOf(client),
     row,
-    confirmed && m && !regle ? m.orgId : null,
+    attachedOrgId,
     promotedBy,
+    trace.accepte ? trace.regle : undefined,
   );
   if (regle && m) {
     // Le refus est écrit dans la même transaction que la promotion : le fait
@@ -850,7 +1025,7 @@ export async function promoteOneTx(client: PoolClient, id: number, promotedBy: s
         regle,
         indice: row.org_hint ?? "",
         orgId: m.orgId,
-        orgName: index.find((e) => e.id === m.orgId)?.name ?? "",
+        orgName: matchedOrgName,
         via: m.via,
         confidence: m.confidence,
         drapeau: "PRECISION_RULES=on",
@@ -861,13 +1036,14 @@ export async function promoteOneTx(client: PoolClient, id: number, promotedBy: s
     found: true,
     id,
     alreadyPromoted: false,
-    orgId: m?.orgId ?? null,
-    orgName: m ? (index.find((e) => e.id === m.orgId)?.name ?? null) : null,
-    confidence: m?.confidence ?? null,
+    orgId,
+    orgName,
+    confidence,
     eventId: ev.eventId,
     inserted: ev.inserted,
     alertsCreated: 0,
     refuseParRegle: regle,
+    regleTrace: trace.regle || undefined,
   };
 }
 

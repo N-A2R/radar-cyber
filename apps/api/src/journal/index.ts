@@ -25,6 +25,8 @@ export type JournalKind =
 	| "match.refuse"
 	/** Un référentiel a été chargé ou complété. */
 	| "referentiel.charged"
+	/** Une organisation a été créée depuis un indice de revendication. */
+	| "org.created"
 	/** Une organisation a changé de nom, de périmètre ou a fusionné. */
 	| "org.changed"
 	/** Une décision humaine de revue. */

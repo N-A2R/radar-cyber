@@ -20,6 +20,10 @@
  *   1-sigle      un seul jeton ne fonde pas un rattachement (via=name,
  *                confiance 0,7) — mesuré : 0 exacte et 0 partielle pour 125
  *                hors_sujet dans la strate qui pèse 70 % de la population ;
+ *   sigle-confirme depuis le chantier couverture (S2.1) : un sigle n'est
+ *                accepté que si le registre renvoie une seule organisation
+ *                (dénomination ou alias officiel). Sans décision fournie,
+ *                `1-sigle` continue de refuser — le jeu d'or ne bouge pas ;
  *   4-commentaire un indice à marqueur de fuite (hacked, leaked, GB/TB,
  *                DISCLOSED…) ne matche que par le chemin domaine — les jetons
  *                du commentaire ne désignent personne ;
@@ -36,6 +40,8 @@
  */
 
 import { GENERIC_TOKENS } from "../quarantine/promote.js";
+import type { DecisionSigle } from "./sigles.js";
+
 
 export type CandidatRattachement = {
 	/** Le texte de la liste de fuite (org_hint). */
@@ -46,7 +52,20 @@ export type CandidatRattachement = {
 	confidence: number;
 	/** Le nom de l'organisation proposée. */
 	orgName: string;
+	/** Décision du registre, fournie par la promotion quand elle l'a. */
+	sigle?: DecisionSigle;
+	/** Organisation proposée par le moteur, pour vérifier la confirmation. */
+	orgId?: number;
 };
+
+
+/** Trace d'une décision : quelle règle l'a posée, et dans quel sens. */
+export type TraceRegle = {
+	regle: string;
+	accepte: boolean;
+	motif?: string;
+};
+
 
 /** Jetons discriminants d'un texte — même prédicat que le bloc nom du
  * moteur (≥ 3 caractères, ni générique ni forme juridique). */
@@ -109,15 +128,37 @@ export function elimineHomonyme(
 	return false;
 }
 
+/** Nom de la règle qui tranche les sigles confirmés au registre. */
+export const REGLE_SIGLE = "sigle-confirme";
+
 /** Rend le nom de la première règle violée, ou `null` si le rattachement
- * reste produit. Les règles sont évaluées dans l'ordre du module. */
-export function ecarteeParRegles(candidat: CandidatRattachement): string | null {
-	if (elimineMasquage(candidat.indice)) return "3-masquage";
-	if (elimineSigle(candidat)) return "1-sigle";
-	if (elimineCommentaire(candidat.indice, candidat.via)) return "4-commentaire";
-	if (elimineVille(candidat.confidence)) return "6-ville";
-	if (candidat.via === "name" && candidat.confidence === 0.75 && elimineHomonyme(candidat.indice, candidat.orgName)) {
-		return "2-homonyme";
+ * reste produit. La trace (quand elle est fournie) porte la règle qui a
+ * tranché **dans les deux sens** : accepté aussi bien que refusé. Sans
+ * décision du registre, le sigle reste refusé par `1-sigle` — c'est le
+ * comportement qu'épingle le jeu d'or. */
+export function ecarteeParRegles(candidat: CandidatRattachement, trace?: TraceRegle): string | null {
+	const refuser = (regle: string, motif?: string): string => {
+		if (trace) Object.assign(trace, { regle, accepte: false, motif });
+		return regle;
+	};
+	const accepter = (regle: string, motif?: string): null => {
+		if (trace) Object.assign(trace, { regle, accepte: true, motif });
+		return null;
+	};
+	if (elimineMasquage(candidat.indice)) return refuser("3-masquage");
+	if (elimineSigle(candidat)) {
+		const d = candidat.sigle;
+		if (!d) return refuser("1-sigle", "registre non consulté");
+		if (d.accepte && d.orgId === candidat.orgId) return accepter(REGLE_SIGLE, d.motif);
+		return refuser(
+			REGLE_SIGLE,
+			d.accepte ? "confirmation sur une autre organisation" : d.motif,
+		);
 	}
-	return null;
+	if (elimineCommentaire(candidat.indice, candidat.via)) return refuser("4-commentaire");
+	if (elimineVille(candidat.confidence)) return refuser("6-ville");
+	if (candidat.via === "name" && candidat.confidence === 0.75 && elimineHomonyme(candidat.indice, candidat.orgName)) {
+		return refuser("2-homonyme");
+	}
+	return accepter("aucune");
 }
