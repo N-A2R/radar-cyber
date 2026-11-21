@@ -793,6 +793,23 @@ export type ReviewOutcome = {
   skipped: Array<{ id: number; reason: string }>;
 };
 
+/** Ligne de décomposition de la couverture : vus / total, taux en pourcentage. */
+export type CouvertureLigne = { vus: number; total: number; taux: number };
+
+/** Réponse de GET /api/couverture : mesure publiée, jamais recalculée côté client. */
+export type CouvertureResponse = {
+  dateCalcul: string;
+  hashCorpus: string;
+  fenetre: { debut: string; fin: string };
+  global: CouvertureLigne;
+  parMotif: Array<{ motif: string; incidents: number; part: number }>;
+  parDepartement: Array<CouvertureLigne & { departement: string }>;
+  parSecteur: Array<CouvertureLigne & { secteur: string }>;
+  parMois: Array<CouvertureLigne & { mois: string }>;
+  /** Vrai quand le hash servi diverge de la référence : chiffre non publiable. */
+  stale: boolean;
+};
+
 export const api = {
   login: (email: string, password: string) => postJson<LoginResponse>("/auth/login", { email, password }),
   logout: () => post<{ ok: boolean }>("/auth/logout"),
@@ -850,6 +867,8 @@ export const api = {
   sources: () => get<Source[]>("/sources"),
   statsDepartements: (signal?: AbortSignal) => get<StatsDepartements>("/today/departements", signal),
   stats: () => get<Stats>("/stats"),
+  /** Couverture mesurée : une seule lecture, identique d'un appel à l'autre. */
+  couverture: (signal?: AbortSignal) => get<CouvertureResponse>("/couverture", signal),
   healthDetail: () => get<HealthDetail>("/health/detail"),
   healthCauses: () => get<HealthCauses>("/health/causes"),
   health: () => get<Health>("/health"),

@@ -24,7 +24,8 @@
     "test:liees": "vite build --ssr test/liees-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/liees-verif.js",
     "test:sources-rouges": "vite build --ssr test/sources-rouges-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/sources-rouges-verif.js",
     "test:journal": "vite build --ssr test/journal-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/journal-verif.js",
-    "test:orgsheet": "vite build --ssr test/orgsheet-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/orgsheet-verif.js"
+    "test:orgsheet": "vite build --ssr test/orgsheet-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/orgsheet-verif.js",
+    "test:couverture": "vitest run test/couverture-view.test.tsx"
   },
   "dependencies": {
     "@radar/shared": "workspace:*",
