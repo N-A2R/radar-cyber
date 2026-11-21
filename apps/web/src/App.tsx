@@ -574,7 +574,7 @@ export default function App() {
           <span>Nouvelle-Aquitaine</span>
         </div>
 
-        <nav className="rail__nav" aria-label="vues">
+        <nav className="rail__nav" aria-label="views">
           {VIEWS.map((v) => (
             <button
               key={v.id}
@@ -587,7 +587,7 @@ export default function App() {
             >
               {v.label}
               {v.id === "alerts" && unseenAlerts > 0 ? (
-                <span className="rail__badge" aria-label={`${unseenAlerts} alertes non vues`}>{unseenAlerts}</span>
+                <span className="rail__badge" aria-label={`${unseenAlerts} unread alerts`}>{unseenAlerts}</span>
               ) : null}
             </button>
           ))}
@@ -601,7 +601,7 @@ export default function App() {
           onClick={() => setPaletteOpen(true)}
           aria-keyshortcuts="Meta+K Control+K"
         >
-          rechercher ⌘K
+          Search ⌘K
         </button>
 
         {view === "map" ? (
@@ -611,18 +611,18 @@ export default function App() {
             aria-pressed={basemap === "sat"}
             onClick={() => setBasemap(basemap === "sat" ? "plan" : "sat")}
           >
-            {basemap === "sat" ? "satellite" : "plan"}
+            {basemap === "sat" ? "satellite" : "street"}
           </button>
         ) : null}
 
         <span className="rail__live" data-on={connected}>
           <i aria-hidden="true" />
-          {connected ? "flux direct" : "flux coupé"}
+          {connected ? "live feed" : "feed down"}
         </span>
 
         {token ? (
           <button type="button" className="rail__toggle" onClick={onUnauthorized}>
-            déconnexion
+            Sign out
           </button>
         ) : null}
       </header>

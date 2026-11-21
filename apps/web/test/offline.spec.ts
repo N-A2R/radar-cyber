@@ -116,6 +116,39 @@ async function installeReseau(context: BrowserContext, baseURL: string, etat: { 
 	});
 }
 
+test("la barre contient les vues dans l'ordre du produit", async ({ page, context, baseURL }) => {
+	const etat = { offline: false };
+	await installeReseau(context, baseURL!, etat);
+
+	await page.goto("/");
+	await expect(page.locator(".shell")).toBeVisible();
+
+	// On lit les nœuds texte des boutons : le compteur d'alertes est un enfant
+	// séparé et ne doit pas changer le libellé attendu.
+	const labels = await page.locator(".rail__nav button").evaluateAll((buttons) =>
+		buttons.map((button) =>
+			Array.from(button.childNodes)
+				.filter((node) => node.nodeType === Node.TEXT_NODE)
+				.map((node) => node.textContent ?? "")
+				.join("")
+				.trim(),
+		),
+	);
+	expect(labels).toEqual([
+		"Today",
+		"Coverage",
+		"Review",
+		"Journal",
+		"Corpus",
+		"Sources",
+		"Map",
+		"Graph",
+		"Health",
+		"Alerts",
+		"Nouvelle-Aquitaine",
+	]);
+});
+
 test("la carte garde ses organisations et son indicateur hors ligne après rechargement", async ({ page, context, baseURL }) => {
 	const etat = { offline: false };
 	await installeReseau(context, baseURL!, etat);
