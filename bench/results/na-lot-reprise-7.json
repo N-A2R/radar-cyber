@@ -72,7 +72,7 @@
       "nomLisible": "https://www.lille.fr",
       "domaine": "lille.fr",
       "verdict": "present",
-      "raison": "SIREN 434149993 au registre (état A, SAINT-AVOLD 57), recoupé avec lille.fr",
+      "raison": "SIREN 215903501 COMMUNE DE LILLE au registre (état A, LILLE 59), recoupé avec le titre « Ville de Lille » ; correction d'homonymie documentée dans corrections",
       "site": {
         "url": "https://lille.fr",
         "http": 200,
@@ -120,7 +120,8 @@
           }
         ]
       },
-      "chargeEnBase": true
+      "chargeEnBase": true,
+      "sirenCorrige": "215903501"
     },
     {
       "nomLisible": "ibafrance.fr",
@@ -208,7 +209,7 @@
       "nomLisible": "iseta.fr (institut des Sciences de l'Environnement et des Territoires d'Annecy)",
       "domaine": "iseta.fr",
       "verdict": "present",
-      "raison": "SIREN 413076332 au registre (état A, LA BROQUE 67), recoupé avec iseta.fr",
+      "raison": "SIREN 776603060 ISETA - ECA au registre (état A, POISY 74), recoupé avec le titre « Bienvenue sur le site de l'ISETA-ECA » ; correction d'homonymie documentée dans corrections",
       "site": {
         "url": "https://iseta.fr",
         "http": 200,
@@ -242,7 +243,8 @@
           }
         ]
       },
-      "chargeEnBase": true
+      "chargeEnBase": true,
+      "sirenCorrige": "776603060"
     },
     {
       "nomLisible": "isosteo.fr",
@@ -373,7 +375,7 @@
       "nomLisible": "justice.fr",
       "domaine": "justice.fr",
       "verdict": "present",
-      "raison": "SIREN 823432356 au registre (état A, RIBERAC 24), recoupé avec justice.fr ; SIREN déjà au référentiel, org existante rattrapée (pas de doublon)",
+      "raison": "SIREN 110010014 MINISTERE DE LA JUSTICE au registre (état A, PARIS 75), recoupé avec le titre « Justice.fr | Vos droits et démarches » ; correction d'homonymie documentée dans corrections",
       "site": {
         "url": "https://justice.fr",
         "http": 200,
@@ -421,7 +423,42 @@
           }
         ]
       },
-      "chargeEnBase": true
+      "chargeEnBase": true,
+      "sirenCorrige": "110010014"
     }
-  ]
+  ],
+  "corrections": [
+    {
+      "nomLisible": "https://www.lille.fr",
+      "erreurOriginale": "SIREN 434149993 (LILLE, SAINT-AVOLD 57) — homonymie de domaine, chargée par le script",
+      "correction": "org supprimée ; SIREN corrigé 215903501 COMMUNE DE LILLE (LILLE 59, nature 7210, état A) — titre du site « Ville de Lille »",
+      "preuve": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=COMMUNE%20DE%20LILLE&page=1&per_page=5",
+        "http": 200,
+        "resultat": "215903501 | COMMUNE DE LILLE | A | 7210 | LILLE"
+      }
+    },
+    {
+      "nomLisible": "justice.fr",
+      "erreurOriginale": "SIREN 823432356 (JUSTICE, RIBERAC 24) — homonymie de domaine ; org sirene préexistante enrichie à tort avec domain=justice.fr",
+      "correction": "domain et website de l'org sirene 823432356 remis à NULL ; SIREN corrigé 110010014 MINISTERE DE LA JUSTICE (PARIS 75, nature 7113, état A) — titre du site « Justice.fr | Vos droits et démarches »",
+      "preuve": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=MINISTERE%20DE%20LA%20JUSTICE&page=1&per_page=5",
+        "http": 200,
+        "resultat": "110010014 | MINISTERE DE LA JUSTICE | A | 7113 | PARIS"
+      }
+    },
+    {
+      "nomLisible": "iseta.fr (institut des Sciences de l'Environnement et des Territoires d'Annecy)",
+      "erreurOriginale": "SIREN 413076332 (ISETA, LA BROQUE 67) — le premier candidat contenant « iseta », pas celui du site",
+      "correction": "org supprimée ; SIREN corrigé 776603060 ISETA - ECA (POISY 74, état A) — titre du site « Bienvenue sur le site de l'ISETA-ECA » ; candidat déjà consigné dans registre.resultats du lot",
+      "preuve": {
+        "source": "resultats déjà consignés du registre du 2026-11-21 (même requête q=iseta)",
+        "resultat": "776603060 | ISETA - ECA (ISETA - ECA) | POISY 74 | A"
+      }
+    }
+  ],
+  "verificationBase": {
+    "commande": "DELETE 2 ; UPDATE 1 ; INSERT 3 — transaction psql ON_ERROR_STOP, 2026-11-21"
+  }
 }
