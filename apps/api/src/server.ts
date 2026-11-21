@@ -3,6 +3,9 @@ import type { CollectContext, Collector, NormalizedEvent } from "@radar/shared";
 import cors from "@fastify/cors";
 import helmet from "@fastify/helmet";
 import rateLimit from "@fastify/rate-limit";
+import fastifyStatic from "@fastify/static";
+import { existsSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import Fastify from "fastify";
 import { correlateEvents } from "./collectors/correlate.js";
 import { runGenericSources } from "./collectors/generic.js";
@@ -62,14 +65,33 @@ await app.register(helmet, { contentSecurityPolicy: false });
 await app.register(rateLimit, { global: false });
 
 /**
+ * Porte d'entrée : le dist de `apps/web` servi par l'API même — une seule
+ * adresse à ouvrir, un seul processus à tenir. `wildcard: false` : les chemins
+ * inconnus répondent 404 plutôt que d'avaler les routes `/api/*` ; le routage
+ * de l'app vit dans le hash de l'URL, donc aucune reprise de chemin n'est
+ * nécessaire. Le dist est produit par `pnpm -F @radar/web build` ; sans lui,
+ * l'API tourne comme avant (JSON seul) et le dit dans son journal.
+ */
+const webDist = process.env.RADAR_WEB_DIST ?? fileURLToPath(new URL("../../web/dist", import.meta.url));
+if (existsSync(webDist)) {
+  await app.register(fastifyStatic, { root: webDist, prefix: "/", wildcard: false });
+} else {
+  app.log.warn(`front statique absent (${webDist}) : pnpm -F @radar/web build`);
+}
+
+/**
  * Auth : lectures publiques (observatoire consultable sur le réseau local),
  * écritures protégées. Un token valide est attaché à la requête s'il est fourni,
  * ce qui permet au front d'adapter l'UI au rôle.
  */
-const PUBLIC_READ = /^\/api\/(health|stats|sources|flows|search|directory|graph|stream|events|orgs|enrich|alerts|quarantine|dossier|healthz|na)(\/|$|\?)/;
+const PUBLIC_READ = /^\/api\/(health|stats|sources|flows|search|directory|graph|stream|events|orgs|enrich|alerts|quarantine|dossier|healthz|na|today)(\/|$|\?)/;
 
 app.addHook("onRequest", async (req, reply) => {
   const url = req.url.split("?")[0];
+  // Hors `/api` : le front statique. Fichiers publics (HTML, JS, CSS) — la
+  // garde d'authentification ne s'applique qu'aux routes API, sinon la racine
+  // répond 401 et rien n'est ouvrable.
+  if (!url.startsWith("/api/")) return;
   if (url === "/api/health") return;
   if (url.startsWith("/api/auth/")) return;
   const user = await resolveUser(req);
