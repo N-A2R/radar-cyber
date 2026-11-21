@@ -1,0 +1,285 @@
+{
+  "dateMesure": "2026-11-21",
+  "plan": "docs/plans/mission-nuit-na.md — Task 4 (reprise vague 2)",
+  "lot": 11,
+  "source": {
+    "ref": "bench/results/manques-referentiel-2026-11-15.json",
+    "traites": "bench/results/manques-glm-vague2.json",
+    "entiteSource": "lot-reprise-na"
+  },
+  "method": "lecture du site (fetch, titre et meta verbatim) + recherche-entreprises.api.gouv.fr sans clé ; requêtes et réponses consignées ; SIREN recoupé, jamais inventé",
+  "compte": {
+    "present": 2,
+    "absent": 6,
+    "cannot_verify": 2
+  },
+  "resolutions": [
+    {
+      "nomLisible": "Orange County Pathology Medical Group",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Orange%20County%20Pathology%20Medical%20Group&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "Orange Public School District",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Orange%20Public%20School%20District&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "Paris High School",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Paris%20High%20School&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "Paris Society",
+      "domaine": null,
+      "verdict": "cannot_verify",
+      "raison": "candidat(s) au registre mais aucun recoupement avec null — arbitrage humain",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Paris%20Society&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "KS SOCIETY PARIS (KS SOCIETY PARIS)",
+            "siren": "802489773",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "FOOD SOCIETY PARIS (FOOD SOCIETY PARIS (GAITE))",
+            "siren": "849569009",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "UP SOCIETY PARIS",
+            "siren": "104270053",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "PARIS BLUES SOCIETY",
+            "siren": "132227349",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "PARIS GROOVE SOCIETY",
+            "siren": "939205852",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          }
+        ]
+      }
+    },
+    {
+      "nomLisible": "paysdelaloire.fr",
+      "domaine": "paysdelaloire.fr",
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : « Site du Conseil régional des Pays de la Loire | Accueil »",
+      "site": {
+        "url": "https://paysdelaloire.fr",
+        "http": 200,
+        "titre": "Site du Conseil régional des Pays de la Loire | Accueil",
+        "metaDescription": "Quel que soit votre besoin concernant l&#039;une des missions de la Région Pays de la Loire, toutes les infos utiles, aides et appels à projets sont ici !"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=paysdelaloire&page=1&per_page=5",
+        "http": 200,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "Pharma Force",
+      "domaine": null,
+      "verdict": "cannot_verify",
+      "raison": "candidat(s) au registre mais aucun recoupement avec null — arbitrage humain",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Pharma%20Force&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "FORCE PHARMA",
+            "siren": "810328468",
+            "commune": "VANAULT-LES-DAMES",
+            "dept": "51",
+            "etat": "A"
+          },
+          {
+            "denomination": "FORCE ONE PHARMA",
+            "siren": "790580450",
+            "commune": "LAUZERVILLE",
+            "dept": "31",
+            "etat": "A"
+          }
+        ]
+      }
+    },
+    {
+      "nomLisible": "plravocats.fr",
+      "domaine": "plravocats.fr",
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : « PLR Avocats - Cabinet d&#39;avocat à Paris »",
+      "site": {
+        "url": "https://plravocats.fr",
+        "http": 200,
+        "titre": "PLR Avocats - Cabinet d&#39;avocat à Paris",
+        "metaDescription": "Le cabinet PLR est spécialisé dans le droit des affaires, le pénal et le RGPD. Situation de faillite ? Cessation de paiements ? N&#39;hésitez pas à nous contacter !"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=plravocats&page=1&per_page=5",
+        "http": 200,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "pradiergranulats.fr",
+      "domaine": "pradiergranulats.fr",
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : « Accueil - Pradiers Granulats »",
+      "site": {
+        "url": "https://pradiergranulats.fr",
+        "http": 200,
+        "titre": "Accueil - Pradiers Granulats",
+        "metaDescription": null
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=pradiergranulats&page=1&per_page=5",
+        "http": 200,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "promhotel.fr",
+      "domaine": "promhotel.fr",
+      "verdict": "present",
+      "raison": "SIREN 387839566 au registre (état A, SAINT-AME 88), recoupé avec promhotel.fr",
+      "site": {
+        "url": "https://promhotel.fr",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=promhotel&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "PROMHOTEL",
+            "siren": "387839566",
+            "commune": "SAINT-AME",
+            "dept": "88",
+            "etat": "A"
+          },
+          {
+            "denomination": "PROMHOTEL",
+            "siren": "449217132",
+            "commune": "ASNIERES-SUR-SEINE",
+            "dept": "92",
+            "etat": "A"
+          },
+          {
+            "denomination": "PROMHOTEL",
+            "siren": "390466423",
+            "commune": "PARIS 15",
+            "dept": "75",
+            "etat": "C"
+          },
+          {
+            "denomination": "PROMHOTEL",
+            "siren": "353363146",
+            "commune": "BASTELICACCIA",
+            "dept": "2A",
+            "etat": "A"
+          },
+          {
+            "denomination": "SARL PROM'HOTEL",
+            "siren": "392047353",
+            "commune": "CHAMONIX-MONT-BLANC",
+            "dept": "74",
+            "etat": "C"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "rmn.fr",
+      "domaine": "rmn.fr",
+      "verdict": "present",
+      "raison": "SIREN 910038751 au registre (état A, ELVEN 56), recoupé avec rmn.fr",
+      "site": {
+        "url": "https://rmn.fr",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=rmn&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "RMN",
+            "siren": "910038751",
+            "commune": "ELVEN",
+            "dept": "56",
+            "etat": "A"
+          },
+          {
+            "denomination": "RMN",
+            "siren": "949223929",
+            "commune": "LES ANDELYS",
+            "dept": "27",
+            "etat": "A"
+          },
+          {
+            "denomination": "RMN",
+            "siren": "105441018",
+            "commune": "EVRY-COURCOURONNES",
+            "dept": "91",
+            "etat": "A"
+          },
+          {
+            "denomination": "RMN",
+            "siren": "935116335",
+            "commune": "BETHUNE",
+            "dept": "62",
+            "etat": "A"
+          },
+          {
+            "denomination": "RMN",
+            "siren": "131740581",
+            "commune": "GRENOBLE",
+            "dept": "38",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    }
+  ]
+}
