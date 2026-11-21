@@ -49,6 +49,8 @@ type ClaimRecentRow = {
   tlp: string;
   claimed_at: string | null;
 };
+type AliasRow = { alias: string };
+type DomainRow = { value: string };
 
 type ExposureRow = { month: string; n: number };
 
@@ -128,8 +130,8 @@ export default async function (app: FastifyInstance) {
   });
 
   /**
-   * Fiche complète d'une organisation : état, actifs, événements,
-   * revendications en quarantaine et courbe d'exposition sur 12 mois.
+   * Fiche complète d'une organisation : état, alias, domaines, actifs,
+   * événements, sources citantes, revendications et exposition sur 12 mois.
    * Chaque bloc est renseigné par une requête bornée dédiée (pas de
    * chargement de table en mémoire).
    */
@@ -174,6 +176,9 @@ export default async function (app: FastifyInstance) {
       claimsTotal,
       claimsRecent,
       exposure,
+      aliases,
+      domains,
+      sourcesCount,
     ] = await Promise.all([
       query<CountRow>("SELECT COUNT(*)::int AS n FROM asset WHERE org_id=$1", [orgId]),
       query<KindRow>(
@@ -201,7 +206,7 @@ export default async function (app: FastifyInstance) {
         `SELECT id, title, family, severity, observed_at
          FROM event WHERE org_id=$1
          ORDER BY observed_at DESC NULLS LAST, id DESC
-         LIMIT 10`,
+         LIMIT 20`,
         [orgId]
       ),
       query<CountRow>(
@@ -226,6 +231,28 @@ export default async function (app: FastifyInstance) {
            ON e.org_id=$1 AND e.observed_at >= m AND e.observed_at < m + interval '1 month'
          GROUP BY m
          ORDER BY m`,
+        [orgId]
+      ),
+      // Alias plafonnés, domaines déclarés et actifs, sources distinctes :
+      // trois comptages bornés, sans charger l'historique complet.
+      query<AliasRow>(
+        `SELECT alias FROM org_alias
+         WHERE org_id=$1 AND status='active' AND valid_to IS NULL
+         ORDER BY lower(alias), id LIMIT 50`,
+        [orgId]
+      ),
+      query<DomainRow>(
+        `SELECT DISTINCT value FROM (
+           SELECT domain AS value FROM org
+            WHERE id=$1 AND domain IS NOT NULL AND btrim(domain) <> ''
+           UNION ALL
+           SELECT value FROM asset
+            WHERE org_id=$1 AND kind IN ('domain', 'subdomain')
+         ) AS d ORDER BY value`,
+        [orgId]
+      ),
+      query<CountRow>(
+        "SELECT COUNT(DISTINCT source_id)::int AS n FROM event WHERE org_id=$1",
         [orgId]
       ),
     ]);
@@ -284,6 +311,9 @@ export default async function (app: FastifyInstance) {
         lon: org.lon,
         created_at: org.created_at,
       },
+      aliases: aliases.rows.map((r) => r.alias),
+      domains: domains.rows.map((r) => r.value),
+      sourcesCount: sourcesCount.rows[0]?.n ?? 0,
       assets: {
         total: assetsTotal.rows[0]?.n ?? 0,
         byKind: assetsByKind.rows.map((r) => ({ kind: r.kind, n: r.n })),
