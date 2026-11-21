@@ -112,6 +112,8 @@ export interface FetchResilientOpts {
   ifModifiedSince?: string;
   /** En-têtes supplémentaires (ex. `Auth-Key` des API abuse.ch). */
   headers?: Record<string, string>;
+  /** Clé de l'état de backoff ; l'URL sert de clé quand la source n'est pas nommée. */
+  source?: string;
 }
 
 export interface FetchResilientResult {
@@ -142,7 +144,90 @@ function parseRetryAfter(header: string | null): number | null {
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+/**
+ * Backoff entre deux collectes d'une même source après une erreur transitoire.
+ * Paliers explicites : 1 min, 5 min, 30 min, 2 h (plafond).
+ */
+export const SOURCE_BACKOFF_DELAYS_MS = [60_000, 300_000, 1_800_000, 7_200_000] as const;
+
+/** Délai après `failures` échecs consécutifs ; 0 avant le premier échec. */
+export function backoffDelayMs(failures: number): number {
+  if (!Number.isFinite(failures) || failures < 1) return 0;
+  const index = Math.min(Math.floor(failures), SOURCE_BACKOFF_DELAYS_MS.length) - 1;
+  return SOURCE_BACKOFF_DELAYS_MS[index];
+}
+
+/** Refus immédiat d'une source encore en backoff. */
+export class SourceBackoffError extends Error {
+  readonly source: string;
+  readonly retryAfterMs: number;
+
+  constructor(source: string, retryAfterMs: number) {
+    super(`source ${source} en backoff : nouvelle tentative dans ${Math.ceil(retryAfterMs / 1000)} s`);
+    this.name = "SourceBackoffError";
+    this.source = source;
+    this.retryAfterMs = retryAfterMs;
+  }
+}
+
+type BackoffState = { failures: number; retryAt: number };
+const backoffBySource = new Map<string, BackoffState>();
+
+/** Temps restant avant de retenter une source (0 si elle est disponible). */
+export function sourceBackoffRemainingMs(source: string, now = Date.now()): number {
+  const state = backoffBySource.get(source);
+  return state ? Math.max(0, state.retryAt - now) : 0;
+}
+
+/** Enregistre un échec transitoire et renvoie le délai désormais appliqué. */
+export function noteSourceFailure(source: string, now = Date.now()): number {
+  const failures = (backoffBySource.get(source)?.failures ?? 0) + 1;
+  const delay = backoffDelayMs(failures);
+  backoffBySource.set(source, { failures, retryAt: now + delay });
+  return delay;
+}
+
+/** Remet le compteur à zéro après un succès. */
+export function resetSourceBackoff(source: string): void {
+  backoffBySource.delete(source);
+}
+
+function isTransientStatus(status: number): boolean {
+  return status === 429 || (status >= 500 && status < 600);
+}
+
+function isTransientError(err: unknown): boolean {
+  if (err instanceof SourceBlockedError || err instanceof SourceBackoffError) return false;
+  const e = err as { name?: string; message?: string } | null;
+  return e?.name === "AbortError" || e?.name === "TimeoutError"
+    || /timeout|timed out|etimedout|délai dépassé/i.test(e?.message ?? "");
+}
+
+/**
+ * Point d'entrée public : le backoff par source encadre les tentatives
+ * immédiates (Retry-After / jitter) de `fetchResilientOnce`.
+ */
 export async function fetchResilient(
+  url: string,
+  opts: FetchResilientOpts = {},
+): Promise<FetchResilientResult> {
+  const source = opts.source?.trim() || url;
+  const remaining = sourceBackoffRemainingMs(source);
+  if (remaining > 0) throw new SourceBackoffError(source, remaining);
+  try {
+    const result = await fetchResilientOnce(url, opts);
+    if (isTransientStatus(result.status)) noteSourceFailure(source);
+    else resetSourceBackoff(source);
+    return result;
+  } catch (err) {
+    if (isTransientError(err)) noteSourceFailure(source);
+    throw err;
+  }
+}
+
+/** Tentatives HTTP immédiates pour une source déjà autorisée. */
+async function fetchResilientOnce(
   url: string,
   opts: FetchResilientOpts = {}
 ): Promise<FetchResilientResult> {
