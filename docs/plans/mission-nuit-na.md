@@ -69,7 +69,7 @@ compteurs doivent **concorder** avec cette table.
       25 orgs avec événement, Gironde 20, 40/47/23/19 à zéro, 181 sources).
 - [x] Si un compteur **diffère** : non applicable — les 6 compteurs concordent
       (`ecartVsPlan: []` dans le JSON).
-- [ ] Commit : `mesure(na): baseline Nouvelle-Aquitaine publiée`
+- [x] Commit : `mesure(na): baseline Nouvelle-Aquitaine publiée`
 
 **Critère :** le JSON existe, il a été **produit par le script** (pas édité à la
 main), et chaque compteur est accompagné de sa requête. Un JSON dont les nombres
@@ -88,7 +88,7 @@ viennent de la table du plan est un échec de cette tâche.
 - [x] Câbler les sources retenues dans `db/sources-regional.sql` (INSERT idempotent)
 - [x] Vérifier en base : au moins **une source active par département** — 12/12,
       minimum 2 sources chacun (`bench/results/na-sources-2026-11-21.json`)
-- [ ] Commit : `feat(sources): presse régionale NA par département`
+- [x] Commit : `feat(sources): presse régionale NA par département`
 
 **Critère :** requête SQL qui liste, par département, ses sources actives. Aucun
 département sans au moins une source.
@@ -102,7 +102,7 @@ département sans au moins une source.
 - [x] Mesurer le rendement : items collectés sur 7 jours, dont rattachés à une org
       NA — `bench/results/na-cert-2026-11-21.json` : CERT-FR 322 items / 192 évts
       / 3 rattachés NA ; CISA 154 items / 85 évts / 0 NA
-- [ ] Commit : `feat(sources): CERT et alertes officielles mesurés`
+- [x] Commit : `feat(sources): CERT et alertes officielles mesurés`
 
 ## Task 3: Revendications ransomware — rattachement NA
 
@@ -119,7 +119,7 @@ département sans au moins une source.
       (jetons dupliqués + génériques + 2 lettres dans `scoreEntry`) :
       13 → 4 propositions, 434 tests verts, régressions ajoutées
 - [x] Re-mesurer après, publier avant/après dans `bench/results/na-ransomware.json`
-- [ ] Commit : `mesure(na): rattachement ransomware avant/après`
+- [x] Commit : `mesure(na): rattachement ransomware avant/après`
 
 ## Task 4: Trou référentiel — entités NA sans organisation
 
@@ -156,7 +156,7 @@ organisation **ou** chaque non-résolution est documentée avec sa raison.
       randonnée pédestre (même organisation, heuristique de sigle qui rate —
       étiquette débattable, écrite telle quelle)
 - [x] Publier `bench/results/na-rattachement.json`
-- [ ] Commit : `mesure(na): qualité du rattachement publiée`
+- [x] Commit : `mesure(na): qualité du rattachement publiée`
 
 ## Task 6: Interface — une vraie vue Nouvelle-Aquitaine
 
@@ -176,7 +176,7 @@ L'UI web existe (`apps/web`), la carte NA aussi (`departements-na.geojson`).
       `apps/web/test/na-verif.tsx` : 18 contrôles (12 paths, 12 lignes,
       filtre, état vide, URL round-trip, agrégat serveur prioritaire), inclus
       dans `verify-all.sh`
-- [ ] Commit : `feat(web): vue Nouvelle-Aquitaine`
+- [x] Commit : `feat(web): vue Nouvelle-Aquitaine`
 
 **Critère :** `verify-all.sh` vert, et une capture ou un test qui prouve la vue.
 
@@ -195,7 +195,7 @@ L'UI web existe (`apps/web`), la carte NA aussi (`departements-na.geojson`).
       muettes ou dormantes (7 j) » ajoutée au rapport hebdomadaire (markdown +
       HTML), sources NA d'abord, classification alignée sur
       `scripts/source-health.mts`
-- [ ] Commit : `feat(ops): collecte NA continue et surveillée`
+- [x] Commit : `feat(ops): collecte NA continue et surveillée`
 
 **Critère :** une preuve d'exécution réelle (log, `systemctl status`, ou run
 manuel tracé) — pas une intention.
@@ -215,7 +215,7 @@ manuel tracé) — pas une intention.
 - [x] Écrire `bench/results/na-audit-2026-11-21.json` + un tableau lisible —
       JSON avec requêtes + `na-audit-2026-11-21.md` (départements, sources,
       verdicts)
-- [ ] Commit : `mesure(na): audit zéro trou`
+- [x] Commit : `mesure(na): audit zéro trou`
 
 ## Task 9: Rapport de nuit
 
@@ -224,7 +224,7 @@ manuel tracé) — pas une intention.
 - [x] `pnpm typecheck` + `bash scripts/verify-all.sh`, corriger si rouge —
       vert au complet (exit 0, 01:47)
 - [x] `git status` propre (hors `AGENTS.md`, `.claude/`)
-- [ ] Commit : `docs(mission): rapport de nuit Nouvelle-Aquitaine`
+- [x] Commit : `docs(mission): rapport de nuit Nouvelle-Aquitaine`
 
 ## Arrêt
 
