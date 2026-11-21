@@ -168,9 +168,10 @@ function dateMs(valeur: string): number {
 
 /**
  * Sous-domaines explicitement attestés par un certificat, dédupliqués par nom.
- * Les SAN étrangers à la liste de cibles sont ignorés : Cert Spotter renvoie
- * aussi les autres noms des certificats partagés. En cas de doublon, la date
- * de première vue la plus ancienne est conservée.
+ * Le domaine apex n'est pas un sous-domaine, les `*.` seuls ne sont pas des
+ * noms réels, et les SAN étrangers à la liste de cibles sont ignorés : Cert
+ * Spotter renvoie aussi les autres noms des certificats partagés. En cas de
+ * doublon, la date de première vue la plus ancienne est conservée.
  */
 export function extraireSousDomaines(certs: CertificatCT[], cibles: Cible[]): SousDomaineInventaire[] {
 	const parDomaine = new Map<string, Cible>();
@@ -185,7 +186,7 @@ export function extraireSousDomaines(certs: CertificatCT[], cibles: Cible[]): So
 		if (!nom) continue;
 		let meilleur: Cible | null = null;
 		for (const domaine of parDomaine.keys()) {
-			if (nom === domaine || !nom.endsWith(`.${domaine}`)) continue;
+			if (!nom.endsWith(`.${domaine}`)) continue;
 			if (!meilleur || domaine.length > racine(meilleur.domaine)!.length) meilleur = parDomaine.get(domaine)!;
 		}
 		if (!meilleur) continue;

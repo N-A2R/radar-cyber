@@ -1,0 +1,3637 @@
+{
+  "rapport": {
+    "collecte_le": "2026-11-21T21:11:23.658Z",
+    "domaines_interroges": 25,
+    "sous_domaines": 342,
+    "suspects": 0,
+    "taux_echec": {
+      "total": 66,
+      "echecs": 54,
+      "taux": 0.8181818181818182
+    },
+    "par_fournisseur": {
+      "crt.sh": {
+        "total": 33,
+        "echecs": 22,
+        "taux": 0.6666666666666666
+      },
+      "certspotter": {
+        "total": 33,
+        "echecs": 32,
+        "taux": 0.9696969696969697
+      }
+    },
+    "variantes_interrogees": 8
+  },
+  "sous_domaines": [
+    {
+      "sous_domaine": "1886.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-08T08:34:25.000Z",
+      "certificat_id": "13007541461",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "2d.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2016-05-12T14:50:00.000Z",
+      "certificat_id": "19329124",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "a.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2023-01-25T03:56:10.000Z",
+      "certificat_id": "8491843870",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "admin.archives.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2020-03-05T09:37:48.000Z",
+      "certificat_id": "2539578782",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "affichage.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2025-10-27T09:39:45.000Z",
+      "certificat_id": "22037472476",
+      "emetteur": "C=US, O=Let's Encrypt, CN=E8"
+    },
+    {
+      "sous_domaine": "affichedesfetes.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2021-01-13T00:00:00.000Z",
+      "certificat_id": "3921558616",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "agent-da.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2026-01-23T12:52:15.000Z",
+      "certificat_id": "23936202896",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R12"
+    },
+    {
+      "sous_domaine": "agora.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2016-11-09T23:03:00.000Z",
+      "certificat_id": "50775689",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "airedemousserolles.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2024-06-12T15:41:05.000Z",
+      "certificat_id": "13368969856",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R10"
+    },
+    {
+      "sous_domaine": "airwave.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-06-25T08:20:53.000Z",
+      "certificat_id": "15558299213",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "ambassadeurs.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2016-12-13T08:42:00.000Z",
+      "certificat_id": "66655770",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "analytics.cenon.fr",
+      "domaine": "cenon.fr",
+      "organisation": "Cenon",
+      "source": "crt.sh",
+      "premiere_vue": "2024-12-19T12:22:55.000Z",
+      "certificat_id": "16165540757",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R11"
+    },
+    {
+      "sous_domaine": "antispam.eysines.fr",
+      "domaine": "eysines.fr",
+      "organisation": "Eysines",
+      "source": "crt.sh",
+      "premiere_vue": "2020-12-02T15:53:29.000Z",
+      "certificat_id": "3728366103",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "aragon.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-01T12:05:03.000Z",
+      "certificat_id": "12930944734",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "archive.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2017-07-28T00:00:00.000Z",
+      "certificat_id": "181445852",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "archives.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2020-03-05T09:06:29.000Z",
+      "certificat_id": "2550979306",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "art-mature.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2016-04-04T07:50:00.000Z",
+      "certificat_id": "16109434",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "associations.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2021-07-01T00:00:00.000Z",
+      "certificat_id": "4792443414",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "assos.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2017-09-15T00:00:00.000Z",
+      "certificat_id": "432231562",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "autodiscover.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2023-09-07T11:56:03.000Z",
+      "certificat_id": "10318622742",
+      "emetteur": "C=BE, O=GlobalSign nv-sa, CN=GlobalSign RSA OV SSL CA 2018"
+    },
+    {
+      "sous_domaine": "autodiscover.artsetmetiers.fr",
+      "domaine": "artsetmetiers.fr",
+      "organisation": "École nationale supérieure d'arts et métiers Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2020-02-06T00:00:00.000Z",
+      "certificat_id": "2431824117",
+      "emetteur": "C=NL, ST=Noord-Holland, L=Amsterdam, O=TERENA, CN=TERENA SSL High Assurance CA 3"
+    },
+    {
+      "sous_domaine": "banniere.eysines.fr",
+      "domaine": "eysines.fr",
+      "organisation": "Eysines",
+      "source": "crt.sh",
+      "premiere_vue": "2026-03-06T00:00:00.000Z",
+      "certificat_id": "24815073140",
+      "emetteur": "C=FR, O=Gandi SAS, CN=GandiCert"
+    },
+    {
+      "sous_domaine": "beauvoir2.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-02-17T11:03:15.000Z",
+      "certificat_id": "13839987600",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "besoinsnumeriques.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2026-07-10T14:06:50.000Z",
+      "certificat_id": "27833439566",
+      "emetteur": "C=US, O=Let's Encrypt, CN=YR1"
+    },
+    {
+      "sous_domaine": "beta.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2016-05-12T14:50:00.000Z",
+      "certificat_id": "19329124",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "bibliotheque-beta.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2023-01-31T03:10:57.000Z",
+      "certificat_id": "8541247661",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "bibliotheque-municipale.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2017-07-13T14:23:22.000Z",
+      "certificat_id": "173279577",
+      "emetteur": "C=FR, O=Certinomis, OU=0002 433998903, CN=Certinomis - Easy CA"
+    },
+    {
+      "sous_domaine": "bibliotheque-preprod.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2022-11-07T12:59:15.000Z",
+      "certificat_id": "7922917407",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "bibliotheque-rec.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2022-10-24T16:42:42.000Z",
+      "certificat_id": "7823088494",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "bibliotheque.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2022-09-29T22:00:00.000Z",
+      "certificat_id": "7648642801",
+      "emetteur": "C=FR, O=DHIMYOTIS, OU=0002 48146308100036, organizationIdentifier=NTRFR-48146308100036, CN=Certigna Services CA"
+    },
+    {
+      "sous_domaine": "biennale.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2023-10-20T12:01:19.000Z",
+      "certificat_id": "10842473168",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "bienvenue.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2024-02-20T09:10:17.000Z",
+      "certificat_id": "12135424867",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "bilhets-mbh.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2025-10-15T11:15:43.000Z",
+      "certificat_id": "21736471177",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R12"
+    },
+    {
+      "sous_domaine": "billetterie-arenes.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2025-11-25T09:08:12.000Z",
+      "certificat_id": "22786246348",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R13"
+    },
+    {
+      "sous_domaine": "billetterie-dimanche-en-musique.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2026-05-11T12:48:08.000Z",
+      "certificat_id": "26255229059",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R13"
+    },
+    {
+      "sous_domaine": "billetterie-fetes.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2025-05-15T08:24:02.000Z",
+      "certificat_id": "18419651102",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R11"
+    },
+    {
+      "sous_domaine": "billetterie-lauga-cote-scene.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2026-05-11T12:47:38.000Z",
+      "certificat_id": "26255222109",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R13"
+    },
+    {
+      "sous_domaine": "billetterie-mbh.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2025-10-15T11:15:43.000Z",
+      "certificat_id": "21736471177",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R12"
+    },
+    {
+      "sous_domaine": "billetterie-spectacle.bouscat.fr",
+      "domaine": "bouscat.fr",
+      "organisation": "Le Bouscat",
+      "source": "crt.sh",
+      "premiere_vue": "2023-10-24T22:00:00.000Z",
+      "certificat_id": "10890660175",
+      "emetteur": "C=FR, O=DHIMYOTIS, OU=0002 48146308100036, organizationIdentifier=NTRFR-48146308100036, CN=Certigna Services CA"
+    },
+    {
+      "sous_domaine": "bmes.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2026-08-31T00:00:00.000Z",
+      "certificat_id": "29194961482",
+      "emetteur": "C=FR, O=Gandi SAS, CN=GandiCert"
+    },
+    {
+      "sous_domaine": "bo.archives.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2020-03-05T09:37:48.000Z",
+      "certificat_id": "2539578782",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "bordeauxboutiques.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2020-11-20T00:00:00.000Z",
+      "certificat_id": "3673022113",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "budgetparticipatif.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2019-11-05T00:00:00.000Z",
+      "certificat_id": "2083548139",
+      "emetteur": "C=US, ST=CA, L=San Francisco, O=\"CloudFlare, Inc.\", CN=CloudFlare Inc ECC CA-2"
+    },
+    {
+      "sous_domaine": "cac.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2020-04-15T13:25:32.000Z",
+      "certificat_id": "2695251302",
+      "emetteur": "C=BE, O=GlobalSign nv-sa, CN=GlobalSign RSA DV SSL CA 2018"
+    },
+    {
+      "sous_domaine": "calendrier-avent.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2024-11-14T11:52:06.000Z",
+      "certificat_id": "15431659750",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R10"
+    },
+    {
+      "sous_domaine": "carb-cas.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-06-12T12:44:33.000Z",
+      "certificat_id": "15359538686",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "carbonio.etu.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-05-12T12:40:21.000Z",
+      "certificat_id": "14875350030",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "carbonio.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-05-12T12:40:21.000Z",
+      "certificat_id": "14875350030",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "carl.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-08T08:34:32.000Z",
+      "certificat_id": "13007541591",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "carte.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2020-10-06T12:34:48.000Z",
+      "certificat_id": "3474221905",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "cartedeclic.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2020-08-27T11:00:52.000Z",
+      "certificat_id": "3296999346",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "cartes.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2018-06-20T13:03:00.000Z",
+      "certificat_id": "539618466",
+      "emetteur": "C=FR, O=Certinomis, organizationIdentifier=NTRFR-433998903, CN=Certinomis - Web CA"
+    },
+    {
+      "sous_domaine": "centredart.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2023-04-21T08:17:20.000Z",
+      "certificat_id": "9212003677",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "chaireunesco.iut.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-01-07T10:50:40.000Z",
+      "certificat_id": "13350672945",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "cimetieres.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2022-11-26T00:00:00.000Z",
+      "certificat_id": "8066032894",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "cisco-ssm.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-01T10:02:17.000Z",
+      "certificat_id": "12930020375",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "citedigitale.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2017-06-07T13:06:00.000Z",
+      "certificat_id": "149716352",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "cloud.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2012-10-08T14:05:05.000Z",
+      "certificat_id": "39255884",
+      "emetteur": "C=BE, O=GlobalSign nv-sa, CN=GlobalSign Organization Validation CA - G2"
+    },
+    {
+      "sous_domaine": "cme.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2016-12-16T16:22:00.000Z",
+      "certificat_id": "68240654",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "cmo.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2024-09-12T00:00:00.000Z",
+      "certificat_id": "14525907296",
+      "emetteur": "C=US, O=\"DigiCert, Inc.\", CN=Encryption Everywhere G3 TLS ECC P384 SHA384 2023 CA1"
+    },
+    {
+      "sous_domaine": "conf1.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2009-11-10T00:00:00.000Z",
+      "certificat_id": "35913854",
+      "emetteur": "O=VeriSign Trust Network, OU=\"VeriSign, Inc.\", OU=VeriSign International Server CA - Class 3, OU=www.verisign.com/CPS Incorp.by Ref. LIABILITY LTD.(c)97 VeriSign"
+    },
+    {
+      "sous_domaine": "conservatoire.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2020-07-08T00:00:00.000Z",
+      "certificat_id": "3059783075",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "contact.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2022-09-29T22:00:00.000Z",
+      "certificat_id": "7648642801",
+      "emetteur": "C=FR, O=DHIMYOTIS, OU=0002 48146308100036, organizationIdentifier=NTRFR-48146308100036, CN=Certigna Services CA"
+    },
+    {
+      "sous_domaine": "convocation.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2020-06-30T06:35:55.000Z",
+      "certificat_id": "3018761382",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "debats.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2019-11-05T00:00:00.000Z",
+      "certificat_id": "2075539989",
+      "emetteur": "C=US, ST=CA, L=San Francisco, O=\"CloudFlare, Inc.\", CN=CloudFlare Inc ECC CA-2"
+    },
+    {
+      "sous_domaine": "demandepassfetes.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2025-05-20T12:28:55.000Z",
+      "certificat_id": "18518824282",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R11"
+    },
+    {
+      "sous_domaine": "demarches.angouleme.fr",
+      "domaine": "angouleme.fr",
+      "organisation": "Angoulême",
+      "source": "crt.sh",
+      "premiere_vue": "2022-05-11T08:23:29.000Z",
+      "certificat_id": "6707492121",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "depistagecovid.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2020-09-09T13:43:29.000Z",
+      "certificat_id": "3359597179",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "diversite.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2021-03-02T00:00:00.000Z",
+      "certificat_id": "4152519475",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "dons.artsetmetiers.fr",
+      "domaine": "artsetmetiers.fr",
+      "organisation": "École nationale supérieure d'arts et métiers Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2015-10-11T15:49:48.000Z",
+      "certificat_id": "10192811",
+      "emetteur": "C=US, O=GeoTrust Inc., CN=RapidSSL SHA256 CA - G3"
+    },
+    {
+      "sous_domaine": "duras2.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-02-17T11:03:05.000Z",
+      "certificat_id": "13839987613",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "eac.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2023-06-26T22:00:00.000Z",
+      "certificat_id": "9759910244",
+      "emetteur": "C=FR, O=DHIMYOTIS, OU=0002 48146308100036, organizationIdentifier=NTRFR-48146308100036, CN=Certigna Services CA"
+    },
+    {
+      "sous_domaine": "eadministration.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2018-12-20T08:23:00.000Z",
+      "certificat_id": "1044103403",
+      "emetteur": "C=FR, O=Certinomis, organizationIdentifier=NTRFR-433998903, CN=Certinomis - Web CA"
+    },
+    {
+      "sous_domaine": "ecandidat-dev.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-06-16T07:09:24.000Z",
+      "certificat_id": "15419294803",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "ecandidat.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-05-11T13:15:33.000Z",
+      "certificat_id": "14861025139",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "efournisseurs.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2012-11-21T00:00:00.000Z",
+      "certificat_id": "38786974",
+      "emetteur": "C=US, O=\"VeriSign, Inc.\", OU=VeriSign Trust Network, OU=Terms of use at https://www.verisign.com/rpa (c)10, CN=VeriSign Class 3 International Server CA - G3"
+    },
+    {
+      "sous_domaine": "elgg.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2016-05-12T14:50:00.000Z",
+      "certificat_id": "19329124",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "elucid.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2019-08-28T00:00:00.000Z",
+      "certificat_id": "1818995541",
+      "emetteur": "C=GB, ST=Greater Manchester, L=Salford, O=Sectigo Limited, CN=Sectigo RSA Domain Validation Secure Server CA"
+    },
+    {
+      "sous_domaine": "emploi.angouleme.fr",
+      "domaine": "angouleme.fr",
+      "organisation": "Angoulême",
+      "source": "crt.sh",
+      "premiere_vue": "2018-04-19T21:08:11.000Z",
+      "certificat_id": "407833656",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "emploi.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2018-10-03T07:35:25.000Z",
+      "certificat_id": "810493890",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "entradas-arenes.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2026-05-07T08:22:57.000Z",
+      "certificat_id": "26145028577",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R12"
+    },
+    {
+      "sous_domaine": "environnement.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2025-11-13T14:09:45.000Z",
+      "certificat_id": "22442261941",
+      "emetteur": "C=US, O=Let's Encrypt, CN=E8"
+    },
+    {
+      "sous_domaine": "espacefamille.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2020-12-24T00:00:00.000Z",
+      "certificat_id": "3823497877",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "espaces.collaboratifs.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2012-05-19T19:53:20.000Z",
+      "certificat_id": "6579407",
+      "emetteur": "C=US, O=\"GeoTrust, Inc.\", CN=RapidSSL CA"
+    },
+    {
+      "sous_domaine": "etejeunes.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2021-07-01T12:43:02.000Z",
+      "certificat_id": "4793540098",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "evenementiel-capc.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2026-07-23T00:00:00.000Z",
+      "certificat_id": "28192636349",
+      "emetteur": "C=IE, O=DigiCert Ireland Limited, CN=DigiCert G2 TLS EU RSA4096 SHA384 2022 CA1"
+    },
+    {
+      "sous_domaine": "expositions.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2025-02-14T14:44:13.000Z",
+      "certificat_id": "17200360674",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R10"
+    },
+    {
+      "sous_domaine": "extranet-conservatoire.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2022-08-03T22:00:00.000Z",
+      "certificat_id": "7265546214",
+      "emetteur": "C=FR, O=DHIMYOTIS, OU=0002 48146308100036, organizationIdentifier=NTRFR-48146308100036, CN=Certigna Services CA"
+    },
+    {
+      "sous_domaine": "extranet.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2016-08-12T00:00:00.000Z",
+      "certificat_id": "28108382",
+      "emetteur": "C=US, O=GeoTrust Inc., OU=Domain Validated SSL, CN=GeoTrust DV SSL CA - G3"
+    },
+    {
+      "sous_domaine": "extranet.angouleme.fr",
+      "domaine": "angouleme.fr",
+      "organisation": "Angoulême",
+      "source": "crt.sh",
+      "premiere_vue": "2016-05-10T00:00:00.000Z",
+      "certificat_id": "19385498",
+      "emetteur": "C=US, O=GeoTrust Inc., CN=GeoTrust SSL CA - G3"
+    },
+    {
+      "sous_domaine": "extranetecoles.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2017-07-13T14:23:22.000Z",
+      "certificat_id": "173279577",
+      "emetteur": "C=FR, O=Certinomis, OU=0002 433998903, CN=Certinomis - Easy CA"
+    },
+    {
+      "sous_domaine": "ezproxy.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-05-29T11:08:29.000Z",
+      "certificat_id": "15118817546",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "f.info.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2023-04-17T13:34:04.000Z",
+      "certificat_id": "9173689514",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "f.info.mesdemarches.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2024-09-16T07:31:56.000Z",
+      "certificat_id": "14569579999",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R11"
+    },
+    {
+      "sous_domaine": "f.info.mesdemarches.bouscat.fr",
+      "domaine": "bouscat.fr",
+      "organisation": "Le Bouscat",
+      "source": "crt.sh",
+      "premiere_vue": "2024-09-10T14:10:22.000Z",
+      "certificat_id": "14502039877",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R11"
+    },
+    {
+      "sous_domaine": "f.infos.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2023-04-17T13:33:11.000Z",
+      "certificat_id": "9173683348",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "f.infos.mesdemarches.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2024-09-10T06:07:01.000Z",
+      "certificat_id": "14497867801",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R11"
+    },
+    {
+      "sous_domaine": "f.infos.mesdemarches.bouscat.fr",
+      "domaine": "bouscat.fr",
+      "organisation": "Le Bouscat",
+      "source": "crt.sh",
+      "premiere_vue": "2024-09-10T14:11:00.000Z",
+      "certificat_id": "14502053015",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R10"
+    },
+    {
+      "sous_domaine": "fcems-server.iut.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-02-05T14:42:41.000Z",
+      "certificat_id": "13689804069",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "foireaujambon.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2023-02-17T00:00:00.000Z",
+      "certificat_id": "8676607769",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "ftpbordeaux.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2009-09-14T00:00:00.000Z",
+      "certificat_id": "2372160082",
+      "emetteur": "O=VeriSign Trust Network, OU=\"VeriSign, Inc.\", OU=VeriSign International Server CA - Class 3, OU=www.verisign.com/CPS Incorp.by Ref. LIABILITY LTD.(c)97 VeriSign"
+    },
+    {
+      "sous_domaine": "geo-test.cenon.fr",
+      "domaine": "cenon.fr",
+      "organisation": "Cenon",
+      "source": "crt.sh",
+      "premiere_vue": "2026-07-10T07:48:43.000Z",
+      "certificat_id": "27826658160",
+      "emetteur": "C=US, O=Let's Encrypt, CN=YR2"
+    },
+    {
+      "sous_domaine": "geo.cenon.fr",
+      "domaine": "cenon.fr",
+      "organisation": "Cenon",
+      "source": "crt.sh",
+      "premiere_vue": "2025-09-19T08:52:24.000Z",
+      "certificat_id": "21130513516",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R13"
+    },
+    {
+      "sous_domaine": "gru.angouleme.fr",
+      "domaine": "angouleme.fr",
+      "organisation": "Angoulême",
+      "source": "crt.sh",
+      "premiere_vue": "2020-02-26T13:31:08.000Z",
+      "certificat_id": "2517555186",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "gtc.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-02-17T11:02:53.000Z",
+      "certificat_id": "13839987591",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "gts.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2011-11-27T12:30:56.000Z",
+      "certificat_id": "37442754",
+      "emetteur": "C=US, O=\"GeoTrust, Inc.\", CN=RapidSSL CA"
+    },
+    {
+      "sous_domaine": "housing.artsetmetiers.fr",
+      "domaine": "artsetmetiers.fr",
+      "organisation": "École nationale supérieure d'arts et métiers Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2018-11-15T00:00:00.000Z",
+      "certificat_id": "948040564",
+      "emetteur": "C=NL, ST=Noord-Holland, L=Amsterdam, O=TERENA, CN=TERENA SSL CA 3"
+    },
+    {
+      "sous_domaine": "iguana.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2022-12-06T00:00:00.000Z",
+      "certificat_id": "8135476910",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "imagicle.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-01T12:04:41.000Z",
+      "certificat_id": "12930938727",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "imap.artsetmetiers.fr",
+      "domaine": "artsetmetiers.fr",
+      "organisation": "École nationale supérieure d'arts et métiers Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2020-02-06T00:00:00.000Z",
+      "certificat_id": "2431824117",
+      "emetteur": "C=NL, ST=Noord-Holland, L=Amsterdam, O=TERENA, CN=TERENA SSL High Assurance CA 3"
+    },
+    {
+      "sous_domaine": "incubateur.artsetmetiers.fr",
+      "domaine": "artsetmetiers.fr",
+      "organisation": "École nationale supérieure d'arts et métiers Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2017-12-19T00:00:00.000Z",
+      "certificat_id": "302458583",
+      "emetteur": "C=NL, ST=Noord-Holland, L=Amsterdam, O=TERENA, CN=TERENA SSL CA 3"
+    },
+    {
+      "sous_domaine": "info-violences-femmes.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2019-08-01T07:42:00.000Z",
+      "certificat_id": "1775216452",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "info.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2023-04-17T13:33:44.000Z",
+      "certificat_id": "9173678492",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "info.mesdemarches.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2024-09-16T07:31:43.000Z",
+      "certificat_id": "14569577225",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R11"
+    },
+    {
+      "sous_domaine": "info.mesdemarches.bouscat.fr",
+      "domaine": "bouscat.fr",
+      "organisation": "Le Bouscat",
+      "source": "crt.sh",
+      "premiere_vue": "2024-09-10T14:10:09.000Z",
+      "certificat_id": "14502034698",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R10"
+    },
+    {
+      "sous_domaine": "infocom.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2024-07-19T12:09:17.000Z",
+      "certificat_id": "13803394471",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R10"
+    },
+    {
+      "sous_domaine": "infos.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2023-04-17T13:32:51.000Z",
+      "certificat_id": "9173681845",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "infos.mesdemarches.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2024-09-10T06:06:47.000Z",
+      "certificat_id": "14497872177",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R11"
+    },
+    {
+      "sous_domaine": "infos.mesdemarches.bouscat.fr",
+      "domaine": "bouscat.fr",
+      "organisation": "Le Bouscat",
+      "source": "crt.sh",
+      "premiere_vue": "2024-09-10T14:10:48.000Z",
+      "certificat_id": "14502057705",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R11"
+    },
+    {
+      "sous_domaine": "intranet.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2017-06-21T07:20:08.000Z",
+      "certificat_id": "172798682",
+      "emetteur": "C=FR, O=Certinomis, OU=0002 433998903, CN=Certinomis - Easy CA"
+    },
+    {
+      "sous_domaine": "iparapheur.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2018-06-20T13:03:00.000Z",
+      "certificat_id": "539618466",
+      "emetteur": "C=FR, O=Certinomis, organizationIdentifier=NTRFR-433998903, CN=Certinomis - Web CA"
+    },
+    {
+      "sous_domaine": "ipt-cucm-pre1-pes-ms.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-01T08:20:58.000Z",
+      "certificat_id": "12929232611",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "ipt-cucm-pre1-pes.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-11-24T08:52:01.000Z",
+      "certificat_id": "12852606939",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "ipt-cucm-pre2-ren.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-11-24T08:52:01.000Z",
+      "certificat_id": "12852606939",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "ipt-cucm-pub-pes-ms.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-11-24T08:52:01.000Z",
+      "certificat_id": "12852606939",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "ipt-cucm-pub-pes.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-11-24T08:52:01.000Z",
+      "certificat_id": "12852606939",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "ipt-cucm-sub-ren.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-11-24T08:52:01.000Z",
+      "certificat_id": "12852606939",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "ipt-cucm-sub-tftp-pes.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-11-24T08:52:01.000Z",
+      "certificat_id": "12852606939",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "ipt-cucm-sub1-pes.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-11-24T08:52:01.000Z",
+      "certificat_id": "12852606939",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "izadia.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2021-04-09T12:34:17.000Z",
+      "certificat_id": "4350297670",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "jeparticipe.angouleme.fr",
+      "domaine": "angouleme.fr",
+      "organisation": "Angoulême",
+      "source": "crt.sh",
+      "premiere_vue": "2018-11-07T07:38:31.000Z",
+      "certificat_id": "925807489",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "jeparticipe.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2016-08-23T15:06:10.000Z",
+      "certificat_id": "32669585",
+      "emetteur": "C=BE, O=GlobalSign nv-sa, CN=GlobalSign Organization Validation CA - SHA256 - G2"
+    },
+    {
+      "sous_domaine": "jeparticipe.cenon.fr",
+      "domaine": "cenon.fr",
+      "organisation": "Cenon",
+      "source": "crt.sh",
+      "premiere_vue": "2022-08-29T00:00:00.000Z",
+      "certificat_id": "7430197510",
+      "emetteur": "C=US, O=\"Cloudflare, Inc.\", CN=Cloudflare Inc ECC CA-3"
+    },
+    {
+      "sous_domaine": "jeparticipe.eysines.fr",
+      "domaine": "eysines.fr",
+      "organisation": "Eysines",
+      "source": "crt.sh",
+      "premiere_vue": "2022-10-20T12:23:13.000Z",
+      "certificat_id": "7795273133",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "lalittorale.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2020-02-28T08:32:13.000Z",
+      "certificat_id": "2511440386",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "lateliercitoyen.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2019-11-05T00:00:00.000Z",
+      "certificat_id": "2075397193",
+      "emetteur": "C=US, ST=CA, L=San Francisco, O=\"CloudFlare, Inc.\", CN=CloudFlare Inc ECC CA-2"
+    },
+    {
+      "sous_domaine": "ldap.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-11T09:17:27.000Z",
+      "certificat_id": "13041289534",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "ldapi.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-11T09:17:11.000Z",
+      "certificat_id": "13041289406",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "ldapm.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-08T08:34:18.000Z",
+      "certificat_id": "13007540983",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "ldapm2.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-08T08:34:10.000Z",
+      "certificat_id": "13007540827",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "lesjoursheureux.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2020-10-06T07:34:20.000Z",
+      "certificat_id": "3473404653",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "leycho.eysines.fr",
+      "domaine": "eysines.fr",
+      "organisation": "Eysines",
+      "source": "crt.sh",
+      "premiere_vue": "2023-06-29T09:50:20.000Z",
+      "certificat_id": "9779096580",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "listes.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-05-29T11:08:47.000Z",
+      "certificat_id": "15118818219",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "littexpress.iut.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-10T09:05:13.000Z",
+      "certificat_id": "13029807640",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "logs.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-01T12:04:33.000Z",
+      "certificat_id": "12930939260",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "lyceehorticole.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2016-11-21T09:29:00.000Z",
+      "certificat_id": "54144130",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "m.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2012-03-28T00:00:00.000Z",
+      "certificat_id": "37115028",
+      "emetteur": "C=US, O=\"Thawte, Inc.\", OU=Domain Validated SSL, CN=Thawte DV SSL CA"
+    },
+    {
+      "sous_domaine": "maam.angouleme.fr",
+      "domaine": "angouleme.fr",
+      "organisation": "Angoulême",
+      "source": "crt.sh",
+      "premiere_vue": "2025-03-19T11:53:22.000Z",
+      "certificat_id": "17258655508",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R11"
+    },
+    {
+      "sous_domaine": "mail-link-tm-duonet.emm.bouscat.fr",
+      "domaine": "bouscat.fr",
+      "organisation": "Le Bouscat",
+      "source": "crt.sh",
+      "premiere_vue": "2026-03-19T15:16:39.000Z",
+      "certificat_id": "25093238773",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R12"
+    },
+    {
+      "sous_domaine": "mail.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2023-09-07T11:56:03.000Z",
+      "certificat_id": "10318622742",
+      "emetteur": "C=BE, O=GlobalSign nv-sa, CN=GlobalSign RSA OV SSL CA 2018"
+    },
+    {
+      "sous_domaine": "mail.angouleme.fr",
+      "domaine": "angouleme.fr",
+      "organisation": "Angoulême",
+      "source": "crt.sh",
+      "premiere_vue": "2014-03-25T00:00:00.000Z",
+      "certificat_id": "3760258",
+      "emetteur": "C=US, O=GeoTrust Inc., CN=GeoTrust SSL CA - G2"
+    },
+    {
+      "sous_domaine": "mail.artsetmetiers.fr",
+      "domaine": "artsetmetiers.fr",
+      "organisation": "École nationale supérieure d'arts et métiers Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2020-02-06T00:00:00.000Z",
+      "certificat_id": "2431824117",
+      "emetteur": "C=NL, ST=Noord-Holland, L=Amsterdam, O=TERENA, CN=TERENA SSL High Assurance CA 3"
+    },
+    {
+      "sous_domaine": "mail.eysines.fr",
+      "domaine": "eysines.fr",
+      "organisation": "Eysines",
+      "source": "crt.sh",
+      "premiere_vue": "2018-06-29T00:00:00.000Z",
+      "certificat_id": "559462457",
+      "emetteur": "C=US, O=DigiCert Inc, OU=www.digicert.com, CN=Thawte RSA CA 2018"
+    },
+    {
+      "sous_domaine": "mail.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-05-12T12:40:21.000Z",
+      "certificat_id": "14875350030",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "mapiscine.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2016-08-23T15:19:51.000Z",
+      "certificat_id": "110557134",
+      "emetteur": "C=BE, O=GlobalSign nv-sa, CN=GlobalSign Organization Validation CA - SHA256 - G2"
+    },
+    {
+      "sous_domaine": "marchespublics.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2008-08-28T15:53:43.000Z",
+      "certificat_id": "2378775858",
+      "emetteur": "C=ZA, ST=Western Cape, L=Cape Town, O=Thawte Consulting cc, OU=Certification Services Division, CN=Thawte Premium Server CA, emailAddress=premium-server@thawte.com"
+    },
+    {
+      "sous_domaine": "matomo.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2018-12-20T08:23:00.000Z",
+      "certificat_id": "1044103403",
+      "emetteur": "C=FR, O=Certinomis, organizationIdentifier=NTRFR-433998903, CN=Certinomis - Web CA"
+    },
+    {
+      "sous_domaine": "max.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-11T06:24:55.000Z",
+      "certificat_id": "13039858958",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "mbh.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2025-08-26T06:41:35.000Z",
+      "certificat_id": "20582801804",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R12"
+    },
+    {
+      "sous_domaine": "media.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2026-01-06T07:31:39.000Z",
+      "certificat_id": "23583387568",
+      "emetteur": "C=US, O=Let's Encrypt, CN=E7"
+    },
+    {
+      "sous_domaine": "mediatheque-preprod.bouscat.fr",
+      "domaine": "bouscat.fr",
+      "organisation": "Le Bouscat",
+      "source": "crt.sh",
+      "premiere_vue": "2025-07-10T03:52:21.000Z",
+      "certificat_id": "19564294884",
+      "emetteur": "C=US, O=Let's Encrypt, CN=E6"
+    },
+    {
+      "sous_domaine": "mediatheque-rec.bouscat.fr",
+      "domaine": "bouscat.fr",
+      "organisation": "Le Bouscat",
+      "source": "crt.sh",
+      "premiere_vue": "2025-07-10T04:21:17.000Z",
+      "certificat_id": "19564688792",
+      "emetteur": "C=US, O=Let's Encrypt, CN=E5"
+    },
+    {
+      "sous_domaine": "mediatheque.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2020-12-24T00:00:00.000Z",
+      "certificat_id": "3823658423",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "mediatheque.bouscat.fr",
+      "domaine": "bouscat.fr",
+      "organisation": "Le Bouscat",
+      "source": "crt.sh",
+      "premiere_vue": "2025-07-18T17:35:44.000Z",
+      "certificat_id": "19760400501",
+      "emetteur": "C=US, O=Let's Encrypt, CN=E6"
+    },
+    {
+      "sous_domaine": "mercure.iut.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-11-24T08:52:26.000Z",
+      "certificat_id": "12852606672",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "mesdemarches.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2024-05-12T22:00:00.000Z",
+      "certificat_id": "13030760334",
+      "emetteur": "C=FR, O=DHIMYOTIS, OU=0002 48146308100036, organizationIdentifier=NTRFR-48146308100036, CN=Certigna Services CA"
+    },
+    {
+      "sous_domaine": "mesdemarches.bouscat.fr",
+      "domaine": "bouscat.fr",
+      "organisation": "Le Bouscat",
+      "source": "crt.sh",
+      "premiere_vue": "2024-05-12T22:00:00.000Z",
+      "certificat_id": "13030760334",
+      "emetteur": "C=FR, O=DHIMYOTIS, OU=0002 48146308100036, organizationIdentifier=NTRFR-48146308100036, CN=Certigna Services CA"
+    },
+    {
+      "sous_domaine": "mobile.angouleme.fr",
+      "domaine": "angouleme.fr",
+      "organisation": "Angoulême",
+      "source": "crt.sh",
+      "premiere_vue": "2014-04-07T00:00:00.000Z",
+      "certificat_id": "3777524",
+      "emetteur": "C=US, O=GeoTrust Inc., CN=GeoTrust SSL CA - G2"
+    },
+    {
+      "sous_domaine": "mobility.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-01T10:40:18.000Z",
+      "certificat_id": "12930296681",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "monbordeaux.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2010-01-20T00:00:00.000Z",
+      "certificat_id": "35696014",
+      "emetteur": "O=VeriSign Trust Network, OU=\"VeriSign, Inc.\", OU=VeriSign International Server CA - Class 3, OU=www.verisign.com/CPS Incorp.by Ref. LIABILITY LTD.(c)97 VeriSign"
+    },
+    {
+      "sous_domaine": "monstationnement.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2021-10-05T22:00:00.000Z",
+      "certificat_id": "5359740382",
+      "emetteur": "C=FR, O=DHIMYOTIS, OU=0002 48146308100036, organizationIdentifier=NTRFR-48146308100036, CN=Certigna Services CA"
+    },
+    {
+      "sous_domaine": "montaignesuperstar.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2016-07-13T13:09:00.000Z",
+      "certificat_id": "24517518",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "mti3d.artsetmetiers.fr",
+      "domaine": "artsetmetiers.fr",
+      "organisation": "École nationale supérieure d'arts et métiers Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2016-03-10T14:52:00.000Z",
+      "certificat_id": "15006804",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X1"
+    },
+    {
+      "sous_domaine": "museum-ansot.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2021-06-25T00:30:08.000Z",
+      "certificat_id": "4757631620",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "musiquesactuelles.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2016-05-07T20:19:00.000Z",
+      "certificat_id": "18667272",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "musset.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-07-16T14:00:35.000Z",
+      "certificat_id": "15901465654",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "noel.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2023-11-16T00:00:00.000Z",
+      "certificat_id": "11119511800",
+      "emetteur": "C=FR, O=Gandi, CN=Gandi RSA Domain Validation Secure Server CA 3"
+    },
+    {
+      "sous_domaine": "nomade.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-01T12:04:25.000Z",
+      "certificat_id": "12930938153",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "nuxeo-dev.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-05-12T12:27:52.000Z",
+      "certificat_id": "14875229090",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "nuxeo.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-05-12T12:27:40.000Z",
+      "certificat_id": "14875227809",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "pa-mgt.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-06-04T09:28:42.000Z",
+      "certificat_id": "15208735726",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "participation.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2021-04-02T00:00:00.000Z",
+      "certificat_id": "4315977779",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "passfetes.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2018-06-27T00:00:00.000Z",
+      "certificat_id": "566774042",
+      "emetteur": "C=US, O=Amazon, OU=Server CA 1B, CN=Amazon"
+    },
+    {
+      "sous_domaine": "password.eysines.fr",
+      "domaine": "eysines.fr",
+      "organisation": "Eysines",
+      "source": "crt.sh",
+      "premiere_vue": "2021-03-29T00:00:00.000Z",
+      "certificat_id": "4292104045",
+      "emetteur": "C=GB, ST=Greater Manchester, L=Salford, O=Sectigo Limited, CN=Sectigo RSA Domain Validation Secure Server CA"
+    },
+    {
+      "sous_domaine": "pignada.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2021-05-27T05:27:00.000Z",
+      "certificat_id": "4597959620",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "pimm.artsetmetiers.fr",
+      "domaine": "artsetmetiers.fr",
+      "organisation": "École nationale supérieure d'arts et métiers Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2018-11-14T00:00:00.000Z",
+      "certificat_id": "946143989",
+      "emetteur": "C=NL, ST=Noord-Holland, L=Amsterdam, O=TERENA, CN=TERENA SSL CA 3"
+    },
+    {
+      "sous_domaine": "piscines.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2020-06-09T14:28:47.000Z",
+      "certificat_id": "2927655188",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "pixel.cenon.fr",
+      "domaine": "cenon.fr",
+      "organisation": "Cenon",
+      "source": "crt.sh",
+      "premiere_vue": "2020-01-27T15:05:18.000Z",
+      "certificat_id": "2395597255",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "pizan.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-06-19T09:28:07.000Z",
+      "certificat_id": "15468572814",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "plan.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2023-12-18T23:00:00.000Z",
+      "certificat_id": "11428351872",
+      "emetteur": "C=FR, O=DHIMYOTIS, OU=0002 48146308100036, organizationIdentifier=NTRFR-48146308100036, CN=Certigna Services CA"
+    },
+    {
+      "sous_domaine": "pma.cenon.fr",
+      "domaine": "cenon.fr",
+      "organisation": "Cenon",
+      "source": "crt.sh",
+      "premiere_vue": "2020-01-31T09:53:20.000Z",
+      "certificat_id": "2420817977",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "pod.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-05-07T09:30:32.000Z",
+      "certificat_id": "14802758320",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "poe.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-06-19T09:27:56.000Z",
+      "certificat_id": "15468568926",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "pop.artsetmetiers.fr",
+      "domaine": "artsetmetiers.fr",
+      "organisation": "École nationale supérieure d'arts et métiers Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2020-02-06T00:00:00.000Z",
+      "certificat_id": "2431824117",
+      "emetteur": "C=NL, ST=Noord-Holland, L=Amsterdam, O=TERENA, CN=TERENA SSL High Assurance CA 3"
+    },
+    {
+      "sous_domaine": "portraitsdequartiers.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2015-10-28T00:00:00.000Z",
+      "certificat_id": "10410556",
+      "emetteur": "C=FR, O=GANDI SAS, CN=Gandi Standard SSL CA"
+    },
+    {
+      "sous_domaine": "preprod.cenon.fr",
+      "domaine": "cenon.fr",
+      "organisation": "Cenon",
+      "source": "crt.sh",
+      "premiere_vue": "2026-01-29T14:41:59.000Z",
+      "certificat_id": "24060260728",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R13"
+    },
+    {
+      "sous_domaine": "producteurslocaux.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2020-04-14T15:17:23.000Z",
+      "certificat_id": "2719622014",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "proxyepn.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2020-06-09T15:05:55.000Z",
+      "certificat_id": "2930047868",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "proxyhttp.artsetmetiers.fr",
+      "domaine": "artsetmetiers.fr",
+      "organisation": "École nationale supérieure d'arts et métiers Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2019-02-19T00:00:00.000Z",
+      "certificat_id": "1216930709",
+      "emetteur": "C=NL, ST=Noord-Holland, L=Amsterdam, O=TERENA, CN=TERENA SSL CA 3"
+    },
+    {
+      "sous_domaine": "quaidessports.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2016-06-07T08:53:00.000Z",
+      "certificat_id": "21288788",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "questionnairenumerique.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2023-06-05T00:00:00.000Z",
+      "certificat_id": "9578806493",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "radius.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-01T12:04:55.000Z",
+      "certificat_id": "12930944668",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "radius2.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-01T12:04:48.000Z",
+      "certificat_id": "12930938894",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "rapo.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2021-10-05T22:00:00.000Z",
+      "certificat_id": "5359620334",
+      "emetteur": "C=FR, O=DHIMYOTIS, OU=0002 48146308100036, organizationIdentifier=NTRFR-48146308100036, CN=Certigna Services CA"
+    },
+    {
+      "sous_domaine": "rapo.bouscat.fr",
+      "domaine": "bouscat.fr",
+      "organisation": "Le Bouscat",
+      "source": "crt.sh",
+      "premiere_vue": "2023-02-07T23:00:00.000Z",
+      "certificat_id": "8604376349",
+      "emetteur": "C=FR, O=DHIMYOTIS, OU=0002 48146308100036, organizationIdentifier=NTRFR-48146308100036, CN=Certigna Services CA"
+    },
+    {
+      "sous_domaine": "rdv-accueil.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2022-09-29T22:00:00.000Z",
+      "certificat_id": "7648642801",
+      "emetteur": "C=FR, O=DHIMYOTIS, OU=0002 48146308100036, organizationIdentifier=NTRFR-48146308100036, CN=Certigna Services CA"
+    },
+    {
+      "sous_domaine": "readandride.iut.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-10T09:05:01.000Z",
+      "certificat_id": "13029807473",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "recrutement.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2020-01-30T00:00:00.000Z",
+      "certificat_id": "2393316730",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "resa-dimanches-sportifs.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2026-09-23T00:00:00.000Z",
+      "certificat_id": "29537423320",
+      "emetteur": "C=IE, O=DigiCert Ireland Limited, CN=DigiCert G2 TLS EU RSA4096 SHA384 2022 CA1"
+    },
+    {
+      "sous_domaine": "resa-participation.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2025-02-11T23:00:00.000Z",
+      "certificat_id": "16694898287",
+      "emetteur": "C=FR, O=DHIMYOTIS, OU=0002 48146308100036, organizationIdentifier=NTRFR-48146308100036, CN=Certigna Services CA"
+    },
+    {
+      "sous_domaine": "reservation-vah.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2025-08-28T09:20:23.000Z",
+      "certificat_id": "20627993365",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R12"
+    },
+    {
+      "sous_domaine": "reservationpiscines.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2020-12-17T12:00:57.000Z",
+      "certificat_id": "3793448104",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "rse.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2021-12-20T00:00:00.000Z",
+      "certificat_id": "5832941301",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "rsst.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2026-04-28T00:00:00.000Z",
+      "certificat_id": "25873982651",
+      "emetteur": "C=FR, O=Gandi SAS, CN=GandiCert"
+    },
+    {
+      "sous_domaine": "s.info.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2023-04-17T13:34:25.000Z",
+      "certificat_id": "9173691579",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "s.info.mesdemarches.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2024-09-16T07:32:08.000Z",
+      "certificat_id": "14569585895",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R11"
+    },
+    {
+      "sous_domaine": "s.info.mesdemarches.bouscat.fr",
+      "domaine": "bouscat.fr",
+      "organisation": "Le Bouscat",
+      "source": "crt.sh",
+      "premiere_vue": "2024-09-10T14:10:35.000Z",
+      "certificat_id": "14502046592",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R11"
+    },
+    {
+      "sous_domaine": "s.infos.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2023-04-17T13:33:32.000Z",
+      "certificat_id": "9173677683",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "s.infos.mesdemarches.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2024-09-10T06:07:17.000Z",
+      "certificat_id": "14497877286",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R11"
+    },
+    {
+      "sous_domaine": "s.infos.mesdemarches.bouscat.fr",
+      "domaine": "bouscat.fr",
+      "organisation": "Le Bouscat",
+      "source": "crt.sh",
+      "premiere_vue": "2024-09-10T14:11:13.000Z",
+      "certificat_id": "14502052150",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R10"
+    },
+    {
+      "sous_domaine": "samy.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-01T10:51:52.000Z",
+      "certificat_id": "12930416691",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "scodoc.iut.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-01-23T08:56:28.000Z",
+      "certificat_id": "13534677441",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "scodoc9.iut.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-03-03T14:15:39.000Z",
+      "certificat_id": "14005819802",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "scooby.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-01T10:51:52.000Z",
+      "certificat_id": "12930416691",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "score.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-02-27T10:21:26.000Z",
+      "certificat_id": "13957756743",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "selene-beta.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2023-01-31T03:10:57.000Z",
+      "certificat_id": "8541247661",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "selene-preprod.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2022-11-07T12:59:15.000Z",
+      "certificat_id": "7922917407",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "selene-rec.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2022-10-24T16:42:42.000Z",
+      "certificat_id": "7823088494",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "selene.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2023-02-13T23:00:00.000Z",
+      "certificat_id": "8651856879",
+      "emetteur": "C=FR, O=DHIMYOTIS, OU=0002 48146308100036, organizationIdentifier=NTRFR-48146308100036, CN=Certigna Services CA"
+    },
+    {
+      "sous_domaine": "semainedigitale.blog.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2017-06-07T13:06:00.000Z",
+      "certificat_id": "149716352",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "semainedigitale.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2017-06-07T13:06:00.000Z",
+      "certificat_id": "149716352",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "semainediversite.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2021-03-02T00:00:00.000Z",
+      "certificat_id": "4152522754",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "seniorsreporters.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2018-10-15T11:27:54.000Z",
+      "certificat_id": "863753197",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "service-info.iut.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-02T14:13:34.000Z",
+      "certificat_id": "12942922685",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "sig.angouleme.fr",
+      "domaine": "angouleme.fr",
+      "organisation": "Angoulême",
+      "source": "crt.sh",
+      "premiere_vue": "2014-05-28T00:00:00.000Z",
+      "certificat_id": "4613762",
+      "emetteur": "C=US, O=GeoTrust Inc., CN=GeoTrust SSL CA - G2"
+    },
+    {
+      "sous_domaine": "smtp.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-04T10:08:38.000Z",
+      "certificat_id": "12965379261",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "smtpauth.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-06-12T12:44:44.000Z",
+      "certificat_id": "15359540826",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "snacks.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-01T10:51:52.000Z",
+      "certificat_id": "12930416691",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "sondages.cenon.fr",
+      "domaine": "cenon.fr",
+      "organisation": "Cenon",
+      "source": "crt.sh",
+      "premiere_vue": "2019-04-01T08:31:59.000Z",
+      "certificat_id": "1355717296",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "spectacles.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2023-09-14T00:00:00.000Z",
+      "certificat_id": "10376774930",
+      "emetteur": "C=FR, O=Gandi, CN=Gandi RSA Domain Validation Secure Server CA 3"
+    },
+    {
+      "sous_domaine": "srv-video-ubm01.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-07-20T08:10:28.000Z",
+      "certificat_id": "15973291528",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "stationnement.bouscat.fr",
+      "domaine": "bouscat.fr",
+      "organisation": "Le Bouscat",
+      "source": "crt.sh",
+      "premiere_vue": "2023-02-07T23:00:00.000Z",
+      "certificat_id": "8604376349",
+      "emetteur": "C=FR, O=DHIMYOTIS, OU=0002 48146308100036, organizationIdentifier=NTRFR-48146308100036, CN=Certigna Services CA"
+    },
+    {
+      "sous_domaine": "subvention-test.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2026-04-29T06:31:04.000Z",
+      "certificat_id": "25905042424",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R13"
+    },
+    {
+      "sous_domaine": "subvention.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2022-09-29T22:00:00.000Z",
+      "certificat_id": "7648642801",
+      "emetteur": "C=FR, O=DHIMYOTIS, OU=0002 48146308100036, organizationIdentifier=NTRFR-48146308100036, CN=Certigna Services CA"
+    },
+    {
+      "sous_domaine": "sw00rh.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2017-06-21T07:20:08.000Z",
+      "certificat_id": "172798682",
+      "emetteur": "C=FR, O=Certinomis, OU=0002 433998903, CN=Certinomis - Easy CA"
+    },
+    {
+      "sous_domaine": "taquilla-mbh.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2025-10-15T11:15:43.000Z",
+      "certificat_id": "21736471177",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R12"
+    },
+    {
+      "sous_domaine": "teleservices.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2017-07-13T14:23:22.000Z",
+      "certificat_id": "173279577",
+      "emetteur": "C=FR, O=Certinomis, OU=0002 433998903, CN=Certinomis - Easy CA"
+    },
+    {
+      "sous_domaine": "test.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2021-07-20T11:56:18.000Z",
+      "certificat_id": "4904241431",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "test.espaces.collaboratifs.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2012-07-18T19:37:24.000Z",
+      "certificat_id": "38066913",
+      "emetteur": "C=US, O=\"GeoTrust, Inc.\", CN=RapidSSL CA"
+    },
+    {
+      "sous_domaine": "testwa.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2022-12-05T00:00:00.000Z",
+      "certificat_id": "8129536710",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "tharbad.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-10T10:28:19.000Z",
+      "certificat_id": "13030483864",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "tickets-arenes.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2026-05-07T08:22:11.000Z",
+      "certificat_id": "26145794179",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R12"
+    },
+    {
+      "sous_domaine": "tickets-fetes.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2025-05-15T08:24:02.000Z",
+      "certificat_id": "18419651102",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R11"
+    },
+    {
+      "sous_domaine": "tickets-mbh.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2025-10-15T11:15:43.000Z",
+      "certificat_id": "21736471177",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R12"
+    },
+    {
+      "sous_domaine": "tivoli.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2025-09-22T08:01:42.000Z",
+      "certificat_id": "21197279333",
+      "emetteur": "C=US, O=Let's Encrypt, CN=E7"
+    },
+    {
+      "sous_domaine": "tourdefrance.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2023-04-25T00:00:00.000Z",
+      "certificat_id": "9229666771",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "tr.ville.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2018-11-05T22:49:28.000Z",
+      "certificat_id": "922075143",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "transitions.iut.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-09T15:37:15.000Z",
+      "certificat_id": "13021382553",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "troc-aux-arts.artsetmetiers.fr",
+      "domaine": "artsetmetiers.fr",
+      "organisation": "École nationale supérieure d'arts et métiers Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2021-01-26T15:31:24.000Z",
+      "certificat_id": "3986281502",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "txartelak-mbh.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2025-10-15T11:15:43.000Z",
+      "certificat_id": "21736471177",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R12"
+    },
+    {
+      "sous_domaine": "urbanisme-test.cenon.fr",
+      "domaine": "cenon.fr",
+      "organisation": "Cenon",
+      "source": "crt.sh",
+      "premiere_vue": "2026-07-10T13:11:06.000Z",
+      "certificat_id": "27832484346",
+      "emetteur": "C=US, O=Let's Encrypt, CN=YR2"
+    },
+    {
+      "sous_domaine": "urbanisme.cenon.fr",
+      "domaine": "cenon.fr",
+      "organisation": "Cenon",
+      "source": "crt.sh",
+      "premiere_vue": "2026-05-22T13:27:32.000Z",
+      "certificat_id": "26551784677",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R13"
+    },
+    {
+      "sous_domaine": "usagers.regies.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2019-07-17T00:00:00.000Z",
+      "certificat_id": "1677162581",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "vigilance.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2024-07-01T11:48:39.000Z",
+      "certificat_id": "13583633751",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R11"
+    },
+    {
+      "sous_domaine": "villabeatrixenea.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2023-02-06T13:46:14.000Z",
+      "certificat_id": "8673174850",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "villageiut.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-04T08:25:02.000Z",
+      "certificat_id": "12964525199",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "vilmorin.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-05-18T12:47:22.000Z",
+      "certificat_id": "14961388586",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "virtuel.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2021-05-05T14:32:33.000Z",
+      "certificat_id": "4478130494",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "visio.eysines.fr",
+      "domaine": "eysines.fr",
+      "organisation": "Eysines",
+      "source": "crt.sh",
+      "premiere_vue": "2025-06-23T13:01:15.000Z",
+      "certificat_id": "19204166441",
+      "emetteur": "C=US, O=Let's Encrypt, CN=E5"
+    },
+    {
+      "sous_domaine": "visitembh.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2025-05-28T00:00:00.000Z",
+      "certificat_id": "18669737304",
+      "emetteur": "C=FR, O=Gandi SAS, CN=GandiCert"
+    },
+    {
+      "sous_domaine": "visitemediatheque.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2025-08-06T00:00:00.000Z",
+      "certificat_id": "20155085586",
+      "emetteur": "C=FR, O=Gandi SAS, CN=GandiCert"
+    },
+    {
+      "sous_domaine": "visitemediathequeville.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2025-08-26T00:00:00.000Z",
+      "certificat_id": "20585086027",
+      "emetteur": "C=FR, O=Gandi SAS, CN=GandiCert"
+    },
+    {
+      "sous_domaine": "vosmasques.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2020-05-26T06:43:14.000Z",
+      "certificat_id": "2859199711",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "vpn-ems.iut.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-02-24T14:45:28.000Z",
+      "certificat_id": "13925874399",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "vpn.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-06-04T09:34:49.000Z",
+      "certificat_id": "15208835315",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "webapp.mbh.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2026-01-08T16:13:44.000Z",
+      "certificat_id": "23636688340",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R12"
+    },
+    {
+      "sous_domaine": "webdelib.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2017-06-21T07:20:08.000Z",
+      "certificat_id": "172798682",
+      "emetteur": "C=FR, O=Certinomis, OU=0002 433998903, CN=Certinomis - Easy CA"
+    },
+    {
+      "sous_domaine": "webmail.artsetmetiers.fr",
+      "domaine": "artsetmetiers.fr",
+      "organisation": "École nationale supérieure d'arts et métiers Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2020-02-06T00:00:00.000Z",
+      "certificat_id": "2431824117",
+      "emetteur": "C=NL, ST=Noord-Holland, L=Amsterdam, O=TERENA, CN=TERENA SSL High Assurance CA 3"
+    },
+    {
+      "sous_domaine": "webmail.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-05-12T12:40:21.000Z",
+      "certificat_id": "14875350030",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "widget-mbh.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2025-12-09T14:14:21.000Z",
+      "certificat_id": "23005260170",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R13"
+    },
+    {
+      "sous_domaine": "wilcard.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2022-12-13T00:00:00.000Z",
+      "certificat_id": "8189530744",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "www.2d.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2016-05-12T14:50:00.000Z",
+      "certificat_id": "19329124",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "www.agora.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2016-11-09T23:03:00.000Z",
+      "certificat_id": "50775689",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "www.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2011-05-25T00:00:00.000Z",
+      "certificat_id": "546400",
+      "emetteur": "C=US, O=\"Thawte, Inc.\", OU=Domain Validated SSL, CN=Thawte DV SSL CA"
+    },
+    {
+      "sous_domaine": "www.angouleme.fr",
+      "domaine": "angouleme.fr",
+      "organisation": "Angoulême",
+      "source": "crt.sh",
+      "premiere_vue": "2014-03-25T00:00:00.000Z",
+      "certificat_id": "3760258",
+      "emetteur": "C=US, O=GeoTrust Inc., CN=GeoTrust SSL CA - G2"
+    },
+    {
+      "sous_domaine": "www.archive.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2017-07-28T00:00:00.000Z",
+      "certificat_id": "181445852",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "www.archives.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2020-03-05T09:06:29.000Z",
+      "certificat_id": "2550979306",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "www.artsetmetiers.fr",
+      "domaine": "artsetmetiers.fr",
+      "organisation": "École nationale supérieure d'arts et métiers Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2017-03-17T00:00:00.000Z",
+      "certificat_id": "106279843",
+      "emetteur": "C=NL, ST=Noord-Holland, L=Amsterdam, O=TERENA, CN=TERENA SSL CA 3"
+    },
+    {
+      "sous_domaine": "www.associations.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2021-07-01T00:00:00.000Z",
+      "certificat_id": "4792443414",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "www.assos.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2017-09-15T00:00:00.000Z",
+      "certificat_id": "432231562",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "www.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2012-03-26T00:00:00.000Z",
+      "certificat_id": "363860",
+      "emetteur": "C=US, O=\"Thawte, Inc.\", OU=Domain Validated SSL, CN=Thawte DV SSL CA"
+    },
+    {
+      "sous_domaine": "www.biennale.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2023-10-20T12:01:19.000Z",
+      "certificat_id": "10842473168",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "www.billetterie-spectacle.bouscat.fr",
+      "domaine": "bouscat.fr",
+      "organisation": "Le Bouscat",
+      "source": "crt.sh",
+      "premiere_vue": "2023-10-24T22:00:00.000Z",
+      "certificat_id": "10890660175",
+      "emetteur": "C=FR, O=DHIMYOTIS, OU=0002 48146308100036, organizationIdentifier=NTRFR-48146308100036, CN=Certigna Services CA"
+    },
+    {
+      "sous_domaine": "www.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2006-08-04T00:00:00.000Z",
+      "certificat_id": "2371631406",
+      "emetteur": "O=VeriSign Trust Network, OU=\"VeriSign, Inc.\", OU=VeriSign International Server CA - Class 3, OU=www.verisign.com/CPS Incorp.by Ref. LIABILITY LTD.(c)97 VeriSign"
+    },
+    {
+      "sous_domaine": "www.bordeauxboutiques.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2020-11-20T00:00:00.000Z",
+      "certificat_id": "3673022113",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "www.bouscat.fr",
+      "domaine": "bouscat.fr",
+      "organisation": "Le Bouscat",
+      "source": "crt.sh",
+      "premiere_vue": "2016-03-24T00:00:00.000Z",
+      "certificat_id": "16408964",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "www.cenon.fr",
+      "domaine": "cenon.fr",
+      "organisation": "Cenon",
+      "source": "crt.sh",
+      "premiere_vue": "2019-05-23T14:50:05.000Z",
+      "certificat_id": "1504666067",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "www.chaireunesco.iut.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-01-07T10:50:40.000Z",
+      "certificat_id": "13350672945",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "www.conservatoire.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2020-07-08T00:00:00.000Z",
+      "certificat_id": "3059783075",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "www.convocation.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2021-09-24T00:00:00.000Z",
+      "certificat_id": "5277912472",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "www.eac.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2023-06-26T22:00:00.000Z",
+      "certificat_id": "9759910244",
+      "emetteur": "C=FR, O=DHIMYOTIS, OU=0002 48146308100036, organizationIdentifier=NTRFR-48146308100036, CN=Certigna Services CA"
+    },
+    {
+      "sous_domaine": "www.egurretik.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2019-02-06T00:00:00.000Z",
+      "certificat_id": "1178510607",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "www.elgg.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2016-05-12T14:50:00.000Z",
+      "certificat_id": "19329124",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "www.elucid.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2019-08-28T00:00:00.000Z",
+      "certificat_id": "1818995541",
+      "emetteur": "C=GB, ST=Greater Manchester, L=Salford, O=Sectigo Limited, CN=Sectigo RSA Domain Validation Secure Server CA"
+    },
+    {
+      "sous_domaine": "www.extranet-conservatoire.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2023-08-06T22:00:00.000Z",
+      "certificat_id": "10085502283",
+      "emetteur": "C=FR, O=DHIMYOTIS, OU=0002 48146308100036, organizationIdentifier=NTRFR-48146308100036, CN=Certigna Services CA"
+    },
+    {
+      "sous_domaine": "www.eysines.fr",
+      "domaine": "eysines.fr",
+      "organisation": "Eysines",
+      "source": "crt.sh",
+      "premiere_vue": "2016-11-10T00:50:00.000Z",
+      "certificat_id": "50801090",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "www.fcems-server.iut.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-02-05T14:42:41.000Z",
+      "certificat_id": "13689804069",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "www.fetes.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2021-06-22T13:30:54.000Z",
+      "certificat_id": "4744706956",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "www.ijba.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-03T10:35:50.000Z",
+      "certificat_id": "12953140191",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "www.incubateur.artsetmetiers.fr",
+      "domaine": "artsetmetiers.fr",
+      "organisation": "École nationale supérieure d'arts et métiers Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2020-01-08T08:44:10.000Z",
+      "certificat_id": "2316640573",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "www.info-violences-femmes.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2019-08-01T07:42:00.000Z",
+      "certificat_id": "1775216452",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "www.iut.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-11-24T08:52:14.000Z",
+      "certificat_id": "12852607076",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "www.jeparticipe.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2017-08-31T00:00:00.000Z",
+      "certificat_id": "206568540",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "www.lalittorale.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2020-02-28T08:32:13.000Z",
+      "certificat_id": "2511440386",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "www.lesjoursheureux.anglet.fr",
+      "domaine": "anglet.fr",
+      "organisation": "Anglet",
+      "source": "crt.sh",
+      "premiere_vue": "2020-10-06T07:34:20.000Z",
+      "certificat_id": "3473404653",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "www.littexpress.iut.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-10T09:05:13.000Z",
+      "certificat_id": "13029807640",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "www.m.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2013-02-27T00:00:00.000Z",
+      "certificat_id": "39357401",
+      "emetteur": "C=FR, O=GANDI SAS, CN=Gandi Standard SSL CA"
+    },
+    {
+      "sous_domaine": "www.mail.eysines.fr",
+      "domaine": "eysines.fr",
+      "organisation": "Eysines",
+      "source": "crt.sh",
+      "premiere_vue": "2022-07-27T00:00:00.000Z",
+      "certificat_id": "7209467119",
+      "emetteur": "C=GB, ST=Greater Manchester, L=Salford, O=Sectigo Limited, CN=Sectigo RSA Domain Validation Secure Server CA"
+    },
+    {
+      "sous_domaine": "www.mapiscine.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2017-08-31T00:00:00.000Z",
+      "certificat_id": "208526590",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "www.mercure.iut.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-11-24T08:52:26.000Z",
+      "certificat_id": "12852606672",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "www.monstationnement.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2022-09-29T22:00:00.000Z",
+      "certificat_id": "7648719926",
+      "emetteur": "C=FR, O=DHIMYOTIS, OU=0002 48146308100036, organizationIdentifier=NTRFR-48146308100036, CN=Certigna Services CA"
+    },
+    {
+      "sous_domaine": "www.mti3d.artsetmetiers.fr",
+      "domaine": "artsetmetiers.fr",
+      "organisation": "École nationale supérieure d'arts et métiers Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2016-03-10T14:52:00.000Z",
+      "certificat_id": "15006804",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X1"
+    },
+    {
+      "sous_domaine": "www.museum-ansot.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2021-06-25T00:30:08.000Z",
+      "certificat_id": "4757631620",
+      "emetteur": "C=US, O=Let's Encrypt, CN=R3"
+    },
+    {
+      "sous_domaine": "www.nuxeo-dev.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-07-22T13:11:25.000Z",
+      "certificat_id": "16018496889",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "www.participation.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2021-04-02T00:00:00.000Z",
+      "certificat_id": "4315977779",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "www.password.eysines.fr",
+      "domaine": "eysines.fr",
+      "organisation": "Eysines",
+      "source": "crt.sh",
+      "premiere_vue": "2021-03-29T00:00:00.000Z",
+      "certificat_id": "4292104045",
+      "emetteur": "C=GB, ST=Greater Manchester, L=Salford, O=Sectigo Limited, CN=Sectigo RSA Domain Validation Secure Server CA"
+    },
+    {
+      "sous_domaine": "www.portraitsdequartiers.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2015-10-28T00:00:00.000Z",
+      "certificat_id": "10410556",
+      "emetteur": "C=FR, O=GANDI SAS, CN=Gandi Standard SSL CA"
+    },
+    {
+      "sous_domaine": "www.producteurslocaux.bayonne.fr",
+      "domaine": "bayonne.fr",
+      "organisation": "Bayonne",
+      "source": "crt.sh",
+      "premiere_vue": "2020-09-30T08:10:34.000Z",
+      "certificat_id": "3447843830",
+      "emetteur": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3"
+    },
+    {
+      "sous_domaine": "www.rapo.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2022-09-29T22:00:00.000Z",
+      "certificat_id": "7648719926",
+      "emetteur": "C=FR, O=DHIMYOTIS, OU=0002 48146308100036, organizationIdentifier=NTRFR-48146308100036, CN=Certigna Services CA"
+    },
+    {
+      "sous_domaine": "www.readandride.iut.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-10T09:05:01.000Z",
+      "certificat_id": "13029807473",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "www.recrutement.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2020-01-30T00:00:00.000Z",
+      "certificat_id": "2393316730",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "www.rse.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2021-12-20T00:00:00.000Z",
+      "certificat_id": "5832941301",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "www.scodoc.iut.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-01-23T08:56:28.000Z",
+      "certificat_id": "13534677441",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "www.scodoc9.iut.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-03-03T14:15:39.000Z",
+      "certificat_id": "14005819802",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "www.service-info.iut.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-02T14:13:34.000Z",
+      "certificat_id": "12942922685",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "www.subvention.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2022-09-29T22:00:00.000Z",
+      "certificat_id": "7648642801",
+      "emetteur": "C=FR, O=DHIMYOTIS, OU=0002 48146308100036, organizationIdentifier=NTRFR-48146308100036, CN=Certigna Services CA"
+    },
+    {
+      "sous_domaine": "www.transitions.iut.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-09T15:37:15.000Z",
+      "certificat_id": "13021382553",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "www.usagers.regies.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2019-07-17T00:00:00.000Z",
+      "certificat_id": "1677162581",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "www.vpn-ems.iut.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2026-02-24T14:45:28.000Z",
+      "certificat_id": "13925874399",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "www.wilcard.bordeaux.fr",
+      "domaine": "bordeaux.fr",
+      "organisation": "Bordeaux",
+      "source": "crt.sh",
+      "premiere_vue": "2022-12-13T00:00:00.000Z",
+      "certificat_id": "8189530744",
+      "emetteur": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2"
+    },
+    {
+      "sous_domaine": "www.www.ijba.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-12-03T10:35:50.000Z",
+      "certificat_id": "12953140191",
+      "emetteur": null
+    },
+    {
+      "sous_domaine": "www.www.iut.u-bordeaux-montaigne.fr",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "organisation": "Université Bordeaux Montaigne",
+      "source": "certspotter",
+      "premiere_vue": "2025-11-24T08:52:14.000Z",
+      "certificat_id": "12852607076",
+      "emetteur": null
+    }
+  ],
+  "suspects": [],
+  "tentatives": [
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "artsetmetiers.fr",
+      "statut": 200,
+      "ok": true,
+      "erreur": null,
+      "dureeMs": 7108
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "artsetmetiers.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 303
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "bordeaux-inp.fr",
+      "statut": null,
+      "ok": false,
+      "erreur": "HTTP réseau",
+      "dureeMs": 15013
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "bordeaux-inp.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 317
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "chu-bordeaux.fr",
+      "statut": 502,
+      "ok": false,
+      "erreur": "HTTP 502",
+      "dureeMs": 29
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "chu-bordeaux.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 108
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "chu-poitiers.fr",
+      "statut": 502,
+      "ok": false,
+      "erreur": "HTTP 502",
+      "dureeMs": 394
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "chu-poitiers.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 106
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "enscpb.fr",
+      "statut": 502,
+      "ok": false,
+      "erreur": "HTTP 502",
+      "dureeMs": 397
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "enscpb.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 105
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "sciencespobordeaux.fr",
+      "statut": 502,
+      "ok": false,
+      "erreur": "HTTP 502",
+      "dureeMs": 391
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "sciencespobordeaux.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 108
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "statut": 502,
+      "ok": false,
+      "erreur": "HTTP 502",
+      "dureeMs": 7594
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "u-bordeaux-montaigne.fr",
+      "statut": 200,
+      "ok": true,
+      "erreur": null,
+      "dureeMs": 1339
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "u-bordeaux.fr",
+      "statut": null,
+      "ok": false,
+      "erreur": "HTTP réseau",
+      "dureeMs": 15001
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "u-bordeaux.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 345
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "unilim.fr",
+      "statut": null,
+      "ok": false,
+      "erreur": "HTTP réseau",
+      "dureeMs": 15006
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "unilim.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 372
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "univ-larochelle.fr",
+      "statut": null,
+      "ok": false,
+      "erreur": "HTTP réseau",
+      "dureeMs": 15007
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "univ-larochelle.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 337
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "univ-pau.fr",
+      "statut": null,
+      "ok": false,
+      "erreur": "HTTP réseau",
+      "dureeMs": 15010
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "univ-pau.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 305
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "univ-poitiers.fr",
+      "statut": 200,
+      "ok": true,
+      "erreur": null,
+      "dureeMs": 915
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "univ-poitiers.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 101
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "agen.fr",
+      "statut": null,
+      "ok": false,
+      "erreur": "HTTP réseau",
+      "dureeMs": 15009
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "agen.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 323
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "anglet.fr",
+      "statut": 200,
+      "ok": true,
+      "erreur": null,
+      "dureeMs": 9160
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "anglet.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 335
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "angouleme.fr",
+      "statut": 200,
+      "ok": true,
+      "erreur": null,
+      "dureeMs": 14529
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "angouleme.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 305
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "bayonne.fr",
+      "statut": 200,
+      "ok": true,
+      "erreur": null,
+      "dureeMs": 14244
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "bayonne.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 334
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "bergerac.fr",
+      "statut": 502,
+      "ok": false,
+      "erreur": "HTTP 502",
+      "dureeMs": 2544
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "bergerac.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 104
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "biarritz.fr",
+      "statut": 502,
+      "ok": false,
+      "erreur": "HTTP 502",
+      "dureeMs": 11952
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "biarritz.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 420
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "bordeaux.fr",
+      "statut": 200,
+      "ok": true,
+      "erreur": null,
+      "dureeMs": 14345
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "bordeaux.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 313
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "bouscat.fr",
+      "statut": 200,
+      "ok": true,
+      "erreur": null,
+      "dureeMs": 14883
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "bouscat.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 355
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "brive.fr",
+      "statut": null,
+      "ok": false,
+      "erreur": "HTTP réseau",
+      "dureeMs": 15001
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "brive.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 431
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "cenon.fr",
+      "statut": 200,
+      "ok": true,
+      "erreur": null,
+      "dureeMs": 2903
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "cenon.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 98
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "chatellerault.fr",
+      "statut": null,
+      "ok": false,
+      "erreur": "HTTP réseau",
+      "dureeMs": 15004
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "chatellerault.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 531
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "dax.fr",
+      "statut": null,
+      "ok": false,
+      "erreur": "HTTP réseau",
+      "dureeMs": 15003
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "dax.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 315
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "eysines.fr",
+      "statut": 200,
+      "ok": true,
+      "erreur": null,
+      "dureeMs": 6288
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "eysines.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 409
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "artsetmetier.fr",
+      "statut": null,
+      "ok": false,
+      "erreur": "HTTP réseau",
+      "dureeMs": 15001
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "artsetmetier.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 390
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "artsetmeties.fr",
+      "statut": null,
+      "ok": false,
+      "erreur": "HTTP réseau",
+      "dureeMs": 15008
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "artsetmeties.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 1222
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "bordeaux-in.fr",
+      "statut": 200,
+      "ok": true,
+      "erreur": null,
+      "dureeMs": 2664
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "bordeaux-in.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 136
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "bordeaux-ip.fr",
+      "statut": 200,
+      "ok": true,
+      "erreur": null,
+      "dureeMs": 12389
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "bordeaux-ip.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 528
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "chu-bordeau.fr",
+      "statut": null,
+      "ok": false,
+      "erreur": "HTTP réseau",
+      "dureeMs": 15013
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "chu-bordeau.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 321
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "chu-bordeax.fr",
+      "statut": null,
+      "ok": false,
+      "erreur": "HTTP réseau",
+      "dureeMs": 15011
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "chu-bordeax.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 448
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "chu-poitier.fr",
+      "statut": 502,
+      "ok": false,
+      "erreur": "HTTP 502",
+      "dureeMs": 4352
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "chu-poitier.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 1283
+    },
+    {
+      "fournisseur": "crt.sh",
+      "domaine": "chu-poities.fr",
+      "statut": 502,
+      "ok": false,
+      "erreur": "HTTP 502",
+      "dureeMs": 10752
+    },
+    {
+      "fournisseur": "certspotter",
+      "domaine": "chu-poities.fr",
+      "statut": 429,
+      "ok": false,
+      "erreur": "HTTP 429",
+      "dureeMs": 296
+    }
+  ]
+}

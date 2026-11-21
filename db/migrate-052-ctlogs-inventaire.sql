@@ -1,4 +1,4 @@
--- 051 : inventaire des sous-domaines vus dans les Certificate Transparency logs.
+-- 052 : inventaire des sous-domaines vus dans les Certificate Transparency logs.
 --
 -- Chaque ligne porte le fournisseur et la date de première vue renvoyée par le
 -- CT log (crt.sh `first_seen` ou Cert Spotter `not_before`) : aucune date ni
@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS ct_certificat_suspect (
   certificat_id           text NOT NULL DEFAULT '',
   sous_domaines_observes  integer NOT NULL DEFAULT 0,
   collecte_le             timestamptz NOT NULL DEFAULT now(),
+  CONSTRAINT ux_ct_certificat_suspect UNIQUE (domaine, source, certificat_id)
 );
 
 CREATE INDEX IF NOT EXISTS idx_ct_certificat_suspect_premiere_vue

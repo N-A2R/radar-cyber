@@ -8,8 +8,8 @@
  * interrogées pour trouver des certificats look-alike.
  *
  * Usage :
- *   pnpm -F @radar/api exec tsx scripts/inventaire-ctlogs.mts --limite=50
- *   pnpm -F @radar/api exec tsx scripts/inventaire-ctlogs.mts --appliquer
+ *   apps/api/node_modules/.bin/tsx scripts/inventaire-ctlogs.mts --limite=30
+ *   apps/api/node_modules/.bin/tsx scripts/inventaire-ctlogs.mts --appliquer
  */
 import { readFileSync, writeFileSync } from "node:fs";
 import { ingestQuery, closePools } from "../apps/api/src/db.js";

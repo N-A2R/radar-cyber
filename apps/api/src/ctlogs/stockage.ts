@@ -109,10 +109,11 @@ export async function enregistrerInventaire(args: {
 		const rapport = args.rapport;
 		await client.query(
 			`INSERT INTO ct_collecte
-			 (domaines_interroges, sous_domaines, suspects, appels, echecs,
+			 (collecte_le, domaines_interroges, sous_domaines, suspects, appels, echecs,
 			  echecs_crtsh, appels_crtsh, rapport)
-			 VALUES ($1, $2, $3, $4, $5, $6, $7, $8::jsonb)`,
+			 VALUES ($1::timestamptz, $2, $3, $4, $5, $6, $7, $8, $9::jsonb)`,
 			[
+				rapport.collecte_le,
 				rapport.domaines_interroges,
 				rapport.sous_domaines,
 				rapport.suspects,

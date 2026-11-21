@@ -49,6 +49,9 @@ type EntreeCertSpotter = {
 const CRT_URL = "https://crt.sh/?q=";
 const SPOTTER_URL = "https://api.certspotter.com/v1/issuances";
 
+/** Au-delà de ce délai, un `Retry-After` est un quota épuisé : on le mesure, on ne l'attend pas. */
+const ATTENTE_MAX_MS = 5_000;
+
 /** Normalise les dates des deux fournisseurs en ISO-8601 (UTC). */
 function isoDate(valeur: string | undefined): string {
 	if (!valeur) return new Date(0).toISOString();
@@ -155,7 +158,7 @@ export class ClientCT {
 				const retryAfter = reponse.headers?.get("retry-after");
 				const retryAfterMs = retryAfter && /^\d+$/.test(retryAfter) ? Number(retryAfter) * 1000 : null;
 				const corps = await reponse.text();
-				if (reponse.status === 429 && retryAfterMs !== null && tentative === 0) {
+				if (reponse.status === 429 && retryAfterMs !== null && retryAfterMs <= ATTENTE_MAX_MS && tentative === 0) {
 					await this.dormir(retryAfterMs);
 					continue;
 				}
