@@ -7,6 +7,7 @@
  * décrivent réellement un article, avec ses champs canoniques.
  */
 import { isObject } from "./xml.js";
+import { normalizeDate } from "./canonical.js";
 
 type JsonRecord = Record<string, unknown>;
 
@@ -79,16 +80,18 @@ function toItem(node: JsonRecord): JsonRecord | null {
   const summary = clean(stringField(node, ["description", "abstract", "articleBody", "summary"])).slice(0, 2000);
   const rawLink = stringField(node, ["url", "@id", "mainEntityOfPage"]);
   const link = rawLink.split("#")[0] ?? rawLink;
-  const date = stringField(node, ["datePublished", "dateCreated", "dateModified", "uploadDate"]);
+  const date = normalizeDate(stringField(node, ["datePublished", "dateCreated", "dateModified", "uploadDate"]));
   return { title, ...(summary ? { summary } : {}), ...(link ? { link } : {}), ...(date ? { date } : {}) };
 }
 
+export type JsonLdParse = { items: JsonRecord[]; errors: string[] };
+
 /**
  * Extrait les articles JSON-LD d'un corps HTML ou d'un document JSON-LD pur.
- * `null` si aucun nœud n'est un article : les métadonnées de site ne sont pas
- * des événements et ne doivent pas masquer une autre stratégie.
+ * `null` si aucun bloc JSON-LD n'est présent : les métadonnées de site seules
+ * ne sont pas des événements et ne doivent pas masquer une autre stratégie.
  */
-export function parseJsonLd(body: string): JsonRecord[] | null {
+export function parseJsonLdDetailed(body: string): JsonLdParse | null {
   const raws: string[] = [];
   const trimmed = body.trim();
   if (trimmed.startsWith("{") || trimmed.startsWith("[")) raws.push(trimmed);
@@ -99,11 +102,15 @@ export function parseJsonLd(body: string): JsonRecord[] | null {
   }
   if (raws.length === 0 || !/application\/ld\+json|[\"']@context[\"']/.test(body)) return null;
 
+  const errors: string[] = [];
   const items: JsonRecord[] = [];
   const seen = new Set<string>();
   for (const raw of raws) {
     let data: unknown;
-    try { data = JSON.parse(raw); } catch { continue; }
+    try { data = JSON.parse(raw); } catch (e) {
+      errors.push(`json-ld-invalide: ${(e as Error).message.slice(0, 120)}`);
+      continue;
+    }
     for (const node of articleNodes(data)) {
       const item = toItem(node);
       if (!item) continue;
@@ -113,5 +120,12 @@ export function parseJsonLd(body: string): JsonRecord[] | null {
       items.push(item);
     }
   }
-  return items.length > 0 ? items : null;
+  if (items.length === 0) errors.push("json-ld-sans-article");
+  return { items, errors };
+}
+
+/** Compatibilité : la liste d'articles, ou `null` si aucun n'est exploitable. */
+export function parseJsonLd(body: string): JsonRecord[] | null {
+  const parsed = parseJsonLdDetailed(body);
+  return parsed && parsed.items.length > 0 ? parsed.items : null;
 }

@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?><feed
+	xmlns="http://www.w3.org/2005/Atom"
+	xmlns:thr="http://purl.org/syndication/thread/1.0"
+	xml:lang="en-US"
+	xmlns:media="http://search.yahoo.com/mrss/"
+>
+	<title type="text">news – ZDNET</title>
+	<subtitle type="text">News and Advice on the World&#039;s Latest Innovations</subtitle>
+
+	<updated>2026-11-20T17:03:37Z</updated>
+
+	<link rel="alternate" type="text/html" href="https://www.zdnet.com" />
+	<id>https://www.zdnet.com/feed/atom/</id>
+	<link rel="self" type="application/atom+xml" href="https://www.zdnet.com/rss/news/" />
+
+	<generator uri="https://wordpress.org/" version="6.9.12">WordPress</generator>
+<icon>https://www.zdnet.com/wp-content/uploads/sites/3/cropped-ZDNET-512Yellow.png?w=32</icon>
+	<entry>
+		<author>
+			<name>Radhika Rajkumar</name>
+					</author>
+
+		<title type="html"><![CDATA[Signal to restrict screenshots over AI agent concerns – again]]></title>
+		<link rel="alternate" type="text/html" href="https://www.zdnet.com/innovation/signal-restricts-screenshots-over-ai-agent-concerns/" />
+
+		<id>1451432</id>
+		<updated>2026-11-20T17:03:37Z</updated>
+		<published>2026-11-20T17:03:37Z</published>
+		<category scheme="https://www.zdnet.com" term="Artificial Intelligence" />
+		<summary type="html"><![CDATA[The messaging app similarly limited screenshots because of Microsoft Recall last year.]]></summary>
+
+		
+		<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/protecting-your-privacy-1.png" medium="image" width="1560" height="884" />
+<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/protecting-your-privacy-1.png?w=300&#038;h=300&#038;crop=1" medium="image" width="300" height="300" />
+	</entry>
+		<entry>
+		<author>
+			<name>Radhika Rajkumar</name>
+					</author>
+
+		<title type="html"><![CDATA[Meta Muse booked an Airbnb without permission – and that’s not the worst of it]]></title>
+		<link rel="alternate" type="text/html" href="https://www.zdnet.com/tech/meta-muse-privacy-violatons-employees-report/" />
+
+		<id>1449658</id>
+		<updated>2026-11-19T18:11:20Z</updated>
+		<published>2026-11-19T18:11:20Z</published>
+		<category scheme="https://www.zdnet.com" term="Security" />
+		<summary type="html"><![CDATA[Meta employees have reported alarming privacy violations involving Muse, including unauthorized actions. An investigation also found the AI agent accessed private messages.]]></summary>
+
+		
+		<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/Meta-Muse.jpg" medium="image" width="3840" height="2160" />
+<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/Meta-Muse.jpg?w=300&#038;h=300&#038;crop=1" medium="image" width="300" height="300" />
+	</entry>
+		<entry>
+		<author>
+			<name>Jack Wallen</name>
+					</author>
+
+		<title type="html"><![CDATA[I’ve tested countless Linux distros, and Pond is unlike anything I’ve tried – here’s why]]></title>
+		<link rel="alternate" type="text/html" href="https://www.zdnet.com/tech/pond-distro-arch-linux-unique-ui/" />
+
+		<id>1448140</id>
+		<updated>2026-11-19T17:30:38Z</updated>
+		<published>2026-11-19T17:30:38Z</published>
+		<category scheme="https://www.zdnet.com" term="Linux" />
+		<summary type="html"><![CDATA[Feeling adventurous? This Linux distribution is exciting, efficient and totally unique.]]></summary>
+
+		
+		<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/pondhero.jpg" medium="image" width="1600" height="900" />
+<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/pondhero.jpg?w=300&#038;h=300&#038;crop=1" medium="image" width="300" height="300" />
+	</entry>
+		<entry>
+		<author>
+			<name>Lance Whitney</name>
+					</author>
+
+		<title type="html"><![CDATA[Your Google AI mode searches can stay private now with ‘temporary threads’ – here’s how]]></title>
+		<link rel="alternate" type="text/html" href="https://www.zdnet.com/innovation/google-ai-mode-searches-private-temporary-threads/" />
+
+		<id>1449831</id>
+		<updated>2026-11-19T17:12:31Z</updated>
+		<published>2026-11-19T17:12:31Z</published>
+		<category scheme="https://www.zdnet.com" term="Artificial Intelligence" />
+		<summary type="html"><![CDATA[With temporary threads, any searches you run in Google’s AI Mode won’t be associated with your account or saved to your chat history.]]></summary>
+
+		
+		<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/Google-AI-Mode-temporary-thread.jpg" medium="image" width="3000" height="1688" />
+<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/Google-AI-Mode-temporary-thread.jpg?w=300&#038;h=300&#038;crop=1" medium="image" width="300" height="300" />
+	</entry>
+		<entry>
+		<author>
+			<name>Adrian Kingsley-Hughes</name>
+					</author>
+
+		<title type="html"><![CDATA[The Flipper One is more than a Zero 2.0 – it’s a $399 Linux computer with a $13M Kickstarter]]></title>
+		<link rel="alternate" type="text/html" href="https://www.zdnet.com/tech/flipper-one-cost-features-linux-computer-kickstarter/" />
+
+		<id>1448135</id>
+		<updated>2026-11-19T13:28:20Z</updated>
+		<published>2026-11-19T13:28:20Z</published>
+		<category scheme="https://www.zdnet.com" term="Linux" />
+		<summary type="html"><![CDATA[Backers are going big on the $759 Ultimate Bundle, but Flipper warns that rising RAM prices could affect production.]]></summary>
+
+		
+		<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/Flipper-One-2.jpg" medium="image" width="3840" height="2160" />
+<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/Flipper-One-2.jpg?w=300&#038;h=300&#038;crop=1" medium="image" width="300" height="300" />
+	</entry>
+		<entry>
+		<author>
+			<name>Radhika Rajkumar</name>
+					</author>
+
+		<title type="html"><![CDATA[90% of employers reject resumes that look like AI – yet half use AI to interview]]></title>
+		<link rel="alternate" type="text/html" href="https://www.zdnet.com/innovation/ai-applications-skipped-interview/" />
+
+		<id>1444965</id>
+		<updated>2026-11-19T12:00:23Z</updated>
+		<published>2026-11-19T12:00:00Z</published>
+		<category scheme="https://www.zdnet.com" term="Artificial Intelligence" />
+		<summary type="html"><![CDATA[In today’s job market, do applicants really have a choice of whether to comply with AI hiring tools?]]></summary>
+
+		
+		<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/GettyImages-2241142271.jpg" medium="image" width="2121" height="1414" />
+<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/GettyImages-2241142271.jpg?w=300&#038;h=300&#038;crop=1" medium="image" width="300" height="300" />
+	</entry>
+		<entry>
+		<author>
+			<name>Maria Diaz</name>
+					</author>
+
+		<title type="html"><![CDATA[Google Wallet comes to your iPhone – but without this feature]]></title>
+		<link rel="alternate" type="text/html" href="https://www.zdnet.com/tech/google-wallet-iphone-ios-no-tap-to-pay/" />
+
+		<id>1445097</id>
+		<updated>2026-11-18T18:02:15Z</updated>
+		<published>2026-11-18T18:02:15Z</published>
+		<category scheme="https://www.zdnet.com" term="iOS" />
+		<summary type="html"><![CDATA[The new Google Wallet app brings Gemini agentic shopping to US-based iOS users –  sorry, no tap-to-pay.]]></summary>
+
+		
+		<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/GoogleWallet_72b775.jpg" medium="image" width="1920" height="1080" />
+<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/GoogleWallet_72b775.jpg?w=300&#038;h=300&#038;crop=1" medium="image" width="300" height="300" />
+	</entry>
+		<entry>
+		<author>
+			<name>Lance Whitney</name>
+					</author>
+
+		<title type="html"><![CDATA[5 new Apple Health features you should try in iOS 27.3 – if your phone qualifies]]></title>
+		<link rel="alternate" type="text/html" href="https://www.zdnet.com/health/apple-health-ios-27-3-ai-features-compatible-iphones/" />
+
+		<id>1447737</id>
+		<updated>2026-11-18T18:00:48Z</updated>
+		<published>2026-11-18T18:00:48Z</published>
+		<category scheme="https://www.zdnet.com" term="Health" />
+		<summary type="html"><![CDATA[Apple’s redesigned Health app arrives in December with some major upgrades, but not every iPhone will get the full experience.]]></summary>
+
+		
+		<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/Figure-Top-5-new-AI-features-in-Apples-Health-app.jpg" medium="image" width="3000" height="1688" />
+<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/Figure-Top-5-new-AI-features-in-Apples-Health-app.jpg?w=300&#038;h=300&#038;crop=1" medium="image" width="300" height="300" />
+	</entry>
+		<entry>
+		<author>
+			<name>Radhika Rajkumar</name>
+					</author>
+
+		<title type="html"><![CDATA[You can use Google’s Spark AI agent, renamed Tasks, for free now – with limits]]></title>
+		<link rel="alternate" type="text/html" href="https://www.zdnet.com/innovation/gemini-spark-tasks-free-personal-agent/" />
+
+		<id>1447330</id>
+		<updated>2026-11-18T17:11:39Z</updated>
+		<published>2026-11-18T17:11:39Z</published>
+		<category scheme="https://www.zdnet.com" term="Artificial Intelligence" />
+		<summary type="html"><![CDATA[At least if Tasks disappoints, it won’t cost you – unlike OpenAI and Anthropic’s subscription-based agents.]]></summary>
+
+		
+		<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/chattaskScreenshot-2026-11-18-115205.jpg" medium="image" width="967" height="534" />
+<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/chattaskScreenshot-2026-11-18-115205.jpg?w=300&#038;h=300&#038;crop=1" medium="image" width="300" height="300" />
+	</entry>
+		<entry>
+		<author>
+			<name>Vala Afshar</name>
+					</author>
+
+		<title type="html"><![CDATA[74% of shoppers trust AI agents for buying advice – but checkout is another story]]></title>
+		<link rel="alternate" type="text/html" href="https://www.zdnet.com/innovation/retailer-shoppers-ai-agents-buying-advice/" />
+
+		<id>1445315</id>
+		<updated>2026-11-18T16:52:59Z</updated>
+		<published>2026-11-18T16:52:59Z</published>
+		<category scheme="https://www.zdnet.com" term="Artificial Intelligence" />
+		<summary type="html"><![CDATA[Shoppers who use AI agents spend 8% more than the average buyer and purchase 23% more items per order.]]></summary>
+
+		
+		<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/yellow-cart-GettyImages-2279292045.jpg" medium="image" width="8000" height="4500" />
+<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/yellow-cart-GettyImages-2279292045.jpg?w=300&#038;h=300&#038;crop=1" medium="image" width="300" height="300" />
+	</entry>
+		<entry>
+		<author>
+			<name>Nina Raemont</name>
+					</author>
+
+		<title type="html"><![CDATA[Your Wear OS smartwatch just got a new way to save battery life]]></title>
+		<link rel="alternate" type="text/html" href="https://www.zdnet.com/tech/wear-os-smartwatches-update-save-battery-life-galaxy-pixel/" />
+
+		<id>1447419</id>
+		<updated>2026-11-18T16:24:20Z</updated>
+		<published>2026-11-18T16:24:20Z</published>
+		<category scheme="https://www.zdnet.com" term="Tech" />
+		<summary type="html"><![CDATA[It could make your Pixel Watch or Samsung Galaxy Watch more power efficient.]]></summary>
+
+		
+		<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/dsc00138_8b66e2.jpg" medium="image" width="6192" height="3480" />
+<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/dsc00138_8b66e2.jpg?w=300&#038;h=300&#038;crop=1" medium="image" width="300" height="300" />
+	</entry>
+		<entry>
+		<author>
+			<name>Jack Wallen</name>
+					</author>
+
+		<title type="html"><![CDATA[I’ve tested Ubuntu 27.04 ahead of its April release – and it will wow you]]></title>
+		<link rel="alternate" type="text/html" href="https://www.zdnet.com/tech/ubuntu-27-04-april-release-new-features-performance/" />
+
+		<id>1445541</id>
+		<updated>2026-11-18T13:46:55Z</updated>
+		<published>2026-11-18T13:46:55Z</published>
+		<category scheme="https://www.zdnet.com" term="Linux" />
+		<summary type="html"><![CDATA[I’ve been using Ubuntu 27.04, and the speed boost is noticeable. Here’s what else is coming.]]></summary>
+
+		
+		<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/tenacioushero.jpg" medium="image" width="1600" height="900" />
+<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/tenacioushero.jpg?w=300&#038;h=300&#038;crop=1" medium="image" width="300" height="300" />
+	</entry>
+		<entry>
+		<author>
+			<name>Radhika Rajkumar</name>
+					</author>
+
+		<title type="html"><![CDATA[Microsoft’s new Licensed Weights lets businesses customize AI models with their own data]]></title>
+		<link rel="alternate" type="text/html" href="https://www.zdnet.com/innovation/microsoft-licensed-weights-ai-models-ignite-2026/" />
+
+		<id>1445926</id>
+		<updated>2026-11-18T12:56:53Z</updated>
+		<published>2026-11-18T12:56:53Z</published>
+		<category scheme="https://www.zdnet.com" term="Artificial Intelligence" />
+		<summary type="html"><![CDATA[Microsoft is bridging the gap between proprietary and open-weight AI while targeting data-conscious businesses.]]></summary>
+
+		
+		<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/Screenshot-2026-11-17-at-2.46.59-PM.png" medium="image" width="1860" height="967" />
+<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/Screenshot-2026-11-17-at-2.46.59-PM.png?w=300&#038;h=300&#038;crop=1" medium="image" width="300" height="300" />
+	</entry>
+		<entry>
+		<author>
+			<name>Radhika Rajkumar</name>
+					</author>
+
+		<title type="html"><![CDATA[Microsoft unveiled Copilot Workspaces at Ignite 2026, plus more AI workplace updates]]></title>
+		<link rel="alternate" type="text/html" href="https://www.zdnet.com/innovation/microsoft-copilot-workspaces-ignite-2026/" />
+
+		<id>1445520</id>
+		<updated>2026-11-17T23:14:05Z</updated>
+		<published>2026-11-17T23:14:05Z</published>
+		<category scheme="https://www.zdnet.com" term="Artificial Intelligence" />
+		<summary type="html"><![CDATA[The company also released new ROI tracking tools for companies monitoring their AI spend.]]></summary>
+
+		
+		<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/Screenshot-2026-11-17-at-1.21.10-PM.png" medium="image" width="1815" height="981" />
+<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/Screenshot-2026-11-17-at-1.21.10-PM.png?w=300&#038;h=300&#038;crop=1" medium="image" width="300" height="300" />
+	</entry>
+		<entry>
+		<author>
+			<name>David Gewirtz</name>
+					</author>
+
+		<title type="html"><![CDATA[Microsoft wants to put a dollar value on AI’s work – but can you trust the math?]]></title>
+		<link rel="alternate" type="text/html" href="https://www.zdnet.com/innovation/microsoft-agent-365-business-analytics-ignite/" />
+
+		<id>1446098</id>
+		<updated>2026-11-17T23:05:48Z</updated>
+		<published>2026-11-17T23:05:48Z</published>
+		<category scheme="https://www.zdnet.com" term="Artificial Intelligence" />
+		<summary type="html"><![CDATA[With Agent 365 Business Analytics, Microsoft could reshape enterprise spending, but there’s a critical difference between estimated value and money saved.]]></summary>
+
+		
+		<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/Satya.png" medium="image" width="1703" height="954" />
+<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/Satya.png?w=300&#038;h=300&#038;crop=1" medium="image" width="300" height="300" />
+	</entry>
+		<entry>
+		<author>
+			<name>David Gewirtz</name>
+					</author>
+
+		<title type="html"><![CDATA[Microsoft says its new AI coding model rivals Claude Opus 5.5 at 5% of the cost]]></title>
+		<link rel="alternate" type="text/html" href="https://www.zdnet.com/innovation/microsoft-ai-coding-model-rivals-claude-opus-5-5-ignite/" />
+
+		<id>1445961</id>
+		<updated>2026-11-17T22:42:44Z</updated>
+		<published>2026-11-17T22:42:44Z</published>
+		<category scheme="https://www.zdnet.com" term="Artificial Intelligence" />
+		<summary type="html"><![CDATA[Microsoft announced two new AI models at Ignite 2026 that promise impressive performance for much lower cost. They could reshape its relationship with OpenAI and Anthropic for good.]]></summary>
+
+		
+		<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/ignite.jpg" medium="image" width="1596" height="936" />
+<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/ignite.jpg?w=300&#038;h=300&#038;crop=1" medium="image" width="300" height="300" />
+	</entry>
+		<entry>
+		<author>
+			<name>Artie Beaty</name>
+					</author>
+
+		<title type="html"><![CDATA[Goodbye, Gemini Gems: How to use Google’s new Skills – and share them]]></title>
+		<link rel="alternate" type="text/html" href="https://www.zdnet.com/business/gemini-gems-google-skills-transition/" />
+
+		<id>1445336</id>
+		<updated>2026-11-17T19:54:04Z</updated>
+		<published>2026-11-17T19:54:04Z</published>
+		<category scheme="https://www.zdnet.com" term="Google" />
+		<summary type="html"><![CDATA[Google is retiring Gemini Gems. Here’s what to do to access the same tools as Skills.]]></summary>
+
+		
+		<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/GettyImages-2295330247.jpg" medium="image" width="5000" height="3333" />
+<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/GettyImages-2295330247.jpg?w=300&#038;h=300&#038;crop=1" medium="image" width="300" height="300" />
+	</entry>
+		<entry>
+		<author>
+			<name>Taylor Clemons</name>
+					</author>
+
+		<title type="html"><![CDATA[Your Googlebook just got a Chrome update – 5 new features]]></title>
+		<link rel="alternate" type="text/html" href="https://www.zdnet.com/tech/googlebook-os-chrome-update-new-features/" />
+
+		<id>1444944</id>
+		<updated>2026-11-17T18:21:55Z</updated>
+		<published>2026-11-17T18:21:55Z</published>
+		<category scheme="https://www.zdnet.com" term="Services &amp; Software" />
+		<summary type="html"><![CDATA[The Chrome update includes more useful vertical tabs, easier screen sharing, and some handy keyboard shortcuts.]]></summary>
+
+		
+		<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/DSC01222.jpeg" medium="image" width="6192" height="3480" />
+<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/DSC01222.jpeg?w=300&#038;h=300&#038;crop=1" medium="image" width="300" height="300" />
+	</entry>
+		<entry>
+		<author>
+			<name>Lance Whitney</name>
+					</author>
+
+		<title type="html"><![CDATA[Google is making it easier to opt out of Gemini AI model training – here’s how]]></title>
+		<link rel="alternate" type="text/html" href="https://www.zdnet.com/innovation/google-gemini-ai-model-training-opt-out-how/" />
+
+		<id>1445353</id>
+		<updated>2026-11-17T18:01:38Z</updated>
+		<published>2026-11-17T18:01:38Z</published>
+		<category scheme="https://www.zdnet.com" term="Artificial Intelligence" />
+		<summary type="html"><![CDATA[You’ll soon be able to turn off Gemini model training but still retain access to your previous chats with Google’s AI.]]></summary>
+
+		
+		<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/Gemini-Keep-Activity-setting.jpg" medium="image" width="3000" height="1688" />
+<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/Gemini-Keep-Activity-setting.jpg?w=300&#038;h=300&#038;crop=1" medium="image" width="300" height="300" />
+	</entry>
+		<entry>
+		<author>
+			<name>Maria Diaz</name>
+					</author>
+
+		<title type="html"><![CDATA[I asked Gemini Notebook to ‘make me a site’ from my notes – it was satisfying]]></title>
+		<link rel="alternate" type="text/html" href="https://www.zdnet.com/innovation/google-gemini-notebook-interactive-sites-notes/" />
+
+		<id>1443126</id>
+		<updated>2026-11-17T17:52:39Z</updated>
+		<published>2026-11-17T17:52:39Z</published>
+		<category scheme="https://www.zdnet.com" term="Artificial Intelligence" />
+		<summary type="html"><![CDATA[A new Gemini Notebook feature lets you create interactive sites from intricate data.]]></summary>
+
+		
+		<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/1111_97018e.jpg" medium="image" width="1920" height="1080" />
+<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/1111_97018e.jpg?w=300&#038;h=300&#038;crop=1" medium="image" width="300" height="300" />
+	</entry>
+		<entry>
+		<author>
+			<name>Lance Whitney</name>
+					</author>
+
+		<title type="html"><![CDATA[Apple reveals daily limits on your Siri AI use – here’s how much you’ll have to pay]]></title>
+		<link rel="alternate" type="text/html" href="https://www.zdnet.com/innovation/apple-siri-ai-daily-limits-cost-icloud-plus-plan/" />
+
+		<id>1445196</id>
+		<updated>2026-11-17T17:16:38Z</updated>
+		<published>2026-11-17T17:16:38Z</published>
+		<category scheme="https://www.zdnet.com" term="Artificial Intelligence" />
+		<summary type="html"><![CDATA[The more you pay for an iCloud+ plan, the more you’ll be able to use Siri AI and Apple Intelligence for advanced server-side tasks.]]></summary>
+
+		
+		<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/siri-ai-setting-on-iphone_399659.jpg" medium="image" width="2000" height="1125" />
+<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/siri-ai-setting-on-iphone_399659.jpg?w=300&#038;h=300&#038;crop=1" medium="image" width="300" height="300" />
+	</entry>
+		<entry>
+		<author>
+			<name>Jada Jones</name>
+					</author>
+
+		<title type="html"><![CDATA[Own 2 Android phones? Google may let you switch service fast – like iPhone Handoff]]></title>
+		<link rel="alternate" type="text/html" href="https://www.zdnet.com/tech/android-fast-switch-like-iphone-handoff/" />
+
+		<id>1445052</id>
+		<updated>2026-11-17T16:19:15Z</updated>
+		<published>2026-11-17T16:19:15Z</published>
+		<category scheme="https://www.zdnet.com" term="Android" />
+		<summary type="html"><![CDATA[If Android Fast Switch works like iPhone Handoff, one eSIM can be quickly switched between two phones.]]></summary>
+
+		
+		<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/eac2e9bd-2af1-4f41-97bf-98e726de5a35-1-201-a.jpg" medium="image" width="5528" height="2995" />
+<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/eac2e9bd-2af1-4f41-97bf-98e726de5a35-1-201-a.jpg?w=300&#038;h=300&#038;crop=1" medium="image" width="300" height="300" />
+	</entry>
+		<entry>
+		<author>
+			<name>Nina Raemont</name>
+					</author>
+
+		<title type="html"><![CDATA[Oura’s new feature could help you kick jet lag – how to enable it]]></title>
+		<link rel="alternate" type="text/html" href="https://www.zdnet.com/tech/oura-jet-lag-plan/" />
+
+		<id>1444988</id>
+		<updated>2026-11-17T16:05:30Z</updated>
+		<published>2026-11-17T16:05:30Z</published>
+		<category scheme="https://www.zdnet.com" term="Smart rings" />
+		<summary type="html"><![CDATA[Oura just launched a Jet Lag Plan to help you stay alert when you switch time zones, whether you’re traveling for business or pleasure.]]></summary>
+
+		
+		<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/screenshot-2026-07-01-at-11-09-24am_c37829.png" medium="image" width="1490" height="834" />
+<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/screenshot-2026-07-01-at-11-09-24am_c37829.png?w=300&#038;h=300&#038;crop=1" medium="image" width="300" height="300" />
+	</entry>
+		<entry>
+		<author>
+			<name>Nina Raemont</name>
+					</author>
+
+		<title type="html"><![CDATA[Apple could build its AI health chatbot from this study – how to enroll]]></title>
+		<link rel="alternate" type="text/html" href="https://www.zdnet.com/tech/apple-health-ai-usage-study-how-to-enroll/" />
+
+		<id>1443622</id>
+		<updated>2026-11-16T19:25:57Z</updated>
+		<published>2026-11-16T19:25:57Z</published>
+		<category scheme="https://www.zdnet.com" term="Tech" />
+		<summary type="html"><![CDATA[Apple is leaning into AI-powered health tools with the launch of its Apple Health AI Usage Study.]]></summary>
+
+		
+		<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/63e6c0eb-8321-4e2c-a17a-50dd35f33946.jpg" medium="image" width="4096" height="2304" />
+<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/63e6c0eb-8321-4e2c-a17a-50dd35f33946.jpg?w=300&#038;h=300&#038;crop=1" medium="image" width="300" height="300" />
+	</entry>
+		<entry>
+		<author>
+			<name>Charlie Osborne</name>
+					</author>
+
+		<title type="html"><![CDATA[5 ways AI will change how you defend your business in 2027]]></title>
+		<link rel="alternate" type="text/html" href="https://www.zdnet.com/innovation/google-cloud-ciso-perspectives-2027-ai-security-defenses/" />
+
+		<id>1441557</id>
+		<updated>2026-11-16T18:58:52Z</updated>
+		<published>2026-11-16T18:58:52Z</published>
+		<category scheme="https://www.zdnet.com" term="Artificial Intelligence" />
+		<summary type="html"><![CDATA[Security leaders reveal the future consequences of AI outpacing human defenders.]]></summary>
+
+		
+		<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/walldefenses-2026-11-16-130819.jpg" medium="image" width="685" height="454" />
+<media:content url="https://www.zdnet.com/wp-content/uploads/sites/3/walldefenses-2026-11-16-130819.jpg?w=300&#038;h=300&#038;crop=1" medium="image" width="300" height="300" />
+	</entry>
+	</feed>

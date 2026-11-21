@@ -1,4 +1,5 @@
-import { XMLParser } from "fast-xml-parser";
+import { XMLParser, XMLValidator } from "fast-xml-parser";
+import { decodeEntities, normalizeDate, stripHtml } from "./canonical.js";
 
 export function isObject(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -41,7 +42,7 @@ export function detectFeedKind(xml: string): FeedKind | null {
 
 /** Valeur textuelle d'un nœud fast-xml-parser (texte, `#text` ou attribut). */
 function textOf(value: unknown): string {
-  if (typeof value === "string") return value.trim();
+  if (typeof value === "string") return decodeEntities(value.trim());
   if (Array.isArray(value)) {
     for (const entry of value) {
       const text = textOf(entry);
@@ -57,17 +58,18 @@ function textOf(value: unknown): string {
   return "";
 }
 
-/** Lien d'un `<link>` Atom, qui porte son href en attribut et par option. */
+/** Lien d'un `<link>` Atom : href en attribut ; `self` n'est pas l'article. */
 function linkOf(value: unknown): string {
   if (Array.isArray(value)) {
-    for (const entry of value) {
-      if (isObject(entry) && entry["@_rel"] && !/^(?:alternate|self)$/i.test(String(entry["@_rel"]))) continue;
-      const link = linkOf(entry);
-      if (link) return link;
-    }
-    return "";
+    const links = value.filter(isObject).filter((entry) => !/^(?:self|enclosure|related)$/i.test(String(entry["@_rel"] ?? "")));
+    if (links.length === 0) return textOf(value);
+    const alternate = links.find((entry) => !entry["@_rel"] || /^alternate$/i.test(String(entry["@_rel"])));
+    return linkOf(alternate ?? links[0]);
   }
   if (!isObject(value)) return textOf(value);
+  if (/^(?:self|enclosure|related)$/i.test(String(value["@_rel"] ?? ""))) return "";
+  // <guid isPermaLink="false"> est un identifiant, pas une URL.
+  if (/^false$/i.test(String(value["@_isPermaLink"] ?? ""))) return "";
   return textOf(value["@_href"] ?? value["@_url"] ?? value["#text"]);
 }
 
@@ -84,24 +86,36 @@ export function canonicalizeFeedItem(item: Record<string, unknown>, kind: FeedKi
       }
     }
   };
-  ensure("title", ["title", "dc:title", "atom:title", "name"]);
+  ensure("title", ["title", "dc:title", "atom:title", "name"], (v) => stripHtml(textOf(v)));
   ensure("link", ["link", "atom:link", "guid", "id"], linkOf);
-  ensure("date", kind === "atom" ? ["published", "updated", "dc:date", "pubDate"] : ["pubDate", "dc:date", "published", "updated"]);
-  ensure("summary", ["description", "summary", "content:encoded", "content", "encoded"]);
-  ensure("author", ["author", "dc:creator", "creator"]);
+  ensure("date", kind === "atom" ? ["published", "updated", "dc:date", "pubDate"] : ["pubDate", "dc:date", "published", "updated"],
+    (v) => normalizeDate(textOf(v)));
+  ensure("summary", ["description", "summary", "content:encoded", "content", "encoded"], (v) => stripHtml(textOf(v)));
+  ensure("author", ["author", "dc:creator", "creator"], (v) => stripHtml(textOf(v)));
   if (typeof item["content:encoded"] === "string") out.content = item["content:encoded"];
   return out;
 }
 
-/** Détection complète d'un flux : items canoniques, chemin et type explicite. */
-export function parseFeedDetection(xml: string): { items: Record<string, unknown>[]; path: string; kind: FeedKind } | null {
+export type FeedParse = {
+  items: Record<string, unknown>[];
+  path: string;
+  kind: FeedKind;
+  errors: string[];
+};
+
+/** Flux RSS/Atom/RDF avec diagnostics : XML invalide, flux sans item, chemin de repli. */
+export function parseFeedDetailed(xml: string): FeedParse | null {
   const kind = detectFeedKind(xml) ?? (/<(?:[\w.-]+:)?(?:item|entry)[\s>]/i.test(xml) ? "rss-atom" : null);
   if (!kind) return null;
+  const errors: string[] = [];
+  const valid = XMLValidator.validate(xml);
+  if (valid !== true) errors.push(`xml-invalide: ${valid.err.msg}`);
   let parsed: unknown;
   try {
     parsed = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: "@_", textNodeName: "#text" }).parse(xml);
-  } catch {
-    return null;
+  } catch (e) {
+    errors.push(`xml-parse: ${(e as Error).message.slice(0, 120)}`);
+    return { items: [], path: "", kind, errors };
   }
   const paths = kind === "atom"
     ? ["feed.entry", "atom:feed.entry", "feed.atom:entry", "atom:feed.atom:entry"]
@@ -112,10 +126,19 @@ export function parseFeedDetection(xml: string): { items: Record<string, unknown
     const node = pickPath(parsed, path);
     const items = Array.isArray(node) ? node : node === undefined ? [] : [node];
     const objects = toObjectArray(items);
-    if (objects.length > 0) return { items: objects.map((item) => canonicalizeFeedItem(item, kind)), path, kind };
+    if (objects.length > 0) return { items: objects.map((item) => canonicalizeFeedItem(item, kind)), path, kind, errors };
   }
   const deep = findFeedArray(parsed, 0);
-  return deep.length > 0 ? { items: deep.map((item) => canonicalizeFeedItem(item, kind)), path: "auto", kind } : null;
+  if (deep.length > 0) return { items: deep.map((item) => canonicalizeFeedItem(item, kind)), path: "auto", kind, errors };
+  errors.push("flux-sans-item");
+  return { items: [], path: "", kind, errors };
+}
+
+/** Détection complète d'un flux : items canoniques, chemin et type explicite. */
+export function parseFeedDetection(xml: string): { items: Record<string, unknown>[]; path: string; kind: FeedKind } | null {
+  const parsed = parseFeedDetailed(xml);
+  if (!parsed || parsed.items.length === 0) return null;
+  return { items: parsed.items, path: parsed.path, kind: parsed.kind };
 }
 export function parseRssItems(xml: string, itemsPath?: string): Record<string, unknown>[] {
   const kind = detectFeedKind(xml) ?? "rss-atom";

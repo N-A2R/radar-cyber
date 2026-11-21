@@ -1,24 +1,32 @@
-function isObject(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
+/**
+ * Flux JSON "maison" : tableau racine, objet à tableau nommé, enveloppe
+ * `{data: {items: [...]}}`, JSON:API ou clé déclarée par la source. Les items
+ * sont ramenés aux quatre champs canoniques (titre, date, lien, résumé) tout
+ * en gardant leurs champs d'origine pour le moteur d'indicateurs.
+ */
+import { canonicalizeItems, type CanonicalItem } from "./canonical.js";
+import { isRecord } from "./guards.js";
+
+const MAX_DEPTH = 5;
+
+const KNOWN_FEED_KEYS: Record<string, true> = {
+  items: true, data: true, results: true, entries: true, articles: true,
+  posts: true, events: true, news: true, releases: true,
+};
 
 export function pickPath(root: unknown, path: string): unknown {
   let node: unknown = root;
   for (const key of path.split(".")) {
-    if (!isObject(node)) return undefined;
+    if (!isRecord(node)) return undefined;
     node = node[key];
   }
   return node;
 }
 
-const MAX_DEPTH = 5;
-
-const KNOWN_FEED_KEYS = ["items", "data", "results", "entries", "articles", "vulnerabilities", "alerts", "records", "feed", "rows"];
-
 export function findObjectArray(node: unknown, depth = 0): Record<string, unknown>[] | null {
   if (depth > MAX_DEPTH) return [];
   if (Array.isArray(node)) {
-    const objs = node.filter(isObject);
+    const objs = node.filter(isRecord);
     if (objs.length > 0) return objs;
     const founds: Record<string, unknown>[][] = [];
     let ambiguous = false;
@@ -31,8 +39,8 @@ export function findObjectArray(node: unknown, depth = 0): Record<string, unknow
     if (founds.length > 1) return null;
     return founds[0] ?? [];
   }
-  if (isObject(node)) {
-    const present = KNOWN_FEED_KEYS.filter((k) => k in node);
+  if (isRecord(node)) {
+    const present = Object.keys(node).filter((k) => KNOWN_FEED_KEYS[k] === true);
     const knownResults: Record<string, unknown>[][] = [];
     let ambiguous = false;
     for (const k of present) {
@@ -62,12 +70,88 @@ export function parseJsonItems(body: string, itemsPath?: string): Record<string,
   try { data = JSON.parse(body); } catch { return []; }
   if (itemsPath) {
     const node = pickPath(data, itemsPath);
-    if (Array.isArray(node)) return node.filter(isObject);
-    if (isObject(node)) return [node];
+    if (Array.isArray(node)) return node.filter(isRecord);
+    if (isRecord(node)) return [node];
   }
-  if (Array.isArray(data)) return data.filter(isObject);
+  if (Array.isArray(data)) return data.filter(isRecord);
   return findObjectArray(data, 0) ?? [];
+}
 
+export type JsonFeedParse = {
+  items: CanonicalItem[];
+  path: string;
+  strategy: "json-root-array" | "json-nested-array";
+  errors: string[];
+};
+
+type ArrayCandidate = { values: unknown[]; path: string; score: number };
+
+/** Meilleur tableau d'objets, avec son chemin ; les clés de flux connues priment. */
+function bestArray(node: unknown, depth: number, path: string[]): ArrayCandidate | null {
+  if (depth > MAX_DEPTH) return null;
+  if (Array.isArray(node)) {
+    const objects = node.filter(isRecord);
+    if (objects.length === 0) return null;
+    return { values: objects, path: path.join("."), score: objects.length };
+  }
+  if (!isRecord(node)) return null;
+  const entries = Object.entries(node);
+  const known = entries.filter(([key]) => KNOWN_FEED_KEYS[key] === true);
+  const ordered = known.length > 0 ? known : entries;
+  let best: ArrayCandidate | null = null;
+  for (const [key, value] of ordered) {
+    const found = bestArray(value, depth + 1, [...path, key]);
+    if (found && (!best || found.score > best.score)) best = found;
+  }
+  return best;
+}
+
+/**
+ * Détecte et canonise un flux JSON. Retourne `null` si le corps n'est pas du
+ * JSON ; sinon `items` peut être vide et `errors` porte le motif exact.
+ */
+export function parseJsonFeed(
+  body: string,
+  opts: { itemsPath?: string | null; baseUrl?: string | null } = {},
+): JsonFeedParse | null {
+  const text = body.trim();
+  if (!text.startsWith("{") && !text.startsWith("[")) return null;
+  let data: unknown;
+  try {
+    data = JSON.parse(text);
+  } catch (e) {
+    return {
+      items: [], path: "", strategy: "json-root-array",
+      errors: [`json-invalide: ${(e as Error).message.slice(0, 160)}`],
+    };
+  }
+
+  const canonicalOpts = { baseUrl: opts.baseUrl };
+  if (opts.itemsPath) {
+    const node = pickPath(data, opts.itemsPath);
+    const raw = Array.isArray(node) ? node : isRecord(node) ? [node] : [];
+    const items = canonicalizeItems(raw, canonicalOpts);
+    return {
+      items, path: opts.itemsPath, strategy: "json-nested-array",
+      errors: items.length === 0 ? ["chemin-sterile"] : [],
+    };
+  }
+
+  if (Array.isArray(data)) {
+    const items = canonicalizeItems(data, canonicalOpts);
+    return {
+      items, path: "", strategy: "json-root-array",
+      errors: items.length === 0 ? ["tableau-sans-item"] : [],
+    };
+  }
+
+  const found = bestArray(data, 0, []);
+  if (!found) return { items: [], path: "", strategy: "json-nested-array", errors: ["aucun-tableau"] };
+  const items = canonicalizeItems(found.values, canonicalOpts);
+  return {
+    items, path: found.path, strategy: "json-nested-array",
+    errors: items.length === 0 ? ["tableau-sans-item"] : [],
+  };
 }
 
 function sameOrigin(a: string, b: string): boolean {
@@ -87,19 +171,19 @@ export async function fetchJsonWithPagination(
   for (let page = 0; page < maxPages; page++) {
     let data: unknown;
     try { data = JSON.parse(body); } catch { break; }
-    const found = Array.isArray(data) ? data.filter(isObject) : (findObjectArray(data, 0) ?? []);
+    const found = Array.isArray(data) ? data.filter(isRecord) : (findObjectArray(data, 0) ?? []);
     const items = found;
     // try itemsPath-like common fields on root
-    if (items.length === 0 && isObject(data)) {
+    if (items.length === 0 && isRecord(data)) {
       for (const k of ["items", "data", "results", "entries", "articles", "vulnerabilities"]) {
-        const v = (data as Record<string, unknown>)[k];
-        if (Array.isArray(v)) { for (const o of v) if (isObject(o)) out.push(o); break; }
+        const v = data[k];
+        if (Array.isArray(v)) { for (const o of v) if (isRecord(o)) out.push(o); break; }
       }
     } else {
       out.push(...items);
     }
-    if (!isObject(data)) break;
-    const next = [data.next, data.next_url, (data as any).nextUrl, isObject(data.pagination) ? (data.pagination as any).next : null, isObject(data.links) ? (data.links as any).next : null]
+    if (!isRecord(data)) break;
+    const next = [data.next, data.next_url, data.nextUrl, isRecord(data.pagination) ? data.pagination.next : null, isRecord(data.links) ? data.links.next : null]
       .find((v): v is string => typeof v === "string" && /^https?:\/\//.test(v));
     if (!next || seenUrls.has(next) || !sameOrigin(initialUrl, next)) break;
     seenUrls.add(next);
