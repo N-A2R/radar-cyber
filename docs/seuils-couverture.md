@@ -48,9 +48,9 @@ Un chiffre tiré d'un seul quotidien mesure la couverture de ce quotidien, pas
 celle de la Nouvelle-Aquitaine. La source d'un incident est `source` dans le
 corpus de couverture, `preuve.editeur` dans le corpus du script global (lecture
 insensible à la casse) ; les incidents sans éditeur ne comptent pas comme
-source, mais restent dans le dénominateur du corpus. Le corpus mesuré porte 14
-éditeurs distincts et une part maximale de 25 % (Sud Ouest, 5 incidents sur 20)
-: il passe. Le refus nomme le nombre d'éditeurs et la part maximale observée.
+source, mais restent dans le dénominateur du corpus. Le corpus mesuré porte 17
+éditeurs distincts et une part maximale de 30 % (Sud Ouest, 15 incidents sur
+50) : il passe. Le refus nomme le nombre d'éditeurs et la part maximale observée.
 
 ### Fenêtre : au moins 90 jours
 
@@ -60,7 +60,7 @@ de 365 jours, le nombre mensuel varie de 1 (janvier, mai et juin) à 9 (octobre
 2026) : un mois isolé peut donc multiplier le taux par neuf selon la période.
 Le plancher de 90 jours couvre un trimestre, assez pour ne pas résumer la
 période à un seul pic. La fenêtre du corpus mesuré va du 2024-04-19 au
-2026-09-15, soit 880 jours : elle passe largement.
+2026-10-14, soit 909 jours : elle passe largement.
 
 ## Ce que le refus dit, et ce qu'il ne dit pas
 
@@ -85,11 +85,11 @@ période à un seul pic. La fenêtre du corpus mesuré va du 2024-04-19 au
 
 ## Le chiffre actuel
 
-**0 % (0 incident vu sur 20) n'est pas publiable.** Les trois autres garde-fous
-passent (4/4 secteurs, 14 éditeurs dont aucun au-dessus de 25 %, 880 jours),
-mais le corpus ne compte que 20 incidents sur les 30 exigés. La raison servie
-est : « Corpus trop petit : 20 incident(s) dans la fenêtre 2024-04-19 →
-2026-09-15, seuil minimal 30. »
+**0 % (0 incident vu sur 50) est publiable.** Les quatre garde-fous passent :
+50 incidents dans la fenêtre sur les 30 exigés, 4/4 secteurs, 17 éditeurs dont
+aucun au-dessus de 30 %, 909 jours. `GET /api/couverture` renvoie
+`publiable: true`, `mention: null`, `raison: null` et `refus: []`. Le chiffre
+reste 0 % : la publication est autorisée, pas embellie.
 
 ## Usage et vérification
 

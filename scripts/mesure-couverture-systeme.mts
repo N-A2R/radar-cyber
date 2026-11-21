@@ -1,5 +1,5 @@
 /**
- * Mesure de couverture du corpus de 20 incidents — point d'entrée reproductible.
+ * Mesure de couverture du corpus consolidé de 50 incidents — point d'entrée reproductible.
  *
  *   DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
  *     apps/api/node_modules/.bin/tsx scripts/mesure-couverture-systeme.mts
