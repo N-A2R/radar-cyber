@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
-import { motifLabel, sourceStatus, sourceYield, type Source, type SourceStatus, type SourceYield } from "../api";
+import { api, motifLabel, sourceStatus, sourceYield, type Source, type SourceStatus, type SourceYield } from "../api";
 import type { SourcesViewProps } from "../contracts";
 import "./sources.css";
+import RelancerButton from "./RelancerButton";
 
 /** Libellés français des familles de sources (le reste est affiché brut). */
 export const FAMILY_LABEL: Record<string, string> = {
@@ -26,7 +27,7 @@ type SortKey =
   | "name"
   | "family"
   | "status"
-  | "lastOkAt"
+  | "lastProduction"
   | "lastErrorAt"
   | "itemsTotal"
   | "entrees"
@@ -41,8 +42,7 @@ type SortDir = "asc" | "desc";
 const COLUMNS: { key: SortKey; label: string; num?: boolean; hint?: string }[] = [
   { key: "name", label: "source" },
   { key: "family", label: "famille" },
-  { key: "status", label: "état" },
-  { key: "lastOkAt", label: "dernier succès" },
+  { key: "lastProduction", label: "dernière production", hint: "dernier fait produit ; à défaut, dernier succès de collecte" },
   { key: "lastErrorAt", label: "dernier échec", hint: "le dernier passage a échoué" },
   { key: "entrees", label: "lues 30 j", num: true, hint: "entrées lues par le collecteur" },
   { key: "evenements30j", label: "évén. 30 j", num: true, hint: "événements attribués à la source" },
@@ -109,11 +109,30 @@ export function formatAbsolute(value: string | null): string {
   return new Date(then).toLocaleString("fr-FR", { dateStyle: "short", timeStyle: "short" });
 }
 
-/**
- * Gravité du rendement, pour le tri par défaut. Une source qui lit 40 entrées
- * sans en retenir une seule passe avant une source jamais tentée : la première
- * a un défaut localisé, la seconde n'a pas encore de verdict.
- */
+/** Date de dernière production : dernier fait produit, à défaut dernier succès. */
+export function lastProductionAt(source: Source): string | null {
+  return source.lastEventAt ?? source.lastOkAt;
+}
+
+const SEPT_JOURS_MS = 7 * 24 * 3600 * 1000;
+
+/** Rouge au-delà de 7 jours sans production ; « jamais » est rouge aussi. */
+export function isSourceRouge(source: Source, now = Date.now()): boolean {
+  const at = timestamp(lastProductionAt(source));
+  return at === null || now - at > SEPT_JOURS_MS;
+}
+
+/** Compteur affiché en tête du registre. */
+export function countSourcesRouges(sources: Source[], now = Date.now()): number {
+  return sources.filter((s) => isSourceRouge(s, now)).length;
+}
+
+/** Tri unitaire par dernière production croissante ; jamais produit en tête. */
+export function sortByLastProduction(sources: Source[]): Source[] {
+  return [...sources].sort((a, b) => compareSources(a, b, "lastProduction", "asc"));
+}
+
+/** Gravité du rendement, pour le tri optionnel par « yield ». */
 const YIELD_RANK: Record<SourceYield, number> = { vide: 0, muette: 1, inconnue: 2, productive: 3 };
 
 /** Compare deux sources sur une colonne ; les valeurs absentes restent en fin de liste. */
@@ -146,17 +165,24 @@ function compareSources(a: Source, b: Source, key: SortKey, dir: SortDir): numbe
       return a.name.localeCompare(b.name, "fr") * sign;
     case "family":
       return (a.family.localeCompare(b.family, "fr") || a.name.localeCompare(b.name, "fr")) * sign;
-    case "lastOkAt":
-    case "lastErrorAt": {
-      const av = timestamp(a[key]);
-      const bv = timestamp(b[key]);
+    case "itemsTotal": {
+      const av = a.itemsTotal;
+      const bv = b.itemsTotal;
       if (av === null) return bv === null ? 0 : 1;
       if (bv === null) return -1;
       return (av - bv) * sign;
     }
-    case "itemsTotal": {
-      const av = a.itemsTotal;
-      const bv = b.itemsTotal;
+    case "lastProduction": {
+      // « Jamais produit » est le plus ancien : il ouvre la liste en croissant.
+      const av = timestamp(lastProductionAt(a));
+      const bv = timestamp(lastProductionAt(b));
+      if (av === null) return bv === null ? a.name.localeCompare(b.name, "fr") : -1;
+      if (bv === null) return 1;
+      return (av - bv) * sign || a.name.localeCompare(b.name, "fr");
+    }
+    case "lastErrorAt": {
+      const av = timestamp(a.lastErrorAt);
+      const bv = timestamp(b.lastErrorAt);
       if (av === null) return bv === null ? 0 : 1;
       if (bv === null) return -1;
       return (av - bv) * sign;
@@ -196,12 +222,9 @@ function compareSources(a: Source, b: Source, key: SortKey, dir: SortDir): numbe
  */
 export default function SourcesView({ sources, loading, error }: SourcesViewProps) {
   const [query, setQuery] = useState("");
-  // Par défaut : les sources qui rapportent le moins en tête, et parmi elles
-  // d'abord celles qui lisent sans rien rendre — c'est là qu'un parseur cassé
-  // se cache. Le registre sert à trouver ce qui ne marche pas, pas à admirer
-  // ce qui marche. « Non mesurée » vient après « vide » : ce n'est pas un
-  // défaut prouvé, c'est une absence de mesure.
-  const [sortKey, setSortKey] = useState<SortKey>("yield");
+  // Le registre est un outil de triage : ce qui n'a rien produit depuis le
+  // plus longtemps remonte en tête, « jamais produit » en tout premier.
+  const [sortKey, setSortKey] = useState<SortKey>("lastProduction");
   const [sortDir, setSortDir] = useState<SortDir>("asc");
 
   const rows = useMemo(() => {
@@ -218,6 +241,8 @@ export default function SourcesView({ sources, loading, error }: SourcesViewProp
     return c;
   }, [sources]);
 
+  const rouges = useMemo(() => countSourcesRouges(sources), [sources]);
+
   // Deux questions distinctes : « répond-elle ? » et « rapporte-t-elle ? ».
   // Une source peut répondre tous les jours et ne rien rendre pendant des mois.
   const yields = useMemo(() => {
@@ -232,7 +257,7 @@ export default function SourcesView({ sources, loading, error }: SourcesViewProp
       return;
     }
     setSortKey(key);
-    setSortDir(key === "lastOkAt" || key === "lastErrorAt" || key === "itemsTotal" ? "desc" : "asc");
+    setSortDir(key === "lastProduction" || key === "lastErrorAt" || key === "itemsTotal" ? "desc" : "asc");
   }
 
   return (
@@ -242,6 +267,9 @@ export default function SourcesView({ sources, loading, error }: SourcesViewProp
         <p className="sources-view__summary">
           {sources.length} flux déclarés · {counts.ok} ok · {counts.error} en erreur ·{" "}
           {counts.pending} jamais collectés
+        </p>
+        <p className="sources-view__red-count" aria-label="Compteur de sources rouges">
+          {rouges} source{rouges > 1 ? "s" : ""} rouge{rouges > 1 ? "s" : ""} · plus de 7 jours sans production
         </p>
         <p className="sources-view__yield" aria-label="Rendement des sources">
           {yields.productive} productive{yields.productive > 1 ? "s" : ""} · {yields.vide} qui
@@ -291,6 +319,7 @@ export default function SourcesView({ sources, loading, error }: SourcesViewProp
             {COLUMNS.map((col) => (
               <col key={col.key} className={`sources-table__col sources-table__col--${col.key}`} />
             ))}
+            <col key="action" className="sources-table__col sources-table__col--action" />
           </colgroup>
           <thead>
             <tr>
@@ -316,11 +345,14 @@ export default function SourcesView({ sources, loading, error }: SourcesViewProp
                   </button>
                 </th>
               ))}
+              <th scope="col">action</th>
             </tr>
           </thead>
           <tbody>
             {rows.map((source) => {
               const status = sourceStatus(source);
+              const production = lastProductionAt(source);
+              const rouge = isSourceRouge(source);
               const yieldKind = sourceYield(source);
               return (
                 <tr key={source.id} title={YIELD_HINT[yieldKind]}>
@@ -340,9 +372,12 @@ export default function SourcesView({ sources, loading, error }: SourcesViewProp
                     )}
                   </td>
                   <td className="sources-table__time">
-                    <span title={formatAbsolute(source.lastOkAt)}>
-                      {formatRelative(source.lastOkAt)}
-                    </span>
+                    <span title={formatAbsolute(production)}>{formatRelative(production)}</span>
+                    {rouge && (
+                      <span className="sources-table__red-badge" data-rouge="oui" title="aucun fait depuis plus de 7 jours">
+                        rouge · plus de 7 j
+                      </span>
+                    )}
                   </td>
                   <td className="sources-table__time">
                     <span title={formatAbsolute(source.lastErrorAt)}>
@@ -395,12 +430,20 @@ export default function SourcesView({ sources, loading, error }: SourcesViewProp
                       </span>
                     )}
                   </td>
+                  <td className="sources-table__action">
+                    <RelancerButton
+                      sourceId={source.id}
+                      sourceName={source.name}
+                      onRelance={(id) => api.collecte(id).then(() => ({ inserted: 0, lancee: true }))}
+                      disabled={!source.enabled}
+                    />
+                  </td>
                 </tr>
               );
             })}
             {rows.length === 0 && (
               <tr>
-                <td colSpan={COLUMNS.length} className="sources-table__empty">
+                <td colSpan={COLUMNS.length + 1} className="sources-table__empty">
                   {loading
                     ? "chargement des sources…"
                     : error

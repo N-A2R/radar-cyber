@@ -1,0 +1,215 @@
+/* Coverage screen: a measured figure, not a live counter. Values stay in
+   tabular monospace and every bar is labelled with its number, so the chart
+   never relies on colour or width alone. */
+.couverture {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--space-6);
+  background: var(--bg);
+  color: var(--text);
+}
+
+.couverture__head {
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.couverture__kicker {
+  margin: 0 0 var(--space-1);
+  color: var(--accent);
+  font: 600 11px/1.5 var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.couverture__title {
+  margin: 0;
+  font: 600 26px/1.2 var(--font-sans);
+}
+
+.couverture__subtitle,
+.couverture__meta,
+.couverture__status {
+  margin: var(--space-2) 0 0;
+  color: var(--muted);
+  font: 400 13px/1.5 var(--font-sans);
+}
+
+.couverture__meta {
+  color: var(--faint);
+  font-family: var(--font-mono);
+}
+
+.couverture__meta time {
+  color: var(--text);
+}
+
+.couverture__status--error {
+  color: var(--sev-5);
+}
+
+.couverture__hero {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-1);
+  padding: var(--space-5) var(--space-6);
+  border: 1px solid var(--line-strong);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+}
+
+.couverture__hero-label {
+  margin: 0;
+  color: var(--muted);
+  font: 600 11px/1.5 var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.couverture__figure {
+  margin: 0;
+  color: var(--text);
+  font: 600 clamp(48px, 8vw, 88px)/1 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.couverture__hero-detail {
+  margin: 0;
+  color: var(--muted);
+  font: 400 13px/1.5 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.couverture__panel {
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.couverture__panel-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.couverture__panel-head h2 {
+  margin: 0;
+  font: 600 15px/1.5 var(--font-sans);
+}
+
+.couverture__panel-head p {
+  margin: 0;
+  color: var(--faint);
+  font: 400 12px/1.5 var(--font-mono);
+}
+
+.couverture__bars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.couverture__bar {
+  display: grid;
+  grid-template-columns: minmax(120px, 200px) minmax(0, 1fr) 96px;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.couverture__bar-label {
+  color: var(--text);
+  font: 400 13px/1.5 var(--font-sans);
+}
+
+.couverture__bar-track {
+  display: block;
+  height: 12px;
+  background: var(--surface-2);
+  border-radius: var(--radius);
+}
+
+.couverture__bar-fill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  border-radius: var(--radius);
+}
+
+.couverture__bar-value {
+  color: var(--muted);
+  font: 400 12px/1.5 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.couverture__table-wrap {
+  min-width: 0;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.couverture__table {
+  width: 100%;
+  border-collapse: collapse;
+  font: 400 13px/1.5 var(--font-sans);
+}
+
+.couverture__table th,
+.couverture__table td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+
+.couverture__table thead th {
+  background: var(--surface-2);
+  color: var(--faint);
+  font: 600 11px/1.5 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.couverture__table tbody th {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.couverture__table tbody td {
+  color: var(--muted);
+  font: 400 13px/1.5 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.couverture__table tbody tr:last-child th,
+.couverture__table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.couverture__fingerprint {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: var(--faint);
+  font: 400 11px/1.5 var(--font-mono);
+}
+
+@media (max-width: 600px) {
+  .couverture { padding: var(--space-3); }
+  .couverture__bar { grid-template-columns: minmax(0, 1fr) 88px; }
+  .couverture__bar-track { grid-column: 1 / -1; grid-row: 2; }
+}

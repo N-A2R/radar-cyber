@@ -66,6 +66,7 @@
   white-space: nowrap;
 }
 
+.relance-resultat[data-resultat="lancee"] { color: var(--sev-5); }
 .relance-resultat[data-resultat="succes"] { color: var(--family-reputation); }
 .relance-resultat[data-resultat="vide"] { color: var(--sev-4); }
 .relance-resultat[data-resultat="erreur"] { color: var(--sev-5); }

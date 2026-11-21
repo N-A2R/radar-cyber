@@ -3,8 +3,10 @@
  *
  * Le service vivant garde son index résident : on ne le duplique pas. On charge
  * les lignes en lecture seule, on construit l'index dans CE processus court,
- * on relève le pic, puis on sort. Le tas est plafonné par l'appelant
- * (`--max-old-space-size`), donc un dépassement tue ce script, pas la machine.
+ * on relève le tas **après GC**, puis on sort. Sans GC, `heapUsed` dépend du
+ * hasard des collections et varie de plusieurs centaines de Mo d'une exécution
+ * à l'autre. Lancer avec `NODE_OPTIONS="--max-old-space-size=4096 --expose-gc"`.
+ * Le tas est plafonné par l'appelant, donc un dépassement tue ce script, pas la machine.
  */
 import { buildGazetteer, type GazetteerRow } from "../apps/api/src/match/gazetteer.js";
 import { createRequire } from "node:module";
@@ -16,6 +18,7 @@ const URL_DB = process.env.DATABASE_URL ?? "postgres://radar:radar@localhost:543
 const LIMITE = Number(process.env.LIMITE ?? 0);
 
 const memoire = () => {
+	global.gc?.();
 	const m = process.memoryUsage();
 	return { rssMo: Math.round(m.rss / 1048576), tasMo: Math.round(m.heapUsed / 1048576) };
 };
