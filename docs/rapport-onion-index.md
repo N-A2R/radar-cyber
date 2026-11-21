@@ -23,21 +23,21 @@ donnent la même empreinte `sha256 62aca7831dd9fe068fd40939ab343423d516716371d24
 
 Le chantier part de l'état Versionné, sans jeu de démonstration :
 
-- **1 673 151 organisations** (`bench/results/couverture-mesuree.json`, clé `organisations`) ;
+- **1 673 151 organisations** (`bench/results/couverture-mesuree.json`, clé `base.organisations`) ;
 - **312 sources**, 7 695 exécutions et **26 688 événements** (`bench/results/motifs-absence.md`, soit l'ordre de grandeur des « ~28 000 événements » de la consigne) ;
 - **77 sources `.onion`** dans les trois catalogues `db/sources-onion*.sql`, dont 7 paires partagent la même adresse : **70 sites distincts** une fois dédupliqués par hôte.
 
 ## Méthode, en quatre étapes testées
 
-1. **Catalogue** — `parseOnionCatalog()` lit les tuples `(id, name, family, url, …)` des trois fichiers SQL. `onionHost()` normalise l'hôte (minuscules, point final retiré, chemin ignoré) et refuse toute URL qui n'est pas `.onion`. Test : analyse d'un catalogue fictif, y compris une URL avec chemin après `.onion`.
+1. **Catalogue** — `parseOnionCatalog()` lit les tuples `(id, name, family, url, …)` des trois fichiers SQL. `onionHost()` normalise l'hôte (minuscules, point final retiré, chemin ignoré) et refuse toute URL qui n'est pas `.onion`. Test : analyse d'un catalogue fictif, puis des 77 entrées réelles dont six URL comportent un chemin après `.onion`.
 2. **Fraîcheur** — `pickLatestProbe()` choisit la plus récente mesure Tor Versionnée dans `bench/results`. La retenue est `bench/results/tor-stability-after.json` (2026-11-21T20:29:36.381Z) : 77 sources, un fetch réel chacune via `fetchResilient`, `maxAttempts=1`, délai 45 s, SOCKS5 local. Test : la mesure « after » bat la mesure « before », et l'absence de mesure est une erreur explicite.
-3. **Classification** — un site est **vivant** si au moins une de ses sources a répondu HTTP 200 via Tor, **productif** si au moins une a livré un item extractible (`detectItems()`). Les deux conditions sont requises pour le chiffre publié. Test : sept sources fictives, deux adresses en doublon, un site 200 sans item et un site 503 avec items — le décompte attendu est 1 site « vivant et productif ».
+3. **Classification** — un site est **vivant** si au moins une de ses sources a répondu HTTP 200 via Tor, **productif** si au moins une a livré un item extractible (`detectItems()`). Les deux conditions sont requises pour le chiffre publié. Test : quatre sources fictives, deux adresses en doublon, un site 200 sans item et un site 503 avec items — le décompte attendu est 1 site « vivant et productif ».
 4. **Publication** — `buildOnionIndex()` ne laisse sortir que six champs par site (`host`, `sourceIds`, `live`, `productive`, `items`, `httpStatus`). Test : le chiffre réel (77 sources, 70 sites, 49 retenus) et l'absence de tout champ de revendication ou de donnée personnelle dans l'artefact.
 
 L'API expose le même objet, recalculé depuis les mêmes preuves, sur
 `GET /api/onion-index` (lecture publique, clés en anglais). Test dédié : statut 200,
-périmètre `nouvelle-aquitaine`, chiffre 49. Le registre d'accès et le test de
-couverture des routes passent également (9 tests au total sur ce périmètre).
+périmètre `nouvelle-aquitaine`, chiffre 49. Le registre d'accès déclare cette
+lecture comme publique ; six tests dédiés couvrent ce périmètre.
 
 ## Décomposition du chiffre
 
@@ -66,7 +66,7 @@ est l'item réellement extrait, pas l'étiquette de cause du sondage.
 - **Aucun service payant** : lecture de fichiers versionnés, aucune clé d'API, aucun appel réseau.
 - **Code et interface en anglais** : identifiants, commentaires, JSON et message de la commande sont en anglais ; le présent rapport est en français.
 - **`server.ts` inchangé** : la route est enregistrée dans le registre unique `routes/index.ts` ; le diff de `apps/api/src/server.ts` est de **0 ligne**.
-- **Aucune commande de plus de 60 s** : installation 1,5 s, index 0,2 s, six tests 0,7 s, typecheck API 6 s, tests de couverture de routes 2,8 s.
+- **Aucune commande de plus de 60 s** : mesure 0,2 s (`pnpm run onion:index`), six tests 0,7 s (`tsx --test test/onion-index.test.ts`), typecheck API 6,3 s.
 
 ## Limites assumées
 
