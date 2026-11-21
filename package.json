@@ -22,6 +22,7 @@
     "mesure:manques": "apps/api/node_modules/.bin/tsx scripts/manques-referentiel.mts",
     "mesure:anticipation": "apps/api/node_modules/.bin/tsx scripts/mesure-anticipation.mts",
     "anticipation:rapport": "apps/api/node_modules/.bin/tsx scripts/rapport-anticipation.mts",
+    "mesure:pertinence": "apps/api/node_modules/.bin/tsx scripts/mesure-pertinence.mts",
     "corpus:hash": "apps/api/node_modules/.bin/tsx scripts/corpus-hash.mts",
     "corpus:import": "apps/api/node_modules/.bin/tsx scripts/importer-corpus.mts"
   },

@@ -1,5 +1,6 @@
 import { AdmissionTally, admitEvent } from "./contract/admit.js";
 import { languageVerdict } from "./collectors/filter.js";
+import { scoreEventPertinence } from "./collectors/pertinence.js";
 import type { CollectContext, Collector, NormalizedEvent } from "@radar/shared";
 import cors from "@fastify/cors";
 import helmet from "@fastify/helmet";
@@ -221,17 +222,18 @@ async function runCollectors(options?: { onlyId?: string; force?: boolean }): Pr
 				if (!admitted.ok) continue;
 				const event = admitted.event;
 				const langue = languageVerdict(event.title, event.summary);
+				const pertinence = scoreEventPertinence({ title: event.title, summary: event.summary, sourceUrl: event.sourceUrl });
 				if (!langue.keep) {
 					langueSkipped++;
 					continue;
 				}
 				const portee = porteeRegionale(`${event.title} ${event.summary ?? ""}`, null);
 				const r = await ingestQuery(
-					`INSERT INTO event (dedup_key, family, assertion_type, title, summary, langue, observed_at, valid_at, severity, confidence, source_id, source_url, evidence, geo_type, lat, lon, regional, regional_motif)
-					 VALUES ($1,$2,$3,$4,$5,$18,$6,$17,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16)
+					`INSERT INTO event (dedup_key, family, assertion_type, title, summary, langue, observed_at, valid_at, severity, confidence, source_id, source_url, evidence, geo_type, lat, lon, regional, regional_motif, pertinence_score, pertinence_rule)
+					 VALUES ($1,$2,$3,$4,$5,$18,$6,$17,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$19,$20)
 					 ON CONFLICT (dedup_key) DO UPDATE SET observed_at = COALESCE(event.observed_at, EXCLUDED.observed_at)`,
 					[event.dedupKey, event.family, event.assertionType, event.title, event.summary ?? null, event.observedAt ?? null,
-					 event.observedAt ?? new Date().toISOString(), event.severity, event.confidence ?? null, event.sourceId, event.sourceUrl ?? null, JSON.stringify(event.evidence ?? {}), event.geoType, event.lat ?? null, event.lon ?? null, portee.regional, portee.motif, langue.language]
+					 event.observedAt ?? new Date().toISOString(), event.severity, event.confidence ?? null, event.sourceId, event.sourceUrl ?? null, JSON.stringify(event.evidence ?? {}), event.geoType, event.lat ?? null, event.lon ?? null, portee.regional, portee.motif, langue.language, pertinence.score, pertinence.rule]
 				);
 				if ((r.rowCount ?? 0) > 0) {
 					itemsNew++;

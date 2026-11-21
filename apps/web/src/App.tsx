@@ -1,6 +1,6 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { creerMemoire, etatDonnees, type Instantane } from "./offline";
-import { api, clearAuthToken, getAuthToken, setAuthToken, type CouverturePublique, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type Stats, type TodayResponse } from "./api";
+import { api, clearAuthToken, getAuthToken, setAuthToken, type CouvertureResponse, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type Stats, type TodayResponse } from "./api";
 import { mockData } from "./mock";
 const Map3D = lazy(() => import("./map/Map3D"));
 const GraphView = lazy(() => import("./graph/GraphView"));
@@ -41,16 +41,16 @@ function ViewSkeleton() {
 const MOCK_MODE = import.meta.env.VITE_DATA_MODE === "mock";
 
 const VIEWS: { id: ViewKey; label: string }[] = [
-  { id: "today", label: "Aujourd'hui" },
+  { id: "today", label: "Today" },
   { id: "couverture", label: "Coverage" },
-  { id: "map", label: "Carte" },
-  { id: "review", label: "Revue" },
+  { id: "review", label: "Review" },
   { id: "journal", label: "Journal" },
-  { id: "graph", label: "Graphe" },
+  { id: "dossier", label: "Corpus" },
   { id: "sources", label: "Sources" },
-  { id: "health", label: "Santé" },
-  { id: "alerts", label: "Alertes" },
-  { id: "dossier", label: "Dossier" },
+  { id: "map", label: "Map" },
+  { id: "graph", label: "Graph" },
+  { id: "health", label: "Health" },
+  { id: "alerts", label: "Alerts" },
   { id: "na", label: "Nouvelle-Aquitaine" },
 ];
 
@@ -71,7 +71,7 @@ export default function App() {
   const [todayData, setTodayData] = useState<TodayResponse | null>(null);
   const [todayLoading, setTodayLoading] = useState(!MOCK_MODE);
   const [todayError, setTodayError] = useState<string | null>(null);
-  const [couvertureData, setCouvertureData] = useState<CouverturePublique | null>(null);
+  const [couvertureData, setCouvertureData] = useState<CouvertureResponse | null>(null);
   const [couvertureLoading, setCouvertureLoading] = useState(false);
   const [couvertureError, setCouvertureError] = useState<string | null>(null);
   const [statsDepartements, setStatsDepartements] = useState<DeptStat[]>([]);
