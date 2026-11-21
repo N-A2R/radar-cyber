@@ -1,0 +1,329 @@
+{
+  "generatedAt": "2026-11-21T20:58:04.252Z",
+  "sources": {
+    "chats": "https://www.ransomware.live/nego",
+    "claims": "https://www.ransomlook.io/api/posts/{year}"
+  },
+  "method": "chat start date -> first public leak-site post date, same group and named victim, delay >= 0",
+  "input": {
+    "chats": 272,
+    "claims": 34959
+  },
+  "stats": {
+    "n": 38,
+    "q1": 6,
+    "p50": 14,
+    "q3": 25.75,
+    "p90": 43.70000000000004,
+    "max": 63,
+    "paidConfirmed": 0,
+    "paidDenied": 0,
+    "paidUnknown": 38
+  },
+  "delays": [
+    {
+      "group": "lockbit3.0",
+      "victim": "msim_de",
+      "claimStartedAt": "2023-11-07",
+      "leakPublishedAt": "2023-11-13",
+      "delayDays": 6,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "des-ae_com",
+      "claimStartedAt": "2023-10-23",
+      "leakPublishedAt": "2023-11-23",
+      "delayDays": 31,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "sirva_com",
+      "claimStartedAt": "2023-10-06",
+      "leakPublishedAt": "2023-10-06",
+      "delayDays": 0,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "hgc_com_hk",
+      "claimStartedAt": "2023-07-11",
+      "leakPublishedAt": "2023-07-15",
+      "delayDays": 4,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "bankbsi_co_id",
+      "claimStartedAt": "2023-05-08",
+      "leakPublishedAt": "2023-05-13",
+      "delayDays": 5,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "psenergy_com",
+      "claimStartedAt": "2023-03-29",
+      "leakPublishedAt": "2023-03-29",
+      "delayDays": 0,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "gocontec_com",
+      "claimStartedAt": "2023-03-21",
+      "leakPublishedAt": "2023-05-10",
+      "delayDays": 50,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "kaycan_com",
+      "claimStartedAt": "2023-03-06",
+      "leakPublishedAt": "2023-03-17",
+      "delayDays": 11,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "plasticproductsco_com",
+      "claimStartedAt": "2023-03-05",
+      "leakPublishedAt": "2023-03-13",
+      "delayDays": 8,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "omscomponents_it",
+      "claimStartedAt": "2023-02-28",
+      "leakPublishedAt": "2023-04-04",
+      "delayDays": 35,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "aguasdoporto_pt",
+      "claimStartedAt": "2023-01-30",
+      "leakPublishedAt": "2023-02-18",
+      "delayDays": 19,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "newbridge_org",
+      "claimStartedAt": "2023-01-27",
+      "leakPublishedAt": "2023-02-17",
+      "delayDays": 21,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "myerspower_com",
+      "claimStartedAt": "2023-01-25",
+      "leakPublishedAt": "2023-02-17",
+      "delayDays": 23,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "qsi-q3_de",
+      "claimStartedAt": "2023-01-25",
+      "leakPublishedAt": "2023-02-05",
+      "delayDays": 11,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "guardiananalytics_com",
+      "claimStartedAt": "2023-01-23",
+      "leakPublishedAt": "2023-02-03",
+      "delayDays": 11,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "nicklaus_com",
+      "claimStartedAt": "2023-01-17",
+      "leakPublishedAt": "2023-02-06",
+      "delayDays": 20,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "royalmailgroup_com",
+      "claimStartedAt": "2023-01-12",
+      "leakPublishedAt": "2023-02-07",
+      "delayDays": 26,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "millennia_pro",
+      "claimStartedAt": "2023-01-02",
+      "leakPublishedAt": "2023-01-08",
+      "delayDays": 6,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "datair_com",
+      "claimStartedAt": "2022-12-24",
+      "leakPublishedAt": "2023-01-10",
+      "delayDays": 17,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "colonialgeneral_com",
+      "claimStartedAt": "2022-11-23",
+      "leakPublishedAt": "2022-11-29",
+      "delayDays": 6,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "continental_com",
+      "claimStartedAt": "2022-09-23",
+      "leakPublishedAt": "2022-11-03",
+      "delayDays": 41,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "vitalityhp_net",
+      "claimStartedAt": "2022-09-16",
+      "leakPublishedAt": "2022-09-27",
+      "delayDays": 11,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "bakkerheftrucks_com",
+      "claimStartedAt": "2022-09-12",
+      "leakPublishedAt": "2022-09-13",
+      "delayDays": 1,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "software-line_it",
+      "claimStartedAt": "2022-09-08",
+      "leakPublishedAt": "2022-09-16",
+      "delayDays": 8,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "gavresorts_com_br",
+      "claimStartedAt": "2022-08-31",
+      "leakPublishedAt": "2022-09-06",
+      "delayDays": 6,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "tapcocu_org",
+      "claimStartedAt": "2022-08-30",
+      "leakPublishedAt": "2022-09-05",
+      "delayDays": 6,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "chsf_fr",
+      "claimStartedAt": "2022-08-24",
+      "leakPublishedAt": "2022-09-12",
+      "delayDays": 19,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "porcelanosa-usa_com",
+      "claimStartedAt": "2022-08-12",
+      "leakPublishedAt": "2022-08-18",
+      "delayDays": 6,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "vsainc_com",
+      "claimStartedAt": "2022-08-09",
+      "leakPublishedAt": "2022-08-18",
+      "delayDays": 9,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "samyang_com",
+      "claimStartedAt": "2022-07-28",
+      "leakPublishedAt": "2022-09-29",
+      "delayDays": 63,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "okcu_edu",
+      "claimStartedAt": "2022-07-25",
+      "leakPublishedAt": "2022-08-18",
+      "delayDays": 24,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "emunworks_com",
+      "claimStartedAt": "2022-07-25",
+      "leakPublishedAt": "2022-08-01",
+      "delayDays": 7,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "preflooring_com",
+      "claimStartedAt": "2022-07-22",
+      "leakPublishedAt": "2022-08-18",
+      "delayDays": 27,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "scohil_com",
+      "claimStartedAt": "2022-07-15",
+      "leakPublishedAt": "2022-08-18",
+      "delayDays": 34,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "lapostemobile_fr",
+      "claimStartedAt": "2022-07-06",
+      "leakPublishedAt": "2022-07-24",
+      "delayDays": 18,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "entrust_com",
+      "claimStartedAt": "2022-06-29",
+      "leakPublishedAt": "2022-08-19",
+      "delayDays": 51,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "wabteccorp_com",
+      "claimStartedAt": "2022-06-29",
+      "leakPublishedAt": "2022-08-19",
+      "delayDays": 51,
+      "paid": null
+    },
+    {
+      "group": "lockbit3.0",
+      "victim": "genusplc_com",
+      "claimStartedAt": "2022-06-29",
+      "leakPublishedAt": "2022-07-24",
+      "delayDays": 25,
+      "paid": null
+    }
+  ]
+}
