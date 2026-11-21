@@ -1,0 +1,1749 @@
+{
+  "cibles": 19,
+  "variantesTestees": 532,
+  "domainesActifs": [
+    {
+      "orgId": null,
+      "orgName": "Commune de Claix",
+      "dept": "16",
+      "officialDomains": [
+        "ville-claix.fr"
+      ],
+      "base": "ville-claix.fr",
+      "domain": "ville-claix.com",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "217.70.184.38"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "Université de Poitiers",
+      "dept": "86",
+      "officialDomains": [
+        "univ-poitiers.fr"
+      ],
+      "base": "univ-poitiers.fr",
+      "domain": "univpoitiers.fr",
+      "kind": "omission",
+      "similarity": 0.9230769230769231,
+      "a": [
+        "54.36.149.232"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "Université de Poitiers",
+      "dept": "86",
+      "officialDomains": [
+        "univ-poitiers.fr"
+      ],
+      "base": "univ-poitiers.fr",
+      "domain": "univ-poitiers.com",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "185.53.179.128"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "Université de Nantes",
+      "dept": "44",
+      "officialDomains": [
+        "univ-nantes.fr"
+      ],
+      "base": "univ-nantes.fr",
+      "domain": "uni-nantes.fr",
+      "kind": "omission",
+      "similarity": 0.9090909090909091,
+      "a": [
+        "217.70.184.38"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "Université de Nantes",
+      "dept": "44",
+      "officialDomains": [
+        "univ-nantes.fr"
+      ],
+      "base": "univ-nantes.fr",
+      "domain": "univnantes.fr",
+      "kind": "omission",
+      "similarity": 0.9090909090909091,
+      "a": [
+        "193.52.104.15"
+      ],
+      "aaaa": [
+        "2001:660:7220:386:193:52:104:15"
+      ],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "Université de Nantes",
+      "dept": "44",
+      "officialDomains": [
+        "univ-nantes.fr"
+      ],
+      "base": "univ-nantes.fr",
+      "domain": "univ-nantes.com",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "76.223.54.146",
+        "13.248.169.48"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://univ-nantes.com/",
+        "title": ""
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "Université de Nantes",
+      "dept": "44",
+      "officialDomains": [
+        "univ-nantes.fr"
+      ],
+      "base": "univ-nantes.fr",
+      "domain": "univ-nantes.net",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "185.53.179.136"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "Université de La Rochelle",
+      "dept": "17",
+      "officialDomains": [
+        "univ-larochelle.fr"
+      ],
+      "base": "univ-larochelle.fr",
+      "domain": "univlarochelle.fr",
+      "kind": "omission",
+      "similarity": 0.9333333333333333,
+      "a": [
+        "193.48.38.36"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "CHU de Bordeaux",
+      "dept": "33",
+      "officialDomains": [
+        "chu-bordeaux.fr"
+      ],
+      "base": "chu-bordeaux.fr",
+      "domain": "chubordeaux.fr",
+      "kind": "omission",
+      "similarity": 0.9166666666666666,
+      "a": [
+        "213.186.33.5"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "CHU de Bordeaux",
+      "dept": "33",
+      "officialDomains": [
+        "chu-bordeaux.fr"
+      ],
+      "base": "chu-bordeaux.fr",
+      "domain": "chu-bordeaux.com",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "213.186.33.5"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "CHU de Bordeaux",
+      "dept": "33",
+      "officialDomains": [
+        "chu-bordeaux.fr"
+      ],
+      "base": "chu-bordeaux.fr",
+      "domain": "chu-bordeaux.net",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "213.186.33.5"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "CHU de Bordeaux",
+      "dept": "33",
+      "officialDomains": [
+        "chu-bordeaux.fr"
+      ],
+      "base": "chu-bordeaux.fr",
+      "domain": "chu-bordeaux.org",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "213.186.33.5"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "CHU de Poitiers",
+      "dept": "86",
+      "officialDomains": [
+        "chu-poitiers.fr"
+      ],
+      "base": "chu-poitiers.fr",
+      "domain": "ch-poitiers.fr",
+      "kind": "omission",
+      "similarity": 0.9166666666666666,
+      "a": [
+        "37.58.163.65"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://ch-laborit.fr/",
+        "title": "Centre hospitalier Laborit &#8211; l’établissement de référence en psychiatrie et santé mentale dans la Vienne"
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "CHU de Limoges",
+      "dept": "87",
+      "officialDomains": [
+        "chu-limoges.fr"
+      ],
+      "base": "chu-limoges.fr",
+      "domain": "chu-limoges.com",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "213.186.33.5"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "CHU de Limoges",
+      "dept": "87",
+      "officialDomains": [
+        "chu-limoges.fr"
+      ],
+      "base": "chu-limoges.fr",
+      "domain": "chu-limoges.net",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "213.186.33.5"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "CHU de Limoges",
+      "dept": "87",
+      "officialDomains": [
+        "chu-limoges.fr"
+      ],
+      "base": "chu-limoges.fr",
+      "domain": "chu-limoges.org",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "213.186.33.5"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Bordeaux",
+      "dept": "33",
+      "officialDomains": [
+        "bordeaux.fr"
+      ],
+      "base": "bordeaux.fr",
+      "domain": "bordeau.fr",
+      "kind": "omission",
+      "similarity": 0.875,
+      "a": [
+        "37.59.215.42"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://www.bordeau.fr/",
+        "title": "Coworking Bordeaux Centre - Coworking dans le centre ville de Bordeaux"
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Bordeaux",
+      "dept": "33",
+      "officialDomains": [
+        "bordeaux.fr"
+      ],
+      "base": "bordeaux.fr",
+      "domain": "bardeaux.fr",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "a": [
+        "213.186.33.5"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Bordeaux",
+      "dept": "33",
+      "officialDomains": [
+        "bordeaux.fr"
+      ],
+      "base": "bordeaux.fr",
+      "domain": "bordeaux.com",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "188.114.96.2",
+        "188.114.97.2"
+      ],
+      "aaaa": [
+        "2a06:98c1:3121::2",
+        "2a06:98c1:3120::2"
+      ],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://www.bordeaux.com/fr/",
+        "title": "Vins de Bordeaux - Site Officiel | Bordeaux.com"
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Bordeaux",
+      "dept": "33",
+      "officialDomains": [
+        "bordeaux.fr"
+      ],
+      "base": "bordeaux.fr",
+      "domain": "bordeaux.net",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "15.197.225.128",
+        "3.33.251.168"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://bordeaux.net/",
+        "title": ""
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Bordeaux",
+      "dept": "33",
+      "officialDomains": [
+        "bordeaux.fr"
+      ],
+      "base": "bordeaux.fr",
+      "domain": "bordeaux.org",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "3.33.251.168",
+        "15.197.225.128"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://bordeaux.org/",
+        "title": ""
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Poitiers",
+      "dept": "86",
+      "officialDomains": [
+        "poitiers.fr"
+      ],
+      "base": "poitiers.fr",
+      "domain": "potiers.fr",
+      "kind": "omission",
+      "similarity": 0.875,
+      "a": [
+        "88.198.116.121"
+      ],
+      "aaaa": [
+        "2a01:4f8:c014:b2d8::1"
+      ],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://potiers.fr/",
+        "title": "Dovendi - Domain for sale"
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Poitiers",
+      "dept": "86",
+      "officialDomains": [
+        "poitiers.fr"
+      ],
+      "base": "poitiers.fr",
+      "domain": "poitier.fr",
+      "kind": "omission",
+      "similarity": 0.875,
+      "a": [
+        "185.53.177.31"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Poitiers",
+      "dept": "86",
+      "officialDomains": [
+        "poitiers.fr"
+      ],
+      "base": "poitiers.fr",
+      "domain": "boitiers.fr",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "a": [
+        "213.186.33.19"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://boitiers.fr/",
+        "title": "BOITIERS &#8211; Les boîtiers électroniques qu&#039;il vous faut"
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Poitiers",
+      "dept": "86",
+      "officialDomains": [
+        "poitiers.fr"
+      ],
+      "base": "poitiers.fr",
+      "domain": "poitiers.com",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "64.190.63.222"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://poitiers.com/",
+        "title": "poitiers.com&nbsp;-&nbsp;Ce site web est à vendre !&nbsp;-&nbsp;Ressources et information concernant poitiers Resources and Information."
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Poitiers",
+      "dept": "86",
+      "officialDomains": [
+        "poitiers.fr"
+      ],
+      "base": "poitiers.fr",
+      "domain": "poitiers.net",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "109.234.164.159"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://www.poitiers.net/",
+        "title": "Poitiers.net – Le guide passionné de Poitiers"
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Poitiers",
+      "dept": "86",
+      "officialDomains": [
+        "poitiers.fr"
+      ],
+      "base": "poitiers.fr",
+      "domain": "poitiers.org",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "188.114.96.2",
+        "188.114.97.2"
+      ],
+      "aaaa": [
+        "2a06:98c1:3120::2",
+        "2a06:98c1:3121::2"
+      ],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://poitiers.org/",
+        "title": "Poitiers - Votre guide tourisme pour explorer Poitiers et sa région"
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Limoges",
+      "dept": "87",
+      "officialDomains": [
+        "limoges.fr"
+      ],
+      "base": "limoges.fr",
+      "domain": "limoge.fr",
+      "kind": "omission",
+      "similarity": 0.8571428571428572,
+      "a": [
+        "217.160.0.5"
+      ],
+      "aaaa": [
+        "2001:8d8:100f:f000::21a"
+      ],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://user.clicrdv.com/limoge-virginie",
+        "title": "ClicRDV User"
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Limoges",
+      "dept": "87",
+      "officialDomains": [
+        "limoges.fr"
+      ],
+      "base": "limoges.fr",
+      "domain": "limoges.com",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "23.227.38.65"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://www.limoges.com/",
+        "title": "Limoges Boxes and Tabletop from Limoges France &ndash; www.limoges.com"
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Limoges",
+      "dept": "87",
+      "officialDomains": [
+        "limoges.fr"
+      ],
+      "base": "limoges.fr",
+      "domain": "limoges.net",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "173.249.147.112"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://limogescollector.com/",
+        "title": "Authentic Limoges Boxes | Hand-Painted French Porcelain Gifts from Limoges, France"
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Limoges",
+      "dept": "87",
+      "officialDomains": [
+        "limoges.fr"
+      ],
+      "base": "limoges.fr",
+      "domain": "limoges.org",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "162.255.119.180"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de La Rochelle",
+      "dept": "17",
+      "officialDomains": [
+        "la-rochelle.fr"
+      ],
+      "base": "la-rochelle.fr",
+      "domain": "larochelle.fr",
+      "kind": "omission",
+      "similarity": 0.9090909090909091,
+      "a": [
+        "51.75.201.129"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://www.larochelle.fr/",
+        "title": "Ville de la Rochelle"
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de La Rochelle",
+      "dept": "17",
+      "officialDomains": [
+        "la-rochelle.fr"
+      ],
+      "base": "la-rochelle.fr",
+      "domain": "la-rochelle.com",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "213.186.33.5"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de La Rochelle",
+      "dept": "17",
+      "officialDomains": [
+        "la-rochelle.fr"
+      ],
+      "base": "la-rochelle.fr",
+      "domain": "la-rochelle.org",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "104.21.32.198",
+        "172.67.154.115"
+      ],
+      "aaaa": [
+        "2606:4700:3034::6815:20c6",
+        "2606:4700:3032::ac43:9a73"
+      ],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://la-rochelle.org/",
+        "title": "La Rochelle: Things to Do, Harbour Walks and Island Trips"
+      }
+    }
+  ],
+  "findings": [
+    {
+      "orgId": null,
+      "orgName": "Commune de Claix",
+      "dept": "16",
+      "officialDomains": [
+        "ville-claix.fr"
+      ],
+      "base": "ville-claix.fr",
+      "domain": "ville-claix.com",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "217.70.184.38"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "Université de Poitiers",
+      "dept": "86",
+      "officialDomains": [
+        "univ-poitiers.fr"
+      ],
+      "base": "univ-poitiers.fr",
+      "domain": "univpoitiers.fr",
+      "kind": "omission",
+      "similarity": 0.9230769230769231,
+      "a": [
+        "54.36.149.232"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "Université de Poitiers",
+      "dept": "86",
+      "officialDomains": [
+        "univ-poitiers.fr"
+      ],
+      "base": "univ-poitiers.fr",
+      "domain": "univ-poitiers.com",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "185.53.179.128"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "Université de Nantes",
+      "dept": "44",
+      "officialDomains": [
+        "univ-nantes.fr"
+      ],
+      "base": "univ-nantes.fr",
+      "domain": "uni-nantes.fr",
+      "kind": "omission",
+      "similarity": 0.9090909090909091,
+      "a": [
+        "217.70.184.38"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "Université de Nantes",
+      "dept": "44",
+      "officialDomains": [
+        "univ-nantes.fr"
+      ],
+      "base": "univ-nantes.fr",
+      "domain": "univnantes.fr",
+      "kind": "omission",
+      "similarity": 0.9090909090909091,
+      "a": [
+        "193.52.104.15"
+      ],
+      "aaaa": [
+        "2001:660:7220:386:193:52:104:15"
+      ],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "Université de Nantes",
+      "dept": "44",
+      "officialDomains": [
+        "univ-nantes.fr"
+      ],
+      "base": "univ-nantes.fr",
+      "domain": "univ-nantes.com",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "76.223.54.146",
+        "13.248.169.48"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://univ-nantes.com/",
+        "title": "",
+        "text": ""
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "Université de Nantes",
+      "dept": "44",
+      "officialDomains": [
+        "univ-nantes.fr"
+      ],
+      "base": "univ-nantes.fr",
+      "domain": "univ-nantes.net",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "185.53.179.136"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "Université de La Rochelle",
+      "dept": "17",
+      "officialDomains": [
+        "univ-larochelle.fr"
+      ],
+      "base": "univ-larochelle.fr",
+      "domain": "univlarochelle.fr",
+      "kind": "omission",
+      "similarity": 0.9333333333333333,
+      "a": [
+        "193.48.38.36"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "CHU de Bordeaux",
+      "dept": "33",
+      "officialDomains": [
+        "chu-bordeaux.fr"
+      ],
+      "base": "chu-bordeaux.fr",
+      "domain": "chubordeaux.fr",
+      "kind": "omission",
+      "similarity": 0.9166666666666666,
+      "a": [
+        "213.186.33.5"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "CHU de Bordeaux",
+      "dept": "33",
+      "officialDomains": [
+        "chu-bordeaux.fr"
+      ],
+      "base": "chu-bordeaux.fr",
+      "domain": "chu-bordeaux.com",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "213.186.33.5"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "CHU de Bordeaux",
+      "dept": "33",
+      "officialDomains": [
+        "chu-bordeaux.fr"
+      ],
+      "base": "chu-bordeaux.fr",
+      "domain": "chu-bordeaux.net",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "213.186.33.5"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "CHU de Bordeaux",
+      "dept": "33",
+      "officialDomains": [
+        "chu-bordeaux.fr"
+      ],
+      "base": "chu-bordeaux.fr",
+      "domain": "chu-bordeaux.org",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "213.186.33.5"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "CHU de Poitiers",
+      "dept": "86",
+      "officialDomains": [
+        "chu-poitiers.fr"
+      ],
+      "base": "chu-poitiers.fr",
+      "domain": "ch-poitiers.fr",
+      "kind": "omission",
+      "similarity": 0.9166666666666666,
+      "a": [
+        "37.58.163.65"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://ch-laborit.fr/",
+        "title": "Centre hospitalier Laborit &#8211; l’établissement de référence en psychiatrie et santé mentale dans la Vienne",
+        "text": "Centre hospitalier Laborit &#8211; l’établissement de référence en psychiatrie et santé mentale dans la Vienne Passer au contenu Services de soins Enfants et adolescents Adultes Personnes âgées Patients &#038; usagers Être hospitalisé Les modes d&#8217;hospitalisation L’entrée, le séjour, la sortie Les frais de séjour Le guide du visiteur Le livret d’accueil du patient Espace usagers Les droits des usagers La maison des usagers Trouver une aide auprès de la maison des usagers Les associations d’usagers La commission des usagers Les programmes d’éducation thérapeutique [ETP] Le projet des usagers 2025-2030 Consultation de droit pour les usagers Questionnaire de satisfaction des usagers S&#8217;informer Le lexique des sigles en psychiatrie Les troubles psychiques Pros et partenaires Projet Territorial de Santé Mentale – PTSM Guide des soins sans consentement Centre de documentation Espace presse Espace concours Marchés publics Le CH Laborit Découvrir le CHL Notre activité Notre organisation Ressources / contacts Les chiffres clés Faire un don à l’hôpital Projets et stratégie La recherche et l’enseignement Le projet d’établissement 2025-2030 La démarche Qualité-Risques Projets et constructions Informations pratiques La sectorisation des soins adultes en psychiatrie Plans et accès Recrutement Recrutement Médecins Recrutement “Personnel non médical” Notre offre de Formation Rechercher: Services de soins Enfants et adolescents Adultes Personnes âgées Patients &#038; usagers Être hospitalisé Les modes d&#8217;hospitalisation L’entrée, le séjour, la sortie Les frais de séjour Le guide du visiteur Le livret d’accueil du patient Espace usagers Les droits des usagers La maison des usagers Trouver une aide auprès de la maison des usagers Les associations d’usagers La commission des usagers Les programmes d’éducation thérapeutique [ETP] Le projet des usagers 2025-2030 Consultation de droit pour les usagers Questionnaire de satisfaction des usagers S&#8217;informer Le lexique des sigles en psychiatrie Les troubles psychiques Pros et partenaires Projet Territorial de Santé Mentale – PTSM Guide des soins sans consentement Centre de documentation Espace presse Espace concours Marchés publics Le CH Laborit Découvrir le CHL Notre activité Notre organisation Ressources / contacts Les chiffres clés Faire un don à l’hôpital Projets et stratégie La recherche et l’enseignement Le projet d’établissement 2025-2030 La démarche Qualité-Risques Projets et constructions Informations pratiques La sectorisation des soins adultes en psychiatrie Plans et accès Recrutement Recrutement Médecins Recrutement “Personnel non médical” Notre offre de Formation Rechercher: Accueil Accueil Accueil 2026-10-06T14:03:48+02:00 L’établissement public de référence en psychiatrie et santé mentale de la Vienne Nous contacter : 05 49 44 57 57 Rechercher Filtrer par type de contenu Pages Actualités Évènements L’établissement public de référence en psychiatrie et santé mentale de la Vienne Nous contacter : 05 49 44 57 57 Rechercher Pages Articles Évènements LE CH LABORIT RECRUTE FAIRE UN DON Actualités L’art-thérapie à l’honneur dans trois podcasts réalisés à l’occasion des SISM 2026 &#8211; Épisode 1 Galerie L’art-thérapie à l’honneur dans trois podcasts réalisés à l’occasion des SISM 2026 &#8211; Épisode 1 Culture , SISM L’art-thérapie à l’honneur dans trois podcasts réalisés à l’occasion des SISM 2026 &#8211; Épisode 1 2026-11-20T17:22:33+01:00 20 novembre 2026 | PEPPSI 86 et la Maison des soins somatiques inaugurent leurs nouveaux locaux à Châtellerault Galerie PEPPSI 86 et la Maison des soins somatiques inaugurent leurs nouveaux locaux à Châtellerault Partenariats , Peppsi , Soins , Vie de l'établissement PEPPSI 86 et la Maison des soins somatiques inaugurent leurs nouveaux locaux à Châtellerault 2026-11-12T17:15:54+01:00 12 novembre 2026 | SISM 2026 &#8211; Le street art au service de la santé mentale à Poitiers Galerie SISM 2026 &#8211; Le street art au service de la santé mentale à Poitiers Culture , Évènements , SISM SISM 2026 &#8211; Le street art au service de la santé mentale à Poitiers 2026-11-12T17:11:00+01:00 10 novembre 2026 | 21/11 Journée mondiale des personnes endeuillées par suicide : une conférence-débat à l&#8217;Espace Mendès France Galerie 21/11 Journée mondiale des personnes endeuillées par suicide : une conférence-débat à l&#8217;Espace Mendès France Vie de l'établissement 21/11 Journée mondiale des personnes endeuillées par suicide : une conférence-débat à l&#8217;Espace Mendès France 2026-11-06T11:10:11+01:00 6 novembre 2026 | Les jardins de l’hôpital accueillent l’exposition photo du XV du Poitou Galerie Les jardins de l’hôpital accueillent l’exposition photo du XV du Poitou Centre social , Culture , Évènements , SISM , Vie de l'établissement Les jardins de l’hôpital accueillent l’exposition photo du XV du Poitou 2026-11-06T09:27:15+01:00 5 novembre 2026 | 11ème journée universitaire et régionale de la recherche paramédicale au CH Laborit Galerie 11ème journée universitaire et régionale de la recherche paramédicale au CH Laborit Partenariats , Recherche et enseignement , Vie de l'établissement 11ème journée universitaire et régionale de la recherche paramédicale au CH Laborit 2026-11-12T17:09:11+01:00 3 novembre 2026 | Voir toutes les actualités Vidéos Le Pr Ludovic Gicquel invité du 19/20 de France 3 sur la question du portable au collège Galerie Le Pr Ludovic Gicquel invité du 19/20 de France 3 sur la question du portable au collège Vidéos , Vie de l'établissement <a class=\"fusion-link-wrapper\" href=\"https://ch-laborit"
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "CHU de Limoges",
+      "dept": "87",
+      "officialDomains": [
+        "chu-limoges.fr"
+      ],
+      "base": "chu-limoges.fr",
+      "domain": "chu-limoges.com",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "213.186.33.5"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "CHU de Limoges",
+      "dept": "87",
+      "officialDomains": [
+        "chu-limoges.fr"
+      ],
+      "base": "chu-limoges.fr",
+      "domain": "chu-limoges.net",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "213.186.33.5"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "CHU de Limoges",
+      "dept": "87",
+      "officialDomains": [
+        "chu-limoges.fr"
+      ],
+      "base": "chu-limoges.fr",
+      "domain": "chu-limoges.org",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "213.186.33.5"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Bordeaux",
+      "dept": "33",
+      "officialDomains": [
+        "bordeaux.fr"
+      ],
+      "base": "bordeaux.fr",
+      "domain": "bordeau.fr",
+      "kind": "omission",
+      "similarity": 0.875,
+      "a": [
+        "37.59.215.42"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://www.bordeau.fr/",
+        "title": "Coworking Bordeaux Centre - Coworking dans le centre ville de Bordeaux",
+        "text": "Coworking Bordeaux Centre - Coworking dans le centre ville de Bordeaux Toggle navigation Coworking Bordeaux Centre Accueil Location Tiers-lieux Coworking Bureau partagé Coworking Bordeaux Centre Coworking dans le centre ville de Bordeaux Comment louer un bureau partagé dans le centre de Bordeaux ? Comment louer un bureau partagé dans le centre de Bordeaux ? 1 novembre 2023 Yannick Marty Louer un bureau partagé à Bordeaux, c&rsquo;est facile ! Des coworkings dans le centre de Bordeaux proposent la location de bureau. Si vous avez envie d&rsquo;asseoir votre entreprise dans le centre de Bordeaux en prenant un bureau partagé, sachez que la procédure n&rsquo;est pas complexe. En premier lieu, faites une prévision du loyer maximal que vous avez la capacité de payer mensuellement. Ensuite, ayez une idée de la surface que vous souhaitez avoir dans le partage du bureau. Quels sont les avantages de travailler dans un coworking à Bordeaux ? Quels sont les avantages de travailler dans un coworking à Bordeaux ? 21 juin 2023 Yannick Marty Travailler autrement dans un coworking à Bordeaux, c&rsquo;est possible dans des bureaux partagés. Ces espaces de travail conviviaux se louent à l&rsquo;heure, à la journée, à la semaine, au mois ou pour des périodes plus longues. Aujourd&rsquo;hui, en France, notamment à Bordeaux, le coworking ou co-travail est devenu une tendance, en raison de ses multiples avantages. D&rsquo;abord, la répartition et les faibles coûts d&rsquo;accès entraînent une facilité d&rsquo;acquisition des espaces de travail. Ensuite, il est possible d&rsquo;effectuer des réservations en&#8230; Lire la suite Lire la suite Comment réserver une salle de réunion dans un coworking ? Comment réserver une salle de réunion dans un coworking ? 30 septembre 2022 Yannick Marty Louer une salle de réunion dans un coworking de Bordeaux Centre est utilise pour organiser des formations, présentations, conférences ou conventions. D&rsquo;autres évènements peuvent être organisés comme des événements culturels, des séminaires, des entretiens d&#8217;embauches ou même les entretiens annuels. Une salle de réunion a de multiples atouts. Elle a encore plus d&rsquo;avantages quand elle est située dans un coworking du centre de Bordeaux. Les espaces de travail de bureau partagé ne manquent pas dans la métropole bordelaise. Lorsque vous&#8230; Lire la suite Lire la suite Nos meilleurs conseils pour travailler dans un open-space avec des coworkers Nos meilleurs conseils pour travailler dans un open-space avec des coworkers 15 janvier 2021 Yannick Marty Travailler dans un open-space à Bordeaux a de nombreux avantages qu&rsquo;il convient de protéger&#8230; car des inconvénients existent. L&rsquo;avantage à être en open-space avec des coworkers est de favoriser plus la communication entre travailleurs. Cependant, cela peut devenir très vite agaçant, vu toutes les perturbations que vous pouvez subir. Pour mieux travailler dans ces conditions, il faut vous imposer un certain nombre de choses à faire et des limites. Comment travailler sur une chaise de bureau à roulettes ? Comment travailler sur une chaise de bureau à roulettes ? 30 septembre 2020 Yannick Marty La chaise de bureau à roulettes vous permet de travailler confortablement en télétravail, à votre bureau en présentiel ou dans une salle de réunion. Que vous soyez à la maison en télétravail ou au travail dans un bureau (à Bordeaux, par exemple), la chaise à roulettes est un équipement parfait pour travailler dans un grand confort. En effet, un fauteuil de ce type s peut être réglé en hauteur. Ainsi, le siège sera alors situé juste au-dessous de vos genoux.Ensuite,&#8230; Lire la suite Lire la suite Rechercher : Recherche Votre coworking au bord de l&rsquo;eau, à Bordeaux Articles récents Comment louer un bureau partagé dans le centre de Bordeaux ? Quels sont les avantages de travailler dans un coworking à Bordeaux ? Comment réserver une salle de réunion dans un coworking ? Nos meilleurs conseils pour travailler dans un open-space avec des coworkers Comment travailler sur une chaise de bureau à roulettes ? Catégories Bureau partagé Coworking Location Tiers-lieux Pages Mentions légales &copy; 2026 | Fièrement propulsé par WordPress | Thème : Nisarg"
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Bordeaux",
+      "dept": "33",
+      "officialDomains": [
+        "bordeaux.fr"
+      ],
+      "base": "bordeaux.fr",
+      "domain": "bardeaux.fr",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "a": [
+        "213.186.33.5"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Bordeaux",
+      "dept": "33",
+      "officialDomains": [
+        "bordeaux.fr"
+      ],
+      "base": "bordeaux.fr",
+      "domain": "bordeaux.com",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "188.114.96.2",
+        "188.114.97.2"
+      ],
+      "aaaa": [
+        "2a06:98c1:3121::2",
+        "2a06:98c1:3120::2"
+      ],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://www.bordeaux.com/fr/",
+        "title": "Vins de Bordeaux - Site Officiel | Bordeaux.com",
+        "text": "Vins de Bordeaux - Site Officiel | Bordeaux.com Vins de Bordeaux - Site Officiel | Bordeaux.com <script id=\"main-js-"
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Bordeaux",
+      "dept": "33",
+      "officialDomains": [
+        "bordeaux.fr"
+      ],
+      "base": "bordeaux.fr",
+      "domain": "bordeaux.net",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "15.197.225.128",
+        "3.33.251.168"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://bordeaux.net/",
+        "title": "",
+        "text": ""
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Bordeaux",
+      "dept": "33",
+      "officialDomains": [
+        "bordeaux.fr"
+      ],
+      "base": "bordeaux.fr",
+      "domain": "bordeaux.org",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "3.33.251.168",
+        "15.197.225.128"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://bordeaux.org/",
+        "title": "",
+        "text": ""
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Poitiers",
+      "dept": "86",
+      "officialDomains": [
+        "poitiers.fr"
+      ],
+      "base": "poitiers.fr",
+      "domain": "potiers.fr",
+      "kind": "omission",
+      "similarity": 0.875,
+      "a": [
+        "88.198.116.121"
+      ],
+      "aaaa": [
+        "2a01:4f8:c014:b2d8::1"
+      ],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://potiers.fr/",
+        "title": "Dovendi - Domain for sale",
+        "text": "Dovendi - Domain for sale English This domain name is managed by Dovendi I am interested About Dovendi Dovendi brings buyers and sellers together. We manage over 250,000 international domain names and mediate in the sale of these names with the aim of achieving a good deal for all parties. &copy; Copyright Dovendi &copy; - all rights reserved | Terms and Conditions | Privacy-statement"
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Poitiers",
+      "dept": "86",
+      "officialDomains": [
+        "poitiers.fr"
+      ],
+      "base": "poitiers.fr",
+      "domain": "poitier.fr",
+      "kind": "omission",
+      "similarity": 0.875,
+      "a": [
+        "185.53.177.31"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Poitiers",
+      "dept": "86",
+      "officialDomains": [
+        "poitiers.fr"
+      ],
+      "base": "poitiers.fr",
+      "domain": "boitiers.fr",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "a": [
+        "213.186.33.19"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://boitiers.fr/",
+        "title": "BOITIERS &#8211; Les boîtiers électroniques qu&#039;il vous faut",
+        "text": "BOITIERS &#8211; Les boîtiers électroniques qu&#039;il vous faut BOITIERS Les boîtiers électroniques qu&#039;il vous faut Accueil SERVICES BOITIERS INFOS LOGICIELS CONTACT BOITIER DE VOTE KAPI BOITIER DE VOTE MINI DÉCOUVREZ NOS MODÈLES BOITIERS DE VOTE ELECTRONIQUES BOITIERS DE VOTE HF Séminaires et Conventions Examens et TD universitaires Colloques et Congrès Assemblées générales ou délibérantes Conseils Municipaux ou de collectivités ACHAT Boîtiers de vote en vente Fabrication US Garantie 2 ans Extension de garantie possible LOCATION Boîtiers de vote en location Avec ou sans technicien Formation possible BOITIER DE VOTE MINI 500 boîtiers maximum par récepteur « dongle » inclus dans le pack. Clavier 5 touches, 1 diode : 1 choix parmi 5 Portée : 100 m &#8211; 100 votes/secondes Dimension : 8 x 4 x 1 cm Poids : 23 g avec pile CR2032 incluse Téléchargez la plaquette TARIFS PACK DE 30 1490 € HT BOITIER SUPPLEMENTAIRE 35 € HT PACK DE 100 3990 € HT BOITIER DE VOTE KAPI 500 boîtiers maximum par récepteur « dongle » inclus dans le pack Clavier 12 touches, 1 diode : plusieurs choix parmi 30 Portée : 100 m &#8211; 100 votes/secondes Dimension : 8 x 4 x 1 cm Poids : 23 g avec pile CR2032 incluse Téléchargez la plaquette TARIFS PACK DE 30 1690 € HT BOITIER SUPPLEMENTAIRE 40 € HT PACK DE 100 4490 € HT BOITIERS.FR Boîtiers de vote électronique fiables. Fabrication USA Un récepteur à enficher dans le PC Un logiciel en Français Add-in de Powerpoint 2007,2010,2013,2016 PACK = Boîtiers + Récepteur + Logiciel + Sacoche(s) BOITIERS DE VOTE ELECTRONIQUE HF 2.4 GHZ POUR QUI ? POUR QUOI ? Les boîtiers interactifs peuvent être utilisés dans de nombreuses occasions : Lors de séminaires ou conventions d&rsquo;entreprise Lors d&rsquo;examens ou de séances de TD en université Lors de Colloques et Congrès En Assemblées Générales d&rsquo;associations de copropriétés Pour les conseils Municipaux et autres Assemblées délibérantes LOGICIEL INTUITIF En Français CONTACTEZ-NOUS Un petit mail contact@easyvote.fr Un petit appel 01 34 35 47 22 Une petite visite 34 rue Nationale, 95490 Vauréal ©BOITIERS.FR 2018 ~ CREATED BY BSCREATIONS"
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Poitiers",
+      "dept": "86",
+      "officialDomains": [
+        "poitiers.fr"
+      ],
+      "base": "poitiers.fr",
+      "domain": "poitiers.com",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "64.190.63.222"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://poitiers.com/",
+        "title": "poitiers.com&nbsp;-&nbsp;Ce site web est à vendre !&nbsp;-&nbsp;Ressources et information concernant poitiers Resources and Information.",
+        "text": "poitiers.com - Ce site web est à vendre ! - Ressources et information concernant poitiers Resources and Information."
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Poitiers",
+      "dept": "86",
+      "officialDomains": [
+        "poitiers.fr"
+      ],
+      "base": "poitiers.fr",
+      "domain": "poitiers.net",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "109.234.164.159"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://www.poitiers.net/",
+        "title": "Poitiers.net – Le guide passionné de Poitiers",
+        "text": "Poitiers.net – Le guide passionné de Poitiers Aller au contenu Rechercher: Accueil La Ville Actualité Infos Pratiques Annuaire Accueil La Ville Actualité Infos Pratiques Annuaire Poitiers.net : le guide passionné de Poitiers Poitiers.net : le guide passionné de Poitiers La ville de Poitiers vue par ses habitants Bienvenue sur Poitiers.net , un site créé par des Pictaviens passionnés pour partager l’amour de Poitiers . Histoire, patrimoine, vie locale et conseils pratiques : tout pour mieux connaître et apprécier cette ville unique. La ville Découvrir Actualités Découvrir Guide pratique et local Retrouvez des informations utiles, des événements, des lieux emblématiques et un annuaire de professionnels à Poitiers . Poitiers.net est authentique, local et conçu par ceux qui vivent Poitiers au quotidien. Pratiques Découvrir Entreprises Découvrir Découvrez Poitiers avec des Pictaviens Poitiers.net est conçu par des habitants de Poitiers, pour tous ceux qui souhaitent découvrir la ville de Poitiers , son patrimoine unique et sa vie locale. Notre objectif est de partager notre passion pour Poitiers à travers des articles clairs et pratiques, rédigés par ceux qui connaissent la ville au quotidien. Histoire et patrimoine de Poitiers Plongez dans l’histoire millénaire de Poitiers , ses monuments emblématiques, ses ruelles chargées d’histoire et son architecture remarquable. Que vous souhaitiez visiter Poitiers , en apprendre plus sur son passé ou explorer la ville autrement, nos contenus vous offrent un regard local et authentique. Informations pratiques et vie locale Retrouvez des informations pratiques pour mieux profiter de la ville : événements locaux, services municipaux, transports et conseils pour découvrir Poitiers comme un Pictavien. Notre approche n’est pas exhaustive, mais elle est guidée par l’amour et la connaissance de la ville. Annuaire des professionnels de Poitiers Nous proposons également un annuaire de professionnels à Poitiers , sélectionnés pour leur sérieux et leur expertise. Que vous recherchiez un artisan, un commerçant ou un prestataire de services, Poitiers.net vous guide vers des acteurs locaux fiables, afin de soutenir l’économie de la ville. Un site pour partager notre passion de Poitiers Poitiers.net n’a pas pour but d’être un guide complet ou institutionnel. Il s’agit d’un site créé par des Pictaviens , pour partager l’amour de Poitiers, ses richesses et son dynamisme. Découvrez Poitiers à travers nos yeux, nos conseils et nos coups de cœur, pour vivre pleinement cette ville unique. Copyright &copy; Poitiers.net | Réalisé avec ❤️ par Vianney Lardeau et Pubétic Retour en haut"
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Poitiers",
+      "dept": "86",
+      "officialDomains": [
+        "poitiers.fr"
+      ],
+      "base": "poitiers.fr",
+      "domain": "poitiers.org",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "188.114.96.2",
+        "188.114.97.2"
+      ],
+      "aaaa": [
+        "2a06:98c1:3120::2",
+        "2a06:98c1:3121::2"
+      ],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://poitiers.org/",
+        "title": "Poitiers - Votre guide tourisme pour explorer Poitiers et sa région",
+        "text": "Poitiers - Votre guide tourisme pour explorer Poitiers et sa région Accueil Actu Bon plan Camping Croisiere Location Tourisme Vacance Voyage Échos de la Vienne ? → 🏰 Le magazine de Poitiers Découvrez la capitale historique du Poitou Explorez Poitiers, ville d'art et d'histoire aux mille trésors. Nos guides vous dévoilent les lieux incontournables, les événements culturels et les escapades à ne pas manquer dans la Vienne. Découvrir → Tous les univers du voyage à Poitiers Des articles inspirants pour préparer vos séjours Actu L&#039;actualité du tourisme et du voyage Bon plan Bons plans et promotions voyage Camping Camping, plein air et nature Croisiere Croisières et voyages en mer Location Locations de vacances et hébergement Tourisme Destinations et découvertes touristiques Vacance Vacances, séjours et détente Voyage Voyages, itinéraires et aventures &ldquo; Grâce aux articles de Poitiers.org, j'ai découvert des églises romanes absolument magnifiques que je n'aurais jamais trouvées seule. Les descriptions sont précises et les conseils pratiques vraiment utiles pour organiser ses visites. Sophie Marchand Amatrice d'architecture Votre compagnon de voyage idéal Poitiers.org rassemble toutes les informations pratiques et inspirations pour découvrir la région. Que vous soyez amateur d'histoire, de nature ou de gastronomie, trouvez les meilleures idées pour vos escapades. Guides détaillés sur les monuments et musées Bons plans pour se loger et se déplacer Actualités touristiques et événements locaux Itinéraires personnalisés dans la Vienne Voir plus → Derniers articles Nos publications récentes Tourisme Pourquoi choisir le bus de Bourg-Saint-Maurice à Val Thorens ? 6 Dec. 2026 9 min Camping Solutions pour intégrer électriques et eau dans votre camping 8 Oct. 2026 9 min Tourisme Explorer la Vienne en toute liberté : itinéraires pratiques depuis Poitiers 5 Juil. 2026 11 min Camping Camping en auvergne : un séjour alliant nature et confort 1 Mai 2026 7 min Voyage Les palais royaux d&#039;Europe : bastions de l&#039;histoire 26 Mar. 2026 5 min Vacance Les meilleures activités de plage à faire pendant vos vacances 25 Mar. 2026 6 min Voyage Les festivals culturels à ne pas manquer 24 Mar. 2026 6 min Voyage Les marchés du monde, miroirs des cultures locales 23 Mar. 2026 5 min Vacance Les erreurs courantes des backpackers débutants 20 Mar. 2026 8 min Vacance Faire du camping sur la plage : guide pratique et destinations conseillées 19 Mar. 2026 5 min Tourisme Le rôle du Festival de Cannes dans la promotion du cinéma mondial 18 Mar. 2026 5 min Tourisme Les 10 meilleurs parcs d&#039;attractions en Europe 17 Mar. 2026 10 min Tourisme Guide pour un séjour en pleine nature 16 Mar. 2026 5 min Location Guide complet pour la location d&#039;une cabane 13 Mar. 2026 6 min Location Les étapes clés pour louer une caravane en ligne 12 Mar. 2026 4 min Location Gérer un litige lors d&#039;une location de chalet 11 Mar. 2026 6 min Croisiere Guide complet de la croisière Saint-Pétersbourg 10 Mar. 2026 7 min Camping Les équipements à ne pas oublier pour un séjour en camping municipal 9 Mar. 2026 5 min Croisiere Guide des croisières en Arctique et en Antarctique 6 Mar. 2026 9 min Bon plan Faire le tour du monde à moindre coût : est-ce vraiment possible ? 5 Mar. 2026 7 min Camping Les avantages d&#039;un camping dernière minute 4 Mar. 2026 5 min Croisiere Guide des croisières avec escales en Méditerranée 3 Mar. 2026 6 min Bon plan Excursions à petit prix : Top 5 des destinations en Asie 2 Mar. 2026 5 min Voyage Top yoga retreats for summer 2025: must-see destinations and activities 10 Oct. 2025 7 min Tourisme Visite du marché ethnique de bac ha : couleurs et traditions 4 Oct. 2025 5 min Location Les meilleurs services de location de vélos électriques à nice 10 Aout 2025 11 min Voyage Retraite yoga été 2025 : destinations et activités à ne pas manquer 6 Fev. 2025 6 min Bon plan Faire un road trip économique : conseils et itinéraires 25 février 2025 5 min Bon plan Saut en parachute près de Poitiers : le bon plan qui vaut vraiment le déplacement 13/04/2026 17:56 5 min Camping Bornes d&#039;électricité et d&#039;eau : équiper les emplacements de son camping 20/07/2026 09:23 7 min Poitiers Votre guide tourisme pour explorer Poitiers et sa région Liens Accueil Légal Mentions légales Contact &copy; 2026 Poitiers. Tous droits réservés."
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Limoges",
+      "dept": "87",
+      "officialDomains": [
+        "limoges.fr"
+      ],
+      "base": "limoges.fr",
+      "domain": "limoge.fr",
+      "kind": "omission",
+      "similarity": 0.8571428571428572,
+      "a": [
+        "217.160.0.5"
+      ],
+      "aaaa": [
+        "2001:8d8:100f:f000::21a"
+      ],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://user.clicrdv.com/limoge-virginie",
+        "title": "ClicRDV User",
+        "text": "ClicRDV User"
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Limoges",
+      "dept": "87",
+      "officialDomains": [
+        "limoges.fr"
+      ],
+      "base": "limoges.fr",
+      "domain": "limoges.com",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "23.227.38.65"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://www.limoges.com/",
+        "title": "Limoges Boxes and Tabletop from Limoges France &ndash; www.limoges.com",
+        "text": "Limoges Boxes and Tabletop from Limoges France &ndash; www.limoges.com {\"greetingMessage\":\"Welcome to www.limoges.com. How can I help?\",\"customerServiceEmail\":\"customercare@limoges.com\",\"onlineStorePasswordProtected\":false,\"exportCommand\":false,\"shopName\":\"www.limoges.com\",\"translations\":[{\"key\":\"agent_chat.panel.open_chat\",\"value\":\"Open chat\"},{\"key\":\"agent_chat.panel.open_chat_with_label\",\"value\":\"{{label}}. {{open_chat}}\"},{\"key\":\"agent_chat.panel.ask_anything\",\"value\":\"Ask anything\"},{\"key\":\"agent_chat.panel.title\",\"value\":\"Storekick\"},{\"key\":\"agent_chat.panel.unread_replies\",\"value\":\"Unread replies\"},{\"key\":\"agent_chat.panel.back_to_chat\",\"value\":\"Back to chat\"},{\"key\":\"agent_chat.panel.see_history\",\"value\":\"See chat history\"},{\"key\":\"agent_chat.panel.new_chat\",\"value\":\"Create a new chat\"},{\"key\":\"agent_chat.panel.close\",\"value\":\"Close chat\"},{\"key\":\"agent_chat.panel.undock\",\"value\":\"Undock chat\"},{\"key\":\"agent_chat.panel.dock\",\"value\":\"Dock chat\"},{\"key\":\"agent_chat.panel.expand\",\"value\":\"Expand chat\"},{\"key\":\"agent_chat.panel.contract\",\"value\":\"Contract chat\"},{\"key\":\"agent_chat.panel.jump_to_latest\",\"value\":\"Jump to latest\"},{\"key\":\"agent_chat.panel.loading_chat\",\"value\":\"Loading chat\"},{\"key\":\"agent_chat.new_chat_prompt.title\",\"value\":\"Start a new chat?\"},{\"key\":\"agent_chat.new_chat_prompt.description\",\"value\":\"Sign in to save your chat history, or continue without signing in.\"},{\"key\":\"agent_chat.new_chat_prompt.continue\",\"value\":\"Continue without signing in\"},{\"key\":\"agent_chat.input.label\",\"value\":\"Type your message\"},{\"key\":\"agent_chat.input.placeholder\",\"value\":\"Ask anything...\"},{\"key\":\"agent_chat.input.send\",\"value\":\"Send\"},{\"key\":\"agent_chat.input.stop\",\"value\":\"Stop generating\"},{\"key\":\"agent_chat.input.read_only\",\"value\":\"This conversation is read-only.\"},{\"key\":\"agent_chat.floating_input.open_chat\",\"value\":\"Open chat\"},{\"key\":\"agent_chat.floating_input.search_placeholder\",\"value\":\"Ask about your search…\"},{\"key\":\"agent_chat.floating_input.search_origin\",\"value\":\"From your search: {{query}}\"},{\"key\":\"agent_chat.floating_input.earlier_conversation\",\"value\":\"Earlier conversation\"},{\"key\":\"agent_chat.floating_input.search_thinking\",\"value\":\"Looking through your search…\"},{\"key\":\"agent_chat.floating_input.chat_about_item\",\"value\":\"Chat about this item\"},{\"key\":\"agent_chat.floating_input.chat_about_items\",\"value\":\"Chat about these items\"},{\"key\":\"agent_chat.floating_input.chat_about_search\",\"value\":\"Chat about your search\"},{\"key\":\"agent_chat.floating_input.search_greeting\",\"value\":\"Let’s explore {{query}}\"},{\"key\":\"agent_chat.floating_input.search_subheading\",\"value\":\"Take a closer look at these results, or explore something else.\"},{\"key\":\"agent_chat.floating_input.search_subheading_one\",\"value\":\"Take a closer look at this result, or explore something else.\"},{\"key\":\"agent_chat.agent_response.working\",\"value\":\"Working on it...\"},{\"key\":\"agent_chat.thinking\",\"value\":\"Thinking...\"},{\"key\":\"agent_chat.first_response_delayed\",\"value\":\"Agent is taking longer to respond…\"},{\"key\":\"agent_chat.searching\",\"value\":\"Searching...\"},{\"key\":\"agent_chat.message.sent_timestamp\",\"value\":\"Sent · {{time}}\"},{\"key\":\"agent_chat.message.automated_label\",\"value\":\"Automated\"},{\"key\":\"agent_chat.message.automated_timestamp\",\"value\":\"Automated · {{time}}\"},{\"key\":\"agent_chat.message.speaker_you\",\"value\":\"You:\"},{\"key\":\"agent_chat.message.speaker_assistant\",\"value\":\"Assistant:\"},{\"key\":\"agent_chat.message.speaker_team\",\"value\":\"Support team:\"},{\"key\":\"agent_chat.message.speaker_named\",\"value\":\"{{name}}:\"},{\"key\":\"agent_chat.messag"
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Limoges",
+      "dept": "87",
+      "officialDomains": [
+        "limoges.fr"
+      ],
+      "base": "limoges.fr",
+      "domain": "limoges.net",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "173.249.147.112"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://limogescollector.com/",
+        "title": "Authentic Limoges Boxes | Hand-Painted French Porcelain Gifts from Limoges, France",
+        "text": "Authentic Limoges Boxes | Hand-Painted French Porcelain Gifts from Limoges, France The store will not work correctly when cookies are disabled. My Account My Wishlist Checkout Compare ( ) All About French Porcelain Limoges Boxes - Limoges knowledge center Sign In Contact Us Create an Account Limoges Boxes Imported Directly from France ⭐ 25 Years Expertise ⭐ Woman-Owned Small Business ⭐ SAME-DAY Shipping About Us BLOG Appraisal Personalization CHRISTMAS 2026 GIFT GUIDE Shop UNDER $199 Shop UNDER $250 Sign In Contact Us Create An Account Toggle Nav Search Search Advanced Search All Categories All Categories Animals Cats & Kittens Dogs & Puppies Birds Fish & Ocean Butterfly & Ladybugs Frogs & Turtles Rabbits & Mice Horse & Farm Wild Animals Annual Holidays Easter Mothers Day Fathers Day | Men July 4th | Patriotic Valentine’s Day & Love Saint Patrick's Day | Good Luck Thanksgiving Halloween Four Seasons Religious & Spiritual Baby & Children Baby Limoges Boxes Child & Children Fairytales & Mythical Amusement & Carnival Buy Limoges Boxes Christmas Santa Claus Christmas Trees Nativity Nutcrackers Snowman Gingerbread Houses Cookies, Desserts Holiday Themed Angels & Cherubs Fine Arts Art & Paintings Book & Literature Music Dance Food & Drink Fruits & Vegetables Food & Cooking Desserts Tea & Coffee Wine Limoges Boxes | Champagne House & Garden Flowers & Gardening Furniture & Home Leisure & Games Film & Hollywood Games & Casino Sports Beach & Vacation New Arrivals Shop by Brand Beauchamp Limoges Artoria Rochard Exclusive Limoges Boxes Disney |Rare & Retired Retired, Rare & Vintage Special Occasions Birthday Graduation Wedding Anniversary Professions & Career Retirement Gifts Housewarming Gifts Travel Paris & France World Travel United States Monuments & Landmarks Vehicles & Transport Suitcase & Luggage Women & Fashion Fashion & Beauty Purse Limoges Boxes Shoes Limoges Boxes Gifts For Women Gifts For Mom Heart Limoges Boxes Classic Styles Perfume Chests Jewelry Chests Sewing & Knitting 24K Gold Limoges Boxes All Categories Animals Cats & Kittens Dogs & Puppies Birds Fish & Ocean Butterfly & Ladybugs Frogs & Turtles Rabbits & Mice Horse & Farm Wild Animals Annual Holidays Easter Mothers Day Fathers Day | Men July 4th | Patriotic Valentine’s Day & Love Saint Patrick's Day | Good Luck Thanksgiving Halloween Four Seasons Religious & Spiritual Baby & Children Baby Limoges Boxes Child & Children Fairytales & Mythical Amusement & Carnival Buy Limoges Boxes Christmas Santa Claus Christmas Trees Nativity Nutcrackers Snowman Gingerbread Houses Cookies, Desserts Holiday Themed Angels & Cherubs Fine Arts Art & Paintings Book & Literature Music Dance Food & Drink Fruits & Vegetables Food & Cooking Desserts Tea & Coffee Wine Limoges Boxes | Champagne House & Garden Flowers & Gardening Furniture & Home Leisure & Games Film & Hollywood Games & Casino Sports Beach & Vacation New Arrivals Shop by Brand Beauchamp Limoges Artoria Rochard Exclusive Limoges Boxes Disney |Rare & Retired Retired, Rare & Vintage Special Occasions Birthday Graduation Wedding Anniversary Professions & Career Retirement Gifts Housewarming Gifts Travel Paris & France World Travel United States Monuments & Landmarks Vehicles & Transport Suitcase & Luggage Women & Fashion Fashion & Beauty Purse Limoges Boxes Shoes Limoges Boxes Gifts For Women Gifts For Mom Heart Limoges Boxes Classic Styles Perfume Chests Jewelry Chests Sewing & Knitting 24K Gold Limoges Boxes Search links My Account My Wishlist Checkout Compare ( ) All About French Porcelain Limoges Boxes - Limoges knowledge center Sign In Contact Us Create an Account Call Us Now 877-259-0111 Cart 0 Shopping Cart Menu Buy Limoges Boxes New Arrivals Animals Cats & Kittens Dogs & Puppies Birds Fish & Ocean Butterfly & Ladybugs Frogs & Turtles Rabbits & Mice Horse & Farm Wild Animals Fine Arts Art & Paintings Book & Literature Music Dance Baby & Children Baby Limoges Boxes Child & Children Fairytales & Mythical Amusement & Carnival Christmas Santa Claus Christmas Trees Nativity Nutcrackers Snowman Gingerbread Houses Cookies, Desserts Holiday Themed Angels & Cherubs Annual Holidays Easter Egg Limoges Boxes Mothers Day Fathers Day | Men July 4th | Patriotic Valentine’s Day & Love Saint Patrick's Day | Good Luck Thanksgiving Halloween Four Seasons Spring Summer Fall | Autumn Winter Religious & Spiritual Christian Jewish Nativities Angels Special Occasions Birthday Graduation Wedding Anniversary Professions & Career Retirement Gifts Housewarming Gifts Women & Fashion Fashion & Beauty Purse Limoges Boxes Shoes Limoges Boxes Gifts For Women Gifts For Mom Heart Limoges Boxes Classic Styles Perfume Chests Jewelry Chests Sewing & Knitting 24K Gold Limoges Boxes Food & Drink Fruits & Vegetables Food & Cooking Desserts Tea & Coffee Wine Limoges Boxes | Champagne House & Garden Flowers & Gardening Furniture & Home Travel Paris & France World Travel United States Monuments & Landmarks Vehicles & Transport Suitcase & Luggage Leisure & Games Film & Hollywood Games & Casino Sports Beach & Vacation Shop by Brand Beauchamp Limoges Artoria Rochard Exclusive Limoges Boxes Disney |Rare & Retired Retired, Rare & Vintage Account 0 --> Limoges Boxes | Authentic Hand-Painted French Porcelain Collectibles Luxury Gifts Quickview Rome's Trevi Fountain with Coin Limoges Box (Beauchamp Exclusive) $499.00 SKU#: 7495 Add to Wish List Add to Cart Quickview Julia Child's \"French Cooking\" Cookbook Limoges Box (Beauchamp Exclusive) $399.00 SKU#: 7462 Add to Wish List Add to Cart Quickview Golden Retriever Dog with Ball Limoges Box (Beauchamp) $329.00 SKU#: 7330 Add to Wish List Add to Cart Quickview Red Heart Box of Chocolates Limoges Box with Gold Bow (Beauchamp) $379.00 SKU#: 5917 Add to Wish List Add to Cart Quickview Black & White Cat on Red Cushion Limoges Box (Beauchamp) $299.00 SKU#: 3208 Add to Wish List Add to Cart Quickview Champagne Bottle with Ice Bucket Chiller Limoges Box (Beauchamp) $349.00 SKU#: 5040 Add to Wish List Add to Cart Quickview Cheese Wine Platter under Glass Limoges Box (Beauchamp) $399.00 SKU#: 2135 Add to Wish List Add to Cart Quickview Eiffel Tower Limoges Box with Paris Painting Inside (Beauchamp) $349.00 SKU#: 2731 Add to Wish List Add to Cart Quickview 2-Layer Cake with Pink Roses Limoges Box (Beauchamp) $389.00 SKU#: 3234 Add to Wish List Add to Cart Quickview Louvre Museum Pyramid with Mona Lisa on Easel Limoges Box (Beauchamp) $439.00 SKU#: 2839 Add to Wish List Add to Cart SHOP SANTA CLAUS SHOP CHRISTMAS TREES SHOP NATIVITIES SHOP NUTCRACKERS SHOP SNOWMEN SHOP GINGERBREAD HOUSES SHOP CHRISTMAS TREES SHOP HOLIDAY-THEMED SHOP ANGELS SHOP HANUKKAH Perfect Gifts for Any Occasion ⭐ Perfect Porcelain Gifts that Impress All Recipients Elegant Limoges boxes for birthdays, anniversaries, weddings, holidays, and special celebrations. ⭐ Hand-Painted (Peint Main) by Master Porcelain Painters Handcrafted French porcelain gifts and collectibles with exquisite miniature painting details. ⭐ Thoughtful Keepsake Gift Timeless meaningful gifts for family, friends, and loved ones of all ages. ⭐Tasteful Home Décor Beautiful display pieces that add charm and sophistication to any space. ⭐Luxury French Art Pieces Ideal for Collectors Unique Limoges trinket boxes perfect for expanding any porcelain collection. ⭐ Premium French Craftsmanship Made with fine porcelain and exceptional artistry for lasting beauty. SHOP OUR COLLECTION We Appreciate Your Business! Your Patronage Supports Our Woman-Owned Small Business and the Skilled French Artisans Who Create These Exceptional Art Pieces. Personalize Your Limoges Box Gift Make your gift truly meaningful with a custom touch. Add a name, special date, or heartfelt message to create a beautiful keepsake that celebrates a cherished person or unforgettable moment. Perfect for birthdays, weddings, anniversaries, holidays, and other memorable occasions, a personalized treasure adds sentimental value to an already extraordinary gift. Our artists hand-inscribe your chosen words with care, making each piece uniquely yours. To get started, select “Personalize this Limoges box” on any product page and enter your desired message. Make it personal. Make it memorable. Create a keepsake to treasure for years to come! --- Shop By Category --- ANIMALS SHOP NOW ● Cats ● Dogs ● Birds ● Fish ● Butterflies ● Frogs and Turtles ● Rabbit and Mice ● Horse and Farm ● Wild and Jungle FINE ARTS SHOP NOW ● Art and Paintings ● Books and Literature ● Music ● D ance BABy & CHILDREN SHOP NOW ● Baby ● Children ● Fairytales & Mythical ● Amusement & Carnival CHRISTMAS SHOP NOW ● Santa Claus ● Christmas Trees ● Nativity ● Nutcrackers ● Snowman ● Gingerbread House ● Holiday Themed ● Angels & Cherubs YEARLY HOLIDAYS SHOP NOW ● Easter ● Mother's Day ● Father's Day ● Patriotic ● Valentine's Day ● St. Patrick's Day ● Halloween ● Thanksgiving ● Four Seasons ● Religious SPECIAL OCCASIONS SHOP NOW ● Birthday ● Graduation ● Wedding ● Anniversary ● Professions ● Retirement ● Housewarming WOMEN & FASHION SHOP NOW ● Fashion & Beauty ● Gifts for Her ● Gifts for Mom ● Hearts ● Classic Styles ● Perfume Chests ● Jewelry Chests ● Sewing & Knitting ● 24K Gold Boxes FOOD & DRINK SHOP NOW ● Fruits & Vegetables ● Food, Cooking, Baking ● Desserts ● Tea & Coffee ● Wine & Champagne TRAVEL SHOP NOW ● Paris & France ● World Travel ● United States ● Landmarks ● Vehicles ● Suitcase & Luggage HOUSE & GARDEN SHOP NOW ● Flowers and Gardening ● Furniture and Home LEISURE & GAMES SHOP NOW ● Film and Hollywood ● Games and Casino ● Sports ● Beach & Vacation LIMOGES BRANDS SHOP NOW ● Beauchamp ● Artoria ● Rochard ● Exclusives ● Disney ● Retired, Rare, Vintage We Offer Top Brands As authorized dealers for Rochard, Beauchamp and Artoria, our extensive selection showcases the top Limoges brands known for their fine craftsmanship and fine artistry. Rochard ~ Beauchamp ~ Artoria We are also proud to offer a large selection of Retired, Vintage and Rare Limoges boxes by brand"
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de Limoges",
+      "dept": "87",
+      "officialDomains": [
+        "limoges.fr"
+      ],
+      "base": "limoges.fr",
+      "domain": "limoges.org",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "162.255.119.180"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de La Rochelle",
+      "dept": "17",
+      "officialDomains": [
+        "la-rochelle.fr"
+      ],
+      "base": "la-rochelle.fr",
+      "domain": "larochelle.fr",
+      "kind": "omission",
+      "similarity": 0.9090909090909091,
+      "a": [
+        "51.75.201.129"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://www.larochelle.fr/",
+        "title": "Ville de la Rochelle",
+        "text": "Ville de la Rochelle &times; Retour \" data-back-button-position=\"top\" data-parent-link=\"true\" data-scroll-top=\"true\"> Actualités Dans l&#039;actualité... Nos actus à la Une Agenda des événements rochelais Noël 2026, découvrez le programme ! Programmation trimestrielle des archives Publications Journal municipal Espace Presse Offres d&#039;emploi Les grands projets Travaux du musée des Beaux-Arts Travaux de la tour Saint-Nicolas Restauration du parc Jean Duvignaud Réhabilitation du groupe scolaire Paul Doumer Voir plus... Dialogue citoyen Étude des besoins sur le quartier des Minimes Évolution du quartier de Mireuil Dessine-moi un Gabut Dessine-moi Normandin Enquêtes publiques Tout savoir sur les enquêtes publiques Action municipale Élus et institution Liste des élus Conseil municipal Affichage légal Services municipaux Budget de la Ville Patrimoine immobilier municipal Participer à la vie des quartiers Éthique et déontologie Libre expression des groupes politiques Ville durable Nature en ville Urbanisme repensé Transition écologique dans l&#039;administration municipale Gestion des risques majeurs Ville jeunesse Écoles, crèches et vie scolaire Actions pour les jeunes Ville amie des Enfants Offres pédagogiques Conseil municipal des enfants Ville solidaire Aide sociale aux personnes âgées Plan canicule Police municipale et sécurité Logement adapté à chacun Jumelage et partenariat Égalité des genres Lutte contre les violences sexistes, sexuelles et intrafamiliales Valorisation des femmes dans l&#039;espace public Espaces France services Ville connectée Stratégie Numérique Responsable L&#039;accès numérique pour tous De la ville connectée à la ville intelligente L’Open Data pour inventer les services de demain Hotspot wifi Le numérique à l&#039;école Application « La Rochelle au bout des doigts » Site internet des cimetières Réseau mobile Portail citoyen Ville culturelle Patrimoine P[art]cours artistiques et culturels Les médiathèques municipales Les musées municipaux La Maison des Écritures La Chapelle des Dames blanches Le Carré Amelot L&#039;Orchestre d&#039;harmonie de La Rochelle Les Archives municipales Conseil culturel consultatif Ville sportive Développer la pratique sportive Animation sportive municipale Les équipements sportifs La piscine Lucien Maylin Ville santé Partenariats et prévention en faveur de la santé Qualité de l&#039;air à La Rochelle Qualité des eaux de baignade Carte des fontaines d&#039;eau Cartographie du bruit Espaces sans tabac « Veille sur tes amis », prévention partenariats Sport santé Ville accessible Actions en faveur du handicap Accessibilité numérique des services publics Handicap et parcours scolaires Loisirs, tourisme, sorties Vie quotidienne Familles Accéder au Portail Familles Petite enfance Déterminer l&#039;école de mon secteur Inscrire son enfant à l&#039;école Inscrire son enfant en accueil de loisirs Inscrire son enfant à la restauration scolaire Menus des écoles État Civil Portail citoyen Demander un acte d&#039;état civil Déclarer une naissance Faire une démarche liée au décès Se marier Se pacser Changer de nom d&#039;usage Faire un duplicata du livret de famille Identité - Citoyenneté Gérer sa carte d&#039;identité ou son passeport Faire son recensement militaire ou citoyen Démarches liées aux élections Demander une attestation d&#039;accueil Saisir le médiateur de la Ville Contacter le délégué à la protection des données (DPO) Accéder aux Documents Administratifs Habitat – Espace public Adopter des éco-gestes au quotidien Réserver une salle municipale Gérer son abonnement d&#039;eau S&#039;installer ou déménager de La Rochelle Déclarer une location touristique Réaliser des travaux Nuisances sonores Signaler un habitat indigne et dégradé Propreté urbaine et gestion des déchets Animaux et insectes Faire une demande de repas de rue Végétaliser sa rue S&#039;inscrire à l&#039;atelier Jardinons aux serres Transports - Déplacements Se déplacer à pied, à vélo, en bus Descendre de vélo en secteur dense Utiliser le passeur et le bus de mer Faire du covoiturage et de l&#039;autopartage Se déplacer pour les personnes à mobilité réduite Prendre un taxi Carte des travaux impactant la circulation Stationnement Stationner dans les rues de La Rochelle Stationner dans les parkings de La Rochelle Stationner en camping-car Stationner en tant que personne à mobilité réduite Je suis verbalisé : comment payer ou contester ? Prendre un abonnement résident ou professionnel Accéder au cœur de Ville apaisé Bons plans du stationnement Récupérer son véhicule mis en fourrière Foire aux questions sur le stationnement Prévention – Bien-être Se former aux gestes qui sauvent S’informer et agir pour sa santé mentale Se vacciner pour la France et l&#039;international S&#039;inscrire à l&#039;alerte pollens Utiliser un défibrillateur S&#039;inscrire à l&#039;alerte canicule Inscrire un proche à l&#039;alerte canicule Se déplacer en sécurité avec Tranquil&#039;iti Professionnels – associations S&#039;implanter à La Rochelle Je suis une association Je suis un commerce Commande publique Vendre sur les marchés Marchés d&#039;été Taxis : autorisation de stationnement Avis de publicité Les salles municipales de La Rochelle Organiser une manifestation Aller au menu Aller au contenu &times; Actualités Dans l&#039;actualité... Nos actus à la Une Agenda des événements rochelais Noël 2026, découvrez le programme ! Programmation trimestrielle des archives Publications Journal municipal Espace Presse Offres d&#039;emploi Les grands projets Travaux du musée des Beaux-Arts Travaux de la tour Saint-Nicolas Restauration du parc Jean Duvignaud Réhabilitation du groupe scolaire Paul Doumer Voir plus... Dialogue citoyen Étude des besoins sur le quartier des Minimes Évolution du quartier de Mireuil Dessine-moi un Gabut Dessine-moi Normandin Enquêtes publiques Tout savoir sur les enquêtes publiques Action municipale Élus et institution Liste des élus Conseil municipal Affichage légal Services municipaux Budget de la Ville Patrimoine immobilier municipal Participer à la vie des quartiers Éthique et déontologie Libre expression des groupes politiques Ville durable Nature en ville Urbanisme repensé Transition écologique dans l&#039;administration municipale Gestion des risques majeurs Ville jeunesse Écoles, crèches et vie scolaire Actions pour les jeunes Ville amie des Enfants Offres pédagogiques Conseil municipal des enfants Ville solidaire Aide sociale aux personnes âgées Plan canicule Police municipale et sécurité Logement adapté à chacun Jumelage et partenariat Égalité des genres Lutte contre les violences sexistes, sexuelles et intrafamiliales Valorisation des femmes dans l&#039;espace public Espaces France services Ville connectée Stratégie Numérique Responsable L&#039;accès numérique pour tous De la ville connectée à la ville intelligente L’Open Data pour inventer les services de demain Hotspot wifi Le numérique à l&#039;école Application « La Rochelle au bout des doigts » Site internet des cimetières Réseau mobile Portail citoyen Ville culturelle Patrimoine P[art]cours artistiques et culturels Les médiathèques municipales Les musées municipaux La Maison des Écritures La Chapelle des Dames blanches Le Carré Amelot L&#039;Orchestre d&#039;harmonie de La Rochelle Les Archives municipales Conseil culturel consultatif Ville sportive Développer la pratique sportive Animation sportive municipale Les équipements sportifs La piscine Lucien Maylin Ville santé Partenariats et prévention en faveur de la santé Qualité de l&#039;air à La Rochelle Qualité des eaux de baignade Carte des fontaines d&#039;eau Cartographie du bruit Espaces sans tabac « Veille sur tes amis », prévention partenariats Sport santé Ville accessible Actions en faveur du handicap Accessibilité numérique des services publics Handicap et parcours scolaires Loisirs, tourisme, sorties Vie quotidienne Familles Accéder au Portail Familles Petite enfance Déterminer l&#039;école de mon secteur Inscrire son enfant à l&#039;école Inscrire son enfant en accueil de loisirs Inscrire son enfant à la restauration scolaire Menus des écoles État Civil Portail citoyen Demander un acte d&#039;état civil Déclarer une naissance Faire une démarche liée au décès Se marier Se pacser Changer de nom d&#039;usage Faire un duplicata du livret de famille Identité - Citoyenneté Gérer sa carte d&#039;identité ou son passeport Faire son recensement militaire ou citoyen Démarches liées aux élections Demander une attestation d&#039;accueil Saisir le médiateur de la Ville Contacter le délégué à la protection des données (DPO) Accéder aux Documents Administratifs Habitat – Espace public Adopter des éco-gestes au quotidien Réserver une salle municipale Gérer son abonnement d&#039;eau S&#039;installer ou déménager de La Rochelle Déclarer une location touristique Réaliser des travaux Nuisances sonores Signaler un habitat indigne et dégradé Propreté urbaine et gestion des déchets Animaux et insectes Faire une demande de repas de rue Végétaliser sa rue S&#039;inscrire à l&#039;atelier Jardinons aux serres Transports - Déplacements Se déplacer à pied, à vélo, en bus Descendre de vélo en secteur dense Utiliser le passeur et le bus de mer Faire du covoiturage et de l&#039;autopartage Se déplacer pour les personnes à mobilité réduite Prendre un taxi Carte des travaux impactant la circulation Stationnement Stationner dans les rues de La Rochelle Stationner dans les parkings de La Rochelle Stationner en camping-car Stationner en tant que personne à mobilité réduite Je suis verbalisé : comment payer ou contester ? Prendre un abonnement résident ou professionnel Accéder au cœur de Ville apaisé Bons plans du stationnement Récupérer son véhicule mis en fourrière Foire aux questions sur le stationnement Prévention – Bien-être Se former aux gestes qui sauvent S’informer et agir pour sa santé mentale Se vacciner pour la France et l&#039;international S&#039;inscrire à l&#039;alerte pollens Utiliser un défibrillat"
+      }
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de La Rochelle",
+      "dept": "17",
+      "officialDomains": [
+        "la-rochelle.fr"
+      ],
+      "base": "la-rochelle.fr",
+      "domain": "la-rochelle.com",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "213.186.33.5"
+      ],
+      "aaaa": [],
+      "cert": null,
+      "page": null
+    },
+    {
+      "orgId": null,
+      "orgName": "Mairie de La Rochelle",
+      "dept": "17",
+      "officialDomains": [
+        "la-rochelle.fr"
+      ],
+      "base": "la-rochelle.fr",
+      "domain": "la-rochelle.org",
+      "kind": "tld",
+      "similarity": 1,
+      "a": [
+        "104.21.32.198",
+        "172.67.154.115"
+      ],
+      "aaaa": [
+        "2606:4700:3034::6815:20c6",
+        "2606:4700:3032::ac43:9a73"
+      ],
+      "cert": null,
+      "page": {
+        "status": 200,
+        "url": "https://la-rochelle.org/",
+        "title": "La Rochelle: Things to Do, Harbour Walks and Island Trips",
+        "text": "La Rochelle: Things to Do, Harbour Walks and Island Trips Skip navigation La-Rochelle.org Tours Boat trips Walking tours Île de Ré Getting there DE Find a tour Your independent La Rochelle guide La Rochelle : Boat Trips, City Walks and Atlantic Islands La Rochelle brings harbour towers, an aquarium and Atlantic boat trips together. Start with the Old Port on a short visit, or give a separate day to the coast and islands. Compare La Rochelle tours → See tours on this page ↓ ★ Boat trips and city tours compared ⚓ Old Port walks and island crossings ↺ Check free cancellation by tour La Rochelle sights at a glance La Rochelle is a port city in Charente-Maritime on France’s Atlantic coast. For a short visit, start at the Vieux-Port, where the harbour towers mark the entrance, and use the Grosse Horloge as your landmark on the way into the old town. If the sea is the reason you came, keep time for a beach, a sail or a separate island trip. La Concurrence is the city-centre beach. Les Minimes and Chef de Baie give you other stretches of coast to aim for. Choose the harbour and old town walk for the towers and the story of the wine and salt trade, or compare private tours if the visit is for your own group. Vieux-Port Harbour towers and the Grosse Horloge city gate About 5 minutes on foot From La Rochelle station to the aquarium Île de Ré Bridge crossing from La Rochelle to Rivedoux-Plage La Rochelle tours Choose a food walk with a local guide for a taste of the city, or a guided walk if you prefer its streets. For time on the water, compare the narrated cruise and catamaran sails. Hand-picked tours, booked through GetYourGuide. Prices are indicative starting prices in euros (as of November 2026). Tap a tour for live availability and the current price in your currency. Food walk from €122 La Rochelle food walk 🕒 3 hours 📍 30 Quai Duperré, La Rochelle Local expert guide Help booking additional experiences Explore the local flavours that interest you. Tickets to other attractions are extra. Check availability → Food walk from €120 La Rochelle food and drink tasting walk 🕒 3 hours 📍 Place de l’Hôtel de Ville, 1 Rue de l’Hôtel de Ville, La Rochelle ⭐ 5 (22 reviews) Food and alcoholic drink tastings Native English-speaking guide Food history and culture commentary The included tastings are enough to replace lunch. Check availability → Sailing from €46 Catamaran sailing towards Fort Boyard 🕒 4 hours 📍 15 Avenue Michel Crépeau, La Rochelle ⭐ 4.8 (709 reviews) Captain and crew Water Security equipment Sail from La Rochelle towards Fort Boyard. Entry is not included. From March 2026 to spring 2028, boats must stay at least 480 m from Fort Boyard. Check availability → Guided walk from €40 Guided walk through La Rochelle 🕒 2 hours 📍 Place de la Chaîne, La Rochelle ⭐ 4.9 (98 reviews) Guide This public walk starts at Place de la Chaîne. Tower admission is extra. Check availability → Coastal sail from €29 Daytime coastal sail from La Rochelle 🕒 2 hours 📍 15 Avenue Michel Crépeau, La Rochelle ⭐ 4.7 (264 reviews) Water Safety equipment A daytime sail along the coast from La Rochelle. Check availability → Sea cruise from €23 Commented cruise towards Fort Boyard 🕒 130 minutes 📍 Cours des Dames, ticket office 1, La Rochelle ⭐ 4.7 (1,672 reviews) Narrated sea cruise The route offers views of Île d’Aix without a landing. Entry to Fort Boyard is not included. From March 2026 to spring 2028, boats must stay at least 480 m from Fort Boyard. Check availability → Guided walks and boat trips in La Rochelle Compare a food walk with a local guide, a harbour history tour from Place de la Chaîne and sailings along the coast or towards Fort Boyard. Browse all tours on GetYourGuide → Aquarium La Rochelle on Quai Louis Prunier Aquarium La Rochelle is about five minutes on foot from the railway station, and a visit takes about 1.5 to 2 hours. An aquarium ticket with a timed slot guarantees entry at the booked time and is recommended when you are fitting the aquarium around a train or a sailing. Plan the aquarium as a visit in its own right. As of November 2026, admission is €18.50 for adults, €14.50 for ages 13 to 17 and €12.50 for ages 3 to 12. Children under 3 enter free. Children under 14 must be accompanied by an adult, and pushchairs and wheelchairs are allowed. From 2 November to 18 December 2026, the aquarium opens from 10:00 to 19:00, with last entry at 17:30. Keep meals outside the exhibition route and switch off the flash if you take photographs. Once you leave, the visit is over, so allow time to go through the displays at your own pace before heading back towards the harbour. La Rochelle’s coast, Fort Boyard and the islands La Rochelle has coastal sails for time on the water, Fort Boyard cruises for a view of the sea fort and a separate boat excursion for time ashore on Île d’Aix. The narrated Fort Boyard cruise from the Old Port sails past Île d’Aix without landing. For time on the island itself, use the dedicated Aix trip from Cours des Dames and plan around the return sailing. Île de Ré is reached by bridge. Start with the crossing to Île de Ré if you want to spend your time in island villages, on the coast or near the salt landscapes. The boat trip guide explains the Fort Boyard navigation zone and the steps at the Aix landing. For a city day with a food focus, the guided walk from Quai Duperré explores local flavours with a local guide. Plan a visit to La Rochelle La Rochelle works as a base for harbour walks, coast trips and a bridge crossing to Île de Ré. Choose a guide for the part of the visit you want to organise first. Tours La Rochelle tours Compare food walks, a narrated cruise and guided cycling. Boats Fort Boyard and boat trips Compare coastal sailing, Fort Boyard routes and the separate trip ashore on Aix. History Old Port and old town walks Follow the towers, the city gate and the streets behind the harbour. Private tours Private walks and sailing Compare private city walks with a catamaran for your group. Transport Getting to La Rochelle Plan arrival by train, airport bus or car. Areas Where to stay Choose an area by the walks and connections you will use. Seasons When to visit Compare monthly weather, beach supervision and boat timetables. Island Île de Ré Cross by bridge and choose between villages, beaches and salt landscapes. La Rochelle visitor questions La Rochelle’s Old Port is a practical starting point for the city and its boat trips, while the aquarium and Île de Ré each have their own visit arrangements. What should I see first in La Rochelle? La Rochelle’s Old Port is the place to begin if time is limited. Look towards the harbour entrance to see the towers, then walk through the Grosse Horloge into the streets of the old town. If the coast is your priority, continue your day at La Concurrence. How long does Aquarium La Rochelle take? About 1.5 to 2 hours is a useful allowance for Aquarium La Rochelle. Start from Quai Louis Prunier, about five minutes on foot from the station. A timed ticket guarantees your booked entry time, which is useful if you need to fit the visit around a train. Who publishes this La Rochelle guide? La-Rochelle.org is an independent guide, separate from the city’s tourist office and local tour operators. It brings together practical details for visiting the harbour, aquarium, beaches and nearby islands, alongside comparisons of guided outings and the travel arrangements you make for yourself. La Rochelle tours and boat trips Compare coastal cruises, guided walks and bike tours by starting point and what’s included. Compare La Rochelle tours → La-Rochelle.org Plan a visit to La Rochelle on France’s Atlantic coast. Explore the Old Port and its towers, compare boat trips and city tours, and plan your crossing to Île de Ré. La-Rochelle.org is an independent travel guide with no affiliation to the city, its tourist office, local attractions or tour operators. Explore Tours Boat trips Walking tours Île de Ré Getting there More on this site Private Tours on Foot or by Catamaran Where to Stay Best Time to Visit Info About & contact Privacy policy Affiliate disclosure Image credits Bookings made through links on this site may earn us a commission. The price for you stays the same. · © 2026 La-Rochelle.org Find a tour from €23 Check availability"
+      }
+    }
+  ],
+  "usurpations": [],
+  "urlsPhishing": [],
+  "sources": {
+    "dns": {
+      "requetes": 532,
+      "reponses": 34
+    },
+    "crtsh": {
+      "requetes": 34,
+      "reponses": 0
+    },
+    "page": {
+      "requetes": 34,
+      "reponses": 16
+    }
+  },
+  "mesure": {
+    "echantillon": 34,
+    "alarmes": 34,
+    "fauxPositifs": 34,
+    "taux": 1,
+    "detail": [
+      {
+        "domain": "bardeaux.fr",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "boitiers.fr",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "bordeau.fr",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "bordeaux.com",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "bordeaux.net",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "bordeaux.org",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "ch-poitiers.fr",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "chu-bordeaux.com",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "chu-bordeaux.net",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "chu-bordeaux.org",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "chu-limoges.com",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "chu-limoges.net",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "chu-limoges.org",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "chubordeaux.fr",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "la-rochelle.com",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "la-rochelle.org",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "larochelle.fr",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "limoge.fr",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "limoges.com",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "limoges.net",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "limoges.org",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "poitier.fr",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "poitiers.com",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "poitiers.net",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "poitiers.org",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "potiers.fr",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "uni-nantes.fr",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "univ-nantes.com",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "univ-nantes.net",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "univ-poitiers.com",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "univlarochelle.fr",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "univnantes.fr",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "univpoitiers.fr",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      },
+      {
+        "domain": "ville-claix.com",
+        "alarme": true,
+        "usurpation": false,
+        "motifs": [
+          "dns-actif",
+          "certificat-absent-ou-ancien"
+        ]
+      }
+    ]
+  },
+  "evenements": 0
+}
