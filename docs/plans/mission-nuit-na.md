@@ -198,11 +198,19 @@ manuel tracé) — pas une intention.
 
 ## Task 8: Audit zéro trou
 
-- [ ] Tous les départements NA ont au moins un événement, ou une raison écrite
-- [ ] Toutes les sources NA activées ont produit quelque chose sur 7 jours, ou
-      sont classées muettes avec leur motif
-- [ ] Aucune entité NA citée sans organisation, ou non-résolution documentée
-- [ ] Écrire `bench/results/na-audit-2026-11-21.json` + un tableau lisible
+- [x] Tous les départements NA ont au moins un événement, ou une raison écrite —
+      8/12 couverts ; les 4 à zéro (40, 47, 23, 19) documentés : collecte active
+      (68-90 items/7 j chacun), aucun item admis-rattaché à ce jour (filtre
+      généraliste, constat migrate-037)
+- [x] Toutes les sources NA activées ont produit quelque chose sur 7 jours, ou
+      sont classées muettes avec leur motif — 39 sources auditées : 26
+      produisent, 13 muette(s) (motif écrit), 0 dormante
+- [x] Aucune entité NA citée sans organisation, ou non-résolution documentée —
+      liste vide côté NA, 8 entités FR hors NA documentées, reprise vague 2
+      engagée (lot 1)
+- [x] Écrire `bench/results/na-audit-2026-11-21.json` + un tableau lisible —
+      JSON avec requêtes + `na-audit-2026-11-21.md` (départements, sources,
+      verdicts)
 - [ ] Commit : `mesure(na): audit zéro trou`
 
 ## Task 9: Rapport de nuit

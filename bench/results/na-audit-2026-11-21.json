@@ -1,0 +1,534 @@
+{
+  "dateMesure": "2026-11-21",
+  "plan": "docs/plans/mission-nuit-na.md — Task 8",
+  "commande": "DATABASE_URL=postgres://radar:radar@localhost:5433/radar tsx scripts/audit-na.mts",
+  "requetes": {
+    "parDept": "SELECT o.dept, count(DISTINCT o.id) AS orgs, count(DISTINCT e.org_id) AS orgs_evt, count(e.id) AS evts\nFROM org o LEFT JOIN event e ON e.org_id = o.id\nWHERE o.dept IN ('16','17','19','23','24','33','40','47','64','79','86','87') GROUP BY o.dept",
+    "sources": "SELECT s.id, s.name, s.enabled, s.last_ok_at, s.last_error,\n  COALESCE((SELECT sum(r.items_new) FROM collector_run r WHERE r.source_id = s.id AND r.started_at >= now() - interval '7 days'), 0) AS items_new_7j,\n  (SELECT count(*) FROM event e WHERE e.source_id = s.id) AS evts_total,\n  (SELECT count(*) FROM event e WHERE e.source_id = s.id AND e.collected_at >= now() - interval '7 days') AS evts_7j,\n  COALESCE((SELECT max(r.started_at) FROM collector_run r WHERE r.source_id = s.id), s.created_at) AS dernier_passage\nFROM source s WHERE s.id = ANY($1) OR s.id LIKE 'gn-%' ORDER BY s.id",
+    "entitesSansOrg": "SELECT count(*) AS n FROM quarantine_raw\nWHERE kind='claim' AND status='pending' AND org_hint IS NOT NULL AND org_hint <> ''"
+  },
+  "departements": [
+    {
+      "dept": "16",
+      "orgs": 62828,
+      "evenements": 1,
+      "sourcesActives": 14,
+      "items7j": 88,
+      "verdict": "couvert",
+      "raison": null
+    },
+    {
+      "dept": "17",
+      "orgs": 139808,
+      "evenements": 2,
+      "sourcesActives": 15,
+      "items7j": 93,
+      "verdict": "couvert",
+      "raison": null
+    },
+    {
+      "dept": "19",
+      "orgs": 51306,
+      "evenements": 0,
+      "sourcesActives": 14,
+      "items7j": 73,
+      "verdict": "trou documenté",
+      "raison": "0 événement rattaché à ce jour : la collecte est active (73 item(s) nouveau(x) en 7 j par 14 source(s) actives, dont les Google News départementaux), mais aucun item n'a été admis et rattaché à une organisation du référentiel. Le fil d'actualité départemental ne contient pas d'incident cyber au passage ; les sources ciblées restent en place et l'événement, quand il surviendra, entrera au passage suivant."
+    },
+    {
+      "dept": "23",
+      "orgs": 25374,
+      "evenements": 0,
+      "sourcesActives": 14,
+      "items7j": 79,
+      "verdict": "trou documenté",
+      "raison": "0 événement rattaché à ce jour : la collecte est active (79 item(s) nouveau(x) en 7 j par 14 source(s) actives, dont les Google News départementaux), mais aucun item n'a été admis et rattaché à une organisation du référentiel. Le fil d'actualité départemental ne contient pas d'incident cyber au passage ; les sources ciblées restent en place et l'événement, quand il surviendra, entrera au passage suivant."
+    },
+    {
+      "dept": "24",
+      "orgs": 87555,
+      "evenements": 1,
+      "sourcesActives": 14,
+      "items7j": 75,
+      "verdict": "couvert",
+      "raison": null
+    },
+    {
+      "dept": "33",
+      "orgs": 360875,
+      "evenements": 17,
+      "sourcesActives": 14,
+      "items7j": 78,
+      "verdict": "couvert",
+      "raison": null
+    },
+    {
+      "dept": "40",
+      "orgs": 95633,
+      "evenements": 0,
+      "sourcesActives": 14,
+      "items7j": 72,
+      "verdict": "trou documenté",
+      "raison": "0 événement rattaché à ce jour : la collecte est active (72 item(s) nouveau(x) en 7 j par 14 source(s) actives, dont les Google News départementaux), mais aucun item n'a été admis et rattaché à une organisation du référentiel. Le fil d'actualité départemental ne contient pas d'incident cyber au passage ; les sources ciblées restent en place et l'événement, quand il surviendra, entrera au passage suivant."
+    },
+    {
+      "dept": "47",
+      "orgs": 68542,
+      "evenements": 0,
+      "sourcesActives": 14,
+      "items7j": 90,
+      "verdict": "trou documenté",
+      "raison": "0 événement rattaché à ce jour : la collecte est active (90 item(s) nouveau(x) en 7 j par 14 source(s) actives, dont les Google News départementaux), mais aucun item n'a été admis et rattaché à une organisation du référentiel. Le fil d'actualité départemental ne contient pas d'incident cyber au passage ; les sources ciblées restent en place et l'événement, quand il surviendra, entrera au passage suivant."
+    },
+    {
+      "dept": "64",
+      "orgs": 156188,
+      "evenements": 3,
+      "sourcesActives": 14,
+      "items7j": 71,
+      "verdict": "couvert",
+      "raison": null
+    },
+    {
+      "dept": "79",
+      "orgs": 60499,
+      "evenements": 1,
+      "sourcesActives": 15,
+      "items7j": 76,
+      "verdict": "couvert",
+      "raison": null
+    },
+    {
+      "dept": "86",
+      "orgs": 72041,
+      "evenements": 2,
+      "sourcesActives": 15,
+      "items7j": 72,
+      "verdict": "couvert",
+      "raison": null
+    },
+    {
+      "dept": "87",
+      "orgs": 62233,
+      "evenements": 1,
+      "sourcesActives": 15,
+      "items7j": 68,
+      "verdict": "couvert",
+      "raison": null
+    }
+  ],
+  "sources": [
+    {
+      "id": "chu-poitiers",
+      "name": "CHU de Poitiers (RSS)",
+      "enabled": true,
+      "itemsNouveaux7j": 0,
+      "evenementsTotal": 0,
+      "evenements7j": 0,
+      "classe": "muette",
+      "motif": "collecte OK mais 0 item nouveau en 7 j : flux sans contenu nouveau ou contenu dédoublonné"
+    },
+    {
+      "id": "eco-jde-na",
+      "name": "Le Journal des Entreprises Nouvelle-Aquitaine (RSS)",
+      "enabled": true,
+      "itemsNouveaux7j": 0,
+      "evenementsTotal": 0,
+      "evenements7j": 0,
+      "classe": "muette",
+      "motif": "collecte OK mais 0 item nouveau en 7 j : flux sans contenu nouveau ou contenu dédoublonné"
+    },
+    {
+      "id": "gn-16",
+      "name": "Google News — cyber Charente (30 j)",
+      "enabled": true,
+      "itemsNouveaux7j": 22,
+      "evenementsTotal": 22,
+      "evenements7j": 22,
+      "classe": "produit",
+      "motif": "22 événement(s) en 7 j"
+    },
+    {
+      "id": "gn-17",
+      "name": "Google News — cyber Charente-Maritime (30 j)",
+      "enabled": true,
+      "itemsNouveaux7j": 28,
+      "evenementsTotal": 28,
+      "evenements7j": 28,
+      "classe": "produit",
+      "motif": "28 événement(s) en 7 j"
+    },
+    {
+      "id": "gn-19",
+      "name": "Google News — cyber Corrèze (30 j)",
+      "enabled": true,
+      "itemsNouveaux7j": 1,
+      "evenementsTotal": 1,
+      "evenements7j": 1,
+      "classe": "produit",
+      "motif": "1 événement(s) en 7 j"
+    },
+    {
+      "id": "gn-23",
+      "name": "Google News — cyber Creuse (30 j)",
+      "enabled": true,
+      "itemsNouveaux7j": 7,
+      "evenementsTotal": 7,
+      "evenements7j": 7,
+      "classe": "produit",
+      "motif": "7 événement(s) en 7 j"
+    },
+    {
+      "id": "gn-24",
+      "name": "Google News — cyber Dordogne (30 j)",
+      "enabled": true,
+      "itemsNouveaux7j": 10,
+      "evenementsTotal": 10,
+      "evenements7j": 10,
+      "classe": "produit",
+      "motif": "10 événement(s) en 7 j"
+    },
+    {
+      "id": "gn-33",
+      "name": "Google News — cyber Gironde (30 j)",
+      "enabled": true,
+      "itemsNouveaux7j": 12,
+      "evenementsTotal": 12,
+      "evenements7j": 12,
+      "classe": "produit",
+      "motif": "12 événement(s) en 7 j"
+    },
+    {
+      "id": "gn-40",
+      "name": "Google News — cyber Landes (30 j)",
+      "enabled": true,
+      "itemsNouveaux7j": 7,
+      "evenementsTotal": 7,
+      "evenements7j": 7,
+      "classe": "produit",
+      "motif": "7 événement(s) en 7 j"
+    },
+    {
+      "id": "gn-47",
+      "name": "Google News — cyber Lot-et-Garonne (30 j)",
+      "enabled": true,
+      "itemsNouveaux7j": 24,
+      "evenementsTotal": 24,
+      "evenements7j": 24,
+      "classe": "produit",
+      "motif": "24 événement(s) en 7 j"
+    },
+    {
+      "id": "gn-64",
+      "name": "Google News — cyber Pyrénées-Atlantiques (30 j)",
+      "enabled": true,
+      "itemsNouveaux7j": 5,
+      "evenementsTotal": 5,
+      "evenements7j": 5,
+      "classe": "produit",
+      "motif": "5 événement(s) en 7 j"
+    },
+    {
+      "id": "gn-79",
+      "name": "Google News — cyber Deux-Sèvres (30 j)",
+      "enabled": true,
+      "itemsNouveaux7j": 11,
+      "evenementsTotal": 11,
+      "evenements7j": 11,
+      "classe": "produit",
+      "motif": "11 événement(s) en 7 j"
+    },
+    {
+      "id": "gn-86",
+      "name": "Google News — cyber Vienne (30 j)",
+      "enabled": true,
+      "itemsNouveaux7j": 6,
+      "evenementsTotal": 6,
+      "evenements7j": 6,
+      "classe": "produit",
+      "motif": "6 événement(s) en 7 j"
+    },
+    {
+      "id": "gn-87",
+      "name": "Google News — cyber Haute-Vienne (30 j)",
+      "enabled": true,
+      "itemsNouveaux7j": 2,
+      "evenementsTotal": 2,
+      "evenements7j": 2,
+      "classe": "produit",
+      "motif": "2 événement(s) en 7 j"
+    },
+    {
+      "id": "gn-cyber-na",
+      "name": "Google News — « cyberattaque Nouvelle-Aquitaine »",
+      "enabled": true,
+      "itemsNouveaux7j": 14,
+      "evenementsTotal": 14,
+      "evenements7j": 14,
+      "classe": "produit",
+      "motif": "14 événement(s) en 7 j"
+    },
+    {
+      "id": "gn-fuite-metropoles",
+      "name": "Google News — « fuite de données » métropoles NA",
+      "enabled": true,
+      "itemsNouveaux7j": 17,
+      "evenementsTotal": 17,
+      "evenements7j": 17,
+      "classe": "produit",
+      "motif": "17 événement(s) en 7 j"
+    },
+    {
+      "id": "gn-mairie-cyber",
+      "name": "Google News — « cyberattaque mairie »",
+      "enabled": true,
+      "itemsNouveaux7j": 19,
+      "evenementsTotal": 19,
+      "evenements7j": 19,
+      "classe": "produit",
+      "motif": "19 événement(s) en 7 j"
+    },
+    {
+      "id": "gn-press-lamontagne",
+      "name": "Google News — cyber sur lamontagne.fr (30 j)",
+      "enabled": true,
+      "itemsNouveaux7j": 7,
+      "evenementsTotal": 7,
+      "evenements7j": 7,
+      "classe": "produit",
+      "motif": "7 événement(s) en 7 j"
+    },
+    {
+      "id": "gn-press-lepopulaire",
+      "name": "Google News — cyber sur lepopulaire.fr (30 j)",
+      "enabled": true,
+      "itemsNouveaux7j": 0,
+      "evenementsTotal": 0,
+      "evenements7j": 0,
+      "classe": "muette",
+      "motif": "collecte OK mais 0 item nouveau en 7 j : flux sans contenu nouveau ou contenu dédoublonné"
+    },
+    {
+      "id": "gn-ransom-aquitaine",
+      "name": "Google News — « ransomware Aquitaine »",
+      "enabled": true,
+      "itemsNouveaux7j": 0,
+      "evenementsTotal": 0,
+      "evenements7j": 0,
+      "classe": "muette",
+      "motif": "collecte OK mais 0 item nouveau en 7 j : flux sans contenu nouveau ou contenu dédoublonné"
+    },
+    {
+      "id": "presse-charentelibre",
+      "name": "Charente Libre (RSS)",
+      "enabled": true,
+      "itemsNouveaux7j": 2,
+      "evenementsTotal": 2,
+      "evenements7j": 2,
+      "classe": "produit",
+      "motif": "2 événement(s) en 7 j"
+    },
+    {
+      "id": "presse-france3-na",
+      "name": "France 3 Nouvelle-Aquitaine (RSS)",
+      "enabled": true,
+      "itemsNouveaux7j": 5,
+      "evenementsTotal": 5,
+      "evenements7j": 5,
+      "classe": "produit",
+      "motif": "5 événement(s) en 7 j"
+    },
+    {
+      "id": "presse-lnr-deuxsevres",
+      "name": "La Nouvelle République — Deux-Sèvres (RSS)",
+      "enabled": true,
+      "itemsNouveaux7j": 0,
+      "evenementsTotal": 0,
+      "evenements7j": 0,
+      "classe": "muette",
+      "motif": "collecte OK mais 0 item nouveau en 7 j : flux sans contenu nouveau ou contenu dédoublonné"
+    },
+    {
+      "id": "presse-lnr-vienne",
+      "name": "La Nouvelle République — Vienne (RSS)",
+      "enabled": true,
+      "itemsNouveaux7j": 1,
+      "evenementsTotal": 1,
+      "evenements7j": 1,
+      "classe": "produit",
+      "motif": "1 événement(s) en 7 j"
+    },
+    {
+      "id": "presse-mediacites",
+      "name": "Médiacités (feed national, enquêtes locales)",
+      "enabled": true,
+      "itemsNouveaux7j": 0,
+      "evenementsTotal": 0,
+      "evenements7j": 0,
+      "classe": "muette",
+      "motif": "collecte OK mais 0 item nouveau en 7 j : flux sans contenu nouveau ou contenu dédoublonné"
+    },
+    {
+      "id": "presse-ouestfrance-rss",
+      "name": "Ouest-France (RSS)",
+      "enabled": true,
+      "itemsNouveaux7j": 0,
+      "evenementsTotal": 0,
+      "evenements7j": 0,
+      "classe": "muette",
+      "motif": "collecte OK mais 0 item nouveau en 7 j : flux sans contenu nouveau ou contenu dédoublonné"
+    },
+    {
+      "id": "presse-rue89bordeaux",
+      "name": "Rue89 Bordeaux (feed)",
+      "enabled": true,
+      "itemsNouveaux7j": 2,
+      "evenementsTotal": 2,
+      "evenements7j": 2,
+      "classe": "produit",
+      "motif": "2 événement(s) en 7 j"
+    },
+    {
+      "id": "presse-sudouest",
+      "name": "Sud Ouest (RSS)",
+      "enabled": true,
+      "itemsNouveaux7j": 6,
+      "evenementsTotal": 6,
+      "evenements7j": 6,
+      "classe": "produit",
+      "motif": "6 événement(s) en 7 j"
+    },
+    {
+      "id": "presse-sudouest-charente",
+      "name": "Sud Ouest — Charente (RSS)",
+      "enabled": true,
+      "itemsNouveaux7j": 1,
+      "evenementsTotal": 1,
+      "evenements7j": 1,
+      "classe": "produit",
+      "motif": "1 événement(s) en 7 j"
+    },
+    {
+      "id": "presse-sudouest-charente-maritime",
+      "name": "Sud Ouest — Charente-Maritime (RSS)",
+      "enabled": true,
+      "itemsNouveaux7j": 0,
+      "evenementsTotal": 0,
+      "evenements7j": 0,
+      "classe": "muette",
+      "motif": "collecte OK mais 0 item nouveau en 7 j : flux sans contenu nouveau ou contenu dédoublonné"
+    },
+    {
+      "id": "presse-sudouest-deux-sevres",
+      "name": "Sud Ouest — Deux-Sèvres (RSS)",
+      "enabled": true,
+      "itemsNouveaux7j": 0,
+      "evenementsTotal": 0,
+      "evenements7j": 0,
+      "classe": "muette",
+      "motif": "collecte OK mais 0 item nouveau en 7 j : flux sans contenu nouveau ou contenu dédoublonné"
+    },
+    {
+      "id": "presse-sudouest-dordogne",
+      "name": "Sud Ouest — Dordogne (RSS)",
+      "enabled": true,
+      "itemsNouveaux7j": 0,
+      "evenementsTotal": 0,
+      "evenements7j": 0,
+      "classe": "muette",
+      "motif": "collecte OK mais 0 item nouveau en 7 j : flux sans contenu nouveau ou contenu dédoublonné"
+    },
+    {
+      "id": "presse-sudouest-gironde",
+      "name": "Sud Ouest — Gironde (RSS)",
+      "enabled": true,
+      "itemsNouveaux7j": 1,
+      "evenementsTotal": 1,
+      "evenements7j": 1,
+      "classe": "produit",
+      "motif": "1 événement(s) en 7 j"
+    },
+    {
+      "id": "presse-sudouest-landes",
+      "name": "Sud Ouest — Landes (RSS)",
+      "enabled": true,
+      "itemsNouveaux7j": 0,
+      "evenementsTotal": 0,
+      "evenements7j": 0,
+      "classe": "muette",
+      "motif": "collecte OK mais 0 item nouveau en 7 j : flux sans contenu nouveau ou contenu dédoublonné"
+    },
+    {
+      "id": "presse-sudouest-lot-et-garonne",
+      "name": "Sud Ouest — Lot-et-Garonne (RSS)",
+      "enabled": true,
+      "itemsNouveaux7j": 1,
+      "evenementsTotal": 1,
+      "evenements7j": 1,
+      "classe": "produit",
+      "motif": "1 événement(s) en 7 j"
+    },
+    {
+      "id": "presse-sudouest-pyrenees",
+      "name": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
+      "enabled": true,
+      "itemsNouveaux7j": 1,
+      "evenementsTotal": 1,
+      "evenements7j": 1,
+      "classe": "produit",
+      "motif": "1 événement(s) en 7 j"
+    },
+    {
+      "id": "presse-sudouest-rss",
+      "name": "Sud Ouest (RSS)",
+      "enabled": true,
+      "itemsNouveaux7j": 0,
+      "evenementsTotal": 0,
+      "evenements7j": 0,
+      "classe": "muette",
+      "motif": "collecte OK mais 0 item nouveau en 7 j : flux sans contenu nouveau ou contenu dédoublonné"
+    },
+    {
+      "id": "univ-larochelle",
+      "name": "Université de La Rochelle (RSS)",
+      "enabled": true,
+      "itemsNouveaux7j": 0,
+      "evenementsTotal": 0,
+      "evenements7j": 0,
+      "classe": "muette",
+      "motif": "collecte OK mais 0 item nouveau en 7 j : flux sans contenu nouveau ou contenu dédoublonné"
+    },
+    {
+      "id": "univ-limoges",
+      "name": "Université de Limoges (RSS)",
+      "enabled": true,
+      "itemsNouveaux7j": 1,
+      "evenementsTotal": 1,
+      "evenements7j": 1,
+      "classe": "produit",
+      "motif": "1 événement(s) en 7 j"
+    }
+  ],
+  "entitesSansOrganisation": {
+    "revendicationsEnAttente": 230,
+    "listeNa": "bench/results/na-entites-sans-org.json — vide côté NA",
+    "repriseVague2": "bench/results/na-lot-reprise-1.json — 6 chargées, 3 absentes, 1 à arbitrer"
+  },
+  "verdicts": [
+    {
+      "controle": "les douze départements ont au moins un événement, ou une raison écrite",
+      "etat": "partiel",
+      "detail": "8/12 couverts ; 4 trous documentés avec leur raison (40, 47, 23, 19)"
+    },
+    {
+      "controle": "toutes les sources NA activées ont produit quelque chose sur 7 jours, ou sont classées muettes avec leur motif",
+      "etat": "conforme",
+      "detail": "26 produisent, 0 produisent sans admission, 13 muette(s), 0 dormante(s) — chacune avec son motif"
+    },
+    {
+      "controle": "aucune entité NA citée sans organisation, ou non-résolution documentée",
+      "etat": "conforme",
+      "detail": "liste vide côté NA (bench/results/na-entites-sans-org.json) ; les 8 entités françaises non résolues sont hors NA et documentées ; lot de reprise vague 2 en cours (na-lot-reprise-1.json)"
+    }
+  ]
+}

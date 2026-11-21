@@ -23,6 +23,7 @@
  *   DATABASE_URL=... tsx scripts/mesure-na.mts --json=bench/results/na-xxx.json
  */
 import { writeFileSync } from "node:fs";
+import { pathToFileURL } from "node:url";
 import { closePools, query } from "../apps/api/src/db.js";
 
 const argv = process.argv.slice(2);
@@ -55,7 +56,7 @@ const REQUETES = {
  * nationale (Le Monde, CERT-FR…) n'est PAS régionale même si elle cite la
  * région un jour : elle ne compte pas dans ces compteurs.
  */
-const SOURCES_REGIONALES_NA = [
+export const SOURCES_REGIONALES_NA = [
 	"presse-sudouest",
 	"presse-sudouest-rss",
 	"presse-sudouest-gironde",
@@ -82,7 +83,7 @@ const SOURCES_REGIONALES_NA = [
 ];
 
 /** Source → départements couverts. `null` = couvre toute la région (les 12). */
-function deptsCouverts(id: string): string[] | null {
+export function deptsCouverts(id: string): string[] | null {
 	const gnDept = /^gn-(\d{2})$/.exec(id);
 	if (gnDept) return DEPTS.includes(gnDept[1]) ? [gnDept[1]] : null;
 	switch (id) {
@@ -370,8 +371,14 @@ async function main(): Promise<void> {
 	await closePools();
 }
 
-main().catch(async (error: unknown) => {
-	console.error(error);
-	await closePools().catch(() => {});
-	process.exitCode = 1;
-});
+// Exécuté seulement quand le script est invoqué directement : mesure-na.mts
+// exporte son mapping de sources pour scripts/audit-na.mts, et un import ne
+// doit pas relancer la mesure ni fermer les pools.
+const estDirect = process.argv[1] !== undefined && import.meta.url === pathToFileURL(process.argv[1]).href;
+if (estDirect) {
+	main().catch(async (error: unknown) => {
+		console.error(error);
+		await closePools().catch(() => {});
+		process.exitCode = 1;
+	});
+}
