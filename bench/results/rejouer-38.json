@@ -1,0 +1,1492 @@
+{
+  "genere_le": "2026-11-21T15:49:00.706Z",
+  "source": "bench/results/relance-ciblage.json (38 sources a_bug_collecteur)",
+  "avertissement": "Aucun gain global annoncé : les 38 sources sont ventilées en trois catégories distinctes, sans total du type « sources réparées ».",
+  "methode": {
+    "fetch": "GET réel une fois par source, redirect:follow, timeout 10 s, corps ≤ 8 Mo, User-Agent radar-cyber-red-sources-probe/1.0 ; .onion via RADAR_TOR_SOCKS ; corps analysé par detectItems() du dépôt (parseur actuel, PR #54 inclus).",
+    "insertion": "Pipeline réel du dépôt rejoué source par source via runGenericSources({sourceIds:[id]}) dans le schéma de test isolé rejouer38 : copies des tables mutables (source, event, collector_run, journal, relation, indicator, quarantine_raw) avec l'état de déduplication de la production ; tables de référence (org, org_alias, asset, epss) lues sans écriture. Aucune table public n'a été modifiée ; schéma de test supprimé après mesure.",
+    "mesure": "items_extraits_fetch = detectItems().items.length ; items_inseres = collector_run.items_new du run rejoué (lignes event, ou indicator pour les sources kind=indicator).",
+    "planification": "Les sources désactivées, de type quarantine ou warninglist restent dans leur état réel : le moteur générique ne les collecte pas, ce qui est compté comme cause « planification ».",
+    "limites": [
+      "Les insertions ont été observées dans un schéma de test, pas écrites en production : elles mesurent ce que le pipeline actuel insérerait maintenant avec l'état de dédup de la base au 2026-11-21.",
+      "Le rejeu n'a pas relancé les collecteurs dédiés (cert_fr, cisa_kev, ransomlook, epss, hermes_radar_cyber, nvd_cve, ctlog) : leurs sources restent hors du moteur générique.",
+      "Onion : un circuit Tor à froid peut échouer au rejeu alors qu'une mesure antérieure avait réussi (cas de onion:ccw:arcusmedia)."
+    ]
+  },
+  "comptes": {
+    "sources_rejouees": 38,
+    "code_http_200": 37,
+    "code_http_indetermine": 1,
+    "avec_items_au_fetch": 25,
+    "sans_items_au_fetch": 13,
+    "items_inseres_total": 403,
+    "evenements_inserts": 403,
+    "indicateurs_inserts": 0,
+    "categories": {
+      "produisent_des_evenements": 4,
+      "items_sans_insertion": 29,
+      "illisibles_sans_item": 5
+    }
+  },
+  "par_source": [
+    {
+      "id": "tg-malware-traffic",
+      "url": "https://t.me/s/malware_traffic",
+      "format_declare": "html",
+      "code_http": 200,
+      "items_extraits_fetch": 1,
+      "strategie_fetch": "telegram-channel",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "filtre",
+      "detail_cause": "presse:1",
+      "sous_cause": "presse",
+      "pipeline": {
+        "items_en_entree": 1,
+        "items_rejetes": {
+          "motif": "filtre",
+          "presse": 1
+        }
+      }
+    },
+    {
+      "id": "gn-ransom-aquitaine",
+      "url": "https://news.google.com/rss/search?q=ran%C3%A7ongiciel+(Gironde+OR+Dordogne+OR+Landes+OR+Pyr%C3%A9n%C3%A9es-Atlantiques)+when:7d&hl=fr&gl=FR&ceid=FR:fr",
+      "format_declare": "rss",
+      "code_http": 200,
+      "items_extraits_fetch": 0,
+      "strategie_fetch": "none",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "format",
+      "detail_cause": "rss — flux vide (0 item reconnu)"
+    },
+    {
+      "id": "leak:ransomwatch:posts",
+      "url": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+      "format_declare": "json",
+      "code_http": 200,
+      "items_extraits_fetch": 16072,
+      "strategie_fetch": "json-root-array",
+      "items_inseres": 382,
+      "type_insertion": "evenement",
+      "cause_si_zero": null,
+      "pipeline": {
+        "items_en_entree": 16072,
+        "items_rejetes": {
+          "presse": 12647,
+          "menu_token": 2982,
+          "menu_source": 60
+        }
+      }
+    },
+    {
+      "id": "eco-technowest",
+      "url": "https://technowest.com/feed/",
+      "format_declare": "rss",
+      "code_http": 200,
+      "items_extraits_fetch": 10,
+      "strategie_fetch": "rss-atom",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "filtre",
+      "detail_cause": "presse:10",
+      "sous_cause": "presse",
+      "pipeline": {
+        "items_en_entree": 10,
+        "items_rejetes": {
+          "motif": "filtre",
+          "presse": 10
+        }
+      }
+    },
+    {
+      "id": "onion:ccw:arcusmedia",
+      "url": "http://arcuufpr5xxbbkin4mlidt7itmr6znlppk63jbtkeguuhszmc5g7qdyd.onion",
+      "format_declare": "html",
+      "code_http": null,
+      "items_extraits_fetch": 0,
+      "strategie_fetch": "none",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "autre",
+      "detail_cause": "indéterminé — fetch Tor en échec au rejeu (aucun code HTTP)",
+      "erreur_fetch": "Error: Proxy connection timed out",
+      "note": "Référence relance-ciblage : HTTP 200, 60 items. Le rejeu n'a pas obtenu de réponse via Tor ; aucun diagnostic de format n'est possible ici."
+    },
+    {
+      "id": "cat-jpcert-blog",
+      "url": "https://blogs.jpcert.or.jp/en/atom.xml",
+      "format_declare": "atom",
+      "code_http": 200,
+      "items_extraits_fetch": 15,
+      "strategie_fetch": "rss-atom",
+      "items_inseres": 6,
+      "type_insertion": "evenement",
+      "cause_si_zero": null,
+      "pipeline": {
+        "items_en_entree": 15,
+        "items_rejetes": {
+          "presse": 7,
+          "hors_sujet": 1
+        }
+      }
+    },
+    {
+      "id": "onion:ccw:anubis",
+      "url": "http://6g3aoky5hft4mvzcqt2bugo4r465woaorjhd7em2k2v24sr2exaro5id.onion/",
+      "format_declare": "html",
+      "code_http": 200,
+      "items_extraits_fetch": 0,
+      "strategie_fetch": "none",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "format",
+      "detail_cause": "html — page de challenge sans annonce"
+    },
+    {
+      "id": "onion:ccw:titan",
+      "url": "http://x4bccxlsmjsxlnnf3ocvndlshgfkagzytpqmsjnlfykceumnw6i4hkqd.onion/leaked",
+      "format_declare": "html",
+      "code_http": 200,
+      "items_extraits_fetch": 56,
+      "strategie_fetch": "html-links",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "planification",
+      "sous_cause": "source_desactivee",
+      "disabled_reason": null,
+      "detail_cause": "source_desactivee — sans motif renseigné"
+    },
+    {
+      "id": "onion:ccw:whitearmor",
+      "url": "http://whitearz6uvtfdefgsc4r3mzmyswtte65k5umcmv6cu6zhi4l5k4irad.onion/",
+      "format_declare": "html",
+      "code_http": 200,
+      "items_extraits_fetch": 1,
+      "strategie_fetch": "landing-notice",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "planification",
+      "sous_cause": "source_desactivee",
+      "disabled_reason": null,
+      "detail_cause": "source_desactivee — sans motif renseigné"
+    },
+    {
+      "id": "tg-cert-eu",
+      "url": "https://t.me/s/CERT_EU",
+      "format_declare": "html",
+      "code_http": 200,
+      "items_extraits_fetch": 1,
+      "strategie_fetch": "telegram-contact",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "filtre",
+      "detail_cause": "menu_token:1",
+      "sous_cause": "mixte",
+      "pipeline": {
+        "items_en_entree": 1,
+        "items_rejetes": {
+          "motif": "filtre",
+          "menu_token": 1
+        }
+      }
+    },
+    {
+      "id": "eco-aquitaine-robotics",
+      "url": "https://www.aquitaine-robotics.com/feed",
+      "format_declare": "rss",
+      "code_http": 200,
+      "items_extraits_fetch": 4,
+      "strategie_fetch": "rss-atom",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "planification",
+      "sous_cause": "source_desactivee",
+      "disabled_reason": "morte > 30 j — dernier item 2026-10-08 : 44 jours sans nouvelle publication",
+      "detail_cause": "source_desactivee — morte > 30 j — dernier item 2026-10-08 : 44 jours sans nouvelle publication"
+    },
+    {
+      "id": "et-compromised",
+      "url": "https://rules.emergingthreats.net/blockrules/compromised-ips.txt",
+      "format_declare": "text",
+      "code_http": 200,
+      "items_extraits_fetch": 0,
+      "strategie_fetch": "none",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "filtre",
+      "detail_cause": "non_actionnable:596",
+      "sous_cause": "non_actionnable",
+      "pipeline": {
+        "items_en_entree": 596,
+        "items_rejetes": {
+          "motif": "filtre",
+          "non_actionnable": 596
+        }
+      },
+      "note": "0 item pour detectItems() mais le parseur de production lit des lignes brutes : le rejet vient du filtre d'actionnabilité, pas du parseur."
+    },
+    {
+      "id": "feed:firehol:cleantalk_7d",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cleantalk_7d.ipset",
+      "format_declare": "txt",
+      "code_http": 200,
+      "items_extraits_fetch": 0,
+      "strategie_fetch": "none",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "filtre",
+      "detail_cause": "non_actionnable:9233",
+      "sous_cause": "non_actionnable",
+      "pipeline": {
+        "items_en_entree": 9233,
+        "items_rejetes": {
+          "motif": "filtre",
+          "non_actionnable": 9233
+        }
+      },
+      "note": "0 item pour detectItems() mais le parseur de production lit des lignes brutes : le rejet vient du filtre d'actionnabilité, pas du parseur."
+    },
+    {
+      "id": "ransom-ichi-ecosystem",
+      "url": "https://ichi.global/ecosystem.html",
+      "format_declare": "html",
+      "code_http": 200,
+      "items_extraits_fetch": 4,
+      "strategie_fetch": "html-links",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "planification",
+      "sous_cause": "type_quarantine",
+      "disabled_reason": null,
+      "detail_cause": "type_quarantine (collecteur dédié, hors moteur générique)"
+    },
+    {
+      "id": "gn-19",
+      "url": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Corrèze+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "format_declare": "rss",
+      "code_http": 200,
+      "items_extraits_fetch": 6,
+      "strategie_fetch": "rss-atom",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "filtre",
+      "detail_cause": "presse:5",
+      "sous_cause": "presse",
+      "pipeline": {
+        "items_en_entree": 6,
+        "items_rejetes": {
+          "motif": "filtre",
+          "presse": 5
+        }
+      }
+    },
+    {
+      "id": "onion:ccw:eclipse",
+      "url": "http://yecdjimqiaekprxza6wkqecma4bwt757qiyfjngsaxg7rkjv4xukpwad.onion/",
+      "format_declare": "html",
+      "code_http": 200,
+      "items_extraits_fetch": 10,
+      "strategie_fetch": "html-links",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "planification",
+      "sous_cause": "source_desactivee",
+      "disabled_reason": null,
+      "detail_cause": "source_desactivee — sans motif renseigné"
+    },
+    {
+      "id": "feed:firehol:botscout_7d",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botscout_7d.ipset",
+      "format_declare": "txt",
+      "code_http": 200,
+      "items_extraits_fetch": 0,
+      "strategie_fetch": "none",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "filtre",
+      "detail_cause": "non_actionnable:934",
+      "sous_cause": "non_actionnable",
+      "pipeline": {
+        "items_en_entree": 934,
+        "items_rejetes": {
+          "motif": "filtre",
+          "non_actionnable": 934
+        }
+      },
+      "note": "0 item pour detectItems() mais le parseur de production lit des lignes brutes : le rejet vient du filtre d'actionnabilité, pas du parseur."
+    },
+    {
+      "id": "wl:misp:cisco-top1m",
+      "url": "https://raw.githubusercontent.com/MISP/misp-warninglists/main/lists/cisco_top1m/list.json",
+      "format_declare": "json",
+      "code_http": 200,
+      "items_extraits_fetch": 0,
+      "strategie_fetch": "none",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "format",
+      "detail_cause": "json — liste de référentiel warninglist, pas un flux d'items"
+    },
+    {
+      "id": "feed:firehol:c2_tracker",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/c2_tracker.ipset",
+      "format_declare": "txt",
+      "code_http": 200,
+      "items_extraits_fetch": 0,
+      "strategie_fetch": "none",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "filtre",
+      "detail_cause": "non_actionnable:2470",
+      "sous_cause": "non_actionnable",
+      "pipeline": {
+        "items_en_entree": 2470,
+        "items_rejetes": {
+          "motif": "filtre",
+          "non_actionnable": 2470
+        }
+      },
+      "note": "0 item pour detectItems() mais le parseur de production lit des lignes brutes : le rejet vient du filtre d'actionnabilité, pas du parseur."
+    },
+    {
+      "id": "ransom-look-leaks",
+      "url": "https://www.ransomlook.io/leaks",
+      "format_declare": "html",
+      "code_http": 200,
+      "items_extraits_fetch": 2000,
+      "strategie_fetch": "html-links",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "planification",
+      "sous_cause": "type_quarantine",
+      "disabled_reason": null,
+      "detail_cause": "type_quarantine (collecteur dédié, hors moteur générique)"
+    },
+    {
+      "id": "feed:firehol:botscout",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botscout.ipset",
+      "format_declare": "txt",
+      "code_http": 200,
+      "items_extraits_fetch": 0,
+      "strategie_fetch": "none",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "filtre",
+      "detail_cause": "non_actionnable:44",
+      "sous_cause": "non_actionnable",
+      "pipeline": {
+        "items_en_entree": 44,
+        "items_rejetes": {
+          "motif": "filtre",
+          "non_actionnable": 44
+        }
+      },
+      "note": "0 item pour detectItems() mais le parseur de production lit des lignes brutes : le rejet vient du filtre d'actionnabilité, pas du parseur."
+    },
+    {
+      "id": "cat-cert-si-news",
+      "url": "https://www.cert.si/en/category/news/feed/",
+      "format_declare": "rss",
+      "code_http": 200,
+      "items_extraits_fetch": 10,
+      "strategie_fetch": "rss-atom",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "planification",
+      "sous_cause": "source_desactivee",
+      "disabled_reason": "morte > 30 j — dernier item 2026-05-29 : flux du CERT figé depuis 6 mois",
+      "detail_cause": "source_desactivee — morte > 30 j — dernier item 2026-05-29 : flux du CERT figé depuis 6 mois"
+    },
+    {
+      "id": "onion:ccw:everest",
+      "url": "http://everestndkvzcibcje2cqxhre2hmmybl3rn2gwzwsblz7gx6uryn5rad.onion",
+      "format_declare": "html",
+      "code_http": 200,
+      "items_extraits_fetch": 87,
+      "strategie_fetch": "embedded-json",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "planification",
+      "sous_cause": "source_desactivee",
+      "disabled_reason": null,
+      "detail_cause": "source_desactivee — sans motif renseigné"
+    },
+    {
+      "id": "onion:ccw:lockbit4",
+      "url": "http://lockbitapp24bvbi43n3qmtfcasf2veaeagjxatgbwtxnsh5w32mljad.onion/",
+      "format_declare": "html",
+      "code_http": 200,
+      "items_extraits_fetch": 1,
+      "strategie_fetch": "landing-notice",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "planification",
+      "sous_cause": "source_desactivee",
+      "disabled_reason": null,
+      "detail_cause": "source_desactivee — sans motif renseigné"
+    },
+    {
+      "id": "feed:firehol:blocklist_de_apache",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_apache.ipset",
+      "format_declare": "txt",
+      "code_http": 200,
+      "items_extraits_fetch": 0,
+      "strategie_fetch": "none",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "filtre",
+      "detail_cause": "non_actionnable:9155",
+      "sous_cause": "non_actionnable",
+      "pipeline": {
+        "items_en_entree": 9155,
+        "items_rejetes": {
+          "motif": "filtre",
+          "non_actionnable": 9155
+        }
+      },
+      "note": "0 item pour detectItems() mais le parseur de production lit des lignes brutes : le rejet vient du filtre d'actionnabilité, pas du parseur."
+    },
+    {
+      "id": "onion:rl:orova",
+      "url": "http://maa2yprc5pldyr5hjn246hw7i66wdhglnostqgqkcbuh4vyyeos4xxyd.onion/",
+      "format_declare": "html",
+      "code_http": 200,
+      "items_extraits_fetch": 0,
+      "strategie_fetch": "none",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "format",
+      "detail_cause": "texte — clé publique qTox, sans stratégie d'extraction"
+    },
+    {
+      "id": "onion:ccw:vypr",
+      "url": "http://vyprblogkhfdeyrzgrdnnsrxv2bbuchcirrykkzw6upu2r5bydn3c3yd.onion/api/v1/posts",
+      "format_declare": "html",
+      "code_http": 200,
+      "items_extraits_fetch": 7,
+      "strategie_fetch": "json-nested-array",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "planification",
+      "sous_cause": "source_desactivee",
+      "disabled_reason": null,
+      "detail_cause": "source_desactivee — sans motif renseigné"
+    },
+    {
+      "id": "ransomleak-fulcrumsec",
+      "url": "https://fulcrumsec.vg/",
+      "format_declare": "html",
+      "code_http": 200,
+      "items_extraits_fetch": 4,
+      "strategie_fetch": "html-links",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "planification",
+      "sous_cause": "type_quarantine",
+      "disabled_reason": null,
+      "detail_cause": "type_quarantine (collecteur dédié, hors moteur générique)"
+    },
+    {
+      "id": "cat-cert-lv",
+      "url": "https://cert.lv/en/feed/rss/all",
+      "format_declare": "rss",
+      "code_http": 200,
+      "items_extraits_fetch": 18,
+      "strategie_fetch": "rss-atom",
+      "items_inseres": 14,
+      "type_insertion": "evenement",
+      "cause_si_zero": null,
+      "pipeline": {
+        "items_en_entree": 18,
+        "items_rejetes": {
+          "presse": 1
+        }
+      }
+    },
+    {
+      "id": "onion:rl:byod",
+      "url": "http://byodxn5s7sua6oyyjj74rycgn6afncfckprt5ezskt3cni6lg3wdrgad.onion/",
+      "format_declare": "html",
+      "code_http": 200,
+      "items_extraits_fetch": 1,
+      "strategie_fetch": "landing-notice",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "planification",
+      "sous_cause": "source_desactivee",
+      "disabled_reason": null,
+      "detail_cause": "source_desactivee — sans motif renseigné"
+    },
+    {
+      "id": "eco-unitec",
+      "url": "https://unitec.fr/feed/",
+      "format_declare": "rss",
+      "code_http": 200,
+      "items_extraits_fetch": 10,
+      "strategie_fetch": "rss-atom",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "filtre",
+      "detail_cause": "presse:10",
+      "sous_cause": "presse",
+      "pipeline": {
+        "items_en_entree": 10,
+        "items_rejetes": {
+          "motif": "filtre",
+          "presse": 10
+        }
+      }
+    },
+    {
+      "id": "cinsscore-badguys",
+      "url": "https://cinsscore.com/list/ci-badguys.txt",
+      "format_declare": "text",
+      "code_http": 200,
+      "items_extraits_fetch": 0,
+      "strategie_fetch": "none",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "filtre",
+      "detail_cause": "non_actionnable:15000",
+      "sous_cause": "non_actionnable",
+      "pipeline": {
+        "items_en_entree": 15000,
+        "items_rejetes": {
+          "motif": "filtre",
+          "non_actionnable": 15000
+        }
+      },
+      "note": "0 item pour detectItems() mais le parseur de production lit des lignes brutes : le rejet vient du filtre d'actionnabilité, pas du parseur."
+    },
+    {
+      "id": "feed:firehol:botscout_30d",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botscout_30d.ipset",
+      "format_declare": "txt",
+      "code_http": 200,
+      "items_extraits_fetch": 0,
+      "strategie_fetch": "none",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "filtre",
+      "detail_cause": "non_actionnable:2956",
+      "sous_cause": "non_actionnable",
+      "pipeline": {
+        "items_en_entree": 2956,
+        "items_rejetes": {
+          "motif": "filtre",
+          "non_actionnable": 2956
+        }
+      },
+      "note": "0 item pour detectItems() mais le parseur de production lit des lignes brutes : le rejet vient du filtre d'actionnabilité, pas du parseur."
+    },
+    {
+      "id": "presse-01net",
+      "url": "https://www.01net.com/rss",
+      "format_declare": "rss",
+      "code_http": 200,
+      "items_extraits_fetch": 30,
+      "strategie_fetch": "rss-atom",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "filtre",
+      "detail_cause": "presse:30",
+      "sous_cause": "presse",
+      "pipeline": {
+        "items_en_entree": 30,
+        "items_rejetes": {
+          "motif": "filtre",
+          "presse": 30
+        }
+      }
+    },
+    {
+      "id": "onion:ccw:byod",
+      "url": "http://byodxn5s7sua6oyyjj74rycgn6afncfckprt5ezskt3cni6lg3wdrgad.onion/",
+      "format_declare": "html",
+      "code_http": 200,
+      "items_extraits_fetch": 1,
+      "strategie_fetch": "landing-notice",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "planification",
+      "sous_cause": "source_desactivee",
+      "disabled_reason": null,
+      "detail_cause": "source_desactivee — sans motif renseigné"
+    },
+    {
+      "id": "tg-certfr",
+      "url": "https://t.me/s/CERT_FR",
+      "format_declare": "html",
+      "code_http": 200,
+      "items_extraits_fetch": 1,
+      "strategie_fetch": "telegram-contact",
+      "items_inseres": 1,
+      "type_insertion": "evenement",
+      "cause_si_zero": null,
+      "pipeline": {
+        "items_en_entree": 1,
+        "items_rejetes": null
+      }
+    },
+    {
+      "id": "cat-gbhackers",
+      "url": "https://gbhackers.com/feed/",
+      "format_declare": "rss",
+      "code_http": 200,
+      "items_extraits_fetch": 10,
+      "strategie_fetch": "rss-atom",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "filtre",
+      "detail_cause": "presse:2, menu_token:1",
+      "sous_cause": "mixte",
+      "pipeline": {
+        "items_en_entree": 3,
+        "items_rejetes": {
+          "motif": "filtre",
+          "presse": 2,
+          "menu_token": 1
+        }
+      }
+    },
+    {
+      "id": "onion:ccw:dark-project",
+      "url": "http://3i5px2hibsyityv6jixnqba35yz25jekbwwumjdxjqzt3euqsygjx5id.onion/",
+      "format_declare": "html",
+      "code_http": 200,
+      "items_extraits_fetch": 9,
+      "strategie_fetch": "html-links",
+      "items_inseres": 0,
+      "type_insertion": null,
+      "cause_si_zero": "planification",
+      "sous_cause": "source_desactivee",
+      "disabled_reason": null,
+      "detail_cause": "source_desactivee — sans motif renseigné"
+    }
+  ],
+  "categories": {
+    "categorie_1_produisent_maintenant_des_evenements": {
+      "compte_exact": 4,
+      "evenements_inserts": 403,
+      "sources": [
+        {
+          "id": "leak:ransomwatch:posts",
+          "url": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+          "format_declare": "json",
+          "code_http": 200,
+          "items_extraits_fetch": 16072,
+          "strategie_fetch": "json-root-array",
+          "items_inseres": 382,
+          "type_insertion": "evenement",
+          "cause_si_zero": null,
+          "pipeline": {
+            "items_en_entree": 16072,
+            "items_rejetes": {
+              "presse": 12647,
+              "menu_token": 2982,
+              "menu_source": 60
+            }
+          }
+        },
+        {
+          "id": "cat-jpcert-blog",
+          "url": "https://blogs.jpcert.or.jp/en/atom.xml",
+          "format_declare": "atom",
+          "code_http": 200,
+          "items_extraits_fetch": 15,
+          "strategie_fetch": "rss-atom",
+          "items_inseres": 6,
+          "type_insertion": "evenement",
+          "cause_si_zero": null,
+          "pipeline": {
+            "items_en_entree": 15,
+            "items_rejetes": {
+              "presse": 7,
+              "hors_sujet": 1
+            }
+          }
+        },
+        {
+          "id": "cat-cert-lv",
+          "url": "https://cert.lv/en/feed/rss/all",
+          "format_declare": "rss",
+          "code_http": 200,
+          "items_extraits_fetch": 18,
+          "strategie_fetch": "rss-atom",
+          "items_inseres": 14,
+          "type_insertion": "evenement",
+          "cause_si_zero": null,
+          "pipeline": {
+            "items_en_entree": 18,
+            "items_rejetes": {
+              "presse": 1
+            }
+          }
+        },
+        {
+          "id": "tg-certfr",
+          "url": "https://t.me/s/CERT_FR",
+          "format_declare": "html",
+          "code_http": 200,
+          "items_extraits_fetch": 1,
+          "strategie_fetch": "telegram-contact",
+          "items_inseres": 1,
+          "type_insertion": "evenement",
+          "cause_si_zero": null,
+          "pipeline": {
+            "items_en_entree": 1,
+            "items_rejetes": null
+          }
+        }
+      ]
+    },
+    "categorie_2_items_sans_insertion_cause_pipeline": {
+      "compte_exact": 29,
+      "causes": {
+        "filtre": 15,
+        "planification": 14
+      },
+      "sous_causes": {
+        "filtre / presse": 5,
+        "planification / source_desactivee": 11,
+        "filtre / mixte": 2,
+        "filtre / non_actionnable": 8,
+        "planification / type_quarantine": 3
+      },
+      "detail_par_cause": {
+        "filtre / presse — presse:1": {
+          "nombre": 1,
+          "sources": [
+            "tg-malware-traffic"
+          ]
+        },
+        "filtre / presse — presse:10": {
+          "nombre": 2,
+          "sources": [
+            "eco-technowest",
+            "eco-unitec"
+          ]
+        },
+        "planification / source_desactivee — source_desactivee — sans motif renseigné": {
+          "nombre": 9,
+          "sources": [
+            "onion:ccw:titan",
+            "onion:ccw:whitearmor",
+            "onion:ccw:eclipse",
+            "onion:ccw:everest",
+            "onion:ccw:lockbit4",
+            "onion:ccw:vypr",
+            "onion:rl:byod",
+            "onion:ccw:byod",
+            "onion:ccw:dark-project"
+          ]
+        },
+        "filtre / mixte — menu_token:1": {
+          "nombre": 1,
+          "sources": [
+            "tg-cert-eu"
+          ]
+        },
+        "planification / source_desactivee — source_desactivee — morte > 30 j — dernier item 2026-10-08 : 44 jours sans nouvelle publication": {
+          "nombre": 1,
+          "sources": [
+            "eco-aquitaine-robotics"
+          ]
+        },
+        "filtre / non_actionnable — non_actionnable:596": {
+          "nombre": 1,
+          "sources": [
+            "et-compromised"
+          ]
+        },
+        "filtre / non_actionnable — non_actionnable:9233": {
+          "nombre": 1,
+          "sources": [
+            "feed:firehol:cleantalk_7d"
+          ]
+        },
+        "planification / type_quarantine — type_quarantine (collecteur dédié, hors moteur générique)": {
+          "nombre": 3,
+          "sources": [
+            "ransom-ichi-ecosystem",
+            "ransom-look-leaks",
+            "ransomleak-fulcrumsec"
+          ]
+        },
+        "filtre / presse — presse:5": {
+          "nombre": 1,
+          "sources": [
+            "gn-19"
+          ]
+        },
+        "filtre / non_actionnable — non_actionnable:934": {
+          "nombre": 1,
+          "sources": [
+            "feed:firehol:botscout_7d"
+          ]
+        },
+        "filtre / non_actionnable — non_actionnable:2470": {
+          "nombre": 1,
+          "sources": [
+            "feed:firehol:c2_tracker"
+          ]
+        },
+        "filtre / non_actionnable — non_actionnable:44": {
+          "nombre": 1,
+          "sources": [
+            "feed:firehol:botscout"
+          ]
+        },
+        "planification / source_desactivee — source_desactivee — morte > 30 j — dernier item 2026-05-29 : flux du CERT figé depuis 6 mois": {
+          "nombre": 1,
+          "sources": [
+            "cat-cert-si-news"
+          ]
+        },
+        "filtre / non_actionnable — non_actionnable:9155": {
+          "nombre": 1,
+          "sources": [
+            "feed:firehol:blocklist_de_apache"
+          ]
+        },
+        "filtre / non_actionnable — non_actionnable:15000": {
+          "nombre": 1,
+          "sources": [
+            "cinsscore-badguys"
+          ]
+        },
+        "filtre / non_actionnable — non_actionnable:2956": {
+          "nombre": 1,
+          "sources": [
+            "feed:firehol:botscout_30d"
+          ]
+        },
+        "filtre / presse — presse:30": {
+          "nombre": 1,
+          "sources": [
+            "presse-01net"
+          ]
+        },
+        "filtre / mixte — presse:2, menu_token:1": {
+          "nombre": 1,
+          "sources": [
+            "cat-gbhackers"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "tg-malware-traffic",
+          "url": "https://t.me/s/malware_traffic",
+          "format_declare": "html",
+          "code_http": 200,
+          "items_extraits_fetch": 1,
+          "strategie_fetch": "telegram-channel",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "filtre",
+          "detail_cause": "presse:1",
+          "sous_cause": "presse",
+          "pipeline": {
+            "items_en_entree": 1,
+            "items_rejetes": {
+              "motif": "filtre",
+              "presse": 1
+            }
+          }
+        },
+        {
+          "id": "eco-technowest",
+          "url": "https://technowest.com/feed/",
+          "format_declare": "rss",
+          "code_http": 200,
+          "items_extraits_fetch": 10,
+          "strategie_fetch": "rss-atom",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "filtre",
+          "detail_cause": "presse:10",
+          "sous_cause": "presse",
+          "pipeline": {
+            "items_en_entree": 10,
+            "items_rejetes": {
+              "motif": "filtre",
+              "presse": 10
+            }
+          }
+        },
+        {
+          "id": "onion:ccw:titan",
+          "url": "http://x4bccxlsmjsxlnnf3ocvndlshgfkagzytpqmsjnlfykceumnw6i4hkqd.onion/leaked",
+          "format_declare": "html",
+          "code_http": 200,
+          "items_extraits_fetch": 56,
+          "strategie_fetch": "html-links",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "planification",
+          "sous_cause": "source_desactivee",
+          "disabled_reason": null,
+          "detail_cause": "source_desactivee — sans motif renseigné"
+        },
+        {
+          "id": "onion:ccw:whitearmor",
+          "url": "http://whitearz6uvtfdefgsc4r3mzmyswtte65k5umcmv6cu6zhi4l5k4irad.onion/",
+          "format_declare": "html",
+          "code_http": 200,
+          "items_extraits_fetch": 1,
+          "strategie_fetch": "landing-notice",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "planification",
+          "sous_cause": "source_desactivee",
+          "disabled_reason": null,
+          "detail_cause": "source_desactivee — sans motif renseigné"
+        },
+        {
+          "id": "tg-cert-eu",
+          "url": "https://t.me/s/CERT_EU",
+          "format_declare": "html",
+          "code_http": 200,
+          "items_extraits_fetch": 1,
+          "strategie_fetch": "telegram-contact",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "filtre",
+          "detail_cause": "menu_token:1",
+          "sous_cause": "mixte",
+          "pipeline": {
+            "items_en_entree": 1,
+            "items_rejetes": {
+              "motif": "filtre",
+              "menu_token": 1
+            }
+          }
+        },
+        {
+          "id": "eco-aquitaine-robotics",
+          "url": "https://www.aquitaine-robotics.com/feed",
+          "format_declare": "rss",
+          "code_http": 200,
+          "items_extraits_fetch": 4,
+          "strategie_fetch": "rss-atom",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "planification",
+          "sous_cause": "source_desactivee",
+          "disabled_reason": "morte > 30 j — dernier item 2026-10-08 : 44 jours sans nouvelle publication",
+          "detail_cause": "source_desactivee — morte > 30 j — dernier item 2026-10-08 : 44 jours sans nouvelle publication"
+        },
+        {
+          "id": "et-compromised",
+          "url": "https://rules.emergingthreats.net/blockrules/compromised-ips.txt",
+          "format_declare": "text",
+          "code_http": 200,
+          "items_extraits_fetch": 0,
+          "strategie_fetch": "none",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "filtre",
+          "detail_cause": "non_actionnable:596",
+          "sous_cause": "non_actionnable",
+          "pipeline": {
+            "items_en_entree": 596,
+            "items_rejetes": {
+              "motif": "filtre",
+              "non_actionnable": 596
+            }
+          },
+          "note": "0 item pour detectItems() mais le parseur de production lit des lignes brutes : le rejet vient du filtre d'actionnabilité, pas du parseur."
+        },
+        {
+          "id": "feed:firehol:cleantalk_7d",
+          "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cleantalk_7d.ipset",
+          "format_declare": "txt",
+          "code_http": 200,
+          "items_extraits_fetch": 0,
+          "strategie_fetch": "none",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "filtre",
+          "detail_cause": "non_actionnable:9233",
+          "sous_cause": "non_actionnable",
+          "pipeline": {
+            "items_en_entree": 9233,
+            "items_rejetes": {
+              "motif": "filtre",
+              "non_actionnable": 9233
+            }
+          },
+          "note": "0 item pour detectItems() mais le parseur de production lit des lignes brutes : le rejet vient du filtre d'actionnabilité, pas du parseur."
+        },
+        {
+          "id": "ransom-ichi-ecosystem",
+          "url": "https://ichi.global/ecosystem.html",
+          "format_declare": "html",
+          "code_http": 200,
+          "items_extraits_fetch": 4,
+          "strategie_fetch": "html-links",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "planification",
+          "sous_cause": "type_quarantine",
+          "disabled_reason": null,
+          "detail_cause": "type_quarantine (collecteur dédié, hors moteur générique)"
+        },
+        {
+          "id": "gn-19",
+          "url": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Corrèze+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+          "format_declare": "rss",
+          "code_http": 200,
+          "items_extraits_fetch": 6,
+          "strategie_fetch": "rss-atom",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "filtre",
+          "detail_cause": "presse:5",
+          "sous_cause": "presse",
+          "pipeline": {
+            "items_en_entree": 6,
+            "items_rejetes": {
+              "motif": "filtre",
+              "presse": 5
+            }
+          }
+        },
+        {
+          "id": "onion:ccw:eclipse",
+          "url": "http://yecdjimqiaekprxza6wkqecma4bwt757qiyfjngsaxg7rkjv4xukpwad.onion/",
+          "format_declare": "html",
+          "code_http": 200,
+          "items_extraits_fetch": 10,
+          "strategie_fetch": "html-links",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "planification",
+          "sous_cause": "source_desactivee",
+          "disabled_reason": null,
+          "detail_cause": "source_desactivee — sans motif renseigné"
+        },
+        {
+          "id": "feed:firehol:botscout_7d",
+          "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botscout_7d.ipset",
+          "format_declare": "txt",
+          "code_http": 200,
+          "items_extraits_fetch": 0,
+          "strategie_fetch": "none",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "filtre",
+          "detail_cause": "non_actionnable:934",
+          "sous_cause": "non_actionnable",
+          "pipeline": {
+            "items_en_entree": 934,
+            "items_rejetes": {
+              "motif": "filtre",
+              "non_actionnable": 934
+            }
+          },
+          "note": "0 item pour detectItems() mais le parseur de production lit des lignes brutes : le rejet vient du filtre d'actionnabilité, pas du parseur."
+        },
+        {
+          "id": "feed:firehol:c2_tracker",
+          "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/c2_tracker.ipset",
+          "format_declare": "txt",
+          "code_http": 200,
+          "items_extraits_fetch": 0,
+          "strategie_fetch": "none",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "filtre",
+          "detail_cause": "non_actionnable:2470",
+          "sous_cause": "non_actionnable",
+          "pipeline": {
+            "items_en_entree": 2470,
+            "items_rejetes": {
+              "motif": "filtre",
+              "non_actionnable": 2470
+            }
+          },
+          "note": "0 item pour detectItems() mais le parseur de production lit des lignes brutes : le rejet vient du filtre d'actionnabilité, pas du parseur."
+        },
+        {
+          "id": "ransom-look-leaks",
+          "url": "https://www.ransomlook.io/leaks",
+          "format_declare": "html",
+          "code_http": 200,
+          "items_extraits_fetch": 2000,
+          "strategie_fetch": "html-links",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "planification",
+          "sous_cause": "type_quarantine",
+          "disabled_reason": null,
+          "detail_cause": "type_quarantine (collecteur dédié, hors moteur générique)"
+        },
+        {
+          "id": "feed:firehol:botscout",
+          "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botscout.ipset",
+          "format_declare": "txt",
+          "code_http": 200,
+          "items_extraits_fetch": 0,
+          "strategie_fetch": "none",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "filtre",
+          "detail_cause": "non_actionnable:44",
+          "sous_cause": "non_actionnable",
+          "pipeline": {
+            "items_en_entree": 44,
+            "items_rejetes": {
+              "motif": "filtre",
+              "non_actionnable": 44
+            }
+          },
+          "note": "0 item pour detectItems() mais le parseur de production lit des lignes brutes : le rejet vient du filtre d'actionnabilité, pas du parseur."
+        },
+        {
+          "id": "cat-cert-si-news",
+          "url": "https://www.cert.si/en/category/news/feed/",
+          "format_declare": "rss",
+          "code_http": 200,
+          "items_extraits_fetch": 10,
+          "strategie_fetch": "rss-atom",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "planification",
+          "sous_cause": "source_desactivee",
+          "disabled_reason": "morte > 30 j — dernier item 2026-05-29 : flux du CERT figé depuis 6 mois",
+          "detail_cause": "source_desactivee — morte > 30 j — dernier item 2026-05-29 : flux du CERT figé depuis 6 mois"
+        },
+        {
+          "id": "onion:ccw:everest",
+          "url": "http://everestndkvzcibcje2cqxhre2hmmybl3rn2gwzwsblz7gx6uryn5rad.onion",
+          "format_declare": "html",
+          "code_http": 200,
+          "items_extraits_fetch": 87,
+          "strategie_fetch": "embedded-json",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "planification",
+          "sous_cause": "source_desactivee",
+          "disabled_reason": null,
+          "detail_cause": "source_desactivee — sans motif renseigné"
+        },
+        {
+          "id": "onion:ccw:lockbit4",
+          "url": "http://lockbitapp24bvbi43n3qmtfcasf2veaeagjxatgbwtxnsh5w32mljad.onion/",
+          "format_declare": "html",
+          "code_http": 200,
+          "items_extraits_fetch": 1,
+          "strategie_fetch": "landing-notice",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "planification",
+          "sous_cause": "source_desactivee",
+          "disabled_reason": null,
+          "detail_cause": "source_desactivee — sans motif renseigné"
+        },
+        {
+          "id": "feed:firehol:blocklist_de_apache",
+          "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_apache.ipset",
+          "format_declare": "txt",
+          "code_http": 200,
+          "items_extraits_fetch": 0,
+          "strategie_fetch": "none",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "filtre",
+          "detail_cause": "non_actionnable:9155",
+          "sous_cause": "non_actionnable",
+          "pipeline": {
+            "items_en_entree": 9155,
+            "items_rejetes": {
+              "motif": "filtre",
+              "non_actionnable": 9155
+            }
+          },
+          "note": "0 item pour detectItems() mais le parseur de production lit des lignes brutes : le rejet vient du filtre d'actionnabilité, pas du parseur."
+        },
+        {
+          "id": "onion:ccw:vypr",
+          "url": "http://vyprblogkhfdeyrzgrdnnsrxv2bbuchcirrykkzw6upu2r5bydn3c3yd.onion/api/v1/posts",
+          "format_declare": "html",
+          "code_http": 200,
+          "items_extraits_fetch": 7,
+          "strategie_fetch": "json-nested-array",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "planification",
+          "sous_cause": "source_desactivee",
+          "disabled_reason": null,
+          "detail_cause": "source_desactivee — sans motif renseigné"
+        },
+        {
+          "id": "ransomleak-fulcrumsec",
+          "url": "https://fulcrumsec.vg/",
+          "format_declare": "html",
+          "code_http": 200,
+          "items_extraits_fetch": 4,
+          "strategie_fetch": "html-links",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "planification",
+          "sous_cause": "type_quarantine",
+          "disabled_reason": null,
+          "detail_cause": "type_quarantine (collecteur dédié, hors moteur générique)"
+        },
+        {
+          "id": "onion:rl:byod",
+          "url": "http://byodxn5s7sua6oyyjj74rycgn6afncfckprt5ezskt3cni6lg3wdrgad.onion/",
+          "format_declare": "html",
+          "code_http": 200,
+          "items_extraits_fetch": 1,
+          "strategie_fetch": "landing-notice",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "planification",
+          "sous_cause": "source_desactivee",
+          "disabled_reason": null,
+          "detail_cause": "source_desactivee — sans motif renseigné"
+        },
+        {
+          "id": "eco-unitec",
+          "url": "https://unitec.fr/feed/",
+          "format_declare": "rss",
+          "code_http": 200,
+          "items_extraits_fetch": 10,
+          "strategie_fetch": "rss-atom",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "filtre",
+          "detail_cause": "presse:10",
+          "sous_cause": "presse",
+          "pipeline": {
+            "items_en_entree": 10,
+            "items_rejetes": {
+              "motif": "filtre",
+              "presse": 10
+            }
+          }
+        },
+        {
+          "id": "cinsscore-badguys",
+          "url": "https://cinsscore.com/list/ci-badguys.txt",
+          "format_declare": "text",
+          "code_http": 200,
+          "items_extraits_fetch": 0,
+          "strategie_fetch": "none",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "filtre",
+          "detail_cause": "non_actionnable:15000",
+          "sous_cause": "non_actionnable",
+          "pipeline": {
+            "items_en_entree": 15000,
+            "items_rejetes": {
+              "motif": "filtre",
+              "non_actionnable": 15000
+            }
+          },
+          "note": "0 item pour detectItems() mais le parseur de production lit des lignes brutes : le rejet vient du filtre d'actionnabilité, pas du parseur."
+        },
+        {
+          "id": "feed:firehol:botscout_30d",
+          "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botscout_30d.ipset",
+          "format_declare": "txt",
+          "code_http": 200,
+          "items_extraits_fetch": 0,
+          "strategie_fetch": "none",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "filtre",
+          "detail_cause": "non_actionnable:2956",
+          "sous_cause": "non_actionnable",
+          "pipeline": {
+            "items_en_entree": 2956,
+            "items_rejetes": {
+              "motif": "filtre",
+              "non_actionnable": 2956
+            }
+          },
+          "note": "0 item pour detectItems() mais le parseur de production lit des lignes brutes : le rejet vient du filtre d'actionnabilité, pas du parseur."
+        },
+        {
+          "id": "presse-01net",
+          "url": "https://www.01net.com/rss",
+          "format_declare": "rss",
+          "code_http": 200,
+          "items_extraits_fetch": 30,
+          "strategie_fetch": "rss-atom",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "filtre",
+          "detail_cause": "presse:30",
+          "sous_cause": "presse",
+          "pipeline": {
+            "items_en_entree": 30,
+            "items_rejetes": {
+              "motif": "filtre",
+              "presse": 30
+            }
+          }
+        },
+        {
+          "id": "onion:ccw:byod",
+          "url": "http://byodxn5s7sua6oyyjj74rycgn6afncfckprt5ezskt3cni6lg3wdrgad.onion/",
+          "format_declare": "html",
+          "code_http": 200,
+          "items_extraits_fetch": 1,
+          "strategie_fetch": "landing-notice",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "planification",
+          "sous_cause": "source_desactivee",
+          "disabled_reason": null,
+          "detail_cause": "source_desactivee — sans motif renseigné"
+        },
+        {
+          "id": "cat-gbhackers",
+          "url": "https://gbhackers.com/feed/",
+          "format_declare": "rss",
+          "code_http": 200,
+          "items_extraits_fetch": 10,
+          "strategie_fetch": "rss-atom",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "filtre",
+          "detail_cause": "presse:2, menu_token:1",
+          "sous_cause": "mixte",
+          "pipeline": {
+            "items_en_entree": 3,
+            "items_rejetes": {
+              "motif": "filtre",
+              "presse": 2,
+              "menu_token": 1
+            }
+          }
+        },
+        {
+          "id": "onion:ccw:dark-project",
+          "url": "http://3i5px2hibsyityv6jixnqba35yz25jekbwwumjdxjqzt3euqsygjx5id.onion/",
+          "format_declare": "html",
+          "code_http": 200,
+          "items_extraits_fetch": 9,
+          "strategie_fetch": "html-links",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "planification",
+          "sous_cause": "source_desactivee",
+          "disabled_reason": null,
+          "detail_cause": "source_desactivee — sans motif renseigné"
+        }
+      ]
+    },
+    "categorie_3_restent_illisibles_format": {
+      "compte_exact": 5,
+      "formats": [
+        {
+          "format": "rss — flux vide (0 item reconnu)",
+          "nombre": 1,
+          "sources": [
+            "gn-ransom-aquitaine"
+          ]
+        },
+        {
+          "format": "indéterminé — fetch Tor en échec au rejeu (aucun code HTTP)",
+          "nombre": 1,
+          "sources": [
+            "onion:ccw:arcusmedia"
+          ]
+        },
+        {
+          "format": "html — page de challenge sans annonce",
+          "nombre": 1,
+          "sources": [
+            "onion:ccw:anubis"
+          ]
+        },
+        {
+          "format": "json — liste de référentiel warninglist, pas un flux d'items",
+          "nombre": 1,
+          "sources": [
+            "wl:misp:cisco-top1m"
+          ]
+        },
+        {
+          "format": "texte — clé publique qTox, sans stratégie d'extraction",
+          "nombre": 1,
+          "sources": [
+            "onion:rl:orova"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "id": "gn-ransom-aquitaine",
+          "url": "https://news.google.com/rss/search?q=ran%C3%A7ongiciel+(Gironde+OR+Dordogne+OR+Landes+OR+Pyr%C3%A9n%C3%A9es-Atlantiques)+when:7d&hl=fr&gl=FR&ceid=FR:fr",
+          "format_declare": "rss",
+          "code_http": 200,
+          "items_extraits_fetch": 0,
+          "strategie_fetch": "none",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "format",
+          "detail_cause": "rss — flux vide (0 item reconnu)"
+        },
+        {
+          "id": "onion:ccw:arcusmedia",
+          "url": "http://arcuufpr5xxbbkin4mlidt7itmr6znlppk63jbtkeguuhszmc5g7qdyd.onion",
+          "format_declare": "html",
+          "code_http": null,
+          "items_extraits_fetch": 0,
+          "strategie_fetch": "none",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "autre",
+          "detail_cause": "indéterminé — fetch Tor en échec au rejeu (aucun code HTTP)",
+          "erreur_fetch": "Error: Proxy connection timed out",
+          "note": "Référence relance-ciblage : HTTP 200, 60 items. Le rejeu n'a pas obtenu de réponse via Tor ; aucun diagnostic de format n'est possible ici."
+        },
+        {
+          "id": "onion:ccw:anubis",
+          "url": "http://6g3aoky5hft4mvzcqt2bugo4r465woaorjhd7em2k2v24sr2exaro5id.onion/",
+          "format_declare": "html",
+          "code_http": 200,
+          "items_extraits_fetch": 0,
+          "strategie_fetch": "none",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "format",
+          "detail_cause": "html — page de challenge sans annonce"
+        },
+        {
+          "id": "wl:misp:cisco-top1m",
+          "url": "https://raw.githubusercontent.com/MISP/misp-warninglists/main/lists/cisco_top1m/list.json",
+          "format_declare": "json",
+          "code_http": 200,
+          "items_extraits_fetch": 0,
+          "strategie_fetch": "none",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "format",
+          "detail_cause": "json — liste de référentiel warninglist, pas un flux d'items"
+        },
+        {
+          "id": "onion:rl:orova",
+          "url": "http://maa2yprc5pldyr5hjn246hw7i66wdhglnostqgqkcbuh4vyyeos4xxyd.onion/",
+          "format_declare": "html",
+          "code_http": 200,
+          "items_extraits_fetch": 0,
+          "strategie_fetch": "none",
+          "items_inseres": 0,
+          "type_insertion": null,
+          "cause_si_zero": "format",
+          "detail_cause": "texte — clé publique qTox, sans stratégie d'extraction"
+        }
+      ]
+    }
+  }
+}
