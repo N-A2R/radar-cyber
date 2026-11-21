@@ -1,0 +1,21 @@
+{
+  "mode": "piste2 — échantillon API recherche-entreprises (aucune écriture)",
+  "dureeMs": 21848,
+  "demande": 100,
+  "vivierLu": 50000,
+  "echantillonDeduplique": 100,
+  "appels": 100,
+  "reponses200": 100,
+  "reponsesAvecSiteWeb": 0,
+  "tauxReponseAvecSite": 0,
+  "tauxSirenConcorde": 100,
+  "tempsMs": {
+    "moyenne": 96,
+    "mediane": 40,
+    "min": 32,
+    "max": 1822
+  },
+  "erreurs": 0,
+  "exemplesErreurs": [],
+  "exemplesAvecSite": []
+}

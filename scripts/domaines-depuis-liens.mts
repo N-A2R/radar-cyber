@@ -3,10 +3,12 @@
  * Domaines d'organisation **extraits des liens déjà collectés**, sans deviner.
  *
  * Usage :
+ *   RADAR_PG_API_TIMEOUT_MS=60000 \
  *   DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
  *     apps/api/node_modules/.bin/tsx scripts/domaines-depuis-liens.mts [--appliquer] [--limite=N]
  *
  *   … --piste2 [--piste2-limite=100]     test de l'API recherche-entreprises
+ *   … --sans-http                       diagnostic rapide, aucune écriture
  *
  * Piste 1 (défaut) :
  *   - lit chaque `event` (titre, résumé HTML, `source_url`, `evidence`) ;
@@ -14,19 +16,25 @@
  *     segments base64url des redirections Google News, texte libre) ;
  *   - normalise en domaine racine (`www.`, port, chemin, `www.` retirés) ;
  *   - rapproche chaque domaine d'une organisation **déjà citée dans le même
- *     événement** (par `org_id`, nom ou alias) et dont le nom/alias partage un
- *     jeton distinctif avec le domaine ;
- *   - vérifie HTTP 200 + cohérence (le site mentionne le nom de l'org) ;
+ *     événement** (`org_id`, nom entier, alias, ou jeton distinctif partagé
+ *     avec le domaine et présent dans le texte) ; un nom complet départage
+ *     les variantes, une égalité de score reste écartée ;
+ *   - vérifie HTTP 200 + cohérence stricte (le site doit mentionner le nom de
+ *     l'org, pas seulement un alias homonyme ou un jeton détaché) ;
+ *   - publie 50 rattachements contrôlables, répartis entre les racines ;
  *   - écrit dans `org_enrichissement` (source `lien-article`) la preuve
  *     article + URL testée, uniquement avec `--appliquer`.
  *
- * Aucune valeur n'est inventée : un domaine sans HTTP 200 ET sans nom d'org
- * dans la page n'est jamais écrit. Les échecs sont comptés, pas cachés.
+ * Aucune valeur n'est inventée : un domaine est écarté sans HTTP 200 ou sans
+ * nom d'org dans la page. Les échecs sont comptés, pas cachés.
  *
  * Piste 2 (`--piste2`) : mesure l'API publique recherche-entreprises sur un
  * échantillon dédupliqué (raison sociale + département). Aucune écriture.
  */
 
+import { mkdirSync, writeFileSync } from "node:fs";
+import { closePools, query, withTransaction } from "../apps/api/src/db.js";
+import { normalizeDomainValue } from "../apps/api/src/match/domaine.js";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 // ---------------------------------------------------------------------------
@@ -155,7 +163,7 @@ export function racineDe(valeur: string | null | undefined): string | null {
 	if (suffixes.length < 2) return null;
 	const deux = suffixes.slice(-2).join(".");
 	const largeur = SUFFIXES_PUBLICS.has(deux) ? 3 : 2;
-	if (suffixes.length <= largeur) return null; // `gouv.fr` seul n'est pas une org
+	if (suffixes.length < largeur) return null; // `gouv.fr` seul n'est pas une org
 	const racine = suffixes.slice(-largeur).join(".");
 	return racine === deux && largeur === 3 ? null : racine;
 }
@@ -383,6 +391,15 @@ function texteEvenement(e: Evenement): string {
 	return morceaux.join(" \n ");
 }
 
+/**
+ * Texte normalisé servant à prouver qu'une organisation est citée. Les URL
+ * sont retirées : `blog.facil.wtf` dans `evidence` n'est pas une mention de
+ * l'organisation « FACIL », c'est le domaine que l'on cherche à rattacher.
+ */
+export function texteSansUrls(texte: string): string {
+	return normaliser(texte.replace(/https?:\/\/\S+/gi, " "));
+}
+
 export function extraireDomaines(e: Evenement): DomaineTrouve[] {
 	const trouves = new Map<string, Origine>();
 	const ajouter = (racine: string, origine: Origine) => {
@@ -412,7 +429,7 @@ export function extraireDomaines(e: Evenement): DomaineTrouve[] {
 // Rapprochement domaine ↔ organisation citée dans le même événement
 // ---------------------------------------------------------------------------
 
-type OrgRow = {
+export type OrgRow = {
 	id: number;
 	name: string;
 	name_norm: string | null;
@@ -436,6 +453,23 @@ export function jetonsDeRacine(racine: string): string[] {
 	return [...jetons].slice(0, 8);
 }
 
+/**
+ * Jetons porteurs de la racine : tous les mots distinctifs de l'étiquette.
+ * `rfc-editor.org` porte `rfc` et `editor` : l'org « … EDITOR » n'est pas
+ * l'éditeur RFC. `content-sync.io` porte `content` et `sync` : l'org « SYNC »
+ * n'est pas ce service. Un mot générique (`europe`, `vacances`) est écarté.
+ */
+export function jetonsPorteursDeRacine(racine: string): string[] {
+	const label = racine.split(".")[0] ?? "";
+	return [
+		...new Set(
+			normaliser(label)
+				.split(" ")
+				.filter((t) => t.length >= 3 && !JETONS_GENERIQUES.has(t) && !/^\d+$/.test(t)),
+		),
+	];
+}
+
 /** Vrai si le nom ou un alias de l'org partage un jeton avec le domaine. */
 export function domaineLieAOrg(org: OrgRow, aliases: string[], jetons: string[]): boolean {
 	const noms = [org.name_norm ?? normaliser(org.name), ...aliases];
@@ -452,6 +486,53 @@ export function orgCiteeDansTexte(org: OrgRow, aliases: string[], texteNorm: str
 		if (entoure.includes(` ${n} `)) return true;
 	}
 	return false;
+}
+
+export type Rattachement = { motif: "org_id" | "nom" | "alias" | "jeton"; score: number };
+
+/**
+ * Force du rapprochement domaine ↔ organisation. Une organisation peut être
+ * citée par son `org_id`, par son nom/alias entier, ou par un jeton distinctif
+ * **partagé avec le domaine et effectivement présent dans l'événement**.
+ * Le dernier cas élargit la règle sans inventer de lien : un article qui parle
+ * de « Microsoft » et contient `microsoft.com` peut rattacher l'org
+ * « Microsoft France », mais une org dont le nom ne ressemble pas au domaine
+ * reste écartée. Les scores servent à départager les homonymes au lieu de
+ * rejeter toute l'ambiguïté (par exemple « Microsoft » vs « Microsoft France »).
+ */
+export function evaluerRattachement(
+	org: OrgRow,
+	aliases: string[],
+	racine: string,
+	orgIdEvenement: number | null,
+	texteNorm: string,
+): Rattachement | null {
+	if (orgIdEvenement === org.id) return { motif: "org_id", score: 100 };
+	const noms: Array<{ valeur: string; motif: "nom" | "alias" }> = [
+		{ valeur: normaliser(org.name_norm ?? org.name), motif: "nom" as const },
+		...aliases.map((alias): { valeur: string; motif: "alias" } => ({ valeur: normaliser(alias), motif: "alias" })),
+	].filter((n) => n.valeur.length > 0);
+	const porteurs = jetonsPorteursDeRacine(racine);
+	if (porteurs.length === 0 || !porteurs.every((p) => noms.some((n) => n.valeur.includes(p)))) {
+		return null;
+	}
+	const jetonsDomaine = jetonsDeRacine(racine);
+	const entoure = ` ${texteNorm.trim()} `;
+	let meilleur: Rattachement | null = null;
+	for (const { valeur: n, motif } of noms) {
+		if (n.length < 4 || JETONS_GENERIQUES.has(n)) continue;
+		if (entoure.includes(` ${n} `)) {
+			const score = motif === "nom" ? 90 : 85;
+			if (!meilleur || score > meilleur.score) meilleur = { motif, score };
+			continue;
+		}
+		const jetonsNom = n.split(" ").filter((t) => t.length >= 4 && !JETONS_GENERIQUES.has(t));
+		if (jetonsNom.some((t) => jetonsDomaine.includes(t) && entoure.includes(` ${t} `))) {
+			const score = motif === "nom" ? 70 : 65;
+			if (!meilleur || score > meilleur.score) meilleur = { motif: "jeton", score };
+		}
+	}
+	return meilleur;
 }
 
 // ---------------------------------------------------------------------------
@@ -509,7 +590,7 @@ async function chargerPage(racine: string): Promise<Page> {
 			const resp = await fetch(url, {
 				redirect: "follow",
 				headers: { "user-agent": USER_AGENT, accept: "text/html,application/xhtml+xml;q=0.9,*/*;q=0.5" },
-				signal: AbortSignal.timeout(12_000),
+				signal: AbortSignal.timeout(7_000),
 			});
 			const { buffer, charset } = await lireCorps(resp, MAX_OCTETS);
 			let texte: string;
@@ -542,30 +623,49 @@ async function chargerPage(racine: string): Promise<Page> {
 
 type Coherence = { ok: boolean; score: number; motif: string };
 
-/** Le site mentionne-t-il le nom (ou un alias) de l'organisation ? */
+/** Jetons d'un nom qui portent réellement l'identité de l'organisation. */
+function jetonsDistinctifs(nomNormalise: string): string[] {
+	return [...new Set(
+		nomNormalise
+			.split(" ")
+			.filter((t) => t.length >= 4 && !JETONS_GENERIQUES.has(t)),
+	)];
+}
+
+/**
+ * Le site doit mentionner le nom de l'org, pas seulement un jeton partagé
+ * avec un alias ambigu. « SCI GNOME » n'est pas le projet GNOME ; une société
+ * qui a « BOSCH » pour alias n'est pas Bosch. Un nom réduit à un seul jeton
+ * distinctif (CHROMIUM, IETF…) reste accepté sur ce jeton exact.
+ */
 export function verifierCoherence(org: OrgRow, aliases: string[], textePage: string): Coherence {
 	const page = ` ${normaliser(textePage)} `;
-	let meilleur: Coherence = { ok: false, score: 0, motif: "aucune-mention" };
-	const noms = [org.name, ...aliases].filter((n) => n && normaliser(n).length >= 3);
-	for (const nom of noms) {
-		const n = normaliser(nom);
-		if (n.length < 3) continue;
-		if (page.includes(` ${n} `)) {
-			if (0.95 > meilleur.score) meilleur = { ok: true, score: 0.95, motif: "nom-complet" };
-			continue;
-		}
-		const jetons = n.split(" ").filter((t) => t.length >= 4 && !JETONS_GENERIQUES.has(t));
-		if (jetons.length === 0) continue;
-		const presents = jetons.filter((t) => page.includes(` ${t} `));
-		if (jetons.length >= 2 && presents.length === jetons.length) {
-			if (0.9 > meilleur.score) meilleur = { ok: true, score: 0.9, motif: "tous-jetons" };
-		} else if (jetons.length >= 2 && presents.length >= Math.ceil(jetons.length * 0.6)) {
-			if (0.8 > meilleur.score) meilleur = { ok: true, score: 0.8, motif: "majorite-jetons" };
-		} else if (jetons.length === 1 && presents.length === 1) {
-			if (0.8 > meilleur.score) meilleur = { ok: true, score: 0.8, motif: "jeton-unique" };
+	const nomOrg = normaliser(org.name_norm ?? org.name);
+	if (!nomOrg) return { ok: false, score: 0, motif: "aucune-mention" };
+	if (page.includes(` ${nomOrg} `)) return { ok: true, score: 0.95, motif: "nom-complet" };
+
+	const jetonsOrg = jetonsDistinctifs(nomOrg);
+	const presentsOrg = jetonsOrg.filter((t) => page.includes(` ${t} `));
+	if (jetonsOrg.length === 1 && nomOrg === jetonsOrg[0] && presentsOrg.length === 1) {
+		return { ok: true, score: 0.9, motif: "nom-jeton-unique" };
+	}
+	if (jetonsOrg.length >= 2 && presentsOrg.length === jetonsOrg.length) {
+		return { ok: true, score: 0.9, motif: "tous-jetons" };
+	}
+	if (jetonsOrg.length >= 2 && presentsOrg.length >= Math.ceil(jetonsOrg.length * 0.6)) {
+		return { ok: true, score: 0.8, motif: "majorite-jetons" };
+	}
+	for (const alias of aliases) {
+		const n = normaliser(alias);
+		if (!n || n === nomOrg) continue;
+		const jetons = jetonsDistinctifs(n);
+		if (jetons.length < 2) continue;
+		if (page.includes(` ${n} `)) return { ok: true, score: 0.9, motif: "alias-complet" };
+		if (jetons.every((t) => page.includes(` ${t} `))) {
+			return { ok: true, score: 0.85, motif: "alias-jetons" };
 		}
 	}
-	return meilleur;
+	return { ok: false, score: 0, motif: "aucune-mention" };
 }
 
 // ---------------------------------------------------------------------------
@@ -607,6 +707,7 @@ async function executerPiste1() {
 	                   FROM event
 	                  ORDER BY id${limite ? " LIMIT $1" : ""}`;
 	const { rows: evenements } = await query<Evenement>(sqlEvents, limite ? [limite] : []);
+	console.error(`[domaines] ${evenements.length} événements lus en ${Date.now() - debut} ms`);
 
 	const parEvenement: Array<{ evenement: Evenement; domaine: DomaineTrouve; texte: string }> = [];
 	const racines = new Set<string>();
@@ -619,7 +720,7 @@ async function executerPiste1() {
 		if (domaines.length === 0) continue;
 		avecDomaine++;
 		occurrences += domaines.length;
-		const texteNorm = ` ${normaliser(texteEvenement(e))} `;
+		const texteNorm = ` ${texteSansUrls(texteEvenement(e))} `;
 		for (const d of domaines) {
 			racines.add(d.racine);
 			parOrigine[d.origine]++;
@@ -627,19 +728,20 @@ async function executerPiste1() {
 		}
 	}
 
-	// Index des organisations par jeton de domaine (recherche trigramme indexée).
+	// Index des organisations par jeton de domaine (égalité indexée).
 	const jetonsParRacine = new Map<string, string[]>();
 	for (const racine of racines) jetonsParRacine.set(racine, jetonsDeRacine(racine));
 	const tousJetons = [...new Set([...jetonsParRacine.values()].flat())];
 
 	const orgsParJeton = new Map<string, OrgRow[]>();
+	const orgParId = new Map<number, OrgRow>();
 	if (tousJetons.length > 0) {
-		const motifs = tousJetons.map((j) => `%${j}%`);
 		const { rows: orgs } = await query<OrgRow>(
-			`SELECT id, name, name_norm, domain FROM org WHERE name_norm LIKE ANY($1)`,
-			[motifs],
+			`SELECT id, name, name_norm, domain FROM org WHERE name_norm = ANY($1)`,
+			[tousJetons],
 		);
 		for (const org of orgs) {
+			orgParId.set(org.id, org);
 			const nom = org.name_norm ?? normaliser(org.name);
 			for (const jeton of tousJetons) {
 				if (!nom.includes(jeton)) continue;
@@ -652,19 +754,45 @@ async function executerPiste1() {
 
 	const idsCandidats = [...new Set([...orgsParJeton.values()].flat().map((o) => o.id))];
 	const aliasParOrg = new Map<number, string[]>();
-	if (idsCandidats.length > 0) {
-		const { rows: alias } = await query<AliasRow>(
-			`SELECT org_id, alias, nom_normalise FROM org_alias WHERE org_id = ANY($1) AND status = 'active'`,
-			[idsCandidats],
+	const ajouterAlias = (orgId: number, nom: string) => {
+		if (!nom) return;
+		const liste = aliasParOrg.get(orgId);
+		if (liste) {
+			if (!liste.includes(nom)) liste.push(nom);
+		} else aliasParOrg.set(orgId, [nom]);
+	};
+	// Un alias exactement égal au jeton du domaine suffit aussi : l'org
+	// officielle peut ne pas porter ce mot dans sa raison sociale. Recherche
+	// indexée (nom_normalise, status), pas de balayage des 1,7 M d'alias.
+	const orgsParAliasJeton = new Map<string, number[]>();
+	if (tousJetons.length > 0) {
+		const { rows: aliasJeton } = await query<AliasRow>(
+			`SELECT org_id, alias, nom_normalise FROM org_alias
+			  WHERE status = 'active' AND nom_normalise = ANY($1)`,
+			[tousJetons],
 		);
-		for (const a of alias) {
+		const idsManquants = new Set<number>();
+		for (const a of aliasJeton) {
 			const nom = a.nom_normalise ?? normaliser(a.alias);
-			if (!nom) continue;
-			const liste = aliasParOrg.get(a.org_id);
-			if (liste) liste.push(nom);
-			else aliasParOrg.set(a.org_id, [nom]);
+			ajouterAlias(a.org_id, nom);
+			for (const jeton of tousJetons) {
+				if (!nom.includes(jeton)) continue;
+				const liste = orgsParAliasJeton.get(jeton);
+				if (liste) {
+					if (!liste.includes(a.org_id)) liste.push(a.org_id);
+				} else orgsParAliasJeton.set(jeton, [a.org_id]);
+			}
+			if (!orgParId.has(a.org_id)) idsManquants.add(a.org_id);
+		}
+		if (idsManquants.size > 0) {
+			const { rows: orgsAlias } = await query<OrgRow>(
+				`SELECT id, name, name_norm, domain FROM org WHERE id = ANY($1)`,
+				[[...idsManquants]],
+			);
+			for (const org of orgsAlias) orgParId.set(org.id, org);
 		}
 	}
+	console.error(`[domaines] index des organisations chargé en ${Date.now() - debut} ms`);
 
 	type Pair = {
 		evenementId: number;
@@ -672,60 +800,88 @@ async function executerPiste1() {
 		racine: string;
 		origine: Origine;
 		articleUrl: string | null;
-		coherenceEvent: "org_id" | "nom" | "alias";
+		coherenceEvent: Rattachement["motif"];
+		scoreRattachement: number;
+		titreEvenement: string | null;
+		extraitEvenement: string;
 	};
 
 	const pairs: Pair[] = [];
 	let ambiguesEvenement = 0;
 	let sansOrgCitee = 0;
-	const orgIdsEvenement = new Map<number, Set<number>>();
+	let sansCandidat = 0;
+	let homonymesDepartages = 0;
+	const exemplesAmbigus: Array<{
+		racine: string;
+		titre: string | null;
+		candidats: Array<{ org_id: number; org: string; score: number }>;
+	}> = [];
 
 	for (const { evenement, domaine, texte } of parEvenement) {
+		const jetons = jetonsParRacine.get(domaine.racine) ?? [];
 		const candidats = new Map<number, OrgRow>();
-		for (const jeton of jetonsParRacine.get(domaine.racine) ?? []) {
+		for (const jeton of jetons) {
 			for (const org of orgsParJeton.get(jeton) ?? []) {
 				const aliases = aliasParOrg.get(org.id) ?? [];
 				if (!domaineLieAOrg(org, aliases, [jeton])) continue;
 				candidats.set(org.id, org);
 			}
+			for (const id of orgsParAliasJeton.get(jeton) ?? []) {
+				const org = orgParId.get(id);
+				if (org) candidats.set(id, org);
+			}
 		}
-		const cites: Array<{ org: OrgRow; motif: "org_id" | "nom" | "alias" }> = [];
+		if (candidats.size === 0) {
+			sansCandidat++;
+			continue;
+		}
+		const notes: Array<{ org: OrgRow; rattachement: Rattachement }> = [];
 		for (const org of candidats.values()) {
-			const aliases = aliasParOrg.get(org.id) ?? [];
-			if (evenement.org_id === org.id) {
-				cites.push({ org, motif: "org_id" });
-				continue;
-			}
-			if (orgCiteeDansTexte(org, [], texte)) {
-				cites.push({ org, motif: "nom" });
-				continue;
-			}
-			if (orgCiteeDansTexte({ ...org, name_norm: null }, aliases, texte)) {
-				cites.push({ org, motif: "alias" });
-			}
+			const rattachement = evaluerRattachement(
+				org,
+				aliasParOrg.get(org.id) ?? [],
+				domaine.racine,
+				evenement.org_id,
+				texte,
+			);
+			if (rattachement) notes.push({ org, rattachement });
 		}
-		if (cites.length === 0) {
+		if (notes.length === 0) {
 			sansOrgCitee++;
 			continue;
 		}
-		const explicite = cites.find((c) => c.motif === "org_id");
-		if (!explicite && new Set(cites.map((c) => c.org.id)).size > 1) {
+		const meilleurScore = Math.max(...notes.map((n) => n.rattachement.score));
+		const meilleurs = notes.filter((n) => n.rattachement.score === meilleurScore);
+		if (new Set(meilleurs.map((n) => n.org.id)).size > 1) {
 			ambiguesEvenement++;
+			if (exemplesAmbigus.length < 40) {
+				exemplesAmbigus.push({
+					racine: domaine.racine,
+					titre: evenement.title,
+					candidats: meilleurs.map((n) => ({
+						org_id: n.org.id,
+						org: n.org.name,
+						score: n.rattachement.score,
+					})),
+				});
+			}
 			continue;
 		}
-		const retenu = explicite ?? cites[0]!;
+		if (notes.length > 1) homonymesDepartages++;
+		const retenu = meilleurs[0]!;
 		pairs.push({
 			evenementId: evenement.id,
 			org: retenu.org,
 			racine: domaine.racine,
 			origine: domaine.origine,
 			articleUrl: evenement.source_url,
-			coherenceEvent: retenu.motif,
+			coherenceEvent: retenu.rattachement.motif,
+			scoreRattachement: retenu.rattachement.score,
+			titreEvenement: evenement.title,
+			extraitEvenement: texte.trim().slice(0, 220),
 		});
-		const vus = orgIdsEvenement.get(evenement.id) ?? new Set<number>();
-		vus.add(retenu.org.id);
-		orgIdsEvenement.set(evenement.id, vus);
 	}
+	console.error(`[domaines] rapprochement terminé en ${Date.now() - debut} ms`);
 
 	// Cohérence multi-domaines : une org qui reçoit plusieurs domaines distincts
 	// dans les liens est ambiguë ; aucun des deux n'est retenu.
@@ -751,7 +907,7 @@ async function executerPiste1() {
 	const racinesAValider = [...new Set(pairsSures.map((p) => p.racine))];
 	const pages = new Map<string, Page>();
 	if (!sansHttp) {
-		const resultats = await enParallele(racinesAValider, 8, async (racine) => {
+		const resultats = await enParallele(racinesAValider, 12, async (racine) => {
 			const page = await chargerPage(racine);
 			pages.set(racine, page);
 			return { racine, page };
@@ -840,7 +996,7 @@ async function executerPiste1() {
 					org_name: v.org.name,
 					event_id: v.evenementId,
 					origine: v.origine,
-					moteur: "lien-article@1",
+					moteur: "lien-article@2",
 				};
 				const res = await client.query(
 					`INSERT INTO org_enrichissement (org_id, champ, valeur, source, confiance, preuve, verifie_at)
@@ -852,6 +1008,29 @@ async function executerPiste1() {
 				else dejaPresents++;
 			}
 		});
+	}
+
+	// Contrôle manuel reproductible : jusqu'à 50 paires, réparties entre les
+	// racines plutôt que prises au début du fichier (qui est dominé par une
+	// seule organisation).
+	const validesParRacine = new Map<string, Valide[]>();
+	for (const v of valides) {
+		const liste = validesParRacine.get(v.racine);
+		if (liste) liste.push(v);
+		else validesParRacine.set(v.racine, [v]);
+	}
+	const racinesControle = [...validesParRacine.keys()].sort();
+	const controle: Valide[] = [];
+	for (let i = 0; i < 1000 && controle.length < 50; i++) {
+		let ajoute = false;
+		for (const racine of racinesControle) {
+			const v = validesParRacine.get(racine)?.[i];
+			if (!v) continue;
+			controle.push(v);
+			ajoute = true;
+			if (controle.length >= 50) break;
+		}
+		if (!ajoute) break;
 	}
 
 	const dureeMs = Date.now() - debut;
@@ -879,14 +1058,17 @@ async function executerPiste1() {
 			orgsMultiDomaines: [...pairesValidesParOrg.entries()]
 				.filter(([, v]) => v.domaines.size > 1)
 				.map(([org_id, v]) => ({ org_id, org: v.org, paires: v.paires, domaines: [...v.domaines] })),
-			controle: valides.slice(0, 60).map((v) => ({
+			controle: controle.map((v) => ({
 				org_id: v.org.id,
 				org: v.org.name,
 				domaine: v.racine,
 				confiance: v.confiance,
 				motif: `${v.coherenceEvent}+${v.motifCoherence}`,
-				url_testee: v.urlTestee,
+				score_rattachement: v.scoreRattachement,
 				titre_page: v.titre,
+				titre_evenement: v.titreEvenement,
+				extrait_evenement: v.extraitEvenement,
+				url_testee: v.urlTestee,
 				article_url: v.articleUrl,
 				event_id: v.evenementId,
 			})),
@@ -907,9 +1089,12 @@ async function executerPiste1() {
 			organisationsCandidates: idsCandidats.length,
 			paires: pairs.length,
 			pairesSures: pairsSures.length,
+			sansCandidat,
 			sansOrgCitee,
+			homonymesDepartages,
 			ambiguesEvenement,
 			ambiguesOrganisation: ambiguesOrg,
+			exemplesAmbigus,
 		},
 		ecriture: {
 			applique: appliquer,
