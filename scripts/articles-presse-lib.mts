@@ -43,6 +43,21 @@ function attribut(html: string, motif: RegExp): string | null {
 	return trouve?.[1] ? decodeHtml(trouve[1]) : null;
 }
 
+function dateValide(valeur: string): string | null {
+	const iso = /^(\d{4})-(\d{2})-(\d{2})/.exec(valeur.trim());
+	if (!iso) return null;
+	const annee = Number(iso[1]);
+	const mois = Number(iso[2]);
+	const jour = Number(iso[3]);
+	const maintenant = new Date();
+	if (annee < 2015 || annee > maintenant.getUTCFullYear() + 1 || mois < 1 || mois > 12 || jour < 1 || jour > 31) {
+		return null;
+	}
+	const calendar = new Date(Date.UTC(annee, mois - 1, jour));
+	if (calendar.getUTCFullYear() !== annee || calendar.getUTCMonth() + 1 !== mois || calendar.getUTCDate() !== jour) return null;
+	return `${iso[1]}-${iso[2]}-${iso[3]}`;
+}
+
 function dateDepuisTexte(valeur: string): string | null {
 	const iso = /^(\d{4})-(\d{2})-(\d{2})/.exec(valeur.trim());
 	if (iso) return dateValide(`${iso[1]}-${iso[2]}-${iso[3]}`);
@@ -54,7 +69,6 @@ function dateDepuisTexte(valeur: string): string | null {
 export function dateFlux(valeur: string | null | undefined): string | null {
 	return valeur ? dateDepuisTexte(valeur) : null;
 }
-
 
 function parcoursJsonLd(noeud: unknown, sortie: { date: string | null; titre: string | null }): void {
 	if (!noeud || typeof noeud !== 'object') return;
@@ -87,7 +101,15 @@ export function dateDepuisHtml(html: string): { date: string | null; titre: stri
 		}
 	}
 	if (!sortie.date) {
-		sortie.date = date ? dateDepuisTexte(date) : null;
+		const metas = /<meta\b[^>]*>/gi;
+		let meta: RegExpExecArray | null;
+		while ((meta = metas.exec(html)) !== null && !sortie.date) {
+			if (!/(?:property|name)\s*=\s*["'](?:article:published_time|og:article:published_time|datePublished|date|DC\.date\.issued|pubdate)["']/i.test(meta[0])) continue;
+			sortie.date = dateDepuisTexte(attribut(meta[0], /content\s*=\s*["']([^"']+)["']/i) ?? '');
+		}
+	}
+	if (!sortie.date) {
+		sortie.date = dateDepuisTexte(attribut(html, /<time\b[^>]*datetime\s*=\s*["']([^"']+)["']/i) ?? '');
 	}
 	return sortie;
 }
@@ -150,14 +172,14 @@ export function liensArticle(html: string, base: string, limite = 6): string[] {
 }
 
 const MOTS_CYBER: [string, RegExp][] = [
-	['cyber', /cyber/],
-	['rancongiciel', /rancongiciel|ransomware/],
-	['piratage', /piratage|hacke|hacker|hacking|pirate/],
-	['fuite de donnees', /fuite de donnees|violation de donnees|donnees volees|donnees exposees|exfiltration/],
-	['phishing', /phishing|hameconnage/],
-	['malware', /malware|logiciel espion|cheval de troie|botnet/],
-	['ddos', /ddos|deni de service/],
-	['incident informatique', /incident informatique|failles? de securite|vulnerabilite|systeme informatique|site internet indisponible|cyberattaque/],
+	['cyberattaque', /\bcyber[\s-]?attaques?\b|\bcybercriminalite\b|\bcybercrime\b/],
+	['rancongiciel', /\brancongiciels?\b|\bransomware\b/],
+	['piratage', /\bpiratages?\b|\bpirates? informatiques?\b|\bhackers?\b|\bhacking\b/],
+	['fuite de donnees', /\b(?:fuite|violation|vol) de donnees\b|\bdonnees (?:volees|exposees|pillees)\b|\bexfiltration\b/],
+	['phishing', /\bphishing\b|\bhameconnage\b/],
+	['malware', /\bmalwares?\b|\blogiciels? espions?\b|\bcheval de troie\b|\bbotnets?\b/],
+	['ddos', /\bddos\b|\bdeni de service\b/],
+	['incident informatique', /\bincidents? informatiques?\b|\bfailles? de securite\b|\bvulnerabilites?\b|\bsysteme informatique (?:compromis|victime|inaccessible)\b|\bsite internet indisponible\b/],
 ];
 
 /** Mots-clés cyber réellement présents dans le texte normalized (aucune inférence). */
@@ -249,14 +271,23 @@ export function urlsSitemap(xml: string, base: string, limite = 200): string[] {
 }
 
 /** Sitemaps enfants d'un index, pour les sites qui segmentent leurs URLs. */
-export function sitemapsEnfants(xml: string, base: string): string[] {
+export function sitemapsEnfants(xml: string, base: string, limite = 4): string[] {
 	const sortie: string[] = [];
 	const blocs = /<sitemap\b[^>]*>([\s\S]*?)<\/sitemap>/gi;
 	let correspondance: RegExpExecArray | null;
-	while ((correspondance = blocs.exec(xml)) !== null && sortie.length < 4) {
+	while ((correspondance = blocs.exec(xml)) !== null && sortie.length < limite) {
 		const loc = /<loc\b[^>]*>([\s\S]*?)<\/loc>/i.exec(correspondance[1]!)?.[1];
 		const url = urlInterne(loc, base);
 		if (url && !sortie.includes(url)) sortie.push(url);
 	}
 	return sortie;
 }
+
+/** URLs dont le titre d'URL annonce un sujet cyber : découverte ciblée, jamais une preuve. */
+export function urlsCyberSitemap(xml: string, base: string, limite = 100): string[] {
+	return urlsSitemap(xml, base, 10_000)
+		.filter((url) => /cyber|pirat|rancong|ransom|hack|fuite|phish|malware|ddos|informatique|numerique|donnees/
+			.test(normaliseArticle(new URL(url).pathname)))
+		.slice(0, limite);
+}
+

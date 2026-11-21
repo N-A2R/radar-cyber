@@ -9,6 +9,14 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
 import {
+	dateDepuisHtml,
+	dateFlux,
+	itemsFlux,
+	motsCyberDetectes,
+	sitemapsEnfants,
+	urlsCyberSitemap,
+} from "../../../scripts/articles-presse-lib.mts";
+import {
 	DEPARTEMENTS_NA,
 	candidatsUrl,
 	classifieSource,
@@ -123,4 +131,75 @@ test("corpus généré : chaque commune cible a une ligne, les sources vérifié
 			assert.ok(l.raison, "une commune sans source doit avoir une raison");
 		}
 	}
+});
+
+test("articles : la date de publication est lue dans la page, sans invention", () => {
+	const jsonLd = '<script type="application/ld+json">{"@type":"NewsArticle","datePublished":"2026-11-20T18:12:00+01:00","headline":"Cyberattaque à Angoulême"}</script>';
+	assert.deepEqual(dateDepuisHtml(jsonLd), { date: "2026-11-20", titre: "Cyberattaque à Angoulême" });
+	assert.equal(dateDepuisHtml('<meta content="2026-10-05T08:00:00Z" property="article:published_time">').date, "2026-10-05");
+	assert.equal(dateDepuisHtml('<time datetime="2026-09-01">Publié le 1 septembre</time>').date, "2026-09-01");
+	assert.equal(dateDepuisHtml('<p>2026-02-30</p>').date, null);
+	assert.equal(dateDepuisHtml('<p>Aucune date</p>').date, null);
+	assert.equal(dateFlux("Fri, 20 Nov 2026 18:30:00 +0100"), "2026-11-20");
+	assert.equal(dateFlux("hier"), null);
+});
+
+test("flux : seuls les articles internes datés sont retenus", () => {
+	const xml = '<rss><channel>'
+		+ '<item><title>Cyberattaque à Niort</title><link>https://www.sudouest.fr/cyberattaque-a-niort</link>'
+		+ '<pubDate>Fri, 20 Nov 2026 18:30:00 +0100</pubDate><description>Une mairie visée.</description></item>'
+		+ '<item><title>Ailleurs</title><link>https://ailleurs.fr/actualite</link><pubDate>Fri, 20 Nov 2026 18:30:00 +0100</pubDate></item>'
+		+ '</channel></rss>';
+	const items = itemsFlux(xml, "https://www.sudouest.fr/rss.xml");
+	assert.equal(items.length, 1);
+	assert.equal(items[0]!.url, "https://www.sudouest.fr/cyberattaque-a-niort");
+	assert.equal(items[0]!.date, "2026-11-20");
+	assert.equal(items[0]!.titre, "Cyberattaque à Niort");
+});
+
+test("sitemaps : index mensuels et URL cyber filtrées sans fabrication", () => {
+	const index = '<sitemapindex>'
+		+ '<sitemap><loc>https://www.sudouest.fr/sitemap/articles-2026-11.xml</loc></sitemap>'
+		+ '<sitemap><loc>https://www.sudouest.fr/sitemap/articles-2026-10.xml</loc></sitemap>'
+		+ '</sitemapindex>';
+	assert.deepEqual(
+		sitemapsEnfants(index, "https://www.sudouest.fr/sitemap.xml", 1),
+		["https://www.sudouest.fr/sitemap/articles-2026-11.xml"],
+	);
+	const sitemap = '<urlset>'
+		+ '<url><loc>https://www.sudouest.fr/economie/cyberattaque-a-bordeaux</loc></url>'
+		+ '<url><loc>https://www.sudouest.fr/sport/rugby/bordeaux-begles</loc></url>'
+		+ '</urlset>';
+	assert.deepEqual(
+		urlsCyberSitemap(sitemap, "https://www.sudouest.fr/sitemap/articles-2026-11.xml"),
+		["https://www.sudouest.fr/economie/cyberattaque-a-bordeaux"],
+	);
+});
+
+test("cyber : un mot-clé hors sujet n'est pas un incident", () => {
+	assert.deepEqual(motsCyberDetectes("Passer l’aspirateur : deux exercices pendant le ménage"), []);
+	assert.deepEqual(motsCyberDetectes("Coeur de Pirate en concert à Bordeaux"), []);
+	assert.ok(motsCyberDetectes("Cyberattaque : un rancongiciel frappe une mairie").includes("rancongiciel"));
+	assert.ok(motsCyberDetectes("Fuite de données chez un sous-traitant").includes("fuite de donnees"));
+});
+
+test("corpus d'articles : 500 articles datés et vérifiables, comptes cohérents", () => {
+	const corpus = fileURLToPath(new URL("../../../bench/corpus/articles-presse-na.jsonl", import.meta.url));
+	const rapport = fileURLToPath(new URL("../../../bench/results/articles-presse-na-2026-11-21.json", import.meta.url));
+	const lignes = readFileSync(corpus, "utf8").trim().split("\n").map((l) => JSON.parse(l));
+	assert.ok(lignes.length >= 500, `${lignes.length} articles collectés`);
+	assert.equal(new Set(lignes.map((l: { url: string }) => l.url)).size, lignes.length);
+	for (const l of lignes) {
+		assert.match(l.date, /^\d{4}-\d{2}-\d{2}$/);
+		assert.equal(l.statut_http, 200);
+		assert.ok(l.titre.length >= 12);
+		assert.match(l.url, /^https?:\/\//);
+		const mots = motsCyberDetectes(`${l.titre} ${l.extrait}`);
+		assert.equal(l.cyber, mots.length > 0);
+		assert.deepEqual(l.mots_cyber, mots);
+	}
+	const resultat = JSON.parse(readFileSync(rapport, "utf8"));
+	assert.equal(resultat.comptes.articles_collectes, lignes.length);
+	assert.equal(resultat.comptes.articles_dates, lignes.length);
+	assert.equal(resultat.comptes.incidents_cyber_extraits, lignes.filter((l) => l.cyber).length);
 });
