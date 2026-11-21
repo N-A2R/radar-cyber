@@ -2,7 +2,7 @@ import { badRequest, notFound, unauthorized } from "../errors.js";
 import type { FastifyInstance, FastifyRequest } from "fastify";
 import { query } from "../db.js";
 import { requireAuth, resolveUser } from "../middleware/auth.js";
-import { applyReview, reviewQueue, type ReviewAction } from "../quarantine/review.js";
+import { applyReview, reviewQueue } from "../quarantine/review.js";
 import type { TriageBucket } from "../quarantine/triage.js";
 import {
   loadOrgIndex,
@@ -10,6 +10,8 @@ import {
   promoteOne,
   type OrgIndexEntry,
 } from "../quarantine/promote.js";
+import { z } from "zod";
+import { parseBody, invalidBody } from "./body-validation.js";
 
 /** Retire la clé réservée du contenu extrait avant exposition. */
 function stripReview(extracted: unknown): unknown {
@@ -28,6 +30,18 @@ function mapOrg(e: OrgIndexEntry) {
     domain: e.domain,
   };
 }
+
+/** Routes sans corps : `{}` est valide, toute clé supplémentaire est refusée. */
+const EmptyBody = z.strictObject({});
+
+const ReviewBody = z.strictObject({
+  ids: z.array(z.number().int().positive()).min(1).max(500),
+  action: z.enum(["promote", "reject", "review", "undo"]),
+  reason: z.string().trim().max(500).optional(),
+}).refine(
+  (body) => body.action !== "reject" || (body.reason?.length ?? 0) > 0,
+  { message: "reason requis pour un rejet", path: ["reason"] },
+);
 
 export default async function (app: FastifyInstance) {
   /**
@@ -161,23 +175,10 @@ export default async function (app: FastifyInstance) {
    * revue qui n'explique pas ses refus ne se relit pas.
    */
   app.post("/quarantine/review", { preHandler: requireAuth() }, async (req, reply) => {
-    const body = (req.body ?? {}) as { ids?: unknown; action?: string; reason?: string };
-    const action = body.action as ReviewAction;
-    if (!["promote", "reject", "review", "undo"].includes(action)) {
-      throw badRequest("invalid action");
-    }
-    if (!Array.isArray(body.ids) || body.ids.length === 0 || body.ids.length > 500) {
-      throw badRequest("ids must be a non-empty array of at most 500");
-    }
-    const ids = body.ids.map((value) => Number(value));
-    if (ids.some((id) => !Number.isInteger(id) || id <= 0)) {
-      throw badRequest("invalid id");
-    }
-    const reason = typeof body.reason === "string" ? body.reason.trim().slice(0, 500) : "";
-    if (action === "reject" && reason === "") {
-      throw badRequest("reason required for rejection");
-    }
-    return applyReview(ids, action, reason || null, req.user!.email);
+    const parsed = parseBody(ReviewBody, req.body);
+    if (!parsed.success) return invalidBody(reply, parsed.error);
+    const { ids, action, reason } = parsed.data;
+    return applyReview(ids, action, reason ?? null, req.user!.email);
   });
 
   /** Promotion manuelle par un analyste connecté. */
@@ -185,6 +186,8 @@ export default async function (app: FastifyInstance) {
     "/quarantine/:id/promote",
     { preHandler: requireAuth() },
     async (req, reply) => {
+      const parsed = parseBody(EmptyBody, req.body);
+      if (!parsed.success) return invalidBody(reply, parsed.error);
       const id = Number(req.params.id);
       if (!Number.isInteger(id) || id <= 0) {
         throw badRequest("invalid id");

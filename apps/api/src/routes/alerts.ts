@@ -4,6 +4,12 @@ import { requireAuth, resolveUser } from "../middleware/auth.js";
 import { scoreAlert } from "../detect/confidence.js";
 import { badRequest, notFound, unauthorized } from "../errors.js";
 
+import { z } from "zod";
+import { parseBody, invalidBody } from "./body-validation.js";
+
+/** Ces actions n'ont pas de corps : `{}` passe, une clé en trop est refusée. */
+const EmptyBody = z.strictObject({});
+
 export default async function (app: FastifyInstance) {
   app.get("/alerts", async (req: FastifyRequest, reply) => {
     const user = await resolveUser(req);
@@ -211,6 +217,8 @@ export default async function (app: FastifyInstance) {
   });
 
   app.post<{ Params: { id: string } }>("/alerts/:id/ack", { preHandler: requireAuth() }, async (req, reply) => {
+    const parsed = parseBody(EmptyBody, req.body);
+    if (!parsed.success) return invalidBody(reply, parsed.error);
     const id = Number(req.params.id);
     const u = req.user!;
     const r = await query("UPDATE alert SET status='ack', acked_at=now(), acked_by=$2, updated_at=now() WHERE id=$1 RETURNING id", [id, u.id]);
@@ -219,6 +227,8 @@ export default async function (app: FastifyInstance) {
   });
 
   app.post<{ Params: { id: string } }>("/alerts/:id/resolve", { preHandler: requireAuth() }, async (req, reply) => {
+    const parsed = parseBody(EmptyBody, req.body);
+    if (!parsed.success) return invalidBody(reply, parsed.error);
     const id = Number(req.params.id);
     const r = await query("UPDATE alert SET status='resolved', updated_at=now() WHERE id=$1 RETURNING id", [id]);
     if (!r.rowCount) throw notFound();

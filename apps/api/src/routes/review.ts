@@ -21,6 +21,7 @@ import { createOrgFromHintTx, InvalidHintError, type CreateOrgFromHintResult } f
 import { normalizeName, promoteOneTx, type PromoteOneResult } from "../quarantine/promote.js";
 import { appendReview, applyReview, reviewQueue, type ReviewEntry } from "../quarantine/review.js";
 import type { TriageBucket } from "../quarantine/triage.js";
+import { parseBody, invalidBody } from "./body-validation.js";
 
 const TITRE_MAX = 200;
 const EXTRAIT_MAX = 240;
@@ -77,11 +78,6 @@ const DecisionBody = z.object({
 	{ message: "orgId interdit pour une création", path: ["orgId"] },
 );
 
-function zodBadRequest(error: z.ZodError): never {
-	throw badRequest("invalid input",
-		error.issues.map((issue) => ({ path: issue.path.join("."), message: issue.message })));
-}
-
 /** Refus massif : une seule raison, un seul lot journalisé. */
 const RefuserSansIndiceBody = z.object({
 	raison: z.string().trim().min(1).max(500),
@@ -118,8 +114,8 @@ export default async function (app: FastifyInstance) {
 	const ecritureRateLimit = rateLimit({ max: 20, windowMs: 60_000 });
 	/** Revendications en attente avec indice, candidats et règle de refus. */
 	app.get("/review/queue", { preHandler: requireAuth() }, async (req, reply) => {
-		const parsed = QueueQuery.safeParse(req.query ?? {});
-		if (!parsed.success) zodBadRequest(parsed.error);
+		const parsed = parseBody(QueueQuery, req.query ?? {});
+		if (!parsed.success) return invalidBody(reply, parsed.error);
 		const { limit, page, offset, cursor, bucket, q } = parsed.data;
 		const result = await reviewQueue({
 			status: "pending",
@@ -205,8 +201,8 @@ export default async function (app: FastifyInstance) {
 		"/review/refuser-sans-indice",
 		{ preHandler: [ecritureRateLimit, requireRole("admin")] },
 		async (req, reply) => {
-			const parsed = RefuserSansIndiceBody.safeParse(req.body ?? {});
-			if (!parsed.success) zodBadRequest(parsed.error);
+			const parsed = parseBody(RefuserSansIndiceBody, req.body);
+			if (!parsed.success) return invalidBody(reply, parsed.error);
 			const { raison } = parsed.data;
 			const acteur = req.user!.email;
 			const entry: ReviewEntry = {
@@ -268,8 +264,8 @@ export default async function (app: FastifyInstance) {
 			if (!Number.isInteger(id) || id <= 0) {
 				throw badRequest("invalid id");
 			}
-			const parsed = DecisionBody.safeParse(req.body ?? {});
-			if (!parsed.success) zodBadRequest(parsed.error);
+			const parsed = parseBody(DecisionBody, req.body);
+			if (!parsed.success) return invalidBody(reply, parsed.error);
 			const { decision, raison } = parsed.data;
 			const orgId = parsed.data.orgId;
 			const actor = req.user!.email;
