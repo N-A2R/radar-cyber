@@ -165,7 +165,7 @@ INSERT INTO dns_fournisseur (suffix, name, category, mode) VALUES
   ('amen.fr',                 'Amen (AGARIK)',           'dns',     'suffix'),
   ('claranet.fr',             'Claranet',                'dns',     'suffix'),
   ('infomaniak.ch',           'Infomaniak',              'dns',     'suffix'),
-  ('cloudflare.net',          'Cloudflare Email Routing','mail',    'suffix'),
+  ('cloudflare.net',          'Cloudflare',              'dns',     'suffix'),
   ('cloudflare.com',          'Cloudflare',              'dns',     'suffix'),
   ('awsdns',                  'Amazon Route 53',         'dns',     'contains'),
   ('azure-dns.com',           'Microsoft Azure DNS',     'dns',     'suffix'),
