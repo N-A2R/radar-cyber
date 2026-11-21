@@ -43,9 +43,32 @@ PURGE_DATA=0
 PNPM_BIN=""
 NODE_BIN=""
 CLUSTER=""
+
+APT_SOURCES_LIST="${RADAR_APT_SOURCES_LIST:-/etc/apt/sources.list}"
+APT_SOURCE_DIR="${RADAR_APT_SOURCE_DIR:-/etc/apt/sources.list.d}"
+PGDG_KEY="${RADAR_PGDG_KEY:-/usr/share/keyrings/postgresql-archive-keyring.gpg}"
+PGDG_LIST="$APT_SOURCE_DIR/radar-postgresql.list"
+PGDG_CREATED=0
 START_EPOCH="$(date +%s)"
 
 log() { printf '[%s] %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"; }
+
+pgdg_source_exists() {
+  local hits
+  hits="$(grep -rl 'apt.postgresql.org' "$APT_SOURCES_LIST" "$APT_SOURCE_DIR" 2>/dev/null || true)"
+  [ -n "$hits" ]
+}
+pg_installed() {
+  dpkg -s "postgresql-$PG_VERSION" 2>/dev/null | grep -q '^Status: install ok installed'
+}
+cleanup_pgdg_source() {
+  local code="${1:-0}"
+  if [ "$code" -ne 0 ] && [ "$PGDG_CREATED" = "1" ]; then
+    rm -f "$PGDG_LIST"
+    log "Source PGDG créée par ce script retirée : APT laissé intact."
+  fi
+}
+trap 'cleanup_pgdg_source $?' EXIT
 die() { log "ERREUR: $*"; exit "${2:-1}"; }
 usage() {
   cat <<'EOF'
@@ -67,6 +90,7 @@ Usage : sudo bash scripts/install.sh [options]
   --uninstall             retire le service et les fichiers installés
   --purge-data            avec --uninstall : supprime aussi base, rôle et cluster
   --check                 vérifie seulement / et /api/health (aucun root requis)
+  --prepare-packages      prépare seulement les paquets système (diagnostic)
   --help                  cette aide
 
 Variables utiles : RADAR_DB_URL (base existante, aucun paquet/cluster créé),
@@ -91,12 +115,13 @@ while [ $# -gt 0 ]; do
     --uninstall) MODE="uninstall"; shift ;;
     --purge-data) PURGE_DATA=1; shift ;;
     --check) MODE="check"; shift ;;
+    --prepare-packages) MODE="packages"; shift ;;
     --help|-h) usage; exit 0 ;;
     *) die "option inconnue : $1 (voir --help)" ;;
   esac
 done
 
-[ "$(id -u)" -eq 0 ] || [ "$MODE" = "check" ] || die "cette installation doit être lancée en root (sudo)"
+[ "$(id -u)" -eq 0 ] || [ "$MODE" = "check" ] || [ "$MODE" = "packages" ] || die "cette installation doit être lancée en root (sudo)"
 STATE_FILE="$STATE_DIR/install.env"
 BACKUP_DIR="$STATE_DIR/backups"
 
@@ -126,9 +151,10 @@ owned_api_port() {
   grep -Eq "^PORT=${API_PORT}$" "$ENV_FILE" 2>/dev/null
 }
 check_os() {
-  [ -r /etc/os-release ] || die "/etc/os-release absent : distribution non prise en charge"
-  # shellcheck disable=SC1091
-  . /etc/os-release
+  local os_release="${RADAR_OS_RELEASE:-/etc/os-release}"
+  [ -r "$os_release" ] || die "$os_release absent : distribution non prise en charge"
+  # shellcheck disable=SC1090
+  . "$os_release"
   case "${ID:-} ${ID_LIKE:-}" in
     debian*|ubuntu*|*debian*|*ubuntu*) ;;
     *) die "distribution non prise en charge : ${PRETTY_NAME:-inconnue} (Debian/Ubuntu attendu)" ;;
@@ -167,16 +193,27 @@ ensure_packages() {
   apt-get update -qq >/dev/null
   apt-get install -y -qq ca-certificates curl gnupg jq git procps iproute2 rsync lsb-release openssl >/dev/null
 
-  local key="/usr/share/keyrings/postgresql-archive-keyring.gpg"
-  local list="/etc/apt/sources.list.d/radar-postgresql.list"
+  local key="$PGDG_KEY" list="$PGDG_LIST"
   local line="deb [signed-by=$key] https://apt.postgresql.org/pub/repos/apt ${CODENAME}-pgdg main"
-  add_repo_key "$key" "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
-  if [ ! -f "$list" ] || ! grep -Fxq "$line" "$list"; then
-    printf '%s\n' "$line" > "$list"
-    log "Dépôt PGDG ajouté (${CODENAME}-pgdg)."
+  local pgdg_exists=0 pg_here=0
+  pgdg_source_exists && pgdg_exists=1
+  pg_installed && pg_here=1
+  [ "$pgdg_exists" -eq 0 ] || log "Source PGDG déjà présente : dépôt laissé inchangé."
+  [ "$pg_here" -eq 0 ] || log "PostgreSQL $PG_VERSION déjà installé : paquet PGDG ignoré."
+
+  if [ "$pg_here" -eq 0 ]; then
+    if [ "$pgdg_exists" -eq 0 ]; then
+      add_repo_key "$key" "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
+      printf '%s\n' "$line" > "$list"
+      PGDG_CREATED=1
+      log "Dépôt PGDG ajouté (${CODENAME}-pgdg)."
+      if ! apt-get update -qq >/dev/null; then
+        die "apt-get update a échoué après l'ajout du dépôt PGDG ; retrait de la source"
+      fi
+    fi
+    apt-get install -y -qq "postgresql-${PG_VERSION}" "postgresql-client-${PG_VERSION}" >/dev/null
+    PGDG_CREATED=0
   fi
-  apt-get update -qq >/dev/null
-  apt-get install -y -qq "postgresql-${PG_VERSION}" "postgresql-client-${PG_VERSION}" >/dev/null
 
   local ok=0 major minor
   if command -v node >/dev/null 2>&1; then
@@ -523,6 +560,11 @@ do_uninstall() {
   return 0
 }
 
+if [ "$MODE" = "packages" ]; then
+  check_os
+  ensure_packages
+  exit 0
+fi
 if [ "$MODE" = "check" ]; then
   verify_endpoints
   exit 0
