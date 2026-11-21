@@ -40,6 +40,8 @@ type SourceRow = {
   evenements_30j: number;
   /** Événements attribués à la source, tout l'historique. */
   evenements_total: number;
+  /** Dernier fait produit par la source, toutes familles confondues. */
+  last_event_at: string | null;
   dernier_run: string | null;
   dernier_run_statut: string | null;
   /** Motifs de rejet agrégés du dernier run mesuré. */
@@ -67,7 +69,8 @@ export default async function (app: FastifyInstance) {
       ev AS (
         SELECT source_id,
                count(*) FILTER (WHERE COALESCE(observed_at, collected_at) >= now() - interval '30 days')::int AS evenements_30j,
-               count(*)::int AS evenements_total
+               count(*)::int AS evenements_total,
+               max(COALESCE(observed_at, collected_at))::text AS last_event_at
           FROM event
          GROUP BY source_id
       )
@@ -76,7 +79,8 @@ export default async function (app: FastifyInstance) {
              s.disabled_at, s.disabled_reason, s.statut, s.derniere_erreur,
              r.entrees, r.rejets, r.dernier_run, r.dernier_run_statut, r.motifs,
              COALESCE(e.evenements_30j, 0) AS evenements_30j,
-             COALESCE(e.evenements_total, 0) AS evenements_total
+             COALESCE(e.evenements_total, 0) AS evenements_total,
+             e.last_event_at
         FROM source s
         LEFT JOIN runs r ON r.source_id = s.id
         LEFT JOIN ev   e ON e.source_id = s.id
@@ -140,6 +144,7 @@ export default async function (app: FastifyInstance) {
         enabled: s.enabled,
         intervalSec: s.interval_sec,
         lastOkAt: s.last_ok_at,
+        lastEventAt: s.last_event_at,
         lastErrorAt: s.last_error_at,
         lastError: s.last_error,
         itemsTotal: s.items_total,

@@ -989,14 +989,14 @@ function looksLikeBlocklist(url: string, body?: string): boolean {
   return /blocklist|blacklist|hostfile|feed-osint/i.test(url);
 }
 
-async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], coverage: CoverageContext): Promise<void> {
+async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], coverage: CoverageContext, force = false): Promise<void> {
   // Une source qui n'a jamais réussi (last_ok_at NULL) ne doit pas être
   // retentée à chaque tick : le dernier échec sert de référence.
   const lastOk = source.last_ok_at ? Date.parse(source.last_ok_at) : NaN;
   const lastAttempt = source.last_error_at ? Date.parse(source.last_error_at) : NaN;
   const reference = Number.isNaN(lastOk) ? lastAttempt : lastOk;
   const minInterval = (source.interval_sec ?? 3600) * 1000 * 0.8;
-  if (!Number.isNaN(reference) && Date.now() - reference < minInterval) return;
+  if (!force && !Number.isNaN(reference) && Date.now() - reference < minInterval) return;
 
   try {
     const body = await fetchText(source.url);
@@ -1079,7 +1079,7 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], covera
 
 export async function runGenericSources(
 	log: (msg: string) => void,
-	opts?: { sourceIds?: string[]; limit?: number },
+	opts?: { sourceIds?: string[]; limit?: number; force?: boolean },
 ): Promise<void> {
 	// Les sources ci-dessous ont un collecteur dédié (collectors/index.ts) :
 	// le moteur générique ne doit pas tenter de les parser comme des flux.
@@ -1124,7 +1124,7 @@ export async function runGenericSources(
   const workers = Array.from({ length: CONCURRENCY }, async () => {
     while (index < rows.length) {
       const source = rows[index++];
-      await processSource(source, orgIndex, coverage);
+      await processSource(source, orgIndex, coverage, opts?.force === true);
     }
   });
   await Promise.all(workers);
