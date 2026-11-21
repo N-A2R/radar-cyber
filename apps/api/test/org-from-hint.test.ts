@@ -182,7 +182,7 @@ test("route : Bearer requis, validation 400, création 201 puis 200", async () =
       payload: { ...base, nom: "  ", preuve: "" },
     });
     assert.equal(vide.statusCode, 400);
-    const champs = (vide.json().details as { path: string }[]).map((d) => d.path);
+    const champs = (vide.json().error.details as { path: string }[]).map((d) => d.path);
 
     const cree = await app.inject({
       method: "POST",
