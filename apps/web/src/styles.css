@@ -446,6 +446,40 @@ table.data a:hover { text-decoration: underline; }
   border-bottom: 1px solid var(--line);
 }
 
+/* Squelette des écrans différés : garde la place et la hiérarchie visuelle
+   pendant que React charge le chunk, sans faire sauter le shell. */
+.view-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  box-sizing: border-box;
+  height: 100%;
+  padding: var(--space-5);
+}
+.view-skeleton__label {
+  color: var(--faint);
+  font: 400 var(--text-label)/1.4 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.view-skeleton__line {
+  display: block;
+  height: 10px;
+  border-radius: var(--radius);
+  background: var(--surface-3);
+  animation: view-skeleton-pulse 1.2s ease-in-out infinite alternate;
+}
+.view-skeleton__line:nth-of-type(2) { width: 82%; }
+.view-skeleton__line:nth-of-type(3) { width: 64%; }
+.view-skeleton__line:nth-of-type(4) { width: 46%; }
+@keyframes view-skeleton-pulse {
+  from { opacity: 0.4; }
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .view-skeleton__line { animation: none; }
+}
+
 .maplibregl-ctrl-attrib { font-size: 10px; }
 .maplibregl-ctrl-attrib a { color: var(--muted); }
 .maplibregl-canvas:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }

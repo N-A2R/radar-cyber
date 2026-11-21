@@ -24,6 +24,9 @@
  *
  * Palette fixe exportée : `FAMILY_COLORS` (partagée avec `arcs.ts`).
  */
+// Le worker MapLibre n'est utile qu'à cette vue : le configurer ici garde la
+// bibliothèque hors du chunk initial.
+import '../maplibre-worker'
 import { useEffect, useRef } from 'react'
 import * as maplibregl from 'maplibre-gl'
 import type { ExpressionSpecification } from 'maplibre-gl'
