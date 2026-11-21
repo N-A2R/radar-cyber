@@ -1099,12 +1099,16 @@ export async function runGenericSources(
 	// le moteur générique ne doit pas tenter de les parser comme des flux.
 	const params: unknown[] = [];
 	let sql =
-		"SELECT id, name, family, url, kind, format, parser, interval_sec, last_ok_at, last_error_at, relevance FROM source WHERE enabled AND kind <> 'quarantine' AND id NOT IN ('cert_fr','cisa_kev','ransomlook','epss','hermes_radar_cyber','nvd_cve','ctlog')";
+		"SELECT id, name, family, url, kind, format, parser, interval_sec, last_ok_at, last_error_at, relevance FROM source WHERE enabled AND kind <> 'quarantine' AND id NOT IN ('cert_fr','cisa_kev','ransomlook','epss','hermes_radar_cyber','nvd_cve','ctlog','poc')";
 	if (opts?.sourceIds?.length) {
 		params.push(opts.sourceIds);
 		sql += ` AND id = ANY($${params.length})`;
 	}
-	sql += " ORDER BY id";
+	// Jamais collectées d'abord : avec une concurrence bornée, une source sans
+	// aucun run sinon restait au bout de la file à chaque cycle.
+	sql += ` ORDER BY CASE WHEN last_ok_at IS NULL AND NOT EXISTS
+	            (SELECT 1 FROM collector_run r WHERE r.source_id = source.id) THEN 0 ELSE 1 END,
+	            last_ok_at ASC NULLS FIRST, id`;
 	if (opts?.limit) {
 		params.push(opts.limit);
 		sql += ` LIMIT $${params.length}`;
