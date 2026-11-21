@@ -38,6 +38,7 @@ import { parseJsonLd } from "./parsers/jsonld.js";
 import { parseHtmlArticles } from "./parsers/article.js";
 import { parseJsonItems as parseJsonItemsNew } from "./parsers/json.js";
 import { parseEmbeddedJson } from "./parsers/embedded-json.js";
+import { parseSource, type SourceFormat } from "./parsers/formats.js";
 import { parseLandingNotice } from "./parsers/landing.js";
 import { constaterTransition } from "./reveil.js";
 import { libelleMotif, versEvidence, type ExplicationRattachement } from "../journal/rattachement.js";
@@ -256,6 +257,15 @@ export type DetectionStrategy =
   | "landing-notice"
   | "none";
 
+const STRATEGY_BY_FORMAT: Record<SourceFormat, DetectionStrategy> = {
+  rss2: "rss-2",
+  atom: "atom",
+  jsonld: "json-ld",
+  html: "html-article",
+  json: "json-nested-array",
+  unknown: "none",
+};
+
 export type DetectionResult = {
   strategy: DetectionStrategy;
   items: Record<string, unknown>[];
@@ -372,7 +382,14 @@ function parseHtmlLinks(body: string): { items: Record<string, unknown>[]; path:
 export function detectItems(body: string, contentType: string | null): DetectionResult {
   const text = body.trim();
   const declared = (contentType ?? "").toLowerCase();
-  if (!text) return { strategy: "none", items: [], path: null };
+  const parsed = parseSource(text, { contentType: declared });
+  if (parsed.items.length > 0) {
+    return {
+      strategy: STRATEGY_BY_FORMAT[parsed.format],
+      items: parsed.items.map((item) => ({ ...item })),
+      path: parsed.path || null,
+    };
+  }
 
   const jsonLd = parseJsonLd(text);
   if (jsonLd) return { strategy: "json-ld", items: jsonLd, path: "@graph" };
@@ -603,7 +620,31 @@ function isMenuEntry(title: string, sourceName: string): "menu_path" | "menu_tok
   return null;
 }
 
-function parseNarrativeItems(body: string, parser: Record<string, unknown>, declaredFormat: string): Record<string, unknown>[] {
+/**
+ * Extraction content-first, puis fusion avec l'ancien chemin : les champs
+ * spécifiques déclarés dans `source.parser` (`aliases`, `cveID`…) restent
+ * accessibles au contrat d'admission, les cinq champs canoniques sont écrits
+ * par-dessus. Quand les deux lectures ne s'alignent pas, la lecture structurée
+ * gagne : elle ne ramène pas les menus d'une page comme le faisait `html-links`.
+ */
+export function parseNarrativeItems(body: string, parser: Record<string, unknown>, declaredFormat: string): Record<string, unknown>[] {
+  const parsed = parseSource(body, {
+    itemsPath: typeof parser.itemsPath === "string" ? parser.itemsPath : undefined,
+  });
+  if (parsed.items.length === 0) return legacyNarrativeItems(body, parser, declaredFormat);
+  // Sans champ déclaré dans `parser`, refaire l'ancienne lecture ne servirait
+  // qu'à doubler le coût d'un flux de plusieurs Mo.
+  if (!Object.keys(parser).some((key) => key !== "itemsPath")) {
+    return parsed.items.map((item) => ({ ...item }));
+  }
+  const legacy = legacyNarrativeItems(body, parser, declaredFormat);
+  return parsed.items.map((item, i) => {
+    const original = legacy.length === parsed.items.length ? legacy[i] : undefined;
+    return original ? { ...original, ...item } : { ...item };
+  });
+}
+
+function legacyNarrativeItems(body: string, parser: Record<string, unknown>, declaredFormat: string): Record<string, unknown>[] {
   const trimmed = body.trimStart();
   const looksFeed = /^<\?xml|^<(?:rss|feed|rdf:RDF)\b|^<rdf:RDF\b/i.test(trimmed) || /<(?:[\w.-]+:)?(?:item|entry)[\s>]/i.test(trimmed.slice(0, 20000));
   const looksJson = trimmed.startsWith("{") || trimmed.startsWith("[");
