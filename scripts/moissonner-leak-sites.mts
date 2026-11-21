@@ -6,14 +6,17 @@
  *   tsx scripts/moissonner-leak-sites.mts --max-sites=80 --years=2024,2025,2026
  *   tsx scripts/moissonner-leak-sites.mts --no-write            # mesure sans écrire en base
  *
- * dans une autre base. Le rapport JSON est déposé dans `bench/results/`.
- * dans une autrebase. Le rapport JSON est déposé dans `bench/results/`.
+ * Écrit dans la base de test (5433). Le rapport JSON est déposé dans
+ * `bench/results/` (ou le chemin donné par `--rapport=`).
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 process.env.DATABASE_URL = "postgres://radar:radar@localhost:5433/radar";
+// Les jointures sur le référentiel (1,6 M d'organisations) peuvent dépasser
+// le délai par défaut de 180 s quand la base sert aussi d'autres collectes.
+process.env.RADAR_PG_INGEST_TIMEOUT_MS ??= "900000";
 
 const { harvest, enregistrer } = await import("../apps/api/src/collectors/leak-sites.js");
 const { closePools } = await import("../apps/api/src/db.js");

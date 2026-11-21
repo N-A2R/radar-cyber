@@ -37,7 +37,7 @@ export const fetchJson: FetchJson = async (url) => {
   try {
     const res = await fetch(url, {
       headers: { accept: "application/json", "user-agent": "radar-cyber-leak-sites/1.0" },
-      signal: AbortSignal.timeout(45_000),
+      signal: AbortSignal.timeout(12_000),
     });
     if (!res.ok) return { status: res.status, body: null, error: `HTTP ${res.status}` };
     try {
@@ -232,13 +232,18 @@ function add(map: Map<string, OrgRef[]>, key: string, org: OrgRef): void {
 export async function loadReference(claims: readonly Claim[]): Promise<Reference> {
   const names = [...new Set(claims.map((c) => normalizeName(c.victim)).filter((n) => n.length >= 5))];
   const domains = [...new Set(claims.flatMap((c) => extractDomains(`${c.victim} ${c.description ?? ""}`)))];
+  // Seules les collectivités portent une commune fiable : la ville d'une
+  // entreprise peut valoir « HOURS » (Landes) et transformer n'importe quelle
+  // revendication en victime NA. Une commune ainsi extraite n'est admise
+  // qu'avec un indice locatif explicite (voir detectNA).
   const towns = await ingestQuery<{ city: string }>(
-    "SELECT DISTINCT lower(city) AS city FROM org WHERE dept = ANY($1::text[]) AND city IS NOT NULL AND length(city) >= 5",
+    `SELECT DISTINCT lower(city) AS city FROM org
+      WHERE dept = ANY($1::text[]) AND city IS NOT NULL AND kind = 'collectivite'`,
     [NA_DEPTS],
   );
   const cities = new Set(
     towns.rows.map((r) => normalizeName(r.city))
-      .filter((city) => city.length >= 5 && GENERIC_CITIES[city] !== true),
+      .filter((city) => city.length >= 4 && GENERIC_CITIES[city] !== true),
   );
   for (const prefecture of PREFECTURES) cities.add(normalizeName(prefecture));
 
@@ -249,7 +254,7 @@ export async function loadReference(claims: readonly Claim[]): Promise<Reference
     for (let i = 0; i < list.length; i += size) out.push(list.slice(i, i + size));
     return out;
   };
-  for (const chunk of chunked(names, 4000)) {
+  for (const chunk of chunked(names, 20_000)) {
     const r = await ingestQuery<{ cle: string; id: number; name: string; dept: string | null; city: string | null }>(
       `WITH n AS (SELECT DISTINCT unnest($1::text[]) AS cle)
          SELECT n.cle, o.id, o.name, o.dept, o.city
@@ -266,7 +271,7 @@ export async function loadReference(claims: readonly Claim[]): Promise<Reference
     );
     for (const row of a.rows) add(byName, row.cle, row);
   }
-  for (const chunk of chunked(domains, 4000)) {
+  for (const chunk of chunked(domains, 20_000)) {
     const r = await ingestQuery<{ cle: string; id: number; name: string; dept: string | null; city: string | null }>(
       `WITH d AS (SELECT DISTINCT unnest($1::text[]) AS cle)
          SELECT d.cle, o.id, o.name, o.dept, o.city
@@ -282,7 +287,7 @@ export type Rattachement = { orgId: number; orgName: string; via: "domain" | "na
 
 /** N'attache que si la correspondance est unique, ou désambiguïsée par la commune. */
 export function attachOrg(claim: Claim, ref: Reference): Rattachement | null {
-  const hay = normalize(`${claim.victim} ${claim.description ?? ""}`);
+  const hay = ` ${normalize(`${claim.victim} ${claim.description ?? ""}`)} `;
   const resolve = (list: OrgRef[] | undefined, via: "domain" | "name"): Rattachement | null => {
     if (!list?.length) return null;
     const seen = new Set<number>();
@@ -307,14 +312,29 @@ export function attachOrg(claim: Claim, ref: Reference): Rattachement | null {
   return distinctive ? resolve(ref.names.get(key), "name") : null;
 }
 
+/** Indice locatif immédiat : une commune citée sans lui ne prouve pas le siège. */
+const COMMUNE_CUE_RE = /(?:^|\s)(?:a|au|aux|en|dans|in|at|chef-lieu|commune|ville|mairie|siege|based|located|headquartered)\s+$/;
+
 /** Signals territoriaux admis : département, commune du référentiel, rattachement. */
 export function detectNA(raw: string, ref: Reference): string[] {
   const motifs: string[] = [];
   if (admitsDepartment(raw, NA_DEPT_LABELS)) motifs.push("departement");
-  const hay = normalize(raw);
-  const tokens = hay.split(/[^a-z0-9]+/).filter((token) => token.length >= 5 && GENERIC_CITIES[token] !== true);
-  if (tokens.some((token) => ref.cities.has(token))) motifs.push("commune");
-  if (PREFECTURES.some((prefecture) => prefecture.includes(" ") && hay.includes(` ${prefecture} `))) motifs.push("commune");
+  const hay = ` ${normalize(raw)} `;
+  const prefectures = new Set(PREFECTURES.map((city) => normalizeName(city)));
+  // « Avon, Colorado » ou « Saint-Paul, Minnesota » portent un nom de commune
+  // française : sans département NA explicite, seule une préfecture peut trancher.
+  const commune = [...ref.cities].some((city) => {
+    if (!motifs.includes("departement") && !prefectures.has(city)) return false;
+    const needles = city.includes("-") ? [city, city.replace(/-/g, " ")] : [city];
+    return needles.some((needle) => {
+      const at = hay.indexOf(` ${needle} `);
+      if (at < 0) return false;
+      // Les noms composés (ex. « la rochelle ») sont déjà suffisamment précis.
+      if (needle.includes(" ")) return true;
+      return COMMUNE_CUE_RE.test(hay.slice(0, at + 1));
+    });
+  });
+  if (commune) motifs.push("commune");
   return motifs;
 }
 
@@ -339,28 +359,36 @@ async function harvestSites(
     (a, b) => (perGroup.get(b) ?? 0) - (perGroup.get(a) ?? 0) || a.localeCompare(b),
   );
   const candidates = ordered.filter((slug) => (perGroup.get(slug) ?? 0) > 0).slice(0, maxSites);
-  const sites: SiteResultat[] = [];
-  for (const slug of candidates) {
-    const url = `${RANSOMLOOK}/api/group/${encodeURIComponent(slug)}`;
-    const res = await fetcher(url);
-    const entries = records(res.body);
-    const locations = entries[0]?.locations;
-    const first = Array.isArray(locations) ? records(locations)[0] : undefined;
-    const siteUrl = text(first?.slug) || null;
-    const ok = res.status === 200 && siteUrl !== null;
-    const error = ok ? null : (res.error ?? "aucune adresse de blog publiée");
-    if (error) errors.push({ url, status: res.status, message: error });
-    sites.push({
-      source: "ransomlook",
-      slug,
-      groupName: entries[0]?.name ? text(entries[0].name) : slug,
-      siteUrl,
-      httpStatus: res.status,
-      ok,
-      claims: perGroup.get(slug) ?? 0,
-      error,
-    });
-  }
+  const sites: SiteResultat[] = new Array(candidates.length);
+  // Un blog peut mettre plusieurs secondes à répondre : huit requêtes en
+  // parallèle gardent le moissonnage borné sans le transformer en file d'attente.
+  let next = 0;
+  const worker = async (): Promise<void> => {
+    while (next < candidates.length) {
+      const index = next++;
+      const slug = candidates[index];
+      const url = `${RANSOMLOOK}/api/group/${encodeURIComponent(slug)}`;
+      const res = await fetcher(url);
+      const entries = records(res.body);
+      const locations = entries[0]?.locations;
+      const first = Array.isArray(locations) ? records(locations)[0] : undefined;
+      const siteUrl = text(first?.slug) || null;
+      const ok = res.status === 200 && siteUrl !== null;
+      const error = ok ? null : (res.error ?? "aucune adresse de blog publiée");
+      if (error) errors.push({ url, status: res.status, message: error });
+      sites[index] = {
+        source: "ransomlook",
+        slug,
+        groupName: entries[0]?.name ? text(entries[0].name) : slug,
+        siteUrl,
+        httpStatus: res.status,
+        ok,
+        claims: perGroup.get(slug) ?? 0,
+        error,
+      };
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(8, candidates.length) }, worker));
   return sites;
 }
 
