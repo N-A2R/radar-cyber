@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { api, type ApiError, type OrgDetail as OrgDetailData } from "../api";
+import { api, type ApiError, type OrgDetail as OrgDetailData, type OrgLien } from "../api";
 import { renduCorroboration, renduHistorique } from "./corroboration-view";
 import { mockOrgDetail } from "../mock";
 import "./orgsheet.css";
@@ -28,6 +28,11 @@ const ASSET_LABELS: Record<string, string> = {
 function assetLabel(kind: string): string {
   return ASSET_LABELS[kind] ?? kind;
 }
+
+const LIEN_LABEL: Record<OrgLien["relation"], string> = {
+  mere: "organisation mère",
+  etablissement: "établissement rattaché",
+};
 
 export default function OrgSheet({
   orgId,
@@ -64,6 +69,17 @@ export default function OrgSheet({
     };
   }, [orgId, mock]);
 
+  return <OrgSheetContenu state={state} onClose={onClose} />;
+}
+
+/** Présentation pure : chaque état est vérifiable sans réseau ni effet React. */
+export function OrgSheetContenu({
+  state,
+  onClose,
+}: {
+  state: LoadState;
+  onClose: () => void;
+}) {
   const title = state.status === "ready" ? state.data.org.name : "Organisation";
 
   return (
@@ -75,19 +91,31 @@ export default function OrgSheet({
         </button>
       </header>
 
-      {state.status === "loading" && <p className="orgsheet__status">chargement…</p>}
-      {state.status === "notfound" && <p className="orgsheet__status">organisation inconnue</p>}
-      {state.status === "error" && <p className="orgsheet__status orgsheet__status--error">{state.message}</p>}
+      {state.status === "loading" && (
+        <p className="orgsheet__status" role="status">chargement de la fiche…</p>
+      )}
+      {state.status === "notfound" && (
+        <p className="orgsheet__status" role="status">organisation inconnue</p>
+      )}
+      {state.status === "error" && (
+        <p className="orgsheet__status orgsheet__status--error" role="alert">
+          API : {state.message}
+        </p>
+      )}
       {state.status === "ready" && <OrgSheetBody data={state.data} />}
     </aside>
   );
 }
 
-// Exportée pour la vérification hors navigateur (test/etat-rendu.tsx, D0) :
-// le rendu statique n'exécute pas les effets, donc le corps de la fiche ne
-// peut être capturé qu'en le rendant directement avec des données chargées.
+// Exportée pour la vérification hors navigateur (test/etat-rendu.tsx et
+// test/orgsheet-verif.tsx) : le rendu statique n'exécute pas les effets, donc
+// le corps de la fiche se vérifie en le rendant avec des données chargées.
 export function OrgSheetBody({ data }: { data: OrgDetailData }) {
   const { org, assets, events, claims, exposure } = data;
+  const aliases = data.aliases ?? [];
+  const domains = data.domains ?? [];
+  const relatedOrgs = data.relatedOrgs ?? [];
+  const sourceCount = data.sourceCount ?? 0;
   const identity = [org.kind, org.sector, org.city, org.dept].filter(
     (v): v is string => typeof v === "string" && v.trim().length > 0
   );
@@ -96,6 +124,63 @@ export function OrgSheetBody({ data }: { data: OrgDetailData }) {
   return (
     <div className="orgsheet__body">
       <p className="orgsheet__identity">{identity.length > 0 ? identity.join(" · ") : "identité incomplète"}</p>
+
+      <section className="orgsheet__section">
+        <h3 className="orgsheet__section-title">alias</h3>
+        {aliases.length === 0 ? (
+          <p className="orgsheet__empty">aucun alias connu</p>
+        ) : (
+          <ul className="orgsheet__list">
+            {aliases.map((alias) => (
+              <li key={alias} className="orgsheet__row">
+                <span className="orgsheet__row-title">{alias}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
+      <section className="orgsheet__section">
+        <h3 className="orgsheet__section-title">domaines</h3>
+        {domains.length === 0 ? (
+          <p className="orgsheet__empty">aucun domaine connu</p>
+        ) : (
+          <p className="orgsheet__breakdown">
+            {domains.map((domain) => (
+              <span key={domain} className="orgsheet__chip orgsheet__mono">{domain}</span>
+            ))}
+          </p>
+        )}
+      </section>
+
+      <section className="orgsheet__section">
+        <h3 className="orgsheet__section-title">
+          organisations liées <span className="orgsheet__count">{relatedOrgs.length}</span>
+        </h3>
+        {relatedOrgs.length === 0 ? (
+          <p className="orgsheet__empty">aucune organisation liée</p>
+        ) : (
+          <ul className="orgsheet__list">
+            {relatedOrgs.map((lien) => (
+              <li key={`${lien.relation}-${lien.id}`} className="orgsheet__row">
+                <span className="orgsheet__row-title">{lien.name}</span>
+                <span className="orgsheet__meta">{LIEN_LABEL[lien.relation] ?? lien.relation}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
+      <section className="orgsheet__section">
+        <h3 className="orgsheet__section-title">
+          sources <span className="orgsheet__count">{sourceCount.toLocaleString("fr-FR")}</span>
+        </h3>
+        {sourceCount === 0 ? (
+          <p className="orgsheet__empty">aucune source</p>
+        ) : (
+          <p className="orgsheet__note">sources distinctes ayant produit un événement rattaché</p>
+        )}
+      </section>
 
       {/*
         Avant les actifs et les événements : ce que l'organisation a *vécu*,
@@ -138,12 +223,13 @@ export function OrgSheetBody({ data }: { data: OrgDetailData }) {
 
       <section className="orgsheet__section">
         <h3 className="orgsheet__section-title">
-          événements <span className="orgsheet__count">{events.total}</span>
+          événements récents <span className="orgsheet__count">{events.total}</span>
         </h3>
         {events.total === 0 ? (
           <p className="orgsheet__empty">aucun événement rattaché</p>
         ) : (
           <>
+            <p className="orgsheet__note">{events.recent.length} plus récents affichés</p>
             <p className="orgsheet__breakdown">
               {events.byFamily.map((f) => (
                 <span key={f.family} className={`orgsheet__chip orgsheet__chip--${f.family}`}>

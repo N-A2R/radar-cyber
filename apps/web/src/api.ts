@@ -540,6 +540,23 @@ export type OrgClaim = {
 /** Point de la courbe d'exposition : un mois et son nombre d'événements. */
 export type OrgExposurePoint = { month: string; count: number };
 
+/** Organisation reliée à la fiche par un rattachement hiérarchique. */
+export type OrgLien = {
+  id: number;
+  name: string;
+  kind: string;
+  relation: "mere" | "etablissement";
+};
+
+/** Ligne d'événement telle que renvoyée par la fiche (20 plus récents). */
+export type OrgEventRecent = {
+  id: string;
+  title: string;
+  family: string;
+  severity: number;
+  observedAt: string | null;
+};
+
 /** Réponse de `GET /api/orgs/:id` : fiche complète d'une organisation. */
 /** Une source qui a parlé d'un fait, et quand. */
 export type SourceGroupe = {
@@ -603,8 +620,16 @@ export type Corroboration = {
 
 export type OrgDetail = {
   org: Org;
+  /** Noms alternatifs actifs (table org_alias). */
+  aliases: string[];
+  /** Domaines et sous-domaines connus, dédupliqués. */
+  domains: string[];
+  /** Organisations mère / établissements rattachés. */
+  relatedOrgs: OrgLien[];
+  /** Nombre de sources distinctes ayant produit un événement rattaché. */
+  sourceCount: number;
   assets: { total: number; byKind: OrgAssetKind[]; recent: OrgAsset[] };
-  events: { total: number; byFamily: OrgEventFamily[]; recent: Event[] };
+  events: { total: number; byFamily: OrgEventFamily[]; recent: OrgEventRecent[] };
   claims: { total: number; recent: OrgClaim[] };
   exposure: OrgExposurePoint[];
   /** Absent des serveurs antérieurs à l'analyse multi-sources. */
