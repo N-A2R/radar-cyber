@@ -8,6 +8,27 @@
 > Objectif final : **un taux de précision du rattachement prouvé**, qui tient sur
 > un échantillon **jamais vu**, avec le protocole écrit et reproductible.
 
+## Budget : une semaine humaine
+
+Cette vague est calibrée sur **≈ 38 heures de travail humain** — une semaine
+d'analyste. La correspondance mesurée sur la vague précédente : l'agent va
+**5 à 8 fois plus vite** sur le travail scripté (300 min budgétées → 55 min
+réelles), mais **pas** sur le travail jugé. Les verdicts de précision en sont :
+un humain met 1 à 3 minutes par cas, l'agent peut mettre 20 secondes ou 2
+minutes — ça se mesure, ça ne se devine pas.
+
+| Étape | Budget humain | Ce qui le justifie |
+|---|---|---|
+| S1 | **12 h** | 500 verdicts × ~1,5 min, preuve à chaque fois |
+| S2 | **8 h** | 2 modes d'échec × (règle + mesure gelée + mesure fraîche) |
+| S3 | **8 h** | 4 modes restants + cas limites + jeu d'or de 50 |
+| S4 | **5 h** | 500 cas frais + mesure de coût sur 1,24 M d'orgs |
+| S5 | **4 h** | règles → tests, protocole réexécutable |
+| S6 | **2 h** | rapport |
+| **Total** | **≈ 38 h** | **une semaine humaine** |
+
+Objectif pratique : **une nuit d'agent** (~8 h), sans bâcler les verdicts.
+
 ## Le fichier d'état — la pièce maîtresse
 
 `bench/state/wave-precision.json` :
