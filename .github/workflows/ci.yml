@@ -41,10 +41,9 @@ jobs:
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 24
-          cache: pnpm
 
       - name: Installation des dépendances
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile --store-dir .pnpm-store
 
       - name: Schéma et migrations (base de test)
         run: |
