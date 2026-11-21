@@ -99,3 +99,17 @@ export function parseTelegramMessages(html: string): TelegramMessage[] | null {
 
 	return messages.length > 0 ? messages : null
 }
+
+/**
+ * Page « Telegram: Contact @canal » : il n'y a aucun message public à ingérer.
+ * On expose l'identité du compte comme item unique plutôt que de laisser le
+ * collecteur jeter le corps dans `quarantine_raw` comme « format inconnu ».
+ */
+export function parseTelegramContact(html: string): { username: string; link: string } | null {
+	const username = html.match(/class="tgme_username_link"[^>]*href="tg:\/\/resolve\?domain=([\w]{3,})"/i)?.[1]
+		?? html.match(/content="tg:\/\/resolve\?domain=([\w]{3,})"/i)?.[1]
+		?? html.match(/<title[^>]*>\s*Telegram:\s*Contact\s+@([\w]{3,})/i)?.[1]
+	if (!username) return null
+	if (!/<title[^>]*>\s*Telegram:\s*Contact\s+@/i.test(html) && !/tgme_page_(?:description|action)/i.test(html)) return null
+	return { username, link: `https://t.me/${username}` }
+}

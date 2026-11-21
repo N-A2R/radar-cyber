@@ -30,11 +30,13 @@ import { filterIndicators } from "./warninglist.js";
 import { classifyFamily, isFamily } from "./classify.js";
 import { AdmissionTally, admitEvent } from "../contract/admit.js";
 import { parseClaimCards } from "./parsers/claims.js";
-import { parseTelegramMessages } from "./parsers/telegram.js";
+import { parseTelegramContact, parseTelegramMessages } from "./parsers/telegram.js";
 import { decodeBody } from "./parsers/decode.js";
 import { consignerLot, MOTEURS, type JournalEntry } from "../journal/index.js";
 import { parseRssItems } from "./parsers/xml.js";
 import { parseJsonItems as parseJsonItemsNew } from "./parsers/json.js";
+import { parseEmbeddedJson } from "./parsers/embedded-json.js";
+import { parseLandingNotice } from "./parsers/landing.js";
 import { constaterTransition } from "./reveil.js";
 import { libelleMotif, versEvidence, type ExplicationRattachement } from "../journal/rattachement.js";
 
@@ -225,6 +227,9 @@ export type DetectionStrategy =
   | "html-links"
   | "claim-cards"
   | "telegram-channel"
+  | "embedded-json"
+  | "telegram-contact"
+  | "landing-notice"
   | "none";
 
 export type DetectionResult = {
@@ -398,6 +403,11 @@ export function detectItems(body: string, contentType: string | null): Detection
   const feed = parseFeedItems(text);
   if (feed) return { strategy: "rss-atom", items: feed.items, path: feed.path };
 
+  // JSON sérialisé dans une balise <script> (Inertia, Next.js…) : le corps est
+  // du HTML pour le transport, mais les enregistrements sont bien du JSON.
+  const embedded = parseEmbeddedJson(text);
+  if (embedded) return { strategy: "embedded-json", items: embedded, path: "script[type=application/json]" };
+
   if (!text.startsWith("<")) {
     const csv = parseCsvItems(text);
     if (csv) return { strategy: "csv", items: csv.items, path: csv.path };
@@ -437,8 +447,20 @@ export function detectItems(body: string, contentType: string | null): Detection
     };
   }
 
+  // Page de contact Telegram (profil sans messages) : une identité, zéro message.
+  const contact = parseTelegramContact(text);
+  if (contact) {
+    return {
+      strategy: "telegram-contact",
+      items: [{ title: `@${contact.username}`, summary: `Compte Telegram @${contact.username} (aucun message public)`, link: contact.link }],
+      path: "tgme_username_link",
+    };
+  }
   const links = parseHtmlLinks(text);
   if (links) return { strategy: "html-links", items: links.items, path: links.path };
+
+  const notice = parseLandingNotice(text);
+  if (notice) return { strategy: "landing-notice", items: notice, path: "notice" };
 
   return { strategy: "none", items: [], path: null };
 }
