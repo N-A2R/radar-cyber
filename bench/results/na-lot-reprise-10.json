@@ -1,0 +1,282 @@
+{
+  "dateMesure": "2026-11-21",
+  "plan": "docs/plans/mission-nuit-na.md — Task 4 (reprise vague 2)",
+  "lot": 10,
+  "source": {
+    "ref": "bench/results/manques-referentiel-2026-11-15.json",
+    "traites": "bench/results/manques-glm-vague2.json",
+    "entiteSource": "lot-reprise-na"
+  },
+  "method": "lecture du site (fetch, titre et meta verbatim) + recherche-entreprises.api.gouv.fr sans clé ; requêtes et réponses consignées ; SIREN recoupé, jamais inventé",
+  "compte": {
+    "present": 4,
+    "absent": 4,
+    "cannot_verify": 2
+  },
+  "resolutions": [
+    {
+      "nomLisible": "Mission Locale Montpellier",
+      "domaine": null,
+      "verdict": "present",
+      "raison": "SIREN 413914433 au registre (état A, MONTPELLIER 34), recoupé avec le nom cité : Mission Locale Montpellier",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Mission%20Locale%20Montpellier&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "MISSION LOCALE DES JEUNES MONTPELLIER MEDITERRANEE METROPOLE (MLJ3M)",
+            "siren": "413914433",
+            "commune": "MONTPELLIER",
+            "dept": "34",
+            "etat": "A"
+          },
+          {
+            "denomination": "ASSOCIATION REGIONALE DES MISSIONS LOCALES OCCITANIE (ARML OCCITANIE)",
+            "siren": "823528575",
+            "commune": "MONTPELLIER",
+            "dept": "34",
+            "etat": "A"
+          },
+          {
+            "denomination": "MISSION LOCALE GARRIGUE ET CEVENNES",
+            "siren": "441518925",
+            "commune": "SAINT-MATHIEU-DE-TREVIERS",
+            "dept": "34",
+            "etat": "A"
+          },
+          {
+            "denomination": "ASSOCIATION NATIONALE DES DIRECTIONS DE MISSIONS LOCALES (ANDML)",
+            "siren": "432723765",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "ITINERAIRE INTERNATIONAL",
+            "siren": "403453616",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "mj-donnais.fr",
+      "domaine": "mj-donnais.fr",
+      "verdict": "cannot_verify",
+      "raison": "site ou registre inaccessible : TypeError: fetch failed",
+      "site": {
+        "url": "https://mj-donnais.fr",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=mj-donnais&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "Moose, Martin, Haynes & Lundy",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Moose%2C%20Martin%2C%20Haynes%20%26%20Lundy&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "MORTON WILLIAMS Data Leak",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=MORTON%20WILLIAMS%20Data%20Leak&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "mpm.fr",
+      "domaine": "mpm.fr",
+      "verdict": "present",
+      "raison": "SIREN 951105261 au registre (état A, SETE 34), recoupé avec mpm.fr",
+      "site": {
+        "url": "https://mpm.fr",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=mpm&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "MPM (MPM) (MPM)",
+            "siren": "951105261",
+            "commune": "SETE",
+            "dept": "34",
+            "etat": "A"
+          },
+          {
+            "denomination": "MPM",
+            "siren": "838555720",
+            "commune": "SALIES-DU-SALAT",
+            "dept": "31",
+            "etat": "A"
+          },
+          {
+            "denomination": "MPM",
+            "siren": "753390947",
+            "commune": "LANDAVILLE",
+            "dept": "88",
+            "etat": "A"
+          },
+          {
+            "denomination": "MPM (FENETRE DISCOUNT)",
+            "siren": "921546719",
+            "commune": "PLOUEDERN",
+            "dept": "29",
+            "etat": "A"
+          },
+          {
+            "denomination": "MPM",
+            "siren": "842368383",
+            "commune": "LA CHAPELLE D'ALAGNON",
+            "dept": "15",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "My Cloud Star",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=My%20Cloud%20Star&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "neatem.fr",
+      "domaine": "neatem.fr",
+      "verdict": "present",
+      "raison": "SIREN 788567121 au registre (état A, CROISSY-BEAUBOURG 77), recoupé avec neatem.fr",
+      "site": {
+        "url": "https://neatem.fr",
+        "http": 200,
+        "titre": "Prestataire informatique PME en Île-de-France | Neatem",
+        "metaDescription": "Prestataire informatique des PME, ETI et collectivités : infogérance, cybersécurité, matériel, IA et hébergement. Depuis 2012 à Marne-la-Vallée."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=neatem&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "NEATEM (CONTROL)",
+            "siren": "788567121",
+            "commune": "CROISSY-BEAUBOURG",
+            "dept": "77",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "neatem.fr | Update!",
+      "domaine": "neatem.fr",
+      "verdict": "present",
+      "raison": "SIREN 788567121 au registre (état A, CROISSY-BEAUBOURG 77), recoupé avec neatem.fr",
+      "site": {
+        "url": "https://neatem.fr",
+        "http": 200,
+        "titre": "Prestataire informatique PME en Île-de-France | Neatem",
+        "metaDescription": "Prestataire informatique des PME, ETI et collectivités : infogérance, cybersécurité, matériel, IA et hébergement. Depuis 2012 à Marne-la-Vallée."
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=neatem&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "NEATEM (CONTROL)",
+            "siren": "788567121",
+            "commune": "CROISSY-BEAUBOURG",
+            "dept": "77",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "Nexon Asia Pacific",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Nexon%20Asia%20Pacific&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "Nicole Miller",
+      "domaine": null,
+      "verdict": "cannot_verify",
+      "raison": "candidat(s) au registre mais aucun recoupement avec null — arbitrage humain",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Nicole%20Miller&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "NICOLE MILLER",
+            "siren": "519856108",
+            "commune": "LAVAL",
+            "dept": "53",
+            "etat": "C"
+          },
+          {
+            "denomination": "NICOLE ENTREMONT (MILLER)",
+            "siren": "408968444",
+            "commune": "PARIS",
+            "dept": "75",
+            "etat": "A"
+          },
+          {
+            "denomination": "NICOLE CERVONE (MILLER)",
+            "siren": "842935272",
+            "commune": "NICE",
+            "dept": "06",
+            "etat": "A"
+          },
+          {
+            "denomination": "NICOLE MILLER (SCHOUVER)",
+            "siren": "808408223",
+            "commune": "PUTTELANGE-AUX-LACS",
+            "dept": "57",
+            "etat": "A"
+          },
+          {
+            "denomination": "ASTRID MILLER (L'ATELIER DES SIS')",
+            "siren": "533575049",
+            "commune": "AUBENAS",
+            "dept": "07",
+            "etat": "A"
+          }
+        ]
+      }
+    }
+  ]
+}
