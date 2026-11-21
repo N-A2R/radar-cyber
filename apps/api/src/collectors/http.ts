@@ -46,8 +46,9 @@ function fetchThroughSocks(
   url: string,
   headers: Record<string, string>,
   timeoutMs: number,
+  source: string,
 ): Promise<{ status: number; buffer: Buffer; contentType: string | null }> {
-  const socks = rotatedTorSocks(url) ?? torSocks();
+  const socks = rotatedTorSocks(source) ?? torSocks();
   if (!socks) {
     throw new SourceBlockedError(
       `URL .onion sans RADAR_TOR_SOCKS — collecte Tor refusée (aucun repli clearnet) : ${url}`,
@@ -246,6 +247,7 @@ async function fetchResilientOnce(
   opts: FetchResilientOpts = {}
 ): Promise<FetchResilientResult> {
   const timeoutMs = opts.timeoutMs ?? 20000;
+  const source = opts.source?.trim() || url;
   const maxAttempts = opts.maxAttempts ?? 3;
   const accept = opts.accept ?? COLLECTOR_ACCEPT;
   const known = getValidators(url);
@@ -261,7 +263,7 @@ async function fetchResilientOnce(
     };
     // Un circuit Tor à froid met 40 s : le délai du clearnet condamnerait
     // toutes les sources .onion. On plancher à 45 s.
-    const r = await fetchThroughSocks(url, headers, Math.max(timeoutMs, 45000));
+    const r = await fetchThroughSocks(url, headers, Math.max(timeoutMs, 45000), source);
     if (r.status === 403) {
       throw new SourceBlockedError(`Source blocked (403) via Tor pour ${url}`, true);
     }

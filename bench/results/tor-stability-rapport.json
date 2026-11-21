@@ -1,0 +1,1086 @@
+{
+  "genere_le": "2026-11-21T20:36:36.102Z",
+  "methode": "77 sources .onion, un fetch réel chacune via fetchResilient, maxAttempts=1, timeout 45 s. Les deux passes utilisent la même liste et le même échantillon.",
+  "avant": {
+    "at": "2026-11-21T20:24:20.094Z",
+    "total": 77,
+    "ok": 48,
+    "taux_succes": 62.3,
+    "latence_mediane_ms": 3577,
+    "causes": {
+      "invalid_content": 14,
+      "ok": 48,
+      "blocked": 5,
+      "circuit": 5,
+      "http_error": 1,
+      "timeout": 4
+    }
+  },
+  "apres": {
+    "at": "2026-11-21T20:29:36.381Z",
+    "total": 77,
+    "ok": 51,
+    "taux_succes": 66.2,
+    "latence_mediane_ms": 4337,
+    "causes": {
+      "invalid_content": 12,
+      "ok": 51,
+      "blocked": 5,
+      "circuit": 5,
+      "http_error": 1,
+      "timeout": 3
+    },
+    "strategies": {
+      "none": 24,
+      "html-links": 18,
+      "html-article": 18,
+      "rss-2": 2,
+      "landing-notice": 6,
+      "embedded-json": 1,
+      "malformed-html": 3,
+      "claim-cards": 2,
+      "json-nested-array": 3
+    }
+  },
+  "ecart": {
+    "sources_reparées": 3,
+    "regressions": 0,
+    "gain_points": 3.9,
+    "delta_latence_mediane_ms": 760,
+    "pages_illisibles_avant": 14,
+    "pages_illisibles_apres": 12
+  },
+  "transitions": [
+    {
+      "id": "onion:ccw:aoqin",
+      "avant": false,
+      "apres": false,
+      "transition": "inchangée",
+      "cause_avant": "invalid_content",
+      "cause_apres": "invalid_content",
+      "ms_avant": 2274,
+      "ms_apres": 3008
+    },
+    {
+      "id": "onion:ccw:aurora",
+      "avant": false,
+      "apres": false,
+      "transition": "inchangée",
+      "cause_avant": "invalid_content",
+      "cause_apres": "invalid_content",
+      "ms_avant": 3400,
+      "ms_apres": 3062
+    },
+    {
+      "id": "onion:ccw:anubis",
+      "avant": false,
+      "apres": false,
+      "transition": "inchangée",
+      "cause_avant": "invalid_content",
+      "cause_apres": "invalid_content",
+      "ms_avant": 3508,
+      "ms_apres": 4058
+    },
+    {
+      "id": "onion:ccw:auditteam",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 5419,
+      "ms_apres": 4081
+    },
+    {
+      "id": "onion:ccw:aoqin-leaks",
+      "avant": false,
+      "apres": false,
+      "transition": "inchangée",
+      "cause_avant": "invalid_content",
+      "cause_apres": "invalid_content",
+      "ms_avant": 2281,
+      "ms_apres": 4153
+    },
+    {
+      "id": "onion:ccw:arcusmedia",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 5586,
+      "ms_apres": 4538
+    },
+    {
+      "id": "onion:ccw:apt73",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 3046,
+      "ms_apres": 4717
+    },
+    {
+      "id": "onion:ccw:barracuda",
+      "avant": false,
+      "apres": false,
+      "transition": "inchangée",
+      "cause_avant": "blocked",
+      "cause_apres": "blocked",
+      "ms_avant": 2729,
+      "ms_apres": 3358
+    },
+    {
+      "id": "onion:ccw:booba-project",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 2979,
+      "ms_apres": 2561
+    },
+    {
+      "id": "onion:ccw:bavacai",
+      "avant": false,
+      "apres": false,
+      "transition": "inchangée",
+      "cause_avant": "invalid_content",
+      "cause_apres": "invalid_content",
+      "ms_avant": 2539,
+      "ms_apres": 4524
+    },
+    {
+      "id": "onion:ccw:blacknevas",
+      "avant": false,
+      "apres": false,
+      "transition": "inchangée",
+      "cause_avant": "blocked",
+      "cause_apres": "blocked",
+      "ms_avant": 3839,
+      "ms_apres": 3762
+    },
+    {
+      "id": "onion:ccw:climax",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 2351,
+      "ms_apres": 1810
+    },
+    {
+      "id": "onion:ccw:byod",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 1997,
+      "ms_apres": 3661
+    },
+    {
+      "id": "onion:ccw:blackout",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 2158,
+      "ms_apres": 4208
+    },
+    {
+      "id": "onion:ccw:ciphbit",
+      "avant": false,
+      "apres": false,
+      "transition": "inchangée",
+      "cause_avant": "blocked",
+      "cause_apres": "blocked",
+      "ms_avant": 3015,
+      "ms_apres": 5075
+    },
+    {
+      "id": "onion:ccw:dark-project",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 4170,
+      "ms_apres": 3776
+    },
+    {
+      "id": "onion:ccw:direwolf",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 2237,
+      "ms_apres": 3145
+    },
+    {
+      "id": "onion:ccw:eclipse",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 2201,
+      "ms_apres": 4021
+    },
+    {
+      "id": "onion:ccw:endzone",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 5488,
+      "ms_apres": 4923
+    },
+    {
+      "id": "onion:ccw:doommageddon",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 3651,
+      "ms_apres": 6073
+    },
+    {
+      "id": "onion:ccw:everest",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 4336,
+      "ms_apres": 3898
+    },
+    {
+      "id": "onion:ccw:destello",
+      "avant": false,
+      "apres": false,
+      "transition": "inchangée",
+      "cause_avant": "circuit",
+      "cause_apres": "circuit",
+      "ms_avant": 7925,
+      "ms_apres": 8295
+    },
+    {
+      "id": "onion:ccw:exitium",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 3480,
+      "ms_apres": 4337
+    },
+    {
+      "id": "onion:ccw:everstake",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 2229,
+      "ms_apres": 6088
+    },
+    {
+      "id": "onion:ccw:genesis",
+      "avant": false,
+      "apres": true,
+      "transition": "reparée",
+      "cause_avant": "invalid_content",
+      "cause_apres": "ok",
+      "ms_avant": 3149,
+      "ms_apres": 3295
+    },
+    {
+      "id": "onion:ccw:global-secret-group",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 4417,
+      "ms_apres": 3818
+    },
+    {
+      "id": "onion:ccw:gammax",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 4802,
+      "ms_apres": 5628
+    },
+    {
+      "id": "onion:ccw:insomnia",
+      "avant": false,
+      "apres": false,
+      "transition": "inchangée",
+      "cause_avant": "blocked",
+      "cause_apres": "blocked",
+      "ms_avant": 2829,
+      "ms_apres": 2461
+    },
+    {
+      "id": "onion:ccw:helix",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 6911,
+      "ms_apres": 5070
+    },
+    {
+      "id": "onion:ccw:ethics",
+      "avant": false,
+      "apres": false,
+      "transition": "inchangée",
+      "cause_avant": "circuit",
+      "cause_apres": "circuit",
+      "ms_avant": 5640,
+      "ms_apres": 12239
+    },
+    {
+      "id": "onion:ccw:kairos",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 3577,
+      "ms_apres": 5274
+    },
+    {
+      "id": "onion:ccw:lamashtu",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 2401,
+      "ms_apres": 3959
+    },
+    {
+      "id": "onion:ccw:lockbit4",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 2839,
+      "ms_apres": 2219
+    },
+    {
+      "id": "onion:ccw:incransom",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 2347,
+      "ms_apres": 7728
+    },
+    {
+      "id": "onion:ccw:krybit",
+      "avant": false,
+      "apres": false,
+      "transition": "inchangée",
+      "cause_avant": "blocked",
+      "cause_apres": "blocked",
+      "ms_avant": 3886,
+      "ms_apres": 6961
+    },
+    {
+      "id": "onion:ccw:netrunner",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 2517,
+      "ms_apres": 3126
+    },
+    {
+      "id": "onion:ccw:medusalocker",
+      "avant": false,
+      "apres": false,
+      "transition": "inchangée",
+      "cause_avant": "invalid_content",
+      "cause_apres": "invalid_content",
+      "ms_avant": 652,
+      "ms_apres": 4469
+    },
+    {
+      "id": "onion:ccw:obsoft",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 3838,
+      "ms_apres": 3633
+    },
+    {
+      "id": "onion:ccw:moneymessage",
+      "avant": false,
+      "apres": false,
+      "transition": "inchangée",
+      "cause_avant": "circuit",
+      "cause_apres": "circuit",
+      "ms_avant": 5814,
+      "ms_apres": 6128
+    },
+    {
+      "id": "onion:ccw:n0n",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 5029,
+      "ms_apres": 6360
+    },
+    {
+      "id": "onion:ccw:nightspire",
+      "avant": false,
+      "apres": false,
+      "transition": "inchangée",
+      "cause_avant": "http_error",
+      "cause_apres": "http_error",
+      "ms_avant": 5924,
+      "ms_apres": 5327
+    },
+    {
+      "id": "onion:ccw:atomsilo",
+      "avant": false,
+      "apres": false,
+      "transition": "inchangée",
+      "cause_avant": "timeout",
+      "cause_apres": "timeout",
+      "ms_avant": 30004,
+      "ms_apres": 30012
+    },
+    {
+      "id": "onion:ccw:osyolorz-collective",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 2762,
+      "ms_apres": 3735
+    },
+    {
+      "id": "onion:ccw:leaknet",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 15521,
+      "ms_apres": 10594
+    },
+    {
+      "id": "onion:ccw:qilin",
+      "avant": false,
+      "apres": false,
+      "transition": "inchangée",
+      "cause_avant": "invalid_content",
+      "cause_apres": "invalid_content",
+      "ms_avant": 1754,
+      "ms_apres": 3292
+    },
+    {
+      "id": "onion:ccw:pear",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 6799,
+      "ms_apres": 5918
+    },
+    {
+      "id": "onion:ccw:ransomexx",
+      "avant": false,
+      "apres": false,
+      "transition": "inchangée",
+      "cause_avant": "invalid_content",
+      "cause_apres": "invalid_content",
+      "ms_avant": 3194,
+      "ms_apres": 6700
+    },
+    {
+      "id": "onion:ccw:safepay",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 2700,
+      "ms_apres": 7264
+    },
+    {
+      "id": "onion:ccw:runsomewares",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 4637,
+      "ms_apres": 7938
+    },
+    {
+      "id": "onion:ccw:secp0",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 2239,
+      "ms_apres": 3473
+    },
+    {
+      "id": "onion:ccw:scarlettgroup",
+      "avant": false,
+      "apres": false,
+      "transition": "inchangée",
+      "cause_avant": "invalid_content",
+      "cause_apres": "invalid_content",
+      "ms_avant": 2399,
+      "ms_apres": 6032
+    },
+    {
+      "id": "onion:ccw:pixelleaks",
+      "avant": false,
+      "apres": false,
+      "transition": "inchangée",
+      "cause_avant": "circuit",
+      "cause_apres": "circuit",
+      "ms_avant": 21649,
+      "ms_apres": 12381
+    },
+    {
+      "id": "onion:ccw:spacebears",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 4751,
+      "ms_apres": 5635
+    },
+    {
+      "id": "onion:ccw:titan",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 8981,
+      "ms_apres": 3790
+    },
+    {
+      "id": "onion:ccw:reynolds",
+      "avant": false,
+      "apres": false,
+      "transition": "inchangée",
+      "cause_avant": "circuit",
+      "cause_apres": "circuit",
+      "ms_avant": 10388,
+      "ms_apres": 14022
+    },
+    {
+      "id": "onion:ccw:wallstreet",
+      "avant": false,
+      "apres": false,
+      "transition": "inchangée",
+      "cause_avant": "invalid_content",
+      "cause_apres": "invalid_content",
+      "ms_avant": 6181,
+      "ms_apres": 2092
+    },
+    {
+      "id": "onion:ccw:vypr",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 2905,
+      "ms_apres": 2850
+    },
+    {
+      "id": "onion:ccw:vortex",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 9081,
+      "ms_apres": 6725
+    },
+    {
+      "id": "onion:ransomwatch:site",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 3417,
+      "ms_apres": 2038
+    },
+    {
+      "id": "onion:ccw:team-underground",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 6649,
+      "ms_apres": 8544
+    },
+    {
+      "id": "onion:rl:byod",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 1148,
+      "ms_apres": 1115
+    },
+    {
+      "id": "onion:rl:abyss-data",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 2459,
+      "ms_apres": 2193
+    },
+    {
+      "id": "onion:ccw:whitearmor",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 3438,
+      "ms_apres": 5838
+    },
+    {
+      "id": "onion:rl:eraleign-apt73",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 3828,
+      "ms_apres": 2390
+    },
+    {
+      "id": "onion:rl:fulcrumsec",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 6326,
+      "ms_apres": 2755
+    },
+    {
+      "id": "onion:rl:gammax",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 2290,
+      "ms_apres": 3450
+    },
+    {
+      "id": "onion:rl:netrunner",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 625,
+      "ms_apres": 402
+    },
+    {
+      "id": "onion:rl:genesis",
+      "avant": false,
+      "apres": true,
+      "transition": "reparée",
+      "cause_avant": "invalid_content",
+      "cause_apres": "ok",
+      "ms_avant": 3764,
+      "ms_apres": 4523
+    },
+    {
+      "id": "onion:ransomlook:site",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 7758,
+      "ms_apres": 9074
+    },
+    {
+      "id": "onion:rl:kazu",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 3687,
+      "ms_apres": 3194
+    },
+    {
+      "id": "onion:rl:orova",
+      "avant": false,
+      "apres": false,
+      "transition": "inchangée",
+      "cause_avant": "invalid_content",
+      "cause_apres": "invalid_content",
+      "ms_avant": 2779,
+      "ms_apres": 1844
+    },
+    {
+      "id": "onion:rl:global-secret-group",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 1783,
+      "ms_apres": 6316
+    },
+    {
+      "id": "onion:rl:sarcoma",
+      "avant": true,
+      "apres": true,
+      "transition": "inchangée",
+      "cause_avant": "ok",
+      "cause_apres": "ok",
+      "ms_avant": 4977,
+      "ms_apres": 3915
+    },
+    {
+      "id": "onion:rl:ransomhouse",
+      "avant": false,
+      "apres": false,
+      "transition": "inchangée",
+      "cause_avant": "invalid_content",
+      "cause_apres": "invalid_content",
+      "ms_avant": 8055,
+      "ms_apres": 13123
+    },
+    {
+      "id": "onion:ccw:threeam",
+      "avant": false,
+      "apres": false,
+      "transition": "inchangée",
+      "cause_avant": "timeout",
+      "cause_apres": "timeout",
+      "ms_avant": 30001,
+      "ms_apres": 30002
+    },
+    {
+      "id": "onion:rl:3am",
+      "avant": false,
+      "apres": false,
+      "transition": "inchangée",
+      "cause_avant": "timeout",
+      "cause_apres": "timeout",
+      "ms_avant": 30001,
+      "ms_apres": 30002
+    },
+    {
+      "id": "onion:ccw:panzer",
+      "avant": false,
+      "apres": true,
+      "transition": "reparée",
+      "cause_avant": "timeout",
+      "cause_apres": "ok",
+      "ms_avant": 49656,
+      "ms_apres": 60744
+    }
+  ],
+  "quarantaines_expliquees": [
+    {
+      "id": "onion:ccw:barracuda",
+      "url": "http://qr6uopkqxmq254osyct3oibil32xp3qsimkkbqdscsrsb4zqbagnifad.onion",
+      "cause": "blocked",
+      "detail": "SourceBlockedError Source blocked (403) via Tor pour http://qr6uopkqxmq254osyct3oibil32xp3qsimkkbqdscsrsb4zqbagnifad.onion",
+      "sous_cause": null,
+      "extrait": null,
+      "explication": "La page répond 403/429 ou un challenge anti-bot : accès refusé au collecteur, aucun contournement tenté."
+    },
+    {
+      "id": "onion:ccw:blacknevas",
+      "url": "http://ctyfftrjgtwdjzlgqh4avbd35sqrs6tde4oyam2ufbjch6oqpqtkdtid.onion",
+      "cause": "blocked",
+      "detail": null,
+      "sous_cause": null,
+      "extrait": null,
+      "explication": "La page répond 403/429 ou un challenge anti-bot : accès refusé au collecteur, aucun contournement tenté."
+    },
+    {
+      "id": "onion:ccw:ciphbit",
+      "url": "http://kryzon3qa22ib23qwka2wcr2yfxhtrfxgurup7bzbtxmnvilu7iagfqd.onion",
+      "cause": "blocked",
+      "detail": null,
+      "sous_cause": null,
+      "extrait": null,
+      "explication": "La page répond 403/429 ou un challenge anti-bot : accès refusé au collecteur, aucun contournement tenté."
+    },
+    {
+      "id": "onion:ccw:insomnia",
+      "url": "http://i62huw7ve22rpyw6lnq3kmfump2dmsg4xpveec3ere73njwatrz74gad.onion",
+      "cause": "blocked",
+      "detail": null,
+      "sous_cause": null,
+      "extrait": null,
+      "explication": "La page répond 403/429 ou un challenge anti-bot : accès refusé au collecteur, aucun contournement tenté."
+    },
+    {
+      "id": "onion:ccw:krybit",
+      "url": "http://krybitqsdzwmhnitvwuhvsntfgf2wrhxveyxroxpc44c6gkft2cqldyd.onion",
+      "cause": "blocked",
+      "detail": null,
+      "sous_cause": null,
+      "extrait": null,
+      "explication": "La page répond 403/429 ou un challenge anti-bot : accès refusé au collecteur, aucun contournement tenté."
+    },
+    {
+      "id": "onion:ccw:destello",
+      "url": "http://destell6tk2la7w4d7d4apfzsywbt2lsdpui7i2rsfyrike7pxolrbyd.onion/",
+      "cause": "circuit",
+      "detail": "Error Socks5 proxy rejected connection - HostUnreachable",
+      "sous_cause": null,
+      "extrait": null,
+      "explication": "Tor n'a pas pu ouvrir le circuit jusqu'à l'hôte .onion (HostUnreachable, proxy fermé) : site éteint ou adresse obsolète. Rotation de circuit tentée."
+    },
+    {
+      "id": "onion:ccw:ethics",
+      "url": "http://ethics67vxjomvlcugjovv4fc3g6ru5tpwotg533d4j3uf2btmnndead.onion",
+      "cause": "circuit",
+      "detail": "Error Socks5 proxy rejected connection - HostUnreachable",
+      "sous_cause": null,
+      "extrait": null,
+      "explication": "Tor n'a pas pu ouvrir le circuit jusqu'à l'hôte .onion (HostUnreachable, proxy fermé) : site éteint ou adresse obsolète. Rotation de circuit tentée."
+    },
+    {
+      "id": "onion:ccw:moneymessage",
+      "url": "http://jyp5yg7mh4siqkroxa3mydildkdw4qddbya7v6kamtd25ugdsob7voad.onion/",
+      "cause": "circuit",
+      "detail": "Error Socks5 proxy rejected connection - HostUnreachable",
+      "sous_cause": null,
+      "extrait": null,
+      "explication": "Tor n'a pas pu ouvrir le circuit jusqu'à l'hôte .onion (HostUnreachable, proxy fermé) : site éteint ou adresse obsolète. Rotation de circuit tentée."
+    },
+    {
+      "id": "onion:ccw:pixelleaks",
+      "url": "http://pixelra2qbx7zhvb6mxdzxlo6rxm2mtouhbabqmdzyd4fesicvbz7bqd.onion",
+      "cause": "circuit",
+      "detail": "Error Socks5 proxy rejected connection - HostUnreachable",
+      "sous_cause": null,
+      "extrait": null,
+      "explication": "Tor n'a pas pu ouvrir le circuit jusqu'à l'hôte .onion (HostUnreachable, proxy fermé) : site éteint ou adresse obsolète. Rotation de circuit tentée."
+    },
+    {
+      "id": "onion:ccw:reynolds",
+      "url": "http://bs2tlg32pfjwmclm22cyngqmoo24cdlhfxzbruwrdaxumisfeory32qd.onion",
+      "cause": "circuit",
+      "detail": "Error Socks5 proxy rejected connection - HostUnreachable",
+      "sous_cause": null,
+      "extrait": null,
+      "explication": "Tor n'a pas pu ouvrir le circuit jusqu'à l'hôte .onion (HostUnreachable, proxy fermé) : site éteint ou adresse obsolète. Rotation de circuit tentée."
+    },
+    {
+      "id": "onion:ccw:nightspire",
+      "url": "http://nspirep7orjq73k2x2fwh2mxgh74vm2now6cdbnnxjk2f5wn34bmdxad.onion",
+      "cause": "http_error",
+      "detail": "HTTP 502",
+      "sous_cause": null,
+      "extrait": null,
+      "explication": "Réponse HTTP d'erreur (4xx/5xx) côté serveur .onion : page en panne ou redirection invalide."
+    },
+    {
+      "id": "onion:ccw:anubis",
+      "url": "http://6g3aoky5hft4mvzcqt2bugo4r465woaorjhd7em2k2v24sr2exaro5id.onion/",
+      "cause": "invalid_content",
+      "detail": null,
+      "sous_cause": "coquille-js",
+      "extrait": "Chat :root { --bs-body-bg: #0e0e0e; --bs-body-color: #fff; --bs-secondary-color: rgb(144, 144, 144); } body { background-color: #0e0e0e; color: #fff; } .text-muted { color: rgb(144",
+      "explication": "coquille JS sans contenu extractible (balises <script> seules) — le parseur tolérant refuse d'inventer des annonces : HTTP 200 mais aucun item vérifiable : coquille JavaScript, corps trop court ou encodage illisible. La page reste en quarantaine, rien n'est fabriqué."
+    },
+    {
+      "id": "onion:ccw:aoqin",
+      "url": "http://aoqinwwrizxbrwm3qb6l4jzgujgmcetp4jaug7fqylbf3xcwqwzvbuid.onion",
+      "cause": "invalid_content",
+      "detail": null,
+      "sous_cause": "coquille-js",
+      "extrait": "Leaks window.GROUP_CONFIG = {\"siteName\": \"AOQIN\", \"siteLogo\": \"/uploads/icon-1791221615715-863420828.png\", \"siteType\": \"public\"};",
+      "explication": "coquille JS sans contenu extractible (balises <script> seules) — le parseur tolérant refuse d'inventer des annonces : HTTP 200 mais aucun item vérifiable : coquille JavaScript, corps trop court ou encodage illisible. La page reste en quarantaine, rien n'est fabriqué."
+    },
+    {
+      "id": "onion:ccw:aoqin-leaks",
+      "url": "http://aoqinwwrizxbrwm3qb6l4jzgujgmcetp4jaug7fqylbf3xcwqwzvbuid.onion/",
+      "cause": "invalid_content",
+      "detail": null,
+      "sous_cause": "coquille-js",
+      "extrait": "Leaks window.GROUP_CONFIG = {\"siteName\": \"AOQIN\", \"siteLogo\": \"/uploads/icon-1791221615715-863420828.png\", \"siteType\": \"public\"};",
+      "explication": "coquille JS sans contenu extractible (balises <script> seules) — le parseur tolérant refuse d'inventer des annonces : HTTP 200 mais aucun item vérifiable : coquille JavaScript, corps trop court ou encodage illisible. La page reste en quarantaine, rien n'est fabriqué."
+    },
+    {
+      "id": "onion:ccw:aurora",
+      "url": "http://u6lieui2dakbctcjea2bz4r4q32r7t36nwljovqbv7mxs6o2smgxixid.onion",
+      "cause": "invalid_content",
+      "detail": null,
+      "sous_cause": "coquille-js",
+      "extrait": "Aur0ra Blog",
+      "explication": "coquille JS sans contenu extractible (balises <script> seules) — le parseur tolérant refuse d'inventer des annonces : HTTP 200 mais aucun item vérifiable : coquille JavaScript, corps trop court ou encodage illisible. La page reste en quarantaine, rien n'est fabriqué."
+    },
+    {
+      "id": "onion:ccw:bavacai",
+      "url": "http://t33zoj4qwv455fog7qnb2azi5xcdxkixughmmduzbw2rtdgryqfbh6id.onion",
+      "cause": "invalid_content",
+      "detail": null,
+      "sous_cause": "coquille-js",
+      "extrait": "Verifying... body{background:#000;color:#fff;font-family:monospace;display:flex;justify-content:center;align-items:center;height:100vh;margin:0} Verifying browser... (async () => {",
+      "explication": "coquille JS sans contenu extractible (balises <script> seules) — le parseur tolérant refuse d'inventer des annonces : HTTP 200 mais aucun item vérifiable : coquille JavaScript, corps trop court ou encodage illisible. La page reste en quarantaine, rien n'est fabriqué."
+    },
+    {
+      "id": "onion:ccw:medusalocker",
+      "url": "http://t33zoj4qwv455fog7qnb2azi5xcdxkixughmmduzbw2rtdgryqfbh6id.onion/",
+      "cause": "invalid_content",
+      "detail": null,
+      "sous_cause": "coquille-js",
+      "extrait": "Verifying... body{background:#000;color:#fff;font-family:monospace;display:flex;justify-content:center;align-items:center;height:100vh;margin:0} Verifying browser... (async () => {",
+      "explication": "coquille JS sans contenu extractible (balises <script> seules) — le parseur tolérant refuse d'inventer des annonces : HTTP 200 mais aucun item vérifiable : coquille JavaScript, corps trop court ou encodage illisible. La page reste en quarantaine, rien n'est fabriqué."
+    },
+    {
+      "id": "onion:ccw:qilin",
+      "url": "http://kg2pf5nokg5xg2ahzbhzf5kucr5bc4y4ojordiebakopioqkk4vgz6ad.onion/",
+      "cause": "invalid_content",
+      "detail": null,
+      "sous_cause": "corps-court",
+      "extrait": "",
+      "explication": "corps trop court pour porter une information vérifiable : HTTP 200 mais aucun item vérifiable : coquille JavaScript, corps trop court ou encodage illisible. La page reste en quarantaine, rien n'est fabriqué."
+    },
+    {
+      "id": "onion:ccw:ransomexx",
+      "url": "http://zubllg7o774lgc4rdxmfcfpjewfkqa7ml7gxwl5fetogc7hbkvaprhid.onion/",
+      "cause": "invalid_content",
+      "detail": null,
+      "sous_cause": "corps-court",
+      "extrait": "403",
+      "explication": "corps trop court pour porter une information vérifiable : HTTP 200 mais aucun item vérifiable : coquille JavaScript, corps trop court ou encodage illisible. La page reste en quarantaine, rien n'est fabriqué."
+    },
+    {
+      "id": "onion:ccw:scarlettgroup",
+      "url": "http://scarlettgutttdlyxz6rdqfslpdvdqnnzuxvzfsqavys2hvtnd3aidyd.onion",
+      "cause": "invalid_content",
+      "detail": null,
+      "sous_cause": null,
+      "extrait": "Home - SCARLETTGROUP /* sg-mascot-rotate */ (function () { document.cookie = \"sg_mascot_r=\" + Math.random().toFixed(6) + \"; path=/; SameSite=Lax\"; })(); SCARLETTGROUP requires Java",
+      "explication": "HTTP 200 mais aucun item vérifiable : coquille JavaScript, corps trop court ou encodage illisible. La page reste en quarantaine, rien n'est fabriqué."
+    },
+    {
+      "id": "onion:ccw:wallstreet",
+      "url": "http://4dwiv37h7hhuhjpvtn72hme4ylcv3qoe65arfc6mbweal7als6ma7pyd.onion",
+      "cause": "invalid_content",
+      "detail": null,
+      "sous_cause": "coquille-js",
+      "extrait": "// try { var s = JSON.parse(localStorage.getItem(\"slate-ui\") || \"{}\"); if (s.theme) document.documentElement.setAttribute(\"data-theme\", s.theme); } catch (e) {} Wallstreet | DLS",
+      "explication": "coquille JS sans contenu extractible (balises <script> seules) — le parseur tolérant refuse d'inventer des annonces : HTTP 200 mais aucun item vérifiable : coquille JavaScript, corps trop court ou encodage illisible. La page reste en quarantaine, rien n'est fabriqué."
+    },
+    {
+      "id": "onion:rl:orova",
+      "url": "http://maa2yprc5pldyr5hjn246hw7i66wdhglnostqgqkcbuh4vyyeos4xxyd.onion/",
+      "cause": "invalid_content",
+      "detail": null,
+      "sous_cause": "corps-court",
+      "extrait": "qTox: 1F3A17E9670C56A3CCF85581468524FE5997B1131630C67747A11C0B6A131520790DF354547D",
+      "explication": "corps trop court pour porter une information vérifiable : HTTP 200 mais aucun item vérifiable : coquille JavaScript, corps trop court ou encodage illisible. La page reste en quarantaine, rien n'est fabriqué."
+    },
+    {
+      "id": "onion:rl:ransomhouse",
+      "url": "http://da763kyxwe3mf67gui5tb5igvpnt4w6cps5svrw2wkizyrzqgamdxtid.onion/",
+      "cause": "invalid_content",
+      "detail": null,
+      "sous_cause": null,
+      "extrait": "Index of / Index of / ../ full/ 22-Jun-2026 21:35 - proof/ 27-Apr-2026 22:40 -",
+      "explication": "HTTP 200 mais aucun item vérifiable : coquille JavaScript, corps trop court ou encodage illisible. La page reste en quarantaine, rien n'est fabriqué."
+    },
+    {
+      "id": "onion:ccw:atomsilo",
+      "url": "http://npmh5ahrgakbniuntyc7io4adm6ietbdbuejrfonowqtyqn24or556qd.onion",
+      "cause": "timeout",
+      "detail": "Error Proxy connection timed out",
+      "sous_cause": null,
+      "extrait": null,
+      "explication": "Aucune réponse dans le délai (45 s plancher pour un circuit froid) : service .onion saturé ou indisponible."
+    },
+    {
+      "id": "onion:ccw:threeam",
+      "url": "http://threeamkelxicjsaf2czjyz2lc4q3ngqkxhhlexyfcp2o6raw4rphyad.onion",
+      "cause": "timeout",
+      "detail": "Error Proxy connection timed out",
+      "sous_cause": null,
+      "extrait": null,
+      "explication": "Aucune réponse dans le délai (45 s plancher pour un circuit froid) : service .onion saturé ou indisponible."
+    },
+    {
+      "id": "onion:rl:3am",
+      "url": "http://threeamkelxicjsaf2czjyz2lc4q3ngqkxhhlexyfcp2o6raw4rphyad.onion",
+      "cause": "timeout",
+      "detail": "Error Proxy connection timed out",
+      "sous_cause": null,
+      "extrait": null,
+      "explication": "Aucune réponse dans le délai (45 s plancher pour un circuit froid) : service .onion saturé ou indisponible."
+    }
+  ],
+  "nombre_quarantaines": 26,
+  "rotation_et_backoff": {
+    "mecanisme": "IsolateSOCKSAuth : identifiants SOCKS5 dérivés par source et par échec (sha256 avec secret aléatoire par processus) → circuit distinct par source, nouveau circuit après chaque échec ; liste RADAR_TOR_SOCKS_LIST en rotation.",
+    "paliers_ms": {
+      "circuit": [
+        5000,
+        15000,
+        60000
+      ],
+      "timeout": [
+        60000,
+        300000,
+        1800000
+      ],
+      "contenu_invalide": [
+        1800000,
+        7200000
+      ],
+      "bloque": [
+        21600000,
+        86400000
+      ]
+    },
+    "donnees_personnelles_stockées": false
+  }
+}

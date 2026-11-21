@@ -32,7 +32,7 @@ interface Snapshot {
   latence_ms: { median: number; median_ok: number; p90: number; max: number };
   causes: Record<string, number>;
   strategies: Record<string, number>;
-    "coquille JS sans contenu extractible (balises <script> seules) — le parseur tolérant refuse d'inventer des annonces",
+  par_source: Record<string, Mesure>;
 }
 
 const EXPLICATIONS: Record<string, string> = {
@@ -50,7 +50,7 @@ const EXPLICATIONS: Record<string, string> = {
 
 const SOUS_CAUSES: Record<string, string> = {
   "coquille-js":
-    "coquille JS without contenu extractible (balises <script> seules) — le parseur tolérant refuse d'inventer des annonces",
+    "coquille JS sans contenu extractible (balises <script> seules) — le parseur tolérant refuse d'inventer des annonces",
   "corps-court": "corps trop court pour porter une information vérifiable",
   "encodage-incertain": "encodage déclaré incohérent avec les octets reçus",
 };
@@ -65,7 +65,7 @@ function lire(path: string): Snapshot {
   return JSON.parse(readFileSync(path, "utf8")) as Snapshot;
 }
 
-functionDelta(before: Mesure | undefined, after: Mesure | undefined) {
+function delta(before: Mesure | undefined, after: Mesure | undefined) {
   if (!before || !after) return "absent";
   if (!before.ok && after.ok) return "reparée";
   if (before.ok && !after.ok) return "régression";
@@ -93,11 +93,11 @@ function main(): void {
     }))
     .sort((a, b) => a.cause.localeCompare(b.cause) || a.id.localeCompare(b.id));
 
-  const delta = Object.entries(after.par_source).map(([id, m]) => ({
+  const transitions = Object.entries(after.par_source).map(([id, m]) => ({
     id,
     avant: before.par_source[id]?.ok ?? null,
     apres: m.ok,
-    transition: functionDelta(before.par_source[id], m),
+    transition: delta(before.par_source[id], m),
     cause_avant: before.par_source[id]?.cause ?? null,
     cause_apres: m.cause,
     ms_avant: before.par_source[id]?.ms ?? null,
@@ -127,14 +127,14 @@ function main(): void {
       strategies: after.strategies,
     },
     ecart: {
-      sources_reparées: delta.filter((d) => d.transition === "reparée").length,
-      regressions: delta.filter((d) => d.transition === "régression").length,
+      sources_reparées: transitions.filter((d) => d.transition === "reparée").length,
+      regressions: transitions.filter((d) => d.transition === "régression").length,
       gain_points: +(after.taux_succes - before.taux_succes).toFixed(1),
       delta_latence_mediane_ms: after.latence_ms.median - before.latence_ms.median,
       pages_illisibles_avant: before.causes.invalid_content ?? 0,
       pages_illisibles_apres: after.causes.invalid_content ?? 0,
     },
-    transitions: delta,
+    transitions,
     quarantaines_expliquees: quarantaines,
     nombre_quarantaines: quarantaines.length,
     rotation_et_backoff: {
