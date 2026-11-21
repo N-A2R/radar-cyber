@@ -1,3 +1,4 @@
+import { ApiError, badRequest, conflict, notFound } from "../errors.js";
 /**
  * File de revue des rattachements non résolus.
  *
@@ -76,11 +77,9 @@ const DecisionBody = z.object({
 	{ message: "orgId interdit pour une création", path: ["orgId"] },
 );
 
-function badRequest(reply: { code: (n: number) => { send: (body: unknown) => unknown } }, error: z.ZodError) {
-	return reply.code(400).send({
-		error: "invalid input",
-		details: error.issues.map((issue) => ({ path: issue.path.join("."), message: issue.message })),
-	});
+function zodBadRequest(error: z.ZodError): never {
+	throw badRequest("invalid input",
+		error.issues.map((issue) => ({ path: issue.path.join("."), message: issue.message })));
 }
 
 /** Refus massif : une seule raison, un seul lot journalisé. */
@@ -120,7 +119,7 @@ export default async function (app: FastifyInstance) {
 	/** Revendications en attente avec indice, candidats et règle de refus. */
 	app.get("/review/queue", { preHandler: requireAuth() }, async (req, reply) => {
 		const parsed = QueueQuery.safeParse(req.query ?? {});
-		if (!parsed.success) return badRequest(reply, parsed.error);
+		if (!parsed.success) zodBadRequest(parsed.error);
 		const { limit, page, offset, cursor, bucket, q } = parsed.data;
 		const result = await reviewQueue({
 			status: "pending",
@@ -207,7 +206,7 @@ export default async function (app: FastifyInstance) {
 		{ preHandler: [ecritureRateLimit, requireRole("admin")] },
 		async (req, reply) => {
 			const parsed = RefuserSansIndiceBody.safeParse(req.body ?? {});
-			if (!parsed.success) return badRequest(reply, parsed.error);
+			if (!parsed.success) zodBadRequest(parsed.error);
 			const { raison } = parsed.data;
 			const acteur = req.user!.email;
 			const entry: ReviewEntry = {
@@ -267,10 +266,10 @@ export default async function (app: FastifyInstance) {
 		async (req, reply) => {
 			const id = Number(req.params.id);
 			if (!Number.isInteger(id) || id <= 0) {
-				return reply.code(400).send({ error: "invalid id" });
+				throw badRequest("invalid id");
 			}
 			const parsed = DecisionBody.safeParse(req.body ?? {});
-			if (!parsed.success) return badRequest(reply, parsed.error);
+			if (!parsed.success) zodBadRequest(parsed.error);
 			const { decision, raison } = parsed.data;
 			const orgId = parsed.data.orgId;
 			const actor = req.user!.email;
@@ -278,14 +277,14 @@ export default async function (app: FastifyInstance) {
 			const current = await query<{ status: string; promoted: boolean; org_hint: string | null }>(
 				"SELECT status, promoted, org_hint FROM quarantine_raw WHERE id=$1", [id],
 			);
-			if (!current.rows[0]) return reply.code(404).send({ error: "not found" });
+			if (!current.rows[0]) throw notFound();
 			if (current.rows[0].promoted || current.rows[0].status !== "pending") {
-				return reply.code(409).send({ error: "already decided" });
+				throw conflict("already decided");
 			}
 
 			if (decision === "accepter") {
 				const org = await query<{ name: string }>("SELECT name FROM org WHERE id=$1", [orgId]);
-				if (!org.rows[0]) return reply.code(404).send({ error: "organisation introuvable" });
+				if (!org.rows[0]) throw notFound("organisation introuvable");
 				const entry: ReviewEntry = {
 					at: new Date().toISOString(), by: actor, action: "promote", reason: raison,
 				};
@@ -317,7 +316,7 @@ export default async function (app: FastifyInstance) {
 					if (!trace.ok) throw new Error(`journal indisponible : ${trace.error}`);
 					return result;
 				});
-				if (!promoted) return reply.code(409).send({ error: "already decided" });
+				if (!promoted) throw conflict("already decided");
 				const alerts = promoted.inserted && promoted.eventId !== null
 					? await evaluateEvent(promoted.eventId, { force: true })
 					: 0;
@@ -330,7 +329,7 @@ export default async function (app: FastifyInstance) {
 
 			if (decision === "creer") {
 				const input = inputDepuisIndice(current.rows[0].org_hint, id, actor, raison);
-				if (!input) return reply.code(400).send({ error: "indice inexploitable" });
+				if (!input) throw badRequest("indice inexploitable");
 				const entry: ReviewEntry = {
 					at: new Date().toISOString(), by: actor, action: "promote", reason: raison,
 				};
@@ -372,11 +371,11 @@ export default async function (app: FastifyInstance) {
 					});
 				} catch (error) {
 					if (error instanceof InvalidHintError) {
-						return reply.code(400).send({ error: "indice inexploitable", details: error.message });
+						throw badRequest("indice inexploitable", error.message);
 					}
 					throw error;
 				}
-				if (!decided) return reply.code(409).send({ error: "already decided" });
+				if (!decided) throw conflict("already decided");
 				const { result: promoted, creation } = decided;
 				const org = creation.org;
 				const alerts = promoted.inserted && promoted.eventId !== null
@@ -390,9 +389,9 @@ export default async function (app: FastifyInstance) {
 			}
 
 			const outcome = await applyReview([id], "reject", raison, actor);
-			if (outcome.changed === 0) return reply.code(409).send({ error: "already decided" });
+			if (outcome.changed === 0) throw conflict("already decided");
 			if (outcome.journalErreurs > 0) {
-				return reply.code(500).send({ error: "journal indisponible", outcome });
+				throw new ApiError(500, "journal indisponible", { details: outcome });
 			}
 			return {
 				id, decision, status: "rejected", reason: raison, by: actor,

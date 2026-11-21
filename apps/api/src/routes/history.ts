@@ -11,6 +11,7 @@
  * `dedup_key`, brut prioritaire, sinon l'archive le compterait deux fois.
  */
 import type { FastifyInstance } from "fastify";
+import { badRequest, notFound } from "../errors.js";
 import { query } from "../db.js";
 
 /** Garde une requête bornée : un intervalle démesuré n'apporte rien à la mesure. */
@@ -38,7 +39,7 @@ function lireDate(brut: string, nom: string): Date {
       ? `${brut}T00:00:00Z`
       : brut;
   const date = new Date(texte);
-  if (!Number.isFinite(date.getTime())) throw new Error(`${nom} doit être une date ISO`);
+  if (!Number.isFinite(date.getTime())) throw badRequest(`${nom} doit être une date ISO`);
   return date;
 }
 
@@ -60,23 +61,17 @@ export default async function (app: FastifyInstance) {
     );
     const fromBrut = premier(q.from);
     const toBrut = premier(q.to);
-    let from: Date;
-    let to: Date;
-    try {
-      from = fromBrut ? lireDate(fromBrut, "from") : depuisDefaut;
-      to = toBrut ? lireDate(toBrut, "to") : maintenant;
-    } catch (err) {
-      return reply.code(400).send({ error: err instanceof Error ? err.message : "dates invalides" });
-    }
+    const from = fromBrut ? lireDate(fromBrut, "from") : depuisDefaut;
+    const to = toBrut ? lireDate(toBrut, "to") : maintenant;
     if (from.getTime() > to.getTime()) {
-      return reply.code(400).send({ error: "from doit précéder to" });
+      throw badRequest("from doit précéder to");
     }
     const debut = debutMois(from);
     const finMois = debutMois(to);
     const nbMois = (finMois.getUTCFullYear() - debut.getUTCFullYear()) * 12
       + (finMois.getUTCMonth() - debut.getUTCMonth()) + 1;
     if (nbMois > MAX_MOIS) {
-      return reply.code(400).send({ error: `période limitée à ${MAX_MOIS} mois` });
+      throw badRequest(`période limitée à ${MAX_MOIS} mois`);
     }
 
     const orgBrut = premier(q.org);
@@ -84,14 +79,14 @@ export default async function (app: FastifyInstance) {
     if (orgBrut) {
       const parId = /^\d+$/.test(orgBrut);
       if (parId && !Number.isSafeInteger(Number(orgBrut))) {
-        return reply.code(400).send({ error: "org invalide" });
+        throw badRequest("org invalide");
       }
       const r = await query<OrgRow>(
         `SELECT id, name, slug FROM org WHERE ${parId ? "id = $1" : "slug = $1"}`,
         [parId ? Number(orgBrut) : orgBrut],
       );
       const trouve = r.rows[0];
-      if (!trouve) return reply.code(404).send({ error: "organisation inconnue" });
+      if (!trouve) throw notFound("organisation inconnue");
       org = { id: Number(trouve.id), name: trouve.name, slug: trouve.slug };
     }
 
