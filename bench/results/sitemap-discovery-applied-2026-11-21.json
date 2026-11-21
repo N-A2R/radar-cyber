@@ -1,0 +1,34 @@
+{
+  "titre": "Flux découverts automatiquement par crawl de sitemaps (Nouvelle-Aquitaine)",
+  "date": "2026-11-21T22:19:56.362Z",
+  "commande": "DATABASE_URL=postgres://radar:radar@localhost:5433/radar apps/api/node_modules/.bin/tsx scripts/discover-sitemaps.mts --limit=40 --offset=0 --json=bench/results/sitemap-discovery-applied-2026-11-21.json",
+  "etat_base": {
+    "organisations": "1673221",
+    "sources": "410",
+    "evenements": "27882"
+  },
+  "perimetre": {
+    "region": "Nouvelle-Aquitaine (12 départements)",
+    "seeds": "organisations du référentiel avec un domaine, département NA",
+    "sources_grises": true,
+    "donnees_personnelles_victimes": false
+  },
+  "mesure": {
+    "seeds": 40,
+    "sitemapsFetched": 133,
+    "urlsScanned": 18383,
+    "candidatesProbed": 276,
+    "feedsDiscovered": 40,
+    "sourcesInserted": 8,
+    "outsideNaSkipped": 6,
+    "errors": 29,
+    "durationMs": 46768
+  },
+  "methode": [
+    "robots.txt : directives Sitemap",
+    "sitemaps standards (y compris index et .gz)",
+    "liens RSS/Atom alternates sur un nombre borné de pages",
+    "validation HTTP 2xx + parseSource() avec au moins un item",
+    "id stable : redécouverte sans doublon"
+  ]
+}
