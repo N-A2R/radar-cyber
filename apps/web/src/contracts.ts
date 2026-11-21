@@ -12,7 +12,7 @@ export type TodayViewProps = {
   error: string | null;
   family: string | null;
   dept: string | null;
-  /** Départements proposés par GET /api/stats/departements (24 h). */
+  /** Départements proposés par GET /api/today/departements (24 h). */
   departements: DeptStat[];
   /** Instant de référence de la timeline ; `Date.now()` par défaut. */
   maintenant?: number;

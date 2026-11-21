@@ -2,13 +2,18 @@ import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
 
 /**
- * Départements présents dans le fil « Aujourd'hui » (GET /today), avec leur
- * nombre d'événements sur 24 h. Lecture seule et anonyme, comme `/stats` :
- * seules des données publiques déjà exposées par `/today` sont agrégées.
+ * Départements du fil « Aujourd'hui » (GET /today), avec leurs événements sur
+ * 24 h. Lecture seule et anonyme, comme `/today` : seules des données publiques
+ * déjà exposées par le fil sont agrégées.
  *
  * On ne renvoie que les départements qui ont au moins un événement rattaché
  * sur la période : proposer un département dont le filtre donnerait une liste
  * vide serait un piège, pas une information.
+ *
+ * URL dédiée : `/api/stats/departements` est réservé aux statistiques 7 jours
+ * de `routes/stats.ts` (organisations, événements, sources actives). Les deux
+ * plugins sont enregistrés dans `server.ts` ; un même chemin ferait échouer le
+ * démarrage avec `FST_ERR_DUPLICATED_ROUTE`.
  */
 
 type DeptRow = {
@@ -18,7 +23,7 @@ type DeptRow = {
 };
 
 export default async function (app: FastifyInstance) {
-	app.get("/stats/departements", async () => {
+	app.get("/today/departements", async () => {
 		const { rows } = await query<DeptRow>(
 			`SELECT o.dept,
 			        count(*)::int AS evenements,
