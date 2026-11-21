@@ -21,6 +21,7 @@ let app: FastifyInstance;
 let orgId: number;
 let maskedOrgId: number;
 let seq = 0;
+const contexteOrgIds: number[] = [];
 
 const auth = { authorization: `Bearer ${TOKEN}` };
 
@@ -67,6 +68,7 @@ after(async () => {
 	await query("DELETE FROM quarantine_raw WHERE source=$1", [SOURCE]);
 	if (orgId) await query("DELETE FROM org WHERE id=$1", [orgId]);
 	if (maskedOrgId) await query("DELETE FROM org WHERE id=$1", [maskedOrgId]);
+	for (const id of contexteOrgIds) await query("DELETE FROM org WHERE id=$1", [id]);
 	await query("DELETE FROM app_session WHERE token=$1", [hashSessionToken(TOKEN)]);
 	await query("DELETE FROM app_user WHERE email=$1", [EMAIL]);
 	await closePools();
@@ -152,6 +154,36 @@ test("file : seulement les pending avec indice, candidats et géographie", async
 	assert.equal(row.dept, "33");
 	assert.equal(row.rejectRule, null, "aucune règle de précision active par défaut");
 	assert.ok(row.triage.reasons.length > 0);
+});
+
+test("file : contexte centré sur l'indice et trois organisations proches", async () => {
+	const indice = "Gloria Cales";
+	const corps = `${"Compte rendu de la réunion. ".repeat(12)}La structure visée est ${indice}, selon la publication. ${"Détails complémentaires. ".repeat(6)}`;
+	const id = await claim(indice);
+	await query("UPDATE quarantine_raw SET raw_body=$1 WHERE id=$2", [corps, id]);
+	for (const [position, name] of [indice, `${indice} Instruments`, "Gloria Cale"].entries()) {
+		const org = await query<{ id: number }>(
+			"INSERT INTO org (name, slug, kind, status) VALUES ($1,$2,'entreprise','confirme') RETURNING id",
+			[name, `${TAG}-proche-${position}`],
+		);
+		contexteOrgIds.push(Number(org.rows[0].id));
+	}
+
+	const res = await app.inject({ method: "GET", url: "/api/review/queue?limit=200", headers: auth });
+	assert.equal(res.statusCode, 200);
+	const row = res.json<{
+		rows: Array<{
+			id: number;
+			contexte: { extrait: string | null; candidats: Array<{ id: number; name: string; score: number }> };
+		}>;
+	}>().rows.find((item) => item.id === id);
+	assert.ok(row);
+	assert.equal(row.contexte.extrait?.length, 300);
+	assert.ok(row.contexte.extrait?.includes(indice), "l'extrait doit contenir l'indice au milieu du texte");
+	const scores = row.contexte.candidats.map((candidat) => candidat.score);
+	assert.equal(scores.length, 3, "trois organisations proposées");
+	assert.deepEqual(scores, [...scores].sort((a, b) => b - a), "scores décroissants");
+	assert.ok(row.contexte.candidats.some((candidat) => candidat.name === indice && candidat.score === 1));
 });
 
 test("file : la règle de refus est exposée quand le drapeau est actif", async () => {
