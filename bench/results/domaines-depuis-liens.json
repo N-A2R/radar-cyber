@@ -1,0 +1,3137 @@
+{
+  "mode": "application",
+  "dureeMs": 13379,
+  "limite": null,
+  "http": {
+    "racinesTestees": 32,
+    "racinesOk200": 21,
+    "pairesOk200": 1223,
+    "refus": 7,
+    "sansCoherence": 4,
+    "exemplesRefusHttp": [
+      {
+        "racine": "sercomm.com",
+        "statut": 0
+      },
+      {
+        "racine": "rococo.co.jp",
+        "statut": 0
+      },
+      {
+        "racine": "booking.com",
+        "statut": 202
+      },
+      {
+        "racine": "injection.th",
+        "statut": 0
+      },
+      {
+        "racine": "remax.de",
+        "statut": 298
+      },
+      {
+        "racine": "elecom.co.jp",
+        "statut": 0
+      },
+      {
+        "racine": "service-ants.com",
+        "statut": 0
+      }
+    ],
+    "exemplesSansCoherence": [
+      "moxa.com",
+      "package.id",
+      "pacifico.com.ar",
+      "sppc.com"
+    ]
+  },
+  "validation": {
+    "pairesValidees": 1214,
+    "organisationsRetenues": 21,
+    "egalitesEcartees": 0,
+    "pairesParRacine": [
+      {
+        "racine": "chromium.org",
+        "paires": 946
+      },
+      {
+        "racine": "dell.com",
+        "paires": 188
+      },
+      {
+        "racine": "arista.com",
+        "paires": 19
+      },
+      {
+        "racine": "juniper.net",
+        "paires": 18
+      },
+      {
+        "racine": "edito.pl",
+        "paires": 8
+      },
+      {
+        "racine": "draw.io",
+        "paires": 4
+      },
+      {
+        "racine": "millimages.com",
+        "paires": 4
+      },
+      {
+        "racine": "demos.fr",
+        "paires": 4
+      },
+      {
+        "racine": "lumiplan.com",
+        "paires": 4
+      },
+      {
+        "racine": "avada.com",
+        "paires": 3
+      },
+      {
+        "racine": "sophos.com",
+        "paires": 3
+      },
+      {
+        "racine": "host.it",
+        "paires": 2
+      },
+      {
+        "racine": "amarok.com",
+        "paires": 2
+      },
+      {
+        "racine": "correze.gouv.fr",
+        "paires": 2
+      },
+      {
+        "racine": "airbus.com",
+        "paires": 1
+      },
+      {
+        "racine": "rentea.cz",
+        "paires": 1
+      },
+      {
+        "racine": "chaos.com",
+        "paires": 1
+      },
+      {
+        "racine": "viber.com",
+        "paires": 1
+      },
+      {
+        "racine": "vitec.com",
+        "paires": 1
+      },
+      {
+        "racine": "shell.com",
+        "paires": 1
+      },
+      {
+        "racine": "acsc.land",
+        "paires": 1
+      }
+    ],
+    "orgsMultiDomaines": [],
+    "controle": [
+      {
+        "org_id": 39449,
+        "org": "ACSC",
+        "domaine": "acsc.land",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "ACSC",
+        "titre_evenement": "Start der Austria Cyber Security Challenge 2025",
+        "extrait_evenement": "start der austria cyber security challenge 2025 auch heuer unterstutzt cert at die austria cyber security challenge quasi die osterreichische staatsmeisterschaft der cybersicherheit hier die wichtigsten eckpunkte alle in",
+        "url_testee": "https://acsc.land/",
+        "article_url": "https://www.cert.at/de/blog/2025/2/start-der-austria-cyber-security-challenge-2025",
+        "event_id": "129869"
+      },
+      {
+        "org_id": 1999911,
+        "org": "AIRBUS",
+        "domaine": "airbus.com",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Pioneering sustainable aerospace | Airbus",
+        "titre_evenement": "🏴‍☠️ Incransom has just published a new victim : axiscades.com",
+        "extrait_evenement": "incransom has just published a new victim axiscades com axiscades usa is a leading product engineering solutions company catering to the futuristic needs of aerospace defence heavy engineering automotive energy medical h",
+        "url_testee": "https://www.airbus.com/en",
+        "article_url": "https://www.ransomware.live/id/YXhpc2NhZGVzLmNvbUBpbmNyYW5zb20",
+        "event_id": "892"
+      },
+      {
+        "org_id": 650238,
+        "org": "AMAROK",
+        "domaine": "amarok.com",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "AMAROK | The Smarter Approach to Perimeter Security",
+        "titre_evenement": "amarok.com — revendiqué par chaos",
+        "extrait_evenement": "amarok com revendique par chaos amarok specializes in integrated commercial electric fencing solutions designed to deter criminals and prevent theft providing robust protection for businesses and properties their offerin",
+        "url_testee": "https://amarok.com/",
+        "article_url": "https://www.ransomlook.io/",
+        "event_id": "46631"
+      },
+      {
+        "org_id": 316603,
+        "org": "ARISTA",
+        "domaine": "arista.com",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Data-Driven Cloud Networking - Arista",
+        "titre_evenement": "CVE-2026-102166: Arista C-260 and C-250 access points ship with fleet-wide static cryptographic keys used for firmware image verification and SSLP authentication.",
+        "extrait_evenement": "cve 2026 102166 arista c 260 and c 250 access points ship with fleet wide static cryptographic keys used for firmware image verification and sslp authentication arista c 260 and c 250 access points ship with fleet wide s",
+        "url_testee": "https://www.arista.com/en/",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-102166",
+        "event_id": "18381"
+      },
+      {
+        "org_id": 548654,
+        "org": "AVADA",
+        "domaine": "avada.com",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Avada - The #1 Selling Website Builder for WordPress &amp; WooCommerce",
+        "titre_evenement": "CVE-2026-104729: The Avada (Fusion) Builder plugin for WordPress is vulnerable to Stored Cross-Site Scripting via the 'tab_index, empty_notice' parameter in all versions up to, and including, 3.",
+        "extrait_evenement": "cve 2026 104729 the avada fusion builder plugin for wordpress is vulnerable to stored cross site scripting via the tab index empty notice parameter in all versions up to and including 3 the avada fusion builder plugin fo",
+        "url_testee": "https://avada.com/",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-104729",
+        "event_id": "10696"
+      },
+      {
+        "org_id": 2147317,
+        "org": "CHAOS",
+        "domaine": "chaos.com",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Chaos: Industry-leading design and visualization software",
+        "titre_evenement": "CVE-2026-104989: Uncontrolled search path element in package upload feature in Chaos Software V-Ray versions through 2.",
+        "extrait_evenement": "cve 2026 104989 uncontrolled search path element in package upload feature in chaos software v ray versions through 2 uncontrolled search path element in package upload feature in chaos software v ray versions through 2 ",
+        "url_testee": "https://www.chaos.com/",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-104989",
+        "event_id": "16518"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "",
+        "titre_evenement": "CVE-2026-110913: Memory corruption in DOM in Google Chrome prior to 155.",
+        "extrait_evenement": "cve 2026 110913 memory corruption in dom in google chrome prior to 155 memory corruption in dom in google chrome prior to 155 0 8059 84 allowed a remote attacker to execute arbitrary code inside the sandbox via a crafted",
+        "url_testee": "https://www.chromium.org/",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110913",
+        "event_id": "4308"
+      },
+      {
+        "org_id": 306914,
+        "org": "CORREZE",
+        "domaine": "correze.gouv.fr",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Accueil - \n                                        Les services de l'État en Corrèze",
+        "titre_evenement": "Agriculture : enquête sur la structure des exploitations et appel à candidature projets d'avenir agricole",
+        "extrait_evenement": "agriculture enquete sur la structure des exploitations et appel a candidature projets d avenir agricole feed prefecture de la correze actualites rss rattachement alias projets d avenir motif ambigu moteur gazetteer 2 can",
+        "url_testee": "https://www.correze.gouv.fr/",
+        "article_url": "http://www.correze.gouv.fr/Actualites/Toute-l-actualite/Agriculture-enquete-sur-la-structure-des-exploitations-et-appel-a-candidature-projets-d-avenir-agricole",
+        "event_id": "139690"
+      },
+      {
+        "org_id": 2348424,
+        "org": "DELL",
+        "domaine": "dell.com",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Ordinateurs, moniteurs et solutions technologiques | Dell France",
+        "titre_evenement": "CVE-2026-81452: Dell Alienware Command Center (AWCC), versions prior to 6.",
+        "extrait_evenement": "cve 2026 81452 dell alienware command center awcc versions prior to 6 dell alienware command center awcc versions prior to 6 14 54 0 contain a least privilege violation vulnerability a low privileged attacker with local ",
+        "url_testee": "https://www.dell.com/fr-fr",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81452",
+        "event_id": "4785"
+      },
+      {
+        "org_id": 2407856,
+        "org": "DEMOS",
+        "domaine": "demos.fr",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Demos - Organisme de formation professionnelle - Demos",
+        "titre_evenement": "demos.fr\\$37.5M\\France\\870GB\\<1% DISCLOSED — revendiqué par cactus",
+        "extrait_evenement": "demos fr 37 5m france 870gb 1 disclosed revendique par cactus group cactus org hint demos fr 37 5m france 870gb 1 disclosed claimed at 2024 07 30t00 00 00 000z promoted by auto quarantine id 97",
+        "url_testee": "https://www.demos.fr/",
+        "article_url": "https://github.com/joshhighet/ransomwatch#b5a5aa886b66",
+        "event_id": "81251"
+      },
+      {
+        "org_id": 2253984,
+        "org": "DRAW",
+        "domaine": "draw.io",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Flowchart Maker &amp; Online Diagram Software",
+        "titre_evenement": "CVE-2026-114606: draw.",
+        "extrait_evenement": "cve 2026 114606 draw draw io desktop is the official electron build of draw io prior to 31 4 4 draw io desktop is vulnerable to arbitrary local file disclosure through the electron main process s read side ipc handlers t",
+        "url_testee": "https://app.diagrams.net/",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-114606",
+        "event_id": "8274"
+      },
+      {
+        "org_id": 2172036,
+        "org": "EDITO",
+        "domaine": "edito.pl",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Edito CMS",
+        "titre_evenement": "CVE-2026-59074: Edito CMS is vulnerable to improper cryptographic signature verification in the JWT refresh logic.",
+        "extrait_evenement": "cve 2026 59074 edito cms is vulnerable to improper cryptographic signature verification in the jwt refresh logic edito cms is vulnerable to improper cryptographic signature verification in the jwt refresh logic an authen",
+        "url_testee": "https://www.edito.pl/",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-59074",
+        "event_id": "19934"
+      },
+      {
+        "org_id": 2258756,
+        "org": "HOST",
+        "domaine": "host.it",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Hosting e VPS Italia — Host.it",
+        "titre_evenement": "CVE-2026-107763: The Fastcache by Host.",
+        "extrait_evenement": "cve 2026 107763 the fastcache by host the fastcache by host it plugin for wordpress is vulnerable to authorization bypass in all versions up to and including 1 7 5 this is due to the plugin not properly verifying that a ",
+        "url_testee": "https://host.it/",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-107763",
+        "event_id": "4851"
+      },
+      {
+        "org_id": 2411198,
+        "org": "JUNIPER",
+        "domaine": "juniper.net",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Hewlett Packard Enterprise (HPE)",
+        "titre_evenement": "CVE-2026-103390: An Out-of-Bounds Read vulnerability in the HttpParser component in Juniper Networks Session Smart Router and Session Smart Conductor allows an attacker to cause a denial of service via a specially crafted HTTP request.",
+        "extrait_evenement": "cve 2026 103390 an out of bounds read vulnerability in the httpparser component in juniper networks session smart router and session smart conductor allows an attacker to cause a denial of service via a specially crafted",
+        "url_testee": "https://www.hpe.com/us/en/home.html",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-103390",
+        "event_id": "11160"
+      },
+      {
+        "org_id": 1994806,
+        "org": "LUMIPLAN",
+        "domaine": "lumiplan.com",
+        "confiance": 0.95,
+        "motif": "org_id+nom-complet",
+        "score_rattachement": 100,
+        "titre_page": "Accueil - Lumiplan",
+        "titre_evenement": "lumiplan.com\\$49.2M\\France\\652GB\\<1% DISCLOSED — revendiqué par cactus",
+        "extrait_evenement": "lumiplan com 49 2m france 652gb 1 disclosed revendique par cactus group cactus org hint lumiplan com 49 2m france 652gb 1 disclosed claimed at 2024 11 01t00 00 00 000z promoted by auto quarantine id 244",
+        "url_testee": "https://www.lumiplan.com/",
+        "article_url": "https://github.com/joshhighet/ransomwatch#cbf002db4438",
+        "event_id": "81253"
+      },
+      {
+        "org_id": 1994807,
+        "org": "MILLIMAGES",
+        "domaine": "millimages.com",
+        "confiance": 0.95,
+        "motif": "org_id+nom-complet",
+        "score_rattachement": 100,
+        "titre_page": "Millimages | From sketch to global family entertainment",
+        "titre_evenement": "millimages.com\\$12.6M\\France\\147GB\\<1% DISCLOSED — revendiqué par cactus",
+        "extrait_evenement": "millimages com 12 6m france 147gb 1 disclosed revendique par cactus group cactus org hint millimages com 12 6m france 147gb 1 disclosed claimed at 2024 06 23t00 00 00 000z promoted by auto quarantine id 44",
+        "url_testee": "https://millimages.com/",
+        "article_url": "https://github.com/joshhighet/ransomwatch#18d8a37b02fc",
+        "event_id": "81249"
+      },
+      {
+        "org_id": 661149,
+        "org": "RENTEA",
+        "domaine": "rentea.cz",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Rentea - Homepage",
+        "titre_evenement": "🏴‍☠️ Incransom has just published a new victim : Partners Financial Services, a.s.",
+        "extrait_evenement": "incransom has just published a new victim partners financial services a s partners financial services a s data breach date september 2026 target partners financial services a s ico 27699781 location prague czech republic",
+        "url_testee": "https://www.rentea.cz/",
+        "article_url": "https://www.ransomware.live/id/UGFydG5lcnMgRmluYW5jaWFsIFNlcnZpY2VzLCBhLnMuQGluY3JhbnNvbQ",
+        "event_id": "917"
+      },
+      {
+        "org_id": 2019605,
+        "org": "SHELL",
+        "domaine": "shell.com",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Shell Global",
+        "titre_evenement": "🔐 INCIDENT: SHELL.COM 📅 Date of attackers' claim: August 12, 2026 🦠 Attacker: Ransomware group Clop (also known as Cl0p) 🎯 Compromised domain: SHELL.COM 🏢 About the company: Shell plc is a Britis",
+        "extrait_evenement": "incident shell com date of attackers claim august 12 2026 attacker ransomware group clop also known as cl0p compromised domain shell com about the company shell plc is a britis incident shell com date of attackers claim ",
+        "url_testee": "https://www.shell.com/",
+        "article_url": "https://t.me/baseleeak/415",
+        "event_id": "49740"
+      },
+      {
+        "org_id": 2092561,
+        "org": "SOPHOS",
+        "domaine": "sophos.com",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Sophos : Déjouez les cyberattaques avec la cybersécurité en tant que service",
+        "titre_evenement": "CVE-2026-118633: A path traversal vulnerability allows a remote unauthenticated attacker to execute arbitrary code as root in Sophos UTM (all versions) after winning a race condition by sustaining repeated attacks for a few minutes when the email proxy is used with scanning enabled.",
+        "extrait_evenement": "cve 2026 118633 a path traversal vulnerability allows a remote unauthenticated attacker to execute arbitrary code as root in sophos utm all versions after winning a race condition by sustaining repeated attacks for a few",
+        "url_testee": "https://www.sophos.com/fr-fr",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-118633",
+        "event_id": "11296"
+      },
+      {
+        "org_id": 284585,
+        "org": "VIBER",
+        "domaine": "viber.com",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Home | Viber",
+        "titre_evenement": "CVE-2026-126546: Viber for iOS through 29.",
+        "extrait_evenement": "cve 2026 126546 viber for ios through 29 viber for ios through 29 4 0 24 fails to validate the logical screen width and height in received gif headers allowing attackers to crash the app attackers can send a crafted gif ",
+        "url_testee": "https://www.viber.com/en/",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-126546",
+        "event_id": "18823"
+      },
+      {
+        "org_id": 483806,
+        "org": "VITEC",
+        "domaine": "vitec.com",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "VITEC: VITEC - IPTV, Video Streaming &amp; Digital Signage Solutions",
+        "titre_evenement": "CVE-2026-82504: VITEC EZ TV Platform Server before 8.",
+        "extrait_evenement": "cve 2026 82504 vitec ez tv platform server before 8 vitec ez tv platform server before 8 5 0 contains an unrestricted file upload vulnerability in the upload handler that allows unauthenticated remote attackers to upload",
+        "url_testee": "https://vitec.com/",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-82504",
+        "event_id": "42225"
+      },
+      {
+        "org_id": 650238,
+        "org": "AMAROK",
+        "domaine": "amarok.com",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "AMAROK | The Smarter Approach to Perimeter Security",
+        "titre_evenement": "amarok.com",
+        "extrait_evenement": "amarok com amarok specializes in integrated commercial electric fencing solutions designed to deter criminals and prevent theft providing robust protection for businesses and properties their offerings include the electr",
+        "url_testee": "https://amarok.com/",
+        "article_url": null,
+        "event_id": "48211"
+      },
+      {
+        "org_id": 316603,
+        "org": "ARISTA",
+        "domaine": "arista.com",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Data-Driven Cloud Networking - Arista",
+        "titre_evenement": "CVE-2026-120974: On affected platforms running Arista EOS with IPsec AutoVPN Feature configured with dynamic paths, the configured IPsec replay window may not be applied as expected.",
+        "extrait_evenement": "cve 2026 120974 on affected platforms running arista eos with ipsec autovpn feature configured with dynamic paths the configured ipsec replay window may not be applied as expected on affected platforms running arista eos",
+        "url_testee": "https://www.arista.com/en/",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-120974",
+        "event_id": "18399"
+      },
+      {
+        "org_id": 548654,
+        "org": "AVADA",
+        "domaine": "avada.com",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Avada - The #1 Selling Website Builder for WordPress &amp; WooCommerce",
+        "titre_evenement": "CVE-2026-115346: The Avada | Website Builder For WordPress & WooCommerce theme for WordPress is vulnerable to Arbitrary File Upload in versions up to, and including, 7.",
+        "extrait_evenement": "cve 2026 115346 the avada website builder for wordpress woocommerce theme for wordpress is vulnerable to arbitrary file upload in versions up to and including 7 the avada website builder for wordpress woocommerce theme f",
+        "url_testee": "https://avada.com/",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-115346",
+        "event_id": "12382"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "",
+        "titre_evenement": "CVE-2026-110914: Memory corruption in Workers in Google Chrome prior to 155.",
+        "extrait_evenement": "cve 2026 110914 memory corruption in workers in google chrome prior to 155 memory corruption in workers in google chrome prior to 155 0 8059 84 allowed a remote attacker to potentially execute arbitrary code inside the s",
+        "url_testee": "https://www.chromium.org/",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110914",
+        "event_id": "4309"
+      },
+      {
+        "org_id": 306914,
+        "org": "CORREZE",
+        "domaine": "correze.gouv.fr",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Accueil - \n                                        Les services de l'État en Corrèze",
+        "titre_evenement": "Tentatives de fraude auprès des professionnels de l'automobile",
+        "extrait_evenement": "tentatives de fraude aupres des professionnels de l automobile nous avons identifie un e mail frauduleux intitule controle de votre habilitation siv ants siv l adresse de l expediteur est habilitation service ants com il",
+        "url_testee": "https://www.correze.gouv.fr/",
+        "article_url": "http://www.correze.gouv.fr/Actualites/Toute-l-actualite/Tentatives-de-fraude-aupres-des-professionnels-de-l-automobile",
+        "event_id": "139691"
+      },
+      {
+        "org_id": 2348424,
+        "org": "DELL",
+        "domaine": "dell.com",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Ordinateurs, moniteurs et solutions technologiques | Dell France",
+        "titre_evenement": "CVE-2026-86375: Dell Application Installer, versions prior to 26.",
+        "extrait_evenement": "cve 2026 86375 dell application installer versions prior to 26 dell application installer versions prior to 26 09 0 1 contain a missing encryption of sensitive data vulnerability an unauthenticated attacker with local ac",
+        "url_testee": "https://www.dell.com/fr-fr",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-86375",
+        "event_id": "5300"
+      },
+      {
+        "org_id": 2407856,
+        "org": "DEMOS",
+        "domaine": "demos.fr",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Demos - Organisme de formation professionnelle - Demos",
+        "titre_evenement": "demos.fr\\$37.5M\\France\\870GB\\100% DISCLOSED — revendiqué par cactus",
+        "extrait_evenement": "demos fr 37 5m france 870gb 100 disclosed revendique par cactus group cactus org hint demos fr 37 5m france 870gb 100 disclosed claimed at 2024 08 08t00 00 00 000z promoted by auto quarantine id 114",
+        "url_testee": "https://www.demos.fr/",
+        "article_url": "https://github.com/joshhighet/ransomwatch#30d7b41104d7",
+        "event_id": "81252"
+      },
+      {
+        "org_id": 2253984,
+        "org": "DRAW",
+        "domaine": "draw.io",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Flowchart Maker &amp; Online Diagram Software",
+        "titre_evenement": "CVE-2026-119333: draw.",
+        "extrait_evenement": "cve 2026 119333 draw draw io desktop is the official electron build of draw io prior to 31 5 2 the windows application launched powershell and attrib by bare executable name from src main electron js when draw io desktop",
+        "url_testee": "https://app.diagrams.net/",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-119333",
+        "event_id": "12506"
+      },
+      {
+        "org_id": 2172036,
+        "org": "EDITO",
+        "domaine": "edito.pl",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Edito CMS",
+        "titre_evenement": "CVE-2026-59075: Edito CMS is vulnerable to Dynamic LINQ injection.",
+        "extrait_evenement": "cve 2026 59075 edito cms is vulnerable to dynamic linq injection edito cms is vulnerable to dynamic linq injection due to improper input validation an authenticated attacker can inject conditional expressions into the so",
+        "url_testee": "https://www.edito.pl/",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-59075",
+        "event_id": "19935"
+      },
+      {
+        "org_id": 2258756,
+        "org": "HOST",
+        "domaine": "host.it",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Hosting e VPS Italia — Host.it",
+        "titre_evenement": "🚨 CVE-2026-133471 The Fastcache by Host.it plugin for WordPress is vulnerable to Reflected Cross-Site Scripting via the 's' parameter in all versions up to, and including, 1.7.14 due to insufficient",
+        "extrait_evenement": "cve 2026 133471 the fastcache by host it plugin for wordpress is vulnerable to reflected cross site scripting via the s parameter in all versions up to and including 1 7 14 due to insufficient cve 2026 133471 the fastcac",
+        "url_testee": "https://host.it/",
+        "article_url": "https://t.me/cveNotify/475259",
+        "event_id": "109950"
+      },
+      {
+        "org_id": 2411198,
+        "org": "JUNIPER",
+        "domaine": "juniper.net",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Hewlett Packard Enterprise (HPE)",
+        "titre_evenement": "CVE-2026-103391: An Out-of-bounds Write vulnerability in the SSR TCP proxy/optimization path in Juniper Networks Session Smart Router allows an attacker to corrupt forwarded packet data and potentially cause a data-plane crash via a transit TCP packet with a crafted TCP option length.",
+        "extrait_evenement": "cve 2026 103391 an out of bounds write vulnerability in the ssr tcp proxy optimization path in juniper networks session smart router allows an attacker to corrupt forwarded packet data and potentially cause a data plane ",
+        "url_testee": "https://www.hpe.com/us/en/home.html",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-103391",
+        "event_id": "11161"
+      },
+      {
+        "org_id": 1994806,
+        "org": "LUMIPLAN",
+        "domaine": "lumiplan.com",
+        "confiance": 0.95,
+        "motif": "org_id+nom-complet",
+        "score_rattachement": 100,
+        "titre_page": "Accueil - Lumiplan",
+        "titre_evenement": "lumiplan.com\\$49.2M\\France\\652GB\\100% DISCLOSED — revendiqué par cactus",
+        "extrait_evenement": "lumiplan com 49 2m france 652gb 100 disclosed revendique par cactus group cactus org hint lumiplan com 49 2m france 652gb 100 disclosed claimed at 2024 11 18t00 00 00 000z promoted by auto quarantine id 258",
+        "url_testee": "https://www.lumiplan.com/",
+        "article_url": "https://github.com/joshhighet/ransomwatch#91382475bce2",
+        "event_id": "81254"
+      },
+      {
+        "org_id": 1994807,
+        "org": "MILLIMAGES",
+        "domaine": "millimages.com",
+        "confiance": 0.95,
+        "motif": "org_id+nom-complet",
+        "score_rattachement": 100,
+        "titre_page": "Millimages | From sketch to global family entertainment",
+        "titre_evenement": "millimages.com\\$12.6M\\France\\147GB\\100% DISCLOSED — revendiqué par cactus",
+        "extrait_evenement": "millimages com 12 6m france 147gb 100 disclosed revendique par cactus group cactus org hint millimages com 12 6m france 147gb 100 disclosed claimed at 2024 07 08t00 00 00 000z promoted by auto quarantine id 61",
+        "url_testee": "https://millimages.com/",
+        "article_url": "https://github.com/joshhighet/ransomwatch#f7e5745da81b",
+        "event_id": "81250"
+      },
+      {
+        "org_id": 2092561,
+        "org": "SOPHOS",
+        "domaine": "sophos.com",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Sophos : Déjouez les cyberattaques avec la cybersécurité en tant que service",
+        "titre_evenement": "⚠️ Chrome/Chromium zero-day RCE (CVE-2019-5786), actively exploited in the wild. Affected Versions: < 72.0.3626.121 Information is beginning to circulate regarding CVE-2019-5786, a use-after-free (UAF",
+        "extrait_evenement": "chrome chromium zero day rce cve 2019 5786 actively exploited in the wild affected versions 72 0 3626 121 information is beginning to circulate regarding cve 2019 5786 a use after free uaf chrome chromium zero day rce cv",
+        "url_testee": "https://www.sophos.com/fr-fr",
+        "article_url": null,
+        "event_id": "53441"
+      },
+      {
+        "org_id": 316603,
+        "org": "ARISTA",
+        "domaine": "arista.com",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Data-Driven Cloud Networking - Arista",
+        "titre_evenement": "CVE-2026-120975: On affected platforms running Arista EOS with automatic certificate management configured and automatic Certificate Authority (CA) certificate retrieval enabled, a malicious packet may cause the AutoCertMgmt process to be terminated unexpectedly.",
+        "extrait_evenement": "cve 2026 120975 on affected platforms running arista eos with automatic certificate management configured and automatic certificate authority ca certificate retrieval enabled a malicious packet may cause the autocertmgmt",
+        "url_testee": "https://www.arista.com/en/",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-120975",
+        "event_id": "18400"
+      },
+      {
+        "org_id": 548654,
+        "org": "AVADA",
+        "domaine": "avada.com",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Avada - The #1 Selling Website Builder for WordPress &amp; WooCommerce",
+        "titre_evenement": "CVE-2026-84938: The Avada (Fusion) Builder plugin for WordPress is vulnerable to Stored Cross-Site Scripting via Form Notification Dynamic-Data action_hook → Media Upload Chain (ID3 Metadata / html_attributes) in all versions up to, and including, 3.",
+        "extrait_evenement": "cve 2026 84938 the avada fusion builder plugin for wordpress is vulnerable to stored cross site scripting via form notification dynamic data action hook media upload chain id3 metadata html attributes in all versions up ",
+        "url_testee": "https://avada.com/",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-84938",
+        "event_id": "16954"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "",
+        "titre_evenement": "CVE-2026-110915: Use after free in Compositing in Google Chrome prior to 155.",
+        "extrait_evenement": "cve 2026 110915 use after free in compositing in google chrome prior to 155 use after free in compositing in google chrome prior to 155 0 8059 84 allowed a remote attacker to execute arbitrary code inside the sandbox via",
+        "url_testee": "https://www.chromium.org/",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110915",
+        "event_id": "4310"
+      },
+      {
+        "org_id": 2348424,
+        "org": "DELL",
+        "domaine": "dell.com",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Ordinateurs, moniteurs et solutions technologiques | Dell France",
+        "titre_evenement": "CVE-2026-71169: Dell Application Store, versions prior to 26.",
+        "extrait_evenement": "cve 2026 71169 dell application store versions prior to 26 dell application store versions prior to 26 05 0 7 contain an incorrect permission assignment for critical resource vulnerability a low privileged attacker with ",
+        "url_testee": "https://www.dell.com/fr-fr",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-71169",
+        "event_id": "5447"
+      },
+      {
+        "org_id": 2407856,
+        "org": "DEMOS",
+        "domaine": "demos.fr",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Demos - Organisme de formation professionnelle - Demos",
+        "titre_evenement": "demos.fr\\$37.5M\\France\\870GB\\&lt;1% DISCLOSED — revendiqué par cactus",
+        "extrait_evenement": "demos fr 37 5m france 870gb lt 1 disclosed revendique par cactus group cactus org hint demos fr 37 5m france 870gb lt 1 disclosed claimed at 2024 07 30t16 37 49 532z promoted by auto quarantine id 12952",
+        "url_testee": "https://www.demos.fr/",
+        "article_url": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+        "event_id": "81260"
+      },
+      {
+        "org_id": 2253984,
+        "org": "DRAW",
+        "domaine": "draw.io",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Flowchart Maker &amp; Online Diagram Software",
+        "titre_evenement": "CVE-2026-115762: draw.",
+        "extrait_evenement": "cve 2026 115762 draw draw io is a configurable diagramming and whiteboarding application prior to 31 1 5 the graphml decoder contains a prototype pollution vulnerability attacker controlled graphml reference keys can add",
+        "url_testee": "https://app.diagrams.net/",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-115762",
+        "event_id": "14289"
+      },
+      {
+        "org_id": 2172036,
+        "org": "EDITO",
+        "domaine": "edito.pl",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Edito CMS",
+        "titre_evenement": "CVE-2026-59076: Edito CMS is vulnerable to Stored Cross-Site Scripting (XSS).",
+        "extrait_evenement": "cve 2026 59076 edito cms is vulnerable to stored cross site scripting xss edito cms is vulnerable to stored cross site scripting xss due to improper input validation an authenticated attacker can inject malicious scripts",
+        "url_testee": "https://www.edito.pl/",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-59076",
+        "event_id": "19936"
+      },
+      {
+        "org_id": 2411198,
+        "org": "JUNIPER",
+        "domaine": "juniper.net",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Hewlett Packard Enterprise (HPE)",
+        "titre_evenement": "CVE-2026-103392: An Out-of-Bounds Write vulnerability in the TCP header processing in Juniper Networks Session Smart Router allows an attacker to corrupt TCP payload data and potentially cause session desynchronization via a transit TCP packet with an oversized SACK option length.",
+        "extrait_evenement": "cve 2026 103392 an out of bounds write vulnerability in the tcp header processing in juniper networks session smart router allows an attacker to corrupt tcp payload data and potentially cause session desynchronization vi",
+        "url_testee": "https://www.hpe.com/us/en/home.html",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-103392",
+        "event_id": "11162"
+      },
+      {
+        "org_id": 1994806,
+        "org": "LUMIPLAN",
+        "domaine": "lumiplan.com",
+        "confiance": 0.95,
+        "motif": "org_id+nom-complet",
+        "score_rattachement": 100,
+        "titre_page": "Accueil - Lumiplan",
+        "titre_evenement": "lumiplan.com\\$49.2M\\France\\652GB\\&lt;1% DISCLOSED — revendiqué par cactus",
+        "extrait_evenement": "lumiplan com 49 2m france 652gb lt 1 disclosed revendique par cactus group cactus org hint lumiplan com 49 2m france 652gb lt 1 disclosed claimed at 2024 11 01t19 39 50 087z promoted by auto quarantine id 14253",
+        "url_testee": "https://www.lumiplan.com/",
+        "article_url": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+        "event_id": "82933"
+      },
+      {
+        "org_id": 1994807,
+        "org": "MILLIMAGES",
+        "domaine": "millimages.com",
+        "confiance": 0.95,
+        "motif": "org_id+nom-complet",
+        "score_rattachement": 100,
+        "titre_page": "Millimages | From sketch to global family entertainment",
+        "titre_evenement": "millimages.com\\$12.6M\\France\\147GB\\&lt;1% DISCLOSED — revendiqué par cactus",
+        "extrait_evenement": "millimages com 12 6m france 147gb lt 1 disclosed revendique par cactus group cactus org hint millimages com 12 6m france 147gb lt 1 disclosed claimed at 2024 06 23t14 54 09 270z promoted by auto quarantine id 12446",
+        "url_testee": "https://millimages.com/",
+        "article_url": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+        "event_id": "81258"
+      },
+      {
+        "org_id": 2092561,
+        "org": "SOPHOS",
+        "domaine": "sophos.com",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Sophos : Déjouez les cyberattaques avec la cybersécurité en tant que service",
+        "titre_evenement": "⚠️ Chrome/Chromium zero-day RCE (CVE-2019-5786), actively exploited in the wild. Affected Versions: < 72.0.3626.121 Information is beginning to circulate regarding CVE-2019-5786, a use-after-free (UAF",
+        "extrait_evenement": "chrome chromium zero day rce cve 2019 5786 actively exploited in the wild affected versions 72 0 3626 121 information is beginning to circulate regarding cve 2019 5786 a use after free uaf chrome chromium zero day rce cv",
+        "url_testee": "https://www.sophos.com/fr-fr",
+        "article_url": null,
+        "event_id": "131735"
+      },
+      {
+        "org_id": 316603,
+        "org": "ARISTA",
+        "domaine": "arista.com",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Data-Driven Cloud Networking - Arista",
+        "titre_evenement": "CVE-2026-120976: On affected platforms running Arista EOS with IEEE 802.",
+        "extrait_evenement": "cve 2026 120976 on affected platforms running arista eos with ieee 802 on affected platforms running arista eos with ieee 802 1x authentication and macsec using dynamically derived keys sensitive authentication informati",
+        "url_testee": "https://www.arista.com/en/",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-120976",
+        "event_id": "18401"
+      },
+      {
+        "org_id": 241378,
+        "org": "CHROMIUM",
+        "domaine": "chromium.org",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "",
+        "titre_evenement": "CVE-2026-110916: Improper input validation in Desktop in Google Chrome prior to 155.",
+        "extrait_evenement": "cve 2026 110916 improper input validation in desktop in google chrome prior to 155 improper input validation in desktop in google chrome prior to 155 0 8059 84 allowed a remote attacker to potentially execute arbitrary c",
+        "url_testee": "https://www.chromium.org/",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110916",
+        "event_id": "4311"
+      },
+      {
+        "org_id": 2348424,
+        "org": "DELL",
+        "domaine": "dell.com",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Ordinateurs, moniteurs et solutions technologiques | Dell France",
+        "titre_evenement": "CVE-2026-71170: Dell Application Store, versions prior to 26.",
+        "extrait_evenement": "cve 2026 71170 dell application store versions prior to 26 dell application store versions prior to 26 05 0 7 contains an uncontrolled path element vulnerability a low privileged attacker with local access could potentia",
+        "url_testee": "https://www.dell.com/fr-fr",
+        "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-71170",
+        "event_id": "5448"
+      },
+      {
+        "org_id": 2407856,
+        "org": "DEMOS",
+        "domaine": "demos.fr",
+        "confiance": 0.95,
+        "motif": "nom+nom-complet",
+        "score_rattachement": 90,
+        "titre_page": "Demos - Organisme de formation professionnelle - Demos",
+        "titre_evenement": "demos.fr\\$37.5M\\France\\870GB\\100% DISCLOSED — revendiqué par cactus",
+        "extrait_evenement": "demos fr 37 5m france 870gb 100 disclosed revendique par cactus group cactus org hint demos fr 37 5m france 870gb 100 disclosed claimed at 2024 08 08t06 40 40 583z promoted by auto quarantine id 13044",
+        "url_testee": "https://www.demos.fr/",
+        "article_url": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+        "event_id": "82932"
+      }
+    ]
+  },
+  "lecture": {
+    "evenementsLus": 27880,
+    "evenementsAvecDomaine": 14346,
+    "avecSourceUrl": 26821,
+    "avecAncresHtml": 676
+  },
+  "extraction": {
+    "occurrences": 16723,
+    "domainessUniques": 1152,
+    "parOrigine": {
+      "ancre": 98,
+      "source_url": 271,
+      "texte": 16354
+    }
+  },
+  "rapprochement": {
+    "jetonsDistinctifs": 1152,
+    "organisationsCandidates": 339,
+    "paires": 1238,
+    "pairesSures": 1232,
+    "sansCandidat": 14045,
+    "sansOrgCitee": 885,
+    "homonymesDepartages": 5,
+    "ambiguesEvenement": 555,
+    "ambiguesOrganisation": 2,
+    "exemplesAmbigus": [
+      {
+        "racine": "triad.co.ke",
+        "titre": "Triad Architects",
+        "candidats": [
+          {
+            "org_id": 2250616,
+            "org": "TRIAD",
+            "score": 90
+          },
+          {
+            "org_id": 403782,
+            "org": "TRIAD",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "groupe-alternance.com",
+        "titre": "Groupe Alternance",
+        "candidats": [
+          {
+            "org_id": 2074951,
+            "org": "ALTERNANCE",
+            "score": 90
+          },
+          {
+            "org_id": 2120916,
+            "org": "ALTERNANCE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "solarium.com.br",
+        "titre": "Solarium — revendiqué par the gentlemen",
+        "candidats": [
+          {
+            "org_id": 326258,
+            "org": "SOLARIUM",
+            "score": 90
+          },
+          {
+            "org_id": 560215,
+            "org": "SOLARIUM",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "triad.co.ke",
+        "titre": "Triad Architects — revendiqué par the gentlemen",
+        "candidats": [
+          {
+            "org_id": 2250616,
+            "org": "TRIAD",
+            "score": 90
+          },
+          {
+            "org_id": 403782,
+            "org": "TRIAD",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "groupe-alternance.com",
+        "titre": "Groupe Alternance — revendiqué par the gentlemen",
+        "candidats": [
+          {
+            "org_id": 2074951,
+            "org": "ALTERNANCE",
+            "score": 90
+          },
+          {
+            "org_id": 2120916,
+            "org": "ALTERNANCE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "eclipse.org",
+        "titre": "CVE-2026-102465: In Eclipse Vert.",
+        "candidats": [
+          {
+            "org_id": 2158266,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2214724,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2242901,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2265652,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2404263,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2127805,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 58506,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 108905,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 248743,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 254737,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 350392,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 381445,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 618254,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2129532,
+            "org": "ECLIPSE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "eclipse.org",
+        "titre": "CVE-2026-102467: In Eclipse Vert.",
+        "candidats": [
+          {
+            "org_id": 2158266,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2214724,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2242901,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2265652,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2404263,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2127805,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 58506,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 108905,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 248743,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 254737,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 350392,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 381445,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 618254,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2129532,
+            "org": "ECLIPSE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "eclipse.org",
+        "titre": "CVE-2026-102475: In Eclipse Vert.",
+        "candidats": [
+          {
+            "org_id": 2158266,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2214724,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2242901,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2265652,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2404263,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2127805,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 58506,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 108905,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 248743,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 254737,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 350392,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 381445,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 618254,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2129532,
+            "org": "ECLIPSE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "eclipse.org",
+        "titre": "CVE-2026-102461: In Eclipse Vert.",
+        "candidats": [
+          {
+            "org_id": 2158266,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2214724,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2242901,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2265652,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2404263,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2127805,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 58506,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 108905,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 248743,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 254737,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 350392,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 381445,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 618254,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2129532,
+            "org": "ECLIPSE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "eclipse.org",
+        "titre": "CVE-2026-102462: In Eclipse Vert.",
+        "candidats": [
+          {
+            "org_id": 2158266,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2214724,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2242901,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2265652,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2404263,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2127805,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 58506,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 108905,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 248743,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 254737,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 350392,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 381445,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 618254,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2129532,
+            "org": "ECLIPSE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "eclipse.org",
+        "titre": "CVE-2026-102463: In Eclipse Vert.",
+        "candidats": [
+          {
+            "org_id": 2158266,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2214724,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2242901,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2265652,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2404263,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2127805,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 58506,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 108905,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 248743,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 254737,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 350392,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 381445,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 618254,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2129532,
+            "org": "ECLIPSE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "eclipse.org",
+        "titre": "CVE-2026-102464: In Eclipse Vert.",
+        "candidats": [
+          {
+            "org_id": 2158266,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2214724,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2242901,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2265652,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2404263,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2127805,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 58506,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 108905,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 248743,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 254737,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 350392,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 381445,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 618254,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2129532,
+            "org": "ECLIPSE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "eclipse.org",
+        "titre": "CVE-2026-102466: In Eclipse Vert.",
+        "candidats": [
+          {
+            "org_id": 2158266,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2214724,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2242901,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2265652,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2404263,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2127805,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 58506,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 108905,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 248743,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 254737,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 350392,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 381445,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 618254,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2129532,
+            "org": "ECLIPSE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "eclipse.org",
+        "titre": "CVE-2026-102469: In Eclipse Vert.",
+        "candidats": [
+          {
+            "org_id": 2158266,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2214724,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2242901,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2265652,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2404263,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2127805,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 58506,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 108905,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 248743,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 254737,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 350392,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 381445,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 618254,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2129532,
+            "org": "ECLIPSE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "eclipse.org",
+        "titre": "CVE-2026-102477: In Eclipse Vert.",
+        "candidats": [
+          {
+            "org_id": 2158266,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2214724,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2242901,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2265652,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2404263,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2127805,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 58506,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 108905,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 248743,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 254737,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 350392,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 381445,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 618254,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2129532,
+            "org": "ECLIPSE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "eclipse.org",
+        "titre": "CVE-2026-103223: In Eclipse Vert.",
+        "candidats": [
+          {
+            "org_id": 2158266,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2214724,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2242901,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2265652,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2404263,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2127805,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 58506,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 108905,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 248743,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 254737,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 350392,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 381445,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 618254,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2129532,
+            "org": "ECLIPSE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "eclipse.org",
+        "titre": "CVE-2026-103224: In Eclipse Vert.",
+        "candidats": [
+          {
+            "org_id": 2158266,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2214724,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2242901,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2265652,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2404263,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2127805,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 58506,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 108905,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 248743,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 254737,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 350392,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 381445,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 618254,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2129532,
+            "org": "ECLIPSE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "eclipse.org",
+        "titre": "CVE-2026-18661: In Eclipse Jetty, across various versions of `jetty-annotations`, and `jetty-eeN-annotations`, the Jakarta Spec authoritative url-pattern rules for mixed `@ServletSecurity` annotation, and `web.",
+        "candidats": [
+          {
+            "org_id": 2158266,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2214724,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2242901,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2265652,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2404263,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2127805,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 58506,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 108905,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 248743,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 254737,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 350392,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 381445,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 618254,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2129532,
+            "org": "ECLIPSE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "eclipse.org",
+        "titre": "CVE-2026-76182: In Eclipse Jetty, `TryPathsHandler` and `TryFilesFilter` can be configured to forward requests to template URIs such as `index?",
+        "candidats": [
+          {
+            "org_id": 2158266,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2214724,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2242901,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2265652,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2404263,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2127805,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 58506,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 108905,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 248743,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 254737,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 350392,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 381445,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 618254,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2129532,
+            "org": "ECLIPSE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "eclipse.org",
+        "titre": "CVE-2026-76184: In Eclipse Jetty, HttpClient may receive a redirect of the form: ``` /secure/.",
+        "candidats": [
+          {
+            "org_id": 2158266,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2214724,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2242901,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2265652,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2404263,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2127805,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 58506,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 108905,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 248743,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 254737,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 350392,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 381445,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 618254,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2129532,
+            "org": "ECLIPSE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "eclipse.org",
+        "titre": "CVE-2026-18659: In Eclipse Jetty, across various versions of `jetty-security`, and `jetty-eeN-security`, and `jetty-eeN-servlet`, the Jakarta Spec constraints defined as `http-method-omission` can be bypassed by using substrings of the defined HTTP Methods.",
+        "candidats": [
+          {
+            "org_id": 2158266,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2214724,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2242901,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2265652,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2404263,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2127805,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 58506,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 108905,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 248743,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 254737,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 350392,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 381445,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 618254,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2129532,
+            "org": "ECLIPSE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "eclipse.org",
+        "titre": "CVE-2026-18660: In Eclipse Jetty, across various versions of `jetty-server`, and `jetty-proxy`, the host whitelist/blacklist is case-sensitive, and would allow hosts through that only differ by case.",
+        "candidats": [
+          {
+            "org_id": 2158266,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2214724,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2242901,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2265652,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2404263,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2127805,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 58506,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 108905,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 248743,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 254737,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 350392,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 381445,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 618254,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2129532,
+            "org": "ECLIPSE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "eclipse.org",
+        "titre": "CVE-2026-18662: In Eclipse Jetty, across various versions of `jetty-security`, and `jetty-eeN-security`, two or more security constraints with the same http-method-omission set, and no url-patterns, are not combined properly per Jakarta Servlet Spec.",
+        "candidats": [
+          {
+            "org_id": 2158266,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2214724,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2242901,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2265652,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2404263,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2127805,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 58506,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 108905,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 248743,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 254737,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 350392,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 381445,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 618254,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2129532,
+            "org": "ECLIPSE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "eclipse.org",
+        "titre": "CVE-2026-19864: Eclipse Jetty's `SessionAuthentication` retains authentication credentials in a serializable object.",
+        "candidats": [
+          {
+            "org_id": 2158266,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2214724,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2242901,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2265652,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2404263,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2127805,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 58506,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 108905,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 248743,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 254737,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 350392,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 381445,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 618254,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2129532,
+            "org": "ECLIPSE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "eclipse.org",
+        "titre": "CVE-2026-93649: In the Eclipse Adoptium website (adoptium.",
+        "candidats": [
+          {
+            "org_id": 2158266,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2214724,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2242901,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2265652,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2404263,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2127805,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 58506,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 108905,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 248743,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 254737,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 350392,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 381445,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 618254,
+            "org": "ECLIPSE",
+            "score": 90
+          },
+          {
+            "org_id": 2129532,
+            "org": "ECLIPSE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "java.io",
+        "titre": "CVE-2026-102740: The AsyncHttpClient library allows Java applications to execute HTTP requests and asynchronously process HTTP responses.",
+        "candidats": [
+          {
+            "org_id": 2334851,
+            "org": "JAVA",
+            "score": 90
+          },
+          {
+            "org_id": 73328,
+            "org": "JAVA",
+            "score": 90
+          },
+          {
+            "org_id": 194679,
+            "org": "JAVA",
+            "score": 90
+          },
+          {
+            "org_id": 383028,
+            "org": "JAVA",
+            "score": 90
+          },
+          {
+            "org_id": 545484,
+            "org": "JAVA",
+            "score": 90
+          },
+          {
+            "org_id": 546394,
+            "org": "JAVA",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "apache.org",
+        "titre": "CVE-2026-92228: The Apache Airflow Keycloak provider's multi-team provisioning (`_attach_team_permissions`) granted every team role global read access to audit logs.",
+        "candidats": [
+          {
+            "org_id": 2413766,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 703207,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 2071393,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 58609,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 603569,
+            "org": "APACHE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "apache.org",
+        "titre": "CVE-2026-94134: The Apache Airflow SSH provider hook disables SSH host-key verification by default: unless `host_key` is configured or `no_host_key_check` is explicitly set to false, it accepts any server key.",
+        "candidats": [
+          {
+            "org_id": 2413766,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 703207,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 2071393,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 58609,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 603569,
+            "org": "APACHE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "apache.org",
+        "titre": "CVE-2026-94135: The Apache Airflow SFTP provider's deferrable code paths (`SFTPTrigger`, `SFTPHookAsync`, `SFTPClientPool`) disable SSH host-key verification by default unless the connection explicitly sets `no_host_key_check` to false.",
+        "candidats": [
+          {
+            "org_id": 2413766,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 703207,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 2071393,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 58609,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 603569,
+            "org": "APACHE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "apache.org",
+        "titre": "CVE-2026-96806: The Apache Airflow Keycloak auth manager did not end the session on logout: the logout route revoked the presented token, but `KeycloakJWTMiddleware` then issued a new, unrevoked token on the same response, so the user stayed logged in.",
+        "candidats": [
+          {
+            "org_id": 2413766,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 703207,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 2071393,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 58609,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 603569,
+            "org": "APACHE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "apache.org",
+        "titre": "CVE-2026-63618: Exposure of Sensitive Information (system level configuration info) to an Unauthorized Actor vulnerability in Apache Kylin.",
+        "candidats": [
+          {
+            "org_id": 2413766,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 703207,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 2071393,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 58609,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 603569,
+            "org": "APACHE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "apache.org",
+        "titre": "CVE-2026-63619: Missing Authorization vulnerability in Apache Kylin.",
+        "candidats": [
+          {
+            "org_id": 2413766,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 703207,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 2071393,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 58609,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 603569,
+            "org": "APACHE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "apache.org",
+        "titre": "CVE-2026-64610: Deserialization of Untrusted Data vulnerability in Apache Kylin.",
+        "candidats": [
+          {
+            "org_id": 2413766,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 703207,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 2071393,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 58609,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 603569,
+            "org": "APACHE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "apache.org",
+        "titre": "CVE-2026-64959: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection'), Missing Authentication for Critical Function vulnerability in Apache Kylin.",
+        "candidats": [
+          {
+            "org_id": 2413766,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 703207,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 2071393,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 58609,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 603569,
+            "org": "APACHE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "apache.org",
+        "titre": "CVE-2026-68571: Improper Control of Generation of Code ('Code Injection') vulnerability in Apache Kylin.",
+        "candidats": [
+          {
+            "org_id": 2413766,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 703207,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 2071393,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 58609,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 603569,
+            "org": "APACHE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "apache.org",
+        "titre": "CVE-2026-108709: Authentication bypass within in-house network in Apache Kylin.",
+        "candidats": [
+          {
+            "org_id": 2413766,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 703207,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 2071393,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 58609,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 603569,
+            "org": "APACHE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "apache.org",
+        "titre": "CVE-2026-108743: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection') vulnerability in Apache Kylin.",
+        "candidats": [
+          {
+            "org_id": 2413766,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 703207,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 2071393,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 58609,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 603569,
+            "org": "APACHE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "apache.org",
+        "titre": "CVE-2026-68572: Exposure of Sensitive Information to an Unauthorized Actor vulnerability in Apache Kylin.",
+        "candidats": [
+          {
+            "org_id": 2413766,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 703207,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 2071393,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 58609,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 603569,
+            "org": "APACHE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "apache.org",
+        "titre": "CVE-2026-68573: Improper Authentication vulnerability in Apache Kylin.",
+        "candidats": [
+          {
+            "org_id": 2413766,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 703207,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 2071393,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 58609,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 603569,
+            "org": "APACHE",
+            "score": 90
+          }
+        ]
+      },
+      {
+        "racine": "apache.org",
+        "titre": "CVE-2026-69076: Exposure of Job Discard to an Unauthorized Actor vulnerability in Apache Kylin.",
+        "candidats": [
+          {
+            "org_id": 2413766,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 703207,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 2071393,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 58609,
+            "org": "APACHE",
+            "score": 90
+          },
+          {
+            "org_id": 603569,
+            "org": "APACHE",
+            "score": 90
+          }
+        ]
+      }
+    ]
+  },
+  "ecriture": {
+    "applique": true,
+    "ecrits": 21,
+    "dejaPresents": 0,
+    "conflitsDomaineExistant": 0
+  },
+  "echantillon": [
+    {
+      "org_id": 1999911,
+      "org": "AIRBUS",
+      "domaine": "airbus.com",
+      "confiance": 0.95,
+      "motif": "nom+nom-complet",
+      "url_testee": "https://www.airbus.com/en",
+      "article_url": "https://www.ransomware.live/id/YXhpc2NhZGVzLmNvbUBpbmNyYW5zb20"
+    },
+    {
+      "org_id": 661149,
+      "org": "RENTEA",
+      "domaine": "rentea.cz",
+      "confiance": 0.95,
+      "motif": "nom+nom-complet",
+      "url_testee": "https://www.rentea.cz/",
+      "article_url": "https://www.ransomware.live/id/UGFydG5lcnMgRmluYW5jaWFsIFNlcnZpY2VzLCBhLnMuQGluY3JhbnNvbQ"
+    },
+    {
+      "org_id": 241378,
+      "org": "CHROMIUM",
+      "domaine": "chromium.org",
+      "confiance": 0.95,
+      "motif": "nom+nom-complet",
+      "url_testee": "https://www.chromium.org/",
+      "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110913"
+    },
+    {
+      "org_id": 2348424,
+      "org": "DELL",
+      "domaine": "dell.com",
+      "confiance": 0.95,
+      "motif": "nom+nom-complet",
+      "url_testee": "https://www.dell.com/fr-fr",
+      "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81452"
+    },
+    {
+      "org_id": 2258756,
+      "org": "HOST",
+      "domaine": "host.it",
+      "confiance": 0.95,
+      "motif": "nom+nom-complet",
+      "url_testee": "https://host.it/",
+      "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-107763"
+    },
+    {
+      "org_id": 2253984,
+      "org": "DRAW",
+      "domaine": "draw.io",
+      "confiance": 0.95,
+      "motif": "nom+nom-complet",
+      "url_testee": "https://app.diagrams.net/",
+      "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-114606"
+    },
+    {
+      "org_id": 548654,
+      "org": "AVADA",
+      "domaine": "avada.com",
+      "confiance": 0.95,
+      "motif": "nom+nom-complet",
+      "url_testee": "https://avada.com/",
+      "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-104729"
+    },
+    {
+      "org_id": 2411198,
+      "org": "JUNIPER",
+      "domaine": "juniper.net",
+      "confiance": 0.95,
+      "motif": "nom+nom-complet",
+      "url_testee": "https://www.hpe.com/us/en/home.html",
+      "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-103390"
+    },
+    {
+      "org_id": 2092561,
+      "org": "SOPHOS",
+      "domaine": "sophos.com",
+      "confiance": 0.95,
+      "motif": "nom+nom-complet",
+      "url_testee": "https://www.sophos.com/fr-fr",
+      "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-118633"
+    },
+    {
+      "org_id": 2147317,
+      "org": "CHAOS",
+      "domaine": "chaos.com",
+      "confiance": 0.95,
+      "motif": "nom+nom-complet",
+      "url_testee": "https://www.chaos.com/",
+      "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-104989"
+    },
+    {
+      "org_id": 316603,
+      "org": "ARISTA",
+      "domaine": "arista.com",
+      "confiance": 0.95,
+      "motif": "nom+nom-complet",
+      "url_testee": "https://www.arista.com/en/",
+      "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-102166"
+    },
+    {
+      "org_id": 284585,
+      "org": "VIBER",
+      "domaine": "viber.com",
+      "confiance": 0.95,
+      "motif": "nom+nom-complet",
+      "url_testee": "https://www.viber.com/en/",
+      "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-126546"
+    },
+    {
+      "org_id": 2172036,
+      "org": "EDITO",
+      "domaine": "edito.pl",
+      "confiance": 0.95,
+      "motif": "nom+nom-complet",
+      "url_testee": "https://www.edito.pl/",
+      "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-59074"
+    },
+    {
+      "org_id": 483806,
+      "org": "VITEC",
+      "domaine": "vitec.com",
+      "confiance": 0.95,
+      "motif": "nom+nom-complet",
+      "url_testee": "https://vitec.com/",
+      "article_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-82504"
+    },
+    {
+      "org_id": 650238,
+      "org": "AMAROK",
+      "domaine": "amarok.com",
+      "confiance": 0.95,
+      "motif": "nom+nom-complet",
+      "url_testee": "https://amarok.com/",
+      "article_url": "https://www.ransomlook.io/"
+    },
+    {
+      "org_id": 2019605,
+      "org": "SHELL",
+      "domaine": "shell.com",
+      "confiance": 0.95,
+      "motif": "nom+nom-complet",
+      "url_testee": "https://www.shell.com/",
+      "article_url": "https://t.me/baseleeak/415"
+    },
+    {
+      "org_id": 1994807,
+      "org": "MILLIMAGES",
+      "domaine": "millimages.com",
+      "confiance": 0.95,
+      "motif": "org_id+nom-complet",
+      "url_testee": "https://millimages.com/",
+      "article_url": "https://github.com/joshhighet/ransomwatch#18d8a37b02fc"
+    },
+    {
+      "org_id": 2407856,
+      "org": "DEMOS",
+      "domaine": "demos.fr",
+      "confiance": 0.95,
+      "motif": "nom+nom-complet",
+      "url_testee": "https://www.demos.fr/",
+      "article_url": "https://github.com/joshhighet/ransomwatch#b5a5aa886b66"
+    },
+    {
+      "org_id": 1994806,
+      "org": "LUMIPLAN",
+      "domaine": "lumiplan.com",
+      "confiance": 0.95,
+      "motif": "org_id+nom-complet",
+      "url_testee": "https://www.lumiplan.com/",
+      "article_url": "https://github.com/joshhighet/ransomwatch#cbf002db4438"
+    },
+    {
+      "org_id": 39449,
+      "org": "ACSC",
+      "domaine": "acsc.land",
+      "confiance": 0.95,
+      "motif": "nom+nom-complet",
+      "url_testee": "https://acsc.land/",
+      "article_url": "https://www.cert.at/de/blog/2025/2/start-der-austria-cyber-security-challenge-2025"
+    },
+    {
+      "org_id": 306914,
+      "org": "CORREZE",
+      "domaine": "correze.gouv.fr",
+      "confiance": 0.95,
+      "motif": "nom+nom-complet",
+      "url_testee": "https://www.correze.gouv.fr/",
+      "article_url": "http://www.correze.gouv.fr/Actualites/Toute-l-actualite/Agriculture-enquete-sur-la-structure-des-exploitations-et-appel-a-candidature-projets-d-avenir-agricole"
+    }
+  ]
+}
