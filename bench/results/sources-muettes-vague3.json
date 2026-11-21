@@ -641,9 +641,637 @@
      }
     }
    }
+  ],
+  "lot2": [
+   {
+    "id": "secteur-sante-fr",
+    "name": "Sante.fr (RSS)",
+    "family": "cti",
+    "url": "https://www.sante.fr/rss",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "format-change",
+    "raison": "https://www.sante.fr/rss sert une page HTML Drupal (« RSS | Santé.fr »), plus aucun RSS servi à cette URL",
+    "preuve": {
+     "http": 200,
+     "bytes": 51943,
+     "itemsDecodes": 0,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "72",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 58, \"hors_sujet\": 1, \"menu_token\": 13}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "openphish",
+    "name": "OpenPhish community feed",
+    "family": "phishing",
+    "url": "https://openphish.com/feed.txt",
+    "kind": "indicator",
+    "format": "text",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 300 items reçus au dernier passage (2026-11-21), tous rejetés par la porte ({\"motif\": \"filtre\", \"non_actionnable\": 300}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 13534,
+     "itemsDecodes": 300,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "300",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"non_actionnable\": 300}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "osint-hibp",
+    "name": "Have I Been Pwned (site)",
+    "family": "cti",
+    "url": "https://haveibeenpwned.com/",
+    "kind": "narrative",
+    "format": "html",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 2 items reçus au dernier passage (2026-11-20), tous rejetés par la porte ({\"motif\": \"filtre\", \"presse\": 2}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 27227,
+     "itemsDecodes": 6,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "2",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 2}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "osint-urlhaus",
+    "name": "URLhaus (site)",
+    "family": "cti",
+    "url": "https://urlhaus.abuse.ch/",
+    "kind": "narrative",
+    "format": "html",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 17 items reçus au dernier passage (2026-11-21), tous rejetés par la porte ({\"motif\": \"filtre\", \"presse\": 9, \"hors_sujet\": 3, \"menu_toke) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 13989,
+     "itemsDecodes": 8,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "17",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 9, \"hors_sujet\": 3, \"menu_token\": 5}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "presse-numerama",
+    "name": "Numerama (feed)",
+    "family": "presse",
+    "url": "https://www.numerama.com/feed/",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 15 items reçus au dernier passage (2026-11-21), tous rejetés par la porte ({\"motif\": \"filtre\", \"presse\": 15}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 32358,
+     "itemsDecodes": 15,
+     "dernierItem": "2026-11-20T18:30:00+00:00",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "15",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 15}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "osint-threatfox",
+    "name": "ThreatFox (site)",
+    "family": "cti",
+    "url": "https://threatfox.abuse.ch/",
+    "kind": "narrative",
+    "format": "html",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 18 items reçus au dernier passage (2026-11-21), tous rejetés par la porte ({\"motif\": \"filtre\", \"presse\": 11, \"hors_sujet\": 3, \"menu_tok) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 14664,
+     "itemsDecodes": 10,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "18",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 11, \"hors_sujet\": 3, \"menu_token\": 4}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "presse-generationnt",
+    "name": "Generation NT (RSS)",
+    "family": "presse",
+    "url": "https://www.generation-nt.com/rss.xml",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 20 items reçus au dernier passage (2026-11-21), tous rejetés par la porte ({\"motif\": \"filtre\", \"presse\": 20}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 23662,
+     "itemsDecodes": 20,
+     "dernierItem": "2026-11-20T19:40:01+01:00",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "20",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 20}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "tg-cert-eu",
+    "name": "Telegram CERT_EU (web)",
+    "family": "cert",
+    "url": "https://t.me/s/CERT_EU",
+    "kind": "narrative",
+    "format": "html",
+    "motif": "bloque-externe",
+    "raison": "aperçu t.me/s/ non servi : redirigé vers la page contact (curl : 302 -> t.me/cert-eu, 0 message) ; collecte : items_in=0, rejets {\"motif\":\"selecteur\"}",
+    "preuve": {
+     "http": 200,
+     "bytes": 9589,
+     "itemsDecodes": 0,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "0",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"selecteur\"}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "tg-intelfeed",
+    "name": "Telegram IntelFeed (web)",
+    "family": "cti",
+    "url": "https://t.me/s/IntelFeed",
+    "kind": "narrative",
+    "format": "html",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 2 items reçus au dernier passage (2026-11-21), tous rejetés par la porte ({\"motif\": \"filtre\", \"presse\": 2}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 25559,
+     "itemsDecodes": 2,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "2",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 2}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "tg-osint",
+    "name": "Telegram OSINT (web)",
+    "family": "cti",
+    "url": "https://t.me/s/OSINT",
+    "kind": "narrative",
+    "format": "html",
+    "motif": "bloque-externe",
+    "raison": "aperçu t.me/s/ non servi : redirigé vers la page contact (curl : 302 -> t.me/osint, 0 message) ; collecte : items_in=0, rejets {\"motif\":\"selecteur\"}",
+    "preuve": {
+     "http": 200,
+     "bytes": 9561,
+     "itemsDecodes": 0,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "0",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"selecteur\"}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "presse-lnr-deuxsevres",
+    "name": "La Nouvelle République — Deux-Sèvres (RSS)",
+    "family": "cti",
+    "url": "https://www.lanouvellerepublique.fr/api/v1/rss/5e2072f9f30f8cdd4c8b4594",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "vide-legitime",
+    "raison": "dernier passage 2026-11-21: 0 item reçu () ; contenu servi inchangé",
+    "preuve": {
+     "http": 200,
+     "bytes": 35306,
+     "itemsDecodes": 40,
+     "dernierItem": "2026-11-20T20:03:14+00:00",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "0",
+      "itemsNew": "0",
+      "rejets": "",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "osint-abusech",
+    "name": "abuse.ch (site)",
+    "family": "cti",
+    "url": "https://www.abuse.ch/",
+    "kind": "narrative",
+    "format": "html",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 21 items reçus au dernier passage (2026-11-20), tous rejetés par la porte ({\"motif\": \"filtre\", \"presse\": 11, \"hors_sujet\": 3, \"menu_tok) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 30095,
+     "itemsDecodes": 11,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "21",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 11, \"hors_sujet\": 3, \"menu_token\": 7}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "osint-otx",
+    "name": "AlienVault OTX (site)",
+    "family": "cti",
+    "url": "https://otx.alienvault.com/",
+    "kind": "narrative",
+    "format": "html",
+    "motif": "format-change",
+    "raison": "otx.alienvault.com est une SPA JS (« loading style », coquille vide) — plus de HTML statique décodable",
+    "preuve": {
+     "http": 200,
+     "bytes": 8492,
+     "itemsDecodes": 0,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "0",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"selecteur\"}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "osint-virustotal",
+    "name": "VirusTotal (site)",
+    "family": "cti",
+    "url": "https://www.virustotal.com/",
+    "kind": "narrative",
+    "format": "html",
+    "motif": "format-change",
+    "raison": "virustotal.com répond 302 et sert une SPA JS — plus de HTML statique décodable",
+    "preuve": {
+     "http": 200,
+     "bytes": 7106,
+     "itemsDecodes": 0,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "0",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"selecteur\"}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "tg-cyberdefence",
+    "name": "Telegram cyberdefence (web)",
+    "family": "cti",
+    "url": "https://t.me/s/cyberdefence",
+    "kind": "narrative",
+    "format": "html",
+    "motif": "bloque-externe",
+    "raison": "aperçu t.me/s/ non servi : redirigé vers la page contact (curl : 302 -> t.me/cyberdefence, 0 message) ; collecte : items_in=0, rejets {\"motif\":\"selecteur\"}",
+    "preuve": {
+     "http": 200,
+     "bytes": 9659,
+     "itemsDecodes": 0,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "0",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"selecteur\"}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "osint-shodan",
+    "name": "Shodan (site)",
+    "family": "cti",
+    "url": "https://www.shodan.io/",
+    "kind": "narrative",
+    "format": "html",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 19 items reçus au dernier passage (2026-11-20), tous rejetés par la porte ({\"motif\": \"filtre\", \"presse\": 7, \"hors_sujet\": 2, \"menu_toke) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 12884,
+     "itemsDecodes": 2,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "19",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 7, \"hors_sujet\": 2, \"menu_token\": 10}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "gn-press-lepopulaire",
+    "name": "Google News — cyber sur lepopulaire.fr (30 j)",
+    "family": "presse_cyber",
+    "url": "https://news.google.com/rss/search?q=site:lepopulaire.fr+(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 10 items reçus au dernier passage (2026-11-21), tous rejetés par la porte ({\"motif\": \"filtre\", \"presse\": 9}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 14839,
+     "itemsDecodes": 9,
+     "dernierItem": "2026-11-17T06:25:00.000Z",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "10",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 9}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "feed:firehol:blocklist_de",
+    "name": "FireHOL blocklist_de",
+    "family": "reputation",
+    "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de.ipset",
+    "kind": "indicator",
+    "format": "txt",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 25819 items reçus au dernier passage (2026-11-20), tous rejetés par la porte ({\"motif\": \"filtre\", \"non_actionnable\": 25819}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 368536,
+     "itemsDecodes": 25819,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "25819",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"non_actionnable\": 25819}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "tg-threatintel",
+    "name": "Telegram threatintel (web)",
+    "family": "cti",
+    "url": "https://t.me/s/threatintel",
+    "kind": "narrative",
+    "format": "html",
+    "motif": "bloque-externe",
+    "raison": "aperçu t.me/s/ non servi : redirigé vers la page contact (curl : 302 -> t.me/threatintel, 0 message) ; collecte : items_in=0, rejets {\"motif\":\"selecteur\"}",
+    "preuve": {
+     "http": 200,
+     "bytes": 9645,
+     "itemsDecodes": 0,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "0",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"selecteur\"}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "cat-cert-si-news",
+    "name": "SI-CERT News (EN)",
+    "family": "cert",
+    "url": "https://www.cert.si/en/category/news/feed/",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "morte-plus-30j",
+    "raison": "dernier item 2026-05-29 (flux figé 6 mois)",
+    "preuve": {
+     "http": 200,
+     "bytes": 84393,
+     "itemsDecodes": 10,
+     "dernierItem": "2026-05-29T07:16:33+00:00",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "10",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 1}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "feed:firehol:blocklist_de_mail",
+    "name": "FireHOL blocklist_de_mail",
+    "family": "reputation",
+    "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_mail.ipset",
+    "kind": "indicator",
+    "format": "txt",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 13514 items reçus au dernier passage (2026-11-20), tous rejetés par la porte ({\"motif\": \"filtre\", \"non_actionnable\": 13514}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 192553,
+     "itemsDecodes": 13514,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "13514",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"non_actionnable\": 13514}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "feed:firehol:botscout",
+    "name": "FireHOL botscout",
+    "family": "reputation",
+    "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botscout.ipset",
+    "kind": "indicator",
+    "format": "txt",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 38 items reçus au dernier passage (2026-11-20), tous rejetés par la porte ({\"motif\": \"filtre\", \"non_actionnable\": 38}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 1727,
+     "itemsDecodes": 38,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "38",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"non_actionnable\": 38}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "presse-sudouest-dordogne",
+    "name": "Sud Ouest — Dordogne (RSS)",
+    "family": "cti",
+    "url": "https://www.sudouest.fr/dordogne/rss.xml",
+    "kind": "narrative",
+    "format": "rss",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 20 items reçus au dernier passage (2026-11-21), tous rejetés par la porte ({\"motif\": \"filtre\", \"presse\": 20}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 29438,
+     "itemsDecodes": 20,
+     "dernierItem": "2026-11-20T21:07:58+01:00",
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-21",
+      "status": "ok",
+      "itemsIn": "20",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"presse\": 20}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "feed:firehol:ciarmy",
+    "name": "FireHOL ciarmy",
+    "family": "reputation",
+    "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/ciarmy.ipset",
+    "kind": "indicator",
+    "format": "txt",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 15000 items reçus au dernier passage (2026-11-20), tous rejetés par la porte ({\"motif\": \"filtre\", \"non_actionnable\": 15000}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 214637,
+     "itemsDecodes": 15000,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "15000",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"non_actionnable\": 15000}",
+      "erreurCollecte": ""
+     }
+    }
+   },
+   {
+    "id": "feed:firehol:cleantalk_new_1d",
+    "name": "FireHOL cleantalk_new_1d",
+    "family": "reputation",
+    "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cleantalk_new_1d.ipset",
+    "kind": "indicator",
+    "format": "txt",
+    "motif": "vide-legitime",
+    "raison": "flux vivant : 750 items reçus au dernier passage (2026-11-20), tous rejetés par la porte ({\"motif\": \"filtre\", \"non_actionnable\": 750}) — rien d'admissible NA sur 30 j",
+    "preuve": {
+     "http": 200,
+     "bytes": 11267,
+     "itemsDecodes": 752,
+     "dernierItem": null,
+     "erreur": null,
+     "dernierPassage": {
+      "jour": "2026-11-20",
+      "status": "ok",
+      "itemsIn": "750",
+      "itemsNew": "0",
+      "rejets": "{\"motif\": \"filtre\", \"non_actionnable\": 750}",
+      "erreurCollecte": ""
+     }
+    }
+   }
   ]
  },
  "publie": {
-  "lot1": 25
+  "lot1": 25,
+  "lot2": 25
  }
 }
