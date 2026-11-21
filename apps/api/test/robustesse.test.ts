@@ -90,3 +90,41 @@ test("rétention : un événement cité par une alerte survit, les autres parten
 		await query("DELETE FROM source WHERE id=$1", [`retention-${TAG}`]).catch(() => {});
 	}
 });
+
+test("rétention : cinq événements de 100 jours finissent dans archive_event", async () => {
+	const prefix = `retention-archive:${TAG}:`;
+	const sourceId = `archive-${TAG}`;
+	await query(
+		`INSERT INTO source (id, name, family, url) VALUES ($1,'Test archive','cti','https://example.invalid/a')
+		 ON CONFLICT (id) DO NOTHING`,
+		[sourceId],
+	);
+	const old = new Date(Date.now() - 100 * 24 * 3600 * 1000).toISOString();
+
+	try {
+		for (let i = 0; i < 5; i++) {
+			await query(
+				`INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at, source_id)
+				 VALUES ($1,'ransomware','third_party_claim',$2,$3,$4,$5)`,
+				[`${prefix}${i}`, `Événement ${i}`, `Résumé ${i}`, old, sourceId],
+			);
+		}
+
+		await runRetention(() => {}, { tables: ["event"], days: 90 });
+
+		const restants = await query<{ n: number }>(
+			"SELECT count(*)::int AS n FROM event WHERE dedup_key LIKE $1",
+			[`${prefix}%`],
+		);
+		const archives = await query<{ n: number }>(
+			"SELECT count(*)::int AS n FROM archive_event WHERE dedup_key LIKE $1",
+			[`${prefix}%`],
+		);
+		assert.equal(restants.rows[0]?.n, 0, "aucun événement centenaire ne doit rester en brut");
+		assert.equal(archives.rows[0]?.n, 5, "les cinq événements doivent être archivés entièrement");
+	} finally {
+		await query("DELETE FROM archive_event WHERE dedup_key LIKE $1", [`${prefix}%`]).catch(() => {});
+		await query("DELETE FROM event WHERE dedup_key LIKE $1", [`${prefix}%`]).catch(() => {});
+		await query("DELETE FROM source WHERE id=$1", [sourceId]).catch(() => {});
+	}
+});
