@@ -1,0 +1,554 @@
+{
+  "titre": "Articles de presse locale et régionale datés — Nouvelle-Aquitaine",
+  "genere_le": "2026-11-21",
+  "method": {
+    "decouverte": "flux RSS/Atom et pages d’actualité des sources vérifiées, complétés par les sitemaps mensuels filtrés sur les sujets cyber",
+    "verification": "HTTP 200 + text/html + titre >= 12 caractères + date de publication réellement publiée (page ou flux)",
+    "cyber": "heuristique de mots-clés sur le titre et l’extrait : candidats à la revue, pas des incidents confirmés",
+    "sources": {
+      "communes_verifiees": 524,
+      "presse": 187
+    }
+  },
+  "comptes": {
+    "sources_interrogees": 711,
+    "candidats_decouverts": 1193,
+    "candidats_cyber_sitemap": 234,
+    "articles_collectes": 925,
+    "articles_dates": 925,
+    "articles_dates_par_la_page": 890,
+    "par_origine": {
+      "presse": 925
+    },
+    "par_annee": {
+      "2026": 925
+    },
+    "articles_le_dernier_jour": [
+      "2026-11-21",
+      282
+    ],
+    "candidats_cyber": 56,
+    "incidents_cyber_extraits": 56,
+    "communes_avec_candidat_cyber": 0
+  },
+  "candidats_cyber": [
+    {
+      "titre": "Cyberattaque aux États-Unis : le ministère de l’Agriculture et le FBI visés par des piratages informatiques",
+      "url": "https://www.sudouest.fr/economie/cybersecurite/cyberattaque-aux-etats-unis-le-ministere-de-l-agriculture-et-le-fbi-vises-par-des-piratages-informatiques-31602821.php",
+      "date": "2026-11-21",
+      "commune": "Sud Ouest — Charente (RSS)",
+      "mots": [
+        "cyberattaque",
+        "piratage"
+      ]
+    },
+    {
+      "titre": "Pays basque : un passeport et des bons plans pour lutter contre les cyberattaques",
+      "url": "https://www.sudouest.fr/economie/economie-du-numerique/pays-basque-un-passeport-et-des-bons-plans-pour-lutter-contre-les-cyberattaques-31600158.php",
+      "date": "2026-11-21",
+      "commune": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
+      "mots": [
+        "cyberattaque"
+      ]
+    },
+    {
+      "titre": "Pyrénées-Atlantiques : face à une hausse de 37,4 % des infractions numériques, élus et industriels s’arment contre la cybercriminalité",
+      "url": "https://www.sudouest.fr/pyrenees-atlantiques/lacq/communaute-de-communes-de-lacq/pyrenees-atlantiques-face-a-une-hausse-de-37-4-des-infractions-numeriques-elus-et-industriels-s-arment-contre-la-cybercriminalite-31583829.php",
+      "date": "2026-11-21",
+      "commune": "Sud Ouest — Pyrénées-Atlantiques (RSS)",
+      "mots": [
+        "cyberattaque"
+      ]
+    },
+    {
+      "titre": "Vous êtes client chez LDLC ? Vos données ont peut-être été piratées ! - ICI",
+      "url": "https://www.ici.fr/emissions/ici-pas-d-arnaque/vous-etes-client-chez-ldlc-vos-donnees-ont-peut-etre-ete-piratees-2536780",
+      "date": "2026-11-20",
+      "commune": "ICI La Rochelle — flux RSS A la une",
+      "mots": [
+        "fuite de donnees"
+      ]
+    },
+    {
+      "titre": "Salon Euro Industries à Mulhouse : un jeu de cartes pour apprendre la cybersécurité d",
+      "url": "https://www.ici.fr/emissions/l-info-d-ici-ici-alsace/salon-euro-industries-a-mulhouse-un-jeu-de-cartes-pour-apprendre-la-cybersecurite-d-une-entreprise-9519359",
+      "date": "2026-11-19",
+      "commune": "ICI La Rochelle — flux RSS A la une",
+      "mots": [
+        "piratage"
+      ]
+    },
+    {
+      "titre": "Un risque majeur pour les entreprises : le référent cybersécurité à la gendarmerie du Haut-Rhin fait de la prévention - ICI",
+      "url": "https://www.ici.fr/emissions/l-invite-d-ici-matin-ici-alsace/referent-cybersecurite-a-la-gendarmerie-du-haut-rhin-adjudant-jerome-copin-3066643",
+      "date": "2026-11-19",
+      "commune": "ICI La Rochelle — flux RSS A la une",
+      "mots": [
+        "cyberattaque"
+      ]
+    },
+    {
+      "titre": "La Commission européenne a été visée fin octobre par une cyberattaque assistée par l’intelligence artificielle",
+      "url": "https://www.sudouest.fr/economie/cybersecurite/la-commission-europeenne-a-ete-visee-fin-octobre-par-une-cyberattaque-assistee-par-l-intelligence-artificielle-31584807.php",
+      "date": "2026-11-19",
+      "commune": "Sud Ouest — Charente (RSS)",
+      "mots": [
+        "cyberattaque"
+      ]
+    },
+    {
+      "titre": "Tempête, cyberattaque, tensions géopolitiques : un village pour se préparer aux situations d’urgence samedi à Angoulême",
+      "url": "https://www.charentelibre.fr/charente/angouleme/tempete-cyberattaque-tensions-geopolitiques-un-village-pour-se-preparer-aux-situations-d-urgence-samedi-a-angouleme-31573781.php",
+      "date": "2026-11-18",
+      "commune": "Charente Libre — flux RSS",
+      "mots": [
+        "cyberattaque"
+      ]
+    },
+    {
+      "titre": "Outlook, contrôle aérien, banques, NSA… Des pannes à répétition aux États-Unis, « aucune preuve » de lien entre elles ou de malveillance affirme Rubio",
+      "url": "https://www.sudouest.fr/economie/cybersecurite/outlook-controle-aerien-banques-nsa-pannes-a-repetition-aux-etats-unis-aucune-preuve-de-lien-entre-elles-ou-de-malveillance-affirme-rubio-31572107.php",
+      "date": "2026-11-18",
+      "commune": "Sud Ouest — Charente (RSS)",
+      "mots": [
+        "cyberattaque"
+      ]
+    },
+    {
+      "titre": "Cybersécurité : Sébastien Lecornu réunit le gouvernement jeudi face à la multiplication des attaques",
+      "url": "https://www.sudouest.fr/politique/sebastien-lecornu/cybersecurite-sebastien-lecornu-reunit-le-gouvernement-jeudi-face-a-la-multiplication-des-attaques-31577075.php",
+      "date": "2026-11-18",
+      "commune": "Sud Ouest — Charente (RSS)",
+      "mots": [
+        "cyberattaque"
+      ]
+    },
+    {
+      "titre": "Cyberattaques : les députés adoptent largement le projet de loi renforçant la cybersécurité en France - ICI",
+      "url": "https://www.ici.fr/infos/societe/cyberattaques-les-deputes-se-prononcent-ce-mardi-sur-le-projet-de-loi-renforcant-la-cybersecurite-en-france-9072269",
+      "date": "2026-11-17",
+      "commune": "ICI La Rochelle — flux RSS A la une",
+      "mots": [
+        "cyberattaque"
+      ]
+    },
+    {
+      "titre": "« GTA VI » : des centaines de faux sites et d’arnaques en ligne ciblent les joueurs avant la sortie du jeu",
+      "url": "https://www.sudouest.fr/economie/cybersecurite/jeux-video-des-centaines-de-faux-sites-et-d-arnaques-en-ligne-ciblent-les-joueurs-avant-la-sortie-de-gta-vi-31551545.php",
+      "date": "2026-11-16",
+      "commune": "Sud Ouest — Charente (RSS)",
+      "mots": [
+        "piratage"
+      ]
+    },
+    {
+      "titre": "Cyberattaque à La Poste : les données de 22 millions de Français volées, comment savoir si vous êtes concerné",
+      "url": "https://www.charentelibre.fr/societe/cyberattaque-a-la-poste-les-donnees-de-22-millions-de-francais-volees-comment-savoir-si-vous-etes-concerne-31533816.php",
+      "date": "2026-11-15",
+      "commune": "Charente Libre — flux RSS",
+      "mots": [
+        "cyberattaque"
+      ]
+    },
+    {
+      "titre": "Cyberattaque contre Maileva, filiale de La Poste : la Brigade de lutte contre la cybercriminalité chargée de l’enquête - ICI",
+      "url": "https://www.ici.fr/infos/faits-divers-justice/cyberattaque-contre-maileva-filiale-de-la-poste-la-brigade-de-lutte-contre-la-cybercriminalite-chargee-de-l-enquete-4022466",
+      "date": "2026-11-15",
+      "commune": "ICI La Rochelle — flux RSS A la une",
+      "mots": [
+        "cyberattaque"
+      ]
+    },
+    {
+      "titre": "Fausses factures, mails frauduleux : quelles arnaques redouter après le piratage de Maileva, filiale de La Poste ? - ICI",
+      "url": "https://www.ici.fr/infos/faits-divers-justice/fausses-factures-mails-frauduleux-quelles-arnaques-redouter-apres-le-piratage-de-maileva-7899463",
+      "date": "2026-11-15",
+      "commune": "ICI La Rochelle — flux RSS A la une",
+      "mots": [
+        "piratage",
+        "fuite de donnees"
+      ]
+    },
+    {
+      "titre": "Cyberattaque d’une filiale de La Poste : l’enquête confiée à la Brigade cybercriminalité",
+      "url": "https://www.sudouest.fr/economie/cybersecurite/cyberattaque-d-une-filiale-de-la-poste-l-enquete-confiee-a-la-brigade-cybercriminalite-31535861.php",
+      "date": "2026-11-15",
+      "commune": "Sud Ouest — Charente (RSS)",
+      "mots": [
+        "cyberattaque"
+      ]
+    },
+    {
+      "titre": "Cyberattaque : Maileva, filiale du groupe La Poste, annonce un vol de données touchant 22 millions de personnes - ICI",
+      "url": "https://www.ici.fr/infos/faits-divers-justice/cyberattaque-maileva-filiale-du-groupe-la-poste-annonce-un-vol-de-donnees-touchant-22-millions-de-personnes-5448938",
+      "date": "2026-11-14",
+      "commune": "ICI La Rochelle — flux RSS A la une",
+      "mots": [
+        "cyberattaque",
+        "fuite de donnees"
+      ]
+    },
+    {
+      "titre": "Cyberattaques visant des frigos connectés en France: l’Iran suspecté",
+      "url": "https://www.charentelibre.fr/societe/justice/cyberattaques-visant-des-frigos-connectes-en-france-l-iran-suspecte-31461013.php",
+      "date": "2026-11-09",
+      "commune": "Charente Libre — flux RSS",
+      "mots": [
+        "cyberattaque"
+      ]
+    },
+    {
+      "titre": "Suspension temporaire des transactions, « opérations frauduleuses », millions d’euros détournés… Le Crédit Mutuel Arkéa annonce avoir été victime d’une cyberattaque",
+      "url": "https://www.charentelibre.fr/france/credit-mutuel-arkea-annonce-avoir-ete-victime-d-une-cyberattaque-ayant-permis-des-operations-frauduleuses-31376299.php",
+      "date": "2026-11-04",
+      "commune": "Charente Libre — flux RSS",
+      "mots": [
+        "cyberattaque"
+      ]
+    },
+    {
+      "titre": "De -30 à 110 degrés : les frigos du don du sang ciblés par une cyberattaque",
+      "url": "https://www.charentelibre.fr/sante/de-30-a-110-degres-les-frigos-du-don-du-sang-cibles-par-une-cyberattaque-31374860.php",
+      "date": "2026-11-04",
+      "commune": "Charente Libre — flux RSS",
+      "mots": [
+        "cyberattaque"
+      ]
+    },
+    {
+      "titre": "Cryptomonnaies : Binance perd 6,3 milliards de dollars dans le plus gros hack de l’histoire",
+      "url": "https://www.charentelibre.fr/sciences-et-technologie/intelligence-artificielle/cryptomonnaies-binance-perd-6-3-milliards-de-dollars-dans-le-plus-gros-hack-de-l-histoire-31306526.php",
+      "date": "2026-10-31",
+      "commune": "Charente Libre — flux RSS",
+      "mots": [
+        "piratage"
+      ]
+    },
+    {
+      "titre": "Piratage de Binance: comment des milliards de dollars de cryptomonnaies ont-ils pu être volés?",
+      "url": "https://www.charentelibre.fr/societe/vols-et-cambriolages/piratage-de-binance-comment-des-milliards-de-dollars-de-cryptomonnaies-ont-ils-pu-etre-voles-31314635.php",
+      "date": "2026-10-31",
+      "commune": "Charente Libre — flux RSS",
+      "mots": [
+        "piratage"
+      ]
+    },
+    {
+      "titre": "Cryptomonnaies : après le piratage, Binance prévoit de réautoriser les retraits dimanche",
+      "url": "https://www.sudouest.fr/economie/cryptomonnaie/cryptomonnaies-apres-le-piratage-binance-prevoit-de-reautoriser-les-retraits-dimanche-31326737.php",
+      "date": "2026-10-31",
+      "commune": "Sud Ouest — Charente (RSS)",
+      "mots": [
+        "piratage"
+      ]
+    },
+    {
+      "titre": "Cryptomonnaies : comment la cyberattaque de Binance, d’un préjudice de 5,6 milliards d’euros, a-t-elle pu arriver ?",
+      "url": "https://www.sudouest.fr/economie/cryptomonnaie/cryptomonnaies-comment-la-cyberattaque-de-binance-d-un-prejudice-de-5-6-milliards-d-euros-a-t-elle-pu-arriver-31305091.php",
+      "date": "2026-10-30",
+      "commune": "Sud Ouest — Charente (RSS)",
+      "mots": [
+        "cyberattaque"
+      ]
+    },
+    {
+      "titre": "Cryptomonnaies : Binance confirme une cyberattaque massive au préjudice record de 6,3 milliards de dollars",
+      "url": "https://www.sudouest.fr/economie/cybersecurite/cryptomonnaies-binance-confirme-une-cyberattaque-massive-au-prejudice-record-de-6-3-milliards-de-dollars-31299472.php",
+      "date": "2026-10-30",
+      "commune": "Sud Ouest — Charente (RSS)",
+      "mots": [
+        "cyberattaque",
+        "piratage"
+      ]
+    },
+    {
+      "titre": "À Ribérac, la radio Liberté FM, victime d’un piratage, lance une cagnotte",
+      "url": "https://www.dordognelibre.fr/dordogne/riberac/riberac-liberte-fm-victime-d-un-piratage-lance-une-cagnotte-31290979.php",
+      "date": "2026-10-29",
+      "commune": "Dordogne Libre — RSS",
+      "mots": [
+        "piratage"
+      ]
+    },
+    {
+      "titre": "\"La cyberattaque, aujourd",
+      "url": "https://www.ici.fr/emissions/l-invite-de-la-redaction-de-ici-la-rochelle/la-cyberattaque-aujourd-hui-c-est-du-quotidien-comment-soluris-accompagne-les-communes-de-charente-maritime-9611590",
+      "date": "2026-10-29",
+      "commune": "ICI La Rochelle — flux RSS A la une",
+      "mots": [
+        "cyberattaque"
+      ]
+    },
+    {
+      "titre": "Piratage du fisc : un deuxième suspect, âgé de 16 ans, mis en examen - ICI",
+      "url": "https://www.ici.fr/infos/faits-divers-justice/piratage-du-fisc-un-deuxieme-suspect-age-de-16-ans-mis-en-examen-1489791",
+      "date": "2026-10-29",
+      "commune": "ICI La Rochelle — flux RSS A la une",
+      "mots": [
+        "piratage"
+      ]
+    },
+    {
+      "titre": "Piratage du fisc : un deuxième suspect, âgé de 16 ans, mis en examen",
+      "url": "https://www.sudouest.fr/economie/cybersecurite/piratage-du-fisc-un-deuxieme-suspect-age-de-16-ans-mis-en-examen-31287912.php",
+      "date": "2026-10-29",
+      "commune": "Sud Ouest — Charente (RSS)",
+      "mots": [
+        "piratage"
+      ]
+    },
+    {
+      "titre": "États-Unis : les noms et les données de 41 000 employés de la Sécurité intérieure, dont l’ICE, divulgués par des hackers",
+      "url": "https://www.sudouest.fr/international/etats-unis-les-noms-et-les-donnees-de-41-000-employes-de-la-securite-interieure-dont-l-ice-divulgues-par-des-hackers-31286617.php",
+      "date": "2026-10-29",
+      "commune": "Sud Ouest — Charente (RSS)",
+      "mots": [
+        "piratage"
+      ]
+    },
+    {
+      "titre": "Strasbourg : la CTS victime d",
+      "url": "https://www.ici.fr/grand-est/alsace-cea/strasbourg-la-cts-victime-d-un-piratage-230-000-clients-concernes-2429359",
+      "date": "2026-10-28",
+      "commune": "ICI La Rochelle — flux RSS A la une",
+      "mots": [
+        "fuite de donnees"
+      ]
+    },
+    {
+      "titre": "« Tout un morceau de notre histoire qui vient de nous être volé » : une radio associative de Dordogne a été la cible d’une cyberattaque",
+      "url": "https://www.sudouest.fr/dordogne/riberac/tout-un-morceau-de-notre-histoire-qui-vient-de-nous-etre-vole-une-radio-associative-de-dordogne-a-ete-la-cible-d-une-cyberattaque-31283067.php",
+      "date": "2026-10-28",
+      "commune": "Sud Ouest — Charente (RSS)",
+      "mots": [
+        "cyberattaque"
+      ]
+    },
+    {
+      "titre": "« Le lien peut servir à pirater votre compte » : la police nationale de Dordogne met en garde contre une arnaque sur WhatsApp",
+      "url": "https://www.sudouest.fr/faits-divers/une-arnaque-circule-actuellement-sur-whatsapp-la-police-nationale-de-dordogne-met-en-garde-contre-le-piratage-de-comptes-31275205.php",
+      "date": "2026-10-28",
+      "commune": "Sud Ouest — Charente (RSS)",
+      "mots": [
+        "piratage"
+      ]
+    },
+    {
+      "titre": "Martillac : un atelier pour aider les entreprises à faire face aux cyberattaques",
+      "url": "https://www.sudouest.fr/gironde/martillac-un-atelier-pour-aider-les-entreprises-a-faire-face-aux-cyberattaques-31233017.php",
+      "date": "2026-10-28",
+      "commune": "Sud Ouest — Charente (RSS)",
+      "mots": [
+        "cyberattaque"
+      ]
+    },
+    {
+      "titre": "Près d’un million de plaques d’immatriculation volées dans une fuite de données : quels risques pour les automobilistes ?",
+      "url": "https://www.charentelibre.fr/societe/vie-quotidienne/pres-d-un-million-de-plaques-d-immatriculation-volees-dans-une-fuite-de-donnees-quels-risques-pour-les-automobilistes-31251349.php",
+      "date": "2026-10-27",
+      "commune": "Charente Libre — flux RSS",
+      "mots": [
+        "cyberattaque",
+        "fuite de donnees"
+      ]
+    },
+    {
+      "titre": "Cyberattaque : 850 000 plaques d’immatriculation volées, les noms et adresses de milliers de personnes risquent d’être dévoilés",
+      "url": "https://www.sudouest.fr/economie/cybersecurite/cyberattaque-850-000-plaques-d-immatriculation-volees-les-noms-et-adresses-de-milliers-de-personnes-risquent-d-etre-devoiles-31251796.php",
+      "date": "2026-10-26",
+      "commune": "Sud Ouest — Charente (RSS)",
+      "mots": [
+        "cyberattaque"
+      ]
+    },
+    {
+      "titre": "Après plusieurs cyberattaques, les propriétaires de chats et de chiens exposés à des tentatives d",
+      "url": "https://www.ici.fr/emissions/c-est-pas-vrai/apres-plusieurs-cyberattaques-les-proprietaires-de-chats-et-de-chiens-exposes-a-des-tentatives-d-arnaque-7124525",
+      "date": "2026-10-23",
+      "commune": "ICI La Rochelle — flux RSS A la une",
+      "mots": [
+        "cyberattaque",
+        "fuite de donnees"
+      ]
+    },
+    {
+      "titre": "Cyberattaque : le Parti communiste français victime d’une fuite de données de ses adhérents",
+      "url": "https://www.sudouest.fr/politique/cyberattaque-le-parti-communiste-francais-victime-d-une-fuite-de-donnees-de-ses-adherents-31211979.php",
+      "date": "2026-10-23",
+      "commune": "Sud Ouest — Charente (RSS)",
+      "mots": [
+        "cyberattaque",
+        "piratage",
+        "fuite de donnees"
+      ]
+    },
+    {
+      "titre": "Le fichier d’enregistrement des chats victime d’une cyberattaque. Que disent les investigations ?",
+      "url": "https://www.sudouest.fr/societe/animaux/le-fichier-d-enregistrement-des-chats-victime-d-une-cyberattaque-que-disent-les-investigations-31200983.php",
+      "date": "2026-10-23",
+      "commune": "Sud Ouest — Charente (RSS)",
+      "mots": [
+        "cyberattaque"
+      ]
+    },
+    {
+      "titre": "La cyberattaque des frigos de supermarchés en France liée à des \"défauts de sécurisation élémentaire\", selon l",
+      "url": "https://www.ici.fr/infos/faits-divers-justice/la-cyberattaque-des-frigos-de-supermarches-en-france-liee-a-des-defauts-de-securisation-elementaire-selon-l-anssi-8633890",
+      "date": "2026-10-21",
+      "commune": "ICI La Rochelle — flux RSS A la une",
+      "mots": [
+        "cyberattaque"
+      ]
+    },
+    {
+      "titre": "Piratage de la Maison du souvenir de Maillé : un appel aux dons lancé pour renforcer et protéger ses données - ICI",
+      "url": "https://www.ici.fr/pays-de-la-loire/vendee-85/maille/piratage-de-la-maison-du-souvenir-de-maille-un-appel-aux-dons-lance-pour-renforcer-et-proteger-ses-donnees-2320540",
+      "date": "2026-10-21",
+      "commune": "ICI La Rochelle — flux RSS A la une",
+      "mots": [
+        "cyberattaque",
+        "piratage"
+      ]
+    },
+    {
+      "titre": "Un nouveau vol de données numériques sur un site internet du Conseil régional des Hauts-de-France - ICI",
+      "url": "https://www.ici.fr/hauts-de-france/un-nouveau-vol-de-donnees-numeriques-sur-un-site-internet-du-conseil-regional-des-hauts-de-france-3105309",
+      "date": "2026-10-19",
+      "commune": "ICI La Rochelle — flux RSS A la une",
+      "mots": [
+        "fuite de donnees"
+      ]
+    },
+    {
+      "titre": "Les maires béarnais face au risque de cyberattaque : \"On croise les doigts tous les matins\" - ICI",
+      "url": "https://www.ici.fr/nouvelle-aquitaine/pyrenees-atlantiques-64/salies-de-bearn/les-maires-bearnais-face-au-risque-de-cyberattaque-on-croise-les-doigts-tous-les-matins-2224913",
+      "date": "2026-10-19",
+      "commune": "ICI La Rochelle — flux RSS A la une",
+      "mots": [
+        "cyberattaque",
+        "piratage"
+      ]
+    },
+    {
+      "titre": "Fuite de données personnelles : attention aux sites qui proposent de les effacer",
+      "url": "https://www.charentelibre.fr/evergreen/fuite-de-donnees-personnelles-attention-aux-sites-qui-proposent-de-les-effacer-31066099.php",
+      "date": "2026-10-15",
+      "commune": "Charente Libre — flux RSS",
+      "mots": [
+        "cyberattaque",
+        "fuite de donnees"
+      ]
+    },
+    {
+      "titre": "Cyberattaque dans les supermarchés : des produits frais et surgelés vont devoir être jetés, plusieurs grandes enseignes touchées",
+      "url": "https://www.charentelibre.fr/economie/alimentation/cyberattaque-dans-les-supermarches-des-produits-frais-et-surgeles-vont-devoir-etre-jetes-plusieurs-grandes-enseignes-touchees-31034679.php",
+      "date": "2026-10-12",
+      "commune": "Charente Libre — flux RSS",
+      "mots": [
+        "cyberattaque"
+      ]
+    },
+    {
+      "titre": "INFO « DL » : « Il va y avoir plusieurs allers-retours à faire à la benne » : l’Intermarché de Trélissac touché par une cyber attaque, tout le frais et les surgelés partent à la po",
+      "url": "https://www.dordognelibre.fr/grand-perigueux/il-va-y-avoir-plusieurs-allers-retours-a-faire-a-la-benne-l-intermarche-de-trelissac-touche-par-une-cyber-attaque-tout-le-frais-et-les-surgeles-partent-a-la-poubelle-31033368.php",
+      "date": "2026-10-12",
+      "commune": "Dordogne Libre — RSS",
+      "mots": [
+        "cyberattaque"
+      ]
+    },
+    {
+      "titre": "Charente-Maritime : six ateliers gratuits organisés à Marennes-Hiers-Brouage pour apprendre à déjouer les piratages et protéger ses données sur Internet",
+      "url": "https://www.sudouest.fr/charente-maritime/marennes-hiers-brouage/charente-maritime-six-ateliers-gratuits-organises-a-marennes-hiers-brouage-pour-apprendre-a-dejouer-les-piratages-et-proteger-ses-donnees-sur-internet-30805037.php",
+      "date": "2026-09-30",
+      "commune": "Sud Ouest — Charente (RSS)",
+      "mots": [
+        "piratage"
+      ]
+    },
+    {
+      "titre": "Cyberattaques attribuées à la Russie : face aux menaces, la France renforce la protection de son réseau électrique",
+      "url": "https://www.sudouest.fr/france/cyberattaques-attribuees-a-la-russie-face-aux-menaces-la-france-renforce-la-protection-de-son-reseau-electrique-30821465.php",
+      "date": "2026-09-28",
+      "commune": "Sud Ouest — Charente (RSS)",
+      "mots": [
+        "cyberattaque"
+      ]
+    },
+    {
+      "titre": "On revient sur la fuite de donnée chez Revolut qui a contourné TOUTES les mesures de sécurité ! - ICI",
+      "url": "https://www.ici.fr/emissions/ici-pas-d-arnaque/on-revient-sur-la-fuite-de-donnee-chez-revolut-qui-a-contourne-toutes-les-mesures-de-securite-3926013",
+      "date": "2026-09-24",
+      "commune": "ICI La Rochelle — flux RSS A la une",
+      "mots": [
+        "piratage",
+        "fuite de donnees"
+      ]
+    },
+    {
+      "titre": "Piratage, revente de données : un jeune hacker raconte son mode opératoire - ICI",
+      "url": "https://www.ici.fr/infos/faits-divers-justice/piratage-revente-de-donnees-un-jeune-hacker-raconte-son-mode-operatoire-7091316",
+      "date": "2026-09-24",
+      "commune": "ICI La Rochelle — flux RSS A la une",
+      "mots": [
+        "piratage",
+        "fuite de donnees"
+      ]
+    },
+    {
+      "titre": "Guerre en Ukraine : OpenAI donne accès à Kiev à ses outils de cybersécurité les plus avancés pour « détecter des vulnérabilités »",
+      "url": "https://www.sudouest.fr/international/europe/ukraine/guerre-en-ukraine-openai-donne-acces-a-kiev-a-ses-outils-de-cybersecurite-les-plus-avances-pour-detecter-des-vulnerabilites-30756241.php",
+      "date": "2026-09-23",
+      "commune": "Sud Ouest — Charente (RSS)",
+      "mots": [
+        "cyberattaque",
+        "incident informatique"
+      ]
+    },
+    {
+      "titre": "Retour très progressif à la normale après la cyberattaque dans l’académie de Toulouse - ICI",
+      "url": "https://www.ici.fr/occitanie/haute-garonne-31/toulouse/un-retour-tres-progressif-a-la-normale-apres-la-cyberattaque-dans-l-academie-de-toulouse-8431367",
+      "date": "2026-09-22",
+      "commune": "ICI La Rochelle — flux RSS A la une",
+      "mots": [
+        "cyberattaque"
+      ]
+    },
+    {
+      "titre": "Retrait de colis, achat de timbres… Les services de La Poste perturbés par un incident informatique, désormais résolu",
+      "url": "https://www.charentelibre.fr/france/retrait-de-colis-achat-de-timbres-les-services-de-la-poste-perturbes-par-un-incident-informatique-desormais-resolu-30638177.php",
+      "date": "2026-09-15",
+      "commune": "Charente Libre — flux RSS",
+      "mots": [
+        "incident informatique"
+      ]
+    },
+    {
+      "titre": "Téléphone volé ou perdu : quels réflexes adopter pour éviter le vol de données ?",
+      "url": "https://www.charentelibre.fr/france/telephone-vole-ou-perdu-quels-reflexes-adopter-pour-eviter-le-vol-de-donnees-30619914.php",
+      "date": "2026-09-14",
+      "commune": "Charente Libre — flux RSS",
+      "mots": [
+        "fuite de donnees"
+      ]
+    },
+    {
+      "titre": "Piratage du fisc : un membre présumé du groupe de pirates informatiques « Zerobytes » écroué",
+      "url": "https://www.charentelibre.fr/france/piratage-du-fisc-un-membre-presume-du-groupe-de-pirates-informatiques-zerobytes-ecroue-30483652.php",
+      "date": "2026-09-04",
+      "commune": "Charente Libre — flux RSS",
+      "mots": [
+        "piratage"
+      ]
+    },
+    {
+      "titre": "500 000 patients touchés, 500 000 euros d’amende : la lourde facture d’une clinique privée après une cyberattaque",
+      "url": "https://www.charentelibre.fr/sante/500-000-patients-touches-500-000-euros-d-amende-la-lourde-facture-d-une-clinique-privee-apres-une-cyberattaque-30468421.php",
+      "date": "2026-09-03",
+      "commune": "Charente Libre — flux RSS",
+      "mots": [
+        "cyberattaque"
+      ]
+    }
+  ]
+}
