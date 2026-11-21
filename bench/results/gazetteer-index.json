@@ -1,0 +1,21 @@
+{
+  "date": "2026-11-21T19:21:16.907Z",
+  "lignes": 1678185,
+  "cles": 1077754,
+  "organisations": 1653020,
+  "avant": {
+    "implementation": "Map<string, Set<number>> (6050080)",
+    "alias": 1678185,
+    "cles": 1077754,
+    "requeteMs": 3356,
+    "indexMs": 18445,
+    "deltaTasMo": 1096
+  },
+  "apres": {
+    "requeteMs": 5573,
+    "indexMs": 1922,
+    "totalMs": 7495,
+    "picTasMo": 334,
+    "picRssMo": 544
+  }
+}
