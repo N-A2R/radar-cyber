@@ -122,3 +122,7 @@ Sortie observée : `candidates: 14956`, `established with proof: 14956`.
 - Seuls les établissements dont l'unité légale SIREN est présente dans le référentiel et située en NA sont comptés : c'est un plancher de filiation organisationnelle vérifiable, pas un graphe d'appartenance capitalistique.
 - Les liens déduits de textes de presse ou de sites de fuite ne sont pas inclus, faute de résolution non ambiguë des deux organisations dans le référentiel ; les sources grises restent autorisées pour un chantier ultérieur.
 - Le champ `parent_evidence` est nullable : les liens préexistants sans preuve ne sont pas comptés, conformément à l'objectif « avec preuve ».
+
+## 9. Clôture du chantier
+
+**CHANTIER TERMINÉ.** Objectif chiffré atteint et re-vérifié en lecture seule le 21 novembre 2026 via `scripts/mesure-filiation.mts` (sans `--apply`) : `candidates: 14956`, `established with proof: 14956`. Le différentiel entre candidats structurels et liens écrits avec preuve est nul ; aucune tranche complémentaire n'est nécessaire. Périmètre Nouvelle-Aquitaine, absence de données personnelles, absence de service payant et diff de `server.ts` à 0 ligne restent vérifiés. Livré via la PR #317 sur `ext/chantier-a7`.
