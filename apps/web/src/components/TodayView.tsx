@@ -68,10 +68,6 @@ export default function TodayView({
             <span className="today__valeur">{compteurs ? compteurs.evenements24h : "—"}</span>
             <span className="today__libelle">événements · 24 h</span>
           </div>
-          <div className="today__compteur">
-            <span className="today__valeur">{compteurs ? compteurs.organisations7j : "—"}</span>
-            <span className="today__libelle">organisations reliées · 7 j</span>
-          </div>
         </div>
       </header>
 
