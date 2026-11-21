@@ -1,0 +1,2305 @@
+{
+  "genere_le": "2026-11-21T21:50:08.311061+00:00",
+  "methode": "urllib, 12 threads, timeout 10s, 5 premiers items",
+  "sondes": {
+    "cd23-a-la-une": {
+      "id": "cd23-a-la-une",
+      "url": "https://www.creuse.fr/A-la-une",
+      "url_finale": "https://www.creuse.fr/A-la-une",
+      "http": 200,
+      "octets": 336471,
+      "items": [
+        "le conseil departemental|creuse.fr/Le-Conseil-departemental",
+        "le fonctionnement|creuse.fr/Le-fonctionnement",
+        "ladministration|creuse.fr/L-administration",
+        "visitez lhotel du departement|creuse.fr/Visitez-l-Hotel-du-Departement",
+        "la demarche dattractivite|creuse.fr/La-demarche-d-attractivite"
+      ],
+      "erreur": null
+    },
+    "cd47-actualites-rss": {
+      "id": "cd47-actualites-rss",
+      "url": "https://www.lotetgaronne.fr/actualites/rss",
+      "url_finale": "https://www.lotetgaronne.fr/actualites/rss",
+      "http": 200,
+      "octets": 14185,
+      "items": [
+        "ateliers numeriques en presentiel|lotetgaronne.fr/actualites/ateliers-numeriques-en-presentiel-2",
+        "18 novembre la journee de lutte contre la precarite energetique|lotetgaronne.fr/actualites/18-novembre-la-journee-de-lutte-contre-la-precarite-energetique",
+        "reaction de sophie borderie suite a la disparition de lucette lousteau|lotetgaronne.fr/actualites/reaction-de-sophie-borderie-suite-a-la-disparition-de-lucette-lousteau",
+        "la fete de larbre au domaine agroecologique de barolle dimanche 29 novembre|lotetgaronne.fr/actualites/la-fete-de-larbre-au-domaine-agroecologique-de-barolle-dimanche-29-novembre",
+        "decision modificative n2 le 23 octobre 2026|lotetgaronne.fr/actualites/decision-modificative-n2-le-23-octobre-2026"
+      ],
+      "erreur": null
+    },
+    "cert-cisa-advisories": {
+      "id": "cert-cisa-advisories",
+      "url": "https://www.cisa.gov/cybersecurity-advisories/all.xml",
+      "url_finale": "https://www.cisa.gov/cybersecurity-advisories/all.xml",
+      "http": 200,
+      "octets": 365549,
+      "items": [
+        "cisa adds four known exploited vulnerabilities to catalog|cisa.gov/news-events/alerts/2026/11/20/cisa-adds-four-known-exploited-vulnerabilities-catalog",
+        "elecbrakes eb2 vm1 elbc2000|cisa.gov/news-events/ics-advisories/icsa-26-323-02",
+        "libumqtt|cisa.gov/news-events/ics-advisories/icsa-26-323-03",
+        "autonomy logic openplc runtime|cisa.gov/news-events/ics-advisories/icsa-26-323-01",
+        "cisa adds four known exploited vulnerabilities to catalog|cisa.gov/news-events/alerts/2026/11/18/cisa-adds-four-known-exploited-vulnerabilities-catalog"
+      ],
+      "erreur": null
+    },
+    "cert-eu-page": {
+      "id": "cert-eu-page",
+      "url": "https://cert.europa.eu/publications/security-advisories",
+      "url_finale": "https://cert.europa.eu/publications/security-advisories/2026",
+      "http": 200,
+      "octets": 80182,
+      "items": [
+        "address rue de la loi 107 1049 brussels belgium|goo.gl/maps/sNEAsRwQ739XLHVz9",
+        "tel 32 2 295 2100|tel:+32 229 52100",
+        "publications|cert.europa.eu/publications",
+        "security advisories|cert.europa.eu/publications/security-advisories",
+        "security guidance|cert.europa.eu/publications/security-guidance"
+      ],
+      "erreur": null
+    },
+    "cert-fr-alerte": {
+      "id": "cert-fr-alerte",
+      "url": "https://www.cert.ssi.gouv.fr/alerte/feed/",
+      "url_finale": "https://cert.cyber.gouv.fr/alerte/feed/",
+      "http": 200,
+      "octets": 26086,
+      "items": [
+        "vulnerabilite dans apple mac os x 24 juillet 2015|cert.cyber.gouv.fr/alerte/CERTFR-2015-ALE-009",
+        "maj vulnerabilite dans palo alto networks globalprotect 12 avril 2024|cert.cyber.gouv.fr/alerte/CERTFR-2024-ALE-006",
+        "vulnerabilite dans openssh 01 juillet 2024|cert.cyber.gouv.fr/alerte/CERTFR-2024-ALE-009",
+        "multiples vulnerabilites dans roundcube 09 aout 2024|cert.cyber.gouv.fr/alerte/CERTFR-2024-ALE-010",
+        "vulnerabilite dans sonicwall 10 septembre 2024|cert.cyber.gouv.fr/alerte/CERTFR-2024-ALE-011"
+      ],
+      "erreur": null
+    },
+    "cert-fr-avis": {
+      "id": "cert-fr-avis",
+      "url": "https://www.cert.ssi.gouv.fr/avis/feed/",
+      "url_finale": "https://cert.cyber.gouv.fr/avis/feed/",
+      "http": 200,
+      "octets": 23136,
+      "items": [
+        "multiples vulnerabilites dans mattermost server 20 octobre 2026|cert.cyber.gouv.fr/avis/CERTFR-2026-AVI-1344",
+        "multiples vulnerabilites dans les produits mattermost 04 novembre 2026|cert.cyber.gouv.fr/avis/CERTFR-2026-AVI-1458",
+        "multiples vulnerabilites dans oracle database server 18 novembre 2026|cert.cyber.gouv.fr/avis/CERTFR-2026-AVI-1561",
+        "multiples vulnerabilites dans oracle java se 18 novembre 2026|cert.cyber.gouv.fr/avis/CERTFR-2026-AVI-1562",
+        "multiples vulnerabilites dans oracle mysql 18 novembre 2026|cert.cyber.gouv.fr/avis/CERTFR-2026-AVI-1563"
+      ],
+      "erreur": null
+    },
+    "cert-fr-feed": {
+      "id": "cert-fr-feed",
+      "url": "https://www.cert.ssi.gouv.fr/feed/",
+      "url_finale": "https://cert.cyber.gouv.fr/feed/",
+      "http": 200,
+      "octets": 23182,
+      "items": [
+        "multiples vulnerabilites dans mattermost server 20 octobre 2026|cert.cyber.gouv.fr/avis/CERTFR-2026-AVI-1344",
+        "multiples vulnerabilites dans les produits mattermost 04 novembre 2026|cert.cyber.gouv.fr/avis/CERTFR-2026-AVI-1458",
+        "multiples vulnerabilites dans les produits f5 18 novembre 2026|cert.cyber.gouv.fr/avis/CERTFR-2026-AVI-1567",
+        "multiples vulnerabilites dans oracle weblogic 18 novembre 2026|cert.cyber.gouv.fr/avis/CERTFR-2026-AVI-1565",
+        "multiples vulnerabilites dans oracle mysql 18 novembre 2026|cert.cyber.gouv.fr/avis/CERTFR-2026-AVI-1563"
+      ],
+      "erreur": null
+    },
+    "cert_fr": {
+      "id": "cert_fr",
+      "url": "https://www.cert.ssi.gouv.fr/feed/",
+      "url_finale": "https://cert.cyber.gouv.fr/feed/",
+      "http": 200,
+      "octets": 23182,
+      "items": [
+        "multiples vulnerabilites dans mattermost server 20 octobre 2026|cert.cyber.gouv.fr/avis/CERTFR-2026-AVI-1344",
+        "multiples vulnerabilites dans les produits mattermost 04 novembre 2026|cert.cyber.gouv.fr/avis/CERTFR-2026-AVI-1458",
+        "multiples vulnerabilites dans les produits f5 18 novembre 2026|cert.cyber.gouv.fr/avis/CERTFR-2026-AVI-1567",
+        "multiples vulnerabilites dans oracle weblogic 18 novembre 2026|cert.cyber.gouv.fr/avis/CERTFR-2026-AVI-1565",
+        "multiples vulnerabilites dans oracle mysql 18 novembre 2026|cert.cyber.gouv.fr/avis/CERTFR-2026-AVI-1563"
+      ],
+      "erreur": null
+    },
+    "chu-poitiers": {
+      "id": "chu-poitiers",
+      "url": "https://www.chu-poitiers.fr/rss",
+      "url_finale": "https://www.chu-poitiers.fr/feed/",
+      "http": 200,
+      "octets": 54088,
+      "items": [
+        "remise des medailles du travail 192 agents du chu de poitiers a lhonneur|chu-poitiers.fr/remise-des-medailles-du-travail-192-agents-du-chu-de-poitiers-a-lhonneur",
+        "la sante mentale et les arts journee de sensibilisation|chu-poitiers.fr/la-sante-mentale-et-les-arts-journee-de-sensibilisation",
+        "duoday vingt duos reunis au chu pour linclusion professionnelle des personnes en situation de handicap|chu-poitiers.fr/duoday-vingt-duos-reunis-au-chu-de-poitiers-pour-linclusion-professionnelle-des-personnes-en-situation-de-handicap",
+        "pole regional de cancerologie deux journees dinformation et dechanges autour des hemopathies|chu-poitiers.fr/pole-regional-de-cancerologie-deux-journees-dinformation-et-dechanges-autour-des-hemopathies",
+        "prevenir les risques par le jeu|chu-poitiers.fr/prevenir-les-risques-par-le-jeu"
+      ],
+      "erreur": null
+    },
+    "cisa_kev": {
+      "id": "cisa_kev",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "url_finale": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "http": 200,
+      "octets": 290000,
+      "items": [
+        "skip to main content|cisa.gov/known-exploited-vulnerabilities-catalog",
+        "staying secure at events|cisa.gov/staying-secure-large-scale-events",
+        "nocost cyber services|cisa.gov/resources-tools/resources/free-cybersecurity-services-and-tools",
+        "cybersecurity awareness month|cisa.gov/cybersecurity-awareness-month",
+        "report a cyber issue|cisa.gov/report"
+      ],
+      "erreur": null
+    },
+    "ctlog": {
+      "id": "ctlog",
+      "url": "https://crt.sh/",
+      "url_finale": "https://crt.sh/",
+      "http": 200,
+      "octets": 5897,
+      "items": [
+        "crtsh certificate search crtsh certificate search enter an identity domain name organization name etc a certificate fingerprint sha1 or sha256 or a crtsh id advanced sectigo limited 20152026 all rights reserved|"
+      ],
+      "erreur": null
+    },
+    "epss": {
+      "id": "epss",
+      "url": "https://www.first.org/epss/",
+      "url_finale": "https://www.first.org/epss/",
+      "http": 200,
+      "octets": 26675,
+      "items": [
+        "member portal|portal.first.org/",
+        "mission statement|first.org/about/mission",
+        "strategy framework|first.org/about/strategy",
+        "sustainable development goals|first.org/about/sdg",
+        "organization|first.org/about/organization"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:abuseipdb_1d": {
+      "id": "feed:firehol:abuseipdb_1d",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/abuseipdb_1d.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/abuseipdb_1d.ipset",
+      "http": 200,
+      "octets": 1048576,
+      "items": [
+        "abuseipdb1d ipv4 haship ipset abuseipdb httpswwwabuseipdbcom aggregated blocklist of ips with 100 abuse confidence score reported in the last 1 day aggregated by borestad httpsgithubcomborestadblocklistabuseipdb maintainer abuseipdb borestad maintainer url httpsgithubcomborestadblocklistabuseipdb li|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:abuseipdb_30d": {
+      "id": "feed:firehol:abuseipdb_30d",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/abuseipdb_30d.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/abuseipdb_30d.ipset",
+      "http": 200,
+      "octets": 1048576,
+      "items": [
+        "abuseipdb30d ipv4 haship ipset abuseipdb httpswwwabuseipdbcom aggregated blocklist of ips with 100 abuse confidence score reported in the last 30 days aggregated by borestad httpsgithubcomborestadblocklistabuseipdb maintainer abuseipdb borestad maintainer url httpsgithubcomborestadblocklistabuseipdb|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:blocklist_de": {
+      "id": "feed:firehol:blocklist_de",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de.ipset",
+      "http": 200,
+      "octets": 350757,
+      "items": [
+        "blocklistde ipv4 haship ipset blocklistde httpswwwblocklistde ips that have been detected by fail2ban in the last 48 hours maintainer blocklistde maintainer url httpswwwblocklistde list source url httplistsblocklistdelistsalltxt source file date sat nov 21 063602 utc 2026 category attacks version 18|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:blocklist_de_apache": {
+      "id": "feed:firehol:blocklist_de_apache",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_apache.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_apache.ipset",
+      "http": 200,
+      "octets": 130337,
+      "items": [
+        "blocklistdeapache ipv4 haship ipset blocklistde httpswwwblocklistde all ip addresses which have been reported within the last 48 hours as having run attacks on the service apache apacheddos rfiattacks maintainer blocklistde maintainer url httpswwwblocklistde list source url httplistsblocklistdelists|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:blocklist_de_bots": {
+      "id": "feed:firehol:blocklist_de_bots",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_bots.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_bots.ipset",
+      "http": 200,
+      "octets": 41512,
+      "items": [
+        "blocklistdebots ipv4 haship ipset blocklistde httpswwwblocklistde all ip addresses which have been reported within the last 48 hours as having run attacks on the rfiattacks regbots ircbots or badbots badbots it has posted a spamcomment on a open forum or wiki maintainer blocklistde maintainer url ht|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:blocklist_de_bruteforce": {
+      "id": "feed:firehol:blocklist_de_bruteforce",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_bruteforce.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_bruteforce.ipset",
+      "http": 200,
+      "octets": 12308,
+      "items": [
+        "blocklistdebruteforce ipv4 haship ipset blocklistde httpswwwblocklistde all ips which attacks joomla wordpress and other weblogins with bruteforce logins maintainer blocklistde maintainer url httpswwwblocklistde list source url httplistsblocklistdelistsbruteforcelogintxt source file date sat nov 21|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:blocklist_de_ftp": {
+      "id": "feed:firehol:blocklist_de_ftp",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_ftp.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_ftp.ipset",
+      "http": 200,
+      "octets": 6508,
+      "items": [
+        "blocklistdeftp ipv4 haship ipset blocklistde httpswwwblocklistde all ip addresses which have been reported within the last 48 hours for attacks on the service ftp maintainer blocklistde maintainer url httpswwwblocklistde list source url httplistsblocklistdelistsftptxt source file date sat nov 21 063|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:blocklist_de_imap": {
+      "id": "feed:firehol:blocklist_de_imap",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_imap.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_imap.ipset",
+      "http": 200,
+      "octets": 72999,
+      "items": [
+        "blocklistdeimap ipv4 haship ipset blocklistde httpswwwblocklistde all ip addresses which have been reported within the last 48 hours for attacks on the service imap sasl pop3 etc maintainer blocklistde maintainer url httpswwwblocklistde list source url httplistsblocklistdelistsimaptxt source file da|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:blocklist_de_mail": {
+      "id": "feed:firehol:blocklist_de_mail",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_mail.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_mail.ipset",
+      "http": 200,
+      "octets": 198301,
+      "items": [
+        "blocklistdemail ipv4 haship ipset blocklistde httpswwwblocklistde all ip addresses which have been reported within the last 48 hours as having run attacks on the service mail postfix maintainer blocklistde maintainer url httpswwwblocklistde list source url httplistsblocklistdelistsmailtxt source fil|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:blocklist_de_sip": {
+      "id": "feed:firehol:blocklist_de_sip",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_sip.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_sip.ipset",
+      "http": 200,
+      "octets": 3441,
+      "items": [
+        "blocklistdesip ipv4 haship ipset blocklistde httpswwwblocklistde all ip addresses that tried to login in a sip voip or asterisk server and are included in the ips list from infiltratednet maintainer blocklistde maintainer url httpswwwblocklistde list source url httplistsblocklistdelistssiptxt source|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:blocklist_de_ssh": {
+      "id": "feed:firehol:blocklist_de_ssh",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_ssh.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_ssh.ipset",
+      "http": 200,
+      "octets": 84118,
+      "items": [
+        "blocklistdessh ipv4 haship ipset blocklistde httpswwwblocklistde all ip addresses which have been reported within the last 48 hours as having run attacks on the service ssh maintainer blocklistde maintainer url httpswwwblocklistde list source url httplistsblocklistdelistssshtxt source file date sat|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:blocklist_de_strongips": {
+      "id": "feed:firehol:blocklist_de_strongips",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_strongips.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_strongips.ipset",
+      "http": 200,
+      "octets": 4880,
+      "items": [
+        "blocklistdestrongips ipv4 haship ipset blocklistde httpswwwblocklistde all ips which are older then 2 month and have more then 5000 attacks maintainer blocklistde maintainer url httpswwwblocklistde list source url httplistsblocklistdelistsstrongipstxt source file date sat nov 21 062408 utc 2026 cate|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:blocklist_net_ua": {
+      "id": "feed:firehol:blocklist_net_ua",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_net_ua.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_net_ua.ipset",
+      "http": 200,
+      "octets": 1048576,
+      "items": [
+        "blocklistnetua ipv4 haship ipset blocklistnetua httpsblocklistnetua the blocklist project was created to become protection against negative influence of the harmful and potentially dangerous events on the internet first of all this service will help internet and hosting providers to protect subscrib|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:botscout": {
+      "id": "feed:firehol:botscout",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botscout.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botscout.ipset",
+      "http": 200,
+      "octets": 1821,
+      "items": [
+        "botscout ipv4 haship ipset botscout httpbotscoutcom helps prevent automated web scripts known as bots from registering on forums polluting databases spreading spam and abusing forms on web sites they do this by tracking the names ips and email addresses that bots use and logging them as unique signa|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:botscout_1d": {
+      "id": "feed:firehol:botscout_1d",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botscout_1d.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botscout_1d.ipset",
+      "http": 200,
+      "octets": 3841,
+      "items": [
+        "botscout1d ipv4 haship ipset botscout httpbotscoutcom helps prevent automated web scripts known as bots from registering on forums polluting databases spreading spam and abusing forms on web sites they do this by tracking the names ips and email addresses that bots use and logging them as unique sig|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:botscout_30d": {
+      "id": "feed:firehol:botscout_30d",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botscout_30d.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botscout_30d.ipset",
+      "http": 200,
+      "octets": 44285,
+      "items": [
+        "botscout30d ipv4 haship ipset botscout httpbotscoutcom helps prevent automated web scripts known as bots from registering on forums polluting databases spreading spam and abusing forms on web sites they do this by tracking the names ips and email addresses that bots use and logging them as unique si|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:botscout_7d": {
+      "id": "feed:firehol:botscout_7d",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botscout_7d.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botscout_7d.ipset",
+      "http": 200,
+      "octets": 14738,
+      "items": [
+        "botscout7d ipv4 haship ipset botscout httpbotscoutcom helps prevent automated web scripts known as bots from registering on forums polluting databases spreading spam and abusing forms on web sites they do this by tracking the names ips and email addresses that bots use and logging them as unique sig|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:botvrij_dst": {
+      "id": "feed:firehol:botvrij_dst",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botvrij_dst.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botvrij_dst.ipset",
+      "http": 200,
+      "octets": 2891,
+      "items": [
+        "botvrijdst ipv4 haship ipset botvrijeu httpwwwbotvrijeu indicators of compromise iocs about malicious destination ips gathered via open source information feeds blog pages and pdf documents and then consolidated into different datasets to ensure the quality of the data all entries older than approx|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:botvrij_src": {
+      "id": "feed:firehol:botvrij_src",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botvrij_src.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/botvrij_src.ipset",
+      "http": 200,
+      "octets": 1003,
+      "items": [
+        "botvrijsrc ipv4 haship ipset botvrijeu httpwwwbotvrijeu indicators of compromise iocs about malicious source ips gathered via open source information feeds blog pages and pdf documents and then consolidated into different datasets to ensure the quality of the data all entries older than approx 6 mon|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:bruteforceblocker": {
+      "id": "feed:firehol:bruteforceblocker",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/bruteforceblocker.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/bruteforceblocker.ipset",
+      "http": 200,
+      "octets": 9535,
+      "items": [
+        "bruteforceblocker ipv4 haship ipset dangerrulezsk bruteforceblocker httpdangerrulezskindexphpbruteforceblocker fail2ban alternative for ssh on openbsd this is an automatically generated list from users reporting failed authentication attempts an ip seems to be included if 3 or more users report it i|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:c2_tracker": {
+      "id": "feed:firehol:c2_tracker",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/c2_tracker.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/c2_tracker.ipset",
+      "http": 200,
+      "octets": 36050,
+      "items": [
+        "c2tracker ipv4 haship ipset c2 tracker httpsgithubcommontysecurityc2tracker tracks command and control frameworks cobalt strike sliver metasploit havoc etc using shodan and censys data updated weekly maintainer montysecurity maintainer url httpsgithubcommontysecurityc2tracker list source url httpsra|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:ciarmy": {
+      "id": "feed:firehol:ciarmy",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/ciarmy.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/ciarmy.ipset",
+      "http": 200,
+      "octets": 214490,
+      "items": [
+        "ciarmy ipv4 haship ipset ciarmycom httpciarmycom ips with poor rogue packet score that have not yet been identified as malicious by the community maintainer collective intelligence network security maintainer url httpciarmycom list source url httpcinsscorecomlistcibadguystxt source file date sat nov|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:cidr_report_bogons": {
+      "id": "feed:firehol:cidr_report_bogons",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cidr_report_bogons.netset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cidr_report_bogons.netset",
+      "http": 200,
+      "octets": 1180,
+      "items": [
+        "cidrreportbogons ipv4 hashnet ipset unallocated free address space generated on a daily basis using the iana registry files the regional internet registry stats files and the regional internet registry whois data maintainer cidrreportorg maintainer url httpwwwcidrreportorg list source url httpwwwcid|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:cleantalk": {
+      "id": "feed:firehol:cleantalk",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cleantalk.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cleantalk.ipset",
+      "http": 200,
+      "octets": 7719,
+      "items": [
+        "cleantalk ipv4 haship ipset cleantalk httpscleantalkorg todays http spammers includes cleantalknew cleantalkupdated maintainer cleantalk maintainer url httpscleantalkorg list source url source file date thu jul 24 101639 utc 2025 category abuse version 32371 this file date thu jul 24 101640 utc 2025|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:cleantalk_1d": {
+      "id": "feed:firehol:cleantalk_1d",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cleantalk_1d.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cleantalk_1d.ipset",
+      "http": 200,
+      "octets": 27621,
+      "items": [
+        "cleantalk1d ipv4 haship ipset cleantalk httpscleantalkorg todays http spammers includes cleantalknew1d cleantalkupdated1d maintainer cleantalk maintainer url httpscleantalkorg list source url source file date thu jul 24 101639 utc 2025 category abuse version 32261 this file date thu jul 24 101641 ut|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:cleantalk_30d": {
+      "id": "feed:firehol:cleantalk_30d",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cleantalk_30d.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cleantalk_30d.ipset",
+      "http": 200,
+      "octets": 540811,
+      "items": [
+        "cleantalk30d ipv4 haship ipset cleantalk httpscleantalkorg todays http spammers includes cleantalknew30d cleantalkupdated30d maintainer cleantalk maintainer url httpscleantalkorg list source url source file date thu jul 24 101639 utc 2025 category abuse version 32351 this file date thu jul 24 101641|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:cleantalk_7d": {
+      "id": "feed:firehol:cleantalk_7d",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cleantalk_7d.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cleantalk_7d.ipset",
+      "http": 200,
+      "octets": 132005,
+      "items": [
+        "cleantalk7d ipv4 haship ipset cleantalk httpscleantalkorg todays http spammers includes cleantalknew7d cleantalkupdated7d maintainer cleantalk maintainer url httpscleantalkorg list source url source file date thu jul 24 101639 utc 2025 category abuse version 32372 this file date thu jul 24 101641 ut|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:cleantalk_new_1d": {
+      "id": "feed:firehol:cleantalk_new_1d",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cleantalk_new_1d.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cleantalk_new_1d.ipset",
+      "http": 200,
+      "octets": 11267,
+      "items": [
+        "cleantalknew1d ipv4 haship ipset cleantalk httpscleantalkorg recent http spammers maintainer cleantalk maintainer url httpscleantalkorg list source url httpscleantalkorgblacklistssubmitedtoday source file date thu jul 24 101637 utc 2025 category abuse version 30314 this file date thu jul 24 101637 u|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:cleantalk_new_30d": {
+      "id": "feed:firehol:cleantalk_new_30d",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cleantalk_new_30d.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cleantalk_new_30d.ipset",
+      "http": 200,
+      "octets": 215484,
+      "items": [
+        "cleantalknew30d ipv4 haship ipset cleantalk httpscleantalkorg recent http spammers maintainer cleantalk maintainer url httpscleantalkorg list source url httpscleantalkorgblacklistssubmitedtoday source file date thu jul 24 101637 utc 2025 category abuse version 30170 this file date thu jul 24 101638|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:cleantalk_new_7d": {
+      "id": "feed:firehol:cleantalk_new_7d",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cleantalk_new_7d.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cleantalk_new_7d.ipset",
+      "http": 200,
+      "octets": 56272,
+      "items": [
+        "cleantalknew7d ipv4 haship ipset cleantalk httpscleantalkorg recent http spammers maintainer cleantalk maintainer url httpscleantalkorg list source url httpscleantalkorgblacklistssubmitedtoday source file date thu jul 24 101637 utc 2025 category abuse version 30493 this file date thu jul 24 101637 u|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:cybercrime": {
+      "id": "feed:firehol:cybercrime",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cybercrime.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cybercrime.ipset",
+      "http": 200,
+      "octets": 8382,
+      "items": [
+        "cybercrime ipv4 haship ipset cybercrime httpcybercrimetrackernet a project tracking command and control maintainer cybercrime maintainer url httpcybercrimetrackernet list source url httpcybercrimetrackernetfuckerzphp source file date fri nov 20 201314 utc 2026 category malware version 4193 this file|"
+      ],
+      "erreur": null
+    },
+    "feed:firehol:cybercure": {
+      "id": "feed:firehol:cybercure",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cybercure.ipset",
+      "url_finale": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/cybercure.ipset",
+      "http": 200,
+      "octets": 1048576,
+      "items": [
+        "cybercure ipv4 haship ipset cybercure httpswwwcybercureai threat intelligence feed of ips identified as malicious from realtime infection monitoring sensors maintainer cybercure maintainer url httpswwwcybercureai list source url httpapicybercureaifeedgetips source file date tue apr 14 144944 utc 202|"
+      ],
+      "erreur": null
+    },
+    "feodo-ip": {
+      "id": "feodo-ip",
+      "url": "https://feodotracker.abuse.ch/downloads/ipblocklist.json",
+      "url_finale": "https://feodotracker.abuse.ch/downloads/ipblocklist.json",
+      "http": 200,
+      "octets": 1763,
+      "items": [],
+      "erreur": null
+    },
+    "gn-16": {
+      "id": "gn-16",
+      "url": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Charente+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "url_finale": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Charente+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "http": 200,
+      "octets": 57017,
+      "items": [
+        "cyberattaque a la poste les donnees de 22 millions de francais volees comment savoir si vous etes concerne charente libre|news.google.com/rss/articles/CBMi7AFBVV95cUxPTWt2OGdGWUIxYVZfTTB1U0o0RVF6R0FPOFVNUjIybDFSQkQ1ZkowblJ4YzY3bkxGTC0xR1lUcG0zMi1tZUNxclVZSDFXNkxuUjRKNHNZVlJ5QlBxdl9hZFFXeEFkdkJzUUI1Y2Q1WFo4V2lUUGthZTNVVnNSWXZuQk9SUTJyc1IzY1dZV2k1T09JSzlzaXRWU0RxcjFGczZwdjF2M3VqamdJbXhFZ3R0SXdsUHItcEVmRTVuMWVCZllBa1ZwUFFCNm1uX3VYVVU2ZEJ5TGhQc2s2ajNLZGdJaktfdFloTkFld3RPWg?oc=5",
+        "la cyberattaque aujourdhui cest du quotidien comment soluris accompagne les communes de charentemaritime icifr|news.google.com/rss/articles/CBMilwJBVV95cUxOY0poN1dzcUJxMWZSb0JCM2ZoNHhoNnVuZmU4YlF1akxXb2VLbVFxVUxadHc2M09RWmlCX1BYMkZMZkFJblZrdnhmNWdKaEVuZVg3QzRFWk9VWXhxQ2t5RlBYYVg3R25wU0ZiS2hyWXBlMFN1V0t2TEw5a1gyeHJRVkQ2M3IwX0ZKSms0UTBZSjNRdzJOWUxha0VWdUZJTUk0Y0xRN0NKWFhNWFJ4bGFvUVIxblNPckdsV2F2ODYwaGo5d0VVWWlhN1hkY1diS1BuTktsSGN6ZTM4bnJzWVg0SmcxemthdHNwSDJLVjNDbEpKNy16d3c0TmdyeG1CQzJucE1JbVlCRmJfMHl5N0ctTXl6OGNFOU0?oc=5",
+        "cyberattaque un tiers des francais concernes par un vol de donnees qui a cible maileva filiale du groupe la poste sud ouest|news.google.com/rss/articles/CBMimwJBVV95cUxOY3FqZW5CY3NnR2xYd1NSbzljWjJQWjBHZ3hmUmtlZnZOM0xRdE5iTlp2WkVOZVQ3MXYzdS1TbGxLY1RVbXBGempEMVU2U2g4Z2k1NzlYMVRIWHVTc0lWcjY3Q0U3RE43U3JhaXUwdEpfQ213bC1pYjN3eDVvSFFObFdWUHBSUXk4LUJ0YmEzX0xtN3BxdUxzSjU0SWJ2a3lUa1c2VFg4SDZJUTZGSE4zdXhqMFkzZmF4aElHdU5Wczg4M3Z6QktMZjlfeVFtVWVyRWptQk9xcmNrRTBKMm5ESlFjRk11a2dHa2hYRk5keWFDZy1mOGdmdjc5Y0tsUzA0QkNuRnNLanJjanVLSHdFZUdIQ1liY3AwM0V3?oc=5",
+        "cyberattaque contre des frigos connectes la france accuse officiellement liran sud ouest|news.google.com/rss/articles/CBMi1gFBVV95cUxObkk0eFJ5cVRzeExyTEdtcTVNa1J1Uno1anQxbUhGaHZUWEJZX3ZocjhZVDVwMXhuS0VGeC1kX2R4LXVfd3pnbDZDcDdacGprbDRPMU9YQXlON1Q0T0hGRjRMeXdOZjZFS2J3YmRHekY1Z0o5UXMwc2lYZEZLSldkeUtadWZHYXZkdTlzTmp0Y0twZk81LWNYWEdWVW8xbGdvZmdkbWc1VmdlMDRVYVVsc0F2ZFNmR3FOZWxpczhQd0ptMENFSzVab1FaNnJKRDVwUUFMQXdB?oc=5",
+        "cyberattaques visant des frigos connectes en france liran suspecte charente libre|news.google.com/rss/articles/CBMiwwFBVV95cUxQQmY4X0QtRm1FcURvQ21BSjBCaC0xazVkeGZoY2xDQzVlb3RSOG1sNWRCTGZNRFZtNlBqcXA1VDMwanNzeEJYWlZrQ2dncHg1U05jWEhXT3d5ZVhTXzkyYmIzMTllcmNIUloydzM1MEYzSHVCNlBiSmVQRHBSbTR3VDZaTDVKZ0U3cHg4UDI2RDhtMlo1aDUydHk1NS0zS1Rpb0J1OXFNMVl1bnZHdnZCSHhGb2NKUlFwUUQ1MjBoY09VMjg?oc=5"
+      ],
+      "erreur": null
+    },
+    "gn-17": {
+      "id": "gn-17",
+      "url": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Charente-Maritime+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "url_finale": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Charente-Maritime+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "http": 200,
+      "octets": 58511,
+      "items": [
+        "la cyberattaque aujourdhui cest du quotidien comment soluris accompagne les communes de charentemaritime icifr|news.google.com/rss/articles/CBMilwJBVV95cUxOY0poN1dzcUJxMWZSb0JCM2ZoNHhoNnVuZmU4YlF1akxXb2VLbVFxVUxadHc2M09RWmlCX1BYMkZMZkFJblZrdnhmNWdKaEVuZVg3QzRFWk9VWXhxQ2t5RlBYYVg3R25wU0ZiS2hyWXBlMFN1V0t2TEw5a1gyeHJRVkQ2M3IwX0ZKSms0UTBZSjNRdzJOWUxha0VWdUZJTUk0Y0xRN0NKWFhNWFJ4bGFvUVIxblNPckdsV2F2ODYwaGo5d0VVWWlhN1hkY1diS1BuTktsSGN6ZTM4bnJzWVg0SmcxemthdHNwSDJLVjNDbEpKNy16d3c0TmdyeG1CQzJucE1JbVlCRmJfMHl5N0ctTXl6OGNFOU0?oc=5",
+        "cyberattaques contre des supermarches apres la france des refrigerateurs cibles dans plusieurs pays deurope sud ouest|news.google.com/rss/articles/CBMi_AFBVV95cUxPTkxtT2ZtejFWZWstXzBWaEJ1QVhuNnhPLW9Id3FPRUhiTkdBZjBKVklBM0ppYm5jaWh4NmJ6WV8tQXdjdnN5TzAzRUw3cDRFbTFYY0w2S296b1p1U2JhV2U0YmZlcGFlVXdZcWRxeEdjVjMyRElpWUlwWE1OWlVrMU5wTkptU1ZDSy1YMlVzbVBlaTlwNDcyU1czcmNmM1ZDclBjem0tQmc4MHVMYmJYbVJsQ2NNdUNLSlp3NEwxUGd6dkFrUEd0YVlqRkRjSS1mdXVCblZ4el9wQUZiM2paZlJsR29NZjZINC0zYm9TY081dGtrQWxQY2RBUEI?oc=5",
+        "incognitofr 21 352 commandes en fuite apres une cyberattaque cyberattaqueorg|news.google.com/rss/articles/CBMilgFBVV95cUxNZi1QUlJBYU54VXM3TmJMTkIyQ2Z4ZVZ5S0JhUHhVQ185TS1QVEFGbG1KLUR5QU5SUEJBTWV4OG83V2diX3ctZUdkU09WMjRXbUhua2JLejZxVzlybmpheEJPUlpJMTAxNFB2bDZNSHp3bTlGRFRXN0QzLWtIYS1YcUJOSDlMU09mVjlvb2k3OWROY05mN3c?oc=5",
+        "extremement preoccupantes des cyberattaques frappent des refrigerateurs de supermarches partout en europe lanouvellerepubliquefr|news.google.com/rss/articles/CBMi8wFBVV95cUxNRkZlVjBRNmItQ2podkswemhVMFZrcjYyaGlUM3dfMHI3cnpSV0JMRl9JNlBBTkQ5Nm1pZm5fZE9SZEFKY3BpemhTSkNKVEt0R0I0NmhaWmdkV0NpTUctcjl2UWxpQW1oTEpsQkRVcTRQalVvbFV5Z1hEYnJPeXNYaUxsTE1RODFqRUl0ZDM5VXZvUVJUaHZabGVDT1V3eDlCNUFkQ0NGNW9WeU5adnBoMFBCeWdZdFNMZkpVc05WX1Z4VXJQVDFCMW9WUGNvWkd3ZkV0SE9jZk1qamNGaTFpLWljNlZLOC14eDF1WnFJcllZOUE?oc=5",
+        "la commission europeenne a ete visee fin octobre par une cyberattaque assistee par lintelligence artificielle sud ouest|news.google.com/rss/articles/CBMi_wFBVV95cUxOc0FtZFc2WkJqa3RBa1Y2VDZ2dFpvV054dk0tR2FjdzFMbVlhYlBxSWpSNjhndWdTNXRtdjg5azBNaGRYT2lPWDJlekJ2ZWVQTGRmSllDV05yZVhkaXdHdE1COVRpSFhNWUZNRWhPS2FPM0lMU2VjdnA5bVd6Z2VTY1NVSE9sdWlNMVVKQkFhc0k4eWU1M0NLMVN5LXlEaG1CeWpFV3dGbDFoclAzQTlQbHJPZVE3eHZoSGFtc042bVRnV0ZtTXIxTVdMUHRKOGgybkJPLVdGNkpGaE84LXR0OG5IZ3NvVE51Y2NDazNwT3FhYVVVNUt1dG9EZW0tcUk?oc=5"
+      ],
+      "erreur": null
+    },
+    "gn-19": {
+      "id": "gn-19",
+      "url": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Corrèze+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "url_finale": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Corr%C3%A8ze+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "http": 200,
+      "octets": 8028,
+      "items": [
+        "le laboratoire novabio victime de deux cyberattaques des donnees de sante en fuite cyberattaqueorg|news.google.com/rss/articles/CBMisgFBVV95cUxPSE1CTFg0bzVvUTNDeUJzUlI3NG52ZmNZU1pBOWplQXE5YjhBZHRfME1zaWNicFlBTWNBajFlN2tjeHEzSG53R05jeHhpTkJxbnE1NkRVM0loZTVSMDk5dDRJTkhVUFNBeUZ4OHRqLTNtX2J4cWlpckk5YlFhYlRITW9oWGNBakpfWHZzVTB2Zkh4NzhyamI3UHV1WDNLRkxIOVU3UU1yMnR2SE1oTGhWSHRB?oc=5",
+        "randonnee et repas au profit du telethon ussel 5 decembre 2026 unidivers|news.google.com/rss/articles/CBMimAFBVV95cUxQZFdLblp2UnJlejFJUmR5WE5pVXBlRmtla05pRHpUZkFtYklXd0FwQWJrZ1ljdmJqNzFSTmh0UDFiU0xFaGlzSi10dzVyWU16MENvc00yeW5TSGdZMHV0Wm1FZ1E5eWRJZ3NIa0dqbGhEQ3JCbXpFYktlbURDME9LcHBBUHhCMTBPa1NEcENFaXBEMUEtY1ZxOQ?oc=5",
+        "salon du vin et de la bouche salle polyvalente ussel 28 novembre 2026 unidivers|news.google.com/rss/articles/CBMiiAFBVV95cUxPQTNVaUJjTFRVTGNqa2lEOFNMT3NfZmxZVzV3RUdFRTNfOGI0MmpNN3NvZTZ1cmtRbmlNT3BxZHdjdE5kM0dQY2UwVUxVX19tVTNyc18xN3RuV1BzUkc3OEtULUFBOWtNaHlBRDVRNm9VcjlieVVycGVfWlNXUXN1Z1MtNTBqNnJ1?oc=5",
+        "halloween au cinema ussel 31 octobre 2026 unidivers|news.google.com/rss/articles/CBMifEFVX3lxTE8xY19GQTRpT3RVQ05QdGRmT2NRWm4tYURXR0Rqb0RwVFAzaHNlNGR1dlBiN08tZDVRc2V0OXBHY0FSZTFnQlhocWJyaEdjZXZFcVhHanhvT1NjWFVPeS1mNGJyaWNMNjg1a1ZOcGlhYWZ3QWtxQ1JUNVlaZFI?oc=5",
+        "eveil musical cafe parental ussel 25 novembre 2026 unidivers|news.google.com/rss/articles/CBMihwFBVV95cUxPZ2xaQ3J0dzBCZUpfempwdHF4aUdkRTFTVEl1OHFqa0JSSGt4SFZGcTRnalFzOVBMWGpLTTVJREtObkw1aXNYZEhFcGt5Y05MNWZ5TGdUckhkdjNLbWYzUWEybktzdG91LUlRYjlXOFhKVF9uemZOZXlNcHNWQ3lJMHIzQ293eWM?oc=5"
+      ],
+      "erreur": null
+    },
+    "gn-23": {
+      "id": "gn-23",
+      "url": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Creuse+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "url_finale": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Creuse+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "http": 200,
+      "octets": 7548,
+      "items": [
+        "une cyberattaque assistee par lia a cible la commission europeenne bourse direct|news.google.com/rss/articles/CBMiigJBVV95cUxNWmJTQ2NSdkFqVFUzOTBJT0ZBVi01VnltOTd1ODRHaVdGT2g5czZxU2N1dW9YdjRFbFFlaE5GWTBISWdZdkZaUWcyNElUUlBHZS1OclJvOEVpT3Z0RlJzU2plckNmYjFMODFRRHdWSzZ3RjlzeHhiRG01bXJOM1VFcFVUMi1Jc2pyYmR1X0M4NHVOSlZ2dFM1YXlMTHFIMF9TSzdVTUk5bW5uYmdvYTdGemRtSGNfWkRrTkllNzlyVDZXczN1S3F4b2NuUXVnRVNmNWJWQnpDbTQwbGhIRm9HUU9HODdJY3dKZVQtbUJON3FqOGlGLW1sckh4T1BUSGRVbGE0S2tGRmlkZw?oc=5",
+        "openai creuse encore ses pertes malgre lexplosion de ses revenus les echos|news.google.com/rss/articles/CBMiuAFBVV95cUxPc2s0Q0RULXVGcE9RVnptWnhYUHF1X1oyMU9HVHprUUtEaVRzTjFBX3c1WW5rWlNJeUtEYVA5dXZwSTBPLWxVeTU1WDI1c2VRVWZKQ05KSVBhQzNqb2cxUUMxZzBoTTEwSXo3VXpQUlo2RWFjX3N2ZkM4UDVGNjhxZzg1OTZ5TjlpaE1iRUd3NVFaQUhSbWJVZ2ZvMGRwaHdfZzRXYmhzQWRha01SVGpQQUUwbWljdGlB?oc=5",
+        "118 millions deuros detournes cyberattaque massive contre le credit mutuel arkea des operations frauduleuses constatees la montagne|news.google.com/rss/articles/CBMijgJBVV95cUxPcDM0MGs5UkFUNmtwN0JDaFh6ODhaVTY3MDUtMWtacWQ3Z0VaWUJYaHZHUkZQd0gtdGVWRWFENmh6ZWt2R3FwcUdwaTByR0M0aDZuR3VOTzF6Zi1MQjJUbUdDazJpMFREMlNWZnExVXgwX2JyZXl5b2loRjBYS3l4ZmFWaUNmMkItSG03a0xVWlg2U0Vrd2p2YUsyRUFzd2tsY1Q5enI5TU1oM3lzNzFjQ0RsU2MxNWpLV0U3b0dHVzZBbVlsM29UZG8zTTdqVzJqNnFodkswT2Mycy0xU0hzTDZQdWpROXdzcll5YzBfVGJsNUtjQzRua3paczUtckFCTzN4RHdrS21rNzFRYmc?oc=5",
+        "hack crypto a 118 m ce que la version officielle du credit mutuel arkea cache sur lampleur reelle du piratage bourse inside|news.google.com/rss/articles/CBMi2gFBVV95cUxQZ2hGX3E2emN1cUU4Vzd6dVl0MV9SZTV1eDVxcWhIQmthbHFQV0trYnZEVHJvTXhDbmFGR3lQRm1EeGg2TldFZjlXa3Z4UnRGQktQY08tLVhhS2VyeXMxcDF2NTNqb09zakFUT0RDdWRRYVpDREpqTjM3NU9IVzljWXFnMjAwMzlhZFI1cl90NFYtMXZRekJaZGs3QTQ0NjQwT2xMUDRGV2Q0Y25XYzRMVE9WUHAxWk5PZENyQlFkaHFWT21Cd2h1Q0ZrdndoMk9UYlY1ejNVRzN4QQ?oc=5"
+      ],
+      "erreur": null
+    },
+    "gn-24": {
+      "id": "gn-24",
+      "url": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Dordogne+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "url_finale": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Dordogne+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "http": 200,
+      "octets": 19853,
+      "items": [
+        "liberte fm une cyberattaque frappe la radio de dordogne cyberattaqueorg|news.google.com/rss/articles/CBMijgFBVV95cUxPVXg5ZWl2ZWZua1g4Tk1SSHNIcm05Y3V2M2wxbGRrMnRIV3E0cjI4TWZVeXRWVXM2WkpqNHV6OFYwQnR5YjVDNDduWk9HUWRUTTZHSWtmS1Jobjk4a1ZzVmNobTFMbHREM05JYlB5R1pnemk2am4xTmlKWHY3QmRhaTlXdEt1eG1mbThHTTVR?oc=5",
+        "cyberattaque un tiers des francais concernes par un vol de donnees qui a cible maileva filiale du groupe la poste sud ouest|news.google.com/rss/articles/CBMimwJBVV95cUxOY3FqZW5CY3NnR2xYd1NSbzljWjJQWjBHZ3hmUmtlZnZOM0xRdE5iTlp2WkVOZVQ3MXYzdS1TbGxLY1RVbXBGempEMVU2U2g4Z2k1NzlYMVRIWHVTc0lWcjY3Q0U3RE43U3JhaXUwdEpfQ213bC1pYjN3eDVvSFFObFdWUHBSUXk4LUJ0YmEzX0xtN3BxdUxzSjU0SWJ2a3lUa1c2VFg4SDZJUTZGSE4zdXhqMFkzZmF4aElHdU5Wczg4M3Z6QktMZjlfeVFtVWVyRWptQk9xcmNrRTBKMm5ESlFjRk11a2dHa2hYRk5keWFDZy1mOGdmdjc5Y0tsUzA0QkNuRnNLanJjanVLSHdFZUdIQ1liY3AwM0V3?oc=5",
+        "a riberac la radio liberte fm victime dun piratage lance une cagnotte dordogne libre|news.google.com/rss/articles/CBMiugFBVV95cUxNRzdfYlVpRkJjU2xBeW4zVUxlM0tQcjlIMTk1SC15US1rby1VMWdubURPVkFBaFU0NTFwMld4VVdwaE9XdE9EUXZDcHhIMHF6b1FvN25oT0t3cl9GcEJUSWtEY3prV1RYQS1iX3h2ZWthdmVkczdscG1NQWFKbzhnNjh4MmtuN3p4MFIweTI1MWdqbnFqSnJXOFE4eXpSTDNBWW9NbXlkV3F6S3pLSHlEYkoyZk5KNVd4S2c?oc=5",
+        "le crestois les donnees personnelles de ses lecteurs exposees apres une cyberattaque cyberattaqueorg|news.google.com/rss/articles/CBMitAFBVV95cUxPejYyR1RiY1M5TjRSVGhjQktzSWR3d3JHT1cyaWdpNUZuSmdrbTV1YXI3NXBfUDZILW5tYURPaWZuTlJsQzNfRzVJbUpHWWhWeVhOdW00Ym9wcDhjNHBKSmFuNmxXSEt2VElIUGtGeEphNXh1Q3BpbUVvSFdIWTZ3S2JQQkU2NXU0a1RvYlJRVm9DQ2lRV3FubmpvZ2VmakQzUlpNRDAxU3dBWWU0T1JzRmZyY1k?oc=5",
+        "le lien peut servir a pirater votre compte la police nationale de dordogne met en garde contre une arnaque sur whatsapp sud ouest|news.google.com/rss/articles/CBMi_wFBVV95cUxOd3FkWEZSTm9LOEVYMFhXYzFzRTUxS2tGbEt1Ty1wSFpSXzl5NFlVWFFFLUVwVDVsN0R3SWpyTFJxSnRYWjBnWWtTVWhMWVdvRzhrZjhXWTZLNk1MYlZCZGN5aTF6VmUyRXItb3RfNWEwSEVvYjljZ1ZiX0x6WV9tU1N5cEpaZGNPRTZtY21PZHU4MGVpT0pyVHNwVlIybjIzRU1VazFISjRueUxMbEpZREwxM0pzazNUbktzODFkMlRlUDhmbHp4N053eGtJengwc29VWHlsalVjV2J0eFBRSHhITkVGUkFSOG1zQ29tRVdTX2dpNnV6YU0yVEdybTQ?oc=5"
+      ],
+      "erreur": null
+    },
+    "gn-33": {
+      "id": "gn-33",
+      "url": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Gironde+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "url_finale": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Gironde+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "http": 200,
+      "octets": 32818,
+      "items": [
+        "cyberattaque de letablissement francais du sang cessons de romantiser les pirates informatiques liberation|news.google.com/rss/articles/CBMihAJBVV95cUxORy0wdjBuQXlubjltYnVKNENMbmF1OEEzU0tRYlhMVnpfMlV2NjF6UHhCMFpaVklSMV9CSmtyU3RFWlZUWU9nWjRtaVhFcjJKQ3RDM052MnNoQjFKVThxSmxWbXRYZjhtUnlIcEFNUjdEc3h0VEdfM3hrVlZFQVYwOFV5bnZsdjc5WnNPbHY2MXV4ZVpONElieVprX2ZxN2FTR3dRdWxTd21fR0F2bjdZNDlyRURfcHlWcUNfOUVoVmlDTXZXUnphcVh5SEN5dEFUckRUcVZ4OW0wNU00Wl9LdnA2amtmSTR6MjZ0YVVaSjBFWTZYaFhRRTJHUlhJTy1aWU04SQ?oc=5",
+        "cyberattaque un tiers des francais concernes par un vol de donnees qui a cible maileva filiale du groupe la poste sud ouest|news.google.com/rss/articles/CBMimwJBVV95cUxOY3FqZW5CY3NnR2xYd1NSbzljWjJQWjBHZ3hmUmtlZnZOM0xRdE5iTlp2WkVOZVQ3MXYzdS1TbGxLY1RVbXBGempEMVU2U2g4Z2k1NzlYMVRIWHVTc0lWcjY3Q0U3RE43U3JhaXUwdEpfQ213bC1pYjN3eDVvSFFObFdWUHBSUXk4LUJ0YmEzX0xtN3BxdUxzSjU0SWJ2a3lUa1c2VFg4SDZJUTZGSE4zdXhqMFkzZmF4aElHdU5Wczg4M3Z6QktMZjlfeVFtVWVyRWptQk9xcmNrRTBKMm5ESlFjRk11a2dHa2hYRk5keWFDZy1mOGdmdjc5Y0tsUzA0QkNuRnNLanJjanVLSHdFZUdIQ1liY3AwM0V3?oc=5",
+        "la menace cyber atteint un niveau grave et inedit salarme lecornu 20 minutes|news.google.com/rss/articles/CBMi0AFBVV95cUxPaTFObXNSLTNNb0ZYNzhFZVdsNnNCUUxfSHgwMWZGNncyZjNySjNOV3pIMWRlY29xa21rd0ZSRXFSa1FKOUhaV3ZoRFA0eXNqQmtwRFJSOGhtVFpmNnpYb3JjaXprdk9kWndCcVVtZzNpcko0ZEQ1WGVQSG82QjJ1RVI2dWhvSkxJOFhkaEh1cGRTbVlOclhfN0NPYkhla0VVbktaakhQUUZ6OVRMMlBRdlRwWXJMY2l2UG1iV21sS0U3QnJoeHk0cEs5cEQtXzNJ?oc=5",
+        "lextreme gauche legitime la violence denonce edwige diaz senatrice rn de gironde cnews|news.google.com/rss/articles/CBMiuwFBVV95cUxNckpYWlU5cVV3UUZrdG1sV3RkRmJ5VHdlc3REN2FmaktYSHhySTBEUFBzQjRIbEcwRDdjU2VYM09aWFhwU1R4UGppdzZlTFJmYjFmRW9DcU1hbUtWanV0R3Nyb2ZMdEwzWVBlTkwwUzMwSDJGSGhfV1VSNzNmZ3lRdnA5b0FZMy1fR1ZDUDFhUXhoNjU3OU9tSmQ4RFd0VjNlYjFlQi1IS1Q0MF9VekZPTExnQnNJQ1B2anJZ0gHAAUFVX3lxTE5pRnhURVVfQnA1UlFOblNtUjJoNkJURENTM2VLWW5sbVRkYWtUcDFGdDF3NWdFT2RFR3Vxai03UFJqblpMbmEtUElvZVF2ei1BOWxiNDcyZVFzdkRzdzNseWEyZ3RsU0hleHpRTmdrMGJtckwwZEN6MUp1S2hRTXFJMTFSVXNaa19xenYtVkQzRU96YVBZb2dmYlhUVGFyUXpOb0ZtQm1ZTzd1M3N4TER0SXlLaVhoY1ZmaHRLVGEycQ?oc=5",
+        "apres un ete de cyberattaques et un an de blocage la loi resilience de retour a lassemblee nationale le mondefr|news.google.com/rss/articles/CBMigAJBVV95cUxQU1FsTnNmOHlVYXZ2dE9KYUVBV1EwaGwzQWxRQnBQV3Q1ajgyTWxZMUxBdk1lYVNfX2lncGo2R3VucFl3OFhxZHJEVFNLOEJqbXJRNnY3RllVaGhiM0t2UURkX0otMnhTMmJ2TU1NTkFCQzRkUWx0TFdxUGh0Z1JxVDR0cUNCNW1xd1kyYTVfRExZX0JCM1prejY0WEZTQ2RXTXBrUWJMejlIaWRvTzFURmE3cVU4WXB0RUVxeENFRHhIS21leGltYkFPVFdJVng2bnVFblF2TVpweWcyUmh1WjZrVm1CYWpYdmFTMF9zYURRTlJrU1FzaktwZG5DT0Ft?oc=5"
+      ],
+      "erreur": null
+    },
+    "gn-40": {
+      "id": "gn-40",
+      "url": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Landes+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "url_finale": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Landes+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "http": 200,
+      "octets": 74446,
+      "items": [
+        "cyberattaque un tiers des francais concernes par un vol de donnees qui a cible maileva filiale du groupe la poste sud ouest|news.google.com/rss/articles/CBMimwJBVV95cUxOY3FqZW5CY3NnR2xYd1NSbzljWjJQWjBHZ3hmUmtlZnZOM0xRdE5iTlp2WkVOZVQ3MXYzdS1TbGxLY1RVbXBGempEMVU2U2g4Z2k1NzlYMVRIWHVTc0lWcjY3Q0U3RE43U3JhaXUwdEpfQ213bC1pYjN3eDVvSFFObFdWUHBSUXk4LUJ0YmEzX0xtN3BxdUxzSjU0SWJ2a3lUa1c2VFg4SDZJUTZGSE4zdXhqMFkzZmF4aElHdU5Wczg4M3Z6QktMZjlfeVFtVWVyRWptQk9xcmNrRTBKMm5ESlFjRk11a2dHa2hYRk5keWFDZy1mOGdmdjc5Y0tsUzA0QkNuRnNLanJjanVLSHdFZUdIQ1liY3AwM0V3?oc=5",
+        "cyberattaque contre des frigos connectes la france accuse officiellement liran sud ouest|news.google.com/rss/articles/CBMi1gFBVV95cUxObkk0eFJ5cVRzeExyTEdtcTVNa1J1Uno1anQxbUhGaHZUWEJZX3ZocjhZVDVwMXhuS0VGeC1kX2R4LXVfd3pnbDZDcDdacGprbDRPMU9YQXlON1Q0T0hGRjRMeXdOZjZFS2J3YmRHekY1Z0o5UXMwc2lYZEZLSldkeUtadWZHYXZkdTlzTmp0Y0twZk81LWNYWEdWVW8xbGdvZmdkbWc1VmdlMDRVYVVsc0F2ZFNmR3FOZWxpczhQd0ptMENFSzVab1FaNnJKRDVwUUFMQXdB?oc=5",
+        "credit mutuel arkea la banque victime dune cyberattaque et doperations frauduleuses des pertes superieures a 100 millions deuros sud ouest|news.google.com/rss/articles/CBMi3gFBVV95cUxNekRTUGtDTTBNdGJ1aU5uc0R1WXh6aVZBem5oREtfMUk5WGd3eEtzRWE5U19Nd2RmMTN1dnJHYm9jWngxWmphMjBRLVVpbTBlempFM0VvYzVuZFRyVnBTWW9EU2F1NGtnRnh4RDQ5RGlOamFIMzB4X0FFa1FZLUFYTUktb2NSaUtlQU5PcDJkeWVKTFFkalMxSmhXRmswVF9uMm95eWVGZmF3Y1JjTWROS24xZ3RKbU1UYU10Uy1oZmR0VnNpWVVtUnFmYThpN0psMHlkV2RnZklTX0VkSEE?oc=5",
+        "cyberattaque le parti communiste francais victime dune fuite de donnees de ses adherents sud ouest|news.google.com/rss/articles/CBMi0gFBVV95cUxOelgycWtKRy1yelZsb0VlY1YzWkNaWFdVemxyWWJfTjh0eWt0anRFR0dEbW9pdmhSTk95SkIydnhBaFJOSUU0b19OWGxmNDc5eGhqX2J4ekNlUGZTUTVYQVQ4QVFJNXU4QWFyOGRkbnRxdVlnVGJGZDV4aWd0T2NPVWRKWXNybGV4bVlIUW9jY0hDc0pvS0RCTEFDalcwR3c4Rkx1ank4eTVOZWhFVC1wX2JmRHBlWmhOT0dCQWdTaC1aaTR5YjRhM3Rrc0lJdGh1RVE?oc=5",
+        "piratage du fisc un deuxieme suspect age de 16 ans mis en examen sud ouest|news.google.com/rss/articles/CBMiwgFBVV95cUxOU1ZzcjRma1gtSFZ5TTNLa21yLUNWQy16LWFoTlByWGh3SWsyYndBVEZDOGp1MHNRdWRhTDluNzg3MkpwaEFrX2RjVEJVUXREM0V5di0yUDFnZkEwQWdnWFY3a3JYcEF0b19uY3BkSGJONmlPRnN6SlY3dEJSaW14MWJJTmxEVkpMNWIxbHcybkhKdXhHVW85NEU5dGZfcENtM21TY3NzS3B6ektPNmo3UUV1RTBYS0dnT1hpcFZTMnh3dw?oc=5"
+      ],
+      "erreur": null
+    },
+    "gn-47": {
+      "id": "gn-47",
+      "url": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Lot-et-Garonne+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "url_finale": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Lot-et-Garonne+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "http": 200,
+      "octets": 47696,
+      "items": [
+        "des tentatives de piratage tous les jours dune enquete locale a une traque internationale une entreprise de lotetgaronne victime de malveillance temoigne dans un documentaire choc sud ouest|news.google.com/rss/articles/CBMi4AJBVV95cUxOMjJ4UnpnZnRNN3BLNHIwZGtDOXBwZW41YkxGeW5wMU5hdTM5VjAwTnlnaXlJVXJZT0tOSlFLSlIxLTZOeE5Yd3JmYmt0a2k3elVkNkE1bFdjeXVqOWIwRzh4YjdwenNfLTY1ZDNSQnFvOWgtbDRjQm9VeS0yVE5oVU9qelo3VkxLdlVDOTZZVm8xX2l3UDhTWTNlM0NWVVRRZzhvNU5vZXdNZWlWQnRUTVEwcXgzSEFNUEwxOHktSXo0MVdTZEtmTmxvUVMtQ3YxYjJIRElXVWZ3TUpuY0dpbmFxbWwxdjk3NTl6ZnpIbTFONGdsTm9hRDd0eG1LZWR2b0hGOEQxS2szemR1VkpqQzFGamNkRWdtRlNxUVFEVDFycGxVTG5QQ0U0WklqSWMzc1p2YTVnRHpFLVBUWnNQclNpNG90SGxmV3pUbW9vN2RDOEZNZEVBSk5QRkQ2RGRF?oc=5",
+        "le laboratoire novabio victime de deux cyberattaques des donnees de sante en fuite cyberattaqueorg|news.google.com/rss/articles/CBMisgFBVV95cUxPSE1CTFg0bzVvUTNDeUJzUlI3NG52ZmNZU1pBOWplQXE5YjhBZHRfME1zaWNicFlBTWNBajFlN2tjeHEzSG53R05jeHhpTkJxbnE1NkRVM0loZTVSMDk5dDRJTkhVUFNBeUZ4OHRqLTNtX2J4cWlpckk5YlFhYlRITW9oWGNBakpfWHZzVTB2Zkh4NzhyamI3UHV1WDNLRkxIOVU3UU1yMnR2SE1oTGhWSHRB?oc=5",
+        "garonnhack evenement phare du campus numerique dagen decortique la lutte contre les cyberattaques ladepechefr|news.google.com/rss/articles/CBMi3wFBVV95cUxQLVI3NHVfSjJrY1lSWUhmVmNLY2JRai1pUnBaZ0lXQlNTY0VjY2hBTVpuQ2xKX3pTbzhBSHZlLVpleEpiMEFQTkMyMlFONFhZRTgyMFBtcXBaYVg1ZWVCdjBCdTI5VFRDVHVMVEpvWm5pVDBoaEE4eHRvZWNyR1R5ZWg5eTQyQzU0UHJHVjZJZXB6cXI1UjBiQ0YzUXdLUW5sOFNleDJiSWEzeE11SVJqSVZ1Q3puX0Jzc3NRZVU2cjN3YUFtYUl2OFN2bTdLU205TFpFSTJNN2wzYU16TFdZ?oc=5",
+        "cyberattaques plus de 1100 cas recenses en occitanie voici les departements les plus touches lopinion independante|news.google.com/rss/articles/CBMiigFBVV95cUxOUklZejF4SExYVjBraFJlalBSeTdCd0N2SUFoOVB2dDZpYjdObVRKdWJnSUxEcWwxbnRxbDVyNXBWU1p1c1BPNkJMNnZSTGpOd3VIWlh5aGFhU1pQRU1KQ1RqeDNnN2wzcE4tdjJwR2NKNGJJLWdPVmNwQVgxX25FdEhoOWxscUZzY1HSAY8BQVVfeXFMUFRjYzRQcjZEd2Zla0JuMm95MTl3aHk0XzNVbUpoSkpFaks0OHZ6dUtzZF82UTE3V3lST3VNNUpjbUhhYjFLMU9ZNE02RVRnT2FlRlRtcUoxODlkZUhKdkNubUJpWGRZeEswZThlU0thWGFqOUc2dHhSSmJkMFJmNnVPZy1Id09MTnF3MHpQSVk?oc=5",
+        "le credit mutuel victime dune cyberattaque 20 minutes|news.google.com/rss/articles/CBMiwwFBVV95cUxPZkxXQUg3cVR3aE5FM0JnUENWYmRCWDZnV0ZIZ2tKYW9LN0dVa1NzM2lub2ZLMGdXaEJkd20yRF85TWZQaVMwNHAyOGJncGpRVlFvaTVPdGJRVTQ5OWJjYThqb01QNndnMnRkQklOYkc5N0V5bkxTX0RxeXM5cU84cjVGTl9adERNaGN4RndWOVU3VnZ5MXRxTVlZRThKTjh4azRYSm5DUVR0cFYyTHpsSnVDRVpkY09zWmZiYUxvMHJLb0U?oc=5"
+      ],
+      "erreur": null
+    },
+    "gn-64": {
+      "id": "gn-64",
+      "url": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Pyrénées-Atlantiques+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "url_finale": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Pyr%C3%A9n%C3%A9es-Atlantiques+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "http": 200,
+      "octets": 9551,
+      "items": [
+        "pyreneesatlantiques face a une hausse de 374 des infractions numeriques elus et industriels sarment contre la cybercriminalite sud ouest|news.google.com/rss/articles/CBMixgJBVV95cUxPZ3UzZ21RcHZuOVVtZmd5eW05cFdKbm5tVWkwNFpiaG9WNUQzQkVoc2U3Q2ZlNE1RQm1pQTNqQkNzX04wY3hfSzJmQ0UwUWM0VU5iTjd1ZHE2cUVpWHJ0TDNaM2NNbmN0NEhkcHhPX2pPVF9nMlZ5d1I5VFVfV21vY2tTdTh6bFVsUVR1T1lvbDg0YnFNeUk0Y0lGQW5CdUdmc3VEdWpYU2x4UmtEblp5NExPZk9Dd25iMjdQRTlRUFd6TkN0LXhYU2lZbm1FQzk5TjJjUTM1QUc1Y1RVd0EwdGNFYWxrbENLQTZSVUYtRWtKVVZHTEVzM0lUMlJUWUVJZzdORVFCTTJ3cmM4TnRPYzNNdFZrd0hKX19tUFlmUVgyLVlMS1Jma0JId3VSdlNBd1lsV0lTR2tNSW9RR2E5enEwZlk1UQ?oc=5",
+        "des milliers de refrigerateurs a nouveau vises par une nouvelle cyberattaque en europe 20 minutes|news.google.com/rss/articles/CBMiqAFBVV95cUxOSVluS0tnZDd5aFE0ZDEyS3ZZanhkb1l5M25kVWhXbi1rbVpuTlYzMTg4M0ZMQ0hDMktoRkp1dzFnazBqRVhoc1ZnWmRKb0NmN0VKdXZRUVZnVXBBak5WSWtDOHVHYUlScmdaRW5zM2FFN0U2dV9UOHJ4Z1pYeGU2cFN1NzN4M29jSjd3Ym9OTnVyYVlsV3dZdzROY28zeG5pbkxPejNObGk?oc=5",
+        "mourenx les industriels et administrations sensibilises face a la cybercriminalite la republique des pyrenees|news.google.com/rss/articles/CBMi9wFBVV95cUxQQlhqNmhTQUtjb1Nab3dmRmZEekFUZ01PU3NWN1dmS3Z2Q0lxV19kQ2I3RWQ0S3pSWmFyVEd0ZjFvZHBSbEsxdWJ5Y1hOZ19fajhWZkJBeHJBWHVmZi1PWnl3SzAya2lheU1Va0NPM2ZXcldjNElmY1JWNzlTYlR0R2lacGs5MXN3WlVqZjdvQVZxaGtWSTV3d19MYllxN2Z3Z1h4QnVYX2lvMGlEdlYwWTBEZVBwQVU2SnBXd3FrMk1XaVlsNFVkTkFucnZ4VUtCUVI1a1hES2FuQW1Yem1XaWhBTVZqY3JtX0FGZnZxUDdYRU9uWWVj?oc=5",
+        "inovie les donnees de patients de plusieurs laboratoires compromises apres la cyberattaque de maileva cyberattaqueorg|news.google.com/rss/articles/CBMiywFBVV95cUxOV1hKRk8zME9JYlhMM01HRUhnQV9VQzFrcnhFSVllaVlZY1k0Rnk4SU51R3hycTVvVFFIQ09GSFJHeF9adDNxVHZnTEwtdUdTcHRwZnA5aU5ZbmhLV0V4eGhvcmtPZjM0dGtqVWpnWno5UElpRUZ6V08tOVV3RzlyVlpCUThITGFuOEpENEFVQU5KTjBQZ3dvWEdBY09aUGw2UmFvVUFkWWNOMnhnYm05Qk5Eb0JCc0daRFk4cmNZc2x0Ymp4T0h2RnZONA?oc=5",
+        "cyberattaque un tiers des francais concernes par un vol de donnees qui a cible maileva filiale du groupe la poste sud ouest|news.google.com/rss/articles/CBMimwJBVV95cUxOY3FqZW5CY3NnR2xYd1NSbzljWjJQWjBHZ3hmUmtlZnZOM0xRdE5iTlp2WkVOZVQ3MXYzdS1TbGxLY1RVbXBGempEMVU2U2g4Z2k1NzlYMVRIWHVTc0lWcjY3Q0U3RE43U3JhaXUwdEpfQ213bC1pYjN3eDVvSFFObFdWUHBSUXk4LUJ0YmEzX0xtN3BxdUxzSjU0SWJ2a3lUa1c2VFg4SDZJUTZGSE4zdXhqMFkzZmF4aElHdU5Wczg4M3Z6QktMZjlfeVFtVWVyRWptQk9xcmNrRTBKMm5ESlFjRk11a2dHa2hYRk5keWFDZy1mOGdmdjc5Y0tsUzA0QkNuRnNLanJjanVLSHdFZUdIQ1liY3AwM0V3?oc=5"
+      ],
+      "erreur": null
+    },
+    "gn-79": {
+      "id": "gn-79",
+      "url": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Deux-Sèvres+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "url_finale": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Deux-S%C3%A8vres+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "http": 200,
+      "octets": 29675,
+      "items": [
+        "la cyberattaque aujourdhui cest du quotidien comment soluris accompagne les communes de charentemaritime icifr|news.google.com/rss/articles/CBMilwJBVV95cUxOY0poN1dzcUJxMWZSb0JCM2ZoNHhoNnVuZmU4YlF1akxXb2VLbVFxVUxadHc2M09RWmlCX1BYMkZMZkFJblZrdnhmNWdKaEVuZVg3QzRFWk9VWXhxQ2t5RlBYYVg3R25wU0ZiS2hyWXBlMFN1V0t2TEw5a1gyeHJRVkQ2M3IwX0ZKSms0UTBZSjNRdzJOWUxha0VWdUZJTUk0Y0xRN0NKWFhNWFJ4bGFvUVIxblNPckdsV2F2ODYwaGo5d0VVWWlhN1hkY1diS1BuTktsSGN6ZTM4bnJzWVg0SmcxemthdHNwSDJLVjNDbEpKNy16d3c0TmdyeG1CQzJucE1JbVlCRmJfMHl5N0ctTXl6OGNFOU0?oc=5",
+        "cyberattaques dun ehpad a un syndicat deau tout le monde doit se proteger selon cette experte ouestfrance|news.google.com/rss/articles/CBMimAJBVV95cUxOMDBXdW9EcjFKdFplRXEyREdfT3dtdXNUY2xXdVFPTE1uR2NWUGN5T0l6bEFsRFNkd2VUYmVrTHdmdk5hVlhWalhKcFE2a3NEZS1TN211X09VWmR1VWFqbzVMVW9IVk1xNXdQSFEwS2FBQjJYRkVIRnVjbnhNZWVnaFVMVHJwaV9uZVN0enlWcFl0eEJfZk5DczhTVEE5d1FzUmgtTVRrX1ZFSzlZcjlMMEZONWdudVRBXzkxTlJxVFZmWVhvTmxmUk9MUGFWaE5ZLWFwLVJCRllBdUhzN05XeWU4U2JRa1JRVGFpX1pHNEJJdFRTcnlkaG1NalBYdHJnV05lbjVqUFEyTUVxUkpHOUhRcWRlQ2Fi?oc=5",
+        "macif avantages une cyberattaque chez qwertys expose les donnees personnelles de clients de lassureur cyberattaqueorg|news.google.com/rss/articles/CBMiywFBVV95cUxOQnhZV0VxZ2RKZFoxb0tWS3QzZjBOZF9hQTBSSi02dzlSNUhwSGVoS2ZjSDY4bFl5Qm8yNW1ZelBpYldtT3Z6UHB0N0RrYzF1WVpoNG5oR2dScXJNWEhQNVBvNkYxaVBmSVpZYXZRQnM3ZmxQREprNFo5VEREQzJpZ2gzOFFMdWZ5OGt3ZzZvUE1JaWl3NnJ2Nlc1Q3U1UVEwMTBPOGZTTzNyQzZJbEtpYWE5eGYxVHprY3E1REVPc2NCcWZlVHNuN0ZXYw?oc=5",
+        "des problemes effrayants le fbi et le ministere de lagriculture victimes dun piratage informatique aux etatsunis lanouvellerepubliquefr|news.google.com/rss/articles/CBMigAJBVV95cUxNbDhDajdoMGN3M1B2SFVZd0FrQUZwNmZCSkFuZFJEWmhYYTVETld1NUVqQVBwbXJJa3dUX2JueUMtTXJBN3Jvd1JOYjQzWk8xOHhmY3NFSmNxUFJRUFp3UndZeWY2TndJc2tOanZKVWJMaElmT2NnSDNZaGRXblhwdEpQeTl1aGJMdWZxTmdya25iUFlBd3E4Yno2TGJja3JhbEFwSGFFR3ZqS2pGNGkxUWUwOWxBa0FEcXFQR1pWS214el9JbnZfMUVkTEZlOG9BaDV2ckN5SFltVWt2QmtjbFFUaXN3cU9FbGRMNnNWSEktaXgybU44QzVQSWxCNl9h?oc=5",
+        "ce que lon sait de la cyberattaque massive qui a vise une filiale de la poste 20 minutes|news.google.com/rss/articles/CBMiygFBVV95cUxQYVhWSnljaTd4ajh4eVRsRzVjbWJCQjcyOXBtZWpWT0sxdWRfNlZJaS1BazVGb0xCbTFVZWtCYjZ0eTlLQXk0X0JSa2NYcy1jVzFPS1hxQXhyalJPMWU4cU5GOUxLVzFHd2JETFFqZElvbXBNcXVFemRZSTYyQ0FUUTZvQnVFZ0k1M1djakVWTXZOYnZvY0NfSjEzdGk0WS1RTUk3TzdBZHJVMFA5S0RDV2s4TTR6X0FfdUlyemlWTHY3YnVjamhQZXZR?oc=5"
+      ],
+      "erreur": null
+    },
+    "gn-86": {
+      "id": "gn-86",
+      "url": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Vienne+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "url_finale": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Vienne+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "http": 200,
+      "octets": 13328,
+      "items": [
+        "cyberattaque sur les donnees des centres de controles techniques dont securitest et auto securite france presents a vienne vivre villes|news.google.com/rss/articles/CBMikwJBVV95cUxQcjBwUXIzbWdrYWV5MEdITGViNkljMUd1S25pTTlhTHdvOFk0b2FOWlZES1FDeTVuWTR1elJnb2FTS2tfRDQyQjZxajl1Q3gzNzUwMFNHVm9yMzF3TTFhVjE3LXREdEJfdU4wOHlncHZ0NDF2cGtDcGd3d3FVZklvbUE1Tkw4QktTOTIzZWc0dzlGaDVGSFVscldIQkRiMk5PdmFyRzJCNV81NkdCbWNHcmdFMXYwN09sUkNfdnRDbUtlYzllZFZ0eE84WmZlTEkzUDV0bm5SaEk0QVRYU2M5bGd2RVNrMXRsazlXajNmYU12b0tReTJRc0VXU1Z6VHpXaWtERWZwSlh0a2xGTjZRMXNxUQ?oc=5",
+        "je nai pas lhabitude quune escroquerie vienne de quelquun que je connais alerte a une nouvelle arnaque aux faux messages de proches franceinfo|news.google.com/rss/articles/CBMimgJBVV95cUxQLXlzNFhrNlVGZDNTOGszNXZHQWlBd3E4d2I0UEhHQ1g2YmZvNGNNM2NFTHgyVHNJbmdITzM5WTloNzVnSnA4S0t6REcxeFRsbXQ4dkRqTXQ1TEdJcmpJb3hBNGVOZ2x5VWNnakFoOTFBZmNlOHNESE9vdGVudFo3aGNYaG9qNk9Odk5XT0FjZHdLQnRaZmhFcmxrWTRCUG56SnRvSS03VEJuZ2M4TkoteEN2Q1JENTZoWXpaXzZlTDFzWEZWLVZ4LUdpekVfLWpaZWU3TkxxZVloU0hCam9QclJMeTN1RGdRUGp3VVNJSW1SbnRlUktEMFNiaWZfMExWTllZUUpyU2NXWUtSbVR2WE1DOWIxZnBobkE?oc=5",
+        "on a un projet de cyberattaque pas tout a fait legal lhumour une arme pedagogique pour lutter contre les cyberattaques a poitiers lanouvellerepubliquefr|news.google.com/rss/articles/CBMilAJBVV95cUxQUldwNlpydVlmRDVfUmZRalVfV0dnTEVCaVdZZVhES3Ziem1uRVdfUUx4bnZucUQ1V1NwZW56Wmh1UVNpZDMwX3NtRUo5Z0NQaHBxZ0QzODEyTEluZTFBRnc2NkdXS2d3UUY4Ny04ajhHelM1T1VvN0RuMS04SWxYYTMzWXV3MGNUMHYzMldUVGZ4V25NNjVjTDNCX2t2UnBQTUh3ei1iVktCbVBHelhFTHV0eXNuYkx2NjZON1FDNWR0TGlhbVRRUVBLeVhRMmdobUw3NlRSZThhZDNJNDlyYy1ha25mejMxS29vay1nZHotaHlOMjRFSTlkcFR3cUpTbGUzdERob3lad0dmRzJzcF9pLVE?oc=5",
+        "118 millions deuros detournes cyberattaque massive contre le credit mutuel arkea des operations frauduleuses constatees le populaire du centre|news.google.com/rss/articles/CBMijwJBVV95cUxPQmxJNG1xQ0ZvVGVPbko0SGJfWVQ2Y0M5MmN0RnFwUVpjSkZFWV9abmxYNGROeGUtUC01MHNGVUJTbjZXb0pZTGJtQ0Q4eEFnX2YzU0d1MEIzZXpqUVo1SXFKSUU3bXBZdF9LNTM2Z1I5WnNySUVzbkxIYTc5b2pEYlhPSUd6SVI3LXpmbmpGNjJYUWVRQnRPZUNfbGxxOXdaUXJhR3FabjZRTVVyYzhTMXpwTmxTVmhtZ3UtUmsyTVdKOTFER0tXTy1lNjY1cUZyWnY4enlLc3lrZTd1YVJQbTZJTHlWWHM4ZXpjYUVOMU9BSEFSRzRxT0J6V21pTE9qQnRxNmFzaHk5NGY3amlZ?oc=5",
+        "que quelquun vienne sortir mon fils au moins huit morts lors dun effondrement dimmeuble a new york lecho republicain|news.google.com/rss/articles/CBMi-gFBVV95cUxONFAtT2pEbmlzY21LRUhJVFFaTk4zUHdLSXA3V3JiaTZHZ2pyeFFYTGdGQW5sWlBhNHktVGpqYWo4bHAwZVNQRFdiOFJBWE1INTU2MkdlRlA2WGpXaTJPaHdrVkdCSFJ3M1ZBYmlXNWRaN3NFSE4taFVBeFBGNXpJMk5OMXhNdXRSd2Q1V0xMTFIwc3FPQVRuYXR4MEFvU1JsR216NnJ5UjJMWlJyanFMMXcwVFh5Vm5IRXpLekk4elNXR3JkZkhobEwxcGwyV2pRY2FhcEw0MGE0cml4Zk9lU0JIU05ZTVBBNE04ZFN4WXlYSlNJSHpIZXd3?oc=5"
+      ],
+      "erreur": null
+    },
+    "gn-87": {
+      "id": "gn-87",
+      "url": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Haute-Vienne+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "url_finale": "https://news.google.com/rss/search?q=(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+Haute-Vienne+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "http": 200,
+      "octets": 3081,
+      "items": [
+        "118 millions deuros detournes cyberattaque massive contre le credit mutuel arkea des operations frauduleuses constatees le populaire du centre|news.google.com/rss/articles/CBMijwJBVV95cUxPQmxJNG1xQ0ZvVGVPbko0SGJfWVQ2Y0M5MmN0RnFwUVpjSkZFWV9abmxYNGROeGUtUC01MHNGVUJTbjZXb0pZTGJtQ0Q4eEFnX2YzU0d1MEIzZXpqUVo1SXFKSUU3bXBZdF9LNTM2Z1I5WnNySUVzbkxIYTc5b2pEYlhPSUd6SVI3LXpmbmpGNjJYUWVRQnRPZUNfbGxxOXdaUXJhR3FabjZRTVVyYzhTMXpwTmxTVmhtZ3UtUmsyTVdKOTFER0tXTy1lNjY1cUZyWnY4enlLc3lrZTd1YVJQbTZJTHlWWHM4ZXpjYUVOMU9BSEFSRzRxT0J6V21pTE9qQnRxNmFzaHk5NGY3amlZ?oc=5"
+      ],
+      "erreur": null
+    },
+    "gn-cyber-na": {
+      "id": "gn-cyber-na",
+      "url": "https://news.google.com/rss/search?q=cyberattaque+Nouvelle-Aquitaine+when:7d&hl=fr&gl=FR&ceid=FR:fr",
+      "url_finale": "https://news.google.com/rss/search?q=cyberattaque+Nouvelle-Aquitaine+when:7d&hl=fr&gl=FR&ceid=FR:fr",
+      "http": 200,
+      "octets": 15782,
+      "items": [
+        "ikea air france zoom une nouvelle cyberattaque a frappe ces sites des donnees de cartes bancaires volees actufr|news.google.com/rss/articles/CBMi2wFBVV95cUxOcVA5ZmRjckY3S2JNZFdhT0VUUlF4WmF2TnJDZ01wc3U3QTF2c0NWSW1iZ0RsNld0THRkdUhkWDVReFJKWk9iOU5wOE1IZlAzRkUwUEoxRUE2QWpDcHBuRHpHVEpuT1hROW40ME9CY1o1NzJXcDIzWjdjZE1ZalhkYVZWU0QwMEZtY2w3eHRvdGpOUmg4djc5cEZpSjFpcURVZ3A4WU5VSlZSelpGS0FsLWJ2YU1xdWdGTnVMS0o1cUY4NzhsNmZBSXJuSndsdks5OF9xUi02MTRPMTA?oc=5",
+        "la commission europeenne a ete ciblee par une cyberattaque assistee par ia 20 minutes|news.google.com/rss/articles/CBMiowFBVV95cUxNMWxuM3MzQUxLblVIZ1R5clJGZ05LMmhWb0tTbnZIZWYtR3ZUd1dwTnJ2NFA0djlVT09GV3h6ckRFenJreDN6dXpZWFJrR0lUbDA4c280V29qTzlsZ3Y5eTJ2XzBoVmJfdk1fQ2JtVHdtaUlNV1dBYmJ3Szk3M2EwcWJycWF5MVBPWF9fdEo4YWktdjd4eHBxbmVWenIwYVctb2E4?oc=5",
+        "apres un piratage de donnees au moins 765 000 euros dor ont ete derobes par des faux policiers franceinfo|news.google.com/rss/articles/CBMi4AFBVV95cUxONHNtTC1BWkFReTRxTk5pcF9TOVNPQV9DSGJBY05maUtTaS13clRKSzdlSEFQNTk5eDNGQ04wZ2Z2Mm9IOEloYVFjaHhFdlNmWjh6NkNJalg4akxqWGhQZy1SNDNIbnJoXzhtZ01sREFhVUFiQnhkdG1NbkhIYUVUeC14aG5jZTFxZzZ1eWw2dVNsNmJvQ2VDNHV0RlBJTUduV3FYeE9rMklrWUdOR01qdW5iU0l3YW9iY2tMWUVfR2g3d0JkZmhRZzljeW1yazg4T3R5QXdVNDBndU9oR3hfLQ?oc=5",
+        "mourenx les industriels et administrations sensibilises face a la cybercriminalite la republique des pyrenees|news.google.com/rss/articles/CBMi9wFBVV95cUxQQlhqNmhTQUtjb1Nab3dmRmZEekFUZ01PU3NWN1dmS3Z2Q0lxV19kQ2I3RWQ0S3pSWmFyVEd0ZjFvZHBSbEsxdWJ5Y1hOZ19fajhWZkJBeHJBWHVmZi1PWnl3SzAya2lheU1Va0NPM2ZXcldjNElmY1JWNzlTYlR0R2lacGs5MXN3WlVqZjdvQVZxaGtWSTV3d19MYllxN2Z3Z1h4QnVYX2lvMGlEdlYwWTBEZVBwQVU2SnBXd3FrMk1XaVlsNFVkTkFucnZ4VUtCUVI1a1hES2FuQW1Yem1XaWhBTVZqY3JtX0FGZnZxUDdYRU9uWWVj?oc=5",
+        "donnees personnelles la cnil inflige une amende de cinq millions deuros a la macif ouestfrance|news.google.com/rss/articles/CBMiigJBVV95cUxPMTFnQWtQRzlZa1dYbGtQdU43QUJrNWdiSi1UZTU0Z3FzenAzbTA0d1RiVVNDTHRpbjFKMUUway03Xy1kcW5LN1A0UWoxcGdiLUVyaWNKakhWRHl0dUgyMmtYQnJmSnIyMUNnOWJrMUFnVUEza3puaWRhM1F5U3VTRUxmek56X1M2cjExeEdxMzJWeHUzbWM3RVZZTGEzRUJIdWtVeldIc2FoaUZjUTlwMkgwUzVSOE5OdmVWWDRaTFhrZ1FzMFF2WjZyYlVyajE0Vk9SSFRYblQ5ZFVMWlJjSTUxYmtON2NpNzdYRnJlU0xxRm1rbzNSYVRaV3ZSemk3RDFydlE3ZUJQQQ?oc=5"
+      ],
+      "erreur": null
+    },
+    "gn-fuite-metropoles": {
+      "id": "gn-fuite-metropoles",
+      "url": "https://news.google.com/rss/search?q=%22fuite+de+donn%C3%A9es%22+(Bordeaux+OR+Limoges+OR+Poitiers+OR+%22La+Rochelle%22+OR+Pau)+when:7d&hl=fr&gl=FR&ceid=FR:fr",
+      "url_finale": "https://news.google.com/rss/search?q=%22fuite+de+donn%C3%A9es%22+(Bordeaux+OR+Limoges+OR+Poitiers+OR+%22La+Rochelle%22+OR+Pau)+when:7d&hl=fr&gl=FR&ceid=FR:fr",
+      "http": 200,
+      "octets": 15763,
+      "items": [
+        "la deutsche bank dans la tourmente apres une fuite de donnees 20 minutes|news.google.com/rss/articles/CBMi4wFBVV95cUxQOVRINVZ0d1dFWm14dm1CZzItQ3ZyajR2VXRzV2w3VUFyZGc1aXZJeE92cXh6RmNmNDZUUVNmcGxZYzBrSkFhTXRXM20tSHI5MS1ENGRhZWRqaXdjNERPLVVjaEM2bUlDdW92OERlTWdCTGZEUnUxOG1od25ZN2ZXbVJDWlp2eEJVNUhrV1pyZHZjVzRMZG5ocE85WE1yZ3FCY0djbmQwMmgyTW9kdWFfX1NQMWtobkJ4ZVVROWxWWFo5ak14blpvMld6R19xNS1lbFBiQlNIbVIyTHFDbTl6VXV0MA?oc=5",
+        "22 millions de personnes concernees par une fuite massive de donnees dune filiale de la poste la tribune|news.google.com/rss/articles/CBMi7AFBVV95cUxOZm95ZFJteDRoanJOaE9ReG9kYWZKb2ZQdnZfUGxybHJDSk5GNjZLYWw4cW9UQV9DYlJiWU1ycU9fMW5SbnI4UkQwMWRBWUtHY0ZkaU5wbFJ5RzNlVmpwWUVyQkxfR0ZuZFdtZDdtd2VqZ2tGdGZQY1ltUGZYdHA3WDJGMmhqMHRyUndHNXNjRU9QcDNqenczeV82Y3lCOFUwaGdfU1BnWVNwZm9ydUJ5WlltazRXVEIyc0FvN2taaGZJSGJxLTFublFLZWsycG1xdkgzV3JaQ19IQURzX3g2YWtKQ3V1ZXBQV01pQg?oc=5",
+        "cyberattaque massive contre une filiale de la poste ce que lon sait du vol des donnees de 22 millions de personnes tf1 info|news.google.com/rss/articles/CBMijAJBVV95cUxNOGZ0ZFdlbHpodFV4bjNJSklJUE5zMHFhc2JmU1dwanM4M2tSS0g3bmtCWXVQV2R4SDR0VmhRYVNDSkNnT3lYQ2ttdDBsSl96TEZXS3ZjYWhBeHJyQWZEOHRLb3NqYnQ3REF0dXlwNFgwdDNzTWRGelNiZnVlRWc2V0FNeFh1OElORGxncmozSkktM3VkS3BtclBEQmlFTnhsWGVNRXVvUjdmdV8ySGRlRFlXcUNRZW0zUWlkaTNxXzk3enhBSEY1WmxHbEk2dkRkZDZ0bmU3bjJEOVR1eU04a0hCRG1uVUoyM0NSdXQ2aEpmYThDSHdETGtnUTU4MDdCTHREQWk1d0lNaTRG?oc=5",
+        "fuite de donnees chez trezor bitcoinfr|news.google.com/rss/articles/CBMiXEFVX3lxTFBqYzExQVBaLXJyMjdpc29rSDZEaHBneEpPVGt4aldZaWJLTDdiSWdpWEVzVWNaYWtVX2hsUllfNlM4bzhWeXE0NFFKa2k0azdxOXZZdUJBdVlRRGVx?oc=5",
+        "cyberattaque chez maileva filiale de la poste ce que lon sait du vol des donnees personnelles de 22 millions de personnes le figaro|news.google.com/rss/articles/CBMikAJBVV95cUxNcFJOUFl4Y3l3X1ZjQjl3SnBHT2RZVHpCSnV1Zk5CTDVRRXZTOVNGWldsclVEN1NtclZabjBqLXc2MnZSVm9zMy0xcC1ad1NqdXRhQml3UHJYckQ0X2hoSHF0TExBcE9kU0M4N0hvam1WQ1ZHMFplcFQybDFBMkdwdWdGY3Z3YzRUcjlhYXBDMkJvYXIzaEtwbGRKRHZFVjdMTS1FNlB6NFBENkY4WWpCVVl2VGc5YlZJaFBuRGJuS1YxeEJYcXhkTmhxaTJiRDFaWndPYVd0S0Fha1BVUVVqQ1VxYUdYd0RGbFVfbXZmYWtSYnFsRnMxTWk1Nk1BdE45ZTdDeTA0T1N0OEFmYUxpVw?oc=5"
+      ],
+      "erreur": null
+    },
+    "gn-mairie-cyber": {
+      "id": "gn-mairie-cyber",
+      "url": "https://news.google.com/rss/search?q=cyberattaque+(mairie+OR+communaut%C3%A9+de+communes)+when:7d&hl=fr&gl=FR&ceid=FR:fr",
+      "url_finale": "https://news.google.com/rss/search?q=cyberattaque+(mairie+OR+communaut%C3%A9+de+communes)+when:7d&hl=fr&gl=FR&ceid=FR:fr",
+      "http": 200,
+      "octets": 16095,
+      "items": [
+        "entre bievre et rhone des donnees de lintercommunalite piratees mesinfos|news.google.com/rss/articles/CBMivwFBVV95cUxNRVZLWkhYV3RncXdxMmRlYzYzcHpSTmppeXNNdXNOY0pjZmJxZllrRUVNLXcxSkg3cGV0MXhyZkxWVW5LekZFeG5IaEpPTjVsQndEelJlWTBucWlVN1A4Vm1YU2YtejVYRGEyckZQMzNJMUNZY2FSVTdSWHM0SWZqSHpHMTZhM3I4bUZzdEt6bU1RdjVaSG4waTl2SjJqYTZ4ejZtQXpJOGxPcGkyd0dROU1ScjhQdm5seUxwZFZJcw?oc=5",
+        "decoset les adresses email des usagers des decheteries de toulouse exposees apres une cyberattaque cyberattaqueorg|news.google.com/rss/articles/CBMixwFBVV95cUxNU3FSX3lmd0ptbTdGX0NNVVBabFdQX1RleXFkaXF3WS1jcmE4SnZva1lQVXhvR281UnVTTFhkWTRGVkctcWlNWlcycWhtMG9JQXJ0bWtVelppNXdqbEVrc0RiWURsaGw2SThGSWRXNXN3cFFYaFRqVWV6aDc2VVNlM0lSRnRxN3NfaDFqaXdiM0tRdlc2V2NBcEJ2YkZkdURhMXMzVjk1b25zeXlWOXd5RER4WTQ5Y2h5VlpvbGFIZjF6WThaZ2RJ?oc=5",
+        "isere fichiers dusagers des dechetteries courriels une intercommunalite victime dune cyberattaque le dauphine libere|news.google.com/rss/articles/CBMi5wFBVV95cUxQV1dNQzd6bHhQSzdsRWR4VjluV05QamlnSXRGZ3hhM3JDNXprSzlLazNlRjRkd2JMWEdrNktnSUxwU25IUkdUSFNmQXpUeVFVakpjM2trM05LV2NvVkY2MHdDT3NaQlJJSXdPWDNDUVFFQ2RhQjc4cmo5bVhZQ1hUWmZkRkxjZHU4YURLNkphdEFzM2RXRTh0dWNXRzRGVGY0SklNRjRiSHNJMHFHVEtqR1hlYVMzdG9TQVZjeUhTSV90QUhpTzhSMTJDRTIzTm1RZV9mWEdyRmdIbHVfVl9XdTZ5T2d2aGc?oc=5",
+        "pyreneesatlantiques face a une hausse de 374 des infractions numeriques elus et industriels sarment contre la cybercriminalite sud ouest|news.google.com/rss/articles/CBMixgJBVV95cUxPZ3UzZ21RcHZuOVVtZmd5eW05cFdKbm5tVWkwNFpiaG9WNUQzQkVoc2U3Q2ZlNE1RQm1pQTNqQkNzX04wY3hfSzJmQ0UwUWM0VU5iTjd1ZHE2cUVpWHJ0TDNaM2NNbmN0NEhkcHhPX2pPVF9nMlZ5d1I5VFVfV21vY2tTdTh6bFVsUVR1T1lvbDg0YnFNeUk0Y0lGQW5CdUdmc3VEdWpYU2x4UmtEblp5NExPZk9Dd25iMjdQRTlRUFd6TkN0LXhYU2lZbm1FQzk5TjJjUTM1QUc1Y1RVd0EwdGNFYWxrbENLQTZSVUYtRWtKVVZHTEVzM0lUMlJUWUVJZzdORVFCTTJ3cmM4TnRPYzNNdFZrd0hKX19tUFlmUVgyLVlMS1Jma0JId3VSdlNBd1lsV0lTR2tNSW9RR2E5enEwZlk1UQ?oc=5",
+        "les adresses email des usagers des decheteries de toulouse menacees apres une cyberattaque frenchbreaches|news.google.com/rss/articles/CBMisgFBVV95cUxPUGl3T2VQNG9KaDNWTWdyTGRfLXFsZjRfM0s1V0Zrbk9GUURib2IxX3p6SlhocWc0VmQwcWJVMlA3amlWd054U2ZVYnNzRmpWNFFod1hpaDVpMW14cldtc2VaOTNiUkZRRTd5YUVMWmhudnFHaV9jTU9NUFd2azZ3ZDhwbmpxdTdSNHhGLUtJUXVDell0VU9aUWtFRlpETVJpeUFSUjNoZjNVQm9jamQyaTVB?oc=5"
+      ],
+      "erreur": null
+    },
+    "gn-ransom-aquitaine": {
+      "id": "gn-ransom-aquitaine",
+      "url": "https://news.google.com/rss/search?q=rancongiciel+(Gironde+OR+Dordogne+OR+Landes+OR+Pyr%C3%A9n%C3%A9es-Atlantiques)+when:7d&hl=fr&gl=FR&ceid=FR:fr",
+      "url_finale": "https://news.google.com/rss/search?q=rancongiciel+(Gironde+OR+Dordogne+OR+Landes+OR+Pyr%C3%A9n%C3%A9es-Atlantiques)+when:7d&hl=fr&gl=FR&ceid=FR:fr",
+      "http": 200,
+      "octets": 1277,
+      "items": [],
+      "erreur": null
+    },
+    "hermes_radar_cyber": {
+      "id": "hermes_radar_cyber",
+      "url": "box hermes / profil radar-cyber",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "ValueError: unknown url type: 'box%20hermes%20/%20profil%20radar-cyber'"
+    },
+    "inria-bordeaux": {
+      "id": "inria-bordeaux",
+      "url": "https://www.inria.fr/rss",
+      "url_finale": "https://www.inria.fr/rss",
+      "http": 200,
+      "octets": 4766,
+      "items": [
+        "making sure youre not a bot making sure youre not a bot loading you are seeing this because the administrator of this website has set up anubis to protect the server against the scourge of ai companies aggressively scraping websites this can and does cause downtime for the websites which makes their|"
+      ],
+      "erreur": null
+    },
+    "leak:databreaches:feed": {
+      "id": "leak:databreaches:feed",
+      "url": "https://www.databreaches.net/feed/",
+      "url_finale": "https://databreaches.net/feed/",
+      "http": 200,
+      "octets": 14839,
+      "items": [
+        "php security updates fix 18 flaws including critical rce bugs|databreaches.net/2026/11/21/php-security-updates-fix-18-flaws-including-critical-rce-bugs",
+        "fbi hacked again criminal information database targeted|databreaches.net/2026/11/21/fbi-hacked-again-criminal-information-database-targeted",
+        "officials probe attempted cyberattack on algonquin dam|databreaches.net/2026/11/21/officials-probe-attempted-cyberattack-on-algonquin-dam",
+        "india 14yearold hacker held for trying to sell private data of 4000 agniveers on dark web|databreaches.net/2026/11/21/india-14-year-old-hacker-held-for-trying-to-sell-private-data-of-4000-agniveers-on-dark-web",
+        "sg ymcas youth for causes portal associated database hit by cybersecurity breach|databreaches.net/2026/11/21/sg-ymcas-youth-for-causes-portal-associated-database-hit-by-cybersecurity-breach"
+      ],
+      "erreur": null
+    },
+    "leak:hibp:breaches-index": {
+      "id": "leak:hibp:breaches-index",
+      "url": "https://haveibeenpwned.com/api/v3/breaches",
+      "url_finale": "https://haveibeenpwned.com/api/v3/breaches",
+      "http": 200,
+      "octets": 1048576,
+      "items": [
+        "000webhost suffered a major data breach|haveibeenpwned.com/api/v3/\\\"http:/www.troyhunt.com/2015/10/breaches-traders-plain-text-passwords.html\\\"",
+        "123rf suffered a data breach|haveibeenpwned.com/api/v3/\\\"https:/www.bleepingcomputer.com/news/security/popular-stock-photo-service-hit-by-data-breach-83m-records-for-sale/\\\"",
+        "read more about chinese data breaches in have i been pwned|haveibeenpwned.com/api/v3/\\\"https:/www.troyhunt.com/handling-chinese-data-breaches-in-have-i-been-pwned/\\\"",
+        "appeared listed for sale on a tor hidden service marketplace|haveibeenpwned.com/api/v3/\\\"http:/motherboard.vice.com/read/another-day-another-hack-millions-of-user-accounts-for-streaming-app-17\\\"",
+        "a series of data breaches in china affected up to 100 million users|haveibeenpwned.com/api/v3/\\\"https:/news.softpedia.com/news/China-Investigates-Hacking-Operations-That-Exposed-100-Million-Users-244312.shtml\\\""
+      ],
+      "erreur": null
+    },
+    "leak:hibp:latest-breaches": {
+      "id": "leak:hibp:latest-breaches",
+      "url": "https://feeds.feedburner.com/HaveIBeenPwnedLatestBreaches",
+      "url_finale": "https://feeds.feedburner.com/HaveIBeenPwnedLatestBreaches",
+      "http": 200,
+      "octets": 20285,
+      "items": [
+        "too lost 724323 breached accounts|toolost",
+        "careers360 3609421 breached accounts|careers360",
+        "castlerat 179745 breached accounts|castlerat",
+        "youhack 7160849 breached accounts|youhack",
+        "сберспасибо sberspasibo 3288711 breached accounts|sberspasibo"
+      ],
+      "erreur": null
+    },
+    "leak:hipaajournal:feed": {
+      "id": "leak:hipaajournal:feed",
+      "url": "https://www.hipaajournal.com/feed/",
+      "url_finale": "https://www.hipaajournal.com/feed/",
+      "http": 200,
+      "octets": 194161,
+      "items": [
+        "healthcare sector disclosed 100 ransomware attacks in q3|hipaajournal.com/q3-2026-ransomware-report-healthcare",
+        "access dental management breach affects over 341000 individuals|hipaajournal.com/access-dental-valley-family-health-care-ochsner-health-data-breach",
+        "vulnerabilities offis dcmtk toolkit can result in data deletion|hipaajournal.com/office-dcmtk-toolkit-vulnerabilities-nov-2026",
+        "yuma regional medical center pays 1985000 to settle data breach lawsuit|hipaajournal.com/yuma-regional-medical-center-data-breach-settlement",
+        "ocr says most practices fail the security risk analysis heres how to make yours easy|hipaajournal.com/hipaa-security-risk-analysis-made-easy-for-small-practices"
+      ],
+      "erreur": null
+    },
+    "leak:ransomlook:recent-api": {
+      "id": "leak:ransomlook:recent-api",
+      "url": "https://ransomlook.io/api/recent",
+      "url_finale": "https://www.ransomlook.io/api/recent",
+      "http": 200,
+      "octets": 90082,
+      "items": [
+        "|/site/blog?uuid=ff31f83b-985f-4d90-9b8b-8a6850f59630",
+        "|/blog/post/tiiccomph/",
+        "|/blog/post/threeroyalcom/",
+        "|/blog/post/factotalcom/",
+        "|/blog/post/offshore-ocscom/"
+      ],
+      "erreur": null
+    },
+    "leak:ransomware-live:recent-rss": {
+      "id": "leak:ransomware-live:recent-rss",
+      "url": "https://www.ransomware.live/rss.xml",
+      "url_finale": "https://www.ransomware.live/rss.xml",
+      "http": 200,
+      "octets": 198489,
+      "items": [
+        "qilin has just published a new victim ion asset architecture uk ltd|ransomware.live/id/SU9OIEFzc2V0IEFyY2hpdGVjdHVyZSBVSyBMVERAcWlsaW4",
+        "thegentlemen has just published a new victim casino|ransomware.live/id/KioqKioqKioqIENhc2lub0B0aGVnZW50bGVtZW4",
+        "thegentlemen has just published a new victim panlink|ransomware.live/id/UGFuTGlua0B0aGVnZW50bGVtZW4",
+        "thegentlemen has just published a new victim fort smith ems|ransomware.live/id/Rm9ydCBTbWl0aCBFTVNAdGhlZ2VudGxlbWVu",
+        "thegentlemen has just published a new victim marketech international|ransomware.live/id/TWFya2V0ZWNoIEludGVybmF0aW9uYWxAdGhlZ2VudGxlbWVu"
+      ],
+      "erreur": null
+    },
+    "leak:ransomwatch:posts": {
+      "id": "leak:ransomwatch:posts",
+      "url": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+      "url_finale": "https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json",
+      "http": 200,
+      "octets": 1048576,
+      "items": [
+        "posttitle windemuller groupname lorenz discovered 20200112 000000000000 posttitle leaks company birch communications inc groupname ragnarlocker discovered 20200610 000000000000 posttitle brunner announce hello world groupname ragnarlocker discovered 20200611 000000000000 posttitle leakage from compa|"
+      ],
+      "erreur": null
+    },
+    "nvd_cve": {
+      "id": "nvd_cve",
+      "url": "https://services.nvd.nist.gov/rest/json/cves/2.0",
+      "url_finale": "https://services.nvd.nist.gov/rest/json/cves/2.0",
+      "http": 200,
+      "octets": 1048576,
+      "items": [
+        "resultsperpage2000startindex0totalresults430357formatnvdcveversion20timestamp20261121t214952343vulnerabilitiescveidcve19990095sourceidentifiercvemitreorgpublished19881001t040000000lastmodified20260616t214734460vulnstatusmodifiedcvetagsdescriptionslangenvaluethe debug command in sendmail is enabled a|"
+      ],
+      "erreur": null
+    },
+    "onion:ccw:anubis": {
+      "id": "onion:ccw:anubis",
+      "url": "http://6g3aoky5hft4mvzcqt2bugo4r465woaorjhd7em2k2v24sr2exaro5id.onion/",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:aoqin": {
+      "id": "onion:ccw:aoqin",
+      "url": "http://aoqinwwrizxbrwm3qb6l4jzgujgmcetp4jaug7fqylbf3xcwqwzvbuid.onion",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:aoqin-leaks": {
+      "id": "onion:ccw:aoqin-leaks",
+      "url": "http://aoqinwwrizxbrwm3qb6l4jzgujgmcetp4jaug7fqylbf3xcwqwzvbuid.onion/",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:apt73": {
+      "id": "onion:ccw:apt73",
+      "url": "http://basherq53eniermxovo3bkduw5qqq5bkqcml3qictfmamgvmzovykyqd.onion",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:arcusmedia": {
+      "id": "onion:ccw:arcusmedia",
+      "url": "http://arcuufpr5xxbbkin4mlidt7itmr6znlppk63jbtkeguuhszmc5g7qdyd.onion",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:atomsilo": {
+      "id": "onion:ccw:atomsilo",
+      "url": "http://npmh5ahrgakbniuntyc7io4adm6ietbdbuejrfonowqtyqn24or556qd.onion",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:auditteam": {
+      "id": "onion:ccw:auditteam",
+      "url": "http://6tdqqaxftvradka5d2frzgwixis7fmro7rfh4ettzcx7jfapkebe6jad.onion",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:aurora": {
+      "id": "onion:ccw:aurora",
+      "url": "http://u6lieui2dakbctcjea2bz4r4q32r7t36nwljovqbv7mxs6o2smgxixid.onion",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:barracuda": {
+      "id": "onion:ccw:barracuda",
+      "url": "http://qr6uopkqxmq254osyct3oibil32xp3qsimkkbqdscsrsb4zqbagnifad.onion",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:bavacai": {
+      "id": "onion:ccw:bavacai",
+      "url": "http://t33zoj4qwv455fog7qnb2azi5xcdxkixughmmduzbw2rtdgryqfbh6id.onion",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:blacknevas": {
+      "id": "onion:ccw:blacknevas",
+      "url": "http://ctyfftrjgtwdjzlgqh4avbd35sqrs6tde4oyam2ufbjch6oqpqtkdtid.onion",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:blackout": {
+      "id": "onion:ccw:blackout",
+      "url": "http://rqqn25k3hgmfkh7ykjbmakjgidwweomr7cbpy6pfecpxs57r5iwzwtyd.onion",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:booba-project": {
+      "id": "onion:ccw:booba-project",
+      "url": "http://7t3zi3e7ki6iseun77ofqtr6wmbpgnpc2ada6gstcxp54lw6q2zb7jad.onion",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:byod": {
+      "id": "onion:ccw:byod",
+      "url": "http://byodxn5s7sua6oyyjj74rycgn6afncfckprt5ezskt3cni6lg3wdrgad.onion/",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:ciphbit": {
+      "id": "onion:ccw:ciphbit",
+      "url": "http://kryzon3qa22ib23qwka2wcr2yfxhtrfxgurup7bzbtxmnvilu7iagfqd.onion",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:climax": {
+      "id": "onion:ccw:climax",
+      "url": "http://climaxf4srk4qzr5g7smfodx6q5ocpiwmls5qujfl7g3j33us4cksdad.onion/page/2/",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:dark-project": {
+      "id": "onion:ccw:dark-project",
+      "url": "http://3i5px2hibsyityv6jixnqba35yz25jekbwwumjdxjqzt3euqsygjx5id.onion/",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:destello": {
+      "id": "onion:ccw:destello",
+      "url": "http://destell6tk2la7w4d7d4apfzsywbt2lsdpui7i2rsfyrike7pxolrbyd.onion/",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:direwolf": {
+      "id": "onion:ccw:direwolf",
+      "url": "http://direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:doommageddon": {
+      "id": "onion:ccw:doommageddon",
+      "url": "http://iacjvmxjb2ivqkxxzmde4w6g53gn6ym7c3g6mfifvejyhqtp4wrkypyd.onion",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:eclipse": {
+      "id": "onion:ccw:eclipse",
+      "url": "http://yecdjimqiaekprxza6wkqecma4bwt757qiyfjngsaxg7rkjv4xukpwad.onion/",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:endzone": {
+      "id": "onion:ccw:endzone",
+      "url": "http://endzonezgz3sqzmtqg4acp4z7ao7xc6vunfhezjsnfqrm2ksudsredyd.onion",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:ethics": {
+      "id": "onion:ccw:ethics",
+      "url": "http://ethics67vxjomvlcugjovv4fc3g6ru5tpwotg533d4j3uf2btmnndead.onion",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:everest": {
+      "id": "onion:ccw:everest",
+      "url": "http://everestndkvzcibcje2cqxhre2hmmybl3rn2gwzwsblz7gx6uryn5rad.onion",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:everstake": {
+      "id": "onion:ccw:everstake",
+      "url": "http://everstakewfma6sxdpshoq4ebtnqamsxnajrtzu2cflai77kfup5kzyd.onion/",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:exitium": {
+      "id": "onion:ccw:exitium",
+      "url": "http://m3ksukzn2glzfdvlusohril7n3iyk4z4fudf6mm22lwhpbpt5aiee5qd.onion",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:gammax": {
+      "id": "onion:ccw:gammax",
+      "url": "http://gammax6w3dkfdjfrjthtmqzsioue52vzy6lz54qy6jcvmogfpubutjyd.onion",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:genesis": {
+      "id": "onion:ccw:genesis",
+      "url": "http://genesis6ixpb5mcy4kudybtw5op2wqlrkocfogbnenz3c647ibqixiad.onion",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:global-secret-group": {
+      "id": "onion:ccw:global-secret-group",
+      "url": "http://b5gozwifyvy5bhys3bsiq5tedhpot345udggjyb54fsjd2m7nteftkad.onion/",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:ccw:helix": {
+      "id": "onion:ccw:helix",
+      "url": "http://helixr2sncrd3ndsz5oho6mzqw3x5u7mvox5zcsngc5wm7v4l5k7oryd.onion/leaks/",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:rl:3am": {
+      "id": "onion:rl:3am",
+      "url": "http://threeamkelxicjsaf2czjyz2lc4q3ngqkxhhlexyfcp2o6raw4rphyad.onion",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:rl:abyss-data": {
+      "id": "onion:rl:abyss-data",
+      "url": "http://3ev4metjirohtdpshsqlkrqcmxq6zu3d7obrdhglpy5jpbr7whmlfgqd.onion",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:rl:byod": {
+      "id": "onion:rl:byod",
+      "url": "http://byodxn5s7sua6oyyjj74rycgn6afncfckprt5ezskt3cni6lg3wdrgad.onion/",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:rl:eraleign-apt73": {
+      "id": "onion:rl:eraleign-apt73",
+      "url": "http://basheqtvzqwz4vp6ks5lm2ocq7i6tozqgf6vjcasj4ezmsy4bkpshhyd.onion/",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:rl:fulcrumsec": {
+      "id": "onion:rl:fulcrumsec",
+      "url": "http://4e3p3in2bl67hxchuwza7qvnpe7pyeloyztr5fnh257fxkovfhappjyd.onion/",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:rl:gammax": {
+      "id": "onion:rl:gammax",
+      "url": "http://gammax6w3dkfdjfrjthtmqzsioue52vzy6lz54qy6jcvmogfpubutjyd.onion/",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:rl:genesis": {
+      "id": "onion:rl:genesis",
+      "url": "http://genesis6ixpb5mcy4kudybtw5op2wqlrkocfogbnenz3c647ibqixiad.onion/",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:rl:global-secret-group": {
+      "id": "onion:rl:global-secret-group",
+      "url": "http://o5lsqyar7ox25z734k6zaxt2vf7bsyi4q5rturi5iyxzqo3ica7bjsad.onion/",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:rl:kazu": {
+      "id": "onion:rl:kazu",
+      "url": "http://6czlbd2jfiy6765fbnbnzuwuqocg57ebvp3tbm35kib425k4qnmiiiqd.onion/",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:rl:netrunner": {
+      "id": "onion:rl:netrunner",
+      "url": "http://netrunrs65cn2yidokrmxn5rrur2gjpuyuwrt6mkfy6lek4jnqojn4qd.onion/",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:rl:orova": {
+      "id": "onion:rl:orova",
+      "url": "http://maa2yprc5pldyr5hjn246hw7i66wdhglnostqgqkcbuh4vyyeos4xxyd.onion/",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:rl:ransomhouse": {
+      "id": "onion:rl:ransomhouse",
+      "url": "http://da763kyxwe3mf67gui5tb5igvpnt4w6cps5svrw2wkizyrzqgamdxtid.onion/",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "onion:rl:sarcoma": {
+      "id": "onion:rl:sarcoma",
+      "url": "http://zp6bziy6wljpkg6i3uxzzcxyajodxzoc7acf5egb2vhzzrot23y3mpyd.onion/",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "URLError: <urlopen error [Errno -2] Name or service not known>"
+    },
+    "openphish": {
+      "id": "openphish",
+      "url": "https://openphish.com/feed.txt",
+      "url_finale": "https://raw.githubusercontent.com/openphish/public_feed/refs/heads/main/feed.txt",
+      "http": 200,
+      "octets": 13629,
+      "items": [
+        "httpfaqtrezrgitpagesdev httpsglobaltoporg httpsrobloxappscomrolks httpswvvwrobloxcomusers781611239profile httpstonicopoderosomagalvercelapp httpsptshope299blogspotcom httpsshopee666blogspotcom httpspemenangshopee121blogspotcom httpqnomoscomcgibinive24meet httpspemenangshopee35blogspotcomm1 httpstoni|"
+      ],
+      "erreur": null
+    },
+    "osint-abusech": {
+      "id": "osint-abusech",
+      "url": "https://www.abuse.ch/",
+      "url_finale": "https://abuse.ch/",
+      "http": 200,
+      "octets": 30114,
+      "items": [
+        "go to the community hub|community.abuse.ch/",
+        "our platforms|abuse.ch/",
+        "abusechiocexchange|ioc.exchange/@abuse_ch",
+        "abusechbskysocial|bsky.app/profile/abuse-ch.bsky.social",
+        "community hub|community.abuse.ch/"
+      ],
+      "erreur": null
+    },
+    "osint-hibp": {
+      "id": "osint-hibp",
+      "url": "https://haveibeenpwned.com/",
+      "url_finale": "https://haveibeenpwned.com/",
+      "http": 200,
+      "octets": 27655,
+      "items": [
+        "whos been pwned|haveibeenpwned.com/PwnedWebsites",
+        "who what why|haveibeenpwned.com/About",
+        "terms of use|haveibeenpwned.com/TermsOfUse",
+        "privacy policy|haveibeenpwned.com/Privacy",
+        "start with 1password today|1password.com/haveibeenpwned"
+      ],
+      "erreur": null
+    },
+    "osint-otx": {
+      "id": "osint-otx",
+      "url": "https://otx.alienvault.com/",
+      "url_finale": "https://otx.alienvault.com/",
+      "http": 200,
+      "octets": 8492,
+      "items": [
+        "levelblue open threat exchange loading|"
+      ],
+      "erreur": null
+    },
+    "osint-shodan": {
+      "id": "osint-shodan",
+      "url": "https://www.shodan.io/",
+      "url_finale": "https://www.shodan.io/",
+      "http": 200,
+      "octets": 12884,
+      "items": [
+        "chrome extension|chrome.google.com/webstore/detail/shodan/jjalcfnidlmpjhdfepjhjbhnhkbgleap",
+        "firefox addon|addons.mozilla.org/en-US/firefox/addon/shodan-addon",
+        "email support|mailto:support@shodan.io",
+        "search engine|shodan.io/",
+        "developer api|developer.shodan.io/"
+      ],
+      "erreur": null
+    },
+    "osint-threatfox": {
+      "id": "osint-threatfox",
+      "url": "https://threatfox.abuse.ch/",
+      "url_finale": "https://threatfox.abuse.ch/",
+      "http": 200,
+      "octets": 14678,
+      "items": [
+        "go to the community hub|community.abuse.ch/",
+        "ioc requests|threatfox.abuse.ch/",
+        "request iocs|threatfox.abuse.ch/request",
+        "active ioc requests|threatfox.abuse.ch/requests",
+        "community hub|community.abuse.ch/?platform=threatfox"
+      ],
+      "erreur": null
+    },
+    "osint-urlhaus": {
+      "id": "osint-urlhaus",
+      "url": "https://urlhaus.abuse.ch/",
+      "url_finale": "https://urlhaus.abuse.ch/",
+      "http": 200,
+      "octets": 14003,
+      "items": [
+        "go to the community hub|community.abuse.ch/",
+        "hunting alerts|urlhaus.abuse.ch/hunting",
+        "community hub|community.abuse.ch/?platform=urlhaus",
+        "urlhaus database|urlhaus.abuse.ch/browse",
+        "access database|urlhaus.abuse.ch/browse"
+      ],
+      "erreur": null
+    },
+    "osint-virustotal": {
+      "id": "osint-virustotal",
+      "url": "https://www.virustotal.com/",
+      "url_finale": "https://www.virustotal.com:443/gui/",
+      "http": 200,
+      "octets": 7106,
+      "items": [
+        "virustotal please enable javascript to view this website|"
+      ],
+      "erreur": null
+    },
+    "paste:github:gists-public-feed": {
+      "id": "paste:github:gists-public-feed",
+      "url": "https://api.github.com/gists/public?per_page=30",
+      "url_finale": "https://api.github.com/gists/public?per_page=30",
+      "http": 200,
+      "octets": 70538,
+      "items": [
+        "|api.github.com/gists/44614e8e54007ec50dabf51f41ba52b2",
+        "|api.github.com/gists/183a9286d87f6aac95f5ec773ca3246c",
+        "|api.github.com/gists/c13451ef8e0e4fb76342043979cedc4a",
+        "|api.github.com/gists/72a80d46ea05465e15d54d4b3fa0090f",
+        "|api.github.com/gists/41688f51cf2ee119932bea03235bb940"
+      ],
+      "erreur": null
+    },
+    "poc_github": {
+      "id": "poc_github",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub",
+      "url_finale": "https://github.com/nomi-sec/PoC-in-GitHub",
+      "http": 200,
+      "octets": 246888,
+      "items": [
+        "skip to content|github.com/nomi-sec/PoC-in-GitHub",
+        "github repository hosting code review and collaboration|github.com/platform",
+        "copilot ai coding agent for tasks projects and automated work|github.com/features/copilot",
+        "actions cicd and automation|github.com/features/actions",
+        "code quality quality analysis fixes and enforcement|github.com/features/code-quality"
+      ],
+      "erreur": null
+    },
+    "pref19-actualites-rss": {
+      "id": "pref19-actualites-rss",
+      "url": "https://www.correze.gouv.fr/syndication/flux/rss_feed_62",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    "pref23-actualites": {
+      "id": "pref23-actualites",
+      "url": "https://www.creuse.gouv.fr/Actualites",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    "pref40-communiques-2026": {
+      "id": "pref40-communiques-2026",
+      "url": "https://www.landes.gouv.fr/Actualites/Salle-de-presse/Communiques-de-presse/2026",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    "pref47-dernieres-infos": {
+      "id": "pref47-dernieres-infos",
+      "url": "https://www.lot-et-garonne.gouv.fr/Actualites/Dernieres-informations",
+      "url_finale": null,
+      "http": null,
+      "octets": 0,
+      "items": [],
+      "erreur": "RemoteDisconnected: Remote end closed connection without response"
+    },
+    "presse-01net": {
+      "id": "presse-01net",
+      "url": "https://www.01net.com/rss",
+      "url_finale": "https://www.01net.com/feed/",
+      "http": 200,
+      "octets": 42391,
+      "items": [
+        "black friday amazon attaque plus fort ce weekend voici 10 pepites inedites|01net.com/bons-plans/black-friday-amazon-attaque-plus-fort-ce-week-end-voici-10-pepites-inedites.html",
+        "gp de las vegas 2026 comment regarder la course de f1 en direct et gratuitement|01net.com/bons-plans/gp-de-las-vegas-2026-comment-regarder-la-course-de-f1-en-direct-et-gratuitement.html",
+        "oubliez samsung apple et xiaomi ce smartphone motorola vient de faire tomber deux records dans notre labo|01net.com/actualites/oubliez-samsung-apple-et-xiaomi-ce-smartphone-motorola-vient-de-faire-tomber-deux-records-dans-notre-labo.html",
+        "forerunner 55 garmin ne la pas vu venir amazon brade sa montre a prix riquiqui|01net.com/bons-plans/forerunner-55-garmin-ne-la-pas-vu-venir-amazon-brade-sa-montre-a-prix-riquiqui.html",
+        "pour moins de 60 ce ruban led transforme votre tv en modele ambilight|01net.com/bons-plans/pour-moins-de-60-e-ce-ruban-led-transforme-votre-tv-en-modele-ambilight.html"
+      ],
+      "erreur": null
+    },
+    "presse-aquitaineonline-landes": {
+      "id": "presse-aquitaineonline-landes",
+      "url": "https://www.aquitaineonline.com/actualites-en-aquitaine/landes/feed/rss/",
+      "url_finale": "https://www.aquitaineonline.com/actualites-en-aquitaine/landes/feed/rss/",
+      "http": 200,
+      "octets": 11492,
+      "items": [
+        "un cargo de 169 metres echoue dans les landes cest deja le 2eme navire maltais a sechouer sur les cotes francaises en seulement 15 ans et le 8eme cargo en 40 ans|aquitaineonline.com/actualites-en-aquitaine/landes/13741-echouage-cargo-miro-g-plage-landes.html",
+        "dans les landes deux reservoirs de 500 m3 et 28 km de canalisations pour raccorder trois communes a leau de montdemarsan|aquitaineonline.com/actualites-en-aquitaine/landes/13699-interconnexion-eau-mont-marsan.html",
+        "brassempouy le berceau landais de la dame a la capuche organise sa derniere visite le 15 novembre 2026 des grottes du pape avec une conference sur ladn|aquitaineonline.com/actualites-en-aquitaine/landes/13712-brassempouy-paleogenetique-grottes-pape-adn-gurgy.html",
+        "savoirfaire francais renforce dans les landes avec 40 millions deuros investis dans la haute technologie|aquitaineonline.com/actualites-en-aquitaine/landes/13676-safran-tarnos-fusion-pieces-moteurs-helicopteres.html",
+        "seuls 2 francais lont fait avant lui ce landais construit une voiture en bois qui roule reellement et rejoint le club tres ferme avec une renault oubliee|aquitaineonline.com/actualites-en-aquitaine/landes/13661-voiture-r6-en-bois-landes.html"
+      ],
+      "erreur": null
+    },
+    "presse-charentelibre": {
+      "id": "presse-charentelibre",
+      "url": "https://www.charentelibre.fr/rss.xml",
+      "url_finale": "https://www.charentelibre.fr/rss.xml",
+      "http": 200,
+      "octets": 27781,
+      "items": [
+        "plus de deux cents jeunes manifestent dans le centre ville dangouleme|charentelibre.fr/societe/manifestation/plus-de-deux-cents-jeunes-manifestent-dans-le-centre-ville-d-angouleme-31606368.php",
+        "salon des seniors retrouvez lintegralite des conferences pour tout savoir sur la retraite|charentelibre.fr/charente/salon-des-seniors-de-courtes-videos-pour-trouver-tout-ce-que-vous-voulez-savoir-sur-la-retraite-31604270.php",
+        "syndicats jeunesse et gilets jaunes dans la rue pour le sixieme samedi consecutif|charentelibre.fr/societe/greve-et-manifestations/syndicats-jeunesse-et-gilets-jaunes-dans-la-rue-pour-le-sixieme-samedi-consecutif-31604876.php",
+        "comment choisir son ehpad en charente le salon des seniors fait le point sur les aides disponibles|charentelibre.fr/charente/comment-choisir-son-ehpad-en-charente-le-salon-des-seniors-fait-le-point-sur-les-aides-disponibles-31604129.php",
+        "le pire cest lodeur de fientes atroce letourneau recoit un accueil glacial a rome|charentelibre.fr/societe/animaux/le-pire-c-est-l-odeur-de-fientes-atroce-l-etourneau-recoit-un-accueil-glacial-a-rome-31604384.php"
+      ],
+      "erreur": null
+    },
+    "presse-france3-correze": {
+      "id": "presse-france3-correze",
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/rss",
+      "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/rss",
+      "http": 200,
+      "octets": 73051,
+      "items": [
+        "choc politique dans cette commune de correze en desaccord avec leur maire onze elus de la majorite demissionnent|3453213 at https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze",
+        "il y aura du foie gras a noel le retour de lepidemie de grippe aviaire ne fait plus tousser les eleveurs|3452832 at https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze",
+        "la culture risque de devenir un produit de luxe la chanteuse yael naim vise plus de liberte artistique pour son nouvel album|3452844 at https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze",
+        "des gens qui avaient du cœur le chirac spirit carburant de la fondation jacqueschirac depuis 20 ans|3452646 at https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze",
+        "onze medecins cest enormement de consultations ces docteurs juniors ont rejoint des cabinets et des maisons de sante pour un an|3451935 at https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze"
+      ],
+      "erreur": null
+    },
+    "presse-france3-creuse": {
+      "id": "presse-france3-creuse",
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/rss",
+      "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/rss",
+      "http": 200,
+      "octets": 80104,
+      "items": [
+        "on y met du cœur et ca cest important portee par belmondo cette veste iconique fabriquee en creuse exposee a lelysee|3450942 at https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse",
+        "violences conjugales dans les territoires ruraux que retenir de la visite daurore berge a gueret et tulle|3452073 at https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse",
+        "cheminee poele a granules detecteurs obligatoires tout ce quil faut savoir pour eviter lincendie dans votre maison|3450588 at https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse",
+        "manifestation du 17 novembre on a la volonte de continuer les agents de la fonction publique dans la rue aux cotes des etudiants|3451041 at https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse",
+        "penurie deau dans la creuse en plein mois de novembre ces communes doivent faire venir leau potable par camionciterne|3449586 at https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse"
+      ],
+      "erreur": null
+    },
+    "presse-france3-landes": {
+      "id": "presse-france3-landes",
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes/rss",
+      "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes/rss",
+      "http": 200,
+      "octets": 79622,
+      "items": [
+        "risque de chavirage meteo degradee et remorqueur en renfort operation complexe pour sauver le cargo echoue sur une plage des landes|3453525 at https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes",
+        "intervention empechee par la houle 19 marins helitreuilles risque de chavirement ce que lon sait du cargo de 169 metres echoue dans les landes|3453030 at https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes",
+        "de fortes rafales de vent ont entraine le derapage du navire un cargo sechoue dans les landes 19 marins secourus par helicoptere|3452805 at https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes",
+        "neuf ans de chantier et 292 millions deuros investis le train reliant hendaye au pays basque espagnol inaugure trois nouvelles stations|3452223 at https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes",
+        "fortes pluies dans les landes le departement place en vigilance orange jusqua 80 millimetres attendus|3452133 at https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes"
+      ],
+      "erreur": null
+    },
+    "presse-france3-na": {
+      "id": "presse-france3-na",
+      "url": "https://france3-regions.francetvinfo.fr/nouvelle-aquitaine/rss",
+      "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/rss",
+      "http": 200,
+      "octets": 71916,
+      "items": [
+        "trois cambriolages en deux mois le club de football de mansle en charente desempare avec un budget plombe|3453729 at https://france3-regions.franceinfo.fr/nouvelle-aquitaine/",
+        "le risque est davoir des impasses therapeutiques pourquoi la resistance aux antibiotiques devient une menace croissante pour la sante|3453681 at https://france3-regions.franceinfo.fr/nouvelle-aquitaine/",
+        "risque de chavirage meteo degradee et remorqueur en renfort operation complexe pour sauver le cargo echoue sur une plage des landes|3453525 at https://france3-regions.franceinfo.fr/nouvelle-aquitaine/",
+        "megafeu en gironde un sentiment dimpuissance sur notre propre vie au porge les sinistres attendent toujours de reconstruire|3453636 at https://france3-regions.franceinfo.fr/nouvelle-aquitaine/",
+        "cambriolages en serie un homme domicilie en georgie condamne a quatre ans de prison au cours dune procedure rare|3453534 at https://france3-regions.franceinfo.fr/nouvelle-aquitaine/"
+      ],
+      "erreur": null
+    },
+    "presse-francebleu-rss": {
+      "id": "presse-francebleu-rss",
+      "url": "https://www.francebleu.fr/rss",
+      "url_finale": "https://www.ici.fr/rss",
+      "http": 200,
+      "octets": 152967,
+      "items": [
+        "passer au contenu|ici.fr/rss",
+        "passer au pied de page|ici.fr/rss",
+        "mobilisation sociale|ici.fr/theme/manifestation",
+        "prix des carburants|ici.fr/theme/prix-du-carburant",
+        "100 chanson francaise|ici.fr/radio/radio-chanson-francaise"
+      ],
+      "erreur": null
+    },
+    "presse-francetvinfo": {
+      "id": "presse-francetvinfo",
+      "url": "https://www.francetvinfo.fr/titres.rss",
+      "url_finale": "https://www.franceinfo.fr/titres.rss",
+      "http": 200,
+      "octets": 34747,
+      "items": [
+        "la mobilisation du 21 novembre a rassemble 82 500 manifestants dans lhexagone selon le ministere de linterieur 150 000 selon la cgt|franceinfo.fr/societe/manifestations/mobilisation-du-21-novembre-82-500-personnes-ont-manifeste-dans-l-hexagone-selon-le-ministere-de-l-interieur-150-000-selon-la-cgt_8294093.html",
+        "le prefet hugues moutouh soupconne davoir transmis des informations confidentielles au rn demande a etre releve de ses fonctions|franceinfo.fr/politique/front-national/le-prefet-hugues-moutouh-soupconne-d-avoir-transmis-au-rn-des-informations-confidentielles-sur-des-enquetes-visant-le-parti-demande-a-etre-releve-de-ses-fonctions_8294069.html",
+        "francois ruffin retire sa candidature a lelection presidentielle et souhaite bonne campagne aux candidats de gauche encore en lice|franceinfo.fr/elections/francois-ruffin-retire-sa-candidature-a-l-election-presidentielle-et-souhaite-bonne-campagne-aux-candidats-de-gauche-encore-en-lice_8294003.html",
+        "cargo echoue dans les landes la meteo capricieuse perturbe le remorquage du navire|franceinfo.fr/replay-jt/france-2/20-heures/cargo-echoue-dans-les-landes-la-meteo-capricieuse-perturbe-le-remorquage-du-navire_8294096.html",
+        "lexpresident bresilien jair bolsonaro en soins intensifs pour une occlusion intestinale|franceinfo.fr/monde/bresil/l-ex-president-bresilien-jair-bolsonaro-en-soins-intensifs-pour-une-occlusion-intestinale_8294123.html"
+      ],
+      "erreur": null
+    },
+    "presse-generationnt": {
+      "id": "presse-generationnt",
+      "url": "https://www.generation-nt.com/rss.xml",
+      "url_finale": "https://www.generation-nt.com/export/rss.xml",
+      "http": 200,
+      "octets": 24906,
+      "items": [
+        "apple met bien de loled dans ses ipad alors pourquoi pas dans limac|generation-nt.com/actualites/apple-imac-oled-abandon-marge-cout-fabrication-2084865",
+        "le bitcoin tombe sous les 60 000 dollars et menace dentrainer le marche|generation-nt.com/actualites/bitcoin-cryptomonnaie-chute-valeur-technologique-2084897",
+        "des canyons sousmarins anciens ont preserve les plus vieux animaux terrestres|generation-nt.com/actualites/canyons-sous-marins-anciens-animaux-2084743",
+        "lintelligence artificielle devoile les theories secretes des manuscrits du mathematicien kurt godel|generation-nt.com/actualites/kurt-godel-theoreme-manuscrit-intelligence-artificielle-claude-2084600",
+        "une seule bombe atomique en orbite pourraitelle eteindre tous nos satellites|generation-nt.com/actualites/explosion-nucleaire-espace-destruction-satellites-estimation-2084598"
+      ],
+      "erreur": null
+    },
+    "presse-ici-creuse": {
+      "id": "presse-ici-creuse",
+      "url": "https://www.ici.fr/rss/creuse/a-la-une.xml",
+      "url_finale": "https://www.ici.fr/rss/creuse/a-la-une.xml",
+      "http": 200,
+      "octets": 36211,
+      "items": [
+        "championnat des nations le xv de france contre largentine pour une place en finale|article/?id=bf087eee-6e2a-4450-80f6-34d53dec2fb5",
+        "pour que le pere noel soit bien charge on fait plaisir a petits prix gros succes pour la bourse aux jouets de gueret|article/?id=98032df3-3922-40b1-8a48-654d82227ba7",
+        "on y est alles des le surlendemain aux tripes lentreprise blanchon au chevet de lhotel de ville de limoges|diffusion/?id=81662779-267f-44ea-a9a9-82627a368c1f",
+        "video creuse ce faisan est devenu la mascotte locale sur aubusson un oiseau sinstalle en centreville|article/?id=7ea32ca4-b425-4b01-9cec-aacced98ce89",
+        "ici creuse ca marche avec nathalie gombault|diffusion/?id=b99b6bb0-4607-4ea6-b6dd-a7ac4fe19724"
+      ],
+      "erreur": null
+    },
+    "presse-ici-limousin-infos": {
+      "id": "presse-ici-limousin-infos",
+      "url": "https://www.ici.fr/rss/limousin/rubrique/infos.xml",
+      "url_finale": "https://www.ici.fr/rss/limousin/rubrique/infos.xml",
+      "http": 200,
+      "octets": 20362,
+      "items": [
+        "je ne lacherai pas a limoges les manifestants assurent que la mobilisation va continuer|article/?id=65a88877-17fe-4698-b4b1-f930192d1f8f",
+        "video 40000 euros de dons de letranger la cagnotte pour lhotel de ville de limoges proche des deux millions|diffusion/?id=f1c3d43e-7eec-48ae-8ac1-64c9d10b8ed5",
+        "basket betclic elite j9 on nest pas constants on le paye a chaque fois nouvelle defaite du limoges csp a roanne|diffusion/?id=5fb88a90-16b2-4f73-998c-ae3ac86f8f1a",
+        "pour noel la magie sinstalle a brive pour mettre du baume aux coeurs des habitants et des commercants|diffusion/?id=26146aee-a738-40a8-9c11-72e0e4359b52",
+        "incendie de lhotel de ville de limoges le maire guillaume guerin sen prend aux compagnies dassurances|article/?id=82c50e95-162a-4ccf-97b9-1f825e9de97a"
+      ],
+      "erreur": null
+    },
+    "presse-ladepeche-47": {
+      "id": "presse-ladepeche-47",
+      "url": "https://www.ladepeche.fr/communes/lot-et-garonne,47/rss.xml",
+      "url_finale": "https://www.ladepeche.fr/communes/lot-et-garonne,47/rss.xml",
+      "http": 200,
+      "octets": 34005,
+      "items": [
+        "le winamax poker tour a agen 876 joueurs des femmes redoutables et une ambiance electrique au parc des expositions|ladepeche.fr/2026/11/21/le-winamax-poker-tour-a-agen-876-joueurs-des-femmes-redoutables-et-une-ambiance-electrique-au-parc-des-expositions-13664827.php",
+        "on navait pas eu autant de succes il y a dix ans sur fond de crise economique forte affluence des le premier jour de la grande braderie du groupe seb a agen|ladepeche.fr/2026/11/21/on-navait-pas-eu-autant-de-succes-il-y-a-dix-ans-sur-fond-de-crise-economique-forte-affluence-des-le-premier-jour-de-la-grande-braderie-du-groupe-seb-13662895.php",
+        "certains nauraient pas peur de solliciter une zad un nouveau projet agrivoltaique cree la discorde dans ce petit village du lotetgaronne deux autres pourraient suivre|ladepeche.fr/2026/11/21/certains-nauraient-pas-peur-de-solliciter-une-zad-un-nouveau-projet-agrivoltaique-cree-la-discorde-dans-ce-petit-village-du-lot-et-garonne-deux-autres-13661222.php",
+        "il va changer de dimension avec de nouveaux services le commerce de ce village lotetgaronnais sagrandit|ladepeche.fr/2026/11/21/il-va-changer-de-dimension-avec-de-nouveaux-services-le-commerce-de-ce-village-lot-et-garonnais-sagrandit-13664510.php",
+        "lors de sa promenade il decouvre une arme a feu au bord de la route dans cette petite commune du lotetgaronne le vieil objet etait un pistolet dalarme|ladepeche.fr/2026/11/21/lors-de-sa-promenade-il-decouvre-une-arme-a-feu-au-bord-de-la-route-dans-cette-petite-commune-du-lot-et-garonne-le-vieil-objet-etait-un-pistolet-13663538.php"
+      ],
+      "erreur": null
+    },
+    "presse-lamontagne-correze": {
+      "id": "presse-lamontagne-correze",
+      "url": "https://www.lamontagne.fr/correze",
+      "url_finale": "https://www.lamontagne.fr/correze",
+      "http": 200,
+      "octets": 659216,
+      "items": [
+        "lire le journal|lamontagne.fr/services/journal.html",
+        "faits divers|lamontagne.fr/faits-divers",
+        "faits divers|lamontagne.fr/correze/faits-divers",
+        "rugby espoirs un travail a mitemps mal paye pour les brivistes battus a toulouse|lamontagne.fr/brive-la-gaillarde-19100/sports/rugby-espoirs-un-travail-a-mi-temps-mal-paye-pour-les-brivistes-battus-a-toulouse_15088509",
+        "le sudafricain qui ne parlait pas un mot de francais nathan claassen 20 ans sest battu pour jouer avec les espoirs de brive|lamontagne.fr/brive-la-gaillarde-19100/sports/le-sud-africain-qui-ne-parlait-pas-un-mot-de-francais-nathan-claassen-20-ans-s-est-battu-pour-jouer-avec-les-espoirs-de-brive_15087538"
+      ],
+      "erreur": null
+    },
+    "presse-lefigaro-actu": {
+      "id": "presse-lefigaro-actu",
+      "url": "https://www.lefigaro.fr/rss/figaro_actualites.xml",
+      "url_finale": "https://www.lefigaro.fr/rss/figaro_actualites.xml",
+      "http": 200,
+      "octets": 31071,
+      "items": [
+        "en direct franceargentine les bleus tiennent leur finale face aux springboks plus que quelques minutes a jouer|lefigaro.fr/sports/rugby/live/championnat-des-nations/2026/949596/france-argentine",
+        "franceargentine lhommage emouvant a federico martin aramburu avant la rencontre|lefigaro.fr/sports/rugby/xv-de-france/france-argentine-un-hommage-a-federico-martin-aramburu-avant-la-rencontre-20261121",
+        "retraites le nouveau coup du gouvernement contre les familles nombreuses|lefigaro.fr/conjoncture/retraites-le-nouveau-coup-du-gouvernement-contre-les-familles-nombreuses-20261121",
+        "jacques attali elise lucet jeanluc melenchon ce fleau des videos detournant limage de personnalites qui coute des millions deuros aux epargnants|lefigaro.fr/placement/jacques-attali-elise-lucet-jean-luc-melenchon-ce-fleau-des-videos-detournant-l-image-de-personnalites-qui-coute-des-millions-d-euros-aux-epargnants-20261121",
+        "soupcons de fuites au profit du rn le prefet hugues moutouh demande a etre releve de ses fonctions|lefigaro.fr/politique/enquete-visant-le-rn-le-prefet-moutouh-demande-a-etre-releve-de-ses-fonctions-20261121"
+      ],
+      "erreur": null
+    },
+    "presse-lemonde-tech": {
+      "id": "presse-lemonde-tech",
+      "url": "https://www.lemonde.fr/technologies/rss_full.xml",
+      "url_finale": "https://www.lemonde.fr/technologies/rss_full.xml",
+      "http": 200,
+      "octets": 28763,
+      "items": [
+        "telephonie mobile par satellite le chemin tortueux des operateurs europeens vers une constellation souveraine|lemonde.fr/economie/article/2026/11/21/telephonie-mobile-par-satellite-le-chemin-tortueux-des-operateurs-europeens-vers-une-constellation-souveraine_6813948_3234.html",
+        "bernabe malacalza geopolitologue il existe une construction narrative complotiste autour de linfluence chinoise en amerique latine|lemonde.fr/international/article/2026/11/20/bernabe-malacalza-geopolitologue-il-existe-une-construction-narrative-complotiste-autour-de-l-influence-chinoise-en-amerique-latine_6813679_3210.html",
+        "du cloud a lia les nouvelles ambitions du francais ovh|lemonde.fr/economie/article/2026/11/20/du-cloud-a-l-intelligence-artificielle-les-nouvelles-ambitions-du-francais-ovh_6813610_3234.html",
+        "en lozere au sommet dune montagne un radar traque les trajectoires suspectes de satellites|lemonde.fr/economie/article/2026/11/20/en-lozere-au-sommet-d-une-montagne-un-radar-traque-les-trajectoires-suspectes-de-satellites_6813556_3234.html",
+        "ia laction anthropic finit sa premiere journee en hausse de 17 et valorise lentreprise a 1 280 milliards de dollars|lemonde.fr/economie/article/2026/11/20/intelligence-artificielle-l-action-anthropic-finit-sa-premiere-journee-en-hausse-de-17-et-valorise-l-entreprise-a-1-280-milliards-de-dollars_6813415_3234.html"
+      ],
+      "erreur": null
+    },
+    "presse-lemonde-une": {
+      "id": "presse-lemonde-une",
+      "url": "https://www.lemonde.fr/rss/une.xml",
+      "url_finale": "https://www.lemonde.fr/rss/une.xml",
+      "http": 200,
+      "octets": 22433,
+      "items": [
+        "fuites de beauvau vers le rn dun email trouve au domicile dun ami de marine le pen aux suspicions visant le prefet hugues moutouh itineraire dune enquete sensible|lemonde.fr/societe/article/2026/11/21/fuites-de-beauvau-vers-le-rn-d-un-email-trouve-au-domicile-d-un-ami-de-marine-le-pen-aux-suspicions-visant-le-prefet-moutouh-itineraire-d-une-enquete-sensible_6814067_3224.html",
+        "nous sommes face a de nouvelles socialisations politiques les mobilisations en france en italie et en allemagne vues par les philosophes michael fœssel et martin rueff|lemonde.fr/idees/article/2026/11/21/nous-sommes-face-a-de-nouvelles-socialisations-politiques-les-mobilisations-en-france-en-italie-et-en-allemagne-vues-par-les-philosophes-michael-f-ssel-et-martin-rueff_6813919_3232.html",
+        "presidentielle 2027 francois ruffin renonce a sa candidature face au risque de larrivee de lextreme droite au pouvoir|lemonde.fr/politique/article/2026/11/21/presidentielle-2027-francois-ruffin-renonce-a-sa-candidature-face-au-risque-de-l-arrivee-de-l-extreme-droite-au-pouvoir_6814051_823448.html",
+        "en direct franceargentine emilien gailleton offre le bonus offensif aux bleus en route vers la finale du championnat des nations|lemonde.fr/sport/live/2026/11/21/en-direct-france-argentine-suivez-le-match-du-championnat-des-nations-de-rugby_6814058_3242.html",
+        "les mysteres de mercure letrange planete du systeme solaire que la mission bepicolombo devrait lever|lemonde.fr/sciences/article/2026/11/21/les-mysteres-de-mercure-l-etrange-planete-du-systeme-solaire-que-la-mission-bepicolombo-devrait-lever_6814059_1650684.html"
+      ],
+      "erreur": null
+    },
+    "presse-lmi-feedburner": {
+      "id": "presse-lmi-feedburner",
+      "url": "https://feeds.feedburner.com/LeMondeInformatique",
+      "url_finale": "https://feeds.feedburner.com/LeMondeInformatique",
+      "http": 200,
+      "octets": 32064,
+      "items": [
+        "arnaques wwwwiinrarinfo|feedproxy.google.com/~r/LeMondeInformatique/~3/TSu3uoMgPqg",
+        "messengerskinnercom adware favorit|feedproxy.google.com/~r/LeMondeInformatique/~3/qoBK0UBDvQo",
+        "arnaques wwwavasthomesoftinfo|feedproxy.google.com/~r/LeMondeInformatique/~3/i8XlEM5X0VM",
+        "arnaques officialemule|feedproxy.google.com/~r/LeMondeInformatique/~3/bX9MvsbN8vM",
+        "antivirus 360 faux logiciel|feedproxy.google.com/~r/LeMondeInformatique/~3/c_LaWz7nKPI"
+      ],
+      "erreur": null
+    },
+    "presse-lmi-rss": {
+      "id": "presse-lmi-rss",
+      "url": "https://www.lemondeinformatique.fr/flux-rss/rss.xml",
+      "url_finale": "https://www.lemondeinformatique.fr/rss.xml",
+      "http": 200,
+      "octets": 51851,
+      "items": [
+        "ia au travail lusage fait ladhesion pas la confiance|lemondeinformatique.fr/donnees-ia/ia-au-travail-l-usage-fait-l-adhesion-pas-la-confiance",
+        "mistral ai installe a singapour son siege asiepacifique tourne vers lia souveraine|lemondeinformatique.fr/donnees-ia/mistral-ai-installe-a-singapour-son-siege-asie-pacifique-tourne-vers-l-ia-souveraine",
+        "sebastien genesca directeur general de deep leurope doit se donner les moyens de faire emerger un veritable hyperscaler cloud europeen|lemondeinformatique.fr/infrastructure-cloud/titre-sebastien-genesca-directeur-general-de-deep-l-europe-doit-se-donner-les-moyens-de-faire-emerger-un-veritable-hyperscaler-cloud-europeen",
+        "gaia labs des collegues ia que les entreprises gardent sous controle|lemondeinformatique.fr/donnees-ia/gaia-labs-des-collegues-ia-que-les-entreprises-gardent-sous-controle",
+        "comment digitaliser la gestion des objets publicitaires dans les entreprises|lemondeinformatique.fr/applications-developpement/comment-digitaliser-la-gestion-des-objets-publicitaires-dans-les-entreprises"
+      ],
+      "erreur": null
+    },
+    "presse-mediacites": {
+      "id": "presse-mediacites",
+      "url": "https://www.mediacites.fr/feed/",
+      "url_finale": "https://www.mediacites.fr/feed/",
+      "http": 200,
+      "octets": 16890,
+      "items": [
+        "a toulouse reconquete et eric zemmour copinent avec des neofascistes|mediacites.fr/enquete/toulouse/2026/11/20/a-toulouse-reconquete-et-eric-zemmour-copinent-avec-des-neofascistes",
+        "plus de 500 enfants a la rue a toulouse selon le reseau education sans frontieres|mediacites.fr/social/toulouse/2026/11/20/plus-de-500-enfants-a-la-rue-a-toulouse-selon-le-reseau-education-sans-frontieres",
+        "elections a nantes universite carine bernault en tete dun siege|mediacites.fr/breve/nantes/2026/11/20/elections-a-nantes-universite-carine-bernault-en-tete-dun-siege",
+        "lelu rn du grand lyon tim bouzon epingle pour ses liens avec la famille de frederic chatillon exgud|mediacites.fr/breve/lyon/2026/11/20/lelu-rn-du-grand-lyon-tim-bouzon-epingle-pour-ses-liens-avec-la-famille-de-frederic-chatillon-ex-gud",
+        "la mairie de toulouse annonce sa strategie culture sans associer les acteurs du secteur|mediacites.fr/culture/toulouse/2026/11/20/la-mairie-de-toulouse-annonce-sa-strategie-culture-sans-associer-les-acteurs-du-secteur"
+      ],
+      "erreur": null
+    },
+    "presse-numerama": {
+      "id": "presse-numerama",
+      "url": "https://www.numerama.com/feed/",
+      "url_finale": "https://www.numerama.com/feed/",
+      "http": 200,
+      "octets": 35788,
+      "items": [
+        "solution aux satellites fantomes echec de la fusee vulcan centaur nouvelle navette spatiale le recap sciences de la semaine|numerama.com/sciences/2380261-solution-aux-satellites-fantomes-echec-de-la-fusee-vulcan-centaur-nouvelle-navette-spatiale-le-recap-sciences-de-la-semaine.html",
+        "james bond on a classe les films de daniel craig du pire au meilleur pour celebrer robert pattinson|numerama.com/pop-culture/2379985-james-bond-on-a-classe-les-films-de-daniel-craig-du-pire-au-meilleur-film-pour-feter-robert-pattinson.html",
+        "deux tesla en fsd bloquees les mauvais eleves du controle technique allemand et les freins a lachat le recap vroom de la semaine|numerama.com/vroom/2380109-deux-tesla-en-fsd-bloquees-les-mauvais-eleves-du-controle-technique-allemand-et-les-freins-a-lachat-le-recap-vroom-de-la-semaine.html",
+        "robots tueurs autonomes ce que les armees deleguent vraiment aux machines|numerama.com/tech/2379739-robots-tueurs-autonomes-ou-en-sommes-nous-vraiment.html",
+        "fautil mettre fin a dragon quest sans akira toriyama|numerama.com/pop-culture/2377107-faut-il-mettre-fin-a-dragon-quest-sans-akira-toriyama.html"
+      ],
+      "erreur": null
+    },
+    "presse-ouestfrance-rss": {
+      "id": "presse-ouestfrance-rss",
+      "url": "https://www.ouest-france.fr/rss.xml",
+      "url_finale": "https://www.ouest-france.fr/rss/france",
+      "http": 200,
+      "octets": 18705,
+      "items": [
+        "manifestation du 21 novembre toujours des rassemblements mais la mobilisation marque le pas|ouest-france.fr/societe/manifestation/manifestation-du-21-novembre-toujours-des-rassemblements-mais-la-mobilisation-marque-le-pas-8fa4a818-e5dc-11f1-afa7-9a0bb82a33d1",
+        "cartes manifestations en europe visualisez laugmentation des prix du logement par pays depuis 2015|ouest-france.fr/societe/logement/cartes-manifestations-en-europe-visualisez-laugmentation-des-prix-du-logement-par-pays-depuis-2015-62b2eac4-e58f-11f1-bd4e-6f30b8f49e21",
+        "video manifestation du 21 novembre gravement blesses lors des precedentes mobilisations ils racontent leur trauma|ouest-france.fr/societe/manifestation/video-manifestation-du-21-novembre-gravement-blesses-lors-des-precedentes-mobilisations-ils-racontent-leur-trauma-521b9c08-27ee-48a2-a7e3-18ff5f42864a",
+        "qui est jeremie wauquier derriere le site bien dans ma ville qui recense la population des communes francaises|ouest-france.fr/high-tech/internet/qui-est-jeremie-wauquier-derriere-le-site-bien-dans-ma-ville-qui-recense-la-population-des-communes-francaises-30a65bd2-e1cb-11f1-b029-43a761592972",
+        "exclusif choose france voici les communes de louest qui accueillent des investissements evoques lors du sommet|ouest-france.fr/economie/exclusif-choose-france-voici-les-communes-de-louest-qui-accueillent-des-investissements-evoques-lors-du-sommet-1e8a3e34-e403-11f1-9a72-32f9104dab1b"
+      ],
+      "erreur": null
+    },
+    "presse-republicain-47": {
+      "id": "presse-republicain-47",
+      "url": "https://actu.fr/le-republicain-lot-et-garonne/rss.xml",
+      "url_finale": "https://actu.fr/le-republicain-lot-et-garonne/rss.xml",
+      "http": 200,
+      "octets": 32791,
+      "items": [
+        "une remise des prix exceptionnelle a marmande pour mettre en valeur les femmes qui entreprennent|actu.fr/nouvelle-aquitaine/marmande_47157/une-remise-des-prix-exceptionnelle-a-marmande-pour-mettre-en-valeur-les-femmes-qui-entreprennent_65080285.html",
+        "un marche de noel au milieu des anes pres de marmande cette exploitation organise un weekend insolite|actu.fr/nouvelle-aquitaine/caubon-saint-sauveur_47059/un-marche-de-noel-au-milieu-des-anes-pres-de-marmande-cette-exploitation-organise-un-week-end-insolite_65085358.html",
+        "un hommage emouvant rendu a la jeune clea dans le quartier ou elle a grandi en lotetgaronne|actu.fr/nouvelle-aquitaine/virazeil_47326/un-hommage-emouvant-rendu-a-la-jeune-clea-dans-le-quartier-ou-elle-a-grandi-en-lot-et-garonne_65082625.html",
+        "les gendarmes et la police menent un controle exceptionnel en lotetgaronne voici ce quils ont decouvert|actu.fr/nouvelle-aquitaine/villeneuve-sur-lot_47323/les-gendarmes-et-la-police-menent-un-controle-exceptionnel-en-lot-et-garonne-voici-ce-quils-ont-decouvert_65085092.html",
+        "il croit decouvrir une arme a feu abandonnee en lotetgaronne les gendarmes font une curieuse decouverte|actu.fr/nouvelle-aquitaine/saint-etienne-de-villereal_47240/il-croit-decouvrir-une-arme-a-feu-abandonnee-en-lot-et-garonne-les-gendarmes-font-une-curieuse-decouverte_65084899.html"
+      ],
+      "erreur": null
+    },
+    "presse-rue89bordeaux": {
+      "id": "presse-rue89bordeaux",
+      "url": "https://www.rue89bordeaux.com/feed",
+      "url_finale": "https://rue89bordeaux.com/feed/",
+      "http": 200,
+      "octets": 25993,
+      "items": [
+        "une premiere maraude de coiffure du cœur a bordeaux pour redonner confiance aux personnes precaires|rue89bordeaux.com/2026/11/coiffure-du-coeur-redonne-un-peu-de-confiance-aux-personnes-precaires-a-bordeaux",
+        "ici je comprends que je ne suis pas folle en parler a lecoute des victimes de violences sexuelles|rue89bordeaux.com/2026/11/ici-je-comprends-que-je-ne-suis-pas-folle-en-parler-a-lecoute-des-victimes-de-violences-sexuelles",
+        "derriere la grandmesse sur les finances de bordeaux metropole lausterite fait deja gronder|rue89bordeaux.com/2026/11/derriere-la-grand-messe-sur-les-finances-de-bordeaux-metropole-lausterite-fait-deja-gronder",
+        "fin de slime un dispositif de lutte contre la precarite energetique en gironde|rue89bordeaux.com/2026/11/fin-de-slime-un-dispositif-de-lutte-contre-la-precarite-energetique-en-gironde",
+        "aucun enfant ne doit dormir a la rue|rue89bordeaux.com/2026/11/aucun-enfant-ne-doit-dormir-a-la-rue"
+      ],
+      "erreur": null
+    },
+    "presse-silicon": {
+      "id": "presse-silicon",
+      "url": "https://www.silicon.fr/feed",
+      "url_finale": "https://www.silicon.fr/feed",
+      "http": 200,
+      "octets": 466435,
+      "items": [
+        "le deploiement de matrix a la commission europeenne prend corps|silicon.fr/workspace-1376/matrix-element-commission-europeenne-230604",
+        "mistral installe son siege asiepacifique a singapour|silicon.fr/business-1367/mistral-installe-son-siege-asie-pacifique-a-singapour-230607",
+        "dependances numeriques cartographier ne suffit plus il faut eprouver sa capacite daction|silicon.fr/uncategorized/dependances-numeriques-cartographier-ne-suffit-plus-il-faut-eprouver-sa-capacite-daction-230599",
+        "windows server 2028 entre ouverture et durcissement|silicon.fr/cloud-1370/windows-server-2028-230571",
+        "signal bride les assistants ia des smartphones pour proteger ses messages|silicon.fr/cybersecurite-1371/signal-bride-les-assistants-ia-des-smartphones-pour-proteger-ses-messages-230568"
+      ],
+      "erreur": null
+    },
+    "presse-sudouest": {
+      "id": "presse-sudouest",
+      "url": "https://www.sudouest.fr/rss.xml",
+      "url_finale": "https://www.sudouest.fr/rss.xml",
+      "http": 200,
+      "octets": 30605,
+      "items": [
+        "bresil lexpresident bolsonaro en soins intensifs pour une occlusion intestinale|sudouest.fr/international/bresil/bresil-l-ex-president-bolsonaro-en-soins-intensifs-pour-une-occlusion-intestinale-31607484.php",
+        "en images cargo echoue dans les landes jespere quils vont pouvoir le sortir sinon ca va etre un chantier|sudouest.fr/environnement/mer/en-images-cargo-echoue-dans-les-landes-j-espere-qu-ils-vont-pouvoir-le-sortir-sinon-ca-va-etre-un-chantier-31606061.php",
+        "enquete sur des fuites vers le rn le prefet moutouh demande a etre releve de ses fonctions|sudouest.fr/france/enquete-sur-des-fuites-vers-le-rn-le-prefet-moutouh-demande-a-etre-releve-de-ses-fonctions-31606843.php",
+        "la plupart des habitants ne nous accepteront sans doute jamais a medellin en colombie anciens bourreaux et victimes face a face|sudouest.fr/societe/la-plupart-des-habitants-ne-nous-accepteront-sans-doute-jamais-a-medellin-anciens-bourreaux-et-victimes-face-a-face-31564183.php",
+        "manifestations du 21 novembre mobilisation en baisse pour ce 6e samedi dans la rue tensions en fin de cortege a bordeaux|sudouest.fr/economie/social/greve/manifestation-du-21-novembre-mobilisation-en-baisse-pour-ce-6e-samedi-dans-la-rue-tensions-en-fin-de-cortege-a-bordeaux-31606462.php"
+      ],
+      "erreur": null
+    },
+    "presse-sudouest-charente": {
+      "id": "presse-sudouest-charente",
+      "url": "https://www.sudouest.fr/charente/rss.xml",
+      "url_finale": "https://www.sudouest.fr/charente/rss.xml",
+      "http": 200,
+      "octets": 30801,
+      "items": [
+        "litteratures europeennes a cognac avec les voleurs de sureaux lecrivain polonais hubert klimko est le choix des lecteurs 2026|sudouest.fr/culture/litteratures-europeennes-a-cognac-l-ecrivain-polonais-hubert-klimko-choix-des-lecteurs-2026-31597950.php",
+        "charente et charentemaritime le cognac renouvelle ses instances sous un ciel toujours lourd de menaces|sudouest.fr/charente/cognac/charente-et-charente-maritime-le-cognac-renouvelle-ses-instances-sous-un-ciel-toujours-lourd-de-menaces-31583893.php",
+        "gastronomie connaissezvous le verjus le condiment acidule prise des chefs et des mixologues est aussi produit en charente|sudouest.fr/gastronomie/gastronomie-connaissez-vous-le-verjus-le-condiment-acidule-prise-des-chefs-et-des-mixologues-est-aussi-produit-en-charente-31587541.php",
+        "pesticides dans les vignes les parents deleves demandent a letat dinterdire les epandages dans une zone de 500 metres autour des etablissements scolaires|sudouest.fr/vin/pesticides-dans-les-vignes-les-parents-d-eleves-demandent-a-l-etat-d-interdire-les-epandages-dans-une-zone-de-500-metres-autour-des-etablissements-scolaires-31597657.php",
+        "presidentielle 2027 sud ouest deploie son dispositif special au plus pres des territoires et a lecoute de vos priorites|sudouest.fr/elections/presidentielle/presidentielle-2027-sud-ouest-deploie-son-dispositif-special-au-plus-pres-des-territoires-et-a-l-ecoute-de-vos-priorites-31594312.php"
+      ],
+      "erreur": null
+    },
+    "presse-sudouest-charente-maritime": {
+      "id": "presse-sudouest-charente-maritime",
+      "url": "https://www.sudouest.fr/charente-maritime/rss.xml",
+      "url_finale": "https://www.sudouest.fr/charente-maritime/rss.xml",
+      "http": 200,
+      "octets": 30438,
+      "items": [
+        "la rochelle le musicien jean du voyage lance une cagnotte pour financer son nouvel album|sudouest.fr/charente-maritime/la-rochelle/la-rochelle-le-musicien-jean-du-voyage-lance-une-cagnotte-pour-financer-son-nouvel-album-31578967.php",
+        "en images cargo echoue dans les landes jespere quils vont pouvoir le sortir sinon ca va etre un chantier|sudouest.fr/environnement/mer/en-images-cargo-echoue-dans-les-landes-j-espere-qu-ils-vont-pouvoir-le-sortir-sinon-ca-va-etre-un-chantier-31606061.php",
+        "fouras le club de tennis de table se mobilise pour le telethon avec deux tournois organises vendredi 27 novembre|sudouest.fr/charente-maritime/fouras/fouras-le-club-de-tennis-de-table-se-mobilise-pour-le-telethon-avec-deux-tournois-organises-vendredi-27-novembre-31593835.php",
+        "le carton est surprenant il est beau avec ses cannelures a saintes rencontre avec la cartonniste krl a deniche ta pepite|sudouest.fr/charente-maritime/saintes/le-carton-est-surprenant-il-est-beau-avec-ses-cannelures-a-saintes-rencontre-avec-la-cartonniste-krl-a-deniche-ta-pepite-31604110.php",
+        "bassin de marennes 16 nouveaux points dapport volontaire installes pour remplacer la collecte en sacs des dechets|sudouest.fr/charente-maritime/marennes-hiers-brouage/bassin-de-marennes-16-nouveaux-points-d-apport-volontaire-installes-pour-remplacer-la-collecte-en-sacs-des-dechets-31588677.php"
+      ],
+      "erreur": null
+    },
+    "presse-sudouest-deux-sevres": {
+      "id": "presse-sudouest-deux-sevres",
+      "url": "https://www.sudouest.fr/deux-sevres/rss.xml",
+      "url_finale": "https://www.sudouest.fr/deux-sevres/rss.xml",
+      "http": 200,
+      "octets": 29958,
+      "items": [
+        "charentemaritime comment le marais poitevin a connu une revolution agricole inattendue entre 1960 et 2020|sudouest.fr/charente-maritime/marans/charente-maritime-comment-le-marais-poitevin-a-connu-une-revolution-agricole-inattendue-31477701.php",
+        "megabassines agricoles a saintesoline le remplissage est toujours interdit rappelle la prefecture des deuxsevres|sudouest.fr/economie/agriculture/mega-bassines-agricoles-a-sainte-soline-le-remplissage-est-toujours-interdit-rappelle-la-prefecture-des-deux-sevres-31577176.php",
+        "forum de leconomie sociale et solidaire a niort les sujets sur lesquels nous nous mobilisons sont ce a quoi aspirent les gens dans la rue en ce moment|sudouest.fr/economie/forum-de-l-economie-sociale-et-solidaire-a-niort-les-sujets-sur-lesquels-nous-nous-mobilisons-sont-ce-a-quoi-aspirent-les-gens-dans-la-rue-en-ce-moment-31510502.php",
+        "rugby en charentemaritime le programme de regionales 1 2 et 3 ce weekend|sudouest.fr/sport/rugby/rugby-en-charente-maritime-le-programme-de-regionales-1-2-et-3-ce-week-end-31506332.php",
+        "rugby en charentemaritime les resultats de regionales 1 2 et 3 du weekend|sudouest.fr/sport/rugby/rugby-en-charente-maritime-les-resultats-de-regionales-1-2-et-3-du-week-end-31453315.php"
+      ],
+      "erreur": null
+    },
+    "presse-sudouest-dordogne": {
+      "id": "presse-sudouest-dordogne",
+      "url": "https://www.sudouest.fr/dordogne/rss.xml",
+      "url_finale": "https://www.sudouest.fr/dordogne/rss.xml",
+      "http": 200,
+      "octets": 29060,
+      "items": [
+        "basketball betclic elite le boulazac basket dordogne frole lexploit sur le parquet de cholet|sudouest.fr/sport/basket/boulazac-basket-dordogne/basket-ball-betclic-elite-le-boulazac-basket-dordogne-frole-l-exploit-sur-le-parquet-de-cholet-31605789.php",
+        "les reactions apres girondins boulazac 32 un match complique comme on va en avoir dit le milieu baptiste isola|sudouest.fr/sport/football/les-reactions-apres-girondins-boulazac-3-2-un-match-complique-comme-on-va-en-avoir-dit-le-milieu-baptiste-isola-31606107.php",
+        "cetait un bras de fer le ca perigueux enchaine et vient a bout de rouen en nationale|sudouest.fr/sport/rugby/ca-perigueux/c-etait-un-bras-de-fer-le-ca-perigueux-enchaine-et-vient-a-bout-de-rouen-en-nationale-31607184.php",
+        "je suis limitee par la taille de ma cuisine a agen la braderie seb attire les chalands bien audela du departement|sudouest.fr/occitanie/toulouse/je-suis-limitee-par-la-taille-de-ma-cuisine-a-agen-la-braderie-seb-attire-les-chalands-bien-au-dela-du-departement-31605512.php",
+        "perigueux trois chorales ont uni leurs voix au profit de la ligue contre le cancer|sudouest.fr/dordogne/perigueux/perigueux-trois-chorales-ont-uni-leurs-voix-au-profit-de-la-ligue-contre-le-cancer-31554157.php"
+      ],
+      "erreur": null
+    },
+    "presse-sudouest-gironde": {
+      "id": "presse-sudouest-gironde",
+      "url": "https://www.sudouest.fr/gironde/rss.xml",
+      "url_finale": "https://www.sudouest.fr/gironde/rss.xml",
+      "http": 200,
+      "octets": 29470,
+      "items": [
+        "les reactions apres girondins boulazac 32 un match complique comme on va en avoir dit le milieu baptiste isola|sudouest.fr/sport/football/les-reactions-apres-girondins-boulazac-3-2-un-match-complique-comme-on-va-en-avoir-dit-le-milieu-baptiste-isola-31606107.php",
+        "talence une mobilisation solidaire et engagee pour la 40e edition du telethon|sudouest.fr/gironde/talence/talence-une-mobilisation-solidaire-et-engagee-pour-la-40e-edition-du-telethon-31564754.php",
+        "saintefoylagrande un hommage litteraire au comedien disparu pierre cassignard|sudouest.fr/gironde/sainte-foy-la-grande/sainte-foy-la-grande-un-hommage-litteraire-au-comedien-disparu-pierre-cassignard-31598849.php",
+        "en images cargo echoue dans les landes jespere quils vont pouvoir le sortir sinon ca va etre un chantier|sudouest.fr/environnement/mer/en-images-cargo-echoue-dans-les-landes-j-espere-qu-ils-vont-pouvoir-le-sortir-sinon-ca-va-etre-un-chantier-31606061.php",
+        "bordeaux un conducteur flashe a 118 kmh au lieu de 50 sur le pont simoneveil|sudouest.fr/gironde/bordeaux/bordeaux-un-conducteur-flashe-a-118-km-h-au-lieu-de-50-sur-le-pont-simone-veil-31590928.php"
+      ],
+      "erreur": null
+    },
+    "presse-sudouest-landes": {
+      "id": "presse-sudouest-landes",
+      "url": "https://www.sudouest.fr/landes/rss.xml",
+      "url_finale": "https://www.sudouest.fr/landes/rss.xml",
+      "http": 200,
+      "octets": 30333,
+      "items": [
+        "football le saintpaul sport retrouve le succes en correze et conserve son podium de regional 1|sudouest.fr/sport/football/regional1/football-le-saint-paul-sport-retrouve-le-succes-en-correze-et-conserve-son-podium-de-regional-1-31608361.php",
+        "cargo echoue dans les landes les onze personnes a bord ont ete helitreuillees pour une mesure de securite en raison de la degradation meteorologique|sudouest.fr/faits-divers/faits-divers-dans-les-landes/cargo-echoue-dans-les-landes-les-onze-personnes-a-bord-ont-ete-helitreuillees-pour-une-mesure-de-securite-en-raison-de-la-degradation-meteorologique-31608031.php",
+        "en images cargo echoue dans les landes jespere quils vont pouvoir le sortir sinon ca va etre un chantier|sudouest.fr/environnement/mer/en-images-cargo-echoue-dans-les-landes-j-espere-qu-ils-vont-pouvoir-le-sortir-sinon-ca-va-etre-un-chantier-31606061.php",
+        "des landais habitaient ici il y a trois mille ans des fouilles subaquatiques pour preserver les tresors archeologiques du lac de sanguinet|sudouest.fr/culture/histoire/des-landais-habitaient-ici-il-y-a-trois-mille-ans-des-fouilles-subaquatiques-pour-preserver-les-tresors-archeologiques-du-lac-de-sanguinet-31491282.php",
+        "labouheyre un apresmidi festif et solidaire au profit des restos du cœur|sudouest.fr/landes/labouheyre/labouheyre-un-apres-midi-festif-et-solidaire-au-profit-des-restos-du-coeur-31556883.php"
+      ],
+      "erreur": null
+    },
+    "presse-sudouest-lot-et-garonne": {
+      "id": "presse-sudouest-lot-et-garonne",
+      "url": "https://www.sudouest.fr/lot-et-garonne/rss.xml",
+      "url_finale": "https://www.sudouest.fr/lot-et-garonne/rss.xml",
+      "http": 200,
+      "octets": 30358,
+      "items": [
+        "portsaintemarie les randonneurs des doux dingues affichent une sante de fer|sudouest.fr/lot-et-garonne/port-sainte-marie/port-sainte-marie-les-randonneurs-des-doux-dingues-affichent-une-sante-de-fer-31547730.php",
+        "fregimont les parents deleves se mobilisent pour financer les projets de lecole|sudouest.fr/lot-et-garonne/fregimont/fregimont-les-parents-d-eleves-se-mobilisent-pour-financer-les-projets-de-l-ecole-31603035.php",
+        "fourquessurgaronne un legs bienvenu et la semaine decole de 4 jours et demi au menu des elus du conseil municipal|sudouest.fr/lot-et-garonne/fourques-sur-garonne/fourques-sur-garonne-un-legs-bienvenu-et-la-semaine-de-4-jours-et-demi-au-menu-des-elus-du-conseil-municipal-31596164.php",
+        "acces aux soins un centre de sante moderne et fonctionnel inaugure pres dagen|sudouest.fr/lot-et-garonne/estillac/acces-aux-soins-un-centre-de-sante-moderne-et-fonctionnel-inaugure-pres-d-agen-31587394.php",
+        "rugby bouscules mais bien plus realistes les espoirs de lubb simposent une nouvelle fois contre le sua|sudouest.fr/sport/rugby/rugby-bouscules-mais-bien-plus-realistes-les-espoirs-de-l-ubb-s-imposent-une-nouvelle-fois-contre-le-sua-31604022.php"
+      ],
+      "erreur": null
+    },
+    "presse-sudouest-mont-de-marsan": {
+      "id": "presse-sudouest-mont-de-marsan",
+      "url": "https://www.sudouest.fr/landes/mont-de-marsan/rss.xml",
+      "url_finale": "https://www.sudouest.fr/landes/mont-de-marsan/rss.xml",
+      "http": 200,
+      "octets": 29744,
+      "items": [
+        "duoday a montdemarsan une immersion au cœur de la gendarmerie des landes|sudouest.fr/societe/securite-routiere/duoday-a-mont-de-marsan-une-immersion-au-coeur-de-la-gendarmerie-des-landes-31593591.php",
+        "basket landes on se ressemble dans la resilience et la perseverance a chartres sophia elenga va croiser son passe et la route de sa sœur kekelly|sudouest.fr/sport/basket/basket-landes/basket-landes-on-se-ressemble-dans-la-resilience-et-la-perseverance-a-chartres-sophia-elenga-va-croiser-son-passe-et-la-route-de-sa-soeur-kekelly-31595020.php",
+        "le recap landes les 5 infos a retenir ce samedi 21 novembre 2026|sudouest.fr/landes/le-recap-landes-les-5-infos-a-retenir-ce-samedi-21-novembre-2026-31604894.php",
+        "tribunal de dax suspecte davoir derobe des chaines en or durant la feria un lillois est relaxe au benefice du doute|sudouest.fr/justice/tribunal-de-dax-suspecte-d-avoir-derobe-des-chaines-en-or-durant-la-feria-un-lillois-est-relaxe-au-benefice-du-doute-31598281.php",
+        "pour le stade montois battu sur le fil a carcassonne les scenarios se suivent et se repetent a lexterieur|sudouest.fr/sport/rugby/stade-montois/pour-le-stade-montois-battu-de-justesse-a-carcassonne-les-scenarios-se-suivent-et-se-repetent-a-l-exterieur-31604908.php"
+      ],
+      "erreur": null
+    },
+    "presse-sudouest-pyrenees": {
+      "id": "presse-sudouest-pyrenees",
+      "url": "https://www.sudouest.fr/pyrenees-atlantiques/rss.xml",
+      "url_finale": "https://www.sudouest.fr/pyrenees-atlantiques/rss.xml",
+      "http": 200,
+      "octets": 28995,
+      "items": [
+        "paulacqorthez rate son debut et sa fin de match et sincline a nancy 8470|sudouest.fr/pyrenees-atlantiques/pau/pau-lacq-orthez-rate-son-debut-et-sa-fin-de-match-et-s-incline-a-nancy-84-70-31608077.php",
+        "bearn des gaves soutien aux communes et ajustements financiers au menu des elus communautaires|sudouest.fr/pyrenees-atlantiques/bastanes/bearn-des-gaves-soutien-aux-communes-et-ajustements-financiers-au-menu-des-elus-communautaires-31605809.php",
+        "bayonne 7 500 personnes reunies pour reclamer la coofficialite de la langue basque|sudouest.fr/pyrenees-atlantiques/pays-basque/bayonne-7-500-personnes-reunies-pour-reclamer-la-co-officialite-de-la-langue-basque-31598667.php",
+        "le recap bearn les 5 infos a retenir ce samedi 21 novembre 2026|sudouest.fr/redaction/rendez-vous-sud-ouest/le-recap-bearn-les-5-infos-a-retenir-ce-samedi-21-novembre-2026-31605755.php",
+        "le recap pays basque les 5 infos a retenir ce samedi 21 novembre 2026|sudouest.fr/pyrenees-atlantiques/bayonne/le-recap-pays-basque-les-5-infos-a-retenir-ce-samedi-21-novembre-2026-31605916.php"
+      ],
+      "erreur": null
+    },
+    "presse-sudouest-rss": {
+      "id": "presse-sudouest-rss",
+      "url": "https://www.sudouest.fr/rss.xml",
+      "url_finale": "https://www.sudouest.fr/rss.xml",
+      "http": 200,
+      "octets": 30605,
+      "items": [
+        "bresil lexpresident bolsonaro en soins intensifs pour une occlusion intestinale|sudouest.fr/international/bresil/bresil-l-ex-president-bolsonaro-en-soins-intensifs-pour-une-occlusion-intestinale-31607484.php",
+        "en images cargo echoue dans les landes jespere quils vont pouvoir le sortir sinon ca va etre un chantier|sudouest.fr/environnement/mer/en-images-cargo-echoue-dans-les-landes-j-espere-qu-ils-vont-pouvoir-le-sortir-sinon-ca-va-etre-un-chantier-31606061.php",
+        "enquete sur des fuites vers le rn le prefet moutouh demande a etre releve de ses fonctions|sudouest.fr/france/enquete-sur-des-fuites-vers-le-rn-le-prefet-moutouh-demande-a-etre-releve-de-ses-fonctions-31606843.php",
+        "la plupart des habitants ne nous accepteront sans doute jamais a medellin en colombie anciens bourreaux et victimes face a face|sudouest.fr/societe/la-plupart-des-habitants-ne-nous-accepteront-sans-doute-jamais-a-medellin-anciens-bourreaux-et-victimes-face-a-face-31564183.php",
+        "manifestations du 21 novembre mobilisation en baisse pour ce 6e samedi dans la rue tensions en fin de cortege a bordeaux|sudouest.fr/economie/social/greve/manifestation-du-21-novembre-mobilisation-en-baisse-pour-ce-6e-samedi-dans-la-rue-tensions-en-fin-de-cortege-a-bordeaux-31606462.php"
+      ],
+      "erreur": null
+    },
+    "presse-undernews": {
+      "id": "presse-undernews",
+      "url": "https://www.undernews.fr/feed",
+      "url_finale": "https://www.undernews.fr/feed",
+      "http": 200,
+      "octets": 34961,
+      "items": [
+        "cyberattaque contre la commission europeenne|undernews.fr/alertes-securite/cyberattaque-contre-la-commission-europeenne.html",
+        "kaspersky detecte plus de 27 000 attaques ciblant les joueurs dans lattente de la sortie de gta vi|undernews.fr/undernews/kaspersky-detecte-plus-de-27-000-attaques-ciblant-les-joueurs-dans-lattente-de-la-sortie-de-gta-vi.html",
+        "black friday les tentatives de phishing bondissent de 82 debut novembre|undernews.fr/reseau-securite/phishing-hoax/black-friday-les-tentatives-de-phishing-bondissent-de-82-debut-novembre.html",
+        "rapport harfanglab seuls 34 des dirigeants francais declarent avoir des regles claires sur les donnees partagees|undernews.fr/reseau-securite/rapport-harfanglab-seuls-34-des-dirigeants-francais-declarent-avoir-des-regles-claires-sur-les-donnees-partagees.html",
+        "zimperium alerte sur des cyberattaques ciblant les iphones depuis des sites majeurs bbc cnn et zoom|undernews.fr/hacking-hacktivisme/zimperium-alerte-sur-des-cyberattaques-ciblant-les-iphones-depuis-des-sites-majeurs-bbc-cnn-et-zoom.html"
+      ],
+      "erreur": null
+    },
+    "presse-zataz": {
+      "id": "presse-zataz",
+      "url": "https://www.zataz.com/feed/",
+      "url_finale": "https://www.zataz.com/feed/",
+      "http": 200,
+      "octets": 15483,
+      "items": [
+        "cyberattaques la boite de pandora estelle ouverte avec lia artex|zataz.com/cyberattaques-la-boite-de-pandora-est-elle-ouverte-avec-lia-artex",
+        "actualites cybersecurite de la semaine du 16 novembre 2026|zataz.com/actualites-cybersecurite-de-la-semaine-du-16-novembre-2026",
+        "non cest non sauf quand il reclame une rancon|zataz.com/non-cest-non-sauf-quand-il-reclame-une-rancon",
+        "panne a la nsa donnees du doj en vente selon un pirate|zataz.com/panne-a-la-nsa-donnees-du-doj-en-vente-selon-un-pirate",
+        "noname revendique un acces aux cameras dune salle de jeux|zataz.com/noname-revendique-un-acces-aux-cameras-dune-salle-de-jeux"
+      ],
+      "erreur": null
+    },
+    "ransom-ransomlook": {
+      "id": "ransom-ransomlook",
+      "url": "https://www.ransomlook.io/",
+      "url_finale": "https://www.ransomlook.io/",
+      "http": 200,
+      "octets": 29116,
+      "items": [
+        "swarm health|ransomlook.io/torrent-health",
+        "pivot ip asn|ransomlook.io/torrent-health/pivot",
+        "20 inhouse analyses|ransomlook.io/analyses"
+      ],
+      "erreur": null
+    },
+    "ransom-ransomwarelive": {
+      "id": "ransom-ransomwarelive",
+      "url": "https://ransomware.live/",
+      "url_finale": "https://ransomware.live/",
+      "http": 200,
+      "octets": 135008,
+      "items": [
+        "ransomware live leaksite monitoring|ransomware.live/",
+        "negotiations|ransomware.live/nego",
+        "ransom notes|ransomware.live/ransomnotes",
+        "vulnerabilities|ransomware.live/vulnerability",
+        "notifications|ransomware.live/notification"
+      ],
+      "erreur": null
+    },
+    "ransomlook": {
+      "id": "ransomlook",
+      "url": "https://www.ransomlook.io/api/recent",
+      "url_finale": "https://www.ransomlook.io/api/recent",
+      "http": 200,
+      "octets": 90082,
+      "items": [
+        "|/site/blog?uuid=ff31f83b-985f-4d90-9b8b-8a6850f59630",
+        "|/blog/post/tiiccomph/",
+        "|/blog/post/threeroyalcom/",
+        "|/blog/post/factotalcom/",
+        "|/blog/post/offshore-ocscom/"
+      ],
+      "erreur": null
+    },
+    "secteur-renater": {
+      "id": "secteur-renater",
+      "url": "https://www.renater.fr/feed",
+      "url_finale": "https://www.renater.fr/feed/",
+      "http": 200,
+      "octets": 45437,
+      "items": [
+        "renater actualites novembre 2026|renater.fr/renater-actualites-novembre-2026",
+        "le cnrs franchit une nouvelle etape vers la souverainete numerique en rejoignant la messagerie collaborative partage de renater|renater.fr/le-cnrs-franchit-une-nouvelle-etape-vers-la-souverainete-numerique-en-rejoignant-la-messagerie-collaborative-partage-de-renater",
+        "renater joue un role cle dans le projet refimeve|renater.fr/renater-joue-un-role-cle-dans-le-projet-refimeve-reseau-francophone-pour-loptimisation-de-la-frequence-et-de-la-metrologie-avancee",
+        "jres 2026 une mobilisation collective de lesr|renater.fr/jres-2026-une-mobilisation-collective-de-lesr",
+        "cloture des inscriptions jres 2026|renater.fr/cloture-des-inscriptions-jres-2026-a-venir"
+      ],
+      "erreur": null
+    },
+    "secteur-sante-fr": {
+      "id": "secteur-sante-fr",
+      "url": "https://www.sante.fr/rss",
+      "url_finale": "https://www.sante.fr/rss",
+      "http": 200,
+      "octets": 42506,
+      "items": [
+        "aller au contenu principal|sante.fr/rss",
+        "se connecter|sante.fr/annuaire",
+        "questce que lannuaire santefr|sante.fr/annuaire-trouver-un-professionnel-ou-%C3%A9tablissement-de-soins-pr%C3%A8s-de-chez-vous",
+        "realiser un bilan de prevention autour de moi|sante.fr/mon-bilan-prevention/1-je-prends-rendez-vous-mon-bilan-prevention",
+        "trouver un medecin generaliste pres de chez moi|sante.fr/recherche/trouver/medecin/Autour%2520de%2520moi"
+      ],
+      "erreur": null
+    },
+    "tg-cert-eu": {
+      "id": "tg-cert-eu",
+      "url": "https://t.me/s/CERT_EU",
+      "url_finale": "https://t.me/CERT_EU",
+      "http": 200,
+      "octets": 9590,
+      "items": [
+        "send message|resolve/?domain=CERT_EU"
+      ],
+      "erreur": null
+    },
+    "tg-certfr": {
+      "id": "tg-certfr",
+      "url": "https://t.me/s/CERT_FR",
+      "url_finale": "https://t.me/CERT_FR",
+      "http": 200,
+      "octets": 9589,
+      "items": [
+        "send message|resolve/?domain=CERT_FR"
+      ],
+      "erreur": null
+    },
+    "tg-cti": {
+      "id": "tg-cti",
+      "url": "https://t.me/s/CTI",
+      "url_finale": "https://telegram.org/",
+      "http": 200,
+      "octets": 19919,
+      "items": [
+        "bahasa indonesia|telegram.org/?setln=id",
+        "bahasa melayu|telegram.org/?setln=ms",
+        "portugues brasil|telegram.org/?setln=pt-br",
+        "aug 25 welcome messages buttons in messages and signed gifts|telegram.org/blog/welcome-messages-buttons-TG-13",
+        "jul 14 rich text editor communities ephemeral messages in groups 350 million gifs|telegram.org/blog/communities-editor-invisible-messages"
+      ],
+      "erreur": null
+    },
+    "tg-cyberdefence": {
+      "id": "tg-cyberdefence",
+      "url": "https://t.me/s/cyberdefence",
+      "url_finale": "https://t.me/cyberdefence",
+      "http": 200,
+      "octets": 9660,
+      "items": [
+        "cyberdefence|resolve/?domain=cyberdefence",
+        "send message|resolve/?domain=cyberdefence"
+      ],
+      "erreur": null
+    },
+    "tg-cybersecurity": {
+      "id": "tg-cybersecurity",
+      "url": "https://t.me/s/cybersecurity",
+      "url_finale": "https://t.me/cybersecurity",
+      "http": 200,
+      "octets": 11016,
+      "items": [
+        "send message|resolve/?domain=cybersecurity"
+      ],
+      "erreur": null
+    },
+    "tg-intelfeed": {
+      "id": "tg-intelfeed",
+      "url": "https://t.me/s/IntelFeed",
+      "url_finale": "https://t.me/s/IntelFeed",
+      "http": 200,
+      "octets": 25560,
+      "items": [
+        "download telegram|telegram.org/dl?tme=cac24c0fd4585c6497_886424945186466300",
+        "intelfeed 1 subscriber|t.me/IntelFeed"
+      ],
+      "erreur": null
+    },
+    "tg-intelowl": {
+      "id": "tg-intelowl",
+      "url": "https://t.me/s/IntelOwl",
+      "url_finale": "https://t.me/IntelOwl",
+      "http": 200,
+      "octets": 10755,
+      "items": [
+        "send message|resolve/?domain=IntelOwl"
+      ],
+      "erreur": null
+    },
+    "tg-malware-traffic": {
+      "id": "tg-malware-traffic",
+      "url": "https://t.me/s/malware_traffic",
+      "url_finale": "https://t.me/s/malware_traffic",
+      "http": 200,
+      "octets": 25599,
+      "items": [
+        "malwaretraffic|t.me/malware_traffic",
+        "download telegram|telegram.org/dl?tme=a3cf9d1c3853af06aa_6667105969142624959",
+        "1 13 subscribers|t.me/malware_traffic"
+      ],
+      "erreur": null
+    },
+    "tg-osint": {
+      "id": "tg-osint",
+      "url": "https://t.me/s/OSINT",
+      "url_finale": "https://t.me/OSINT",
+      "http": 200,
+      "octets": 9562,
+      "items": [
+        "send message|resolve/?domain=OSINT"
+      ],
+      "erreur": null
+    },
+    "tg-osint-techniques": {
+      "id": "tg-osint-techniques",
+      "url": "https://t.me/s/OSINT_Techniques",
+      "url_finale": "https://t.me/OSINT_Techniques",
+      "http": 200,
+      "octets": 9715,
+      "items": [
+        "osinttechniques|resolve/?domain=OSINT_Techniques",
+        "send message|resolve/?domain=OSINT_Techniques"
+      ],
+      "erreur": null
+    },
+    "tg-osintdefender": {
+      "id": "tg-osintdefender",
+      "url": "https://t.me/s/OSINTdefender",
+      "url_finale": "https://t.me/s/OSINTdefender",
+      "http": 200,
+      "octets": 113804,
+      "items": [
+        "osintdefender|t.me/OSINTdefender",
+        "download telegram|telegram.org/dl?tme=2144db7580d30d9510_3222754804071530567",
+        "osintdefender 69k subscribers|t.me/OSINTdefender",
+        "subscribe to|t.me/+DwDkxaYZhSRiMzVi"
+      ],
+      "erreur": null
+    },
+    "tg-ransomware": {
+      "id": "tg-ransomware",
+      "url": "https://t.me/s/ransomware",
+      "url_finale": "https://t.me/ransomware",
+      "http": 200,
+      "octets": 9631,
+      "items": [
+        "send message|resolve/?domain=ransomware"
+      ],
+      "erreur": null
+    },
+    "tg-threatintel": {
+      "id": "tg-threatintel",
+      "url": "https://t.me/s/threatintel",
+      "url_finale": "https://t.me/threatintel",
+      "http": 200,
+      "octets": 9643,
+      "items": [
+        "send message|resolve/?domain=threatintel"
+      ],
+      "erreur": null
+    },
+    "tg-threatintel-daily": {
+      "id": "tg-threatintel-daily",
+      "url": "https://t.me/s/threatintel_daily",
+      "url_finale": "https://t.me/threatintel_daily",
+      "http": 200,
+      "octets": 9728,
+      "items": [
+        "threatinteldaily|resolve/?domain=threatintel_daily",
+        "send message|resolve/?domain=threatintel_daily"
+      ],
+      "erreur": null
+    },
+    "univ-larochelle": {
+      "id": "univ-larochelle",
+      "url": "https://www.univ-lr.fr/rss",
+      "url_finale": "https://www.univ-larochelle.fr/feed/",
+      "http": 200,
+      "octets": 216150,
+      "items": [
+        "retour sur la fete de la science 2026 a la rochelle|univ-larochelle.fr/actualites/retour-sur-la-fete-de-la-science-2026-a-la-rochelle",
+        "classement de stanford 2026 les scientifiques de la rochelle universite dans le top 2 les plus cites|univ-larochelle.fr/actualites/classement-de-stanford-2026-la-rochelle-universite",
+        "mode responsable des ateliers pour donner une seconde vie a vos vetements|univ-larochelle.fr/actualites/mode-responsable-des-ateliers-pour-donner-une-seconde-vie-a-vos-vetements",
+        "euconexus 3 reconnaissances europeennes pour lalliance et son master en biotechnologies marines|univ-larochelle.fr/actualites/eu-conexus-3-reconnaissances-europeennes",
+        "des ateliers de reparation pour votre velo toute lannee|univ-larochelle.fr/actualites/des-ateliers-de-reparation-pour-votre-velo-toute-lannee"
+      ],
+      "erreur": null
+    },
+    "univ-limoges": {
+      "id": "univ-limoges",
+      "url": "https://www.unilim.fr/rss",
+      "url_finale": "https://www.unilim.fr/feed/",
+      "http": 200,
+      "octets": 94652,
+      "items": [
+        "infirmier de soins et prevention|unilim.fr/infirmier-de-soins-et-prevention",
+        "responsable de service administration de la recherche|unilim.fr/recrutement-responsable-service-administration-recherche",
+        "chef de projet europeen|unilim.fr/recrutement-chef-de-projet",
+        "formation i du usages et bonnes pratiques en sante numerique se former pour faire evoluer ses pratiques professionnelles|unilim.fr/du-usages-et-bonnes-pratiques-en-sante-numerique",
+        "mediateur documentaire|unilim.fr/recrutement-mediateur-documentaire"
+      ],
+      "erreur": null
+    }
+  }
+}

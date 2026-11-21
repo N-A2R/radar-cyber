@@ -95,6 +95,20 @@ python3 bench/sources/audit-catalog.py --md docs/research/sources-audit.md \
 Sans réseau ni base : familles hors contrat, doublons d'URL, écart entre le
 catalogue versionné et les chiffres du README.
 
+### A.4 Doublons de sources
+
+```bash
+python3 bench/sources/dedupe-sources.py --collecter   # sonde les 187 URL (snapshot)
+python3 bench/sources/dedupe-sources.py               # rapport hors ligne reproductible
+python3 bench/sources/test_dedupe_sources.py          # 7 tests hors ligne
+```
+
+URL canonique, URL finale après redirection et 5 premiers items (liens
+canoniques) alimentent un union-find. Le rapport `bench/results/doublons-sources.json`
+trace **toutes** les sources avec leur décision ; le résumé est dans
+`docs/research/doublons-sources.md`. Mesure du 2026-11-21 : 187 → 179 sources
+distinctes, 7 groupes, 8 doublons, 48 URL non sondables gardées avec leur erreur.
+
 ## B — extraction d'articles
 
 Question : quel extracteur retenir pour les pages de presse sans flux RSS ?
