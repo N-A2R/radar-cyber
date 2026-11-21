@@ -125,3 +125,21 @@ le rejet des homonymes de SIREN différent. Le typecheck de l'API passe égaleme
   l'outil, sans appliquer ni mesurer de fusion (0/18). Ce chantier poursuit ce
   travail sur la branche courante, qui contient déjà son commit via `main` ;
   aucune seconde PR n'est ouverte pour #107.
+
+## Clôture du chantier — 2026-11-21
+
+**CHANTIER TERMINÉ.** L'objectif chiffré est atteint et re-mesuré sur la base
+de travail `postgres://radar:radar@localhost:5433/radar` :
+
+| Contrôle de clôture | Mesure |
+|---|---:|
+| Organisations | 1 673 203 (1 673 221 − 18) |
+| Faits d'audit `journal.kind = 'org.fusion'` | 18 |
+| Groupes encore fusionnables par la règle définie | 0 |
+
+Le balayage de clôture ne trouve plus aucun groupe associant une ligne à SIREN
+explicite et une ligne à SIRET issu de Sirene, à nom normalisé et département
+identiques. Les groupes résiduels ne contiennent que plusieurs SIRET d'un même
+SIREN : ce sont des établissements distincts, expressément préservés par la
+règle d'identité, et non des doublons. Aucune tranche supplémentaire n'est
+nécessaire ; ce commit met à jour la PR #326 sans en ouvrir une seconde.
