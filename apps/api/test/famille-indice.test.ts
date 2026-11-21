@@ -17,6 +17,8 @@ const CAS: ReadonlyArray<readonly [string, FamilleIndice]> = [
 	["contact@pessac.fr", "domaine"],
 	["www.exemple.com", "domaine"],
 	["eni.it", "domaine"],
+	["www.library.uta.edu", "domaine"],
+	["https://www.library.uta.edu:8443/a", "domaine"],
 	["prinsel.com.mx", "domaine"],
 	["societe.dom", "nom"],
 	["bastion.internal", "nom"],

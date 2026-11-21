@@ -46,6 +46,36 @@ export const SOUS_DOMAINES_GENERIQUES: Record<string, true> = {
 };
 
 /**
+ * Suffixes publics à deux étiquettes observés dans le lot (co.uk, com.br,
+ * gob.pe…) et les plus courants. Sans cette liste, `solarium.com.br` devien-
+ * drait `com.br` et se rattacherait à n'importe quelle organisation en
+ * `.com.br` : quatre faux positifs de ce type sur le lot mesuré.
+ */
+const SUFFIXES_PUBLICS_COMPOSES: ReadonlySet<string> = new Set([
+	"ac.uk", "co.in", "co.jp", "co.ke", "co.kr", "co.mz", "co.nz", "co.th",
+	"co.uk", "co.us", "co.za", "com.ar", "com.au", "com.br", "com.cn", "com.ec",
+	"com.hk", "com.mx", "com.pa", "com.pe", "com.ph", "com.sg", "com.tr",
+	"com.tw", "com.ua", "com.vn", "gob.pe", "gov.ph", "gov.uk", "net.au",
+	"net.br", "net.id", "net.nz", "org.au", "org.br", "org.mk", "org.uk",
+]);
+
+/**
+ * Domaine racine (eTLD+1) d'un indice ou d'une valeur stockée : schéma, port,
+ * chemin, `www.` et **tous** les sous-domaines sont retirés.
+ * `https://www.library.uta.edu:8443/a` → `uta.edu` ; `solarium.com.br` →
+ * `solarium.com.br` (`com.br` est un suffixe public, pas un sous-domaine).
+ * Renvoie `null` pour une valeur qui n'est pas un domaine enregistrable.
+ */
+export function domaineRacine(value: string | null | undefined): string | null {
+	const domain = domainFromHint(value ?? "");
+	if (!domain || SUFFIXES_PUBLICS_COMPOSES.has(domain)) return null;
+	const labels = domain.split(".");
+	const suffix = `${labels[labels.length - 2]}.${labels[labels.length - 1]}`;
+	const largeur = SUFFIXES_PUBLICS_COMPOSES.has(suffix) ? 3 : 2;
+	return labels.slice(-Math.min(largeur, labels.length)).join(".");
+}
+
+/**
  * Normalise une valeur de domaine. Renvoie `null` si la valeur n'est pas un
  * domaine (chemin seul, adresse e-mail, nom d'organisation…).
  *
@@ -145,6 +175,8 @@ export type OrgDomaine = {
   website?: string | null;
   domainNorm?: string | null;
   websiteDomain?: string | null;
+  /** Alias `org_alias.source='domain'` portés par l'organisation. */
+  domainAliases?: readonly string[];
 };
 
 /** Résultat de la chaîne : premier étage qui réussit, sinon la revue. */
@@ -163,7 +195,7 @@ function nameWords(value: string): string[] {
 
 /**
  * Chaîne de résolution d'un indice-domaine, dans l'ordre imposé :
- *  1. domaine exact (`domain` ou `website` normalisés) ;
+ *  1. domaine racine exact (`domain`, `website` ou alias de type domaine) ;
  *  2. racine du domaine contre `slug` / nom normalisé — mot ≥ 5 lettres et
  *     **une seule** candidate, sinon refus motivé ;
  *  3. aucun rattachement : l'indice part en revue.
@@ -172,19 +204,20 @@ function nameWords(value: string): string[] {
  * (déterminisme du moteur existant).
  */
 export function resoudreDomaine(hint: string, orgs: readonly OrgDomaine[]): ResolutionDomaine {
-  const hintDomain = domainFromHint(hint);
-  if (!hintDomain) return { etape: "aucune", orgId: null, confidence: 0, raison: "pas un domaine" };
+  const racine = domaineRacine(hint);
+  if (!racine) return { etape: "aucune", orgId: null, confidence: 0, raison: "pas un domaine" };
 
   const exact = orgs
     .filter((o) =>
-      memesDomaines(hintDomain, normalizeDomainValue(o.domainNorm ?? o.domain)) ||
-      memesDomaines(hintDomain, normalizeDomainValue(o.websiteDomain ?? o.website)),
+      memesDomaines(racine, domaineRacine(o.domainNorm ?? o.domain)) ||
+      memesDomaines(racine, domaineRacine(o.websiteDomain ?? o.website)) ||
+      (o.domainAliases ?? []).some((alias) => memesDomaines(racine, domaineRacine(alias))),
     )
     .map((o) => o.id)
     .sort((a, b) => a - b);
   if (exact.length > 0) return { etape: "exact", orgId: exact[0]!, confidence: 0.95 };
 
-  const root = racineDomaine(hintDomain);
+  const root = racineDomaine(racine);
   if (!root) return { etape: "aucune", orgId: null, confidence: 0, raison: "racine trop courte" };
   const byRoot = orgs.filter((o) =>
     nameWords(o.slug).includes(root) || nameWords(o.nameNorm ?? o.name).includes(root),
