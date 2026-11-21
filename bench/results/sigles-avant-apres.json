@@ -1,0 +1,484 @@
+{
+	"vague": "couverture",
+	"etape": "S2.3",
+	"date": "2026-11-21",
+	"regle": "sigle-confirme",
+	"protocole": "file des 220 relevée gelée dans bench/results/precision-branchement.json (16 rattachements du moteur) : avant = règles S2/S3 sans décision du registre, après = même appel avec la décision sigle-confirme calculée sur la base réelle (5433), sans écriture. Jeu d'or : 50 pièges rejoués avec la même décision de production.",
+	"requetesSQL": {
+		"candidats": "\nSELECT id, name FROM (\n  SELECT o.id, o.name\n  FROM org o\n  WHERE replace(o.name_norm, '.', '') LIKE '%' || $1::text || '%'\n    AND ' ' || regexp_replace(replace(o.name_norm, '.', ''), '[^a-z0-9]+', ' ', 'g') || ' '\n        LIKE '% ' || $1::text || ' %'\n  UNION\n  SELECT o.id, o.name\n  FROM org_alias a\n  JOIN org o ON o.id = a.org_id\n  WHERE a.source IN ('annuaire-entreprises', 'usage')\n    AND regexp_replace(regexp_replace(upper(a.alias), '\\.', '', 'g'), '[^A-Z0-9]+', '', 'g') = $2::text\n) candidats\nORDER BY id",
+		"aliasSigle": "\nSELECT o.id, o.name, o.slug, o.kind, o.city, o.domain, o.website\nFROM org_alias a\nJOIN org o ON o.id = a.org_id\nWHERE a.source IN ('annuaire-entreprises', 'usage')\n  AND regexp_replace(regexp_replace(upper(a.alias), '\\.', '', 'g'), '[^A-Z0-9]+', '', 'g') = $1::text\nORDER BY o.id"
+	},
+	"file220": {
+		"volume": 220,
+		"sansRattachement": 204,
+		"rattachementsMoteur": 16,
+		"acceptesAvant": 0,
+		"acceptesApres": 0,
+		"refusesAvant": 16,
+		"refusesApres": 16,
+		"candidatsMultiples": 1,
+		"parMotif": {
+			"hors-perimetre-sigle": 15,
+			"ambigu": 1
+		},
+		"detail": [
+			{
+				"id": 1019,
+				"indice": "Marseille Provence",
+				"orgId": 151413,
+				"orgName": "SCI PROVENCE",
+				"via": "name",
+				"confidence": 0.7,
+				"sigle": null,
+				"candidats": null,
+				"motif": "hors-perimetre-sigle",
+				"avant": "1-sigle",
+				"apres": "1-sigle",
+				"traceApres": {
+					"regle": "1-sigle",
+					"accepte": false,
+					"motif": "registre non consulté"
+				}
+			},
+			{
+				"id": 1573,
+				"indice": "Paris Society",
+				"orgId": 33954,
+				"orgName": "WEB SOCIETY 33",
+				"via": "name",
+				"confidence": 0.7,
+				"sigle": null,
+				"candidats": null,
+				"motif": "hors-perimetre-sigle",
+				"avant": "1-sigle",
+				"apres": "1-sigle",
+				"traceApres": {
+					"regle": "1-sigle",
+					"accepte": false,
+					"motif": "registre non consulté"
+				}
+			},
+			{
+				"id": 4601,
+				"indice": "HENSOLDT France",
+				"orgId": 26891,
+				"orgName": "FRANCE 2R (FRANCE 2R)",
+				"via": "name",
+				"confidence": 0.7,
+				"sigle": null,
+				"candidats": null,
+				"motif": "hors-perimetre-sigle",
+				"avant": "1-sigle",
+				"apres": "1-sigle",
+				"traceApres": {
+					"regle": "1-sigle",
+					"accepte": false,
+					"motif": "registre non consulté"
+				}
+			},
+			{
+				"id": 4923,
+				"indice": "INTERSPORT France",
+				"orgId": 26891,
+				"orgName": "FRANCE 2R (FRANCE 2R)",
+				"via": "name",
+				"confidence": 0.7,
+				"sigle": null,
+				"candidats": null,
+				"motif": "hors-perimetre-sigle",
+				"avant": "1-sigle",
+				"apres": "1-sigle",
+				"traceApres": {
+					"regle": "1-sigle",
+					"accepte": false,
+					"motif": "registre non consulté"
+				}
+			},
+			{
+				"id": 6018,
+				"indice": "BMW France",
+				"orgId": 26891,
+				"orgName": "FRANCE 2R (FRANCE 2R)",
+				"via": "name",
+				"confidence": 0.7,
+				"sigle": null,
+				"candidats": null,
+				"motif": "hors-perimetre-sigle",
+				"avant": "1-sigle",
+				"apres": "1-sigle",
+				"traceApres": {
+					"regle": "1-sigle",
+					"accepte": false,
+					"motif": "registre non consulté"
+				}
+			},
+			{
+				"id": 7593,
+				"indice": "Professionnel France",
+				"orgId": 26891,
+				"orgName": "FRANCE 2R (FRANCE 2R)",
+				"via": "name",
+				"confidence": 0.7,
+				"sigle": null,
+				"candidats": null,
+				"motif": "hors-perimetre-sigle",
+				"avant": "1-sigle",
+				"apres": "1-sigle",
+				"traceApres": {
+					"regle": "1-sigle",
+					"accepte": false,
+					"motif": "registre non consulté"
+				}
+			},
+			{
+				"id": 7851,
+				"indice": "Sartrouville  France",
+				"orgId": 26891,
+				"orgName": "FRANCE 2R (FRANCE 2R)",
+				"via": "name",
+				"confidence": 0.7,
+				"sigle": null,
+				"candidats": null,
+				"motif": "hors-perimetre-sigle",
+				"avant": "1-sigle",
+				"apres": "1-sigle",
+				"traceApres": {
+					"regle": "1-sigle",
+					"accepte": false,
+					"motif": "registre non consulté"
+				}
+			},
+			{
+				"id": 8265,
+				"indice": "Betton France",
+				"orgId": 26891,
+				"orgName": "FRANCE 2R (FRANCE 2R)",
+				"via": "name",
+				"confidence": 0.7,
+				"sigle": null,
+				"candidats": null,
+				"motif": "hors-perimetre-sigle",
+				"avant": "1-sigle",
+				"apres": "1-sigle",
+				"traceApres": {
+					"regle": "1-sigle",
+					"accepte": false,
+					"motif": "registre non consulté"
+				}
+			},
+			{
+				"id": 9114,
+				"indice": "Traxall France",
+				"orgId": 26891,
+				"orgName": "FRANCE 2R (FRANCE 2R)",
+				"via": "name",
+				"confidence": 0.7,
+				"sigle": null,
+				"candidats": null,
+				"motif": "hors-perimetre-sigle",
+				"avant": "1-sigle",
+				"apres": "1-sigle",
+				"traceApres": {
+					"regle": "1-sigle",
+					"accepte": false,
+					"motif": "registre non consulté"
+				}
+			},
+			{
+				"id": 9292,
+				"indice": "hotel-ampere-paris.com",
+				"orgId": 149367,
+				"orgName": "HOTEL DE PARIS",
+				"via": "name",
+				"confidence": 0.75,
+				"sigle": null,
+				"candidats": null,
+				"motif": "hors-perimetre-sigle",
+				"avant": "2-homonyme",
+				"apres": "2-homonyme",
+				"traceApres": {
+					"regle": "2-homonyme",
+					"accepte": false
+				}
+			},
+			{
+				"id": 10079,
+				"indice": "Malongo France",
+				"orgId": 26891,
+				"orgName": "FRANCE 2R (FRANCE 2R)",
+				"via": "name",
+				"confidence": 0.7,
+				"sigle": null,
+				"candidats": null,
+				"motif": "hors-perimetre-sigle",
+				"avant": "1-sigle",
+				"apres": "1-sigle",
+				"traceApres": {
+					"regle": "1-sigle",
+					"accepte": false,
+					"motif": "registre non consulté"
+				}
+			},
+			{
+				"id": 11420,
+				"indice": "LYON TERMINAL",
+				"orgId": 495061,
+				"orgName": "TERMINAL C",
+				"via": "name",
+				"confidence": 0.7,
+				"sigle": null,
+				"candidats": null,
+				"motif": "hors-perimetre-sigle",
+				"avant": "1-sigle",
+				"apres": "1-sigle",
+				"traceApres": {
+					"regle": "1-sigle",
+					"accepte": false,
+					"motif": "registre non consulté"
+				}
+			},
+			{
+				"id": 11525,
+				"indice": "Speedy France",
+				"orgId": 26891,
+				"orgName": "FRANCE 2R (FRANCE 2R)",
+				"via": "name",
+				"confidence": 0.7,
+				"sigle": null,
+				"candidats": null,
+				"motif": "hors-perimetre-sigle",
+				"avant": "1-sigle",
+				"apres": "1-sigle",
+				"traceApres": {
+					"regle": "1-sigle",
+					"accepte": false,
+					"motif": "registre non consulté"
+				}
+			},
+			{
+				"id": 12513,
+				"indice": "Francesco Parisi",
+				"orgId": 293894,
+				"orgName": "SCI PE-PARISI",
+				"via": "name",
+				"confidence": 0.7,
+				"sigle": null,
+				"candidats": null,
+				"motif": "hors-perimetre-sigle",
+				"avant": "1-sigle",
+				"apres": "1-sigle",
+				"traceApres": {
+					"regle": "1-sigle",
+					"accepte": false,
+					"motif": "registre non consulté"
+				}
+			},
+			{
+				"id": 15389,
+				"indice": "Mission Locale Montpellier",
+				"orgId": 235292,
+				"orgName": "MISSION LOCALE",
+				"via": "name",
+				"confidence": 0.75,
+				"sigle": null,
+				"candidats": null,
+				"motif": "hors-perimetre-sigle",
+				"avant": "2-homonyme",
+				"apres": "2-homonyme",
+				"traceApres": {
+					"regle": "2-homonyme",
+					"accepte": false
+				}
+			},
+			{
+				"id": 644182,
+				"indice": "bastion.internal",
+				"orgId": 51099,
+				"orgName": "LE BASTION",
+				"via": "name",
+				"confidence": 0.7,
+				"sigle": "BASTION",
+				"candidats": 37,
+				"motif": "ambigu",
+				"avant": "1-sigle",
+				"apres": "sigle-confirme",
+				"traceApres": {
+					"regle": "sigle-confirme",
+					"accepte": false,
+					"motif": "ambigu"
+				}
+			}
+		]
+	},
+	"jeuDor": {
+		"cas": 50,
+		"piegesEcartes": 16,
+		"piegesPasses": 0,
+		"conservesIntacts": 34,
+		"ecarts": []
+	},
+	"temoinsRegistre": {
+		"acceptes": 2,
+		"total": 7,
+		"detail": [
+			{
+				"indice": "ERNAT",
+				"matchMoteur": null,
+				"matchResolu": {
+					"orgId": 34382,
+					"confidence": 0.7,
+					"via": "name"
+				},
+				"decision": {
+					"sigle": "ERNAT",
+					"accepte": true,
+					"candidats": 1,
+					"motif": "confirme",
+					"orgId": 34382,
+					"orgName": "Études Réalisations Négoce Assistance Technique (ERNAT)"
+				},
+				"regle": "accepte",
+				"trace": {
+					"regle": "sigle-confirme",
+					"accepte": true,
+					"motif": "confirme"
+				}
+			},
+			{
+				"indice": "AMF",
+				"matchMoteur": {
+					"orgId": 68162,
+					"confidence": 0.9,
+					"via": "name"
+				},
+				"matchResolu": {
+					"orgId": 68162,
+					"confidence": 0.9,
+					"via": "name"
+				},
+				"decision": null,
+				"regle": "accepte",
+				"trace": {
+					"regle": "aucune",
+					"accepte": true
+				}
+			},
+			{
+				"indice": "FNC",
+				"matchMoteur": {
+					"orgId": 34388,
+					"confidence": 0.7,
+					"via": "name"
+				},
+				"matchResolu": {
+					"orgId": 34388,
+					"confidence": 0.7,
+					"via": "name"
+				},
+				"decision": {
+					"sigle": "FNC",
+					"accepte": false,
+					"candidats": 3,
+					"motif": "ambigu"
+				},
+				"regle": "sigle-confirme",
+				"trace": {
+					"regle": "sigle-confirme",
+					"accepte": false,
+					"motif": "ambigu"
+				}
+			},
+			{
+				"indice": "OFB",
+				"matchMoteur": {
+					"orgId": 45006,
+					"confidence": 0.7,
+					"via": "name"
+				},
+				"matchResolu": {
+					"orgId": 45006,
+					"confidence": 0.7,
+					"via": "name"
+				},
+				"decision": {
+					"sigle": "OFB",
+					"accepte": false,
+					"candidats": 35,
+					"motif": "ambigu"
+				},
+				"regle": "sigle-confirme",
+				"trace": {
+					"regle": "sigle-confirme",
+					"accepte": false,
+					"motif": "ambigu"
+				}
+			},
+			{
+				"indice": "UNSS",
+				"matchMoteur": {
+					"orgId": 45004,
+					"confidence": 0.7,
+					"via": "name"
+				},
+				"matchResolu": {
+					"orgId": 45004,
+					"confidence": 0.7,
+					"via": "name"
+				},
+				"decision": {
+					"sigle": "UNSS",
+					"accepte": false,
+					"candidats": 6,
+					"motif": "ambigu"
+				},
+				"regle": "sigle-confirme",
+				"trace": {
+					"regle": "sigle-confirme",
+					"accepte": false,
+					"motif": "ambigu"
+				}
+			},
+			{
+				"indice": "A.M.F.",
+				"matchMoteur": {
+					"orgId": 45005,
+					"confidence": 0.7,
+					"via": "name"
+				},
+				"matchResolu": {
+					"orgId": 45005,
+					"confidence": 0.7,
+					"via": "name"
+				},
+				"decision": {
+					"sigle": "AMF",
+					"accepte": false,
+					"candidats": 30,
+					"motif": "ambigu"
+				},
+				"regle": "sigle-confirme",
+				"trace": {
+					"regle": "sigle-confirme",
+					"accepte": false,
+					"motif": "ambigu"
+				}
+			},
+			{
+				"indice": "ANSSI",
+				"matchMoteur": null,
+				"matchResolu": null,
+				"decision": {
+					"sigle": "ANSSI",
+					"accepte": false,
+					"candidats": 0,
+					"motif": "inconnu"
+				},
+				"regle": "sans-match",
+				"trace": {
+					"regle": "",
+					"accepte": false
+				}
+			}
+		]
+	}
+}

@@ -19,7 +19,11 @@ import {
 	elimineMasquage,
 	elimineSigle,
 	elimineVille,
+	REGLE_SIGLE,
+	type TraceRegle,
 } from "../src/match/regles-precision.js";
+import { decideSigle, estSigle, normaliseSigle } from "../src/match/sigles.js";
+
 
 // ── Règle 3 — masquage ───────────────────────────────────────────────────
 
@@ -37,6 +41,96 @@ test("règle 1 : un seul jeton ne fonde pas un rattachement", () => {
 	// Le chemin domaine n'est pas touché : le domaine est une clé, pas une
 	// ressemblance.
 	assert.equal(ecarteeParRegles({ indice: "chevron.com", via: "domain", confidence: 0.95, orgName: "CHEVRON" }), null);
+});
+
+// ── sigle-confirme — chantier couverture S2.1 ────────────────────────────
+
+test("sigle-confirme : un sigle confirmé par une seule organisation est accepté", () => {
+	assert.equal(normaliseSigle("A.M.F."), "AMF");
+	const d = decideSigle("A.M.F.", [{ orgId: 45005, orgName: "Association des maires de France" }]);
+	assert.deepEqual(
+		{ accepte: d.accepte, motif: d.motif, candidats: d.candidats, orgId: d.orgId },
+		{ accepte: true, motif: "confirme", candidats: 1, orgId: 45005 },
+	);
+	const trace: TraceRegle = { regle: "", accepte: false };
+	assert.equal(
+		ecarteeParRegles(
+			{
+				indice: "A.M.F.",
+				via: "name",
+				confidence: 0.7,
+				orgName: "Association des maires de France",
+				orgId: 45005,
+				sigle: d,
+			},
+			trace,
+		),
+		null,
+	);
+	assert.deepEqual(trace, { regle: REGLE_SIGLE, accepte: true, motif: "confirme" });
+	// Une confirmation sur une autre organisation ne sauve pas le match.
+	assert.equal(
+		ecarteeParRegles({
+			indice: "A.M.F.",
+			via: "name",
+			confidence: 0.7,
+			orgName: "AUTRE",
+			orgId: 999,
+			sigle: d,
+		}),
+		REGLE_SIGLE,
+	);
+});
+
+test("sigle-confirme : deux organisations candidates => refus motivé", () => {
+	const d = decideSigle("A2C", [
+		{ orgId: 1, orgName: "A2C" },
+		{ orgId: 2, orgName: "Application Chauffage Climatisation" },
+	]);
+	assert.equal(d.accepte, false);
+	assert.equal(d.motif, "ambigu");
+	assert.equal(d.candidats, 2);
+	const trace: TraceRegle = { regle: "", accepte: false };
+	assert.equal(
+		ecarteeParRegles(
+			{ indice: "A2C", via: "name", confidence: 0.7, orgName: "A2C", orgId: 1, sigle: d },
+			trace,
+		),
+		REGLE_SIGLE,
+	);
+	assert.deepEqual(trace, { regle: REGLE_SIGLE, accepte: false, motif: "ambigu" });
+});
+
+test("sigle-confirme : sigle inconnu au registre => refus", () => {
+	const d = decideSigle("ZZZ", []);
+	assert.equal(d.accepte, false);
+	assert.equal(d.motif, "inconnu");
+	assert.equal(estSigle("ZZZ"), true);
+	const trace: TraceRegle = { regle: "", accepte: false };
+	assert.equal(
+		ecarteeParRegles(
+			{ indice: "ZZZ", via: "name", confidence: 0.7, orgName: "ZZZ", orgId: 1, sigle: d },
+			trace,
+		),
+		REGLE_SIGLE,
+	);
+	assert.equal(trace.motif, "inconnu");
+});
+
+test("sigle-confirme : un mot courant n'est pas un sigle, même unique au registre", () => {
+	const d = decideSigle("ORANGE", [{ orgId: 1, orgName: "ORANGE" }]);
+	assert.equal(estSigle("ORANGE"), false);
+	assert.equal(d.accepte, false);
+	assert.equal(d.motif, "mot-courant");
+	const trace: TraceRegle = { regle: "", accepte: false };
+	assert.equal(
+		ecarteeParRegles(
+			{ indice: "ORANGE", via: "name", confidence: 0.7, orgName: "ORANGE", orgId: 1, sigle: d },
+			trace,
+		),
+		REGLE_SIGLE,
+	);
+	assert.equal(trace.motif, "mot-courant");
 });
 
 // ── Règle 4 — commentaire de fuite ───────────────────────────────────────
