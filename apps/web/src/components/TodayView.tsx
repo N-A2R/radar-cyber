@@ -8,6 +8,7 @@
 import type { TodayEvent } from "../api";
 import type { TodayViewProps } from "../contracts";
 import "./today.css";
+import LieesCard from "./LieesCard";
 
 /** Date lisible et sans ambiguïté : UTC affichée, jamais une heure locale devinée. */
 export function dateLisible(iso: string | null): string {
@@ -55,6 +56,7 @@ export default function TodayView({
 
   return (
     <section className="today" aria-labelledby="today-titre">
+      <LieesCard />
       <header className="today__head">
         <div>
           <p className="today__kicker">veille du jour</p>

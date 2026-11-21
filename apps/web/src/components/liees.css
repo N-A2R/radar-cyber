@@ -1,0 +1,124 @@
+/* Carte compacte des organisations reliées : mêmes jetons que l'accueil.
+   Les libellés restent en capitales mono ; les chiffres sont tabulaires. */
+
+.liees {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.liees__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.liees__titre {
+  margin: 0;
+  font: 600 16px/1.5 var(--font-sans);
+  color: var(--text);
+}
+
+.liees__kicker {
+  margin: 0;
+  color: var(--faint);
+  font: 600 11px/1.5 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.liees__statut,
+.liees__vide {
+  margin: 0;
+  font: 400 13px/1.5 var(--font-sans);
+  color: var(--muted);
+}
+
+.liees__erreur {
+  color: var(--sev-5);
+}
+
+.liees__grand {
+  margin: 0;
+  font: 600 32px/1.2 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+.liees__grand-label {
+  margin: 0;
+  color: var(--faint);
+  font: 600 11px/1.5 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.liees__chiffres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin: 0;
+}
+
+.liees__chiffre {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.liees__chiffre dt {
+  color: var(--faint);
+  font: 600 11px/1.5 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.liees__chiffre dd {
+  margin: 0;
+  font: 500 16px/1.5 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+.liees__sous-titre {
+  margin: var(--space-2) 0 0;
+  color: var(--faint);
+  font: 600 11px/1.5 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.liees__depts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.liees__dept {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  font: 400 13px/1.5 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.liees__dept-code {
+  color: var(--muted);
+}
+
+.liees__dept-n {
+  color: var(--text);
+  font-weight: 600;
+}
