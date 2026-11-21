@@ -1,0 +1,32 @@
+{
+  "genere_le": "2026-11-21",
+  "contexte": "Le 21 novembre, 9 des 40 sources rouges sondées (22,5 %) répondaient HTTP 200 sans item extractible (bench/results/causes-sources.json). Les correctifs précédents couvraient ces 9 corps. Cette mesure porte sur un nouvel échantillon de 10 sources réelles, choisies pour couvrir les quatre formats effectivement rencontrés : RSS 2.0, Atom, JSON-LD (schema.org) et pages HTML avec <article>.",
+  "methode": {
+    "corps": "Un GET par URL le 21 novembre 2026, redirect:follow, User-Agent navigateur, même transport que le collecteur ; corps enregistrés tels quels (aucune source relancée pour obtenir un meilleur résultat). Les corpus ne sont pas versionnés : seuls les métriques, URL et tailles le sont.",
+    "mesure": "detectItems(corps, content-type) exécuté avant puis après les correctifs sur les OCTETS FIGÉS des mêmes réponses ; nombre d'objets retournés et stratégie retenue.",
+    "avant": "code de l'état HEAD avant les quatre parseurs (rss-atom générique, embedded-json, html-links).",
+    "apres": "code avec les stratégies rss-2, atom, json-ld et html-article.",
+    "base": "aucune écriture en base",
+    "limite": "Dix sources, pas un extrapolateur de la part des sources muettes : les comptes décrivent précisément ces dix réponses du 21 novembre."
+  },
+  "sources": [
+    { "source": "cert-fr-feed", "url": "https://www.cert.ssi.gouv.fr/feed/", "format_reel": "RSS 2.0", "octets": 23182, "avant": { "strategie": "rss-atom", "items": 40 }, "apres": { "strategie": "rss-2", "items": 40 } },
+    { "source": "krebsonsecurity-feed", "url": "https://krebsonsecurity.com/feed/", "format_reel": "RSS 2.0", "octets": 125258, "avant": { "strategie": "rss-atom", "items": 10 }, "apres": { "strategie": "rss-2", "items": 10 } },
+    { "source": "thehackernews-feed", "url": "https://feeds.feedburner.com/TheHackersNews", "format_reel": "RSS 2.0", "octets": 59774, "avant": { "strategie": "rss-atom", "items": 50 }, "apres": { "strategie": "rss-2", "items": 50 } },
+    { "source": "jpcert-blog-atom", "url": "https://blogs.jpcert.or.jp/en/atom.xml", "format_reel": "Atom 1.0", "octets": 271808, "avant": { "strategie": "rss-atom", "items": 15 }, "apres": { "strategie": "atom", "items": 15 } },
+    { "source": "github-rust-releases-atom", "url": "https://github.com/rust-lang/rust/releases.atom", "format_reel": "Atom 1.0", "octets": 131788, "avant": { "strategie": "rss-atom", "items": 10 }, "apres": { "strategie": "atom", "items": 10 } },
+    { "source": "github-blog-article", "url": "https://github.blog/open-source/maintainers/the-best-things-in-open-source-are-built-together/", "format_reel": "HTML + JSON-LD", "octets": 211721, "avant": { "strategie": "embedded-json", "items": 6 }, "apres": { "strategie": "json-ld", "items": 1 } },
+    { "source": "bleepingcomputer-article", "url": "https://www.bleepingcomputer.com/news/security/badbox-30-botnet-returns-with-record-breaking-40-billion-daily-ad-requests/", "format_reel": "HTML + JSON-LD", "octets": 91222, "avant": { "strategie": "html-links", "items": 89 }, "apres": { "strategie": "json-ld", "items": 1 } },
+    { "source": "cert-fr-avis", "url": "https://www.cert.cyber.gouv.fr/avis/CERTFR-2026-AVI-1344/", "format_reel": "HTML <article>", "octets": 32593, "avant": { "strategie": "html-links", "items": 47 }, "apres": { "strategie": "html-article", "items": 1 } },
+    { "source": "krebsonsecurity-article", "url": "https://krebsonsecurity.com/2026/11/cto-of-ransomwarehelp-indicted-for-wire-fraud/", "format_reel": "HTML <article>", "octets": 56993, "avant": { "strategie": "html-links", "items": 57 }, "apres": { "strategie": "html-article", "items": 1 } },
+    { "source": "register-article", "url": "https://www.theregister.com/security/2026/11/20/signal-slams-door-on-prying-ai-agents-to-protect-privacy/5311466", "format_reel": "HTML + JSON-LD", "octets": 183003, "avant": { "strategie": "embedded-json", "items": 2 }, "apres": { "strategie": "json-ld", "items": 1 } }
+  ],
+  "totaux": { "items_avant": 326, "items_apres": 130, "pages_avant": 201, "pages_apres": 5, "flux_avant": 125, "flux_apres": 125 },
+  "lecture": "Les cinq flux gardent leurs 125 items : le gain n'est pas une augmentation de volume, mais une identification explicite (rss-2 / atom) et des champs canoniques (dates, liens Atom, content:encoded). Les cinq pages d'article passent de 201 liens de menu ou métadonnées à 5 articles réels, un par page.",
+  "verification": {
+    "typecheck": "pnpm -F @radar/api typecheck : vert",
+    "tests_purs": "tsx --test test/parseurs-formats.test.ts test/claims.test.ts test/http.test.ts : 11/11 verts",
+    "negatif": "une page JSON-LD sans nœud Article ne déclenche pas la stratégie json-ld (The Hacker News : Organization + BreadcrumbList seulement)",
+    "accept_http": "serveur local d'écho : l'en-tête Accept par défaut émis par fetchResilient contient application/ld+json, application/rss+xml, application/atom+xml et text/html"
+  }
+}

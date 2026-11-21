@@ -33,7 +33,9 @@ import { parseClaimCards } from "./parsers/claims.js";
 import { parseTelegramContact, parseTelegramMessages } from "./parsers/telegram.js";
 import { decodeBody } from "./parsers/decode.js";
 import { consignerLot, MOTEURS, type JournalEntry } from "../journal/index.js";
-import { parseRssItems } from "./parsers/xml.js";
+import { parseFeedDetection, parseRssItems } from "./parsers/xml.js";
+import { parseJsonLd } from "./parsers/jsonld.js";
+import { parseHtmlArticles } from "./parsers/article.js";
 import { parseJsonItems as parseJsonItemsNew } from "./parsers/json.js";
 import { parseEmbeddedJson } from "./parsers/embedded-json.js";
 import { parseLandingNotice } from "./parsers/landing.js";
@@ -222,8 +224,12 @@ function parseRss(xml: string, parser: Record<string, unknown>): Record<string, 
 export type DetectionStrategy =
   | "json-root-array"
   | "json-nested-array"
+  | "json-ld"
+  | "rss-2"
+  | "atom"
   | "rss-atom"
   | "csv"
+  | "html-article"
   | "html-links"
   | "claim-cards"
   | "telegram-channel"
@@ -274,34 +280,6 @@ function findObjectArrayWithPath(
   return null;
 }
 
-function pickPath(root: unknown, path: string): unknown {
-  let node: unknown = root;
-  for (const key of path.split(".")) {
-    if (!isObject(node)) return undefined;
-    node = node[key];
-  }
-  return node;
-}
-
-const FEED_PATHS = ["rss.channel.item", "channel.item", "feed.entry", "rdf:RDF.item", "RDF.item"];
-
-/** `<item>` (RSS 2.0), `<entry>` (Atom) ou `<item>` (RDF) → objets. */
-function parseFeedItems(body: string): { items: Record<string, unknown>[]; path: string } | null {
-  if (!/<(?:[\w.-]+:)?(?:item|entry)[\s>]/i.test(body)) return null;
-  let parsed: unknown;
-  try {
-    parsed = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: "@_", textNodeName: "#text" }).parse(body);
-  } catch {
-    return null;
-  }
-  for (const path of FEED_PATHS) {
-    const node = pickPath(parsed, path);
-    const items = Array.isArray(node) ? node : node === undefined ? [] : [node];
-    const objects = toObjectArray(items);
-    if (objects.length > 0) return { items: objects, path };
-  }
-  return null;
-}
 
 function splitCsvLine(line: string, delimiter: string): string[] {
   const cells: string[] = [];
@@ -378,6 +356,9 @@ export function detectItems(body: string, contentType: string | null): Detection
   const declared = (contentType ?? "").toLowerCase();
   if (!text) return { strategy: "none", items: [], path: null };
 
+  const jsonLd = parseJsonLd(text);
+  if (jsonLd) return { strategy: "json-ld", items: jsonLd, path: "@graph" };
+
   if (text.startsWith("[") || text.startsWith("{")) {
     let data: unknown;
     try {
@@ -400,8 +381,8 @@ export function detectItems(body: string, contentType: string | null): Detection
     // une page d'erreur HTML servie avec le bon content-type.
   }
 
-  const feed = parseFeedItems(text);
-  if (feed) return { strategy: "rss-atom", items: feed.items, path: feed.path };
+  const feed = parseFeedDetection(text);
+  if (feed) return { strategy: feed.kind, items: feed.items, path: feed.path };
 
   // JSON sérialisé dans une balise <script> (Inertia, Next.js…) : le corps est
   // du HTML pour le transport, mais les enregistrements sont bien du JSON.
@@ -456,6 +437,8 @@ export function detectItems(body: string, contentType: string | null): Detection
       path: "tgme_username_link",
     };
   }
+  const article = parseHtmlArticles(text);
+  if (article) return { strategy: "html-article", items: article, path: "article" };
   const links = parseHtmlLinks(text);
   if (links) return { strategy: "html-links", items: links.items, path: links.path };
 

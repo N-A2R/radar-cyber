@@ -124,6 +124,9 @@ export interface FetchResilientResult {
 
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
 
+/** Négocie explicitement les quatre formats lus par les collecteurs. */
+export const COLLECTOR_ACCEPT = "application/ld+json, application/rss+xml, application/atom+xml, application/xml, text/xml, text/html;q=0.9, */*;q=0.5";
+
 function parseRetryAfter(header: string | null): number | null {
   if (!header) return null;
   const trimmed = header.trim();
@@ -148,8 +151,7 @@ export async function fetchResilient(
 ): Promise<FetchResilientResult> {
   const timeoutMs = opts.timeoutMs ?? 20000;
   const maxAttempts = opts.maxAttempts ?? 3;
-  const accept = opts.accept ?? "*/*";
-
+  const accept = opts.accept ?? COLLECTOR_ACCEPT;
   const known = getValidators(url);
   const ifNoneMatch = opts.ifNoneMatch ?? known?.etag;
   const ifModifiedSince = opts.ifModifiedSince ?? known?.lastModified;
