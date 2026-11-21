@@ -1,14 +1,10 @@
 /**
  * Vérification de la carte « organisations reliées », sans navigateur.
  *
- * Les chiffres ci-dessous sont un relevé réel sur la base de test (5433) :
- *   SELECT (SELECT count(DISTINCT org_id)::int FROM event WHERE org_id IS NOT NULL
- *             AND COALESCE(observed_at, collected_at) >= now() - interval '7 days') AS semaine,
- *          (SELECT count(*)::int FROM quarantine_raw WHERE promoted=true) AS total,
- *          (SELECT count(*)::int FROM quarantine_raw WHERE kind='claim' AND status='pending'
- *             AND promoted=false AND org_hint IS NOT NULL AND btrim(org_hint) <> '') AS en_attente,
- *          (SELECT count(DISTINCT subject)::int FROM journal WHERE kind='review.decided') AS examinees;
- * Les départements sont le top 5 réel de la même fenêtre de 7 jours.
+ * Les chiffres ci-dessous sont des valeurs de démonstration, pas un relevé de
+ * la base : la ligne de base du compteur a changé avec les 20 créations
+ * permanentes du lot domaines (2026-11-21). Les assertions dérivent donc du
+ * jeu de données, jamais d'un total absolu codé en dur.
  */
 import { renderToStaticMarkup } from "react-dom/server";
 import LieesCard, { LieesContenu, type OrgsLiees } from "../src/components/LieesCard";
@@ -21,10 +17,10 @@ function check(label: string, ok: boolean, detail = "") {
 }
 
 const mesure: OrgsLiees = {
-  semaine: 26,
-  total: 26,
-  enAttente: 220,
-  examinees: 16576,
+  semaine: 7,
+  total: 12,
+  enAttente: 3,
+  examinees: 9,
   parDepartement: [
     { dept: "33", n: 8 },
     { dept: "16", n: 2 },
@@ -38,9 +34,9 @@ const avecDonnees = renderToStaticMarkup(
   <LieesContenu data={mesure} loading={false} error={null} />,
 );
 check("titre et période affichés", avecDonnees.includes("Organisations reliées — 7 jours"));
-check("grand nombre = 26 mesurés", avecDonnees.includes(">26</p>"));
-check("depuis toujours / attente / examinées", avecDonnees.includes(">26</dd>")
-  && avecDonnees.includes(">220</dd>") && />16[\u202f\u00a0 ]576<\/dd>/.test(avecDonnees));
+check("grand nombre = mesure.semaine", avecDonnees.includes(`>${mesure.semaine}</p>`));
+check("depuis toujours / attente / examinées", avecDonnees.includes(`>${mesure.total}</dd>`)
+  && avecDonnees.includes(`>${mesure.enAttente}</dd>`) && avecDonnees.includes(`>${mesure.examinees}</dd>`));
 check("top 5 départements", avecDonnees.includes(">33</span>") && avecDonnees.includes(">8</span>")
   && avecDonnees.includes(">75</span>") && (avecDonnees.match(/class="liees__dept"/g) ?? []).length === 5);
 

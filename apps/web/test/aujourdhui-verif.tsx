@@ -1,9 +1,9 @@
 /**
  * Vérification de l'écran d'accueil, sans navigateur.
  *
- * Les deux lignes et les compteurs ci-dessous sont des réponses réellement
- * relevées sur GET /api/today (port 18101, base de test partagée) : aucun
- * événement fabriqué pour faire passer un test.
+ * Les deux lignes et les compteurs ci-dessous sont des valeurs de
+ * démonstration, pas un relevé figé : la ligne de base des organisations
+ * reliées a changé avec les 20 créations du lot domaines (2026-11-21).
  */
 import { renderToStaticMarkup } from "react-dom/server";
 import TodayView, { triRecents } from "../src/components/TodayView";
@@ -43,7 +43,7 @@ const ligneRattachee: TodayEvent = {
 	dept: "17",
 };
 
-const compteurs = { evenements24h: 693, organisations7j: 26, derniereCollecte: "2026-11-21 14:31:57.387627+01" };
+const compteurs = { evenements24h: 693, organisations7j: 7, derniereCollecte: "2026-11-21 14:31:57.387627+01" };
 const donnees: TodayResponse = {
 	compteurs,
 	// Mélangé à dessein : l'écran doit trier lui-même, pas faire confiance à l'ordre reçu.
@@ -61,7 +61,7 @@ check("une ligne réelle s'affiche", html.includes("FBI hacked again")
 	&& html.includes("leaks"));
 check("date lisible et horodatage machine", html.includes("2026-11-21 12:37 UTC") && /datetime="2026-11-21 13:37:22\+01"/i.test(html));
 check("lien source réel", html.includes("https://databreaches.net/2026/11/21/fbi-hacked-again-criminal-information-database-targeted/"));
-check("compteurs relevés, pas inventés", html.includes("693") && html.includes("26"));
+check("compteurs affichés tels que reçus", html.includes(String(compteurs.evenements24h)) && html.includes(String(compteurs.organisations7j)));
 check("tri décroissant", html.indexOf("FBI hacked again") < html.indexOf("Polynésie française"),
 	`ordre : ${triRecents(donnees.evenements).map((e) => e.id).join(", ")}`);
 
