@@ -17,10 +17,16 @@ export function dateLisible(iso: string | null): string {
   return `${d.toISOString().slice(0, 16).replace("T", " ")} UTC`;
 }
 
+function instant(iso: string | null): number {
+  if (!iso) return Number.NEGATIVE_INFINITY;
+  const t = Date.parse(iso.replace(" ", "T"));
+  return Number.isFinite(t) ? t : 0;
+}
+
 /** L'API trie déjà ; on retrie pour tenir le contrat même avec un vieux serveur. */
 export function triRecents(evenements: TodayEvent[]): TodayEvent[] {
   return [...evenements].sort(
-    (a, b) => String(b.date ?? "").localeCompare(String(a.date ?? "")) || Number(b.id) - Number(a.id),
+    (a, b) => instant(b.date) - instant(a.date) || Number(b.id) - Number(a.id),
   );
 }
 
