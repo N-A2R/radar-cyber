@@ -40,3 +40,16 @@ début de la fonction (à fusionner dans l'index).
 Sur un échantillon TABLESAMPLE SYSTEM(1) de la table `indicator`
 (55 149 lignes) : 5 gardés, 55 144 rejetés (dont 55 143 `global`,
 4 `cve_known`, 1 `org_subdomain`, 1 `public_suffix`). Temps : 119 ms.
+
+## Filtrage par langue des événements
+
+`detectLanguage()` (`collectors/filter.ts`) score les mots outils et les
+mots-clés cyber français/anglais, avec un bonus borné pour les accents. Elle
+renvoie `fr`, `en` ou `und` quand le texte est trop court pour trancher.
+
+`ingestNarrative()` stocke le résultat dans `event.langue` (migration 045) et
+applique la porte optionnelle `RADAR_EVENT_LANGUAGES` : liste de codes séparés
+par des virgules, vide/`*`/`all` = aucune restriction. Les rejets sont comptés
+dans `collector_run.items_rejected` sous `langue:fr`, `langue:en` ou
+`langue:und`. Une valeur invalide fait échouer le run au démarrage plutôt que
+de filtrer silencieusement tout le flux.

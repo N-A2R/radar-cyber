@@ -25,7 +25,7 @@ import {
 	type RelevanceOrg,
 } from "./relevance.js";
 import { estTexteFrancais, porteeRegionale } from "../match/territorial.js";
-import { isActionableIndicator, loadActiveIndex, type ActiveIndex } from "./filter.js";
+import { detectLanguage, isActionableIndicator, languageFilterFromEnv, loadActiveIndex, type ActiveIndex, type EventLanguage } from "./filter.js";
 import { filterIndicators } from "./warninglist.js";
 import { classifyFamily, isFamily } from "./classify.js";
 import { AdmissionTally, admitEvent } from "../contract/admit.js";
@@ -664,6 +664,7 @@ async function ingestNarrative(
 	/** Domaines connus, pour la porte ; le rattachement passe par le gazetteer. */
 	orgIndex: RelevanceOrg[],
 	coverage: CoverageContext,
+	languageFilter: Set<EventLanguage> | null,
 ): Promise<IngestResult> {
   const parser = source.parser ?? {};
   const declaredPath = typeof parser.itemsPath === "string" ? parser.itemsPath : "";
@@ -719,6 +720,15 @@ async function ingestNarrative(
     const title = decodeEntities(explicitOr(item, parser.titleField, TITLE_FIELDS)).slice(0, 400);
     const summary = decodeEntities(explicitOr(item, parser.summaryField, SUMMARY_FIELDS)).slice(0, 2000);
     if (!title) continue;
+    // Langue stockée sur l'événement, et porte optionnelle : avec
+    // RADAR_EVENT_LANGUAGES=fr, les dépêches anglaises ne sont pas ingérées.
+    const langue = detectLanguage(`${title} ${summary}`);
+    if (languageFilter !== null && !languageFilter.has(langue)) {
+      const motif = `langue:${langue}`;
+      rejectedBy[motif] = (rejectedBy[motif] ?? 0) + 1;
+      skipped++;
+      continue;
+    }
     if (menuFilter) {
       const reason = isMenuEntry(title, source.name);
       if (reason) {
@@ -849,18 +859,19 @@ async function ingestNarrative(
     const event = admitted.event;
     const r = await ingestQuery<{ inserted: boolean }>(
       `INSERT INTO event (dedup_key, family, assertion_type, title, summary, org_id, observed_at, date_source, date_confidence, severity, confidence,
-        source_id, source_url, evidence, geo_type, admission_rule, regional, regional_motif)
-       VALUES ($1,$2,$13,$3,$10,$11,$4,$5,$6,$14,$15,$7,$8,$9,$16,$12,$17,$18)
+        source_id, source_url, evidence, geo_type, admission_rule, regional, regional_motif, langue)
+       VALUES ($1,$2,$13,$3,$10,$11,$4,$5,$6,$14,$15,$7,$8,$9,$16,$12,$17,$18,$19)
        ON CONFLICT (dedup_key) DO UPDATE SET
          observed_at      = COALESCE(event.observed_at, EXCLUDED.observed_at),
          date_source      = COALESCE(event.date_source, EXCLUDED.date_source),
          date_confidence  = COALESCE(event.date_confidence, EXCLUDED.date_confidence),
-         admission_rule   = COALESCE(event.admission_rule, EXCLUDED.admission_rule)
+         admission_rule   = COALESCE(event.admission_rule, EXCLUDED.admission_rule),
+         langue           = COALESCE(event.langue, EXCLUDED.langue)
        RETURNING (xmax = 0) AS inserted`,
       [event.dedupKey, event.family, event.title, event.observedAt ?? null, parsed.source, parsed.confidence,
         event.sourceId, event.sourceUrl ?? null, JSON.stringify(event.evidence ?? {}), event.summary ?? null, orgId, admissionRule,
         event.assertionType, event.severity, event.confidence ?? "C3", event.geoType,
-        portee.regional, portee.motif]
+        portee.regional, portee.motif, langue]
     );
     if (r.rows[0]?.inserted) added++;
     faits.push({
@@ -942,7 +953,12 @@ function looksLikeBlocklist(url: string, body?: string): boolean {
   return /blocklist|blacklist|hostfile|feed-osint/i.test(url);
 }
 
-async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], coverage: CoverageContext): Promise<void> {
+async function processSource(
+  source: SourceRow,
+  orgIndex: RelevanceOrg[],
+  coverage: CoverageContext,
+  languageFilter: Set<EventLanguage> | null,
+): Promise<void> {
   // Une source qui n'a jamais réussi (last_ok_at NULL) ne doit pas être
   // retentée à chaque tick : le dernier échec sert de référence.
   const lastOk = source.last_ok_at ? Date.parse(source.last_ok_at) : NaN;
@@ -973,8 +989,7 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], covera
       : undefined;
     let result = asIndicator
       ? await ingestIndicator(source, body, filterIdx)
-      : await ingestNarrative(source, body, orgIndex, coverage);
-    // Flux marqué `indicator` mais livré en JSON/CSV/RSS : les lignes brutes ne
+      : await ingestNarrative(source, body, orgIndex, coverage, languageFilter);
     // portent aucun indicateur, on extrait les valeurs des items structurés.
     if (asIndicator && result.items === 0) {
       const detected = detectItems(body, null);
@@ -1051,6 +1066,7 @@ export async function runGenericSources(
 	const { rows } = await ingestQuery<SourceRow>(sql, params);
   log(`ingestion générique : ${rows.length} sources candidat(es)`);
   runLog = log;
+	const languageFilter = languageFilterFromEnv();
 
   // Index de pertinence chargé une seule fois par run (392 orgs + domaines).
   const { rows: orgRows } = await ingestQuery<{ name: string; domain: string | null; assets: string[] | null }>(
@@ -1071,13 +1087,14 @@ export async function runGenericSources(
   const coverage = await loadCoverageContext();
   log(`couverture : ${coverage.epssByCve.size} score(s) EPSS, seuil ${coverage.epssThreshold}, ${coverage.deptNames.length} lieu(x)`);
   log(`filtre : ${activeIndex.domains.size} domaine(s), ${activeIndex.ips.size} IP, ${activeIndex.cves.size} CVE(s)`);
+  log(`langue : ${languageFilter !== null ? [...languageFilter].join(",") : "toutes"}`);
 
   const CONCURRENCY = 8;
   let index = 0;
   const workers = Array.from({ length: CONCURRENCY }, async () => {
     while (index < rows.length) {
       const source = rows[index++];
-      await processSource(source, orgIndex, coverage);
+      await processSource(source, orgIndex, coverage, languageFilter);
     }
   });
   await Promise.all(workers);

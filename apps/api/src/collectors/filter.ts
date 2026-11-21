@@ -14,6 +14,7 @@
  */
 import { isIP } from "node:net";
 import { ingestQuery } from "../db.js";
+import { normalizeText } from "./classify.js";
 
 /** Motif du verdict : les quatre premiers gardent, les deux derniers rejettent. */
 export type IndicatorReason =
@@ -290,4 +291,131 @@ export function isActionableIndicator(value: string, type: string, idx: ActiveIn
 	const host = normalizeHost(raw);
 	if (!host) return { keep: false, reason: "global" };
 	return classifyHost(host, idx);
+}
+
+/**
+ * Langue d'un événement narratif. `und` (undetermined) évite d'inventer une
+ * langue quand le texte ne porte aucun indice — un identifiant CVE, une ligne
+ * de tableau ou un titre de deux mots ne sont ni français ni anglais.
+ */
+export type EventLanguage = "fr" | "en" | "und";
+
+export const EVENT_LANGUAGES: readonly EventLanguage[] = ["fr", "en", "und"];
+
+/** Variable d'environnement du filtre : codes séparés par des virgules. */
+export const LANGUAGE_FILTER_ENV = "RADAR_EVENT_LANGUAGES";
+
+/** Mots outils : très fréquents, presque jamais ambigus. Poids 1. */
+const FR_STOPWORDS: Record<string, true> = {
+	le: true, la: true, les: true, du: true, de: true, des: true, un: true, une: true, et: true,
+	est: true, sont: true, etait: true, ete: true, etre: true, en: true, dans: true, sur: true,
+	pour: true, avec: true, par: true, au: true, aux: true, ce: true, cet: true, cette: true, ces: true,
+	qui: true, que: true, quoi: true, dont: true, ou: true, ne: true, pas: true, se: true, sa: true,
+	son: true, ses: true, nous: true, vous: true, ils: true, elles: true, il: true, elle: true,
+	leur: true, leurs: true, mon: true, ma: true, mes: true, ton: true, ta: true, tes: true,
+	comme: true, mais: true, donc: true, car: true, ni: true, puis: true, sous: true, chez: true,
+	entre: true, depuis: true, pendant: true, apres: true, avant: true, vers: true, alors: true,
+	ainsi: true, tres: true, bien: true, deja: true, encore: true, sans: true, tout: true, tous: true,
+	toute: true, toutes: true, autre: true, autres: true, meme: true, plusieurs: true,
+	beaucoup: true, peu: true, selon: true, notre: true, l: true, d: true, qu: true, n: true,
+};
+
+const EN_STOPWORDS: Record<string, true> = {
+	the: true, and: true, of: true, to: true, in: true, is: true, are: true, was: true, were: true,
+	be: true, been: true, being: true, for: true, with: true, on: true, at: true, by: true, from: true,
+	as: true, that: true, this: true, these: true, those: true, it: true, its: true, he: true, she: true,
+	they: true, them: true, their: true, we: true, us: true, our: true, you: true, your: true,
+	his: true, her: true, which: true, who: true, whom: true, whose: true, when: true, where: true,
+	why: true, how: true, have: true, has: true, had: true, will: true, would: true, can: true,
+	could: true, should: true, may: true, might: true, must: true, not: true, no: true, but: true,
+	or: true, if: true, then: true, than: true, so: true, such: true, into: true, over: true,
+	under: true, about: true, above: true, below: true, out: true, up: true, down: true, off: true,
+	during: true, while: true, because: true, however: true, also: true, more: true, most: true,
+	other: true, another: true, some: true, any: true, all: true, each: true, every: true, both: true,
+	few: true, many: true, much: true, only: true, own: true, same: true, too: true, very: true,
+	just: true, now: true, via: true, per: true, within: true, without: true, upon: true,
+	among: true, between: true, through: true, against: true, an: true,
+};
+
+/** Vocabulaire cyber / terrain : poids 3, il tranche les textes courts. */
+const FR_KEYWORDS: Record<string, true> = {
+	attaque: true, attaques: true, attaquant: true, attaquants: true, piratage: true, piratages: true,
+	rancongiciel: true, rancongiciels: true, rancon: true, menace: true, menaces: true,
+	vulnerabilite: true, vulnerabilites: true, faille: true, failles: true, donnees: true,
+	fuite: true, fuites: true, systeme: true, systemes: true, reseau: true, reseaux: true,
+	serveur: true, serveurs: true, securite: true, cybersecurite: true, entreprise: true,
+	entreprises: true, collectivite: true, collectivites: true, commune: true, communes: true,
+	departement: true, departements: true, region: true, regions: true, incident: true,
+	incidents: true, logiciel: true, logiciels: true, sauvegarde: true, sauvegardes: true,
+	compromission: true, hameconnage: true, escroquerie: true, victime: true, victimes: true,
+	enquete: true, gendarmerie: true, signalement: true, alerte: true, alertes: true,
+	specialiste: true, numerique: true, informatique: true, utilisateur: true, utilisateurs: true,
+	compte: true, comptes: true, application: true, applications: true,
+};
+
+const EN_KEYWORDS: Record<string, true> = {
+	cyberattack: true, cyberattacks: true, attack: true, attacks: true, attacker: true,
+	attackers: true, threat: true, threats: true, vulnerability: true, vulnerabilities: true,
+	flaw: true, flaws: true, breach: true, breaches: true, leak: true, leaks: true, leaked: true,
+	malware: true, ransomware: true, exploit: true, exploits: true, exploited: true,
+	phishing: true, hacking: true, hacker: true, hackers: true, compromised: true, compromise: true,
+	data: true, database: true, network: true, networks: true, server: true, servers: true,
+	system: true, systems: true, security: true, cybersecurity: true, software: true,
+	patch: true, patches: true, credential: true, credentials: true, users: true, user: true,
+	account: true, accounts: true, device: true, devices: true, update: true, updates: true,
+	digital: true, online: true, disclosed: true, disclosure: true, vulnerable: true,
+	malicious: true, payload: true, campaign: true, researchers: true, report: true,
+};
+
+const WORD_RE = /[\p{L}\p{N}]+/gu;
+const ACCENT_RE = /[àâäçéèêëîïôöùûüÿœæ]/giu;
+const KEYWORD_WEIGHT = 3;
+const MAX_ACCENT_BONUS = 3;
+
+/**
+ * Détecte la langue d'un texte par score de mots outils et de mots-clés.
+ * Aucune dépendance : les listes sont embarquées et la normalisation est
+ * partagée avec `classify.ts`. Les mots de même forme dans les deux langues
+ * (`cyber`, `intrusion`…) ne sont comptés que d'un seul côté, jamais des deux,
+ * pour ne pas fausser le score.
+ */
+export function detectLanguage(text: string): EventLanguage {
+	const raw = String(text ?? "");
+	if (!raw.trim()) return "und";
+	let fr = 0;
+	let en = 0;
+	for (const token of normalizeText(raw).match(WORD_RE) ?? []) {
+		if (FR_STOPWORDS[token] === true) fr++;
+		if (EN_STOPWORDS[token] === true) en++;
+		if (FR_KEYWORDS[token] === true) fr += KEYWORD_WEIGHT;
+		if (EN_KEYWORDS[token] === true) en += KEYWORD_WEIGHT;
+	}
+	// Un accent est un signal français indépendant de la casse. Plafonné :
+	// un seul nom propre accentué ne doit pas décider d'un texte entier.
+	fr += Math.min((raw.match(ACCENT_RE) ?? []).length, MAX_ACCENT_BONUS);
+	if (fr === en) return "und";
+	return fr > en ? "fr" : "en";
+}
+
+/**
+ * Interprète le filtre de langue. Vide, `*` ou `all` = aucune restriction ;
+ * sinon la liste des codes autorisés. Une valeur invalide lève une erreur :
+ * une faute de frappe ne doit pas filtrer tout le flux par silence.
+ */
+export function parseLanguageFilter(raw: string | undefined): Set<EventLanguage> | null {
+	const value = String(raw ?? "").trim().toLowerCase();
+	if (value === "" || value === "*" || value === "all") return null;
+	const allowed = new Set<EventLanguage>();
+	for (const code of value.split(",").map((c) => c.trim()).filter(Boolean)) {
+		if (!EVENT_LANGUAGES.includes(code as EventLanguage)) {
+			throw new Error(`${LANGUAGE_FILTER_ENV} : langue inconnue « ${code} » (attendu : ${EVENT_LANGUAGES.join(", ")})`);
+		}
+		allowed.add(code as EventLanguage);
+	}
+	return allowed.size > 0 ? allowed : null;
+}
+
+/** Filtre lu dans l'environnement au début d'un run de collecte. */
+export function languageFilterFromEnv(env: NodeJS.ProcessEnv = process.env): Set<EventLanguage> | null {
+	return parseLanguageFilter(env[LANGUAGE_FILTER_ENV]);
 }
