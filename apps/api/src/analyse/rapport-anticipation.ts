@@ -235,6 +235,57 @@ export function lireCorpus(texte: string): IncidentCorpus[] {
 	});
 }
 
+/**
+ * Corpus de couverture JSONL (`bench/couverture/incidents.jsonl`).
+ * Les noms de champs du corpus sont traduits vers le schéma interne ; aucune
+ * donnée de l'incident n'est inventée (une date d'incident absente reste
+ * `null` et le rapport signale le recours à la date de publication).
+ */
+export function lireCorpusJsonl(texte: string): IncidentCorpus[] {
+	const lignes = texte.split("\n").filter((ligne) => ligne.trim().length > 0);
+	const vus = new Set<string>();
+	return lignes.map((ligne, index) => {
+		let brut: unknown;
+		try {
+			brut = JSON.parse(ligne);
+		} catch (erreur) {
+			throw new ErreurRapportAnticipation(
+				"CORPUS_INVALIDE",
+				`corpus ligne ${index + 1} : JSON illisible (${String(erreur)})`,
+			);
+		}
+		if (!estObjet(brut)) {
+			throw new ErreurRapportAnticipation("CORPUS_INVALIDE", `corpus ligne ${index + 1} : entrée non objet`);
+		}
+		const titre = (cle: string) => chaine(brut[cle]);
+		const id = titre("id");
+		const entite = titre("organisation") || titre("entite");
+		const dateIncident = titre("date_incident") || titre("dateIncident") || null;
+		const datePublique = titre("date_publication") || titre("datePublique") || null;
+		if (!id || !entite || (!dateIncident && !datePublique)) {
+			throw new ErreurRapportAnticipation(
+				"CORPUS_INVALIDE",
+				`corpus ligne ${index + 1} : id, organisation et une date sont requis`,
+			);
+		}
+		if (vus.has(id)) {
+			throw new ErreurRapportAnticipation("INCIDENT_DUPLIQUE", `id d'incident dupliqué : ${id}`);
+		}
+		vus.add(id);
+		return {
+			id,
+			entite,
+			departement: titre("departement") || null,
+			commune: null,
+			codeCommune: null,
+			dateIncident,
+			datePublique,
+			type: titre("type") || null,
+			resume: titre("resume") || null,
+		};
+	});
+}
+
 /** Instantané JSONL : une ligne = un incident, ou rien pour un corpus vide. */
 export function lireInstantanes(texte: string): Instantane[] {
 	const lignes = texte.split("\n").filter((ligne) => ligne.trim().length > 0);
@@ -610,7 +661,7 @@ function verdictPhrase(dossier: Dossier): string {
 		return `**signal retenu** — ${dossier.retenus.length} élément(s) antérieur(s) désignant l'entité`;
 	}
 	if (dossier.verdict === "candidat à examiner") {
-		return `**candidat à examiner** — ${dossier.aExaminer.length} élément(s) ambigu(s), aucun recoupement suffisant`;
+		return `**rien** — ${dossier.aExaminer.length} élément(s) ambigu(s) écarté(s), aucun recoupement suffisant`;
 	}
 	if (dossier.instantane.evenements.length === 0) {
 		return "**rien** — fenêtre vide, aucun événement enregistré à J-21";
@@ -744,7 +795,7 @@ function rendreMarkdown(
 
 	p(
 		"# Anticipation — état des données à J-21 et recherche de signes précurseurs",
-		"> Document généré par `scripts/rapport-anticipation.mts` à partir du corpus de référence et de",
+		`> Document généré par \`scripts/rapport-anticipation.mts\` à partir du corpus de couverture (${stats.incidents} incidents) et de`,
 		"> l'instantané `bench/anticipation/J-21.jsonl`. **Ne pas éditer à la main** : modifier une entrée",
 		"> puis relancer le script, sinon le contrôle `--verifier` échouera.",
 		`> Empreintes sha256 des entrées : corpus \`${empreintes.corpus}\` · instantané \`${empreintes.instantane}\`.`,
@@ -760,6 +811,10 @@ function rendreMarkdown(
 		"",
 		`- **Instantané** : pour chaque incident, la fenêtre [J-21 − 20 j, J-21] incluse, construite sur la`,
 		`  date d'incident (ou la date de publication quand la première manque, signalé dans le dossier).`,
+		"- **Borne temporelle** : la fenêtre est filtrée sur `event.valid_at` uniquement, avec borne haute",
+		"  exclusive à J-21 + 1 jour. Aucun événement dont `valid_at` est postérieur à J-21 n'entre dans",
+		"  l'instantané, même s'il a été collecté plus tôt ; `observed_at`, `collected_at` et `created_at`",
+		"  ne sont jamais utilisés comme critère de disponibilité.",
 		`- **Événements** : tous ceux de la fenêtre, avec leur nature (` +
 			"`ambient_signal`, `confirmed_incident`, `technical_indicator`, `third_party_claim`).",
 		"- **Sources actives** : sources ayant produit au moins un événement avant J-21, et encore activées.",
@@ -791,7 +846,8 @@ function rendreMarkdown(
 		`| Incidents avec rupture détectée sur l'entité | ${stats.incidentsAvecRupture} |`,
 		`| Fenêtres vides | ${stats.fenetresVides} |`,
 		`| Incidents avec signal retenu | ${avecSignal} / ${dossiers.length} |`,
-		`| Incidents sans signal | ${sansSignal} / ${dossiers.length} |`,
+		`| Incidents sans signal retenu | ${dossiers.length - avecSignal} / ${dossiers.length} (dont ${avecCandidat} candidat(s) écarté(s)) |`,
+		`| Incidents avec « rien » franc | ${sansSignal} / ${dossiers.length} |`,
 		"",
 		"Répartition des natures d'événements (chaque événement compte une fois) :",
 		"",
@@ -925,7 +981,8 @@ function rendreMarkdown(
 		"Le script distingue les erreurs bloquantes (le document serait faux) des anomalies signalées",
 		"(le document reste publiable mais sa limite est explicite).",
 		"",
-		"**Erreurs bloquantes** : corpus illisible ou sans tableau `incidents` ; ligne JSONL illisible ;",
+		"**Erreurs bloquantes** : corpus JSON illisible ou sans tableau `incidents` ; corpus JSONL illisible",
+		"ou incomplet (identifiant, organisation et date requis) ; ligne d'instantané illisible ;",
 		"identifiant manquant, dupliqué ou inconnu ; instantané manquant pour un incident du corpus ;",
 		"date de référence absente ou invalide ; fenêtre J-21 mal formée. Le script s'arrête avec un code",
 		"d'erreur explicite au lieu de publier un chiffre partiel.",
@@ -1003,7 +1060,7 @@ function rendreMarkdown(
 		"## 10. Reproduction",
 		"",
 		"```bash",
-		"# régénérer l'instantané depuis PostgreSQL (schéma avec event.valid_at requis) :",
+		"# régénérer l'instantané des 50 incidents depuis PostgreSQL (filtre strict sur valid_at) :",
 		"apps/api/node_modules/.bin/tsx scripts/anticipation.mts",
 		"# produire / vérifier ce document sans base :",
 		"apps/api/node_modules/.bin/tsx scripts/rapport-anticipation.mts",
