@@ -1,0 +1,238 @@
+{
+  "dateMesure": "2026-11-21",
+  "plan": "docs/plans/mission-nuit-na.md — Task 4 (reprise vague 2)",
+  "lot": 2,
+  "source": {
+    "ref": "bench/results/manques-referentiel-2026-11-15.json",
+    "traites": "bench/results/manques-glm-vague2.json",
+    "entiteSource": "lot-reprise-na"
+  },
+  "method": "lecture du site (fetch, titre et meta verbatim) + recherche-entreprises.api.gouv.fr sans clé ; requêtes et réponses consignées ; SIREN recoupé, jamais inventé",
+  "compte": {
+    "present": 1,
+    "absent": 6,
+    "cannot_verify": 3
+  },
+  "resolutions": [
+    {
+      "nomLisible": "ch-sf.fr (old)",
+      "domaine": "ch-sf.fr",
+      "verdict": "cannot_verify",
+      "raison": "candidat(s) au registre mais aucun recoupement avec ch-sf.fr — arbitrage humain",
+      "site": {
+        "url": "https://ch-sf.fr",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=ch-sf&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "SF CH ROSA BIANCA",
+            "siren": "290600352",
+            "commune": "NICE",
+            "dept": "06",
+            "etat": "A"
+          },
+          {
+            "denomination": "FIONA CH (SALON BY FIONA) (SF)",
+            "siren": "990906844",
+            "commune": "THONON-LES-BAINS",
+            "dept": "74",
+            "etat": "A"
+          }
+        ]
+      }
+    },
+    {
+      "nomLisible": "Change Healthcare - Optum - UnitedHealth",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Change%20Healthcare%20-%20Optum%20-%20UnitedHealth&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "Change HealthCare - OPTUM Group - United HealthCare Group",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Change%20HealthCare%20-%20OPTUM%20Group%20-%20United%20HealthCare%20Group&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "Change HealthCare - OPTUM Group - United HealthCare Group - FOR SALE",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Change%20HealthCare%20-%20OPTUM%20Group%20-%20United%20HealthCare%20Group%20-&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "Change HealthCare - OPTUM Group - United HealthCare Group<Updated>",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Change%20HealthCare%20-%20OPTUM%20Group%20-%20United%20HealthCare%20Group&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "Chu De Rennes",
+      "domaine": null,
+      "verdict": "cannot_verify",
+      "raison": "candidat(s) au registre mais aucun recoupement avec null — arbitrage humain",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Chu%20De%20Rennes&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "LA MAISON DES FEMMES DU CHU DE RENNES",
+            "siren": "892695958",
+            "commune": "RENNES",
+            "dept": "35",
+            "etat": "A"
+          },
+          {
+            "denomination": "FONDS NOMINOE - CHU RENNES",
+            "siren": "803752211",
+            "commune": "RENNES",
+            "dept": "35",
+            "etat": "A"
+          },
+          {
+            "denomination": "AMICALE CULTURELLE SPORTIVE CHU RENNES",
+            "siren": "448204289",
+            "commune": "RENNES",
+            "dept": "35",
+            "etat": "A"
+          },
+          {
+            "denomination": "YINYA CHU (REN) (AU PERE LA VICTOIRE)",
+            "siren": "843798604",
+            "commune": "SAINTE-HERMINE",
+            "dept": "85",
+            "etat": "A"
+          },
+          {
+            "denomination": "DIRECTION REGIONALE FINANCES PUBLIQUES DE BRETAGNE ET DEP ILLE-ET-VILAINE (DRFIP)",
+            "siren": "130014939",
+            "commune": "RENNES",
+            "dept": "35",
+            "etat": "A"
+          }
+        ]
+      }
+    },
+    {
+      "nomLisible": "CIG de la Grande Couronne",
+      "domaine": null,
+      "verdict": "present",
+      "raison": "SIREN 287800544 au registre (état A, VERSAILLES 78), recoupé avec le nom cité : CIG de la Grande Couronne",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=CIG%20de%20la%20Grande%20Couronne&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "CENTRE INTERDEPARTEMENTAL DE GESTION DE LA GRANDE COURONNE DE LA REGION D'ILE-DE-FRANCE (CIG)",
+            "siren": "287800544",
+            "commune": "VERSAILLES",
+            "dept": "78",
+            "etat": "A"
+          }
+        ]
+      },
+      "chargeEnBase": true
+    },
+    {
+      "nomLisible": "City of St. Cloud, Florida",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=City%20of%20St.%20Cloud%2C%20Florida&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "Colmar Industrial Supplies",
+      "domaine": null,
+      "verdict": "absent",
+      "raison": "aucune identité légale française au registre (requête consignée) ; site : titre vide ou inaccessible",
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=Colmar%20Industrial%20Supplies&page=1&per_page=5",
+        "http": null,
+        "resultats": []
+      }
+    },
+    {
+      "nomLisible": "coteg-azam.fr",
+      "domaine": "coteg-azam.fr",
+      "verdict": "cannot_verify",
+      "raison": "candidat(s) au registre mais aucun recoupement avec coteg-azam.fr — arbitrage humain",
+      "site": {
+        "url": "https://coteg-azam.fr",
+        "http": null,
+        "titre": null,
+        "metaDescription": null,
+        "erreur": "TypeError: fetch failed"
+      },
+      "registre": {
+        "requete": "https://recherche-entreprises.api.gouv.fr/search?q=coteg-azam&page=1&per_page=5",
+        "http": 200,
+        "resultats": [
+          {
+            "denomination": "DAMIEN BARBET",
+            "siren": "530581370",
+            "commune": "LA ROCHE-SUR-YON",
+            "dept": "85",
+            "etat": "A"
+          },
+          {
+            "denomination": "LAURY PAPAIS",
+            "siren": "809238546",
+            "commune": "TOULOUSE",
+            "dept": "31",
+            "etat": "A"
+          },
+          {
+            "denomination": "LAURENT NOUGAROLIS",
+            "siren": "399812650",
+            "commune": "TOULOUSE",
+            "dept": "31",
+            "etat": "A"
+          },
+          {
+            "denomination": "LOUIS-MARIE D'ARGAIGNON",
+            "siren": "892728841",
+            "commune": "TOULOUSE",
+            "dept": "31",
+            "etat": "A"
+          },
+          {
+            "denomination": "OLIVIER MARTIN",
+            "siren": "790645766",
+            "commune": "TOULOUSE",
+            "dept": "31",
+            "etat": "C"
+          }
+        ]
+      }
+    }
+  ]
+}

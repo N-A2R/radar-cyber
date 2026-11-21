@@ -13,7 +13,8 @@
     "test:fil": "vite build --ssr test/fil-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/fil-verif.js",
     "test:etat": "vite build --ssr test/etat-rendu.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/etat-rendu.js",
     "test:corroboration": "vite build --ssr test/corroboration-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/corroboration-verif.js",
-    "test:offline": "vite build --ssr test/offline-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/offline-verif.js"
+    "test:offline": "vite build --ssr test/offline-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/offline-verif.js",
+    "test:na": "vite build --ssr test/na-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/na-verif.js"
   },
   "dependencies": {
     "@radar/shared": "workspace:*",

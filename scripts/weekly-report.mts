@@ -39,6 +39,17 @@ interface DeptRow {
 	orgs: number;
 }
 
+/** Source active muette (0 événement en 30 j) ou dormante (aucune collecte réussie en 7 j) : elle disparaît du fil, le rapport la fait réapparaître. Classification alignée sur scripts/source-health.mts. */
+interface SourceMueRow {
+	id: string;
+	name: string;
+	family: string;
+	categorie: string;
+	na: boolean;
+	last_ok: Date | null;
+	last_error: string | null;
+}
+
 interface EventRow {
 	title: string;
 	family: string;
@@ -62,6 +73,7 @@ interface ReportData {
 	depts: DeptRow[];
 	events: EventRow[];
 	quarantine: QuarantineRow[];
+	sourcesMuettes: { id: string; name: string; family: string; categorie: string; na: boolean; lastOk: Date | null; lastError: string | null }[];
 }
 
 const TLP_FILTER = "e.tlp IS DISTINCT FROM 'TLP:RED' AND e.tlp IS DISTINCT FROM 'RED'";
@@ -175,6 +187,38 @@ async function loadReport(days: number): Promise<ReportData> {
 		WHERE coalesce(e.observed_at, e.collected_at) >= $1 AND ${TLP_FILTER}
 		ORDER BY e.severity DESC, at DESC
 		LIMIT 10`;
+	const sourcesMuettesQuery = `
+		SELECT s.id, s.name, s.family, s.last_ok_at AS last_ok, s.last_error,
+		       CASE
+		         WHEN c.last_collect IS NULL OR c.last_collect < now() - interval '7 days' THEN 'dormante'
+		         ELSE 'muette'
+		       END AS categorie,
+		       (s.id LIKE 'gn-%' OR s.id IN ('presse-sudouest','presse-sudouest-rss','presse-sudouest-gironde',
+		         'presse-sudouest-pyrenees','presse-sudouest-charente','presse-sudouest-charente-maritime',
+		         'presse-sudouest-dordogne','presse-sudouest-landes','presse-sudouest-lot-et-garonne',
+		         'presse-sudouest-deux-sevres','presse-lnr-vienne','presse-lnr-deuxsevres','presse-charentelibre',
+		         'presse-france3-na','presse-mediacites','presse-rue89bordeaux','presse-ouestfrance-rss',
+		         'eco-jde-na','univ-limoges','univ-larochelle','chu-poitiers',
+		         'gn-press-lamontagne','gn-press-lepopulaire')) AS na
+		FROM source s
+		LEFT JOIN (SELECT source_id, max(started_at) AS last_collect FROM collector_run GROUP BY source_id) c
+		  ON c.source_id = s.id
+		LEFT JOIN (SELECT source_id, count(*) AS events_30d FROM event
+		            WHERE collected_at >= now() - interval '30 days' GROUP BY source_id) e
+		  ON e.source_id = s.id
+		-- Un flux d'indicateurs (FireHOL, reputation…) ne produit pas d'event :
+		-- il n'est « muette » que s'il n'a rien vu non plus côté indicator.
+		WHERE s.enabled = true
+		  AND (
+		    c.last_collect IS NULL OR c.last_collect < now() - interval '7 days'
+		    OR (coalesce(e.events_30d, 0) = 0
+		        AND NOT EXISTS (
+		          SELECT 1 FROM indicator i
+		           WHERE i.source_id = s.id AND i.last_seen >= now() - interval '30 days'
+		        ))
+		  )
+		ORDER BY na DESC, categorie, s.last_ok_at NULLS FIRST, s.id
+		LIMIT 40`;
 	const quarantineQuery = `
 		SELECT q.status, count(*)::int AS n
 		FROM quarantine_raw q
@@ -182,7 +226,7 @@ async function loadReport(days: number): Promise<ReportData> {
 		GROUP BY q.status
 		ORDER BY n DESC`;
 
-	const [statsRes, orgsTotalRes, alertsRes, familiesRes, deptsRes, eventsRes, quarantineRes] = await Promise.all([
+	const [statsRes, orgsTotalRes, alertsRes, familiesRes, deptsRes, eventsRes, quarantineRes, sourcesMuettesRes] = await Promise.all([
 		ingestQuery<{ events: number; high: number; orgs: number }>(statsQuery, [since]),
 		ingestQuery<{ total: number }>(orgsTotalQuery),
 		ingestQuery<{ alerts: number; open: number }>(alertsQuery, [since]),
@@ -193,6 +237,7 @@ async function loadReport(days: number): Promise<ReportData> {
 			[since],
 		),
 		ingestQuery<{ status: string; n: number }>(quarantineQuery, [since]),
+		ingestQuery<SourceMueRow>(sourcesMuettesQuery),
 	]);
 
 	const statsRow = statsRes.rows[0];
@@ -224,6 +269,15 @@ async function loadReport(days: number): Promise<ReportData> {
 			at: row.at,
 		})),
 		quarantine: quarantineRes.rows.map((row) => ({ status: row.status, n: row.n })),
+		sourcesMuettes: sourcesMuettesRes.rows.map((row) => ({
+			id: row.id,
+			name: row.name,
+			family: row.family,
+			categorie: row.categorie,
+			na: Boolean(row.na),
+			lastOk: row.last_ok,
+			lastError: row.last_error,
+		})),
 	};
 }
 
@@ -299,6 +353,27 @@ function renderMarkdown(data: ReportData): string {
 		lines.push("");
 	}
 
+	// Une source muette depuis 7 jours ne doit pas disparaître du poste : elle
+	// réapparaît ici, nommée, avec son dernier état. Une source éteinte à dessein
+	// porte un motif dans la base et n'est plus `enabled` — elle ne figure pas.
+	if (data.sourcesMuettes.length > 0) {
+		lines.push("## Sources actives muettes ou dormantes (7 j)");
+		lines.push("");
+		lines.push("| Source | Famille | Catégorie | Périmètre | Dernière collecte OK | Erreur |");
+		lines.push("| --- | --- | --- | --- | --- | --- |");
+		for (const row of data.sourcesMuettes) {
+			lines.push(
+				`| ${mdCell(row.name)} \`${mdCell(row.id)}\` | ${mdCell(row.family)} | ${row.categorie} | ${row.na ? "Nouvelle-Aquitaine" : "national/international"} | ${row.lastOk ? isoDay(row.lastOk) : "jamais"} | ${row.lastError ? mdCell(row.lastError.slice(0, 120)) : "—"} |`,
+			);
+		}
+		lines.push("");
+	} else {
+		lines.push("## Sources actives muettes ou dormantes (7 j)");
+		lines.push("");
+		lines.push("Aucune source active muette ou dormante depuis 7 jours.");
+		lines.push("");
+	}
+
 	lines.push(`_${data.stats.orgsCovered} organisations couvertes sur ${data.stats.orgsTotal}._`);
 	return lines.join("\n");
 }
@@ -363,6 +438,22 @@ function renderHtml(data: ReportData): string {
 ${data.quarantine.map((row) => `<tr><td>${esc(row.status)}</td><td class="num">${row.n}</td></tr>`).join("\n")}
 </tbody>
 </table>`;
+	const sourcesMuettesBlock =
+		data.sourcesMuettes.length === 0
+			? `<h2>Sources actives muettes ou dormantes (7 j)</h2>
+<p>Aucune source active muette ou dormante depuis 7 jours.</p>`
+			: `<h2>Sources actives muettes ou dormantes (7 j)</h2>
+<table>
+<thead><tr><th>Source</th><th>Famille</th><th>Catégorie</th><th>Périmètre</th><th>Dernière collecte OK</th><th>Erreur</th></tr></thead>
+<tbody>
+${data.sourcesMuettes
+	.map(
+		(row) =>
+			`<tr><td>${esc(row.name)} <code>${esc(row.id)}</code></td><td>${esc(row.family)}</td><td>${esc(row.categorie)}</td><td>${row.na ? "Nouvelle-Aquitaine" : "national/international"}</td><td>${row.lastOk ? isoDay(row.lastOk) : "jamais"}</td><td>${esc(row.lastError ? row.lastError.slice(0, 120) : "—")}</td></tr>`,
+	)
+	.join("\n")}
+</tbody>
+</table>`;
 	const summary = summaryLines(data)
 		.map((line) => `<li>${esc(line)}</li>`)
 		.join("\n");
@@ -404,6 +495,7 @@ ${eventRows}
 </tbody>
 </table>
 ${quarantineBlock}
+${sourcesMuettesBlock}
 <p class="footer">${data.stats.orgsCovered} organisations couvertes sur ${data.stats.orgsTotal}.</p>
 </body>
 </html>`;

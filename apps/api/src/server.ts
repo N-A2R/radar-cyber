@@ -23,6 +23,7 @@ import flowsRoute from "./routes/flows.js";
 import graphRoute from "./routes/graph.js";
 import orgsRoute from "./routes/orgs.js";
 import directoryRoute from "./routes/directory.js";
+import naRoute from "./routes/na.js";
 import searchRoute from "./routes/search.js";
 import sourcesRoute from "./routes/sources.js";
 import streamRoute from "./routes/stream.js";
@@ -65,7 +66,7 @@ await app.register(rateLimit, { global: false });
  * écritures protégées. Un token valide est attaché à la requête s'il est fourni,
  * ce qui permet au front d'adapter l'UI au rôle.
  */
-const PUBLIC_READ = /^\/api\/(health|stats|sources|flows|search|directory|graph|stream|events|orgs|enrich|alerts|quarantine|dossier|healthz)(\/|$|\?)/;
+const PUBLIC_READ = /^\/api\/(health|stats|sources|flows|search|directory|graph|stream|events|orgs|enrich|alerts|quarantine|dossier|healthz|na)(\/|$|\?)/;
 
 app.addHook("onRequest", async (req, reply) => {
   const url = req.url.split("?")[0];
@@ -88,6 +89,7 @@ await app.register(flowsRoute, { prefix: "/api" });
 await app.register(orgsRoute, { prefix: "/api" });
 
 await app.register(directoryRoute, { prefix: "/api" });
+await app.register(naRoute, { prefix: "/api" });
 await app.register(graphRoute, { prefix: "/api" });
 await app.register(streamRoute, { prefix: "/api" });
 await app.register(sourcesRoute, { prefix: "/api" });

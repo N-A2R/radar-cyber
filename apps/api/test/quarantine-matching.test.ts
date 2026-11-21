@@ -81,3 +81,29 @@ test("le domaine ne rachète pas un nom à jeton unique", () => {
 	const index = [entry(12, "N-COM (N-COM) xyz123", { domain: "ncom-xyz123.example" })];
 	assert.equal(matchOrgInIndex("advelo-xyz123.com", index), null);
 });
+
+test("des jetons dupliqués ne font pas un nom à deux jetons", () => {
+	// Mesuré le 2026-11-21 (Task 3, mission nuit NA) : « CO & CO » (Billère,
+	// 64) se rattachait à 0,75 à chaque domaine portant un « .co. » —
+	// « wakao.co.jp », « triad.co.ke », « ridgway.k12.co.us »… car
+	// `orgTokens` n'était pas dédupliqué et comptait deux jetons pour un nom.
+	const index = [entry(21, "CO & CO", { city: "BILLERE" })];
+	for (const hint of ["wakao.co.jp", "triad.co.ke", "instantaccess-co.com", "plasmagen.co.in"]) {
+		assert.equal(matchOrgInIndex(hint, index), null, `« ${hint} » ne doit pas rapprocher « CO & CO »`);
+	}
+});
+
+test("un nom réduit à une forme juridique étrangère ne rapproche rien", () => {
+	// Mesuré le 2026-11-21 : « Boutinot Limited » → « LIMITED » (La
+	// Jarrie-Audouin, 17), une organisation dont le nom est une forme
+	// juridique anglaise. Même statut que « sarl » : jeton générique.
+	const index = [entry(22, "LIMITED")];
+	assert.equal(matchOrgInIndex("Boutinot Limited", index), null);
+});
+
+test("un nom réduit à un mot d'activité ne rapproche rien", () => {
+	// Mesuré le 2026-11-21 : « Actualize Consulting » → « H CONSULTING (H
+	// CONSULTING) », le seul jeton non générique étant « consulting ».
+	const index = [entry(23, "H CONSULTING (H CONSULTING)")];
+	assert.equal(matchOrgInIndex("Actualize Consulting", index), null);
+});

@@ -1,0 +1,80 @@
+{
+  "dateMesure": "2026-11-21",
+  "plan": "docs/plans/mission-nuit-na.md — Task 4",
+  "commande": "DATABASE_URL=postgres://radar:radar@localhost:5433/radar tsx scripts/entites-sans-org-na.mts",
+  "requetes": {
+    "hints": "SELECT id, source, groupe, org_hint, claimed_at, received_at FROM quarantine_raw WHERE kind='claim' AND status='pending' AND org_hint IS NOT NULL AND org_hint <> '' ORDER BY id",
+    "villes": "SELECT DISTINCT city FROM org WHERE dept IN ('16','17','19','23','24','33','40','47','64','79','86','87') AND city IS NOT NULL"
+  },
+  "revendications": {
+    "pendingAvecHint": 241,
+    "rapprochees": 23,
+    "sansOrgNa": 8
+  },
+  "entites": [
+    {
+      "id": "97",
+      "source": "ransomwatch-echantillon",
+      "groupe": "cactus",
+      "orgHint": "demos.fr\\$37.5M\\France\\870GB\\<1% DISCLOSED",
+      "claimedAt": "2024-07-30T00:00:00.000Z",
+      "signalNa": "domaine .fr"
+    },
+    {
+      "id": "114",
+      "source": "ransomwatch-echantillon",
+      "groupe": "cactus",
+      "orgHint": "demos.fr\\$37.5M\\France\\870GB\\100% DISCLOSED",
+      "claimedAt": "2024-08-08T00:00:00.000Z",
+      "signalNa": "domaine .fr"
+    },
+    {
+      "id": "3699",
+      "source": "ransomwatch",
+      "groupe": "alphv",
+      "orgHint": "eivp-paris.fr",
+      "claimedAt": "2022-06-10T19:33:17.545Z",
+      "signalNa": "domaine .fr"
+    },
+    {
+      "id": "7234",
+      "source": "ransomwatch",
+      "groupe": "lockbit3",
+      "orgHint": "ibafrance.fr",
+      "claimedAt": "2023-06-28T16:38:59.295Z",
+      "signalNa": "domaine .fr"
+    },
+    {
+      "id": "7915",
+      "source": "ransomwatch",
+      "groupe": "lockbit3",
+      "orgHint": "iledefrance-nature.fr",
+      "claimedAt": "2023-08-23T20:23:56.675Z",
+      "signalNa": "domaine .fr"
+    },
+    {
+      "id": "11702",
+      "source": "ransomwatch",
+      "groupe": "lockbit3",
+      "orgHint": "aev-iledefrance.fr",
+      "claimedAt": "2024-05-07T01:10:32.160Z",
+      "signalNa": "domaine .fr"
+    },
+    {
+      "id": "12952",
+      "source": "ransomwatch",
+      "groupe": "cactus",
+      "orgHint": "demos.fr\\$37.5M\\France\\870GB\\&lt;1% DISCLOSED",
+      "claimedAt": "2024-07-30T16:37:49.532Z",
+      "signalNa": "domaine .fr"
+    },
+    {
+      "id": "13044",
+      "source": "ransomwatch",
+      "groupe": "cactus",
+      "orgHint": "demos.fr\\$37.5M\\France\\870GB\\100% DISCLOSED",
+      "claimedAt": "2024-08-08T06:40:40.583Z",
+      "signalNa": "domaine .fr"
+    }
+  ]
+}

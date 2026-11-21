@@ -1,0 +1,2140 @@
+{
+  "dateMesure": "2026-11-21",
+  "plan": "docs/plans/mission-nuit-na.md — Task 3",
+  "commande": "DATABASE_URL=postgres://radar:radar@localhost:5433/radar tsx scripts/mesure-na-ransomware.mts",
+  "defautAccentue": "préfiltre de loadCandidateIndex : name ILIKE sur des jetons déaccentués, noms en base accentués (promote.ts)",
+  "defautJetons": "scoreEntry : orgTokens non dédupliqués — « CO & CO » comptait deux jetons et matchait tout « .co.* » ; noms réduit à un jeton générique (« LIMITED », « H CONSULTING ») absorbant tout indice court",
+  "correctifs": [
+    "migration 041 : org.name_norm (colonne générée déaccentuée) + index trigramme ; loadCandidateIndex préfiltre sur name_norm",
+    "promote.ts scoreEntry : déduplication des orgTokens",
+    "promote.ts GENERIC_TOKENS : formes juridiques étrangères (ltd, limited, inc, llc, corp, plc) et mots d'activité (consulting, advisory)"
+  ],
+  "etatInitial": {
+    "naProposesSeuil50": 13,
+    "naProposesSeuil85": 0,
+    "fauxPositifsVerifies": [
+      {
+        "hint": "wakao.co.jp",
+        "org": "CO & CO (251091, Billère 64)",
+        "motif": "jetons dupliqués"
+      },
+      {
+        "hint": "terminais.co.mz",
+        "org": "CO & CO (251091)",
+        "motif": "jetons dupliqués"
+      },
+      {
+        "hint": "instantaccess-co.com",
+        "org": "CO & CO (251091)",
+        "motif": "jetons dupliqués"
+      },
+      {
+        "hint": "plasmagen.co.in",
+        "org": "CO & CO (251091)",
+        "motif": "jetons dupliqués"
+      },
+      {
+        "hint": "triad.co.ke",
+        "org": "CO & CO (251091)",
+        "motif": "jetons dupliqués"
+      },
+      {
+        "hint": "ridgway.k12.co.us",
+        "org": "CO & CO (251091)",
+        "motif": "jetons dupliqués"
+      },
+      {
+        "hint": "spicorp-invest.com",
+        "org": "MEDIA INVEST SARL (37113)",
+        "motif": "« media » générique + jetons dupliqués"
+      },
+      {
+        "hint": "Actualize Consulting",
+        "org": "H CONSULTING (27437)",
+        "motif": "« consulting » générique"
+      },
+      {
+        "hint": "Boutinot Limited",
+        "org": "LIMITED (506574, La Jarrie-Audouin 17)",
+        "motif": "forme juridique « limited »"
+      }
+    ],
+    "plausiblesNonVerifies": [
+      {
+        "hint": "amarok.com",
+        "org": "AMAROK (650238)"
+      },
+      {
+        "hint": "chevron.com",
+        "org": "SCI CHEVRON (162264)"
+      },
+      {
+        "hint": "harbingerconcrete.build",
+        "org": "BUILD (416185, Mérignac 33)"
+      },
+      {
+        "hint": "groupe-alternance.com",
+        "org": "GROUPE ALTERNANCE (422363)"
+      }
+    ]
+  },
+  "requetes": {
+    "revendications30j": "SELECT count(*) AS total, count(*) FILTER (WHERE org_hint IS NOT NULL AND org_hint <> '') AS avec_hint FROM quarantine_raw WHERE kind='claim' AND status='pending' AND claimed_at >= now() - interval '30 days'",
+    "hints30j": "SELECT id, source, groupe, org_hint, claimed_at FROM quarantine_raw WHERE kind='claim' AND status='pending' AND claimed_at >= now() - interval '30 days' AND org_hint IS NOT NULL AND org_hint <> '' ORDER BY claimed_at DESC, id DESC",
+    "hintsTous": "SELECT count(*) AS n FROM quarantine_raw WHERE kind='claim' AND status='pending' AND org_hint IS NOT NULL AND org_hint <> ''",
+    "villesNA": "SELECT DISTINCT city FROM org WHERE dept IN ('16','17','19','23','24','33','40','47','64','79','86','87') AND city IS NOT NULL"
+  },
+  "fenetre30j": "claimed_at >= now() - interval '30 days'",
+  "revendications": {
+    "pending30j": 303,
+    "avecHint30j": 180,
+    "pendingToutesAvecHint": 241
+  },
+  "prefiltre": {
+    "avant": {
+      "naProposesSeuil50": 4,
+      "naProposesSeuil85": 0
+    },
+    "apres": {
+      "naProposesSeuil50": 4,
+      "naProposesSeuil85": 0
+    },
+    "gagne": 0
+  },
+  "parVerdict": {
+    "na_rattache_avant": 4,
+    "gagne_par_correctif": 0,
+    "na_sans_match": 0,
+    "non_na": 176
+  },
+  "verdicts": [
+    {
+      "id": "354838",
+      "source": "ransomware.live",
+      "groupe": "aurora",
+      "orgHint": "William Cook Holdings Limited",
+      "claimedAt": "2026-11-20T14:17:35.748Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290097",
+      "source": "ransomware.live",
+      "groupe": "Barracuda",
+      "orgHint": "dts.edu",
+      "claimedAt": "2026-11-20T11:51:15.493Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290098",
+      "source": "ransomware.live",
+      "groupe": "blackout",
+      "orgHint": "wakao.co.jp",
+      "claimedAt": "2026-11-20T05:35:29.384Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290146",
+      "source": "ransomware.live",
+      "groupe": "incransom",
+      "orgHint": "eni.it",
+      "claimedAt": "2026-11-20T04:42:22.567Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290099",
+      "source": "ransomware.live",
+      "groupe": "spacebears",
+      "orgHint": "ibu.org",
+      "claimedAt": "2026-11-20T03:55:59.679Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290100",
+      "source": "ransomware.live",
+      "groupe": "spacebears",
+      "orgHint": "www.sdjeng.com",
+      "claimedAt": "2026-11-20T03:55:17.506Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290101",
+      "source": "ransomware.live",
+      "groupe": "spacebears",
+      "orgHint": "njrise.org",
+      "claimedAt": "2026-11-20T03:54:35.732Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290102",
+      "source": "ransomware.live",
+      "groupe": "spacebears",
+      "orgHint": "epochresidential.com",
+      "claimedAt": "2026-11-20T03:53:54.262Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290103",
+      "source": "ransomware.live",
+      "groupe": "incransom",
+      "orgHint": "boeing.com",
+      "claimedAt": "2026-11-20T03:46:28.600Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290104",
+      "source": "ransomware.live",
+      "groupe": "Handsome Boy Hacking Club",
+      "orgHint": "fifa.com",
+      "claimedAt": "2026-11-20T01:22:03.955Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290107",
+      "source": "ransomware.live",
+      "groupe": "Inception",
+      "orgHint": "autozoneinc.com",
+      "claimedAt": "2026-11-19T21:52:49.672Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290110",
+      "source": "ransomware.live",
+      "groupe": "Handsome Boy Hacking Club",
+      "orgHint": "smith-wesson.com",
+      "claimedAt": "2026-11-19T17:17:11.704Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290113",
+      "source": "ransomware.live",
+      "groupe": "SoulGroup",
+      "orgHint": "shopbottools.com",
+      "claimedAt": "2026-11-19T14:15:17.233Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290114",
+      "source": "ransomware.live",
+      "groupe": "SoulGroup",
+      "orgHint": "nobleoilfieldservices.com",
+      "claimedAt": "2026-11-19T14:14:31.663Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290115",
+      "source": "ransomware.live",
+      "groupe": "SoulGroup",
+      "orgHint": "unitedmd.com",
+      "claimedAt": "2026-11-19T14:13:46.595Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290116",
+      "source": "ransomware.live",
+      "groupe": "SoulGroup",
+      "orgHint": "metosystems.com",
+      "claimedAt": "2026-11-19T14:13:00.227Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290117",
+      "source": "ransomware.live",
+      "groupe": "SoulGroup",
+      "orgHint": "arnapa.com",
+      "claimedAt": "2026-11-19T14:12:14.726Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290118",
+      "source": "ransomware.live",
+      "groupe": "SoulGroup",
+      "orgHint": "mchra.com",
+      "claimedAt": "2026-11-19T14:11:28.745Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290119",
+      "source": "ransomware.live",
+      "groupe": "SoulGroup",
+      "orgHint": "thevantgroup.com",
+      "claimedAt": "2026-11-19T14:10:42.080Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290120",
+      "source": "ransomware.live",
+      "groupe": "SoulGroup",
+      "orgHint": "skysolutions.com.pa",
+      "claimedAt": "2026-11-19T14:09:54.912Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290121",
+      "source": "ransomware.live",
+      "groupe": "SoulGroup",
+      "orgHint": "merrittwoodwork.com",
+      "claimedAt": "2026-11-19T14:09:08.472Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290122",
+      "source": "ransomware.live",
+      "groupe": "SoulGroup",
+      "orgHint": "laempereich.com",
+      "claimedAt": "2026-11-19T14:08:22.773Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290123",
+      "source": "ransomware.live",
+      "groupe": "SoulGroup",
+      "orgHint": "ppbh.org",
+      "claimedAt": "2026-11-19T14:07:34.592Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290124",
+      "source": "ransomware.live",
+      "groupe": "SoulGroup",
+      "orgHint": "codinter.com",
+      "claimedAt": "2026-11-19T14:06:47.805Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290149",
+      "source": "ransomware.live",
+      "groupe": "aurora",
+      "orgHint": "Boutinot Limited",
+      "claimedAt": "2026-11-19T14:06:19.847Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290125",
+      "source": "ransomware.live",
+      "groupe": "SoulGroup",
+      "orgHint": "aurorahealthmgt.com",
+      "claimedAt": "2026-11-19T14:06:03.713Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290126",
+      "source": "ransomware.live",
+      "groupe": "SoulGroup",
+      "orgHint": "tulsafoot.com",
+      "claimedAt": "2026-11-19T14:05:18.977Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290128",
+      "source": "ransomware.live",
+      "groupe": "SoulGroup",
+      "orgHint": "northshorehealth.org",
+      "claimedAt": "2026-11-19T14:03:49.452Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290129",
+      "source": "ransomware.live",
+      "groupe": "SoulGroup",
+      "orgHint": "agapechc.org",
+      "claimedAt": "2026-11-19T14:03:05.502Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290130",
+      "source": "ransomware.live",
+      "groupe": "SoulGroup",
+      "orgHint": "adaristech.com",
+      "claimedAt": "2026-11-19T14:02:19.122Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290132",
+      "source": "ransomware.live",
+      "groupe": "SoulGroup",
+      "orgHint": "wigginschilds.com",
+      "claimedAt": "2026-11-19T14:00:49.029Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290133",
+      "source": "ransomware.live",
+      "groupe": "SoulGroup",
+      "orgHint": "msnattorneys.com",
+      "claimedAt": "2026-11-19T14:00:04.673Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290134",
+      "source": "ransomware.live",
+      "groupe": "SoulGroup",
+      "orgHint": "harbingerconcrete.build",
+      "claimedAt": "2026-11-19T13:59:19.372Z",
+      "verdict": "na_rattache_avant",
+      "signalNa": "BUILD",
+      "avant": {
+        "orgId": 416185,
+        "orgName": "BUILD",
+        "dept": "33",
+        "confidence": 0.7,
+        "via": "name"
+      },
+      "apres": {
+        "orgId": 416185,
+        "orgName": "BUILD",
+        "dept": "33",
+        "confidence": 0.7,
+        "via": "name"
+      }
+    },
+    {
+      "id": "290135",
+      "source": "ransomware.live",
+      "groupe": "SoulGroup",
+      "orgHint": "movilfrio.com",
+      "claimedAt": "2026-11-19T13:58:34.715Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290136",
+      "source": "ransomware.live",
+      "groupe": "SoulGroup",
+      "orgHint": "credipaz.com",
+      "claimedAt": "2026-11-19T13:57:49.431Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290137",
+      "source": "ransomware.live",
+      "groupe": "SoulGroup",
+      "orgHint": "biomedicine.com",
+      "claimedAt": "2026-11-19T13:57:04.114Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290142",
+      "source": "ransomware.live",
+      "groupe": "HYFLOCK",
+      "orgHint": "eecinter.com",
+      "claimedAt": "2026-11-19T11:25:01.679Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290141",
+      "source": "ransomware.live",
+      "groupe": "HYFLOCK",
+      "orgHint": "pizwich.com",
+      "claimedAt": "2026-11-19T11:24:24.424Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290143",
+      "source": "ransomware.live",
+      "groupe": "crypto24",
+      "orgHint": "www.mntextiles.com",
+      "claimedAt": "2026-11-19T10:40:56.326Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290151",
+      "source": "ransomware.live",
+      "groupe": "aurora",
+      "orgHint": "Boulart Inc.",
+      "claimedAt": "2026-11-19T10:37:50.130Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290145",
+      "source": "ransomware.live",
+      "groupe": "krybit",
+      "orgHint": "www.sleepboxbymiracle.com",
+      "claimedAt": "2026-11-19T03:51:04.582Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290147",
+      "source": "ransomware.live",
+      "groupe": "krybit",
+      "orgHint": "www.leadersaluminium.ae",
+      "claimedAt": "2026-11-19T01:57:18.197Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290148",
+      "source": "ransomware.live",
+      "groupe": "krybit",
+      "orgHint": "alumil.com",
+      "claimedAt": "2026-11-19T00:50:25.526Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290160",
+      "source": "ransomware.live",
+      "groupe": "medusalocker",
+      "orgHint": "terminais.co.mz",
+      "claimedAt": "2026-11-18T23:01:01.237Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290187",
+      "source": "ransomware.live",
+      "groupe": "direwolf",
+      "orgHint": "cobblestonesoftware.com",
+      "claimedAt": "2026-11-18T21:33:44.458Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290190",
+      "source": "ransomware.live",
+      "groupe": "HYFLOCK",
+      "orgHint": "acmanagement.ma",
+      "claimedAt": "2026-11-18T17:51:36.786Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290195",
+      "source": "ransomware.live",
+      "groupe": "lockbit5",
+      "orgHint": "primecareofmi.com",
+      "claimedAt": "2026-11-18T16:24:20.858Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290196",
+      "source": "ransomware.live",
+      "groupe": "lockbit5",
+      "orgHint": "softlinefurniture.com",
+      "claimedAt": "2026-11-18T16:22:40.935Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290193",
+      "source": "ransomware.live",
+      "groupe": "lockbit5",
+      "orgHint": "laguarda.com.ec",
+      "claimedAt": "2026-11-18T16:21:59.673Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290194",
+      "source": "ransomware.live",
+      "groupe": "lockbit5",
+      "orgHint": "umraocashmere.com",
+      "claimedAt": "2026-11-18T16:21:16.680Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "290192",
+      "source": "ransomware.live",
+      "groupe": "lockbit5",
+      "orgHint": "cih.com.vn",
+      "claimedAt": "2026-11-18T16:19:16.431Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257947",
+      "source": "ransomware.live",
+      "groupe": "Black X",
+      "orgHint": "khanehsazii.ir",
+      "claimedAt": "2026-11-17T10:42:30.132Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257865",
+      "source": "ransomware.live",
+      "groupe": "aurora",
+      "orgHint": "Sice Previt S.p.A.",
+      "claimedAt": "2026-11-17T09:09:52.992Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257855",
+      "source": "ransomware.live",
+      "groupe": "Inception",
+      "orgHint": "pepsico.com",
+      "claimedAt": "2026-11-17T08:16:39.037Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257856",
+      "source": "ransomware.live",
+      "groupe": "Inception",
+      "orgHint": "paychex.com",
+      "claimedAt": "2026-11-17T08:16:05.101Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257857",
+      "source": "ransomware.live",
+      "groupe": "Inception",
+      "orgHint": "cignaglobal.com",
+      "claimedAt": "2026-11-17T08:14:58.686Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257858",
+      "source": "ransomware.live",
+      "groupe": "Inception",
+      "orgHint": "amd.com",
+      "claimedAt": "2026-11-17T08:14:24.884Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257860",
+      "source": "ransomware.live",
+      "groupe": "Vortex",
+      "orgHint": "carringtonmortgage.com",
+      "claimedAt": "2026-11-17T02:31:56.047Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257861",
+      "source": "ransomware.live",
+      "groupe": "Vortex",
+      "orgHint": "apellis.com",
+      "claimedAt": "2026-11-17T02:31:21.549Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257862",
+      "source": "ransomware.live",
+      "groupe": "Vortex",
+      "orgHint": "castlebiosciences.com",
+      "claimedAt": "2026-11-17T02:30:47.111Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257863",
+      "source": "ransomware.live",
+      "groupe": "Vortex",
+      "orgHint": "carislifesciences.com",
+      "claimedAt": "2026-11-17T02:30:12.795Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257864",
+      "source": "ransomware.live",
+      "groupe": "Vortex",
+      "orgHint": "owens-minor.com",
+      "claimedAt": "2026-11-17T02:29:37.700Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257866",
+      "source": "ransomware.live",
+      "groupe": "netrunner",
+      "orgHint": "instantaccess-co.com",
+      "claimedAt": "2026-11-16T23:17:57.671Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257869",
+      "source": "ransomware.live",
+      "groupe": "Curious Worm",
+      "orgHint": "risingpharma.com",
+      "claimedAt": "2026-11-16T21:20:53.219Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257910",
+      "source": "ransomware.live",
+      "groupe": "qilin",
+      "orgHint": "www.strategicproperties.com",
+      "claimedAt": "2026-11-16T21:12:00.263Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257911",
+      "source": "ransomware.live",
+      "groupe": "qilin",
+      "orgHint": "www.ashlandwatergroup.com",
+      "claimedAt": "2026-11-16T21:11:20.417Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257912",
+      "source": "ransomware.live",
+      "groupe": "qilin",
+      "orgHint": "www.ncip.gov.ph",
+      "claimedAt": "2026-11-16T21:10:39.710Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257870",
+      "source": "ransomware.live",
+      "groupe": "chaos",
+      "orgHint": "radienzliving.com",
+      "claimedAt": "2026-11-16T21:00:23.135Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257871",
+      "source": "ransomware.live",
+      "groupe": "chaos",
+      "orgHint": "amarok.com",
+      "claimedAt": "2026-11-16T20:59:45.796Z",
+      "verdict": "na_rattache_avant",
+      "signalNa": "AMAROK",
+      "avant": {
+        "orgId": 650238,
+        "orgName": "AMAROK",
+        "dept": "79",
+        "confidence": 0.7,
+        "via": "name"
+      },
+      "apres": {
+        "orgId": 650238,
+        "orgName": "AMAROK",
+        "dept": "79",
+        "confidence": 0.7,
+        "via": "name"
+      }
+    },
+    {
+      "id": "257873",
+      "source": "ransomware.live",
+      "groupe": "Global Secret Group",
+      "orgHint": "jbrosbakerysupply.com",
+      "claimedAt": "2026-11-16T20:22:36.744Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257913",
+      "source": "ransomware.live",
+      "groupe": "qilin",
+      "orgHint": "www.airwaysaviation.com",
+      "claimedAt": "2026-11-16T19:56:30.749Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257914",
+      "source": "ransomware.live",
+      "groupe": "qilin",
+      "orgHint": "www.ayalaproperty.com.ph",
+      "claimedAt": "2026-11-16T19:55:48.730Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257915",
+      "source": "ransomware.live",
+      "groupe": "qilin",
+      "orgHint": "www.californiacrossdock.com",
+      "claimedAt": "2026-11-16T19:55:06.566Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257916",
+      "source": "ransomware.live",
+      "groupe": "qilin",
+      "orgHint": "www.fahrenheit.com.pe",
+      "claimedAt": "2026-11-16T19:54:25.773Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257917",
+      "source": "ransomware.live",
+      "groupe": "qilin",
+      "orgHint": "www.hybrytec.com",
+      "claimedAt": "2026-11-16T19:53:42.729Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257918",
+      "source": "ransomware.live",
+      "groupe": "qilin",
+      "orgHint": "www.ims-gmbh.de",
+      "claimedAt": "2026-11-16T19:53:02.091Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257919",
+      "source": "ransomware.live",
+      "groupe": "qilin",
+      "orgHint": "www.systems4pt.com",
+      "claimedAt": "2026-11-16T19:52:21.830Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257875",
+      "source": "ransomware.live",
+      "groupe": "Shiba",
+      "orgHint": "burneywealth.com",
+      "claimedAt": "2026-11-16T19:36:14.075Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257876",
+      "source": "ransomware.live",
+      "groupe": "Global Secret Group",
+      "orgHint": "rickhindererknives.com",
+      "claimedAt": "2026-11-16T19:22:48.648Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257920",
+      "source": "ransomware.live",
+      "groupe": "qilin",
+      "orgHint": "www.aimcashandcarry.ie",
+      "claimedAt": "2026-11-16T19:03:19.743Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257878",
+      "source": "ransomware.live",
+      "groupe": "Curious Worm",
+      "orgHint": "interdent.com",
+      "claimedAt": "2026-11-16T17:22:03.967Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257879",
+      "source": "ransomware.live",
+      "groupe": "rhysida",
+      "orgHint": "watermangroup.com",
+      "claimedAt": "2026-11-16T17:04:04.991Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257948",
+      "source": "ransomware.live",
+      "groupe": "ransomhouse",
+      "orgHint": "www.indiabulls.com",
+      "claimedAt": "2026-11-16T17:02:40.523Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257921",
+      "source": "ransomware.live",
+      "groupe": "qilin",
+      "orgHint": "www.powerequipment.com.au",
+      "claimedAt": "2026-11-16T17:01:30.828Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257922",
+      "source": "ransomware.live",
+      "groupe": "qilin",
+      "orgHint": "www.arrigoni.it",
+      "claimedAt": "2026-11-16T17:00:53.870Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257880",
+      "source": "ransomware.live",
+      "groupe": "play",
+      "orgHint": "www.acudor.com",
+      "claimedAt": "2026-11-16T17:00:13.633Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257882",
+      "source": "ransomware.live",
+      "groupe": "daixin",
+      "orgHint": "trustbridge.org",
+      "claimedAt": "2026-11-16T15:26:23.061Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257923",
+      "source": "ransomware.live",
+      "groupe": "akira",
+      "orgHint": "themandrelgroup.com",
+      "claimedAt": "2026-11-16T13:25:36.387Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257897",
+      "source": "ransomware.live",
+      "groupe": "metaencryptor",
+      "orgHint": "www.srmtech.com",
+      "claimedAt": "2026-11-16T08:39:11.427Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257898",
+      "source": "ransomware.live",
+      "groupe": "metaencryptor",
+      "orgHint": "overeasyoffice.com",
+      "claimedAt": "2026-11-16T08:38:31.458Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257899",
+      "source": "ransomware.live",
+      "groupe": "metaencryptor",
+      "orgHint": "omniprintonline.com",
+      "claimedAt": "2026-11-16T08:37:51.611Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257900",
+      "source": "ransomware.live",
+      "groupe": "metaencryptor",
+      "orgHint": "www.sekisuihouse-global.com",
+      "claimedAt": "2026-11-16T08:37:12.659Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257901",
+      "source": "ransomware.live",
+      "groupe": "ShadowByt3$",
+      "orgHint": "chevron.com",
+      "claimedAt": "2026-11-16T08:36:04.534Z",
+      "verdict": "na_rattache_avant",
+      "signalNa": "SCI CHEVRON",
+      "avant": {
+        "orgId": 162264,
+        "orgName": "SCI CHEVRON",
+        "dept": "24",
+        "confidence": 0.7,
+        "via": "name"
+      },
+      "apres": {
+        "orgId": 162264,
+        "orgName": "SCI CHEVRON",
+        "dept": "24",
+        "confidence": 0.7,
+        "via": "name"
+      }
+    },
+    {
+      "id": "257902",
+      "source": "ransomware.live",
+      "groupe": "ShadowByt3$",
+      "orgHint": "petstop.com",
+      "claimedAt": "2026-11-16T08:35:29.148Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257903",
+      "source": "ransomware.live",
+      "groupe": "ShadowByt3$",
+      "orgHint": "ubc.ca",
+      "claimedAt": "2026-11-16T08:35:09.536Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257904",
+      "source": "ransomware.live",
+      "groupe": "ShadowByt3$",
+      "orgHint": "gorcon.ca",
+      "claimedAt": "2026-11-16T08:34:27.947Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257924",
+      "source": "ransomware.live",
+      "groupe": "PixelLeaks",
+      "orgHint": "plasmagen.co.in",
+      "claimedAt": "2026-11-15T23:14:09.208Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257925",
+      "source": "ransomware.live",
+      "groupe": "PixelLeaks",
+      "orgHint": "connectwell.com",
+      "claimedAt": "2026-11-15T21:19:50.030Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257926",
+      "source": "ransomware.live",
+      "groupe": "PixelLeaks",
+      "orgHint": "godrej.com",
+      "claimedAt": "2026-11-15T21:19:28.887Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257949",
+      "source": "ransomware.live",
+      "groupe": "qilin",
+      "orgHint": "theheartlandconstructiongroup.com",
+      "claimedAt": "2026-11-15T20:30:14.050Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257950",
+      "source": "ransomware.live",
+      "groupe": "qilin",
+      "orgHint": "www.aeis.com",
+      "claimedAt": "2026-11-15T20:28:54.264Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257951",
+      "source": "ransomware.live",
+      "groupe": "qilin",
+      "orgHint": "www.apexspace.com",
+      "claimedAt": "2026-11-15T20:28:17.235Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257952",
+      "source": "ransomware.live",
+      "groupe": "qilin",
+      "orgHint": "www.oregonlinen.com",
+      "claimedAt": "2026-11-15T17:12:47.117Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257927",
+      "source": "ransomware.live",
+      "groupe": "PixelLeaks",
+      "orgHint": "fiber.net.id",
+      "claimedAt": "2026-11-15T09:06:32.156Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257929",
+      "source": "ransomware.live",
+      "groupe": "PixelLeaks",
+      "orgHint": "spicorp-invest.com",
+      "claimedAt": "2026-11-15T09:05:51.532Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257930",
+      "source": "ransomware.live",
+      "groupe": "PixelLeaks",
+      "orgHint": "www.ibeam.hk",
+      "claimedAt": "2026-11-15T09:05:30.701Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257937",
+      "source": "ransomware.live",
+      "groupe": "PixelLeaks",
+      "orgHint": "missouriweldinginstitute.com",
+      "claimedAt": "2026-11-15T09:03:12.181Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257945",
+      "source": "ransomware.live",
+      "groupe": "PixelLeaks",
+      "orgHint": "tdstech.com.vn",
+      "claimedAt": "2026-11-15T09:00:05.264Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "257946",
+      "source": "ransomware.live",
+      "groupe": "PixelLeaks",
+      "orgHint": "hensun.com",
+      "claimedAt": "2026-11-15T08:59:39.303Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80863",
+      "source": "ransomware.live",
+      "groupe": "Dark Project",
+      "orgHint": "www.ccmcnet.com",
+      "claimedAt": "2026-11-13T15:55:12.125Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80862",
+      "source": "ransomware.live",
+      "groupe": "bravox",
+      "orgHint": "www.worldwidefittings.com",
+      "claimedAt": "2026-11-13T14:21:52.700Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80875",
+      "source": "ransomware.live",
+      "groupe": "Vexy Ransomware",
+      "orgHint": "franc-oiloffshore.com.ng",
+      "claimedAt": "2026-11-12T23:19:34.118Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80874",
+      "source": "ransomware.live",
+      "groupe": "Vexy Ransomware",
+      "orgHint": "www.osiiminppal.com",
+      "claimedAt": "2026-11-12T23:19:13.283Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80873",
+      "source": "ransomware.live",
+      "groupe": "Vexy Ransomware",
+      "orgHint": "upperweb.com.br",
+      "claimedAt": "2026-11-12T23:18:52.272Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80870",
+      "source": "ransomware.live",
+      "groupe": "safepay",
+      "orgHint": "toyokiki-thailand.com",
+      "claimedAt": "2026-11-12T22:02:03.406Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80878",
+      "source": "ransomware.live",
+      "groupe": "incransom",
+      "orgHint": "axiscades.com",
+      "claimedAt": "2026-11-12T21:45:05.518Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80871",
+      "source": "ransomware.live",
+      "groupe": "Curious Worm",
+      "orgHint": "benchmarkseniorliving.com",
+      "claimedAt": "2026-11-12T19:55:02.258Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80877",
+      "source": "ransomware.live",
+      "groupe": "krybit",
+      "orgHint": "cey-tech.com",
+      "claimedAt": "2026-11-12T13:56:09.215Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80879",
+      "source": "ransomware.live",
+      "groupe": "metaencryptor",
+      "orgHint": "promantra.us",
+      "claimedAt": "2026-11-12T12:18:48.149Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80958",
+      "source": "ransomware.live",
+      "groupe": "incransom",
+      "orgHint": "gamechangerwm.com",
+      "claimedAt": "2026-11-12T10:05:07.680Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80957",
+      "source": "ransomware.live",
+      "groupe": "incransom",
+      "orgHint": "raymondjames.com",
+      "claimedAt": "2026-11-12T10:04:47.038Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80918",
+      "source": "ransomware.live",
+      "groupe": "thegentlemen",
+      "orgHint": "esri-southafrica.com",
+      "claimedAt": "2026-11-12T09:57:13.824Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80917",
+      "source": "ransomware.live",
+      "groupe": "thegentlemen",
+      "orgHint": "megatrans.com.ar",
+      "claimedAt": "2026-11-12T09:56:52.824Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80916",
+      "source": "ransomware.live",
+      "groupe": "thegentlemen",
+      "orgHint": "unitedpharmacy.sa",
+      "claimedAt": "2026-11-12T09:56:31.917Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80915",
+      "source": "ransomware.live",
+      "groupe": "thegentlemen",
+      "orgHint": "clancysystems.com",
+      "claimedAt": "2026-11-12T09:56:11.079Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80914",
+      "source": "ransomware.live",
+      "groupe": "thegentlemen",
+      "orgHint": "orennia.com",
+      "claimedAt": "2026-11-12T09:55:50.253Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80913",
+      "source": "ransomware.live",
+      "groupe": "thegentlemen",
+      "orgHint": "humboldt.ca",
+      "claimedAt": "2026-11-12T09:55:29.338Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80912",
+      "source": "ransomware.live",
+      "groupe": "thegentlemen",
+      "orgHint": "resotechlaurentides.com",
+      "claimedAt": "2026-11-12T09:55:08.446Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80911",
+      "source": "ransomware.live",
+      "groupe": "thegentlemen",
+      "orgHint": "darrequipment.com",
+      "claimedAt": "2026-11-12T09:54:47.351Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80910",
+      "source": "ransomware.live",
+      "groupe": "thegentlemen",
+      "orgHint": "municieneguilla.gob.pe",
+      "claimedAt": "2026-11-12T09:54:26.634Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80909",
+      "source": "ransomware.live",
+      "groupe": "thegentlemen",
+      "orgHint": "gruposancristobal.com.mx",
+      "claimedAt": "2026-11-12T09:54:05.436Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80921",
+      "source": "ransomware.live",
+      "groupe": "thegentlemen",
+      "orgHint": "groupe-alternance.com",
+      "claimedAt": "2026-11-12T09:53:44.415Z",
+      "verdict": "na_rattache_avant",
+      "signalNa": "GROUPE ALTERNANCE",
+      "avant": {
+        "orgId": 422363,
+        "orgName": "GROUPE ALTERNANCE",
+        "dept": "17",
+        "confidence": 0.75,
+        "via": "name"
+      },
+      "apres": {
+        "orgId": 422363,
+        "orgName": "GROUPE ALTERNANCE",
+        "dept": "17",
+        "confidence": 0.75,
+        "via": "name"
+      }
+    },
+    {
+      "id": "80908",
+      "source": "ransomware.live",
+      "groupe": "thegentlemen",
+      "orgHint": "sielke.com",
+      "claimedAt": "2026-11-12T09:53:23.606Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80907",
+      "source": "ransomware.live",
+      "groupe": "thegentlemen",
+      "orgHint": "imas.es",
+      "claimedAt": "2026-11-12T09:53:02.732Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80906",
+      "source": "ransomware.live",
+      "groupe": "thegentlemen",
+      "orgHint": "ninv.com",
+      "claimedAt": "2026-11-12T09:52:41.989Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80905",
+      "source": "ransomware.live",
+      "groupe": "thegentlemen",
+      "orgHint": "triad.co.ke",
+      "claimedAt": "2026-11-12T09:52:21.249Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80904",
+      "source": "ransomware.live",
+      "groupe": "thegentlemen",
+      "orgHint": "alanmokengineering.com",
+      "claimedAt": "2026-11-12T09:52:00.413Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80903",
+      "source": "ransomware.live",
+      "groupe": "thegentlemen",
+      "orgHint": "bllcpas.com",
+      "claimedAt": "2026-11-12T09:51:39.534Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80902",
+      "source": "ransomware.live",
+      "groupe": "thegentlemen",
+      "orgHint": "solarium.com.br",
+      "claimedAt": "2026-11-12T09:51:18.737Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80901",
+      "source": "ransomware.live",
+      "groupe": "thegentlemen",
+      "orgHint": "na.org.mk",
+      "claimedAt": "2026-11-12T09:50:57.948Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80900",
+      "source": "ransomware.live",
+      "groupe": "thegentlemen",
+      "orgHint": "prinsel.com.mx",
+      "claimedAt": "2026-11-12T09:50:37.027Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80886",
+      "source": "ransomware.live",
+      "groupe": "thegentlemen",
+      "orgHint": "vinsonprocess.com",
+      "claimedAt": "2026-11-12T09:50:16.113Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80885",
+      "source": "ransomware.live",
+      "groupe": "thegentlemen",
+      "orgHint": "eicoh.com",
+      "claimedAt": "2026-11-12T09:49:55.201Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80881",
+      "source": "ransomware.live",
+      "groupe": "qilin",
+      "orgHint": "www.library.uta.edu",
+      "claimedAt": "2026-11-12T06:50:40.355Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80882",
+      "source": "ransomware.live",
+      "groupe": "qilin",
+      "orgHint": "www.yorku.ca",
+      "claimedAt": "2026-11-12T06:49:59.843Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80884",
+      "source": "ransomware.live",
+      "groupe": "play",
+      "orgHint": "www.milb.com",
+      "claimedAt": "2026-11-11T20:19:30.872Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80890",
+      "source": "ransomware.live",
+      "groupe": "Curious Worm",
+      "orgHint": "sacheminc.com",
+      "claimedAt": "2026-11-11T17:13:08.721Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80891",
+      "source": "ransomware.live",
+      "groupe": "Curious Worm",
+      "orgHint": "sbhny.org",
+      "claimedAt": "2026-11-11T17:12:34.212Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80892",
+      "source": "ransomware.live",
+      "groupe": "Curious Worm",
+      "orgHint": "shannonhealth.com",
+      "claimedAt": "2026-11-11T17:11:42.163Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80893",
+      "source": "ransomware.live",
+      "groupe": "Curious Worm",
+      "orgHint": "baronandbudd.com",
+      "claimedAt": "2026-11-11T17:10:59.162Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80894",
+      "source": "ransomware.live",
+      "groupe": "Curious Worm",
+      "orgHint": "raleighortho.com",
+      "claimedAt": "2026-11-11T17:10:25.738Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80896",
+      "source": "ransomware.live",
+      "groupe": "Curious Worm",
+      "orgHint": "lifelinescreening.com",
+      "claimedAt": "2026-11-11T17:09:47.097Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80897",
+      "source": "ransomware.live",
+      "groupe": "Curious Worm",
+      "orgHint": "safcodental.com",
+      "claimedAt": "2026-11-11T17:07:16.258Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80898",
+      "source": "ransomware.live",
+      "groupe": "Curious Worm",
+      "orgHint": "marquiscompanies.com",
+      "claimedAt": "2026-11-11T17:06:55.020Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80899",
+      "source": "ransomware.live",
+      "groupe": "Curious Worm",
+      "orgHint": "atlashp.com",
+      "claimedAt": "2026-11-11T17:06:34.206Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80925",
+      "source": "ransomware.live",
+      "groupe": "qilin",
+      "orgHint": "www.oru.edu",
+      "claimedAt": "2026-11-11T12:39:29.803Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80927",
+      "source": "ransomware.live",
+      "groupe": "Panzer",
+      "orgHint": "sunnierhomes.com",
+      "claimedAt": "2026-11-11T01:32:33.397Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80920",
+      "source": "ransomware.live",
+      "groupe": "interlock",
+      "orgHint": "gvsd.ca",
+      "claimedAt": "2026-11-11T00:43:34.761Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80929",
+      "source": "ransomware.live",
+      "groupe": "bravox",
+      "orgHint": "awo.org",
+      "claimedAt": "2026-11-10T20:19:10.016Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80937",
+      "source": "ransomware.live",
+      "groupe": "Dark Project",
+      "orgHint": "mtm-o.com",
+      "claimedAt": "2026-11-10T19:52:18.703Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80934",
+      "source": "ransomware.live",
+      "groupe": "Dark Project",
+      "orgHint": "www.bvchd.com",
+      "claimedAt": "2026-11-10T19:51:31.593Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80930",
+      "source": "ransomware.live",
+      "groupe": "play",
+      "orgHint": "www.nysnacks.com",
+      "claimedAt": "2026-11-10T19:41:23.235Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80931",
+      "source": "ransomware.live",
+      "groupe": "play",
+      "orgHint": "www.broexp.com",
+      "claimedAt": "2026-11-10T19:40:48.290Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80932",
+      "source": "ransomware.live",
+      "groupe": "play",
+      "orgHint": "www.signworx.net",
+      "claimedAt": "2026-11-10T19:39:54.833Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80938",
+      "source": "ransomware.live",
+      "groupe": "HYFLOCK",
+      "orgHint": "tcadarwin.com.au",
+      "claimedAt": "2026-11-10T18:24:14.924Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80939",
+      "source": "ransomware.live",
+      "groupe": "krybit",
+      "orgHint": "Actualize Consulting",
+      "claimedAt": "2026-11-10T13:34:23.778Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80945",
+      "source": "ransomware.live",
+      "groupe": "Booba Project",
+      "orgHint": "www.ctg.com",
+      "claimedAt": "2026-11-10T12:52:35.138Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80944",
+      "source": "ransomware.live",
+      "groupe": "Booba Project",
+      "orgHint": "www.georgetownsleepcenter.com",
+      "claimedAt": "2026-11-10T12:52:13.704Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80943",
+      "source": "ransomware.live",
+      "groupe": "Booba Project",
+      "orgHint": "www.colliersportsmedicine.com",
+      "claimedAt": "2026-11-10T12:51:52.565Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80942",
+      "source": "ransomware.live",
+      "groupe": "Booba Project",
+      "orgHint": "www.elportalimaging.com",
+      "claimedAt": "2026-11-10T12:51:31.559Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80941",
+      "source": "ransomware.live",
+      "groupe": "Booba Project",
+      "orgHint": "www.dayoneri.org",
+      "claimedAt": "2026-11-10T12:51:10.716Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80940",
+      "source": "ransomware.live",
+      "groupe": "Booba Project",
+      "orgHint": "www.acclaimhealth.ca",
+      "claimedAt": "2026-11-10T12:50:49.712Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80946",
+      "source": "ransomware.live",
+      "groupe": "interlock",
+      "orgHint": "madisonhonda.com",
+      "claimedAt": "2026-11-10T07:13:00.491Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80947",
+      "source": "ransomware.live",
+      "groupe": "interlock",
+      "orgHint": "customfloorsunlimited.com",
+      "claimedAt": "2026-11-10T07:12:27.967Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80948",
+      "source": "ransomware.live",
+      "groupe": "interlock",
+      "orgHint": "mvsd11.org",
+      "claimedAt": "2026-11-10T07:11:55.473Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80949",
+      "source": "ransomware.live",
+      "groupe": "interlock",
+      "orgHint": "ridgway.k12.co.us",
+      "claimedAt": "2026-11-10T07:10:49.930Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80950",
+      "source": "ransomware.live",
+      "groupe": "interlock",
+      "orgHint": "southwestortho.com",
+      "claimedAt": "2026-11-10T07:09:08.851Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80951",
+      "source": "ransomware.live",
+      "groupe": "interlock",
+      "orgHint": "assiniboinedentalgroup.com",
+      "claimedAt": "2026-11-10T07:07:31.141Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80952",
+      "source": "ransomware.live",
+      "groupe": "interlock",
+      "orgHint": "elmcrest.org",
+      "claimedAt": "2026-11-10T07:06:58.563Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    },
+    {
+      "id": "80953",
+      "source": "ransomware.live",
+      "groupe": "interlock",
+      "orgHint": "conecuhsausage.com",
+      "claimedAt": "2026-11-10T07:06:19.341Z",
+      "verdict": "non_na",
+      "signalNa": null,
+      "avant": null,
+      "apres": null
+    }
+  ]
+}

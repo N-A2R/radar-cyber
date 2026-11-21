@@ -1,7 +1,7 @@
-import type { Alert, Event, Graph, Health, Org, Source, Stats } from "./api";
+import type { Alert, Event, Graph, Health, NaOverview, Org, Source, Stats } from "./api";
 
 /** Les vues de l'application, dans l'ordre du rail. */
-export type ViewKey = "map" | "directory" | "review" | "graph" | "sources" | "health" | "alerts" | "dossier";
+export type ViewKey = "map" | "directory" | "review" | "graph" | "sources" | "health" | "alerts" | "dossier" | "na";
 
 /** Contrat du fil d'événements (colonne de gauche). */
 export type FeedProps = {
@@ -29,6 +29,18 @@ export type MapViewProps = {
   events: Event[];
   selectedOrgId: number | null;
   onSelectOrg: (orgId: number) => void;
+};
+
+/** Contrat de la vue Nouvelle-Aquitaine. */
+export type NaViewProps = {
+  orgs: Org[];
+  overview: NaOverview | null;
+  loading: boolean;
+  error: string | null;
+  /** Département sélectionné dans l'URL (`?naDept=33`), `null` = région. */
+  dept: string | null;
+  onSelectDept: (dept: string | null) => void;
+  onOpenOrg: (orgId: number) => void;
 };
 
 /** Contrat de la vue alertes. */

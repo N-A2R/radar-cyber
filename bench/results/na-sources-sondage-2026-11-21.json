@@ -1,0 +1,219 @@
+{
+  "dateMesure": "2026-11-21",
+  "objet": "Task 1 — sondage des flux RSS de presse régionale NA (gratuits, lisibles)",
+  "methode": "curl -sL -A 'Mozilla/5.0 (X11; Linux x86_64) radar-mesure/1.0' --max-time 25 <url> ; comptage des occurrences réelles de '<item' dans la réponse, dernier <pubDate> lu dans la réponse ; titres copiés verbatim du contenu reçu (CDATA strippé)",
+  "retenus": [
+    {
+      "idPropose": "presse-sudouest-charente",
+      "dept": "16",
+      "url": "https://www.sudouest.fr/charente/rss.xml",
+      "http": 200,
+      "items": 20,
+      "dernierItem": "Fri, 20 Nov 2026 18:08:00 +0100",
+      "heuresDepuisDernierItem": 6,
+      "langue": "fr",
+      "titreFlux": "Charente : Actualités et info en direct : faits divers, météo, sorties, sport, 16 - Sud Ouest",
+      "titresVerbatim": [
+        "Pesticides dans les vignes : les parents d’élèves demandent à l’État d’interdire les épandages dans une zone de 500 mètres autour des établissements scolaires",
+        "Présidentielle 2027 : « Sud Ouest » déploie son dispositif spécial, au plus près des territoires et à l’écoute de vos priorités"
+      ]
+    },
+    {
+      "idPropose": "presse-sudouest-charente-maritime",
+      "dept": "17",
+      "url": "https://www.sudouest.fr/charente-maritime/rss.xml",
+      "http": 200,
+      "items": 20,
+      "dernierItem": "Fri, 20 Nov 2026 23:28:21 +0100",
+      "heuresDepuisDernierItem": 1,
+      "langue": "fr",
+      "titreFlux": "Charente-Maritime : Actualités et info en direct : faits divers, météo, sorties, sport - Sud Ouest",
+      "titresVerbatim": [
+        "Handball (Proligue) : l’US Saintes a succombé à l’enfer de Delaune à Ivry-sur-Seine",
+        "Le Stade Rochelais Basket a toujours fait la course en tête à Caen et décroche un premier succès mérité à l’extérieur (76-81)"
+      ]
+    },
+    {
+      "idPropose": "presse-sudouest-dordogne",
+      "dept": "24",
+      "url": "https://www.sudouest.fr/dordogne/rss.xml",
+      "http": 200,
+      "items": 20,
+      "dernierItem": "Fri, 20 Nov 2026 21:07:58 +0100",
+      "heuresDepuisDernierItem": 3,
+      "langue": "fr",
+      "titreFlux": "Dordogne : Actualités et info en direct : faits divers, météo, sorties, sport, 24 - Sud Ouest",
+      "titresVerbatim": [
+        "La circulation des TER suspendue temporairement sur une ligne ferroviaire de Dordogne",
+        "Fleurac : la disparition de Simone Le Ruyer, ancienne adjointe au maire"
+      ]
+    },
+    {
+      "idPropose": "presse-sudouest-landes",
+      "dept": "40",
+      "url": "https://www.sudouest.fr/landes/rss.xml",
+      "http": 200,
+      "items": 20,
+      "dernierItem": "Fri, 20 Nov 2026 22:16:21 +0100",
+      "heuresDepuisDernierItem": 2,
+      "langue": "fr",
+      "titreFlux": "Landes : Actualités et info en direct : faits divers, météo, sorties, sport - Sud Ouest",
+      "titresVerbatim": [
+        "Pro D2 : l’US Dax s’impose au forceps à Béziers dans un match précieux pour la suite",
+        "Nationale : un retard à l’allumage encore fatal pour le Stade Montois à Carcassonne"
+      ]
+    },
+    {
+      "idPropose": "presse-sudouest-lot-et-garonne",
+      "dept": "47",
+      "url": "https://www.sudouest.fr/lot-et-garonne/rss.xml",
+      "http": 200,
+      "items": 20,
+      "dernierItem": "Fri, 20 Nov 2026 22:46:01 +0100",
+      "heuresDepuisDernierItem": 2,
+      "langue": "fr",
+      "titreFlux": "Lot-et-Garonne : Actualités et info en direct : faits divers, météo, sorties, sport, 47 - Sud Ouest",
+      "titresVerbatim": [
+        "Rugby. Le SUA entre « fierté » et « frustration » : les premières réactions après la défaite à Montauban",
+        "Rugby. Un point et des valises de regrets pour le SU Agen à Montauban"
+      ]
+    },
+    {
+      "idPropose": "presse-sudouest-deux-sevres",
+      "dept": "79",
+      "url": "https://www.sudouest.fr/deux-sevres/rss.xml",
+      "http": 200,
+      "items": 20,
+      "dernierItem": "Fri, 20 Nov 2026 06:30:00 +0100",
+      "heuresDepuisDernierItem": 18,
+      "langue": "fr",
+      "titreFlux": "Deux-Sèvres : Actualités et info en direct : faits divers, météo, sorties, sport - Sud Ouest",
+      "titresVerbatim": [
+        "Charente-Maritime : comment le marais poitevin a connu une révolution agricole inattendue, entre 1960 et 2020",
+        "Méga-bassines agricoles : à Sainte-Soline, le remplissage est toujours interdit, rappelle la préfecture des Deux-Sèvres"
+      ]
+    },
+    {
+      "idPropose": "presse-lnr-vienne",
+      "dept": "86",
+      "url": "https://www.lanouvellerepublique.fr/api/v1/rss/5e20732239a34f77578b457c",
+      "http": 200,
+      "items": 40,
+      "dernierItem": "Fri, 20 Nov 2026 22:37:16 +0000",
+      "heuresDepuisDernierItem": 1,
+      "langue": "fr",
+      "titreFlux": "La Nouvelle République - Vienne",
+      "titresVerbatim": [
+        "Un money time fatal pour le Poitiers Basket 86 qui a pourtant fait trembler Orléans en Élite 2",
+        "Alterna Volstar : La force du collectif de l’Alterna Stade Poitevin a encore fait la différence contre Sète"
+      ]
+    },
+    {
+      "idPropose": "presse-lnr-deuxsevres",
+      "dept": "79",
+      "url": "https://www.lanouvellerepublique.fr/api/v1/rss/5e2072f9f30f8cdd4c8b4594",
+      "http": 200,
+      "items": 40,
+      "dernierItem": "Fri, 20 Nov 2026 20:03:14 +0000",
+      "heuresDepuisDernierItem": 4,
+      "langue": "fr",
+      "titreFlux": "La Nouvelle République - Deux-Sèvres",
+      "titresVerbatim": [
+        "Un homme décède dans un accident dans le bourg de Saint-Jean-de-Thouars, dans les Deux-Sèvres",
+        "VIDÉO. Chiens détecteurs, anguilles du Marais, et Canaris : ce qu'il faut retenir cette semaine dans les Deux-Sèvres"
+      ]
+    },
+    {
+      "idPropose": "gn-press-lamontagne",
+      "depts": ["19", "23"],
+      "url": "https://news.google.com/rss/search?q=site:lamontagne.fr+(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "http": 200,
+      "items": 20,
+      "dernierItem": "Tue, 17 Nov 2026 05:01:00 GMT",
+      "heuresDepuisDernierItem": 91,
+      "langue": "fr",
+      "titreFlux": "\"site:lamontagne.fr (cyberattaque OR piratage OR rançongiciel) when:30d\" - Google Actualités",
+      "titresVerbatim": [
+        "\"Ça va être une boucherie\" : frigos, cargos et même votre tondeuse, un expert alerte sur l'explosion des cyberattaques - La Montagne",
+        "118 millions d’euros détournés : cyberattaque massive contre le Crédit Mutuel Arkéa, des \"opérations frauduleuses\" constatées - La Montagne"
+      ],
+      "motifChoix": "La Montagne n'expose plus de RSS public (voir nonRetenus) : flux Google News ciblé sur son site, fenêtre 30 jours, gratuit et lisible"
+    },
+    {
+      "idPropose": "gn-press-lepopulaire",
+      "depts": ["87"],
+      "url": "https://news.google.com/rss/search?q=site:lepopulaire.fr+(cyberattaque+OR+piratage+OR+ran%C3%A7ongiciel)+when:30d&hl=fr&gl=FR&ceid=FR:fr",
+      "http": 200,
+      "items": 9,
+      "dernierItem": "Sat, 14 Nov 2026 12:44:00 GMT",
+      "heuresDepuisDernierItem": 155,
+      "langue": "fr",
+      "titreFlux": "\"site:lepopulaire.fr (cyberattaque OR piratage OR rançongiciel) when:30d\" - Google Actualités",
+      "titresVerbatim": [
+        "Après trois jours de chaos pour hôpitaux, écoles et entreprises, Microsoft met fin à sa panne mondiale - Le Populaire du Centre",
+        "Pourquoi l’accès à plusieurs sites Internet de la Ville de Limoges a été temporairement coupé - Le Populaire du Centre"
+      ],
+      "motifChoix": "Le Populaire du Centre n'expose plus de RSS public (voir nonRetenus) : flux Google News ciblé sur son site, fenêtre 30 jours, gratuit et lisible — un item déjà pertinent pour le radar (coupure des sites de la Ville de Limoges)"
+    }
+  ],
+  "nonRetenus": [
+    {
+      "candidat": "La Montagne — flux direct",
+      "urlsTestees": [
+        "https://www.lamontagne.fr/rss",
+        "https://www.lamontagne.fr/rss.xml",
+        "https://www.lamontagne.fr/rss/une",
+        "https://www.lamontagne.fr/environnement/rss"
+      ],
+      "http": 404,
+      "motif": "toutes les variantes répondent 404 ; la page départementale Creuse (591 604 octets, titre « Creuse : actualités de votre département - La Montagne ») ne contient aucun <link rel=alternate> de type RSS/Atom — pas de flux public découvert le 2026-11-21"
+    },
+    {
+      "candidat": "Le Populaire du Centre — flux direct",
+      "urlsTestees": [
+        "https://www.lepopulaire.fr/rss",
+        "https://www.lepopulaire.fr/rss.xml",
+        "https://www.lepopulaire.fr/rss/une"
+      ],
+      "http": 404,
+      "motif": "idem La Montagne (même groupe Centre France) ; page Haute-Vienne (269 774 octets) sans <link> RSS"
+    },
+    {
+      "candidat": "La Nouvelle République — /rss",
+      "urlsTestees": [
+        "https://www.lanouvellerepublique.fr/rss",
+        "https://www.lanouvellerepublique.fr/rss.xml",
+        "https://www.lanouvellerepublique.fr/rss/une"
+      ],
+      "http": 404,
+      "motif": "les flux existent mais sous la forme api/v1/rss/<identifiant>, découverts dans le HTML des pages départementales — retenus sous presse-lnr-vienne et presse-lnr-deuxsevres"
+    },
+    {
+      "candidat": "France Bleu / ici.fr — flux régional",
+      "urlsTestees": [
+        "https://www.francebleu.fr/rss/hi/region_nouvelle_aquitaine.xml",
+        "https://www.francebleu.fr/rss/nouvelle-aquitaine",
+        "https://www.ici.fr/rss",
+        "https://www.ici.fr/limoges/rss",
+        "https://www.ici.fr/nouvelle-aquitaine/rss"
+      ],
+      "http": "404 (200 pour ici.fr/rss mais 0 item)",
+      "motif": "la migration France Bleu → ici.fr a tué les flux régionaux ; déjà documenté en base (presse-francebleu-rss éteinte 2026-11-13). Rien à câbler"
+    },
+    {
+      "candidat": "Centre Presse 86 / Le Républicain Lot-et-Garonne",
+      "urlsTestees": [
+        "https://www.centrepresse86.fr/feed",
+        "https://www.republicain-lotetgaronne.fr/feed"
+      ],
+      "http": 0,
+      "motif": "échec de connexion (établissement du lien impossible) le 2026-11-21 depuis cette machine — rien à câbler"
+    },
+    {
+      "candidat": "Ouest-France éditions locales",
+      "urlsTestees": ["https://www.ouest-france.fr/rss/france"],
+      "http": 200,
+      "motif": "seul le flux national est public (déjà câblé, presse-ouestfrance-rss) ; pas d'édition locale RSS identifiée pour la Charente-Maritime — le département 17 est couvert par presse-sudouest-charente-maritime et gn-17"
+    }
+  ]
+}

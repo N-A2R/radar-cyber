@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { creerMemoire, etatDonnees, type Instantane } from "./offline";
-import { api, clearAuthToken, getAuthToken, setAuthToken, type Event, type FlowArc, type Graph, type LiveAlert, type Org, type Source, type Stats } from "./api";
+import { api, clearAuthToken, getAuthToken, setAuthToken, type Event, type FlowArc, type Graph, type LiveAlert, type NaOverview, type Org, type Source, type Stats } from "./api";
 import { mockData } from "./mock";
 import Map3D from "./map/Map3D";
 import GraphView from "./graph/GraphView";
@@ -14,6 +14,7 @@ import CommandPalette from "./components/CommandPalette";
 import LiveAlerts from "./components/LiveAlerts";
 import ReviewView from "./components/ReviewView";
 import DossierView from "./components/DossierView";
+import NaView from "./components/NaView";
 import { parseHash, toHash, shareableUrl, type AppUrlState } from "./url-state";
 import AlertsView from "./components/AlertsView";
 import LoginScreen from "./components/LoginScreen";
@@ -31,6 +32,7 @@ const VIEWS: { id: ViewKey; label: string }[] = [
   { id: "health", label: "Santé" },
   { id: "alerts", label: "Alertes" },
   { id: "dossier", label: "Dossier" },
+  { id: "na", label: "Nouvelle-Aquitaine" },
 ];
 
 const FEED_LIMIT = 300;
@@ -43,6 +45,7 @@ export default function App() {
   const [events, setEvents] = useState<Event[]>([]);
   const [sources, setSources] = useState<Source[]>([]);
   const [stats, setStats] = useState<Stats | null>(null);
+  const [naOverview, setNaOverview] = useState<NaOverview | null>(null);
   const [graph, setGraph] = useState<Graph>({ nodes: [], links: [] });
   const [flows, setFlows] = useState<FlowArc[]>([]);
   // L'URL porte la vue, les filtres de l'annuaire et la fiche ouverte :
@@ -252,15 +255,16 @@ export default function App() {
     // son `statement_timeout` — le `Promise.all` rejetait, et organisations,
     // événements, sources et statistiques n'étaient jamais posés en état.
     const load = async () => {
-      const labels = ["organisations", "événements", "sources", "statistiques", "graphe"] as const;
+      const labels = ["organisations", "événements", "sources", "statistiques", "graphe", "vue NA"] as const;
       const results = await Promise.allSettled([
         api.orgs(),
         api.events(FEED_LIMIT, "regional", portee),
         api.sources(),
         api.stats(),
         api.graph(90),
+        api.naOverview(),
       ]);
-      const [o, e, s, st, g] = results;
+      const [o, e, s, st, g, na] = results;
       if (o.status === "fulfilled") setOrgs(o.value);
       if (e.status === "fulfilled") setEvents(e.value);
       if (o.status === "fulfilled" && e.status === "fulfilled") {
@@ -274,6 +278,7 @@ export default function App() {
       if (s.status === "fulfilled") setSources(s.value);
       if (st.status === "fulfilled") setStats(st.value);
       if (g.status === "fulfilled") setGraph(g.value);
+      if (na.status === "fulfilled") setNaOverview(na.value);
       const failed = results.flatMap((r, i) => (r.status === "rejected" ? [labels[i]] : []));
       setError(failed.length > 0 ? `indisponible : ${failed.join(", ")}` : null);
       setLoading(false);
@@ -289,6 +294,7 @@ export default function App() {
     const timer = setInterval(() => {
       api.stats().then(setStats).catch(() => {});
       api.graph(90).then(setGraph).catch(() => {});
+      api.naOverview().then(setNaOverview).catch(() => {});
       loadFlows().then(setFlows).catch(() => {});
     }, 30000);
     return () => clearInterval(timer);
@@ -640,6 +646,18 @@ export default function App() {
           {view === "health" ? <HealthView sources={sources} /> : null}
 
           {view === "dossier" ? <DossierView /> : null}
+
+          {view === "na" ? (
+            <NaView
+              orgs={orgs}
+              overview={naOverview}
+              loading={loading}
+              error={error}
+              dept={urlState.naDept}
+              onSelectDept={(d) => setUrlState((prev) => (prev.naDept === d ? prev : { ...prev, naDept: d }))}
+              onOpenOrg={setSheetOrgId}
+            />
+          ) : null}
 
           {view === "alerts" ? (
             <AlertsView

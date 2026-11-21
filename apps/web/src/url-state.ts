@@ -12,7 +12,7 @@
  * Fonctions pures : testables sans navigateur.
  */
 
-export const VIEWS = ["map", "directory", "review", "graph", "sources", "health", "alerts", "dossier"] as const;
+export const VIEWS = ["map", "directory", "review", "graph", "sources", "health", "alerts", "dossier", "na"] as const;
 export type ViewId = (typeof VIEWS)[number];
 
 export type DirectoryUrlState = {
@@ -34,6 +34,8 @@ export type AppUrlState = {
 	directory: DirectoryUrlState;
 	/** Fiche organisation ouverte, pour un lien direct. */
 	org: number | null;
+	/** Vue Nouvelle-Aquitaine : département sélectionné, `null` = toute la région. */
+	naDept: string | null;
 };
 
 export const DEFAULT_DIRECTORY: DirectoryUrlState = {
@@ -55,6 +57,7 @@ export const DEFAULT_STATE: AppUrlState = {
 	view: "map",
 	directory: DEFAULT_DIRECTORY,
 	org: null,
+	naDept: null,
 };
 
 const SIZES = [25, 50, 100, 200];
@@ -74,10 +77,12 @@ export function parseHash(hash: string): AppUrlState {
 	const org = Number(params.get("org"));
 	const dept = params.get("dept");
 	const sort = params.get("sort") ?? "";
+	const naDept = params.get("naDept");
 
 	return {
 		view,
 		org: Number.isInteger(org) && org > 0 ? org : null,
+		naDept: naDept && /^[0-9]{2}$/.test(naDept) ? naDept : null,
 		directory: {
 			q: params.get("q") ?? "",
 			kind: params.get("kind") || null,
@@ -114,6 +119,7 @@ export function toHash(state: AppUrlState): string {
 		if (d.size !== DEFAULT_DIRECTORY.size) params.set("size", String(d.size));
 	}
 	if (state.org !== null) params.set("org", String(state.org));
+	if (state.naDept) params.set("naDept", state.naDept);
 	const search = params.toString();
 	return `#/${state.view}${search ? `?${search}` : ""}`;
 }

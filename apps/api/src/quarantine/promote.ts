@@ -96,7 +96,7 @@ export function normalizeDomain(d: string): string {
 const DOMAIN_RE = /(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,}/i;
 
 /** Extrait le domaine d'un indice, ou null s'il n'en porte pas. */
-function extractDomain(hint: string): string | null {
+export function extractDomain(hint: string): string | null {
   const m = hint.match(DOMAIN_RE);
   return m ? normalizeDomain(m[0]) : null;
 }
@@ -147,7 +147,15 @@ export async function loadCandidateIndex(hint: string): Promise<OrgIndexEntry[]>
   const params: unknown[] = [];
   if (tokens.length > 0) {
     params.push(tokens.map((t) => `%${t}%`));
-    clauses.push(`name ILIKE ANY($${params.length}::text[])`);
+    // Préfiltre sur `name_norm` (colonne générée déaccentuée, migration 041)
+    // et non sur `name` : les jetons ici sont déaccentués par `normalizeName`,
+    // et `name ILIKE '%esperance%'` ne rencontre jamais « Espérance ». Mesuré
+    // le 2026-11-21 : les deux ensembles ILIKE étaient disjoints, et une
+    // revendication citant une organisation au nom accentué par son domaine
+    // (jamais accentué) ne trouvait personne. Le moteur conserve sa
+    // normalisation propre ; le préfiltre doit seulement rester un
+    // sur-ensemble — il l'est désormais pour les noms accentués.
+    clauses.push(`name_norm ILIKE ANY($${params.length}::text[])`);
   }
   if (domain) {
     params.push(domain);
@@ -185,7 +193,7 @@ function containsPhrase(hintNorm: string, phrase: string): boolean {
  * La règle est simple : un jeton générique ne peut jamais *fonder* un
  * rapprochement. Il peut accompagner (« chu bordeaux fr »), pas décider.
  */
-const GENERIC_TOKENS = new Set([
+export const GENERIC_TOKENS = new Set([
   "com", "net", "org", "edu", "gouv", "gov", "int", "info", "biz",
   "fr", "eu", "be", "ch", "ca", "uk", "de", "es", "it", "nl", "lu",
   "www", "http", "https", "mail", "web", "site",
@@ -203,11 +211,22 @@ const GENERIC_TOKENS = new Set([
   // l'empêcher.
   "earl", "sarl", "sas", "sasu", "eurl", "sci", "scm", "snc", "scs", "scic",
   "scop", "gie", "geie", "sei", "sep", "selarl", "selas", "scp", "eirl",
+  // Formes juridiques étrangères et mots d'activité, même statut : mesuré le
+  // 2026-11-21 sur 180 revendications, « Boutinot Limited » se rattachait à
+  // « LIMITED (La Jarrie-Audouin) » et « Actualize Consulting » à « H
+  // CONSULTING (H CONSULTING) » — un nom réduit à un mot d'activité n'a rien
+  // de distinctif.
+  "ltd", "limited", "inc", "llc", "corp", "corporation", "plc",
+  "consulting", "consultant", "consultants", "advisory",
 ]);
 
 /** Vrai si le jeton porte une information : ni trop court, ni générique. */
 function isDiscriminating(token: string): boolean {
-  return token.length >= 2 && !GENERIC_TOKENS.has(token);
+  // Trois caractères minimum : à deux, un org porte des fragments de pays/TLD
+  // — « JP & CO » fondait un rattachement à 0,75 sur « wakao.co.jp » et
+  // « IN'CO CONSULTING » sur « plasmagen.co.in » (mesuré le 2026-11-21 sur
+  // 180 revendications). Un sigle utile fait au moins trois lettres.
+  return token.length >= 3 && !GENERIC_TOKENS.has(token);
 }
 
 /**
@@ -272,8 +291,11 @@ function scoreEntry(
     } else {
       // Les jetons d'une lettre (« T D F ») sont du bruit : non significatifs.
       // Les jetons génériques (« com », « fr ») sont retirés : ils ne
-      // discriminent aucune organisation.
-      const orgTokens = e.nameNorm.split(" ").filter(isDiscriminating);
+      // discriminent aucune organisation. Dédupliqués : sans le Set,
+      // « CO & CO » comptait deux jetons pour un seul mot et se rattachait à
+      // chaque domaine en « .co.** » (« wakao.co.jp », « triad.co.ke »…) — 6
+      // propositions fausses sur 180 revendications mesurées le 2026-11-21.
+      const orgTokens = [...new Set(e.nameNorm.split(" ").filter(isDiscriminating))];
       // Le nom est présent soit dans les jetons de l'indice, soit dans ceux de
       // son domaine (« black-star.fr » → black, star).
       const allPresent =
