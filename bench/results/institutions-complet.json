@@ -1,0 +1,37 @@
+{
+  "genereLe": "2026-11-21T20:29:19.338Z",
+  "dateVerification": "2026-11-21",
+  "protocole": "HTTP GET, redirect follow, 200 final, au moins un jeton discriminant du nom dans le texte visible",
+  "candidats": 1680,
+  "verifies": 1680,
+  "retenus": 1442,
+  "tauxVerification": "85.8 %",
+  "avecSiren": 1442,
+  "parType": {
+    "collège": 630,
+    "lycée": 438,
+    "epci": 136,
+    "sdis": 9,
+    "mairie": 187,
+    "prefecture": 13,
+    "école": 21,
+    "iut": 1,
+    "ch": 5,
+    "ehpad": 2
+  },
+  "echecsParType": {
+    "mairie": 16,
+    "epci": 12,
+    "sdis": 3,
+    "collège": 96,
+    "lycée": 30,
+    "ehpad": 1
+  },
+  "sources": {
+    "communes": "referentiel-na.json + wikidata:P374/P856 + corpus communes",
+    "epci": "referentiel-na.json + wikidata:P1616/P856",
+    "prefectures_sdis": "wikidata:P1616+P856 (SDIS) + recherche-entreprises.api.gouv.fr (préfectures)",
+    "education": "data.education.gouv.fr fr-en-annuaire-education",
+    "sante": "corpus sante-enseignement (FINESS + annuaire sante.fr)"
+  }
+}
