@@ -1,0 +1,33 @@
+{
+  "date": "2026-11-21",
+  "source": "psql production radar:5433, lecture seule — aucun domaine injecté",
+  "perimetre": {
+    "table": "quarantine_raw",
+    "filtre": "status='pending' AND kind='claim' AND org_hint non null",
+    "organisations": "org.domain / org.website + slug / name_norm"
+  },
+  "reel": {
+    "sql": "WITH hints AS (\n  SELECT id, org_hint,\n    lower(btrim(org_hint)) AS brut,\n    regexp_replace(regexp_replace(regexp_replace(regexp_replace(lower(btrim(org_hint)),\n      '^https?://', ''), '[/?#].*$', ''), ':\\d+$', ''), '\\.$', '') AS domaine\n  FROM quarantine_raw\n  WHERE status='pending' AND kind='claim'\n    AND org_hint IS NOT NULL AND btrim(org_hint) <> ''\n), domaines AS (\n  SELECT * FROM hints\n  WHERE brut ~ '^(https?://)?(www\\.)?([a-z0-9]([a-z0-9-]*[a-z0-9])?\\.)+[a-z]{2,}(:\\d+)?(/[^[:space:]]*)?$'\n)\nSELECT (SELECT count(*) FROM hints) AS indices_avec_indice,\n       (SELECT count(*) FROM domaines) AS indices_domaine,\n       (SELECT count(*) FROM domaines d\n          JOIN org o ON lower(btrim(o.domain)) = regexp_replace(d.domaine, '^www\\.', '')\n                     OR lower(coalesce(o.website, '')) LIKE '%' || regexp_replace(d.domaine, '^www\\.', '') || '%'\n       ) AS rattaches_par_domaine",
+    "indicesAvecIndice": 220,
+    "indicesDomaine": 184,
+    "rattachesParDomaine": 0,
+    "note": "0 est mesuré : 69 organisations sur 1,67 M ont un domaine renseigné, aucun ne correspond aux 184 indices-domaines. Ce n'est pas un défaut de normalisation."
+  },
+  "controle": {
+    "principe": "jeu isolé en mémoire, organisations construites avec les domaines observés — aucune écriture en base",
+    "domaines": [
+      "eivp-paris.fr",
+      "lyonhealy.com",
+      "ibafrance.fr",
+      "nicecloud.nl",
+      "hotel-ampere-paris.com",
+      "lyonshipyard.com",
+      "lyon.co.uk",
+      "coteg-toulouse.dom",
+      "aev-iledefrance.fr",
+      "agapefrance.org"
+    ],
+    "organisations": 10,
+    "rattaches": 10
+  }
+}

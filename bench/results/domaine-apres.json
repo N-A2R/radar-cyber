@@ -1,0 +1,49 @@
+{
+  "date": "2026-11-21",
+  "source": "psql production radar:5433, lecture seule — aucun domaine injecté",
+  "perimetre": {
+    "table": "quarantine_raw",
+    "filtre": "status='pending' AND kind='claim' AND org_hint non null",
+    "organisations": "org.domain / org.website + slug / name_norm"
+  },
+  "reel": {
+    "sql": {
+      "indices": "SELECT id, org_hint\nFROM quarantine_raw\nWHERE status='pending' AND kind='claim'\n  AND org_hint IS NOT NULL AND btrim(org_hint) <> ''\nORDER BY id",
+      "organisationsAvecDomaine": "SELECT id, name, slug, domain, website, name_norm\nFROM org\nWHERE domain IS NOT NULL OR website IS NOT NULL",
+      "candidatsParRacine": "SELECT id, slug, name_norm\nFROM org\nWHERE name_norm ILIKE ANY($1::text[])\n   OR slug = ANY($2::text[])"
+    },
+    "indicesAvecIndice": 220,
+    "indicesDomaine": 184,
+    "etage1DomaineExact": 0,
+    "etage2RacineUnique": 1,
+    "etage2AmbigusRefuses": 11,
+    "etage2AucuneCandidate": 149,
+    "racineTropCourte": 23,
+    "rattachables": 1,
+    "rattaches": [
+      {
+        "indice": "pizwich.com",
+        "etape": "racine",
+        "orgId": 2139850
+      }
+    ],
+    "note": "étage 1 = 0/184 par pauvreté du référentiel, pas par défaut de normalisation ; étage 2 refuse 2+ candidats sans tirage ; le reste part en revue."
+  },
+  "controle": {
+    "principe": "jeu isolé en mémoire, organisations construites avec les domaines observés — aucune écriture en base",
+    "domaines": [
+      "eivp-paris.fr",
+      "lyonhealy.com",
+      "ibafrance.fr",
+      "nicecloud.nl",
+      "hotel-ampere-paris.com",
+      "lyonshipyard.com",
+      "lyon.co.uk",
+      "coteg-toulouse.dom",
+      "aev-iledefrance.fr",
+      "agapefrance.org"
+    ],
+    "organisations": 10,
+    "rattaches": 10
+  }
+}
