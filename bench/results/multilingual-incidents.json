@@ -1,0 +1,28 @@
+{
+  "scope": "Nouvelle-Aquitaine (12 departments)",
+  "rule": "incident = assertion_type in (confirmed_incident, third_party_claim); Nouvelle-Aquitaine = event.regional or the linked org department is one of the 12 NA codes; language = exclusive function-word and strong-phrase scoring on title + summary, undetermined on ties or fewer than two word hits, non-French requires confidence >= 0.25",
+  "inScopeIncidents": 65,
+  "nonFrenchIncidents": 3,
+  "byLanguage": {
+    "en": 4,
+    "fr": 61
+  },
+  "nonFrenchBySource": {
+    "onion:ccw:anubis": 3
+  },
+  "nonFrenchIds": [
+    "142014",
+    "142015",
+    "142016"
+  ],
+  "corpusEntries": 65,
+  "corpusMatchesDatabase": true,
+  "baseline": {
+    "sources": 463,
+    "events": 27899
+  },
+  "sql": {
+    "incidents": "\n  SELECT e.id::text AS id, e.title, e.summary, e.assertion_type, e.regional,\n         o.dept AS department, e.source_id\n    FROM event e\n    LEFT JOIN org o ON o.id = e.org_id\n   WHERE e.assertion_type IN ('confirmed_incident', 'third_party_claim')\n     AND (e.regional OR o.dept IN ('16', '17', '19', '23', '24', '33', '40', '47', '64', '79', '86', '87'))\n   ORDER BY e.id\n",
+    "baseline": "\n  SELECT (SELECT count(*)::int FROM source) AS sources,\n         (SELECT count(*)::int FROM event) AS events\n"
+  }
+}
