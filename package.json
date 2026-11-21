@@ -36,6 +36,8 @@
     "enrichissement:rapport": "apps/api/node_modules/.bin/tsx scripts/enrichir-referentiel.mts --rapport",
     "enrichissement:appliquer": "apps/api/node_modules/.bin/tsx scripts/enrichir-referentiel.mts --appliquer",
     "domaines:reels": "apps/api/node_modules/.bin/tsx scripts/domaines-reels.mts",
+    "domaines:mesurer": "apps/api/node_modules/.bin/tsx scripts/domain-coverage.mts",
+    "domaines:etendre": "apps/api/node_modules/.bin/tsx scripts/expand-domains.mts",
     "sources:generate": "node scripts/generer-sources-actives.mts",
     "sources:measure": "node scripts/measure-active-sources.mts"
   },
