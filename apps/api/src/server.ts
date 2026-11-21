@@ -1,4 +1,5 @@
 import { AdmissionTally, admitEvent } from "./contract/admit.js";
+import { languageVerdict } from "./collectors/filter.js";
 import type { CollectContext, Collector, NormalizedEvent } from "@radar/shared";
 import cors from "@fastify/cors";
 import helmet from "@fastify/helmet";
@@ -195,6 +196,7 @@ async function runCollectors(): Promise<void> {
 
 		let itemsIn = 0;
 		let itemsNew = 0;
+		let langueSkipped = 0;
 		try {
 			const result = await executerCollecteur(c, makeContext(cursor, (m) => app.log.info(m)));
 			itemsIn = result.events.length;
@@ -211,13 +213,18 @@ async function runCollectors(): Promise<void> {
 				contract.record(admitted);
 				if (!admitted.ok) continue;
 				const event = admitted.event;
+				const langue = languageVerdict(event.title, event.summary);
+				if (!langue.keep) {
+					langueSkipped++;
+					continue;
+				}
 				const portee = porteeRegionale(`${event.title} ${event.summary ?? ""}`, null);
 				const r = await ingestQuery(
-					`INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at, valid_at, severity, confidence, source_id, source_url, evidence, geo_type, lat, lon, regional, regional_motif)
-					 VALUES ($1,$2,$3,$4,$5,$6,$17,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16)
+					`INSERT INTO event (dedup_key, family, assertion_type, title, summary, langue, observed_at, valid_at, severity, confidence, source_id, source_url, evidence, geo_type, lat, lon, regional, regional_motif)
+					 VALUES ($1,$2,$3,$4,$5,$18,$6,$17,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16)
 					 ON CONFLICT (dedup_key) DO UPDATE SET observed_at = COALESCE(event.observed_at, EXCLUDED.observed_at)`,
 					[event.dedupKey, event.family, event.assertionType, event.title, event.summary ?? null, event.observedAt ?? null,
-					 event.observedAt ?? new Date().toISOString(), event.severity, event.confidence ?? null, event.sourceId, event.sourceUrl ?? null, JSON.stringify(event.evidence ?? {}), event.geoType, event.lat ?? null, event.lon ?? null, portee.regional, portee.motif]
+					 event.observedAt ?? new Date().toISOString(), event.severity, event.confidence ?? null, event.sourceId, event.sourceUrl ?? null, JSON.stringify(event.evidence ?? {}), event.geoType, event.lat ?? null, event.lon ?? null, portee.regional, portee.motif, langue.language]
 				);
 				if ((r.rowCount ?? 0) > 0) {
 					itemsNew++;
@@ -242,7 +249,7 @@ async function runCollectors(): Promise<void> {
 			const newCursor = result.cursor ?? cursor;
 			await ingestQuery("UPDATE source SET cursor=$1, last_ok_at=now() WHERE id=$2", [JSON.stringify(newCursor), c.id]);
 			await ingestQuery("INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new) VALUES ($1, now(), 'ok', $2, $3)", [c.id, itemsIn, itemsNew]);
-			app.log.info(`collecteur ${c.id} : ${itemsIn} élément(s), ${itemsNew} nouveau(x)`);
+			app.log.info(`collecteur ${c.id} : ${itemsIn} élément(s), ${itemsNew} nouveau(x)${langueSkipped > 0 ? `, ${langueSkipped} langue(s) exclue(s)` : ""}`);
 			const contractLine = contract.logLine();
 			if (contractLine) app.log.warn(`collecteur ${c.id} : contrat — ${contractLine}`);
 		} catch (e: unknown) {
