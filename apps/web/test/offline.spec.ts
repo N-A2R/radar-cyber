@@ -134,11 +134,11 @@ test("la carte garde ses organisations et son indicateur hors ligne après recha
 
 	// On visite aussi la vue région en ligne : son chunk chargé à la demande
 	// sera disponible hors ligne, où il servira à compter les organisations.
-	await page.getByRole("button", { name: "Nouvelle-Aquitaine" }).click();
+	await page.getByRole("button", { name: "New Aquitaine" }).click();
 	await page.locator('button.na-ligne[data-dept="33"]').click();
 	await expect.poll(() => page.locator("button.na-ligne-org").count()).toBeGreaterThanOrEqual(10);
 	await page.getByRole("button", { name: /toute la région/ }).click();
-	await page.getByRole("button", { name: "Carte" }).click();
+	await page.getByRole("button", { name: "Map" }).click();
 
 	// Un instantané tout frais est volontairement présenté comme « à jour » :
 	// on le vieillit pour observer l'état « hors ligne » revendiqué par l'UI.
@@ -161,7 +161,7 @@ test("la carte garde ses organisations et son indicateur hors ligne après recha
 	await expect(indicateur).toHaveAttribute("data-etat", "perime");
 	await expect(indicateur).toContainText("hors ligne");
 
-	await page.getByRole("button", { name: "Nouvelle-Aquitaine" }).click();
+	await page.getByRole("button", { name: "New Aquitaine" }).click();
 	await page.locator('button.na-ligne[data-dept="33"]').click();
 	await expect.poll(() => page.locator("button.na-ligne-org").count()).toBeGreaterThanOrEqual(10);
 });

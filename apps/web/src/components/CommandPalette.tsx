@@ -104,7 +104,7 @@ export default function CommandPalette({ open, onClose, onOpenOrg, onOpenEvent, 
 					setError(null);
 				})
 				.catch((err: unknown) => {
-					if (!cancelled) setError(err instanceof Error ? err.message : "Recherche indisponible");
+					if (!cancelled) setError(err instanceof Error ? err.message : "Search unavailable");
 				})
 				.finally(() => {
 					if (!cancelled) setLoading(false);
@@ -153,14 +153,14 @@ export default function CommandPalette({ open, onClose, onOpenOrg, onOpenEvent, 
 
 	const hint =
 		query.trim().length < MIN_QUERY
-			? `Saisissez au moins ${MIN_QUERY} caractères.`
+			? `Enter at least ${MIN_QUERY} characters.`
 			: loading
-				? "Recherche…"
+				? "Searching…"
 				: error
 					? error
 					: results.length === 0
-						? "Aucun résultat."
-						: `${results.length} résultat${results.length > 1 ? "s" : ""}`;
+						? "No results."
+						: `${results.length} result${results.length > 1 ? "s" : ""}`;
 
 	return (
 		<div className="palette__scrim" onClick={onClose}>
@@ -168,7 +168,7 @@ export default function CommandPalette({ open, onClose, onOpenOrg, onOpenEvent, 
 				className="palette"
 				role="dialog"
 				aria-modal="true"
-				aria-label="Recherche globale"
+				aria-label="Global search"
 				onClick={(e) => e.stopPropagation()}
 				onKeyDown={onKeyDown}
 			>
@@ -180,13 +180,13 @@ export default function CommandPalette({ open, onClose, onOpenOrg, onOpenEvent, 
 					aria-expanded={results.length > 0}
 					aria-controls="palette-list"
 					aria-activedescendant={results[active] ? `palette-hit-${active}` : undefined}
-					placeholder="Rechercher une organisation, un événement, un indicateur…"
+					placeholder="Search an organization, an event, an indicator…"
 					value={query}
 					onChange={(e) => setQuery(e.target.value)}
 				/>
 				<p className="palette__hint" role="status">{hint}</p>
 				{results.length > 0 ? (
-					<ul className="palette__list" id="palette-list" role="listbox" ref={listRef} aria-label="Résultats">
+					<ul className="palette__list" id="palette-list" role="listbox" ref={listRef} aria-label="Results">
 						{results.map((hit, i) => (
 							<li
 								key={`${hit.kind}-${hit.id}`}
@@ -198,14 +198,14 @@ export default function CommandPalette({ open, onClose, onOpenOrg, onOpenEvent, 
 								onMouseEnter={() => setActive(i)}
 								onClick={() => choose(hit)}
 							>
-								<span className="palette__tag">{hit.kind === "org" ? "org" : hit.kind === "event" ? "événement" : "indicateur"}</span>
+								<span className="palette__tag">{hit.kind === "org" ? "org" : hit.kind === "event" ? "event" : "indicator"}</span>
 								<span className="palette__label">{hit.label}</span>
 								<span className="palette__detail">{hit.detail}</span>
 							</li>
 						))}
 					</ul>
 				) : null}
-				<footer className="palette__foot">↑ ↓ parcourir · Entrée ouvrir · Échap fermer</footer>
+				<footer className="palette__foot">↑ ↓ navigate · Enter open · Esc close</footer>
 			</div>
 		</div>
 	);
