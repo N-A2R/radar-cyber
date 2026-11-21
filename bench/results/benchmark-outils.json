@@ -1,0 +1,94 @@
+{
+  "dateMesure": "2026-11-21",
+  "methode": "GitHub REST API via `gh api repos/<slug>` (étoiles, forks, issues ouvertes, pushed_at) et `gh api -X GET search/code -f q=\"Nouvelle-Aquitaine repo:<slug>\"` (mentions indexées). Jours depuis push calculés par rapport à la date de mesure. Radar Cyber est privé : aucun chiffre GitHub public n'est inventé ; la colonne NA vient du corpus de benchmark (100 incidents datés).",
+  "outils": [
+    {
+      "nom": "OpenCTI",
+      "slug": "OpenCTI-Platform/opencti",
+      "visibilite": "public",
+      "etoiles": 10415,
+      "forks": 1526,
+      "issuesOuvertes": 2252,
+      "joursDepuisPush": 0,
+      "mentionsNA": 0,
+      "licence": "NOASSERTION"
+    },
+    {
+      "nom": "MISP",
+      "slug": "MISP/MISP",
+      "visibilite": "public",
+      "etoiles": 6688,
+      "forks": 1676,
+      "issuesOuvertes": 2985,
+      "joursDepuisPush": 0,
+      "mentionsNA": 0,
+      "licence": "AGPL-3.0"
+    },
+    {
+      "nom": "TheHive",
+      "slug": "TheHive-Project/TheHive",
+      "visibilite": "public",
+      "etoiles": 3951,
+      "forks": 712,
+      "issuesOuvertes": 834,
+      "joursDepuisPush": 484,
+      "mentionsNA": 0,
+      "licence": "AGPL-3.0"
+    },
+    {
+      "nom": "Yeti",
+      "slug": "yeti-platform/yeti",
+      "visibilite": "public",
+      "etoiles": 2045,
+      "forks": 328,
+      "issuesOuvertes": 70,
+      "joursDepuisPush": 0,
+      "mentionsNA": 0,
+      "licence": "Apache-2.0"
+    },
+    {
+      "nom": "Cortex",
+      "slug": "TheHive-Project/Cortex",
+      "visibilite": "public",
+      "etoiles": 1651,
+      "forks": 266,
+      "issuesOuvertes": 174,
+      "joursDepuisPush": 32,
+      "mentionsNA": 0,
+      "licence": "AGPL-3.0"
+    },
+    {
+      "nom": "IntelMQ",
+      "slug": "certtools/intelmq",
+      "visibilite": "public",
+      "etoiles": 1144,
+      "forks": 320,
+      "issuesOuvertes": 262,
+      "joursDepuisPush": 207,
+      "mentionsNA": 0,
+      "licence": "AGPL-3.0"
+    },
+    {
+      "nom": "RansomLook",
+      "slug": "RansomLook/RansomLook",
+      "visibilite": "public",
+      "etoiles": 689,
+      "forks": 117,
+      "issuesOuvertes": 9,
+      "joursDepuisPush": 4,
+      "mentionsNA": 0,
+      "licence": "GPL-3.0"
+    },
+    {
+      "nom": "Radar Cyber",
+      "slug": null,
+      "visibilite": "prive",
+      "etoiles": null,
+      "forks": null,
+      "issuesOuvertes": null,
+      "joursDepuisPush": null,
+      "mentionsNA": 100,
+      "licence": null
+    }
+  ]
+}
