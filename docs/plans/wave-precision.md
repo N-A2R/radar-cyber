@@ -82,21 +82,29 @@ Les indécidables sortent du dénominateur et se comptent à part.
 ---
 
 
-## Garde-fou budgétaire (ajouté en cours de vague)
+## Garde-fou budgétaire (mesuré le 2026-11-21 à 04:47)
 
-Le plan ZCode expire le **2026-11-23 à 02:00** et le débit mesuré est de
-**~21,6 M tokens/h**. Une vague de 38 h humaines ne tient donc **pas** dans le
-quota restant. Règle, à appliquer sans discussion :
+Le débit réel **pendant le travail** est de **85,5 M tokens/h** (7,60 M facturés
+en 320 s), pas les 21,6 M/h de la moyenne incluant les périodes d'inactivité.
+Les lectures de cache sont facturées **~65 %** de leur valeur nominale (11,60 M
+annoncés → 7,60 M facturés).
 
-- [ ] **S2.4b** Après S2, relever `available_units` sur `/quota` du pont
-      (`curl -s http://127.0.0.1:20131/quota`) et l'écrire dans l'état.
-- [ ] **Décision automatique** : s'il reste **moins de 80 M**, arrêter la vague
-      après S3 et écrire un rapport intermédiaire (`docs/rapport-precision-partiel.md`)
-      qui dit ce qui est prouvé, ce qui reste, et à quelle étape reprendre.
-- [ ] S'il reste **plus de 80 M**, continuer S4 → S6 normalement.
+Conséquence : avec **193,6 M** restants, il y a **≈ 2 h 20 de travail actif**
+avant la coupure. La vague complète (S1 → S6) n'y tient pas. Elle s'arrête donc
+proprement après S2, avec un rapport intermédiaire.
+
+- [ ] **S1.6b** À la fin de S1, relever `available_units`
+      (`curl -s http://127.0.0.1:20131/quota`), l'écrire dans l'état avec
+      l'horodatage.
+- [ ] **S2.4b** Relever de nouveau après S2.
+- [ ] **Arrêt propre** : dès que le reste passe **sous 60 M** (≈ 40 min de
+      travail), terminer la tâche en cours, écrire
+      `docs/rapport-precision-partiel.md` — ce qui est prouvé, ce qui reste,
+      l'étape exacte de reprise — committer, et marquer la session terminée.
+      Ne pas commencer une tâche nouvelle sous ce seuil.
 
 Un arrêt propre au bon endroit vaut mieux qu'une vague qui meurt à court de
-jetons au milieu de S5, sans rapport. L'état commité garantit la reprise.
+jetons au milieu de S3, sans rapport.
 
 ## S1 — L'appareil de mesure et la vérité terrain
 
