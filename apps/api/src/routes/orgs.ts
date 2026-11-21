@@ -1,6 +1,7 @@
 import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
-import { resolveUser } from "../middleware/auth.js";
+import { requireAuth, resolveUser } from "../middleware/auth.js";
+import { createOrgFromHint, createOrgFromHintSchema } from "../quarantine/from-hint.js";
 import { desaccords, regrouper, resume } from "../analyse/corroboration.js";
 import { construireHistorique } from "../analyse/historique.js";
 
@@ -69,6 +70,28 @@ function mapOrg(row: OrgListRow) {
 }
 
 export default async function (app: FastifyInstance) {
+
+  /**
+   * Crée une organisation depuis un indice de revendication, ou rend
+   * l'existante. L'indice étranger n'a pas de SIREN : la décision est portée
+   * par la source et la preuve, journalisées avec la création.
+   */
+  app.post("/orgs/from-hint", { preHandler: requireAuth() }, async (req, reply) => {
+    const parsed = createOrgFromHintSchema.safeParse(req.body);
+    if (!parsed.success) {
+      reply.code(400).send({
+        error: "invalid input",
+        details: parsed.error.issues.map((issue) => ({
+          champ: issue.path.join("."),
+          message: issue.message,
+        })),
+      });
+      return;
+    }
+    const result = await createOrgFromHint(parsed.data);
+    reply.code(result.created ? 201 : 200);
+    return result;
+  });
   app.get("/orgs", async (req) => {
     const q = (req.query as Record<string, string | undefined>) ?? {};
     const asOfRaw = q.asOf ?? (q as Record<string, string | undefined>).as_of ?? null;
