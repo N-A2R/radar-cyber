@@ -24,7 +24,7 @@ rançongiciels. Tout y est **TLP:RED**, jamais républié, jamais exposé.
 | `groupe`, `org_hint` | groupe revendiquant, organisation supposément visée |
 | `claimed_at` | date de la revendication |
 | `extracted` jsonb | métadonnées structurées |
-| `raw_body` | texte brut (jamais réexposé par l'API) |
+| `raw_body` | texte brut (jamais réexposé intégralement : `GET /api/review/queue` en renvoie seulement un extrait de 240 caractères et le titre, sous jeton) |
 | `tlp` | `RED` par défaut |
 | `content_hash` | dédup `(source, content_hash)` |
 | `status` | `pending` → `promoted` |
@@ -85,6 +85,11 @@ Aéroport de Pau, thalesgroup.com ×2 (Thales DMS), Kenall/Legrand.
 `M`, `U`, `Échap`). La file est priorisée par un score explicable — chaque règle
 appliquée et son poids sont affichés — sur une fenêtre bornée de 2 000 faits
 (`RADAR_REVIEW_WINDOW`), avec facettes et filtres.
+
+`GET /api/review/queue` ajoute à chaque ligne `titre` (métadonnée du collecteur,
+sinon première ligne non vide du texte brut) et `extrait` (`raw_body` tronqué à
+240 caractères) : c'est le contexte nécessaire aux indices de famille `nom`,
+qui n'ont ni domaine ni sigle pour guider la décision.
 
 Les décisions sont journalisées dans `extracted->_review` (`{at, by, action,
 reason}`), **retiré du champ `extracted` renvoyé** et exposé par un champ `review`
