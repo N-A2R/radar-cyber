@@ -1,0 +1,466 @@
+{
+  "secteur": "numerique",
+  "departement": "86",
+  "date": "2026-11-22",
+  "sources": 23,
+  "urls_verifiees": 65,
+  "urls_http_200": 65,
+  "urls_uniques": 65,
+  "urls": [
+    {
+      "url": "https://www.neoloji.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 3465
+    },
+    {
+      "url": "https://www.neoloji.fr/actualites",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 4097
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Neoloji%22%20Poitiers%20num%C3%A9rique&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 10,
+      "ms": 189
+    },
+    {
+      "url": "https://www.technopole-futuroscope.com/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 520
+    },
+    {
+      "url": "https://www.technopole-futuroscope.com/informations-transversales/actualites",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 519
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Technopole%20Futuroscope%22%20num%C3%A9rique&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 3,
+      "ms": 189
+    },
+    {
+      "url": "https://www.vienne-numerique.fr/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 342
+    },
+    {
+      "url": "https://www.vienne-numerique.fr/une-collectivite/les-projets-numeriques-qui-preparent-lavenir",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 341
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Vienne%20Num%C3%A9rique%22%20cyber%20OR%20num%C3%A9rique&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 10,
+      "ms": 190
+    },
+    {
+      "url": "https://pwn-association.org/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 311
+    },
+    {
+      "url": "https://pwn-association.org/evenements/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 904
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Poitiers%20Web%20Nerdz%22%20OR%20%22PWN%20Poitiers%22%20CTF&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 0,
+      "ms": 291
+    },
+    {
+      "url": "https://www.univ-poitiers.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 1976
+    },
+    {
+      "url": "https://www.univ-poitiers.fr/c/actualites/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 1046
+    },
+    {
+      "url": "https://www.univ-poitiers.fr/feed/",
+      "code": 200,
+      "ct": "application/rss+xml; charset=UTF-8",
+      "items": 10,
+      "ms": 488
+    },
+    {
+      "url": "https://conecti.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 2012
+    },
+    {
+      "url": "https://www.conecti.fr/actualites/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 1379
+    },
+    {
+      "url": "https://www.conecti.fr/feed/",
+      "code": 200,
+      "ct": "application/rss+xml; charset=UTF-8",
+      "items": 4,
+      "ms": 729
+    },
+    {
+      "url": "https://mti86.com/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 255
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22MTI%22%20Poitiers%20informatique&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 4,
+      "ms": 100
+    },
+    {
+      "url": "https://poitiers.digital/",
+      "code": 200,
+      "ct": "text/html;charset=utf-8",
+      "items": 0,
+      "ms": 181
+    },
+    {
+      "url": "https://poitiers.digital/blog",
+      "code": 200,
+      "ct": "text/html;charset=utf-8",
+      "items": 0,
+      "ms": 204
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22poitiers.digital%22%20OR%20%22Studio%20Digital%20Poitiers%22&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 0,
+      "ms": 105
+    },
+    {
+      "url": "https://www.htpmultimedia.fr/",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 123
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22HTP%20Multim%C3%A9dia%22%20Poitiers&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 0,
+      "ms": 140
+    },
+    {
+      "url": "https://www.poitiers.cci.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 519
+    },
+    {
+      "url": "https://www.poitiers.cci.fr/actualites/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 617
+    },
+    {
+      "url": "https://www.poitiers.cci.fr/actualites/feed/",
+      "code": 200,
+      "ct": "application/rss+xml; charset=UTF-8",
+      "items": 10,
+      "ms": 600
+    },
+    {
+      "url": "https://www.medef-vienne.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 674
+    },
+    {
+      "url": "https://www.medef-vienne.fr/actualite-de-lentreprise/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 614
+    },
+    {
+      "url": "https://www.medef-vienne.fr/feed/",
+      "code": 200,
+      "ct": "application/rss+xml; charset=UTF-8",
+      "items": 10,
+      "ms": 542
+    },
+    {
+      "url": "https://www.grandpoitiers.fr/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 749
+    },
+    {
+      "url": "https://www.grandpoitiers.fr/information-transversale/actualites",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 545
+    },
+    {
+      "url": "https://www.grandpoitiers.fr/information-transversale/actualites/rss",
+      "code": 200,
+      "ct": "text/xml;charset=utf-8",
+      "items": 117,
+      "ms": 2225
+    },
+    {
+      "url": "https://www.poitiers.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 316
+    },
+    {
+      "url": "https://www.poitiers.fr/les-actualites",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 298
+    },
+    {
+      "url": "https://www.poitiers.fr/rss.xml",
+      "code": 200,
+      "ct": "application/rss+xml; charset=utf-8",
+      "items": 10,
+      "ms": 176
+    },
+    {
+      "url": "https://amf86.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 1404
+    },
+    {
+      "url": "https://amf86.fr/actualites-de-lassociation/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 1252
+    },
+    {
+      "url": "https://amf86.fr/feed/",
+      "code": 200,
+      "ct": "application/rss+xml; charset=UTF-8",
+      "items": 10,
+      "ms": 1554
+    },
+    {
+      "url": "https://entreprises.nouvelle-aquitaine.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 993
+    },
+    {
+      "url": "https://entreprises.nouvelle-aquitaine.fr/actualites",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 968
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22entreprises.nouvelle-aquitaine.fr%22%20cybers%C3%A9curit%C3%A9&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 10,
+      "ms": 78
+    },
+    {
+      "url": "https://www.lavienne86.fr/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 766
+    },
+    {
+      "url": "https://www.lavienne86.fr/fil-infos/actualites",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 292
+    },
+    {
+      "url": "https://www.lanouvellerepublique.fr/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 265
+    },
+    {
+      "url": "https://www.lanouvellerepublique.fr/vienne",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 219
+    },
+    {
+      "url": "https://www.lanouvellerepublique.fr/api/v1/rss/5e20732239a34f77578b457c",
+      "code": 200,
+      "ct": "application/rss+xml; charset=UTF-8",
+      "items": 40,
+      "ms": 75
+    },
+    {
+      "url": "https://www.le7.info/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 1491
+    },
+    {
+      "url": "https://www.le7.info/tag/159-numerique",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 1438
+    },
+    {
+      "url": "https://www.le7.info/rss.xml",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 10,
+      "ms": 1198
+    },
+    {
+      "url": "https://www.ici.fr/radio/poitou",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 218
+    },
+    {
+      "url": "https://www.ici.fr/nouvelle-aquitaine/vienne-86",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 188
+    },
+    {
+      "url": "https://www.ici.fr/rss/poitou/a-la-une.xml",
+      "code": 200,
+      "ct": "application/xml",
+      "items": 40,
+      "ms": 122
+    },
+    {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/vienne",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 354
+    },
+    {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/vienne/rss",
+      "code": 200,
+      "ct": "text/xml; charset=UTF-8",
+      "items": 30,
+      "ms": 122
+    },
+    {
+      "url": "https://www.chatellerault.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 254
+    },
+    {
+      "url": "https://www.chatellerault.fr/actualites/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 213
+    },
+    {
+      "url": "https://www.chatellerault.fr/feed/",
+      "code": 200,
+      "ct": "application/rss+xml; charset=UTF-8",
+      "items": 0,
+      "ms": 857
+    },
+    {
+      "url": "https://qwery.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 1678
+    },
+    {
+      "url": "https://qwery.fr/blog/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 1695
+    },
+    {
+      "url": "https://qwery.fr/feed/",
+      "code": 200,
+      "ct": "application/rss+xml; charset=UTF-8",
+      "items": 10,
+      "ms": 1111
+    },
+    {
+      "url": "https://elevation-cie.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 625
+    },
+    {
+      "url": "https://elevation-cie.fr/blog/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 496
+    },
+    {
+      "url": "https://elevation-cie.fr/feed/",
+      "code": 200,
+      "ct": "application/rss+xml; charset=UTF-8",
+      "items": 5,
+      "ms": 273
+    }
+  ]
+}
