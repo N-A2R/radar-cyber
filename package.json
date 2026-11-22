@@ -14,12 +14,18 @@
     "dev:web": "pnpm -F @radar/web dev",
     "collecte:communiques": "apps/api/node_modules/.bin/tsx scripts/collecte-communiques-officiels.mts",
     "mesure:communiques": "apps/api/node_modules/.bin/tsx scripts/mesure-communiques-officiels.mts",
+    "mesure:crise": "apps/api/node_modules/.bin/tsx scripts/measure-crisis-communications.mts",
+    "verifie:crise": "apps/api/node_modules/.bin/tsx scripts/verify-crisis-communications-objective.mts",
     "test:offline": "pnpm -F @radar/web exec playwright test test/offline.spec.ts",
+    "mesure:scenarios": "apps/api/node_modules/.bin/tsx scripts/measure-crisis-scenarios.mts",
+    "verify:scenarios": "apps/api/node_modules/.bin/tsx scripts/verify-crisis-scenarios-objective.mts",
     "typecheck": "pnpm -r typecheck",
     "verify": "bash scripts/verify-all.sh",
     "verify:journal": "apps/api/node_modules/.bin/tsx scripts/verify-journal.mts",
     "custody:measure": "apps/api/node_modules/.bin/tsx scripts/measure-custody.mts",
     "custody:backfill": "apps/api/node_modules/.bin/tsx scripts/backfill-custody.mts",
+    "custody:write-boundary": "apps/api/node_modules/.bin/tsx scripts/measure-admission-at-write.mts",
+    "custody:reclassification": "apps/api/node_modules/.bin/tsx scripts/measure-reclassification-boundary.mts",
     "replay:journal": "apps/api/node_modules/.bin/tsx scripts/replay-journal.mts",
     "mesure:couverture": "apps/api/node_modules/.bin/tsx scripts/mesure-couverture.mts",
     "couverture:corpus": "apps/api/node_modules/.bin/tsx scripts/consolider-corpus-couverture.mts",
@@ -34,8 +40,11 @@
     "mesure:corroboration": "apps/api/node_modules/.bin/tsx scripts/measure-incident-corroboration.mts",
     "measure:leaks-by-domain": "apps/api/node_modules/.bin/tsx scripts/measure-leaks-by-domain.mts",
     "measure:resale-na": "apps/api/node_modules/.bin/tsx scripts/measure-resale-na.mts",
+    "collect:rssi-recruitment": "apps/api/node_modules/.bin/tsx scripts/collect-rssi-recruitment.mts",
+    "measure:recruitment-claim": "apps/api/node_modules/.bin/tsx scripts/measure-recruitment-claim.mts",
     "mesure:cve-na": "apps/api/node_modules/.bin/tsx scripts/measure-cve-na.mts",
     "mesure:graphe-temporal": "apps/api/node_modules/.bin/tsx scripts/mesure-graphe-temporal.mts",
+    "measure:attack-propagation": "apps/api/node_modules/.bin/tsx scripts/measure-attack-propagation.mts",
     "corpus:hash": "apps/api/node_modules/.bin/tsx scripts/corpus-hash.mts",
     "corpus:import": "apps/api/node_modules/.bin/tsx scripts/importer-corpus.mts",
     "mesure:typosquat": "apps/api/node_modules/.bin/tsx scripts/phishing-typosquat.mts",
@@ -51,10 +60,10 @@
     "measure:live-sources": "apps/api/node_modules/.bin/tsx scripts/measure-live-source-stream.mts",
     "measure:modes": "apps/api/node_modules/.bin/tsx scripts/measure-operating-modes.mts",
     "measure:cybercrime-cost": "apps/api/node_modules/.bin/tsx scripts/estimate-cybercrime-cost.mts"
+    "measure:affected": "apps/api/node_modules/.bin/tsx scripts/measure-affected.mts"
   },
   "devDependencies": {
     "embedded-postgres": "18.6.0-beta.19"
-  },
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild"

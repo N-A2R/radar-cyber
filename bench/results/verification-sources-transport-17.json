@@ -1,0 +1,511 @@
+{
+  "corpus": "bench/corpus/sources-transport-17.jsonl",
+  "verifie_le": "2026-11-22T07:58:42.205126+00:00",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+  "method": "curl -L GET, redirections suivies, code final",
+  "sources": 11,
+  "sources_valides": 11,
+  "urls_sondees": 42,
+  "urls_200": 42,
+  "detail": [
+    {
+      "ligne": 1,
+      "nom": "Union Maritime de La Rochelle (UMLR)",
+      "type": "fédération professionnelle maritime et portuaire",
+      "secteur": "transport",
+      "departement": "17",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.umlr.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 103099,
+          "url_finale": "https://www.umlr.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.umlr.fr/category/actualites/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 87118,
+          "url_finale": "https://www.umlr.fr/category/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.umlr.fr/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 37116,
+          "url_finale": "https://www.umlr.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.umlr.fr/2026/06/29/bourse-maritime-agricole-la-rochelle-pallice/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 55917,
+          "url_finale": "https://www.umlr.fr/2026/06/29/bourse-maritime-agricole-la-rochelle-pallice/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 2,
+      "nom": "Port Atlantique La Rochelle",
+      "type": "port public (fret et logistique)",
+      "secteur": "transport",
+      "departement": "17",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.larochelle.port.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 85061,
+          "url_finale": "https://www.larochelle.port.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.larochelle.port.fr/nos-engagements/actualites/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 56871,
+          "url_finale": "https://www.larochelle.port.fr/nos-engagements/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.larochelle.port.fr/nos-engagements/actualites/1414-bilan-2025.html",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 46183,
+          "url_finale": "https://www.larochelle.port.fr/nos-engagements/actualites/1414-bilan-2025.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 3,
+      "nom": "Port Charente Atlantique",
+      "type": "port de commerce (Rochefort et Tonnay-Charente)",
+      "secteur": "transport",
+      "departement": "17",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://port-charente-atlantique.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 77436,
+          "url_finale": "https://port-charente-atlantique.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://port-charente-atlantique.fr/actualites-du-port-charente-atlantique/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 91341,
+          "url_finale": "https://port-charente-atlantique.fr/actualites-du-port-charente-atlantique/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://port-charente-atlantique.fr/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 14054,
+          "url_finale": "https://port-charente-atlantique.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://port-charente-atlantique.fr/decarbonation-le-port-charente-atlantique-engage-une-nouvelle-etape-pour-preparer-lavenir-de-ses-activites-et-de-son-territoire/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 71819,
+          "url_finale": "https://port-charente-atlantique.fr/decarbonation-le-port-charente-atlantique-engage-une-nouvelle-etape-pour-preparer-lavenir-de-ses-activites-et-de-son-territoire/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 4,
+      "nom": "Atlantic Cluster",
+      "type": "cluster économique maritime et logistique",
+      "secteur": "transport",
+      "departement": "17",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://atlantic-cluster.com/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 396258,
+          "url_finale": "https://atlantic-cluster.com/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://atlantic-cluster.com/actualites/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 501159,
+          "url_finale": "https://atlantic-cluster.com/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://atlantic-cluster.com/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 31043,
+          "url_finale": "https://atlantic-cluster.com/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://atlantic-cluster.com/immense-succes-pour-la-premiere-convention-annuelle-des-membres-de-latlantic-cluster/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 154879,
+          "url_finale": "https://atlantic-cluster.com/immense-succes-pour-la-premiere-convention-annuelle-des-membres-de-latlantic-cluster/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 5,
+      "nom": "Groupe SICA Atlantique",
+      "type": "entreprise de logistique et de manutention céréalière",
+      "secteur": "transport",
+      "departement": "17",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.sica-atlantique.com/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 242115,
+          "url_finale": "https://www.sica-atlantique.com/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.sica-atlantique.com/notre-actualite/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 233590,
+          "url_finale": "https://www.sica-atlantique.com/notre-actualite/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.sica-atlantique.com/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 28698,
+          "url_finale": "https://www.sica-atlantique.com/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.sica-atlantique.com/sortie-de-notre-newsletter-de-juin-2026/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 142951,
+          "url_finale": "https://www.sica-atlantique.com/sortie-de-notre-newsletter-de-juin-2026/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 6,
+      "nom": "Groupe Sarrion",
+      "type": "entreprise de transport routier et logistique",
+      "secteur": "transport",
+      "departement": "17",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.sarrion-transports.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 97113,
+          "url_finale": "https://www.sarrion-transports.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.sarrion-transports.fr/le-blog/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 87251,
+          "url_finale": "https://www.sarrion-transports.fr/le-blog/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.sarrion-transports.fr/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml",
+          "octets": 9729,
+          "url_finale": "https://www.sarrion-transports.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.sarrion-transports.fr/1ere-reunion-du-nouveau-comite-rse/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 76724,
+          "url_finale": "https://www.sarrion-transports.fr/1ere-reunion-du-nouveau-comite-rse/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 7,
+      "nom": "Ferrocampus",
+      "type": "association de mobilité et d'innovation ferroviaire",
+      "secteur": "transport",
+      "departement": "17",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.ferrocampus.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 22987407,
+          "url_finale": "https://www.ferrocampus.fr/",
+          "erreur": "curl: (28) Operation timed out after 20000 milliseconds with 22987407 bytes received"
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.ferrocampus.fr/les-actualites/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 182599,
+          "url_finale": "https://www.ferrocampus.fr/les-actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.ferrocampus.fr/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 7975,
+          "url_finale": "https://www.ferrocampus.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.ferrocampus.fr/competences-ferroviaires-de-demain-alpha/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 172330,
+          "url_finale": "https://www.ferrocampus.fr/competences-ferroviaires-de-demain-alpha/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 8,
+      "nom": "Cara'bus — réseau de bus de Royan",
+      "type": "réseau de transport public urbain",
+      "secteur": "transport",
+      "departement": "17",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.cara-bus.com/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 55800,
+          "url_finale": "https://www.cara-bus.com/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.cara-bus.com/actualites/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 26555,
+          "url_finale": "https://www.cara-bus.com/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.cara-bus.com/actualites/actu-du-nouveau-sur-votre-reseau-a-partir-du-2-novembre-2026-1289/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 39863,
+          "url_finale": "https://www.cara-bus.com/actualites/actu-du-nouveau-sur-votre-reseau-a-partir-du-2-novembre-2026-1289/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 9,
+      "nom": "Yélo Mobilités — Agglo La Rochelle",
+      "type": "opérateur de mobilités (bus, vélos, transport à la demande)",
+      "secteur": "transport",
+      "departement": "17",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.yelo-larochelle.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 86224,
+          "url_finale": "https://www.yelo-larochelle.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.yelo-larochelle.fr/actualites/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 111780,
+          "url_finale": "https://www.yelo-larochelle.fr/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.yelo-larochelle.fr/?feed=rss2&post_type=news",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 56302,
+          "url_finale": "https://www.yelo-larochelle.fr/feed/?post_type=news",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.yelo-larochelle.fr/news/modification-des-lignes-scolaires-le-30-novembre-2026/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 61281,
+          "url_finale": "https://www.yelo-larochelle.fr/news/modification-des-lignes-scolaires-le-30-novembre-2026/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 10,
+      "nom": "actu.fr — Charente-Maritime",
+      "type": "presse en ligne locale",
+      "secteur": "transport",
+      "departement": "17",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://actu.fr/nouvelle-aquitaine/charente-maritime_17/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 328908,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/charente-maritime_17",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://actu.fr/nouvelle-aquitaine/charente-maritime_17/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 328908,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/charente-maritime_17",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://actu.fr/nouvelle-aquitaine/charente-maritime_17/rss.xml",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=utf-8",
+          "octets": 1434,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/charente-maritime_17/rss.xml",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://actu.fr/nouvelle-aquitaine/la-rochelle_17300/c-est-noel-avant-l-heure-a-la-rochelle-les-bus-yelo-seront-gratuits-certains-week-ends-de-decembre-voici-lesquels_65052715.html",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 306026,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/la-rochelle_17300/c-est-noel-avant-l-heure-a-la-rochelle-les-bus-yelo-seront-gratuits-certains-week-ends-de-decembre-voici-lesquels_65052715.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 11,
+      "nom": "ICI Charente-Maritime",
+      "type": "radio publique locale",
+      "secteur": "transport",
+      "departement": "17",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.ici.fr/nouvelle-aquitaine/charente-maritime-17",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 296770,
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/charente-maritime-17",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.ici.fr/nouvelle-aquitaine/charente-maritime-17/actu",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 213102,
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/charente-maritime-17/actu",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.ici.fr/rss/la-rochelle/rubrique/infos.xml",
+          "code": 200,
+          "content_type": "application/xml",
+          "octets": 20232,
+          "url_finale": "https://www.ici.fr/rss/la-rochelle/rubrique/infos.xml",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.ici.fr/nouvelle-aquitaine/charente-maritime-17/port-d-envaux/un-poids-lourd-couche-en-travers-de-la-chaussee-circulation-coupee-sur-l-a10-entre-saint-jean-d-angely-et-saintes-7331491",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 176581,
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/charente-maritime-17/port-d-envaux/un-poids-lourd-couche-en-travers-de-la-chaussee-circulation-coupee-sur-l-a10-entre-saint-jean-d-angely-et-saintes-7331491",
+          "erreur": null
+        }
+      ]
+    }
+  ]
+}
