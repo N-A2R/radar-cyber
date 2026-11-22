@@ -1,0 +1,122 @@
+{
+  "measuredAt": "2026-11-22T03:51:37.051Z",
+  "database": "postgres://radar:***@localhost:5433/radar",
+  "scope": "Nouvelle-Aquitaine; grey sources included",
+  "baseline": {
+    "organizations": 1673151,
+    "sources": 312,
+    "events": 26259
+  },
+  "graph": {
+    "entities": 27557,
+    "relations": 81171,
+    "relationsByType": {
+      "attributed_to": 21,
+      "claims": 415,
+      "contains": 26394,
+      "located_in": 44,
+      "mentions_product": 1316,
+      "produced_by": 619,
+      "published_on": 25917,
+      "reported_by": 26394,
+      "targeted_by": 51
+    },
+    "organizationsOutsideNouvelleAquitaine": 0
+  },
+  "model": {
+    "relationTypes": [
+      "targeted_by",
+      "claims",
+      "attributed_to",
+      "mentions_product",
+      "produced_by",
+      "reported_by",
+      "published_on",
+      "owns_domain",
+      "dns_link",
+      "resolves_to"
+    ],
+    "excludedRelationTypes": [
+      "contains",
+      "located_in"
+    ],
+    "maxHops": 4,
+    "observationTime": "2026-11-21T16:33:01.000Z",
+    "seed": {
+      "orgId": "org:482872",
+      "targetedEvents": 5
+    }
+  },
+  "propagation": {
+    "reachedOrganizations": 5,
+    "secondaryOrganizations": 4,
+    "traversedEdges": 362,
+    "edgeTypesUsed": [
+      "published_on",
+      "reported_by",
+      "targeted_by"
+    ],
+    "hops": [
+      {
+        "hop": 1,
+        "nodes": 5,
+        "organizations": 0,
+        "traversed": 5,
+        "types": [
+          "targeted_by"
+        ]
+      },
+      {
+        "hop": 2,
+        "nodes": 9,
+        "organizations": 0,
+        "traversed": 9,
+        "types": [
+          "published_on",
+          "reported_by"
+        ]
+      },
+      {
+        "hop": 3,
+        "nodes": 341,
+        "organizations": 0,
+        "traversed": 341,
+        "types": [
+          "published_on"
+        ]
+      },
+      {
+        "hop": 4,
+        "nodes": 7,
+        "organizations": 4,
+        "traversed": 7,
+        "types": [
+          "reported_by",
+          "targeted_by"
+        ]
+      }
+    ],
+    "reachedOrgIds": [
+      "org:2190093",
+      "org:2287598",
+      "org:2360843",
+      "org:378660",
+      "org:482872"
+    ]
+  },
+  "allOrganizations": {
+    "seeds": 44,
+    "mean": 12.045,
+    "median": 6,
+    "min": 1,
+    "max": 21,
+    "distribution": {
+      "1": 4,
+      "2": 2,
+      "3": 5,
+      "5": 6,
+      "6": 6,
+      "21": 21
+    }
+  }
+}
