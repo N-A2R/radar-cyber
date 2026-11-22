@@ -1,0 +1,862 @@
+{
+  "corpus": "bench/corpus/sources-transport-19.jsonl",
+  "verifie_le": "2026-11-22T07:57:25.287655+00:00",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+  "method": "curl -L GET, redirections suivies, code final",
+  "sources": 20,
+  "sources_valides": 20,
+  "urls_sondees": 70,
+  "urls_200": 70,
+  "detail": [
+    {
+      "ligne": 1,
+      "nom": "Libéo — réseau de bus de l'Agglo de Brive",
+      "type": "réseau de transport public",
+      "secteur": "transport",
+      "departement": "19",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.libeo-brive.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 202185,
+          "url_finale": "https://www.libeo-brive.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.libeo-brive.fr/vous-nous/actualites",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 127815,
+          "url_finale": "https://www.libeo-brive.fr/vous-nous/actualites",
+          "erreur": null
+        },
+        {
+          "role": "exemple",
+          "url": "https://www.libeo-brive.fr/actualites/le-reseau/nouvelle-application-mobile-libeo",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 117741,
+          "url_finale": "https://www.libeo-brive.fr/actualites/le-reseau/nouvelle-application-mobile-libeo",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 2,
+      "nom": "Aéroport Brive-Vallée de la Dordogne",
+      "type": "aéroport",
+      "secteur": "transport",
+      "departement": "19",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.aeroport-brive-vallee-dordogne.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 77302,
+          "url_finale": "https://www.aeroport-brive-vallee-dordogne.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.aeroport-brive-vallee-dordogne.fr/actualites",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 71404,
+          "url_finale": "https://www.aeroport-brive-vallee-dordogne.fr/actualites",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.aeroport-brive-vallee-dordogne.fr/rss.xml",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=utf-8",
+          "octets": 184117,
+          "url_finale": "https://www.aeroport-brive-vallee-dordogne.fr/rss.xml",
+          "erreur": null
+        },
+        {
+          "role": "exemple",
+          "url": "https://www.franceinfo.fr/internet/securite-sur-internet/cyberattaques/cyberattaque-une-panne-seme-le-desordre-dans-les-aeroports-europeens_7503532.html",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 629275,
+          "url_finale": "https://www.franceinfo.fr/internet/securite-sur-internet/cyberattaques/cyberattaque-une-panne-seme-le-desordre-dans-les-aeroports-europeens_7503532.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 3,
+      "nom": "Transports René Madrias",
+      "type": "transport frigorifique et logistique (Ussac)",
+      "secteur": "transport",
+      "departement": "19",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.madrias.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 18293,
+          "url_finale": "https://www.madrias.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.madrias.fr/actualites",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 17494,
+          "url_finale": "https://www.madrias.fr/actualites",
+          "erreur": null
+        },
+        {
+          "role": "exemple",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/brive/temoignage-on-a-ete-obliges-de-jeter-tout-le-surgele-la-stupefaction-des-gerants-de-ce-supermarche-frappe-par-la-cyberattaque-nationale-3432960.html",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 712168,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/brive/temoignage-on-a-ete-obliges-de-jeter-tout-le-surgele-la-stupefaction-des-gerants-de-ce-supermarche-frappe-par-la-cyberattaque-nationale-3432960.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 4,
+      "nom": "Groupe Verlhac Logistique",
+      "type": "transporteur et logisticien (Brive)",
+      "secteur": "transport",
+      "departement": "19",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://groupe-verlhac.com/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 52297,
+          "url_finale": "https://groupe-verlhac.com/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://groupe-verlhac.com/actualites",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 59228,
+          "url_finale": "https://groupe-verlhac.com/actualites",
+          "erreur": null
+        },
+        {
+          "role": "exemple",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/brive/on-a-perdu-entre-50-et-60-commandes-les-petites-entreprises-victimes-de-cyberattaques-une-cible-privilegiee-pour-les-pirates-informatiques-3110353.html",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 715190,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/brive/on-a-perdu-entre-50-et-60-commandes-les-petites-entreprises-victimes-de-cyberattaques-une-cible-privilegiee-pour-les-pirates-informatiques-3110353.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 5,
+      "nom": "SBFM — plateforme logistique de Brive",
+      "type": "logistique et entrepôt",
+      "secteur": "transport",
+      "departement": "19",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.sbfm-grillage.com/fr",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 72351,
+          "url_finale": "https://www.sbfm-grillage.com/fr",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.sbfm-grillage.com/fr/nos-actualites",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 144379,
+          "url_finale": "https://www.sbfm-grillage.com/fr/nos-actualites",
+          "erreur": null
+        },
+        {
+          "role": "exemple",
+          "url": "https://correzeactu.com/actualites/frigos-pirates-a-50-c-l-intermarche-d-altillac-touche-par-la-cyberattaque",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 44981,
+          "url_finale": "https://correzeactu.com/actualites/frigos-pirates-a-50-c-l-intermarche-d-altillac-touche-par-la-cyberattaque",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 6,
+      "nom": "AV2S — manutention et levage",
+      "type": "transport et manutention (Sainte-Fortunade)",
+      "secteur": "transport",
+      "departement": "19",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.manutention-levage-av2s.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 49730,
+          "url_finale": "https://www.manutention-levage-av2s.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.manutention-levage-av2s.fr/actualites",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 55562,
+          "url_finale": "https://www.manutention-levage-av2s.fr/actualites",
+          "erreur": null
+        },
+        {
+          "role": "exemple",
+          "url": "https://www.lamontagne.fr/brive-la-gaillarde-19100/actualites/il-n-etait-pas-question-de-payer-la-moindre-rancon-une-correzienne-raconte-comment-son-entreprise-a-ete-ciblee-par-des-hackers_14323156/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 270217,
+          "url_finale": "https://www.lamontagne.fr/brive-la-gaillarde-19100/actualites/il-n-etait-pas-question-de-payer-la-moindre-rancon-une-correzienne-raconte-comment-son-entreprise-a-ete-ciblee-par-des-hackers_14323156/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 7,
+      "nom": "Groupe BBL Transport",
+      "type": "transport et logistique (Brive)",
+      "secteur": "transport",
+      "departement": "19",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://groupe-bbl.com/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 363052,
+          "url_finale": "https://groupe-bbl.com/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://groupe-bbl.com/le-groupe/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 317217,
+          "url_finale": "https://groupe-bbl.com/le-groupe/",
+          "erreur": null
+        },
+        {
+          "role": "exemple",
+          "url": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 128017,
+          "url_finale": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 8,
+      "nom": "CMA Corrèze — chambre des métiers et de l'artisanat",
+      "type": "chambre consulaire (artisans du transport)",
+      "secteur": "transport",
+      "departement": "19",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/nous-trouver/cma-correze",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 175261,
+          "url_finale": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/nous-trouver/cma-correze",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/nous-trouver/cma-correze",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 175261,
+          "url_finale": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/nous-trouver/cma-correze",
+          "erreur": null
+        },
+        {
+          "role": "exemple",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/brive/on-a-perdu-entre-50-et-60-commandes-les-petites-entreprises-victimes-de-cyberattaques-une-cible-privilegiee-pour-les-pirates-informatiques-3110353.html",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 715190,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/brive/on-a-perdu-entre-50-et-60-commandes-les-petites-entreprises-victimes-de-cyberattaques-une-cible-privilegiee-pour-les-pirates-informatiques-3110353.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 9,
+      "nom": "Union TLF Sud-Ouest",
+      "type": "fédération régionale du transport et de la logistique",
+      "secteur": "transport",
+      "departement": "19",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://e-tlf.com/nos-regions/tlf-sud-ouest/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 738204,
+          "url_finale": "https://e-tlf.com/nos-regions/tlf-sud-ouest/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://e-tlf.com/nos-actualites/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 790352,
+          "url_finale": "https://e-tlf.com/nos-actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://e-tlf.com/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 754,
+          "url_finale": "https://e-tlf.com/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple",
+          "url": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 128017,
+          "url_finale": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 10,
+      "nom": "FNTR — Fédération nationale des transports routiers",
+      "type": "fédération professionnelle",
+      "secteur": "transport",
+      "departement": "19",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://fntr.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 143543,
+          "url_finale": "https://fntr.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://fntr.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 143543,
+          "url_finale": "https://fntr.fr/",
+          "erreur": null
+        },
+        {
+          "role": "exemple",
+          "url": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 128017,
+          "url_finale": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 11,
+      "nom": "FNTV — Fédération nationale des transports de voyageurs",
+      "type": "fédération professionnelle",
+      "secteur": "transport",
+      "departement": "19",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://fntv.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 86158,
+          "url_finale": "https://fntv.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://fntv.fr/actualites-de-la-federation",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 79150,
+          "url_finale": "https://fntv.fr/actualites-de-la-federation",
+          "erreur": null
+        },
+        {
+          "role": "exemple",
+          "url": "https://www.franceinfo.fr/internet/securite-sur-internet/cyberattaques/cyberattaque-une-panne-seme-le-desordre-dans-les-aeroports-europeens_7503532.html",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 629275,
+          "url_finale": "https://www.franceinfo.fr/internet/securite-sur-internet/cyberattaques/cyberattaque-une-panne-seme-le-desordre-dans-les-aeroports-europeens_7503532.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 12,
+      "nom": "Transport Info",
+      "type": "presse professionnelle transport et logistique",
+      "secteur": "transport",
+      "departement": "19",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.transportinfo.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 255238,
+          "url_finale": "https://www.transportinfo.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.transportinfo.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 255238,
+          "url_finale": "https://www.transportinfo.fr/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.transportinfo.fr/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 56128,
+          "url_finale": "https://www.transportinfo.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple",
+          "url": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 128017,
+          "url_finale": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 13,
+      "nom": "La Montagne — Corrèze",
+      "type": "presse locale",
+      "secteur": "transport",
+      "departement": "19",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.lamontagne.fr/correze/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 645218,
+          "url_finale": "https://www.lamontagne.fr/correze/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.lamontagne.fr/info-en-continu",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 292525,
+          "url_finale": "https://www.lamontagne.fr/info-en-continu",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.lamontagne.fr/MT-tempsforts-tous.xml",
+          "code": 200,
+          "content_type": "text/xml;charset=utf-8",
+          "octets": 710167,
+          "url_finale": "https://www.lamontagne.fr/MT-tempsforts-tous.xml",
+          "erreur": null
+        },
+        {
+          "role": "exemple",
+          "url": "https://www.lamontagne.fr/brive-la-gaillarde-19100/actualites/comment-ce-petit-data-center-situe-a-brive-correze-protege-les-donnees-strategiques-de-pres-de-300-entreprises_14035608/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 132420,
+          "url_finale": "https://www.lamontagne.fr/brive-la-gaillarde-19100/actualites/comment-ce-petit-data-center-situe-a-brive-correze-protege-les-donnees-strategiques-de-pres-de-300-entreprises_14035608/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 14,
+      "nom": "actu.fr — Corrèze",
+      "type": "presse en ligne",
+      "secteur": "transport",
+      "departement": "19",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://actu.fr/nouvelle-aquitaine/correze_19/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 328144,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/correze_19",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://actu.fr/nouvelle-aquitaine/correze_19/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 328144,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/correze_19",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://actu.fr/nouvelle-aquitaine/correze_19/rss.xml",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=utf-8",
+          "octets": 1386,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/correze_19/rss.xml",
+          "erreur": null
+        },
+        {
+          "role": "exemple",
+          "url": "https://correzeactu.com/actualites/frigos-pirates-a-50-c-l-intermarche-d-altillac-touche-par-la-cyberattaque",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 44981,
+          "url_finale": "https://correzeactu.com/actualites/frigos-pirates-a-50-c-l-intermarche-d-altillac-touche-par-la-cyberattaque",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 15,
+      "nom": "ICI Corrèze",
+      "type": "radio publique locale",
+      "secteur": "transport",
+      "departement": "19",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.ici.fr/nouvelle-aquitaine/correze-19",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 303515,
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/correze-19",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.ici.fr/nouvelle-aquitaine/correze-19/actu",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 215110,
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/correze-19/actu",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.ici.fr/rss/limousin/a-la-une.xml",
+          "code": 200,
+          "content_type": "application/xml",
+          "octets": 37319,
+          "url_finale": "https://www.ici.fr/rss/limousin/a-la-une.xml",
+          "erreur": null
+        },
+        {
+          "role": "exemple",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/brive/on-a-perdu-entre-50-et-60-commandes-les-petites-entreprises-victimes-de-cyberattaques-une-cible-privilegiee-pour-les-pirates-informatiques-3110353.html",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 715190,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/brive/on-a-perdu-entre-50-et-60-commandes-les-petites-entreprises-victimes-de-cyberattaques-une-cible-privilegiee-pour-les-pirates-informatiques-3110353.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 16,
+      "nom": "France 3 Nouvelle-Aquitaine — Corrèze",
+      "type": "télévision publique locale",
+      "secteur": "transport",
+      "departement": "19",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 652313,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 652313,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/rss",
+          "code": 200,
+          "content_type": "text/xml; charset=UTF-8",
+          "octets": 72664,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/rss",
+          "erreur": null
+        },
+        {
+          "role": "exemple",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/brive/temoignage-on-a-ete-obliges-de-jeter-tout-le-surgele-la-stupefaction-des-gerants-de-ce-supermarche-frappe-par-la-cyberattaque-nationale-3432960.html",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 712168,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/brive/temoignage-on-a-ete-obliges-de-jeter-tout-le-surgele-la-stupefaction-des-gerants-de-ce-supermarche-frappe-par-la-cyberattaque-nationale-3432960.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 17,
+      "nom": "Corrèze Actu",
+      "type": "presse locale",
+      "secteur": "transport",
+      "departement": "19",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://correzeactu.com/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 371518,
+          "url_finale": "https://correzeactu.com/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://correzeactu.com/actualites",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 1377027,
+          "url_finale": "https://correzeactu.com/actualites",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://correzeactu.com/api/rss/events",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=utf-8",
+          "octets": 74871,
+          "url_finale": "https://correzeactu.com/api/rss/events",
+          "erreur": null
+        },
+        {
+          "role": "exemple",
+          "url": "https://correzeactu.com/actualites/frigos-pirates-a-50-c-l-intermarche-d-altillac-touche-par-la-cyberattaque",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 44981,
+          "url_finale": "https://correzeactu.com/actualites/frigos-pirates-a-50-c-l-intermarche-d-altillac-touche-par-la-cyberattaque",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 18,
+      "nom": "Bréniges FM 95.6",
+      "type": "radio locale",
+      "secteur": "transport",
+      "departement": "19",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://breniges.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 274795,
+          "url_finale": "https://breniges.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://breniges.fr/actualites",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 907089,
+          "url_finale": "https://breniges.fr/actualites",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://breniges.fr/actualites/flux.xml",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=utf-8",
+          "octets": 12077,
+          "url_finale": "https://breniges.fr/actualites/flux.xml",
+          "erreur": null
+        },
+        {
+          "role": "exemple",
+          "url": "https://www.lamontagne.fr/brive-la-gaillarde-19100/actualites/il-n-etait-pas-question-de-payer-la-moindre-rancon-une-correzienne-raconte-comment-son-entreprise-a-ete-ciblee-par-des-hackers_14323156/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 270217,
+          "url_finale": "https://www.lamontagne.fr/brive-la-gaillarde-19100/actualites/il-n-etait-pas-question-de-payer-la-moindre-rancon-une-correzienne-raconte-comment-son-entreprise-a-ete-ciblee-par-des-hackers_14323156/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 19,
+      "nom": "La Vie Corrézienne",
+      "type": "presse économique locale",
+      "secteur": "transport",
+      "departement": "19",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.laviecorrezienne.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 93060,
+          "url_finale": "https://www.laviecorrezienne.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.laviecorrezienne.fr/actualites-actualites-entreprises.html",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 78743,
+          "url_finale": "https://www.laviecorrezienne.fr/actualites-actualites-entreprises.html",
+          "erreur": null
+        },
+        {
+          "role": "exemple",
+          "url": "https://www.lamontagne.fr/brive-la-gaillarde-19100/actualites/comment-ce-petit-data-center-situe-a-brive-correze-protege-les-donnees-strategiques-de-pres-de-300-entreprises_14035608/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 132420,
+          "url_finale": "https://www.lamontagne.fr/brive-la-gaillarde-19100/actualites/comment-ce-petit-data-center-situe-a-brive-correze-protege-les-donnees-strategiques-de-pres-de-300-entreprises_14035608/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 20,
+      "nom": "Le Journal des Entreprises — Nouvelle-Aquitaine",
+      "type": "presse économique régionale",
+      "secteur": "transport",
+      "departement": "19",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.lejournaldesentreprises.com/nouvelle-aquitaine",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 508714,
+          "url_finale": "https://www.lejournaldesentreprises.com/nouvelle-aquitaine",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.lejournaldesentreprises.com/nouvelle-aquitaine",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 508714,
+          "url_finale": "https://www.lejournaldesentreprises.com/nouvelle-aquitaine",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine",
+          "code": 200,
+          "content_type": "text/xml; charset=UTF-8",
+          "octets": 16311,
+          "url_finale": "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine",
+          "erreur": null
+        },
+        {
+          "role": "exemple",
+          "url": "https://www.lamontagne.fr/brive-la-gaillarde-19100/actualites/il-n-etait-pas-question-de-payer-la-moindre-rancon-une-correzienne-raconte-comment-son-entreprise-a-ete-ciblee-par-des-hackers_14323156/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 270217,
+          "url_finale": "https://www.lamontagne.fr/brive-la-gaillarde-19100/actualites/il-n-etait-pas-question-de-payer-la-moindre-rancon-une-correzienne-raconte-comment-son-entreprise-a-ete-ciblee-par-des-hackers_14323156/",
+          "erreur": null
+        }
+      ]
+    }
+  ]
+}
