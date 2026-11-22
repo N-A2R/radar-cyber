@@ -1,0 +1,201 @@
+{
+  "generator": "language model (assistant authoring this chantier)",
+  "date": "2026-11-22",
+  "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names.",
+  "scope": "Nouvelle-Aquitaine events from the live database; no victim personal data",
+  "samples": [
+    {
+      "eventId": 1,
+      "split": "dev",
+      "language": "fr",
+      "text": "Dans le paysage actuel, cette opération illustre l'importance d'une coordination étroite entre les autorités et les acteurs locaux. Il est important de noter que la montée en charge des incidents peut peser sur la capacité de réponse des organisations. Les parties prenantes semblent vouloir renforcer leur visibilité afin de mieux partager les signaux faibles. En conclusion, la résilience du dispositif pourrait dépendre de la régularité des échanges entre les équipes."
+    },
+    {
+      "eventId": 829,
+      "split": "dev",
+      "language": "en",
+      "text": "In summary, the breach underlines the importance of visibility across the whole digital ecosystem. It is worth noting that affected organisations may discover the scope of an incident only after wider disclosure. Customers and partners could face uncertainty while the review of exposed records continues. Overall, the episode shows how resilience depends on clear communication and timely coordination between all parties."
+    },
+    {
+      "eventId": 3732,
+      "split": "dev",
+      "language": "fr",
+      "text": "En somme, la formation professionnelle illustre combien la visibilité des parcours reste un enjeu pour les jeunes et les entreprises. Il convient de noter que la confiance des familles peut évoluer lorsque des données sont exposées. Les équipes semblent devoir renforcer la coordination avec les établissements afin de limiter l'incertitude. Le contexte régional pourrait néanmoins offrir une marge de manoeuvre pour restaurer la résilience."
+    },
+    {
+      "eventId": 3747,
+      "split": "dev",
+      "language": "en",
+      "text": "Overall, the reported compromise reflects a broader landscape of pressure on industrial organisations. It is important to note that similar cases may remain unnoticed until a public disclosure appears. Suppliers and local partners could then need a shared view of the situation to plan their response. In conclusion, resilience in this environment relies on coordination and on the clarity of the information exchanged."
+    },
+    {
+      "eventId": 23224,
+      "split": "dev",
+      "language": "fr",
+      "text": "Dans un contexte où les avis publics se multiplient, la clarté de l'information devient un enjeu pour les lecteurs. Il est essentiel de noter que la portée d'un signal peut sembler limitée avant d'être confirmée par d'autres sources. Les organisations locales semblent vouloir réagir différemment selon leur niveau de préparation. En conclusion, la coordination entre experts et autorités reste déterminante pour la résilience du territoire."
+    },
+    {
+      "eventId": 24227,
+      "split": "dev",
+      "language": "en",
+      "text": "To sum up, this regional story shows how awareness grows when elected officials discuss cyber risks in public. It is important to note that the issue may affect several organisations beyond the commune mentioned. Local stakeholders could benefit from a shared environment where practices and concerns are discussed. Overall, the importance of coordination appears clearer once the discussion includes both public and private actors."
+    },
+    {
+      "eventId": 24334,
+      "split": "dev",
+      "language": "fr",
+      "text": "En conclusion, la sensibilisation des élus locaux constitue un levier utile face à des menaces en constante évolution. Il est important de noter que le contexte peut varier d'une commune à l'autre selon les ressources disponibles. Les parties prenantes semblent disposer d'une marge de manoeuvre pour améliorer leur visibilité sur les incidents. La résilience du territoire dépendrait alors d'une coordination régulière entre les acteurs de terrain."
+    },
+    {
+      "eventId": 24781,
+      "split": "dev",
+      "language": "en",
+      "text": "In summary, the coverage highlights the importance of keeping the public informed about cyber risks. It is worth noting that viewers may judge the severity of an incident from the way it is presented. Local organisations could use the same environment to explain their own precautions to residents. Overall, coordination between journalists and officials appears to shape how awareness develops across the region."
+    },
+    {
+      "eventId": 46140,
+      "split": "dev",
+      "language": "fr",
+      "text": "Au final, la publication d'une fuite met en lumière la fragilité des systèmes d'information des collectivités. Il convient de noter que l'étendue réelle d'une exposition peut rester incertaine pendant plusieurs semaines. Les équipes semblent alors devoir privilégier une visibilité partagée avec les citoyens concernés. Dans le paysage actuel, la résilience passe par une coordination patiente et par des messages clairs."
+    },
+    {
+      "eventId": 49758,
+      "split": "dev",
+      "language": "en",
+      "text": "Overall, the claim illustrates the pressure that ransomware groups place on public sector organisations. It is important to note that attribution may remain uncertain until independent evidence becomes available. Local teams could still draw lessons from the case and review their own visibility. In conclusion, resilience depends less on a single tool than on coordination across the whole environment."
+    },
+    {
+      "eventId": 51151,
+      "split": "test",
+      "language": "fr",
+      "text": "Dans le paysage des avis de sécurité, la publication d'une alerte joue un rôle de signal pour les administrateurs. Il est important de noter que la portée d'une vulnérabilité peut sembler théorique avant d'être observée sur le terrain. Les équipes locales semblent devoir adapter leur surveillance en fonction du contexte. En somme, la résilience repose sur une coordination rapide et sur une visibilité partagée des informations."
+    },
+    {
+      "eventId": 51362,
+      "split": "test",
+      "language": "en",
+      "text": "In conclusion, repeated warnings draw attention to the challenges of maintaining secure services over time. It is worth noting that a single notice may not reveal the full landscape of exposure. Operators could use the same information to improve coordination with their providers. Overall, the importance of clear communication appears as relevant as the technical fix itself."
+    },
+    {
+      "eventId": 51960,
+      "split": "test",
+      "language": "fr",
+      "text": "En conclusion, la coopération internationale montre combien la visibilité des campagnes peut aider les défenseurs. Il convient de noter que le contexte national diffère sensiblement d'une région à l'autre. Les organisations locales semblent pouvoir tirer parti de retours d'expérience partagés. Dans un contexte incertain, la résilience dépend de la coordination entre pairs et de la clarté des échanges."
+    },
+    {
+      "eventId": 72288,
+      "split": "test",
+      "language": "en",
+      "text": "Overall, the report shows how public attention changes when a cyber incident reaches a regional audience. It is important to note that the tone of coverage may influence how residents perceive the risk. Local organisations could take the opportunity to explain the practical steps they recommend. In summary, awareness and coordination appear to grow together when information stays accessible."
+    },
+    {
+      "eventId": 81836,
+      "split": "test",
+      "language": "fr",
+      "text": "Au final, une nouvelle entrée dans un catalogue de fuites rappelle l'importance de surveiller les traces publiques. Il est essentiel de noter que la date d'observation peut précéder de plusieurs semaines la découverte par les équipes. Les parties prenantes semblent devoir adapter leur visibilité aux informations disponibles. La résilience du dispositif dépend alors d'une coordination entre les services concernés."
+    },
+    {
+      "eventId": 111316,
+      "split": "test",
+      "language": "en",
+      "text": "In summary, local reporting helps place a cyber incident in its regional context. It is worth noting that officials may frame the same event differently depending on the audience. Residents and organisations could benefit from a clearer environment for understanding the stakes. Overall, coordination between newsrooms and public services appears to support a more resilient response."
+    },
+    {
+      "eventId": 112417,
+      "split": "test",
+      "language": "fr",
+      "text": "Dans le paysage médiatique local, un article peut orienter la façon dont les habitants comprennent un incident. Il est important de noter que le niveau d'information peut varier selon les sources consultées. Les acteurs économiques semblent avoir intérêt à commenter les faits avec prudence. En conclusion, la résilience passe par une coordination entre journalistes, experts et collectivités."
+    },
+    {
+      "eventId": 23036,
+      "split": "test",
+      "language": "en",
+      "text": "Overall, a regional claim can make an abstract cyber risk feel concrete for local partners. It is important to note that observers may retain the headline more than the technical detail of the incident. Small teams could use that attention to share practical advice with their clients. In conclusion, awareness grows when coordination turns coverage into useful guidance for everyone."
+    },
+    {
+      "eventId": 116469,
+      "split": "test",
+      "language": "fr",
+      "text": "En somme, le débat local montre que la perception du risque dépasse souvent les seuls chiffres officiels. Il convient de noter que les positions des acteurs peuvent évoluer au fil des réunions publiques. Les élus semblent chercher un équilibre entre écoute et décision dans un contexte tendu. La résilience du territoire dépend finalement de la coordination entre toutes les parties prenantes."
+    },
+    {
+      "eventId": 128977,
+      "split": "test",
+      "language": "en",
+      "text": "In conclusion, a vendor update illustrates how early notices can change the understanding of an incident. It is worth noting that the final scope may differ from the first public description. Regional administrators could then review their own exposure with greater care. Overall, resilience relies on coordination between vendors, agencies and local teams in a changing environment."
+    },
+    {
+      "eventId": 1292,
+      "split": "dev",
+      "language": "fr",
+      "hard": true,
+      "text": "Le 3 septembre 2026, un rapport a évoqué l'exposition de données chez un fournisseur de services publics. Il est important de noter que la portée de cet incident peut sembler modeste au premier regard. Les partenaires locaux semblent devoir vérifier leurs propres procédures dans ce contexte. En conclusion, la coordination et la visibilité restent essentielles pour renforcer la résilience."
+    },
+    {
+      "eventId": 3728,
+      "split": "dev",
+      "language": "en",
+      "hard": true,
+      "text": "On 12 October 2026, a notice described a possible exposure affecting a regional supplier. It is worth noting that the impact may look limited until the review is complete. Local teams could still update their guidance and share what they learn with partners. In summary, resilience depends on visibility and coordination across the whole environment."
+    },
+    {
+      "eventId": 3764,
+      "split": "dev",
+      "language": "fr",
+      "hard": true,
+      "text": "Le 8 octobre 2026, une annonce a fait état d'une fuite concernant un service public régional. Il convient de noter que les conséquences peuvent rester flottantes pendant l'enquête. Les usagers semblent attendre des informations claires avant de modifier leurs habitudes. Au final, la résilience passe par une visibilité partagée et une coordination attentive."
+    },
+    {
+      "eventId": 3765,
+      "split": "dev",
+      "language": "en",
+      "hard": true,
+      "text": "On 21 September 2026, a public notice mentioned a security issue in a regional network. It is important to note that the first description may change as new facts appear. Operators could use that period to review their own visibility and coordinate with peers. Overall, the importance of calm communication appears clear in this environment."
+    },
+    {
+      "eventId": 23035,
+      "split": "test",
+      "language": "fr",
+      "hard": true,
+      "text": "Le 2 juin 2026, un communiqué a signalé une campagne visant des organisations locales. Il est important de noter que l'ampleur réelle peut être réévaluée après de nouveaux éléments. Les équipes semblent vouloir partager leurs observations avec les autorités. En conclusion, la résilience dépend de la coordination et d'une visibilité continue."
+    },
+    {
+      "eventId": 23502,
+      "split": "test",
+      "language": "en",
+      "hard": true,
+      "text": "On 5 May 2026, guidance was published for teams handling a regional incident. It is worth noting that the advice may differ from one organisation to another. Local staff could benefit from a common environment for comparing their practices. In conclusion, coordination appears as useful as the detailed instructions themselves."
+    },
+    {
+      "eventId": 24118,
+      "split": "test",
+      "language": "fr",
+      "hard": true,
+      "text": "Le 14 avril 2026, un article local a abordé les usages numériques d'une collectivité. Il est essentiel de noter que le contexte peut varier selon les services concernés. Les élus semblent disposer de peu de marge pour trancher rapidement. En somme, la résilience repose sur une coordination patiente entre les acteurs."
+    },
+    {
+      "eventId": 24236,
+      "split": "test",
+      "language": "en",
+      "hard": true,
+      "text": "On 19 March 2026, a regional daily reported a cyber incident affecting a public service. It is important to note that the account may evolve once the review finishes. Readers could then judge the situation through the details released by officials. Overall, awareness and coordination shape how resilience is built locally."
+    }
+  ],
+  "hardNegatives": [
+    {
+      "id": "presse-france3-3446430",
+      "split": "test",
+      "department": "17",
+      "language": "fr",
+      "text": "\"On en profite, on remplit les étagères\" : des livres de bibliothèque à un euro pour renouveler les collections d'une médiathèque. Ce samedi 7 novembre, la médiathèque François-Mitterrand de Saintes organisait sa troisième braderie pour vendre à un euro ses collections obsolètes. Dans un contexte de crise économique, l'événement a fait le plein de lecteurs.",
+      "provenance": {
+        "kind": "real_press_excerpt",
+        "corpus": "bench/corpus/articles-presse-na.jsonl",
+        "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente-maritime/la-rochelle/on-en-profite-on-remplit-les-etageres-des-livres-de-bibliotheque-a-un-euro-pour-renouveler-les-collections-d-une-mediatheque-3446430.html",
+        "date": "2026-11-09",
+        "cyber": false,
+        "note": "Human-written Nouvelle-Aquitaine press excerpt kept as a hard negative: it contains a formulaic discourse marker and even sentence rhythm."
+      }
+    }
+  ]
+}
