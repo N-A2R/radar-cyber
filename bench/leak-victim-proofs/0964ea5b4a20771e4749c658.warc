@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:33a3e9cf-8e9c-41ce-a8f5-bf9cd919db0b>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/recent/5000
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 569
+WARC-Block-Digest: sha1:WSS74ROTOQZG3NBORHLTHCXW7HZPZXVY
+X-Claim-Fingerprint: 1cd9b0dd852bcfb8b5eb644f
+X-Victim-Key: 0964ea5b4a20771e4749c658
+
+{"post_title": "MECA-PRECIS", "discovered": "2026-10-22 05:23:51.644723", "description": "mecaprecis.com - M\u00e9ca-Pr\u00e9cis is a French industrial manufacturer specializing in precision stamping dies, sheet metal stamping, and metal component production. It serves the automotive, construction, and home appliance industries, offering custom tooling", "link": "/post/6b08b44b54e028d4fa14065150b08494", "magnet": null, "screen": "screenshots/lamashtu/MECA-PRECIS.png", "private": false, "misp_uuid": "0358dc07-1b83-5b62-a516-bf68d68dd499", "group_name": "lamashtu"}
+
