@@ -87,7 +87,7 @@ const noUrl = renderToStaticMarkup(<AffectedView report={{
   ...report,
   statements: [{ ...report.statements[0], evidence: { ...report.statements[0].evidence, url: null } }],
 }} />);
-check("aucun lien rendu sans URL", !noUrl.includes("href="));
+check("aucun lien de preuve rendu sans URL", !noUrl.includes("href=\"https"));
 
 const loading = renderToStaticMarkup(<AffectedView loading />);
 check("l'état de chargement est annoncé", loading.includes('role="status"') && loading.includes("Chargement du rapport…"));
@@ -106,6 +106,34 @@ const none = renderToStaticMarkup(<AffectedView report={{
 }} />);
 check("un rapport sans constat le dit", none.includes("Aucun constat enregistré pour cette organisation."));
 check("un rapport sans constat compte zéro", none.includes("0 constats / 0 avec preuve / 0 sources"));
+
+check(
+  "le geste est expliqué avant le champ",
+  html.indexOf("déjà rattachées à un incident") > -1
+    && html.indexOf("déjà rattachées à un incident") < html.indexOf('id="affected-query"'),
+);
+check(
+  "ce que la vérification ne fait pas est annoncé",
+  html.includes("aucune donnée personnelle de victime") && html.includes("ne juge"),
+);
+check("un lien vers la fiche est offert", html.includes('href="#/affected?org=42"'));
+check("les incidents sont séparés de l'identité", html.includes("Incidents rattachés") && html.includes("Identité enregistrée"));
+check("les familles d'incident sont résumées", html.includes("affected__family") && html.includes("rançongiciel"));
+check("l'état de repos annonce ce qu'on obtient", empty.includes("incidents rattachés") && empty.includes("lien vers sa fiche"));
+
+const notFound = renderToStaticMarkup(
+  <AffectedView error="/affected?q=Ghost SARL → 404" query="Ghost SARL" />,
+);
+check(
+  "aucun résultat rappelle la requête",
+  notFound.includes("Aucune organisation ne correspond à « Ghost SARL »")
+    && !notFound.includes("Erreur :"),
+);
+
+const outside = renderToStaticMarkup(
+  <AffectedView error="/affected?q=Paris SARL → 403" query="Paris SARL" />,
+);
+check("hors région est expliqué", outside.includes("hors Nouvelle-Aquitaine"));
 
 console.log(failures === 0 ? "\naffected view: all green" : `\naffected view: ${failures} failure(s)`);
 process.exit(failures === 0 ? 0 : 1);
