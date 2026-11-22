@@ -4,12 +4,14 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
   analyseIncidents,
+  incidentAdmissionVerdict,
   detectIncidentLanguage,
   isIncident,
   isInNouvelleAquitaine,
   MIN_CONFIDENCE,
   type IncidentRecord,
 } from "../src/multilingualIncidents/index.js";
+import { languageVerdict } from "../src/collectors/filter.js";
 
 function record(overrides: Partial<IncidentRecord> = {}): IncidentRecord {
   return {
@@ -156,4 +158,85 @@ test("the frozen Nouvelle-Aquitaine corpus reproduces the published figure", () 
   assert.equal(analysis.inScopeIncidents, published.inScopeIncidents);
   assert.equal(analysis.nonFrenchIncidents, published.nonFrenchIncidents);
   assert.deepEqual(analysis.byLanguage, published.byLanguage);
+});
+
+test("an English company summary does not reject a French claim headline", () => {
+  const verdict = incidentAdmissionVerdict(
+    "Triad Architects — revendiqué par the gentlemen",
+    "Triad Architects is an American company with data centers in the United States",
+    new Set(["fr"]),
+  );
+  assert.equal(verdict.language, "fr");
+  assert.equal(verdict.detected, "fr");
+  assert.equal(verdict.keep, true);
+  assert.equal(verdict.basis, "title");
+});
+
+test("an English claim is rejected when only French is allowed", () => {
+  const verdict = incidentAdmissionVerdict(
+    "Third-party ransomware claim referencing a Nouvelle-Aquitaine organization (department 23)",
+    null,
+    new Set(["fr"]),
+  );
+  assert.equal(verdict.language, "en");
+  assert.equal(verdict.keep, false);
+  assert.equal(verdict.basis, "title");
+});
+
+test("a low-confidence mixed title still follows the claim marker", () => {
+  const title = "Dong Engineering Consulting Company Data Breach — revendiqué par hyflock";
+  assert.ok(detectIncidentLanguage(title).confidence < MIN_CONFIDENCE);
+  const verdict = incidentAdmissionVerdict(title, "an engineering company in the United States", new Set(["fr"]));
+  assert.equal(verdict.language, "fr");
+  assert.equal(verdict.keep, true);
+  assert.equal(verdict.basis, "title");
+});
+
+test("the summary decides when the title carries no language signal", () => {
+  const verdict = incidentAdmissionVerdict(
+    "Product update",
+    "Ernstige kwetsbaarheid in Adobe Commerce actief misbruikt: update onmiddellijk",
+    new Set(["fr"]),
+  );
+  assert.equal(verdict.detected, "nl");
+  assert.equal(verdict.language, "en");
+  assert.equal(verdict.keep, false);
+  assert.equal(verdict.basis, "title+summary");
+});
+
+test("empty text falls back to English without evidence", () => {
+  const verdict = incidentAdmissionVerdict("", null, new Set(["fr", "en"]));
+  assert.equal(verdict.detected, "und");
+  assert.equal(verdict.language, "en");
+  assert.equal(verdict.confidence, 0);
+  assert.equal(verdict.keep, true);
+});
+
+test("the runtime language gate uses the multilingual verdict", () => {
+  const allowed = new Set<"fr" | "en">(["fr"]);
+  const verdict = languageVerdict(
+    "Triad Architects — revendiqué par the gentlemen",
+    "Triad Architects is an American company with offices in the United States",
+    allowed,
+  );
+  assert.equal(verdict.language, "fr");
+  assert.equal(verdict.keep, true);
+});
+
+test("the frozen corpus admissions match the high-confidence non-French ids", () => {
+  const corpusPath = new URL("../../../bench/corpus/incidents-multilingues-na.jsonl", import.meta.url);
+  const corpus = readFileSync(corpusPath, "utf8")
+    .split("\n")
+    .filter((line) => line.trim().length > 0)
+    .map((line) => JSON.parse(line) as IncidentRecord);
+  const nonFrench = new Set(analyseIncidents(corpus).nonFrenchIds.map(String));
+  const allowed = new Set(["fr"]);
+  for (const row of corpus) {
+    const verdict = incidentAdmissionVerdict(row.title, row.summary, allowed);
+    assert.equal(
+      verdict.language === "en",
+      nonFrench.has(String(row.id)),
+      `id ${row.id}: detected ${verdict.detected}`,
+    );
+  }
 });

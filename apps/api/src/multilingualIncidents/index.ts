@@ -193,3 +193,40 @@ export function analyseIncidents(records: Iterable<IncidentRecord>): IncidentAna
     nonFrenchIds,
   };
 }
+
+/** Verdict used by the ingestion language gate; `event.langue` only accepts fr/en. */
+export interface AdmissionVerdict {
+  language: "fr" | "en";
+  detected: IncidentLanguage;
+  keep: boolean;
+  confidence: number;
+  basis: "title" | "title+summary";
+}
+
+/**
+ * Language gate for an event before ingestion.
+ *
+ * The title carries the incident language: an English company description
+ * attached to a French "revendiqué par" headline must not reject the event.
+ * A title without enough evidence falls back to title plus summary.
+ * Any detected language other than French is stored as English, the only
+ * non-French value the current `event.langue` constraint accepts.
+ */
+export function incidentAdmissionVerdict(
+  title: string | null | undefined,
+  summary: string | null | undefined,
+  allowed: ReadonlySet<string>,
+): AdmissionVerdict {
+  const fromTitle = detectIncidentLanguage(title);
+  const detection = fromTitle.language !== "und"
+    ? fromTitle
+    : detectIncidentLanguage(`${title ?? ""} ${summary ?? ""}`);
+  const language = detection.language === "fr" ? "fr" : "en";
+  return {
+    language,
+    detected: detection.language,
+    keep: allowed.has(language),
+    confidence: detection.confidence,
+    basis: fromTitle.language === "und" ? "title+summary" : "title",
+  };
+}

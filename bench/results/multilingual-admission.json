@@ -1,0 +1,43 @@
+{
+  "scope": "Nouvelle-Aquitaine (12 departments)",
+  "rule": "ground truth = ids reported non-French at confidence >= 0.25 by the published incident analysis; baseline = historical detectLanguage(title + summary); delivered = incidentAdmissionVerdict(title, summary, RADAR_LANGUAGES=fr); correct = language matches the ground truth (fr or en)",
+  "totalIncidents": 65,
+  "baselineCorrect": 41,
+  "admissionCorrect": 65,
+  "correctedIds": [
+    "3690",
+    "3712",
+    "3728",
+    "3729",
+    "3732",
+    "3741",
+    "3747",
+    "3749",
+    "3750",
+    "3764",
+    "3765",
+    "23035",
+    "23036",
+    "23058",
+    "46666",
+    "46827",
+    "51191",
+    "51226",
+    "51272",
+    "51287",
+    "70896",
+    "142014",
+    "142015",
+    "142016"
+  ],
+  "wrongIds": [],
+  "byLanguage": {
+    "fr": 62,
+    "en": 3
+  },
+  "corpusEntries": 65,
+  "corpusMatchesDatabase": null,
+  "sql": {
+    "incidents": "\n  SELECT e.id::text AS id, e.title, e.summary, e.assertion_type, e.regional,\n         o.dept AS department, e.source_id\n    FROM event e\n    LEFT JOIN org o ON o.id = e.org_id\n   WHERE e.assertion_type IN ('confirmed_incident', 'third_party_claim')\n     AND (e.regional OR o.dept IN ('16', '17', '19', '23', '24', '33', '40', '47', '64', '79', '86', '87'))\n   ORDER BY e.id\n"
+  }
+}
