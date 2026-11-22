@@ -1,0 +1,1394 @@
+{
+  "consultedAt": "2026-11-22T02:56:46.793Z",
+  "source": "education.gouv.fr:UAI; declared web; HTTP 200; DNS A",
+  "licence": "Licence Ouverte v2.0 (Etalab)",
+  "attribution": "Ministère de l'Éducation nationale — annuaire des établissements",
+  "applied": true,
+  "onlyMissing": true,
+  "examined": 1075,
+  "eligible": 494,
+  "selected": 300,
+  "verified": 170,
+  "matched": 170,
+  "written": 170,
+  "measurement": {
+    "scope": "nouvelle-aquitaine",
+    "organisationsWithService": 8735,
+    "organisationsInScope": 1671906,
+    "services": 9625,
+    "bySource": {
+      "http-200": 1256,
+      "osm-http-200": 2941,
+      "rna-http-200": 522,
+      "dila-http-200": 1045,
+      "shodan-internetdb": 399,
+      "wikidata-http-200": 850,
+      "education-http-200": 554,
+      "osm-siret-http-200": 1677,
+      "site-zone-http-200": 381
+    },
+    "measuredAt": "2026-11-22T02:56:59.656Z"
+  },
+  "candidates": [
+    {
+      "uai": "0170011V",
+      "dept": "17",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 15088,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-jonzac/"
+    },
+    {
+      "uai": "0860021F",
+      "dept": "86",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 20375,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/lycee-guy-chauvet/"
+    },
+    {
+      "uai": "0160117R",
+      "dept": "16",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 14644,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-felix-gaillard-cognac/"
+    },
+    {
+      "uai": "0861072Y",
+      "dept": "86",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 20456,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-fbserazin-poitiers/"
+    },
+    {
+      "uai": "0860049L",
+      "dept": "86",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 20645,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-vouneuil/"
+    },
+    {
+      "uai": "0860046H",
+      "dept": "86",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 20585,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-st-savin/"
+    },
+    {
+      "uai": "0790035J",
+      "dept": "79",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 20149,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-thenezay/"
+    },
+    {
+      "uai": "0171057G",
+      "dept": "17",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 15219,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-ploti-rochefort/"
+    },
+    {
+      "uai": "0861073Z",
+      "dept": "86",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 20557,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-renaudot/"
+    },
+    {
+      "uai": "0170002K",
+      "dept": "17",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 14915,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-archiac/"
+    },
+    {
+      "uai": "0160032Y",
+      "dept": "16",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 14761,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-montmoreau/"
+    },
+    {
+      "uai": "0170142M",
+      "dept": "17",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 15247,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-acamus-la-rochelle/"
+    },
+    {
+      "uai": "0860076R",
+      "dept": "86",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 20459,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-jmoulin-poitiers/"
+    },
+    {
+      "uai": "0860984C",
+      "dept": "86",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 20240,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-descartes/"
+    },
+    {
+      "uai": "0171215D",
+      "dept": "17",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 15411,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-st-pierre-oleron/"
+    },
+    {
+      "uai": "0171117X",
+      "dept": "17",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 15250,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-feglantine-la-rochelle/"
+    },
+    {
+      "uai": "0160864C",
+      "dept": "16",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 14643,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-claude-boucher-cognac/"
+    },
+    {
+      "uai": "0860702W",
+      "dept": "86",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 20239,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-jean-mace-chatellerault/"
+    },
+    {
+      "uai": "0333133B",
+      "dept": "33",
+      "domain": "collegecadaujac.fr",
+      "orgId": 17003,
+      "ip": "213.186.33.4",
+      "sourceUrl": "https://www.collegecadaujac.fr"
+    },
+    {
+      "uai": "0170056U",
+      "dept": "17",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 15425,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-st-savinien/"
+    },
+    {
+      "uai": "0860026L",
+      "dept": "86",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 20381,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-lussac/"
+    },
+    {
+      "uai": "0860017B",
+      "dept": "86",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 20331,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-isle-jourdain/"
+    },
+    {
+      "uai": "0860002K",
+      "dept": "86",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 20229,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-charroux/"
+    },
+    {
+      "uai": "0860791T",
+      "dept": "86",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 20457,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-rabelais-poitiers/"
+    },
+    {
+      "uai": "0861071X",
+      "dept": "86",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 20458,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-henri4-poitiers/"
+    },
+    {
+      "uai": "0790089T",
+      "dept": "79",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 19978,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-gerard-philipe-niort/"
+    },
+    {
+      "uai": "0160866E",
+      "dept": "16",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 14559,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-barbezieux/"
+    },
+    {
+      "uai": "0161106R",
+      "dept": "16",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 14501,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-anatole-france-angouleme/"
+    },
+    {
+      "uai": "0170048K",
+      "dept": "17",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 15333,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-st-aigulin/"
+    },
+    {
+      "uai": "0160043K",
+      "dept": "16",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 14888,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-villebois/"
+    },
+    {
+      "uai": "0870041X",
+      "dept": "87",
+      "domain": "etablissement.ac-limoges.fr",
+      "orgId": 20956,
+      "ip": "195.83.101.8",
+      "sourceUrl": "https://etablissement.ac-limoges.fr/lp-vaillant/"
+    },
+    {
+      "uai": "0332496J",
+      "dept": "33",
+      "domain": "lyceesaintefamille.com",
+      "orgId": 16953,
+      "ip": "46.105.204.100",
+      "sourceUrl": "https://lyceesaintefamille.com"
+    },
+    {
+      "uai": "0400139J",
+      "dept": "40",
+      "domain": "agricampus40.fr",
+      "orgId": 18234,
+      "ip": "194.167.15.75",
+      "sourceUrl": "https://agricampus40.fr"
+    },
+    {
+      "uai": "0331501C",
+      "dept": "33",
+      "domain": "smb33.fr",
+      "orgId": 16941,
+      "ip": "213.186.33.24",
+      "sourceUrl": "https://smb33.fr"
+    },
+    {
+      "uai": "0860003L",
+      "dept": "86",
+      "domain": "lmb86.fr",
+      "orgId": 20261,
+      "ip": "185.154.137.78",
+      "sourceUrl": "https://www.lmb86.fr/lycee/"
+    },
+    {
+      "uai": "0641538Z",
+      "dept": "64",
+      "domain": "larps-mauleon.fr",
+      "orgId": 19060,
+      "ip": "146.88.233.89",
+      "sourceUrl": "https://larps-mauleon.fr/fr/"
+    },
+    {
+      "uai": "0870015U",
+      "dept": "87",
+      "domain": "lycee-gay-lussac-limoges.com",
+      "orgId": 20844,
+      "ip": "109.234.166.50",
+      "sourceUrl": "https://lycee-gay-lussac-limoges.com"
+    },
+    {
+      "uai": "0870748R",
+      "dept": "87",
+      "domain": "etablissement.ac-limoges.fr",
+      "orgId": 20857,
+      "ip": "195.83.101.8",
+      "sourceUrl": "https://etablissement.ac-limoges.fr/lyc-lemasjambost-limoges/"
+    },
+    {
+      "uai": "0160020K",
+      "dept": "16",
+      "domain": "lyceejeanmonnet-cognac.fr",
+      "orgId": 14656,
+      "ip": "213.186.33.17",
+      "sourceUrl": "https://www.lyceejeanmonnet-cognac.fr"
+    },
+    {
+      "uai": "0860774Z",
+      "dept": "86",
+      "domain": "stjacquesdecompostelle.com",
+      "orgId": 20527,
+      "ip": "51.91.236.193",
+      "sourceUrl": "https://www.stjacquesdecompostelle.com"
+    },
+    {
+      "uai": "0790007D",
+      "dept": "79",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 19799,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/lyc-mgenevoix-bressuire/"
+    },
+    {
+      "uai": "0331556M",
+      "dept": "33",
+      "domain": "lyceesaintefamille.com",
+      "orgId": 16940,
+      "ip": "46.105.204.100",
+      "sourceUrl": "https://lyceesaintefamille.com"
+    },
+    {
+      "uai": "0332345V",
+      "dept": "33",
+      "domain": "lyceepro-pessac.fr",
+      "orgId": 17569,
+      "ip": "109.234.164.229",
+      "sourceUrl": "https://lyceepro-pessac.fr"
+    },
+    {
+      "uai": "0170020E",
+      "dept": "17",
+      "domain": "lycee-pons.org",
+      "orgId": 15194,
+      "ip": "213.186.33.4",
+      "sourceUrl": "https://lycee-pons.org"
+    },
+    {
+      "uai": "0331668J",
+      "dept": "33",
+      "domain": "lycee-dassault-merignac.fr",
+      "orgId": 17470,
+      "ip": "130.117.9.110",
+      "sourceUrl": "https://www.lycee-dassault-merignac.fr"
+    },
+    {
+      "uai": "0470063N",
+      "dept": "47",
+      "domain": "lycee-lacompassion.fr",
+      "orgId": 18670,
+      "ip": "46.202.172.58",
+      "sourceUrl": "https://lycee-lacompassion.fr"
+    },
+    {
+      "uai": "0332745E",
+      "dept": "33",
+      "domain": "blogpeda.ac-bordeaux.fr",
+      "orgId": 16711,
+      "ip": "194.199.36.59",
+      "sourceUrl": "https://blogpeda.ac-bordeaux.fr/jeanmonnetblanquefort/"
+    },
+    {
+      "uai": "0190674E",
+      "dept": "19",
+      "domain": "etablissement.ac-limoges.fr",
+      "orgId": 15832,
+      "ip": "195.83.101.8",
+      "sourceUrl": "https://etablissement.ac-limoges.fr/lyc-ventadour/"
+    },
+    {
+      "uai": "0331590Z",
+      "dept": "33",
+      "domain": "svpbordeaux.fr",
+      "orgId": 16939,
+      "ip": "213.186.33.3",
+      "sourceUrl": "https://svpbordeaux.fr"
+    },
+    {
+      "uai": "0190083M",
+      "dept": "19",
+      "domain": "bahuet.fr",
+      "orgId": 15617,
+      "ip": "148.230.127.8",
+      "sourceUrl": "https://bahuet.fr"
+    },
+    {
+      "uai": "0860818X",
+      "dept": "86",
+      "domain": "campus-thure.fr",
+      "orgId": 20610,
+      "ip": "194.167.15.75",
+      "sourceUrl": "https://campus-thure.fr"
+    },
+    {
+      "uai": "0870019Y",
+      "dept": "87",
+      "domain": "etablissement.ac-limoges.fr",
+      "orgId": 20848,
+      "ip": "195.83.101.8",
+      "sourceUrl": "https://etablissement.ac-limoges.fr/lyc-valadon/"
+    },
+    {
+      "uai": "0332487Z",
+      "dept": "33",
+      "domain": "stelme.fr",
+      "orgId": 16589,
+      "ip": "187.77.165.160",
+      "sourceUrl": "https://stelme.fr"
+    },
+    {
+      "uai": "0401022U",
+      "dept": "40",
+      "domain": "sjdc-dax.fr",
+      "orgId": 18058,
+      "ip": "83.228.233.77",
+      "sourceUrl": "https://sjdc-dax.fr"
+    },
+    {
+      "uai": "0400026L",
+      "dept": "40",
+      "domain": "parentiscollege.com",
+      "orgId": 18252,
+      "ip": "185.230.63.171",
+      "sourceUrl": "https://www.parentiscollege.com"
+    },
+    {
+      "uai": "0470011G",
+      "dept": "47",
+      "domain": "blogpeda.ac-bordeaux.fr",
+      "orgId": 18533,
+      "ip": "194.199.36.59",
+      "sourceUrl": "https://blogpeda.ac-bordeaux.fr/gastoncarrere/"
+    },
+    {
+      "uai": "0190001Y",
+      "dept": "19",
+      "domain": "etablissement.ac-limoges.fr",
+      "orgId": 15547,
+      "ip": "195.83.101.8",
+      "sourceUrl": "https://etablissement.ac-limoges.fr/clg-allassac/"
+    },
+    {
+      "uai": "0790091V",
+      "dept": "79",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 19776,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-supervielle/"
+    },
+    {
+      "uai": "0790709S",
+      "dept": "79",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 19976,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-fontanes-niort/"
+    },
+    {
+      "uai": "0790945Y",
+      "dept": "79",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 19821,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-cerizay/"
+    },
+    {
+      "uai": "0190004B",
+      "dept": "19",
+      "domain": "etablissement.ac-limoges.fr",
+      "orgId": 15560,
+      "ip": "195.83.101.8",
+      "sourceUrl": "https://etablissement.ac-limoges.fr/clg-beaulieu/"
+    },
+    {
+      "uai": "0400728Z",
+      "dept": "40",
+      "domain": "college-soustons.fr",
+      "orgId": 18398,
+      "ip": "217.160.0.17",
+      "sourceUrl": "http://college-soustons.fr"
+    },
+    {
+      "uai": "0230017U",
+      "dept": "23",
+      "domain": "etablissement.ac-limoges.fr",
+      "orgId": 15913,
+      "ip": "195.83.101.8",
+      "sourceUrl": "https://etablissement.ac-limoges.fr/clg-felletin/"
+    },
+    {
+      "uai": "0400774Z",
+      "dept": "40",
+      "domain": "blogpeda.ac-bordeaux.fr",
+      "orgId": 18186,
+      "ip": "194.199.36.59",
+      "sourceUrl": "https://blogpeda.ac-bordeaux.fr/cellegaucher/"
+    },
+    {
+      "uai": "0860053R",
+      "dept": "86",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 20287,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-camille-claudel-civray/"
+    },
+    {
+      "uai": "0190821P",
+      "dept": "19",
+      "domain": "etablissement.ac-limoges.fr",
+      "orgId": 15724,
+      "ip": "195.83.101.8",
+      "sourceUrl": "https://etablissement.ac-limoges.fr/clg-triouzoune-neuvic/"
+    },
+    {
+      "uai": "0190613N",
+      "dept": "19",
+      "domain": "etablissement.ac-limoges.fr",
+      "orgId": 15806,
+      "ip": "195.83.101.8",
+      "sourceUrl": "https://etablissement.ac-limoges.fr/clg-vhugo-tulle/"
+    },
+    {
+      "uai": "0400025K",
+      "dept": "40",
+      "domain": "site.college-mugron.fr",
+      "orgId": 18232,
+      "ip": "109.234.165.131",
+      "sourceUrl": "https://site.college-mugron.fr"
+    },
+    {
+      "uai": "0870032M",
+      "dept": "87",
+      "domain": "etablissement.ac-limoges.fr",
+      "orgId": 20887,
+      "ip": "195.83.101.8",
+      "sourceUrl": "https://etablissement.ac-limoges.fr/clg-bonneaud-nexon/"
+    },
+    {
+      "uai": "0330084M",
+      "dept": "33",
+      "domain": "blogpeda.ac-bordeaux.fr",
+      "orgId": 17297,
+      "ip": "194.199.36.59",
+      "sourceUrl": "https://blogpeda.ac-bordeaux.fr/clgtoulouselautrec/"
+    },
+    {
+      "uai": "0331529H",
+      "dept": "33",
+      "domain": "jdapessac-assomption.eu",
+      "orgId": 17533,
+      "ip": "185.125.27.55",
+      "sourceUrl": "https://jdapessac-assomption.eu"
+    },
+    {
+      "uai": "0190671B",
+      "dept": "19",
+      "domain": "etablissement.ac-limoges.fr",
+      "orgId": 15579,
+      "ip": "195.83.101.8",
+      "sourceUrl": "https://etablissement.ac-limoges.fr/clg-rollinat-brive/"
+    },
+    {
+      "uai": "0240962R",
+      "dept": "24",
+      "domain": "blogpeda.ac-bordeaux.fr",
+      "orgId": 16070,
+      "ip": "194.199.36.59",
+      "sourceUrl": "https://blogpeda.ac-bordeaux.fr/pierrefanlacbelves/"
+    },
+    {
+      "uai": "0640071E",
+      "dept": "64",
+      "domain": "collegefelixpecautsaliesdebearnfr.wordpress.com",
+      "orgId": 19654,
+      "ip": "192.0.78.13",
+      "sourceUrl": "https://collegefelixpecautsaliesdebearnfr.wordpress.com"
+    },
+    {
+      "uai": "0240119Z",
+      "dept": "24",
+      "domain": "collegeleroy.com",
+      "orgId": 16076,
+      "ip": "217.160.0.16",
+      "sourceUrl": "https://collegeleroy.com"
+    },
+    {
+      "uai": "0332768E",
+      "dept": "33",
+      "domain": "alienor-bordeaux.fr",
+      "orgId": 16754,
+      "ip": "213.186.33.19",
+      "sourceUrl": "https://www.alienor-bordeaux.fr"
+    },
+    {
+      "uai": "0241075N",
+      "dept": "24",
+      "domain": "stjo-24.fr",
+      "orgId": 16321,
+      "ip": "5.135.23.164",
+      "sourceUrl": "https://stjo-24.fr"
+    },
+    {
+      "uai": "0401077D",
+      "dept": "40",
+      "domain": "blogpeda.ac-bordeaux.fr",
+      "orgId": 18129,
+      "ip": "194.199.36.59",
+      "sourceUrl": "https://blogpeda.ac-bordeaux.fr/collegehenriemmanuelli/"
+    },
+    {
+      "uai": "0860723U",
+      "dept": "86",
+      "domain": "ronsard-poitiers.fr",
+      "orgId": 20460,
+      "ip": "46.105.57.169",
+      "sourceUrl": "https://ronsard-poitiers.fr"
+    },
+    {
+      "uai": "0870117E",
+      "dept": "87",
+      "domain": "etablissement.ac-limoges.fr",
+      "orgId": 20760,
+      "ip": "195.83.101.8",
+      "sourceUrl": "https://etablissement.ac-limoges.fr/clg-calmette/"
+    },
+    {
+      "uai": "0190609J",
+      "dept": "19",
+      "domain": "epl-haute-correze.fr",
+      "orgId": 15712,
+      "ip": "194.167.15.75",
+      "sourceUrl": "https://epl-haute-correze.fr"
+    },
+    {
+      "uai": "0641441U",
+      "dept": "64",
+      "domain": "stellamarisanglet.fr",
+      "orgId": 18918,
+      "ip": "185.22.110.163",
+      "sourceUrl": "https://stellamarisanglet.fr"
+    },
+    {
+      "uai": "0640606L",
+      "dept": "64",
+      "domain": "blogpeda.ac-bordeaux.fr",
+      "orgId": 19094,
+      "ip": "194.199.36.59",
+      "sourceUrl": "https://blogpeda.ac-bordeaux.fr/collegeboisdamourbillere/"
+    },
+    {
+      "uai": "0641393S",
+      "dept": "64",
+      "domain": "blogpeda.ac-bordeaux.fr",
+      "orgId": 19236,
+      "ip": "194.199.36.59",
+      "sourceUrl": "https://blogpeda.ac-bordeaux.fr/elhuyar/"
+    },
+    {
+      "uai": "0330125G",
+      "dept": "33",
+      "domain": "blogpeda.ac-bordeaux.fr",
+      "orgId": 17840,
+      "ip": "194.199.36.59",
+      "sourceUrl": "https://blogpeda.ac-bordeaux.fr/collegegeorgesmandel/"
+    },
+    {
+      "uai": "0170118L",
+      "dept": "17",
+      "domain": "stesophie.fr",
+      "orgId": 15378,
+      "ip": "54.36.91.62",
+      "sourceUrl": "https://stesophie.fr/le-college/"
+    },
+    {
+      "uai": "0333528F",
+      "dept": "33",
+      "domain": "blogpeda.ac-bordeaux.fr",
+      "orgId": 17792,
+      "ip": "194.199.36.59",
+      "sourceUrl": "https://blogpeda.ac-bordeaux.fr/collegesaintselve/"
+    },
+    {
+      "uai": "0330108N",
+      "dept": "33",
+      "domain": "blogpeda.ac-bordeaux.fr",
+      "orgId": 17589,
+      "ip": "194.199.36.59",
+      "sourceUrl": "https://blogpeda.ac-bordeaux.fr/collegegeorgesbrassens/"
+    },
+    {
+      "uai": "0331433D",
+      "dept": "33",
+      "domain": "blogpeda.ac-bordeaux.fr",
+      "orgId": 17614,
+      "ip": "194.199.36.59",
+      "sourceUrl": "https://blogpeda.ac-bordeaux.fr/collegederauzan/"
+    },
+    {
+      "uai": "0160075V",
+      "dept": "16",
+      "domain": "ensemblesaintpierre.fr",
+      "orgId": 14714,
+      "ip": "185.230.63.171",
+      "sourceUrl": "https://www.ensemblesaintpierre.fr"
+    },
+    {
+      "uai": "0230001B",
+      "dept": "23",
+      "domain": "claudechabrol.entcreuse.fr",
+      "orgId": 15845,
+      "ip": "80.247.237.218",
+      "sourceUrl": "https://claudechabrol.entcreuse.fr"
+    },
+    {
+      "uai": "0860759H",
+      "dept": "86",
+      "domain": "union-chretienne-poitiers.fr",
+      "orgId": 20465,
+      "ip": "178.33.43.164",
+      "sourceUrl": "https://union-chretienne-poitiers.fr"
+    },
+    {
+      "uai": "0860772X",
+      "dept": "86",
+      "domain": "86lachaume-lasalle.fr",
+      "orgId": 20633,
+      "ip": "154.50.0.246",
+      "sourceUrl": "https://www.86lachaume-lasalle.fr"
+    },
+    {
+      "uai": "0870008L",
+      "dept": "87",
+      "domain": "etablissement.ac-limoges.fr",
+      "orgId": 20698,
+      "ip": "195.83.101.8",
+      "sourceUrl": "https://etablissement.ac-limoges.fr/clg-monnet-chateauneuf/"
+    },
+    {
+      "uai": "0790065S",
+      "dept": "79",
+      "domain": "steannemauleon.com",
+      "orgId": 19840,
+      "ip": "146.88.233.96",
+      "sourceUrl": "https://steannemauleon.com"
+    },
+    {
+      "uai": "0790966W",
+      "dept": "79",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 19952,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-jprevert-moncoutant/"
+    },
+    {
+      "uai": "0170384A",
+      "dept": "17",
+      "domain": "ste-marie-royan.fr",
+      "orgId": 15317,
+      "ip": "81.88.53.77",
+      "sourceUrl": "https://www.ste-marie-royan.fr"
+    },
+    {
+      "uai": "0332341R",
+      "dept": "33",
+      "domain": "collegejacquesprevertdebourgsurgironde.wordpress.com",
+      "orgId": 16966,
+      "ip": "192.0.78.12",
+      "sourceUrl": "https://collegejacquesprevertdebourgsurgironde.wordpress.com"
+    },
+    {
+      "uai": "0170110C",
+      "dept": "17",
+      "domain": "stsa17.org",
+      "orgId": 14903,
+      "ip": "213.186.33.4",
+      "sourceUrl": "https://www.stsa17.org"
+    },
+    {
+      "uai": "0640062V",
+      "dept": "64",
+      "domain": "blogpeda.ac-bordeaux.fr",
+      "orgId": 19569,
+      "ip": "194.199.36.59",
+      "sourceUrl": "https://blogpeda.ac-bordeaux.fr/clgjeanbouzetpontacq/"
+    },
+    {
+      "uai": "0870684W",
+      "dept": "87",
+      "domain": "etablissement.ac-limoges.fr",
+      "orgId": 20655,
+      "ip": "195.83.101.8",
+      "sourceUrl": "https://etablissement.ac-limoges.fr/clg-moulin-ambazac/"
+    },
+    {
+      "uai": "0790003Z",
+      "dept": "79",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 19742,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-bpascal-argentonnay/"
+    },
+    {
+      "uai": "0170008S",
+      "dept": "17",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 15022,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-vvignes-cozes/"
+    },
+    {
+      "uai": "0171210Y",
+      "dept": "17",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 15034,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-dompierre/"
+    },
+    {
+      "uai": "0170012W",
+      "dept": "17",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 15107,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-loulay/"
+    },
+    {
+      "uai": "0331524C",
+      "dept": "33",
+      "domain": "jjlataste.fr",
+      "orgId": 17009,
+      "ip": "192.0.78.184",
+      "sourceUrl": "https://jjlataste.fr"
+    },
+    {
+      "uai": "0332084L",
+      "dept": "33",
+      "domain": "collegealbertcamus33.fr",
+      "orgId": 17142,
+      "ip": "83.229.19.114",
+      "sourceUrl": "https://www.collegealbertcamus33.fr"
+    },
+    {
+      "uai": "0171213B",
+      "dept": "17",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 14927,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-aulnay/"
+    },
+    {
+      "uai": "0190009G",
+      "dept": "19",
+      "domain": "etablissement.ac-limoges.fr",
+      "orgId": 15567,
+      "ip": "195.83.101.8",
+      "sourceUrl": "https://etablissement.ac-limoges.fr/clg-bort-les-orgues/"
+    },
+    {
+      "uai": "0641652Y",
+      "dept": "64",
+      "domain": "largente.eu",
+      "orgId": 18999,
+      "ip": "213.186.33.2",
+      "sourceUrl": "https://largente.eu"
+    },
+    {
+      "uai": "0470017N",
+      "dept": "47",
+      "domain": "blogpeda.ac-bordeaux.fr",
+      "orgId": 18580,
+      "ip": "194.199.36.59",
+      "sourceUrl": "https://blogpeda.ac-bordeaux.fr/luciensigala/"
+    },
+    {
+      "uai": "0641656C",
+      "dept": "64",
+      "domain": "larps-mauleon.fr",
+      "orgId": 19059,
+      "ip": "146.88.233.89",
+      "sourceUrl": "https://larps-mauleon.fr/fr/le-college"
+    },
+    {
+      "uai": "0330167C",
+      "dept": "33",
+      "domain": "blogpeda.ac-bordeaux.fr",
+      "orgId": 16588,
+      "ip": "194.199.36.59",
+      "sourceUrl": "https://blogpeda.ac-bordeaux.fr/mariebartette/"
+    },
+    {
+      "uai": "0332488A",
+      "dept": "33",
+      "domain": "tivoli-33.org",
+      "orgId": 16773,
+      "ip": "155.133.138.6",
+      "sourceUrl": "https://tivoli-33.org"
+    },
+    {
+      "uai": "0332340P",
+      "dept": "33",
+      "domain": "collegemaxlinder33.wixsite.com",
+      "orgId": 17722,
+      "ip": "172.66.3.8",
+      "sourceUrl": "https://collegemaxlinder33.wixsite.com/collegemaxlinder"
+    },
+    {
+      "uai": "0401014K",
+      "dept": "40",
+      "domain": "college-labenne.fr",
+      "orgId": 18122,
+      "ip": "213.186.33.3",
+      "sourceUrl": "https://www.college-labenne.fr"
+    },
+    {
+      "uai": "0791134D",
+      "dept": "79",
+      "domain": "college-saint-exupery-niort.com",
+      "orgId": 19982,
+      "ip": "154.50.0.112",
+      "sourceUrl": "https://www.college-saint-exupery-niort.com"
+    },
+    {
+      "uai": "0642179W",
+      "dept": "64",
+      "domain": "kei.eus",
+      "orgId": 19641,
+      "ip": "185.219.242.18",
+      "sourceUrl": "https://kei.eus"
+    },
+    {
+      "uai": "0190614P",
+      "dept": "19",
+      "domain": "college-lycee.com",
+      "orgId": 15805,
+      "ip": "188.114.96.2",
+      "sourceUrl": "https://college-lycee.com/college-georges-clemenceau/Tulle-0190614P"
+    },
+    {
+      "uai": "0190059L",
+      "dept": "19",
+      "domain": "edmichelet-brive.fr",
+      "orgId": 15583,
+      "ip": "195.200.13.40",
+      "sourceUrl": "https://edmichelet-brive.fr"
+    },
+    {
+      "uai": "0331492T",
+      "dept": "33",
+      "domain": "assomption-bordeaux.com",
+      "orgId": 16769,
+      "ip": "188.165.53.185",
+      "sourceUrl": "https://assomption-bordeaux.com"
+    },
+    {
+      "uai": "0401048X",
+      "dept": "40",
+      "domain": "college-nelson-mandela.fr",
+      "orgId": 18007,
+      "ip": "217.160.0.144",
+      "sourceUrl": "https://college-nelson-mandela.fr"
+    },
+    {
+      "uai": "0470073Z",
+      "dept": "47",
+      "domain": "college-saint-jean-tonneins.fr",
+      "orgId": 18819,
+      "ip": "185.230.63.186",
+      "sourceUrl": "https://www.college-saint-jean-tonneins.fr"
+    },
+    {
+      "uai": "0641655B",
+      "dept": "64",
+      "domain": "beau-rameau.org",
+      "orgId": 19268,
+      "ip": "213.186.33.2",
+      "sourceUrl": "https://beau-rameau.org"
+    },
+    {
+      "uai": "0160862A",
+      "dept": "16",
+      "domain": "lycee-jag.fr",
+      "orgId": 14869,
+      "ip": "51.68.85.193",
+      "sourceUrl": "https://lycee-jag.fr"
+    },
+    {
+      "uai": "0870119G",
+      "dept": "87",
+      "domain": "etablissement.ac-limoges.fr",
+      "orgId": 20855,
+      "ip": "195.83.101.8",
+      "sourceUrl": "https://etablissement.ac-limoges.fr/lyc-dautry/"
+    },
+    {
+      "uai": "0470018P",
+      "dept": "47",
+      "domain": "citescolairedefumel.fr",
+      "orgId": 18602,
+      "ip": "185.230.63.171",
+      "sourceUrl": "https://www.citescolairedefumel.fr"
+    },
+    {
+      "uai": "0790964U",
+      "dept": "79",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 20035,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/lp-tjmain-niort/"
+    },
+    {
+      "uai": "0870040W",
+      "dept": "87",
+      "domain": "citescolaire-saintjunien.fr",
+      "orgId": 20955,
+      "ip": "104.21.50.249",
+      "sourceUrl": "https://citescolaire-saintjunien.fr/lycee"
+    },
+    {
+      "uai": "0870081R",
+      "dept": "87",
+      "domain": "beaupeyrat.fr",
+      "orgId": 20852,
+      "ip": "109.234.166.24",
+      "sourceUrl": "https://beaupeyrat.fr"
+    },
+    {
+      "uai": "0640189H",
+      "dept": "64",
+      "domain": "immac-pau.com",
+      "orgId": 19563,
+      "ip": "94.23.250.211",
+      "sourceUrl": "https://www.immac-pau.com"
+    },
+    {
+      "uai": "0641732K",
+      "dept": "64",
+      "domain": "lycee-saint-john-perse.fr",
+      "orgId": 19555,
+      "ip": "185.230.63.107",
+      "sourceUrl": "https://www.lycee-saint-john-perse.fr"
+    },
+    {
+      "uai": "0331683A",
+      "dept": "33",
+      "domain": "bazas.educagri.fr",
+      "orgId": 16651,
+      "ip": "194.167.15.75",
+      "sourceUrl": "https://bazas.educagri.fr"
+    },
+    {
+      "uai": "0641664L",
+      "dept": "64",
+      "domain": "immac-pau.com",
+      "orgId": 19561,
+      "ip": "94.23.250.211",
+      "sourceUrl": "https://www.immac-pau.com"
+    },
+    {
+      "uai": "0790979K",
+      "dept": "79",
+      "domain": "ereadolto.fr",
+      "orgId": 20087,
+      "ip": "109.234.161.32",
+      "sourceUrl": "https://ereadolto.fr"
+    },
+    {
+      "uai": "0640044A",
+      "dept": "64",
+      "domain": "citescolairemourenx.fr",
+      "orgId": 19416,
+      "ip": "213.186.33.24",
+      "sourceUrl": "http://www.citescolairemourenx.fr"
+    },
+    {
+      "uai": "0790015M",
+      "dept": "79",
+      "domain": "lycee-jf-cail.fr",
+      "orgId": 19862,
+      "ip": "213.186.33.24",
+      "sourceUrl": "https://lycee-jf-cail.fr"
+    },
+    {
+      "uai": "0330102G",
+      "dept": "33",
+      "domain": "blogpeda.ac-bordeaux.fr",
+      "orgId": 17521,
+      "ip": "194.199.36.59",
+      "sourceUrl": "https://blogpeda.ac-bordeaux.fr/lyceeodilonredon/"
+    },
+    {
+      "uai": "0870051H",
+      "dept": "87",
+      "domain": "etablissement.ac-limoges.fr",
+      "orgId": 20994,
+      "ip": "195.83.101.8",
+      "sourceUrl": "https://etablissement.ac-limoges.fr/lyc-darnet/"
+    },
+    {
+      "uai": "0170052P",
+      "dept": "17",
+      "domain": "lp-blaisepascal.net",
+      "orgId": 15386,
+      "ip": "217.160.0.7",
+      "sourceUrl": "https://lp-blaisepascal.net"
+    },
+    {
+      "uai": "0230020X",
+      "dept": "23",
+      "domain": "etablissement.ac-limoges.fr",
+      "orgId": 15946,
+      "ip": "195.83.101.8",
+      "sourceUrl": "https://etablissement.ac-limoges.fr/lyc-pierre-bourdan/"
+    },
+    {
+      "uai": "0640040W",
+      "dept": "64",
+      "domain": "lycee-champo.fr",
+      "orgId": 19371,
+      "ip": "185.230.63.171",
+      "sourceUrl": "https://www.lycee-champo.fr"
+    },
+    {
+      "uai": "0240081H",
+      "dept": "24",
+      "domain": "saint-joseph-sarlat.org",
+      "orgId": 16484,
+      "ip": "213.158.94.245",
+      "sourceUrl": "https://www.saint-joseph-sarlat.org"
+    },
+    {
+      "uai": "0171428K",
+      "dept": "17",
+      "domain": "lyceebourcefranc.fr",
+      "orgId": 14960,
+      "ip": "80.247.228.60",
+      "sourceUrl": "http://www.lyceebourcefranc.fr"
+    },
+    {
+      "uai": "0171157R",
+      "dept": "17",
+      "domain": "eetaa722.fr",
+      "orgId": 15479,
+      "ip": "54.36.91.62",
+      "sourceUrl": "https://eetaa722.fr"
+    },
+    {
+      "uai": "0640220S",
+      "dept": "64",
+      "domain": "agrocampus64.fr",
+      "orgId": 19394,
+      "ip": "185.154.138.141",
+      "sourceUrl": "https://agrocampus64.fr"
+    },
+    {
+      "uai": "0860789R",
+      "dept": "86",
+      "domain": "isaac-etoile.fr",
+      "orgId": 20526,
+      "ip": "217.65.147.16",
+      "sourceUrl": "https://www.isaac-etoile.fr"
+    },
+    {
+      "uai": "0400094K",
+      "dept": "40",
+      "domain": "leabremontier.fr",
+      "orgId": 18352,
+      "ip": "34.90.206.35",
+      "sourceUrl": "https://leabremontier.fr"
+    },
+    {
+      "uai": "0790078F",
+      "dept": "79",
+      "domain": "lycee-saintandre-niort.com",
+      "orgId": 20031,
+      "ip": "154.50.0.112",
+      "sourceUrl": "https://www.lycee-saintandre-niort.com"
+    },
+    {
+      "uai": "0230030H",
+      "dept": "23",
+      "domain": "ahun.educagri.fr",
+      "orgId": 15847,
+      "ip": "194.167.15.75",
+      "sourceUrl": "https://ahun.educagri.fr"
+    },
+    {
+      "uai": "0640137B",
+      "dept": "64",
+      "domain": "saintjo64.fr",
+      "orgId": 19716,
+      "ip": "109.234.165.33",
+      "sourceUrl": "https://www.saintjo64.fr"
+    },
+    {
+      "uai": "0641535W",
+      "dept": "64",
+      "domain": "lyceearmanddavid.fr",
+      "orgId": 19242,
+      "ip": "51.210.109.74",
+      "sourceUrl": "https://www.lyceearmanddavid.fr"
+    },
+    {
+      "uai": "0470730N",
+      "dept": "47",
+      "domain": "lycee-lacompassion.fr",
+      "orgId": 18671,
+      "ip": "46.202.172.58",
+      "sourceUrl": "https://lycee-lacompassion.fr"
+    },
+    {
+      "uai": "0332535B",
+      "dept": "33",
+      "domain": "saint-joseph.apprentis-auteuil.org",
+      "orgId": 16714,
+      "ip": "217.115.161.204",
+      "sourceUrl": "https://saint-joseph.apprentis-auteuil.org/editorial/lycee-professionnel/"
+    },
+    {
+      "uai": "0791029P",
+      "dept": "79",
+      "domain": "lycees-vinci-signoret.fr",
+      "orgId": 19802,
+      "ip": "185.230.63.107",
+      "sourceUrl": "https://www.lycees-vinci-signoret.fr"
+    },
+    {
+      "uai": "0331882S",
+      "dept": "33",
+      "domain": "blogpeda.ac-bordeaux.fr",
+      "orgId": 16678,
+      "ip": "194.199.36.59",
+      "sourceUrl": "https://blogpeda.ac-bordeaux.fr/lpcombes33/"
+    },
+    {
+      "uai": "0332380H",
+      "dept": "33",
+      "domain": "camillegodard.formagri33.com",
+      "orgId": 17263,
+      "ip": "109.234.166.100",
+      "sourceUrl": "https://camillegodard.formagri33.com"
+    },
+    {
+      "uai": "0240112S",
+      "dept": "24",
+      "domain": "erea-joel-jeannot.fr",
+      "orgId": 16530,
+      "ip": "213.186.33.87",
+      "sourceUrl": "https://erea-joel-jeannot.fr"
+    },
+    {
+      "uai": "0161095D",
+      "dept": "16",
+      "domain": "lycee-image-son-angouleme.fr",
+      "orgId": 14544,
+      "ip": "109.234.164.175",
+      "sourceUrl": "https://lycee-image-son-angouleme.fr"
+    },
+    {
+      "uai": "0790702J",
+      "dept": "79",
+      "domain": "lycees-vinci-signoret.fr",
+      "orgId": 19803,
+      "ip": "185.230.63.107",
+      "sourceUrl": "https://www.lycees-vinci-signoret.fr"
+    },
+    {
+      "uai": "0170070J",
+      "dept": "17",
+      "domain": "lyceedupaysdaunis.com",
+      "orgId": 15503,
+      "ip": "109.234.165.112",
+      "sourceUrl": "https://www.lyceedupaysdaunis.com"
+    },
+    {
+      "uai": "0860755D",
+      "dept": "86",
+      "domain": "isaac-etoile.fr",
+      "orgId": 20525,
+      "ip": "217.65.147.16",
+      "sourceUrl": "https://www.isaac-etoile.fr"
+    },
+    {
+      "uai": "0871030X",
+      "dept": "87",
+      "domain": "etablissement.ac-limoges.fr",
+      "orgId": 20850,
+      "ip": "195.83.101.8",
+      "sourceUrl": "https://etablissement.ac-limoges.fr/lyc-monnet/"
+    },
+    {
+      "uai": "0170060Y",
+      "dept": "17",
+      "domain": "palissy.fr",
+      "orgId": 15473,
+      "ip": "51.210.100.98",
+      "sourceUrl": "https://palissy.fr"
+    },
+    {
+      "uai": "0331506H",
+      "dept": "33",
+      "domain": "lyceemontesquieulibourne.com",
+      "orgId": 17366,
+      "ip": "109.234.161.159",
+      "sourceUrl": "https://www.lyceemontesquieulibourne.com"
+    },
+    {
+      "uai": "0332495H",
+      "dept": "33",
+      "domain": "belorme.com",
+      "orgId": 16949,
+      "ip": "137.74.226.58",
+      "sourceUrl": "https://www.belorme.com"
+    },
+    {
+      "uai": "0332870R",
+      "dept": "33",
+      "domain": "lyceedelamergujan.fr",
+      "orgId": 17249,
+      "ip": "213.186.33.40",
+      "sourceUrl": "https://www.lyceedelamergujan.fr"
+    },
+    {
+      "uai": "0190008F",
+      "dept": "19",
+      "domain": "etablissement.ac-limoges.fr",
+      "orgId": 15570,
+      "ip": "195.83.101.8",
+      "sourceUrl": "https://etablissement.ac-limoges.fr/lp-bort/"
+    },
+    {
+      "uai": "0642010M",
+      "dept": "64",
+      "domain": "sainte-bernadette.apprentis-auteuil.org",
+      "orgId": 19510,
+      "ip": "217.115.161.204",
+      "sourceUrl": "https://sainte-bernadette.apprentis-auteuil.org"
+    },
+    {
+      "uai": "0640133X",
+      "dept": "64",
+      "domain": "sainte-ursule-pau.fr",
+      "orgId": 19511,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://www.sainte-ursule-pau.fr"
+    }
+  ]
+}

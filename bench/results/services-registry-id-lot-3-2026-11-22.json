@@ -1,0 +1,1251 @@
+{
+  "consultedAt": "2026-11-22T03:59:12.496Z",
+  "source": "data.inclusion SIRET / OSM ref:FR:FINESS; HTTP 200; DNS A",
+  "attribution": "data.inclusion (Licence Ouverte 2.0) and OpenStreetMap contributors (ODbL)",
+  "applied": true,
+  "onlyMissing": true,
+  "examined": 1899,
+  "eligible": 641,
+  "selected": 300,
+  "verified": 135,
+  "matched": 135,
+  "written": 135,
+  "measurement": {
+    "scope": "nouvelle-aquitaine",
+    "organisationsWithService": 9695,
+    "organisationsInScope": 1671906,
+    "services": 10590,
+    "bySource": {
+      "http-200": 1256,
+      "osm-http-200": 2941,
+      "rna-http-200": 522,
+      "dila-http-200": 1045,
+      "shodan-internetdb": 399,
+      "wikidata-http-200": 850,
+      "education-http-200": 733,
+      "osm-siret-http-200": 1677,
+      "site-zone-http-200": 381,
+      "registry-id-http-200": 660,
+      "wikidata-id-http-200": 86,
+      "administration-http-200": 40
+    },
+    "measuredAt": "2026-11-22T03:59:23.732Z"
+  },
+  "candidates": [
+    {
+      "kind": "siret",
+      "id": "87834084300027",
+      "dept": "33",
+      "domain": "www.cheops-nouvelleaquitaine.com",
+      "orgId": 515171,
+      "ip": "51.68.79.143",
+      "sourceUrl": "https://www.cheops-nouvelleaquitaine.com"
+    },
+    {
+      "kind": "siret",
+      "id": "78203081100122",
+      "dept": "33",
+      "domain": "edea-asso.fr",
+      "orgId": 374180,
+      "ip": "194.110.192.75",
+      "sourceUrl": "https://edea-asso.fr/etablissement/les-detritivores/"
+    },
+    {
+      "kind": "siret",
+      "id": "38477927800033",
+      "dept": "23",
+      "domain": "www.capemploi-23.com",
+      "orgId": 127035,
+      "ip": "51.68.79.143",
+      "sourceUrl": "https://www.capemploi-23.com"
+    },
+    {
+      "kind": "siret",
+      "id": "39455239200034",
+      "dept": "16",
+      "domain": "www.capemploi-16.com",
+      "orgId": 142094,
+      "ip": "51.68.79.143",
+      "sourceUrl": "https://www.capemploi-16.com"
+    },
+    {
+      "kind": "siret",
+      "id": "42038581700010",
+      "dept": "16",
+      "domain": "www.groupe-adresse16.fr",
+      "orgId": 181221,
+      "ip": "54.36.91.62",
+      "sourceUrl": "https://www.groupe-adresse16.fr/contact/"
+    },
+    {
+      "kind": "siret",
+      "id": "34358216900110",
+      "dept": "33",
+      "domain": "www.capemploi-33.com",
+      "orgId": 101082,
+      "ip": "51.68.79.143",
+      "sourceUrl": "https://www.capemploi-33.com"
+    },
+    {
+      "kind": "siret",
+      "id": "77796706800324",
+      "dept": "19",
+      "domain": "www.capemploi-19.com",
+      "orgId": 369101,
+      "ip": "51.68.79.143",
+      "sourceUrl": "https://www.capemploi-19.com"
+    },
+    {
+      "kind": "siret",
+      "id": "43408542900026",
+      "dept": "40",
+      "domain": "www.capemploi-40-64pb.com",
+      "orgId": 204801,
+      "ip": "51.68.79.143",
+      "sourceUrl": "https://www.capemploi-40-64pb.com"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548107973",
+      "dept": "40",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944729,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "44266449600050",
+      "dept": "40",
+      "domain": "www.aqm40.fr",
+      "orgId": 220318,
+      "ip": "88.202.239.120",
+      "sourceUrl": "http://www.aqm40.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "34477338700156",
+      "dept": "64",
+      "domain": "tecgecoop.fr",
+      "orgId": 102478,
+      "ip": "54.36.91.62",
+      "sourceUrl": "https://tecgecoop.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "39986426300047",
+      "dept": "16",
+      "domain": "cidil-asso.fr",
+      "orgId": 148633,
+      "ip": "213.186.33.17",
+      "sourceUrl": "https://cidil-asso.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "33132050700014",
+      "dept": "86",
+      "domain": "www.cpa-lathus.asso.fr",
+      "orgId": 91554,
+      "ip": "109.234.166.204",
+      "sourceUrl": "https://www.cpa-lathus.asso.fr/nos-actions-sur-le-territoire/insertion-par-lactivite-economique/"
+    },
+    {
+      "kind": "siret",
+      "id": "75170343000148",
+      "dept": "16",
+      "domain": "www.croix-rouge.fr",
+      "orgId": 1981073,
+      "ip": "185.94.140.73",
+      "sourceUrl": "https://www.croix-rouge.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "38988650800040",
+      "dept": "47",
+      "domain": "missionlocale-agen.org",
+      "orgId": 133320,
+      "ip": "91.234.195.182",
+      "sourceUrl": "https://missionlocale-agen.org"
+    },
+    {
+      "kind": "siret",
+      "id": "19870056900041",
+      "dept": "87",
+      "domain": "www.greta-du-limousin.fr",
+      "orgId": 1947024,
+      "ip": "155.133.142.14",
+      "sourceUrl": "https://www.greta-du-limousin.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "31241056600086",
+      "dept": "33",
+      "domain": "ceid-addiction.com",
+      "orgId": 79769,
+      "ip": "109.234.164.30",
+      "sourceUrl": "https://ceid-addiction.com"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548124937",
+      "dept": "79",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944800,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "50763847600055",
+      "dept": "17",
+      "domain": "www.capemploi-17.com",
+      "orgId": 305679,
+      "ip": "51.68.79.143",
+      "sourceUrl": "https://www.capemploi-17.com"
+    },
+    {
+      "kind": "siret",
+      "id": "43534655600044",
+      "dept": "23",
+      "domain": "agence.optineris.fr",
+      "orgId": 207692,
+      "ip": "104.18.36.169",
+      "sourceUrl": "https://agence.optineris.fr/20-optineris-aubusson"
+    },
+    {
+      "kind": "siret",
+      "id": "38978788800012",
+      "dept": "86",
+      "domain": "labarque-naintre.org",
+      "orgId": 133121,
+      "ip": "193.203.239.74",
+      "sourceUrl": "https://labarque-naintre.org"
+    },
+    {
+      "kind": "siret",
+      "id": "38013032800038",
+      "dept": "79",
+      "domain": "aipm.fr",
+      "orgId": 118070,
+      "ip": "146.59.209.152",
+      "sourceUrl": "https://aipm.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "35139696500029",
+      "dept": "17",
+      "domain": "www.cohesion17.org",
+      "orgId": 108687,
+      "ip": "213.186.33.40",
+      "sourceUrl": "https://www.cohesion17.org"
+    },
+    {
+      "kind": "siret",
+      "id": "92385824500015",
+      "dept": "33",
+      "domain": "mariecurry.fr",
+      "orgId": 612943,
+      "ip": "172.67.130.20",
+      "sourceUrl": "https://mariecurry.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "22870851700377",
+      "dept": "87",
+      "domain": "www.haute-vienne.fr",
+      "orgId": 1959511,
+      "ip": "104.26.7.118",
+      "sourceUrl": "https://www.haute-vienne.fr/accueil"
+    },
+    {
+      "kind": "siret",
+      "id": "37954994200025",
+      "dept": "33",
+      "domain": "www.restosducoeur.org",
+      "orgId": 116849,
+      "ip": "89.248.210.68",
+      "sourceUrl": "https://www.restosducoeur.org"
+    },
+    {
+      "kind": "siret",
+      "id": "93947972100010",
+      "dept": "17",
+      "domain": "www.garagelacaale.fr",
+      "orgId": 642425,
+      "ip": "109.234.167.168",
+      "sourceUrl": "https://www.garagelacaale.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "92457340500025",
+      "dept": "33",
+      "domain": "ebe-lafourmiliere.fr",
+      "orgId": 615404,
+      "ip": "103.169.142.0",
+      "sourceUrl": "https://ebe-lafourmiliere.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "22870851700682",
+      "dept": "87",
+      "domain": "www.haute-vienne.fr",
+      "orgId": 1959527,
+      "ip": "104.26.7.118",
+      "sourceUrl": "https://www.haute-vienne.fr/accueil"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548108344",
+      "dept": "17",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944731,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "79490854100046",
+      "dept": "24",
+      "domain": "dordogne.cidff.info",
+      "orgId": 391156,
+      "ip": "147.135.162.2",
+      "sourceUrl": "https://dordogne.cidff.info"
+    },
+    {
+      "kind": "siret",
+      "id": "52136722700019",
+      "dept": "86",
+      "domain": "poitou.msa.fr",
+      "orgId": 328670,
+      "ip": "194.5.190.146",
+      "sourceUrl": "https://poitou.msa.fr/lfp"
+    },
+    {
+      "kind": "siret",
+      "id": "32347227400022",
+      "dept": "87",
+      "domain": "www.association-aleas.fr",
+      "orgId": 85550,
+      "ip": "164.132.235.17",
+      "sourceUrl": "https://www.association-aleas.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "77556664900205",
+      "dept": "19",
+      "domain": "adapei-correze.fr",
+      "orgId": 368779,
+      "ip": "217.160.0.142",
+      "sourceUrl": "https://adapei-correze.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "40136283500035",
+      "dept": "40",
+      "domain": "voisinage.net",
+      "orgId": 151628,
+      "ip": "54.36.91.62",
+      "sourceUrl": "https://voisinage.net"
+    },
+    {
+      "kind": "siret",
+      "id": "44065184200039",
+      "dept": "40",
+      "domain": "larbreapain.fr",
+      "orgId": 215290,
+      "ip": "109.234.166.213",
+      "sourceUrl": "https://larbreapain.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "42167463100047",
+      "dept": "86",
+      "domain": "www.fsl86.fr",
+      "orgId": 184208,
+      "ip": "104.21.42.229",
+      "sourceUrl": "https://www.fsl86.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "34106240404264",
+      "dept": "33",
+      "domain": "www.groupe-sos.org",
+      "orgId": 1964981,
+      "ip": "46.105.52.4",
+      "sourceUrl": "https://www.groupe-sos.org/structure/le-tremplin-service-daccompagnement-des-personnes-placees-sous-main-de-justice-2/"
+    },
+    {
+      "kind": "siret",
+      "id": "22870851700666",
+      "dept": "87",
+      "domain": "www.haute-vienne.fr",
+      "orgId": 1959525,
+      "ip": "104.26.7.118",
+      "sourceUrl": "https://www.haute-vienne.fr/accueil"
+    },
+    {
+      "kind": "siret",
+      "id": "35200591200030",
+      "dept": "16",
+      "domain": "www.agire16.com",
+      "orgId": 109654,
+      "ip": "188.165.53.185",
+      "sourceUrl": "http://www.agire16.com"
+    },
+    {
+      "kind": "siret",
+      "id": "41011886300068",
+      "dept": "17",
+      "domain": "axys-formation.com",
+      "orgId": 164136,
+      "ip": "83.228.239.37",
+      "sourceUrl": "https://axys-formation.com"
+    },
+    {
+      "kind": "finess",
+      "id": "470011735",
+      "dept": "47",
+      "domain": "pharmaciedespyrenees47.mesoigner.fr",
+      "orgId": 10992,
+      "ip": "62.240.227.147",
+      "sourceUrl": "https://pharmaciedespyrenees47.mesoigner.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "400000113",
+      "dept": "40",
+      "domain": "www.ch-mt-marsan.fr",
+      "orgId": 10142,
+      "ip": "46.105.35.245",
+      "sourceUrl": "https://www.ch-mt-marsan.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "790010227",
+      "dept": "79",
+      "domain": "pharmacie-du-geant.epharmacie.pro",
+      "orgId": 12565,
+      "ip": "91.208.207.218",
+      "sourceUrl": "https://pharmacie-du-geant.epharmacie.pro"
+    },
+    {
+      "kind": "finess",
+      "id": "870013596",
+      "dept": "87",
+      "domain": "pharmaciedupuytren.fr",
+      "orgId": 14364,
+      "ip": "135.125.160.59",
+      "sourceUrl": "https://pharmaciedupuytren.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "790010847",
+      "dept": "79",
+      "domain": "www.pharmacie-blanchart-niort.com",
+      "orgId": 12792,
+      "ip": "185.46.230.25",
+      "sourceUrl": "https://www.pharmacie-blanchart-niort.com"
+    },
+    {
+      "kind": "finess",
+      "id": "870013190",
+      "dept": "87",
+      "domain": "www.pharmaciepenicaut.com",
+      "orgId": 14320,
+      "ip": "95.128.74.19",
+      "sourceUrl": "https://www.pharmaciepenicaut.com"
+    },
+    {
+      "kind": "finess",
+      "id": "870017217",
+      "dept": "87",
+      "domain": "laboratoires.biogroup.fr",
+      "orgId": 14426,
+      "ip": "104.16.223.185",
+      "sourceUrl": "https://laboratoires.biogroup.fr/haute-vienne/saint-leonard-de-noblat/1-avenue-du-champ-de-mars"
+    },
+    {
+      "kind": "finess",
+      "id": "400007522",
+      "dept": "40",
+      "domain": "pharmaciedelaplage-biscarrosse.mesoigner.fr",
+      "orgId": 9910,
+      "ip": "62.240.227.147",
+      "sourceUrl": "https://pharmaciedelaplage-biscarrosse.mesoigner.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "170009369",
+      "dept": "17",
+      "domain": "pharmacies.pharmaciengiphar.com",
+      "orgId": 5950,
+      "ip": "52.84.174.85",
+      "sourceUrl": "https://pharmacies.pharmaciengiphar.com/nouvelle-aquitaine/charente-maritime/saint-laurent-de-la-pree/pharmacie-lacoste-st-laurent-de-la-pree-975"
+    },
+    {
+      "kind": "finess",
+      "id": "170014013",
+      "dept": "17",
+      "domain": "pharmacies.pharmaciengiphar.com",
+      "orgId": 5744,
+      "ip": "52.84.174.85",
+      "sourceUrl": "https://pharmacies.pharmaciengiphar.com/nouvelle-aquitaine/charente-maritime/la-rochelle/pharmacie-du-port-atlantique-la-rochelle-206"
+    },
+    {
+      "kind": "finess",
+      "id": "870013430",
+      "dept": "87",
+      "domain": "www.pharmanity.com",
+      "orgId": 14347,
+      "ip": "13.37.111.223",
+      "sourceUrl": "https://www.pharmanity.com/pharmacie/pharmacie-goncalves-le-palais-sur-vienne-ph13013"
+    },
+    {
+      "kind": "finess",
+      "id": "330802976",
+      "dept": "33",
+      "domain": "ehpaddubequet.fr",
+      "orgId": 7850,
+      "ip": "213.32.6.168",
+      "sourceUrl": "https://ehpaddubequet.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "230000820",
+      "dept": "23",
+      "domain": "www.ch-gueret.fr",
+      "orgId": 6877,
+      "ip": "213.186.33.4",
+      "sourceUrl": "https://www.ch-gueret.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "470011883",
+      "dept": "47",
+      "domain": "pharmacieprayssas.fr",
+      "orgId": 11033,
+      "ip": "185.190.91.171",
+      "sourceUrl": "https://pharmacieprayssas.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "190008169",
+      "dept": "19",
+      "domain": "ch-brive.fr",
+      "orgId": 6315,
+      "ip": "145.239.174.146",
+      "sourceUrl": "https://ch-brive.fr/service/direction-deleguee-ehpad-pays-brive/"
+    },
+    {
+      "kind": "finess",
+      "id": "400012860",
+      "dept": "40",
+      "domain": "www.coeurhautelande.fr",
+      "orgId": 10085,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.coeurhautelande.fr/Communaute-de-communes/Services/La-maison-de-Sante-Pluridisciplinaire-de-Labrit"
+    },
+    {
+      "kind": "finess",
+      "id": "170023840",
+      "dept": "17",
+      "domain": "bio17.eu",
+      "orgId": 5633,
+      "ip": "172.67.140.75",
+      "sourceUrl": "https://bio17.eu/laboratoires/saint-louis/"
+    },
+    {
+      "kind": "finess",
+      "id": "330056748",
+      "dept": "33",
+      "domain": "lesjardinsdeleysotte.lna-sante.com",
+      "orgId": 9816,
+      "ip": "217.147.204.81",
+      "sourceUrl": "https://lesjardinsdeleysotte.lna-sante.com"
+    },
+    {
+      "kind": "finess",
+      "id": "870013562",
+      "dept": "87",
+      "domain": "www.sante.fr",
+      "orgId": 14362,
+      "ip": "45.60.124.134",
+      "sourceUrl": "https://www.sante.fr/pharmacie-dofficine/peyrilhac/pharmacie-jouy"
+    },
+    {
+      "kind": "finess",
+      "id": "170014880",
+      "dept": "17",
+      "domain": "www.pharmacie-stjeandangely.com",
+      "orgId": 5929,
+      "ip": "95.128.74.182",
+      "sourceUrl": "http://www.pharmacie-stjeandangely.com"
+    },
+    {
+      "kind": "finess",
+      "id": "330045063",
+      "dept": "33",
+      "domain": "www.pharmacie-porte-du-medoc-castelnau.com",
+      "orgId": 8589,
+      "ip": "185.46.230.25",
+      "sourceUrl": "https://www.pharmacie-porte-du-medoc-castelnau.com"
+    },
+    {
+      "kind": "finess",
+      "id": "870017951",
+      "dept": "87",
+      "domain": "www.alair-avd.com",
+      "orgId": 14042,
+      "ip": "51.91.165.35",
+      "sourceUrl": "https://www.alair-avd.com"
+    },
+    {
+      "kind": "finess",
+      "id": "870012531",
+      "dept": "87",
+      "domain": "www.giphar.fr",
+      "orgId": 14181,
+      "ip": "34.160.125.61",
+      "sourceUrl": "https://www.giphar.fr/nos-pharmacies/"
+    },
+    {
+      "kind": "finess",
+      "id": "870000411",
+      "dept": "87",
+      "domain": "polyclinique-limoges.com",
+      "orgId": 14084,
+      "ip": "5.39.0.97",
+      "sourceUrl": "https://polyclinique-limoges.com"
+    },
+    {
+      "kind": "finess",
+      "id": "160011235",
+      "dept": "16",
+      "domain": "pharmaciefouche.fr",
+      "orgId": 4955,
+      "ip": "87.98.147.11",
+      "sourceUrl": "https://pharmaciefouche.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "160016192",
+      "dept": "16",
+      "domain": "www.alair-avd.com",
+      "orgId": 4805,
+      "ip": "51.91.165.35",
+      "sourceUrl": "https://www.alair-avd.com"
+    },
+    {
+      "kind": "finess",
+      "id": "790010417",
+      "dept": "79",
+      "domain": "www.pharmaciedecherveux.com",
+      "orgId": 12580,
+      "ip": "95.128.74.19",
+      "sourceUrl": "https://www.pharmaciedecherveux.com"
+    },
+    {
+      "kind": "finess",
+      "id": "330798331",
+      "dept": "33",
+      "domain": "www.villenavedornon.fr",
+      "orgId": 9815,
+      "ip": "135.125.65.152",
+      "sourceUrl": "https://www.villenavedornon.fr/322/grandir-aider/seniors/ehpad-home-marie-curie.htm"
+    },
+    {
+      "kind": "finess",
+      "id": "330041195",
+      "dept": "33",
+      "domain": "www.pharmacie-saint-bruno.fr",
+      "orgId": 8305,
+      "ip": "135.125.160.59",
+      "sourceUrl": "https://www.pharmacie-saint-bruno.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "170023394",
+      "dept": "17",
+      "domain": "bio17.eu",
+      "orgId": 6160,
+      "ip": "172.67.140.75",
+      "sourceUrl": "https://bio17.eu/laboratoires/surgeres/"
+    },
+    {
+      "kind": "finess",
+      "id": "790018386",
+      "dept": "79",
+      "domain": "www.medilab-group.eu",
+      "orgId": 12680,
+      "ip": "51.91.192.255",
+      "sourceUrl": "https://www.medilab-group.eu/medilab-group/nos-laboratoires/"
+    },
+    {
+      "kind": "finess",
+      "id": "170000111",
+      "dept": "17",
+      "domain": "www.ch-larochelle.fr",
+      "orgId": 5959,
+      "ip": "54.36.44.131",
+      "sourceUrl": "https://www.ch-larochelle.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "790010771",
+      "dept": "79",
+      "domain": "pharmodel.com",
+      "orgId": 12854,
+      "ip": "51.103.37.232",
+      "sourceUrl": "https://pharmodel.com"
+    },
+    {
+      "kind": "finess",
+      "id": "870002995",
+      "dept": "87",
+      "domain": "www.asaph-saintjunien.fr",
+      "orgId": 14393,
+      "ip": "46.105.57.169",
+      "sourceUrl": "https://www.asaph-saintjunien.fr/fr/r7-esat-les-seilles.html"
+    },
+    {
+      "kind": "finess",
+      "id": "330032608",
+      "dept": "33",
+      "domain": "www.biolab33.com",
+      "orgId": 8978,
+      "ip": "109.234.165.60",
+      "sourceUrl": "https://www.biolab33.com/nos-laboratoires-biolab33/biolab33-laboratoire-de-latresne/"
+    },
+    {
+      "kind": "finess",
+      "id": "870011624",
+      "dept": "87",
+      "domain": "pharmaciedumidi-limoges.giropharm.fr",
+      "orgId": 14191,
+      "ip": "195.200.99.233",
+      "sourceUrl": "https://pharmaciedumidi-limoges.giropharm.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "330048679",
+      "dept": "33",
+      "domain": "www.biolab33.com",
+      "orgId": 9304,
+      "ip": "109.234.165.60",
+      "sourceUrl": "https://www.biolab33.com"
+    },
+    {
+      "kind": "finess",
+      "id": "870012127",
+      "dept": "87",
+      "domain": "pharmaciedudocteurjouy-limoges.giropharm.fr",
+      "orgId": 14178,
+      "ip": "195.200.99.233",
+      "sourceUrl": "https://pharmaciedudocteurjouy-limoges.giropharm.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "330035718",
+      "dept": "33",
+      "domain": "www.biolab33.com",
+      "orgId": 8906,
+      "ip": "109.234.165.60",
+      "sourceUrl": "https://www.biolab33.com"
+    },
+    {
+      "kind": "finess",
+      "id": "870017209",
+      "dept": "87",
+      "domain": "laboratoires.biogroup.fr",
+      "orgId": 13887,
+      "ip": "104.16.222.185",
+      "sourceUrl": "https://laboratoires.biogroup.fr/haute-vienne/aixe-sur-vienne/35b-avenue-du-president-wilson"
+    },
+    {
+      "kind": "finess",
+      "id": "870012796",
+      "dept": "87",
+      "domain": "pharmacie-beaublanc-limoges.masanteuniq.fr",
+      "orgId": 14176,
+      "ip": "62.240.227.147",
+      "sourceUrl": "https://pharmacie-beaublanc-limoges.masanteuniq.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "170019632",
+      "dept": "17",
+      "domain": "ljdh-thenac.fr",
+      "orgId": 6175,
+      "ip": "195.144.11.124",
+      "sourceUrl": "https://ljdh-thenac.fr/fr/"
+    },
+    {
+      "kind": "finess",
+      "id": "160011045",
+      "dept": "16",
+      "domain": "www.pharmacie-du-chateau-jarnac.fr",
+      "orgId": 4879,
+      "ip": "185.46.230.25",
+      "sourceUrl": "https://www.pharmacie-du-chateau-jarnac.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "330059346",
+      "dept": "33",
+      "domain": "www.bastideleconfortmedical.com",
+      "orgId": 8777,
+      "ip": "35.201.107.152",
+      "sourceUrl": "https://www.bastideleconfortmedical.com"
+    },
+    {
+      "kind": "finess",
+      "id": "330046715",
+      "dept": "33",
+      "domain": "pharmaciesaintgery.fr",
+      "orgId": 8842,
+      "ip": "87.98.147.11",
+      "sourceUrl": "https://pharmaciesaintgery.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "870013224",
+      "dept": "87",
+      "domain": "pharmaciecanellas.pharminfo.fr",
+      "orgId": 14322,
+      "ip": "163.172.32.141",
+      "sourceUrl": "https://pharmaciecanellas.pharminfo.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "330056367",
+      "dept": "33",
+      "domain": "pharmacie-villenave.mesoigner.fr",
+      "orgId": 9844,
+      "ip": "62.240.227.147",
+      "sourceUrl": "https://pharmacie-villenave.mesoigner.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "240012633",
+      "dept": "24",
+      "domain": "pharmaciedelimaginaire-terrasson.fr",
+      "orgId": 7629,
+      "ip": "185.190.91.176",
+      "sourceUrl": "https://pharmaciedelimaginaire-terrasson.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "870013646",
+      "dept": "87",
+      "domain": "pharmacie-limoges.com",
+      "orgId": 14368,
+      "ip": "91.208.207.215",
+      "sourceUrl": "https://pharmacie-limoges.com"
+    },
+    {
+      "kind": "finess",
+      "id": "470003823",
+      "dept": "47",
+      "domain": "www.pharmaciereference.fr",
+      "orgId": 10686,
+      "ip": "13.227.173.101",
+      "sourceUrl": "https://www.pharmaciereference.fr/pharmacie/pharmacie-bonencontre"
+    },
+    {
+      "kind": "finess",
+      "id": "330047614",
+      "dept": "33",
+      "domain": "www.pharmacie-des-sables.fr",
+      "orgId": 9000,
+      "ip": "141.95.207.28",
+      "sourceUrl": "https://www.pharmacie-des-sables.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "170023345",
+      "dept": "17",
+      "domain": "bio17.eu",
+      "orgId": 5171,
+      "ip": "172.67.140.75",
+      "sourceUrl": "https://bio17.eu/laboratoires/aytre/"
+    },
+    {
+      "kind": "finess",
+      "id": "790018774",
+      "dept": "79",
+      "domain": "www.medilab-group.eu",
+      "orgId": 12559,
+      "ip": "51.91.192.255",
+      "sourceUrl": "https://www.medilab-group.eu/medilab-group/nos-laboratoires/"
+    },
+    {
+      "kind": "finess",
+      "id": "870012341",
+      "dept": "87",
+      "domain": "www.pharmaciedesportesferrees-87.fr",
+      "orgId": 14190,
+      "ip": "135.125.160.59",
+      "sourceUrl": "https://www.pharmaciedesportesferrees-87.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "870012192",
+      "dept": "87",
+      "domain": "pharmacies.giphar.fr",
+      "orgId": 14209,
+      "ip": "52.84.174.123",
+      "sourceUrl": "https://pharmacies.giphar.fr/nouvelle-aquitaine/haute-vienne/limoges/pharmacie-mazaud-limoges-915"
+    },
+    {
+      "kind": "finess",
+      "id": "860787654",
+      "dept": "86",
+      "domain": "www.pharmacienobilienne.com",
+      "orgId": 13515,
+      "ip": "95.128.74.19",
+      "sourceUrl": "https://www.pharmacienobilienne.com"
+    },
+    {
+      "kind": "finess",
+      "id": "170000087",
+      "dept": "17",
+      "domain": "www.ch-larochelle.fr",
+      "orgId": 5696,
+      "ip": "54.36.44.131",
+      "sourceUrl": "https://www.ch-larochelle.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "330030008",
+      "dept": "33",
+      "domain": "laboratoires.cerballiance.fr",
+      "orgId": 9357,
+      "ip": "104.16.220.185",
+      "sourceUrl": "https://laboratoires.cerballiance.fr/nouvelle-aquitaine/pessac/208-avenue-pasteur"
+    },
+    {
+      "kind": "finess",
+      "id": "330042995",
+      "dept": "33",
+      "domain": "pharmacieberard.pharmacorp.fr",
+      "orgId": 8244,
+      "ip": "62.240.227.147",
+      "sourceUrl": "https://pharmacieberard.pharmacorp.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "170025076",
+      "dept": "17",
+      "domain": "www.isisatlantique.fr",
+      "orgId": 6032,
+      "ip": "51.159.104.123",
+      "sourceUrl": "https://www.isisatlantique.fr/fr/"
+    },
+    {
+      "kind": "finess",
+      "id": "330781402",
+      "dept": "33",
+      "domain": "bordeauxtondu.fr",
+      "orgId": 8791,
+      "ip": "185.176.148.189",
+      "sourceUrl": "https://bordeauxtondu.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "170023113",
+      "dept": "17",
+      "domain": "laboratoires.cerballiance.fr",
+      "orgId": 5476,
+      "ip": "104.16.220.185",
+      "sourceUrl": "https://laboratoires.cerballiance.fr/nouvelle-aquitaine/saint-martin-d'ary/6-rue-du-11-novembre-1918"
+    },
+    {
+      "kind": "finess",
+      "id": "330041096",
+      "dept": "33",
+      "domain": "pharmaciegambetta33000.pharminfo.fr",
+      "orgId": 8293,
+      "ip": "163.172.32.141",
+      "sourceUrl": "https://pharmaciegambetta33000.pharminfo.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "160010427",
+      "dept": "16",
+      "domain": "www.pharmaciesaintcybard.fr",
+      "orgId": 4604,
+      "ip": "54.37.40.215",
+      "sourceUrl": "https://www.pharmaciesaintcybard.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "160010609",
+      "dept": "16",
+      "domain": "pharmaciedesessarts.fr",
+      "orgId": 4569,
+      "ip": "185.190.91.171",
+      "sourceUrl": "https://pharmaciedesessarts.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "400007506",
+      "dept": "40",
+      "domain": "www.materiel-medical-landes-meyer.fr",
+      "orgId": 9911,
+      "ip": "52.59.120.70",
+      "sourceUrl": "https://www.materiel-medical-landes-meyer.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "330000571",
+      "dept": "33",
+      "domain": "www.chblaye.fr",
+      "orgId": 7946,
+      "ip": "109.234.166.116",
+      "sourceUrl": "https://www.chblaye.fr/accueil/"
+    },
+    {
+      "kind": "finess",
+      "id": "330783648",
+      "dept": "33",
+      "domain": "www.chu-bordeaux.fr",
+      "orgId": 9347,
+      "ip": "194.167.180.68",
+      "sourceUrl": "https://www.chu-bordeaux.fr/CHU-de-Bordeaux/H%C3%B4pitaux-et-sites-du-CHU/H%C3%B4pital-Haut-L%C3%A9v%C3%AAque/"
+    },
+    {
+      "kind": "finess",
+      "id": "790020762",
+      "dept": "79",
+      "domain": "astera.coop",
+      "orgId": 12563,
+      "ip": "159.8.115.82",
+      "sourceUrl": "https://astera.coop/qui-sommes-nous/les-societes-du-groupe/oxypharm/oxypharm-presentation/"
+    },
+    {
+      "kind": "finess",
+      "id": "330050642",
+      "dept": "33",
+      "domain": "www.pharmacie-des-ecoles.fr",
+      "orgId": 9496,
+      "ip": "185.46.230.25",
+      "sourceUrl": "https://www.pharmacie-des-ecoles.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "470000431",
+      "dept": "47",
+      "domain": "www.ch-villeneuvesurlot.fr",
+      "orgId": 11143,
+      "ip": "37.187.154.199",
+      "sourceUrl": "http://www.ch-villeneuvesurlot.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "170023378",
+      "dept": "17",
+      "domain": "bio17.eu",
+      "orgId": 5387,
+      "ip": "172.67.140.75",
+      "sourceUrl": "https://bio17.eu/laboratoires/corsaires/"
+    },
+    {
+      "kind": "finess",
+      "id": "330780529",
+      "dept": "33",
+      "domain": "www.clinique-pessac.fr",
+      "orgId": 9328,
+      "ip": "195.214.224.37",
+      "sourceUrl": "https://www.clinique-pessac.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "870013042",
+      "dept": "87",
+      "domain": "annuaire-sante.vyv3.fr",
+      "orgId": 14212,
+      "ip": "195.200.190.154",
+      "sourceUrl": "https://annuaire-sante.vyv3.fr/etablissements/nouvelle-aquitaine/haute-vienne-87/limoges/pharmacie/pharmacie-mutualiste-carnot"
+    },
+    {
+      "kind": "finess",
+      "id": "330043761",
+      "dept": "33",
+      "domain": "www.pharmacie-saintjean.fr",
+      "orgId": 8411,
+      "ip": "141.95.207.28",
+      "sourceUrl": "https://www.pharmacie-saintjean.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "870014065",
+      "dept": "87",
+      "domain": "pharmaciedelavenue-noblat.pharmavie.fr",
+      "orgId": 14433,
+      "ip": "62.240.227.147",
+      "sourceUrl": "https://pharmaciedelavenue-noblat.pharmavie.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "860014844",
+      "dept": "86",
+      "domain": "ads-respi.fr",
+      "orgId": 13349,
+      "ip": "51.159.20.216",
+      "sourceUrl": "https://ads-respi.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "240015131",
+      "dept": "24",
+      "domain": "www.chicrdd.fr",
+      "orgId": 7562,
+      "ip": "213.186.33.2",
+      "sourceUrl": "https://www.chicrdd.fr/vous-accueillir/accueil-24-24/chicrdd-la-meynardie/"
+    },
+    {
+      "kind": "finess",
+      "id": "160003703",
+      "dept": "16",
+      "domain": "ehpad-du-pre-de-l-etang.wifeo.com",
+      "orgId": 4796,
+      "ip": "194.146.225.153",
+      "sourceUrl": "http://ehpad-du-pre-de-l-etang.wifeo.com"
+    },
+    {
+      "kind": "finess",
+      "id": "860000058",
+      "dept": "86",
+      "domain": "www.chu-poitiers.fr",
+      "orgId": 13457,
+      "ip": "51.83.127.41",
+      "sourceUrl": "https://www.chu-poitiers.fr/specialites/pole-montmorillon/"
+    },
+    {
+      "kind": "finess",
+      "id": "170013825",
+      "dept": "17",
+      "domain": "www.pharmacie-de-la-paix-la-rochelle.fr",
+      "orgId": 5731,
+      "ip": "185.46.230.25",
+      "sourceUrl": "https://www.pharmacie-de-la-paix-la-rochelle.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "230000259",
+      "dept": "23",
+      "domain": "www.aesio.fr",
+      "orgId": 6936,
+      "ip": "172.66.159.20",
+      "sourceUrl": "https://www.aesio.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "860785617",
+      "dept": "86",
+      "domain": "www.chu-poitiers.fr",
+      "orgId": 13390,
+      "ip": "51.83.127.41",
+      "sourceUrl": "https://www.chu-poitiers.fr/les-plans-des-sites-de-lusignan/"
+    },
+    {
+      "kind": "finess",
+      "id": "790011043",
+      "dept": "79",
+      "domain": "pharmaciedelagare.pharminfo.fr",
+      "orgId": 12795,
+      "ip": "163.172.32.141",
+      "sourceUrl": "https://pharmaciedelagare.pharminfo.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "160000311",
+      "dept": "16",
+      "domain": "www.ch-confolens.fr",
+      "orgId": 4790,
+      "ip": "176.31.202.169",
+      "sourceUrl": "https://www.ch-confolens.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "160015053",
+      "dept": "16",
+      "domain": "laboratoires.cerballiance.fr",
+      "orgId": 4630,
+      "ip": "104.16.223.185",
+      "sourceUrl": "https://laboratoires.cerballiance.fr/nouvelle-aquitaine/barbezieux-saint-hilaire/zae-de-la-triquedondaine"
+    },
+    {
+      "kind": "finess",
+      "id": "330059809",
+      "dept": "33",
+      "domain": "villavalrose.lna-sante.com",
+      "orgId": 8977,
+      "ip": "217.147.204.81",
+      "sourceUrl": "https://villavalrose.lna-sante.com"
+    },
+    {
+      "kind": "finess",
+      "id": "160011094",
+      "dept": "16",
+      "domain": "www.pharmacieproud-magnac.fr",
+      "orgId": 4900,
+      "ip": "198.244.203.59",
+      "sourceUrl": "https://www.pharmacieproud-magnac.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "790011274",
+      "dept": "79",
+      "domain": "www.pharmacie-sauze-vaussais.com",
+      "orgId": 13006,
+      "ip": "185.46.230.25",
+      "sourceUrl": "https://www.pharmacie-sauze-vaussais.com"
+    },
+    {
+      "kind": "finess",
+      "id": "230000960",
+      "dept": "23",
+      "domain": "www.ch-lasouterraine.fr",
+      "orgId": 6961,
+      "ip": "195.154.21.94",
+      "sourceUrl": "https://www.ch-lasouterraine.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "160014908",
+      "dept": "16",
+      "domain": "www.laboffice.fr",
+      "orgId": 4547,
+      "ip": "195.214.225.132",
+      "sourceUrl": "https://www.laboffice.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "330781352",
+      "dept": "33",
+      "domain": "www.chu-bordeaux.fr",
+      "orgId": 8151,
+      "ip": "194.167.180.68",
+      "sourceUrl": "https://www.chu-bordeaux.fr/CHU-de-Bordeaux/H%C3%B4pitaux-et-sites-du-CHU/Groupe-hospitalier-Saint-Andr%C3%A9/"
+    },
+    {
+      "kind": "finess",
+      "id": "870011194",
+      "dept": "87",
+      "domain": "www.pharmacie-eymoutiers.fr",
+      "orgId": 13991,
+      "ip": "185.46.230.25",
+      "sourceUrl": "https://www.pharmacie-eymoutiers.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "330053158",
+      "dept": "33",
+      "domain": "www.biolab33.com",
+      "orgId": 7706,
+      "ip": "109.234.165.60",
+      "sourceUrl": "https://www.biolab33.com"
+    }
+  ]
+}

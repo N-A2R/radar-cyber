@@ -1,0 +1,387 @@
+{
+  "consultedAt": "2026-11-22T04:00:04.005Z",
+  "source": "data.inclusion SIRET / OSM ref:FR:FINESS; HTTP 200; DNS A",
+  "attribution": "data.inclusion (Licence Ouverte 2.0) and OpenStreetMap contributors (ODbL)",
+  "applied": true,
+  "onlyMissing": true,
+  "examined": 1899,
+  "eligible": 424,
+  "selected": 300,
+  "verified": 39,
+  "matched": 39,
+  "written": 39,
+  "measurement": {
+    "scope": "nouvelle-aquitaine",
+    "organisationsWithService": 9816,
+    "organisationsInScope": 1671906,
+    "services": 10711,
+    "bySource": {
+      "http-200": 1256,
+      "osm-http-200": 2941,
+      "rna-http-200": 522,
+      "dila-http-200": 1045,
+      "shodan-internetdb": 399,
+      "wikidata-http-200": 850,
+      "education-http-200": 733,
+      "osm-siret-http-200": 1677,
+      "site-zone-http-200": 381,
+      "registry-id-http-200": 781,
+      "wikidata-id-http-200": 86,
+      "administration-http-200": 40
+    },
+    "measuredAt": "2026-11-22T04:00:10.799Z"
+  },
+  "candidates": [
+    {
+      "kind": "finess",
+      "id": "400014890",
+      "dept": "40",
+      "domain": "polesantedesbastides.fr",
+      "orgId": 10449,
+      "ip": "185.2.4.46",
+      "sourceUrl": "https://polesantedesbastides.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "190012369",
+      "dept": "19",
+      "domain": "ch-brive.fr",
+      "orgId": 6484,
+      "ip": "145.239.174.146",
+      "sourceUrl": "https://ch-brive.fr/service/direction-deleguee-ehpad-pays-brive/"
+    },
+    {
+      "kind": "finess",
+      "id": "190007757",
+      "dept": "19",
+      "domain": "www.pharmaciereference.fr",
+      "orgId": 6324,
+      "ip": "13.227.173.6",
+      "sourceUrl": "https://www.pharmaciereference.fr/pharmacie/pharmacie-pont-cardinal"
+    },
+    {
+      "kind": "finess",
+      "id": "330030768",
+      "dept": "33",
+      "domain": "laboratoires.cerballiance.fr",
+      "orgId": 9358,
+      "ip": "104.16.219.185",
+      "sourceUrl": "https://laboratoires.cerballiance.fr/nouvelle-aquitaine/pessac/51-avenue-du-g%C3%A9n%C3%A9ral-leclerc"
+    },
+    {
+      "kind": "finess",
+      "id": "870016516",
+      "dept": "87",
+      "domain": "www.mutuelle-mbv.fr",
+      "orgId": 14011,
+      "ip": "92.222.179.23",
+      "sourceUrl": "https://www.mutuelle-mbv.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "330000589",
+      "dept": "33",
+      "domain": "www.ch-sudgironde.fr",
+      "orgId": 8934,
+      "ip": "109.234.167.151",
+      "sourceUrl": "https://www.ch-sudgironde.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "330038209",
+      "dept": "33",
+      "domain": "laboratoires.cerballiance.fr",
+      "orgId": 8178,
+      "ip": "104.16.220.185",
+      "sourceUrl": "https://laboratoires.cerballiance.fr/nouvelle-aquitaine/bordeaux/57-avenue-thiers"
+    },
+    {
+      "kind": "finess",
+      "id": "790011068",
+      "dept": "79",
+      "domain": "www.centre-commercial-champdeniers.fr",
+      "orgId": 12531,
+      "ip": "51.178.48.159",
+      "sourceUrl": "https://www.centre-commercial-champdeniers.fr/Commerces-et-services/pharmacie-s-chetouane/"
+    },
+    {
+      "kind": "finess",
+      "id": "170780043",
+      "dept": "17",
+      "domain": "www.croix-rouge.fr",
+      "orgId": 5650,
+      "ip": "185.94.140.73",
+      "sourceUrl": "https://www.croix-rouge.fr/soins-medicaux-et-de-readaptation-richelieu"
+    },
+    {
+      "kind": "finess",
+      "id": "330040643",
+      "dept": "33",
+      "domain": "www.lapharmaciebleue.fr",
+      "orgId": 7968,
+      "ip": "162.159.143.12",
+      "sourceUrl": "https://www.lapharmaciebleue.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "170023147",
+      "dept": "17",
+      "domain": "laboratoires.cerballiance.fr",
+      "orgId": 5530,
+      "ip": "104.16.223.185",
+      "sourceUrl": "https://laboratoires.cerballiance.fr/nouvelle-aquitaine/pons/117-rue-de-gazinac"
+    },
+    {
+      "kind": "finess",
+      "id": "190000026",
+      "dept": "19",
+      "domain": "www.ch-tulle.fr",
+      "orgId": 6624,
+      "ip": "95.142.164.200",
+      "sourceUrl": "https://www.ch-tulle.fr/fr/"
+    },
+    {
+      "kind": "finess",
+      "id": "870013976",
+      "dept": "87",
+      "domain": "mapharmacieleo.astera.coop",
+      "orgId": 14414,
+      "ip": "40.89.141.103",
+      "sourceUrl": "https://mapharmacieleo.astera.coop/Site/Details/9376"
+    },
+    {
+      "kind": "finess",
+      "id": "190012187",
+      "dept": "19",
+      "domain": "laboratoires.biogroup.fr",
+      "orgId": 6542,
+      "ip": "104.16.220.185",
+      "sourceUrl": "https://laboratoires.biogroup.fr/correze/objat/4-rue-jean-lagarde"
+    },
+    {
+      "kind": "finess",
+      "id": "160000253",
+      "dept": "16",
+      "domain": "www.ch-angouleme.fr",
+      "orgId": 5045,
+      "ip": "57.128.107.245",
+      "sourceUrl": "https://www.ch-angouleme.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "870011293",
+      "dept": "87",
+      "domain": "pharmacie-des-bayles.fr",
+      "orgId": 14017,
+      "ip": "91.208.207.223",
+      "sourceUrl": "https://pharmacie-des-bayles.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "160016309",
+      "dept": "16",
+      "domain": "www.elivie.fr",
+      "orgId": 5062,
+      "ip": "185.181.163.34",
+      "sourceUrl": "https://www.elivie.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "870012945",
+      "dept": "87",
+      "domain": "www.pharmacieseaux.fr",
+      "orgId": 14215,
+      "ip": "18.197.248.23",
+      "sourceUrl": "https://www.pharmacieseaux.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "330041997",
+      "dept": "33",
+      "domain": "pharmacie-saintecatherine.fr",
+      "orgId": 8138,
+      "ip": "217.182.172.198",
+      "sourceUrl": "https://pharmacie-saintecatherine.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "870017225",
+      "dept": "87",
+      "domain": "laboratoires.biogroup.fr",
+      "orgId": 14383,
+      "ip": "104.16.220.185",
+      "sourceUrl": "https://laboratoires.biogroup.fr/haute-vienne/saint-junien/5-square-dupuytren"
+    },
+    {
+      "kind": "finess",
+      "id": "170013841",
+      "dept": "17",
+      "domain": "www.pharmaciedumarche17.fr",
+      "orgId": 5741,
+      "ip": "142.251.39.211",
+      "sourceUrl": "https://www.pharmaciedumarche17.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "330042680",
+      "dept": "33",
+      "domain": "www.pharmacie-bastidienne.fr",
+      "orgId": 8295,
+      "ip": "141.95.207.28",
+      "sourceUrl": "https://www.pharmacie-bastidienne.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "330019209",
+      "dept": "33",
+      "domain": "www.groupe-mieuxvivre.fr",
+      "orgId": 8543,
+      "ip": "5.44.161.150",
+      "sourceUrl": "https://www.groupe-mieuxvivre.fr/nos-etablissements/residence-les-jardins-bellevue"
+    },
+    {
+      "kind": "finess",
+      "id": "860784602",
+      "dept": "86",
+      "domain": "ch-laborit.fr",
+      "orgId": 13565,
+      "ip": "37.58.163.74",
+      "sourceUrl": "https://ch-laborit.fr/nouveau-csapa-rassemble-prise-charge-ambulatoire-addictions-a-poitiers/"
+    },
+    {
+      "kind": "finess",
+      "id": "400010203",
+      "dept": "40",
+      "domain": "www.giropharm.fr",
+      "orgId": 10447,
+      "ip": "37.59.251.196",
+      "sourceUrl": "https://www.giropharm.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "470000027",
+      "dept": "47",
+      "domain": "www.elsan.care",
+      "orgId": 10542,
+      "ip": "46.105.200.5",
+      "sourceUrl": "https://www.elsan.care/fr/cesh"
+    },
+    {
+      "kind": "finess",
+      "id": "860000223",
+      "dept": "86",
+      "domain": "www.chu-poitiers.fr",
+      "orgId": 13557,
+      "ip": "51.83.127.41",
+      "sourceUrl": "https://www.chu-poitiers.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "470010562",
+      "dept": "47",
+      "domain": "les-pres-du-moulin.com",
+      "orgId": 10799,
+      "ip": "195.114.114.154",
+      "sourceUrl": "https://les-pres-du-moulin.com/index.php"
+    },
+    {
+      "kind": "finess",
+      "id": "330798588",
+      "dept": "33",
+      "domain": "www.ehpadlacdecalot.fr",
+      "orgId": 8522,
+      "ip": "93.90.205.188",
+      "sourceUrl": "https://www.ehpadlacdecalot.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "330047127",
+      "dept": "33",
+      "domain": "www.pharmaciedelacanau.fr",
+      "orgId": 8913,
+      "ip": "135.125.160.59",
+      "sourceUrl": "https://www.pharmaciedelacanau.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "330047192",
+      "dept": "33",
+      "domain": "www.mypharmactiv.fr",
+      "orgId": 8918,
+      "ip": "3.174.46.34",
+      "sourceUrl": "https://www.mypharmactiv.fr/pharmacie/pharmacieduhautmedoc"
+    },
+    {
+      "kind": "finess",
+      "id": "330035759",
+      "dept": "33",
+      "domain": "www.biolab33.com",
+      "orgId": 8998,
+      "ip": "109.234.165.60",
+      "sourceUrl": "https://www.biolab33.com"
+    },
+    {
+      "kind": "finess",
+      "id": "870003753",
+      "dept": "87",
+      "domain": "www.croix-rouge.fr",
+      "orgId": 14369,
+      "ip": "185.94.140.73",
+      "sourceUrl": "https://www.croix-rouge.fr/ehpad-chabatz-d-entrar"
+    },
+    {
+      "kind": "finess",
+      "id": "190012195",
+      "dept": "19",
+      "domain": "laboratoires.biogroup.fr",
+      "orgId": 6482,
+      "ip": "104.16.220.185",
+      "sourceUrl": "https://laboratoires.biogroup.fr/correze/malemort-sur-correze/35-avenue-marie-et-pierre-curie"
+    },
+    {
+      "kind": "finess",
+      "id": "170000129",
+      "dept": "17",
+      "domain": "www.ch-royan.fr",
+      "orgId": 5800,
+      "ip": "217.109.248.26",
+      "sourceUrl": "https://www.ch-royan.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "160010526",
+      "dept": "16",
+      "domain": "alphega-pharmacie.fr",
+      "orgId": 4573,
+      "ip": "20.126.37.253",
+      "sourceUrl": "https://alphega-pharmacie.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "790020309",
+      "dept": "79",
+      "domain": "www.melioris-association.fr",
+      "orgId": 12727,
+      "ip": "83.166.155.157",
+      "sourceUrl": "https://www.melioris-association.fr/les-centres-de-sante/melioris-centre-de-sante-champclairot-C42.html"
+    },
+    {
+      "kind": "finess",
+      "id": "330782749",
+      "dept": "33",
+      "domain": "www.maisonprotestante.fr",
+      "orgId": 8104,
+      "ip": "213.186.33.4",
+      "sourceUrl": "https://www.maisonprotestante.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "870011830",
+      "dept": "87",
+      "domain": "www.pharmanity.com",
+      "orgId": 14213,
+      "ip": "13.37.111.223",
+      "sourceUrl": "https://www.pharmanity.com/pharmacie/pharmacie-nougier-rateau-limoges-ph12937"
+    }
+  ]
+}

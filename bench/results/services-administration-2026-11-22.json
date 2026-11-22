@@ -1,0 +1,394 @@
+{
+  "consultedAt": "2026-11-22T03:11:29.975Z",
+  "source": "service-public.fr:api-lannuaire-administration; SIREN/INSEE; HTTP 200; DNS A",
+  "attribution": "Service-public.fr — Annuaire de l'administration (DILA)",
+  "applied": true,
+  "onlyMissing": true,
+  "examined": 3364,
+  "eligible": 208,
+  "selected": 208,
+  "verified": 44,
+  "matched": 40,
+  "written": 40,
+  "measurement": {
+    "scope": "nouvelle-aquitaine",
+    "organisationsWithService": 8954,
+    "organisationsInScope": 1671906,
+    "services": 9844,
+    "bySource": {
+      "http-200": 1256,
+      "osm-http-200": 2941,
+      "rna-http-200": 522,
+      "dila-http-200": 1045,
+      "shodan-internetdb": 399,
+      "wikidata-http-200": 850,
+      "education-http-200": 733,
+      "osm-siret-http-200": 1677,
+      "site-zone-http-200": 381,
+      "administration-http-200": 40
+    },
+    "measuredAt": "2026-11-22T03:11:40.635Z"
+  },
+  "candidates": [
+    {
+      "siren": "226400018",
+      "insee": "64484",
+      "dept": "64",
+      "domain": "le64.fr",
+      "orgId": 3508,
+      "ip": "87.98.187.73",
+      "sourceUrl": "https://le64.fr/trouvez-votre-service-departemental-le-plus-proche-de-chez-vous"
+    },
+    {
+      "siren": "200040830",
+      "insee": "24516",
+      "dept": "24",
+      "domain": "www.paysdefenelon.fr",
+      "orgId": 1792,
+      "ip": "213.186.33.24",
+      "sourceUrl": "https://www.paysdefenelon.fr"
+    },
+    {
+      "siren": "211907506",
+      "insee": "19075",
+      "dept": "19",
+      "domain": "espagnac.fr",
+      "orgId": 895,
+      "ip": "213.246.62.223",
+      "sourceUrl": "https://espagnac.fr"
+    },
+    {
+      "siren": "993746189",
+      "insee": "33106",
+      "dept": "33",
+      "domain": "www.castets-et-castillon.fr",
+      "orgId": 1959,
+      "ip": "92.175.16.160",
+      "sourceUrl": "https://www.castets-et-castillon.fr/mairie.html"
+    },
+    {
+      "siren": "213302045",
+      "insee": "33204",
+      "dept": "33",
+      "domain": "www.hure33.fr",
+      "orgId": 2055,
+      "ip": "92.175.16.137",
+      "sourceUrl": "https://www.hure33.fr"
+    },
+    {
+      "siren": "213303100",
+      "insee": "33310",
+      "dept": "33",
+      "domain": "www.origne33.fr",
+      "orgId": 2157,
+      "ip": "217.109.171.60",
+      "sourceUrl": "https://www.origne33.fr"
+    },
+    {
+      "siren": "213303860",
+      "insee": "33386",
+      "dept": "33",
+      "domain": "www.saint-cibard.fr",
+      "orgId": 2228,
+      "ip": "90.83.223.163",
+      "sourceUrl": "https://www.saint-cibard.fr"
+    },
+    {
+      "siren": "261925903",
+      "insee": "19259",
+      "dept": "19",
+      "domain": "sexcles.sitew.fr",
+      "orgId": 1070,
+      "ip": "188.165.156.233",
+      "sourceUrl": "https://sexcles.sitew.fr"
+    },
+    {
+      "siren": "213301989",
+      "insee": "33198",
+      "dept": "33",
+      "domain": "xn--gutres-cwa.fr",
+      "orgId": 2049,
+      "ip": "146.59.209.152",
+      "sourceUrl": "https://xn--gutres-cwa.fr"
+    },
+    {
+      "siren": "213301849",
+      "insee": "33184",
+      "dept": "33",
+      "domain": "www.generac33.fr",
+      "orgId": 2035,
+      "ip": "217.109.171.31",
+      "sourceUrl": "http://www.generac33.fr"
+    },
+    {
+      "siren": "211923404",
+      "insee": "19234",
+      "dept": "19",
+      "domain": "www.saint-pardoux-lortigier.com",
+      "orgId": 1045,
+      "ip": "162.159.143.12",
+      "sourceUrl": "https://www.saint-pardoux-lortigier.com"
+    },
+    {
+      "siren": "211704457",
+      "insee": "17445",
+      "dept": "17",
+      "domain": "xn--thzac17-cya.fr",
+      "orgId": 782,
+      "ip": "51.91.236.193",
+      "sourceUrl": "https://xn--thzac17-cya.fr"
+    },
+    {
+      "siren": "243301397",
+      "insee": "33414",
+      "dept": "33",
+      "domain": "www.cdc-fronsadais.com",
+      "orgId": 2254,
+      "ip": "90.83.97.36",
+      "sourceUrl": "https://www.cdc-fronsadais.com"
+    },
+    {
+      "siren": "211603089",
+      "insee": "16308",
+      "dept": "16",
+      "domain": "www.saintclaud.fr",
+      "orgId": 265,
+      "ip": "199.34.228.74",
+      "sourceUrl": "https://www.saintclaud.fr"
+    },
+    {
+      "siren": "211900402",
+      "insee": "19004",
+      "dept": "19",
+      "domain": "www.albussac.fr",
+      "orgId": 825,
+      "ip": "193.104.36.152",
+      "sourceUrl": "https://www.albussac.fr"
+    },
+    {
+      "siren": "214702201",
+      "insee": "47220",
+      "dept": "47",
+      "domain": "www.mairiederazimet.fr",
+      "orgId": 2933,
+      "ip": "172.217.22.51",
+      "sourceUrl": "https://www.mairiederazimet.fr"
+    },
+    {
+      "siren": "261701213",
+      "insee": "17037",
+      "dept": "17",
+      "domain": "www.beauvais-sur-matha.fr",
+      "orgId": 394,
+      "ip": "51.91.236.255",
+      "sourceUrl": "https://www.beauvais-sur-matha.fr"
+    },
+    {
+      "siren": "211919501",
+      "insee": "19195",
+      "dept": "19",
+      "domain": "www.saint-cyprien.fr",
+      "orgId": 1011,
+      "ip": "193.104.36.152",
+      "sourceUrl": "https://www.saint-cyprien.fr"
+    },
+    {
+      "siren": "268600681",
+      "insee": "86121",
+      "dept": "86",
+      "domain": "www.latille.fr",
+      "orgId": 3944,
+      "ip": "54.36.122.24",
+      "sourceUrl": "https://www.latille.fr/ccas/"
+    },
+    {
+      "siren": "261704696",
+      "insee": "17448",
+      "dept": "17",
+      "domain": "www.mairie-tonnayboutonne.fr",
+      "orgId": 785,
+      "ip": "95.128.74.147",
+      "sourceUrl": "https://www.mairie-tonnayboutonne.fr"
+    },
+    {
+      "siren": "268603990",
+      "insee": "86020",
+      "dept": "86",
+      "domain": "bellefonds.fr",
+      "orgId": 3853,
+      "ip": "46.18.231.100",
+      "sourceUrl": "https://bellefonds.fr/mairie/ccas/"
+    },
+    {
+      "siren": "261600910",
+      "insee": "16196",
+      "dept": "16",
+      "domain": "www.mairie-luxe.fr",
+      "orgId": 174,
+      "ip": "91.121.40.89",
+      "sourceUrl": "https://www.mairie-luxe.fr"
+    },
+    {
+      "siren": "216401232",
+      "insee": "64123",
+      "dept": "64",
+      "domain": "www.bidache.fr",
+      "orgId": 3155,
+      "ip": "84.234.22.175",
+      "sourceUrl": "https://www.bidache.fr"
+    },
+    {
+      "siren": "261702906",
+      "insee": "17239",
+      "dept": "17",
+      "domain": "mairie-mons.com",
+      "orgId": 586,
+      "ip": "213.186.33.2",
+      "sourceUrl": "https://mairie-mons.com/vie-municipale/le-centre-communal-daction-sociale-ccas/"
+    },
+    {
+      "siren": "211901806",
+      "insee": "19018",
+      "dept": "19",
+      "domain": "www.bassignac-le-haut.fr",
+      "orgId": 839,
+      "ip": "193.104.36.152",
+      "sourceUrl": "https://www.bassignac-le-haut.fr"
+    },
+    {
+      "siren": "848501821",
+      "insee": "33075",
+      "dept": "33",
+      "domain": "www.conseil-national.medecin.fr",
+      "orgId": 498672,
+      "ip": "51.44.106.214",
+      "sourceUrl": "https://www.conseil-national.medecin.fr/contacts-ordre-des-medecins/nouvelle-aquitaine"
+    },
+    {
+      "siren": "263305278",
+      "insee": "33539",
+      "dept": "33",
+      "domain": "www.mairie-vayres.com",
+      "orgId": 2374,
+      "ip": "92.222.139.190",
+      "sourceUrl": "https://www.mairie-vayres.com/Centre-Communal-d-Action-Sociale"
+    },
+    {
+      "siren": "211916200",
+      "insee": "19162",
+      "dept": "19",
+      "domain": "www.perpezaclenoir.fr",
+      "orgId": 980,
+      "ip": "193.104.36.152",
+      "sourceUrl": "https://www.perpezaclenoir.fr"
+    },
+    {
+      "siren": "214700296",
+      "insee": "47029",
+      "dept": "47",
+      "domain": "www.blanquefort-sur-briolance.fr",
+      "orgId": 2746,
+      "ip": "51.159.191.117",
+      "sourceUrl": "https://www.blanquefort-sur-briolance.fr"
+    },
+    {
+      "siren": "268603859",
+      "insee": "86224",
+      "dept": "86",
+      "domain": "saintgervaislestroisclochers.fr",
+      "orgId": 4034,
+      "ip": "109.234.160.117",
+      "sourceUrl": "https://saintgervaislestroisclochers.fr/ma-ville/services-municipaux/"
+    },
+    {
+      "siren": "218600427",
+      "insee": "86042",
+      "dept": "86",
+      "domain": "www.buxeuil.fr",
+      "orgId": 3872,
+      "ip": "46.235.20.168",
+      "sourceUrl": "https://www.buxeuil.fr"
+    },
+    {
+      "siren": "213300874",
+      "insee": "33087",
+      "dept": "33",
+      "domain": "www.camiran.fr",
+      "orgId": 1942,
+      "ip": "217.109.171.86",
+      "sourceUrl": "https://www.camiran.fr"
+    },
+    {
+      "siren": "213300940",
+      "insee": "33094",
+      "dept": "33",
+      "domain": "www.caplong33.fr",
+      "orgId": 1947,
+      "ip": "185.124.203.250",
+      "sourceUrl": "https://www.caplong33.fr"
+    },
+    {
+      "siren": "218602571",
+      "insee": "86257",
+      "dept": "86",
+      "domain": "www.savigny-sous-faye.fr",
+      "orgId": 4061,
+      "ip": "51.83.88.67",
+      "sourceUrl": "https://www.savigny-sous-faye.fr"
+    },
+    {
+      "siren": "244701355",
+      "insee": "47114",
+      "dept": "47",
+      "domain": "cc-coteaux-landes-gascogne.fr",
+      "orgId": 2831,
+      "ip": "164.132.235.17",
+      "sourceUrl": "https://cc-coteaux-landes-gascogne.fr"
+    },
+    {
+      "siren": "211601992",
+      "insee": "16199",
+      "dept": "16",
+      "domain": "www.magnacsurtouvre.fr",
+      "orgId": 177,
+      "ip": "93.95.60.50",
+      "sourceUrl": "https://www.magnacsurtouvre.fr"
+    },
+    {
+      "siren": "262400971",
+      "insee": "24102",
+      "dept": "24",
+      "domain": "www.mairie-chancelade.fr",
+      "orgId": 1439,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://www.mairie-chancelade.fr/mairie-chancelade/services-municipaux/social/"
+    },
+    {
+      "siren": "211927009",
+      "insee": "19270",
+      "dept": "19",
+      "domain": "www.troche.fr",
+      "orgId": 1080,
+      "ip": "193.36.182.21",
+      "sourceUrl": "http://www.troche.fr"
+    },
+    {
+      "siren": "213304181",
+      "insee": "33418",
+      "dept": "33",
+      "domain": "www.sainthilairedelanoaille.fr",
+      "orgId": 2258,
+      "ip": "90.83.223.156",
+      "sourceUrl": "https://www.sainthilairedelanoaille.fr"
+    },
+    {
+      "siren": "243301454",
+      "insee": "33108",
+      "dept": "33",
+      "domain": "www.castillonpujols.fr",
+      "orgId": 1960,
+      "ip": "162.159.128.70",
+      "sourceUrl": "https://www.castillonpujols.fr"
+    }
+  ]
+}

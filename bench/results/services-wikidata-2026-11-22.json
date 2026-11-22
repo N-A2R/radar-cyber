@@ -1,0 +1,5960 @@
+{
+  "consultedAt": "2026-11-22T01:01:59.373Z",
+  "source": "wikidata:P856+P374; HEAD/GET 200; dns A",
+  "sites": 2895,
+  "verified": 858,
+  "matched": 850,
+  "written": 850,
+  "candidates": [
+    {
+      "insee": "16011",
+      "domain": "mairie-anais.fr",
+      "orgId": 8,
+      "ip": "91.121.40.89",
+      "sourceUrl": "https://www.mairie-anais.fr"
+    },
+    {
+      "insee": "16124",
+      "domain": "ecuras.fr",
+      "orgId": 111,
+      "ip": "109.234.167.162",
+      "sourceUrl": "https://www.ecuras.fr"
+    },
+    {
+      "insee": "64220",
+      "domain": "estos.fr",
+      "orgId": 3249,
+      "ip": "46.18.231.23",
+      "sourceUrl": "https://estos.fr"
+    },
+    {
+      "insee": "33527",
+      "domain": "leteich.fr",
+      "orgId": 2362,
+      "ip": "46.105.204.27",
+      "sourceUrl": "https://leteich.fr"
+    },
+    {
+      "insee": "33017",
+      "domain": "aubiac33.fr",
+      "orgId": 1873,
+      "ip": "92.175.99.144",
+      "sourceUrl": "https://www.aubiac33.fr"
+    },
+    {
+      "insee": "33384",
+      "domain": "mairie-saint-christophe-des-bardes.com",
+      "orgId": 2226,
+      "ip": "185.221.182.125",
+      "sourceUrl": "https://www.mairie-saint-christophe-des-bardes.com"
+    },
+    {
+      "insee": "87083",
+      "domain": "mairiedelauriere.fr",
+      "orgId": 4178,
+      "ip": "109.234.165.226",
+      "sourceUrl": "https://www.mairiedelauriere.fr"
+    },
+    {
+      "insee": "86144",
+      "domain": "maisonneuve86.free.fr",
+      "orgId": 3967,
+      "ip": "212.27.63.130",
+      "sourceUrl": "http://maisonneuve86.free.fr"
+    },
+    {
+      "insee": "64184",
+      "domain": "cescau.fr",
+      "orgId": 3213,
+      "ip": "217.160.0.231",
+      "sourceUrl": "http://www.cescau.fr"
+    },
+    {
+      "insee": "64525",
+      "domain": "siros.fr",
+      "orgId": 3548,
+      "ip": "51.91.236.193",
+      "sourceUrl": "https://www.siros.fr"
+    },
+    {
+      "insee": "64331",
+      "domain": "mairie-lembeye.fr",
+      "orgId": 3358,
+      "ip": "109.234.166.109",
+      "sourceUrl": "https://www.mairie-lembeye.fr"
+    },
+    {
+      "insee": "47242",
+      "domain": "fumelvalleedulot.com",
+      "orgId": 2955,
+      "ip": "195.214.226.210",
+      "sourceUrl": "https://www.fumelvalleedulot.com/fr/page/149/st-front-sur-lemance"
+    },
+    {
+      "insee": "47108",
+      "domain": "gaujac47.fr",
+      "orgId": 2825,
+      "ip": "51.178.112.113",
+      "sourceUrl": "http://www.gaujac47.fr"
+    },
+    {
+      "insee": "47099",
+      "domain": "fongrave.fr",
+      "orgId": 2816,
+      "ip": "213.186.33.5",
+      "sourceUrl": "https://www.fongrave.fr"
+    },
+    {
+      "insee": "40251",
+      "domain": "saintbarthelemy40.com",
+      "orgId": 2635,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.saintbarthelemy40.com"
+    },
+    {
+      "insee": "40089",
+      "domain": "doazit.fr",
+      "orgId": 2475,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.doazit.fr"
+    },
+    {
+      "insee": "47301",
+      "domain": "mairie-seyches.fr",
+      "orgId": 3010,
+      "ip": "78.40.10.87",
+      "sourceUrl": "https://mairie-seyches.fr"
+    },
+    {
+      "insee": "17253",
+      "domain": "muron.fr",
+      "orgId": 599,
+      "ip": "37.59.230.98",
+      "sourceUrl": "https://www.muron.fr"
+    },
+    {
+      "insee": "23176",
+      "domain": "ville-lasouterraine.fr",
+      "orgId": 1265,
+      "ip": "188.165.37.84",
+      "sourceUrl": "https://www.ville-lasouterraine.fr"
+    },
+    {
+      "insee": "23013",
+      "domain": "ville-auzances.fr",
+      "orgId": 1111,
+      "ip": "54.37.149.18",
+      "sourceUrl": "https://www.ville-auzances.fr"
+    },
+    {
+      "insee": "16359",
+      "domain": "sallesdangles.com",
+      "orgId": 302,
+      "ip": "185.221.181.104",
+      "sourceUrl": "https://sallesdangles.com"
+    },
+    {
+      "insee": "17127",
+      "domain": "courcon.fr",
+      "orgId": 479,
+      "ip": "37.59.244.26",
+      "sourceUrl": "https://www.courcon.fr"
+    },
+    {
+      "insee": "24164",
+      "domain": "excideuil.fr",
+      "orgId": 1495,
+      "ip": "83.228.239.107",
+      "sourceUrl": "http://www.excideuil.fr"
+    },
+    {
+      "insee": "23141",
+      "domain": "naillat.fr",
+      "orgId": 1233,
+      "ip": "51.91.236.193",
+      "sourceUrl": "https://naillat.fr"
+    },
+    {
+      "insee": "17139",
+      "domain": "doeuil-sur-le-mignon.fr",
+      "orgId": 491,
+      "ip": "178.33.94.125",
+      "sourceUrl": "https://www.doeuil-sur-le-mignon.fr"
+    },
+    {
+      "insee": "24350",
+      "domain": "razacsurlisle.fr",
+      "orgId": 1649,
+      "ip": "5.196.51.243",
+      "sourceUrl": "https://razacsurlisle.fr"
+    },
+    {
+      "insee": "17093",
+      "domain": "lechateaudoleron.fr",
+      "orgId": 447,
+      "ip": "212.83.155.7",
+      "sourceUrl": "https://www.lechateaudoleron.fr"
+    },
+    {
+      "insee": "24490",
+      "domain": "saint-privat-en-perigord.fr",
+      "orgId": 1769,
+      "ip": "162.159.128.70",
+      "sourceUrl": "https://www.saint-privat-en-perigord.fr"
+    },
+    {
+      "insee": "86165",
+      "domain": "montmorillon.fr",
+      "orgId": 3986,
+      "ip": "54.37.122.20",
+      "sourceUrl": "https://www.montmorillon.fr"
+    },
+    {
+      "insee": "79270",
+      "domain": "saint-maixent-lecole.fr",
+      "orgId": 3771,
+      "ip": "109.234.164.218",
+      "sourceUrl": "https://www.saint-maixent-lecole.fr"
+    },
+    {
+      "insee": "33194",
+      "domain": "mairie-grezillac.fr",
+      "orgId": 2045,
+      "ip": "90.83.223.212",
+      "sourceUrl": "https://www.mairie-grezillac.fr"
+    },
+    {
+      "insee": "24489",
+      "domain": "saintpriestlesfougeres.fr",
+      "orgId": 1768,
+      "ip": "83.228.239.107",
+      "sourceUrl": "https://www.saintpriestlesfougeres.fr"
+    },
+    {
+      "insee": "33034",
+      "domain": "commune-bayas.fr",
+      "orgId": 1890,
+      "ip": "46.18.231.23",
+      "sourceUrl": "https://commune-bayas.fr"
+    },
+    {
+      "insee": "24331",
+      "domain": "pomport.com",
+      "orgId": 1635,
+      "ip": "54.38.109.194",
+      "sourceUrl": "https://pomport.com"
+    },
+    {
+      "insee": "23095",
+      "domain": "legrandbourg.fr",
+      "orgId": 1190,
+      "ip": "51.178.112.113",
+      "sourceUrl": "http://www.legrandbourg.fr"
+    },
+    {
+      "insee": "23189",
+      "domain": "stdiziermasbaraud.fr",
+      "orgId": 1278,
+      "ip": "54.37.151.19",
+      "sourceUrl": "https://www.stdiziermasbaraud.fr"
+    },
+    {
+      "insee": "40088",
+      "domain": "dax.fr",
+      "orgId": 2474,
+      "ip": "109.234.164.182",
+      "sourceUrl": "https://www.dax.fr"
+    },
+    {
+      "insee": "33160",
+      "domain": "eynesse.gironde.free.fr",
+      "orgId": 2011,
+      "ip": "212.27.63.112",
+      "sourceUrl": "http://eynesse.gironde.free.fr"
+    },
+    {
+      "insee": "40277",
+      "domain": "saint-pandelon.fr",
+      "orgId": 2661,
+      "ip": "46.218.208.133",
+      "sourceUrl": "https://www.saint-pandelon.fr"
+    },
+    {
+      "insee": "40252",
+      "domain": "sainte-colombe40.fr",
+      "orgId": 2636,
+      "ip": "46.218.208.133",
+      "sourceUrl": "https://www.sainte-colombe40.fr"
+    },
+    {
+      "insee": "16295",
+      "domain": "saintamantdeboixe.fr",
+      "orgId": 255,
+      "ip": "213.186.33.5",
+      "sourceUrl": "http://www.saintamantdeboixe.fr"
+    },
+    {
+      "insee": "87073",
+      "domain": "mairiedegorre.fr",
+      "orgId": 4168,
+      "ip": "185.58.213.29",
+      "sourceUrl": "https://www.mairiedegorre.fr"
+    },
+    {
+      "insee": "64086",
+      "domain": "ayherre.fr",
+      "orgId": 3118,
+      "ip": "195.154.21.95",
+      "sourceUrl": "http://www.ayherre.fr"
+    },
+    {
+      "insee": "64348",
+      "domain": "mairie-lons.fr",
+      "orgId": 3374,
+      "ip": "109.234.164.166",
+      "sourceUrl": "https://www.mairie-lons.fr"
+    },
+    {
+      "insee": "40182",
+      "domain": "mezos.fr",
+      "orgId": 2567,
+      "ip": "46.218.208.133",
+      "sourceUrl": "https://www.mezos.fr"
+    },
+    {
+      "insee": "40167",
+      "domain": "luxey.fr",
+      "orgId": 2552,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.luxey.fr"
+    },
+    {
+      "insee": "33405",
+      "domain": "saintgenesdeblaye.fr",
+      "orgId": 2247,
+      "ip": "109.234.166.116",
+      "sourceUrl": "https://saintgenesdeblaye.fr"
+    },
+    {
+      "insee": "47267",
+      "domain": "saintpierredebuzet.com",
+      "orgId": 2978,
+      "ip": "46.18.231.100",
+      "sourceUrl": "https://saintpierredebuzet.com"
+    },
+    {
+      "insee": "33128",
+      "domain": "mairie-civrac-en-medoc.fr",
+      "orgId": 1979,
+      "ip": "212.83.158.154",
+      "sourceUrl": "https://www.mairie-civrac-en-medoc.fr"
+    },
+    {
+      "insee": "47309",
+      "domain": "tombeboeuf.fr",
+      "orgId": 3018,
+      "ip": "57.130.28.38",
+      "sourceUrl": "https://www.tombeboeuf.fr"
+    },
+    {
+      "insee": "40234",
+      "domain": "pouydesseaux.fr",
+      "orgId": 2619,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.pouydesseaux.fr"
+    },
+    {
+      "insee": "19026",
+      "domain": "bilhac.fr",
+      "orgId": 847,
+      "ip": "198.49.23.144",
+      "sourceUrl": "https://bilhac.fr"
+    },
+    {
+      "insee": "19171",
+      "domain": "reygades.fr",
+      "orgId": 989,
+      "ip": "188.165.33.133",
+      "sourceUrl": "https://www.reygades.fr"
+    },
+    {
+      "insee": "17204",
+      "domain": "communedeleoville.fr",
+      "orgId": 552,
+      "ip": "104.247.81.99",
+      "sourceUrl": "http://www.communedeleoville.fr"
+    },
+    {
+      "insee": "16073",
+      "domain": "chalais.net",
+      "orgId": 64,
+      "ip": "185.98.131.207",
+      "sourceUrl": "http://www.chalais.net"
+    },
+    {
+      "insee": "16341",
+      "domain": "stmichel-entraygues.fr",
+      "orgId": 287,
+      "ip": "93.95.60.50",
+      "sourceUrl": "http://www.stmichel-entraygues.fr"
+    },
+    {
+      "insee": "16246",
+      "domain": "nonac.fr",
+      "orgId": 216,
+      "ip": "109.234.160.140",
+      "sourceUrl": "http://www.nonac.fr"
+    },
+    {
+      "insee": "33451",
+      "domain": "saint-michel-de-fronsac.fr",
+      "orgId": 2290,
+      "ip": "15.197.187.84",
+      "sourceUrl": "https://www.saint-michel-de-fronsac.fr"
+    },
+    {
+      "insee": "47190",
+      "domain": "montpezat-agenais.com",
+      "orgId": 2903,
+      "ip": "213.186.33.17",
+      "sourceUrl": "https://montpezat-agenais.com"
+    },
+    {
+      "insee": "40295",
+      "domain": "saugnacetmuret.fr",
+      "orgId": 2679,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.saugnacetmuret.fr"
+    },
+    {
+      "insee": "33105",
+      "domain": "castelviel.fr",
+      "orgId": 1958,
+      "ip": "185.221.182.3",
+      "sourceUrl": "http://www.castelviel.fr"
+    },
+    {
+      "insee": "17019",
+      "domain": "arsenre.fr",
+      "orgId": 376,
+      "ip": "37.59.244.21",
+      "sourceUrl": "https://www.arsenre.fr"
+    },
+    {
+      "insee": "16180",
+      "domain": "laprade16.fr",
+      "orgId": 158,
+      "ip": "109.234.160.140",
+      "sourceUrl": "http://www.laprade16.fr"
+    },
+    {
+      "insee": "17195",
+      "domain": "lajarrieaudouin.monclocher.com",
+      "orgId": 543,
+      "ip": "54.37.41.233",
+      "sourceUrl": "http://lajarrieaudouin.monclocher.com"
+    },
+    {
+      "insee": "17412",
+      "domain": "commune-saint-vaize.fr",
+      "orgId": 750,
+      "ip": "5.196.111.251",
+      "sourceUrl": "https://www.commune-saint-vaize.fr"
+    },
+    {
+      "insee": "40068",
+      "domain": "cassen.fr",
+      "orgId": 2454,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.cassen.fr"
+    },
+    {
+      "insee": "79105",
+      "domain": "mairiedeschateliers.fr",
+      "orgId": 3653,
+      "ip": "3.11.118.252",
+      "sourceUrl": "https://mairiedeschateliers.fr"
+    },
+    {
+      "insee": "40002",
+      "domain": "amou.fr",
+      "orgId": 2392,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.amou.fr"
+    },
+    {
+      "insee": "33167",
+      "domain": "floirac.fr",
+      "orgId": 2018,
+      "ip": "178.33.6.78",
+      "sourceUrl": "https://www.floirac.fr"
+    },
+    {
+      "insee": "33062",
+      "domain": "bonzac.fr",
+      "orgId": 1917,
+      "ip": "46.18.231.23",
+      "sourceUrl": "https://bonzac.fr"
+    },
+    {
+      "insee": "24415",
+      "domain": "saintgerauddecorps.fr",
+      "orgId": 1705,
+      "ip": "51.91.236.255",
+      "sourceUrl": "https://www.saintgerauddecorps.fr"
+    },
+    {
+      "insee": "33253",
+      "domain": "commune-loupiac33.fr",
+      "orgId": 2103,
+      "ip": "164.132.235.17",
+      "sourceUrl": "http://www.commune-loupiac33.fr"
+    },
+    {
+      "insee": "33541",
+      "domain": "vensac-medoc.com",
+      "orgId": 2376,
+      "ip": "46.18.208.23",
+      "sourceUrl": "http://www.vensac-medoc.com"
+    },
+    {
+      "insee": "24472",
+      "domain": "saintnexans.com",
+      "orgId": 1752,
+      "ip": "188.114.97.2",
+      "sourceUrl": "https://www.saintnexans.com"
+    },
+    {
+      "insee": "33119",
+      "domain": "cenon.fr",
+      "orgId": 1970,
+      "ip": "91.134.4.34",
+      "sourceUrl": "https://www.cenon.fr"
+    },
+    {
+      "insee": "17271",
+      "domain": "paille17.fr",
+      "orgId": 617,
+      "ip": "46.202.174.115",
+      "sourceUrl": "https://www.paille17.fr"
+    },
+    {
+      "insee": "33402",
+      "domain": "saintefoylagrande.fr",
+      "orgId": 2244,
+      "ip": "92.175.16.215",
+      "sourceUrl": "https://www.saintefoylagrande.fr"
+    },
+    {
+      "insee": "33096",
+      "domain": "carbon-blanc.fr",
+      "orgId": 1949,
+      "ip": "195.214.226.74",
+      "sourceUrl": "https://www.carbon-blanc.fr"
+    },
+    {
+      "insee": "33320",
+      "domain": "mairie-petit-palais-et-cornemps.fr",
+      "orgId": 2166,
+      "ip": "185.2.4.98",
+      "sourceUrl": "https://www.mairie-petit-palais-et-cornemps.fr"
+    },
+    {
+      "insee": "16162",
+      "domain": "gurat.fr",
+      "orgId": 142,
+      "ip": "164.132.235.17",
+      "sourceUrl": "https://gurat.fr"
+    },
+    {
+      "insee": "24297",
+      "domain": "moulinneuf.fr",
+      "orgId": 1605,
+      "ip": "213.186.33.5",
+      "sourceUrl": "https://www.moulinneuf.fr"
+    },
+    {
+      "insee": "16399",
+      "domain": "lapagelocale.fr",
+      "orgId": 337,
+      "ip": "213.186.33.40",
+      "sourceUrl": "https://lapagelocale.fr/16130-verrieres"
+    },
+    {
+      "insee": "87149",
+      "domain": "saint-hilaire-la-treille.fr",
+      "orgId": 4241,
+      "ip": "54.37.151.19",
+      "sourceUrl": "https://www.saint-hilaire-la-treille.fr"
+    },
+    {
+      "insee": "87031",
+      "domain": "lechalard.fr",
+      "orgId": 4127,
+      "ip": "109.234.162.103",
+      "sourceUrl": "https://www.lechalard.fr"
+    },
+    {
+      "insee": "79213",
+      "domain": "pompaire.fr",
+      "orgId": 3734,
+      "ip": "194.250.166.150",
+      "sourceUrl": "https://pompaire.fr"
+    },
+    {
+      "insee": "24269",
+      "domain": "miallet.fr",
+      "orgId": 1580,
+      "ip": "109.234.162.103",
+      "sourceUrl": "https://www.miallet.fr"
+    },
+    {
+      "insee": "19239",
+      "domain": "saintrobert.fr",
+      "orgId": 1050,
+      "ip": "213.186.33.40",
+      "sourceUrl": "http://www.saintrobert.fr"
+    },
+    {
+      "insee": "87100",
+      "domain": "montrol-senard.com",
+      "orgId": 4194,
+      "ip": "88.222.222.168",
+      "sourceUrl": "https://montrol-senard.com"
+    },
+    {
+      "insee": "33255",
+      "domain": "lucmau.fr",
+      "orgId": 2105,
+      "ip": "75.2.97.104",
+      "sourceUrl": "https://www.lucmau.fr"
+    },
+    {
+      "insee": "64189",
+      "domain": "mairie-ciboure.fr",
+      "orgId": 3218,
+      "ip": "84.234.22.175",
+      "sourceUrl": "https://mairie-ciboure.fr"
+    },
+    {
+      "insee": "17094",
+      "domain": "chatelaillonplage.fr",
+      "orgId": 448,
+      "ip": "91.121.52.83",
+      "sourceUrl": "https://www.chatelaillonplage.fr"
+    },
+    {
+      "insee": "86270",
+      "domain": "intramuros.org",
+      "orgId": 4072,
+      "ip": "15.236.79.68",
+      "sourceUrl": "https://www.intramuros.org/thollet"
+    },
+    {
+      "insee": "79276",
+      "domain": "saintmartindesaintmaixent.fr",
+      "orgId": 3775,
+      "ip": "46.105.156.177",
+      "sourceUrl": "https://saintmartindesaintmaixent.fr/fr/"
+    },
+    {
+      "insee": "24466",
+      "domain": "saintmicheldemontaigne.fr",
+      "orgId": 1748,
+      "ip": "109.234.166.178",
+      "sourceUrl": "https://saintmicheldemontaigne.fr"
+    },
+    {
+      "insee": "19222",
+      "domain": "stmartinlameanne.fr",
+      "orgId": 1036,
+      "ip": "185.154.138.189",
+      "sourceUrl": "https://stmartinlameanne.fr"
+    },
+    {
+      "insee": "16331",
+      "domain": "saint-laurent-des-combes.fr",
+      "orgId": 279,
+      "ip": "217.160.0.73",
+      "sourceUrl": "http://www.saint-laurent-des-combes.fr"
+    },
+    {
+      "insee": "23087",
+      "domain": "paysdunois.fr",
+      "orgId": 1183,
+      "ip": "46.105.204.5",
+      "sourceUrl": "https://paysdunois.fr"
+    },
+    {
+      "insee": "24454",
+      "domain": "saint-martin-de-gurson.fr",
+      "orgId": 1736,
+      "ip": "91.121.57.171",
+      "sourceUrl": "https://www.saint-martin-de-gurson.fr"
+    },
+    {
+      "insee": "24569",
+      "domain": "vendoire.fr",
+      "orgId": 1841,
+      "ip": "109.234.164.184",
+      "sourceUrl": "https://vendoire.fr"
+    },
+    {
+      "insee": "79202",
+      "domain": "parthenay.fr",
+      "orgId": 3727,
+      "ip": "194.250.166.150",
+      "sourceUrl": "https://www.parthenay.fr"
+    },
+    {
+      "insee": "79066",
+      "domain": "champdeniers.fr",
+      "orgId": 3624,
+      "ip": "164.132.235.17",
+      "sourceUrl": "https://www.champdeniers.fr"
+    },
+    {
+      "insee": "33549",
+      "domain": "villenavederions.fr",
+      "orgId": 2384,
+      "ip": "217.160.0.63",
+      "sourceUrl": "https://www.villenavederions.fr"
+    },
+    {
+      "insee": "24172",
+      "domain": "leseyzies.fr",
+      "orgId": 1500,
+      "ip": "51.15.217.235",
+      "sourceUrl": "http://www.leseyzies.fr"
+    },
+    {
+      "insee": "24474",
+      "domain": "st-pancrace.fr",
+      "orgId": 1754,
+      "ip": "51.91.236.255",
+      "sourceUrl": "https://st-pancrace.fr"
+    },
+    {
+      "insee": "33043",
+      "domain": "bellebat.fr",
+      "orgId": 1898,
+      "ip": "92.175.99.129",
+      "sourceUrl": "https://www.bellebat.fr"
+    },
+    {
+      "insee": "33417",
+      "domain": "saintehelene.fr",
+      "orgId": 2257,
+      "ip": "217.160.0.202",
+      "sourceUrl": "https://www.saintehelene.fr"
+    },
+    {
+      "insee": "23164",
+      "domain": "rougnat.fr",
+      "orgId": 1253,
+      "ip": "51.178.112.113",
+      "sourceUrl": "http://www.rougnat.fr"
+    },
+    {
+      "insee": "23195",
+      "domain": "saintfiel.fr",
+      "orgId": 1284,
+      "ip": "213.186.33.16",
+      "sourceUrl": "https://www.saintfiel.fr"
+    },
+    {
+      "insee": "23192",
+      "domain": "commune-fursac.fr",
+      "orgId": 1281,
+      "ip": "46.105.204.23",
+      "sourceUrl": "https://www.commune-fursac.fr"
+    },
+    {
+      "insee": "17213",
+      "domain": "lozay.fr",
+      "orgId": 561,
+      "ip": "188.165.59.61",
+      "sourceUrl": "https://www.lozay.fr"
+    },
+    {
+      "insee": "16158",
+      "domain": "grassac.fr",
+      "orgId": 139,
+      "ip": "217.160.0.246",
+      "sourceUrl": "https://grassac.fr"
+    },
+    {
+      "insee": "16169",
+      "domain": "mairie.javrezac.free.fr",
+      "orgId": 149,
+      "ip": "212.27.63.153",
+      "sourceUrl": "http://mairie.javrezac.free.fr"
+    },
+    {
+      "insee": "17222",
+      "domain": "marsilly.fr",
+      "orgId": 570,
+      "ip": "37.59.230.98",
+      "sourceUrl": "https://www.marsilly.fr"
+    },
+    {
+      "insee": "17136",
+      "domain": "croix-chapeau.fr",
+      "orgId": 488,
+      "ip": "37.59.230.98",
+      "sourceUrl": "https://www.croix-chapeau.fr"
+    },
+    {
+      "insee": "17174",
+      "domain": "genouille17.fr",
+      "orgId": 523,
+      "ip": "37.59.230.98",
+      "sourceUrl": "https://www.genouille17.fr"
+    },
+    {
+      "insee": "47173",
+      "domain": "mairie-monclar47.fr",
+      "orgId": 2886,
+      "ip": "162.159.128.70",
+      "sourceUrl": "https://www.mairie-monclar47.fr"
+    },
+    {
+      "insee": "47246",
+      "domain": "sainthilairedelusignan.fr",
+      "orgId": 2958,
+      "ip": "95.128.74.147",
+      "sourceUrl": "https://www.sainthilairedelusignan.fr"
+    },
+    {
+      "insee": "47187",
+      "domain": "monteton.fr",
+      "orgId": 2900,
+      "ip": "13.248.176.126",
+      "sourceUrl": "https://www.monteton.fr"
+    },
+    {
+      "insee": "47017",
+      "domain": "fumelvalleedulot.com",
+      "orgId": 2734,
+      "ip": "195.214.226.210",
+      "sourceUrl": "https://www.fumelvalleedulot.com/fr/page/156/auradou"
+    },
+    {
+      "insee": "47315",
+      "domain": "trentels.fr",
+      "orgId": 3024,
+      "ip": "188.165.61.82",
+      "sourceUrl": "https://www.trentels.fr"
+    },
+    {
+      "insee": "64521",
+      "domain": "mairie-serres-sainte-marie.fr",
+      "orgId": 3544,
+      "ip": "109.234.166.109",
+      "sourceUrl": "https://www.mairie-serres-sainte-marie.fr"
+    },
+    {
+      "insee": "64001",
+      "domain": "aast.fr",
+      "orgId": 3037,
+      "ip": "109.234.166.109",
+      "sourceUrl": "https://www.aast.fr"
+    },
+    {
+      "insee": "64422",
+      "domain": "oloron-ste-marie.fr",
+      "orgId": 3446,
+      "ip": "145.223.36.222",
+      "sourceUrl": "https://www.oloron-ste-marie.fr"
+    },
+    {
+      "insee": "64279",
+      "domain": "itxassou.fr",
+      "orgId": 3306,
+      "ip": "84.234.22.175",
+      "sourceUrl": "https://itxassou.fr"
+    },
+    {
+      "insee": "64237",
+      "domain": "gelos.fr",
+      "orgId": 3266,
+      "ip": "193.25.197.199",
+      "sourceUrl": "https://www.gelos.fr"
+    },
+    {
+      "insee": "33085",
+      "domain": "camblanes-et-meynac.fr",
+      "orgId": 1940,
+      "ip": "213.186.33.17",
+      "sourceUrl": "https://www.camblanes-et-meynac.fr"
+    },
+    {
+      "insee": "33460",
+      "domain": "saintpeydecastets.fr",
+      "orgId": 2298,
+      "ip": "109.234.164.186",
+      "sourceUrl": "https://www.saintpeydecastets.fr"
+    },
+    {
+      "insee": "33522",
+      "domain": "talence.fr",
+      "orgId": 2357,
+      "ip": "5.44.162.191",
+      "sourceUrl": "https://www.talence.fr"
+    },
+    {
+      "insee": "33084",
+      "domain": "cambes33.fr",
+      "orgId": 1939,
+      "ip": "75.2.19.112",
+      "sourceUrl": "https://www.cambes33.fr"
+    },
+    {
+      "insee": "33083",
+      "domain": "camarsac.fr",
+      "orgId": 1938,
+      "ip": "92.175.16.136",
+      "sourceUrl": "https://www.camarsac.fr"
+    },
+    {
+      "insee": "33381",
+      "domain": "saintcapraisdebordeaux.fr",
+      "orgId": 2223,
+      "ip": "13.248.176.126",
+      "sourceUrl": "https://www.saintcapraisdebordeaux.fr"
+    },
+    {
+      "insee": "33287",
+      "domain": "mongauzy.fr",
+      "orgId": 2134,
+      "ip": "217.109.171.42",
+      "sourceUrl": "https://www.mongauzy.fr"
+    },
+    {
+      "insee": "33144",
+      "domain": "cudos.fr",
+      "orgId": 1995,
+      "ip": "217.109.171.113",
+      "sourceUrl": "https://www.cudos.fr"
+    },
+    {
+      "insee": "33351",
+      "domain": "reignac33.fr",
+      "orgId": 2195,
+      "ip": "213.186.33.104",
+      "sourceUrl": "http://www.reignac33.fr"
+    },
+    {
+      "insee": "64067",
+      "domain": "assat.fr",
+      "orgId": 3100,
+      "ip": "94.176.161.225",
+      "sourceUrl": "https://www.assat.fr"
+    },
+    {
+      "insee": "64304",
+      "domain": "lahonce.fr",
+      "orgId": 3331,
+      "ip": "84.234.22.175",
+      "sourceUrl": "https://www.lahonce.fr"
+    },
+    {
+      "insee": "64448",
+      "domain": "poeydelescar.fr",
+      "orgId": 3472,
+      "ip": "193.17.196.35",
+      "sourceUrl": "https://www.poeydelescar.fr"
+    },
+    {
+      "insee": "17472",
+      "domain": "villedoux.fr",
+      "orgId": 808,
+      "ip": "54.37.149.18",
+      "sourceUrl": "https://www.villedoux.fr"
+    },
+    {
+      "insee": "23245",
+      "domain": "saintsulpicelegueretois.fr",
+      "orgId": 1333,
+      "ip": "109.234.160.199",
+      "sourceUrl": "https://www.saintsulpicelegueretois.fr"
+    },
+    {
+      "insee": "23165",
+      "domain": "mairie-royeredevassiviere.fr",
+      "orgId": 1254,
+      "ip": "46.105.156.177",
+      "sourceUrl": "https://www.mairie-royeredevassiviere.fr/fr/"
+    },
+    {
+      "insee": "19067",
+      "domain": "curemonte.fr",
+      "orgId": 887,
+      "ip": "91.134.188.158",
+      "sourceUrl": "https://www.curemonte.fr"
+    },
+    {
+      "insee": "19042",
+      "domain": "chanteix.fr",
+      "orgId": 862,
+      "ip": "37.0.74.19",
+      "sourceUrl": "https://www.chanteix.fr"
+    },
+    {
+      "insee": "17359",
+      "domain": "saint-mard.fr",
+      "orgId": 702,
+      "ip": "15.197.187.84",
+      "sourceUrl": "https://www.saint-mard.fr"
+    },
+    {
+      "insee": "17105",
+      "domain": "chives.fr",
+      "orgId": 458,
+      "ip": "213.186.33.5",
+      "sourceUrl": "http://www.chives.fr"
+    },
+    {
+      "insee": "24008",
+      "domain": "angoisseperigord.fr",
+      "orgId": 1360,
+      "ip": "109.234.160.63",
+      "sourceUrl": "https://angoisseperigord.fr"
+    },
+    {
+      "insee": "16387",
+      "domain": "triac-lautrait.fr",
+      "orgId": 326,
+      "ip": "146.59.185.233",
+      "sourceUrl": "https://www.triac-lautrait.fr"
+    },
+    {
+      "insee": "23248",
+      "domain": "saintvictorenmarche.fr",
+      "orgId": 1336,
+      "ip": "217.160.0.248",
+      "sourceUrl": "https://www.saintvictorenmarche.fr"
+    },
+    {
+      "insee": "19111",
+      "domain": "lavalsurluzege.fr",
+      "orgId": 930,
+      "ip": "51.178.112.113",
+      "sourceUrl": "http://www.lavalsurluzege.fr"
+    },
+    {
+      "insee": "24139",
+      "domain": "coursac.fr",
+      "orgId": 1471,
+      "ip": "46.105.156.177",
+      "sourceUrl": "https://www.coursac.fr/fr/"
+    },
+    {
+      "insee": "19163",
+      "domain": "lepescher.fr",
+      "orgId": 981,
+      "ip": "13.248.139.84",
+      "sourceUrl": "https://www.lepescher.fr"
+    },
+    {
+      "insee": "24306",
+      "domain": "cdcmontaignemontravelgurson.fr",
+      "orgId": 1613,
+      "ip": "164.132.235.17",
+      "sourceUrl": "https://www.cdcmontaignemontravelgurson.fr/commune-nastringues.html"
+    },
+    {
+      "insee": "19279",
+      "domain": "vars-sur-roseix.fr",
+      "orgId": 1089,
+      "ip": "162.159.128.70",
+      "sourceUrl": "https://www.vars-sur-roseix.fr"
+    },
+    {
+      "insee": "17430",
+      "domain": "soubran.com",
+      "orgId": 767,
+      "ip": "44.232.173.249",
+      "sourceUrl": "http://www.soubran.com"
+    },
+    {
+      "insee": "17234",
+      "domain": "migre.fr",
+      "orgId": 582,
+      "ip": "145.239.37.162",
+      "sourceUrl": "http://www.migre.fr"
+    },
+    {
+      "insee": "16213",
+      "domain": "mazerolles16.fr",
+      "orgId": 189,
+      "ip": "109.234.166.58",
+      "sourceUrl": "https://mazerolles16.fr"
+    },
+    {
+      "insee": "17160",
+      "domain": "floirac17.fr",
+      "orgId": 511,
+      "ip": "188.165.33.133",
+      "sourceUrl": "https://www.floirac17.fr"
+    },
+    {
+      "insee": "23114",
+      "domain": "lussat23.fr",
+      "orgId": 1209,
+      "ip": "51.178.112.113",
+      "sourceUrl": "http://www.lussat23.fr"
+    },
+    {
+      "insee": "24091",
+      "domain": "cenacsaintjulien.fr",
+      "orgId": 1431,
+      "ip": "87.98.152.244",
+      "sourceUrl": "https://cenacsaintjulien.fr"
+    },
+    {
+      "insee": "24524",
+      "domain": "savignac-de-miremont.jimdofree.com",
+      "orgId": 1800,
+      "ip": "185.60.251.251",
+      "sourceUrl": "https://savignac-de-miremont.jimdofree.com"
+    },
+    {
+      "insee": "23136",
+      "domain": "mortroux.fr",
+      "orgId": 1228,
+      "ip": "217.160.0.23",
+      "sourceUrl": "http://www.mortroux.fr"
+    },
+    {
+      "insee": "24132",
+      "domain": "connedelabarde.com",
+      "orgId": 1464,
+      "ip": "46.105.204.100",
+      "sourceUrl": "https://connedelabarde.com"
+    },
+    {
+      "insee": "24300",
+      "domain": "nabirat.fr",
+      "orgId": 1607,
+      "ip": "5.135.155.123",
+      "sourceUrl": "https://www.nabirat.fr"
+    },
+    {
+      "insee": "33521",
+      "domain": "talais-informations.fr",
+      "orgId": 2356,
+      "ip": "217.160.0.116",
+      "sourceUrl": "http://www.talais-informations.fr"
+    },
+    {
+      "insee": "33146",
+      "domain": "cussac-fort-medoc.fr",
+      "orgId": 1997,
+      "ip": "62.210.96.15",
+      "sourceUrl": "https://www.cussac-fort-medoc.fr"
+    },
+    {
+      "insee": "33416",
+      "domain": "saint-girons-d-aiguevives.fr",
+      "orgId": 2256,
+      "ip": "51.178.112.113",
+      "sourceUrl": "http://www.saint-girons-d-aiguevives.fr"
+    },
+    {
+      "insee": "47041",
+      "domain": "bruch.fr",
+      "orgId": 2758,
+      "ip": "13.248.139.84",
+      "sourceUrl": "https://www.bruch.fr"
+    },
+    {
+      "insee": "47252",
+      "domain": "ville-ste-livrade47.fr",
+      "orgId": 2964,
+      "ip": "13.248.176.126",
+      "sourceUrl": "https://www.ville-ste-livrade47.fr"
+    },
+    {
+      "insee": "40311",
+      "domain": "mairie-taller.fr",
+      "orgId": 2694,
+      "ip": "46.218.208.133",
+      "sourceUrl": "https://www.mairie-taller.fr"
+    },
+    {
+      "insee": "86014",
+      "domain": "availlesenchatellerault.fr",
+      "orgId": 3847,
+      "ip": "46.235.20.168",
+      "sourceUrl": "https://www.availlesenchatellerault.fr"
+    },
+    {
+      "insee": "24586",
+      "domain": "villetoureix.fr",
+      "orgId": 1855,
+      "ip": "75.2.19.112",
+      "sourceUrl": "https://www.villetoureix.fr"
+    },
+    {
+      "insee": "16143",
+      "domain": "fouquebrune.fr",
+      "orgId": 127,
+      "ip": "162.159.128.70",
+      "sourceUrl": "https://www.fouquebrune.fr"
+    },
+    {
+      "insee": "33089",
+      "domain": "campugnan.fr",
+      "orgId": 1944,
+      "ip": "90.83.223.173",
+      "sourceUrl": "https://www.campugnan.fr"
+    },
+    {
+      "insee": "33151",
+      "domain": "donnezac.com",
+      "orgId": 2002,
+      "ip": "172.67.162.110",
+      "sourceUrl": "http://donnezac.com"
+    },
+    {
+      "insee": "24324",
+      "domain": "peyrignac.fr",
+      "orgId": 1628,
+      "ip": "54.36.91.62",
+      "sourceUrl": "https://peyrignac.fr"
+    },
+    {
+      "insee": "24184",
+      "domain": "florimont-gaumier.fr",
+      "orgId": 1509,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://florimont-gaumier.fr"
+    },
+    {
+      "insee": "24487",
+      "domain": "stpierredeyraud.jimdofree.com",
+      "orgId": 1766,
+      "ip": "185.60.251.251",
+      "sourceUrl": "https://stpierredeyraud.jimdofree.com"
+    },
+    {
+      "insee": "16078",
+      "domain": "mairie-champniers.fr",
+      "orgId": 69,
+      "ip": "37.59.244.21",
+      "sourceUrl": "https://www.mairie-champniers.fr"
+    },
+    {
+      "insee": "24109",
+      "domain": "lachapelle.gresignac.free.fr",
+      "orgId": 1445,
+      "ip": "212.27.63.104",
+      "sourceUrl": "http://lachapelle.gresignac.free.fr"
+    },
+    {
+      "insee": "19037",
+      "domain": "mairie-chamboulive.com",
+      "orgId": 857,
+      "ip": "37.0.74.19",
+      "sourceUrl": "https://www.mairie-chamboulive.com"
+    },
+    {
+      "insee": "24068",
+      "domain": "lebuissondecadouin.fr",
+      "orgId": 1412,
+      "ip": "213.186.33.19",
+      "sourceUrl": "https://www.lebuissondecadouin.fr"
+    },
+    {
+      "insee": "19209",
+      "domain": "sainthilairelescourbes.fr",
+      "orgId": 1024,
+      "ip": "51.178.112.113",
+      "sourceUrl": "http://www.sainthilairelescourbes.fr"
+    },
+    {
+      "insee": "24442",
+      "domain": "saintleonsurlisle.fr",
+      "orgId": 1725,
+      "ip": "188.165.33.133",
+      "sourceUrl": "https://www.saintleonsurlisle.fr"
+    },
+    {
+      "insee": "24162",
+      "domain": "escoire.fr",
+      "orgId": 1493,
+      "ip": "188.130.25.102",
+      "sourceUrl": "http://www.escoire.fr"
+    },
+    {
+      "insee": "17337",
+      "domain": "saintgeorgesdoleron.com",
+      "orgId": 681,
+      "ip": "185.230.63.107",
+      "sourceUrl": "https://www.saintgeorgesdoleron.com"
+    },
+    {
+      "insee": "16231",
+      "domain": "montrollet.fr",
+      "orgId": 203,
+      "ip": "172.67.166.106",
+      "sourceUrl": "http://montrollet.fr"
+    },
+    {
+      "insee": "16148",
+      "domain": "genac-bignac.fr",
+      "orgId": 131,
+      "ip": "109.234.160.140",
+      "sourceUrl": "https://www.genac-bignac.fr/accueil/"
+    },
+    {
+      "insee": "64135",
+      "domain": "bonnut.voila.net",
+      "orgId": 3167,
+      "ip": "194.206.126.204",
+      "sourceUrl": "http://bonnut.voila.net"
+    },
+    {
+      "insee": "64495",
+      "domain": "saintpeesurnivelle.fr",
+      "orgId": 3519,
+      "ip": "84.234.22.175",
+      "sourceUrl": "https://saintpeesurnivelle.fr"
+    },
+    {
+      "insee": "33517",
+      "domain": "soussans.fr",
+      "orgId": 2352,
+      "ip": "23.236.62.147",
+      "sourceUrl": "https://www.soussans.fr"
+    },
+    {
+      "insee": "33424",
+      "domain": "saintlaurentmedoc.org",
+      "orgId": 2264,
+      "ip": "162.159.128.70",
+      "sourceUrl": "https://www.saintlaurentmedoc.org"
+    },
+    {
+      "insee": "79108",
+      "domain": "cc-parthenay-gatine.fr",
+      "orgId": 3655,
+      "ip": "194.250.166.150",
+      "sourceUrl": "https://www.cc-parthenay-gatine.fr/doux"
+    },
+    {
+      "insee": "87038",
+      "domain": "mairie-chaptelat.fr",
+      "orgId": 4134,
+      "ip": "109.234.160.137",
+      "sourceUrl": "http://www.mairie-chaptelat.fr"
+    },
+    {
+      "insee": "87181",
+      "domain": "saint-sulpice-lauriere.fr",
+      "orgId": 4270,
+      "ip": "51.178.112.113",
+      "sourceUrl": "http://www.saint-sulpice-lauriere.fr"
+    },
+    {
+      "insee": "86005",
+      "domain": "angliers86.fr",
+      "orgId": 3838,
+      "ip": "5.196.111.251",
+      "sourceUrl": "https://www.angliers86.fr"
+    },
+    {
+      "insee": "47303",
+      "domain": "commune-de-soumensac.fr",
+      "orgId": 3012,
+      "ip": "188.165.33.133",
+      "sourceUrl": "https://www.commune-de-soumensac.fr"
+    },
+    {
+      "insee": "47319",
+      "domain": "villebramar.fr",
+      "orgId": 3028,
+      "ip": "188.130.25.202",
+      "sourceUrl": "http://villebramar.fr"
+    },
+    {
+      "insee": "47044",
+      "domain": "village-cahuzac47.fr",
+      "orgId": 2761,
+      "ip": "46.18.231.82",
+      "sourceUrl": "https://village-cahuzac47.fr"
+    },
+    {
+      "insee": "47276",
+      "domain": "saint-sardos47.fr",
+      "orgId": 2985,
+      "ip": "217.160.0.83",
+      "sourceUrl": "http://www.saint-sardos47.fr"
+    },
+    {
+      "insee": "64516",
+      "domain": "mairie-sedzere.fr",
+      "orgId": 3539,
+      "ip": "162.159.128.70",
+      "sourceUrl": "https://www.mairie-sedzere.fr"
+    },
+    {
+      "insee": "64273",
+      "domain": "irissarry.fr",
+      "orgId": 3301,
+      "ip": "109.234.165.116",
+      "sourceUrl": "https://irissarry.fr"
+    },
+    {
+      "insee": "64233",
+      "domain": "villedegarlin.fr",
+      "orgId": 3262,
+      "ip": "104.247.81.99",
+      "sourceUrl": "http://www.villedegarlin.fr"
+    },
+    {
+      "insee": "64054",
+      "domain": "arrosdenay.fr",
+      "orgId": 3088,
+      "ip": "213.186.33.40",
+      "sourceUrl": "http://www.arrosdenay.fr"
+    },
+    {
+      "insee": "64203",
+      "domain": "mairiededoumy.fr",
+      "orgId": 3232,
+      "ip": "91.134.60.146",
+      "sourceUrl": "http://www.mairiededoumy.fr"
+    },
+    {
+      "insee": "64101",
+      "domain": "baudreix.com",
+      "orgId": 3133,
+      "ip": "104.247.81.99",
+      "sourceUrl": "http://www.baudreix.com"
+    },
+    {
+      "insee": "64003",
+      "domain": "abidos.fr",
+      "orgId": 3039,
+      "ip": "178.33.175.53",
+      "sourceUrl": "https://www.abidos.fr"
+    },
+    {
+      "insee": "33073",
+      "domain": "mairie-braud.com",
+      "orgId": 1928,
+      "ip": "213.186.33.82",
+      "sourceUrl": "http://www.mairie-braud.com"
+    },
+    {
+      "insee": "33192",
+      "domain": "gradignan.fr",
+      "orgId": 2043,
+      "ip": "145.239.37.34",
+      "sourceUrl": "https://www.gradignan.fr"
+    },
+    {
+      "insee": "33174",
+      "domain": "lamairiedefronsac.fr",
+      "orgId": 2025,
+      "ip": "95.211.45.3",
+      "sourceUrl": "http://lamairiedefronsac.fr"
+    },
+    {
+      "insee": "24425",
+      "domain": "ville-saint-jean-de-cole.fr",
+      "orgId": 1715,
+      "ip": "81.88.52.68",
+      "sourceUrl": "http://www.ville-saint-jean-de-cole.fr"
+    },
+    {
+      "insee": "19193",
+      "domain": "saint-cirgues.correze.net",
+      "orgId": 1009,
+      "ip": "193.104.36.188",
+      "sourceUrl": "http://www.saint-cirgues.correze.net"
+    },
+    {
+      "insee": "23124",
+      "domain": "marsac-creuse.fr",
+      "orgId": 1218,
+      "ip": "185.31.40.192",
+      "sourceUrl": "https://www.marsac-creuse.fr"
+    },
+    {
+      "insee": "33069",
+      "domain": "bouscat.fr",
+      "orgId": 1924,
+      "ip": "195.214.226.204",
+      "sourceUrl": "https://www.bouscat.fr"
+    },
+    {
+      "insee": "33155",
+      "domain": "escaudes.fr",
+      "orgId": 2006,
+      "ip": "75.2.97.104",
+      "sourceUrl": "https://www.escaudes.fr"
+    },
+    {
+      "insee": "33142",
+      "domain": "mairiedecubnezais.com",
+      "orgId": 1993,
+      "ip": "109.234.166.116",
+      "sourceUrl": "http://www.mairiedecubnezais.com"
+    },
+    {
+      "insee": "33510",
+      "domain": "semens.free.fr",
+      "orgId": 2345,
+      "ip": "212.27.63.153",
+      "sourceUrl": "http://semens.free.fr"
+    },
+    {
+      "insee": "47079",
+      "domain": "fumelvalleedulot.com",
+      "orgId": 2796,
+      "ip": "195.214.226.210",
+      "sourceUrl": "https://www.fumelvalleedulot.com/fr/page/157/dausse"
+    },
+    {
+      "insee": "19093",
+      "domain": "jugeals-nazareth.fr",
+      "orgId": 912,
+      "ip": "91.121.57.171",
+      "sourceUrl": "https://www.jugeals-nazareth.fr"
+    },
+    {
+      "insee": "24537",
+      "domain": "sioracderiberac.fr",
+      "orgId": 1812,
+      "ip": "23.236.62.147",
+      "sourceUrl": "https://www.sioracderiberac.fr"
+    },
+    {
+      "insee": "23197",
+      "domain": "saint-georges-la-pouge.fr",
+      "orgId": 1286,
+      "ip": "109.234.166.98",
+      "sourceUrl": "https://www.saint-georges-la-pouge.fr"
+    },
+    {
+      "insee": "17083",
+      "domain": "champagne17620.com",
+      "orgId": 439,
+      "ip": "192.0.78.153",
+      "sourceUrl": "https://champagne17620.com"
+    },
+    {
+      "insee": "17279",
+      "domain": "plassac17.fr",
+      "orgId": 624,
+      "ip": "91.121.57.171",
+      "sourceUrl": "https://www.plassac17.fr"
+    },
+    {
+      "insee": "40274",
+      "domain": "saintmartindoney.com",
+      "orgId": 2658,
+      "ip": "46.105.156.177",
+      "sourceUrl": "https://saintmartindoney.com/fr/"
+    },
+    {
+      "insee": "40210",
+      "domain": "onesse-laharie.fr",
+      "orgId": 2595,
+      "ip": "46.218.208.133",
+      "sourceUrl": "https://www.onesse-laharie.fr"
+    },
+    {
+      "insee": "40183",
+      "domain": "mimbaste.fr",
+      "orgId": 2568,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.mimbaste.fr"
+    },
+    {
+      "insee": "47236",
+      "domain": "cc-paysdeduras.fr",
+      "orgId": 2949,
+      "ip": "46.105.156.177",
+      "sourceUrl": "https://www.cc-paysdeduras.fr/stecolombededuras.html"
+    },
+    {
+      "insee": "47225",
+      "domain": "roquefort47.fr",
+      "orgId": 2938,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://roquefort47.fr"
+    },
+    {
+      "insee": "40019",
+      "domain": "aureilhan40.fr",
+      "orgId": 2407,
+      "ip": "46.218.208.133",
+      "sourceUrl": "https://www.aureilhan40.fr"
+    },
+    {
+      "insee": "40217",
+      "domain": "parentis.fr",
+      "orgId": 2602,
+      "ip": "109.234.162.62",
+      "sourceUrl": "https://www.parentis.fr"
+    },
+    {
+      "insee": "47048",
+      "domain": "cancon.fr",
+      "orgId": 2765,
+      "ip": "94.247.180.244",
+      "sourceUrl": "https://www.cancon.fr"
+    },
+    {
+      "insee": "47185",
+      "domain": "fumelvalleedulot.com",
+      "orgId": 2898,
+      "ip": "195.214.226.210",
+      "sourceUrl": "https://www.fumelvalleedulot.com/fr/page/148/montayral-1"
+    },
+    {
+      "insee": "40111",
+      "domain": "geloux.fr",
+      "orgId": 2496,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.geloux.fr"
+    },
+    {
+      "insee": "40331",
+      "domain": "villeneuvedemarsan.fr",
+      "orgId": 2714,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.villeneuvedemarsan.fr"
+    },
+    {
+      "insee": "16304",
+      "domain": "saint-brice16.fr",
+      "orgId": 262,
+      "ip": "37.187.138.198",
+      "sourceUrl": "https://www.saint-brice16.fr"
+    },
+    {
+      "insee": "19159",
+      "domain": "peret-bel-air.com",
+      "orgId": 977,
+      "ip": "185.230.63.186",
+      "sourceUrl": "https://www.peret-bel-air.com"
+    },
+    {
+      "insee": "19105",
+      "domain": "lanteuil.fr",
+      "orgId": 924,
+      "ip": "213.186.33.40",
+      "sourceUrl": "https://www.lanteuil.fr"
+    },
+    {
+      "insee": "19101",
+      "domain": "laguenne-sur-avalouze.fr",
+      "orgId": 920,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://laguenne-sur-avalouze.fr"
+    },
+    {
+      "insee": "16023",
+      "domain": "aunac-sur-charente.fr",
+      "orgId": 17,
+      "ip": "91.121.40.89",
+      "sourceUrl": "https://www.aunac-sur-charente.fr"
+    },
+    {
+      "insee": "19061",
+      "domain": "cornil19.fr",
+      "orgId": 881,
+      "ip": "46.105.156.177",
+      "sourceUrl": "https://cornil19.fr/fr"
+    },
+    {
+      "insee": "17385",
+      "domain": "saintpierreoleron.com",
+      "orgId": 725,
+      "ip": "46.105.204.7",
+      "sourceUrl": "http://www.saintpierreoleron.com"
+    },
+    {
+      "insee": "16018",
+      "domain": "arsensaintonge.fr",
+      "orgId": 14,
+      "ip": "217.160.0.78",
+      "sourceUrl": "https://arsensaintonge.fr"
+    },
+    {
+      "insee": "17395",
+      "domain": "stsauvant17.fr",
+      "orgId": 734,
+      "ip": "92.222.139.190",
+      "sourceUrl": "http://stsauvant17.fr"
+    },
+    {
+      "insee": "17444",
+      "domain": "thenac17.fr",
+      "orgId": 781,
+      "ip": "37.59.230.98",
+      "sourceUrl": "https://www.thenac17.fr"
+    },
+    {
+      "insee": "40322",
+      "domain": "uza40.fr",
+      "orgId": 2705,
+      "ip": "46.218.208.133",
+      "sourceUrl": "https://www.uza40.fr"
+    },
+    {
+      "insee": "40136",
+      "domain": "lacajunte.net",
+      "orgId": 2521,
+      "ip": "195.154.21.94",
+      "sourceUrl": "http://www.lacajunte.net"
+    },
+    {
+      "insee": "40108",
+      "domain": "gastes.fr",
+      "orgId": 2493,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.gastes.fr"
+    },
+    {
+      "insee": "40150",
+      "domain": "leon.fr",
+      "orgId": 2535,
+      "ip": "46.218.208.133",
+      "sourceUrl": "https://www.leon.fr"
+    },
+    {
+      "insee": "40004",
+      "domain": "angresse.fr",
+      "orgId": 2394,
+      "ip": "185.111.19.79",
+      "sourceUrl": "https://angresse.fr"
+    },
+    {
+      "insee": "16160",
+      "domain": "mairiedeguimps.com",
+      "orgId": 140,
+      "ip": "185.230.63.171",
+      "sourceUrl": "https://www.mairiedeguimps.com"
+    },
+    {
+      "insee": "87103",
+      "domain": "nantiat.com",
+      "orgId": 4196,
+      "ip": "217.65.147.226",
+      "sourceUrl": "https://nantiat.com"
+    },
+    {
+      "insee": "86104",
+      "domain": "genouille86.fr",
+      "orgId": 3927,
+      "ip": "93.95.59.204",
+      "sourceUrl": "https://www.genouille86.fr"
+    },
+    {
+      "insee": "79307",
+      "domain": "mairie-sauze-vaussais.fr",
+      "orgId": 3798,
+      "ip": "213.186.33.5",
+      "sourceUrl": "https://www.mairie-sauze-vaussais.fr"
+    },
+    {
+      "insee": "86229",
+      "domain": "saint-leger-de-montbrillais.fr",
+      "orgId": 4039,
+      "ip": "75.2.97.104",
+      "sourceUrl": "https://www.saint-leger-de-montbrillais.fr"
+    },
+    {
+      "insee": "64124",
+      "domain": "bidarray.fr",
+      "orgId": 3156,
+      "ip": "84.234.22.175",
+      "sourceUrl": "https://www.bidarray.fr"
+    },
+    {
+      "insee": "64523",
+      "domain": "sevignacq.fr",
+      "orgId": 3546,
+      "ip": "188.165.43.90",
+      "sourceUrl": "https://www.sevignacq.fr"
+    },
+    {
+      "insee": "64254",
+      "domain": "hagetaubin.fr",
+      "orgId": 3282,
+      "ip": "51.91.236.193",
+      "sourceUrl": "https://www.hagetaubin.fr"
+    },
+    {
+      "insee": "24156",
+      "domain": "ladouze-perigord.fr",
+      "orgId": 1487,
+      "ip": "54.36.91.62",
+      "sourceUrl": "https://ladouze-perigord.fr"
+    },
+    {
+      "insee": "24345",
+      "domain": "queyssac.com",
+      "orgId": 1644,
+      "ip": "104.247.81.99",
+      "sourceUrl": "http://www.queyssac.com"
+    },
+    {
+      "insee": "24070",
+      "domain": "busserolles.fr",
+      "orgId": 1414,
+      "ip": "195.15.230.43",
+      "sourceUrl": "https://www.busserolles.fr"
+    },
+    {
+      "insee": "24470",
+      "domain": "saintemondane.fr",
+      "orgId": 1750,
+      "ip": "5.135.154.191",
+      "sourceUrl": "https://www.saintemondane.fr"
+    },
+    {
+      "insee": "24535",
+      "domain": "simeyrols.fr",
+      "orgId": 1810,
+      "ip": "46.105.156.177",
+      "sourceUrl": "https://www.simeyrols.fr/fr/"
+    },
+    {
+      "insee": "24018",
+      "domain": "auriac-du-perigord.fr",
+      "orgId": 1368,
+      "ip": "213.160.71.30",
+      "sourceUrl": "http://www.auriac-du-perigord.fr"
+    },
+    {
+      "insee": "24386",
+      "domain": "saint-cernin-de-lherm-24.fr",
+      "orgId": 1681,
+      "ip": "109.234.162.153",
+      "sourceUrl": "https://www.saint-cernin-de-lherm-24.fr"
+    },
+    {
+      "insee": "24295",
+      "domain": "mairiedemontrem.fr",
+      "orgId": 1603,
+      "ip": "213.186.33.40",
+      "sourceUrl": "http://www.mairiedemontrem.fr"
+    },
+    {
+      "insee": "33249",
+      "domain": "lormont.fr",
+      "orgId": 2099,
+      "ip": "176.31.192.243",
+      "sourceUrl": "https://www.lormont.fr"
+    },
+    {
+      "insee": "33445",
+      "domain": "saint-martin-du-bois-33.fr",
+      "orgId": 2284,
+      "ip": "46.18.231.23",
+      "sourceUrl": "https://saint-martin-du-bois-33.fr"
+    },
+    {
+      "insee": "33329",
+      "domain": "pompejac.fr",
+      "orgId": 2175,
+      "ip": "217.109.171.61",
+      "sourceUrl": "https://www.pompejac.fr"
+    },
+    {
+      "insee": "19227",
+      "domain": "saint-mexant-19.com",
+      "orgId": 1039,
+      "ip": "185.230.63.171",
+      "sourceUrl": "https://www.saint-mexant-19.com"
+    },
+    {
+      "insee": "16058",
+      "domain": "boutiers-saint-trojan.fr",
+      "orgId": 49,
+      "ip": "109.234.160.140",
+      "sourceUrl": "https://www.boutiers-saint-trojan.fr"
+    },
+    {
+      "insee": "16323",
+      "domain": "st-germain-de-montbron.com",
+      "orgId": 274,
+      "ip": "188.114.97.2",
+      "sourceUrl": "http://www.st-germain-de-montbron.com"
+    },
+    {
+      "insee": "64269",
+      "domain": "idron.fr",
+      "orgId": 3297,
+      "ip": "193.17.196.35",
+      "sourceUrl": "https://www.idron.fr"
+    },
+    {
+      "insee": "64312",
+      "domain": "lanneplaa.fr",
+      "orgId": 3339,
+      "ip": "185.230.63.107",
+      "sourceUrl": "https://www.lanneplaa.fr"
+    },
+    {
+      "insee": "64226",
+      "domain": "commune-fichous-riumayou.fr",
+      "orgId": 3255,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://www.commune-fichous-riumayou.fr"
+    },
+    {
+      "insee": "47314",
+      "domain": "mairie-tremons.fr",
+      "orgId": 3023,
+      "ip": "85.236.157.21",
+      "sourceUrl": "https://mairie-tremons.fr"
+    },
+    {
+      "insee": "47174",
+      "domain": "mairie-moncrabeau.fr",
+      "orgId": 2887,
+      "ip": "109.234.165.231",
+      "sourceUrl": "https://www.mairie-moncrabeau.fr"
+    },
+    {
+      "insee": "47283",
+      "domain": "fumelvalleedulot.com",
+      "orgId": 2992,
+      "ip": "195.214.226.210",
+      "sourceUrl": "https://www.fumelvalleedulot.com/fr/page/151/saint-vite"
+    },
+    {
+      "insee": "64229",
+      "domain": "communaute-paysbasque.fr",
+      "orgId": 3258,
+      "ip": "176.31.192.231",
+      "sourceUrl": "https://www.communaute-paysbasque.fr"
+    },
+    {
+      "insee": "23191",
+      "domain": "lapagelocale.fr",
+      "orgId": 1280,
+      "ip": "213.186.33.40",
+      "sourceUrl": "https://lapagelocale.fr/23000-saint-eloi"
+    },
+    {
+      "insee": "24217",
+      "domain": "journiac.fr",
+      "orgId": 1536,
+      "ip": "146.59.209.152",
+      "sourceUrl": "https://www.journiac.fr"
+    },
+    {
+      "insee": "24160",
+      "domain": "eglise-neuve-de-vergt.fr",
+      "orgId": 1491,
+      "ip": "5.196.111.3",
+      "sourceUrl": "https://www.eglise-neuve-de-vergt.fr"
+    },
+    {
+      "insee": "24159",
+      "domain": "echourgnac.com",
+      "orgId": 1490,
+      "ip": "91.134.190.172",
+      "sourceUrl": "https://www.echourgnac.com"
+    },
+    {
+      "insee": "24137",
+      "domain": "mairiecoulaures.fr",
+      "orgId": 1469,
+      "ip": "146.59.209.152",
+      "sourceUrl": "https://www.mairiecoulaures.fr"
+    },
+    {
+      "insee": "64430",
+      "domain": "mairie-orthez.fr",
+      "orgId": 3454,
+      "ip": "109.234.166.50",
+      "sourceUrl": "https://www.mairie-orthez.fr"
+    },
+    {
+      "insee": "87096",
+      "domain": "lameyze.net",
+      "orgId": 4191,
+      "ip": "51.91.236.193",
+      "sourceUrl": "https://www.lameyze.net"
+    },
+    {
+      "insee": "87161",
+      "domain": "ville-saint-leonard.fr",
+      "orgId": 4253,
+      "ip": "188.165.53.185",
+      "sourceUrl": "https://www.ville-saint-leonard.fr"
+    },
+    {
+      "insee": "79241",
+      "domain": "stchristophesurroc.fr",
+      "orgId": 3750,
+      "ip": "109.234.162.96",
+      "sourceUrl": "https://www.stchristophesurroc.fr"
+    },
+    {
+      "insee": "87045",
+      "domain": "mairiedecieux.com",
+      "orgId": 4141,
+      "ip": "46.105.156.177",
+      "sourceUrl": "https://mairiedecieux.com/fr"
+    },
+    {
+      "insee": "87047",
+      "domain": "compreignac87.fr",
+      "orgId": 4143,
+      "ip": "51.178.112.113",
+      "sourceUrl": "http://www.compreignac87.fr"
+    },
+    {
+      "insee": "86081",
+      "domain": "colombiers86.fr",
+      "orgId": 3905,
+      "ip": "46.235.20.168",
+      "sourceUrl": "https://www.colombiers86.fr"
+    },
+    {
+      "insee": "47226",
+      "domain": "mairiederoumagne.fr",
+      "orgId": 2939,
+      "ip": "185.221.182.131",
+      "sourceUrl": "https://mairiederoumagne.fr"
+    },
+    {
+      "insee": "33090",
+      "domain": "canejan.fr",
+      "orgId": 1945,
+      "ip": "109.234.161.12",
+      "sourceUrl": "https://www.canejan.fr"
+    },
+    {
+      "insee": "40206",
+      "domain": "oeyregave.fr",
+      "orgId": 2591,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.oeyregave.fr"
+    },
+    {
+      "insee": "17242",
+      "domain": "mairie.montils.free.fr",
+      "orgId": 589,
+      "ip": "212.27.63.154",
+      "sourceUrl": "http://mairie.montils.free.fr"
+    },
+    {
+      "insee": "17134",
+      "domain": "crazannes.fr",
+      "orgId": 486,
+      "ip": "145.239.37.162",
+      "sourceUrl": "http://crazannes.fr"
+    },
+    {
+      "insee": "19151",
+      "domain": "intramuros.org",
+      "orgId": 969,
+      "ip": "15.188.213.74",
+      "sourceUrl": "https://www.intramuros.org/noailles"
+    },
+    {
+      "insee": "16001",
+      "domain": "abzac-16.fr",
+      "orgId": 1,
+      "ip": "46.105.57.169",
+      "sourceUrl": "https://abzac-16.fr"
+    },
+    {
+      "insee": "16045",
+      "domain": "mairiebirac16.fr",
+      "orgId": 37,
+      "ip": "92.222.139.190",
+      "sourceUrl": "https://www.mairiebirac16.fr"
+    },
+    {
+      "insee": "16206",
+      "domain": "mansle.fr",
+      "orgId": 182,
+      "ip": "188.114.96.2",
+      "sourceUrl": "https://www.mansle.fr"
+    },
+    {
+      "insee": "17339",
+      "domain": "sglusignan.fr",
+      "orgId": 683,
+      "ip": "104.247.81.99",
+      "sourceUrl": "http://www.sglusignan.fr"
+    },
+    {
+      "insee": "17291",
+      "domain": "ville-puilboreau.fr",
+      "orgId": 636,
+      "ip": "109.234.164.39",
+      "sourceUrl": "https://www.ville-puilboreau.fr"
+    },
+    {
+      "insee": "87013",
+      "domain": "bersacsurrivalier.fr",
+      "orgId": 4110,
+      "ip": "46.18.231.23",
+      "sourceUrl": "https://bersacsurrivalier.fr"
+    },
+    {
+      "insee": "87116",
+      "domain": "peyratdebellac.fr",
+      "orgId": 4209,
+      "ip": "46.105.156.177",
+      "sourceUrl": "https://peyratdebellac.fr/fr/"
+    },
+    {
+      "insee": "87153",
+      "domain": "stjulienlepetit.fr",
+      "orgId": 4245,
+      "ip": "104.247.81.99",
+      "sourceUrl": "http://www.stjulienlepetit.fr"
+    },
+    {
+      "insee": "79351",
+      "domain": "villiersenplaine.fr",
+      "orgId": 3829,
+      "ip": "109.234.164.214",
+      "sourceUrl": "https://www.villiersenplaine.fr"
+    },
+    {
+      "insee": "86069",
+      "domain": "lachaussee.com",
+      "orgId": 3894,
+      "ip": "185.230.63.107",
+      "sourceUrl": "https://www.lachaussee.com"
+    },
+    {
+      "insee": "79025",
+      "domain": "cc-parthenay-gatine.fr",
+      "orgId": 3601,
+      "ip": "194.250.166.150",
+      "sourceUrl": "https://www.cc-parthenay-gatine.fr/azaysurthouet/"
+    },
+    {
+      "insee": "79119",
+      "domain": "fenioux79.free.fr",
+      "orgId": 3664,
+      "ip": "212.27.63.174",
+      "sourceUrl": "http://fenioux79.free.fr"
+    },
+    {
+      "insee": "79316",
+      "domain": "soudan79.fr",
+      "orgId": 3805,
+      "ip": "51.178.112.113",
+      "sourceUrl": "http://www.soudan79.fr"
+    },
+    {
+      "insee": "64534",
+      "domain": "mairiedetaron.fr",
+      "orgId": 3557,
+      "ip": "154.56.81.111",
+      "sourceUrl": "https://www.mairiedetaron.fr"
+    },
+    {
+      "insee": "40288",
+      "domain": "sarbazan.fr",
+      "orgId": 2672,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.sarbazan.fr"
+    },
+    {
+      "insee": "87065",
+      "domain": "ville-feytiat.fr",
+      "orgId": 4160,
+      "ip": "46.105.57.169",
+      "sourceUrl": "https://www.ville-feytiat.fr"
+    },
+    {
+      "insee": "79091",
+      "domain": "cirieres.wixsite.com",
+      "orgId": 3643,
+      "ip": "172.66.3.8",
+      "sourceUrl": "https://cirieres.wixsite.com/cirieres"
+    },
+    {
+      "insee": "64488",
+      "domain": "saintlaurentbretagne.fr",
+      "orgId": 3512,
+      "ip": "185.230.63.107",
+      "sourceUrl": "https://www.saintlaurentbretagne.fr"
+    },
+    {
+      "insee": "64017",
+      "domain": "alos-sibas-abense.com",
+      "orgId": 3053,
+      "ip": "217.160.0.4",
+      "sourceUrl": "http://www.alos-sibas-abense.com"
+    },
+    {
+      "insee": "64530",
+      "domain": "intramuros.org",
+      "orgId": 3553,
+      "ip": "15.236.79.68",
+      "sourceUrl": "https://www.intramuros.org/susmiou"
+    },
+    {
+      "insee": "19182",
+      "domain": "saint-aulaire-correze.fr",
+      "orgId": 1000,
+      "ip": "213.186.33.18",
+      "sourceUrl": "https://saint-aulaire-correze.fr"
+    },
+    {
+      "insee": "19131",
+      "domain": "meilhards.fr",
+      "orgId": 949,
+      "ip": "54.37.149.18",
+      "sourceUrl": "https://www.meilhards.fr"
+    },
+    {
+      "insee": "17043",
+      "domain": "bernay-saint-martin.monclocher.com",
+      "orgId": 399,
+      "ip": "54.37.41.233",
+      "sourceUrl": "http://www.bernay-saint-martin.monclocher.com"
+    },
+    {
+      "insee": "33236",
+      "domain": "ville-lege-capferret.fr",
+      "orgId": 2086,
+      "ip": "164.132.235.17",
+      "sourceUrl": "https://www.ville-lege-capferret.fr"
+    },
+    {
+      "insee": "33358",
+      "domain": "romagne33.com",
+      "orgId": 2202,
+      "ip": "185.230.63.171",
+      "sourceUrl": "https://www.romagne33.com"
+    },
+    {
+      "insee": "24550",
+      "domain": "thenon24.fr",
+      "orgId": 1824,
+      "ip": "172.67.154.193",
+      "sourceUrl": "https://thenon24.fr/fr/"
+    },
+    {
+      "insee": "19033",
+      "domain": "bugeat.fr",
+      "orgId": 853,
+      "ip": "51.178.112.113",
+      "sourceUrl": "http://www.bugeat.fr"
+    },
+    {
+      "insee": "24585",
+      "domain": "villefrancheduperigord.fr",
+      "orgId": 1854,
+      "ip": "51.178.112.113",
+      "sourceUrl": "http://www.villefrancheduperigord.fr"
+    },
+    {
+      "insee": "23081",
+      "domain": "flayat.fr",
+      "orgId": 1178,
+      "ip": "54.37.96.145",
+      "sourceUrl": "https://www.flayat.fr"
+    },
+    {
+      "insee": "19207",
+      "domain": "mairiesaintgermainlesvergnes19.com",
+      "orgId": 1022,
+      "ip": "185.230.63.107",
+      "sourceUrl": "https://www.mairiesaintgermainlesvergnes19.com"
+    },
+    {
+      "insee": "24014",
+      "domain": "aubas.fr",
+      "orgId": 1365,
+      "ip": "162.159.128.70",
+      "sourceUrl": "https://www.aubas.fr"
+    },
+    {
+      "insee": "24325",
+      "domain": "peyrillac-et-millac.fr",
+      "orgId": 1629,
+      "ip": "62.210.187.241",
+      "sourceUrl": "http://www.peyrillac-et-millac.fr"
+    },
+    {
+      "insee": "19144",
+      "domain": "montgibaud.com",
+      "orgId": 962,
+      "ip": "116.203.169.237",
+      "sourceUrl": "https://montgibaud.com"
+    },
+    {
+      "insee": "24362",
+      "domain": "valdelouyre-et-caudeau.fr",
+      "orgId": 1660,
+      "ip": "5.44.161.229",
+      "sourceUrl": "https://www.valdelouyre-et-caudeau.fr"
+    },
+    {
+      "insee": "24325",
+      "domain": "pechs-esperance.fr",
+      "orgId": 1629,
+      "ip": "109.234.167.227",
+      "sourceUrl": "https://www.pechs-esperance.fr"
+    },
+    {
+      "insee": "47154",
+      "domain": "lusignanpetit.wixsite.com",
+      "orgId": 2868,
+      "ip": "172.66.3.8",
+      "sourceUrl": "https://lusignanpetit.wixsite.com/lusignan"
+    },
+    {
+      "insee": "40201",
+      "domain": "mugron.fr",
+      "orgId": 2586,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.mugron.fr"
+    },
+    {
+      "insee": "40224",
+      "domain": "peyrehorade.fr",
+      "orgId": 2609,
+      "ip": "109.234.166.92",
+      "sourceUrl": "https://www.peyrehorade.fr"
+    },
+    {
+      "insee": "40258",
+      "domain": "saintefoy40.fr",
+      "orgId": 2642,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.saintefoy40.fr"
+    },
+    {
+      "insee": "40270",
+      "domain": "saintloubouer.fr",
+      "orgId": 2654,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.saintloubouer.fr"
+    },
+    {
+      "insee": "64508",
+      "domain": "saucede.fr",
+      "orgId": 3531,
+      "ip": "5.135.136.43",
+      "sourceUrl": "http://www.saucede.fr"
+    },
+    {
+      "insee": "64482",
+      "domain": "mairiedesaintjammes.fr",
+      "orgId": 3506,
+      "ip": "109.234.166.109",
+      "sourceUrl": "https://www.mairiedesaintjammes.fr"
+    },
+    {
+      "insee": "40171",
+      "domain": "mano40.fr",
+      "orgId": 2556,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.mano40.fr"
+    },
+    {
+      "insee": "40281",
+      "domain": "saintpierredumont.fr",
+      "orgId": 2665,
+      "ip": "217.182.252.137",
+      "sourceUrl": "https://saintpierredumont.fr"
+    },
+    {
+      "insee": "79200",
+      "domain": "mairie-pamplie.fr",
+      "orgId": 3725,
+      "ip": "109.234.160.108",
+      "sourceUrl": "https://www.mairie-pamplie.fr"
+    },
+    {
+      "insee": "33026",
+      "domain": "balizac.fr",
+      "orgId": 1882,
+      "ip": "217.109.171.35",
+      "sourceUrl": "https://www.balizac.fr"
+    },
+    {
+      "insee": "33494",
+      "domain": "mairie-salaunes.fr",
+      "orgId": 2331,
+      "ip": "213.186.33.4",
+      "sourceUrl": "http://www.mairie-salaunes.fr"
+    },
+    {
+      "insee": "33509",
+      "domain": "savignac-sur-lisle.fr",
+      "orgId": 2344,
+      "ip": "188.130.25.102",
+      "sourceUrl": "http://www.savignac-sur-lisle.fr"
+    },
+    {
+      "insee": "33243",
+      "domain": "libourne.fr",
+      "orgId": 2093,
+      "ip": "217.109.171.22",
+      "sourceUrl": "https://www.libourne.fr"
+    },
+    {
+      "insee": "33396",
+      "domain": "saintetiennedelisse.fr",
+      "orgId": 2238,
+      "ip": "92.175.16.237",
+      "sourceUrl": "https://www.saintetiennedelisse.fr"
+    },
+    {
+      "insee": "33207",
+      "domain": "izon.fr",
+      "orgId": 2058,
+      "ip": "195.15.222.141",
+      "sourceUrl": "https://www.izon.fr"
+    },
+    {
+      "insee": "33293",
+      "domain": "montussan.fr",
+      "orgId": 2140,
+      "ip": "217.109.171.33",
+      "sourceUrl": "https://www.montussan.fr"
+    },
+    {
+      "insee": "87025",
+      "domain": "burgnac.fr",
+      "orgId": 4122,
+      "ip": "91.244.246.160",
+      "sourceUrl": "https://www.burgnac.fr"
+    },
+    {
+      "insee": "87068",
+      "domain": "fromental.fr",
+      "orgId": 4163,
+      "ip": "51.178.112.113",
+      "sourceUrl": "http://www.fromental.fr"
+    },
+    {
+      "insee": "87164",
+      "domain": "st-martin-de-jussac.fr",
+      "orgId": 4256,
+      "ip": "213.186.33.18",
+      "sourceUrl": "https://www.st-martin-de-jussac.fr"
+    },
+    {
+      "insee": "86242",
+      "domain": "saintromain86.fr",
+      "orgId": 4048,
+      "ip": "46.235.20.168",
+      "sourceUrl": "https://www.saintromain86.fr"
+    },
+    {
+      "insee": "24404",
+      "domain": "saint-felix-de-reilhac-et-mortemart.fr",
+      "orgId": 1694,
+      "ip": "162.159.128.70",
+      "sourceUrl": "https://www.saint-felix-de-reilhac-et-mortemart.fr"
+    },
+    {
+      "insee": "16205",
+      "domain": "manot.fr",
+      "orgId": 181,
+      "ip": "109.234.162.168",
+      "sourceUrl": "https://manot.fr"
+    },
+    {
+      "insee": "16012",
+      "domain": "angeac-champagne.fr",
+      "orgId": 9,
+      "ip": "146.59.185.233",
+      "sourceUrl": "https://www.angeac-champagne.fr"
+    },
+    {
+      "insee": "17121",
+      "domain": "lacouardesurmer.fr",
+      "orgId": 474,
+      "ip": "188.165.35.175",
+      "sourceUrl": "https://www.lacouardesurmer.fr"
+    },
+    {
+      "insee": "17267",
+      "domain": "nuaille-daunis.fr",
+      "orgId": 613,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://nuaille-daunis.fr"
+    },
+    {
+      "insee": "17304",
+      "domain": "rouffiac17.com",
+      "orgId": 649,
+      "ip": "37.59.230.98",
+      "sourceUrl": "https://www.rouffiac17.com"
+    },
+    {
+      "insee": "16326",
+      "domain": "saint-groux.fr",
+      "orgId": 276,
+      "ip": "91.121.40.89",
+      "sourceUrl": "https://www.saint-groux.fr"
+    },
+    {
+      "insee": "16121",
+      "domain": "douzat.fr",
+      "orgId": 108,
+      "ip": "109.234.160.140",
+      "sourceUrl": "http://www.douzat.fr"
+    },
+    {
+      "insee": "33040",
+      "domain": "mairie-beguey.fr",
+      "orgId": 1896,
+      "ip": "46.105.57.169",
+      "sourceUrl": "http://www.mairie-beguey.fr"
+    },
+    {
+      "insee": "33126",
+      "domain": "civrac-de-blaye.fr",
+      "orgId": 1977,
+      "ip": "90.83.223.225",
+      "sourceUrl": "https://www.civrac-de-blaye.fr"
+    },
+    {
+      "insee": "33316",
+      "domain": "pellegrue.com",
+      "orgId": 2162,
+      "ip": "109.234.164.101",
+      "sourceUrl": "https://www.pellegrue.com"
+    },
+    {
+      "insee": "33378",
+      "domain": "saintavitsaintnazaire.fr",
+      "orgId": 2220,
+      "ip": "92.175.99.223",
+      "sourceUrl": "https://www.saintavitsaintnazaire.fr"
+    },
+    {
+      "insee": "33332",
+      "domain": "porcheres.fr",
+      "orgId": 2178,
+      "ip": "217.109.171.1",
+      "sourceUrl": "https://www.porcheres.fr"
+    },
+    {
+      "insee": "33458",
+      "domain": "mairie-st-paul.com",
+      "orgId": 2296,
+      "ip": "109.234.166.116",
+      "sourceUrl": "https://www.mairie-st-paul.com"
+    },
+    {
+      "insee": "33195",
+      "domain": "grignols.fr",
+      "orgId": 2046,
+      "ip": "109.234.164.236",
+      "sourceUrl": "http://grignols.fr"
+    },
+    {
+      "insee": "19068",
+      "domain": "dampniat.com",
+      "orgId": 888,
+      "ip": "75.2.19.112",
+      "sourceUrl": "https://www.dampniat.com"
+    },
+    {
+      "insee": "19078",
+      "domain": "estivaux.fr",
+      "orgId": 898,
+      "ip": "46.105.156.177",
+      "sourceUrl": "https://www.estivaux.fr/fr/"
+    },
+    {
+      "insee": "19100",
+      "domain": "lagrauliere.correze.net",
+      "orgId": 919,
+      "ip": "193.104.36.188",
+      "sourceUrl": "http://www.lagrauliere.correze.net"
+    },
+    {
+      "insee": "19025",
+      "domain": "beyssenac.com",
+      "orgId": 846,
+      "ip": "54.37.151.19",
+      "sourceUrl": "https://www.beyssenac.com"
+    },
+    {
+      "insee": "24019",
+      "domain": "azerat.com",
+      "orgId": 1369,
+      "ip": "194.206.126.204",
+      "sourceUrl": "http://www.azerat.com"
+    },
+    {
+      "insee": "23179",
+      "domain": "saint-alpinien.creuse-grand-sud.fr",
+      "orgId": 1268,
+      "ip": "213.186.33.87",
+      "sourceUrl": "https://saint-alpinien.creuse-grand-sud.fr"
+    },
+    {
+      "insee": "24001",
+      "domain": "abjat-sur-bandiat.fr",
+      "orgId": 1354,
+      "ip": "46.105.204.3",
+      "sourceUrl": "https://www.abjat-sur-bandiat.fr"
+    },
+    {
+      "insee": "23106",
+      "domain": "lepaud.fr",
+      "orgId": 1201,
+      "ip": "213.186.33.4",
+      "sourceUrl": "http://www.lepaud.fr"
+    },
+    {
+      "insee": "19115",
+      "domain": "ligneyrac.fr",
+      "orgId": 934,
+      "ip": "91.134.188.158",
+      "sourceUrl": "https://www.ligneyrac.fr"
+    },
+    {
+      "insee": "19237",
+      "domain": "saint-privat-19.fr",
+      "orgId": 1048,
+      "ip": "75.2.97.104",
+      "sourceUrl": "https://www.saint-privat-19.fr"
+    },
+    {
+      "insee": "19130",
+      "domain": "mairiemaussac.wixsite.com",
+      "orgId": 948,
+      "ip": "172.66.3.8",
+      "sourceUrl": "https://mairiemaussac.wixsite.com/accueil"
+    },
+    {
+      "insee": "24197",
+      "domain": "ginestet24.fr",
+      "orgId": 1520,
+      "ip": "146.59.185.233",
+      "sourceUrl": "https://www.ginestet24.fr"
+    },
+    {
+      "insee": "19176",
+      "domain": "rosiers-egletons.com",
+      "orgId": 994,
+      "ip": "104.247.81.99",
+      "sourceUrl": "http://www.rosiers-egletons.com"
+    },
+    {
+      "insee": "23071",
+      "domain": "croze-en-creuse.fr",
+      "orgId": 1168,
+      "ip": "213.186.33.18",
+      "sourceUrl": "http://www.croze-en-creuse.fr"
+    },
+    {
+      "insee": "19066",
+      "domain": "cublac.correze.net",
+      "orgId": 886,
+      "ip": "193.104.36.188",
+      "sourceUrl": "https://www.cublac.correze.net"
+    },
+    {
+      "insee": "23137",
+      "domain": "mouriouxvieilleville.fr",
+      "orgId": 1229,
+      "ip": "46.105.156.177",
+      "sourceUrl": "https://mouriouxvieilleville.fr/fr/"
+    },
+    {
+      "insee": "24142",
+      "domain": "couxetbigaroque-mouzens.fr",
+      "orgId": 1474,
+      "ip": "109.234.162.153",
+      "sourceUrl": "https://www.couxetbigaroque-mouzens.fr"
+    },
+    {
+      "insee": "24064",
+      "domain": "brantomeenperigord.fr",
+      "orgId": 1409,
+      "ip": "46.105.156.177",
+      "sourceUrl": "https://brantomeenperigord.fr/fr/"
+    },
+    {
+      "insee": "87027",
+      "domain": "bussiere-galant.fr",
+      "orgId": 4123,
+      "ip": "109.234.161.65",
+      "sourceUrl": "https://bussiere-galant.fr"
+    },
+    {
+      "insee": "86007",
+      "domain": "antran.fr",
+      "orgId": 3840,
+      "ip": "46.235.20.168",
+      "sourceUrl": "https://www.antran.fr"
+    },
+    {
+      "insee": "86241",
+      "domain": "saint-remy-sur-creuse.fr",
+      "orgId": 4047,
+      "ip": "154.50.5.47",
+      "sourceUrl": "https://www.saint-remy-sur-creuse.fr"
+    },
+    {
+      "insee": "86252",
+      "domain": "mairie-sammarcolles.fr",
+      "orgId": 4056,
+      "ip": "54.37.96.145",
+      "sourceUrl": "https://www.mairie-sammarcolles.fr"
+    },
+    {
+      "insee": "86281",
+      "domain": "saintmartinlapallu.fr",
+      "orgId": 4081,
+      "ip": "46.235.20.168",
+      "sourceUrl": "https://www.saintmartinlapallu.fr"
+    },
+    {
+      "insee": "40042",
+      "domain": "biarrotte.fr",
+      "orgId": 2430,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.biarrotte.fr"
+    },
+    {
+      "insee": "40003",
+      "domain": "angouleme.fr",
+      "orgId": 2393,
+      "ip": "109.234.166.247",
+      "sourceUrl": "https://www.angouleme.fr"
+    },
+    {
+      "insee": "40229",
+      "domain": "pontenx-les-forges.fr",
+      "orgId": 2614,
+      "ip": "46.218.208.133",
+      "sourceUrl": "https://www.pontenx-les-forges.fr"
+    },
+    {
+      "insee": "40256",
+      "domain": "saintetiennedorthe.fr",
+      "orgId": 2640,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.saintetiennedorthe.fr"
+    },
+    {
+      "insee": "64253",
+      "domain": "intramuros.org",
+      "orgId": 3281,
+      "ip": "13.38.225.117",
+      "sourceUrl": "https://www.intramuros.org/gurs"
+    },
+    {
+      "insee": "64091",
+      "domain": "mairiebaliros.wordpress.com",
+      "orgId": 3123,
+      "ip": "192.0.78.12",
+      "sourceUrl": "https://mairiebaliros.wordpress.com"
+    },
+    {
+      "insee": "64391",
+      "domain": "communaute-paysbasque.fr",
+      "orgId": 3416,
+      "ip": "176.31.192.231",
+      "sourceUrl": "https://www.communaute-paysbasque.fr/linstitution/les-infos-sur-ma-commune/ma-commune/moncayolle-larrory-mendibieu"
+    },
+    {
+      "insee": "47216",
+      "domain": "mairie-puymiclan.fr",
+      "orgId": 2929,
+      "ip": "146.59.209.152",
+      "sourceUrl": "https://www.mairie-puymiclan.fr"
+    },
+    {
+      "insee": "19107",
+      "domain": "larche-correze.fr",
+      "orgId": 926,
+      "ip": "94.125.164.242",
+      "sourceUrl": "https://www.larche-correze.fr"
+    },
+    {
+      "insee": "16134",
+      "domain": "exideuilsurvienne.com",
+      "orgId": 119,
+      "ip": "109.234.162.103",
+      "sourceUrl": "https://www.exideuilsurvienne.com"
+    },
+    {
+      "insee": "17053",
+      "domain": "bords17.free.fr",
+      "orgId": 409,
+      "ip": "212.27.63.104",
+      "sourceUrl": "http://bords17.free.fr"
+    },
+    {
+      "insee": "17064",
+      "domain": "breuillet-17.fr",
+      "orgId": 420,
+      "ip": "146.88.232.141",
+      "sourceUrl": "https://www.breuillet-17.fr"
+    },
+    {
+      "insee": "79078",
+      "domain": "plainedargenson.fr",
+      "orgId": 3631,
+      "ip": "37.59.230.98",
+      "sourceUrl": "https://www.plainedargenson.fr"
+    },
+    {
+      "insee": "87167",
+      "domain": "st-martin-terressus.fr",
+      "orgId": 4259,
+      "ip": "213.186.33.4",
+      "sourceUrl": "https://st-martin-terressus.fr"
+    },
+    {
+      "insee": "87113",
+      "domain": "lepalaissurvienne.fr",
+      "orgId": 4206,
+      "ip": "146.255.169.76",
+      "sourceUrl": "https://lepalaissurvienne.fr"
+    },
+    {
+      "insee": "87117",
+      "domain": "peyrat-le-chateau.fr",
+      "orgId": 4210,
+      "ip": "95.128.74.147",
+      "sourceUrl": "https://www.peyrat-le-chateau.fr"
+    },
+    {
+      "insee": "79116",
+      "domain": "fayelabbesse.fr",
+      "orgId": 3661,
+      "ip": "75.2.97.104",
+      "sourceUrl": "https://www.fayelabbesse.fr"
+    },
+    {
+      "insee": "79334",
+      "domain": "mairie-valdumignon.fr",
+      "orgId": 3813,
+      "ip": "54.37.149.18",
+      "sourceUrl": "https://www.mairie-valdumignon.fr"
+    },
+    {
+      "insee": "24218",
+      "domain": "jumilhac-le-grand.fr",
+      "orgId": 1537,
+      "ip": "46.105.156.177",
+      "sourceUrl": "https://jumilhac-le-grand.fr/fr/"
+    },
+    {
+      "insee": "23096",
+      "domain": "ville-gueret.fr",
+      "orgId": 1191,
+      "ip": "109.234.161.37",
+      "sourceUrl": "https://www.ville-gueret.fr"
+    },
+    {
+      "insee": "24445",
+      "domain": "saintmarcelduperigord.fr",
+      "orgId": 1728,
+      "ip": "45.82.188.179",
+      "sourceUrl": "https://saintmarcelduperigord.fr"
+    },
+    {
+      "insee": "24299",
+      "domain": "mussidan.fr",
+      "orgId": 1606,
+      "ip": "54.36.91.62",
+      "sourceUrl": "https://www.mussidan.fr"
+    },
+    {
+      "insee": "40242",
+      "domain": "rimbezetbaudiets.fr",
+      "orgId": 2626,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.rimbezetbaudiets.fr"
+    },
+    {
+      "insee": "87125",
+      "domain": "rilhac-rancon.fr",
+      "orgId": 4218,
+      "ip": "46.105.156.177",
+      "sourceUrl": "https://rilhac-rancon.fr/fr/"
+    },
+    {
+      "insee": "86133",
+      "domain": "liguge.fr",
+      "orgId": 3956,
+      "ip": "154.50.0.144",
+      "sourceUrl": "https://www.liguge.fr"
+    },
+    {
+      "insee": "24370",
+      "domain": "saintantoinedebreuilh.wordpress.com",
+      "orgId": 1665,
+      "ip": "192.0.78.12",
+      "sourceUrl": "https://saintantoinedebreuilh.wordpress.com"
+    },
+    {
+      "insee": "24396",
+      "domain": "saintcyprien24.fr",
+      "orgId": 1688,
+      "ip": "91.134.188.158",
+      "sourceUrl": "https://www.saintcyprien24.fr"
+    },
+    {
+      "insee": "17295",
+      "domain": "communedereaux.fr",
+      "orgId": 640,
+      "ip": "104.247.81.99",
+      "sourceUrl": "http://www.communedereaux.fr"
+    },
+    {
+      "insee": "23129",
+      "domain": "la-maziere-aux-bons-hommes.fr",
+      "orgId": 1222,
+      "ip": "51.178.112.113",
+      "sourceUrl": "http://www.la-maziere-aux-bons-hommes.fr"
+    },
+    {
+      "insee": "24073",
+      "domain": "mairie-cales.com",
+      "orgId": 1416,
+      "ip": "162.159.128.70",
+      "sourceUrl": "https://www.mairie-cales.com"
+    },
+    {
+      "insee": "24519",
+      "domain": "mairiesarlande.fr",
+      "orgId": 1795,
+      "ip": "109.234.165.116",
+      "sourceUrl": "https://mairiesarlande.fr"
+    },
+    {
+      "insee": "16280",
+      "domain": "rivieres16.fr",
+      "orgId": 242,
+      "ip": "217.160.0.24",
+      "sourceUrl": "http://www.rivieres16.fr"
+    },
+    {
+      "insee": "24364",
+      "domain": "colysaintamand.fr",
+      "orgId": 1661,
+      "ip": "87.98.154.146",
+      "sourceUrl": "https://www.colysaintamand.fr"
+    },
+    {
+      "insee": "19053",
+      "domain": "chaveroche19.fr",
+      "orgId": 873,
+      "ip": "109.234.164.60",
+      "sourceUrl": "https://chaveroche19.fr"
+    },
+    {
+      "insee": "19129",
+      "domain": "masseret.fr",
+      "orgId": 947,
+      "ip": "185.230.63.107",
+      "sourceUrl": "https://www.masseret.fr"
+    },
+    {
+      "insee": "19155",
+      "domain": "orliac-de-bar.fr",
+      "orgId": 973,
+      "ip": "51.178.112.113",
+      "sourceUrl": "http://www.orliac-de-bar.fr"
+    },
+    {
+      "insee": "16192",
+      "domain": "mairie-roumazieres-loubert.com",
+      "orgId": 170,
+      "ip": "104.247.81.99",
+      "sourceUrl": "http://www.mairie-roumazieres-loubert.com"
+    },
+    {
+      "insee": "16146",
+      "domain": "garat.fr",
+      "orgId": 130,
+      "ip": "93.95.59.204",
+      "sourceUrl": "https://www.garat.fr"
+    },
+    {
+      "insee": "16097",
+      "domain": "val-de-cognac.com",
+      "orgId": 85,
+      "ip": "217.160.0.26",
+      "sourceUrl": "https://www.val-de-cognac.com"
+    },
+    {
+      "insee": "87178",
+      "domain": "saintpriesttaurion.fr",
+      "orgId": 4267,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://saintpriesttaurion.fr"
+    },
+    {
+      "insee": "87064",
+      "domain": "mairie-eymoutiers.fr",
+      "orgId": 4159,
+      "ip": "91.244.246.160",
+      "sourceUrl": "https://www.mairie-eymoutiers.fr"
+    },
+    {
+      "insee": "33306",
+      "domain": "noaillac.org",
+      "orgId": 2153,
+      "ip": "213.186.33.104",
+      "sourceUrl": "http://www.noaillac.org"
+    },
+    {
+      "insee": "33033",
+      "domain": "baurech.fr",
+      "orgId": 1889,
+      "ip": "164.132.235.17",
+      "sourceUrl": "https://www.baurech.fr"
+    },
+    {
+      "insee": "24367",
+      "domain": "saintandrededouble.fr",
+      "orgId": 1664,
+      "ip": "51.91.236.193",
+      "sourceUrl": "http://www.saintandrededouble.fr"
+    },
+    {
+      "insee": "23220",
+      "domain": "saint-medard-la-rochette.fr",
+      "orgId": 1309,
+      "ip": "109.234.162.249",
+      "sourceUrl": "https://www.saint-medard-la-rochette.fr"
+    },
+    {
+      "insee": "24371",
+      "domain": "saintaquilin.free.fr",
+      "orgId": 1666,
+      "ip": "212.27.63.130",
+      "sourceUrl": "http://saintaquilin.free.fr"
+    },
+    {
+      "insee": "24371",
+      "domain": "saintaquilin.fr",
+      "orgId": 1666,
+      "ip": "217.160.0.194",
+      "sourceUrl": "http://www.saintaquilin.fr"
+    },
+    {
+      "insee": "24523",
+      "domain": "saussignac-perigord.fr",
+      "orgId": 1799,
+      "ip": "46.105.156.177",
+      "sourceUrl": "https://saussignac-perigord.fr/fr/"
+    },
+    {
+      "insee": "24138",
+      "domain": "coulounieix-chamiers.fr",
+      "orgId": 1470,
+      "ip": "185.221.182.133",
+      "sourceUrl": "https://www.coulounieix-chamiers.fr"
+    },
+    {
+      "insee": "24521",
+      "domain": "sarliac.fr",
+      "orgId": 1797,
+      "ip": "84.16.66.164",
+      "sourceUrl": "https://www.sarliac.fr"
+    },
+    {
+      "insee": "64102",
+      "domain": "bayonne.fr",
+      "orgId": 3134,
+      "ip": "5.135.94.100",
+      "sourceUrl": "https://www.bayonne.fr"
+    },
+    {
+      "insee": "64378",
+      "domain": "communaute-paysbasque.fr",
+      "orgId": 3404,
+      "ip": "176.31.192.231",
+      "sourceUrl": "https://www.communaute-paysbasque.fr/linstitution/les-infos-sur-ma-commune/ma-commune/menditte"
+    },
+    {
+      "insee": "87129",
+      "domain": "royeres87.fr",
+      "orgId": 4222,
+      "ip": "213.186.33.40",
+      "sourceUrl": "http://www.royeres87.fr"
+    },
+    {
+      "insee": "87043",
+      "domain": "cheissoux.fr",
+      "orgId": 4139,
+      "ip": "87.98.154.146",
+      "sourceUrl": "https://www.cheissoux.fr"
+    },
+    {
+      "insee": "86015",
+      "domain": "availles-limouzine.fr",
+      "orgId": 3848,
+      "ip": "46.235.20.168",
+      "sourceUrl": "https://www.availles-limouzine.fr"
+    },
+    {
+      "insee": "79071",
+      "domain": "cc-parthenay-gatine.fr",
+      "orgId": 3627,
+      "ip": "194.250.166.150",
+      "sourceUrl": "https://www.cc-parthenay-gatine.fr/lachapellebertrand"
+    },
+    {
+      "insee": "64010",
+      "domain": "aiciritscamousuhast.fr",
+      "orgId": 3046,
+      "ip": "51.178.112.113",
+      "sourceUrl": "http://www.aiciritscamousuhast.fr"
+    },
+    {
+      "insee": "79003",
+      "domain": "ville-aiffres.fr",
+      "orgId": 3584,
+      "ip": "217.160.0.241",
+      "sourceUrl": "https://www.ville-aiffres.fr"
+    },
+    {
+      "insee": "79357",
+      "domain": "mairiedexaintray79.blogspot.com",
+      "orgId": 3833,
+      "ip": "142.251.142.1",
+      "sourceUrl": "https://mairiedexaintray79.blogspot.com"
+    },
+    {
+      "insee": "86003",
+      "domain": "anche.fr",
+      "orgId": 3836,
+      "ip": "81.92.91.56",
+      "sourceUrl": "http://www.anche.fr"
+    },
+    {
+      "insee": "47072",
+      "domain": "fumelvalleedulot.com",
+      "orgId": 2789,
+      "ip": "195.214.226.210",
+      "sourceUrl": "https://www.fumelvalleedulot.com/fr/page/142/courbiac"
+    },
+    {
+      "insee": "40128",
+      "domain": "horsarrieu.fr",
+      "orgId": 2513,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.horsarrieu.fr"
+    },
+    {
+      "insee": "24491",
+      "domain": "saint-rabier.fr",
+      "orgId": 1770,
+      "ip": "162.159.128.70",
+      "sourceUrl": "https://www.saint-rabier.fr"
+    },
+    {
+      "insee": "19086",
+      "domain": "goulles.correze.net",
+      "orgId": 906,
+      "ip": "193.104.36.188",
+      "sourceUrl": "http://www.goulles.correze.net"
+    },
+    {
+      "insee": "23139",
+      "domain": "moutiermalcard.com",
+      "orgId": 1231,
+      "ip": "109.234.164.202",
+      "sourceUrl": "http://www.moutiermalcard.com"
+    },
+    {
+      "insee": "24512",
+      "domain": "mairiedupaluel24.fr",
+      "orgId": 1788,
+      "ip": "51.91.236.193",
+      "sourceUrl": "https://mairiedupaluel24.fr"
+    },
+    {
+      "insee": "24573",
+      "domain": "verteillac.fr",
+      "orgId": 1845,
+      "ip": "213.186.33.19",
+      "sourceUrl": "https://www.verteillac.fr"
+    },
+    {
+      "insee": "86177",
+      "domain": "neuville-de-poitou.com",
+      "orgId": 3996,
+      "ip": "109.69.190.231",
+      "sourceUrl": "http://www.neuville-de-poitou.com"
+    },
+    {
+      "insee": "87197",
+      "domain": "thouron87.fr",
+      "orgId": 4284,
+      "ip": "95.128.74.147",
+      "sourceUrl": "https://www.thouron87.fr"
+    },
+    {
+      "insee": "79289",
+      "domain": "saintpierredesechaubrognes.fr",
+      "orgId": 3784,
+      "ip": "5.250.177.164",
+      "sourceUrl": "https://www.saintpierredesechaubrognes.fr"
+    },
+    {
+      "insee": "33270",
+      "domain": "mairie.marimbault.free.fr",
+      "orgId": 2118,
+      "ip": "212.27.63.130",
+      "sourceUrl": "http://mairie.marimbault.free.fr"
+    },
+    {
+      "insee": "40245",
+      "domain": "roquefort-des-landes.fr",
+      "orgId": 2629,
+      "ip": "188.130.25.102",
+      "sourceUrl": "http://www.roquefort-des-landes.fr"
+    },
+    {
+      "insee": "40308",
+      "domain": "sort-en-chalosse.fr",
+      "orgId": 2691,
+      "ip": "46.218.208.133",
+      "sourceUrl": "https://www.sort-en-chalosse.fr"
+    },
+    {
+      "insee": "24552",
+      "domain": "thonac.fr",
+      "orgId": 1826,
+      "ip": "162.159.128.70",
+      "sourceUrl": "https://www.thonac.fr"
+    },
+    {
+      "insee": "24115",
+      "domain": "mairiechateauleveque.fr",
+      "orgId": 1450,
+      "ip": "88.222.222.184",
+      "sourceUrl": "https://mairiechateauleveque.fr"
+    },
+    {
+      "insee": "24120",
+      "domain": "cherveix-cubas.fr",
+      "orgId": 1454,
+      "ip": "46.105.156.177",
+      "sourceUrl": "https://cherveix-cubas.fr/fr/"
+    },
+    {
+      "insee": "40040",
+      "domain": "beylongue.fr",
+      "orgId": 2428,
+      "ip": "46.218.208.133",
+      "sourceUrl": "https://www.beylongue.fr"
+    },
+    {
+      "insee": "79031",
+      "domain": "beauvoir-sur-niort.fr",
+      "orgId": 3604,
+      "ip": "5.196.111.251",
+      "sourceUrl": "https://www.beauvoir-sur-niort.fr"
+    },
+    {
+      "insee": "79306",
+      "domain": "cc-parthenay-gatine.fr",
+      "orgId": 3797,
+      "ip": "194.250.166.150",
+      "sourceUrl": "https://www.cc-parthenay-gatine.fr/saurais"
+    },
+    {
+      "insee": "86167",
+      "domain": "montssurguesnes.fr",
+      "orgId": 3987,
+      "ip": "46.235.20.168",
+      "sourceUrl": "https://www.montssurguesnes.fr"
+    },
+    {
+      "insee": "86237",
+      "domain": "saintpierredexideuil.fr",
+      "orgId": 4045,
+      "ip": "109.69.190.164",
+      "sourceUrl": "https://www.saintpierredexideuil.fr"
+    },
+    {
+      "insee": "47285",
+      "domain": "samazan.fr",
+      "orgId": 2994,
+      "ip": "185.154.137.65",
+      "sourceUrl": "https://www.samazan.fr"
+    },
+    {
+      "insee": "64148",
+      "domain": "bruges-capbis-mifaget.fr",
+      "orgId": 3180,
+      "ip": "109.234.166.109",
+      "sourceUrl": "https://www.bruges-capbis-mifaget.fr"
+    },
+    {
+      "insee": "64335",
+      "domain": "lescar.fr",
+      "orgId": 3361,
+      "ip": "193.17.196.35",
+      "sourceUrl": "https://lescar.fr"
+    },
+    {
+      "insee": "64533",
+      "domain": "tardets.com",
+      "orgId": 3556,
+      "ip": "51.91.236.255",
+      "sourceUrl": "http://www.tardets.com"
+    },
+    {
+      "insee": "64435",
+      "domain": "osserain-rivareyte.fr",
+      "orgId": 3459,
+      "ip": "51.178.112.113",
+      "sourceUrl": "http://www.osserain-rivareyte.fr"
+    },
+    {
+      "insee": "64039",
+      "domain": "aren.fr",
+      "orgId": 3073,
+      "ip": "109.234.166.109",
+      "sourceUrl": "https://www.aren.fr"
+    },
+    {
+      "insee": "24322",
+      "domain": "perigueux.fr",
+      "orgId": 1626,
+      "ip": "195.214.226.42",
+      "sourceUrl": "https://perigueux.fr"
+    },
+    {
+      "insee": "19273",
+      "domain": "turenne.fr",
+      "orgId": 1083,
+      "ip": "154.56.81.112",
+      "sourceUrl": "https://www.turenne.fr"
+    },
+    {
+      "insee": "24355",
+      "domain": "laroquegageac.fr",
+      "orgId": 1654,
+      "ip": "54.36.91.62",
+      "sourceUrl": "https://laroquegageac.fr"
+    },
+    {
+      "insee": "87032",
+      "domain": "chalus87.fr",
+      "orgId": 4128,
+      "ip": "109.234.162.103",
+      "sourceUrl": "https://www.chalus87.fr"
+    },
+    {
+      "insee": "24453",
+      "domain": "saint-martin-de-fressengeas.fr",
+      "orgId": 1735,
+      "ip": "109.234.162.153",
+      "sourceUrl": "https://www.saint-martin-de-fressengeas.fr"
+    },
+    {
+      "insee": "17240",
+      "domain": "ville-montendre.fr",
+      "orgId": 587,
+      "ip": "178.33.250.55",
+      "sourceUrl": "https://www.ville-montendre.fr"
+    },
+    {
+      "insee": "23062",
+      "domain": "mairie-cheniers-creuse.com",
+      "orgId": 1159,
+      "ip": "217.160.0.11",
+      "sourceUrl": "https://www.mairie-cheniers-creuse.com"
+    },
+    {
+      "insee": "16088",
+      "domain": "mairie-chassors.fr",
+      "orgId": 78,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://www.mairie-chassors.fr"
+    },
+    {
+      "insee": "23154",
+      "domain": "mairie-pionnat.com",
+      "orgId": 1245,
+      "ip": "217.160.0.217",
+      "sourceUrl": "http://mairie-pionnat.com"
+    },
+    {
+      "insee": "16193",
+      "domain": "louzac-saint-andre.fr",
+      "orgId": 171,
+      "ip": "217.160.0.205",
+      "sourceUrl": "http://www.louzac-saint-andre.fr"
+    },
+    {
+      "insee": "16383",
+      "domain": "tourriers.fr",
+      "orgId": 323,
+      "ip": "163.5.59.64",
+      "sourceUrl": "https://www.tourriers.fr"
+    },
+    {
+      "insee": "33135",
+      "domain": "mairiedecourpiac.fr",
+      "orgId": 1986,
+      "ip": "92.175.16.156",
+      "sourceUrl": "https://www.mairiedecourpiac.fr"
+    },
+    {
+      "insee": "33535",
+      "domain": "tresses.org",
+      "orgId": 2370,
+      "ip": "75.2.97.104",
+      "sourceUrl": "https://www.tresses.org"
+    },
+    {
+      "insee": "33260",
+      "domain": "commune-lugos.fr",
+      "orgId": 2110,
+      "ip": "5.44.160.3",
+      "sourceUrl": "https://commune-lugos.fr"
+    },
+    {
+      "insee": "33179",
+      "domain": "galgon.fr",
+      "orgId": 2030,
+      "ip": "213.251.158.197",
+      "sourceUrl": "https://www.galgon.fr"
+    },
+    {
+      "insee": "33157",
+      "domain": "espiet.fr",
+      "orgId": 2008,
+      "ip": "92.175.99.208",
+      "sourceUrl": "https://www.espiet.fr"
+    },
+    {
+      "insee": "40289",
+      "domain": "sarraziet.fr",
+      "orgId": 2673,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.sarraziet.fr"
+    },
+    {
+      "insee": "40164",
+      "domain": "retjons.fr",
+      "orgId": 2549,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.retjons.fr"
+    },
+    {
+      "insee": "40118",
+      "domain": "habas.fr",
+      "orgId": 2503,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.habas.fr"
+    },
+    {
+      "insee": "87146",
+      "domain": "saint-germain-les-belles.fr",
+      "orgId": 4238,
+      "ip": "46.18.231.23",
+      "sourceUrl": "https://saint-germain-les-belles.fr"
+    },
+    {
+      "insee": "17186",
+      "domain": "leguedallere.fr",
+      "orgId": 535,
+      "ip": "85.236.157.21",
+      "sourceUrl": "http://leguedallere.fr"
+    },
+    {
+      "insee": "86082",
+      "domain": "valenceenpoitou.fr",
+      "orgId": 3906,
+      "ip": "46.235.20.168",
+      "sourceUrl": "https://www.valenceenpoitou.fr"
+    },
+    {
+      "insee": "64387",
+      "domain": "momas.fr",
+      "orgId": 3412,
+      "ip": "213.186.33.4",
+      "sourceUrl": "http://www.momas.fr"
+    },
+    {
+      "insee": "79189",
+      "domain": "79400nanteuil.fr",
+      "orgId": 3718,
+      "ip": "213.186.33.4",
+      "sourceUrl": "https://79400nanteuil.fr"
+    },
+    {
+      "insee": "79322",
+      "domain": "letallud.fr",
+      "orgId": 3808,
+      "ip": "194.250.166.150",
+      "sourceUrl": "https://letallud.fr"
+    },
+    {
+      "insee": "86143",
+      "domain": "maire86.fr",
+      "orgId": 3966,
+      "ip": "46.18.231.82",
+      "sourceUrl": "https://maire86.fr"
+    },
+    {
+      "insee": "40156",
+      "domain": "liposthey.fr",
+      "orgId": 2541,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.liposthey.fr"
+    },
+    {
+      "insee": "33047",
+      "domain": "mairieberson.fr",
+      "orgId": 1902,
+      "ip": "217.109.171.93",
+      "sourceUrl": "https://www.mairieberson.fr"
+    },
+    {
+      "insee": "33492",
+      "domain": "saint-yzan-de-soudiac.com",
+      "orgId": 2329,
+      "ip": "51.178.112.113",
+      "sourceUrl": "http://www.saint-yzan-de-soudiac.com"
+    },
+    {
+      "insee": "64286",
+      "domain": "laa-mondrans.fr",
+      "orgId": 3313,
+      "ip": "91.121.33.192",
+      "sourceUrl": "http://www.laa-mondrans.fr"
+    },
+    {
+      "insee": "64048",
+      "domain": "mairiearnos.wordpress.com",
+      "orgId": 3082,
+      "ip": "192.0.78.12",
+      "sourceUrl": "https://mairiearnos.wordpress.com"
+    },
+    {
+      "insee": "19047",
+      "domain": "chartrier-ferriere.fr",
+      "orgId": 867,
+      "ip": "5.135.23.164",
+      "sourceUrl": "https://chartrier-ferriere.fr"
+    },
+    {
+      "insee": "87169",
+      "domain": "saintmauricelesbrousses.fr",
+      "orgId": 4261,
+      "ip": "185.125.27.179",
+      "sourceUrl": "https://www.saintmauricelesbrousses.fr"
+    },
+    {
+      "insee": "87060",
+      "domain": "dournazac.fr",
+      "orgId": 4155,
+      "ip": "46.18.231.23",
+      "sourceUrl": "https://dournazac.fr"
+    },
+    {
+      "insee": "19124",
+      "domain": "mansac.fr",
+      "orgId": 943,
+      "ip": "75.2.19.112",
+      "sourceUrl": "https://www.mansac.fr"
+    },
+    {
+      "insee": "87128",
+      "domain": "saint-pardoux-le-lac.fr",
+      "orgId": 4221,
+      "ip": "162.159.128.70",
+      "sourceUrl": "https://www.saint-pardoux-le-lac.fr"
+    },
+    {
+      "insee": "79136",
+      "domain": "alloinay.fr",
+      "orgId": 3681,
+      "ip": "62.210.96.15",
+      "sourceUrl": "https://www.alloinay.fr"
+    },
+    {
+      "insee": "47316",
+      "domain": "communedevares.fr",
+      "orgId": 3025,
+      "ip": "192.0.78.228",
+      "sourceUrl": "https://communedevares.fr"
+    },
+    {
+      "insee": "40145",
+      "domain": "larrivieresaintsavin.fr",
+      "orgId": 2530,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.larrivieresaintsavin.fr"
+    },
+    {
+      "insee": "33048",
+      "domain": "berthez.fr",
+      "orgId": 1903,
+      "ip": "217.109.171.39",
+      "sourceUrl": "https://www.berthez.fr"
+    },
+    {
+      "insee": "47312",
+      "domain": "tournon-dagenais.com",
+      "orgId": 3021,
+      "ip": "188.114.97.2",
+      "sourceUrl": "https://www.tournon-dagenais.com"
+    },
+    {
+      "insee": "19125",
+      "domain": "marcillac-la-croisille.fr",
+      "orgId": 944,
+      "ip": "54.38.93.19",
+      "sourceUrl": "http://www.marcillac-la-croisille.fr"
+    },
+    {
+      "insee": "24335",
+      "domain": "port-sainte-foy.info",
+      "orgId": 1637,
+      "ip": "46.105.204.30",
+      "sourceUrl": "https://www.port-sainte-foy.info"
+    },
+    {
+      "insee": "24059",
+      "domain": "communedebourgnac.fr",
+      "orgId": 1404,
+      "ip": "188.165.33.133",
+      "sourceUrl": "https://www.communedebourgnac.fr"
+    },
+    {
+      "insee": "86204",
+      "domain": "quincay.fr",
+      "orgId": 4019,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://quincay.fr"
+    },
+    {
+      "insee": "40166",
+      "domain": "lussagnet40.fr",
+      "orgId": 2551,
+      "ip": "62.210.187.241",
+      "sourceUrl": "http://www.lussagnet40.fr"
+    },
+    {
+      "insee": "24180",
+      "domain": "firbeix.fr",
+      "orgId": 1506,
+      "ip": "109.234.162.103",
+      "sourceUrl": "https://www.firbeix.fr"
+    },
+    {
+      "insee": "33490",
+      "domain": "stviviendemedoc.fr",
+      "orgId": 2327,
+      "ip": "51.178.112.113",
+      "sourceUrl": "http://www.stviviendemedoc.fr"
+    },
+    {
+      "insee": "33113",
+      "domain": "cauvignac.fr",
+      "orgId": 1964,
+      "ip": "92.175.16.222",
+      "sourceUrl": "https://www.cauvignac.fr"
+    },
+    {
+      "insee": "33133",
+      "domain": "castillonpujols.fr",
+      "orgId": 1984,
+      "ip": "54.194.127.198",
+      "sourceUrl": "https://www.castillonpujols.fr/la-cdc/les-31-communes/coubeyrac"
+    },
+    {
+      "insee": "33370",
+      "domain": "saintandrony.free.fr",
+      "orgId": 2213,
+      "ip": "212.27.63.114",
+      "sourceUrl": "http://saintandrony.free.fr"
+    },
+    {
+      "insee": "33370",
+      "domain": "saint-androny.fr",
+      "orgId": 2213,
+      "ip": "217.109.171.123",
+      "sourceUrl": "https://www.saint-androny.fr"
+    },
+    {
+      "insee": "23253",
+      "domain": "communethauron.fr",
+      "orgId": 1341,
+      "ip": "192.0.78.24",
+      "sourceUrl": "https://communethauron.fr"
+    },
+    {
+      "insee": "86264",
+      "domain": "sommieres-vienne.com",
+      "orgId": 4067,
+      "ip": "5.135.8.6",
+      "sourceUrl": "http://www.sommieres-vienne.com"
+    },
+    {
+      "insee": "86264",
+      "domain": "sommieresduclain.fr",
+      "orgId": 4067,
+      "ip": "46.235.20.168",
+      "sourceUrl": "https://sommieresduclain.fr"
+    },
+    {
+      "insee": "47093",
+      "domain": "fargues-sur-ourbise.fr",
+      "orgId": 2810,
+      "ip": "46.18.231.100",
+      "sourceUrl": "https://fargues-sur-ourbise.fr"
+    },
+    {
+      "insee": "47012",
+      "domain": "anzex.fr",
+      "orgId": 2729,
+      "ip": "46.18.231.100",
+      "sourceUrl": "https://anzex.fr"
+    },
+    {
+      "insee": "17205",
+      "domain": "loire-les-marais.fr",
+      "orgId": 553,
+      "ip": "109.234.164.22",
+      "sourceUrl": "https://loire-les-marais.fr"
+    },
+    {
+      "insee": "33229",
+      "domain": "mairie-lanton.fr",
+      "orgId": 2079,
+      "ip": "193.169.64.150",
+      "sourceUrl": "https://www.mairie-lanton.fr"
+    },
+    {
+      "insee": "33018",
+      "domain": "valdevirvee.fr",
+      "orgId": 1874,
+      "ip": "217.109.171.67",
+      "sourceUrl": "https://www.valdevirvee.fr"
+    },
+    {
+      "insee": "40152",
+      "domain": "lesperon.fr",
+      "orgId": 2537,
+      "ip": "46.218.208.133",
+      "sourceUrl": "https://www.lesperon.fr"
+    },
+    {
+      "insee": "33330",
+      "domain": "pompignac.fr",
+      "orgId": 2176,
+      "ip": "109.69.190.231",
+      "sourceUrl": "https://www.pompignac.fr"
+    },
+    {
+      "insee": "33079",
+      "domain": "cadarsac.fr",
+      "orgId": 1934,
+      "ip": "46.30.213.56",
+      "sourceUrl": "https://cadarsac.fr"
+    },
+    {
+      "insee": "40021",
+      "domain": "mairie-azur.fr",
+      "orgId": 2409,
+      "ip": "46.218.208.133",
+      "sourceUrl": "https://www.mairie-azur.fr"
+    },
+    {
+      "insee": "33233",
+      "domain": "mairie-laruscade.fr",
+      "orgId": 2083,
+      "ip": "109.234.162.191",
+      "sourceUrl": "https://www.mairie-laruscade.fr"
+    },
+    {
+      "insee": "86255",
+      "domain": "savigne.fr",
+      "orgId": 4059,
+      "ip": "109.234.164.39",
+      "sourceUrl": "https://savigne.fr"
+    },
+    {
+      "insee": "79145",
+      "domain": "cc-parthenay-gatine.fr",
+      "orgId": 3688,
+      "ip": "194.250.166.150",
+      "sourceUrl": "https://www.cc-parthenay-gatine.fr/lageon"
+    },
+    {
+      "insee": "86053",
+      "domain": "champignyenrochereau.com",
+      "orgId": 3882,
+      "ip": "3.125.172.46",
+      "sourceUrl": "https://www.champignyenrochereau.com"
+    },
+    {
+      "insee": "87143",
+      "domain": "saint-gence.fr",
+      "orgId": 4235,
+      "ip": "217.160.0.186",
+      "sourceUrl": "http://www.saint-gence.fr"
+    },
+    {
+      "insee": "33488",
+      "domain": "saintvincentdepertignas.com",
+      "orgId": 2325,
+      "ip": "188.114.97.2",
+      "sourceUrl": "https://www.saintvincentdepertignas.com"
+    },
+    {
+      "insee": "24302",
+      "domain": "nailhac.eu",
+      "orgId": 1609,
+      "ip": "213.186.33.5",
+      "sourceUrl": "http://www.nailhac.eu"
+    },
+    {
+      "insee": "87036",
+      "domain": "champsac.fr",
+      "orgId": 4132,
+      "ip": "54.37.151.19",
+      "sourceUrl": "https://www.champsac.fr"
+    },
+    {
+      "insee": "86186",
+      "domain": "mairie-oyre.fr",
+      "orgId": 4003,
+      "ip": "154.50.5.47",
+      "sourceUrl": "https://www.mairie-oyre.fr"
+    },
+    {
+      "insee": "86134",
+      "domain": "civraisienpoitou.fr",
+      "orgId": 3957,
+      "ip": "91.121.38.35",
+      "sourceUrl": "https://www.civraisienpoitou.fr"
+    },
+    {
+      "insee": "87028",
+      "domain": "val-doire-et-gartempe.fr",
+      "orgId": 4124,
+      "ip": "185.154.139.16",
+      "sourceUrl": "https://val-doire-et-gartempe.fr"
+    },
+    {
+      "insee": "47011",
+      "domain": "fumelvalleedulot.com",
+      "orgId": 2728,
+      "ip": "195.214.226.210",
+      "sourceUrl": "https://www.fumelvalleedulot.com/fr/page/137/anthe"
+    },
+    {
+      "insee": "64080",
+      "domain": "aussevielle.fr",
+      "orgId": 3112,
+      "ip": "109.234.166.109",
+      "sourceUrl": "https://www.aussevielle.fr"
+    },
+    {
+      "insee": "64336",
+      "domain": "lescun.fr",
+      "orgId": 3362,
+      "ip": "146.59.209.152",
+      "sourceUrl": "https://lescun.fr"
+    },
+    {
+      "insee": "79254",
+      "domain": "saintgeorgesderex.fr",
+      "orgId": 3760,
+      "ip": "46.18.231.23",
+      "sourceUrl": "https://saintgeorgesderex.fr"
+    },
+    {
+      "insee": "64126",
+      "domain": "bidos.fr",
+      "orgId": 3158,
+      "ip": "109.234.166.109",
+      "sourceUrl": "https://www.bidos.fr"
+    },
+    {
+      "insee": "64168",
+      "domain": "carresse-cassaber.fr",
+      "orgId": 3198,
+      "ip": "213.186.33.5",
+      "sourceUrl": "http://www.carresse-cassaber.fr"
+    },
+    {
+      "insee": "64006",
+      "domain": "accous.fr",
+      "orgId": 3042,
+      "ip": "109.234.164.251",
+      "sourceUrl": "http://www.accous.fr"
+    },
+    {
+      "insee": "64139",
+      "domain": "mairie-bosdarros.fr",
+      "orgId": 3171,
+      "ip": "213.186.33.3",
+      "sourceUrl": "http://www.mairie-bosdarros.fr"
+    },
+    {
+      "insee": "24212",
+      "domain": "issigeac.fr",
+      "orgId": 1531,
+      "ip": "217.70.184.38",
+      "sourceUrl": "https://www.issigeac.fr"
+    },
+    {
+      "insee": "24222",
+      "domain": "laforce-dordogne.fr",
+      "orgId": 1540,
+      "ip": "109.234.162.138",
+      "sourceUrl": "http://www.laforce-dordogne.fr"
+    },
+    {
+      "insee": "40154",
+      "domain": "levignacq.org",
+      "orgId": 2539,
+      "ip": "3.33.130.190",
+      "sourceUrl": "http://www.levignacq.org"
+    },
+    {
+      "insee": "24007",
+      "domain": "allemans.fr",
+      "orgId": 1359,
+      "ip": "46.18.231.23",
+      "sourceUrl": "https://allemans.fr"
+    },
+    {
+      "insee": "86117",
+      "domain": "mairiedejouhet.free.fr",
+      "orgId": 3940,
+      "ip": "212.27.63.109",
+      "sourceUrl": "http://mairiedejouhet.free.fr"
+    },
+    {
+      "insee": "24126",
+      "domain": "colombierenperigord.com",
+      "orgId": 1459,
+      "ip": "213.186.33.2",
+      "sourceUrl": "http://www.colombierenperigord.com"
+    },
+    {
+      "insee": "79019",
+      "domain": "aubigny79.fr",
+      "orgId": 3596,
+      "ip": "194.250.166.150",
+      "sourceUrl": "https://aubigny79.fr"
+    },
+    {
+      "insee": "64478",
+      "domain": "intramuros.org",
+      "orgId": 3502,
+      "ip": "13.38.225.117",
+      "sourceUrl": "https://www.intramuros.org/saintfaust"
+    },
+    {
+      "insee": "24284",
+      "domain": "montagnac-auberoche.fr",
+      "orgId": 1592,
+      "ip": "146.59.237.176",
+      "sourceUrl": "https://montagnac-auberoche.fr"
+    },
+    {
+      "insee": "33177",
+      "domain": "gaillanenmedoc.org",
+      "orgId": 2028,
+      "ip": "162.159.128.70",
+      "sourceUrl": "https://www.gaillanenmedoc.org"
+    },
+    {
+      "insee": "47081",
+      "domain": "ville-dolmayrac.fr",
+      "orgId": 2798,
+      "ip": "213.186.33.5",
+      "sourceUrl": "http://www.ville-dolmayrac.fr"
+    },
+    {
+      "insee": "23133",
+      "domain": "montboucher23.fr",
+      "orgId": 1226,
+      "ip": "46.18.231.100",
+      "sourceUrl": "https://montboucher23.fr"
+    },
+    {
+      "insee": "33175",
+      "domain": "commune-frontenac.fr",
+      "orgId": 2026,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://commune-frontenac.fr"
+    },
+    {
+      "insee": "87018",
+      "domain": "communedeblond.jimdofree.com",
+      "orgId": 4115,
+      "ip": "185.60.251.251",
+      "sourceUrl": "https://communedeblond.jimdofree.com"
+    },
+    {
+      "insee": "87022",
+      "domain": "breuilaufa.fr",
+      "orgId": 4119,
+      "ip": "5.196.111.251",
+      "sourceUrl": "https://www.breuilaufa.fr"
+    },
+    {
+      "insee": "33132",
+      "domain": "village-comps.com",
+      "orgId": 1983,
+      "ip": "188.130.25.102",
+      "sourceUrl": "http://www.village-comps.com"
+    },
+    {
+      "insee": "24376",
+      "domain": "saint-aulaye.com",
+      "orgId": 1671,
+      "ip": "213.186.33.2",
+      "sourceUrl": "http://www.saint-aulaye.com"
+    },
+    {
+      "insee": "64520",
+      "domain": "serres-morlaas.fr",
+      "orgId": 3543,
+      "ip": "109.234.166.109",
+      "sourceUrl": "https://www.serres-morlaas.fr"
+    },
+    {
+      "insee": "33436",
+      "domain": "lapagelocale.fr",
+      "orgId": 2275,
+      "ip": "213.186.33.40",
+      "sourceUrl": "https://lapagelocale.fr/33125-saint-magne"
+    },
+    {
+      "insee": "87166",
+      "domain": "saintmartinlevieux.com",
+      "orgId": 4258,
+      "ip": "185.125.27.179",
+      "sourceUrl": "https://www.saintmartinlevieux.com"
+    },
+    {
+      "insee": "87097",
+      "domain": "valdissoire.fr",
+      "orgId": 4192,
+      "ip": "54.37.151.19",
+      "sourceUrl": "https://www.valdissoire.fr"
+    },
+    {
+      "insee": "64183",
+      "domain": "caubios-loos.fr",
+      "orgId": 3212,
+      "ip": "109.234.166.109",
+      "sourceUrl": "https://www.caubios-loos.fr"
+    },
+    {
+      "insee": "33328",
+      "domain": "mairiedepomerol.fr",
+      "orgId": 2174,
+      "ip": "185.230.63.186",
+      "sourceUrl": "https://www.mairiedepomerol.fr"
+    },
+    {
+      "insee": "64556",
+      "domain": "viellesegure.fr",
+      "orgId": 3577,
+      "ip": "213.186.33.5",
+      "sourceUrl": "http://www.viellesegure.fr"
+    },
+    {
+      "insee": "33511",
+      "domain": "sendets.fr",
+      "orgId": 2346,
+      "ip": "92.175.16.213",
+      "sourceUrl": "https://www.sendets.fr"
+    },
+    {
+      "insee": "47237",
+      "domain": "grand-villeneuvois.fr",
+      "orgId": 2950,
+      "ip": "109.234.162.200",
+      "sourceUrl": "https://www.grand-villeneuvois.fr/sainte-colombe-de-villeneuve-70.html"
+    },
+    {
+      "insee": "87170",
+      "domain": "saint-meard.fr",
+      "orgId": 4262,
+      "ip": "217.160.0.194",
+      "sourceUrl": "https://www.saint-meard.fr"
+    },
+    {
+      "insee": "87189",
+      "domain": "commune-les-salles-lavauguyon-97.webself.net",
+      "orgId": 4277,
+      "ip": "63.32.228.183",
+      "sourceUrl": "https://commune-les-salles-lavauguyon-97.webself.net"
+    },
+    {
+      "insee": "87086",
+      "domain": "mairiedelinards.fr",
+      "orgId": 4181,
+      "ip": "213.246.37.162",
+      "sourceUrl": "https://www.mairiedelinards.fr"
+    },
+    {
+      "insee": "64292",
+      "domain": "labatmale.fr",
+      "orgId": 3319,
+      "ip": "109.234.166.109",
+      "sourceUrl": "https://www.labatmale.fr"
+    },
+    {
+      "insee": "47278",
+      "domain": "mairie-stsernin47.fr",
+      "orgId": 2987,
+      "ip": "51.178.112.113",
+      "sourceUrl": "http://www.mairie-stsernin47.fr"
+    },
+    {
+      "insee": "64284",
+      "domain": "ville-jurancon.fr",
+      "orgId": 3311,
+      "ip": "217.18.82.60",
+      "sourceUrl": "https://www.ville-jurancon.fr"
+    },
+    {
+      "insee": "64179",
+      "domain": "castetner.fr",
+      "orgId": 3208,
+      "ip": "91.121.57.171",
+      "sourceUrl": "https://www.castetner.fr"
+    },
+    {
+      "insee": "64513",
+      "domain": "sauveterre-de-bearn.fr",
+      "orgId": 3536,
+      "ip": "109.234.166.109",
+      "sourceUrl": "https://www.sauveterre-de-bearn.fr"
+    },
+    {
+      "insee": "86262",
+      "domain": "sillars.fr",
+      "orgId": 4065,
+      "ip": "51.178.112.113",
+      "sourceUrl": "http://www.sillars.fr"
+    },
+    {
+      "insee": "87185",
+      "domain": "saint-victurnien.fr",
+      "orgId": 4273,
+      "ip": "213.186.33.2",
+      "sourceUrl": "https://www.saint-victurnien.fr"
+    },
+    {
+      "insee": "87046",
+      "domain": "cognac-la-foret.fr",
+      "orgId": 4142,
+      "ip": "54.37.149.18",
+      "sourceUrl": "https://www.cognac-la-foret.fr"
+    },
+    {
+      "insee": "86047",
+      "domain": "cernay86.fr",
+      "orgId": 3876,
+      "ip": "172.67.156.116",
+      "sourceUrl": "https://cernay86.fr"
+    },
+    {
+      "insee": "87004",
+      "domain": "augne.fr",
+      "orgId": 4102,
+      "ip": "213.186.33.40",
+      "sourceUrl": "https://www.augne.fr"
+    },
+    {
+      "insee": "87016",
+      "domain": "lesbillanges.fr",
+      "orgId": 4113,
+      "ip": "217.160.0.141",
+      "sourceUrl": "https://lesbillanges.fr"
+    },
+    {
+      "insee": "40034",
+      "domain": "belus-landes.fr",
+      "orgId": 2422,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.belus-landes.fr"
+    },
+    {
+      "insee": "86275",
+      "domain": "usseau86.fr",
+      "orgId": 4077,
+      "ip": "54.37.96.145",
+      "sourceUrl": "http://www.usseau86.fr"
+    },
+    {
+      "insee": "86006",
+      "domain": "antigny86.fr",
+      "orgId": 3839,
+      "ip": "185.176.225.17",
+      "sourceUrl": "https://www.antigny86.fr"
+    },
+    {
+      "insee": "64415",
+      "domain": "navailles-angos.fr",
+      "orgId": 3439,
+      "ip": "213.186.33.3",
+      "sourceUrl": "https://navailles-angos.fr"
+    },
+    {
+      "insee": "79049",
+      "domain": "ville-bressuire.fr",
+      "orgId": 3613,
+      "ip": "51.255.219.129",
+      "sourceUrl": "https://www.ville-bressuire.fr"
+    },
+    {
+      "insee": "79104",
+      "domain": "mairiedecours79.blogspot.com",
+      "orgId": 3652,
+      "ip": "142.251.142.1",
+      "sourceUrl": "http://mairiedecours79.blogspot.com"
+    },
+    {
+      "insee": "87040",
+      "domain": "chateauneuf-la-foret.fr",
+      "orgId": 4136,
+      "ip": "185.125.27.101",
+      "sourceUrl": "https://www.chateauneuf-la-foret.fr"
+    },
+    {
+      "insee": "86239",
+      "domain": "mairiesainteradegonde-86.jimdofree.com",
+      "orgId": 4046,
+      "ip": "185.60.251.252",
+      "sourceUrl": "https://mairiesainteradegonde-86.jimdofree.com"
+    },
+    {
+      "insee": "79125",
+      "domain": "fors79.fr",
+      "orgId": 3670,
+      "ip": "95.128.74.147",
+      "sourceUrl": "https://www.fors79.fr"
+    },
+    {
+      "insee": "86250",
+      "domain": "saix-86120.fr",
+      "orgId": 4055,
+      "ip": "217.160.0.149",
+      "sourceUrl": "http://www.saix-86120.fr"
+    },
+    {
+      "insee": "47171",
+      "domain": "grand-villeneuvois.fr",
+      "orgId": 2884,
+      "ip": "109.234.162.200",
+      "sourceUrl": "https://www.grand-villeneuvois.fr/monbalen-65.html"
+    },
+    {
+      "insee": "87002",
+      "domain": "mairie-ambazac.fr",
+      "orgId": 4100,
+      "ip": "109.234.160.112",
+      "sourceUrl": "https://mairie-ambazac.fr"
+    },
+    {
+      "insee": "24486",
+      "domain": "saintpierredefrugie.fr",
+      "orgId": 1765,
+      "ip": "185.177.63.31",
+      "sourceUrl": "https://saintpierredefrugie.fr"
+    },
+    {
+      "insee": "87182",
+      "domain": "saint-sulpice-les-feuilles.fr",
+      "orgId": 4271,
+      "ip": "46.4.70.94",
+      "sourceUrl": "https://www.saint-sulpice-les-feuilles.fr"
+    },
+    {
+      "insee": "86222",
+      "domain": "saint-georges-les-baillargeaux.fr",
+      "orgId": 4032,
+      "ip": "85.255.84.120",
+      "sourceUrl": "https://www.saint-georges-les-baillargeaux.fr"
+    },
+    {
+      "insee": "64401",
+      "domain": "communedemontdisse.jimdofree.com",
+      "orgId": 3426,
+      "ip": "185.60.251.252",
+      "sourceUrl": "https://communedemontdisse.jimdofree.com"
+    },
+    {
+      "insee": "87075",
+      "domain": "ville-isle.fr",
+      "orgId": 4170,
+      "ip": "109.234.164.137",
+      "sourceUrl": "https://www.ville-isle.fr"
+    },
+    {
+      "insee": "24237",
+      "domain": "lembras.fr",
+      "orgId": 1553,
+      "ip": "46.18.231.100",
+      "sourceUrl": "https://lembras.fr"
+    },
+    {
+      "insee": "47290",
+      "domain": "la-sauvetat-du-dropt.fr",
+      "orgId": 2999,
+      "ip": "51.91.236.193",
+      "sourceUrl": "https://www.la-sauvetat-du-dropt.fr"
+    },
+    {
+      "insee": "64477",
+      "domain": "baigorry.fr",
+      "orgId": 3501,
+      "ip": "84.234.22.175",
+      "sourceUrl": "https://www.baigorry.fr"
+    },
+    {
+      "insee": "79079",
+      "domain": "mauleon.fr",
+      "orgId": 3632,
+      "ip": "213.186.33.2",
+      "sourceUrl": "https://www.mauleon.fr"
+    },
+    {
+      "insee": "64359",
+      "domain": "lucqdebearn.com",
+      "orgId": 3385,
+      "ip": "185.246.44.121",
+      "sourceUrl": "https://www.lucqdebearn.com"
+    },
+    {
+      "insee": "79086",
+      "domain": "cherveux.fr",
+      "orgId": 3638,
+      "ip": "54.37.122.23",
+      "sourceUrl": "https://www.cherveux.fr"
+    },
+    {
+      "insee": "64353",
+      "domain": "louvie-juzon.fr",
+      "orgId": 3379,
+      "ip": "46.18.231.100",
+      "sourceUrl": "https://louvie-juzon.fr"
+    },
+    {
+      "insee": "87011",
+      "domain": "bellac.fr",
+      "orgId": 4108,
+      "ip": "212.83.142.210",
+      "sourceUrl": "https://www.bellac.fr"
+    },
+    {
+      "insee": "87005",
+      "domain": "mairie-aureil.fr",
+      "orgId": 4103,
+      "ip": "185.177.47.30",
+      "sourceUrl": "https://www.mairie-aureil.fr"
+    },
+    {
+      "insee": "79046",
+      "domain": "lebourdet.fr",
+      "orgId": 3610,
+      "ip": "46.105.156.177",
+      "sourceUrl": "https://www.lebourdet.fr/fr/"
+    },
+    {
+      "insee": "23057",
+      "domain": "chatelus-malvaleix.fr",
+      "orgId": 1154,
+      "ip": "54.37.149.18",
+      "sourceUrl": "https://www.chatelus-malvaleix.fr"
+    },
+    {
+      "insee": "86161",
+      "domain": "moncontour-de-poitou.fr",
+      "orgId": 3982,
+      "ip": "51.195.118.179",
+      "sourceUrl": "https://www.moncontour-de-poitou.fr"
+    },
+    {
+      "insee": "33425",
+      "domain": "saintlaurentdarce.fr",
+      "orgId": 2265,
+      "ip": "217.109.171.106",
+      "sourceUrl": "http://www.saintlaurentdarce.fr"
+    },
+    {
+      "insee": "87030",
+      "domain": "chaillac-sur-vienne.fr",
+      "orgId": 4126,
+      "ip": "51.91.236.255",
+      "sourceUrl": "https://www.chaillac-sur-vienne.fr"
+    },
+    {
+      "insee": "86234",
+      "domain": "saint-martin-lars.fr",
+      "orgId": 4042,
+      "ip": "109.234.165.113",
+      "sourceUrl": "https://www.saint-martin-lars.fr"
+    },
+    {
+      "insee": "24082",
+      "domain": "carsac-aillac.fr",
+      "orgId": 1423,
+      "ip": "75.2.19.112",
+      "sourceUrl": "https://www.carsac-aillac.fr"
+    },
+    {
+      "insee": "33506",
+      "domain": "sauveterre-de-guyenne.eu",
+      "orgId": 2341,
+      "ip": "109.234.162.202",
+      "sourceUrl": "https://www.sauveterre-de-guyenne.eu"
+    },
+    {
+      "insee": "33506",
+      "domain": "sauveterre-de-guyenne.fr",
+      "orgId": 2341,
+      "ip": "185.154.137.156",
+      "sourceUrl": "https://www.sauveterre-de-guyenne.fr"
+    },
+    {
+      "insee": "64065",
+      "domain": "mairie-ascain.fr",
+      "orgId": 3098,
+      "ip": "84.234.22.175",
+      "sourceUrl": "https://www.mairie-ascain.fr"
+    },
+    {
+      "insee": "24208",
+      "domain": "mairie-de-grun-bordas.jimdofree.com",
+      "orgId": 1527,
+      "ip": "185.60.251.251",
+      "sourceUrl": "https://mairie-de-grun-bordas.jimdofree.com"
+    },
+    {
+      "insee": "16116",
+      "domain": "mairie-criteuillamagdeleine.fr",
+      "orgId": 103,
+      "ip": "46.18.231.23",
+      "sourceUrl": "https://mairie-criteuillamagdeleine.fr"
+    },
+    {
+      "insee": "87034",
+      "domain": "champagnaclariviere.fr",
+      "orgId": 4130,
+      "ip": "54.36.91.62",
+      "sourceUrl": "http://www.champagnaclariviere.fr"
+    },
+    {
+      "insee": "86233",
+      "domain": "valdivienne.fr",
+      "orgId": 4041,
+      "ip": "46.235.20.168",
+      "sourceUrl": "https://www.valdivienne.fr"
+    },
+    {
+      "insee": "86285",
+      "domain": "verrieres-vienne.fr",
+      "orgId": 4083,
+      "ip": "46.105.156.177",
+      "sourceUrl": "https://www.verrieres-vienne.fr/fr/"
+    },
+    {
+      "insee": "86032",
+      "domain": "bonneuil-matours.fr",
+      "orgId": 3863,
+      "ip": "46.235.20.168",
+      "sourceUrl": "https://www.bonneuil-matours.fr"
+    },
+    {
+      "insee": "87084",
+      "domain": "lavignac87.fr",
+      "orgId": 4179,
+      "ip": "185.125.27.179",
+      "sourceUrl": "https://www.lavignac87.fr"
+    },
+    {
+      "insee": "64547",
+      "domain": "ustaritz.fr",
+      "orgId": 3569,
+      "ip": "87.98.179.105",
+      "sourceUrl": "https://www.ustaritz.fr"
+    },
+    {
+      "insee": "87066",
+      "domain": "flavignac.fr",
+      "orgId": 4161,
+      "ip": "46.18.231.23",
+      "sourceUrl": "https://flavignac.fr"
+    },
+    {
+      "insee": "87094",
+      "domain": "meilhac.fr",
+      "orgId": 4189,
+      "ip": "213.186.33.19",
+      "sourceUrl": "https://www.meilhac.fr"
+    },
+    {
+      "insee": "79096",
+      "domain": "combrand79.wordpress.com",
+      "orgId": 3647,
+      "ip": "192.0.78.12",
+      "sourceUrl": "https://combrand79.wordpress.com"
+    },
+    {
+      "insee": "64405",
+      "domain": "mairie-morlaas.fr",
+      "orgId": 3429,
+      "ip": "78.40.9.66",
+      "sourceUrl": "http://www.mairie-morlaas.fr"
+    },
+    {
+      "insee": "86084",
+      "domain": "poitou-brenne.fr",
+      "orgId": 3908,
+      "ip": "109.234.162.13",
+      "sourceUrl": "https://www.poitou-brenne.fr/coulonges/"
+    },
+    {
+      "insee": "16102",
+      "domain": "ville-cognac.fr",
+      "orgId": 90,
+      "ip": "91.134.131.138",
+      "sourceUrl": "https://www.ville-cognac.fr"
+    },
+    {
+      "insee": "87014",
+      "domain": "bessines-sur-gartempe-87.fr",
+      "orgId": 4111,
+      "ip": "91.99.160.48",
+      "sourceUrl": "https://www.bessines-sur-gartempe-87.fr"
+    },
+    {
+      "insee": "87076",
+      "domain": "mairie-de-jabreilles-les-bordes.fr",
+      "orgId": 4171,
+      "ip": "213.186.33.24",
+      "sourceUrl": "https://mairie-de-jabreilles-les-bordes.fr"
+    },
+    {
+      "insee": "23143",
+      "domain": "mairie-noth.com",
+      "orgId": 1235,
+      "ip": "217.160.0.162",
+      "sourceUrl": "http://www.mairie-noth.com"
+    },
+    {
+      "insee": "17193",
+      "domain": "lajarne.fr",
+      "orgId": 541,
+      "ip": "154.50.0.139",
+      "sourceUrl": "http://www.lajarne.fr"
+    },
+    {
+      "insee": "17358",
+      "domain": "stmandesurbredoire.free.fr",
+      "orgId": 701,
+      "ip": "212.27.63.174",
+      "sourceUrl": "http://stmandesurbredoire.free.fr"
+    },
+    {
+      "insee": "87001",
+      "domain": "mairie-aixesurvienne.fr",
+      "orgId": 4099,
+      "ip": "109.234.164.231",
+      "sourceUrl": "https://www.mairie-aixesurvienne.fr"
+    },
+    {
+      "insee": "87120",
+      "domain": "commune-la-porcherie.fr",
+      "orgId": 4213,
+      "ip": "172.67.180.26",
+      "sourceUrl": "https://commune-la-porcherie.fr"
+    },
+    {
+      "insee": "64473",
+      "domain": "sainte-colome.fr",
+      "orgId": 3497,
+      "ip": "109.234.166.109",
+      "sourceUrl": "https://www.sainte-colome.fr"
+    },
+    {
+      "insee": "86184",
+      "domain": "ouzilly.fr",
+      "orgId": 4002,
+      "ip": "217.160.0.251",
+      "sourceUrl": "https://www.ouzilly.fr"
+    },
+    {
+      "insee": "16412",
+      "domain": "airbnb.co.uk",
+      "orgId": 347,
+      "ip": "166.117.189.176",
+      "sourceUrl": "https://www.airbnb.co.uk/villejoubert-france/stays"
+    },
+    {
+      "insee": "33373",
+      "domain": "stantoinesurlisle.fr",
+      "orgId": 2215,
+      "ip": "217.109.171.19",
+      "sourceUrl": "https://www.stantoinesurlisle.fr"
+    },
+    {
+      "insee": "33464",
+      "domain": "saintpierredebat.fr",
+      "orgId": 2302,
+      "ip": "15.197.187.84",
+      "sourceUrl": "https://www.saintpierredebat.fr"
+    },
+    {
+      "insee": "33441",
+      "domain": "saintmartinlacaussade.fr",
+      "orgId": 2280,
+      "ip": "188.165.53.185",
+      "sourceUrl": "https://saintmartinlacaussade.fr"
+    },
+    {
+      "insee": "40114",
+      "domain": "grand-dax.fr",
+      "orgId": 2499,
+      "ip": "109.234.161.202",
+      "sourceUrl": "https://www.grand-dax.fr"
+    },
+    {
+      "insee": "79215",
+      "domain": "pougneherisson.fr",
+      "orgId": 3735,
+      "ip": "91.216.107.140",
+      "sourceUrl": "https://www.pougneherisson.fr"
+    },
+    {
+      "insee": "87155",
+      "domain": "st-junien-les-combes.fr",
+      "orgId": 4247,
+      "ip": "109.234.161.158",
+      "sourceUrl": "https://st-junien-les-combes.fr"
+    },
+    {
+      "insee": "87202",
+      "domain": "veyrac.fr",
+      "orgId": 4289,
+      "ip": "13.248.139.84",
+      "sourceUrl": "https://www.veyrac.fr"
+    },
+    {
+      "insee": "33007",
+      "domain": "arbanats.fr",
+      "orgId": 1863,
+      "ip": "92.175.16.199",
+      "sourceUrl": "https://arbanats.fr"
+    },
+    {
+      "insee": "33097",
+      "domain": "carcans.fr",
+      "orgId": 1950,
+      "ip": "146.59.185.233",
+      "sourceUrl": "https://www.carcans.fr"
+    },
+    {
+      "insee": "40137",
+      "domain": "lacquy.fr",
+      "orgId": 2522,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.lacquy.fr"
+    },
+    {
+      "insee": "40015",
+      "domain": "landesdarmagnac.fr",
+      "orgId": 2403,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.landesdarmagnac.fr/Communaute-de-Communes/Territoire-27-communes/Arx"
+    },
+    {
+      "insee": "40215",
+      "domain": "ousse-suzan.fr",
+      "orgId": 2600,
+      "ip": "46.218.208.133",
+      "sourceUrl": "https://www.ousse-suzan.fr"
+    },
+    {
+      "insee": "64037",
+      "domain": "arbus.fr",
+      "orgId": 3071,
+      "ip": "185.230.63.107",
+      "sourceUrl": "https://www.arbus.fr"
+    },
+    {
+      "insee": "87033",
+      "domain": "chamboret.fr",
+      "orgId": 4129,
+      "ip": "5.196.111.251",
+      "sourceUrl": "https://www.chamboret.fr"
+    },
+    {
+      "insee": "87135",
+      "domain": "saint-auvent.com",
+      "orgId": 4228,
+      "ip": "84.205.191.105",
+      "sourceUrl": "https://www.saint-auvent.com"
+    },
+    {
+      "insee": "87135",
+      "domain": "saint-auvent.fr",
+      "orgId": 4228,
+      "ip": "146.255.169.76",
+      "sourceUrl": "https://saint-auvent.fr"
+    },
+    {
+      "insee": "19179",
+      "domain": "saillac.fr",
+      "orgId": 997,
+      "ip": "162.159.128.70",
+      "sourceUrl": "https://www.saillac.fr"
+    },
+    {
+      "insee": "24040",
+      "domain": "beynac-et-cazenac.fr",
+      "orgId": 1389,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://www.beynac-et-cazenac.fr"
+    },
+    {
+      "insee": "23001",
+      "domain": "ahun.fr",
+      "orgId": 1099,
+      "ip": "54.37.149.18",
+      "sourceUrl": "https://www.ahun.fr"
+    },
+    {
+      "insee": "19081",
+      "domain": "eyrein-commune.com",
+      "orgId": 901,
+      "ip": "192.0.78.220",
+      "sourceUrl": "https://eyrein-commune.com"
+    },
+    {
+      "insee": "16347",
+      "domain": "commune-de-saint-romain.fr",
+      "orgId": 292,
+      "ip": "217.160.0.166",
+      "sourceUrl": "https://commune-de-saint-romain.fr"
+    },
+    {
+      "insee": "16060",
+      "domain": "breville.org",
+      "orgId": 51,
+      "ip": "213.186.33.2",
+      "sourceUrl": "https://breville.org"
+    },
+    {
+      "insee": "16279",
+      "domain": "rioux-martin.monclocher.com",
+      "orgId": 241,
+      "ip": "54.37.41.233",
+      "sourceUrl": "http://www.rioux-martin.monclocher.com"
+    },
+    {
+      "insee": "16230",
+      "domain": "montmoreau.fr",
+      "orgId": 202,
+      "ip": "93.95.59.209",
+      "sourceUrl": "https://montmoreau.fr"
+    },
+    {
+      "insee": "79313",
+      "domain": "mairie-sepvret.fr",
+      "orgId": 3804,
+      "ip": "109.234.161.84",
+      "sourceUrl": "https://mairie-sepvret.fr"
+    },
+    {
+      "insee": "40284",
+      "domain": "ville-tyrosse.fr",
+      "orgId": 2668,
+      "ip": "46.218.208.133",
+      "sourceUrl": "https://www.ville-tyrosse.fr"
+    },
+    {
+      "insee": "19145",
+      "domain": "moustier-ventadour.blog4ever.com",
+      "orgId": 963,
+      "ip": "212.83.158.49",
+      "sourceUrl": "https://moustier-ventadour.blog4ever.com"
+    },
+    {
+      "insee": "24513",
+      "domain": "saintvincentsurlisle.fr",
+      "orgId": 1789,
+      "ip": "109.234.161.248",
+      "sourceUrl": "https://saintvincentsurlisle.fr"
+    },
+    {
+      "insee": "19136",
+      "domain": "meymac.fr",
+      "orgId": 954,
+      "ip": "54.37.151.19",
+      "sourceUrl": "https://www.meymac.fr"
+    },
+    {
+      "insee": "17018",
+      "domain": "ardillieres.fr",
+      "orgId": 375,
+      "ip": "75.2.19.112",
+      "sourceUrl": "https://www.ardillieres.fr"
+    },
+    {
+      "insee": "19143",
+      "domain": "montaignac-sur-doustre.fr",
+      "orgId": 961,
+      "ip": "146.59.209.152",
+      "sourceUrl": "https://www.montaignac-sur-doustre.fr"
+    },
+    {
+      "insee": "24568",
+      "domain": "cdcmontaignemontravelgurson.fr",
+      "orgId": 1840,
+      "ip": "164.132.235.17",
+      "sourceUrl": "https://www.cdcmontaignemontravelgurson.fr"
+    },
+    {
+      "insee": "40031",
+      "domain": "begaar.fr",
+      "orgId": 2419,
+      "ip": "46.218.208.133",
+      "sourceUrl": "https://www.begaar.fr"
+    },
+    {
+      "insee": "87110",
+      "domain": "oradour-sur-glane.fr",
+      "orgId": 4203,
+      "ip": "87.98.154.146",
+      "sourceUrl": "https://oradour-sur-glane.fr"
+    },
+    {
+      "insee": "87101",
+      "domain": "mortemart.fr",
+      "orgId": 4195,
+      "ip": "57.130.47.25",
+      "sourceUrl": "https://mortemart.fr"
+    },
+    {
+      "insee": "64317",
+      "domain": "larressore.fr",
+      "orgId": 3344,
+      "ip": "109.234.166.109",
+      "sourceUrl": "https://www.larressore.fr"
+    },
+    {
+      "insee": "86116",
+      "domain": "jazeneuil.fr",
+      "orgId": 3939,
+      "ip": "185.60.251.251",
+      "sourceUrl": "https://www.jazeneuil.fr"
+    },
+    {
+      "insee": "16204",
+      "domain": "bellevigne16.fr",
+      "orgId": 180,
+      "ip": "185.125.27.113",
+      "sourceUrl": "https://www.bellevigne16.fr"
+    },
+    {
+      "insee": "17004",
+      "domain": "iledaix.fr",
+      "orgId": 362,
+      "ip": "91.134.190.180",
+      "sourceUrl": "http://www.iledaix.fr"
+    },
+    {
+      "insee": "87092",
+      "domain": "mairiedemarval.fr",
+      "orgId": 4187,
+      "ip": "57.130.28.38",
+      "sourceUrl": "https://www.mairiedemarval.fr"
+    },
+    {
+      "insee": "47147",
+      "domain": "levignac-de-guyenne.com",
+      "orgId": 2863,
+      "ip": "109.234.161.69",
+      "sourceUrl": "http://www.levignac-de-guyenne.com"
+    },
+    {
+      "insee": "87082",
+      "domain": "ladignac-le-long.fr",
+      "orgId": 4177,
+      "ip": "46.18.231.100",
+      "sourceUrl": "https://ladignac-le-long.fr"
+    },
+    {
+      "insee": "79064",
+      "domain": "fontivillie.fr",
+      "orgId": 3623,
+      "ip": "212.83.142.210",
+      "sourceUrl": "https://www.fontivillie.fr"
+    },
+    {
+      "insee": "24336",
+      "domain": "pratsdecarlux.fr",
+      "orgId": 1638,
+      "ip": "109.234.162.17",
+      "sourceUrl": "https://www.pratsdecarlux.fr"
+    },
+    {
+      "insee": "33380",
+      "domain": "valdelivenne.fr",
+      "orgId": 2222,
+      "ip": "54.36.91.62",
+      "sourceUrl": "http://www.valdelivenne.fr"
+    },
+    {
+      "insee": "33016",
+      "domain": "mairie-asques.com",
+      "orgId": 1872,
+      "ip": "213.186.33.40",
+      "sourceUrl": "https://www.mairie-asques.com"
+    },
+    {
+      "insee": "17120",
+      "domain": "cormeroyal.fr",
+      "orgId": 473,
+      "ip": "185.98.131.143",
+      "sourceUrl": "http://www.cormeroyal.fr"
+    },
+    {
+      "insee": "33382",
+      "domain": "saint-christoly.fr",
+      "orgId": 2224,
+      "ip": "213.186.33.4",
+      "sourceUrl": "https://www.saint-christoly.fr"
+    },
+    {
+      "insee": "17462",
+      "domain": "venerand.fr",
+      "orgId": 798,
+      "ip": "37.59.230.98",
+      "sourceUrl": "https://www.venerand.fr"
+    },
+    {
+      "insee": "24028",
+      "domain": "beaumontois-en-perigord.fr",
+      "orgId": 1378,
+      "ip": "192.0.78.25",
+      "sourceUrl": "https://beaumontois-en-perigord.fr"
+    },
+    {
+      "insee": "79032",
+      "domain": "mairiebeceleuf.fr",
+      "orgId": 3605,
+      "ip": "78.40.11.128",
+      "sourceUrl": "https://mairiebeceleuf.fr"
+    },
+    {
+      "insee": "79106",
+      "domain": "couture-dargenson.fr",
+      "orgId": 3654,
+      "ip": "81.88.52.94",
+      "sourceUrl": "https://www.couture-dargenson.fr"
+    },
+    {
+      "insee": "19214",
+      "domain": "stjulienauxbois.correze.net",
+      "orgId": 1029,
+      "ip": "193.104.36.188",
+      "sourceUrl": "http://www.stjulienauxbois.correze.net"
+    },
+    {
+      "insee": "24398",
+      "domain": "perigord-nontronnais.fr",
+      "orgId": 1690,
+      "ip": "31.15.30.107",
+      "sourceUrl": "https://www.perigord-nontronnais.fr/commune/saint-estephe/"
+    },
+    {
+      "insee": "24153",
+      "domain": "ladornac.fr",
+      "orgId": 1484,
+      "ip": "94.125.164.242",
+      "sourceUrl": "https://www.ladornac.fr"
+    },
+    {
+      "insee": "23079",
+      "domain": "felletin.fr",
+      "orgId": 1176,
+      "ip": "46.105.204.3",
+      "sourceUrl": "http://www.felletin.fr"
+    },
+    {
+      "insee": "17406",
+      "domain": "saint-sornin.fr",
+      "orgId": 744,
+      "ip": "31.15.30.124",
+      "sourceUrl": "https://www.saint-sornin.fr"
+    },
+    {
+      "insee": "79062",
+      "domain": "cerizay.fr",
+      "orgId": 3621,
+      "ip": "213.186.33.4",
+      "sourceUrl": "http://www.cerizay.fr"
+    },
+    {
+      "insee": "17200",
+      "domain": "lagord.fr",
+      "orgId": 548,
+      "ip": "109.69.190.231",
+      "sourceUrl": "https://lagord.fr"
+    },
+    {
+      "insee": "86284",
+      "domain": "vernon86.fr",
+      "orgId": 4082,
+      "ip": "46.235.20.168",
+      "sourceUrl": "https://www.vernon86.fr"
+    },
+    {
+      "insee": "24025",
+      "domain": "barsenperigord.fr",
+      "orgId": 1375,
+      "ip": "15.237.151.218",
+      "sourceUrl": "https://www.barsenperigord.fr"
+    },
+    {
+      "insee": "23239",
+      "domain": "mairiestsebastien.fr",
+      "orgId": 1327,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://www.mairiestsebastien.fr"
+    },
+    {
+      "insee": "16275",
+      "domain": "ranville-breuillaud.fr",
+      "orgId": 238,
+      "ip": "91.121.40.89",
+      "sourceUrl": "http://www.ranville-breuillaud.fr"
+    },
+    {
+      "insee": "16019",
+      "domain": "asnieres-sur-nouere.fr",
+      "orgId": 15,
+      "ip": "154.50.0.97",
+      "sourceUrl": "http://www.asnieres-sur-nouere.fr"
+    },
+    {
+      "insee": "16019",
+      "domain": "asnieres-sur-nouere.net",
+      "orgId": 15,
+      "ip": "185.230.63.186",
+      "sourceUrl": "https://www.asnieres-sur-nouere.net"
+    },
+    {
+      "insee": "33256",
+      "domain": "ludonmedoc.fr",
+      "orgId": 2106,
+      "ip": "195.144.11.125",
+      "sourceUrl": "https://ludonmedoc.fr"
+    },
+    {
+      "insee": "33222",
+      "domain": "lalandedepomerol.fr",
+      "orgId": 2072,
+      "ip": "90.83.223.185",
+      "sourceUrl": "https://www.lalandedepomerol.fr"
+    },
+    {
+      "insee": "47172",
+      "domain": "moncaut-albret.fr",
+      "orgId": 2885,
+      "ip": "162.159.128.70",
+      "sourceUrl": "https://www.moncaut-albret.fr"
+    },
+    {
+      "insee": "47070",
+      "domain": "condezaygues.fr",
+      "orgId": 2787,
+      "ip": "88.222.222.161",
+      "sourceUrl": "https://condezaygues.fr"
+    },
+    {
+      "insee": "47310",
+      "domain": "mairie-tonneins.fr",
+      "orgId": 3019,
+      "ip": "109.234.165.228",
+      "sourceUrl": "https://www.mairie-tonneins.fr"
+    },
+    {
+      "insee": "64301",
+      "domain": "lagor.fr",
+      "orgId": 3328,
+      "ip": "51.68.37.68",
+      "sourceUrl": "https://www.lagor.fr"
+    },
+    {
+      "insee": "64339",
+      "domain": "lestelle-betharram.fr",
+      "orgId": 3365,
+      "ip": "213.186.33.19",
+      "sourceUrl": "http://www.lestelle-betharram.fr"
+    },
+    {
+      "insee": "40074",
+      "domain": "castel-sarrazin.fr",
+      "orgId": 2460,
+      "ip": "212.83.158.155",
+      "sourceUrl": "https://www.castel-sarrazin.fr"
+    },
+    {
+      "insee": "19210",
+      "domain": "sainthilaireluc.fr",
+      "orgId": 1025,
+      "ip": "109.234.167.241",
+      "sourceUrl": "https://sainthilaireluc.fr"
+    },
+    {
+      "insee": "19057",
+      "domain": "collonges-la-rouge.fr",
+      "orgId": 877,
+      "ip": "195.154.224.71",
+      "sourceUrl": "https://www.collonges-la-rouge.fr"
+    },
+    {
+      "insee": "40268",
+      "domain": "saintlaurentdegosse.fr",
+      "orgId": 2652,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.saintlaurentdegosse.fr"
+    },
+    {
+      "insee": "40193",
+      "domain": "montegut40.fr",
+      "orgId": 2578,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.montegut40.fr"
+    },
+    {
+      "insee": "33323",
+      "domain": "lepiansurgaronne.fr",
+      "orgId": 2169,
+      "ip": "185.154.136.222",
+      "sourceUrl": "https://www.lepiansurgaronne.fr"
+    },
+    {
+      "insee": "24309",
+      "domain": "mairieneuvic.fr",
+      "orgId": 1616,
+      "ip": "85.236.153.150",
+      "sourceUrl": "https://www.mairieneuvic.fr"
+    },
+    {
+      "insee": "33001",
+      "domain": "abzac-gironde.fr",
+      "orgId": 1857,
+      "ip": "185.230.63.171",
+      "sourceUrl": "https://www.abzac-gironde.fr"
+    },
+    {
+      "insee": "17152",
+      "domain": "epargnes.fr",
+      "orgId": 503,
+      "ip": "62.102.225.50",
+      "sourceUrl": "https://epargnes.fr"
+    },
+    {
+      "insee": "33081",
+      "domain": "cadillacsurgaronne.fr",
+      "orgId": 1936,
+      "ip": "87.98.154.146",
+      "sourceUrl": "https://cadillacsurgaronne.fr"
+    },
+    {
+      "insee": "33237",
+      "domain": "leogeats.fr",
+      "orgId": 2087,
+      "ip": "92.175.16.198",
+      "sourceUrl": "http://www.leogeats.fr"
+    },
+    {
+      "insee": "33003",
+      "domain": "ambaresetlagrave.fr",
+      "orgId": 1859,
+      "ip": "91.121.52.83",
+      "sourceUrl": "https://www.ambaresetlagrave.fr"
+    },
+    {
+      "insee": "19140",
+      "domain": "monceaux.correze.net",
+      "orgId": 958,
+      "ip": "193.36.182.21",
+      "sourceUrl": "http://www.monceaux.correze.net"
+    },
+    {
+      "insee": "24243",
+      "domain": "mairie-de-lisle.fr",
+      "orgId": 1558,
+      "ip": "5.196.77.200",
+      "sourceUrl": "https://www.mairie-de-lisle.fr"
+    },
+    {
+      "insee": "17422",
+      "domain": "seigne.fr",
+      "orgId": 759,
+      "ip": "213.186.33.5",
+      "sourceUrl": "http://www.seigne.fr"
+    },
+    {
+      "insee": "17300",
+      "domain": "larochelle.fr",
+      "orgId": 645,
+      "ip": "51.75.201.129",
+      "sourceUrl": "https://www.larochelle.fr"
+    },
+    {
+      "insee": "19254",
+      "domain": "segurlechateau.org",
+      "orgId": 1065,
+      "ip": "185.230.63.171",
+      "sourceUrl": "https://www.segurlechateau.org"
+    },
+    {
+      "insee": "33341",
+      "domain": "pugnac.fr",
+      "orgId": 2185,
+      "ip": "217.160.0.136",
+      "sourceUrl": "https://pugnac.fr"
+    },
+    {
+      "insee": "33039",
+      "domain": "mairie-begles.fr",
+      "orgId": 1895,
+      "ip": "195.214.225.148",
+      "sourceUrl": "https://www.mairie-begles.fr"
+    },
+    {
+      "insee": "24527",
+      "domain": "savignacleseglises.com",
+      "orgId": 1803,
+      "ip": "185.230.63.107",
+      "sourceUrl": "https://www.savignacleseglises.com"
+    },
+    {
+      "insee": "24380",
+      "domain": "saint-barthelemy-de-bellegarde.fr",
+      "orgId": 1675,
+      "ip": "46.18.231.23",
+      "sourceUrl": "https://saint-barthelemy-de-bellegarde.fr"
+    },
+    {
+      "insee": "24210",
+      "domain": "hautefort.fr",
+      "orgId": 1529,
+      "ip": "109.234.164.142",
+      "sourceUrl": "https://www.hautefort.fr"
+    },
+    {
+      "insee": "24179",
+      "domain": "la-feuillade.com",
+      "orgId": 1505,
+      "ip": "217.160.0.151",
+      "sourceUrl": "http://www.la-feuillade.com"
+    },
+    {
+      "insee": "24259",
+      "domain": "eyraud-crempse-maurens.fr",
+      "orgId": 1571,
+      "ip": "87.98.152.244",
+      "sourceUrl": "https://www.eyraud-crempse-maurens.fr"
+    },
+    {
+      "insee": "16026",
+      "domain": "balzac.fr",
+      "orgId": 20,
+      "ip": "46.18.231.100",
+      "sourceUrl": "https://balzac.fr"
+    },
+    {
+      "insee": "86036",
+      "domain": "villagebournand.fr",
+      "orgId": 3866,
+      "ip": "51.38.69.69",
+      "sourceUrl": "https://www.villagebournand.fr"
+    },
+    {
+      "insee": "17100",
+      "domain": "cherac.fr",
+      "orgId": 454,
+      "ip": "37.59.230.98",
+      "sourceUrl": "https://www.cherac.fr"
+    },
+    {
+      "insee": "87138",
+      "domain": "saint-bonnet-briance.fr",
+      "orgId": 4230,
+      "ip": "54.37.151.19",
+      "sourceUrl": "https://www.saint-bonnet-briance.fr"
+    },
+    {
+      "insee": "64194",
+      "domain": "mairie-cosledaa-lube-boast.fr",
+      "orgId": 3223,
+      "ip": "46.105.156.177",
+      "sourceUrl": "https://www.mairie-cosledaa-lube-boast.fr/fr/"
+    },
+    {
+      "insee": "79201",
+      "domain": "pamproux.fr",
+      "orgId": 3726,
+      "ip": "51.178.112.113",
+      "sourceUrl": "http://www.pamproux.fr"
+    },
+    {
+      "insee": "17322",
+      "domain": "stcyrdudoret.fr",
+      "orgId": 667,
+      "ip": "37.59.230.98",
+      "sourceUrl": "https://www.stcyrdudoret.fr"
+    },
+    {
+      "insee": "19072",
+      "domain": "donzenac.correze.net",
+      "orgId": 892,
+      "ip": "193.104.36.188",
+      "sourceUrl": "https://www.donzenac.correze.net"
+    },
+    {
+      "insee": "19269",
+      "domain": "mairietreignac.fr",
+      "orgId": 1079,
+      "ip": "54.37.151.19",
+      "sourceUrl": "https://www.mairietreignac.fr"
+    },
+    {
+      "insee": "19148",
+      "domain": "neuvic-correze.net",
+      "orgId": 966,
+      "ip": "54.37.151.19",
+      "sourceUrl": "https://www.neuvic-correze.net"
+    },
+    {
+      "insee": "19287",
+      "domain": "mairie-vitracsurmontane.fr",
+      "orgId": 1096,
+      "ip": "185.221.182.92",
+      "sourceUrl": "https://www.mairie-vitracsurmontane.fr"
+    },
+    {
+      "insee": "33186",
+      "domain": "gensac.fr",
+      "orgId": 2037,
+      "ip": "109.234.165.180",
+      "sourceUrl": "https://www.gensac.fr"
+    },
+    {
+      "insee": "19014",
+      "domain": "auriac.fr",
+      "orgId": 835,
+      "ip": "193.203.239.74",
+      "sourceUrl": "http://www.auriac.fr"
+    },
+    {
+      "insee": "24401",
+      "domain": "sainte-eulalie-d-ans.fr",
+      "orgId": 1692,
+      "ip": "46.105.156.177",
+      "sourceUrl": "https://www.sainte-eulalie-d-ans.fr/fr/"
+    },
+    {
+      "insee": "17348",
+      "domain": "saintjeandangle.org",
+      "orgId": 692,
+      "ip": "185.230.63.107",
+      "sourceUrl": "https://www.saintjeandangle.org"
+    },
+    {
+      "insee": "16138",
+      "domain": "fleac.fr",
+      "orgId": 123,
+      "ip": "93.95.60.50",
+      "sourceUrl": "https://www.fleac.fr"
+    },
+    {
+      "insee": "87087",
+      "domain": "lussac-les-eglises.fr",
+      "orgId": 4182,
+      "ip": "46.105.156.177",
+      "sourceUrl": "https://www.lussac-les-eglises.fr/fr/"
+    },
+    {
+      "insee": "17437",
+      "domain": "talmont-sur-gironde.fr",
+      "orgId": 774,
+      "ip": "62.102.225.50",
+      "sourceUrl": "https://www.talmont-sur-gironde.fr"
+    },
+    {
+      "insee": "19048",
+      "domain": "lechastang.fr",
+      "orgId": 868,
+      "ip": "46.18.231.23",
+      "sourceUrl": "https://lechastang.fr"
+    },
+    {
+      "insee": "19252",
+      "domain": "sarroux.com",
+      "orgId": 1063,
+      "ip": "23.231.42.67",
+      "sourceUrl": "http://www.sarroux.com"
+    },
+    {
+      "insee": "17229",
+      "domain": "merignac17.fr",
+      "orgId": 577,
+      "ip": "185.31.40.18",
+      "sourceUrl": "https://merignac17.fr"
+    },
+    {
+      "insee": "86299",
+      "domain": "mairie.vouzailles.free.fr",
+      "orgId": 4097,
+      "ip": "212.27.63.115",
+      "sourceUrl": "http://mairie.vouzailles.free.fr"
+    },
+    {
+      "insee": "17277",
+      "domain": "essouvert.fr",
+      "orgId": 622,
+      "ip": "87.98.154.146",
+      "sourceUrl": "https://essouvert.fr"
+    },
+    {
+      "insee": "64264",
+      "domain": "hopital-saint-blaise.fr",
+      "orgId": 3292,
+      "ip": "185.230.63.107",
+      "sourceUrl": "https://www.hopital-saint-blaise.fr"
+    },
+    {
+      "insee": "64320",
+      "domain": "laruns.fr",
+      "orgId": 3347,
+      "ip": "213.186.33.17",
+      "sourceUrl": "http://www.laruns.fr"
+    },
+    {
+      "insee": "79133",
+      "domain": "germond-rouvre.fr",
+      "orgId": 3678,
+      "ip": "163.172.183.229",
+      "sourceUrl": "http://www.germond-rouvre.fr"
+    },
+    {
+      "insee": "86273",
+      "domain": "poitou-brenne.fr",
+      "orgId": 4075,
+      "ip": "109.234.162.13",
+      "sourceUrl": "https://www.poitou-brenne.fr"
+    },
+    {
+      "insee": "16194",
+      "domain": "lupsault.byethost3.com",
+      "orgId": 172,
+      "ip": "185.27.134.118",
+      "sourceUrl": "http://lupsault.byethost3.com/index_m.html"
+    },
+    {
+      "insee": "86128",
+      "domain": "lencloitre.fr",
+      "orgId": 3951,
+      "ip": "46.235.20.168",
+      "sourceUrl": "https://www.lencloitre.fr"
+    },
+    {
+      "insee": "47060",
+      "domain": "caudecoste.fr",
+      "orgId": 2777,
+      "ip": "213.186.33.18",
+      "sourceUrl": "http://www.caudecoste.fr"
+    },
+    {
+      "insee": "33387",
+      "domain": "saintciersdabzac.fr",
+      "orgId": 2229,
+      "ip": "152.42.148.64",
+      "sourceUrl": "https://www.saintciersdabzac.fr"
+    },
+    {
+      "insee": "40082",
+      "domain": "classun.fr",
+      "orgId": 2468,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.classun.fr"
+    },
+    {
+      "insee": "33216",
+      "domain": "mairielados.wordpress.com",
+      "orgId": 2067,
+      "ip": "192.0.78.12",
+      "sourceUrl": "https://mairielados.wordpress.com"
+    },
+    {
+      "insee": "64170",
+      "domain": "castagnede.fr",
+      "orgId": 3199,
+      "ip": "213.186.33.5",
+      "sourceUrl": "http://www.castagnede.fr"
+    },
+    {
+      "insee": "47207",
+      "domain": "mairiepompiey.fr",
+      "orgId": 2920,
+      "ip": "54.37.149.18",
+      "sourceUrl": "https://www.mairiepompiey.fr"
+    },
+    {
+      "insee": "33461",
+      "domain": "saintphilippedaiguilhe.fr",
+      "orgId": 2299,
+      "ip": "90.83.223.164",
+      "sourceUrl": "https://www.saintphilippedaiguilhe.fr"
+    },
+    {
+      "insee": "40296",
+      "domain": "seignosse.fr",
+      "orgId": 2680,
+      "ip": "51.91.239.231",
+      "sourceUrl": "https://www.seignosse.fr"
+    },
+    {
+      "insee": "33437",
+      "domain": "saintmagnedecastillon.fr",
+      "orgId": 2276,
+      "ip": "109.234.166.161",
+      "sourceUrl": "https://www.saintmagnedecastillon.fr"
+    },
+    {
+      "insee": "33082",
+      "domain": "mairie-cadillac-en-fronsadais.fr",
+      "orgId": 1937,
+      "ip": "162.159.128.70",
+      "sourceUrl": "https://www.mairie-cadillac-en-fronsadais.fr"
+    },
+    {
+      "insee": "24015",
+      "domain": "cc-valleedelhomme.fr",
+      "orgId": 1366,
+      "ip": "162.159.128.70",
+      "sourceUrl": "https://www.cc-valleedelhomme.fr"
+    },
+    {
+      "insee": "17091",
+      "domain": "charron17.fr",
+      "orgId": 445,
+      "ip": "83.228.239.37",
+      "sourceUrl": "https://charron17.fr"
+    },
+    {
+      "insee": "24117",
+      "domain": "lescoteauxperigourdins.fr",
+      "orgId": 1452,
+      "ip": "217.160.0.191",
+      "sourceUrl": "http://lescoteauxperigourdins.fr"
+    },
+    {
+      "insee": "24207",
+      "domain": "grolejac.fr",
+      "orgId": 1526,
+      "ip": "87.98.146.109",
+      "sourceUrl": "https://www.grolejac.fr"
+    },
+    {
+      "insee": "23203",
+      "domain": "saintjulienlagenete.wordpress.com",
+      "orgId": 1292,
+      "ip": "192.0.78.13",
+      "sourceUrl": "https://saintjulienlagenete.wordpress.com"
+    },
+    {
+      "insee": "24559",
+      "domain": "tursac.jimdofree.com",
+      "orgId": 1832,
+      "ip": "185.60.251.252",
+      "sourceUrl": "https://tursac.jimdofree.com"
+    },
+    {
+      "insee": "24100",
+      "domain": "champniers-et-reilhac.fr",
+      "orgId": 1437,
+      "ip": "188.165.53.185",
+      "sourceUrl": "https://champniers-et-reilhac.fr"
+    },
+    {
+      "insee": "19164",
+      "domain": "peyrelevade.correze.net",
+      "orgId": 982,
+      "ip": "193.36.182.21",
+      "sourceUrl": "http://www.peyrelevade.correze.net"
+    },
+    {
+      "insee": "19164",
+      "domain": "peyrelevade.fr",
+      "orgId": 982,
+      "ip": "54.37.149.18",
+      "sourceUrl": "https://www.peyrelevade.fr"
+    },
+    {
+      "insee": "24522",
+      "domain": "sarrazac-dordogne.fr",
+      "orgId": 1798,
+      "ip": "109.234.164.76",
+      "sourceUrl": "https://sarrazac-dordogne.fr"
+    },
+    {
+      "insee": "17321",
+      "domain": "saintcrepin.fr",
+      "orgId": 666,
+      "ip": "37.59.230.98",
+      "sourceUrl": "https://www.saintcrepin.fr"
+    },
+    {
+      "insee": "40276",
+      "domain": "saint-michel-escalus.fr",
+      "orgId": 2660,
+      "ip": "46.218.208.133",
+      "sourceUrl": "https://www.saint-michel-escalus.fr"
+    },
+    {
+      "insee": "47004",
+      "domain": "ville-aiguillon.eu",
+      "orgId": 2721,
+      "ip": "5.196.164.211",
+      "sourceUrl": "http://www.ville-aiguillon.eu"
+    },
+    {
+      "insee": "47106",
+      "domain": "mairiedefumel.fr",
+      "orgId": 2823,
+      "ip": "213.186.33.16",
+      "sourceUrl": "http://www.mairiedefumel.fr"
+    },
+    {
+      "insee": "40100",
+      "domain": "lefreche.fr",
+      "orgId": 2486,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.lefreche.fr"
+    },
+    {
+      "insee": "33046",
+      "domain": "bernos-beaulac.fr",
+      "orgId": 1901,
+      "ip": "217.109.171.85",
+      "sourceUrl": "http://www.bernos-beaulac.fr"
+    },
+    {
+      "insee": "24481",
+      "domain": "saint-paul-la-roche.fr",
+      "orgId": 1760,
+      "ip": "46.18.231.100",
+      "sourceUrl": "https://saint-paul-la-roche.fr"
+    },
+    {
+      "insee": "24494",
+      "domain": "saint-remy-sur-lidoire.fr",
+      "orgId": 1773,
+      "ip": "217.160.0.233",
+      "sourceUrl": "https://saint-remy-sur-lidoire.fr"
+    },
+    {
+      "insee": "33388",
+      "domain": "mairie-saintciersdecanesse.com",
+      "orgId": 2230,
+      "ip": "217.160.0.49",
+      "sourceUrl": "https://www.mairie-saintciersdecanesse.com"
+    },
+    {
+      "insee": "33502",
+      "domain": "communedesaugon.com",
+      "orgId": 2337,
+      "ip": "217.160.0.176",
+      "sourceUrl": "http://www.communedesaugon.com"
+    },
+    {
+      "insee": "17482",
+      "domain": "vouhe17.fr",
+      "orgId": 817,
+      "ip": "104.247.81.99",
+      "sourceUrl": "http://www.vouhe17.fr"
+    },
+    {
+      "insee": "17394",
+      "domain": "saintsaturnindubois.fr",
+      "orgId": 733,
+      "ip": "109.234.162.37",
+      "sourceUrl": "https://saintsaturnindubois.fr"
+    },
+    {
+      "insee": "19060",
+      "domain": "condat-sur-ganaveix.fr",
+      "orgId": 880,
+      "ip": "54.37.151.19",
+      "sourceUrl": "https://www.condat-sur-ganaveix.fr"
+    },
+    {
+      "insee": "19070",
+      "domain": "darnets.correze.net",
+      "orgId": 890,
+      "ip": "193.104.36.188",
+      "sourceUrl": "http://www.darnets.correze.net"
+    },
+    {
+      "insee": "24443",
+      "domain": "slve.fr",
+      "orgId": 1726,
+      "ip": "162.159.128.70",
+      "sourceUrl": "https://www.slve.fr"
+    },
+    {
+      "insee": "24547",
+      "domain": "ville-terrasson.fr",
+      "orgId": 1821,
+      "ip": "213.186.33.4",
+      "sourceUrl": "https://www.ville-terrasson.fr"
+    },
+    {
+      "insee": "24183",
+      "domain": "fleurac.jimdofree.com",
+      "orgId": 1508,
+      "ip": "185.60.251.251",
+      "sourceUrl": "https://fleurac.jimdofree.com"
+    },
+    {
+      "insee": "19271",
+      "domain": "mairie-tudeils.fr",
+      "orgId": 1081,
+      "ip": "34.163.150.49",
+      "sourceUrl": "https://www.mairie-tudeils.fr"
+    },
+    {
+      "insee": "16132",
+      "domain": "etagnac.fr",
+      "orgId": 117,
+      "ip": "109.234.160.140",
+      "sourceUrl": "https://www.etagnac.fr"
+    },
+    {
+      "insee": "16337",
+      "domain": "saint-maurice-des-lions.fr",
+      "orgId": 283,
+      "ip": "46.105.57.169",
+      "sourceUrl": "https://saint-maurice-des-lions.fr"
+    },
+    {
+      "insee": "16397",
+      "domain": "verdille.fr",
+      "orgId": 335,
+      "ip": "109.234.160.140",
+      "sourceUrl": "http://www.verdille.fr"
+    },
+    {
+      "insee": "16413",
+      "domain": "ccvaldecharente.fr",
+      "orgId": 348,
+      "ip": "95.128.74.147",
+      "sourceUrl": "http://www.ccvaldecharente.fr/pages-des-communes/370-villiers-le-roux"
+    },
+    {
+      "insee": "33297",
+      "domain": "mairie-moulis-medoc.fr",
+      "orgId": 2144,
+      "ip": "90.83.223.199",
+      "sourceUrl": "http://www.mairie-moulis-medoc.fr"
+    },
+    {
+      "insee": "64441",
+      "domain": "pagolle.fr",
+      "orgId": 3465,
+      "ip": "51.178.112.113",
+      "sourceUrl": "http://www.pagolle.fr"
+    },
+    {
+      "insee": "86078",
+      "domain": "civray.fr",
+      "orgId": 3902,
+      "ip": "91.134.219.8",
+      "sourceUrl": "https://www.civray.fr"
+    },
+    {
+      "insee": "19146",
+      "domain": "naves19.fr",
+      "orgId": 964,
+      "ip": "37.0.74.19",
+      "sourceUrl": "https://www.naves19.fr"
+    },
+    {
+      "insee": "19076",
+      "domain": "espartignac.correze.net",
+      "orgId": 896,
+      "ip": "193.104.36.188",
+      "sourceUrl": "http://www.espartignac.correze.net"
+    },
+    {
+      "insee": "33208",
+      "domain": "jau-dignac-loirac.com",
+      "orgId": 2059,
+      "ip": "5.250.182.150",
+      "sourceUrl": "https://www.jau-dignac-loirac.com"
+    },
+    {
+      "insee": "23235",
+      "domain": "saint-priest-la-feuille.net",
+      "orgId": 1323,
+      "ip": "54.165.131.183",
+      "sourceUrl": "http://www.saint-priest-la-feuille.net"
+    },
+    {
+      "insee": "23235",
+      "domain": "saint-priest-la-feuille.fr",
+      "orgId": 1323,
+      "ip": "54.37.151.19",
+      "sourceUrl": "https://saint-priest-la-feuille.fr"
+    },
+    {
+      "insee": "23149",
+      "domain": "mairie-parsac-rimondeix.fr",
+      "orgId": 1241,
+      "ip": "46.105.156.177",
+      "sourceUrl": "https://mairie-parsac-rimondeix.fr/fr/"
+    },
+    {
+      "insee": "17151",
+      "domain": "leguille.fr",
+      "orgId": 502,
+      "ip": "62.102.225.50",
+      "sourceUrl": "https://www.leguille.fr"
+    },
+    {
+      "insee": "79249",
+      "domain": "saintgelais.fr",
+      "orgId": 3755,
+      "ip": "54.37.122.22",
+      "sourceUrl": "https://www.saintgelais.fr"
+    },
+    {
+      "insee": "16242",
+      "domain": "nanteuil-en-vallee.fr",
+      "orgId": 212,
+      "ip": "109.234.160.140",
+      "sourceUrl": "https://www.nanteuil-en-vallee.fr"
+    },
+    {
+      "insee": "40081",
+      "domain": "cere40.fr",
+      "orgId": 2467,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.cere40.fr"
+    },
+    {
+      "insee": "33449",
+      "domain": "saint-medard-en-jalles.fr",
+      "orgId": 2288,
+      "ip": "109.234.166.194",
+      "sourceUrl": "https://www.saint-medard-en-jalles.fr"
+    },
+    {
+      "insee": "33149",
+      "domain": "daubeze.fr",
+      "orgId": 2000,
+      "ip": "164.132.235.17",
+      "sourceUrl": "http://www.daubeze.fr"
+    },
+    {
+      "insee": "87127",
+      "domain": "larochelabeille.fr",
+      "orgId": 4220,
+      "ip": "51.178.112.113",
+      "sourceUrl": "http://www.larochelabeille.fr"
+    },
+    {
+      "insee": "79007",
+      "domain": "cc-parthenay-gatine.fr",
+      "orgId": 3586,
+      "ip": "194.250.166.150",
+      "sourceUrl": "https://www.cc-parthenay-gatine.fr/allonne"
+    },
+    {
+      "insee": "79196",
+      "domain": "oiron.fr",
+      "orgId": 3722,
+      "ip": "78.40.8.125",
+      "sourceUrl": "https://oiron.fr"
+    },
+    {
+      "insee": "79196",
+      "domain": "plaineetvallees.fr",
+      "orgId": 3722,
+      "ip": "217.70.184.38",
+      "sourceUrl": "http://plaineetvallees.fr"
+    },
+    {
+      "insee": "40037",
+      "domain": "communedebenquet.com",
+      "orgId": 2425,
+      "ip": "51.178.112.113",
+      "sourceUrl": "http://www.communedebenquet.com"
+    },
+    {
+      "insee": "40246",
+      "domain": "mairie-sabres.fr",
+      "orgId": 2630,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.mairie-sabres.fr"
+    },
+    {
+      "insee": "16093",
+      "domain": "chazelles.fr",
+      "orgId": 82,
+      "ip": "109.234.160.140",
+      "sourceUrl": "https://www.chazelles.fr"
+    },
+    {
+      "insee": "19242",
+      "domain": "saint-solve.fr",
+      "orgId": 1053,
+      "ip": "75.2.97.104",
+      "sourceUrl": "https://saint-solve.fr"
+    },
+    {
+      "insee": "16409",
+      "domain": "villefagnan.fr",
+      "orgId": 346,
+      "ip": "87.98.154.146",
+      "sourceUrl": "https://villefagnan.fr"
+    },
+    {
+      "insee": "40260",
+      "domain": "saintgeoursdauribat.fr",
+      "orgId": 2644,
+      "ip": "92.103.44.86",
+      "sourceUrl": "https://www.saintgeoursdauribat.fr"
+    }
+  ]
+}
