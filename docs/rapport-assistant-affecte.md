@@ -119,3 +119,7 @@ de Nouvelle-Aquitaine ont actuellement un événement rattaché. L'absence
 d'affirmation est explicitement présentée comme « absence de preuve enregistrée »,
 jamais comme une preuve de sécurité. Un libre texte non structuré, même s'il
 concerne la région, n'entre volontairement pas dans cette réponse.
+
+**CHANTIER TERMINÉ.** Objectif chiffré atteint et re-mesuré sur la base réelle
+le 22 novembre 2026 : 1 671 907 / 1 671 907 organisations NA avec preuve (100 %).
+Livré via la PR #480 sur `ext/chantier-s2`.
