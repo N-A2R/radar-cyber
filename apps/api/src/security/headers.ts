@@ -14,10 +14,14 @@ const CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
   "script-src 'self'",
   "worker-src 'self' blob:",
-  "style-src 'self' https://fonts.googleapis.com https://unpkg.com",
+  // MapLibre pose ses styles par attribut : sans 'unsafe-inline', la carte 3D
+  // se charge mais reste invisible.
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com",
   "font-src 'self' https://fonts.gstatic.com data:",
-  "img-src 'self' data: blob:",
-  "connect-src 'self'",
+  // Fonds de carte vectoriels : le style JSON et les tuiles viennent du même
+  // hôte public, en lecture seule.
+  "img-src 'self' data: blob: https://tiles.openfreemap.org",
+  "connect-src 'self' https://tiles.openfreemap.org https://s3.amazonaws.com",
   "media-src 'self' blob:",
   "object-src 'none'",
   "base-uri 'none'",
@@ -34,6 +38,10 @@ export async function installSecurityHeaders(app: FastifyInstance): Promise<void
   });
 
   app.addHook("onSend", async (req, reply, payload) => {
+    // Une requête annulée par le client (préchargement abandonné, navigation
+    // interrompue) a déjà ses en-têtes écrits : y toucher lèverait une erreur
+    // et remplacerait une réponse par un 500.
+    if (reply.raw.headersSent) return payload;
     const type = String(reply.getHeader("content-type") ?? "");
     if (type.includes("text/html")) {
       reply.header("Content-Security-Policy", CONTENT_SECURITY_POLICY);

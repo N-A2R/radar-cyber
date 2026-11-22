@@ -88,6 +88,12 @@ await app.register(rateLimit, {
   max: Number(process.env.RADAR_RATE_LIMIT_MAX ?? 300),
   timeWindow: Number(process.env.RADAR_RATE_LIMIT_WINDOW_MS ?? 60_000),
   keyGenerator: (req) => (req.user ? `user:${req.user.id}` : `ip:${req.ip}`),
+  // Le quota protège l'API, pas la livraison du front : une page ouverte
+  // demande une quarantaine de fichiers, et plusieurs onglets ou une IP
+  // partagée épuiseraient le quota avant même le premier appel d'API.
+  // Sans cette exemption, les rechargements reçoivent des 429 sur le CSS et le
+  // JS, et l'écran reste blanc.
+  allowList: (req) => !(req.url ?? "").startsWith("/api/"),
   errorResponseBuilder: (_req, context) => ({
     error: {
       code: "RATE_LIMIT_EXCEEDED",
