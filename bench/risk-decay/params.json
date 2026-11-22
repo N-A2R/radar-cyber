@@ -1,0 +1,15 @@
+{
+  "version": "risk-decay-240j-v1",
+  "description": "Benchmark de décroissance du risque : 400 entités synthétiques, 240 jours de faits avant le découpage, issue binaire sur 90 jours. Intensité latente en marche aléatoire autorégressive ; aucun fait réel, aucune organisation, aucune donnée personnelle.",
+  "seed": 20261122,
+  "entities": 400,
+  "start": "2025-11-01",
+  "historyDays": 240,
+  "horizonDays": 90,
+  "halfLifeDays": 14,
+  "factRate": 0.35,
+  "incidentRate": 0.006,
+  "arPhi": 0.97,
+  "arSigma": 0.12,
+  "source": "benchmark-risk-decay-240j"
+}
