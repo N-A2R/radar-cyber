@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-11-22T02:13:44.264Z",
+  "method": {
+    "scope": "Nouvelle-Aquitaine: event flagged regional or attached to an NA department",
+    "grouping": "subject (organisation or victim domain) + shared topic word + 72-hour window",
+    "independence": "publisher host from the source URL; feeds of one publisher count once",
+    "disagreement": "distinct declared severity, or distinct claim nature, between publishers",
+    "privacy": "hashed subject identifiers and event ids only; no title, summary or personal data",
+    "sources": "all sources included, including gray sources; no paid service and no network call"
+  },
+  "dataset": {
+    "organisations": 1678185,
+    "organisationsExact": true,
+    "sources": 312,
+    "events": 26259,
+    "eventsLoaded": 103,
+    "subjectsScanned": 74,
+    "eventsScanned": 94
+  },
+  "result": {
+    "contradictions": 1,
+    "byKind": {
+      "severity": 1,
+      "nature": 0
+    }
+  },
+  "contradictions": [
+    {
+      "id": "846536d9d695df63",
+      "subject": "8c715a903795b09b",
+      "kind": "severity",
+      "windowStart": "2026-11-18T00:00:00.000Z",
+      "windowEnd": "2026-11-18T16:40:27.000Z",
+      "eventIds": [
+        "51151",
+        "51362",
+        "51960"
+      ],
+      "positions": [
+        {
+          "publisher": "cert.at",
+          "sourceId": "cat-cert-at-warnings",
+          "severity": 2,
+          "nature": "vulnerability"
+        },
+        {
+          "publisher": "cert.ssi.gouv.fr",
+          "sourceId": "cert_fr",
+          "severity": 3,
+          "nature": "vulnerability"
+        },
+        {
+          "publisher": "feeds.ncsc.nl",
+          "sourceId": "cat-ncsc-nl-news",
+          "severity": 2,
+          "nature": "vulnerability"
+        }
+      ]
+    }
+  ]
+}
