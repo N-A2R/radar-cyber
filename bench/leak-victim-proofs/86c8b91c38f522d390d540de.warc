@@ -1,0 +1,18 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:9be8863b-2aa8-403d-a32d-f030ce4ef3b5>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 132
+WARC-Block-Digest: sha1:GUDR5EHAZ4TM63WQ75ATAYD2EJKB27BL
+X-Claim-Fingerprint: 0bfd56775c357961e17fd9aa
+X-Victim-Key: 86c8b91c38f522d390d540de
+
+{
+        "post_title": "Luxury Yacht Group",
+        "group_name": "play",
+        "discovered": "2024-12-30 18:35:53.096240"
+    }
+

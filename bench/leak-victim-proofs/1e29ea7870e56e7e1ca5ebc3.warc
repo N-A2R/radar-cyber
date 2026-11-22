@@ -1,0 +1,18 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:0e3a614c-34d5-4950-aeef-3b8d52845cd4>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 128
+WARC-Block-Digest: sha1:5WWQCWYWGCFAIOE66JDPULSA7V5PUQKN
+X-Claim-Fingerprint: 03485b00a9644458e5075d24
+X-Victim-Key: 1e29ea7870e56e7e1ca5ebc3
+
+{
+        "post_title": "Associates",
+        "group_name": "bianlian",
+        "discovered": "2024-12-26 16:36:03.053777"
+    }
+

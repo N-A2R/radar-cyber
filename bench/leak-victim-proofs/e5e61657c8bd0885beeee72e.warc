@@ -1,0 +1,18 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:5eca291b-44df-4b97-a42d-9ee1cbbd3464>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 134
+WARC-Block-Digest: sha1:INYGYE26GCW4N2SMSOYH5NTG4V6HDH72
+X-Claim-Fingerprint: abdc6e2c2157a3dca13595f0
+X-Victim-Key: e5e61657c8bd0885beeee72e
+
+{
+        "post_title": "IRIS Informatique",
+        "group_name": "rhysida",
+        "discovered": "2023-07-24 08:38:38.633477"
+    }
+
