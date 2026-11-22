@@ -18,6 +18,7 @@
     "typecheck": "pnpm -r typecheck",
     "verify": "bash scripts/verify-all.sh",
     "verify:journal": "apps/api/node_modules/.bin/tsx scripts/verify-journal.mts",
+    "verifie:objectif-rapport": "apps/api/node_modules/.bin/tsx scripts/verifie-objectif-rapport-benchmark.mts",
     "custody:measure": "apps/api/node_modules/.bin/tsx scripts/measure-custody.mts",
     "custody:backfill": "apps/api/node_modules/.bin/tsx scripts/backfill-custody.mts",
     "replay:journal": "apps/api/node_modules/.bin/tsx scripts/replay-journal.mts",
