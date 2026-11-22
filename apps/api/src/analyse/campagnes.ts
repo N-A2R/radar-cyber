@@ -25,8 +25,14 @@
  * d'événements qui les portent, et pour chaque incident ajouté le voisin de
  * référence, le motif du lien et le délai en heures. Rien n'est appris, rien
  * n'est deviné : une campagne contestée se corrige dans la règle ci-dessus.
+ *
+ * Scale anchors (2026-11): `./scale-signals.js` adds two deterministic signals
+ * on top of the historical anchors - an explicit CVE identifier and an
+ * identical advisory headline shared by two or more distinct sources. They
+ * obey the same proof, family and time-window rules as every other anchor.
  */
 import { withTransaction } from "../db.js";
+import { extractScaleSignals } from "./scale-signals.js";
 
 const JOUR_MS = 86_400_000;
 /** Deux revendications du même groupe à plus de 14 jours ne sont pas une campagne. */
@@ -35,8 +41,17 @@ export const FENETRE_ANCRE_MS = 14 * JOUR_MS;
 export const FENETRE_ORG_MS = 30 * JOUR_MS;
 /** Garde-fou contre le chaînage : aucune campagne ne couvre plus de 45 jours. */
 export const DUREE_MAX_CAMPAGNE_MS = 45 * JOUR_MS;
+/** Shared vulnerability identifiers and syndicated advisories use the wider window. */
+export const FENETRE_SIGNALE_MS = 30 * JOUR_MS;
 
-export type TypeSignal = "groupe" | "infrastructure" | "organisation" | "secteur" | "vecteur";
+export type TypeSignal =
+	| "groupe"
+	| "infrastructure"
+	| "organisation"
+	| "secteur"
+	| "vecteur"
+	| "cve"
+	| "headline";
 
 export type Signal = { type: TypeSignal; valeur: string };
 
@@ -209,6 +224,9 @@ export function signauxDe(evenement: EvenementCampagne): Signal[] {
 	if (secteur !== null) signaux.push({ type: "secteur", valeur: secteur });
 	const vecteur = vecteurDe(evenement);
 	if (vecteur !== null) signaux.push({ type: "vecteur", valeur: vecteur });
+	for (const signal of extractScaleSignals(evenement)) {
+		signaux.push({ type: signal.type, valeur: signal.value });
+	}
 	return signaux;
 }
 
@@ -246,11 +264,13 @@ function signauxPartages(graphe: Graphe): PreuveSignal[] {
 	);
 }
 
-/** Ancre autorisée : groupe > infrastructure > organisation*securité*vecteur. */
-function ancreDe(communs: readonly Signal[]): Signal | null {
+/** Anchor priority: group > infrastructure > CVE > syndicated headline > organisation triple. */
+function ancreDe(communs: readonly Signal[], sourceCount: number): Signal | null {
 	return (
 		communs.find((s) => s.type === "groupe") ??
 		communs.find((s) => s.type === "infrastructure") ??
+		communs.find((s) => s.type === "cve") ??
+		(sourceCount >= 2 ? (communs.find((s) => s.type === "headline") ?? null) : null) ??
 		(communs.some((s) => s.type === "organisation") &&
 		communs.some((s) => s.type === "secteur") &&
 		communs.some((s) => s.type === "vecteur")
@@ -277,13 +297,16 @@ function finaliser(cluster: Cluster, famille: string): Campagne {
 	const partages = signauxPartages(cluster.signaux);
 	const score = partages.length + (cluster.sources.size >= 2 ? 1 : 0);
 	const groupes = cluster.signaux.get("groupe");
-	// Une campagne est nommée par son acteur, sinon par son infrastructure,
-	// sinon par son organisation ; jamais par le titre d'une seule source.
+	const cves = cluster.signaux.get("cve");
+	const titres = cluster.signaux.get("headline");
+	// Label priority: actor, infrastructure, CVE, syndicated headline, organisation.
 	const label =
 		(groupes && [...groupes.keys()][0]) ||
 		(cluster.signaux.get("infrastructure") && [...(cluster.signaux.get("infrastructure") as Map<string, unknown>).keys()][0]) ||
+		(cves && [...cves.keys()][0]) ||
+		(titres && ([...titres.keys()][0] ?? "").slice(0, 80)) ||
 		(cluster.signaux.get("organisation") && [...(cluster.signaux.get("organisation") as Map<string, unknown>).keys()][0]) ||
-		 famille;
+		famille;
 	return {
 		cle: `cmp:${famille}:${label}:${new Date(cluster.debut).toISOString().slice(0, 10)}:${premier.id}`,
 		label,
@@ -305,7 +328,7 @@ function raisonIsolement(
 ): RaisonIsole {
 	if (!Number.isFinite(new Date(evenement.observedAt ?? "").getTime())) return "date_invalide";
 	const ancres = signauxDe(evenement).filter((s) =>
-		["groupe", "infrastructure", "organisation"].includes(s.type),
+		["groupe", "infrastructure", "organisation", "cve"].includes(s.type),
 	);
 	if (ancres.length === 0) return "sans_ancre";
 	for (const ancre of ancres) {
@@ -325,6 +348,8 @@ export function analyserCampagnes(evenements: readonly EvenementCampagne[]): Ana
 	const groupes = new Map<string, number[]>();
 	const infrastructures = new Map<string, number[]>();
 	const organisations = new Map<string, number[]>();
+	const cves = new Map<string, number[]>();
+	const titres = new Map<string, number[]>();
 	const indexAncrage = new Map<string, { id: number; family: string }[]>();
 	const indexer = (index: Map<string, number[]>, cle: string, position: number): void => {
 		const liste = index.get(cle) ?? [];
@@ -334,7 +359,7 @@ export function analyserCampagnes(evenements: readonly EvenementCampagne[]): Ana
 
 	for (const e of evenements) {
 		for (const signal of signauxDe(e)) {
-			if (!["groupe", "infrastructure", "organisation"].includes(signal.type)) continue;
+			if (!["groupe", "infrastructure", "organisation", "cve"].includes(signal.type)) continue;
 			const cle = cleSignal(signal);
 			const liste = indexAncrage.get(cle) ?? [];
 			liste.push({ id: e.id, family: e.family });
@@ -356,6 +381,12 @@ export function analyserCampagnes(evenements: readonly EvenementCampagne[]): Ana
 			if (signal.type === "organisation") {
 				for (const i of organisations.get(signal.valeur) ?? []) candidats.add(i);
 			}
+			if (signal.type === "cve") {
+				for (const i of cves.get(signal.valeur) ?? []) candidats.add(i);
+			}
+			if (signal.type === "headline") {
+				for (const i of titres.get(signal.valeur) ?? []) candidats.add(i);
+			}
 		}
 
 		let rejoint = false;
@@ -363,7 +394,7 @@ export function analyserCampagnes(evenements: readonly EvenementCampagne[]): Ana
 			const cluster = clusters[position];
 			if (!cluster || cluster.membres[0]?.family !== evenement.family) continue;
 			const communs = signaux.filter((signal) => cluster.signaux.get(signal.type)?.has(signal.valeur));
-			const ancre = ancreDe(communs);
+			const ancre = ancreDe(communs, cluster.sources.size + (cluster.sources.has(evenement.sourceId) ? 0 : 1));
 			if (ancre === null) continue;
 
 			// Un même domaine ne transforme pas deux acteurs connus différents en une campagne.
@@ -373,7 +404,10 @@ export function analyserCampagnes(evenements: readonly EvenementCampagne[]): Ana
 				continue;
 			}
 
-			const fenetre = ancre.type === "organisation" ? FENETRE_ORG_MS : FENETRE_ANCRE_MS;
+			const fenetre =
+				ancre.type === "organisation" || ancre.type === "cve" || ancre.type === "headline"
+					? FENETRE_SIGNALE_MS
+					: FENETRE_ANCRE_MS;
 			const t = instant(evenement);
 			let reference: EvenementCampagne | null = null;
 			let delta = Infinity;
@@ -396,6 +430,8 @@ export function analyserCampagnes(evenements: readonly EvenementCampagne[]): Ana
 				if (signal.type === "groupe") indexer(groupes, signal.valeur, position);
 				if (signal.type === "infrastructure") indexer(infrastructures, signal.valeur, position);
 				if (signal.type === "organisation") indexer(organisations, signal.valeur, position);
+				if (signal.type === "cve") indexer(cves, signal.valeur, position);
+				if (signal.type === "headline") indexer(titres, signal.valeur, position);
 			}
 			cluster.liens.push({
 				evenement: evenement.id,
@@ -424,6 +460,8 @@ export function analyserCampagnes(evenements: readonly EvenementCampagne[]): Ana
 				if (signal.type === "groupe") indexer(groupes, signal.valeur, position);
 				if (signal.type === "infrastructure") indexer(infrastructures, signal.valeur, position);
 				if (signal.type === "organisation") indexer(organisations, signal.valeur, position);
+				if (signal.type === "cve") indexer(cves, signal.valeur, position);
+				if (signal.type === "headline") indexer(titres, signal.valeur, position);
 			}
 		}
 	}

@@ -1,0 +1,370 @@
+{
+  "secteur": "industrie",
+  "departement": "23",
+  "fichier": "sources-industrie-23.jsonl",
+  "sources": 23,
+  "urls_verifiees": 51,
+  "urls_http_200": 51,
+  "flux_rss_verifies": 12,
+  "traces_source_url": 52,
+  "methode": "GET HTTP avec User-Agent navigateur complet, en-tete Accept html/xml/json, suivi des redirections, delai 25 s ; controle du titre HTML ou de la racine XML et du nombre d'items pour chaque flux.",
+  "urls": [
+    {
+      "url": "https://creuse.chambres-agriculture.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://creuse.chambres-agriculture.fr/",
+      "titre": "Chambre d&#039;agriculture de la Creuse - Chambre d&#039;agriculture de la Creuse"
+    },
+    {
+      "url": "https://creuse.chambres-agriculture.fr/actualites-1/",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://creuse.chambres-agriculture.fr/actualites-1/",
+      "titre": "Actualités - Chambre d&#039;agriculture de la Creuse"
+    },
+    {
+      "url": "https://www.medef-nouvelle-aquitaine.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.medef-nouvelle-aquitaine.fr/",
+      "titre": "MEDEF - Nouvelle-Aquitaine"
+    },
+    {
+      "url": "https://www.medef-nouvelle-aquitaine.fr/actualites",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.medef-nouvelle-aquitaine.fr/actualites",
+      "titre": "Actualités - Nouvelle-Aquitaine"
+    },
+    {
+      "url": "https://www.cpme-nouvelle-aquitaine.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.cpme-nouvelle-aquitaine.fr/",
+      "titre": "CPME Nouvelle-Aquitaine"
+    },
+    {
+      "url": "https://www.cpme-nouvelle-aquitaine.fr/actualites/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.cpme-nouvelle-aquitaine.fr/actualites/",
+      "titre": "CPME Nouvelle-Aquitaine"
+    },
+    {
+      "url": "https://www.uimmnouvelleaquitaine.com/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.uimmnouvelleaquitaine.com/",
+      "titre": "UIMM Nouvelle Aquitaine - Union des industries Métallurgiques"
+    },
+    {
+      "url": "https://www.uimmnouvelleaquitaine.com/actualite/news.html",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.uimmnouvelleaquitaine.com/actualite/news.html",
+      "titre": "Toute l'actualité de l'industrie en Aquitaine"
+    },
+    {
+      "url": "https://uimm.lafabriquedelavenir.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://uimm.lafabriquedelavenir.fr/",
+      "titre": "UIMM - La Fabrique de l&#039;avenir"
+    },
+    {
+      "url": "https://uimm.lafabriquedelavenir.fr/actualites/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://uimm.lafabriquedelavenir.fr/actualites/",
+      "titre": "Actualités - UIMM"
+    },
+    {
+      "url": "https://uimm.lafabriquedelavenir.fr/feed/",
+      "code_http": 200,
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "final_url": "https://uimm.lafabriquedelavenir.fr/feed/",
+      "items": 10
+    },
+    {
+      "url": "https://fibois-na.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://fibois-na.fr/",
+      "titre": "Fibois Nouvelle-Aquitaine | Filière Forêt Bois Papier"
+    },
+    {
+      "url": "https://fibois-na.fr/actualites/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://fibois-na.fr/actualites/",
+      "titre": "Archives des Nos actualités - Fibois Nouvelle-Aquitaine"
+    },
+    {
+      "url": "https://fibois-na.fr/feed/",
+      "code_http": 200,
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "final_url": "https://fibois-na.fr/feed/",
+      "items": 12
+    },
+    {
+      "url": "https://cma-nouvelleaquitaine.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://cma-nouvelleaquitaine.fr/",
+      "titre": "CMA Nouvelle-Aquitaine | Formation et accompagnement"
+    },
+    {
+      "url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites",
+      "titre": "Actualités - CMA Nouvelle-Aquitaine"
+    },
+    {
+      "url": "https://www.lamontagne.fr/creuse/",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.lamontagne.fr/creuse/",
+      "titre": "Creuse : actualités de votre département - La Montagne"
+    },
+    {
+      "url": "https://www.lamontagne.fr/info-en-continu/creuse",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.lamontagne.fr/info-en-continu/creuse",
+      "titre": "Creuse : l&#x27;info en continu - La Montagne"
+    },
+    {
+      "url": "https://www.lepopulaire.fr/gueret-23000/",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.lepopulaire.fr/gueret-23000/",
+      "titre": "Guéret (23000) : actualités, sports, loisirs - Le Populaire du Centre"
+    },
+    {
+      "url": "https://www.ici.fr/radio/creuse",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.ici.fr/radio/creuse",
+      "titre": "ICI Creuse – Écouter la radio en direct, actualité locale et sorties, fréquence radio"
+    },
+    {
+      "url": "https://www.ici.fr/nouvelle-aquitaine/creuse-23",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.ici.fr/nouvelle-aquitaine/creuse-23",
+      "titre": "Creuse (23)  : actualités et podcasts de votre département en direct - ICI"
+    },
+    {
+      "url": "https://www.ici.fr/rss/creuse/a-la-une.xml",
+      "code_http": 200,
+      "content_type": "application/xml",
+      "final_url": "https://www.ici.fr/rss/creuse/a-la-une.xml",
+      "items": 40
+    },
+    {
+      "url": "https://actu.fr/nouvelle-aquitaine/creuse_23/",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://actu.fr/nouvelle-aquitaine/creuse_23",
+      "titre": "Actu Creuse | actu.fr"
+    },
+    {
+      "url": "https://actu.fr/nouvelle-aquitaine/creuse_23/rss.xml",
+      "code_http": 200,
+      "content_type": "application/rss+xml; charset=utf-8",
+      "final_url": "https://actu.fr/nouvelle-aquitaine/creuse_23/rss.xml",
+      "items": 0
+    },
+    {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse",
+      "titre": "Creuse : actualités et infos en direct, faits-divers, sport, loisir et culture - France 3"
+    },
+    {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/rss",
+      "code_http": 200,
+      "content_type": "text/xml; charset=UTF-8",
+      "final_url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/rss",
+      "items": 30
+    },
+    {
+      "url": "https://www.lejournaldesentreprises.com/regions/france/nouvelle-aquitaine/creuse",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.lejournaldesentreprises.com/regions/france/nouvelle-aquitaine/creuse",
+      "titre": "Creuse - Le Journal des Entreprises"
+    },
+    {
+      "url": "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine",
+      "code_http": 200,
+      "content_type": "text/xml; charset=UTF-8",
+      "final_url": "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine",
+      "items": 20
+    },
+    {
+      "url": "https://recherche-entreprises.api.gouv.fr/",
+      "code_http": 200,
+      "content_type": "text/html;charset=utf-8",
+      "final_url": "https://www.data.gouv.fr/dataservices/api-recherche-dentreprises",
+      "titre": "API - API Recherche d’Entreprises | data.gouv.fr"
+    },
+    {
+      "url": "https://recherche-entreprises.api.gouv.fr/search?departement=23&q=industrie",
+      "code_http": 200,
+      "content_type": "application/json",
+      "final_url": "https://recherche-entreprises.api.gouv.fr/search?departement=23&q=industrie",
+      "titre": "aucun"
+    },
+    {
+      "url": "https://www.bodacc.fr/pages/home/",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.bodacc.fr/pages/home/",
+      "titre": "Accueil &mdash; bodacc.fr"
+    },
+    {
+      "url": "https://www.bodacc.fr/pages/annonces-commerciales-recherche/",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.bodacc.fr/pages/annonces-commerciales-recherche/",
+      "titre": "Consultation des annonces commerciales &mdash; bodacc.fr"
+    },
+    {
+      "url": "https://www.bodacc.fr/pages/api-bodacc/",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.bodacc.fr/pages/api-bodacc/",
+      "titre": "API &mdash; bodacc.fr"
+    },
+    {
+      "url": "https://news.google.com/",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://news.google.com/home?ucbcb=1&hl=en-US&gl=US&ceid=US:en",
+      "titre": "Google News"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Creuse+industrie&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "content_type": "application/xml; charset=utf-8",
+      "final_url": "https://news.google.com/rss/search?q=Creuse+industrie&hl=fr&gl=FR&ceid=FR:fr",
+      "items": 85
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Creuse+usine&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "content_type": "application/xml; charset=utf-8",
+      "final_url": "https://news.google.com/rss/search?q=Creuse+usine&hl=fr&gl=FR&ceid=FR:fr",
+      "items": 60
+    },
+    {
+      "url": "https://metalcreuse.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://metalcreuse.fr/",
+      "titre": "Groupement des Industries Métallurgiques de la Creuse"
+    },
+    {
+      "url": "https://metalcreuse.fr/actualites/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://metalcreuse.fr/actualites/",
+      "titre": "Actualités | Groupement des industries métalliques de la Creuse"
+    },
+    {
+      "url": "https://metalcreuse.fr/feed/",
+      "code_http": 200,
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "final_url": "https://metalcreuse.fr/feed/",
+      "items": 8
+    },
+    {
+      "url": "https://gmp-industries-23.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://gmp-industries-23.fr/",
+      "titre": "GMP Industries Métallerie en Creuse 23 - Métallerie Centre France"
+    },
+    {
+      "url": "https://gmp-industries-23.fr/feed/",
+      "code_http": 200,
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "final_url": "https://gmp-industries-23.fr/feed/",
+      "items": 10
+    },
+    {
+      "url": "https://fonderies-fraisse.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://fonderies-fraisse.fr/",
+      "titre": "Fonderies Fraisse | Fonderie aluminium depuis 1945 &#8211; Découvrez Fonderies Fraisse, s"
+    },
+    {
+      "url": "https://fonderies-fraisse.fr/index.php/actualites/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://fonderies-fraisse.fr/index.php/actualites/",
+      "titre": "Actualités &#8211; Fonderies Fraisse | Fonderie aluminium depuis 1945"
+    },
+    {
+      "url": "https://microplan-group.com/fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://microplan-group.com/fr/",
+      "titre": "Home Français - Microplan Group"
+    },
+    {
+      "url": "https://microplan-group.com/fr/category/non-classifiee/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://microplan-group.com/fr/category/non-classifiee/",
+      "titre": "Non classifié(e) Archivi - Microplan Group"
+    },
+    {
+      "url": "https://microplan-group.com/fr/feed/",
+      "code_http": 200,
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "final_url": "https://microplan-group.com/fr/feed/",
+      "items": 8
+    },
+    {
+      "url": "https://www.fursac-mecanique.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.fursac-mecanique.fr/",
+      "titre": "Furmeca : micro mécanique de précision Fursac, usinage, tournage pièces"
+    },
+    {
+      "url": "https://www.fursac-mecanique.fr/fr/actualites-usinage",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.fursac-mecanique.fr/fr/actualites-usinage",
+      "titre": "Actualités usinage Fursac - Furmeca"
+    },
+    {
+      "url": "https://www.tigr.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.tigr.fr/",
+      "titre": "Accueil - TIGR"
+    },
+    {
+      "url": "https://www.tigr.fr/actualites/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.tigr.fr/actualites/",
+      "titre": "Actualités - TIGR"
+    },
+    {
+      "url": "https://www.tigr.fr/feed/",
+      "code_http": 200,
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "final_url": "https://www.tigr.fr/feed/",
+      "items": 7
+    }
+  ]
+}

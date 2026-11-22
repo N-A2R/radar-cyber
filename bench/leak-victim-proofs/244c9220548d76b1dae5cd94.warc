@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:77466edb-bfe2-4677-af27-b211f3167457>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/posts/2026
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 777
+WARC-Block-Digest: sha1:JTZIVLCZDV3MUYMCBFTDARZN5F7TUQ3U
+X-Claim-Fingerprint: a1e64b4f5a7cb6f44cc79ba9
+X-Victim-Key: 244c9220548d76b1dae5cd94
+
+{"post_title": "Cofaq", "discovered": "2026-06-18 13:12:27.826870", "description": "cofaq.fr zoominfo.com/c/groupe-cofaq/426074064 Groupe COFAQ is a prominent French cooperative of independent distributors specializing in hardware, tools, industrial supplies (QUOFI), and agricultural equipment.Headquartered in Poitiers, the organization federates hundreds of retail points of sale and independent merchants across France to strengthen their market presence.By leveraging centralized purchasing and dedicated logistics platforms like COFALOG, the group provides its members with optimized supply chain solutions and strategic commercial support", "link": null, "magnet": null, "screen": null, "misp_uuid": "85956d1e-89e7-5374-8b61-fb1e776d0af9", "group_name": "the gentlemen"}
+
