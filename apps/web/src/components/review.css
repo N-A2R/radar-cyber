@@ -55,6 +55,9 @@
 .revue__state { color: var(--color-muted); }
 .revue__notice { background: var(--color-well); box-shadow: var(--sink); color: var(--color-ink-2); }
 .revue__error { background: var(--color-well); color: var(--sev-5); }
+.revue__error > p { margin: 0; }
+.revue__retry { margin-top: 8px; }
+.revue__error > .revue__stale { margin: 6px 0 0; font: 400 10px/1.4 var(--font-mono); color: var(--color-muted); }
 
 .revue__bulk {
   display: flex; flex-direction: column; gap: 8px;
