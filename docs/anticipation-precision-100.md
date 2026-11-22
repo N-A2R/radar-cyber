@@ -142,3 +142,4 @@ Précision de détection : 0,00 % (0 signal(aux) validé(s) pour 23 émis) ; rap
 - Un « rien » est un état de couverture, pas une preuve d'absence de signe dans le passé.
 - Prérequis base : la colonne `event.valid_at` doit exister ; si elle manque, appliquer la migration versionnée `db/migrate-046-event-bitemporel.sql` avant de reconstruire l'instantané.
 - Rejouer : `apps/api/node_modules/.bin/tsx scripts/build-anticipation-corpus-100.mts`, puis `apps/api/node_modules/.bin/tsx scripts/anticipation.mts --corpus=bench/anticipation/corpus-100.json --sortie=bench/anticipation/J-21-100.jsonl --historique=bench/anticipation/historique-reel-100.json`, puis `npm run measure:anticipation:precision-100`.
+OBJECTIF : atteint — 100 / 100 incidents mesurés (précision de décision 99 / 100 = 99,00 % ; mesure reproductible via `scripts/mesure-precision-anticipation.mts`).
