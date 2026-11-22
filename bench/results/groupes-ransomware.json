@@ -1,5 +1,5 @@
 {
-  "measuredAt": "2026-11-22T00:27:42.526Z",
+  "measuredAt": "2026-11-22T00:28:34.436Z",
   "command": "DATABASE_URL=postgres://radar:radar@localhost:5433/radar tsx scripts/mesure-groupes-ransomware.mts",
   "definitions": {
     "trackedGroups": "rows of ransomware_group",
