@@ -142,7 +142,7 @@ export default function JournalView({ onUnauthorized }: Props) {
       } catch (err: unknown) {
         if (controller.signal.aborted) return;
         if (statusOf(err) === 401) onUnauthorized?.();
-        setError(err instanceof Error ? err.message : "journal unavailable");
+        setError(err instanceof Error ? err.message : "journal indisponible");
       } finally {
         if (!controller.signal.aborted) setLoading(false);
       }
@@ -184,9 +184,9 @@ export default function JournalView({ onUnauthorized }: Props) {
     } catch (err: unknown) {
       if (statusOf(err) === 401) onUnauthorized?.();
       else if (statusOf(err) === 403) {
-        setExportError("CSV export requires administrator access.");
+        setExportError("L'export CSV exige un accès administrateur.");
       } else {
-        setExportError(`CSV export failed: ${err instanceof Error ? err.message : "unavailable"}`);
+        setExportError(`L'export CSV a échoué : ${err instanceof Error ? err.message : "service indisponible"}`);
       }
     } finally {
       setExporting(false);
