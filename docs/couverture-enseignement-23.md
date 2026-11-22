@@ -46,3 +46,4 @@ Découverte par recherche web, annuaire officiel de l'Éducation nationale (requ
 
 Corpus : `bench/corpus/sources-enseignement-23.jsonl` (17 lignes, empreinte recalculée dans `bench/corpus/HASH`).
 Base : `db/migrate-080-sources-enseignement-23.sql` insère 17 lignes dans `source` (parser pointant vers le corpus) et 17 traces `source_verification` en état `ok200`.
+OBJECTIF : atteint — 17 / 5
