@@ -1,0 +1,162 @@
+{
+  "consultedAt": "2026-11-22T02:57:20.763Z",
+  "source": "education.gouv.fr:UAI; declared web; HTTP 200; DNS A",
+  "licence": "Licence Ouverte v2.0 (Etalab)",
+  "attribution": "Ministère de l'Éducation nationale — annuaire des établissements",
+  "applied": true,
+  "onlyMissing": true,
+  "examined": 1075,
+  "eligible": 161,
+  "selected": 161,
+  "verified": 16,
+  "matched": 16,
+  "written": 16,
+  "measurement": {
+    "scope": "nouvelle-aquitaine",
+    "organisationsWithService": 8914,
+    "organisationsInScope": 1671906,
+    "services": 9804,
+    "bySource": {
+      "http-200": 1256,
+      "osm-http-200": 2941,
+      "rna-http-200": 522,
+      "dila-http-200": 1045,
+      "shodan-internetdb": 399,
+      "wikidata-http-200": 850,
+      "education-http-200": 733,
+      "osm-siret-http-200": 1677,
+      "site-zone-http-200": 381
+    },
+    "measuredAt": "2026-11-22T02:57:26.832Z"
+  },
+  "candidates": [
+    {
+      "uai": "0860799B",
+      "dept": "86",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 20213,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-buxerolles/"
+    },
+    {
+      "uai": "0860040B",
+      "dept": "86",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 20461,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-jdp-poitiers/"
+    },
+    {
+      "uai": "0860015Z",
+      "dept": "86",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 20309,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-dange-st-romain/"
+    },
+    {
+      "uai": "0860027M",
+      "dept": "86",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 20404,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-mirebeau/"
+    },
+    {
+      "uai": "0470046V",
+      "dept": "47",
+      "domain": "citescolairedefumel.fr",
+      "orgId": 18599,
+      "ip": "185.230.63.171",
+      "sourceUrl": "https://www.citescolairedefumel.fr"
+    },
+    {
+      "uai": "0331753B",
+      "dept": "33",
+      "domain": "blogpeda.ac-bordeaux.fr",
+      "orgId": 16755,
+      "ip": "194.199.36.59",
+      "sourceUrl": "https://blogpeda.ac-bordeaux.fr/collegeblanqui/"
+    },
+    {
+      "uai": "0240043S",
+      "dept": "24",
+      "domain": "collegepiegut.net",
+      "orgId": 16357,
+      "ip": "213.186.33.40",
+      "sourceUrl": "https://www.collegepiegut.net"
+    },
+    {
+      "uai": "0332489B",
+      "dept": "33",
+      "domain": "notredamebordeaux.com",
+      "orgId": 16771,
+      "ip": "185.230.63.186",
+      "sourceUrl": "https://www.notredamebordeaux.com"
+    },
+    {
+      "uai": "0333484H",
+      "dept": "33",
+      "domain": "blogpeda.ac-bordeaux.fr",
+      "orgId": 17420,
+      "ip": "194.199.36.59",
+      "sourceUrl": "https://blogpeda.ac-bordeaux.fr/collegemarsas/"
+    },
+    {
+      "uai": "0333581N",
+      "dept": "33",
+      "domain": "blogpeda.ac-bordeaux.fr",
+      "orgId": 16630,
+      "ip": "194.199.36.59",
+      "sourceUrl": "https://blogpeda.ac-bordeaux.fr/collegelebarp/"
+    },
+    {
+      "uai": "0641941M",
+      "dept": "64",
+      "domain": "larzabalkolegioa.net",
+      "orgId": 19170,
+      "ip": "213.186.33.17",
+      "sourceUrl": "https://www.larzabalkolegioa.net/eh/"
+    },
+    {
+      "uai": "0642006H",
+      "dept": "64",
+      "domain": "meekolegioa.eus",
+      "orgId": 19312,
+      "ip": "188.114.97.2",
+      "sourceUrl": "https://meekolegioa.eus"
+    },
+    {
+      "uai": "0870036S",
+      "dept": "87",
+      "domain": "etablissement.ac-limoges.fr",
+      "orgId": 20909,
+      "ip": "195.83.101.8",
+      "sourceUrl": "https://etablissement.ac-limoges.fr/clg-f-lagrange/"
+    },
+    {
+      "uai": "0870071E",
+      "dept": "87",
+      "domain": "etablissement.ac-limoges.fr",
+      "orgId": 20769,
+      "ip": "195.83.101.8",
+      "sourceUrl": "https://etablissement.ac-limoges.fr/clg-donzelot/"
+    },
+    {
+      "uai": "0870047D",
+      "dept": "87",
+      "domain": "etablissement.ac-limoges.fr",
+      "orgId": 20971,
+      "ip": "195.83.101.8",
+      "sourceUrl": "https://etablissement.ac-limoges.fr/clg-gisele-halimi-saint-mathieu/"
+    },
+    {
+      "uai": "0790013K",
+      "dept": "79",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 19832,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-champdeniers/"
+    }
+  ]
+}
