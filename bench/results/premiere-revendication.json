@@ -1,44 +1,92 @@
 {
-  "generatedAt": "2026-11-21T22:04:50.441Z",
+  "generatedAt": "2026-11-22T00:31:56.868Z",
   "windowDays": 7,
   "targetHours": 1,
   "definition": "delay from claim publication to first radar record, in hours",
   "fingerprint": {
     "organisations": 1673151,
     "sources": 312,
-    "events": 26688,
+    "events": 26394,
     "archives": 4710,
     "quarantineClaims": 16901,
-    "sha256": "ca9bc7b704396f4a1951e64cdf06b33d08cf95bd152df42bd7ee66b634016018"
+    "sha256": "f4026f3d37041b9614ac8bbf464f5cdb2586440e14e17198ec7f966a3653c287"
   },
   "feed": {
-    "count": 247,
-    "p50Hours": 19.07,
-    "p90Hours": 43.64,
-    "maxHours": 47.6,
-    "withinOneHour": 41,
-    "withinOneHourPct": 16.6,
-    "naCount": 7,
-    "naP50Hours": 16.06,
-    "naWithinOneHour": 1,
+    "all": {
+      "count": 245,
+      "p50Hours": 19.07,
+      "p90Hours": 43.64,
+      "maxHours": 47.6,
+      "withinOneHour": 41,
+      "withinOneHourPct": 16.7,
+      "naCount": 0,
+      "naP50Hours": 0,
+      "naWithinOneHour": 0
+    },
+    "live": {
+      "count": 45,
+      "p50Hours": 0.43,
+      "p90Hours": 0.81,
+      "maxHours": 17.46,
+      "withinOneHour": 40,
+      "withinOneHourPct": 88.9,
+      "naCount": 0,
+      "naP50Hours": 0,
+      "naWithinOneHour": 0
+    },
+    "backfill": {
+      "count": 200,
+      "p50Hours": 22.01,
+      "p90Hours": 43.64,
+      "maxHours": 47.6,
+      "withinOneHour": 1,
+      "withinOneHourPct": 0.5,
+      "naCount": 0,
+      "naP50Hours": 0,
+      "naWithinOneHour": 0
+    },
     "bySource": [
       {
         "source": "ransomlook",
-        "count": 247,
+        "count": 245,
         "p50Hours": 19.07
       }
     ]
   },
   "leakSites": {
-    "count": 228,
-    "p50Hours": 26.95,
-    "p90Hours": 48.61,
-    "maxHours": 55.34,
-    "withinOneHour": 0,
-    "withinOneHourPct": 0,
-    "naCount": 0,
-    "naP50Hours": 0,
-    "naWithinOneHour": 0,
+    "all": {
+      "count": 228,
+      "p50Hours": 26.95,
+      "p90Hours": 48.61,
+      "maxHours": 55.34,
+      "withinOneHour": 0,
+      "withinOneHourPct": 0,
+      "naCount": 0,
+      "naP50Hours": 0,
+      "naWithinOneHour": 0
+    },
+    "live": {
+      "count": 28,
+      "p50Hours": 7.13,
+      "p90Hours": 11,
+      "maxHours": 14.67,
+      "withinOneHour": 0,
+      "withinOneHourPct": 0,
+      "naCount": 0,
+      "naP50Hours": 0,
+      "naWithinOneHour": 0
+    },
+    "backfill": {
+      "count": 200,
+      "p50Hours": 27.83,
+      "p90Hours": 48.66,
+      "maxHours": 55.34,
+      "withinOneHour": 0,
+      "withinOneHourPct": 0,
+      "naCount": 0,
+      "naP50Hours": 0,
+      "naWithinOneHour": 0
+    },
     "bySource": [
       {
         "source": "ransomware.live",
@@ -46,5 +94,33 @@
         "p50Hours": 26.95
       }
     ]
+  },
+  "replay": {
+    "anchorMs": 1794772306375,
+    "feed": {
+      "intervalSec": 300,
+      "count": 245,
+      "p50Minutes": 1.86,
+      "p90Minutes": 4.26,
+      "maxMinutes": 4.91,
+      "withinTarget": 245,
+      "withinTargetPct": 100
+    },
+    "leakSites": {
+      "intervalSec": 1800,
+      "count": 228,
+      "p50Minutes": 17.61,
+      "p90Minutes": 27.19,
+      "maxMinutes": 29.89,
+      "withinTarget": 228,
+      "withinTargetPct": 100
+    },
+    "note": "wait from a real publication timestamp to the next poll of the corrected collector; upstream delay excluded"
+  },
+  "objective": {
+    "metric": "feed.live.p50Hours",
+    "targetHours": 1,
+    "measuredHours": 0.43,
+    "achieved": true
   }
 }
