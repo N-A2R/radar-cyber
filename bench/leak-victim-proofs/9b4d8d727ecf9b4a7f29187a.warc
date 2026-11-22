@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:e1ab3ba7-2dbf-4864-a3da-275b2f45a2f9>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/posts/2025
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 322
+WARC-Block-Digest: sha1:HQUMY64HBVZ64BNIL542F56BSGEZP5RO
+X-Claim-Fingerprint: e3bfa941b0d434fa473cfc51
+X-Victim-Key: 9b4d8d727ecf9b4a7f29187a
+
+{"post_title": "France terre d'asile", "discovered": "2025-12-01 19:26:32.006554", "description": "Education", "link": "/site/view?uuid=676cc81f-c6a4-3e34-bdbe-e86099fe1f3c", "magnet": null, "screen": "screenshots/qilin/France terre d'asile.png", "misp_uuid": "e04ed5df-abd5-5b10-b1ed-4b069e5c80fe", "group_name": "qilin"}
+

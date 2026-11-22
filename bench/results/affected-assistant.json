@@ -1,0 +1,29 @@
+{
+  "measuredAt": "2026-11-22T04:19:45.590Z",
+  "database": "postgres://radar:***@localhost:5433/radar",
+  "objective": "at least 99% of Nouvelle-Aquitaine organizations have an evidence-backed statement",
+  "baseline": {
+    "organizations": 1673151,
+    "naOrganizations": 1671907,
+    "sources": 312,
+    "events": 26259
+  },
+  "fullCorpus": {
+    "naOrganizations": 1671907,
+    "withEvidenceBackedStatement": 1671907,
+    "coveragePercent": 100,
+    "targetPercent": 99,
+    "targetMet": true
+  },
+  "replayedSample": {
+    "organizations": 104,
+    "withEvidenceBackedAnswer": 104,
+    "statements": 362,
+    "statementsWithEvidence": 362,
+    "personalDataLeaks": 0,
+    "leakDetails": [],
+    "outsideRegionAnswers": 0,
+    "missingStatements": 0
+  },
+  "passed": true
+}

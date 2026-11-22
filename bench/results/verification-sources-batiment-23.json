@@ -1,0 +1,310 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-batiment-23.jsonl",
+  "secteur": "bâtiment",
+  "departement": "23",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+  "methode": "GET HTTP avec User-Agent navigateur, redirections suivies, statut final, type de contenu et titre de page ; délai 30 s",
+  "sources": 19,
+  "urls_verifiees": 43,
+  "urls_200": 43,
+  "anomalies": [],
+  "detail": {
+    "corpus:batiment-23-01-capeb-creuse-section-departementale-du-batiment": {
+      "https://www.capeb.fr/creuse/": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.capeb.fr/creuse/",
+        "titre": "Creuse ・ CAPEB"
+      },
+      "https://www.capeb.fr/creuse/actualites": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.capeb.fr/creuse/actualites",
+        "titre": "Actualités ・ CAPEB"
+      }
+    },
+    "corpus:batiment-23-02-caue-23-conseil-d-architecture-d-urbanisme-et-de-l-environnement-de-la-creuse": {
+      "https://www.caue23.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.caue23.fr/",
+        "titre": "CAUE 23 &#8211; Conseil d&#039;Architecture, d&#039;Urbanisme et de l&#039;Environnement de la Creuse"
+      },
+      "https://www.caue23.fr/actualite/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.caue23.fr/actualite/",
+        "titre": "Actualité &#8211; CAUE 23"
+      },
+      "https://www.caue23.fr/feed/": {
+        "code": 200,
+        "type": "application/rss+xml; charset=UTF-8",
+        "final": "https://www.caue23.fr/feed/",
+        "titre": "CAUE 23"
+      }
+    },
+    "corpus:batiment-23-03-cma-nouvelle-aquitaine-chambre-des-metiers-et-de-l-artisanat-creuse-23": {
+      "https://cma-nouvelleaquitaine.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://cma-nouvelleaquitaine.fr/",
+        "titre": "CMA Nouvelle-Aquitaine | Formation et accompagnement"
+      },
+      "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites?news_list%5Bsearch%5D=Creuse": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites?news_list%5Bsearch%5D=Creuse",
+        "titre": "Actualités - CMA Nouvelle-Aquitaine"
+      }
+    },
+    "corpus:batiment-23-04-prefecture-de-la-creuse-services-de-l-etat-urbanisme-et-construction": {
+      "https://www.creuse.gouv.fr/": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.creuse.gouv.fr/",
+        "titre": "Accueil - Les services de l'État dans la Creuse"
+      },
+      "https://www.creuse.gouv.fr/Actualites": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.creuse.gouv.fr/Actualites",
+        "titre": "Actualités - Les services de l'État dans la Creuse"
+      }
+    },
+    "corpus:batiment-23-05-conseil-departemental-de-la-creuse-habitat-et-logement": {
+      "https://www.creuse.fr/": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.creuse.fr/",
+        "titre": "Conseil départemental de la Creuse"
+      },
+      "https://www.creuse.fr/A-la-une": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.creuse.fr/A-la-une",
+        "titre": "A la une&nbsp;|&nbsp;Conseil départemental de la Creuse"
+      }
+    },
+    "corpus:batiment-23-06-ville-de-gueret-actualites-urbanisme-et-habitat": {
+      "https://www.ville-gueret.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ville-gueret.fr/",
+        "titre": "Accueil - Ville de Guéret - Site officiel"
+      },
+      "https://www.ville-gueret.fr/actualites/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ville-gueret.fr/actualites/",
+        "titre": "Actualités - Ville de Guéret - Site officiel"
+      },
+      "https://www.ville-gueret.fr/feed/": {
+        "code": 200,
+        "type": "application/rss+xml; charset=UTF-8",
+        "final": "https://www.ville-gueret.fr/feed/",
+        "titre": "Ville de Guéret &#8211; Site officiel"
+      }
+    },
+    "corpus:batiment-23-07-agglomeration-grand-gueret-actualites-travaux-et-urbanisme": {
+      "https://www.agglo-grandgueret.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.agglo-grandgueret.fr/",
+        "titre": "Accueil - Agglomération Grand Guéret"
+      },
+      "https://www.agglo-grandgueret.fr/lagglo/actualites/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.agglo-grandgueret.fr/lagglo/actualites/",
+        "titre": "Actualités - Agglomération Grand Guéret"
+      },
+      "https://www.agglo-grandgueret.fr/feed/": {
+        "code": 200,
+        "type": "application/rss+xml; charset=UTF-8",
+        "final": "https://www.agglo-grandgueret.fr/feed/",
+        "titre": "Agglomération Grand Guéret"
+      }
+    },
+    "corpus:batiment-23-08-societe-com-entreprises-de-la-creuse-23": {
+      "https://www.societe.com/entreprises/CREUSE_23.html": {
+        "code": 200,
+        "type": "text/html",
+        "final": "https://www.societe.com/entreprises/CREUSE_23.html",
+        "titre": "Les adresses des entreprises du d&eacute;partement : Creuse 23 sur Societe.com"
+      },
+      "https://blog.societe.com/": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://blog.societe.com/",
+        "titre": "Société.com - Suivez notre actualité"
+      }
+    },
+    "corpus:batiment-23-09-artisan-guide-artisans-en-creuse-23": {
+      "https://artisan.guide/departements/creuse/": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://artisan.guide/departements/creuse/",
+        "titre": "Artisans en Creuse (23) | Artisan Guide"
+      },
+      "https://artisan.guide/blog/": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://artisan.guide/blog/",
+        "titre": "Blog — Conseils artisans et travaux | Artisan Guide"
+      }
+    },
+    "corpus:batiment-23-10-artizo-artisans-dans-la-creuse": {
+      "https://www.artizo.fr/catalogue/creuse/": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.artizo.fr/catalogue/creuse/",
+        "titre": "Artisans dans la Creuse - Sites Web Professionnels | Artizo"
+      },
+      "https://www.artizo.fr/blog/": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.artizo.fr/blog/",
+        "titre": "Blog Artizo - Conseils artisanat et BTP"
+      },
+      "https://www.artizo.fr/blog/feed.xml": {
+        "code": 200,
+        "type": "text/xml; charset=utf-8",
+        "final": "https://www.artizo.fr/blog/feed.xml",
+        "titre": "Blog Artizo - Conseils artisanat et BTP"
+      }
+    },
+    "corpus:batiment-23-11-le-vrai-artisan-annuaire-des-artisans-qualifies-de-la-creuse": {
+      "https://levraiartisan.fr/creuse/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://levraiartisan.fr/creuse/",
+        "titre": "Le vrai artisan - Annuaire d&#039;artisans qualifiés de la Creuse"
+      },
+      "https://levraiartisan.fr/les-conseils-de-maitre-payen/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://levraiartisan.fr/les-conseils-de-maitre-payen/",
+        "titre": "Les conseils de Maître PAYEN - Le vrai artisan"
+      },
+      "https://levraiartisan.fr/feed/": {
+        "code": 200,
+        "type": "text/xml;charset=UTF-8",
+        "final": "https://levraiartisan.fr/feed/",
+        "titre": "Le vrai artisan"
+      }
+    },
+    "corpus:batiment-23-12-7monartisan-artisans-dans-la-creuse-23": {
+      "https://7monartisan.fr/departement/creuse": {
+        "code": 200,
+        "type": "text/html",
+        "final": "https://7monartisan.fr/departement/creuse",
+        "titre": "1 169 artisans dans la Creuse (23) | 7monartisan"
+      },
+      "https://7monartisan.fr/blog": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://7monartisan.fr/blog",
+        "titre": "Blog - Conseils travaux et rénovation | 7monartisan"
+      }
+    },
+    "corpus:batiment-23-13-omizi-entreprises-de-batiment-en-creuse-23": {
+      "https://omizi.com/professionnels/entreprises-de-batiment/creuse": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://omizi.com/professionnels/entreprises-de-batiment/creuse",
+        "titre": "Entreprises de bâtiment Creuse (23) - Omizi"
+      },
+      "https://omizi.com/blog": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://omizi.com/blog",
+        "titre": "Nos derniers articles - Omizi"
+      }
+    },
+    "corpus:batiment-23-14-artisans-reunis-artisans-de-la-creuse-23": {
+      "https://artisansreunis.fr/departement/23-creuse": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://artisansreunis.fr/departement/23-creuse",
+        "titre": "Artisans Creuse (23) | Artisans Réunis®"
+      },
+      "https://artisansreunis.fr/magazine": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://artisansreunis.fr/magazine",
+        "titre": "Le Magazine des Artisans Réunis® — Éditions trimestrielles | Artisans Réunis®"
+      }
+    },
+    "corpus:batiment-23-15-la-montagne-creuse": {
+      "https://www.lamontagne.fr/creuse/": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.lamontagne.fr/creuse/",
+        "titre": "Creuse : actualités de votre département - La Montagne"
+      },
+      "https://www.lamontagne.fr/creuse/economie": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.lamontagne.fr/creuse/economie",
+        "titre": "Creuse - Economie - La Montagne"
+      }
+    },
+    "corpus:batiment-23-16-actu-fr-actu-creuse": {
+      "https://actu.fr/nouvelle-aquitaine/creuse_23/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://actu.fr/nouvelle-aquitaine/creuse_23",
+        "titre": "Actu Creuse | actu.fr"
+      },
+      "https://actu.fr/nouvelle-aquitaine/creuse_23/rss.xml": {
+        "code": 200,
+        "type": "application/rss+xml; charset=utf-8",
+        "final": "https://actu.fr/nouvelle-aquitaine/creuse_23/rss.xml",
+        "titre": "Creuse - L'actualité en continu - actu.fr"
+      }
+    },
+    "corpus:batiment-23-17-ici-creuse-radio-france": {
+      "https://www.ici.fr/radio/creuse": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ici.fr/radio/creuse",
+        "titre": "ICI Creuse – Écouter la radio en direct, actualité locale et sorties, fréquence radio"
+      },
+      "https://www.ici.fr/radio/creuse/actu": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ici.fr/radio/creuse/actu",
+        "titre": "Actu ICI Creuse : toutes les actualités en direct"
+      },
+      "https://www.ici.fr/rss/creuse/rubrique/infos.xml": {
+        "code": 200,
+        "type": "application/xml",
+        "final": "https://www.ici.fr/rss/creuse/rubrique/infos.xml",
+        "titre": "Infos – ICI Creuse"
+      }
+    },
+    "corpus:batiment-23-18-france-3-nouvelle-aquitaine-creuse": {
+      "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse",
+        "titre": "Creuse : actualités et infos en direct, faits-divers, sport, loisir et culture - France 3 Nouvelle-Aquitaine"
+      },
+      "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/rss": {
+        "code": 200,
+        "type": "text/xml; charset=UTF-8",
+        "final": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/rss",
+        "titre": "France 3 Régions Nouvelle-Aquitaine - Creuse"
+      }
+    },
+    "corpus:batiment-23-19-le-populaire-du-centre-gueret-23000": {
+      "https://www.lepopulaire.fr/gueret-23000/": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.lepopulaire.fr/gueret-23000/",
+        "titre": "Guéret (23000) : actualités, sports, loisirs - Le Populaire du Centre"
+      }
+    }
+  }
+}

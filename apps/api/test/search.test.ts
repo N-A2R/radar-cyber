@@ -1,10 +1,8 @@
 /**
- * Recherche globale : tsvector français, classement par pertinence, limite 50.
+ * Global search: bounded trigram matching over the full corpus.
  *
- * Jeu isolé par TAG : une organisation au nom connu et des leurres qui
- * partagent ses jetons. On cherche le nom sans accents, en minuscules : c'est
- * la configuration `french` (et non une égalité exacte) qui doit la ramener
- * en tête. Le même principe est vérifié sur les événements.
+ * Each test owns one behaviour. Rows are isolated by TAG and removed in
+ * `after`, so the suite never depends on the content of the working database.
  */
 import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
@@ -16,6 +14,7 @@ const TAG = `sch${Date.now().toString(36)}${Math.random().toString(36).slice(2, 
 const SOURCE = `${TAG}-source`;
 const KNOWN_NAME = "Hôpital Universitaire de Rennes";
 const KNOWN_QUERY = "hopital universitaire rennes";
+const INDICATOR_ID = 1_000_000_000 + Math.floor(Math.random() * 1_000_000_000);
 let app: FastifyInstance;
 let knownOrgId: number;
 let knownEventId: number;
@@ -51,6 +50,11 @@ before(async () => {
 		);
 		if (dedupKey === `${TAG}-connu`) knownEventId = Number(r.rows[0].id);
 	}
+	await query(
+		`INSERT INTO indicator (id, type, value, first_seen, last_seen, tlp)
+		 VALUES ($1, 'domain', $2, now(), now(), 'clear')`,
+		[INDICATOR_ID, `${TAG}.example.test`],
+	);
 
 	app = Fastify();
 	await app.register(searchRoute);
@@ -61,28 +65,38 @@ after(async () => {
 	if (app) await app.close();
 	await query("DELETE FROM event WHERE dedup_key LIKE $1", [`${TAG}-%`]);
 	await query("DELETE FROM org WHERE slug LIKE $1", [`${TAG}-%`]);
+	await query("DELETE FROM indicator WHERE id = $1", [INDICATOR_ID]);
 	await query("DELETE FROM source WHERE id = $1", [SOURCE]);
 	await closePools();
 });
 
-async function search(q: string): Promise<{ orgs: Array<{ id: number; name: string }>; events: Array<{ id: number; title: string }>; indicators: unknown[] }> {
+async function search(q: string): Promise<{ orgs: Array<{ id: number; name: string }>; events: Array<{ id: number; title: string }>; indicators: Array<{ id: number; value: string }> }> {
 	const res = await app.inject({ method: "GET", url: `/search?q=${encodeURIComponent(q)}` });
 	assert.equal(res.statusCode, 200, res.body);
 	return res.json();
 }
 
-test("un nom connu (sans accents) arrive en tête des organisations", async () => {
+test("an accent-free multi-token query ranks the exact organisation first", async () => {
 	const hits = await search(KNOWN_QUERY);
-	assert.equal(hits.orgs[0]?.id, knownOrgId, `résultats : ${JSON.stringify(hits.orgs)}`);
+	assert.equal(hits.orgs[0]?.id, knownOrgId, `results: ${JSON.stringify(hits.orgs)}`);
 	assert.equal(hits.orgs[0]?.name, KNOWN_NAME);
 });
 
-test("le titre d'événement est recherché et classé", async () => {
+test("event titles are searched through their normalized columns", async () => {
 	const hits = await search(KNOWN_QUERY);
-	assert.equal(Number(hits.events[0]?.id), knownEventId, `résultats : ${JSON.stringify(hits.events)}`);
+	assert.equal(Number(hits.events[0]?.id), knownEventId, `results: ${JSON.stringify(hits.events)}`);
 });
 
-test("la limite est 50 et les requêtes courtes ne interrogent pas la base", async () => {
+test("indicator values are searched by substring", async () => {
+	const hits = await search(TAG);
+	assert.equal(Number(hits.indicators[0]?.id), INDICATOR_ID);
+});
+
+test("short queries return empty lists without touching the database", async () => {
+	assert.deepEqual(await search("ab"), { orgs: [], events: [], indicators: [] });
+});
+
+test("a broad query returns at most 50 distinct organisations", async () => {
 	const batch = Array.from({ length: 55 }, (_, i) => `Organisation Batch ${TAG} ${String(i).padStart(2, "0")}`);
 	for (const [i, name] of batch.entries()) {
 		await query(
@@ -93,9 +107,13 @@ test("la limite est 50 et les requêtes courtes ne interrogent pas la base", asy
 	try {
 		const hits = await search(`organisation batch ${TAG}`);
 		assert.equal(hits.orgs.length, 50);
-		const short = await search("ab");
-		assert.deepEqual(short, { orgs: [], events: [], indicators: [] });
+		assert.equal(new Set(hits.orgs.map((org) => org.id)).size, 50);
 	} finally {
 		await query("DELETE FROM org WHERE slug LIKE $1", [`${TAG}-batch-%`]);
 	}
+});
+
+test("common French function words do not dilute the ranking", async () => {
+	const hits = await search(`hopital de ${TAG}`);
+	assert.equal(hits.orgs.findIndex((org) => org.id === knownOrgId), 0);
 });

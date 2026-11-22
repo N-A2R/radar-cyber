@@ -126,3 +126,47 @@ Sortie observée : `candidates: 14956`, `established with proof: 14956`.
 ## 9. Clôture du chantier
 
 **CHANTIER TERMINÉ.** Objectif chiffré atteint et re-vérifié en lecture seule le 21 novembre 2026 via `scripts/mesure-filiation.mts` (sans `--apply`) : `candidates: 14956`, `established with proof: 14956`. Le différentiel entre candidats structurels et liens écrits avec preuve est nul ; aucune tranche complémentaire n'est nécessaire. Périmètre Nouvelle-Aquitaine, absence de données personnelles, absence de service payant et diff de `server.ts` à 0 ligne restent vérifiés. Livré via la PR #317 sur `ext/chantier-a7`.
+
+## 10. Reprise du 22 novembre 2026 — réparation après déduplication
+
+### 10.1 Régression observée
+
+Une relecture en base le 22 novembre 2026, après la fusion de la PR #326 (chantier A6, 18 organisations doublons fusionnées), ne retrouvait plus que **14 939 liens** portant la preuve `siren-prefix`, contre 14 956 annoncés la veille. Le détail par département montrait une perte de 9 liens en Gironde (33), 6 dans les Pyrénées-Atlantiques (64), 1 dans les Deux-Sèvres (79) et 1 dans la Vienne (86), soit 17 au total. Les 18 fusions du journal `org.fusion` portent précisément sur ces départements (10 en 33, 6 en 64, 1 en 79, 1 en 86) : la paire de Gironde sans préfixe SIREN résolvable explique l'écart d'une unité.
+
+### 10.2 Cause
+
+Le chantier A6 a fusionné 18 unités légales SIRENE avec leur établissement SIRET : le survivant porte le SIREN à 9 chiffres, l'établissement supprimé portait le SIRET à 14 chiffres. La ligne établissement — enfant du lien de filiation — a été supprimée, entraînant la perte de 17 liens avec preuve. Le slug de chaque établissement supprimé subsiste toutefois dans `org_alias` avec une source `merge:<ancien id>` et se termine par le SIRET public (ex. `la-coupole-biarritz-38279902100029`).
+
+### 10.3 Réparation
+
+Le module `apps/api/src/filiation/merge-recovery.ts` (anglais) reconstruit ces établissements de façon déterministe et idempotente :
+
+- il lit les alias `merge:%` dont le slug se termine par 14 chiffres ;
+- il ne retient que les SIRET dont le préfixe SIREN résout vers une unité légale active `sirene` située dans un des douze départements de Nouvelle-Aquitaine ;
+- il réinsère l'établissement avec `entity_source='sirene-site'`, son `entity_code` SIRET, le département de l'unité légale et un nom distinctif `… (SIRET …)` qui évite une nouvelle détection de doublon ;
+- la règle existante `buildFiliationLinks` crée ensuite le lien et la preuve `siren-prefix` : aucune deuxième source de vérité, aucun champ de donnée personnelle.
+
+`scripts/mesure-filiation.mts --apply` appelle cette réparation avant la mesure et publie le compteur `recoveredFromMerge` dans l'artefact JSON.
+
+### 10.4 Résultat re-mesuré
+
+| Mesure | Valeur observée |
+| --- | ---: |
+| Liens avec preuve avant réparation | 14 939 |
+| Établissements reconstruits | 17 |
+| Lignes mises à jour par l'écriture | 17 |
+| Candidats après réparation | 14 956 |
+| Liens avec preuve après réparation | **14 956** |
+| Somme `byDepartment` de l'artefact | 14 956 |
+| Second `--apply` (idempotence) | 17 → 0 reconstruit, 0 ligne modifiée |
+
+La répartition revient exactement à celle du 21 novembre : 33 → 3 707, 64 → 2 306, 79 → 585, 86 → 814.
+
+### 10.5 Vérifications et contraintes
+
+- `apps/api/test/run.ts test/filiation-merge-recovery.test.ts test/filiation-siret.test.ts` : **10 tests réussis, 0 échec** (3 nouveaux tests de réparation + 7 tests existants).
+- Relecture en base après écriture : `candidates: 14956`, `established with proof: 14956` ; artefact `bench/results/filiation-na.json` relu via `jq` : `established = 14956`, `recoveredFromMerge = 17`, somme des départements = 14 956.
+- Nouvelle-Aquitaine uniquement (filtre appliqué dans le planneur et dans les trois requêtes SQL), sources grises non nécessaires, aucune donnée personnelle (identifiants publics SIREN/SIRET, nom d'organisation et URL publique uniquement), aucun service payant.
+- Code, module, CLI et tests en anglais ; le présent rapport reste en français. `git diff -- apps/api/src/server.ts` : **0 ligne**.
+
+**Objectif chiffré de nouveau atteint : 14 956 liens de filiation établis avec preuve.**

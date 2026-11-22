@@ -1,0 +1,283 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-numerique-17.jsonl",
+  "secteur": "numerique",
+  "departement": "17",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+  "methode": "GET réel avec suivi des redirections, délai 32 s, User-Agent navigateur ; code HTTP, type de contenu et nombre d'items RSS relevés. Exa hors crédits (402) : candidats identifiés via Google Actualités RSS, Bing RSS, pages officielles et annuaires sectoriels, puis tous contrôlés en HTTP direct.",
+  "sources": 15,
+  "urls_verifiees": 39,
+  "urls_200": 39,
+  "detail": [
+    {
+      "nom": "Collectif Rochefort Numérique — annuaire des professionnels du numérique",
+      "urls": {
+        "https://www.rochefort-numerique.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.rochefort-numerique.fr/blog/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.rochefort-numerique.fr/blog/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 6
+        }
+      }
+    },
+    {
+      "nom": "Digitalbay — cluster du numérique à La Rochelle",
+      "urls": {
+        "https://digitalbay.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://digitalbay.fr/toutes-nos-actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://digitalbay.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 10
+        }
+      }
+    },
+    {
+      "nom": "Soluris — syndicat informatique de la Charente-Maritime",
+      "urls": {
+        "https://www.soluris.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.soluris.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.soluris.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 10
+        }
+      }
+    },
+    {
+      "nom": "Numeum — syndicat des métiers du numérique",
+      "urls": {
+        "https://numeum.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://numeum.fr/les-actualites-numeum/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://numeum.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 10
+        }
+      }
+    },
+    {
+      "nom": "MEDEF Charente-Maritime — commission numérique",
+      "urls": {
+        "https://www.medef17.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.medef17.fr/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "Clubs d'entreprises 17 — annuaire CCI",
+      "urls": {
+        "https://clubs-entreprises17.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://clubs-entreprises17.fr/evenements/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://clubs-entreprises17.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 1
+        }
+      }
+    },
+    {
+      "nom": "Département de la Charente-Maritime — inclusion numérique",
+      "urls": {
+        "https://la.charente-maritime.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        },
+        "https://la.charente-maritime.fr/inclusion-numerique": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        },
+        "https://la.charente-maritime.fr/actualites": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "L3i — Laboratoire d'informatique et d'intelligence de La Rochelle",
+      "urls": {
+        "https://l3i.univ-larochelle.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://l3i.univ-larochelle.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "EIGSI — école d'ingénieurs informatique, IA et cybersécurité",
+      "urls": {
+        "https://www.eigsi.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.eigsi.fr/actualites-ecole-ingenieur/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "Cybermalveillance.gouv.fr — actualités cybersécurité",
+      "urls": {
+        "https://www.cybermalveillance.gouv.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.cybermalveillance.gouv.fr/blog": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.cybermalveillance.gouv.fr/feed/atom-flux-actualites": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "items_rss": 20
+        }
+      }
+    },
+    {
+      "nom": "Sud Ouest — Charente-Maritime (numérique et cyber)",
+      "urls": {
+        "https://www.sudouest.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.sudouest.fr/charente-maritime/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.sudouest.fr/charente-maritime/rss.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "items_rss": 20
+        }
+      }
+    },
+    {
+      "nom": "actu.fr — Charente-Maritime",
+      "urls": {
+        "https://actu.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://actu.fr/nouvelle-aquitaine/charente-maritime_17": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "ICI La Rochelle — Charente-Maritime",
+      "urls": {
+        "https://www.ici.fr/radio/la-rochelle": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.ici.fr/nouvelle-aquitaine/charente-maritime-17/actu": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.ici.fr/rss/la-rochelle/rubrique/infos.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "items_rss": 20
+        }
+      }
+    },
+    {
+      "nom": "Haute Saintonge — actualités (inclusion numérique)",
+      "urls": {
+        "https://www.hautesaintonge.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.hautesaintonge.fr/actualites-le-fil-info.html": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "CMA Nouvelle-Aquitaine — actualités (Charente-Maritime)",
+      "urls": {
+        "https://cma-nouvelleaquitaine.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      }
+    }
+  ]
+}
