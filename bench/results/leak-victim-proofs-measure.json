@@ -1,0 +1,7 @@
+{
+  "count": 66,
+  "total": 66,
+  "validClaims": 66,
+  "invalid": [],
+  "manifest": "bench/results/leak-victim-proofs.json"
+}

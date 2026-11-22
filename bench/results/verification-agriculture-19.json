@@ -1,0 +1,87 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-agriculture-19.jsonl",
+  "secteur": "agriculture",
+  "departement": "19",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+  "methode": "GET réel avec suivi des redirections, User-Agent navigateur, délai 25 s ; statut, type de contenu et nombre d items RSS enregistrés",
+  "sources": 10,
+  "urls_verifiees": 24,
+  "urls_200": 24,
+  "detail": [
+    {
+      "nom": "CER France Corrèze (centre de gestion agricole)",
+      "urls": {
+        "https://correze.cerfrance.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.cerfrance.fr/actualites/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "Chambre d'agriculture de la Corrèze",
+      "urls": {
+        "https://correze.chambres-agriculture.fr/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://correze.chambres-agriculture.fr/actualites-1": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "FDSEA de la Corrèze",
+      "urls": {
+        "https://fdsea19.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://fdsea19.fr/actualites/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://fdsea19.fr/feed/": {"code": 200, "type": "application/rss+xml; charset=UTF-8", "items_rss": 9}
+      }
+    },
+    {
+      "nom": "France 3 Nouvelle-Aquitaine — Corrèze",
+      "urls": {
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://france3-regions.franceinfo.fr/economie/agriculture": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "ICI Corrèze (Radio France)",
+      "urls": {
+        "https://www.ici.fr/radio/limousin": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.ici.fr/nouvelle-aquitaine/correze-19/actu": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.ici.fr/rss/limousin/rubrique/infos.xml": {"code": 200, "type": "application/xml", "items_rss": 20}
+      }
+    },
+    {
+      "nom": "La France Agricole",
+      "urls": {
+        "https://www.lafranceagricole.fr/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.lafranceagricole.fr/actualites/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "La Montagne — Corrèze",
+      "urls": {
+        "https://www.lamontagne.fr/correze/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.lamontagne.fr/economie/agriculture": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "Réussir (presse agricole spécialisée)",
+      "urls": {
+        "https://www.reussir.fr/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.reussir.fr/fil-actualites": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.reussir.fr/rss.xml": {"code": 200, "type": "application/xml;charset=UTF-8", "items_rss": 20}
+      }
+    },
+    {
+      "nom": "Sud Ouest — Corrèze",
+      "urls": {
+        "https://www.sudouest.fr/correze/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.sudouest.fr/economie/agriculture": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.sudouest.fr/correze/rss.xml": {"code": 200, "type": "application/xml", "items_rss": 20}
+      }
+    },
+    {
+      "nom": "actu.fr — Corrèze",
+      "urls": {
+        "https://actu.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://actu.fr/nouvelle-aquitaine/correze_19/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}
+      }
+    }
+  ]
+}

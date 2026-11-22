@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:c3a2da25-0438-411f-ae2f-98b80db68110>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/recent/5000
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 277
+WARC-Block-Digest: sha1:I5IL6UR4IIUO3FHWX6SJPWYHQZP344VK
+X-Claim-Fingerprint: 440f4fcf764bcb80f6c8d662
+X-Victim-Key: bef06f2004baad6cd4d1f577
+
+{"post_title": "Great Lakes", "discovered": "2026-10-13 17:17:01.055375", "description": "", "link": "/blog/disclosures/6ace36569cd108bf2694586b", "magnet": null, "screen": null, "private": false, "misp_uuid": "107c69e1-bd6c-5223-878d-943bee361893", "group_name": "inc ransom"}
+

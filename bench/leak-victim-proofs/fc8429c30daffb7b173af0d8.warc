@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:82d19c7a-6da7-49b6-acf6-f34ead24c439>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/posts/2025
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 353
+WARC-Block-Digest: sha1:WQF7U2AEXPJFMPIZAKONQYD4OB3PVGUH
+X-Claim-Fingerprint: 7f5dc7bfa36357c663622a12
+X-Victim-Key: fc8429c30daffb7b173af0d8
+
+{"post_title": "Planet One", "discovered": "2025-02-24 13:57:37.831535", "description": "Planet One Pte Ltd is a company that operates in the Custom Software & IT Servic...", "link": "/leaks/67b8c45344fac8dca1335245", "magnet": null, "screen": "screenshots/lynx/Planet One.png", "misp_uuid": "f50360d3-c573-5681-97c3-2dd385551099", "group_name": "lynx"}
+
