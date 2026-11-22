@@ -1,0 +1,22 @@
+{
+  "command": "pnpm measure:thehive-cases",
+  "endpoint": "local TheHive-compatible test double (127.0.0.1)",
+  "cases_created": 1421,
+  "eligible": 1421,
+  "failed": 0,
+  "skipped": {
+    "outsideRegion": 0,
+    "reviewOnly": 0,
+    "duplicate": 0
+  },
+  "requests_received": 1421,
+  "baseline": {
+    "organizations": 1673151,
+    "sources": 312,
+    "events": 26394,
+    "alerts": 1432
+  },
+  "fingerprint": "f6cc53ff28f6b936893baeb5de6f56c1fdf19a914c1af127cf41f7c3ed43ce62",
+  "sql": "\nSELECT a.id,\n       a.rule_id AS \"ruleId\",\n       a.severity,\n       a.scope,\n       e.regional,\n       e.family AS \"eventFamily\",\n       e.observed_at AS \"observedAt\",\n       COALESCE(a.org_id, e.org_id) AS \"organizationId\",\n       o.name AS \"organizationName\",\n       o.dept AS \"organizationDept\",\n       s.name AS \"sourceName\",\n       s.url AS \"sourceUrl\"\nFROM alert a\nJOIN event e ON e.id = a.event_id\nLEFT JOIN org o ON o.id = COALESCE(a.org_id, e.org_id)\nLEFT JOIN source s ON s.id = e.source_id\nWHERE a.scope <> ALL($1::text[])\n  AND (e.regional = true OR o.dept = ANY($2::text[]))\nORDER BY a.id ASC\nLIMIT $3",
+  "measuredAt": "2026-11-22T01:53:44.049Z"
+}
