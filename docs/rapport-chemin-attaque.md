@@ -111,3 +111,5 @@ Aucune PR ni aucun commit ne livrait cette requête avant cette tranche. Les PR
 #290 et #361 construisent le graphe temporel, sans requête de chemin ni objectif
 de latence. La branche `ext/chantier-o2` part donc de `origin/main` au commit
 `4343e1f`, sans écraser le travail des tranches précédentes.
+
+OBJECTIF : atteint — p95 173,3 ms / 500 ms
