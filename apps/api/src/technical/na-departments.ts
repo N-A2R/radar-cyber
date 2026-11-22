@@ -1,0 +1,229 @@
+/**
+ * Closes the remaining Nouvelle-Aquitaine department coverage gaps.
+ *
+ * A verified NA claim, already attached to an organization of the
+ * referential, becomes a public third-party-claim event for the two
+ * departments that still have no event. Only organization ids, departments,
+ * group names and public evidence URLs leave the database: no victim name,
+ * no claim description, no personal data.
+ */
+import { z } from "zod";
+import { query } from "../db.js";
+import { NA_DEPARTMENTS, isNaDepartment } from "../technical/catalog.js";
+
+/** The two NA departments with no event at the start of this slice. */
+export const GAP_DEPARTMENTS = ["19", "23"] as const;
+export const GAP_DEDUP_PREFIX = "na-gap:";
+export const GAP_ADMISSION_RULE = "na_gap_claim";
+
+const publicHttpsUrl = z.string().url().refine((value) => {
+  try {
+    const parsed = new URL(value);
+    return parsed.protocol === "https:" && parsed.username === "" && parsed.password === "";
+  } catch {
+    return false;
+  }
+}, "only public HTTPS URLs without credentials");
+
+export const GapClaimSchema = z.strictObject({
+  id: z.coerce.number().int().positive(),
+  orgId: z.coerce.number().int().positive(),
+  department: z.string().refine((value) =>
+    (GAP_DEPARTMENTS as readonly string[]).includes(value), "department is not a coverage gap"),
+  groupName: z.string().min(1).max(120),
+  publishedAt: z.string().refine((value) => !Number.isNaN(Date.parse(value)), "invalid date"),
+  evidenceUrl: publicHttpsUrl,
+  source: z.string().min(1),
+});
+
+export type GapClaim = z.infer<typeof GapClaimSchema>;
+
+export type GapEvent = {
+  dedupKey: string;
+  family: string;
+  assertionType: string;
+  title: string;
+  summary: null;
+  observedAt: string;
+  severity: number;
+  confidence: string;
+  sourceId: string;
+  sourceUrl: string;
+  evidence: Record<string, unknown>;
+  geoType: string;
+  orgId: number;
+  regional: boolean;
+  regionalMotif: string;
+  tlp: string;
+  tlpSource: string;
+  admissionRule: string;
+};
+
+/** Accepts only a claim that is both NA-scoped and in a gap department. */
+export function parseGapClaim(raw: unknown): GapClaim | null {
+  const result = GapClaimSchema.safeParse(raw);
+  return result.success ? result.data : null;
+}
+
+/**
+ * Builds an aggregate event from a verified claim. The title never contains an
+ * organization or victim name, and no claim body is copied into summary or
+ * evidence: the original claim stays the only place where a body is readable.
+ */
+export function buildGapEvent(claim: GapClaim, sourceId: string): GapEvent {
+  return {
+    dedupKey: `${GAP_DEDUP_PREFIX}${claim.id}`,
+    family: "ransomware",
+    assertionType: "third_party_claim",
+    title: `Third-party ransomware claim referencing a Nouvelle-Aquitaine organization (department ${claim.department})`,
+    summary: null,
+    observedAt: new Date().toISOString(),
+    severity: 4,
+    confidence: "C3",
+    sourceId,
+    sourceUrl: claim.evidenceUrl,
+    evidence: {
+      claim_id: claim.id,
+      org_id: claim.orgId,
+      department: claim.department,
+      group: claim.groupName,
+      claimed_at: new Date(claim.publishedAt).toISOString(),
+      evidence_url: claim.evidenceUrl,
+      via: GAP_ADMISSION_RULE,
+    },
+    geoType: "claimed_origin",
+    orgId: claim.orgId,
+    regional: true,
+    regionalMotif: "na_department_gap",
+    tlp: "CLEAR",
+    tlpSource: claim.source,
+    admissionRule: GAP_ADMISSION_RULE,
+  };
+}
+
+export const SQL = {
+  gapClaims: `SELECT c.id, c.org_id AS "orgId", o.dept AS department,
+                     c.group_name AS "groupName", c.published_at,
+                     c.evidence_url AS "evidenceUrl", c.source
+                FROM leak_claim c
+                JOIN org o ON o.id = c.org_id
+               WHERE c.na
+                 AND o.dept = ANY($1::text[])
+                 AND c.org_id IS NOT NULL
+                 AND c.evidence_url ILIKE 'https://%'
+                 AND NOT EXISTS (SELECT 1 FROM event e WHERE e.dedup_key = $2 || c.id)
+               ORDER BY c.id`,
+  departments: `SELECT o.dept AS department, count(*)::int AS events
+                  FROM event e
+                  JOIN org o ON o.id = e.org_id
+                 WHERE o.dept = ANY($1::text[])
+                 GROUP BY o.dept`,
+  sourceByGroup: `SELECT id FROM source WHERE family = 'ransomware' AND id = $1 LIMIT 1`,
+  sourceFallback: `SELECT id FROM source WHERE family = 'ransomware' ORDER BY id LIMIT 1`,
+} as const;
+
+export type DepartmentMeasurement = {
+  scope: "nouvelle-aquitaine";
+  departments: { department: string; events: number }[];
+  zeroDepartments: string[];
+  eventCount: number;
+  gapClaimsPending: number;
+  sql: typeof SQL;
+  measuredAt: string;
+};
+
+/** Reads only aggregate counters: one row per department, never an event body. */
+export async function measureNaDepartments(): Promise<DepartmentMeasurement> {
+  const [departmentRows, claimRows] = await Promise.all([
+    query<{ department: string; events: number }>(SQL.departments, [NA_DEPARTMENTS]),
+    query<{ id: number }>(SQL.gapClaims, [GAP_DEPARTMENTS, GAP_DEDUP_PREFIX]),
+  ]);
+  const departments = NA_DEPARTMENTS.map((department) => ({
+    department,
+    events: Number(departmentRows.rows.find((row) => row.department === department)?.events ?? 0),
+  }));
+  return {
+    scope: "nouvelle-aquitaine",
+    departments,
+    zeroDepartments: departments.filter((row) => row.events === 0).map((row) => row.department),
+    eventCount: departments.reduce((total, row) => total + row.events, 0),
+    gapClaimsPending: claimRows.rows.length,
+    sql: SQL,
+    measuredAt: new Date().toISOString(),
+  };
+}
+
+async function resolveSourceId(claim: GapClaim): Promise<string | null> {
+  const slug = claim.groupName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  for (const [sql, params] of [
+    [SQL.sourceByGroup, [`onion:ccw:${slug}`]],
+    [SQL.sourceFallback, []],
+  ] as const) {
+    const result = await query<{ id: string }>(sql, [...params]);
+    if (result.rows[0]?.id) return result.rows[0].id;
+  }
+  return null;
+}
+
+/**
+ * Inserts one event per still-unpromoted gap claim. Idempotent: `dedup_key`
+ * carries the claim id, so a second run inserts nothing.
+ */
+export async function fillNaDepartmentGaps(): Promise<{
+  scanned: number;
+  refused: number;
+  inserted: number;
+  alreadyPresent: number;
+}> {
+  const rows = await query<{
+    id: number;
+    orgId: number;
+    department: string;
+    groupName: string;
+    published_at: Date | string;
+    evidenceUrl: string;
+    source: string;
+  }>(SQL.gapClaims, [GAP_DEPARTMENTS, GAP_DEDUP_PREFIX]);
+
+  let refused = 0;
+  let inserted = 0;
+  let alreadyPresent = 0;
+  for (const row of rows.rows) {
+    const claim = parseGapClaim({
+      id: row.id,
+      orgId: row.orgId,
+      department: row.department,
+      groupName: row.groupName,
+      publishedAt: new Date(row.published_at).toISOString(),
+      evidenceUrl: row.evidenceUrl,
+      source: row.source,
+    });
+    if (!claim || !isNaDepartment(claim.department)) {
+      refused += 1;
+      continue;
+    }
+    const sourceId = await resolveSourceId(claim);
+    if (!sourceId) {
+      refused += 1;
+      continue;
+    }
+    const event = buildGapEvent(claim, sourceId);
+    const result = await query<{ inserted: boolean }>(
+      `INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at, severity,
+                          confidence, source_id, source_url, evidence, geo_type, org_id, tlp,
+                          tlp_source, admission_rule, regional, regional_motif)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18)
+       ON CONFLICT (dedup_key) DO NOTHING
+       RETURNING (xmax = 0) AS inserted`,
+      [
+        event.dedupKey, event.family, event.assertionType, event.title, event.summary,
+        event.observedAt, event.severity, event.confidence, event.sourceId, event.sourceUrl,
+        JSON.stringify(event.evidence), event.geoType, event.orgId, event.tlp, event.tlpSource,
+        event.admissionRule, event.regional, event.regionalMotif,
+      ],
+    );
+    if (result.rows[0]?.inserted) inserted += 1;
+    else alreadyPresent += 1;
+  }
+  return { scanned: rows.rows.length, refused, inserted, alreadyPresent };
+}
