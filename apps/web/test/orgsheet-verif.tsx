@@ -68,6 +68,7 @@ const pret = renderToStaticMarkup(
 check("nom de l'organisation en titre", pret.includes("CHU de Bordeaux"));
 check("alias affichés", fiche.aliases.every((a) => pret.includes(a)));
 check("domaines affichés", fiche.domains.every((d) => pret.includes(d)));
+check("bouton de rapport 10 pages en anglais", pret.includes("Download 10-page report (PDF)"));
 check(
   "20 événements récents rendus",
   evenements.every((e) => pret.includes(e.title)) && pret.includes("20 plus récents affichés"),

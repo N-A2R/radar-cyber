@@ -56,6 +56,28 @@
   outline-offset: 2px;
 }
 
+.orgsheet__report {
+  flex: none;
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  background: none;
+  color: var(--text);
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.orgsheet__report:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.orgsheet__report-error {
+  margin: 6px 16px;
+  color: var(--danger, var(--text));
+  font-size: 11px;
+}
+
 .orgsheet__body {
   flex: 1;
   min-height: 0;

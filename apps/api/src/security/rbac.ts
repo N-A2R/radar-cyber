@@ -87,6 +87,7 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/orgs/liees/historique", niveau: "lecteur" },
   { methode: "GET", route: "/api/orgs/:id", niveau: "lecteur" },
   { methode: "GET", route: "/api/orgs/:id/rectifications", niveau: "lecteur" },
+  { methode: "GET", route: "/api/orgs/:id/report.pdf", niveau: "lecteur", motif: "rapport PDF agrégé, sans donnée personnelle" },
 
   // --- Travail d'analyse ----------------------------------------------------
   { methode: "GET", route: "/api/review/queue", niveau: "analyste" },

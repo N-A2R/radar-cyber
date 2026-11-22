@@ -1099,6 +1099,13 @@ export const api = {
     return get<DirectoryResponse>(`/directory${suffix ? `?${suffix}` : ""}`, signal);
   },
   orgDetail: (id: number) => get<OrgDetail>(`/orgs/${id}`),
+  /** Ten-page PDF for one organisation; the browser downloads the returned blob. */
+  orgReportPdf: async (orgId: number): Promise<Blob> => {
+    const path = `/orgs/${orgId}/report.pdf`;
+    const res = await fetch(`${BASE}${path}`, { headers: authHeaders() });
+    if (!res.ok) throw apiError(path, res.status);
+    return res.blob();
+  },
   rectificationsOrg: (orgId: number) => get<RectificationsOrg>(`/orgs/${orgId}/rectifications`),
   demanderRectification: (body: DemandeRectification) => postJson<AccuseRectification>("/rectifications", body),
   search: (q: string) => get<SearchResponse>(`/search?q=${encodeURIComponent(q)}`),

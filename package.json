@@ -8,6 +8,7 @@
     "setup:check": "apps/api/node_modules/.bin/tsx scripts/bootstrap.mts --check",
     "migrate": "apps/api/node_modules/.bin/tsx scripts/migrate.mts",
     "test": "pnpm -F @radar/api test",
+    "org-report:measure": "apps/api/node_modules/.bin/tsx scripts/measure-org-reports.mts",
     "api:client": "apps/api/node_modules/.bin/tsx scripts/generate-api-client.mts",
     "dev": "pnpm -r --parallel dev",
     "dev:api": "pnpm -F @radar/api dev",
