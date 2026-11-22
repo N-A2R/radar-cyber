@@ -50,3 +50,4 @@ usurpant Qualibat (20/11/2026, `https://www.qualibat.com/actualites`) et guide
 de cybersécurité pour les TPE artisanales (06/07/2026,
 `https://www.artisanat.fr/magazine/actus`). Les autres entrées décrivent un
 vecteur sectoriel, sans incident nommé dans la page observée le 2026-11-22.
+OBJECTIF : atteint — 22 / 5
