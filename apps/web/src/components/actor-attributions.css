@@ -1,0 +1,75 @@
+.attrib {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  overflow: auto;
+}
+
+.attrib__head h1 {
+  margin: 0 0 0.35rem;
+  font-size: 1.4rem;
+}
+
+.attrib__head p {
+  margin: 0;
+  opacity: 0.75;
+}
+
+.attrib__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
+}
+
+.attrib__stats article {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.85rem;
+  border: 1px solid rgba(127, 127, 127, 0.25);
+  border-radius: 8px;
+}
+
+.attrib__stats span {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.7;
+}
+
+.attrib__stats strong {
+  font-size: 1.5rem;
+}
+
+.attrib__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.attrib__table th,
+.attrib__table td {
+  padding: 0.5rem 0.7rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(127, 127, 127, 0.2);
+}
+
+.attrib__table th {
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  opacity: 0.7;
+}
+
+.attrib__badge {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.attrib__badge--high { background: #d7f2df; color: #14532d; }
+.attrib__badge--medium { background: #fff0c7; color: #713f12; }
+.attrib__badge--low { background: #f2dede; color: #7f1d1d; }

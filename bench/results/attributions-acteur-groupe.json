@@ -1,0 +1,360 @@
+{
+  "scope": "Nouvelle-Aquitaine",
+  "attributions": 21,
+  "byLevel": {
+    "high": 21,
+    "medium": 0,
+    "low": 0
+  },
+  "byMethod": {
+    "alias": 1,
+    "exact": 20
+  },
+  "averageConfidence": 97.1,
+  "byGroup": [
+    {
+      "group_slug": "8base",
+      "group_name": "8Base",
+      "attributions": 1,
+      "best_confidence": 98
+    },
+    {
+      "group_slug": "alphv",
+      "group_name": "ALPHV",
+      "attributions": 1,
+      "best_confidence": 98
+    },
+    {
+      "group_slug": "aurora",
+      "group_name": "aurora",
+      "attributions": 1,
+      "best_confidence": 98
+    },
+    {
+      "group_slug": "bashe",
+      "group_name": "bashe",
+      "attributions": 1,
+      "best_confidence": 98
+    },
+    {
+      "group_slug": "byod",
+      "group_name": "byod",
+      "attributions": 1,
+      "best_confidence": 98
+    },
+    {
+      "group_slug": "conti",
+      "group_name": "conti",
+      "attributions": 1,
+      "best_confidence": 95
+    },
+    {
+      "group_slug": "donutleaks",
+      "group_name": "donutleaks",
+      "attributions": 1,
+      "best_confidence": 95
+    },
+    {
+      "group_slug": "endzone",
+      "group_name": "endzone",
+      "attributions": 1,
+      "best_confidence": 95
+    },
+    {
+      "group_slug": "hyflock",
+      "group_name": "hyflock",
+      "attributions": 1,
+      "best_confidence": 98
+    },
+    {
+      "group_slug": "inc-ransom",
+      "group_name": "Inc Ransom",
+      "attributions": 1,
+      "best_confidence": 95
+    },
+    {
+      "group_slug": "krybit",
+      "group_name": "krybit",
+      "attributions": 1,
+      "best_confidence": 98
+    },
+    {
+      "group_slug": "leakeddata",
+      "group_name": "leakeddata",
+      "attributions": 1,
+      "best_confidence": 95
+    },
+    {
+      "group_slug": "lockbit-3-0",
+      "group_name": "LockBit 3.0",
+      "attributions": 1,
+      "best_confidence": 95
+    },
+    {
+      "group_slug": "lynx",
+      "group_name": "lynx",
+      "attributions": 1,
+      "best_confidence": 98
+    },
+    {
+      "group_slug": "monti",
+      "group_name": "monti",
+      "attributions": 1,
+      "best_confidence": 98
+    },
+    {
+      "group_slug": "panzer",
+      "group_name": "panzer",
+      "attributions": 1,
+      "best_confidence": 98
+    },
+    {
+      "group_slug": "ransomhub",
+      "group_name": "RansomHub",
+      "attributions": 1,
+      "best_confidence": 98
+    },
+    {
+      "group_slug": "rhysida",
+      "group_name": "rhysida",
+      "attributions": 1,
+      "best_confidence": 100
+    },
+    {
+      "group_slug": "spook",
+      "group_name": "spook",
+      "attributions": 1,
+      "best_confidence": 95
+    },
+    {
+      "group_slug": "the-gentlemen",
+      "group_name": "The Gentlemen",
+      "attributions": 1,
+      "best_confidence": 98
+    },
+    {
+      "group_slug": "vexy",
+      "group_name": "vexy",
+      "attributions": 1,
+      "best_confidence": 98
+    }
+  ],
+  "attributionsDetail": [
+    {
+      "actor": "rhysida",
+      "groupSlug": "rhysida",
+      "groupName": "rhysida",
+      "confidence": 100,
+      "level": "high",
+      "method": "exact",
+      "sources": 4,
+      "claims": 232
+    },
+    {
+      "actor": "8base",
+      "groupSlug": "8base",
+      "groupName": "8Base",
+      "confidence": 98,
+      "level": "high",
+      "method": "exact",
+      "sources": 2,
+      "claims": 412
+    },
+    {
+      "actor": "Vexy Ransomware",
+      "groupSlug": "vexy",
+      "groupName": "vexy",
+      "confidence": 98,
+      "level": "high",
+      "method": "exact",
+      "sources": 2,
+      "claims": 9
+    },
+    {
+      "actor": "alphv",
+      "groupSlug": "alphv",
+      "groupName": "ALPHV",
+      "confidence": 98,
+      "level": "high",
+      "method": "exact",
+      "sources": 2,
+      "claims": 757
+    },
+    {
+      "actor": "aurora",
+      "groupSlug": "aurora",
+      "groupName": "aurora",
+      "confidence": 98,
+      "level": "high",
+      "method": "exact",
+      "sources": 2,
+      "claims": 13
+    },
+    {
+      "actor": "bashe",
+      "groupSlug": "bashe",
+      "groupName": "bashe",
+      "confidence": 98,
+      "level": "high",
+      "method": "exact",
+      "sources": 2,
+      "claims": 124
+    },
+    {
+      "actor": "byod",
+      "groupSlug": "byod",
+      "groupName": "byod",
+      "confidence": 98,
+      "level": "high",
+      "method": "exact",
+      "sources": 2,
+      "claims": 2
+    },
+    {
+      "actor": "hyflock",
+      "groupSlug": "hyflock",
+      "groupName": "hyflock",
+      "confidence": 98,
+      "level": "high",
+      "method": "exact",
+      "sources": 2,
+      "claims": 8
+    },
+    {
+      "actor": "krybit",
+      "groupSlug": "krybit",
+      "groupName": "krybit",
+      "confidence": 98,
+      "level": "high",
+      "method": "exact",
+      "sources": 2,
+      "claims": 10
+    },
+    {
+      "actor": "lynx",
+      "groupSlug": "lynx",
+      "groupName": "lynx",
+      "confidence": 98,
+      "level": "high",
+      "method": "exact",
+      "sources": 2,
+      "claims": 262
+    },
+    {
+      "actor": "monti",
+      "groupSlug": "monti",
+      "groupName": "monti",
+      "confidence": 98,
+      "level": "high",
+      "method": "exact",
+      "sources": 2,
+      "claims": 115
+    },
+    {
+      "actor": "panzer",
+      "groupSlug": "panzer",
+      "groupName": "panzer",
+      "confidence": 98,
+      "level": "high",
+      "method": "exact",
+      "sources": 2,
+      "claims": 7
+    },
+    {
+      "actor": "ransomhub",
+      "groupSlug": "ransomhub",
+      "groupName": "RansomHub",
+      "confidence": 98,
+      "level": "high",
+      "method": "exact",
+      "sources": 2,
+      "claims": 1029
+    },
+    {
+      "actor": "the gentlemen",
+      "groupSlug": "the-gentlemen",
+      "groupName": "The Gentlemen",
+      "confidence": 98,
+      "level": "high",
+      "method": "exact",
+      "sources": 2,
+      "claims": 63
+    },
+    {
+      "actor": "conti",
+      "groupSlug": "conti",
+      "groupName": "conti",
+      "confidence": 95,
+      "level": "high",
+      "method": "exact",
+      "sources": 1,
+      "claims": 333
+    },
+    {
+      "actor": "donutleaks",
+      "groupSlug": "donutleaks",
+      "groupName": "donutleaks",
+      "confidence": 95,
+      "level": "high",
+      "method": "exact",
+      "sources": 1,
+      "claims": 44
+    },
+    {
+      "actor": "endzone",
+      "groupSlug": "endzone",
+      "groupName": "endzone",
+      "confidence": 95,
+      "level": "high",
+      "method": "exact",
+      "sources": 1,
+      "claims": 3
+    },
+    {
+      "actor": "inc ransom",
+      "groupSlug": "inc-ransom",
+      "groupName": "Inc Ransom",
+      "confidence": 95,
+      "level": "high",
+      "method": "exact",
+      "sources": 1,
+      "claims": 35
+    },
+    {
+      "actor": "leakeddata",
+      "groupSlug": "leakeddata",
+      "groupName": "leakeddata",
+      "confidence": 95,
+      "level": "high",
+      "method": "exact",
+      "sources": 1,
+      "claims": 7
+    },
+    {
+      "actor": "lockbit3",
+      "groupSlug": "lockbit-3-0",
+      "groupName": "LockBit 3.0",
+      "confidence": 95,
+      "level": "high",
+      "method": "alias",
+      "sources": 3,
+      "claims": 2063
+    },
+    {
+      "actor": "spook",
+      "groupSlug": "spook",
+      "groupName": "spook",
+      "confidence": 95,
+      "level": "high",
+      "method": "exact",
+      "sources": 1,
+      "claims": 35
+    }
+  ],
+  "sql": {
+    "total": "\n  SELECT count(*)::int AS attributions,\n         count(*) FILTER (WHERE level = 'high')::int AS high,\n         count(*) FILTER (WHERE level = 'medium')::int AS medium,\n         count(*) FILTER (WHERE level = 'low')::int AS low,\n         COALESCE(round(avg(confidence)::numeric, 1), 0)::float8 AS average_confidence\n    FROM actor_group_attribution\n",
+    "byMethod": "\n  SELECT method, count(*)::int AS attributions\n    FROM actor_group_attribution\n   GROUP BY method\n   ORDER BY method\n",
+    "byGroup": "\n  SELECT group_slug, group_name, count(*)::int AS attributions,\n         max(confidence)::int AS best_confidence\n    FROM actor_group_attribution\n   GROUP BY group_slug, group_name\n   ORDER BY attributions DESC, group_slug ASC\n",
+    "rows": "\n  SELECT actor, group_slug AS \"groupSlug\", group_name AS \"groupName\",\n         confidence, level, method, sources, claims\n    FROM actor_group_attribution\n   ORDER BY confidence DESC, actor ASC\n"
+  }
+}
