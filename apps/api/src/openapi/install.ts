@@ -14,6 +14,7 @@ import { resolveUser } from "../middleware/auth.js";
 import { rateLimit } from "../middleware/rate-limit.js";
 import { buildOpenApi, documentedRouteCount } from "./spec.js";
 import { API_VERSION, CURRENT_PREFIX, withoutVersion } from "./version.js";
+import { STABILITY } from "./stability.js";
 
 import alertsRoute from "../routes/alerts.js";
 import custodyRoute from "../routes/custody.js";
@@ -72,6 +73,7 @@ export async function installPublicApi(app: FastifyInstance): Promise<void> {
     const url = req.url.split("?")[0] ?? "";
     if (!url.startsWith("/api/")) return;
     reply.header("X-API-Version", API_VERSION);
+    reply.header("X-API-Stability", STABILITY);
     const path = withoutVersion(url);
     if (path.startsWith("/docs") || path === "/openapi.json") return;
 

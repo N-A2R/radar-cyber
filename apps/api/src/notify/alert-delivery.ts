@@ -124,6 +124,7 @@ LEFT JOIN event e ON e.id = a.event_id
 LEFT JOIN org o ON o.id = a.org_id
 LEFT JOIN source s ON s.id = e.source_id
 WHERE a.delivered_at IS NULL
+  AND a.status = 'open'
   AND a.attempts < $1
   AND (a.next_attempt_at IS NULL OR a.next_attempt_at <= now())
   AND a.scope <> ALL($3::text[])

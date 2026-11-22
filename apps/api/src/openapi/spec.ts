@@ -4,6 +4,8 @@ import { OPERATIONS, type Operation, type Security } from "./catalog.js";
 import { SCHEMAS, INPUT_SCHEMAS } from "./schemas.js";
 import { API_VERSION } from "./version.js";
 import { buildExamples, exampleRequest, type OperationExample } from "./examples.js";
+import { COMPATIBILITY_POLICY, STABILITY } from "./stability.js";
+import { V1_CONTRACT } from "./v1-contract.js";
 
 type Doc = Record<string, any>;
 
@@ -104,6 +106,9 @@ export function buildOpenApi(): Doc {
     info: {
       title: "Radar Cyber API",
       version: API_VERSION,
+      "x-stability": STABILITY,
+      "x-contract": { version: API_VERSION, operations: V1_CONTRACT.operations.length },
+      "x-compatibility": COMPATIBILITY_POLICY,
       description: "API publique de l'observatoire. Lectures publiques limitées, écritures authentifiées. Les clés d'API portent leur propre quota.",
     },
     servers: [

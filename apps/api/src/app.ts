@@ -50,6 +50,7 @@ import scanCampaignsRoute from "./routes/scan-campaigns.js";
 import attestationsNegativesRoute from "./routes/attestations-negatives.js";
 import actorAttributionsRoute from "./routes/actor-attributions.js";
 import ransomwareGroupsRoute from "./routes/ransomware-groups.js";
+import contagionRoute from "./routes/contagion.js";
 
 const ROUTES = [
   eventsRoute, historyRoute, healthDetailRoute, healthCausesRoute, todayRoute,
@@ -61,9 +62,9 @@ const ROUTES = [
   // Les mêmes routes que le serveur : une application de test qui en ignore
   // certaines valide une API qui n'existe pas.
   reconnaissanceRoute, scanCampaignsRoute, attestationsNegativesRoute,
-  actorAttributionsRoute, ransomwareGroupsRoute,
+  actorAttributionsRoute, ransomwareGroupsRoute, contagionRoute,
 ];
-const PUBLIC_READ = /^\/api\/(?:v1\/)?(health|stats|sources|flows|search|directory|graph|stream|events|history|orgs|enrich|alerts|quarantine|dossier|healthz|na|today|couverture|custody|export|docs|openapi\.json|auth|reconnaissance|scan|attestations-negatives|actor-attributions)(\/|$|\?)/;
+const PUBLIC_READ = /^\/api\/(?:v1\/)?(health|stats|sources|flows|search|directory|graph|stream|events|history|orgs|enrich|alerts|quarantine|dossier|healthz|na|today|couverture|custody|export|docs|openapi\.json|auth|reconnaissance|scan|attestations-negatives|actor-attributions|c2|dns|contagion)(\/|$|\?)/;
 
 export async function buildApp(): Promise<FastifyInstance> {
   const app = Fastify({ logger: false });
