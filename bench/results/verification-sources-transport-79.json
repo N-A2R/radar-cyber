@@ -1,0 +1,1004 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-transport-79.jsonl",
+  "secteur": "transport",
+  "departement": "79",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+  "method": "GET réel avec suivi des redirections (curl -L), User-Agent navigateur, délai 25 s : code HTTP, type de contenu, URL finale, octets, durée et items RSS enregistrés pour chaque site, page d’actualités, flux et article cité.",
+  "sources": 20,
+  "urls_verifiees": 77,
+  "urls_200": 77,
+  "verifie_le": "2026-11-22T09:52:51+00:00",
+  "detail": [
+    {
+      "ligne": 1,
+      "nom": "Tanlib — réseau de transports de Niort Agglo",
+      "type": "réseau de transport public (Niort)",
+      "secteur": "transport",
+      "departement": "79",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.tanlib.com/",
+          "octets": 86879,
+          "ms": 414,
+          "items": 0,
+          "role": "site",
+          "url": "https://www.tanlib.com/"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.tanlib.com/actualites/",
+          "octets": 28811,
+          "ms": 159,
+          "items": 0,
+          "role": "actualites",
+          "url": "https://www.tanlib.com/actualites/"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.tanlib.com/actualites/actu-pysae-l-info-en-temps-reel--1248/",
+          "octets": 27764,
+          "ms": 256,
+          "items": 0,
+          "role": "exemple",
+          "url": "https://www.tanlib.com/actualites/actu-pysae-l-info-en-temps-reel--1248/"
+        }
+      ]
+    },
+    {
+      "ligne": 2,
+      "nom": "Transports Landry",
+      "type": "transporteur et logisticien (Thouars)",
+      "secteur": "transport",
+      "departement": "79",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://landry-transports.fr/",
+          "octets": 101784,
+          "ms": 1268,
+          "items": 0,
+          "role": "site",
+          "url": "https://landry-transports.fr/"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://landry-transports.fr/actualites",
+          "octets": 82341,
+          "ms": 844,
+          "items": 0,
+          "role": "actualites",
+          "url": "https://landry-transports.fr/actualites"
+        },
+        {
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://landry-transports.fr/feed",
+          "octets": 4720,
+          "ms": 691,
+          "items": 4,
+          "role": "flux",
+          "url": "https://landry-transports.fr/feed"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://landry-transports.fr/ouverture-dun-nouvel-entrepot",
+          "octets": 69918,
+          "ms": 785,
+          "items": 0,
+          "role": "exemple",
+          "url": "https://landry-transports.fr/ouverture-dun-nouvel-entrepot"
+        }
+      ]
+    },
+    {
+      "ligne": 3,
+      "nom": "Transports GAUTHIER",
+      "type": "transport frigorifique et logistique (La Crèche)",
+      "secteur": "transport",
+      "departement": "79",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.transports-gauthier.com/",
+          "octets": 197346,
+          "ms": 683,
+          "items": 0,
+          "role": "site",
+          "url": "https://www.transports-gauthier.com/"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.transports-gauthier.com/actualites/",
+          "octets": 145377,
+          "ms": 613,
+          "items": 0,
+          "role": "actualites",
+          "url": "https://www.transports-gauthier.com/actualites/"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.transports-gauthier.com/des-camions-daf-equipes-dethylotests-antidemarrage-pour-une-route-plus-sure/",
+          "octets": 176502,
+          "ms": 566,
+          "items": 0,
+          "role": "exemple",
+          "url": "https://www.transports-gauthier.com/des-camions-daf-equipes-dethylotests-antidemarrage-pour-une-route-plus-sure/"
+        }
+      ]
+    },
+    {
+      "ligne": 4,
+      "nom": "Conseil Transports 79 — OTRE Poitou-Charentes",
+      "type": "organisation professionnelle locale du transport routier (La Crèche)",
+      "secteur": "transport",
+      "departement": "79",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.ct79.fr/",
+          "octets": 34131,
+          "ms": 557,
+          "items": 0,
+          "role": "site",
+          "url": "https://www.ct79.fr/"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.ct79.fr/-Actualites-",
+          "octets": 31226,
+          "ms": 153,
+          "items": 0,
+          "role": "actualites",
+          "url": "https://www.ct79.fr/-Actualites-"
+        },
+        {
+          "code": 200,
+          "content_type": "text/xml; charset=utf-8",
+          "url_finale": "https://www.ct79.fr/spip.php?page=backend",
+          "octets": 16950,
+          "ms": 374,
+          "items": 10,
+          "role": "flux",
+          "url": "https://www.ct79.fr/spip.php?page=backend"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.ct79.fr/Flash-info-special-RH-2026",
+          "octets": 19093,
+          "ms": 440,
+          "items": 0,
+          "role": "exemple",
+          "url": "https://www.ct79.fr/Flash-info-special-RH-2026"
+        }
+      ]
+    },
+    {
+      "ligne": 5,
+      "nom": "FNTR — Fédération nationale des transports routiers",
+      "type": "fédération professionnelle",
+      "secteur": "transport",
+      "departement": "79",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.fntr.fr/",
+          "octets": 143185,
+          "ms": 319,
+          "items": 0,
+          "role": "site",
+          "url": "https://www.fntr.fr/"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.fntr.fr/espace-presse/actualites-agenda",
+          "octets": 131842,
+          "ms": 389,
+          "items": 0,
+          "role": "actualites",
+          "url": "https://www.fntr.fr/espace-presse/actualites-agenda"
+        },
+        {
+          "code": 200,
+          "content_type": "application/rss+xml; charset=utf-8",
+          "url_finale": "https://www.fntr.fr/rss.xml",
+          "octets": 33828,
+          "ms": 138,
+          "items": 4,
+          "role": "flux",
+          "url": "https://www.fntr.fr/rss.xml"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.fntr.fr/espace-presse/actualites-agenda/transport-routier-de-marchandises-l-horizon-2035-quelles",
+          "octets": 124039,
+          "ms": 381,
+          "items": 0,
+          "role": "exemple",
+          "url": "https://www.fntr.fr/espace-presse/actualites-agenda/transport-routier-de-marchandises-l-horizon-2035-quelles"
+        }
+      ]
+    },
+    {
+      "ligne": 6,
+      "nom": "FNTV — Fédération nationale des transports de voyageurs",
+      "type": "fédération professionnelle",
+      "secteur": "transport",
+      "departement": "79",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://fntv.fr/",
+          "octets": 86158,
+          "ms": 278,
+          "items": 0,
+          "role": "site",
+          "url": "https://fntv.fr/"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://fntv.fr/actualites-de-la-federation",
+          "octets": 79150,
+          "ms": 1306,
+          "items": 0,
+          "role": "actualites",
+          "url": "https://fntv.fr/actualites-de-la-federation"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://fntv.fr/actualite/resultats-du-barometre-du-transport-routier-5",
+          "octets": 73096,
+          "ms": 234,
+          "items": 0,
+          "role": "exemple",
+          "url": "https://fntv.fr/actualite/resultats-du-barometre-du-transport-routier-5"
+        }
+      ]
+    },
+    {
+      "ligne": 7,
+      "nom": "OTRE — Organisation des transporteurs routiers européens",
+      "type": "fédération professionnelle (section Poitou-Charentes)",
+      "secteur": "transport",
+      "departement": "79",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.otre.org/",
+          "octets": 231219,
+          "ms": 1276,
+          "items": 0,
+          "role": "site",
+          "url": "https://www.otre.org/"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.otre.org/actualites/",
+          "octets": 86144,
+          "ms": 568,
+          "items": 0,
+          "role": "actualites",
+          "url": "https://www.otre.org/actualites/"
+        },
+        {
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.otre.org/feed/",
+          "octets": 47083,
+          "ms": 397,
+          "items": 10,
+          "role": "flux",
+          "url": "https://www.otre.org/feed/"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.otre.org/webinaire-ecoco2-transition-ecologique-du-transport-et-rse/",
+          "octets": 74261,
+          "ms": 491,
+          "items": 0,
+          "role": "exemple",
+          "url": "https://www.otre.org/webinaire-ecoco2-transition-ecologique-du-transport-et-rse/"
+        }
+      ]
+    },
+    {
+      "ligne": 8,
+      "nom": "France Logistique",
+      "type": "fédération professionnelle de la logistique",
+      "secteur": "transport",
+      "departement": "79",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.francelogistique.fr/",
+          "octets": 546103,
+          "ms": 2218,
+          "items": 0,
+          "role": "site",
+          "url": "https://www.francelogistique.fr/"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.francelogistique.fr/category/news/",
+          "octets": 521251,
+          "ms": 2210,
+          "items": 0,
+          "role": "actualites",
+          "url": "https://www.francelogistique.fr/category/news/"
+        },
+        {
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.francelogistique.fr/feed/",
+          "octets": 70078,
+          "ms": 616,
+          "items": 10,
+          "role": "flux",
+          "url": "https://www.francelogistique.fr/feed/"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.francelogistique.fr/2026/10/06/etude-tdie-la-logistique-dans-les-elections-municipales-2026/",
+          "octets": 481671,
+          "ms": 1804,
+          "items": 0,
+          "role": "exemple",
+          "url": "https://www.francelogistique.fr/2026/10/06/etude-tdie-la-logistique-dans-les-elections-municipales-2026/"
+        }
+      ]
+    },
+    {
+      "ligne": 9,
+      "nom": "Union TLF Sud-Ouest",
+      "type": "fédération régionale du transport et de la logistique",
+      "secteur": "transport",
+      "departement": "79",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://e-tlf.com/nos-regions/tlf-sud-ouest/",
+          "octets": 738204,
+          "ms": 257,
+          "items": 0,
+          "role": "site",
+          "url": "https://e-tlf.com/nos-regions/tlf-sud-ouest/"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://e-tlf.com/nos-actualites/",
+          "octets": 790352,
+          "ms": 217,
+          "items": 0,
+          "role": "actualites",
+          "url": "https://e-tlf.com/nos-actualites/"
+        },
+        {
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://e-tlf.com/feed/",
+          "octets": 754,
+          "ms": 92,
+          "items": 0,
+          "role": "flux",
+          "url": "https://e-tlf.com/feed/"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://e-tlf.com/nos-actualites/plf-plfss-2027-impacts-transport-et-logistique/",
+          "octets": 735320,
+          "ms": 228,
+          "items": 0,
+          "role": "exemple",
+          "url": "https://e-tlf.com/nos-actualites/plf-plfss-2027-impacts-transport-et-logistique/"
+        }
+      ]
+    },
+    {
+      "ligne": 10,
+      "nom": "Transport Info",
+      "type": "presse professionnelle transport et logistique",
+      "secteur": "transport",
+      "departement": "79",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.transportinfo.fr/",
+          "octets": 255238,
+          "ms": 169,
+          "items": 0,
+          "role": "site",
+          "url": "https://www.transportinfo.fr/"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.transportinfo.fr/",
+          "octets": 255238,
+          "ms": 114,
+          "items": 0,
+          "role": "actualites",
+          "url": "https://www.transportinfo.fr/"
+        },
+        {
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.transportinfo.fr/feed/",
+          "octets": 56128,
+          "ms": 78,
+          "items": 10,
+          "role": "flux",
+          "url": "https://www.transportinfo.fr/feed/"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "octets": 128017,
+          "ms": 85,
+          "items": 0,
+          "role": "exemple",
+          "url": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/"
+        }
+      ]
+    },
+    {
+      "ligne": 11,
+      "nom": "Département des Deux-Sèvres",
+      "type": "collectivité — routes et transports départementaux",
+      "secteur": "transport",
+      "departement": "79",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.deux-sevres.fr/",
+          "octets": 309201,
+          "ms": 232,
+          "items": 0,
+          "role": "site",
+          "url": "https://www.deux-sevres.fr/"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.deux-sevres.fr/toutes-les-actualites",
+          "octets": 294838,
+          "ms": 143,
+          "items": 0,
+          "role": "actualites",
+          "url": "https://www.deux-sevres.fr/toutes-les-actualites"
+        },
+        {
+          "code": 200,
+          "content_type": "application/rss+xml; charset=utf-8",
+          "url_finale": "https://www.deux-sevres.fr/rss.xml",
+          "octets": 19529,
+          "ms": 88,
+          "items": 10,
+          "role": "flux",
+          "url": "https://www.deux-sevres.fr/rss.xml"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.deux-sevres.fr/nos-missions/les-routes-departementales/lentretien-et-la-securite-des-routes-pour-le-confort-des",
+          "octets": 267217,
+          "ms": 155,
+          "items": 0,
+          "role": "exemple",
+          "url": "https://www.deux-sevres.fr/nos-missions/les-routes-departementales/lentretien-et-la-securite-des-routes-pour-le-confort-des"
+        }
+      ]
+    },
+    {
+      "ligne": 12,
+      "nom": "Communauté d’agglomération du Niortais",
+      "type": "intercommunalité — mobilités et transports",
+      "secteur": "transport",
+      "departement": "79",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.niortagglo.fr/",
+          "octets": 156339,
+          "ms": 365,
+          "items": 0,
+          "role": "site",
+          "url": "https://www.niortagglo.fr/"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.niortagglo.fr/lagglo/toutes-les-actualites/index.html",
+          "octets": 150849,
+          "ms": 1644,
+          "items": 0,
+          "role": "actualites",
+          "url": "https://www.niortagglo.fr/lagglo/toutes-les-actualites/index.html"
+        },
+        {
+          "code": 200,
+          "content_type": "application/rss+xml;charset=utf-8",
+          "url_finale": "https://www.niortagglo.fr/rss.xml",
+          "octets": 92020,
+          "ms": 394,
+          "items": 30,
+          "role": "flux",
+          "url": "https://www.niortagglo.fr/rss.xml"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.niortagglo.fr/details-de-lactualite/suivre-le-trafic-en-temps-reel-grace-a-pysae/index.html",
+          "octets": 123601,
+          "ms": 362,
+          "items": 0,
+          "role": "exemple",
+          "url": "https://www.niortagglo.fr/details-de-lactualite/suivre-le-trafic-en-temps-reel-grace-a-pysae/index.html"
+        }
+      ]
+    },
+    {
+      "ligne": 13,
+      "nom": "Transports en Nouvelle-Aquitaine",
+      "type": "service public régional des transports (lignes du 79)",
+      "secteur": "transport",
+      "departement": "79",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://transports.nouvelle-aquitaine.fr/",
+          "octets": 131656,
+          "ms": 984,
+          "items": 0,
+          "role": "site",
+          "url": "https://transports.nouvelle-aquitaine.fr/"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://transports.nouvelle-aquitaine.fr/toute-lactualite-des-transports",
+          "octets": 104216,
+          "ms": 799,
+          "items": 0,
+          "role": "actualites",
+          "url": "https://transports.nouvelle-aquitaine.fr/toute-lactualite-des-transports"
+        },
+        {
+          "code": 200,
+          "content_type": "application/rss+xml",
+          "url_finale": "https://transports.nouvelle-aquitaine.fr/liste-rss/naq_actualite",
+          "octets": 77226,
+          "ms": 314,
+          "items": 76,
+          "role": "flux",
+          "url": "https://transports.nouvelle-aquitaine.fr/liste-rss/naq_actualite"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://transports.nouvelle-aquitaine.fr/toute-lactualite-des-transports/des-ateliers-sur-la-mobilite-des-seniors-dans-les-cars",
+          "octets": 80596,
+          "ms": 746,
+          "items": 0,
+          "role": "exemple",
+          "url": "https://transports.nouvelle-aquitaine.fr/toute-lactualite-des-transports/des-ateliers-sur-la-mobilite-des-seniors-dans-les-cars"
+        }
+      ]
+    },
+    {
+      "ligne": 14,
+      "nom": "La Nouvelle République — Deux-Sèvres",
+      "type": "quotidien régional",
+      "secteur": "transport",
+      "departement": "79",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lanouvellerepublique.fr/deux-sevres",
+          "octets": 1625700,
+          "ms": 670,
+          "items": 0,
+          "role": "site",
+          "url": "https://www.lanouvellerepublique.fr/deux-sevres"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lanouvellerepublique.fr/deux-sevres",
+          "octets": 1625700,
+          "ms": 219,
+          "items": 0,
+          "role": "actualites",
+          "url": "https://www.lanouvellerepublique.fr/deux-sevres"
+        },
+        {
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.lanouvellerepublique.fr/api/v1/rss/5e2072f9f30f8cdd4c8b4594",
+          "octets": 34560,
+          "ms": 303,
+          "items": 40,
+          "role": "flux",
+          "url": "https://www.lanouvellerepublique.fr/api/v1/rss/5e2072f9f30f8cdd4c8b4594"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lanouvellerepublique.fr/niort/horaires-nouveaux-trains-voici-ce-qui-va-changer-sur-la-ligne-de-ter-14-entre-poitiers-et-la-rochelle-1795113278",
+          "octets": 386137,
+          "ms": 183,
+          "items": 0,
+          "role": "exemple",
+          "url": "https://www.lanouvellerepublique.fr/niort/horaires-nouveaux-trains-voici-ce-qui-va-changer-sur-la-ligne-de-ter-14-entre-poitiers-et-la-rochelle-1795113278"
+        }
+      ]
+    },
+    {
+      "ligne": 15,
+      "nom": "Niort Info",
+      "type": "presse locale en ligne",
+      "secteur": "transport",
+      "departement": "79",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://niortinfo.media/",
+          "octets": 468006,
+          "ms": 3379,
+          "items": 0,
+          "role": "site",
+          "url": "https://niortinfo.media/"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://niortinfo.media/",
+          "octets": 468006,
+          "ms": 2339,
+          "items": 0,
+          "role": "actualites",
+          "url": "https://niortinfo.media/"
+        },
+        {
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://niortinfo.media/feed/",
+          "octets": 23934,
+          "ms": 1446,
+          "items": 10,
+          "role": "flux",
+          "url": "https://niortinfo.media/feed/"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://niortinfo.media/niort-reunion-publique-avenir-ligne-ter-poitiers-la-rochelle/",
+          "octets": 363596,
+          "ms": 2307,
+          "items": 0,
+          "role": "exemple",
+          "url": "https://niortinfo.media/niort-reunion-publique-avenir-ligne-ter-poitiers-la-rochelle/"
+        }
+      ]
+    },
+    {
+      "ligne": 16,
+      "nom": "ICI Poitou — Radio France",
+      "type": "radio publique locale",
+      "secteur": "transport",
+      "departement": "79",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/radio/poitou",
+          "octets": 384045,
+          "ms": 209,
+          "items": 0,
+          "role": "site",
+          "url": "https://www.ici.fr/radio/poitou"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79",
+          "octets": 281691,
+          "ms": 309,
+          "items": 0,
+          "role": "actualites",
+          "url": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79"
+        },
+        {
+          "code": 200,
+          "content_type": "application/xml",
+          "url_finale": "https://www.ici.fr/rss/poitou/rubrique/infos.xml",
+          "octets": 19122,
+          "ms": 131,
+          "items": 20,
+          "role": "flux",
+          "url": "https://www.ici.fr/rss/poitou/rubrique/infos.xml"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/vienne-86/valdivienne/vienne-l-a10-coupee-entre-sainte-maure-de-touraine-et-chatellerauilt-1996488",
+          "octets": 173219,
+          "ms": 118,
+          "items": 0,
+          "role": "exemple",
+          "url": "https://www.ici.fr/nouvelle-aquitaine/vienne-86/valdivienne/vienne-l-a10-coupee-entre-sainte-maure-de-touraine-et-chatellerauilt-1996488"
+        }
+      ]
+    },
+    {
+      "ligne": 17,
+      "nom": "France 3 Nouvelle-Aquitaine — Deux-Sèvres",
+      "type": "télévision publique locale",
+      "secteur": "transport",
+      "departement": "79",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/deux-sevres",
+          "octets": 604744,
+          "ms": 217,
+          "items": 0,
+          "role": "site",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/deux-sevres"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/deux-sevres",
+          "octets": 604744,
+          "ms": 152,
+          "items": 0,
+          "role": "actualites",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/deux-sevres"
+        },
+        {
+          "code": 200,
+          "content_type": "text/xml; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/deux-s%C3%A8vres/rss",
+          "octets": 84138,
+          "ms": 119,
+          "items": 30,
+          "role": "flux",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/deux-s%C3%A8vres/rss"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/deux-sevres/niort/certains-vont-meme-percer-le-reservoir-ce-transporteur-routier-s-est-fait-voler-3-000-litres-de-carburant-un-phenomene-de-plus-en-plus-frequent-3435030.html",
+          "octets": 705692,
+          "ms": 219,
+          "items": 0,
+          "role": "exemple",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/deux-sevres/niort/certains-vont-meme-percer-le-reservoir-ce-transporteur-routier-s-est-fait-voler-3-000-litres-de-carburant-un-phenomene-de-plus-en-plus-frequent-3435030.html"
+        }
+      ]
+    },
+    {
+      "ligne": 18,
+      "nom": "actu.fr — Deux-Sèvres",
+      "type": "presse en ligne",
+      "secteur": "transport",
+      "departement": "79",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://actu.fr/deux-sevres/",
+          "octets": 647549,
+          "ms": 158,
+          "items": 0,
+          "role": "site",
+          "url": "https://actu.fr/deux-sevres/"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://actu.fr/deux-sevres/",
+          "octets": 647549,
+          "ms": 176,
+          "items": 0,
+          "role": "actualites",
+          "url": "https://actu.fr/deux-sevres/"
+        },
+        {
+          "code": 200,
+          "content_type": "application/rss+xml; charset=utf-8",
+          "url_finale": "https://actu.fr/deux-sevres/rss.xml",
+          "octets": 30130,
+          "ms": 61,
+          "items": 20,
+          "role": "flux",
+          "url": "https://actu.fr/deux-sevres/rss.xml"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/niort_79191/niort-google-propose-une-journee-gratuite-pour-aider-les-entreprises-a-tirer-parti-de-l-intelligence-artificielle_65079475.html",
+          "octets": 232642,
+          "ms": 109,
+          "items": 0,
+          "role": "exemple",
+          "url": "https://actu.fr/nouvelle-aquitaine/niort_79191/niort-google-propose-une-journee-gratuite-pour-aider-les-entreprises-a-tirer-parti-de-l-intelligence-artificielle_65079475.html"
+        }
+      ]
+    },
+    {
+      "ligne": 19,
+      "nom": "E.Niort",
+      "type": "presse locale en ligne",
+      "secteur": "transport",
+      "departement": "79",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://eniort.com/",
+          "octets": 176920,
+          "ms": 126,
+          "items": 0,
+          "role": "site",
+          "url": "https://eniort.com/"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://eniort.com/",
+          "octets": 176920,
+          "ms": 100,
+          "items": 0,
+          "role": "actualites",
+          "url": "https://eniort.com/"
+        },
+        {
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://eniort.com/feed/",
+          "octets": 89065,
+          "ms": 77,
+          "items": 10,
+          "role": "flux",
+          "url": "https://eniort.com/feed/"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://eniort.com/2026/11/21/manifestation-a-niort-le-21-novembre-les-interdictions/",
+          "octets": 142949,
+          "ms": 94,
+          "items": 0,
+          "role": "exemple",
+          "url": "https://eniort.com/2026/11/21/manifestation-a-niort-le-21-novembre-les-interdictions/"
+        }
+      ]
+    },
+    {
+      "ligne": 20,
+      "nom": "Ville de Niort — Vivre à Niort",
+      "type": "collectivité — actualités et mobilités",
+      "secteur": "transport",
+      "departement": "79",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.vivre-a-niort.com/actualites/",
+          "octets": 140132,
+          "ms": 398,
+          "items": 0,
+          "role": "site",
+          "url": "https://www.vivre-a-niort.com/actualites/"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.vivre-a-niort.com/actualites/",
+          "octets": 140132,
+          "ms": 279,
+          "items": 0,
+          "role": "actualites",
+          "url": "https://www.vivre-a-niort.com/actualites/"
+        },
+        {
+          "code": 200,
+          "content_type": "application/rss+xml;charset=utf-8",
+          "url_finale": "https://www.vivre-a-niort.com/news.xml",
+          "octets": 88606,
+          "ms": 562,
+          "items": 30,
+          "role": "flux",
+          "url": "https://www.vivre-a-niort.com/news.xml"
+        },
+        {
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.vivre-a-niort.com/actualites/dernieres-infos/perturbations-dans-les-ecoles-le-17-novembre/index.html",
+          "octets": 136695,
+          "ms": 442,
+          "items": 0,
+          "role": "exemple",
+          "url": "https://www.vivre-a-niort.com/actualites/dernieres-infos/perturbations-dans-les-ecoles-le-17-novembre/index.html"
+        }
+      ]
+    }
+  ]
+}
