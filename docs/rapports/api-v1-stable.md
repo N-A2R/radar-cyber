@@ -92,3 +92,5 @@ nouvelle publication, et identité des deux préfixes `/api/v1` et `/api`.
   faite dans `spec.ts` et `install.ts`, appelés aussi bien par `server.ts` que
   par `buildApp()`.
 - **Aucune commande de plus de 60 s** : mesure ~2 s, tests ~1 s, typecheck ~7 s.
+
+OBJECTIF : atteint — 54 / 54 opérations v1 figées sous engagement de compatibilité (0 rupture, mesure reproductible : `pnpm mesure:api-v1`).
