@@ -157,3 +157,16 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/* Répartition des colonnes : la source et l'erreur portent le contenu long,
+   l'état et le compteur d'éléments n'ont besoin que de la place d'un mot. */
+.health-view__body table.data th:nth-child(1),
+.health-view__body table.data td:nth-child(1) { width: 88px; }
+.health-view__body table.data th:nth-child(2),
+.health-view__body table.data td:nth-child(2) { width: 32%; }
+.health-view__body table.data th:nth-child(3),
+.health-view__body table.data td:nth-child(3) { width: 116px; }
+.health-view__body table.data th:nth-child(4),
+.health-view__body table.data td:nth-child(4) { width: 132px; }
+.health-view__body table.data th:nth-child(6),
+.health-view__body table.data td:nth-child(6) { width: 108px; }
