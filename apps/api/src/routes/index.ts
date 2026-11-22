@@ -32,6 +32,7 @@ import enrichRoute from "./enrich.js";
 import authRoute from "./auth.js";
 import alertsRoute from "./alerts.js";
 import quarantineRoute from "./quarantine.js";
+import cyberContractsRoute from "./cyber-contracts.js";
 import reviewRoute from "./review.js";
 import journalRoute from "./journal.js";
 import orgsLieesRoute from "./orgs-liees.js";
@@ -60,6 +61,7 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     confidenceRoute,
     leaksByDomainRoute,
     resaleListingsRoute,
+    cyberContractsRoute,
     publicMandatesRoute,
     onionIndexRoute,
     custodyRoute,
