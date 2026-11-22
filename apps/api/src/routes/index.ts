@@ -41,6 +41,7 @@ import rectificationRoute from "./rectification.js";
 import auditRoute from "./audit.js";
 import onionIndexRoute from "./onion-index.js";
 import confidenceRoute from "./confidence.js";
+import organisationRiskRoute from "./organisation-risk.js";
 import leaksByDomainRoute from "./leaks-by-domain.js";
 import publicMandatesRoute from "./public-mandates.js";
 
@@ -54,6 +55,7 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     journalRoute, orgsLieesRoute, orgsLieesHistoriqueRoute, ingestRoute, dossierRoute,
     rectificationRoute, auditRoute,
     confidenceRoute,
+    organisationRiskRoute,
     leaksByDomainRoute,
     publicMandatesRoute,
     onionIndexRoute,
