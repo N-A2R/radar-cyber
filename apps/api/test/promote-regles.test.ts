@@ -175,7 +175,9 @@ test("S3.1 — drapeau on, voie manuelle : la promotion de l'analyste reste pos�
 
 test("S3.2 — drapeau on : les cas sûrs continuent d'être rattachés (domaine = clé, égalité de nom)", async () => {
 	const orgDomain = await insertOrg(`Organisation Sure ${TAG}`, { domain: `sure-${TAG}.example` });
-	const orgNom = await insertOrg(`Château Haut Brion Libournais ${TAG}`);
+	// la désambiguïsation des homonymes de communes exige une commune : sans elle,
+	// « Libournais » est ambigu et le rattachement par nom est refusé (comportement voulu).
+	const orgNom = await insertOrg(`Château Haut Brion Libournais ${TAG}`, { city: "Libourne" });
 	const faitDomaine = await insertFact(`sure-${TAG}.example`);
 	const faitNom = await insertFact(`Château Haut Brion Libournais ${TAG}`);
 
