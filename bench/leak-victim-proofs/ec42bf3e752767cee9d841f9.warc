@@ -1,0 +1,18 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:cd68c550-8288-445f-ae1d-2fbc7f089a05>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 132
+WARC-Block-Digest: sha1:B45WLR4FS7W5WRT2SJ6MEIF7NIKSRDBU
+X-Claim-Fingerprint: 3fb8beca86b3a54d31c78520
+X-Victim-Key: ec42bf3e752767cee9d841f9
+
+{
+        "post_title": "Good Morning",
+        "group_name": "donutleaks",
+        "discovered": "2024-04-05 21:54:27.046435"
+    }
+

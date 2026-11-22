@@ -1,0 +1,151 @@
+-- Sources d'information du secteur « collectivites » du département 23 (Creuse).
+-- 30 sources ; 78 contrôles HTTP sur 66 URL distinctes (sites, pages actualités et flux),
+-- toutes en HTTP 200 le 2026-11-22.
+-- Corpus détaillé : bench/corpus/sources-collectivites-23.jsonl
+-- Preuve HTTP : bench/results/verification-collectivites-23.json
+
+BEGIN;
+
+-- Table de traçage déclarée ici pour rester applicable sur une branche qui
+-- ne contient pas encore migrate-064-source-verification.sql.
+CREATE TABLE IF NOT EXISTS source_verification (
+  id                bigserial PRIMARY KEY,
+  source_id         text        NOT NULL REFERENCES source(id) ON DELETE CASCADE,
+  url               text        NOT NULL,
+  code_http         integer,
+  content_type      text,
+  items             integer     NOT NULL DEFAULT 0 CHECK (items >= 0),
+  derniere_item_at  timestamptz,
+  ms                integer     NOT NULL CHECK (ms >= 0),
+  verifie_at        timestamptz NOT NULL DEFAULT now(),
+  user_agent        text        NOT NULL,
+  etat              text        NOT NULL CHECK (etat IN ('ok200', 'muette', 'morte', 'lente')),
+  motif             text
+);
+
+INSERT INTO source (id, name, family, url, license, enabled, kind, format, parser, interval_sec, description, region, department)
+VALUES
+  ('corpus:c23-chambre-de-commerce-et-d-industrie-de-la-creuse-cci-creuse-c', 'Chambre de commerce et d''industrie de la Creuse (cci-creuse.com)', 'cti', 'https://www.cci-creuse.com/feed/', 'source d information publique, diffusion libre', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":1}}'::jsonb, 3600, 'Chambre de commerce et d''industrie de la Creuse (cci-creuse.com) (23). Site d''information CCI Creuse : article « L''impôt sur le revenu de A à Z », 15 septembre 2025 ; aucun fait cyber propre à l''organisation sur ce site (le site institutionnel creuse.cci.fr répond 403).', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-chambre-d-agriculture-de-la-creuse', 'Chambre d''agriculture de la Creuse', 'cti', 'https://creuse.chambres-agriculture.fr/actualites-1', 'source d information publique, diffusion libre', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":2}}'::jsonb, 3600, 'Chambre d''agriculture de la Creuse (23). Alerte « Achat de fourrage : attention aux offres frauduleuses », 7 octobre 2026 : usurpation du nom d''une filiale de Sud-Ouest Aliment, acompte demandé puis fourrage jamais livré (source : Chambre régionale d''agriculture de Nouvelle-Aquitaine, relayée par la Chambre d''agriculture de la Creuse).', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-chambre-des-metiers-et-de-l-artisanat-de-la-creuse-cma-nouve', 'Chambre des métiers et de l''artisanat de la Creuse (CMA Nouvelle-Aquitaine)', 'cti', 'https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites', 'source d information publique, diffusion libre', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":3}}'::jsonb, 3600, 'Chambre des métiers et de l''artisanat de la Creuse (CMA Nouvelle-Aquitaine) (23). Article « Nouveau : le Pass CMA Liberté, votre accompagnement sur mesure toute l''année », 27 octobre 2026, sur le site régional auquel renvoie cma-creuse.fr ; aucune actualité cyber répertoriée.', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-service-departemental-d-incendie-et-de-secours-de-la-creuse', 'Service départemental d''incendie et de secours de la Creuse (SDIS 23)', 'cti', 'https://www.sdis23.fr/rss', 'source d information publique, diffusion libre', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":4}}'::jsonb, 3600, 'Service départemental d''incendie et de secours de la Creuse (SDIS 23) (23). Article « Collision aérienne : exercice surprise pour les sapeurs-pompiers de la Creuse », publié le 17 novembre 2026 sur sdis23.fr ; aucun incident cyber signalé par le SDIS 23.', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-dreal-nouvelle-aquitaine-service-de-la-creuse', 'DREAL Nouvelle-Aquitaine — service de la Creuse', 'cti', 'https://www.nouvelle-aquitaine.developpement-durable.gouv.fr/spip.php?page=liste-actualites&lang=fr', 'source d information publique, diffusion libre', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":5}}'::jsonb, 3600, 'DREAL Nouvelle-Aquitaine — service de la Creuse (23). Cyberattaque présumée : le 2 septembre 2026, plusieurs sites du ministère de la Transition écologique et les services de la DDT/DDETSPP de la Creuse ont été indisponibles, avec des difficultés de courriel (La Nouvelle République/AFP, 2 septembre 2026).', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-cerema-etablissement-public-d-ingenierie-nouvelle-aquitaine', 'Cerema — établissement public d''ingénierie (Nouvelle-Aquitaine/Creuse)', 'cti', 'https://www.cerema.fr/rss/news/feed', 'source d information publique, diffusion libre', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":6}}'::jsonb, 3600, 'Cerema — établissement public d''ingénierie (Nouvelle-Aquitaine/Creuse) (23). Actualité du flux RSS Cerema « Intégrer la sécurité des déplacements dans la planification de la mobilité : quelles obligations pour les collectivités ? » (2026) ; aucun incident cyber propre au Cerema en Creuse relevé.', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-association-des-maires-ruraux-de-france-amrf-reseau-creuse-n', 'Association des maires ruraux de France (AMRF) — réseau Creuse/Nouvelle-Aquitaine', 'cti', 'https://www.amrf.fr/rss', 'source d information publique, diffusion libre', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":7}}'::jsonb, 3600, 'Association des maires ruraux de France (AMRF) — réseau Creuse/Nouvelle-Aquitaine (23). Flux RSS AMRF : « Chroniques rurales » épisode 4, « Signaler n''est pas dénoncer », avec Dominique Chappuit, publié le 18 novembre 2026 ; pas d''incident cyber signalé.', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-annuaire-des-communes-et-intercommunalites-de-la-creuse-annu', 'Annuaire des communes et intercommunalités de la Creuse (annuaire-mairie.fr)', 'cti', 'https://www.annuaire-mairie.fr/departement-creuse.html', 'source d information publique, diffusion libre', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":8}}'::jsonb, 3600, 'Annuaire des communes et intercommunalités de la Creuse (annuaire-mairie.fr) (23). Page « Département de la Creuse - Nouvelle-Aquitaine » : rubriques Les communes, Les Intercommunalités, Les Élus ; annuaire sans fil d''actualité ni fait cyber (vérifié le 22 novembre 2026).', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-conseil-departemental-de-la-creuse', 'Conseil départemental de la Creuse', 'cti', 'https://www.creuse.fr/rss/actus.rss', 'source d information publique, diffusion libre', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":9}}'::jsonb, 3600, 'Conseil départemental de la Creuse (23). Aucun incident cyber propre au CD23 signalé sur la page ; le site met en avant « Héros du quotidien : le Département met à l''honneur les aides à domicile » (20 novembre 2026, site officiel).', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-prefecture-de-la-creuse', 'Préfecture de la Creuse', 'cti', 'https://www.creuse.gouv.fr/Actualites', 'source d information publique, diffusion libre', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":10}}'::jsonb, 3600, 'Préfecture de la Creuse (23). Le 2 septembre 2026, la DDT de la Creuse et la DDETSPP ont été touchées par une possible cyberattaque visant plusieurs sites ministériels ; l''Anssi a enquêté et les services départementaux signalaient des difficultés par e-mail (La Nouvelle République/AFP).', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-ville-de-gueret', 'Ville de Guéret', 'cti', 'https://www.ville-gueret.fr/feed/', 'source d information publique, diffusion libre', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":11}}'::jsonb, 3600, 'Ville de Guéret (23). Le 16 décembre 2019, la Ville de Guéret a publié « Faux sites administratifs, attention aux arnaques ! », une mise en garde contre un site payant pour obtenir des actes administratifs (site officiel).', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-ville-d-aubusson', 'Ville d''Aubusson', 'cti', 'https://www.aubusson.fr/feed/', 'source d information publique, diffusion libre', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":12}}'::jsonb, 3600, 'Ville d''Aubusson (23). Aucun incident cyber signalé sur la page ; actualité en cours : « 11 novembre 2026 – 108e anniversaire de l''Armistice de 1918 » (site officiel de la ville d''Aubusson).', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-ville-de-bourganeuf', 'Ville de Bourganeuf', 'cti', 'https://bourganeuf.fr/laction-municipale/ma-ville/actualites/', 'source d information publique, diffusion libre', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":13}}'::jsonb, 3600, 'Ville de Bourganeuf (23). Aucun incident cyber signalé sur la page ; la mairie publie « Note d''information – Chats errants » (juillet 2026, site officiel).', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-ville-d-evaux-les-bains', 'Ville d''Évaux-les-Bains', 'cti', 'https://www.evaux-les-bains.fr/feed/', 'source d information publique, diffusion libre', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":14}}'::jsonb, 3600, 'Ville d''Évaux-les-Bains (23). Le 11 juillet 2025, France 3 Nouvelle-Aquitaine a rapporté le détournement du site du camping municipal d''Évaux-les-Bains vers une publicité pour une escort-girl ; la réservation en ligne est restée impossible plusieurs semaines.', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-ville-de-felletin', 'Ville de Felletin', 'cti', 'https://www.felletin.fr/feed/', 'source d information publique, diffusion libre', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":15}}'::jsonb, 3600, 'Ville de Felletin (23). Le 2 novembre 2012, la municipalité de Felletin a lancé avec la gendarmerie un « Appel à la vigilance face à la recrudescence d''arnaques » pour protéger les personnes âgées (site officiel).', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-commune-de-saint-vaury', 'Commune de Saint-Vaury', 'cti', 'https://saint-vaury.fr/feed/', 'source d information publique, diffusion libre', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":16}}'::jsonb, 3600, 'Commune de Saint-Vaury (23). Aucun incident cyber signalé sur la page ; la commune publie « BOUM HALLOWEEN vendredi 30 octobre » (octobre 2026, site officiel).', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-commune-du-grand-bourg', 'Commune du Grand-Bourg', 'cti', 'http://www.legrandbourg.fr/fr/actualites', 'source d information publique, diffusion libre', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":17}}'::jsonb, 3600, 'Commune du Grand-Bourg (23). Aucun incident cyber signalé sur la page ; la commune annonce « Marché de Noël 2026 » (site officiel).', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-communaute-de-communes-de-benevent-grand-bourg', 'Communauté de communes de Bénévent-Grand-Bourg', 'cti', 'https://www.benevent-legrandbourg.fr/fr/nw/1537018/actualites-1063', 'source d information publique, diffusion libre', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":18}}'::jsonb, 3600, 'Communauté de communes de Bénévent-Grand-Bourg (23). Aucun incident cyber signalé sur la page ; la communauté de communes annonce « Conférence famille » (site officiel).', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-communaute-de-communes-creuse-sud-ouest', 'Communauté de communes Creuse Sud-Ouest', 'cti', 'https://www.creusesudouest.fr/feed/', 'source d information publique, diffusion libre', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":19}}'::jsonb, 3600, 'Communauté de communes Creuse Sud-Ouest (23). Le 29 avril 2026, Creuse Tourisme a alerté les hébergeurs sur une fraude aux réservations via Wero, après un signalement reçu d''un hébergeur de Creuse Sud-Ouest (Pro Tourisme Creuse).', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-communaute-de-communes-marche-et-combraille-en-aquitaine', 'Communauté de communes Marche et Combraille en Aquitaine', 'cti', 'https://marcheetcombraille.fr/feed/', 'source d information publique, diffusion libre', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":20}}'::jsonb, 3600, 'Communauté de communes Marche et Combraille en Aquitaine (23). Aucun incident cyber signalé sur la page ; la communauté de communes publie « Opportunité économique : Reprenez un local commercial dans le bourg d''Auzances ! » (site officiel).', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-communaute-d-agglomeration-du-grand-gueret', 'Communauté d''agglomération du Grand Guéret', 'cti', 'https://www.agglo-grandgueret.fr/feed/', 'source d information publique, diffusion libre', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":21}}'::jsonb, 3600, 'Communauté d''agglomération du Grand Guéret (23). Aucun incident cyber propre à l''agglomération signalé ; actualité en cours : « Perturbation agglo''Bus du 23/11 au 18/12 sur les lignes 2, 4 et 7 » (site officiel).', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-la-montagne-creuse', 'La Montagne — Creuse', 'presse', 'https://www.lamontagne.fr/info-en-continu/creuse', 'source d information publique, diffusion libre', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":22}}'::jsonb, 3600, 'La Montagne — Creuse (23). Fraude : « 80 adultes handicapés de la Creuse délestés de près de 80.000 euros », La Montagne, 29/06/2018.', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-la-montagne-gueret-23000', 'La Montagne — Guéret (23000)', 'presse', 'https://www.lamontagne.fr/info-en-continu/creuse', 'source d information publique, diffusion libre', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":23}}'::jsonb, 3600, 'La Montagne — Guéret (23000) (23). Collectivités : « Les maires de la Creuse en colère : l’État veut nous faire les poches », La Montagne, 19/11/2026.', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-le-populaire-du-centre-gueret', 'Le Populaire du Centre — Guéret', 'presse', 'https://www.lepopulaire.fr/actualites/', 'source d information publique, diffusion libre', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":24}}'::jsonb, 3600, 'Le Populaire du Centre — Guéret (23). Actualité locale : « Sur la sellette pour ses liens supposés avec le RN, le préfet Hugues Moutouh a débuté à Guéret en 2010 », 20/11/2026.', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-ici-creuse-ex-france-bleu', 'ICI Creuse (ex-France Bleu)', 'presse', 'https://www.ici.fr/rss/creuse/a-la-une.xml', 'source d information publique, diffusion libre', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":25}}'::jsonb, 3600, 'ICI Creuse (ex-France Bleu) (23). Fraude : « INFO ICI CREUSE : l’APAJH 23 escroquée de 173.000 euros dans une arnaque au président », 15/05/2025.', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-ici-creuse-departement-23', 'ICI Creuse — département 23', 'presse', 'https://www.ici.fr/rss/creuse/a-la-une.xml', 'source d information publique, diffusion libre', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":26}}'::jsonb, 3600, 'ICI Creuse — département 23 (23). Fraude : « INFO ICI CREUSE : l’APAJH 23 escroquée de 173.000 euros dans une arnaque au président », 15/05/2025.', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-ici-gueret-23000', 'ICI Guéret (23000)', 'presse', 'https://www.ici.fr/rss/creuse/a-la-une.xml', 'source d information publique, diffusion libre', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":27}}'::jsonb, 3600, 'ICI Guéret (23000) (23). Cyber-fraude : « Des internautes de Creuse destinataires d’e-mails les accusant de consulter des sites pédopornographiques », ICI, 22/12/2025.', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-ici-matin-creuse', 'ici matin Creuse', 'presse', 'https://www.ici.fr/rss/creuse/a-la-une.xml', 'source d information publique, diffusion libre', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":28}}'::jsonb, 3600, 'ici matin Creuse (23). Fraude : « INFO ICI CREUSE : l’APAJH 23 escroquée de 173.000 euros dans une arnaque au président », 15/05/2025.', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-france-3-nouvelle-aquitaine-creuse', 'France 3 Nouvelle-Aquitaine — Creuse', 'presse', 'https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/rss', 'source d information publique, diffusion libre', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":29}}'::jsonb, 3600, 'France 3 Nouvelle-Aquitaine — Creuse (23). « Le site internet du camping de cette commune thermale victime d’une attaque informatique, il vante les services d’une escort-girl » (Évaux-les-Bains), 11/07/2025.', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:c23-france-3-nouvelle-aquitaine-gueret', 'France 3 Nouvelle-Aquitaine — Guéret', 'presse', 'https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/rss', 'source d information publique, diffusion libre', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-collectivites-23.jsonl","ligne":30}}'::jsonb, 3600, 'France 3 Nouvelle-Aquitaine — Guéret (23). Numérique : « Fin d’une époque avec l’arrêt du réseau téléphonique cuivre en Creuse : qui est concerné, comment se préparer », France 3, 07/11/2026.', 'Nouvelle-Aquitaine', '23')
+
+ON CONFLICT (id) DO UPDATE SET
+  name = EXCLUDED.name, family = EXCLUDED.family, url = EXCLUDED.url,
+  format = EXCLUDED.format, parser = EXCLUDED.parser,
+  description = EXCLUDED.description, region = EXCLUDED.region,
+  department = EXCLUDED.department;
+
+-- Traces HTTP : 78 contrôles, 66 URL distinctes, toutes en 200.
+INSERT INTO source_verification (source_id, url, code_http, content_type, items, ms, verifie_at, user_agent, etat, motif)
+SELECT v.source_id, v.url, 200, v.content_type, 0, 0, now(), 'RadarCyberCorpus/1.0', 'ok200',
+       'Corpus collectivites-23 : HTTP 200 vérifié le 2026-11-22'
+FROM (VALUES
+  ('corpus:c23-chambre-de-commerce-et-d-industrie-de-la-creuse-cci-creuse-c', 'https://www.cci-creuse.com/', 'text/html'),
+  ('corpus:c23-chambre-de-commerce-et-d-industrie-de-la-creuse-cci-creuse-c', 'https://www.cci-creuse.com/', 'text/html'),
+  ('corpus:c23-chambre-de-commerce-et-d-industrie-de-la-creuse-cci-creuse-c', 'https://www.cci-creuse.com/feed/', 'text/html'),
+  ('corpus:c23-chambre-d-agriculture-de-la-creuse', 'https://creuse.chambres-agriculture.fr/', 'text/html'),
+  ('corpus:c23-chambre-d-agriculture-de-la-creuse', 'https://creuse.chambres-agriculture.fr/actualites-1', 'text/html'),
+  ('corpus:c23-chambre-des-metiers-et-de-l-artisanat-de-la-creuse-cma-nouve', 'https://cma-nouvelleaquitaine.fr/', 'text/html'),
+  ('corpus:c23-chambre-des-metiers-et-de-l-artisanat-de-la-creuse-cma-nouve', 'https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites', 'text/html'),
+  ('corpus:c23-service-departemental-d-incendie-et-de-secours-de-la-creuse', 'https://www.sdis23.fr/', 'text/html'),
+  ('corpus:c23-service-departemental-d-incendie-et-de-secours-de-la-creuse', 'https://www.sdis23.fr/actualites/', 'text/html'),
+  ('corpus:c23-service-departemental-d-incendie-et-de-secours-de-la-creuse', 'https://www.sdis23.fr/rss', 'application/rss+xml'),
+  ('corpus:c23-dreal-nouvelle-aquitaine-service-de-la-creuse', 'https://www.nouvelle-aquitaine.developpement-durable.gouv.fr/', 'text/html'),
+  ('corpus:c23-dreal-nouvelle-aquitaine-service-de-la-creuse', 'https://www.nouvelle-aquitaine.developpement-durable.gouv.fr/spip.php?page=liste-actualites&lang=fr', 'text/html'),
+  ('corpus:c23-cerema-etablissement-public-d-ingenierie-nouvelle-aquitaine', 'https://www.cerema.fr/fr', 'text/html'),
+  ('corpus:c23-cerema-etablissement-public-d-ingenierie-nouvelle-aquitaine', 'https://www.cerema.fr/fr/actualites', 'text/html'),
+  ('corpus:c23-cerema-etablissement-public-d-ingenierie-nouvelle-aquitaine', 'https://www.cerema.fr/rss/news/feed', 'application/rss+xml'),
+  ('corpus:c23-association-des-maires-ruraux-de-france-amrf-reseau-creuse-n', 'https://www.amrf.fr/', 'text/html'),
+  ('corpus:c23-association-des-maires-ruraux-de-france-amrf-reseau-creuse-n', 'https://www.amrf.fr/actualites/', 'text/html'),
+  ('corpus:c23-association-des-maires-ruraux-de-france-amrf-reseau-creuse-n', 'https://www.amrf.fr/rss', 'application/rss+xml'),
+  ('corpus:c23-annuaire-des-communes-et-intercommunalites-de-la-creuse-annu', 'https://www.annuaire-mairie.fr/departement-creuse.html', 'text/html'),
+  ('corpus:c23-conseil-departemental-de-la-creuse', 'https://www.creuse.fr/', 'text/html'),
+  ('corpus:c23-conseil-departemental-de-la-creuse', 'https://www.creuse.fr/A-la-une', 'text/html'),
+  ('corpus:c23-conseil-departemental-de-la-creuse', 'https://www.creuse.fr/rss/actus.rss', 'application/rss+xml'),
+  ('corpus:c23-prefecture-de-la-creuse', 'https://www.creuse.gouv.fr/', 'text/html'),
+  ('corpus:c23-prefecture-de-la-creuse', 'https://www.creuse.gouv.fr/Actualites', 'text/html'),
+  ('corpus:c23-ville-de-gueret', 'https://www.ville-gueret.fr/', 'text/html'),
+  ('corpus:c23-ville-de-gueret', 'https://www.ville-gueret.fr/actualites/', 'text/html'),
+  ('corpus:c23-ville-de-gueret', 'https://www.ville-gueret.fr/feed/', 'application/rss+xml'),
+  ('corpus:c23-ville-d-aubusson', 'https://www.aubusson.fr/', 'text/html'),
+  ('corpus:c23-ville-d-aubusson', 'https://www.aubusson.fr/actualites/', 'text/html'),
+  ('corpus:c23-ville-d-aubusson', 'https://www.aubusson.fr/feed/', 'application/rss+xml'),
+  ('corpus:c23-ville-de-bourganeuf', 'https://bourganeuf.fr/', 'text/html'),
+  ('corpus:c23-ville-de-bourganeuf', 'https://bourganeuf.fr/laction-municipale/ma-ville/actualites/', 'text/html'),
+  ('corpus:c23-ville-d-evaux-les-bains', 'https://www.evaux-les-bains.fr/', 'text/html'),
+  ('corpus:c23-ville-d-evaux-les-bains', 'https://www.evaux-les-bains.fr/infos-municipales/', 'text/html'),
+  ('corpus:c23-ville-d-evaux-les-bains', 'https://www.evaux-les-bains.fr/feed/', 'application/rss+xml'),
+  ('corpus:c23-ville-de-felletin', 'https://www.felletin.fr/', 'text/html'),
+  ('corpus:c23-ville-de-felletin', 'https://www.felletin.fr/', 'text/html'),
+  ('corpus:c23-ville-de-felletin', 'https://www.felletin.fr/feed/', 'application/rss+xml'),
+  ('corpus:c23-commune-de-saint-vaury', 'https://saint-vaury.fr/', 'text/html'),
+  ('corpus:c23-commune-de-saint-vaury', 'https://saint-vaury.fr/actualites-de-la-commune/', 'text/html'),
+  ('corpus:c23-commune-de-saint-vaury', 'https://saint-vaury.fr/feed/', 'application/rss+xml'),
+  ('corpus:c23-commune-du-grand-bourg', 'http://www.legrandbourg.fr/', 'text/html'),
+  ('corpus:c23-commune-du-grand-bourg', 'http://www.legrandbourg.fr/fr/actualites', 'text/html'),
+  ('corpus:c23-communaute-de-communes-de-benevent-grand-bourg', 'https://www.benevent-legrandbourg.fr/', 'text/html'),
+  ('corpus:c23-communaute-de-communes-de-benevent-grand-bourg', 'https://www.benevent-legrandbourg.fr/fr/nw/1537018/actualites-1063', 'text/html'),
+  ('corpus:c23-communaute-de-communes-creuse-sud-ouest', 'https://www.creusesudouest.fr/', 'text/html'),
+  ('corpus:c23-communaute-de-communes-creuse-sud-ouest', 'https://www.creusesudouest.fr/actualites/', 'text/html'),
+  ('corpus:c23-communaute-de-communes-creuse-sud-ouest', 'https://www.creusesudouest.fr/feed/', 'application/rss+xml'),
+  ('corpus:c23-communaute-de-communes-marche-et-combraille-en-aquitaine', 'https://marcheetcombraille.fr/', 'text/html'),
+  ('corpus:c23-communaute-de-communes-marche-et-combraille-en-aquitaine', 'https://marcheetcombraille.fr/decouvrir-et-se-divertir/actualites/', 'text/html'),
+  ('corpus:c23-communaute-de-communes-marche-et-combraille-en-aquitaine', 'https://marcheetcombraille.fr/feed/', 'application/rss+xml'),
+  ('corpus:c23-communaute-d-agglomeration-du-grand-gueret', 'https://www.agglo-grandgueret.fr/', 'text/html'),
+  ('corpus:c23-communaute-d-agglomeration-du-grand-gueret', 'https://www.agglo-grandgueret.fr/lagglo/actualites/', 'text/html'),
+  ('corpus:c23-communaute-d-agglomeration-du-grand-gueret', 'https://www.agglo-grandgueret.fr/feed/', 'application/rss+xml'),
+  ('corpus:c23-la-montagne-creuse', 'https://www.lamontagne.fr/creuse/', 'text/html'),
+  ('corpus:c23-la-montagne-creuse', 'https://www.lamontagne.fr/info-en-continu/creuse', 'text/html'),
+  ('corpus:c23-la-montagne-gueret-23000', 'https://www.lamontagne.fr/gueret-23000/', 'text/html'),
+  ('corpus:c23-la-montagne-gueret-23000', 'https://www.lamontagne.fr/info-en-continu/creuse', 'text/html'),
+  ('corpus:c23-le-populaire-du-centre-gueret', 'https://www.lepopulaire.fr/gueret-23000/', 'text/html'),
+  ('corpus:c23-le-populaire-du-centre-gueret', 'https://www.lepopulaire.fr/actualites/', 'text/html'),
+  ('corpus:c23-ici-creuse-ex-france-bleu', 'https://www.ici.fr/radio/creuse', 'text/html'),
+  ('corpus:c23-ici-creuse-ex-france-bleu', 'https://www.ici.fr/radio/creuse/actu', 'text/html'),
+  ('corpus:c23-ici-creuse-ex-france-bleu', 'https://www.ici.fr/rss/creuse/a-la-une.xml', 'application/xml'),
+  ('corpus:c23-ici-creuse-departement-23', 'https://www.ici.fr/nouvelle-aquitaine/creuse-23', 'text/html'),
+  ('corpus:c23-ici-creuse-departement-23', 'https://www.ici.fr/nouvelle-aquitaine/creuse-23/gueret', 'text/html'),
+  ('corpus:c23-ici-creuse-departement-23', 'https://www.ici.fr/rss/creuse/a-la-une.xml', 'application/xml'),
+  ('corpus:c23-ici-gueret-23000', 'https://www.ici.fr/nouvelle-aquitaine/creuse-23/gueret', 'text/html'),
+  ('corpus:c23-ici-gueret-23000', 'https://www.ici.fr/radio/creuse/actu', 'text/html'),
+  ('corpus:c23-ici-gueret-23000', 'https://www.ici.fr/rss/creuse/a-la-une.xml', 'application/xml'),
+  ('corpus:c23-ici-matin-creuse', 'https://www.ici.fr/emissions/ici-matin/creuse', 'text/html'),
+  ('corpus:c23-ici-matin-creuse', 'https://www.ici.fr/radio/creuse/actu', 'text/html'),
+  ('corpus:c23-ici-matin-creuse', 'https://www.ici.fr/rss/creuse/a-la-une.xml', 'application/xml'),
+  ('corpus:c23-france-3-nouvelle-aquitaine-creuse', 'https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse', 'text/html'),
+  ('corpus:c23-france-3-nouvelle-aquitaine-creuse', 'https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse', 'text/html'),
+  ('corpus:c23-france-3-nouvelle-aquitaine-creuse', 'https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/rss', 'text/xml'),
+  ('corpus:c23-france-3-nouvelle-aquitaine-gueret', 'https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/gueret', 'text/html'),
+  ('corpus:c23-france-3-nouvelle-aquitaine-gueret', 'https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse', 'text/html'),
+  ('corpus:c23-france-3-nouvelle-aquitaine-gueret', 'https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/rss', 'text/xml')
+) AS v(source_id, url, content_type)
+WHERE NOT EXISTS (SELECT 1 FROM source_verification t WHERE t.source_id = v.source_id AND t.url = v.url);
+
+COMMIT;

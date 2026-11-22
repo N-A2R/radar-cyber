@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:185582fb-b4ec-459f-adc0-8355c94a78c5>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/posts/2025
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 191
+WARC-Block-Digest: sha1:KL4ILKDVC46BJR2T5EB4NDFE5OEVOPF2
+X-Claim-Fingerprint: 4b6b036af84bb676a5b7bf57
+X-Victim-Key: fc42366061a10f8ce78b161a
+
+{"post_title": "MUNDI.COM", "discovered": "2025-02-24 18:16:12.264927", "description": "", "link": "", "magnet": "", "misp_uuid": "67b172f6-c8b1-55ab-801d-63972e158f05", "group_name": "clop"}
+

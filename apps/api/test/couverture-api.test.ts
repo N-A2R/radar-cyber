@@ -8,10 +8,11 @@
  */
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { createHash } from "node:crypto";
+import { createHash, randomBytes } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { after, before, test } from "node:test";
 import { fileURLToPath } from "node:url";
+import { Client } from "pg";
 import Fastify, { type FastifyInstance } from "fastify";
 import couvertureRoute from "../src/routes/couverture.js";
 import { COUVERTURE_PUBLIQUE } from "../src/analyse/couverture-publique.js";
@@ -20,6 +21,9 @@ const RACINE = fileURLToPath(new URL("../../../", import.meta.url));
 const CORPUS = fileURLToPath(new URL("../../../bench/couverture/incidents.jsonl", import.meta.url));
 const TSX = fileURLToPath(new URL("../node_modules/.bin/tsx", import.meta.url));
 const SCRIPT = fileURLToPath(new URL("../../../scripts/mesure-couverture-systeme.mts", import.meta.url));
+const FIXTURE = fileURLToPath(
+	new URL("../../../bench/couverture/reproduction-fixture.sql", import.meta.url),
+);
 
 type Ligne = { vus: number; total: number; taux: number };
 type Corps = {
@@ -44,15 +48,77 @@ type Corps = {
 };
 
 let app: FastifyInstance;
+let baseTravail: string | null = null;
+let baseFigure: string | null = null;
+
+/** Connexion d'administration : jamais la base applicative vivante. */
+function urlAdmin(): string | null {
+	const source = process.env.RADAR_TEST_ADMIN_URL ?? process.env.DATABASE_URL;
+	if (!source) return null;
+	const url = new URL(source);
+	url.pathname = "/postgres";
+	url.searchParams.delete("options");
+	return url.toString();
+}
+
+const ADMIN = urlAdmin();
+const SANS_BASE = process.env.RADAR_COUVERTURE_DB === undefined && ADMIN === null;
+
+/** Base figée issue du fixture versionné : la même que celle du rapport publié. */
+async function creerBaseFigure(): Promise<string> {
+	const nom = `radar_couv_test_${process.pid}_${Date.now().toString(36)}_${randomBytes(3).toString("hex")}`;
+	const url = new URL(`/${nom}`, ADMIN!).toString();
+	const admin = new Client({ connectionString: ADMIN! });
+	await admin.connect();
+	try {
+		await admin.query(`CREATE DATABASE ${nom}`);
+		baseFigure = nom;
+	} finally {
+		await admin.end();
+	}
+
+	const base = new Client({ connectionString: url });
+	try {
+		await base.connect();
+		await base.query(readFileSync(FIXTURE, "utf8"));
+	} catch (err) {
+		await supprimerBaseFigure();
+		throw err;
+	} finally {
+		await base.end();
+	}
+	return url;
+}
+
+async function supprimerBaseFigure(): Promise<void> {
+	if (!baseFigure) return;
+	const nom = baseFigure;
+	baseFigure = null;
+	const admin = new Client({ connectionString: ADMIN! });
+	await admin.connect();
+	try {
+		await admin.query(
+			"SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = $1 AND pid <> pg_backend_pid()",
+			[nom],
+		);
+		await admin.query(`DROP DATABASE IF EXISTS ${nom}`);
+	} finally {
+		await admin.end();
+	}
+}
 
 before(async () => {
 	app = Fastify();
 	await app.register(couvertureRoute, { prefix: "/api" });
 	await app.ready();
+	// URL fournie : exacte, sans réécriture. Sinon snapshot local du fixture.
+	if (process.env.RADAR_COUVERTURE_DB) baseTravail = process.env.RADAR_COUVERTURE_DB;
+	else if (ADMIN) baseTravail = await creerBaseFigure();
 });
 
 after(async () => {
 	if (app) await app.close();
+	await supprimerBaseFigure();
 });
 
 async function lireReponse(): Promise<Corps> {
@@ -141,17 +207,13 @@ test("GET /api/couverture sous le seuil : publiable false et raison explicite", 
 	}
 });
 
-const baseTravail = process.env.RADAR_TEST_ADMIN_URL
-	? (() => {
-			const url = new URL(process.env.RADAR_TEST_ADMIN_URL!);
-			url.pathname = "/radar";
-			return url.toString();
-		})()
-	: null;
-
 test(
 	"le chiffre servi diverge du script ⇒ échec",
-	{ skip: baseTravail === null ? "RADAR_TEST_ADMIN_URL absent : base de travail non accessible" : false },
+	{
+		skip: SANS_BASE
+			? "ni RADAR_COUVERTURE_DB ni accès administration : base figée indisponible"
+			: false,
+	},
 	async () => {
 		const servi = await lireReponse();
 		const stdout = execFileSync(TSX, [SCRIPT, "--stdout"], {

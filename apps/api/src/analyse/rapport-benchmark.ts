@@ -5,7 +5,7 @@
  * Aucune date n'est fabriquée : un canal sans date est exclu du classement et
  * signalé comme tel.
  */
-import type { BilanBenchmark } from "./benchmark-premier-regard.js";
+import { estDateISO, type BilanBenchmark } from "./benchmark-premier-regard.js";
 import {
 	compterMots,
 	positionRadar,
@@ -18,6 +18,33 @@ import { compterIncidentsDates, ligneObjectif } from "./objectif-benchmark.js";
 export const LIMITE_MOTS_RAPPORT = 150;
 
 export class ErreurRapportBenchmark extends Error {}
+
+/** Cible du chantier : 100 incidents de Nouvelle-Aquitaine portant une date réelle. */
+export const CIBLE_INCIDENTS_DATES = 100;
+
+export type IncidentDate = { dates: { radar?: string | null } };
+export type ObjectifRapport = {
+	valeur: number;
+	cible: number;
+	atteint: boolean;
+	ligne: string;
+};
+
+/** Mesure l'objectif depuis les seules dates réellement présentes dans la mesure. */
+export function mesurerObjectifRapport(incidents: readonly IncidentDate[]): ObjectifRapport {
+	const valeur = incidents.filter((incident) => estDateISO(incident.dates?.radar)).length;
+	const cible = CIBLE_INCIDENTS_DATES;
+	const atteint = valeur === cible;
+	const ligne = atteint
+		? `OBJECTIF : atteint — ${valeur} / ${cible} incidents de Nouvelle-Aquitaine datés`
+		: `OBJECTIF : partiel — ${valeur} / ${cible} incidents de Nouvelle-Aquitaine datés, manque ${Math.max(0, cible - valeur)}`;
+	return { valeur, cible, atteint, ligne };
+}
+
+/** La déclaration publiée doit être exacte et unique, jamais une variante périmée. */
+export function verifierDeclarationObjectifRapport(rapport: string, ligne: string): boolean {
+	return rapport.split(/\r?\n/).filter((lignePubliee) => lignePubliee === ligne).length === 1;
+}
 
 export type RapportBenchmark = {
 	markdown: string;
@@ -62,7 +89,9 @@ export function genererRapport(bilan: BilanBenchmark, jeu: JeuOutils): RapportBe
 	const markdown = [
 		"# Benchmark — incidents de Nouvelle-Aquitaine",
 		"",
-		`Mesure ${jeu.dateMesure}. 8 outils, 5 critères. Sources : API GitHub ; corpus de ${bilan.total} incidents pour Radar Cyber (privé). Trace NA = mentions GitHub (7 outils) ou incidents du corpus (Radar).`,
+		mesurerObjectifRapport(bilan.lignes).ligne,
+		"",
+		`Mesure ${jeu.dateMesure}. 8 outils, 5 critères. Sources : API GitHub ; ${bilan.total} incidents Radar Cyber (privé). Trace NA = mentions GitHub (7 outils) ou incidents Radar.`,
 		"",
 		tableauOutils(jeu),
 		"",
