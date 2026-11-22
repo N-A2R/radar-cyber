@@ -10,7 +10,7 @@ Objectif mesurable : nombre de domaines typosquattés détectés, avec preuve et
 10 713 variantes testées et 1 026 domaines actifs en DNS.
 Taux de faux positifs : 853/853 alertes brutes rejetées (100,0 %).
 
-OBJECTIF : atteint — 0 domaines typosquattés confirmés avec preuve / 1 000 organisations analysées ; 100,0 % de faux positifs.
+OBJECTIF : partiel — 0 / 853 domaines candidats confirmés avec preuve, manque 853 confirmations, faux positifs 853/853 (100,0 %).
 
 | Mesure | Valeur | Preuve |
 | --- | ---: | --- |
@@ -18,6 +18,7 @@ OBJECTIF : atteint — 0 domaines typosquattés confirmés avec preuve / 1 000
 | Variantes testées | 10 713 | `6` lots JSON dans `bench/results/typosquat-top1000/` |
 | Domaines actifs en DNS | 1 026 | requêtes A/AAAA : 10 713 |
 | Domaines typosquattés confirmés | 0 | `bench/results/typosquat-top1000.json` (clé `detections`) |
+| Domaines candidats (alertes brutes) | 853 | `bench/results/typosquat-top1000.json` (clé `alarms`) |
 | Faux positifs | 853/853 (100,0 %) | alerte brute = DNS actif + similarité ≥ 0,8 ; décision = page et certificat |
 
 ## Preuve par domaine (extrait)

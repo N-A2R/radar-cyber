@@ -11,9 +11,9 @@ Mode : toutes les variantes typo générées, sans échantillonnage (les changem
 70 827 variantes testées et 1 896 domaines actifs en DNS.
 Taux de faux positifs : 1 508/1 508 alertes brutes rejetées (100,0 %).
 
-OBJECTIF : atteint — 68 106 / 68 106 variantes typo générées testées sur 1 000 organisations NA ; 0 domaine(s) confirmé(s), 100,0 % de faux positifs.
+OBJECTIF : partiel — 0 / 1 508 domaines candidats confirmés avec preuve, manque 1 508 confirmations, faux positifs 1 508/1 508 (100,0 %).
 
-CHANTIER TERMINÉ : toutes les variantes typo plausibles des 1 000 organisations NA ont été testées ; aucune usurpation confirmée avec preuve.
+RÉSULTAT PARTIEL : toutes les variantes typo plausibles des 1 000 organisations NA ont été testées ; aucune usurpation n'a été confirmée avec preuve (1 896 domaines actifs en DNS, 1 508 candidats, 0 confirmé).
 
 | Mesure | Valeur | Preuve |
 | --- | ---: | --- |
@@ -21,6 +21,7 @@ CHANTIER TERMINÉ : toutes les variantes typo plausibles des 1 000 organisations
 | Variantes testées | 70 827 | `25` lots JSON dans `bench/results/typosquat-exhaustive/` |
 | Domaines actifs en DNS | 1 896 | requêtes A/AAAA : 70 827 |
 | Domaines typosquattés confirmés | 0 | `bench/results/typosquat-exhaustive.json` (clé `detections`) |
+| Domaines candidats (alertes brutes) | 1 508 | `bench/results/typosquat-exhaustive.json` (clé `alarms`) |
 | Faux positifs | 1 508/1 508 (100,0 %) | alerte brute = DNS actif + similarité ≥ 0,8 ; décision = page et certificat |
 
 ## Preuve par domaine (extrait)
