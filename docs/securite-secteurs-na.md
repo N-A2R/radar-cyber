@@ -60,3 +60,4 @@ Un comportement par test dans `apps/api/test/security-sector-index.test.ts` : co
 - Quatre secteurs (industrie, construction, commerce, autre) n'ont pas de corpus public labellisé : leurs signaux DNS/TLS sont le taux régional explicite, pas une invention de données sectorielles.
 - La sonde couvre 163 domaines publics, pas les 1,67 M d'organisations : les taux sont des indicateurs de tendance, pondérés par le dénominateur régional complet.
 - Les hôtes injoignables ne prouvent pas une absence de protection ; ils sont retirés du dénominateur TLS et signalés dans les données sondées.
+OBJECTIF : atteint — 1 673 151 / 1 673 151
