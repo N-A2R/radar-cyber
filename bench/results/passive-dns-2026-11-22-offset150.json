@@ -1,0 +1,16 @@
+{
+  "observedOn": "2026-11-22",
+  "perimeterDomains": 681,
+  "domainsQueried": 150,
+  "domainsResolved": 137,
+  "resolutionsObserved": 765,
+  "resolutionsSaved": 765,
+  "queryErrors": 73,
+  "scope": {
+    "perimeterDomains": 300,
+    "observedDomains": 274,
+    "resolutions": 1530,
+    "firstDay": "2026-11-22",
+    "lastDay": "2026-11-22"
+  }
+}
