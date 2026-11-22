@@ -186,11 +186,16 @@ const SCHEMAS = {
     rows: objets, total: z.number(), page: z.number(), limit: z.number(),
     nextCursor: nombreNullable, window: z.number(), truncated: z.boolean(),
     facets: objet, counts: objet, tookMs: z.number(),
+    // L'index de revue se construit désormais en tâche de fond : la première
+    // réponse annonce la préparation (file vide, compteurs justes) au lieu de
+    // faire attendre 20 s. Le champ est optionnel pour les clients historiques.
+    preparation: z.boolean().optional(),
   }),
   "/api/review/queue": z.strictObject({
     rows: objets, total: z.number(), page: z.number(), limit: z.number(),
     window: z.number(), nextCursor: nombreNullable, counts: objet,
     tookMs: z.number(),
+    preparation: z.boolean().optional(),
   }),
   "/api/review/stats": z.strictObject({
     pending: z.number(), acceptees: z.number(), refusees: z.number(), promues: z.number(),
