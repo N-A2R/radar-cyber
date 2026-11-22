@@ -897,7 +897,7 @@ body {
   }
 }
 
-/* Sous 1440 px : les douze vues (dont « Nouvelle-Aquitaine » et « Affected? »)
+/* Sous 1440 px : les douze vues (dont « Nouvelle-Aquitaine » et « Suis-je concerné ? »)
    ne tiennent plus sur la ligne du titre — environ 1400 px de contenu — et
    comme body est en overflow-x: clip la fin du rail était coupée sans
    défilement. La navigation passe donc sur sa propre ligne, revient à la
