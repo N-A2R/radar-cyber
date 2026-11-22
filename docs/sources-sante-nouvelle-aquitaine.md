@@ -33,3 +33,5 @@ Chaque source porte un exemple d'article réel sur la cybersécurité, une panne
 - **Ordre national des pharmaciens** : « Cyberattaques : deux opérateurs de tiers payant visés » (2024-02-15).
 
 Les sources sans exemple cyber vérifié (GCS Achats Nouvelle-Aquitaine, DomusVi, EHPAD de Montbron) ont été écartées du corpus.
+
+OBJECTIF : atteint — 35 / 20
