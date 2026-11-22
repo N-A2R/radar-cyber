@@ -105,8 +105,17 @@ CREATE OR REPLACE FUNCTION public.event_public_tlp_export_sync()
 RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
   IF public.tlp_public_clear(NEW.evidence, NEW.tlp) THEN
-    INSERT INTO public.export_public_event (event_id) VALUES (NEW.id)
-      ON CONFLICT (event_id) DO NOTHING;
+    -- La provenance accompagne la publication : la table l'exige (colonnes
+    -- NOT NULL posées par migrate-200-export-public-provenance).
+    INSERT INTO public.export_public_event (event_id, source_url, at, collected_at, license)
+    SELECT e.id, COALESCE(NULLIF(btrim(e.source_url), ''), s.url, 'source inconnue'),
+       COALESCE(e.at, e.observed_at, e.created_at, now()),
+       COALESCE(e.collected_at, e.at, e.observed_at, e.created_at, now()),
+       COALESCE(NULLIF(btrim(s.license), ''), 'faits publics - réutilisation avec attribution (licence MIT de la compilation)')
+      FROM public.event e
+      LEFT JOIN public.source s ON s.id = e.source_id
+     WHERE e.id = NEW.id
+    ON CONFLICT (event_id) DO NOTHING;
   ELSE
     DELETE FROM public.export_public_event WHERE event_id = NEW.id;
   END IF;
@@ -139,8 +148,13 @@ BEGIN
    WHERE e.id = x.event_id
      AND NOT public.tlp_public_clear(e.evidence, e.tlp);
 
-  INSERT INTO public.export_public_event (event_id)
-  SELECT e.id FROM public.event e
+  INSERT INTO public.export_public_event (event_id, source_url, at, collected_at, license)
+  SELECT e.id, COALESCE(NULLIF(btrim(e.source_url), ''), s.url, 'source inconnue'),
+       COALESCE(e.at, e.observed_at, e.created_at, now()),
+       COALESCE(e.collected_at, e.at, e.observed_at, e.created_at, now()),
+       COALESCE(NULLIF(btrim(s.license), ''), 'faits publics - réutilisation avec attribution (licence MIT de la compilation)')
+    FROM public.event e
+    LEFT JOIN public.source s ON s.id = e.source_id
    WHERE public.tlp_public_clear(e.evidence, e.tlp)
   ON CONFLICT (event_id) DO NOTHING;
 

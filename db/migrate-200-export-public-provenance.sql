@@ -25,6 +25,9 @@ CREATE TABLE IF NOT EXISTS export_public_event (
   at            timestamptz NOT NULL,
   collected_at  timestamptz NOT NULL,
   license       text NOT NULL,
+  -- La porte de publication (migrate-200-export-public-tlp) durcit `tlp`
+  -- depuis une autre migration : la colonne doit exister dès la création.
+  tlp           text NOT NULL DEFAULT 'CLEAR',
   CONSTRAINT export_public_event_url_nonvide CHECK (btrim(source_url) <> ''),
   CONSTRAINT export_public_event_license_nonvide CHECK (btrim(license) <> '')
 );
@@ -40,7 +43,8 @@ ALTER TABLE export_public_event
   ADD COLUMN IF NOT EXISTS source_url   text,
   ADD COLUMN IF NOT EXISTS at           timestamptz,
   ADD COLUMN IF NOT EXISTS collected_at timestamptz,
-  ADD COLUMN IF NOT EXISTS license      text;
+  ADD COLUMN IF NOT EXISTS license      text,
+  ADD COLUMN IF NOT EXISTS tlp          text NOT NULL DEFAULT 'CLEAR';
 
 UPDATE export_public_event x
    SET source_url   = COALESCE(NULLIF(btrim(x.source_url), ''), NULLIF(btrim(e.source_url), ''), s.url, 'source inconnue'),

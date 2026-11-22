@@ -1,3 +1,23 @@
+-- Cette base peut ne pas encore porter migrate-066-source-verification.sql :
+-- la table de tracage est declaree ici en complement pour rester applicable
+-- seule (meme choix que migrate-081-sources-numerique-19.sql).
+CREATE TABLE IF NOT EXISTS source_verification (
+  id                bigserial PRIMARY KEY,
+  source_id         text        NOT NULL REFERENCES source(id) ON DELETE CASCADE,
+  url               text        NOT NULL,
+  code_http         integer,
+  content_type      text,
+  items             integer     NOT NULL DEFAULT 0 CHECK (items >= 0),
+  derniere_item_at  timestamptz,
+  ms                integer     NOT NULL CHECK (ms >= 0),
+  verifie_at        timestamptz NOT NULL DEFAULT now(),
+  user_agent        text        NOT NULL,
+  etat              text        NOT NULL CHECK (etat IN ('ok200', 'muette', 'morte', 'lente')),
+  motif             text
+);
+CREATE INDEX IF NOT EXISTS idx_source_verification_source_date ON source_verification (source_id, verifie_at DESC, id DESC);
+CREATE INDEX IF NOT EXISTS idx_source_verification_verifie_at ON source_verification (verifie_at DESC);
+
 -- Sources d'information banque / assurance / mutuelles du département 16 (Charente).
 -- 13 sources, 29 URLs uniques toutes contrôlées en HTTP 200 le 2026-11-22.
 -- Corpus détaillé : bench/corpus/sources-banque-assurance-16.jsonl
