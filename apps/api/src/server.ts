@@ -39,6 +39,7 @@ import { capterAlertesRupture } from "./analyse/rupture.js";
 import { capterAgentsCpu } from "./analyse/agents-cpu.js";
 import { requireRole } from "./middleware/auth.js";
 import { registerApiRoutes } from "./routes/index.js";
+import exportMispRoute from "./routes/export-misp.js";
 import { installAccessControl } from "./security/rbac.js";
 import { installSecurityHeaders } from "./security/headers.js";
 import { installErrorHandler } from "./errors.js";
@@ -114,6 +115,10 @@ if (existsSync(webDist)) {
 /** Toutes les routes API sont déclarées dans un registre unique, audité par
  *  le test de couverture des règles d'accès. */
 await registerApiRoutes(app);
+
+/** Alias racine du flux MISP, pour le partenaire qui importe l'URL telle
+ *  quelle. Les alias `/api` et `/api/v1` restent servis par les registres. */
+await app.register(exportMispRoute);
 
 /** Contexte fourni aux collecteurs : HTTP résilient, jamais de fetch nu. */
 function makeContext(cursor: Record<string, unknown>, log: (msg: string) => void): CollectContext {
