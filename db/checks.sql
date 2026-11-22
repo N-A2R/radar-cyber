@@ -95,3 +95,25 @@ WHERE (e.geo_type = 'unknown' OR e.lat IS NULL OR e.lon IS NULL)
 SELECT count(*) AS sans_source
 FROM indicator
 WHERE source_id IS NULL;
+
+\echo '== 14. Chaîne de preuve (migration 206) : événements des 30 derniers jours sans source_url ou sans run =='
+-- Critère de sortie du chantier « chaîne de preuve » : doit rendre 0.
+SELECT count(*) AS sans_preuve
+FROM event
+WHERE at >= now() - interval '30 days'
+  AND (source_url IS NULL OR evidence->>'run_id' IS NULL);
+
+\echo '== 14b. Runs cités par un événement mais absents de collector_run (doit rendre 0) =='
+SELECT count(*) AS run_introuvable
+FROM event e
+WHERE e.evidence->>'run_id' ~ '^[0-9]{1,18}$'
+  AND NOT EXISTS (
+    SELECT 1 FROM collector_run cr WHERE cr.id = (e.evidence->>'run_id')::bigint
+  );
+
+\echo '== 14c. Répartition des runs par nature, 7 derniers jours =='
+SELECT kind, count(*) AS runs
+FROM collector_run
+WHERE started_at >= now() - interval '7 days'
+GROUP BY kind
+ORDER BY runs DESC;

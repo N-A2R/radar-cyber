@@ -1,5 +1,5 @@
 // Généré par scripts/generate-api-client.mts — ne pas éditer à la main.
-// API v1.0.0 — 54 opérations.
+// API v1.0.0 — 55 opérations.
 import type { z } from "zod";
 import type * as Schemas from "./schemas.js";
 import type * as Catalog from "./catalog.js";
@@ -26,6 +26,7 @@ export type Journal = z.infer<typeof Schemas.Journal>;
 export type ReviewQueue = z.infer<typeof Schemas.ReviewQueue>;
 export type Coverage = z.infer<typeof Schemas.Coverage>;
 export type HealthDetail = z.infer<typeof Schemas.HealthDetail>;
+export type HealthSources = z.infer<typeof Schemas.HealthSources>;
 export type Enrichment = z.infer<typeof Schemas.Enrichment>;
 export type Dossier = z.infer<typeof Schemas.Dossier>;
 export type Stream = z.infer<typeof Schemas.Stream>;
@@ -113,6 +114,8 @@ export function createRadarClient(options?: RequestOptions) {
       request<Health>("/health", "GET", undefined, { ...options, ...call }),
     getHealthDetail: (args?: Record<string, never>, call?: RequestOptions) =>
       request<HealthDetail>("/health/detail", "GET", undefined, { ...options, ...call }),
+    getHealthSources: (args?: Record<string, never>, call?: RequestOptions) =>
+      request<HealthSources>("/health/sources", "GET", undefined, { ...options, ...call }),
     getHealthCauses: (args?: Record<string, never>, call?: RequestOptions) =>
       request<Stats>("/health/causes", "GET", undefined, { ...options, ...call }),
     getEvents: (args: { query?: EventsQuery }, call?: RequestOptions) =>

@@ -17,6 +17,14 @@
   --line: rgba(255, 255, 255, 0.07);
   --line-strong: rgba(255, 255, 255, 0.14);
 
+  /* Alias consommés par les feuilles de composants (graphe, carte 3D,
+     légende) qui n'avaient jamais été déclarés : sans eux `border: 1px
+     solid var(--border)` est invalide et rend 0 px. Les alias pointent vers
+     les jetons réels — donc ils suivent les quatre thèmes, sans valeur figée. */
+  --border: var(--line);
+  --border-strong: var(--line-strong);
+  --fg: var(--text);
+
   --text: #e6e9ef;
   --muted: #8b93a1;
   /* Chaque couleur de texte est mesuree AA (4,5:1 au minimum) sur les quatre
@@ -55,6 +63,7 @@
   --family-reputation: var(--data-green);
   --family-cti: var(--data-steel);
   --family-presse: var(--muted);
+  --family-presse-locale: #7d8ea3;
 
   /* Natures d'organisation */
   --org-sante: #f05545;
@@ -70,6 +79,7 @@
   --font-label: var(--font-sans);
 
   --radius: 2px;
+  --radius-full: 999px;
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -81,9 +91,12 @@
   --control-pad-y: var(--space-1);
 
   /* Une voix pour les libelles, une pour la donnee, une pour la lecture. */
+  --text-micro: 10px;
   --text-label: 11px;
+  --text-xs: 12px;
   --text-body: 13px;
   --text-read: 15px;
+  --text-subtitle: 15px;
   --text-title: 20px;
   --tracking-normal: 0;
   --leading-tight: 1.25;
@@ -575,6 +588,7 @@ html[data-theme="clair"] {
   --family-reputation: var(--data-green);
   --family-cti: var(--data-steel);
   --family-presse: var(--muted);
+  --family-presse-locale: #4a5a6b;
   --org-sante: #c42d20;
   --org-collectivite: #2969af;
   --org-entreprise: #9c5600;
@@ -704,7 +718,10 @@ body {
 
 .shell__body {
   display: grid;
-  grid-template-columns: 352px minmax(0, 1fr);
+  /* Mobile d'abord : une seule colonne. Les colonnes bornées du shell
+     (fil 352 px, inspecteur 320 px) n'existent qu'à partir de 1025 px —
+     voir les deux blocs de media queries plus bas. */
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-3);
   flex: 1;
   min-height: 0;
@@ -795,6 +812,9 @@ body {
   padding: var(--space-1) 0;
   color: var(--color-muted);
   cursor: pointer;
+  /* Un libellé de navigation ne se coupe pas : c'est la barre qui passe à la
+     ligne entre deux entrées. Sinon « Nouvelle-Aquitaine » se brise au milieu. */
+  white-space: nowrap;
   transition: color 90ms ease, box-shadow 90ms ease;
 }
 
@@ -830,6 +850,7 @@ body {
   cursor: pointer;
   box-shadow: inset 0 -1px 0 var(--color-edge-hi);
   transition: color 90ms ease, box-shadow 90ms ease;
+  white-space: nowrap;
 }
 
 .rail__toggle:hover {
@@ -856,6 +877,7 @@ body {
   gap: var(--space-2);
   font-size: 12px;
   color: var(--color-muted);
+  white-space: nowrap;
 }
 
 .rail__live i {
@@ -885,12 +907,82 @@ body {
   }
 }
 
+/* Sous 1024 px : le fil et son rail de repli s'effacent, l'inspecteur
+   devient un tiroir posé sur le stage. Le contenu garde toute la largeur
+   utile et rien ne dépasse : à 768 px de viewport, 768 − 24 px de padding
+   du shell = 744 px pour le stage, bien au-delà des 300 px exigés. */
 @media (max-width: 1024px) {
+  .shell__feed,
+  .shell__feed-rail {
+    display: none;
+  }
+  .shell__inspect {
+    grid-area: 1 / 1;
+    justify-self: end;
+    inline-size: min(100%, 380px);
+    z-index: 4;
+    border-inline-start: 1px solid var(--line);
+    box-shadow: var(--raise);
+  }
+}
+
+/* À partir de 1025 px : fil + stage + inspecteur, chaque colonne bornée.
+   L'état vient des attributs data-* posés par App.tsx (le style inline
+   écrasait cette feuille, d'où la colonne vide de 352 px sur mobile). */
+@media (min-width: 1025px) {
   .shell__body {
+    grid-template-columns: minmax(0, 352px) minmax(0, 1fr);
+  }
+  .shell__body[data-feed="rail"] {
+    grid-template-columns: minmax(0, 44px) minmax(0, 1fr);
+  }
+  .shell__body[data-feed="none"] {
     grid-template-columns: minmax(0, 1fr);
   }
-  .shell__feed {
-    display: none;
+  .shell__body[data-inspector="open"] {
+    grid-template-columns: minmax(0, 352px) minmax(0, 1fr) minmax(0, 320px);
+  }
+  .shell__body[data-feed="rail"][data-inspector="open"] {
+    grid-template-columns: minmax(0, 44px) minmax(0, 1fr) minmax(0, 320px);
+  }
+  .shell__body[data-feed="none"][data-inspector="open"] {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 320px);
+  }
+}
+
+/* Sous 1440 px : les douze vues (dont « Nouvelle-Aquitaine » et « Suis-je concerné ? »)
+   ne tiennent plus sur la ligne du titre — environ 1400 px de contenu — et
+   comme body est en overflow-x: clip la fin du rail était coupée sans
+   défilement. La navigation passe donc sur sa propre ligne, revient à la
+   ligne si besoin, et le rail grandit en hauteur ; la grille sous lui garde
+   le reste via min-height: 0. */
+@media (min-width: 481px) and (max-width: 1439px) {
+  .rail {
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 52px;
+    padding: var(--space-2) var(--space-5);
+    row-gap: var(--space-1);
+  }
+  .wordmark {
+    min-width: 0;
+  }
+  .rail__nav {
+    order: 3;
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-4);
+  }
+  .rail__nav button {
+    padding: var(--space-1) var(--space-1);
+    white-space: nowrap;
+  }
+  /* Les libellés ne se coupent jamais en deux : c'est la barre qui passe à la
+     ligne entre deux entrées, sinon « Nouvelle-Aquitaine » et « Suis-je
+     concerné ? » se brisent en plein milieu à 1440 px. */
+  .rail__nav,
+  .rail__toggle {
+    white-space: nowrap;
   }
 }
 
@@ -998,7 +1090,7 @@ body {
 
 .na-corps {
   display: grid;
-  grid-template-columns: minmax(280px, 1fr) minmax(320px, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
   gap: var(--space-4);
   align-items: start;
 }
@@ -1146,12 +1238,6 @@ body {
   text-decoration: underline;
 }
 .na-ligne-org-bouton:active { background: var(--color-plate-3); }
-
-@media (max-width: 900px) {
-  .na-corps {
-    grid-template-columns: 1fr;
-  }
-}
 
 /* 375 px — la barre de vues devient un menu compact sur deux colonnes :
    aucune navigation horizontale, tous les onglets restent accessibles. */
@@ -1370,7 +1456,7 @@ body {
   inline-size: 100%;
   min-block-size: var(--control-min-size);
   padding: var(--control-pad-y) var(--control-pad-x);
-  border: 1px solid var(--line-strong);
+  border: 1px solid var(--muted);
   border-radius: var(--radius);
   background: var(--surface-2);
   color: var(--text);
@@ -1529,4 +1615,62 @@ body {
     animation: none;
     transition: none;
   }
+}
+
+/* --- Légende de la carte : une couleur doit pouvoir se décoder sans survol. */
+.map-view {
+  position: relative;
+  height: 100%;
+  min-height: 0;
+}
+
+.map-legend {
+  position: absolute;
+  left: var(--space-3);
+  bottom: var(--space-3);
+  z-index: 2;
+  display: grid;
+  gap: var(--space-2);
+  max-width: 260px;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-2, 8px);
+  background: var(--surface);
+  font-size: var(--text-label);
+  color: var(--muted);
+}
+
+.map-legend__title {
+  margin: 0;
+  color: var(--fg);
+  font-weight: var(--weight-medium);
+}
+
+.map-legend__sev,
+.map-legend__fam {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.map-legend__sev li,
+.map-legend__fam li {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.map-legend__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.map-legend__chip {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
 }

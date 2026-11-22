@@ -166,6 +166,8 @@ test("les preuves sont écrites une seule fois et rattachées à une organisatio
   } finally {
     await ingestQuery("DELETE FROM event WHERE dedup_key LIKE $1", ["typosquat:univ-tes.fr:%"]);
     await ingestQuery("DELETE FROM org WHERE slug = $1", ["universite-de-test-typosquat"]);
+    // Le scan a ouvert un run pour la source : il part avant elle.
+    await ingestQuery("DELETE FROM collector_run WHERE source_id = $1", ["typosquat-passif"]);
     await ingestQuery("DELETE FROM source WHERE id = $1", ["typosquat-passif"]);
   }
 });

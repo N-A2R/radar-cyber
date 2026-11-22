@@ -194,11 +194,17 @@ function departementsCites(tokens: readonly string[]): ReadonlySet<string> {
 	return cites;
 }
 
-/** Construit l'index en mémoire à partir de lignes `org_alias` actives. */
-export function buildAliasIndex(rows: ReadonlyArray<AliasRow>): AliasIndex {
+/**
+ * Étapes de construction de l'index d'alias — générateur, pour que le
+ * chargement de fond puisse rendre la main régulièrement sur 1,68 M de lignes.
+ */
+const PAS_ALIAS = 10_000;
+
+function* etapesAliasIndex(rows: ReadonlyArray<AliasRow>): Generator<void, AliasIndex> {
 	const byKey = new Map<string, AliasEntry[]>();
 	let minTokens = Number.POSITIVE_INFINITY;
 	let maxTokens = 0;
+	let vus = 0;
 
 	for (const row of rows) {
 		// Un alias qui est un nom de domaine ne sert pas au rapprochement de
@@ -228,6 +234,7 @@ export function buildAliasIndex(rows: ReadonlyArray<AliasRow>): AliasIndex {
 		else byKey.set(key, [entry]);
 		if (tokens.length < minTokens) minTokens = tokens.length;
 		if (tokens.length > maxTokens) maxTokens = tokens.length;
+		if (++vus % PAS_ALIAS === 0) yield;
 	}
 
 	return {
@@ -235,6 +242,27 @@ export function buildAliasIndex(rows: ReadonlyArray<AliasRow>): AliasIndex {
 		minTokens: Number.isFinite(minTokens) ? minTokens : 1,
 		maxTokens,
 	};
+}
+
+/** Construit l'index en mémoire à partir de lignes `org_alias` actives. */
+export function buildAliasIndex(rows: ReadonlyArray<AliasRow>): AliasIndex {
+	const etapes = etapesAliasIndex(rows);
+	for (;;) {
+		const pas = etapes.next();
+		if (pas.done) return pas.value;
+	}
+}
+
+/** Même index, construit sans monopoliser la boucle (chargement de fond). */
+export async function buildAliasIndexChunked(rows: ReadonlyArray<AliasRow>): Promise<AliasIndex> {
+	const etapes = etapesAliasIndex(rows);
+	for (;;) {
+		const pas = etapes.next();
+		if (pas.done) return pas.value;
+		const { promise, resolve } = Promise.withResolvers<void>();
+		setImmediate(resolve);
+		await promise;
+	}
 }
 
 /**

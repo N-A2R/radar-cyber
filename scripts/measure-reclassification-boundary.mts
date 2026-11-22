@@ -93,9 +93,10 @@ async function measure(): Promise<Measurement> {
       subjects.push(subject);
       await query(
         `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at,
-                            source_id, source_url, regional, regional_motif)
+                            source_id, source_url, evidence, regional, regional_motif)
          VALUES ($1,'cti','ambient_signal',$2,$3,'ransomlook',
-                 'https://example.invalid/reclassification-proof',false,'hors-region')`,
+                 'https://example.invalid/reclassification-proof',
+                 '{"run_id":"1"}'::jsonb, false,'hors-region')`,
         [subject, title, OBSERVED],
       );
     }

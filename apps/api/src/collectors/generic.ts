@@ -7,6 +7,7 @@
 import { createHash } from "node:crypto";
 import { XMLParser } from "fast-xml-parser";
 import { ingestQuery } from "../db.js";
+import { closeRun, openRun, withRunId } from "../collecte/runs.js";
 import { parseObservedAt } from "./dates.js";
 import { fetchResilient } from "./http.js";
 import {
@@ -57,6 +58,8 @@ type SourceRow = {
   last_ok_at: string | null;
   last_error_at: string | null;
   relevance: string;
+  /** Code INSEE du département éditeur, pour la veille `presse_locale`. */
+  department: string | null;
 };
 
 /** `skipped` = éléments écartés (porte de pertinence ou filtre anti-bruit). */
@@ -712,6 +715,8 @@ async function ingestNarrative(
 	orgIndex: RelevanceOrg[],
 	coverage: CoverageContext,
 	pertinenceConfig: RelevanceConfig,
+	/** Run de collecte cité par chaque événement (migration 206). */
+	runId: number,
 ): Promise<IngestResult> {
   const parser = source.parser ?? {};
   const declaredPath = typeof parser.itemsPath === "string" ? parser.itemsPath : "";
@@ -751,9 +756,14 @@ async function ingestNarrative(
     }
   }
 
+  // Veille de presse locale : la provenance départementale est le signal, pas
+  // le vocabulaire du titre. On n'applique donc ni la porte cyber ni la
+  // rétrogradation en `presse` : un titre de la vie locale reste un fait
+  // régional à ne pas perdre. La famille dédiée le distingue des incidents.
+  const localPress = source.family === "presse_locale";
   // Porte de pertinence : un flux de presse généraliste livre sa une, pas de
   // la cyber. Seules les sources `strict` (déjà cyber) passent sans filtre.
-  const gate = source.relevance !== "strict";
+  const gate = !localPress && source.relevance !== "strict";
   const allowedLanguages = configuredLanguages();
   // L'hôte du flux est exclu du matching d'entités (voir relevance.ts).
   let sourceHost = "";
@@ -807,7 +817,7 @@ async function ingestNarrative(
     // autres, ils montent le score au lieu d'être un contournement de la porte.
     // L'URL reste hors du texte examiné par la règle département.
     const epssHit = gate ? admitByEpss(cveTextOf(item, title, summary), coverage) : null;
-    const department = gate && admitsDepartment(`${title} ${summary}`, coverage.deptNames);
+    const department = localPress || (gate && admitsDepartment(`${title} ${summary}`, coverage.deptNames));
     let pertinence = evaluatePertinence(
       { title, summary, url: link, sourceUrl: link },
       {
@@ -818,6 +828,11 @@ async function ingestNarrative(
         department,
       },
     );
+    if (localPress) {
+      // Score conservé pour l'observabilité, mais l'admission est portée par
+      // le département de la source — jamais par un mot-clé du titre.
+      pertinence = { ...pertinence, relevant: true, reason: "dept", rule: "dept" };
+    }
     // La porte consulte aussi le gazetteer : un nom distinctif absent de
     // l'index de pertinence peut encore admettre l'item. Le score suit alors
     // ce rattachement, sinon l'événement serait admis avec un score de rejet.
@@ -889,9 +904,11 @@ async function ingestNarrative(
     // `presse` et conservée ; sur décision utilisateur du 10 novembre, elle
     // est désormais refusée à l'entrée : la base ne contient que du cyber.
     // Les familles `ransomware`/`cert_fr` et l'allowlist gardent leur famille.
-    const family = isFamily(source.family)
-      ? classifyFamily({ title, summary, sourceFamily: source.family, sourceName: source.name })
-      : source.family;
+    const family = localPress
+      ? "presse_locale"
+      : isFamily(source.family)
+        ? classifyFamily({ title, summary, sourceFamily: source.family, sourceName: source.name })
+        : source.family;
     if (family === "presse") {
       rejectedBy["presse"] = (rejectedBy["presse"] ?? 0) + 1;
       skipped++;
@@ -900,15 +917,19 @@ async function ingestNarrative(
 
     // Marqueur d'admission : une organisation rattachée prime ; sinon la règle
     // qui a fait passer l'item, sinon null (admis par la porte de pertinence).
-    const admissionRule = orgId !== null ? "org" : pertinence.rule;
+    // Une veille locale est admise par son département éditeur.
+    const admissionRule = localPress ? "dept" : orgId !== null ? "org" : pertinence.rule;
 
     // Contrat partagé : c'est lui qui tranche désormais, pas les troncatures
     // ad hoc d'ici. Une famille hors contrat ne passe plus (avant l'élargissement
     // de FAMILIES, `leaks`/`paste` traversaient sans contrôle) ; une broutille
     // réparable ne fait plus perdre l'événement. Les écarts sont comptés.
     // Portée régionale calculée à l'écriture : le fil doit pouvoir trier et
-    // filtrer sans recalculer 19 000 textes à chaque requête.
-    const portee = porteeRegionale(`${title} ${summary}`, orgId);
+    // filtrer sans recalculer 19 000 textes à chaque requête. Une veille
+    // locale est régionale par sa source, pas par une mention dans le titre.
+    const portee = localPress && source.department
+      ? { regional: true, motif: "departement" as const }
+      : porteeRegionale(`${title} ${summary}`, orgId);
     const admitted = admitEvent({
       dedupKey,
       family,
@@ -919,9 +940,15 @@ async function ingestNarrative(
       severity: 2,
       confidence: "C3",
       sourceId: source.id,
-      sourceUrl: link || undefined,
-      // La preuve porte le pourquoi du rattachement, pas seulement la source.
-      evidence: { feed: source.name, rattachement: versEvidence(explication), pertinence: { score: pertinence.score, motif: pertinence.reason, termes: pertinence.matches.map((m) => m.term) } },
+      sourceUrl: link || `urn:source:${source.id}`,
+      // La preuve porte le pourquoi du rattachement, pas seulement la source,
+      // et le run de collecte qui a produit l'événement.
+      evidence: withRunId({
+        feed: source.name,
+        rattachement: versEvidence(explication),
+        pertinence: { score: pertinence.score, motif: pertinence.reason, termes: pertinence.matches.map((m) => m.term) },
+        ...(localPress && source.department ? { departement: source.department, presseLocale: true } : {}),
+      }, runId),
       geoType: "unknown",
     });
     contract.record(admitted);
@@ -935,17 +962,17 @@ async function ingestNarrative(
     const event = admitted.event;
     const r = await ingestQuery<{ inserted: boolean }>(
       `INSERT INTO event (dedup_key, family, assertion_type, title, summary, langue, org_id, observed_at, valid_at, at, date_source, date_confidence, severity, confidence,
-        source_id, source_url, evidence, geo_type, admission_rule, regional, regional_motif, fingerprint, pertinence_score, pertinence_rule)
-       VALUES ($1,$2,$13,$3,$10,$22,$11,$4,$20,$21,$5,$6,$14,$15,$7,$8,$9,$16,$12,$17,$18,$19,$23,$24)
+        source_id, source_url, evidence, geo_type, admission_rule, regional, regional_motif, fingerprint, pertinence_score, pertinence_rule, dept)
+       VALUES ($1,$2,$13,$3,$10,$22,$11,$4,$20,$21,$5,$6,$14,$15,$7,$8,$9,$16,$12,$17,$18,$19,$23,$24,$25)
        ON CONFLICT (fingerprint) WHERE fingerprint IS NOT NULL DO NOTHING
        RETURNING (xmax = 0) AS inserted`,
       [event.dedupKey, event.family, event.title, event.observedAt ?? null, parsed.source, parsed.confidence,
-        event.sourceId, event.sourceUrl ?? null, JSON.stringify(event.evidence ?? {}), event.summary ?? null, orgId, admissionRule,
+        event.sourceId, event.sourceUrl ?? `urn:source:${source.id}`, JSON.stringify(event.evidence ?? {}), event.summary ?? null, orgId, admissionRule,
         event.assertionType, event.severity, event.confidence ?? "C3", event.geoType,
         portee.regional, portee.motif, fingerprint,
         // valid_at : la date de l'article ; at : le moment où on l'a lu.
         event.observedAt ?? fetchedAt.toISOString(), fetchedAt.toISOString(), langue.language,
-        pertinence.score, pertinence.rule]
+        pertinence.score, pertinence.rule, localPress ? source.department : null]
     );
     if (r.rows[0]?.inserted) added++;
     faits.push({
@@ -1036,18 +1063,19 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], covera
   const minInterval = (source.interval_sec ?? 3600) * 1000 * 0.8;
   if (!force && !Number.isNaN(reference) && Date.now() - reference < minInterval) return;
 
+  // Le run est ouvert après la lecture du corps mais avant toute écriture
+  // d'événement : chaque ligne cite son identifiant (migration 206).
+  let runId: number | null = null;
   try {
     const body = await fetchText(source.url);
+    runId = await openRun(source.id);
     // 304 Not Modified : rien de neuf, la source reste saine.
     if (body === "") {
       await ingestQuery(
         "UPDATE source SET last_ok_at=now(), last_error=NULL, last_error_at=NULL WHERE id=$1",
         [source.id]
       );
-      await ingestQuery(
-        "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new) VALUES ($1, now(), 'ok', 0, 0)",
-        [source.id]
-      );
+      await closeRun(runId, { itemsIn: 0, itemsNew: 0 });
       return;
     }
     const asIndicator = source.kind === "indicator" || (source.format !== "rss" && looksLikeBlocklist(source.url, body));
@@ -1058,7 +1086,7 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], covera
       : undefined;
     let result = asIndicator
       ? await ingestIndicator(source, body, filterIdx)
-      : await ingestNarrative(source, body, orgIndex, coverage, pertinenceConfig);
+      : await ingestNarrative(source, body, orgIndex, coverage, pertinenceConfig, runId);
     // Flux marqué `indicator` mais livré en JSON/CSV/RSS : les lignes brutes ne
     // portent aucun indicateur, on extrait les valeurs des items structurés.
     if (asIndicator && result.items === 0) {
@@ -1084,19 +1112,11 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], covera
     const rejectedAvecMotif = motifRun
       ? { ...(result.rejected ?? {}), motif: motifRun }
       : (result.rejected ?? undefined);
-    await ingestQuery(
-      "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, items_skipped, items_rejected) VALUES ($1, now(), 'ok', $2, $3, $4, $5)",
-      [source.id, result.items, result.added, result.skipped, rejectedAvecMotif ? JSON.stringify(rejectedAvecMotif) : null]
-    ).catch(async (error: unknown) => {
-      // Base pas encore migrée vers 029 : la collecte ne doit pas être perdue
-      // pour une colonne de diagnostic. On retombe sur l'écriture historique —
-      // mais seulement dans ce cas, sinon on masquerait une vraie panne.
-      const message = String((error as Error)?.message ?? error);
-      if (!message.includes("items_rejected")) throw error;
-      await ingestQuery(
-        "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, items_skipped) VALUES ($1, now(), 'ok', $2, $3, $4)",
-        [source.id, result.items, result.added, result.skipped]
-      );
+    await closeRun(runId, {
+      itemsIn: result.items,
+      itemsNew: result.added,
+      itemsSkipped: result.skipped,
+      itemsRejected: rejectedAvecMotif ?? null,
     });
     // Le changement d'état est un fait : « elle se réveille » et « elle
     // s'assoupit » ne se lisent nulle part ailleurs, et c'est pourtant la seule
@@ -1107,10 +1127,16 @@ async function processSource(source: SourceRow, orgIndex: RelevanceOrg[], covera
     const err = String((e as Error)?.message ?? e);
     await ingestQuery("UPDATE source SET last_error_at=now(), last_error=$1 WHERE id=$2", [err, source.id]).catch(() => {});
     const motifErr = classerMotifEchec({ erreur: err }) ?? "reseau";
-    await ingestQuery(
-      "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, items_rejected, error) VALUES ($1, now(), 'error', 0, 0, $2, $3)",
-      [source.id, JSON.stringify({ motif: motifErr }), err]
-    ).catch(() => {});
+    if (runId !== null) {
+      await closeRun(runId, { status: "error", error: err, itemsRejected: { motif: motifErr } }).catch(() => {});
+    } else {
+      // L'ouverture du run elle-même a échoué : on garde la trace d'échec
+      // historique, sans prétendre citer un run inexistant.
+      await ingestQuery(
+        "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, items_rejected, error) VALUES ($1, now(), 'error', 0, 0, $2, $3)",
+        [source.id, JSON.stringify({ motif: motifErr }), err]
+      ).catch(() => {});
+    }
     await constaterTransition(source.id, "error", 0, err);
   }
 }
@@ -1123,7 +1149,7 @@ export async function runGenericSources(
 	// le moteur générique ne doit pas tenter de les parser comme des flux.
 	const params: unknown[] = [];
 	let sql =
-		"SELECT id, name, family, url, kind, format, parser, interval_sec, last_ok_at, last_error_at, relevance FROM source WHERE enabled AND kind <> 'quarantine' AND id NOT IN ('cert_fr','cisa_kev','ransomlook','epss','hermes_radar_cyber','nvd_cve','ctlog','poc')";
+		"SELECT id, name, family, url, kind, format, parser, interval_sec, last_ok_at, last_error_at, relevance, department FROM source WHERE enabled AND kind <> 'quarantine' AND id NOT IN ('cert_fr','cisa_kev','ransomlook','epss','hermes_radar_cyber','nvd_cve','ctlog','poc','certfr_misp')";
 	if (opts?.sourceIds?.length) {
 		params.push(opts.sourceIds);
 		sql += ` AND id = ANY($${params.length})`;

@@ -1,0 +1,979 @@
+{
+  "corpus": "bench/corpus/sources-transport-86.jsonl",
+  "verifie_le": "2026-11-22T09:48:25.128Z",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+  "method": "fetch GET, redirections suivies, code final",
+  "sources": 28,
+  "sources_valides": 28,
+  "urls_sondees": 65,
+  "urls_200": 65,
+  "detail": [
+    {
+      "nom": "La Nouvelle République — édition Vienne (86)",
+      "type": "presse régionale — édition départementale",
+      "secteur": "transport",
+      "departement": "86",
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.lanouvellerepublique.fr/",
+          "code": 200,
+          "url_finale": "https://www.lanouvellerepublique.fr/",
+          "content_type": "text/html; charset=utf-8",
+          "octets": 1486026,
+          "items": 0,
+          "ms": 302,
+          "titre": "La Nouvelle République - L&#x27;actualité en direct en régions Centre, Poitou, France et Étranger"
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.lanouvellerepublique.fr/vienne",
+          "code": 200,
+          "url_finale": "https://www.lanouvellerepublique.fr/vienne",
+          "content_type": "text/html; charset=utf-8",
+          "octets": 1609305,
+          "items": 0,
+          "ms": 79,
+          "titre": "Vienne : actualités et infos - 86 - La Nouvelle République"
+        },
+        {
+          "role": "flux",
+          "url": "https://www.lanouvellerepublique.fr/api/v1/rss/5e20732239a34f77578b457c",
+          "code": 200,
+          "url_finale": "https://www.lanouvellerepublique.fr/api/v1/rss/5e20732239a34f77578b457c",
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 35987,
+          "items": 40,
+          "ms": 146,
+          "titre": "La Nouvelle République - Vienne"
+        }
+      ],
+      "valide": true
+    },
+    {
+      "nom": "ICI Poitou — actualités Vienne (86)",
+      "type": "radio locale — média public",
+      "secteur": "transport",
+      "departement": "86",
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.ici.fr/radio/poitou",
+          "code": 200,
+          "url_finale": "https://www.ici.fr/radio/poitou",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 384053,
+          "items": 0,
+          "ms": 113,
+          "titre": "ICI Poitou – Écouter la radio en direct, actualité locale et sorties, fréquence radio"
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.ici.fr/nouvelle-aquitaine/vienne-86",
+          "code": 200,
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/vienne-86",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 292896,
+          "items": 0,
+          "ms": 84,
+          "titre": "Vienne (86)  : actualités et podcasts de votre département en direct - ICI"
+        },
+        {
+          "role": "flux",
+          "url": "https://www.ici.fr/rss/poitou/a-la-une.xml",
+          "code": 200,
+          "url_finale": "https://www.ici.fr/rss/poitou/a-la-une.xml",
+          "content_type": "application/xml",
+          "octets": 37434,
+          "items": 40,
+          "ms": 33,
+          "titre": "ICI Poitou"
+        }
+      ],
+      "valide": true
+    },
+    {
+      "nom": "France 3 Nouvelle-Aquitaine — Vienne (86)",
+      "type": "télévision locale — média public",
+      "secteur": "transport",
+      "departement": "86",
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/vienne",
+          "code": 200,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/vienne",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 612600,
+          "items": 0,
+          "ms": 113,
+          "titre": "Vienne : actualités et infos en direct, faits-divers, sport, loisir et culture - France 3 Nouvelle-Aquitaine"
+        },
+        {
+          "role": "flux",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/vienne/rss",
+          "code": 200,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/vienne/rss",
+          "content_type": "text/xml; charset=UTF-8",
+          "octets": 76293,
+          "items": 30,
+          "ms": 43,
+          "titre": "France 3 Régions Nouvelle-Aquitaine - Vienne"
+        }
+      ],
+      "valide": true
+    },
+    {
+      "nom": "actu.fr — Poitiers (Vienne)",
+      "type": "presse locale en ligne",
+      "secteur": "transport",
+      "departement": "86",
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://actu.fr/",
+          "code": 200,
+          "url_finale": "https://actu.fr/",
+          "content_type": "text/html; charset=utf-8",
+          "octets": 931735,
+          "items": 0,
+          "ms": 186,
+          "titre": "Actu : toute l&#039;information locale et nationale en direct"
+        },
+        {
+          "role": "actualites",
+          "url": "https://actu.fr/nouvelle-aquitaine/poitiers_86194",
+          "code": 200,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/poitiers_86194",
+          "content_type": "text/html; charset=utf-8",
+          "octets": 330776,
+          "items": 0,
+          "ms": 78,
+          "titre": "Actu Poitiers | actu.fr"
+        },
+        {
+          "role": "flux",
+          "url": "https://actu.fr/nouvelle-aquitaine/rss.xml",
+          "code": 200,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/rss.xml",
+          "content_type": "application/rss+xml; charset=utf-8",
+          "octets": 33150,
+          "items": 20,
+          "ms": 27,
+          "titre": "Actu Nouvelle-Aquitaine - L'actualité locale - actu.fr"
+        }
+      ],
+      "valide": true
+    },
+    {
+      "nom": "Le 7 — information de proximité dans la Vienne",
+      "type": "presse locale en ligne",
+      "secteur": "transport",
+      "departement": "86",
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.le7.info/",
+          "code": 200,
+          "url_finale": "https://www.le7.info/",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 51887,
+          "items": 0,
+          "ms": 1125,
+          "titre": "L'information de proximité dans la Vienne. | Le7.info"
+        },
+        {
+          "role": "flux",
+          "url": "https://www.le7.info/rss.xml",
+          "code": 200,
+          "url_finale": "https://www.le7.info/rss.xml",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 49860,
+          "items": 10,
+          "ms": 481,
+          "titre": "Le 7 - A la une"
+        }
+      ],
+      "valide": true
+    },
+    {
+      "nom": "AquitaineOnLine — actualités Poitou-Charentes",
+      "type": "média régional en ligne",
+      "secteur": "transport",
+      "departement": "86",
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.aquitaineonline.com/",
+          "code": 200,
+          "url_finale": "https://www.aquitaineonline.com/",
+          "content_type": "text/html; charset=utf-8",
+          "octets": 99569,
+          "items": 0,
+          "ms": 870,
+          "titre": "AquitaineOnLine : Portail d'informations et des loisirs du Sud-Ouest"
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.aquitaineonline.com/actualites-en-aquitaine/poitou-charentes/",
+          "code": 200,
+          "url_finale": "https://www.aquitaineonline.com/actualites-en-aquitaine/poitou-charentes/",
+          "content_type": "text/html; charset=utf-8",
+          "octets": 72175,
+          "items": 0,
+          "ms": 2199,
+          "titre": "Poitou Charentes"
+        },
+        {
+          "role": "flux",
+          "url": "https://www.aquitaineonline.com/actualites-en-aquitaine/poitou-charentes/feed/rss/",
+          "code": 200,
+          "url_finale": "https://www.aquitaineonline.com/actualites-en-aquitaine/poitou-charentes/feed/rss/",
+          "content_type": "application/rss+xml; charset=utf-8",
+          "octets": 11721,
+          "items": 10,
+          "ms": 409,
+          "titre": "Poitou Charentes"
+        }
+      ],
+      "valide": true
+    },
+    {
+      "nom": "TRM24 — actualité du transport routier de marchandises",
+      "type": "presse spécialisée transport",
+      "secteur": "transport",
+      "departement": "86",
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.trm24.fr/",
+          "code": 200,
+          "url_finale": "https://www.trm24.fr/",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 293274,
+          "items": 0,
+          "ms": 150,
+          "titre": "TRM24.fr - TRM24 : Toute l’actualité du transport routier de marchandises en temps réel"
+        },
+        {
+          "role": "flux",
+          "url": "https://www.trm24.fr/feed/",
+          "code": 200,
+          "url_finale": "https://www.trm24.fr/feed/",
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 20823,
+          "items": 10,
+          "ms": 440,
+          "titre": "TRM24.fr"
+        }
+      ],
+      "valide": true
+    },
+    {
+      "nom": "Transport Info",
+      "type": "presse professionnelle transport et logistique",
+      "secteur": "transport",
+      "departement": "86",
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.transportinfo.fr/",
+          "code": 200,
+          "url_finale": "https://www.transportinfo.fr/",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 255238,
+          "items": 0,
+          "ms": 69,
+          "titre": "Transport Info - Le site des professionnels du transport routier"
+        },
+        {
+          "role": "flux",
+          "url": "https://www.transportinfo.fr/feed/",
+          "code": 200,
+          "url_finale": "https://www.transportinfo.fr/feed/",
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 56128,
+          "items": 10,
+          "ms": 15,
+          "titre": "Transport Info"
+        }
+      ],
+      "valide": true
+    },
+    {
+      "nom": "Transporteurs.net",
+      "type": "presse spécialisée transport routier",
+      "secteur": "transport",
+      "departement": "86",
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.transporteurs.net/",
+          "code": 200,
+          "url_finale": "https://www.transporteurs.net/",
+          "content_type": "text/html",
+          "octets": 222242,
+          "items": 0,
+          "ms": 450,
+          "titre": "Transporteurs.net, le site d'information sur le transport"
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.transporteurs.net/index_newA.asp",
+          "code": 200,
+          "url_finale": "https://www.transporteurs.net/index_newA.asp",
+          "content_type": "text/html",
+          "octets": 222242,
+          "items": 0,
+          "ms": 371,
+          "titre": "Transporteurs.net, le site d'information sur le transport"
+        }
+      ],
+      "valide": true
+    },
+    {
+      "nom": "Stratégies Logistique",
+      "type": "presse spécialisée logistique et supply chain",
+      "secteur": "transport",
+      "departement": "86",
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://strategieslogistique.com/",
+          "code": 200,
+          "url_finale": "https://strategieslogistique.com/",
+          "content_type": "text/html; charset=utf-8",
+          "octets": 92587,
+          "items": 0,
+          "ms": 318,
+          "titre": "Stratégies Logistique"
+        }
+      ],
+      "valide": true
+    },
+    {
+      "nom": "CCI de la Vienne — Poitiers",
+      "type": "chambre consulaire — commerce et industrie",
+      "secteur": "transport",
+      "departement": "86",
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.poitiers.cci.fr/",
+          "code": 200,
+          "url_finale": "https://www.poitiers.cci.fr/",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 147898,
+          "items": 0,
+          "ms": 437,
+          "titre": "Accueil - CCI Vienne"
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.poitiers.cci.fr/actualites/",
+          "code": 200,
+          "url_finale": "https://www.poitiers.cci.fr/actualites/",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 121286,
+          "items": 0,
+          "ms": 294,
+          "titre": "Actualités - CCI Vienne"
+        },
+        {
+          "role": "flux",
+          "url": "https://www.poitiers.cci.fr/actualites/feed/",
+          "code": 200,
+          "url_finale": "https://www.poitiers.cci.fr/actualites/feed/",
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 67920,
+          "items": 10,
+          "ms": 314,
+          "titre": "Actualités - CCI Vienne"
+        }
+      ],
+      "valide": true
+    },
+    {
+      "nom": "CMA Nouvelle-Aquitaine — CMA de la Vienne",
+      "type": "chambre consulaire — métiers et artisanat",
+      "secteur": "transport",
+      "departement": "86",
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/nous-trouver/cma-vienne",
+          "code": 200,
+          "url_finale": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/nous-trouver/cma-vienne",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 205339,
+          "items": 0,
+          "ms": 139,
+          "titre": "CMA Poitiers - Vienne (86) Nouvelle-Aquitaine"
+        },
+        {
+          "role": "actualites",
+          "url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites",
+          "code": 200,
+          "url_finale": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 280274,
+          "items": 0,
+          "ms": 568,
+          "titre": "Actualités - CMA Nouvelle-Aquitaine"
+        }
+      ],
+      "valide": true
+    },
+    {
+      "nom": "Département de la Vienne — Mobi'Vienne",
+      "type": "collectivité départementale — mobilités",
+      "secteur": "transport",
+      "departement": "86",
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.lavienne86.fr/",
+          "code": 200,
+          "url_finale": "https://www.lavienne86.fr/",
+          "content_type": "text/html; charset=utf-8",
+          "octets": 337326,
+          "items": 0,
+          "ms": 273,
+          "titre": "Accueil\n\t\t\t\t\t\t - La Vienne le département"
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.lavienne86.fr/fil-infos/actualites",
+          "code": 200,
+          "url_finale": "https://www.lavienne86.fr/fil-infos/actualites",
+          "content_type": "text/html; charset=utf-8",
+          "octets": 251477,
+          "items": 0,
+          "ms": 147,
+          "titre": "Actualités - Page 1 sur 50 - La Vienne le département"
+        },
+        {
+          "role": "flux",
+          "url": "https://www.lavienne86.fr/fil-infos/actualites/rss?tx_news_pi1%5BoverwriteDemand%5D%5Blimit%5D=15&cHash=bab1da884c388b883791bd5dc0f5964c",
+          "code": 200,
+          "url_finale": "https://www.lavienne86.fr/fil-infos/actualites/rss?tx_news_pi1%5BoverwriteDemand%5D%5Blimit%5D=15&cHash=bab1da884c388b883791bd5dc0f5964c",
+          "content_type": "text/xml;charset=utf-8",
+          "octets": 85263,
+          "items": 15,
+          "ms": 252,
+          "titre": "La Vienne le département : Toutes les actualités"
+        }
+      ],
+      "valide": true
+    },
+    {
+      "nom": "Grand Poitiers — actualités et mobilités",
+      "type": "collectivité — autorité organisatrice des transports",
+      "secteur": "transport",
+      "departement": "86",
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.grandpoitiers.fr/",
+          "code": 200,
+          "url_finale": "https://www.grandpoitiers.fr/",
+          "content_type": "text/html; charset=utf-8",
+          "octets": 301846,
+          "items": 0,
+          "ms": 521,
+          "titre": "Accueil - Grand Poitiers Communauté urbaine"
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.grandpoitiers.fr/information-transversale/actualites",
+          "code": 200,
+          "url_finale": "https://www.grandpoitiers.fr/information-transversale/actualites",
+          "content_type": "text/html; charset=utf-8",
+          "octets": 156493,
+          "items": 0,
+          "ms": 276,
+          "titre": "Actualités - Grand Poitiers Communauté urbaine"
+        },
+        {
+          "role": "flux",
+          "url": "https://www.grandpoitiers.fr/information-transversale/actualites/rss",
+          "code": 200,
+          "url_finale": "https://www.grandpoitiers.fr/information-transversale/actualites/rss",
+          "content_type": "text/xml;charset=utf-8",
+          "octets": 164842,
+          "items": 117,
+          "ms": 1856,
+          "titre": "Grand Poitiers Communauté urbaine : Toutes les actualités"
+        }
+      ],
+      "valide": true
+    },
+    {
+      "nom": "Grand Châtellerault — actualités et mobilités",
+      "type": "collectivité — transport à la demande et scolaire",
+      "secteur": "transport",
+      "departement": "86",
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.grand-chatellerault.fr/",
+          "code": 200,
+          "url_finale": "https://www.grand-chatellerault.fr/",
+          "content_type": "text/html;charset=UTF-8",
+          "octets": 1662325,
+          "items": 0,
+          "ms": 742,
+          "titre": "Grand Châtellerault, l&#39;espace d&#39;une vie - Grand Châtellerault"
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.grand-chatellerault.fr/vivre/actualites",
+          "code": 200,
+          "url_finale": "https://www.grand-chatellerault.fr/vivre/actualites",
+          "content_type": "text/html;charset=UTF-8",
+          "octets": 209834,
+          "items": 0,
+          "ms": 181,
+          "titre": "Actualités - Grand Châtellerault"
+        }
+      ],
+      "valide": true
+    },
+    {
+      "nom": "Région Nouvelle-Aquitaine — transports",
+      "type": "région — autorité organisatrice TER et cars",
+      "secteur": "transport",
+      "departement": "86",
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://transports.nouvelle-aquitaine.fr/",
+          "code": 200,
+          "url_finale": "https://transports.nouvelle-aquitaine.fr/",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 131657,
+          "items": 0,
+          "ms": 1215,
+          "titre": "Transports en Nouvelle-Aquitaine"
+        },
+        {
+          "role": "actualites",
+          "url": "https://transports.nouvelle-aquitaine.fr/toute-lactualite-des-transports",
+          "code": 200,
+          "url_finale": "https://transports.nouvelle-aquitaine.fr/toute-lactualite-des-transports",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 104216,
+          "items": 0,
+          "ms": 760,
+          "titre": "Toutes les actualités | Transports"
+        },
+        {
+          "role": "flux",
+          "url": "https://transports.nouvelle-aquitaine.fr/liste-rss/naq_actualite",
+          "code": 200,
+          "url_finale": "https://transports.nouvelle-aquitaine.fr/liste-rss/naq_actualite",
+          "content_type": "application/rss+xml",
+          "octets": 77226,
+          "items": 76,
+          "ms": 527,
+          "titre": "Transports"
+        }
+      ],
+      "valide": true
+    },
+    {
+      "nom": "FNTV Nouvelle-Aquitaine",
+      "type": "fédération régionale des transports de voyageurs",
+      "secteur": "transport",
+      "departement": "86",
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://fntv.fr/",
+          "code": 200,
+          "url_finale": "https://fntv.fr/",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 86158,
+          "items": 0,
+          "ms": 200,
+          "titre": "Fédération Nationale des Transports de Voyageurs - FNTV"
+        },
+        {
+          "role": "actualites",
+          "url": "https://fntv.fr/region/fntv-nouvelle-aquitaine",
+          "code": 200,
+          "url_finale": "https://fntv.fr/region/fntv-nouvelle-aquitaine",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 85052,
+          "items": 0,
+          "ms": 551,
+          "titre": "FNTV - Fédération Nationale des Transports de Voyageurs"
+        }
+      ],
+      "valide": true
+    },
+    {
+      "nom": "OTRE — Organisation professionnelle des transporteurs routiers",
+      "type": "syndicat professionnel du transport routier",
+      "secteur": "transport",
+      "departement": "86",
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.otre.org/",
+          "code": 200,
+          "url_finale": "https://www.otre.org/",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 231208,
+          "items": 0,
+          "ms": 686,
+          "titre": "Accueil - Otre"
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.otre.org/actualites/",
+          "code": 200,
+          "url_finale": "https://www.otre.org/actualites/",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 86133,
+          "items": 0,
+          "ms": 574,
+          "titre": "Actualités - Otre"
+        },
+        {
+          "role": "flux",
+          "url": "https://www.otre.org/feed/",
+          "code": 200,
+          "url_finale": "https://www.otre.org/feed/",
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 47083,
+          "items": 10,
+          "ms": 471,
+          "titre": "Otre"
+        }
+      ],
+      "valide": true
+    },
+    {
+      "nom": "FNTR — Fédération Nationale des Transports Routiers",
+      "type": "fédération professionnelle",
+      "secteur": "transport",
+      "departement": "86",
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.fntr.fr/",
+          "code": 200,
+          "url_finale": "https://www.fntr.fr/",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 143185,
+          "items": 0,
+          "ms": 260,
+          "titre": "Fédération Nationale des Transports Routiers | FNTR"
+        }
+      ],
+      "valide": true
+    },
+    {
+      "nom": "FNTV — Fédération Nationale des Transports de Voyageurs",
+      "type": "fédération professionnelle",
+      "secteur": "transport",
+      "departement": "86",
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.fntv.fr/",
+          "code": 200,
+          "url_finale": "https://fntv.fr/",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 86158,
+          "items": 0,
+          "ms": 219,
+          "titre": "Fédération Nationale des Transports de Voyageurs - FNTV"
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.fntv.fr/actualites-de-la-federation",
+          "code": 200,
+          "url_finale": "https://fntv.fr/actualites-de-la-federation",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 79150,
+          "items": 0,
+          "ms": 373,
+          "titre": "FNTV - Fédération Nationale des Transports de Voyageurs"
+        }
+      ],
+      "valide": true
+    },
+    {
+      "nom": "Vitalis — Régie des Transports Poitevins",
+      "type": "opérateur de transports en commun (Grand Poitiers)",
+      "secteur": "transport",
+      "departement": "86",
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.vitalis-poitiers.fr/",
+          "code": 200,
+          "url_finale": "https://www.vitalis-poitiers.fr/",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 57358,
+          "items": 0,
+          "ms": 147,
+          "titre": "Accueil - Vitalis"
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.vitalis-poitiers.fr/actualites/",
+          "code": 200,
+          "url_finale": "https://www.vitalis-poitiers.fr/actualites/",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 90334,
+          "items": 0,
+          "ms": 18,
+          "titre": "Actualités - Vitalis"
+        }
+      ],
+      "valide": true
+    },
+    {
+      "nom": "Transdev Poitou-Charentes — infos trafic",
+      "type": "opérateur de transport collectif interurbain",
+      "secteur": "transport",
+      "departement": "86",
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.transdev86.fr/",
+          "code": 200,
+          "url_finale": "https://www.transdev86.fr/",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 65048,
+          "items": 0,
+          "ms": 92,
+          "titre": "Transdev Poitou-Charentes Châtellerault - Transdev Poitou-Charentes"
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.transdev86.fr/infos-trafic/",
+          "code": 200,
+          "url_finale": "https://www.transdev86.fr/infos-trafic/",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 60490,
+          "items": 0,
+          "ms": 45,
+          "titre": "Infos trafic - Transdev Poitou-Charentes"
+        }
+      ],
+      "valide": true
+    },
+    {
+      "nom": "Les Rapides du Poitou",
+      "type": "autocars et transport scolaire (Poitiers, 86)",
+      "secteur": "transport",
+      "departement": "86",
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://rapides-du-poitou.com/",
+          "code": 200,
+          "url_finale": "https://rapides-du-poitou.com/",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 329027,
+          "items": 0,
+          "ms": 172,
+          "titre": "Voyages en autocar à Poitiers | Les Rapides du Poitou"
+        },
+        {
+          "role": "actualites",
+          "url": "https://rapides-du-poitou.com/category/actualites/",
+          "code": 200,
+          "url_finale": "https://rapides-du-poitou.com/category/actualites/",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 198753,
+          "items": 0,
+          "ms": 65,
+          "titre": "Actualités | Les Rapides du Poitou"
+        },
+        {
+          "role": "flux",
+          "url": "https://rapides-du-poitou.com/category/actualites/feed/",
+          "code": 200,
+          "url_finale": "https://rapides-du-poitou.com/category/actualites/feed/",
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 9693,
+          "items": 10,
+          "ms": 23,
+          "titre": "Actualités &#8211; Les Rapides du Poitou"
+        }
+      ],
+      "valide": true
+    },
+    {
+      "nom": "Transports Courcelle",
+      "type": "transporteur routier, exceptionnel et manutention (86)",
+      "secteur": "transport",
+      "departement": "86",
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.transports-courcelle.fr/",
+          "code": 200,
+          "url_finale": "https://www.transports-courcelle.fr/",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 180946,
+          "items": 0,
+          "ms": 171,
+          "titre": "Transports Courcelle - Transports exceptionnels Lyon, Paris, Toulouse, ..."
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.transports-courcelle.fr/actualites",
+          "code": 200,
+          "url_finale": "https://www.transports-courcelle.fr/actualites",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 45744,
+          "items": 0,
+          "ms": 42,
+          "titre": "Actualités | Transports Courcelle"
+        }
+      ],
+      "valide": true
+    },
+    {
+      "nom": "Technopole Futuroscope",
+      "type": "plateforme logistique et pôle d'échanges multimodal (86)",
+      "secteur": "transport",
+      "departement": "86",
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.technopole-futuroscope.com/",
+          "code": 200,
+          "url_finale": "https://www.technopole-futuroscope.com/",
+          "content_type": "text/html; charset=utf-8",
+          "octets": 44667,
+          "items": 0,
+          "ms": 218,
+          "titre": "Accueil\n\t\t\t\t\t\t - Technopole Futuroscope"
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.technopole-futuroscope.com/informations-transversales/actualites",
+          "code": 200,
+          "url_finale": "https://www.technopole-futuroscope.com/informations-transversales/actualites",
+          "content_type": "text/html; charset=utf-8",
+          "octets": 51755,
+          "items": 0,
+          "ms": 119,
+          "titre": "Actualités - Page 1 sur 2 - Département de la Vienne"
+        }
+      ],
+      "valide": true
+    },
+    {
+      "nom": "Groupe Mauffrey — établissement de Poitiers",
+      "type": "transporteur routier et logisticien",
+      "secteur": "transport",
+      "departement": "86",
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://mauffrey.com/",
+          "code": 200,
+          "url_finale": "https://mauffrey.com/",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 130182,
+          "items": 0,
+          "ms": 112,
+          "titre": "Mauffrey &bull; Entreprise de transport routier et logistique"
+        },
+        {
+          "role": "actualites",
+          "url": "https://mauffrey.com/actualites/",
+          "code": 200,
+          "url_finale": "https://mauffrey.com/actualites/",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 101433,
+          "items": 0,
+          "ms": 29,
+          "titre": "Découvrez les actualités du Groupe Mauffrey"
+        },
+        {
+          "role": "flux",
+          "url": "https://mauffrey.com/feed/",
+          "code": 200,
+          "url_finale": "https://mauffrey.com/feed/",
+          "content_type": "text/xml;charset=UTF-8",
+          "octets": 6782,
+          "items": 10,
+          "ms": 152,
+          "titre": "Groupe Mauffrey"
+        }
+      ],
+      "valide": true
+    },
+    {
+      "nom": "Jeantet Ouest (groupe STJ) — Châtellerault",
+      "type": "transporteur routier, distribution et logistique (86)",
+      "secteur": "transport",
+      "departement": "86",
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.jeantetouest.fr/",
+          "code": 200,
+          "url_finale": "https://www.jeantetouest.fr/",
+          "content_type": "text/html",
+          "octets": 15134,
+          "items": 0,
+          "ms": 97,
+          "titre": "Jeantet Ouest (Châtellerault 86): transports et logistique"
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.jeantetouest.fr/categorie-16979-actualites.html",
+          "code": 200,
+          "url_finale": "https://www.jeantetouest.fr/categorie-16979-actualites.html",
+          "content_type": "text/html",
+          "octets": 8661,
+          "items": 0,
+          "ms": 27,
+          "titre": "Actualités STJO Jeantet Ouest (86 Châtellerault)"
+        }
+      ],
+      "valide": true
+    },
+    {
+      "nom": "T.E.F.T. — Transport Express Fort Thubert",
+      "type": "transport express et messagerie (Valence-en-Poitou, 86)",
+      "secteur": "transport",
+      "departement": "86",
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.sarlteft.com/",
+          "code": 200,
+          "url_finale": "https://www.sarlteft.com/",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 47764,
+          "items": 0,
+          "ms": 245,
+          "titre": "Transport express messagerie & marchandises Vienne 86 | T.E.F.T"
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.sarlteft.com/actualites.html",
+          "code": 200,
+          "url_finale": "https://www.sarlteft.com/actualites.html",
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 39404,
+          "items": 0,
+          "ms": 116,
+          "titre": "Actualités | T.E.F.T : transport express messagerie Vienne 86"
+        }
+      ],
+      "valide": true
+    }
+  ]
+}
