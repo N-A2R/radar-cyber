@@ -106,3 +106,42 @@ export function countLeaksByDomain(
 ): number {
   return attachLeaksByDomain(claims, organizations).length;
 }
+
+/** Publishable breakdown of counted leaks, keyed by NA department and source. */
+export type LeakSummary = {
+  byDepartment: Readonly<Record<string, number>>;
+  bySource: Readonly<Record<string, number>>;
+};
+
+/**
+ * Groups counted attachments by department code and by source. Nothing else
+ * leaves the quarantine: no claim body, victim name or contact is exposed.
+ * An attachment whose organization is not in Nouvelle-Aquitaine is ignored.
+ */
+export function summarizeLeaksByDomain(
+  attachments: readonly DomainAttachment[],
+  organizations: readonly DomainOrganization[],
+): LeakSummary {
+  const departments = new Map<number, string>();
+  for (const org of organizations) {
+    if (!org.department || !isNaDepartment(org.department)) continue;
+    const value = fold(org.department);
+    const code = DEPT_LABELS[value] !== undefined
+      ? value
+      : Object.keys(DEPT_LABELS).find((candidate) => fold(DEPT_LABELS[candidate] ?? "") === value);
+    if (code !== undefined) departments.set(org.id, code);
+  }
+
+  const byDepartment: Record<string, number> = {};
+  const bySource: Record<string, number> = {};
+  for (const attachment of attachments) {
+    const code = departments.get(attachment.orgId);
+    if (code === undefined) continue;
+    byDepartment[code] = (byDepartment[code] ?? 0) + 1;
+    bySource[attachment.source] = (bySource[attachment.source] ?? 0) + 1;
+  }
+  return {
+    byDepartment: Object.fromEntries(Object.entries(byDepartment).sort(([a], [b]) => a.localeCompare(b))),
+    bySource: Object.fromEntries(Object.entries(bySource).sort(([a], [b]) => a.localeCompare(b))),
+  };
+}

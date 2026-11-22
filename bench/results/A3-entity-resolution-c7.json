@@ -1,0 +1,185 @@
+{
+  "date": "2026-11-22",
+  "moteur": "gazetteer@4+context-resolution",
+  "jeu": {
+    "organisations": 40,
+    "cas": 75,
+    "alias": 62
+  },
+  "constructionMs": 3,
+  "latence": {
+    "p50": 0.062,
+    "p95": 0.692,
+    "max": 1.102
+  },
+  "global": {
+    "cas": 75,
+    "rappel": 1,
+    "precision": 1,
+    "f1": 1,
+    "trouves": 53,
+    "faux": 0,
+    "abstentions": 0,
+    "bruit": 0,
+    "attendus": 53
+  },
+  "parSecteur": {
+    "sante": {
+      "cas": 11,
+      "rappel": 1,
+      "precision": 1,
+      "f1": 1,
+      "trouves": 11,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 11
+    },
+    "collectivite": {
+      "cas": 11,
+      "rappel": 1,
+      "precision": 1,
+      "f1": 1,
+      "trouves": 11,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 11
+    },
+    "enseignement": {
+      "cas": 8,
+      "rappel": 1,
+      "precision": 1,
+      "f1": 1,
+      "trouves": 8,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 8
+    },
+    "entreprise": {
+      "cas": 16,
+      "rappel": 1,
+      "precision": 1,
+      "f1": 1,
+      "trouves": 16,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 16
+    },
+    "recherche": {
+      "cas": 2,
+      "rappel": 1,
+      "precision": 1,
+      "f1": 1,
+      "trouves": 2,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 2
+    },
+    "operateur": {
+      "cas": 5,
+      "rappel": 1,
+      "precision": 1,
+      "f1": 1,
+      "trouves": 5,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 5
+    }
+  },
+  "parCategorie": {
+    "exact": {
+      "cas": 25,
+      "rappel": 1,
+      "precision": 1,
+      "f1": 1,
+      "trouves": 25,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 25
+    },
+    "alias": {
+      "cas": 21,
+      "rappel": 1,
+      "precision": 1,
+      "f1": 1,
+      "trouves": 21,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 21
+    },
+    "short-no-context": {
+      "cas": 7,
+      "rappel": 0,
+      "precision": 1,
+      "f1": 0,
+      "trouves": 0,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 0
+    },
+    "substring-trap": {
+      "cas": 3,
+      "rappel": 0,
+      "precision": 1,
+      "f1": 0,
+      "trouves": 0,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 0
+    },
+    "ambiguity": {
+      "cas": 3,
+      "rappel": 0,
+      "precision": 1,
+      "f1": 0,
+      "trouves": 0,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 0
+    },
+    "homonym": {
+      "cas": 2,
+      "rappel": 0,
+      "precision": 1,
+      "f1": 0,
+      "trouves": 0,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 0
+    },
+    "typo": {
+      "cas": 7,
+      "rappel": 1,
+      "precision": 1,
+      "f1": 1,
+      "trouves": 7,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 7
+    },
+    "none": {
+      "cas": 7,
+      "rappel": 0,
+      "precision": 1,
+      "f1": 0,
+      "trouves": 0,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 0
+    }
+  },
+  "echecs": []
+}
