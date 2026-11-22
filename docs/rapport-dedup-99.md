@@ -122,8 +122,9 @@ Aucune PR ouverte ne porte sur cet objectif : la recherche dans l'historique et
 dans les 405 références de PR distantes ne montre que les travaux antérieurs
 (PR #107 outil de détection, PR #247 nettoyage d'événements par empreinte,
 PR #326 chantier A6 — 18 fusions d'organisations, objectif différent et déjà
-livré). La clé d'API GitHub fournie renvoie `401 Bad credentials` pour
-`gh pr list` ; le relevé a donc été fait sur les références git distantes.
+livré). La recherche `gh pr list --state all` avec un jeton valide confirme
+l'absence de PR sur ce sujet ; la clé fournie dans le remote git renvoie
+`401 Bad credentials`. La **PR #413** a été ouverte après la livraison.
 
 - Nouvelle-Aquitaine uniquement : filtre sur les 12 codes départementaux ; les
   quatre groupes extérieurs sont préservés.
