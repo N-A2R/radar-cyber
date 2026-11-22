@@ -1,0 +1,18 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:a8b02db8-e789-4f27-a113-1bcfbb5ba161>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 132
+WARC-Block-Digest: sha1:PZDFZNDXRWSZ7EAUSZWMC6SDCLMQFLRL
+X-Claim-Fingerprint: 7a2f3a344c8cd5b19d52b012
+X-Victim-Key: 8faa13fbeda994e4f4fad122
+
+{
+        "post_title": "HB Construction",
+        "group_name": "hunters",
+        "discovered": "2024-09-13 14:38:13.315820"
+    }
+

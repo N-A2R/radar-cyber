@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:168aa1c3-cc0f-4d67-a966-cacf5d1b20dd>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/posts/2025
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 384
+WARC-Block-Digest: sha1:KQQKPXFJLYQMYLZWKDDE2HV2CSA2UNH3
+X-Claim-Fingerprint: e6a16b7c303df4a839e90025
+X-Victim-Key: e4078a715e9c20c97c025e27
+
+{"post_title": "fol-23.fr", "discovered": "2025-01-17 16:42:59.182265", "description": "The Federation of Secular Works of the Creuse brings together each year between 230 and 250 assoc...", "link": "/page_company.php?id=113", "magnet": null, "screen": "screenshots/eraleign (apt73)/fol-23fr.png", "misp_uuid": "1f5657c8-e018-5433-adfb-c649551f1c70", "group_name": "eraleign (apt73)"}
+

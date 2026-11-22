@@ -1,0 +1,18 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:f143df8c-54fb-48dd-a8f3-62a557134ffa>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 132
+WARC-Block-Digest: sha1:M7WTMTIN4RONP5R6RTBV4KCVTBXRJJJZ
+X-Claim-Fingerprint: b7fae826926606378a669113
+X-Victim-Key: 340518de43a3c6677eacf5d1
+
+{
+        "post_title": "B Electric Inc",
+        "group_name": "bianlian",
+        "discovered": "2024-02-06 15:38:47.900991"
+    }
+

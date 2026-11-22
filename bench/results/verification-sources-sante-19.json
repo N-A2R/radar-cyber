@@ -1,0 +1,487 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-sante-19.jsonl",
+  "secteur": "santé",
+  "departement": "19",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36",
+  "methode": "GET avec suivi des redirections, statut HTTP final et type de contenu",
+  "sources": 24,
+  "urls_verifiees": 65,
+  "urls_200": 65,
+  "anomalies": [],
+  "detail": {
+    "Centre hospitalier de Brive-la-Gaillarde": {
+      "https://ch-brive.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://ch-brive.fr/"
+      },
+      "https://ch-brive.fr/category/actualites/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://ch-brive.fr/category/actualites/"
+      },
+      "https://ch-brive.fr/category/actualites/feed/": {
+        "code": 200,
+        "type": "application/rss+xml; charset=UTF-8",
+        "final": "https://ch-brive.fr/category/actualites/feed/"
+      },
+      "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/"
+      }
+    },
+    "Centre hospitalier de Tulle — Cœur de Corrèze": {
+      "https://www.ch-tulle.fr/": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.ch-tulle.fr/fr/"
+      },
+      "https://www.ch-tulle.fr/fr/actualites": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.ch-tulle.fr/fr/actualites"
+      },
+      "https://www.ch-tulle.fr/fr/actualites?rss": {
+        "code": 200,
+        "type": "application/xml; charset=utf-8",
+        "final": "https://www.ch-tulle.fr/fr/actualites?rss"
+      },
+      "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/"
+      }
+    },
+    "Centre hospitalier de Haute-Corrèze (Ussel)": {
+      "https://ch-ussel.fr/": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://ch-ussel.fr/"
+      },
+      "https://ch-ussel.fr/le-centre-hospitalier-de-haute-correze/actualite.html": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://ch-ussel.fr/le-centre-hospitalier-de-haute-correze/actualite.html"
+      },
+      "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/"
+      }
+    },
+    "EHPAD Résidence Les Écureuils (CHHC Ussel)": {
+      "https://ch-ussel.fr/residents-les-ecureuils/presentation-ehpad-et-long-sejour.html": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://ch-ussel.fr/residents-les-ecureuils/presentation-ehpad-et-long-sejour.html"
+      },
+      "https://ch-ussel.fr/le-centre-hospitalier-de-haute-correze/actualite.html": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://ch-ussel.fr/le-centre-hospitalier-de-haute-correze/actualite.html"
+      },
+      "https://www.nouvelle-aquitaine.ars.sante.fr/incident-de-securite-concernant-la-plateforme-de-recueil-des-autorisations-parentales-des-0": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.nouvelle-aquitaine.ars.sante.fr/incident-de-securite-concernant-la-plateforme-de-recueil-des-autorisations-parentales-des-0"
+      }
+    },
+    "CPAM de la Corrèze — Assurance Maladie": {
+      "https://www.ameli.fr/correze/": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.ameli.fr/correze"
+      },
+      "https://www.ameli.fr/correze/assure/liste-actualites-locales": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.ameli.fr/correze/assure/liste-actualites-locales"
+      },
+      "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/"
+      }
+    },
+    "ARS Nouvelle-Aquitaine — périmètre Corrèze (19)": {
+      "https://www.nouvelle-aquitaine.ars.sante.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.nouvelle-aquitaine.ars.sante.fr/"
+      },
+      "https://www.nouvelle-aquitaine.ars.sante.fr/liste-actualites?archive=0": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.nouvelle-aquitaine.ars.sante.fr/liste-actualites?archive=0"
+      },
+      "https://www.nouvelle-aquitaine.ars.sante.fr/rss.xml?type=ars_actualite": {
+        "code": 200,
+        "type": "application/rss+xml; charset=utf-8",
+        "final": "https://www.nouvelle-aquitaine.ars.sante.fr/rss.xml?type=ars_actualite"
+      },
+      "https://www.nouvelle-aquitaine.ars.sante.fr/incident-de-securite-concernant-la-plateforme-de-recueil-des-autorisations-parentales-des-0": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.nouvelle-aquitaine.ars.sante.fr/incident-de-securite-concernant-la-plateforme-de-recueil-des-autorisations-parentales-des-0"
+      }
+    },
+    "Conseil départemental de la Corrèze — Corrèze Santé": {
+      "https://www.correze.fr/correze-sante": {
+        "code": 200,
+        "type": "text/html;charset=UTF-8",
+        "final": "https://www.correze.fr/correze-sante"
+      },
+      "https://www.correze.fr/#home-actus": {
+        "code": 200,
+        "type": "text/html;charset=UTF-8",
+        "final": "https://www.correze.fr/#home-actus"
+      },
+      "https://www.correze.fr/rss": {
+        "code": 200,
+        "type": "application/rss+xml",
+        "final": "https://www.correze.fr/rss"
+      },
+      "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/"
+      }
+    },
+    "CMC Clinique Les Cèdres (ELSAN) — Brive-la-Gaillarde": {
+      "https://www.elsan.care/fr/cmc-les-cedres": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.elsan.care/fr/cmc-les-cedres"
+      },
+      "https://www.elsan.care/fr/nos-actualites?etablissement=1746": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.elsan.care/fr/nos-actualites?etablissement=1746"
+      },
+      "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/"
+      }
+    },
+    "Laboratoire Novabio — sites de Brive-Rivet et Malemort": {
+      "https://www.novabio.fr/": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.novabio.fr/"
+      },
+      "https://www.novabio.fr/Actualites-Novabio-Biologie-Laboratoire.p.htm": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.novabio.fr/Actualites-Novabio-Biologie-Laboratoire.p.htm"
+      },
+      "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/"
+      }
+    },
+    "Conseil départemental de l'Ordre des médecins de la Corrèze": {
+      "https://conseil19.ordre.medecin.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://conseil19.ordre.medecin.fr/"
+      },
+      "https://conseil19.ordre.medecin.fr/actualites": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://conseil19.ordre.medecin.fr/actualites"
+      },
+      "https://conseil19.ordre.medecin.fr/actualites/les-bonnes-pratiques-de-cybersecurite": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://conseil19.ordre.medecin.fr/actualites/les-bonnes-pratiques-de-cybersecurite"
+      }
+    },
+    "Ordre national des infirmiers — compétence Corrèze": {
+      "https://www.ordre-infirmiers.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ordre-infirmiers.fr/"
+      },
+      "https://www.ordre-infirmiers.fr/publications": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ordre-infirmiers.fr/publications"
+      },
+      "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/"
+      }
+    },
+    "Ordre national des masseurs-kinésithérapeutes — compétence Corrèze": {
+      "https://www.ordremk.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ordremk.fr/"
+      },
+      "https://www.ordremk.fr/actualites/ordre/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ordremk.fr/actualites/ordre/"
+      },
+      "https://www.ordremk.fr/feed/": {
+        "code": 200,
+        "type": "application/rss+xml; charset=UTF-8",
+        "final": "https://www.ordremk.fr/feed/"
+      },
+      "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/"
+      }
+    },
+    "Ordre national des pharmaciens — compétence Corrèze": {
+      "https://www.ordre.pharmacien.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ordre.pharmacien.fr/"
+      },
+      "https://www.ordre.pharmacien.fr/les-communications/les-communications": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ordre.pharmacien.fr/les-communications/les-communications"
+      },
+      "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/"
+      }
+    },
+    "URPS Médecins Libéraux Nouvelle-Aquitaine": {
+      "https://www.urpsml-na.org/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.urpsml-na.org/"
+      },
+      "https://www.urpsml-na.org/organisation-des-soins/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.urpsml-na.org/organisation-des-soins/"
+      },
+      "https://www.urpsml-na.org/feed/": {
+        "code": 200,
+        "type": "application/rss+xml; charset=UTF-8",
+        "final": "https://www.urpsml-na.org/feed/"
+      },
+      "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/"
+      }
+    },
+    "FHF Nouvelle-Aquitaine — Fédération Hospitalière de France": {
+      "https://fhf-na.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://fhf-na.fr/"
+      },
+      "https://fhf-na.fr/category/newsletter/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://fhf-na.fr/category/newsletter/"
+      },
+      "https://fhf-na.fr/feed/": {
+        "code": 200,
+        "type": "application/rss+xml; charset=UTF-8",
+        "final": "https://fhf-na.fr/feed/"
+      },
+      "https://fhf-na.fr/2024/01/29/actualites-4/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://fhf-na.fr/2024/01/29/actualites-4/"
+      }
+    },
+    "France Assos Santé Nouvelle-Aquitaine — délégation Limousin": {
+      "https://nouvelle-aquitaine.france-assos-sante.org/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://nouvelle-aquitaine.france-assos-sante.org/"
+      },
+      "https://nouvelle-aquitaine.france-assos-sante.org/actualites/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://nouvelle-aquitaine.france-assos-sante.org/actualites/"
+      },
+      "https://nouvelle-aquitaine.france-assos-sante.org/feed/": {
+        "code": 200,
+        "type": "application/rss+xml; charset=UTF-8",
+        "final": "https://nouvelle-aquitaine.france-assos-sante.org/feed/"
+      },
+      "https://nouvelle-aquitaine.france-assos-sante.org/2024/02/21/15328/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://nouvelle-aquitaine.france-assos-sante.org/2024/02/21/15328/"
+      }
+    },
+    "CMA Nouvelle-Aquitaine — CMA Corrèze (19)": {
+      "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/nous-trouver/cma-correze": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/nous-trouver/cma-correze"
+      },
+      "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites/"
+      },
+      "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/"
+      }
+    },
+    "La Montagne — édition Corrèze": {
+      "https://www.lamontagne.fr/correze": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.lamontagne.fr/correze"
+      },
+      "https://www.lamontagne.fr/actualites/sante": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.lamontagne.fr/actualites/sante"
+      },
+      "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/"
+      }
+    },
+    "Sud Ouest — édition Corrèze": {
+      "https://www.sudouest.fr/correze/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.sudouest.fr/correze/"
+      },
+      "https://www.sudouest.fr/sante/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.sudouest.fr/sante/"
+      },
+      "https://www.sudouest.fr/correze/rss.xml": {
+        "code": 200,
+        "type": "application/xml",
+        "final": "https://www.sudouest.fr/correze/rss.xml"
+      },
+      "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/"
+      }
+    },
+    "actu.fr — Corrèze (19)": {
+      "https://actu.fr/nouvelle-aquitaine/correze_19/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://actu.fr/nouvelle-aquitaine/correze_19"
+      },
+      "https://actu.fr/tag/sante": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://actu.fr/tag/sante"
+      },
+      "https://actu.fr/nouvelle-aquitaine/correze_19/rss.xml": {
+        "code": 200,
+        "type": "application/rss+xml; charset=utf-8",
+        "final": "https://actu.fr/nouvelle-aquitaine/correze_19/rss.xml"
+      },
+      "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/"
+      }
+    },
+    "ICI Corrèze (ex France Bleu Limousin)": {
+      "https://www.ici.fr/nouvelle-aquitaine/correze-19": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ici.fr/nouvelle-aquitaine/correze-19"
+      },
+      "https://www.ici.fr/infos/sante-sciences": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ici.fr/infos/sante-sciences"
+      },
+      "https://www.ici.fr/rss/limousin/rubrique/infos.xml": {
+        "code": 200,
+        "type": "application/xml",
+        "final": "https://www.ici.fr/rss/limousin/rubrique/infos.xml"
+      },
+      "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/"
+      }
+    },
+    "France 3 Nouvelle-Aquitaine — Corrèze": {
+      "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze"
+      },
+      "https://www.franceinfo.fr/sante/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.franceinfo.fr/sante/"
+      },
+      "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/"
+      }
+    },
+    "Le Journal des Entreprises — Nouvelle-Aquitaine, rubrique Santé": {
+      "https://www.lejournaldesentreprises.com/nouvelle-aquitaine": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.lejournaldesentreprises.com/nouvelle-aquitaine"
+      },
+      "https://www.lejournaldesentreprises.com/secteurs-activite/services/sante": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.lejournaldesentreprises.com/secteurs-activite/services/sante"
+      },
+      "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine": {
+        "code": 200,
+        "type": "text/xml; charset=UTF-8",
+        "final": "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine"
+      },
+      "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/"
+      }
+    },
+    "Brivemag — magazine de la Ville de Brive-la-Gaillarde": {
+      "https://www.brive.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.brive.fr/"
+      },
+      "https://brivemag.brive.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://brivemag.brive.fr/"
+      },
+      "https://www.brive.fr/feed/": {
+        "code": 200,
+        "type": "application/rss+xml; charset=UTF-8",
+        "final": "https://www.brive.fr/feed/"
+      },
+      "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/"
+      }
+    }
+  }
+}

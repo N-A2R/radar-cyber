@@ -211,3 +211,9 @@ export function summariseDetections(detections: readonly PreClaimDetection[]): D
 		totalLeadDays: round(total),
 	};
 }
+
+/** French objective declaration included in generated reports. */
+export function objectiveStatement(detected: number, target: number): string {
+	if (detected >= target) return `OBJECTIF : atteint — ${detected} / ${target}`;
+	return `OBJECTIF : partiel — ${detected} / ${target}, manque ${target - detected}`;
+}
