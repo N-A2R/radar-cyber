@@ -37,3 +37,5 @@
 ## Méthode
 
 Recherche des organisations du droit dans les Pyrénées-Atlantiques (ordre des avocats de Pau, notariat de Pau, tribunaux et cour d'appel, chambres consulaires, presse locale, UDAF, annuaires professionnels), lecture des pages publiques pour repérer rubriques d'actualités et flux, puis contrôle HTTP de chaque URL par GET avec redirections suivies (User-Agent `RadarCyberCorpus/1.0`, timeout 25 s). Seules les URL ayant répondu 200 ont été intégrées au corpus et à la base.
+
+OBJECTIF : atteint — 16 / 5
