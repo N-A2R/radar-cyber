@@ -68,3 +68,5 @@ cd apps/api && DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
 ```
 
 Un test par comportement : périmètre et sources grises, redaction, stabilité du digest et détection de modification, refus d'une mauvaise phrase secrète, rejet d'un octet corrompu, restauration complète, et ligne de mesure reproductible. Le typecheck de l'API passe également (`tsc --noEmit`).
+
+OBJECTIF : atteint — 59 / 59 faits NA éligibles scellés, chiffrés et restaurés (100 %) en 6 étapes sur 6 à la livraison ; mesure reproductible : `DATABASE_URL=postgres://radar:radar@localhost:5433/radar apps/api/node_modules/.bin/tsx scripts/measure-cold-archive.mts` ; rejeu du 22/11/2026 sur la base partagée élargie : 81 / 81 (100 %), 37 sources, sha256=48369df74c9a9ffe8568dcb99efeb0fa54ec92a16484f1f43877c9b5aaa0c857, soit le même taux sur un périmètre élargi.
