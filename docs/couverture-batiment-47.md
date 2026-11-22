@@ -55,3 +55,4 @@ Qualibat et guide de cybersécurité pour les TPE artisanales sur Artisanat.fr
 tentatives de piratage quotidiennes chez Coaxis (Lot-et-Garonne), relayé par la
 veille Google Actualités. Les autres entrées décrivent un vecteur sectoriel,
 sans incident nommé dans la page observée.
+OBJECTIF : atteint — 28 / 5 sources vérifiées en HTTP 200 pour le couple secteur « bâtiment » / département 47 (Lot-et-Garonne).
