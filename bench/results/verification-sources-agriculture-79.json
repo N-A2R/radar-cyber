@@ -1,0 +1,605 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-agriculture-79.jsonl",
+  "secteur": "agriculture",
+  "departement": "79",
+  "methode": "GET réel avec redirections suivies, User-Agent navigateur, délai 25 s (Node fetch) ; code HTTP, type de contenu, URL finale et items RSS enregistrés",
+  "sources": 25,
+  "urls_verifiees": 61,
+  "urls_200": 61,
+  "candidats_ecartes": [
+    "https://deux-sevres.chambres-agriculture.fr/ et http://www.deux-sevres.chambagri.fr/ : site en maintenance (HTTP 503) ; la chambre est couverte ici par l'annuaire national et la Chambre régionale Nouvelle-Aquitaine.",
+    "https://www.fdsea79.fr/, https://fdsea79.fr/, https://fdsea79.com/ et https://www.fdsea-niort.fr/ : aucun serveur ; FDSEA 79 remplacée ici par les syndicats départementaux joignables (MODEF, Coordination Rurale, Jeunes Agriculteurs).",
+    "https://www.ici.fr/nouvelle-aquitaine/niort-79 et https://www.ici.fr/nouvelle-aquitaine/deux-sevres : 404 ; page départementale valide https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79.",
+    "https://www.ici.fr/rss/deux-sevres/a-la-une.xml et https://actu.fr/nouvelle-aquitaine/deux-sevres_79/rss.xml : 404 / flux vide ; flux actu.fr valide https://actu.fr/deux-sevres/rss.xml (20 items).",
+    "https://www.coordinationrurale.fr/feed/, https://www.bionouvelleaquitaine.com/feed/, https://nouvelle-aquitaine.cuma.fr/feed/, https://www.cuma.fr/feed/, https://www.safer.fr/feed/ : HTTP 200 mais zéro item — non retenus comme flux.",
+    "https://www.sr79.fr/, https://www.chambre-agriculture79.fr/, https://www.agri79.fr/ : domaines sans réponse.",
+    "https://www.srd79.fr/, https://www.bio79.fr/ : noms de domaines sans service ; le service de remplacement et la bio sont couverts par les réseaux régionaux (Cuma, Bio Nouvelle-Aquitaine, FNAB).",
+    "Le Courrier de l'Ouest (le courrier de l'ouest.fr) : HTTP 403 anti-bot ; non retenu."
+  ],
+  "cyber": [
+    {
+      "titre": "Votre élevage dans le viseur des hackers",
+      "url": "https://www.reussir.fr/articles/votre-elevage-dans-le-viseur-des-hackers",
+      "code": 200
+    },
+    {
+      "titre": "Cyberattaque : des hackers demandent une rançon à des Chambres d'agriculture",
+      "url": "https://www.lafranceagricole.fr/chambre-dagriculture/article/758257/des-hackers-demandent-une-ranon--des-chambres-dagriculture",
+      "code": 200
+    },
+    {
+      "titre": "Une cyberattaque touche la coopérative numérique des éleveurs du grand sud-ouest",
+      "url": "https://www.lafranceagricole.fr/elevage/article/876452/30-000-eleveurs-touches-par-une-cyberattaque",
+      "code": 200
+    }
+  ],
+  "detail": [
+    {
+      "nom": "MODEF 79 (Fédération départementale des Deux-Sèvres)",
+      "urls": [
+        {
+          "url": "https://www.modef.fr/nos-federations/dep79/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.modef.fr/nos-federations/dep79/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.modef.fr/categorie/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.modef.fr/categorie/actualites/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.modef.fr/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.modef.fr/feed/",
+          "items_rss": 10
+        }
+      ]
+    },
+    {
+      "nom": "Coordination Rurale — section Deux-Sèvres",
+      "urls": [
+        {
+          "url": "https://www.coordinationrurale.fr/nos-cr-locales/deux-sevres/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.coordinationrurale.fr/nos-cr-locales/deux-sevres/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.coordinationrurale.fr/lactualite/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.coordinationrurale.fr/lactualite/",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Jeunes Agriculteurs Deux-Sèvres",
+      "urls": [
+        {
+          "url": "https://www.jeunes-agriculteurs.fr/reseau/jeunes-agriculteurs-deux-sevres/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.jeunes-agriculteurs.fr/reseau/jeunes-agriculteurs-deux-sevres/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.jeunes-agriculteurs.fr/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.jeunes-agriculteurs.fr/actualites/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.jeunes-agriculteurs.fr/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.jeunes-agriculteurs.fr/feed/",
+          "items_rss": 10
+        }
+      ]
+    },
+    {
+      "nom": "Chambre régionale d'agriculture Nouvelle-Aquitaine (couvre le 79)",
+      "urls": [
+        {
+          "url": "https://nouvelle-aquitaine.chambres-agriculture.fr/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://nouvelle-aquitaine.chambres-agriculture.fr/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://nouvelle-aquitaine.chambres-agriculture.fr/actualites",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://nouvelle-aquitaine.chambres-agriculture.fr/actualites",
+          "items_rss": 0
+        },
+        {
+          "url": "https://nouvelle-aquitaine.chambres-agriculture.fr/actualites.rss",
+          "code": 200,
+          "type": "text/xml; charset=utf-8",
+          "url_finale": "https://nouvelle-aquitaine.chambres-agriculture.fr/actualites.rss",
+          "items_rss": 20
+        }
+      ]
+    },
+    {
+      "nom": "Annuaire des Chambres d'agriculture France (recense le 79)",
+      "urls": [
+        {
+          "url": "https://chambres-agriculture.fr/le-reseau-chambres/qui-sommes-nous/annuaire-des-chambres",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://chambres-agriculture.fr/le-reseau-chambres/qui-sommes-nous/annuaire-des-chambres",
+          "items_rss": 0
+        },
+        {
+          "url": "https://chambres-agriculture.fr/actualites",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://chambres-agriculture.fr/actualites",
+          "items_rss": 0
+        },
+        {
+          "url": "https://chambres-agriculture.fr/presse.rss",
+          "code": 200,
+          "type": "text/xml; charset=utf-8",
+          "url_finale": "https://chambres-agriculture.fr/presse.rss",
+          "items_rss": 20
+        }
+      ]
+    },
+    {
+      "nom": "FNCuma — annuaire des fédérations Cuma (79)",
+      "urls": [
+        {
+          "url": "https://www.cuma.fr/contacter-une-federation/?_fselect_department=79",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.cuma.fr/contacter-une-federation/?_fselect_department=79",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.cuma.fr/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.cuma.fr/actualites/",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Fédération régionale des Cuma Nouvelle-Aquitaine (couvre le 79)",
+      "urls": [
+        {
+          "url": "https://nouvelle-aquitaine.cuma.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://nouvelle-aquitaine.cuma.fr/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://nouvelle-aquitaine.cuma.fr/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://nouvelle-aquitaine.cuma.fr/actualites/",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "SAFER Nouvelle-Aquitaine (foncier agricole, 79)",
+      "urls": [
+        {
+          "url": "https://www.saferna.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.saferna.fr/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.saferna.fr/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.saferna.fr/actualites/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.saferna.fr/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.saferna.fr/feed/",
+          "items_rss": 10
+        }
+      ]
+    },
+    {
+      "nom": "Bio Nouvelle-Aquitaine (fédération régionale de l'agriculture biologique)",
+      "urls": [
+        {
+          "url": "https://www.bionouvelleaquitaine.com/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.bionouvelleaquitaine.com/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.bionouvelleaquitaine.com/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.bionouvelleaquitaine.com/actualites/",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "FNAB — Fédération nationale d'agriculture biologique",
+      "urls": [
+        {
+          "url": "https://www.fnab.org/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.fnab.org/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.fnab.org/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.fnab.org/actualites/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.fnab.org/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.fnab.org/feed/",
+          "items_rss": 10
+        }
+      ]
+    },
+    {
+      "nom": "EPRO Agriculture — annuaire Deux-Sèvres (79)",
+      "urls": [
+        {
+          "url": "https://agriculture.e-pro.fr/deux-sevres/culture-et-elevage-associes_c013Z_79",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://agriculture.e-pro.fr/deux-sevres/culture-et-elevage-associes_c013Z_79",
+          "items_rss": 0
+        },
+        {
+          "url": "https://agriculture.e-pro.fr/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://agriculture.e-pro.fr/",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Réussir (presse agricole spécialisée)",
+      "urls": [
+        {
+          "url": "https://www.reussir.fr/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.reussir.fr/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.reussir.fr/fil-actualites",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.reussir.fr/fil-actualites",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.reussir.fr/rss.xml",
+          "code": 200,
+          "type": "application/xml;charset=UTF-8",
+          "url_finale": "https://www.reussir.fr/rss.xml",
+          "items_rss": 20
+        }
+      ]
+    },
+    {
+      "nom": "La France Agricole",
+      "urls": [
+        {
+          "url": "https://www.lafranceagricole.fr/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lafranceagricole.fr/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.lafranceagricole.fr/actualites/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lafranceagricole.fr/actualites/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.lafranceagricole.fr/rss",
+          "code": 200,
+          "type": "text/xml; charset=utf-8",
+          "url_finale": "https://www.lafranceagricole.fr/rss",
+          "items_rss": 20
+        }
+      ]
+    },
+    {
+      "nom": "Terre-net (presse agricole spécialisée)",
+      "urls": [
+        {
+          "url": "https://www.terre-net.fr/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.terre-net.fr/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.terre-net.fr/actualite-agricole/t5162",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.terre-net.fr/actualite-agricole/t5162",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.terre-net.fr/rss",
+          "code": 200,
+          "type": "text/xml; charset=utf-8",
+          "url_finale": "https://www.terre-net.fr/rss",
+          "items_rss": 20
+        }
+      ]
+    },
+    {
+      "nom": "actu.fr — Deux-Sèvres (79)",
+      "urls": [
+        {
+          "url": "https://actu.fr/nouvelle-aquitaine/deux-sevres_79",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/deux-sevres_79",
+          "items_rss": 0
+        },
+        {
+          "url": "https://actu.fr/nouvelle-aquitaine/deux-sevres_79",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/deux-sevres_79",
+          "items_rss": 0
+        },
+        {
+          "url": "https://actu.fr/deux-sevres/rss.xml",
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "url_finale": "https://actu.fr/deux-sevres/rss.xml",
+          "items_rss": 20
+        }
+      ]
+    },
+    {
+      "nom": "La Nouvelle République — édition Deux-Sèvres",
+      "urls": [
+        {
+          "url": "https://www.lanouvellerepublique.fr/deux-sevres",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lanouvellerepublique.fr/deux-sevres",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.lanouvellerepublique.fr/deux-sevres",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lanouvellerepublique.fr/deux-sevres",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.lanouvellerepublique.fr/api/v1/rss/5e2072f9f30f8cdd4c8b4594",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.lanouvellerepublique.fr/api/v1/rss/5e2072f9f30f8cdd4c8b4594",
+          "items_rss": 40
+        }
+      ]
+    },
+    {
+      "nom": "ICI Deux-Sèvres (Radio France)",
+      "urls": [
+        {
+          "url": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/actu",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/actu",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "France 3 Nouvelle-Aquitaine — Deux-Sèvres",
+      "urls": [
+        {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/deux-sevres/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/deux-sevres",
+          "items_rss": 0
+        },
+        {
+          "url": "https://france3-regions.franceinfo.fr/economie/agriculture",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/economie/agriculture",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Cerfrance (conseil et expertise comptable agricole)",
+      "urls": [
+        {
+          "url": "https://www.cerfrance.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.cerfrance.fr/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.cerfrance.fr/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.cerfrance.fr/actualites/",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Bienvenue à la ferme (annuaire de producteurs)",
+      "urls": [
+        {
+          "url": "https://www.bienvenue-a-la-ferme.com/fr",
+          "code": 200,
+          "type": "text/html",
+          "url_finale": "https://www.bienvenue-a-la-ferme.com/fr",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.bienvenue-a-la-ferme.com/fr/inspirez-vous/actualite",
+          "code": 200,
+          "type": "text/html",
+          "url_finale": "https://www.bienvenue-a-la-ferme.com/fr/inspirez-vous/actualite",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Terre de Liens (association foncière agricole)",
+      "urls": [
+        {
+          "url": "https://terredeliens.org/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://terredeliens.org/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://terredeliens.org/national/actu/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://terredeliens.org/national/actu/",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Agri Sud-Ouest Innovation (cluster agroéconomique Nouvelle-Aquitaine, 79)",
+      "urls": [
+        {
+          "url": "https://agrisudouest.com/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://agrisudouest.com/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://agrisudouest.com/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://agrisudouest.com/actualites/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://agrisudouest.com/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://agrisudouest.com/feed/",
+          "items_rss": 10
+        }
+      ]
+    },
+    {
+      "nom": "Jeunes Agriculteurs des Deux-Sèvres (blog JA79)",
+      "urls": [
+        {
+          "url": "https://ja79.over-blog.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://ja79.over-blog.fr/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://ja79.over-blog.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://ja79.over-blog.fr/",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Coordination Rurale 79 — fil départemental",
+      "urls": [
+        {
+          "url": "https://www.coordinationrurale.fr/nos-cr-locales-actualites/aquitaine-limousin-poitou-charentes/cr-79/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.coordinationrurale.fr/nos-cr-locales-actualites/aquitaine-limousin-poitou-charentes/cr-79/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.coordinationrurale.fr/nos-cr-locales-actualites/aquitaine-limousin-poitou-charentes/cr-79/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.coordinationrurale.fr/nos-cr-locales-actualites/aquitaine-limousin-poitou-charentes/cr-79/",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Le Mag Safer (actualités foncières, 79)",
+      "urls": [
+        {
+          "url": "https://mag.safer.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://mag.safer.fr/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://mag.safer.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://mag.safer.fr/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://mag.safer.fr/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://mag.safer.fr/feed/",
+          "items_rss": 9
+        }
+      ]
+    }
+  ]
+}

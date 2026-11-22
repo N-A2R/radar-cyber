@@ -1,0 +1,86 @@
+{
+  "date": "2026-11-22",
+  "moteur": "gazetteer@4+context-resolution",
+  "jeu": {
+    "organisations": 9,
+    "cas": 12,
+    "alias": 12
+  },
+  "constructionMs": 2,
+  "latence": {
+    "p50": 0.325,
+    "p95": 1.623,
+    "max": 1.623
+  },
+  "global": {
+    "cas": 12,
+    "rappel": 1,
+    "precision": 1,
+    "f1": 1,
+    "trouves": 8,
+    "faux": 0,
+    "abstentions": 0,
+    "bruit": 0,
+    "attendus": 8
+  },
+  "parSecteur": {
+    "enseignement": {
+      "cas": 3,
+      "rappel": 1,
+      "precision": 1,
+      "f1": 1,
+      "trouves": 3,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 3
+    },
+    "sante": {
+      "cas": 1,
+      "rappel": 1,
+      "precision": 1,
+      "f1": 1,
+      "trouves": 1,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 1
+    },
+    "entreprise": {
+      "cas": 4,
+      "rappel": 1,
+      "precision": 1,
+      "f1": 1,
+      "trouves": 4,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 4
+    }
+  },
+  "parCategorie": {
+    "typo-interne": {
+      "cas": 8,
+      "rappel": 1,
+      "precision": 1,
+      "f1": 1,
+      "trouves": 8,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 8
+    },
+    "negatif": {
+      "cas": 4,
+      "rappel": 0,
+      "precision": 1,
+      "f1": 0,
+      "trouves": 0,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 0
+    }
+  },
+  "echecs": []
+}
