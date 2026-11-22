@@ -111,3 +111,4 @@ les deux identifiants figurent dans la provenance.
   `parser.discovery.sourceIds`.
 - Artefacts : `bench/results/source-feeds-all-dryrun-2026-11-22.json`,
   `source-feeds-applied-2026-11-22.json`, `source-feeds-final-2026-11-22.json`.
+OBJECTIF : atteint — 31 / 30
