@@ -139,6 +139,62 @@ test("index vide : jamais de correspondance", () => {
 	assert.equal(reason, "no-alias");
 });
 
+// ── Désambiguïsation géographique (communes homonymes de NA) ─────────────
+
+const MAZEROLLES: AliasRow[] = [
+	{ org_id: 1, name: "Commune de Mazerolles", alias: "Mairie de Mazerolles", dept: "16" },
+	{ org_id: 2, name: "Commune de Mazerolles", alias: "Mairie de Mazerolles", dept: "17" },
+	{ org_id: 3, name: "Commune de Mazerolles", alias: "Mairie de Mazerolles", dept: "40" },
+	{ org_id: 4, name: "Commune de Mazerolles", alias: "Mairie de Mazerolles", dept: "64" },
+	{ org_id: 5, name: "Commune de Mazerolles", alias: "Mairie de Mazerolles", dept: "86" },
+];
+
+test("un département cité départage des communes homonymes", () => {
+	const { match, reason } = analyzeAliasIndex(
+		index(MAZEROLLES),
+		"La mairie de Mazerolles (Pyrénées-Atlantiques) a été visée",
+	);
+	assert.equal(reason, "matched");
+	assert.equal(match?.orgId, 4);
+});
+
+test("sans indice géographique, l'homonymie reste ambiguë", () => {
+	const { match, reason, tied } = analyzeAliasIndex(
+		index(MAZEROLLES),
+		"La mairie de Mazerolles a été visée",
+	);
+	assert.equal(match, null);
+	assert.equal(reason, "ambiguous");
+	assert.equal(tied.length, 5);
+});
+
+test("un département cité qui ne désigne aucun candidat ne rattache rien", () => {
+	const { match, reason } = analyzeAliasIndex(
+		index(MAZEROLLES),
+		"La mairie de Mazerolles (Creuse) a été visée",
+	);
+	assert.equal(match, null);
+	assert.equal(reason, "ambiguous");
+});
+
+test("Charente-Maritime ne départage pas vers la Charente", () => {
+	const idx = index([
+		{ org_id: 1, name: "Commune de Berneuil", alias: "Mairie de Berneuil", dept: "16" },
+		{ org_id: 2, name: "Commune de Berneuil", alias: "Mairie de Berneuil", dept: "17" },
+	]);
+	const { match } = analyzeAliasIndex(idx, "La mairie de Berneuil (Charente-Maritime) a été visée");
+	assert.equal(match?.orgId, 2);
+});
+
+test("un nom de département cité ne vole pas la mairie nommée", () => {
+	const idx = index([
+		{ org_id: 1, name: "Commune de Boé", alias: "Mairie de Boé", dept: "47" },
+		{ org_id: 2, name: "Département du Lot-et-Garonne", alias: "Lot-et-Garonne", dept: "47" },
+	]);
+	const { match } = analyzeAliasIndex(idx, "La mairie de Boé (Lot-et-Garonne) a été visée");
+	assert.equal(match?.orgId, 1);
+});
+
 // ── Dérivation d'alias ───────────────────────────────────────────────────
 
 test("deriveAliases produit nom nettoyé, nom sans forme juridique et sigle", () => {

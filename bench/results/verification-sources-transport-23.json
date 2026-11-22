@@ -1,0 +1,909 @@
+{
+  "corpus": "bench/corpus/sources-transport-23.jsonl",
+  "verifie_le": "2026-11-22T09:40:56.085623+00:00",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+  "method": "curl -L GET, redirections suivies, code final",
+  "sources": 21,
+  "sources_valides": 21,
+  "urls_sondees": 74,
+  "urls_200": 74,
+  "detail": [
+    {
+      "ligne": 1,
+      "nom": "Cars régionaux de Nouvelle-Aquitaine — lignes de la Creuse",
+      "type": "réseau interurbain de cars (autorité organisatrice régionale)",
+      "secteur": "transport",
+      "departement": "23",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://transports.nouvelle-aquitaine.fr/cars-regionaux/creuse",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 99517,
+          "url_finale": "https://transports.nouvelle-aquitaine.fr/cars-regionaux/creuse",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://transports.nouvelle-aquitaine.fr/toute-lactualite-des-transports",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 104216,
+          "url_finale": "https://transports.nouvelle-aquitaine.fr/toute-lactualite-des-transports",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://transports.nouvelle-aquitaine.fr/liste-rss/naq_actualite",
+          "code": 200,
+          "content_type": "application/rss+xml",
+          "octets": 77226,
+          "url_finale": "https://transports.nouvelle-aquitaine.fr/liste-rss/naq_actualite",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.lemagit.fr/actualites/252507869/Ransomware-face-a-LockBit-Transdev-reste-silencieux",
+          "code": 200,
+          "content_type": "text/html;charset=UTF-8",
+          "octets": 366290,
+          "url_finale": "https://www.lemagit.fr/actualites/252507869/Ransomware-face-a-LockBit-Transdev-reste-silencieux",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 2,
+      "nom": "Agglo'Bus — Communauté d'agglomération du Grand Guéret",
+      "type": "réseau de bus urbains et transport à la demande (23)",
+      "secteur": "transport",
+      "departement": "23",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.agglo-grandgueret.fr/au-quotidien/mobilite-et-transports/agglo-bus/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 102916,
+          "url_finale": "https://www.agglo-grandgueret.fr/au-quotidien/mobilite-et-transports/agglo-bus/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.agglo-grandgueret.fr/lagglo/actualites/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 121361,
+          "url_finale": "https://www.agglo-grandgueret.fr/lagglo/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.agglo-grandgueret.fr/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 39450,
+          "url_finale": "https://www.agglo-grandgueret.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.franceinfo.fr/internet/securite-sur-internet/gueret-les-services-de-l-agglomeration-paralyses-par-une-cyberattaque_4865941.html",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 593083,
+          "url_finale": "https://www.franceinfo.fr/internet/securite-sur-internet/gueret-les-services-de-l-agglomeration-paralyses-par-une-cyberattaque_4865941.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 3,
+      "nom": "Nouvelle-Aquitaine Mobilités",
+      "type": "autorité organisatrice régionale des mobilités (couvre la Creuse)",
+      "secteur": "transport",
+      "departement": "23",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://nouvelle-aquitaine-mobilites.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 25843,
+          "url_finale": "https://nouvelle-aquitaine-mobilites.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://nouvelle-aquitaine-mobilites.fr/actualites",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 30383,
+          "url_finale": "https://nouvelle-aquitaine-mobilites.fr/actualites",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.latribune.fr/technos-medias/internet/fausse-attaque-contre-europcar-et-la-sncf-l-ia-detournee-pour-semer-le-doute-1027140.html",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 729600,
+          "url_finale": "https://www.latribune.fr/technos-medias/internet/fausse-attaque-contre-europcar-et-la-sncf-l-ia-detournee-pour-semer-le-doute-1027140.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 4,
+      "nom": "Aéroclub de la Creuse — aérodrome de Guéret Saint-Laurent",
+      "type": "aérodrome et aéroclub (23)",
+      "secteur": "transport",
+      "departement": "23",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://aeroclub-gueret-saint-laurent.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 112686,
+          "url_finale": "https://aeroclub-gueret-saint-laurent.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://aeroclub-gueret-saint-laurent.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 112686,
+          "url_finale": "https://aeroclub-gueret-saint-laurent.fr/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://aeroclub-gueret-saint-laurent.fr/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 8125,
+          "url_finale": "https://aeroclub-gueret-saint-laurent.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.montpellier.aeroport.fr/fr/file-download/download/public/206",
+          "code": 200,
+          "content_type": "application/pdf",
+          "octets": 524513,
+          "url_finale": "https://www.montpellier.aeroport.fr/fr/file-download/download/public/206",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 5,
+      "nom": "Ville d'Aubusson — service transports en car et gare routière",
+      "type": "collectivité relais d'information transport (23)",
+      "secteur": "transport",
+      "departement": "23",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.aubusson.fr/transports-en-car-ter/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 382931,
+          "url_finale": "https://www.aubusson.fr/transports-en-car-ter/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.aubusson.fr/actualites/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 377383,
+          "url_finale": "https://www.aubusson.fr/systeme/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.lamontagne.fr/souterraine-23300/faits-divers/cyberattaque-en-creuse-500-000-euros-de-rancon-reclames-a-picoty-sa_13559951/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 260188,
+          "url_finale": "https://www.lamontagne.fr/souterraine-23300/faits-divers/cyberattaque-en-creuse-500-000-euros-de-rancon-reclames-a-picoty-sa_13559951/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 6,
+      "nom": "Creuse Ambulances (Guéret)",
+      "type": "transport sanitaire, VSL et taxi conventionné (23)",
+      "secteur": "transport",
+      "departement": "23",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.creuse-ambulances.fr/",
+          "code": 200,
+          "content_type": "text/html;charset=utf-8",
+          "octets": 215432,
+          "url_finale": "https://www.creuse-ambulances.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.creuse-ambulances.fr/",
+          "code": 200,
+          "content_type": "text/html;charset=utf-8",
+          "octets": 215432,
+          "url_finale": "https://www.creuse-ambulances.fr/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.lamontagne.fr/gueret-23000/actualites/oui-meme-en-creuse-les-hackers-peuvent-voler-vos-donnees-et-vous-ranconner_13944218/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 259349,
+          "url_finale": "https://www.lamontagne.fr/gueret-23000/actualites/oui-meme-en-creuse-les-hackers-peuvent-voler-vos-donnees-et-vous-ranconner_13944218/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 7,
+      "nom": "Montagne Ambulances (Aubusson et Felletin)",
+      "type": "transport sanitaire et taxis (23)",
+      "secteur": "transport",
+      "departement": "23",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.montagne-ambulances.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 117913,
+          "url_finale": "https://ambulance-montagne-aubusson.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.montagne-ambulances.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 117903,
+          "url_finale": "https://ambulance-montagne-aubusson.fr/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.ici.fr/infos/societe/les-recettes-des-entreprises-creusoises-face-aux-cyberattaques-1494853468",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 136182,
+          "url_finale": "https://www.ici.fr/infos/societe/les-recettes-des-entreprises-creusoises-face-aux-cyberattaques-1494853468",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 8,
+      "nom": "Emaland Transports (Guéret)",
+      "type": "transporteur routier de fret et convois exceptionnels (23)",
+      "secteur": "transport",
+      "departement": "23",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://emaland-transports-creuse.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 98506,
+          "url_finale": "https://emaland-transports-creuse.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://emaland-transports-creuse.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 98551,
+          "url_finale": "https://emaland-transports-creuse.fr/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.sudouest.fr/faits-divers/en-gironde-les-transporteurs-guyamier-et-lacassagne-victimes-d-une-grave-cyberattaque-c-est-la-catastrophe-17645999.php",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 146045,
+          "url_finale": "https://www.sudouest.fr/faits-divers/en-gironde-les-transporteurs-guyamier-et-lacassagne-victimes-d-une-grave-cyberattaque-c-est-la-catastrophe-17645999.php",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 9,
+      "nom": "Annuaire e-pro — transport routier en Creuse / Guéret",
+      "type": "annuaire professionnel des transporteurs du 23",
+      "secteur": "transport",
+      "departement": "23",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://transport.e-pro.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 59939,
+          "url_finale": "https://transport.e-pro.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://transport.e-pro.fr/creuse/transport-routier-de-marchandises-interurbain_a_Gueret,23096,602M",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 41782,
+          "url_finale": "https://transport.e-pro.fr/creuse/transport-routier-de-marchandises-interurbain_a_Gueret,23096,602M",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://journaldupoidslourd.com/services/cybersecurite-les-transporteurs-passent-en-mode-securise/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 247683,
+          "url_finale": "https://journaldupoidslourd.com/services/cybersecurite-les-transporteurs-passent-en-mode-securise/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 10,
+      "nom": "CMA Nouvelle-Aquitaine — délégation de la Creuse",
+      "type": "chambre consulaire (artisans du transport, 23)",
+      "secteur": "transport",
+      "departement": "23",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://cma-nouvelleaquitaine.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 324235,
+          "url_finale": "https://cma-nouvelleaquitaine.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/nous-trouver/cma-creuse",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 159225,
+          "url_finale": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/nous-trouver/cma-creuse",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.lamontagne.fr/gueret-23000/actualites/oui-meme-en-creuse-les-hackers-peuvent-voler-vos-donnees-et-vous-ranconner_13944218/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 259349,
+          "url_finale": "https://www.lamontagne.fr/gueret-23000/actualites/oui-meme-en-creuse-les-hackers-peuvent-voler-vos-donnees-et-vous-ranconner_13944218/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 11,
+      "nom": "Conseil départemental de la Creuse — A la une",
+      "type": "autorité départementale (infrastructures et mobilité, 23)",
+      "secteur": "transport",
+      "departement": "23",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.creuse.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 61509,
+          "url_finale": "https://www.creuse.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.creuse.fr/A-la-une",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 336471,
+          "url_finale": "https://www.creuse.fr/A-la-une",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/gueret/l-agglo-du-grand-gueret-victime-d-une-cyberattaque-2362216.html",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 690648,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/gueret/l-agglo-du-grand-gueret-victime-d-une-cyberattaque-2362216.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 12,
+      "nom": "FNTR — Fédération nationale des transports routiers",
+      "type": "fédération professionnelle (transport routier de marchandises)",
+      "secteur": "transport",
+      "departement": "23",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.fntr.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 143185,
+          "url_finale": "https://www.fntr.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.fntr.fr/espace-presse/actualites-agenda",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 131842,
+          "url_finale": "https://www.fntr.fr/espace-presse/actualites-agenda",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 128017,
+          "url_finale": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 13,
+      "nom": "FNTV — Fédération nationale des transports de voyageurs",
+      "type": "fédération professionnelle (transport de voyageurs et mobilité rurale)",
+      "secteur": "transport",
+      "departement": "23",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://fntv.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 86158,
+          "url_finale": "https://fntv.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://fntv.fr/actualites-de-la-federation",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 79150,
+          "url_finale": "https://fntv.fr/actualites-de-la-federation",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.latribune.fr/technos-medias/internet/fausse-attaque-contre-europcar-et-la-sncf-l-ia-detournee-pour-semer-le-doute-1027140.html",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 729600,
+          "url_finale": "https://www.latribune.fr/technos-medias/internet/fausse-attaque-contre-europcar-et-la-sncf-l-ia-detournee-pour-semer-le-doute-1027140.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 14,
+      "nom": "OTRE — Organisation des transporteurs routiers européens",
+      "type": "fédération professionnelle (PME routières, antenne Dordogne-Limousin)",
+      "secteur": "transport",
+      "departement": "23",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.otre.org/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 231208,
+          "url_finale": "https://www.otre.org/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.otre.org/actualites/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 86133,
+          "url_finale": "https://www.otre.org/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.otre.org/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 47083,
+          "url_finale": "https://www.otre.org/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.lemagit.fr/actualites/365533573/La-logistique-un-secteur-de-choix-pour-les-cyberattaques",
+          "code": 200,
+          "content_type": "text/html;charset=UTF-8",
+          "octets": 365400,
+          "url_finale": "https://www.lemagit.fr/actualites/365533573/La-logistique-un-secteur-de-choix-pour-les-cyberattaques",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 15,
+      "nom": "Union TLF Sud-Ouest",
+      "type": "fédération régionale du transport et de la logistique (couvre la Creuse)",
+      "secteur": "transport",
+      "departement": "23",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://e-tlf.com/nos-regions/tlf-sud-ouest/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 738204,
+          "url_finale": "https://e-tlf.com/nos-regions/tlf-sud-ouest/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://e-tlf.com/nos-actualites/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 790352,
+          "url_finale": "https://e-tlf.com/nos-actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://e-tlf.com/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 754,
+          "url_finale": "https://e-tlf.com/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 128017,
+          "url_finale": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 16,
+      "nom": "Transport Info",
+      "type": "presse professionnelle transport et logistique",
+      "secteur": "transport",
+      "departement": "23",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.transportinfo.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 255238,
+          "url_finale": "https://www.transportinfo.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.transportinfo.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 255238,
+          "url_finale": "https://www.transportinfo.fr/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.transportinfo.fr/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 56128,
+          "url_finale": "https://www.transportinfo.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 128017,
+          "url_finale": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 17,
+      "nom": "L'Officiel des transporteurs",
+      "type": "presse professionnelle du transport et de la logistique",
+      "secteur": "transport",
+      "departement": "23",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.lofficieldestransporteurs.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 51088,
+          "url_finale": "https://www.lofficieldestransporteurs.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.lofficieldestransporteurs.fr/actualites/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 50942,
+          "url_finale": "https://www.lofficieldestransporteurs.fr/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.lofficieldestransporteurs.fr/rss.xml",
+          "code": 200,
+          "content_type": "text/xml; charset=UTF-8",
+          "octets": 12312,
+          "url_finale": "https://www.lofficieldestransporteurs.fr/rss.xml",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://journaldupoidslourd.com/services/cybersecurite-les-transporteurs-passent-en-mode-securise/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 247683,
+          "url_finale": "https://journaldupoidslourd.com/services/cybersecurite-les-transporteurs-passent-en-mode-securise/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 18,
+      "nom": "La Montagne — Creuse",
+      "type": "presse locale quotidienne (édition Creuse)",
+      "secteur": "transport",
+      "departement": "23",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.lamontagne.fr/creuse/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 611394,
+          "url_finale": "https://www.lamontagne.fr/creuse/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.lamontagne.fr/info-en-continu/creuse",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 275702,
+          "url_finale": "https://www.lamontagne.fr/info-en-continu/creuse",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.lamontagne.fr/MT-tempsforts-tous.xml",
+          "code": 200,
+          "content_type": "text/xml;charset=utf-8",
+          "octets": 723168,
+          "url_finale": "https://www.lamontagne.fr/MT-tempsforts-tous.xml",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.lamontagne.fr/souterraine-23300/faits-divers/cyberattaque-en-creuse-500-000-euros-de-rancon-reclames-a-picoty-sa_13559951/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 260188,
+          "url_finale": "https://www.lamontagne.fr/souterraine-23300/faits-divers/cyberattaque-en-creuse-500-000-euros-de-rancon-reclames-a-picoty-sa_13559951/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 19,
+      "nom": "actu.fr — Actu Creuse",
+      "type": "presse locale numérique (23)",
+      "secteur": "transport",
+      "departement": "23",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://actu.fr/nouvelle-aquitaine/creuse_23/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 323265,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/creuse_23",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://actu.fr/nouvelle-aquitaine/creuse_23/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 323265,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/creuse_23",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://actu.fr/nouvelle-aquitaine/creuse_23/rss.xml",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=utf-8",
+          "octets": 1379,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/creuse_23/rss.xml",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/la-souterraine/creuse-picoty-sa-ranconee-apres-cyberattaque-1668611.html",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 692448,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/la-souterraine/creuse-picoty-sa-ranconee-apres-cyberattaque-1668611.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 20,
+      "nom": "ICI Creuse — Radio France",
+      "type": "radio publique locale (23)",
+      "secteur": "transport",
+      "departement": "23",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.ici.fr/radio/creuse",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 392673,
+          "url_finale": "https://www.ici.fr/radio/creuse",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.ici.fr/nouvelle-aquitaine/creuse-23",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 304203,
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/creuse-23",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.ici.fr/rss/creuse/a-la-une.xml",
+          "code": 200,
+          "content_type": "application/xml",
+          "octets": 36603,
+          "url_finale": "https://www.ici.fr/rss/creuse/a-la-une.xml",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.ici.fr/infos/societe/les-recettes-des-entreprises-creusoises-face-aux-cyberattaques-1494853468",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 136200,
+          "url_finale": "https://www.ici.fr/infos/societe/les-recettes-des-entreprises-creusoises-face-aux-cyberattaques-1494853468",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 21,
+      "nom": "France 3 Nouvelle-Aquitaine — Creuse",
+      "type": "télévision publique locale (23)",
+      "secteur": "transport",
+      "departement": "23",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 628594,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 628594,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/rss",
+          "code": 200,
+          "content_type": "text/xml; charset=UTF-8",
+          "octets": 80104,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/rss",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/gueret/l-agglo-du-grand-gueret-victime-d-une-cyberattaque-2362216.html",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 690648,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/gueret/l-agglo-du-grand-gueret-victime-d-une-cyberattaque-2362216.html",
+          "erreur": null
+        }
+      ]
+    }
+  ]
+}

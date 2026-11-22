@@ -27,10 +27,12 @@ import streamRoute from "./stream.js";
 import sourcesRoute from "./sources.js";
 import statsRoute from "./stats.js";
 import searchRoute from "./search.js";
+import askRoute from "./ask.js";
 import enrichRoute from "./enrich.js";
 import authRoute from "./auth.js";
 import alertsRoute from "./alerts.js";
 import quarantineRoute from "./quarantine.js";
+import cyberContractsRoute from "./cyber-contracts.js";
 import reviewRoute from "./review.js";
 import journalRoute from "./journal.js";
 import orgsLieesRoute from "./orgs-liees.js";
@@ -42,8 +44,12 @@ import auditRoute from "./audit.js";
 import onionIndexRoute from "./onion-index.js";
 import confidenceRoute from "./confidence.js";
 import leaksByDomainRoute from "./leaks-by-domain.js";
+import resaleListingsRoute from "./resale-listings.js";
 import publicMandatesRoute from "./public-mandates.js";
 import providerSpofRoute from "./provider-spof.js";
+import custodyRoute from "./custody.js";
+import publicDataContainersRoute from "./public-data-containers.js";
+import affectedRoute from "./affected.js";
 
 export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
   for (const route of [
@@ -51,14 +57,19 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     collecteMetricsRoute, corpusStatsRoute, collectePlanRoute,
     todayRoute, statsDepartementsRoute, couvertureRoute, flowsRoute, orgsRoute,
     directoryRoute, naRoute, graphRoute, graphTemporalRoute, streamRoute, sourcesRoute, statsRoute,
-    searchRoute, enrichRoute, authRoute, alertsRoute, quarantineRoute, reviewRoute,
+    searchRoute, askRoute, enrichRoute, authRoute, alertsRoute, quarantineRoute, reviewRoute,
     journalRoute, orgsLieesRoute, orgsLieesHistoriqueRoute, ingestRoute, dossierRoute,
     rectificationRoute, auditRoute,
     confidenceRoute,
     leaksByDomainRoute,
+    resaleListingsRoute,
+    cyberContractsRoute,
     publicMandatesRoute,
     providerSpofRoute,
     onionIndexRoute,
+    custodyRoute,
+    publicDataContainersRoute,
+    affectedRoute,
   ]) {
     await app.register(route, { prefix: "/api" });
   }

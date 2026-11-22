@@ -1,0 +1,66 @@
+{
+  "generatedAt": "2026-11-22T01:05:50.958Z",
+  "scope": "Nouvelle-Aquitaine (event.regional = true); grey sources included",
+  "baseline": {
+    "organisations": 1673151,
+    "sources": 312,
+    "events": 26394
+  },
+  "input": {
+    "scanned": 26394,
+    "regional": 72,
+    "classified": 49,
+    "unclassified": 23
+  },
+  "modesIdentified": 6,
+  "modes": [
+    {
+      "key": "ransomware-extortion:claim",
+      "technique": "ransomware-extortion",
+      "variant": "claim",
+      "label": "Ransomware extortion claim",
+      "events": 22,
+      "sources": 1
+    },
+    {
+      "key": "ransomware-extortion:publication",
+      "technique": "ransomware-extortion",
+      "variant": "publication",
+      "label": "Ransomware extortion with data publication",
+      "events": 19,
+      "sources": 1
+    },
+    {
+      "key": "vulnerability-exposure:advisory",
+      "technique": "vulnerability-exposure",
+      "variant": "advisory",
+      "label": "Vulnerability exposure reported by an advisory",
+      "events": 4,
+      "sources": 4
+    },
+    {
+      "key": "data-leak:publication",
+      "technique": "data-leak",
+      "variant": "publication",
+      "label": "Data leak publication",
+      "events": 2,
+      "sources": 2
+    },
+    {
+      "key": "service-disruption:availability",
+      "technique": "service-disruption",
+      "variant": "availability",
+      "label": "Service disruption",
+      "events": 1,
+      "sources": 1
+    },
+    {
+      "key": "vulnerability-exposure:reported",
+      "technique": "vulnerability-exposure",
+      "variant": "reported",
+      "label": "Vulnerability exposure reported by news",
+      "events": 1,
+      "sources": 1
+    }
+  ]
+}

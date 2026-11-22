@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:d286e074-489f-43d2-a094-1eb75ca02ba4>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/posts/2026
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 316
+WARC-Block-Digest: sha1:HLJUAUG673PZL4H4W6M7INXANUGMGOYQ
+X-Claim-Fingerprint: ed07a2edb858f959d743bb9b
+X-Victim-Key: ae630b5a92509ca2dc0b4335
+
+{"post_title": "Rivages Du Monde", "discovered": "2026-02-23 20:42:56.459149", "description": "Hospitality", "link": "/site/view?uuid=08493a2c-0081-35df-acdc-8964d1b5e9f6", "magnet": null, "screen": "screenshots/qilin/Rivages Du Monde.png", "misp_uuid": "27444393-c7fb-53d7-b299-ba18a0a8a576", "group_name": "qilin"}
+

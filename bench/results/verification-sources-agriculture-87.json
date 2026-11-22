@@ -1,0 +1,957 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-agriculture-87.jsonl",
+  "secteur": "agriculture",
+  "departement": "87",
+  "methode": "GET réel avec redirections suivies, User-Agent navigateur, délai 25 s (Node fetch, 8 workers) ; code HTTP, type de contenu, URL finale et items RSS enregistrés",
+  "sources": 37,
+  "urls_verifiees": 103,
+  "urls_200": 103,
+  "flux_avec_items": 18,
+  "candidats_ecartes": [
+    "https://limousin.cuma.fr/actualites/, https://www.gds87.fr/, https://www.gdslimousin.fr/, https://www.agrilocal87.fr/, https://www.limousin.cerfrance.fr/ : aucun serveur (code 000) ; replacements vérifiés : haute-vienne.cuma.fr, gdsfrance.org/frgdsna.org, agrilocal87.com, centre-limousin.cerfrance.fr.",
+    "https://www.jeunesagriculteurs.fr/ (sans tiret) : HTTP 200 mais domaine « Dovendi - Domain for sale » ; le site valide est www.jeunes-agriculteurs.fr.",
+    "https://www.caracterres.fr/region/limousin, https://www.lepopulaire.fr/rss.xml, https://www.lafranceagricole.fr/rss.xml, https://www.fnsea.fr/actualites/, https://haute-vienne.chambres-agriculture.fr/actualites.rss, https://www.confederationpaysanne.fr/actualites : HTTP 404.",
+    "https://www.acteurs-locaux.fr/d87-haute-vienne/agriculture/actu.html : HTTP 200 mais titre « Agriculture Gironde (33) » ; la page correcte est /d146-haute-vienne-87/agriculture/.",
+    "https://www.jeunesagriculteurs87.fr/, https://limousin.confederationpaysanne.fr/ : code 000.",
+    "Caracterres (presse agricole) couvre 16/17/79/86 mais pas le 87 : écarté malgré ses HTTP 200 ; Terre d'Actu/Union & Territoires couvre le 87."
+  ],
+  "cyber": [
+    {
+      "titre": "Cyberattaque : le service d'identification des bovins et ovins touché, le travail des éleveurs limousins perturbé",
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/le-service-d-identification-des-bovins-et-ovins-victime-d-une-cyberattaque-le-travail-des-eleveurs-limousins-perturbe-3084484.html",
+      "code": 200
+    },
+    {
+      "titre": "« Ils nous ont contactés via une messagerie cryptée pour obtenir une rançon » : cette cyberattaque rend la vie impossible aux éleveurs",
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/impossible-d-acceder-a-cette-page-cette-cyberattaque-qui-rend-la-vie-impossible-aux-eleveurs-du-sud-ouest-depuis-la-mi-decembre-3085180.html",
+      "code": 200
+    },
+    {
+      "titre": "Une cyberattaque touche la coopérative numérique des éleveurs du grand sud-ouest (30 000 éleveurs)",
+      "url": "https://www.lafranceagricole.fr/elevage/article/876452/30-000-eleveurs-touches-par-une-cyberattaque",
+      "code": 200
+    },
+    {
+      "titre": "Se cybersécuriser pour minimiser le risque informatique des exploitations agricoles",
+      "url": "https://www.reussir.fr/articles/se-cybersecuriser-pour-minimiser-le-risque-informatique-des-exploitations-agricoles",
+      "code": 200
+    }
+  ],
+  "sources_detail": [
+    {
+      "nom": "Chambre d'agriculture de la Haute-Vienne",
+      "urls": [
+        {
+          "url": "https://haute-vienne.chambres-agriculture.fr/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://haute-vienne.chambres-agriculture.fr/",
+          "items": 0
+        },
+        {
+          "url": "https://haute-vienne.chambres-agriculture.fr/actualites-1",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://haute-vienne.chambres-agriculture.fr/actualites-1",
+          "items": 0
+        }
+      ]
+    },
+    {
+      "nom": "Chambre régionale d'agriculture Nouvelle-Aquitaine (couvre le 87)",
+      "urls": [
+        {
+          "url": "https://nouvelle-aquitaine.chambres-agriculture.fr/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://nouvelle-aquitaine.chambres-agriculture.fr/",
+          "items": 0
+        },
+        {
+          "url": "https://nouvelle-aquitaine.chambres-agriculture.fr/actualites",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://nouvelle-aquitaine.chambres-agriculture.fr/actualites",
+          "items": 0
+        },
+        {
+          "url": "https://nouvelle-aquitaine.chambres-agriculture.fr/actualites.rss",
+          "code": 200,
+          "type": "text/xml; charset=utf-8",
+          "url_finale": "https://nouvelle-aquitaine.chambres-agriculture.fr/actualites.rss",
+          "items": 20
+        }
+      ]
+    },
+    {
+      "nom": "Annuaire des Chambres d'agriculture France (recense le 87)",
+      "urls": [
+        {
+          "url": "https://chambres-agriculture.fr/le-reseau-chambres/qui-sommes-nous/annuaire-des-chambres",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://chambres-agriculture.fr/le-reseau-chambres/qui-sommes-nous/annuaire-des-chambres",
+          "items": 0
+        },
+        {
+          "url": "https://chambres-agriculture.fr/actualites",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://chambres-agriculture.fr/actualites",
+          "items": 0
+        },
+        {
+          "url": "https://chambres-agriculture.fr/presse.rss",
+          "code": 200,
+          "type": "text/xml; charset=utf-8",
+          "url_finale": "https://chambres-agriculture.fr/presse.rss",
+          "items": 20
+        },
+        {
+          "url": "https://chambres-agriculture.fr/le-reseau-chambres/qui-sommes-nous/annuaire-des-chambres/chambre-dagriculture-de-la-haute-vienne",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://chambres-agriculture.fr/le-reseau-chambres/qui-sommes-nous/annuaire-des-chambres/chambre-dagriculture-de-la-haute-vienne",
+          "items": 0
+        },
+        {
+          "url": "https://chambres-agriculture.fr/actualiteseconomiques.rss",
+          "code": 200,
+          "type": "text/xml; charset=utf-8",
+          "url_finale": "https://chambres-agriculture.fr/actualiteseconomiques.rss",
+          "items": 20
+        }
+      ]
+    },
+    {
+      "nom": "Jeunes Agriculteurs de la Haute-Vienne (JA 87)",
+      "urls": [
+        {
+          "url": "https://www.jeunes-agriculteurs.fr/reseau/jeunes-agriculteurs-de-haute-vienne/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.jeunes-agriculteurs.fr/reseau/jeunes-agriculteurs-de-haute-vienne/",
+          "items": 0
+        },
+        {
+          "url": "https://www.jeunes-agriculteurs.fr/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.jeunes-agriculteurs.fr/actualites/",
+          "items": 0
+        },
+        {
+          "url": "https://www.jeunes-agriculteurs.fr/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.jeunes-agriculteurs.fr/feed/",
+          "items": 10
+        }
+      ]
+    },
+    {
+      "nom": "FDSEA 87 — Union & Territoires (Terre d'Actu)",
+      "urls": [
+        {
+          "url": "https://www.terredactu.com/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.terredactu.com/",
+          "items": 0
+        },
+        {
+          "url": "https://www.terredactu.com/articles/zone/haute-vienne",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.terredactu.com/articles/zone/haute-vienne",
+          "items": 0
+        },
+        {
+          "url": "https://www.terredactu.com/rss.xml",
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "url_finale": "https://www.terredactu.com/rss.xml",
+          "items": 1
+        },
+        {
+          "url": "https://www.terredactu.com/articles/agriculture",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.terredactu.com/articles/agriculture",
+          "items": 0
+        }
+      ]
+    },
+    {
+      "nom": "Coordination Rurale — section Haute-Vienne (CR 87)",
+      "urls": [
+        {
+          "url": "https://www.coordinationrurale.fr/nos-cr-locales/haute-vienne/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.coordinationrurale.fr/nos-cr-locales/haute-vienne/",
+          "items": 0
+        },
+        {
+          "url": "https://www.coordinationrurale.fr/nos-cr-locales-actualites/aquitaine-limousin-poitou-charentes/cr-87/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.coordinationrurale.fr/nos-cr-locales-actualites/aquitaine-limousin-poitou-charentes/cr-87/",
+          "items": 0
+        }
+      ]
+    },
+    {
+      "nom": "Confédération paysanne de la Haute-Vienne",
+      "urls": [
+        {
+          "url": "https://haute-vienne.confederationpaysanne.fr/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://haute-vienne.confederationpaysanne.fr/",
+          "items": 0
+        },
+        {
+          "url": "https://haute-vienne.confederationpaysanne.fr/recherche.php?raz=1&rech=0&type=A",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://haute-vienne.confederationpaysanne.fr/recherche.php?raz=1&rech=0&type=A",
+          "items": 0
+        }
+      ]
+    },
+    {
+      "nom": "MODEF 87 (Haute-Vienne)",
+      "urls": [
+        {
+          "url": "https://www.modef.fr/nos-federations/dep87/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.modef.fr/nos-federations/dep87/",
+          "items": 0
+        },
+        {
+          "url": "https://www.modef.fr/categorie/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.modef.fr/categorie/actualites/",
+          "items": 0
+        },
+        {
+          "url": "https://www.modef.fr/categorie/actualites/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.modef.fr/categorie/actualites/feed/",
+          "items": 10
+        }
+      ]
+    },
+    {
+      "nom": "FNCuma — annuaire des fédérations Cuma (87)",
+      "urls": [
+        {
+          "url": "https://www.cuma.fr/contacter-une-federation/?_fselect_department=87",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.cuma.fr/contacter-une-federation/?_fselect_department=87",
+          "items": 0
+        },
+        {
+          "url": "https://www.cuma.fr/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.cuma.fr/actualites/",
+          "items": 0
+        }
+      ]
+    },
+    {
+      "nom": "Fédération des Cuma de la Haute-Vienne",
+      "urls": [
+        {
+          "url": "https://haute-vienne.cuma.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://haute-vienne.cuma.fr/",
+          "items": 0
+        },
+        {
+          "url": "https://haute-vienne.cuma.fr/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://haute-vienne.cuma.fr/actualites/",
+          "items": 0
+        }
+      ]
+    },
+    {
+      "nom": "Fédération régionale des Cuma Nouvelle-Aquitaine (couvre le 87)",
+      "urls": [
+        {
+          "url": "https://nouvelle-aquitaine.cuma.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://nouvelle-aquitaine.cuma.fr/",
+          "items": 0
+        },
+        {
+          "url": "https://nouvelle-aquitaine.cuma.fr/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://nouvelle-aquitaine.cuma.fr/actualites/",
+          "items": 0
+        }
+      ]
+    },
+    {
+      "nom": "SAFER Nouvelle-Aquitaine (foncier agricole, 87)",
+      "urls": [
+        {
+          "url": "https://www.saferna.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.saferna.fr/",
+          "items": 0
+        },
+        {
+          "url": "https://www.saferna.fr/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.saferna.fr/actualites/",
+          "items": 0
+        },
+        {
+          "url": "https://www.saferna.fr/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.saferna.fr/feed/",
+          "items": 10
+        }
+      ]
+    },
+    {
+      "nom": "Agrobio 87 (groupement départemental agriculture biologique)",
+      "urls": [
+        {
+          "url": "https://www.bionouvelleaquitaine.com/adherents/agrobio-87/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.bionouvelleaquitaine.com/adherents/agrobio-87/",
+          "items": 0
+        },
+        {
+          "url": "https://www.bionouvelleaquitaine.com/actualites/?country=105",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.bionouvelleaquitaine.com/actualites/?country=105",
+          "items": 0
+        },
+        {
+          "url": "https://www.bionouvelleaquitaine.com/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.bionouvelleaquitaine.com/feed/",
+          "items": 0
+        }
+      ]
+    },
+    {
+      "nom": "Bio Nouvelle-Aquitaine (agriculture biologique, couvre le 87)",
+      "urls": [
+        {
+          "url": "https://www.bionouvelleaquitaine.com/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.bionouvelleaquitaine.com/",
+          "items": 0
+        },
+        {
+          "url": "https://www.bionouvelleaquitaine.com/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.bionouvelleaquitaine.com/actualites/",
+          "items": 0
+        },
+        {
+          "url": "https://www.bionouvelleaquitaine.com/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.bionouvelleaquitaine.com/feed/",
+          "items": 0
+        }
+      ]
+    },
+    {
+      "nom": "FNAB — Fédération nationale d'agriculture biologique (couvre le 87)",
+      "urls": [
+        {
+          "url": "https://www.fnab.org/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.fnab.org/",
+          "items": 0
+        },
+        {
+          "url": "https://www.fnab.org/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.fnab.org/actualites/",
+          "items": 0
+        },
+        {
+          "url": "https://www.fnab.org/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.fnab.org/feed/",
+          "items": 10
+        }
+      ]
+    },
+    {
+      "nom": "MSA Limousin (agriculture, 87)",
+      "urls": [
+        {
+          "url": "https://limousin.msa.fr/lfp",
+          "code": 200,
+          "type": "text/html;charset=UTF-8",
+          "url_finale": "https://limousin.msa.fr/lfp",
+          "items": 0
+        },
+        {
+          "url": "https://limousin.msa.fr/lfp/actualites-exploitant",
+          "code": 200,
+          "type": "text/html;charset=UTF-8",
+          "url_finale": "https://limousin.msa.fr/lfp/actualites-exploitant",
+          "items": 0
+        },
+        {
+          "url": "https://limousin.msa.fr/",
+          "code": 200,
+          "type": "text/html;charset=UTF-8",
+          "url_finale": "https://limousin.msa.fr/lfp",
+          "items": 0
+        },
+        {
+          "url": "https://limousin.msa.fr/lfp/actualites",
+          "code": 200,
+          "type": "text/html;charset=UTF-8",
+          "url_finale": "https://limousin.msa.fr/lfp/actualites",
+          "items": 0
+        }
+      ]
+    },
+    {
+      "nom": "FranceAgriMer (établissement public agricole, couvre le 87)",
+      "urls": [
+        {
+          "url": "https://www.franceagrimer.fr/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.franceagrimer.fr/",
+          "items": 0
+        },
+        {
+          "url": "https://www.franceagrimer.fr/rechercher-une-actualite",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.franceagrimer.fr/rechercher-une-actualite",
+          "items": 0
+        }
+      ]
+    },
+    {
+      "nom": "ICI Limousin (Radio France, Haute-Vienne 87)",
+      "urls": [
+        {
+          "url": "https://www.ici.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/",
+          "items": 0
+        },
+        {
+          "url": "https://www.ici.fr/nouvelle-aquitaine/haute-vienne-87/actu",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/haute-vienne-87/actu",
+          "items": 0
+        },
+        {
+          "url": "https://www.ici.fr/rss/limousin/rubrique/infos.xml",
+          "code": 200,
+          "type": "application/xml",
+          "url_finale": "https://www.ici.fr/rss/limousin/rubrique/infos.xml",
+          "items": 20
+        },
+        {
+          "url": "https://www.ici.fr/infos/agriculture-peche",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/infos/agriculture-peche",
+          "items": 0
+        }
+      ]
+    },
+    {
+      "nom": "France 3 Nouvelle-Aquitaine — Haute-Vienne",
+      "urls": [
+        {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne",
+          "items": 0
+        },
+        {
+          "url": "https://france3-regions.franceinfo.fr/economie/agriculture",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/economie/agriculture",
+          "items": 0
+        },
+        {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/rss",
+          "code": 200,
+          "type": "text/xml; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/rss",
+          "items": 30
+        },
+        {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/le-service-d-identification-des-bovins-et-ovins-victime-d-une-cyberattaque-le-travail-des-eleveurs-limousins-perturbe-3084484.html",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/le-service-d-identification-des-bovins-et-ovins-victime-d-une-cyberattaque-le-travail-des-eleveurs-limousins-perturbe-3084484.html",
+          "items": 0
+        },
+        {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/impossible-d-acceder-a-cette-page-cette-cyberattaque-qui-rend-la-vie-impossible-aux-eleveurs-du-sud-ouest-depuis-la-mi-decembre-3085180.html",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/impossible-d-acceder-a-cette-page-cette-cyberattaque-qui-rend-la-vie-impossible-aux-eleveurs-du-sud-ouest-depuis-la-mi-decembre-3085180.html",
+          "items": 0
+        }
+      ]
+    },
+    {
+      "nom": "actu.fr — Limoges/Haute-Vienne (87)",
+      "urls": [
+        {
+          "url": "https://actu.fr/limoges",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://actu.fr/limoges/",
+          "items": 0
+        },
+        {
+          "url": "https://actu.fr/nouvelle-aquitaine/haute-vienne_87",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/haute-vienne_87",
+          "items": 0
+        },
+        {
+          "url": "https://actu.fr/limoges/rss.xml",
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "url_finale": "https://actu.fr/limoges/rss.xml",
+          "items": 20
+        }
+      ]
+    },
+    {
+      "nom": "Le Populaire du Centre — Haute-Vienne",
+      "urls": [
+        {
+          "url": "https://www.lepopulaire.fr/haute-vienne/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lepopulaire.fr/haute-vienne/",
+          "items": 0
+        },
+        {
+          "url": "https://www.lepopulaire.fr/economie/agriculture/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lepopulaire.fr/economie/agriculture/",
+          "items": 0
+        },
+        {
+          "url": "https://www.lepopulaire.fr/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lepopulaire.fr/",
+          "items": 0
+        }
+      ]
+    },
+    {
+      "nom": "DRAAF Nouvelle-Aquitaine (agriculture, couvre le 87)",
+      "urls": [
+        {
+          "url": "https://draaf.nouvelle-aquitaine.agriculture.gouv.fr/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://draaf.nouvelle-aquitaine.agriculture.gouv.fr/",
+          "items": 0
+        },
+        {
+          "url": "https://draaf.nouvelle-aquitaine.agriculture.gouv.fr/actualites-et-points-de-situation-r1220.html",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://draaf.nouvelle-aquitaine.agriculture.gouv.fr/actualites-et-points-de-situation-r1220.html",
+          "items": 0
+        },
+        {
+          "url": "https://draaf.nouvelle-aquitaine.agriculture.gouv.fr/spip.php?page=backend-actu",
+          "code": 200,
+          "type": "text/xml; charset=utf-8",
+          "url_finale": "https://draaf.nouvelle-aquitaine.agriculture.gouv.fr/spip.php?page=backend-actu",
+          "items": 20
+        },
+        {
+          "url": "https://draaf.nouvelle-aquitaine.agriculture.gouv.fr/spip.php?page=liste-actualites&lang=fr",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://draaf.nouvelle-aquitaine.agriculture.gouv.fr/spip.php?page=liste-actualites&lang=fr",
+          "items": 0
+        }
+      ]
+    },
+    {
+      "nom": "Terre de Liens Limousin",
+      "urls": [
+        {
+          "url": "https://terredeliens.org/limousin/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://terredeliens.org/limousin/",
+          "items": 0
+        },
+        {
+          "url": "https://terredeliens.org/limousin/actu/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://terredeliens.org/limousin/actu/",
+          "items": 0
+        },
+        {
+          "url": "https://terredeliens.org/national/actu/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://terredeliens.org/national/actu/",
+          "items": 0
+        }
+      ]
+    },
+    {
+      "nom": "Solidarité Paysans Limousin",
+      "urls": [
+        {
+          "url": "https://solidaritepaysans.org/limousin/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://solidaritepaysans.org/nouvelle-aquitaine/limousin",
+          "items": 0
+        },
+        {
+          "url": "https://solidaritepaysans.org/nouvelle-aquitaine/limousin/actualite-limousin",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://solidaritepaysans.org/nouvelle-aquitaine/limousin/actualite-limousin",
+          "items": 0
+        }
+      ]
+    },
+    {
+      "nom": "Réussir (presse agricole spécialisée)",
+      "urls": [
+        {
+          "url": "https://www.reussir.fr/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.reussir.fr/",
+          "items": 0
+        },
+        {
+          "url": "https://www.reussir.fr/fil-actualites",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.reussir.fr/fil-actualites",
+          "items": 0
+        },
+        {
+          "url": "https://www.reussir.fr/rss.xml",
+          "code": 200,
+          "type": "application/xml;charset=UTF-8",
+          "url_finale": "https://www.reussir.fr/rss.xml",
+          "items": 20
+        },
+        {
+          "url": "https://www.reussir.fr/rubriques/actualites",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.reussir.fr/rubriques/actualites",
+          "items": 0
+        },
+        {
+          "url": "https://www.reussir.fr/articles/se-cybersecuriser-pour-minimiser-le-risque-informatique-des-exploitations-agricoles",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.reussir.fr/articles/se-cybersecuriser-pour-minimiser-le-risque-informatique-des-exploitations-agricoles",
+          "items": 0
+        }
+      ]
+    },
+    {
+      "nom": "La France Agricole",
+      "urls": [
+        {
+          "url": "https://www.lafranceagricole.fr/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lafranceagricole.fr/",
+          "items": 0
+        },
+        {
+          "url": "https://www.lafranceagricole.fr/actualites/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lafranceagricole.fr/actualites/",
+          "items": 0
+        },
+        {
+          "url": "https://www.lafranceagricole.fr/rss",
+          "code": 200,
+          "type": "text/xml; charset=utf-8",
+          "url_finale": "https://www.lafranceagricole.fr/rss",
+          "items": 20
+        },
+        {
+          "url": "https://www.lafranceagricole.fr/elevage/article/876452/30-000-eleveurs-touches-par-une-cyberattaque",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lafranceagricole.fr/elevage/article/876452/30-000-eleveurs-touches-par-une-cyberattaque",
+          "items": 0
+        },
+        {
+          "url": "https://www.lafranceagricole.fr/cooperative/article/871984/le-piratage-de-la-cooperative-even-est-le-signe-d-une-menace-grandissante",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lafranceagricole.fr/cooperative/article/871984/le-piratage-de-la-cooperative-even-est-le-signe-d-une-menace-grandissante",
+          "items": 0
+        }
+      ]
+    },
+    {
+      "nom": "Terre-net (presse agricole spécialisée)",
+      "urls": [
+        {
+          "url": "https://www.terre-net.fr/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.terre-net.fr/",
+          "items": 0
+        },
+        {
+          "url": "https://www.terre-net.fr/actualite-agricole/t5162",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.terre-net.fr/actualite-agricole/t5162",
+          "items": 0
+        },
+        {
+          "url": "https://www.terre-net.fr/rss/actualite.xml",
+          "code": 200,
+          "type": "text/xml; charset=utf-8",
+          "url_finale": "https://www.terre-net.fr/rss/actualite.xml",
+          "items": 20
+        }
+      ]
+    },
+    {
+      "nom": "Agrilocal87 — annuaire de producteurs de la Haute-Vienne",
+      "urls": [
+        {
+          "url": "https://www.agrilocal87.com/",
+          "code": 200,
+          "type": "text/html;charset=utf-8",
+          "url_finale": "https://www.agrilocal87.com/",
+          "items": 0
+        },
+        {
+          "url": "https://www.agrilocal87.com/actualites",
+          "code": 200,
+          "type": "text/html;charset=utf-8",
+          "url_finale": "https://www.agrilocal87.com/actualites",
+          "items": 0
+        }
+      ]
+    },
+    {
+      "nom": "Cerfrance Centre Limousin (conseil agricole, 87)",
+      "urls": [
+        {
+          "url": "https://centre-limousin.cerfrance.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://centre-limousin.cerfrance.fr/",
+          "items": 0
+        },
+        {
+          "url": "https://centre-limousin.cerfrance.fr/articles-de-presse/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://centre-limousin.cerfrance.fr/articles-de-presse/",
+          "items": 0
+        },
+        {
+          "url": "https://www.cerfrance.fr/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.cerfrance.fr/actualites/",
+          "items": 0
+        }
+      ]
+    },
+    {
+      "nom": "CDAAS Haute-Vienne (sanitaire animal, 87)",
+      "urls": [
+        {
+          "url": "https://www.mrsa-limousin.fr/cdaas/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.mrsa-limousin.fr/cdaas/",
+          "items": 0
+        }
+      ]
+    },
+    {
+      "nom": "GDS France (réseau sanitaire, couvre le 87)",
+      "urls": [
+        {
+          "url": "https://www.gdsfrance.org/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.gdsfrance.org/",
+          "items": 0
+        },
+        {
+          "url": "https://www.gdsfrance.org/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.gdsfrance.org/actualites/",
+          "items": 0
+        },
+        {
+          "url": "https://www.gdsfrance.org/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.gdsfrance.org/feed/",
+          "items": 10
+        }
+      ]
+    },
+    {
+      "nom": "FRGDS Nouvelle-Aquitaine (couvre le 87)",
+      "urls": [
+        {
+          "url": "https://www.frgdsna.org/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.frgdsna.org/",
+          "items": 0
+        },
+        {
+          "url": "https://www.frgdsna.org/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.frgdsna.org/actualites/",
+          "items": 0
+        },
+        {
+          "url": "https://www.frgdsna.org/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.frgdsna.org/feed/",
+          "items": 10
+        }
+      ]
+    },
+    {
+      "nom": "Acteurs Locaux — Agriculture Haute-Vienne (87)",
+      "urls": [
+        {
+          "url": "https://www.acteurs-locaux.fr/d146-haute-vienne-87/agriculture/index.html",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.acteurs-locaux.fr/d146-haute-vienne-87/agriculture/index.html",
+          "items": 0
+        },
+        {
+          "url": "https://www.acteurs-locaux.fr/d146-haute-vienne-87/agriculture/journal.html",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.acteurs-locaux.fr/d146-haute-vienne-87/agriculture/journal.html",
+          "items": 0
+        },
+        {
+          "url": "https://www.acteurs-locaux.fr/d146-haute-vienne-87/agriculture/rss.php",
+          "code": 200,
+          "type": "text/xml; charset=utf-8",
+          "url_finale": "https://www.acteurs-locaux.fr/d146-haute-vienne-87/agriculture/rss.php",
+          "items": 40
+        }
+      ]
+    },
+    {
+      "nom": "Bienvenue à la ferme (annuaire de producteurs)",
+      "urls": [
+        {
+          "url": "https://www.bienvenue-a-la-ferme.com/fr/inspirez-vous/actualite",
+          "code": 200,
+          "type": "text/html",
+          "url_finale": "https://www.bienvenue-a-la-ferme.com/fr/inspirez-vous/actualite",
+          "items": 0
+        }
+      ]
+    },
+    {
+      "nom": "Le Mag Safer (actualités foncières agricoles)",
+      "urls": [
+        {
+          "url": "https://mag.safer.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://mag.safer.fr/",
+          "items": 0
+        }
+      ]
+    },
+    {
+      "nom": "Agri Sud-Ouest Innovation (cluster agroéconomique, couvre le 87)",
+      "urls": [
+        {
+          "url": "https://agrisudouest.com/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://agrisudouest.com/actualites/",
+          "items": 0
+        }
+      ]
+    },
+    {
+      "nom": "InVivo (coopérative agricole, couvre le 87)",
+      "urls": [
+        {
+          "url": "https://www.invivo-group.com/fr/media-hub/actualites",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.invivo-group.com/fr/media-hub/actualites",
+          "items": 0
+        }
+      ]
+    }
+  ],
+  "traces_base": 104
+}
