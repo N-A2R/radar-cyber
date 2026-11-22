@@ -1,0 +1,32 @@
+{
+  "secteur": "energie-eau",
+  "departement": "17",
+  "date": "2026-11-22",
+  "sources": 10,
+  "urls_verifiees": 21,
+  "urls_http_200": 21,
+  "methode": "GET HTTP avec User-Agent navigateur, suivi des redirections, délai 25 s ; contrôle du titre HTML ou de la racine XML pour chaque URL",
+  "urls": [
+    {"url": "https://www.eau17.fr/", "code_http": 200},
+    {"url": "https://www.eau17.fr/actualites", "code_http": 200},
+    {"url": "https://www.eau17.fr/actualites.xml", "code_http": 200},
+    {"url": "https://www.rese.fr/", "code_http": 200},
+    {"url": "https://www.rese.fr/actualites", "code_http": 200},
+    {"url": "https://www.rese.fr/actualites.xml", "code_http": 200},
+    {"url": "https://www.sdeer17.fr/", "code_http": 200},
+    {"url": "https://www.sdeer17.fr/actualites/", "code_http": 200},
+    {"url": "https://www.sdeer17.fr/feed/", "code_http": 200},
+    {"url": "https://www.agur.fr/", "code_http": 200},
+    {"url": "https://www.agur.fr/nos-actualites/", "code_http": 200},
+    {"url": "https://www.enedis.fr/", "code_http": 200},
+    {"url": "https://www.enedis.fr/presse", "code_http": 200},
+    {"url": "https://cma-nouvelleaquitaine.fr/", "code_http": 200},
+    {"url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites", "code_http": 200},
+    {"url": "https://www.sudouest.fr/charente-maritime", "code_http": 200},
+    {"url": "https://www.sudouest.fr/charente-maritime/archives/", "code_http": 200},
+    {"url": "https://www.sudouest.fr/rss.xml", "code_http": 200},
+    {"url": "https://www.ici.fr/nouvelle-aquitaine/charente-maritime-17", "code_http": 200},
+    {"url": "https://recours-france.fr/annuaire/energie/17-charente-maritime", "code_http": 200},
+    {"url": "https://pro-rge.fr/entreprises/charente-maritime-17/", "code_http": 200}
+  ]
+}
