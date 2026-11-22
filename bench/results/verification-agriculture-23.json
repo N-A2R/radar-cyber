@@ -1,0 +1,476 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-agriculture-23.jsonl",
+  "secteur": "agriculture",
+  "departement": "23",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+  "methode": "GET réel avec suivi des redirections, User-Agent navigateur, délai 25 s ; statut, type de contenu, URL finale et nombre d items RSS enregistrés",
+  "sources": 23,
+  "urls_verifiees": 58,
+  "urls_200": 58,
+  "detail": [
+    {
+      "nom": "Chambre d'agriculture de la Creuse",
+      "urls": {
+        "https://creuse.chambres-agriculture.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://creuse.chambres-agriculture.fr/",
+          "items_rss": 0
+        },
+        "https://creuse.chambres-agriculture.fr/actualites-1/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://creuse.chambres-agriculture.fr/actualites-1/",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "Conseil départemental de la Creuse — Agriculture",
+      "urls": {
+        "https://www.creuse.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.creuse.fr/",
+          "items_rss": 0
+        },
+        "https://www.creuse.fr/agriculture": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.creuse.fr/agriculture",
+          "items_rss": 0
+        },
+        "https://www.creuse.fr/spip.php?page=backend": {
+          "code": 200,
+          "type": "text/xml; charset=utf-8",
+          "url_finale": "https://www.creuse.fr/spip.php?page=backend",
+          "items_rss": 10
+        }
+      }
+    },
+    {
+      "nom": "Cerfrance Centre-Limousin (périmètre Creuse)",
+      "urls": {
+        "https://centre-limousin.cerfrance.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://centre-limousin.cerfrance.fr/",
+          "items_rss": 0
+        },
+        "https://centre-limousin.cerfrance.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://centre-limousin.cerfrance.fr/actualites/",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "Chambre régionale d'agriculture Nouvelle-Aquitaine (couvre la Creuse)",
+      "urls": {
+        "https://nouvelle-aquitaine.chambres-agriculture.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://nouvelle-aquitaine.chambres-agriculture.fr/",
+          "items_rss": 0
+        },
+        "https://nouvelle-aquitaine.chambres-agriculture.fr/actualites": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://nouvelle-aquitaine.chambres-agriculture.fr/actualites",
+          "items_rss": 0
+        },
+        "https://nouvelle-aquitaine.chambres-agriculture.fr/actualites.rss": {
+          "code": 200,
+          "type": "text/xml; charset=utf-8",
+          "url_finale": "https://nouvelle-aquitaine.chambres-agriculture.fr/actualites.rss",
+          "items_rss": 20
+        }
+      }
+    },
+    {
+      "nom": "Safer Nouvelle-Aquitaine — comité Creuse",
+      "urls": {
+        "https://www.saferna.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.saferna.fr/",
+          "items_rss": 0
+        },
+        "https://www.saferna.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.saferna.fr/actualites/",
+          "items_rss": 0
+        },
+        "https://www.saferna.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.saferna.fr/feed/",
+          "items_rss": 10
+        }
+      }
+    },
+    {
+      "nom": "FRCUMA Nouvelle-Aquitaine (Cuma de la Creuse)",
+      "urls": {
+        "https://nouvelle-aquitaine.cuma.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://nouvelle-aquitaine.cuma.fr/",
+          "items_rss": 0
+        },
+        "https://nouvelle-aquitaine.cuma.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://nouvelle-aquitaine.cuma.fr/actualites/",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "FNCuma (Fédération nationale des Cuma)",
+      "urls": {
+        "https://www.cuma.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.cuma.fr/",
+          "items_rss": 0
+        },
+        "https://www.cuma.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.cuma.fr/actualites/",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "Annuaire des Chambres d'agriculture France (recense la Creuse)",
+      "urls": {
+        "https://chambres-agriculture.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://chambres-agriculture.fr/",
+          "items_rss": 0
+        },
+        "https://chambres-agriculture.fr/actualites": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://chambres-agriculture.fr/actualites",
+          "items_rss": 0
+        },
+        "https://chambres-agriculture.fr/presse.rss": {
+          "code": 200,
+          "type": "text/xml; charset=utf-8",
+          "url_finale": "https://chambres-agriculture.fr/presse.rss",
+          "items_rss": 20
+        }
+      }
+    },
+    {
+      "nom": "Agri Sud-Ouest Innovation (cluster agroéconomie, annuaire adhérents)",
+      "urls": {
+        "https://agrisudouest.com/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://agrisudouest.com/",
+          "items_rss": 0
+        },
+        "https://agrisudouest.com/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://agrisudouest.com/actualites/",
+          "items_rss": 0
+        },
+        "https://agrisudouest.com/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://agrisudouest.com/feed/",
+          "items_rss": 10
+        }
+      }
+    },
+    {
+      "nom": "Jeunes Agriculteurs (réseau national, section Creuse)",
+      "urls": {
+        "https://www.jeunes-agriculteurs.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.jeunes-agriculteurs.fr/",
+          "items_rss": 0
+        },
+        "https://www.jeunes-agriculteurs.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.jeunes-agriculteurs.fr/actualites/",
+          "items_rss": 0
+        },
+        "https://www.jeunes-agriculteurs.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.jeunes-agriculteurs.fr/feed/",
+          "items_rss": 10
+        }
+      }
+    },
+    {
+      "nom": "FNSEA — carte des fédérations départementales",
+      "urls": {
+        "https://www.fnsea.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.fnsea.fr/",
+          "items_rss": 0
+        },
+        "https://www.fnsea.fr/actualités/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.fnsea.fr/actualités/",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "FNAB (Fédération nationale d'agriculture biologique)",
+      "urls": {
+        "https://www.fnab.org/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.fnab.org/",
+          "items_rss": 0
+        },
+        "https://www.fnab.org/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.fnab.org/actualites/",
+          "items_rss": 0
+        },
+        "https://www.fnab.org/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.fnab.org/feed/",
+          "items_rss": 10
+        }
+      }
+    },
+    {
+      "nom": "Bienvenue à la ferme (annuaire de producteurs)",
+      "urls": {
+        "https://www.bienvenue-a-la-ferme.com/fr": {
+          "code": 200,
+          "type": "text/html",
+          "url_finale": "https://www.bienvenue-a-la-ferme.com/fr",
+          "items_rss": 0
+        },
+        "https://www.bienvenue-a-la-ferme.com/fr/inspirez-vous/actualite": {
+          "code": 200,
+          "type": "text/html",
+          "url_finale": "https://www.bienvenue-a-la-ferme.com/fr/inspirez-vous/actualite",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "CARRÉ — réseau revendeurs machinisme agricole",
+      "urls": {
+        "https://www.carre.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.carre.fr/",
+          "items_rss": 0
+        },
+        "https://www.carre.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.carre.fr/actualites/",
+          "items_rss": 0
+        },
+        "https://www.carre.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.carre.fr/feed/",
+          "items_rss": 10
+        }
+      }
+    },
+    {
+      "nom": "Terre de Liens",
+      "urls": {
+        "https://terredeliens.org/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://terredeliens.org/",
+          "items_rss": 0
+        },
+        "https://terredeliens.org/national/actu/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://terredeliens.org/national/actu/",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "La Montagne — Creuse",
+      "urls": {
+        "https://www.lamontagne.fr/creuse/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lamontagne.fr/creuse/",
+          "items_rss": 0
+        },
+        "https://www.lamontagne.fr/economie/agriculture": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lamontagne.fr/economie/agriculture",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "actu.fr — Creuse",
+      "urls": {
+        "https://actu.fr/nouvelle-aquitaine/creuse_23/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/creuse_23",
+          "items_rss": 0
+        },
+        "https://actu.fr/nouvelle-aquitaine/creuse_23/rss.xml": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/creuse_23/rss.xml",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "ICI Creuse (Radio France)",
+      "urls": {
+        "https://www.ici.fr/nouvelle-aquitaine/creuse-23": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/creuse-23",
+          "items_rss": 0
+        },
+        "https://www.ici.fr/rss/creuse/a-la-une.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "url_finale": "https://www.ici.fr/rss/creuse/a-la-une.xml",
+          "items_rss": 40
+        }
+      }
+    },
+    {
+      "nom": "ICI Limousin (Radio France)",
+      "urls": {
+        "https://www.ici.fr/radio/limousin": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/radio/limousin",
+          "items_rss": 0
+        },
+        "https://www.ici.fr/nouvelle-aquitaine/creuse-23/actu": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/creuse-23/actu",
+          "items_rss": 0
+        },
+        "https://www.ici.fr/rss/limousin/rubrique/infos.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "url_finale": "https://www.ici.fr/rss/limousin/rubrique/infos.xml",
+          "items_rss": 20
+        }
+      }
+    },
+    {
+      "nom": "France 3 Nouvelle-Aquitaine — Creuse",
+      "urls": {
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse",
+          "items_rss": 0
+        },
+        "https://france3-regions.franceinfo.fr/economie/agriculture": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/economie/agriculture",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "Sud Ouest — Creuse",
+      "urls": {
+        "https://www.sudouest.fr/creuse/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.sudouest.fr/creuse/",
+          "items_rss": 0
+        },
+        "https://www.sudouest.fr/economie/agriculture": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.sudouest.fr/economie/agriculture",
+          "items_rss": 0
+        },
+        "https://www.sudouest.fr/creuse/rss.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "url_finale": "https://www.sudouest.fr/creuse/rss.xml",
+          "items_rss": 20
+        }
+      }
+    },
+    {
+      "nom": "Réussir — presse agricole",
+      "urls": {
+        "https://www.reussir.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.reussir.fr/",
+          "items_rss": 0
+        },
+        "https://www.reussir.fr/fil-actualites": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.reussir.fr/fil-actualites",
+          "items_rss": 0
+        },
+        "https://www.reussir.fr/rss.xml": {
+          "code": 200,
+          "type": "application/xml;charset=UTF-8",
+          "url_finale": "https://www.reussir.fr/rss.xml",
+          "items_rss": 20
+        }
+      }
+    },
+    {
+      "nom": "La France Agricole",
+      "urls": {
+        "https://www.lafranceagricole.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lafranceagricole.fr/",
+          "items_rss": 0
+        },
+        "https://www.lafranceagricole.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lafranceagricole.fr/actualites/",
+          "items_rss": 0
+        },
+        "https://www.lafranceagricole.fr/rss": {
+          "code": 200,
+          "type": "text/xml; charset=utf-8",
+          "url_finale": "https://www.lafranceagricole.fr/rss",
+          "items_rss": 20
+        }
+      }
+    }
+  ]
+}
