@@ -1,5 +1,6 @@
 import { ingestQuery } from "../db.js";
 import { ALERT_SCOPES_REVUE } from "../alert-scope.js";
+import { evenementPublicSql } from "../security/tlp.js";
 
 export const MAX_ATTEMPTS = 10;
 /** Limite par passage pour ne jamais bloquer la collecte. */
@@ -23,9 +24,14 @@ export interface DeliveryAlert {
   webhook_delivered_at: Date | string | null;
   telegram_delivered_at: Date | string | null;
   org_name: string | null;
+  org_kind: string | null;
   source_name: string | null;
   event_title: string | null;
   source_url: string | null;
+  /** Guichet national d'orientation (collectivités victimes). */
+  url_orientation: string | null;
+  actions: string[] | null;
+  lien_verifie_le: Date | string | null;
 }
 
 export interface DeliveryMessage {
@@ -67,9 +73,13 @@ SELECT
   a.webhook_delivered_at,
   a.telegram_delivered_at,
   o.name AS org_name,
+  o.kind AS org_kind,
   s.name AS source_name,
   e.title AS event_title,
-  COALESCE(e.source_url, s.url) AS source_url
+  COALESCE(e.source_url, s.url) AS source_url,
+  a.url_orientation,
+  a.actions,
+  a.lien_verifie_le
 FROM alert a
 LEFT JOIN event e ON e.id = a.event_id
 LEFT JOIN org o ON o.id = a.org_id
@@ -78,6 +88,7 @@ WHERE a.delivered_at IS NULL
   AND a.attempts < $1
   AND (a.next_attempt_at IS NULL OR a.next_attempt_at <= now())
   AND a.scope <> ALL($3::text[])
+  AND ${evenementPublicSql("e")}
 ORDER BY a.created_at ASC, a.id ASC
 LIMIT $2`;
 
@@ -96,6 +107,29 @@ function fmtDate(value: Date | string): string {
   return Number.isNaN(d.getTime()) ? String(value) : d.toISOString();
 }
 
+type OrientationDiffusee = {
+  url: string;
+  actions: string[];
+  verifie_le: string | null;
+  dispositif: "national";
+};
+
+/**
+ * Bloc d'orientation joint à une alerte de collectivité. 17Cyber est un
+ * dispositif NATIONAL : `dispositif` le dit explicitement pour qu'aucun
+ * consommateur ne le présente comme une source ou un guichet local.
+ */
+function orientationDiffusee(alert: DeliveryAlert): OrientationDiffusee | null {
+  const url = alert.url_orientation?.trim();
+  if (alert.org_kind !== "collectivite" || !url) return null;
+  return {
+    url,
+    actions: Array.isArray(alert.actions) ? alert.actions : [],
+    verifie_le: alert.lien_verifie_le ? fmtDate(alert.lien_verifie_le) : null,
+    dispositif: "national",
+  };
+}
+
 /** Construit un message lisible et une charge JSON pour un canal webhook. */
 export function buildDeliveryMessage(alert: DeliveryAlert, cfg: DeliveryConfig = readDeliveryConfig()): DeliveryMessage {
   const org = alert.org_name?.trim() || "organisation inconnue";
@@ -103,6 +137,7 @@ export function buildDeliveryMessage(alert: DeliveryAlert, cfg: DeliveryConfig =
   const date = fmtDate(alert.created_at);
   const eventTitle = alert.event_title?.trim() || alert.title?.trim() || "Alerte";
   const link = alert.source_url?.trim() || (cfg.webBaseUrl ? `${cfg.webBaseUrl}/alerts/${alert.id}` : "");
+  const orientation = orientationDiffusee(alert);
 
   const lines = [
     `[Radar Cyber] Alerte #${alert.id} — sévérité ${alert.severity} (${severityLabel(alert.severity)})`,
@@ -112,6 +147,12 @@ export function buildDeliveryMessage(alert: DeliveryAlert, cfg: DeliveryConfig =
     `Date : ${date}`,
   ];
   if (link) lines.push(`Lien : ${link}`);
+  if (orientation) {
+    lines.push("", "Réflexe collectivité — 17Cyber (dispositif national) :");
+    orientation.actions.forEach((action, i) => lines.push(`${i + 1}) ${action}`));
+    lines.push(`Demande d'aide : ${orientation.url}`);
+    if (orientation.verifie_le) lines.push(`Lien vérifié le ${orientation.verifie_le} (HTTP 200)`);
+  }
 
   const payload = {
     type: "radar.alert",
@@ -126,6 +167,7 @@ export function buildDeliveryMessage(alert: DeliveryAlert, cfg: DeliveryConfig =
       date,
       link: link || null,
       attempts: alert.attempts,
+      orientation,
     },
   };
 

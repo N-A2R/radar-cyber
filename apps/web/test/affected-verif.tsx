@@ -1,10 +1,10 @@
 /**
- * SSR rendering of the "Am I affected?" view — no browser, no network.
+ * Rendu SSR de l'écran « Suis-je concerné ? » — sans navigateur, sans réseau.
  *
- * Every check covers one observable behaviour: English labels, one row per
- * statement with its full evidence, an unconfirmed claim still visible, an
- * absent personal-data leak, and the loading / empty / error / no-statement
- * states.
+ * Chaque vérification couvre un comportement observable : libellés français,
+ * une ligne par constat avec sa preuve complète, une allégation non confirmée
+ * toujours visible, aucune fuite de donnée personnelle, et les états
+ * chargement / vide / erreur / aucun constat.
  */
 import { renderToStaticMarkup } from "react-dom/server";
 import AffectedView from "../src/components/AffectedView";
@@ -59,51 +59,81 @@ const report = {
 
 const html = renderToStaticMarkup(<AffectedView report={report} query="Example Works" />);
 
-check("the view has an English title", html.includes("Am I affected?"));
-check("the search field is labelled Organization", html.includes(">Organization</label>"));
-check("there is a Check button", html.includes(">Check</button>"));
-check("the submitted query fills the field", html.includes('value="Example Works"'));
-check("the regional scope is stated", html.includes("Nouvelle-Aquitaine only"));
-check("the privacy note is stated", html.includes("No victim personal data is displayed."));
-check("the summary counts are shown", html.includes("2 statements / 2 with evidence / 2 sources"));
-check("one row is rendered per statement", (html.match(/class="affected__statement"/g) ?? []).length === 2);
-check("the category is shown", html.includes('data-category="claim"'));
-check("the statement label is shown", html.includes("Ransomware extortion claim"));
-check("the statement value is shown", html.includes("Example Works"));
-check("the observed date is shown when present", html.includes("Observed: <time dateTime=\"2026-11-20T10:00:00.000Z\">2026-11-20T10:00:00.000Z</time>"));
+check("la vue porte un titre français", html.includes("Suis-je concerné ?"));
+check("le champ de recherche est étiqueté Organisation", html.includes(">Organisation</label>"));
+check("il y a un bouton Vérifier", html.includes(">Vérifier</button>"));
+check("la requête soumise remplit le champ", html.includes('value="Example Works"'));
+check("le périmètre régional est annoncé", html.includes("Nouvelle-Aquitaine uniquement"));
+check("la note de confidentialité est annoncée", html.includes("Aucune donnée personnelle de victime"));
+check("les compteurs du résumé sont affichés", html.includes("2 constats / 2 avec preuve / 2 sources"));
+check("une ligne est rendue par constat", (html.match(/class="affected__statement"/g) ?? []).length === 2);
+check("la catégorie est affichée", html.includes('data-category="claim"'));
+check("le libellé du constat est affiché", html.includes("Ransomware extortion claim"));
+check("la valeur du constat est affichée", html.includes("Example Works"));
+check("la date d'observation est affichée quand elle existe", html.includes("Observé : <time dateTime=\"2026-11-20T10:00:00.000Z\">2026-11-20T10:00:00.000Z</time>"));
+check("la preuve est titrée en français", html.includes(">Preuve</p>") && html.includes(">Éditeur</dt>"));
 for (const statement of report.statements) {
   check(`publisher ${statement.id} is shown`, html.includes(statement.evidence.label));
   check(`reference ${statement.id} is shown`, html.includes(statement.evidence.reference));
   check(`status ${statement.id} is shown`, html.includes(`data-status="${statement.evidence.status}"`));
 }
-check("an unverified claim is named in English", html.includes("Unverified claim"));
-check("a source URL is clickable when present", html.includes('href="https://example.org/notice/7"'));
-check("no raw personal data is leaked", !html.includes(SECRET));
-check("no contact detail is leaked", !html.includes("victim@example.fr"));
+check("une allégation non vérifiée est nommée en français", html.includes("Allégation non vérifiée"));
+check("un registre officiel est nommé en français", html.includes("Registre officiel"));
+check("une URL de source est cliquable quand elle existe", html.includes('href="https://example.org/notice/7"'));
+check("aucune donnée personnelle brute ne fuit", !html.includes(SECRET));
+check("aucune coordonnée ne fuit", !html.includes("victim@example.fr"));
 
 const noUrl = renderToStaticMarkup(<AffectedView report={{
   ...report,
   statements: [{ ...report.statements[0], evidence: { ...report.statements[0].evidence, url: null } }],
 }} />);
-check("no link is rendered when no URL is present", !noUrl.includes("href="));
+check("aucun lien de preuve rendu sans URL", !noUrl.includes("href=\"https"));
 
 const loading = renderToStaticMarkup(<AffectedView loading />);
-check("the loading state is announced", loading.includes('role="status"') && loading.includes("Loading report..."));
+check("l'état de chargement est annoncé", loading.includes('role="status"') && loading.includes("Chargement du rapport…"));
 
 const error = renderToStaticMarkup(<AffectedView error="Organization not found" query="Ghost SARL" />);
-check("the error is shown", error.includes('role="alert"') && error.includes("Organization not found"));
+check("l'erreur est affichée en français", error.includes('role="alert"') && error.includes("Erreur : Organization not found"));
 
 const empty = renderToStaticMarkup(<AffectedView />);
-check("the empty state asks for an organization", empty.includes("Enter an organization name, identifier or domain to check."));
-check("the empty state shows no summary", !empty.includes("statements /"));
+check("l'état vide demande une organisation", empty.includes("Saisissez un nom") && empty.includes("pour vérifier."));
+check("l'état vide n'affiche aucun résumé", !empty.includes("constats /"));
 
 const none = renderToStaticMarkup(<AffectedView report={{
   ...report,
   statements: [],
   summary: { statements: 0, withEvidence: 0, sources: 0 },
 }} />);
-check("a zero-statement report says so", none.includes("No statements recorded for this organization."));
-check("a zero-statement report counts to zero", none.includes("0 statements / 0 with evidence / 0 sources"));
+check("un rapport sans constat le dit", none.includes("Aucun constat enregistré pour cette organisation."));
+check("un rapport sans constat compte zéro", none.includes("0 constats / 0 avec preuve / 0 sources"));
+
+check(
+  "le geste est expliqué avant le champ",
+  html.indexOf("déjà rattachées à un incident") > -1
+    && html.indexOf("déjà rattachées à un incident") < html.indexOf('id="affected-query"'),
+);
+check(
+  "ce que la vérification ne fait pas est annoncé",
+  html.includes("aucune donnée personnelle de victime") && html.includes("ne juge"),
+);
+check("un lien vers la fiche est offert", html.includes('href="#/affected?org=42"'));
+check("les incidents sont séparés de l'identité", html.includes("Incidents rattachés") && html.includes("Identité enregistrée"));
+check("les familles d'incident sont résumées", html.includes("affected__family") && html.includes("rançongiciel"));
+check("l'état de repos annonce ce qu'on obtient", empty.includes("incidents rattachés") && empty.includes("lien vers sa fiche"));
+
+const notFound = renderToStaticMarkup(
+  <AffectedView error="/affected?q=Ghost SARL → 404" query="Ghost SARL" />,
+);
+check(
+  "aucun résultat rappelle la requête",
+  notFound.includes("Aucune organisation ne correspond à « Ghost SARL »")
+    && !notFound.includes("Erreur :"),
+);
+
+const outside = renderToStaticMarkup(
+  <AffectedView error="/affected?q=Paris SARL → 403" query="Paris SARL" />,
+);
+check("hors région est expliqué", outside.includes("hors Nouvelle-Aquitaine"));
 
 console.log(failures === 0 ? "\naffected view: all green" : `\naffected view: ${failures} failure(s)`);
 process.exit(failures === 0 ? 0 : 1);

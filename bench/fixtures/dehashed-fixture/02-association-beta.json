@@ -1,0 +1,17 @@
+{
+  "query": "beta.example",
+  "total": 1,
+  "entries": [
+    {
+      "id": "dh-002",
+      "name": "Fuite simulée 02 — association beta",
+      "domain": "beta.example",
+      "breach_date": "2024-03-22",
+      "accounts": 340,
+      "source_url": "https://example.invalid/dehashed-fixture/02",
+      "email": "membre-fictif@example.invalid",
+      "password": "mot-de-passe-fictif",
+      "ip": "203.0.113.11"
+    }
+  ]
+}

@@ -15,7 +15,7 @@ import assert from "node:assert/strict";
 import { randomBytes } from "node:crypto";
 import Fastify, { type FastifyInstance } from "fastify";
 import { closePools, query } from "../src/db.js";
-import healthDetailRoute, { type HealthDetail } from "../src/routes/health-detail.js";
+import healthDetailRoute, { type HealthDetail, type HealthSources } from "../src/routes/health-detail.js";
 
 const TAG = `hd${Date.now().toString(36)}${randomBytes(3).toString("hex")}`;
 const IDS = {
@@ -56,11 +56,11 @@ before(async () => {
   );
 
   await query(
-    `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, severity, source_id, org_id)
-     VALUES ($1,$5,'ambient_signal','Fait vert (test)', now() - interval '2 hours',2,$9,$13),
-            ($2,$6,'ambient_signal','Fait orange (test)', now() - interval '3 days',2,$10,$13),
-            ($3,$7,'ambient_signal','Fait rouge (test)', now() - interval '10 days',2,$11,NULL),
-            ($4,$8,'ambient_signal','Fait source désactivée (test)', now() - interval '2 hours',2,$12,NULL)`,
+    `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, severity, source_id, org_id, source_url, evidence)
+     VALUES ($1,$5,'ambient_signal','Fait vert (test)', now() - interval '2 hours',2,$9,$13,'https://example.invalid/event','{"run_id":"1"}'::jsonb),
+            ($2,$6,'ambient_signal','Fait orange (test)', now() - interval '3 days',2,$10,$13,'https://example.invalid/event','{"run_id":"1"}'::jsonb),
+            ($3,$7,'ambient_signal','Fait rouge (test)', now() - interval '10 days',2,$11,NULL,'https://example.invalid/event','{"run_id":"1"}'::jsonb),
+            ($4,$8,'ambient_signal','Fait source désactivée (test)', now() - interval '2 hours',2,$12,NULL,'https://example.invalid/event','{"run_id":"1"}'::jsonb)`,
     [
       `${TAG}:ev-green`, `${TAG}:ev-orange`, `${TAG}:ev-red`, `${TAG}:ev-disabled`,
       FAMILY.green, FAMILY.orange, FAMILY.red, "cti",
@@ -99,6 +99,12 @@ async function lire(): Promise<HealthDetail> {
   return res.json() as HealthDetail;
 }
 
+async function lireSources(qs = ""): Promise<HealthSources> {
+  const res = await app.inject({ method: "GET", url: `/health/sources${qs}` });
+  assert.equal(res.statusCode, 200, res.body);
+  return res.json() as HealthSources;
+}
+
 async function entier(sql: string): Promise<number> {
   const r = await query<{ n: number }>(sql);
   return Number(r.rows[0]?.n ?? -1);
@@ -113,7 +119,7 @@ test("la route porte toutes les clés attendues et des entiers", async () => {
     "db", "events24h", "families", "generatedAt", "ok", "orgs7j", "queues", "sources", "windowDays",
   ]);
   assert.deepEqual(Object.keys(body.sources).sort(), [
-    "actives7j", "bySource", "declared", "enabled", "muettes7j",
+    "actives7j", "declared", "enabled", "muettes7j",
   ]);
   assert.deepEqual(Object.keys(body.queues).sort(), ["pending", "promoted", "reviewed"]);
   const entiers = [
@@ -122,11 +128,6 @@ test("la route porte toutes les clés attendues et des entiers", async () => {
     body.queues.pending, body.queues.reviewed, body.queues.promoted,
   ];
   for (const n of entiers) assert.ok(Number.isInteger(n) && n >= 0, `entier attendu : ${n}`);
-  for (const s of body.sources.bySource) {
-    assert.ok(s.ageHours === null || (Number.isInteger(s.ageHours) && s.ageHours >= 0));
-    assert.ok(["ok", "rouge", "morte"].includes(s.status), `statut attendu : ${s.status}`);
-    assert.equal(s.lastProducedAt, s.lastEventAt);
-  }
   for (const f of body.families) {
     assert.ok(f.ageHours === null || Number.isInteger(f.ageHours));
     assert.ok(f.ageDays === null || Number.isInteger(f.ageDays));
@@ -200,56 +201,8 @@ test("les compteurs sont ceux de la base, pas une estimation", async () => {
   });
 });
 
-test("chaque source et chaque famille porte le bon âge et la bonne couleur", async () => {
+test("chaque famille porte le bon âge et la bonne couleur", async () => {
   const b = await lire();
-  const parId = new Map(b.sources.bySource.map((s) => [s.id, s]));
-  const attendus: [
-    keyof typeof IDS,
-    string,
-    number | null,
-    HealthDetail["sources"]["bySource"][number]["status"],
-  ][] = [
-    ["green", "green", 2, "ok"],
-    ["orange", "orange", 72, "ok"],
-    ["red", "red", 240, "rouge"],
-    ["muette", "red", null, "rouge"],
-    ["disabled", "green", 2, "morte"],
-  ];
-  for (const [key, tone, age, statut] of attendus) {
-    const s = parId.get(IDS[key]);
-    assert.ok(s, `source ${key} absente de la réponse`);
-    assert.equal(s.status, statut, `statut de ${key}`);
-    if (age === null) {
-      assert.equal(s.ageHours, null, "une source sans fait n'a pas d'âge mesuré");
-      assert.equal(s.lastProducedAt, null);
-    } else {
-      assert.ok(s.ageHours !== null && Math.abs(s.ageHours - age) <= 1, `âge de ${key}`);
-    }
-    const production = await query<{ at: string | null }>(
-      `SELECT max(COALESCE(observed_at, collected_at))::text AS at
-         FROM event WHERE source_id=$1`,
-      [IDS[key]],
-    );
-    const at = production.rows[0]?.at ?? null;
-    assert.equal(
-      s.lastProducedAt === null ? null : Date.parse(s.lastProducedAt),
-      at === null ? null : Date.parse(at),
-      `production de ${key}`,
-    );
-    const collecte = await query<{ at: string | null }>(
-      `SELECT COALESCE(max(finished_at), s.last_ok_at)::text AS at
-         FROM collector_run r RIGHT JOIN source s ON s.id=r.source_id
-        WHERE s.id=$1
-        GROUP BY s.last_ok_at`,
-      [IDS[key]],
-    );
-    assert.equal(
-      s.lastCollectedAt === null ? null : Date.parse(s.lastCollectedAt),
-      collecte.rows[0]?.at === null || collecte.rows[0]?.at === undefined ? null : Date.parse(collecte.rows[0].at),
-      `collecte de ${key}`,
-    );
-  }
-
   const famillesBase = await query<{ family: string; age_hours: number; last_at: string }>(
     `SELECT family,
             GREATEST(0, floor(extract(epoch FROM
@@ -266,4 +219,49 @@ test("chaque source et chaque famille porte le bon âge et la bonne couleur", as
     assert.equal(Date.parse(f.lastEventAt ?? ""), Date.parse(attendu.last_at), `date de ${f.family}`);
     assert.equal(f.ageDays, Math.floor(Number(attendu.age_hours) / 24));
   }
+});
+
+test("le tableau paginé ne renvoie que la page demandée", async () => {
+  const complet = await lireSources(`?q=${TAG}&pageSize=2&sort=name&dir=asc`);
+  assert.equal(complet.total, await entier("SELECT count(*)::int AS n FROM source"));
+  assert.equal(
+    complet.counts.ok + complet.counts.error + complet.counts.pending,
+    complet.total,
+    "les trois états couvrent toutes les sources",
+  );
+  assert.equal(complet.matching, ALL_IDS.length, "les cinq sources du test correspondent au filtre");
+  assert.equal(complet.pages, Math.ceil(ALL_IDS.length / 2));
+  assert.equal(complet.items.length, 2, "la page porte exactement pageSize lignes");
+  assert.deepEqual(
+    Object.keys(complet.items[0]).sort(),
+    ["enabled", "family", "id", "lastError", "lastErrorAt", "lastItems", "lastOkAt", "name", "status", "url"],
+  );
+
+  const suite = await lireSources(`?q=${TAG}&pageSize=2&sort=name&dir=asc&page=3`);
+  assert.equal(suite.page, 3);
+  assert.equal(suite.items.length, 1, "la dernière page porte le reliquat");
+  const idsPage1 = await lireSources(`?q=${TAG}&pageSize=5&sort=name&dir=asc`);
+  assert.deepEqual(idsPage1.items.map((s) => s.id).sort(), [...ALL_IDS].sort());
+});
+
+test("les filtres état, famille et recherche sont appliqués par SQL", async () => {
+  const parEtat = await lireSources(`?q=${TAG}&status=pending&pageSize=50`);
+  // Les cinq sources du test n'ont ni succès ni erreur : elles sont « en attente ».
+  assert.equal(parEtat.matching, ALL_IDS.length);
+  const ok = await lireSources(`?q=${TAG}&status=ok`);
+  assert.equal(ok.matching, 0, "aucune source du test n'a de succès");
+  const parFamille = await lireSources(`?q=${TAG}&family=cti&pageSize=50`);
+  assert.equal(parFamille.matching, ALL_IDS.length);
+  const autreFamille = await lireSources(`?q=${TAG}&family=cert_fr`);
+  assert.equal(autreFamille.matching, 0);
+  const sansCorrespondance = await lireSources(`?q=${TAG}-introuvable`);
+  assert.equal(sansCorrespondance.matching, 0);
+  assert.equal(sansCorrespondance.items.length, 0);
+});
+
+test("les bornes de pagination sont respectées, même hostiles", async () => {
+  const enorme = await lireSources("?pageSize=100000&page=-3&sort=inconnu&dir=sideways");
+  assert.ok(enorme.pageSize <= 200, `pageSize borné (${enorme.pageSize})`);
+  assert.equal(enorme.page, 1, "une page négative retombe sur la première");
+  assert.equal(enorme.items.length, 200, "la page est bornée à 200 lignes");
 });

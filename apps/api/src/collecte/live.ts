@@ -20,6 +20,7 @@ import { fetchResilient } from "../collectors/http.js";
 import { languageVerdict } from "../collectors/filter.js";
 import { parseNarrativeItems } from "../collectors/generic.js";
 import { evaluatePertinence, loadRelevanceConfig } from "../collectors/pertinence.js";
+import { closeRun, openRun, withRunId } from "./runs.js";
 import { porteeRegionale } from "../match/territorial.js";
 
 export const NA_DEPARTMENTS: readonly string[] = ["16", "17", "19", "23", "24", "33", "40", "47", "64", "79", "86", "87"];
@@ -100,10 +101,15 @@ export async function collectLiveSourcesOnce(log: (message: string) => void): Pr
   const worker = async (): Promise<void> => {
     while (cursor < sources.length) {
       const source = sources[cursor++] as LiveSource;
+      // Le run est ouvert avant la lecture : chaque événement écrit ci-dessous
+      // le cite dans `evidence.run_id` (migration 206).
+      let runId: number | null = null;
       try {
+        runId = await openRun(source.id);
         const response = await fetchResilient(source.url, { timeoutMs: 8000, maxAttempts: 1, source: source.id });
         if (response.notModified) {
-          await noteRun(source.id, 0, 0);
+          await closeRun(runId, { itemsIn: 0, itemsNew: 0 });
+          await markSourceOk(source.id);
           continue;
         }
         const items = parseNarrativeItems(response.text, source.parser, source.format);
@@ -137,8 +143,8 @@ export async function collectLiveSourcesOnce(log: (message: string) => void): Pr
             severity: 2,
             confidence: "C3",
             sourceId: source.id,
-            sourceUrl: link || undefined,
-            evidence: { live: true, feed: source.name, dateSource: parsed.source },
+            sourceUrl: link || `urn:source:${source.id}`,
+            evidence: withRunId({ live: true, feed: source.name, dateSource: parsed.source }, runId),
             geoType: "unknown",
           });
           if (!admitted.ok) continue;
@@ -154,7 +160,7 @@ export async function collectLiveSourcesOnce(log: (message: string) => void): Pr
              RETURNING (xmax = 0) AS inserted`,
             [event.dedupKey, event.family, event.assertionType, event.title, event.summary ?? null,
               event.observedAt ?? null, parsed.source, parsed.confidence, event.severity,
-              event.confidence ?? "C3", event.sourceId, event.sourceUrl ?? null,
+              event.confidence ?? "C3", event.sourceId, event.sourceUrl ?? `urn:source:${source.id}`,
               JSON.stringify(event.evidence ?? {}), event.geoType, portee.regional, portee.motif],
           );
           if (inserted.rows[0]?.inserted) {
@@ -162,7 +168,8 @@ export async function collectLiveSourcesOnce(log: (message: string) => void): Pr
             counts.inserted++;
           }
         }
-        await noteRun(source.id, items.length, itemsNew);
+        await closeRun(runId, { itemsIn: items.length, itemsNew });
+        await markSourceOk(source.id);
         log(`live source ${source.id}: ${items.length} item(s), ${itemsNew} new`);
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
@@ -170,10 +177,16 @@ export async function collectLiveSourcesOnce(log: (message: string) => void): Pr
           "UPDATE source SET last_error_at=now(), last_error=$1 WHERE id=$2",
           [message.slice(0, 500), source.id],
         ).catch(() => {});
-        await ingestQuery(
-          "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, error) VALUES ($1, now(), 'error', 0, 0, $2)",
-          [source.id, message.slice(0, 500)],
-        ).catch(() => {});
+        if (runId !== null) {
+          await closeRun(runId, { status: "error", error: message }).catch(() => {});
+        } else {
+          // L'ouverture du run elle-même a échoué : on garde la trace d'échec
+          // historique, sans prétendre citer un run inexistant.
+          await ingestQuery(
+            "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new, error) VALUES ($1, now(), 'error', 0, 0, $2)",
+            [source.id, message.slice(0, 500)],
+          ).catch(() => {});
+        }
         log(`live source ${source.id} failed: ${message.slice(0, 160)}`);
       }
     }
@@ -182,12 +195,9 @@ export async function collectLiveSourcesOnce(log: (message: string) => void): Pr
   return { sourceIds: sources.map((source) => source.id), sources: sources.length, ...counts };
 }
 
-async function noteRun(sourceId: string, itemsIn: number, itemsNew: number): Promise<void> {
+/** La santé de la source reste une écriture distincte du run (qui, lui, est déjà clos). */
+async function markSourceOk(sourceId: string): Promise<void> {
   await ingestQuery("UPDATE source SET last_ok_at=now(), last_error=NULL, last_error_at=NULL WHERE id=$1", [sourceId]);
-  await ingestQuery(
-    "INSERT INTO collector_run (source_id, finished_at, status, items_in, items_new) VALUES ($1, now(), 'ok', $2, $3)",
-    [sourceId, itemsIn, itemsNew],
-  );
 }
 
 /**

@@ -168,7 +168,7 @@
 
 .corpus__dept-code {
   margin-left: var(--space-1);
-  font: 400 10px/1.4 var(--font-mono);
+  font: 400 var(--text-xs)/1.4 var(--font-mono);
   color: var(--faint);
 }
 
@@ -200,6 +200,7 @@
 .corpus__bar-segment[data-family="reputation"] { background: var(--family-reputation); }
 .corpus__bar-segment[data-family="cti"] { background: var(--family-cti); }
 .corpus__bar-segment[data-family="presse"] { background: var(--family-presse); }
+.corpus__bar-segment[data-family="presse_locale"] { background: var(--family-presse-locale); }
 .corpus__bar-segment[data-family="presse_cyber"] { background: var(--data-teal); }
 .corpus__bar-segment[data-family="warninglist"] { background: var(--data-steel); }
 .corpus__bar-segment[data-family="leaks"] { background: var(--sev-5); }
@@ -244,6 +245,7 @@
 .corpus__swatch[data-family="reputation"] { background: var(--family-reputation); }
 .corpus__swatch[data-family="cti"] { background: var(--family-cti); }
 .corpus__swatch[data-family="presse"] { background: var(--family-presse); }
+.corpus__swatch[data-family="presse_locale"] { background: var(--family-presse-locale); }
 .corpus__swatch[data-family="presse_cyber"] { background: var(--data-teal); }
 .corpus__swatch[data-family="warninglist"] { background: var(--data-steel); }
 .corpus__swatch[data-family="leaks"] { background: var(--sev-5); }

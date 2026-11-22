@@ -45,10 +45,13 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/events", niveau: "public" },
   { methode: "GET", route: "/api/history", niveau: "public" },
   { methode: "GET", route: "/api/health/detail", niveau: "public" },
+  { methode: "GET", route: "/api/health/sources", niveau: "public" },
   { methode: "GET", route: "/api/health/causes", niveau: "public" },
   { methode: "GET", route: "/api/today", niveau: "public" },
   { methode: "GET", route: "/api/today/departements", niveau: "public" },
   { methode: "GET", route: "/api/couverture", niveau: "public" },
+  { methode: "GET", route: "/api/technical/coverage", niveau: "public" },
+  { methode: "GET", route: "/api/coverage/na-departments", niveau: "public" },
   { methode: "GET", route: "/api/leaks/by-domain", niveau: "public" },
   { methode: "GET", route: "/api/resale/listings", niveau: "public" },
   { methode: "GET", route: "/api/public-data-containers", niveau: "public", motif: "compteurs de dépôts et buckets publics, sans donnée personnelle" },
@@ -83,6 +86,7 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/onion-index", niveau: "public" },
   { methode: "GET", route: "/api/custody", niveau: "public", motif: "chaîne de custody : métadonnées de source et journal, sans donnée personnelle" },
   { methode: "GET", route: "/api/affected", niveau: "public", motif: "assistant : faits structurés avec preuves, sans donnée personnelle" },
+  { methode: "GET", route: "/api/export/misp", niveau: "public", motif: "flux MISP des faits TLP:CLEAR/GREEN, sans donnée personnelle" },
   { methode: "GET", route: "/api/orgs", niveau: "public" },
 
   // --- Lectures authentifiées ----------------------------------------------
@@ -91,6 +95,17 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/orgs/liees/historique", niveau: "lecteur" },
   { methode: "GET", route: "/api/orgs/:id", niveau: "lecteur" },
   { methode: "GET", route: "/api/orgs/:id/rectifications", niveau: "lecteur" },
+
+  // --- Listes de veille -----------------------------------------------------
+  // L'observatoire déclare ce qu'il surveille ; la lecture des listes est
+  // ouverte aux comptes, leur écriture engage la veille et reste analyste.
+  { methode: "GET", route: "/api/watchlists", niveau: "lecteur" },
+  { methode: "GET", route: "/api/watchlists/:slug", niveau: "lecteur" },
+  { methode: "POST", route: "/api/watchlists", niveau: "analyste" },
+  { methode: "PUT", route: "/api/watchlists/:slug", niveau: "analyste" },
+  { methode: "POST", route: "/api/watchlists/:slug/items", niveau: "analyste" },
+  { methode: "DELETE", route: "/api/watchlists/:slug/items/:itemId", niveau: "analyste" },
+  { methode: "DELETE", route: "/api/watchlists/:slug", niveau: "analyste" },
 
   // --- Travail d'analyse ----------------------------------------------------
   { methode: "GET", route: "/api/review/queue", niveau: "analyste" },
