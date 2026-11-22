@@ -1,0 +1,560 @@
+{
+  "dataset": "Human review decisions on quarantined claims",
+  "source": "journal.review.decided joined to quarantine_raw (read-only)",
+  "privacy": "No claim text, victim name, contact detail or personal field is exported.",
+  "claims": [
+    {
+      "claimId": 44,
+      "action": "review",
+      "orgHint": "millimages.com\\$12.6M\\France\\147GB\\<1% DISCLOSED",
+      "source": "ransomwatch-echantillon",
+      "hasDescription": false
+    },
+    {
+      "claimId": 61,
+      "action": "review",
+      "orgHint": "millimages.com\\$12.6M\\France\\147GB\\100% DISCLOSED",
+      "source": "ransomwatch-echantillon",
+      "hasDescription": false
+    },
+    {
+      "claimId": 97,
+      "action": "review",
+      "orgHint": "demos.fr\\$37.5M\\France\\870GB\\<1% DISCLOSED",
+      "source": "ransomwatch-echantillon",
+      "hasDescription": false
+    },
+    {
+      "claimId": 114,
+      "action": "review",
+      "orgHint": "demos.fr\\$37.5M\\France\\870GB\\100% DISCLOSED",
+      "source": "ransomwatch-echantillon",
+      "hasDescription": false
+    },
+    {
+      "claimId": 205,
+      "action": "review",
+      "orgHint": "Universite Paris Sud",
+      "source": "ransomwatch-echantillon",
+      "hasDescription": false
+    },
+    {
+      "claimId": 244,
+      "action": "review",
+      "orgHint": "lumiplan.com\\$49.2M\\France\\652GB\\<1% DISCLOSED",
+      "source": "ransomwatch-echantillon",
+      "hasDescription": false
+    },
+    {
+      "claimId": 258,
+      "action": "review",
+      "orgHint": "lumiplan.com\\$49.2M\\France\\652GB\\100% DISCLOSED",
+      "source": "ransomwatch-echantillon",
+      "hasDescription": false
+    },
+    {
+      "claimId": 266,
+      "action": "review",
+      "orgHint": "Schneider Electric - France",
+      "source": "ransomwatch-echantillon",
+      "hasDescription": false
+    },
+    {
+      "claimId": 314,
+      "action": "review",
+      "orgHint": "adveo.com\\$740.7M\\France\\1.1TB\\<1% DISCLOSED",
+      "source": "ransomwatch-echantillon",
+      "hasDescription": false
+    },
+    {
+      "claimId": 334,
+      "action": "review",
+      "orgHint": "adveo.com\\$740.7M\\France\\1.1TB\\100% DISCLOSED",
+      "source": "ransomwatch-echantillon",
+      "hasDescription": false
+    },
+    {
+      "claimId": 821,
+      "action": "review",
+      "orgHint": "Сompilation of lawyers France",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 1019,
+      "action": "review",
+      "orgHint": "Marseille Provence",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 1573,
+      "action": "review",
+      "orgHint": "Paris Society",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 2406,
+      "action": "review",
+      "orgHint": "torann-france.f...",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 2427,
+      "action": "review",
+      "orgHint": "Lyon-Waugh Auto Group",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 3121,
+      "action": "review",
+      "orgHint": "A message to France",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 3699,
+      "action": "promote",
+      "orgHint": "eivp-paris.fr",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 4133,
+      "action": "review",
+      "orgHint": "Frances King School of English",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 4218,
+      "action": "review",
+      "orgHint": "DDoS instead of the Discuss - Nice try TAP Air",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 4601,
+      "action": "review",
+      "orgHint": "HENSOLDT France",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 4923,
+      "action": "review",
+      "orgHint": "INTERSPORT France",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 5077,
+      "action": "review",
+      "orgHint": "University Institute of Technology of Paris",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 5535,
+      "action": "promote",
+      "orgHint": "lyonhealy.com",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 6018,
+      "action": "review",
+      "orgHint": "BMW France",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 7234,
+      "action": "promote",
+      "orgHint": "ibafrance.fr",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 7326,
+      "action": "review",
+      "orgHint": "Paris High School",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 7356,
+      "action": "review",
+      "orgHint": "Lyon and Healy",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 7550,
+      "action": "review",
+      "orgHint": "Chu De Rennes",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 7566,
+      "action": "review",
+      "orgHint": "St Landry Parish School Board",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 7593,
+      "action": "review",
+      "orgHint": "Professionnel France",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 7851,
+      "action": "review",
+      "orgHint": "Sartrouville  France",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 7915,
+      "action": "review",
+      "orgHint": "iledefrance-nature.fr",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 8020,
+      "action": "review",
+      "orgHint": "Nicer technology",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 8265,
+      "action": "review",
+      "orgHint": "Betton France",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 9114,
+      "action": "review",
+      "orgHint": "Traxall France",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 9232,
+      "action": "promote",
+      "orgHint": "www.nicecloud.nl",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 9292,
+      "action": "promote",
+      "orgHint": "hotel-ampere-paris.com",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 9758,
+      "action": "review",
+      "orgHint": "www.odalys-vacances.com\\$151.1M\\France\\548gb\\1%Disclosed",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 9809,
+      "action": "review",
+      "orgHint": "odalys-vacances.com\\$151.1M\\France\\548gb\\&lt;1%DISCLOSED",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 9811,
+      "action": "review",
+      "orgHint": "odalys-vacances.com\\$151.1M\\France\\548gb\\100%DISCLOSED",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 10079,
+      "action": "review",
+      "orgHint": "Malongo France",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 10150,
+      "action": "promote",
+      "orgHint": "lyonshipyard.com",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 10392,
+      "action": "promote",
+      "orgHint": "lyon.co.uk",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 10511,
+      "action": "review",
+      "orgHint": "se.com\\$$33.5B\\France\\1.5TB\\&lt;1%DISCLOSED",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 10580,
+      "action": "promote",
+      "orgHint": "coteg-toulouse.dom",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 10848,
+      "action": "review",
+      "orgHint": "se.com\\$$33.5B\\France\\1.5TB\\&lt;1%DISCLOSED\\DATA SALE",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 10991,
+      "action": "review",
+      "orgHint": "se.com\\$33.5B\\France\\1.5TB\\100%DISCLOSED\\",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 11420,
+      "action": "review",
+      "orgHint": "LYON TERMINAL",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 11525,
+      "action": "review",
+      "orgHint": "Speedy France",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 11702,
+      "action": "promote",
+      "orgHint": "aev-iledefrance.fr",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 12446,
+      "action": "review",
+      "orgHint": "millimages.com\\$12.6M\\France\\147GB\\&lt;1% DISCLOSED",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 12513,
+      "action": "review",
+      "orgHint": "Francesco Parisi",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 12594,
+      "action": "review",
+      "orgHint": "millimages.com\\$12.6M\\France\\147GB\\100% DISCLOSED",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 12952,
+      "action": "review",
+      "orgHint": "demos.fr\\$37.5M\\France\\870GB\\&lt;1% DISCLOSED",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 13044,
+      "action": "review",
+      "orgHint": "demos.fr\\$37.5M\\France\\870GB\\100% DISCLOSED",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 13750,
+      "action": "promote",
+      "orgHint": "agapefrance.org",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 13865,
+      "action": "review",
+      "orgHint": "Universite Paris Sud",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 14253,
+      "action": "review",
+      "orgHint": "lumiplan.com\\$49.2M\\France\\652GB\\&lt;1% DISCLOSED",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 14470,
+      "action": "review",
+      "orgHint": "Schneider Electric - France",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 14560,
+      "action": "review",
+      "orgHint": "lumiplan.com\\$49.2M\\France\\652GB\\100% DISCLOSED",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 14747,
+      "action": "review",
+      "orgHint": "Vermilion Parish School System",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 15060,
+      "action": "review",
+      "orgHint": "adveo.com\\$740.7M\\France\\1.1TB\\&lt;1% DISCLOSED",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 15239,
+      "action": "review",
+      "orgHint": "adveo.com\\$740.7M\\France\\1.1TB\\100% DISCLOSED",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 15389,
+      "action": "review",
+      "orgHint": "Mission Locale Montpellier",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 16201,
+      "action": "promote",
+      "orgHint": "graphiquedefrance.com",
+      "source": "ransomwatch",
+      "hasDescription": false
+    },
+    {
+      "claimId": 80862,
+      "action": "promote",
+      "orgHint": "www.worldwidefittings.com",
+      "source": "ransomware.live",
+      "hasDescription": true
+    },
+    {
+      "claimId": 80863,
+      "action": "promote",
+      "orgHint": "www.ccmcnet.com",
+      "source": "ransomware.live",
+      "hasDescription": true
+    },
+    {
+      "claimId": 80870,
+      "action": "promote",
+      "orgHint": "toyokiki-thailand.com",
+      "source": "ransomware.live",
+      "hasDescription": true
+    },
+    {
+      "claimId": 80871,
+      "action": "promote",
+      "orgHint": "benchmarkseniorliving.com",
+      "source": "ransomware.live",
+      "hasDescription": true
+    },
+    {
+      "claimId": 80873,
+      "action": "promote",
+      "orgHint": "upperweb.com.br",
+      "source": "ransomware.live",
+      "hasDescription": true
+    },
+    {
+      "claimId": 80874,
+      "action": "promote",
+      "orgHint": "www.osiiminppal.com",
+      "source": "ransomware.live",
+      "hasDescription": true
+    },
+    {
+      "claimId": 80875,
+      "action": "promote",
+      "orgHint": "franc-oiloffshore.com.ng",
+      "source": "ransomware.live",
+      "hasDescription": true
+    },
+    {
+      "claimId": 80877,
+      "action": "promote",
+      "orgHint": "cey-tech.com",
+      "source": "ransomware.live",
+      "hasDescription": true
+    },
+    {
+      "claimId": 80878,
+      "action": "promote",
+      "orgHint": "axiscades.com",
+      "source": "ransomware.live",
+      "hasDescription": true
+    },
+    {
+      "claimId": 80921,
+      "action": "promote",
+      "orgHint": "groupe-alternance.com",
+      "source": "ransomware.live",
+      "hasDescription": true
+    },
+    {
+      "claimId": 257871,
+      "action": "reject",
+      "orgHint": "amarok.com",
+      "source": "ransomware.live",
+      "hasDescription": true
+    },
+    {
+      "claimId": 257901,
+      "action": "reject",
+      "orgHint": "chevron.com",
+      "source": "ransomware.live",
+      "hasDescription": true
+    },
+    {
+      "claimId": 290134,
+      "action": "reject",
+      "orgHint": "harbingerconcrete.build",
+      "source": "ransomware.live",
+      "hasDescription": true
+    },
+    {
+      "claimId": 644192,
+      "action": "promote",
+      "orgHint": "www.vanmor.com",
+      "source": "ransomware.live",
+      "hasDescription": true
+    }
+  ]
+}

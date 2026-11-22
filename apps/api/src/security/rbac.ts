@@ -81,6 +81,7 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/orgs", niveau: "public" },
 
   // --- Lectures authentifiées ----------------------------------------------
+  { methode: "GET", route: "/api/review-assistant/suggest", niveau: "analyste", motif: "suggestion de revue : aucune donnée de victime" },
   { methode: "GET", route: "/api/alerts/:id", niveau: "lecteur" },
   { methode: "GET", route: "/api/orgs/liees", niveau: "lecteur" },
   { methode: "GET", route: "/api/orgs/liees/historique", niveau: "lecteur" },

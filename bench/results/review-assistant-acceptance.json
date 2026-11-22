@@ -1,0 +1,41 @@
+{
+  "measuredAt": "2026-11-22T02:47:37.732Z",
+  "database": "postgres://radar:***@localhost:5433/radar",
+  "baseline": {
+    "organizations": "1673151",
+    "sources": "312",
+    "events": "26259",
+    "quarantinedclaims": "16901",
+    "recordeddecisions": "16664",
+    "humandecisionevents": "92"
+  },
+  "corpus": {
+    "claims": 79,
+    "path": "bench/corpus/review-assistant-decisions.json",
+    "humanDecisionEvents": null
+  },
+  "acceptance": {
+    "evaluated": 79,
+    "accepted": 72,
+    "acceptanceRate": 0.9114,
+    "byAction": {
+      "promote": {
+        "suggested": 23,
+        "accepted": 19,
+        "rate": 0.8261
+      },
+      "review": {
+        "suggested": 56,
+        "accepted": 53,
+        "rate": 0.9464
+      },
+      "reject": {
+        "suggested": 0,
+        "accepted": 0,
+        "rate": 0
+      }
+    },
+    "majorityBaselineRate": 0.6835,
+    "personalDataFindings": 0
+  }
+}
