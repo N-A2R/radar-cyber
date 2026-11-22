@@ -942,6 +942,46 @@ export type ReviewQueueResponse = {
   tookMs: number;
 };
 
+/** Who saw what, when: the append-only custody chain of one event. */
+export type CustodyChain = {
+  subject: string;
+  regional: boolean;
+  complete: boolean;
+  missing: string[];
+  source: string | null;
+  sourceUrl: string | null;
+  observedAt: string | null;
+  links: {
+    who: string;
+    what: string;
+    when: string | null;
+    recordedAt: string | null;
+    proof: string[];
+  }[];
+};
+
+/** "Am I affected?" — evidence-first, non-personal statements about one organization. */
+export type AffectedReport = {
+  organization: { id: number; name: string; department: string | null; region: "Nouvelle-Aquitaine" };
+  scope: "nouvelle-aquitaine";
+  statements: Array<{
+    id: string;
+    category: "identity" | "location" | "activity" | "incident" | "claim";
+    label: string;
+    value: string;
+    observedAt: string | null;
+    evidence: {
+      kind: "registry" | "observation" | "claim";
+      label: string;
+      reference: string;
+      url: string | null;
+      status: "official-record" | "reported" | "unverified-claim";
+    };
+  }>;
+  summary: { statements: number; withEvidence: number; sources: number };
+  limitations: string[];
+};
+
 /** One auditable entry: every journal kind, with its proof (raw payload). */
 export type JournalDecision = {
   id: number;
@@ -1046,6 +1086,9 @@ export const api = {
   },
   reviewAction: (ids: number[], action: ReviewAction, reason?: string) =>
     postJson<ReviewOutcome>("/quarantine/review", { ids, action, reason: reason ?? "" }),
+  /** Append-only chain of custody for one event; no event free text. */
+  custody: (subject: string, signal?: AbortSignal) =>
+    get<CustodyChain>(`/custody?subject=${encodeURIComponent(subject)}`, signal),
   /** Auditable journal — every decision kind, filtered, cursor-paginated. */
   journalReview: (params: JournalReviewParams = {}, signal?: AbortSignal) => {
     return get<JournalReviewResponse>(`/journal/review?${journalQuery(params)}`, signal);
@@ -1123,3 +1166,8 @@ export const api = {
   enrichIndicator: (id: number) => get<IndicatorEnrichment>(`/enrich/indicator/${id}`),
   enrichEvent: (id: number) => get<EventEnrichment>(`/enrich/events/${id}`),
 };
+
+/** Public evidence-first report for one organization (name, id or domain). */
+export function getAffected(q: string, signal?: AbortSignal): Promise<AffectedReport> {
+  return get<AffectedReport>(`/affected?q=${encodeURIComponent(q)}`, signal);
+}

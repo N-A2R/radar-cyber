@@ -1,0 +1,534 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-batiment-47.jsonl",
+  "secteur": "bâtiment",
+  "departement": "47",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+  "methode": "GET HTTP avec User-Agent navigateur, redirections suivies, statut final, type MIME, URL effective et octets téléchargés relevés pour chaque URL du corpus ; délai 25 s",
+  "sources": 28,
+  "urls_verifiees": 68,
+  "urls_200": 68,
+  "anomalies": [],
+  "detail": {
+    "corpus:batiment-47-01-capeb-lot-et-garonne-section-departementale-du-batiment": {
+      "urls": {
+        "https://www.capeb.fr/lot-et-garonne/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.capeb.fr/lot-et-garonne/",
+          "octets": 61149
+        },
+        "https://www.capeb.fr/lot-et-garonne/actualites": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.capeb.fr/lot-et-garonne/actualites",
+          "octets": 49330
+        }
+      }
+    },
+    "corpus:batiment-47-02-pro-rge-entreprises-rge-dans-le-lot-et-garonne-47": {
+      "urls": {
+        "https://pro-rge.fr/entreprise/d/47/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://pro-rge.fr/entreprise/d/47/",
+          "octets": 266024
+        },
+        "https://pro-rge.fr/entreprises/lot-et-garonne-47/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://pro-rge.fr/entreprises/lot-et-garonne-47/",
+          "octets": 381911
+        },
+        "https://news.google.com/rss/search?q=RGE+Lot-et-Garonne+b%C3%A2timent&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=RGE+Lot-et-Garonne+b%C3%A2timent&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 13077
+        }
+      }
+    },
+    "corpus:batiment-47-03-qualibat-certification-et-annuaire-des-entreprises-du-batiment": {
+      "urls": {
+        "https://www.qualibat.com/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.qualibat.com/",
+          "octets": 147636
+        },
+        "https://www.qualibat.com/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.qualibat.com/actualites",
+          "octets": 99350
+        }
+      }
+    },
+    "corpus:batiment-47-04-artisanat-fr-magazine-d-actualites-de-l-artisanat-cma": {
+      "urls": {
+        "https://www.artisanat.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.artisanat.fr/",
+          "octets": 118288
+        },
+        "https://www.artisanat.fr/magazine/actus": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.artisanat.fr/magazine/actus",
+          "octets": 140397
+        }
+      }
+    },
+    "corpus:batiment-47-05-siteartisan-annuaire-des-artisans": {
+      "urls": {
+        "https://www.siteartisan.fr/annuaire/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.siteartisan.fr/annuaire/",
+          "octets": 29208
+        },
+        "https://www.siteartisan.fr/blog/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.siteartisan.fr/blog/",
+          "octets": 60026
+        },
+        "https://www.siteartisan.fr/blog/feed.xml": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "url_finale": "https://www.siteartisan.fr/blog/feed.xml",
+          "octets": 28752
+        }
+      }
+    },
+    "corpus:batiment-47-06-odeys-cluster-de-la-construction-et-de-l-amenagement-durables": {
+      "urls": {
+        "https://www.odeys.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.odeys.fr/",
+          "octets": 77524
+        },
+        "https://www.odeys.fr/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.odeys.fr/actualites",
+          "octets": 49055
+        },
+        "https://www.odeys.fr/rss.xml": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "url_finale": "https://www.odeys.fr/rss.xml",
+          "octets": 48903
+        }
+      }
+    },
+    "corpus:batiment-47-07-cerc-nouvelle-aquitaine-observatoire-de-la-construction": {
+      "urls": {
+        "https://www.cerc-na.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.cerc-na.fr/",
+          "octets": 83143
+        },
+        "https://www.cerc-na.fr/category/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.cerc-na.fr/category/actualites/",
+          "octets": 62105
+        },
+        "https://www.cerc-na.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.cerc-na.fr/feed/",
+          "octets": 18708
+        }
+      }
+    },
+    "corpus:batiment-47-08-cma-nouvelle-aquitaine-actualites-des-artisans-du-lot-et-garonne-47": {
+      "urls": {
+        "https://cma-nouvelleaquitaine.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://cma-nouvelleaquitaine.fr/",
+          "octets": 324235
+        },
+        "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites?news_list%5Bsearch%5D=Lot-et-Garonne": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites?news_list%5Bsearch%5D=Lot-et-Garonne",
+          "octets": 280422
+        }
+      }
+    },
+    "corpus:batiment-47-09-ici-gascogne-actualites-du-lot-et-garonne-47": {
+      "urls": {
+        "https://www.ici.fr/nouvelle-aquitaine/lot-et-garonne-47": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/lot-et-garonne-47",
+          "octets": 301605
+        },
+        "https://www.ici.fr/rss/gascogne/rubrique/infos.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "url_finale": "https://www.ici.fr/rss/gascogne/rubrique/infos.xml",
+          "octets": 19980
+        }
+      }
+    },
+    "corpus:batiment-47-10-france-3-nouvelle-aquitaine-edition-lot-et-garonne": {
+      "urls": {
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/lot-et-garonne": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/lot-et-garonne",
+          "octets": 575833
+        },
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/lot-et-garonne/rss": {
+          "code": 200,
+          "type": "text/xml; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/lot-et-garonne/rss",
+          "octets": 80376
+        }
+      }
+    },
+    "corpus:batiment-47-11-la-depeche-du-midi-edition-agen-lot-et-garonne": {
+      "urls": {
+        "https://www.ladepeche.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ladepeche.fr/",
+          "octets": 464822
+        },
+        "https://www.ladepeche.fr/lot-et-garonne/agen": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ladepeche.fr/communes/agen,47001/",
+          "octets": 194693
+        },
+        "https://www.ladepeche.fr/rss.xml": {
+          "code": 200,
+          "type": "text/xml; charset=UTF-8",
+          "url_finale": "https://www.ladepeche.fr/rss.xml",
+          "octets": 134625
+        }
+      }
+    },
+    "corpus:batiment-47-12-petit-bleu-agen-et-sa-region": {
+      "urls": {
+        "https://www.petitbleu.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.petitbleu.fr/",
+          "octets": 302015
+        },
+        "https://www.petitbleu.fr/lot-et-garonne/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.petitbleu.fr/communes/",
+          "octets": 175756
+        },
+        "https://www.petitbleu.fr/rss.xml": {
+          "code": 200,
+          "type": "text/xml; charset=UTF-8",
+          "url_finale": "https://www.petitbleu.fr/rss.xml",
+          "octets": 135053
+        }
+      }
+    },
+    "corpus:batiment-47-13-quidam-hebdo-agen": {
+      "urls": {
+        "https://quidam-hebdo.com/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://quidam-hebdo.com/",
+          "octets": 390925
+        },
+        "https://quidam-hebdo.com/category/agen/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://quidam-hebdo.com/category/agen/",
+          "octets": 281031
+        },
+        "https://quidam-hebdo.com/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://quidam-hebdo.com/feed/",
+          "octets": 19173
+        }
+      }
+    },
+    "corpus:batiment-47-14-placeco-actualites-economiques-du-lot-et-garonne": {
+      "urls": {
+        "https://www.placeco.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.placeco.fr/",
+          "octets": 153606
+        },
+        "https://www.placeco.fr/lot-et-garonne/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.placeco.fr/lot-et-garonne/",
+          "octets": 151515
+        },
+        "https://www.placeco.fr/rss.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "url_finale": "https://www.placeco.fr/rss.xml",
+          "octets": 116802
+        }
+      }
+    },
+    "corpus:batiment-47-15-google-actualites-veille-batiment-lot-et-garonne-47": {
+      "urls": {
+        "https://news.google.com/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://news.google.com/home?ucbcb=1&hl=en-US&gl=US&ceid=US:en",
+          "octets": 1707640
+        },
+        "https://news.google.com/rss/search?q=b%C3%A2timent+Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=b%C3%A2timent+Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 55684
+        }
+      }
+    },
+    "corpus:batiment-47-16-actu-fr-actu-lot-et-garonne-47": {
+      "urls": {
+        "https://actu.fr/nouvelle-aquitaine/lot-et-garonne_47/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/lot-et-garonne_47",
+          "octets": 333755
+        },
+        "https://actu.fr/nouvelle-aquitaine/lot-et-garonne_47/rss.xml": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/lot-et-garonne_47/rss.xml",
+          "octets": 1419
+        }
+      }
+    },
+    "corpus:batiment-47-17-cci-agen-lot-et-garonne": {
+      "urls": {
+        "https://cci47.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://cci47.fr/",
+          "octets": 32260
+        },
+        "https://cci47.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://cci47.fr/actualites/",
+          "octets": 19254
+        },
+        "https://cci47.fr/rss/?follow=actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://cci47.fr/rss/?follow=actualites",
+          "octets": 15290
+        }
+      }
+    },
+    "corpus:batiment-47-18-cma-nouvelle-aquitaine-cma-du-lot-et-garonne": {
+      "urls": {
+        "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/nous-trouver/cma-lot-et-garonne": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/nous-trouver/cma-lot-et-garonne",
+          "octets": 207351
+        },
+        "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites",
+          "octets": 280274
+        }
+      }
+    },
+    "corpus:batiment-47-19-caue-de-lot-et-garonne": {
+      "urls": {
+        "https://caue47.com/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://caue47.com/",
+          "octets": 23781
+        },
+        "https://caue47.com/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://caue47.com/actualites/",
+          "octets": 25476
+        },
+        "https://caue47.com/rss/?follow=Evenements": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://caue47.com/rss/?follow=Evenements",
+          "octets": 20665
+        }
+      }
+    },
+    "corpus:batiment-47-20-observatoire-de-l-habitat-de-lot-et-garonne-prefecture-du-47": {
+      "urls": {
+        "https://www.lot-et-garonne.gouv.fr/Actions-de-l-Etat/Amenagement-du-territoire-et-construction/Logement-Habitat/Observatoire-departemental-de-l-habitat/Observatoire-de-l-Habitat-de-Lot-et-Garonne-Annee-2025": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lot-et-garonne.gouv.fr/Actions-de-l-Etat/Amenagement-du-territoire-et-construction/Logement-Habitat/Observatoire-departemental-de-l-habitat/Observatoire-de-l-Habitat-de-Lot-et-Garonne-Annee-2025",
+          "octets": 79750
+        },
+        "https://www.lot-et-garonne.gouv.fr/Actualites": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lot-et-garonne.gouv.fr/Actualites",
+          "octets": 72032
+        }
+      }
+    },
+    "corpus:batiment-47-21-societe-com-annuaire-des-entreprises-recherche-lot-et-garonne": {
+      "urls": {
+        "https://www.societe.com/": {
+          "code": 200,
+          "type": "text/html",
+          "url_finale": "https://www.societe.com/",
+          "octets": 67552
+        },
+        "https://www.societe.com/recherche?departement=47": {
+          "code": 200,
+          "type": "text/html",
+          "url_finale": "https://www.societe.com/recherche?departement=47",
+          "octets": 10298
+        }
+      }
+    },
+    "corpus:batiment-47-22-ville-d-agen-actualites": {
+      "urls": {
+        "https://www.agen.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.agen.fr/",
+          "octets": 205425
+        },
+        "https://www.agen.fr/en-ce-moment/actualites": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.agen.fr/en-ce-moment/actualites",
+          "octets": 221380
+        }
+      }
+    },
+    "corpus:batiment-47-23-agglomeration-d-agen-actualites": {
+      "urls": {
+        "https://www.agglo-agen.net/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.agglo-agen.net/",
+          "octets": 210748
+        },
+        "https://www.agglo-agen.net/en-ce-moment/actualites": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.agglo-agen.net/en-ce-moment/actualites",
+          "octets": 228919
+        }
+      }
+    },
+    "corpus:batiment-47-24-communaute-d-agglomeration-du-grand-villeneuvois-actualites": {
+      "urls": {
+        "https://www.grand-villeneuvois.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.grand-villeneuvois.fr/",
+          "octets": 89050
+        },
+        "https://www.grand-villeneuvois.fr/actualites.html": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.grand-villeneuvois.fr/actualites.html",
+          "octets": 75883
+        }
+      }
+    },
+    "corpus:batiment-47-25-ville-de-marmande-actualites-et-flux-rss": {
+      "urls": {
+        "http://www.mairie-marmande.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.mairie-marmande.fr/",
+          "octets": 5011122
+        },
+        "https://www.mairie-marmande.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.mairie-marmande.fr/actualites/",
+          "octets": 110708
+        },
+        "https://www.mairie-marmande.fr/feed/": {
+          "code": 200,
+          "type": "text/xml; charset=UTF-8",
+          "url_finale": "https://www.mairie-marmande.fr/feed/",
+          "octets": 1063
+        }
+      }
+    },
+    "corpus:batiment-47-26-ville-de-villeneuve-sur-lot-actualites": {
+      "urls": {
+        "https://www.ville-villeneuve-sur-lot.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ville-villeneuve-sur-lot.fr/",
+          "octets": 63739
+        },
+        "https://www.ville-villeneuve-sur-lot.fr/actualites.html": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ville-villeneuve-sur-lot.fr/actualites.html",
+          "octets": 53240
+        }
+      }
+    },
+    "corpus:batiment-47-27-val-de-garonne-agglomeration-actualites": {
+      "urls": {
+        "https://www.valdegaronne.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://valdegaronne.fr/",
+          "octets": 148185
+        },
+        "https://www.valdegaronne.fr/TPL_CODE/TPL_ACTUALITELISTE/9-liste-actualites.htm": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://valdegaronne.fr/TPL_CODE/TPL_ACTUALITELISTE/9-liste-actualites.htm",
+          "octets": 144038
+        }
+      }
+    },
+    "corpus:batiment-47-28-albret-communaute-actualites-et-flux-rss": {
+      "urls": {
+        "https://www.albretcommunaute.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.albretcommunaute.fr/",
+          "octets": 258391
+        },
+        "https://www.albretcommunaute.fr/actualites": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.albretcommunaute.fr/actualites",
+          "octets": 208910
+        },
+        "https://www.albretcommunaute.fr/?format=feed&type=rss": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "url_finale": "https://www.albretcommunaute.fr/?format=feed&type=rss",
+          "octets": 772
+        }
+      }
+    }
+  }
+}

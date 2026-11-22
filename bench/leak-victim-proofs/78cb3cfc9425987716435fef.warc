@@ -1,0 +1,18 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:8707e4b7-6e11-412a-a55b-70983434ea7a>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 124
+WARC-Block-Digest: sha1:S6I5KLS5IAPLVQ4SFXAF4YTHK3UC2FET
+X-Claim-Fingerprint: eebcd588b2eed02f0e7615fe
+X-Victim-Key: 78cb3cfc9425987716435fef
+
+{
+        "post_title": "Somerville",
+        "group_name": "play",
+        "discovered": "2024-05-07 01:14:50.241153"
+    }
+
