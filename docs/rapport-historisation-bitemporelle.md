@@ -116,3 +116,5 @@ nouvelle convention « l'histoire contient aussi la version courante ».
   contrat des tests existants.
 - **Diff de `server.ts`** : 0 ligne.
 - **Commande la plus longue** : 31 s (suite de tests), sous la limite de 60 s.
+
+OBJECTIF : atteint — 1 671 907 / 1 671 907 organisations NA (100 %, alias 1 678 041 / 1 678 041) ; vérifié par `jq` sur `bench/results/bitemporal-coverage.json` et re-mesuré le 22/11/2026 avec `scripts/measure-bitemporal-coverage.mts --check` sur une copie de la base vivante après migration 070 et backfill : 1 671 922 / 1 671 922 organisations et 1 678 051 / 1 678 051 alias (100 %).
