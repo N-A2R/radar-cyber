@@ -10,9 +10,9 @@
 	"dataHorizon": "2026-11-21",
 	"inputs": {
 		"organizations": 1673220,
-		"declaredSources": 463,
-		"events": 27899,
-		"archivedEvents": 4710,
+		"declaredSources": 914,
+		"events": 26770,
+		"archivedEvents": 5305,
 		"claims": 34992,
 		"grayListings": 16770,
 		"fingerprint": "d833dd0d1070fc66"
