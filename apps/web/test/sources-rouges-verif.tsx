@@ -7,7 +7,7 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import SourcesRougesView from "../src/components/SourcesRougesView";
 import { RelanceResultat, type RelanceEtat } from "../src/components/RelancerButton";
-import { formatRelative } from "../src/components/SourcesView";
+import { formatRelative, isSourceRouge, lastProductionAt } from "../src/components/SourcesView";
 import type { HealthDetail, Source } from "../src/api";
 
 const API = process.env.RADAR_API_ORIGIN ?? "http://127.0.0.1:8080";
@@ -27,16 +27,19 @@ const res = await fetch(`${API}/api/health/detail`);
 if (!res.ok) throw new Error(`GET /api/health/detail → HTTP ${res.status}`);
 const detail = (await res.json()) as HealthDetail;
 
-// Le registre n'est pas nécessaire au rendu : la vue sait se passer de lui.
+const registreRes = await fetch(`${API}/api/sources`);
+if (!registreRes.ok) throw new Error(`GET /api/sources → HTTP ${registreRes.status}`);
+const registre = (await registreRes.json()) as Source[];
+
 const html = renderToStaticMarkup(
-  <SourcesRougesView detail={detail} sources={[] as Source[]} onRelance={async () => ({ inserted: 0 })} />,
+  <SourcesRougesView detail={detail} sources={registre} onRelance={async () => ({ inserted: 0 })} />,
 );
 
-const attendues = detail.sources.bySource
-  .filter((s) => s.tone === "red")
+const attendues = registre
+  .filter((s) => isSourceRouge(s))
   .sort((a, b) => {
-    const aAt = date(a.lastEventAt);
-    const bAt = date(b.lastEventAt);
+    const aAt = date(lastProductionAt(a));
+    const bAt = date(lastProductionAt(b));
     if (aAt === null && bAt === null) return a.name.localeCompare(b.name, "fr");
     if (aAt === null) return -1;
     if (bAt === null) return 1;
@@ -55,7 +58,7 @@ verifier(
 const boutons = (html.match(/aria-label="Relancer la collecte de /g) ?? []).length;
 verifier(boutons === attendues.length, `${boutons} boutons Relancer rendus (API : ${attendues.length})`);
 
-for (const colonne of ["état", "dernière collecte", "dernier événement", "action"]) {
+for (const colonne of ["état", "dernier passage", "dernier événement", "action"]) {
   verifier(html.includes(`<th scope="col">${colonne}</th>`), `colonne « ${colonne} » présente`);
 }
 
@@ -66,10 +69,10 @@ if (premiere && derniere) {
   verifier(html.slice(0, i).includes(premiere.name), `première ligne = ${premiere.name} (jamais produit)`);
   verifier(html.includes(derniere.name), `dernière ligne = ${derniere.name} (plus récente des rouges)`);
   verifier(
-    premiere.lastEventAt === null && html.includes(formatRelative(premiere.lastCollectedAt)),
-    "dernière collecte réelle de la première source affichée",
+    lastProductionAt(premiere) === null && html.includes(formatRelative(premiere.dernierRun)),
+    "dernier passage réel de la première source affichée",
   );
-  verifier(html.includes(formatRelative(derniere.lastEventAt)), "dernier événement réel affiché");
+  verifier(html.includes(formatRelative(derniere.lastEventAt ?? null)), "dernier événement réel affiché");
 }
 
 const desactivees = attendues.filter((s) => !s.enabled).length;

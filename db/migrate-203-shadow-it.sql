@@ -151,7 +151,15 @@ CREATE INDEX IF NOT EXISTS idx_asset_value ON asset (value);
 
 -- Le critère de sortie, mot pour mot : sous-domaines sans actif dont la
 -- première vue date de moins de 30 jours, chacun avec un motif et un score.
-CREATE OR REPLACE VIEW shadow_it AS
+-- Une base qui a déjà la vue dans une forme antérieure (colonne `certificat_id`
+-- au lieu de `certificat_vu_le`) ne peut pas passer par CREATE OR REPLACE :
+-- PostgreSQL refuse tout changement de nom ou de liste de colonnes. La vue ne
+-- porte aucune donnée et rien n'en dépend (les requêtes sont dans le code) :
+-- on la remplace explicitement. Sur une base neuve, le DROP est un no-op et la
+-- définition créée est identique à celle d'avant.
+DROP VIEW IF EXISTS shadow_it;
+
+CREATE VIEW shadow_it AS
 SELECT
   c.id,
   c.sous_domaine,
