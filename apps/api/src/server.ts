@@ -33,6 +33,7 @@ import { installAccessControl } from "./security/rbac.js";
 import { installSecurityHeaders } from "./security/headers.js";
 import { installErrorHandler } from "./errors.js";
 import { installPublicApi } from "./openapi/install.js";
+import { runNewServiceDetection } from "./exposition/new-service-monitor.js";
 
 const port = Number(process.env.PORT ?? 8080);
 /** Cadence de la boucle de collecte. */
@@ -439,6 +440,12 @@ void guarded("mesure organisations reliées", mesurerOrgsLiees);
 setInterval(() => {
   void guarded("mesure organisations reliées", mesurerOrgsLiees);
 }, MESURE_ORGS_LIEES_MS);
+
+const NEW_SERVICE_DETECTION_MS = 24 * 3600 * 1000;
+void guarded("new exposed services", () => runNewServiceDetection().then(() => undefined));
+setInterval(() => {
+  void guarded("new exposed services", () => runNewServiceDetection().then(() => undefined));
+}, NEW_SERVICE_DETECTION_MS);
 
 for (const signal of ["SIGINT", "SIGTERM"] as const) {
 	process.once(signal, () => {

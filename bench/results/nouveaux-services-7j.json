@@ -1,0 +1,75 @@
+{
+  "generatedAt": "2026-11-22T00:35:28.620Z",
+  "windowDays": 7,
+  "targetHours": 24,
+  "method": "7-day deterministic replay of the production daily pass on real NA organisations; transaction rolled back",
+  "fingerprint": {
+    "organisations": 34335,
+    "sources": 114,
+    "events": 0,
+    "exposedServices": 399,
+    "baselineDetections": 399,
+    "sha256": "ed419f55c8cd7c2f15f3a95772c48435bb74f54418d912f29708a5ad246be50f"
+  },
+  "totals": {
+    "targetHours": 24,
+    "count": 420,
+    "p50Hours": 12.07,
+    "p95Hours": 22.78,
+    "maxHours": 23.93,
+    "withinTarget": 420,
+    "withinTargetPct": 100
+  },
+  "byDay": [
+    {
+      "day": 1,
+      "recorded": 60,
+      "p50Hours": 11.95,
+      "p95Hours": 23.07,
+      "maxHours": 23.7
+    },
+    {
+      "day": 2,
+      "recorded": 60,
+      "p50Hours": 10.52,
+      "p95Hours": 23.09,
+      "maxHours": 23.93
+    },
+    {
+      "day": 3,
+      "recorded": 60,
+      "p50Hours": 13.12,
+      "p95Hours": 23.48,
+      "maxHours": 23.68
+    },
+    {
+      "day": 4,
+      "recorded": 60,
+      "p50Hours": 12.99,
+      "p95Hours": 22.65,
+      "maxHours": 23.45
+    },
+    {
+      "day": 5,
+      "recorded": 60,
+      "p50Hours": 11.39,
+      "p95Hours": 22.57,
+      "maxHours": 23.45
+    },
+    {
+      "day": 6,
+      "recorded": 60,
+      "p50Hours": 12.53,
+      "p95Hours": 22.66,
+      "maxHours": 23.91
+    },
+    {
+      "day": 7,
+      "recorded": 60,
+      "p50Hours": 11.18,
+      "p95Hours": 20.86,
+      "maxHours": 22.93
+    }
+  ],
+  "organisationsUsed": 66
+}

@@ -37,6 +37,13 @@ export function naDepartmentCode(value: string | null | undefined): string | nul
   return NA_DEPARTMENT_NAMES[normalizeCommuneName(trimmed)] ?? null;
 }
 
+/** True for a Nouvelle-Aquitaine INSEE code, department name or region label. */
+export function isNaDepartmentValue(value: string | null | undefined): boolean {
+  const trimmed = value?.trim();
+  return trimmed !== undefined && trimmed !== "" &&
+    (naDepartmentCode(trimmed) !== null || normalizeCommuneName(trimmed) === "nouvelleaquitaine");
+}
+
 /** Raw department values found in the database that belong to the region. */
 export function naDepartmentsIn(values: readonly string[]): string[] {
   return [...new Set(values.filter((value) => naDepartmentCode(value) !== null))];
