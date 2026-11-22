@@ -1,0 +1,93 @@
+{
+  "command": "pnpm measure:leaks-by-domain",
+  "scope": "nouvelle-aquitaine",
+  "basis": "domain",
+  "count": 8,
+  "claimsRead": 16770,
+  "domainOrganizationsRead": 1779,
+  "matchedOrganizations": 8,
+  "summary": {
+    "byDepartment": {
+      "16": 1,
+      "17": 1,
+      "23": 1,
+      "33": 4,
+      "64": 1
+    },
+    "bySource": {
+      "ransomwatch": 8
+    }
+  },
+  "baseline": {
+    "organizations": 1673220,
+    "sources": 662,
+    "events": 26758
+  },
+  "attachments": [
+    {
+      "claimId": "1536",
+      "orgId": 21328,
+      "domain": "transdev.com",
+      "source": "ransomwatch"
+    },
+    {
+      "claimId": "8010",
+      "orgId": 668071,
+      "domain": "notaires.fr",
+      "source": "ransomwatch"
+    },
+    {
+      "claimId": "8135",
+      "orgId": 610,
+      "domain": "nieul-sur-mer.fr",
+      "source": "ransomwatch"
+    },
+    {
+      "claimId": "13322",
+      "orgId": 295426,
+      "domain": "citebd.org",
+      "source": "ransomwatch"
+    },
+    {
+      "claimId": "13682",
+      "orgId": 223089,
+      "domain": "asobostudio.com",
+      "source": "ransomwatch"
+    },
+    {
+      "claimId": "14505",
+      "orgId": 373593,
+      "domain": "tivoli-33.org",
+      "source": "ransomwatch"
+    },
+    {
+      "claimId": "14826",
+      "orgId": 168102,
+      "domain": "sefiso-atlantique.fr",
+      "source": "ransomwatch"
+    },
+    {
+      "claimId": "15319",
+      "orgId": 604869,
+      "domain": "fol-23.fr",
+      "source": "ransomwatch"
+    }
+  ],
+  "delta": {
+    "added": [
+      {
+        "claimId": "13322",
+        "orgId": 295426,
+        "domain": "citebd.org",
+        "source": "ransomwatch"
+      }
+    ],
+    "removed": []
+  },
+  "sql": {
+    "organizations": "SELECT id, dept AS department, domain, website\n                  FROM org\n                  WHERE domain IS NOT NULL OR website IS NOT NULL",
+    "claims": "SELECT id::text AS id, source, org_hint AS \"domainHint\", status\n           FROM quarantine_raw\n           WHERE kind = 'claim' AND org_hint IS NOT NULL",
+    "baseline": "SELECT (SELECT count(*) FROM org)::int AS organizations,\n                    (SELECT count(*) FROM source)::int AS sources,\n                    (SELECT count(*) FROM event)::int AS events"
+  },
+  "measuredAt": "2026-11-22T03:19:04.596Z"
+}
