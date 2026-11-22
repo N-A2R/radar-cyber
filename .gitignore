@@ -42,3 +42,7 @@ Thumbs.db
 
 # Artefacts locaux du skill de design
 .hallmark/
+
+# empreinte recalculable du corpus : elle change à chaque ajout de source et
+# provoque un conflit sur toutes les branches. On la calcule, on ne la versionne pas.
+bench/corpus/HASH
