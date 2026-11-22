@@ -80,17 +80,6 @@ async function comptes(): Promise<{ sources: number; evenements: number }> {
 	}
 }
 
-async function corpusIds(): Promise<Set<string>> {
-	const client = new Client({ connectionString: process.env.DATABASE_URL });
-	await client.connect();
-	try {
-		const rows = await client.query<{ id: string }>("SELECT id FROM source WHERE id LIKE 'corpus:%'");
-		return new Set(rows.rows.map((r) => r.id));
-	} finally {
-		await client.end();
-	}
-}
-
 describe("importer-corpus", () => {
 	it("ne touche pas à la base sans --appliquer", () => {
 		assert.equal(parseArgs([]).apply, false);
@@ -134,7 +123,6 @@ describe("importer-corpus", () => {
 		try {
 			const analyse = await analyserCorpus({ dir, probe: sonde });
 			const avant = await comptes();
-			const idsAvant = await corpusIds();
 
 			const premier = await importer(analyse);
 			assert.equal(premier.sourcesInserees, 4); // 2 sources + 2 éditeurs d'incidents
@@ -152,9 +140,11 @@ describe("importer-corpus", () => {
 			const client = new Client({ connectionString: process.env.DATABASE_URL });
 			await client.connect();
 			try {
-				const idsApres = await corpusIds();
-				const ajoutes = [...idsApres].filter((id) => !idsAvant.has(id)).sort();
-				assert.deepEqual(ajoutes, [
+				// La migration 053 introduit 43 sources `corpus:landes-40-*` : étrangères à cet import.
+				// On vérifie NOS quatre sources, pas la totalité de la table : d'autres
+				// migrations (076, 120…) ajoutent légitimement des sources corpus:*.
+				const ids = await client.query<{ id: string }>("SELECT id FROM source WHERE id IN ('corpus:editeur:exemple-fr','corpus:editeur:presse-test','corpus:flux-test','corpus:presse-test') AND id NOT LIKE 'corpus:landes-40-%' ORDER BY id");
+				assert.deepEqual(ids.rows.map((r) => r.id), [
 					"corpus:editeur:exemple-fr",
 					"corpus:editeur:presse-test",
 					"corpus:flux-test",
