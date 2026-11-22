@@ -1,0 +1,71 @@
+{
+  "fetchedAt": "2026-11-22T00:31:37.172Z",
+  "source": "nomi-sec/PoC-in-GitHub (MIT)",
+  "repositoryUrl": "https://github.com/nomi-sec/PoC-in-GitHub",
+  "selectionRule": "relevant NA CVE with at least one public PoC repository in the JSON file",
+  "records": [
+    {
+      "cveId": "CVE-2026-115560",
+      "pocCount": 12,
+      "repoUrl": "https://github.com/Pr0fEs0r-X/PHP2SHELL-Checker-v-1.0-CVE-2026-115560-",
+      "pushedAt": "2026-10-28T02:59:26Z",
+      "sourceUrl": "https://raw.githubusercontent.com/nomi-sec/PoC-in-GitHub/master/2026/CVE-2026-115560.json"
+    },
+    {
+      "cveId": "CVE-2026-119977",
+      "pocCount": 9,
+      "repoUrl": "https://github.com/paulmann/Bash_WP-CLI_Update",
+      "pushedAt": "2026-11-18T21:28:42Z",
+      "sourceUrl": "https://raw.githubusercontent.com/nomi-sec/PoC-in-GitHub/master/2026/CVE-2026-119977.json"
+    },
+    {
+      "cveId": "CVE-2026-123007",
+      "pocCount": 37,
+      "repoUrl": "https://github.com/sfewer-r7/CVE-2026-123007",
+      "pushedAt": "2026-11-18T15:23:27Z",
+      "sourceUrl": "https://raw.githubusercontent.com/nomi-sec/PoC-in-GitHub/master/2026/CVE-2026-123007.json"
+    },
+    {
+      "cveId": "CVE-2026-123158",
+      "pocCount": 48,
+      "repoUrl": "https://github.com/coboliqcom/cve-2026-123158-sshole-safe-rust",
+      "pushedAt": "2026-11-05T20:28:32Z",
+      "sourceUrl": "https://raw.githubusercontent.com/nomi-sec/PoC-in-GitHub/master/2026/CVE-2026-123158.json"
+    },
+    {
+      "cveId": "CVE-2026-123633",
+      "pocCount": 8,
+      "repoUrl": "https://github.com/LLCForge/CVE-2026-123633",
+      "pushedAt": "2026-11-20T11:26:28Z",
+      "sourceUrl": "https://raw.githubusercontent.com/nomi-sec/PoC-in-GitHub/master/2026/CVE-2026-123633.json"
+    },
+    {
+      "cveId": "CVE-2026-126714",
+      "pocCount": 5,
+      "repoUrl": "https://github.com/tani2shell/phpaftershell-lab",
+      "pushedAt": "2026-11-20T13:27:35Z",
+      "sourceUrl": "https://raw.githubusercontent.com/nomi-sec/PoC-in-GitHub/master/2026/CVE-2026-126714.json"
+    },
+    {
+      "cveId": "CVE-2026-129289",
+      "pocCount": 2,
+      "repoUrl": "https://github.com/LLCForge/CVE-2026-129289",
+      "pushedAt": "2026-11-20T11:24:58Z",
+      "sourceUrl": "https://raw.githubusercontent.com/nomi-sec/PoC-in-GitHub/master/2026/CVE-2026-129289.json"
+    },
+    {
+      "cveId": "CVE-2026-129474",
+      "pocCount": 1,
+      "repoUrl": "https://github.com/LLCForge/CVE-2026-129474",
+      "pushedAt": "2026-11-20T11:25:49Z",
+      "sourceUrl": "https://raw.githubusercontent.com/nomi-sec/PoC-in-GitHub/master/2026/CVE-2026-129474.json"
+    },
+    {
+      "cveId": "CVE-2026-129496",
+      "pocCount": 2,
+      "repoUrl": "https://github.com/abraxas/php-tzcache-rce",
+      "pushedAt": "2026-11-19T18:23:50Z",
+      "sourceUrl": "https://raw.githubusercontent.com/nomi-sec/PoC-in-GitHub/master/2026/CVE-2026-129496.json"
+    }
+  ]
+}
