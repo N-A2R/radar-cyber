@@ -1,0 +1,113 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-agriculture-16.jsonl",
+  "secteur": "agriculture",
+  "departement": "16",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36",
+  "methode": "GET avec suivi des redirections, 4 Ko lus par URL ; statut et type de contenu enregistrés",
+  "sources": 12,
+  "urls_verifiees": 30,
+  "urls_200": 30,
+  "detail": [
+    {
+      "nom": "Chambre d'agriculture de la Charente",
+      "urls": {
+        "https://charente.chambres-agriculture.fr/": {"code": 200, "type": "text/html; charset=utf-8"},
+        "https://charente.chambres-agriculture.fr/actualites-1": {"code": 200, "type": "text/html; charset=utf-8"}
+      },
+      "note": "Aucun flux RSS trouvé sur le site TYPO3 ; url_flux laissée vide."
+    },
+    {
+      "nom": "BNIC — Cognac.fr (site officiel de la filière Cognac)",
+      "urls": {
+        "https://www.cognac.fr/": {"code": 200, "type": "text/html; charset=UTF-8"},
+        "https://www.cognac.fr/actualites/": {"code": 200, "type": "text/html; charset=UTF-8"},
+        "https://www.cognac.fr/mentions-legales/": {"code": 200, "type": "text/html; charset=UTF-8"}
+      },
+      "note": "Éditeur vérifié : Bureau National Interprofessionnel du Cognac, 16101 Cognac. Les URL /feed et /actualites/feed/ répondent 200 mais servent du HTML, pas un RSS : pas de flux déclaré."
+    },
+    {
+      "nom": "UGVC — Union Générale des Viticulteurs pour l'AOC Cognac",
+      "urls": {
+        "https://ugvc.fr/": {"code": 200, "type": "text/html; charset=UTF-8"},
+        "https://ugvc.fr/category/actualites/": {"code": 200, "type": "text/html; charset=UTF-8"},
+        "https://ugvc.fr/feed/": {"code": 200, "type": "text/xml;charset=UTF-8"}
+      },
+      "note": "Flux RSS : titres observés « INSCRIPTIONS CONCOURS GÉNÉRAL AGRICOLE 2027 » et « PALMARÈS CONCOURS SAVEURS NOUVELLE-AQUITAINE 2026 »."
+    },
+    {
+      "nom": "Syndicat des Vins IGP Charentais",
+      "urls": {
+        "https://www.vinscharentais.fr/": {"code": 200, "type": "text/html; charset=UTF-8"},
+        "https://www.vinscharentais.fr/actualites/": {"code": 200, "type": "text/html; charset=UTF-8"},
+        "https://www.vinscharentais.fr/feed/": {"code": 200, "type": "application/rss+xml; charset=UTF-8"}
+      },
+      "note": "Flux RSS : titres observés « Les horaires d’hiver de la Maison des Vins Charentais » et « Lever de rideau pour la première édition de Vignobles en Scène ! »."
+    },
+    {
+      "nom": "Charente Libre — Agriculture",
+      "urls": {
+        "https://www.charentelibre.fr/": {"code": 200, "type": "text/html; charset=UTF-8"},
+        "https://www.charentelibre.fr/societe/agriculture/": {"code": 200, "type": "text/html; charset=UTF-8"},
+        "https://www.charentelibre.fr/societe/agriculture/rss.xml": {"code": 200, "type": "application/xml"}
+      },
+      "note": "Titre de la rubrique : « Agriculture - Charente Libre.fr »."
+    },
+    {
+      "nom": "Charente Libre — Le Cognac",
+      "urls": {
+        "https://www.charentelibre.fr/le-cognac": {"code": 200, "type": "text/html; charset=UTF-8"},
+        "https://www.charentelibre.fr/le-cognac/rss.xml": {"code": 200, "type": "application/xml"}
+      },
+      "note": "Flux RSS : 20 items, dont « Le viticulteur Julien Massé nouveau gardien du temple du cognac »."
+    },
+    {
+      "nom": "Sud Ouest — Cognac (Charente)",
+      "urls": {
+        "https://www.sudouest.fr/": {"code": 200, "type": "text/html; charset=UTF-8"},
+        "https://www.sudouest.fr/charente/cognac": {"code": 200, "type": "text/html; charset=UTF-8"},
+        "https://www.sudouest.fr/charente/cognac/rss.xml": {"code": 200, "type": "application/xml"}
+      },
+      "note": "Flux RSS : 20 items, dont « Crise du cognac : plan social au BNIC, le quart des effectifs supprimé »."
+    },
+    {
+      "nom": "Sud Ouest — Agriculture",
+      "urls": {
+        "https://www.sudouest.fr/economie/agriculture/": {"code": 200, "type": "text/html; charset=UTF-8"},
+        "https://www.sudouest.fr/economie/agriculture/rss.xml": {"code": 200, "type": "application/xml"}
+      }
+    },
+    {
+      "nom": "ICI Charente (Radio France)",
+      "urls": {
+        "https://www.ici.fr/": {"code": 200, "type": "text/html; charset=UTF-8"},
+        "https://www.ici.fr/nouvelle-aquitaine/charente-16": {"code": 200, "type": "text/html; charset=UTF-8"}
+      },
+      "note": "URL /rss.xml : 404, aucun flux déclaré."
+    },
+    {
+      "nom": "France 3 Nouvelle-Aquitaine — Charente",
+      "urls": {
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente": {"code": 200, "type": "text/html; charset=UTF-8"},
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente/rss": {"code": 200, "type": "text/xml; charset=UTF-8"}
+      }
+    },
+    {
+      "nom": "La Nouvelle République — Charente",
+      "urls": {
+        "https://www.lanouvellerepublique.fr/": {"code": 200, "type": "text/html; charset=utf-8"},
+        "https://www.lanouvellerepublique.fr/charente": {"code": 200, "type": "text/html; charset=utf-8"}
+      },
+      "note": "Avec un user-agent générique, le site répond 403 ; avec le user-agent navigateur ci-dessus, 200. Aucun flux RSS public vérifié."
+    },
+    {
+      "nom": "Réussir (presse agricole spécialisée)",
+      "urls": {
+        "https://www.reussir.fr/": {"code": 200, "type": "text/html; charset=utf-8"},
+        "https://www.reussir.fr/fil-actualites": {"code": 200, "type": "text/html; charset=utf-8"},
+        "https://www.reussir.fr/rss.xml": {"code": 200, "type": "application/xml;charset=UTF-8"}
+      }
+    }
+  ],
+  "exemple_cyber": "Aucun article de cybersécurité propre à ces dix sources n'a pu être vérifié : le champ est laissé vide plutôt que d'y inscrire un lien non confirmé."
+}
