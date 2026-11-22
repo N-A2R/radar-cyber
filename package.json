@@ -47,6 +47,7 @@
     "exposition:dila": "apps/api/node_modules/.bin/tsx scripts/collecte-services-dila.mts",
     "exposition:osm-siret": "apps/api/node_modules/.bin/tsx scripts/collecte-services-osm-siret.mts",
     "exposition:wikidata": "apps/api/node_modules/.bin/tsx scripts/collecte-services-wikidata.mts",
+    "exposition:rna": "apps/api/node_modules/.bin/tsx scripts/collecte-services-rna.mts",
     "exposition:mesurer": "apps/api/node_modules/.bin/tsx scripts/measure-exposition-na.mts"
   },
   "devDependencies": {
