@@ -51,3 +51,4 @@ Résultat : **30 sources, 66 URL distinctes toutes en HTTP 200** (78 contrôles 
 - `cd-creuse.fr`, `amf23.fr`, `adf23.fr`, `sdec23.fr`, `siec23.fr`, `sivom23.fr`, `annuaire-creuse.fr` : NXDOMAIN.
 - Bénévent-Grand-Bourg `/rss.xml` : HTTP 200 mais corps HTML d'une page 404 — flux écarté.
 - Grand-Bourg en HTTPS : certificat invalide — seules les URL HTTP retenues.
+OBJECTIF : atteint — 30 / 5
