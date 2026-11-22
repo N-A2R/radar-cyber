@@ -43,8 +43,13 @@ let indexPromise: Promise<AliasIndex> | null = null;
 const resultCache = new Map<string, MatchDiagnosis>();
 
 async function loadIndex(): Promise<AliasIndex> {
-	const { rows } = await pool.query<{ org_id: number; name: string; alias: string }>(
-		"SELECT a.org_id, o.name, a.alias FROM org_alias a JOIN org o ON o.id = a.org_id WHERE a.status = 'active' AND length(btrim(a.alias)) >= $1",
+	const { rows } = await pool.query<{
+		org_id: number;
+		name: string;
+		alias: string;
+		dept: string | null;
+	}>(
+		"SELECT a.org_id, o.name, a.alias, o.dept FROM org_alias a JOIN org o ON o.id = a.org_id WHERE a.status = 'active' AND length(btrim(a.alias)) >= $1",
 		[MIN_ALIAS_LENGTH],
 	);
 	return buildAliasIndex(rows);

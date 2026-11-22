@@ -1,0 +1,72 @@
+{
+  "date": "2026-11-22",
+  "fichier": "bench/corpus/sources-enseignement-79.jsonl",
+  "secteur": "enseignement",
+  "departement": "79",
+  "methode": "GET réel avec redirections suivies, User-Agent navigateur (Mozilla/5.0), délai 25 s ; code HTTP, type de contenu, URL finale et nombre d'items RSS relevés pour chaque URL.",
+  "sources": 12,
+  "urls_verifiees": 32,
+  "urls_uniques": 32,
+  "controles_http": 33,
+  "urls_http_200": 32,
+  "flux_rss_verifies": 9,
+  "urls": [
+    "DSDEN79|https://ww2.ac-poitiers.fr/dsden79-pedagogie/spip.php?m=1|200|text/html; charset=utf-8|https://ww2.ac-poitiers.fr/dsden79-pedagogie/spip.php?m=1|0",
+    "DSDEN79|https://ww2.ac-poitiers.fr/dsden79-pedagogie/spip.php?rubrique374|200|text/html; charset=utf-8|https://ww2.ac-poitiers.fr/dsden79-pedagogie/spip.php?rubrique374|0",
+    "DSDEN79|https://ww2.ac-poitiers.fr/dsden79-pedagogie/spip.php?page=backend|200|text/xml; charset=utf-8|https://ww2.ac-poitiers.fr/dsden79-pedagogie/spip.php?page=backend|0",
+    "SUD79|https://www.sudeducation79.org/|200|text/html; charset=UTF-8|https://www.sudeducation79.org/|0",
+    "SUD79|https://www.sudeducation79.org/category/actualites/|200|text/html; charset=UTF-8|https://www.sudeducation79.org/category/actualites/|0",
+    "SUD79|https://www.sudeducation79.org/feed/|200|application/rss+xml; charset=UTF-8|https://www.sudeducation79.org/feed/|10",
+    "FCPE79|https://79.fcpe.asso.fr/|200|text/html; charset=utf-8|https://79.fcpe.asso.fr/|0",
+    "FCPE79|https://79.fcpe.asso.fr/actualites|200|text/html; charset=utf-8|https://79.fcpe.asso.fr/actualites|0",
+    "ECPC|https://ec-poitou-charentes.fr/|200|text/html; charset=UTF-8|https://ec-poitou-charentes.fr/|0",
+    "ECPC|https://ec-poitou-charentes.fr/?post_type=post|200|text/html; charset=UTF-8|https://ec-poitou-charentes.fr/?post_type=post|0",
+    "ECPC|https://ec-poitou-charentes.fr/feed/|200|application/rss+xml; charset=UTF-8|https://ec-poitou-charentes.fr/feed/|4",
+    "LPG|https://lycee-paul-guerin.fr/|200|text/html; charset=UTF-8|https://lycee-paul-guerin.fr/|0",
+    "LPG|https://lycee-paul-guerin.fr/c/actualites/|200|text/html; charset=UTF-8|https://lycee-paul-guerin.fr/c/actualites/|0",
+    "LPG|https://lycee-paul-guerin.fr/feed/|200|application/rss+xml; charset=UTF-8|https://lycee-paul-guerin.fr/feed/|10",
+    "GRETA|https://www.greta-poitou-charentes.fr/|200|text/html; charset=UTF-8|https://www.greta-poitou-charentes.fr/|0",
+    "GRETA|https://www.greta-poitou-charentes.fr/actualites/|200|text/html; charset=UTF-8|https://www.greta-poitou-charentes.fr/actualites/|0",
+    "GRETA|https://www.greta-poitou-charentes.fr/feed/|200|application/rss+xml; charset=UTF-8|https://www.greta-poitou-charentes.fr/feed/|1",
+    "NIORT|https://niort.univ-poitiers.fr/|200|text/html; charset=UTF-8|https://niort.univ-poitiers.fr/|0",
+    "NIORT|https://niort.univ-poitiers.fr/accueil/evenements-toute-lannee/|200|text/html; charset=UTF-8|https://niort.univ-poitiers.fr/accueil/evenements-toute-lannee/|0",
+    "NIORT|https://niort.univ-poitiers.fr/feed/|200|application/rss+xml; charset=UTF-8|https://niort.univ-poitiers.fr/feed/|6",
+    "TERRES|https://terres-et-paysages.fr/|200|text/html; charset=UTF-8|https://terres-et-paysages.fr/|0",
+    "TERRES|https://terres-et-paysages.fr/actualites/|200|text/html; charset=UTF-8|https://terres-et-paysages.fr/actualites/|0",
+    "TERRES|https://terres-et-paysages.fr/feed/|200|application/rss+xml; charset=UTF-8|https://terres-et-paysages.fr/feed/|0",
+    "DIOCESE|https://www.poitiers.catholique.fr/|200|text/html; charset=UTF-8|https://www.poitiers.catholique.fr/|0",
+    "DIOCESE|https://www.poitiers.catholique.fr/actualites/|200|text/html; charset=UTF-8|https://www.poitiers.catholique.fr/actualites/|0",
+    "DIOCESE|https://www.poitiers.catholique.fr/feed/|200|application/rss+xml; charset=UTF-8|https://www.poitiers.catholique.fr/feed/|16",
+    "CFAACAD|https://www.cfa-acad-poitiers.fr/|200|text/html; charset=utf-8|https://www.cfa-acad-poitiers.fr/|0",
+    "CFAACAD|https://www.cfa-acad-poitiers.fr/actualites|200|text/html; charset=utf-8|https://www.cfa-acad-poitiers.fr/actualites|0",
+    "CFAACAD|https://www.cfa-acad-poitiers.fr/rss.xml|200|application/rss+xml; charset=utf-8|https://www.cfa-acad-poitiers.fr/rss.xml|4",
+    "CMA79|https://formation.cma-nouvelleaquitaine.fr/nos-centres-de-formation/niort|200|text/html; charset=UTF-8|https://formation.cma-nouvelleaquitaine.fr/nos-centres-de-formation/niort|0",
+    "CMA79|https://formation.cma-nouvelleaquitaine.fr/actualites|200|text/html; charset=UTF-8|https://formation.cma-nouvelleaquitaine.fr/actualites|0",
+    "ANNUAIRE|https://annuaire-education.fr/departement/deux-sevres/079.html|200|text/html|https://annuaire-education.fr/departement/deux-sevres/079.html|0"
+  ],
+  "candidats_ecartes": [
+    "https://www.ac-poitiers.fr/DSDEN79 : HTTP 403 anti-bot ; la pédagogie de la DSDEN 79 est couverte par le site SPIP ww2.ac-poitiers.fr (3 URLs en 200).",
+    "https://www.lanouvellerepublique.fr/deux-sevres/education : HTTP 403 anti-bot ; presse locale non retenue faute de vérification HTTP 200.",
+    "https://www.education.gouv.fr/cyberattaques-contre-le-ministere-de-l-education-nationale-point-de-situation-l-approche-de-la-505561 et https://www.education.gouv.fr/incident-de-securite-affectant-les-donnees-de-certains-eleves-de-l-education-nationale-504443 : HTTP 403 anti-bot ; exemples cyber remplacés par une page cybermalveillance.gouv.fr en 200.",
+    "https://www.annuaire-education.fr/departement/deux-sevres-79.html et https://www.annuaire-education.fr/departement/deux-sevres/079.html (www) : 404 puis redirection ; URL finale sans www retenue.",
+    "https://79.fcpe.asso.fr/index.php?format=feed&type=rss, https://79.fcpe.asso.fr/rss.xml et https://79.fcpe.asso.fr/actualites/rss.xml : HTTP 200 mais contenu HTML, aucun flux RSS exploitable ; url_flux laissée vide.",
+    "https://niort.univ-poitiers.fr/flux-rss/ et https://niort.univ-poitiers.fr/actualites/ : 404 ; flux https://niort.univ-poitiers.fr/feed/ (6 items) et page https://niort.univ-poitiers.fr/accueil/evenements-toute-lannee/ retenus.",
+    "https://www.cfa-acad-poitiers.fr/feed : 404 ; flux valide https://www.cfa-acad-poitiers.fr/rss.xml (4 items).",
+    "https://ec-poitou-charentes.fr/actualites/ et https://lycee-paul-guerin.fr/actualites/ : 404 ; archives WordPress https://ec-poitou-charentes.fr/?post_type=post et https://lycee-paul-guerin.fr/c/actualites/ retenues.",
+    "https://terres-et-paysages.fr/feed/ et https://ww2.ac-poitiers.fr/dsden79-pedagogie/spip.php?page=backend : HTTP 200 mais flux sans item au moment du relevé ; conservés comme flux déclarés par les sites."
+  ],
+  "cyber": [
+    {
+      "titre": "Enquête Éducation nationale sur la connaissance de la cyber auprès des élèves du CM1 à la 6e",
+      "url": "https://www.cybermalveillance.gouv.fr/tous-nos-contenus/actualites/cp-enquete-cybersecurite-education-nationale-2025",
+      "code": 200,
+      "date": "2025-09-29"
+    },
+    {
+      "titre": "Hackathon CyberEnJeux",
+      "url": "https://lycee-paul-guerin.fr/hackathon-cyberenjeux/",
+      "code": 200,
+      "date": "2026-01-09"
+    }
+  ]
+}
