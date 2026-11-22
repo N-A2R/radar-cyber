@@ -40,3 +40,5 @@ sources n'ont pas d'exemple cyber vérifié dans les articles consultés : le ch
 - Rapport de vérification : `bench/results/verification-energie-eau-79.json`
 - Intégration en base : `db/migrate-179-sources-energie-eau-79.sql` (clés `corpus:energie-eau-79-*`)
 - Empreinte du corpus : `bench/corpus/HASH`
+
+OBJECTIF : atteint — 16 / 5
