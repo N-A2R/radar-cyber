@@ -1,0 +1,1387 @@
+{
+  "meta": {
+    "count": 100,
+    "builtBy": "scripts/build-anticipation-corpus-100.mts",
+    "inputs": [
+      "bench/results/benchmark-premier-regard.json",
+      "bench/fixtures/corpus-reference-na.json",
+      "bench/couverture/incidents.jsonl",
+      "bench/corpus/incidents-*.jsonl"
+    ],
+    "exclusions": [
+      "na-charente-002",
+      "na-creuse-001"
+    ],
+    "rule": "One row per incident; reference date is the incident date, else the first public date, else the radar discovery date."
+  },
+  "incidents": [
+    {
+      "id": "na-2026-001",
+      "entite": "Ymed (éditeur de la plateforme Sooncare)",
+      "departement": "33",
+      "dateIncident": "2026-04-06",
+      "dateReference": "2026-04-06",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "ymed",
+        "ymed editeur de la plateforme sooncare"
+      ],
+      "proofUrl": "https://www.sudouest.fr/sante/fuite-de-donnees-personnelles-et-medicales-alerte-sur-une-cyberattaque-visant-une-entreprise-de-gironde-28628427.php",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-002",
+      "entite": "Mairie de Marennes-Hiers-Brouage",
+      "departement": "17",
+      "dateIncident": "2026-08-17",
+      "dateReference": "2026-08-17",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "mairie de marennes hiers brouage"
+      ],
+      "proofUrl": "https://www.sudouest.fr/charente-maritime/marennes-hiers-brouage/charente-maritime-a-marennes-une-cyberattaque-a-cible-la-mairie-et-ses-messageries-electroniques-30305378.php",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-003",
+      "entite": "Ville de Tarnos",
+      "departement": "40",
+      "dateIncident": "2026-08-27",
+      "dateReference": "2026-08-27",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "ville de tarnos"
+      ],
+      "proofUrl": "https://www.sudouest.fr/landes/tarnos/landes-la-ville-de-tarnos-victime-d-une-cyberattaque-avec-demande-de-rancon-30413165.php",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-004",
+      "entite": "Mairie d'Espelette",
+      "departement": "64",
+      "dateIncident": "2026-09-11",
+      "dateReference": "2026-09-11",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "mairie d espelette"
+      ],
+      "proofUrl": "https://www.sudouest.fr/pyrenees-atlantiques/espelette/pays-basque-la-commune-d-espelette-victime-d-un-piratage-des-mails-pieges-portant-un-virus-sont-automatiquement-envoyes-par-la-mairie-30651628.php",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-005",
+      "entite": "EHPAD Résidence du Parc de Champdeniers",
+      "departement": "79",
+      "dateIncident": "2025-12-08",
+      "dateReference": "2025-12-08",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "ehpad residence du parc de champdeniers"
+      ],
+      "proofUrl": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-006",
+      "entite": "Ville de Gradignan — police municipale",
+      "departement": "33",
+      "dateIncident": "2026-05-10",
+      "dateReference": "2026-05-10",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "ville de gradignan",
+        "ville de gradignan police municipale"
+      ],
+      "proofUrl": "https://www.sudouest.fr/gironde/gradignan/gironde-carte-grise-depot-de-plainte-des-donnees-derobees-lors-d-une-attaque-informatique-qui-a-touche-la-police-municipale-de-gradignan-29049109.php",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-007",
+      "entite": "Mairie de Fumel",
+      "departement": "47",
+      "dateIncident": "2025-10-03",
+      "dateReference": "2025-10-03",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "mairie de fumel"
+      ],
+      "proofUrl": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/lot-et-garonne/agen/une-cyberattaque-paralyse-la-mairie-un-cartel-malaisien-suspecte-3227429.html",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-008",
+      "entite": "Collège privé La Salle de Brive-la-Gaillarde",
+      "departement": "19",
+      "dateIncident": "2025-01-15",
+      "dateReference": "2025-01-15",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "college prive la salle de brive la gaillarde"
+      ],
+      "proofUrl": "https://www.ladepeche.fr/2025/02/14/nous-avons-perdu-tous-les-bulletins-scolaires-apres-une-cyberattaque-les-malfrats-reclament-une-rancon-a-ce-college-prive-12513326.php",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-009",
+      "entite": "Bordeaux Sciences Agro",
+      "departement": "33",
+      "dateIncident": "2026-09-08",
+      "dateReference": "2026-09-08",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "bordeaux sciences agro"
+      ],
+      "proofUrl": "https://www.agro-bordeaux.fr/incident-de-securite-concernant-lapplication-de-gestion-des-conventions-de-stage/",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-010",
+      "entite": "Vignobles Toutigeac",
+      "departement": "33",
+      "dateIncident": "2026-07-16",
+      "dateReference": "2026-07-16",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "vignobles toutigeac"
+      ],
+      "proofUrl": "https://frenchbreaches.com/alertes/vignobles-toutigeac-rw_Vm1sbmJtOWliR1Z6SUZSdmRYUnBaMlZoWTBCMGFHVm5aVzUwYkdWdFpXNA",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-011",
+      "entite": "SICSOE (Solution Vin Logistique)",
+      "departement": "33",
+      "dateIncident": "2026-07-23",
+      "dateReference": "2026-07-23",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "sicsoe",
+        "sicsoe solution vin logistique"
+      ],
+      "proofUrl": "https://frenchbreaches.com/alertes/sicsoe-rw_VTBsRFUwOUZRSFJvWldkbGJuUnNaVzFsYmc",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-012",
+      "entite": "Intermarché d'Altillac",
+      "departement": "19",
+      "dateIncident": "2026-10-12",
+      "dateReference": "2026-10-12",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "intermarche d altillac"
+      ],
+      "proofUrl": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/brive/temoignage-on-a-ete-obliges-de-jeter-tout-le-surgele-la-stupefaction-des-gerants-de-ce-supermarche-frappe-par-la-cyberattaque-nationale-3432960.html",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-013",
+      "entite": "Magasins de grande distribution touchés en Béarn et Soule (dont Intermarché Pau et Monein)",
+      "departement": "64",
+      "dateIncident": "2026-10-12",
+      "dateReference": "2026-10-12",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "magasins de grande distribution touches en bearn et soule",
+        "magasins de grande distribution touches en bearn et soule dont intermarche pau et monein"
+      ],
+      "proofUrl": "https://www.larepubliquedespyrenees.fr/societe/securite/ce-n-etait-plus-un-congelateur-c-etait-un-four-plusieurs-magasins-bearnais-touches-par-la-cyberattaque-dans-les-supermarches-31037847.php",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-014",
+      "entite": "Coaxis",
+      "departement": "47",
+      "dateIncident": "2023-12-07",
+      "dateReference": "2023-12-07",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "coaxis"
+      ],
+      "proofUrl": "https://www.sudouest.fr/lot-et-garonne/marmande/des-tentatives-de-piratage-tous-les-jours-d-une-enquete-locale-a-une-traque-internationale-une-entreprise-de-lot-et-garonne-victime-de-malveillance-temoigne-dans-un-documentaire-choc-31417296.php",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-015",
+      "entite": "Mairie de Sarran",
+      "departement": "19",
+      "dateIncident": "2024-09-01",
+      "dateReference": "2024-09-01",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "mairie de sarran"
+      ],
+      "proofUrl": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/brive/j-en-ai-pleure-victime-d-une-cyberattaque-cette-mairie-perd-44-000-euros-de-son-budget-3174492.html",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-016",
+      "entite": "Fédération Nationale des Chasseurs / chasseurs charentais",
+      "departement": "16",
+      "dateIncident": "2026-01-20",
+      "dateReference": "2026-01-20",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "federation nationale des chasseurs chasseurs charentais"
+      ],
+      "proofUrl": "https://www.chasseurdefrance.com/actualites/la-fnc-victime-dun-incident-de-securite-informatique/",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-017",
+      "entite": "Ville de Poitiers et Grand Poitiers",
+      "departement": "86",
+      "dateIncident": "2025-08-29",
+      "dateReference": "2025-08-29",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "ville de poitiers et grand poitiers"
+      ],
+      "proofUrl": "https://www.ouest-france.fr/societe/cyberattaque/cyberattaque-contre-la-mairie-de-poitiers-lobjectif-etait-de-reclamer-une-rancon-7ce05bb4-8a66-11f0-9cca-a0ceea2b93f6",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-018",
+      "entite": "Fédération Française de Cyclisme — membres en Nouvelle-Aquitaine",
+      "departement": "33",
+      "dateIncident": "2025-12-09",
+      "dateReference": "2025-12-09",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "federation francaise de cyclisme",
+        "federation francaise de cyclisme membres en nouvelle aquitaine"
+      ],
+      "proofUrl": "https://structures.ffc.fr/incident-securite-informatique/",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-019",
+      "entite": "Delicity — service de livraison de repas disponible à Bordeaux, Pau et Limoges",
+      "departement": "33",
+      "datePublique": "2026-09-07",
+      "dateReference": "2026-09-07",
+      "dateReferenceType": "datePublique",
+      "aliases": [
+        "delicity",
+        "delicity service de livraison de repas disponible a bordeaux pau et limoges"
+      ],
+      "proofUrl": "https://www.nicematin.com/faits-divers/clients-restaurateurs-livreurs-le-service-de-livraison-de-repas-nicois-delicity-victime-d-une-cyberattaque-voici-les-donnees-personnelles-piratees-10719698",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-020",
+      "entite": "Euskal Moneta (association support de la monnaie locale Eusko)",
+      "departement": "64",
+      "dateIncident": "2026-08-17",
+      "dateReference": "2026-08-17",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "euskal moneta",
+        "euskal moneta association support de la monnaie locale eusko"
+      ],
+      "proofUrl": "https://www.sudouest.fr/pyrenees-atlantiques/pays-basque/pays-basque-l-euskal-moneta-l-association-support-de-la-monnaie-locale-eusko-cible-d-une-cyberattaque-30389667.php",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-021",
+      "entite": "SDIS des Landes",
+      "departement": "40",
+      "dateIncident": "2026-07-25",
+      "dateReference": "2026-07-25",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "sdis des landes"
+      ],
+      "proofUrl": "https://actu.fr/nouvelle-aquitaine/mont-de-marsan_40192/les-pompiers-des-landes-victimes-d-une-cyberattaque-des-donnees-personnelles-ont-ete-extraites_64593363.html",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-022",
+      "entite": "Institut Bergonié",
+      "departement": "33",
+      "dateIncident": "2026-04-06",
+      "dateReference": "2026-04-06",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "institut bergonie"
+      ],
+      "proofUrl": "https://www.bergonie.fr/mesures-attaque-prestataire/",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-023",
+      "entite": "ERNAT (Études Réalisations Négoce Assistance Technique)",
+      "departement": "64",
+      "dateIncident": "2026-08-07",
+      "dateReference": "2026-08-07",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "ernat",
+        "ernat etudes realisations negoce assistance technique"
+      ],
+      "proofUrl": "https://frenchbreaches.com/alertes/ernat-rw_ZDNkM0xtVnlibUYwTFdKMWNtVmhkUzFsZEhWa1pYTXVabkpBYTNKNVltbDA",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-024",
+      "entite": "Rectorat de l'académie de Poitiers",
+      "departement": "86",
+      "dateIncident": "2026-08-01",
+      "dateReference": "2026-08-01",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "rectorat de l academie de poitiers"
+      ],
+      "proofUrl": "https://www.unsa-education.com/articles-regional-/poitiers-cyberattaque-a-lacademie-de-poitiers-le-recteur-fait-le-point/",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-025",
+      "entite": "UPPA Alumni — réseau des anciens de l'Université de Pau et des Pays de l'Adour",
+      "departement": "64",
+      "dateIncident": "2026-04-08",
+      "dateReference": "2026-04-08",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "uppa alumni",
+        "uppa alumni reseau des anciens de l universite de pau et des pays de l adour"
+      ],
+      "proofUrl": "https://www.cyberbreaches.org/fr/incidents/uppa-alumni-2026-04-10-blf",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-026",
+      "entite": "Réseau Alumni de l'Université de Bordeaux",
+      "departement": "33",
+      "dateIncident": "2026-04-06",
+      "dateReference": "2026-04-06",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "reseau alumni de l universite de bordeaux"
+      ],
+      "proofUrl": "https://www.cyberattaque.org/alumnforce-2-7-millions-etudiants-exposes/",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-027",
+      "entite": "UNSS (Union nationale du sport scolaire) — exfiltration OPUSS",
+      "departement": "33",
+      "dateIncident": "2025-11-15",
+      "dateReference": "2025-11-15",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "unss",
+        "unss union nationale du sport scolaire exfiltration opuss"
+      ],
+      "proofUrl": "https://denys-puech.mon-ent-occitanie.fr/lectureFichiergw.do?ID_FICHIER=11393",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-028",
+      "entite": "Ville de La Rochelle — fuite via le prestataire Synbird",
+      "departement": "17",
+      "dateIncident": "2025-10-24",
+      "dateReference": "2025-10-24",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "ville de la rochelle",
+        "ville de la rochelle fuite via le prestataire synbird"
+      ],
+      "proofUrl": "https://www.sudouest.fr/charente-maritime/la-rochelle/fuite-de-donnees-chez-synbird-la-rochelle-touchee-comme-1-300-communes-de-france-26875312.php",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-029",
+      "entite": "Bordeaux Métropole — portail de la taxe de séjour",
+      "departement": "33",
+      "dateIncident": "2026-04-27",
+      "dateReference": "2026-04-27",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "bordeaux metropole",
+        "bordeaux metropole portail de la taxe de sejour"
+      ],
+      "proofUrl": "https://www.cyberbreaches.org/fr/incidents/bordeaux-metropole-fuite-de-11-000-declarants-de-la-taxe-de-sejour-et-adresses-de-locations-touristiques",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-030",
+      "entite": "Ministère de l'Intérieur — intrusion initiale depuis un service local de Charente-Maritime",
+      "departement": "17",
+      "dateIncident": "2025-12-11",
+      "dateReference": "2025-12-11",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "ministere de l interieur",
+        "ministere de l interieur intrusion initiale depuis un service local de charente maritime"
+      ],
+      "proofUrl": "https://www.rtl.fr/actu/justice-faits-divers/cyberattaque-au-ministere-de-l-interieur-une-enquete-ouverte-apres-une-intrusion-informatique-inedite-7900577156",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-031",
+      "entite": "Vivaticket France (Chasseneuil-du-Poitou)",
+      "departement": "86",
+      "dateIncident": "2026-03-02",
+      "dateReference": "2026-03-02",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "vivaticket france",
+        "vivaticket france chasseneuil du poitou"
+      ],
+      "proofUrl": "https://www.lanouvellerepublique.fr/vienne/commune/chasseneuil-du-poitou/prestataire-de-billetterie-pour-des-musees-monuments-et-parcs-de-loisirs-vivaticket-victime-d-une-cyberattaque-1773588253",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-032",
+      "entite": "Intermarché de Gradignan, Parempuyre, Macau et La Teste-de-Buch",
+      "departement": "33",
+      "dateIncident": "2026-10-11",
+      "dateReference": "2026-10-11",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "intermarche de gradignan",
+        "intermarche de gradignan parempuyre macau et la teste de buch"
+      ],
+      "proofUrl": "https://www.bougerabordeaux.com/actu/news/cyberattaque-supermarches-intermarche-gironde-octobre-2026/",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-033",
+      "entite": "Supermarchés des Deux-Sèvres (Hyper U Parthenay, Intermarché Saint-Varent et Saint-Maixent-l'École, Super U Champdeniers, Celles-sur-Belle, Leclerc Thouars-Sainte-Verge)",
+      "departement": "79",
+      "dateIncident": "2026-10-11",
+      "dateReference": "2026-10-11",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "supermarches des deux sevres",
+        "supermarches des deux sevres hyper u parthenay intermarche saint varent et saint maixent l ecole super u champdeniers celles sur belle leclerc thouars sainte verge"
+      ],
+      "proofUrl": "https://www.lanouvellerepublique.fr/parthenay/cyberattaque-d-ampleur-nationale-des-supermarches-des-deux-sevres-contraints-de-jeter-des-produits-frais-et-surgeles-1791821248",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-034",
+      "entite": "Cinq Intermarché de Dordogne (Hautefort, Tocane-Saint-Apre, Port-Sainte-Foy-et-Ponchapt, Trélissac, Saint-Médard-de-Mussidan)",
+      "departement": "24",
+      "dateIncident": "2026-10-11",
+      "dateReference": "2026-10-11",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "cinq intermarche de dordogne",
+        "cinq intermarche de dordogne hautefort tocane saint apre port sainte foy et ponchapt trelissac saint medard de mussidan"
+      ],
+      "proofUrl": "https://www.ledemocratedebergerac.fr/une-cyberattaque-met-en-surchauffe-les-frigos-de-plusieurs-enseignes-de-la-grande-distribution/",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-035",
+      "entite": "E.Leclerc de Surgères",
+      "departement": "17",
+      "dateIncident": "2026-10-11",
+      "dateReference": "2026-10-11",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "e leclerc de surgeres"
+      ],
+      "proofUrl": "https://actu.fr/nouvelle-aquitaine/surgeres_17434/en-charente-maritime-ce-magasin-e-leclerc-est-victime-de-la-cyberattaque-les-vitrines-et-bacs-sont-vides-entierement_64912834.html",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-036",
+      "entite": "Magasins de la Vienne (Intermarché Chauvigny et Gençay, Super U Vouillé, Leclerc Poitiers, Auchan Saint-Genest-d'Ambière)",
+      "departement": "86",
+      "dateIncident": "2026-10-11",
+      "dateReference": "2026-10-11",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "magasins de la vienne",
+        "magasins de la vienne intermarche chauvigny et gencay super u vouille leclerc poitiers auchan saint genest d ambiere"
+      ],
+      "proofUrl": "https://www.lanouvellerepublique.fr/poitiers/cyberattaque-contre-des-supermarches-des-etablissements-touches-dans-la-vienne-1791810880",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-037",
+      "entite": "Super U de Morcenx-la-Nouvelle et Carrefour Express de Rion-des-Landes",
+      "departement": "40",
+      "dateIncident": "2026-10-11",
+      "dateReference": "2026-10-11",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "super u de morcenx la nouvelle et carrefour express de rion des landes"
+      ],
+      "proofUrl": "https://www.sudouest.fr/landes/morcenx/cyberattaque-dans-les-supermarches-un-vrai-gachis-a-morcenx-la-nouvelle-le-super-u-fait-face-a-des-rayons-vides-31042504.php",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-038",
+      "entite": "Intermarché et Carrefour Market de Marmande",
+      "departement": "47",
+      "dateIncident": "2026-10-11",
+      "dateReference": "2026-10-11",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "intermarche et carrefour market de marmande"
+      ],
+      "proofUrl": "https://www.sudouest.fr/economie/cybersecurite/cyberattaque-dans-les-supermarches-75-000-euros-de-pertes-a-intermarche-marmande-un-acte-ecoeurant-selon-la-directrice-31038815.php",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-039",
+      "entite": "Cerballiance — réseau de laboratoires de biologie médicale",
+      "departement": "33",
+      "dateIncident": "2026-03-25",
+      "dateReference": "2026-03-25",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "cerballiance",
+        "cerballiance reseau de laboratoires de biologie medicale"
+      ],
+      "proofUrl": "https://www.franceinfo.fr/internet/securite-sur-internet/cyberattaques/les-laboratoires-de-biologie-medicale-cerballiance-vises-par-un-vol-massif-de-donnees_7900568.html",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-040",
+      "entite": "Cegedim Santé — logiciel MonLogicielMedical (MLM)",
+      "departement": "33",
+      "dateIncident": "2025-10-27",
+      "dateReference": "2025-10-27",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "cegedim sante",
+        "cegedim sante logiciel monlogicielmedical mlm"
+      ],
+      "proofUrl": "https://www.cegedim-sante.com/le-blog/precisions-complementaires-cp-mlm/",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-041",
+      "entite": "Polyclinique Bordeaux Nord Aquitaine",
+      "departement": "33",
+      "dateIncident": "2026-04-06",
+      "dateReference": "2026-04-06",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "polyclinique bordeaux nord aquitaine"
+      ],
+      "proofUrl": "https://www.sudouest.fr/sante/fuite-de-donnees-personnelles-et-medicales-alerte-sur-une-cyberattaque-visant-une-entreprise-de-gironde-28628427.php",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-042",
+      "entite": "Ville de Limoges — centre de vaccination municipal et campagne HPV",
+      "departement": "87",
+      "dateIncident": "2026-06-22",
+      "dateReference": "2026-06-22",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "ville de limoges",
+        "ville de limoges centre de vaccination municipal et campagne hpv"
+      ],
+      "proofUrl": "https://www.limoges.fr/actualites/la-ville-de-limoges-vous-informe-en-toute-transparence-dun-incident-de-securite",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-043",
+      "entite": "Weda — logiciel médical (cabinets touchés jusqu'en Charente)",
+      "departement": "16",
+      "dateIncident": "2025-11-10",
+      "dateReference": "2025-11-10",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "weda",
+        "weda logiciel medical cabinets touches jusqu en charente"
+      ],
+      "proofUrl": "https://www.charentelibre.fr/sante/une-cyberattaque-paralyse-les-cabinets-medicaux-depuis-48-heures-26710347.php",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-044",
+      "entite": "FFRandonnée — fichier adhérents",
+      "departement": "16",
+      "dateIncident": "2026-02-05",
+      "dateReference": "2026-02-05",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "ffrandonnee",
+        "ffrandonnee fichier adherents"
+      ],
+      "proofUrl": "https://www.randolmesavelana.fr/informations-importantes",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-045",
+      "entite": "Association des maires de France (AMF)",
+      "departement": "33",
+      "dateIncident": "2026-09-04",
+      "dateReference": "2026-09-04",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "association des maires de france",
+        "association des maires de france amf"
+      ],
+      "proofUrl": "https://www.clubic.com/actualite-628315-alerte-fuite-de-donnees-l-association-des-maires-de-france-touchee-par-une-cyberattaque.html",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-046",
+      "entite": "Office français de la biodiversité — fichier des permis de chasser",
+      "departement": "16",
+      "dateIncident": "2026-01-28",
+      "dateReference": "2026-01-28",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "office francais de la biodiversite",
+        "office francais de la biodiversite fichier des permis de chasser"
+      ],
+      "proofUrl": "https://www.charentelibre.fr/charente/piratage-informatique-l-inquietante-acceleration-des-menaces-27816776.php",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-047",
+      "entite": "Université de Pau et des Pays de l'Adour (UPPA) — revendication Nova",
+      "departement": "64",
+      "dateIncident": "2025-09-29",
+      "dateReference": "2025-09-29",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "universite de pau et des pays de l adour",
+        "universite de pau et des pays de l adour uppa revendication nova"
+      ],
+      "proofUrl": "https://www.zataz.com/fuite-et-raas-le-groupe-nova-expose-ses-victimes/",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-048",
+      "entite": "Ville de Bergerac — QR codes des horodateurs (quishing)",
+      "departement": "24",
+      "dateIncident": "2025-08-11",
+      "dateReference": "2025-08-11",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "ville de bergerac",
+        "ville de bergerac qr codes des horodateurs quishing"
+      ],
+      "proofUrl": "https://www.sudouest.fr/economie/cybersecurite/les-qr-codes-d-horodateurs-pirates-en-dordogne-25534143.php",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-049",
+      "entite": "Mairie de Berson",
+      "departement": "33",
+      "dateIncident": "2025-02-21",
+      "dateReference": "2025-02-21",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "mairie de berson"
+      ],
+      "proofUrl": "https://www.sudouest.fr/gironde/berson/meme-nos-sauvegardes-ne-nous-sont-plus-accessibles-en-gironde-ce-village-victime-d-une-cyberattaque-23443299.php",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-050",
+      "entite": "Fédération française de tir (FFTir) — retombées en Haute-Vienne",
+      "departement": "87",
+      "dateIncident": "2025-10-18",
+      "dateReference": "2025-10-18",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "federation francaise de tir",
+        "federation francaise de tir fftir retombees en haute vienne"
+      ],
+      "proofUrl": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/deux-pistolets-derobes-au-domicile-d-un-tireur-sportif-apres-un-vol-de-donnees-informatiques-3253453.html",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-051",
+      "entite": "Arsoé de Soual — plateforme Synel d'identification des bovins et ovins",
+      "departement": "87",
+      "dateIncident": "2024-12-15",
+      "dateReference": "2024-12-15",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "arsoe de soual",
+        "arsoe de soual plateforme synel d identification des bovins et ovins"
+      ],
+      "proofUrl": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/impossible-d-acceder-a-cette-page-cette-cyberattaque-qui-rend-la-vie-impossible-aux-eleveurs-du-sud-ouest-depuis-la-mi-decembre-3085180.html",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-052",
+      "entite": "Camping municipal d'Évaux-les-Bains",
+      "departement": "23",
+      "dateIncident": "2025-06-20",
+      "dateReference": "2025-06-20",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "camping municipal d evaux les bains"
+      ],
+      "proofUrl": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/gueret/le-site-internet-du-camping-de-cette-commune-thermale-victime-d-une-attaque-informatique-il-vante-les-services-d-une-escort-girl-3186765.html",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-053",
+      "entite": "GoCap (Mostiglass) — Hinx",
+      "departement": "40",
+      "dateIncident": "2022-01-01",
+      "dateReference": "2022-01-01",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "gocap",
+        "gocap mostiglass hinx"
+      ],
+      "proofUrl": "https://www.sudouest.fr/societe/comment-un-chantage-a-la-reputation-a-failli-couter-a-gocap-son-innovation-anti-moustiques-22953955.php",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-054",
+      "entite": "Artiga — atelier de linge basque à Magescq",
+      "departement": "40",
+      "dateIncident": "2025-08-26",
+      "dateReference": "2025-08-26",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "artiga",
+        "artiga atelier de linge basque a magescq"
+      ],
+      "proofUrl": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/pyrenees-atlantiques/bayonne/victimes-d-une-escroquerie-ils-pensaient-vendre-des-rideaux-basques-a-la-sorbonne-et-perdent-15-000-euros-3228284.html",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-055",
+      "entite": "Université de Limoges — vol de données personnelles par un agent",
+      "departement": "87",
+      "dateIncident": "2023-09-01",
+      "dateReference": "2023-09-01",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "universite de limoges",
+        "universite de limoges vol de donnees personnelles par un agent"
+      ],
+      "proofUrl": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/temoignages-une-intrusion-dans-notre-vie-privee-affaire-de-vol-de-donnees-personnelles-a-l-universite-de-limoges-ce-que-l-on-sait-3178572.html",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-056",
+      "entite": "Aéroport Pau-Pyrénées et écoles Eklore (CCI Pau Béarn)",
+      "departement": "64",
+      "dateIncident": "2024-05-13",
+      "dateReference": "2024-05-13",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "aeroport pau pyrenees et ecoles eklore",
+        "aeroport pau pyrenees et ecoles eklore cci pau bearn"
+      ],
+      "proofUrl": "https://www.sudouest.fr/economie/cybersecurite/info-sud-ouest-pau-l-aeroport-et-l-ecole-de-commerce-victimes-d-une-cyberattaque-19716881.php",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-057",
+      "entite": "Sites internet des villes de Bordeaux et Pau et du département des Landes (DDoS)",
+      "departement": "33",
+      "dateIncident": "2024-12-31",
+      "dateReference": "2024-12-31",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "sites internet des villes de bordeaux et pau et du departement des landes",
+        "sites internet des villes de bordeaux et pau et du departement des landes ddos"
+      ],
+      "proofUrl": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/cyberattaque-de-sites-internet-assez-peu-de-consequences-aucune-fuite-de-donnees-a-bordeaux-et-pau-deux-villes-ciblees-par-les-hackers-3085051.html",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-058",
+      "entite": "SPSTI 16 — service de prévention et de santé au travail interentreprises de la Charente",
+      "departement": "16",
+      "dateIncident": "2024-05-10",
+      "dateReference": "2024-05-10",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "spsti 16",
+        "spsti 16 service de prevention et de sante au travail interentreprises de la charente"
+      ],
+      "proofUrl": "https://www.charentelibre.fr/sante/la-medecine-du-travail-de-charente-victime-d-une-cyberattaque-des-donnees-personnelles-de-salaries-piratees-20132500.php",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-059",
+      "entite": "Centre hospitalier de Girac (Angoulême)",
+      "departement": "16",
+      "dateIncident": "2025-07-24",
+      "dateReference": "2025-07-24",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "centre hospitalier de girac",
+        "centre hospitalier de girac angouleme"
+      ],
+      "proofUrl": "https://www.charentelibre.fr/charente/piratage-informatique-agents-menottes-mediation-le-climat-est-toujours-deletere-a-girac-25790864.php",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-2026-060",
+      "entite": "Cdiscount — extraction frauduleuse de données clients (Cestas)",
+      "departement": "33",
+      "dateIncident": "2020-12-01",
+      "dateReference": "2020-12-01",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "cdiscount",
+        "cdiscount extraction frauduleuse de donnees clients cestas"
+      ],
+      "proofUrl": "https://www.lefigaro.fr/bordeaux/un-ex-cadre-de-cdiscount-juge-pour-avoir-tente-de-revendre-les-donnees-de-32-millions-d-utilisateurs-sur-le-darknet-20251209",
+      "sourceFile": "bench/fixtures/corpus-reference-na.json"
+    },
+    {
+      "id": "na-couv-001",
+      "entite": "Ville de Floirac",
+      "departement": "33",
+      "dateIncident": "2024-04-18",
+      "dateReference": "2024-04-18",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "ville de floirac"
+      ],
+      "proofUrl": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/aucune-donnee-n-a-ete-exfiltree-victime-d-une-cyberattaque-une-mairie-est-privee-d-acces-a-internet-2957996.html",
+      "sourceFile": "bench/couverture/incidents.jsonl"
+    },
+    {
+      "id": "na-charente-003",
+      "entite": "Cité internationale de la bande dessinée et de l'image (Angoulême)",
+      "departement": "16",
+      "dateIncident": "2024-08-25",
+      "dateReference": "2024-08-25",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "cite internationale de la bande dessinee et de l image",
+        "cite internationale de la bande dessinee et de l image angouleme"
+      ],
+      "proofUrl": "https://www.charentelibre.fr/charente/angouleme/angouleme-la-cite-de-la-bd-victime-d-une-cyberattaque-21150048.php",
+      "sourceFile": "bench/couverture/incidents.jsonl"
+    },
+    {
+      "id": "na-charente-004",
+      "entite": "Carpa — ex-salariés de Sanifirst (Angoulême)",
+      "departement": "16",
+      "datePublique": "2025-06-13",
+      "dateReference": "2025-06-13",
+      "dateReferenceType": "datePublique",
+      "aliases": [
+        "carpa",
+        "carpa ex salaries de sanifirst angouleme"
+      ],
+      "proofUrl": "https://www.tf1info.fr/vie-pro/video-reportage-je-suis-dans-un-cauchemar-licencies-ils-remportent-24-000-euros-aux-prud-hommes-d-angouleme-et-se-les-font-voler-par-des-hackers-2376835.html",
+      "sourceFile": "bench/couverture/incidents.jsonl"
+    },
+    {
+      "id": "na-charente-005",
+      "entite": "Centre hospitalier d'Angoulême — site de Girac",
+      "departement": "16",
+      "datePublique": "2025-09-09",
+      "dateReference": "2025-09-09",
+      "dateReferenceType": "datePublique",
+      "aliases": [
+        "centre hospitalier d angouleme",
+        "centre hospitalier d angouleme site de girac"
+      ],
+      "proofUrl": "https://www.charentelibre.fr/charente/piratage-informatique-agents-menottes-mediation-le-climat-est-toujours-deletere-a-girac-25790864.php",
+      "sourceFile": "bench/couverture/incidents.jsonl"
+    },
+    {
+      "id": "na-charente-006",
+      "entite": "WEDA (logiciel médical) — cabinets médicaux de Charente",
+      "departement": "16",
+      "dateIncident": "2025-11-10",
+      "dateReference": "2025-11-10",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "weda",
+        "weda logiciel medical cabinets medicaux de charente"
+      ],
+      "proofUrl": "https://www.charentelibre.fr/sante/une-cyberattaque-paralyse-les-cabinets-medicaux-depuis-48-heures-26710347.php",
+      "sourceFile": "bench/corpus/incidents-departement.jsonl"
+    },
+    {
+      "id": "na-charente-007",
+      "entite": "Clubs de tir charentais (Angoulême, Ruffec, Aussac-Vadalle)",
+      "departement": "16",
+      "datePublique": "2026-01-23",
+      "dateReference": "2026-01-23",
+      "dateReferenceType": "datePublique",
+      "aliases": [
+        "clubs de tir charentais",
+        "clubs de tir charentais angouleme ruffec aussac vadalle"
+      ],
+      "proofUrl": "https://www.charentelibre.fr/charente/angouleme/apres-le-vol-national-de-donnees-les-clubs-de-tirs-charentais-veulent-eviter-la-psychose-27481292.php",
+      "sourceFile": "bench/corpus/incidents-departement.jsonl"
+    },
+    {
+      "id": "na-charente-008",
+      "entite": "Fédération nationale des chasseurs — Fédération des chasseurs de Charente",
+      "departement": "16",
+      "dateIncident": "2026-01-20",
+      "dateReference": "2026-01-20",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "federation nationale des chasseurs",
+        "federation nationale des chasseurs federation des chasseurs de charente"
+      ],
+      "proofUrl": "https://www.charentelibre.fr/charente/piratage-informatique-l-inquietante-acceleration-des-menaces-27816776.php",
+      "sourceFile": "bench/corpus/incidents-departement.jsonl"
+    },
+    {
+      "id": "na-charente-009",
+      "entite": "Empac Solutions (Rouillac, Charente)",
+      "departement": "16",
+      "datePublique": "2026-02-22",
+      "dateReference": "2026-02-22",
+      "dateReferenceType": "datePublique",
+      "aliases": [
+        "empac solutions",
+        "empac solutions rouillac charente"
+      ],
+      "proofUrl": "https://www.charentelibre.fr/charente/piratage-informatique-l-inquietante-acceleration-des-menaces-27816776.php",
+      "sourceFile": "bench/corpus/incidents-departement.jsonl"
+    },
+    {
+      "id": "na-charente-010",
+      "entite": "Hennessy — billetterie des Visites Hennessy (Cognac)",
+      "departement": "16",
+      "dateIncident": "2026-03-02",
+      "dateReference": "2026-03-02",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "hennessy",
+        "hennessy billetterie des visites hennessy cognac"
+      ],
+      "proofUrl": "https://www.charentelibre.fr/charente/la-billetterie-des-visites-hennessy-a-cognac-victime-d-une-cyberattaque-28561243.php",
+      "sourceFile": "bench/couverture/incidents.jsonl"
+    },
+    {
+      "id": "cm-inc-001",
+      "entite": "Théâtre de la Coursive (billetterie Sirius), La Rochelle",
+      "departement": "17",
+      "dateIncident": "2024-07-01",
+      "dateReference": "2024-07-01",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "theatre de la coursive",
+        "theatre de la coursive billetterie sirius la rochelle"
+      ],
+      "proofUrl": "https://www.ici.fr/infos/faits-divers-justice/la-billetterie-du-theatre-de-la-coursive-a-la-rochelle-victime-d-une-attaque-informatique-1178940",
+      "sourceFile": "bench/couverture/incidents.jsonl"
+    },
+    {
+      "id": "cm-inc-002",
+      "entite": "Association de quartier du centre-ville d'Aytré (AQCVA)",
+      "departement": "17",
+      "datePublique": "2025-02-07",
+      "dateReference": "2025-02-07",
+      "dateReferenceType": "datePublique",
+      "aliases": [
+        "association de quartier du centre ville d aytre",
+        "association de quartier du centre ville d aytre aqcva"
+      ],
+      "proofUrl": "https://www.sudouest.fr/charente-maritime/aytre/aytre-pirate-le-site-web-de-l-association-du-centre-ville-est-de-retour-23150053.php",
+      "sourceFile": "bench/corpus/incidents-departement.jsonl"
+    },
+    {
+      "id": "cm-inc-003",
+      "entite": "Communauté de communes de Haute-Saintonge / Ville de Jonzac",
+      "departement": "17",
+      "datePublique": "2025-09-18",
+      "dateReference": "2025-09-18",
+      "dateReferenceType": "datePublique",
+      "aliases": [
+        "communaute de communes de haute saintonge ville de jonzac"
+      ],
+      "proofUrl": "https://www.hautesaintonge.fr/actualite-27395-charente-maritime-une-alerte-a-l-arnaque-sur-les-factures-d-eau-a-jonzac",
+      "sourceFile": "bench/corpus/incidents-departement.jsonl"
+    },
+    {
+      "id": "cm-inc-004",
+      "entite": "Ville de La Rochelle — prestataire Synbird",
+      "departement": "17",
+      "datePublique": "2025-11-27",
+      "dateReference": "2025-11-27",
+      "dateReferenceType": "datePublique",
+      "aliases": [
+        "ville de la rochelle",
+        "ville de la rochelle prestataire synbird"
+      ],
+      "proofUrl": "https://www.sudouest.fr/charente-maritime/la-rochelle/fuite-de-donnees-chez-synbird-la-rochelle-touchee-comme-1-300-communes-de-france-26875312.php",
+      "sourceFile": "bench/couverture/incidents.jsonl"
+    },
+    {
+      "id": "cm-inc-005",
+      "entite": "Commissariats de Charente-Maritime — messageries du ministère de l'Intérieur",
+      "departement": "17",
+      "datePublique": "2025-12-11",
+      "dateReference": "2025-12-11",
+      "dateReferenceType": "datePublique",
+      "aliases": [
+        "commissariats de charente maritime",
+        "commissariats de charente maritime messageries du ministere de l interieur"
+      ],
+      "proofUrl": "https://inf-info.fr/info-inf-la-rochelle-des-activites-suspectes-sur-les-messageries-du-ministere-de-linterieur-poussent-a-un-renforcement-de-sa-cybersecurite/",
+      "sourceFile": "bench/corpus/incidents-departement.jsonl"
+    },
+    {
+      "id": "cm-inc-006",
+      "entite": "Commune de Saint-Denis-d’Oléron",
+      "departement": "17",
+      "datePublique": "2026-02-25",
+      "dateReference": "2026-02-25",
+      "dateReferenceType": "datePublique",
+      "aliases": [
+        "commune de saint denis d oleron"
+      ],
+      "proofUrl": "https://www.sudouest.fr/charente-maritime/ile-d-oleron/saint-denis-d-oleron/saint-denis-d-oleron-le-conseil-municipal-reporte-le-vote-des-comptes-financiers-apres-un-piratage-informatique-28016395.php",
+      "sourceFile": "bench/corpus/incidents-departement.jsonl"
+    },
+    {
+      "id": "cm-inc-007",
+      "entite": "Soluris — syndicat informatique de la Charente-Maritime (Saintes)",
+      "departement": "17",
+      "dateIncident": "2026-05-21",
+      "dateReference": "2026-05-21",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "soluris",
+        "soluris syndicat informatique de la charente maritime saintes"
+      ],
+      "proofUrl": "https://www.sudouest.fr/charente-maritime/saintes/charente-maritime-un-elu-lance-une-cyberattaque-pour-tester-les-defenses-du-syndicat-informatique-departemental-29491398.php",
+      "sourceFile": "bench/couverture/incidents.jsonl"
+    },
+    {
+      "id": "cm-inc-009",
+      "entite": "Commissariat de police de Royan (numéro usurpé)",
+      "departement": "17",
+      "dateIncident": "2026-09-07",
+      "dateReference": "2026-09-07",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "commissariat de police de royan",
+        "commissariat de police de royan numero usurpe"
+      ],
+      "proofUrl": "https://www.sudouest.fr/charente-maritime/royan/une-usurpation-d-ampleur-du-numero-du-commissariat-de-royan-a-fait-des-victimes-ce-lundi-7-septembre-30529604.php",
+      "sourceFile": "bench/couverture/incidents.jsonl"
+    },
+    {
+      "id": "cm-inc-010",
+      "entite": "E.Leclerc de Surgères",
+      "departement": "17",
+      "dateIncident": "2026-10-12",
+      "dateReference": "2026-10-12",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "e leclerc de surgeres"
+      ],
+      "proofUrl": "https://actu.fr/nouvelle-aquitaine/surgeres_17434/en-charente-maritime-ce-magasin-e-leclerc-est-victime-de-la-cyberattaque-les-vitrines-et-bacs-sont-vides-entierement_64912834.html",
+      "sourceFile": "bench/corpus/incidents-departement.jsonl"
+    },
+    {
+      "id": "cm-inc-011",
+      "entite": "Incognito.fr — laboratoire photographique, Saint-Martin-de-Ré",
+      "departement": "17",
+      "datePublique": "2026-10-30",
+      "dateReference": "2026-10-30",
+      "dateReferenceType": "datePublique",
+      "aliases": [
+        "incognito fr",
+        "incognito fr laboratoire photographique saint martin de re"
+      ],
+      "proofUrl": "https://www.cyberattaque.org/incognito-fr-21-352-commandes-en-fuite-apres-une-cyberattaque/",
+      "sourceFile": "bench/corpus/incidents-departement.jsonl"
+    },
+    {
+      "id": "cm-inc-012",
+      "entite": "Ville d’Aytré (identité usurpée)",
+      "departement": "17",
+      "datePublique": "2026-11-12",
+      "dateReference": "2026-11-12",
+      "dateReferenceType": "datePublique",
+      "aliases": [
+        "ville d aytre",
+        "ville d aytre identite usurpee"
+      ],
+      "proofUrl": "https://www.sudouest.fr/charente-maritime/aytre/aytre-la-ville-appelle-a-la-vigilance-apres-des-appels-frauduleux-31470114.php",
+      "sourceFile": "bench/corpus/incidents-departement.jsonl"
+    },
+    {
+      "id": "cor-001",
+      "entite": "Mairie de Sarran",
+      "departement": "19",
+      "datePublique": "2025-06-20",
+      "dateReference": "2025-06-20",
+      "dateReferenceType": "datePublique",
+      "aliases": [
+        "mairie de sarran"
+      ],
+      "proofUrl": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/brive/j-en-ai-pleure-victime-d-une-cyberattaque-cette-mairie-perd-44-000-euros-de-son-budget-3174492.html",
+      "sourceFile": "bench/couverture/incidents.jsonl"
+    },
+    {
+      "id": "cor-002",
+      "entite": "Collège privé La Salle de Brive-la-Gaillarde",
+      "departement": "19",
+      "datePublique": "2025-02-12",
+      "dateReference": "2025-02-12",
+      "dateReferenceType": "datePublique",
+      "aliases": [
+        "college prive la salle de brive la gaillarde"
+      ],
+      "proofUrl": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/brive/le-montant-de-la-rancon-qui-etait-de-8-000-euros-ce-college-perd-tous-les-bulletins-des-eleves-apres-une-cyberattaque-3107128.html",
+      "sourceFile": "bench/couverture/incidents.jsonl"
+    },
+    {
+      "id": "cor-003",
+      "entite": "Corrèze Fermeture (site d'Objat)",
+      "departement": "19",
+      "datePublique": "2025-02-26",
+      "dateReference": "2025-02-26",
+      "dateReferenceType": "datePublique",
+      "aliases": [
+        "correze fermeture",
+        "correze fermeture site d objat"
+      ],
+      "proofUrl": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/brive/on-a-perdu-entre-50-et-60-commandes-les-petites-entreprises-victimes-de-cyberattaques-une-cible-privilegiee-pour-les-pirates-informatiques-3110353.html",
+      "sourceFile": "bench/couverture/incidents.jsonl"
+    },
+    {
+      "id": "cor-004",
+      "entite": "Établissement de l'élevage de la Corrèze (EDE 19)",
+      "departement": "19",
+      "dateIncident": "2024-12-15",
+      "dateReference": "2024-12-15",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "etablissement de l elevage de la correze",
+        "etablissement de l elevage de la correze ede 19"
+      ],
+      "proofUrl": "https://www.reussir.fr/articles/comment-une-cyberattaque-perturbe-le-quotidien-de-30-000-eleveurs-du-sud-ouest-de-la",
+      "sourceFile": "bench/couverture/incidents.jsonl"
+    },
+    {
+      "id": "cor-005",
+      "entite": "Office de Tourisme Terres de Corrèze / Corrèze Tourisme",
+      "departement": "19",
+      "datePublique": "2025-06-05",
+      "dateReference": "2025-06-05",
+      "dateReferenceType": "datePublique",
+      "aliases": [
+        "office de tourisme terres de correze correze tourisme"
+      ],
+      "proofUrl": "https://www.terresdecorreze.com/alerte-arnaque/",
+      "sourceFile": "bench/corpus/incidents-departement.jsonl"
+    },
+    {
+      "id": "cor-007",
+      "entite": "Fédération française de tir (FFTir) — club de tir en Corrèze",
+      "departement": "19",
+      "dateIncident": "2025-10-18",
+      "dateReference": "2025-10-18",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "federation francaise de tir",
+        "federation francaise de tir fftir club de tir en correze"
+      ],
+      "proofUrl": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/avec-nos-adresses-dans-la-nature-on-n-est-pas-rassures-apres-un-vol-de-donnees-les-detenteurs-d-armes-pris-pour-cible-par-de-faux-policiers-3252622.html",
+      "sourceFile": "bench/corpus/incidents-departement.jsonl"
+    },
+    {
+      "id": "cor-008",
+      "entite": "Novabio — réseau de laboratoires, dont le site de Brive-Rivet (Corrèze)",
+      "departement": "19",
+      "datePublique": "2026-11-05",
+      "dateReference": "2026-11-05",
+      "dateReferenceType": "datePublique",
+      "aliases": [
+        "novabio",
+        "novabio reseau de laboratoires dont le site de brive rivet correze"
+      ],
+      "proofUrl": "https://fuitesinfos.fr/article/2026-10-30-novabio",
+      "sourceFile": "bench/corpus/incidents-departement.jsonl"
+    },
+    {
+      "id": "cor-009",
+      "entite": "Novabio / groupe Inovie — incident chez le prestataire Maileva (patients des sites de Corrèze)",
+      "departement": "19",
+      "datePublique": "2026-11-05",
+      "dateReference": "2026-11-05",
+      "dateReferenceType": "datePublique",
+      "aliases": [
+        "novabio groupe inovie",
+        "novabio groupe inovie incident chez le prestataire maileva patients des sites de correze"
+      ],
+      "proofUrl": "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/",
+      "sourceFile": "bench/corpus/incidents-departement.jsonl"
+    },
+    {
+      "id": "na-couv-003",
+      "entite": "Groupe scolaire Stella-Maris, Anglet",
+      "departement": "64",
+      "dateIncident": "2024-05-31",
+      "dateReference": "2024-05-31",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "groupe scolaire stella maris",
+        "groupe scolaire stella maris anglet"
+      ],
+      "proofUrl": "https://www.sudouest.fr/faits-divers/anglet-des-hackers-piratent-le-compte-pronote-d-un-eleve-et-lancent-une-fausse-alerte-a-la-bombe-19939708.php",
+      "sourceFile": "bench/couverture/incidents.jsonl"
+    },
+    {
+      "id": "na-creuse-002",
+      "entite": "Artisan de la Creuse client du Crédit Mutuel de Guéret",
+      "departement": "23",
+      "datePublique": "2024-12-12",
+      "dateReference": "2024-12-12",
+      "dateReferenceType": "datePublique",
+      "aliases": [
+        "artisan de la creuse client du credit mutuel de gueret"
+      ],
+      "proofUrl": "https://www.wiclic.fr/arnaques-iban-rib-cb-le-credit-mutuel-gueret-temoigne/",
+      "sourceFile": "bench/corpus/incidents-departement.jsonl"
+    },
+    {
+      "id": "na-creuse-004",
+      "entite": "APAJH 23 — Association pour adultes et jeunes handicapés de la Creuse",
+      "departement": "23",
+      "datePublique": "2025-05-15",
+      "dateReference": "2025-05-15",
+      "dateReferenceType": "datePublique",
+      "aliases": [
+        "apajh 23",
+        "apajh 23 association pour adultes et jeunes handicapes de la creuse"
+      ],
+      "proofUrl": "https://www.ici.fr/infos/faits-divers-justice/creuse-l-apajh-23-perd-173-000-euros-apres-une-arnaque-au-president-1725610",
+      "sourceFile": "bench/couverture/incidents.jsonl"
+    },
+    {
+      "id": "na-creuse-005",
+      "entite": "Mairie d'Évaux-les-Bains — camping municipal",
+      "departement": "23",
+      "datePublique": "2025-07-11",
+      "dateReference": "2025-07-11",
+      "dateReferenceType": "datePublique",
+      "aliases": [
+        "mairie d evaux les bains",
+        "mairie d evaux les bains camping municipal"
+      ],
+      "proofUrl": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/gueret/le-site-internet-du-camping-de-cette-commune-thermale-victime-d-une-attaque-informatique-il-vante-les-services-d-une-escort-girl-3186765.html",
+      "sourceFile": "bench/couverture/incidents.jsonl"
+    },
+    {
+      "id": "na-creuse-006",
+      "entite": "Cabinet d'une rhumatologue libérale installée en Creuse — logiciel Weda",
+      "departement": "23",
+      "dateIncident": "2025-11-10",
+      "dateReference": "2025-11-10",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "cabinet d une rhumatologue liberale installee en creuse",
+        "cabinet d une rhumatologue liberale installee en creuse logiciel weda"
+      ],
+      "proofUrl": "https://www.egora.fr/actus-pro/conditions-dexercice/cyberattaque-contre-le-logiciel-weda-les-medecins-doivent-ils",
+      "sourceFile": "bench/couverture/incidents.jsonl"
+    },
+    {
+      "id": "na-creuse-007",
+      "entite": "Hébergeur de Creuse Sud Ouest (alerte Pro Tourisme Creuse)",
+      "departement": "23",
+      "datePublique": "2026-04-29",
+      "dateReference": "2026-04-29",
+      "dateReferenceType": "datePublique",
+      "aliases": [
+        "hebergeur de creuse sud ouest",
+        "hebergeur de creuse sud ouest alerte pro tourisme creuse"
+      ],
+      "proofUrl": "https://pro.tourisme-creuse.com/alerte-fraudes-aux-reservations-2/",
+      "sourceFile": "bench/corpus/incidents-departement.jsonl"
+    },
+    {
+      "id": "na-creuse-008",
+      "entite": "Hôtes Gîtes de France de la Creuse",
+      "departement": "23",
+      "datePublique": "2026-08-05",
+      "dateReference": "2026-08-05",
+      "dateReferenceType": "datePublique",
+      "aliases": [
+        "hotes gites de france de la creuse"
+      ],
+      "proofUrl": "https://www.ici.fr/emissions/l-info-d-ici-ici-creuse/je-me-suis-effondre-victime-d-une-arnaque-bancaire-de-5-000-euros-ce-proprietaire-gite-de-france-en-creuse-temoigne-6871382",
+      "sourceFile": "bench/couverture/incidents.jsonl"
+    },
+    {
+      "id": "na-creuse-009",
+      "entite": "Direction départementale des territoires de la Creuse et DDETSPP de la Creuse (ministère de la Transition écologique)",
+      "departement": "23",
+      "datePublique": "2026-09-02",
+      "dateReference": "2026-09-02",
+      "dateReferenceType": "datePublique",
+      "aliases": [
+        "direction departementale des territoires de la creuse et ddetspp de la creuse",
+        "direction departementale des territoires de la creuse et ddetspp de la creuse ministere de la transition ecologique"
+      ],
+      "proofUrl": "https://www.lanouvellerepublique.fr/a-la-une/plusieurs-sites-internet-du-ministere-de-la-transition-ecologique-sont-inaccessibles-a-la-suite-d-une-possible-cyberattaque-1788361846",
+      "sourceFile": "bench/corpus/incidents-departement.jsonl"
+    },
+    {
+      "id": "na-creuse-003",
+      "entite": "Fédération des Œuvres Laïques de la Creuse (FOL 23), Guéret",
+      "departement": "23",
+      "dateIncident": "2025-01-17",
+      "dateReference": "2025-01-17",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "federation des uvres laiques de la creuse",
+        "federation des uvres laiques de la creuse fol 23 gueret"
+      ],
+      "proofUrl": "https://siberpol.com/fol-23-fr-listed-on-apt73-leak-site-following-alleged-data-breach",
+      "sourceFile": "bench/corpus/incidents-departement.jsonl"
+    },
+    {
+      "id": "na-ds-001",
+      "entite": "EHPAD Résidence du Parc, Champdeniers-Saint-Denis",
+      "departement": "79",
+      "dateIncident": "2025-12-08",
+      "dateReference": "2025-12-08",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "ehpad residence du parc",
+        "ehpad residence du parc champdeniers saint denis"
+      ],
+      "proofUrl": "https://www.lanouvellerepublique.fr/deux-sevres/commune/champdeniers-saint-denis/le-chiffrement-de-certains-fichiers-une-maison-de-retraite-des-deux-sevres-victime-d-une-cyberattaque-par-rancongiciel-1765374244",
+      "sourceFile": "bench/corpus/incidents-departement.jsonl"
+    },
+    {
+      "id": "na-ds-002",
+      "entite": "Centre public de santé (CPDS) du Centre hospitalier Nord Deux-Sèvres — Faye-l'Abbesse, Parthenay, Thouars",
+      "departement": "79",
+      "dateIncident": "2025-11-14",
+      "dateReference": "2025-11-14",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "centre public de sante",
+        "centre public de sante cpds du centre hospitalier nord deux sevres faye l abbesse parthenay thouars"
+      ],
+      "proofUrl": "https://www.chnds.fr/cpds-fla-th-py/5/13/106",
+      "sourceFile": "bench/couverture/incidents.jsonl"
+    },
+    {
+      "id": "na-ds-003",
+      "entite": "MAIF Solutions Financières (MAIF), Niort",
+      "departement": "79",
+      "dateIncident": "2025-02-27",
+      "dateReference": "2025-02-27",
+      "dateReferenceType": "dateIncident",
+      "aliases": [
+        "maif solutions financieres",
+        "maif solutions financieres maif niort"
+      ],
+      "proofUrl": "https://www.lanouvellerepublique.fr/niort/une-cyberattaque-affecte-les-donnees-de-certains-clients-de-maif-solutions-financieres-1743005003",
+      "sourceFile": "bench/couverture/incidents.jsonl"
+    }
+  ]
+}
