@@ -1,0 +1,45 @@
+{
+  "windowStart": "2026-10-23T00:00:00.000Z",
+  "windowEnd": "2026-11-22T00:00:00.000Z",
+  "sourcesChecked": 1504,
+  "sourceDigest": "502cf7a9223fa420425160992798bc39034bfd39e6c9e3e349fc2aaebe90d1cd",
+  "method": "event-store-window-v1",
+  "dryRun": false,
+  "signatureMethod": "sha256-content",
+  "organizations": 4462,
+  "absences": 4462,
+  "written": 4462,
+  "sample": [
+    {
+      "orgSlug": "na-commune-16001",
+      "orgName": "Commune de Abzac",
+      "sourcesChecked": 1504,
+      "signatureMethod": "sha256-content"
+    },
+    {
+      "orgSlug": "na-commune-16002",
+      "orgName": "Commune de Les Adjots",
+      "sourcesChecked": 1504,
+      "signatureMethod": "sha256-content"
+    },
+    {
+      "orgSlug": "na-commune-16003",
+      "orgName": "Commune de Agris",
+      "sourcesChecked": 1504,
+      "signatureMethod": "sha256-content"
+    },
+    {
+      "orgSlug": "na-commune-16005",
+      "orgName": "Commune de Aigre",
+      "sourcesChecked": 1504,
+      "signatureMethod": "sha256-content"
+    },
+    {
+      "orgSlug": "na-commune-16007",
+      "orgName": "Commune de Alloue",
+      "sourcesChecked": 1504,
+      "signatureMethod": "sha256-content"
+    }
+  ],
+  "generatedAt": "2026-11-22T12:53:37.310Z"
+}
