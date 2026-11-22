@@ -1,0 +1,119 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-batiment-33.jsonl",
+  "secteur": "bâtiment",
+  "departement": "33",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+  "methode": "GET HTTP avec User-Agent navigateur, redirections suivies, statut final, type MIME, URL effective et octets téléchargés relevés pour chaque URL du corpus ; délai 25 s",
+  "sources": 18,
+  "urls_verifiees": 33,
+  "urls_200": 33,
+  "anomalies": [],
+  "detail": {
+    "corpus:batiment-33-01-capeb-gironde-section-departementale-du-batiment": {
+      "urls": {
+        "https://www.capeb.fr/gironde/": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://www.capeb.fr/gironde/", "octets": 55273},
+        "https://www.capeb.fr/gironde/actualites": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://www.capeb.fr/gironde/actualites", "octets": 48863}
+      }
+    },
+    "corpus:batiment-33-02-cma-nouvelle-aquitaine-chambre-des-metiers-et-de-l-artisanat-gironde-33": {
+      "urls": {
+        "https://cma-nouvelleaquitaine.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://cma-nouvelleaquitaine.fr/", "octets": 324235},
+        "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites?news_list%5Bsearch%5D=Gironde": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites?news_list%5Bsearch%5D=Gironde", "octets": 280394}
+      }
+    },
+    "corpus:batiment-33-03-pro-rge-entreprises-rge-en-gironde-33": {
+      "urls": {
+        "https://pro-rge.fr/entreprises/gironde-33/": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://pro-rge.fr/entreprises/gironde-33/", "octets": 387825}
+      }
+    },
+    "corpus:batiment-33-04-annuaire-des-artisans-gironde-33": {
+      "urls": {
+        "https://annuaire-des-artisans.fr/gironde/": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://annuaire-des-artisans.fr/gironde/", "octets": 7136},
+        "https://annuaire-des-artisans.fr/actualites/": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://annuaire-des-artisans.fr/actualites/", "octets": 7136}
+      }
+    },
+    "corpus:batiment-33-05-societe-com-entreprises-de-la-gironde-33": {
+      "urls": {
+        "https://www.societe.com/": {"code": 200, "type": "text/html", "url_finale": "https://www.societe.com/", "octets": 67552},
+        "https://blog.societe.com/": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://blog.societe.com/", "octets": 36671}
+      }
+    },
+    "corpus:batiment-33-06-prefecture-de-la-gironde-services-de-l-etat-urbanisme-et-construction": {
+      "urls": {
+        "https://www.gironde.gouv.fr/": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://www.gironde.gouv.fr/", "octets": 147961},
+        "https://www.gironde.gouv.fr/Actualites": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://www.gironde.gouv.fr/Actualites", "octets": 112719}
+      }
+    },
+    "corpus:batiment-33-07-conseil-departemental-de-la-gironde-habitat-et-logement": {
+      "urls": {
+        "https://www.gironde.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.gironde.fr/", "octets": 86016},
+        "https://www.gironde.fr/actualites": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.gironde.fr/actualites", "octets": 83279}
+      }
+    },
+    "corpus:batiment-33-08-bordeaux-metropole-urbanisme-travaux-et-habitat": {
+      "urls": {
+        "https://www.bordeaux-metropole.fr/actualites": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.bordeaux-metropole.fr/actualites-Bordeaux-Metropole", "octets": 129376},
+        "https://www.bordeaux-metropole.fr/rss.xml": {"code": 200, "type": "application/rss+xml; charset=utf-8", "url_finale": "https://www.bordeaux-metropole.fr/rss.xml", "octets": 49339}
+      }
+    },
+    "corpus:batiment-33-09-ville-de-bordeaux-actualites-urbanisme-habitat": {
+      "urls": {
+        "https://www.bordeaux.fr/": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://www.bordeaux.fr/", "octets": 389262},
+        "https://www.bordeaux.fr/rss.xml": {"code": 200, "type": "application/rss+xml; charset=utf-8", "url_finale": "https://www.bordeaux.fr/rss.xml", "octets": 270675}
+      }
+    },
+    "corpus:batiment-33-10-ici-gironde-radio-france": {
+      "urls": {
+        "https://www.ici.fr/radio/gironde/actu": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.ici.fr/radio/gironde/actu", "octets": 218200},
+        "https://www.ici.fr/rss/gironde/rubrique/infos.xml": {"code": 200, "type": "application/xml", "url_finale": "https://www.ici.fr/rss/gironde/rubrique/infos.xml", "octets": 19514}
+      }
+    },
+    "corpus:batiment-33-11-france-3-nouvelle-aquitaine-gironde": {
+      "urls": {
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde", "octets": 659809},
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/rss": {"code": 200, "type": "text/xml; charset=UTF-8", "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/rss", "octets": 69085}
+      }
+    },
+    "corpus:batiment-33-12-actu-fr-bordeaux-33": {
+      "urls": {
+        "https://actu.fr/nouvelle-aquitaine/bordeaux_33063/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://actu.fr/nouvelle-aquitaine/bordeaux_33063", "octets": 332251}
+      }
+    },
+    "corpus:batiment-33-13-20-minutes-bordeaux": {
+      "urls": {
+        "https://www.20minutes.fr/bordeaux/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.20minutes.fr/bordeaux/", "octets": 505506}
+      }
+    },
+    "corpus:batiment-33-14-bfm-bordeaux": {
+      "urls": {
+        "https://www.bfmtv.com/bordeaux/": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://www.bfmtv.com/bordeaux/", "octets": 270372}
+      }
+    },
+    "corpus:batiment-33-15-qualibat-certification-et-annuaire-des-entreprises-du-batiment": {
+      "urls": {
+        "https://www.qualibat.com/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.qualibat.com/", "octets": 147636},
+        "https://www.qualibat.com/actualites": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.qualibat.com/actualites", "octets": 99350}
+      }
+    },
+    "corpus:batiment-33-16-artisanat-fr-magazine-d-actualites-de-l-artisanat-cma": {
+      "urls": {
+        "https://www.artisanat.fr/": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://www.artisanat.fr/", "octets": 118288},
+        "https://www.artisanat.fr/magazine/actus": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://www.artisanat.fr/magazine/actus", "octets": 140397}
+      }
+    },
+    "corpus:batiment-33-17-siteartisan-annuaire-des-artisans": {
+      "urls": {
+        "https://www.siteartisan.fr/annuaire/": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://www.siteartisan.fr/annuaire/", "octets": 29208},
+        "https://www.siteartisan.fr/blog/": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://www.siteartisan.fr/blog/", "octets": 60026},
+        "https://www.siteartisan.fr/blog/feed.xml": {"code": 200, "type": "application/rss+xml; charset=utf-8", "url_finale": "https://www.siteartisan.fr/blog/feed.xml", "octets": 28752}
+      }
+    },
+    "corpus:batiment-33-18-artisans-reunis-artisans-de-gironde-33": {
+      "urls": {
+        "https://artisansreunis.fr/departement/33-gironde": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://artisansreunis.fr/departement/33-gironde", "octets": 370899},
+        "https://artisansreunis.fr/blog": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://artisansreunis.fr/blog", "octets": 841531}
+      }
+    }
+  }
+}
