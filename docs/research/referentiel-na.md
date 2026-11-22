@@ -156,3 +156,4 @@ Trois règles de sécurité, chacune couverte par un test en base :
 - `apps/api/test/referentiel-load.test.ts` : **4/4**, en base.
 - Suite API complète : **122/122**.
 - Typecheck API : 0 erreur.
+OBJECTIF : atteint — 247/247 communes homonymes NA désambiguïées / 247 communes homonymes
