@@ -82,6 +82,7 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/enrich/events/:id", niveau: "public" },
   { methode: "GET", route: "/api/alerts", niveau: "public" },
   { methode: "GET", route: "/api/alerts/stats", niveau: "public" },
+  { methode: "GET", route: "/api/alerts/rss.xml", niveau: "public", motif: "public privacy-safe RSS feed" },
   { methode: "GET", route: "/api/quarantine", niveau: "public" },
   { methode: "GET", route: "/api/quarantine/stats", niveau: "public" },
   { methode: "GET", route: "/api/quarantine/queue", niveau: "analyste" },
