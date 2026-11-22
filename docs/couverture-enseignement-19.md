@@ -39,3 +39,5 @@ Découverte par recherche web et annuaires (corpus local `sante-enseignement.jso
 
 Corpus : `bench/corpus/sources-enseignement-19.jsonl` (10 lignes, empreinte recalculée dans `bench/corpus/HASH`).
 Base : `db/migrate-070-sources-enseignement-19.sql` insère 10 lignes dans `source` (parser pointant vers le corpus) et 26 traces `source_verification` en état `ok200` (26 URL de sources uniques ; l'annuaire partage la même URL pour site et actualités).
+
+OBJECTIF : atteint — 10 / 5
