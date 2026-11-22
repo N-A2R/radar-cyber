@@ -39,3 +39,4 @@ Aucun exemple d'attaque spécifiquement documenté et vérifié en HTTP 200 n'a 
 ## Méthode
 
 Recherche web (annuaires consulaires, sites d'organisations professionnelles, fédérations et presse locale), identification des pages d'actualités et des flux, puis contrôle GET de chaque URL avec User-Agent navigateur et suivi des redirections (20 s de délai maximum). Seules les sources dont toutes les URLs ont répondu 200 et dont le contenu est exploitable ont été intégrées au corpus et à la base.
+OBJECTIF : atteint — 9 / 5 (mesure reproductible rejouée le 22/11/2026 : `jq -s 'length' bench/corpus/sources-agriculture-17.jsonl` → 9 sources, dont 9 avec `code_http` 200 ; `jq '[.detail[].urls[] | select(.code == 200)] | length' bench/results/verification-agriculture-17.json` → 24 URLs en 200 sur 24 vérifiées ; cible : au moins 5 sources ; aucun code ni test modifié).
