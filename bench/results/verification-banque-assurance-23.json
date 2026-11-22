@@ -1,0 +1,225 @@
+{
+  "secteur": "banque-assurance",
+  "departement": "23",
+  "fichier": "sources-banque-assurance-23.jsonl",
+  "sources": 13,
+  "urls_verifiees": 34,
+  "urls_http_200": 34,
+  "urls": [
+    {
+      "url": "https://actu.fr/nouvelle-aquitaine/creuse_23/",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://actu.fr/nouvelle-aquitaine/creuse_23"
+    },
+    {
+      "url": "https://aide.msa.fr/lfp/fraude-sur-internet",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://aide.msa.fr/lfp/fraude-sur-internet"
+    },
+    {
+      "url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites"
+    },
+    {
+      "url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites/les-artisans-des-cibles-de-choix-pour-les-cybercriminels",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites/les-artisans-des-cibles-de-choix-pour-les-cybercriminels"
+    },
+    {
+      "url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/nous-trouver/cma-creuse",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/nous-trouver/cma-creuse"
+    },
+    {
+      "url": "https://fbf.fr/fr/",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://fbf.fr/fr/"
+    },
+    {
+      "url": "https://fbf.fr/fr/communique_de_presse/fraude-aux-moyens-de-paiements-un-appel-aux-acteurs-du-numerique-a-se-mobiliser/",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://fbf.fr/fr/communique_de_presse/fraude-aux-moyens-de-paiements-un-appel-aux-acteurs-du-numerique-a-se-mobiliser/"
+    },
+    {
+      "url": "https://fbf.fr/fr/rubrique-newsroom/actualites/",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://fbf.fr/fr/rubrique-newsroom/actualites/"
+    },
+    {
+      "url": "https://limousin.msa.fr/lfp/",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://limousin.msa.fr/lfp/"
+    },
+    {
+      "url": "https://limousin.msa.fr/lfp/actualites",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://limousin.msa.fr/lfp/actualites"
+    },
+    {
+      "url": "https://limousin.msa.fr/lfp/fraude-sur-internet-ou-par-telephone-soyez-vigilant-",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://limousin.msa.fr/lfp/fraude-sur-internet-ou-par-telephone-soyez-vigilant-"
+    },
+    {
+      "url": "https://nouvelle-aquitaine.mutualite.fr/",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://nouvelle-aquitaine.mutualite.fr/"
+    },
+    {
+      "url": "https://nouvelle-aquitaine.mutualite.fr/actualites/",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://nouvelle-aquitaine.mutualite.fr/actualites/"
+    },
+    {
+      "url": "https://nouvelle-aquitaine.mutualite.fr/actualites/feed/",
+      "code_http": 200,
+      "content_type": "application/rss+xml",
+      "final_url": "https://nouvelle-aquitaine.mutualite.fr/actualites/feed/"
+    },
+    {
+      "url": "https://www.assurance-maladie.ameli.fr/actualites-et-publications/actualites/nouvelle-aquitaine",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://www.assurance-maladie.ameli.fr/actualites-et-publications/actualites/nouvelle-aquitaine"
+    },
+    {
+      "url": "https://www.assurance-maladie.ameli.fr/construire-le-systeme-de-sante-de-demain/nous-luttons-contre-les-fraudes-pour-proteger-le-systeme-de-sante",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://www.assurance-maladie.ameli.fr/construire-le-systeme-de-sante-de-demain/nous-luttons-contre-les-fraudes-pour-proteger-le-systeme-de-sante"
+    },
+    {
+      "url": "https://www.assurance-maladie.ameli.fr/nous-connaitre/organisation/le-reseau-de-proximite/nos-organismes/nouvelle-aquitaine/ccss-de-la-creuse",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://www.assurance-maladie.ameli.fr/nous-connaitre/organisation/le-reseau-de-proximite/nos-organismes/nouvelle-aquitaine/ccss-de-la-creuse"
+    },
+    {
+      "url": "https://www.carsat-centreouest.fr/",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://www.carsat-centreouest.fr/home.html"
+    },
+    {
+      "url": "https://www.carsat-centreouest.fr/home/actif/actualites-actif.html",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://www.carsat-centreouest.fr/home/salaries/actualites-salarie.html"
+    },
+    {
+      "url": "https://www.carsat-centreouest.fr/home/actif/actualites-actif/toutes%20les%20actualites/courriels,-sites-internet,-media.details-actualite.html",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://www.carsat-centreouest.fr/home/actif/actualites-actif/toutes%20les%20actualites/courriels,-sites-internet,-media.details-actualite.html"
+    },
+    {
+      "url": "https://www.cci-creuse.com/",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://www.cci-creuse.com/"
+    },
+    {
+      "url": "https://www.cci-creuse.com/category/entreprise/",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://www.cci-creuse.com/category/entreprise/"
+    },
+    {
+      "url": "https://www.cci-creuse.com/comment-assurer-la-securite-numerique-en-entreprise/",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://www.cci-creuse.com/comment-assurer-la-securite-numerique-en-entreprise/"
+    },
+    {
+      "url": "https://www.cci-creuse.com/feed/",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://www.cci-creuse.com/feed/"
+    },
+    {
+      "url": "https://www.franceassureurs.fr/",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://www.franceassureurs.fr/"
+    },
+    {
+      "url": "https://www.franceassureurs.fr/actualites/",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://www.franceassureurs.fr/actualites/"
+    },
+    {
+      "url": "https://www.franceassureurs.fr/espace-presse/8e-cartographie-prospective-des-risques-assurance-dereglement-climatique-cyberattaques/",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://www.franceassureurs.fr/espace-presse/8e-cartographie-prospective-des-risques-assurance-dereglement-climatique-cyberattaques/"
+    },
+    {
+      "url": "https://www.franceassureurs.fr/feed/",
+      "code_http": 200,
+      "content_type": "application/rss+xml",
+      "final_url": "https://www.franceassureurs.fr/feed/"
+    },
+    {
+      "url": "https://www.ici.fr/radio/creuse",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://www.ici.fr/radio/creuse"
+    },
+    {
+      "url": "https://www.lamontagne.fr/creuse/",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://www.lamontagne.fr/creuse/"
+    },
+    {
+      "url": "https://www.lepopulaire.fr/gueret-23000/",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://www.lepopulaire.fr/gueret-23000/"
+    },
+    {
+      "url": "https://www.mutualite.fr/actualites/cyberattaques-un-impact-sur-la-prise-en-charge-des-patients/",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://www.mutualite.fr/actualites/cyberattaques-un-impact-sur-la-prise-en-charge-des-patients/"
+    },
+    {
+      "url": "https://www.orias.fr/",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://www.orias.fr/"
+    },
+    {
+      "url": "https://www.orias.fr/home/communications",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://www.orias.fr/home/communications"
+    }
+  ],
+  "exemples_cyber": [
+    "https://aide.msa.fr/lfp/fraude-sur-internet",
+    "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites/les-artisans-des-cibles-de-choix-pour-les-cybercriminels",
+    "https://fbf.fr/fr/communique_de_presse/fraude-aux-moyens-de-paiements-un-appel-aux-acteurs-du-numerique-a-se-mobiliser/",
+    "https://limousin.msa.fr/lfp/fraude-sur-internet-ou-par-telephone-soyez-vigilant-",
+    "https://www.assurance-maladie.ameli.fr/construire-le-systeme-de-sante-de-demain/nous-luttons-contre-les-fraudes-pour-proteger-le-systeme-de-sante",
+    "https://www.carsat-centreouest.fr/home/actif/actualites-actif/toutes%20les%20actualites/courriels,-sites-internet,-media.details-actualite.html",
+    "https://www.cci-creuse.com/comment-assurer-la-securite-numerique-en-entreprise/",
+    "https://www.franceassureurs.fr/espace-presse/8e-cartographie-prospective-des-risques-assurance-dereglement-climatique-cyberattaques/",
+    "https://www.mutualite.fr/actualites/cyberattaques-un-impact-sur-la-prise-en-charge-des-patients/"
+  ]
+}

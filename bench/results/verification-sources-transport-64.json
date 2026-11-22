@@ -1,0 +1,511 @@
+{
+  "corpus": "bench/corpus/sources-transport-64.jsonl",
+  "verifie_le": "2026-11-22T09:46:06.491983+00:00",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+  "method": "curl -L GET, redirections suivies, code final",
+  "sources": 11,
+  "sources_valides": 11,
+  "urls_sondees": 42,
+  "urls_200": 42,
+  "detail": [
+    {
+      "ligne": 1,
+      "nom": "Txik Txak — réseau de transports de l'Agglomération Pays Basque Adour",
+      "type": "réseau de transport public (Pays Basque, 64)",
+      "secteur": "transport",
+      "departement": "64",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.txiktxak.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 192204,
+          "url_finale": "https://www.txiktxak.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.txiktxak.fr/category/quoi-de-neuf-sur-txik-txak/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 111502,
+          "url_finale": "https://www.txiktxak.fr/category/quoi-de-neuf-sur-txik-txak/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.txiktxak.fr/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 372622,
+          "url_finale": "https://www.txiktxak.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.txiktxak.fr/quoi-de-neuf-sur-txik-txak/samedi-21-novembre-deviation-centre-ville-de-bayonne/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 223032,
+          "url_finale": "https://www.txiktxak.fr/quoi-de-neuf-sur-txik-txak/samedi-21-novembre-deviation-centre-ville-de-bayonne/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 2,
+      "nom": "Idelis — transport à la demande et mobilités du Pays Basque",
+      "type": "réseau de transport à la demande",
+      "secteur": "transport",
+      "departement": "64",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.idelis.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 166251,
+          "url_finale": "https://www.idelis.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.idelis.fr/decouvrir-idelis/actualites",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 92605,
+          "url_finale": "https://www.idelis.fr/decouvrir-idelis/actualites",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.idelis.fr/decouvrir-idelis/actualites/idelis-sengage-pour-movember",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 89979,
+          "url_finale": "https://www.idelis.fr/decouvrir-idelis/actualites/idelis-sengage-pour-movember",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 3,
+      "nom": "Aéroport de Biarritz Pays Basque",
+      "type": "aéroport (Biarritz-Anglet-Bayonne, 64)",
+      "secteur": "transport",
+      "departement": "64",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://biarritz.aeroport.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 65362,
+          "url_finale": "https://biarritz.aeroport.fr/fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://biarritz.aeroport.fr/actualites/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 46526,
+          "url_finale": "https://biarritz.aeroport.fr/fr/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://biarritz.aeroport.fr/fr/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 8770,
+          "url_finale": "https://biarritz.aeroport.fr/fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://biarritz.aeroport.fr/fr/dans-les-coulisses-de-laeroport-de-biarritz-pays-basque-%e2%9c%88%ef%b8%8f/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 47635,
+          "url_finale": "https://biarritz.aeroport.fr/fr/dans-les-coulisses-de-laeroport-de-biarritz-pays-basque-%e2%9c%88%ef%b8%8f/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 4,
+      "nom": "Air'py — aéroport Pau Pyrénées",
+      "type": "aéroport (Pau, 64)",
+      "secteur": "transport",
+      "departement": "64",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.pau-aeroport.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 25255,
+          "url_finale": "https://www.pau-aeroport.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.pau-aeroport.fr/aeroport/actualite/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 24036,
+          "url_finale": "https://www.pau-aeroport.fr/aeroport/actualite/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.pau-aeroport.fr/rss/fr/",
+          "code": 200,
+          "content_type": "text/xml;charset=UTF-8",
+          "octets": 6404,
+          "url_finale": "https://www.pau-aeroport.fr/rss/fr/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.pau-aeroport.fr/aeroport/actualite/paris-a-partir-de-64-euros-ttc-a-s-avec-amelia-209.html",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 24042,
+          "url_finale": "https://www.pau-aeroport.fr/aeroport/actualite/paris-a-partir-de-64-euros-ttc-a-s-avec-amelia-209.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 5,
+      "nom": "CCI Pau Béarn",
+      "type": "chambre consulaire (commerce, transport et logistique)",
+      "secteur": "transport",
+      "departement": "64",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.pau.cci.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 407943,
+          "url_finale": "https://pau.cci.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://pau.cci.fr/blog/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 295822,
+          "url_finale": "https://pau.cci.fr/blog/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://pau.cci.fr/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 69687,
+          "url_finale": "https://pau.cci.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://pau.cci.fr/le-rendez-vous-des-cedants-et-repreneurs-23-novembre-2026/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 196396,
+          "url_finale": "https://pau.cci.fr/le-rendez-vous-des-cedants-et-repreneurs-23-novembre-2026/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 6,
+      "nom": "OTRE Pays Adour",
+      "type": "fédération des transporteurs routiers (Pays Adour, dont 64)",
+      "secteur": "transport",
+      "departement": "64",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://otrepaysadour.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 116332,
+          "url_finale": "https://otrepaysadour.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://otrepaysadour.fr/actualites/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 96421,
+          "url_finale": "https://otrepaysadour.fr/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://otrepaysadour.fr/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 39917,
+          "url_finale": "https://otrepaysadour.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://otrepaysadour.fr/crise-des-carburants-lotre-suspend-sa-mobilisation-des-21-et-22-octobre-apres-la-confirmation-officielle-des-engagements-du-gouvernement/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 100892,
+          "url_finale": "https://otrepaysadour.fr/crise-des-carburants-lotre-suspend-sa-mobilisation-des-21-et-22-octobre-apres-la-confirmation-officielle-des-engagements-du-gouvernement/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 7,
+      "nom": "La République des Pyrénées — rubrique transports",
+      "type": "presse locale (Pau, 64)",
+      "secteur": "transport",
+      "departement": "64",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.larepubliquedespyrenees.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 345956,
+          "url_finale": "https://www.larepubliquedespyrenees.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.larepubliquedespyrenees.fr/economie/transports/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 166321,
+          "url_finale": "https://www.larepubliquedespyrenees.fr/economie/transports/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.larepubliquedespyrenees.fr/economie/transports/rss.xml",
+          "code": 200,
+          "content_type": "application/xml",
+          "octets": 29411,
+          "url_finale": "https://www.larepubliquedespyrenees.fr/economie/transports/rss.xml",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.larepubliquedespyrenees.fr/economie/transports/haut-bearn-la-navette-periurbaine-stoppee-en-fin-d-annee-un-dispositif-de-transport-a-la-demande-en-reflexion-31360626.php",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 144619,
+          "url_finale": "https://www.larepubliquedespyrenees.fr/economie/transports/haut-bearn-la-navette-periurbaine-stoppee-en-fin-d-annee-un-dispositif-de-transport-a-la-demande-en-reflexion-31360626.php",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 8,
+      "nom": "ICI Pyrénées-Atlantiques (64)",
+      "type": "radio publique locale",
+      "secteur": "transport",
+      "departement": "64",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.ici.fr/nouvelle-aquitaine/pyrenees-atlantiques-64",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 301920,
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/pyrenees-atlantiques-64",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.ici.fr/nouvelle-aquitaine/pyrenees-atlantiques-64",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 301920,
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/pyrenees-atlantiques-64",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.ici.fr/rss/pays-basque/a-la-une.xml",
+          "code": 200,
+          "content_type": "application/xml",
+          "octets": 38345,
+          "url_finale": "https://www.ici.fr/rss/pays-basque/a-la-une.xml",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.ici.fr/nouvelle-aquitaine/pyrenees-atlantiques-64/bayonne/l-agglomeration-pays-basque-accepte-une-fin-anticipee-de-son-contrat-avec-ratp-dev-pour-les-lignes-de-bus-txik-txak-8868340",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 211323,
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/pyrenees-atlantiques-64/bayonne/l-agglomeration-pays-basque-accepte-une-fin-anticipee-de-son-contrat-avec-ratp-dev-pour-les-lignes-de-bus-txik-txak-8868340",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 9,
+      "nom": "Union TLF Sud-Ouest",
+      "type": "fédération régionale du transport et de la logistique",
+      "secteur": "transport",
+      "departement": "64",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://e-tlf.com/nos-regions/tlf-sud-ouest/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 738204,
+          "url_finale": "https://e-tlf.com/nos-regions/tlf-sud-ouest/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://e-tlf.com/nos-actualites/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 790352,
+          "url_finale": "https://e-tlf.com/nos-actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://e-tlf.com/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 754,
+          "url_finale": "https://e-tlf.com/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://e-tlf.com/nos-actualites/note-de-conjoncture-de-la-logistique-octobre-2026/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 740539,
+          "url_finale": "https://e-tlf.com/nos-actualites/note-de-conjoncture-de-la-logistique-octobre-2026/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 10,
+      "nom": "FNTR — Fédération nationale des transports routiers",
+      "type": "fédération professionnelle",
+      "secteur": "transport",
+      "departement": "64",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://fntr.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 143543,
+          "url_finale": "https://fntr.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://fntr.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 143543,
+          "url_finale": "https://fntr.fr/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 128017,
+          "url_finale": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 11,
+      "nom": "Transport Info",
+      "type": "presse professionnelle transport et logistique",
+      "secteur": "transport",
+      "departement": "64",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.transportinfo.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 255238,
+          "url_finale": "https://www.transportinfo.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.transportinfo.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 255238,
+          "url_finale": "https://www.transportinfo.fr/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.transportinfo.fr/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 56128,
+          "url_finale": "https://www.transportinfo.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.transportinfo.fr/kevin-lenoir-dirigeant-dekleo-notre-objectif-est-datteindre-50-de-transport-zero-emission-dici-2030/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 123161,
+          "url_finale": "https://www.transportinfo.fr/kevin-lenoir-dirigeant-dekleo-notre-objectif-est-datteindre-50-de-transport-zero-emission-dici-2030/",
+          "erreur": null
+        }
+      ]
+    }
+  ]
+}
