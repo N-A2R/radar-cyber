@@ -120,3 +120,5 @@ disponibilité. Les observations ne sont jamais modifiées par le rejeu.
 - Périmètre Nouvelle-Aquitaine uniquement ; sources grises autorisées ; aucune
   donnée personnelle de victime ; aucun service payant ; aucune modification de
   `server.ts` ; aucune commande de mesure supérieure à 60 secondes.
+
+OBJECTIF : partiel — 2 / 7 jours de la fenêtre réellement observés (920 / 3 500 service-jours), manque 5 jours d'observation (16 au 20 novembre, 2 580 service-jours) ; rejoué le 22/11/2026 avec `apps/api/node_modules/.bin/tsx scripts/measure-service-availability.mts --anchor=2026-11-22` (code 0) : `services=500 observed_service_days=920/3500 available=505 availability=54,89 %`, résultat versionné inchangé.
