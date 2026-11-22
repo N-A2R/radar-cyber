@@ -1,0 +1,674 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-commerce-33.jsonl",
+  "secteur": "commerce",
+  "departement": "33",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+  "methode": "GET réel avec suivi des redirections, délai 25 s, User-Agent navigateur ; code HTTP, type de contenu et nombre d'items RSS enregistrés pour chaque site, page d'actualités, flux et article cyber.",
+  "sources": 17,
+  "urls_verifiees": 64,
+  "urls_200": 64,
+  "detail": [
+    {
+      "nom": "Le Journal des Entreprises — Gironde",
+      "urls": {
+        "site": {
+          "url": "https://www.lejournaldesentreprises.com/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 510654,
+          "url_finale": "https://www.lejournaldesentreprises.com/",
+          "titre": "Le Journal des Entreprises"
+        },
+        "actualites": {
+          "url": "https://www.lejournaldesentreprises.com/regions/france/nouvelle-aquitaine/gironde",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 293464,
+          "url_finale": "https://www.lejournaldesentreprises.com/regions/france/nouvelle-aquitaine/gironde",
+          "titre": "Gironde - Le Journal des Entreprises"
+        },
+        "flux": {
+          "url": "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine",
+          "code": 200,
+          "type": "text/xml",
+          "items_rss": 20,
+          "octets": 16311,
+          "url_finale": "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine",
+          "titre": "Le Journal des Entreprises - Nouvelle-Aquitaine"
+        },
+        "exemple_cyber": {
+          "url": "https://actu.fr/nouvelle-aquitaine/bordeaux_33063/cyberattaque-des-hackers-pro-russes-visent-le-site-de-la-ville-de-bordeaux_62068860.html",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 303781,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/bordeaux_33063/cyberattaque-des-hackers-pro-russes-visent-le-site-de-la-ville-de-bordeaux_62068860.html",
+          "titre": "Cyberattaque : des hackers pro-russes visent le site de la Ville de Bordeaux"
+        }
+      }
+    },
+    {
+      "nom": "ICI Gironde (Radio France)",
+      "urls": {
+        "site": {
+          "url": "https://www.ici.fr/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 978445,
+          "url_finale": "https://www.ici.fr/",
+          "titre": "ICI, le média de la vie locale : actualités en direct"
+        },
+        "actualites": {
+          "url": "https://www.ici.fr/nouvelle-aquitaine/gironde-33/actu",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 209597,
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/gironde-33/actu",
+          "titre": "Gironde (33) : toutes les infos de votre département en direct - ICI"
+        },
+        "flux": {
+          "url": "https://www.ici.fr/rss/gironde/rubrique/infos.xml",
+          "code": 200,
+          "type": "application/xml",
+          "items_rss": 20,
+          "octets": 19514,
+          "url_finale": "https://www.ici.fr/rss/gironde/rubrique/infos.xml",
+          "titre": "Infos – ICI Gironde"
+        },
+        "exemple_cyber": {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/aucune-donnee-n-a-ete-exfiltree-victime-d-une-cyberattaque-une-mairie-est-privee-d-acces-a-internet-2957996.html",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 699798,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/aucune-donnee-n-a-ete-exfiltree-victime-d-une-cyberattaque-une-mairie-est-privee-d-acces-a-internet-2957996.html",
+          "titre": "&quot;Aucune donnée n&#039;a été exfiltrée&quot; : victime d&#039;une cyberattaque, une mairie est privée d&#039;accès à internet"
+        }
+      }
+    },
+    {
+      "nom": "Mon-Entreprise-Info — actualités Gironde",
+      "urls": {
+        "site": {
+          "url": "https://mon-entreprise-info.com/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 96968,
+          "url_finale": "https://mon-entreprise-info.com/",
+          "titre": "Mon-Entreprise-Info : l'annuaire indépendant des entreprises d'Aquitaine"
+        },
+        "actualites": {
+          "url": "https://mon-entreprise-info.com/actualites/gironde/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 15743,
+          "url_finale": "https://mon-entreprise-info.com/actualites/gironde/",
+          "titre": "Actualités des entreprises en Gironde | Mon-Entreprise-Info"
+        },
+        "flux": {
+          "url": "https://mon-entreprise-info.com/actualites/gironde/rss.xml",
+          "code": 200,
+          "type": "application/xml",
+          "items_rss": 50,
+          "octets": 20547,
+          "url_finale": "https://mon-entreprise-info.com/actualites/gironde/rss.xml",
+          "titre": "Actualités : Gironde"
+        },
+        "exemple_cyber": {
+          "url": "https://fuitesinfos.fr/article/2026-04-27-bordeaux-metropole",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 42766,
+          "url_finale": "https://fuitesinfos.fr/article/2026-04-27-bordeaux-metropole",
+          "titre": "Bordeaux Métropole : fuite de données touchant 9 390 déclarants — Fuites Infos"
+        }
+      }
+    },
+    {
+      "nom": "Bordeaux Métropole — actualités économie et commerces",
+      "urls": {
+        "site": {
+          "url": "https://www.bordeaux-metropole.fr/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 147189,
+          "url_finale": "https://www.bordeaux-metropole.fr/",
+          "titre": "Accueil Bordeaux Métropole | Bordeaux Métropole"
+        },
+        "actualites": {
+          "url": "https://www.bordeaux-metropole.fr/actualites",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 129376,
+          "url_finale": "https://www.bordeaux-metropole.fr/actualites-Bordeaux-Metropole",
+          "titre": "Actualités de Bordeaux Métropole | Bordeaux Métropole"
+        },
+        "flux": {
+          "url": "https://www.bordeaux-metropole.fr/rss.xml",
+          "code": 200,
+          "type": "application/rss+xml",
+          "items_rss": 10,
+          "octets": 49339,
+          "url_finale": "https://www.bordeaux-metropole.fr/rss.xml",
+          "titre": "Bordeaux Métropole"
+        },
+        "exemple_cyber": {
+          "url": "https://fuitesinfos.fr/article/2026-04-27-bordeaux-metropole",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 42766,
+          "url_finale": "https://fuitesinfos.fr/article/2026-04-27-bordeaux-metropole",
+          "titre": "Bordeaux Métropole : fuite de données touchant 9 390 déclarants — Fuites Infos"
+        }
+      }
+    },
+    {
+      "nom": "FEVAD — Fédération du e-commerce et de la vente à distance",
+      "urls": {
+        "site": {
+          "url": "https://www.fevad.com/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 469693,
+          "url_finale": "https://www.fevad.com/",
+          "titre": "Fevad, la Fédération du e-commerce et de la vente à distance"
+        },
+        "actualites": {
+          "url": "https://www.fevad.com/actualites/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 469693,
+          "url_finale": "https://www.fevad.com/",
+          "titre": "Fevad, la Fédération du e-commerce et de la vente à distance"
+        },
+        "flux": {
+          "url": "https://www.fevad.com/feed/",
+          "code": 200,
+          "type": "application/rss+xml",
+          "items_rss": 10,
+          "octets": 85480,
+          "url_finale": "https://www.fevad.com/feed/",
+          "titre": "Fevad, la Fédération du e-commerce et de la vente à distance"
+        },
+        "exemple_cyber": {
+          "url": "https://fuitesinfos.fr/article/2026-04-27-bordeaux-metropole",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 42766,
+          "url_finale": "https://fuitesinfos.fr/article/2026-04-27-bordeaux-metropole",
+          "titre": "Bordeaux Métropole : fuite de données touchant 9 390 déclarants — Fuites Infos"
+        }
+      }
+    },
+    {
+      "nom": "CMA Nouvelle-Aquitaine — actualités des artisans de Gironde",
+      "urls": {
+        "site": {
+          "url": "https://cma-nouvelleaquitaine.fr/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 324235,
+          "url_finale": "https://cma-nouvelleaquitaine.fr/",
+          "titre": "CMA Nouvelle-Aquitaine | Formation et accompagnement"
+        },
+        "actualites": {
+          "url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 280274,
+          "url_finale": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites",
+          "titre": "Actualités - CMA Nouvelle-Aquitaine"
+        },
+        "exemple_cyber": {
+          "url": "https://actu.fr/nouvelle-aquitaine/bordeaux_33063/cyberattaque-des-hackers-pro-russes-visent-le-site-de-la-ville-de-bordeaux_62068860.html",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 303781,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/bordeaux_33063/cyberattaque-des-hackers-pro-russes-visent-le-site-de-la-ville-de-bordeaux_62068860.html",
+          "titre": "Cyberattaque : des hackers pro-russes visent le site de la Ville de Bordeaux"
+        }
+      }
+    },
+    {
+      "nom": "FCD — Fédération du commerce et de la distribution",
+      "urls": {
+        "site": {
+          "url": "https://www.fcd.fr/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 55038,
+          "url_finale": "https://www.fcd.fr/",
+          "titre": "Accueil - FCD"
+        },
+        "actualites": {
+          "url": "https://www.fcd.fr/qui-sommes-nous/actualites-de-la-fcd/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 55988,
+          "url_finale": "https://www.fcd.fr/qui-sommes-nous/actualites-de-la-fcd/",
+          "titre": "Actualités de la FCD - FCD"
+        },
+        "exemple_cyber": {
+          "url": "https://actu.fr/nouvelle-aquitaine/berson_33047/suite-a-une-cyberattaque-une-mairie-de-gironde-a-perdu-des-donnees-officielles-on-nous-reclame-une-rancon_62315310.html",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 305152,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/berson_33047/suite-a-une-cyberattaque-une-mairie-de-gironde-a-perdu-des-donnees-officielles-on-nous-reclame-une-rancon_62315310.html",
+          "titre": "Suite à une cyberattaque, une mairie de Gironde a perdu des données officielles : &quot;On nous réclame une rançon&quot;"
+        }
+      }
+    },
+    {
+      "nom": "Societe.Tech — entreprises Gironde",
+      "urls": {
+        "site": {
+          "url": "https://www.societe.tech/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 634599,
+          "url_finale": "https://www.societe.tech/",
+          "titre": "Actualité des entreprises françaises en régions | Societe.Tech"
+        },
+        "actualites": {
+          "url": "https://www.societe.tech/actualite-entreprises-nouvelle-aquitaine/actualite-entreprises-gironde/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 211256,
+          "url_finale": "https://www.societe.tech/actualite-entreprises-nouvelle-aquitaine/actualite-entreprises-gironde/",
+          "titre": "Actualité Entreprises Gironde | Societe.Tech"
+        },
+        "exemple_cyber": {
+          "url": "https://actu.fr/nouvelle-aquitaine/bordeaux_33063/cyberattaque-des-hackers-pro-russes-visent-le-site-de-la-ville-de-bordeaux_62068860.html",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 303781,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/bordeaux_33063/cyberattaque-des-hackers-pro-russes-visent-le-site-de-la-ville-de-bordeaux_62068860.html",
+          "titre": "Cyberattaque : des hackers pro-russes visent le site de la Ville de Bordeaux"
+        }
+      }
+    },
+    {
+      "nom": "Cyberattaque.org — actualités des incidents cyber",
+      "urls": {
+        "site": {
+          "url": "https://www.cyberattaque.org/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 70890,
+          "url_finale": "https://www.cyberattaque.org/",
+          "titre": "Les dernières cyberattaques en France &#8212; Cyberattaque.org"
+        },
+        "actualites": {
+          "url": "https://www.cyberattaque.org/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 70890,
+          "url_finale": "https://www.cyberattaque.org/",
+          "titre": "Les dernières cyberattaques en France &#8212; Cyberattaque.org"
+        },
+        "flux": {
+          "url": "https://www.cyberattaque.org/feed/",
+          "code": 200,
+          "type": "application/rss+xml",
+          "items_rss": 10,
+          "octets": 12389,
+          "url_finale": "https://www.cyberattaque.org/feed/",
+          "titre": "Cyberattaque.org"
+        },
+        "exemple_cyber": {
+          "url": "https://actu.fr/nouvelle-aquitaine/bordeaux_33063/cyberattaque-des-hackers-pro-russes-visent-le-site-de-la-ville-de-bordeaux_62068860.html",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 303781,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/bordeaux_33063/cyberattaque-des-hackers-pro-russes-visent-le-site-de-la-ville-de-bordeaux_62068860.html",
+          "titre": "Cyberattaque : des hackers pro-russes visent le site de la Ville de Bordeaux"
+        }
+      }
+    },
+    {
+      "nom": "actu.fr — Bordeaux et Gironde",
+      "urls": {
+        "site": {
+          "url": "https://actu.fr/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 643484,
+          "url_finale": "https://actu.fr/",
+          "titre": "Actu : toute l&#039;information locale et nationale en direct"
+        },
+        "actualites": {
+          "url": "https://actu.fr/nouvelle-aquitaine/gironde_33/economie",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 335024,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/gironde_33/economie",
+          "titre": "Actu Gironde, economie | actu.fr"
+        },
+        "flux": {
+          "url": "https://actu.fr/nouvelle-aquitaine/gironde_33/rss.xml",
+          "code": 200,
+          "type": "application/rss+xml",
+          "items_rss": 0,
+          "octets": 1384,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/gironde_33/rss.xml",
+          "titre": "Gironde - L'actualité en continu - actu.fr"
+        },
+        "exemple_cyber": {
+          "url": "https://actu.fr/nouvelle-aquitaine/bordeaux_33063/cyberattaque-des-hackers-pro-russes-visent-le-site-de-la-ville-de-bordeaux_62068860.html",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 303781,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/bordeaux_33063/cyberattaque-des-hackers-pro-russes-visent-le-site-de-la-ville-de-bordeaux_62068860.html",
+          "titre": "Cyberattaque : des hackers pro-russes visent le site de la Ville de Bordeaux"
+        }
+      }
+    },
+    {
+      "nom": "Artisanat.fr — CMA France, actualités des entreprises",
+      "urls": {
+        "site": {
+          "url": "https://www.artisanat.fr/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 118288,
+          "url_finale": "https://www.artisanat.fr/",
+          "titre": "Le portail des Chambres de Métiers et de l&#039;Artisanat en France | Artisanat.fr"
+        },
+        "actualites": {
+          "url": "https://www.artisanat.fr/magazine/actus",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 140397,
+          "url_finale": "https://www.artisanat.fr/magazine/actus",
+          "titre": "Actus | Artisanat.fr"
+        },
+        "exemple_cyber": {
+          "url": "https://www.artisanat.fr/magazine/actus/cybersecurite-comment-proteger-entreprise-cyberattaques",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 126400,
+          "url_finale": "https://www.artisanat.fr/magazine/actus/cybersecurite-comment-proteger-entreprise-cyberattaques",
+          "titre": "Cybersécurité TPE : guide pratique pour artisans"
+        }
+      }
+    },
+    {
+      "nom": "Bordeaux Mon Commerce — association des commerçants et artisans",
+      "urls": {
+        "site": {
+          "url": "https://www.bordeauxmoncommerce.fr/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 145027,
+          "url_finale": "https://www.bordeauxmoncommerce.fr/",
+          "titre": "Bordeaux Mon Commerce | Commerçants et Artisans Bordeaux"
+        },
+        "actualites": {
+          "url": "https://www.bordeauxmoncommerce.fr/category/actus/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 111889,
+          "url_finale": "https://www.bordeauxmoncommerce.fr/category/actus/",
+          "titre": "Actualités | Bordeaux Mon Commerce"
+        },
+        "flux": {
+          "url": "https://www.bordeauxmoncommerce.fr/feed/",
+          "code": 200,
+          "type": "application/rss+xml",
+          "items_rss": 10,
+          "octets": 42161,
+          "url_finale": "https://www.bordeauxmoncommerce.fr/feed/",
+          "titre": "Bordeaux Mon Commerce"
+        },
+        "exemple_cyber": {
+          "url": "https://www.bougerabordeaux.com/actu/news/cyberattaque-supermarches-intermarche-gironde-octobre-2026/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 118088,
+          "url_finale": "https://www.bougerabordeaux.com/actu/news/cyberattaque-supermarches-intermarche-gironde-octobre-2026/",
+          "titre": "Cyberattaque des supermarchés : quatre Intermarché girondins parmi les magasins touchés"
+        }
+      }
+    },
+    {
+      "nom": "UMIH 33 — syndicat des métiers de l'hôtellerie-restauration de Gironde",
+      "urls": {
+        "site": {
+          "url": "https://www.umih33.fr/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 187335,
+          "url_finale": "https://www.umih33.fr/",
+          "titre": "UMIH 33 | Union des Métiers et des Industries de l&#039;Hôtellerie"
+        },
+        "actualites": {
+          "url": "https://www.umih33.fr/actualites/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 187335,
+          "url_finale": "https://www.umih33.fr/",
+          "titre": "UMIH 33 | Union des Métiers et des Industries de l&#039;Hôtellerie"
+        },
+        "flux": {
+          "url": "https://www.umih33.fr/feed/",
+          "code": 200,
+          "type": "application/rss+xml",
+          "items_rss": 10,
+          "octets": 171855,
+          "url_finale": "https://www.umih33.fr/feed/",
+          "titre": "UMIH 33"
+        },
+        "exemple_cyber": {
+          "url": "https://www.artisanat.fr/magazine/actus/cybersecurite-comment-proteger-entreprise-cyberattaques",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 126400,
+          "url_finale": "https://www.artisanat.fr/magazine/actus/cybersecurite-comment-proteger-entreprise-cyberattaques",
+          "titre": "Cybersécurité TPE : guide pratique pour artisans"
+        }
+      }
+    },
+    {
+      "nom": "Centre-ville en mouvement — réseau des commerces de centre-ville",
+      "urls": {
+        "site": {
+          "url": "https://www.centre-ville.org/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 113015,
+          "url_finale": "https://www.centre-ville.org/",
+          "titre": "Centre-Ville en Mouvement"
+        },
+        "actualites": {
+          "url": "https://www.centre-ville.org/le-blog-actualite-des-centres-villes/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 132774,
+          "url_finale": "https://www.centre-ville.org/le-blog-actualite-des-centres-villes/",
+          "titre": "L&#039;OBSERVATOIRE EUROPÉEN"
+        },
+        "flux": {
+          "url": "https://www.centre-ville.org/feed/",
+          "code": 200,
+          "type": "application/rss+xml",
+          "items_rss": 10,
+          "octets": 43228,
+          "url_finale": "https://www.centre-ville.org/feed/",
+          "titre": "Centre-Ville en Mouvement &#8211; Association pour le renouveau du centre-ville"
+        },
+        "exemple_cyber": {
+          "url": "https://www.echos-judiciaires.com/actualites/chronique-cybersecurite-une-question-de-conformite/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 142651,
+          "url_finale": "https://www.echos-judiciaires.com/actualites/chronique-cybersecurite-une-question-de-conformite/",
+          "titre": "[ CHRONIQUE ] Cybersécurité, une question de conformité"
+        }
+      }
+    },
+    {
+      "nom": "Échos judiciaires girondins — rubrique économie",
+      "urls": {
+        "site": {
+          "url": "https://www.echos-judiciaires.com/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 304658,
+          "url_finale": "https://www.echos-judiciaires.com/",
+          "titre": "Échos Judiciaires Girondins"
+        },
+        "actualites": {
+          "url": "https://www.echos-judiciaires.com/categories/economie/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 171501,
+          "url_finale": "https://www.echos-judiciaires.com/categories/economie/",
+          "titre": "L&#039;éco en bref - Échos Judiciaires Girondins"
+        },
+        "flux": {
+          "url": "https://www.echos-judiciaires.com/feed/",
+          "code": 200,
+          "type": "application/rss+xml",
+          "items_rss": 10,
+          "octets": 69360,
+          "url_finale": "https://www.echos-judiciaires.com/feed/",
+          "titre": "Échos Judiciaires Girondins"
+        },
+        "exemple_cyber": {
+          "url": "https://www.echos-judiciaires.com/actualites/chronique-cybersecurite-une-question-de-conformite/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 142651,
+          "url_finale": "https://www.echos-judiciaires.com/actualites/chronique-cybersecurite-une-question-de-conformite/",
+          "titre": "[ CHRONIQUE ] Cybersécurité, une question de conformité"
+        }
+      }
+    },
+    {
+      "nom": "Bouger à Bordeaux — actualités locales (Gironde)",
+      "urls": {
+        "site": {
+          "url": "https://www.bougerabordeaux.com/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 153343,
+          "url_finale": "https://www.bougerabordeaux.com/",
+          "titre": "Bouger à Bordeaux - Actualités, sorties et bons plans"
+        },
+        "actualites": {
+          "url": "https://www.bougerabordeaux.com/bordeaux/actu/news/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 146539,
+          "url_finale": "https://www.bougerabordeaux.com/bordeaux/actu/news/",
+          "titre": "News - Bouger à Bordeaux"
+        },
+        "flux": {
+          "url": "https://www.bougerabordeaux.com/feed/",
+          "code": 200,
+          "type": "application/rss+xml",
+          "items_rss": 30,
+          "octets": 284900,
+          "url_finale": "https://www.bougerabordeaux.com/feed/",
+          "titre": "Bouger à Bordeaux"
+        },
+        "exemple_cyber": {
+          "url": "https://www.bougerabordeaux.com/actu/news/cyberattaque-supermarches-intermarche-gironde-octobre-2026/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 118088,
+          "url_finale": "https://www.bougerabordeaux.com/actu/news/cyberattaque-supermarches-intermarche-gironde-octobre-2026/",
+          "titre": "Cyberattaque des supermarchés : quatre Intermarché girondins parmi les magasins touchés"
+        }
+      }
+    },
+    {
+      "nom": "France 3 Nouvelle-Aquitaine — Gironde",
+      "urls": {
+        "site": {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 814506,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/",
+          "titre": "Nouvelle-Aquitaine : actualités et infos en direct - France 3 Nouvelle-Aquitaine"
+        },
+        "actualites": {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 659809,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde",
+          "titre": "Gironde : actualités et infos en direct, faits-divers, sport, loisir et culture - France 3 Nouvelle-Aquitaine"
+        },
+        "flux": {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/rss",
+          "code": 200,
+          "type": "text/xml",
+          "items_rss": 30,
+          "octets": 69085,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/rss",
+          "titre": "France 3 Régions Nouvelle-Aquitaine - Gironde"
+        },
+        "exemple_cyber": {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/aucune-donnee-n-a-ete-exfiltree-victime-d-une-cyberattaque-une-mairie-est-privee-d-acces-a-internet-2957996.html",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0,
+          "octets": 699798,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/aucune-donnee-n-a-ete-exfiltree-victime-d-une-cyberattaque-une-mairie-est-privee-d-acces-a-internet-2957996.html",
+          "titre": "&quot;Aucune donnée n&#039;a été exfiltrée&quot; : victime d&#039;une cyberattaque, une mairie est privée d&#039;accès à internet"
+        }
+      }
+    }
+  ]
+}
