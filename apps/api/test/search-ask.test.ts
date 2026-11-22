@@ -36,8 +36,8 @@ before(async () => {
     [`${TAG}-outside`, `Ransomware : Hôpital ${TAG}`, outsideOrgId],
   ] as const) {
     const inserted = await query<{ id: number }>(
-      `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, source_id, org_id)
-       VALUES ($1, 'ransomware', 'confirmed_incident', $2, '2026-05-05T00:00:00Z', $3, $4)
+      `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, source_id, org_id, source_url, evidence)
+       VALUES ($1, 'ransomware', 'confirmed_incident', $2, '2026-05-05T00:00:00Z', $3, $4, 'https://example.invalid/event', '{"run_id":"1"}'::jsonb)
        RETURNING id`,
       [key, title, SOURCE, orgId],
     );

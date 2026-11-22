@@ -62,8 +62,8 @@ test("rétention : un événement cité par une alerte survit, les autres parten
 	const old = new Date(Date.now() - 400 * 24 * 3600 * 1000).toISOString();
 	const insertEvent = async (suffix: string) => {
 		const { rows } = await query<{ id: number }>(
-			`INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, source_id)
-			 VALUES ($1,'ransomware','third_party_claim',$2,$3,$4) RETURNING id`,
+			`INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, source_id, source_url, evidence)
+			 VALUES ($1,'ransomware','third_party_claim',$2,$3,$4,'https://example.invalid/event','{"run_id":"1"}'::jsonb) RETURNING id`,
 			[`retention:${TAG}:${suffix}`, `Événement ${suffix}`, old, `retention-${TAG}`],
 		);
 		return rows[0]!.id;
@@ -104,8 +104,8 @@ test("rétention : cinq événements de 100 jours finissent dans archive_event",
 	try {
 		for (let i = 0; i < 5; i++) {
 			await query(
-				`INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at, source_id)
-				 VALUES ($1,'ransomware','third_party_claim',$2,$3,$4,$5)`,
+				`INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at, source_id, source_url, evidence)
+				 VALUES ($1,'ransomware','third_party_claim',$2,$3,$4,$5,'https://example.invalid/event','{"run_id":"1"}'::jsonb)`,
 				[`${prefix}${i}`, `Événement ${i}`, `Résumé ${i}`, old, sourceId],
 			);
 		}

@@ -16,12 +16,24 @@ export const FAMILY_LABEL: Record<string, string> = {
   typosquat: "typosquatting",
   reputation: "réputation",
   cti: "CTI",
+  presse_locale: "presse locale",
 };
 
 const STATUS_LABEL: Record<SourceStatus, string> = {
   ok: "ok",
   error: "erreur",
   pending: "jamais collecté",
+};
+
+/**
+ * Libellé court de l'état dans le tableau : « jamais collecté » débordait de
+ * sa colonne et se lisait par-dessus la date de production. Le libellé complet
+ * reste dans l'infobulle de la pastille.
+ */
+const STATUS_CELL_LABEL: Record<SourceStatus, string> = {
+  ok: "ok",
+  error: "erreur",
+  pending: "jamais",
 };
 
 type SortKey =
@@ -40,9 +52,16 @@ type SortKey =
   | "yield";
 type SortDir = "asc" | "desc";
 
+/**
+ * Colonnes du registre, dans l'ordre du `<colgroup>`, du `<thead>` et du
+ * `<tbody>` — les trois doivent rester alignés, sinon les en-têtes glissent
+ * d'une colonne. Les largeurs et les colonnes masquées quand la place manque
+ * sont décidées par les `@container` de `sources.css`.
+ */
 const COLUMNS: { key: SortKey; label: string; num?: boolean; hint?: string }[] = [
   { key: "name", label: "source" },
   { key: "family", label: "famille" },
+  { key: "status", label: "état", hint: "réponse de la dernière collecte" },
   { key: "lastProduction", label: "dernière production", hint: "dernier fait produit ; à défaut, dernier succès de collecte" },
   { key: "lastErrorAt", label: "dernier échec", hint: "le dernier passage a échoué" },
   { key: "entrees", label: "lues 30 j", num: true, hint: "entrées lues par le collecteur" },
@@ -116,6 +135,13 @@ export function lastProductionAt(source: Source): string | null {
 }
 
 const SEPT_JOURS_MS = 7 * 24 * 3600 * 1000;
+
+/**
+ * Taille d'une page du registre. 2 500 lignes montées d'un bloc coûtaient le
+ * premier rendu ; on découpe après le filtre et le tri, donc les compteurs
+ * restent ceux du résultat filtré, pas ceux de la page.
+ */
+export const PAGE_SIZE = 50;
 
 /** Rouge au-delà de 7 jours sans production ; « jamais » est rouge aussi. */
 export function isSourceRouge(source: Source, now = Date.now()): boolean {
@@ -227,6 +253,7 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
   // plus longtemps remonte en tête, « jamais produit » en tout premier.
   const [sortKey, setSortKey] = useState<SortKey>("lastProduction");
   const [sortDir, setSortDir] = useState<SortDir>("asc");
+  const [page, setPage] = useState(1);
 
   const rows = useMemo(() => {
     const needle = query.trim().toLocaleLowerCase("fr");
@@ -235,6 +262,15 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
       : sources;
     return [...filtered].sort((a, b) => compareSources(a, b, sortKey, sortDir));
   }, [sources, query, sortKey, sortDir]);
+
+  // La page est dérivée, jamais assainie par un effet : si un filtre réduit la
+  // liste sous la page courante, on retombe simplement sur la dernière page
+  // existante au lieu de rendre un tableau vide.
+  const pageCount = Math.max(1, Math.ceil(rows.length / PAGE_SIZE));
+  const currentPage = Math.min(page, pageCount);
+  const firstIndex = (currentPage - 1) * PAGE_SIZE;
+  const pageRows = rows.slice(firstIndex, firstIndex + PAGE_SIZE);
+  const lastIndex = Math.min(firstIndex + PAGE_SIZE, rows.length);
 
   const counts = useMemo(() => {
     const c: Record<SourceStatus, number> = { ok: 0, error: 0, pending: 0 };
@@ -253,6 +289,7 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
   }, [sources]);
 
   function toggleSort(key: SortKey) {
+    setPage(1);
     if (sortKey === key) {
       setSortDir((dir) => (dir === "asc" ? "desc" : "asc"));
       return;
@@ -300,11 +337,16 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
             type="search"
             value={query}
             placeholder="nom de source"
-            onChange={(event) => setQuery(event.target.value)}
+            onChange={(event) => {
+              setQuery(event.target.value);
+              setPage(1);
+            }}
           />
         </label>
-        <span className="sources-view__count">
-          {rows.length} affichée{rows.length > 1 ? "s" : ""}
+        <span className="sources-view__count" aria-live="polite">
+          {rows.length === 0
+            ? "aucune ligne"
+            : `${formatNumber(firstIndex + 1)}–${formatNumber(lastIndex)} sur ${formatNumber(rows.length)}`}
         </span>
       </div>
 
@@ -335,7 +377,9 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
                         : "descending"
                       : "none"
                   }
-                  className={col.num ? "sources-table__num" : undefined}
+                  className={`sources-table__cell sources-table__cell--${col.key}${
+                    col.num ? " sources-table__num" : ""
+                  }`}
                   title={col.hint}
                 >
                   <button type="button" className="sources-table__sort" onClick={() => toggleSort(col.key)}>
@@ -346,11 +390,13 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
                   </button>
                 </th>
               ))}
-              <th scope="col">action</th>
+              <th scope="col" className="sources-table__cell sources-table__cell--action">
+                action
+              </th>
             </tr>
           </thead>
           <tbody>
-            {rows.map((source) => {
+            {pageRows.map((source) => {
               const status = sourceStatus(source);
               const production = lastProductionAt(source);
               const rouge = isSourceRouge(source);
@@ -360,11 +406,16 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
                   <th scope="row" className="sources-table__name">
                     {source.name}
                   </th>
-                  <td className="sources-table__family">{FAMILY_LABEL[source.family] ?? source.family}</td>
-                  <td className="sources-table__status">
-                    <span className="sources-status" data-status={status}>
+                  <td
+                    className="sources-table__cell sources-table__cell--family sources-table__family"
+                    title={FAMILY_LABEL[source.family] ?? source.family}
+                  >
+                    {FAMILY_LABEL[source.family] ?? source.family}
+                  </td>
+                  <td className="sources-table__cell sources-table__cell--status sources-table__status">
+                    <span className="sources-status" data-status={status} title={STATUS_LABEL[status]}>
                       <span className="sources-status__dot" aria-hidden="true" />
-                      {STATUS_LABEL[status]}
+                      {STATUS_CELL_LABEL[status]}
                     </span>
                     {source.disabledReason && (
                       <span className="sources-table__reason" title={source.disabledReason}>
@@ -372,7 +423,7 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
                       </span>
                     )}
                   </td>
-                  <td className="sources-table__time">
+                  <td className="sources-table__cell sources-table__cell--lastProduction sources-table__time">
                     <span title={formatAbsolute(production)}>{formatRelative(production)}</span>
                     {rouge && (
                       <span className="sources-table__red-badge" data-rouge="oui" title="aucun fait depuis plus de 7 jours">
@@ -380,21 +431,21 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
                       </span>
                     )}
                   </td>
-                  <td className="sources-table__time">
+                  <td className="sources-table__cell sources-table__cell--lastErrorAt sources-table__time">
                     <span title={formatAbsolute(source.lastErrorAt)}>
                       {formatRelative(source.lastErrorAt)}
                     </span>
                   </td>
-                  <td className="sources-table__num">{formatNumber(source.entrees)}</td>
-                  <td className="sources-table__num">{source.evenements30j}</td>
-                  <td className="sources-table__num">
+                  <td className="sources-table__cell sources-table__cell--entrees sources-table__num">{formatNumber(source.entrees)}</td>
+                  <td className="sources-table__cell sources-table__cell--evenements30j sources-table__num">{source.evenements30j}</td>
+                  <td className="sources-table__cell sources-table__cell--rendement sources-table__num">
                     <span className="sources-yield" data-yield={yieldKind}>
                       {source.rendement === null
                         ? "—"
                         : `${(source.rendement * 100).toFixed(source.rendement < 0.01 ? 1 : 0)} %`}
                     </span>
                   </td>
-                  <td className="sources-table__num">
+                  <td className="sources-table__cell sources-table__cell--unicite sources-table__num">
                     {typeof source.faitsUniques === "number" && typeof source.faits === "number" ? (
                       <span
                         className="sources-unique"
@@ -411,7 +462,7 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
                       <span className="sources-table__unmeasured">non mesuré</span>
                     )}
                   </td>
-                  <td className="sources-table__motif">
+                  <td className="sources-table__cell sources-table__cell--motif sources-table__motif">
                     {source.motifDominant === null ? (
                       <span className="sources-table__unmeasured">non mesuré</span>
                     ) : (
@@ -431,7 +482,7 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
                       </span>
                     )}
                   </td>
-                  <td className="sources-table__action">
+                  <td className="sources-table__cell sources-table__cell--action sources-table__action">
                     <RelancerButton
                       sourceId={source.id}
                       sourceName={source.name}
@@ -455,7 +506,7 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
                         ? "aucune source déclarée"
                         : "aucune source ne correspond à la recherche"}
                       actionLabel={onRetry ? "Recharger les sources" : "Effacer la recherche"}
-                      onAction={onRetry ?? (() => setQuery(""))}
+                      onAction={onRetry ?? (() => { setQuery(""); setPage(1); })}
                     />
                   )}
                 </td>
@@ -464,6 +515,50 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
           </tbody>
         </table>
       </div>
+
+      {pageCount > 1 && (
+        <nav className="sources-view__pager" aria-label="Pagination du registre des sources">
+          <button
+            type="button"
+            className="sources-view__pager-btn"
+            onClick={() => setPage(1)}
+            disabled={currentPage === 1}
+            aria-label="Première page"
+          >
+            «
+          </button>
+          <button
+            type="button"
+            className="sources-view__pager-btn"
+            onClick={() => setPage(currentPage - 1)}
+            disabled={currentPage === 1}
+            aria-label="Page précédente"
+          >
+            ‹ précédente
+          </button>
+          <span className="sources-view__pager-state" aria-live="polite">
+            page {currentPage} sur {pageCount}
+          </span>
+          <button
+            type="button"
+            className="sources-view__pager-btn"
+            onClick={() => setPage(currentPage + 1)}
+            disabled={currentPage === pageCount}
+            aria-label="Page suivante"
+          >
+            suivante ›
+          </button>
+          <button
+            type="button"
+            className="sources-view__pager-btn"
+            onClick={() => setPage(pageCount)}
+            disabled={currentPage === pageCount}
+            aria-label="Dernière page"
+          >
+            »
+          </button>
+        </nav>
+      )}
     </section>
   );
 }

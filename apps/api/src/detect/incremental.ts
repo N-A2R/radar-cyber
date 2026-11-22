@@ -12,7 +12,7 @@
  * pour ne pas être réévalués à chaque passage (borne des non-matchants).
  */
 import { query } from "../db.js";
-import { evaluateEvent, evaluateIndicator } from "./engine.js";
+import { evaluateEvent, evaluateIndicator, loadCorroborationContext } from "./engine.js";
 
 const DEFAULT_EVENT_LIMIT = Number(process.env.RADAR_DETECT_EVENT_LIMIT ?? 500);
 const DEFAULT_INDICATOR_LIMIT = Number(process.env.RADAR_DETECT_INDICATOR_LIMIT ?? 1000);
@@ -73,17 +73,6 @@ async function saveState(): Promise<void> {
 	);
 }
 
-async function corroborationByOrg(): Promise<Map<number, number>> {
-	const r = await query<{ org_id: number; n: string }>(
-		`SELECT org_id, COUNT(DISTINCT source_id)::text AS n
-		   FROM event
-		  WHERE org_id IS NOT NULL
-		    AND COALESCE(observed_at, collected_at) >= now() - interval '30 days'
-		  GROUP BY org_id`,
-	);
-	return new Map(r.rows.map((row) => [Number(row.org_id), Number(row.n)]));
-}
-
 export async function runDetectionPass(opts?: {
 	eventLimit?: number;
 	indicatorLimit?: number;
@@ -99,7 +88,7 @@ export async function runDetectionPass(opts?: {
 	if (eventCursor === null) eventCursor = Math.max(0, (await maxId("event")) - catchUp);
 	if (indicatorCursor === null) indicatorCursor = Math.max(0, (await maxId("indicator")) - catchUp);
 
-	const corroboration = await corroborationByOrg();
+	const corroboration = await loadCorroborationContext();
 	let alerts = 0;
 
 	const fresh = await query<{ id: number }>(

@@ -27,6 +27,7 @@ import type { FastifyInstance } from "fastify";
 import { DEPT_LABELS } from "../collectors/relevance.js";
 import { query } from "../db.js";
 import { departementDeLaSource } from "./stats.js";
+import { evenementPublicSql } from "../security/tlp.js";
 
 export const INCIDENT_ASSERTIONS = ["confirmed_incident", "third_party_claim"] as const;
 export const GROWTH_WINDOW_HOURS = 24;
@@ -98,7 +99,7 @@ export default async function (app: FastifyInstance) {
            FROM org`,
       ),
       query<AggRow>(
-        `SELECT count(*)::int AS n FROM event WHERE assertion_type = ANY($1::text[])`,
+        `SELECT count(*)::int AS n FROM event e WHERE e.assertion_type = ANY($1::text[]) AND ${evenementPublicSql("e")}`,
         [[...INCIDENT_ASSERTIONS]],
       ),
       query<GrowthRow>(
@@ -117,6 +118,7 @@ export default async function (app: FastifyInstance) {
            JOIN source s ON s.id = e.source_id
            LEFT JOIN org o ON o.id = e.org_id
           WHERE e.assertion_type = ANY($1::text[])
+            AND ${evenementPublicSql("e")}
           ORDER BY COALESCE(e.observed_at, e.collected_at) DESC, e.id DESC
           LIMIT 20`,
         [[...INCIDENT_ASSERTIONS]],

@@ -22,6 +22,8 @@ type Reponse = {
     resume: string | null; preuve: Record<string, unknown>;
   }>;
   limite: number;
+  offset: number;
+  total: number;
   avant: number | null;
 };
 
@@ -154,6 +156,29 @@ test("route audit: cursor pagination keeps the filters", async () => {
   assert.equal(suivante.json.rows.length, 1);
   assert.notEqual(suivante.json.rows[0].id, premiere.json.rows[0].id);
   assert.ok(suivante.json.rows.every((row) => row.kind === "review.decided"));
+});
+
+test("route audit: page size, offset and total come from SQL", async () => {
+  const acteur = `acteur=${encodeURIComponent(TAG)}`;
+  const complet = await get(`/api/journal/review?${acteur}&limite=500`);
+  const total = complet.json.total;
+  assert.ok(total >= 5, "le total doit compter toutes les lignes filtrées");
+  assert.equal(complet.json.rows.length, total);
+
+  const revues = await get(`/api/journal/review?${acteur}&kind=review&limite=500`);
+  assert.equal(revues.json.total, revues.json.rows.length);
+  assert.ok(revues.json.total >= 2);
+
+  const page = await get(`/api/journal/review?${acteur}&limit=2&offset=1`);
+  assert.equal(page.json.total, total);
+  assert.equal(page.json.limite, 2);
+  assert.equal(page.json.offset, 1);
+  assert.equal(page.json.rows.length, Math.min(2, total - 1));
+  assert.equal(page.json.rows[0].id, complet.json.rows[1].id);
+
+  const cinq = await get(`/api/journal/review?${acteur}&limit=5`);
+  assert.equal(cinq.json.limite, 5);
+  assert.equal(cinq.json.rows.length, Math.min(5, total));
 });
 
 test("route audit: invalid filters are rejected", async () => {

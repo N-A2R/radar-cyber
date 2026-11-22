@@ -1,0 +1,47 @@
+{
+  "dateMesure": "2026-11-22",
+  "commande": "DATABASE_URL=$DATABASE_URL tsx scripts/mesure-risk-decay.mts",
+  "benchmark": {
+    "version": "risk-decay-240j-v1",
+    "source": "benchmark-risk-decay-240j",
+    "graine": 20261122,
+    "entites": 400,
+    "debut": "2025-11-01",
+    "historiqueJours": 240,
+    "horizonJours": 90,
+    "asOf": "2026-06-29",
+    "finIssue": "2026-09-27",
+    "faits": 38043,
+    "positifs": 187,
+    "negatifs": 213,
+    "description": "Benchmark de décroissance du risque : 400 entités synthétiques, 240 jours de faits avant le découpage, issue binaire sur 90 jours. Intensité latente en marche aléatoire autorégressive ; aucun fait réel, aucune organisation, aucune donnée personnelle.",
+    "nonStationnarite": {
+      "marcheAleatoire": "AR(1) sur log-intensité",
+      "phi": 0.97,
+      "sigma": 0.12,
+      "demiVieJours": 14
+    }
+  },
+  "critere": {
+    "requete": "SELECT d.c_index - s.c_index\n  FROM model_eval d, model_eval s\n WHERE d.model = 'risk_decay'\n   AND s.model = 'risk_static'\n   AND d.horizon_days = s.horizon_days",
+    "cible": 0.05,
+    "valeurSql": 0.09743666993045619
+  },
+  "resultat": {
+    "riskStatic": {
+      "cIndex": 0.5526850945243654,
+      "pairs": 39831,
+      "concordant": 21785,
+      "discordant": 17588,
+      "tied": 458
+    },
+    "riskDecay": {
+      "cIndex": 0.6501217644548216,
+      "pairs": 39831,
+      "concordant": 25895,
+      "discordant": 13936,
+      "tied": 0
+    },
+    "delta": 0.09743666993045619
+  }
+}

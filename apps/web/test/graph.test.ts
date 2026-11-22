@@ -6,6 +6,9 @@ import { describe, expect, it } from 'vitest';
 import {
   buildGraph,
   filterGraph,
+  NODE_RADIUS_MAX,
+  NODE_RADIUS_MIN,
+  nodeRadius,
   selectNeighborhood,
   type GraphData,
   type GraphEventInfo,
@@ -61,6 +64,17 @@ function fixture(): GraphData {
 
 const ids = (data: GraphData) => data.nodes.map((node) => node.id);
 const linkTypes = (data: GraphData) => data.links.map((link) => link.type);
+
+describe('nodeRadius', () => {
+  it('grows with the real degree inside readable bounds', () => {
+    expect(nodeRadius(0)).toBe(NODE_RADIUS_MIN);
+    expect(nodeRadius(null)).toBe(NODE_RADIUS_MIN);
+    expect(nodeRadius(Number.NaN)).toBe(NODE_RADIUS_MIN);
+    expect(nodeRadius(1)).toBeGreaterThan(nodeRadius(0));
+    expect(nodeRadius(16)).toBeGreaterThan(nodeRadius(4));
+    expect(nodeRadius(10_000)).toBe(NODE_RADIUS_MAX);
+  });
+});
 
 describe('buildGraph', () => {
   it('adds events and sources as nodes with measured, typed links', () => {

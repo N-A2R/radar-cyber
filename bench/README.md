@@ -1,7 +1,8 @@
 # Benches de validation — comment les rejouer
 
-Trois benches, trois questions produit. Aucun n'a besoin de PostgreSQL ni de
-l'API : ils tournent hors ligne, sur des jeux versionnés dans ce dossier.
+Ces benches répondent chacun à une question produit. Les benches A–C tournent
+hors ligne, sans PostgreSQL ni API, sur des jeux versionnés dans ce dossier ;
+le bench D persiste sa mesure en base.
 
 ## Prérequis
 
@@ -283,6 +284,38 @@ apps/api/node_modules/.bin/tsx scripts/valider-corpus.mts \
 
 Sans `--appliquer`, rien n'est écrit. Le rapport cumulé est
 `bench/results/extension-sante-enseignement.json`.
+
+## E — Décroissance du risque avec l'âge des faits
+
+Question : donner le même poids à un incident ancien et à un signal frais
+dégrade-t-il le classement du risque quand l'intensité d'incident dérive ?
+
+Le benchmark est entièrement synthétique et déterministe
+(`bench/risk-decay/params.json`) : 400 entités, 240 jours de faits avant le
+découpage, issue binaire sur 90 jours, intensité latente en marche aléatoire
+autorégressive. Deux modèles partagent le même split : `risk_static`
+(somme brute des faits) et `risk_decay` (poids × 0,5^(âge / demi-vie)). Le
+critère est un écart de C-index (concordance de Harrell, issue binaire).
+
+```bash
+export DATABASE_URL=postgres://radar:radar@localhost:5432/radar
+apps/api/node_modules/.bin/tsx scripts/mesure-risk-decay.mts   # écrit model_eval + risk_model_metric
+apps/api/node_modules/.bin/tsx scripts/verifie-risk-decay.mts  # rejoue et contrôle le critère
+```
+
+Critère de sortie (cible ≥ 0,05) :
+
+```sql
+SELECT d.c_index - s.c_index
+  FROM model_eval d, model_eval s
+ WHERE d.model = 'risk_decay'
+   AND s.model = 'risk_static'
+   AND d.horizon_days = s.horizon_days;
+```
+
+Aucun fait réel, aucune organisation, aucune donnée personnelle. Le chiffre
+mesure la conséquence des hypothèses de simulation (non-stationnarité et
+demi-vie), pas un gain observé sur le flux de production.
 
 ## Ce que ces benches ne mesurent pas
 

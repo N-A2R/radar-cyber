@@ -84,6 +84,8 @@ const PRIORITE_FAMILLE: Readonly<Record<string, number>> = {
   phishing: 1,
   presse: 2,
   presse_cyber: 2,
+  // Veille large : elle ne doit pas retarder les familles d'incident.
+  presse_locale: 3,
   reputation: 2,
   leaks: 2,
   paste: 3,
@@ -279,6 +281,7 @@ const SQL_PLAN = `
            count(*) FILTER (WHERE status = 'ok') AS runs_ok,
            count(*) FILTER (WHERE status = 'error') AS runs_erreur
       FROM collector_run
+     WHERE kind IN ('live', 'scan', 'ingest')
      GROUP BY source_id
   )
   SELECT s.id, s.name, s.family, s.kind, s.interval_sec, s.last_ok_at, s.last_error_at,
