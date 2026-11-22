@@ -46,7 +46,7 @@
 .health-view__resume {
   margin: 0;
   color: var(--muted);
-  font: 400 11px/1.5 var(--font-mono);
+  font: 400 12px/1.5 var(--font-mono);
   font-variant-numeric: tabular-nums;
 }
 
@@ -112,7 +112,7 @@
   gap: var(--space-3);
   padding-top: var(--space-2);
   border-top: 1px solid var(--line);
-  font: 400 11px/1.4 var(--font-mono);
+  font: 400 12px/1.4 var(--font-mono);
   font-variant-numeric: tabular-nums;
   color: var(--muted);
 }

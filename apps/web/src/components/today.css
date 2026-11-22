@@ -26,7 +26,7 @@
 .today__kicker {
   margin: 0 0 var(--space-1);
   color: var(--accent);
-  font: 600 11px/1.5 var(--font-mono);
+  font: 600 12px/1.5 var(--font-mono);
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
@@ -68,7 +68,7 @@
 .today__libelle {
   margin-top: var(--space-1);
   color: var(--faint);
-  font: 600 11px/1.5 var(--font-mono);
+  font: 600 12px/1.5 var(--font-mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -85,7 +85,7 @@
   flex-direction: column;
   gap: var(--space-2);
   color: var(--muted);
-  font: 600 11px/1.5 var(--font-mono);
+  font: 600 12px/1.5 var(--font-mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -174,7 +174,7 @@
   top: 0;
   background: var(--surface-2);
   color: var(--faint);
-  font: 600 11px/1.4 var(--font-mono);
+  font: 600 12px/1.4 var(--font-mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -373,7 +373,7 @@
 
 @media (max-width: 720px) {
   .today__timeline-graphe { gap: 4px; }
-  .today__timeline-heure { font-size: 11px; }
+  .today__timeline-heure { font-size: 12px; }
 }
 
 /* 375 px — le fil ne défile plus horizontalement : chaque événement devient

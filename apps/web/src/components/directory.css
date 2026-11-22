@@ -30,7 +30,7 @@
 
 .directory__tally {
   margin: 3px 0 0;
-  font: 400 11px/1.4 var(--font-mono);
+  font: 400 12px/1.4 var(--font-mono);
   color: var(--color-muted);
   font-variant-numeric: tabular-nums;
 }
@@ -81,7 +81,7 @@
 
 .directory__facet button,
 .directory__facet select {
-  font: 500 11px/1 var(--font-mono);
+  font: 500 12px/1 var(--font-mono);
   letter-spacing: 0.05em;
   text-transform: uppercase;
   min-height: 30px;
@@ -237,14 +237,14 @@ th[aria-sort="descending"] .directory__arrow { color: var(--color-accent); }
 .directory__bullet[data-kind="operateur"],
 .directory__bullet[data-kind="operateur_critique"] { background: var(--org-operateur); }
 
-.directory__kind { font-size: 11px; color: var(--color-muted); }
+.directory__kind { font-size: 12px; color: var(--color-muted); }
 .directory__void { color: var(--color-faint); }
 
 .directory__mono,
 .directory__count {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .directory__count { color: var(--color-accent); }
@@ -287,7 +287,7 @@ th[aria-sort="descending"] .directory__arrow { color: var(--color-accent); }
   display: flex;
   align-items: center;
   gap: 6px;
-  font: 400 11px/1 var(--font-mono);
+  font: 400 12px/1 var(--font-mono);
   color: var(--color-muted);
   font-variant-numeric: tabular-nums;
 }
@@ -356,7 +356,7 @@ th[aria-sort="descending"] .directory__arrow { color: var(--color-accent); }
   border-radius: var(--radius);
   background: var(--color-well);
   box-shadow: var(--sink);
-  font: 400 11px/1.4 var(--font-display);
+  font: 400 12px/1.4 var(--font-display);
   color: var(--color-ink-2);
 }
 

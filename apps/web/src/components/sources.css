@@ -51,7 +51,7 @@
 
 .sources-view__count {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   color: var(--color-ink-2);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
@@ -66,7 +66,7 @@
   box-shadow: 0 -1px 0 var(--color-edge-hi);
   flex: 0 0 auto;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   color: var(--color-muted);
 }
 
@@ -112,7 +112,7 @@
 }
 
 .sources-view__search-label {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--color-muted);
 }
 
@@ -144,7 +144,7 @@
 
 .sources-view__summary {
   padding: 8px 16px;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--color-muted);
   border-bottom: 1px solid var(--color-edge-lo);
   flex: 0 0 auto;
@@ -187,7 +187,7 @@
   z-index: 1;
   text-align: left;
   font-weight: 500;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--color-muted);
   background: var(--color-plate-2);
   padding: 0;
@@ -198,7 +198,7 @@
 .sources-table__sort {
   width: 100%;
   font: inherit;
-  font-size: 11px;
+  font-size: 12px;
   text-align: left;
   color: inherit;
   background: none;
@@ -256,7 +256,7 @@
 
 .sources-table__family {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   color: var(--color-muted);
   /* « rançongiciel » se coupait en deux et déformait la rangée ; la valeur
      entière reste lisible dans l'infobulle. */
@@ -274,7 +274,7 @@
 
 .sources-table__time {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   color: var(--color-muted);
   white-space: nowrap;
 }
@@ -293,7 +293,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--color-muted);
 }
 
@@ -342,7 +342,7 @@
 .sources-view__yield {
   padding: 0 16px 8px;
   margin: 0;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--color-ink-2);
   border-bottom: 1px solid var(--color-edge-lo);
   flex: 0 0 auto;
@@ -368,7 +368,7 @@
 .sources-table__reason {
   display: block;
   margin-top: 2px;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--color-muted);
   max-width: 22ch;
   overflow: hidden;
@@ -379,7 +379,7 @@
 /* --- Motif de rejet : pourquoi la source ne rend rien ---------------------- */
 
 .sources-table__motif {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--color-muted);
   max-width: 26ch;
 }
@@ -488,7 +488,7 @@
 .sources-view__red-count {
   margin: 0;
   padding: 0 16px 8px;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--sev-5);
   font-weight: 600;
 }
