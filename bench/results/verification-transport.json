@@ -1,0 +1,1497 @@
+{
+  "genere_le": "2026-11-22T01:32:56Z",
+  "corpus": "bench/corpus/sources-transport-logistique.jsonl",
+  "protocole": {
+    "critere": "toutes les URLs déclarées répondent HTTP 200 après redirections",
+    "methode": "curl -L -s -o /dev/null -w %{http_code}\\t%{url_effective}",
+    "timeout_s": 20,
+    "concurrence": 8
+  },
+  "totaux": {
+    "sources": 40,
+    "valides": 40,
+    "invalides": 0
+  },
+  "resultats": [
+    {
+      "ligne": 1,
+      "nom": "Aéroport Bordeaux-Mérignac",
+      "type": "aéroport",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://www.bordeaux.aeroport.fr/",
+          "code": 200,
+          "url_finale": "https://www.bordeaux.aeroport.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.bordeaux.aeroport.fr/informations-actualites",
+          "code": 200,
+          "url_finale": "https://www.bordeaux.aeroport.fr/informations-actualites",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.bordeaux.aeroport.fr/laeroport/presse/communiques-presse",
+          "code": 200,
+          "url_finale": "https://www.bordeaux.aeroport.fr/laeroport/presse/communiques-presse",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/vols-retardes-aeroport-bordeaux-merignac-apres-panne-informatique-nationale-1716593.html",
+          "code": 200,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/vols-retardes-aeroport-bordeaux-merignac-apres-panne-informatique-nationale-1716593.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 2,
+      "nom": "Aéroport Poitiers-Biard",
+      "type": "aéroport",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://www.poitiers.aeroport.fr/",
+          "code": 200,
+          "url_finale": "https://www.poitiers.aeroport.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.edeis.com/espace-presse/",
+          "code": 200,
+          "url_finale": "https://www.edeis.com/espace-presse/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.poitiers.aeroport.fr/feed/",
+          "code": 200,
+          "url_finale": "https://www.poitiers.aeroport.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.aerobuzz.fr/transport-aerien/premiere-interpellation-apres-la-cyberattaque-contre-les-aeroports-europeens/",
+          "code": 200,
+          "url_finale": "https://www.aerobuzz.fr/transport-aerien/premiere-interpellation-apres-la-cyberattaque-contre-les-aeroports-europeens/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 3,
+      "nom": "Aéroport La Rochelle–Île de Ré",
+      "type": "aéroport",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://www.larochelle.aeroport.fr/",
+          "code": 200,
+          "url_finale": "https://www.larochelle.aeroport.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.larochelle.aeroport.fr/page-actualite/",
+          "code": 200,
+          "url_finale": "https://www.larochelle.aeroport.fr/page-actualite/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.larochelle.aeroport.fr/feed/",
+          "code": 200,
+          "url_finale": "https://www.larochelle.aeroport.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.it-connect.fr/ransomware-plusieurs-aeroports-europeens-perturbes-par-une-cyberattaque/",
+          "code": 200,
+          "url_finale": "https://www.it-connect.fr/ransomware-plusieurs-aeroports-europeens-perturbes-par-une-cyberattaque/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 4,
+      "nom": "Aéroport Biarritz Pays Basque",
+      "type": "aéroport",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://biarritz.aeroport.fr/fr/",
+          "code": 200,
+          "url_finale": "https://biarritz.aeroport.fr/fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://biarritz.aeroport.fr/fr/actualites/",
+          "code": 200,
+          "url_finale": "https://biarritz.aeroport.fr/fr/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://biarritz.aeroport.fr/fr/feed/",
+          "code": 200,
+          "url_finale": "https://biarritz.aeroport.fr/fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.freenews.fr/securite/cyberattaques-aeroports-europeens",
+          "code": 200,
+          "url_finale": "https://www.freenews.fr/securite/cyberattaques-aeroports-europeens",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 5,
+      "nom": "Aéroport Limoges-Bellegarde",
+      "type": "aéroport",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://www.aeroportlimoges.com/",
+          "code": 200,
+          "url_finale": "https://www.aeroportlimoges.com/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.aeroportlimoges.com/infos-passagers/actualites",
+          "code": 200,
+          "url_finale": "https://www.aeroportlimoges.com/infos-passagers/actualites",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.aeroportlimoges.com/pages-techniques/actualites",
+          "code": 200,
+          "url_finale": "https://www.aeroportlimoges.com/pages-techniques/actualites",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.lepopulaire.fr/limoges-87000/actualites/plus-de-1-000-passagers-de-l-aeroport-de-limoges-retardes-par-un-bug-informatique-en-angleterre_14362663/",
+          "code": 200,
+          "url_finale": "https://www.lepopulaire.fr/limoges-87000/actualites/plus-de-1-000-passagers-de-l-aeroport-de-limoges-retardes-par-un-bug-informatique-en-angleterre_14362663/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 6,
+      "nom": "Union des aéroports français & francophones (UAF)",
+      "type": "autorité aéroportuaire",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://www.aeroport.fr/",
+          "code": 200,
+          "url_finale": "https://www.aeroport.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.aeroport.fr/actualites",
+          "code": 200,
+          "url_finale": "https://www.aeroport.fr/actualites",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.aeroport.fr/communiques-de-presse",
+          "code": 200,
+          "url_finale": "https://www.aeroport.fr/communiques-de-presse",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.aktantis.com/2025/07/30/webtech-comment-renforcer-sa-posture-cyber-retour-dexperience-de-lunion-des-aeroports-francais/",
+          "code": 200,
+          "url_finale": "https://www.aktantis.com/2025/07/30/webtech-comment-renforcer-sa-posture-cyber-retour-dexperience-de-lunion-des-aeroports-francais/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 7,
+      "nom": "Air Journal",
+      "type": "presse aéronautique",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://www.air-journal.fr/",
+          "code": 200,
+          "url_finale": "https://www.air-journal.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.air-journal.fr/category/actualite",
+          "code": 200,
+          "url_finale": "https://www.air-journal.fr/category/actualite",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.air-journal.fr/feed",
+          "code": 200,
+          "url_finale": "https://www.air-journal.fr/feed",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.air-journal.fr/2026-11-12-drones-cyberattaques-fausses-alertes-les-aeroports-europeens-reclament-un-sursaut-5278816.html",
+          "code": 200,
+          "url_finale": "https://www.air-journal.fr/2026-11-12-drones-cyberattaques-fausses-alertes-les-aeroports-europeens-reclament-un-sursaut-5278816.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 8,
+      "nom": "EDEIS (exploitant de l'aéroport Poitiers-Biard)",
+      "type": "exploitant aéroportuaire",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://www.edeis.com/",
+          "code": 200,
+          "url_finale": "https://www.edeis.com/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.edeis.com/actualites/",
+          "code": 200,
+          "url_finale": "https://www.edeis.com/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.edeis.com/feed/",
+          "code": 200,
+          "url_finale": "https://www.edeis.com/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.numerama.com/cyberguerre/2078659-beaucoup-dans-le-secteur-sont-surpris-pourquoi-la-cyberattaque-des-aeroports-europeens-a-pris-une-telle-ampleur.html",
+          "code": 200,
+          "url_finale": "https://www.numerama.com/cyberguerre/2078659-beaucoup-dans-le-secteur-sont-surpris-pourquoi-la-cyberattaque-des-aeroports-europeens-a-pris-une-telle-ampleur.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 9,
+      "nom": "Grand Port Maritime de La Rochelle (Port Atlantique La Rochelle)",
+      "type": "autorité portuaire",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://www.larochelle.port.fr/",
+          "code": 200,
+          "url_finale": "https://www.larochelle.port.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.larochelle.port.fr/nous-connaitre/actualites/",
+          "code": 200,
+          "url_finale": "https://www.larochelle.port.fr/nos-engagements/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.larochelle.port.fr/nous-connaitre/actualites/",
+          "code": 200,
+          "url_finale": "https://www.larochelle.port.fr/nos-engagements/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.cyberattaque.org/cyberattaque-les-ports-de-marseille-et-la-rochelle-cibles-par-des-hackers-prorusses/",
+          "code": 200,
+          "url_finale": "https://www.cyberattaque.org/cyberattaque-les-ports-de-marseille-et-la-rochelle-cibles-par-des-hackers-prorusses/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 10,
+      "nom": "Port de Bayonne - CCI Pays Basque",
+      "type": "port",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://www.bayonne.port.fr/fr/",
+          "code": 200,
+          "url_finale": "https://www.bayonne.port.fr/fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.bayonne.port.fr/fr/actualites/",
+          "code": 200,
+          "url_finale": "https://www.bayonne.port.fr/fr/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.bayonne.port.fr/fr/feed/",
+          "code": 200,
+          "url_finale": "https://www.bayonne.port.fr/fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.lefigaro.fr/secteur/high-tech/ports-compagnies-le-secteur-maritime-francais-cible-par-une-vaste-campagne-de-cyberattaques-prorusses-20261016",
+          "code": 200,
+          "url_finale": "https://www.lefigaro.fr/secteur/high-tech/ports-compagnies-le-secteur-maritime-francais-cible-par-une-vaste-campagne-de-cyberattaques-prorusses-20261016",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 11,
+      "nom": "Port de Rochefort (Port Charente Atlantique)",
+      "type": "port",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://port-charente-atlantique.fr/",
+          "code": 200,
+          "url_finale": "https://port-charente-atlantique.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://port-charente-atlantique.fr/actualites-du-port-charente-atlantique/",
+          "code": 200,
+          "url_finale": "https://port-charente-atlantique.fr/actualites-du-port-charente-atlantique/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://port-charente-atlantique.fr/actualites-du-port-charente-atlantique/",
+          "code": 200,
+          "url_finale": "https://port-charente-atlantique.fr/actualites-du-port-charente-atlantique/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.strategieslogistique.com/Cybersecurite-les-ports-francais,16133",
+          "code": 200,
+          "url_finale": "https://strategieslogistique.com/Cybersecurite-les-ports-francais,16133",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 12,
+      "nom": "Grand Port Maritime de Bordeaux",
+      "type": "autorité portuaire",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://www.bordeaux-port.fr/",
+          "code": 200,
+          "url_finale": "https://www.bordeaux-port.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.bordeaux-port.fr/fil-dactualite/",
+          "code": 200,
+          "url_finale": "https://www.bordeaux-port.fr/fil-dactualite/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.bordeaux-port.fr/feed/",
+          "code": 200,
+          "url_finale": "https://www.bordeaux-port.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.bordeaux-port.fr/demonstrateur-praetorian-des-tests-de-cyber-securite-grandeur-nature-menes-sur-les-infrastructures-portuaires/",
+          "code": 200,
+          "url_finale": "https://www.bordeaux-port.fr/demonstrateur-praetorian-des-tests-de-cyber-securite-grandeur-nature-menes-sur-les-infrastructures-portuaires/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 13,
+      "nom": "Atlantic Cluster (cluster nautique et naval de Nouvelle-Aquitaine)",
+      "type": "cluster maritime",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://atlantic-cluster.com/",
+          "code": 200,
+          "url_finale": "https://atlantic-cluster.com/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://atlantic-cluster.com/actualites/actualites-nautique-navale/",
+          "code": 200,
+          "url_finale": "https://atlantic-cluster.com/actualites/actualites-nautique-navale/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://atlantic-cluster.com/actualites/actualites-nautique-navale/",
+          "code": 200,
+          "url_finale": "https://atlantic-cluster.com/actualites/actualites-nautique-navale/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://atlantic-cluster.com/cyber-tour-nouvelle-aquitaine-le-pole-alpha-rlh-sera-le-24-juin-prochain-dans-les-locaux-de-leigsi-a-la-rochelle/",
+          "code": 200,
+          "url_finale": "https://atlantic-cluster.com/cyber-tour-nouvelle-aquitaine-le-pole-alpha-rlh-sera-le-24-juin-prochain-dans-les-locaux-de-leigsi-a-la-rochelle/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 14,
+      "nom": "Union des Ports de France (Ports de France)",
+      "type": "organisation portuaire",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://www.port.fr/",
+          "code": 200,
+          "url_finale": "https://www.port.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.port.fr/actualites",
+          "code": 200,
+          "url_finale": "https://www.port.fr/actualites",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.port.fr/actualites",
+          "code": 200,
+          "url_finale": "https://www.port.fr/actualites",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.port.fr/actualite/actualites-documentation/publication-du-guide-ports-cybersecurises",
+          "code": 200,
+          "url_finale": "https://www.port.fr/actualite/actualites-documentation/publication-du-guide-ports-cybersecurises",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 15,
+      "nom": "Mer et Marine",
+      "type": "presse maritime",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://www.meretmarine.com/fr",
+          "code": 200,
+          "url_finale": "https://www.meretmarine.com/fr",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.meretmarine.com/fr/actualite",
+          "code": 200,
+          "url_finale": "https://www.meretmarine.com/fr/actualite",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.meretmarine.com/rss.xml",
+          "code": 200,
+          "url_finale": "https://www.meretmarine.com/fr/fil-info",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.meretmarine.com/fr/marine-marchande/cybersecurite-maritime-la-vulnerabilite-numerique-a-l-epreuve-du-droit",
+          "code": 200,
+          "url_finale": "https://www.meretmarine.com/fr/marine-marchande/cybersecurite-maritime-la-vulnerabilite-numerique-a-l-epreuve-du-droit",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 16,
+      "nom": "Stratégies Logistique",
+      "type": "presse maritime et logistique",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://www.strategieslogistique.com/",
+          "code": 200,
+          "url_finale": "https://strategieslogistique.com/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.strategieslogistique.com/",
+          "code": 200,
+          "url_finale": "https://strategieslogistique.com/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://strategieslogistique.com/spip.php?page=backend",
+          "code": 200,
+          "url_finale": "https://strategieslogistique.com/spip.php?page=backend",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://strategieslogistique.com/Panorama-des-cybermenaces-dans-le,13251",
+          "code": 200,
+          "url_finale": "https://strategieslogistique.com/Panorama-des-cybermenaces-dans-le,13251",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 17,
+      "nom": "OTRE – Organisation des Transporteurs Routiers Européens",
+      "type": "fédération",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://www.otre.org/",
+          "code": 200,
+          "url_finale": "https://www.otre.org/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.otre.org/actualites/",
+          "code": 200,
+          "url_finale": "https://www.otre.org/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.otre.org/feed/",
+          "code": 200,
+          "url_finale": "https://www.otre.org/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.trm24.fr/fraikin-victime-dune-cyberattaque/",
+          "code": 200,
+          "url_finale": "https://www.trm24.fr/fraikin-victime-dune-cyberattaque/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 18,
+      "nom": "FNTR – Fédération Nationale des Transports Routiers",
+      "type": "fédération",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://www.fntr.fr/",
+          "code": 200,
+          "url_finale": "https://www.fntr.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.fntr.fr/espace-presse/actualites-agenda",
+          "code": 200,
+          "url_finale": "https://www.fntr.fr/espace-presse/actualites-agenda",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.fntr.fr/espace-presse/actualites-agenda",
+          "code": 200,
+          "url_finale": "https://www.fntr.fr/espace-presse/actualites-agenda",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.lofficieldestransporteurs.fr/technologies/cyberattaque-chez-ceva-logistics-quand-le-risque-pese-sur-les-prestataires-logistiques-974668.php",
+          "code": 200,
+          "url_finale": "https://www.lofficieldestransporteurs.fr/technologies/cyberattaque-chez-ceva-logistics-quand-le-risque-pese-sur-les-prestataires-logistiques-974668.php",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 19,
+      "nom": "Union TLF – Transport et Logistique de France",
+      "type": "fédération",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://e-tlf.com/",
+          "code": 200,
+          "url_finale": "https://e-tlf.com/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://e-tlf.com/nos-actualites/",
+          "code": 200,
+          "url_finale": "https://e-tlf.com/nos-actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://e-tlf.com/feed/",
+          "code": 200,
+          "url_finale": "https://e-tlf.com/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.cyberattaque.org/transporteur-com-1-201-clients-exposes-sur-le-darkweb-apres-une-cyberattaque/",
+          "code": 200,
+          "url_finale": "https://www.cyberattaque.org/transporteur-com-1-201-clients-exposes-sur-le-darkweb-apres-une-cyberattaque/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 20,
+      "nom": "AFT Transport & Logistique – Nouvelle-Aquitaine",
+      "type": "fédération",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://www.aft-dev.com/nouvelle-aquitaine",
+          "code": 200,
+          "url_finale": "https://www.aft-dev.com/nouvelle-aquitaine",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.aft-dev.com/actualites",
+          "code": 200,
+          "url_finale": "https://www.aft-dev.com/actualites",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.aft-dev.com/actualites",
+          "code": 200,
+          "url_finale": "https://www.aft-dev.com/actualites",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.trm24.fr/info-trm24-le-fbi-avertit-les-transporteurs-americains-dune-possible-cyberattaque/",
+          "code": 200,
+          "url_finale": "https://www.trm24.fr/info-trm24-le-fbi-avertit-les-transporteurs-americains-dune-possible-cyberattaque/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 21,
+      "nom": "TRM24 – Toute l’actualité du transport routier de marchandises",
+      "type": "presse logistique",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://www.trm24.fr/",
+          "code": 200,
+          "url_finale": "https://www.trm24.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.trm24.fr/category/actu/",
+          "code": 200,
+          "url_finale": "https://www.trm24.fr/category/actu/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.trm24.fr/feed/",
+          "code": 200,
+          "url_finale": "https://www.trm24.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.trm24.fr/edito-de-herve-rebillon-et-si-une-cyberattaque-immobilisait-demain-des-milliers-de-camions/",
+          "code": 200,
+          "url_finale": "https://www.trm24.fr/edito-de-herve-rebillon-et-si-une-cyberattaque-immobilisait-demain-des-milliers-de-camions/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 22,
+      "nom": "L'Officiel des transporteurs",
+      "type": "presse logistique",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://www.lofficieldestransporteurs.fr/",
+          "code": 200,
+          "url_finale": "https://www.lofficieldestransporteurs.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.lofficieldestransporteurs.fr/actualites/",
+          "code": 200,
+          "url_finale": "https://www.lofficieldestransporteurs.fr/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.lofficieldestransporteurs.fr/rss.xml",
+          "code": 200,
+          "url_finale": "https://www.lofficieldestransporteurs.fr/rss.xml",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.lofficieldestransporteurs.fr/technologies/quand-les-cybercriminels-se-font-passer-pour-des-transporteurs-pour-voler-des-cargaisons-973767.php",
+          "code": 200,
+          "url_finale": "https://www.lofficieldestransporteurs.fr/technologies/quand-les-cybercriminels-se-font-passer-pour-des-transporteurs-pour-voler-des-cargaisons-973767.php",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 23,
+      "nom": "Transport Info – Le site des professionnels du transport routier",
+      "type": "presse logistique",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://www.transportinfo.fr/",
+          "code": 200,
+          "url_finale": "https://www.transportinfo.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.transportinfo.fr/category/actualite/digital-transport/",
+          "code": 200,
+          "url_finale": "https://www.transportinfo.fr/category/actualite/digital-transport/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.transportinfo.fr/feed/",
+          "code": 200,
+          "url_finale": "https://www.transportinfo.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.transportinfo.fr/le-groupe-charles-andre-victime-dune-cyberattaque/",
+          "code": 200,
+          "url_finale": "https://www.transportinfo.fr/le-groupe-charles-andre-victime-dune-cyberattaque/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 24,
+      "nom": "Groupe Sarrion – Sarrion Global Solutions (La Rochelle)",
+      "type": "transporteur",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://www.sarrion-transports.fr/",
+          "code": 200,
+          "url_finale": "https://www.sarrion-transports.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.sarrion-transports.fr/informations/",
+          "code": 200,
+          "url_finale": "https://www.sarrion-transports.fr/informations/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.sarrion-transports.fr/feed/",
+          "code": 200,
+          "url_finale": "https://www.sarrion-transports.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.trm24.fr/une-fraude-au-peage-par-des-transporteurs-mise-a-jour/",
+          "code": 200,
+          "url_finale": "https://www.trm24.fr/une-fraude-au-peage-par-des-transporteurs-mise-a-jour/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 25,
+      "nom": "Log'S – prestataire logistique en Nouvelle-Aquitaine",
+      "type": "plateforme logistique",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://www.log-s.eu/",
+          "code": 200,
+          "url_finale": "https://www.log-s.eu/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.log-s.eu/blog/",
+          "code": 200,
+          "url_finale": "https://www.log-s.eu/blog/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.log-s.eu/feed/",
+          "code": 200,
+          "url_finale": "https://www.log-s.eu/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.numerama.com/cyberguerre/2235117-ils-piratent-des-transporteurs-et-volent-des-cargaisons-entieres-dans-les-coulisses-de-la-cyberattaque.html",
+          "code": 200,
+          "url_finale": "https://www.numerama.com/cyberguerre/2235117-ils-piratent-des-transporteurs-et-volent-des-cargaisons-entieres-dans-les-coulisses-de-la-cyberattaque.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 26,
+      "nom": "Hexafret (ex-Fret SNCF)",
+      "type": "opérateur ferroviaire",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://hexafret.com/fr",
+          "code": 200,
+          "url_finale": "https://hexafret.com/fr",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://hexafret.com/fr/actualites",
+          "code": 200,
+          "url_finale": "https://hexafret.com/fr/actualites",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://hexafret.com/fr/actualites",
+          "code": 200,
+          "url_finale": "https://hexafret.com/fr/actualites",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.laviedurail.com/actualites/cybersecurite-entreprises-devoir-investir/",
+          "code": 200,
+          "url_finale": "https://www.laviedurail.com/actualites/cybersecurite-entreprises-devoir-investir/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 27,
+      "nom": "Rail Logistics Europe (RLE)",
+      "type": "groupe fret ferroviaire",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://rle-group.com/fr",
+          "code": 200,
+          "url_finale": "https://rle-group.com/fr",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://rle-group.com/fr/nos-actualites/nos-actualites",
+          "code": 200,
+          "url_finale": "https://rle-group.com/fr/nos-actualites/nos-actualites",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://rle-group.com/fr/nos-actualites/nos-actualites",
+          "code": 200,
+          "url_finale": "https://rle-group.com/fr/nos-actualites/nos-actualites",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://fr.railmarket.com/news/technology-innovation/59626-study-warns-of-ertms-cyber-risks",
+          "code": 200,
+          "url_finale": "https://fr.railmarket.com/news/technology-innovation/59626-study-warns-of-ertms-cyber-risks",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 28,
+      "nom": "Association Française du Rail (AFRA)",
+      "type": "fédération",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://afra.fr/",
+          "code": 200,
+          "url_finale": "https://afra.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://afra.fr/actualites",
+          "code": 200,
+          "url_finale": "https://afra.fr/actualites",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://afra.fr/feed/",
+          "code": 200,
+          "url_finale": "https://afra.fr/feed",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.ville-rail-transports.com/ferroviaire/la-deutsche-bahn-touchee-par-une-cyberattaque-dune-ampleur-considerable/",
+          "code": 200,
+          "url_finale": "https://www.ville-rail-transports.com/ferroviaire/la-deutsche-bahn-touchee-par-une-cyberattaque-dune-ampleur-considerable/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 29,
+      "nom": "Fret 4F – Fret Ferroviaire Français du Futur",
+      "type": "fédération",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://www.fret4f.fr/",
+          "code": 200,
+          "url_finale": "https://www.fret4f.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.fret4f.fr/actualites/",
+          "code": 200,
+          "url_finale": "https://www.fret4f.fr/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.fret4f.fr/feed/",
+          "code": 200,
+          "url_finale": "https://www.fret4f.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.ville-rail-transports.com/expertise/intelligence-artificielle-et-cybersecurite-un-double-defi-pour-les-transports/",
+          "code": 200,
+          "url_finale": "https://www.ville-rail-transports.com/expertise/intelligence-artificielle-et-cybersecurite-un-double-defi-pour-les-transports/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 30,
+      "nom": "La Vie du Rail",
+      "type": "presse ferroviaire",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://www.laviedurail.com/",
+          "code": 200,
+          "url_finale": "https://www.laviedurail.com/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.laviedurail.com/actualites/",
+          "code": 200,
+          "url_finale": "https://www.laviedurail.com/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.laviedurail.com/feed/",
+          "code": 200,
+          "url_finale": "https://www.laviedurail.com/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.laviedurail.com/actualites/cybersecurite-tabou-vraie-menace/",
+          "code": 200,
+          "url_finale": "https://www.laviedurail.com/actualites/cybersecurite-tabou-vraie-menace/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 31,
+      "nom": "Ville, Rail & Transports",
+      "type": "presse ferroviaire",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://www.ville-rail-transports.com/",
+          "code": 200,
+          "url_finale": "https://www.ville-rail-transports.com/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.ville-rail-transports.com/ferroviaire/",
+          "code": 200,
+          "url_finale": "https://www.ville-rail-transports.com/ferroviaire/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.ville-rail-transports.com/feed/",
+          "code": 200,
+          "url_finale": "https://www.ville-rail-transports.com/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.ville-rail-transports.com/ferroviaire/accord-de-cooperation-dans-la-cybersecurite-entre-airbus-et-alstom/",
+          "code": 200,
+          "url_finale": "https://www.ville-rail-transports.com/ferroviaire/accord-de-cooperation-dans-la-cybersecurite-entre-airbus-et-alstom/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 32,
+      "nom": "RailMarket.com (actualités fret ferroviaire)",
+      "type": "presse ferroviaire",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://fr.railmarket.com/",
+          "code": 200,
+          "url_finale": "https://fr.railmarket.com/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://fr.railmarket.com/news",
+          "code": 200,
+          "url_finale": "https://fr.railmarket.com/news",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://fr.railmarket.com/feed",
+          "code": 200,
+          "url_finale": "https://fr.railmarket.com/feed",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://fr.railmarket.com/news/technology-innovation/63294-rcrs-2026-examines-the-operational-decisions-behind-railway-cyber-resilience",
+          "code": 200,
+          "url_finale": "https://fr.railmarket.com/news/technology-innovation/63294-rcrs-2026-examines-the-operational-decisions-behind-railway-cyber-resilience",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 33,
+      "nom": "Trans.INFO",
+      "type": "presse transport et logistique",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://trans.info/",
+          "code": 200,
+          "url_finale": "https://trans.info/en",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://trans.info/fr/",
+          "code": 200,
+          "url_finale": "https://trans.info/fr",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://trans.info/fr/",
+          "code": 200,
+          "url_finale": "https://trans.info/fr",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://trans.info/fr/transport-cyberattaques-2025-455060",
+          "code": 200,
+          "url_finale": "https://trans.info/fr/transport-cyberattaques-2025-455060",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 34,
+      "nom": "ANSSI — cyber.gouv.fr",
+      "type": "autorité de cybersécurité",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://cyber.gouv.fr/",
+          "code": 200,
+          "url_finale": "https://cyber.gouv.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://cyber.gouv.fr/actualites",
+          "code": 200,
+          "url_finale": "https://cyber.gouv.fr/actualites",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://cyber.gouv.fr/actualites",
+          "code": 200,
+          "url_finale": "https://cyber.gouv.fr/actualites",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://cyber.gouv.fr/actualites/etat-de-la-menace-informatique-sur-le-secteur-des-transports-urbains/",
+          "code": 200,
+          "url_finale": "https://cyber.gouv.fr/actualites/etat-de-la-menace-informatique-sur-le-secteur-des-transports-urbains/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 35,
+      "nom": "TBM — Transports Bordeaux Métropole",
+      "type": "réseau de transport public",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://www.infotbm.com/fr",
+          "code": 200,
+          "url_finale": "https://www.infotbm.com/fr",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.infotbm.com/fr",
+          "code": 200,
+          "url_finale": "https://www.infotbm.com/fr",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.infotbm.com/fr",
+          "code": 200,
+          "url_finale": "https://www.infotbm.com/fr",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://bulletinbordelais.eu/fraude-dans-les-trams-de-bordeaux-tbm-dement-la-rumeur-dune-hausse/",
+          "code": 200,
+          "url_finale": "https://bulletinbordelais.eu/fraude-dans-les-trams-de-bordeaux-tbm-dement-la-rumeur-dune-hausse/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 36,
+      "nom": "Yélo — Agglomération de La Rochelle",
+      "type": "réseau de transport public",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://yelo.agglo-larochelle.fr/",
+          "code": 200,
+          "url_finale": "https://yelo.agglo-larochelle.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://yelo.agglo-larochelle.fr/actualites/",
+          "code": 200,
+          "url_finale": "https://yelo.agglo-larochelle.fr/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://yelo.agglo-larochelle.fr/feed/",
+          "code": 200,
+          "url_finale": "https://yelo.agglo-larochelle.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente-maritime/la-rochelle/arnaques-aux-fausses-cartes-de-bus-le-service-de-transports-rochelais-yelo-met-en-garde-ses-usagers-2973797.html",
+          "code": 200,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente-maritime/la-rochelle/arnaques-aux-fausses-cartes-de-bus-le-service-de-transports-rochelais-yelo-met-en-garde-ses-usagers-2973797.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 37,
+      "nom": "France 3 Nouvelle-Aquitaine",
+      "type": "média régional",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/",
+          "code": 200,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/",
+          "code": 200,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/",
+          "code": 200,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente-maritime/la-rochelle/arnaques-aux-fausses-cartes-de-bus-le-service-de-transports-rochelais-yelo-met-en-garde-ses-usagers-2973797.html",
+          "code": 200,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente-maritime/la-rochelle/arnaques-aux-fausses-cartes-de-bus-le-service-de-transports-rochelais-yelo-met-en-garde-ses-usagers-2973797.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 38,
+      "nom": "Sud Ouest",
+      "type": "quotidien régional",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://www.sudouest.fr/",
+          "code": 200,
+          "url_finale": "https://www.sudouest.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.sudouest.fr/gironde/bordeaux/",
+          "code": 200,
+          "url_finale": "https://www.sudouest.fr/gironde/bordeaux/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.sudouest.fr/rss.xml",
+          "code": 200,
+          "url_finale": "https://www.sudouest.fr/rss.xml",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.sudouest.fr/economie/cybersecurite/cyberattaque-d-une-filiale-de-la-poste-l-enquete-confiee-a-la-brigade-cybercriminalite-31535861.php",
+          "code": 200,
+          "url_finale": "https://www.sudouest.fr/economie/cybersecurite/cyberattaque-d-une-filiale-de-la-poste-l-enquete-confiee-a-la-brigade-cybercriminalite-31535861.php",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 39,
+      "nom": "La Nouvelle République — Vienne",
+      "type": "quotidien régional",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://www.lanouvellerepublique.fr/",
+          "code": 200,
+          "url_finale": "https://www.lanouvellerepublique.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.lanouvellerepublique.fr/vienne/",
+          "code": 200,
+          "url_finale": "https://www.lanouvellerepublique.fr/vienne",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.lanouvellerepublique.fr/rss.xml",
+          "code": 200,
+          "url_finale": "https://www.lanouvellerepublique.fr/rss.xml",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.lanouvellerepublique.fr/vienne/grand-poitiers/cyberattaque-des-reseaux-de-poitiers-et-grand-poitiers-elle-voulait-crypter-nos-donnees-avec-demande-de-rancon-nous-l-avons-stoppee-1757000752",
+          "code": 200,
+          "url_finale": "https://www.lanouvellerepublique.fr/vienne/grand-poitiers/cyberattaque-des-reseaux-de-poitiers-et-grand-poitiers-elle-voulait-crypter-nos-donnees-avec-demande-de-rancon-nous-l-avons-stoppee-1757000752",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 40,
+      "nom": "TransportMEL — Ilévia",
+      "type": "autorité organisatrice de transports",
+      "valide": true,
+      "problemes": [],
+      "urls": [
+        {
+          "role": "site",
+          "url": "https://www.transportmel.fr/",
+          "code": 200,
+          "url_finale": "https://www.transportmel.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.transportmel.fr/actualites",
+          "code": 200,
+          "url_finale": "https://www.transportmel.fr/actualites",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.transportmel.fr/actualites",
+          "code": 200,
+          "url_finale": "https://www.transportmel.fr/actualites",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.transportmel.fr/actualites/56",
+          "code": 200,
+          "url_finale": "https://www.transportmel.fr/actualites/56",
+          "erreur": null
+        }
+      ]
+    }
+  ]
+}

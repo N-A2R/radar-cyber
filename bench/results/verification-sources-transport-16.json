@@ -1,0 +1,379 @@
+{
+  "corpus": "bench/corpus/sources-transport-16.jsonl",
+  "verifie_le": "2026-11-22T06:05:14.604254+00:00",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+  "method": "curl -L GET, redirections suivies, code final",
+  "sources": 8,
+  "sources_valides": 8,
+  "urls_sondees": 31,
+  "urls_200": 31,
+  "detail": [
+    {
+      "ligne": 1,
+      "nom": "STGA — réseau de bus du Grand Angoulême",
+      "type": "réseau de transport public",
+      "secteur": "transport",
+      "departement": "16",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.stga.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 54891,
+          "url_finale": "https://www.stga.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.stga.fr/actualites",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 28869,
+          "url_finale": "https://www.stga.fr/actualites",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.stga.fr/actualite/nouvel-outil-suivez-votre-ligne-en-temps-r%C3%A9el-sur-une-carte-interactive",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 27457,
+          "url_finale": "https://www.stga.fr/actualite/nouvel-outil-suivez-votre-ligne-en-temps-r%C3%A9el-sur-une-carte-interactive",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 2,
+      "nom": "Aéroport Angoulême-Cognac",
+      "type": "aéroport",
+      "secteur": "transport",
+      "departement": "16",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://angouleme.aeroport.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 155653,
+          "url_finale": "https://angouleme.aeroport.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://angouleme.aeroport.fr/category/actualites/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 85981,
+          "url_finale": "https://angouleme.aeroport.fr/category/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://angouleme.aeroport.fr/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 12782,
+          "url_finale": "https://angouleme.aeroport.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/vols-retardes-aeroport-bordeaux-merignac-apres-panne-informatique-nationale-1716593.html",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 695944,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/vols-retardes-aeroport-bordeaux-merignac-apres-panne-informatique-nationale-1716593.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 3,
+      "nom": "GrandAngoulême — rubrique Mobilités",
+      "type": "intercommunalité (politique de transport)",
+      "secteur": "transport",
+      "departement": "16",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.grandangouleme.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 564422,
+          "url_finale": "https://www.grandangouleme.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.grandangouleme.fr/category/actualites/mobilites/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 514440,
+          "url_finale": "https://www.grandangouleme.fr/category/actualites/mobilites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.grandangouleme.fr/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 68904,
+          "url_finale": "https://www.grandangouleme.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.grandangouleme.fr/projets-de-territoire/pole-dechange-multimodal-pem-sud-angoumois-la-couronne/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 492301,
+          "url_finale": "https://www.grandangouleme.fr/projets-de-territoire/pole-dechange-multimodal-pem-sud-angoumois-la-couronne/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 4,
+      "nom": "France 3 Nouvelle-Aquitaine — Charente",
+      "type": "télévision publique locale",
+      "secteur": "transport",
+      "departement": "16",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 577853,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 577853,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente/rss",
+          "code": 200,
+          "content_type": "text/xml; charset=UTF-8",
+          "octets": 79148,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente/rss",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente/angouleme/ligne-sncf-angouleme-bordeaux-pendant-les-travaux-sur-les-voies-les-voyageurs-passent-du-train-aux-autocars-3453519.html",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 702480,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente/angouleme/ligne-sncf-angouleme-bordeaux-pendant-les-travaux-sur-les-voies-les-voyageurs-passent-du-train-aux-autocars-3453519.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 5,
+      "nom": "ICI Charente",
+      "type": "radio publique locale",
+      "secteur": "transport",
+      "departement": "16",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.ici.fr/nouvelle-aquitaine/charente-16",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 295837,
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/charente-16",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.ici.fr/nouvelle-aquitaine/charente-16/actu",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 212889,
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/charente-16/actu",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.ici.fr/rss/la-rochelle/rubrique/infos.xml",
+          "code": 200,
+          "content_type": "application/xml",
+          "octets": 20232,
+          "url_finale": "https://www.ici.fr/rss/la-rochelle/rubrique/infos.xml",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.ici.fr/nouvelle-aquitaine/charente-maritime-17/port-d-envaux/un-poids-lourd-couche-en-travers-de-la-chaussee-circulation-coupee-sur-l-a10-entre-saint-jean-d-angely-et-saintes-7331491",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 174790,
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/charente-maritime-17/port-d-envaux/un-poids-lourd-couche-en-travers-de-la-chaussee-circulation-coupee-sur-l-a10-entre-saint-jean-d-angely-et-saintes-7331491",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 6,
+      "nom": "Grand Cognac — transports et mobilités",
+      "type": "intercommunalité (réseau Transcom)",
+      "secteur": "transport",
+      "departement": "16",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.grand-cognac.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 100766,
+          "url_finale": "https://www.grand-cognac.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.grand-cognac.fr/vivre-et-participer/transports-et-mobilites",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 86945,
+          "url_finale": "https://www.grand-cognac.fr/vivre-et-participer/transports-et-mobilites",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.grand-cognac.fr/rss.xml",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=utf-8",
+          "octets": 17542,
+          "url_finale": "https://www.grand-cognac.fr/rss.xml",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.grand-cognac.fr/vivre-et-participer/transports-et-mobilites/se-deplacer-en-bus-avec-transcom",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 95636,
+          "url_finale": "https://www.grand-cognac.fr/vivre-et-participer/transports-et-mobilites/se-deplacer-en-bus-avec-transcom",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 7,
+      "nom": "actu.fr — Charente",
+      "type": "presse en ligne",
+      "secteur": "transport",
+      "departement": "16",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://actu.fr/nouvelle-aquitaine/charente_16/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 326164,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/charente_16",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://actu.fr/nouvelle-aquitaine/charente_16/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 326164,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/charente_16",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://actu.fr/nouvelle-aquitaine/charente_16/rss.xml",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=utf-8",
+          "octets": 1389,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/charente_16/rss.xml",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://actu.fr/nouvelle-aquitaine/angouleme_16015/angouleme-des-trains-supprimes-en-direction-de-bordeaux-et-de-saintes_65027590.html",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 229212,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/angouleme_16015/angouleme-des-trains-supprimes-en-direction-de-bordeaux-et-de-saintes_65027590.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 8,
+      "nom": "Le Journal des Entreprises — Nouvelle-Aquitaine",
+      "type": "presse économique régionale",
+      "secteur": "transport",
+      "departement": "16",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.lejournaldesentreprises.com/nouvelle-aquitaine",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 508714,
+          "url_finale": "https://www.lejournaldesentreprises.com/nouvelle-aquitaine",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.lejournaldesentreprises.com/nouvelle-aquitaine",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 508714,
+          "url_finale": "https://www.lejournaldesentreprises.com/nouvelle-aquitaine",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine",
+          "code": 200,
+          "content_type": "text/xml; charset=UTF-8",
+          "octets": 16311,
+          "url_finale": "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.lejournaldesentreprises.com/breve/le-campus-cyber-nouvelle-aquitaine-se-dote-dune-convention-de-cooperation-2078282",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 318104,
+          "url_finale": "https://www.lejournaldesentreprises.com/breve/le-campus-cyber-nouvelle-aquitaine-se-dote-dune-convention-de-cooperation-2078282",
+          "erreur": null
+        }
+      ]
+    }
+  ]
+}
