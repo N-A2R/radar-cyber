@@ -7,6 +7,7 @@
  * pas masquées par une règle paramétrée plus générale.
  */
 import { test, before, after } from "node:test";
+import { readFile } from "node:fs/promises";
 import assert from "node:assert/strict";
 import Fastify, { type FastifyInstance } from "fastify";
 import { installErrorHandler } from "../src/errors.js";
@@ -62,4 +63,23 @@ test("chaque règle déclarée correspond à une route réellement enregistrée"
   // /api/health est enregistrée par le registre ; aucune règle ne doit rester
   // sans route, sinon la matrice donne une fausse impression de couverture.
   assert.deepEqual(orphelines.map((r) => `${r.methode} ${r.route}`), []);
+});
+
+test("la déclaration OBJECTIF du rapport suit la couverture réelle", async () => {
+  const rapport = await readFile(new URL("../../../docs/conformite.md", import.meta.url), "utf8");
+  const objectif = rapport.match(
+    /^OBJECTIF : (?<etat>atteint|partiel) — (?<valeur>\d+) \/ (?<cible>\d+) routes API[^\n]*?\(HEAD inclus ; (?<regles>\d+) règles déclarées, (?<sansRegle>\d+) route sans règle, (?<orphelines>\d+) règle orpheline\)/m,
+  );
+  assert.ok(objectif, "OBJECTIF du rapport absent ou mal formé");
+  const groupes = objectif.groups!;
+  const sansRegle = routes.filter((r) => reglePour(r.method, r.url) === null);
+  const orphelines = POLITIQUE_ACCES.filter(
+    (r) => !routes.some((route) => route.method === r.methode && route.url === r.route),
+  );
+  assert.equal(groupes.etat, "atteint");
+  assert.equal(Number(groupes.valeur), routes.length, "valeur déclarée ≠ routes enregistrées");
+  assert.equal(Number(groupes.cible), routes.length, "cible déclarée ≠ routes enregistrées");
+  assert.equal(Number(groupes.regles), POLITIQUE_ACCES.length, "règles déclarées ≠ matrice RBAC");
+  assert.equal(Number(groupes.sansRegle), sansRegle.length);
+  assert.equal(Number(groupes.orphelines), orphelines.length);
 });
