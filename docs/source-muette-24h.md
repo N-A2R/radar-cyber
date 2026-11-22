@@ -39,3 +39,11 @@ DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
 ```
 
 Avec `--check`, la commande refuse toute dérive entre ce rapport et la base.
+
+## Clôture du chantier (2026-11-22)
+
+**CHANTIER TERMINÉ.**
+
+La tranche précédente livrait le détecteur, le rejeu et la mesure. Celle-ci rend la livraison vérifiable : le test d'intégration du moniteur crée désormais sa propre source dans la base de test (la clé étrangère `collector_run_source_id_fkey` faisait échouer le check CI `verify`) et le test d'intervalle pose sa propre horloge au lieu de dépendre de l'ordre des tests. Aucun comportement de production n'a changé ; `server.ts` est inchangé dans cette tranche.
+
+Vérifications observées : 12/12 tests ciblés verts, typecheck API vert, `scripts/measure-silent-source.mts --check` conforme (12,77 h p50, 57/57 épisodes sous 24 h, 0,68 s). Suite API complète : 1149/1152 verts ; les deux échecs restants (`fuites.test.ts`, `stats-departements.test.ts`) sont des fuites de jeu de données entre tests, sans lien avec le détecteur — le second figurait déjà dans le log CI de la PR #325 avant cette tranche.

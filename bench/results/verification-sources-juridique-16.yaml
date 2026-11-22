@@ -1,0 +1,206 @@
+date: 2026-11-22
+corpus: bench/corpus/sources-juridique-16.jsonl
+secteur: juridique
+departement: 16
+user_agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36
+methode: GET avec suivi des redirections, statut HTTP et type de contenu verifies avec curl -L
+sources: 14
+urls_verifiees: 39
+urls_200: 39
+detail:
+  - nom: Cour d'appel d'Angoulême
+    urls:
+      https://www.cours-appel.justice.fr/angouleme/:
+        code: 200
+        type: text/html; charset=utf-8
+      https://www.justice.gouv.fr/actualites:
+        code: 200
+        type: text/html; charset=utf-8
+      https://www.cours-appel.justice.fr/angouleme/:
+        code: 200
+        type: text/html; charset=utf-8
+      https://www.charentelibre.fr/france/piratage-du-fisc-un-membre-presume-du-groupe-de-pirates-informatiques-zerobytes-ecroue-30483652.php:
+        code: 200
+        type: text/html; charset=UTF-8
+  - nom: Tribunal judiciaire d'Angoulême
+    urls:
+      https://www.cours-appel.justice.fr/angouleme/tribunal-judiciaire-de-angouleme:
+        code: 200
+        type: text/html; charset=utf-8
+      https://www.justice.gouv.fr/actualites:
+        code: 200
+        type: text/html; charset=utf-8
+      https://www.cours-appel.justice.fr/angouleme/tribunal-judiciaire-de-angouleme:
+        code: 200
+        type: text/html; charset=utf-8
+      https://www.lapresse.ca/affaires/entreprises/2026-10-29/hameconnage-de-cabinets-d-avocats/mccarthy-tetrault-et-davies-victimes-de-vols-de-donnees.php:
+        code: 200
+        type: text/html; charset=UTF-8
+  - nom: Chambre des notaires de la Charente
+    urls:
+      https://chambre-charente.notaires.fr/:
+        code: 200
+        type: text/html; charset=utf-8
+      https://chambre-charente.notaires.fr/actualite:
+        code: 200
+        type: text/html; charset=utf-8
+      https://chambre-charente.notaires.fr/actualite:
+        code: 200
+        type: text/html; charset=utf-8
+      https://www.notaires.fr/fr/actualites/face-la-recrudescence-de-fraudes-et-cyberattaques-soyons-vigilants-ensemble:
+        code: 200
+        type: text/html; charset=UTF-8
+  - nom: Greffe du tribunal de commerce d'Angoulême
+    urls:
+      https://www.greffe-tc-angouleme.fr/:
+        code: 200
+        type: text/html; charset=UTF-8
+      https://www.greffe-tc-angouleme.fr/actualites/:
+        code: 200
+        type: text/html; charset=UTF-8
+      https://www.greffe-tc-angouleme.fr/actualites/:
+        code: 200
+        type: text/html; charset=UTF-8
+      https://www.charentelibre.fr/charente/val-de-bonnieure/en-un-clic-un-couple-de-saint-angeau-se-fait-pirater-13-600-euros-sur-ses-comptes-bancaires-la-banque-refuse-de-rembourser-20798426.php:
+        code: 200
+        type: text/html; charset=UTF-8
+  - nom: Charente Libre — rubrique Justice
+    urls:
+      https://www.charentelibre.fr/societe/justice/:
+        code: 200
+        type: text/html; charset=UTF-8
+      https://www.charentelibre.fr/societe/justice/:
+        code: 200
+        type: text/html; charset=UTF-8
+      https://www.charentelibre.fr/societe/justice/rss.xml:
+        code: 200
+        type: application/xml
+      https://www.charentelibre.fr/societe/justice/cyberattaques-visant-des-frigos-connectes-en-france-l-iran-suspecte-31461013.php:
+        code: 200
+        type: text/html; charset=UTF-8
+  - nom: Sud Ouest — Charente
+    urls:
+      https://www.sudouest.fr/charente/:
+        code: 200
+        type: text/html; charset=UTF-8
+      https://www.sudouest.fr/charente/:
+        code: 200
+        type: text/html; charset=UTF-8
+      https://www.sudouest.fr/charente/rss.xml:
+        code: 200
+        type: application/xml
+      https://www.sudouest.fr/politique/cyberattaque-le-parti-communiste-francais-victime-d-une-fuite-de-donnees-de-ses-adherents-31211979.php:
+        code: 200
+        type: text/html; charset=UTF-8
+  - nom: actu.fr — Charente
+    urls:
+      https://actu.fr/nouvelle-aquitaine/charente_16/:
+        code: 200
+        type: text/html; charset=UTF-8
+      https://actu.fr/nouvelle-aquitaine/charente_16/:
+        code: 200
+        type: text/html; charset=UTF-8
+      https://actu.fr/nouvelle-aquitaine/charente_16/rss.xml:
+        code: 200
+        type: application/rss+xml; charset=utf-8
+      https://actu.fr/nouvelle-aquitaine/angouleme_16015/pres-d-angouleme-22-vols-a-la-roulotte-et-quatre-fraudes-a-la-carte-bancaire-un-suspect-interpelle_65076064.html:
+        code: 200
+        type: text/html; charset=UTF-8
+  - nom: Chambre nationale des commissaires de justice
+    urls:
+      https://commissaire-justice.fr/:
+        code: 200
+        type: text/html; charset=UTF-8
+      https://commissaire-justice.fr/actualites/:
+        code: 200
+        type: text/html; charset=UTF-8
+      https://commissaire-justice.fr/feed/:
+        code: 200
+        type: text/xml;charset=UTF-8
+      https://fr.news.yahoo.com/notaires-pirat%C3%A9s-hackers-vol%C3%A9-40-082607311.html:
+        code: 200
+        type: text/html; charset=utf-8
+  - nom: Annuaire officiel des commissaires de justice
+    urls:
+      https://annuaire.commissaire-justice.fr/:
+        code: 200
+        type: text/html; charset=utf-8
+      https://commissaire-justice.fr/publications-dinformations/:
+        code: 200
+        type: text/html; charset=UTF-8
+      https://annuaire.commissaire-justice.fr/:
+        code: 200
+        type: text/html; charset=utf-8
+      https://commissaire-justice.fr/blog-juridique/fraude-location-saisonniere-eviter-arnaques-recours/:
+        code: 200
+        type: text/html; charset=UTF-8
+  - nom: Notaires de France — actualites
+    urls:
+      https://www.notaires.fr/fr:
+        code: 200
+        type: text/html; charset=UTF-8
+      https://www.notaires.fr/fr/actualites:
+        code: 200
+        type: text/html; charset=UTF-8
+      https://www.notaires.fr/fr/actualites:
+        code: 200
+        type: text/html; charset=UTF-8
+      https://www.notaires.fr/fr/actualites/face-la-recrudescence-de-fraudes-et-cyberattaques-soyons-vigilants-ensemble:
+        code: 200
+        type: text/html; charset=UTF-8
+  - nom: Notaires de France — annuaire de la Charente
+    urls:
+      https://www.notaires.fr/fr/annuaire/nouvelle-aquitaine/charente:
+        code: 200
+        type: text/html; charset=UTF-8
+      https://www.notaires.fr/fr/actualites:
+        code: 200
+        type: text/html; charset=UTF-8
+      https://www.notaires.fr/fr/annuaire/nouvelle-aquitaine/charente:
+        code: 200
+        type: text/html; charset=UTF-8
+      https://www.notaires.fr/fr/actualites/face-la-recrudescence-de-fraudes-et-cyberattaques-soyons-vigilants-ensemble:
+        code: 200
+        type: text/html; charset=UTF-8
+  - nom: Avocat.fr — annuaire des avocats
+    urls:
+      https://www.avocat.fr/:
+        code: 200
+        type: text/html; charset=UTF-8
+      https://www.avocat.fr/actualites:
+        code: 200
+        type: text/html; charset=UTF-8
+      https://www.avocat.fr/rss.xml:
+        code: 200
+        type: application/rss+xml; charset=utf-8
+      https://www.lapresse.ca/affaires/entreprises/2026-10-29/hameconnage-de-cabinets-d-avocats/mccarthy-tetrault-et-davies-victimes-de-vols-de-donnees.php:
+        code: 200
+        type: text/html; charset=UTF-8
+  - nom: CPME16 — Les Entrepreneurs Charente
+    urls:
+      https://cpme16.fr/:
+        code: 200
+        type: text/html; charset=UTF-8
+      https://cpme16.fr/actualites:
+        code: 200
+        type: text/html; charset=UTF-8
+      https://cpme16.fr/feed/:
+        code: 200
+        type: application/rss+xml; charset=utf-8
+      https://www.charentelibre.fr/economie/piratage-informatique-la-charente-en-alerte-30327377.php:
+        code: 200
+        type: text/html; charset=UTF-8
+  - nom: Sud Ouest — rubrique Justice
+    urls:
+      https://www.sudouest.fr/justice/:
+        code: 200
+        type: text/html; charset=UTF-8
+      https://www.sudouest.fr/justice/:
+        code: 200
+        type: text/html; charset=UTF-8
+      https://www.sudouest.fr/justice/rss.xml:
+        code: 200
+        type: application/xml
+      https://www.sudouest.fr/politique/cyberattaque-le-parti-communiste-francais-victime-d-une-fuite-de-donnees-de-ses-adherents-31211979.php:
+        code: 200
+        type: text/html; charset=UTF-8

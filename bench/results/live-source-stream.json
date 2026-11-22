@@ -1,0 +1,18 @@
+{
+  "measuredAt": "2026-11-21T23:06:42.054Z",
+  "method": "local RSS publisher -> continuous live collector -> database trigger on event insert",
+  "region": "nouvelle-aquitaine",
+  "cycles": 4,
+  "sourcesDeclared": 6,
+  "sourcesCollected": 6,
+  "sourcesWithSuccessfulRun": 6,
+  "itemsRecorded": 24,
+  "latencyMs": {
+    "min": 1208,
+    "p50": 1222,
+    "p95": 1340,
+    "max": 1387,
+    "negative": 0
+  },
+  "publicationDelayMs": 1200
+}

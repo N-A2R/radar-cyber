@@ -1,0 +1,733 @@
+{
+  "corpus": [
+    "bench/corpus/sources-transport-47.jsonl"
+  ],
+  "verifie_le": "2026-11-22T09:49:29.881628+00:00",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+  "method": "GET urllib, redirections suivies, code final; timeout 25s",
+  "sources": 22,
+  "urls_sondees": 80,
+  "urls_200": 80,
+  "detail": [
+    {
+      "url": "https://www.otre.org/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.otre.org/",
+      "items_rss": 0,
+      "source": "OTRE Lot-et-Garonne (Organisation des Transporteurs Routiers Entrepreneurs)",
+      "ligne": 1
+    },
+    {
+      "url": "https://www.otre.org/actualites/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.otre.org/actualites/",
+      "items_rss": 0,
+      "source": "OTRE Lot-et-Garonne (Organisation des Transporteurs Routiers Entrepreneurs)",
+      "ligne": 1
+    },
+    {
+      "url": "https://www.otre.org/soiree-annuelle-de-lotre-2026-les-entreprises-du-transport-routier-au-coeur-des-debats-politiques/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.otre.org/soiree-annuelle-de-lotre-2026-les-entreprises-du-transport-routier-au-coeur-des-debats-politiques/",
+      "items_rss": 0,
+      "source": "OTRE Lot-et-Garonne (Organisation des Transporteurs Routiers Entrepreneurs)",
+      "ligne": 1
+    },
+    {
+      "url": "https://fntv.fr/region/fntv-nouvelle-aquitaine",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://fntv.fr/region/fntv-nouvelle-aquitaine",
+      "items_rss": 0,
+      "source": "FNTV Nouvelle-Aquitaine — antenne Lot-et-Garonne",
+      "ligne": 2
+    },
+    {
+      "url": "https://fntv.fr/actualites-de-la-federation",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://fntv.fr/actualites-de-la-federation",
+      "items_rss": 0,
+      "source": "FNTV Nouvelle-Aquitaine — antenne Lot-et-Garonne",
+      "ligne": 2
+    },
+    {
+      "url": "https://fntv.fr/actualite/la-fntv-nouvelle-aquitaine-favorise-lacces-de",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://fntv.fr/actualite/la-fntv-nouvelle-aquitaine-favorise-lacces-de",
+      "items_rss": 0,
+      "source": "FNTV Nouvelle-Aquitaine — antenne Lot-et-Garonne",
+      "ligne": 2
+    },
+    {
+      "url": "https://e-tlf.com/nos-regions/tlf-sud-ouest/",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://e-tlf.com/nos-regions/tlf-sud-ouest/",
+      "items_rss": 0,
+      "source": "Union TLF Sud-Ouest (Transport et Logistique de France)",
+      "ligne": 3
+    },
+    {
+      "url": "https://e-tlf.com/nos-actualites/",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://e-tlf.com/nos-actualites/",
+      "items_rss": 0,
+      "source": "Union TLF Sud-Ouest (Transport et Logistique de France)",
+      "ligne": 3
+    },
+    {
+      "url": "https://e-tlf.com/feed/",
+      "code_http": 200,
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "final_url": "https://e-tlf.com/feed/",
+      "items_rss": 0,
+      "source": "Union TLF Sud-Ouest (Transport et Logistique de France)",
+      "ligne": 3
+    },
+    {
+      "url": "https://e-tlf.com/nos-actualites/plf-plfss-2027-impacts-transport-et-logistique/",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://e-tlf.com/nos-actualites/plf-plfss-2027-impacts-transport-et-logistique/",
+      "items_rss": 0,
+      "source": "Union TLF Sud-Ouest (Transport et Logistique de France)",
+      "ligne": 3
+    },
+    {
+      "url": "https://www.aft-dev.com/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.aft-dev.com/",
+      "items_rss": 0,
+      "source": "AFT (Agence pour la Formation des Transporteurs) — Délégation Régionale Aquitaine Nord",
+      "ligne": 4
+    },
+    {
+      "url": "https://www.aft-dev.com/actualites",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.aft-dev.com/actualites",
+      "items_rss": 0,
+      "source": "AFT (Agence pour la Formation des Transporteurs) — Délégation Régionale Aquitaine Nord",
+      "ligne": 4
+    },
+    {
+      "url": "https://www.aft-dev.com/actualites/rss",
+      "code_http": 200,
+      "content_type": "application/rss+xml; charset=utf-8",
+      "final_url": "https://www.aft-dev.com/actualites/rss",
+      "items_rss": 20,
+      "source": "AFT (Agence pour la Formation des Transporteurs) — Délégation Régionale Aquitaine Nord",
+      "ligne": 4
+    },
+    {
+      "url": "https://www.aft-dev.com/actualites/laft-france-travail-mobilises-lemploi-decouverte-metiers-transport-logistique",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.aft-dev.com/actualites/laft-france-travail-mobilises-lemploi-decouverte-metiers-transport-logistique",
+      "items_rss": 0,
+      "source": "AFT (Agence pour la Formation des Transporteurs) — Délégation Régionale Aquitaine Nord",
+      "ligne": 4
+    },
+    {
+      "url": "https://www.abskill.com/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.abskill.com/",
+      "items_rss": 0,
+      "source": "ABSKILL / AFTRAL — centre d’Agen (Lot-et-Garonne)",
+      "ligne": 5
+    },
+    {
+      "url": "https://www.abskill.com/actualites/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.abskill.com/actualites/",
+      "items_rss": 0,
+      "source": "ABSKILL / AFTRAL — centre d’Agen (Lot-et-Garonne)",
+      "ligne": 5
+    },
+    {
+      "url": "https://www.abskill.com/actualites/decouverte-des-metiers-du-transport-et-de-la-logistique-dans-les-centres-abskill-de-nouvelle-aquitaine-avec-laft/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.abskill.com/actualites/decouverte-des-metiers-du-transport-et-de-la-logistique-dans-les-centres-abskill-de-nouvelle-aquitaine-avec-laft/",
+      "items_rss": 0,
+      "source": "ABSKILL / AFTRAL — centre d’Agen (Lot-et-Garonne)",
+      "ligne": 5
+    },
+    {
+      "url": "https://aeroport-agen.com/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://aeroport-agen.com/",
+      "items_rss": 0,
+      "source": "Aéroport d'Agen (Agen-La Garenne)",
+      "ligne": 6
+    },
+    {
+      "url": "https://aeroport-agen.com/blog/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://aeroport-agen.com/blog/",
+      "items_rss": 0,
+      "source": "Aéroport d'Agen (Agen-La Garenne)",
+      "ligne": 6
+    },
+    {
+      "url": "https://aeroport-agen.com/feed/",
+      "code_http": 200,
+      "content_type": "application/rss+xml",
+      "final_url": "https://aeroport-agen.com/feed/",
+      "items_rss": 9,
+      "source": "Aéroport d'Agen (Agen-La Garenne)",
+      "ligne": 6
+    },
+    {
+      "url": "https://aeroport-agen.com/preparez-vous-au-decollage-flying-whales-recrute-a-agen/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://aeroport-agen.com/preparez-vous-au-decollage-flying-whales-recrute-a-agen/",
+      "items_rss": 0,
+      "source": "Aéroport d'Agen (Agen-La Garenne)",
+      "ligne": 6
+    },
+    {
+      "url": "https://www.tempobus.fr/",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://www.tempobus.fr/",
+      "items_rss": 0,
+      "source": "Tempobus — Réseau Tempo (Agglomération d'Agen)",
+      "ligne": 7
+    },
+    {
+      "url": "https://www.tempobus.fr/actualites",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://www.tempobus.fr/actualites",
+      "items_rss": 0,
+      "source": "Tempobus — Réseau Tempo (Agglomération d'Agen)",
+      "ligne": 7
+    },
+    {
+      "url": "https://www.tempobus.fr/rss.xml",
+      "code_http": 200,
+      "content_type": "text/xml",
+      "final_url": "https://www.tempobus.fr/rss.xml",
+      "items_rss": 10,
+      "source": "Tempobus — Réseau Tempo (Agglomération d'Agen)",
+      "ligne": 7
+    },
+    {
+      "url": "https://www.tempobus.fr/news/inscriptions-transport-scolaire-tempo-2026-2027/",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://www.tempobus.fr/news/inscriptions-transport-scolaire-tempo-2026-2027/",
+      "items_rss": 0,
+      "source": "Tempobus — Réseau Tempo (Agglomération d'Agen)",
+      "ligne": 7
+    },
+    {
+      "url": "https://www.temob.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.temob.fr/",
+      "items_rss": 0,
+      "source": "TÉMOB — réseau mobilités durables (Agen-Boé)",
+      "ligne": 8
+    },
+    {
+      "url": "https://www.temob.fr/temob-actus/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.temob.fr/temob-actus/",
+      "items_rss": 0,
+      "source": "TÉMOB — réseau mobilités durables (Agen-Boé)",
+      "ligne": 8
+    },
+    {
+      "url": "https://www.temob.fr/feed/",
+      "code_http": 200,
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "final_url": "https://www.temob.fr/feed/",
+      "items_rss": 10,
+      "source": "TÉMOB — réseau mobilités durables (Agen-Boé)",
+      "ligne": 8
+    },
+    {
+      "url": "https://www.temob.fr/inauguration-de-la-station-bio-gnv-dagen-boe/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.temob.fr/inauguration-de-la-station-bio-gnv-dagen-boe/",
+      "items_rss": 0,
+      "source": "TÉMOB — réseau mobilités durables (Agen-Boé)",
+      "ligne": 8
+    },
+    {
+      "url": "https://www.agen-garonne.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.agen-garonne.fr/",
+      "items_rss": 0,
+      "source": "Technopole Agen-Garonne",
+      "ligne": 9
+    },
+    {
+      "url": "https://www.agen-garonne.fr/actualites/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.agen-garonne.fr/actualites/",
+      "items_rss": 0,
+      "source": "Technopole Agen-Garonne",
+      "ligne": 9
+    },
+    {
+      "url": "https://www.agen-garonne.fr/feed/",
+      "code_http": 200,
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "final_url": "https://www.agen-garonne.fr/feed/",
+      "items_rss": 10,
+      "source": "Technopole Agen-Garonne",
+      "ligne": 9
+    },
+    {
+      "url": "https://www.agen-garonne.fr/deja-sur-le-tag/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.agen-garonne.fr/deja-sur-le-tag/",
+      "items_rss": 0,
+      "source": "Technopole Agen-Garonne",
+      "ligne": 9
+    },
+    {
+      "url": "https://www.agglo-agen.net/",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.agglo-agen.net/",
+      "items_rss": 0,
+      "source": "Agglomération d'Agen — Transports et Mobilités",
+      "ligne": 10
+    },
+    {
+      "url": "https://www.agglo-agen.net/en-ce-moment/actualites",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.agglo-agen.net/en-ce-moment/actualites",
+      "items_rss": 0,
+      "source": "Agglomération d'Agen — Transports et Mobilités",
+      "ligne": 10
+    },
+    {
+      "url": "https://www.agglo-agen.net/en-ce-moment/actualites/actualite/inauguration-du-nouveau-reseau-de-bus-tempo",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.agglo-agen.net/en-ce-moment/actualites/actualite/inauguration-du-nouveau-reseau-de-bus-tempo",
+      "items_rss": 0,
+      "source": "Agglomération d'Agen — Transports et Mobilités",
+      "ligne": 10
+    },
+    {
+      "url": "https://www.vinci-autoroutes.com/fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.vinci-autoroutes.com/fr/",
+      "items_rss": 0,
+      "source": "VINCI Autoroutes — A62/A66 en Lot-et-Garonne",
+      "ligne": 11
+    },
+    {
+      "url": "https://www.vinci-autoroutes.com/fr/actualites/",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.vinci-autoroutes.com/fr/actualites/",
+      "items_rss": 0,
+      "source": "VINCI Autoroutes — A62/A66 en Lot-et-Garonne",
+      "ligne": 11
+    },
+    {
+      "url": "https://radio.vinci-autoroutes.com/article/a62-fermeture-dans-les-2-sens-entre-agen-n-07-et-valence-d-agen-n-08-19159",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://radio.vinci-autoroutes.com/article/a62-fermeture-dans-les-2-sens-entre-agen-n-07-et-valence-d-agen-n-08-19159",
+      "items_rss": 0,
+      "source": "VINCI Autoroutes — A62/A66 en Lot-et-Garonne",
+      "ligne": 11
+    },
+    {
+      "url": "https://aquidem.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://aquidem.fr/",
+      "items_rss": 0,
+      "source": "Aquidem Déménagements",
+      "ligne": 12
+    },
+    {
+      "url": "https://aquidem.fr/category/blog/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://aquidem.fr/category/blog/",
+      "items_rss": 0,
+      "source": "Aquidem Déménagements",
+      "ligne": 12
+    },
+    {
+      "url": "https://aquidem.fr/feed/",
+      "code_http": 200,
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "final_url": "https://aquidem.fr/feed/",
+      "items_rss": 10,
+      "source": "Aquidem Déménagements",
+      "ligne": 12
+    },
+    {
+      "url": "https://aquidem.fr/demenager-un-piano-a-bordeaux-securite-materiel-tarifs/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://aquidem.fr/demenager-un-piano-a-bordeaux-securite-materiel-tarifs/",
+      "items_rss": 0,
+      "source": "Aquidem Déménagements",
+      "ligne": 12
+    },
+    {
+      "url": "https://amdt-demenagement.com/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://amdt-demenagement.com/",
+      "items_rss": 0,
+      "source": "AMDT Déménagement",
+      "ligne": 13
+    },
+    {
+      "url": "https://amdt-demenagement.com/conseils/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://amdt-demenagement.com/conseils/",
+      "items_rss": 0,
+      "source": "AMDT Déménagement",
+      "ligne": 13
+    },
+    {
+      "url": "https://amdt-demenagement.com/feed/",
+      "code_http": 200,
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "final_url": "https://amdt-demenagement.com/feed/",
+      "items_rss": 15,
+      "source": "AMDT Déménagement",
+      "ligne": 13
+    },
+    {
+      "url": "https://amdt-demenagement.com/droit-a-cubage-militaire-comment-connaitre-le-volume-pris-en-charge-pour-votre-demenagement/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://amdt-demenagement.com/droit-a-cubage-militaire-comment-connaitre-le-volume-pris-en-charge-pour-votre-demenagement/",
+      "items_rss": 0,
+      "source": "AMDT Déménagement",
+      "ligne": 13
+    },
+    {
+      "url": "https://www.transports-guery.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.transports-guery.fr/",
+      "items_rss": 0,
+      "source": "Transports C. Guéry",
+      "ligne": 14
+    },
+    {
+      "url": "http://www.transports-guery.fr/transport-logistique-sud-ouest.htm",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "http://www.transports-guery.fr/transport-logistique-sud-ouest.htm",
+      "items_rss": 0,
+      "source": "Transports C. Guéry",
+      "ligne": 14
+    },
+    {
+      "url": "http://www.transports-guery.fr/remorque-frigorifique-chereau-102922.htm",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "http://www.transports-guery.fr/remorque-frigorifique-chereau-102922.htm",
+      "items_rss": 0,
+      "source": "Transports C. Guéry",
+      "ligne": 14
+    },
+    {
+      "url": "https://www.kuehne-nagel.com/fr",
+      "code_http": 200,
+      "content_type": "text/html;charset=utf-8",
+      "final_url": "https://www.kuehne-nagel.com/fr",
+      "items_rss": 0,
+      "source": "Kuehne+Nagel France - agence Road Logistics d'Agen",
+      "ligne": 15
+    },
+    {
+      "url": "https://newsroom.kuehne-nagel.com/media-releases/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://newsroom.kuehne-nagel.com/media-releases/",
+      "items_rss": 0,
+      "source": "Kuehne+Nagel France - agence Road Logistics d'Agen",
+      "ligne": 15
+    },
+    {
+      "url": "https://newsroom.kuehne-nagel.com/tagfeed/en/tags/global,trade",
+      "code_http": 200,
+      "content_type": "application/xml",
+      "final_url": "https://newsroom.kuehne-nagel.com/tagfeed/en/tags/global,trade",
+      "items_rss": 50,
+      "source": "Kuehne+Nagel France - agence Road Logistics d'Agen",
+      "ligne": 15
+    },
+    {
+      "url": "https://www.kuehne-nagel.com/fr/entreprise/actualite/site-pour-l-agence-road-logistic",
+      "code_http": 200,
+      "content_type": "text/html;charset=utf-8",
+      "final_url": "https://www.kuehne-nagel.com/fr/entreprise/actualite/site-pour-l-agence-road-logistic",
+      "items_rss": 0,
+      "source": "Kuehne+Nagel France - agence Road Logistics d'Agen",
+      "ligne": 15
+    },
+    {
+      "url": "https://france-express.com/agence/47-agen",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://france-express.com/agence/47-agen",
+      "items_rss": 0,
+      "source": "France Express - agence d'Agen",
+      "ligne": 16
+    },
+    {
+      "url": "https://france-express.com/actualites",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://france-express.com/actualites",
+      "items_rss": 0,
+      "source": "France Express - agence d'Agen",
+      "ligne": 16
+    },
+    {
+      "url": "https://france-express.com/rss.xml",
+      "code_http": 200,
+      "content_type": "application/rss+xml; charset=utf-8",
+      "final_url": "https://france-express.com/rss.xml",
+      "items_rss": 10,
+      "source": "France Express - agence d'Agen",
+      "ligne": 16
+    },
+    {
+      "url": "https://france-express.com/actualites/verdir-notre-flotte",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://france-express.com/actualites/verdir-notre-flotte",
+      "items_rss": 0,
+      "source": "France Express - agence d'Agen",
+      "ligne": 16
+    },
+    {
+      "url": "https://cci47.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://cci47.fr/",
+      "items_rss": 0,
+      "source": "CCI de Lot-et-Garonne",
+      "ligne": 17
+    },
+    {
+      "url": "https://cci47.fr/actualites/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://cci47.fr/actualites/",
+      "items_rss": 0,
+      "source": "CCI de Lot-et-Garonne",
+      "ligne": 17
+    },
+    {
+      "url": "https://cci47.fr/nuit-de-l-orientation-2026/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://cci47.fr/nuit-de-l-orientation-2026/",
+      "items_rss": 0,
+      "source": "CCI de Lot-et-Garonne",
+      "ligne": 17
+    },
+    {
+      "url": "https://cma-nouvelleaquitaine.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://cma-nouvelleaquitaine.fr/",
+      "items_rss": 0,
+      "source": "CMA Nouvelle-Aquitaine - Lot-et-Garonne (Chambre des Metiers et de l'Artisanat)",
+      "ligne": 18
+    },
+    {
+      "url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites",
+      "items_rss": 0,
+      "source": "CMA Nouvelle-Aquitaine - Lot-et-Garonne (Chambre des Metiers et de l'Artisanat)",
+      "ligne": 18
+    },
+    {
+      "url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites/artisans-gourmands-2026-7-artisans-des-metiers-de-bouche-a-l-honneur-en-lot-et-garonne",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites/artisans-gourmands-2026-7-artisans-des-metiers-de-bouche-a-l-honneur-en-lot-et-garonne",
+      "items_rss": 0,
+      "source": "CMA Nouvelle-Aquitaine - Lot-et-Garonne (Chambre des Metiers et de l'Artisanat)",
+      "ligne": 18
+    },
+    {
+      "url": "https://www.ladepeche.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.ladepeche.fr/",
+      "items_rss": 0,
+      "source": "La Depeche du Midi",
+      "ligne": 19
+    },
+    {
+      "url": "https://www.ladepeche.fr/economie/transports/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.ladepeche.fr/economie/transports/",
+      "items_rss": 0,
+      "source": "La Depeche du Midi",
+      "ligne": 19
+    },
+    {
+      "url": "https://www.ladepeche.fr/rss.xml",
+      "code_http": 200,
+      "content_type": "text/xml; charset=UTF-8",
+      "final_url": "https://www.ladepeche.fr/rss.xml",
+      "items_rss": 100,
+      "source": "La Depeche du Midi",
+      "ligne": 19
+    },
+    {
+      "url": "https://www.ladepeche.fr/2023/06/02/plateforme-logistique-nouvelles-formations-la-cci-47-entame-la-renovation-de-son-site-de-villeneuve-sur-lot-11236187.php",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.ladepeche.fr/2023/06/02/plateforme-logistique-nouvelles-formations-la-cci-47-entame-la-renovation-de-son-site-de-villeneuve-sur-lot-11236187.php",
+      "items_rss": 0,
+      "source": "La Depeche du Midi",
+      "ligne": 19
+    },
+    {
+      "url": "https://www.sudouest.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.sudouest.fr/",
+      "items_rss": 0,
+      "source": "Sud Ouest",
+      "ligne": 20
+    },
+    {
+      "url": "https://www.sudouest.fr/economie/transports/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.sudouest.fr/economie/transports/",
+      "items_rss": 0,
+      "source": "Sud Ouest",
+      "ligne": 20
+    },
+    {
+      "url": "https://www.sudouest.fr/economie/transports/rss.xml",
+      "code_http": 200,
+      "content_type": "application/xml",
+      "final_url": "https://www.sudouest.fr/economie/transports/rss.xml",
+      "items_rss": 20,
+      "source": "Sud Ouest",
+      "ligne": 20
+    },
+    {
+      "url": "https://www.sudouest.fr/economie/transports/aujourd-hui-nous-ne-pouvons-plus-dependre-de-personne-pour-la-reparation-de-nos-vehicules-le-groupe-de-transport-primever-ouvre-un-atelier-en-lot-et-garonne-29746143.php",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.sudouest.fr/economie/transports/aujourd-hui-nous-ne-pouvons-plus-dependre-de-personne-pour-la-reparation-de-nos-vehicules-le-groupe-de-transport-primever-ouvre-un-atelier-en-lot-et-garonne-29746143.php",
+      "items_rss": 0,
+      "source": "Sud Ouest",
+      "ligne": 20
+    },
+    {
+      "url": "https://www.ici.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.ici.fr/",
+      "items_rss": 0,
+      "source": "ICI Gascogne (ex France Bleu Gascogne, Radio France)",
+      "ligne": 21
+    },
+    {
+      "url": "https://www.ici.fr/nouvelle-aquitaine/lot-et-garonne-47",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.ici.fr/nouvelle-aquitaine/lot-et-garonne-47",
+      "items_rss": 0,
+      "source": "ICI Gascogne (ex France Bleu Gascogne, Radio France)",
+      "ligne": 21
+    },
+    {
+      "url": "https://www.ici.fr/rss/gascogne/rubrique/infos.xml",
+      "code_http": 200,
+      "content_type": "application/xml",
+      "final_url": "https://www.ici.fr/rss/gascogne/rubrique/infos.xml",
+      "items_rss": 20,
+      "source": "ICI Gascogne (ex France Bleu Gascogne, Radio France)",
+      "ligne": 21
+    },
+    {
+      "url": "https://www.ici.fr/nouvelle-aquitaine/lot-et-garonne-47/villeneuve-sur-lot/l-avenir-de-gifi-incertain-l-inquietude-a-villeneuve-sur-lot-ou-se-trouve-le-siege-du-groupe-6246640",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.ici.fr/nouvelle-aquitaine/lot-et-garonne-47/villeneuve-sur-lot/l-avenir-de-gifi-incertain-l-inquietude-a-villeneuve-sur-lot-ou-se-trouve-le-siege-du-groupe-6246640",
+      "items_rss": 0,
+      "source": "ICI Gascogne (ex France Bleu Gascogne, Radio France)",
+      "ligne": 21
+    },
+    {
+      "url": "https://actu.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://actu.fr/",
+      "items_rss": 0,
+      "source": "actu.fr - Le Républicain Lot-et-Garonne",
+      "ligne": 22
+    },
+    {
+      "url": "https://actu.fr/nouvelle-aquitaine/lot-et-garonne_47",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://actu.fr/nouvelle-aquitaine/lot-et-garonne_47",
+      "items_rss": 0,
+      "source": "actu.fr - Le Républicain Lot-et-Garonne",
+      "ligne": 22
+    },
+    {
+      "url": "https://actu.fr/rss.xml",
+      "code_http": 200,
+      "content_type": "application/rss+xml; charset=utf-8",
+      "final_url": "https://actu.fr/rss.xml",
+      "items_rss": 30,
+      "source": "actu.fr - Le Républicain Lot-et-Garonne",
+      "ligne": 22
+    },
+    {
+      "url": "https://actu.fr/nouvelle-aquitaine/samazan_47285/une-grande-enseigne-va-poser-ses-valises-pres-de-marmande-pour-y-implanter-un-enorme-entrepot-logistique_63646222.html",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://actu.fr/nouvelle-aquitaine/samazan_47285/une-grande-enseigne-va-poser-ses-valises-pres-de-marmande-pour-y-implanter-un-enorme-entrepot-logistique_63646222.html",
+      "items_rss": 0,
+      "source": "actu.fr - Le Républicain Lot-et-Garonne",
+      "ligne": 22
+    }
+  ]
+}

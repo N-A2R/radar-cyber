@@ -1,0 +1,209 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-batiment-17.jsonl",
+  "secteur": "bâtiment",
+  "departement": "17",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/131 Safari/537.36",
+  "methode": "GET HTTP avec User-Agent navigateur, suivi des redirections, délai 25 s ; statut et type de contenu relevés pour chaque URL",
+  "sources": 16,
+  "urls_verifiees": 29,
+  "urls_200": 29,
+  "detail": [
+    {
+      "nom": "CAPEB Charente-Maritime",
+      "urls": {
+        "https://www.capeb.fr/charente-maritime": {
+          "code": 200,
+          "type": "text/html; charset=utf-8"
+        },
+        "https://www.capeb.fr/charente-maritime/actualites": {
+          "code": 200,
+          "type": "text/html; charset=utf-8"
+        }
+      }
+    },
+    {
+      "nom": "CMA La Rochelle — Charente-Maritime",
+      "urls": {
+        "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/nous-trouver/cma-charente-maritime-larochelle": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        }
+      }
+    },
+    {
+      "nom": "CAUE 17 — Conseil d'architecture, d'urbanisme et de l'environnement de la Charente-Maritime",
+      "urls": {
+        "https://www.caue17.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://www.caue17.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        }
+      }
+    },
+    {
+      "nom": "Habitat17 — Office public de l'habitat de la Charente-Maritime",
+      "urls": {
+        "https://www.habitat17.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://www.habitat17.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8"
+        }
+      }
+    },
+    {
+      "nom": "Sud Ouest — Charente-Maritime",
+      "urls": {
+        "https://www.sudouest.fr/charente-maritime": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://www.sudouest.fr/charente-maritime/archives/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://www.sudouest.fr/charente-maritime/rss.xml": {
+          "code": 200,
+          "type": "application/xml"
+        }
+      }
+    },
+    {
+      "nom": "La Nouvelle République — Charente-Maritime",
+      "urls": {
+        "https://www.lanouvellerepublique.fr/charente-maritime": {
+          "code": 200,
+          "type": "text/html; charset=utf-8"
+        }
+      }
+    },
+    {
+      "nom": "ici Charente-Maritime — Radio France",
+      "urls": {
+        "https://www.ici.fr/nouvelle-aquitaine/charente-maritime-17": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://www.ici.fr/rss/la-rochelle/rubrique/infos.xml": {
+          "code": 200,
+          "type": "application/xml"
+        }
+      }
+    },
+    {
+      "nom": "Le Littoral",
+      "urls": {
+        "https://www.le-littoral.com/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        }
+      }
+    },
+    {
+      "nom": "Haute Saintonge",
+      "urls": {
+        "https://www.hautesaintonge.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        }
+      }
+    },
+    {
+      "nom": "L'Hebdo 17",
+      "urls": {
+        "https://www.lhebdo17.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        }
+      }
+    },
+    {
+      "nom": "Pro-RGE — Entreprises RGE en Charente-Maritime",
+      "urls": {
+        "https://pro-rge.fr/entreprises/charente-maritime-17/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8"
+        }
+      }
+    },
+    {
+      "nom": "INF la Rochelle",
+      "urls": {
+        "https://inf-info.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://inf-info.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8"
+        }
+      }
+    },
+    {
+      "nom": "France 3 Nouvelle-Aquitaine — Charente-Maritime",
+      "urls": {
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente-maritime": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente-maritime/rss": {
+          "code": 200,
+          "type": "text/xml; charset=UTF-8"
+        }
+      }
+    },
+    {
+      "nom": "actu.fr — Charente-Maritime",
+      "urls": {
+        "https://actu.fr/nouvelle-aquitaine/charente-maritime_17": {
+          "code": 200,
+          "type": "text/html; charset=utf-8"
+        },
+        "https://actu.fr/nouvelle-aquitaine/charente-maritime_17/rss.xml": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8"
+        }
+      }
+    },
+    {
+      "nom": "Hélène FM",
+      "urls": {
+        "https://www.helenefm.com/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://www.helenefm.com/?tag=charente-maritime": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://www.helenefm.com/?feed=rss2": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8"
+        }
+      }
+    },
+    {
+      "nom": "L'Angérien Libre",
+      "urls": {
+        "https://www.langerienlibre.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://www.langerienlibre.fr/actualites-actualites.html": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        }
+      }
+    }
+  ]
+}

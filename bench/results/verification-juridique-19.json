@@ -1,0 +1,89 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-juridique-19.jsonl",
+  "secteur": "juridique",
+  "departement": "19",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36",
+  "methode": "GET réel avec suivi des redirections, délai maximal 18 s, User-Agent navigateur : code HTTP, type de contenu et nombre d'items RSS relevés pour chaque URL (sites, pages d'actualités et flux).",
+  "sources": 10,
+  "urls_verifiees": 19,
+  "urls_200": 19,
+  "detail": [
+    {
+      "nom": "Tribunal judiciaire de Tulle",
+      "urls": {
+        "https://www.cours-appel.justice.fr/limoges/tribunal-judiciaire-de-tulle": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.cours-appel.justice.fr/limoges/tribunal-judiciaire-de-tulle/actualites": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "Tribunal judiciaire de Brive-la-Gaillarde",
+      "urls": {
+        "https://www.cours-appel.justice.fr/limoges/tribunal-judiciaire-de-brive-la-gaillarde": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.cours-appel.justice.fr/limoges/tribunal-judiciaire-de-brive-la-gaillarde/actualites": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "Notaires de France — annuaire des notaires de la Corrèze",
+      "urls": {
+        "https://www.notaires.fr/fr/annuaire/nouvelle-aquitaine/correze": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.notaires.fr/fr/actualites": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.notaires.fr/rss/actualites": {"code": 200, "type": "application/rss+xml; charset=utf-8", "items_rss": 420}
+      }
+    },
+    {
+      "nom": "Avocat.fr — annuaire du barreau de Tulle",
+      "urls": {
+        "https://consultation.avocat.fr/avocats/barreau-tulle.html": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.avocat.fr/actualites": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "Sud Ouest — Corrèze (justice)",
+      "urls": {
+        "https://www.sudouest.fr/correze/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.sudouest.fr/justice/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.sudouest.fr/justice/rss.xml": {"code": 200, "type": "application/xml", "items_rss": 20}
+      }
+    },
+    {
+      "nom": "La Montagne — Corrèze",
+      "urls": {
+        "https://www.lamontagne.fr/correze/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "actu.fr — Brive-la-Gaillarde (Corrèze)",
+      "urls": {
+        "https://actu.fr/nouvelle-aquitaine/brive-la-gaillarde_19031/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "ICI Corrèze (Radio France)",
+      "urls": {
+        "https://www.ici.fr/nouvelle-aquitaine/correze-19/actu": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.ici.fr/rss/limousin/rubrique/infos.xml": {"code": 200, "type": "application/xml", "items_rss": 20}
+      }
+    },
+    {
+      "nom": "France 3 Nouvelle-Aquitaine — Corrèze",
+      "urls": {
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "CMA Nouvelle-Aquitaine — Corrèze (droit des entreprises)",
+      "urls": {
+        "https://cma-nouvelleaquitaine.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}
+      }
+    }
+  ],
+  "candidats_ecartes": [
+    {"nom": "Barreau de Tulle — sites dédiés", "url": "https://www.avocats19.fr/", "raison": "domaines avocats19.fr, barreaudetulle.fr, barreaudetulle.com non résolus ; l'annuaire Avocat.fr du barreau de Tulle est retenu à la place."},
+    {"nom": "Chambre des notaires / commissaires de justice de la Corrèze", "url": "https://www.notaires19.fr/", "raison": "domaines notaires19.fr, notaires-correze.fr, chambre-notaires-correze.fr, cdhj19.fr et cdj19.fr non résolus ; annuaire notaires.fr retenu."},
+    {"nom": "La Montagne — rubrique justice", "url": "https://www.lamontagne.fr/justice/", "raison": "HTTP 404 ; l'édition Corrèze du quotidien est retenue comme page d'actualités."},
+    {"nom": "actu.fr — flux Brive", "url": "https://actu.fr/nouvelle-aquitaine/brive-la-gaillarde_19031/rss.xml", "raison": "HTTP 404 ; la page d'actualités locale est retenue sans flux."},
+    {"nom": "Conseil départemental de la Corrèze — liste d'actualités", "url": "https://www.correze.fr/actualites/", "raison": "HTTP 404 pour /actualites/, /actualites et /actualites.html ; page d'accueil non retenue faute de page d'actualités exploitable."}
+  ]
+}
