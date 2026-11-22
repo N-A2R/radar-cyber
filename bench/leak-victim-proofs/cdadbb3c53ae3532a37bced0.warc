@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:e7ea7719-9d7e-4306-a468-eef1eeeb8d74>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/posts/2026
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 265
+WARC-Block-Digest: sha1:QSX3MRBQKCPNZ2QBYEIWNH5P3FTJ6MNP
+X-Claim-Fingerprint: a9ec9025bfecd10444e3ee1d
+X-Victim-Key: cdadbb3c53ae3532a37bced0
+
+{"post_title": "Lucky Look", "discovered": "2026-03-30 20:30:34.659294", "description": "", "link": "topic.php?id=p5rIF3Z3WgfDi", "magnet": null, "screen": "screenshots/play/Lucky Look.png", "misp_uuid": "3ad2cb83-9152-5fe2-a4ef-8d32321dd750", "group_name": "play"}
+
