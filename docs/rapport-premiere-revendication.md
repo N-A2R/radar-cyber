@@ -7,6 +7,7 @@ Mesure rejouée le **2026-11-22** sur la base de travail réelle : ≈ 1 673�
 Fenêtre glissante de **7 jours** ; cible : **moins d'une heure** entre la publication de la revendication et sa première trace dans le radar. Le chiffre de référence est la médiane (p50).
 
 **Objectif atteint** : p50 **0,43 h** sur 45 revendications du flux de première revendication collectées en direct, avec 40 revendications (88,90 %) sous une heure. Le rejeu du collecteur corrigé donne un p50 de **1,86 min** et un maximum de **4,91 min** (cadence 300 s).
+OBJECTIF : atteint — 0,43 / 1 h (p50 de première revendication en collecte directe)
 
 | Population (collecte directe) | Revendications | p50 (h) | p90 (h) | max (h) | ≤ 1 h |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -103,6 +104,7 @@ SELECT (extract(epoch FROM min(started_at)) * 1000)::bigint AS anchor_ms
 - Sa cadence passe de 3 600 s à 300 s, soit une attente maximale de 5 minutes avant reprise.
 - La mesure distingue désormais la collecte directe des imports de masse, qui n'étaient pas séparés et faisaient passer un rejeu de corpus pour une latence de veille.
 - `apps/api/src/server.ts` n'est pas modifié : 0 ligne de diff (contrainte ≤ 10 lignes).
+- La ligne `OBJECTIF :` est produite par le générateur et vérifiée ligne par ligne, sans chiffre ancien.
 
 ## Reproduire
 

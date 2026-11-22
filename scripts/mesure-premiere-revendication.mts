@@ -24,13 +24,18 @@ import { dirname, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { closePools, query } from "../apps/api/src/db.js";
 import { summarizeReplay } from "../apps/api/src/analyse/claim-latency.js";
+import {
+	OBJECTIF_PREMIERE_REVENDICATION,
+	ligneObjectifPremiereRevendication,
+	verifierObjectifPremiereRevendication,
+} from "../apps/api/src/analyse/objectif-premiere-revendication.js";
 import { collector as claimCollector } from "../apps/api/src/collectors/ransomlook.collector.js";
 
 const ROOT = fileURLToPath(new URL("..", import.meta.url));
 const OUTPUT_JSON = "bench/results/premiere-revendication.json";
 const OUTPUT_DOC = "docs/rapport-premiere-revendication.md";
 const WINDOW_DAYS = 7;
-const TARGET_HOURS = 1;
+const TARGET_HOURS = OBJECTIF_PREMIERE_REVENDICATION.targetHours;
 const BULK_IMPORT_THRESHOLD = 50;
 /** quarantine.collector.ts throttles ransomware.live to one poll per 30 min. */
 const LEAK_COLLECTOR_INTERVAL_SEC = 1800;
@@ -216,7 +221,7 @@ async function main(): Promise<void> {
       metric: "feed.live.p50Hours",
       targetHours: TARGET_HOURS,
       measuredHours: feed.live.p50Hours,
-      achieved: feed.live.p50Hours < TARGET_HOURS,
+      achieved: verifierObjectifPremiereRevendication({ measuredHours: feed.live.p50Hours }).reached,
     },
   };
 
@@ -240,6 +245,7 @@ async function main(): Promise<void> {
       `${feed.live.withinOneHour} revendications (${comma(feed.live.withinOneHourPct)} %) sous une heure. ` +
       `Le rejeu du collecteur corrigé donne un p50 de **${comma(feedReplay.p50Minutes)} min** et un maximum de ` +
       `**${comma(feedReplay.maxMinutes)} min** (cadence ${claimCollector.intervalSec} s).`,
+    ligneObjectifPremiereRevendication(feed.live.p50Hours),
     "",
     "| Population (collecte directe) | Revendications | p50 (h) | p90 (h) | max (h) | ≤ 1 h |",
     "| --- | ---: | ---: | ---: | ---: | ---: |",
@@ -343,6 +349,7 @@ async function main(): Promise<void> {
     "- La mesure distingue désormais la collecte directe des imports de masse, qui n'étaient pas séparés " +
       "et faisaient passer un rejeu de corpus pour une latence de veille.",
     "- `apps/api/src/server.ts` n'est pas modifié : 0 ligne de diff (contrainte ≤ 10 lignes).",
+    "- La ligne `OBJECTIF :` est produite par le générateur et vérifiée ligne par ligne, sans chiffre ancien.",
     "",
     "## Reproduire",
     "",
