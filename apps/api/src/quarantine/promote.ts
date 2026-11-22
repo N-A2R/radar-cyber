@@ -20,6 +20,7 @@
  * `ransomware-revendication` pour générer l'alerte.
  */
 import { admitEvent } from "../contract/admit.js";
+import { normalizeIsoDate } from "../dates/normalize.js";
 import { languageVerdict } from "../collectors/filter.js";
 import { scoreEventPertinence } from "../collectors/pertinence.js";
 import { ingestQuery, query, withTransaction } from "../db.js";
@@ -708,10 +709,10 @@ async function insertClaimEventRow(
   const title = `${row.org_hint ?? "Revendication"} — revendiqué par ${row.groupe ?? "groupe inconnu"}`.slice(0, 400);
   const description = (row.extracted?.description as string | null | undefined) ?? row.raw_body ?? null;
   const summary = row.tlp === "RED" ? null : description ? String(description).slice(0, 4000) : null;
-  // La date de promotion sert de `observed_at` : la date de revendication (2025)
-  // est antérieure à la rétention de 90 j et viderait l'événement. Elle reste
-  // dans `quarantine_raw.claimed_at` et dans `evidence`.
+  // Promotion time stays in observed_at: the 90-day retention window relies
+  // on it. The real claim date is normalized in ISO form in evidence instead.
   const observedAt = new Date().toISOString();
+  const claimDate = normalizeIsoDate(row.claimed_at);
 
   // Contrat appliqué aussi à la promotion : un fait promu par un analyste
   // reste un événement comme les autres. Ici tout est construit par nous, donc
@@ -735,6 +736,7 @@ async function insertClaimEventRow(
       group: row.groupe,
       org_hint: row.org_hint,
       claimed_at: row.claimed_at,
+      ...(claimDate ? { claimDate } : {}),
       promoted_by: promotedBy,
     },
   });
@@ -749,8 +751,8 @@ async function insertClaimEventRow(
   }
   const portee = porteeRegionale(`${event.title} ${event.summary ?? ""}`, orgId);
   const sql = `INSERT INTO event (dedup_key, family, assertion_type, title, summary, langue, observed_at, severity, confidence,
-       source_id, source_url, evidence, geo_type, org_id, tlp, tlp_source, regional, regional_motif, pertinence_score, pertinence_rule)
-     VALUES ($1,$2,$3,$4,$5,$18,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$19,$20)
+       source_id, source_url, evidence, geo_type, org_id, tlp, tlp_source, regional, regional_motif, pertinence_score, pertinence_rule, date_source, date_confidence)
+     VALUES ($1,$2,$3,$4,$5,$18,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$19,$20,$21,$22)
      ON CONFLICT (dedup_key) DO UPDATE SET observed_at = COALESCE(event.observed_at, EXCLUDED.observed_at)
      RETURNING id, (xmax = 0) AS inserted`;
   const values = [
@@ -774,6 +776,8 @@ async function insertClaimEventRow(
     langue.language,
     pertinence.score,
     pertinence.rule,
+    claimDate ? "claim" : null,
+    claimDate ? "medium" : null,
   ];
   const r = await run<{ id: number; inserted: boolean }>(sql, values);
   await consignerAvec((sql, params) => run(sql, params as unknown[]), {

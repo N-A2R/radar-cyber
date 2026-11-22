@@ -30,6 +30,7 @@ import {
 	GEO_TYPES,
 	type NormalizedEvent,
 } from "@radar/shared";
+import { parseDate } from "../collectors/dates.js";
 
 /** Écart réparé sans perte de sens. Code stable, pour compter et journaliser. */
 export type Repair =
@@ -143,8 +144,8 @@ export function admitEvent(raw: Record<string, unknown>): Admission {
 	let observedAt: string | undefined;
 	const rawDate = text(raw.observedAt);
 	if (rawDate) {
-		const ms = Date.parse(rawDate);
-		if (Number.isFinite(ms)) observedAt = new Date(ms).toISOString();
+		const parsed = parseDate(rawDate);
+		if (parsed !== null && !Number.isNaN(parsed.getTime())) observedAt = parsed.toISOString();
 		else repair("date-illisible");
 	}
 
