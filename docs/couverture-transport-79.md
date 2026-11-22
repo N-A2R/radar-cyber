@@ -1,5 +1,7 @@
 # Couverture — transport / Deux-Sèvres (79)
 
+OBJECTIF : atteint — 20 / 5 sources vérifiées en HTTP 200 pour le couple secteur « transport » / département 79 (Deux-Sèvres), 77 URL contrôlées le 2026-11-22.
+
 20 sources d’information du secteur transport dans les Deux-Sèvres, 77 URL contrôlées en HTTP 200 le 2026-11-22.
 
 | Source | Type | Site | Actualités | Flux |
