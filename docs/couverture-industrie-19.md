@@ -41,3 +41,4 @@ Recherche web (annuaires professionnels, chambres consulaires, fédérations mé
 
 Corpus : `bench/corpus/sources-industrie-19.jsonl` (13 lignes, empreinte `bench/corpus/HASH` recalculée).
 Base : `db/migrate-074-sources-industrie-19.sql` insère 13 lignes dans `source` (parser pointant vers le corpus) et 27 traces `source_verification` en état `ok200`.
+OBJECTIF : atteint — 13 sources vérifiées HTTP 200 / 5 minimum.
