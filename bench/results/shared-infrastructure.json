@@ -1,0 +1,110 @@
+{
+  "command": "pnpm measure:shared-infrastructure",
+  "scope": "nouvelle-aquitaine",
+  "objective": {
+    "target": 1,
+    "comparator": ">=",
+    "achieved": 4,
+    "unit": "clusters"
+  },
+  "clusterCount": 4,
+  "victimOrganizations": 71,
+  "victimsInClusters": 9,
+  "sharedAnchors": 4,
+  "normalizedObservations": 19,
+  "baseline": {
+    "organizations": 1673220,
+    "sources": 463,
+    "events": 27899
+  },
+  "clusters": [
+    {
+      "id": "infra:ransomocmou6mnbquqz44ewosbkjk3o5qjsl3orawojexfook2j7esad.onion",
+      "anchors": [
+        {
+          "value": "ransomocmou6mnbquqz44ewosbkjk3o5qjsl3orawojexfook2j7esad.onion",
+          "kinds": [
+            "leak_site"
+          ],
+          "victims": [
+            2067346,
+            2237595,
+            2356664
+          ]
+        }
+      ],
+      "victims": [
+        2067346,
+        2237595,
+        2356664
+      ],
+      "size": 3
+    },
+    {
+      "id": "infra:6g3aoky5hft4mvzcqt2bugo4r465woaorjhd7em2k2v24sr2exaro5id.onion",
+      "anchors": [
+        {
+          "value": "6g3aoky5hft4mvzcqt2bugo4r465woaorjhd7em2k2v24sr2exaro5id.onion",
+          "kinds": [
+            "event_source"
+          ],
+          "victims": [
+            77376,
+            604869
+          ]
+        }
+      ],
+      "victims": [
+        77376,
+        604869
+      ],
+      "size": 2
+    },
+    {
+      "id": "infra:mbrlkbtq5jonaqkurjwmxftytyn2ethqvbxfu4rgjbkkknndqwae6byd.onion",
+      "anchors": [
+        {
+          "value": "mbrlkbtq5jonaqkurjwmxftytyn2ethqvbxfu4rgjbkkknndqwae6byd.onion",
+          "kinds": [
+            "leak_site"
+          ],
+          "victims": [
+            275378,
+            2073563
+          ]
+        }
+      ],
+      "victims": [
+        275378,
+        2073563
+      ],
+      "size": 2
+    },
+    {
+      "id": "infra:z3wqggtxft7id3ibr7srivv5gjof5fwg76slewnzwwakjuf3nlhukdid.onion",
+      "anchors": [
+        {
+          "value": "z3wqggtxft7id3ibr7srivv5gjof5fwg76slewnzwwakjuf3nlhukdid.onion",
+          "kinds": [
+            "leak_site"
+          ],
+          "victims": [
+            2823,
+            2139835
+          ]
+        }
+      ],
+      "victims": [
+        2823,
+        2139835
+      ],
+      "size": 2
+    }
+  ],
+  "sql": {
+    "baseline": "SELECT (SELECT count(*) FROM org)::int AS organizations,\n                    (SELECT count(*) FROM source)::int AS sources,\n                    (SELECT count(*) FROM event)::int AS events",
+    "victims": "SELECT DISTINCT c.org_id\n            FROM leak_claim c\n            JOIN org o ON o.id = c.org_id\n            WHERE c.na AND o.dept = ANY($1::text[])",
+    "observations": "WITH victims AS (\n                   SELECT DISTINCT c.org_id\n                   FROM leak_claim c\n                   JOIN org o ON o.id = c.org_id\n                   WHERE c.na AND o.dept = ANY($1::text[])\n                 ), raw AS (\n                   SELECT c.org_id AS oid, 'leak_site'::text AS kind, s.site_url AS value\n                   FROM leak_claim c\n                   JOIN leak_site s ON s.source = c.source AND s.slug = c.site_slug\n                   WHERE c.na AND s.site_url IS NOT NULL\n                   UNION ALL\n                   SELECT c.org_id, 'claim_evidence', c.evidence_url\n                   FROM leak_claim c\n                   WHERE c.na AND c.evidence_url IS NOT NULL\n                   UNION ALL\n                   SELECT e.org_id, 'event_source', s.url\n                   FROM event e\n                   JOIN source s ON s.id = e.source_id\n                   WHERE e.org_id IS NOT NULL AND s.url IS NOT NULL\n                   UNION ALL\n                   SELECT v.org_id, arr.kind, x.value\n                   FROM dns_snapshot s\n                   JOIN victims v ON v.org_id = ANY(COALESCE((\n                          SELECT d.org_ids FROM dns_domaine d WHERE d.domain = s.domain\n                        ), '{}'::int[]))\n                     OR EXISTS (SELECT 1 FROM org o WHERE o.domain = s.domain AND o.id = v.org_id)\n                   CROSS JOIN LATERAL (VALUES\n                     ('dns_a'::text, s.a), ('dns_aaaa'::text, s.aaaa),\n                     ('dns_mx'::text, s.mx), ('dns_ns'::text, s.ns)\n                   ) AS arr(kind, values)\n                   CROSS JOIN LATERAL unnest(COALESCE(arr.values, '{}'::text[])) AS x(value)\n                 )\n                 SELECT DISTINCT r.oid, r.kind, r.value\n                 FROM raw r\n                 JOIN victims v ON v.org_id = r.oid\n                 WHERE r.value IS NOT NULL AND btrim(r.value) <> ''"
+  },
+  "measuredAt": "2026-11-22T01:07:04.940Z"
+}

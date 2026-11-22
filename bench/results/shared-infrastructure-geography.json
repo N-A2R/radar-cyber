@@ -1,0 +1,71 @@
+{
+  "command": "pnpm measure:shared-infrastructure-geography",
+  "scope": "nouvelle-aquitaine",
+  "objective": {
+    "target": 3,
+    "comparator": ">=",
+    "achieved": 5,
+    "unit": "clusters inter-départementaux"
+  },
+  "clusterCount": 5,
+  "crossDepartmentClusters": 5,
+  "departmentsCovered": 9,
+  "clusterGeographies": [
+    {
+      "id": "infra:6g3aoky5hft4mvzcqt2bugo4r465woaorjhd7em2k2v24sr2exaro5id.onion",
+      "departments": [
+        "16",
+        "19",
+        "23",
+        "40",
+        "64"
+      ],
+      "crossDepartment": true
+    },
+    {
+      "id": "infra:kg2pf5nokg5xg2ahzbhzf5kucr5bc4y4ojordiebakopioqkk4vgz6ad.onion",
+      "departments": [
+        "16",
+        "40",
+        "79"
+      ],
+      "crossDepartment": true
+    },
+    {
+      "id": "infra:ransomocmou6mnbquqz44ewosbkjk3o5qjsl3orawojexfook2j7esad.onion",
+      "departments": [
+        "17",
+        "33"
+      ],
+      "crossDepartment": true
+    },
+    {
+      "id": "infra:mbrlkbtq5jonaqkurjwmxftytyn2ethqvbxfu4rgjbkkknndqwae6byd.onion",
+      "departments": [
+        "33",
+        "79"
+      ],
+      "crossDepartment": true
+    },
+    {
+      "id": "infra:z3wqggtxft7id3ibr7srivv5gjof5fwg76slewnzwwakjuf3nlhukdid.onion",
+      "departments": [
+        "16",
+        "47"
+      ],
+      "crossDepartment": true
+    }
+  ],
+  "baseline": {
+    "organizations": 1673220,
+    "sources": 711,
+    "events": 26770
+  },
+  "sql": {
+    "baseline": "SELECT (SELECT count(*) FROM org)::int AS organizations,\n                    (SELECT count(*) FROM source)::int AS sources,\n                    (SELECT count(*) FROM event)::int AS events",
+    "victims": "SELECT DISTINCT c.org_id\n            FROM leak_claim c\n            JOIN org o ON o.id = c.org_id\n            WHERE c.na AND o.dept = ANY($1::text[])",
+    "departments": "SELECT DISTINCT c.org_id AS oid, o.dept\n                 FROM leak_claim c\n                 JOIN org o ON o.id = c.org_id\n                 WHERE c.na AND o.dept = ANY($1::text[])",
+    "observations": "WITH victims AS (\n                   SELECT DISTINCT c.org_id\n                   FROM leak_claim c\n                   JOIN org o ON o.id = c.org_id\n                   WHERE c.na AND o.dept = ANY($1::text[])\n                 ), raw AS (\n                   SELECT c.org_id AS oid, 'leak_site'::text AS kind, s.site_url AS value,\n                          c.published_at AS observed_at\n                   FROM leak_claim c\n                   JOIN leak_site s ON s.source = c.source AND s.slug = c.site_slug\n                   WHERE c.na AND s.site_url IS NOT NULL\n                   UNION ALL\n                   SELECT c.org_id, 'claim_evidence', c.evidence_url, c.published_at\n                   FROM leak_claim c\n                   WHERE c.na AND c.evidence_url IS NOT NULL\n                   UNION ALL\n                   SELECT e.org_id, 'event_source', s.url, e.observed_at\n                   FROM event e\n                   JOIN source s ON s.id = e.source_id\n                   WHERE e.org_id IS NOT NULL AND s.url IS NOT NULL\n                   UNION ALL\n                   SELECT v.org_id, arr.kind, x.value, s.observed_at\n                   FROM dns_snapshot s\n                   JOIN victims v ON v.org_id = ANY(COALESCE((\n                          SELECT d.org_ids FROM dns_domaine d WHERE d.domain = s.domain\n                        ), '{}'::int[]))\n                     OR EXISTS (SELECT 1 FROM org o WHERE o.domain = s.domain AND o.id = v.org_id)\n                   CROSS JOIN LATERAL (VALUES\n                     ('dns_a'::text, s.a), ('dns_aaaa'::text, s.aaaa),\n                     ('dns_mx'::text, s.mx), ('dns_ns'::text, s.ns)\n                   ) AS arr(kind, values)\n                   CROSS JOIN LATERAL unnest(COALESCE(arr.values, '{}'::text[])) AS x(value)\n                 )\n                 SELECT DISTINCT r.oid, r.kind, r.value, r.observed_at\n                 FROM raw r\n                 JOIN victims v ON v.org_id = r.oid\n                 WHERE r.value IS NOT NULL AND btrim(r.value) <> ''"
+  },
+  "measuredAt": "2026-11-22T04:00:24.268Z"
+}
