@@ -1,0 +1,7727 @@
+{
+	"generatedAt": "2026-11-22T00:30:26.551Z",
+	"durationMs": 17754,
+	"corpus": "bench/corpus/sources-na-1000.jsonl",
+	"corpusSha256": "fa7bb711bba847e25459a58ce474a3faeea26c35cca35210055d3f41f5028909",
+	"sites": 1000,
+	"hosts": 760,
+	"defectiveSites": 16,
+	"defectiveHosts": 16,
+	"byStatus": {
+		"expired": 2,
+		"misconfigured": 14,
+		"weak": 0,
+		"clean": 979,
+		"no_tls": 4,
+		"unknown": 1
+	},
+	"byReason": {
+		"hostname_mismatch": 14,
+		"no_tls_service": 4,
+		"certificate_expired": 2,
+		"self_signed_certificate": 3,
+		"endpoint_unreachable": 1
+	},
+	"byDepartment": {
+		"16": {
+			"sites": 79,
+			"defective": 0
+		},
+		"17": {
+			"sites": 111,
+			"defective": 1
+		},
+		"19": {
+			"sites": 45,
+			"defective": 1
+		},
+		"23": {
+			"sites": 17,
+			"defective": 0
+		},
+		"24": {
+			"sites": 52,
+			"defective": 1
+		},
+		"33": {
+			"sites": 238,
+			"defective": 7
+		},
+		"40": {
+			"sites": 68,
+			"defective": 0
+		},
+		"47": {
+			"sites": 48,
+			"defective": 0
+		},
+		"64": {
+			"sites": 119,
+			"defective": 4
+		},
+		"79": {
+			"sites": 68,
+			"defective": 2
+		},
+		"86": {
+			"sites": 82,
+			"defective": 0
+		},
+		"87": {
+			"sites": 73,
+			"defective": 0
+		}
+	},
+	"findings": [
+		{
+			"host": "0332288h.index-education.net",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-30T13:06:19.000Z"
+		},
+		{
+			"host": "agricampus40.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-02-05T08:07:45.000Z"
+		},
+		{
+			"host": "agrocampus17.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-03-07T23:59:59.000Z"
+		},
+		{
+			"host": "agrocampus47.org",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-04-02T23:59:59.000Z"
+		},
+		{
+			"host": "agrocampus64.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-12T19:59:21.000Z"
+		},
+		{
+			"host": "airvault.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-01-17T14:56:54.000Z"
+		},
+		{
+			"host": "am-martel.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-02-02T22:51:43.000Z"
+		},
+		{
+			"host": "ambroise-croizat-tarnos.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-30T08:20:08.000Z"
+		},
+		{
+			"host": "angresse.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-10T06:43:12.000Z"
+		},
+		{
+			"host": "arudy.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-02-07T04:20:05.000Z"
+		},
+		{
+			"host": "assomption-bordeaux.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-02T01:41:03.000Z"
+		},
+		{
+			"host": "assomption-jda-pessac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-18T02:12:06.000Z"
+		},
+		{
+			"host": "bahuet.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"19"
+			],
+			"validTo": "2027-02-08T20:02:11.000Z"
+		},
+		{
+			"host": "baionakolegioa.eus",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-27T06:39:00.000Z"
+		},
+		{
+			"host": "bazas.educagri.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-05T09:10:59.000Z"
+		},
+		{
+			"host": "beau-rameau.org",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-24T23:26:56.000Z"
+		},
+		{
+			"host": "beaupeyrat.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-02-15T02:22:57.000Z"
+		},
+		{
+			"host": "benjaminbord.entcreuse.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"23"
+			],
+			"validTo": "2027-05-14T23:59:59.000Z"
+		},
+		{
+			"host": "blogpeda.ac-bordeaux.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 50,
+			"departments": [
+				"33",
+				"24",
+				"64",
+				"47",
+				"40"
+			],
+			"validTo": "2027-05-22T14:49:18.000Z"
+		},
+		{
+			"host": "brantomeenperigord.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-02-17T23:59:59.000Z"
+		},
+		{
+			"host": "cadillacsurgaronne.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-01T22:38:00.000Z"
+		},
+		{
+			"host": "camillegodard.formagri33.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-13T09:38:02.000Z"
+		},
+		{
+			"host": "camillejullian.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-13T04:39:23.000Z"
+		},
+		{
+			"host": "campus-alimentation.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-22T12:06:59.000Z"
+		},
+		{
+			"host": "campus-sv.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-24T06:40:59.000Z"
+		},
+		{
+			"host": "ccbonline.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-03T06:39:04.000Z"
+		},
+		{
+			"host": "charron17.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-02-04T23:25:45.000Z"
+		},
+		{
+			"host": "citescolairevaloisrostand.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-02-08T04:47:37.000Z"
+		},
+		{
+			"host": "clg-camille-claudel-latresne.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-28T23:59:59.000Z"
+		},
+		{
+			"host": "clg-corot.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-02-08T08:05:15.000Z"
+		},
+		{
+			"host": "clgdrouyn.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-01T23:59:59.000Z"
+		},
+		{
+			"host": "clgnotredame.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2026-12-15T10:38:57.000Z"
+		},
+		{
+			"host": "college-albertmicheneau-villefagnan.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-02-17T18:27:37.000Z"
+		},
+		{
+			"host": "college-aspe.weebly.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-04T19:46:47.000Z"
+		},
+		{
+			"host": "college-coutras.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-04T05:06:00.000Z"
+		},
+		{
+			"host": "college-edouardvaillant-bordeaux.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-15T04:40:05.000Z"
+		},
+		{
+			"host": "college-emile-durkheim.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-09T18:51:02.000Z"
+		},
+		{
+			"host": "college-fontaines-monjous-gradignan.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-09T13:42:11.000Z"
+		},
+		{
+			"host": "college-francois-mauriac-leognan.jimdofree.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-19T09:18:16.000Z"
+		},
+		{
+			"host": "college-genevoix.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-01-23T06:48:59.000Z"
+		},
+		{
+			"host": "college-germillac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-02-05T03:08:44.000Z"
+		},
+		{
+			"host": "college-innovant64.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-16T17:21:31.000Z"
+		},
+		{
+			"host": "college-irandatz.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-31T03:42:18.000Z"
+		},
+		{
+			"host": "college-lycee-64.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-02-18T17:46:31.000Z"
+		},
+		{
+			"host": "college-lycee-ravel.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2026-12-30T02:30:07.000Z"
+		},
+		{
+			"host": "college-lycee.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"19"
+			],
+			"validTo": "2026-12-26T19:42:22.000Z"
+		},
+		{
+			"host": "college-montaigne.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-21T05:58:50.000Z"
+		},
+		{
+			"host": "college-st-joseph-capbreton.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-15T10:35:12.000Z"
+		},
+		{
+			"host": "college-texier.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2026-12-16T01:01:57.000Z"
+		},
+		{
+			"host": "collegealainfournierbordeaux.fr",
+			"status": "misconfigured",
+			"reasons": [
+				"hostname_mismatch"
+			],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-16T10:04:10.000Z"
+		},
+		{
+			"host": "collegearretxea.eus",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-03T09:05:30.000Z"
+		},
+		{
+			"host": "collegecassignol.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-24T01:08:59.000Z"
+		},
+		{
+			"host": "collegechantaco.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-02-16T19:58:37.000Z"
+		},
+		{
+			"host": "collegeclermont.net",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2026-12-24T01:15:59.000Z"
+		},
+		{
+			"host": "collegedebiganos.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-13T04:45:36.000Z"
+		},
+		{
+			"host": "collegedebizanos.net",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2026-12-21T04:36:43.000Z"
+		},
+		{
+			"host": "collegedemezin.wixsite.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-02-11T11:04:54.000Z"
+		},
+		{
+			"host": "collegedemontussan.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-24T22:32:59.000Z"
+		},
+		{
+			"host": "collegedesalles.org",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-01T23:59:59.000Z"
+		},
+		{
+			"host": "collegedestroisvallees.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-01-22T15:11:59.000Z"
+		},
+		{
+			"host": "collegedupaty.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-29T17:33:00.000Z"
+		},
+		{
+			"host": "collegefelixpecautsaliesdebearnfr.wordpress.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-02-01T19:45:14.000Z"
+		},
+		{
+			"host": "collegejacquesprevertmimizan.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-02-10T10:58:34.000Z"
+		},
+		{
+			"host": "collegeleonardlenoir.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-08T09:30:08.000Z"
+		},
+		{
+			"host": "collegeleroy.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-05-17T23:59:59.000Z"
+		},
+		{
+			"host": "collegelesdagueys.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-01T23:17:14.000Z"
+		},
+		{
+			"host": "collegemaxlinder33.wixsite.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-11T11:04:54.000Z"
+		},
+		{
+			"host": "collegenikidesaintphalle33.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-11T23:07:06.000Z"
+		},
+		{
+			"host": "collegetruffaut.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-01T20:04:39.000Z"
+		},
+		{
+			"host": "collegeursuya.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-24T23:59:59.000Z"
+		},
+		{
+			"host": "collegevauban-blaye.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-01T08:59:03.000Z"
+		},
+		{
+			"host": "collegevictorlouis.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-30T11:45:01.000Z"
+		},
+		{
+			"host": "cozes.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-02-08T22:03:39.000Z"
+		},
+		{
+			"host": "crochepierre.wixsite.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-02-11T11:04:54.000Z"
+		},
+		{
+			"host": "donostei.eus",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-18T01:14:07.000Z"
+		},
+		{
+			"host": "edmichelet-brive.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"19"
+			],
+			"validTo": "2027-01-07T23:27:51.000Z"
+		},
+		{
+			"host": "egletons.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"19"
+			],
+			"validTo": "2027-02-19T13:05:48.000Z"
+		},
+		{
+			"host": "epl-charente.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2026-12-19T23:59:59.000Z"
+		},
+		{
+			"host": "epl-haute-correze.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"19"
+			],
+			"validTo": "2027-02-05T08:09:27.000Z"
+		},
+		{
+			"host": "etab.ac-poitiers.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 103,
+			"departments": [
+				"17",
+				"79",
+				"86",
+				"16"
+			],
+			"validTo": "2027-02-18T14:33:05.000Z"
+		},
+		{
+			"host": "etablissement.ac-limoges.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 49,
+			"departments": [
+				"87",
+				"19",
+				"23"
+			],
+			"validTo": "2027-03-25T14:30:30.000Z"
+		},
+		{
+			"host": "evo.tour-blanche.formagri33.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-13T09:38:13.000Z"
+		},
+		{
+			"host": "fenelon-notredame.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-22T09:36:58.000Z"
+		},
+		{
+			"host": "francoisedolto.entcreuse.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"23"
+			],
+			"validTo": "2027-05-14T23:59:59.000Z"
+		},
+		{
+			"host": "georgesnigremont.entcreuse.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"23"
+			],
+			"validTo": "2027-05-14T23:59:59.000Z"
+		},
+		{
+			"host": "grandlebrun.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-05T15:35:01.000Z"
+		},
+		{
+			"host": "henrijudet.entcreuse.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"23"
+			],
+			"validTo": "2027-05-14T23:59:59.000Z"
+		},
+		{
+			"host": "immac-btz.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-05-11T23:59:59.000Z"
+		},
+		{
+			"host": "institut-richemont.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2026-12-27T19:14:11.000Z"
+		},
+		{
+			"host": "jdarc-recouvrance.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-02-16T05:49:51.000Z"
+		},
+		{
+			"host": "jdarcsr.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-01T14:57:35.000Z"
+		},
+		{
+			"host": "jeanbeaufret.entcreuse.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"23"
+			],
+			"validTo": "2027-05-14T23:59:59.000Z"
+		},
+		{
+			"host": "jehan.lyc-duperier.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-21T23:59:59.000Z"
+		},
+		{
+			"host": "jjlataste.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-11T02:18:52.000Z"
+		},
+		{
+			"host": "julesmarouzeau.entcreuse.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"23"
+			],
+			"validTo": "2027-05-14T23:59:59.000Z"
+		},
+		{
+			"host": "lagord.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-16T03:44:01.000Z"
+		},
+		{
+			"host": "lamandier.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-02-19T10:56:38.000Z"
+		},
+		{
+			"host": "largente.eu",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2026-12-25T16:02:59.000Z"
+		},
+		{
+			"host": "larps-mauleon.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2026-12-20T17:13:14.000Z"
+		},
+		{
+			"host": "lasalle-jurancon.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-17T10:28:52.000Z"
+		},
+		{
+			"host": "lecluzeau.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2026-12-19T13:31:58.000Z"
+		},
+		{
+			"host": "lepalaissurvienne.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-02-15T14:11:38.000Z"
+		},
+		{
+			"host": "leporge.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-29T02:02:24.000Z"
+		},
+		{
+			"host": "lisledespagnac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-02-01T01:00:31.000Z"
+		},
+		{
+			"host": "lmb-felletin.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"23"
+			],
+			"validTo": "2027-02-03T17:19:03.000Z"
+		},
+		{
+			"host": "louisdefoix.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-14T03:00:32.000Z"
+		},
+		{
+			"host": "louisdurand.entcreuse.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"23"
+			],
+			"validTo": "2027-05-14T23:59:59.000Z"
+		},
+		{
+			"host": "lp-flora-tristan.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-05T10:55:33.000Z"
+		},
+		{
+			"host": "lp-georgesand87.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-02-01T03:21:22.000Z"
+		},
+		{
+			"host": "lpjeandarcet.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-01T17:44:57.000Z"
+		},
+		{
+			"host": "lpplaruche.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-24T16:18:45.000Z"
+		},
+		{
+			"host": "lpterresrouges.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-05-12T23:59:59.000Z"
+		},
+		{
+			"host": "lpthiviers.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-02-02T07:11:07.000Z"
+		},
+		{
+			"host": "ludonmedoc.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-30T05:36:12.000Z"
+		},
+		{
+			"host": "lyc-camilleguerin.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-21T22:59:59.000Z"
+		},
+		{
+			"host": "lycee-agricole-tulle.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"19"
+			],
+			"validTo": "2027-01-18T06:36:55.000Z"
+		},
+		{
+			"host": "lycee-alienor.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2026-12-20T17:59:58.000Z"
+		},
+		{
+			"host": "lycee-baradat.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-02-04T04:26:05.000Z"
+		},
+		{
+			"host": "lycee-boisdamour.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-02-10T16:41:06.000Z"
+		},
+		{
+			"host": "lycee-cantau.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-02-03T01:57:32.000Z"
+		},
+		{
+			"host": "lycee-clairechampagne.org",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2026-12-24T16:17:29.000Z"
+		},
+		{
+			"host": "lycee-condorcet-arcachon.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-04-30T23:59:59.000Z"
+		},
+		{
+			"host": "lycee-cordouan.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-15T23:26:05.000Z"
+		},
+		{
+			"host": "lycee-doriole.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-02-11T19:08:37.000Z"
+		},
+		{
+			"host": "lycee-gay-lussac-limoges.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2026-12-26T07:28:19.000Z"
+		},
+		{
+			"host": "lycee-gisele-halimi.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-16T12:52:57.000Z"
+		},
+		{
+			"host": "lycee-image-son-angouleme.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-01-08T09:57:05.000Z"
+		},
+		{
+			"host": "lycee-jacques-brel-lormont.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-05-28T23:59:59.000Z"
+		},
+		{
+			"host": "lycee-jag.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-02-01T12:13:24.000Z"
+		},
+		{
+			"host": "lycee-jean-moulin-langon.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-18T18:46:52.000Z"
+		},
+		{
+			"host": "lycee-jean-taris-40.net",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-02-05T02:45:05.000Z"
+		},
+		{
+			"host": "lycee-jf-cail.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-02-13T05:08:06.000Z"
+		},
+		{
+			"host": "lycee-lamorlette.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-14T13:45:36.000Z"
+		},
+		{
+			"host": "lycee-louise-michel.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-02-04T11:45:04.000Z"
+		},
+		{
+			"host": "lycee-malraux-biarritz.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2026-12-30T05:35:59.000Z"
+		},
+		{
+			"host": "lycee-mandela-poitiers.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-02-10T09:46:06.000Z"
+		},
+		{
+			"host": "lycee-metiers-orthez.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-31T20:31:41.000Z"
+		},
+		{
+			"host": "lycee-montesquieu.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-19T01:07:37.000Z"
+		},
+		{
+			"host": "lycee-oustal.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-01-24T13:34:44.000Z"
+		},
+		{
+			"host": "lycee-palissy-agen.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-01-17T11:29:52.000Z"
+		},
+		{
+			"host": "lycee-paul-guerin.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-01-30T08:53:05.000Z"
+		},
+		{
+			"host": "lycee-pons.org",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-02T14:09:00.000Z"
+		},
+		{
+			"host": "lycee-prive-64.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-19T23:59:59.000Z"
+		},
+		{
+			"host": "lycee-saint-michel33.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-01T09:02:03.000Z"
+		},
+		{
+			"host": "lycee-victor-louis.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-28T07:19:47.000Z"
+		},
+		{
+			"host": "lycee-victorhugo-poitiers.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-26T05:31:59.000Z"
+		},
+		{
+			"host": "lycee-vieljeux.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-02-08T07:53:08.000Z"
+		},
+		{
+			"host": "lycee4septembre.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2026-12-17T13:34:57.000Z"
+		},
+		{
+			"host": "lyceeatlantique.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-20T08:28:32.000Z"
+		},
+		{
+			"host": "lyceeaudouindubreuil.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-22T08:34:43.000Z"
+		},
+		{
+			"host": "lyceebeauderochas.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-14T23:59:59.000Z"
+		},
+		{
+			"host": "lyceebranly.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-02-11T12:01:44.000Z"
+		},
+		{
+			"host": "lyceedeborda.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-13T00:47:25.000Z"
+		},
+		{
+			"host": "lyceedenavarre.org",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2026-12-16T14:44:57.000Z"
+		},
+		{
+			"host": "lyceedesaubrigues.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-28T05:28:09.000Z"
+		},
+		{
+			"host": "lyceedupaysdesoule.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-03T17:11:35.000Z"
+		},
+		{
+			"host": "lyceeduruy.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-20T17:18:56.000Z"
+		},
+		{
+			"host": "lyceejaufrerudel.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-15T01:31:43.000Z"
+		},
+		{
+			"host": "lyceejaydebeaufort.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-01-04T00:30:00.000Z"
+		},
+		{
+			"host": "lyceejeancapellebergerac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-01-31T14:43:11.000Z"
+		},
+		{
+			"host": "lyceekyoto.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-20T08:28:33.000Z"
+		},
+		{
+			"host": "lyceeleyguescouffignal.fr",
+			"status": "no_tls",
+			"reasons": [
+				"no_tls_service"
+			],
+			"entries": 1,
+			"departments": [
+				"47"
+			]
+		},
+		{
+			"host": "lyceelibournemontagne.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-30T02:41:11.000Z"
+		},
+		{
+			"host": "lyceemauriac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-20T09:31:58.000Z"
+		},
+		{
+			"host": "lyceemetiersdart-coarraze.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-02-04T18:19:05.000Z"
+		},
+		{
+			"host": "lyceepapeclement.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-25T21:58:02.000Z"
+		},
+		{
+			"host": "lyceepro-pessac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-25T14:32:49.000Z"
+		},
+		{
+			"host": "lyceesaintefamille.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-15T03:56:36.000Z"
+		},
+		{
+			"host": "magendie.net",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-13T11:40:36.000Z"
+		},
+		{
+			"host": "mairie-ambazac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-01-18T08:01:28.000Z"
+		},
+		{
+			"host": "mairie-ascain.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-16T18:14:34.000Z"
+		},
+		{
+			"host": "mairie-ciboure.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-16T18:14:34.000Z"
+		},
+		{
+			"host": "mairie-genissac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-05T15:12:09.000Z"
+		},
+		{
+			"host": "mairie-laboixe.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-01-30T07:56:22.000Z"
+		},
+		{
+			"host": "mairie-melle.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-02-13T00:52:58.000Z"
+		},
+		{
+			"host": "mairie-saint-astier.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2026-12-25T04:51:02.000Z"
+		},
+		{
+			"host": "mairie-saintdenisdepile.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-18T14:30:25.000Z"
+		},
+		{
+			"host": "martinnadaud.entcreuse.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"23"
+			],
+			"validTo": "2027-05-14T23:59:59.000Z"
+		},
+		{
+			"host": "meekolegioa.eus",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2026-12-23T17:28:15.000Z"
+		},
+		{
+			"host": "mees.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-20T00:37:48.000Z"
+		},
+		{
+			"host": "moncade.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2026-12-19T05:01:58.000Z"
+		},
+		{
+			"host": "montmoreau.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-02-18T22:53:11.000Z"
+		},
+		{
+			"host": "mouguerre.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-16T18:14:34.000Z"
+		},
+		{
+			"host": "oradour-sur-glane.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2026-12-28T11:51:59.000Z"
+		},
+		{
+			"host": "padlet.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-15T00:05:11.000Z"
+		},
+		{
+			"host": "palissy.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-28T00:50:25.000Z"
+		},
+		{
+			"host": "perigord.educagri.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-02-05T08:08:26.000Z"
+		},
+		{
+			"host": "picartledoux.entcreuse.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"23"
+			],
+			"validTo": "2027-05-14T23:59:59.000Z"
+		},
+		{
+			"host": "polaris-formation.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-02-14T20:24:37.000Z"
+		},
+		{
+			"host": "pompaire.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2026-12-29T07:06:32.000Z"
+		},
+		{
+			"host": "pr0333532k.wixsite.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-11T11:04:54.000Z"
+		},
+		{
+			"host": "pugnac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-03-01T23:59:59.000Z"
+		},
+		{
+			"host": "quincay.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-14T02:56:04.000Z"
+		},
+		{
+			"host": "rambaud33.eu",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-11T14:49:06.000Z"
+		},
+		{
+			"host": "rilhac-rancon.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-02-17T23:59:59.000Z"
+		},
+		{
+			"host": "rocfleuri.cneap.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2026-12-29T15:06:53.000Z"
+		},
+		{
+			"host": "ronsard-poitiers.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2026-12-24T03:56:59.000Z"
+		},
+		{
+			"host": "sacrecoeur-ruffec.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2026-12-25T16:16:35.000Z"
+		},
+		{
+			"host": "saint-xandre.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-02-10T02:26:59.000Z"
+		},
+		{
+			"host": "saint-yrieix.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-01-13T06:17:39.000Z"
+		},
+		{
+			"host": "saintamandbayonne.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2026-12-25T14:26:59.000Z"
+		},
+		{
+			"host": "sainte-marie-de-re.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-04T22:05:20.000Z"
+		},
+		{
+			"host": "saintemarielangon.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-02T08:06:04.000Z"
+		},
+		{
+			"host": "saintemariemayorga64220.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2026-12-12T03:41:57.000Z"
+		},
+		{
+			"host": "saintjustlemartel.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-02-17T11:36:27.000Z"
+		},
+		{
+			"host": "saintouendaunis.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2026-12-22T23:59:59.000Z"
+		},
+		{
+			"host": "saintpeesurnivelle.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-16T18:14:34.000Z"
+		},
+		{
+			"host": "saintpierredumont.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-02-15T06:33:48.000Z"
+		},
+		{
+			"host": "saintpriesttaurion.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-02-17T14:45:34.000Z"
+		},
+		{
+			"host": "saintyrieixsurcharente.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-01-15T02:19:05.000Z"
+		},
+		{
+			"host": "sare.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-16T18:14:34.000Z"
+		},
+		{
+			"host": "sarlat.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-01-30T09:56:46.000Z"
+		},
+		{
+			"host": "sdis-87.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-02-08T03:58:02.000Z"
+		},
+		{
+			"host": "sdis17.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-13T09:47:15.000Z"
+		},
+		{
+			"host": "site.college-mugron.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-20T03:46:16.000Z"
+		},
+		{
+			"host": "sites.google.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 3,
+			"departments": [
+				"24",
+				"47"
+			],
+			"validTo": "2027-01-26T08:26:49.000Z"
+		},
+		{
+			"host": "sjdc-dax.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-20T19:36:47.000Z"
+		},
+		{
+			"host": "smb33.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-09T16:11:06.000Z"
+		},
+		{
+			"host": "soyaux.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-01-07T03:57:18.000Z"
+		},
+		{
+			"host": "st-joseph-hasparren.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-29T04:29:00.000Z"
+		},
+		{
+			"host": "st-porchaire.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2026-12-12T17:10:36.000Z"
+		},
+		{
+			"host": "steannemauleon.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-01-12T18:59:16.000Z"
+		},
+		{
+			"host": "stesophie.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-05T00:18:01.000Z"
+		},
+		{
+			"host": "stjo-secondigny.fr",
+			"status": "misconfigured",
+			"reasons": [
+				"hostname_mismatch"
+			],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-04-21T23:59:59.000Z"
+		},
+		{
+			"host": "stjosephdepontacq.com",
+			"status": "expired",
+			"reasons": [
+				"certificate_expired",
+				"self_signed_certificate"
+			],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2019-03-20T12:19:21.000Z"
+		},
+		{
+			"host": "stjosteagnesbayonne.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-23T21:33:17.000Z"
+		},
+		{
+			"host": "stsauveurdaunis.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2026-12-22T01:29:25.000Z"
+		},
+		{
+			"host": "stvincent.eus",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-26T07:24:53.000Z"
+		},
+		{
+			"host": "svpbordeaux.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-25T13:37:00.000Z"
+		},
+		{
+			"host": "thouars.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-01-21T13:11:59.000Z"
+		},
+		{
+			"host": "tivoli-33.org",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-26T23:59:59.000Z"
+		},
+		{
+			"host": "valdelouin.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-01-11T17:15:29.000Z"
+		},
+		{
+			"host": "valdesaye.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-15T02:40:25.000Z"
+		},
+		{
+			"host": "valenvignes.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-02-12T04:05:36.000Z"
+		},
+		{
+			"host": "venours.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2026-12-11T11:21:57.000Z"
+		},
+		{
+			"host": "ville-ares.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-26T20:01:36.000Z"
+		},
+		{
+			"host": "ville-de-jarnac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-02-17T08:57:37.000Z"
+		},
+		{
+			"host": "ville-estillac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-01-20T23:44:44.000Z"
+		},
+		{
+			"host": "ville-gujanmestras.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-26T03:26:26.000Z"
+		},
+		{
+			"host": "ville-marcheprime.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-11T06:17:36.000Z"
+		},
+		{
+			"host": "ville-montignac.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-01-20T02:21:59.000Z"
+		},
+		{
+			"host": "ville-royan.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-28T22:08:55.000Z"
+		},
+		{
+			"host": "villedegan.fr",
+			"status": "misconfigured",
+			"reasons": [
+				"hostname_mismatch"
+			],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-14T23:59:59.000Z"
+		},
+		{
+			"host": "villedejonzac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-21T12:56:42.000Z"
+		},
+		{
+			"host": "vouneuil-sous-biard.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-02-07T01:14:40.000Z"
+		},
+		{
+			"host": "www.acamus.net",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-02-15T02:11:32.000Z"
+		},
+		{
+			"host": "www.aigondigne.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-02-14T06:09:50.000Z"
+		},
+		{
+			"host": "www.albert-le-grand.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-08T04:59:49.000Z"
+		},
+		{
+			"host": "www.alienor-bordeaux.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-28T17:42:00.000Z"
+		},
+		{
+			"host": "www.allassac-correze.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"19"
+			],
+			"validTo": "2027-01-14T10:56:46.000Z"
+		},
+		{
+			"host": "www.ambaresetlagrave.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-24T23:59:59.000Z"
+		},
+		{
+			"host": "www.andernoslesbains.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-25T01:02:35.000Z"
+		},
+		{
+			"host": "www.angely.net",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"17"
+			],
+			"validTo": "2026-12-26T11:02:59.000Z"
+		},
+		{
+			"host": "www.anglet.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-04-17T23:59:59.000Z"
+		},
+		{
+			"host": "www.angouleme.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2026-12-24T22:45:13.000Z"
+		},
+		{
+			"host": "www.arbonne.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2026-12-28T07:56:56.000Z"
+		},
+		{
+			"host": "www.arcangues.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-02-14T13:25:50.000Z"
+		},
+		{
+			"host": "www.argentat.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"19"
+			],
+			"validTo": "2027-02-19T06:01:06.000Z"
+		},
+		{
+			"host": "www.argentonnay.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-02-12T10:09:40.000Z"
+		},
+		{
+			"host": "www.arsac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-21T07:08:20.000Z"
+		},
+		{
+			"host": "www.artiguelouve.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-23T07:40:12.000Z"
+		},
+		{
+			"host": "www.artigues-pres-bordeaux.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-24T23:59:59.000Z"
+		},
+		{
+			"host": "www.arveyres.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-25T08:03:58.000Z"
+		},
+		{
+			"host": "www.avanton.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-02-18T05:03:19.000Z"
+		},
+		{
+			"host": "www.aytre.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-02-11T03:14:12.000Z"
+		},
+		{
+			"host": "www.barsac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-26T02:37:45.000Z"
+		},
+		{
+			"host": "www.bassillac-et-auberoche.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-02-16T15:50:10.000Z"
+		},
+		{
+			"host": "www.bayonne.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-03-21T23:59:59.000Z"
+		},
+		{
+			"host": "www.beaumontsaintcyr.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-02-17T23:59:59.000Z"
+		},
+		{
+			"host": "www.belin-beliet.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-30T07:37:59.000Z"
+		},
+		{
+			"host": "www.bellac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-01-18T21:43:06.000Z"
+		},
+		{
+			"host": "www.belorme.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-25T15:53:58.000Z"
+		},
+		{
+			"host": "www.benejacq.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-05-12T23:59:59.000Z"
+		},
+		{
+			"host": "www.benesse-maremne.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-10T06:45:31.000Z"
+		},
+		{
+			"host": "www.bergerac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-02-18T01:58:24.000Z"
+		},
+		{
+			"host": "www.bessines-sur-gartempe-87.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-01-08T07:40:08.000Z"
+		},
+		{
+			"host": "www.beychac-cailleau.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-31T23:50:00.000Z"
+		},
+		{
+			"host": "www.biarritz.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-29T22:04:29.000Z"
+		},
+		{
+			"host": "www.bidart.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-31T08:07:37.000Z"
+		},
+		{
+			"host": "www.billere.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-13T17:30:46.000Z"
+		},
+		{
+			"host": "www.boisseuil87.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-02-12T06:21:19.000Z"
+		},
+		{
+			"host": "www.bonneuil-matours.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-21T00:10:28.000Z"
+		},
+		{
+			"host": "www.bordeaux.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-03-07T23:59:59.000Z"
+		},
+		{
+			"host": "www.bordes64.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-19T16:27:57.000Z"
+		},
+		{
+			"host": "www.boucau.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2026-12-21T21:18:50.000Z"
+		},
+		{
+			"host": "www.bourcefranc-le-chapus.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2026-12-12T16:30:26.000Z"
+		},
+		{
+			"host": "www.bourg-gironde.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-30T01:51:02.000Z"
+		},
+		{
+			"host": "www.bourganeuf.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"23"
+			],
+			"validTo": "2027-01-01T15:51:00.000Z"
+		},
+		{
+			"host": "www.bouscat.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-03-06T23:59:59.000Z"
+		},
+		{
+			"host": "www.brax47.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-02-10T17:53:04.000Z"
+		},
+		{
+			"host": "www.breuillet-17.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-04T18:59:02.000Z"
+		},
+		{
+			"host": "www.brie.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-02-02T22:03:48.000Z"
+		},
+		{
+			"host": "www.briscous.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-02-11T23:25:06.000Z"
+		},
+		{
+			"host": "www.brive.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"19"
+			],
+			"validTo": "2027-01-04T03:50:59.000Z"
+		},
+		{
+			"host": "www.buros.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-10T17:35:02.000Z"
+		},
+		{
+			"host": "www.buxerolles.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-20T00:00:07.000Z"
+		},
+		{
+			"host": "www.cabanacetvillagrains.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-30T01:54:45.000Z"
+		},
+		{
+			"host": "www.calandreta-pau.org",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-16T16:26:36.000Z"
+		},
+		{
+			"host": "www.camblanes-et-meynac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-11T15:29:04.000Z"
+		},
+		{
+			"host": "www.cambolesbains.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-02-07T01:27:58.000Z"
+		},
+		{
+			"host": "www.canejan.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-01T23:59:59.000Z"
+		},
+		{
+			"host": "www.carbon-blanc.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-25T23:59:59.000Z"
+		},
+		{
+			"host": "www.carcans.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-02T13:33:45.000Z"
+		},
+		{
+			"host": "www.carignandebordeaux.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-13T01:43:16.000Z"
+		},
+		{
+			"host": "www.castets.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-02-15T01:34:36.000Z"
+		},
+		{
+			"host": "www.cavignac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-30T02:03:20.000Z"
+		},
+		{
+			"host": "www.cenac33.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-30T02:09:22.000Z"
+		},
+		{
+			"host": "www.cenon.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-03T18:13:36.000Z"
+		},
+		{
+			"host": "www.champcevinel.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-02-18T03:11:47.000Z"
+		},
+		{
+			"host": "www.charente.gouv.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-02-04T23:59:59.000Z"
+		},
+		{
+			"host": "www.chasseneuil.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-02-10T01:05:12.000Z"
+		},
+		{
+			"host": "www.chateauneufsurcharente.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-02-01T10:51:29.000Z"
+		},
+		{
+			"host": "www.chateauponsac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2026-12-22T23:59:59.000Z"
+		},
+		{
+			"host": "www.chatelaillonplage.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-02-17T16:33:16.000Z"
+		},
+		{
+			"host": "www.chatellerault.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-02-14T14:13:30.000Z"
+		},
+		{
+			"host": "www.chatillonsurthouet.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-01-04T00:50:20.000Z"
+		},
+		{
+			"host": "www.chauvigny.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-21T00:11:36.000Z"
+		},
+		{
+			"host": "www.chdf.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 3,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-02-13T00:11:34.000Z"
+		},
+		{
+			"host": "www.chef-boutonne.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-02-05T17:44:05.000Z"
+		},
+		{
+			"host": "www.civray.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-19T00:06:37.000Z"
+		},
+		{
+			"host": "www.clairac.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-01-24T00:13:30.000Z"
+		},
+		{
+			"host": "www.clg-correze.net",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"19"
+			],
+			"validTo": "2027-01-08T04:12:06.000Z"
+		},
+		{
+			"host": "www.clgrobertbarriere.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-18T14:21:37.000Z"
+		},
+		{
+			"host": "www.clgsaintemarie.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-02-13T09:23:54.000Z"
+		},
+		{
+			"host": "www.coarraze.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-03-04T23:59:59.000Z"
+		},
+		{
+			"host": "www.college-castillonnes.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2026-12-28T14:01:51.000Z"
+		},
+		{
+			"host": "www.college-etchecopar.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-18T00:58:52.000Z"
+		},
+		{
+			"host": "www.college-jean-moulin-artix.websco.fr",
+			"status": "misconfigured",
+			"reasons": [
+				"hostname_mismatch"
+			],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-02-03T10:18:04.000Z"
+		},
+		{
+			"host": "www.college-joseph-chaumie.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-01-16T00:09:05.000Z"
+		},
+		{
+			"host": "www.college-la-boetie.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-04-04T23:59:59.000Z"
+		},
+		{
+			"host": "www.college-la-fontaine.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-02-02T15:16:43.000Z"
+		},
+		{
+			"host": "www.college-lapierre.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-14T14:29:06.000Z"
+		},
+		{
+			"host": "www.college-monsejour.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-02T02:29:39.000Z"
+		},
+		{
+			"host": "www.college-montesquieu.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-12T02:19:54.000Z"
+		},
+		{
+			"host": "www.college-pierrerobert.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-01-09T02:13:01.000Z"
+		},
+		{
+			"host": "www.college-rostand-tartas.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-02-13T03:43:06.000Z"
+		},
+		{
+			"host": "www.college-saint-exupery-niort.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-02-03T23:05:19.000Z"
+		},
+		{
+			"host": "www.college-saint-jean-tonneins.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-01-05T21:24:26.000Z"
+		},
+		{
+			"host": "www.college-saint-symphorien-33.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-21T21:07:59.000Z"
+		},
+		{
+			"host": "www.college.arthez.websco.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2026-12-16T08:52:57.000Z"
+		},
+		{
+			"host": "www.collegealbertcamus33.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-30T03:18:55.000Z"
+		},
+		{
+			"host": "www.collegecasimirfidele.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-01T05:35:50.000Z"
+		},
+		{
+			"host": "www.collegedanielcastaing.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-01-11T23:10:57.000Z"
+		},
+		{
+			"host": "www.collegefrancoismauriac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-13T13:44:06.000Z"
+		},
+		{
+			"host": "www.collegegerardphilipe.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-13T13:05:06.000Z"
+		},
+		{
+			"host": "www.collegegoya.fr",
+			"status": "misconfigured",
+			"reasons": [
+				"hostname_mismatch"
+			],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-03T10:18:04.000Z"
+		},
+		{
+			"host": "www.collegehenribrisson.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-07T05:39:06.000Z"
+		},
+		{
+			"host": "www.collegejeancocteau.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-16T19:50:05.000Z"
+		},
+		{
+			"host": "www.collegejeanrostandcapbreton.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-12T19:31:04.000Z"
+		},
+		{
+			"host": "www.collegeleseyquems.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-27T09:59:03.000Z"
+		},
+		{
+			"host": "www.collegemontaigne.net",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-02-13T17:10:36.000Z"
+		},
+		{
+			"host": "www.collegestjoseph.fr",
+			"status": "misconfigured",
+			"reasons": [
+				"hostname_mismatch"
+			],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-02-03T10:18:04.000Z"
+		},
+		{
+			"host": "www.condatsurvienne.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-02-02T01:05:08.000Z"
+		},
+		{
+			"host": "www.cordeliers-oloron.fr",
+			"status": "misconfigured",
+			"reasons": [
+				"hostname_mismatch"
+			],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-02-03T10:18:04.000Z"
+		},
+		{
+			"host": "www.correze.gouv.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"19"
+			],
+			"validTo": "2027-02-03T23:59:59.000Z"
+		},
+		{
+			"host": "www.cosnac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"19"
+			],
+			"validTo": "2027-01-30T09:51:22.000Z"
+		},
+		{
+			"host": "www.coulonges-sur-lautize.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-01-22T09:57:41.000Z"
+		},
+		{
+			"host": "www.coulounieix-chamiers.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2026-12-25T12:42:24.000Z"
+		},
+		{
+			"host": "www.courcon.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-01T00:05:22.000Z"
+		},
+		{
+			"host": "www.coursac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-02-19T23:59:59.000Z"
+		},
+		{
+			"host": "www.couzeix.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"87"
+			],
+			"validTo": "2026-12-22T05:03:58.000Z"
+		},
+		{
+			"host": "www.cussac-fort-medoc.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-02T15:16:29.000Z"
+		},
+		{
+			"host": "www.dangesaintromain.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2026-12-30T18:48:28.000Z"
+		},
+		{
+			"host": "www.dax.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-20T14:26:20.000Z"
+		},
+		{
+			"host": "www.deux-sevres.gouv.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-02-03T23:59:59.000Z"
+		},
+		{
+			"host": "www.dissay.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-02-15T14:54:38.000Z"
+		},
+		{
+			"host": "www.donzenac.correze.net",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"19"
+			],
+			"validTo": "2027-01-03T21:43:37.000Z"
+		},
+		{
+			"host": "www.dordogne.gouv.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-02-03T23:59:59.000Z"
+		},
+		{
+			"host": "www.ec-gabriel.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-25T18:03:18.000Z"
+		},
+		{
+			"host": "www.ecole-college-catholique-moncoutant.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-02-07T11:04:05.000Z"
+		},
+		{
+			"host": "www.ecolehotelierebiarritz.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2026-12-22T02:43:27.000Z"
+		},
+		{
+			"host": "www.ecoles.dordogne.cci.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-01-13T05:47:13.000Z"
+		},
+		{
+			"host": "www.eliefaure-saintefoylagrande.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-13T02:54:06.000Z"
+		},
+		{
+			"host": "www.ensemblesaintpierre.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-01-11T03:37:34.000Z"
+		},
+		{
+			"host": "www.eymet-dordogne.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-01-16T23:59:59.000Z"
+		},
+		{
+			"host": "www.eysines.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-07T13:28:01.000Z"
+		},
+		{
+			"host": "www.fargues-saint-hilaire.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-04T13:38:38.000Z"
+		},
+		{
+			"host": "www.floirac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-06T23:59:59.000Z"
+		},
+		{
+			"host": "www.fontaine-le-comte.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-12T08:52:50.000Z"
+		},
+		{
+			"host": "www.fontcouverte17.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2026-12-22T23:59:59.000Z"
+		},
+		{
+			"host": "www.formations-agrinature.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-21T18:20:43.000Z"
+		},
+		{
+			"host": "www.fumelvalleedulot.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-02-09T23:59:59.000Z"
+		},
+		{
+			"host": "www.gaillanenmedoc.org",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-07T12:07:45.000Z"
+		},
+		{
+			"host": "www.galgon.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-29T23:05:30.000Z"
+		},
+		{
+			"host": "www.garat.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-02-15T22:38:53.000Z"
+		},
+		{
+			"host": "www.gdeborneil.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-02-05T23:03:34.000Z"
+		},
+		{
+			"host": "www.gelos.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2026-12-19T07:06:56.000Z"
+		},
+		{
+			"host": "www.gemozac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2026-12-12T16:39:14.000Z"
+		},
+		{
+			"host": "www.gironde.gouv.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-06T23:59:59.000Z"
+		},
+		{
+			"host": "www.gond-pontouvre.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-02-02T22:04:46.000Z"
+		},
+		{
+			"host": "www.gradignan.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-13T03:04:58.000Z"
+		},
+		{
+			"host": "www.grenadesuradour.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-13T06:20:23.000Z"
+		},
+		{
+			"host": "www.gufa8368.odns.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2026-12-17T23:59:59.000Z"
+		},
+		{
+			"host": "www.hagetmau.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2026-12-28T00:37:22.000Z"
+		},
+		{
+			"host": "www.haute-vienne.gouv.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-02-06T23:59:59.000Z"
+		},
+		{
+			"host": "www.hendaye.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-05-20T23:59:59.000Z"
+		},
+		{
+			"host": "www.idron.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-07T13:05:12.000Z"
+		},
+		{
+			"host": "www.institutionadt.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2026-12-12T12:24:57.000Z"
+		},
+		{
+			"host": "www.iteuil.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-21T00:15:50.000Z"
+		},
+		{
+			"host": "www.itxassou.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-16T18:14:34.000Z"
+		},
+		{
+			"host": "www.izon.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-09T16:20:51.000Z"
+		},
+		{
+			"host": "www.j-monnet.net",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-25T00:35:30.000Z"
+		},
+		{
+			"host": "www.jaunay-marigny.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-27T01:05:56.000Z"
+		},
+		{
+			"host": "www.jdacivray.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-29T12:07:00.000Z"
+		},
+		{
+			"host": "www.jeanmoulinmarmande.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-01-07T23:59:59.000Z"
+		},
+		{
+			"host": "www.la-tremblade.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-21T00:06:45.000Z"
+		},
+		{
+			"host": "www.labouheyre.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-02-01T01:37:20.000Z"
+		},
+		{
+			"host": "www.labrede-montesquieu.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-04T14:05:05.000Z"
+		},
+		{
+			"host": "www.lacanau.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-13T04:31:02.000Z"
+		},
+		{
+			"host": "www.lacouronne.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-02-02T22:05:13.000Z"
+		},
+		{
+			"host": "www.laflotte.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-05-02T23:59:59.000Z"
+		},
+		{
+			"host": "www.laforce-dordogne.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-01-18T12:21:23.000Z"
+		},
+		{
+			"host": "www.laforetsursevre.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2026-12-26T00:08:52.000Z"
+		},
+		{
+			"host": "www.lahonce.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-16T18:14:34.000Z"
+		},
+		{
+			"host": "www.lajarne.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-28T13:45:57.000Z"
+		},
+		{
+			"host": "www.lalandedefronsac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-07T01:21:39.000Z"
+		},
+		{
+			"host": "www.lamonzie-saint-martin.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-01-29T08:56:47.000Z"
+		},
+		{
+			"host": "www.landiras.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-15T23:59:59.000Z"
+		},
+		{
+			"host": "www.langon33.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-30T02:49:01.000Z"
+		},
+		{
+			"host": "www.laprovidence-poitiers.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-05-12T23:59:59.000Z"
+		},
+		{
+			"host": "www.larochefoucauldenangoumois.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-01-09T04:16:57.000Z"
+		},
+		{
+			"host": "www.larochelle.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-02-15T22:08:57.000Z"
+		},
+		{
+			"host": "www.lasalle-saint-martin-couhe.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-30T22:06:49.000Z"
+		},
+		{
+			"host": "www.lasallesaintantoine.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-27T17:03:55.000Z"
+		},
+		{
+			"host": "www.lasallesaintlouis.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-08T12:25:36.000Z"
+		},
+		{
+			"host": "www.latestedebuch.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-06T00:32:10.000Z"
+		},
+		{
+			"host": "www.lautrecbordeaux.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-03T10:04:00.000Z"
+		},
+		{
+			"host": "www.lcondorcetbx.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-26T02:10:00.000Z"
+		},
+		{
+			"host": "www.le-gua.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2026-12-24T07:08:21.000Z"
+		},
+		{
+			"host": "www.le-mirail.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-12T16:09:57.000Z"
+		},
+		{
+			"host": "www.le-vigen.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2026-12-31T23:57:28.000Z"
+		},
+		{
+			"host": "www.leboisplage.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-02-17T01:07:09.000Z"
+		},
+		{
+			"host": "www.lebugue.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2026-12-25T23:59:59.000Z"
+		},
+		{
+			"host": "www.leognan.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-03T02:47:04.000Z"
+		},
+		{
+			"host": "www.leon.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-02-15T01:35:38.000Z"
+		},
+		{
+			"host": "www.lepianmedoc.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-01T17:37:03.000Z"
+		},
+		{
+			"host": "www.lesauveur.org",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2026-12-26T17:51:51.000Z"
+		},
+		{
+			"host": "www.lescar.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-04-28T23:59:59.000Z"
+		},
+		{
+			"host": "www.lesparre-medoc.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-15T23:29:05.000Z"
+		},
+		{
+			"host": "www.limoges.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-02-08T02:12:52.000Z"
+		},
+		{
+			"host": "www.linars.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-02-02T22:05:55.000Z"
+		},
+		{
+			"host": "www.lisledespagnac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-02-01T01:00:31.000Z"
+		},
+		{
+			"host": "www.lmb86.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-02-12T18:24:20.000Z"
+		},
+		{
+			"host": "www.loretzdargenton.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2026-12-26T11:26:22.000Z"
+		},
+		{
+			"host": "www.lot-et-garonne.gouv.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-02-06T23:59:59.000Z"
+		},
+		{
+			"host": "www.lp-agir.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-28T19:23:00.000Z"
+		},
+		{
+			"host": "www.lp-lomet.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-02-16T07:39:10.000Z"
+		},
+		{
+			"host": "www.lp-sud-gironde.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-13T21:22:36.000Z"
+		},
+		{
+			"host": "www.lppicasso.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-02-13T08:20:36.000Z"
+		},
+		{
+			"host": "www.lpr-darmante-capbreton.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-23T01:32:41.000Z"
+		},
+		{
+			"host": "www.lpvinci-perigueux.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2026-12-26T01:14:59.000Z"
+		},
+		{
+			"host": "www.lusignan.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-18T08:28:12.000Z"
+		},
+		{
+			"host": "www.lyc-turgot.ac-limoges.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-01-24T07:06:51.000Z"
+		},
+		{
+			"host": "www.lycee-aizpurdi.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-02-15T00:59:47.000Z"
+		},
+		{
+			"host": "www.lycee-barbanceys.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"19"
+			],
+			"validTo": "2027-02-18T11:15:38.000Z"
+		},
+		{
+			"host": "www.lycee-chabanne16.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-01-03T02:49:53.000Z"
+		},
+		{
+			"host": "www.lycee-desfontaines.eu",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-01-16T18:21:05.000Z"
+		},
+		{
+			"host": "www.lycee-dolmen.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-12T19:10:39.000Z"
+		},
+		{
+			"host": "www.lycee-emileroux.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-02-17T09:26:07.000Z"
+		},
+		{
+			"host": "www.lycee-gaston-barre.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-01-01T07:16:00.000Z"
+		},
+		{
+			"host": "www.lycee-hautvaldesevre.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-01-04T11:33:01.000Z"
+		},
+		{
+			"host": "www.lycee-jamain.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2026-12-16T07:13:57.000Z"
+		},
+		{
+			"host": "www.lycee-jeanmace.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2026-12-23T13:05:59.000Z"
+		},
+		{
+			"host": "www.lycee-la-perriere.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-03T08:03:01.000Z"
+		},
+		{
+			"host": "www.lycee-lavoisier.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"19"
+			],
+			"validTo": "2027-01-28T03:18:50.000Z"
+		},
+		{
+			"host": "www.lycee-marcel-dassault.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-19T09:42:52.000Z"
+		},
+		{
+			"host": "www.lycee-maryse-bastie.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-01-17T08:59:16.000Z"
+		},
+		{
+			"host": "www.lycee-merleauponty.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-21T21:29:07.000Z"
+		},
+		{
+			"host": "www.lycee-saint-john-perse.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-29T18:27:16.000Z"
+		},
+		{
+			"host": "www.lycee-saintandre-niort.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-02-03T23:05:19.000Z"
+		},
+		{
+			"host": "www.lycee-sainte-elisabeth.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-13T17:22:04.000Z"
+		},
+		{
+			"host": "www.lycee-saintexupery-larochelle.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-02-08T00:58:32.000Z"
+		},
+		{
+			"host": "www.lycee-valin.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-02-18T06:06:37.000Z"
+		},
+		{
+			"host": "www.lyceearmanddavid.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2026-12-24T16:28:51.000Z"
+		},
+		{
+			"host": "www.lyceebremontier.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-18T19:44:58.000Z"
+		},
+		{
+			"host": "www.lyceecaraminot.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"19"
+			],
+			"validTo": "2027-02-04T21:14:48.000Z"
+		},
+		{
+			"host": "www.lyceecassinbayonne.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-02-13T23:06:40.000Z"
+		},
+		{
+			"host": "www.lyceedegascogne.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-03T09:07:53.000Z"
+		},
+		{
+			"host": "www.lyceedelage.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-01-23T20:38:56.000Z"
+		},
+		{
+			"host": "www.lyceedelamergujan.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-06T18:27:35.000Z"
+		},
+		{
+			"host": "www.lyceedespiau.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-02-19T22:19:37.000Z"
+		},
+		{
+			"host": "www.lyceedupaysdaunis.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-02-13T13:05:48.000Z"
+		},
+		{
+			"host": "www.lyceegrippeaux.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-05-12T23:59:59.000Z"
+		},
+		{
+			"host": "www.lyceeharountazieff.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-23T15:18:59.000Z"
+		},
+		{
+			"host": "www.lyceejacquesmonod.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-19T09:24:11.000Z"
+		},
+		{
+			"host": "www.lyceejeanmonnet-cognac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-02-11T07:47:36.000Z"
+		},
+		{
+			"host": "www.lyceekastler.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-03T20:53:02.000Z"
+		},
+		{
+			"host": "www.lyceeleguichot.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2026-12-21T15:53:09.000Z"
+		},
+		{
+			"host": "www.lyceeleschartrons.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-09T20:30:05.000Z"
+		},
+		{
+			"host": "www.lyceelimosin.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-02-12T00:18:31.000Z"
+		},
+		{
+			"host": "www.lyceemaxlinder.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-07T13:08:05.000Z"
+		},
+		{
+			"host": "www.lyceemontesquieulibourne.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-16T19:22:00.000Z"
+		},
+		{
+			"host": "www.lyceenordbassin.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-04T23:16:05.000Z"
+		},
+		{
+			"host": "www.lyceeprofessionnel-morlaas.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-02-13T01:19:06.000Z"
+		},
+		{
+			"host": "www.lyceerobertbadinter.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-08T04:34:05.000Z"
+		},
+		{
+			"host": "www.lyceerompsay17.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2026-12-24T03:11:36.000Z"
+		},
+		{
+			"host": "www.lyceesaintlouis.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-05-17T23:59:59.000Z"
+		},
+		{
+			"host": "www.lyceesudlandes.com",
+			"status": "no_tls",
+			"reasons": [
+				"no_tls_service"
+			],
+			"entries": 1,
+			"departments": [
+				"40"
+			]
+		},
+		{
+			"host": "www.lyceevaclavhavel.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-30T16:57:00.000Z"
+		},
+		{
+			"host": "www.lyceevinciblanquefort.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-20T21:58:58.000Z"
+		},
+		{
+			"host": "www.mairie-aigrefeuille.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-01T06:10:05.000Z"
+		},
+		{
+			"host": "www.mairie-aixesurvienne.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-02-16T10:11:15.000Z"
+		},
+		{
+			"host": "www.mairie-artix.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-02-09T22:35:54.000Z"
+		},
+		{
+			"host": "www.mairie-avensan.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-05T15:34:28.000Z"
+		},
+		{
+			"host": "www.mairie-barbezieux.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2026-12-23T05:42:58.000Z"
+		},
+		{
+			"host": "www.mairie-beautiran.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-13T07:47:43.000Z"
+		},
+		{
+			"host": "www.mairie-begles.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-03-24T23:59:59.000Z"
+		},
+		{
+			"host": "www.mairie-bosmie.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2026-12-13T23:59:59.000Z"
+		},
+		{
+			"host": "www.mairie-bruges.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-01T23:59:59.000Z"
+		},
+		{
+			"host": "www.mairie-cadaujac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-26T04:24:38.000Z"
+		},
+		{
+			"host": "www.mairie-casteljaloux.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-01-22T09:22:59.000Z"
+		},
+		{
+			"host": "www.mairie-cestas.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-23T02:47:04.000Z"
+		},
+		{
+			"host": "www.mairie-chaptelat.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-01-05T04:57:35.000Z"
+		},
+		{
+			"host": "www.mairie-creon.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-04T18:41:21.000Z"
+		},
+		{
+			"host": "www.mairie-cubzaclesponts.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-14T03:15:38.000Z"
+		},
+		{
+			"host": "www.mairie-espelette.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-31T09:12:45.000Z"
+		},
+		{
+			"host": "www.mairie-etaules.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-02-06T23:59:59.000Z"
+		},
+		{
+			"host": "www.mairie-eymoutiers.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-01-18T23:02:09.000Z"
+		},
+		{
+			"host": "www.mairie-laruscade.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-26T20:42:37.000Z"
+		},
+		{
+			"host": "www.mairie-latresne.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-26T02:59:14.000Z"
+		},
+		{
+			"host": "www.mairie-les-eglisottes.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-16T08:30:26.000Z"
+		},
+		{
+			"host": "www.mairie-lezay.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-02-03T04:41:30.000Z"
+		},
+		{
+			"host": "www.mairie-lhoumeau.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-02-07T23:59:59.000Z"
+		},
+		{
+			"host": "www.mairie-lons.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-20T14:37:42.000Z"
+		},
+		{
+			"host": "www.mairie-magescq.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-02-17T10:39:28.000Z"
+		},
+		{
+			"host": "www.mairie-margaux.fr",
+			"status": "misconfigured",
+			"reasons": [
+				"hostname_mismatch"
+			],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-26T03:06:44.000Z"
+		},
+		{
+			"host": "www.mairie-marmande.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2026-12-31T03:05:05.000Z"
+		},
+		{
+			"host": "www.mairie-medis.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-02-10T01:06:16.000Z"
+		},
+		{
+			"host": "www.mairie-morlaas.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-23T05:50:57.000Z"
+		},
+		{
+			"host": "www.mairie-narrosse.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-02-07T01:37:46.000Z"
+		},
+		{
+			"host": "www.mairie-nersac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-01-29T23:32:04.000Z"
+		},
+		{
+			"host": "www.mairie-orthez.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-02-06T04:37:30.000Z"
+		},
+		{
+			"host": "www.mairie-panazol.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-01-02T23:47:03.000Z"
+		},
+		{
+			"host": "www.mairie-prahecq.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-01-06T03:22:48.000Z"
+		},
+		{
+			"host": "www.mairie-ruffec.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-01-19T08:36:21.000Z"
+		},
+		{
+			"host": "www.mairie-sadirac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-13T02:11:46.000Z"
+		},
+		{
+			"host": "www.mairie-sauze-vaussais.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-02-14T10:08:37.000Z"
+		},
+		{
+			"host": "www.mairie-soulac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-19T05:12:37.000Z"
+		},
+		{
+			"host": "www.mairie-ste-eulalie.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-19T06:43:45.000Z"
+		},
+		{
+			"host": "www.mairie-stgermaindupuch.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-07T14:08:29.000Z"
+		},
+		{
+			"host": "www.mairie-targon.com",
+			"status": "misconfigured",
+			"reasons": [
+				"hostname_mismatch"
+			],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-17T09:23:22.000Z"
+		},
+		{
+			"host": "www.mairie-vayres.fr",
+			"status": "expired",
+			"reasons": [
+				"certificate_expired"
+			],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2025-09-03T06:41:21.000Z"
+		},
+		{
+			"host": "www.mairiecezac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-14T23:59:59.000Z"
+		},
+		{
+			"host": "www.mairiedefumel.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-01-14T12:32:05.000Z"
+		},
+		{
+			"host": "www.mairieneuvic.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2026-12-25T16:58:49.000Z"
+		},
+		{
+			"host": "www.mansle.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-01-19T17:56:15.000Z"
+		},
+		{
+			"host": "www.mareuil-en-perigord.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2026-12-11T07:28:57.000Z"
+		},
+		{
+			"host": "www.marsacsurlisle.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-01-21T23:59:59.000Z"
+		},
+		{
+			"host": "www.marsilly.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2026-12-12T17:21:36.000Z"
+		},
+		{
+			"host": "www.martillac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-25T12:59:00.000Z"
+		},
+		{
+			"host": "www.mauleon.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-02-02T23:46:04.000Z"
+		},
+		{
+			"host": "www.maxbramerie-laforce.websco.fr",
+			"status": "misconfigured",
+			"reasons": [
+				"hostname_mismatch"
+			],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-02-01T09:42:33.000Z"
+		},
+		{
+			"host": "www.merignac.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-23T23:59:59.000Z"
+		},
+		{
+			"host": "www.meymac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"19"
+			],
+			"validTo": "2027-01-20T22:00:23.000Z"
+		},
+		{
+			"host": "www.migne-auxances.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-13T20:24:37.000Z"
+		},
+		{
+			"host": "www.mimizan.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-02-15T01:36:46.000Z"
+		},
+		{
+			"host": "www.mirebeau.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-21T00:17:17.000Z"
+		},
+		{
+			"host": "www.moncoutantsursevre.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2026-12-28T10:22:16.000Z"
+		},
+		{
+			"host": "www.monein.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-22T00:03:03.000Z"
+		},
+		{
+			"host": "www.montamise.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-10T00:02:16.000Z"
+		},
+		{
+			"host": "www.montardon.org",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-19T11:35:53.000Z"
+		},
+		{
+			"host": "www.montdemarsan.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-01T08:00:02.000Z"
+		},
+		{
+			"host": "www.montmorillon.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-27T01:09:03.000Z"
+		},
+		{
+			"host": "www.montpon-menesterol.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-01-12T06:05:50.000Z"
+		},
+		{
+			"host": "www.montussan.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-26T03:16:41.000Z"
+		},
+		{
+			"host": "www.morcenx.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-21T02:47:12.000Z"
+		},
+		{
+			"host": "www.mourenx.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-11T08:19:58.000Z"
+		},
+		{
+			"host": "www.mouthiers-sur-boeme.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-01-19T04:12:26.000Z"
+		},
+		{
+			"host": "www.mussidan.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-01-16T08:25:05.000Z"
+		},
+		{
+			"host": "www.naintre.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-19T07:07:20.000Z"
+		},
+		{
+			"host": "www.naves19.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"19"
+			],
+			"validTo": "2027-01-27T13:55:57.000Z"
+		},
+		{
+			"host": "www.nd-nazareth-cozes.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-20T06:10:31.000Z"
+		},
+		{
+			"host": "www.neuville-de-poitou.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-02-04T08:44:07.000Z"
+		},
+		{
+			"host": "www.nexon.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2026-12-24T04:02:45.000Z"
+		},
+		{
+			"host": "www.nieuil-espoir.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-02-10T23:19:46.000Z"
+		},
+		{
+			"host": "www.nieul-sur-mer.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-30T22:06:07.000Z"
+		},
+		{
+			"host": "www.nontron.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-01-02T07:55:29.000Z"
+		},
+		{
+			"host": "www.notredame-medoc.org",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-14T18:43:33.000Z"
+		},
+		{
+			"host": "www.notredame-riberac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-02-02T15:53:04.000Z"
+		},
+		{
+			"host": "www.notredamesevigne.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-24T16:17:20.000Z"
+		},
+		{
+			"host": "www.nouaille.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-21T00:19:21.000Z"
+		},
+		{
+			"host": "www.objat.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"19"
+			],
+			"validTo": "2027-02-01T04:38:39.000Z"
+		},
+		{
+			"host": "www.ondres.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-02-04T22:15:50.000Z"
+		},
+		{
+			"host": "www.parentis.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-29T01:52:02.000Z"
+		},
+		{
+			"host": "www.parentiscollege.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-01T05:55:01.000Z"
+		},
+		{
+			"host": "www.pau.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-02-08T09:56:30.000Z"
+		},
+		{
+			"host": "www.perigny.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-12T21:45:41.000Z"
+		},
+		{
+			"host": "www.pessac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-30T23:59:59.000Z"
+		},
+		{
+			"host": "www.peujard.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-23T03:00:41.000Z"
+		},
+		{
+			"host": "www.peyrehorade.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-06T04:40:59.000Z"
+		},
+		{
+			"host": "www.podensac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-26T03:31:40.000Z"
+		},
+		{
+			"host": "www.poitiers.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-23T23:59:59.000Z"
+		},
+		{
+			"host": "www.poletertiaire-pagnol.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2026-12-23T02:49:58.000Z"
+		},
+		{
+			"host": "www.pompiers33.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-19T02:11:14.000Z"
+		},
+		{
+			"host": "www.pompignac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-16T09:24:00.000Z"
+		},
+		{
+			"host": "www.pons-ville.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-13T11:34:20.000Z"
+		},
+		{
+			"host": "www.pontonx.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-02-12T00:46:48.000Z"
+		},
+		{
+			"host": "www.pouillon40.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-02-15T01:37:10.000Z"
+		},
+		{
+			"host": "www.preignac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-26T03:36:40.000Z"
+		},
+		{
+			"host": "www.pyrenees-atlantiques.gouv.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-02-06T23:59:59.000Z"
+		},
+		{
+			"host": "www.quinsac33.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-16T20:31:02.000Z"
+		},
+		{
+			"host": "www.raoul-mortier.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2026-12-26T08:13:18.000Z"
+		},
+		{
+			"host": "www.riondeslandes.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-02-12T00:46:57.000Z"
+		},
+		{
+			"host": "www.rivieres16.fr",
+			"status": "no_tls",
+			"reasons": [
+				"no_tls_service"
+			],
+			"entries": 1,
+			"departments": [
+				"16"
+			]
+		},
+		{
+			"host": "www.rochechouart.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-01-22T05:54:10.000Z"
+		},
+		{
+			"host": "www.roquefort47.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-01-10T12:43:03.000Z"
+		},
+		{
+			"host": "www.roullet-saint-estephe.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-02-04T22:04:38.000Z"
+		},
+		{
+			"host": "www.saint-agnant.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2026-12-12T17:24:53.000Z"
+		},
+		{
+			"host": "www.saint-aubin-de-medoc.fr",
+			"status": "misconfigured",
+			"reasons": [
+				"hostname_mismatch"
+			],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-01T03:56:39.000Z"
+		},
+		{
+			"host": "www.saint-ciers-sur-gironde.ovh",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-31T23:04:22.000Z"
+		},
+		{
+			"host": "www.saint-gence.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-02-10T23:59:59.000Z"
+		},
+		{
+			"host": "www.saint-genes.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-26T07:08:11.000Z"
+		},
+		{
+			"host": "www.saint-geours-de-maremne.com",
+			"status": "no_tls",
+			"reasons": [
+				"no_tls_service"
+			],
+			"entries": 1,
+			"departments": [
+				"40"
+			]
+		},
+		{
+			"host": "www.saint-joseph-oloron.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2026-12-27T10:50:59.000Z"
+		},
+		{
+			"host": "www.saint-joseph-sarlat.org",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-02-13T10:24:33.000Z"
+		},
+		{
+			"host": "www.saint-joseph-tartas.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-25T09:18:00.000Z"
+		},
+		{
+			"host": "www.saint-maixent-lecole.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2026-12-25T04:35:38.000Z"
+		},
+		{
+			"host": "www.saint-medard-daunis.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-30T19:22:48.000Z"
+		},
+		{
+			"host": "www.saint-medard-deyrans.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-24T08:08:53.000Z"
+		},
+		{
+			"host": "www.saint-medard-en-jalles.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-25T09:51:41.000Z"
+		},
+		{
+			"host": "www.saint-paul-angouleme.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-01-28T23:59:59.000Z"
+		},
+		{
+			"host": "www.saint-sever.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-24T21:13:46.000Z"
+		},
+		{
+			"host": "www.saint-yzan-de-soudiac.com",
+			"status": "misconfigured",
+			"reasons": [
+				"hostname_mismatch",
+				"self_signed_certificate"
+			],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-11-22T00:21:39.000Z"
+		},
+		{
+			"host": "www.saintandredecubzac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-26T03:55:25.000Z"
+		},
+		{
+			"host": "www.saintbernard-bayonne.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-31T22:27:56.000Z"
+		},
+		{
+			"host": "www.saintcapraisdebordeaux.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-05T08:21:02.000Z"
+		},
+		{
+			"host": "www.sainte-fereole.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"19"
+			],
+			"validTo": "2026-12-24T07:49:37.000Z"
+		},
+		{
+			"host": "www.sainte-marie-barbezieux.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-02-01T23:51:03.000Z"
+		},
+		{
+			"host": "www.sainte-ursule-pau.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2026-12-24T12:36:59.000Z"
+		},
+		{
+			"host": "www.saintehelene.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-04-12T23:59:59.000Z"
+		},
+		{
+			"host": "www.saintemarie-casteljaloux.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-01-13T17:32:12.000Z"
+		},
+		{
+			"host": "www.saintgeorgesdedidonne.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-02-17T01:05:56.000Z"
+		},
+		{
+			"host": "www.saintgeorgesdescoteaux.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2026-12-12T16:58:19.000Z"
+		},
+		{
+			"host": "www.saintgeorgesdoleron.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-21T12:04:42.000Z"
+		},
+		{
+			"host": "www.saintjeanboscogabarret.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-19T23:40:27.000Z"
+		},
+		{
+			"host": "www.saintjeandeluz.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-22T00:26:56.000Z"
+		},
+		{
+			"host": "www.saintjo.org",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-03-26T23:59:59.000Z"
+		},
+		{
+			"host": "www.saintjo64.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-02-15T06:49:35.000Z"
+		},
+		{
+			"host": "www.saintjoseph-cognac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-01-06T00:27:24.000Z"
+		},
+		{
+			"host": "www.saintjulienlars.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2026-12-28T09:33:04.000Z"
+		},
+		{
+			"host": "www.saintlaurentdelapree.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2026-12-12T16:59:07.000Z"
+		},
+		{
+			"host": "www.saintlaurentmedoc.org",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-08T18:51:17.000Z"
+		},
+		{
+			"host": "www.saintleonsurlisle.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-02-11T03:33:39.000Z"
+		},
+		{
+			"host": "www.saintlouissaintetherese.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-07T07:19:49.000Z"
+		},
+		{
+			"host": "www.saintmagnedecastillon.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-17T02:06:41.000Z"
+		},
+		{
+			"host": "www.saintmartindeseignanx.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-02-04T22:16:39.000Z"
+		},
+		{
+			"host": "www.saintmartinlapallu.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-21T00:20:47.000Z"
+		},
+		{
+			"host": "www.saintmedarddeguizieres.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-09T17:52:40.000Z"
+		},
+		{
+			"host": "www.saintpierredirube.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2026-12-21T06:45:40.000Z"
+		},
+		{
+			"host": "www.saintpierreoleron.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-02-18T18:57:37.000Z"
+		},
+		{
+			"host": "www.saintsulpiceetcameyrac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-26T04:21:39.000Z"
+		},
+		{
+			"host": "www.saintsylvestresurlot.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-01-11T11:12:34.000Z"
+		},
+		{
+			"host": "www.saintvarent.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-01-06T09:57:00.000Z"
+		},
+		{
+			"host": "www.saintvincentdepaul.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-28T17:16:23.000Z"
+		},
+		{
+			"host": "www.saintyrieixsurcharente.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-01-15T13:10:05.000Z"
+		},
+		{
+			"host": "www.salies-de-bearn.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-25T08:02:43.000Z"
+		},
+		{
+			"host": "www.salleboeuf.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-13T15:35:58.000Z"
+		},
+		{
+			"host": "www.salles-sur-mer.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2026-12-31T10:04:00.000Z"
+		},
+		{
+			"host": "www.sanilhac-perigord.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2026-12-29T10:43:56.000Z"
+		},
+		{
+			"host": "www.saucats.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-11-22T14:03:06.000Z"
+		},
+		{
+			"host": "www.sdis40.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-03-23T23:59:59.000Z"
+		},
+		{
+			"host": "www.sdis47.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-03-27T23:59:59.000Z"
+		},
+		{
+			"host": "www.sdis86.net",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-06T23:59:59.000Z"
+		},
+		{
+			"host": "www.seignosse.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-11T00:31:50.000Z"
+		},
+		{
+			"host": "www.sereilhac.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-01-05T20:12:28.000Z"
+		},
+		{
+			"host": "www.sevresanxaumont.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-25T21:38:00.000Z"
+		},
+		{
+			"host": "www.sfxustaritz.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-08T11:25:07.000Z"
+		},
+		{
+			"host": "www.smarves.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2026-12-13T20:05:44.000Z"
+		},
+		{
+			"host": "www.soubise.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2026-12-12T17:09:18.000Z"
+		},
+		{
+			"host": "www.st-gab.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-03-31T23:59:59.000Z"
+		},
+		{
+			"host": "www.st-pantaleon-larche.correze.net",
+			"status": "misconfigured",
+			"reasons": [
+				"hostname_mismatch"
+			],
+			"entries": 1,
+			"departments": [
+				"19"
+			],
+			"validTo": "2026-12-11T21:43:45.000Z"
+		},
+		{
+			"host": "www.st-paul-les-dax.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-12T02:41:43.000Z"
+		},
+		{
+			"host": "www.stam-33.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-24T11:26:45.000Z"
+		},
+		{
+			"host": "www.ste-marie-royan.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-06T05:13:28.000Z"
+		},
+		{
+			"host": "www.stemarie-stmichel-cambo.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-02-19T16:00:32.000Z"
+		},
+		{
+			"host": "www.stemarthe-stjean.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-02-07T04:53:05.000Z"
+		},
+		{
+			"host": "www.stjacquesdecompostelle.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-02-02T20:17:04.000Z"
+		},
+		{
+			"host": "www.stjo-libourne.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-22T00:14:55.000Z"
+		},
+		{
+			"host": "www.stjoseph-nay.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2026-12-25T23:22:59.000Z"
+		},
+		{
+			"host": "www.stjoseph-sab.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-01-22T12:01:23.000Z"
+		},
+		{
+			"host": "www.stpalaissurmer.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2026-12-26T03:18:57.000Z"
+		},
+		{
+			"host": "www.stpierre47.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-01-05T23:59:59.000Z"
+		},
+		{
+			"host": "www.stsa17.org",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-02T16:39:00.000Z"
+		},
+		{
+			"host": "www.taillan-medoc.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-12T05:45:04.000Z"
+		},
+		{
+			"host": "www.talence.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-06-03T23:59:59.000Z"
+		},
+		{
+			"host": "www.tartas.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-02-12T00:47:33.000Z"
+		},
+		{
+			"host": "www.terresdehautecharente.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2026-12-24T09:56:54.000Z"
+		},
+		{
+			"host": "www.thiviers.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-02-14T17:24:28.000Z"
+		},
+		{
+			"host": "www.urrugne.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-16T18:14:34.000Z"
+		},
+		{
+			"host": "www.ussac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"19"
+			],
+			"validTo": "2027-01-06T00:32:34.000Z"
+		},
+		{
+			"host": "www.ussel19.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"19"
+			],
+			"validTo": "2027-01-23T16:31:11.000Z"
+		},
+		{
+			"host": "www.uzerche.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"19"
+			],
+			"validTo": "2026-12-11T23:12:57.000Z"
+		},
+		{
+			"host": "www.val-de-cognac.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2026-12-09T23:59:59.000Z"
+		},
+		{
+			"host": "www.valdevirvee.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-02-13T02:54:24.000Z"
+		},
+		{
+			"host": "www.valdivienne.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-21T00:21:45.000Z"
+		},
+		{
+			"host": "www.valenceenpoitou.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-21T00:21:56.000Z"
+		},
+		{
+			"host": "www.verines.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2026-12-12T17:15:43.000Z"
+		},
+		{
+			"host": "www.verneuil-sur-vienne.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-02-16T18:43:53.000Z"
+		},
+		{
+			"host": "www.vienne.gouv.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-02-06T23:59:59.000Z"
+		},
+		{
+			"host": "www.ville-aiffres.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-05-11T23:59:59.000Z"
+		},
+		{
+			"host": "www.ville-audenge.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-31T15:47:44.000Z"
+		},
+		{
+			"host": "www.ville-bassens.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-22T23:59:59.000Z"
+		},
+		{
+			"host": "www.ville-bizanos.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"64"
+			],
+			"validTo": "2027-01-31T08:44:29.000Z"
+		},
+		{
+			"host": "www.ville-blanquefort.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-06T23:59:59.000Z"
+		},
+		{
+			"host": "www.ville-boe.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"47"
+			],
+			"validTo": "2026-12-29T04:02:52.000Z"
+		},
+		{
+			"host": "www.ville-bon-encontre.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2026-12-27T01:50:37.000Z"
+		},
+		{
+			"host": "www.ville-bouliac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-11T07:31:01.000Z"
+		},
+		{
+			"host": "www.ville-bressuire.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-01-25T01:05:21.000Z"
+		},
+		{
+			"host": "www.ville-celles-sur-belle.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-02-11T05:03:06.000Z"
+		},
+		{
+			"host": "www.ville-chasseneuil-du-poitou.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-02-10T22:59:36.000Z"
+		},
+		{
+			"host": "www.ville-chateaubernard.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-01-16T17:36:05.000Z"
+		},
+		{
+			"host": "www.ville-cognac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-01-15T03:57:51.000Z"
+		},
+		{
+			"host": "www.ville-coulon.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-01-22T03:29:46.000Z"
+		},
+		{
+			"host": "www.ville-de-castelculier.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-01-21T07:50:15.000Z"
+		},
+		{
+			"host": "www.ville-de-salles.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-14T06:11:56.000Z"
+		},
+		{
+			"host": "www.ville-echillais.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2026-12-13T08:36:57.000Z"
+		},
+		{
+			"host": "www.ville-feytiat.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"87"
+			],
+			"validTo": "2027-02-11T11:33:09.000Z"
+		},
+		{
+			"host": "www.ville-foulayronnes.fr",
+			"status": "unknown",
+			"reasons": [
+				"endpoint_unreachable"
+			],
+			"entries": 1,
+			"departments": [
+				"47"
+			]
+		},
+		{
+			"host": "www.ville-gueret.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"23"
+			],
+			"validTo": "2027-01-25T03:37:13.000Z"
+		},
+		{
+			"host": "www.ville-jurancon.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"64"
+			],
+			"validTo": "2026-12-26T07:13:36.000Z"
+		},
+		{
+			"host": "www.ville-labenne.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-10T06:42:26.000Z"
+		},
+		{
+			"host": "www.ville-lalinde.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-01-13T22:55:04.000Z"
+		},
+		{
+			"host": "www.ville-lasouterraine.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"23"
+			],
+			"validTo": "2026-12-30T03:40:26.000Z"
+		},
+		{
+			"host": "www.ville-lavardac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-01-03T06:10:20.000Z"
+		},
+		{
+			"host": "www.ville-layrac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-01-04T10:35:10.000Z"
+		},
+		{
+			"host": "www.ville-lehaillan.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-29T23:59:59.000Z"
+		},
+		{
+			"host": "www.ville-lepassage.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-02-05T11:51:08.000Z"
+		},
+		{
+			"host": "www.ville-lubersac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"19"
+			],
+			"validTo": "2027-01-07T07:32:07.000Z"
+		},
+		{
+			"host": "www.ville-magne.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-01-19T21:41:43.000Z"
+		},
+		{
+			"host": "www.ville-marans.fr",
+			"status": "misconfigured",
+			"reasons": [
+				"hostname_mismatch",
+				"self_signed_certificate"
+			],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2030-05-10T10:03:38.000Z"
+		},
+		{
+			"host": "www.ville-martignas.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-04-15T23:59:59.000Z"
+		},
+		{
+			"host": "www.ville-mauze-mignon.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2026-12-25T21:06:42.000Z"
+		},
+		{
+			"host": "www.ville-mignaloux-beauvoir.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-01T00:05:11.000Z"
+		},
+		{
+			"host": "www.ville-miramontdeguyenne.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-02-01T23:59:59.000Z"
+		},
+		{
+			"host": "www.ville-montendre.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-06T22:18:30.000Z"
+		},
+		{
+			"host": "www.ville-nueil-les-aubiers.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-01-18T21:46:04.000Z"
+		},
+		{
+			"host": "www.ville-pennedagenais.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-01-13T02:12:04.000Z"
+		},
+		{
+			"host": "www.ville-pontducasse.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-02-08T20:08:35.000Z"
+		},
+		{
+			"host": "www.ville-prigonrieux.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-01-16T08:33:48.000Z"
+		},
+		{
+			"host": "www.ville-puilboreau.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-15T19:28:46.000Z"
+		},
+		{
+			"host": "www.ville-rochefort.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-06-07T10:08:49.000Z"
+		},
+		{
+			"host": "www.ville-rouillac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2026-12-30T22:02:00.000Z"
+		},
+		{
+			"host": "www.ville-ruellesurtouvre.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"16"
+			],
+			"validTo": "2027-02-04T22:05:32.000Z"
+		},
+		{
+			"host": "www.ville-saint-benoit.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-02-13T15:23:09.000Z"
+		},
+		{
+			"host": "www.ville-saintes.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2026-12-22T08:27:41.000Z"
+		},
+		{
+			"host": "www.ville-ste-livrade47.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-01-05T17:15:03.000Z"
+		},
+		{
+			"host": "www.ville-tarnos.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-02-02T22:17:35.000Z"
+		},
+		{
+			"host": "www.ville-terrasson.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"24"
+			],
+			"validTo": "2027-01-06T07:43:01.000Z"
+		},
+		{
+			"host": "www.ville-tulle.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"19"
+			],
+			"validTo": "2027-02-17T16:03:07.000Z"
+		},
+		{
+			"host": "www.ville-tyrosse.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-09T20:30:29.000Z"
+		},
+		{
+			"host": "www.ville-villeneuve-sur-lot.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"47"
+			],
+			"validTo": "2027-02-12T23:10:54.000Z"
+		},
+		{
+			"host": "www.villeambes.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-04-21T23:59:59.000Z"
+		},
+		{
+			"host": "www.villedesalles.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2026-12-31T05:31:33.000Z"
+		},
+		{
+			"host": "www.villedoux.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"17"
+			],
+			"validTo": "2027-01-17T17:03:35.000Z"
+		},
+		{
+			"host": "www.villenavedornon.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 2,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-04-02T23:59:59.000Z"
+		},
+		{
+			"host": "www.vivre-a-niort.com",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"79"
+			],
+			"validTo": "2027-02-08T05:28:47.000Z"
+		},
+		{
+			"host": "www.vouneuil-sur-vienne.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"86"
+			],
+			"validTo": "2027-01-03T06:02:20.000Z"
+		},
+		{
+			"host": "www.yvrac.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-26T05:13:25.000Z"
+		},
+		{
+			"host": "www2.saintmaixant.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"33"
+			],
+			"validTo": "2027-01-26T04:13:05.000Z"
+		},
+		{
+			"host": "ychoux.fr",
+			"status": "clean",
+			"reasons": [],
+			"entries": 1,
+			"departments": [
+				"40"
+			],
+			"validTo": "2027-01-23T01:33:10.000Z"
+		}
+	]
+}
