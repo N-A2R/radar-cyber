@@ -1,0 +1,108 @@
+{
+  "date": "2026-11-22",
+  "moteur": "gazetteer@4+context-resolution",
+  "jeu": {
+    "organisations": 14,
+    "cas": 16,
+    "alias": 22
+  },
+  "constructionMs": 4,
+  "latence": {
+    "p50": 0.77,
+    "p95": 3.281,
+    "max": 3.281
+  },
+  "global": {
+    "cas": 16,
+    "rappel": 1,
+    "precision": 1,
+    "f1": 1,
+    "trouves": 10,
+    "faux": 0,
+    "abstentions": 0,
+    "bruit": 0,
+    "attendus": 10
+  },
+  "parSecteur": {
+    "sante": {
+      "cas": 4,
+      "rappel": 1,
+      "precision": 1,
+      "f1": 1,
+      "trouves": 4,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 4
+    },
+    "collectivite": {
+      "cas": 1,
+      "rappel": 1,
+      "precision": 1,
+      "f1": 1,
+      "trouves": 1,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 1
+    },
+    "enseignement": {
+      "cas": 1,
+      "rappel": 1,
+      "precision": 1,
+      "f1": 1,
+      "trouves": 1,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 1
+    },
+    "entreprise": {
+      "cas": 4,
+      "rappel": 1,
+      "precision": 1,
+      "f1": 1,
+      "trouves": 4,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 4
+    }
+  },
+  "parCategorie": {
+    "typo-long": {
+      "cas": 5,
+      "rappel": 1,
+      "precision": 1,
+      "f1": 1,
+      "trouves": 5,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 5
+    },
+    "typo-double": {
+      "cas": 5,
+      "rappel": 1,
+      "precision": 1,
+      "f1": 1,
+      "trouves": 5,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 5
+    },
+    "negatif": {
+      "cas": 6,
+      "rappel": 0,
+      "precision": 1,
+      "f1": 0,
+      "trouves": 0,
+      "faux": 0,
+      "abstentions": 0,
+      "bruit": 0,
+      "attendus": 0
+    }
+  },
+  "echecs": []
+}
