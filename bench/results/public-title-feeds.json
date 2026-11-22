@@ -1,0 +1,30 @@
+{
+  "measuredAt": "2026-11-21T22:30:00.416Z",
+  "definition": "eligible corpus feeds (Nouvelle-Aquitaine, public RSS metadata only, dated HTTP 200 load proof) with an enabled source URL in the database",
+  "corpusFeeds": 17,
+  "eligibleFeeds": 17,
+  "integratedFeeds": 17,
+  "integratedFeedIds": [
+    "na-quotidien-001",
+    "na-quotidien-002",
+    "na-quotidien-003",
+    "na-quotidien-004",
+    "na-quotidien-005",
+    "na-quotidien-006",
+    "na-quotidien-007",
+    "na-quotidien-008",
+    "na-quotidien-009",
+    "na-quotidien-010",
+    "na-quotidien-011",
+    "na-quotidien-012",
+    "na-quotidien-013",
+    "na-quotidien-014",
+    "na-quotidien-015",
+    "na-quotidien-016",
+    "na-quotidien-017"
+  ],
+  "paywalledPublisherFeeds": 15,
+  "googleNewsFallbackFeeds": 2,
+  "enabledSourceRows": 334,
+  "registeredPublicTitleSourceRows": 4
+}

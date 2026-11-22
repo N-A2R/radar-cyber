@@ -9,7 +9,7 @@ import { parseBody, invalidBody } from "./body-validation.js";
 import { evaluerValeur } from "../analyse/valeur-source.js";
 
 /** Une source ne meurt que sur décision explicite, avec un motif. */
-const MorteBody = z.object({
+export const MorteBody = z.object({
   raison: z.string().trim().min(1).max(1000),
 }).strict();
 

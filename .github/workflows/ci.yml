@@ -5,6 +5,12 @@ on:
     branches: [main]
   pull_request:
 
+# Une branche qui pousse plusieurs fois de suite annule ses runs perimes.
+# main n'est jamais annule : chaque etat de main doit etre verifie.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
 jobs:
   verify:
     runs-on: ubuntu-latest

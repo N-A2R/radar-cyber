@@ -1,0 +1,13 @@
+{
+  "dryRun": true,
+  "corpusFeeds": 17,
+  "alreadyIntegrated": 13,
+  "inserted": 4,
+  "insertedIds": [
+    "public-title:na-quotidien-012",
+    "public-title:na-quotidien-015",
+    "public-title:na-quotidien-016",
+    "public-title:na-quotidien-017"
+  ],
+  "integratedAfter": 17
+}

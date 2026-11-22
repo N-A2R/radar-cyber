@@ -61,6 +61,7 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/stats/departements", niveau: "public" },
   { methode: "GET", route: "/api/sources", niveau: "public" },
   { methode: "GET", route: "/api/directory", niveau: "public" },
+  { methode: "GET", route: "/api/public-mandates", niveau: "public" },
   { methode: "GET", route: "/api/graph", niveau: "public" },
   { methode: "GET", route: "/api/graph/temporal", niveau: "public", motif: "observatoire : lecture du graphe temporel" },
   { methode: "GET", route: "/api/stream", niveau: "public" },
@@ -75,6 +76,7 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/quarantine", niveau: "public" },
   { methode: "GET", route: "/api/quarantine/stats", niveau: "public" },
   { methode: "GET", route: "/api/quarantine/queue", niveau: "analyste" },
+  { methode: "GET", route: "/api/onion-index", niveau: "public" },
   { methode: "GET", route: "/api/orgs", niveau: "public" },
 
   // --- Lectures authentifiées ----------------------------------------------

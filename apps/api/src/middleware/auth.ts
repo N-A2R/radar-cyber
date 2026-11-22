@@ -40,6 +40,7 @@ export async function resolveUser(req: FastifyRequest): Promise<AuthUser | null>
     const token = h.slice(7).trim();
     if (token) return lookupToken(token);
   }
+  if (req.apiKey) return req.apiKey.owner;
   const path = (req.url ?? "").split("?")[0];
   if (QUERY_TOKEN_PATHS.some((p) => path === p || path.startsWith(`${p}/`))) {
     const raw = (req.query as { token?: unknown } | undefined)?.token;
@@ -50,7 +51,7 @@ export async function resolveUser(req: FastifyRequest): Promise<AuthUser | null>
 
 export function requireAuth() {
   return async (req: FastifyRequest, reply: FastifyReply) => {
-    const u = await resolveUser(req);
+    const u = req.user ?? (await resolveUser(req));
     if (!u) {
       throw unauthorized();
     }

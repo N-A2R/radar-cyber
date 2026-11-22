@@ -1,0 +1,270 @@
+{
+  "generatedAt": "2026-11-21T22:40:39.588Z",
+  "totalOrganisations": 1673221,
+  "groupsFound": 18,
+  "duplicatesFound": 18,
+  "duplicatesMerged": 18,
+  "verification": [
+    {
+      "group": "org-403092620-00fb2412ad68",
+      "ok": true,
+      "detail": "events preserved, alerts preserved, history preserved, children preserved, asset values preserved, aliases kept; 0 event(s), 0 alert(s), 0 history row(s), 0 asset(s), 0 child(ren) intact"
+    },
+    {
+      "group": "org-382799021-fe7727deec1c",
+      "ok": true,
+      "detail": "events preserved, alerts preserved, history preserved, children preserved, asset values preserved, aliases kept; 0 event(s), 0 alert(s), 0 history row(s), 0 asset(s), 0 child(ren) intact"
+    },
+    {
+      "group": "org-383396058-46867f28f990",
+      "ok": true,
+      "detail": "events preserved, alerts preserved, history preserved, children preserved, asset values preserved, aliases kept; 0 event(s), 0 alert(s), 0 history row(s), 0 asset(s), 0 child(ren) intact"
+    },
+    {
+      "group": "org-484723028-c0ebafee6897",
+      "ok": true,
+      "detail": "events preserved, alerts preserved, history preserved, children preserved, asset values preserved, aliases kept; 0 event(s), 0 alert(s), 0 history row(s), 0 asset(s), 3 child(ren) intact"
+    },
+    {
+      "group": "org-501960918-534fdfc601a0",
+      "ok": true,
+      "detail": "events preserved, alerts preserved, history preserved, children preserved, asset values preserved, aliases kept; 0 event(s), 0 alert(s), 0 history row(s), 0 asset(s), 0 child(ren) intact"
+    },
+    {
+      "group": "org-801431024-35ea7d3466ba",
+      "ok": true,
+      "detail": "events preserved, alerts preserved, history preserved, children preserved, asset values preserved, aliases kept; 0 event(s), 0 alert(s), 0 history row(s), 0 asset(s), 0 child(ren) intact"
+    },
+    {
+      "group": "org-829915537-217afcbbed41",
+      "ok": true,
+      "detail": "events preserved, alerts preserved, history preserved, children preserved, asset values preserved, aliases kept; 0 event(s), 0 alert(s), 0 history row(s), 0 asset(s), 0 child(ren) intact"
+    },
+    {
+      "group": "org-832232789-4a762fc314dd",
+      "ok": true,
+      "detail": "events preserved, alerts preserved, history preserved, children preserved, asset values preserved, aliases kept; 0 event(s), 0 alert(s), 0 history row(s), 0 asset(s), 0 child(ren) intact"
+    },
+    {
+      "group": "org-839094182-4776f31c9b8c",
+      "ok": true,
+      "detail": "events preserved, alerts preserved, history preserved, children preserved, asset values preserved, aliases kept; 0 event(s), 0 alert(s), 0 history row(s), 0 asset(s), 0 child(ren) intact"
+    },
+    {
+      "group": "org-850858259-d657e8eb3d32",
+      "ok": true,
+      "detail": "events preserved, alerts preserved, history preserved, children preserved, asset values preserved, aliases kept; 0 event(s), 0 alert(s), 0 history row(s), 0 asset(s), 0 child(ren) intact"
+    },
+    {
+      "group": "org-881750962-0fc0a9038327",
+      "ok": true,
+      "detail": "events preserved, alerts preserved, history preserved, children preserved, asset values preserved, aliases kept; 0 event(s), 0 alert(s), 0 history row(s), 0 asset(s), 0 child(ren) intact"
+    },
+    {
+      "group": "org-901067702-bd30607b0724",
+      "ok": true,
+      "detail": "events preserved, alerts preserved, history preserved, children preserved, asset values preserved, aliases kept; 0 event(s), 0 alert(s), 0 history row(s), 0 asset(s), 0 child(ren) intact"
+    },
+    {
+      "group": "org-917434979-80b7868066dc",
+      "ok": true,
+      "detail": "events preserved, alerts preserved, history preserved, children preserved, asset values preserved, aliases kept; 0 event(s), 0 alert(s), 0 history row(s), 0 asset(s), 0 child(ren) intact"
+    },
+    {
+      "group": "org-921329256-e5cdec7f3a94",
+      "ok": true,
+      "detail": "events preserved, alerts preserved, history preserved, children preserved, asset values preserved, aliases kept; 0 event(s), 0 alert(s), 0 history row(s), 0 asset(s), 0 child(ren) intact"
+    },
+    {
+      "group": "org-934227497-b2e911bc2d57",
+      "ok": true,
+      "detail": "events preserved, alerts preserved, history preserved, children preserved, asset values preserved, aliases kept; 0 event(s), 0 alert(s), 0 history row(s), 0 asset(s), 0 child(ren) intact"
+    },
+    {
+      "group": "org-951597723-5a611f6a229f",
+      "ok": true,
+      "detail": "events preserved, alerts preserved, history preserved, children preserved, asset values preserved, aliases kept; 0 event(s), 0 alert(s), 0 history row(s), 0 asset(s), 0 child(ren) intact"
+    },
+    {
+      "group": "org-984149286-35b979bf902e",
+      "ok": true,
+      "detail": "events preserved, alerts preserved, history preserved, children preserved, asset values preserved, aliases kept; 0 event(s), 0 alert(s), 0 history row(s), 0 asset(s), 0 child(ren) intact"
+    },
+    {
+      "group": "org-999745672-49291de7d0f2",
+      "ok": true,
+      "detail": "events preserved, alerts preserved, history preserved, children preserved, asset values preserved, aliases kept; 0 event(s), 0 alert(s), 0 history row(s), 0 asset(s), 0 child(ren) intact"
+    }
+  ],
+  "mode": "apply",
+  "groups": [
+    {
+      "id": "org-403092620-00fb2412ad68",
+      "siren": "403092620",
+      "memberIds": [
+        34763,
+        1969824
+      ],
+      "survivor": 34763
+    },
+    {
+      "id": "org-382799021-fe7727deec1c",
+      "siren": "382799021",
+      "memberIds": [
+        123124,
+        1968181
+      ],
+      "survivor": 123124
+    },
+    {
+      "id": "org-383396058-46867f28f990",
+      "siren": "383396058",
+      "memberIds": [
+        124203,
+        1968268
+      ],
+      "survivor": 124203
+    },
+    {
+      "id": "org-484723028-c0ebafee6897",
+      "siren": "484723028",
+      "memberIds": [
+        263620,
+        1975141
+      ],
+      "survivor": 263620
+    },
+    {
+      "id": "org-501960918-534fdfc601a0",
+      "siren": "501960918",
+      "memberIds": [
+        296330,
+        1976470
+      ],
+      "survivor": 296330
+    },
+    {
+      "id": "org-801431024-35ea7d3466ba",
+      "siren": "801431024",
+      "memberIds": [
+        401897,
+        1984575
+      ],
+      "survivor": 401897
+    },
+    {
+      "id": "org-829915537-217afcbbed41",
+      "siren": "829915537",
+      "memberIds": [
+        461134,
+        1986780
+      ],
+      "survivor": 461134
+    },
+    {
+      "id": "org-832232789-4a762fc314dd",
+      "siren": "832232789",
+      "memberIds": [
+        467280,
+        1986949
+      ],
+      "survivor": 467280
+    },
+    {
+      "id": "org-839094182-4776f31c9b8c",
+      "siren": "839094182",
+      "memberIds": [
+        479747,
+        1987388
+      ],
+      "survivor": 479747
+    },
+    {
+      "id": "org-850858259-d657e8eb3d32",
+      "siren": "850858259",
+      "memberIds": [
+        504919,
+        1988179
+      ],
+      "survivor": 504919
+    },
+    {
+      "id": "org-881750962-0fc0a9038327",
+      "siren": "881750962",
+      "memberIds": [
+        523943,
+        1988867
+      ],
+      "survivor": 523943
+    },
+    {
+      "id": "org-901067702-bd30607b0724",
+      "siren": "901067702",
+      "memberIds": [
+        561196,
+        1990201
+      ],
+      "survivor": 561196
+    },
+    {
+      "id": "org-917434979-80b7868066dc",
+      "siren": "917434979",
+      "memberIds": [
+        594918,
+        1991465
+      ],
+      "survivor": 594918
+    },
+    {
+      "id": "org-921329256-e5cdec7f3a94",
+      "siren": "921329256",
+      "memberIds": [
+        604425,
+        1991645
+      ],
+      "survivor": 604425
+    },
+    {
+      "id": "org-934227497-b2e911bc2d57",
+      "siren": "934227497",
+      "memberIds": [
+        634242,
+        1992529
+      ],
+      "survivor": 634242
+    },
+    {
+      "id": "org-951597723-5a611f6a229f",
+      "siren": "951597723",
+      "memberIds": [
+        665905,
+        1993387
+      ],
+      "survivor": 665905
+    },
+    {
+      "id": "org-984149286-35b979bf902e",
+      "siren": "984149286",
+      "memberIds": [
+        686542,
+        1994106
+      ],
+      "survivor": 686542
+    },
+    {
+      "id": "org-999745672-49291de7d0f2",
+      "siren": "999745672",
+      "memberIds": [
+        712257,
+        1994795
+      ],
+      "survivor": 712257
+    }
+  ],
+  "rules": {
+    "identity": "same SIREN + normalized name + Nouvelle-Aquitaine department + two ingestion shapes",
+    "scope": "Nouvelle-Aquitaine only; source reputation is not used",
+    "survivor": "smallest org.id (oldest row, stable across runs)",
+    "lossCheck": "event/alert/history/child ids and asset values intact; aliases additive; rollback on failure"
+  }
+}
