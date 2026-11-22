@@ -72,3 +72,4 @@ composant lui-même :
    `App.tsx`.
 3. Brancher le rendu dans la scène.
 4. `pnpm -F @radar/web typecheck`.
+OBJECTIF : atteint — 9 / 9 groupes de chiffres calculés par SQL et rendus depuis la réponse API (5 états, 2 classements, évolution 7 j, temps de collecte)
