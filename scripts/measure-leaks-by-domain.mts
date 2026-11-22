@@ -30,6 +30,7 @@ try {
     claimsRead: measurement.claimsRead,
     domainOrganizationsRead: measurement.domainOrganizationsRead,
     matchedOrganizations: measurement.matchedOrganizations,
+    summary: measurement.summary,
     baseline: measurement.baseline,
     attachments: measurement.attachments,
     sql: SQL,
@@ -42,6 +43,10 @@ try {
       `(claims=${measurement.claimsRead}, domain orgs=${measurement.domainOrganizationsRead}, ` +
       `orgs=${measurement.baseline.organizations}, sources=${measurement.baseline.sources}, ` +
       `events=${measurement.baseline.events}) -> ${output}`,
+  );
+  console.log(
+    `By department: ${JSON.stringify(measurement.summary.byDepartment)} ` +
+      `by source: ${JSON.stringify(measurement.summary.bySource)}`,
   );
 } finally {
   await closePools();

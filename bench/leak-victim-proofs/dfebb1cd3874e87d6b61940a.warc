@@ -1,0 +1,18 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:8543d7ef-413b-4083-a798-ade1aafe04a0>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 141
+WARC-Block-Digest: sha1:ZCSGXRZFP6AU3ZKA5ZEEJO75JICJHUOC
+X-Claim-Fingerprint: 6bfa6666483808e3acfe0970
+X-Victim-Key: dfebb1cd3874e87d6b61940a
+
+{
+        "post_title": "Transports Verlhac et Fils",
+        "group_name": "spook",
+        "discovered": "2021-10-04 10:12:29.858334"
+    }
+
