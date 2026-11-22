@@ -52,3 +52,4 @@
 - Le Courrier de l'Ouest : HTTP 403 anti-bot ; non retenu.
 
 Limite de périmètre : les organisations strictement départementales (MODEF 79, Coordination Rurale 79, Jeunes Agriculteurs 79, annuaire EPRO 79, presse locale 79) côtoient des réseaux régionaux ou nationaux (Chambres, Cuma, SAFER, bio, FNAB, presse agricole) qui couvrent explicitement les Deux-Sèvres. Les exemples cyber du champ `exemple_cyber` sont des cas agricoles documentés et vérifiés en HTTP 200, rattachés au type de source concerné ; ils ne sont pas des incidents constatés sur la source elle-même.
+OBJECTIF : atteint — 25 / 5
