@@ -52,7 +52,7 @@ const ROUTES = [
   orgsLieesRoute, orgsLieesHistoriqueRoute, ingestRoute, dossierRoute, keysRoute,
 ];
 
-const PUBLIC_READ = /^\/api\/(?:v1\/)?(health|stats|sources|flows|search|directory|graph|stream|events|history|orgs|enrich|alerts|quarantine|dossier|healthz|na|today|couverture|docs|openapi\.json|auth)(\/|$|\?)/;
+const PUBLIC_READ = /^\/api\/(?:v1\/)?(?:health|stats|sources|flows|search|directory|graph(?:\/(?:temporal|complet))?|stream|events|history|orgs|enrich|alerts|quarantine|dossier|healthz|na|today|couverture|docs|openapi\.json|auth)(\/|$|\?)/;
 
 export async function buildApp(): Promise<FastifyInstance> {
   const app = Fastify({ logger: false });

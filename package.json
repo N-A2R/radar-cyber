@@ -41,7 +41,8 @@
     "domaines:etendre": "apps/api/node_modules/.bin/tsx scripts/expand-domains.mts",
     "sources:generate": "node scripts/generer-sources-actives.mts",
     "sources:measure": "node scripts/measure-active-sources.mts",
-    "onion:index": "apps/api/node_modules/.bin/tsx scripts/build-onion-index.mts"
+    "onion:index": "apps/api/node_modules/.bin/tsx scripts/build-onion-index.mts",
+    "mesure:graphe": "apps/api/node_modules/.bin/tsx scripts/mesure-graphe-complet.mts"
   },
   "devDependencies": {
     "embedded-postgres": "18.6.0-beta.19"
