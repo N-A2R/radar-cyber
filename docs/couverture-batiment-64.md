@@ -60,3 +60,5 @@ réhabilitation et de réemploi dans le bâtiment relayées par Bing Actualités
 (consultés le 2026-11-22). Pour les autres sources, le champ `exemple_cyber`
 décrit un vecteur sectoriel (faux devis, faux RIB, permis de construire
 frauduleux) sans incident nommé dans la page observée.
+
+OBJECTIF : atteint — 21 sources vérifiées HTTP 200 / 5 minimum.
