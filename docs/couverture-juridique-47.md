@@ -42,3 +42,4 @@
 ## Méthode
 
 Recherche des organisations du droit dans le Lot-et-Garonne (barreau, tribunaux, notariat, commissaires de justice, annuaires d'avocats, presse locale avec rubrique justice), lecture des pages publiques pour repérer les rubriques d'actualités et les flux, puis contrôle HTTP de chaque URL retenue. Exa hors crédits (402) : découverte par moteurs de recherche alternatifs et sites officiels, chaque URL étant vérifiée individuellement.
+OBJECTIF : atteint — 19 / 5
