@@ -53,3 +53,4 @@ Les exemples sont tirés de `bench/corpus/incidents-charentemaritime.jsonl` et d
 ## Méthode
 
 Recherche web (Google Actualités RSS, Bing RSS, annuaires professionnels, chambres consulaires, fédérations, presse locale), identification des pages d'actualités et des flux, puis contrôle GET de chaque URL avec User-Agent navigateur, suivi des redirections et délai maximal de 32 s. Le service Exa étant hors crédits (402), les candidats ont été identifiés depuis les flux d'actualités, les sites officiels et les annuaires sectoriels, puis tous contrôlés en HTTP direct. Seules les sources dont toutes les URLs ont répondu 200 ont été intégrées au corpus et à la base.
+OBJECTIF : atteint — 15 / 5
