@@ -1,0 +1,361 @@
+{
+  "secteur": "banque-assurance",
+  "departement": "79",
+  "date": "2026-11-22",
+  "sources": 18,
+  "urls_verifiees": 54,
+  "urls_http_200": 54,
+  "urls_uniques": 50,
+  "urls": [
+    {
+      "url": "https://www.credit-agricole.fr/ca-cmds/particulier.html",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 186
+    },
+    {
+      "url": "https://www.credit-agricole.fr/ca-cmds/particulier/conseils/magazine/tout-un-mag.html",
+      "code": 200,
+      "ct": "text/html",
+      "items": 0,
+      "ms": 219
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Cr%C3%A9dit+Agricole%22+%22Deux-S%C3%A8vres%22&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 55,
+      "ms": 264
+    },
+    {
+      "url": "https://www.maif.fr/",
+      "code": 200,
+      "ct": "text/html;charset=UTF-8",
+      "items": 0,
+      "ms": 361
+    },
+    {
+      "url": "https://entreprise.maif.fr/actualites",
+      "code": 200,
+      "ct": "text/html;charset=UTF-8",
+      "items": 0,
+      "ms": 258
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=MAIF+Niort+Deux-S%C3%A8vres&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 42,
+      "ms": 90
+    },
+    {
+      "url": "https://www.smacl.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 144
+    },
+    {
+      "url": "https://www.smacl.fr/actus-et-conseils/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 124
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=SMACL+Niort&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 43,
+      "ms": 281
+    },
+    {
+      "url": "https://www.ameli.fr/deux-sevres/assure",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 106
+    },
+    {
+      "url": "https://www.ameli.fr/deux-sevres/assure/actualites",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 135
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22CPAM+des+Deux-S%C3%A8vres%22+fraude&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 5,
+      "ms": 239
+    },
+    {
+      "url": "https://www.mgen.fr/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 207
+    },
+    {
+      "url": "https://www.mgen.fr/ressources/actualites",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 230
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=MGEN+Deux-S%C3%A8vres&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 24,
+      "ms": 771
+    },
+    {
+      "url": "https://www.harmonie-mutuelle.fr/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 76
+    },
+    {
+      "url": "https://www.harmonie-mutuelle.fr/actualites/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 94
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Harmonie+Mutuelle%22+Deux-S%C3%A8vres&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 10,
+      "ms": 414
+    },
+    {
+      "url": "https://www.creditmutuel.com/fr/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 504
+    },
+    {
+      "url": "https://www.creditmutuel.com/fr/actualites",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 510
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Cr%C3%A9dit+Mutuel%22+Deux-S%C3%A8vres&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 31,
+      "ms": 244
+    },
+    {
+      "url": "https://www.banquepopulaire.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 328
+    },
+    {
+      "url": "https://www.banquepopulaire.fr/votre-banque/actualites/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 204
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Banque+Populaire%22+Deux-S%C3%A8vres+fraude&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 9,
+      "ms": 264
+    },
+    {
+      "url": "https://www.caisse-epargne.fr/loire-centre/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 194
+    },
+    {
+      "url": "https://www.caisse-epargne.fr/votre-banque/actualites/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 506
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Caisse+d%27%C3%89pargne%22+Deux-S%C3%A8vres&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 10,
+      "ms": 215
+    },
+    {
+      "url": "https://www.franceassureurs.fr/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 189
+    },
+    {
+      "url": "https://www.franceassureurs.fr/actualites/",
+      "code": 200,
+      "ct": "text/html; charset=utf-8",
+      "items": 0,
+      "ms": 154
+    },
+    {
+      "url": "https://www.franceassureurs.fr/feed/",
+      "code": 200,
+      "ct": "application/rss+xml; charset=UTF-8",
+      "items": 5,
+      "ms": 658
+    },
+    {
+      "url": "https://fbf.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 407
+    },
+    {
+      "url": "https://fbf.fr/fr/rubrique-newsroom/actualites/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 260
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=FBF+banque+Deux-S%C3%A8vres&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 3,
+      "ms": 212
+    },
+    {
+      "url": "https://acpr.banque-france.fr/fr",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 233
+    },
+    {
+      "url": "https://acpr.banque-france.fr/fr/actualites",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 218
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=ACPR+Deux-S%C3%A8vres+banque&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 9,
+      "ms": 222
+    },
+    {
+      "url": "https://www.orias.fr/",
+      "code": 200,
+      "ct": "text/html;charset=UTF-8",
+      "items": 0,
+      "ms": 260
+    },
+    {
+      "url": "https://www.orias.fr/home/communications",
+      "code": 200,
+      "ct": "text/html;charset=UTF-8",
+      "items": 0,
+      "ms": 273
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=ORIAS+assurance+interm%C3%A9diaire&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 32,
+      "ms": 97
+    },
+    {
+      "url": "https://www.cncgp.fr/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 157
+    },
+    {
+      "url": "https://www.cncgp.fr/actualites",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 110
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=CNCGP+conseil+patrimoine&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 29,
+      "ms": 112
+    },
+    {
+      "url": "https://niortinfo.media/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 2806
+    },
+    {
+      "url": "https://niortinfo.media/feed/",
+      "code": 200,
+      "ct": "application/rss+xml; charset=UTF-8",
+      "items": 10,
+      "ms": 1513
+    },
+    {
+      "url": "https://actu.fr/pays-de-la-loire/deux-sevres_79/",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 152
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=actu.fr+Deux-S%C3%A8vres+banque&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "ct": "application/xml; charset=utf-8",
+      "items": 70,
+      "ms": 99
+    },
+    {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/deux-sevres",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 363
+    },
+    {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/deux-sevres/rss",
+      "code": 200,
+      "ct": "text/xml; charset=UTF-8",
+      "items": 30,
+      "ms": 213
+    },
+    {
+      "url": "https://www.ici.fr/poitou",
+      "code": 200,
+      "ct": "text/html; charset=UTF-8",
+      "items": 0,
+      "ms": 242
+    },
+    {
+      "url": "https://www.ici.fr/rss/poitou/rubrique/infos.xml",
+      "code": 200,
+      "ct": "application/xml",
+      "items": 20,
+      "ms": 86
+    }
+  ]
+}

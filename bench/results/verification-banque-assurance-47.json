@@ -1,0 +1,801 @@
+{
+  "secteur": "banque-assurance",
+  "departement": "47",
+  "date": "2026-11-22",
+  "sources": 28,
+  "urls_verifiees": 79,
+  "urls_http_200": 79,
+  "methode": "GET HTTP avec User-Agent navigateur, suivi des redirections, delai 25 s ; controle du titre HTML ou de la racine XML et comptage des items pour les flux",
+  "urls": [
+    {
+      "url": "https://acpr.banque-france.fr/fr",
+      "code_http": 200,
+      "final": "https://acpr.banque-france.fr/fr",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 228685,
+      "items": 0,
+      "titre": "L’Autorité de contrôle prudentiel et de résolution – ACPR | Autorité de contrôle prudentiel et de résolution",
+      "ms": 1321
+    },
+    {
+      "url": "https://acpr.banque-france.fr/fr/actualites",
+      "code_http": 200,
+      "final": "https://acpr.banque-france.fr/fr/actualites",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 248692,
+      "items": 0,
+      "titre": "A la une toutes les actualités | Autorité de contrôle prudentiel et de résolution",
+      "ms": 2026
+    },
+    {
+      "url": "https://actu.fr/nouvelle-aquitaine/lot-et-garonne_47/",
+      "code_http": 200,
+      "final": "https://actu.fr/nouvelle-aquitaine/lot-et-garonne_47",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 334190,
+      "items": 0,
+      "titre": "Actu Lot-et-Garonne | actu.fr",
+      "ms": 202
+    },
+    {
+      "url": "https://actu.fr/nouvelle-aquitaine/lot-et-garonne_47/rss.xml",
+      "code_http": 200,
+      "final": "https://actu.fr/nouvelle-aquitaine/lot-et-garonne_47/rss.xml",
+      "content_type": "application/rss+xml; charset=utf-8",
+      "octets": 1419,
+      "items": 0,
+      "titre": "Lot-et-Garonne - L'actualité en continu - actu.fr",
+      "ms": 62
+    },
+    {
+      "url": "https://blog.societe.com/",
+      "code_http": 200,
+      "final": "https://blog.societe.com/",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 36671,
+      "items": 0,
+      "titre": "Société.com - Suivez notre actualité",
+      "ms": 298
+    },
+    {
+      "url": "https://cci47.fr/actualites/",
+      "code_http": 200,
+      "final": "https://cci47.fr/actualites/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 19254,
+      "items": 0,
+      "titre": "CCI Lot-et-Garonne | Le Partenaire des Entreprises et des Territoires du 47",
+      "ms": 672
+    },
+    {
+      "url": "https://entreprise.maif.fr/actualites",
+      "code_http": 200,
+      "final": "https://entreprise.maif.fr/actualites",
+      "content_type": "text/html;charset=UTF-8",
+      "octets": 76643,
+      "items": 0,
+      "titre": "Toutes les actualités MAIF - Entreprise MAIF",
+      "ms": 171
+    },
+    {
+      "url": "https://fbf.fr/",
+      "code_http": 200,
+      "final": "https://fbf.fr/fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 237606,
+      "items": 0,
+      "titre": "Fédération bancaire française - Tout savoir sur l’activité bancaire et financière en France",
+      "ms": 465
+    },
+    {
+      "url": "https://fbf.fr/fr/rubrique-newsroom/actualites/",
+      "code_http": 200,
+      "final": "https://fbf.fr/fr/rubrique-newsroom/actualites/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 274053,
+      "items": 0,
+      "titre": "Actualités - Fédération bancaire française (FBF)",
+      "ms": 379
+    },
+    {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/lot-et-garonne",
+      "code_http": 200,
+      "final": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/lot-et-garonne",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 575833,
+      "items": 0,
+      "titre": "Lot-Et-Garonne : actualités et infos en direct, faits-divers, sport, loisir et culture - France 3 Nouvelle-Aquitaine",
+      "ms": 179
+    },
+    {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/lot-et-garonne/rss",
+      "code_http": 200,
+      "final": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/lot-et-garonne/rss",
+      "content_type": "text/xml; charset=UTF-8",
+      "octets": 80376,
+      "items": 30,
+      "titre": "France 3 Régions Nouvelle-Aquitaine - Lot-et-Garonne",
+      "ms": 180
+    },
+    {
+      "url": "https://lot-et-garonne.chambres-agriculture.fr/",
+      "code_http": 200,
+      "final": "https://lot-et-garonne.chambres-agriculture.fr/",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 92632,
+      "items": 0,
+      "titre": "Chambre agriculture de Lot et Garonne - Chambre agriculture du lot et Garonne",
+      "ms": 386
+    },
+    {
+      "url": "https://lot-et-garonne.chambres-agriculture.fr/actualites",
+      "code_http": 200,
+      "final": "https://lot-et-garonne.chambres-agriculture.fr/actualites",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 99218,
+      "items": 0,
+      "titre": "Actualités - Chambre agriculture du lot et Garonne",
+      "ms": 691
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Banque+Populaire%22+Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=%22Banque+Populaire%22+Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 41726,
+      "items": 28,
+      "titre": "\"\"Banque Populaire\" Lot-et-Garonne\" - Google Actualités",
+      "ms": 307
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22CPAM+du+Lot-et-Garonne%22+fraude&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=%22CPAM+du+Lot-et-Garonne%22+fraude&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 7879,
+      "items": 5,
+      "titre": "\"\"CPAM du Lot-et-Garonne\" fraude\" - Google Actualités",
+      "ms": 216
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22CPME+47%22+banque+assurance&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=%22CPME+47%22+banque+assurance&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 1169,
+      "items": 0,
+      "titre": "\"\"CPME 47\" banque assurance\" - Google Actualités",
+      "ms": 240
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Cr%C3%A9dit+Agricole%22+Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=%22Cr%C3%A9dit+Agricole%22+Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 48263,
+      "items": 33,
+      "titre": "\"\"Crédit Agricole\" Lot-et-Garonne\" - Google Actualités",
+      "ms": 274
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22F%C3%A9d%C3%A9ration+Bancaire+Fran%C3%A7aise%22+Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=%22F%C3%A9d%C3%A9ration+Bancaire+Fran%C3%A7aise%22+Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 14872,
+      "items": 10,
+      "titre": "\"\"Fédération Bancaire Française\" Lot-et-Garonne\" - Google Actualités",
+      "ms": 230
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=ACPR+Lot-et-Garonne+assurance&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=ACPR+Lot-et-Garonne+assurance&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 4405,
+      "items": 2,
+      "titre": "\"ACPR Lot-et-Garonne assurance\" - Google Actualités",
+      "ms": 217
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=AXA+Lot-et-Garonne+assurance&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=AXA+Lot-et-Garonne+assurance&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 11388,
+      "items": 8,
+      "titre": "\"AXA Lot-et-Garonne assurance\" - Google Actualités",
+      "ms": 241
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=CCI+Lot-et-Garonne+banque+assurance&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=CCI+Lot-et-Garonne+banque+assurance&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 68552,
+      "items": 49,
+      "titre": "\"CCI Lot-et-Garonne banque assurance\" - Google Actualités",
+      "ms": 331
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=CNCGP+Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=CNCGP+Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 1153,
+      "items": 0,
+      "titre": "\"CNCGP Lot-et-Garonne\" - Google Actualités",
+      "ms": 197
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=CNP+Assurances+Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=CNP+Assurances+Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 8152,
+      "items": 5,
+      "titre": "\"CNP Assurances Lot-et-Garonne\" - Google Actualités",
+      "ms": 232
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Caisse+d%27%C3%89pargne+Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=Caisse+d%27%C3%89pargne+Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 15153,
+      "items": 10,
+      "titre": "\"Caisse d'Épargne Lot-et-Garonne\" - Google Actualités",
+      "ms": 235
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Chambre+agriculture+Lot-et-Garonne+assurance&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=Chambre+agriculture+Lot-et-Garonne+assurance&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 17754,
+      "items": 10,
+      "titre": "\"Chambre agriculture Lot-et-Garonne assurance\" - Google Actualités",
+      "ms": 263
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Cr%C3%A9dit+Mutuel+Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=Cr%C3%A9dit+Mutuel+Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 18264,
+      "items": 12,
+      "titre": "\"Crédit Mutuel Lot-et-Garonne\" - Google Actualités",
+      "ms": 224
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Groupama+Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=Groupama+Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 29508,
+      "items": 19,
+      "titre": "\"Groupama Lot-et-Garonne\" - Google Actualités",
+      "ms": 253
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Harmonie+Mutuelle+Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=Harmonie+Mutuelle+Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 13299,
+      "items": 9,
+      "titre": "\"Harmonie Mutuelle Lot-et-Garonne\" - Google Actualités",
+      "ms": 261
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=ICI+Lot-et-Garonne+banque+assurance&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=ICI+Lot-et-Garonne+banque+assurance&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 37291,
+      "items": 23,
+      "titre": "\"ICI Lot-et-Garonne banque assurance\" - Google Actualités",
+      "ms": 258
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=LCL+Lot-et-Garonne+banque&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=LCL+Lot-et-Garonne+banque&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 48216,
+      "items": 36,
+      "titre": "\"LCL Lot-et-Garonne banque\" - Google Actualités",
+      "ms": 356
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=MAIF+Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=MAIF+Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 17920,
+      "items": 10,
+      "titre": "\"MAIF Lot-et-Garonne\" - Google Actualités",
+      "ms": 240
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=ORIAS+Lot-et-Garonne+assurance&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=ORIAS+Lot-et-Garonne+assurance&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 2473,
+      "items": 1,
+      "titre": "\"ORIAS Lot-et-Garonne assurance\" - Google Actualités",
+      "ms": 275
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=SMACL+Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=SMACL+Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 6583,
+      "items": 3,
+      "titre": "\"SMACL Lot-et-Garonne\" - Google Actualités",
+      "ms": 204
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Soci%C3%A9t%C3%A9+G%C3%A9n%C3%A9rale+Lot-et-Garonne+banque&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=Soci%C3%A9t%C3%A9+G%C3%A9n%C3%A9rale+Lot-et-Garonne+banque&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 52962,
+      "items": 35,
+      "titre": "\"Société Générale Lot-et-Garonne banque\" - Google Actualités",
+      "ms": 342
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=arnaque+banque+Agen+Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=arnaque+banque+Agen+Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 23185,
+      "items": 13,
+      "titre": "\"arnaque banque Agen Lot-et-Garonne\" - Google Actualités",
+      "ms": 281
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=societe.com+Lot-et-Garonne+banque&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=societe.com+Lot-et-Garonne+banque&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 54559,
+      "items": 34,
+      "titre": "\"societe.com Lot-et-Garonne banque\" - Google Actualités",
+      "ms": 311
+    },
+    {
+      "url": "https://nouvelle-aquitaine.mutualite.fr/",
+      "code_http": 200,
+      "final": "https://nouvelle-aquitaine.mutualite.fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 108287,
+      "items": 0,
+      "titre": "Nouvelle-Aquitaine : un acteur de santé et prévention",
+      "ms": 208
+    },
+    {
+      "url": "https://nouvelle-aquitaine.mutualite.fr/actualites/",
+      "code_http": 200,
+      "final": "https://nouvelle-aquitaine.mutualite.fr/actualites/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 92997,
+      "items": 0,
+      "titre": "Actualités Archive - Site Union Régionale Nouvelle Aquitaine",
+      "ms": 133
+    },
+    {
+      "url": "https://nouvelle-aquitaine.mutualite.fr/actualites/feed/",
+      "code_http": 200,
+      "final": "https://nouvelle-aquitaine.mutualite.fr/actualites/feed/",
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "octets": 12413,
+      "items": 10,
+      "titre": "Actualités Archive - Site Union Régionale Nouvelle Aquitaine",
+      "ms": 322
+    },
+    {
+      "url": "https://www.ameli.fr/lot-et-garonne/assure",
+      "code_http": 200,
+      "final": "https://www.ameli.fr/lot-et-garonne/assure",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 92182,
+      "items": 0,
+      "titre": "ameli, le site de l’Assurance Maladie en ligne | ameli.fr | Assuré",
+      "ms": 242
+    },
+    {
+      "url": "https://www.ameli.fr/lot-et-garonne/assure/actualites",
+      "code_http": 200,
+      "final": "https://www.ameli.fr/lot-et-garonne/assure/actualites",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 85005,
+      "items": 0,
+      "titre": "Actualités | Page 1 sur 11 | ameli.fr | Assuré",
+      "ms": 168
+    },
+    {
+      "url": "https://www.axa.fr/",
+      "code_http": 200,
+      "final": "https://www.axa.fr/",
+      "content_type": "text/html;charset=utf-8",
+      "octets": 210654,
+      "items": 0,
+      "titre": "AXA - Accueil Assurances pour les Particuliers et les Professionnels",
+      "ms": 102
+    },
+    {
+      "url": "https://www.axa.fr/particuliers/qui-sommes-nous/actualites.html",
+      "code_http": 200,
+      "final": "https://www.axa.fr/particuliers/qui-sommes-nous/actualites.html",
+      "content_type": "text/html;charset=utf-8",
+      "octets": 95616,
+      "items": 0,
+      "titre": "Actualités AXA",
+      "ms": 84
+    },
+    {
+      "url": "https://www.banquepopulaire.fr/",
+      "code_http": 200,
+      "final": "https://www.banquepopulaire.fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 340052,
+      "items": 0,
+      "titre": "Banque Populaire : La réussite est en vous - Banque et assurances",
+      "ms": 281
+    },
+    {
+      "url": "https://www.banquepopulaire.fr/votre-banque/actualites/",
+      "code_http": 200,
+      "final": "https://www.banquepopulaire.fr/votre-banque/actualites/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 190755,
+      "items": 0,
+      "titre": "Les actualités de la Banque Populaire | Banque Populaire",
+      "ms": 183
+    },
+    {
+      "url": "https://www.caisse-epargne.fr/aquitaine-poitou-charentes/",
+      "code_http": 200,
+      "final": "https://www.caisse-epargne.fr/aquitaine-poitou-charentes/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 334898,
+      "items": 0,
+      "titre": "Bienvenue à la Caisse d'Epargne Aquitaine Poitou-Charentes",
+      "ms": 221
+    },
+    {
+      "url": "https://www.caisse-epargne.fr/votre-banque/actualites/",
+      "code_http": 200,
+      "final": "https://www.caisse-epargne.fr/particuliers/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 352504,
+      "items": 0,
+      "titre": "Banque et assurances | Particuliers | Caisse d'Epargne",
+      "ms": 843
+    },
+    {
+      "url": "https://www.cci47.fr/",
+      "code_http": 200,
+      "final": "https://cci47.fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 32260,
+      "items": 0,
+      "titre": "CCI Lot-et-Garonne | Le Partenaire des Entreprises et des Territoires du 47",
+      "ms": 823
+    },
+    {
+      "url": "https://www.cncgp.fr/",
+      "code_http": 200,
+      "final": "https://www.cncgp.fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 27028,
+      "items": 0,
+      "titre": "CNCGP : Chambre Nationale des Conseils en Gestion de Patrimoine",
+      "ms": 132
+    },
+    {
+      "url": "https://www.cncgp.fr/actualites",
+      "code_http": 200,
+      "final": "https://www.cncgp.fr/actualites",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 27257,
+      "items": 0,
+      "titre": "Actualités",
+      "ms": 116
+    },
+    {
+      "url": "https://www.cnp.fr/",
+      "code_http": 200,
+      "final": "https://www.cnp.fr/particuliers",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 322098,
+      "items": 0,
+      "titre": "Particuliers | CNP Assurances",
+      "ms": 2113
+    },
+    {
+      "url": "https://www.cnp.fr/le-groupe-cnp-assurances/newsroom/actualites",
+      "code_http": 200,
+      "final": "https://www.cnp.fr/le-groupe-cnp-assurances/newsroom/actualites",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 339418,
+      "items": 0,
+      "titre": "Actualités | CNP Assurances",
+      "ms": 1937
+    },
+    {
+      "url": "https://www.cpme47.fr/",
+      "code_http": 200,
+      "final": "https://www.cpme47.fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 35528,
+      "items": 0,
+      "titre": "Confédération des petites et moyennes entreprises du Lot-et-Garonne",
+      "ms": 231
+    },
+    {
+      "url": "https://www.cpme47.fr/actualites/",
+      "code_http": 200,
+      "final": "https://www.cpme47.fr/actualites/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 64117,
+      "items": 0,
+      "titre": "Nos actualités - CPME 47",
+      "ms": 239
+    },
+    {
+      "url": "https://www.credit-agricole.fr/ca-aquitaine/particulier.html",
+      "code_http": 200,
+      "final": "https://www.credit-agricole.fr/ca-aquitaine/particulier.html",
+      "content_type": "text/html",
+      "octets": 442061,
+      "items": 0,
+      "titre": "Banque &amp; Assurances - Particulier - Crédit Agricole d'Aquitaine",
+      "ms": 203
+    },
+    {
+      "url": "https://www.credit-agricole.fr/ca-aquitaine/particulier/conseils/magazine/tout-un-mag.html",
+      "code_http": 200,
+      "final": "https://www.credit-agricole.fr/ca-aquitaine/particulier/conseils/magazine/tout-un-mag.html",
+      "content_type": "text/html",
+      "octets": 449244,
+      "items": 0,
+      "titre": "HomePage Particulier - Crédit Agricole d'Aquitaine",
+      "ms": 2716
+    },
+    {
+      "url": "https://www.creditmutuel.com/fr/actualites",
+      "code_http": 200,
+      "final": "https://www.creditmutuel.com/fr/actualites.html",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 97748,
+      "items": 0,
+      "titre": "Actualités | Groupe Crédit Mutuel",
+      "ms": 804
+    },
+    {
+      "url": "https://www.creditmutuel.fr/home/index.html",
+      "code_http": 200,
+      "final": "https://www.creditmutuel.fr/home/index.html",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 35976,
+      "items": 0,
+      "titre": "Banque Crédit Mutuel",
+      "ms": 449
+    },
+    {
+      "url": "https://www.franceassureurs.fr/",
+      "code_http": 200,
+      "final": "https://www.franceassureurs.fr/",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 160825,
+      "items": 0,
+      "titre": "France Assureurs - Faire avancer la société en confiance",
+      "ms": 156
+    },
+    {
+      "url": "https://www.franceassureurs.fr/actualites/",
+      "code_http": 200,
+      "final": "https://www.franceassureurs.fr/actualites/",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 154537,
+      "items": 0,
+      "titre": "Archives des Actualités - France Assureurs",
+      "ms": 141
+    },
+    {
+      "url": "https://www.franceassureurs.fr/feed/",
+      "code_http": 200,
+      "final": "https://www.franceassureurs.fr/feed/",
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "octets": 53005,
+      "items": 5,
+      "titre": "France Assureurs",
+      "ms": 1738
+    },
+    {
+      "url": "https://www.groupama.fr/",
+      "code_http": 200,
+      "final": "https://www.groupama.fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 518697,
+      "items": 0,
+      "titre": "Groupama - Assurance particuliers &amp; professionnels",
+      "ms": 1239
+    },
+    {
+      "url": "https://www.groupama.fr/assurance/conseils/",
+      "code_http": 200,
+      "final": "https://www.groupama.fr/assurance/conseils/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 230396,
+      "items": 0,
+      "titre": "Tous les conseils d'assurance de Groupama",
+      "ms": 130
+    },
+    {
+      "url": "https://www.harmonie-mutuelle.fr/",
+      "code_http": 200,
+      "final": "https://www.harmonie-mutuelle.fr/",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 98066,
+      "items": 0,
+      "titre": "Mutuelle santé, prévoyance et retraite complémentaire | Harmonie Mutuelle",
+      "ms": 179
+    },
+    {
+      "url": "https://www.harmonie-mutuelle.fr/actualites/",
+      "code_http": 200,
+      "final": "https://www.harmonie-mutuelle.fr/actualites",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 95225,
+      "items": 0,
+      "titre": "Actualités | Drupal",
+      "ms": 153
+    },
+    {
+      "url": "https://www.ici.fr/nouvelle-aquitaine/lot-et-garonne-47",
+      "code_http": 200,
+      "final": "https://www.ici.fr/nouvelle-aquitaine/lot-et-garonne-47",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 305412,
+      "items": 0,
+      "titre": "Lot-et-Garonne (47)  : actualités et podcasts de votre département en direct - ICI",
+      "ms": 239
+    },
+    {
+      "url": "https://www.ladepeche.fr/communes/lot-et-garonne,47/",
+      "code_http": 200,
+      "final": "https://www.ladepeche.fr/communes/lot-et-garonne,47/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 189734,
+      "items": 0,
+      "titre": "Actualités Lot-et-Garonne - ladepeche.fr",
+      "ms": 526
+    },
+    {
+      "url": "https://www.ladepeche.fr/communes/lot-et-garonne,47/rss.xml",
+      "code_http": 200,
+      "final": "https://www.ladepeche.fr/communes/lot-et-garonne,47/rss.xml",
+      "content_type": "text/xml; charset=UTF-8",
+      "octets": 32495,
+      "items": 25,
+      "titre": "Lot-et-Garonne",
+      "ms": 131
+    },
+    {
+      "url": "https://www.lcl.fr/",
+      "code_http": 200,
+      "final": "https://www.lcl.fr/",
+      "content_type": "text/html;charset=UTF-8",
+      "octets": 432857,
+      "items": 0,
+      "titre": "Banque pour les particuliers : LCL Banque et assurance",
+      "ms": 834
+    },
+    {
+      "url": "https://www.lcl.fr/decouvrir-lcl/newsroom",
+      "code_http": 200,
+      "final": "https://www.lcl.fr/decouvrir-lcl/newsroom",
+      "content_type": "text/html;charset=UTF-8",
+      "octets": 394375,
+      "items": 0,
+      "titre": "Presse et actualités",
+      "ms": 1687
+    },
+    {
+      "url": "https://www.leparisien.fr/lot-et-garonne-47/",
+      "code_http": 200,
+      "final": "https://www.leparisien.fr/lot-et-garonne-47/",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 565374,
+      "items": 0,
+      "titre": "Actualités du département du Lot-et-Garonne (47) - Infos locales dans le Lot-et-Garonne - Le Parisien",
+      "ms": 194
+    },
+    {
+      "url": "https://www.maif.fr/",
+      "code_http": 200,
+      "final": "https://www.maif.fr/",
+      "content_type": "text/html;charset=UTF-8",
+      "octets": 252672,
+      "items": 0,
+      "titre": "MAIF - Assurance des particuliers, professionnels et associations",
+      "ms": 461
+    },
+    {
+      "url": "https://www.orias.fr/",
+      "code_http": 200,
+      "final": "https://www.orias.fr/",
+      "content_type": "text/html;charset=UTF-8",
+      "octets": 38541,
+      "items": 0,
+      "titre": "Orias",
+      "ms": 296
+    },
+    {
+      "url": "https://www.orias.fr/home/communications",
+      "code_http": 200,
+      "final": "https://www.orias.fr/home/communications",
+      "content_type": "text/html;charset=UTF-8",
+      "octets": 16371,
+      "items": 0,
+      "titre": "Orias",
+      "ms": 280
+    },
+    {
+      "url": "https://www.smacl.fr/",
+      "code_http": 200,
+      "final": "https://www.smacl.fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 59714,
+      "items": 0,
+      "titre": "Accueil | SMACL Assurances",
+      "ms": 591
+    },
+    {
+      "url": "https://www.smacl.fr/actus-et-conseils/",
+      "code_http": 200,
+      "final": "https://www.smacl.fr/actus-et-conseils/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 56999,
+      "items": 0,
+      "titre": "Actus et conseils | SMACL Assurances",
+      "ms": 212
+    },
+    {
+      "url": "https://www.societe.com/",
+      "code_http": 200,
+      "final": "https://www.societe.com/",
+      "content_type": "text/html",
+      "octets": 67552,
+      "items": 0,
+      "titre": "Societe.com : RCS, siret, siren, bilan, l'information gratuite sur les entreprises du Registre du Commerce des Soci�t�s (RNCS)",
+      "ms": 364
+    },
+    {
+      "url": "https://www.societegenerale.fr/",
+      "code_http": 200,
+      "final": "https://particuliers.sg.fr/",
+      "content_type": "text/html;charset=UTF-8",
+      "octets": 128166,
+      "items": 0,
+      "titre": "SG - Banque et Assurance au plus proche de vous",
+      "ms": 472
+    },
+    {
+      "url": "https://www.societegenerale.fr/actualites/",
+      "code_http": 200,
+      "final": "https://particuliers.sg.fr/",
+      "content_type": "text/html;charset=UTF-8",
+      "octets": 128166,
+      "items": 0,
+      "titre": "SG - Banque et Assurance au plus proche de vous",
+      "ms": 327
+    }
+  ]
+}
