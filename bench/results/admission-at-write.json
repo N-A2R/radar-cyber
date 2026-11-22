@@ -1,0 +1,19 @@
+{
+  "definition": "A Nouvelle-Aquitaine event has a live admission when its INSERT itself writes an append-only admission fact with an actor, a recording clock and stored proof. No victim personal data.",
+  "scope": "nouvelle-aquitaine",
+  "generatedAt": "2026-11-22T03:39:53.055Z",
+  "actor": "custody:write-boundary@1",
+  "before": {
+    "liveAtWrite": 0,
+    "events": 112,
+    "actor": "backfill:custody@1"
+  },
+  "after": {
+    "events": 12,
+    "complete": 12,
+    "liveWritten": 12,
+    "backfilled": 0,
+    "noVictimData": true,
+    "rate": 100
+  }
+}
