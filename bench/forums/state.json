@@ -1,0 +1,8 @@
+{
+  "capturedAt": "2026-11-22T00:00:00Z",
+  "database": "postgres://radar:radar@localhost:5432/radar",
+  "captureCommand": "sudo -n -u postgres psql -p 5432 -d radar -tAc \"SELECT (SELECT count(*) FROM org), (SELECT count(*) FROM source), (SELECT count(*) FROM event);\"",
+  "organisations": 1673151,
+  "sources": 312,
+  "events": 26214
+}
