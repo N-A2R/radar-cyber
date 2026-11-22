@@ -35,3 +35,4 @@ https://gironde.chambres-agriculture.fr/actualites-33/detail-de-lactualite/alert
 ## Méthode
 
 Recherche web (chambres consulaires, syndicats agricoles, interprofession viticole, annuaires professionnels et presse locale), identification des pages d'actualités et des flux, puis contrôle GET réel de chaque URL avec User-Agent navigateur et suivi des redirections (20 s de délai maximum). Seules les sources dont les URL ont répondu 200 sont retenues. Les flux déclarés mais momentanément vides (`?feed=rss2` de JA 33) sont signalés tels quels dans le rapport de preuve (`items_rss: 0`).
+OBJECTIF : atteint — 7 sources vérifiées HTTP 200 / 5 minimum
