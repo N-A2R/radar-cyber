@@ -1,0 +1,32 @@
+{
+  "generatedAt": "2026-11-22T04:12:04.415Z",
+  "asOf": "2026-11-22",
+  "windowStart": "2026-05-26",
+  "windowEnd": "2026-11-22",
+  "windows": 6,
+  "horizonDays": 30,
+  "victims": 15,
+  "sources": 2,
+  "pairs": 30,
+  "priorSignalPairs": 8,
+  "victimsWithAnyPriorSignal": 7,
+  "coverage": 0.4667,
+  "claimsRead": 74,
+  "perSource": [
+    {
+      "scope": "departement",
+      "victims": 15,
+      "pairs": 15,
+      "victimsWithPriorSignal": 5,
+      "priorSignals": 7
+    },
+    {
+      "scope": "secteur",
+      "victims": 15,
+      "pairs": 15,
+      "victimsWithPriorSignal": 3,
+      "priorSignals": 9
+    }
+  ],
+  "caveat": "A collective signal is a claim by another organisation, same normalised group and same sector or department, strictly before the victim's own claim. Group labels are matched exactly after normalisation, never by substring."
+}
