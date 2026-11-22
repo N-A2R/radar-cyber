@@ -50,27 +50,29 @@ type Props = {
   server?: boolean;
   onUnauthorized?: () => void;
   onOpenOrg?: (orgId: number) => void;
-  /** Queue filters carried by the URL (`#/review?bucket=…&q=…`). */
+  /** Filtres de la file portés par l'URL (`#/review?bucket=…&q=…`). */
   urlState?: ReviewUrlState;
   onUrlStateChange?: (next: ReviewUrlState) => void;
 };
 
 const LIMIT = 50;
+/** Au-delà, la file est déclarée muette : un squelette sans fin n'informe pas. */
+const QUEUE_TIMEOUT_MS = 10_000;
 const BUCKETS: Array<{ value: RevueBucket | ""; label: string }> = [
-  { value: "", label: "All" },
-  { value: "chaud", label: "Hot" },
-  { value: "tiede", label: "Warm" },
-  { value: "froid", label: "Cold" },
+  { value: "", label: "Toutes" },
+  { value: "chaud", label: "Chaud" },
+  { value: "tiede", label: "Tiède" },
+  { value: "froid", label: "Froid" },
 ];
 const DECISION_LABEL: Record<RevueDecision, string> = {
-  accepter: "Acceptance",
-  refuser: "Rejection",
-  creer: "Organisation creation",
+  accepter: "Acceptation",
+  refuser: "Rejet",
+  creer: "Création d'organisation",
 };
 type BulkDecision = "accepter" | "refuser";
-const BULK_LABEL: Record<BulkDecision, string> = { accepter: "Acceptances", refuser: "Rejections" };
+const BULK_LABEL: Record<BulkDecision, string> = { accepter: "Acceptations", refuser: "Rejets" };
 
-/** The API returns `{ error, details }`: show its message, not a generic code. */
+/** L'API renvoie `{ error, details }` : afficher son message, pas un code générique. */
 async function apiMessage(res: Response, fallback: string): Promise<string> {
   try {
     const body = await res.json() as { error?: unknown; details?: unknown; message?: unknown };
@@ -78,17 +80,17 @@ async function apiMessage(res: Response, fallback: string): Promise<string> {
       const details = body.details
         .map((item) => (item && typeof item === "object" && "message" in item ? String(item.message) : String(item)))
         .join(", ");
-      return `${typeof body.error === "string" ? body.error : "invalid request"} : ${details}`;
+      return `${typeof body.error === "string" ? body.error : "requête invalide"} : ${details}`;
     }
     if (typeof body.error === "string") return body.error;
     if (typeof body.message === "string") return body.message;
   } catch {
-    // No JSON body: the HTTP status is the only certain fact.
+    // Pas de corps JSON : le statut HTTP est le seul fait certain.
   }
   return `${fallback} (${res.status})`;
 }
 
-/** Attachment decision queue: GET /api/review/queue, POST /api/review/:id/decision. */
+/** File de décisions de rattachement : GET /api/review/queue, POST /api/review/:id/decision. */
 export default function ReviewView({
   canWrite = false,
   server = true,
@@ -100,8 +102,9 @@ export default function ReviewView({
   const [rows, setRows] = useState<RevueRow[]>([]);
   const [total, setTotal] = useState(0);
   const [bucket, setBucket] = useState<RevueBucket | "">(urlState?.bucket ?? "");
-  // `groupe` is the claim family (for example the ransomware operator). The
-  // queue API has no family facet, so this filter narrows the fetched page.
+  // `groupe` est la famille de la revendication (par exemple l'opérateur de
+  // rançongiciel). L'API de la file n'expose pas de facette famille : ce
+  // filtre restreint donc la page déjà chargée.
   const [family, setFamily] = useState("");
   const [search, setSearch] = useState(urlState?.q ?? "");
   const [query, setQuery] = useState(urlState?.q ?? "");
@@ -140,7 +143,7 @@ export default function ReviewView({
   const allSelected = visibleRows.length > 0 && selectedRows.length === visibleRows.length;
   const filtersActive = Boolean(bucket || family || query);
 
-  // 300 ms of silence before querying the API: one keystroke, one request.
+  // 300 ms de silence avant d'interroger l'API : une frappe, une requête.
   useEffect(() => {
     const next = search.trim();
     if (next === query) return;
@@ -162,13 +165,26 @@ export default function ReviewView({
     if (query) params.set("q", query);
     setLoading(true);
     setError(null);
+    // Une requête muette ne doit pas laisser un squelette éternel : passé le
+    // délai, on quitte le chargement et on propose de réessayer. Les lignes
+    // déjà connues restent affichées, l'échec ne les efface pas.
+    let timedOut = false;
+    const timer = setTimeout(() => {
+      timedOut = true;
+      pendingNotice.current = null;
+      setProgress(null);
+      setError("La file de revue ne répond pas.");
+      setLoading(false);
+      controller.abort();
+    }, QUEUE_TIMEOUT_MS);
     fetch(`/api/review/queue?${params.toString()}`, { headers: authHeaders(), signal: controller.signal })
       .then(async (res) => {
         if (res.status === 401) onUnauthorized?.();
-        if (!res.ok) throw new Error(await apiMessage(res, "Review queue unavailable"));
+        if (!res.ok) throw new Error(await apiMessage(res, "File de revue indisponible"));
         return res.json() as Promise<RevueQueue>;
       })
       .then((data) => {
+        if (timedOut) return;
         setRows(data.rows);
         setTotal(data.total);
         setOpenRow(null);
@@ -183,28 +199,34 @@ export default function ReviewView({
         pendingNotice.current = null;
       })
       .catch((err: Error) => {
-        if (err.name !== "AbortError") setError(err.message);
+        if (timedOut || err.name === "AbortError") return;
+        setError(err.message);
         pendingNotice.current = null;
         setProgress(null);
       })
       .finally(() => {
-        if (!controller.signal.aborted) setLoading(false);
+        clearTimeout(timer);
+        if (!timedOut && !controller.signal.aborted) setLoading(false);
       });
-    return () => controller.abort();
+    return () => {
+      clearTimeout(timer);
+      controller.abort();
+    };
   }, [server, bucket, query, page, reloadKey, onUnauthorized]);
 
-  // The URL follows the bucket and search filters: a copied link reproduces
-  // exactly this queue. The family filter is local to the fetched page.
+  // L'URL suit les filtres bucket et recherche : un lien copié reproduit
+  // exactement cette file. Le filtre famille reste local à la page chargée.
   useEffect(() => {
     onUrlStateChange?.({ bucket, q: query });
   }, [onUrlStateChange, bucket, query]);
 
-  // And the filters follow the URL: browser back must change the queue.
+  // Et les filtres suivent l'URL : le retour du navigateur doit changer la file.
   const urlKey = urlState ? `${urlState.bucket}\u0000${urlState.q}` : "";
   useEffect(() => {
     if (!urlState) return;
     setBucket(urlState.bucket);
-    // A keystroke still pending must not be overwritten by our own URL write.
+    // Une frappe encore en attente ne doit pas être écrasée par notre propre
+    // écriture de l'URL.
     if (urlState.q !== query) {
       setSearch(urlState.q);
       setQuery(urlState.q);
@@ -249,9 +271,16 @@ export default function ReviewView({
 
   const refresh = useCallback(() => {
     if (!server || loading) return;
-    pendingNotice.current = "Queue refreshed.";
+    pendingNotice.current = "File actualisée.";
     setReloadKey((key) => key + 1);
   }, [server, loading]);
+
+  // Réessayer après un échec repart du même contrat que l'actualisation :
+  // une nouvelle requête, et l'erreur disparaît dès que le chargement reprend.
+  const retry = useCallback(() => {
+    if (!server) return;
+    setReloadKey((key) => key + 1);
+  }, [server]);
 
   const toggleSelected = useCallback((id: number) => {
     setSelected((prev) => {
@@ -333,11 +362,11 @@ export default function ReviewView({
     if (openRow === null || submitting) return;
     const motif = reason.trim();
     if (!motif) {
-      setActionError("A reason is required.");
+      setActionError("Un motif est obligatoire.");
       return;
     }
     if (decision === "accepter" && orgId === null) {
-      setActionError("Choose an organisation candidate.");
+      setActionError("Choisissez une organisation candidate.");
       return;
     }
     const body: { decision: RevueDecision; raison: string; orgId?: number } = { decision, raison: motif };
@@ -351,9 +380,10 @@ export default function ReviewView({
         body: JSON.stringify(body),
       });
       if (res.status === 401) onUnauthorized?.();
-      if (!res.ok) throw new Error(await apiMessage(res, "Decision rejected"));
+      if (!res.ok) throw new Error(await apiMessage(res, "Décision refusée"));
       const decidedId = openRow;
-      // Remove the row immediately: no queue reload to decide one claim.
+      // Retirer la ligne immédiatement : aucun rechargement de la file pour
+      // une seule revendication tranchée.
       setRows((prev) => prev.filter((row) => row.id !== decidedId));
       setSelected((prev) => {
         if (!prev.has(decidedId)) return prev;
@@ -362,10 +392,10 @@ export default function ReviewView({
         return next;
       });
       setTotal((n) => Math.max(0, n - 1));
-      setNotice(`${DECISION_LABEL[decision]} recorded: ${motif}`);
+      setNotice(`${DECISION_LABEL[decision]} enregistrée : ${motif}`);
       closeAction();
     } catch (err) {
-      setActionError(err instanceof Error ? err.message : "Decision could not be recorded");
+      setActionError(err instanceof Error ? err.message : "La décision n'a pas pu être enregistrée");
     } finally {
       setSubmitting(false);
     }
@@ -375,14 +405,14 @@ export default function ReviewView({
     if (submitting) return;
     const motif = bulkReason.trim();
     if (!motif) {
-      setBulkError("A reason is required.");
+      setBulkError("Un motif est obligatoire.");
       return;
     }
     const targets = selectedRows;
     if (targets.length === 0) return;
 
-    // The API requires an orgId for every acceptance: start from each row's
-    // best candidate, editable in the panel before the batch is sent.
+    // L'API exige un orgId pour chaque acceptation : partir du meilleur
+    // candidat de chaque ligne, modifiable dans le panneau avant l'envoi du lot.
     const payloads: Array<{ id: number; body: { decision: BulkDecision; raison: string; orgId?: number } }> = [];
     let skipped = 0;
     for (const row of targets) {
@@ -398,7 +428,7 @@ export default function ReviewView({
       payloads.push({ id: row.id, body: { decision: kind, raison: motif, orgId } });
     }
     if (payloads.length === 0) {
-      setBulkError("None of the selected rows has a candidate to attach.");
+      setBulkError("Aucune des lignes sélectionnées n'a de candidat à rattacher.");
       return;
     }
 
@@ -408,8 +438,9 @@ export default function ReviewView({
     setProgress({ done: 0, total: payloads.length });
     let done = 0;
     try {
-      // Deliberately serial: the journal records decisions in queue order,
-      // and one error stops the batch instead of submitting the rest blindly.
+      // Volontairement séquentiel : le journal enregistre les décisions dans
+      // l'ordre de la file, et une erreur arrête le lot au lieu d'envoyer le
+      // reste à l'aveugle.
       for (const item of payloads) {
         const res = await fetch(`/api/review/${item.id}/decision`, {
           method: "POST",
@@ -417,14 +448,14 @@ export default function ReviewView({
           body: JSON.stringify(item.body),
         });
         if (res.status === 401) onUnauthorized?.();
-        if (!res.ok) throw new Error(await apiMessage(res, "Decision rejected"));
+        if (!res.ok) throw new Error(await apiMessage(res, "Décision refusée"));
         done += 1;
         setProgress({ done, total: payloads.length });
       }
-      pendingNotice.current = `${BULK_LABEL[kind]} recorded: ${motif} (${done}/${payloads.length})`;
-      if (skipped > 0) pendingNotice.current += ` — ${skipped} row(s) without a candidate skipped`;
+      pendingNotice.current = `${BULK_LABEL[kind]} enregistrées : ${motif} (${done}/${payloads.length})`;
+      if (skipped > 0) pendingNotice.current += ` — ${skipped} ligne(s) sans candidat ignorée(s)`;
     } catch (err) {
-      setBulkError(`${done}/${payloads.length} decisions sent. ${err instanceof Error ? err.message : "Decision could not be recorded"}`);
+      setBulkError(`${done}/${payloads.length} décisions envoyées. ${err instanceof Error ? err.message : "La décision n'a pas pu être enregistrée"}`);
     } finally {
       setSubmitting(false);
       setReloadKey((key) => key + 1);
@@ -434,29 +465,33 @@ export default function ReviewView({
   return (
     <section
       className="revue"
-      aria-label="Review queue"
+      aria-label="File de revue"
       role="region"
       tabIndex={0}
       onKeyDown={onKeyDown}
     >
       <header className="revue__head">
         <div>
-          <h1>Review queue</h1>
+          <h1>File de revue</h1>
           <p className="revue__count" role="status">
-            {total} {total === 1 ? "claim" : "claims"} left to review
+            {loading
+              ? "Chargement de la file…"
+              : error && rows.length === 0
+                ? "File indisponible"
+                : `${total} ${total === 1 ? "revendication restante" : "revendications restantes"} à examiner`}
           </p>
         </div>
         <div className="revue__tools">
           <button
             type="button"
             className="revue__refresh"
-            aria-label="Refresh queue"
+            aria-label="Actualiser la file"
             disabled={!server || loading}
             onClick={refresh}
           >
-            ↻ Refresh
+            ↻ Actualiser
           </button>
-          <button type="button" onClick={() => setHelp(true)}>? Shortcuts</button>
+          <button type="button" onClick={() => setHelp(true)}>? Raccourcis</button>
         </div>
         <form
           className="revue__search"
@@ -469,19 +504,19 @@ export default function ReviewView({
             }
           }}
         >
-          <label className="revue__label" htmlFor="revue-q">Search a hint or a family</label>
+          <label className="revue__label" htmlFor="revue-q">Rechercher un indice ou une famille</label>
           <input
             id="revue-q"
             type="search"
             value={search}
-            placeholder="Hint or family…"
+            placeholder="Indice ou famille…"
             onChange={(event) => setSearch(event.target.value)}
           />
-          <button type="submit">Search</button>
+          <button type="submit">Rechercher</button>
         </form>
       </header>
 
-      <div className="revue__buckets" role="group" aria-label="Filter by priority">
+      <div className="revue__buckets" role="group" aria-label="Filtrer par priorité">
         {BUCKETS.map((item) => (
           <button
             key={item.value}
@@ -494,68 +529,82 @@ export default function ReviewView({
         ))}
       </div>
 
-      <div className="revue__families" role="group" aria-label="Filter by family">
-        <span className="revue__filter-label">Family</span>
-        <button type="button" aria-pressed={family === ""} onClick={() => changeFamily("")}>All</button>
+      <div className="revue__families" role="group" aria-label="Filtrer par famille">
+        <span className="revue__filter-label">Famille</span>
+        <button type="button" aria-pressed={family === ""} onClick={() => changeFamily("")}>Toutes</button>
         {families.map((name) => (
           <button
             key={name}
             type="button"
             aria-pressed={family === name}
             onClick={() => changeFamily(name)}
-            title={`Show only ${name} claims on this page`}
+            title={`Afficher uniquement les revendications ${name} de cette page`}
           >
             {name}
             <span className="revue__family-count">{rows.filter((row) => row.groupe === name).length}</span>
           </button>
         ))}
-        {families.length === 0 ? <span className="revue__none">no family on this page</span> : null}
+        {families.length === 0 ? <span className="revue__none">aucune famille sur cette page</span> : null}
       </div>
 
-      <p className="revue__results" role="status">
-        {visibleRows.length} shown out of {total} in the queue
-        {family ? ` · family: ${family} (this page)` : ""}
-      </p>
+      {!loading && !error ? (
+        <p className="revue__results" role="status">
+          {visibleRows.length} affichées sur {total} dans la file
+          {family ? ` · famille : ${family} (cette page)` : ""}
+        </p>
+      ) : null}
 
-      {notice ? <p className="revue__notice" role="status">{notice}</p> : null}
-      {error ? <p className="revue__error" role="alert">{error}</p> : null}
+      {!loading && notice ? <p className="revue__notice" role="status">{notice}</p> : null}
+      {!loading && error ? (
+        <div className="revue__error" role="alert">
+          <p>{error}</p>
+          {server ? (
+            <button type="button" className="revue__retry" onClick={retry}>
+              Réessayer
+            </button>
+          ) : null}
+          {server && rows.length > 0 ? (
+            <p className="revue__stale">Dernier résultat connu conservé ci-dessous.</p>
+          ) : null}
+        </div>
+      ) : null}
       {loading ? <LoadingSkeleton label="Chargement de la file de revue…" /> : null}
       {!loading && visibleRows.length === 0 && !error && server ? (
         <EmptyState
           className="revue__empty"
           message={
             <>
-              <strong>{total === 0 ? "No claims left to review." : "Nothing matches these filters."}</strong>
+              <strong>{total === 0 ? "Aucune revendication restante à examiner." : "Aucun résultat avec ces filtres."}</strong>
               <span>
                 {total === 0
-                  ? "The queue is clear: every public claim has a recorded decision."
-                  : "Try another priority, family or search term."}
+                  ? "La file est vide : chaque revendication publique a une décision enregistrée."
+                  : "Essayez une autre priorité, une autre famille ou un autre terme de recherche."}
               </span>
             </>
           }
-          actionLabel={filtersActive ? "Clear filters" : "Recharger la file"}
+          actionLabel={filtersActive ? "Effacer les filtres" : "Recharger la file"}
           onAction={filtersActive ? clearFilters : refresh}
         />
       ) : null}
-      {!server ? <p className="revue__state">The review queue requires the API — no decision is simulated.</p> : null}
-      {!canWrite ? <p className="revue__state">Read-only: sign in to record decisions.</p> : null}
+      {!server ? <p className="revue__state">La file de revue nécessite l'API — aucune décision n'est simulée.</p> : null}
+      {!canWrite ? <p className="revue__state">Lecture seule : connectez-vous pour enregistrer des décisions.</p> : null}
 
-      {visibleRows.length > 0 && server ? (
-        <div className="revue__bulk" aria-label="Bulk decisions">
+      {!loading && visibleRows.length > 0 && server ? (
+        <div className="revue__bulk" aria-label="Décisions en masse">
           <div className="revue__bulk-head">
             <label className="revue__select">
               <input
                 ref={selectAllRef}
                 type="checkbox"
-                aria-label="Select all"
+                aria-label="Tout sélectionner"
                 checked={allSelected}
                 disabled={!canWrite || submitting}
                 onChange={toggleAll}
               />
-              <span>Select all</span>
+              <span>Tout sélectionner</span>
             </label>
             <span className="revue__bulk-count" role="status">
-              {selectedRows.length} selected out of {visibleRows.length}
+              {selectedRows.length} sélectionnée{selectedRows.length > 1 ? "s" : ""} sur {visibleRows.length}
             </span>
           </div>
 
@@ -563,16 +612,16 @@ export default function ReviewView({
             <ul className="revue__bulk-targets">
               {selectedRows.map((row) => (
                 <li key={row.id}>
-                  <span className="revue__bulk-hint">{row.orgHint ?? "(no hint)"}</span>
+                  <span className="revue__bulk-hint">{row.orgHint ?? "(aucun indice)"}</span>
                   <label className="revue__bulk-org">
-                    Organisation to attach (acceptance)
+                    Organisation à rattacher (acceptation)
                     <select
-                      aria-label={`Organisation for ${row.orgHint ?? "this row"}`}
+                      aria-label={`Organisation pour ${row.orgHint ?? "cette ligne"}`}
                       value={selectedOrgs[row.id] ?? row.candidates[0]?.id ?? ""}
                       disabled={!canWrite || submitting}
                       onChange={(event) => setSelectedOrgs((prev) => ({ ...prev, [row.id]: Number(event.target.value) }))}
                     >
-                      {row.candidates.length === 0 ? <option value="">no candidate</option> : null}
+                      {row.candidates.length === 0 ? <option value="">aucun candidat</option> : null}
                       {row.candidates.map((candidate) => (
                         <option key={candidate.id} value={candidate.id}>{candidate.name}</option>
                       ))}
@@ -583,14 +632,14 @@ export default function ReviewView({
             </ul>
           ) : null}
 
-          <label className="revue__label" htmlFor="revue-bulk-raison">Common reason (required)</label>
+          <label className="revue__label" htmlFor="revue-bulk-raison">Motif commun (obligatoire)</label>
           <textarea
             id="revue-bulk-raison"
             className="revue__bulk-raison"
             rows={2}
             value={bulkReason}
             disabled={!canWrite || submitting}
-            placeholder="Reason applied to every selected row"
+            placeholder="Motif appliqué à chaque ligne sélectionnée"
             onChange={(event) => { setBulkReason(event.target.value); setBulkError(null); }}
           />
           <div className="revue__bulk-actions">
@@ -599,23 +648,24 @@ export default function ReviewView({
               disabled={!canWrite || submitting || selectedRows.length === 0 || !bulkReason.trim()}
               onClick={() => bulkDecide("accepter")}
             >
-              Accept selection
+              Accepter la sélection
             </button>
             <button
               type="button"
               disabled={!canWrite || submitting || selectedRows.length === 0 || !bulkReason.trim()}
               onClick={() => bulkDecide("refuser")}
             >
-              Reject selection
+              Rejeter la sélection
             </button>
           </div>
           {progress ? (
-            <p className="revue__progress" role="status">Decisions {progress.done}/{progress.total} sent…</p>
+            <p className="revue__progress" role="status">Décisions {progress.done}/{progress.total} envoyées…</p>
           ) : null}
           {bulkError ? <p className="revue__error" role="alert">{bulkError}</p> : null}
         </div>
       ) : null}
 
+      {!loading && visibleRows.length > 0 ? (
       <ul className="revue__list">
         {visibleRows.map((row, index) => (
           <li className="revue__row" key={row.id} data-bucket={row.triage.bucket} data-active={index === active ? "true" : undefined}>
@@ -623,31 +673,31 @@ export default function ReviewView({
               <label className="revue__select">
                 <input
                   type="checkbox"
-                  aria-label={`Select ${row.orgHint ?? "this row"}`}
+                  aria-label={`Sélectionner ${row.orgHint ?? "cette ligne"}`}
                   checked={selected.has(row.id)}
                   disabled={!canWrite || !server || submitting}
                   onChange={() => toggleSelected(row.id)}
                 />
-                <span>Select</span>
+                <span>Sélectionner</span>
               </label>
-              <strong className="revue__hint">{row.orgHint || "(no hint)"}</strong>
+              <strong className="revue__hint">{row.orgHint || "(aucun indice)"}</strong>
               <span className="revue__source">{row.source}</span>
               <time className="revue__date" dateTime={row.claimedAt ?? row.receivedAt}>
-                {(row.claimedAt ?? row.receivedAt)?.slice(0, 10) ?? "unknown date"}
+                {(row.claimedAt ?? row.receivedAt)?.slice(0, 10) ?? "date inconnue"}
               </time>
               <span className="revue__bucket">{row.triage.bucket}</span>
             </div>
 
             <div className="revue__candidates">
-              <span className="revue__label">Candidates</span>
-              {row.candidates.length === 0 ? <span className="revue__none">no candidate</span> : null}
+              <span className="revue__label">Candidats</span>
+              {row.candidates.length === 0 ? <span className="revue__none">aucun candidat</span> : null}
               {row.candidates.map((candidate) => (
                 <button
                   className="revue__candidate"
                   key={candidate.id}
                   type="button"
                   onClick={() => onOpenOrg?.(candidate.id)}
-                  title={candidate.dept ? `Department ${candidate.dept}` : undefined}
+                  title={candidate.dept ? `Département ${candidate.dept}` : undefined}
                 >
                   {candidate.name}
                   <span className="revue__candidate-score">{candidate.score.toFixed(2)} · {candidate.via}</span>
@@ -657,13 +707,13 @@ export default function ReviewView({
 
             <div className="revue__actions">
               <button type="button" disabled={!canWrite || submitting} onClick={() => openAction(row.id, "accepter")}>
-                Accept
+                Accepter
               </button>
               <button type="button" disabled={!canWrite || submitting} onClick={() => openAction(row.id, "refuser")}>
-                Reject
+                Rejeter
               </button>
               <button type="button" disabled={!canWrite || submitting} onClick={() => openAction(row.id, "creer")}>
-                Create organisation
+                Créer l'organisation
               </button>
             </div>
 
@@ -672,8 +722,8 @@ export default function ReviewView({
                 <p className="revue__decision-title">{DECISION_LABEL[decision]} — {row.orgHint}</p>
                 {decision === "accepter" ? (
                   <fieldset className="revue__orgs">
-                    <legend>Organisation to attach</legend>
-                    {row.candidates.length === 0 ? <p className="revue__none">No candidate: reject this row or create the organisation.</p> : null}
+                    <legend>Organisation à rattacher</legend>
+                    {row.candidates.length === 0 ? <p className="revue__none">Aucun candidat : rejetez cette ligne ou créez l'organisation.</p> : null}
                     {row.candidates.map((candidate) => (
                       <label className="revue__org" key={candidate.id}>
                         <input
@@ -688,14 +738,14 @@ export default function ReviewView({
                     ))}
                   </fieldset>
                 ) : null}
-                <label className="revue__label" htmlFor={`raison-${row.id}`}>Reason for this decision (required)</label>
+                <label className="revue__label" htmlFor={`raison-${row.id}`}>Motif de cette décision (obligatoire)</label>
                 <textarea
                   id={`raison-${row.id}`}
                   ref={reasonRef}
                   required
                   rows={2}
                   value={reason}
-                  placeholder="Write the reason for this decision"
+                  placeholder="Écrivez le motif de cette décision"
                   onChange={(event) => setReason(event.target.value)}
                 />
                 {actionError ? <p className="revue__error" role="alert">{actionError}</p> : null}
@@ -704,43 +754,46 @@ export default function ReviewView({
                     type="submit"
                     disabled={submitting || !reason.trim() || (decision === "accepter" && orgId === null)}
                   >
-                    Confirm
+                    Confirmer
                   </button>
-                  <button type="button" onClick={closeAction}>Cancel</button>
+                  <button type="button" onClick={closeAction}>Annuler</button>
                 </div>
               </form>
             ) : null}
           </li>
         ))}
       </ul>
+      ) : null}
 
+      {!loading && !(error && rows.length === 0) ? (
       <footer className="revue__foot">
         <button type="button" disabled={loading || page === 0} onClick={() => setPage((p) => Math.max(0, p - 1))}>
-          Previous
+          Précédent
         </button>
         <span>Page {page + 1} / {Math.max(1, Math.ceil(total / LIMIT))}</span>
         <button type="button" disabled={loading || (page + 1) * LIMIT >= total} onClick={() => setPage((p) => p + 1)}>
-          Next
+          Suivant
         </button>
       </footer>
+      ) : null}
 
       {help ? (
         <div className="revue__help" role="dialog" aria-modal="true" aria-labelledby="revue-help-title">
           <div className="revue__help-card">
-            <h2 id="revue-help-title">Keyboard shortcuts</h2>
+            <h2 id="revue-help-title">Raccourcis clavier</h2>
             <dl>
-              <dt>J / ↓</dt><dd>Move to the next row</dd>
-              <dt>K / ↑</dt><dd>Move to the previous row</dd>
-              <dt>X</dt><dd>Select or deselect the current row</dd>
-              <dt>Shift+A</dt><dd>Select every row on this page</dd>
-              <dt>A</dt><dd>Open acceptance for the current row</dd>
-              <dt>R</dt><dd>Open rejection for the current row</dd>
-              <dt>C</dt><dd>Create an organisation</dd>
-              <dt>?</dt><dd>Show this help</dd>
-              <dt>Esc</dt><dd>Close help, the decision form or the selection</dd>
+              <dt>J / ↓</dt><dd>Aller à la ligne suivante</dd>
+              <dt>K / ↑</dt><dd>Aller à la ligne précédente</dd>
+              <dt>X</dt><dd>Sélectionner ou désélectionner la ligne courante</dd>
+              <dt>Maj+A</dt><dd>Sélectionner toutes les lignes de cette page</dd>
+              <dt>A</dt><dd>Ouvrir l'acceptation de la ligne courante</dd>
+              <dt>R</dt><dd>Ouvrir le rejet de la ligne courante</dd>
+              <dt>C</dt><dd>Créer une organisation</dd>
+              <dt>?</dt><dd>Afficher cette aide</dd>
+              <dt>Échap</dt><dd>Fermer l'aide, le formulaire de décision ou la sélection</dd>
             </dl>
-            <p className="revue__help-note">Shortcuts are ignored while typing in a field.</p>
-            <button type="button" onClick={() => setHelp(false)}>Close</button>
+            <p className="revue__help-note">Les raccourcis sont ignorés pendant la saisie dans un champ.</p>
+            <button type="button" onClick={() => setHelp(false)}>Fermer</button>
           </div>
         </div>
       ) : null}

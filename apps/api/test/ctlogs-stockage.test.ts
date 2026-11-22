@@ -71,13 +71,19 @@ test("l'inventaire inscrit source et première vue, puis reste idempotent", asyn
 
 	const lignes = await query<{
 		sous_domaine: string; domaine: string; source: string;
-		premiere_vue: Date; certificat_id: string;
-	}>("SELECT sous_domaine, domaine, source, premiere_vue, certificat_id FROM ct_sous_domaine WHERE domaine = $1", [DOMAINE]);
+		premiere_vue: Date; certificat_vu_le: Date; certificat_id: string;
+	}>("SELECT sous_domaine, domaine, source, premiere_vue, certificat_vu_le, certificat_id FROM ct_sous_domaine WHERE domaine = $1", [DOMAINE]);
 	assert.equal(lignes.rows.length, 1);
 	assert.equal(lignes.rows[0]?.sous_domaine, SOUS_DOMAINE);
 	assert.equal(lignes.rows[0]?.source, "crt.sh");
 	assert.equal(lignes.rows[0]?.certificat_id, `${TAG}-cert`);
-	assert.equal(lignes.rows[0]?.premiere_vue.toISOString(), sousDomaine.premiere_vue);
+	// `premiere_vue` marque notre observation (maintenant), pas l'émission du
+	// certificat : cette dernière reste dans `certificat_vu_le`.
+	assert.ok(
+		Date.now() - lignes.rows[0]!.premiere_vue.getTime() < 60_000,
+		"premiere_vue doit être l'instant de l'observation",
+	);
+	assert.equal(lignes.rows[0]?.certificat_vu_le.toISOString(), sousDomaine.premiere_vue);
 
 	const suspects = await query<{ domaine: string; distance: number; source: string }>(
 		"SELECT domaine, distance, source FROM ct_certificat_suspect WHERE certificat_id = $1",

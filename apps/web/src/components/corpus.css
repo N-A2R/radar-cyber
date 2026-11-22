@@ -168,7 +168,7 @@
 
 .corpus__dept-code {
   margin-left: var(--space-1);
-  font: 400 10px/1.4 var(--font-mono);
+  font: 400 var(--text-xs)/1.4 var(--font-mono);
   color: var(--faint);
 }
 

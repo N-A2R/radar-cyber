@@ -2,6 +2,7 @@ import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
 import { likeLiteral } from "../directory/query.js";
 import { normalizeSearchText, searchTokens } from "../search/tokens.js";
+import { evenementPublicSql, indicateurPublicSql } from "../security/tlp.js";
 
 const SEARCH_LIMIT = 50;
 /**
@@ -40,8 +41,9 @@ const EVENT_SQL = `
              x.observed_at, x.severity, x.confidence, x.source_id, x.source_url,
              x.evidence, x.geo_type, x.lat, x.lon, x.org_id
       FROM event x
-      WHERE x.title_search LIKE '%' || t.tok || '%'
-         OR x.summary_search LIKE '%' || t.tok || '%'
+      WHERE (x.title_search LIKE '%' || t.tok || '%'
+         OR x.summary_search LIKE '%' || t.tok || '%')
+        AND ${evenementPublicSql("x")}
       LIMIT $2
     ) AS e
   )
@@ -67,10 +69,11 @@ export default async function (app: FastifyInstance) {
       query<Record<string, unknown>>(ORG_SQL, [tokens, CANDIDATES_PER_TOKEN, normalized, SEARCH_LIMIT]),
       query<Record<string, unknown>>(EVENT_SQL, [tokens, CANDIDATES_PER_TOKEN, SEARCH_LIMIT]),
       query<Record<string, unknown>>(
-        `SELECT id, type, value, first_seen, last_seen, tlp, confidence, source_id
-           FROM indicator
-          WHERE value ILIKE '%' || $1 || '%'
-          ORDER BY value
+        `SELECT i.id, i.type, i.value, i.first_seen, i.last_seen, i.tlp, i.confidence, i.source_id
+           FROM indicator i
+          WHERE i.value ILIKE '%' || $1 || '%'
+            AND ${indicateurPublicSql("i")}
+          ORDER BY i.value
           LIMIT $2`,
         [likeLiteral(normalized), SEARCH_LIMIT]
       ),

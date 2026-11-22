@@ -1,0 +1,82 @@
+[
+  {
+    "fixture": "01-service-alpha.json",
+    "source": "dehashed-fixture",
+    "query": "alpha.example",
+    "total": 1,
+    "reference": {
+      "id": "dehashed-fixture:dh-001",
+      "source": "dehashed-fixture",
+      "name": "Fuite simulée 01 — service alpha",
+      "domain": "alpha.example",
+      "breachDate": "2024-01-15",
+      "accounts": 1200,
+      "sourceUrl": "https://example.invalid/dehashed-fixture/01",
+      "evidence": { "fixture": "01-service-alpha.json", "mode": "fixture" }
+    }
+  },
+  {
+    "fixture": "02-association-beta.json",
+    "source": "dehashed-fixture",
+    "query": "beta.example",
+    "total": 1,
+    "reference": {
+      "id": "dehashed-fixture:dh-002",
+      "source": "dehashed-fixture",
+      "name": "Fuite simulée 02 — association beta",
+      "domain": "beta.example",
+      "breachDate": "2024-03-22",
+      "accounts": 340,
+      "sourceUrl": "https://example.invalid/dehashed-fixture/02",
+      "evidence": { "fixture": "02-association-beta.json", "mode": "fixture" }
+    }
+  },
+  {
+    "fixture": "03-cooperative-gamma.json",
+    "source": "dehashed-fixture",
+    "query": "gamma.example",
+    "total": 1,
+    "reference": {
+      "id": "dehashed-fixture:dh-003",
+      "source": "dehashed-fixture",
+      "name": "Fuite simulée 03 — coopérative gamma",
+      "domain": "gamma.example",
+      "breachDate": "2024-05-07",
+      "accounts": 8900,
+      "sourceUrl": "https://example.invalid/dehashed-fixture/03",
+      "evidence": { "fixture": "03-cooperative-gamma.json", "mode": "fixture" }
+    }
+  },
+  {
+    "fixture": "04-collectivite-delta.json",
+    "source": "dehashed-fixture",
+    "query": "delta.example",
+    "total": 1,
+    "reference": {
+      "id": "dehashed-fixture:dh-004",
+      "source": "dehashed-fixture",
+      "name": "Fuite simulée 04 — collectivité delta",
+      "domain": "delta.example",
+      "breachDate": "2024-08-30",
+      "accounts": 65,
+      "sourceUrl": "https://example.invalid/dehashed-fixture/04",
+      "evidence": { "fixture": "04-collectivite-delta.json", "mode": "fixture" }
+    }
+  },
+  {
+    "fixture": "05-fournisseur-epsilon.json",
+    "source": "dehashed-fixture",
+    "query": "epsilon.example",
+    "total": 1,
+    "reference": {
+      "id": "dehashed-fixture:dh-005",
+      "source": "dehashed-fixture",
+      "name": "Fuite simulée 05 — fournisseur epsilon",
+      "domain": "epsilon.example",
+      "breachDate": null,
+      "accounts": null,
+      "sourceUrl": "https://example.invalid/dehashed-fixture/05",
+      "evidence": { "fixture": "05-fournisseur-epsilon.json", "mode": "fixture" }
+    }
+  }
+]

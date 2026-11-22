@@ -1,5 +1,6 @@
 import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
+import { evenementPublicSql } from "../security/tlp.js";
 
 /**
  * Vue Nouvelle-Aquitaine — agrégats par département, un seul appel.
@@ -84,6 +85,7 @@ export default async function (app: FastifyInstance) {
 			   JOIN org o ON e.org_id = o.id
 			   JOIN source s ON s.id = e.source_id
 			  WHERE o.dept = $1
+			    AND ${evenementPublicSql("e")}
 			  ORDER BY coalesce(e.observed_at, e.collected_at) DESC
 			  LIMIT 50`,
 			[dept],
