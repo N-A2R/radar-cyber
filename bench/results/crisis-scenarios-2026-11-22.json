@@ -1,0 +1,730 @@
+{
+  "baseline": {
+    "organizations": 1673151,
+    "sources": 312,
+    "events": 26259
+  },
+  "screening": {
+    "raw": 50,
+    "outsideRegion": 0,
+    "personalData": 2,
+    "unknownTheme": 0,
+    "usable": 48
+  },
+  "objectiveInputs": {
+    "baseline": {
+      "organizations": 1673151,
+      "sources": 312,
+      "events": 26259
+    },
+    "scenarioCount": 10,
+    "outsideNaCount": 0,
+    "personalDataCount": 0,
+    "paidServiceCount": 0,
+    "unsourcedCount": 0
+  },
+  "objective": {
+    "met": true,
+    "checks": [
+      {
+        "label": "scenarios produced from real data",
+        "expected": ">= 10",
+        "observed": "10",
+        "passed": true
+      },
+      {
+        "label": "baseline organizations",
+        "expected": ">= 1000000",
+        "observed": "1673151",
+        "passed": true
+      },
+      {
+        "label": "baseline sources",
+        "expected": ">= 300",
+        "observed": "312",
+        "passed": true
+      },
+      {
+        "label": "baseline events",
+        "expected": ">= 20000",
+        "observed": "26259",
+        "passed": true
+      },
+      {
+        "label": "scenarios outside Nouvelle-Aquitaine",
+        "expected": "0",
+        "observed": "0",
+        "passed": true
+      },
+      {
+        "label": "scenarios carrying victim personal data",
+        "expected": "0",
+        "observed": "0",
+        "passed": true
+      },
+      {
+        "label": "scenarios relying on a paid service",
+        "expected": "0",
+        "observed": "0",
+        "passed": true
+      },
+      {
+        "label": "scenarios without a real source",
+        "expected": "0",
+        "observed": "0",
+        "passed": true
+      }
+    ]
+  },
+  "scenarios": [
+    {
+      "id": "na-33-targeted-intrusion-2026-10-21",
+      "title": "Targeted intrusion against public staff - Gironde (33)",
+      "department": "33",
+      "departmentName": "Gironde",
+      "theme": "targeted-intrusion",
+      "severity": 2,
+      "signalCount": 7,
+      "sourceCount": 6,
+      "organizationCount": 6,
+      "publicSectorSignalCount": 2,
+      "sources": [
+        {
+          "id": "cat-circl-news",
+          "kind": "grey"
+        },
+        {
+          "id": "eco-dordogne-libre",
+          "kind": "grey"
+        },
+        {
+          "id": "gn-17",
+          "kind": "press"
+        },
+        {
+          "id": "gn-33",
+          "kind": "press"
+        },
+        {
+          "id": "presse-france3-na",
+          "kind": "press"
+        },
+        {
+          "id": "presse-sudouest",
+          "kind": "press"
+        }
+      ],
+      "firstObserved": "2026-10-21",
+      "lastObserved": "2026-11-21",
+      "evidenceHashes": [
+        "2eaf933d08c4",
+        "4581dc8da6e1",
+        "6fd2a23224ba",
+        "75ddb2baec01",
+        "78f42c26b80a",
+        "945485903107",
+        "ca96c1633d63"
+      ],
+      "organizationHashes": [
+        "22d96979f730",
+        "04e39269c230",
+        "ade94743de9d",
+        "8f4c369087ef",
+        "103091dae817",
+        "6fd8fcbbe690"
+      ],
+      "timeline": [
+        {
+          "offsetDays": 0,
+          "family": "cti",
+          "assertionType": "ambient_signal",
+          "sourceKind": "press"
+        },
+        {
+          "offsetDays": 19,
+          "family": "cti",
+          "assertionType": "ambient_signal",
+          "sourceKind": "grey"
+        },
+        {
+          "offsetDays": 21,
+          "family": "cti",
+          "assertionType": "ambient_signal",
+          "sourceKind": "press"
+        },
+        {
+          "offsetDays": 25,
+          "family": "cti",
+          "assertionType": "ambient_signal",
+          "sourceKind": "grey"
+        },
+        {
+          "offsetDays": 25,
+          "family": "cti",
+          "assertionType": "ambient_signal",
+          "sourceKind": "grey"
+        },
+        {
+          "offsetDays": 30,
+          "family": "cti",
+          "assertionType": "ambient_signal",
+          "sourceKind": "press"
+        },
+        {
+          "offsetDays": 31,
+          "family": "cti",
+          "assertionType": "ambient_signal",
+          "sourceKind": "press"
+        }
+      ],
+      "impactHypothesis": "Compromise of a staff account used for internal or citizen-facing workflows.",
+      "responseActions": [
+        "Force a password reset for the affected service accounts.",
+        "Enforce multi-factor authentication on remote access.",
+        "Brief staff on the observed lure without naming any victim."
+      ],
+      "dataBoundary": {
+        "region": "nouvelle-aquitaine",
+        "victimPersonalData": false,
+        "paidServices": false
+      }
+    },
+    {
+      "id": "na-17-ransomware-2026-11-10",
+      "title": "Ransomware disruption of municipal services - Charente-Maritime (17)",
+      "department": "17",
+      "departmentName": "Charente-Maritime",
+      "theme": "ransomware",
+      "severity": 4,
+      "signalCount": 3,
+      "sourceCount": 1,
+      "organizationCount": 3,
+      "publicSectorSignalCount": 0,
+      "sources": [
+        {
+          "id": "ransomlook",
+          "kind": "grey"
+        }
+      ],
+      "firstObserved": "2026-11-10",
+      "lastObserved": "2026-11-19",
+      "evidenceHashes": [
+        "25855ec38fd5",
+        "285a697d3e5a",
+        "3c6c58644257"
+      ],
+      "organizationHashes": [
+        "398b964502fa",
+        "1759ce1a64f0",
+        "dba4944689ac"
+      ],
+      "timeline": [
+        {
+          "offsetDays": 0,
+          "family": "ransomware",
+          "assertionType": "third_party_claim",
+          "sourceKind": "grey"
+        },
+        {
+          "offsetDays": 0,
+          "family": "ransomware",
+          "assertionType": "third_party_claim",
+          "sourceKind": "grey"
+        },
+        {
+          "offsetDays": 9,
+          "family": "ransomware",
+          "assertionType": "third_party_claim",
+          "sourceKind": "grey"
+        }
+      ],
+      "impactHypothesis": "Loss of an internet-facing service and delayed processing of citizen requests.",
+      "responseActions": [
+        "Isolate the affected segment and keep an offline copy of the incident log.",
+        "Switch citizen requests to a documented manual fallback.",
+        "Verify backups by restoring a non-production copy before any negotiation."
+      ],
+      "dataBoundary": {
+        "region": "nouvelle-aquitaine",
+        "victimPersonalData": false,
+        "paidServices": false
+      }
+    },
+    {
+      "id": "na-86-ransomware-2026-11-11",
+      "title": "Ransomware disruption of municipal services - Vienne (86)",
+      "department": "86",
+      "departmentName": "Vienne",
+      "theme": "ransomware",
+      "severity": 4,
+      "signalCount": 2,
+      "sourceCount": 2,
+      "organizationCount": 2,
+      "publicSectorSignalCount": 1,
+      "sources": [
+        {
+          "id": "ransomlook",
+          "kind": "grey"
+        },
+        {
+          "id": "tg-ransomwareg",
+          "kind": "grey"
+        }
+      ],
+      "firstObserved": "2026-11-11",
+      "lastObserved": "2026-11-17",
+      "evidenceHashes": [
+        "7c103753b6e8",
+        "d2050145029b"
+      ],
+      "organizationHashes": [
+        "76a68fd70af6",
+        "2306dca83925"
+      ],
+      "timeline": [
+        {
+          "offsetDays": 0,
+          "family": "ransomware",
+          "assertionType": "third_party_claim",
+          "sourceKind": "grey"
+        },
+        {
+          "offsetDays": 6,
+          "family": "ransomware",
+          "assertionType": "ambient_signal",
+          "sourceKind": "grey"
+        }
+      ],
+      "impactHypothesis": "Loss of an internet-facing service and delayed processing of citizen requests.",
+      "responseActions": [
+        "Isolate the affected segment and keep an offline copy of the incident log.",
+        "Switch citizen requests to a documented manual fallback.",
+        "Verify backups by restoring a non-production copy before any negotiation."
+      ],
+      "dataBoundary": {
+        "region": "nouvelle-aquitaine",
+        "victimPersonalData": false,
+        "paidServices": false
+      }
+    },
+    {
+      "id": "na-87-data-leak-2026-10-18",
+      "title": "Exposure of local authority records - Haute-Vienne (87)",
+      "department": "87",
+      "departmentName": "Haute-Vienne",
+      "theme": "data-leak",
+      "severity": 2,
+      "signalCount": 2,
+      "sourceCount": 2,
+      "organizationCount": 2,
+      "publicSectorSignalCount": 0,
+      "sources": [
+        {
+          "id": "leak:databreaches:feed",
+          "kind": "grey"
+        },
+        {
+          "id": "leak:hibp:latest-breaches",
+          "kind": "grey"
+        }
+      ],
+      "firstObserved": "2026-10-18",
+      "lastObserved": "2026-11-20",
+      "evidenceHashes": [
+        "8b24233b90d0",
+        "d1ba584000ea"
+      ],
+      "organizationHashes": [
+        "a5fade0bb212",
+        "41da0dea1eaa"
+      ],
+      "timeline": [
+        {
+          "offsetDays": 0,
+          "family": "leaks",
+          "assertionType": "ambient_signal",
+          "sourceKind": "grey"
+        },
+        {
+          "offsetDays": 33,
+          "family": "leaks",
+          "assertionType": "ambient_signal",
+          "sourceKind": "grey"
+        }
+      ],
+      "impactHypothesis": "Unauthorized disclosure of administrative records handled by the authority.",
+      "responseActions": [
+        "Identify the affected dataset without publishing personal identifiers.",
+        "Revoke the exposed access and preserve access logs.",
+        "Prepare an anonymous incident notice for the supervisory authority."
+      ],
+      "dataBoundary": {
+        "region": "nouvelle-aquitaine",
+        "victimPersonalData": false,
+        "paidServices": false
+      }
+    },
+    {
+      "id": "na-64-ransomware-2026-11-10",
+      "title": "Ransomware disruption of municipal services - Pyrenees-Atlantiques (64)",
+      "department": "64",
+      "departmentName": "Pyrenees-Atlantiques",
+      "theme": "ransomware",
+      "severity": 4,
+      "signalCount": 2,
+      "sourceCount": 1,
+      "organizationCount": 2,
+      "publicSectorSignalCount": 0,
+      "sources": [
+        {
+          "id": "ransomlook",
+          "kind": "grey"
+        }
+      ],
+      "firstObserved": "2026-11-10",
+      "lastObserved": "2026-11-20",
+      "evidenceHashes": [
+        "5741d46e3b6e",
+        "d9a55faba937"
+      ],
+      "organizationHashes": [
+        "29181f6090f4",
+        "8f8ce7f2aef1"
+      ],
+      "timeline": [
+        {
+          "offsetDays": 0,
+          "family": "ransomware",
+          "assertionType": "third_party_claim",
+          "sourceKind": "grey"
+        },
+        {
+          "offsetDays": 10,
+          "family": "ransomware",
+          "assertionType": "third_party_claim",
+          "sourceKind": "grey"
+        }
+      ],
+      "impactHypothesis": "Loss of an internet-facing service and delayed processing of citizen requests.",
+      "responseActions": [
+        "Isolate the affected segment and keep an offline copy of the incident log.",
+        "Switch citizen requests to a documented manual fallback.",
+        "Verify backups by restoring a non-production copy before any negotiation."
+      ],
+      "dataBoundary": {
+        "region": "nouvelle-aquitaine",
+        "victimPersonalData": false,
+        "paidServices": false
+      }
+    },
+    {
+      "id": "na-47-targeted-intrusion-2026-11-12",
+      "title": "Targeted intrusion against public staff - Lot-et-Garonne (47)",
+      "department": "47",
+      "departmentName": "Lot-et-Garonne",
+      "theme": "targeted-intrusion",
+      "severity": 2,
+      "signalCount": 2,
+      "sourceCount": 2,
+      "organizationCount": 2,
+      "publicSectorSignalCount": 0,
+      "sources": [
+        {
+          "id": "gn-17",
+          "kind": "press"
+        },
+        {
+          "id": "presse-sudouest-pyrenees",
+          "kind": "press"
+        }
+      ],
+      "firstObserved": "2026-11-12",
+      "lastObserved": "2026-11-21",
+      "evidenceHashes": [
+        "ae1d158af4bd",
+        "d9a1783e25f8"
+      ],
+      "organizationHashes": [
+        "adfcd4e7f6e6",
+        "61991b21eabf"
+      ],
+      "timeline": [
+        {
+          "offsetDays": 0,
+          "family": "cti",
+          "assertionType": "ambient_signal",
+          "sourceKind": "press"
+        },
+        {
+          "offsetDays": 9,
+          "family": "cti",
+          "assertionType": "ambient_signal",
+          "sourceKind": "press"
+        }
+      ],
+      "impactHypothesis": "Compromise of a staff account used for internal or citizen-facing workflows.",
+      "responseActions": [
+        "Force a password reset for the affected service accounts.",
+        "Enforce multi-factor authentication on remote access.",
+        "Brief staff on the observed lure without naming any victim."
+      ],
+      "dataBoundary": {
+        "region": "nouvelle-aquitaine",
+        "victimPersonalData": false,
+        "paidServices": false
+      }
+    },
+    {
+      "id": "na-24-ransomware-2026-11-11",
+      "title": "Ransomware disruption of municipal services - Dordogne (24)",
+      "department": "24",
+      "departmentName": "Dordogne",
+      "theme": "ransomware",
+      "severity": 4,
+      "signalCount": 2,
+      "sourceCount": 1,
+      "organizationCount": 2,
+      "publicSectorSignalCount": 0,
+      "sources": [
+        {
+          "id": "ransomlook",
+          "kind": "grey"
+        }
+      ],
+      "firstObserved": "2026-11-11",
+      "lastObserved": "2026-11-14",
+      "evidenceHashes": [
+        "6d2aa1b8c28e",
+        "ca2e4abd5901"
+      ],
+      "organizationHashes": [
+        "7ae845afbc76",
+        "9d2e6c24e5e2"
+      ],
+      "timeline": [
+        {
+          "offsetDays": 0,
+          "family": "ransomware",
+          "assertionType": "third_party_claim",
+          "sourceKind": "grey"
+        },
+        {
+          "offsetDays": 3,
+          "family": "ransomware",
+          "assertionType": "third_party_claim",
+          "sourceKind": "grey"
+        }
+      ],
+      "impactHypothesis": "Loss of an internet-facing service and delayed processing of citizen requests.",
+      "responseActions": [
+        "Isolate the affected segment and keep an offline copy of the incident log.",
+        "Switch citizen requests to a documented manual fallback.",
+        "Verify backups by restoring a non-production copy before any negotiation."
+      ],
+      "dataBoundary": {
+        "region": "nouvelle-aquitaine",
+        "victimPersonalData": false,
+        "paidServices": false
+      }
+    },
+    {
+      "id": "na-16-ransomware-2026-11-14",
+      "title": "Ransomware disruption of municipal services - Charente (16)",
+      "department": "16",
+      "departmentName": "Charente",
+      "theme": "ransomware",
+      "severity": 4,
+      "signalCount": 1,
+      "sourceCount": 1,
+      "organizationCount": 1,
+      "publicSectorSignalCount": 0,
+      "sources": [
+        {
+          "id": "ransomlook",
+          "kind": "grey"
+        }
+      ],
+      "firstObserved": "2026-11-14",
+      "lastObserved": "2026-11-14",
+      "evidenceHashes": [
+        "941e5f40da83"
+      ],
+      "organizationHashes": [
+        "7f2cb2deb389"
+      ],
+      "timeline": [
+        {
+          "offsetDays": 0,
+          "family": "ransomware",
+          "assertionType": "third_party_claim",
+          "sourceKind": "grey"
+        }
+      ],
+      "impactHypothesis": "Loss of an internet-facing service and delayed processing of citizen requests.",
+      "responseActions": [
+        "Isolate the affected segment and keep an offline copy of the incident log.",
+        "Switch citizen requests to a documented manual fallback.",
+        "Verify backups by restoring a non-production copy before any negotiation."
+      ],
+      "dataBoundary": {
+        "region": "nouvelle-aquitaine",
+        "victimPersonalData": false,
+        "paidServices": false
+      }
+    },
+    {
+      "id": "na-79-ransomware-2026-11-11",
+      "title": "Ransomware disruption of municipal services - Deux-Sevres (79)",
+      "department": "79",
+      "departmentName": "Deux-Sevres",
+      "theme": "ransomware",
+      "severity": 4,
+      "signalCount": 1,
+      "sourceCount": 1,
+      "organizationCount": 1,
+      "publicSectorSignalCount": 0,
+      "sources": [
+        {
+          "id": "ransomlook",
+          "kind": "grey"
+        }
+      ],
+      "firstObserved": "2026-11-11",
+      "lastObserved": "2026-11-11",
+      "evidenceHashes": [
+        "6e17a2f294f1"
+      ],
+      "organizationHashes": [
+        "7c5ac9cb1178"
+      ],
+      "timeline": [
+        {
+          "offsetDays": 0,
+          "family": "ransomware",
+          "assertionType": "third_party_claim",
+          "sourceKind": "grey"
+        }
+      ],
+      "impactHypothesis": "Loss of an internet-facing service and delayed processing of citizen requests.",
+      "responseActions": [
+        "Isolate the affected segment and keep an offline copy of the incident log.",
+        "Switch citizen requests to a documented manual fallback.",
+        "Verify backups by restoring a non-production copy before any negotiation."
+      ],
+      "dataBoundary": {
+        "region": "nouvelle-aquitaine",
+        "victimPersonalData": false,
+        "paidServices": false
+      }
+    },
+    {
+      "id": "na-33-ransomware-2026-11-10",
+      "title": "Ransomware disruption of municipal services - Gironde (33)",
+      "department": "33",
+      "departmentName": "Gironde",
+      "theme": "ransomware",
+      "severity": 4,
+      "signalCount": 9,
+      "sourceCount": 1,
+      "organizationCount": 9,
+      "publicSectorSignalCount": 0,
+      "sources": [
+        {
+          "id": "ransomlook",
+          "kind": "grey"
+        }
+      ],
+      "firstObserved": "2026-11-10",
+      "lastObserved": "2026-11-20",
+      "evidenceHashes": [
+        "046c5b000de1",
+        "5cb2d25491cc",
+        "7d5517f90966",
+        "9ec2d5503bd8",
+        "aaed30900c1c",
+        "c8adce5abd09",
+        "ca9b31c230ba",
+        "d1797b430c38",
+        "fa22d3b777c9"
+      ],
+      "organizationHashes": [
+        "bbc152d37c91",
+        "90e9f975b2eb",
+        "e37c70d33fe7",
+        "736399f4df5e",
+        "711ffd55b3e7",
+        "58e36b608c3e",
+        "d92dbde7263d",
+        "33a5fefa5a0e",
+        "6759d7432d70"
+      ],
+      "timeline": [
+        {
+          "offsetDays": 0,
+          "family": "ransomware",
+          "assertionType": "third_party_claim",
+          "sourceKind": "grey"
+        },
+        {
+          "offsetDays": 1,
+          "family": "ransomware",
+          "assertionType": "third_party_claim",
+          "sourceKind": "grey"
+        },
+        {
+          "offsetDays": 1,
+          "family": "ransomware",
+          "assertionType": "third_party_claim",
+          "sourceKind": "grey"
+        },
+        {
+          "offsetDays": 3,
+          "family": "ransomware",
+          "assertionType": "third_party_claim",
+          "sourceKind": "grey"
+        },
+        {
+          "offsetDays": 3,
+          "family": "ransomware",
+          "assertionType": "third_party_claim",
+          "sourceKind": "grey"
+        },
+        {
+          "offsetDays": 6,
+          "family": "ransomware",
+          "assertionType": "third_party_claim",
+          "sourceKind": "grey"
+        },
+        {
+          "offsetDays": 9,
+          "family": "ransomware",
+          "assertionType": "third_party_claim",
+          "sourceKind": "grey"
+        },
+        {
+          "offsetDays": 10,
+          "family": "ransomware",
+          "assertionType": "third_party_claim",
+          "sourceKind": "grey"
+        },
+        {
+          "offsetDays": 10,
+          "family": "ransomware",
+          "assertionType": "third_party_claim",
+          "sourceKind": "grey"
+        }
+      ],
+      "impactHypothesis": "Loss of an internet-facing service and delayed processing of citizen requests.",
+      "responseActions": [
+        "Isolate the affected segment and keep an offline copy of the incident log.",
+        "Switch citizen requests to a documented manual fallback.",
+        "Verify backups by restoring a non-production copy before any negotiation."
+      ],
+      "dataBoundary": {
+        "region": "nouvelle-aquitaine",
+        "victimPersonalData": false,
+        "paidServices": false
+      }
+    }
+  ]
+}
