@@ -138,6 +138,8 @@ describe("importer-corpus", () => {
 			const apresSecond = await comptes();
 			assert.deepEqual(apresSecond, apresPremier);
 
+			// Ne comparer que les identifiants créés par cet import : les
+			// migrations de corpus précédentes peuplent déjà la base de test.
 			const client = new Client({ connectionString: process.env.DATABASE_URL });
 			await client.connect();
 			try {
