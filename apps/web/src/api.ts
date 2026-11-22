@@ -156,6 +156,28 @@ export type Event = {
   confiance?: Confiance;
 };
 
+/** Monthly count returned by GET /map/timeline/buckets. */
+export type MapTimelineBucket = { key: string; from: string; to: string; count: number };
+
+export type MapTimelineBuckets = {
+  buckets: MapTimelineBucket[];
+  total: number;
+  region: string;
+  bounds: { minLat: number; maxLat: number; minLon: number; maxLon: number };
+};
+
+/** Only public event fields needed to draw a point; no summaries or victim data. */
+export type MapTimelineEvent = Pick<Event,
+  "id" | "title" | "family" | "assertionType" | "severity" | "confidence"
+  | "sourceId" | "sourceUrl" | "orgId" | "lat" | "lon" | "observedAt">;
+
+export type MapTimelineEvents = {
+  bucket: string;
+  events: MapTimelineEvent[];
+  total: number;
+  truncated: boolean;
+};
+
 /** Précision de la date : publiée par la source, déduite du texte, ou collecte. */
 export type PrecisionDate = "certaine" | "deduite" | "collecte";
 
@@ -1218,6 +1240,11 @@ export const api = {
     order: "regional" | "recent" = "regional",
     portee: "region" | "toutes" | "vulnerabilites" = "region",
   ) => get<Event[]>(`/events?limit=${limit}&order=${order}&portee=${portee}`),
+  /** Map timeline: monthly counts, then one page of points for a month. */
+  mapTimelineBuckets: (months = 12, signal?: AbortSignal) =>
+    get<MapTimelineBuckets>(`/map/timeline/buckets?months=${months}`, signal),
+  mapTimelineEvents: (bucket: string, limit = 1000, signal?: AbortSignal) =>
+    get<MapTimelineEvents>(`/map/timeline/events?bucket=${encodeURIComponent(bucket)}&limit=${limit}`, signal),
   /** Écran d'accueil : compteurs 24 h / 7 j et fil filtrable, en un appel. */
   today: (params: { family?: string | null; dept?: string | null } = {}, signal?: AbortSignal) => {
     const qs = new URLSearchParams();
