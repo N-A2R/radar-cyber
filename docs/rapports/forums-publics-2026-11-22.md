@@ -1,8 +1,8 @@
 # Forums publics — mesure reproductible
 
-Mesure exécutée le 2026-11-22T00:48:00.550Z.
+Mesure exécutée le 2026-11-22T03:41:32.951Z.
 
-**5 forums suivis et 10 messages pertinents** sur 106 messages publics réels relus depuis le corpus gelé du 2026-11-22.
+**8 forums suivis et 24 messages pertinents** sur 139 messages publics réels relus depuis le corpus gelé du 2026-11-22.
 
 État réel au moment de la capture : 1 673 151 organisations, 312 sources, 26 214 événements (base `postgres://radar:radar@localhost:5432/radar`). Le chantier ajoute une couche de forums à cet état, sans modifier les compteurs existants.
 
@@ -18,12 +18,15 @@ Mesure exécutée le 2026-11-22T00:48:00.550Z.
 | --- | ---: | ---: |
 | Hacker News — bordeaux discussion | 1 | 1 |
 | Hacker News — gironde discussion | 0 | 0 |
-| Hacker News — poitiers discussion | 15 | 9 |
+| Hacker News — poitiers discussion | 22 | 12 |
+| Zataz — bordeaux public discussion | 10 | 5 |
+| Zataz — gironde public discussion | 6 | 0 |
+| Zataz — poitiers public discussion | 10 | 6 |
 | Hacker News — latest discussion | 30 | 0 |
 | Let's Encrypt community — latest discussion | 30 | 0 |
 | HTTP Archive discuss — latest discussion | 30 | 0 |
 
-Rejets : 88 hors Nouvelle-Aquitaine, 5 sans signal cyber, 3 avec donnée personnelle, 0 vides.
+Rejets : 88 hors Nouvelle-Aquitaine, 24 sans signal cyber, 3 avec donnée personnelle, 0 vides.
 
 ## Contraintes vérifiées
 

@@ -1,8 +1,8 @@
 {
-  "measuredAt": "2026-11-22T00:48:00.550Z",
+  "measuredAt": "2026-11-22T03:41:32.951Z",
   "corpus": {
-    "capturedAt": "2026-11-22T00:46:31.282Z",
-    "messages": 106,
+    "capturedAt": "2026-11-22T03:31:16.084Z",
+    "messages": 139,
     "errors": []
   },
   "realState": {
@@ -13,15 +13,15 @@
     "sources": 312,
     "events": 26214
   },
-  "followedForums": 5,
-  "relevantMessages": 10,
-  "messagesSeen": 106,
+  "followedForums": 8,
+  "relevantMessages": 24,
+  "messagesSeen": 139,
   "rejected": {
     "relevant": 0,
     "empty": 0,
     "personal-data": 3,
     "outside-na": 88,
-    "no-cyber-signal": 5
+    "no-cyber-signal": 24
   },
   "bySource": [
     {
@@ -39,8 +39,26 @@
     {
       "id": "forum:hn:poitiers",
       "name": "Hacker News — poitiers discussion",
-      "seen": 15,
-      "relevant": 9
+      "seen": 22,
+      "relevant": 12
+    },
+    {
+      "id": "forum:zataz:bordeaux",
+      "name": "Zataz — bordeaux public discussion",
+      "seen": 10,
+      "relevant": 5
+    },
+    {
+      "id": "forum:zataz:gironde",
+      "name": "Zataz — gironde public discussion",
+      "seen": 6,
+      "relevant": 0
+    },
+    {
+      "id": "forum:zataz:poitiers",
+      "name": "Zataz — poitiers public discussion",
+      "seen": 10,
+      "relevant": 6
     },
     {
       "id": "forum:hn:latest",
