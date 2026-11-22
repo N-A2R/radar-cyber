@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-21T22:42:22.990Z",
+  "corpus": "/mnt/data/agent-runs/chantier-b9/bench/audio-video/items.json",
+  "sha256": "21f29afa5de02c7070a0381a05246a05225694e80ed440896a97e8dc7a99a229",
+  "baseline": {
+    "organisations": 1673221,
+    "sources": 435,
+    "events": 27882
+  },
+  "mediaSources": 9,
+  "processed": 20,
+  "relevant": 10,
+  "relevantRate": 0.5,
+  "blocked": 0,
+  "outsideNa": 0,
+  "byDept": {
+    "40": 10,
+    "86": 10
+  },
+  "byMethod": {
+    "publisher-caption": 17,
+    "enclosure-caption": 3
+  },
+  "byReason": {
+    "none": 10,
+    "dept": 10
+  },
+  "applied": 0
+}
