@@ -6,7 +6,7 @@ La PR #278 (« train: Exposition », branche `big/Exposition`) mesurait **142 or
 
 ## Ce qui a été ajouté
 
-Neuf sources publiques, gratuites et sans clé, toutes limitées aux 12 départements de Nouvelle-Aquitaine et à des métadonnées techniques publiques :
+Dix sources publiques, gratuites et sans clé, toutes limitées aux 12 départements de Nouvelle-Aquitaine et à des métadonnées techniques publiques :
 
 | Source | Preuve exigée | Organisation rattachée par | Organisations ajoutées |
 | `shodan-internetdb` (existant) | ports + CPE InternetDB | `org_id` existant | 83 (déjà présentes) |
@@ -18,15 +18,16 @@ Neuf sources publiques, gratuites et sans clé, toutes limitées aux 12 départe
 | `rna-http-200` (tranche 3) | `siret` + `siteweb` du répertoire national des associations (Waldec 2026-10-01), réponse HTTP 200, DNS A public | `siret` → `org.siren` | 522 organisations nouvelles |
 | `site-zone-http-200` (tranche 4) | site déclaré puis HTTP 200 sur l'hôte final du même domaine enregistrable, DNS A public | `org.website`, preuves `org_enrichissement`, SIREN Wikidata → `org.siren` | 381 organisations nouvelles |
 | `education-http-200` (tranche 5) | site déclaré dans l'annuaire public des établissements de l'Éducation nationale, HTTP 200 sur le même domaine, DNS A public | `UAI` (`Identifiant_de_l_etablissement`) → `org.entity_code` (`entity_source = annuaire-education`) | 733 organisations nouvelles |
+| `administration-http-200` (tranche 6) | SIREN ou code INSEE + site déclaré dans l'annuaire national de l'administration (API Service-public.fr), HTTP 200 sur le même domaine enregistrable, DNS A public | `org.siren` ou `org.entity_code` (INSEE) | 40 organisations nouvelles |
 
 Chaque ligne de `exposition_service` garde `source`, `source_url`, `consulted_at` et un `evidence` uniquement technique (domaine, URL, statut, fournisseur). Aucun nom de victime, aucune adresse IP privée, aucun contenu de page et aucune donnée personnelle ne sont stockés. Aucun service payant, aucun scan actif de ports : les sites sont interrogés une fois en HEAD (GET en repli) et le DNS public est résolu.
 
 Fichiers principaux :
 
 - `apps/api/src/exposition/web-service.ts` — conversion des preuves HTTP en services exposés, écritures idempotentes et mesure agrégée ;
-- `scripts/collecte-services-web.mts`, `scripts/collecte-services-osm.mts`, `scripts/collecte-services-wikidata.mts`, `scripts/collecte-services-osm-siret.mts`, `scripts/collecte-services-dila.mts`, `scripts/collecte-services-rna.mts`, `scripts/collecte-services-site-zone.mts`, `scripts/collecte-services-education.mts` — collectes par étapes, avec `--limit`, `--offset`, `--apply` et `--only-missing` ;
-- `scripts/measure-exposition-na.mts` — mesure reproductible, sans écriture ;
-- `apps/api/test/exposition-web-service.test.ts`, `exposition-osm-siret.test.ts`, `exposition-dila-local.test.ts`, `exposition-public-site.test.ts`, `exposition-rna-site.test.ts`, `exposition-site-zone.test.ts`, `exposition-education-site.test.ts` — 36 tests, un comportement par test, réseau interdit, base jetable.
+- `apps/api/src/exposition/administration-site.ts` — qualification des sites déclarés par l'annuaire national de l'administration ;
+- `scripts/collecte-services-web.mts`, `scripts/collecte-services-osm.mts`, `scripts/collecte-services-wikidata.mts`, `scripts/collecte-services-osm-siret.mts`, `scripts/collecte-services-dila.mts`, `scripts/collecte-services-rna.mts`, `scripts/collecte-services-site-zone.mts`, `scripts/collecte-services-education.mts`, `scripts/collecte-services-administration.mts` — collectes par étapes, avec `--limit`, `--offset`, `--apply` et `--only-missing` ;
+- `apps/api/test/exposition-web-service.test.ts`, `exposition-osm-siret.test.ts`, `exposition-dila-local.test.ts`, `exposition-public-site.test.ts`, `exposition-rna-site.test.ts`, `exposition-site-zone.test.ts`, `exposition-education-site.test.ts`, `exposition-administration-site.test.ts` — 36 tests au vert (31 préexistants et 5 ajoutés par la tranche 6), un comportement par test, réseau interdit, base jetable.
 
 ## Mesure reproductible
 
@@ -39,19 +40,19 @@ DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
 Résultat observé le 2026-11-22 (UTC) :
 
 ```
-NA exposed services: 8914 organisations / 1671906 in scope, 9804 services
-(by source: {"http-200":1256,"osm-http-200":2941,"rna-http-200":522,"dila-http-200":1045,"shodan-internetdb":399,"wikidata-http-200":850,"education-http-200":733,"osm-siret-http-200":1677,"site-zone-http-200":381})
+NA exposed services: 8954 organisations / 1671906 in scope, 9844 services
+(by source: {"http-200":1256,"osm-http-200":2941,"rna-http-200":522,"dila-http-200":1045,"shodan-internetdb":399,"wikidata-http-200":850,"education-http-200":733,"osm-siret-http-200":1677,"site-zone-http-200":381,"administration-http-200":40})
 ```
 
-Le chiffre retenu est le nombre d'organisations distinctes avec au moins un service exposé et un département de Nouvelle-Aquitaine : **8 914** sur la base live décrite ci-dessous. Les rapports détaillés sont versionnés dans `bench/results/exposition-na-2026-11-22.json`, `services-web-2026-11-22.json`, `services-osm-2026-11-22.json`, `services-wikidata-2026-11-22.json`, `services-osm-siret-2026-11-22.json`, `services-dila-2026-11-22.json`, `services-rna-2026-11-22.json`, `site-zone-lot-{1,2,3}-2026-11-22.json`, `services-education-lot-{1,2,3,4,5}-2026-11-22.json` et `wikidata-siren-sites-2026-11-22.tsv`.
+Le chiffre retenu est le nombre d'organisations distinctes avec au moins un service exposé et un département de Nouvelle-Aquitaine : **8 954** sur la base live décrite ci-dessous. Les rapports détaillés sont versionnés dans `bench/results/exposition-na-2026-11-22.json`, `services-web-2026-11-22.json`, `services-osm-2026-11-22.json`, `services-wikidata-2026-11-22.json`, `services-osm-siret-2026-11-22.json`, `services-dila-2026-11-22.json`, `services-rna-2026-11-22.json`, `site-zone-lot-{1,2,3}-2026-11-22.json`, `services-education-lot-{1,2,3,4,5}-2026-11-22.json`, `services-administration-2026-11-22.json` et `wikidata-siren-sites-2026-11-22.tsv`.
 
 ## Contraintes vérifiées
 
 - `apps/api/src/server.ts` : **0 ligne de diff ajoutée par cette tranche** (le diff préexistant de la branche contre `main` est de 22 lignes, hérité d'autres chantiers et non modifié ici) ; aucun nouveau serveur n'est nécessaire pour la mesure.
 - Code et messages d'outils en anglais ; le présent rapport est en français.
 - Nouvelle-Aquitaine uniquement : filtre sur `org.dept` (codes 16, 17, 19, 23, 24, 33, 40, 47, 64, 79, 86, 87).
-- Aucune commande de collecte ou de mesure n'excède 55 s dans ce worktree ; les collectes sont découpées en lots de 300 entrées maximum (16 s mesurés pour le premier lot de la tranche 5). Le téléchargement unique de l'archive DILA (366 Mo) n'est pas une collecte de services.
-- Sources grises autorisées et utilisées (OSM, Wikidata, annuaire DILA de Service-public.fr, répertoire RNA du ministère de l'Intérieur, annuaire public des établissements de l'Éducation nationale, déclarations de sites déjà rattachées aux organisations) ; aucune source payante, aucune donnée personnelle de victime. Dans l'archive RNA, seuls `siret`, `adrs_codepostal` et `siteweb` sont lus : aucun nom d'association, de dirigeant, courriel ou téléphone n'est copié. Dans l'annuaire de l'Éducation nationale, seuls l'UAI, le SIRET, le département et le site déclaré sont lus : aucun nom d'établissement, courriel, téléphone ni adresse n'est copié. Le fichier Wikidata versionné ne contient que des SIREN et des URLs publics.
+- Aucune commande de collecte ou de mesure n'excède 55 s dans ce worktree ; les collectes sont découpées en lots de 300 entrées maximum (16 s mesurés pour le premier lot de la tranche 5, 15 s pour la collecte de la tranche 6). Le téléchargement unique de l'archive DILA (366 Mo) n'est pas une collecte de services.
+- Sources grises autorisées et utilisées (OSM, Wikidata, annuaire DILA de Service-public.fr, annuaire national de l'administration de Service-public.fr, répertoire RNA du ministère de l'Intérieur, annuaire public des établissements de l'Éducation nationale, déclarations de sites déjà rattachées aux organisations) ; aucune source payante, aucune donnée personnelle de victime. Dans l'archive RNA, seuls `siret`, `adrs_codepostal` et `siteweb` sont lus : aucun nom d'association, de dirigeant, courriel ou téléphone n'est copié. Dans l'annuaire de l'Éducation nationale, seuls l'UAI, le SIRET, le département et le site déclaré sont lus : aucun nom d'établissement, courriel, téléphone ni adresse n'est copié. Dans l'API de l'annuaire de l'administration, seuls `siren`, `code_insee_commune` et `site_internet` sont demandés : aucun nom de service, courriel, téléphone ni adresse n'est copié. Le fichier Wikidata versionné ne contient que des SIREN et des URLs publics.
 
 ## Tranche 3 — répertoire RNA
 
@@ -79,4 +80,12 @@ Sur 6 529 lignes des 12 départements NA, 1 075 UAI distincts portent un site we
 
 Mesure finale observée : **8 914 organisations / 9 804 services** sur 1 671 906 organisations NA. `apps/api/src/server.ts` : 0 ligne de diff ajoutée par cette tranche ; 4 nouveaux tests, un comportement par test ; 36 tests exposition au vert ; chaque lot de collecte a duré au plus 16 s.
 
-OBJECTIF : partiel — 8914 / 10000, manque 1086 organisations avec service exposé mesurable et rattachable
+## Tranche 6 — annuaire national de l'administration
+
+Nouvelle source grise, distincte de la tranche DILA : l'API publique `api-lannuaire-administration` de Service-public.fr (94 103 enregistrements, 28 813 avec SIREN et site déclaré, sans clé ni paiement). La tranche DILA consommait uniquement l'archive locale v4 (`all_latest.tar.bz2`) filtrée par SIRET et code postal ; l'API nationale apporte les enregistrements sans SIRET exploitable et les rattachements par code INSEE.
+
+Seuls `siren`, `code_insee_commune` et `site_internet` sont demandés à l'API. Sur 3 364 candidats NA distincts, 208 ont pu être rattachés à une organisation non encore mesurée, par `org.siren` ou par `org.entity_code` = code INSEE. La règle de la tranche 4 est réutilisée : l'hôte final doit rester dans le même domaine enregistrable que le site déclaré, répondre HTTP 200 (HEAD, GET en repli) et résoudre vers une IPv4 publique. **40 organisations supplémentaires** ont été mesurées (`administration-http-200`).
+
+Mesure finale observée : **8 954 organisations / 9 844 services** sur 1 671 906 organisations NA. `apps/api/src/server.ts` : 0 ligne de diff ajoutée par cette tranche ; 5 nouveaux tests, un comportement par test ; 36 tests exposition au vert (31 préexistants) ; collecte en 15 s pour 208 candidats. Les autres pistes vérifiées pendant cette tranche (Wikidata P374/P856 déjà consommé, agrégats Dibodev/Linkuma sans clé de rattachement, liste France Compétences sans site) n'apportent pas le volume restant dans les conditions retenues.
+
+OBJECTIF : partiel — 8954 / 10000, manque 1046 organisations avec service exposé mesurable et rattachable
