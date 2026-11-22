@@ -51,7 +51,7 @@
 
 .map-timeline__status strong { color: var(--text, #e6ebf2); }
 .map-timeline__status span { color: var(--muted, #aab3c0); }
-.map-timeline__cap { font-size: var(--text-micro, 10px); }
+.map-timeline__cap { font-size: var(--text-micro, 11px); }
 
 .map-timeline__bars {
   display: flex;
