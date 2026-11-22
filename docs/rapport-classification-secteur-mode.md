@@ -101,3 +101,5 @@ rejouée à 0,9938. `apps/api/src/server.ts` est inchangé (**0 ligne de diff**)
 - `other` et `unknown` sont des abstentions explicites, pas des rebuts : une
   actualité locale sans technique cyber identifiable n'est pas forcée dans un
   mode.
+
+OBJECTIF : atteint — 0,9938 / 0,9938 F1 (cible déclarée : moyenne des macro-F1 secteur 1,0000 et mode 0,9875, sur 56 / 56 cas annotés de Nouvelle-Aquitaine) ; mesure rejouée le 22/11/2026 avec `pnpm measure:sector-mode-f1 --json=/tmp/sector-mode-f1-recheck.json` (sortie temporaire, artifact archivé inchangé) : Gold cases 56, F1 (headline) 0,9938, empreinte `d8bfd341682254ea` identique à `bench/results/sector-mode-f1.json` ; aucun code ni test modifié.
