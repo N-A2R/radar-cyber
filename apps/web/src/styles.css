@@ -90,14 +90,16 @@
   --control-pad-x: var(--space-2);
   --control-pad-y: var(--space-1);
 
-  /* Une voix pour les libelles, une pour la donnee, une pour la lecture. */
-  --text-micro: 10px;
-  --text-label: 11px;
-  --text-xs: 12px;
-  --text-body: 13px;
-  --text-read: 15px;
-  --text-subtitle: 15px;
-  --text-title: 20px;
+  /* Une voix pour les libelles, une pour la donnee, une pour la lecture.
+     Echelle relevée : 10 px était illisible, et le corps de texte d'un
+     tableau de veille ne descend pas sous 13 px. */
+  --text-micro: 11px;
+  --text-label: 12px;
+  --text-xs: 13px;
+  --text-body: 14px;
+  --text-read: 16px;
+  --text-subtitle: 16px;
+  --text-title: 22px;
   --tracking-normal: 0;
   --leading-tight: 1.25;
   --leading-body: 1.5;
@@ -138,7 +140,7 @@ button:disabled, [aria-disabled="true"] { cursor: not-allowed; }
   z-index: 1000;
   top: -60px;
   left: 12px;
-  padding: 8px 12px;
+  padding: 12px 16px;
   background: var(--surface);
   color: var(--text);
   border: 1px solid var(--line-strong);
@@ -192,7 +194,8 @@ body { caret-color: var(--accent); }
 
 /* ── Barre supérieure ────────────────────────────────────────── */
 .topbar {
-  flex: 0 0 44px;
+  /* La barre porte des cibles de 44 px : elle grandit avec elles. */
+  flex: 0 0 56px;
   display: flex;
   align-items: center;
   gap: var(--space-5);
@@ -212,7 +215,7 @@ body { caret-color: var(--accent); }
   letter-spacing: 0.01em;
 }
 .wordmark span {
-  font: 400 10px/1 var(--font-mono);
+  font: 400 12px/1 var(--font-mono);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--muted);
@@ -358,7 +361,7 @@ body { caret-color: var(--accent); }
   grid-template-columns: auto minmax(0, 1fr);
   gap: var(--space-2) var(--space-3);
   margin: var(--space-4) 0 0;
-  font: 400 11px/1.4 var(--font-mono);
+  font: 400 12px/1.4 var(--font-mono);
   font-variant-numeric: tabular-nums;
 }
 .kv dt {
@@ -377,7 +380,7 @@ body { caret-color: var(--accent); }
   margin: 0;
   padding: var(--space-4);
   color: var(--faint);
-  font: 400 11px/1.5 var(--font-mono);
+  font: 400 12px/1.5 var(--font-mono);
 }
 
 /* ── Feuilles pleine largeur (sources, santé) ────────────────── */
@@ -415,7 +418,7 @@ body { caret-color: var(--accent); }
 .sources header p {
   margin: 0;
   color: var(--muted);
-  font: 400 11px/1.5 var(--font-mono);
+  font: 400 12px/1.5 var(--font-mono);
   font-variant-numeric: tabular-nums;
 }
 
@@ -478,7 +481,7 @@ table.data a:hover { text-decoration: underline; }
   justify-content: center;
   height: 100%;
   color: var(--muted);
-  font: 400 11px/1.4 var(--font-mono);
+  font: 400 12px/1.4 var(--font-mono);
 }
 .failed {
   flex: 0 0 auto;
@@ -522,7 +525,7 @@ table.data a:hover { text-decoration: underline; }
   .view-skeleton__line { animation: none; }
 }
 
-.maplibregl-ctrl-attrib { font-size: 10px; }
+.maplibregl-ctrl-attrib { font-size: 12px; }
 .maplibregl-ctrl-attrib a { color: var(--muted); }
 .maplibregl-canvas:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 
@@ -693,7 +696,7 @@ body {
   margin-bottom: var(--space-2);
   padding: var(--space-1) var(--space-3);
   border-radius: 4px;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--color-accent-ink);
   background: var(--color-accent);
 }
@@ -704,7 +707,7 @@ body {
   margin: 0 0 var(--space-2);
   padding: var(--space-2) var(--space-4);
   border-radius: 4px;
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.02em;
   color: var(--color-muted);
   background: var(--color-plate);
@@ -811,7 +814,9 @@ body {
 .rail__nav {
   display: flex;
   align-items: center;
-  gap: var(--space-5);
+  /* L'écart visible reste le même, mais il passe dans la zone cliquable de
+     chaque entrée : 8 px de vide + 6 px de rembourrage de chaque côté. */
+  gap: var(--space-2);
 }
 
 .rail__nav button {
@@ -819,7 +824,9 @@ body {
   font-size: 12px;
   background: none;
   border: 0;
-  padding: var(--space-1) 0;
+  /* Zone cliquable de 40 px de haut : le libellé reste à 12 px, c'est la
+     cible qui grandit, pas le texte. */
+  padding: 15px 6px;
   color: var(--color-muted);
   cursor: pointer;
   /* Un libellé de navigation ne se coupe pas : c'est la barre qui passe à la
@@ -856,7 +863,8 @@ body {
   color: var(--color-ink-2);
   background: none;
   border: 0;
-  padding: var(--space-1) 0;
+  /* Même hauteur de cible que les entrées de navigation. */
+  padding: 15px 6px;
   cursor: pointer;
   box-shadow: inset 0 -1px 0 var(--color-edge-hi);
   transition: color 90ms ease, box-shadow 90ms ease;
@@ -1262,7 +1270,7 @@ body {
   .wordmark span,
   .rail__live,
   .rail__spacer { display: none; }
-  .rail__toggle { min-height: 32px; font-size: 11px; }
+  .rail__toggle { min-height: 32px; font-size: 12px; }
   .rail__nav {
     order: 3;
     flex: 1 1 100%;

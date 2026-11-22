@@ -47,7 +47,8 @@
 }
 
 .empty-state__action {
-  padding: var(--space-2) var(--space-3);
+  min-height: 44px;
+  padding: var(--space-2) var(--space-4);
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
   background: var(--surface-3);
