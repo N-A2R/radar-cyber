@@ -33,5 +33,5 @@
     "SELECT count(*)::text AS edges FROM graph_complet_edge",
     "SELECT type, count(*)::text AS edges FROM graph_complet_edge GROUP BY type ORDER BY count(*) DESC"
   ],
-  "measuredAt": "2026-11-22T00:57:59.491Z"
+  "measuredAt": "2026-11-22T01:00:38.665Z"
 }
