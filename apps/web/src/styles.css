@@ -810,6 +810,9 @@ body {
   padding: var(--space-1) 0;
   color: var(--color-muted);
   cursor: pointer;
+  /* Un libellé de navigation ne se coupe pas : c'est la barre qui passe à la
+     ligne entre deux entrées. Sinon « Nouvelle-Aquitaine » se brise au milieu. */
+  white-space: nowrap;
   transition: color 90ms ease, box-shadow 90ms ease;
 }
 
@@ -845,6 +848,7 @@ body {
   cursor: pointer;
   box-shadow: inset 0 -1px 0 var(--color-edge-hi);
   transition: color 90ms ease, box-shadow 90ms ease;
+  white-space: nowrap;
 }
 
 .rail__toggle:hover {
@@ -871,6 +875,7 @@ body {
   gap: var(--space-2);
   font-size: 12px;
   color: var(--color-muted);
+  white-space: nowrap;
 }
 
 .rail__live i {
@@ -968,8 +973,14 @@ body {
   }
   .rail__nav button {
     padding: var(--space-1) var(--space-1);
-    white-space: normal;
-    overflow-wrap: anywhere;
+    white-space: nowrap;
+  }
+  /* Les libellés ne se coupent jamais en deux : c'est la barre qui passe à la
+     ligne entre deux entrées, sinon « Nouvelle-Aquitaine » et « Suis-je
+     concerné ? » se brisent en plein milieu à 1440 px. */
+  .rail__nav,
+  .rail__toggle {
+    white-space: nowrap;
   }
 }
 
