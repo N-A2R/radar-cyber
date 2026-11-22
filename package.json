@@ -15,6 +15,8 @@
     "collecte:communiques": "apps/api/node_modules/.bin/tsx scripts/collecte-communiques-officiels.mts",
     "mesure:communiques": "apps/api/node_modules/.bin/tsx scripts/mesure-communiques-officiels.mts",
     "test:offline": "pnpm -F @radar/web exec playwright test test/offline.spec.ts",
+    "mesure:scenarios": "apps/api/node_modules/.bin/tsx scripts/measure-crisis-scenarios.mts",
+    "verify:scenarios": "apps/api/node_modules/.bin/tsx scripts/verify-crisis-scenarios-objective.mts",
     "typecheck": "pnpm -r typecheck",
     "verify": "bash scripts/verify-all.sh",
     "verify:journal": "apps/api/node_modules/.bin/tsx scripts/verify-journal.mts",
