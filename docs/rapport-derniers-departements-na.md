@@ -119,3 +119,5 @@ Les douze départements de Nouvelle-Aquitaine ont désormais au moins un
 événement, les 46 flux de sitemaps et les 20 sources techniques sont intégrés,
 et les revendications vérifiées en attente de couverture sont à zéro : l'objectif
 de couverture totale sans trou du chantier est atteint et mesuré.
+
+OBJECTIF : atteint — 12 / 12 départements
