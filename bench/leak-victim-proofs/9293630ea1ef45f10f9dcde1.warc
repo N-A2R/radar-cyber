@@ -1,0 +1,18 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:743fd23a-f978-4cbe-a464-a8f2e0283482>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 134
+WARC-Block-Digest: sha1:ZLRWLMWEKVG5PONPHTLPJZO5VN5BJDNV
+X-Claim-Fingerprint: d0b0498cfbd4e678b418a864
+X-Victim-Key: 9293630ea1ef45f10f9dcde1
+
+{
+        "post_title": "Vision Technologies",
+        "group_name": "alphv",
+        "discovered": "2022-11-28 09:50:36.502465"
+    }
+
