@@ -45,3 +45,4 @@ Résultat : **24 sources, 85 URL distinctes toutes en HTTP 200** le 2026-11-22 (
 - `https://louisdefoix.fr/actualites/` : HTTP 404 ; la page `/articles/` (200) a été retenue.
 - `https://www.lyceeprofessionnel-morlaas.fr/feed/` et les flux `/feed/` de la CMA renvoient du HTML : non comptés comme flux RSS.
 - `www.esc-pau.fr`, `iut-pau.univ-pau.fr`, `www.ensgti.univ-pau.fr`, `www.greta-pau.fr` et les antennes syndicales départementales : NXDOMAIN ou serveur injoignable (000).
+OBJECTIF : atteint — 24 sources vérifiées en HTTP 200 / 5 sources vérifiées en HTTP 200
