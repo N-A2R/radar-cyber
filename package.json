@@ -44,6 +44,8 @@
     "onion:index": "apps/api/node_modules/.bin/tsx scripts/build-onion-index.mts",
     "exposition:web": "apps/api/node_modules/.bin/tsx scripts/collecte-services-web.mts",
     "exposition:osm": "apps/api/node_modules/.bin/tsx scripts/collecte-services-osm.mts",
+    "exposition:dila": "apps/api/node_modules/.bin/tsx scripts/collecte-services-dila.mts",
+    "exposition:osm-siret": "apps/api/node_modules/.bin/tsx scripts/collecte-services-osm-siret.mts",
     "exposition:wikidata": "apps/api/node_modules/.bin/tsx scripts/collecte-services-wikidata.mts",
     "exposition:mesurer": "apps/api/node_modules/.bin/tsx scripts/measure-exposition-na.mts"
   },
