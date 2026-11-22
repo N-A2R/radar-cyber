@@ -1,0 +1,25 @@
+{
+  "generatedAt": "2026-11-21T23:02:13.816Z",
+  "metric": "sources repaired without human intervention",
+  "scope": "Nouvelle-Aquitaine",
+  "referenceState": {
+    "organisations": 1673151,
+    "sources": 312,
+    "events": 26719,
+    "source": "docs/agents-cpu.md:4, docs/couverture-mesuree.md:28",
+    "observedAt": "2026-11-21"
+  },
+  "population": "bench/corpus/sources-na-population.jsonl",
+  "corpus": "bench/corpus/auto-repair-na.jsonl",
+  "sourcesProbed": 1000,
+  "sourcesWithDefect": 6,
+  "repairedSources": 3,
+  "repairs": {
+    "utf8-mojibake-fixed": 3
+  },
+  "repairedIds": [
+    "na-active-3b06386b151b",
+    "na-active-635db693b141",
+    "na-active-a39ac2379c1f"
+  ]
+}
