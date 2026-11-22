@@ -88,3 +88,4 @@ registre de routes existant (`routes/index.ts`) suffit.
   réelle : 180,865 h.
 - Code et interface en anglais, rapport en français ; aucune commande de
   diagnostic ou de mesure dépassant 60 s.
+OBJECTIF : atteint — 10 / 10 campagnes passées mesurées (180,865 h médianes)
