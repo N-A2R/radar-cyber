@@ -1,0 +1,18 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:cf959225-49f2-4ab8-aa23-18763917f11f>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 129
+WARC-Block-Digest: sha1:EDQWHOIOAQ5ZCS7I6KMBX4NYP6MUFRC3
+X-Claim-Fingerprint: 9939d2ed457ba0b29a2e4997
+X-Victim-Key: 82029624633438c1fe2db6e4
+
+{
+        "post_title": "Greenpoint",
+        "group_name": "incransom",
+        "discovered": "2023-10-17 04:26:07.385260"
+    }
+

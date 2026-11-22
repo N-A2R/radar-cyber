@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:13fd2eb4-0821-484a-a5df-778bcd8d36fa>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/recent/5000
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 779
+WARC-Block-Digest: sha1:PK27IRRGE2577Q4QMNHX5QADY7STTCZG
+X-Claim-Fingerprint: 5c2ceaa4e0587c3ba5359229
+X-Victim-Key: d9fd1f943dff1002ea1d0ba7
+
+{"post_title": "Vignobles Toutigeac", "discovered": "2026-07-16 12:40:40.662459", "description": "toutigeac.com zoominfo.com/c/vignobles-toutigeac/456813413 Vignobles Toutigeac family-run wine estate located in Targon, within the Bordeaux and Entre-Deux-Mers appellations in France. Originally an ecclesiastical property managed by monks, the estate now spans approximately 42 hectares of vineyards under the guidance of Oriane and Philippe Mazeau. The winery produces classic red and white Bordeaux wines, recognized for their smooth tannins and balanced fruit profiles, successfully blending historical tradition with modern winemaking practices", "link": null, "magnet": null, "screen": null, "misp_uuid": "111242eb-582f-50e9-b5b3-e27581698c78", "group_name": "the gentlemen"}
+
