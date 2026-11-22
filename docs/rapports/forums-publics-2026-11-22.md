@@ -40,3 +40,5 @@ pnpm mesure:forums -- --json=bench/results/forums-2026-11-22.json --out=docs/rap
 ```
 
 La première commande capture les flux publics ; la seconde est hors réseau, ne dure que quelques secondes et recompute exactement les deux chiffres ci-dessus.
+
+OBJECTIF : atteint — 5 / 5 forums suivis et 10 / 10 messages pertinents ; mesure reproductible : `pnpm mesure:forums` (rejeu hors ligne du corpus gelé, 106 messages lus).
