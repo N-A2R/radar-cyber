@@ -1,0 +1,104 @@
+{
+  "jeu": "2026-11-12",
+  "organisations": 4462,
+  "alias": 22904,
+  "clesIndex": 22087,
+  "maxTokens": 10,
+  "constructionIndexMs": 76.9,
+  "communes": 4293,
+  "nomsCommunauxHomonymes": 111,
+  "resultats": [
+    {
+      "template": "mairie-de",
+      "total": 4293,
+      "correct": 4033,
+      "abstention": 260,
+      "erreur": 0,
+      "tauxCorrect": 0.9394,
+      "tauxErreur": 0,
+      "communesHomonymes": 247,
+      "correctSurHomonymes": 0,
+      "latenceP50Ms": 0.04,
+      "latenceP95Ms": 0.063
+    },
+    {
+      "template": "ville-de",
+      "total": 4293,
+      "correct": 4033,
+      "abstention": 260,
+      "erreur": 0,
+      "tauxCorrect": 0.9394,
+      "tauxErreur": 0,
+      "communesHomonymes": 247,
+      "correctSurHomonymes": 0,
+      "latenceP50Ms": 0.031,
+      "latenceP95Ms": 0.05
+    },
+    {
+      "template": "commune-de",
+      "total": 4293,
+      "correct": 4033,
+      "abstention": 260,
+      "erreur": 0,
+      "tauxCorrect": 0.9394,
+      "tauxErreur": 0,
+      "communesHomonymes": 247,
+      "correctSurHomonymes": 0,
+      "latenceP50Ms": 0.022,
+      "latenceP95Ms": 0.041
+    },
+    {
+      "template": "nu-contexte",
+      "total": 4293,
+      "correct": 4033,
+      "abstention": 260,
+      "erreur": 0,
+      "tauxCorrect": 0.9394,
+      "tauxErreur": 0,
+      "communesHomonymes": 247,
+      "correctSurHomonymes": 0,
+      "latenceP50Ms": 0.034,
+      "latenceP95Ms": 0.06
+    },
+    {
+      "template": "avec-dept",
+      "total": 4293,
+      "correct": 4293,
+      "abstention": 0,
+      "erreur": 0,
+      "tauxCorrect": 1,
+      "tauxErreur": 0,
+      "communesHomonymes": 247,
+      "correctSurHomonymes": 247,
+      "latenceP50Ms": 0.039,
+      "latenceP95Ms": 0.059
+    }
+  ],
+  "institutions": [
+    {
+      "label": "Bordeaux Métropole",
+      "texte": "Bordeaux Métropole signale une intrusion",
+      "obtenu": "Bordeaux Métropole",
+      "motif": "matched"
+    },
+    {
+      "label": "CA du Grand Villeneuvois",
+      "texte": "La communauté d'agglomération du Grand Villeneuvois est visée",
+      "obtenu": "Communauté d'agglomération du Grand Villeneuvois",
+      "motif": "matched"
+    },
+    {
+      "label": "Département de la Gironde",
+      "texte": "Le conseil départemental de la Gironde confirme l'incident",
+      "obtenu": "Département de la Gironde",
+      "motif": "matched"
+    },
+    {
+      "label": "Région Nouvelle-Aquitaine",
+      "texte": "La région Nouvelle-Aquitaine a déposé plainte",
+      "obtenu": "Région Nouvelle-Aquitaine",
+      "motif": "matched"
+    }
+  ],
+  "echecs": []
+}

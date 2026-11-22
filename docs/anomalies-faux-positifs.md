@@ -84,3 +84,5 @@ produisent un JSON octet pour octet identique (sha256 vérifié à 84b8afce…).
 - 19 tests ciblés verts (7 nouveaux + 12 hérités des anomalies) ;
 - `tsc --noEmit -p apps/api/tsconfig.json` : sortie vide, code 0 ;
 - rejeu rejoué sur la base locale réelle, commande ci-dessus.
+
+OBJECTIF : atteint — 0 % de fausses alertes (0/1 alerte émise) / 10 %

@@ -1,0 +1,439 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-juridique-79.jsonl",
+  "secteur": "juridique",
+  "departement": "79",
+  "methode": "GET réel avec redirections suivies, User-Agent navigateur Chrome 124, délai 25 s (urllib) ; codes, types de contenu, URL finales et nombre d’items RSS enregistrés",
+  "sources": 18,
+  "urls_verifiees": 44,
+  "urls_200": 44,
+  "flux_avec_items": 12,
+  "cyber": [
+    {
+      "url": "https://eniort.com/2026/11/13/fuite-de-donnees-macif-avantages-un-piratage-chez-le-prestataire-qwertys/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://eniort.com/2026/11/13/fuite-de-donnees-macif-avantages-un-piratage-chez-le-prestataire-qwertys/",
+      "bytes": 140410,
+      "items_rss": 0
+    },
+    {
+      "url": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/arnaque-a-la-carte-bancaire-les-faux-coursiers-de-niort-dans-le-box-des-prevenus-9873089",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/arnaque-a-la-carte-bancaire-les-faux-coursiers-de-niort-dans-le-box-des-prevenus-9873089",
+      "bytes": 176807,
+      "items_rss": 0
+    },
+    {
+      "url": "https://actu.fr/nouvelle-aquitaine/niort_79191/la-gendarmerie-des-deux-sevres-fait-de-la-prevention-contre-les-arnaques-au-faux-support-technique_50551668.html",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://actu.fr/nouvelle-aquitaine/niort_79191/la-gendarmerie-des-deux-sevres-fait-de-la-prevention-contre-les-arnaques-au-faux-support-technique_50551668.html",
+      "bytes": 229612,
+      "items_rss": 0
+    },
+    {
+      "url": "https://www.lanouvellerepublique.fr/parthenay/cyberattaque-d-ampleur-nationale-des-supermarches-des-deux-sevres-contraints-de-jeter-des-produits-frais-et-surgeles-1791821248",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.lanouvellerepublique.fr/parthenay/cyberattaque-d-ampleur-nationale-des-supermarches-des-deux-sevres-contraints-de-jeter-des-produits-frais-et-surgeles-1791821248",
+      "bytes": 390786,
+      "items_rss": 0
+    },
+    {
+      "url": "https://niortinfo.media/cyber-arnaque-amende-contravention-cours-dans-les-deux-sevres/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://niortinfo.media/cyber-arnaque-amende-contravention-cours-dans-les-deux-sevres/",
+      "bytes": 362088,
+      "items_rss": 0
+    },
+    {
+      "url": "https://www.cyberattaque.org/gueguen-avocats-une-fuite-de-donnees-revendiquee-avec-des-milliers-de-documents-exposes/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.cyberattaque.org/gueguen-avocats-une-fuite-de-donnees-revendiquee-avec-des-milliers-de-documents-exposes/",
+      "bytes": 66823,
+      "items_rss": 0
+    },
+    {
+      "url": "https://www.lanouvellerepublique.fr/niort/niort-deux-nouvelles-victimes-d-une-cyberattaque-pour-un-prejudice-total-de-21-000",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.lanouvellerepublique.fr/niort/niort-deux-nouvelles-victimes-d-une-cyberattaque-pour-un-prejudice-total-de-21-000",
+      "bytes": 390870,
+      "items_rss": 0
+    },
+    {
+      "url": "https://www.petitesaffiches.fr/actualites,069/tech,080/sophia-optivalue-ai-a-recu-le,47775.html",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.petitesaffiches.fr/actualites,069/tech,080/sophia-optivalue-ai-a-recu-le,47775.html",
+      "bytes": 82200,
+      "items_rss": 0
+    },
+    {
+      "url": "https://www.dalloz-actualite.fr/flash/l-assemblee-adopte-enfin-projet-de-loi-cybersecurite",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.dalloz-actualite.fr/flash/l-assemblee-adopte-enfin-projet-de-loi-cybersecurite",
+      "bytes": 75311,
+      "items_rss": 0
+    }
+  ],
+  "urls": [
+    {
+      "url": "https://eniort.com/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://eniort.com/",
+      "bytes": 174978,
+      "items_rss": 0
+    },
+    {
+      "url": "https://eniort.com/category/faits-divers-justice/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://eniort.com/category/faits-divers-justice/",
+      "bytes": 138080,
+      "items_rss": 0
+    },
+    {
+      "url": "https://eniort.com/feed/",
+      "code_http": 200,
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "final_url": "https://eniort.com/feed/",
+      "bytes": 95245,
+      "items_rss": 10
+    },
+    {
+      "url": "https://www.ici.fr/poitou",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.ici.fr/radio/poitou",
+      "bytes": 387614,
+      "items_rss": 0
+    },
+    {
+      "url": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/niort",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/niort",
+      "bytes": 286267,
+      "items_rss": 0
+    },
+    {
+      "url": "https://www.ici.fr/rss/poitou/rubrique/infos.xml",
+      "code_http": 200,
+      "content_type": "application/xml",
+      "final_url": "https://www.ici.fr/rss/poitou/rubrique/infos.xml",
+      "bytes": 19233,
+      "items_rss": 20
+    },
+    {
+      "url": "https://actu.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://actu.fr/",
+      "bytes": 500000,
+      "items_rss": 0
+    },
+    {
+      "url": "https://actu.fr/deux-sevres/",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://actu.fr/deux-sevres/",
+      "bytes": 500000,
+      "items_rss": 0
+    },
+    {
+      "url": "https://actu.fr/deux-sevres/rss.xml",
+      "code_http": 200,
+      "content_type": "application/rss+xml; charset=utf-8",
+      "final_url": "https://actu.fr/deux-sevres/rss.xml",
+      "bytes": 30130,
+      "items_rss": 20
+    },
+    {
+      "url": "https://www.lanouvellerepublique.fr/deux-sevres",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.lanouvellerepublique.fr/deux-sevres",
+      "bytes": 500000,
+      "items_rss": 0
+    },
+    {
+      "url": "https://www.lanouvellerepublique.fr/deux-sevres/faits-divers-justice",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.lanouvellerepublique.fr/deux-sevres/faits-divers-justice",
+      "bytes": 500000,
+      "items_rss": 0
+    },
+    {
+      "url": "https://www.lanouvellerepublique.fr/api/v1/rss/6705274cc13a66a7408b456a",
+      "code_http": 200,
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "final_url": "https://www.lanouvellerepublique.fr/api/v1/rss/6705274cc13a66a7408b456a",
+      "bytes": 36337,
+      "items_rss": 40
+    },
+    {
+      "url": "https://niortinfo.media/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://niortinfo.media/",
+      "bytes": 467537,
+      "items_rss": 0
+    },
+    {
+      "url": "https://niortinfo.media/category/justice/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://niortinfo.media/category/justice/",
+      "bytes": 360744,
+      "items_rss": 0
+    },
+    {
+      "url": "https://niortinfo.media/category/justice/feed/",
+      "code_http": 200,
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "final_url": "https://niortinfo.media/category/justice/feed/",
+      "bytes": 14073,
+      "items_rss": 6
+    },
+    {
+      "url": "https://www.justice.gouv.fr/annuaire/fiche/tribunal-judiciaire-de-niort",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.justice.gouv.fr/annuaire/fiche/tribunal-judiciaire-de-niort",
+      "bytes": 55368,
+      "items_rss": 0
+    },
+    {
+      "url": "https://www.justice.gouv.fr/actualites",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.justice.gouv.fr/actualites",
+      "bytes": 153673,
+      "items_rss": 0
+    },
+    {
+      "url": "https://www.justice.gouv.fr/rss.xml",
+      "code_http": 200,
+      "content_type": "application/rss+xml; charset=utf-8",
+      "final_url": "https://www.justice.gouv.fr/rss.xml",
+      "bytes": 53140,
+      "items_rss": 10
+    },
+    {
+      "url": "https://www.justice.gouv.fr/annuaire/fiche/tribunal-de-commerce-de-niort",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.justice.gouv.fr/annuaire/fiche/tribunal-de-commerce-de-niort",
+      "bytes": 53887,
+      "items_rss": 0
+    },
+    {
+      "url": "https://www.justice.gouv.fr/annuaire/fiche/cour-d-appel-de-poitiers",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.justice.gouv.fr/annuaire/fiche/cour-d-appel-de-poitiers",
+      "bytes": 55415,
+      "items_rss": 0
+    },
+    {
+      "url": "https://www.justice.gouv.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.justice.gouv.fr/",
+      "bytes": 80913,
+      "items_rss": 0
+    },
+    {
+      "url": "https://www.avocat.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.avocat.fr/",
+      "bytes": 50585,
+      "items_rss": 0
+    },
+    {
+      "url": "https://www.avocat.fr/actualites",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.avocat.fr/actualites",
+      "bytes": 42814,
+      "items_rss": 0
+    },
+    {
+      "url": "https://www.avocat.fr/rss.xml",
+      "code_http": 200,
+      "content_type": "application/rss+xml; charset=utf-8",
+      "final_url": "https://www.avocat.fr/rss.xml",
+      "bytes": 6436,
+      "items_rss": 10
+    },
+    {
+      "url": "https://commissaire-justice.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://commissaire-justice.fr/",
+      "bytes": 500000,
+      "items_rss": 0
+    },
+    {
+      "url": "https://commissaire-justice.fr/actualites/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://commissaire-justice.fr/actualites/",
+      "bytes": 492130,
+      "items_rss": 0
+    },
+    {
+      "url": "https://commissaire-justice.fr/feed/",
+      "code_http": 200,
+      "content_type": "text/xml;charset=UTF-8",
+      "final_url": "https://commissaire-justice.fr/feed/",
+      "bytes": 47312,
+      "items_rss": 10
+    },
+    {
+      "url": "https://www.notaires.fr/fr",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.notaires.fr/fr",
+      "bytes": 165547,
+      "items_rss": 0
+    },
+    {
+      "url": "https://www.notaires.fr/fr/actualites",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.notaires.fr/fr/actualites",
+      "bytes": 95140,
+      "items_rss": 0
+    },
+    {
+      "url": "https://www.avocats-deux-sevres.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.avocats-deux-sevres.fr/",
+      "bytes": 98577,
+      "items_rss": 0
+    },
+    {
+      "url": "https://www.avocats-deux-sevres.fr/actualites/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.avocats-deux-sevres.fr/actualites/",
+      "bytes": 44884,
+      "items_rss": 0
+    },
+    {
+      "url": "https://www.avocats-deux-sevres.fr/feed/",
+      "code_http": 200,
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "final_url": "https://www.avocats-deux-sevres.fr/feed/",
+      "bytes": 15937,
+      "items_rss": 6
+    },
+    {
+      "url": "https://www.petitesaffiches.fr/annuaire/avocats/barreau-niort.html",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.petitesaffiches.fr/annuaire/avocats/barreau-niort.html",
+      "bytes": 115233,
+      "items_rss": 0
+    },
+    {
+      "url": "https://www.petitesaffiches.fr/actualites,069/droit,044/",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.petitesaffiches.fr/actualites,069/droit,044/",
+      "bytes": 104304,
+      "items_rss": 0
+    },
+    {
+      "url": "https://www.petitesaffiches.fr/feed/",
+      "code_http": 200,
+      "content_type": "text/xml; charset=utf-8",
+      "final_url": "https://www.petitesaffiches.fr/feed/",
+      "bytes": 12628,
+      "items_rss": 10
+    },
+    {
+      "url": "https://gdroit.fr/barreau/deux-sevres/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://gdroit.fr/barreau/deux-sevres/",
+      "bytes": 164780,
+      "items_rss": 0
+    },
+    {
+      "url": "https://gdroit.fr/page-generale-fiches/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://gdroit.fr/page-generale-fiches/",
+      "bytes": 242978,
+      "items_rss": 0
+    },
+    {
+      "url": "https://gdroit.fr/feed/",
+      "code_http": 200,
+      "content_type": "application/rss+xml",
+      "final_url": "https://gdroit.fr/feed/",
+      "bytes": 500000,
+      "items_rss": 8
+    },
+    {
+      "url": "https://avocatsnotaires.fr/departement/deux-sevres/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://avocatsnotaires.fr/departement/deux-sevres/",
+      "bytes": 49347,
+      "items_rss": 0
+    },
+    {
+      "url": "https://avocatsnotaires.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://avocatsnotaires.fr/",
+      "bytes": 46776,
+      "items_rss": 0
+    },
+    {
+      "url": "https://www.dalloz-actualite.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.dalloz-actualite.fr/",
+      "bytes": 103479,
+      "items_rss": 0
+    },
+    {
+      "url": "https://www.dalloz-actualite.fr/editions-precedentes/2026-11",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.dalloz-actualite.fr/editions-precedentes/2026-11",
+      "bytes": 72451,
+      "items_rss": 0
+    },
+    {
+      "url": "https://www.dalloz-actualite.fr/rss.xml",
+      "code_http": 200,
+      "content_type": "application/rss+xml; charset=utf-8",
+      "final_url": "https://www.dalloz-actualite.fr/rss.xml",
+      "bytes": 11663,
+      "items_rss": 10
+    },
+    {
+      "url": "https://www.justice.gouv.fr/annuaire/fiche/bureau-d-aide-juridictionnelle-du-tribunal-judiciaire-de-niort",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.justice.gouv.fr/annuaire/fiche/bureau-d-aide-juridictionnelle-du-tribunal-judiciaire-de-niort",
+      "bytes": 53990,
+      "items_rss": 0
+    }
+  ]
+}
