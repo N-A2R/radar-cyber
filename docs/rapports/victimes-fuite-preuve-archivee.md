@@ -86,3 +86,5 @@ La mesure ne porte que sur les revendications publiques disponibles au moment
  de l'extraction : une revendication supprimée d'un flux après coup reste
  vérifiable par la capture archivée, mais une revendication jamais publiée dans
  ces quatre flux n'entre pas dans le chiffre.
+
+OBJECTIF : atteint — 66 / 66 victimes NA ont une capture archivée vérifiée de leur revendication (0 invalide ; mesure du 22/11/2026 via `pnpm leak-proofs:measure --json=bench/results/leak-victim-proofs-measure.json`).
