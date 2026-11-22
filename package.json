@@ -49,7 +49,9 @@
     "sources:measure": "node scripts/measure-active-sources.mts",
     "onion:index": "apps/api/node_modules/.bin/tsx scripts/build-onion-index.mts",
     "measure:live-sources": "apps/api/node_modules/.bin/tsx scripts/measure-live-source-stream.mts",
-    "measure:modes": "apps/api/node_modules/.bin/tsx scripts/measure-operating-modes.mts"
+    "measure:modes": "apps/api/node_modules/.bin/tsx scripts/measure-operating-modes.mts",
+    "measure:insurance-score": "apps/api/node_modules/.bin/tsx scripts/mesure-score-assurance.mts",
+    "test:insurance": "apps/api/node_modules/.bin/tsx scripts/test-insurance.mts"
   },
   "devDependencies": {
     "embedded-postgres": "18.6.0-beta.19"
