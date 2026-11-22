@@ -145,3 +145,5 @@ valide un motif d'attaque, pas un incident réel survenu chez l'opérateur NA. L
 détecteur ne compare pas les chemins AS complets ni les ROV/RPKI ; il se limite
 aux changements d'origine et aux préfixes plus spécifiques, ce qui est suffisant
 pour l'objectif mesuré.
+
+OBJECTIF : atteint — 1 / 1 détournement détecté sur injecté, 0 faux positif sur 346 annonces historiques réelles (mesure du 22/11/2026 : `apps/api/node_modules/.bin/tsx scripts/measure-bgp-hijack.mts --with-db` → `hijacks_detected: 1`, `false_positives: 0`, `real_announcements: 346`, code 0).
