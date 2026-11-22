@@ -5,11 +5,11 @@ import { requireAuth, resolveUser } from "../middleware/auth.js";
 import { applyReview, reviewQueue } from "../quarantine/review.js";
 import type { TriageBucket } from "../quarantine/triage.js";
 import {
-  loadOrgIndex,
   matchOrgInIndex,
   promoteOne,
   type OrgIndexEntry,
 } from "../quarantine/promote.js";
+import { reviewSnapshot } from "../quarantine/review-index.js";
 import { z } from "zod";
 import { parseBody, invalidBody } from "./body-validation.js";
 
@@ -77,7 +77,7 @@ export default async function (app: FastifyInstance) {
       params
     );
 
-    const index = await loadOrgIndex();
+    const index = (await reviewSnapshot()).orgIndex;
     const orgById = new Map(index.map((e) => [e.id, e]));
     const out: Record<string, unknown>[] = [];
     for (const row of r.rows) {
