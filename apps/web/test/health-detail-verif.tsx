@@ -38,12 +38,10 @@ for (const label of ["en attente", "revues", "promues"]) {
 }
 for (const tone of ["green", "orange", "red"] as const) {
   const n = (html.match(new RegExp(`data-tone="${tone}"`, "g")) ?? []).length;
-  const attendu =
-    detail.sources.bySource.filter((s) => s.tone === tone).length +
-    detail.families.filter((f) => f.tone === tone).length;
-  verifier(n === attendu, `${n} éléments ${tone} rendus (API : ${attendu})`);
+  const attendu = detail.families.filter((f) => f.tone === tone).length;
+  verifier(n === attendu, `${n} familles ${tone} rendues (API : ${attendu})`);
 }
-verifier(html.includes("jamais produit"), "les sources sans fait portent un libellé explicite");
+verifier(html.includes("jamais de fait"), "les familles sans fait portent un libellé explicite");
 verifier(
   html.includes("moins de 24 h") && html.includes("plus de 7 jours"),
   "chaque couleur porte une étiquette lisible",
@@ -64,4 +62,4 @@ if (!causes.stockage.causeStockee) {
 for (const ex of causes.causes.flatMap((c) => c.exemples)) {
   verifier(html.includes(ex.source), `exemple réel affiché (${ex.source})`);
 }
-console.log(`\nrendu vérifié sur ${detail.sources.bySource.length} sources et ${detail.families.length} familles`);
+console.log(`\nrendu vérifié sur ${detail.sources.declared} sources déclarées et ${detail.families.length} familles`);

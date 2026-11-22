@@ -5,13 +5,17 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  flex: 1 1 auto;
+  /* Le stage n'est pas un conteneur flex : la vue doit donc remplir sa
+     hauteur par elle-même. En-tête, filtres et pagination restent fixes,
+     seul le corps du tableau défile. */
+  height: 100%;
   min-height: 0;
-  overflow: auto;
+  overflow: hidden;
   position: relative;
 }
 
 .journal__head {
+  flex: 0 0 auto;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -61,6 +65,7 @@
 }
 
 .journal__filters {
+  flex: 0 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   align-items: end;
@@ -102,8 +107,8 @@
 .journal__field input::placeholder { color: var(--color-faint); }
 
 .journal__state,
-.journal__error,
-.journal__truncated {
+.journal__error {
+  flex: 0 0 auto;
   margin: 0;
   padding: 8px 12px;
   border-radius: var(--radius);
@@ -113,10 +118,36 @@
   color: var(--color-ink-2);
 }
 
-.journal__error { color: var(--color-alarm); }
-.journal__truncated { color: var(--color-muted); }
+.journal__error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--color-alarm);
+}
+
+.journal__retry {
+  flex: 0 0 auto;
+  min-height: 32px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--color-plate-2);
+  box-shadow: var(--raise-sm);
+  font: 500 11px/1.2 var(--font-mono);
+  color: var(--color-ink-2);
+  cursor: pointer;
+}
+
+.journal__retry:hover { color: var(--color-accent); }
+
+.journal__retry:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
 
 .journal__scroll {
+  flex: 1 1 auto;
   min-height: 0;
   overflow: auto;
   border-radius: var(--radius);
@@ -147,11 +178,15 @@
   font-size: 11px;
   position: sticky;
   top: 0;
+  z-index: 1;
   background: var(--color-plate-2);
 }
 
-.journal__table th:last-child,
-.journal__table td:last-child { width: 84px; }
+.journal__table col:nth-child(1) { width: 15%; }
+.journal__table col:nth-child(2) { width: 16%; }
+.journal__table col:nth-child(3) { width: 16%; }
+.journal__table col:nth-child(4) { width: 13%; }
+.journal__table col:nth-child(6) { width: 96px; }
 
 /* Date and kind are metadata: monospace, quieter than the summary. */
 .journal__table td:nth-child(1),
@@ -193,7 +228,33 @@
 
 .journal__open:hover { color: var(--color-accent); }
 
+/* Lignes fantômes pendant le chargement d'une page : ni « 0 entrée » ni
+   tableau vide, seulement la forme des lignes qui arrivent. */
+.journal__row--squelette td { padding-top: 11px; padding-bottom: 11px; }
+
+.journal__shimmer {
+  display: block;
+  height: 12px;
+  width: 100%;
+  border-radius: var(--radius);
+  background: var(--color-well);
+  animation: journal-shimmer 1.2s ease-in-out infinite;
+}
+
+.journal__row--squelette td:nth-child(3) .journal__shimmer { width: 72%; }
+.journal__row--squelette td:nth-child(5) .journal__shimmer { width: 88%; }
+
+@keyframes journal-shimmer {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .journal__shimmer { animation: none; }
+}
+
 .journal__foot {
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -358,6 +419,11 @@
 /* 375 px — one card per entry: the summary is no longer crushed into 60 px,
    and the kind and decision stay written out in full. */
 @media (max-width: 900px) {
+  /* Sous 900 px les contrôles et les filtres empilés ne laissent plus de
+     hauteur au corps : la vue entière défile dans le stage, la pagination
+     reste atteignable, et il n'y a qu'une seule barre de défilement. */
+  .journal { overflow-y: auto; }
+  .journal__scroll { flex: 0 0 auto; overflow: visible; }
   .journal__filters {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -396,9 +462,9 @@
   }
   .journal__table td:nth-child(1)::before { content: "Date (UTC)"; }
   .journal__table td:nth-child(2)::before { content: "Type"; }
-  .journal__table td:nth-child(3)::before { content: "Actor"; }
-  .journal__table td:nth-child(4)::before { content: "Decision"; }
-  .journal__table td:nth-child(5)::before { content: "Summary"; }
+  .journal__table td:nth-child(3)::before { content: "Acteur"; }
+  .journal__table td:nth-child(4)::before { content: "Décision"; }
+  .journal__table td:nth-child(5)::before { content: "Résumé"; }
   .journal__foot { flex-wrap: wrap; justify-content: center; }
 
   .journal__detail-wrap { width: 100vw; padding: var(--space-3) 8px; }
