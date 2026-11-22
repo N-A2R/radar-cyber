@@ -136,3 +136,4 @@ l'absence de PR sur ce sujet ; la clé fournie dans le remote git renvoie
 - Aucun service payant : PostgreSQL local et outils du dépôt uniquement.
 - Code et interface en anglais ; rapport en français.
 - `apps/api/src/server.ts` inchangé : **0 ligne de diff** (limite : 10).
+OBJECTIF : atteint — 135 / 135 doublons d'événements éliminés sur 30 jours dans le périmètre Nouvelle-Aquitaine (96 groupes fusionnés, 0 doublon résiduel, taux mesuré 100 %) ; mesure reproductible : `jq -e '.duplicatesFound==135 and .duplicatesEliminated==135 and .residualDuplicates==0 and .dedupRatePercent==100' bench/results/dedup-crosssource-30j-after.json` → `true`.
