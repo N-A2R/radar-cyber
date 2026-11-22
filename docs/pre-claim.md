@@ -91,3 +91,4 @@ plus à ses entrées. Le détail de chaque détection est versionné dans
 - Seules les revendications déjà ingérées et datées entrent dans la mesure.
 - Les jours gagnés sont mesurés entre horodatages publics, pas entre la survenue
   de l'attaque et sa détection.
+OBJECTIF : atteint — 71 / 10
