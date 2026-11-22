@@ -11,7 +11,7 @@ import { execFileSync } from "node:child_process";
 import { randomBytes } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import Fastify, { type FastifyInstance } from "fastify";
-import { evaluateCustody, type CustodyEvent, type CustodyFact } from "../src/custody/chain.js";
+import { evaluateCustody, iso, type CustodyEvent, type CustodyFact } from "../src/custody/chain.js";
 import { closePools, query } from "../src/db.js";
 import { ensureSources, storeStatements } from "../src/communiques/store.js";
 import { OFFICIAL_SOURCES } from "../src/communiques/model.js";
@@ -64,20 +64,25 @@ before(async () => {
     "INSERT INTO source (id, name, family, url) VALUES ($1,$2,'official_statement',$3)",
     [SOURCE, `Source ${TAG}`, PROOF_URL],
   );
-  for (const subject of [BACKFILL_SUBJECT, HTTP_SUBJECT]) {
-    // Reclassified after insert: these two rows stand for the historical
-    // events the backfill repairs. A direct regional INSERT would now
-    // self-journal through the write-boundary trigger.
-    await query(
-      `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at,
-                          collected_at, source_id, source_url, regional, regional_motif)
-       VALUES ($1,'official_statement','ambient_signal',$2,$3,$4,$5,$6,false,'hors-region')`,
-      [subject, SECRET, OBSERVED, OBSERVED, SOURCE, PROOF_URL],
-    );
-    await query(
-      "UPDATE event SET regional = true, regional_motif = 'nouvelle-aquitaine' WHERE dedup_key = $1",
-      [subject],
-    );
+  // These two rows stand for history written before the reclassification
+  // boundary existed. Suspend that trigger only while building the fixtures;
+  // every later write in this file runs with both custody triggers enabled.
+  await query("ALTER TABLE event DISABLE TRIGGER event_custody_admission_on_reclassification");
+  try {
+    for (const subject of [BACKFILL_SUBJECT, HTTP_SUBJECT]) {
+      await query(
+        `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at,
+                            collected_at, source_id, source_url, regional, regional_motif)
+         VALUES ($1,'official_statement','ambient_signal',$2,$3,$4,$5,$6,false,'hors-region')`,
+        [subject, SECRET, OBSERVED, OBSERVED, SOURCE, PROOF_URL],
+      );
+      await query(
+        "UPDATE event SET regional = true, regional_motif = 'nouvelle-aquitaine' WHERE dedup_key = $1",
+        [subject],
+      );
+    }
+  } finally {
+    await query("ALTER TABLE event ENABLE TRIGGER event_custody_admission_on_reclassification");
   }
   await query(
     `INSERT INTO journal (kind, subject, summary, payload, actor, valid_at)
@@ -208,6 +213,51 @@ test("a non-regional insert writes no admission fact", async () => {
      VALUES ($1,'cti','ambient_signal',$2,$3,$4,$5,false,'hors-region')`,
     [subject, SECRET, OBSERVED, SOURCE, PROOF_URL],
   );
+  const { rows } = await query<{ id: number }>(
+    "SELECT id FROM journal WHERE subject = $1 AND kind = 'event.admitted'",
+    [subject],
+  );
+  assert.equal(rows.length, 0);
+});
+
+test("reclassifying an event into Nouvelle-Aquitaine journals its admission with proof only", async () => {
+  const subject = `${TAG}:reclassification`;
+  await query(
+    `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at,
+                        source_id, source_url, regional, regional_motif)
+     VALUES ($1,'cti','ambient_signal',$2,$3,$4,$5,false,'hors-region')`,
+    [subject, SECRET, OBSERVED, SOURCE, PROOF_URL],
+  );
+  const before = await query<{ id: number }>(
+    "SELECT id FROM journal WHERE subject = $1 AND kind = 'event.admitted'",
+    [subject],
+  );
+  assert.equal(before.rows.length, 0);
+  await query(
+    "UPDATE event SET regional = true, regional_motif = 'nouvelle-aquitaine' WHERE dedup_key = $1",
+    [subject],
+  );
+  const { rows } = await query<{ actor: string; payload: Record<string, unknown> }>(
+    "SELECT actor, payload FROM journal WHERE subject = $1 AND kind = 'event.admitted'",
+    [subject],
+  );
+  assert.equal(rows.length, 1);
+  assert.equal(rows[0]?.actor, "custody:write-boundary@1");
+  assert.equal(rows[0]?.payload.sourceId, SOURCE);
+  assert.equal(rows[0]?.payload.sourceUrl, PROOF_URL);
+  assert.equal(iso(rows[0]?.payload.observedAt), OBSERVED);
+  assert.equal(JSON.stringify(rows[0]).includes(SECRET), false, "no victim data in the journal");
+});
+
+test("an update that stays outside Nouvelle-Aquitaine writes no admission fact", async () => {
+  const subject = `${TAG}:reclassification-outside`;
+  await query(
+    `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at,
+                        source_id, source_url, regional, regional_motif)
+     VALUES ($1,'cti','ambient_signal',$2,$3,$4,$5,false,'hors-region')`,
+    [subject, SECRET, OBSERVED, SOURCE, PROOF_URL],
+  );
+  await query("UPDATE event SET family = 'official_statement' WHERE dedup_key = $1", [subject]);
   const { rows } = await query<{ id: number }>(
     "SELECT id FROM journal WHERE subject = $1 AND kind = 'event.admitted'",
     [subject],
