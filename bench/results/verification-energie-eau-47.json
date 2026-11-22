@@ -1,0 +1,531 @@
+{
+  "secteur": "energie-eau",
+  "departement": "47",
+  "date": "2026-11-22",
+  "sources": 18,
+  "urls_verifiees": 52,
+  "urls_http_200": 52,
+  "methode": "GET HTTP avec User-Agent navigateur, suivi des redirections, délai 25 s ; contrôle du titre HTML ou de la racine XML et comptage des items pour les flux",
+  "urls": [
+    {
+      "url": "https://www.cci47.fr/",
+      "code_http": 200,
+      "final": "https://cci47.fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 32260,
+      "items": 0,
+      "titre": "CCI Lot-et-Garonne | Le Partenaire des Entreprises et des Territoires du 47",
+      "ms": 738
+    },
+    {
+      "url": "https://cci47.fr/actualites/",
+      "code_http": 200,
+      "final": "https://cci47.fr/actualites/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 19254,
+      "items": 0,
+      "titre": "CCI Lot-et-Garonne | Le Partenaire des Entreprises et des Territoires du 47",
+      "ms": 695
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=CCI%20Lot-et-Garonne%20energie&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=CCI%20Lot-et-Garonne%20energie&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 12413,
+      "items": 9,
+      "titre": "\"CCI Lot-et-Garonne energie\" - Google Actualités",
+      "ms": 282
+    },
+    {
+      "url": "https://lot-et-garonne.chambres-agriculture.fr/",
+      "code_http": 200,
+      "final": "https://lot-et-garonne.chambres-agriculture.fr/",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 92632,
+      "items": 0,
+      "titre": "Chambre agriculture de Lot et Garonne - Chambre agriculture du lot et Garonne",
+      "ms": 432
+    },
+    {
+      "url": "https://lot-et-garonne.chambres-agriculture.fr/actualites",
+      "code_http": 200,
+      "final": "https://lot-et-garonne.chambres-agriculture.fr/actualites",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 99218,
+      "items": 0,
+      "titre": "Actualités - Chambre agriculture du lot et Garonne",
+      "ms": 681
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Chambre%20agriculture%20Lot-et-Garonne%20eau&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=Chambre%20agriculture%20Lot-et-Garonne%20eau&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 36733,
+      "items": 21,
+      "titre": "\"Chambre agriculture Lot-et-Garonne eau\" - Google Actualités",
+      "ms": 245
+    },
+    {
+      "url": "https://www.nouvelle-aquitaine.developpement-durable.gouv.fr/",
+      "code_http": 200,
+      "final": "https://www.nouvelle-aquitaine.developpement-durable.gouv.fr/",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 67658,
+      "items": 0,
+      "titre": "Accueil | DREAL Nouvelle-Aquitaine",
+      "ms": 1872
+    },
+    {
+      "url": "https://www.nouvelle-aquitaine.developpement-durable.gouv.fr/spip.php?page=liste-actualites&lang=fr",
+      "code_http": 200,
+      "final": "https://www.nouvelle-aquitaine.developpement-durable.gouv.fr/spip.php?page=liste-actualites&lang=fr",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 87852,
+      "items": 0,
+      "titre": "Actualités, page 1 | DREAL Nouvelle-Aquitaine",
+      "ms": 2800
+    },
+    {
+      "url": "https://www.nouvelle-aquitaine.developpement-durable.gouv.fr/spip.php?page=backend-actu&lang=fr",
+      "code_http": 200,
+      "final": "https://www.nouvelle-aquitaine.developpement-durable.gouv.fr/spip.php?page=backend-actu&lang=fr",
+      "content_type": "text/xml; charset=utf-8",
+      "octets": 91268,
+      "items": 176,
+      "titre": "DREAL Nouvelle-Aquitaine",
+      "ms": 255
+    },
+    {
+      "url": "https://www.actu.fr/nouvelle-aquitaine/lot-et-garonne_47/",
+      "code_http": 200,
+      "final": "https://actu.fr/nouvelle-aquitaine/lot-et-garonne_47",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 333755,
+      "items": 0,
+      "titre": "Actu Lot-et-Garonne | actu.fr",
+      "ms": 249
+    },
+    {
+      "url": "https://actu.fr/nouvelle-aquitaine/lot-et-garonne_47/rss.xml",
+      "code_http": 200,
+      "final": "https://actu.fr/nouvelle-aquitaine/lot-et-garonne_47/rss.xml",
+      "content_type": "application/rss+xml; charset=utf-8",
+      "octets": 1419,
+      "items": 0,
+      "titre": "Lot-et-Garonne - L'actualité en continu - actu.fr",
+      "ms": 77
+    },
+    {
+      "url": "https://www.ici.fr/nouvelle-aquitaine/lot-et-garonne-47",
+      "code_http": 200,
+      "final": "https://www.ici.fr/nouvelle-aquitaine/lot-et-garonne-47",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 303913,
+      "items": 0,
+      "titre": "Lot-et-Garonne (47) : actualités et podcasts de votre département en direct - ICI",
+      "ms": 215
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=ICI%20Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=ICI%20Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 58079,
+      "items": 38,
+      "titre": "\"ICI Lot-et-Garonne\" - Google Actualités",
+      "ms": 302
+    },
+    {
+      "url": "https://www.ep-garonne.fr/",
+      "code_http": 200,
+      "final": "https://www.ep-garonne.fr/",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 461563,
+      "items": 0,
+      "titre": "Etablissement Public Garonne - Gascogne &amp; affluents pyrénéens",
+      "ms": 490
+    },
+    {
+      "url": "https://www.ep-garonne.fr/focus",
+      "code_http": 200,
+      "final": "https://www.ep-garonne.fr/focus",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 91406,
+      "items": 0,
+      "titre": "Actualités | Etablissement Public Garonne",
+      "ms": 156
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Etablissement%20Public%20Garonne%20Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=Etablissement%20Public%20Garonne%20Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 47628,
+      "items": 34,
+      "titre": "\"Etablissement Public Garonne Lot-et-Garonne\" - Google Actualités",
+      "ms": 280
+    },
+    {
+      "url": "https://pro-rge.fr/entreprises/lot-et-garonne-47/",
+      "code_http": 200,
+      "final": "https://pro-rge.fr/entreprises/lot-et-garonne-47/",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 381911,
+      "items": 0,
+      "titre": "471 entreprises RGE en Lot-et-Garonne 47 | Liste Professionnels RGE",
+      "ms": 730
+    },
+    {
+      "url": "https://pro-rge.fr/entreprise/d/47/",
+      "code_http": 200,
+      "final": "https://pro-rge.fr/entreprise/d/47/",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 266024,
+      "items": 0,
+      "titre": "Liste des entreprises RGE en Lot-et-Garonne 47 par commune",
+      "ms": 740
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=RGE%20Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=RGE%20Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 52364,
+      "items": 39,
+      "titre": "\"RGE Lot-et-Garonne\" - Google Actualités",
+      "ms": 276
+    },
+    {
+      "url": "https://www.suez.com/fr",
+      "code_http": 200,
+      "final": "https://www.suez.com/fr",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 1209479,
+      "items": 0,
+      "titre": "SUEZ | Expert des m&#233;tiers de l&#39;eau et des d&#233;chets",
+      "ms": 442
+    },
+    {
+      "url": "https://www.suez.com/fr/news",
+      "code_http": 200,
+      "final": "https://www.suez.com/fr/actualites",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 1296390,
+      "items": 0,
+      "titre": "Toutes nos actualit&#233;s | SUEZ",
+      "ms": 515
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=SUEZ%20Lot-et-Garonne%20eau&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=SUEZ%20Lot-et-Garonne%20eau&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 65757,
+      "items": 49,
+      "titre": "\"SUEZ Lot-et-Garonne eau\" - Google Actualités",
+      "ms": 311
+    },
+    {
+      "url": "https://www.saur.com/fr/",
+      "code_http": 200,
+      "final": "https://www.saur.com/fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 138473,
+      "items": 0,
+      "titre": "Acteur exclusif de l’eau et des services essentiels | Saur",
+      "ms": 160
+    },
+    {
+      "url": "https://www.saur.com/fr/actualites/",
+      "code_http": 200,
+      "final": "https://www.saur.com/fr/actualites/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 170800,
+      "items": 0,
+      "titre": "Actualités : communiqués de presse, articles et annonces | Saur",
+      "ms": 369
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=SAUR%20Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=SAUR%20Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 41314,
+      "items": 30,
+      "titre": "\"SAUR Lot-et-Garonne\" - Google Actualités",
+      "ms": 253
+    },
+    {
+      "url": "https://www.enedis.fr/",
+      "code_http": 200,
+      "final": "https://www.enedis.fr/",
+      "content_type": "text/html",
+      "octets": 86640,
+      "items": 0,
+      "titre": "Enedis | Gestionnaire du réseau de distribution d’électricité",
+      "ms": 110
+    },
+    {
+      "url": "https://www.enedis.fr/presse",
+      "code_http": 200,
+      "final": "https://www.enedis.fr/presse",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 92692,
+      "items": 0,
+      "titre": "Presse | Enedis",
+      "ms": 127
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Enedis%20Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=Enedis%20Lot-et-Garonne&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 39179,
+      "items": 25,
+      "titre": "\"Enedis Lot-et-Garonne\" - Google Actualités",
+      "ms": 241
+    },
+    {
+      "url": "https://47infos.fr/",
+      "code_http": 200,
+      "final": "https://47infos.fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 540129,
+      "items": 0,
+      "titre": "-",
+      "ms": 484
+    },
+    {
+      "url": "https://47infos.fr/category/societe/",
+      "code_http": 200,
+      "final": "https://47infos.fr/category/societe/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 531490,
+      "items": 0,
+      "titre": "Société -",
+      "ms": 157
+    },
+    {
+      "url": "https://47infos.fr/feed/",
+      "code_http": 200,
+      "final": "https://47infos.fr/feed/",
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "octets": 203243,
+      "items": 10,
+      "titre": "",
+      "ms": 332
+    },
+    {
+      "url": "https://www.ladepeche.fr/communes/agen,47001/",
+      "code_http": 200,
+      "final": "https://www.ladepeche.fr/communes/agen,47001/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 194255,
+      "items": 0,
+      "titre": "Actualités Agen - ladepeche.fr",
+      "ms": 173
+    },
+    {
+      "url": "https://www.ladepeche.fr/actu/environnement/",
+      "code_http": 200,
+      "final": "https://www.ladepeche.fr/actu/environnement/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 123761,
+      "items": 0,
+      "titre": "Environnement - ladepeche.fr",
+      "ms": 143
+    },
+    {
+      "url": "https://www.ladepeche.fr/communes/agen,47001/rss.xml",
+      "code_http": 200,
+      "final": "https://www.ladepeche.fr/communes/agen,47001/rss.xml",
+      "content_type": "text/xml; charset=UTF-8",
+      "octets": 34151,
+      "items": 25,
+      "titre": "Agen",
+      "ms": 101
+    },
+    {
+      "url": "https://www.petitbleu.fr/",
+      "code_http": 200,
+      "final": "https://www.petitbleu.fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 301604,
+      "items": 0,
+      "titre": "Actualités et infos d'Agen et sa région - À la une - petitbleu.fr",
+      "ms": 164
+    },
+    {
+      "url": "https://www.petitbleu.fr/actu/environnement/",
+      "code_http": 200,
+      "final": "https://www.petitbleu.fr/actu/environnement/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 175088,
+      "items": 0,
+      "titre": "Environnement : Toute l'actualité environnementale - petitbleu.fr",
+      "ms": 154
+    },
+    {
+      "url": "https://www.petitbleu.fr/rss.xml",
+      "code_http": 200,
+      "final": "https://www.petitbleu.fr/rss.xml",
+      "content_type": "text/xml; charset=UTF-8",
+      "octets": 135000,
+      "items": 100,
+      "titre": "Actualités et infos d&#039;Agen et sa région - À la une",
+      "ms": 145
+    },
+    {
+      "url": "https://quidam-hebdo.com/",
+      "code_http": 200,
+      "final": "https://quidam-hebdo.com/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 390925,
+      "items": 0,
+      "titre": "Accueil - Quidam Hebdo",
+      "ms": 705
+    },
+    {
+      "url": "https://quidam-hebdo.com/category/environnement-lot-et-garonne/",
+      "code_http": 200,
+      "final": "https://quidam-hebdo.com/category/environnement-lot-et-garonne/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 284619,
+      "items": 0,
+      "titre": "Archives des Environnement - Quidam Hebdo",
+      "ms": 473
+    },
+    {
+      "url": "https://quidam-hebdo.com/feed/",
+      "code_http": 200,
+      "final": "https://quidam-hebdo.com/feed/",
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "octets": 19173,
+      "items": 10,
+      "titre": "Quidam Hebdo",
+      "ms": 376
+    },
+    {
+      "url": "https://www.agglo-agen.net/",
+      "code_http": 200,
+      "final": "https://www.agglo-agen.net/",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 210765,
+      "items": 0,
+      "titre": "Agglomération d'Agen",
+      "ms": 232
+    },
+    {
+      "url": "https://www.agglo-agen.net/vie-quotidienne/eau-et-assainissement/eau-et-assainissement-actualites-sur-le-territoire",
+      "code_http": 200,
+      "final": "https://www.agglo-agen.net/vie-quotidienne/eau-et-assainissement/eau-et-assainissement-actualites-sur-le-territoire",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 191519,
+      "items": 0,
+      "titre": "Eau et Assainissement : actualités sur le territoire",
+      "ms": 206
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Agglom%C3%A9ration%20d%27Agen%22%20eau%20assainissement&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=%22Agglom%C3%A9ration%20d%27Agen%22%20eau%20assainissement&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 13719,
+      "items": 9,
+      "titre": "\"\"Agglomération d'Agen\" eau assainissement\" - Google Actualités",
+      "ms": 66
+    },
+    {
+      "url": "https://www.agen.fr/",
+      "code_http": 200,
+      "final": "https://www.agen.fr/",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 205425,
+      "items": 0,
+      "titre": "Ville d'Agen",
+      "ms": 1455
+    },
+    {
+      "url": "https://www.agen.fr/en-ce-moment/actualites",
+      "code_http": 200,
+      "final": "https://www.agen.fr/en-ce-moment/actualites",
+      "content_type": "text/html; charset=utf-8",
+      "octets": 221380,
+      "items": 0,
+      "titre": "Actualités",
+      "ms": 494
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Ville%20d%27Agen%22%20eau&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=%22Ville%20d%27Agen%22%20eau&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 15009,
+      "items": 10,
+      "titre": "\"\"Ville d'Agen\" eau\" - Google Actualités",
+      "ms": 74
+    },
+    {
+      "url": "https://www.lotetgaronne.fr/accueil",
+      "code_http": 200,
+      "final": "https://www.lotetgaronne.fr/accueil",
+      "content_type": "text/html;charset=utf-8",
+      "octets": 394650,
+      "items": 0,
+      "titre": "Conseil départemental de Lot-et-Garonne à Agen (cœur du Sud-Ouest/ Nouvelle-Aquitaine)",
+      "ms": 288
+    },
+    {
+      "url": "https://www.lotetgaronne.fr/actualites",
+      "code_http": 200,
+      "final": "https://www.lotetgaronne.fr/actualites",
+      "content_type": "text/html;charset=utf-8",
+      "octets": 159265,
+      "items": 0,
+      "titre": "Actualités",
+      "ms": 336
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Lot-et-Garonne%22%20eau&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=%22Lot-et-Garonne%22%20eau&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 91035,
+      "items": 59,
+      "titre": "\"\"Lot-et-Garonne\" eau\" - Google Actualités",
+      "ms": 300
+    },
+    {
+      "url": "https://www.cpme47.fr/",
+      "code_http": 200,
+      "final": "https://www.cpme47.fr/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 35528,
+      "items": 0,
+      "titre": "Confédération des petites et moyennes entreprises du Lot-et-Garonne",
+      "ms": 170
+    },
+    {
+      "url": "https://www.cpme47.fr/actualites/",
+      "code_http": 200,
+      "final": "https://www.cpme47.fr/actualites/",
+      "content_type": "text/html; charset=UTF-8",
+      "octets": 64117,
+      "items": 0,
+      "titre": "Nos actualités - CPME 47",
+      "ms": 136
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22CPME%2047%22%20energie&hl=fr&gl=FR&ceid=FR:fr",
+      "code_http": 200,
+      "final": "https://news.google.com/rss/search?q=%22CPME%2047%22%20energie&hl=fr&gl=FR&ceid=FR:fr",
+      "content_type": "application/xml; charset=utf-8",
+      "octets": 1151,
+      "items": 0,
+      "titre": "\"\"CPME 47\" energie\" - Google Actualités",
+      "ms": 236
+    }
+  ]
+}
