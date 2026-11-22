@@ -1,0 +1,385 @@
+{
+  "titre": "Flux RSS/Atom découverts sur les sources du catalogue sans flux",
+  "date": "2026-11-22T01:46:45.882Z",
+  "commande": "DATABASE_URL=postgres://radar:radar@localhost:5433/radar apps/api/node_modules/.bin/tsx scripts/discover-source-feeds.mts --dry-run --limit=200 --offset=0 --budget-ms=100000 --json=bench/results/source-feeds-all-dryrun-2026-11-22.json",
+  "dry_run": true,
+  "etat_base_avant": {
+    "total": "463",
+    "feeds": "221",
+    "pages": "171"
+  },
+  "perimetre": {
+    "sources_sans_flux": 121,
+    "chemins_testes": [
+      "/feed/",
+      "/feed",
+      "/rss.xml",
+      "/rss",
+      "/rss/",
+      "/atom.xml",
+      "/feed.xml",
+      "/?feed=rss2",
+      "/?feed=rss",
+      "/?feed=atom",
+      "/actualites/feed/",
+      "/actualites/feed",
+      "/actualites/rss",
+      "/actualites/rss.xml",
+      "/articles/rss.xml",
+      "/fr/rss.xml",
+      "/en/rss.xml",
+      "/flux.xml",
+      "/latest.rss",
+      "/index.rdf",
+      "/feed.rdf",
+      "/rss-feed.xml",
+      "/blog-feed.xml",
+      "/?page=rss",
+      "/?rss=1",
+      "/?format=feed&type=rss",
+      "/index.php?format=feed&type=rss",
+      "/spip.php?page=rss",
+      "/spip.php?page=backend",
+      "/feed/?post_type=post",
+      "/feed/?post_type=actualites",
+      "/feed/rss2",
+      "/feed/rss/",
+      "/feed/atom",
+      "/feed.rss",
+      "/index.rss",
+      "/blog/rss.xml",
+      "/news/rss.xml",
+      "/news/feed/",
+      "/blog/feed/",
+      "/comments/feed/",
+      "/fr/feed/"
+    ],
+    "liens_alternates_du_site": true,
+    "validation": "HTTP 2xx + detectFeedFormat + parseSource avec au moins un item",
+    "donnees_personnelles": false
+  },
+  "mesure": {
+    "sources_scannees": 121,
+    "candidats_probes": 5027,
+    "liens_alternates": 37,
+    "flux_decouverts": 31,
+    "sources_couvertes": 28,
+    "flux_enregistres": 0,
+    "erreurs": 11,
+    "duree_ms": 102986
+  },
+  "flux": [
+    {
+      "url": "https://actu.fr/rss.xml",
+      "format": "rss",
+      "source_id": "corpus:landes-40-actu-fr-mont-de-marsan",
+      "sources_initialises": [
+        "corpus:landes-40-actu-fr-mont-de-marsan"
+      ],
+      "url_initiale": "https://actu.fr/nouvelle-aquitaine/mont-de-marsan_40192/",
+      "id_source_enregistree": "source-feed:actu-fr:QIV6XHOpzCCb"
+    },
+    {
+      "url": "https://haveibeenpwned.com/feed",
+      "format": "rss",
+      "source_id": "osint-hibp",
+      "sources_initialises": [
+        "osint-hibp"
+      ],
+      "url_initiale": "https://haveibeenpwned.com/",
+      "id_source_enregistree": "source-feed:haveibeenpwned-com:a9WJd5NBzdIh"
+    },
+    {
+      "url": "https://kanaldude.eus/feed/bideoak.rss",
+      "format": "rss",
+      "source_id": "regional:eu:kanaldude",
+      "sources_initialises": [
+        "regional:eu:kanaldude"
+      ],
+      "url_initiale": "https://kanaldude.eus",
+      "id_source_enregistree": "source-feed:kanaldude-eus:Fn_3odunWutz"
+    },
+    {
+      "url": "https://la.charente-maritime.fr/news/rss.xml",
+      "format": "rss",
+      "source_id": "official-na-charente-presse",
+      "sources_initialises": [
+        "official-na-charente-presse"
+      ],
+      "url_initiale": "https://la.charente-maritime.fr/espace-presse/communiques-presse",
+      "id_source_enregistree": "source-feed:la-charente-maritime-fr:YcK5tSB4ieUk"
+    },
+    {
+      "url": "https://ransomware.live/rss",
+      "format": "rss",
+      "source_id": "ransom-ransomwarelive",
+      "sources_initialises": [
+        "ransom-ransomwarelive"
+      ],
+      "url_initiale": "https://ransomware.live/",
+      "id_source_enregistree": "source-feed:ransomware-live:OVWj7ZW3wUDs"
+    },
+    {
+      "url": "https://seaska.eus/rss.xml",
+      "format": "rss",
+      "source_id": "regional:eu:seaska",
+      "sources_initialises": [
+        "regional:eu:seaska"
+      ],
+      "url_initiale": "https://seaska.eus/eu",
+      "id_source_enregistree": "source-feed:seaska-eus:O_6MuzCMgSWw"
+    },
+    {
+      "url": "https://securityalert.ai/ransomware.rss",
+      "format": "rss",
+      "source_id": "ransom-securityalert",
+      "sources_initialises": [
+        "ransom-securityalert"
+      ],
+      "url_initiale": "https://securityalert.ai/ransomware",
+      "id_source_enregistree": "source-feed:securityalert-ai:ha2rjJUND10q"
+    },
+    {
+      "url": "https://toufanleaks.org/?feed=atom",
+      "format": "atom",
+      "source_id": "ransomleak-toufan",
+      "sources_initialises": [
+        "ransomleak-toufan"
+      ],
+      "url_initiale": "https://toufanleaks.org/",
+      "id_source_enregistree": "source-feed:toufanleaks-org:3lnvSu5F54yM"
+    },
+    {
+      "url": "https://toufanleaks.org/?feed=rss",
+      "format": "rss",
+      "source_id": "ransomleak-toufan",
+      "sources_initialises": [
+        "ransomleak-toufan"
+      ],
+      "url_initiale": "https://toufanleaks.org/",
+      "id_source_enregistree": "source-feed:toufanleaks-org:FWT8mLmgiIUH"
+    },
+    {
+      "url": "https://www.abuse.ch/rss",
+      "format": "rss",
+      "source_id": "osint-abusech",
+      "sources_initialises": [
+        "osint-abusech"
+      ],
+      "url_initiale": "https://www.abuse.ch/",
+      "id_source_enregistree": "source-feed:abuse-ch:pux2WoF1WnME"
+    },
+    {
+      "url": "https://www.caracterres.fr/rss.xml",
+      "format": "rss",
+      "source_id": "corpus:la-vienne-rurale-caracterres",
+      "sources_initialises": [
+        "corpus:la-vienne-rurale-caracterres"
+      ],
+      "url_initiale": "https://www.caracterres.fr/vienne-rurale",
+      "id_source_enregistree": "source-feed:caracterres-fr:Edi3Jiww7TOp"
+    },
+    {
+      "url": "https://www.cgt-landes.org/rss",
+      "format": "rss",
+      "source_id": "corpus:landes-40-cgt-landes-union-departementale-40",
+      "sources_initialises": [
+        "corpus:landes-40-cgt-landes-union-departementale-40"
+      ],
+      "url_initiale": "https://www.cgt-landes.org/les-informations-syndicales.html",
+      "id_source_enregistree": "source-feed:cgt-landes-org:tu0kyTD_34r2"
+    },
+    {
+      "url": "https://www.cisa.gov/rss.xml",
+      "format": "rss",
+      "source_id": "cisa_kev",
+      "sources_initialises": [
+        "cisa_kev"
+      ],
+      "url_initiale": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "id_source_enregistree": "source-feed:cisa-gov:GRBDAHLEhnlG"
+    },
+    {
+      "url": "https://www.creuse.fr/spip.php?page=backend",
+      "format": "rss",
+      "source_id": "cd23-a-la-une",
+      "sources_initialises": [
+        "cd23-a-la-une",
+        "official-na-creuse-presse"
+      ],
+      "url_initiale": "https://www.creuse.fr/A-la-une",
+      "id_source_enregistree": "source-feed:creuse-fr:MdI8CF3P03qZ"
+    },
+    {
+      "url": "https://www.dax.fr/feed/atom",
+      "format": "atom",
+      "source_id": "corpus:landes-40-daxmag-journal-de-la-ville-de-dax",
+      "sources_initialises": [
+        "corpus:landes-40-daxmag-journal-de-la-ville-de-dax"
+      ],
+      "url_initiale": "https://www.dax.fr/",
+      "id_source_enregistree": "source-feed:dax-fr:io1DaDRgRtEA"
+    },
+    {
+      "url": "https://www.dax.fr/rss",
+      "format": "rss",
+      "source_id": "corpus:landes-40-daxmag-journal-de-la-ville-de-dax",
+      "sources_initialises": [
+        "corpus:landes-40-daxmag-journal-de-la-ville-de-dax"
+      ],
+      "url_initiale": "https://www.dax.fr/",
+      "id_source_enregistree": "source-feed:dax-fr:RjW5Z1LyvIJH"
+    },
+    {
+      "url": "https://www.eke.eus/eu/kultura/sormen/sormen-tantak/RSS",
+      "format": "rss",
+      "source_id": "regional:eu:eke",
+      "sources_initialises": [
+        "regional:eu:eke"
+      ],
+      "url_initiale": "https://www.eke.eus/eu",
+      "id_source_enregistree": "source-feed:eke-eus:elStqPkDh2sN"
+    },
+    {
+      "url": "https://www.fepcfdtbbl.fr/blog-feed.xml",
+      "format": "rss",
+      "source_id": "corpus:landes-40-fep-cfdt-pays-basque-bearn-landes",
+      "sources_initialises": [
+        "corpus:landes-40-fep-cfdt-pays-basque-bearn-landes"
+      ],
+      "url_initiale": "https://www.fepcfdtbbl.fr/actualites",
+      "id_source_enregistree": "source-feed:fepcfdtbbl-fr:DBt5qUxWRo7c"
+    },
+    {
+      "url": "https://www.first.org/blog/rss.xml",
+      "format": "rss",
+      "source_id": "epss",
+      "sources_initialises": [
+        "epss"
+      ],
+      "url_initiale": "https://www.first.org/epss/",
+      "id_source_enregistree": "source-feed:first-org:f1Bm99NS53Oo"
+    },
+    {
+      "url": "https://www.kazeta.eus/eu/rss/news.rss",
+      "format": "rss",
+      "source_id": "regional:eu:kazeta",
+      "sources_initialises": [
+        "regional:eu:kazeta"
+      ],
+      "url_initiale": "https://www.kazeta.eus/eu",
+      "id_source_enregistree": "source-feed:kazeta-eus:0437B2YSqbcw"
+    },
+    {
+      "url": "https://www.leparisien.fr/landes-40/rss.xml",
+      "format": "rss",
+      "source_id": "corpus:landes-40-le-parisien-landes-40",
+      "sources_initialises": [
+        "corpus:landes-40-le-parisien-landes-40"
+      ],
+      "url_initiale": "https://www.leparisien.fr/landes-40/",
+      "id_source_enregistree": "source-feed:leparisien-fr:mV2dPeCQb0vd"
+    },
+    {
+      "url": "https://www.nouvelle-aquitaine.ars.sante.fr/rss.xml",
+      "format": "rss",
+      "source_id": "official-na-ars-communiques",
+      "sources_initialises": [
+        "official-na-ars-communiques"
+      ],
+      "url_initiale": "https://www.nouvelle-aquitaine.ars.sante.fr/liste-communiques-presse",
+      "id_source_enregistree": "source-feed:nouvelle-aquitaine-ars-sante-fr:G07u2s-yy9EN"
+    },
+    {
+      "url": "https://www.ransomlook.io/rss.xml",
+      "format": "rss",
+      "source_id": "ransom-ransomlook",
+      "sources_initialises": [
+        "ransom-ransomlook",
+        "ransom-look-leaks"
+      ],
+      "url_initiale": "https://www.ransomlook.io/",
+      "id_source_enregistree": "source-feed:ransomlook-io:4NifjpglNzYW"
+    },
+    {
+      "url": "https://www.souvenirsfm.fr/rss-feed-1",
+      "format": "rss",
+      "source_id": "corpus:landes-40-souvenirs-fm-dax-soustons-radio-locale-88-6-fm",
+      "sources_initialises": [
+        "corpus:landes-40-souvenirs-fm-dax-soustons-radio-locale-88-6-fm"
+      ],
+      "url_initiale": "https://www.souvenirsfm.fr/news/actualites-locales-157/1",
+      "id_source_enregistree": "source-feed:souvenirsfm-fr:TtcPYEFYy_Xd"
+    },
+    {
+      "url": "https://www.spamhaus.org/rss.xml",
+      "format": "rss",
+      "source_id": "spamhaus-drop",
+      "sources_initialises": [
+        "spamhaus-drop"
+      ],
+      "url_initiale": "https://www.spamhaus.org/drop/drop.txt",
+      "id_source_enregistree": "source-feed:spamhaus-org:t2_wCR88UP6u"
+    },
+    {
+      "url": "https://www.univ-larochelle.fr/feed/atom",
+      "format": "atom",
+      "source_id": "official-na-univ-larochelle-presse",
+      "sources_initialises": [
+        "official-na-univ-larochelle-presse"
+      ],
+      "url_initiale": "https://www.univ-larochelle.fr/luniversite/espace-presse/communiques-de-presse/annee-2026/",
+      "id_source_enregistree": "source-feed:univ-larochelle-fr:bmlm2rV2h_0_"
+    },
+    {
+      "url": "https://www.univ-larochelle.fr/rss",
+      "format": "rss",
+      "source_id": "official-na-univ-larochelle-presse",
+      "sources_initialises": [
+        "official-na-univ-larochelle-presse"
+      ],
+      "url_initiale": "https://www.univ-larochelle.fr/luniversite/espace-presse/communiques-de-presse/annee-2026/",
+      "id_source_enregistree": "source-feed:univ-larochelle-fr:xbLMMZsGK2ey"
+    },
+    {
+      "url": "https://www.ville-loudun.fr/actualites?format=feed&type=atom",
+      "format": "atom",
+      "source_id": "corpus:ville-de-loudun",
+      "sources_initialises": [
+        "corpus:ville-de-loudun"
+      ],
+      "url_initiale": "https://www.ville-loudun.fr/actualites",
+      "id_source_enregistree": "source-feed:ville-loudun-fr:W-MgYIOLIOul"
+    },
+    {
+      "url": "https://www.ville-loudun.fr/actualites?format=feed&type=rss",
+      "format": "rss",
+      "source_id": "corpus:ville-de-loudun",
+      "sources_initialises": [
+        "corpus:ville-de-loudun"
+      ],
+      "url_initiale": "https://www.ville-loudun.fr/actualites",
+      "id_source_enregistree": "source-feed:ville-loudun-fr:35daJ58G8AZd"
+    },
+    {
+      "url": "https://www.ville-tarnos.fr/feed/atom",
+      "format": "atom",
+      "source_id": "corpus:landes-40-tarnos-contact-journal-municipal-de-tarnos",
+      "sources_initialises": [
+        "corpus:landes-40-tarnos-contact-journal-municipal-de-tarnos"
+      ],
+      "url_initiale": "https://www.ville-tarnos.fr/",
+      "id_source_enregistree": "source-feed:ville-tarnos-fr:JS78HwRXDcBi"
+    },
+    {
+      "url": "https://www.ville-tarnos.fr/rss",
+      "format": "rss",
+      "source_id": "corpus:landes-40-tarnos-contact-journal-municipal-de-tarnos",
+      "sources_initialises": [
+        "corpus:landes-40-tarnos-contact-journal-municipal-de-tarnos"
+      ],
+      "url_initiale": "https://www.ville-tarnos.fr/",
+      "id_source_enregistree": "source-feed:ville-tarnos-fr:icSlSQAeBxij"
+    }
+  ]
+}
