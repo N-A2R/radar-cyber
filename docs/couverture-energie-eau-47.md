@@ -72,3 +72,4 @@ syndicats d'eau et d'énergie, EPTB, opérateurs et presse locale), identificati
 des pages d'actualités et des flux, puis contrôle GET de chaque URL avec
 User-Agent navigateur et suivi des redirections, délai 25 s, comptage des items
 pour les flux. Le détail des contrôles figure dans le rapport de vérification.
+OBJECTIF : atteint — 18 / 5
