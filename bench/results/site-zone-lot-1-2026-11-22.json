@@ -1,0 +1,1587 @@
+{
+  "consultedAt": "2026-11-22T02:45:12.578Z",
+  "source": "declared site zone; HTTP 200 on same registrable domain; DNS A",
+  "licence": "Wikidata CC0; public organisation records",
+  "attribution": "organisation registry, org_enrichissement proofs, Wikidata P462/P856",
+  "applied": true,
+  "onlyMissing": true,
+  "examined": 486,
+  "selected": 200,
+  "verified": 173,
+  "written": 173,
+  "measurement": {
+    "scope": "nouvelle-aquitaine",
+    "organisationsWithService": 7453,
+    "organisationsInScope": 1671906,
+    "services": 8341,
+    "bySource": {
+      "http-200": 1256,
+      "osm-http-200": 2941,
+      "dila-http-200": 1045,
+      "shodan-internetdb": 399,
+      "wikidata-http-200": 850,
+      "osm-siret-http-200": 1677,
+      "site-zone-http-200": 173
+    },
+    "measuredAt": "2026-11-22T02:45:23.232Z"
+  },
+  "candidates": [
+    {
+      "orgId": 306914,
+      "dept": "19",
+      "declaredDomain": "correze.fr",
+      "finalHost": "www.correze.fr",
+      "ip": "37.59.251.196",
+      "sourceUrl": "https://www.correze.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 17771,
+      "dept": "33",
+      "declaredDomain": "jehan.lyc-duperier.fr",
+      "finalHost": "jehan.lyc-duperier.fr",
+      "ip": "217.160.0.49",
+      "sourceUrl": "https://jehan.lyc-duperier.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 17469,
+      "dept": "33",
+      "declaredDomain": "rentree.lycee-daguin.com",
+      "finalHost": "rentree.lycee-daguin.com",
+      "ip": "188.165.53.185",
+      "sourceUrl": "https://rentree.lycee-daguin.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 12202,
+      "dept": "64",
+      "declaredDomain": "sdis64.fr",
+      "finalHost": "www.sdis64.fr",
+      "ip": "146.59.209.152",
+      "sourceUrl": "https://www.sdis64.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 385408,
+      "dept": "17",
+      "declaredDomain": "ville-saintes.fr",
+      "finalHost": "www.ville-saintes.fr",
+      "ip": "212.83.142.36",
+      "sourceUrl": "https://www.ville-saintes.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 706888,
+      "dept": "33",
+      "declaredDomain": "rions.fr",
+      "finalHost": "www.rions.fr",
+      "ip": "154.56.81.110",
+      "sourceUrl": "https://www.rions.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 169840,
+      "dept": "24",
+      "declaredDomain": "generac33.fr",
+      "finalHost": "www.generac33.fr",
+      "ip": "217.109.171.31",
+      "sourceUrl": "https://www.generac33.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 497716,
+      "dept": "40",
+      "declaredDomain": "bidache.fr",
+      "finalHost": "www.bidache.fr",
+      "ip": "84.234.22.175",
+      "sourceUrl": "https://www.bidache.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 407588,
+      "dept": "33",
+      "declaredDomain": "fondation.univ-bordeaux.fr",
+      "finalHost": "www.fondation.univ-bordeaux.fr",
+      "ip": "154.50.0.146",
+      "sourceUrl": "https://www.fondation.univ-bordeaux.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 668071,
+      "dept": "33",
+      "declaredDomain": "notaires-wilson-carnot-bordeaux.notaires.fr",
+      "finalHost": "notaires-wilson-carnot-bordeaux.notaires.fr",
+      "ip": "15.188.186.150",
+      "sourceUrl": "https://notaires-wilson-carnot-bordeaux.notaires.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 265810,
+      "dept": "33",
+      "declaredDomain": "bordeaux.aeroport.fr",
+      "finalHost": "www.bordeaux.aeroport.fr",
+      "ip": "193.169.65.121",
+      "sourceUrl": "https://www.bordeaux.aeroport.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 2023890,
+      "dept": "86",
+      "declaredDomain": "sopral.com",
+      "finalHost": "sopral.com",
+      "ip": "164.132.235.17",
+      "sourceUrl": "https://sopral.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 74,
+      "dept": "16",
+      "declaredDomain": "mairie-charras.fr",
+      "finalHost": "mairie-charras.fr",
+      "ip": "213.158.79.35",
+      "sourceUrl": "https://mairie-charras.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 118,
+      "dept": "16",
+      "declaredDomain": "mairie-etriac.fr",
+      "finalHost": "mairie-etriac.fr",
+      "ip": "46.18.231.82",
+      "sourceUrl": "https://mairie-etriac.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1979723,
+      "dept": "33",
+      "declaredDomain": "delsey.com",
+      "finalHost": "www.delsey.com",
+      "ip": "23.227.38.74",
+      "sourceUrl": "https://www.delsey.com/fr-fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1993589,
+      "dept": "33",
+      "declaredDomain": "heschung.com",
+      "finalHost": "www.heschung.com",
+      "ip": "23.227.38.74",
+      "sourceUrl": "https://www.heschung.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 168102,
+      "dept": "33",
+      "declaredDomain": "sefiso-atlantique.fr",
+      "finalHost": "www.sefiso-atlantique.fr",
+      "ip": "46.105.204.20",
+      "sourceUrl": "https://www.sefiso-atlantique.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 13564,
+      "dept": "86",
+      "declaredDomain": "coallia.org",
+      "finalHost": "coallia.org",
+      "ip": "46.227.84.185",
+      "sourceUrl": "https://coallia.org",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 389618,
+      "dept": "16",
+      "declaredDomain": "cojean.fr",
+      "finalHost": "www.cojean.fr",
+      "ip": "195.68.98.210",
+      "sourceUrl": "https://www.cojean.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 452633,
+      "dept": "64",
+      "declaredDomain": "paradigme.fr",
+      "finalHost": "paradigme.fr",
+      "ip": "23.227.38.65",
+      "sourceUrl": "https://paradigme.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1973746,
+      "dept": "33",
+      "declaredDomain": "komilfo.fr",
+      "finalHost": "www.komilfo.fr",
+      "ip": "89.31.147.56",
+      "sourceUrl": "https://www.komilfo.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 2333961,
+      "dept": "64",
+      "declaredDomain": "collegeursuya.fr",
+      "finalHost": "collegeursuya.fr",
+      "ip": "217.160.0.29",
+      "sourceUrl": "https://collegeursuya.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 21200,
+      "dept": "64",
+      "declaredDomain": "pouyanne.fr",
+      "finalHost": "www.pouyanne.fr",
+      "ip": "163.172.34.50",
+      "sourceUrl": "https://www.pouyanne.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 77553,
+      "dept": "64",
+      "declaredDomain": "groupe-olano.com",
+      "finalHost": "www.groupe-olano.com",
+      "ip": "83.173.94.212",
+      "sourceUrl": "https://www.groupe-olano.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 753,
+      "dept": "17",
+      "declaredDomain": "ville-saintes.fr",
+      "finalHost": "www.ville-saintes.fr",
+      "ip": "212.83.142.36",
+      "sourceUrl": "https://www.ville-saintes.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 177675,
+      "dept": "33",
+      "declaredDomain": "cineproximite-gironde.fr",
+      "finalHost": "www.cineproximite-gironde.fr",
+      "ip": "155.133.138.11",
+      "sourceUrl": "https://www.cineproximite-gironde.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 4311,
+      "dept": "24",
+      "declaredDomain": "grandperigueux.fr",
+      "finalHost": "www.grandperigueux.fr",
+      "ip": "185.31.40.229",
+      "sourceUrl": "https://www.grandperigueux.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 4337,
+      "dept": "33",
+      "declaredDomain": "reolaisensudgironde.fr",
+      "finalHost": "www.reolaisensudgironde.fr",
+      "ip": "90.83.97.59",
+      "sourceUrl": "https://www.reolaisensudgironde.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 4409,
+      "dept": "33",
+      "declaredDomain": "grand-cubzaguais.fr",
+      "finalHost": "www.grand-cubzaguais.fr",
+      "ip": "90.83.97.13",
+      "sourceUrl": "https://www.grand-cubzaguais.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 21415,
+      "dept": "33",
+      "declaredDomain": "kapptivate.com",
+      "finalHost": "www.kapptivate.com",
+      "ip": "198.202.211.1",
+      "sourceUrl": "https://www.kapptivate.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 34760,
+      "dept": "17",
+      "declaredDomain": "coop-atlantique.fr",
+      "finalHost": "www.coop-atlantique.fr",
+      "ip": "62.102.225.12",
+      "sourceUrl": "https://www.coop-atlantique.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 467938,
+      "dept": "33",
+      "declaredDomain": "bm-energies.com",
+      "finalHost": "www.bm-energies.com",
+      "ip": "109.2.160.61",
+      "sourceUrl": "https://www.bm-energies.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 97886,
+      "dept": "64",
+      "declaredDomain": "agorila.com",
+      "finalHost": "www.agorila.com",
+      "ip": "87.98.179.105",
+      "sourceUrl": "https://www.agorila.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 8376,
+      "dept": "33",
+      "declaredDomain": "domusvi.com",
+      "finalHost": "www.domusvi.com",
+      "ip": "104.18.22.234",
+      "sourceUrl": "https://www.domusvi.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 10601,
+      "dept": "47",
+      "declaredDomain": "domusvi.com",
+      "finalHost": "www.domusvi.com",
+      "ip": "104.18.22.234",
+      "sourceUrl": "https://www.domusvi.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1970139,
+      "dept": "47",
+      "declaredDomain": "domusvi.com",
+      "finalHost": "www.domusvi.com",
+      "ip": "104.18.22.234",
+      "sourceUrl": "https://www.domusvi.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 13541,
+      "dept": "86",
+      "declaredDomain": "coallia.org",
+      "finalHost": "coallia.org",
+      "ip": "46.227.84.185",
+      "sourceUrl": "https://coallia.org",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 21405,
+      "dept": "17",
+      "declaredDomain": "koesio.com",
+      "finalHost": "koesio.com",
+      "ip": "141.95.126.76",
+      "sourceUrl": "https://koesio.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 147251,
+      "dept": "33",
+      "declaredDomain": "koesio.com",
+      "finalHost": "koesio.com",
+      "ip": "141.95.126.76",
+      "sourceUrl": "https://koesio.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 23882,
+      "dept": "16",
+      "declaredDomain": "technologia.fr",
+      "finalHost": "technologia.fr",
+      "ip": "5.135.23.164",
+      "sourceUrl": "https://technologia.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 2423302,
+      "dept": "33",
+      "declaredDomain": "technologia.fr",
+      "finalHost": "technologia.fr",
+      "ip": "5.135.23.164",
+      "sourceUrl": "https://technologia.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 30739,
+      "dept": "33",
+      "declaredDomain": "neosoft.fr",
+      "finalHost": "www.neosoft.fr",
+      "ip": "109.69.190.134",
+      "sourceUrl": "https://www.neosoft.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 43982,
+      "dept": "86",
+      "declaredDomain": "sopral.com",
+      "finalHost": "sopral.com",
+      "ip": "164.132.235.17",
+      "sourceUrl": "https://sopral.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1989660,
+      "dept": "33",
+      "declaredDomain": "sopral.com",
+      "finalHost": "sopral.com",
+      "ip": "164.132.235.17",
+      "sourceUrl": "https://sopral.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 52966,
+      "dept": "33",
+      "declaredDomain": "paradigme.fr",
+      "finalHost": "paradigme.fr",
+      "ip": "23.227.38.65",
+      "sourceUrl": "https://paradigme.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 57323,
+      "dept": "40",
+      "declaredDomain": "chevignon.fr",
+      "finalHost": "chevignon.fr",
+      "ip": "23.227.38.65",
+      "sourceUrl": "https://chevignon.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1963081,
+      "dept": "64",
+      "declaredDomain": "chevignon.fr",
+      "finalHost": "chevignon.fr",
+      "ip": "23.227.38.65",
+      "sourceUrl": "https://chevignon.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 71716,
+      "dept": "19",
+      "declaredDomain": "fifteen.eu",
+      "finalHost": "fifteen.eu",
+      "ip": "35.205.52.203",
+      "sourceUrl": "https://fifteen.eu/fr/",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 2216383,
+      "dept": "64",
+      "declaredDomain": "fifteen.eu",
+      "finalHost": "fifteen.eu",
+      "ip": "35.205.52.203",
+      "sourceUrl": "https://fifteen.eu/fr/",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 73450,
+      "dept": "33",
+      "declaredDomain": "skolae.fr",
+      "finalHost": "skolae.fr",
+      "ip": "185.158.133.1",
+      "sourceUrl": "https://skolae.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 82640,
+      "dept": "17",
+      "declaredDomain": "rustica.fr",
+      "finalHost": "www.rustica.fr",
+      "ip": "143.204.194.92",
+      "sourceUrl": "https://www.rustica.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 2124171,
+      "dept": "64",
+      "declaredDomain": "rustica.fr",
+      "finalHost": "www.rustica.fr",
+      "ip": "143.204.194.92",
+      "sourceUrl": "https://www.rustica.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 2253261,
+      "dept": "33",
+      "declaredDomain": "rustica.fr",
+      "finalHost": "www.rustica.fr",
+      "ip": "143.204.194.92",
+      "sourceUrl": "https://www.rustica.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 99765,
+      "dept": "24",
+      "declaredDomain": "valiris.io",
+      "finalHost": "valiris.io",
+      "ip": "216.198.79.1",
+      "sourceUrl": "https://valiris.io",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 127329,
+      "dept": "64",
+      "declaredDomain": "ruggieri.fr",
+      "finalHost": "www.ruggieri.fr",
+      "ip": "104.21.36.105",
+      "sourceUrl": "https://www.ruggieri.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1777796,
+      "dept": "16",
+      "declaredDomain": "ruggieri.fr",
+      "finalHost": "www.ruggieri.fr",
+      "ip": "104.21.36.105",
+      "sourceUrl": "https://www.ruggieri.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 2115124,
+      "dept": "64",
+      "declaredDomain": "ruggieri.fr",
+      "finalHost": "www.ruggieri.fr",
+      "ip": "104.21.36.105",
+      "sourceUrl": "https://www.ruggieri.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 133321,
+      "dept": "33",
+      "declaredDomain": "sanofi.com",
+      "finalHost": "www.sanofi.com",
+      "ip": "13.227.173.82",
+      "sourceUrl": "https://www.sanofi.com/en",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 192555,
+      "dept": "33",
+      "declaredDomain": "sanofi.com",
+      "finalHost": "www.sanofi.com",
+      "ip": "13.227.173.82",
+      "sourceUrl": "https://www.sanofi.com/en",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1981809,
+      "dept": "33",
+      "declaredDomain": "sanofi.com",
+      "finalHost": "www.sanofi.com",
+      "ip": "13.227.173.82",
+      "sourceUrl": "https://www.sanofi.com/en",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 151435,
+      "dept": "33",
+      "declaredDomain": "francim-reseau.org",
+      "finalHost": "www.francim-reseau.org",
+      "ip": "162.159.143.12",
+      "sourceUrl": "https://www.francim-reseau.org",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 155641,
+      "dept": "17",
+      "declaredDomain": "francofolies.fr",
+      "finalHost": "www.francofolies.fr",
+      "ip": "178.32.208.169",
+      "sourceUrl": "https://www.francofolies.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 525839,
+      "dept": "17",
+      "declaredDomain": "francofolies.fr",
+      "finalHost": "www.francofolies.fr",
+      "ip": "178.32.208.169",
+      "sourceUrl": "https://www.francofolies.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 2043971,
+      "dept": "17",
+      "declaredDomain": "francofolies.fr",
+      "finalHost": "www.francofolies.fr",
+      "ip": "178.32.208.169",
+      "sourceUrl": "https://www.francofolies.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 168674,
+      "dept": "64",
+      "declaredDomain": "arkose.com",
+      "finalHost": "arkose.com",
+      "ip": "176.31.85.82",
+      "sourceUrl": "https://arkose.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 194120,
+      "dept": "33",
+      "declaredDomain": "arkose.com",
+      "finalHost": "arkose.com",
+      "ip": "176.31.85.82",
+      "sourceUrl": "https://arkose.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 186195,
+      "dept": "64",
+      "declaredDomain": "seaska.eus",
+      "finalHost": "seaska.eus",
+      "ip": "51.91.136.121",
+      "sourceUrl": "https://seaska.eus",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1985270,
+      "dept": "87",
+      "declaredDomain": "reaute-chocolat.com",
+      "finalHost": "reaute-chocolat.com",
+      "ip": "194.32.76.229",
+      "sourceUrl": "https://reaute-chocolat.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 373842,
+      "dept": "33",
+      "declaredDomain": "stelia-aerospace.com",
+      "finalHost": "www.stelia-aerospace.com",
+      "ip": "87.98.129.185",
+      "sourceUrl": "https://www.stelia-aerospace.com/en/",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 242073,
+      "dept": "33",
+      "declaredDomain": "bicephale.fr",
+      "finalHost": "www.bicephale.fr",
+      "ip": "75.2.43.161",
+      "sourceUrl": "https://www.bicephale.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 263027,
+      "dept": "24",
+      "declaredDomain": "figaret.com",
+      "finalHost": "www.figaret.com",
+      "ip": "172.67.191.104",
+      "sourceUrl": "https://www.figaret.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1976854,
+      "dept": "64",
+      "declaredDomain": "figaret.com",
+      "finalHost": "www.figaret.com",
+      "ip": "172.67.191.104",
+      "sourceUrl": "https://www.figaret.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1976855,
+      "dept": "33",
+      "declaredDomain": "figaret.com",
+      "finalHost": "www.figaret.com",
+      "ip": "172.67.191.104",
+      "sourceUrl": "https://www.figaret.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 263883,
+      "dept": "64",
+      "declaredDomain": "recital.ai",
+      "finalHost": "recital.ai",
+      "ip": "104.26.12.13",
+      "sourceUrl": "https://recital.ai",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 265419,
+      "dept": "87",
+      "declaredDomain": "audiens.org",
+      "finalHost": "www.audiens.org",
+      "ip": "185.145.76.212",
+      "sourceUrl": "https://www.audiens.org/accueil.html",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 269477,
+      "dept": "16",
+      "declaredDomain": "lenotre.com",
+      "finalHost": "www.lenotre.com",
+      "ip": "151.101.65.124",
+      "sourceUrl": "https://www.lenotre.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 446137,
+      "dept": "64",
+      "declaredDomain": "lenotre.com",
+      "finalHost": "www.lenotre.com",
+      "ip": "151.101.65.124",
+      "sourceUrl": "https://www.lenotre.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1652876,
+      "dept": "19",
+      "declaredDomain": "lenotre.com",
+      "finalHost": "www.lenotre.com",
+      "ip": "151.101.65.124",
+      "sourceUrl": "https://www.lenotre.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 278026,
+      "dept": "33",
+      "declaredDomain": "philapostel.net",
+      "finalHost": "philapostel.net",
+      "ip": "46.105.204.20",
+      "sourceUrl": "https://philapostel.net",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 289335,
+      "dept": "86",
+      "declaredDomain": "cofidis.fr",
+      "finalHost": "www.cofidis.fr",
+      "ip": "145.226.174.99",
+      "sourceUrl": "https://www.cofidis.fr/fr/index.html",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 292471,
+      "dept": "33",
+      "declaredDomain": "aguttes.com",
+      "finalHost": "www.aguttes.com",
+      "ip": "188.114.97.2",
+      "sourceUrl": "https://www.aguttes.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 316159,
+      "dept": "47",
+      "declaredDomain": "komilfo.fr",
+      "finalHost": "www.komilfo.fr",
+      "ip": "89.31.147.56",
+      "sourceUrl": "https://www.komilfo.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 316414,
+      "dept": "17",
+      "declaredDomain": "valexis.re",
+      "finalHost": "valexis.re",
+      "ip": "92.113.28.229",
+      "sourceUrl": "https://valexis.re",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 321178,
+      "dept": "40",
+      "declaredDomain": "latecoere.aero",
+      "finalHost": "www.latecoere.aero",
+      "ip": "80.247.226.100",
+      "sourceUrl": "https://www.latecoere.aero",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1967635,
+      "dept": "33",
+      "declaredDomain": "latecoere.aero",
+      "finalHost": "www.latecoere.aero",
+      "ip": "80.247.226.100",
+      "sourceUrl": "https://www.latecoere.aero",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 2251788,
+      "dept": "33",
+      "declaredDomain": "latecoere.aero",
+      "finalHost": "www.latecoere.aero",
+      "ip": "80.247.226.100",
+      "sourceUrl": "https://www.latecoere.aero",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 326441,
+      "dept": "86",
+      "declaredDomain": "solary.fr",
+      "finalHost": "www.solary.fr",
+      "ip": "51.91.99.145",
+      "sourceUrl": "https://www.solary.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1978966,
+      "dept": "16",
+      "declaredDomain": "solary.fr",
+      "finalHost": "www.solary.fr",
+      "ip": "51.91.99.145",
+      "sourceUrl": "https://www.solary.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 331258,
+      "dept": "40",
+      "declaredDomain": "magelec.com",
+      "finalHost": "www.magelec.com",
+      "ip": "51.91.66.122",
+      "sourceUrl": "https://www.magelec.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 335570,
+      "dept": "33",
+      "declaredDomain": "butagaz.fr",
+      "finalHost": "www.butagaz.fr",
+      "ip": "104.18.26.9",
+      "sourceUrl": "https://www.butagaz.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 464240,
+      "dept": "17",
+      "declaredDomain": "butagaz.fr",
+      "finalHost": "www.butagaz.fr",
+      "ip": "104.18.26.9",
+      "sourceUrl": "https://www.butagaz.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 338605,
+      "dept": "16",
+      "declaredDomain": "normaal.fr",
+      "finalHost": "normaal.fr",
+      "ip": "82.165.251.47",
+      "sourceUrl": "https://normaal.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 346540,
+      "dept": "33",
+      "declaredDomain": "bengale.tv",
+      "finalHost": "www.bengale.tv",
+      "ip": "198.202.211.1",
+      "sourceUrl": "https://www.bengale.tv",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 354665,
+      "dept": "33",
+      "declaredDomain": "manuloc.fr",
+      "finalHost": "www.manuloc.fr",
+      "ip": "152.228.137.147",
+      "sourceUrl": "https://www.manuloc.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1877365,
+      "dept": "33",
+      "declaredDomain": "cojean.fr",
+      "finalHost": "www.cojean.fr",
+      "ip": "195.68.98.210",
+      "sourceUrl": "https://www.cojean.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 408623,
+      "dept": "33",
+      "declaredDomain": "epopee-village.com",
+      "finalHost": "epopee-village.com",
+      "ip": "152.228.218.154",
+      "sourceUrl": "https://epopee-village.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 617570,
+      "dept": "33",
+      "declaredDomain": "epopee-village.com",
+      "finalHost": "epopee-village.com",
+      "ip": "152.228.218.154",
+      "sourceUrl": "https://epopee-village.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 413122,
+      "dept": "87",
+      "declaredDomain": "felibrige.org",
+      "finalHost": "www.felibrige.org",
+      "ip": "81.88.53.55",
+      "sourceUrl": "http://www.felibrige.org",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 421751,
+      "dept": "33",
+      "declaredDomain": "supercoop.fr",
+      "finalHost": "supercoop.fr",
+      "ip": "213.186.33.40",
+      "sourceUrl": "https://supercoop.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 434242,
+      "dept": "16",
+      "declaredDomain": "somatra.fr",
+      "finalHost": "somatra.fr",
+      "ip": "91.121.106.34",
+      "sourceUrl": "https://somatra.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1965200,
+      "dept": "47",
+      "declaredDomain": "somatra.fr",
+      "finalHost": "somatra.fr",
+      "ip": "91.121.106.34",
+      "sourceUrl": "https://somatra.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 479605,
+      "dept": "33",
+      "declaredDomain": "resistons-france.fr",
+      "finalHost": "resistons-france.fr",
+      "ip": "199.16.173.108",
+      "sourceUrl": "https://resistons-france.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 492127,
+      "dept": "19",
+      "declaredDomain": "ergosante.fr",
+      "finalHost": "ergosante.fr",
+      "ip": "192.0.78.182",
+      "sourceUrl": "https://ergosante.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 499081,
+      "dept": "17",
+      "declaredDomain": "apogea.fr",
+      "finalHost": "www.apogea.fr",
+      "ip": "168.231.81.8",
+      "sourceUrl": "https://www.apogea.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 524071,
+      "dept": "86",
+      "declaredDomain": "axialys.com",
+      "finalHost": "www.axialys.com",
+      "ip": "104.18.4.96",
+      "sourceUrl": "https://www.axialys.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 555913,
+      "dept": "17",
+      "declaredDomain": "symaps.fr",
+      "finalHost": "symaps.fr",
+      "ip": "23.185.0.4",
+      "sourceUrl": "https://symaps.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 564872,
+      "dept": "33",
+      "declaredDomain": "merinos.fr",
+      "finalHost": "www.merinos.fr",
+      "ip": "31.15.30.158",
+      "sourceUrl": "https://www.merinos.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 576171,
+      "dept": "86",
+      "declaredDomain": "frichti.co",
+      "finalHost": "www.frichti.co",
+      "ip": "104.26.15.237",
+      "sourceUrl": "https://www.frichti.co/landing",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1985059,
+      "dept": "33",
+      "declaredDomain": "frichti.co",
+      "finalHost": "www.frichti.co",
+      "ip": "104.26.15.237",
+      "sourceUrl": "https://www.frichti.co/landing",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 576790,
+      "dept": "64",
+      "declaredDomain": "petitapetit.fr",
+      "finalHost": "www.petitapetit.fr",
+      "ip": "213.186.33.16",
+      "sourceUrl": "https://www.petitapetit.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 582933,
+      "dept": "19",
+      "declaredDomain": "bledina.com",
+      "finalHost": "www.bledina.com",
+      "ip": "151.101.3.10",
+      "sourceUrl": "https://www.bledina.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 591298,
+      "dept": "33",
+      "declaredDomain": "eminence.fr",
+      "finalHost": "www.eminence.fr",
+      "ip": "23.227.38.74",
+      "sourceUrl": "https://www.eminence.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 2347212,
+      "dept": "33",
+      "declaredDomain": "eminence.fr",
+      "finalHost": "www.eminence.fr",
+      "ip": "23.227.38.74",
+      "sourceUrl": "https://www.eminence.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 591907,
+      "dept": "87",
+      "declaredDomain": "groupe-advitam.com",
+      "finalHost": "www.groupe-advitam.com",
+      "ip": "185.221.181.139",
+      "sourceUrl": "https://www.groupe-advitam.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 636935,
+      "dept": "17",
+      "declaredDomain": "groupe-advitam.com",
+      "finalHost": "www.groupe-advitam.com",
+      "ip": "185.221.181.139",
+      "sourceUrl": "https://www.groupe-advitam.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 593617,
+      "dept": "33",
+      "declaredDomain": "minibigforest.com",
+      "finalHost": "www.minibigforest.com",
+      "ip": "83.166.130.54",
+      "sourceUrl": "https://www.minibigforest.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 618765,
+      "dept": "16",
+      "declaredDomain": "routin.com",
+      "finalHost": "www.routin.com",
+      "ip": "57.128.27.56",
+      "sourceUrl": "https://www.routin.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 2252040,
+      "dept": "64",
+      "declaredDomain": "routin.com",
+      "finalHost": "www.routin.com",
+      "ip": "57.128.27.56",
+      "sourceUrl": "https://www.routin.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 626545,
+      "dept": "87",
+      "declaredDomain": "solido.com",
+      "finalHost": "www.solido.com",
+      "ip": "188.114.97.2",
+      "sourceUrl": "https://www.solido.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 640259,
+      "dept": "47",
+      "declaredDomain": "novamind.fr",
+      "finalHost": "novamind.fr",
+      "ip": "192.0.78.192",
+      "sourceUrl": "https://novamind.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 645071,
+      "dept": "16",
+      "declaredDomain": "imprimtonjeu.fr",
+      "finalHost": "imprimtonjeu.fr",
+      "ip": "51.255.173.197",
+      "sourceUrl": "https://imprimtonjeu.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 656203,
+      "dept": "33",
+      "declaredDomain": "lamorce.art",
+      "finalHost": "lamorce.art",
+      "ip": "146.88.233.181",
+      "sourceUrl": "https://lamorce.art",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 657950,
+      "dept": "79",
+      "declaredDomain": "algeco.fr",
+      "finalHost": "www.algeco.fr",
+      "ip": "13.227.173.53",
+      "sourceUrl": "https://www.algeco.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1980552,
+      "dept": "33",
+      "declaredDomain": "algeco.fr",
+      "finalHost": "www.algeco.fr",
+      "ip": "13.227.173.53",
+      "sourceUrl": "https://www.algeco.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 666117,
+      "dept": "79",
+      "declaredDomain": "triaire.fr",
+      "finalHost": "triaire.fr",
+      "ip": "213.186.33.4",
+      "sourceUrl": "https://triaire.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 671588,
+      "dept": "40",
+      "declaredDomain": "sovana.fr",
+      "finalHost": "sovana.fr",
+      "ip": "216.198.79.1",
+      "sourceUrl": "https://sovana.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 683413,
+      "dept": "33",
+      "declaredDomain": "fortuneo.fr",
+      "finalHost": "www.fortuneo.fr",
+      "ip": "3.162.38.35",
+      "sourceUrl": "https://www.fortuneo.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 697514,
+      "dept": "64",
+      "declaredDomain": "samatan-gers.com",
+      "finalHost": "www.samatan-gers.com",
+      "ip": "136.144.253.86",
+      "sourceUrl": "https://www.samatan-gers.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 2409780,
+      "dept": "40",
+      "declaredDomain": "samatan-gers.com",
+      "finalHost": "www.samatan-gers.com",
+      "ip": "136.144.253.86",
+      "sourceUrl": "https://www.samatan-gers.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 700528,
+      "dept": "33",
+      "declaredDomain": "parti-reconquete.fr",
+      "finalHost": "www.parti-reconquete.fr",
+      "ip": "54.77.150.240",
+      "sourceUrl": "https://www.parti-reconquete.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 700670,
+      "dept": "33",
+      "declaredDomain": "ofelia.com",
+      "finalHost": "www.ofelia.com",
+      "ip": "198.202.211.1",
+      "sourceUrl": "https://www.ofelia.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1684269,
+      "dept": "86",
+      "declaredDomain": "ofelia.com",
+      "finalHost": "www.ofelia.com",
+      "ip": "198.202.211.1",
+      "sourceUrl": "https://www.ofelia.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1912156,
+      "dept": "33",
+      "declaredDomain": "ofelia.com",
+      "finalHost": "www.ofelia.com",
+      "ip": "198.202.211.1",
+      "sourceUrl": "https://www.ofelia.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1455312,
+      "dept": "86",
+      "declaredDomain": "cylian.fr",
+      "finalHost": "cylian.fr",
+      "ip": "5.135.247.155",
+      "sourceUrl": "https://cylian.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1455732,
+      "dept": "33",
+      "declaredDomain": "servier.com",
+      "finalHost": "servier.com",
+      "ip": "146.59.209.152",
+      "sourceUrl": "https://servier.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1498865,
+      "dept": "64",
+      "declaredDomain": "servier.com",
+      "finalHost": "servier.com",
+      "ip": "146.59.209.152",
+      "sourceUrl": "https://servier.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1737127,
+      "dept": "17",
+      "declaredDomain": "servier.com",
+      "finalHost": "servier.com",
+      "ip": "146.59.209.152",
+      "sourceUrl": "https://servier.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1466095,
+      "dept": "33",
+      "declaredDomain": "lestra.com",
+      "finalHost": "lestra.com",
+      "ip": "172.67.148.173",
+      "sourceUrl": "https://lestra.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1466131,
+      "dept": "33",
+      "declaredDomain": "dormeuil.com",
+      "finalHost": "dormeuil.com",
+      "ip": "23.227.38.65",
+      "sourceUrl": "https://dormeuil.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1486756,
+      "dept": "24",
+      "declaredDomain": "groupe-dubocage.fr",
+      "finalHost": "groupe-dubocage.fr",
+      "ip": "217.160.0.221",
+      "sourceUrl": "https://groupe-dubocage.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1765919,
+      "dept": "24",
+      "declaredDomain": "groupe-dubocage.fr",
+      "finalHost": "groupe-dubocage.fr",
+      "ip": "217.160.0.221",
+      "sourceUrl": "https://groupe-dubocage.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 2036412,
+      "dept": "24",
+      "declaredDomain": "groupe-dubocage.fr",
+      "finalHost": "groupe-dubocage.fr",
+      "ip": "217.160.0.221",
+      "sourceUrl": "https://groupe-dubocage.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1498034,
+      "dept": "87",
+      "declaredDomain": "paracel.eu",
+      "finalHost": "paracel.eu",
+      "ip": "198.202.211.1",
+      "sourceUrl": "https://paracel.eu",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1512381,
+      "dept": "33",
+      "declaredDomain": "pretto.fr",
+      "finalHost": "www.pretto.fr",
+      "ip": "13.227.231.19",
+      "sourceUrl": "https://www.pretto.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1532375,
+      "dept": "47",
+      "declaredDomain": "bontaz.com",
+      "finalHost": "www.bontaz.com",
+      "ip": "146.59.209.152",
+      "sourceUrl": "https://www.bontaz.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 2140397,
+      "dept": "47",
+      "declaredDomain": "bontaz.com",
+      "finalHost": "www.bontaz.com",
+      "ip": "146.59.209.152",
+      "sourceUrl": "https://www.bontaz.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 2167115,
+      "dept": "47",
+      "declaredDomain": "bontaz.com",
+      "finalHost": "www.bontaz.com",
+      "ip": "146.59.209.152",
+      "sourceUrl": "https://www.bontaz.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1537761,
+      "dept": "33",
+      "declaredDomain": "cerruti.com",
+      "finalHost": "www.cerruti.com",
+      "ip": "23.227.38.74",
+      "sourceUrl": "https://www.cerruti.com/en-belux",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1568544,
+      "dept": "47",
+      "declaredDomain": "procidis.com",
+      "finalHost": "procidis.com",
+      "ip": "192.0.78.239",
+      "sourceUrl": "https://procidis.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1587886,
+      "dept": "16",
+      "declaredDomain": "desautel.fr",
+      "finalHost": "www.desautel.fr",
+      "ip": "199.60.103.254",
+      "sourceUrl": "https://www.desautel.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1626243,
+      "dept": "33",
+      "declaredDomain": "sansone.fr",
+      "finalHost": "www.sansone.fr",
+      "ip": "91.198.105.80",
+      "sourceUrl": "https://www.sansone.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1677986,
+      "dept": "33",
+      "declaredDomain": "babolat.com",
+      "finalHost": "www.babolat.com",
+      "ip": "172.64.151.42",
+      "sourceUrl": "https://www.babolat.com/fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 2316115,
+      "dept": "24",
+      "declaredDomain": "babolat.com",
+      "finalHost": "www.babolat.com",
+      "ip": "172.64.151.42",
+      "sourceUrl": "https://www.babolat.com/fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 2329337,
+      "dept": "24",
+      "declaredDomain": "babolat.com",
+      "finalHost": "www.babolat.com",
+      "ip": "172.64.151.42",
+      "sourceUrl": "https://www.babolat.com/fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1722126,
+      "dept": "24",
+      "declaredDomain": "thuasne.com",
+      "finalHost": "www.thuasne.com",
+      "ip": "151.101.194.216",
+      "sourceUrl": "https://www.thuasne.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1727820,
+      "dept": "64",
+      "declaredDomain": "albiana.fr",
+      "finalHost": "www.albiana.fr",
+      "ip": "5.135.23.164",
+      "sourceUrl": "https://www.albiana.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1802567,
+      "dept": "87",
+      "declaredDomain": "passman-group.com",
+      "finalHost": "www.passman-group.com",
+      "ip": "162.19.230.186",
+      "sourceUrl": "https://www.passman-group.com/fr/",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1812680,
+      "dept": "47",
+      "declaredDomain": "detaille.com",
+      "finalHost": "www.detaille.com",
+      "ip": "213.186.33.17",
+      "sourceUrl": "https://www.detaille.com/index.php",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1820441,
+      "dept": "40",
+      "declaredDomain": "balmain.com",
+      "finalHost": "balmain.com",
+      "ip": "23.227.38.65",
+      "sourceUrl": "https://balmain.com/fr-fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1835976,
+      "dept": "24",
+      "declaredDomain": "trousselier.fr",
+      "finalHost": "trousselier.fr",
+      "ip": "188.114.96.2",
+      "sourceUrl": "https://trousselier.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1922818,
+      "dept": "86",
+      "declaredDomain": "trousselier.fr",
+      "finalHost": "trousselier.fr",
+      "ip": "188.114.97.2",
+      "sourceUrl": "https://trousselier.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1980831,
+      "dept": "40",
+      "declaredDomain": "cafes-folliet.com",
+      "finalHost": "www.cafes-folliet.com",
+      "ip": "37.235.93.208",
+      "sourceUrl": "https://www.cafes-folliet.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1897195,
+      "dept": "17",
+      "declaredDomain": "letanneur.com",
+      "finalHost": "www.letanneur.com",
+      "ip": "23.227.38.74",
+      "sourceUrl": "https://www.letanneur.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1943390,
+      "dept": "47",
+      "declaredDomain": "samena.cloud",
+      "finalHost": "samena.cloud",
+      "ip": "5.135.23.164",
+      "sourceUrl": "https://samena.cloud",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1944836,
+      "dept": "33",
+      "declaredDomain": "franceagrimer.fr",
+      "finalHost": "www.franceagrimer.fr",
+      "ip": "92.222.209.51",
+      "sourceUrl": "https://www.franceagrimer.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1948110,
+      "dept": "64",
+      "declaredDomain": "talika.com",
+      "finalHost": "talika.com",
+      "ip": "23.227.38.67",
+      "sourceUrl": "https://talika.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1962146,
+      "dept": "33",
+      "declaredDomain": "murprotec.fr",
+      "finalHost": "www.murprotec.fr",
+      "ip": "172.66.43.51",
+      "sourceUrl": "https://www.murprotec.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1962946,
+      "dept": "24",
+      "declaredDomain": "cogedis.com",
+      "finalHost": "www.cogedis.com",
+      "ip": "193.70.61.81",
+      "sourceUrl": "https://www.cogedis.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 2202534,
+      "dept": "33",
+      "declaredDomain": "cogedis.com",
+      "finalHost": "www.cogedis.com",
+      "ip": "193.70.61.81",
+      "sourceUrl": "https://www.cogedis.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1963187,
+      "dept": "33",
+      "declaredDomain": "stokomani.fr",
+      "finalHost": "www.stokomani.fr",
+      "ip": "23.227.38.74",
+      "sourceUrl": "https://www.stokomani.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1964190,
+      "dept": "33",
+      "declaredDomain": "patapain.com",
+      "finalHost": "www.patapain.com",
+      "ip": "46.20.161.227",
+      "sourceUrl": "https://www.patapain.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1964191,
+      "dept": "16",
+      "declaredDomain": "patapain.com",
+      "finalHost": "www.patapain.com",
+      "ip": "46.20.161.227",
+      "sourceUrl": "https://www.patapain.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 1965420,
+      "dept": "33",
+      "declaredDomain": "bexley.fr",
+      "finalHost": "www.bexley.fr",
+      "ip": "104.18.4.143",
+      "sourceUrl": "https://www.bexley.fr",
+      "provider": "org.website"
+    }
+  ]
+}

@@ -1,0 +1,291 @@
+{
+  "consultedAt": "2026-11-22T02:45:37.940Z",
+  "source": "declared site zone; HTTP 200 on same registrable domain; DNS A",
+  "licence": "Wikidata CC0; public organisation records",
+  "attribution": "organisation registry, org_enrichissement proofs, Wikidata P462/P856",
+  "applied": true,
+  "onlyMissing": true,
+  "examined": 133,
+  "selected": 133,
+  "verified": 29,
+  "written": 29,
+  "measurement": {
+    "scope": "nouvelle-aquitaine",
+    "organisationsWithService": 7661,
+    "organisationsInScope": 1671906,
+    "services": 8549,
+    "bySource": {
+      "http-200": 1256,
+      "osm-http-200": 2941,
+      "dila-http-200": 1045,
+      "shodan-internetdb": 399,
+      "wikidata-http-200": 850,
+      "osm-siret-http-200": 1677,
+      "site-zone-http-200": 381
+    },
+    "measuredAt": "2026-11-22T02:45:46.849Z"
+  },
+  "candidates": [
+    {
+      "orgId": 328310,
+      "dept": "24",
+      "declaredDomain": "lauregatet.fr",
+      "finalHost": "lauregatet.fr",
+      "ip": "148.230.127.8",
+      "sourceUrl": "https://lauregatet.fr",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 2002820,
+      "dept": "24",
+      "declaredDomain": "milandes.com",
+      "finalHost": "www.milandes.com",
+      "ip": "46.105.204.6",
+      "sourceUrl": "https://www.milandes.com",
+      "provider": "org.website"
+    },
+    {
+      "orgId": 111312,
+      "dept": "86",
+      "declaredDomain": "polealienor.eu",
+      "finalHost": "www.polealienor.eu",
+      "ip": "109.234.167.166",
+      "sourceUrl": "https://www.polealienor.eu/index.html",
+      "provider": "wikidata:P462:P856"
+    },
+    {
+      "orgId": 100374,
+      "dept": "87",
+      "declaredDomain": "ciapvassiviere.org",
+      "finalHost": "www.ciapvassiviere.org",
+      "ip": "92.222.139.190",
+      "sourceUrl": "http://www.ciapvassiviere.org",
+      "provider": "wikidata:P462:P856"
+    },
+    {
+      "orgId": 21080,
+      "dept": "33",
+      "declaredDomain": "piano.io",
+      "finalHost": "www.piano.io",
+      "ip": "104.16.144.111",
+      "sourceUrl": "https://www.piano.io",
+      "provider": "wikidata:P462:P856"
+    },
+    {
+      "orgId": 155441,
+      "dept": "17",
+      "declaredDomain": "marechal-mats.fr",
+      "finalHost": "www.marechal-mats.fr",
+      "ip": "213.186.33.5",
+      "sourceUrl": "http://www.marechal-mats.fr",
+      "provider": "wikidata:P462:P856"
+    },
+    {
+      "orgId": 143169,
+      "dept": "33",
+      "declaredDomain": "napeditions.com",
+      "finalHost": "www.napeditions.com",
+      "ip": "217.160.0.171",
+      "sourceUrl": "https://www.napeditions.com/en/",
+      "provider": "wikidata:P462:P856"
+    },
+    {
+      "orgId": 141330,
+      "dept": "64",
+      "declaredDomain": "amplier.fr",
+      "finalHost": "amplier.fr",
+      "ip": "185.49.20.100",
+      "sourceUrl": "https://amplier.fr",
+      "provider": "wikidata:P462:P856"
+    },
+    {
+      "orgId": 204773,
+      "dept": "33",
+      "declaredDomain": "easycash.fr",
+      "finalHost": "www.easycash.fr",
+      "ip": "15.236.98.60",
+      "sourceUrl": "https://www.easycash.fr",
+      "provider": "wikidata:P462:P856"
+    },
+    {
+      "orgId": 202833,
+      "dept": "79",
+      "declaredDomain": "ima.eu",
+      "finalHost": "www.ima.eu",
+      "ip": "185.145.32.26",
+      "sourceUrl": "https://www.ima.eu/fr",
+      "provider": "wikidata:P462:P856"
+    },
+    {
+      "orgId": 232131,
+      "dept": "33",
+      "declaredDomain": "soberandgentle.com",
+      "finalHost": "www.soberandgentle.com",
+      "ip": "213.186.33.5",
+      "sourceUrl": "http://www.soberandgentle.com",
+      "provider": "wikidata:P462:P856"
+    },
+    {
+      "orgId": 2262643,
+      "dept": "33",
+      "declaredDomain": "exosun.fr",
+      "finalHost": "exosun.fr",
+      "ip": "81.92.91.56",
+      "sourceUrl": "http://exosun.fr",
+      "provider": "wikidata:P462:P856"
+    },
+    {
+      "orgId": 21553,
+      "dept": "33",
+      "declaredDomain": "pinpinteam.com",
+      "finalHost": "pinpinteam.com",
+      "ip": "172.67.223.207",
+      "sourceUrl": "https://pinpinteam.com",
+      "provider": "wikidata:P462:P856"
+    },
+    {
+      "orgId": 21076,
+      "dept": "86",
+      "declaredDomain": "srd-energies.fr",
+      "finalHost": "www.srd-energies.fr",
+      "ip": "3.124.233.177",
+      "sourceUrl": "https://www.srd-energies.fr",
+      "provider": "wikidata:P462:P856"
+    },
+    {
+      "orgId": 352656,
+      "dept": "64",
+      "declaredDomain": "angletolympiquerugbyclub.ffr.fr",
+      "finalHost": "angletolympiquerugbyclub.ffr.fr",
+      "ip": "143.244.56.52",
+      "sourceUrl": "https://angletolympiquerugbyclub.ffr.fr",
+      "provider": "wikidata:P462:P856"
+    },
+    {
+      "orgId": 331734,
+      "dept": "86",
+      "declaredDomain": "senoble.fr",
+      "finalHost": "www.senoble.fr",
+      "ip": "178.33.239.205",
+      "sourceUrl": "http://www.senoble.fr",
+      "provider": "wikidata:P462:P856"
+    },
+    {
+      "orgId": 359036,
+      "dept": "17",
+      "declaredDomain": "cgrcinemas.fr",
+      "finalHost": "www.cgrcinemas.fr",
+      "ip": "35.157.26.135",
+      "sourceUrl": "https://www.cgrcinemas.fr",
+      "provider": "wikidata:P462:P856"
+    },
+    {
+      "orgId": 2318297,
+      "dept": "79",
+      "declaredDomain": "cepam.com",
+      "finalHost": "www.cepam.com",
+      "ip": "13.248.169.48",
+      "sourceUrl": "http://www.cepam.com",
+      "provider": "wikidata:P462:P856"
+    },
+    {
+      "orgId": 372796,
+      "dept": "24",
+      "declaredDomain": "perigueuxcanoe.org",
+      "finalHost": "www.perigueuxcanoe.org",
+      "ip": "162.159.143.12",
+      "sourceUrl": "https://www.perigueuxcanoe.org",
+      "provider": "wikidata:P462:P856"
+    },
+    {
+      "orgId": 2340113,
+      "dept": "33",
+      "declaredDomain": "mirobole-editions.com",
+      "finalHost": "mirobole-editions.com",
+      "ip": "107.6.183.74",
+      "sourceUrl": "http://mirobole-editions.com",
+      "provider": "wikidata:P462:P856"
+    },
+    {
+      "orgId": 448336,
+      "dept": "33",
+      "declaredDomain": "isula.corsica",
+      "finalHost": "www.isula.corsica",
+      "ip": "130.117.9.112",
+      "sourceUrl": "https://www.isula.corsica",
+      "provider": "wikidata:P462:P856"
+    },
+    {
+      "orgId": 438486,
+      "dept": "86",
+      "declaredDomain": "lesoiseauxdepassage.coop",
+      "finalHost": "lesoiseauxdepassage.coop",
+      "ip": "46.101.163.210",
+      "sourceUrl": "https://lesoiseauxdepassage.coop",
+      "provider": "wikidata:P462:P856"
+    },
+    {
+      "orgId": 471280,
+      "dept": "33",
+      "declaredDomain": "liguenouvelleaquitaine.ffr.fr",
+      "finalHost": "liguenouvelleaquitaine.ffr.fr",
+      "ip": "143.244.56.52",
+      "sourceUrl": "https://liguenouvelleaquitaine.ffr.fr",
+      "provider": "wikidata:P462:P856"
+    },
+    {
+      "orgId": 560086,
+      "dept": "33",
+      "declaredDomain": "kroustyresto.fr",
+      "finalHost": "www.kroustyresto.fr",
+      "ip": "198.202.211.1",
+      "sourceUrl": "https://www.kroustyresto.fr",
+      "provider": "wikidata:P462:P856"
+    },
+    {
+      "orgId": 530235,
+      "dept": "64",
+      "declaredDomain": "ecoledelatoile.fr",
+      "finalHost": "www.ecoledelatoile.fr",
+      "ip": "109.234.160.114",
+      "sourceUrl": "https://www.ecoledelatoile.fr",
+      "provider": "wikidata:P462:P856"
+    },
+    {
+      "orgId": 653324,
+      "dept": "33",
+      "declaredDomain": "association-psea.fr",
+      "finalHost": "association-psea.fr",
+      "ip": "147.93.88.230",
+      "sourceUrl": "https://association-psea.fr",
+      "provider": "wikidata:P462:P856"
+    },
+    {
+      "orgId": 627236,
+      "dept": "33",
+      "declaredDomain": "pkpairsoft.com",
+      "finalHost": "www.pkpairsoft.com",
+      "ip": "162.159.143.12",
+      "sourceUrl": "https://www.pkpairsoft.com",
+      "provider": "wikidata:P462:P856"
+    },
+    {
+      "orgId": 591387,
+      "dept": "47",
+      "declaredDomain": "workandyou.fr",
+      "finalHost": "workandyou.fr",
+      "ip": "145.239.52.19",
+      "sourceUrl": "https://workandyou.fr",
+      "provider": "wikidata:P462:P856"
+    },
+    {
+      "orgId": 683870,
+      "dept": "33",
+      "declaredDomain": "bureau81.com",
+      "finalHost": "bureau81.com",
+      "ip": "75.2.60.5",
+      "sourceUrl": "https://bureau81.com",
+      "provider": "wikidata:P462:P856"
+    }
+  ]
+}
