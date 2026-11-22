@@ -27,6 +27,7 @@ type ExposureDbRow = {
 	website: string | null;
 	hostnames: string[];
 	observedUrls: string[];
+	directoryUrls: string[];
 	fingerprintPorts: number;
 	sharedIp: boolean;
 };
@@ -66,6 +67,16 @@ const EXPOSURE_SQL = `
            jsonb_agg(DISTINCT e.source_url) FILTER (WHERE e.source_url IS NOT NULL),
            '[]'::jsonb
          ) AS "observedUrls",
+         COALESCE(
+           jsonb_agg(DISTINCT e.source_url) FILTER (
+             WHERE e.source_url IS NOT NULL
+               AND split_part(e.evidence ->> 'provider', ':', 1) IN (
+                 'dila', 'annuaire-education', 'rna', 'annuaire-administration',
+                 'data-inclusion', 'osm', 'wikidata'
+               )
+           ),
+           '[]'::jsonb
+         ) AS "directoryUrls",
          COALESCE(bool_or(s.orgs > 1), false) AS "sharedIp"
     FROM exposition_service e
     JOIN org o ON o.id = e.org_id
@@ -167,6 +178,7 @@ export async function loadReconnaissanceInput(): Promise<LoadedReconnaissance> {
 		hostnames: Array.isArray(row.hostnames) ? row.hostnames : [],
 		observedUrls: Array.isArray(row.observedUrls) ? row.observedUrls : [],
 		fingerprintPorts: row.fingerprintPorts,
+		directoryUrls: Array.isArray(row.directoryUrls) ? row.directoryUrls : [],
 		sharedIp: row.sharedIp,
 	}));
 	const subdomainRows: SubdomainRow[] = subdomains.rows.map((row) => ({

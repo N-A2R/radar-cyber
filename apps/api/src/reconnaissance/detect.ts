@@ -3,16 +3,18 @@
  *
  * "Reconnaissance" means an observable attack-surface footprint: what a passive
  * observer can learn about an organization before any intrusion is claimed.
- * Three independent stores provide the observables:
+ * Four sources of observations feed the detector:
+ *   - directory provenance on the source URL: an open directory links that site
+ *     to the organization even when it declares no domain.
  *   - exposition_service: a public service carrying a technology fingerprint;
  *   - ct_sous_domaine: subdomains disclosed by Certificate Transparency;
  *   - dns_domaine: an actively observed, successfully resolved DNS perimeter.
  *
  * A raw observable makes an organization a *candidate*. It becomes a detection
  * only when the attribution can be checked from a second fact: a hostname owned
- * by the organization (its registrable domain or a subdomain of it) for a
- * service, an unambiguous exact registered-domain match for CT, and a
- * successful active lookup for DNS.
+ * by the organization (its registrable domain or a subdomain) for a service, a
+ * directory that links the observed URL to the organization, an unambiguous
+ * exact registered-domain match for CT, and a successful active lookup for DNS.
  *
  * Candidates are counted only when a real observable exists. A DNS row that has
  * never resolved is a pending lookup, not an observation: counting it would
@@ -39,6 +41,8 @@ export type ExposureRow = {
 	hostnames: string[];
 	/** URLs where the service was observed, untrusted for ownership. */
 	observedUrls: string[];
+	/** URLs collected from directories that link the site to this organization. */
+	directoryUrls: string[];
 	/** Distinct ports carrying a technology on a non-shared IP. */
 	fingerprintPorts: number;
 	/** At least one observed IP is also attributed to another organization. */
@@ -141,6 +145,8 @@ export function normalizeHostname(value: string | null | undefined): string {
 /** A hostname that can plausibly name an organization's own domain. */
 export function isPlausibleDomain(value: string): boolean {
 	if (!value.includes(".") || PUBLIC_SUFFIXES[value]) return false;
+	const labels = value.split(".");
+	if (/^\d+$/.test(labels[labels.length - 1] ?? "")) return false;
 	return /^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)+$/.test(
 		value,
 	);
@@ -159,23 +165,33 @@ export function hasServiceObservable(row: ExposureRow): boolean {
 }
 
 /**
- * A service observation is attributable only when the observation names a host
- * belonging to the organization itself: its normalised domain or website, or a
- * subdomain of it. The host can come from the passive hostname list or from the
- * URL used by the HTTP observation. Shared IPs and generic hosts hosted
- * elsewhere are not ownership evidence.
+ * Two independent facts can attribute a service: a host owned by the
+ * organization (its declared domain or one of its subdomains), or a URL
+ * collected from a directory that links that site to the organization.
+ * Declared-domain attribution still needs a non-shared IP; directory
+ * provenance is itself the second fact, so a shared IP cannot cancel it.
+ * Generic suffixes and IP-like hosts are never ownership evidence.
  */
 export function attributableService(row: ExposureRow): boolean {
-	if (row.sharedIp || !hasServiceObservable(row)) return false;
-	const owned = [row.domain, row.website]
-		.map(normalizeHostname)
-		.filter(isPlausibleDomain);
-	if (owned.length === 0) return false;
-	const observed = [...row.hostnames, ...row.observedUrls].map(normalizeHostname);
-	return observed.some((host) => {
-		if (!host) return false;
-		return owned.some((domain) => host === domain || host.endsWith(`.${domain}`));
-	});
+	if (!hasServiceObservable(row)) return false;
+	if (!row.sharedIp) {
+		const owned = [row.domain, row.website]
+			.map(normalizeHostname)
+			.filter(isPlausibleDomain);
+		if (owned.length > 0) {
+			const observed = [...row.hostnames, ...row.observedUrls].map(normalizeHostname);
+			if (
+				observed.some((host) =>
+					owned.some(
+						(domain) => host === domain || host.endsWith(`.${domain}`),
+					),
+				)
+			) {
+				return true;
+			}
+		}
+	}
+	return row.directoryUrls.some((url) => isPlausibleDomain(normalizeHostname(url)));
 }
 
 /** CT subdomains are evidence only for an unambiguous exact domain match. */

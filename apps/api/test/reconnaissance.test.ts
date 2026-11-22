@@ -48,6 +48,7 @@ function exposureRow(overrides: Partial<ExposureRow> = {}): ExposureRow {
 		website: "https://www.example.fr/",
 		hostnames: ["www.example.fr"],
 		observedUrls: [],
+		directoryUrls: [],
 		fingerprintPorts: 2,
 		sharedIp: false,
 		...overrides,
@@ -205,6 +206,39 @@ test("a service is attributable through the URL used for its observation", () =>
 	assert.equal(
 		attributableService(
 			exposureRow({ hostnames: [], observedUrls: ["https://hosted.invalid/page"] }),
+		),
+		false,
+	);
+});
+
+test("a directory-linked URL attributes a service without a declared domain", () => {
+	const row = exposureRow({
+		domain: null,
+		website: null,
+		hostnames: [],
+		observedUrls: [],
+		sharedIp: true,
+		directoryUrls: ["https://WWW.Directory-Example.FR/page"],
+	});
+	assert.equal(attributableService(row), true);
+	assert.equal(
+		attributableService(
+			exposureRow({
+				domain: null,
+				website: null,
+				hostnames: [],
+				observedUrls: ["https://directory-example.fr/page"],
+			}),
+		),
+		false,
+	);
+	assert.equal(
+		attributableService(
+			exposureRow({
+				domain: null,
+				website: null,
+				directoryUrls: ["https://gouv.fr/page", "https://203.0.113.10/"],
+			}),
 		),
 		false,
 	);
