@@ -86,3 +86,5 @@ Le score classe les expositions observées ; il ne prétend pas prédire quelles
 organisations seront frappées. Avec 20 graines et quelques expositions par
 fenêtre, la mesure reste indicative et doit être rejouée sur une base à jour.
 OBJECTIF : atteint — précision 0,875 / 0,80
+
+CHANTIER TERMINE
