@@ -1,0 +1,453 @@
+{
+  "meta": {
+    "titre": "Complément géographique Nouvelle-Aquitaine",
+    "source": "API Adresse (BAN) + API Géo (IGN/Etalab), services publics gratuits",
+    "licence": "Licence Ouverte 1.0",
+    "methode": "Appariement non ambigu du libellé SIRENE au code commune, centroïde communal officiel",
+    "genereLe": "2026-11-21T22:32:01.339Z",
+    "entrees": 49
+  },
+  "entrees": [
+    {
+      "city": "AIGNES ET PUYPEROUX",
+      "dept": "16",
+      "code": "16230",
+      "nom": "Montmoreau",
+      "lat": 45.4062,
+      "lon": 0.1524,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=AIGNES%20ET%20PUYPEROUX + https://geo.api.gouv.fr/communes/16230"
+    },
+    {
+      "city": "AUBEVILLE",
+      "dept": "16",
+      "code": "16175",
+      "nom": "Val des Vignes",
+      "lat": 45.5065,
+      "lon": -0.0142,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=AUBEVILLE + https://geo.api.gouv.fr/communes/16175"
+    },
+    {
+      "city": "BIGNAC",
+      "dept": "16",
+      "code": "16148",
+      "nom": "Genac-Bignac",
+      "lat": 45.7986,
+      "lon": 0.0297,
+      "source": "ban-municipality: https://api-adresse.data.gouv.fr/search/ q=BIGNAC + https://geo.api.gouv.fr/communes/16148"
+    },
+    {
+      "city": "CHAVENAT",
+      "dept": "16",
+      "code": "16082",
+      "nom": "Boisné-La Tude",
+      "lat": 45.4697,
+      "lon": 0.1976,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=CHAVENAT + https://geo.api.gouv.fr/communes/16082"
+    },
+    {
+      "city": "CRESSAC SAINT GENIS",
+      "dept": "16",
+      "code": "16046",
+      "nom": "Coteaux-du-Blanzacais",
+      "lat": 45.4586,
+      "lon": 0.0214,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=CRESSAC%20SAINT%20GENIS + https://geo.api.gouv.fr/communes/16046"
+    },
+    {
+      "city": "ERAVILLE",
+      "dept": "16",
+      "code": "16204",
+      "nom": "Bellevigne",
+      "lat": 45.5566,
+      "lon": -0.1185,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=ERAVILLE + https://geo.api.gouv.fr/communes/16204"
+    },
+    {
+      "city": "GOURVILLE",
+      "dept": "16",
+      "code": "16286",
+      "nom": "Rouillac",
+      "lat": 45.7937,
+      "lon": -0.0729,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=GOURVILLE + https://geo.api.gouv.fr/communes/16286"
+    },
+    {
+      "city": "MAGNAC-LAVALETTE-VILLARS",
+      "dept": "16",
+      "code": "16198",
+      "nom": "Magnac-lès-Gardes",
+      "lat": 45.5087,
+      "lon": 0.2741,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=MAGNAC-LAVALETTE-VILLARS + https://geo.api.gouv.fr/communes/16198"
+    },
+    {
+      "city": "MAINXE",
+      "dept": "16",
+      "code": "16153",
+      "nom": "Mainxe-Gondeville",
+      "lat": 45.658,
+      "lon": -0.1674,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=MAINXE + https://geo.api.gouv.fr/communes/16153"
+    },
+    {
+      "city": "MOUTONNEAU",
+      "dept": "16",
+      "code": "16023",
+      "nom": "Aunac-sur-Charente",
+      "lat": 45.9253,
+      "lon": 0.2352,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=MOUTONNEAU + https://geo.api.gouv.fr/communes/16023"
+    },
+    {
+      "city": "NONAVILLE",
+      "dept": "16",
+      "code": "16204",
+      "nom": "Bellevigne",
+      "lat": 45.5566,
+      "lon": -0.1185,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=NONAVILLE + https://geo.api.gouv.fr/communes/16204"
+    },
+    {
+      "city": "RANCOGNE",
+      "dept": "16",
+      "code": "16406",
+      "nom": "Moulins-sur-Tardoire",
+      "lat": 45.6883,
+      "lon": 0.4037,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=RANCOGNE + https://geo.api.gouv.fr/communes/16406"
+    },
+    {
+      "city": "SAINT LAURENT DE BELZAGOT",
+      "dept": "16",
+      "code": "16230",
+      "nom": "Montmoreau",
+      "lat": 45.4062,
+      "lon": 0.1524,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=SAINT%20LAURENT%20DE%20BELZAGOT + https://geo.api.gouv.fr/communes/16230"
+    },
+    {
+      "city": "SAINT-AMANT-DE-MONTMOREAU",
+      "dept": "16",
+      "code": "16230",
+      "nom": "Montmoreau",
+      "lat": 45.4062,
+      "lon": 0.1524,
+      "source": "ban-municipality: https://api-adresse.data.gouv.fr/search/ q=SAINT-AMANT-DE-MONTMOREAU + https://geo.api.gouv.fr/communes/16230"
+    },
+    {
+      "city": "SONNEVILLE",
+      "dept": "16",
+      "code": "16286",
+      "nom": "Rouillac",
+      "lat": 45.7937,
+      "lon": -0.0729,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=SONNEVILLE + https://geo.api.gouv.fr/communes/16286"
+    },
+    {
+      "city": "TOUZAC",
+      "dept": "16",
+      "code": "16204",
+      "nom": "Bellevigne",
+      "lat": 45.5566,
+      "lon": -0.1185,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=TOUZAC + https://geo.api.gouv.fr/communes/16204"
+    },
+    {
+      "city": "VARS",
+      "dept": "16",
+      "code": "16393",
+      "nom": "La Boixe",
+      "lat": 45.7649,
+      "lon": 0.134,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=VARS + https://geo.api.gouv.fr/communes/16393"
+    },
+    {
+      "city": "VIVILLE",
+      "dept": "16",
+      "code": "16204",
+      "nom": "Bellevigne",
+      "lat": 45.5566,
+      "lon": -0.1185,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=VIVILLE + https://geo.api.gouv.fr/communes/16204"
+    },
+    {
+      "city": "NUAILLE-SUR-BOUTONNE",
+      "dept": "17",
+      "code": "17268",
+      "nom": "Rives-de-Boutonne",
+      "lat": 46.0307,
+      "lon": -0.4043,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=NUAILLE-SUR-BOUTONNE + https://geo.api.gouv.fr/communes/17268"
+    },
+    {
+      "city": "SAINT DENIS DU PIN",
+      "dept": "17",
+      "code": "17277",
+      "nom": "Essouvert",
+      "lat": 45.9958,
+      "lon": -0.5412,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=SAINT%20DENIS%20DU%20PIN + https://geo.api.gouv.fr/communes/17277"
+    },
+    {
+      "city": "SAINT MAURICE DE TAVERNOLE",
+      "dept": "17",
+      "code": "17295",
+      "nom": "Réaux sur Trèfle",
+      "lat": 45.4747,
+      "lon": -0.3797,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=SAINT%20MAURICE%20DE%20TAVERNOLE + https://geo.api.gouv.fr/communes/17295"
+    },
+    {
+      "city": "ST LAURENT DE LA BARRIERE",
+      "dept": "17",
+      "code": "17457",
+      "nom": "La Devise",
+      "lat": 46.0464,
+      "lon": -0.7346,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=ST%20LAURENT%20DE%20LA%20BARRIERE + https://geo.api.gouv.fr/communes/17457"
+    },
+    {
+      "city": "SAINT-YBARD",
+      "dept": "19",
+      "code": "19248",
+      "nom": "Les Trois-Saints",
+      "lat": 45.4464,
+      "lon": 1.4925,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=SAINT-YBARD + https://geo.api.gouv.fr/communes/19248"
+    },
+    {
+      "city": "MALVAL",
+      "dept": "23",
+      "code": "23109",
+      "nom": "Linard-Malval",
+      "lat": 46.3674,
+      "lon": 1.8805,
+      "source": "ban-municipality: https://api-adresse.data.gouv.fr/search/ q=MALVAL + https://geo.api.gouv.fr/communes/23109"
+    },
+    {
+      "city": "SAINT PIERRE DE FURSAC",
+      "dept": "23",
+      "code": "23192",
+      "nom": "Fursac",
+      "lat": 46.1433,
+      "lon": 1.5176,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=SAINT%20PIERRE%20DE%20FURSAC + https://geo.api.gouv.fr/communes/23192"
+    },
+    {
+      "city": "BEZENAC",
+      "dept": "24",
+      "code": "24087",
+      "nom": "Castels et Bézenac",
+      "lat": 44.8647,
+      "lon": 1.0841,
+      "source": "ban-municipality: https://api-adresse.data.gouv.fr/search/ q=BEZENAC + https://geo.api.gouv.fr/communes/24087"
+    },
+    {
+      "city": "FESTALEMPS",
+      "dept": "24",
+      "code": "24490",
+      "nom": "Saint Privat en Périgord",
+      "lat": 45.2266,
+      "lon": 0.2058,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=FESTALEMPS + https://geo.api.gouv.fr/communes/24490"
+    },
+    {
+      "city": "FLAUGEAC",
+      "dept": "24",
+      "code": "24534",
+      "nom": "Sigoulès-et-Flaugeac",
+      "lat": 44.7544,
+      "lon": 0.4133,
+      "source": "ban-municipality: https://api-adresse.data.gouv.fr/search/ q=FLAUGEAC + https://geo.api.gouv.fr/communes/24534"
+    },
+    {
+      "city": "MOUZENS",
+      "dept": "24",
+      "code": "24142",
+      "nom": "Coux et Bigaroque-Mouzens",
+      "lat": 44.8501,
+      "lon": 0.9695,
+      "source": "ban-municipality: https://api-adresse.data.gouv.fr/search/ q=MOUZENS + https://geo.api.gouv.fr/communes/24142"
+    },
+    {
+      "city": "SAINT ANTOINE CUMOND",
+      "dept": "24",
+      "code": "24490",
+      "nom": "Saint Privat en Périgord",
+      "lat": 45.2266,
+      "lon": 0.2058,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=SAINT%20ANTOINE%20CUMOND + https://geo.api.gouv.fr/communes/24490"
+    },
+    {
+      "city": "CANTENAC",
+      "dept": "33",
+      "code": "33268",
+      "nom": "Margaux-Cantenac",
+      "lat": 45.0363,
+      "lon": -0.6788,
+      "source": "ban-municipality: https://api-adresse.data.gouv.fr/search/ q=CANTENAC + https://geo.api.gouv.fr/communes/33268"
+    },
+    {
+      "city": "CANTOIS",
+      "dept": "33",
+      "code": "33008",
+      "nom": "Porte-de-Benauge",
+      "lat": 44.6821,
+      "lon": -0.2265,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=CANTOIS + https://geo.api.gouv.fr/communes/33008"
+    },
+    {
+      "city": "LES SALLES",
+      "dept": "33",
+      "code": "33498",
+      "nom": "Salles",
+      "lat": 44.536,
+      "lon": -0.8899,
+      "source": "ban-municipality: https://api-adresse.data.gouv.fr/search/ q=LES%20SALLES + https://geo.api.gouv.fr/communes/33498"
+    },
+    {
+      "city": "PRIGNAC EN MEDOC",
+      "dept": "33",
+      "code": "33055",
+      "nom": "Blaignan-Prignac",
+      "lat": 45.321,
+      "lon": -0.8882,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=PRIGNAC%20EN%20MEDOC + https://geo.api.gouv.fr/communes/33055"
+    },
+    {
+      "city": "LE FRECHOU",
+      "dept": "47",
+      "code": "47103",
+      "nom": "Fréchou",
+      "lat": 44.0824,
+      "lon": 0.3384,
+      "source": "ban-municipality: https://api-adresse.data.gouv.fr/search/ q=LE%20FRECHOU + https://geo.api.gouv.fr/communes/47103"
+    },
+    {
+      "city": "LE LEDAT",
+      "dept": "47",
+      "code": "47146",
+      "nom": "Lédat",
+      "lat": 44.448,
+      "lon": 0.6668,
+      "source": "ban-municipality: https://api-adresse.data.gouv.fr/search/ q=LE%20LEDAT + https://geo.api.gouv.fr/communes/47146"
+    },
+    {
+      "city": "BOISSEROLLES",
+      "dept": "79",
+      "code": "79078",
+      "nom": "Plaine-d'Argenson",
+      "lat": 46.1316,
+      "lon": -0.4813,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=BOISSEROLLES + https://geo.api.gouv.fr/communes/79078"
+    },
+    {
+      "city": "POUFFONDS",
+      "dept": "79",
+      "code": "79251",
+      "nom": "Marcillé",
+      "lat": 46.1907,
+      "lon": -0.1307,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=POUFFONDS + https://geo.api.gouv.fr/communes/79251"
+    },
+    {
+      "city": "SAINT ETIENNE LA CIGOGNE",
+      "dept": "79",
+      "code": "79078",
+      "nom": "Plaine-d'Argenson",
+      "lat": 46.1316,
+      "lon": -0.4813,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=SAINT%20ETIENNE%20LA%20CIGOGNE + https://geo.api.gouv.fr/communes/79078"
+    },
+    {
+      "city": "SANZAY",
+      "dept": "79",
+      "code": "79277",
+      "nom": "Saint-Martin-de-Sanzay",
+      "lat": 47.0687,
+      "lon": -0.1907,
+      "source": "ban-municipality: https://api-adresse.data.gouv.fr/search/ q=SANZAY + https://geo.api.gouv.fr/communes/79277"
+    },
+    {
+      "city": "SAUZE-VAUSSAIS",
+      "dept": "79",
+      "code": "79307",
+      "nom": "Sauzé-entre-Bois",
+      "lat": 46.1625,
+      "lon": 0.1257,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=SAUZE-VAUSSAIS + https://geo.api.gouv.fr/communes/79307"
+    },
+    {
+      "city": "VITRE",
+      "dept": "79",
+      "code": "79030",
+      "nom": "Beaussais-Vitré",
+      "lat": 46.2819,
+      "lon": -0.1729,
+      "source": "ban-municipality: https://api-adresse.data.gouv.fr/search/ q=VITRE + https://geo.api.gouv.fr/communes/79030"
+    },
+    {
+      "city": "VOULTEGON",
+      "dept": "79",
+      "code": "79242",
+      "nom": "Voulmentin",
+      "lat": 46.942,
+      "lon": -0.5227,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=VOULTEGON + https://geo.api.gouv.fr/communes/79242"
+    },
+    {
+      "city": "BENASSAY",
+      "dept": "86",
+      "code": "86123",
+      "nom": "Boivre-la-Vallée",
+      "lat": 46.5391,
+      "lon": 0.087,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=BENASSAY + https://geo.api.gouv.fr/communes/86123"
+    },
+    {
+      "city": "LA CHAPELLE MONTREUIL",
+      "dept": "86",
+      "code": "86123",
+      "nom": "Boivre-la-Vallée",
+      "lat": 46.5391,
+      "lon": 0.087,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=LA%20CHAPELLE%20MONTREUIL + https://geo.api.gouv.fr/communes/86123"
+    },
+    {
+      "city": "LAVAUSSEAU",
+      "dept": "86",
+      "code": "86123",
+      "nom": "Boivre-la-Vallée",
+      "lat": 46.5391,
+      "lon": 0.087,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=LAVAUSSEAU + https://geo.api.gouv.fr/communes/86123"
+    },
+    {
+      "city": "LE ROCHEREAU",
+      "dept": "86",
+      "code": "86053",
+      "nom": "Champigny en Rochereau",
+      "lat": 46.7127,
+      "lon": 0.1567,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=LE%20ROCHEREAU + https://geo.api.gouv.fr/communes/86053"
+    },
+    {
+      "city": "MONTREUIL BONNIN",
+      "dept": "86",
+      "code": "86123",
+      "nom": "Boivre-la-Vallée",
+      "lat": 46.5391,
+      "lon": 0.087,
+      "source": "ban-street: https://api-adresse.data.gouv.fr/search/ q=MONTREUIL%20BONNIN + https://geo.api.gouv.fr/communes/86123"
+    },
+    {
+      "city": "GRANDS-CHEZEAUX",
+      "dept": "87",
+      "code": "87074",
+      "nom": "Les Grands-Chézeaux",
+      "lat": 46.3597,
+      "lon": 1.3855,
+      "source": "ban-municipality: https://api-adresse.data.gouv.fr/search/ q=GRANDS-CHEZEAUX + https://geo.api.gouv.fr/communes/87074"
+    }
+  ]
+}

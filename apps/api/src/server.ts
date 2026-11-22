@@ -18,6 +18,7 @@ import { promoteMatches } from "./quarantine/promote.js";
 import { fetchResilient } from "./collectors/http.js";
 import { collectors, executerCollecteur, executerPlan, planifierCycle, ratisserSourcesJamaisCollectees } from "./collectors/index.js";
 import { enregistrerCycleCollecte } from "./collecte/supervision.js";
+import { startLiveStream } from "./collecte/live.js";
 import { consignerLot, type JournalEntry } from "./journal/index.js";
 import { porteeRegionale } from "./match/territorial.js";
 import { closePools, ingestQuery, query } from "./db.js";
@@ -339,6 +340,9 @@ if (COLLECT) {
 	// Un premier passage au démarrage, puis un tick régulier par tâche.
 	// Collecteurs dédiés et génériques forment un seul cycle mesuré.
 	void guarded("cycle de collecte", executerCycleCollecte);
+	// Fast lane: opted-in Nouvelle-Aquitaine sources, polled independently of
+	// the 60-second cycle. The DB trigger records publication-to-record latency.
+	startLiveStream(log);
 	void guarded("corrélation", () => correlateEvents(log));
 	void guarded("hermes", () => runHermesCollector(log));
 	void guarded("détection", async () => {

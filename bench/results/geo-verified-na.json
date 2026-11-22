@@ -1,0 +1,42 @@
+{
+  "measuredAt": "2026-11-21T22:45:32.308Z",
+  "definition": "share of Nouvelle-Aquitaine orgs with non-null lat/lon inside the regional bounding box",
+  "bounds": {
+    "minLat": 42.7,
+    "maxLat": 47.2,
+    "minLon": -2.1,
+    "maxLon": 2.8
+  },
+  "departmentValuesInScope": [
+    "16",
+    "17",
+    "19",
+    "23",
+    "24",
+    "33",
+    "40",
+    "47",
+    "64",
+    "79",
+    "86",
+    "87",
+    "Charente",
+    "Charente-Maritime",
+    "Creuse",
+    "Deux-Sèvres",
+    "Gironde",
+    "Haute-Vienne",
+    "Landes",
+    "Lot-et-Garonne",
+    "Pyrénées-Atlantiques",
+    "Vienne"
+  ],
+  "nullDeptScopeSource": "centroide-pondere-membres",
+  "totalNaOrgs": 1671910,
+  "coordsNaOrgs": 1671910,
+  "verifiedNaOrgs": 1671910,
+  "verifiedRatePct": 100,
+  "orgsWithGeoSource": 479724,
+  "totalOrgs": 1673203,
+  "outsideScopeOrgs": 1293
+}

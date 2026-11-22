@@ -1,0 +1,719 @@
+{
+  "scope": "nouvelle-aquitaine",
+  "evidenceFile": "bench/results/tor-stability-after.json",
+  "evidenceAt": "2026-11-21T20:29:36.381Z",
+  "sourceCount": 77,
+  "siteCount": 70,
+  "liveSites": 61,
+  "productiveSites": 49,
+  "liveAndProductiveSites": 49,
+  "sites": [
+    {
+      "host": "3ev4metjirohtdpshsqlkrqcmxq6zu3d7obrdhglpy5jpbr7whmlfgqd.onion",
+      "sourceIds": [
+        "onion:rl:abyss-data"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 1,
+      "httpStatus": 200
+    },
+    {
+      "host": "3i5px2hibsyityv6jixnqba35yz25jekbwwumjdxjqzt3euqsygjx5id.onion",
+      "sourceIds": [
+        "onion:ccw:dark-project"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 1,
+      "httpStatus": 200
+    },
+    {
+      "host": "47glxkuxyayqrvugfumgsblrdagvrah7gttfscgzn56eyss5wg3uvmqd.onion",
+      "sourceIds": [
+        "onion:ccw:team-underground"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 1,
+      "httpStatus": 200
+    },
+    {
+      "host": "4dwiv37h7hhuhjpvtn72hme4ylcv3qoe65arfc6mbweal7als6ma7pyd.onion",
+      "sourceIds": [
+        "onion:ccw:wallstreet"
+      ],
+      "live": true,
+      "productive": false,
+      "items": 0,
+      "httpStatus": 200
+    },
+    {
+      "host": "4e3p3in2bl67hxchuwza7qvnpe7pyeloyztr5fnh257fxkovfhappjyd.onion",
+      "sourceIds": [
+        "onion:rl:fulcrumsec"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 4,
+      "httpStatus": 200
+    },
+    {
+      "host": "5butbkrljkaorg5maepuca25oma7eiwo6a2rlhvkblb4v6mf3ki2ovid.onion",
+      "sourceIds": [
+        "onion:ccw:spacebears"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 1,
+      "httpStatus": 200
+    },
+    {
+      "host": "6czlbd2jfiy6765fbnbnzuwuqocg57ebvp3tbm35kib425k4qnmiiiqd.onion",
+      "sourceIds": [
+        "onion:rl:kazu"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 6,
+      "httpStatus": 200
+    },
+    {
+      "host": "6g3aoky5hft4mvzcqt2bugo4r465woaorjhd7em2k2v24sr2exaro5id.onion",
+      "sourceIds": [
+        "onion:ccw:anubis"
+      ],
+      "live": true,
+      "productive": false,
+      "items": 0,
+      "httpStatus": 200
+    },
+    {
+      "host": "6hzpdc5pxt57jmjxyegwjyhcinr2z3ajucizndehykz7zfrtaptln5qd.onion",
+      "sourceIds": [
+        "onion:ccw:obsoft"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 1,
+      "httpStatus": 200
+    },
+    {
+      "host": "6tdqqaxftvradka5d2frzgwixis7fmro7rfh4ettzcx7jfapkebe6jad.onion",
+      "sourceIds": [
+        "onion:ccw:auditteam"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 4,
+      "httpStatus": 200
+    },
+    {
+      "host": "7t3zi3e7ki6iseun77ofqtr6wmbpgnpc2ada6gstcxp54lw6q2zb7jad.onion",
+      "sourceIds": [
+        "onion:ccw:booba-project"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 1,
+      "httpStatus": 200
+    },
+    {
+      "host": "aoqinwwrizxbrwm3qb6l4jzgujgmcetp4jaug7fqylbf3xcwqwzvbuid.onion",
+      "sourceIds": [
+        "onion:ccw:aoqin",
+        "onion:ccw:aoqin-leaks"
+      ],
+      "live": true,
+      "productive": false,
+      "items": 0,
+      "httpStatus": 200
+    },
+    {
+      "host": "arcuufpr5xxbbkin4mlidt7itmr6znlppk63jbtkeguuhszmc5g7qdyd.onion",
+      "sourceIds": [
+        "onion:ccw:arcusmedia"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 32,
+      "httpStatus": 200
+    },
+    {
+      "host": "b5gozwifyvy5bhys3bsiq5tedhpot345udggjyb54fsjd2m7nteftkad.onion",
+      "sourceIds": [
+        "onion:ccw:global-secret-group"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 1,
+      "httpStatus": 200
+    },
+    {
+      "host": "basheqtvzqwz4vp6ks5lm2ocq7i6tozqgf6vjcasj4ezmsy4bkpshhyd.onion",
+      "sourceIds": [
+        "onion:rl:eraleign-apt73"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 9,
+      "httpStatus": 200
+    },
+    {
+      "host": "basherq53eniermxovo3bkduw5qqq5bkqcml3qictfmamgvmzovykyqd.onion",
+      "sourceIds": [
+        "onion:ccw:apt73"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 9,
+      "httpStatus": 200
+    },
+    {
+      "host": "bs2tlg32pfjwmclm22cyngqmoo24cdlhfxzbruwrdaxumisfeory32qd.onion",
+      "sourceIds": [
+        "onion:ccw:reynolds"
+      ],
+      "live": false,
+      "productive": false,
+      "items": 0,
+      "httpStatus": null
+    },
+    {
+      "host": "byodxn5s7sua6oyyjj74rycgn6afncfckprt5ezskt3cni6lg3wdrgad.onion",
+      "sourceIds": [
+        "onion:ccw:byod",
+        "onion:rl:byod"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 1,
+      "httpStatus": 200
+    },
+    {
+      "host": "climaxf4srk4qzr5g7smfodx6q5ocpiwmls5qujfl7g3j33us4cksdad.onion",
+      "sourceIds": [
+        "onion:ccw:climax"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 9,
+      "httpStatus": 200
+    },
+    {
+      "host": "ctyfftrjgtwdjzlgqh4avbd35sqrs6tde4oyam2ufbjch6oqpqtkdtid.onion",
+      "sourceIds": [
+        "onion:ccw:blacknevas"
+      ],
+      "live": true,
+      "productive": false,
+      "items": 0,
+      "httpStatus": 200
+    },
+    {
+      "host": "da763kyxwe3mf67gui5tb5igvpnt4w6cps5svrw2wkizyrzqgamdxtid.onion",
+      "sourceIds": [
+        "onion:rl:ransomhouse"
+      ],
+      "live": true,
+      "productive": false,
+      "items": 0,
+      "httpStatus": 200
+    },
+    {
+      "host": "destell6tk2la7w4d7d4apfzsywbt2lsdpui7i2rsfyrike7pxolrbyd.onion",
+      "sourceIds": [
+        "onion:ccw:destello"
+      ],
+      "live": false,
+      "productive": false,
+      "items": 0,
+      "httpStatus": null
+    },
+    {
+      "host": "direwolfcdkv5whaz2spehizdg22jsuf5aeje4asmetpbt6ri4jnd4qd.onion",
+      "sourceIds": [
+        "onion:ccw:direwolf"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 1,
+      "httpStatus": 200
+    },
+    {
+      "host": "endzonezgz3sqzmtqg4acp4z7ao7xc6vunfhezjsnfqrm2ksudsredyd.onion",
+      "sourceIds": [
+        "onion:ccw:endzone"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 7,
+      "httpStatus": 200
+    },
+    {
+      "host": "ethics67vxjomvlcugjovv4fc3g6ru5tpwotg533d4j3uf2btmnndead.onion",
+      "sourceIds": [
+        "onion:ccw:ethics"
+      ],
+      "live": false,
+      "productive": false,
+      "items": 0,
+      "httpStatus": null
+    },
+    {
+      "host": "everestndkvzcibcje2cqxhre2hmmybl3rn2gwzwsblz7gx6uryn5rad.onion",
+      "sourceIds": [
+        "onion:ccw:everest"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 87,
+      "httpStatus": 200
+    },
+    {
+      "host": "everstakewfma6sxdpshoq4ebtnqamsxnajrtzu2cflai77kfup5kzyd.onion",
+      "sourceIds": [
+        "onion:ccw:everstake"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 1,
+      "httpStatus": 200
+    },
+    {
+      "host": "gammax6w3dkfdjfrjthtmqzsioue52vzy6lz54qy6jcvmogfpubutjyd.onion",
+      "sourceIds": [
+        "onion:ccw:gammax",
+        "onion:rl:gammax"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 3,
+      "httpStatus": 200
+    },
+    {
+      "host": "genesis6ixpb5mcy4kudybtw5op2wqlrkocfogbnenz3c647ibqixiad.onion",
+      "sourceIds": [
+        "onion:ccw:genesis",
+        "onion:rl:genesis"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 15,
+      "httpStatus": 200
+    },
+    {
+      "host": "hackerosyolorz77y7vwj57zobwdeuzydhctz3kuuzr52ylzayvxuqyd.onion",
+      "sourceIds": [
+        "onion:ccw:osyolorz-collective"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 1,
+      "httpStatus": 200
+    },
+    {
+      "host": "helixr2sncrd3ndsz5oho6mzqw3x5u7mvox5zcsngc5wm7v4l5k7oryd.onion",
+      "sourceIds": [
+        "onion:ccw:helix"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 1,
+      "httpStatus": 200
+    },
+    {
+      "host": "i62huw7ve22rpyw6lnq3kmfump2dmsg4xpveec3ere73njwatrz74gad.onion",
+      "sourceIds": [
+        "onion:ccw:insomnia"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 45,
+      "httpStatus": 200
+    },
+    {
+      "host": "iacjvmxjb2ivqkxxzmde4w6g53gn6ym7c3g6mfifvejyhqtp4wrkypyd.onion",
+      "sourceIds": [
+        "onion:ccw:doommageddon"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 26,
+      "httpStatus": 200
+    },
+    {
+      "host": "incbacg6bfwtrlzwdbqc55gsfl763s3twdtwhp27dzuik6s6rwdcityd.onion",
+      "sourceIds": [
+        "onion:ccw:incransom"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 12,
+      "httpStatus": 200
+    },
+    {
+      "host": "jxrchotl2mfz7y3hugu5lklqfcj6xxxvkweydrshtnddfrqsw2c3qwqd.onion",
+      "sourceIds": [
+        "onion:ccw:kairos"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 13,
+      "httpStatus": 200
+    },
+    {
+      "host": "jyp5yg7mh4siqkroxa3mydildkdw4qddbya7v6kamtd25ugdsob7voad.onion",
+      "sourceIds": [
+        "onion:ccw:moneymessage"
+      ],
+      "live": false,
+      "productive": false,
+      "items": 0,
+      "httpStatus": null
+    },
+    {
+      "host": "kg2pf5nokg5xg2ahzbhzf5kucr5bc4y4ojordiebakopioqkk4vgz6ad.onion",
+      "sourceIds": [
+        "onion:ccw:qilin"
+      ],
+      "live": true,
+      "productive": false,
+      "items": 0,
+      "httpStatus": 200
+    },
+    {
+      "host": "krybitqsdzwmhnitvwuhvsntfgf2wrhxveyxroxpc44c6gkft2cqldyd.onion",
+      "sourceIds": [
+        "onion:ccw:krybit"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 50,
+      "httpStatus": 200
+    },
+    {
+      "host": "kryzon3qa22ib23qwka2wcr2yfxhtrfxgurup7bzbtxmnvilu7iagfqd.onion",
+      "sourceIds": [
+        "onion:ccw:ciphbit"
+      ],
+      "live": true,
+      "productive": false,
+      "items": 0,
+      "httpStatus": 200
+    },
+    {
+      "host": "lamashtux5j74mcm7lwwgn5yrvuwtrpxjoyendif3v3hrztjesfoyayd.onion",
+      "sourceIds": [
+        "onion:ccw:lamashtu"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 20,
+      "httpStatus": 200
+    },
+    {
+      "host": "lockbitapp24bvbi43n3qmtfcasf2veaeagjxatgbwtxnsh5w32mljad.onion",
+      "sourceIds": [
+        "onion:ccw:lockbit4"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 1,
+      "httpStatus": 200
+    },
+    {
+      "host": "m3ksukzn2glzfdvlusohril7n3iyk4z4fudf6mm22lwhpbpt5aiee5qd.onion",
+      "sourceIds": [
+        "onion:ccw:exitium"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 1,
+      "httpStatus": 200
+    },
+    {
+      "host": "maa2yprc5pldyr5hjn246hw7i66wdhglnostqgqkcbuh4vyyeos4xxyd.onion",
+      "sourceIds": [
+        "onion:rl:orova"
+      ],
+      "live": true,
+      "productive": false,
+      "items": 0,
+      "httpStatus": 200
+    },
+    {
+      "host": "netrunrs65cn2yidokrmxn5rrur2gjpuyuwrt6mkfy6lek4jnqojn4qd.onion",
+      "sourceIds": [
+        "onion:ccw:netrunner",
+        "onion:rl:netrunner"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 16,
+      "httpStatus": 200
+    },
+    {
+      "host": "nleakk6sejx45jxtk7x6iyt65hwvfrkifc5v7ertdlwm3gttbpvlvxqd.onion",
+      "sourceIds": [
+        "onion:ccw:leaknet"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 3,
+      "httpStatus": 200
+    },
+    {
+      "host": "nongzecboljwv3yfndkggsybsglfrkffw7bvk2zemuteoxe6etpusnad.onion",
+      "sourceIds": [
+        "onion:ccw:n0n"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 185,
+      "httpStatus": 200
+    },
+    {
+      "host": "npmh5ahrgakbniuntyc7io4adm6ietbdbuejrfonowqtyqn24or556qd.onion",
+      "sourceIds": [
+        "onion:ccw:atomsilo"
+      ],
+      "live": false,
+      "productive": false,
+      "items": 0,
+      "httpStatus": null
+    },
+    {
+      "host": "nspirep7orjq73k2x2fwh2mxgh74vm2now6cdbnnxjk2f5wn34bmdxad.onion",
+      "sourceIds": [
+        "onion:ccw:nightspire"
+      ],
+      "live": false,
+      "productive": false,
+      "items": 0,
+      "httpStatus": 502
+    },
+    {
+      "host": "o5lsqyar7ox25z734k6zaxt2vf7bsyi4q5rturi5iyxzqo3ica7bjsad.onion",
+      "sourceIds": [
+        "onion:rl:global-secret-group"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 1,
+      "httpStatus": 200
+    },
+    {
+      "host": "peargxn3oki34c4savcbcfqofjjwjnnyrlrbszfv6ujlx36mhrh57did.onion",
+      "sourceIds": [
+        "onion:ccw:pear"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 35,
+      "httpStatus": 200
+    },
+    {
+      "host": "pixelra2qbx7zhvb6mxdzxlo6rxm2mtouhbabqmdzyd4fesicvbz7bqd.onion",
+      "sourceIds": [
+        "onion:ccw:pixelleaks"
+      ],
+      "live": false,
+      "productive": false,
+      "items": 0,
+      "httpStatus": null
+    },
+    {
+      "host": "qr6uopkqxmq254osyct3oibil32xp3qsimkkbqdscsrsb4zqbagnifad.onion",
+      "sourceIds": [
+        "onion:ccw:barracuda"
+      ],
+      "live": false,
+      "productive": false,
+      "items": 0,
+      "httpStatus": null
+    },
+    {
+      "host": "ransomlookumjrc6erzqn467lkcu2t5h4enjzfigvsxrrktxicysi2yd.onion",
+      "sourceIds": [
+        "onion:ransomlook:site"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 1,
+      "httpStatus": 200
+    },
+    {
+      "host": "ransomwr3tsydeii4q43vazm7wofla5ujdajquitomtd47cxjtfgwyyd.onion",
+      "sourceIds": [
+        "onion:ransomwatch:site"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 1,
+      "httpStatus": 200
+    },
+    {
+      "host": "rnsmwareartse3m4hjsumjf222pnka6gad26cqxqmbjvevhbnym5p6ad.onion",
+      "sourceIds": [
+        "onion:ccw:runsomewares"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 8,
+      "httpStatus": 200
+    },
+    {
+      "host": "rqqn25k3hgmfkh7ykjbmakjgidwweomr7cbpy6pfecpxs57r5iwzwtyd.onion",
+      "sourceIds": [
+        "onion:ccw:blackout"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 8,
+      "httpStatus": 200
+    },
+    {
+      "host": "safepaypfxntwixwjrlcscft433ggemlhgkkdupi2ynhtcmvdgubmoyd.onion",
+      "sourceIds": [
+        "onion:ccw:safepay"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 10,
+      "httpStatus": 200
+    },
+    {
+      "host": "scarlettgutttdlyxz6rdqfslpdvdqnnzuxvzfsqavys2hvtnd3aidyd.onion",
+      "sourceIds": [
+        "onion:ccw:scarlettgroup"
+      ],
+      "live": true,
+      "productive": false,
+      "items": 0,
+      "httpStatus": 200
+    },
+    {
+      "host": "secponewsxgrlnirowclps2kllzaotaf5w2bsvktdnz4qhjr2jnwvvyd.onion",
+      "sourceIds": [
+        "onion:ccw:secp0"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 14,
+      "httpStatus": 200
+    },
+    {
+      "host": "sl3iwbho7zdqjc3phm24pcd2xnko3nympkiplp6xthkc4775lb6nmxqd.onion",
+      "sourceIds": [
+        "onion:ccw:panzer"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 1,
+      "httpStatus": 200
+    },
+    {
+      "host": "t33zoj4qwv455fog7qnb2azi5xcdxkixughmmduzbw2rtdgryqfbh6id.onion",
+      "sourceIds": [
+        "onion:ccw:bavacai",
+        "onion:ccw:medusalocker"
+      ],
+      "live": true,
+      "productive": false,
+      "items": 0,
+      "httpStatus": 200
+    },
+    {
+      "host": "threeamkelxicjsaf2czjyz2lc4q3ngqkxhhlexyfcp2o6raw4rphyad.onion",
+      "sourceIds": [
+        "onion:ccw:threeam",
+        "onion:rl:3am"
+      ],
+      "live": false,
+      "productive": false,
+      "items": 0,
+      "httpStatus": null
+    },
+    {
+      "host": "u6lieui2dakbctcjea2bz4r4q32r7t36nwljovqbv7mxs6o2smgxixid.onion",
+      "sourceIds": [
+        "onion:ccw:aurora"
+      ],
+      "live": true,
+      "productive": false,
+      "items": 0,
+      "httpStatus": 200
+    },
+    {
+      "host": "vyprblogkhfdeyrzgrdnnsrxv2bbuchcirrykkzw6upu2r5bydn3c3yd.onion",
+      "sourceIds": [
+        "onion:ccw:vypr"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 7,
+      "httpStatus": 200
+    },
+    {
+      "host": "whitearz6uvtfdefgsc4r3mzmyswtte65k5umcmv6cu6zhi4l5k4irad.onion",
+      "sourceIds": [
+        "onion:ccw:whitearmor"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 1,
+      "httpStatus": 200
+    },
+    {
+      "host": "x4bccxlsmjsxlnnf3ocvndlshgfkagzytpqmsjnlfykceumnw6i4hkqd.onion",
+      "sourceIds": [
+        "onion:ccw:titan"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 56,
+      "httpStatus": 200
+    },
+    {
+      "host": "yecdjimqiaekprxza6wkqecma4bwt757qiyfjngsaxg7rkjv4xukpwad.onion",
+      "sourceIds": [
+        "onion:ccw:eclipse"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 1,
+      "httpStatus": 200
+    },
+    {
+      "host": "zp6bziy6wljpkg6i3uxzzcxyajodxzoc7acf5egb2vhzzrot23y3mpyd.onion",
+      "sourceIds": [
+        "onion:rl:sarcoma"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 3,
+      "httpStatus": 200
+    },
+    {
+      "host": "zubllg7o774lgc4rdxmfcfpjewfkqa7ml7gxwl5fetogc7hbkvaprhid.onion",
+      "sourceIds": [
+        "onion:ccw:ransomexx"
+      ],
+      "live": true,
+      "productive": false,
+      "items": 0,
+      "httpStatus": 200
+    },
+    {
+      "host": "zyz6phauvraxghujxmecpwzlg34gtogybb4wzcmw6pvps5m2nzvsriid.onion",
+      "sourceIds": [
+        "onion:ccw:vortex"
+      ],
+      "live": true,
+      "productive": true,
+      "items": 1,
+      "httpStatus": 200
+    }
+  ]
+}

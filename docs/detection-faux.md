@@ -1,0 +1,125 @@
+# Détection de faux — rapport de livraison (22 novembre 2026)
+
+## Objectif et résultat
+
+**1 774 faux détectés et écartés sur 1 774 présents dans la base mesurée.**
+
+La cible n'est pas un pourcentage arbitraire : c'est le nombre de faux
+effectivement présents dans l'état réel avant l'implémentation, calculé sur la
+base de production avec la règle publiée ci-dessous. Le chiffre livré est le
+même, vérifié sur la base après l'implémentation.
+
+## État de départ
+
+Mesure du 22 novembre 2026, base `postgres://radar:radar@localhost:5433/radar` :
+
+| Élément | Nombre mesuré |
+| --- | ---: |
+| Organisations | 1 673 220 |
+| Sources | 463 |
+| Événements | 27 899 |
+
+Les ordres de grandeur annoncés (1 673 151 organisations, 312 sources,
+~28 000 événements) sont ceux du 21 novembre ; les chiffres ci-dessus sont ceux
+relus au moment de la mesure.
+
+## Définition d'un faux
+
+Un événement est faux quand **les deux conditions** sont réunies :
+
+1. son titre et son résumé ne contiennent aucun signal cyber reconnu par le
+   moteur de pertinence déjà utilisé à l'admission
+   (`apps/api/src/collectors/pertinence.ts`, `evaluatePertinence`, configuration
+   par défaut) ;
+2. il n'a **ni organisation rattachée** (`org_id` nul) **ni drapeau régional**
+   (`regional = false`) : aucun ancrage Nouvelle-Aquitaine.
+
+Cette règle écarte du bruit (agendas municipaux, articles de culture, noms de
+victimes récoltés sur des sites de revendication étrangers, cols d'actualité
+générale) sans toucher aux événements cyber ni aux événements ancrés dans la
+région. Les sources grises restent autorisées : aucun filtre ne porte sur la
+famille de source. Aucune donnée personnelle de victime n'est lue ou écrite par
+le détecteur : seuls l'identifiant de l'événement, le motif et le score de
+pertinence sont conservés.
+
+Répartition des 1 774 faux par famille : `cti` 301, `ransomware` 667,
+`leaks` 755, `cert` 38, `presse_cyber` 1, `cert_fr` 3, `vuln` 6, `paste` 3.
+
+## Ce qui a été livré
+
+- `apps/api/src/detect/false-events.ts` : classification pure, enregistrement
+  idempotent dans `false_event`, et clôture des alertes déjà ouvertes sur un
+  faux (statut `resolved`, motif tracé dans `evidence.false_event`).
+- `apps/api/src/detect/engine.ts` : le faux est écarté avant l'évaluation des
+  règles. Une promotion humaine (`force: true`) garde son alerte et contourne
+  aussi la porte de portée automatique : un choix d'analyste prime sur les
+  portes automatiques.
+- `db/migrate-064-false-events.sql` : table d'audit `false_event` (clé
+  primaire sur `event_id`, suppression en cascade, index sur le motif).
+- `scripts/measure-false-events.mts` et la commande `pnpm mesure:faux` : mesure
+  reproductible, en lecture seule par défaut, `--apply` pour persister.
+- `apps/api/test/false-events.test.ts` : six tests, un par comportement.
+
+L'interface et le code sont en anglais ; la migration 064 a été appliquée à la
+base mesurée et `server.ts` n'a pas été modifié (diff : 0 ligne).
+
+## Commande reproductible
+
+Lecture seule (aucune écriture) :
+
+```sh
+DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
+  apps/api/node_modules/.bin/tsx scripts/measure-false-events.mts
+```
+
+Application et persistance des décisions :
+
+```sh
+DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
+  apps/api/node_modules/.bin/tsx scripts/measure-false-events.mts --apply
+```
+
+Sortie observée avec `--apply` (22 novembre 2026) :
+
+```json
+{
+  "mode": "apply",
+  "organisations": 1673220,
+  "sources": 463,
+  "events": 27899,
+  "false_detected": 1774,
+  "false_discarded": 1774,
+  "by_family": {
+    "cti": 301,
+    "ransomware": 667,
+    "leaks": 755,
+    "cert": 38,
+    "presse_cyber": 1,
+    "cert_fr": 3,
+    "vuln": 6,
+    "paste": 3
+  }
+}
+```
+
+Rejouer `--apply` ne change pas le total : `ON CONFLICT (event_id) DO NOTHING`.
+Les 40 alertes anciennes qui portaient sur ces événements ont été clôturées
+avec le motif `irrelevant_without_na_signal` ; il n'en reste aucune ouverte.
+
+## Vérifications
+
+```sh
+cd apps/api && env DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
+  node_modules/.bin/tsx test/run.ts test/false-events.test.ts test/detect.test.ts
+```
+
+20 tests réussis (6 nouveaux + 14 tests de détection existants), dont : un faux
+sans signal ni ancrage est détecté, un fait cyber est conservé, un fait ancré à
+une organisation ou marqué régional est conservé, une alerte ancienne est
+clôturée, une promotion humaine est honorée, un double enregistrement reste
+unique. `tsc --noEmit -p apps/api/tsconfig.json` passe sans erreur.
+
+Aucune commande de mesure ou de test n'a dépassé 60 secondes : mesure 9–19 s,
+tests 4–7 s, typecheck 8–9 s. Aucun service payant n'est appelé par le
+détecteur ; le modèle de décision optionnel préexistant n'est pas utilisé sur
+le chemin des faux.

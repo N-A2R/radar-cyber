@@ -19,6 +19,7 @@ import {
 	FILIATION_QUERIES,
 	measureFiliation,
 } from "../apps/api/src/filiation/store.js";
+import { recoverMergedEstablishments } from "../apps/api/src/filiation/merge-recovery.js";
 
 const argv = process.argv.slice(2);
 const APPLY = argv.includes("--apply");
@@ -27,7 +28,9 @@ const JSON_PATH = argv.find((a) => a.startsWith("--json="))?.slice("--json=".len
 async function main(): Promise<void> {
 	let derived = 0;
 	let changed = 0;
+	let recovered = 0;
 	if (APPLY) {
+		recovered = await recoverMergedEstablishments();
 		const links = buildFiliationLinks(await fetchFiliationCandidates());
 		derived = links.length;
 		changed = await applyFiliationLinks(links);
@@ -35,18 +38,20 @@ async function main(): Promise<void> {
 
 	const measure = await measureFiliation();
 	const payload = {
-		scope: "Nouvelle-Aquitaine (12 departments)",
-		rule: "14-digit SIRET establishment -> its 9-digit SIREN prefix, both current and in Nouvelle-Aquitaine",
-		source: "INSEE SIRENE stock (public data, no paid service)",
-		candidates: measure.candidates,
-		established: measure.established,
-		byDepartment: measure.byDepartment,
-		sql: FILIATION_QUERIES,
+	scope: "Nouvelle-Aquitaine (12 departments)",
+	rule: "14-digit SIRET establishment -> its 9-digit SIREN prefix, both current and in Nouvelle-Aquitaine",
+	source: "INSEE SIRENE stock (public data, no paid service)",
+	candidates: measure.candidates,
+	established: measure.established,
+	recoveredFromMerge: recovered,
+	byDepartment: measure.byDepartment,
+	sql: FILIATION_QUERIES,
 	};
 
 	console.log(`candidates: ${measure.candidates}`);
 	console.log(`established with proof: ${measure.established}`);
 	if (APPLY) console.log(`derived: ${derived}, rows changed: ${changed}`);
+	if (APPLY) console.log(`recovered from dedup merge: ${recovered}`);
 	if (JSON_PATH) {
 		writeFileSync(JSON_PATH, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
 		console.log(`written: ${JSON_PATH}`);
