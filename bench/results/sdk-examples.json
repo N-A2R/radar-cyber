@@ -1,0 +1,12 @@
+{
+  "api": "http://127.0.0.1:8099/api",
+  "examples_executable": "2/2",
+  "tests_passed": "12/12",
+  "live": {
+    "ok": true,
+    "organisations": 1673151,
+    "sources": 312,
+    "events": 26394
+  },
+  "failures": []
+}
