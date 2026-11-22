@@ -50,12 +50,6 @@ export function trierDepartements(
   });
 }
 
-/** L'évolution se lit dans le temps, jamais dans l'ordre d'agrégation reçu. */
-export function trierParMois(
-  lignes: readonly (CouvertureLigne & { mois: string })[],
-): Array<CouvertureLigne & { mois: string }> {
-  return [...lignes].sort((a, b) => a.mois.localeCompare(b.mois));
-}
 
 function Barre({ largeur, libelle }: { largeur: number; libelle: string }) {
   const borne = Math.max(0, Math.min(100, largeur));
@@ -71,8 +65,9 @@ function LigneMotif({ motif }: { motif: CouvertureResponse["parMotif"][number] }
   return (
     <li className="coverage__breakdown-row">
       <div className="coverage__breakdown-label">
-        <span>{libelle}</span>
-        <code>{motif.motif}</code>
+        {/* Le code de mesure reste accessible, mais il ne double plus le libellé
+            à l'écran : « Vu vu » ne dit rien de plus que « Vu ». */}
+        <span title={motif.motif}>{libelle}</span>
       </div>
       <Barre largeur={motif.part} libelle={`${libelle}: ${motif.part} %`} />
       <span className="coverage__breakdown-value">
@@ -96,7 +91,7 @@ function EnTeteTri({ cle, libelle, tri, sens, onTri }: EnTeteProps) {
     <th scope="col" aria-sort={actif ? (sens === "asc" ? "ascending" : "descending") : "none"}>
       <button type="button" className="coverage__sort" onClick={() => onTri(cle)}>
         {libelle}
-        <span aria-hidden="true">{actif ? (sens === "asc" ? " ▲" : " ▼") : " ↕"}</span>
+        {actif ? <span aria-hidden="true">{sens === "asc" ? " ▲" : " ▼"}</span> : null}
       </button>
     </th>
   );
@@ -110,7 +105,7 @@ export default function CouvertureView({ data, loading, error }: CouvertureProps
     () => trierDepartements(data?.parDepartement ?? [], tri, sens),
     [data, tri, sens],
   );
-  const mois = useMemo(() => trierParMois(data?.parMois ?? []), [data]);
+  const types = useMemo(() => data?.parType ?? [], [data]);
 
   function changerTri(cle: TriDepartement) {
     if (cle === tri) {
@@ -231,16 +226,16 @@ export default function CouvertureView({ data, loading, error }: CouvertureProps
           <section className="coverage__section" aria-labelledby="coverage-secteurs">
             <h3 id="coverage-secteurs">Par type d'entité</h3>
             <p className="coverage__hint">Taux parmi les incidents publiés de chaque type d'entité.</p>
-            {data.parSecteur.length === 0 ? (
+            {types.length === 0 ? (
               <p className="coverage__empty">Aucune décomposition par type d'entité publiée.</p>
             ) : (
               <ul className="coverage__breakdown">
-                {data.parSecteur.map((ligne) => (
-                  <li className="coverage__breakdown-row" key={ligne.secteur}>
-                    <div className="coverage__breakdown-label"><span>{ligne.secteur}</span></div>
+                {types.map((ligne) => (
+                  <li className="coverage__breakdown-row" key={ligne.type}>
+                    <div className="coverage__breakdown-label"><span>{ligne.type}</span></div>
                     <Barre
                       largeur={ligne.taux}
-                      libelle={`${ligne.secteur} : ${ligne.taux} % de couverture, ${ligne.vus} sur ${ligne.total} incidents`}
+                      libelle={`${ligne.type} : ${ligne.taux} % de couverture, ${ligne.vus} sur ${ligne.total} incidents`}
                     />
                     <span className="coverage__breakdown-value">
                       <b>{ligne.taux} %</b> <span>/ {ligne.vus} sur {ligne.total}</span>
@@ -251,30 +246,7 @@ export default function CouvertureView({ data, loading, error }: CouvertureProps
             )}
           </section>
 
-          <section className="coverage__section" aria-labelledby="coverage-mois">
-            <h3 id="coverage-mois">Évolution mensuelle</h3>
-            <p className="coverage__hint">
-              Taux de couverture par mois de publication. Les mois sans incident vu restent visibles.
-            </p>
-            {mois.length === 0 ? (
-              <p className="coverage__empty">Aucune série mensuelle publiée.</p>
-            ) : (
-              <ul className="coverage__months">
-                {mois.map((ligne) => (
-                  <li className="coverage__month" key={ligne.mois}>
-                    <Barre
-                      largeur={ligne.taux}
-                      libelle={`${ligne.mois} : ${ligne.taux} % de couverture, ${ligne.vus} sur ${ligne.total} incidents`}
-                    />
-                    <time dateTime={ligne.mois} className="coverage__month-label">{ligne.mois}</time>
-                    <span className="coverage__month-value">
-                      <b>{ligne.taux} %</b> <span>/ {ligne.vus} sur {ligne.total}</span>
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </section>
+
 
           <footer className="coverage__provenance">
             <h3>Provenance</h3>
