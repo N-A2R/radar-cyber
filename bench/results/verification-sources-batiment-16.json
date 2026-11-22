@@ -1,0 +1,145 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-batiment-16.jsonl",
+  "secteur": "bâtiment",
+  "departement": "16",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36",
+  "methode": "GET avec suivi des redirections, vérification du statut HTTP et du type de contenu",
+  "sources": 10,
+  "urls_verifiees": 24,
+  "urls_200": 24,
+  "detail": [
+    {
+      "nom": "CAPEB Charente",
+      "urls": {
+        "https://www.capeb.fr/charente": {
+          "code": 200,
+          "type": "text/html; charset=utf-8"
+        },
+        "https://www.capeb.fr/charente/actualites": {
+          "code": 200,
+          "type": "text/html; charset=utf-8"
+        }
+      }
+    },
+    {
+      "nom": "CMA Charente (CMA Nouvelle-Aquitaine)",
+      "urls": {
+        "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/nous-trouver/cma-charente": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        }
+      }
+    },
+    {
+      "nom": "CAUE 16 — Conseil d'architecture, d'urbanisme et de l'environnement de la Charente",
+      "urls": {
+        "https://www.caue16.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8"
+        },
+        "https://www.caue16.fr/actus/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "redirect": "https://www.caue16.fr/actus"
+        }
+      }
+    },
+    {
+      "nom": "Angoulême Habitat — OPH de l'Angoumois",
+      "urls": {
+        "https://angouleme-habitat.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://angouleme-habitat.fr/category/les-actus/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://angouleme-habitat.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8"
+        }
+      }
+    },
+    {
+      "nom": "Charente Libre",
+      "urls": {
+        "https://www.charentelibre.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://www.charentelibre.fr/economie/immobilier/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://www.charentelibre.fr/rss.xml": {
+          "code": 200,
+          "type": "application/xml"
+        }
+      }
+    },
+    {
+      "nom": "Sud Ouest — Charente",
+      "urls": {
+        "https://www.sudouest.fr/charente/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://www.sudouest.fr/charente/rss.xml": {
+          "code": 200,
+          "type": "application/xml"
+        }
+      }
+    },
+    {
+      "nom": "actu.fr — Charente",
+      "urls": {
+        "https://actu.fr/nouvelle-aquitaine/charente_16/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "redirect": "https://actu.fr/nouvelle-aquitaine/charente_16"
+        },
+        "https://actu.fr/nouvelle-aquitaine/charente_16/economie": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        },
+        "https://actu.fr/nouvelle-aquitaine/charente_16/rss.xml": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8"
+        }
+      }
+    },
+    {
+      "nom": "ici Charente",
+      "urls": {
+        "https://www.ici.fr/nouvelle-aquitaine/charente-16": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        }
+      }
+    },
+    {
+      "nom": "France 3 Nouvelle-Aquitaine — Charente",
+      "urls": {
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8"
+        }
+      }
+    },
+    {
+      "nom": "La Nouvelle République — Charente",
+      "urls": {
+        "https://www.lanouvellerepublique.fr/charente": {
+          "code": 200,
+          "type": "text/html; charset=utf-8"
+        }
+      }
+    }
+  ]
+}

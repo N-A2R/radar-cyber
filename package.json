@@ -7,6 +7,7 @@
     "setup": "apps/api/node_modules/.bin/tsx scripts/bootstrap.mts --with-sample",
     "setup:check": "apps/api/node_modules/.bin/tsx scripts/bootstrap.mts --check",
     "migrate": "apps/api/node_modules/.bin/tsx scripts/migrate.mts",
+    "export:stix": "apps/api/node_modules/.bin/tsx scripts/export-stix.mts",
     "test": "pnpm -F @radar/api test",
     "api:client": "apps/api/node_modules/.bin/tsx scripts/generate-api-client.mts",
     "dev": "pnpm -r --parallel dev",
@@ -17,6 +18,7 @@
     "mesure:priorite-sources": "apps/api/node_modules/.bin/tsx scripts/mesure-priorite-sources.mts",
     "mesure:crise": "apps/api/node_modules/.bin/tsx scripts/measure-crisis-communications.mts",
     "verifie:crise": "apps/api/node_modules/.bin/tsx scripts/verify-crisis-communications-objective.mts",
+    "verif:orientation": "apps/api/node_modules/.bin/tsx scripts/verif-orientation-collectivites.mts",
     "test:offline": "pnpm -F @radar/web exec playwright test test/offline.spec.ts",
     "mesure:scenarios": "apps/api/node_modules/.bin/tsx scripts/measure-crisis-scenarios.mts",
     "verify:scenarios": "apps/api/node_modules/.bin/tsx scripts/verify-crisis-scenarios-objective.mts",
@@ -24,11 +26,14 @@
     "verify": "bash scripts/verify-all.sh",
     "verify:journal": "apps/api/node_modules/.bin/tsx scripts/verify-journal.mts",
     "verifie:objectif-rapport": "apps/api/node_modules/.bin/tsx scripts/verifie-objectif-rapport-benchmark.mts",
+    "verifie:rapports-golden": "apps/api/node_modules/.bin/tsx scripts/golden-rapports.mts --db",
     "custody:measure": "apps/api/node_modules/.bin/tsx scripts/measure-custody.mts",
     "custody:backfill": "apps/api/node_modules/.bin/tsx scripts/backfill-custody.mts",
     "custody:write-boundary": "apps/api/node_modules/.bin/tsx scripts/measure-admission-at-write.mts",
     "custody:reclassification": "apps/api/node_modules/.bin/tsx scripts/measure-reclassification-boundary.mts",
     "replay:journal": "apps/api/node_modules/.bin/tsx scripts/replay-journal.mts",
+    "journal:anchor": "apps/api/node_modules/.bin/tsx scripts/anchor-journal.mts",
+    "journal:anchor:check": "apps/api/node_modules/.bin/tsx scripts/anchor-journal.mts --check",
     "mesure:couverture": "apps/api/node_modules/.bin/tsx scripts/mesure-couverture.mts",
     "couverture:corpus": "apps/api/node_modules/.bin/tsx scripts/consolider-corpus-couverture.mts",
     "couverture:mesurer": "apps/api/node_modules/.bin/tsx scripts/mesure-couverture-systeme.mts",
@@ -66,11 +71,12 @@
     "measure:live-sources": "apps/api/node_modules/.bin/tsx scripts/measure-live-source-stream.mts",
     "measure:modes": "apps/api/node_modules/.bin/tsx scripts/measure-operating-modes.mts",
     "collect:na-containers": "apps/api/node_modules/.bin/tsx scripts/collect-public-containers.mts",
-    "measure:na-containers": "apps/api/node_modules/.bin/tsx scripts/measure-public-containers.mts"
+    "measure:na-containers": "apps/api/node_modules/.bin/tsx scripts/measure-public-containers.mts",
     "measure:affected": "apps/api/node_modules/.bin/tsx scripts/measure-affected.mts"
   },
   "devDependencies": {
     "embedded-postgres": "18.6.0-beta.19"
+  },
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild"

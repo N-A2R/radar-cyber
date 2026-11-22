@@ -27,26 +27,26 @@ export const KIND_CATEGORIES: Record<string, readonly string[]> = {
 };
 
 export const DECISION_LABEL: Record<Exclude<JournalDecision["decision"], null>, string> = {
-  accepter: "Accepted",
-  refuser: "Rejected",
-  creer: "Created",
+  accepter: "Acceptée",
+  refuser: "Refusée",
+  creer: "Créée",
 };
 
 /** Labels are translations of stored kinds; an unknown kind is shown verbatim. */
 export const KIND_LABEL: Record<string, string> = {
-  "review.decided": "Review decision",
-  "org.created": "Organisation created",
-  "org.changed": "Organisation correction",
-  "alert.changed": "Alert change",
-  "event.admitted": "Event admitted",
-  "event.rattachement": "Organisation link",
-  "match.decided": "Match decision",
-  "match.refuse": "Match rejected",
-  "referentiel.charged": "Reference data loaded",
-  "source.changed": "Source change",
-  "source.morte": "Source retired",
-  "journal.lacune": "Journal gap",
-  "event.purge": "Event purge",
+  "review.decided": "Décision de revue",
+  "org.created": "Organisation créée",
+  "org.changed": "Correction d'organisation",
+  "alert.changed": "Changement d'alerte",
+  "event.admitted": "Événement admis",
+  "event.rattachement": "Rattachement d'organisation",
+  "match.decided": "Décision de rapprochement",
+  "match.refuse": "Rapprochement refusé",
+  "referentiel.charged": "Référentiel chargé",
+  "source.changed": "Changement de source",
+  "source.morte": "Source retirée",
+  "journal.lacune": "Lacune de journal",
+  "event.purge": "Purge d'événement",
 };
 
 /** Payload keys that carry the proof; everything else is context. */
@@ -69,9 +69,9 @@ function EntryDetails({ row }: { row: JournalDecision }) {
   const contexte = entrees.filter(([key]) => !(key in PROOF_KEYS));
 
   return (
-    <aside className="journal__detail" aria-label={`Details of journal entry ${row.id}`}>
+    <aside className="journal__detail" aria-label={`Détails de l'entrée de journal ${row.id}`}>
       <header className="journal__detail-head">
-        <h2>Entry #{row.id}</h2>
+        <h2>Entrée n°{row.id}</h2>
         <span className="journal__kind" data-kind={row.kind}>
           {KIND_LABEL[row.kind] ?? row.kind}
         </span>
@@ -80,22 +80,22 @@ function EntryDetails({ row }: { row: JournalDecision }) {
       <dl className="journal__detail-meta">
         <dt>Date (UTC)</dt>
         <dd>{row.horodatage}</dd>
-        <dt>Actor</dt>
+        <dt>Acteur</dt>
         <dd>{row.acteur}</dd>
-        <dt>Decision</dt>
-        <dd>{row.decision ? DECISION_LABEL[row.decision] : "Not specified"}</dd>
-        <dt>Subject</dt>
+        <dt>Décision</dt>
+        <dd>{row.decision ? DECISION_LABEL[row.decision] : "Non précisée"}</dd>
+        <dt>Sujet</dt>
         <dd>{row.sujet}</dd>
-        <dt>Summary</dt>
+        <dt>Résumé</dt>
         <dd>{row.resume ?? "—"}</dd>
-        <dt>Reason</dt>
-        <dd>{row.raison ?? "No reason recorded for this entry."}</dd>
+        <dt>Motif</dt>
+        <dd>{row.raison ?? "Aucun motif enregistré pour cette entrée."}</dd>
       </dl>
 
       <section className="journal__detail-section">
-        <h3>Evidence</h3>
+        <h3>Preuve</h3>
         {preuves.length === 0
-          ? <p className="journal__detail-empty">No evidence recorded for this entry.</p>
+          ? <p className="journal__detail-empty">Aucune preuve enregistrée pour cette entrée.</p>
           : (
             <dl className="journal__detail-values">
               {preuves.map(([key, value]) => (
@@ -109,9 +109,9 @@ function EntryDetails({ row }: { row: JournalDecision }) {
       </section>
 
       <section className="journal__detail-section">
-        <h3>Context</h3>
+        <h3>Contexte</h3>
         {contexte.length === 0
-          ? <p className="journal__detail-empty">No additional context recorded.</p>
+          ? <p className="journal__detail-empty">Aucun contexte supplémentaire enregistré.</p>
           : (
             <dl className="journal__detail-values">
               {contexte.map(([key, value]) => (
@@ -162,12 +162,12 @@ export default function JournalList({
   );
 
   return (
-    <section className="journal" aria-label="Audit journal">
+    <section className="journal" aria-label="Journal d'audit">
       <header className="journal__head">
         <div>
           <h1>Journal</h1>
           <p className="journal__count">
-            Auditable record of decisions — reviews, publications and corrections, newest first
+            Registre auditable des décisions — revues, publications et corrections, plus récentes d'abord
           </p>
         </div>
         <button
@@ -176,27 +176,27 @@ export default function JournalList({
           onClick={onExport}
           disabled={loading || exporting}
         >
-          {exporting ? "Preparing CSV…" : "Export filtered CSV"}
+          {exporting ? "Préparation du CSV…" : "Exporter en CSV"}
         </button>
       </header>
 
-      <div className="journal__filters" role="group" aria-label="Filter the journal">
+      <div className="journal__filters" role="group" aria-label="Filtrer le journal">
         <div className="journal__field journal__field--search">
-          <label htmlFor="journal-q">Search</label>
+          <label htmlFor="journal-q">Rechercher</label>
           <input
             id="journal-q"
             type="search"
-            placeholder="subject, actor, reason, evidence…"
+            placeholder="sujet, acteur, motif, preuve…"
             value={filters.q ?? ""}
             onChange={(event) => onFilterChange({ q: event.target.value })}
           />
         </div>
         <div className="journal__field">
-          <label htmlFor="journal-actor">Actor</label>
+          <label htmlFor="journal-actor">Acteur</label>
           <input
             id="journal-actor"
             type="search"
-            placeholder="name or part of a name…"
+            placeholder="nom ou partie d'un nom…"
             value={filters.actor ?? ""}
             onChange={(event) => onFilterChange({ actor: event.target.value })}
           />
@@ -208,14 +208,14 @@ export default function JournalList({
             value={filters.kind ?? "all"}
             onChange={(event) => onFilterChange({ kind: event.target.value })}
           >
-            <option value="all">All types</option>
-            <option value="review">Review decisions</option>
+            <option value="all">Tous les types</option>
+            <option value="review">Décisions de revue</option>
             <option value="publication">Publications</option>
             <option value="correction">Corrections</option>
           </select>
         </div>
         <div className="journal__field">
-          <label htmlFor="journal-from">From</label>
+          <label htmlFor="journal-from">Du</label>
           <input
             id="journal-from"
             type="date"
@@ -224,7 +224,7 @@ export default function JournalList({
           />
         </div>
         <div className="journal__field">
-          <label htmlFor="journal-to">To</label>
+          <label htmlFor="journal-to">Au</label>
           <input
             id="journal-to"
             type="date"
@@ -232,20 +232,25 @@ export default function JournalList({
             onChange={(event) => onFilterChange({ to: event.target.value })}
           />
         </div>
-        <button type="button" className="journal__reset" onClick={onReset}>Reset</button>
+        <button type="button" className="journal__reset" onClick={onReset}>Réinitialiser</button>
       </div>
 
       {truncated ? (
         <p className="journal__truncated" role="status">
-          Showing the 10,000 most recent entries only. Narrow the period or type to reach older ones.
+          Seules les 10 000 entrées les plus récentes sont affichées. Réduisez la période ou le type pour
+          atteindre les plus anciennes.
         </p>
       ) : null}
-      {error ? <p className="journal__error" role="alert">API: {error}</p> : null}
+      {error ? <p className="journal__error" role="alert">API : {error}</p> : null}
       {exportError ? <p className="journal__error" role="alert">{exportError}</p> : null}
       {loading ? <LoadingSkeleton label="Chargement du journal…" /> : null}
       {!loading && !error && rows.length === 0 ? (
         <EmptyState
-          message={hasFilters ? "No journal entries match these filters." : "No journal entries recorded yet."}
+          message={
+            hasFilters
+              ? "Aucune entrée de journal ne correspond à ces filtres."
+              : "Aucune entrée de journal enregistrée pour l'instant."
+          }
           actionLabel={onRetry ? "Recharger le journal" : "Page précédente"}
           onAction={onRetry ?? onPrevious}
         />
@@ -257,10 +262,10 @@ export default function JournalList({
             <tr>
               <th scope="col">Date (UTC)</th>
               <th scope="col">Type</th>
-              <th scope="col">Actor</th>
-              <th scope="col">Decision</th>
-              <th scope="col">Summary</th>
-              <th scope="col"><span className="journal__sr-only">Details</span></th>
+              <th scope="col">Acteur</th>
+              <th scope="col">Décision</th>
+              <th scope="col">Résumé</th>
+              <th scope="col"><span className="journal__sr-only">Détails</span></th>
             </tr>
           </thead>
           <tbody>
@@ -281,7 +286,7 @@ export default function JournalList({
                 <td>{row.acteur}</td>
                 <td>
                   <span className="journal__decision" data-decision={row.decision ?? DECISION_UNSPECIFIED}>
-                    {row.decision ? DECISION_LABEL[row.decision] : "Not specified"}
+                    {row.decision ? DECISION_LABEL[row.decision] : "Non précisée"}
                   </span>
                 </td>
                 <td>{row.resume ?? row.raison ?? row.indice ?? "—"}</td>
@@ -290,9 +295,9 @@ export default function JournalList({
                     type="button"
                     className="journal__open"
                     onClick={() => onSelect(row)}
-                    aria-label={`Open details of journal entry ${row.id}`}
+                    aria-label={`Ouvrir le détail de l'entrée de journal ${row.id}`}
                   >
-                    Details
+                    Détails
                   </button>
                 </td>
               </tr>
@@ -303,13 +308,13 @@ export default function JournalList({
 
       <footer className="journal__foot">
         <button type="button" onClick={onPrevious} disabled={loading || page <= 1}>
-          Previous
+          Précédent
         </button>
         <span>
-          {resultCount} {resultCount === 1 ? "entry" : "entries"} — page {page} / {pageCount}
+          {resultCount} {resultCount === 1 ? "entrée" : "entrées"} — page {page} / {pageCount}
         </span>
         <button type="button" onClick={onNext} disabled={loading || page >= pageCount}>
-          Next
+          Suivant
         </button>
       </footer>
 
@@ -322,7 +327,7 @@ export default function JournalList({
               className="journal__detail-close"
               onClick={onCloseDetail}
             >
-              Close details
+              Fermer le détail
             </button>
             <EntryDetails row={selected} />
           </div>

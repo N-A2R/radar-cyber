@@ -81,9 +81,12 @@
   --control-pad-y: var(--space-1);
 
   /* Une voix pour les libelles, une pour la donnee, une pour la lecture. */
+  --text-micro: 10px;
   --text-label: 11px;
+  --text-xs: 12px;
   --text-body: 13px;
   --text-read: 15px;
+  --text-subtitle: 15px;
   --text-title: 20px;
   --tracking-normal: 0;
   --leading-tight: 1.25;
@@ -894,6 +897,36 @@ body {
   }
 }
 
+/* Sous 1440 px : les douze vues (dont « Nouvelle-Aquitaine » et « Suis-je concerné ? »)
+   ne tiennent plus sur la ligne du titre — environ 1400 px de contenu — et
+   comme body est en overflow-x: clip la fin du rail était coupée sans
+   défilement. La navigation passe donc sur sa propre ligne, revient à la
+   ligne si besoin, et le rail grandit en hauteur ; la grille sous lui garde
+   le reste via min-height: 0. */
+@media (min-width: 481px) and (max-width: 1439px) {
+  .rail {
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 52px;
+    padding: var(--space-2) var(--space-5);
+    row-gap: var(--space-1);
+  }
+  .wordmark {
+    min-width: 0;
+  }
+  .rail__nav {
+    order: 3;
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-4);
+  }
+  .rail__nav button {
+    padding: var(--space-1) var(--space-1);
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+}
+
 /* ── Repli du fil ─────────────────────────────────────────────
    Le fil reste monté sur tous les onglets, alors que Sources, Santé et
    Dossier ont besoin de toute la largeur. Il se replie en un rail de 44 px
@@ -1529,4 +1562,62 @@ body {
     animation: none;
     transition: none;
   }
+}
+
+/* --- Légende de la carte : une couleur doit pouvoir se décoder sans survol. */
+.map-view {
+  position: relative;
+  height: 100%;
+  min-height: 0;
+}
+
+.map-legend {
+  position: absolute;
+  left: var(--space-3);
+  bottom: var(--space-3);
+  z-index: 2;
+  display: grid;
+  gap: var(--space-2);
+  max-width: 260px;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-2, 8px);
+  background: var(--surface);
+  font-size: var(--text-label);
+  color: var(--muted);
+}
+
+.map-legend__title {
+  margin: 0;
+  color: var(--fg);
+  font-weight: var(--weight-medium);
+}
+
+.map-legend__sev,
+.map-legend__fam {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.map-legend__sev li,
+.map-legend__fam li {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.map-legend__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.map-legend__chip {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
 }

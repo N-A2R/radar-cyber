@@ -90,18 +90,18 @@ export interface GraphData {
 
 /** Link labels shown in the legend and in the detail panel. */
 export const LINK_TYPES: Record<string, string> = {
-  rattache: 'located in',
-  has_event: 'has event',
-  contains: 'contains',
-  reported_by: 'reported by',
-  observed_at: 'observed at',
-  targeted_by: 'targeted by',
-  claims: 'claims',
-  attributed_to: 'attributed to',
-  located_in: 'located in',
-  owns_domain: 'owns domain',
-  dns_link: 'DNS link',
-  resolves_to: 'resolves to',
+  rattache: 'rattaché à',
+  has_event: 'a un événement',
+  contains: 'contient',
+  reported_by: 'rapporté par',
+  observed_at: 'observé le',
+  targeted_by: 'ciblé par',
+  claims: 'revendique',
+  attributed_to: 'attribué à',
+  located_in: 'situé dans',
+  owns_domain: 'possède un domaine',
+  dns_link: 'lien DNS',
+  resolves_to: 'résout vers',
 };
 
 const FAMILY_ALIASES: Record<string, string> = {

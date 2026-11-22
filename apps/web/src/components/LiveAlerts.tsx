@@ -18,12 +18,12 @@ export function formatAgo(iso: string, now: number = Date.now()): string {
   const at = Date.parse(iso);
   if (!Number.isFinite(at)) return "—";
   const seconds = Math.max(0, Math.round((now - at) / 1000));
-  if (seconds < 60) return `${seconds} s ago`;
+  if (seconds < 60) return "à l'instant";
   const minutes = Math.round(seconds / 60);
-  if (minutes < 60) return `${minutes} min ago`;
+  if (minutes < 60) return `il y a ${minutes} min`;
   const hours = Math.round(minutes / 60);
-  if (hours < 24) return `${hours} h ago`;
-  return `${Math.round(hours / 24)} d ago`;
+  if (hours < 24) return `il y a ${hours} h`;
+  return `il y a ${Math.round(hours / 24)} j`;
 }
 
 /** Une charge utile SSE n'est acceptée que si elle porte les champs utiles. */
@@ -149,7 +149,7 @@ export default function LiveAlerts({
           <span className="live-alerts__sev">S{latest.severity}</span>
           <span className="live-alerts__title">{latest.title}</span>
           <span className="live-alerts__meta">
-            {latest.org_id !== null ? `org #${latest.org_id}` : latest.rule_id} · {formatAgo(latest.created_at)}
+            {latest.org_id !== null ? `organisation #${latest.org_id}` : latest.rule_id} · {formatAgo(latest.created_at)}
           </span>
           {unseen > 1 ? <span className="live-alerts__more">+{unseen - 1}</span> : null}
         </button>
@@ -168,12 +168,12 @@ export default function LiveAlerts({
           className="live-alerts__ctl"
           aria-pressed={soundOn}
           onClick={onToggleSound}
-          title="Sound for severity 4 and 5 alerts"
+          title="Son pour les alertes de sévérité 4 et 5"
         >
-          {soundOn ? "Sound on" : "Sound off"}
+          {soundOn ? "Son activé" : "Son coupé"}
         </button>
         {latest ? (
-          <button type="button" className="live-alerts__ctl" onClick={onDismiss} aria-label="Hide the alert banner">
+          <button type="button" className="live-alerts__ctl" onClick={onDismiss} aria-label="Masquer la bannière d'alerte">
             ×
           </button>
         ) : null}
