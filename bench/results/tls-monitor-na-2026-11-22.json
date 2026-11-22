@@ -1,0 +1,478 @@
+{
+  "generatedAt": "2026-11-22T03:07:27.666Z",
+  "command": "pnpm mesure:tls-monitor",
+  "sources": {
+    "baseline": "../bench/results/ctlogs-inventaire-2026-11-21.json",
+    "baselineSha256": "3d822086e341ecaed32fd7f327a46e002fac000c7024bef465919ec87c3a8a3f",
+    "snapshot": "../bench/results/tls-monitor-snapshot-2026-11-22.json",
+    "verdicts": "../bench/results/tls-monitor-verdicts.json"
+  },
+  "base": {
+    "ctHosts": 342,
+    "domains": 9,
+    "organizations": 9,
+    "firstCertificateSeen": "2006-08-04",
+    "lastCertificateSeen": "2026-09-23",
+    "hostsTargeted": 30,
+    "hostsObserved": 20,
+    "probeDurationMs": 23648
+  },
+  "rules": {
+    "issuerChange": 12,
+    "newCaForDomain": 6,
+    "identityMismatch": 9
+  },
+  "totalAlerts": 16,
+  "review": {
+    "classified": 16,
+    "truePositives": 9,
+    "falsePositives": 7,
+    "unclassified": 0,
+    "falsePositiveRate": 43.8
+  },
+  "alerts": [
+    {
+      "key": "www.2d.bordeaux.fr",
+      "host": "www.2d.bordeaux.fr",
+      "domain": "bordeaux.fr",
+      "organization": "Bordeaux",
+      "rules": [
+        "issuer_change",
+        "identity_mismatch"
+      ],
+      "severity": 4,
+      "summary": "issuer_change+identity_mismatch",
+      "baseline": {
+        "certificateId": "19329124",
+        "issuer": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3",
+        "firstSeen": "2016-05-12T14:50:00.000Z"
+      },
+      "current": {
+        "issuer": "DHIMYOTIS",
+        "validFrom": "2024-09-17T22:00:00.000Z",
+        "validTo": "2025-09-21T21:59:59.000Z",
+        "fingerprint": "95:B5:96:0A:FE:1D:8A:20:27:56:03:F5:EC:9B:97:8D:2A:48:2B:17",
+        "hostnameMatch": false
+      },
+      "verdict": {
+        "verdict": "true",
+        "reason": "SAN authenticates museum-bordeaux.fr, not the audited Bordeaux host; chain unauthorized and certificate expired."
+      }
+    },
+    {
+      "key": "www.anglet.fr",
+      "host": "www.anglet.fr",
+      "domain": "anglet.fr",
+      "organization": "Anglet",
+      "rules": [
+        "issuer_change",
+        "new_ca_for_domain"
+      ],
+      "severity": 4,
+      "summary": "issuer_change+new_ca_for_domain",
+      "baseline": {
+        "certificateId": "546400",
+        "issuer": "C=US, O=\"Thawte, Inc.\", OU=Domain Validated SSL, CN=Thawte DV SSL CA",
+        "firstSeen": "2011-05-25T00:00:00.000Z"
+      },
+      "current": {
+        "issuer": "DigiCert Ireland Limited",
+        "validFrom": "2026-10-01T00:00:00.000Z",
+        "validTo": "2027-04-17T23:59:59.000Z",
+        "fingerprint": "45:10:1E:3D:34:E4:55:44:DD:AD:EC:50:FF:EA:9A:7D:39:84:71:F3",
+        "hostnameMatch": true
+      },
+      "verdict": {
+        "verdict": "false",
+        "reason": "Valid DigiCert certificate covering *.anglet.fr, issued 2026-10-01; the CT baseline only records the 2011 CA, a routine CA migration."
+      }
+    },
+    {
+      "key": "www.artsetmetiers.fr",
+      "host": "www.artsetmetiers.fr",
+      "domain": "artsetmetiers.fr",
+      "organization": "École nationale supérieure d'arts et métiers Bordeaux",
+      "rules": [
+        "issuer_change",
+        "new_ca_for_domain"
+      ],
+      "severity": 4,
+      "summary": "issuer_change+new_ca_for_domain",
+      "baseline": {
+        "certificateId": "106279843",
+        "issuer": "C=NL, ST=Noord-Holland, L=Amsterdam, O=TERENA, CN=TERENA SSL CA 3",
+        "firstSeen": "2017-03-17T00:00:00.000Z"
+      },
+      "current": {
+        "issuer": "Hellenic Academic and Research Institutions CA",
+        "validFrom": "2026-09-01T07:28:12.000Z",
+        "validTo": "2027-03-19T07:28:11.000Z",
+        "fingerprint": "05:32:05:54:04:AD:EA:FA:20:91:9F:AB:98:65:49:31:6B:FC:9A:66",
+        "hostnameMatch": true
+      },
+      "verdict": {
+        "verdict": "false",
+        "reason": "Valid GÉANT certificate for the institution, trusted chain and matching hostname; CA change from the 2016 CT entry is a platform renewal."
+      }
+    },
+    {
+      "key": "www.biennale.anglet.fr",
+      "host": "www.biennale.anglet.fr",
+      "domain": "anglet.fr",
+      "organization": "Anglet",
+      "rules": [
+        "issuer_change",
+        "new_ca_for_domain",
+        "identity_mismatch"
+      ],
+      "severity": 4,
+      "summary": "issuer_change+new_ca_for_domain+identity_mismatch",
+      "baseline": {
+        "certificateId": "10842473168",
+        "issuer": "C=US, O=Let's Encrypt, CN=R3",
+        "firstSeen": "2023-10-20T12:01:19.000Z"
+      },
+      "current": {
+        "issuer": "DigiCert Ireland Limited",
+        "validFrom": "2026-10-01T00:00:00.000Z",
+        "validTo": "2027-04-17T23:59:59.000Z",
+        "fingerprint": "45:10:1E:3D:34:E4:55:44:DD:AD:EC:50:FF:EA:9A:7D:39:84:71:F3",
+        "hostnameMatch": false
+      },
+      "verdict": {
+        "verdict": "true",
+        "reason": "Wildcard *.anglet.fr does not cover the two-label host; TLS chain unauthorized in the live observation."
+      }
+    },
+    {
+      "key": "www.billetterie-spectacle.bouscat.fr",
+      "host": "www.billetterie-spectacle.bouscat.fr",
+      "domain": "bouscat.fr",
+      "organization": "Le Bouscat",
+      "rules": [
+        "issuer_change",
+        "new_ca_for_domain",
+        "identity_mismatch"
+      ],
+      "severity": 4,
+      "summary": "issuer_change+new_ca_for_domain+identity_mismatch",
+      "baseline": {
+        "certificateId": "10890660175",
+        "issuer": "C=FR, O=DHIMYOTIS, OU=0002 48146308100036, organizationIdentifier=NTRFR-48146308100036, CN=Certigna Services CA",
+        "firstSeen": "2023-10-24T22:00:00.000Z"
+      },
+      "current": {
+        "issuer": "ZeroSSL GmbH",
+        "validFrom": "2026-10-08T00:00:00.000Z",
+        "validTo": "2027-01-06T23:59:59.000Z",
+        "fingerprint": "35:64:78:C8:0B:75:87:18:3A:B4:09:BD:53:94:3A:44:96:B0:70:B1",
+        "hostnameMatch": false
+      },
+      "verdict": {
+        "verdict": "true",
+        "reason": "Certificate belongs to *.mapado.com, not to the municipal ticketing host; TLS chain unauthorized."
+      }
+    },
+    {
+      "key": "www.egurretik.bayonne.fr",
+      "host": "www.egurretik.bayonne.fr",
+      "domain": "bayonne.fr",
+      "organization": "Bayonne",
+      "rules": [
+        "identity_mismatch"
+      ],
+      "severity": 4,
+      "summary": "identity_mismatch",
+      "baseline": {
+        "certificateId": "1178510607",
+        "issuer": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2",
+        "firstSeen": "2019-02-06T00:00:00.000Z"
+      },
+      "current": {
+        "issuer": "Gandi SAS",
+        "validFrom": "2026-09-04T00:00:00.000Z",
+        "validTo": "2027-03-21T23:59:59.000Z",
+        "fingerprint": "05:5D:65:25:41:D8:5C:E6:42:66:93:DD:97:14:9C:BD:23:41:FE:B6",
+        "hostnameMatch": false
+      },
+      "verdict": {
+        "verdict": "true",
+        "reason": "Wildcard *.bayonne.fr does not authenticate the two-label host; TLS chain unauthorized."
+      }
+    },
+    {
+      "key": "www.elgg.bordeaux.fr",
+      "host": "www.elgg.bordeaux.fr",
+      "domain": "bordeaux.fr",
+      "organization": "Bordeaux",
+      "rules": [
+        "identity_mismatch"
+      ],
+      "severity": 4,
+      "summary": "identity_mismatch",
+      "baseline": {
+        "certificateId": "19329124",
+        "issuer": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3",
+        "firstSeen": "2016-05-12T14:50:00.000Z"
+      },
+      "current": {
+        "issuer": "Let's Encrypt",
+        "validFrom": "2026-10-21T09:23:23.000Z",
+        "validTo": "2027-01-19T09:23:22.000Z",
+        "fingerprint": "D2:0D:D0:6E:BB:2A:3E:53:BF:16:46:01:13:3A:A6:C7:78:C2:FA:25",
+        "hostnameMatch": false
+      },
+      "verdict": {
+        "verdict": "true",
+        "reason": "Certificate authenticates cluster105.hosting.ovh.net only; TLS chain unauthorized for the Bordeaux host."
+      }
+    },
+    {
+      "key": "www.incubateur.artsetmetiers.fr",
+      "host": "www.incubateur.artsetmetiers.fr",
+      "domain": "artsetmetiers.fr",
+      "organization": "École nationale supérieure d'arts et métiers Bordeaux",
+      "rules": [
+        "issuer_change",
+        "new_ca_for_domain"
+      ],
+      "severity": 4,
+      "summary": "issuer_change+new_ca_for_domain",
+      "baseline": {
+        "certificateId": "2316640573",
+        "issuer": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3",
+        "firstSeen": "2020-01-08T08:44:10.000Z"
+      },
+      "current": {
+        "issuer": "Hellenic Academic and Research Institutions CA",
+        "validFrom": "2026-09-01T07:28:12.000Z",
+        "validTo": "2027-03-19T07:28:11.000Z",
+        "fingerprint": "05:32:05:54:04:AD:EA:FA:20:91:9F:AB:98:65:49:31:6B:FC:9A:66",
+        "hostnameMatch": true
+      },
+      "verdict": {
+        "verdict": "false",
+        "reason": "Same trusted GÉANT certificate as the parent host, valid through 2027 and covering the name; no identity defect."
+      }
+    },
+    {
+      "key": "www.info-violences-femmes.bordeaux.fr",
+      "host": "www.info-violences-femmes.bordeaux.fr",
+      "domain": "bordeaux.fr",
+      "organization": "Bordeaux",
+      "rules": [
+        "identity_mismatch"
+      ],
+      "severity": 4,
+      "summary": "identity_mismatch",
+      "baseline": {
+        "certificateId": "1775216452",
+        "issuer": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3",
+        "firstSeen": "2019-08-01T07:42:00.000Z"
+      },
+      "current": {
+        "issuer": null,
+        "validFrom": "2022-05-03T12:58:41.000Z",
+        "validTo": "2023-05-03T12:58:41.000Z",
+        "fingerprint": "98:73:57:00:E7:24:46:8C:81:2A:AD:AD:D7:97:55:4F:17:3C:AE:73",
+        "hostnameMatch": true
+      },
+      "verdict": {
+        "verdict": "true",
+        "reason": "Leaf certificate expired on 2023-05-03; TLS chain unauthorized at measurement time."
+      }
+    },
+    {
+      "key": "www.jeparticipe.bordeaux.fr",
+      "host": "www.jeparticipe.bordeaux.fr",
+      "domain": "bordeaux.fr",
+      "organization": "Bordeaux",
+      "rules": [
+        "issuer_change",
+        "identity_mismatch"
+      ],
+      "severity": 4,
+      "summary": "issuer_change+identity_mismatch",
+      "baseline": {
+        "certificateId": "206568540",
+        "issuer": "C=FR, ST=Paris, L=Paris, O=Gandi, CN=Gandi Standard SSL CA 2",
+        "firstSeen": "2017-08-31T00:00:00.000Z"
+      },
+      "current": {
+        "issuer": "Let's Encrypt",
+        "validFrom": "2024-06-21T13:55:12.000Z",
+        "validTo": "2024-09-19T13:55:11.000Z",
+        "fingerprint": "0F:95:B3:79:25:23:29:3F:BF:3A:57:46:2B:59:F7:57:CA:5C:E9:DB",
+        "hostnameMatch": false
+      },
+      "verdict": {
+        "verdict": "true",
+        "reason": "Leaf certificate expired on 2024-09-19 and authenticates strategicts.net; TLS chain unauthorized."
+      }
+    },
+    {
+      "key": "www.lalittorale.anglet.fr",
+      "host": "www.lalittorale.anglet.fr",
+      "domain": "anglet.fr",
+      "organization": "Anglet",
+      "rules": [
+        "identity_mismatch"
+      ],
+      "severity": 4,
+      "summary": "identity_mismatch",
+      "baseline": {
+        "certificateId": "2511440386",
+        "issuer": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3",
+        "firstSeen": "2020-02-28T08:32:13.000Z"
+      },
+      "current": {
+        "issuer": "Let's Encrypt",
+        "validFrom": "2026-05-11T05:50:18.000Z",
+        "validTo": "2026-08-09T05:50:17.000Z",
+        "fingerprint": "29:F6:45:C7:7D:A0:BC:1A:37:B6:B2:1C:E2:29:F0:C7:91:38:DB:51",
+        "hostnameMatch": true
+      },
+      "verdict": {
+        "verdict": "true",
+        "reason": "Leaf certificate expired on 2026-08-09; TLS chain unauthorized at measurement time."
+      }
+    },
+    {
+      "key": "www.lesjoursheureux.anglet.fr",
+      "host": "www.lesjoursheureux.anglet.fr",
+      "domain": "anglet.fr",
+      "organization": "Anglet",
+      "rules": [
+        "issuer_change",
+        "new_ca_for_domain",
+        "identity_mismatch"
+      ],
+      "severity": 4,
+      "summary": "issuer_change+new_ca_for_domain+identity_mismatch",
+      "baseline": {
+        "certificateId": "3473404653",
+        "issuer": "C=US, O=Let's Encrypt, CN=Let's Encrypt Authority X3",
+        "firstSeen": "2020-10-06T07:34:20.000Z"
+      },
+      "current": {
+        "issuer": "DigiCert Ireland Limited",
+        "validFrom": "2026-10-01T00:00:00.000Z",
+        "validTo": "2027-04-17T23:59:59.000Z",
+        "fingerprint": "45:10:1E:3D:34:E4:55:44:DD:AD:EC:50:FF:EA:9A:7D:39:84:71:F3",
+        "hostnameMatch": false
+      },
+      "verdict": {
+        "verdict": "true",
+        "reason": "Wildcard *.anglet.fr does not cover the two-label host; TLS chain unauthorized."
+      }
+    },
+    {
+      "key": "www.angouleme.fr",
+      "host": "www.angouleme.fr",
+      "domain": "angouleme.fr",
+      "organization": "Angoulême",
+      "rules": [
+        "issuer_change"
+      ],
+      "severity": 3,
+      "summary": "issuer_change",
+      "baseline": {
+        "certificateId": "3760258",
+        "issuer": "C=US, O=GeoTrust Inc., CN=GeoTrust SSL CA - G2",
+        "firstSeen": "2014-03-25T00:00:00.000Z"
+      },
+      "current": {
+        "issuer": "Let's Encrypt",
+        "validFrom": "2026-09-25T22:45:14.000Z",
+        "validTo": "2026-12-24T22:45:13.000Z",
+        "fingerprint": "E9:46:F1:14:BF:F1:E4:10:DA:82:59:5E:E0:EE:94:F4:06:FE:F9:1F",
+        "hostnameMatch": true
+      },
+      "verdict": {
+        "verdict": "false",
+        "reason": "Trusted Let's Encrypt certificate issued 2026-09-25 covering the host; CT baseline only recorded the 2014 GeoTrust CA."
+      }
+    },
+    {
+      "key": "www.bayonne.fr",
+      "host": "www.bayonne.fr",
+      "domain": "bayonne.fr",
+      "organization": "Bayonne",
+      "rules": [
+        "issuer_change"
+      ],
+      "severity": 3,
+      "summary": "issuer_change",
+      "baseline": {
+        "certificateId": "363860",
+        "issuer": "C=US, O=\"Thawte, Inc.\", OU=Domain Validated SSL, CN=Thawte DV SSL CA",
+        "firstSeen": "2012-03-26T00:00:00.000Z"
+      },
+      "current": {
+        "issuer": "Gandi SAS",
+        "validFrom": "2026-09-04T00:00:00.000Z",
+        "validTo": "2027-03-21T23:59:59.000Z",
+        "fingerprint": "05:5D:65:25:41:D8:5C:E6:42:66:93:DD:97:14:9C:BD:23:41:FE:B6",
+        "hostnameMatch": true
+      },
+      "verdict": {
+        "verdict": "false",
+        "reason": "Trusted Gandi certificate issued 2026-09-04 covering the host; baseline CA was the 2011 Thawte intermediate."
+      }
+    },
+    {
+      "key": "www.bordeaux.fr",
+      "host": "www.bordeaux.fr",
+      "domain": "bordeaux.fr",
+      "organization": "Bordeaux",
+      "rules": [
+        "issuer_change"
+      ],
+      "severity": 3,
+      "summary": "issuer_change",
+      "baseline": {
+        "certificateId": "2371631406",
+        "issuer": "O=VeriSign Trust Network, OU=\"VeriSign, Inc.\", OU=VeriSign International Server CA - Class 3, OU=www.verisign.com/CPS Incorp.by Ref. LIABILITY LTD.(c)97 VeriSign",
+        "firstSeen": "2006-08-04T00:00:00.000Z"
+      },
+      "current": {
+        "issuer": "DigiCert Ireland Limited",
+        "validFrom": "2026-08-21T00:00:00.000Z",
+        "validTo": "2027-03-07T23:59:59.000Z",
+        "fingerprint": "1B:2E:49:A5:BB:37:8A:9B:19:E9:6F:1F:2C:21:5C:23:C6:53:6F:D2",
+        "hostnameMatch": true
+      },
+      "verdict": {
+        "verdict": "false",
+        "reason": "Trusted DigiCert certificate issued 2026-08-21 covering the host; baseline recorded a VeriSign chain first seen in 2006."
+      }
+    },
+    {
+      "key": "www.elucid.bordeaux.fr",
+      "host": "www.elucid.bordeaux.fr",
+      "domain": "bordeaux.fr",
+      "organization": "Bordeaux",
+      "rules": [
+        "issuer_change"
+      ],
+      "severity": 3,
+      "summary": "issuer_change",
+      "baseline": {
+        "certificateId": "1818995541",
+        "issuer": "C=GB, ST=Greater Manchester, L=Salford, O=Sectigo Limited, CN=Sectigo RSA Domain Validation Secure Server CA",
+        "firstSeen": "2019-08-28T00:00:00.000Z"
+      },
+      "current": {
+        "issuer": "Let's Encrypt",
+        "validFrom": "2026-10-03T14:34:37.000Z",
+        "validTo": "2027-01-01T14:34:36.000Z",
+        "fingerprint": "FE:DB:DC:94:2E:71:8D:10:12:7F:1E:00:E4:56:6F:01:5C:70:4A:DB",
+        "hostnameMatch": true
+      },
+      "verdict": {
+        "verdict": "false",
+        "reason": "Trusted Let's Encrypt certificate issued 2026-10-03 covering the host; no identity defect after verification."
+      }
+    }
+  ]
+}
