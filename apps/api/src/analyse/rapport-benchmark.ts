@@ -13,6 +13,7 @@ import {
 	verifierJeuOutils,
 	type JeuOutils,
 } from "./benchmark-outils.js";
+import { compterIncidentsDates, ligneObjectif } from "./objectif-benchmark.js";
 
 export const LIMITE_MOTS_RAPPORT = 150;
 
@@ -126,6 +127,8 @@ export function genererTableauIncidents(bilan: BilanBenchmark, dateMesure: strin
 		`${bilan.total} incidents réels de Nouvelle-Aquitaine, dans l'ordre du corpus. Comparaison du ${dateMesure}.`,
 		"",
 		"Une date « radar » est la première trace datée du corpus (consultation ou vérification), pas une détection automatique. Le CERT-FR n'a aucune date dans ce corpus : il est exclu du classement, jamais compté comme premier ni comme dernier.",
+		"",
+		ligneObjectif(compterIncidentsDates(bilan.lignes)),
 		"",
 		"| ID | Entité | Dpt | 1ᵉʳ canal daté | Radar | 1ᵉʳ média (date) | Délai (h) | Dernier canal |",
 		"| --- | --- | :---: | --- | --- | --- | ---: | --- |",

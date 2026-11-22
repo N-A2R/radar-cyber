@@ -4,6 +4,8 @@
 
 Une date « radar » est la première trace datée du corpus (consultation ou vérification), pas une détection automatique. Le CERT-FR n'a aucune date dans ce corpus : il est exclu du classement, jamais compté comme premier ni comme dernier.
 
+OBJECTIF : atteint — 100 / 100 incidents de Nouvelle-Aquitaine datés
+
 | ID | Entité | Dpt | 1ᵉʳ canal daté | Radar | 1ᵉʳ média (date) | Délai (h) | Dernier canal |
 | --- | --- | :---: | --- | --- | --- | ---: | --- |
 | `na-2026-001` | Ymed (éditeur de la plateforme Sooncare) | 33 | presse locale | 2026-11-12 | 2026-04-09 | 5 208 | radar |
