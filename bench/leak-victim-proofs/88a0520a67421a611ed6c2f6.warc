@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:4de3b349-a684-4add-ad09-57ef7ae4093f>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/posts/2026
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 935
+WARC-Block-Digest: sha1:FYFZ22QWTASMQY5R3GVAGCCLAMVMR3TP
+X-Claim-Fingerprint: 5379b4eb7c619982d4ff30a2
+X-Victim-Key: 88a0520a67421a611ed6c2f6
+
+{"post_title": "Distritech", "discovered": "2026-04-06 14:00:04.221128", "description": "distritech.com zoominfo.com/c/distritech-llc/358799326 DISTRITECH LLC offers a wide range of consumer electronics and accessories, including audio and video equipment, computers, cameras, mobility devices, gaming products, wearables, smart home solutions, and home living items. The company targets technology enthusiasts and everyday consumers seeking high-quality electronic products and personalized service. With a commitment to providing updated inventories and quick warranty support, DISTRITECH emphasizes exceptional customer experience and market insights. Additionally, they provide options for vendor registration and a range of weekly deals, making technology accessible and affordable to their clients", "link": null, "magnet": null, "screen": null, "misp_uuid": "e979df8d-880b-5122-934b-d29e0b0912fc", "group_name": "the gentlemen"}
+

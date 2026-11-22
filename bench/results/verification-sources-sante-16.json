@@ -1,0 +1,323 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-sante-16.jsonl",
+  "secteur": "santé",
+  "departement": "16",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36",
+  "methode": "GET avec suivi des redirections, statut HTTP final et type de contenu",
+  "sources": 22,
+  "urls_verifiees": 53,
+  "urls_200": 53,
+  "anomalies": [],
+  "detail": {
+    "Centre hospitalier d'Angoulême": {
+      "https://www.ch-angouleme.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ch-angouleme.fr/"
+      },
+      "https://www.ch-angouleme.fr/actualite": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ch-angouleme.fr/actualite"
+      },
+      "https://www.ch-angouleme.fr/rss.xml": {
+        "code": 200,
+        "type": "application/rss+xml; charset=utf-8",
+        "final": "https://www.ch-angouleme.fr/rss.xml"
+      }
+    },
+    "CPAM de la Charente — Assurance Maladie": {
+      "https://www.ameli.fr/charente": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.ameli.fr/charente"
+      },
+      "https://www.ameli.fr/charente/assure/liste-actualites-locales": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.ameli.fr/charente/assure/liste-actualites-locales"
+      }
+    },
+    "ARS Nouvelle-Aquitaine — délégation de la Charente (16)": {
+      "https://www.nouvelle-aquitaine.ars.sante.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.nouvelle-aquitaine.ars.sante.fr/"
+      },
+      "https://www.nouvelle-aquitaine.ars.sante.fr/liste-actualites?archive=0": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.nouvelle-aquitaine.ars.sante.fr/liste-actualites?archive=0"
+      },
+      "https://www.nouvelle-aquitaine.ars.sante.fr/rss.xml?type=ars_actualite": {
+        "code": 200,
+        "type": "application/rss+xml; charset=utf-8",
+        "final": "https://www.nouvelle-aquitaine.ars.sante.fr/rss.xml?type=ars_actualite"
+      },
+      "https://www.nouvelle-aquitaine.ars.sante.fr/cybersecurite-0?parent=15058": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.nouvelle-aquitaine.ars.sante.fr/cybersecurite-0?parent=15058"
+      }
+    },
+    "Charente Libre — rubrique Santé": {
+      "https://www.charentelibre.fr/sante/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.charentelibre.fr/sante/"
+      },
+      "https://www.charentelibre.fr/sante/rss.xml": {
+        "code": 200,
+        "type": "application/xml",
+        "final": "https://www.charentelibre.fr/sante/rss.xml"
+      },
+      "https://www.charentelibre.fr/sante/cyberattaque-contre-1-500-medecins-les-donnees-de-15-millions-de-patients-compromises-28065977.php": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.charentelibre.fr/sante/cyberattaque-contre-1-500-medecins-les-donnees-de-15-millions-de-patients-compromises-28065977.php"
+      }
+    },
+    "Sud Ouest — édition Charente": {
+      "https://www.sudouest.fr/charente/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.sudouest.fr/charente/"
+      },
+      "https://www.sudouest.fr/charente/rss.xml": {
+        "code": 200,
+        "type": "application/xml",
+        "final": "https://www.sudouest.fr/charente/rss.xml"
+      }
+    },
+    "actu.fr — Charente": {
+      "https://actu.fr/nouvelle-aquitaine/charente_16/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://actu.fr/nouvelle-aquitaine/charente_16"
+      },
+      "https://actu.fr/nouvelle-aquitaine/charente_16/rss.xml": {
+        "code": 200,
+        "type": "application/rss+xml; charset=utf-8",
+        "final": "https://actu.fr/nouvelle-aquitaine/charente_16/rss.xml"
+      }
+    },
+    "ICI Charente": {
+      "https://www.ici.fr/nouvelle-aquitaine/charente-16": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ici.fr/nouvelle-aquitaine/charente-16"
+      },
+      "https://www.ici.fr/rss/la-rochelle/rubrique/infos.xml": {
+        "code": 200,
+        "type": "application/xml",
+        "final": "https://www.ici.fr/rss/la-rochelle/rubrique/infos.xml"
+      }
+    },
+    "France 3 Nouvelle-Aquitaine — Charente": {
+      "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente"
+      },
+      "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente/rss": {
+        "code": 200,
+        "type": "text/xml; charset=UTF-8",
+        "final": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente/rss"
+      }
+    },
+    "FHF Nouvelle-Aquitaine — Fédération Hospitalière de France": {
+      "https://www.fhf.fr/en-regions/nouvelle-aquitaine": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.fhf.fr/en-regions/nouvelle-aquitaine"
+      },
+      "https://www.fhf.fr/en-regions/nouvelle-aquitaine/nos-actualites": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.fhf.fr/en-regions/nouvelle-aquitaine/nos-actualites"
+      }
+    },
+    "Centre hospitalier de Confolens": {
+      "https://www.ch-confolens.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ch-confolens.fr/"
+      },
+      "https://www.ch-confolens.fr/index-module-doc-page-view.html": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ch-confolens.fr/index-module-doc-page-view.html"
+      },
+      "https://www.ch-confolens.fr/rss/fr/news/news.xml": {
+        "code": 200,
+        "type": "application/xml",
+        "final": "https://www.ch-confolens.fr/rss/fr/news/news.xml"
+      }
+    },
+    "Centre hospitalier de La Rochefoucauld": {
+      "https://www.ch-larochefoucauld.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ch-larochefoucauld.fr/"
+      },
+      "https://www.ch-larochefoucauld.fr/actualite": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ch-larochefoucauld.fr/actualite"
+      }
+    },
+    "EHPAD Habrioux d'Aigre": {
+      "https://www.ehpad-habrioux-aigre.fr/": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.ehpad-habrioux-aigre.fr/"
+      },
+      "https://www.ehpad-habrioux-aigre.fr/actualites-17": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.ehpad-habrioux-aigre.fr/actualites-17"
+      }
+    },
+    "Conseil départemental de l'Ordre des médecins de la Charente": {
+      "https://conseil16.ordre.medecin.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://conseil16.ordre.medecin.fr/"
+      },
+      "https://conseil16.ordre.medecin.fr/actualites": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://conseil16.ordre.medecin.fr/actualites"
+      }
+    },
+    "CIDOI Picto-Charentais — Ordre des infirmiers (Charente)": {
+      "https://www.ordre-infirmiers.fr/contacter-le-cidoi-picto-charentais": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ordre-infirmiers.fr/contacter-le-cidoi-picto-charentais"
+      },
+      "https://www.ordre-infirmiers.fr/annuaire-des-cidoi-et-des-ciroi": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ordre-infirmiers.fr/annuaire-des-cidoi-et-des-ciroi"
+      }
+    },
+    "Ordre infirmier de la Charente — blog du conseil départemental": {
+      "https://ordreinfirmier16.canalblog.com/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://ordreinfirmier16.canalblog.com/"
+      }
+    },
+    "Conseil départemental de l'Ordre des masseurs-kinésithérapeutes de la Charente": {
+      "https://charente.ordremk.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://charente.ordremk.fr/"
+      },
+      "https://charente.ordremk.fr/actualites": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://charente.ordremk.fr/actualites/"
+      },
+      "https://charente.ordremk.fr/feed": {
+        "code": 200,
+        "type": "application/rss+xml; charset=UTF-8",
+        "final": "https://charente.ordremk.fr/feed/"
+      }
+    },
+    "URPS Médecins Libéraux Nouvelle-Aquitaine": {
+      "https://www.urpsml-na.org/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.urpsml-na.org/"
+      }
+    },
+    "URPS Infirmiers Libéraux Nouvelle-Aquitaine": {
+      "https://urpsinfirmiers-na.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://urpsinfirmiers-na.fr/"
+      },
+      "https://urpsinfirmiers-na.fr/actualites/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://urpsinfirmiers-na.fr/actualites/"
+      }
+    },
+    "URPS Pharmaciens Nouvelle-Aquitaine": {
+      "https://www.urps-pharmaciens-na.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.urps-pharmaciens-na.fr/"
+      },
+      "https://www.urps-pharmaciens-na.fr/actualites/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.urps-pharmaciens-na.fr/actualites/"
+      }
+    },
+    "Ville d'Angoulême — Santé et solidarité": {
+      "https://www.angouleme.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.angouleme.fr/"
+      },
+      "https://www.angouleme.fr/mon-quotidien/sante-solidarite/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.angouleme.fr/mon-quotidien/sante-solidarite/"
+      },
+      "https://www.angouleme.fr/feed/": {
+        "code": 200,
+        "type": "application/rss+xml; charset=UTF-8",
+        "final": "https://www.angouleme.fr/feed/"
+      },
+      "https://www.angouleme.fr/actualites/certification-france-identite/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.angouleme.fr/actualites/certification-france-identite/"
+      }
+    },
+    "Grand Cognac — rubrique Santé": {
+      "https://www.grand-cognac.fr/": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.grand-cognac.fr/"
+      },
+      "https://www.grand-cognac.fr/vivre-et-participer/sante": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.grand-cognac.fr/vivre-et-participer/sante"
+      },
+      "https://www.grand-cognac.fr/rss.xml": {
+        "code": 200,
+        "type": "application/rss+xml; charset=utf-8",
+        "final": "https://www.grand-cognac.fr/rss.xml"
+      }
+    },
+    "Le Journal des Entreprises — sector Santé": {
+      "https://www.lejournaldesentreprises.com/nouvelle-aquitaine": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.lejournaldesentreprises.com/nouvelle-aquitaine"
+      },
+      "https://www.lejournaldesentreprises.com/secteurs-activite/services/sante": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.lejournaldesentreprises.com/secteurs-activite/services/sante"
+      },
+      "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine": {
+        "code": 200,
+        "type": "text/xml; charset=UTF-8",
+        "final": "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine"
+      },
+      "https://www.lejournaldesentreprises.com/breve/le-campus-cyber-nouvelle-aquitaine-se-dote-dune-convention-de-cooperation-2078282": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.lejournaldesentreprises.com/breve/le-campus-cyber-nouvelle-aquitaine-se-dote-dune-convention-de-cooperation-2078282"
+      }
+    }
+  }
+}
