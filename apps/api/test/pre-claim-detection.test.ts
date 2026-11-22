@@ -4,6 +4,7 @@ import {
 	detectPreClaim,
 	leadDays,
 	normaliseKey,
+	objectiveStatement,
 	summariseDetections,
 	type Claim,
 	type EarlySignal,
@@ -173,4 +174,11 @@ test("an empty detection set has a zeroed summary", () => {
 
 test("the lead window must be positive", () => {
 	assert.throws(() => detectPreClaim([claim()], [signal()], 0), RangeError);
+});
+test("an attained objective is declared with its measured count", () => {
+	assert.equal(objectiveStatement(71, 10), "OBJECTIF : atteint — 71 / 10");
+});
+
+test("a partial objective declares what remains", () => {
+	assert.equal(objectiveStatement(7, 10), "OBJECTIF : partiel — 7 / 10, manque 3");
 });
