@@ -1,7 +1,19 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { createRequire } from "node:module";
+
+// maplibre-gl v6 charge son worker depuis `dist/maplibre-gl-worker.mjs`, mais
+// l'import par sous-chemin échoue dans Vite (résolution par `exports`). On
+// l'alias vers le vrai fichier : `?url` renvoie alors une URL servie valide.
+const require = createRequire(import.meta.url);
+const maplibreWorker = require.resolve("maplibre-gl/dist/maplibre-gl-worker.mjs");
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      "maplibre-gl/dist/maplibre-gl-worker.mjs": maplibreWorker,
+    },
+  },
   plugins: [
     react(),
     {
