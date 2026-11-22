@@ -1,0 +1,105 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-commerce-17.jsonl",
+  "secteur": "commerce",
+  "departement": "17",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+  "methode": "GET réel avec suivi des redirections, délai 18 s ; code HTTP, type de contenu et nombre d'items RSS enregistrés. Recherche Exa indisponible (crédits épuisés) : candidats identifiés depuis les corpus départementaux existants, les sites officiels et les moteurs alternatifs, puis tous contrôlés en HTTP direct.",
+  "sources": 11,
+  "urls_verifiees": 26,
+  "urls_200": 26,
+  "detail": [
+    {
+      "nom": "CMA Nouvelle-Aquitaine — actualités (Charente-Maritime)",
+      "urls": {
+        "https://cma-nouvelleaquitaine.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}
+      },
+      "note": "Page actualités avec filtre département « Charente-Maritime » (6 mentions du département dans le contenu)."
+    },
+    {
+      "nom": "Ville de La Rochelle — service commerces",
+      "urls": {
+        "https://www.larochelle.fr/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.larochelle.fr/vie-quotidienne/professionnels/commerces": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "Sud Ouest — Charente-Maritime",
+      "urls": {
+        "https://www.sudouest.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.sudouest.fr/charente-maritime/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.sudouest.fr/charente-maritime/rss.xml": {"code": 200, "type": "application/xml", "items_rss": 20}
+      }
+    },
+    {
+      "nom": "Sud Ouest — La Rochelle, rubrique économie",
+      "urls": {
+        "https://www.sudouest.fr/charente-maritime/la-rochelle/economie/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.sudouest.fr/charente-maritime/la-rochelle/rss.xml": {"code": 200, "type": "application/xml", "items_rss": 20}
+      }
+    },
+    {
+      "nom": "actu.fr — Saintes (Charente-Maritime)",
+      "urls": {
+        "https://actu.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://actu.fr/nouvelle-aquitaine/saintes_17300/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0, "final": "https://actu.fr/nouvelle-aquitaine/saintes_17300"}
+      }
+    },
+    {
+      "nom": "ICI La Rochelle — Charente-Maritime (Radio France)",
+      "urls": {
+        "https://www.ici.fr/radio/la-rochelle": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.ici.fr/nouvelle-aquitaine/charente-maritime-17/actu": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.ici.fr/rss/la-rochelle/rubrique/infos.xml": {"code": 200, "type": "application/xml", "items_rss": 20}
+      }
+    },
+    {
+      "nom": "La Nouvelle République — Charente-Maritime",
+      "urls": {
+        "https://www.lanouvellerepublique.fr/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.lanouvellerepublique.fr/charente-maritime": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.lanouvellerepublique.fr/api/v1/rss/592bf255489a4555008b4568": {"code": 200, "type": "application/rss+xml; charset=UTF-8", "items_rss": 20}
+      }
+    },
+    {
+      "nom": "FCD — Fédération du commerce et de la distribution",
+      "urls": {
+        "https://www.fcd.fr/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.fcd.fr/qui-sommes-nous/actualites-de-la-fcd/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "FEVAD — Fédération du e-commerce et de la vente à distance",
+      "urls": {
+        "https://www.fevad.com/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.fevad.com/actualites/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0, "final": "https://www.fevad.com/"},
+        "https://www.fevad.com/feed/": {"code": 200, "type": "application/rss+xml; charset=UTF-8", "items_rss": 10}
+      }
+    },
+    {
+      "nom": "Cyberattaque.org — actualités des incidents cyber",
+      "urls": {
+        "https://www.cyberattaque.org/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.cyberattaque.org/feed/": {"code": 200, "type": "application/rss+xml; charset=UTF-8", "items_rss": 10}
+      },
+      "note": "Exemple local : incident Incognito.fr (Saint-Martin-de-Ré), page elle-même contrôlée en 200."
+    },
+    {
+      "nom": "Rochefort Océan — actualités économie et commerces",
+      "urls": {
+        "https://www.rochefort-ocean.com/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.rochefort-ocean.com/actualites/economie": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}
+      }
+    }
+  ],
+  "exclus": [
+    {"url": "https://www.charente-maritime.cci.fr/", "code": 403, "motif": "CCI Charente-Maritime : accès refusé au robot, non intégrée"},
+    {"url": "https://www.saintes-tourisme.fr/actualites/", "code": 404, "motif": "page d'actualités absente, non intégrée"}
+  ],
+  "exemples_cyber": [
+    {"titre": "En Charente-Maritime, ce magasin E.Leclerc est victime de la cyberattaque : les vitrines et bacs sont vidés entièrement", "organisation": "E.Leclerc de Surgères", "source": "actu.fr", "url": "https://actu.fr/nouvelle-aquitaine/surgeres_17434/en-charente-maritime-ce-magasin-e-leclerc-est-victime-de-la-cyberattaque-les-vitrines-et-bacs-sont-vides-entierement_64912834.html"},
+    {"titre": "Incognito.fr : 21 352 commandes en fuite après une cyberattaque", "organisation": "Incognito.fr, Saint-Martin-de-Ré", "source": "Cyberattaque.org", "url": "https://www.cyberattaque.org/incognito-fr-21-352-commandes-en-fuite-apres-une-cyberattaque/"},
+    {"titre": "La billetterie du théâtre de la Coursive à La Rochelle victime d'une attaque informatique", "organisation": "Théâtre de la Coursive, La Rochelle", "source": "ICI / Radio France", "url": "https://www.ici.fr/infos/faits-divers-justice/la-billetterie-du-theatre-de-la-coursive-a-la-rochelle-victime-d-une-attaque-informatique-1178940"}
+  ]
+}
