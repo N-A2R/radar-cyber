@@ -107,3 +107,5 @@ Les douze départements sont représentés ; les effectifs par département figu
 - `bench/gold/incidents-na-500.jsonl`, `bench/gold/manifest.json` — corpus gelé et sa fiche de traçabilité.
 - `apps/api/test/gold-corpus.test.ts` — un test par comportement (14 tests).
 - `package.json` — commandes `gold:build` et `gold:measure`.
+
+OBJECTIF : atteint — 500 / 500
