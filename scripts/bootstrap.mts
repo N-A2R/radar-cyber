@@ -163,6 +163,34 @@ async function main(): Promise<void> {
 			report("référentiel NA", true, `${o.rows[0].n} orgs / ${a.rows[0].n} alias`);
 		}
 
+		// --- Registre des absences (attestations négatives signées) ------------
+		// Une organisation sans événement n'apparaît nulle part : sans ce
+		// registre, son absence est indistinguable d'une non-couverture.
+		const attTable = await client.query<{ present: boolean }>(
+			"SELECT to_regclass('public.negative_attestation') IS NOT NULL AS present",
+		);
+		const attCount = async () => {
+			const r = await client.query<{ n: string }>(
+				`SELECT count(*)::text AS n FROM negative_attestation
+				 WHERE sources_checked >= 3 AND signed = true AND window_end > window_start`,
+			);
+			return Number(r.rows[0].n);
+		};
+		if (!attTable.rows[0]?.present) {
+			report("absences attestées", false, "table absente — appliquez la migration 201");
+		} else {
+			const avant = await attCount();
+			if (avant >= 1000) {
+				report("absences attestées", true, `${avant} attestation(s) signée(s)`);
+			} else if (CHECK) {
+				report("absences attestées", false, `${avant}/1000 — lancez scripts/attestations-negatives.mts --apply`);
+			} else {
+				await runScript("scripts/attestations-negatives.mts", ["--apply"]);
+				const apres = await attCount();
+				report("absences attestées", apres >= 1000, `${apres} attestation(s) signée(s)`);
+			}
+		}
+
 		// --- Échantillon de démonstration (optionnel) -------------------------
 		if (WITH_SAMPLE) {
 			const q = await client.query<{ n: string }>("SELECT count(*)::text AS n FROM quarantine_raw");
