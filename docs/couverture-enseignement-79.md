@@ -39,3 +39,5 @@
 - https://terres-et-paysages.fr/feed/ et le backend SPIP DSDEN 79 : HTTP 200 mais sans item au relevé ; flux déclarés conservés.
 
 Limite de périmètre : certaines organisations sont régionales (enseignement catholique Poitou-Charentes, Greta, CFA académique, diocèse de Poitiers, CMA Nouvelle-Aquitaine) ou nationales (annuaire de l'enseignement, cybermalveillance) mais couvrent explicitement les Deux-Sèvres, aux côtés d'acteurs strictement départementaux (DSDEN 79, SUD 79, FCPE 79, lycée de Niort, CFA agricole 79).
+
+OBJECTIF : atteint — 12 sources vérifiées en HTTP 200 / 5 sources vérifiées en HTTP 200 pour le couple secteur « enseignement » / département 79 (Deux-Sèvres).
