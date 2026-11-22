@@ -68,3 +68,5 @@ Moyennes des composantes sur la population : intégrité 18,37/20, effectif 0,15
 ## Limites assumées
 
 Le score décrit une exposition observée et une qualité de dossier public ; il ne prédit pas une compromission et ne déclenche aucune décision automatisée. Les champs statiques du registre dominent la note : l'effectif n'est publié que pour une minorité d'organisations et seules 43 organisations portent un événement, si bien que les composantes d'incident et de preuves concernent une fraction très faible de la population. Le lissage sectoriel à 1 000 organisations est un choix déclaré, modifiable en une seule constante et versionné avec le score. Aucune donnée personnelle de victime, aucune source payante et aucun service payant n'ont été utilisés.
+
+OBJECTIF : atteint — 1 671 907 / 1 671 907
