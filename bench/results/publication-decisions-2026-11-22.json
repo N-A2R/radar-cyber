@@ -1,0 +1,1022 @@
+{
+  "generatedAt": "2026-11-22T05:19:20.645Z",
+  "method": {
+    "rule": "second independent source, or documented 48 h delay; pending stays anonymous (publication-risquee)",
+    "refusalMotif": "publication-risquee",
+    "scope": "Nouvelle-Aquitaine (regional flag or organisation department)",
+    "privacy": "truncated SHA-256 victim hashes, timestamps, counts and reasons only",
+    "appendOnly": "one decision per incident and measurement instant, journal migration 027",
+    "chain": "sha256/64-bit truncated, chained across every decision"
+  },
+  "dataset": {
+    "sources": 914,
+    "events": 26770
+  },
+  "baseline": {
+    "source": "bench/results/corroboration-48h-2026-11-22.json",
+    "incidents": 56
+  },
+  "summary": {
+    "incidents": 49,
+    "nommes": 49,
+    "publicationRisquee": 0,
+    "secondSource": 2,
+    "afterDelay": 47,
+    "pending": 0
+  },
+  "chainHead": "f0691715d5705fa4",
+  "verification": {
+    "ok": true,
+    "checked": 49,
+    "firstInvalidSequence": null
+  },
+  "recording": {
+    "incidents": 49,
+    "dejaJournalises": 0,
+    "ecrits": 49,
+    "lacunes": 0,
+    "erreurs": []
+  },
+  "decisions": [
+    {
+      "sequence": 1,
+      "victimHash": "16f7d5d146cf",
+      "identifiant": "16f7d5d146cf@2021-10-04T10:12:29.858Z",
+      "verdict": "after_delay",
+      "decisionAt": "2021-10-06T10:12:29.858Z",
+      "firstClaimAt": "2021-10-04T10:12:29.858Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2021-10-04T10:12:29.858Z",
+        "decisionAt": "2021-10-06T10:12:29.858Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "0",
+      "hash": "4de3c1587af6bb5f"
+    },
+    {
+      "sequence": 2,
+      "victimHash": "9117e5643fdd",
+      "identifiant": "9117e5643fdd@2021-11-22T22:41:09.998Z",
+      "verdict": "after_delay",
+      "decisionAt": "2021-11-24T22:41:09.998Z",
+      "firstClaimAt": "2021-11-22T22:41:09.998Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2021-11-22T22:41:09.998Z",
+        "decisionAt": "2021-11-24T22:41:09.998Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "4de3c1587af6bb5f",
+      "hash": "b805152afd44a08d"
+    },
+    {
+      "sequence": 3,
+      "victimHash": "e60c756b41f8",
+      "identifiant": "e60c756b41f8@2022-06-10T19:33:17.545Z",
+      "verdict": "after_delay",
+      "decisionAt": "2022-06-12T19:33:17.545Z",
+      "firstClaimAt": "2022-06-10T19:33:17.545Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2022-06-10T19:33:17.545Z",
+        "decisionAt": "2022-06-12T19:33:17.545Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "b805152afd44a08d",
+      "hash": "84fef4a5fde87e20"
+    },
+    {
+      "sequence": 4,
+      "victimHash": "592aead04cf7",
+      "identifiant": "592aead04cf7@2022-09-15T11:16:21.227Z",
+      "verdict": "after_delay",
+      "decisionAt": "2022-09-17T11:16:21.227Z",
+      "firstClaimAt": "2022-09-15T11:16:21.227Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2022-09-15T11:16:21.227Z",
+        "decisionAt": "2022-09-17T11:16:21.227Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "84fef4a5fde87e20",
+      "hash": "2553fc25baad2cdb"
+    },
+    {
+      "sequence": 5,
+      "victimHash": "99e7734e9544",
+      "identifiant": "99e7734e9544@2023-02-21T19:57:44.703Z",
+      "verdict": "after_delay",
+      "decisionAt": "2023-02-23T19:57:44.703Z",
+      "firstClaimAt": "2023-02-21T19:57:44.703Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2023-02-21T19:57:44.703Z",
+        "decisionAt": "2023-02-23T19:57:44.703Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "2553fc25baad2cdb",
+      "hash": "c0aa6354321be5c2"
+    },
+    {
+      "sequence": 6,
+      "victimHash": "48d6feffe670",
+      "identifiant": "48d6feffe670@2023-06-28T16:38:59.295Z",
+      "verdict": "after_delay",
+      "decisionAt": "2023-06-30T16:38:59.295Z",
+      "firstClaimAt": "2023-06-28T16:38:59.295Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2023-06-28T16:38:59.295Z",
+        "decisionAt": "2023-06-30T16:38:59.295Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "c0aa6354321be5c2",
+      "hash": "6be563e2ce306baf"
+    },
+    {
+      "sequence": 7,
+      "victimHash": "d0ac55d6aa6e",
+      "identifiant": "d0ac55d6aa6e@2023-08-23T20:23:56.675Z",
+      "verdict": "after_delay",
+      "decisionAt": "2023-08-25T20:23:56.675Z",
+      "firstClaimAt": "2023-08-23T20:23:56.675Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2023-08-23T20:23:56.675Z",
+        "decisionAt": "2023-08-25T20:23:56.675Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "6be563e2ce306baf",
+      "hash": "9530b3383e4ad2ab"
+    },
+    {
+      "sequence": 8,
+      "victimHash": "c4c0f7ea6533",
+      "identifiant": "c4c0f7ea6533@2023-11-07T15:34:16.684Z",
+      "verdict": "after_delay",
+      "decisionAt": "2023-11-09T15:34:16.684Z",
+      "firstClaimAt": "2023-11-07T15:34:16.684Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2023-11-07T15:34:16.684Z",
+        "decisionAt": "2023-11-09T15:34:16.684Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "9530b3383e4ad2ab",
+      "hash": "192cfdfb10ccda58"
+    },
+    {
+      "sequence": 9,
+      "victimHash": "222d975cd098",
+      "identifiant": "222d975cd098@2023-11-12T09:32:11.329Z",
+      "verdict": "after_delay",
+      "decisionAt": "2023-11-14T09:32:11.329Z",
+      "firstClaimAt": "2023-11-12T09:32:11.329Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2023-11-12T09:32:11.329Z",
+        "decisionAt": "2023-11-14T09:32:11.329Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "192cfdfb10ccda58",
+      "hash": "00a3f4156eefc88c"
+    },
+    {
+      "sequence": 10,
+      "victimHash": "c380bcef1d3b",
+      "identifiant": "c380bcef1d3b@2023-12-14T09:37:09.265Z",
+      "verdict": "after_delay",
+      "decisionAt": "2023-12-16T09:37:09.265Z",
+      "firstClaimAt": "2023-12-14T09:37:09.265Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2023-12-14T09:37:09.265Z",
+        "decisionAt": "2023-12-16T09:37:09.265Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "00a3f4156eefc88c",
+      "hash": "edfc4c5067aa15bc"
+    },
+    {
+      "sequence": 11,
+      "victimHash": "c380bcef1d3b",
+      "identifiant": "c380bcef1d3b@2023-12-18T10:38:09.551Z",
+      "verdict": "after_delay",
+      "decisionAt": "2023-12-20T10:38:09.551Z",
+      "firstClaimAt": "2023-12-18T10:38:09.551Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2023-12-18T10:38:09.551Z",
+        "decisionAt": "2023-12-20T10:38:09.551Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "edfc4c5067aa15bc",
+      "hash": "4697e6ae4c63d17c"
+    },
+    {
+      "sequence": 12,
+      "victimHash": "04a74cb3f926",
+      "identifiant": "04a74cb3f926@2024-01-01T00:01:01.000Z",
+      "verdict": "after_delay",
+      "decisionAt": "2024-01-03T00:01:01.000Z",
+      "firstClaimAt": "2024-01-01T00:01:01.000Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2024-01-01T00:01:01.000Z",
+        "decisionAt": "2024-01-03T00:01:01.000Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "4697e6ae4c63d17c",
+      "hash": "e58cadd7cbdcf19c"
+    },
+    {
+      "sequence": 13,
+      "victimHash": "9761f81cf67e",
+      "identifiant": "9761f81cf67e@2024-01-23T20:45:26.730Z",
+      "verdict": "after_delay",
+      "decisionAt": "2024-01-25T20:45:26.730Z",
+      "firstClaimAt": "2024-01-23T20:45:26.730Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2024-01-23T20:45:26.730Z",
+        "decisionAt": "2024-01-25T20:45:26.730Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "e58cadd7cbdcf19c",
+      "hash": "52985ea3daac1199"
+    },
+    {
+      "sequence": 14,
+      "victimHash": "4a738b21d6f6",
+      "identifiant": "4a738b21d6f6@2024-02-12T07:45:30.004Z",
+      "verdict": "after_delay",
+      "decisionAt": "2024-02-14T07:45:30.004Z",
+      "firstClaimAt": "2024-02-12T07:45:30.004Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2024-02-12T07:45:30.004Z",
+        "decisionAt": "2024-02-14T07:45:30.004Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "52985ea3daac1199",
+      "hash": "7981afc9382a1272"
+    },
+    {
+      "sequence": 15,
+      "victimHash": "ed80c280d09d",
+      "identifiant": "ed80c280d09d@2024-04-04T15:48:14.633Z",
+      "verdict": "after_delay",
+      "decisionAt": "2024-04-06T15:48:14.633Z",
+      "firstClaimAt": "2024-04-04T15:48:14.633Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2024-04-04T15:48:14.633Z",
+        "decisionAt": "2024-04-06T15:48:14.633Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "7981afc9382a1272",
+      "hash": "c92892d58b70ca7b"
+    },
+    {
+      "sequence": 16,
+      "victimHash": "e34e35e26651",
+      "identifiant": "e34e35e26651@2024-05-07T01:10:32.160Z",
+      "verdict": "after_delay",
+      "decisionAt": "2024-05-09T01:10:32.160Z",
+      "firstClaimAt": "2024-05-07T01:10:32.160Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2024-05-07T01:10:32.160Z",
+        "decisionAt": "2024-05-09T01:10:32.160Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "c92892d58b70ca7b",
+      "hash": "70135e0ab201d9d7"
+    },
+    {
+      "sequence": 17,
+      "victimHash": "99f122902e8a",
+      "identifiant": "99f122902e8a@2024-05-26T13:17:38.223Z",
+      "verdict": "after_delay",
+      "decisionAt": "2024-05-28T13:17:38.223Z",
+      "firstClaimAt": "2024-05-26T13:17:38.223Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2024-05-26T13:17:38.223Z",
+        "decisionAt": "2024-05-28T13:17:38.223Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "70135e0ab201d9d7",
+      "hash": "c47220e112ad4ea9"
+    },
+    {
+      "sequence": 18,
+      "victimHash": "8a99489ff8cb",
+      "identifiant": "8a99489ff8cb@2024-06-13T22:00:00.000Z",
+      "verdict": "after_delay",
+      "decisionAt": "2024-06-15T22:00:00.000Z",
+      "firstClaimAt": "2024-06-13T22:00:00.000Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2024-06-13T22:00:00.000Z",
+        "decisionAt": "2024-06-15T22:00:00.000Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "c47220e112ad4ea9",
+      "hash": "8fd4f9a34681aeb5"
+    },
+    {
+      "sequence": 19,
+      "victimHash": "024f1e365111",
+      "identifiant": "024f1e365111@2024-06-23T00:00:00.000Z",
+      "verdict": "after_delay",
+      "decisionAt": "2024-06-25T00:00:00.000Z",
+      "firstClaimAt": "2024-06-23T00:00:00.000Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2024-06-23T00:00:00.000Z",
+        "decisionAt": "2024-06-25T00:00:00.000Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "8fd4f9a34681aeb5",
+      "hash": "cc14c50620c87cc6"
+    },
+    {
+      "sequence": 20,
+      "victimHash": "024f1e365111",
+      "identifiant": "024f1e365111@2024-07-08T00:00:00.000Z",
+      "verdict": "after_delay",
+      "decisionAt": "2024-07-10T00:00:00.000Z",
+      "firstClaimAt": "2024-07-08T00:00:00.000Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2024-07-08T00:00:00.000Z",
+        "decisionAt": "2024-07-10T00:00:00.000Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "cc14c50620c87cc6",
+      "hash": "d1e33cc121c8fdc6"
+    },
+    {
+      "sequence": 21,
+      "victimHash": "133e8f1378b7",
+      "identifiant": "133e8f1378b7@2024-07-30T00:00:00.000Z",
+      "verdict": "after_delay",
+      "decisionAt": "2024-08-01T00:00:00.000Z",
+      "firstClaimAt": "2024-07-30T00:00:00.000Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2024-07-30T00:00:00.000Z",
+        "decisionAt": "2024-08-01T00:00:00.000Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "d1e33cc121c8fdc6",
+      "hash": "f9632983fdbcca79"
+    },
+    {
+      "sequence": 22,
+      "victimHash": "133e8f1378b7",
+      "identifiant": "133e8f1378b7@2024-08-08T00:00:00.000Z",
+      "verdict": "after_delay",
+      "decisionAt": "2024-08-10T00:00:00.000Z",
+      "firstClaimAt": "2024-08-08T00:00:00.000Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2024-08-08T00:00:00.000Z",
+        "decisionAt": "2024-08-10T00:00:00.000Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "f9632983fdbcca79",
+      "hash": "f195061cc8112dc2"
+    },
+    {
+      "sequence": 23,
+      "victimHash": "8aaf06045715",
+      "identifiant": "8aaf06045715@2024-08-29T22:00:00.000Z",
+      "verdict": "after_delay",
+      "decisionAt": "2024-08-31T22:00:00.000Z",
+      "firstClaimAt": "2024-08-29T22:00:00.000Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2024-08-29T22:00:00.000Z",
+        "decisionAt": "2024-08-31T22:00:00.000Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "f195061cc8112dc2",
+      "hash": "2bb4c3c4e8a38b33"
+    },
+    {
+      "sequence": 24,
+      "victimHash": "5c199a761b25",
+      "identifiant": "5c199a761b25@2024-10-06T20:41:44.384Z",
+      "verdict": "after_delay",
+      "decisionAt": "2024-10-08T20:41:44.384Z",
+      "firstClaimAt": "2024-10-06T20:41:44.384Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2024-10-06T20:41:44.384Z",
+        "decisionAt": "2024-10-08T20:41:44.384Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "2bb4c3c4e8a38b33",
+      "hash": "c5dc6693db3c07b1"
+    },
+    {
+      "sequence": 25,
+      "victimHash": "9f1b40cb698b",
+      "identifiant": "9f1b40cb698b@2024-11-01T00:00:00.000Z",
+      "verdict": "after_delay",
+      "decisionAt": "2024-11-03T00:00:00.000Z",
+      "firstClaimAt": "2024-11-01T00:00:00.000Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2024-11-01T00:00:00.000Z",
+        "decisionAt": "2024-11-03T00:00:00.000Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "c5dc6693db3c07b1",
+      "hash": "1aef8eaa4acc0125"
+    },
+    {
+      "sequence": 26,
+      "victimHash": "9f1b40cb698b",
+      "identifiant": "9f1b40cb698b@2024-11-18T00:00:00.000Z",
+      "verdict": "after_delay",
+      "decisionAt": "2024-11-20T00:00:00.000Z",
+      "firstClaimAt": "2024-11-18T00:00:00.000Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2024-11-18T00:00:00.000Z",
+        "decisionAt": "2024-11-20T00:00:00.000Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "1aef8eaa4acc0125",
+      "hash": "76da7ebaf56eb2a8"
+    },
+    {
+      "sequence": 27,
+      "victimHash": "89a2fe2e3b8b",
+      "identifiant": "89a2fe2e3b8b@2024-11-18T15:20:37.338Z",
+      "verdict": "after_delay",
+      "decisionAt": "2024-11-20T15:20:37.338Z",
+      "firstClaimAt": "2024-11-18T15:20:37.338Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2024-11-18T15:20:37.338Z",
+        "decisionAt": "2024-11-20T15:20:37.338Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "76da7ebaf56eb2a8",
+      "hash": "afc181eceab0baf9"
+    },
+    {
+      "sequence": 28,
+      "victimHash": "b1757511ba56",
+      "identifiant": "b1757511ba56@2024-12-23T00:00:00.000Z",
+      "verdict": "after_delay",
+      "decisionAt": "2024-12-25T00:00:00.000Z",
+      "firstClaimAt": "2024-12-23T00:00:00.000Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2024-12-23T00:00:00.000Z",
+        "decisionAt": "2024-12-25T00:00:00.000Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "afc181eceab0baf9",
+      "hash": "576503463aea72af"
+    },
+    {
+      "sequence": 29,
+      "victimHash": "b1757511ba56",
+      "identifiant": "b1757511ba56@2025-01-13T00:00:00.000Z",
+      "verdict": "after_delay",
+      "decisionAt": "2025-01-15T00:00:00.000Z",
+      "firstClaimAt": "2025-01-13T00:00:00.000Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2025-01-13T00:00:00.000Z",
+        "decisionAt": "2025-01-15T00:00:00.000Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "576503463aea72af",
+      "hash": "a5f5c15810332d2e"
+    },
+    {
+      "sequence": 30,
+      "victimHash": "706e3ae8681a",
+      "identifiant": "706e3ae8681a@2025-01-17T16:42:59.182Z",
+      "verdict": "after_delay",
+      "decisionAt": "2025-01-19T16:42:59.182Z",
+      "firstClaimAt": "2025-01-17T16:42:59.182Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2025-01-17T16:42:59.182Z",
+        "decisionAt": "2025-01-19T16:42:59.182Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "a5f5c15810332d2e",
+      "hash": "a0c5a49bec45501c"
+    },
+    {
+      "sequence": 31,
+      "victimHash": "263042ee1f67",
+      "identifiant": "263042ee1f67@2025-01-20T16:40:44.086Z",
+      "verdict": "after_delay",
+      "decisionAt": "2025-01-22T16:40:44.086Z",
+      "firstClaimAt": "2025-01-20T16:40:44.086Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2025-01-20T16:40:44.086Z",
+        "decisionAt": "2025-01-22T16:40:44.086Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "a0c5a49bec45501c",
+      "hash": "3ef3c84425056c20"
+    },
+    {
+      "sequence": 32,
+      "victimHash": "88319a101caf",
+      "identifiant": "88319a101caf@2025-04-06T12:34:32.032Z",
+      "verdict": "after_delay",
+      "decisionAt": "2025-04-08T12:34:32.032Z",
+      "firstClaimAt": "2025-04-06T12:34:32.032Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2025-04-06T12:34:32.032Z",
+        "decisionAt": "2025-04-08T12:34:32.032Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "3ef3c84425056c20",
+      "hash": "ace5a75d1d6884f7"
+    },
+    {
+      "sequence": 33,
+      "victimHash": "b92daaefbdda",
+      "identifiant": "b92daaefbdda@2025-12-01T19:26:32.006Z",
+      "verdict": "after_delay",
+      "decisionAt": "2025-12-03T19:26:32.006Z",
+      "firstClaimAt": "2025-12-01T19:26:32.006Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2025-12-01T19:26:32.006Z",
+        "decisionAt": "2025-12-03T19:26:32.006Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "ace5a75d1d6884f7",
+      "hash": "4d30464fa1d36d96"
+    },
+    {
+      "sequence": 34,
+      "victimHash": "f7ab4938c329",
+      "identifiant": "f7ab4938c329@2026-02-06T00:44:06.725Z",
+      "verdict": "after_delay",
+      "decisionAt": "2026-02-08T00:44:06.725Z",
+      "firstClaimAt": "2026-02-06T00:44:06.725Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2026-02-06T00:44:06.725Z",
+        "decisionAt": "2026-02-08T00:44:06.725Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "4d30464fa1d36d96",
+      "hash": "613b822e57b34738"
+    },
+    {
+      "sequence": 35,
+      "victimHash": "fdeebec6ff2f",
+      "identifiant": "fdeebec6ff2f@2026-02-08T08:28:02.962Z",
+      "verdict": "after_delay",
+      "decisionAt": "2026-02-10T08:28:02.962Z",
+      "firstClaimAt": "2026-02-08T08:28:02.962Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2026-02-08T08:28:02.962Z",
+        "decisionAt": "2026-02-10T08:28:02.962Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "613b822e57b34738",
+      "hash": "98bc9cb33d4e2620"
+    },
+    {
+      "sequence": 36,
+      "victimHash": "3e4021d943b2",
+      "identifiant": "3e4021d943b2@2026-07-22T19:52:28.437Z",
+      "verdict": "after_delay",
+      "decisionAt": "2026-07-24T19:52:28.437Z",
+      "firstClaimAt": "2026-07-22T19:52:28.437Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2026-07-22T19:52:28.437Z",
+        "decisionAt": "2026-07-24T19:52:28.437Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "98bc9cb33d4e2620",
+      "hash": "522d0d1d2b9e615e"
+    },
+    {
+      "sequence": 37,
+      "victimHash": "b4c429e27dda",
+      "identifiant": "b4c429e27dda@2026-08-06T22:00:00.000Z",
+      "verdict": "after_delay",
+      "decisionAt": "2026-08-08T22:00:00.000Z",
+      "firstClaimAt": "2026-08-06T22:00:00.000Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2026-08-06T22:00:00.000Z",
+        "decisionAt": "2026-08-08T22:00:00.000Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "522d0d1d2b9e615e",
+      "hash": "1d7eedf99682c6a9"
+    },
+    {
+      "sequence": 38,
+      "victimHash": "87a222169a11",
+      "identifiant": "87a222169a11@2026-10-22T05:23:51.644Z",
+      "verdict": "after_delay",
+      "decisionAt": "2026-10-24T05:23:51.644Z",
+      "firstClaimAt": "2026-10-22T05:23:51.644Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2026-10-22T05:23:51.644Z",
+        "decisionAt": "2026-10-24T05:23:51.644Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "1d7eedf99682c6a9",
+      "hash": "a0b4bfddb96621e4"
+    },
+    {
+      "sequence": 39,
+      "victimHash": "dcd9ead308cb",
+      "identifiant": "dcd9ead308cb@2026-11-12T19:55:02.000Z",
+      "verdict": "second_source",
+      "decisionAt": "2026-11-12T19:55:02.000Z",
+      "firstClaimAt": "2026-11-12T19:55:02.000Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Deux éditeurs indépendants confirment le même incident : nommage autorisé dès la première revendication.",
+      "preuve": {
+        "independentPublishers": 2,
+        "firstClaimAt": "2026-11-12T19:55:02.000Z",
+        "decisionAt": "2026-11-12T19:55:02.000Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "a0b4bfddb96621e4",
+      "hash": "2cb8ee46deea01f0"
+    },
+    {
+      "sequence": 40,
+      "victimHash": "49863edc1d56",
+      "identifiant": "49863edc1d56@2026-11-10T21:33:07.000Z",
+      "verdict": "after_delay",
+      "decisionAt": "2026-11-12T21:33:07.000Z",
+      "firstClaimAt": "2026-11-10T21:33:07.000Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2026-11-10T21:33:07.000Z",
+        "decisionAt": "2026-11-12T21:33:07.000Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "2cb8ee46deea01f0",
+      "hash": "0dcdc117ae7125c7"
+    },
+    {
+      "sequence": 41,
+      "victimHash": "05a900393c01",
+      "identifiant": "05a900393c01@2026-11-12T21:45:05.000Z",
+      "verdict": "second_source",
+      "decisionAt": "2026-11-12T21:45:05.000Z",
+      "firstClaimAt": "2026-11-12T21:45:05.000Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Deux éditeurs indépendants confirment le même incident : nommage autorisé dès la première revendication.",
+      "preuve": {
+        "independentPublishers": 2,
+        "firstClaimAt": "2026-11-12T21:45:05.000Z",
+        "decisionAt": "2026-11-12T21:45:05.000Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "0dcdc117ae7125c7",
+      "hash": "51684caf294b32e0"
+    },
+    {
+      "sequence": 42,
+      "victimHash": "968bee6fb4b2",
+      "identifiant": "968bee6fb4b2@2026-11-12T13:56:09.215Z",
+      "verdict": "after_delay",
+      "decisionAt": "2026-11-14T13:56:09.215Z",
+      "firstClaimAt": "2026-11-12T13:56:09.215Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2026-11-12T13:56:09.215Z",
+        "decisionAt": "2026-11-14T13:56:09.215Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "51684caf294b32e0",
+      "hash": "69889b85dce17ce2"
+    },
+    {
+      "sequence": 43,
+      "victimHash": "e9b05a5803b4",
+      "identifiant": "e9b05a5803b4@2026-11-12T22:02:03.406Z",
+      "verdict": "after_delay",
+      "decisionAt": "2026-11-14T22:02:03.406Z",
+      "firstClaimAt": "2026-11-12T22:02:03.406Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2026-11-12T22:02:03.406Z",
+        "decisionAt": "2026-11-14T22:02:03.406Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "69889b85dce17ce2",
+      "hash": "80ec184cca7fe5d5"
+    },
+    {
+      "sequence": 44,
+      "victimHash": "8e870f8916c4",
+      "identifiant": "8e870f8916c4@2026-11-12T23:18:52.272Z",
+      "verdict": "after_delay",
+      "decisionAt": "2026-11-14T23:18:52.272Z",
+      "firstClaimAt": "2026-11-12T23:18:52.272Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2026-11-12T23:18:52.272Z",
+        "decisionAt": "2026-11-14T23:18:52.272Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "80ec184cca7fe5d5",
+      "hash": "9094b78182835df8"
+    },
+    {
+      "sequence": 45,
+      "victimHash": "e44b85b9b528",
+      "identifiant": "e44b85b9b528@2026-11-12T23:19:13.283Z",
+      "verdict": "after_delay",
+      "decisionAt": "2026-11-14T23:19:13.283Z",
+      "firstClaimAt": "2026-11-12T23:19:13.283Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2026-11-12T23:19:13.283Z",
+        "decisionAt": "2026-11-14T23:19:13.283Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "9094b78182835df8",
+      "hash": "3aeba05026d663b5"
+    },
+    {
+      "sequence": 46,
+      "victimHash": "17198e46dca6",
+      "identifiant": "17198e46dca6@2026-11-12T23:19:34.118Z",
+      "verdict": "after_delay",
+      "decisionAt": "2026-11-14T23:19:34.118Z",
+      "firstClaimAt": "2026-11-12T23:19:34.118Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2026-11-12T23:19:34.118Z",
+        "decisionAt": "2026-11-14T23:19:34.118Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "3aeba05026d663b5",
+      "hash": "6c02966cc483048c"
+    },
+    {
+      "sequence": 47,
+      "victimHash": "c4c1033c97bd",
+      "identifiant": "c4c1033c97bd@2026-11-13T14:21:52.700Z",
+      "verdict": "after_delay",
+      "decisionAt": "2026-11-15T14:21:52.700Z",
+      "firstClaimAt": "2026-11-13T14:21:52.700Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2026-11-13T14:21:52.700Z",
+        "decisionAt": "2026-11-15T14:21:52.700Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "6c02966cc483048c",
+      "hash": "26c24762c5ff1be1"
+    },
+    {
+      "sequence": 48,
+      "victimHash": "702107fae716",
+      "identifiant": "702107fae716@2026-11-13T15:55:12.125Z",
+      "verdict": "after_delay",
+      "decisionAt": "2026-11-15T15:55:12.125Z",
+      "firstClaimAt": "2026-11-13T15:55:12.125Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2026-11-13T15:55:12.125Z",
+        "decisionAt": "2026-11-15T15:55:12.125Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "26c24762c5ff1be1",
+      "hash": "8a37217b70509ef2"
+    },
+    {
+      "sequence": 49,
+      "victimHash": "dcd9ead308cb",
+      "identifiant": "dcd9ead308cb@2026-11-17T14:15:54.000Z",
+      "verdict": "after_delay",
+      "decisionAt": "2026-11-19T14:15:54.000Z",
+      "firstClaimAt": "2026-11-17T14:15:54.000Z",
+      "nommer": true,
+      "motifRefus": null,
+      "raison": "Un seul éditeur, délai de 48 h écoulé depuis la première revendication : nommage autorisé, délai documenté.",
+      "preuve": {
+        "independentPublishers": 1,
+        "firstClaimAt": "2026-11-17T14:15:54.000Z",
+        "decisionAt": "2026-11-19T14:15:54.000Z",
+        "delayHours": 48
+      },
+      "acteur": "moteur:publication-regles@1",
+      "previousHash": "8a37217b70509ef2",
+      "hash": "f0691715d5705fa4"
+    }
+  ]
+}

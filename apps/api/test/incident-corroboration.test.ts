@@ -1,9 +1,12 @@
 import { test } from "node:test";
+import { query } from "../src/db.js";
 import assert from "node:assert/strict";
 import {
   claimTime,
   CLAIM_WINDOW_MS,
   corroborateNAIncidents,
+  isNA,
+  loadCorroborationEvents,
   publisherOf,
   type CorroborationEvent,
 } from "../src/analyse/incident-corroboration.js";
@@ -117,5 +120,64 @@ test("claim time prefers the publication date carried in evidence", () => {
   const event = claim(1, { observedAt });
   assert.equal(claimTime(event), Date.parse(CLAIM_AT));
   assert.equal(claimTime(claim(2, { evidence: {}, observedAt })), Date.parse(observedAt));
+});
+
+test("the loader attaches the organisation department used for NA scope", async () => {
+  const tag = `corrobdept${Date.now()}`;
+  const sourceId = `${tag}-source`;
+  await query(
+    "INSERT INTO source (id, name, family, url, enabled) VALUES ($1,$2,'cti',$3,true)",
+    [sourceId, `Source ${tag}`, `https://exemple.invalid/${tag}`],
+  );
+  const org = await query<{ id: number }>(
+    "INSERT INTO org (name, slug, kind, city, dept) VALUES ($1,$2,'entreprise','Bordeaux','33') RETURNING id",
+    [`Organisation ${tag}`, `org-${tag}`],
+  );
+  const orgId = Number(org.rows[0].id);
+  const event = await query<{ id: number }>(
+    `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at,
+                        severity, confidence, source_id, source_url, org_id, regional)
+     VALUES ($1,'cti','third_party_claim',$2,now(),3,'A1',$3,$4,$5,false) RETURNING id`,
+    [`${tag}:event`, `Incident ${tag}`, sourceId, `https://exemple.invalid/${tag}/preuve`, orgId],
+  );
+  const eventId = Number(event.rows[0].id);
+  try {
+    const loaded = (await loadCorroborationEvents()).find((row) => row.id === eventId);
+    assert.equal(loaded?.orgDept, "33");
+    assert.equal(loaded === undefined ? false : isNA(loaded), true);
+  } finally {
+    await query("DELETE FROM event WHERE id = $1", [eventId]);
+    await query("DELETE FROM org WHERE id = $1", [orgId]);
+    await query("DELETE FROM source WHERE id = $1", [sourceId]);
+  }
+});
+
+test("a blank organisation department is treated as absent", async () => {
+  const tag = `corrobblank${Date.now()}`;
+  const sourceId = `${tag}-source`;
+  await query(
+    "INSERT INTO source (id, name, family, url, enabled) VALUES ($1,$2,'cti',$3,true)",
+    [sourceId, `Source ${tag}`, `https://exemple.invalid/${tag}`],
+  );
+  const org = await query<{ id: number }>(
+    "INSERT INTO org (name, slug, kind, city, dept) VALUES ($1,$2,'entreprise','Paris',' ') RETURNING id",
+    [`Organisation ${tag}`, `org-${tag}`],
+  );
+  const orgId = Number(org.rows[0].id);
+  const event = await query<{ id: number }>(
+    `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at,
+                        severity, confidence, source_id, source_url, org_id, regional)
+     VALUES ($1,'cti','third_party_claim',$2,now(),3,'A1',$3,$4,$5,false) RETURNING id`,
+    [`${tag}:event`, `Incident ${tag}`, sourceId, `https://exemple.invalid/${tag}/preuve`, orgId],
+  );
+  const eventId = Number(event.rows[0].id);
+  try {
+    const loaded = (await loadCorroborationEvents()).find((row) => row.id === eventId);
+    assert.equal(loaded?.orgDept, null);
+  } finally {
+    await query("DELETE FROM event WHERE id = $1", [eventId]);
+    await query("DELETE FROM org WHERE id = $1", [orgId]);
+    await query("DELETE FROM source WHERE id = $1", [sourceId]);
+  }
 });
 
