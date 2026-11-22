@@ -86,3 +86,5 @@ Contrôles exécutés : `pnpm -F @radar/api typecheck`, `pnpm -F @radar/web type
 les 6 tests de `apps/api/test/ransomware-groups.test.ts` (un par comportement),
 et le contrat des routes API (29 tests). Le fichier `apps/api/src/server.ts`
 n'est pas modifié : la route est enregistrée dans le registre unique des routes.
+
+OBJECTIF : atteint — 50 / 50 groupes ransomware suivis (21 avec au moins une victime NA, 36 paires groupe/organisation NA) ; mesure reproductible : `jq -e '(.groups|length)==50 and (.groups|map(select(.naVictims>0))|length)==21 and (.groups|map(.naVictims)|add)==36' bench/results/groupes-ransomware.json`.
