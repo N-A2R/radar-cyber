@@ -81,6 +81,26 @@ export async function closeAlertsForFalseEvents(
   return res.rowCount ?? 0;
 }
 
+type FalseDetection = { id: number; verdict: FalseEventVerdict };
+
+/** Writes one batch once; the primary key makes repeated passes harmless. */
+async function persistFalseDetections(
+  detections: FalseDetection[]
+): Promise<number> {
+  if (detections.length === 0) return 0;
+  await ingestQuery(
+    `INSERT INTO false_event (event_id, reason, relevance_score)
+     SELECT * FROM unnest($1::bigint[], $2::text[], $3::integer[])
+     ON CONFLICT (event_id) DO NOTHING`,
+    [
+      detections.map((d) => d.id),
+      detections.map((d) => d.verdict.reason),
+      detections.map((d) => d.verdict.score),
+    ]
+  );
+  return closeAlertsForFalseEvents(detections.map((d) => d.id), FALSE_REASON);
+}
+
 /**
  * Used by `evaluateEvent`. A human-promoted claim (`force`) keeps its alert:
  * an analyst decision outranks the automatic false-event gate.
@@ -122,27 +142,40 @@ export async function sweepUnrecordedFalseEvents(opts: {
   const detections = rows.rows
     .map((event) => ({ id: Number(event.id), verdict: detectFalseEvent(event) }))
     .filter((d) => d.verdict.isFalse && d.verdict.reason);
-  if (detections.length > 0) {
-    await ingestQuery(
-      `INSERT INTO false_event (event_id, reason, relevance_score)
-       SELECT * FROM unnest($1::bigint[], $2::text[], $3::integer[])
-       ON CONFLICT (event_id) DO NOTHING`,
-      [
-        detections.map((d) => d.id),
-        detections.map((d) => d.verdict.reason),
-        detections.map((d) => d.verdict.score),
-      ]
-    );
-  }
-  const alertsClosed = await closeAlertsForFalseEvents(
-    detections.map((d) => d.id),
-    FALSE_REASON
-  );
+  const alertsClosed = await persistFalseDetections(detections);
   return {
     scanned: rows.rows.length,
     recorded: detections.length,
     alertsClosed,
     lastId: rows.rows.length > 0 ? Number(rows.rows[rows.rows.length - 1].id) : after,
   };
+}
+
+/**
+ * Checks the newest unrecorded events first. The ascending cursor can spend
+ * many passes on an old backlog while a fresh false event stays unrecorded.
+ */
+export async function sweepRecentFalseEvents(opts: {
+  limit?: number;
+  before?: number;
+} = {}): Promise<{ scanned: number; recorded: number; alertsClosed: number }> {
+  const limit = Math.max(1, Math.min(20000, opts.limit ?? 500));
+  const before = opts.before ?? Number.MAX_SAFE_INTEGER;
+  const rows = await query<FalseEventInput & { id: number }>(
+    `SELECT e.id, e.title, e.summary, e.org_id, e.regional
+       FROM event e
+      WHERE e.id <= $2
+        AND e.org_id IS NULL
+        AND e.regional = false
+        AND NOT EXISTS (SELECT 1 FROM false_event f WHERE f.event_id = e.id)
+      ORDER BY e.id DESC
+      LIMIT $1`,
+    [limit, before]
+  );
+  const detections = rows.rows
+    .map((event) => ({ id: Number(event.id), verdict: detectFalseEvent(event) }))
+    .filter((d) => d.verdict.isFalse && d.verdict.reason);
+  const alertsClosed = await persistFalseDetections(detections);
+  return { scanned: rows.rows.length, recorded: detections.length, alertsClosed };
 }
 

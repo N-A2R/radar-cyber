@@ -12,6 +12,7 @@ import {
   FALSE_REASON,
   detectFalseEvent,
   recordFalseEvent,
+  sweepRecentFalseEvents,
   sweepUnrecordedFalseEvents,
 } from "../src/detect/false-events.js";
 
@@ -244,6 +245,41 @@ test("repeating the sweep keeps a single decision row", async () => {
       [eventId]
     );
     assert.equal(Number(rows.rows[0].n), 1);
+  } finally {
+    await cleanup({ events: [eventId], rules: [] });
+  }
+});
+test("recent sweep records a fresh false event past the bounded backlog", async () => {
+  const ids = { events: [] as number[], rules: [] as string[] };
+  try {
+    for (let i = 0; i < 6; i++) {
+      ids.events.push(await insertEvent("Ransomware hits a hospital in Bordeaux"));
+    }
+    const falseId = await insertEvent("Village fete programme");
+    ids.events.push(falseId);
+
+    const result = await sweepRecentFalseEvents({ before: falseId + 1, limit: 3 });
+    assert.equal(result.recorded, 1);
+    const rows = await query<{ n: string }>(
+      "SELECT count(*)::text AS n FROM false_event WHERE event_id=$1",
+      [falseId]
+    );
+    assert.equal(Number(rows.rows[0].n), 1);
+  } finally {
+    await cleanup(ids);
+  }
+});
+
+test("recent sweep leaves a Nouvelle-Aquitaine anchored event unrecorded", async () => {
+  const org = await query<{ id: number }>("SELECT id FROM org ORDER BY id LIMIT 1");
+  const eventId = await insertEvent("Village gala programme", "testfalse", org.rows[0].id);
+  try {
+    await sweepRecentFalseEvents({ before: eventId + 1, limit: 100 });
+    const rows = await query<{ n: string }>(
+      "SELECT count(*)::text AS n FROM false_event WHERE event_id=$1",
+      [eventId]
+    );
+    assert.equal(Number(rows.rows[0].n), 0);
   } finally {
     await cleanup({ events: [eventId], rules: [] });
   }

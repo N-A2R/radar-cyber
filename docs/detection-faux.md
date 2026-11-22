@@ -166,4 +166,52 @@ et clos 1 alerte, le reste de l'écart provenant de suppressions d'événements
 externes. La mesure de contrôle relue deux fois donne 1 304 / 1 304.
 24 tests de détection passent (20 précédents + 4 nouveaux) et le typecheck
 `tsc --noEmit -p apps/api/tsconfig.json` est vert.
-OBJECTIF : atteint — 1304 / 1304
+
+## Tranche suivante — décisions devenues fausses (22 novembre 2026)
+
+La mesure de contrôle a montré un nouvel écart : **1 322 détectés / 1 304
+écartés**. Les 18 événements manquants (identifiants 1292 à 70896) étaient
+déjà anciens : leur rattachement avait été retiré après admission
+(`reconcile-orgs`, `repair-rattachements`), ce qui les rendait faux sans qu'aucune
+décision ne soit écrite. Le lot des événements sans ancrage compte 25 324
+lignes ; à 500 candidats par tick, le curseur ascendant mettait plus de cinquante
+passages pour les atteindre. Un événement frais placé en tête de table attendait
+le même backlog.
+
+Livré dans cette tranche :
+
+- `sweepRecentFalseEvents()` : contrôle prioritaire des événements les plus
+  récents non encore évalués, borné à 500, avec une limite haute explicite pour
+  des tests déterministes. Il partage l'écriture idempotente et la clôture
+  d'alertes avec le balayage ascendant (`persistFalseDetections`).
+- `runDetectionPass()` appelle ce contrôle à chaque tick ; le budget du
+  balayage ascendant passe à 20 000 candidats (20 000 lignes classées en 4,8 s
+  mesurées, dans un tick de 60 s). `server.ts` reste inchangé (diff 0 ligne).
+- Deux tests, un par comportement : un faux récent est enregistré malgré un
+  lot plus ancien limité à trois lignes, un événement ancré reste hors de la
+  table des faux. 26 tests de détection verts (24 précédents + 2), typecheck
+  vert.
+
+Application du rattrapage sur la base partagée, par deux balayages bornés :
+20 000 lignes lues → 13 faux enregistrés et 7 alertes closes (4,8 s), puis
+5 324 lignes lues → 5 faux enregistrés. Mesure de contrôle en lecture seule :
+
+```json
+{
+  "mode": "read-only",
+  "organisations": 1673220,
+  "sources": 711,
+  "events": 26770,
+  "false_detected": 1322,
+  "false_discarded": 1322,
+  "by_family": {
+    "cti": 219, "ransomware": 642, "leaks": 408, "cert": 41,
+    "presse_cyber": 1, "vuln": 6, "cert_fr": 2, "paste": 3
+  }
+}
+```
+
+Aucune donnée personnelle de victime, aucun service payant, aucune restriction
+sur les sources grises.
+
+OBJECTIF : atteint — 1322 / 1322

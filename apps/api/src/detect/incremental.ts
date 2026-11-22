@@ -13,7 +13,7 @@
  */
 import { query } from "../db.js";
 import { evaluateEvent, evaluateIndicator } from "./engine.js";
-import { sweepUnrecordedFalseEvents } from "./false-events.js";
+import { sweepRecentFalseEvents, sweepUnrecordedFalseEvents } from "./false-events.js";
 
 const DEFAULT_EVENT_LIMIT = Number(process.env.RADAR_DETECT_EVENT_LIMIT ?? 500);
 const DEFAULT_INDICATOR_LIMIT = Number(process.env.RADAR_DETECT_INDICATOR_LIMIT ?? 1000);
@@ -23,7 +23,10 @@ const LATE_LIMIT = Number(process.env.RADAR_DETECT_LATE_LIMIT ?? 200);
 /** Plafond de la mémoire des non-matchants : au-delà, les plus anciens sortent.
  *  Sans plafond, la ligne d'état grossirait indéfiniment dans `source.cursor`. */
 const LATE_REMEMBERED = Number(process.env.RADAR_DETECT_LATE_REMEMBER ?? 5000);
-const DEFAULT_FALSE_LIMIT = Number(process.env.RADAR_DETECT_FALSE_LIMIT ?? 500);
+/** Le lot des événements sans ancrage dépasse 25 000 lignes : à 500 par passage,
+ *  une décision devenue fausse après un changement d'org_id restait en attente.
+ *  20 000 lignes classées en ~5 s mesurées, dans le budget d'un tick de 60 s. */
+const DEFAULT_FALSE_LIMIT = Number(process.env.RADAR_DETECT_FALSE_LIMIT ?? 20000);
 
 export type DetectionPass = {
 	events: number;
@@ -129,6 +132,9 @@ export async function runDetectionPass(opts?: {
 	const highestEventId = await maxId("event");
 	falseCursor =
 		sweep.scanned === 0 || sweep.lastId >= highestEventId ? 0 : sweep.lastId;
+	// Les événements frais passent en priorité : le curseur ascendant peut
+	// balancer plusieurs fois sur un vieux lot avant d'atteindre la tête.
+	await sweepRecentFalseEvents({ limit: falseLimit });
 
 	const freshIndicators = await query<{ id: number }>(
 		"SELECT id FROM indicator WHERE id > $1 ORDER BY id LIMIT $2",
