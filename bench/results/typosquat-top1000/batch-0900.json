@@ -1,0 +1,613 @@
+{
+  "offset": 900,
+  "top": 1000,
+  "targets": 100,
+  "variants": 1086,
+  "active": 66,
+  "detections": [],
+  "activeList": [
+    {
+      "domain": "andres.fr",
+      "base": "ondres.fr",
+      "orgName": "ONDRES",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "page racine andres.fr"
+    },
+    {
+      "domain": "aprentis.fr",
+      "base": "parentis.fr",
+      "orgName": "Commune de Parentis-en-Born",
+      "kind": "transposition",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ardies.fr",
+      "base": "pardies.fr",
+      "orgName": "PARDIES",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "arkom.fr",
+      "base": "orkom.fr",
+      "orgName": "ORKOM",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "cnsc.nl",
+      "base": "ncsc.nl",
+      "orgName": "OPEN SOURCE",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "emillon.fr",
+      "base": "meillon.fr",
+      "orgName": "MEILLON",
+      "kind": "transposition",
+      "similarity": 0.714,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mairie-champniers.com",
+      "base": "mairie-champniers.fr",
+      "orgName": "Commune de Champniers",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Mairie de Champniers"
+    },
+    {
+      "domain": "mairie-ciboure.com",
+      "base": "mairie-ciboure.fr",
+      "orgName": "Commune de Ciboure",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mairie-espelette.com",
+      "base": "mairie-espelette.fr",
+      "orgName": "ESPELETTE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mairie-lons.com",
+      "base": "mairie-lons.fr",
+      "orgName": "LONS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mairie-marmande.com",
+      "base": "mairie-marmande.fr",
+      "orgName": "Commune de Marmande",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mairie-ruffec.com",
+      "base": "mairie-ruffec.fr",
+      "orgName": "RUFFEC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mairie-saintdenisdepile.com",
+      "base": "mairie-saintdenisdepile.fr",
+      "orgName": "Commune de Saint-Denis-de-Pile",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mairie-saintdenisdepile.net",
+      "base": "mairie-saintdenisdepile.fr",
+      "orgName": "Commune de Saint-Denis-de-Pile",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mairie-saintdenisdepile.org",
+      "base": "mairie-saintdenisdepile.fr",
+      "orgName": "Commune de Saint-Denis-de-Pile",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mairie-villac.com",
+      "base": "mairie-villac.fr",
+      "orgName": "VILLAC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "mairie-villac &#8211; Le site de la mairie de Villac"
+    },
+    {
+      "domain": "mangotion.com",
+      "base": "mangotion.fr",
+      "orgName": "MANGOTION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Mangotion | Agence Web IA &amp; SEO"
+    },
+    {
+      "domain": "marracq.com",
+      "base": "marracq.fr",
+      "orgName": "Collège Marracq",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Collège Marracq"
+    },
+    {
+      "domain": "mauleon.com",
+      "base": "mauleon.fr",
+      "orgName": "Commune de Mauléon",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mauleon.net",
+      "base": "mauleon.fr",
+      "orgName": "Commune de Mauléon",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mcsc.nl",
+      "base": "ncsc.nl",
+      "orgName": "OPEN SOURCE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Casino Zonder Cruks: 15 Casino&#x27;s Zonder iDIN Getest 2026"
+    },
+    {
+      "domain": "mediabask.com",
+      "base": "mediabask.eus",
+      "orgName": "MEDIABASK",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "meillon.com",
+      "base": "meillon.fr",
+      "orgName": "MEILLON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "melloisenpoitou.com",
+      "base": "melloisenpoitou.fr",
+      "orgName": "Communauté de communes Mellois en Poitou",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "merignac.net",
+      "base": "merignac.com",
+      "orgName": "Commune de Mérignac",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "merignac.org",
+      "base": "merignac.com",
+      "orgName": "Commune de Mérignac",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "moncoutantsursevre.com",
+      "base": "moncoutantsursevre.fr",
+      "orgName": "Commune de Moncoutant-sur-Sèvre",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "moncoutantsursevre.net",
+      "base": "moncoutantsursevre.fr",
+      "orgName": "Commune de Moncoutant-sur-Sèvre",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "moncoutantsursevre.org",
+      "base": "moncoutantsursevre.fr",
+      "orgName": "Commune de Moncoutant-sur-Sèvre",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "monlimousin.com",
+      "base": "monlimousin.fr",
+      "orgName": "EDITIONS MON LIMOUSIN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "montdemarsan.com",
+      "base": "montdemarsan.fr",
+      "orgName": "Commune de Mont-de-Marsan",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "montdemarsan.net",
+      "base": "montdemarsan.fr",
+      "orgName": "Commune de Mont-de-Marsan",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "montmorillon.com",
+      "base": "montmorillon.fr",
+      "orgName": "MONTMORILLON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "mouguerre.com",
+      "base": "mouguerre.fr",
+      "orgName": "Commune de Mouguerre",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "mouguerre.net",
+      "base": "mouguerre.fr",
+      "orgName": "Commune de Mouguerre",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mouren.fr",
+      "base": "mourenx.fr",
+      "orgName": "Commune de Mourenx",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mourenx.org",
+      "base": "mourenx.fr",
+      "orgName": "Commune de Mourenx",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mussofi.net",
+      "base": "mussofi.com",
+      "orgName": "MUSSOFI",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Cosmétique peau noire &amp; métissée | Marque française | Mussofi"
+    },
+    {
+      "domain": "mutatis.com",
+      "base": "mutatis.mutandis.bdx.free.fr",
+      "orgName": "MUTATIS MUTANDIS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "mutatis.net",
+      "base": "mutatis.mutandis.bdx.free.fr",
+      "orgName": "MUTATIS MUTANDIS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Mutatis — Conseil en développement organisationnel et accompagnement des situations sensibles"
+    },
+    {
+      "domain": "mutatis.org",
+      "base": "mutatis.mutandis.bdx.free.fr",
+      "orgName": "MUTATIS MUTANDIS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "naintre.com",
+      "base": "naintre.fr",
+      "orgName": "NAINTRE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "naintre.net",
+      "base": "naintre.fr",
+      "orgName": "NAINTRE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "nccs.nl",
+      "base": "ncsc.nl",
+      "orgName": "OPEN SOURCE",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ncs.nl",
+      "base": "ncsc.nl",
+      "orgName": "OPEN SOURCE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Home - NCS International"
+    },
+    {
+      "domain": "ncsc.com",
+      "base": "ncsc.nl",
+      "orgName": "OPEN SOURCE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ncsc.net",
+      "base": "ncsc.nl",
+      "orgName": "OPEN SOURCE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "ncsc.net&nbsp;-&nbsp;Ce site web est à vendre !&nbsp;-&nbsp;Ressources et information concernant ncsc Resources and Information."
+    },
+    {
+      "domain": "ncsc.org",
+      "base": "ncsc.nl",
+      "orgName": "OPEN SOURCE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Driving innovation in justice | National Center for State Courts"
+    },
+    {
+      "domain": "niortagglo.com",
+      "base": "niortagglo.fr",
+      "orgName": "Communauté d'agglomération du Niortais",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "notaire.fr",
+      "base": "notaires.fr",
+      "orgName": "SELARL TRUFFOT & ASSOCIES NOTAIRES",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "notaires.com",
+      "base": "notaires.fr",
+      "orgName": "SELARL TRUFFOT & ASSOCIES NOTAIRES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "notaires.com"
+    },
+    {
+      "domain": "notaires.org",
+      "base": "notaires.fr",
+      "orgName": "SELARL TRUFFOT & ASSOCIES NOTAIRES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "oloron-ste-marie.com",
+      "base": "oloron-ste-marie.fr",
+      "orgName": "Commune de Oloron-Sainte-Marie",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ondres.com",
+      "base": "ondres.fr",
+      "orgName": "ONDRES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "ondres.com :: this domain is for sale"
+    },
+    {
+      "domain": "ondres.net",
+      "base": "ondres.fr",
+      "orgName": "ONDRES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "orko.fr",
+      "base": "orkom.fr",
+      "orgName": "ORKOM",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "orkom.com",
+      "base": "orkom.fr",
+      "orgName": "ORKOM",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "ORKOM MADENCILIK"
+    },
+    {
+      "domain": "orkom.net",
+      "base": "orkom.fr",
+      "orgName": "ORKOM",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "palissy.com",
+      "base": "palissy.fr",
+      "orgName": "Lycée professionnel Bernard Palissy",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "paraula.net",
+      "base": "paraulas.net",
+      "orgName": "PARAULAS EN OC",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "pardies.com",
+      "base": "pardies.fr",
+      "orgName": "PARDIES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "ParDies.com is for sale - Premium Domain"
+    },
+    {
+      "domain": "parenti.fr",
+      "base": "parentis.fr",
+      "orgName": "Commune de Parentis-en-Born",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "parentis.com",
+      "base": "parentis.fr",
+      "orgName": "Commune de Parentis-en-Born",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Site officiel de la Ville de Parentis-en-Born"
+    },
+    {
+      "domain": "parentis.net",
+      "base": "parentis.fr",
+      "orgName": "Commune de Parentis-en-Born",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "parentis.org",
+      "base": "parentis.fr",
+      "orgName": "Commune de Parentis-en-Born",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "parentiz.fr",
+      "base": "parentis.fr",
+      "orgName": "Commune de Parentis-en-Born",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    }
+  ],
+  "alarms": 60,
+  "falsePositives": 60,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 1086,
+    "certificate": 66,
+    "page": 66
+  },
+  "durationMs": 21003
+}

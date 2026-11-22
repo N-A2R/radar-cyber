@@ -1,0 +1,460 @@
+{
+  "offset": 560,
+  "top": 1000,
+  "targets": 40,
+  "variants": 3229,
+  "active": 49,
+  "detections": [],
+  "activeList": [
+    {
+      "domain": "calais.net",
+      "base": "chalais.net",
+      "orgName": "CHALAIS",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "canon.fr",
+      "base": "cenon.fr",
+      "orgName": "Commune de Cenon",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Accueil - Canon France"
+    },
+    {
+      "domain": "cauvigny.fr",
+      "base": "chauvigny.fr",
+      "orgName": "Commune de Chauvigny",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": "Commune de Cauvigny"
+    },
+    {
+      "domain": "cazelles.fr",
+      "base": "chazelles.fr",
+      "orgName": "CHAZELLES",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "ccaire.org",
+      "base": "cdcaire.org",
+      "orgName": "Communauté de communes d'Aire-sur-l'Adour",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "CCAIRE — Human-Centred AI for Canadian Real Estate"
+    },
+    {
+      "domain": "ccct.fr",
+      "base": "ckct.fr",
+      "orgName": "CANOE KAYAK CLUB TEICHOIS",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Générer du trafic qualifié avec le contenu web - CCCT"
+    },
+    {
+      "domain": "cda.info",
+      "base": "cdla.info",
+      "orgName": "CDLA",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "cdal.info",
+      "base": "cdla.info",
+      "orgName": "CDLA",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "cdcare.org",
+      "base": "cdcaire.org",
+      "orgName": "Communauté de communes d'Aire-sur-l'Adour",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Centers for Dialysis Care - Quality Care and so much more"
+    },
+    {
+      "domain": "cdl.info",
+      "base": "cdla.info",
+      "orgName": "CDLA",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "cdla.com",
+      "base": "cdla.info",
+      "orgName": "CDLA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cdla.net",
+      "base": "cdla.info",
+      "orgName": "CDLA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cdla.org",
+      "base": "cdla.info",
+      "orgName": "CDLA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cdta.info",
+      "base": "cdla.info",
+      "orgName": "CDLA",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "cdta.info is a custom short domain"
+    },
+    {
+      "domain": "cenn.fr",
+      "base": "cenon.fr",
+      "orgName": "Commune de Cenon",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "CSE NORDNET - Identification"
+    },
+    {
+      "domain": "ceno.fr",
+      "base": "cenon.fr",
+      "orgName": "Commune de Cenon",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Ceno.fr - Meuble deco"
+    },
+    {
+      "domain": "cenon.com",
+      "base": "cenon.fr",
+      "orgName": "Commune de Cenon",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Cenon CAM - Manufacturing with Style"
+    },
+    {
+      "domain": "cenon.net",
+      "base": "cenon.fr",
+      "orgName": "Commune de Cenon",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cenon.org",
+      "base": "cenon.fr",
+      "orgName": "Commune de Cenon",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Optimist International Central Ontario District | Optimist International Central Ontario District"
+    },
+    {
+      "domain": "chalais.com",
+      "base": "chalais.net",
+      "orgName": "CHALAIS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "chalis.net",
+      "base": "chalais.net",
+      "orgName": "CHALAIS",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "chalossetursan.com",
+      "base": "chalossetursan.fr",
+      "orgName": "Communauté de communes Chalosse Tursan",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Chalosse Tursan - Communauté de communes Chalosse Tursan"
+    },
+    {
+      "domain": "chalossetursan.org",
+      "base": "chalossetursan.fr",
+      "orgName": "Communauté de communes Chalosse Tursan",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Chalosse Tursan - Communauté de communes Chalosse Tursan"
+    },
+    {
+      "domain": "chantelou.fr",
+      "base": "chanteloup.fr",
+      "orgName": "CHANTELOUP",
+      "kind": "omission",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": "Chantelou | Gîte de groupes en Auvergne"
+    },
+    {
+      "domain": "chanteloup.com",
+      "base": "chanteloup.fr",
+      "orgName": "CHANTELOUP",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "chanteloup.net",
+      "base": "chanteloup.fr",
+      "orgName": "CHANTELOUP",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "chatais.net",
+      "base": "chalais.net",
+      "orgName": "CHALAIS",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "chateausaintmartial.com",
+      "base": "chateausaintmartial.fr",
+      "orgName": "CHATEAU SAINT MARTIAL",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Accueil - Château Saint Martial"
+    },
+    {
+      "domain": "chatellerault.com",
+      "base": "chatellerault.fr",
+      "orgName": "Commune de Châtellerault",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "chatellerault.org",
+      "base": "chatellerault.fr",
+      "orgName": "Commune de Châtellerault",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "chauvigny.com",
+      "base": "chauvigny.fr",
+      "orgName": "Commune de Chauvigny",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "chavigny.fr",
+      "base": "chauvigny.fr",
+      "orgName": "Commune de Chauvigny",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": "Groupe Chavigny"
+    },
+    {
+      "domain": "chazelle.fr",
+      "base": "chazelles.fr",
+      "orgName": "CHAZELLES",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "chazelles.com",
+      "base": "chazelles.fr",
+      "orgName": "CHAZELLES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Chazelles : Poêles, Cheminées et Inserts"
+    },
+    {
+      "domain": "chazelles.org",
+      "base": "chazelles.fr",
+      "orgName": "CHAZELLES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ckc.fr",
+      "base": "ckct.fr",
+      "orgName": "CANOE KAYAK CLUB TEICHOIS",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "ckcf.fr",
+      "base": "ckct.fr",
+      "orgName": "CANOE KAYAK CLUB TEICHOIS",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ckct.com",
+      "base": "ckct.fr",
+      "orgName": "CANOE KAYAK CLUB TEICHOIS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "ckct.com"
+    },
+    {
+      "domain": "ckct.org",
+      "base": "ckct.fr",
+      "orgName": "CANOE KAYAK CLUB TEICHOIS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Home - CKCT"
+    },
+    {
+      "domain": "ckt.fr",
+      "base": "ckct.fr",
+      "orgName": "CANOE KAYAK CLUB TEICHOIS",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "cla.info",
+      "base": "cdla.info",
+      "orgName": "CDLA",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "clavette.com",
+      "base": "clavette.fr",
+      "orgName": "CLAVETTE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Insurance Agency in Hales Corners, WI | Clavette Insurance"
+    },
+    {
+      "domain": "clavette.net",
+      "base": "clavette.fr",
+      "orgName": "CLAVETTE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "clavette.org",
+      "base": "clavette.fr",
+      "orgName": "CLAVETTE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "clla.info",
+      "base": "cdla.info",
+      "orgName": "CDLA",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "CLLA Agency – Creative Digital Marketing"
+    },
+    {
+      "domain": "coban-atlantique.com",
+      "base": "coban-atlantique.fr",
+      "orgName": "Communauté d'agglomération du Bassin d'Arcachon Nord (COBAN)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "COBAN, la Communauté d&#039;Agglomération à votre service"
+    },
+    {
+      "domain": "dcla.info",
+      "base": "cdla.info",
+      "orgName": "CDLA",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "enon.fr",
+      "base": "cenon.fr",
+      "orgName": "Commune de Cenon",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "kct.fr",
+      "base": "ckct.fr",
+      "orgName": "CANOE KAYAK CLUB TEICHOIS",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    }
+  ],
+  "alarms": 37,
+  "falsePositives": 37,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 3229,
+    "certificate": 49,
+    "page": 49
+  },
+  "durationMs": 24514
+}

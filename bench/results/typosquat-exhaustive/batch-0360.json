@@ -1,0 +1,748 @@
+{
+  "offset": 360,
+  "top": 1000,
+  "targets": 40,
+  "variants": 2646,
+  "active": 81,
+  "detections": [],
+  "activeList": [
+    {
+      "domain": "alvaux.com",
+      "base": "malvaux.com",
+      "orgName": "MALVAUX GROUP",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "btobag.com",
+      "base": "btobag.fr",
+      "orgName": "B TO BAG",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "btobag.net",
+      "base": "btobag.fr",
+      "orgName": "B TO BAG",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "coidea.eu",
+      "base": "co-idea.eu",
+      "orgName": "CO-IDEA",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "corlay.fr",
+      "base": "courlay.fr",
+      "orgName": "COURLAY",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "courly.fr",
+      "base": "courlay.fr",
+      "orgName": "COURLAY",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "courtay.fr",
+      "base": "courlay.fr",
+      "orgName": "COURLAY",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Site en construction"
+    },
+    {
+      "domain": "creatlantique.com",
+      "base": "creatlantique.fr",
+      "orgName": "FONDS CRE'ATLANTIQUE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "delika.fr",
+      "base": "delikao.fr",
+      "orgName": "DELIKAO",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Délika. &#8211; Production et communication pour le spectacle vivant"
+    },
+    {
+      "domain": "delikao.com",
+      "base": "delikao.fr",
+      "orgName": "DELIKAO",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "exterieurs.com",
+      "base": "exterieurs.pro",
+      "orgName": "SARL EXTERIEURS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "feeti.co",
+      "base": "fleeti.co",
+      "orgName": "FLEETI",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "fleet.co",
+      "base": "fleeti.co",
+      "orgName": "FLEETI",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Fleet — Global IT Management Platform"
+    },
+    {
+      "domain": "fleete.co",
+      "base": "fleeti.co",
+      "orgName": "FLEETI",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "fleeti.com",
+      "base": "fleeti.co",
+      "orgName": "FLEETI",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "fleeto.co",
+      "base": "fleeti.co",
+      "orgName": "FLEETI",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "fol23.fr",
+      "base": "fol-23.fr",
+      "orgName": "23 NOT' FOLLES",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Fédération Oeuvres Laïques Creuse - FOL 23"
+    },
+    {
+      "domain": "generation-ecologie.fr",
+      "base": "generationecologie.fr",
+      "orgName": "ASSOCIATION GENERATION ECOLOGIE",
+      "kind": "tiret",
+      "similarity": 0.947,
+      "certificate": null,
+      "pageTitle": "Alice écologie : comprendre et agir sans pression"
+    },
+    {
+      "domain": "generationecologie.com",
+      "base": "generationecologie.fr",
+      "orgName": "ASSOCIATION GENERATION ECOLOGIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "generationecologie.net",
+      "base": "generationecologie.fr",
+      "orgName": "ASSOCIATION GENERATION ECOLOGIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "generationecologie.org",
+      "base": "generationecologie.fr",
+      "orgName": "ASSOCIATION GENERATION ECOLOGIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "golfsales.com",
+      "base": "golfsalies.com",
+      "orgName": "GOLF CLUB HELIOS",
+      "kind": "omission",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "gueuleton.com",
+      "base": "gueuleton.fr",
+      "orgName": "SARL GUEULETON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "gueuleton.net",
+      "base": "gueuleton.fr",
+      "orgName": "SARL GUEULETON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Gueuleton - Bienvenue les Bons Vivants"
+    },
+    {
+      "domain": "gueuleton.org",
+      "base": "gueuleton.fr",
+      "orgName": "SARL GUEULETON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "hap.fr",
+      "base": "shap.fr",
+      "orgName": "ASSOC HISTARCHEOLOGIE PERIGORD",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "kisdental.com",
+      "base": "kisdental.fr",
+      "orgName": "KIS DENTAL",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lebron.fr",
+      "base": "lebyron.fr",
+      "orgName": "MARTINOLI",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "leburon.fr",
+      "base": "lebyron.fr",
+      "orgName": "MARTINOLI",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "lerevedelaborigene.com",
+      "base": "lerevedelaborigene.org",
+      "orgName": "LE REVE DE L ABORIGENE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Rêve de l&#039;Aborigène - Découvrez l&#039;association &amp; le festival"
+    },
+    {
+      "domain": "lerevedelaborigene.net",
+      "base": "lerevedelaborigene.org",
+      "orgName": "LE REVE DE L ABORIGENE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "linesite.com",
+      "base": "linestie.com",
+      "orgName": "LINESTIE",
+      "kind": "transposition",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "linetie.com",
+      "base": "linestie.com",
+      "orgName": "LINESTIE",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lpfr.com",
+      "base": "lpsfr.com",
+      "orgName": "GROUPE CEMASO",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "lpfr"
+    },
+    {
+      "domain": "lpsf.com",
+      "base": "lpsfr.com",
+      "orgName": "GROUPE CEMASO",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "lpsfr.net",
+      "base": "lpsfr.com",
+      "orgName": "GROUPE CEMASO",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lpsfr.org",
+      "base": "lpsfr.com",
+      "orgName": "GROUPE CEMASO",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lpsr.com",
+      "base": "lpsfr.com",
+      "orgName": "GROUPE CEMASO",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lpstr.com",
+      "base": "lpsfr.com",
+      "orgName": "GROUPE CEMASO",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lsfr.com",
+      "base": "lpsfr.com",
+      "orgName": "GROUPE CEMASO",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "domain for sale"
+    },
+    {
+      "domain": "lusignan.com",
+      "base": "lusignan.fr",
+      "orgName": "LUSIGNAN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lusignan.net",
+      "base": "lusignan.fr",
+      "orgName": "LUSIGNAN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lusignan.org",
+      "base": "lusignan.fr",
+      "orgName": "LUSIGNAN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Lusignan – L’héritage comme expérience"
+    },
+    {
+      "domain": "malvaux.net",
+      "base": "malvaux.com",
+      "orgName": "MALVAUX GROUP",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Malvaux |"
+    },
+    {
+      "domain": "malvax.com",
+      "base": "malvaux.com",
+      "orgName": "MALVAUX GROUP",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "malvux.com",
+      "base": "malvaux.com",
+      "orgName": "MALVAUX GROUP",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mavaux.com",
+      "base": "malvaux.com",
+      "orgName": "MALVAUX GROUP",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "MaVaux – Doğanın Dokunuşunu Evine Getir - Mavaux | Doğanın Dokunuşunu Evine Getir"
+    },
+    {
+      "domain": "monarchintelligence.com",
+      "base": "monarchintelligence.fr",
+      "orgName": "MONARCH INTELLIGENCE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Offline"
+    },
+    {
+      "domain": "mova-box.com",
+      "base": "nova-box.com",
+      "orgName": "NOVA-BOX",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "nougier.fr",
+      "base": "rougier.fr",
+      "orgName": "ROUGIER SA",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "nova-bo.com",
+      "base": "nova-box.com",
+      "orgName": "NOVA-BOX",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "nova-box.net",
+      "base": "nova-box.com",
+      "orgName": "NOVA-BOX",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "nova-box.org",
+      "base": "nova-box.com",
+      "orgName": "NOVA-BOX",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "novabox.com",
+      "base": "nova-box.com",
+      "orgName": "NOVA-BOX",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "novo-box.com",
+      "base": "nova-box.com",
+      "orgName": "NOVA-BOX",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": "novo-box.com&nbsp;-&nbsp;Ressources et information concernant novo box Resources and Information."
+    },
+    {
+      "domain": "ougier.fr",
+      "base": "rougier.fr",
+      "orgName": "ROUGIER SA",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ova-box.com",
+      "base": "nova-box.com",
+      "orgName": "NOVA-BOX",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": "Luxury Corporate &amp; Holiday Gift Boxes, Made in Los Angeles &ndash; OVA Box LLC"
+    },
+    {
+      "domain": "progadys.com",
+      "base": "progedys.com",
+      "orgName": "PROGEDYS",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "progedis.com",
+      "base": "progedys.com",
+      "orgName": "PROGEDYS",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": "ProGedis.com is for sale - Premium Domain"
+    },
+    {
+      "domain": "progeds.com",
+      "base": "progedys.com",
+      "orgName": "PROGEDYS",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": "Progeds Systems | Fabrica de Software y Soluciones TI"
+    },
+    {
+      "domain": "progedy.com",
+      "base": "progedys.com",
+      "orgName": "PROGEDYS",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "progidys.com",
+      "base": "progedys.com",
+      "orgName": "PROGEDYS",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "psfr.com",
+      "base": "lpsfr.com",
+      "orgName": "GROUPE CEMASO",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "rogier.fr",
+      "base": "rougier.fr",
+      "orgName": "ROUGIER SA",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Rogier - Rogier.fr"
+    },
+    {
+      "domain": "rouger.fr",
+      "base": "rougier.fr",
+      "orgName": "ROUGIER SA",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "rougie.fr",
+      "base": "rougier.fr",
+      "orgName": "ROUGIER SA",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "rougier.com",
+      "base": "rougier.fr",
+      "orgName": "ROUGIER SA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Over-the-counter products"
+    },
+    {
+      "domain": "rougier.net",
+      "base": "rougier.fr",
+      "orgName": "ROUGIER SA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "rugier.fr",
+      "base": "rougier.fr",
+      "orgName": "ROUGIER SA",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Rugier | Tapis faits main en laine | Design contemporain"
+    },
+    {
+      "domain": "sap.fr",
+      "base": "shap.fr",
+      "orgName": "ASSOC HISTARCHEOLOGIE PERIGORD",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "sbap.fr",
+      "base": "shap.fr",
+      "orgName": "ASSOC HISTARCHEOLOGIE PERIGORD",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Accueil de l’entreprise | Bondoufle, Essonne (91) | SBAP"
+    },
+    {
+      "domain": "scoreimmoacademie.com",
+      "base": "scoreimmoacademie.fr",
+      "orgName": "SCORE AQUITAINE CONSEIL ET FORMATION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "sha.fr",
+      "base": "shap.fr",
+      "orgName": "ASSOC HISTARCHEOLOGIE PERIGORD",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Sha"
+    },
+    {
+      "domain": "shab.fr",
+      "base": "shap.fr",
+      "orgName": "ASSOC HISTARCHEOLOGIE PERIGORD",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "shap.com",
+      "base": "shap.fr",
+      "orgName": "ASSOC HISTARCHEOLOGIE PERIGORD",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "shap.net",
+      "base": "shap.fr",
+      "orgName": "ASSOC HISTARCHEOLOGIE PERIGORD",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "shap.org",
+      "base": "shap.fr",
+      "orgName": "ASSOC HISTARCHEOLOGIE PERIGORD",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "shep.fr",
+      "base": "shap.fr",
+      "orgName": "ASSOC HISTARCHEOLOGIE PERIGORD",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "shp.fr",
+      "base": "shap.fr",
+      "orgName": "ASSOC HISTARCHEOLOGIE PERIGORD",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "shp.fr&nbsp;-&nbsp;Ce site web est à vendre !&nbsp;-&nbsp;Ressources et information concernant Shp Resources and Information."
+    },
+    {
+      "domain": "shpa.fr",
+      "base": "shap.fr",
+      "orgName": "ASSOC HISTARCHEOLOGIE PERIGORD",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "zhap.fr",
+      "base": "shap.fr",
+      "orgName": "ASSOC HISTARCHEOLOGIE PERIGORD",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    }
+  ],
+  "alarms": 71,
+  "falsePositives": 71,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 2646,
+    "certificate": 81,
+    "page": 81
+  },
+  "durationMs": 20283
+}

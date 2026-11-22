@@ -1,0 +1,199 @@
+{
+  "offset": 920,
+  "top": 1000,
+  "targets": 40,
+  "variants": 3023,
+  "active": 20,
+  "detections": [],
+  "activeList": [
+    {
+      "domain": "maileon.fr",
+      "base": "mauleon.fr",
+      "orgName": "Commune de Mauléon",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Maileon | Home"
+    },
+    {
+      "domain": "mairie-lons.com",
+      "base": "mairie-lons.fr",
+      "orgName": "LONS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mairie-marmande.com",
+      "base": "mairie-marmande.fr",
+      "orgName": "Commune de Marmande",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mairie-ruffec.com",
+      "base": "mairie-ruffec.fr",
+      "orgName": "RUFFEC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mairie-saintdenisdepile.com",
+      "base": "mairie-saintdenisdepile.fr",
+      "orgName": "Commune de Saint-Denis-de-Pile",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mairie-saintdenisdepile.net",
+      "base": "mairie-saintdenisdepile.fr",
+      "orgName": "Commune de Saint-Denis-de-Pile",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mairie-saintdenisdepile.org",
+      "base": "mairie-saintdenisdepile.fr",
+      "orgName": "Commune de Saint-Denis-de-Pile",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mairie-sens.fr",
+      "base": "mairie-sers.fr",
+      "orgName": "SERS",
+      "kind": "substitution",
+      "similarity": 0.909,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mairie-villac.com",
+      "base": "mairie-villac.fr",
+      "orgName": "VILLAC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "mairie-villac &#8211; Le site de la mairie de Villac"
+    },
+    {
+      "domain": "mairieruffec.fr",
+      "base": "mairie-ruffec.fr",
+      "orgName": "RUFFEC",
+      "kind": "omission",
+      "similarity": 0.923,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mairiesaintleon.fr",
+      "base": "mairie-saintleon.fr",
+      "orgName": "SAINT LEON",
+      "kind": "omission",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": "Mairie de Saint-Léon &#8211; Mairie de Saint-Léon"
+    },
+    {
+      "domain": "maleon.fr",
+      "base": "mauleon.fr",
+      "orgName": "Commune de Mauléon",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mangotion.com",
+      "base": "mangotion.fr",
+      "orgName": "MANGOTION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Mangotion | Agence Web IA &amp; SEO"
+    },
+    {
+      "domain": "marguerite-duras.org",
+      "base": "margueriteduras.org",
+      "orgName": "ASSOCIATION MARGUERITE DURAS",
+      "kind": "tiret",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "marracq.com",
+      "base": "marracq.fr",
+      "orgName": "Collège Marracq",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Collège Marracq"
+    },
+    {
+      "domain": "marrocq.fr",
+      "base": "marracq.fr",
+      "orgName": "Collège Marracq",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mauleon.com",
+      "base": "mauleon.fr",
+      "orgName": "Commune de Mauléon",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mauleon.net",
+      "base": "mauleon.fr",
+      "orgName": "Commune de Mauléon",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mediabask.com",
+      "base": "mediabask.eus",
+      "orgName": "MEDIABASK",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "medocatlantique.com",
+      "base": "medoc-atlantique.com",
+      "orgName": "Communauté de communes Médoc Atlantique",
+      "kind": "omission",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    }
+  ],
+  "alarms": 20,
+  "falsePositives": 20,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 3023,
+    "certificate": 20,
+    "page": 20
+  },
+  "durationMs": 22704
+}

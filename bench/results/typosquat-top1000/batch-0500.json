@@ -1,0 +1,1189 @@
+{
+  "offset": 500,
+  "top": 1000,
+  "targets": 200,
+  "variants": 2165,
+  "active": 130,
+  "detections": [],
+  "activeList": [
+    {
+      "domain": "acea.fr",
+      "base": "caea.fr",
+      "orgName": "CONSERVATOIRE DE L'AIR ET DE L'ESPACE D'AQUITAINE",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "ACEA Automatisme, automatismes industriels à Saint-Étienne et alentour"
+    },
+    {
+      "domain": "aea.fr",
+      "base": "caea.fr",
+      "orgName": "CONSERVATOIRE DE L'AIR ET DE L'ESPACE D'AQUITAINE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "alementterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "alwin.fr",
+      "base": "elwin.fr",
+      "orgName": "ELWIN",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "anlac.com",
+      "base": "fanlac.com",
+      "orgName": "PIERRE FANLAC EDITEUR",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "aremeet.com",
+      "base": "daremeet.com",
+      "orgName": "DAREMEET",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "ars33.fr",
+      "base": "cars33.fr",
+      "orgName": "CARS",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "astet.fr",
+      "base": "castet.fr",
+      "orgName": "CASTET",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bruc.fr",
+      "base": "bruch.fr",
+      "orgName": "BRUCH",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "bruch.com",
+      "base": "bruch.fr",
+      "orgName": "BRUCH",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bruch.net",
+      "base": "bruch.fr",
+      "orgName": "BRUCH",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ",Bruch‘-"
+    },
+    {
+      "domain": "bruch.org",
+      "base": "bruch.fr",
+      "orgName": "BRUCH",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "budo.fr",
+      "base": "budos.fr",
+      "orgName": "BUDOS",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Budo Editions"
+    },
+    {
+      "domain": "budos.com",
+      "base": "budos.fr",
+      "orgName": "BUDOS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "budos.com&nbsp;-&nbsp;Ce site web est à vendre !&nbsp;-&nbsp;Ressources et information concernant Music Resources and Information."
+    },
+    {
+      "domain": "budos.net",
+      "base": "budos.fr",
+      "orgName": "BUDOS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "budos.org",
+      "base": "budos.fr",
+      "orgName": "BUDOS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "buz.fr",
+      "base": "buzy.fr",
+      "orgName": "BUZY",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "buzu.fr",
+      "base": "buzy.fr",
+      "orgName": "BUZY",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "buzy.com",
+      "base": "buzy.fr",
+      "orgName": "BUZY",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "buzy.net",
+      "base": "buzy.fr",
+      "orgName": "BUZY",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "buzy.org",
+      "base": "buzy.fr",
+      "orgName": "BUZY",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "by-hoster.com",
+      "base": "by-hoster.net",
+      "orgName": "BY-HOSTER",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Hébergeur Web &amp; VPS dès 1€/mois - France | By-Hoster"
+    },
+    {
+      "domain": "c-aea.fr",
+      "base": "caea.fr",
+      "orgName": "CONSERVATOIRE DE L'AIR ET DE L'ESPACE D'AQUITAINE",
+      "kind": "tiret",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Accueil - CAEA"
+    },
+    {
+      "domain": "cae.fr",
+      "base": "caea.fr",
+      "orgName": "CONSERVATOIRE DE L'AIR ET DE L'ESPACE D'AQUITAINE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "caea.com",
+      "base": "caea.fr",
+      "orgName": "CONSERVATOIRE DE L'AIR ET DE L'ESPACE D'AQUITAINE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Canadian Actors&#x27; Equity Association"
+    },
+    {
+      "domain": "caea.net",
+      "base": "caea.fr",
+      "orgName": "CONSERVATOIRE DE L'AIR ET DE L'ESPACE D'AQUITAINE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "caea.org",
+      "base": "caea.fr",
+      "orgName": "CONSERVATOIRE DE L'AIR ET DE L'ESPACE D'AQUITAINE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "cambolesbains.com",
+      "base": "cambolesbains.fr",
+      "orgName": "Commune de Cambo-les-Bains",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Office de Tourisme Cambo-les-Bains | Pays basque"
+    },
+    {
+      "domain": "canejan.com",
+      "base": "canejan.fr",
+      "orgName": "Commune de Canéjan",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "canejan.org",
+      "base": "canejan.fr",
+      "orgName": "Commune de Canéjan",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "capbreton.com",
+      "base": "capbreton.fr",
+      "orgName": "Commune de Capbreton",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "capbreton.com est en vente"
+    },
+    {
+      "domain": "capbreton.net",
+      "base": "capbreton.fr",
+      "orgName": "Commune de Capbreton",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Capbreton.net - site non officiel sur Capbreton"
+    },
+    {
+      "domain": "capbreton.org",
+      "base": "capbreton.fr",
+      "orgName": "Commune de Capbreton",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "mai"
+    },
+    {
+      "domain": "carbon-blanc.org",
+      "base": "carbon-blanc.fr",
+      "orgName": "CARBON BLANC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "carcan.fr",
+      "base": "carcans.fr",
+      "orgName": "CARCANS",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Domain Details Page"
+    },
+    {
+      "domain": "carcans.com",
+      "base": "carcans.fr",
+      "orgName": "CARCANS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "cars33.com",
+      "base": "cars33.fr",
+      "orgName": "CARS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "CARS33"
+    },
+    {
+      "domain": "cars33.org",
+      "base": "cars33.fr",
+      "orgName": "CARS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "caste.fr",
+      "base": "castet.fr",
+      "orgName": "CASTET",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Caste aliment : nutrition animale et conseils en élevage"
+    },
+    {
+      "domain": "castet.com",
+      "base": "castet.fr",
+      "orgName": "CASTET",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Accueil - Castet"
+    },
+    {
+      "domain": "castet.net",
+      "base": "castet.fr",
+      "orgName": "CASTET",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "cavignac.com",
+      "base": "cavignac.fr",
+      "orgName": "CAVIGNAC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "San Diego &amp; Orange County Insurance Agency | Cavignac"
+    },
+    {
+      "domain": "cc-deuxrives.com",
+      "base": "cc-deuxrives.fr",
+      "orgName": "Communauté de communes des Deux Rives",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cc-deuxrives.net",
+      "base": "cc-deuxrives.fr",
+      "orgName": "Communauté de communes des Deux Rives",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cc-lacqorthez.com",
+      "base": "cc-lacqorthez.fr",
+      "orgName": "Communauté de communes de Lacq-Orthez",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cc-lacqorthez.org",
+      "base": "cc-lacqorthez.fr",
+      "orgName": "Communauté de communes de Lacq-Orthez",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cc-macs.com",
+      "base": "cc-macs.org",
+      "orgName": "Communauté de communes Maremne Adour Côte Sud",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cc-macs.net",
+      "base": "cc-macs.org",
+      "orgName": "Communauté de communes Maremne Adour Côte Sud",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cc-mimizan.com",
+      "base": "cc-mimizan.fr",
+      "orgName": "Communauté de communes de Mimizan",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Bravo ! Votre domaine cc-mimizan.com a bien été créé avec LWS !"
+    },
+    {
+      "domain": "cc-parthenay-gatine.com",
+      "base": "cc-parthenay-gatine.fr",
+      "orgName": "Communauté de communes de Parthenay-Gâtine",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cc-parthenay-gatine.net",
+      "base": "cc-parthenay-gatine.fr",
+      "orgName": "Communauté de communes de Parthenay-Gâtine",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cc-sarlatperigordnoir.com",
+      "base": "cc-sarlatperigordnoir.fr",
+      "orgName": "Communauté de communes Sarlat-Périgord Noir",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Communauté de communes Sarlat - Périgord Noir"
+    },
+    {
+      "domain": "ccbd.fr",
+      "base": "ccbdp.fr",
+      "orgName": "Communauté de communes des Bastides Dordogne-Périgord",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ":: Xsalto ::"
+    },
+    {
+      "domain": "ccbdp.com",
+      "base": "ccbdp.fr",
+      "orgName": "Communauté de communes des Bastides Dordogne-Périgord",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "ช่องทางการสื่อสารระหว่างผู้พิการทางการได้ยินกับพนักงานสอบสวน"
+    },
+    {
+      "domain": "ccbearndesgaves.com",
+      "base": "ccbearndesgaves.fr",
+      "orgName": "Communauté de communes du Béarn des Gaves",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ccbpd.fr",
+      "base": "ccbdp.fr",
+      "orgName": "Communauté de communes des Bastides Dordogne-Périgord",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ccid.fr",
+      "base": "ccidl.fr",
+      "orgName": "Communauté de communes Isle Double Landais",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cciv.fr",
+      "base": "ccivs.fr",
+      "orgName": "Communauté de communes Isle Vern Salembre en Périgord",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "ccivs.com",
+      "base": "ccivs.fr",
+      "orgName": "Communauté de communes Isle Vern Salembre en Périgord",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ccnoblat.com",
+      "base": "ccnoblat.fr",
+      "orgName": "Communauté de communes de Noblat",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ccnoblat.org",
+      "base": "ccnoblat.fr",
+      "orgName": "Communauté de communes de Noblat",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Page d&#8217;accueil CNOBLAT - Communauté de Communes de Noblat"
+    },
+    {
+      "domain": "cdal.info",
+      "base": "cdla.info",
+      "orgName": "CDLA",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "cdc-portesentredeuxmers.com",
+      "base": "cdc-portesentredeuxmers.fr",
+      "orgName": "Communauté de communes des Portes de l'Entre-Deux-Mers",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cdl.info",
+      "base": "cdla.info",
+      "orgName": "CDLA",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "cdla.com",
+      "base": "cdla.info",
+      "orgName": "CDLA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cdla.net",
+      "base": "cdla.info",
+      "orgName": "CDLA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cdla.org",
+      "base": "cdla.info",
+      "orgName": "CDLA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ceno.fr",
+      "base": "cenon.fr",
+      "orgName": "Commune de Cenon",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Ceno.fr - Meuble deco"
+    },
+    {
+      "domain": "cenon.com",
+      "base": "cenon.fr",
+      "orgName": "Commune de Cenon",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Cenon CAM - Manufacturing with Style"
+    },
+    {
+      "domain": "cenon.net",
+      "base": "cenon.fr",
+      "orgName": "Commune de Cenon",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "chalais.com",
+      "base": "chalais.net",
+      "orgName": "CHALAIS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "chalossetursan.com",
+      "base": "chalossetursan.fr",
+      "orgName": "Communauté de communes Chalosse Tursan",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Chalosse Tursan - Communauté de communes Chalosse Tursan"
+    },
+    {
+      "domain": "chalossetursan.org",
+      "base": "chalossetursan.fr",
+      "orgName": "Communauté de communes Chalosse Tursan",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "chantelou.fr",
+      "base": "chanteloup.fr",
+      "orgName": "CHANTELOUP",
+      "kind": "omission",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": "Chantelou | Gîte de groupes en Auvergne"
+    },
+    {
+      "domain": "chanteloup.com",
+      "base": "chanteloup.fr",
+      "orgName": "CHANTELOUP",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "chanteloup.net",
+      "base": "chanteloup.fr",
+      "orgName": "CHANTELOUP",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "chateausaintmartial.com",
+      "base": "chateausaintmartial.fr",
+      "orgName": "CHATEAU SAINT MARTIAL",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Accueil - Château Saint Martial"
+    },
+    {
+      "domain": "chatellerault.com",
+      "base": "chatellerault.fr",
+      "orgName": "Commune de Châtellerault",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "chauvigny.com",
+      "base": "chauvigny.fr",
+      "orgName": "Commune de Chauvigny",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "chazelle.fr",
+      "base": "chazelles.fr",
+      "orgName": "CHAZELLES",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "chazelles.com",
+      "base": "chazelles.fr",
+      "orgName": "CHAZELLES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "civs.fr",
+      "base": "ccivs.fr",
+      "orgName": "Communauté de communes Isle Vern Salembre en Périgord",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "CIVS, Compagnie Internationale de Vins et Spiritueux, Marseille"
+    },
+    {
+      "domain": "ckc.fr",
+      "base": "ckct.fr",
+      "orgName": "CANOE KAYAK CLUB TEICHOIS",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "ckcf.fr",
+      "base": "ckct.fr",
+      "orgName": "CANOE KAYAK CLUB TEICHOIS",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ckct.com",
+      "base": "ckct.fr",
+      "orgName": "CANOE KAYAK CLUB TEICHOIS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "ckct.com"
+    },
+    {
+      "domain": "ckct.org",
+      "base": "ckct.fr",
+      "orgName": "CANOE KAYAK CLUB TEICHOIS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Home - CKCT"
+    },
+    {
+      "domain": "clavette.com",
+      "base": "clavette.fr",
+      "orgName": "CLAVETTE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Insurance Agency in Hales Corners, WI | Clavette Insurance"
+    },
+    {
+      "domain": "clavette.net",
+      "base": "clavette.fr",
+      "orgName": "CLAVETTE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "coban-atlantique.com",
+      "base": "coban-atlantique.fr",
+      "orgName": "Communauté d'agglomération du Bassin d'Arcachon Nord (COBAN)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cole-home.com",
+      "base": "ecole-home.com",
+      "orgName": "ECOLE H.O.M.E.",
+      "kind": "omission",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": "Coming Soon"
+    },
+    {
+      "domain": "college-montaigne.com",
+      "base": "college-montaigne.fr",
+      "orgName": "Collège Montaigne",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "coop-atlantique.com",
+      "base": "coop-atlantique.fr",
+      "orgName": "COOP ATLANTIQUE (COOP)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "coutras.com",
+      "base": "coutras.fr",
+      "orgName": "Commune de Coutras",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "coutras.net",
+      "base": "coutras.fr",
+      "orgName": "Commune de Coutras",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "The Coutras Family"
+    },
+    {
+      "domain": "dadoclem.net",
+      "base": "dadoclem.fr",
+      "orgName": "DADOCLEM",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "daremee.com",
+      "base": "daremeet.com",
+      "orgName": "DAREMEET",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "dcla.info",
+      "base": "cdla.info",
+      "orgName": "CDLA",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "deepnight.com",
+      "base": "deepnight.net",
+      "orgName": "DEEPNIGHT GAMES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Deepnight - Nextgen Night Vision"
+    },
+    {
+      "domain": "delpeyrat.net",
+      "base": "delpeyrat.com",
+      "orgName": "DELPEYRAT (DSAS)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "delpeyrat.org",
+      "base": "delpeyrat.com",
+      "orgName": "DELPEYRAT (DSAS)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "dronneetbelle.com",
+      "base": "dronneetbelle.fr",
+      "orgName": "Communauté de communes Dronne et Belle",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "durousseau.com",
+      "base": "durousseau.fr",
+      "orgName": "DUROUSSEAU OUTILS COUPANTS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "durousseau.net",
+      "base": "durousseau.fr",
+      "orgName": "DUROUSSEAU OUTILS COUPANTS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "durousseau.org",
+      "base": "durousseau.fr",
+      "orgName": "DUROUSSEAU OUTILS COUPANTS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "e-lementterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "tiret",
+      "similarity": 0.941,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "egides.com",
+      "base": "egides.org",
+      "orgName": "EGIDES EUROPE ALLIANCE INTERNATIONALE FRANCOPHONE POUR L'EGALITE ET LES DIVERSITES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elan87.com",
+      "base": "elan87.fr",
+      "orgName": "Communauté de communes Élan Limousin Avenir Nature",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementterresai.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "omission",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementterresait.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementterresali.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "transposition",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elwin.org",
+      "base": "elwin.fr",
+      "orgName": "ELWIN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "enon.fr",
+      "base": "cenon.fr",
+      "orgName": "Commune de Cenon",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "excideuil.com",
+      "base": "excideuil.fr",
+      "orgName": "EXCIDEUIL",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "excideuil.net",
+      "base": "excideuil.fr",
+      "orgName": "EXCIDEUIL",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Accueil - Mairie d'Excideuil (Dordogne)"
+    },
+    {
+      "domain": "eysines.com",
+      "base": "eysines.fr",
+      "orgName": "EYSINES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "faleyras.com",
+      "base": "faleyras.fr",
+      "orgName": "FALEYRAS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Circuit de Faleyras |"
+    },
+    {
+      "domain": "fanla.com",
+      "base": "fanlac.com",
+      "orgName": "PIERRE FANLAC EDITEUR",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "fanlak.com",
+      "base": "fanlac.com",
+      "orgName": "PIERRE FANLAC EDITEUR",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "fanlak.com"
+    },
+    {
+      "domain": "felletin.com",
+      "base": "felletin.fr",
+      "orgName": "FELLETIN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "felletin.net",
+      "base": "felletin.fr",
+      "orgName": "FELLETIN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "felletin.org",
+      "base": "felletin.fr",
+      "orgName": "FELLETIN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "felletin.org"
+    },
+    {
+      "domain": "gides.org",
+      "base": "egides.org",
+      "orgName": "EGIDES EUROPE ALLIANCE INTERNATIONALE FRANCOPHONE POUR L'EGALITE ET LES DIVERSITES",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "kaea.fr",
+      "base": "caea.fr",
+      "orgName": "CONSERVATOIRE DE L'AIR ET DE L'ESPACE D'AQUITAINE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Savonnerie Artisanale - Savons bio - KAEA Savonnerie - Hérault"
+    },
+    {
+      "domain": "kct.fr",
+      "base": "ckct.fr",
+      "orgName": "CANOE KAYAK CLUB TEICHOIS",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "leementterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "transposition",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lementterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "omission",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lewin.fr",
+      "base": "elwin.fr",
+      "orgName": "ELWIN",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ruch.fr",
+      "base": "bruch.fr",
+      "orgName": "BRUCH",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Ruch"
+    },
+    {
+      "domain": "uzy.fr",
+      "base": "buzy.fr",
+      "orgName": "BUZY",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Bravo ! Votre domaine uzy.fr a bien été créé avec LWS !"
+    },
+    {
+      "domain": "xn--lementterresail-3nm.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "homoglyphe",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    }
+  ],
+  "alarms": 115,
+  "falsePositives": 115,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 2165,
+    "certificate": 130,
+    "page": 130
+  },
+  "durationMs": 23121
+}

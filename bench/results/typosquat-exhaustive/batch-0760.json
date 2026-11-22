@@ -1,0 +1,541 @@
+{
+  "offset": 760,
+  "top": 1000,
+  "targets": 40,
+  "variants": 2687,
+  "active": 58,
+  "detections": [],
+  "activeList": [
+    {
+      "domain": "escar.fr",
+      "base": "lescar.fr",
+      "orgName": "LESCAR",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "isez.com",
+      "base": "lisez.com",
+      "orgName": "SC PERRIN",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Bot Verification"
+    },
+    {
+      "domain": "la-plume.fr",
+      "base": "laplume.fr",
+      "orgName": "LAPLUME",
+      "kind": "tiret",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": "la-plume.fr est en vente"
+    },
+    {
+      "domain": "la-rochelle.fr",
+      "base": "larochelle.fr",
+      "orgName": "Commune de La Rochelle",
+      "kind": "tiret",
+      "similarity": 0.909,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ladilettante.com",
+      "base": "ledilettante.com",
+      "orgName": "LE DILETTANTE",
+      "kind": "substitution",
+      "similarity": 0.917,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "landesdarmagnac.com",
+      "base": "landesdarmagnac.fr",
+      "orgName": "Communauté de communes des Landes d'Armagnac",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Accueil - Landes d'Armagnac"
+    },
+    {
+      "domain": "laplume.com",
+      "base": "laplume.fr",
+      "orgName": "LAPLUME",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "laplume.net",
+      "base": "laplume.fr",
+      "orgName": "LAPLUME",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "laplume.org",
+      "base": "laplume.fr",
+      "orgName": "LAPLUME",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "larochechalais.com",
+      "base": "larochechalais.fr",
+      "orgName": "LA ROCHE CHALAIS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Accueil"
+    },
+    {
+      "domain": "larochelle.com",
+      "base": "larochelle.fr",
+      "orgName": "Commune de La Rochelle",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "larochelle.net",
+      "base": "larochelle.fr",
+      "orgName": "Commune de La Rochelle",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Premium Domain For Sale | Bee Internet Ltd"
+    },
+    {
+      "domain": "larochelle.org",
+      "base": "larochelle.fr",
+      "orgName": "Commune de La Rochelle",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "laroque-timbaut.com",
+      "base": "laroque-timbaut.fr",
+      "orgName": "LAROQUE TIMBAUT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "larressore.org",
+      "base": "larressore.fr",
+      "orgName": "LARRESSORE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "LARRESSORE"
+    },
+    {
+      "domain": "lascar.fr",
+      "base": "lescar.fr",
+      "orgName": "LESCAR",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "latestedebuch.com",
+      "base": "latestedebuch.fr",
+      "orgName": "LA TESTE DE BUCH",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "le-dilettante.com",
+      "base": "ledilettante.com",
+      "orgName": "LE DILETTANTE",
+      "kind": "tiret",
+      "similarity": 0.923,
+      "certificate": null,
+      "pageTitle": "Le Dilettante &#8211; C&#039;est quelque chose que je fais, et qui me satisfait."
+    },
+    {
+      "domain": "lebourdet.com",
+      "base": "lebourdet.fr",
+      "orgName": "LE BOURDET",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ledilettante.net",
+      "base": "ledilettante.com",
+      "orgName": "LE DILETTANTE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "leognan.com",
+      "base": "leognan.fr",
+      "orgName": "Commune de Léognan",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "leognan.net",
+      "base": "leognan.fr",
+      "orgName": "Commune de Léognan",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "leognan.org",
+      "base": "leognan.fr",
+      "orgName": "Commune de Léognan",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lepian-medoc.fr",
+      "base": "lepianmedoc.fr",
+      "orgName": "Commune de Le Pian-Médoc",
+      "kind": "tiret",
+      "similarity": 0.917,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lerouillacais.com",
+      "base": "lerouillacais.fr",
+      "orgName": "Communauté de communes du Rouillacais",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Accueil - Le Rouillacais - Communauté de Communes"
+    },
+    {
+      "domain": "lesamisdumuseemaritime.com",
+      "base": "lesamisdumuseemaritime.fr",
+      "orgName": "ASS DES AMIS DU MUSEE MARITIME LA ROCHEL",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lesar.fr",
+      "base": "lescar.fr",
+      "orgName": "LESCAR",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "LESAR"
+    },
+    {
+      "domain": "lesca.fr",
+      "base": "lescar.fr",
+      "orgName": "LESCAR",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "lescan.fr",
+      "base": "lescar.fr",
+      "orgName": "LESCAR",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "LeScan — Clique ta compta · Scannez vos tickets, votre registre TVA se remplit tout seul"
+    },
+    {
+      "domain": "lescar.com",
+      "base": "lescar.fr",
+      "orgName": "LESCAR",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "lescat.fr",
+      "base": "lescar.fr",
+      "orgName": "LESCAR",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Site en construction"
+    },
+    {
+      "domain": "lesez.com",
+      "base": "lisez.com",
+      "orgName": "SC PERRIN",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lesgo.fr",
+      "base": "lesgor.fr",
+      "orgName": "LESGOR",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lesparre-medoc.com",
+      "base": "lesparre-medoc.fr",
+      "orgName": "Commune de Lesparre-Médoc",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lesparre-medoc.net",
+      "base": "lesparre-medoc.fr",
+      "orgName": "Commune de Lesparre-Médoc",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lesparre-medoc.org",
+      "base": "lesparre-medoc.fr",
+      "orgName": "Commune de Lesparre-Médoc",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "letech.fr",
+      "base": "leteich.fr",
+      "orgName": "Commune de Le Teich",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "leteich.com",
+      "base": "leteich.fr",
+      "orgName": "Commune de Le Teich",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "libourne.com",
+      "base": "libourne.fr",
+      "orgName": "Commune de Libourne",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "liesz.com",
+      "base": "lisez.com",
+      "orgName": "SC PERRIN",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "liez.com",
+      "base": "lisez.com",
+      "orgName": "SC PERRIN",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "LIEZ.com&nbsp;is for sale! at Dyno Domains"
+    },
+    {
+      "domain": "line-up.com",
+      "base": "line-up.tech",
+      "orgName": "MELANIE KITENGE (LINE'UP)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "SanSoleil Golf, Tennis Cooling Apparel. UV 50 Safe"
+    },
+    {
+      "domain": "line-up.net",
+      "base": "line-up.tech",
+      "orgName": "MELANIE KITENGE (LINE'UP)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "line-up.net&nbsp;-&nbsp;Ce site web est à vendre !&nbsp;-&nbsp;Ressources et information concernant lineup beauty line diet lineup beauty line diet Resources and Information."
+    },
+    {
+      "domain": "line-up.org",
+      "base": "line-up.tech",
+      "orgName": "MELANIE KITENGE (LINE'UP)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lisaz.com",
+      "base": "lisez.com",
+      "orgName": "SC PERRIN",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "lise.com",
+      "base": "lisez.com",
+      "orgName": "SC PERRIN",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Lise | Lightning Stock Exchange"
+    },
+    {
+      "domain": "lises.com",
+      "base": "lisez.com",
+      "orgName": "SC PERRIN",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lisz.com",
+      "base": "lisez.com",
+      "orgName": "SC PERRIN",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lizez.com",
+      "base": "lisez.com",
+      "orgName": "SC PERRIN",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "looweb.com",
+      "base": "looweb.fr",
+      "orgName": "ANTHONY RAMOS (LOOWEB)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "looweb.com&nbsp;-&nbsp;Ce site web est à vendre !&nbsp;-&nbsp;Ressources et information concernant looweb Resources and Information."
+    },
+    {
+      "domain": "losez.com",
+      "base": "lisez.com",
+      "orgName": "SC PERRIN",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "louisdefoix.com",
+      "base": "louisdefoix.fr",
+      "orgName": "Lycée polyvalent Louis de Foix",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "louweb.fr",
+      "base": "looweb.fr",
+      "orgName": "ANTHONY RAMOS (LOOWEB)",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Site en construction"
+    },
+    {
+      "domain": "loweb.fr",
+      "base": "looweb.fr",
+      "orgName": "ANTHONY RAMOS (LOOWEB)",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Bienvenue sur loweb.fr"
+    },
+    {
+      "domain": "lscar.fr",
+      "base": "lescar.fr",
+      "orgName": "LESCAR",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Accueil - Lscar.fr"
+    },
+    {
+      "domain": "lsez.com",
+      "base": "lisez.com",
+      "orgName": "SC PERRIN",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "oloweb.fr",
+      "base": "looweb.fr",
+      "orgName": "ANTHONY RAMOS (LOOWEB)",
+      "kind": "transposition",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "ooweb.fr",
+      "base": "looweb.fr",
+      "orgName": "ANTHONY RAMOS (LOOWEB)",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": ""
+    }
+  ],
+  "alarms": 56,
+  "falsePositives": 56,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 2687,
+    "certificate": 58,
+    "page": 58
+  },
+  "durationMs": 23903
+}

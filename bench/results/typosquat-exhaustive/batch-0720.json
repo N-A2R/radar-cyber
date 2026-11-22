@@ -1,0 +1,901 @@
+{
+  "offset": 720,
+  "top": 1000,
+  "targets": 40,
+  "variants": 2469,
+  "active": 98,
+  "detections": [],
+  "activeList": [
+    {
+      "domain": "abarde.fr",
+      "base": "labarde.fr",
+      "orgName": "LABARDE",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "abrit.fr",
+      "base": "labrit.fr",
+      "orgName": "LABRIT",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "agor.fr",
+      "base": "lagor.fr",
+      "orgName": "LAGOR",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "alcali.fr",
+      "base": "lacali.fr",
+      "orgName": "Communauté d'agglomération du Libournais",
+      "kind": "transposition",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": "Alcali &#8211; Design graphique et création"
+    },
+    {
+      "domain": "algor.fr",
+      "base": "lagor.fr",
+      "orgName": "LAGOR",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": "algor.fr est en vente"
+    },
+    {
+      "domain": "dron.fr",
+      "base": "idron.fr",
+      "orgName": "Commune de Idron",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "DRON - Location de matériels"
+    },
+    {
+      "domain": "endp.net",
+      "base": "indp.net",
+      "orgName": "INSTITUT NATIONAL DU DESIGN PACKAGING",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "epsad.fr",
+      "base": "ipsad.fr",
+      "orgName": "SAS IPSAD FINANCES ET CONSULTING",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ezon.fr",
+      "base": "izon.fr",
+      "orgName": "IZON",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "grand-chatellerault.com",
+      "base": "grand-chatellerault.fr",
+      "orgName": "Communauté d'agglomération Grand Châtellerault",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "grand-cognac.com",
+      "base": "grand-cognac.fr",
+      "orgName": "Communauté d'agglomération du Grand Cognac",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Bienvenue | Grand Cognac agglomération"
+    },
+    {
+      "domain": "grand-dax.net",
+      "base": "grand-dax.fr",
+      "orgName": "Communauté d'agglomération du Grand Dax",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Agglomération du Grand Dax : territoire numérique et innovant"
+    },
+    {
+      "domain": "grand-poitiers.fr",
+      "base": "grandpoitiers.fr",
+      "orgName": "Communauté urbaine du Grand Poitiers",
+      "kind": "tiret",
+      "similarity": 0.929,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "grandchatellerault.fr",
+      "base": "grand-chatellerault.fr",
+      "orgName": "Communauté d'agglomération Grand Châtellerault",
+      "kind": "omission",
+      "similarity": 0.947,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "grandcognac.fr",
+      "base": "grand-cognac.fr",
+      "orgName": "Communauté d'agglomération du Grand Cognac",
+      "kind": "omission",
+      "similarity": 0.917,
+      "certificate": null,
+      "pageTitle": "Bienvenue | Grand Cognac agglomération"
+    },
+    {
+      "domain": "grandpoitiers.com",
+      "base": "grandpoitiers.fr",
+      "orgName": "Communauté urbaine du Grand Poitiers",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "hasparren.com",
+      "base": "hasparren.fr",
+      "orgName": "Commune de Hasparren",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "hasparren.com"
+    },
+    {
+      "domain": "haute-saintonge.com",
+      "base": "haute-saintonge.org",
+      "orgName": "Communauté de communes de la Haute Saintonge",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "haute-saintonge.net",
+      "base": "haute-saintonge.org",
+      "orgName": "Communauté de communes de la Haute Saintonge",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "hendaye.com",
+      "base": "hendaye.fr",
+      "orgName": "HENDAYE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "hendaye.org",
+      "base": "hendaye.fr",
+      "orgName": "HENDAYE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "heuga.fr",
+      "base": "heugas.fr",
+      "orgName": "HEUGAS",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "heugas.com",
+      "base": "heugas.fr",
+      "orgName": "HEUGAS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "idnp.net",
+      "base": "indp.net",
+      "orgName": "INSTITUT NATIONAL DU DESIGN PACKAGING",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "idp.net",
+      "base": "indp.net",
+      "orgName": "INSTITUT NATIONAL DU DESIGN PACKAGING",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "IDP.Net | Secure Hosting, Security & Web Development"
+    },
+    {
+      "domain": "idro.fr",
+      "base": "idron.fr",
+      "orgName": "Commune de Idron",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "idron.com",
+      "base": "idron.fr",
+      "orgName": "Commune de Idron",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "indp.com",
+      "base": "indp.net",
+      "orgName": "INSTITUT NATIONAL DU DESIGN PACKAGING",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "indp.org",
+      "base": "indp.net",
+      "orgName": "INSTITUT NATIONAL DU DESIGN PACKAGING",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "inlp.net",
+      "base": "indp.net",
+      "orgName": "INSTITUT NATIONAL DU DESIGN PACKAGING",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "inp.net",
+      "base": "indp.net",
+      "orgName": "INSTITUT NATIONAL DU DESIGN PACKAGING",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "inpd.net",
+      "base": "indp.net",
+      "orgName": "INSTITUT NATIONAL DU DESIGN PACKAGING",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "九江南方能源新材料有限公司_九江南方能源新材料有限公司"
+    },
+    {
+      "domain": "ion.fr",
+      "base": "izon.fr",
+      "orgName": "IZON",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "ion - ion.fr"
+    },
+    {
+      "domain": "ipad.fr",
+      "base": "ipsad.fr",
+      "orgName": "SAS IPSAD FINANCES ET CONSULTING",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ipsa.fr",
+      "base": "ipsad.fr",
+      "orgName": "SAS IPSAD FINANCES ET CONSULTING",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "IPSA, grande école aéronautique et spatial de Bac à Bac+5"
+    },
+    {
+      "domain": "ipsad.com",
+      "base": "ipsad.fr",
+      "orgName": "SAS IPSAD FINANCES ET CONSULTING",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ipsad.org",
+      "base": "ipsad.fr",
+      "orgName": "SAS IPSAD FINANCES ET CONSULTING",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "iron.fr",
+      "base": "idron.fr",
+      "orgName": "Commune de Idron",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Tout savoir sur la course IRONMAN"
+    },
+    {
+      "domain": "isad.fr",
+      "base": "ipsad.fr",
+      "orgName": "SAS IPSAD FINANCES ET CONSULTING",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "ison.fr",
+      "base": "izon.fr",
+      "orgName": "IZON",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "izan.fr",
+      "base": "izon.fr",
+      "orgName": "IZON",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "izn.fr",
+      "base": "izon.fr",
+      "orgName": "IZON",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Bravo ! Votre domaine izn.fr a bien été créé avec LWS !"
+    },
+    {
+      "domain": "izon.com",
+      "base": "izon.fr",
+      "orgName": "IZON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Isolate &amp; Measure Extracellular Vesicles &amp; Nanoparticles"
+    },
+    {
+      "domain": "izon.net",
+      "base": "izon.fr",
+      "orgName": "IZON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "izon.org",
+      "base": "izon.fr",
+      "orgName": "IZON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "jalleeaubourde.com",
+      "base": "jalleeaubourde.fr",
+      "orgName": "Communauté de communes Jalle-Eau-Bourde",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "jalleeaubourde.net",
+      "base": "jalleeaubourde.fr",
+      "orgName": "Communauté de communes Jalle-Eau-Bourde",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "jeanmoulin-thouars.fr",
+      "base": "jeanmoulinthouars.fr",
+      "orgName": "Lycée professionnel Jean Moulin",
+      "kind": "tiret",
+      "similarity": 0.944,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "krakatoa.com",
+      "base": "krakatoa.org",
+      "orgName": "KRAKATOA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "krakatoa.net",
+      "base": "krakatoa.org",
+      "orgName": "KRAKATOA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "la-barde.fr",
+      "base": "labarde.fr",
+      "orgName": "LABARDE",
+      "kind": "tiret",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "la-cav.fr",
+      "base": "la-cab.fr",
+      "orgName": "Communauté d'agglomération Bergeracoise",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "la-couronne.fr",
+      "base": "lacouronne.fr",
+      "orgName": "Commune de La Couronne",
+      "kind": "tiret",
+      "similarity": 0.909,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "labade.fr",
+      "base": "labarde.fr",
+      "orgName": "LABARDE",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Accueil"
+    },
+    {
+      "domain": "labande.fr",
+      "base": "labarde.fr",
+      "orgName": "LABARDE",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "labard.fr",
+      "base": "labarde.fr",
+      "orgName": "LABARDE",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "labarde.com",
+      "base": "labarde.fr",
+      "orgName": "LABARDE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "labarde.net",
+      "base": "labarde.fr",
+      "orgName": "LABARDE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "labare.fr",
+      "base": "labarde.fr",
+      "orgName": "LABARDE",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "labeyrie.net",
+      "base": "labeyrie.com",
+      "orgName": "LABEYRIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "labeyrie.org",
+      "base": "labeyrie.com",
+      "orgName": "LABEYRIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "This domain is managed by BPGame"
+    },
+    {
+      "domain": "laborde.fr",
+      "base": "labarde.fr",
+      "orgName": "LABARDE",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Laborde - Laborde.fr"
+    },
+    {
+      "domain": "labret.fr",
+      "base": "labrit.fr",
+      "orgName": "LABRIT",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "labret.fr&nbsp;-&nbsp;Ce site web est à vendre !&nbsp;-&nbsp;Ressources et information concernant labret Resources and Information."
+    },
+    {
+      "domain": "labrit.com",
+      "base": "labrit.fr",
+      "orgName": "LABRIT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "labrit.net",
+      "base": "labrit.fr",
+      "orgName": "LABRIT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Labrit Ondarea &#8211; Labrit Patrimonio"
+    },
+    {
+      "domain": "labrot.fr",
+      "base": "labrit.fr",
+      "orgName": "LABRIT",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "labrot.fr"
+    },
+    {
+      "domain": "lacab.fr",
+      "base": "la-cab.fr",
+      "orgName": "Communauté d'agglomération Bergeracoise",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "lacal.fr",
+      "base": "lacali.fr",
+      "orgName": "Communauté d'agglomération du Libournais",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Lacal Outdoor – Hiking / Running / Surviving / Camping / Traveling / Nordic Walking - Lacal Outdoor"
+    },
+    {
+      "domain": "lacale.fr",
+      "base": "lacali.fr",
+      "orgName": "Communauté d'agglomération du Libournais",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "lacali.com",
+      "base": "lacali.fr",
+      "orgName": "Communauté d'agglomération du Libournais",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "WhatsApp"
+    },
+    {
+      "domain": "lacanau.com",
+      "base": "lacanau.fr",
+      "orgName": "LACANAU",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lacanau.net",
+      "base": "lacanau.fr",
+      "orgName": "LACANAU",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lacanau.org",
+      "base": "lacanau.fr",
+      "orgName": "LACANAU",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lacoronne.fr",
+      "base": "lacouronne.fr",
+      "orgName": "Commune de La Couronne",
+      "kind": "omission",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": "Camping La Coronne à Valréas dans l'Enclave des Papes"
+    },
+    {
+      "domain": "lacouronne.net",
+      "base": "lacouronne.fr",
+      "orgName": "Commune de La Couronne",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Prochainement disponible"
+    },
+    {
+      "domain": "lagar.fr",
+      "base": "lagor.fr",
+      "orgName": "LAGOR",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "lagard.fr",
+      "base": "lagord.fr",
+      "orgName": "Commune de Lagord",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "lago.fr",
+      "base": "lagor.fr",
+      "orgName": "LAGOR",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lagon.fr",
+      "base": "lagor.fr",
+      "orgName": "LAGOR",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Lagon"
+    },
+    {
+      "domain": "lagor.com",
+      "base": "lagor.fr",
+      "orgName": "LAGOR",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "LAGOR - PT Cores Guaranteed performarce by Pass-Line"
+    },
+    {
+      "domain": "lagor.fr",
+      "base": "lagord.fr",
+      "orgName": "Commune de Lagord",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Lagor - Pyrénées Atlantiques 64"
+    },
+    {
+      "domain": "lagor.net",
+      "base": "lagor.fr",
+      "orgName": "LAGOR",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lagor.org",
+      "base": "lagor.fr",
+      "orgName": "LAGOR",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lagord.com",
+      "base": "lagord.fr",
+      "orgName": "Commune de Lagord",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "lagot.fr",
+      "base": "lagor.fr",
+      "orgName": "LAGOR",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Site en construction"
+    },
+    {
+      "domain": "lagr.fr",
+      "base": "lagor.fr",
+      "orgName": "LAGOR",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lagur.fr",
+      "base": "lagor.fr",
+      "orgName": "LAGOR",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lavarde.fr",
+      "base": "labarde.fr",
+      "orgName": "LABARDE",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lebarde.fr",
+      "base": "labarde.fr",
+      "orgName": "LABARDE",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Le Barde"
+    },
+    {
+      "domain": "locali.fr",
+      "base": "lacali.fr",
+      "orgName": "Communauté d'agglomération du Libournais",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Locali &gt; Chasseur de voix off, Créateurs de contenus audios"
+    },
+    {
+      "domain": "logor.fr",
+      "base": "lagor.fr",
+      "orgName": "LAGOR",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "nidp.net",
+      "base": "indp.net",
+      "orgName": "INSTITUT NATIONAL DU DESIGN PACKAGING",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "医療法人長崎病理 長崎病理診断科（長崎市平野町・長崎大学病院そば）"
+    },
+    {
+      "domain": "ozon.fr",
+      "base": "izon.fr",
+      "orgName": "IZON",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Tout savoir sur l'ozone"
+    },
+    {
+      "domain": "psad.fr",
+      "base": "ipsad.fr",
+      "orgName": "SAS IPSAD FINANCES ET CONSULTING",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "tagor.fr",
+      "base": "lagor.fr",
+      "orgName": "LAGOR",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "winemaker.fr",
+      "base": "iwinemaker.fr",
+      "orgName": "SEMFOR",
+      "kind": "omission",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": "winemaker.com"
+    },
+    {
+      "domain": "zion.fr",
+      "base": "izon.fr",
+      "orgName": "IZON",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "zon.fr",
+      "base": "izon.fr",
+      "orgName": "IZON",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Premium Domain For Sale | Safenames Ltd"
+    }
+  ],
+  "alarms": 81,
+  "falsePositives": 81,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 2469,
+    "certificate": 98,
+    "page": 98
+  },
+  "durationMs": 30127
+}

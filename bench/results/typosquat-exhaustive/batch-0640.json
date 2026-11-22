@@ -1,0 +1,208 @@
+{
+  "offset": 640,
+  "top": 1000,
+  "targets": 40,
+  "variants": 3275,
+  "active": 21,
+  "detections": [],
+  "activeList": [
+    {
+      "domain": "aremeet.com",
+      "base": "daremeet.com",
+      "orgName": "DAREMEET",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "cole-home.com",
+      "base": "ecole-home.com",
+      "orgName": "ECOLE H.O.M.E.",
+      "kind": "omission",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": "Coming Soon"
+    },
+    {
+      "domain": "comarque.com",
+      "base": "commarque.com",
+      "orgName": "CHATEAU DE COMMARQUE",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "coop-atlantique.com",
+      "base": "coop-atlantique.fr",
+      "orgName": "COOP ATLANTIQUE (COOP)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "coop-atlantique.org",
+      "base": "coop-atlantique.fr",
+      "orgName": "COOP ATLANTIQUE (COOP)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "coopatlantique.fr",
+      "base": "coop-atlantique.fr",
+      "orgName": "COOP ATLANTIQUE (COOP)",
+      "kind": "omission",
+      "similarity": 0.933,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "couras.fr",
+      "base": "coutras.fr",
+      "orgName": "Commune de Coutras",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Site en construction"
+    },
+    {
+      "domain": "coutras.com",
+      "base": "coutras.fr",
+      "orgName": "Commune de Coutras",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "coutras.net",
+      "base": "coutras.fr",
+      "orgName": "Commune de Coutras",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "The Coutras Family"
+    },
+    {
+      "domain": "dadoclem.net",
+      "base": "dadoclem.fr",
+      "orgName": "DADOCLEM",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "daremee.com",
+      "base": "daremeet.com",
+      "orgName": "DAREMEET",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "deepnight.com",
+      "base": "deepnight.net",
+      "orgName": "DEEPNIGHT GAMES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Deepnight - Nextgen Night Vision"
+    },
+    {
+      "domain": "deepnight.org",
+      "base": "deepnight.net",
+      "orgName": "DEEPNIGHT GAMES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "delpeyrat.net",
+      "base": "delpeyrat.com",
+      "orgName": "DELPEYRAT (DSAS)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "delpeyrat.org",
+      "base": "delpeyrat.com",
+      "orgName": "DELPEYRAT (DSAS)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "depeyrat.com",
+      "base": "delpeyrat.com",
+      "orgName": "DELPEYRAT (DSAS)",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": "Seigneurie de Peyrat"
+    },
+    {
+      "domain": "dronneetbelle.com",
+      "base": "dronneetbelle.fr",
+      "orgName": "Communauté de communes Dronne et Belle",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "durousseau.com",
+      "base": "durousseau.fr",
+      "orgName": "DUROUSSEAU OUTILS COUPANTS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "durousseau.net",
+      "base": "durousseau.fr",
+      "orgName": "DUROUSSEAU OUTILS COUPANTS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "durousseau.org",
+      "base": "durousseau.fr",
+      "orgName": "DUROUSSEAU OUTILS COUPANTS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "ecolehome.com",
+      "base": "ecole-home.com",
+      "orgName": "ECOLE H.O.M.E.",
+      "kind": "omission",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": "مَعيار — أدلة تقنية عملية بالعربية"
+    }
+  ],
+  "alarms": 21,
+  "falsePositives": 21,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 3275,
+    "certificate": 21,
+    "page": 21
+  },
+  "durationMs": 25949
+}

@@ -1,0 +1,847 @@
+{
+  "offset": 120,
+  "top": 1000,
+  "targets": 40,
+  "variants": 2704,
+  "active": 92,
+  "detections": [],
+  "activeList": [
+    {
+      "domain": "a-qui-s.com",
+      "base": "a-qui-s.fr",
+      "orgName": "ETIQUETTES ET COMPAGNIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "a-qui-s.net",
+      "base": "a-qui-s.fr",
+      "orgName": "ETIQUETTES ET COMPAGNIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "a-qui-s.org",
+      "base": "a-qui-s.fr",
+      "orgName": "ETIQUETTES ET COMPAGNIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "aave.com",
+      "base": "apave.com",
+      "orgName": "APAVE INTERNATIONAL",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Aave — Onchain Savings, Lending and Borrowing"
+    },
+    {
+      "domain": "abave.com",
+      "base": "apave.com",
+      "orgName": "APAVE INTERNATIONAL",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "activ-inside.com",
+      "base": "activinside.com",
+      "orgName": "ACTIV'INSIDE",
+      "kind": "tiret",
+      "similarity": 0.917,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "activinside.org",
+      "base": "activinside.com",
+      "orgName": "ACTIV'INSIDE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "africapowerservice.com",
+      "base": "africapowerservices.com",
+      "orgName": "AFRICA POWER SERVICES",
+      "kind": "omission",
+      "similarity": 0.947,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "africapowrservices.com",
+      "base": "africapowerservices.com",
+      "orgName": "AFRICA POWER SERVICES",
+      "kind": "omission",
+      "similarity": 0.947,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "aiki.fr",
+      "base": "alki.fr",
+      "orgName": "ALKI",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "aki.fr",
+      "base": "alki.fr",
+      "orgName": "ALKI",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "akli.fr",
+      "base": "alki.fr",
+      "orgName": "ALKI",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "Compagnie Akli | Compagnie AKLI."
+    },
+    {
+      "domain": "alci.fr",
+      "base": "alki.fr",
+      "orgName": "ALKI",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "alci.fr est en vente"
+    },
+    {
+      "domain": "ali.fr",
+      "base": "alki.fr",
+      "orgName": "ALKI",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "ali.fr est en vente"
+    },
+    {
+      "domain": "alik.fr",
+      "base": "alki.fr",
+      "orgName": "ALKI",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "alk.fr",
+      "base": "alki.fr",
+      "orgName": "ALKI",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "ALK | ALK - France"
+    },
+    {
+      "domain": "alke.fr",
+      "base": "alki.fr",
+      "orgName": "ALKI",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "alki.com",
+      "base": "alki.fr",
+      "orgName": "ALKI",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "alki.net",
+      "base": "alki.fr",
+      "orgName": "ALKI",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "alki.org",
+      "base": "alki.fr",
+      "orgName": "ALKI",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "alko.fr",
+      "base": "alki.fr",
+      "orgName": "ALKI",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ambiance-bois.net",
+      "base": "ambiance-bois.com",
+      "orgName": "AMBIANCE BOIS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ambiancebois.com",
+      "base": "ambiance-bois.com",
+      "orgName": "AMBIANCE BOIS",
+      "kind": "omission",
+      "similarity": 0.923,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "apabe.com",
+      "base": "apave.com",
+      "orgName": "APAVE INTERNATIONAL",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "apav.com",
+      "base": "apave.com",
+      "orgName": "APAVE INTERNATIONAL",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Home &#8211; APA HVAC Technologies"
+    },
+    {
+      "domain": "apava.com",
+      "base": "apave.com",
+      "orgName": "APAVE INTERNATIONAL",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "apave.net",
+      "base": "apave.com",
+      "orgName": "APAVE INTERNATIONAL",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "apave.org",
+      "base": "apave.com",
+      "orgName": "APAVE INTERNATIONAL",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "apavi.com",
+      "base": "apave.com",
+      "orgName": "APAVE INTERNATIONAL",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Página no encontrada &#8211; Apavi Tecnologica"
+    },
+    {
+      "domain": "apeve.com",
+      "base": "apave.com",
+      "orgName": "APAVE INTERNATIONAL",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "apove.com",
+      "base": "apave.com",
+      "orgName": "APAVE INTERNATIONAL",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "apove.com is for sale, inquire about pricing, quick transfer available."
+    },
+    {
+      "domain": "apve.com",
+      "base": "apave.com",
+      "orgName": "APAVE INTERNATIONAL",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "arverne.com",
+      "base": "arverne.earth",
+      "orgName": "ARVERNE GROUP",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "arverne.net",
+      "base": "arverne.earth",
+      "orgName": "ARVERNE GROUP",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "baineau.com",
+      "base": "balineau.com",
+      "orgName": "BALINEAU",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": "baineau.com"
+    },
+    {
+      "domain": "balinea.com",
+      "base": "balineau.com",
+      "orgName": "BALINEAU",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": "Réservez vos soins beauté et bien-être en ligne - Treatwell"
+    },
+    {
+      "domain": "blaineau.com",
+      "base": "balineau.com",
+      "orgName": "BALINEAU",
+      "kind": "transposition",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "campusermitage.com",
+      "base": "campusermitage.fr",
+      "orgName": "LYCEE D'ENSEIGNEMENT AGRICOLE PRIVE L'ERMITAGE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Accueil Campus Ermitage - Campus Ermitage"
+    },
+    {
+      "domain": "chateau-lescombes.com",
+      "base": "chateau-lascombes.com",
+      "orgName": "CHATEAU LASCOMBES",
+      "kind": "substitution",
+      "similarity": 0.941,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "chateaulascombes.com",
+      "base": "chateau-lascombes.com",
+      "orgName": "CHATEAU LASCOMBES",
+      "kind": "omission",
+      "similarity": 0.941,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elki.fr",
+      "base": "alki.fr",
+      "orgName": "ALKI",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "epave.com",
+      "base": "apave.com",
+      "orgName": "APAVE INTERNATIONAL",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "EPAVE.COM - For Sale"
+    },
+    {
+      "domain": "fransdev.com",
+      "base": "transdev.com",
+      "orgName": "TRANSDEV SUD OUEST",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "laki.fr",
+      "base": "alki.fr",
+      "orgName": "ALKI",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lki.fr",
+      "base": "alki.fr",
+      "orgName": "ALKI",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "olki.fr",
+      "base": "alki.fr",
+      "orgName": "ALKI",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Olki &#8211; small and beautiful"
+    },
+    {
+      "domain": "opave.com",
+      "base": "apave.com",
+      "orgName": "APAVE INTERNATIONAL",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "paave.com",
+      "base": "apave.com",
+      "orgName": "APAVE INTERNATIONAL",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "pave.com",
+      "base": "apave.com",
+      "orgName": "APAVE INTERNATIONAL",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "AI-Native Compensation Management Software | Pave"
+    },
+    {
+      "domain": "pouyane.fr",
+      "base": "pouyanne.fr",
+      "orgName": "BANQUE POUYANNE",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "pouyanne.net",
+      "base": "pouyanne.fr",
+      "orgName": "BANQUE POUYANNE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Banque POUYANNE - Mon espace client"
+    },
+    {
+      "domain": "pouyanne.org",
+      "base": "pouyanne.fr",
+      "orgName": "BANQUE POUYANNE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "poyanne.fr",
+      "base": "pouyanne.fr",
+      "orgName": "BANQUE POUYANNE",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": "Accueil - Site officiel de Poyanne"
+    },
+    {
+      "domain": "rainaud.fr",
+      "base": "raynaud.fr",
+      "orgName": "A. RAYNAUD ET COMPAGNIE",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "rambaud33.com",
+      "base": "rambaud33.eu",
+      "orgName": "OGEC ASSOCIATION RAMBAUD",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "raynaud.com",
+      "base": "raynaud.fr",
+      "orgName": "A. RAYNAUD ET COMPAGNIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "raynaud.net",
+      "base": "raynaud.fr",
+      "orgName": "A. RAYNAUD ET COMPAGNIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "raynaud.org",
+      "base": "raynaud.fr",
+      "orgName": "A. RAYNAUD ET COMPAGNIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "reynaud.fr",
+      "base": "raynaud.fr",
+      "orgName": "A. RAYNAUD ET COMPAGNIE",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Maison Reynaud - Spécialiste en produits de la mer"
+    },
+    {
+      "domain": "saintagnant.fr",
+      "base": "saint-agnant.fr",
+      "orgName": "SAINT AGNANT",
+      "kind": "omission",
+      "similarity": 0.917,
+      "certificate": null,
+      "pageTitle": "Commune de Saint-Agnant"
+    },
+    {
+      "domain": "saintjoseph-cognac.com",
+      "base": "saintjoseph-cognac.fr",
+      "orgName": "OGEC ST JOSEPH REGROUPEMENT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Ensemble scolaire Saint Joseph - Cognac"
+    },
+    {
+      "domain": "savam.fr",
+      "base": "sovam.fr",
+      "orgName": "SOVAM",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "seleniummedical.com",
+      "base": "selenium-medical.com",
+      "orgName": "SELENIUM MEDICAL",
+      "kind": "omission",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "sharkrobotics.com",
+      "base": "shark-robotics.com",
+      "orgName": "SHARK ROBOTICS",
+      "kind": "omission",
+      "similarity": 0.929,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "soam.fr",
+      "base": "sovam.fr",
+      "orgName": "SOVAM",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "sobam.fr",
+      "base": "sovam.fr",
+      "orgName": "SOVAM",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "So Bam - Agence de communication &amp; de création"
+    },
+    {
+      "domain": "sova.fr",
+      "base": "sovam.fr",
+      "orgName": "SOVAM",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "sovam.com",
+      "base": "sovam.fr",
+      "orgName": "SOVAM",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "sovan.fr",
+      "base": "sovam.fr",
+      "orgName": "SOVAM",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Sovan | Artiste plasticien"
+    },
+    {
+      "domain": "spirit-pro.com",
+      "base": "spirit-prod.com",
+      "orgName": "BLUE SPIRIT STUDIO",
+      "kind": "omission",
+      "similarity": 0.909,
+      "certificate": null,
+      "pageTitle": "Spirit-Pro (Martenss)"
+    },
+    {
+      "domain": "spiritprod.com",
+      "base": "spirit-prod.com",
+      "orgName": "BLUE SPIRIT STUDIO",
+      "kind": "omission",
+      "similarity": 0.909,
+      "certificate": null,
+      "pageTitle": "Spirit Level Production"
+    },
+    {
+      "domain": "steclaire.com",
+      "base": "steclaire.org",
+      "orgName": "OGEC SAINTE CLAIRE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "stjean-pauillac.com",
+      "base": "stjean-pauillac.fr",
+      "orgName": "OGEC-AEP COLLEGE ST JEAN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "stm-33.fr",
+      "base": "stam-33.fr",
+      "orgName": "OGEC SAINT ANDRE SAINTE MARIE",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "STM Services - La Teste de Buch Gironde. – Électricité générale, électricien qualifié. | STM Services"
+    },
+    {
+      "domain": "surfrider.com",
+      "base": "surfrider.eu",
+      "orgName": "SURFRIDER FOUNDATION EUROPE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "surfrider.org",
+      "base": "surfrider.eu",
+      "orgName": "SURFRIDER FOUNDATION EUROPE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Home"
+    },
+    {
+      "domain": "svam.fr",
+      "base": "sovam.fr",
+      "orgName": "SOVAM",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Experte ADV pour TPE, PME et artisans | Vinciane SZCZEPANIAK"
+    },
+    {
+      "domain": "tempobus.com",
+      "base": "tempobus.fr",
+      "orgName": "KEOLIS AGEN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "trandev.com",
+      "base": "transdev.com",
+      "orgName": "TRANSDEV SUD OUEST",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "transde.com",
+      "base": "transdev.com",
+      "orgName": "TRANSDEV SUD OUEST",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": "transde.com — 5y · 1 refs | ExpiredDomains.com"
+    },
+    {
+      "domain": "transdev.net",
+      "base": "transdev.com",
+      "orgName": "TRANSDEV SUD OUEST",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "transdev.org",
+      "base": "transdev.com",
+      "orgName": "TRANSDEV SUD OUEST",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "transdv.com",
+      "base": "transdev.com",
+      "orgName": "TRANSDEV SUD OUEST",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": "Website <span class=\"js-domain\"></span> is ready. The content is to be added"
+    },
+    {
+      "domain": "transev.com",
+      "base": "transdev.com",
+      "orgName": "TRANSDEV SUD OUEST",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "tronsdev.com",
+      "base": "transdev.com",
+      "orgName": "TRANSDEV SUD OUEST",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "veesion.com",
+      "base": "veesion.io",
+      "orgName": "VEESION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Veesion | Logiciel de Vidéosurveillance Intelligente"
+    },
+    {
+      "domain": "veesion.net",
+      "base": "veesion.io",
+      "orgName": "VEESION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "veesion.org",
+      "base": "veesion.io",
+      "orgName": "VEESION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "veezion.io",
+      "base": "veesion.io",
+      "orgName": "VEESION",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "VEEZION — Video editing in your browser"
+    },
+    {
+      "domain": "villapia.com",
+      "base": "villapia.fr",
+      "orgName": "OGEC ST LOUIS VILLA PIA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Villa Pia Lippiano"
+    },
+    {
+      "domain": "villapia.net",
+      "base": "villapia.fr",
+      "orgName": "OGEC ST LOUIS VILLA PIA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "villapia.org",
+      "base": "villapia.fr",
+      "orgName": "OGEC ST LOUIS VILLA PIA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Villa Pia"
+    }
+  ],
+  "alarms": 77,
+  "falsePositives": 77,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 2704,
+    "certificate": 92,
+    "page": 92
+  },
+  "durationMs": 21677
+}

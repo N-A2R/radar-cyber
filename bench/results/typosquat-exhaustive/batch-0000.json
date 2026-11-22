@@ -1,0 +1,1918 @@
+{
+  "offset": 0,
+  "top": 1000,
+  "targets": 40,
+  "variants": 2269,
+  "active": 211,
+  "detections": [],
+  "activeList": [
+    {
+      "domain": "acim.com",
+      "base": "acim.nidec.com",
+      "orgName": "MOTEURS LEROY SOMER",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "acim.net",
+      "base": "acim.nidec.com",
+      "orgName": "MOTEURS LEROY SOMER",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "ACIM.NET"
+    },
+    {
+      "domain": "acim.org",
+      "base": "acim.nidec.com",
+      "orgName": "MOTEURS LEROY SOMER",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Home &#8226; Foundation for Inner Peace: Publisher of A Course in Miracles (ACIM)"
+    },
+    {
+      "domain": "action-pin.com",
+      "base": "action-pin.fr",
+      "orgName": "ACTION PIN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "actionpin.fr",
+      "base": "action-pin.fr",
+      "orgName": "ACTION PIN",
+      "kind": "omission",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ad-opt.com",
+      "base": "adopt.com",
+      "orgName": "ADOPT PARFUMS",
+      "kind": "tiret",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "iFlight — Airline Operations Platform | IBS Software"
+    },
+    {
+      "domain": "adapt.com",
+      "base": "adopt.com",
+      "orgName": "ADOPT PARFUMS",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Adapt — Build agents for your company"
+    },
+    {
+      "domain": "adobt.com",
+      "base": "adopt.com",
+      "orgName": "ADOPT PARFUMS",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "adop.com",
+      "base": "adopt.com",
+      "orgName": "ADOPT PARFUMS",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "adopr.com",
+      "base": "adopt.com",
+      "orgName": "ADOPT PARFUMS",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "ADO PR"
+    },
+    {
+      "domain": "adopt.net",
+      "base": "adopt.com",
+      "orgName": "ADOPT PARFUMS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "adopt.org",
+      "base": "adopt.com",
+      "orgName": "ADOPT PARFUMS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "adot.com",
+      "base": "adopt.com",
+      "orgName": "ADOPT PARFUMS",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "ADOT &#8211; What do you see?"
+    },
+    {
+      "domain": "adotp.com",
+      "base": "adopt.com",
+      "orgName": "ADOPT PARFUMS",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "adpot.com",
+      "base": "adopt.com",
+      "orgName": "ADOPT PARFUMS",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "adpt.com",
+      "base": "adopt.com",
+      "orgName": "ADOPT PARFUMS",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "adrva.com",
+      "base": "darva.com",
+      "orgName": "DEVELOPPEMENT D'APPLICATION SUR RESEAUX A VALEUR AJOUTEE (DARVA)",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "adupt.com",
+      "base": "adopt.com",
+      "orgName": "ADOPT PARFUMS",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "aeropart.fr",
+      "base": "aeroport.fr",
+      "orgName": "AEROPORT DE BORDEAUX MERIGNAC",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": "aeropart.fr"
+    },
+    {
+      "domain": "aeropor.fr",
+      "base": "aeroport.fr",
+      "orgName": "AEROPORT DE BORDEAUX MERIGNAC",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "aeroport.com",
+      "base": "aeroport.fr",
+      "orgName": "AEROPORT DE BORDEAUX MERIGNAC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "AeroPort"
+    },
+    {
+      "domain": "aeroport.net",
+      "base": "aeroport.fr",
+      "orgName": "AEROPORT DE BORDEAUX MERIGNAC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "aeroport.org",
+      "base": "aeroport.fr",
+      "orgName": "AEROPORT DE BORDEAUX MERIGNAC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "aif.fr",
+      "base": "maif.fr",
+      "orgName": "MUTUELLE ASSURANCE INSTITUTEUR FRANCE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Fabricant fran&ccedil;ais d&#x27;outils coupants et outils sp&eacute;ciaux &#x28;tournage, per&ccedil;age, fraisage, tron&ccedil;onnage et gorge&#x29;&#x3a; AIF"
+    },
+    {
+      "domain": "alopt.com",
+      "base": "adopt.com",
+      "orgName": "ADOPT PARFUMS",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "amif.fr",
+      "base": "maif.fr",
+      "orgName": "MUTUELLE ASSURANCE INSTITUTEUR FRANCE",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "aopt.com",
+      "base": "adopt.com",
+      "orgName": "ADOPT PARFUMS",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "The domain name AOPT.COM."
+    },
+    {
+      "domain": "arva.com",
+      "base": "darva.com",
+      "orgName": "DEVELOPPEMENT D'APPLICATION SUR RESEAUX A VALEUR AJOUTEE (DARVA)",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Arva | Regenerative Agriculture Solutions"
+    },
+    {
+      "domain": "assurance-mutuelle-poitiers.com",
+      "base": "assurance-mutuelle-poitiers.fr",
+      "orgName": "MUTUELLE DE POITIERS ASSURANCES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "aubin-imprimeur.fr",
+      "base": "aubinimprimeur.fr",
+      "orgName": "AUBIN IMPRIMEUR",
+      "kind": "tiret",
+      "similarity": 0.933,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "aubinimprimeur.com",
+      "base": "aubinimprimeur.fr",
+      "orgName": "AUBIN IMPRIMEUR",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "banquebami.com",
+      "base": "banquebami.fr",
+      "orgName": "BANQUE MICHEL INCHAUSPE (BAMI)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "banquebami.net",
+      "base": "banquebami.fr",
+      "orgName": "BANQUE MICHEL INCHAUSPE (BAMI)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "banquebami.org",
+      "base": "banquebami.fr",
+      "orgName": "BANQUE MICHEL INCHAUSPE (BAMI)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "basquebondissant.com",
+      "base": "basque-bondissant.com",
+      "orgName": "LE BASQUE BONDISSANT",
+      "kind": "omission",
+      "similarity": 0.941,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "c-discount.com",
+      "base": "cdiscount.com",
+      "orgName": "CDISCOUNT",
+      "kind": "tiret",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cd-iscount.com",
+      "base": "cdiscount.com",
+      "orgName": "CDISCOUNT",
+      "kind": "tiret",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cdi-scount.com",
+      "base": "cdiscount.com",
+      "orgName": "CDISCOUNT",
+      "kind": "tiret",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cdicount.com",
+      "base": "cdiscount.com",
+      "orgName": "CDISCOUNT",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "cdiscont.com",
+      "base": "cdiscount.com",
+      "orgName": "CDISCOUNT",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": "cdiscont.com"
+    },
+    {
+      "domain": "cdisconut.com",
+      "base": "cdiscount.com",
+      "orgName": "CDISCOUNT",
+      "kind": "transposition",
+      "similarity": 0.778,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cdiscou-nt.com",
+      "base": "cdiscount.com",
+      "orgName": "CDISCOUNT",
+      "kind": "tiret",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cdiscouht.com",
+      "base": "cdiscount.com",
+      "orgName": "CDISCOUNT",
+      "kind": "substitution",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cdiscoun-t.com",
+      "base": "cdiscount.com",
+      "orgName": "CDISCOUNT",
+      "kind": "tiret",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cdiscoun.com",
+      "base": "cdiscount.com",
+      "orgName": "CDISCOUNT",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cdiscounf.com",
+      "base": "cdiscount.com",
+      "orgName": "CDISCOUNT",
+      "kind": "substitution",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cdiscounr.com",
+      "base": "cdiscount.com",
+      "orgName": "CDISCOUNT",
+      "kind": "substitution",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cdiscount.net",
+      "base": "cdiscount.com",
+      "orgName": "CDISCOUNT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cdiscount.org",
+      "base": "cdiscount.com",
+      "orgName": "CDISCOUNT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "cdiscount.org&nbsp;-&nbsp;Ce site web est à vendre !&nbsp;-&nbsp;Ressources et information concernant investir Resources and Information."
+    },
+    {
+      "domain": "cdiscout.com",
+      "base": "cdiscount.com",
+      "orgName": "CDISCOUNT",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": "Loading..."
+    },
+    {
+      "domain": "cdisocunt.com",
+      "base": "cdiscount.com",
+      "orgName": "CDISCOUNT",
+      "kind": "transposition",
+      "similarity": 0.778,
+      "certificate": null,
+      "pageTitle": "cdisocunt.com for sale | Spaceship.com"
+    },
+    {
+      "domain": "cdisount.com",
+      "base": "cdiscount.com",
+      "orgName": "CDISCOUNT",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": "Loading..."
+    },
+    {
+      "domain": "cdizcount.com",
+      "base": "cdiscount.com",
+      "orgName": "CDISCOUNT",
+      "kind": "substitution",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cdscount.com",
+      "base": "cdiscount.com",
+      "orgName": "CDISCOUNT",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "cdsicount.com",
+      "base": "cdiscount.com",
+      "orgName": "CDISCOUNT",
+      "kind": "transposition",
+      "similarity": 0.778,
+      "certificate": null,
+      "pageTitle": "Cdsicount.com"
+    },
+    {
+      "domain": "cidscount.com",
+      "base": "cdiscount.com",
+      "orgName": "CDISCOUNT",
+      "kind": "transposition",
+      "similarity": 0.778,
+      "certificate": null,
+      "pageTitle": "cidscount.com"
+    },
+    {
+      "domain": "ciscount.com",
+      "base": "cdiscount.com",
+      "orgName": "CDISCOUNT",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "credit-agricoie.fr",
+      "base": "credit-agricole.fr",
+      "orgName": "CAISSE REGIONALE DE CREDIT AGRICOLE MUTUEL CHARENTE-PERIGORD",
+      "kind": "substitution",
+      "similarity": 0.933,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "credit-agricole.com",
+      "base": "credit-agricole.fr",
+      "orgName": "CAISSE REGIONALE DE CREDIT AGRICOLE MUTUEL CHARENTE-PERIGORD",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Banque des particuliers professionnels en France | Crédit Agricole"
+    },
+    {
+      "domain": "credit-agricole.org",
+      "base": "credit-agricole.fr",
+      "orgName": "CAISSE REGIONALE DE CREDIT AGRICOLE MUTUEL CHARENTE-PERIGORD",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "creditagricole.fr",
+      "base": "credit-agricole.fr",
+      "orgName": "CAISSE REGIONALE DE CREDIT AGRICOLE MUTUEL CHARENTE-PERIGORD",
+      "kind": "omission",
+      "similarity": 0.933,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "daopt.com",
+      "base": "adopt.com",
+      "orgName": "ADOPT PARFUMS",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "dar-va.com",
+      "base": "darva.com",
+      "orgName": "DEVELOPPEMENT D'APPLICATION SUR RESEAUX A VALEUR AJOUTEE (DARVA)",
+      "kind": "tiret",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "دار-فا · Dar-va"
+    },
+    {
+      "domain": "dara.com",
+      "base": "darva.com",
+      "orgName": "DEVELOPPEMENT D'APPLICATION SUR RESEAUX A VALEUR AJOUTEE (DARVA)",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "darav.com",
+      "base": "darva.com",
+      "orgName": "DEVELOPPEMENT D'APPLICATION SUR RESEAUX A VALEUR AJOUTEE (DARVA)",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "darv.com",
+      "base": "darva.com",
+      "orgName": "DEVELOPPEMENT D'APPLICATION SUR RESEAUX A VALEUR AJOUTEE (DARVA)",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "darve.com",
+      "base": "darva.com",
+      "orgName": "DEVELOPPEMENT D'APPLICATION SUR RESEAUX A VALEUR AJOUTEE (DARVA)",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "darvo.com",
+      "base": "darva.com",
+      "orgName": "DEVELOPPEMENT D'APPLICATION SUR RESEAUX A VALEUR AJOUTEE (DARVA)",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "datva.com",
+      "base": "darva.com",
+      "orgName": "DEVELOPPEMENT D'APPLICATION SUR RESEAUX A VALEUR AJOUTEE (DARVA)",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Sales intelligence data"
+    },
+    {
+      "domain": "dava.com",
+      "base": "darva.com",
+      "orgName": "DEVELOPPEMENT D'APPLICATION SUR RESEAUX A VALEUR AJOUTEE (DARVA)",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "davra.com",
+      "base": "darva.com",
+      "orgName": "DEVELOPPEMENT D'APPLICATION SUR RESEAUX A VALEUR AJOUTEE (DARVA)",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": "Davra | The Industrial AI Platform for Connected Equipment"
+    },
+    {
+      "domain": "dciscount.com",
+      "base": "cdiscount.com",
+      "orgName": "CDISCOUNT",
+      "kind": "transposition",
+      "similarity": 0.778,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "derva.com",
+      "base": "darva.com",
+      "orgName": "DEVELOPPEMENT D'APPLICATION SUR RESEAUX A VALEUR AJOUTEE (DARVA)",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "discount.com",
+      "base": "cdiscount.com",
+      "orgName": "CDISCOUNT",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "dopt.com",
+      "base": "adopt.com",
+      "orgName": "ADOPT PARFUMS",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Airtable: Build Enterprise-ready AI Workflows, Apps &amp; Agents | Airtable"
+    },
+    {
+      "domain": "dorva.com",
+      "base": "darva.com",
+      "orgName": "DEVELOPPEMENT D'APPLICATION SUR RESEAUX A VALEUR AJOUTEE (DARVA)",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "drava.com",
+      "base": "darva.com",
+      "orgName": "DEVELOPPEMENT D'APPLICATION SUR RESEAUX A VALEUR AJOUTEE (DARVA)",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "drva.com",
+      "base": "darva.com",
+      "orgName": "DEVELOPPEMENT D'APPLICATION SUR RESEAUX A VALEUR AJOUTEE (DARVA)",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "esia.fr",
+      "base": "estia.fr",
+      "orgName": "ECOLE SUPERIEURE DES TECHNOLOGIES INDUSTRIELLES AVANCEES - ESTIA",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "ESIA"
+    },
+    {
+      "domain": "est-ia.fr",
+      "base": "estia.fr",
+      "orgName": "ECOLE SUPERIEURE DES TECHNOLOGIES INDUSTRIELLES AVANCEES - ESTIA",
+      "kind": "tiret",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Est&#039;IA, domotique en Alsace | Maison intelligente sur mesure"
+    },
+    {
+      "domain": "estea.fr",
+      "base": "estia.fr",
+      "orgName": "ECOLE SUPERIEURE DES TECHNOLOGIES INDUSTRIELLES AVANCEES - ESTIA",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "esti.fr",
+      "base": "estia.fr",
+      "orgName": "ECOLE SUPERIEURE DES TECHNOLOGIES INDUSTRIELLES AVANCEES - ESTIA",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "esti &#8211; Estimez gratuitement vos objets 🔎"
+    },
+    {
+      "domain": "estia.com",
+      "base": "estia.fr",
+      "orgName": "ECOLE SUPERIEURE DES TECHNOLOGIES INDUSTRIELLES AVANCEES - ESTIA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "estia.net",
+      "base": "estia.fr",
+      "orgName": "ECOLE SUPERIEURE DES TECHNOLOGIES INDUSTRIELLES AVANCEES - ESTIA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "estia.org",
+      "base": "estia.fr",
+      "orgName": "ECOLE SUPERIEURE DES TECHNOLOGIES INDUSTRIELLES AVANCEES - ESTIA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "estio.fr",
+      "base": "estia.fr",
+      "orgName": "ECOLE SUPERIEURE DES TECHNOLOGIES INDUSTRIELLES AVANCEES - ESTIA",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Assistante administrative à La Rochelle - Estio"
+    },
+    {
+      "domain": "etia.fr",
+      "base": "estia.fr",
+      "orgName": "ECOLE SUPERIEURE DES TECHNOLOGIES INDUSTRIELLES AVANCEES - ESTIA",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Index - ETIA - solutions for thermal treatment of bulk products"
+    },
+    {
+      "domain": "etsia.fr",
+      "base": "estia.fr",
+      "orgName": "ECOLE SUPERIEURE DES TECHNOLOGIES INDUSTRIELLES AVANCEES - ESTIA",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": "LINK IN BIO"
+    },
+    {
+      "domain": "excelia-group.com",
+      "base": "excelia-group.fr",
+      "orgName": "EXCELIA GROUP",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Ecole de commerce, Ecole de tourisme, Ecole de communication... | Excelia"
+    },
+    {
+      "domain": "exceliagroup.fr",
+      "base": "excelia-group.fr",
+      "orgName": "EXCELIA GROUP",
+      "kind": "omission",
+      "similarity": 0.923,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "fioa.com",
+      "base": "floa.com",
+      "orgName": "FLOA",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "flaa.com",
+      "base": "floa.com",
+      "orgName": "FLOA",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Home &#8226; FLAA"
+    },
+    {
+      "domain": "flao.com",
+      "base": "floa.com",
+      "orgName": "FLOA",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "flo.com",
+      "base": "floa.com",
+      "orgName": "FLOA",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "EV Charging Stations For The US And Canada | FLO"
+    },
+    {
+      "domain": "floa.net",
+      "base": "floa.com",
+      "orgName": "FLOA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "floa.net&nbsp;-&nbsp;Ce site web est à vendre !&nbsp;-&nbsp;Ressources et information concernant floa Resources and Information."
+    },
+    {
+      "domain": "floa.org",
+      "base": "floa.com",
+      "orgName": "FLOA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "floe.com",
+      "base": "floa.com",
+      "orgName": "FLOA",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Floe – SAP Business Communication &amp; Document Output | Arch"
+    },
+    {
+      "domain": "floo.com",
+      "base": "floa.com",
+      "orgName": "FLOA",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "flua.com",
+      "base": "floa.com",
+      "orgName": "FLOA",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "甫洛照明（广东）有限公司"
+    },
+    {
+      "domain": "foa.com",
+      "base": "floa.com",
+      "orgName": "FLOA",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Finance of America | Top Reverse Mortgage Lender"
+    },
+    {
+      "domain": "fola.com",
+      "base": "floa.com",
+      "orgName": "FLOA",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "Fola.com - For Sale"
+    },
+    {
+      "domain": "fountaine-pajot.org",
+      "base": "fountaine-pajot.com",
+      "orgName": "FOUNTAINE PAJOT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "fountaine-pejot.com",
+      "base": "fountaine-pajot.com",
+      "orgName": "FOUNTAINE PAJOT",
+      "kind": "substitution",
+      "similarity": 0.933,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "fountainepajot.com",
+      "base": "fountaine-pajot.com",
+      "orgName": "FOUNTAINE PAJOT",
+      "kind": "omission",
+      "similarity": 0.933,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ftoa.com",
+      "base": "floa.com",
+      "orgName": "FLOA",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "gfi.fr",
+      "base": "gifi.fr",
+      "orgName": "GIFI",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "gfii.fr",
+      "base": "gifi.fr",
+      "orgName": "GIFI",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "gif.fr",
+      "base": "gifi.fr",
+      "orgName": "GIFI",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Offres d&#039;emploi - agence intérim, CDD, CDI - Gif Emploi"
+    },
+    {
+      "domain": "gife.fr",
+      "base": "gifi.fr",
+      "orgName": "GIFI",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Accueil | www.gife.fr"
+    },
+    {
+      "domain": "gifi.com",
+      "base": "gifi.fr",
+      "orgName": "GIFI",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "GIFI.com"
+    },
+    {
+      "domain": "gifi.net",
+      "base": "gifi.fr",
+      "orgName": "GIFI",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "gii.fr",
+      "base": "gifi.fr",
+      "orgName": "GIFI",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "giif.fr",
+      "base": "gifi.fr",
+      "orgName": "GIFI",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "giti.fr",
+      "base": "gifi.fr",
+      "orgName": "GIFI",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "gofi.fr",
+      "base": "gifi.fr",
+      "orgName": "GIFI",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "GOFI &#8211; Groupement des opérateurs funéraires indépendants"
+    },
+    {
+      "domain": "ifi.fr",
+      "base": "gifi.fr",
+      "orgName": "GIFI",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ipo.fr",
+      "base": "lpo.fr",
+      "orgName": "LIGUE FRANCAISE PROTECTION OISEAUX",
+      "kind": "substitution",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "istia.fr",
+      "base": "estia.fr",
+      "orgName": "ECOLE SUPERIEURE DES TECHNOLOGIES INDUSTRIELLES AVANCEES - ESTIA",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Experts bâtiment &#8211; Fissures &#8211; Humidité &#8211; Travaux &#8211; Des experts indépendants à votre écoute"
+    },
+    {
+      "domain": "johnbot.org",
+      "base": "johnbost.org",
+      "orgName": "FONDATION JOHN BOST",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "kdiscount.com",
+      "base": "cdiscount.com",
+      "orgName": "CDISCOUNT",
+      "kind": "substitution",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": "kdiscount.com&nbsp;-&nbsp;Ressources et information concernant kdiscount Resources and Information."
+    },
+    {
+      "domain": "larva.com",
+      "base": "darva.com",
+      "orgName": "DEVELOPPEMENT D'APPLICATION SUR RESEAUX A VALEUR AJOUTEE (DARVA)",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "lbo.fr",
+      "base": "lpo.fr",
+      "orgName": "LIGUE FRANCAISE PROTECTION OISEAUX",
+      "kind": "substitution",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lfoa.com",
+      "base": "floa.com",
+      "orgName": "FLOA",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lo.fr",
+      "base": "lpo.fr",
+      "orgName": "LIGUE FRANCAISE PROTECTION OISEAUX",
+      "kind": "omission",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "loa.com",
+      "base": "floa.com",
+      "orgName": "FLOA",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lop.fr",
+      "base": "lpo.fr",
+      "orgName": "LIGUE FRANCAISE PROTECTION OISEAUX",
+      "kind": "transposition",
+      "similarity": 0.333,
+      "certificate": null,
+      "pageTitle": "Premium Domain For Sale | Safenames Ltd"
+    },
+    {
+      "domain": "lp.fr",
+      "base": "lpo.fr",
+      "orgName": "LIGUE FRANCAISE PROTECTION OISEAUX",
+      "kind": "omission",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": "Site en construction"
+    },
+    {
+      "domain": "lpa.fr",
+      "base": "lpo.fr",
+      "orgName": "LIGUE FRANCAISE PROTECTION OISEAUX",
+      "kind": "substitution",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": "LPA Mobilités"
+    },
+    {
+      "domain": "lpo.com",
+      "base": "lpo.fr",
+      "orgName": "LIGUE FRANCAISE PROTECTION OISEAUX",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "LPO - global partner to international business"
+    },
+    {
+      "domain": "lpo.net",
+      "base": "lpo.fr",
+      "orgName": "LIGUE FRANCAISE PROTECTION OISEAUX",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lpo.org",
+      "base": "lpo.fr",
+      "orgName": "LIGUE FRANCAISE PROTECTION OISEAUX",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Home - Libertarian Party of Ohio"
+    },
+    {
+      "domain": "lpu.fr",
+      "base": "lpo.fr",
+      "orgName": "LIGUE FRANCAISE PROTECTION OISEAUX",
+      "kind": "substitution",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "macl.fr",
+      "base": "smacl.fr",
+      "orgName": "SMACL ASSURANCES SA",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "maf.fr",
+      "base": "maif.fr",
+      "orgName": "MUTUELLE ASSURANCE INSTITUTEUR FRANCE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Mutuelle des Architectes Français | MAF Assurances"
+    },
+    {
+      "domain": "mafi.fr",
+      "base": "maif.fr",
+      "orgName": "MUTUELLE ASSURANCE INSTITUTEUR FRANCE",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "maif.com",
+      "base": "maif.fr",
+      "orgName": "MUTUELLE ASSURANCE INSTITUTEUR FRANCE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "maif.net",
+      "base": "maif.fr",
+      "orgName": "MUTUELLE ASSURANCE INSTITUTEUR FRANCE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Maryland Auto Insurance"
+    },
+    {
+      "domain": "maif.org",
+      "base": "maif.fr",
+      "orgName": "MUTUELLE ASSURANCE INSTITUTEUR FRANCE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Motala AIF Idrottsallians"
+    },
+    {
+      "domain": "mait.fr",
+      "base": "maif.fr",
+      "orgName": "MUTUELLE ASSURANCE INSTITUTEUR FRANCE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "meif.fr",
+      "base": "maif.fr",
+      "orgName": "MUTUELLE ASSURANCE INSTITUTEUR FRANCE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mif.fr",
+      "base": "maif.fr",
+      "orgName": "MUTUELLE ASSURANCE INSTITUTEUR FRANCE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Mif - Mif.fr"
+    },
+    {
+      "domain": "naif.fr",
+      "base": "maif.fr",
+      "orgName": "MUTUELLE ASSURANCE INSTITUTEUR FRANCE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "noxelgroup.com",
+      "base": "roxelgroup.com",
+      "orgName": "ROXEL FRANCE",
+      "kind": "substitution",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "ocealia-groupe.com",
+      "base": "ocealia-groupe.fr",
+      "orgName": "OCEALIA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "odopt.com",
+      "base": "adopt.com",
+      "orgName": "ADOPT PARFUMS",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "pac.fr",
+      "base": "spac.fr",
+      "orgName": "SPAC",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "La Pac - Société de production audiovisuelle basée à Paris - LA\\PAC"
+    },
+    {
+      "domain": "plo.fr",
+      "base": "lpo.fr",
+      "orgName": "LIGUE FRANCAISE PROTECTION OISEAUX",
+      "kind": "transposition",
+      "similarity": 0.333,
+      "certificate": null,
+      "pageTitle": "ACCUEIL GENERAL - Carrières Plo"
+    },
+    {
+      "domain": "poujoulat.com",
+      "base": "poujoulat.fr",
+      "orgName": "POUJOULAT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Chimney flues and stacks - Cheminées Poujoulat"
+    },
+    {
+      "domain": "poujoulat.org",
+      "base": "poujoulat.fr",
+      "orgName": "POUJOULAT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Famille Poujoulat"
+    },
+    {
+      "domain": "psac.fr",
+      "base": "spac.fr",
+      "orgName": "SPAC",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "roelgroup.com",
+      "base": "roxelgroup.com",
+      "orgName": "ROXEL FRANCE",
+      "kind": "omission",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": "ROEL — Partener RICOH în România: echipamente și soluții de printing"
+    },
+    {
+      "domain": "roxelgroup.net",
+      "base": "roxelgroup.com",
+      "orgName": "ROXEL FRANCE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "sac.fr",
+      "base": "spac.fr",
+      "orgName": "SPAC",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "sac.fr&nbsp;-&nbsp;Ressources et information concernant sac,shopping,fashion,mode,tendance,cadeau,sexy Resources and Information."
+    },
+    {
+      "domain": "samcl.fr",
+      "base": "smacl.fr",
+      "orgName": "SMACL ASSURANCES SA",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "sapc.fr",
+      "base": "spac.fr",
+      "orgName": "SPAC",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "Login"
+    },
+    {
+      "domain": "sbac.fr",
+      "base": "spac.fr",
+      "orgName": "SPAC",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "SBAC &#8211; La Société des Beaux-Arts de Clamart vous propose des cours de dessin, de peinture, de gravure et de sculpture"
+    },
+    {
+      "domain": "scl.fr",
+      "base": "stcl.fr",
+      "orgName": "SOCIETE DES TRANSPORTS EN COMMUN DE LIMOGES METROPOLE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "sctl.fr",
+      "base": "stcl.fr",
+      "orgName": "SOCIETE DES TRANSPORTS EN COMMUN DE LIMOGES METROPOLE",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "setia.fr",
+      "base": "estia.fr",
+      "orgName": "ECOLE SUPERIEURE DES TECHNOLOGIES INDUSTRIELLES AVANCEES - ESTIA",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": "SETIA - Conception et maintenance d’installations industrielles - Lorraine"
+    },
+    {
+      "domain": "sga.fr",
+      "base": "stga.fr",
+      "orgName": "SOCIETE PUBLIQUE LOCALE STGA (SPL STGA)",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Société Générale d&#039;Archives - SGA - Externalisation d&#039;archives"
+    },
+    {
+      "domain": "sgta.fr",
+      "base": "stga.fr",
+      "orgName": "SOCIETE PUBLIQUE LOCALE STGA (SPL STGA)",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "smac.fr",
+      "base": "smacl.fr",
+      "orgName": "SMACL ASSURANCES SA",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "smaci.fr",
+      "base": "smacl.fr",
+      "orgName": "SMACL ASSURANCES SA",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "smacl.com",
+      "base": "smacl.fr",
+      "orgName": "SMACL ASSURANCES SA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "smacl.net",
+      "base": "smacl.fr",
+      "orgName": "SMACL ASSURANCES SA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "smacl.org",
+      "base": "smacl.fr",
+      "orgName": "SMACL ASSURANCES SA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "smact.fr",
+      "base": "smacl.fr",
+      "orgName": "SMACL ASSURANCES SA",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "smal.fr",
+      "base": "smacl.fr",
+      "orgName": "SMACL ASSURANCES SA",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "smalc.fr",
+      "base": "smacl.fr",
+      "orgName": "SMACL ASSURANCES SA",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "smcal.fr",
+      "base": "smacl.fr",
+      "orgName": "SMACL ASSURANCES SA",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "smcl.fr",
+      "base": "smacl.fr",
+      "orgName": "SMACL ASSURANCES SA",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "sp-ac.fr",
+      "base": "spac.fr",
+      "orgName": "SPAC",
+      "kind": "tiret",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "spa.fr",
+      "base": "spac.fr",
+      "orgName": "SPAC",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Spa.fr : vente sauna jacuzzi et piscine spa en France"
+    },
+    {
+      "domain": "spac.com",
+      "base": "spac.fr",
+      "orgName": "SPAC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "SPAC.com"
+    },
+    {
+      "domain": "spac.org",
+      "base": "spac.fr",
+      "orgName": "SPAC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Saratoga Performing Arts Center | Saratoga Performing Arts Center"
+    },
+    {
+      "domain": "spak.fr",
+      "base": "spac.fr",
+      "orgName": "SPAC",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "SPAK | plateforme d&#039;éducation financière, observatoire et media"
+    },
+    {
+      "domain": "spc.fr",
+      "base": "spac.fr",
+      "orgName": "SPAC",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "SPC Group | Dosage de précision &amp; conditionnement de liquides"
+    },
+    {
+      "domain": "spca.fr",
+      "base": "spac.fr",
+      "orgName": "SPAC",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "SPCA Magasin d&#039;outillage et de pieces detachées automobiles toutes marques"
+    },
+    {
+      "domain": "spoc.fr",
+      "base": "spac.fr",
+      "orgName": "SPAC",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "SPOC.FR - Nouveau site en préparation"
+    },
+    {
+      "domain": "srga.fr",
+      "base": "stga.fr",
+      "orgName": "SOCIETE PUBLIQUE LOCALE STGA (SPL STGA)",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Site en construction"
+    },
+    {
+      "domain": "sta.fr",
+      "base": "stga.fr",
+      "orgName": "SOCIETE PUBLIQUE LOCALE STGA (SPL STGA)",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "stc.fr",
+      "base": "stcl.fr",
+      "orgName": "SOCIETE DES TRANSPORTS EN COMMUN DE LIMOGES METROPOLE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Portes étanches et sas pour laboratoires salles blanches &#8211; STC"
+    },
+    {
+      "domain": "stci.fr",
+      "base": "stcl.fr",
+      "orgName": "SOCIETE DES TRANSPORTS EN COMMUN DE LIMOGES METROPOLE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "stcl.com",
+      "base": "stcl.fr",
+      "orgName": "SOCIETE DES TRANSPORTS EN COMMUN DE LIMOGES METROPOLE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "stcl.net",
+      "base": "stcl.fr",
+      "orgName": "SOCIETE DES TRANSPORTS EN COMMUN DE LIMOGES METROPOLE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "stct.fr",
+      "base": "stcl.fr",
+      "orgName": "SOCIETE DES TRANSPORTS EN COMMUN DE LIMOGES METROPOLE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "STCT"
+    },
+    {
+      "domain": "stg.fr",
+      "base": "stga.fr",
+      "orgName": "SOCIETE PUBLIQUE LOCALE STGA (SPL STGA)",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "STG - Transport frigorifique et logistique alimentaire en France et Europe"
+    },
+    {
+      "domain": "stga.com",
+      "base": "stga.fr",
+      "orgName": "SOCIETE PUBLIQUE LOCALE STGA (SPL STGA)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "stga.net",
+      "base": "stga.fr",
+      "orgName": "SOCIETE PUBLIQUE LOCALE STGA (SPL STGA)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "stga.org",
+      "base": "stga.fr",
+      "orgName": "SOCIETE PUBLIQUE LOCALE STGA (SPL STGA)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "stgo.fr",
+      "base": "stga.fr",
+      "orgName": "SOCIETE PUBLIQUE LOCALE STGA (SPL STGA)",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Page d&#8217;accueil &#8211; Ville de Saint-Gaudens"
+    },
+    {
+      "domain": "stia.fr",
+      "base": "estia.fr",
+      "orgName": "ECOLE SUPERIEURE DES TECHNOLOGIES INDUSTRIELLES AVANCEES - ESTIA",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Stia Agencement, Création, fabricant de panneaux décoratifs et panneaux acoustiques"
+    },
+    {
+      "domain": "stkl.fr",
+      "base": "stcl.fr",
+      "orgName": "SOCIETE DES TRANSPORTS EN COMMUN DE LIMOGES METROPOLE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "STKL Diary"
+    },
+    {
+      "domain": "stl.fr",
+      "base": "stcl.fr",
+      "orgName": "SOCIETE DES TRANSPORTS EN COMMUN DE LIMOGES METROPOLE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "stlc.fr",
+      "base": "stcl.fr",
+      "orgName": "SOCIETE DES TRANSPORTS EN COMMUN DE LIMOGES METROPOLE",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "Nom de domaine, prestataire référencement, hébergement de site web"
+    },
+    {
+      "domain": "tcl.fr",
+      "base": "stcl.fr",
+      "orgName": "SOCIETE DES TRANSPORTS EN COMMUN DE LIMOGES METROPOLE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "TCL - Transports en Commun à Lyon : métro, funiculaire, tramway, trambus, Navigône et bus."
+    },
+    {
+      "domain": "terea.fr",
+      "base": "terega.fr",
+      "orgName": "TEREGA",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "terega.com",
+      "base": "terega.fr",
+      "orgName": "TEREGA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "terego.fr",
+      "base": "terega.fr",
+      "orgName": "TEREGA",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Terego | Coaching et formations professionnelles à Strasbourg"
+    },
+    {
+      "domain": "terga.fr",
+      "base": "terega.fr",
+      "orgName": "TEREGA",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Terga"
+    },
+    {
+      "domain": "tga.fr",
+      "base": "stga.fr",
+      "orgName": "SOCIETE PUBLIQUE LOCALE STGA (SPL STGA)",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "TGA / TGA Production"
+    },
+    {
+      "domain": "tivoli-33.com",
+      "base": "tivoli-33.org",
+      "orgName": "ASSOC ST JOSEPH DE TIVOLI",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "tivoli-33.net",
+      "base": "tivoli-33.org",
+      "orgName": "ASSOC ST JOSEPH DE TIVOLI",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "tloa.com",
+      "base": "floa.com",
+      "orgName": "FLOA",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "tpo.fr",
+      "base": "lpo.fr",
+      "orgName": "LIGUE FRANCAISE PROTECTION OISEAUX",
+      "kind": "substitution",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": "accueil - TPO"
+    },
+    {
+      "domain": "translandes.fr",
+      "base": "trans-landes.fr",
+      "orgName": "TRANS-LANDES",
+      "kind": "omission",
+      "similarity": 0.917,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "trega.fr",
+      "base": "terega.fr",
+      "orgName": "TEREGA",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "valorem-energie.net",
+      "base": "valorem-energie.com",
+      "orgName": "VALOREM",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "valorem-energie.org",
+      "base": "valorem-energie.com",
+      "orgName": "VALOREM",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "wipro-lauak.com",
+      "base": "wiprolauak.com",
+      "orgName": "WIPRO LAUAK FRANCE",
+      "kind": "tiret",
+      "similarity": 0.909,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "wiprolauak.net",
+      "base": "wiprolauak.com",
+      "orgName": "WIPRO LAUAK FRANCE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    }
+  ],
+  "alarms": 129,
+  "falsePositives": 129,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 2269,
+    "certificate": 211,
+    "page": 211
+  },
+  "durationMs": 22774
+}

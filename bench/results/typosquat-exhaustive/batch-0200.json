@@ -1,0 +1,559 @@
+{
+  "offset": 200,
+  "top": 1000,
+  "targets": 40,
+  "variants": 3355,
+  "active": 60,
+  "detections": [],
+  "activeList": [
+    {
+      "domain": "addao.com",
+      "base": "addeo.com",
+      "orgName": "ADDEO",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "adde.com",
+      "base": "addeo.com",
+      "orgName": "ADDEO",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "addea.com",
+      "base": "addeo.com",
+      "orgName": "ADDEO",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "addeo.net",
+      "base": "addeo.com",
+      "orgName": "ADDEO",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "addeo.org",
+      "base": "addeo.com",
+      "orgName": "ADDEO",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Michael Addeo - UKG | LinkedIn"
+    },
+    {
+      "domain": "addio.com",
+      "base": "addeo.com",
+      "orgName": "ADDEO",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "addo.com",
+      "base": "addeo.com",
+      "orgName": "ADDEO",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "ADDO | Transaction Communications Specialists"
+    },
+    {
+      "domain": "addoe.com",
+      "base": "addeo.com",
+      "orgName": "ADDEO",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "adedo.com",
+      "base": "addeo.com",
+      "orgName": "ADDEO",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": "Adedo.com &#8211; Elegido a dedo"
+    },
+    {
+      "domain": "adeo.com",
+      "base": "addeo.com",
+      "orgName": "ADDEO",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "We make home a positive place to live - ADEO"
+    },
+    {
+      "domain": "adleo.com",
+      "base": "addeo.com",
+      "orgName": "ADDEO",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "aldeo.com",
+      "base": "addeo.com",
+      "orgName": "ADDEO",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "dadeo.com",
+      "base": "addeo.com",
+      "orgName": "ADDEO",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "dcreation.com",
+      "base": "ydcreation.com",
+      "orgName": "YDCREATION",
+      "kind": "omission",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ddeo.com",
+      "base": "addeo.com",
+      "orgName": "ADDEO",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "ddeo.com for sale | Spaceship.com"
+    },
+    {
+      "domain": "dycreation.com",
+      "base": "ydcreation.com",
+      "orgName": "YDCREATION",
+      "kind": "transposition",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "DY Creation · Design, Foto, Video, Web · Ottobrunn bei München"
+    },
+    {
+      "domain": "eddeo.com",
+      "base": "addeo.com",
+      "orgName": "ADDEO",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "idcreation.com",
+      "base": "ydcreation.com",
+      "orgName": "YDCREATION",
+      "kind": "substitution",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": ".NET Webdesign &amp; Webshops op Maat | IDcreation"
+    },
+    {
+      "domain": "notredame-medoc.com",
+      "base": "notredame-medoc.org",
+      "orgName": "OGEC NOTRE DAME",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "notredame-medoc.net",
+      "base": "notredame-medoc.org",
+      "orgName": "OGEC NOTRE DAME",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ocra.fr",
+      "base": "socra.fr",
+      "orgName": "SOCIETE NOUVELLE DE CONSERVATION ET DE RESTAURATION ARCHEOLOGIQUE",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Site en construction"
+    },
+    {
+      "domain": "pollen-robotic.com",
+      "base": "pollen-robotics.com",
+      "orgName": "POLLEN ROBOTICS",
+      "kind": "omission",
+      "similarity": 0.933,
+      "certificate": null,
+      "pageTitle": "pollen-robotic.com"
+    },
+    {
+      "domain": "pollen-robotics.net",
+      "base": "pollen-robotics.com",
+      "orgName": "POLLEN ROBOTICS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Pollen Robotics - Robots for AI builders"
+    },
+    {
+      "domain": "pollen-robotics.org",
+      "base": "pollen-robotics.com",
+      "orgName": "POLLEN ROBOTICS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "pollenrobotics.com",
+      "base": "pollen-robotics.com",
+      "orgName": "POLLEN ROBOTICS",
+      "kind": "omission",
+      "similarity": 0.933,
+      "certificate": null,
+      "pageTitle": "pollenrobotics.com for sale | Spaceship.com"
+    },
+    {
+      "domain": "ramymartin.com",
+      "base": "remymartin.com",
+      "orgName": "E. REMY MARTIN & CO",
+      "kind": "substitution",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "remimartin.com",
+      "base": "remymartin.com",
+      "orgName": "E. REMY MARTIN & CO",
+      "kind": "substitution",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "remy-martin.com",
+      "base": "remymartin.com",
+      "orgName": "E. REMY MARTIN & CO",
+      "kind": "tiret",
+      "similarity": 0.909,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "remymarin.com",
+      "base": "remymartin.com",
+      "orgName": "E. REMY MARTIN & CO",
+      "kind": "omission",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "remymartin.net",
+      "base": "remymartin.com",
+      "orgName": "E. REMY MARTIN & CO",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "remymartin.org",
+      "base": "remymartin.com",
+      "orgName": "E. REMY MARTIN & CO",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "remymarton.com",
+      "base": "remymartin.com",
+      "orgName": "E. REMY MARTIN & CO",
+      "kind": "substitution",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "reseaufma.com",
+      "base": "reseautma.com",
+      "orgName": "TRANSDEV DU MARSAN",
+      "kind": "substitution",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "reseautna.com",
+      "base": "reseautma.com",
+      "orgName": "TRANSDEV DU MARSAN",
+      "kind": "substitution",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "reymartin.com",
+      "base": "remymartin.com",
+      "orgName": "E. REMY MARTIN & CO",
+      "kind": "omission",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "sacra.fr",
+      "base": "socra.fr",
+      "orgName": "SOCIETE NOUVELLE DE CONSERVATION ET DE RESTAURATION ARCHEOLOGIQUE",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Sacra"
+    },
+    {
+      "domain": "saint-clement.com",
+      "base": "saintclement.com",
+      "orgName": "OGEC ECOLE AGRICULTURE BAZADAI",
+      "kind": "tiret",
+      "similarity": 0.923,
+      "certificate": null,
+      "pageTitle": "Saint Clement"
+    },
+    {
+      "domain": "saintclement.net",
+      "base": "saintclement.com",
+      "orgName": "OGEC ECOLE AGRICULTURE BAZADAI",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "saintclement.org",
+      "base": "saintclement.com",
+      "orgName": "OGEC ECOLE AGRICULTURE BAZADAI",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "sainte-marie-barbezieux.com",
+      "base": "sainte-marie-barbezieux.fr",
+      "orgName": "INSTITUTION SAINTE MARIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Accueil - Ensemble Scolaire Sainte Marie Barbezieux"
+    },
+    {
+      "domain": "saintemarie-casteljaloux.com",
+      "base": "saintemarie-casteljaloux.fr",
+      "orgName": "OGEC STE MARIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "scora.fr",
+      "base": "socra.fr",
+      "orgName": "SOCIETE NOUVELLE DE CONSERVATION ET DE RESTAURATION ARCHEOLOGIQUE",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": "SCORA | La fabrication des sièges auto à Saint-Bonnet-de-Mure"
+    },
+    {
+      "domain": "scra.fr",
+      "base": "socra.fr",
+      "orgName": "SOCIETE NOUVELLE DE CONSERVATION ET DE RESTAURATION ARCHEOLOGIQUE",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "scra.fr &#8211; Guides pratiques, écologie et vie quotidienne"
+    },
+    {
+      "domain": "seaska.com",
+      "base": "seaska.eus",
+      "orgName": "SEASKA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "soca.fr",
+      "base": "socra.fr",
+      "orgName": "SOCIETE NOUVELLE DE CONSERVATION ET DE RESTAURATION ARCHEOLOGIQUE",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "SOCA® — Mobilier tapissé haut de gamme fabriqué en France"
+    },
+    {
+      "domain": "socar.fr",
+      "base": "socra.fr",
+      "orgName": "SOCIETE NOUVELLE DE CONSERVATION ET DE RESTAURATION ARCHEOLOGIQUE",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "socna.fr",
+      "base": "socra.fr",
+      "orgName": "SOCIETE NOUVELLE DE CONSERVATION ET DE RESTAURATION ARCHEOLOGIQUE",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "socr.fr",
+      "base": "socra.fr",
+      "orgName": "SOCIETE NOUVELLE DE CONSERVATION ET DE RESTAURATION ARCHEOLOGIQUE",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Sud-Ouest Conseil Retraite"
+    },
+    {
+      "domain": "socra.com",
+      "base": "socra.fr",
+      "orgName": "SOCIETE NOUVELLE DE CONSERVATION ET DE RESTAURATION ARCHEOLOGIQUE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Socra | Your next hire is an AI teammate"
+    },
+    {
+      "domain": "socra.net",
+      "base": "socra.fr",
+      "orgName": "SOCIETE NOUVELLE DE CONSERVATION ET DE RESTAURATION ARCHEOLOGIQUE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Home | Shimanto Bank PLC."
+    },
+    {
+      "domain": "socra.org",
+      "base": "socra.fr",
+      "orgName": "SOCIETE NOUVELLE DE CONSERVATION ET DE RESTAURATION ARCHEOLOGIQUE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "SOCRA | The Society of Clinical Research Associates"
+    },
+    {
+      "domain": "socre.fr",
+      "base": "socra.fr",
+      "orgName": "SOCIETE NOUVELLE DE CONSERVATION ET DE RESTAURATION ARCHEOLOGIQUE",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "sokra.fr",
+      "base": "socra.fr",
+      "orgName": "SOCIETE NOUVELLE DE CONSERVATION ET DE RESTAURATION ARCHEOLOGIQUE",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "sora.fr",
+      "base": "socra.fr",
+      "orgName": "SOCIETE NOUVELLE DE CONSERVATION ET DE RESTAURATION ARCHEOLOGIQUE",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "SORA | Entreprise singulière dans un écosystème digital pluriel"
+    },
+    {
+      "domain": "stvincent.com",
+      "base": "stvincent.eus",
+      "orgName": "OGEC GEROKO GROUPE SCOLAIRE SAINT VINCENT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "stvincent.org",
+      "base": "stvincent.eus",
+      "orgName": "OGEC GEROKO GROUPE SCOLAIRE SAINT VINCENT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Healthcare | Ascension"
+    },
+    {
+      "domain": "ycreation.com",
+      "base": "ydcreation.com",
+      "orgName": "YDCREATION",
+      "kind": "omission",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "zodiac-nautic.net",
+      "base": "zodiac-nautic.com",
+      "orgName": "Z NAUTIC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "zodiac-nautic.org",
+      "base": "zodiac-nautic.com",
+      "orgName": "Z NAUTIC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "zodiacnautic.com",
+      "base": "zodiac-nautic.com",
+      "orgName": "Z NAUTIC",
+      "kind": "omission",
+      "similarity": 0.923,
+      "certificate": null,
+      "pageTitle": null
+    }
+  ],
+  "alarms": 55,
+  "falsePositives": 55,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 3355,
+    "certificate": 60,
+    "page": 60
+  },
+  "durationMs": 27755
+}

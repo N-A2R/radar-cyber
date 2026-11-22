@@ -1,0 +1,1675 @@
+{
+  "offset": 40,
+  "top": 1000,
+  "targets": 40,
+  "variants": 2164,
+  "active": 184,
+  "detections": [],
+  "activeList": [
+    {
+      "domain": "ade17.com",
+      "base": "adei17.com",
+      "orgName": "ADEI",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "afite.com",
+      "base": "lafite.com",
+      "orgName": "CHATEAU LAFITE ROTHSCHILD",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "aior.fr",
+      "base": "ayor.fr",
+      "orgName": "AYOR WATER AND HEATING SOLUTIONS",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "aitima-assurances.fr",
+      "base": "altima-assurances.fr",
+      "orgName": "ALTIMA ASSURANCES",
+      "kind": "substitution",
+      "similarity": 0.941,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "alfite.com",
+      "base": "lafite.com",
+      "orgName": "CHATEAU LAFITE ROTHSCHILD",
+      "kind": "transposition",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "alitma-assurances.fr",
+      "base": "altima-assurances.fr",
+      "orgName": "ALTIMA ASSURANCES",
+      "kind": "transposition",
+      "similarity": 0.882,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "altima-assurance.fr",
+      "base": "altima-assurances.fr",
+      "orgName": "ALTIMA ASSURANCES",
+      "kind": "omission",
+      "similarity": 0.941,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "altima-assurances.com",
+      "base": "altima-assurances.fr",
+      "orgName": "ALTIMA ASSURANCES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "altimaassurances.fr",
+      "base": "altima-assurances.fr",
+      "orgName": "ALTIMA ASSURANCES",
+      "kind": "omission",
+      "similarity": 0.941,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "amif.fr",
+      "base": "camif.fr",
+      "orgName": "CAMIF",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ance.fr",
+      "base": "cance.fr",
+      "orgName": "ETABLISSEMENTS CANCE",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "aor.fr",
+      "base": "ayor.fr",
+      "orgName": "AYOR WATER AND HEATING SOLUTIONS",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "aor.fr&nbsp;-&nbsp;Ce site web est à vendre !&nbsp;-&nbsp;Ressources et information concernant aor Resources and Information."
+    },
+    {
+      "domain": "auor.fr",
+      "base": "ayor.fr",
+      "orgName": "AYOR WATER AND HEATING SOLUTIONS",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "auralis.fr",
+      "base": "euralis.fr",
+      "orgName": "EURALIS HOLDING",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "auralis.fr"
+    },
+    {
+      "domain": "ayo.fr",
+      "base": "ayor.fr",
+      "orgName": "AYOR WATER AND HEATING SOLUTIONS",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "ayo.fr&nbsp;-&nbsp;Ce site web est à vendre !&nbsp;-&nbsp;Ressources et information concernant Ayo Resources and Information."
+    },
+    {
+      "domain": "ayor.com",
+      "base": "ayor.fr",
+      "orgName": "AYOR WATER AND HEATING SOLUTIONS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ayor.net",
+      "base": "ayor.fr",
+      "orgName": "AYOR WATER AND HEATING SOLUTIONS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ayor.org",
+      "base": "ayor.fr",
+      "orgName": "AYOR WATER AND HEATING SOLUTIONS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ayot.fr",
+      "base": "ayor.fr",
+      "orgName": "AYOR WATER AND HEATING SOLUTIONS",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ayr.fr",
+      "base": "ayor.fr",
+      "orgName": "AYOR WATER AND HEATING SOLUTIONS",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "ayr.fr&nbsp;-&nbsp;Ce site web est à vendre !&nbsp;-&nbsp;Ressources et information concernant ayr Resources and Information."
+    },
+    {
+      "domain": "ayro.fr",
+      "base": "ayor.fr",
+      "orgName": "AYOR WATER AND HEATING SOLUTIONS",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ayur.fr",
+      "base": "ayor.fr",
+      "orgName": "AYOR WATER AND HEATING SOLUTIONS",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "b-energies.com",
+      "base": "bm-energies.com",
+      "orgName": "BORDEAUX METROPOLE ENERGIES",
+      "kind": "omission",
+      "similarity": 0.909,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bados.fr",
+      "base": "bardos.fr",
+      "orgName": "BARDOS",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Coach — Connexion"
+    },
+    {
+      "domain": "bardas.fr",
+      "base": "bardos.fr",
+      "orgName": "BARDOS",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bardeaux.com",
+      "base": "bordeaux.com",
+      "orgName": "CONSEIL INTERPROF DU VIN DE BORDEAUX",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "bardo.fr",
+      "base": "bardos.fr",
+      "orgName": "BARDOS",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "bardos.com",
+      "base": "bardos.fr",
+      "orgName": "BARDOS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bardos.net",
+      "base": "bardos.fr",
+      "orgName": "BARDOS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bards.fr",
+      "base": "bardos.fr",
+      "orgName": "BARDOS",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Парижский Клуб Авторской Песни"
+    },
+    {
+      "domain": "baros.fr",
+      "base": "bardos.fr",
+      "orgName": "BARDOS",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Baros_website"
+    },
+    {
+      "domain": "beaupeyrat.com",
+      "base": "beaupeyrat.fr",
+      "orgName": "OGEC INSTITUTION BEAUPEYRAT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Institution Beaupeyrat &#8211; Réseau éducatif Compagnie de Marie Notre-Dame"
+    },
+    {
+      "domain": "beaupeyrat.net",
+      "base": "beaupeyrat.fr",
+      "orgName": "OGEC INSTITUTION BEAUPEYRAT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Site en construction"
+    },
+    {
+      "domain": "beaupeyrat.org",
+      "base": "beaupeyrat.fr",
+      "orgName": "OGEC INSTITUTION BEAUPEYRAT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Logo"
+    },
+    {
+      "domain": "beautysucces.fr",
+      "base": "beautysuccess.fr",
+      "orgName": "NOVI",
+      "kind": "omission",
+      "similarity": 0.923,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "beautysuccess.com",
+      "base": "beautysuccess.fr",
+      "orgName": "NOVI",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "beautysuccess.net",
+      "base": "beautysuccess.fr",
+      "orgName": "NOVI",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "beautysuccess.org",
+      "base": "beautysuccess.fr",
+      "orgName": "NOVI",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "beautysucess.fr",
+      "base": "beautysuccess.fr",
+      "orgName": "NOVI",
+      "kind": "omission",
+      "similarity": 0.923,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "belarme.com",
+      "base": "belorme.com",
+      "orgName": "OGEC LYCEE TECHNIQUE BEL ORME",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Belarme - Cabinet d&#039;expertise en armes anciennes"
+    },
+    {
+      "domain": "belome.com",
+      "base": "belorme.com",
+      "orgName": "OGEC LYCEE TECHNIQUE BEL ORME",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "belore.com",
+      "base": "belorme.com",
+      "orgName": "OGEC LYCEE TECHNIQUE BEL ORME",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Beloré — Real Estate Crypto Transactions"
+    },
+    {
+      "domain": "binaud.com",
+      "base": "boinaud.com",
+      "orgName": "MAISON BOINAUD",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "BINAUD THERMIQUE ÉLECTRICITÉ &#8211; depuis 1963"
+    },
+    {
+      "domain": "bistro-regent.com",
+      "base": "bistro-regent.fr",
+      "orgName": "VANHOVE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bistro-regent.net",
+      "base": "bistro-regent.fr",
+      "orgName": "VANHOVE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bistroregent.fr",
+      "base": "bistro-regent.fr",
+      "orgName": "VANHOVE",
+      "kind": "omission",
+      "similarity": 0.923,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bm-energies.net",
+      "base": "bm-energies.com",
+      "orgName": "BORDEAUX METROPOLE ENERGIES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Home | BM-Energies"
+    },
+    {
+      "domain": "bm-energies.org",
+      "base": "bm-energies.com",
+      "orgName": "BORDEAUX METROPOLE ENERGIES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bmenergies.com",
+      "base": "bm-energies.com",
+      "orgName": "BORDEAUX METROPOLE ENERGIES",
+      "kind": "omission",
+      "similarity": 0.909,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bonaud.com",
+      "base": "boinaud.com",
+      "orgName": "MAISON BOINAUD",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "bor-deaux.com",
+      "base": "bordeaux.com",
+      "orgName": "CONSEIL INTERPROF DU VIN DE BORDEAUX",
+      "kind": "tiret",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bord-eaux.com",
+      "base": "bordeaux.com",
+      "orgName": "CONSEIL INTERPROF DU VIN DE BORDEAUX",
+      "kind": "tiret",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": "Can SEO Help Elevate Your Sustainable Brand in Australia? | Bord Eaux"
+    },
+    {
+      "domain": "bordaux.com",
+      "base": "bordeaux.com",
+      "orgName": "CONSEIL INTERPROF DU VIN DE BORDEAUX",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "bordeau.com",
+      "base": "bordeaux.com",
+      "orgName": "CONSEIL INTERPROF DU VIN DE BORDEAUX",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bordeaux.net",
+      "base": "bordeaux.com",
+      "orgName": "CONSEIL INTERPROF DU VIN DE BORDEAUX",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "bordeaux.org",
+      "base": "bordeaux.com",
+      "orgName": "CONSEIL INTERPROF DU VIN DE BORDEAUX",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "bordeuax.com",
+      "base": "bordeaux.com",
+      "orgName": "CONSEIL INTERPROF DU VIN DE BORDEAUX",
+      "kind": "transposition",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "bordeux.com",
+      "base": "bordeaux.com",
+      "orgName": "CONSEIL INTERPROF DU VIN DE BORDEAUX",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "boreaux.com",
+      "base": "bordeaux.com",
+      "orgName": "CONSEIL INTERPROF DU VIN DE BORDEAUX",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "brados.fr",
+      "base": "bardos.fr",
+      "orgName": "BARDOS",
+      "kind": "transposition",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "burdeaux.com",
+      "base": "bordeaux.com",
+      "orgName": "CONSEIL INTERPROF DU VIN DE BORDEAUX",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cace.fr",
+      "base": "cance.fr",
+      "orgName": "ETABLISSEMENTS CANCE",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cagnac.fr",
+      "base": "cognac.fr",
+      "orgName": "BUREAU NATIONAL INTERPR COGNAC",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "camf.fr",
+      "base": "camif.fr",
+      "orgName": "CAMIF",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "CAMF - défendre et représenter les commerçants et artisans"
+    },
+    {
+      "domain": "cami.fr",
+      "base": "camif.fr",
+      "orgName": "CAMIF",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "cami.fr est en vente"
+    },
+    {
+      "domain": "camif.com",
+      "base": "camif.fr",
+      "orgName": "CAMIF",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Camif, spécialiste du meuble made in France ou Europe"
+    },
+    {
+      "domain": "camif.net",
+      "base": "camif.fr",
+      "orgName": "CAMIF",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Camif, spécialiste du meuble made in France ou Europe"
+    },
+    {
+      "domain": "camif.org",
+      "base": "camif.fr",
+      "orgName": "CAMIF",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cance.com",
+      "base": "cance.fr",
+      "orgName": "ETABLISSEMENTS CANCE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "CANCÉ - Constructeur de bâtiments en Charpente métallique et menuiseries aluminium."
+    },
+    {
+      "domain": "cance.net",
+      "base": "cance.fr",
+      "orgName": "ETABLISSEMENTS CANCE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cance.org",
+      "base": "cance.fr",
+      "orgName": "ETABLISSEMENTS CANCE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Loading..."
+    },
+    {
+      "domain": "canci.fr",
+      "base": "cance.fr",
+      "orgName": "ETABLISSEMENTS CANCE",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cane.fr",
+      "base": "cance.fr",
+      "orgName": "ETABLISSEMENTS CANCE",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "canec.fr",
+      "base": "cance.fr",
+      "orgName": "ETABLISSEMENTS CANCE",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": "CANEC - Conservatoire De l&#039;Abeille Noire En Combrailles"
+    },
+    {
+      "domain": "canif.fr",
+      "base": "camif.fr",
+      "orgName": "CAMIF",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "canif.fr est en vente"
+    },
+    {
+      "domain": "cap-sciences.com",
+      "base": "cap-sciences.net",
+      "orgName": "CAP SCIENCES CCSTI BORDEAUX - NOUVELLE AQUITAINE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cap-sciences.org",
+      "base": "cap-sciences.net",
+      "orgName": "CAP SCIENCES CCSTI BORDEAUX - NOUVELLE AQUITAINE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cava.com",
+      "base": "ceva.com",
+      "orgName": "CEVA SANTE ANIMALE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ce-va.com",
+      "base": "ceva.com",
+      "orgName": "CEVA SANTE ANIMALE",
+      "kind": "tiret",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "CEVA"
+    },
+    {
+      "domain": "cea.com",
+      "base": "ceva.com",
+      "orgName": "CEVA SANTE ANIMALE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "EAG Laboratories | The Global Leader in Materials Testing"
+    },
+    {
+      "domain": "ceav.com",
+      "base": "ceva.com",
+      "orgName": "CEVA SANTE ANIMALE",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "ceba.com",
+      "base": "ceva.com",
+      "orgName": "CEVA SANTE ANIMALE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "CEBA Loan Refinancing 2026: Pay Off Before Dec 31 - ceba.ca"
+    },
+    {
+      "domain": "cemif.fr",
+      "base": "camif.fr",
+      "orgName": "CAMIF",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cev.com",
+      "base": "ceva.com",
+      "orgName": "CEVA SANTE ANIMALE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Centro de Formación Profesional Barcelona | CEV"
+    },
+    {
+      "domain": "ceva.net",
+      "base": "ceva.com",
+      "orgName": "CEVA SANTE ANIMALE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ceva.org",
+      "base": "ceva.com",
+      "orgName": "CEVA SANTE ANIMALE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cevo.com",
+      "base": "ceva.com",
+      "orgName": "CEVA SANTE ANIMALE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "civa.com",
+      "base": "ceva.com",
+      "orgName": "CEVA SANTE ANIMALE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "CIVA - Verified Intelligence for the Real World"
+    },
+    {
+      "domain": "cmif.fr",
+      "base": "camif.fr",
+      "orgName": "CAMIF",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "cmif.fr&nbsp;-&nbsp;Ce site web est à vendre !&nbsp;-&nbsp;Ressources et information concernant VPC Resources and Information."
+    },
+    {
+      "domain": "cnce.fr",
+      "base": "cance.fr",
+      "orgName": "ETABLISSEMENTS CANCE",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cognac.com",
+      "base": "cognac.fr",
+      "orgName": "BUREAU NATIONAL INTERPR COGNAC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Cognac.com: Guide to Cognac Brands, Reviews &amp; Cocktails"
+    },
+    {
+      "domain": "cognac.net",
+      "base": "cognac.fr",
+      "orgName": "BUREAU NATIONAL INTERPR COGNAC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "cognac.net&nbsp;-&nbsp;Ce site web est à vendre !&nbsp;-&nbsp;Ressources et information concernant cognac Resources and Information."
+    },
+    {
+      "domain": "cognac.org",
+      "base": "cognac.fr",
+      "orgName": "BUREAU NATIONAL INTERPR COGNAC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "conac.fr",
+      "base": "cognac.fr",
+      "orgName": "BUREAU NATIONAL INTERPR COGNAC",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cugnac.fr",
+      "base": "cognac.fr",
+      "orgName": "BUREAU NATIONAL INTERPR COGNAC",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cva.com",
+      "base": "ceva.com",
+      "orgName": "CEVA SANTE ANIMALE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "CVA Home"
+    },
+    {
+      "domain": "cvea.com",
+      "base": "ceva.com",
+      "orgName": "CEVA SANTE ANIMALE",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "cvea.com&nbsp;-&nbsp;Ce site web est à vendre !&nbsp;-&nbsp;Ressources et information concernant Shopping Resources and Information."
+    },
+    {
+      "domain": "ecva.com",
+      "base": "ceva.com",
+      "orgName": "CEVA SANTE ANIMALE",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elorme.com",
+      "base": "belorme.com",
+      "orgName": "OGEC LYCEE TECHNIQUE BEL ORME",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "euralis.com",
+      "base": "euralis.fr",
+      "orgName": "EURALIS HOLDING",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "euralis.net",
+      "base": "euralis.fr",
+      "orgName": "EURALIS HOLDING",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "euralis.org",
+      "base": "euralis.fr",
+      "orgName": "EURALIS HOLDING",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "eurelis.fr",
+      "base": "euralis.fr",
+      "orgName": "EURALIS HOLDING",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Eurelis - Intégrateur IA"
+    },
+    {
+      "domain": "eva.com",
+      "base": "ceva.com",
+      "orgName": "CEVA SANTE ANIMALE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "famille-michaud.com",
+      "base": "famillemichaud.com",
+      "orgName": "FAMILLE MICHAUD APICULTEURS",
+      "kind": "tiret",
+      "similarity": 0.933,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "famillemichaud.net",
+      "base": "famillemichaud.com",
+      "orgName": "FAMILLE MICHAUD APICULTEURS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "gazdebordeaux.com",
+      "base": "gazdebordeaux.fr",
+      "orgName": "GAZ DE BORDEAUX",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "groupe-merling.fr",
+      "base": "groupemerling.fr",
+      "orgName": "MERLING PROFESSIONNEL",
+      "kind": "tiret",
+      "similarity": 0.929,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "groupemerlin.fr",
+      "base": "groupemerling.fr",
+      "orgName": "MERLING PROFESSIONNEL",
+      "kind": "omission",
+      "similarity": 0.923,
+      "certificate": null,
+      "pageTitle": "Groupe Merlin | Chauffage, climatisation, plomberie dans la Nièvre"
+    },
+    {
+      "domain": "groupemerling.com",
+      "base": "groupemerling.fr",
+      "orgName": "MERLING PROFESSIONNEL",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "inadev.com",
+      "base": "unadev.com",
+      "orgName": "UNION NATIONALE DES AVEUGLES ET DEFICIENTS VISUELS",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "inov.com",
+      "base": "ynov.com",
+      "orgName": "YNOV",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Optical Product Design and Development | Optical Engineering - INOV, Inc."
+    },
+    {
+      "domain": "keva.com",
+      "base": "ceva.com",
+      "orgName": "CEVA SANTE ANIMALE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Smoothies, Acai Bowls & Fresh Juice in Reno, Sparks & Colorado Springs | Keva"
+    },
+    {
+      "domain": "kognac.fr",
+      "base": "cognac.fr",
+      "orgName": "BUREAU NATIONAL INTERPR COGNAC",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lafete.com",
+      "base": "lafite.com",
+      "orgName": "CHATEAU LAFITE ROTHSCHILD",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Actualités | La Fête"
+    },
+    {
+      "domain": "lafie.com",
+      "base": "lafite.com",
+      "orgName": "CHATEAU LAFITE ROTHSCHILD",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "lafire.com",
+      "base": "lafite.com",
+      "orgName": "CHATEAU LAFITE ROTHSCHILD",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "LAFIRE.COM welcomes you to the Los Angeles Fire Department Historical Archive."
+    },
+    {
+      "domain": "lafit.com",
+      "base": "lafite.com",
+      "orgName": "CHATEAU LAFITE ROTHSCHILD",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lafita.com",
+      "base": "lafite.com",
+      "orgName": "CHATEAU LAFITE ROTHSCHILD",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lafite.net",
+      "base": "lafite.com",
+      "orgName": "CHATEAU LAFITE ROTHSCHILD",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "lafite.org",
+      "base": "lafite.com",
+      "orgName": "CHATEAU LAFITE ROTHSCHILD",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lafiti.com",
+      "base": "lafite.com",
+      "orgName": "CHATEAU LAFITE ROTHSCHILD",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lafote.com",
+      "base": "lafite.com",
+      "orgName": "CHATEAU LAFITE ROTHSCHILD",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "lafote.com&nbsp;-&nbsp;Ressources et information concernant lafote Resources and Information."
+    },
+    {
+      "domain": "lafte.com",
+      "base": "lafite.com",
+      "orgName": "CHATEAU LAFITE ROTHSCHILD",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "laifte.com",
+      "base": "lafite.com",
+      "orgName": "CHATEAU LAFITE ROTHSCHILD",
+      "kind": "transposition",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "latite.com",
+      "base": "lafite.com",
+      "orgName": "CHATEAU LAFITE ROTHSCHILD",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Roofing &amp; Waterproofing Contractor since 1943 - Latite Roofing"
+    },
+    {
+      "domain": "lefite.com",
+      "base": "lafite.com",
+      "orgName": "CHATEAU LAFITE ROTHSCHILD",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Gestion LEFITE | Spécialistes en gestion de copropriété"
+    },
+    {
+      "domain": "lofite.com",
+      "base": "lafite.com",
+      "orgName": "CHATEAU LAFITE ROTHSCHILD",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Sleep Better With Loftie | Loftie"
+    },
+    {
+      "domain": "m-energies.com",
+      "base": "bm-energies.com",
+      "orgName": "BORDEAUX METROPOLE ENERGIES",
+      "kind": "omission",
+      "similarity": 0.909,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "meubles-celio.com",
+      "base": "meubles-celio.fr",
+      "orgName": "MEUBLES CELIO",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Accueil | Meubles Celio Export"
+    },
+    {
+      "domain": "momosem.com",
+      "base": "monosem.com",
+      "orgName": "RIBOULEAU MONOSEM",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "모모셈 — 모아~ 모아~ 모아서 1초 비교! 연봉·퇴직금·집값·셀러마진"
+    },
+    {
+      "domain": "monasem.com",
+      "base": "monosem.com",
+      "orgName": "RIBOULEAU MONOSEM",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "monosam.com",
+      "base": "monosem.com",
+      "orgName": "RIBOULEAU MONOSEM",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Coming Soon"
+    },
+    {
+      "domain": "monose.com",
+      "base": "monosem.com",
+      "orgName": "RIBOULEAU MONOSEM",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "monosem.net",
+      "base": "monosem.com",
+      "orgName": "RIBOULEAU MONOSEM",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "monosen.com",
+      "base": "monosem.com",
+      "orgName": "RIBOULEAU MONOSEM",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "monosim.com",
+      "base": "monosem.com",
+      "orgName": "RIBOULEAU MONOSEM",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "MONOsim"
+    },
+    {
+      "domain": "monosme.com",
+      "base": "monosem.com",
+      "orgName": "RIBOULEAU MONOSEM",
+      "kind": "transposition",
+      "similarity": 0.714,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "moonsem.com",
+      "base": "monosem.com",
+      "orgName": "RIBOULEAU MONOSEM",
+      "kind": "transposition",
+      "similarity": 0.714,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "nadev.com",
+      "base": "unadev.com",
+      "orgName": "UNION NATIONALE DES AVEUGLES ET DEFICIENTS VISUELS",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "nov.com",
+      "base": "ynov.com",
+      "orgName": "YNOV",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Global Energy Services | Oilfield Equipment &amp; Technologies | NOV"
+    },
+    {
+      "domain": "nuadev.com",
+      "base": "unadev.com",
+      "orgName": "UNION NATIONALE DES AVEUGLES ET DEFICIENTS VISUELS",
+      "kind": "transposition",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": "Home - NUA Dev"
+    },
+    {
+      "domain": "nyov.com",
+      "base": "ynov.com",
+      "orgName": "YNOV",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "onadev.com",
+      "base": "unadev.com",
+      "orgName": "UNION NATIONALE DES AVEUGLES ET DEFICIENTS VISUELS",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "ONA"
+    },
+    {
+      "domain": "ordeaux.com",
+      "base": "bordeaux.com",
+      "orgName": "CONSEIL INTERPROF DU VIN DE BORDEAUX",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "picot.fr",
+      "base": "picoty.fr",
+      "orgName": "PICOTY",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Lait Bébé Picot : Spécialiste de la Nutrition Infantile en Pharmacie"
+    },
+    {
+      "domain": "picoti.fr",
+      "base": "picoty.fr",
+      "orgName": "PICOTY",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "picoty.com",
+      "base": "picoty.fr",
+      "orgName": "PICOTY",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "pictoy.fr",
+      "base": "picoty.fr",
+      "orgName": "PICOTY",
+      "kind": "transposition",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "saintdominique.com",
+      "base": "saintdominique.fr",
+      "orgName": "SAINT DOMINIQUE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "saintdominique.net",
+      "base": "saintdominique.fr",
+      "orgName": "SAINT DOMINIQUE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Institution Saint Dominique de Neuilly-sur-Seine"
+    },
+    {
+      "domain": "saintdominique.org",
+      "base": "saintdominique.fr",
+      "orgName": "SAINT DOMINIQUE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "selme.fr",
+      "base": "stelme.fr",
+      "orgName": "OGEC DU BASSIN ARCACHON",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "www.360x180.fr : Panoramiques sph&#233;riques de SELME Matthieu"
+    },
+    {
+      "domain": "stele.fr",
+      "base": "stelme.fr",
+      "orgName": "OGEC DU BASSIN ARCACHON",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "stelma.fr",
+      "base": "stelme.fr",
+      "orgName": "OGEC DU BASSIN ARCACHON",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "stelme.com",
+      "base": "stelme.fr",
+      "orgName": "OGEC DU BASSIN ARCACHON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "steme.fr",
+      "base": "stelme.fr",
+      "orgName": "OGEC DU BASSIN ARCACHON",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "telme.fr",
+      "base": "stelme.fr",
+      "orgName": "OGEC DU BASSIN ARCACHON",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "the-memorist.com",
+      "base": "thememorist.com",
+      "orgName": "MEMORIST (ARKHENUM)",
+      "kind": "tiret",
+      "similarity": 0.917,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "thememoris.com",
+      "base": "thememorist.com",
+      "orgName": "MEMORIST (ARKHENUM)",
+      "kind": "omission",
+      "similarity": 0.909,
+      "certificate": null,
+      "pageTitle": "The Memories"
+    },
+    {
+      "domain": "uadev.com",
+      "base": "unadev.com",
+      "orgName": "UNION NATIONALE DES AVEUGLES ET DEFICIENTS VISUELS",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "UADev | User Attuned Development"
+    },
+    {
+      "domain": "ubb-rugby.com",
+      "base": "ubbrugby.com",
+      "orgName": "UNION BORDEAUX BEGLES",
+      "kind": "tiret",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": "Union Bordeaux Bègles (UBB Rugby) - Notre Force vient du Cœur"
+    },
+    {
+      "domain": "ubbrugby.net",
+      "base": "ubbrugby.com",
+      "orgName": "UNION BORDEAUX BEGLES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Union Bordeaux Bègles (UBB Rugby) - Notre Force vient du Cœur"
+    },
+    {
+      "domain": "ubrugby.com",
+      "base": "ubbrugby.com",
+      "orgName": "UNION BORDEAUX BEGLES",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "uhadev.com",
+      "base": "unadev.com",
+      "orgName": "UNION NATIONALE DES AVEUGLES ET DEFICIENTS VISUELS",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "UHADEV: custom business software"
+    },
+    {
+      "domain": "umadev.com",
+      "base": "unadev.com",
+      "orgName": "UNION NATIONALE DES AVEUGLES ET DEFICIENTS VISUELS",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "unade.com",
+      "base": "unadev.com",
+      "orgName": "UNION NATIONALE DES AVEUGLES ET DEFICIENTS VISUELS",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "unadv.com",
+      "base": "unadev.com",
+      "orgName": "UNION NATIONALE DES AVEUGLES ET DEFICIENTS VISUELS",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "undaev.com",
+      "base": "unadev.com",
+      "orgName": "UNION NATIONALE DES AVEUGLES ET DEFICIENTS VISUELS",
+      "kind": "transposition",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "undev.com",
+      "base": "unadev.com",
+      "orgName": "UNION NATIONALE DES AVEUGLES ET DEFICIENTS VISUELS",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "undev.com&nbsp;-&nbsp;Ressources et information concernant undev Resources and Information."
+    },
+    {
+      "domain": "unodev.com",
+      "base": "unadev.com",
+      "orgName": "UNION NATIONALE DES AVEUGLES ET DEFICIENTS VISUELS",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "unov.com",
+      "base": "ynov.com",
+      "orgName": "YNOV",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "vins-castel.com",
+      "base": "vins-castel.wine",
+      "orgName": "CASTEL FRERES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "vm-energies.com",
+      "base": "bm-energies.com",
+      "orgName": "BORDEAUX METROPOLE ENERGIES",
+      "kind": "substitution",
+      "similarity": 0.909,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "y-nov.com",
+      "base": "ynov.com",
+      "orgName": "YNOV",
+      "kind": "tiret",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ymov.com",
+      "base": "ynov.com",
+      "orgName": "YNOV",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "yno.com",
+      "base": "ynov.com",
+      "orgName": "YNOV",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ynob.com",
+      "base": "ynov.com",
+      "orgName": "YNOV",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "ynov.org",
+      "base": "ynov.com",
+      "orgName": "YNOV",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ynuv.com",
+      "base": "ynov.com",
+      "orgName": "YNOV",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "ynv.com",
+      "base": "ynov.com",
+      "orgName": "YNOV",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "This domain is parked"
+    },
+    {
+      "domain": "ynvo.com",
+      "base": "ynov.com",
+      "orgName": "YNOV",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "yonv.com",
+      "base": "ynov.com",
+      "orgName": "YNOV",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "yov.com",
+      "base": "ynov.com",
+      "orgName": "YNOV",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "YOV.com is For Sale ($249,000) | Buy Direct at PerfectName.com"
+    }
+  ],
+  "alarms": 142,
+  "falsePositives": 142,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 2164,
+    "certificate": 184,
+    "page": 184
+  },
+  "durationMs": 23027
+}

@@ -1,0 +1,2089 @@
+{
+  "offset": 300,
+  "top": 1000,
+  "targets": 200,
+  "variants": 2136,
+  "active": 230,
+  "detections": [],
+  "activeList": [
+    {
+      "domain": "ablu.org",
+      "base": "abul.org",
+      "orgName": "ASSOCIATION BORDELAISE DES UTILISATEURS DE LOGICIELS LIBRES (ABUL)",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "abscons.fr",
+      "base": "bascons.fr",
+      "orgName": "BASCONS",
+      "kind": "transposition",
+      "similarity": 0.714,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "abu.org",
+      "base": "abul.org",
+      "orgName": "ASSOCIATION BORDELAISE DES UTILISATEURS DE LOGICIELS LIBRES (ABUL)",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "The American Board of Urology |"
+    },
+    {
+      "domain": "abul.com",
+      "base": "abul.org",
+      "orgName": "ASSOCIATION BORDELAISE DES UTILISATEURS DE LOGICIELS LIBRES (ABUL)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "abul.com&nbsp;-&nbsp;Ce site web est à vendre !&nbsp;-&nbsp;Ressources et information concernant Abul Resources and Information."
+    },
+    {
+      "domain": "abul.net",
+      "base": "abul.org",
+      "orgName": "ASSOCIATION BORDELAISE DES UTILISATEURS DE LOGICIELS LIBRES (ABUL)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "adour-madiran.com",
+      "base": "adour-madiran.fr",
+      "orgName": "Communauté de communes Adour Madiran",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "aeon-systems.com",
+      "base": "aeon-systems.fr",
+      "orgName": "AEON SYSTEMS (AEON)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "aeon-systems.net",
+      "base": "aeon-systems.fr",
+      "orgName": "AEON SYSTEMS (AEON)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Success!"
+    },
+    {
+      "domain": "afe.org",
+      "base": "afef.org",
+      "orgName": "ASSOCIATION FRANCAISE POUR L'ENSEIGNEMENT DU FRANCAIS",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "afee-cedece.com",
+      "base": "afee-cedece.eu",
+      "orgName": "ASSOCIATION FRANCAISE D'ETUDES EUROPENNES - AFEE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "AFÉE &#8211; Association française d&#039;Études Européennes"
+    },
+    {
+      "domain": "afef.com",
+      "base": "afef.org",
+      "orgName": "ASSOCIATION FRANCAISE POUR L'ENSEIGNEMENT DU FRANCAIS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Domain for sale"
+    },
+    {
+      "domain": "afef.net",
+      "base": "afef.org",
+      "orgName": "ASSOCIATION FRANCAISE POUR L'ENSEIGNEMENT DU FRANCAIS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "American Forestry and Environmental Foundation | Sustaining Forests. Enriching Futures."
+    },
+    {
+      "domain": "afficion.com",
+      "base": "afficion.fr",
+      "orgName": "AFFICION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "afficion.net",
+      "base": "afficion.fr",
+      "orgName": "AFFICION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "afficion.org",
+      "base": "afficion.fr",
+      "orgName": "AFFICION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "age.fr",
+      "base": "agen.fr",
+      "orgName": "AGEN",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Pour les personnes âgées - Site d&#039;information pour les personnes âgées et leurs proches"
+    },
+    {
+      "domain": "agen.com",
+      "base": "agen.fr",
+      "orgName": "AGEN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Agen: Longevity OS | Robot, Supplements &amp; Wearables"
+    },
+    {
+      "domain": "agen.net",
+      "base": "agen.fr",
+      "orgName": "AGEN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "agen.org",
+      "base": "agen.fr",
+      "orgName": "AGEN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "agen.org"
+    },
+    {
+      "domain": "agglo-grandgueret.com",
+      "base": "agglo-grandgueret.fr",
+      "orgName": "Communauté d'agglomération du Grand Guéret",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Accueil - Agglomération Grand Guéret"
+    },
+    {
+      "domain": "agglo-grandgueret.net",
+      "base": "agglo-grandgueret.fr",
+      "orgName": "Communauté d'agglomération du Grand Guéret",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Accueil - Agglomération Grand Guéret"
+    },
+    {
+      "domain": "agglo-grandgueret.org",
+      "base": "agglo-grandgueret.fr",
+      "orgName": "Communauté d'agglomération du Grand Guéret",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Accueil - Agglomération Grand Guéret"
+    },
+    {
+      "domain": "agglo-rochefortocean.com",
+      "base": "agglo-rochefortocean.fr",
+      "orgName": "Communauté d'agglomération Rochefort Océan",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "agglo-royan.com",
+      "base": "agglo-royan.fr",
+      "orgName": "Communauté d'agglomération Royan Atlantique",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "agglo2b.com",
+      "base": "agglo2b.fr",
+      "orgName": "Communauté d'agglomération du Bocage Bressuirais",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "agglo2b.net",
+      "base": "agglo2b.fr",
+      "orgName": "Communauté d'agglomération du Bocage Bressuirais",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Site en construction"
+    },
+    {
+      "domain": "agne.fr",
+      "base": "agen.fr",
+      "orgName": "AGEN",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "Accueil - Association Golfique Nantes Erdre : le site officiel"
+    },
+    {
+      "domain": "aire-sur-adour.org",
+      "base": "aire-sur-adour.fr",
+      "orgName": "Commune de Aire-sur-l'Adour",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Sorotan Dunia – Isu Global dengan Sudut Pandang Objektif - Menyajikan realita tanpa menggiring opini."
+    },
+    {
+      "domain": "ajph.org",
+      "base": "ajpn.org",
+      "orgName": "ANONYMES JUSTES ET PERSECUTES DURANT LA PERIODE NAZIE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "alexipharmaque.net",
+      "base": "alexipharmaque.eu",
+      "orgName": "ALEXIPHARMAQUE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "DropCatch.com"
+    },
+    {
+      "domain": "altitud-rh.com",
+      "base": "altitud-rh.fr",
+      "orgName": "ALTITUD RH",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "alvaux.com",
+      "base": "malvaux.com",
+      "orgName": "MALVAUX GROUP",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "anaia.com",
+      "base": "anaia.io",
+      "orgName": "LAGUNDU",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "anaia.net",
+      "base": "anaia.io",
+      "orgName": "LAGUNDU",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Cloudflare Registrar"
+    },
+    {
+      "domain": "andrebreton.com",
+      "base": "andrebreton.fr",
+      "orgName": "ATELIER ANDRE BRETON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "andrebreton.net",
+      "base": "andrebreton.fr",
+      "orgName": "ATELIER ANDRE BRETON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "andrebreton.org",
+      "base": "andrebreton.fr",
+      "orgName": "ATELIER ANDRE BRETON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "angel.net",
+      "base": "angely.net",
+      "orgName": "Commune de Saint-Jean-d'Angély",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "angely.com",
+      "base": "angely.net",
+      "orgName": "Commune de Saint-Jean-d'Angély",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "angle.fr",
+      "base": "anglet.fr",
+      "orgName": "ANGLET",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Grand Angle, la BD comme au cinéma ! Des scénarios dignes des meilleur"
+    },
+    {
+      "domain": "anglet.net",
+      "base": "anglet.fr",
+      "orgName": "ANGLET",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "anglet.net for sale"
+    },
+    {
+      "domain": "anglet.org",
+      "base": "anglet.fr",
+      "orgName": "ANGLET",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "appalgo.com",
+      "base": "appalga.com",
+      "orgName": "APPALGA",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "appalgo &#8211; We get users."
+    },
+    {
+      "domain": "aquitro.com",
+      "base": "aquitroc.com",
+      "orgName": "SABRINA BAUDIN",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "aranco.fr",
+      "base": "arancou.fr",
+      "orgName": "ARANCOU",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "arbus.com",
+      "base": "arbus.fr",
+      "orgName": "ARBUS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Arbus Magazine - The Arts &amp; Business Magazine of Northeast Florida"
+    },
+    {
+      "domain": "arbus.net",
+      "base": "arbus.fr",
+      "orgName": "ARBUS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "arbuz.fr",
+      "base": "arbus.fr",
+      "orgName": "ARBUS",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "ARBZ FVGHT · Ensembles de combat rashguard + short"
+    },
+    {
+      "domain": "are.fr",
+      "base": "aren.fr",
+      "orgName": "AREN",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Accueil - ARE"
+    },
+    {
+      "domain": "aren.com",
+      "base": "aren.fr",
+      "orgName": "AREN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Aren: Powering Successful Nursing Shifts"
+    },
+    {
+      "domain": "aren.net",
+      "base": "aren.fr",
+      "orgName": "AREN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "aren.org",
+      "base": "aren.fr",
+      "orgName": "AREN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "arne.fr",
+      "base": "aren.fr",
+      "orgName": "AREN",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "Arne.fr"
+    },
+    {
+      "domain": "artas.fr",
+      "base": "tartas.fr",
+      "orgName": "TARTAS",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ascomycete.com",
+      "base": "ascomycete.org",
+      "orgName": "ASCOMYCETE.ORG",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "atelier-nadia.com",
+      "base": "atelier-nadai.com",
+      "orgName": "ATELIER NADAI",
+      "kind": "transposition",
+      "similarity": 0.846,
+      "certificate": null,
+      "pageTitle": "nadia official | nadia"
+    },
+    {
+      "domain": "aubero.fr",
+      "base": "auberon.fr",
+      "orgName": "AUBERON",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "auberon.com",
+      "base": "auberon.fr",
+      "orgName": "AUBERON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "auberon.net",
+      "base": "auberon.fr",
+      "orgName": "AUBERON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "auberon.org",
+      "base": "auberon.fr",
+      "orgName": "AUBERON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "aubusson.com",
+      "base": "aubusson.fr",
+      "orgName": "AUBUSSON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "aunis-sud.com",
+      "base": "aunis-sud.fr",
+      "orgName": "Communauté de communes Aunis Sud",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "auro.fr",
+      "base": "auros.fr",
+      "orgName": "AUROS",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "AURO - Peintures d&#039;origine naturelle - laques, lasures et huiles écologiques"
+    },
+    {
+      "domain": "auros.com",
+      "base": "auros.fr",
+      "orgName": "AUROS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "auros.net",
+      "base": "auros.fr",
+      "orgName": "AUROS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "auros.org",
+      "base": "auros.fr",
+      "orgName": "AUROS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Auros Harman for San Bruno City Council"
+    },
+    {
+      "domain": "aytre.com",
+      "base": "aytre.fr",
+      "orgName": "Commune de Aytré",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "aytre.net",
+      "base": "aytre.fr",
+      "orgName": "Commune de Aytré",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "bascons.com",
+      "base": "bascons.fr",
+      "orgName": "BASCONS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "bassussarry.com",
+      "base": "bassussarry.fr",
+      "orgName": "BASSUSSARRY",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Visiter le Pays Basque et les Landes, Sud Ouest France."
+    },
+    {
+      "domain": "baul.org",
+      "base": "abul.org",
+      "orgName": "ASSOCIATION BORDELAISE DES UTILISATEURS DE LOGICIELS LIBRES (ABUL)",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bayonne.com",
+      "base": "bayonne.fr",
+      "orgName": "BAYONNE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "bayonne.net",
+      "base": "bayonne.fr",
+      "orgName": "BAYONNE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bayonne.org",
+      "base": "bayonne.fr",
+      "orgName": "BAYONNE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "bayonne.org"
+    },
+    {
+      "domain": "bci.fr",
+      "base": "bcit.fr",
+      "orgName": "BCIT FORMATION",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "B.Conseil | Financement de l&#x27;innovation CIR CII JEI"
+    },
+    {
+      "domain": "bcit.com",
+      "base": "bcit.fr",
+      "orgName": "BCIT FORMATION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bcit.net",
+      "base": "bcit.fr",
+      "orgName": "BCIT FORMATION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "bcti.fr",
+      "base": "bcit.fr",
+      "orgName": "BCIT FORMATION",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "BCTI : 1ère marketplace du diagnostic immobilier en France"
+    },
+    {
+      "domain": "beel.fr",
+      "base": "beely.fr",
+      "orgName": "BEELY",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "beely.com",
+      "base": "beely.fr",
+      "orgName": "BEELY",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "beely.net",
+      "base": "beely.fr",
+      "orgName": "BEELY",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "beely.net"
+    },
+    {
+      "domain": "beely.org",
+      "base": "beely.fr",
+      "orgName": "BEELY",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "belin-beliet.com",
+      "base": "belin-beliet.fr",
+      "orgName": "Commune de Belin-Béliet",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Belin-Beliet (33)"
+    },
+    {
+      "domain": "belin-beliet.net",
+      "base": "belin-beliet.fr",
+      "orgName": "Commune de Belin-Béliet",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Belin-Beliet (33)"
+    },
+    {
+      "domain": "belin-beliet.org",
+      "base": "belin-beliet.fr",
+      "orgName": "Commune de Belin-Béliet",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Belin-Beliet (33)"
+    },
+    {
+      "domain": "bergerac.com",
+      "base": "bergerac.fr",
+      "orgName": "BERGERAC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Bergerac.com"
+    },
+    {
+      "domain": "bergerac.net",
+      "base": "bergerac.fr",
+      "orgName": "BERGERAC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bergge.com",
+      "base": "bergger.com",
+      "orgName": "BERGGER",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Магазин будівельних матеріалів Bergge • купити в Україні"
+    },
+    {
+      "domain": "berggen.com",
+      "base": "bergger.com",
+      "orgName": "BERGGER",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "biarrits.fr",
+      "base": "biarritz.fr",
+      "orgName": "BIARRITZ",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "biarritz.com",
+      "base": "biarritz.fr",
+      "orgName": "BIARRITZ",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "biarritz.net",
+      "base": "biarritz.fr",
+      "orgName": "BIARRITZ",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "biarritz.org",
+      "base": "biarritz.fr",
+      "orgName": "BIARRITZ",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "biarrotte.com",
+      "base": "biarrotte.fr",
+      "orgName": "BIARROTTE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bidache.com",
+      "base": "bidache.fr",
+      "orgName": "BIDACHE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bidache.org",
+      "base": "bidache.fr",
+      "orgName": "BIDACHE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Bidache - Making Auction Sales Painless"
+    },
+    {
+      "domain": "biller.fr",
+      "base": "billere.fr",
+      "orgName": "Commune de Billère",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "billere.com",
+      "base": "billere.fr",
+      "orgName": "Commune de Billère",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Document sans nom"
+    },
+    {
+      "domain": "biriatou.com",
+      "base": "biriatou.fr",
+      "orgName": "BIRIATOU",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Basque country, Pays Basque, Euskal Herria, Pais Vasco, Biriatuko herria ezagutzera sar zaitez, entrez pour visiter le village de Biriatou sur la c�te basque ."
+    },
+    {
+      "domain": "blay.fr",
+      "base": "blaye.fr",
+      "orgName": "Commune de Blaye",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "blaye.com",
+      "base": "blaye.fr",
+      "orgName": "Commune de Blaye",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "blaye.net",
+      "base": "blaye.fr",
+      "orgName": "Commune de Blaye",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "blaye.net - Blog"
+    },
+    {
+      "domain": "bonhomme.com",
+      "base": "bonhomme.immo",
+      "orgName": "BONHOMME IMMOBILIER",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Bonhomme - Barbier et salon de coiffure pour homme"
+    },
+    {
+      "domain": "boont.io",
+      "base": "boonty.io",
+      "orgName": "BOONTY",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Auto osiguranje za dobre vozače | Boont"
+    },
+    {
+      "domain": "boontu.io",
+      "base": "boonty.io",
+      "orgName": "BOONTY",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Boontu | Scope 1, 2 and 3 Emissions and Data Exchange"
+    },
+    {
+      "domain": "boonty.org",
+      "base": "boonty.io",
+      "orgName": "BOONTY",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bordeau.fr",
+      "base": "bordeaux.fr",
+      "orgName": "Commune de Bordeaux",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": "Coworking Bordeaux Centre - Coworking dans le centre ville de Bordeaux"
+    },
+    {
+      "domain": "bordeaux.com",
+      "base": "bordeaux.fr",
+      "orgName": "Commune de Bordeaux",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Vins de Bordeaux - Site Officiel | Bordeaux.com"
+    },
+    {
+      "domain": "bordeaux.net",
+      "base": "bordeaux.fr",
+      "orgName": "Commune de Bordeaux",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "bordeaux.org",
+      "base": "bordeaux.fr",
+      "orgName": "Commune de Bordeaux",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "bordeauxac.com",
+      "base": "bordeauxac.fr",
+      "orgName": "BORDEAUX ATHLETIC CLUB",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Site en construction"
+    },
+    {
+      "domain": "bouca.fr",
+      "base": "boucau.fr",
+      "orgName": "BOUCAU",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Abeille Assurances Reims Forum | Devis en ligne et AFER"
+    },
+    {
+      "domain": "boucau.com",
+      "base": "boucau.fr",
+      "orgName": "BOUCAU",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "bourg-gironde.net",
+      "base": "bourg-gironde.fr",
+      "orgName": "BOURG",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "bourg-gironde.net — a town cut out of its own hillside"
+    },
+    {
+      "domain": "bousca.fr",
+      "base": "bouscat.fr",
+      "orgName": "LE BOUSCAT",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "bouscat.com",
+      "base": "bouscat.fr",
+      "orgName": "LE BOUSCAT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "btobag.com",
+      "base": "btobag.fr",
+      "orgName": "B TO BAG",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "btobag.net",
+      "base": "btobag.fr",
+      "orgName": "B TO BAG",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bul.org",
+      "base": "abul.org",
+      "orgName": "ASSOCIATION BORDELAISE DES UTILISATEURS DE LOGICIELS LIBRES (ABUL)",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "cbit.fr",
+      "base": "bcit.fr",
+      "orgName": "BCIT FORMATION",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "CBIT &#8211; Maîtrise d&#039;oeuvre &#8211; Coordination OPC &#8211; CBIT, Maîtrise d’œuvre et OPC"
+    },
+    {
+      "domain": "cit.fr",
+      "base": "bcit.fr",
+      "orgName": "BCIT FORMATION",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "CIT Formation - Formations Informatique et Management sur Avignon et Marseille"
+    },
+    {
+      "domain": "creatlantique.com",
+      "base": "creatlantique.fr",
+      "orgName": "FONDS CRE'ATLANTIQUE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "delika.fr",
+      "base": "delikao.fr",
+      "orgName": "DELIKAO",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Délika. &#8211; Production et communication pour le spectacle vivant"
+    },
+    {
+      "domain": "delikao.com",
+      "base": "delikao.fr",
+      "orgName": "DELIKAO",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "egen.fr",
+      "base": "agen.fr",
+      "orgName": "AGEN",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "eren.fr",
+      "base": "aren.fr",
+      "orgName": "AREN",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "euros.fr",
+      "base": "auros.fr",
+      "orgName": "AUROS",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "euskalhaziak.com",
+      "base": "euskalhaziak.eus",
+      "orgName": "FEDERATION EUSKAL-HAZIAK",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Euskal Haziak &#8211; Baratzerako haziak, landareak eta tresnak"
+    },
+    {
+      "domain": "exterieurs.com",
+      "base": "exterieurs.pro",
+      "orgName": "SARL EXTERIEURS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "fleet.co",
+      "base": "fleeti.co",
+      "orgName": "FLEETI",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Fleet — Global IT Management Platform"
+    },
+    {
+      "domain": "fleeti.com",
+      "base": "fleeti.co",
+      "orgName": "FLEETI",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "fleeto.co",
+      "base": "fleeti.co",
+      "orgName": "FLEETI",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "foretprimaire-francishalle.com",
+      "base": "foretprimaire-francishalle.org",
+      "orgName": "ASSOCIATION FRANCIS HALLE POUR LA FORET PRIMAIRE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "gcb.net",
+      "base": "ugcb.net",
+      "orgName": "UNION DES GRANDS CRUS DE BORDEAUX",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "generationecologie.com",
+      "base": "generationecologie.fr",
+      "orgName": "ASSOCIATION GENERATION ECOLOGIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "generationecologie.net",
+      "base": "generationecologie.fr",
+      "orgName": "ASSOCIATION GENERATION ECOLOGIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "graphci.fr",
+      "base": "graphic.fr",
+      "orgName": "GRAPHIC AFFICHAGE",
+      "kind": "transposition",
+      "similarity": 0.714,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "graphi.fr",
+      "base": "graphic.fr",
+      "orgName": "GRAPHIC AFFICHAGE",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "graphic.com",
+      "base": "graphic.fr",
+      "orgName": "GRAPHIC AFFICHAGE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Graphic - Graphic"
+    },
+    {
+      "domain": "graphic.net",
+      "base": "graphic.fr",
+      "orgName": "GRAPHIC AFFICHAGE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "graphik.fr",
+      "base": "graphic.fr",
+      "orgName": "GRAPHIC AFFICHAGE",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Graphik 224 | Impression numérique grand format &#8211; Impression numérique grand format"
+    },
+    {
+      "domain": "groupe.com",
+      "base": "groupe.ashler-manson.com",
+      "orgName": "ASHLER ET MANSON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "groupe.net",
+      "base": "groupe.ashler-manson.com",
+      "orgName": "ASHLER ET MANSON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "groupe.org",
+      "base": "groupe.ashler-manson.com",
+      "orgName": "ASHLER ET MANSON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "gucb.net",
+      "base": "ugcb.net",
+      "orgName": "UNION DES GRANDS CRUS DE BORDEAUX",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "gueuleton.com",
+      "base": "gueuleton.fr",
+      "orgName": "SARL GUEULETON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "gueuleton.net",
+      "base": "gueuleton.fr",
+      "orgName": "SARL GUEULETON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Gueuleton - Bienvenue les Bons Vivants"
+    },
+    {
+      "domain": "hap.fr",
+      "base": "shap.fr",
+      "orgName": "ASSOC HISTARCHEOLOGIE PERIGORD",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "headbang.com",
+      "base": "headbang.club",
+      "orgName": "HEADBANG CLUB",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "headbang.net",
+      "base": "headbang.club",
+      "orgName": "HEADBANG CLUB",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "headbang.org",
+      "base": "headbang.club",
+      "orgName": "HEADBANG CLUB",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "inspeer.com",
+      "base": "inspeere.com",
+      "orgName": "INSPEERE",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "inspeere.net",
+      "base": "inspeere.com",
+      "orgName": "INSPEERE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "inspeere.org",
+      "base": "inspeere.com",
+      "orgName": "INSPEERE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "kisdental.com",
+      "base": "kisdental.fr",
+      "orgName": "KIS DENTAL",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lapoulenoir.fr",
+      "base": "lapoulenoire.fr",
+      "orgName": "LA POULE NOIRE",
+      "kind": "omission",
+      "similarity": 0.917,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "laye.fr",
+      "base": "blaye.fr",
+      "orgName": "Commune de Blaye",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Accueil"
+    },
+    {
+      "domain": "lerevedelaborigene.com",
+      "base": "lerevedelaborigene.org",
+      "orgName": "LE REVE DE L ABORIGENE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Rêve de l&#039;Aborigène - Découvrez l&#039;association &amp; le festival"
+    },
+    {
+      "domain": "lerevedelaborigene.net",
+      "base": "lerevedelaborigene.org",
+      "orgName": "LE REVE DE L ABORIGENE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "letourne.com",
+      "base": "letourne.fr",
+      "orgName": "LE TOURNE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "letrainvoyage.com",
+      "base": "letrainvoyage.fr",
+      "orgName": "LE TRAIN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lpsf.com",
+      "base": "lpsfr.com",
+      "orgName": "GROUPE CEMASO",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "lpsfr.net",
+      "base": "lpsfr.com",
+      "orgName": "GROUPE CEMASO",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ludum.com",
+      "base": "ludum.fr",
+      "orgName": "LUDUM SAS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Ludum — Training Management &amp; Performance Analytics for Coaches"
+    },
+    {
+      "domain": "ludum.net",
+      "base": "ludum.fr",
+      "orgName": "LUDUM SAS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ludum.org",
+      "base": "ludum.fr",
+      "orgName": "LUDUM SAS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lusignan.com",
+      "base": "lusignan.fr",
+      "orgName": "LUSIGNAN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lusignan.net",
+      "base": "lusignan.fr",
+      "orgName": "LUSIGNAN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mairiedefumel.com",
+      "base": "mairiedefumel.fr",
+      "orgName": "FUMEL",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "maison-graciet.com",
+      "base": "maison-graciet.fr",
+      "orgName": "GRACIET & CO",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "malvaux.net",
+      "base": "malvaux.com",
+      "orgName": "MALVAUX GROUP",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Malvaux |"
+    },
+    {
+      "domain": "monarchintelligence.com",
+      "base": "monarchintelligence.fr",
+      "orgName": "MONARCH INTELLIGENCE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Offline"
+    },
+    {
+      "domain": "moncad.fr",
+      "base": "moncade.fr",
+      "orgName": "OGEC AEP MONCADE JEANNE D'ARC",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "assurances dijon courtier mutuelle et assurance emprunteur moncad"
+    },
+    {
+      "domain": "moncade.com",
+      "base": "moncade.fr",
+      "orgName": "OGEC AEP MONCADE JEANNE D'ARC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "monsieurtoussaintlouverture.net",
+      "base": "monsieurtoussaintlouverture.com",
+      "orgName": "MONSIEUR TOUSSAINT LOUVERTURE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mova-box.com",
+      "base": "nova-box.com",
+      "orgName": "NOVA-BOX",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "musiques-metisses.net",
+      "base": "musiques-metisses.com",
+      "orgName": "MUSIQUES METISSES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "naia.io",
+      "base": "anaia.io",
+      "orgName": "LAGUNDU",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "NAIA 2025 | Les journées des solutions IA"
+    },
+    {
+      "domain": "nova-bo.com",
+      "base": "nova-box.com",
+      "orgName": "NOVA-BOX",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "nova-box.net",
+      "base": "nova-box.com",
+      "orgName": "NOVA-BOX",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ougier.fr",
+      "base": "rougier.fr",
+      "orgName": "ROUGIER SA",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ova-box.com",
+      "base": "nova-box.com",
+      "orgName": "NOVA-BOX",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": "Luxury Corporate &amp; Holiday Gift Boxes, Made in Los Angeles &ndash; OVA Box LLC"
+    },
+    {
+      "domain": "pompiers-urgence.com",
+      "base": "pompiers-urgence.org",
+      "orgName": "POMPIERS DE L'URGENCE INTERNATIONALE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "progedy.com",
+      "base": "progedys.com",
+      "orgName": "PROGEDYS",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "psfr.com",
+      "base": "lpsfr.com",
+      "orgName": "GROUPE CEMASO",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "raen.fr",
+      "base": "aren.fr",
+      "orgName": "AREN",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "rbus.fr",
+      "base": "arbus.fr",
+      "orgName": "ARBUS",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "ren.fr",
+      "base": "aren.fr",
+      "orgName": "AREN",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "rougie.fr",
+      "base": "rougier.fr",
+      "orgName": "ROUGIER SA",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "rougier.com",
+      "base": "rougier.fr",
+      "orgName": "ROUGIER SA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Over-the-counter products"
+    },
+    {
+      "domain": "rougier.net",
+      "base": "rougier.fr",
+      "orgName": "ROUGIER SA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "scoreimmoacademie.com",
+      "base": "scoreimmoacademie.fr",
+      "orgName": "SCORE AQUITAINE CONSEIL ET FORMATION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "semencespaysannes.com",
+      "base": "semencespaysannes.org",
+      "orgName": "RESEAU SEMENCES PAYSANNES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "semencespaysannes.net",
+      "base": "semencespaysannes.org",
+      "orgName": "RESEAU SEMENCES PAYSANNES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "sha.fr",
+      "base": "shap.fr",
+      "orgName": "ASSOC HISTARCHEOLOGIE PERIGORD",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Sha"
+    },
+    {
+      "domain": "shab.fr",
+      "base": "shap.fr",
+      "orgName": "ASSOC HISTARCHEOLOGIE PERIGORD",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "shap.com",
+      "base": "shap.fr",
+      "orgName": "ASSOC HISTARCHEOLOGIE PERIGORD",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "shap.net",
+      "base": "shap.fr",
+      "orgName": "ASSOC HISTARCHEOLOGIE PERIGORD",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "shap.org",
+      "base": "shap.fr",
+      "orgName": "ASSOC HISTARCHEOLOGIE PERIGORD",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "shop.com",
+      "base": "shop.automsource.com",
+      "orgName": "AUTOMSOURCE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Shop - Shopping designed around you"
+    },
+    {
+      "domain": "shop.net",
+      "base": "shop.automsource.com",
+      "orgName": "AUTOMSOURCE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "shop.org",
+      "base": "shop.automsource.com",
+      "orgName": "AUTOMSOURCE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Ideas shared. Connections made. Retail Transformed. | NRF Nexus 2026"
+    },
+    {
+      "domain": "shpa.fr",
+      "base": "shap.fr",
+      "orgName": "ASSOC HISTARCHEOLOGIE PERIGORD",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "supercoo.fr",
+      "base": "supercoop.fr",
+      "orgName": "SUPERCOOP",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "supercoop.com",
+      "base": "supercoop.fr",
+      "orgName": "SUPERCOOP",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Unlocking the Power of Community: How Supercoop is Revolutionizing the Way We Live"
+    },
+    {
+      "domain": "sustaain.com",
+      "base": "sustaain.org",
+      "orgName": "SUSTAAIN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "sustaain.net",
+      "base": "sustaain.org",
+      "orgName": "SUSTAAIN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "tartas.com",
+      "base": "tartas.fr",
+      "orgName": "TARTAS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "tartas.net",
+      "base": "tartas.fr",
+      "orgName": "TARTAS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "tartas.org",
+      "base": "tartas.fr",
+      "orgName": "TARTAS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "til.fr",
+      "base": "tilh.fr",
+      "orgName": "TILH",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Til Étiquettes"
+    },
+    {
+      "domain": "tilh.com",
+      "base": "tilh.fr",
+      "orgName": "TILH",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Tilh.com is for sale - Premium Domain"
+    },
+    {
+      "domain": "tilh.net",
+      "base": "tilh.fr",
+      "orgName": "TILH",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "How to live a happy life - バッグや財布のことを知るサイト"
+    },
+    {
+      "domain": "ugbc.net",
+      "base": "ugcb.net",
+      "orgName": "UNION DES GRANDS CRUS DE BORDEAUX",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "NPO法人 UGビジネスクラブ"
+    },
+    {
+      "domain": "ugc.net",
+      "base": "ugcb.net",
+      "orgName": "UNION DES GRANDS CRUS DE BORDEAUX",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "ugc.net"
+    },
+    {
+      "domain": "ugcb.com",
+      "base": "ugcb.net",
+      "orgName": "UNION DES GRANDS CRUS DE BORDEAUX",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "uros.fr",
+      "base": "auros.fr",
+      "orgName": "AUROS",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "uros.fr est en vente"
+    },
+    {
+      "domain": "vcit.fr",
+      "base": "bcit.fr",
+      "orgName": "BCIT FORMATION",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "veyra.fr",
+      "base": "veyrac.fr",
+      "orgName": "VEYRAC",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "veyrac.com",
+      "base": "veyrac.fr",
+      "orgName": "VEYRAC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "viciouscircle.com",
+      "base": "viciouscircle.fr",
+      "orgName": "VICIOUS CIRCLE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "The ViciousCircle app collection"
+    },
+    {
+      "domain": "viciouscircle.org",
+      "base": "viciouscircle.fr",
+      "orgName": "VICIOUS CIRCLE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "villenave.com",
+      "base": "villenave.fr",
+      "orgName": "VILLENAVE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "villenave.net",
+      "base": "villenave.fr",
+      "orgName": "VILLENAVE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "visionsoft.com",
+      "base": "visionsoft.tech",
+      "orgName": "VISIONSOFT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Top SAP Migration Solutions | Best CRM Software"
+    },
+    {
+      "domain": "visionsoft.net",
+      "base": "visionsoft.tech",
+      "orgName": "VISIONSOFT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "visionsoft.org",
+      "base": "visionsoft.tech",
+      "orgName": "VISIONSOFT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "vivonne.com",
+      "base": "vivonne.canoe86.org",
+      "orgName": "CANOE KAYAK VIVONNE  LES PAGAYOUS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ycbasque.com",
+      "base": "ycbasque.org",
+      "orgName": "ASSOCIATION SPORTIVE YATCH BASQUE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "zhap.fr",
+      "base": "shap.fr",
+      "orgName": "ASSOC HISTARCHEOLOGIE PERIGORD",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    }
+  ],
+  "alarms": 199,
+  "falsePositives": 199,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 2136,
+    "certificate": 230,
+    "page": 230
+  },
+  "durationMs": 42902
+}

@@ -1,0 +1,1360 @@
+{
+  "offset": 680,
+  "top": 1000,
+  "targets": 40,
+  "variants": 2488,
+  "active": 149,
+  "detections": [],
+  "activeList": [
+    {
+      "domain": "alementterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "alwin.fr",
+      "base": "elwin.fr",
+      "orgName": "ELWIN",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "anlac.com",
+      "base": "fanlac.com",
+      "orgName": "PIERRE FANLAC EDITEUR",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "e-lementterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "tiret",
+      "similarity": 0.941,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "editions-rougerie.fr",
+      "base": "editionsrougerie.fr",
+      "orgName": "ROUGERIE EDITEUR",
+      "kind": "tiret",
+      "similarity": 0.941,
+      "certificate": null,
+      "pageTitle": "Editions Rougerie : Éditeur des bons plans du web"
+    },
+    {
+      "domain": "eelmentterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "transposition",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "eementterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "omission",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "effyproschool.fr",
+      "base": "effy-proschool.fr",
+      "orgName": "EMIL FREY FRANCE ACADEMY",
+      "kind": "omission",
+      "similarity": 0.929,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "egides.com",
+      "base": "egides.org",
+      "orgName": "EGIDES EUROPE ALLIANCE INTERNATIONALE FRANCOPHONE POUR L'EGALITE ET LES DIVERSITES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "eiementterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "el-ementterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "tiret",
+      "similarity": 0.941,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elamentterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elan87.com",
+      "base": "elan87.fr",
+      "orgName": "Communauté de communes Élan Limousin Avenir Nature",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ele-mentterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "tiret",
+      "similarity": 0.941,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "eleemntterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "transposition",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "eleentterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "omission",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elem-entterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "tiret",
+      "similarity": 0.941,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elemantterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "eleme-ntterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "tiret",
+      "similarity": 0.941,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elemehtterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elememtterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elemen-tterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "tiret",
+      "similarity": 0.941,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elemenfterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elemenrterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "element-terresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "tiret",
+      "similarity": 0.941,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementerresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "omission",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementetrresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "transposition",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementferresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementrerresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementt-erresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "tiret",
+      "similarity": 0.941,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementtarresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementte-rresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "tiret",
+      "similarity": 0.941,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementtenresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementter-resail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "tiret",
+      "similarity": 0.941,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementterersail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "transposition",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementteresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "omission",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementternesail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementterr-esail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "tiret",
+      "similarity": 0.941,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementterrasail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementterre-sail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "tiret",
+      "similarity": 0.941,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementterreail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "omission",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementterreasil.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "transposition",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementterres-ail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "tiret",
+      "similarity": 0.941,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementterresa-il.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "tiret",
+      "similarity": 0.941,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementterresael.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementterresai-l.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "tiret",
+      "similarity": 0.941,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementterresai.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "omission",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementterresaii.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementterresait.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementterresal.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "omission",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementterresali.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "transposition",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementterresaol.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementterreseil.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementterresial.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "transposition",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementterresil.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "omission",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementterresoil.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementterrezail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementterrisail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementterrsail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "omission",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementterrseail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "transposition",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementtertesail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementtetresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementtirresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementtreresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "transposition",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elementtrresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "omission",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elemetnterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "transposition",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elemetterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "omission",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elemintterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elemnetterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "transposition",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elemntterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "omission",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elenentterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elimentterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elin.fr",
+      "base": "elwin.fr",
+      "orgName": "ELWIN",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "elmeentterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "transposition",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elmentterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "omission",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "elwin.org",
+      "base": "elwin.fr",
+      "orgName": "ELWIN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "ensac.fr",
+      "base": "gensac.fr",
+      "orgName": "GENSAC",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "etementterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ewin.fr",
+      "base": "elwin.fr",
+      "orgName": "ELWIN",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "excideuil.com",
+      "base": "excideuil.fr",
+      "orgName": "EXCIDEUIL",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "excideuil.net",
+      "base": "excideuil.fr",
+      "orgName": "EXCIDEUIL",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Accueil - Mairie d'Excideuil (Dordogne)"
+    },
+    {
+      "domain": "excideuil.org",
+      "base": "excideuil.fr",
+      "orgName": "EXCIDEUIL",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "eysines.com",
+      "base": "eysines.fr",
+      "orgName": "EYSINES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "falac.com",
+      "base": "fanlac.com",
+      "orgName": "PIERRE FANLAC EDITEUR",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "faleyras.com",
+      "base": "faleyras.fr",
+      "orgName": "FALEYRAS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Circuit de Faleyras |"
+    },
+    {
+      "domain": "fanac.com",
+      "base": "fanlac.com",
+      "orgName": "PIERRE FANLAC EDITEUR",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Welcome to fanac.com"
+    },
+    {
+      "domain": "faniac.com",
+      "base": "fanlac.com",
+      "orgName": "PIERRE FANLAC EDITEUR",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "fanla.com",
+      "base": "fanlac.com",
+      "orgName": "PIERRE FANLAC EDITEUR",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "fanlak.com",
+      "base": "fanlac.com",
+      "orgName": "PIERRE FANLAC EDITEUR",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "fanlak.com"
+    },
+    {
+      "domain": "fanlc.com",
+      "base": "fanlac.com",
+      "orgName": "PIERRE FANLAC EDITEUR",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "fanloc.com",
+      "base": "fanlac.com",
+      "orgName": "PIERRE FANLAC EDITEUR",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "fantac.com",
+      "base": "fanlac.com",
+      "orgName": "PIERRE FANLAC EDITEUR",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "fantac.com&nbsp;-&nbsp;Ce site web est à vendre !&nbsp;-&nbsp;Ressources et information concernant fantac Resources and Information."
+    },
+    {
+      "domain": "felletin.com",
+      "base": "felletin.fr",
+      "orgName": "FELLETIN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "felletin.net",
+      "base": "felletin.fr",
+      "orgName": "FELLETIN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "felletin.org",
+      "base": "felletin.fr",
+      "orgName": "FELLETIN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "felletin.org"
+    },
+    {
+      "domain": "flaya.fr",
+      "base": "flayat.fr",
+      "orgName": "FLAYAT",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "flayat.com",
+      "base": "flayat.fr",
+      "orgName": "FLAYAT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "floirac.com",
+      "base": "floirac.fr",
+      "orgName": "FLOIRAC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "florac.fr",
+      "base": "floirac.fr",
+      "orgName": "FLOIRAC",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "fondation-maif.com",
+      "base": "fondation-maif.fr",
+      "orgName": "FONDATION MAIF",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "francegenweb.com",
+      "base": "francegenweb.org",
+      "orgName": "FRANCEGENWEB",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "FranceGenWeb - Le portail de la g&#233;n&#233;alogie en France, fait par et pour des g&#233;n&#233;alogistes amateurs"
+    },
+    {
+      "domain": "francegenweb.net",
+      "base": "francegenweb.org",
+      "orgName": "FRANCEGENWEB",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "FranceGenWeb - Le portail de la g&#233;n&#233;alogie en France, fait par et pour des g&#233;n&#233;alogistes amateurs"
+    },
+    {
+      "domain": "fromental.com",
+      "base": "fromental.fr",
+      "orgName": "FROMENTAL",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Bespoke Wallcoverings and Luxury Wallpaper | Fromental"
+    },
+    {
+      "domain": "fromental.net",
+      "base": "fromental.fr",
+      "orgName": "FROMENTAL",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "fromentel.fr",
+      "base": "fromental.fr",
+      "orgName": "FROMENTAL",
+      "kind": "substitution",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "frometal.fr",
+      "base": "fromental.fr",
+      "orgName": "FROMENTAL",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "fumel-valleedulot.com",
+      "base": "fumelvalleedulot.com",
+      "orgName": "Communauté de communes Fumel Vallée du Lot",
+      "kind": "tiret",
+      "similarity": 0.941,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "gardanne.fr",
+      "base": "gardonne.fr",
+      "orgName": "GARDONNE",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": "Comparateur de services, annuaire, panier gourmand et actualit&eacute;s de Gardanne"
+    },
+    {
+      "domain": "gardonne.com",
+      "base": "gardonne.fr",
+      "orgName": "GARDONNE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "gardonne.com for sale | Spaceship.com"
+    },
+    {
+      "domain": "garonne.fr",
+      "base": "gardonne.fr",
+      "orgName": "GARDONNE",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": "garonne.fr"
+    },
+    {
+      "domain": "gastes.com",
+      "base": "gastes.fr",
+      "orgName": "GASTES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Herzlich Willkommen auf Gastes.com"
+    },
+    {
+      "domain": "gates.fr",
+      "base": "gastes.fr",
+      "orgName": "GASTES",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "gazeco.fr",
+      "base": "gazteco.fr",
+      "orgName": "GAZTE CO",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "gazelletech.com",
+      "base": "gazelle-tech.com",
+      "orgName": "GAZELLE TECH",
+      "kind": "omission",
+      "similarity": 0.917,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "gazetco.fr",
+      "base": "gazteco.fr",
+      "orgName": "GAZTE CO",
+      "kind": "transposition",
+      "similarity": 0.714,
+      "certificate": null,
+      "pageTitle": "Gaz &amp; Co - Chauffagiste | Gazetco chauffagiste"
+    },
+    {
+      "domain": "genac.fr",
+      "base": "gensac.fr",
+      "orgName": "GENSAC",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "gencay.com",
+      "base": "gencay.fr",
+      "orgName": "GENCAY",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Gençay Kuyumculuk : #güzellikGENindevar"
+    },
+    {
+      "domain": "gencay.net",
+      "base": "gencay.fr",
+      "orgName": "GENCAY",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "gencey.fr",
+      "base": "gencay.fr",
+      "orgName": "GENCAY",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "SARL DANIEL GENCEY — Plombier chauffagiste à Plouider"
+    },
+    {
+      "domain": "gency.fr",
+      "base": "gencay.fr",
+      "orgName": "GENCAY",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Site en construction - gency.fr"
+    },
+    {
+      "domain": "gensa.fr",
+      "base": "gensac.fr",
+      "orgName": "GENSAC",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "gensac.com",
+      "base": "gensac.fr",
+      "orgName": "GENSAC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Château de Gensac — Vins &amp; Armagnac | Domaine viticole dans le Gers"
+    },
+    {
+      "domain": "gensac.net",
+      "base": "gensac.fr",
+      "orgName": "GENSAC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Gensac : le village de Gensac-82"
+    },
+    {
+      "domain": "gestes.fr",
+      "base": "gastes.fr",
+      "orgName": "GASTES",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Solutions pour examens et concours"
+    },
+    {
+      "domain": "gides.org",
+      "base": "egides.org",
+      "orgName": "EGIDES EUROPE ALLIANCE INTERNATIONALE FRANCOPHONE POUR L'EGALITE ET LES DIVERSITES",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "gouzon23.net",
+      "base": "gouzon23.com",
+      "orgName": "GOUZON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "gradignan.com",
+      "base": "gradignan.fr",
+      "orgName": "Commune de Gradignan",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "gradignan.com for sale"
+    },
+    {
+      "domain": "gradignan.org",
+      "base": "gradignan.fr",
+      "orgName": "Commune de Gradignan",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ilementterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "substitution",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "layat.fr",
+      "base": "flayat.fr",
+      "orgName": "FLAYAT",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "www.layat.fr - Nom de domaine à vendre"
+    },
+    {
+      "domain": "leementterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "transposition",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lementterresail.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "omission",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lewin.fr",
+      "base": "elwin.fr",
+      "orgName": "ELWIN",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "xn--eementterresail-joo.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "homoglyphe",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "xn--eleentterresail-erm.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "homoglyphe",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "xn--elementerresail-7tm.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "homoglyphe",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "xn--elementerresail-8tm.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "homoglyphe",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "xn--elementteresail-gnm.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "homoglyphe",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "xn--elementteresail-hnm.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "homoglyphe",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "xn--elementterreail-22m.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "homoglyphe",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "xn--elementterresai-xoo.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "homoglyphe",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "xn--elementterresal-l3m.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "homoglyphe",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "xn--elementterresil-6lm.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "homoglyphe",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "xn--elementterrsail-fom.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "homoglyphe",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "xn--elementtrresail-com.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "homoglyphe",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "xn--elemetterresail-tsm.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "homoglyphe",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "xn--elemntterresail-7nm.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "homoglyphe",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "xn--elmentterresail-5nm.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "homoglyphe",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "xn--lementterresail-3nm.wixsite.com",
+      "base": "elementterresail.wixsite.com",
+      "orgName": "ELEMENT-TERRE SAIL",
+      "kind": "homoglyphe",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": null
+    }
+  ],
+  "alarms": 147,
+  "falsePositives": 147,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 2488,
+    "certificate": 149,
+    "page": 149
+  },
+  "durationMs": 22696
+}
