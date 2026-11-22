@@ -117,6 +117,13 @@ export function lastProductionAt(source: Source): string | null {
 
 const SEPT_JOURS_MS = 7 * 24 * 3600 * 1000;
 
+/**
+ * Taille d'une page du registre. 2 500 lignes montées d'un bloc coûtaient le
+ * premier rendu ; on découpe après le filtre et le tri, donc les compteurs
+ * restent ceux du résultat filtré, pas ceux de la page.
+ */
+export const PAGE_SIZE = 50;
+
 /** Rouge au-delà de 7 jours sans production ; « jamais » est rouge aussi. */
 export function isSourceRouge(source: Source, now = Date.now()): boolean {
   const at = timestamp(lastProductionAt(source));
@@ -227,6 +234,7 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
   // plus longtemps remonte en tête, « jamais produit » en tout premier.
   const [sortKey, setSortKey] = useState<SortKey>("lastProduction");
   const [sortDir, setSortDir] = useState<SortDir>("asc");
+  const [page, setPage] = useState(1);
 
   const rows = useMemo(() => {
     const needle = query.trim().toLocaleLowerCase("fr");
@@ -235,6 +243,15 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
       : sources;
     return [...filtered].sort((a, b) => compareSources(a, b, sortKey, sortDir));
   }, [sources, query, sortKey, sortDir]);
+
+  // La page est dérivée, jamais assainie par un effet : si un filtre réduit la
+  // liste sous la page courante, on retombe simplement sur la dernière page
+  // existante au lieu de rendre un tableau vide.
+  const pageCount = Math.max(1, Math.ceil(rows.length / PAGE_SIZE));
+  const currentPage = Math.min(page, pageCount);
+  const firstIndex = (currentPage - 1) * PAGE_SIZE;
+  const pageRows = rows.slice(firstIndex, firstIndex + PAGE_SIZE);
+  const lastIndex = Math.min(firstIndex + PAGE_SIZE, rows.length);
 
   const counts = useMemo(() => {
     const c: Record<SourceStatus, number> = { ok: 0, error: 0, pending: 0 };
@@ -253,6 +270,7 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
   }, [sources]);
 
   function toggleSort(key: SortKey) {
+    setPage(1);
     if (sortKey === key) {
       setSortDir((dir) => (dir === "asc" ? "desc" : "asc"));
       return;
@@ -300,11 +318,16 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
             type="search"
             value={query}
             placeholder="nom de source"
-            onChange={(event) => setQuery(event.target.value)}
+            onChange={(event) => {
+              setQuery(event.target.value);
+              setPage(1);
+            }}
           />
         </label>
-        <span className="sources-view__count">
-          {rows.length} affichée{rows.length > 1 ? "s" : ""}
+        <span className="sources-view__count" aria-live="polite">
+          {rows.length === 0
+            ? "aucune ligne"
+            : `${formatNumber(firstIndex + 1)}–${formatNumber(lastIndex)} sur ${formatNumber(rows.length)}`}
         </span>
       </div>
 
@@ -350,7 +373,7 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
             </tr>
           </thead>
           <tbody>
-            {rows.map((source) => {
+            {pageRows.map((source) => {
               const status = sourceStatus(source);
               const production = lastProductionAt(source);
               const rouge = isSourceRouge(source);
@@ -455,7 +478,7 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
                         ? "aucune source déclarée"
                         : "aucune source ne correspond à la recherche"}
                       actionLabel={onRetry ? "Recharger les sources" : "Effacer la recherche"}
-                      onAction={onRetry ?? (() => setQuery(""))}
+                      onAction={onRetry ?? (() => { setQuery(""); setPage(1); })}
                     />
                   )}
                 </td>
@@ -464,6 +487,50 @@ export default function SourcesView({ sources, loading, error, onRetry }: Source
           </tbody>
         </table>
       </div>
+
+      {pageCount > 1 && (
+        <nav className="sources-view__pager" aria-label="Pagination du registre des sources">
+          <button
+            type="button"
+            className="sources-view__pager-btn"
+            onClick={() => setPage(1)}
+            disabled={currentPage === 1}
+            aria-label="Première page"
+          >
+            «
+          </button>
+          <button
+            type="button"
+            className="sources-view__pager-btn"
+            onClick={() => setPage(currentPage - 1)}
+            disabled={currentPage === 1}
+            aria-label="Page précédente"
+          >
+            ‹ précédente
+          </button>
+          <span className="sources-view__pager-state" aria-live="polite">
+            page {currentPage} sur {pageCount}
+          </span>
+          <button
+            type="button"
+            className="sources-view__pager-btn"
+            onClick={() => setPage(currentPage + 1)}
+            disabled={currentPage === pageCount}
+            aria-label="Page suivante"
+          >
+            suivante ›
+          </button>
+          <button
+            type="button"
+            className="sources-view__pager-btn"
+            onClick={() => setPage(pageCount)}
+            disabled={currentPage === pageCount}
+            aria-label="Dernière page"
+          >
+            »
+          </button>
+        </nav>
+      )}
     </section>
   );
 }
