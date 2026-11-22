@@ -1,20 +1,32 @@
 /**
- * Closes the remaining Nouvelle-Aquitaine department coverage gaps.
+ * Closes Nouvelle-Aquitaine department coverage gaps.
  *
  * A verified NA claim, already attached to an organization of the
- * referential, becomes a public third-party-claim event for the two
- * departments that still have no event. Only organization ids, departments,
- * group names and public evidence URLs leave the database: no victim name,
- * no claim description, no personal data.
+ * referential, becomes a public third-party-claim event for a department
+ * that still has no event. Only organization ids, departments, group names
+ * and public evidence URLs leave the database: no victim name, no claim
+ * description, no personal data.
+ *
+ * Two promotion slices share this machinery: the original gaps (19, 23)
+ * and the remaining gaps measured on 2026-11-22 (16, 40, 64, 79).
  */
 import { z } from "zod";
 import { query } from "../db.js";
 import { NA_DEPARTMENTS, isNaDepartment } from "../technical/catalog.js";
 
-/** The two NA departments with no event at the start of this slice. */
+/** The two NA departments covered by the original promotion slice. */
 export const GAP_DEPARTMENTS = ["19", "23"] as const;
+/** The four NA departments still at zero when the next slice was measured. */
+export const REMAINING_GAP_DEPARTMENTS = ["16", "40", "64", "79"] as const;
+const PROMOTION_DEPARTMENTS: readonly string[] = [
+  ...GAP_DEPARTMENTS,
+  ...REMAINING_GAP_DEPARTMENTS,
+];
+
 export const GAP_DEDUP_PREFIX = "na-gap:";
+export const REMAINING_DEDUP_PREFIX = "na-remaining-gap:";
 export const GAP_ADMISSION_RULE = "na_gap_claim";
+export const REMAINING_ADMISSION_RULE = "na_remaining_gap_claim";
 
 const publicHttpsUrl = z.string().url().refine((value) => {
   try {
@@ -29,7 +41,7 @@ export const GapClaimSchema = z.strictObject({
   id: z.coerce.number().int().positive(),
   orgId: z.coerce.number().int().positive(),
   department: z.string().refine((value) =>
-    (GAP_DEPARTMENTS as readonly string[]).includes(value), "department is not a coverage gap"),
+    PROMOTION_DEPARTMENTS.includes(value), "department is not a coverage gap"),
   groupName: z.string().min(1).max(120),
   publishedAt: z.string().refine((value) => !Number.isNaN(Date.parse(value)), "invalid date"),
   evidenceUrl: publicHttpsUrl,
@@ -69,10 +81,24 @@ export function parseGapClaim(raw: unknown): GapClaim | null {
  * Builds an aggregate event from a verified claim. The title never contains an
  * organization or victim name, and no claim body is copied into summary or
  * evidence: the original claim stays the only place where a body is readable.
+ * Promotion options keep each slice idempotent and distinguishable in audit.
  */
-export function buildGapEvent(claim: GapClaim, sourceId: string): GapEvent {
+export type GapEventOptions = {
+  dedupPrefix?: string;
+  admissionRule?: string;
+  regionalMotif?: string;
+};
+
+export function buildGapEvent(
+  claim: GapClaim,
+  sourceId: string,
+  options: GapEventOptions = {},
+): GapEvent {
+  const dedupPrefix = options.dedupPrefix ?? GAP_DEDUP_PREFIX;
+  const admissionRule = options.admissionRule ?? GAP_ADMISSION_RULE;
+  const regionalMotif = options.regionalMotif ?? "na_department_gap";
   return {
-    dedupKey: `${GAP_DEDUP_PREFIX}${claim.id}`,
+    dedupKey: `${dedupPrefix}${claim.id}`,
     family: "ransomware",
     assertionType: "third_party_claim",
     title: `Third-party ransomware claim referencing a Nouvelle-Aquitaine organization (department ${claim.department})`,
@@ -89,15 +115,15 @@ export function buildGapEvent(claim: GapClaim, sourceId: string): GapEvent {
       group: claim.groupName,
       claimed_at: new Date(claim.publishedAt).toISOString(),
       evidence_url: claim.evidenceUrl,
-      via: GAP_ADMISSION_RULE,
+      via: admissionRule,
     },
     geoType: "claimed_origin",
     orgId: claim.orgId,
     regional: true,
-    regionalMotif: "na_department_gap",
+    regionalMotif,
     tlp: "CLEAR",
     tlpSource: claim.source,
-    admissionRule: GAP_ADMISSION_RULE,
+    admissionRule,
   };
 }
 
@@ -165,11 +191,14 @@ async function resolveSourceId(claim: GapClaim): Promise<string | null> {
   return null;
 }
 
-/**
- * Inserts one event per still-unpromoted gap claim. Idempotent: `dedup_key`
- * carries the claim id, so a second run inserts nothing.
- */
-export async function fillNaDepartmentGaps(): Promise<{
+type PromotionConfig = {
+  departments: readonly string[];
+  dedupPrefix: string;
+  admissionRule: string;
+  regionalMotif: string;
+};
+
+async function promoteClaimsFor(config: PromotionConfig): Promise<{
   scanned: number;
   refused: number;
   inserted: number;
@@ -183,7 +212,7 @@ export async function fillNaDepartmentGaps(): Promise<{
     published_at: Date | string;
     evidenceUrl: string;
     source: string;
-  }>(SQL.gapClaims, [GAP_DEPARTMENTS, GAP_DEDUP_PREFIX]);
+  }>(SQL.gapClaims, [config.departments, config.dedupPrefix]);
 
   let refused = 0;
   let inserted = 0;
@@ -207,7 +236,7 @@ export async function fillNaDepartmentGaps(): Promise<{
       refused += 1;
       continue;
     }
-    const event = buildGapEvent(claim, sourceId);
+    const event = buildGapEvent(claim, sourceId, config);
     const result = await query<{ inserted: boolean }>(
       `INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at, severity,
                           confidence, source_id, source_url, evidence, geo_type, org_id, tlp,
@@ -226,4 +255,34 @@ export async function fillNaDepartmentGaps(): Promise<{
     else alreadyPresent += 1;
   }
   return { scanned: rows.rows.length, refused, inserted, alreadyPresent };
+}
+
+/** Inserts one event per still-unpromoted claim in the original gap departments. */
+export async function fillNaDepartmentGaps(): Promise<{
+  scanned: number;
+  refused: number;
+  inserted: number;
+  alreadyPresent: number;
+}> {
+  return promoteClaimsFor({
+    departments: GAP_DEPARTMENTS,
+    dedupPrefix: GAP_DEDUP_PREFIX,
+    admissionRule: GAP_ADMISSION_RULE,
+    regionalMotif: "na_department_gap",
+  });
+}
+
+/** Promotes verified claims for the four departments still at zero on 2026-11-22. */
+export async function fillRemainingNaGaps(): Promise<{
+  scanned: number;
+  refused: number;
+  inserted: number;
+  alreadyPresent: number;
+}> {
+  return promoteClaimsFor({
+    departments: REMAINING_GAP_DEPARTMENTS,
+    dedupPrefix: REMAINING_DEDUP_PREFIX,
+    admissionRule: REMAINING_ADMISSION_RULE,
+    regionalMotif: "na_remaining_gap",
+  });
 }
