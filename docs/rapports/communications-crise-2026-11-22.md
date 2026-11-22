@@ -44,3 +44,4 @@ Le délai est le nombre de jours UTC écoulés entre la date de l'incident et la
 DATABASE_URL=postgres://radar:radar@localhost:5433/radar apps/api/node_modules/.bin/tsx scripts/measure-crisis-communications.mts
 DATABASE_URL=postgres://radar:radar@localhost:5433/radar apps/api/node_modules/.bin/tsx scripts/verify-crisis-communications-objective.mts
 ```
+OBJECTIF : atteint — 17 / 17
