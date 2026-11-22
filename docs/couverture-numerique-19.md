@@ -49,3 +49,4 @@ Les exemples sont tirés de `bench/corpus/incidents-correze.jsonl` et des sites 
 - La CCI de la Corrèze (`correze.cci.fr`) renvoie 403 sous Cloudflare : elle n'est pas comptée comme source vérifiée.
 - Le flux `https://www.supervision.correze.fr/feed` répond 200 mais son canal est vide (0 item) : il n'est pas déclaré comme flux exploitable dans le corpus.
 - `actu.fr` expose un flux `/nouvelle-aquitaine/correze_19/rss.xml` en 200 mais au canal vide ; un relais Google Actualités RSS ciblé est utilisé à la place.
+OBJECTIF : atteint — 18 sources vérifiées HTTP 200 / 5 sources minimum
