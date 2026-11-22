@@ -1,0 +1,128 @@
+{
+  "objective": "test whether RSSI recruitment precedes third-party claims over twelve months in Nouvelle-Aquitaine",
+  "command": "DATABASE_URL=$DATABASE_URL apps/api/node_modules/.bin/tsx scripts/measure-recruitment-claim.mts --json=bench/results/recruitment-claim-12m-2026-11-22.json --check",
+  "base": {
+    "organisations": 1673151,
+    "sources": 312,
+    "events": 26259,
+    "naOrganisations": 1671907
+  },
+  "dataset": {
+    "path": "bench/corpus/rssi-recruitment-na.json",
+    "collectedAt": "2026-11-22T03:37:18.247Z",
+    "source": {
+      "name": "France Travail public job search",
+      "url": "https://candidat.francetravail.fr/offres/recherche",
+      "id": "france-travail-public-search",
+      "cost": "free"
+    },
+    "offersInDataset": 2
+  },
+  "asOf": "2026-11-21 15:53:03+00",
+  "window": [
+    "2025-12",
+    "2026-01",
+    "2026-02",
+    "2026-03",
+    "2026-04",
+    "2026-05",
+    "2026-06",
+    "2026-07",
+    "2026-08",
+    "2026-09",
+    "2026-10",
+    "2026-11"
+  ],
+  "counts": {
+    "claims": 21,
+    "victimOrganisations": 21,
+    "recruitmentOffers": 1,
+    "recruitingOrganisations": 1,
+    "exposedVictims": 0,
+    "population": 1671907
+  },
+  "table": {
+    "exposedCases": 0,
+    "exposedControls": 1,
+    "unexposedCases": 21,
+    "unexposedControls": 1671885
+  },
+  "statistics": {
+    "oddsRatio": 0,
+    "pValue": 1,
+    "verdict": "no_positive_association"
+  },
+  "monthly": [
+    {
+      "month": "2025-12",
+      "claims": 0,
+      "offers": 0
+    },
+    {
+      "month": "2026-01",
+      "claims": 0,
+      "offers": 0
+    },
+    {
+      "month": "2026-02",
+      "claims": 0,
+      "offers": 0
+    },
+    {
+      "month": "2026-03",
+      "claims": 0,
+      "offers": 0
+    },
+    {
+      "month": "2026-04",
+      "claims": 0,
+      "offers": 0
+    },
+    {
+      "month": "2026-05",
+      "claims": 0,
+      "offers": 0
+    },
+    {
+      "month": "2026-06",
+      "claims": 0,
+      "offers": 0
+    },
+    {
+      "month": "2026-07",
+      "claims": 0,
+      "offers": 0
+    },
+    {
+      "month": "2026-08",
+      "claims": 0,
+      "offers": 0
+    },
+    {
+      "month": "2026-09",
+      "claims": 0,
+      "offers": 0
+    },
+    {
+      "month": "2026-10",
+      "claims": 0,
+      "offers": 0
+    },
+    {
+      "month": "2026-11",
+      "claims": 21,
+      "offers": 1
+    }
+  ],
+  "checks": {
+    "naOnly": true,
+    "windowHas12Months": true,
+    "thirdPartyClaimsOnly": true,
+    "offersDatedInWindow": true,
+    "noPersonalDataFields": true,
+    "hasClaims": true,
+    "hasRecruitmentOffers": true,
+    "baseMatchesRealState": true
+  },
+  "fingerprint": "426a1b11fe6c3615"
+}
