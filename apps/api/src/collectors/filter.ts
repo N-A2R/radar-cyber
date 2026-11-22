@@ -14,6 +14,7 @@
  */
 import { isIP } from "node:net";
 import { ingestQuery } from "../db.js";
+import { incidentAdmissionVerdict } from "../multilingualIncidents/index.js";
 
 /** Motif du verdict : les quatre premiers gardent, les deux derniers rejettent. */
 export type IndicatorReason =
@@ -413,6 +414,12 @@ export function languageVerdict(
 	summary: string | null | undefined,
 	allowed: ReadonlySet<Language> = configuredLanguages(),
 ): LanguageVerdict {
-	const detection = detectLanguage(`${title ?? ""} ${summary ?? ""}`);
-	return { ...detection, keep: allowed.has(detection.language) };
+	const verdict = incidentAdmissionVerdict(title, summary, allowed);
+	const legacy = detectLanguage(`${title ?? ""} ${summary ?? ""}`);
+	return {
+		language: verdict.language,
+		scores: legacy.scores,
+		confidence: verdict.confidence,
+		keep: verdict.keep,
+	};
 }
