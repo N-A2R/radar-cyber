@@ -1,0 +1,775 @@
+{
+  "offset": 160,
+  "top": 1000,
+  "targets": 40,
+  "variants": 3237,
+  "active": 84,
+  "detections": [],
+  "activeList": [
+    {
+      "domain": "afyat.com",
+      "base": "fayat.com",
+      "orgName": "FAYAT",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ayat.com",
+      "base": "fayat.com",
+      "orgName": "FAYAT",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "chateau-pavie.com",
+      "base": "chateaupavie.com",
+      "orgName": "CHATEAU PAVIE",
+      "kind": "tiret",
+      "similarity": 0.923,
+      "certificate": null,
+      "pageTitle": "Château Pavie, 1er Grand Cru Classé « A » Saint-Émilion"
+    },
+    {
+      "domain": "collegestjoseph.com",
+      "base": "collegestjoseph.fr",
+      "orgName": "OGEC DU COLLEGE PRIVE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "collegestjoseph.com for sale — descriptive .com domain"
+    },
+    {
+      "domain": "collegestjoseph.net",
+      "base": "collegestjoseph.fr",
+      "orgName": "OGEC DU COLLEGE PRIVE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "compagnie-o.com",
+      "base": "compagnie-co.com",
+      "orgName": "COMPAGNIE & CO",
+      "kind": "omission",
+      "similarity": 0.917,
+      "certificate": null,
+      "pageTitle": "Compagnie Ô"
+    },
+    {
+      "domain": "coordination-rurale.fr",
+      "base": "coordinationrurale.fr",
+      "orgName": "COORDINATION RURALE - UNION NATIONALE",
+      "kind": "tiret",
+      "similarity": 0.947,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "eosens.com",
+      "base": "exosens.com",
+      "orgName": "EXOSENS",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "eoxsens.com",
+      "base": "exosens.com",
+      "orgName": "EXOSENS",
+      "kind": "transposition",
+      "similarity": 0.714,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "euroant.com",
+      "base": "euronat.com",
+      "orgName": "EURONAT",
+      "kind": "transposition",
+      "similarity": 0.714,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "euroat.com",
+      "base": "euronat.com",
+      "orgName": "EURONAT",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "eurohat.com",
+      "base": "euronat.com",
+      "orgName": "EURONAT",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "euromat.com",
+      "base": "euronat.com",
+      "orgName": "EURONAT",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "eurona.com",
+      "base": "euronat.com",
+      "orgName": "EURONAT",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "euronat.net",
+      "base": "euronat.com",
+      "orgName": "EURONAT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "euronet.com",
+      "base": "euronat.com",
+      "orgName": "EURONAT",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Global leader in payments processing and cross-border transactions"
+    },
+    {
+      "domain": "euronot.com",
+      "base": "euronat.com",
+      "orgName": "EURONAT",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "europlasma.net",
+      "base": "europlasma.com",
+      "orgName": "EUROPLASMA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Europlasma | Vacuum plasma coating &amp; nanocoating equipment, Belgium"
+    },
+    {
+      "domain": "eve.co",
+      "base": "feve.co",
+      "orgName": "FERMES EN VIE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Eve Financial | Multi-Lender Financing Platform"
+    },
+    {
+      "domain": "exasens.com",
+      "base": "exosens.com",
+      "orgName": "EXOSENS",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "exosen.com",
+      "base": "exosens.com",
+      "orgName": "EXOSENS",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "exosen.com for sale"
+    },
+    {
+      "domain": "exosens.net",
+      "base": "exosens.com",
+      "orgName": "EXOSENS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "exosens.org",
+      "base": "exosens.com",
+      "orgName": "EXOSENS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "exsens.com",
+      "base": "exosens.com",
+      "orgName": "EXOSENS",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Timeplan – Schemaläggning och Tidrapportering"
+    },
+    {
+      "domain": "faat.com",
+      "base": "fayat.com",
+      "orgName": "FAYAT",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "fave.co",
+      "base": "feve.co",
+      "orgName": "FERMES EN VIE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Affiliate success depends on authenticity - Skimlinks"
+    },
+    {
+      "domain": "fayaf.com",
+      "base": "fayat.com",
+      "orgName": "FAYAT",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "fayar.com",
+      "base": "fayat.com",
+      "orgName": "FAYAT",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Fayetteville Arkansas - Online"
+    },
+    {
+      "domain": "fayat.net",
+      "base": "fayat.com",
+      "orgName": "FAYAT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "fayat.net&nbsp;-&nbsp;Ce site web est à vendre !&nbsp;-&nbsp;Ressources et information concernant fayat Resources and Information."
+    },
+    {
+      "domain": "fayet.com",
+      "base": "fayat.com",
+      "orgName": "FAYAT",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "fayot.com",
+      "base": "fayat.com",
+      "orgName": "FAYAT",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Mark Fayot / visual artist"
+    },
+    {
+      "domain": "fayt.com",
+      "base": "fayat.com",
+      "orgName": "FAYAT",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "febe.co",
+      "base": "feve.co",
+      "orgName": "FERMES EN VIE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "fee.co",
+      "base": "feve.co",
+      "orgName": "FERMES EN VIE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "fev.co",
+      "base": "feve.co",
+      "orgName": "FERMES EN VIE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "feva.co",
+      "base": "feve.co",
+      "orgName": "FERMES EN VIE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "feve.net",
+      "base": "feve.co",
+      "orgName": "FERMES EN VIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "アトリエフェーヴは、中目黒にある美味しいものを作るのも食べるのも好きな人が集う少人数制のお菓子・パン教室です"
+    },
+    {
+      "domain": "feve.org",
+      "base": "feve.co",
+      "orgName": "FERMES EN VIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Homepage - FEVE"
+    },
+    {
+      "domain": "five.co",
+      "base": "feve.co",
+      "orgName": "FERMES EN VIE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "AI-Powered Application Development | Five"
+    },
+    {
+      "domain": "foyat.com",
+      "base": "fayat.com",
+      "orgName": "FAYAT",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Foyat Ethiopia: Buy &amp; Sell Cars, Homes &amp; More"
+    },
+    {
+      "domain": "fyaat.com",
+      "base": "fayat.com",
+      "orgName": "FAYAT",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "fyat.com",
+      "base": "fayat.com",
+      "orgName": "FAYAT",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "gaev.com",
+      "base": "geev.com",
+      "orgName": "GEEV",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "geav.com",
+      "base": "geev.com",
+      "orgName": "GEEV",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "gee.com",
+      "base": "geev.com",
+      "orgName": "GEEV",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "geev.org",
+      "base": "geev.com",
+      "orgName": "GEEV",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "geiv.com",
+      "base": "geev.com",
+      "orgName": "GEEV",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "gev.com",
+      "base": "geev.com",
+      "orgName": "GEEV",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Gev.com for sale | Spaceship.com"
+    },
+    {
+      "domain": "geve.com",
+      "base": "geev.com",
+      "orgName": "GEEV",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "geve.com for sale"
+    },
+    {
+      "domain": "giev.com",
+      "base": "geev.com",
+      "orgName": "GEEV",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "giev.com&nbsp;-&nbsp;Ce site web est à vendre !&nbsp;-&nbsp;Ressources et information concernant giev Resources and Information."
+    },
+    {
+      "domain": "immerion.fr",
+      "base": "immersion.fr",
+      "orgName": "IMMERSION",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "immersio.fr",
+      "base": "immersion.fr",
+      "orgName": "IMMERSION",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "immersion.com",
+      "base": "immersion.fr",
+      "orgName": "IMMERSION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Home Page - Immersion - Haptic Technology"
+    },
+    {
+      "domain": "immersion.net",
+      "base": "immersion.fr",
+      "orgName": "IMMERSION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "immersion.org",
+      "base": "immersion.fr",
+      "orgName": "IMMERSION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Domain Registered at Safenames"
+    },
+    {
+      "domain": "immerson.fr",
+      "base": "immersion.fr",
+      "orgName": "IMMERSION",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": "WordPress"
+    },
+    {
+      "domain": "inflexss.com",
+      "base": "inflexsys.com",
+      "orgName": "INFLEXSYS",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "inflexys.com",
+      "base": "inflexsys.com",
+      "orgName": "INFLEXSYS",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": "Inflexys"
+    },
+    {
+      "domain": "inmersion.fr",
+      "base": "immersion.fr",
+      "orgName": "IMMERSION",
+      "kind": "substitution",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "isea.fr",
+      "base": "lisea.fr",
+      "orgName": "LISEA",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "joueclub.com",
+      "base": "joueclub.fr",
+      "orgName": "EPSE JOUECLUB ENTENTE DES PROFESSIONNELS SPECIALISTES DE L'ENFANT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "JouéClub | Spécialiste des jeux et jouets pour les enfants et adultes"
+    },
+    {
+      "domain": "joueclub.net",
+      "base": "joueclub.fr",
+      "orgName": "EPSE JOUECLUB ENTENTE DES PROFESSIONNELS SPECIALISTES DE L'ENFANT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "JouéClub | Spécialiste des jeux et jouets pour les enfants et adultes"
+    },
+    {
+      "domain": "joueclub.org",
+      "base": "joueclub.fr",
+      "orgName": "EPSE JOUECLUB ENTENTE DES PROFESSIONNELS SPECIALISTES DE L'ENFANT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "JouéClub | Spécialiste des jeux et jouets pour les enfants et adultes"
+    },
+    {
+      "domain": "jouiclub.fr",
+      "base": "joueclub.fr",
+      "orgName": "EPSE JOUECLUB ENTENTE DES PROFESSIONNELS SPECIALISTES DE L'ENFANT",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": "JouéClub | Spécialiste des jeux et jouets pour les enfants et adultes"
+    },
+    {
+      "domain": "lafonrochet.com",
+      "base": "lafon-rochet.com",
+      "orgName": "CHATEAU LAFON ROCHET",
+      "kind": "omission",
+      "similarity": 0.917,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "learnlib.com",
+      "base": "learnylib.com",
+      "orgName": "LEARNYLIB",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lesauveur.com",
+      "base": "lesauveur.org",
+      "orgName": "OGEC ECOLE DU SAUVEUR",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lesbateauxbordelais.net",
+      "base": "lesbateauxbordelais.com",
+      "orgName": "BORDEAUX CROISIERE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lesbateauxbordelais.org",
+      "base": "lesbateauxbordelais.com",
+      "orgName": "BORDEAUX CROISIERE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lesea.fr",
+      "base": "lisea.fr",
+      "orgName": "LISEA",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "liea.fr",
+      "base": "lisea.fr",
+      "orgName": "LISEA",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Liéa"
+    },
+    {
+      "domain": "liesa.fr",
+      "base": "lisea.fr",
+      "orgName": "LISEA",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lisa.fr",
+      "base": "lisea.fr",
+      "orgName": "LISEA",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "LISA - Logiciel WMS Logitrack : Gestion d'entrepôt & optimisation supply chain"
+    },
+    {
+      "domain": "lisae.fr",
+      "base": "lisea.fr",
+      "orgName": "LISEA",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": "lisae.fr est en vente"
+    },
+    {
+      "domain": "lise.fr",
+      "base": "lisea.fr",
+      "orgName": "LISEA",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Lise — lise.fr — Accueil"
+    },
+    {
+      "domain": "lisea.org",
+      "base": "lisea.fr",
+      "orgName": "LISEA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "LISEA — Long Island STEM &amp; Entrepreneurship Academy"
+    },
+    {
+      "domain": "lisee.fr",
+      "base": "lisea.fr",
+      "orgName": "LISEA",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "liseo.fr",
+      "base": "lisea.fr",
+      "orgName": "LISEA",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lisia.fr",
+      "base": "lisea.fr",
+      "orgName": "LISEA",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "lisia.fr est en vente"
+    },
+    {
+      "domain": "lizea.fr",
+      "base": "lisea.fr",
+      "orgName": "LISEA",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Site en construction"
+    },
+    {
+      "domain": "qeev.com",
+      "base": "geev.com",
+      "orgName": "GEEV",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "tayat.com",
+      "base": "fayat.com",
+      "orgName": "FAYAT",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "tisea.fr",
+      "base": "lisea.fr",
+      "orgName": "LISEA",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Tiséa : Société de conseils en ingénierie et consultant opérationnel"
+    },
+    {
+      "domain": "uronat.com",
+      "base": "euronat.com",
+      "orgName": "EURONAT",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "URONAT produits naturels - Site Officiel"
+    }
+  ],
+  "alarms": 63,
+  "falsePositives": 63,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 3237,
+    "certificate": 84,
+    "page": 84
+  },
+  "durationMs": 34200
+}

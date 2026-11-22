@@ -12,7 +12,7 @@ import {
   type DomainProbe,
   type ScanTarget,
 } from "../src/detect/typosquat-top.js";
-import type { TyposquatFinding } from "../src/detect/typosquat.js";
+import { genererVariantes, variantesTld, type Variant } from "../src/detect/typosquat.js";
 
 const NOW = new Date("2026-11-22T12:00:00Z");
 const TARGET: ScanTarget = { rank: 1, orgId: 42, orgName: "Universite de Poitiers", domain: "univ-poitiers.fr", dept: "86", effectif: 2000 };
@@ -68,6 +68,16 @@ test("mapTargetRows keeps one stable rank per official domain", () => {
     { rank: 1, orgId: 7, orgName: "Universite de Poitiers", domain: "univ-poitiers.fr", dept: "86", effectif: null },
     { rank: 2, orgId: 9, orgName: "CHU de Poitiers", domain: "chu-poitiers.fr", dept: "86", effectif: 500 },
   ]);
+});
+
+test("buildVariants exhaustive mode keeps every generated typo plus the usual TLD candidates", () => {
+  const all = genererVariantes(TARGET.domain, 1000);
+  const exhaustive = buildVariants(TARGET, 1000);
+  const typos = exhaustive.filter((v) => v.kind !== "tld");
+  assert.equal(typos.length, all.length);
+  assert.deepEqual(new Set(typos.map((v) => v.domain)), new Set(all.map((v: Variant) => v.domain)));
+  assert.equal(exhaustive.length - typos.length, variantesTld(TARGET.domain).length);
+  assert.ok(exhaustive.length > buildVariants(TARGET, 8).length);
 });
 
 test("buildVariants deduplicates typo and alternate-TLD candidates", () => {

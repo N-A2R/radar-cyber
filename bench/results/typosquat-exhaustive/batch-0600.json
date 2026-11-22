@@ -1,0 +1,28 @@
+{
+  "offset": 600,
+  "top": 1000,
+  "targets": 40,
+  "variants": 4293,
+  "active": 1,
+  "detections": [],
+  "activeList": [
+    {
+      "domain": "college-montaigne.com",
+      "base": "college-montaigne.fr",
+      "orgName": "Collège Montaigne",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    }
+  ],
+  "alarms": 1,
+  "falsePositives": 1,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 4293,
+    "certificate": 1,
+    "page": 1
+  },
+  "durationMs": 26592
+}

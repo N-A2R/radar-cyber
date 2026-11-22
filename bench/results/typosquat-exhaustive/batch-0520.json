@@ -1,0 +1,298 @@
+{
+  "offset": 520,
+  "top": 1000,
+  "targets": 40,
+  "variants": 2630,
+  "active": 31,
+  "detections": [],
+  "activeList": [
+    {
+      "domain": "cc-bdp.fr",
+      "base": "ccbdp.fr",
+      "orgName": "Communauté de communes des Bastides Dordogne-Périgord",
+      "kind": "tiret",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Communauté de Communes des Baronnies en Drôme Provençale"
+    },
+    {
+      "domain": "cc-deuxrives.com",
+      "base": "cc-deuxrives.fr",
+      "orgName": "Communauté de communes des Deux Rives",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cc-deuxrives.net",
+      "base": "cc-deuxrives.fr",
+      "orgName": "Communauté de communes des Deux Rives",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cc-lacqorthez.com",
+      "base": "cc-lacqorthez.fr",
+      "orgName": "Communauté de communes de Lacq-Orthez",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cc-lacqorthez.org",
+      "base": "cc-lacqorthez.fr",
+      "orgName": "Communauté de communes de Lacq-Orthez",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cc-macs.com",
+      "base": "cc-macs.org",
+      "orgName": "Communauté de communes Maremne Adour Côte Sud",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cc-macs.net",
+      "base": "cc-macs.org",
+      "orgName": "Communauté de communes Maremne Adour Côte Sud",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cc-mimizan.com",
+      "base": "cc-mimizan.fr",
+      "orgName": "Communauté de communes de Mimizan",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Bravo ! Votre domaine cc-mimizan.com a bien été créé avec LWS !"
+    },
+    {
+      "domain": "cc-parthenay-gatine.com",
+      "base": "cc-parthenay-gatine.fr",
+      "orgName": "Communauté de communes de Parthenay-Gâtine",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cc-parthenay-gatine.net",
+      "base": "cc-parthenay-gatine.fr",
+      "orgName": "Communauté de communes de Parthenay-Gâtine",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cc-parthenay-gatine.org",
+      "base": "cc-parthenay-gatine.fr",
+      "orgName": "Communauté de communes de Parthenay-Gâtine",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cc-sarlatperigordnoir.com",
+      "base": "cc-sarlatperigordnoir.fr",
+      "orgName": "Communauté de communes Sarlat-Périgord Noir",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Communauté de communes Sarlat - Périgord Noir"
+    },
+    {
+      "domain": "ccbd.fr",
+      "base": "ccbdp.fr",
+      "orgName": "Communauté de communes des Bastides Dordogne-Périgord",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ":: Xsalto ::"
+    },
+    {
+      "domain": "ccbdp.com",
+      "base": "ccbdp.fr",
+      "orgName": "Communauté de communes des Bastides Dordogne-Périgord",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "ช่องทางการสื่อสารระหว่างผู้พิการทางการได้ยินกับพนักงานสอบสวน"
+    },
+    {
+      "domain": "ccbearndesgaves.com",
+      "base": "ccbearndesgaves.fr",
+      "orgName": "Communauté de communes du Béarn des Gaves",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ccbp.fr",
+      "base": "ccbdp.fr",
+      "orgName": "Communauté de communes des Bastides Dordogne-Périgord",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Accueil"
+    },
+    {
+      "domain": "ccbpd.fr",
+      "base": "ccbdp.fr",
+      "orgName": "Communauté de communes des Bastides Dordogne-Périgord",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ccdl.fr",
+      "base": "ccidl.fr",
+      "orgName": "Communauté de communes Isle Double Landais",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "ccd.fr &#8211; Catherine Coudeville-de Langhe, Artiste peintre-décorateur"
+    },
+    {
+      "domain": "ccdp.fr",
+      "base": "ccbdp.fr",
+      "orgName": "Communauté de communes des Bastides Dordogne-Périgord",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ccid.fr",
+      "base": "ccidl.fr",
+      "orgName": "Communauté de communes Isle Double Landais",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ccil.fr",
+      "base": "ccidl.fr",
+      "orgName": "Communauté de communes Isle Double Landais",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "cciv.fr",
+      "base": "ccivs.fr",
+      "orgName": "Communauté de communes Isle Vern Salembre en Périgord",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "ccivs.com",
+      "base": "ccivs.fr",
+      "orgName": "Communauté de communes Isle Vern Salembre en Périgord",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ccivs.org",
+      "base": "ccivs.fr",
+      "orgName": "Communauté de communes Isle Vern Salembre en Périgord",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "CCIVS"
+    },
+    {
+      "domain": "ccnoblat.com",
+      "base": "ccnoblat.fr",
+      "orgName": "Communauté de communes de Noblat",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ccnoblat.org",
+      "base": "ccnoblat.fr",
+      "orgName": "Communauté de communes de Noblat",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Page d&#8217;accueil CNOBLAT - Communauté de Communes de Noblat"
+    },
+    {
+      "domain": "ccpsa.fr",
+      "base": "cc-psa.fr",
+      "orgName": "Communauté de communes du Pays de Saint Aulaye",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "CCPSA Club Photo d'Antony"
+    },
+    {
+      "domain": "ccvs.fr",
+      "base": "ccivs.fr",
+      "orgName": "Communauté de communes Isle Vern Salembre en Périgord",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cdc-portesentredeuxmers.com",
+      "base": "cdc-portesentredeuxmers.fr",
+      "orgName": "Communauté de communes des Portes de l'Entre-Deux-Mers",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cdcgemozac.fr",
+      "base": "cdc-gemozac.fr",
+      "orgName": "Communauté de communes de Gémozac et de la Saintonge Viticole",
+      "kind": "omission",
+      "similarity": 0.909,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "civs.fr",
+      "base": "ccivs.fr",
+      "orgName": "Communauté de communes Isle Vern Salembre en Périgord",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "CIVS, Compagnie Internationale de Vins et Spiritueux, Marseille"
+    }
+  ],
+  "alarms": 30,
+  "falsePositives": 30,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 2630,
+    "certificate": 31,
+    "page": 31
+  },
+  "durationMs": 24156
+}

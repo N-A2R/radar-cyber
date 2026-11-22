@@ -1,0 +1,811 @@
+{
+  "offset": 400,
+  "top": 1000,
+  "targets": 40,
+  "variants": 2469,
+  "active": 88,
+  "detections": [],
+  "activeList": [
+    {
+      "domain": "aaia.io",
+      "base": "anaia.io",
+      "orgName": "LAGUNDU",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "abil.org",
+      "base": "abul.org",
+      "orgName": "ASSOCIATION BORDELAISE DES UTILISATEURS DE LOGICIELS LIBRES (ABUL)",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "abl.org",
+      "base": "abul.org",
+      "orgName": "ASSOCIATION BORDELAISE DES UTILISATEURS DE LOGICIELS LIBRES (ABUL)",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ablu.org",
+      "base": "abul.org",
+      "orgName": "ASSOCIATION BORDELAISE DES UTILISATEURS DE LOGICIELS LIBRES (ABUL)",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "abol.org",
+      "base": "abul.org",
+      "orgName": "ASSOCIATION BORDELAISE DES UTILISATEURS DE LOGICIELS LIBRES (ABUL)",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "abu.org",
+      "base": "abul.org",
+      "orgName": "ASSOCIATION BORDELAISE DES UTILISATEURS DE LOGICIELS LIBRES (ABUL)",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "The American Board of Urology |"
+    },
+    {
+      "domain": "abul.com",
+      "base": "abul.org",
+      "orgName": "ASSOCIATION BORDELAISE DES UTILISATEURS DE LOGICIELS LIBRES (ABUL)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "abul.com&nbsp;-&nbsp;Ce site web est à vendre !&nbsp;-&nbsp;Ressources et information concernant Abul Resources and Information."
+    },
+    {
+      "domain": "abul.net",
+      "base": "abul.org",
+      "orgName": "ASSOCIATION BORDELAISE DES UTILISATEURS DE LOGICIELS LIBRES (ABUL)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "abut.org",
+      "base": "abul.org",
+      "orgName": "ASSOCIATION BORDELAISE DES UTILISATEURS DE LOGICIELS LIBRES (ABUL)",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "ABUT.ORG - For Sale"
+    },
+    {
+      "domain": "adour-madiran.com",
+      "base": "adour-madiran.fr",
+      "orgName": "Communauté de communes Adour Madiran",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "aef.org",
+      "base": "afef.org",
+      "orgName": "ASSOCIATION FRANCAISE POUR L'ENSEIGNEMENT DU FRANCAIS",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "aeff.org",
+      "base": "afef.org",
+      "orgName": "ASSOCIATION FRANCAISE POUR L'ENSEIGNEMENT DU FRANCAIS",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "aeon-systems.com",
+      "base": "aeon-systems.fr",
+      "orgName": "AEON SYSTEMS (AEON)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "aeon-systems.net",
+      "base": "aeon-systems.fr",
+      "orgName": "AEON SYSTEMS (AEON)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Success!"
+    },
+    {
+      "domain": "af-ef.org",
+      "base": "afef.org",
+      "orgName": "ASSOCIATION FRANCAISE POUR L'ENSEIGNEMENT DU FRANCAIS",
+      "kind": "tiret",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Coming Soon"
+    },
+    {
+      "domain": "afaf.org",
+      "base": "afef.org",
+      "orgName": "ASSOCIATION FRANCAISE POUR L'ENSEIGNEMENT DU FRANCAIS",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "afe.org",
+      "base": "afef.org",
+      "orgName": "ASSOCIATION FRANCAISE POUR L'ENSEIGNEMENT DU FRANCAIS",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "afee-cedece.com",
+      "base": "afee-cedece.eu",
+      "orgName": "ASSOCIATION FRANCAISE D'ETUDES EUROPENNES - AFEE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "AFÉE &#8211; Association française d&#039;Études Européennes"
+    },
+    {
+      "domain": "afef.com",
+      "base": "afef.org",
+      "orgName": "ASSOCIATION FRANCAISE POUR L'ENSEIGNEMENT DU FRANCAIS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Domain for sale"
+    },
+    {
+      "domain": "afef.net",
+      "base": "afef.org",
+      "orgName": "ASSOCIATION FRANCAISE POUR L'ENSEIGNEMENT DU FRANCAIS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "American Forestry and Environmental Foundation | Sustaining Forests. Enriching Futures."
+    },
+    {
+      "domain": "afet.org",
+      "base": "afef.org",
+      "orgName": "ASSOCIATION FRANCAISE POUR L'ENSEIGNEMENT DU FRANCAIS",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "AYA | Açık Yazılım Ağı | Giriş"
+    },
+    {
+      "domain": "aff.org",
+      "base": "afef.org",
+      "orgName": "ASSOCIATION FRANCAISE POUR L'ENSEIGNEMENT DU FRANCAIS",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "affe.org",
+      "base": "afef.org",
+      "orgName": "ASSOCIATION FRANCAISE POUR L'ENSEIGNEMENT DU FRANCAIS",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "affe.org"
+    },
+    {
+      "domain": "afif.org",
+      "base": "afef.org",
+      "orgName": "ASSOCIATION FRANCAISE POUR L'ENSEIGNEMENT DU FRANCAIS",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "afif.org"
+    },
+    {
+      "domain": "agan.fr",
+      "base": "agen.fr",
+      "orgName": "AGEN",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Astier Consulting - Expert Apple &amp; Conseil IT pour l&#39;entreprise"
+    },
+    {
+      "domain": "age.fr",
+      "base": "agen.fr",
+      "orgName": "AGEN",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Pour les personnes âgées - Site d&#039;information pour les personnes âgées et leurs proches"
+    },
+    {
+      "domain": "agem.fr",
+      "base": "agen.fr",
+      "orgName": "AGEN",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Accueil"
+    },
+    {
+      "domain": "agen.com",
+      "base": "agen.fr",
+      "orgName": "AGEN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Agen: Longevity OS | Robot, Supplements &amp; Wearables"
+    },
+    {
+      "domain": "agen.net",
+      "base": "agen.fr",
+      "orgName": "AGEN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "agen.org",
+      "base": "agen.fr",
+      "orgName": "AGEN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "agen.org"
+    },
+    {
+      "domain": "agglo-grandgueret.com",
+      "base": "agglo-grandgueret.fr",
+      "orgName": "Communauté d'agglomération du Grand Guéret",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Accueil - Agglomération Grand Guéret"
+    },
+    {
+      "domain": "agglo-grandgueret.net",
+      "base": "agglo-grandgueret.fr",
+      "orgName": "Communauté d'agglomération du Grand Guéret",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Accueil - Agglomération Grand Guéret"
+    },
+    {
+      "domain": "agglo-grandgueret.org",
+      "base": "agglo-grandgueret.fr",
+      "orgName": "Communauté d'agglomération du Grand Guéret",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Accueil - Agglomération Grand Guéret"
+    },
+    {
+      "domain": "agglo-rochefortocean.com",
+      "base": "agglo-rochefortocean.fr",
+      "orgName": "Communauté d'agglomération Rochefort Océan",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "agglo-royan.com",
+      "base": "agglo-royan.fr",
+      "orgName": "Communauté d'agglomération Royan Atlantique",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "agglo2b.com",
+      "base": "agglo2b.fr",
+      "orgName": "Communauté d'agglomération du Bocage Bressuirais",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "agglo2b.net",
+      "base": "agglo2b.fr",
+      "orgName": "Communauté d'agglomération du Bocage Bressuirais",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Site en construction"
+    },
+    {
+      "domain": "aggloroyan.fr",
+      "base": "agglo-royan.fr",
+      "orgName": "Communauté d'agglomération Royan Atlantique",
+      "kind": "omission",
+      "similarity": 0.909,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "agin.fr",
+      "base": "agen.fr",
+      "orgName": "AGEN",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Famille Agin"
+    },
+    {
+      "domain": "agn.fr",
+      "base": "agen.fr",
+      "orgName": "AGEN",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Home - AGN"
+    },
+    {
+      "domain": "agne.fr",
+      "base": "agen.fr",
+      "orgName": "AGEN",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "Accueil - Association Golfique Nantes Erdre : le site officiel"
+    },
+    {
+      "domain": "agrobordeaux.fr",
+      "base": "agro-bordeaux.fr",
+      "orgName": "École nationale supérieure des sciences agronomiques de Bordeaux Aquitaine (Bordeaux Sciences Agro)",
+      "kind": "omission",
+      "similarity": 0.923,
+      "certificate": null,
+      "pageTitle": "Bordeaux Sciences Agro &#8211; Grande école publique pour l&#039;Agriculture, l&#039;Alimentation et l&#039;Environnement"
+    },
+    {
+      "domain": "aipn.org",
+      "base": "ajpn.org",
+      "orgName": "ANONYMES JUSTES ET PERSECUTES DURANT LA PERIODE NAZIE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Home - AIEN formerly AIPN"
+    },
+    {
+      "domain": "aire-sur-adour.org",
+      "base": "aire-sur-adour.fr",
+      "orgName": "Commune de Aire-sur-l'Adour",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Sorotan Dunia – Isu Global dengan Sudut Pandang Objektif - Menyajikan realita tanpa menggiring opini."
+    },
+    {
+      "domain": "ajn.org",
+      "base": "ajpn.org",
+      "orgName": "ANONYMES JUSTES ET PERSECUTES DURANT LA PERIODE NAZIE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Loading..."
+    },
+    {
+      "domain": "ajnp.org",
+      "base": "ajpn.org",
+      "orgName": "ANONYMES JUSTES ET PERSECUTES DURANT LA PERIODE NAZIE",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "AJNP.org"
+    },
+    {
+      "domain": "ajp.org",
+      "base": "ajpn.org",
+      "orgName": "ANONYMES JUSTES ET PERSECUTES DURANT LA PERIODE NAZIE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ajph.org",
+      "base": "ajpn.org",
+      "orgName": "ANONYMES JUSTES ET PERSECUTES DURANT LA PERIODE NAZIE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ajpm.org",
+      "base": "ajpn.org",
+      "orgName": "ANONYMES JUSTES ET PERSECUTES DURANT LA PERIODE NAZIE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "alexipharmaque.net",
+      "base": "alexipharmaque.eu",
+      "orgName": "ALEXIPHARMAQUE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "DropCatch.com"
+    },
+    {
+      "domain": "anaia.com",
+      "base": "anaia.io",
+      "orgName": "LAGUNDU",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "anaia.net",
+      "base": "anaia.io",
+      "orgName": "LAGUNDU",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Cloudflare Registrar"
+    },
+    {
+      "domain": "ania.io",
+      "base": "anaia.io",
+      "orgName": "LAGUNDU",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "apjn.org",
+      "base": "ajpn.org",
+      "orgName": "ANONYMES JUSTES ET PERSECUTES DURANT LA PERIODE NAZIE",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "Appalachian Peace and Justice Network &#8211; Organizing for Equality &amp; Justice Since 1984!"
+    },
+    {
+      "domain": "apn.org",
+      "base": "ajpn.org",
+      "orgName": "ANONYMES JUSTES ET PERSECUTES DURANT LA PERIODE NAZIE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "aqen.fr",
+      "base": "agen.fr",
+      "orgName": "AGEN",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "artas.fr",
+      "base": "tartas.fr",
+      "orgName": "TARTAS",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "atef.org",
+      "base": "afef.org",
+      "orgName": "ASSOCIATION FRANCAISE POUR L'ENSEIGNEMENT DU FRANCAIS",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "aul.org",
+      "base": "abul.org",
+      "orgName": "ASSOCIATION BORDELAISE DES UTILISATEURS DE LOGICIELS LIBRES (ABUL)",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "America&#039;s First Pro-Life Organization | Americans United for Life"
+    },
+    {
+      "domain": "baul.org",
+      "base": "abul.org",
+      "orgName": "ASSOCIATION BORDELAISE DES UTILISATEURS DE LOGICIELS LIBRES (ABUL)",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bul.org",
+      "base": "abul.org",
+      "orgName": "ASSOCIATION BORDELAISE DES UTILISATEURS DE LOGICIELS LIBRES (ABUL)",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "ebul.org",
+      "base": "abul.org",
+      "orgName": "ASSOCIATION BORDELAISE DES UTILISATEURS DE LOGICIELS LIBRES (ABUL)",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "efef.org",
+      "base": "afef.org",
+      "orgName": "ASSOCIATION FRANCAISE POUR L'ENSEIGNEMENT DU FRANCAIS",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "egen.fr",
+      "base": "agen.fr",
+      "orgName": "AGEN",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ejpn.org",
+      "base": "ajpn.org",
+      "orgName": "ANONYMES JUSTES ET PERSECUTES DURANT LA PERIODE NAZIE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "fartas.fr",
+      "base": "tartas.fr",
+      "orgName": "TARTAS",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "fef.org",
+      "base": "afef.org",
+      "orgName": "ASSOCIATION FRANCAISE POUR L'ENSEIGNEMENT DU FRANCAIS",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "japn.org",
+      "base": "ajpn.org",
+      "orgName": "ANONYMES JUSTES ET PERSECUTES DURANT LA PERIODE NAZIE",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "naia.io",
+      "base": "anaia.io",
+      "orgName": "LAGUNDU",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "NAIA 2025 | Les journées des solutions IA"
+    },
+    {
+      "domain": "ofef.org",
+      "base": "afef.org",
+      "orgName": "ASSOCIATION FRANCAISE POUR L'ENSEIGNEMENT DU FRANCAIS",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Oregon Firearms Education Foundation"
+    },
+    {
+      "domain": "ogen.fr",
+      "base": "agen.fr",
+      "orgName": "AGEN",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "shop.com",
+      "base": "shop.automsource.com",
+      "orgName": "AUTOMSOURCE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Shop - Shopping designed around you"
+    },
+    {
+      "domain": "shop.net",
+      "base": "shop.automsource.com",
+      "orgName": "AUTOMSOURCE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "shop.org",
+      "base": "shop.automsource.com",
+      "orgName": "AUTOMSOURCE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Ideas shared. Connections made. Retail Transformed. | NRF Nexus 2026"
+    },
+    {
+      "domain": "tartas.com",
+      "base": "tartas.fr",
+      "orgName": "TARTAS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "tartas.net",
+      "base": "tartas.fr",
+      "orgName": "TARTAS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "tartas.org",
+      "base": "tartas.fr",
+      "orgName": "TARTAS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "tartes.fr",
+      "base": "tartas.fr",
+      "orgName": "TARTAS",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "tartos.fr",
+      "base": "tartas.fr",
+      "orgName": "TARTAS",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "tarts.fr",
+      "base": "tartas.fr",
+      "orgName": "TARTAS",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "tatas.fr",
+      "base": "tartas.fr",
+      "orgName": "TARTAS",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Le coin des dédicaces à ma tata"
+    },
+    {
+      "domain": "vayrac.fr",
+      "base": "veyrac.fr",
+      "orgName": "VEYRAC",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Vayrac - Mairie de Vayrac"
+    },
+    {
+      "domain": "verac.fr",
+      "base": "veyrac.fr",
+      "orgName": "VEYRAC",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Verac &#8211; Site officiel de la commune"
+    },
+    {
+      "domain": "veyra.fr",
+      "base": "veyrac.fr",
+      "orgName": "VEYRAC",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "veyrac.com",
+      "base": "veyrac.fr",
+      "orgName": "VEYRAC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "villenave.com",
+      "base": "villenave.fr",
+      "orgName": "VILLENAVE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "villenave.net",
+      "base": "villenave.fr",
+      "orgName": "VILLENAVE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "vivonne.com",
+      "base": "vivonne.canoe86.org",
+      "orgName": "CANOE KAYAK VIVONNE  LES PAGAYOUS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    }
+  ],
+  "alarms": 47,
+  "falsePositives": 47,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 2469,
+    "certificate": 88,
+    "page": 88
+  },
+  "durationMs": 24943
+}

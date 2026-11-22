@@ -1,0 +1,802 @@
+{
+  "offset": 960,
+  "top": 1000,
+  "targets": 40,
+  "variants": 2363,
+  "active": 87,
+  "detections": [],
+  "activeList": [
+    {
+      "domain": "andres.fr",
+      "base": "ondres.fr",
+      "orgName": "ONDRES",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "page racine andres.fr"
+    },
+    {
+      "domain": "aprentis.fr",
+      "base": "parentis.fr",
+      "orgName": "Commune de Parentis-en-Born",
+      "kind": "transposition",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ardies.fr",
+      "base": "pardies.fr",
+      "orgName": "PARDIES",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "arkom.fr",
+      "base": "orkom.fr",
+      "orgName": "ORKOM",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "cnsc.nl",
+      "base": "ncsc.nl",
+      "orgName": "OPEN SOURCE",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "emillon.fr",
+      "base": "meillon.fr",
+      "orgName": "MEILLON",
+      "kind": "transposition",
+      "similarity": 0.714,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "hcsc.nl",
+      "base": "ncsc.nl",
+      "orgName": "OPEN SOURCE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "maillon.fr",
+      "base": "meillon.fr",
+      "orgName": "MEILLON",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Maillon - SAS Maillon"
+    },
+    {
+      "domain": "marignac.com",
+      "base": "merignac.com",
+      "orgName": "Commune de Mérignac",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "mcsc.nl",
+      "base": "ncsc.nl",
+      "orgName": "OPEN SOURCE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Casino Zonder Cruks: 15 Casino&#x27;s Zonder iDIN Getest 2026"
+    },
+    {
+      "domain": "meillan.fr",
+      "base": "meillon.fr",
+      "orgName": "MEILLON",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Site en construction"
+    },
+    {
+      "domain": "meillon.com",
+      "base": "meillon.fr",
+      "orgName": "MEILLON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "melloisenpoitou.com",
+      "base": "melloisenpoitou.fr",
+      "orgName": "Communauté de communes Mellois en Poitou",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mellon.fr",
+      "base": "meillon.fr",
+      "orgName": "MEILLON",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "mepla.fr",
+      "base": "meplna.fr",
+      "orgName": "MAISONS D'ECRIVAIN EN NOUVELLE-AQUITAINE",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "MEPLA — Rénovation, menuiseries, terrasses et vérandas"
+    },
+    {
+      "domain": "mergnac.com",
+      "base": "merignac.com",
+      "orgName": "Commune de Mérignac",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": "Marie-Odile Mergnac / Autrice, historienne, généalogiste /"
+    },
+    {
+      "domain": "merignac.net",
+      "base": "merignac.com",
+      "orgName": "Commune de Mérignac",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "merignac.org",
+      "base": "merignac.com",
+      "orgName": "Commune de Mérignac",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "millon.fr",
+      "base": "meillon.fr",
+      "orgName": "MEILLON",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Editions Jérôme Millon - Maison d&#39;édition en Sciences Humaines."
+    },
+    {
+      "domain": "moncoutantsursevre.com",
+      "base": "moncoutantsursevre.fr",
+      "orgName": "Commune de Moncoutant-sur-Sèvre",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "moncoutantsursevre.net",
+      "base": "moncoutantsursevre.fr",
+      "orgName": "Commune de Moncoutant-sur-Sèvre",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "moncoutantsursevre.org",
+      "base": "moncoutantsursevre.fr",
+      "orgName": "Commune de Moncoutant-sur-Sèvre",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "monlimousin.com",
+      "base": "monlimousin.fr",
+      "orgName": "EDITIONS MON LIMOUSIN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "montdemarsan.com",
+      "base": "montdemarsan.fr",
+      "orgName": "Commune de Mont-de-Marsan",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "montdemarsan.net",
+      "base": "montdemarsan.fr",
+      "orgName": "Commune de Mont-de-Marsan",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "montmorillon.com",
+      "base": "montmorillon.fr",
+      "orgName": "MONTMORILLON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "montponmenesterol.fr",
+      "base": "montpon-menesterol.fr",
+      "orgName": "Commune de Montpon-Ménestérol",
+      "kind": "omission",
+      "similarity": 0.944,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mouguerre.com",
+      "base": "mouguerre.fr",
+      "orgName": "Commune de Mouguerre",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "mouguerre.net",
+      "base": "mouguerre.fr",
+      "orgName": "Commune de Mouguerre",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mouren.fr",
+      "base": "mourenx.fr",
+      "orgName": "Commune de Mourenx",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mourenx.org",
+      "base": "mourenx.fr",
+      "orgName": "Commune de Mourenx",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mourex.fr",
+      "base": "mourenx.fr",
+      "orgName": "Commune de Mourenx",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Mourex | Mourex"
+    },
+    {
+      "domain": "musereplay.com",
+      "base": "museereplay.com",
+      "orgName": "MUSEE REPLAY",
+      "kind": "omission",
+      "similarity": 0.909,
+      "certificate": null,
+      "pageTitle": "MUSE — under construction"
+    },
+    {
+      "domain": "mussofi.net",
+      "base": "mussofi.com",
+      "orgName": "MUSSOFI",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Cosmétique peau noire &amp; métissée | Marque française | Mussofi"
+    },
+    {
+      "domain": "mussoi.com",
+      "base": "mussofi.com",
+      "orgName": "MUSSOFI",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "mutatis.com",
+      "base": "mutatis.mutandis.bdx.free.fr",
+      "orgName": "MUTATIS MUTANDIS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "mutatis.net",
+      "base": "mutatis.mutandis.bdx.free.fr",
+      "orgName": "MUTATIS MUTANDIS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Mutatis — Conseil en développement organisationnel et accompagnement des situations sensibles"
+    },
+    {
+      "domain": "mutatis.org",
+      "base": "mutatis.mutandis.bdx.free.fr",
+      "orgName": "MUTATIS MUTANDIS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "naintre.com",
+      "base": "naintre.fr",
+      "orgName": "NAINTRE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "naintre.net",
+      "base": "naintre.fr",
+      "orgName": "NAINTRE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "naitre.fr",
+      "base": "naintre.fr",
+      "orgName": "NAINTRE",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "nataires.fr",
+      "base": "notaires.fr",
+      "orgName": "SELARL TRUFFOT & ASSOCIES NOTAIRES",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ncc.nl",
+      "base": "ncsc.nl",
+      "orgName": "OPEN SOURCE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Kamperen midden in de natuur - Nederlandse Caravan Club"
+    },
+    {
+      "domain": "nccs.nl",
+      "base": "ncsc.nl",
+      "orgName": "OPEN SOURCE",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ncs.nl",
+      "base": "ncsc.nl",
+      "orgName": "OPEN SOURCE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Home - NCS International"
+    },
+    {
+      "domain": "ncsc.com",
+      "base": "ncsc.nl",
+      "orgName": "OPEN SOURCE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ncsc.net",
+      "base": "ncsc.nl",
+      "orgName": "OPEN SOURCE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "ncsc.net&nbsp;-&nbsp;Ce site web est à vendre !&nbsp;-&nbsp;Ressources et information concernant ncsc Resources and Information."
+    },
+    {
+      "domain": "ncsc.org",
+      "base": "ncsc.nl",
+      "orgName": "OPEN SOURCE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Driving innovation in justice | National Center for State Courts"
+    },
+    {
+      "domain": "niort-agglo.fr",
+      "base": "niortagglo.fr",
+      "orgName": "Communauté d'agglomération du Niortais",
+      "kind": "tiret",
+      "similarity": 0.909,
+      "certificate": null,
+      "pageTitle": "Niort Agglo, le site officiel de la Communauté d&#039;Agglomération du Niortais"
+    },
+    {
+      "domain": "niortagglo.com",
+      "base": "niortagglo.fr",
+      "orgName": "Communauté d'agglomération du Niortais",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "niortagglo.org",
+      "base": "niortagglo.fr",
+      "orgName": "Communauté d'agglomération du Niortais",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Niort Agglo, le site officiel de la Communauté d&#039;Agglomération du Niortais"
+    },
+    {
+      "domain": "nksc.nl",
+      "base": "ncsc.nl",
+      "orgName": "OPEN SOURCE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "notairas.fr",
+      "base": "notaires.fr",
+      "orgName": "SELARL TRUFFOT & ASSOCIES NOTAIRES",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "notaire.fr",
+      "base": "notaires.fr",
+      "orgName": "SELARL TRUFFOT & ASSOCIES NOTAIRES",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "notaires.com",
+      "base": "notaires.fr",
+      "orgName": "SELARL TRUFFOT & ASSOCIES NOTAIRES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "notaires.com"
+    },
+    {
+      "domain": "notaires.org",
+      "base": "notaires.fr",
+      "orgName": "SELARL TRUFFOT & ASSOCIES NOTAIRES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "notares.fr",
+      "base": "notaires.fr",
+      "orgName": "SELARL TRUFFOT & ASSOCIES NOTAIRES",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "notaries.fr",
+      "base": "notaires.fr",
+      "orgName": "SELARL TRUFFOT & ASSOCIES NOTAIRES",
+      "kind": "transposition",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "notoires.fr",
+      "base": "notaires.fr",
+      "orgName": "SELARL TRUFFOT & ASSOCIES NOTAIRES",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "nsc.nl",
+      "base": "ncsc.nl",
+      "orgName": "OPEN SOURCE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "NSC: merkenbouwers en full-service marketingbureau"
+    },
+    {
+      "domain": "nscc.nl",
+      "base": "ncsc.nl",
+      "orgName": "OPEN SOURCE",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "NSCC &#8211; North Side Custom Club"
+    },
+    {
+      "domain": "odres.fr",
+      "base": "ondres.fr",
+      "orgName": "ONDRES",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Hosted By One.com | Webhosting made simple"
+    },
+    {
+      "domain": "okom.fr",
+      "base": "orkom.fr",
+      "orgName": "ORKOM",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "O'KOM — Bientôt en ligne"
+    },
+    {
+      "domain": "oloron-ste-marie.com",
+      "base": "oloron-ste-marie.fr",
+      "orgName": "Commune de Oloron-Sainte-Marie",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ondes.fr",
+      "base": "ondres.fr",
+      "orgName": "ONDRES",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ondres.com",
+      "base": "ondres.fr",
+      "orgName": "ONDRES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "ondres.com :: this domain is for sale"
+    },
+    {
+      "domain": "ondres.net",
+      "base": "ondres.fr",
+      "orgName": "ONDRES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "orcom.fr",
+      "base": "orkom.fr",
+      "orgName": "ORKOM",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Expertise comptable, audit et conseil aux dirigeants - ORCOM"
+    },
+    {
+      "domain": "orko.fr",
+      "base": "orkom.fr",
+      "orgName": "ORKOM",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "orkom.com",
+      "base": "orkom.fr",
+      "orgName": "ORKOM",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "ORKOM MADENCILIK"
+    },
+    {
+      "domain": "orkom.net",
+      "base": "orkom.fr",
+      "orgName": "ORKOM",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "ouate.com",
+      "base": "ouat-e.com",
+      "orgName": "OUAT ENTERTAINEMENT",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "palaiscardinal.com",
+      "base": "palais-cardinal.com",
+      "orgName": "PALAIS CARDINAL",
+      "kind": "omission",
+      "similarity": 0.933,
+      "certificate": null,
+      "pageTitle": "HOTEL RESTAURANT SAINT-EMILION - Palais Cardinal - SAINT-EMILION - ***"
+    },
+    {
+      "domain": "palissy.com",
+      "base": "palissy.fr",
+      "orgName": "Lycée professionnel Bernard Palissy",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "paraula.net",
+      "base": "paraulas.net",
+      "orgName": "PARAULAS EN OC",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "paraules.net",
+      "base": "paraulas.net",
+      "orgName": "PARAULAS EN OC",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": "Paraules"
+    },
+    {
+      "domain": "pardes.fr",
+      "base": "pardies.fr",
+      "orgName": "PARDIES",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "pardies.com",
+      "base": "pardies.fr",
+      "orgName": "PARDIES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "ParDies.com is for sale - Premium Domain"
+    },
+    {
+      "domain": "parentes.fr",
+      "base": "parentis.fr",
+      "orgName": "Commune de Parentis-en-Born",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": "Parentes"
+    },
+    {
+      "domain": "parenti.fr",
+      "base": "parentis.fr",
+      "orgName": "Commune de Parentis-en-Born",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "parentis.com",
+      "base": "parentis.fr",
+      "orgName": "Commune de Parentis-en-Born",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Site officiel de la Ville de Parentis-en-Born"
+    },
+    {
+      "domain": "parentis.net",
+      "base": "parentis.fr",
+      "orgName": "Commune de Parentis-en-Born",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "parentis.org",
+      "base": "parentis.fr",
+      "orgName": "Commune de Parentis-en-Born",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "parentiz.fr",
+      "base": "parentis.fr",
+      "orgName": "Commune de Parentis-en-Born",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "parents.fr",
+      "base": "parentis.fr",
+      "orgName": "Commune de Parentis-en-Born",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": "Grossesse - Bébé - Enfant - Puériculture - Prénom | Parents.fr"
+    },
+    {
+      "domain": "paretis.fr",
+      "base": "parentis.fr",
+      "orgName": "Commune de Parentis-en-Born",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": "Parétis"
+    },
+    {
+      "domain": "paries.fr",
+      "base": "pardies.fr",
+      "orgName": "PARDIES",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Gâteau Basque, Mouchou &amp; Macaron depuis 1895 | Maison Pariès"
+    }
+  ],
+  "alarms": 75,
+  "falsePositives": 75,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 2363,
+    "certificate": 87,
+    "page": 87
+  },
+  "durationMs": 21553
+}

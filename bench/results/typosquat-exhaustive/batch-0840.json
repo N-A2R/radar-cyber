@@ -1,0 +1,91 @@
+{
+  "offset": 840,
+  "top": 1000,
+  "targets": 40,
+  "variants": 3571,
+  "active": 8,
+  "detections": [],
+  "activeList": [
+    {
+      "domain": "lycee-branly.fr",
+      "base": "lyceebranly.fr",
+      "orgName": "Lycée Édouard Branly",
+      "kind": "tiret",
+      "similarity": 0.917,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lycee-jeanmace.com",
+      "base": "lycee-jeanmace.fr",
+      "orgName": "lycée Jean Macé de Niort",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Lycée Jean Macé &#8211; Construisons ensemble un avenir brillant"
+    },
+    {
+      "domain": "lycee-marcel-dassault.com",
+      "base": "lycee-marcel-dassault.fr",
+      "orgName": "Lycée polyvalent Marcel Dassault",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lycee-maritime-larochelle.com",
+      "base": "lycee-maritime-larochelle.fr",
+      "orgName": "Lycée maritime et aquacole",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Lycee Maritime La Rochelle - Éduquons à la vie en entreprise !"
+    },
+    {
+      "domain": "lycee-reaumur.com",
+      "base": "lycee-reaumur.fr",
+      "orgName": "Lycée professionnel Réaumur",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lyceebranly.com",
+      "base": "lyceebranly.fr",
+      "orgName": "Lycée Édouard Branly",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lyceedeborda.org",
+      "base": "lyceedeborda.fr",
+      "orgName": "Lycée polyvalent de Borda",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Fight For Ocotillo Wells Powered By The San Diego Off Road Coalition - The Open Desert Initiative"
+    },
+    {
+      "domain": "lyceejeanmace.fr",
+      "base": "lycee-jeanmace.fr",
+      "orgName": "lycée Jean Macé de Niort",
+      "kind": "omission",
+      "similarity": 0.929,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    }
+  ],
+  "alarms": 8,
+  "falsePositives": 8,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 3571,
+    "certificate": 8,
+    "page": 8
+  },
+  "durationMs": 33630
+}

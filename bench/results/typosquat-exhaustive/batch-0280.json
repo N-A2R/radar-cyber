@@ -1,0 +1,847 @@
+{
+  "offset": 280,
+  "top": 1000,
+  "targets": 40,
+  "variants": 2515,
+  "active": 92,
+  "detections": [],
+  "activeList": [
+    {
+      "domain": "100-detours.com",
+      "base": "100detours.com",
+      "orgName": "100 DETOURS",
+      "kind": "tiret",
+      "similarity": 0.909,
+      "certificate": null,
+      "pageTitle": "PlanetHoster - Bienvenue"
+    },
+    {
+      "domain": "abal.fr",
+      "base": "zabal.fr",
+      "orgName": "ZABAL MENUISERIES",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Agence IA à Annecy pour les PME, Abal"
+    },
+    {
+      "domain": "afficion.com",
+      "base": "afficion.fr",
+      "orgName": "AFFICION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "afficion.net",
+      "base": "afficion.fr",
+      "orgName": "AFFICION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "afficion.org",
+      "base": "afficion.fr",
+      "orgName": "AFFICION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "aficion.fr",
+      "base": "afficion.fr",
+      "orgName": "AFFICION",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "chere.fr",
+      "base": "chire.fr",
+      "orgName": "DPF VAD",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "chier.fr",
+      "base": "chire.fr",
+      "orgName": "DPF VAD",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "chine.fr",
+      "base": "chire.fr",
+      "orgName": "DPF VAD",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "chir.fr",
+      "base": "chire.fr",
+      "orgName": "DPF VAD",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "chire.com",
+      "base": "chire.fr",
+      "orgName": "DPF VAD",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "chiri.fr",
+      "base": "chire.fr",
+      "orgName": "DPF VAD",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "chiri.fr"
+    },
+    {
+      "domain": "chore.fr",
+      "base": "chire.fr",
+      "orgName": "DPF VAD",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "chre.fr",
+      "base": "chire.fr",
+      "orgName": "DPF VAD",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "E-Etiquettes"
+    },
+    {
+      "domain": "cihre.fr",
+      "base": "chire.fr",
+      "orgName": "DPF VAD",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cire.fr",
+      "base": "chire.fr",
+      "orgName": "DPF VAD",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "croiset.fr",
+      "base": "croizet.fr",
+      "orgName": "CROIZET",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "croizat.fr",
+      "base": "croizet.fr",
+      "orgName": "CROIZET",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Olivier Croizat - Art, Design &amp; Ultra Limited Contemporary Works"
+    },
+    {
+      "domain": "croize.fr",
+      "base": "croizet.fr",
+      "orgName": "CROIZET",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "croizer.fr",
+      "base": "croizet.fr",
+      "orgName": "CROIZET",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "croizet.com",
+      "base": "croizet.fr",
+      "orgName": "CROIZET",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "crozet.fr",
+      "base": "croizet.fr",
+      "orgName": "CROIZET",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Mairie de Crozet"
+    },
+    {
+      "domain": "fanzino.com",
+      "base": "fanzino.org",
+      "orgName": "LA FANZINOTHEQUE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Fanzino"
+    },
+    {
+      "domain": "flexilivre.com",
+      "base": "flexilivre.co.uk",
+      "orgName": "FLEXILIVRE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "FlexiLivre | L&#039;album photo simple et rapide"
+    },
+    {
+      "domain": "foretprimaire-francishalle.com",
+      "base": "foretprimaire-francishalle.org",
+      "orgName": "ASSOCIATION FRANCIS HALLE POUR LA FORET PRIMAIRE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "fsfi.org",
+      "base": "tsfi.org",
+      "orgName": "TELECOMS SANS FRONTIERES",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "gcb.net",
+      "base": "ugcb.net",
+      "orgName": "UNION DES GRANDS CRUS DE BORDEAUX",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "graph-ic.fr",
+      "base": "graphic.fr",
+      "orgName": "GRAPHIC AFFICHAGE",
+      "kind": "tiret",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "graphci.fr",
+      "base": "graphic.fr",
+      "orgName": "GRAPHIC AFFICHAGE",
+      "kind": "transposition",
+      "similarity": 0.714,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "graphi.fr",
+      "base": "graphic.fr",
+      "orgName": "GRAPHIC AFFICHAGE",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "graphic.com",
+      "base": "graphic.fr",
+      "orgName": "GRAPHIC AFFICHAGE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Graphic - Graphic"
+    },
+    {
+      "domain": "graphic.net",
+      "base": "graphic.fr",
+      "orgName": "GRAPHIC AFFICHAGE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "graphik.fr",
+      "base": "graphic.fr",
+      "orgName": "GRAPHIC AFFICHAGE",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Graphik 224 | Impression numérique grand format &#8211; Impression numérique grand format"
+    },
+    {
+      "domain": "gucb.net",
+      "base": "ugcb.net",
+      "orgName": "UNION DES GRANDS CRUS DE BORDEAUX",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "inspeee.com",
+      "base": "inspeere.com",
+      "orgName": "INSPEERE",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "inspeer.com",
+      "base": "inspeere.com",
+      "orgName": "INSPEERE",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "inspeera.com",
+      "base": "inspeere.com",
+      "orgName": "INSPEERE",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": "INSPEERA | Organize. Strategize. Energize."
+    },
+    {
+      "domain": "inspeere.net",
+      "base": "inspeere.com",
+      "orgName": "INSPEERE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "inspeere.org",
+      "base": "inspeere.com",
+      "orgName": "INSPEERE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "inspere.com",
+      "base": "inspeere.com",
+      "orgName": "INSPEERE",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "inspiere.com",
+      "base": "inspeere.com",
+      "orgName": "INSPEERE",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": "Inspiere - Stories Behind Success, Fame &amp; Influence."
+    },
+    {
+      "domain": "laboulenoire.fr",
+      "base": "lapoulenoire.fr",
+      "orgName": "LA POULE NOIRE",
+      "kind": "substitution",
+      "similarity": 0.917,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lapoulenoir.fr",
+      "base": "lapoulenoire.fr",
+      "orgName": "LA POULE NOIRE",
+      "kind": "omission",
+      "similarity": 0.917,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "letourne.com",
+      "base": "letourne.fr",
+      "orgName": "LE TOURNE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "letrainvoyage.com",
+      "base": "letrainvoyage.fr",
+      "orgName": "LE TRAIN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ludum.com",
+      "base": "ludum.fr",
+      "orgName": "LUDUM SAS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Ludum — Training Management &amp; Performance Analytics for Coaches"
+    },
+    {
+      "domain": "ludum.net",
+      "base": "ludum.fr",
+      "orgName": "LUDUM SAS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ludum.org",
+      "base": "ludum.fr",
+      "orgName": "LUDUM SAS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "luum.fr",
+      "base": "ludum.fr",
+      "orgName": "LUDUM SAS",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "mairiedefumel.com",
+      "base": "mairiedefumel.fr",
+      "orgName": "FUMEL",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mocade.fr",
+      "base": "moncade.fr",
+      "orgName": "OGEC AEP MONCADE JEANNE D'ARC",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Mocade | Nettoyage et entretien de moquettes professionnels"
+    },
+    {
+      "domain": "monade.fr",
+      "base": "moncade.fr",
+      "orgName": "OGEC AEP MONCADE JEANNE D'ARC",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "monade.fr&nbsp;-&nbsp;Ce site web est à vendre !&nbsp;-&nbsp;Ressources et information concernant monade Resources and Information."
+    },
+    {
+      "domain": "moncad.fr",
+      "base": "moncade.fr",
+      "orgName": "OGEC AEP MONCADE JEANNE D'ARC",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "assurances dijon courtier mutuelle et assurance emprunteur moncad"
+    },
+    {
+      "domain": "moncada.fr",
+      "base": "moncade.fr",
+      "orgName": "OGEC AEP MONCADE JEANNE D'ARC",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "moncade.com",
+      "base": "moncade.fr",
+      "orgName": "OGEC AEP MONCADE JEANNE D'ARC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "moncode.fr",
+      "base": "moncade.fr",
+      "orgName": "OGEC AEP MONCADE JEANNE D'ARC",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Domain Details Page"
+    },
+    {
+      "domain": "rsfi.org",
+      "base": "tsfi.org",
+      "orgName": "TELECOMS SANS FRONTIERES",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "saujon.com",
+      "base": "saujon.fr",
+      "orgName": "SAUJON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "semencespaysannes.com",
+      "base": "semencespaysannes.org",
+      "orgName": "RESEAU SEMENCES PAYSANNES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "semencespaysannes.net",
+      "base": "semencespaysannes.org",
+      "orgName": "RESEAU SEMENCES PAYSANNES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "sfi.org",
+      "base": "tsfi.org",
+      "orgName": "TELECOMS SANS FRONTIERES",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "STARFLEET &#8211; The International Star Trek Fan Association, Inc."
+    },
+    {
+      "domain": "stfi.org",
+      "base": "tsfi.org",
+      "orgName": "TELECOMS SANS FRONTIERES",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "Spirit &amp; Truth"
+    },
+    {
+      "domain": "tfi.org",
+      "base": "tsfi.org",
+      "orgName": "TELECOMS SANS FRONTIERES",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "The Fertilizer Institute Homepage - The Fertilizer Institute"
+    },
+    {
+      "domain": "tfsi.org",
+      "base": "tsfi.org",
+      "orgName": "TELECOMS SANS FRONTIERES",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "Texans for a Safe Israel"
+    },
+    {
+      "domain": "tsf.org",
+      "base": "tsfi.org",
+      "orgName": "TELECOMS SANS FRONTIERES",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Steppingstone"
+    },
+    {
+      "domain": "tsfe.org",
+      "base": "tsfi.org",
+      "orgName": "TELECOMS SANS FRONTIERES",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "tsfi.com",
+      "base": "tsfi.org",
+      "orgName": "TELECOMS SANS FRONTIERES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "The domain name TSFI.COM."
+    },
+    {
+      "domain": "tsfi.net",
+      "base": "tsfi.org",
+      "orgName": "TELECOMS SANS FRONTIERES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Palm Springs, Live Sound, Event Lighting, Concert Audio, Event Production | The Show Factory"
+    },
+    {
+      "domain": "tsfo.org",
+      "base": "tsfi.org",
+      "orgName": "TELECOMS SANS FRONTIERES",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "tsi.org",
+      "base": "tsfi.org",
+      "orgName": "TELECOMS SANS FRONTIERES",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "tsi.org"
+    },
+    {
+      "domain": "tsif.org",
+      "base": "tsfi.org",
+      "orgName": "TELECOMS SANS FRONTIERES",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "tsti.org",
+      "base": "tsfi.org",
+      "orgName": "TELECOMS SANS FRONTIERES",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Home : Temple Sharey Tefilo-Israel"
+    },
+    {
+      "domain": "tzfi.org",
+      "base": "tsfi.org",
+      "orgName": "TELECOMS SANS FRONTIERES",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "TezFin » Decentralized lending and borrowing on Tezos blockchain"
+    },
+    {
+      "domain": "ucb.net",
+      "base": "ugcb.net",
+      "orgName": "UNION DES GRANDS CRUS DE BORDEAUX",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ugbc.net",
+      "base": "ugcb.net",
+      "orgName": "UNION DES GRANDS CRUS DE BORDEAUX",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "NPO法人 UGビジネスクラブ"
+    },
+    {
+      "domain": "ugc.net",
+      "base": "ugcb.net",
+      "orgName": "UNION DES GRANDS CRUS DE BORDEAUX",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "ugc.net"
+    },
+    {
+      "domain": "ugcb.com",
+      "base": "ugcb.net",
+      "orgName": "UNION DES GRANDS CRUS DE BORDEAUX",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "untoitpourlesabeille.fr",
+      "base": "untoitpourlesabeilles.fr",
+      "orgName": "LA COMPAGNIE BOURDONNANTE",
+      "kind": "omission",
+      "similarity": 0.952,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "untoitpourlesabeilles.com",
+      "base": "untoitpourlesabeilles.fr",
+      "orgName": "LA COMPAGNIE BOURDONNANTE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "untoitpourlesabeilles.net",
+      "base": "untoitpourlesabeilles.fr",
+      "orgName": "LA COMPAGNIE BOURDONNANTE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "viciouscircle.com",
+      "base": "viciouscircle.fr",
+      "orgName": "VICIOUS CIRCLE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "The ViciousCircle app collection"
+    },
+    {
+      "domain": "viciouscircle.org",
+      "base": "viciouscircle.fr",
+      "orgName": "VICIOUS CIRCLE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "visionsoft.com",
+      "base": "visionsoft.tech",
+      "orgName": "VISIONSOFT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Top SAP Migration Solutions | Best CRM Software"
+    },
+    {
+      "domain": "visionsoft.net",
+      "base": "visionsoft.tech",
+      "orgName": "VISIONSOFT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "visionsoft.org",
+      "base": "visionsoft.tech",
+      "orgName": "VISIONSOFT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "This domain is parked"
+    },
+    {
+      "domain": "zaal.fr",
+      "base": "zabal.fr",
+      "orgName": "ZABAL MENUISERIES",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "zaba.fr",
+      "base": "zabal.fr",
+      "orgName": "ZABAL MENUISERIES",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "zabal.com",
+      "base": "zabal.fr",
+      "orgName": "ZABAL MENUISERIES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "zabal.com"
+    },
+    {
+      "domain": "zabal.net",
+      "base": "zabal.fr",
+      "orgName": "ZABAL MENUISERIES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Zabal &#8211; Site auteur"
+    },
+    {
+      "domain": "zabal.org",
+      "base": "zabal.fr",
+      "orgName": "ZABAL MENUISERIES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "zabel.fr",
+      "base": "zabal.fr",
+      "orgName": "ZABAL MENUISERIES",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "zobal.fr",
+      "base": "zabal.fr",
+      "orgName": "ZABAL MENUISERIES",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Site en construction"
+    }
+  ],
+  "alarms": 71,
+  "falsePositives": 71,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 2515,
+    "certificate": 92,
+    "page": 92
+  },
+  "durationMs": 30335
+}

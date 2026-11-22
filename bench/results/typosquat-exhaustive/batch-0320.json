@@ -1,0 +1,370 @@
+{
+  "offset": 320,
+  "top": 1000,
+  "targets": 40,
+  "variants": 2890,
+  "active": 39,
+  "detections": [],
+  "activeList": [
+    {
+      "domain": "altitud-rh.com",
+      "base": "altitud-rh.fr",
+      "orgName": "ALTITUD RH",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "biache.fr",
+      "base": "bidache.fr",
+      "orgName": "BIDACHE",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Document sans nom"
+    },
+    {
+      "domain": "bidache.com",
+      "base": "bidache.fr",
+      "orgName": "BIDACHE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bidache.org",
+      "base": "bidache.fr",
+      "orgName": "BIDACHE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Bidache - Making Auction Sales Painless"
+    },
+    {
+      "domain": "bidoche.fr",
+      "base": "bidache.fr",
+      "orgName": "BIDACHE",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "BIDOCHE Boucherie Restaurant"
+    },
+    {
+      "domain": "boont.io",
+      "base": "boonty.io",
+      "orgName": "BOONTY",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Auto osiguranje za dobre vozače | Boont"
+    },
+    {
+      "domain": "boontu.io",
+      "base": "boonty.io",
+      "orgName": "BOONTY",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Boontu | Scope 1, 2 and 3 Emissions and Data Exchange"
+    },
+    {
+      "domain": "boonty.org",
+      "base": "boonty.io",
+      "orgName": "BOONTY",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "booty.io",
+      "base": "boonty.io",
+      "orgName": "BOONTY",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Domain availability | introvert.com"
+    },
+    {
+      "domain": "bounty.io",
+      "base": "boonty.io",
+      "orgName": "BOONTY",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "bounty.io — Premium Domain For Sale"
+    },
+    {
+      "domain": "euskalhaziak.com",
+      "base": "euskalhaziak.eus",
+      "orgName": "FEDERATION EUSKAL-HAZIAK",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Euskal Haziak &#8211; Baratzerako haziak, landareak eta tresnak"
+    },
+    {
+      "domain": "fedrigo-peinture.fr",
+      "base": "fedrigopeinture.fr",
+      "orgName": "FEDRIGO PEINTURE",
+      "kind": "tiret",
+      "similarity": 0.938,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "groupe.com",
+      "base": "groupe.ashler-manson.com",
+      "orgName": "ASHLER ET MANSON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "GROUPE: Premier Civil Engineering &amp; Surveying Services"
+    },
+    {
+      "domain": "groupe.net",
+      "base": "groupe.ashler-manson.com",
+      "orgName": "ASHLER ET MANSON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "groupe.org",
+      "base": "groupe.ashler-manson.com",
+      "orgName": "ASHLER ET MANSON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "headbang.com",
+      "base": "headbang.club",
+      "orgName": "HEADBANG CLUB",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "headbang.net",
+      "base": "headbang.club",
+      "orgName": "HEADBANG CLUB",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "headbang.org",
+      "base": "headbang.club",
+      "orgName": "HEADBANG CLUB",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lanum-paysbasque.org",
+      "base": "lanum-paysbasque.com",
+      "orgName": "AGENCE LOC NOUV TECHN INFO COMMUNICATION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "maison-graciet.com",
+      "base": "maison-graciet.fr",
+      "orgName": "GRACIET & CO",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Maison Graciet - Création Sites WordPress et Référencement SEO"
+    },
+    {
+      "domain": "monsieurtoussaintlouverture.net",
+      "base": "monsieurtoussaintlouverture.com",
+      "orgName": "MONSIEUR TOUSSAINT LOUVERTURE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "musiques-metisses.net",
+      "base": "musiques-metisses.com",
+      "orgName": "MUSIQUES METISSES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "musiquesmetisses &#8211; Cultivez votre curiosité !"
+    },
+    {
+      "domain": "musiques-metisses.org",
+      "base": "musiques-metisses.com",
+      "orgName": "MUSIQUES METISSES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "musiquesmetisses &#8211; Cultivez votre curiosité !"
+    },
+    {
+      "domain": "pompiers-urgence.com",
+      "base": "pompiers-urgence.org",
+      "orgName": "POMPIERS DE L'URGENCE INTERNATIONALE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Pompiers de l&#039;urgence internationale &#8211; Au cœur de l&#039;action"
+    },
+    {
+      "domain": "sao.org",
+      "base": "sao.asso.fr",
+      "orgName": "SOC ANTIQUAIRES DE L OUEST",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "supercoo.fr",
+      "base": "supercoop.fr",
+      "orgName": "SUPERCOOP",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "supercoop.com",
+      "base": "supercoop.fr",
+      "orgName": "SUPERCOOP",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Unlocking the Power of Community: How Supercoop is Revolutionizing the Way We Live"
+    },
+    {
+      "domain": "supercoop.org",
+      "base": "supercoop.fr",
+      "orgName": "SUPERCOOP",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "supercoup.fr",
+      "base": "supercoop.fr",
+      "orgName": "SUPERCOOP",
+      "kind": "substitution",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "sustaain.com",
+      "base": "sustaain.org",
+      "orgName": "SUSTAAIN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "sustaain.net",
+      "base": "sustaain.org",
+      "orgName": "SUSTAAIN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "sustain.org",
+      "base": "sustaain.org",
+      "orgName": "SUSTAAIN",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": "Institute for Sustainable Communities |"
+    },
+    {
+      "domain": "tih.fr",
+      "base": "tilh.fr",
+      "orgName": "TILH",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "til.fr",
+      "base": "tilh.fr",
+      "orgName": "TILH",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Til Étiquettes"
+    },
+    {
+      "domain": "tilh.com",
+      "base": "tilh.fr",
+      "orgName": "TILH",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Tilh.com is for sale - Premium Domain"
+    },
+    {
+      "domain": "tilh.net",
+      "base": "tilh.fr",
+      "orgName": "TILH",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "How to live a happy life - バッグや財布のことを知るサイト"
+    },
+    {
+      "domain": "tlh.fr",
+      "base": "tilh.fr",
+      "orgName": "TILH",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ucbasque.org",
+      "base": "ycbasque.org",
+      "orgName": "ASSOCIATION SPORTIVE YATCH BASQUE",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": "UC Basque"
+    },
+    {
+      "domain": "ycbasque.com",
+      "base": "ycbasque.org",
+      "orgName": "ASSOCIATION SPORTIVE YATCH BASQUE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    }
+  ],
+  "alarms": 36,
+  "falsePositives": 36,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 2890,
+    "certificate": 39,
+    "page": 39
+  },
+  "durationMs": 20401
+}

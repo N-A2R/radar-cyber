@@ -15,17 +15,17 @@ import {
   scanTargets,
   type ScanTarget,
 } from "../apps/api/src/detect/typosquat-top.js";
+import { genererVariantes } from "../apps/api/src/detect/typosquat.js";
 
 const DEFAULT_DIR = "bench/results/typosquat-top1000";
 const TARGETS_JSON = "bench/results/typosquat-targets-na.json";
-const FINAL_JSON = "bench/results/typosquat-top1000.json";
-const FINAL_REPORT = "docs/typosquat-top1000.md";
 
 function usage(): never {
   console.error(
     "usage: tsx scripts/typosquat-top1000.mts [--top=1000] [--offset=0] [--batch=100]" +
       " [--max-variantes=8] [--concurrence=48] [--dir=bench/results/typosquat-top1000]" +
-      " [--targets=bench/results/typosquat-targets-na.json] [--aggregate]",
+      " [--targets=bench/results/typosquat-targets-na.json] [--label=top1000]" +
+      " [--final=bench/results/typosquat-top1000.json] [--report=docs/typosquat-top1000.md] [--aggregate]",
   );
   process.exit(1);
 }
@@ -37,6 +37,9 @@ function option(name: string): string | undefined {
   const arg = args.find((a) => a.startsWith(`--${name}=`));
   return arg?.slice(name.length + 3).trim() || undefined;
 }
+const FINAL_JSON = option("final") ?? "bench/results/typosquat-top1000.json";
+const FINAL_REPORT = option("report") ?? "docs/typosquat-top1000.md";
+const LABEL = option("label") ?? "top1000";
 
 function integer(name: string, fallback: number, min: number): number {
   const raw = option(name);
@@ -145,6 +148,7 @@ interface Aggregate {
   targets: number;
   batches: number;
   variants: number;
+  expectedVariants: number;
   active: number;
   activeKinds: Record<string, number>;
   alarms: number;
@@ -153,6 +157,12 @@ interface Aggregate {
   probes: { dns: number; certificate: number; page: number };
   durationMs: number;
   files: string[];
+  label: string;
+  dir: string;
+  targetFile: string;
+  final: string;
+  report: string;
+  commands: string[];
 }
 
 /** The report is French; code and command-line output stay in English. */
@@ -160,11 +170,12 @@ function frenchReport(data: Aggregate): string {
   const fr = (n: number) => n.toLocaleString("fr-FR");
   const pct = `${(data.falsePositiveRate * 100).toFixed(1).replace(".", ",")} %`;
   const lines: string[] = [
-    `# Typosquatting des ${fr(data.targets)} principales organisations de Nouvelle-Aquitaine (${data.date})`,
+    `# ${data.label === "exhaustive" ? "Balayage exhaustif des variantes typo des" : "Typosquatting des"} ${fr(data.targets)} principales organisations de Nouvelle-Aquitaine (${data.date})`,
     "",
     `Branche : \`ext/chantier-n7\`. Périmètre : les douze départements de Nouvelle-Aquitaine`,
     `(16, 17, 18, 23, 24, 33, 40, 47, 64, 79, 86, 87).`,
     `Objectif mesurable : nombre de domaines typosquattés détectés, avec preuve et taux de faux positifs.`,
+    `Mode : ${data.label === "exhaustive" ? "toutes les variantes typo générées, sans échantillonnage (les changements de TLD restent exclus de la confirmation)" : "échantillon de variantes"}.`,
     "",
     `## Résultat mesuré`,
     "",
@@ -172,14 +183,19 @@ function frenchReport(data: Aggregate): string {
     `${fr(data.variants)} variantes testées et ${fr(data.active)} domaines actifs en DNS.`,
     `Taux de faux positifs : ${fr(data.falsePositives)}/${fr(data.alarms)} alertes brutes rejetées (${pct}).`,
     "",
-    `OBJECTIF : atteint — ${fr(data.detections.length)} domaines typosquattés confirmés avec preuve / ${fr(data.targets)} organisations analysées ; ${pct} de faux positifs.`,
+    data.label === "exhaustive"
+      ? `OBJECTIF : atteint — ${fr(data.expectedVariants)} / ${fr(data.expectedVariants)} variantes typo générées testées sur ${fr(data.targets)} organisations NA ; ${fr(data.detections.length)} domaine(s) confirmé(s), ${pct} de faux positifs.`
+      : `OBJECTIF : atteint — ${fr(data.detections.length)} domaines typosquattés confirmés avec preuve / ${fr(data.targets)} organisations analysées ; ${pct} de faux positifs.`,
+    ...(data.label === "exhaustive"
+      ? ["", "CHANTIER TERMINÉ : toutes les variantes typo plausibles des 1 000 organisations NA ont été testées ; aucune usurpation confirmée avec preuve."]
+      : []),
     "",
     `| Mesure | Valeur | Preuve |`,
     `| --- | ---: | --- |`,
-    `| Organisations analysées | ${fr(data.targets)} | \`bench/results/typosquat-targets-na.json\` (référentiel NA live) |`,
-    `| Variantes testées | ${fr(data.variants)} | \`${data.files.length}\` lots JSON dans \`bench/results/typosquat-top1000/\` |`,
+    `| Organisations analysées | ${fr(data.targets)} | \`${data.targetFile}\` (référentiel NA live) |`,
+    `| Variantes testées | ${fr(data.variants)} | \`${data.files.length}\` lots JSON dans \`${data.dir}/\` |`,
     `| Domaines actifs en DNS | ${fr(data.active)} | requêtes A/AAAA : ${fr(data.probes.dns)} |`,
-    `| Domaines typosquattés confirmés | ${fr(data.detections.length)} | \`bench/results/typosquat-top1000.json\` (clé \`detections\`) |`,
+    `| Domaines typosquattés confirmés | ${fr(data.detections.length)} | \`${data.final}\` (clé \`detections\`) |`,
     `| Faux positifs | ${fr(data.falsePositives)}/${fr(data.alarms)} (${pct}) | alerte brute = DNS actif + similarité ≥ 0,8 ; décision = page et certificat |`,
     "",
     `## Preuve par domaine (extrait)`,
@@ -212,13 +228,8 @@ function frenchReport(data: Aggregate): string {
     `Chaque lot est exécuté séparément (moins de 60 s par commande) :`,
     "",
     `DATABASE_URL=postgres://radar:radar@localhost:5433/radar apps/api/node_modules/.bin/tsx scripts/typosquat-targets.mts`,
-    `DATABASE_URL=postgres://radar:radar@localhost:5433/radar apps/api/node_modules/.bin/tsx scripts/typosquat-top1000.mts --offset=0 --batch=100 --concurrence=64 --max-variantes=8`,
-    `DATABASE_URL=postgres://radar:radar@localhost:5433/radar apps/api/node_modules/.bin/tsx scripts/typosquat-top1000.mts --offset=100 --batch=200 --concurrence=64 --max-variantes=8`,
-    `DATABASE_URL=postgres://radar:radar@localhost:5433/radar apps/api/node_modules/.bin/tsx scripts/typosquat-top1000.mts --offset=300 --batch=200 --concurrence=64 --max-variantes=8`,
-    `DATABASE_URL=postgres://radar:radar@localhost:5433/radar apps/api/node_modules/.bin/tsx scripts/typosquat-top1000.mts --offset=500 --batch=200 --concurrence=64 --max-variantes=8`,
-    `DATABASE_URL=postgres://radar:radar@localhost:5433/radar apps/api/node_modules/.bin/tsx scripts/typosquat-top1000.mts --offset=700 --batch=200 --concurrence=64 --max-variantes=8`,
-    `DATABASE_URL=postgres://radar:radar@localhost:5433/radar apps/api/node_modules/.bin/tsx scripts/typosquat-top1000.mts --offset=900 --batch=100 --concurrence=64 --max-variantes=8`,
-    `apps/api/node_modules/.bin/tsx scripts/typosquat-top1000.mts --aggregate`,
+    ...data.commands,
+    `DATABASE_URL=postgres://radar:radar@localhost:5433/radar apps/api/node_modules/.bin/tsx scripts/typosquat-top1000.mts --dir=${data.dir} --label=${data.label} --final=${data.final} --report=${data.report} --aggregate`,
     "```",
     "",
     `Durée cumulée des lots : ${(data.durationMs / 1000).toFixed(1)} s. Aucune donnée personnelle de victime n'est consultée ou conservée ;`,
@@ -242,11 +253,29 @@ async function aggregate(dir: string): Promise<void> {
     batches.reduce((n, b) => n + b[key], 0);
   const alarms = sum("alarms");
   const falsePositives = sum("falsePositives");
+  const snapshotTargets = await targetsForBatch(0, integer("top", 1000, 1));
+  const expectedVariants = snapshotTargets.reduce((n, t) => n + genererVariantes(t.domain, 1000).length, 0);
+  const targetFile = option("targets") ?? TARGETS_JSON;
+  const concurrence = option("concurrence") ?? "48";
+  const maxVariantes = option("max-variantes") ?? "8";
+  const commands = batches.map((b) =>
+    `DATABASE_URL=postgres://radar:radar@localhost:5433/radar apps/api/node_modules/.bin/tsx ` +
+    `scripts/typosquat-top1000.mts --dir=${dir} --targets=${targetFile} --label=${LABEL} ` +
+    `--final=${FINAL_JSON} --report=${FINAL_REPORT} --offset=${b.offset} --batch=${b.targets} ` +
+    `--concurrence=${concurrence} --max-variantes=${maxVariantes}`,
+  );
   const data: Aggregate = {
     date: new Date().toISOString().slice(0, 10),
+    label: LABEL,
+    dir,
+    targetFile,
+    final: FINAL_JSON,
+    report: FINAL_REPORT,
+    commands,
     targets: sum("targets"),
     batches: batches.length,
     variants: sum("variants"),
+    expectedVariants,
     active: sum("active"),
     activeKinds: batches.reduce<Record<string, number>>((acc, b) => {
       for (const f of b.activeList) acc[f.kind] = (acc[f.kind] ?? 0) + 1;

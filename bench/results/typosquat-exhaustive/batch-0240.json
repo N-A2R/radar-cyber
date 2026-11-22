@@ -1,0 +1,865 @@
+{
+  "offset": 240,
+  "top": 1000,
+  "targets": 40,
+  "variants": 2862,
+  "active": 94,
+  "detections": [],
+  "activeList": [
+    {
+      "domain": "acna.fr",
+      "base": "ocna.fr",
+      "orgName": "ORCHESTRE DE CHAMBRE NOUVELLE-AQUITAINE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "aerzen.fr",
+      "base": "airzen.fr",
+      "orgName": "AIRZEN RADIO",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "agelle.com",
+      "base": "agnelle.com",
+      "orgName": "AGNELLE",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "agelle.com for sale | Spaceship.com"
+    },
+    {
+      "domain": "agnell.com",
+      "base": "agnelle.com",
+      "orgName": "AGNELLE",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "LTC-AUSTIN"
+    },
+    {
+      "domain": "agnella.com",
+      "base": "agnelle.com",
+      "orgName": "AGNELLE",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "agnelli.com",
+      "base": "agnelle.com",
+      "orgName": "AGNELLE",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "air-zen.fr",
+      "base": "airzen.fr",
+      "orgName": "AIRZEN RADIO",
+      "kind": "tiret",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Airzen"
+    },
+    {
+      "domain": "airzen.com",
+      "base": "airzen.fr",
+      "orgName": "AIRZEN RADIO",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Airzen Travel eSIM | 200+ Countries, Japan Specialist"
+    },
+    {
+      "domain": "airzen.org",
+      "base": "airzen.fr",
+      "orgName": "AIRZEN RADIO",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "aizen.fr",
+      "base": "airzen.fr",
+      "orgName": "AIRZEN RADIO",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "aizen.fr est en vente"
+    },
+    {
+      "domain": "alternatiba.com",
+      "base": "alternatiba.eu",
+      "orgName": "ALTERNATIBA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "alternatiba.net",
+      "base": "alternatiba.eu",
+      "orgName": "ALTERNATIBA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "alternatiba &#8211; Gu gara Alternatiba &#8211; Ezkerra eraldatzearen erronka"
+    },
+    {
+      "domain": "alternatiba.org",
+      "base": "alternatiba.eu",
+      "orgName": "ALTERNATIBA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Alternatiba - Mouvement pour le climat et la justice sociale"
+    },
+    {
+      "domain": "alternativa.eu",
+      "base": "alternatiba.eu",
+      "orgName": "ALTERNATIBA",
+      "kind": "substitution",
+      "similarity": 0.909,
+      "certificate": null,
+      "pageTitle": "Partidul Mișcarea Alternativă Națională &#8211; MAN"
+    },
+    {
+      "domain": "anelle.com",
+      "base": "agnelle.com",
+      "orgName": "AGNELLE",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "angelle.com",
+      "base": "agnelle.com",
+      "orgName": "AGNELLE",
+      "kind": "transposition",
+      "similarity": 0.714,
+      "certificate": null,
+      "pageTitle": "Angelle Architects | Architecture &amp; Planning, Breaux Bridge, Louisiana"
+    },
+    {
+      "domain": "arizen.fr",
+      "base": "airzen.fr",
+      "orgName": "AIRZEN RADIO",
+      "kind": "transposition",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "baby-foot.net",
+      "base": "baby-foot.com",
+      "orgName": "EURL SULPIE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Baby-foot : Comparatif, guide d&#039;achat sur le foot de table"
+    },
+    {
+      "domain": "baby-foto.com",
+      "base": "baby-foot.com",
+      "orgName": "EURL SULPIE",
+      "kind": "transposition",
+      "similarity": 0.778,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "babyfoot.com",
+      "base": "baby-foot.com",
+      "orgName": "EURL SULPIE",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": "BabyFoot® – Peel Away Rough Skin for Baby-Soft Feet &ndash; Baby Foot"
+    },
+    {
+      "domain": "bdart.fr",
+      "base": "bidart.fr",
+      "orgName": "BIDART",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "betharram.com",
+      "base": "betharram.net",
+      "orgName": "PROVINCE FRANCE CONGREGATION PRETRES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Grottes de Bétharram - Hautes-Pyrénées - Pyrénées Atlantiques"
+    },
+    {
+      "domain": "betharram.org",
+      "base": "betharram.net",
+      "orgName": "PROVINCE FRANCE CONGREGATION PRETRES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Home - Bétharram"
+    },
+    {
+      "domain": "bidar.fr",
+      "base": "bidart.fr",
+      "orgName": "BIDART",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bidart.com",
+      "base": "bidart.fr",
+      "orgName": "BIDART",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "bodart.fr",
+      "base": "bidart.fr",
+      "orgName": "BIDART",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Bodart - Bodart.fr"
+    },
+    {
+      "domain": "c-groupe.fr",
+      "base": "cm-groupe.fr",
+      "orgName": "CM. GROUPE",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "castelnau.com",
+      "base": "castelnaud.com",
+      "orgName": "CHATEAU DE CASTELNAUD",
+      "kind": "omission",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": "Home - Castelnau"
+    },
+    {
+      "domain": "castelnaud.net",
+      "base": "castelnaud.com",
+      "orgName": "CHATEAU DE CASTELNAUD",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "castelnaud.org",
+      "base": "castelnaud.com",
+      "orgName": "CHATEAU DE CASTELNAUD",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "clark.ai",
+      "base": "klark.ai",
+      "orgName": "KLARK",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cm-group.fr",
+      "base": "cm-groupe.fr",
+      "orgName": "CM. GROUPE",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cm-groupe.com",
+      "base": "cm-groupe.fr",
+      "orgName": "CM. GROUPE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "CM-Groupe, courtier en assurances multi-spécialiste à Pessac"
+    },
+    {
+      "domain": "cna.fr",
+      "base": "ocna.fr",
+      "orgName": "ORCHESTRE DE CHAMBRE NOUVELLE-AQUITAINE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Our Business – CNA Hardy"
+    },
+    {
+      "domain": "compagnieleanature.com",
+      "base": "compagnie-leanature.com",
+      "orgName": "COMPAGNIE LEA NATURE",
+      "kind": "omission",
+      "similarity": 0.947,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cona.fr",
+      "base": "ocna.fr",
+      "orgName": "ORCHESTRE DE CHAMBRE NOUVELLE-AQUITAINE",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "delamaincognac.com",
+      "base": "delamain-cognac.com",
+      "orgName": "SOCIETE DELAMAIN ET COMPAGNIE",
+      "kind": "omission",
+      "similarity": 0.933,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "dne.org",
+      "base": "dsne.org",
+      "orgName": "DEUX SEVRES NATURE ENVIRONNEMENT",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Dance, music, communication, and community."
+    },
+    {
+      "domain": "dnse.org",
+      "base": "dsne.org",
+      "orgName": "DEUX SEVRES NATURE ENVIRONNEMENT",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "dse.org",
+      "base": "dsne.org",
+      "orgName": "DEUX SEVRES NATURE ENVIRONNEMENT",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "dsen.org",
+      "base": "dsne.org",
+      "orgName": "DEUX SEVRES NATURE ENVIRONNEMENT",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "dsen.org"
+    },
+    {
+      "domain": "dshe.org",
+      "base": "dsne.org",
+      "orgName": "DEUX SEVRES NATURE ENVIRONNEMENT",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "dsme.org",
+      "base": "dsne.org",
+      "orgName": "DEUX SEVRES NATURE ENVIRONNEMENT",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "dsn.org",
+      "base": "dsne.org",
+      "orgName": "DEUX SEVRES NATURE ENVIRONNEMENT",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "DSN 2027 Berlin"
+    },
+    {
+      "domain": "dsna.org",
+      "base": "dsne.org",
+      "orgName": "DEUX SEVRES NATURE ENVIRONNEMENT",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Home - Delaware School Nurse Association"
+    },
+    {
+      "domain": "dsne.com",
+      "base": "dsne.org",
+      "orgName": "DEUX SEVRES NATURE ENVIRONNEMENT",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "DSNE"
+    },
+    {
+      "domain": "dsni.org",
+      "base": "dsne.org",
+      "orgName": "DEUX SEVRES NATURE ENVIRONNEMENT",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "DSNI"
+    },
+    {
+      "domain": "dzne.org",
+      "base": "dsne.org",
+      "orgName": "DEUX SEVRES NATURE ENVIRONNEMENT",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "DZNE &nbsp;>&nbsp;verstehen, Ursachen entschlüsseln, Therapien entwickeln"
+    },
+    {
+      "domain": "e17.fr",
+      "base": "ne17.fr",
+      "orgName": "NATURE ENVIRONNEMENT 17",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Magasin d&#x27;électronique"
+    },
+    {
+      "domain": "en17.fr",
+      "base": "ne17.fr",
+      "orgName": "NATURE ENVIRONNEMENT 17",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "epicap.fr",
+      "base": "epsicap.fr",
+      "orgName": "EPSICAP REIM",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "epsicap.com",
+      "base": "epsicap.fr",
+      "orgName": "EPSICAP REIM",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Epsicap REIM | European Real Estate Investment &amp; SCPI Management"
+    },
+    {
+      "domain": "francofolies.com",
+      "base": "francofolies.fr",
+      "orgName": "FRANCOFOLIES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "francofolies.org",
+      "base": "francofolies.fr",
+      "orgName": "FRANCOFOLIES",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ganelle.com",
+      "base": "agnelle.com",
+      "orgName": "AGNELLE",
+      "kind": "transposition",
+      "similarity": 0.714,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "groupe-sudouest.com",
+      "base": "groupesudouest.com",
+      "orgName": "GROUPE SUD OUEST SA",
+      "kind": "tiret",
+      "similarity": 0.933,
+      "certificate": null,
+      "pageTitle": "GSO - Le Groupe Sud Ouest"
+    },
+    {
+      "domain": "idart.fr",
+      "base": "bidart.fr",
+      "orgName": "BIDART",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "joubertgroup.com",
+      "base": "joubert-group.com",
+      "orgName": "ETABLISSEMENTS GUY JOUBERT",
+      "kind": "omission",
+      "similarity": 0.923,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "kark.ai",
+      "base": "klark.ai",
+      "orgName": "KLARK",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "kark.ai"
+    },
+    {
+      "domain": "klak.ai",
+      "base": "klark.ai",
+      "orgName": "KLARK",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "klank.ai",
+      "base": "klark.ai",
+      "orgName": "KLARK",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "klank.ai is for sale — name.ai"
+    },
+    {
+      "domain": "klarc.ai",
+      "base": "klark.ai",
+      "orgName": "KLARK",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "klark.com",
+      "base": "klark.ai",
+      "orgName": "KLARK",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Klark Proposal Software"
+    },
+    {
+      "domain": "klark.net",
+      "base": "klark.ai",
+      "orgName": "KLARK",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "klark.org",
+      "base": "klark.ai",
+      "orgName": "KLARK",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "lark.ai",
+      "base": "klark.ai",
+      "orgName": "KLARK",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Log in"
+    },
+    {
+      "domain": "lo-congres.org",
+      "base": "locongres.org",
+      "orgName": "ASSOCIATION LO CONGRES PERMANENT DE LA LENGA OCCITANA",
+      "kind": "tiret",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "locongres.com",
+      "base": "locongres.org",
+      "orgName": "ASSOCIATION LO CONGRES PERMANENT DE LA LENGA OCCITANA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Arcuelh"
+    },
+    {
+      "domain": "locongres.net",
+      "base": "locongres.org",
+      "orgName": "ASSOCIATION LO CONGRES PERMANENT DE LA LENGA OCCITANA",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lycee-prive-64.com",
+      "base": "lycee-prive-64.fr",
+      "orgName": "OGEC ST JOSEPH",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Lycée privé Notre-Dame à Sauveterre — Page d&#039;accueil - Ensemble Scolaire Notre Dame"
+    },
+    {
+      "domain": "m-groupe.fr",
+      "base": "cm-groupe.fr",
+      "orgName": "CM. GROUPE",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mc-groupe.fr",
+      "base": "cm-groupe.fr",
+      "orgName": "CM. GROUPE",
+      "kind": "transposition",
+      "similarity": 0.778,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "midipile.com",
+      "base": "midipile.eu",
+      "orgName": "MIDIPILE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "midipile.net",
+      "base": "midipile.eu",
+      "orgName": "MIDIPILE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "midipile.org",
+      "base": "midipile.eu",
+      "orgName": "MIDIPILE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Midi pile"
+    },
+    {
+      "domain": "n17.fr",
+      "base": "ne17.fr",
+      "orgName": "NATURE ENVIRONNEMENT 17",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "n17.fr est en vente"
+    },
+    {
+      "domain": "ne1.fr",
+      "base": "ne17.fr",
+      "orgName": "NATURE ENVIRONNEMENT 17",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "oca.fr",
+      "base": "ocna.fr",
+      "orgName": "ORCHESTRE DE CHAMBRE NOUVELLE-AQUITAINE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Convoyeur aérien &amp; Manutention aérienne | OCA"
+    },
+    {
+      "domain": "ocan.fr",
+      "base": "ocna.fr",
+      "orgName": "ORCHESTRE DE CHAMBRE NOUVELLE-AQUITAINE",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "O&#039;CAN : Travaux subaquatiques et en milieux difficiles d&#039;accès - O&#039;CAN"
+    },
+    {
+      "domain": "ocn.fr",
+      "base": "ocna.fr",
+      "orgName": "ORCHESTRE DE CHAMBRE NOUVELLE-AQUITAINE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Concepteur, fabricant et réparateur d&#039;outils coupants sur mesure - OCN"
+    },
+    {
+      "domain": "ocna.com",
+      "base": "ocna.fr",
+      "orgName": "ORCHESTRE DE CHAMBRE NOUVELLE-AQUITAINE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ocna.org",
+      "base": "ocna.fr",
+      "orgName": "ORCHESTRE DE CHAMBRE NOUVELLE-AQUITAINE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "OCNA - Ontario Community Newspaper Association"
+    },
+    {
+      "domain": "okna.fr",
+      "base": "ocna.fr",
+      "orgName": "ORCHESTRE DE CHAMBRE NOUVELLE-AQUITAINE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "okna.fr est en vente"
+    },
+    {
+      "domain": "ona.fr",
+      "base": "ocna.fr",
+      "orgName": "ORCHESTRE DE CHAMBRE NOUVELLE-AQUITAINE",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "onca.fr",
+      "base": "ocna.fr",
+      "orgName": "ORCHESTRE DE CHAMBRE NOUVELLE-AQUITAINE",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "ONCA, Cabinet d&#039;expertise comptable à Toulouse | ONCA Comptable Toulouse - Cabinet Expert Comptable à Toulouse"
+    },
+    {
+      "domain": "parthena.fr",
+      "base": "parthenay.fr",
+      "orgName": "PARTHENAY",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "parthenay.com",
+      "base": "parthenay.fr",
+      "orgName": "PARTHENAY",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "reside.fr",
+      "base": "respide.fr",
+      "orgName": "CHATEAU DE RESPIDE",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "respid.fr",
+      "base": "respide.fr",
+      "orgName": "CHATEAU DE RESPIDE",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "respide.com",
+      "base": "respide.fr",
+      "orgName": "CHATEAU DE RESPIDE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "sdne.org",
+      "base": "dsne.org",
+      "orgName": "DEUX SEVRES NATURE ENVIRONNEMENT",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "sne.org",
+      "base": "dsne.org",
+      "orgName": "DEUX SEVRES NATURE ENVIRONNEMENT",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Society for Nutrition Education and Behavior -"
+    },
+    {
+      "domain": "ucna.fr",
+      "base": "ocna.fr",
+      "orgName": "ORCHESTRE DE CHAMBRE NOUVELLE-AQUITAINE",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "UCNA -"
+    },
+    {
+      "domain": "vidart.fr",
+      "base": "bidart.fr",
+      "orgName": "BIDART",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    }
+  ],
+  "alarms": 63,
+  "falsePositives": 63,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 2862,
+    "certificate": 94,
+    "page": 94
+  },
+  "durationMs": 21721
+}

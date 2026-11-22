@@ -1,0 +1,1072 @@
+{
+  "offset": 80,
+  "top": 1000,
+  "targets": 40,
+  "variants": 2979,
+  "active": 117,
+  "detections": [],
+  "activeList": [
+    {
+      "domain": "2s.fr",
+      "base": "i2s.fr",
+      "orgName": "I2S",
+      "kind": "omission",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": "2s.fr&nbsp;-&nbsp;Ce site web est à vendre !&nbsp;-&nbsp;Ressources et information concernant 2 s Resources and Information."
+    },
+    {
+      "domain": "afite.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "alfite.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "transposition",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "amandier.fr",
+      "base": "lamandier.fr",
+      "orgName": "OGEC LTP SAINT-JOSEPH L'AMANDIER",
+      "kind": "omission",
+      "similarity": 0.889,
+      "certificate": null,
+      "pageTitle": "Restaurant à Mougins · Cuisine provençale | L&#39;Amandier de Mougins"
+    },
+    {
+      "domain": "cavi.com",
+      "base": "covi.com",
+      "orgName": "COVI",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "chateau-chevalblanc.com",
+      "base": "chateau-cheval-blanc.com",
+      "orgName": "CHATEAU CHEVAL BLANC",
+      "kind": "omission",
+      "similarity": 0.95,
+      "certificate": null,
+      "pageTitle": "Château Cheval Blanc &#8226; Saint-Émilion"
+    },
+    {
+      "domain": "cibertek.fr",
+      "base": "cybertek.fr",
+      "orgName": "GROUPE CYBERTEK",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": "Site is undergoing maintenance"
+    },
+    {
+      "domain": "co-vi.com",
+      "base": "covi.com",
+      "orgName": "COVI",
+      "kind": "tiret",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cobi.com",
+      "base": "covi.com",
+      "orgName": "COVI",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Blocs de construction COBI | Briques de construction COBI — Boutique officielle COBI &ndash; COBI Europe"
+    },
+    {
+      "domain": "coi.com",
+      "base": "covi.com",
+      "orgName": "COVI",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Maßgeschneiderte DMS-Systeme"
+    },
+    {
+      "domain": "coiv.com",
+      "base": "covi.com",
+      "orgName": "COVI",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "cov-i.com",
+      "base": "covi.com",
+      "orgName": "COVI",
+      "kind": "tiret",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "cov.com",
+      "base": "covi.com",
+      "orgName": "COVI",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Covington &amp; Burling LLP | We help clients navigate issues at the intersection of law and policy around the world."
+    },
+    {
+      "domain": "cove.com",
+      "base": "covi.com",
+      "orgName": "COVI",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "PIXEL PULSE GAMES"
+    },
+    {
+      "domain": "covi.net",
+      "base": "covi.com",
+      "orgName": "COVI",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "covi.org",
+      "base": "covi.com",
+      "orgName": "COVI",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "covo.com",
+      "base": "covi.com",
+      "orgName": "COVI",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cuvi.com",
+      "base": "covi.com",
+      "orgName": "COVI",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cvi.com",
+      "base": "covi.com",
+      "orgName": "COVI",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cvoi.com",
+      "base": "covi.com",
+      "orgName": "COVI",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "cvoi.com :: this domain is for sale"
+    },
+    {
+      "domain": "cybertec.fr",
+      "base": "cybertek.fr",
+      "orgName": "GROUPE CYBERTEK",
+      "kind": "substitution",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cybertek.com",
+      "base": "cybertek.fr",
+      "orgName": "GROUPE CYBERTEK",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Cybertek : Achat PC gamer &amp; PC portable, retrait magasin 1 h"
+    },
+    {
+      "domain": "cybertek.net",
+      "base": "cybertek.fr",
+      "orgName": "GROUPE CYBERTEK",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "IT Services - San Bernardino CA"
+    },
+    {
+      "domain": "cybertek.org",
+      "base": "cybertek.fr",
+      "orgName": "GROUPE CYBERTEK",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "dc.fr",
+      "base": "jdc.fr",
+      "orgName": "JDC",
+      "kind": "omission",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": "Site en Construction"
+    },
+    {
+      "domain": "djc.fr",
+      "base": "jdc.fr",
+      "orgName": "JDC",
+      "kind": "transposition",
+      "similarity": 0.333,
+      "certificate": null,
+      "pageTitle": "DJC Décolletage | Usinage CN, pièces usinées de haute précision"
+    },
+    {
+      "domain": "e2s.fr",
+      "base": "i2s.fr",
+      "orgName": "I2S",
+      "kind": "substitution",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": "Accueil | E2S"
+    },
+    {
+      "domain": "egsi.fr",
+      "base": "eigsi.fr",
+      "orgName": "ECOLE D INGENIEURS",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "eigsi.com",
+      "base": "eigsi.fr",
+      "orgName": "ECOLE D INGENIEURS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "eigsi.net",
+      "base": "eigsi.fr",
+      "orgName": "ECOLE D INGENIEURS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "eigsi.org",
+      "base": "eigsi.fr",
+      "orgName": "ECOLE D INGENIEURS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Ecole d&#039;ingénieurs généralistes EIGSI | Ecole ingénieur Formation | CPGE Post-Bac"
+    },
+    {
+      "domain": "eisi.fr",
+      "base": "eigsi.fr",
+      "orgName": "ECOLE D INGENIEURS",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "epfa.fr",
+      "base": "epfna.fr",
+      "orgName": "ETABLISSEMENT PUBLIC FONCIER DE NOUVELLE-AQUITAINE",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "epfn.fr",
+      "base": "epfna.fr",
+      "orgName": "ETABLISSEMENT PUBLIC FONCIER DE NOUVELLE-AQUITAINE",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "eterg.com",
+      "base": "iterg.com",
+      "orgName": "ITERG",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "exploration.com",
+      "base": "exploration.space",
+      "orgName": "THE EXPLORATION COMPANY",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Oil And Gas Exploration"
+    },
+    {
+      "domain": "exploration.net",
+      "base": "exploration.space",
+      "orgName": "THE EXPLORATION COMPANY",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "exploration.org",
+      "base": "exploration.space",
+      "orgName": "THE EXPLORATION COMPANY",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Exploration Place, Wichita, KS | Sedgwick County Science and Discovery Center"
+    },
+    {
+      "domain": "hyprspace.com",
+      "base": "hypr-space.com",
+      "orgName": "HYBRID PROPULSION FOR SPACE",
+      "kind": "omission",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": "HYPRLABS Inc."
+    },
+    {
+      "domain": "i2.fr",
+      "base": "i2s.fr",
+      "orgName": "I2S",
+      "kind": "omission",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "i2s.com",
+      "base": "i2s.fr",
+      "orgName": "I2S",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Cold Rolling Reduction Mills | Tenova"
+    },
+    {
+      "domain": "i2s.net",
+      "base": "i2s.fr",
+      "orgName": "I2S",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "i2s.net"
+    },
+    {
+      "domain": "i2s.org",
+      "base": "i2s.fr",
+      "orgName": "I2S",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "i2z.fr",
+      "base": "i2s.fr",
+      "orgName": "I2S",
+      "kind": "substitution",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": "Nom de domaine, prestataire référencement, hébergement de site web"
+    },
+    {
+      "domain": "iafite.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "ierg.com",
+      "base": "iterg.com",
+      "orgName": "ITERG",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "iferg.com",
+      "base": "iterg.com",
+      "orgName": "ITERG",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "igsi.fr",
+      "base": "eigsi.fr",
+      "orgName": "ECOLE D INGENIEURS",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "is.fr",
+      "base": "i2s.fr",
+      "orgName": "I2S",
+      "kind": "omission",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": "is - Contact Direct"
+    },
+    {
+      "domain": "is2.fr",
+      "base": "i2s.fr",
+      "orgName": "I2S",
+      "kind": "transposition",
+      "similarity": 0.333,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "iteg.com",
+      "base": "iterg.com",
+      "orgName": "ITERG",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "This website is being updated"
+    },
+    {
+      "domain": "iteng.com",
+      "base": "iterg.com",
+      "orgName": "ITERG",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "iter.com",
+      "base": "iterg.com",
+      "orgName": "ITERG",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "iterq.com",
+      "base": "iterg.com",
+      "orgName": "ITERG",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "iterQ - Secure Your Modern Enterprise"
+    },
+    {
+      "domain": "itreg.com",
+      "base": "iterg.com",
+      "orgName": "ITERG",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": "itreg.com&nbsp;-&nbsp;Ce site web est à vendre !&nbsp;-&nbsp;Ressources et information concernant itreg Resources and Information."
+    },
+    {
+      "domain": "itrg.com",
+      "base": "iterg.com",
+      "orgName": "ITERG",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "jcd.fr",
+      "base": "jdc.fr",
+      "orgName": "JDC",
+      "kind": "transposition",
+      "similarity": 0.333,
+      "certificate": null,
+      "pageTitle": "Premium Domain For Sale | Safenames Ltd"
+    },
+    {
+      "domain": "jd.fr",
+      "base": "jdc.fr",
+      "orgName": "JDC",
+      "kind": "omission",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "jdc.com",
+      "base": "jdc.fr",
+      "orgName": "JDC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Coming Soon"
+    },
+    {
+      "domain": "jdc.net",
+      "base": "jdc.fr",
+      "orgName": "JDC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "jdc.org",
+      "base": "jdc.fr",
+      "orgName": "JDC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "jdk.fr",
+      "base": "jdc.fr",
+      "orgName": "JDC",
+      "kind": "substitution",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": "jdk.fr&nbsp;-&nbsp;Ce site web est à vendre !&nbsp;-&nbsp;Ressources et information concernant jdk Resources and Information."
+    },
+    {
+      "domain": "jlc.fr",
+      "base": "jdc.fr",
+      "orgName": "JDC",
+      "kind": "substitution",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": "En construction"
+    },
+    {
+      "domain": "kovi.com",
+      "base": "covi.com",
+      "orgName": "COVI",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "3D 인테리어 솔루션, 코비온라인"
+    },
+    {
+      "domain": "l-afite.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "tiret",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "la-fite.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "tiret",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lacoursive.com",
+      "base": "la-coursive.com",
+      "orgName": "LA COURSIVE",
+      "kind": "omission",
+      "similarity": 0.909,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "laf-ite.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "tiret",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lafete.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lafi-te.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "tiret",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lafie.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lafiet.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "transposition",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lafife.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lafire.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lafit-e.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "tiret",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lafit.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lafita.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lafite.com",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Shores - Domaines Barons de Rothschild (Lafite)"
+    },
+    {
+      "domain": "lafite.net",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "lafite.org",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lafiti.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lafote.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lafte.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "laftie.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "transposition",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "laifte.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "transposition",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "laite.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lamandier.com",
+      "base": "lamandier.fr",
+      "orgName": "OGEC LTP SAINT-JOSEPH L'AMANDIER",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lamandier.net",
+      "base": "lamandier.fr",
+      "orgName": "OGEC LTP SAINT-JOSEPH L'AMANDIER",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "location saisonnière à Lourmarin : L'amandier"
+    },
+    {
+      "domain": "largenet.eu",
+      "base": "largente.eu",
+      "orgName": "OGEC LARGENTE",
+      "kind": "transposition",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "IT Security Hamburg - LargeNet GmbH"
+    },
+    {
+      "domain": "largente.com",
+      "base": "largente.eu",
+      "orgName": "OGEC LARGENTE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "largente.org",
+      "base": "largente.eu",
+      "orgName": "OGEC LARGENTE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "latite.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lefite.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lfaite.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "transposition",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lfite.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lofite.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lpplaruche.com",
+      "base": "lpplaruche.fr",
+      "orgName": "LEP LA RUCHE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Lycée des Métiers LA RUCHE : Commerce, Vente, Accueil relation clients et usager, gestion administaration, métiers de la sécurité, santé social - Lycée Privé Professionnel des métiers La Ruche"
+    },
+    {
+      "domain": "lycee-oustal.net",
+      "base": "lycee-oustal.fr",
+      "orgName": "ASS FAMILIALE DE GESTION DE L' OUSTAL",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lyceelacompassion.fr",
+      "base": "lycee-lacompassion.fr",
+      "orgName": "OGEC NOTRE DAME LA COMPASSION",
+      "kind": "omission",
+      "similarity": 0.944,
+      "certificate": null,
+      "pageTitle": "Lycée Notre Dame de la Compassion Marmande"
+    },
+    {
+      "domain": "missionlocale-bordeaux.fr",
+      "base": "missionlocalebordeaux.fr",
+      "orgName": "MISSION LOCALE BORDEAUX AVENIR JEUNES",
+      "kind": "tiret",
+      "similarity": 0.955,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "o2s.fr",
+      "base": "i2s.fr",
+      "orgName": "I2S",
+      "kind": "substitution",
+      "similarity": 0.667,
+      "certificate": null,
+      "pageTitle": "Site en construction"
+    },
+    {
+      "domain": "ocvi.com",
+      "base": "covi.com",
+      "orgName": "COVI",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "Domain Details Page"
+    },
+    {
+      "domain": "oterg.com",
+      "base": "iterg.com",
+      "orgName": "ITERG",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Coca-Cola —"
+    },
+    {
+      "domain": "ovi.com",
+      "base": "covi.com",
+      "orgName": "COVI",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "oxbowshop.net",
+      "base": "oxbowshop.com",
+      "orgName": "OXBOW",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "pfna.fr",
+      "base": "epfna.fr",
+      "orgName": "ETABLISSEMENT PUBLIC FONCIER DE NOUVELLE-AQUITAINE",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Index of /"
+    },
+    {
+      "domain": "polaris-formation.com",
+      "base": "polaris-formation.fr",
+      "orgName": "POLARIS FORMATION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "polaris-formation.net",
+      "base": "polaris-formation.fr",
+      "orgName": "POLARIS FORMATION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "polaris-formation.org",
+      "base": "polaris-formation.fr",
+      "orgName": "POLARIS FORMATION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "polarisformation.fr",
+      "base": "polaris-formation.fr",
+      "orgName": "POLARIS FORMATION",
+      "kind": "omission",
+      "similarity": 0.941,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "tafite.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "terg.com",
+      "base": "iterg.com",
+      "orgName": "ITERG",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "HR Compliance Services in Fort Lauderdale, FL"
+    },
+    {
+      "domain": "xn--afite-dof.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "homoglyphe",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "xn--lafie-bze.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "homoglyphe",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "xn--lafit-3we.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "homoglyphe",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "xn--lafte-p2e.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "homoglyphe",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "xn--lfite-4ve.vin.co",
+      "base": "lafite.vin.co",
+      "orgName": "DOMAINES BARONS DE ROTHSCHILD (LAFITE)",
+      "kind": "homoglyphe",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    }
+  ],
+  "alarms": 84,
+  "falsePositives": 84,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 2979,
+    "certificate": 117,
+    "page": 117
+  },
+  "durationMs": 26381
+}

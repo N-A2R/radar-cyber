@@ -1,0 +1,64 @@
+{
+  "offset": 880,
+  "top": 1000,
+  "targets": 40,
+  "variants": 3287,
+  "active": 5,
+  "detections": [],
+  "activeList": [
+    {
+      "domain": "lycee-kyoto.fr",
+      "base": "lyceekyoto.fr",
+      "orgName": "Lycée polyvalent agricole Kyoto",
+      "kind": "tiret",
+      "similarity": 0.909,
+      "certificate": null,
+      "pageTitle": "Lycée Kyoto"
+    },
+    {
+      "domain": "magendie.com",
+      "base": "magendie.net",
+      "orgName": "Lycée François Magendie",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mairie-champniers.com",
+      "base": "mairie-champniers.fr",
+      "orgName": "Commune de Champniers",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Mairie de Champniers"
+    },
+    {
+      "domain": "mairie-ciboure.com",
+      "base": "mairie-ciboure.fr",
+      "orgName": "Commune de Ciboure",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "mairie-espelette.com",
+      "base": "mairie-espelette.fr",
+      "orgName": "ESPELETTE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    }
+  ],
+  "alarms": 5,
+  "falsePositives": 5,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 3287,
+    "certificate": 5,
+    "page": 5
+  },
+  "durationMs": 39244
+}

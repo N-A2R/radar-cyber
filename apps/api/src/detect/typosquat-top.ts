@@ -100,9 +100,9 @@ const VARIANT_KINDS: { kind: Variant["kind"]; weight: number }[] = [
   { kind: "homoglyphe", weight: 0.1 },
 ];
 
-/** Spread the budget across typo kinds, then add alternate TLDs; no duplicates. */
+/** Spread the budget across typo kinds; a large budget keeps every generated typo. */
 export function buildVariants(target: ScanTarget, max = 8): Variant[] {
-  const all = genererVariantes(target.domain, 200);
+  const all = genererVariantes(target.domain, Math.max(200, max));
   const out = new Map<string, Variant>();
   for (const { kind, weight } of VARIANT_KINDS) {
     const pool = all.filter((v) => v.kind === kind);

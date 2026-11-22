@@ -1,0 +1,181 @@
+{
+  "offset": 800,
+  "top": 1000,
+  "targets": 40,
+  "variants": 3126,
+  "active": 18,
+  "detections": [],
+  "activeList": [
+    {
+      "domain": "lp-flora-tristan.net",
+      "base": "lp-flora-tristan.fr",
+      "orgName": "Lycée professionnel Flora Tristan",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Site ready"
+    },
+    {
+      "domain": "lurberri.net",
+      "base": "lurberri.fr",
+      "orgName": "LUR BERRI HOLDING",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "lurberri.org",
+      "base": "lurberri.fr",
+      "orgName": "LUR BERRI HOLDING",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Lurberri"
+    },
+    {
+      "domain": "luxe.fr",
+      "base": "luxey.fr",
+      "orgName": "LUXEY",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "luxei.fr",
+      "base": "luxey.fr",
+      "orgName": "LUXEY",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "luxey.com",
+      "base": "luxey.fr",
+      "orgName": "LUXEY",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "LUXEY.COM | Strategic-Grade domain names for established businesses and funded startups"
+    },
+    {
+      "domain": "luxey.net",
+      "base": "luxey.fr",
+      "orgName": "LUXEY",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "luxey.org",
+      "base": "luxey.fr",
+      "orgName": "LUXEY",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "luxy.fr",
+      "base": "luxey.fr",
+      "orgName": "LUXEY",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "lycee-cantau.net",
+      "base": "lycee-cantau.fr",
+      "orgName": "Lycée polyvalent Cantau",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lycee-dolmen.com",
+      "base": "lycee-dolmen.fr",
+      "orgName": "Lycée professionnel Le Dolmen",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lycee-elie-vinet.org",
+      "base": "lycee-elie-vinet.fr",
+      "orgName": "Lycée Élie Vinet",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lycee-hautvaldesevre.com",
+      "base": "lycee-hautvaldesevre.fr",
+      "orgName": "Lycée polyvalent du Haut Val de Sèvre",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lycee-hautvaldesevre.net",
+      "base": "lycee-hautvaldesevre.fr",
+      "orgName": "Lycée polyvalent du Haut Val de Sèvre",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lycee-hautvaldesevre.org",
+      "base": "lycee-hautvaldesevre.fr",
+      "orgName": "Lycée polyvalent du Haut Val de Sèvre",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lycee-hotelier.com",
+      "base": "lycee-hotelier.fr",
+      "orgName": "Lycée polyvalent hôtelier du Parc de la Francophonie",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "lyceecantau.fr",
+      "base": "lycee-cantau.fr",
+      "orgName": "Lycée polyvalent Cantau",
+      "kind": "omission",
+      "similarity": 0.917,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "lyceehotelier.fr",
+      "base": "lycee-hotelier.fr",
+      "orgName": "Lycée polyvalent hôtelier du Parc de la Francophonie",
+      "kind": "omission",
+      "similarity": 0.929,
+      "certificate": null,
+      "pageTitle": null
+    }
+  ],
+  "alarms": 18,
+  "falsePositives": 18,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 3126,
+    "certificate": 18,
+    "page": 18
+  },
+  "durationMs": 24958
+}

@@ -1,0 +1,982 @@
+{
+  "offset": 440,
+  "top": 1000,
+  "targets": 40,
+  "variants": 2354,
+  "active": 107,
+  "detections": [],
+  "activeList": [
+    {
+      "domain": "abscons.fr",
+      "base": "bascons.fr",
+      "orgName": "BASCONS",
+      "kind": "transposition",
+      "similarity": 0.714,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "abus.fr",
+      "base": "arbus.fr",
+      "orgName": "ARBUS",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "ABUS - Technique de sécurité depuis 1924"
+    },
+    {
+      "domain": "aern.fr",
+      "base": "aren.fr",
+      "orgName": "AREN",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "agely.net",
+      "base": "angely.net",
+      "orgName": "Commune de Saint-Jean-d'Angély",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Agely"
+    },
+    {
+      "domain": "airos.fr",
+      "base": "auros.fr",
+      "orgName": "AUROS",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "aitre.fr",
+      "base": "aytre.fr",
+      "orgName": "Commune de Aytré",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "AITRE : triez, donnez, et achetez à Châlons-en-Champagne"
+    },
+    {
+      "domain": "ajbstudio.fr",
+      "base": "arjbstudio.fr",
+      "orgName": "ARJB STUDIO",
+      "kind": "omission",
+      "similarity": 0.9,
+      "certificate": null,
+      "pageTitle": "Parked Domain name on Hostinger DNS system"
+    },
+    {
+      "domain": "andrebreton.com",
+      "base": "andrebreton.fr",
+      "orgName": "ATELIER ANDRE BRETON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "andrebreton.net",
+      "base": "andrebreton.fr",
+      "orgName": "ATELIER ANDRE BRETON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "andrebreton.org",
+      "base": "andrebreton.fr",
+      "orgName": "ATELIER ANDRE BRETON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "anen.fr",
+      "base": "aren.fr",
+      "orgName": "AREN",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "ANEN &#8211; Association Nationale pour le développement de l&#039;Éducation Nouvelle"
+    },
+    {
+      "domain": "angel.net",
+      "base": "angely.net",
+      "orgName": "Commune de Saint-Jean-d'Angély",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "angeli.net",
+      "base": "angely.net",
+      "orgName": "Commune de Saint-Jean-d'Angély",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "angely.com",
+      "base": "angely.net",
+      "orgName": "Commune de Saint-Jean-d'Angély",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "angle.fr",
+      "base": "anglet.fr",
+      "orgName": "ANGLET",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Grand Angle, la BD comme au cinéma ! Des scénarios dignes des meilleur"
+    },
+    {
+      "domain": "angler.fr",
+      "base": "anglet.fr",
+      "orgName": "ANGLET",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "anglet.net",
+      "base": "anglet.fr",
+      "orgName": "ANGLET",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "anglet.net for sale"
+    },
+    {
+      "domain": "anglet.org",
+      "base": "anglet.fr",
+      "orgName": "ANGLET",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "angly.net",
+      "base": "angely.net",
+      "orgName": "Commune de Saint-Jean-d'Angély",
+      "kind": "omission",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Angly — memorize &amp; recreate"
+    },
+    {
+      "domain": "angouleme.org",
+      "base": "angouleme.fr",
+      "orgName": "Commune d'Angoulême",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Angoulême (Charente) : que voir, que faire | Guide de la ville"
+    },
+    {
+      "domain": "appaga.com",
+      "base": "appalga.com",
+      "orgName": "APPALGA",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "appala.com",
+      "base": "appalga.com",
+      "orgName": "APPALGA",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "appalgo.com",
+      "base": "appalga.com",
+      "orgName": "APPALGA",
+      "kind": "substitution",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": "appalgo &#8211; We get users."
+    },
+    {
+      "domain": "applaga.com",
+      "base": "appalga.com",
+      "orgName": "APPALGA",
+      "kind": "transposition",
+      "similarity": 0.714,
+      "certificate": null,
+      "pageTitle": "Control Ambiental | Saneamiento y Fumigación en Trujillo"
+    },
+    {
+      "domain": "aquitro.com",
+      "base": "aquitroc.com",
+      "orgName": "SABRINA BAUDIN",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "aran.fr",
+      "base": "aren.fr",
+      "orgName": "AREN",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Accueil"
+    },
+    {
+      "domain": "aranco.fr",
+      "base": "arancou.fr",
+      "orgName": "ARANCOU",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "arbos.fr",
+      "base": "arbus.fr",
+      "orgName": "ARBUS",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "ARBOS – l'application des élagueurs"
+    },
+    {
+      "domain": "arbus.com",
+      "base": "arbus.fr",
+      "orgName": "ARBUS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Arbus Magazine - The Arts &amp; Business Magazine of Northeast Florida"
+    },
+    {
+      "domain": "arbus.net",
+      "base": "arbus.fr",
+      "orgName": "ARBUS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "arbus.org",
+      "base": "arbus.fr",
+      "orgName": "ARBUS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "arbuz.fr",
+      "base": "arbus.fr",
+      "orgName": "ARBUS",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "ARBZ FVGHT · Ensembles de combat rashguard + short"
+    },
+    {
+      "domain": "are.fr",
+      "base": "aren.fr",
+      "orgName": "AREN",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Accueil - ARE"
+    },
+    {
+      "domain": "aren.com",
+      "base": "aren.fr",
+      "orgName": "AREN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Aren: Powering Successful Nursing Shifts"
+    },
+    {
+      "domain": "aren.net",
+      "base": "aren.fr",
+      "orgName": "AREN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "aren.org",
+      "base": "aren.fr",
+      "orgName": "AREN",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "arn.fr",
+      "base": "aren.fr",
+      "orgName": "AREN",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Domain Details Page"
+    },
+    {
+      "domain": "arne.fr",
+      "base": "aren.fr",
+      "orgName": "AREN",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "Arne.fr"
+    },
+    {
+      "domain": "aros.fr",
+      "base": "auros.fr",
+      "orgName": "AUROS",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "artigues-pres-bordeaux.org",
+      "base": "artigues-pres-bordeaux.fr",
+      "orgName": "Commune de Artigues-près-Bordeaux",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "ascomycete.com",
+      "base": "ascomycete.org",
+      "orgName": "ASCOMYCETE.ORG",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "atelier-nadai.org",
+      "base": "atelier-nadai.com",
+      "orgName": "ATELIER NADAI",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "atelier-nadia.com",
+      "base": "atelier-nadai.com",
+      "orgName": "ATELIER NADAI",
+      "kind": "transposition",
+      "similarity": 0.846,
+      "certificate": null,
+      "pageTitle": "nadia official | nadia"
+    },
+    {
+      "domain": "ateliernadai.com",
+      "base": "atelier-nadai.com",
+      "orgName": "ATELIER NADAI",
+      "kind": "omission",
+      "similarity": 0.923,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "atre.fr",
+      "base": "aytre.fr",
+      "orgName": "Commune de Aytré",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Collectif de l'Âtre"
+    },
+    {
+      "domain": "aubero.fr",
+      "base": "auberon.fr",
+      "orgName": "AUBERON",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "auberon.com",
+      "base": "auberon.fr",
+      "orgName": "AUBERON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "auberon.net",
+      "base": "auberon.fr",
+      "orgName": "AUBERON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "auberon.org",
+      "base": "auberon.fr",
+      "orgName": "AUBERON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "aubron.fr",
+      "base": "auberon.fr",
+      "orgName": "AUBERON",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "aubusson.com",
+      "base": "aubusson.fr",
+      "orgName": "AUBUSSON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "aubusson.org",
+      "base": "aubusson.fr",
+      "orgName": "AUBUSSON",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Index of /"
+    },
+    {
+      "domain": "aunis-sud.com",
+      "base": "aunis-sud.fr",
+      "orgName": "Communauté de communes Aunis Sud",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "auras.fr",
+      "base": "auros.fr",
+      "orgName": "AUROS",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "auras.fr est en vente"
+    },
+    {
+      "domain": "auro.fr",
+      "base": "auros.fr",
+      "orgName": "AUROS",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "AURO - Peintures d&#039;origine naturelle - laques, lasures et huiles écologiques"
+    },
+    {
+      "domain": "auros.com",
+      "base": "auros.fr",
+      "orgName": "AUROS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "auros.net",
+      "base": "auros.fr",
+      "orgName": "AUROS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "auros.org",
+      "base": "auros.fr",
+      "orgName": "AUROS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Auros Harman for San Bruno City Council"
+    },
+    {
+      "domain": "aurus.fr",
+      "base": "auros.fr",
+      "orgName": "AUROS",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "aurus.fr est en vente"
+    },
+    {
+      "domain": "autos.fr",
+      "base": "auros.fr",
+      "orgName": "AUROS",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Distinxion - Achat de voitures d'occasion à faible kilométrage"
+    },
+    {
+      "domain": "autre.fr",
+      "base": "aytre.fr",
+      "orgName": "Commune de Aytré",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "autre.fr&nbsp;-&nbsp;Ce site web est à vendre !&nbsp;-&nbsp;Ressources et information concernant Rencontres Resources and Information."
+    },
+    {
+      "domain": "ayre.fr",
+      "base": "aytre.fr",
+      "orgName": "Commune de Aytré",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "aytre.com",
+      "base": "aytre.fr",
+      "orgName": "Commune de Aytré",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "aytre.net",
+      "base": "aytre.fr",
+      "orgName": "Commune de Aytré",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "baely.fr",
+      "base": "beely.fr",
+      "orgName": "BEELY",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Gaine Shape la culotte gainante qui tient en place &ndash; Baely."
+    },
+    {
+      "domain": "barbate.fr",
+      "base": "barbaste.fr",
+      "orgName": "BARBASTE",
+      "kind": "omission",
+      "similarity": 0.875,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bascons.com",
+      "base": "bascons.fr",
+      "orgName": "BASCONS",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "bassussarry.com",
+      "base": "bassussarry.fr",
+      "orgName": "BASSUSSARRY",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Visiter le Pays Basque et les Landes, Sud Ouest France."
+    },
+    {
+      "domain": "bayone.fr",
+      "base": "bayonne.fr",
+      "orgName": "BAYONNE",
+      "kind": "omission",
+      "similarity": 0.857,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "bayonne.com",
+      "base": "bayonne.fr",
+      "orgName": "BAYONNE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "bayonne.net",
+      "base": "bayonne.fr",
+      "orgName": "BAYONNE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bayonne.org",
+      "base": "bayonne.fr",
+      "orgName": "BAYONNE",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "bayonne.org"
+    },
+    {
+      "domain": "bci.fr",
+      "base": "bcit.fr",
+      "orgName": "BCIT FORMATION",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "B.Conseil | Financement de l&#x27;innovation CIR CII JEI"
+    },
+    {
+      "domain": "bcit.com",
+      "base": "bcit.fr",
+      "orgName": "BCIT FORMATION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bcit.net",
+      "base": "bcit.fr",
+      "orgName": "BCIT FORMATION",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "bct.fr",
+      "base": "bcit.fr",
+      "orgName": "BCIT FORMATION",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "bcti.fr",
+      "base": "bcit.fr",
+      "orgName": "BCIT FORMATION",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "BCTI : 1ère marketplace du diagnostic immobilier en France"
+    },
+    {
+      "domain": "bealy.fr",
+      "base": "beely.fr",
+      "orgName": "BEELY",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "beel.fr",
+      "base": "beely.fr",
+      "orgName": "BEELY",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "beeli.fr",
+      "base": "beely.fr",
+      "orgName": "BEELY",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Beeli Collectif : experts en communication et événementiel"
+    },
+    {
+      "domain": "beely.com",
+      "base": "beely.fr",
+      "orgName": "BEELY",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "beely.net",
+      "base": "beely.fr",
+      "orgName": "BEELY",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "beely.net"
+    },
+    {
+      "domain": "beely.org",
+      "base": "beely.fr",
+      "orgName": "BEELY",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "beey.fr",
+      "base": "beely.fr",
+      "orgName": "BEELY",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "beley.fr",
+      "base": "beely.fr",
+      "orgName": "BEELY",
+      "kind": "transposition",
+      "similarity": 0.6,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "belin-beliet.com",
+      "base": "belin-beliet.fr",
+      "orgName": "Commune de Belin-Béliet",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Belin-Beliet (33)"
+    },
+    {
+      "domain": "belin-beliet.net",
+      "base": "belin-beliet.fr",
+      "orgName": "Commune de Belin-Béliet",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Belin-Beliet (33)"
+    },
+    {
+      "domain": "belin-beliet.org",
+      "base": "belin-beliet.fr",
+      "orgName": "Commune de Belin-Béliet",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Belin-Beliet (33)"
+    },
+    {
+      "domain": "belinbeliet.fr",
+      "base": "belin-beliet.fr",
+      "orgName": "Commune de Belin-Béliet",
+      "kind": "omission",
+      "similarity": 0.917,
+      "certificate": null,
+      "pageTitle": "Belin-Beliet (33)"
+    },
+    {
+      "domain": "bely.fr",
+      "base": "beely.fr",
+      "orgName": "BEELY",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "bergerac.com",
+      "base": "bergerac.fr",
+      "orgName": "BERGERAC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": "Bergerac.com"
+    },
+    {
+      "domain": "bergerac.net",
+      "base": "bergerac.fr",
+      "orgName": "BERGERAC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bergerac.org",
+      "base": "bergerac.fr",
+      "orgName": "BERGERAC",
+      "kind": "tld",
+      "similarity": 1,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "bit.fr",
+      "base": "bcit.fr",
+      "orgName": "BCIT FORMATION",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "cbit.fr",
+      "base": "bcit.fr",
+      "orgName": "BCIT FORMATION",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": "CBIT &#8211; Maîtrise d&#039;oeuvre &#8211; Coordination OPC &#8211; CBIT, Maîtrise d’œuvre et OPC"
+    },
+    {
+      "domain": "cit.fr",
+      "base": "bcit.fr",
+      "orgName": "BCIT FORMATION",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "CIT Formation - Formations Informatique et Management sur Avignon et Marseille"
+    },
+    {
+      "domain": "eren.fr",
+      "base": "aren.fr",
+      "orgName": "AREN",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "euros.fr",
+      "base": "auros.fr",
+      "orgName": "AUROS",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "onglet.fr",
+      "base": "anglet.fr",
+      "orgName": "ANGLET",
+      "kind": "substitution",
+      "similarity": 0.833,
+      "certificate": null,
+      "pageTitle": "Onglet"
+    },
+    {
+      "domain": "orbus.fr",
+      "base": "arbus.fr",
+      "orgName": "ARBUS",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Skyrock"
+    },
+    {
+      "domain": "oren.fr",
+      "base": "aren.fr",
+      "orgName": "AREN",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": "oren.fr est en vente"
+    },
+    {
+      "domain": "ouros.fr",
+      "base": "auros.fr",
+      "orgName": "AUROS",
+      "kind": "substitution",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Ouros - News"
+    },
+    {
+      "domain": "raen.fr",
+      "base": "aren.fr",
+      "orgName": "AREN",
+      "kind": "transposition",
+      "similarity": 0.5,
+      "certificate": null,
+      "pageTitle": null
+    },
+    {
+      "domain": "rbus.fr",
+      "base": "arbus.fr",
+      "orgName": "ARBUS",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "Dovendi - Domain for sale"
+    },
+    {
+      "domain": "ren.fr",
+      "base": "aren.fr",
+      "orgName": "AREN",
+      "kind": "omission",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": ""
+    },
+    {
+      "domain": "uros.fr",
+      "base": "auros.fr",
+      "orgName": "AUROS",
+      "kind": "omission",
+      "similarity": 0.8,
+      "certificate": null,
+      "pageTitle": "uros.fr est en vente"
+    },
+    {
+      "domain": "vcit.fr",
+      "base": "bcit.fr",
+      "orgName": "BCIT FORMATION",
+      "kind": "substitution",
+      "similarity": 0.75,
+      "certificate": null,
+      "pageTitle": null
+    }
+  ],
+  "alarms": 87,
+  "falsePositives": 87,
+  "falsePositiveRate": 1,
+  "probes": {
+    "dns": 2354,
+    "certificate": 107,
+    "page": 107
+  },
+  "durationMs": 23013
+}
