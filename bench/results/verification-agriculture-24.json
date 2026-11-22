@@ -1,0 +1,318 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-agriculture-24.jsonl",
+  "secteur": "agriculture",
+  "departement": "24",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+  "methode": "GET réel avec suivi des redirections, User-Agent navigateur, délai 25 s ; statut, type de contenu, nombre d'items RSS et détection des pages de blocage enregistrés",
+  "sources": 18,
+  "urls_verifiees": 43,
+  "urls_200": 43,
+  "detail": [
+    {
+      "nom": "Chambre d'agriculture de la Dordogne",
+      "urls": {
+        "https://dordogne.chambres-agriculture.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        },
+        "https://dordogne.chambres-agriculture.fr/actualites-1": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "FDSEA de la Dordogne",
+      "urls": {
+        "https://fdsea24.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://fdsea24.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://fdsea24.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 6
+        }
+      }
+    },
+    {
+      "nom": "Jeunes Agriculteurs de la Dordogne",
+      "urls": {
+        "https://www.jeunesagriculteurs24.fr/": {
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        },
+        "https://www.jeunesagriculteurs24.fr/actualites": {
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "Cerfrance Dordogne",
+      "urls": {
+        "https://www.cerfrancedordogne.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        },
+        "https://www.cerfrancedordogne.fr/blog": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "CER France (réseau national)",
+      "urls": {
+        "https://dordogne.cerfrance.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.cerfrance.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "CCI Dordogne",
+      "urls": {
+        "https://dordogne.cci.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://dordogne.cci.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://dordogne.cci.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 10
+        }
+      }
+    },
+    {
+      "nom": "SAFER Nouvelle-Aquitaine (antenne Dordogne)",
+      "urls": {
+        "https://www.saferna.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.saferna.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.saferna.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 10
+        }
+      }
+    },
+    {
+      "nom": "Fédération régionale des Cuma Nouvelle-Aquitaine",
+      "urls": {
+        "https://nouvelle-aquitaine.cuma.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://nouvelle-aquitaine.cuma.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "Fédération des Cuma de la Dordogne (annuaire FNCuma)",
+      "urls": {
+        "https://www.cuma.fr/contacter-une-federation/?_fselect_department=24": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.cuma.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "Sud Ouest — Dordogne",
+      "urls": {
+        "https://www.sudouest.fr/dordogne/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.sudouest.fr/economie/agriculture": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.sudouest.fr/dordogne/rss.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "items_rss": 20
+        }
+      }
+    },
+    {
+      "nom": "actu.fr — Dordogne",
+      "urls": {
+        "https://actu.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        },
+        "https://actu.fr/nouvelle-aquitaine/dordogne_24/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "ICI Périgord (Radio France)",
+      "urls": {
+        "https://www.ici.fr/radio/perigord": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.ici.fr/nouvelle-aquitaine/dordogne-24/actu": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.ici.fr/rss/perigord/rubrique/infos.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "items_rss": 20
+        }
+      }
+    },
+    {
+      "nom": "France 3 Nouvelle-Aquitaine — Dordogne",
+      "urls": {
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/dordogne/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://france3-regions.franceinfo.fr/economie/agriculture": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "Réussir (presse agricole spécialisée)",
+      "urls": {
+        "https://www.reussir.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        },
+        "https://www.reussir.fr/fil-actualites": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        },
+        "https://www.reussir.fr/rss.xml": {
+          "code": 200,
+          "type": "application/xml;charset=UTF-8",
+          "items_rss": 20
+        }
+      }
+    },
+    {
+      "nom": "La France Agricole",
+      "urls": {
+        "https://www.lafranceagricole.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        },
+        "https://www.lafranceagricole.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "Réussir le Périgord",
+      "urls": {
+        "https://www.reussirleperigord.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.reussirleperigord.fr/actualite": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.reussirleperigord.fr/feed": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 10
+        }
+      }
+    },
+    {
+      "nom": "Dordogne Libre",
+      "urls": {
+        "https://www.dordognelibre.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0
+        },
+        "https://www.dordognelibre.fr/rss.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "items_rss": 20
+        }
+      }
+    },
+    {
+      "nom": "Annuaire des Chambres d'agriculture (réseau national)",
+      "urls": {
+        "https://www.chambres-agriculture.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        },
+        "https://www.chambres-agriculture.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0
+        }
+      }
+    }
+  ]
+}
