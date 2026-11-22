@@ -1,0 +1,84 @@
+{
+  "verifie_le": "2026-11-22T11:05:00Z",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+  "methode": "curl -L GET, redirections suivies, code final observe",
+  "secteur": "transport",
+  "departement": "40",
+  "sources": 13,
+  "sources_valides": 13,
+  "urls_sondees": 45,
+  "urls_200": 45,
+  "detail": [
+    {"nom": "Trans-Landes — réseau de transports des Landes", "sondes": [
+      {"role": "site", "url": "https://www.trans-landes.fr/", "code": 200, "content_type": "text/html; charset=utf-8"},
+      {"role": "actualites", "url": "https://www.trans-landes.fr/nous/actualites/", "code": 200, "content_type": "text/html; charset=utf-8"},
+      {"role": "exemple", "url": "https://www.trans-landes.fr/nous/actualites/attention-aux-publicites-frauduleuses/", "code": 200, "content_type": "text/html; charset=utf-8"}
+    ]},
+    {"nom": "RRTL — Régie Régionale des Transports des Landes", "sondes": [
+      {"role": "site", "url": "https://www.rrtl.fr/", "code": 200, "content_type": "text/html; charset=utf-8"},
+      {"role": "actualites", "url": "https://www.rrtl.fr/infos/actualites/", "code": 200, "content_type": "text/html; charset=utf-8"},
+      {"role": "exemple", "url": "https://www.rrtl.fr/infos/actualites/attention-aux-publicites-frauduleuses/", "code": 200, "content_type": "text/html; charset=utf-8"}
+    ]},
+    {"nom": "Movima — réseau de bus du Pays de Marsan", "sondes": [
+      {"role": "site", "url": "https://www.busmovima.com/", "code": 200, "content_type": "text/html; charset=UTF-8"},
+      {"role": "actualites", "url": "https://www.busmovima.com/actualites/", "code": 200, "content_type": "text/html; charset=UTF-8"},
+      {"role": "exemple", "url": "https://www.mdminformatique.fr/blog/nos-conseils-pour-les-pros/cyberattaques-landes-2026-lecons-entreprises", "code": 200, "content_type": "text/html; charset=UTF-8"}
+    ]},
+    {"nom": "OTRE Pays Adour", "sondes": [
+      {"role": "site", "url": "https://otrepaysadour.fr/", "code": 200, "content_type": "text/html; charset=UTF-8"},
+      {"role": "actualites", "url": "https://otrepaysadour.fr/actualites/", "code": 200, "content_type": "text/html; charset=UTF-8"},
+      {"role": "flux", "url": "https://otrepaysadour.fr/feed/", "code": 200, "content_type": "application/rss+xml; charset=UTF-8"},
+      {"role": "exemple", "url": "https://otrepaysadour.fr/detournement-de-fret-un-guide-pour-renforcer-la-prevention/", "code": 200, "content_type": "text/html; charset=UTF-8"}
+    ]},
+    {"nom": "CCI des Landes", "sondes": [
+      {"role": "site", "url": "https://www.landes.cci.fr/", "code": 200, "content_type": "text/html; charset=UTF-8"},
+      {"role": "actualites", "url": "https://www.landes.cci.fr/presse/", "code": 200, "content_type": "text/html; charset=UTF-8"},
+      {"role": "exemple", "url": "https://www.landes.cci.fr/cybersecurite-dans-les-landes/", "code": 200, "content_type": "text/html; charset=UTF-8"}
+    ]},
+    {"nom": "CMA Nouvelle-Aquitaine — antenne des Landes", "sondes": [
+      {"role": "site", "url": "https://cma-nouvelleaquitaine.fr/", "code": 200, "content_type": "text/html; charset=UTF-8"},
+      {"role": "actualites", "url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites", "code": 200, "content_type": "text/html; charset=UTF-8"},
+      {"role": "exemple", "url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites/les-artisans-des-cibles-de-choix-pour-les-cybercriminels", "code": 200, "content_type": "text/html; charset=UTF-8"}
+    ]},
+    {"nom": "Grand Dax — Couralin", "sondes": [
+      {"role": "site", "url": "https://www.grand-dax.fr/", "code": 200, "content_type": "text/html; charset=UTF-8"},
+      {"role": "actualites", "url": "https://www.grand-dax.fr/connaitre-lagglo/actualite-agenda/", "code": 200, "content_type": "text/html; charset=UTF-8"},
+      {"role": "flux", "url": "https://www.grand-dax.fr/feed/", "code": 200, "content_type": "application/rss+xml; charset=UTF-8"},
+      {"role": "exemple", "url": "https://www.grand-dax.fr/zen-en-bus-transports-campings-feria-de-dax-2026-2/", "code": 200, "content_type": "text/html; charset=UTF-8"}
+    ]},
+    {"nom": "Union des Pêcheurs de Capbreton (UNPC)", "sondes": [
+      {"role": "site", "url": "https://www.peche-capbreton.fr/", "code": 200, "content_type": "text/html; charset=utf-8"},
+      {"role": "actualites", "url": "https://www.peche-capbreton.fr/actualites/", "code": 200, "content_type": "text/html; charset=utf-8"},
+      {"role": "exemple", "url": "https://www.lemagit.fr/actualites/365533573/La-logistique-un-secteur-de-choix-pour-les-cyberattaques", "code": 200, "content_type": "text/html;charset=UTF-8"}
+    ]},
+    {"nom": "Port de Capbreton — CC Maremne Adour Côte Sud", "sondes": [
+      {"role": "site", "url": "https://www.cc-macs.org/port-de-capbreton/", "code": 200, "content_type": "text/html; charset=utf-8"},
+      {"role": "actualites", "url": "https://www.cc-macs.org/actualites/", "code": 200, "content_type": "text/html; charset=utf-8"},
+      {"role": "flux", "url": "https://www.cc-macs.org/rss.xml", "code": 200, "content_type": "application/rss+xml;charset=utf-8"},
+      {"role": "exemple", "url": "https://www.lemagit.fr/actualites/365533573/La-logistique-un-secteur-de-choix-pour-les-cyberattaques", "code": 200, "content_type": "text/html;charset=UTF-8"}
+    ]},
+    {"nom": "Sud Ouest — édition Landes", "sondes": [
+      {"role": "site", "url": "https://www.sudouest.fr/", "code": 200, "content_type": "text/html; charset=UTF-8"},
+      {"role": "actualites", "url": "https://www.sudouest.fr/landes/", "code": 200, "content_type": "text/html; charset=UTF-8"},
+      {"role": "flux", "url": "https://www.sudouest.fr/landes/rss.xml", "code": 200, "content_type": "application/xml"},
+      {"role": "exemple", "url": "https://www.sudouest.fr/economie/economie-du-numerique/cybersecurite-le-risque-de-cyberattaque-est-plus-eleve-que-l-incendie-alerte-le-patron-des-patrons-des-landes-13840540.php", "code": 200, "content_type": "text/html; charset=UTF-8"}
+    ]},
+    {"nom": "ICI Gascogne — Landes 40", "sondes": [
+      {"role": "site", "url": "https://www.ici.fr/radio/gascogne", "code": 200, "content_type": "text/html; charset=UTF-8"},
+      {"role": "actualites", "url": "https://www.ici.fr/nouvelle-aquitaine/landes-40", "code": 200, "content_type": "text/html; charset=UTF-8"},
+      {"role": "flux", "url": "https://www.ici.fr/rss/gascogne/rubrique/infos.xml", "code": 200, "content_type": "application/xml"},
+      {"role": "exemple", "url": "https://www.ici.fr/nouvelle-aquitaine/landes-40/rion-des-landes/cryptomonnaies-un-couple-enleve-et-sequestre-dans-le-coffre-d-une-voiture-a-rion-des-landes-2470438", "code": 200, "content_type": "text/html; charset=UTF-8"}
+    ]},
+    {"nom": "Groupe Peixoto", "sondes": [
+      {"role": "site", "url": "https://peixoto.fr/", "code": 200, "content_type": "text/html; charset=UTF-8"},
+      {"role": "actualites", "url": "https://peixoto.fr/actualites/", "code": 200, "content_type": "text/html; charset=UTF-8"},
+      {"role": "flux", "url": "https://peixoto.fr/feed/", "code": 200, "content_type": "application/rss+xml; charset=UTF-8"},
+      {"role": "exemple", "url": "https://www.lemagit.fr/actualites/365533573/La-logistique-un-secteur-de-choix-pour-les-cyberattaques", "code": 200, "content_type": "text/html;charset=UTF-8"}
+    ]},
+    {"nom": "Transports Brocas", "sondes": [
+      {"role": "site", "url": "https://www.transports-brocas.fr/", "code": 200, "content_type": "text/html; charset=UTF-8"},
+      {"role": "actualites", "url": "https://www.transports-brocas.fr/actualites/", "code": 200, "content_type": "text/html; charset=UTF-8"},
+      {"role": "exemple", "url": "https://www.lemagit.fr/actualites/365533573/La-logistique-un-secteur-de-choix-pour-les-cyberattaques", "code": 200, "content_type": "text/html;charset=UTF-8"}
+    ]}
+  ]
+}
