@@ -1,0 +1,47 @@
+{
+  "command": "DATABASE_URL=postgres://radar:radar@localhost:5433/radar apps/api/node_modules/.bin/tsx apps/api/scripts/measure-global-search.mts --json=bench/results/NA-global-search.json",
+  "measured_at": "2026-11-22T01:14:10.155Z",
+  "corpus": {
+    "organisations": 1673151,
+    "events": 26394,
+    "sources": 312
+  },
+  "method": "GET /api/search via Fastify inject, 2 warmups and 11 timed repeats per query, no network",
+  "objective_ms": 200,
+  "p50_ms": 8.28,
+  "p95_ms": 18.96,
+  "max_ms": 22.33,
+  "per_query_ms": {
+    "hopital": {
+      "samples": 11,
+      "p50": 2.94,
+      "p95": 9.11,
+      "max": 9.11
+    },
+    "bordeaux": {
+      "samples": 11,
+      "p50": 5.23,
+      "p95": 8.09,
+      "max": 8.09
+    },
+    "hopital universitaire rennes": {
+      "samples": 11,
+      "p50": 8.18,
+      "p95": 11.91,
+      "max": 11.91
+    },
+    "saint pierre bordeaux": {
+      "samples": 11,
+      "p50": 16.61,
+      "p95": 18.96,
+      "max": 18.96
+    },
+    "ransomware nouvelle aquitaine": {
+      "samples": 11,
+      "p50": 10.77,
+      "p95": 22.33,
+      "max": 22.33
+    }
+  },
+  "verdict": "PASS"
+}

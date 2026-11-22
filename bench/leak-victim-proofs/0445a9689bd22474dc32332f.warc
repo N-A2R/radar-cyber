@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:83ba0238-920d-4140-aef1-6f49e5dbf7e6>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/posts/2025
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 280
+WARC-Block-Digest: sha1:P6LAXVQAXIJ6FCBXB7S5XR42USJNVNGU
+X-Claim-Fingerprint: a62bd5d441a02fda28dba30b
+X-Victim-Key: 0445a9689bd22474dc32332f
+
+{"post_title": "Mediclinic Group", "discovered": "2025-05-26 14:34:25.203064", "description": "", "link": "/news/Mediclinic_Group/", "magnet": null, "screen": "screenshots/everest/Mediclinic Group.png", "misp_uuid": "0dc1d7f3-7be1-5902-bd02-6a1eb870f5f5", "group_name": "everest"}
+

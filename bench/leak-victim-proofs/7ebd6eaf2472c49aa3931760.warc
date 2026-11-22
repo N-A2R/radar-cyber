@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:21f0e701-b886-4ca5-adfb-b0c564e757ce>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/posts/2025
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 520
+WARC-Block-Digest: sha1:KGTRX35NVOHPWTM5OMQBIFARZ5IFZP3Q
+X-Claim-Fingerprint: 7b726bab2f04055a986a6a93
+X-Victim-Key: 7ebd6eaf2472c49aa3931760
+
+{"post_title": "Design Design", "discovered": "2025-10-10 11:55:05.471761", "description": "Design Design Inc. creates, manufactures, and distributes wholesale greeting cards, paper tableware, gift packaging, party-ware, and stationery gifts. Design Design Inc offers Stationery Cards - Humorous, Creative, Paper Tableware, Gift Packaging Products, Soft Goods, Ceramics and General Gift Items.", "link": null, "magnet": null, "screen": null, "misp_uuid": "a6209429-2b5c-52c1-b502-6424d13b079e", "group_name": "killsec3"}
+
