@@ -116,7 +116,7 @@
 }
 
 .login__fact-of {
-  margin-left: 2px;
+  margin-left: 4px;
   color: var(--muted);
   font-family: var(--font-body);
   font-size: var(--text-label);
