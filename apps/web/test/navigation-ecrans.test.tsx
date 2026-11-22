@@ -133,7 +133,7 @@ describe("Coverage and Corpus navigation", () => {
 
   it("opens the Coverage screen from #/coverage and calls GET /api/couverture", async () => {
     await mount("#/coverage");
-    await waitForText("Incidents cyber publics en Nouvelle-Aquitaine vus par le radar");
+    await waitForText("Couverture");
     await waitForText("64.3%");
     expect(window.location.hash).toBe("#/coverage");
     expect(fetchMock.mock.calls.some(([url]) => String(url).includes("/api/couverture"))).toBe(true);
@@ -143,7 +143,7 @@ describe("Coverage and Corpus navigation", () => {
     await mount("#/coverage");
     await waitForText("Couverture");
     await clickRail("Corpus");
-    await waitForText("Is the corpus growing?");
+    await waitForText("Le corpus progresse-t-il ?");
     await waitForText("CHU de Bordeaux");
     expect(window.location.hash).toBe("#/corpus");
     expect(fetchMock.mock.calls.some(([url]) => String(url).includes("/api/corpus/stats"))).toBe(true);
@@ -151,7 +151,7 @@ describe("Coverage and Corpus navigation", () => {
 
   it("opens the Corpus screen directly from #/corpus", async () => {
     await mount("#/corpus");
-    await waitForText("Sources by department");
+    await waitForText("Sources par département");
     expect(window.location.hash).toBe("#/corpus");
   });
 });

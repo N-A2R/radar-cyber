@@ -33,6 +33,7 @@ import type { ExpressionSpecification } from 'maplibre-gl'
 import { FAMILY_HEX, FAMILY_HEX_FALLBACK, arcHex, type FlowArc } from './arcs.js'
 import DEP_GEOJSON_RAW from './departements-na.geojson?raw'
 import { styleSecours } from '../offline'
+import { FAMILY_LABELS, ORG_KIND_LABELS } from './libelles'
 
 // ── Types ────────────────────────────────────────────────────────────────
 
@@ -91,28 +92,8 @@ export const FAMILY_COLOR_FALLBACK = FAMILY_HEX_FALLBACK
 export const NEUTRAL_COLOR = '#8b93a1'
 
 
-export const FAMILY_LABELS: Record<string, string> = {
-  ransomware: 'rançongiciel',
-  vuln: 'vulnérabilité',
-  phishing: 'hameçonnage',
-  malware: 'maliciel',
-  cert: 'cert',
-  cert_fr: 'CERT-FR',
-  typosquat: 'typosquattage',
-  reputation: 'réputation',
-  cti: 'CTI',
-  presse: 'presse',
-}
+export { FAMILY_LABELS }
 
-const ORG_KIND_LABELS: Record<string, string> = {
-  entreprise: 'entreprise',
-  collectivite: 'collectivité',
-  sante: 'santé',
-  enseignement: 'enseignement',
-  recherche: 'recherche',
-  operateur_critique: 'opérateur critique',
-  ess: 'ess',
-}
 
 /** Palette des types d'organisation (maquette), reprise par `orgKindMatch`. */
 const ORG_KIND_COLORS: Record<string, string> = {

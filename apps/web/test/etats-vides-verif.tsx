@@ -103,7 +103,7 @@ async function main(): Promise<void> {
 		truncated={false} loading={false} error={null} page={1} pageCount={1} onPrevious={() => {}} onNext={() => {}}
 		selected={null} onSelect={() => {}} onCloseDetail={() => {}} onExport={() => {}} exporting={false}
 		exportError={null} onRetry={onRetry} />);
-	check("journal : état vide explicite", container.querySelector(".empty-state__message")?.textContent === "No journal entries recorded yet.");
+	check("journal : état vide explicite", container.querySelector(".empty-state__message")?.textContent === "Aucune entrée de journal enregistrée pour l'instant.");
 	check("journal : squelette retiré après chargement", skeletons() === 0);
 	await click(emptyButton("Recharger le journal"));
 	check("journal : l'action de l'état vide recharge", retries === 2);
