@@ -72,3 +72,4 @@ Progression due à ce chantier : 932 → 1 270 (`wikidata:P856:http200`, +338) p
 ## Conformité
 
 Nouvelle-Aquitaine uniquement ; sources publiques/grises uniquement (Wikidata P856, libellés Wikidata, preuve HTTP) ; aucun service payant ; aucune donnée personnelle de victime ; code et interface en anglais ; rapport en français ; `server.ts` inchangé ; chaque commande exécutée en moins de 60 s.
+OBJECTIF : partiel — 1 367 / 1 671 911 organisations (0,0818 %), manque 1 670 544 organisations vérifiées (99,918 %) pour atteindre 100 %
