@@ -1,0 +1,57 @@
+{
+  "command": "pnpm measure:provider-spof",
+  "scope": "nouvelle-aquitaine",
+  "threshold": 100,
+  "providers": [
+    {
+      "name": "OVHcloud",
+      "categories": [
+        "dns",
+        "mail"
+      ],
+      "organizations": 544,
+      "domains": 528
+    },
+    {
+      "name": "Microsoft 365",
+      "categories": [
+        "mail"
+      ],
+      "organizations": 273,
+      "domains": 256
+    },
+    {
+      "name": "Gandi",
+      "categories": [
+        "dns",
+        "mail"
+      ],
+      "organizations": 108,
+      "domains": 98
+    },
+    {
+      "name": "Google Workspace",
+      "categories": [
+        "mail"
+      ],
+      "organizations": 102,
+      "domains": 96
+    }
+  ],
+  "totals": {
+    "organizationsObserved": 1285,
+    "organizationsAttributed": 1160,
+    "domainsObserved": 1222,
+    "unknownHosts": 786
+  },
+  "baseline": {
+    "organizations": 1672551,
+    "sources": 463,
+    "events": 27899
+  },
+  "sql": {
+    "observations": "SELECT pd.domain,\n\t                      ARRAY(\n\t                        SELECT DISTINCT o.id\n\t                          FROM unnest(pd.org_ids) AS u(id)\n\t                          JOIN org o ON o.id = u.id\n\t                         WHERE o.dept = ANY($1::text[])\n\t                      )::int[] AS \"orgIds\",\n\t                      pd.ns, pd.mx\n\t                 FROM provider_domain pd\n\t                WHERE pd.last_state <> 'erreur'\n\t                ORDER BY pd.domain",
+    "baseline": "SELECT (SELECT reltuples::bigint FROM pg_class WHERE oid = 'org'::regclass) AS organizations,\n\t                  (SELECT count(*) FROM source) AS sources,\n\t                  (SELECT count(*) FROM event) AS events"
+  },
+  "measuredAt": "2026-11-22T01:10:41.427Z"
+}
