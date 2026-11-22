@@ -4,7 +4,7 @@
  *
  * Deux faits observables : (1) un message `event: alert` du serveur alimente
  * le bandeau, sans doublon ni charge utile invalide ; (2) cliquer
- * « Acknowledge » POST sur /alerts/:id/ack, relit la file et bascule l'état
+ * « Acquitter » POST sur /alerts/:id/ack, relit la file et bascule l'état
  * de la ligne. Aucun réseau : fetch et EventSource sont remplacés.
  */
 import { act } from "react";
@@ -138,7 +138,10 @@ describe("flux SSE des alertes", () => {
 
     handle.close();
     expect(stream.closed).toBe(true);
-    expect(formatAgo("2026-11-21T09:59:30Z", Date.parse("2026-11-21T10:00:00Z"))).toBe("30 s ago");
+    expect(formatAgo("2026-11-21T09:59:30Z", Date.parse("2026-11-21T10:00:00Z"))).toBe("à l'instant");
+    expect(formatAgo("2026-11-21T09:57:00Z", Date.parse("2026-11-21T10:00:00Z"))).toBe("il y a 3 min");
+    expect(formatAgo("2026-11-21T08:00:00Z", Date.parse("2026-11-21T10:00:00Z"))).toBe("il y a 2 h");
+    expect(formatAgo("2026-11-20T10:00:00Z", Date.parse("2026-11-21T10:00:00Z"))).toBe("il y a 1 j");
     expect(formatAgo("")).toBe("—");
   });
 
@@ -162,7 +165,7 @@ describe("flux SSE des alertes", () => {
       });
       expect(host.querySelector(".live-alerts__title")?.textContent).toBe("Ransomware wave");
       expect(host.querySelector(".live-alerts__more")?.textContent).toBe("+2");
-      expect(host.textContent).toContain("Sound off");
+      expect(host.textContent).toContain("Son coupé");
       expect(host.textContent).not.toContain("aucune");
     } finally {
       await act(async () => { root?.unmount(); });
@@ -235,7 +238,7 @@ describe("acquittement des alertes", () => {
 
       const rows = host.querySelectorAll<HTMLElement>(".alerts__item");
       expect(rows).toHaveLength(2);
-      expect(host.querySelector(".alerts__totals")?.textContent).toContain("2 open");
+      expect(host.querySelector(".alerts__totals")?.textContent).toContain("2 ouvertes");
       expect(alertKind(makeAlert(11))).toBe("critical_event");
       expect(alertKind({ rule_id: "rupture:source-muette", scope: "rupture" })).toBe("silent_source");
       expect(readEvidence({ faits: ["1", 2, null] })).toEqual({ faits: ["1", 2] });
@@ -244,10 +247,10 @@ describe("acquittement des alertes", () => {
       await act(async () => { evidenceButton.click(); });
       await flush();
       const detail = host.querySelector('[data-testid="alert-detail"]');
-      expect(detail?.textContent).toContain("Basis: 4 facts in 7 days");
-      expect(detail?.textContent).toContain("Open the original report");
+      expect(detail?.textContent).toContain("Base : 4 facts in 7 days");
+      expect(detail?.textContent).toContain("Ouvrir le rapport d'origine");
       expect(detail?.querySelector('a[href="https://source.test/report"]')).not.toBeNull();
-      expect(detail?.textContent).toContain("Corroboration: 2 source(s)");
+      expect(detail?.textContent).toContain("Corroboration : 2 source(s)");
 
       await act(async () => {
         detail?.querySelectorAll("button").forEach((button) => {
@@ -257,14 +260,14 @@ describe("acquittement des alertes", () => {
       expect(openedEvents).toEqual(["1011"]);
 
       const ackButton = [...rows[0]!.querySelectorAll<HTMLButtonElement>("button")]
-        .find((button) => button.textContent === "Acknowledge")!;
+        .find((button) => button.textContent === "Acquitter")!;
       await act(async () => { ackButton.click(); });
       await flush();
 
       expect(calls.filter((c) => c.method === "POST").map((c) => c.url)).toEqual(["/api/alerts/11/ack"]);
       expect(calls.filter((c) => c.url.startsWith("/api/alerts?")).length).toBeGreaterThan(1);
-      expect(host.querySelector(".alerts__totals")?.textContent).toContain("1 open, 1 acknowledged");
-      expect(host.querySelector('.alerts__item[data-alert-id="11"] .alerts__state')?.textContent).toBe("acknowledged");
+      expect(host.querySelector(".alerts__totals")?.textContent).toContain("1 ouverte, 1 acquittée");
+      expect(host.querySelector('.alerts__item[data-alert-id="11"] .alerts__state')?.textContent).toBe("acquittée");
       expect(unauthorized).toBe(0);
     } finally {
       await act(async () => { root?.unmount(); });
@@ -292,7 +295,7 @@ describe("acquittement des alertes", () => {
       });
       await flush();
       const ackButton = [...host.querySelectorAll<HTMLButtonElement>("button")]
-        .find((button) => button.textContent === "Acknowledge")!;
+        .find((button) => button.textContent === "Acquitter")!;
       await act(async () => { ackButton.click(); });
       await flush();
       expect(host.querySelector('[role="alert"]')?.textContent).toContain("403");

@@ -1,0 +1,132 @@
+{
+  "command": "tsx scripts/integrate-technical-sites.mts",
+  "scope": "nouvelle-aquitaine",
+  "sourcePrefix": "na-tech-site-",
+  "claimSource": "technical-sites",
+  "constraints": {
+    "graySources": true,
+    "personalData": false,
+    "paidServices": false
+  },
+  "sources": {
+    "inCorpus": 20,
+    "verified": 20,
+    "skipped": [],
+    "byKind": {
+      "cve": 4,
+      "poc": 3,
+      "nvd": 5,
+      "exploit_db": 4,
+      "github": 4
+    }
+  },
+  "claims": {
+    "inCorpus": 7,
+    "inserted": 0,
+    "existing": 7,
+    "rejected": []
+  },
+  "verified": [
+    {
+      "id": "na-tech-site-001",
+      "status": 200,
+      "via": "database"
+    },
+    {
+      "id": "na-tech-site-002",
+      "status": 200,
+      "via": "database"
+    },
+    {
+      "id": "na-tech-site-003",
+      "status": 200,
+      "via": "database"
+    },
+    {
+      "id": "na-tech-site-004",
+      "status": 200,
+      "via": "database"
+    },
+    {
+      "id": "na-tech-site-005",
+      "status": 200,
+      "via": "database"
+    },
+    {
+      "id": "na-tech-site-006",
+      "status": 200,
+      "via": "database"
+    },
+    {
+      "id": "na-tech-site-007",
+      "status": 200,
+      "via": "database"
+    },
+    {
+      "id": "na-tech-site-008",
+      "status": 200,
+      "via": "database"
+    },
+    {
+      "id": "na-tech-site-009",
+      "status": 200,
+      "via": "database"
+    },
+    {
+      "id": "na-tech-site-010",
+      "status": 200,
+      "via": "database"
+    },
+    {
+      "id": "na-tech-site-011",
+      "status": 200,
+      "via": "database"
+    },
+    {
+      "id": "na-tech-site-012",
+      "status": 200,
+      "via": "database"
+    },
+    {
+      "id": "na-tech-site-013",
+      "status": 200,
+      "via": "database"
+    },
+    {
+      "id": "na-tech-site-014",
+      "status": 206,
+      "via": "database"
+    },
+    {
+      "id": "na-tech-site-015",
+      "status": 206,
+      "via": "database"
+    },
+    {
+      "id": "na-tech-site-016",
+      "status": 206,
+      "via": "database"
+    },
+    {
+      "id": "na-tech-site-017",
+      "status": 206,
+      "via": "database"
+    },
+    {
+      "id": "na-tech-site-018",
+      "status": 206,
+      "via": "database"
+    },
+    {
+      "id": "na-tech-site-019",
+      "status": 206,
+      "via": "database"
+    },
+    {
+      "id": "na-tech-site-020",
+      "status": 206,
+      "via": "database"
+    }
+  ],
+  "integratedAt": "2026-11-21T22:53:13.362Z"
+}

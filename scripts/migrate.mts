@@ -70,6 +70,14 @@ function listMigrations(): string[] {
 }
 
 async function main(): Promise<void> {
+  // La cible est dite à voix haute : le défaut est le port 5432, alors que la
+  // base de dev tourne sur 5433. Sans cette ligne, on juge une migration sur la
+  // mauvaise base et l'échec ressemble à un défaut de schéma.
+  const cible = (() => {
+    const u = new URL(DATABASE_URL);
+    return `${u.hostname}:${u.port || "5432"}${u.pathname}`;
+  })();
+  console.log(`Cible : ${cible}${process.env.DATABASE_URL ? " (DATABASE_URL)" : " (défaut)"}`);
   const client = new Client({ connectionString: DATABASE_URL });
   await client.connect();
   try {

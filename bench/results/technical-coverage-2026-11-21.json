@@ -1,0 +1,122 @@
+{
+  "command": "tsx scripts/measure-technical-coverage.mts",
+  "scope": "nouvelle-aquitaine",
+  "sourceCount": 20,
+  "sourcesByKind": {
+    "cve": 4,
+    "poc": 3,
+    "nvd": 5,
+    "exploit_db": 4,
+    "github": 4
+  },
+  "claimsAttachedToNaOrg": 74,
+  "organizationsWithClaim": 71,
+  "claimsFromThisCorpus": 7,
+  "sql": {
+    "sources": "SELECT id, parser->>'kind' AS kind, department\n              FROM source\n             WHERE id LIKE $1 || '%' AND region = 'nouvelle-aquitaine'\n             ORDER BY id",
+    "claims": "SELECT count(*)::int AS total,\n                  count(DISTINCT c.org_id)::int AS organizations,\n                  count(*) FILTER (WHERE c.source = $2)::int AS \"fromSlice\"\n             FROM leak_claim c\n             JOIN org o ON o.id = c.org_id\n            WHERE c.na AND o.dept = ANY($1::text[])"
+  },
+  "sources": [
+    {
+      "id": "na-tech-site-001",
+      "kind": "cve",
+      "department": "33"
+    },
+    {
+      "id": "na-tech-site-002",
+      "kind": "cve",
+      "department": "87"
+    },
+    {
+      "id": "na-tech-site-003",
+      "kind": "cve",
+      "department": "86"
+    },
+    {
+      "id": "na-tech-site-004",
+      "kind": "cve",
+      "department": "64"
+    },
+    {
+      "id": "na-tech-site-005",
+      "kind": "nvd",
+      "department": "33"
+    },
+    {
+      "id": "na-tech-site-006",
+      "kind": "nvd",
+      "department": "33"
+    },
+    {
+      "id": "na-tech-site-007",
+      "kind": "nvd",
+      "department": "86"
+    },
+    {
+      "id": "na-tech-site-008",
+      "kind": "nvd",
+      "department": "64"
+    },
+    {
+      "id": "na-tech-site-009",
+      "kind": "nvd",
+      "department": "17"
+    },
+    {
+      "id": "na-tech-site-010",
+      "kind": "exploit_db",
+      "department": "33"
+    },
+    {
+      "id": "na-tech-site-011",
+      "kind": "exploit_db",
+      "department": "87"
+    },
+    {
+      "id": "na-tech-site-012",
+      "kind": "exploit_db",
+      "department": "86"
+    },
+    {
+      "id": "na-tech-site-013",
+      "kind": "exploit_db",
+      "department": "64"
+    },
+    {
+      "id": "na-tech-site-014",
+      "kind": "github",
+      "department": "33"
+    },
+    {
+      "id": "na-tech-site-015",
+      "kind": "github",
+      "department": "87"
+    },
+    {
+      "id": "na-tech-site-016",
+      "kind": "github",
+      "department": "86"
+    },
+    {
+      "id": "na-tech-site-017",
+      "kind": "github",
+      "department": "64"
+    },
+    {
+      "id": "na-tech-site-018",
+      "kind": "poc",
+      "department": "33"
+    },
+    {
+      "id": "na-tech-site-019",
+      "kind": "poc",
+      "department": "86"
+    },
+    {
+      "id": "na-tech-site-020",
+      "kind": "poc",
+      "department": "23"
+    }
+  ],
+  "measuredAt": "2026-11-21T22:52:10.653Z"
+}

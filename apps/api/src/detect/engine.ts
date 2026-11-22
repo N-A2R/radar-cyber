@@ -1,7 +1,9 @@
 import { query, ingestQuery } from "../db.js";
 import { classifyScope, isConfident, isScopeGateEnabled } from "./scope.js";
 import { REVIEW_THRESHOLD, scoreAlert } from "./confidence.js";
+import { NA_ANCHOR_BONUS } from "./calibration.js";
 import { discardIfFalse } from "./false-events.js";
+import { DEDUP_RULE_VERSION, findCrossFlowDuplicates } from "../dedup/event-pairs.js";
 
 export type RuleMatch = {
   family?: string;
@@ -38,6 +40,23 @@ export async function loadRules(force = false): Promise<Rule[]> {
   return cachedRules;
 }
 
+let cachedRuleThresholds: Map<string, number> | null = null;
+
+/**
+ * Seuils calibrés par règle (table `rule_calibration`, holdout 30 jours).
+ *
+ * Chargés une fois puis gardés en mémoire : les relire à chaque événement
+ * ferait payer une requête par évaluation. `force` recharge après une mesure.
+ */
+export async function loadRuleThresholds(force = false): Promise<Map<string, number>> {
+  if (cachedRuleThresholds && !force) return cachedRuleThresholds;
+  const r = await query<{ rule_id: string; threshold: string }>(
+    "SELECT rule_id, threshold FROM rule_calibration"
+  );
+  cachedRuleThresholds = new Map(r.rows.map((row) => [row.rule_id, Number(row.threshold)]));
+  return cachedRuleThresholds;
+}
+
 function textOf(e: Record<string, unknown>): string {
   return `${String(e.title ?? "")} ${String(e.summary ?? "")}`.toLowerCase();
 }
@@ -63,37 +82,98 @@ function matchesIndicator(rule: Rule, ind: Record<string, unknown>): boolean {
   return true;
 }
 /**
- * Nombre de sources distinctes ayant parlé de l'organisation dans les 30 jours
- * qui précèdent l'événement. Une requête par évaluation, jamais une par
- * alerte : ce chiffre alimente la corroboration de la note de confiance.
+ * Une ligne d'événement suffisante pour décider si deux flux décrivent le
+ * même fait : identité, organisation, source, titre et jour.
  */
-async function corroborationForOrg(orgId: number, at: Date): Promise<number> {
-  const r = await query<{ n: string }>(
-    `SELECT COUNT(DISTINCT source_id)::text AS n
-       FROM event
-      WHERE org_id = $1
-        AND COALESCE(observed_at, collected_at) >= $2::timestamptz - interval '30 days'`,
-    [orgId, at]
-  );
-  return Number(r.rows[0]?.n ?? 0);
+export type CorroborationRow = {
+  id: number;
+  org_id: number;
+  source_id: string;
+  title: string;
+  day: string;
+};
+
+/**
+ * Corroboration pré-calculée pour une passe de détection.
+ *
+ * `sourcesByOrg` compte les sources **indépendantes** : un incident republié
+ * par deux flux n'en ajoute pas une seconde. `groupByEvent` donne, pour un
+ * événement membre d'un fait repris plusieurs fois, tous les événements du
+ * groupe — la détection n'ouvre alors qu'une alerte par règle pour ce fait.
+ */
+export type CorroborationContext = {
+  sourcesByOrg: Map<number, number>;
+  groupByEvent: Map<number, number[]>;
+};
+
+/**
+ * Réduit des événements aux faits distincts, par organisation, avec la règle
+ * `cross-flow@1`. Fonction pure : elle ne lit ni n'écrit en base.
+ */
+export function buildCorroborationContext(rows: readonly CorroborationRow[]): CorroborationContext {
+  const byOrg = new Map<number, CorroborationRow[]>();
+  for (const row of rows) {
+    const orgId = Number(row.org_id);
+    const list = byOrg.get(orgId);
+    if (list) list.push(row);
+    else byOrg.set(orgId, [row]);
+  }
+  const sourcesByOrg = new Map<number, number>();
+  const groupByEvent = new Map<number, number[]>();
+  for (const [orgId, list] of byOrg) {
+    const groups = findCrossFlowDuplicates(
+      list.map((row) => ({ id: Number(row.id), title: row.title, day: row.day })),
+    );
+    const duplicates = new Set<number>();
+    for (const group of groups) {
+      for (const id of group.memberIds) groupByEvent.set(id, group.memberIds);
+      for (const id of group.duplicateIds) duplicates.add(id);
+    }
+    const sources = new Set<string>();
+    for (const row of list) {
+      if (!duplicates.has(Number(row.id))) sources.add(row.source_id);
+    }
+    sourcesByOrg.set(orgId, sources.size);
+  }
+  return { sourcesByOrg, groupByEvent };
 }
 
 /**
- * Préchargement du balayage global : une seule requête pour toutes les
- * organisations, au lieu d'une par événement.
+ * Charge les événements de la fenêtre (30 jours par défaut) et les réduit aux
+ * faits distincts. Sans `orgIds`, la passe globale couvre toutes les
+ * organisations en une requête ; avec `at`, la fenêtre se termine à cet
+ * instant, comme le comptage historique par événement.
  */
-async function corroborationByOrg(): Promise<Map<number, number>> {
-  const r = await query<{ org_id: number; n: string }>(
-    `SELECT org_id, COUNT(DISTINCT source_id)::text AS n
+export async function loadCorroborationContext(
+  orgIds?: readonly number[],
+  at?: Date,
+): Promise<CorroborationContext> {
+  const params: unknown[] = [];
+  const where: string[] = ["org_id IS NOT NULL"];
+  if (orgIds !== undefined) {
+    params.push(orgIds);
+    where.push(`org_id = ANY($${params.length}::int[])`);
+  }
+  if (at) {
+    params.push(at);
+    where.push(`COALESCE(observed_at, collected_at) >= $${params.length}::timestamptz - interval '30 days'`);
+  } else {
+    where.push("COALESCE(observed_at, collected_at) >= now() - interval '30 days'");
+  }
+  const r = await query<CorroborationRow>(
+    `SELECT id::int AS id, org_id::int AS org_id, source_id, title,
+            to_char(COALESCE(observed_at, collected_at) AT TIME ZONE 'UTC', 'YYYY-MM-DD') AS day
        FROM event
-      WHERE org_id IS NOT NULL
-        AND COALESCE(observed_at, collected_at) >= now() - interval '30 days'
-      GROUP BY org_id`
+      WHERE ${where.join(" AND ")}`,
+    params,
   );
-  return new Map(r.rows.map((row) => [Number(row.org_id), Number(row.n)]));
+  return buildCorroborationContext(r.rows);
 }
 
-export async function evaluateEvent(eventId: number, ctx?: { corroboration?: Map<number, number>; force?: boolean }): Promise<number> {
+export async function evaluateEvent(
+  eventId: number,
+  ctx?: { corroboration?: CorroborationContext; force?: boolean },
+): Promise<number> {
   const rules = await loadRules();
   const er = await query<Record<string, unknown>>("SELECT * FROM event WHERE id=$1", [eventId]);
   const e = er.rows[0];
@@ -124,8 +204,16 @@ export async function evaluateEvent(eventId: number, ctx?: { corroboration?: Map
 
   const at = (e.observed_at ?? e.collected_at ?? new Date()) as Date;
   const orgId = e.org_id == null ? null : Number(e.org_id);
-  const distinctSources =
-    orgId == null ? 0 : ctx?.corroboration?.get(orgId) ?? (await corroborationForOrg(orgId, at));
+  // Le comptage préchargé couvre toutes les organisations ; sans lui (appel
+  // unitaire), on charge la seule organisation de l'événement. Dans les deux
+  // cas, les reprises inter-flux du même fait ne comptent qu'une source.
+  let factGroup: number[] | null = null;
+  let distinctSources = 0;
+  if (orgId != null) {
+    const local = ctx?.corroboration ?? (await loadCorroborationContext([orgId], at));
+    distinctSources = local.sourcesByOrg.get(orgId) ?? 0;
+    factGroup = local.groupByEvent.get(Number(e.id)) ?? null;
+  }
 
   const confidence = scoreAlert({
     sourceConfidence: typeof e.confidence === "string" ? e.confidence : null,
@@ -161,12 +249,60 @@ export async function evaluateEvent(eventId: number, ctx?: { corroboration?: Map
     return 0;
   }
 
+  // Échelle mesurée par la calibration : note de confiance, majorée quand un
+  // ancrage régional est observable (rattachement organisation ou drapeau
+  // `regional` de l'événement). Aucun autre signal n'entre dans ce score.
+  const anchored = orgId != null || e.regional === true;
+  const calibratedScore = confidence.score + (anchored ? NA_ANCHOR_BONUS : 0);
+  const ruleThresholds = await loadRuleThresholds();
+
   let created = 0;
   for (const rule of matched) {
+    // Un seuil calibré ne peut que resserrer : il s'applique après la porte
+    // globale de 65, et une promotion humaine (`force`) le conserve.
+    const threshold = ruleThresholds.get(rule.id);
+    if (!ctx?.force && threshold != null && calibratedScore < threshold) {
+      console.warn(
+        JSON.stringify({
+          detect: "alert_skipped_below_rule_threshold",
+          event_id: Number(e.id),
+          rule_id: rule.id,
+          score: calibratedScore,
+          threshold,
+          anchored,
+        })
+      );
+      continue;
+    }
     const scope = orgId != null ? "organization_incident" : "regional_advisory";
+    // Un fait repris par plusieurs flux ne produit qu'une alerte par règle :
+    // le premier membre évalué l'ouvre, les suivants s'y rattachent. Une
+    // promotion humaine (`force`) reste un acte explicite et n'est pas filtrée.
+    if (!ctx?.force && factGroup !== null && factGroup.length > 1) {
+      const already = await query<{ id: number }>(
+        `SELECT id FROM alert WHERE rule_id=$1 AND event_id = ANY($2::int[]) LIMIT 1`,
+        [rule.id, factGroup]
+      );
+      if (already.rows.length > 0) {
+        console.warn(
+          JSON.stringify({
+            detect: "alert_skipped_cross_flow_duplicate",
+            event_id: Number(e.id),
+            rule_id: rule.id,
+            fact_event_ids: factGroup,
+            rule_version: DEDUP_RULE_VERSION,
+          })
+        );
+        continue;
+      }
+    }
     const evidence = {
       event_title: e.title,
       confidence: confidenceEvidence,
+      ...(factGroup !== null && factGroup.length > 1
+        ? { cross_flow: { rule_version: DEDUP_RULE_VERSION, event_ids: factGroup } }
+        : {}),
+      ...(threshold != null ? { calibration: { score: calibratedScore, threshold, anchored } } : {}),
       ...(regionalVerdict ? { scope_decision: regionalVerdict } : {}),
     };
     const ins = await ingestQuery(
@@ -207,7 +343,7 @@ export async function evaluateIndicator(indicatorId: number): Promise<number> {
 export async function evaluateAll(): Promise<{ events: number; indicators: number; alerts: number }> {
   const events = await query<{ id: number }>("SELECT id FROM event");
   const inds = await query<{ id: number }>("SELECT id FROM indicator");
-  const corroboration = await corroborationByOrg();
+  const corroboration = await loadCorroborationContext();
   let alerts = 0;
   for (const e of events.rows) alerts += await evaluateEvent(e.id, { corroboration });
   for (const i of inds.rows) alerts += await evaluateIndicator(i.id);

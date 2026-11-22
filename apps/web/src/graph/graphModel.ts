@@ -88,20 +88,35 @@ export interface GraphData {
   links: GraphLink[];
 }
 
+/** Smallest drawn radius, so an isolated node stays visible and clickable. */
+export const NODE_RADIUS_MIN = 4;
+/** Largest drawn radius, so a hub cannot swallow the canvas. */
+export const NODE_RADIUS_MAX = 16;
+
+/**
+ * Radius encoding the real number of links of a node.
+ * The area — not the radius — grows with degree: `r = min + sqrt(degree) * 2`,
+ * clamped between a readable minimum and a maximum that keeps labels usable.
+ */
+export function nodeRadius(degree: number | null | undefined): number {
+  const value = typeof degree === 'number' && Number.isFinite(degree) && degree > 0 ? degree : 0;
+  return Math.min(NODE_RADIUS_MAX, NODE_RADIUS_MIN + Math.sqrt(value) * 2);
+}
+
 /** Link labels shown in the legend and in the detail panel. */
 export const LINK_TYPES: Record<string, string> = {
-  rattache: 'located in',
-  has_event: 'has event',
-  contains: 'contains',
-  reported_by: 'reported by',
-  observed_at: 'observed at',
-  targeted_by: 'targeted by',
-  claims: 'claims',
-  attributed_to: 'attributed to',
-  located_in: 'located in',
-  owns_domain: 'owns domain',
-  dns_link: 'DNS link',
-  resolves_to: 'resolves to',
+  rattache: 'rattaché à',
+  has_event: 'a un événement',
+  contains: 'contient',
+  reported_by: 'rapporté par',
+  observed_at: 'observé le',
+  targeted_by: 'ciblé par',
+  claims: 'revendique',
+  attributed_to: 'attribué à',
+  located_in: 'situé dans',
+  owns_domain: 'possède un domaine',
+  dns_link: 'lien DNS',
+  resolves_to: 'résout vers',
 };
 
 const FAMILY_ALIASES: Record<string, string> = {

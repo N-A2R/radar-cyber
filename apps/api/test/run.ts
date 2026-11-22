@@ -67,7 +67,9 @@ try {
 	exitCode = await run(
 		cmd,
 		["--test", "--test-concurrency=1", "--test-timeout=120000", ...flags, ...files],
-		{ ...process.env, DATABASE_URL: db.url }
+		// Les tests créent des organisations entre deux appels : le snapshot de la
+		// file de revue doit rester frais, donc jamais mis en cache ici.
+		{ ...process.env, DATABASE_URL: db.url, RADAR_REVIEW_INDEX_CACHE: "off" }
 	);
 } catch (err) {
 	console.error(err);

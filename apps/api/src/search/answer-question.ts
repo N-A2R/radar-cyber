@@ -10,6 +10,7 @@ import { query } from "../db.js";
 import { NA_DEPARTMENTS } from "../geo/commune-index.js";
 import { searchFrozenIncidents } from "./frozen-incidents.js";
 import { parseQuestion, type ParsedQuestion } from "./parse-question.js";
+import { evenementPublicSql } from "../security/tlp.js";
 
 export interface SearchHit {
   id: string;
@@ -40,6 +41,7 @@ const EVENT_SQL = `
   WHERE e.observed_at >= $1 AND e.observed_at < $2
     AND o.dept = ANY($3)
     AND e.family = ANY($4)
+    AND ${evenementPublicSql("e")}
     AND (
       (o.sector = ANY($5) AND o.name_norm ~ $6)
       OR e.title_search LIKE ANY($7)

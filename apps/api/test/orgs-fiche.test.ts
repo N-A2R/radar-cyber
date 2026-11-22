@@ -85,8 +85,8 @@ before(async () => {
   const base = Date.now();
   for (let i = 0; i < EVENT_COUNT; i++) {
     await query(
-      `INSERT INTO event (dedup_key, family, assertion_type, title, severity, source_id, org_id, observed_at)
-       VALUES ($1,'cti','confirmed_incident',$2,2,$3,$4,$5)`,
+      `INSERT INTO event (dedup_key, family, assertion_type, title, severity, source_id, org_id, observed_at, source_url, evidence)
+       VALUES ($1,'cti','confirmed_incident',$2,2,$3,$4,$5,'https://example.invalid/event','{"run_id":"1"}'::jsonb)`,
       [
         `${TAG}-event-${i}`,
         `Événement ${i}`,

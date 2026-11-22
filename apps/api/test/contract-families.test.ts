@@ -17,11 +17,11 @@ import { FAMILIES } from "@radar/shared";
 import { classifyFamily, isFamily, type Family } from "../src/collectors/classify.js";
 
 test("le contrat connaît les familles du catalogue et de migrate-019", () => {
-	for (const family of ["leaks", "paste", "presse_cyber"]) {
+	for (const family of ["leaks", "paste", "presse_cyber", "presse_locale"]) {
 		assert.ok(FAMILIES.includes(family as Family), `${family} doit être au contrat`);
 		assert.equal(isFamily(family), true);
 	}
-	assert.equal(FAMILIES.length, 13);
+	assert.equal(FAMILIES.length, 14);
 	assert.equal(isFamily("nimportequoi"), false);
 });
 
@@ -41,7 +41,7 @@ test("les 8 sources leaks/paste gardent leur famille sur un titre de fuite", () 
 });
 
 test("une famille inconnue reste refusée par isFamily", () => {
-	// Le contrat élargi n'est pas une porte ouverte : seules les 13 valeurs
+	// Le contrat élargi n'est pas une porte ouverte : seules les 14 valeurs
 	// passent. C'est ce qui manquait à generic.ts.
 	for (const bad of ["leak", "pastes", "darkweb", "", "LEAKS"]) {
 		assert.equal(isFamily(bad), false, `${bad} ne doit pas passer`);

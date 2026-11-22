@@ -310,7 +310,7 @@ export type CouverturePublique = {
   global: CouvertureLigne;
   parMotif: Array<{ motif: string; incidents: number; part: number }>;
   parDepartement: Array<CouvertureLigne & { departement: string }>;
-  parSecteur: Array<CouvertureLigne & { secteur: string }>;
+  parType: Array<CouvertureLigne & { type: string }>;
 };
 
 /** Une ligne de barre empilée : un département, réparti par famille. */
@@ -416,16 +416,6 @@ export type HealthDetail = {
     enabled: number;
     actives7j: number;
     muettes7j: number;
-    bySource: {
-      id: string;
-      name: string;
-      family: string;
-      enabled: boolean;
-      lastCollectedAt: string | null;
-      lastEventAt: string | null;
-      ageHours: number | null;
-      tone: "green" | "orange" | "red";
-    }[];
   };
   events24h: number;
   orgs7j: number;
@@ -437,6 +427,45 @@ export type HealthDetail = {
     ageDays: number | null;
     tone: "green" | "orange" | "red";
   }[];
+};
+
+/** Une ligne de `GET /api/health/sources` : la flotte est paginée côté API. */
+export type LigneSourceSante = {
+  id: string;
+  name: string;
+  family: string;
+  url: string;
+  enabled: boolean;
+  status: SourceStatus;
+  lastOkAt: string | null;
+  lastErrorAt: string | null;
+  lastError: string | null;
+  lastItems: number | null;
+};
+
+/** Filtres et page demandés à `GET /api/health/sources`. */
+export type HealthSourcesQuery = {
+  family?: string | null;
+  status?: SourceStatus | null;
+  q?: string | null;
+  page?: number;
+  pageSize?: number;
+  sort?: "status" | "name" | "family" | "lastOkAt" | "lastError" | "lastItems";
+  dir?: "asc" | "desc";
+};
+
+/** Résumé SQL + une seule page de sources (GET /api/health/sources). */
+export type HealthSources = {
+  ok: true;
+  generatedAt: string;
+  total: number;
+  counts: Record<SourceStatus, number>;
+  families: { family: string; sources: number }[];
+  matching: number;
+  page: number;
+  pageSize: number;
+  pages: number;
+  items: LigneSourceSante[];
 };
 
 /** Réponse de GET /api/health/causes : répartition réelle des causes de rougeur. */
@@ -1003,8 +1032,14 @@ export type JournalDecision = {
 };
 
 export type JournalReviewParams = {
+  /** Nom historique de la taille de page, encore accepté par l'API. */
   limite?: number;
+  /** Taille de page demandée (plafonnée à 100 par l'API). */
+  limit?: number;
+  /** Curseur : id de la dernière ligne de la page précédente. */
   avant?: number | null;
+  /** Décalage, pour ouvrir directement une page précise. */
+  offset?: number;
   /** "all" (default), "review", "publication", "correction" or an exact kind. */
   kind?: string;
   actor?: string;
@@ -1013,16 +1048,12 @@ export type JournalReviewParams = {
   au?: string;
 };
 
-type JournalReviewResponseRaw = {
-  rows: JournalDecision[];
-  limite: number;
-  /** Next-page cursor; null = last page. */
-  avant: number | null;
-};
-
 export type JournalReviewResponse = {
   rows: JournalDecision[];
+  /** Nombre total d'entrées correspondant aux filtres, toutes pages confondues. */
+  total: number;
   limite: number;
+  offset: number;
   /** Next-page cursor; null = last page. */
   avant: number | null;
 };
@@ -1049,16 +1080,17 @@ export type CouvertureResponse = {
   global: CouvertureLigne;
   parMotif: Array<{ motif: string; incidents: number; part: number }>;
   parDepartement: Array<CouvertureLigne & { departement: string }>;
-  parSecteur: Array<CouvertureLigne & { secteur: string }>;
-  parMois: Array<CouvertureLigne & { mois: string }>;
+  parType: Array<CouvertureLigne & { type: string }>;
   /** Vrai quand le hash servi diverge de la référence : chiffre non publiable. */
   stale: boolean;
 };
 /** Query string shared by the JSON journal and its CSV export. */
-function journalQuery(params: JournalReviewParams, withCursor = true): string {
+function journalQuery(params: JournalReviewParams, withPagination = true): string {
   const qs = new URLSearchParams();
-  if (withCursor && params.limite !== undefined) qs.set("limite", String(params.limite));
-  if (withCursor && params.avant !== undefined && params.avant !== null) qs.set("avant", String(params.avant));
+  const taille = params.limit ?? params.limite;
+  if (withPagination && taille !== undefined) qs.set("limit", String(taille));
+  if (withPagination && params.offset !== undefined) qs.set("offset", String(params.offset));
+  if (withPagination && params.avant !== undefined && params.avant !== null) qs.set("avant", String(params.avant));
   if (params.kind && params.kind !== "all") qs.set("kind", params.kind);
   if (params.actor) qs.set("acteur", params.actor);
   if (params.q) qs.set("q", params.q);
@@ -1148,6 +1180,19 @@ export const api = {
   /** Couverture mesurée : une seule lecture, identique d'un appel à l'autre. */
   couverture: (signal?: AbortSignal) => get<CouvertureResponse>("/couverture", signal),
   healthDetail: () => get<HealthDetail>("/health/detail"),
+  /** Page du tableau des sources : le navigateur ne reçoit jamais la flotte. */
+  healthSources: (params: HealthSourcesQuery = {}, signal?: AbortSignal) => {
+    const qs = new URLSearchParams();
+    if (params.family) qs.set("family", params.family);
+    if (params.status) qs.set("status", params.status);
+    if (params.q) qs.set("q", params.q);
+    if (params.page) qs.set("page", String(params.page));
+    if (params.pageSize) qs.set("pageSize", String(params.pageSize));
+    if (params.sort) qs.set("sort", params.sort);
+    if (params.dir) qs.set("dir", params.dir);
+    const suffix = qs.toString();
+    return get<HealthSources>(`/health/sources${suffix ? `?${suffix}` : ""}`, signal);
+  },
   healthCauses: () => get<HealthCauses>("/health/causes"),
   health: () => get<Health>("/health"),
   flows: (days = 30, limit = 300, mode = "arcs") => get<Flows>(`/flows?days=${days}&limit=${limit}&mode=${mode}`),
