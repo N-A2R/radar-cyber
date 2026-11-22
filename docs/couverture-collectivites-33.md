@@ -35,3 +35,4 @@ Résultat : **15 sources, 42 URL distinctes toutes en HTTP 200** (42 contrôles)
 - CCI Bordeaux Gironde : challenge Cloudflare, HTTP 403.
 - SDIS 33 : aucun enregistrement A résolu lors de la recherche.
 - Exa MCP indisponible (HTTP 402, crédits épuisés) : angulation par pages officielles et moteurs HTML accessibles, puis vérification HTTP de chaque URL retenue.
+OBJECTIF : atteint — 15 / 5
