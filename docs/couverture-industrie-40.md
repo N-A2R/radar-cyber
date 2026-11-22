@@ -51,3 +51,5 @@ Résultat : **22 sources, 56 URL distinctes toutes en HTTP 200** (57 relevés, d
 - `https://www.landes.fr/actualites` : 403 (blocage).
 
 Limite de périmètre : MEDEF, CPME, UIMM, CMA et BODACC sont des structures régionales ou nationales ; elles complètent les organisations strictement landaises (CCI des Landes, CPME 40, MEDEF des Landes, Grand Dax, clubs d'entreprises) et les éditions locales de presse.
+
+OBJECTIF : atteint — 22 / 5
