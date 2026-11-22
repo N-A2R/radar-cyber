@@ -156,6 +156,24 @@
   outline: none;
 }
 
+/* Mesure nulle : on dit pourquoi rien n'est tracé, jamais un cadre muet. */
+.gv-no-size {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(42ch, calc(100% - 32px));
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: var(--text-body);
+  line-height: 1.6;
+  text-align: center;
+}
+
 .gv-canvas:focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: -2px;
