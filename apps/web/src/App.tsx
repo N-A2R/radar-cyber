@@ -56,7 +56,7 @@ const VIEWS: { id: ViewKey; label: string }[] = [
   { id: "health", label: "Santé" },
   { id: "alerts", label: "Alertes" },
   { id: "na", label: "Nouvelle-Aquitaine" },
-  { id: "affected", label: "Affected?" },
+  { id: "affected", label: "Suis-je concerné ?" },
 ];
 
 const FEED_LIMIT = 300;
