@@ -19,6 +19,10 @@ import {
   type DatedInfrastructureObservation,
   type InfrastructureTimeline,
 } from "./shared-infrastructure-timeline.js";
+import {
+  buildInfrastructureGeography,
+  type InfrastructureGeography,
+} from "./shared-infrastructure-geography.js";
 
 export const NA_DEPARTMENTS: readonly string[] = Object.keys(DEPT_LABELS).sort();
 
@@ -30,6 +34,10 @@ export const SQL = {
             FROM leak_claim c
             JOIN org o ON o.id = c.org_id
             WHERE c.na AND o.dept = ANY($1::text[])`,
+  departments: `SELECT DISTINCT c.org_id AS oid, o.dept
+                 FROM leak_claim c
+                 JOIN org o ON o.id = c.org_id
+                 WHERE c.na AND o.dept = ANY($1::text[])`,
   observations: `WITH victims AS (
                    SELECT DISTINCT c.org_id
                    FROM leak_claim c
@@ -161,6 +169,42 @@ export async function measureSharedInfrastructureTimeline(): Promise<SharedInfra
     longestReuseDays: timeline.longestReuseDays,
     observationsWithDates: timeline.observationsWithDates,
     clusterTimelines: timeline.clusterTimelines,
+    baseline,
+    measuredAt: new Date().toISOString(),
+  };
+}
+
+export type SharedInfrastructureGeographyMeasurement = {
+  scope: "nouvelle-aquitaine";
+  clusterCount: number;
+  crossDepartmentClusters: number;
+  departmentsCovered: number;
+  clusterGeographies: InfrastructureGeography["clusterGeographies"];
+  baseline: Baseline;
+  measuredAt: string;
+};
+
+/** Measures how many detected clusters link victims from several NA departments. */
+export async function measureSharedInfrastructureGeography(): Promise<SharedInfrastructureGeographyMeasurement> {
+  const [{ observations, baseline }, departments] = await Promise.all([
+    loadInfrastructureData(),
+    query<{ oid: number; dept: string }>(SQL.departments, [NA_DEPARTMENTS]),
+  ]);
+  const departmentsByOrg = new Map<number, string>();
+  for (const row of departments.rows) {
+    if (typeof row.dept === "string" && row.dept.trim() !== "") {
+      departmentsByOrg.set(Number(row.oid), row.dept.trim());
+    }
+  }
+  const detected = detectSharedInfrastructure(observations);
+  const geography = buildInfrastructureGeography(detected, departmentsByOrg);
+
+  return {
+    scope: "nouvelle-aquitaine",
+    clusterCount: geography.clusterCount,
+    crossDepartmentClusters: geography.crossDepartmentClusters,
+    departmentsCovered: geography.departmentsCovered,
+    clusterGeographies: geography.clusterGeographies,
     baseline,
     measuredAt: new Date().toISOString(),
   };

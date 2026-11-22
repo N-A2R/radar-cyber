@@ -88,3 +88,6 @@ commande n'a dépassé 10 secondes. `apps/api/src/server.ts` n'est pas modifié 
   d'attaquant ni la preuve que l'infrastructure est toujours active aujourd'hui.
 - Seules les dates déjà stockées sont lues ; aucune collecte réseau ni source
   payante n'a été ajoutée.
+
+Suite : `docs/rapport-infrastructure-geographie.md` mesure la portée
+inter-départementale des clusters détectés (5 clusters inter-départementaux sur 5).
