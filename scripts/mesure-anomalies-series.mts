@@ -1,14 +1,13 @@
 /**
  * Mesure du détecteur d'anomalies de séries sur l'historique réel.
  *
- * Rejeu pur : les faits sont lus dans la base, aucune écriture, aucune
- * invocation de l'horloge dans le détecteur. Les alertes sont classées à la
- * main sur la totalité de la liste (7 alertes), puis le fichier de verdicts
- * est relu ici pour publier un taux reproductible.
+ * Replay is pure: facts are read from the database, no writes, no clock in
+ * the detector. Backfilled bursts are removed by the freshness guard before
+ * sampling; manual verdicts are then read back to publish a repeatable rate.
  *
  *   DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
  *     tsx scripts/mesure-anomalies-series.mts \
- *     --json=bench/results/anomalies-series-2026-11-21.json \
+ *     --json=bench/results/anomalies-faux-positifs-2026-11-22.json \
  *     --verdicts=bench/results/anomalies-series-verdicts.json --echantillon=20
  */
 import { readFileSync, writeFileSync } from "node:fs";
@@ -22,6 +21,12 @@ import {
 	type AlerteSerie,
 	type PointSerie,
 } from "../apps/api/src/analyse/anomalies-series.js";
+import {
+	DEFAULT_MAX_LAG_DAYS,
+	DEFAULT_MIN_FRESH_SHARE,
+	filterFreshAlerts,
+	type EvidenceTiming,
+} from "../apps/api/src/analyse/evidence-freshness.js";
 
 const argv = process.argv.slice(2);
 const option = (nom: string): string | null =>
@@ -63,17 +68,20 @@ async function main(): Promise<void> {
 		titre: string;
 		famille: string;
 		url: string | null;
+		collecte: string;
 	}>(
 		`SELECT e.id::text AS id, e.observed_at::text AS date, e.org_id AS "orgId",
 		        COALESCE(NULLIF(btrim(o.sector), ''), NULLIF(btrim(o.kind), ''), 'inconnu') AS secteur,
-		        e.source_id AS "sourceId", e.title AS titre, e.family AS famille, e.source_url AS url
-		   FROM event e LEFT JOIN org o ON o.id = e.org_id`,
+		        e.source_id AS "sourceId", e.title AS titre, e.family AS famille, e.source_url AS url, e.collected_at::text AS collecte
+		   FROM event e LEFT JOIN org o ON o.id = e.org_id ORDER BY e.id`,
 	);
 	const parFait = new Map<string, Fait>();
+	const timings = new Map<string, EvidenceTiming>();
 	const points: PointSerie[] = [];
 	for (const f of faits.rows) {
 		const id = String(f.id);
 		parFait.set(id, { id, titre: f.titre, famille: f.famille, url: f.url });
+		timings.set(id, { observedAt: f.date, collectedAt: f.collecte });
 		// Un fait sans organisation ni secteur connu ne porte pas de série :
 		// les 21 000 avis NVD non rattachés écraseraient les deux autres axes.
 		if (f.orgId !== null) {
@@ -88,9 +96,11 @@ async function main(): Promise<void> {
 	const dates = faits.rows.map((f) => Date.parse(f.date)).filter(Number.isFinite);
 	const maintenant = Math.max(...dates);
 	const resultat = detecterAnomaliesSeries(points, { maintenant });
+	const filtre = filterFreshAlerts(resultat.alertes, timings);
+	const alertesFraiches = filtre.alerts;
 
 	const jugements = VERDICTS === null ? {} : JSON.parse(readFileSync(VERDICTS, "utf8")) as Record<string, VerdictManuel>;
-	const alertesTrieesParCle = [...resultat.alertes].sort((a, b) => a.cle.localeCompare(b.cle));
+	const alertesTrieesParCle = [...alertesFraiches].sort((a, b) => a.cle.localeCompare(b.cle));
 	const sample = echantillonner(alertesTrieesParCle, ECHANTILLON).map((a) => ({
 		cle: a.cle,
 		axe: a.axe,
@@ -131,8 +141,15 @@ async function main(): Promise<void> {
 			seuilZ: SEUIL_Z,
 			ecartMin: ECART_MIN,
 		},
+		fraicheur: {
+			maxLagDays: DEFAULT_MAX_LAG_DAYS,
+			minFreshShare: DEFAULT_MIN_FRESH_SHARE,
+			alertesConservees: alertesFraiches.length,
+			alertesRejetees: filtre.rejected.length,
+			rejets: filtre.rejected.map((r) => ({ cle: r.cle, raison: r.verdict.reason })),
+		},
 		total: {
-			alertes: resultat.alertes.length,
+			alertes: alertesFraiches.length,
 			parAxe: compteParAxe,
 		},
 		echantillon: {
@@ -143,13 +160,13 @@ async function main(): Promise<void> {
 			nonClassables: verdicts.filter((v) => v.classement === "non_classable").length,
 			tauxFaussesAlertes: tauxFausses(verdicts),
 		},
-		top5: resultat.alertes.slice(0, 5).map((a: AlerteSerie) => ({
+		top5: alertesFraiches.slice(0, 5).map((a: AlerteSerie) => ({
 			cle: a.cle,
 			explication: a.explication,
 			z: Math.round(a.z * 100) / 100,
 			faits: a.faits.slice(0, 3).map((id) => parFait.get(String(id)) ?? null),
 		})),
-		alertes: resultat.alertes.map((a) => ({
+		alertes: alertesFraiches.map((a) => ({
 			cle: a.cle,
 			axe: a.axe,
 			groupe: a.groupe,
