@@ -1,0 +1,925 @@
+{
+  "corpus": "bench/corpus/sources-transport-24.jsonl",
+  "verifie_le": "2026-11-22T09:44:17.146375+00:00",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+  "method": "curl -L GET, redirections suivies, code final",
+  "sources": 20,
+  "sources_valides": 20,
+  "urls_sondees": 77,
+  "urls_200": 77,
+  "detail": [
+    {
+      "ligne": 1,
+      "nom": "Péribus — réseau de bus du Grand Périgueux",
+      "type": "réseau de transport public",
+      "secteur": "transport",
+      "departement": "24",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.grandperigueux.fr/mon-quotidien/transports-mobilite/se-deplacer-en-bus-car/reseau-peribus/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 171784,
+          "url_finale": "https://www.grandperigueux.fr/mon-quotidien/transports-mobilite/se-deplacer-en-bus-car/reseau-peribus/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.grandperigueux.fr/actualites/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 160747,
+          "url_finale": "https://www.grandperigueux.fr/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.grandperigueux.fr/actualites/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 11677,
+          "url_finale": "https://www.grandperigueux.fr/actualites/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.ici.fr/emissions/l-invite-de-ici-perigord/la-cci-de-dordogne-a-releve-six-attaques-informatiques-contre-des-entreprises-ou-des-collectivites-cette-annee-7896007",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 210391,
+          "url_finale": "https://www.ici.fr/emissions/l-invite-de-ici-perigord/la-cci-de-dordogne-a-releve-six-attaques-informatiques-contre-des-entreprises-ou-des-collectivites-cette-annee-7896007",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 2,
+      "nom": "TUB — Transports Urbains Bergeracois (CAB)",
+      "type": "réseau de transport public",
+      "secteur": "transport",
+      "departement": "24",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://la-cab.fr/deplacements/transports-urbains-bergeracois-tub/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 577132,
+          "url_finale": "https://la-cab.fr/deplacements/transports-urbains-bergeracois-tub/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://la-cab.fr/actus-de-la-cab/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 675838,
+          "url_finale": "https://la-cab.fr/actus-de-la-cab/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://la-cab.fr/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 10439,
+          "url_finale": "https://la-cab.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.transportinfo.fr/cybersecurite-dans-le-transport-comment-se-preparer-a-continuer-lactivite/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 120063,
+          "url_finale": "https://www.transportinfo.fr/cybersecurite-dans-le-transport-comment-se-preparer-a-continuer-lactivite/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 3,
+      "nom": "CLAS Transports — transport frigorifique (Sanilhac)",
+      "type": "transporteur frigorifique",
+      "secteur": "transport",
+      "departement": "24",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://clas-transports.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 196805,
+          "url_finale": "https://clas-transports.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://clas-transports.fr/actualites/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 181344,
+          "url_finale": "https://clas-transports.fr/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://clas-transports.fr/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 13174,
+          "url_finale": "https://clas-transports.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 128017,
+          "url_finale": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 4,
+      "nom": "DOUMEN — transport et logistique (Boulazac)",
+      "type": "groupe transport/logistique",
+      "secteur": "transport",
+      "departement": "24",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.doumen.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 82009,
+          "url_finale": "https://www.doumen.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.doumen.fr/actualites-et-presse/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 76365,
+          "url_finale": "https://www.doumen.fr/actualites-et-presse/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.doumen.fr/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 35092,
+          "url_finale": "https://www.doumen.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.sudouest.fr/faits-divers/en-gironde-les-transporteurs-guyamier-et-lacassagne-victimes-d-une-grave-cyberattaque-c-est-la-catastrophe-17645999.php",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 146045,
+          "url_finale": "https://www.sudouest.fr/faits-divers/en-gironde-les-transporteurs-guyamier-et-lacassagne-victimes-d-une-grave-cyberattaque-c-est-la-catastrophe-17645999.php",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 5,
+      "nom": "Transports Gauthier (Trélissac)",
+      "type": "transporteur routier",
+      "secteur": "transport",
+      "departement": "24",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://transports-gauthier.com/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 197346,
+          "url_finale": "https://www.transports-gauthier.com/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://transports-gauthier.com/actualites/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 145377,
+          "url_finale": "https://www.transports-gauthier.com/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://transports-gauthier.com/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 81241,
+          "url_finale": "https://www.transports-gauthier.com/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.lemagit.fr/actualites/365533573/La-logistique-un-secteur-de-choix-pour-les-cyberattaques",
+          "code": 200,
+          "content_type": "text/html;charset=UTF-8",
+          "octets": 365400,
+          "url_finale": "https://www.lemagit.fr/actualites/365533573/La-logistique-un-secteur-de-choix-pour-les-cyberattaques",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 6,
+      "nom": "Aéroport Bergerac Dordogne Périgord",
+      "type": "aéroport",
+      "secteur": "transport",
+      "departement": "24",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.bergerac.aeroport.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 118574,
+          "url_finale": "https://www.bergerac.aeroport.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.bergerac.aeroport.fr/blog/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 110084,
+          "url_finale": "https://www.bergerac.aeroport.fr/blog/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.bergerac.aeroport.fr/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 51943,
+          "url_finale": "https://www.bergerac.aeroport.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.franceinfo.fr/internet/securite-sur-internet/cyberattaques/cyberattaque-une-panne-seme-le-desordre-dans-les-aeroports-europeens_7503532.html",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 629275,
+          "url_finale": "https://www.franceinfo.fr/internet/securite-sur-internet/cyberattaques/cyberattaque-une-panne-seme-le-desordre-dans-les-aeroports-europeens_7503532.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 7,
+      "nom": "Aéroport Périgueux-Bassillac",
+      "type": "aéroport",
+      "secteur": "transport",
+      "departement": "24",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://perigueux.aeroport.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 262164,
+          "url_finale": "https://perigueux.aeroport.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://perigueux.aeroport.fr/actualites/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 259791,
+          "url_finale": "https://perigueux.aeroport.fr/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://perigueux.aeroport.fr/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 2951,
+          "url_finale": "https://perigueux.aeroport.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.franceinfo.fr/internet/securite-sur-internet/cyberattaques/cyberattaque-une-panne-seme-le-desordre-dans-les-aeroports-europeens_7503532.html",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 629275,
+          "url_finale": "https://www.franceinfo.fr/internet/securite-sur-internet/cyberattaques/cyberattaque-une-panne-seme-le-desordre-dans-les-aeroports-europeens_7503532.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 8,
+      "nom": "CCI Dordogne — service transport/logistique",
+      "type": "chambre consulaire",
+      "secteur": "transport",
+      "departement": "24",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://dordogne.cci.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 1085167,
+          "url_finale": "https://dordogne.cci.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://dordogne.cci.fr/actualites/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 1566389,
+          "url_finale": "https://dordogne.cci.fr/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://dordogne.cci.fr/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 56374,
+          "url_finale": "https://dordogne.cci.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.ici.fr/emissions/l-invite-de-ici-perigord/la-cci-de-dordogne-a-releve-six-attaques-informatiques-contre-des-entreprises-ou-des-collectivites-cette-annee-7896007",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 210391,
+          "url_finale": "https://www.ici.fr/emissions/l-invite-de-ici-perigord/la-cci-de-dordogne-a-releve-six-attaques-informatiques-contre-des-entreprises-ou-des-collectivites-cette-annee-7896007",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 9,
+      "nom": "CMA Nouvelle-Aquitaine — antenne Dordogne",
+      "type": "chambre consulaire",
+      "secteur": "transport",
+      "departement": "24",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/nous-trouver/cma-dordogne",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 208060,
+          "url_finale": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/nous-trouver/cma-dordogne",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 280274,
+          "url_finale": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 128017,
+          "url_finale": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 10,
+      "nom": "OTRE Dordogne-Limousin — transporteurs routiers",
+      "type": "fédération professionnelle locale",
+      "secteur": "transport",
+      "departement": "24",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://otre.org/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 231208,
+          "url_finale": "https://www.otre.org/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://otre.org/actualites/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 86133,
+          "url_finale": "https://www.otre.org/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://otre.org/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 47083,
+          "url_finale": "https://www.otre.org/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 128017,
+          "url_finale": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 11,
+      "nom": "VERBUS Osicars — transport scolaire (Terrasson-Lavilledieu)",
+      "type": "transport de voyageurs",
+      "secteur": "transport",
+      "departement": "24",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://corporate.verbus.com/nos-etablissements/osicars",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 3910,
+          "url_finale": "https://corporate.verbus.com/nos-etablissements/osicars",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://corporate.verbus.com/actualites",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 3910,
+          "url_finale": "https://corporate.verbus.com/actualites",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.transportinfo.fr/cybersecurite-dans-le-transport-comment-se-preparer-a-continuer-lactivite/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 120063,
+          "url_finale": "https://www.transportinfo.fr/cybersecurite-dans-le-transport-comment-se-preparer-a-continuer-lactivite/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 12,
+      "nom": "Cars régionaux Nouvelle-Aquitaine — Dordogne",
+      "type": "réseau interurbain régional",
+      "secteur": "transport",
+      "departement": "24",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://transports.nouvelle-aquitaine.fr/cars-regionaux/dordogne",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 98866,
+          "url_finale": "https://transports.nouvelle-aquitaine.fr/cars-regionaux/dordogne",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://transports.nouvelle-aquitaine.fr/toute-lactualite-des-transports",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 104216,
+          "url_finale": "https://transports.nouvelle-aquitaine.fr/toute-lactualite-des-transports",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://transports.nouvelle-aquitaine.fr/liste-rss/naq_actualite",
+          "code": 200,
+          "content_type": "application/rss+xml",
+          "octets": 77226,
+          "url_finale": "https://transports.nouvelle-aquitaine.fr/liste-rss/naq_actualite",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.ici.fr/emissions/l-invite-de-ici-perigord/la-cci-de-dordogne-a-releve-six-attaques-informatiques-contre-des-entreprises-ou-des-collectivites-cette-annee-7896007",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 210391,
+          "url_finale": "https://www.ici.fr/emissions/l-invite-de-ici-perigord/la-cci-de-dordogne-a-releve-six-attaques-informatiques-contre-des-entreprises-ou-des-collectivites-cette-annee-7896007",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 13,
+      "nom": "Sud Ouest — édition Dordogne",
+      "type": "presse locale",
+      "secteur": "transport",
+      "departement": "24",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.sudouest.fr/dordogne/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 281569,
+          "url_finale": "https://www.sudouest.fr/dordogne/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.sudouest.fr/dordogne/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 281569,
+          "url_finale": "https://www.sudouest.fr/dordogne/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.sudouest.fr/dordogne/rss.xml",
+          "code": 200,
+          "content_type": "application/xml",
+          "octets": 28701,
+          "url_finale": "https://www.sudouest.fr/dordogne/rss.xml",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 128017,
+          "url_finale": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 14,
+      "nom": "actu.fr — Dordogne (24)",
+      "type": "presse en ligne locale",
+      "secteur": "transport",
+      "departement": "24",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://actu.fr/nouvelle-aquitaine/dordogne_24/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 323431,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/dordogne_24",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://actu.fr/nouvelle-aquitaine/dordogne_24/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 323431,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/dordogne_24",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://actu.fr/nouvelle-aquitaine/dordogne_24/rss.xml",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=utf-8",
+          "octets": 1389,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/dordogne_24/rss.xml",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.ici.fr/emissions/l-invite-de-ici-perigord/la-cci-de-dordogne-a-releve-six-attaques-informatiques-contre-des-entreprises-ou-des-collectivites-cette-annee-7896007",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 210391,
+          "url_finale": "https://www.ici.fr/emissions/l-invite-de-ici-perigord/la-cci-de-dordogne-a-releve-six-attaques-informatiques-contre-des-entreprises-ou-des-collectivites-cette-annee-7896007",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 15,
+      "nom": "ICI Périgord — actualités Dordogne",
+      "type": "radio publique locale",
+      "secteur": "transport",
+      "departement": "24",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.ici.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 1011877,
+          "url_finale": "https://www.ici.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.ici.fr/nouvelle-aquitaine/dordogne-24/actu",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 211714,
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/dordogne-24/actu",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.ici.fr/rss/perigord/a-la-une.xml",
+          "code": 200,
+          "content_type": "application/xml",
+          "octets": 37507,
+          "url_finale": "https://www.ici.fr/rss/perigord/a-la-une.xml",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.ici.fr/emissions/l-invite-de-ici-perigord/la-cci-de-dordogne-a-releve-six-attaques-informatiques-contre-des-entreprises-ou-des-collectivites-cette-annee-7896007",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 210391,
+          "url_finale": "https://www.ici.fr/emissions/l-invite-de-ici-perigord/la-cci-de-dordogne-a-releve-six-attaques-informatiques-contre-des-entreprises-ou-des-collectivites-cette-annee-7896007",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 16,
+      "nom": "France 3 Nouvelle-Aquitaine — Dordogne",
+      "type": "télévision publique locale",
+      "secteur": "transport",
+      "departement": "24",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/dordogne",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 621383,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/dordogne",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/dordogne",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 621383,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/dordogne",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/dordogne/rss",
+          "code": 200,
+          "content_type": "text/xml; charset=UTF-8",
+          "octets": 81679,
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/dordogne/rss",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.franceinfo.fr/internet/securite-sur-internet/cyberattaques/cyberattaque-une-panne-seme-le-desordre-dans-les-aeroports-europeens_7503532.html",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 629275,
+          "url_finale": "https://www.franceinfo.fr/internet/securite-sur-internet/cyberattaques/cyberattaque-une-panne-seme-le-desordre-dans-les-aeroports-europeens_7503532.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 17,
+      "nom": "Dordogne Libre — actualités (Périgueux)",
+      "type": "presse locale hebdomadaire",
+      "secteur": "transport",
+      "departement": "24",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.dordognelibre.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 379991,
+          "url_finale": "https://www.dordognelibre.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.dordognelibre.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 379991,
+          "url_finale": "https://www.dordognelibre.fr/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.dordognelibre.fr/rss.xml",
+          "code": 200,
+          "content_type": "application/xml",
+          "octets": 28442,
+          "url_finale": "https://www.dordognelibre.fr/rss.xml",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.lemagit.fr/actualites/365533573/La-logistique-un-secteur-de-choix-pour-les-cyberattaques",
+          "code": 200,
+          "content_type": "text/html;charset=UTF-8",
+          "octets": 365400,
+          "url_finale": "https://www.lemagit.fr/actualites/365533573/La-logistique-un-secteur-de-choix-pour-les-cyberattaques",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 18,
+      "nom": "Happy Radio — actualités Dordogne",
+      "type": "radio locale",
+      "secteur": "transport",
+      "departement": "24",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://happyradio.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 395248,
+          "url_finale": "https://happyradio.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://happyradio.fr/news",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 313127,
+          "url_finale": "https://happyradio.fr/news",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://happyradio.fr/feed",
+          "code": 200,
+          "content_type": "text/xml;charset=UTF-8",
+          "octets": 26437,
+          "url_finale": "https://happyradio.fr/feed",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 128017,
+          "url_finale": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 19,
+      "nom": "Département de la Dordogne — actualités mobilités",
+      "type": "collectivité départementale",
+      "secteur": "transport",
+      "departement": "24",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.dordogne.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 181206,
+          "url_finale": "https://www.dordogne.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.dordogne.fr/information-transversale/actualites",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 118665,
+          "url_finale": "https://www.dordogne.fr/information-transversale/actualites",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.dordogne.fr/information-transversale/actualites/rss",
+          "code": 200,
+          "content_type": "text/xml;charset=utf-8",
+          "octets": 5151621,
+          "url_finale": "https://www.dordogne.fr/information-transversale/actualites/rss",
+          "erreur": "curl: (28) Operation timed out after 20000 milliseconds with 5151621 bytes received"
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.ici.fr/emissions/l-invite-de-ici-perigord/la-cci-de-dordogne-a-releve-six-attaques-informatiques-contre-des-entreprises-ou-des-collectivites-cette-annee-7896007",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 210376,
+          "url_finale": "https://www.ici.fr/emissions/l-invite-de-ici-perigord/la-cci-de-dordogne-a-releve-six-attaques-informatiques-contre-des-entreprises-ou-des-collectivites-cette-annee-7896007",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 20,
+      "nom": "Mairie.com — transport routier en Dordogne",
+      "type": "annuaire professionnel local",
+      "secteur": "transport",
+      "departement": "24",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.mairie.com/transport-routier/dordogne-24-d.html",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 143240,
+          "url_finale": "https://www.mairie.com/transport-routier/dordogne-24-d.html",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.mairie.com/transport-routier/dordogne-24-d.html",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 143270,
+          "url_finale": "https://www.mairie.com/transport-routier/dordogne-24-d.html",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 128017,
+          "url_finale": "https://www.transportinfo.fr/cybersecurite-dans-le-trm-combien-ca-peut-vous-couter-nos-conseils-pour-garder-la-main/",
+          "erreur": null
+        }
+      ]
+    }
+  ]
+}

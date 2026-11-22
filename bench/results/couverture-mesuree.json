@@ -1,5 +1,5 @@
 {
-  "dateCalcul": "2026-11-21",
+  "dateCalcul": "2026-11-22",
   "hashCorpus": "fee9681c3869baffa645ac20b1679edb82c45597433185923734c4cdf0397c26",
   "fenetre": {
     "debut": "2024-04-19",
@@ -7,13 +7,13 @@
   },
   "sequenceCorpus": "stable",
   "base": {
-    "derniere_collecte": "2026-11-21",
+    "derniere_collecte": "2026-11-22",
     "derniere_execution": "2026-11-21",
-    "evenements": 26719,
+    "evenements": 27899,
     "evenements_archives": 4710,
-    "sources": 312,
-    "organisations": "1673151",
-    "empreinte": "80de9f90ae633b31c35d5598cafad74302207a6f14d65676b5a1e49198a53282"
+    "sources": 463,
+    "organisations": "1673220",
+    "empreinte": "e2ad03ba4407d3d134d3108187dd7983fdb6f9c51167c38e9c4160ef84ffb3a1"
   },
   "publication": {
     "publiable": true,
@@ -221,6 +221,20 @@
       "correspondance": null,
       "sources": [
         {
+          "id": "corpus:france-3-vienne",
+          "nom": "France 3 — Vienne",
+          "famille": "tv",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
+          "nom": "France 3 Nouvelle-Aquitaine — édition Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
           "id": "presse-france3-correze",
           "nom": "France 3 NA — Correze (RSS)",
           "famille": "cti",
@@ -250,10 +264,10 @@
         }
       ],
       "collecteeCeJour": false,
-      "familleSortie": "cti",
+      "familleSortie": "tv",
       "filtreRefuse": false,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2024-04-19 pour France 3 NA — Correze (RSS)",
+      "preuve": "aucune collecte le 2024-04-19 pour France 3 — Vienne",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -277,6 +291,8 @@
           "params": [
             "2024-04-19",
             [
+              "corpus:france-3-vienne",
+              "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
               "presse-france3-correze",
               "presse-france3-creuse",
               "presse-france3-landes",
@@ -300,6 +316,13 @@
       "premiereCollecte": null,
       "correspondance": null,
       "sources": [
+        {
+          "id": "corpus:landes-40-sud-ouest-edition-landes",
+          "nom": "Sud Ouest — édition Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
         {
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
@@ -386,10 +409,10 @@
         }
       ],
       "collecteeCeJour": false,
-      "familleSortie": "cti",
-      "filtreRefuse": false,
+      "familleSortie": "presse",
+      "filtreRefuse": true,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2024-05-15 pour Sud Ouest Éco (RSS)",
+      "preuve": "aucune collecte le 2024-05-15 pour Sud Ouest — édition Landes",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -413,6 +436,7 @@
           "params": [
             "2024-05-15",
             [
+              "corpus:landes-40-sud-ouest-edition-landes",
               "eco-sudouest",
               "presse-sudouest",
               "presse-sudouest-charente",
@@ -445,6 +469,13 @@
       "correspondance": null,
       "sources": [
         {
+          "id": "corpus:landes-40-sud-ouest-edition-landes",
+          "nom": "Sud Ouest — édition Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
           "famille": "cti",
@@ -530,10 +561,10 @@
         }
       ],
       "collecteeCeJour": false,
-      "familleSortie": "cti",
-      "filtreRefuse": false,
+      "familleSortie": "presse",
+      "filtreRefuse": true,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2024-05-31 pour Sud Ouest Éco (RSS)",
+      "preuve": "aucune collecte le 2024-05-31 pour Sud Ouest — édition Landes",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -557,6 +588,7 @@
           "params": [
             "2024-05-31",
             [
+              "corpus:landes-40-sud-ouest-edition-landes",
               "eco-sudouest",
               "presse-sudouest",
               "presse-sudouest-charente",
@@ -653,6 +685,27 @@
       "correspondance": null,
       "sources": [
         {
+          "id": "corpus:ici-poitou-infos-rss",
+          "nom": "ICI Poitou — infos (RSS)",
+          "famille": "radio",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "corpus:landes-40-ici-gascogne-radio-locale-radio-france-mont-de-marsan",
+          "nom": "ICI Gascogne (radio locale Radio France, Mont-de-Marsan)",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "corpus:landes-40-ici-landes-40-actualites-et-podcasts-radio-france",
+          "nom": "ici Landes (40) — actualités et podcasts Radio France",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
           "id": "presse-ici-creuse",
           "nom": "ICI Creuse — a la une (RSS)",
           "famille": "cti",
@@ -668,10 +721,10 @@
         }
       ],
       "collecteeCeJour": false,
-      "familleSortie": "cti",
+      "familleSortie": "radio",
       "filtreRefuse": false,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2024-07-01 pour ICI Creuse — a la une (RSS)",
+      "preuve": "aucune collecte le 2024-07-01 pour ICI Poitou — infos (RSS)",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -695,6 +748,9 @@
           "params": [
             "2024-07-01",
             [
+              "corpus:ici-poitou-infos-rss",
+              "corpus:landes-40-ici-gascogne-radio-locale-radio-france-mont-de-marsan",
+              "corpus:landes-40-ici-landes-40-actualites-et-podcasts-radio-france",
               "presse-ici-creuse",
               "presse-ici-limousin-infos"
             ]
@@ -717,6 +773,20 @@
       "correspondance": null,
       "sources": [
         {
+          "id": "corpus:la-nouvelle-republique-vienne-flux-rss",
+          "nom": "La Nouvelle République — Vienne (flux RSS)",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "corpus:landes-40-la-nouvelle-republique-des-pyrenees-landes",
+          "nom": "La Nouvelle République des Pyrénées — Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
           "id": "presse-lnr-deuxsevres",
           "nom": "La Nouvelle République — Deux-Sèvres (RSS)",
           "famille": "cti",
@@ -729,13 +799,20 @@
           "famille": "cti",
           "executionsDuJour": 0,
           "evenementsDuJour": 0
+        },
+        {
+          "id": "public-title:na-quotidien-015",
+          "nom": "Public title feed — La Nouvelle République — général",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
         }
       ],
       "collecteeCeJour": false,
-      "familleSortie": "cti",
-      "filtreRefuse": false,
+      "familleSortie": "presse",
+      "filtreRefuse": true,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2024-07-03 pour La Nouvelle République — Deux-Sèvres (RSS)",
+      "preuve": "aucune collecte le 2024-07-03 pour La Nouvelle République — Vienne (flux RSS)",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -759,8 +836,11 @@
           "params": [
             "2024-07-03",
             [
+              "corpus:la-nouvelle-republique-vienne-flux-rss",
+              "corpus:landes-40-la-nouvelle-republique-des-pyrenees-landes",
               "presse-lnr-deuxsevres",
-              "presse-lnr-vienne"
+              "presse-lnr-vienne",
+              "public-title:na-quotidien-015"
             ]
           ]
         }
@@ -780,6 +860,13 @@
       "premiereCollecte": null,
       "correspondance": null,
       "sources": [
+        {
+          "id": "corpus:landes-40-sud-ouest-edition-landes",
+          "nom": "Sud Ouest — édition Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
         {
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
@@ -866,10 +953,10 @@
         }
       ],
       "collecteeCeJour": false,
-      "familleSortie": "cti",
-      "filtreRefuse": false,
+      "familleSortie": "presse",
+      "filtreRefuse": true,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2024-07-04 pour Sud Ouest Éco (RSS)",
+      "preuve": "aucune collecte le 2024-07-04 pour Sud Ouest — édition Landes",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -893,6 +980,7 @@
           "params": [
             "2024-07-04",
             [
+              "corpus:landes-40-sud-ouest-edition-landes",
               "eco-sudouest",
               "presse-sudouest",
               "presse-sudouest-charente",
@@ -989,6 +1077,13 @@
       "correspondance": null,
       "sources": [
         {
+          "id": "corpus:landes-40-sud-ouest-edition-landes",
+          "nom": "Sud Ouest — édition Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
           "famille": "cti",
@@ -1074,10 +1169,10 @@
         }
       ],
       "collecteeCeJour": false,
-      "familleSortie": "cti",
-      "filtreRefuse": false,
+      "familleSortie": "presse",
+      "filtreRefuse": true,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2024-10-05 pour Sud Ouest Éco (RSS)",
+      "preuve": "aucune collecte le 2024-10-05 pour Sud Ouest — édition Landes",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -1101,6 +1196,7 @@
           "params": [
             "2024-10-05",
             [
+              "corpus:landes-40-sud-ouest-edition-landes",
               "eco-sudouest",
               "presse-sudouest",
               "presse-sudouest-charente",
@@ -1133,6 +1229,20 @@
       "correspondance": null,
       "sources": [
         {
+          "id": "corpus:france-3-vienne",
+          "nom": "France 3 — Vienne",
+          "famille": "tv",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
+          "nom": "France 3 Nouvelle-Aquitaine — édition Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
           "id": "presse-france3-correze",
           "nom": "France 3 NA — Correze (RSS)",
           "famille": "cti",
@@ -1162,10 +1272,10 @@
         }
       ],
       "collecteeCeJour": false,
-      "familleSortie": "cti",
+      "familleSortie": "tv",
       "filtreRefuse": false,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2024-11-07 pour France 3 NA — Correze (RSS)",
+      "preuve": "aucune collecte le 2024-11-07 pour France 3 — Vienne",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -1189,6 +1299,8 @@
           "params": [
             "2024-11-07",
             [
+              "corpus:france-3-vienne",
+              "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
               "presse-france3-correze",
               "presse-france3-creuse",
               "presse-france3-landes",
@@ -1213,6 +1325,20 @@
       "correspondance": null,
       "sources": [
         {
+          "id": "corpus:la-nouvelle-republique-vienne-flux-rss",
+          "nom": "La Nouvelle République — Vienne (flux RSS)",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "corpus:landes-40-la-nouvelle-republique-des-pyrenees-landes",
+          "nom": "La Nouvelle République des Pyrénées — Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
           "id": "presse-lnr-deuxsevres",
           "nom": "La Nouvelle République — Deux-Sèvres (RSS)",
           "famille": "cti",
@@ -1225,13 +1351,20 @@
           "famille": "cti",
           "executionsDuJour": 0,
           "evenementsDuJour": 0
+        },
+        {
+          "id": "public-title:na-quotidien-015",
+          "nom": "Public title feed — La Nouvelle République — général",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
         }
       ],
       "collecteeCeJour": false,
       "familleSortie": "presse",
       "filtreRefuse": true,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2024-11-15 pour La Nouvelle République — Deux-Sèvres (RSS)",
+      "preuve": "aucune collecte le 2024-11-15 pour La Nouvelle République — Vienne (flux RSS)",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -1255,8 +1388,11 @@
           "params": [
             "2024-11-15",
             [
+              "corpus:la-nouvelle-republique-vienne-flux-rss",
+              "corpus:landes-40-la-nouvelle-republique-des-pyrenees-landes",
               "presse-lnr-deuxsevres",
-              "presse-lnr-vienne"
+              "presse-lnr-vienne",
+              "public-title:na-quotidien-015"
             ]
           ]
         }
@@ -1276,6 +1412,13 @@
       "premiereCollecte": null,
       "correspondance": null,
       "sources": [
+        {
+          "id": "corpus:landes-40-sud-ouest-edition-landes",
+          "nom": "Sud Ouest — édition Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
         {
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
@@ -1362,10 +1505,10 @@
         }
       ],
       "collecteeCeJour": false,
-      "familleSortie": "cti",
-      "filtreRefuse": false,
+      "familleSortie": "presse",
+      "filtreRefuse": true,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2024-11-27 pour Sud Ouest Éco (RSS)",
+      "preuve": "aucune collecte le 2024-11-27 pour Sud Ouest — édition Landes",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -1389,6 +1532,7 @@
           "params": [
             "2024-11-27",
             [
+              "corpus:landes-40-sud-ouest-edition-landes",
               "eco-sudouest",
               "presse-sudouest",
               "presse-sudouest-charente",
@@ -1421,6 +1565,20 @@
       "correspondance": null,
       "sources": [
         {
+          "id": "corpus:france-3-vienne",
+          "nom": "France 3 — Vienne",
+          "famille": "tv",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
+          "nom": "France 3 Nouvelle-Aquitaine — édition Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
           "id": "presse-france3-correze",
           "nom": "France 3 NA — Correze (RSS)",
           "famille": "cti",
@@ -1450,10 +1608,10 @@
         }
       ],
       "collecteeCeJour": false,
-      "familleSortie": "cti",
+      "familleSortie": "tv",
       "filtreRefuse": false,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2024-12-31 pour France 3 NA — Correze (RSS)",
+      "preuve": "aucune collecte le 2024-12-31 pour France 3 — Vienne",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -1477,6 +1635,8 @@
           "params": [
             "2024-12-31",
             [
+              "corpus:france-3-vienne",
+              "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
               "presse-france3-correze",
               "presse-france3-creuse",
               "presse-france3-landes",
@@ -1500,6 +1660,13 @@
       "premiereCollecte": null,
       "correspondance": null,
       "sources": [
+        {
+          "id": "corpus:landes-40-sud-ouest-edition-landes",
+          "nom": "Sud Ouest — édition Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
         {
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
@@ -1586,10 +1753,10 @@
         }
       ],
       "collecteeCeJour": false,
-      "familleSortie": "cti",
-      "filtreRefuse": false,
+      "familleSortie": "presse",
+      "filtreRefuse": true,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2025-01-14 pour Sud Ouest Éco (RSS)",
+      "preuve": "aucune collecte le 2025-01-14 pour Sud Ouest — édition Landes",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -1613,6 +1780,7 @@
           "params": [
             "2025-01-14",
             [
+              "corpus:landes-40-sud-ouest-edition-landes",
               "eco-sudouest",
               "presse-sudouest",
               "presse-sudouest-charente",
@@ -1691,6 +1859,20 @@
       "correspondance": null,
       "sources": [
         {
+          "id": "corpus:france-3-vienne",
+          "nom": "France 3 — Vienne",
+          "famille": "tv",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
+          "nom": "France 3 Nouvelle-Aquitaine — édition Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
           "id": "presse-france3-correze",
           "nom": "France 3 NA — Correze (RSS)",
           "famille": "cti",
@@ -1720,10 +1902,10 @@
         }
       ],
       "collecteeCeJour": false,
-      "familleSortie": "cti",
+      "familleSortie": "tv",
       "filtreRefuse": false,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2025-02-12 pour France 3 NA — Correze (RSS)",
+      "preuve": "aucune collecte le 2025-02-12 pour France 3 — Vienne",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -1747,6 +1929,8 @@
           "params": [
             "2025-02-12",
             [
+              "corpus:france-3-vienne",
+              "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
               "presse-france3-correze",
               "presse-france3-creuse",
               "presse-france3-landes",
@@ -1771,6 +1955,20 @@
       "correspondance": null,
       "sources": [
         {
+          "id": "corpus:france-3-vienne",
+          "nom": "France 3 — Vienne",
+          "famille": "tv",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
+          "nom": "France 3 Nouvelle-Aquitaine — édition Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
           "id": "presse-france3-correze",
           "nom": "France 3 NA — Correze (RSS)",
           "famille": "cti",
@@ -1800,10 +1998,10 @@
         }
       ],
       "collecteeCeJour": false,
-      "familleSortie": "cti",
+      "familleSortie": "tv",
       "filtreRefuse": false,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2025-02-26 pour France 3 NA — Correze (RSS)",
+      "preuve": "aucune collecte le 2025-02-26 pour France 3 — Vienne",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -1827,6 +2025,8 @@
           "params": [
             "2025-02-26",
             [
+              "corpus:france-3-vienne",
+              "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
               "presse-france3-correze",
               "presse-france3-creuse",
               "presse-france3-landes",
@@ -1851,6 +2051,27 @@
       "correspondance": null,
       "sources": [
         {
+          "id": "corpus:ici-poitou-infos-rss",
+          "nom": "ICI Poitou — infos (RSS)",
+          "famille": "radio",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "corpus:landes-40-ici-gascogne-radio-locale-radio-france-mont-de-marsan",
+          "nom": "ICI Gascogne (radio locale Radio France, Mont-de-Marsan)",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "corpus:landes-40-ici-landes-40-actualites-et-podcasts-radio-france",
+          "nom": "ici Landes (40) — actualités et podcasts Radio France",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
           "id": "presse-ici-creuse",
           "nom": "ICI Creuse — a la une (RSS)",
           "famille": "cti",
@@ -1869,7 +2090,7 @@
       "familleSortie": "presse",
       "filtreRefuse": true,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2025-03-21 pour ICI Creuse — a la une (RSS)",
+      "preuve": "aucune collecte le 2025-03-21 pour ICI Poitou — infos (RSS)",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -1893,6 +2114,9 @@
           "params": [
             "2025-03-21",
             [
+              "corpus:ici-poitou-infos-rss",
+              "corpus:landes-40-ici-gascogne-radio-locale-radio-france-mont-de-marsan",
+              "corpus:landes-40-ici-landes-40-actualites-et-podcasts-radio-france",
               "presse-ici-creuse",
               "presse-ici-limousin-infos"
             ]
@@ -1915,6 +2139,20 @@
       "correspondance": null,
       "sources": [
         {
+          "id": "corpus:la-nouvelle-republique-vienne-flux-rss",
+          "nom": "La Nouvelle République — Vienne (flux RSS)",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "corpus:landes-40-la-nouvelle-republique-des-pyrenees-landes",
+          "nom": "La Nouvelle République des Pyrénées — Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
           "id": "presse-lnr-deuxsevres",
           "nom": "La Nouvelle République — Deux-Sèvres (RSS)",
           "famille": "cti",
@@ -1927,13 +2165,20 @@
           "famille": "cti",
           "executionsDuJour": 0,
           "evenementsDuJour": 0
+        },
+        {
+          "id": "public-title:na-quotidien-015",
+          "nom": "Public title feed — La Nouvelle République — général",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
         }
       ],
       "collecteeCeJour": false,
-      "familleSortie": "cti",
-      "filtreRefuse": false,
+      "familleSortie": "presse",
+      "filtreRefuse": true,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2025-03-26 pour La Nouvelle République — Deux-Sèvres (RSS)",
+      "preuve": "aucune collecte le 2025-03-26 pour La Nouvelle République — Vienne (flux RSS)",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -1957,8 +2202,11 @@
           "params": [
             "2025-03-26",
             [
+              "corpus:la-nouvelle-republique-vienne-flux-rss",
+              "corpus:landes-40-la-nouvelle-republique-des-pyrenees-landes",
               "presse-lnr-deuxsevres",
-              "presse-lnr-vienne"
+              "presse-lnr-vienne",
+              "public-title:na-quotidien-015"
             ]
           ]
         }
@@ -1978,6 +2226,13 @@
       "premiereCollecte": null,
       "correspondance": null,
       "sources": [
+        {
+          "id": "corpus:landes-40-sud-ouest-edition-landes",
+          "nom": "Sud Ouest — édition Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
         {
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
@@ -2067,7 +2322,7 @@
       "familleSortie": "presse",
       "filtreRefuse": true,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2025-03-26 pour Sud Ouest Éco (RSS)",
+      "preuve": "aucune collecte le 2025-03-26 pour Sud Ouest — édition Landes",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -2091,6 +2346,7 @@
           "params": [
             "2025-03-26",
             [
+              "corpus:landes-40-sud-ouest-edition-landes",
               "eco-sudouest",
               "presse-sudouest",
               "presse-sudouest-charente",
@@ -2123,6 +2379,27 @@
       "correspondance": null,
       "sources": [
         {
+          "id": "corpus:ici-poitou-infos-rss",
+          "nom": "ICI Poitou — infos (RSS)",
+          "famille": "radio",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "corpus:landes-40-ici-gascogne-radio-locale-radio-france-mont-de-marsan",
+          "nom": "ICI Gascogne (radio locale Radio France, Mont-de-Marsan)",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "corpus:landes-40-ici-landes-40-actualites-et-podcasts-radio-france",
+          "nom": "ici Landes (40) — actualités et podcasts Radio France",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
           "id": "presse-ici-creuse",
           "nom": "ICI Creuse — a la une (RSS)",
           "famille": "cti",
@@ -2141,7 +2418,7 @@
       "familleSortie": "presse",
       "filtreRefuse": true,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2025-05-15 pour ICI Creuse — a la une (RSS)",
+      "preuve": "aucune collecte le 2025-05-15 pour ICI Poitou — infos (RSS)",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -2165,6 +2442,9 @@
           "params": [
             "2025-05-15",
             [
+              "corpus:ici-poitou-infos-rss",
+              "corpus:landes-40-ici-gascogne-radio-locale-radio-france-mont-de-marsan",
+              "corpus:landes-40-ici-landes-40-actualites-et-podcasts-radio-france",
               "presse-ici-creuse",
               "presse-ici-limousin-infos"
             ]
@@ -2233,6 +2513,20 @@
       "correspondance": null,
       "sources": [
         {
+          "id": "corpus:france-3-vienne",
+          "nom": "France 3 — Vienne",
+          "famille": "tv",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
+          "nom": "France 3 Nouvelle-Aquitaine — édition Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
           "id": "presse-france3-correze",
           "nom": "France 3 NA — Correze (RSS)",
           "famille": "cti",
@@ -2262,10 +2556,10 @@
         }
       ],
       "collecteeCeJour": false,
-      "familleSortie": "cti",
+      "familleSortie": "tv",
       "filtreRefuse": false,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2025-06-20 pour France 3 NA — Correze (RSS)",
+      "preuve": "aucune collecte le 2025-06-20 pour France 3 — Vienne",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -2289,6 +2583,8 @@
           "params": [
             "2025-06-20",
             [
+              "corpus:france-3-vienne",
+              "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
               "presse-france3-correze",
               "presse-france3-creuse",
               "presse-france3-landes",
@@ -2313,6 +2609,20 @@
       "correspondance": null,
       "sources": [
         {
+          "id": "corpus:france-3-vienne",
+          "nom": "France 3 — Vienne",
+          "famille": "tv",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
+          "nom": "France 3 Nouvelle-Aquitaine — édition Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
           "id": "presse-france3-correze",
           "nom": "France 3 NA — Correze (RSS)",
           "famille": "cti",
@@ -2342,10 +2652,10 @@
         }
       ],
       "collecteeCeJour": false,
-      "familleSortie": "cti",
+      "familleSortie": "tv",
       "filtreRefuse": false,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2025-06-27 pour France 3 NA — Correze (RSS)",
+      "preuve": "aucune collecte le 2025-06-27 pour France 3 — Vienne",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -2369,6 +2679,8 @@
           "params": [
             "2025-06-27",
             [
+              "corpus:france-3-vienne",
+              "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
               "presse-france3-correze",
               "presse-france3-creuse",
               "presse-france3-landes",
@@ -2393,6 +2705,20 @@
       "correspondance": null,
       "sources": [
         {
+          "id": "corpus:france-3-vienne",
+          "nom": "France 3 — Vienne",
+          "famille": "tv",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
+          "nom": "France 3 Nouvelle-Aquitaine — édition Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
           "id": "presse-france3-correze",
           "nom": "France 3 NA — Correze (RSS)",
           "famille": "cti",
@@ -2422,10 +2748,10 @@
         }
       ],
       "collecteeCeJour": false,
-      "familleSortie": "cti",
+      "familleSortie": "tv",
       "filtreRefuse": false,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2025-07-11 pour France 3 NA — Correze (RSS)",
+      "preuve": "aucune collecte le 2025-07-11 pour France 3 — Vienne",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -2449,6 +2775,8 @@
           "params": [
             "2025-07-11",
             [
+              "corpus:france-3-vienne",
+              "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
               "presse-france3-correze",
               "presse-france3-creuse",
               "presse-france3-landes",
@@ -2472,6 +2800,13 @@
       "premiereCollecte": null,
       "correspondance": null,
       "sources": [
+        {
+          "id": "corpus:landes-40-sud-ouest-edition-landes",
+          "nom": "Sud Ouest — édition Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
         {
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
@@ -2561,7 +2896,7 @@
       "familleSortie": "presse",
       "filtreRefuse": true,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2025-08-12 pour Sud Ouest Éco (RSS)",
+      "preuve": "aucune collecte le 2025-08-12 pour Sud Ouest — édition Landes",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -2585,6 +2920,7 @@
           "params": [
             "2025-08-12",
             [
+              "corpus:landes-40-sud-ouest-edition-landes",
               "eco-sudouest",
               "presse-sudouest",
               "presse-sudouest-charente",
@@ -2617,6 +2953,13 @@
       "correspondance": null,
       "sources": [
         {
+          "id": "corpus:landes-40-passion-aquitaine-ouest-france-landes",
+          "nom": "Passion Aquitaine (Ouest-France) — Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
           "id": "presse-ouestfrance-rss",
           "nom": "Ouest-France (RSS)",
           "famille": "presse",
@@ -2628,7 +2971,7 @@
       "familleSortie": "presse",
       "filtreRefuse": true,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2025-09-05 pour Ouest-France (RSS)",
+      "preuve": "aucune collecte le 2025-09-05 pour Passion Aquitaine (Ouest-France) — Landes",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -2652,6 +2995,7 @@
           "params": [
             "2025-09-05",
             [
+              "corpus:landes-40-passion-aquitaine-ouest-france-landes",
               "presse-ouestfrance-rss"
             ]
           ]
@@ -2737,6 +3081,20 @@
       "correspondance": null,
       "sources": [
         {
+          "id": "corpus:france-3-vienne",
+          "nom": "France 3 — Vienne",
+          "famille": "tv",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
+          "nom": "France 3 Nouvelle-Aquitaine — édition Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
           "id": "presse-france3-correze",
           "nom": "France 3 NA — Correze (RSS)",
           "famille": "cti",
@@ -2766,10 +3124,10 @@
         }
       ],
       "collecteeCeJour": false,
-      "familleSortie": "cti",
+      "familleSortie": "tv",
       "filtreRefuse": false,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2025-10-03 pour France 3 NA — Correze (RSS)",
+      "preuve": "aucune collecte le 2025-10-03 pour France 3 — Vienne",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -2793,6 +3151,8 @@
           "params": [
             "2025-10-03",
             [
+              "corpus:france-3-vienne",
+              "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
               "presse-france3-correze",
               "presse-france3-creuse",
               "presse-france3-landes",
@@ -2816,6 +3176,20 @@
       "premiereCollecte": null,
       "correspondance": null,
       "sources": [
+        {
+          "id": "corpus:france-3-vienne",
+          "nom": "France 3 — Vienne",
+          "famille": "tv",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
+          "nom": "France 3 Nouvelle-Aquitaine — édition Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
         {
           "id": "presse-france3-correze",
           "nom": "France 3 NA — Correze (RSS)",
@@ -2849,7 +3223,7 @@
       "familleSortie": "presse",
       "filtreRefuse": true,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2025-10-06 pour France 3 NA — Correze (RSS)",
+      "preuve": "aucune collecte le 2025-10-06 pour France 3 — Vienne",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -2873,6 +3247,8 @@
           "params": [
             "2025-10-06",
             [
+              "corpus:france-3-vienne",
+              "corpus:landes-40-france-3-nouvelle-aquitaine-edition-landes",
               "presse-france3-correze",
               "presse-france3-creuse",
               "presse-france3-landes",
@@ -3035,6 +3411,13 @@
       "correspondance": null,
       "sources": [
         {
+          "id": "corpus:landes-40-sud-ouest-edition-landes",
+          "nom": "Sud Ouest — édition Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
           "famille": "cti",
@@ -3120,10 +3503,10 @@
         }
       ],
       "collecteeCeJour": false,
-      "familleSortie": "cti",
-      "filtreRefuse": false,
+      "familleSortie": "presse",
+      "filtreRefuse": true,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2025-11-27 pour Sud Ouest Éco (RSS)",
+      "preuve": "aucune collecte le 2025-11-27 pour Sud Ouest — édition Landes",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -3147,6 +3530,7 @@
           "params": [
             "2025-11-27",
             [
+              "corpus:landes-40-sud-ouest-edition-landes",
               "eco-sudouest",
               "presse-sudouest",
               "presse-sudouest-charente",
@@ -3179,6 +3563,20 @@
       "correspondance": null,
       "sources": [
         {
+          "id": "corpus:landes-40-actu-fr-actu-landes",
+          "nom": "actu.fr — Actu Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "corpus:landes-40-actu-fr-mont-de-marsan",
+          "nom": "actu.fr — Mont-de-Marsan",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
           "id": "presse-republicain-47",
           "nom": "Le Republicain Lot-et-Garonne — actu.fr (RSS)",
           "famille": "cti",
@@ -3190,7 +3588,7 @@
       "familleSortie": "presse",
       "filtreRefuse": true,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2025-12-13 pour Le Republicain Lot-et-Garonne — actu.fr (RSS)",
+      "preuve": "aucune collecte le 2025-12-13 pour actu.fr — Actu Landes",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -3214,6 +3612,8 @@
           "params": [
             "2025-12-13",
             [
+              "corpus:landes-40-actu-fr-actu-landes",
+              "corpus:landes-40-actu-fr-mont-de-marsan",
               "presse-republicain-47"
             ]
           ]
@@ -3235,6 +3635,20 @@
       "correspondance": null,
       "sources": [
         {
+          "id": "corpus:la-nouvelle-republique-vienne-flux-rss",
+          "nom": "La Nouvelle République — Vienne (flux RSS)",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "corpus:landes-40-la-nouvelle-republique-des-pyrenees-landes",
+          "nom": "La Nouvelle République des Pyrénées — Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
           "id": "presse-lnr-deuxsevres",
           "nom": "La Nouvelle République — Deux-Sèvres (RSS)",
           "famille": "cti",
@@ -3247,13 +3661,20 @@
           "famille": "cti",
           "executionsDuJour": 0,
           "evenementsDuJour": 0
+        },
+        {
+          "id": "public-title:na-quotidien-015",
+          "nom": "Public title feed — La Nouvelle République — général",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
         }
       ],
       "collecteeCeJour": false,
-      "familleSortie": "cti",
-      "filtreRefuse": false,
+      "familleSortie": "presse",
+      "filtreRefuse": true,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2026-01-22 pour La Nouvelle République — Deux-Sèvres (RSS)",
+      "preuve": "aucune collecte le 2026-01-22 pour La Nouvelle République — Vienne (flux RSS)",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -3277,8 +3698,11 @@
           "params": [
             "2026-01-22",
             [
+              "corpus:la-nouvelle-republique-vienne-flux-rss",
+              "corpus:landes-40-la-nouvelle-republique-des-pyrenees-landes",
               "presse-lnr-deuxsevres",
-              "presse-lnr-vienne"
+              "presse-lnr-vienne",
+              "public-title:na-quotidien-015"
             ]
           ]
         }
@@ -3299,6 +3723,20 @@
       "correspondance": null,
       "sources": [
         {
+          "id": "corpus:la-nouvelle-republique-vienne-flux-rss",
+          "nom": "La Nouvelle République — Vienne (flux RSS)",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "corpus:landes-40-la-nouvelle-republique-des-pyrenees-landes",
+          "nom": "La Nouvelle République des Pyrénées — Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
           "id": "presse-lnr-deuxsevres",
           "nom": "La Nouvelle République — Deux-Sèvres (RSS)",
           "famille": "cti",
@@ -3311,13 +3749,20 @@
           "famille": "cti",
           "executionsDuJour": 0,
           "evenementsDuJour": 0
+        },
+        {
+          "id": "public-title:na-quotidien-015",
+          "nom": "Public title feed — La Nouvelle République — général",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
         }
       ],
       "collecteeCeJour": false,
-      "familleSortie": "cti",
-      "filtreRefuse": false,
+      "familleSortie": "presse",
+      "filtreRefuse": true,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2026-03-15 pour La Nouvelle République — Deux-Sèvres (RSS)",
+      "preuve": "aucune collecte le 2026-03-15 pour La Nouvelle République — Vienne (flux RSS)",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -3341,8 +3786,11 @@
           "params": [
             "2026-03-15",
             [
+              "corpus:la-nouvelle-republique-vienne-flux-rss",
+              "corpus:landes-40-la-nouvelle-republique-des-pyrenees-landes",
               "presse-lnr-deuxsevres",
-              "presse-lnr-vienne"
+              "presse-lnr-vienne",
+              "public-title:na-quotidien-015"
             ]
           ]
         }
@@ -3427,6 +3875,13 @@
       "correspondance": null,
       "sources": [
         {
+          "id": "corpus:landes-40-sud-ouest-edition-landes",
+          "nom": "Sud Ouest — édition Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
           "famille": "cti",
@@ -3512,10 +3967,10 @@
         }
       ],
       "collecteeCeJour": false,
-      "familleSortie": "cti",
-      "filtreRefuse": false,
+      "familleSortie": "presse",
+      "filtreRefuse": true,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2026-05-13 pour Sud Ouest Éco (RSS)",
+      "preuve": "aucune collecte le 2026-05-13 pour Sud Ouest — édition Landes",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -3539,6 +3994,7 @@
           "params": [
             "2026-05-13",
             [
+              "corpus:landes-40-sud-ouest-edition-landes",
               "eco-sudouest",
               "presse-sudouest",
               "presse-sudouest-charente",
@@ -3571,6 +4027,13 @@
       "correspondance": null,
       "sources": [
         {
+          "id": "corpus:landes-40-sud-ouest-edition-landes",
+          "nom": "Sud Ouest — édition Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
           "famille": "cti",
@@ -3656,10 +4119,10 @@
         }
       ],
       "collecteeCeJour": false,
-      "familleSortie": "cti",
-      "filtreRefuse": false,
+      "familleSortie": "presse",
+      "filtreRefuse": true,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2026-06-15 pour Sud Ouest Éco (RSS)",
+      "preuve": "aucune collecte le 2026-06-15 pour Sud Ouest — édition Landes",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -3683,6 +4146,7 @@
           "params": [
             "2026-06-15",
             [
+              "corpus:landes-40-sud-ouest-edition-landes",
               "eco-sudouest",
               "presse-sudouest",
               "presse-sudouest-charente",
@@ -3713,12 +4177,20 @@
       "delaiHeures": null,
       "premiereCollecte": null,
       "correspondance": null,
-      "sources": [],
+      "sources": [
+        {
+          "id": "official-na-ars-communiques",
+          "nom": "ARS Nouvelle-Aquitaine - press releases",
+          "famille": "official_statement",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        }
+      ],
       "collecteeCeJour": false,
-      "familleSortie": null,
-      "filtreRefuse": null,
+      "familleSortie": "official_statement",
+      "filtreRefuse": false,
       "famillesProduites": [],
-      "preuve": "média absent de la table source",
+      "preuve": "aucune collecte le 2026-07-08 pour ARS Nouvelle-Aquitaine - press releases",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -3741,7 +4213,9 @@
           "sql": "WITH demande AS (SELECT $1::date AS jour)\nSELECT coalesce(e.family, '(aucune)') AS famille, count(*)::int AS evenements\n  FROM event e CROSS JOIN demande d\n WHERE e.source_id = ANY($2::text[])\n   AND e.collected_at::date BETWEEN d.jour - INTERVAL '7 days' AND d.jour + INTERVAL '7 days'\n GROUP BY 1 ORDER BY 2 DESC, 1",
           "params": [
             "2026-07-08",
-            []
+            [
+              "official-na-ars-communiques"
+            ]
           ]
         }
       }
@@ -3761,6 +4235,20 @@
       "correspondance": null,
       "sources": [
         {
+          "id": "corpus:landes-40-actu-fr-actu-landes",
+          "nom": "actu.fr — Actu Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "corpus:landes-40-actu-fr-mont-de-marsan",
+          "nom": "actu.fr — Mont-de-Marsan",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
           "id": "presse-republicain-47",
           "nom": "Le Republicain Lot-et-Garonne — actu.fr (RSS)",
           "famille": "cti",
@@ -3769,10 +4257,10 @@
         }
       ],
       "collecteeCeJour": false,
-      "familleSortie": "cti",
-      "filtreRefuse": false,
+      "familleSortie": "presse",
+      "filtreRefuse": true,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2026-07-27 pour Le Republicain Lot-et-Garonne — actu.fr (RSS)",
+      "preuve": "aucune collecte le 2026-07-27 pour actu.fr — Actu Landes",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -3796,6 +4284,8 @@
           "params": [
             "2026-07-27",
             [
+              "corpus:landes-40-actu-fr-actu-landes",
+              "corpus:landes-40-actu-fr-mont-de-marsan",
               "presse-republicain-47"
             ]
           ]
@@ -3817,6 +4307,27 @@
       "correspondance": null,
       "sources": [
         {
+          "id": "corpus:ici-poitou-infos-rss",
+          "nom": "ICI Poitou — infos (RSS)",
+          "famille": "radio",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "corpus:landes-40-ici-gascogne-radio-locale-radio-france-mont-de-marsan",
+          "nom": "ICI Gascogne (radio locale Radio France, Mont-de-Marsan)",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "corpus:landes-40-ici-landes-40-actualites-et-podcasts-radio-france",
+          "nom": "ici Landes (40) — actualités et podcasts Radio France",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
           "id": "presse-ici-creuse",
           "nom": "ICI Creuse — a la une (RSS)",
           "famille": "cti",
@@ -3835,7 +4346,7 @@
       "familleSortie": "presse",
       "filtreRefuse": true,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2026-08-05 pour ICI Creuse — a la une (RSS)",
+      "preuve": "aucune collecte le 2026-08-05 pour ICI Poitou — infos (RSS)",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -3859,6 +4370,9 @@
           "params": [
             "2026-08-05",
             [
+              "corpus:ici-poitou-infos-rss",
+              "corpus:landes-40-ici-gascogne-radio-locale-radio-france-mont-de-marsan",
+              "corpus:landes-40-ici-landes-40-actualites-et-podcasts-radio-france",
               "presse-ici-creuse",
               "presse-ici-limousin-infos"
             ]
@@ -3880,6 +4394,13 @@
       "premiereCollecte": null,
       "correspondance": null,
       "sources": [
+        {
+          "id": "corpus:landes-40-sud-ouest-edition-landes",
+          "nom": "Sud Ouest — édition Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
         {
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
@@ -3966,10 +4487,10 @@
         }
       ],
       "collecteeCeJour": false,
-      "familleSortie": "cti",
-      "filtreRefuse": false,
+      "familleSortie": "presse",
+      "filtreRefuse": true,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2026-08-19 pour Sud Ouest Éco (RSS)",
+      "preuve": "aucune collecte le 2026-08-19 pour Sud Ouest — édition Landes",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -3993,6 +4514,7 @@
           "params": [
             "2026-08-19",
             [
+              "corpus:landes-40-sud-ouest-edition-landes",
               "eco-sudouest",
               "presse-sudouest",
               "presse-sudouest-charente",
@@ -4023,12 +4545,27 @@
       "delaiHeures": null,
       "premiereCollecte": null,
       "correspondance": null,
-      "sources": [],
+      "sources": [
+        {
+          "id": "corpus:landes-40-tarnos-contact-journal-municipal-de-tarnos",
+          "nom": "Tarnos Contact — journal municipal de Tarnos",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
+          "id": "corpus:landes-40-ville-de-tarnos",
+          "nom": "Ville de Tarnos",
+          "famille": "cti",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        }
+      ],
       "collecteeCeJour": false,
-      "familleSortie": null,
-      "filtreRefuse": null,
+      "familleSortie": "presse",
+      "filtreRefuse": true,
       "famillesProduites": [],
-      "preuve": "média absent de la table source",
+      "preuve": "aucune collecte le 2026-08-28 pour Tarnos Contact — journal municipal de Tarnos",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -4051,7 +4588,10 @@
           "sql": "WITH demande AS (SELECT $1::date AS jour)\nSELECT coalesce(e.family, '(aucune)') AS famille, count(*)::int AS evenements\n  FROM event e CROSS JOIN demande d\n WHERE e.source_id = ANY($2::text[])\n   AND e.collected_at::date BETWEEN d.jour - INTERVAL '7 days' AND d.jour + INTERVAL '7 days'\n GROUP BY 1 ORDER BY 2 DESC, 1",
           "params": [
             "2026-08-28",
-            []
+            [
+              "corpus:landes-40-tarnos-contact-journal-municipal-de-tarnos",
+              "corpus:landes-40-ville-de-tarnos"
+            ]
           ]
         }
       }
@@ -4070,6 +4610,13 @@
       "premiereCollecte": null,
       "correspondance": null,
       "sources": [
+        {
+          "id": "corpus:landes-40-sud-ouest-edition-landes",
+          "nom": "Sud Ouest — édition Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
         {
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
@@ -4156,10 +4703,10 @@
         }
       ],
       "collecteeCeJour": false,
-      "familleSortie": "cti",
-      "filtreRefuse": false,
+      "familleSortie": "presse",
+      "filtreRefuse": true,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2026-08-28 pour Sud Ouest Éco (RSS)",
+      "preuve": "aucune collecte le 2026-08-28 pour Sud Ouest — édition Landes",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -4183,6 +4730,7 @@
           "params": [
             "2026-08-28",
             [
+              "corpus:landes-40-sud-ouest-edition-landes",
               "eco-sudouest",
               "presse-sudouest",
               "presse-sudouest-charente",
@@ -4215,6 +4763,13 @@
       "correspondance": null,
       "sources": [
         {
+          "id": "corpus:landes-40-sud-ouest-edition-landes",
+          "nom": "Sud Ouest — édition Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
+        {
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
           "famille": "cti",
@@ -4303,7 +4858,7 @@
       "familleSortie": "presse",
       "filtreRefuse": true,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2026-09-08 pour Sud Ouest Éco (RSS)",
+      "preuve": "aucune collecte le 2026-09-08 pour Sud Ouest — édition Landes",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -4327,6 +4882,7 @@
           "params": [
             "2026-09-08",
             [
+              "corpus:landes-40-sud-ouest-edition-landes",
               "eco-sudouest",
               "presse-sudouest",
               "presse-sudouest-charente",
@@ -4358,6 +4914,13 @@
       "premiereCollecte": null,
       "correspondance": null,
       "sources": [
+        {
+          "id": "corpus:landes-40-sud-ouest-edition-landes",
+          "nom": "Sud Ouest — édition Landes",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
+        },
         {
           "id": "eco-sudouest",
           "nom": "Sud Ouest Éco (RSS)",
@@ -4444,10 +5007,10 @@
         }
       ],
       "collecteeCeJour": false,
-      "familleSortie": "cti",
-      "filtreRefuse": false,
+      "familleSortie": "presse",
+      "filtreRefuse": true,
       "famillesProduites": [],
-      "preuve": "aucune collecte le 2026-09-16 pour Sud Ouest Éco (RSS)",
+      "preuve": "aucune collecte le 2026-09-16 pour Sud Ouest — édition Landes",
       "requetes": {
         "evenements": {
           "sql": "WITH demande AS (SELECT $1::text AS url, $2::text AS titre, $3::text AS org, $4::date AS jour),\ntout AS (\n\tSELECT 'event' AS table_source, e.id::text AS id, e.org_id, NULL::text AS org_name,\n\t       e.family, e.source_id, e.source_url, e.title, e.observed_at, e.collected_at\n\t  FROM event e\n\tUNION ALL\n\tSELECT 'event_archive' AS table_source, a.id::text AS id, a.org_id, a.org_name,\n\t       a.family, a.source_id, a.source_url, NULL::text AS title, a.observed_at, a.collected_at\n\t  FROM event_archive a\n)\nSELECT t.table_source, t.id, t.org_id, t.org_name, t.family, t.source_id,\n       t.source_url, t.title, t.observed_at, t.collected_at\n  FROM tout t CROSS JOIN demande d\n WHERE (t.source_url IS NOT NULL AND regexp_replace(regexp_replace(regexp_replace(lower(t.source_url), '^https?://(www\\.)?', ''), '[?#].*$', ''), '/+$', '') = d.url)\n    OR (t.title IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.title)), '[^a-z0-9]+', ' ', 'g')) = d.titre AND t.observed_at::date = d.jour)\n    OR (t.org_name IS NOT NULL AND trim(regexp_replace(unaccent(lower(t.org_name)), '[^a-z0-9]+', ' ', 'g')) = d.org AND t.observed_at::date = d.jour)\n ORDER BY t.collected_at ASC\n LIMIT 100",
@@ -4471,6 +5034,7 @@
           "params": [
             "2026-09-16",
             [
+              "corpus:landes-40-sud-ouest-edition-landes",
               "eco-sudouest",
               "presse-sudouest",
               "presse-sudouest-charente",
@@ -4515,6 +5079,13 @@
           "famille": "cti",
           "executionsDuJour": 0,
           "evenementsDuJour": 0
+        },
+        {
+          "id": "public-title:na-quotidien-017",
+          "nom": "Public title feed — La Montagne — Corrèze/Creuse (via Google News)",
+          "famille": "presse",
+          "executionsDuJour": 0,
+          "evenementsDuJour": 0
         }
       ],
       "collecteeCeJour": false,
@@ -4546,7 +5117,8 @@
             "2026-10-13",
             [
               "gn-press-lamontagne",
-              "presse-lamontagne-correze"
+              "presse-lamontagne-correze",
+              "public-title:na-quotidien-017"
             ]
           ]
         }

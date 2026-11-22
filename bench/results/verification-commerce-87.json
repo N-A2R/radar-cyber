@@ -1,0 +1,109 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-commerce-87.jsonl",
+  "secteur": "commerce",
+  "departement": "87",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+  "methode": "GET réel avec suivi des redirections, délai maximal 18 s, User-Agent navigateur : code HTTP, type de contenu et nombre d'items RSS relevés pour chaque URL. Organisations identifiées via recherche web (chambres consulaires, fédérations, annuaires, collectivités, presse locale), puis sites, pages d'actualités, flux et articles cyber tous contrôlés en HTTP direct.",
+  "sources": 11,
+  "urls_verifiees": 27,
+  "urls_200": 27,
+  "detail": [
+    {
+      "nom": "CMA Nouvelle-Aquitaine — antenne Haute-Vienne (artisanat et commerces)",
+      "urls": {
+        "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/nous-trouver/cma-haute-vienne": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}
+      },
+      "note": "L'ancien domaine cma-haute-vienne n'est plus actif : l'antenne 87 est couverte par le site régional CMA Nouvelle-Aquitaine."
+    },
+    {
+      "nom": "CPME 87 — Les Entrepreneurs de la Haute-Vienne",
+      "urls": {
+        "https://www.cpme87.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.cpme87.fr/actualites/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "Limoges Métropole — actualités (économie et commerces)",
+      "urls": {
+        "https://www.limoges-metropole.fr/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.limoges-metropole.fr/informations-transversales/actualites": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.limoges-metropole.fr/informations-transversales/actualites/rss": {"code": 200, "type": "text/xml;charset=utf-8", "items_rss": 73}
+      }
+    },
+    {
+      "nom": "Le Populaire du Centre — Haute-Vienne (économie)",
+      "urls": {
+        "https://www.lepopulaire.fr/haute-vienne/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.lepopulaire.fr/economie/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "ICI Limousin (Radio France) — Haute-Vienne",
+      "urls": {
+        "https://www.ici.fr/radio/limousin": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.ici.fr/nouvelle-aquitaine/haute-vienne-87/actu": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.ici.fr/rss/limousin/rubrique/infos.xml": {"code": 200, "type": "application/xml", "items_rss": 20}
+      }
+    },
+    {
+      "nom": "Sud Ouest — Haute-Vienne",
+      "urls": {
+        "https://www.sudouest.fr/haute-vienne/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.sudouest.fr/haute-vienne/rss.xml": {"code": 200, "type": "application/xml", "items_rss": 20}
+      },
+      "note": "La page d'actualités départementale est l'URL du site elle-même."
+    },
+    {
+      "nom": "France 3 Nouvelle-Aquitaine — Haute-Vienne",
+      "urls": {
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "actu.fr — Limoges (Haute-Vienne)",
+      "urls": {
+        "https://actu.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://actu.fr/nouvelle-aquitaine/limoges_87085/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "FCD — Fédération du commerce et de la distribution",
+      "urls": {
+        "https://www.fcd.fr/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.fcd.fr/qui-sommes-nous/actualites-de-la-fcd/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "FEVAD — Fédération du e-commerce et de la vente à distance",
+      "urls": {
+        "https://www.fevad.com/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.fevad.com/actualite/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.fevad.com/feed/": {"code": 200, "type": "application/rss+xml; charset=UTF-8", "items_rss": 10}
+      }
+    },
+    {
+      "nom": "Cyberattaque.org — incidents cyber (Limousin)",
+      "urls": {
+        "https://www.cyberattaque.org/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.cyberattaque.org/feed/": {"code": 200, "type": "application/rss+xml; charset=UTF-8", "items_rss": 10},
+        "https://www.cyberattaque.org/climb-up-pres-de-151-000-profils-en-vente-sur-le-darkweb-apres-une-cyberattaque/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "Articles cyber de contexte (Haute-Vienne)",
+      "urls": {
+        "https://www.limogesinfos87.fr/actualite-22011-lutter-contre-le-fleau-des-cyberattaques.html": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/le-service-d-identification-des-bovins-et-ovins-victime-d-une-cyberattaque-le-travail-des-eleveurs-limousins-perturbe-3084484.html": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}
+      }
+    }
+  ],
+  "candidats_ecartes": [
+    {"url": "https://www.limoges.cci.fr/", "code": 403, "raison": "CCI de Limoges et de la Haute-Vienne : 403 persistant sur le site et les pages actualités."},
+    {"url": "https://www.limoges.fr/actualites", "code": 403, "raison": "Ville de Limoges : 403 sur les pages actualités."},
+    {"url": "https://www.haute-vienne.fr/actualites", "code": 404, "raison": "Conseil départemental : page d'actualités inexistante à cette adresse."},
+    {"url": "https://www.cigusto.com/content/informations-concernant-vos-donnees-personnelles-2", "code": 403, "raison": "Communiqué Cigusto Limoges : 403, non retenu comme exemple vérifiable."},
+    {"url": "https://www.fevad.com/actualites/", "code": 200, "raison": "Redirection vers l'accueil, remplacée par /actualite/ (page d'actualités explicite)."}
+  ]
+}

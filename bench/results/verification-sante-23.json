@@ -1,0 +1,788 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-sante-23.jsonl",
+  "secteur": "santé",
+  "departement": "23",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+  "methode": "GET HTTP avec User-Agent navigateur complet, suivi des redirections, statut final, type de contenu et titre de la page racine ; delai 25 s",
+  "sources": 19,
+  "urls_verifiees": 50,
+  "urls_200": 50,
+  "anomalies": [],
+  "detail": {
+    "Centre hospitalier de la Creuse — Guéret": {
+      "https://www.ch-gueret.fr/": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.ch-gueret.fr/",
+        "titre": "Accueil"
+      },
+      "https://ch-gueret.fr/index.php/revue-de-presse-chg": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://ch-gueret.fr/index.php/revue-de-presse-chg",
+        "titre": "Revue de presse"
+      }
+    },
+    "Centre hospitalier d'Aubusson": {
+      "https://www.ch-aubusson.fr/site/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ch-aubusson.fr/site/",
+        "titre": "Bienvenue sur le site du Centre Hospitalier -"
+      },
+      "https://www.ch-aubusson.fr/site/category/centre-hospitalier-daubusson/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ch-aubusson.fr/site/category/centre-hospitalier-daubusson/",
+        "titre": "Archives des Centre Hospitalier D'Aubusson -"
+      },
+      "https://www.ch-aubusson.fr/site/category/centre-hospitalier-daubusson/feed/": {
+        "code": 200,
+        "type": "application/rss+xml; charset=UTF-8",
+        "final": "https://www.ch-aubusson.fr/site/category/centre-hospitalier-daubusson/feed/",
+        "titre": "Archives des Centre Hospitalier D'Aubusson -"
+      }
+    },
+    "Clinique de La Marche — Guéret": {
+      "https://clinique-lamarche.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://clinique-lamarche.fr/",
+        "titre": "Clinique de La Marche"
+      },
+      "https://clinique-lamarche.fr/actualites/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://clinique-lamarche.fr/actualites/",
+        "titre": "Actualités – Clinique de La Marche"
+      },
+      "https://clinique-lamarche.fr/feed/": {
+        "code": 200,
+        "type": "application/rss+xml; charset=UTF-8",
+        "final": "https://clinique-lamarche.fr/feed/",
+        "titre": "Clinique de La Marche"
+      }
+    },
+    "EHPAD Les 4 Cadrans — Centre Creuse Combraille": {
+      "https://ehpadcentrecreusecombraille.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://ehpadcentrecreusecombraille.fr/",
+        "titre": "Reseau EHPAD Ajain"
+      },
+      "https://ehpadcentrecreusecombraille.fr/ehpad-les-4-cadrans/category/actualites/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://ehpadcentrecreusecombraille.fr/ehpad-les-4-cadrans/category/actualites/",
+        "titre": "Actualités – EHPAD \"Les 4 cadrans\""
+      },
+      "https://ehpadcentrecreusecombraille.fr/ehpad-les-4-cadrans/category/actualites/feed/": {
+        "code": 200,
+        "type": "application/rss+xml; charset=UTF-8",
+        "final": "https://ehpadcentrecreusecombraille.fr/ehpad-les-4-cadrans/category/actualites/feed/",
+        "titre": "Actualités – EHPAD \"Les 4 cadrans\""
+      }
+    },
+    "ARS Nouvelle-Aquitaine — délégation de la Creuse (23)": {
+      "https://www.nouvelle-aquitaine.ars.sante.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.nouvelle-aquitaine.ars.sante.fr/",
+        "titre": "Agence régionale de santé Nouvelle-Aquitaine | Agir pour la santé de tous"
+      },
+      "https://www.nouvelle-aquitaine.ars.sante.fr/liste-actualites?archive=0": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.nouvelle-aquitaine.ars.sante.fr/liste-actualites?archive=0",
+        "titre": "Les actualités de l’ARS Nouvelle-Aquitaine | Agence régionale de santé Nouvelle-Aquitaine"
+      },
+      "https://www.nouvelle-aquitaine.ars.sante.fr/rss.xml?type=ars_actualite": {
+        "code": 200,
+        "type": "application/rss+xml; charset=utf-8",
+        "final": "https://www.nouvelle-aquitaine.ars.sante.fr/rss.xml?type=ars_actualite",
+        "titre": "Flux des actualités"
+      }
+    },
+    "CCSS de la Creuse (ex-CPAM/Caf) — Assurance Maladie": {
+      "https://www.assurance-maladie.ameli.fr/nous-connaitre/organisation/le-reseau-de-proximite/nos-organismes/nouvelle-aquitaine/ccss-de-la-creuse": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.assurance-maladie.ameli.fr/nous-connaitre/organisation/le-reseau-de-proximite/nos-organismes/nouvelle-aquitaine/ccss-de-la-creuse",
+        "titre": "CCSS de la Creuse | L'Assurance Maladie"
+      },
+      "https://www.ameli.fr/creuse/assure/liste-actualites-locales": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.ameli.fr/creuse/assure/liste-actualites-locales",
+        "titre": "Toutes les actualités de l’Assurance Maladie de votre département en un clic | ameli.fr | Assuré"
+      }
+    },
+    "Ligue contre le cancer — Comité 23 Creuse": {
+      "https://www.ligue-cancer.net/23-creuse": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.ligue-cancer.net/23-creuse",
+        "titre": "23 - Creuse | Ligue contre le cancer"
+      },
+      "https://www.ligue-cancer.net/23-creuse/actualites": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.ligue-cancer.net/23-creuse/actualites",
+        "titre": "Les actualités du comité | Ligue contre le cancer"
+      }
+    },
+    "Conseil départemental de l'Ordre des médecins de la Creuse": {
+      "https://conseil23.ordre.medecin.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://conseil23.ordre.medecin.fr/",
+        "titre": "Creuse"
+      },
+      "https://conseil23.ordre.medecin.fr/actualites": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://conseil23.ordre.medecin.fr/actualites",
+        "titre": "Dernières actualités | Creuse"
+      },
+      "https://conseil23.ordre.medecin.fr/rss": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://conseil23.ordre.medecin.fr/rss",
+        "titre": "Dernières actualités"
+      }
+    },
+    "URPS Infirmiers Libéraux Nouvelle-Aquitaine": {
+      "https://urpsinfirmiers-na.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://urpsinfirmiers-na.fr/",
+        "titre": "URPS Infirmiers Libéraux Nouvelle-Aquitaine"
+      },
+      "https://urpsinfirmiers-na.fr/actualites/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://urpsinfirmiers-na.fr/actualites/",
+        "titre": "Actualités - URPS Infirmiers Libéraux Nouvelle Aquitaine"
+      },
+      "https://urpsinfirmiers-na.fr/feed/": {
+        "code": 200,
+        "type": "text/xml;charset=UTF-8",
+        "final": "https://urpsinfirmiers-na.fr/feed/",
+        "titre": "URPS Infirmiers Libéraux Nouvelle Aquitaine"
+      }
+    },
+    "URPS Médecins Libéraux Nouvelle-Aquitaine": {
+      "https://www.urpsml-na.org/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.urpsml-na.org/",
+        "titre": "Accueil - URPS ML Nouvelle-Aquitaine"
+      },
+      "https://www.urpsml-na.org/feed/": {
+        "code": 200,
+        "type": "application/rss+xml; charset=UTF-8",
+        "final": "https://www.urpsml-na.org/feed/",
+        "titre": "URPS ML Nouvelle-Aquitaine"
+      }
+    },
+    "CARSAT Centre Ouest (périmètre Creuse)": {
+      "https://www.carsat-centreouest.fr/": {
+        "code": 200,
+        "type": "text/html;charset=UTF-8",
+        "final": "https://www.carsat-centreouest.fr/home.html",
+        "titre": "Carsat Centre Ouest : Votre caisse d'assurance retraite et de la santé au travail"
+      },
+      "https://www.carsat-centreouest.fr/home/nous-connaitre/actualites-nous-connaitre.html": {
+        "code": 200,
+        "type": "text/html;charset=UTF-8",
+        "final": "https://www.carsat-centreouest.fr/home/nous-connaitre/actualites-nous-connaitre.html",
+        "titre": "Actualités Nous connaître - Carsat Centre Ouest"
+      }
+    },
+    "Conseil départemental de la Creuse — rubrique Santé": {
+      "https://www.creuse.fr/": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.creuse.fr/",
+        "titre": "Conseil départemental de la Creuse"
+      },
+      "https://www.creuse.fr/Sante-vous-bien": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.creuse.fr/Sante-vous-bien",
+        "titre": "Santé-vous bien ! | Conseil départemental de la Creuse"
+      }
+    },
+    "La Montagne — Guéret (23)": {
+      "https://www.lamontagne.fr/gueret-23000/": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.lamontagne.fr/gueret-23000/",
+        "titre": "Guéret (23000) : actualités, sports, loisirs - La Montagne"
+      }
+    },
+    "Le Populaire du Centre — Guéret (23)": {
+      "https://www.lepopulaire.fr/gueret-23000/": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.lepopulaire.fr/gueret-23000/",
+        "titre": "Guéret (23000) : actualités, sports, loisirs - Le Populaire du Centre"
+      },
+      "https://www.lepopulaire.fr/gueret-23000/actualites/qualite-des-soins-confirmee-l-hopital-de-gueret-vient-de-retrouver-sa-certification-delivree-par-la-haute-autorite-de-sante_15076432/": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.lepopulaire.fr/gueret-23000/actualites/qualite-des-soins-confirmee-l-hopital-de-gueret-vient-de-retrouver-sa-certification-delivree-par-la-haute-autorite-de-sante_15076432/",
+        "titre": "L'hôpital de Guéret vient de l'annoncer : il retrouve sa certification délivrée par la Haute Autorité de santé - Le Populaire du Centre"
+      }
+    },
+    "actu.fr — Creuse (23)": {
+      "https://actu.fr/nouvelle-aquitaine/creuse_23": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://actu.fr/nouvelle-aquitaine/creuse_23",
+        "titre": "Actu Creuse | actu.fr"
+      },
+      "https://actu.fr/nouvelle-aquitaine/creuse_23/rss.xml": {
+        "code": 200,
+        "type": "application/rss+xml; charset=utf-8",
+        "final": "https://actu.fr/nouvelle-aquitaine/creuse_23/rss.xml",
+        "titre": "Creuse - L'actualité en continu - actu.fr"
+      }
+    },
+    "ICI Creuse (Radio France)": {
+      "https://www.ici.fr/radio/creuse": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ici.fr/radio/creuse",
+        "titre": "ICI Creuse – Écouter la radio en direct, actualité locale et sorties, fréquence radio"
+      },
+      "https://www.ici.fr/radio/creuse/actu": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ici.fr/radio/creuse/actu",
+        "titre": "Actu ICI Creuse : toutes les actualités en direct"
+      }
+    },
+    "Santé publique France": {
+      "https://www.santepubliquefrance.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.santepubliquefrance.fr/",
+        "titre": "Accueil | Santé publique France"
+      },
+      "https://www.santepubliquefrance.fr/les-actualites": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.santepubliquefrance.fr/les-actualites",
+        "titre": "Les actualités | Santé publique France"
+      },
+      "https://www.santepubliquefrance.fr/rss.xml": {
+        "code": 200,
+        "type": "application/rss+xml; charset=utf-8",
+        "final": "https://www.santepubliquefrance.fr/rss.xml",
+        "titre": "Santé publique France"
+      }
+    },
+    "Haute Autorité de santé": {
+      "https://www.has-sante.fr/": {
+        "code": 200,
+        "type": "text/html;charset=UTF-8",
+        "final": "https://www.has-sante.fr/",
+        "titre": "Haute Autorité de Santé - HAS - Professionnels"
+      },
+      "https://www.has-sante.fr/jcms/fc_2874902/fr/actualites": {
+        "code": 200,
+        "type": "text/html;charset=UTF-8",
+        "final": "https://www.has-sante.fr/jcms/fc_2874902/fr/actualites",
+        "titre": "Haute Autorité de Santé - Actualités"
+      }
+    },
+    "Fédération hospitalière de France": {
+      "https://www.fhf.fr/": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.fhf.fr/",
+        "titre": "Fédération Hospitalière de France (FHF)"
+      },
+      "https://www.fhf.fr/actualites": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.fhf.fr/actualites",
+        "titre": "Actualités | Fédération Hospitalière de France"
+      }
+    },
+    "traces_source_url": {
+      "https://www.nouvelle-aquitaine.ars.sante.fr/cybersecurite-0?parent=15058": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.nouvelle-aquitaine.ars.sante.fr/cybersecurite-0?parent=15058",
+        "titre": "Cybersécurité | Agence régionale de santé Nouvelle-Aquitaine"
+      },
+      "https://www.ici.fr/infos/faits-divers-justice/creuse-l-apajh-23-perd-173-000-euros-apres-une-arnaque-au-president-1725610": {
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ici.fr/infos/faits-divers-justice/creuse-l-apajh-23-perd-173-000-euros-apres-une-arnaque-au-president-1725610",
+        "titre": "INFO ICI CREUSE : l'APAJH 23 escroquée de 173.000 euros dans une \"arnaque au président\" - ICI"
+      },
+      "https://www.creuse.fr/Sante-vous-bien": {
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.creuse.fr/Sante-vous-bien",
+        "titre": "Santé-vous bien ! | Conseil départemental de la Creuse"
+      }
+    }
+  },
+  "urls": [
+    {
+      "source": "Centre hospitalier de la Creuse — Guéret",
+      "role": "url_site",
+      "url": "https://www.ch-gueret.fr/",
+      "code": 200,
+      "type": "text/html; charset=utf-8",
+      "final": "https://www.ch-gueret.fr/",
+      "titre": "Accueil"
+    },
+    {
+      "source": "Centre hospitalier de la Creuse — Guéret",
+      "role": "url_actualites",
+      "url": "https://ch-gueret.fr/index.php/revue-de-presse-chg",
+      "code": 200,
+      "type": "text/html; charset=utf-8",
+      "final": "https://ch-gueret.fr/index.php/revue-de-presse-chg",
+      "titre": "Revue de presse"
+    },
+    {
+      "source": "Centre hospitalier d'Aubusson",
+      "role": "url_site",
+      "url": "https://www.ch-aubusson.fr/site/",
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "final": "https://www.ch-aubusson.fr/site/",
+      "titre": "Bienvenue sur le site du Centre Hospitalier -"
+    },
+    {
+      "source": "Centre hospitalier d'Aubusson",
+      "role": "url_actualites",
+      "url": "https://www.ch-aubusson.fr/site/category/centre-hospitalier-daubusson/",
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "final": "https://www.ch-aubusson.fr/site/category/centre-hospitalier-daubusson/",
+      "titre": "Archives des Centre Hospitalier D'Aubusson -"
+    },
+    {
+      "source": "Centre hospitalier d'Aubusson",
+      "role": "url_flux",
+      "url": "https://www.ch-aubusson.fr/site/category/centre-hospitalier-daubusson/feed/",
+      "code": 200,
+      "type": "application/rss+xml; charset=UTF-8",
+      "final": "https://www.ch-aubusson.fr/site/category/centre-hospitalier-daubusson/feed/",
+      "titre": "Archives des Centre Hospitalier D'Aubusson -"
+    },
+    {
+      "source": "Clinique de La Marche — Guéret",
+      "role": "url_site",
+      "url": "https://clinique-lamarche.fr/",
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "final": "https://clinique-lamarche.fr/",
+      "titre": "Clinique de La Marche"
+    },
+    {
+      "source": "Clinique de La Marche — Guéret",
+      "role": "url_actualites",
+      "url": "https://clinique-lamarche.fr/actualites/",
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "final": "https://clinique-lamarche.fr/actualites/",
+      "titre": "Actualités – Clinique de La Marche"
+    },
+    {
+      "source": "Clinique de La Marche — Guéret",
+      "role": "url_flux",
+      "url": "https://clinique-lamarche.fr/feed/",
+      "code": 200,
+      "type": "application/rss+xml; charset=UTF-8",
+      "final": "https://clinique-lamarche.fr/feed/",
+      "titre": "Clinique de La Marche"
+    },
+    {
+      "source": "EHPAD Les 4 Cadrans — Centre Creuse Combraille",
+      "role": "url_site",
+      "url": "https://ehpadcentrecreusecombraille.fr/",
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "final": "https://ehpadcentrecreusecombraille.fr/",
+      "titre": "Reseau EHPAD Ajain"
+    },
+    {
+      "source": "EHPAD Les 4 Cadrans — Centre Creuse Combraille",
+      "role": "url_actualites",
+      "url": "https://ehpadcentrecreusecombraille.fr/ehpad-les-4-cadrans/category/actualites/",
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "final": "https://ehpadcentrecreusecombraille.fr/ehpad-les-4-cadrans/category/actualites/",
+      "titre": "Actualités – EHPAD \"Les 4 cadrans\""
+    },
+    {
+      "source": "EHPAD Les 4 Cadrans — Centre Creuse Combraille",
+      "role": "url_flux",
+      "url": "https://ehpadcentrecreusecombraille.fr/ehpad-les-4-cadrans/category/actualites/feed/",
+      "code": 200,
+      "type": "application/rss+xml; charset=UTF-8",
+      "final": "https://ehpadcentrecreusecombraille.fr/ehpad-les-4-cadrans/category/actualites/feed/",
+      "titre": "Actualités – EHPAD \"Les 4 cadrans\""
+    },
+    {
+      "source": "ARS Nouvelle-Aquitaine — délégation de la Creuse (23)",
+      "role": "url_site",
+      "url": "https://www.nouvelle-aquitaine.ars.sante.fr/",
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "final": "https://www.nouvelle-aquitaine.ars.sante.fr/",
+      "titre": "Agence régionale de santé Nouvelle-Aquitaine | Agir pour la santé de tous"
+    },
+    {
+      "source": "ARS Nouvelle-Aquitaine — délégation de la Creuse (23)",
+      "role": "url_actualites",
+      "url": "https://www.nouvelle-aquitaine.ars.sante.fr/liste-actualites?archive=0",
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "final": "https://www.nouvelle-aquitaine.ars.sante.fr/liste-actualites?archive=0",
+      "titre": "Les actualités de l’ARS Nouvelle-Aquitaine | Agence régionale de santé Nouvelle-Aquitaine"
+    },
+    {
+      "source": "ARS Nouvelle-Aquitaine — délégation de la Creuse (23)",
+      "role": "url_flux",
+      "url": "https://www.nouvelle-aquitaine.ars.sante.fr/rss.xml?type=ars_actualite",
+      "code": 200,
+      "type": "application/rss+xml; charset=utf-8",
+      "final": "https://www.nouvelle-aquitaine.ars.sante.fr/rss.xml?type=ars_actualite",
+      "titre": "Flux des actualités"
+    },
+    {
+      "source": "CCSS de la Creuse (ex-CPAM/Caf) — Assurance Maladie",
+      "role": "url_site",
+      "url": "https://www.assurance-maladie.ameli.fr/nous-connaitre/organisation/le-reseau-de-proximite/nos-organismes/nouvelle-aquitaine/ccss-de-la-creuse",
+      "code": 200,
+      "type": "text/html; charset=utf-8",
+      "final": "https://www.assurance-maladie.ameli.fr/nous-connaitre/organisation/le-reseau-de-proximite/nos-organismes/nouvelle-aquitaine/ccss-de-la-creuse",
+      "titre": "CCSS de la Creuse | L'Assurance Maladie"
+    },
+    {
+      "source": "CCSS de la Creuse (ex-CPAM/Caf) — Assurance Maladie",
+      "role": "url_actualites",
+      "url": "https://www.ameli.fr/creuse/assure/liste-actualites-locales",
+      "code": 200,
+      "type": "text/html; charset=utf-8",
+      "final": "https://www.ameli.fr/creuse/assure/liste-actualites-locales",
+      "titre": "Toutes les actualités de l’Assurance Maladie de votre département en un clic | ameli.fr | Assuré"
+    },
+    {
+      "source": "Ligue contre le cancer — Comité 23 Creuse",
+      "role": "url_site",
+      "url": "https://www.ligue-cancer.net/23-creuse",
+      "code": 200,
+      "type": "text/html; charset=utf-8",
+      "final": "https://www.ligue-cancer.net/23-creuse",
+      "titre": "23 - Creuse | Ligue contre le cancer"
+    },
+    {
+      "source": "Ligue contre le cancer — Comité 23 Creuse",
+      "role": "url_actualites",
+      "url": "https://www.ligue-cancer.net/23-creuse/actualites",
+      "code": 200,
+      "type": "text/html; charset=utf-8",
+      "final": "https://www.ligue-cancer.net/23-creuse/actualites",
+      "titre": "Les actualités du comité | Ligue contre le cancer"
+    },
+    {
+      "source": "Conseil départemental de l'Ordre des médecins de la Creuse",
+      "role": "url_site",
+      "url": "https://conseil23.ordre.medecin.fr/",
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "final": "https://conseil23.ordre.medecin.fr/",
+      "titre": "Creuse"
+    },
+    {
+      "source": "Conseil départemental de l'Ordre des médecins de la Creuse",
+      "role": "url_actualites",
+      "url": "https://conseil23.ordre.medecin.fr/actualites",
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "final": "https://conseil23.ordre.medecin.fr/actualites",
+      "titre": "Dernières actualités | Creuse"
+    },
+    {
+      "source": "Conseil départemental de l'Ordre des médecins de la Creuse",
+      "role": "url_flux",
+      "url": "https://conseil23.ordre.medecin.fr/rss",
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "final": "https://conseil23.ordre.medecin.fr/rss",
+      "titre": "Dernières actualités"
+    },
+    {
+      "source": "URPS Infirmiers Libéraux Nouvelle-Aquitaine",
+      "role": "url_site",
+      "url": "https://urpsinfirmiers-na.fr/",
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "final": "https://urpsinfirmiers-na.fr/",
+      "titre": "URPS Infirmiers Libéraux Nouvelle-Aquitaine"
+    },
+    {
+      "source": "URPS Infirmiers Libéraux Nouvelle-Aquitaine",
+      "role": "url_actualites",
+      "url": "https://urpsinfirmiers-na.fr/actualites/",
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "final": "https://urpsinfirmiers-na.fr/actualites/",
+      "titre": "Actualités - URPS Infirmiers Libéraux Nouvelle Aquitaine"
+    },
+    {
+      "source": "URPS Infirmiers Libéraux Nouvelle-Aquitaine",
+      "role": "url_flux",
+      "url": "https://urpsinfirmiers-na.fr/feed/",
+      "code": 200,
+      "type": "text/xml;charset=UTF-8",
+      "final": "https://urpsinfirmiers-na.fr/feed/",
+      "titre": "URPS Infirmiers Libéraux Nouvelle Aquitaine"
+    },
+    {
+      "source": "URPS Médecins Libéraux Nouvelle-Aquitaine",
+      "role": "url_site",
+      "url": "https://www.urpsml-na.org/",
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "final": "https://www.urpsml-na.org/",
+      "titre": "Accueil - URPS ML Nouvelle-Aquitaine"
+    },
+    {
+      "source": "URPS Médecins Libéraux Nouvelle-Aquitaine",
+      "role": "url_actualites",
+      "url": "https://www.urpsml-na.org/",
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "final": "https://www.urpsml-na.org/",
+      "titre": "Accueil - URPS ML Nouvelle-Aquitaine"
+    },
+    {
+      "source": "URPS Médecins Libéraux Nouvelle-Aquitaine",
+      "role": "url_flux",
+      "url": "https://www.urpsml-na.org/feed/",
+      "code": 200,
+      "type": "application/rss+xml; charset=UTF-8",
+      "final": "https://www.urpsml-na.org/feed/",
+      "titre": "URPS ML Nouvelle-Aquitaine"
+    },
+    {
+      "source": "CARSAT Centre Ouest (périmètre Creuse)",
+      "role": "url_site",
+      "url": "https://www.carsat-centreouest.fr/",
+      "code": 200,
+      "type": "text/html;charset=UTF-8",
+      "final": "https://www.carsat-centreouest.fr/home.html",
+      "titre": "Carsat Centre Ouest : Votre caisse d'assurance retraite et de la santé au travail"
+    },
+    {
+      "source": "CARSAT Centre Ouest (périmètre Creuse)",
+      "role": "url_actualites",
+      "url": "https://www.carsat-centreouest.fr/home/nous-connaitre/actualites-nous-connaitre.html",
+      "code": 200,
+      "type": "text/html;charset=UTF-8",
+      "final": "https://www.carsat-centreouest.fr/home/nous-connaitre/actualites-nous-connaitre.html",
+      "titre": "Actualités Nous connaître - Carsat Centre Ouest"
+    },
+    {
+      "source": "Conseil départemental de la Creuse — rubrique Santé",
+      "role": "url_site",
+      "url": "https://www.creuse.fr/",
+      "code": 200,
+      "type": "text/html; charset=utf-8",
+      "final": "https://www.creuse.fr/",
+      "titre": "Conseil départemental de la Creuse"
+    },
+    {
+      "source": "Conseil départemental de la Creuse — rubrique Santé",
+      "role": "url_actualites",
+      "url": "https://www.creuse.fr/Sante-vous-bien",
+      "code": 200,
+      "type": "text/html; charset=utf-8",
+      "final": "https://www.creuse.fr/Sante-vous-bien",
+      "titre": "Santé-vous bien ! | Conseil départemental de la Creuse"
+    },
+    {
+      "source": "La Montagne — Guéret (23)",
+      "role": "url_site",
+      "url": "https://www.lamontagne.fr/gueret-23000/",
+      "code": 200,
+      "type": "text/html; charset=utf-8",
+      "final": "https://www.lamontagne.fr/gueret-23000/",
+      "titre": "Guéret (23000) : actualités, sports, loisirs - La Montagne"
+    },
+    {
+      "source": "La Montagne — Guéret (23)",
+      "role": "url_actualites",
+      "url": "https://www.lamontagne.fr/gueret-23000/",
+      "code": 200,
+      "type": "text/html; charset=utf-8",
+      "final": "https://www.lamontagne.fr/gueret-23000/",
+      "titre": "Guéret (23000) : actualités, sports, loisirs - La Montagne"
+    },
+    {
+      "source": "Le Populaire du Centre — Guéret (23)",
+      "role": "url_site",
+      "url": "https://www.lepopulaire.fr/gueret-23000/",
+      "code": 200,
+      "type": "text/html; charset=utf-8",
+      "final": "https://www.lepopulaire.fr/gueret-23000/",
+      "titre": "Guéret (23000) : actualités, sports, loisirs - Le Populaire du Centre"
+    },
+    {
+      "source": "Le Populaire du Centre — Guéret (23)",
+      "role": "url_actualites",
+      "url": "https://www.lepopulaire.fr/gueret-23000/actualites/qualite-des-soins-confirmee-l-hopital-de-gueret-vient-de-retrouver-sa-certification-delivree-par-la-haute-autorite-de-sante_15076432/",
+      "code": 200,
+      "type": "text/html; charset=utf-8",
+      "final": "https://www.lepopulaire.fr/gueret-23000/actualites/qualite-des-soins-confirmee-l-hopital-de-gueret-vient-de-retrouver-sa-certification-delivree-par-la-haute-autorite-de-sante_15076432/",
+      "titre": "L'hôpital de Guéret vient de l'annoncer : il retrouve sa certification délivrée par la Haute Autorité de santé - Le Populaire du Centre"
+    },
+    {
+      "source": "actu.fr — Creuse (23)",
+      "role": "url_site",
+      "url": "https://actu.fr/nouvelle-aquitaine/creuse_23",
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "final": "https://actu.fr/nouvelle-aquitaine/creuse_23",
+      "titre": "Actu Creuse | actu.fr"
+    },
+    {
+      "source": "actu.fr — Creuse (23)",
+      "role": "url_actualites",
+      "url": "https://actu.fr/nouvelle-aquitaine/creuse_23",
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "final": "https://actu.fr/nouvelle-aquitaine/creuse_23",
+      "titre": "Actu Creuse | actu.fr"
+    },
+    {
+      "source": "actu.fr — Creuse (23)",
+      "role": "url_flux",
+      "url": "https://actu.fr/nouvelle-aquitaine/creuse_23/rss.xml",
+      "code": 200,
+      "type": "application/rss+xml; charset=utf-8",
+      "final": "https://actu.fr/nouvelle-aquitaine/creuse_23/rss.xml",
+      "titre": "Creuse - L'actualité en continu - actu.fr"
+    },
+    {
+      "source": "ICI Creuse (Radio France)",
+      "role": "url_site",
+      "url": "https://www.ici.fr/radio/creuse",
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "final": "https://www.ici.fr/radio/creuse",
+      "titre": "ICI Creuse – Écouter la radio en direct, actualité locale et sorties, fréquence radio"
+    },
+    {
+      "source": "ICI Creuse (Radio France)",
+      "role": "url_actualites",
+      "url": "https://www.ici.fr/radio/creuse/actu",
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "final": "https://www.ici.fr/radio/creuse/actu",
+      "titre": "Actu ICI Creuse : toutes les actualités en direct"
+    },
+    {
+      "source": "Santé publique France",
+      "role": "url_site",
+      "url": "https://www.santepubliquefrance.fr/",
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "final": "https://www.santepubliquefrance.fr/",
+      "titre": "Accueil | Santé publique France"
+    },
+    {
+      "source": "Santé publique France",
+      "role": "url_actualites",
+      "url": "https://www.santepubliquefrance.fr/les-actualites",
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "final": "https://www.santepubliquefrance.fr/les-actualites",
+      "titre": "Les actualités | Santé publique France"
+    },
+    {
+      "source": "Santé publique France",
+      "role": "url_flux",
+      "url": "https://www.santepubliquefrance.fr/rss.xml",
+      "code": 200,
+      "type": "application/rss+xml; charset=utf-8",
+      "final": "https://www.santepubliquefrance.fr/rss.xml",
+      "titre": "Santé publique France"
+    },
+    {
+      "source": "Haute Autorité de santé",
+      "role": "url_site",
+      "url": "https://www.has-sante.fr/",
+      "code": 200,
+      "type": "text/html;charset=UTF-8",
+      "final": "https://www.has-sante.fr/",
+      "titre": "Haute Autorité de Santé - HAS - Professionnels"
+    },
+    {
+      "source": "Haute Autorité de santé",
+      "role": "url_actualites",
+      "url": "https://www.has-sante.fr/jcms/fc_2874902/fr/actualites",
+      "code": 200,
+      "type": "text/html;charset=UTF-8",
+      "final": "https://www.has-sante.fr/jcms/fc_2874902/fr/actualites",
+      "titre": "Haute Autorité de Santé - Actualités"
+    },
+    {
+      "source": "Fédération hospitalière de France",
+      "role": "url_site",
+      "url": "https://www.fhf.fr/",
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "final": "https://www.fhf.fr/",
+      "titre": "Fédération Hospitalière de France (FHF)"
+    },
+    {
+      "source": "Fédération hospitalière de France",
+      "role": "url_actualites",
+      "url": "https://www.fhf.fr/actualites",
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "final": "https://www.fhf.fr/actualites",
+      "titre": "Actualités | Fédération Hospitalière de France"
+    },
+    {
+      "source": "traces_source_url",
+      "role": "preuve",
+      "url": "https://www.nouvelle-aquitaine.ars.sante.fr/cybersecurite-0?parent=15058",
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "final": "https://www.nouvelle-aquitaine.ars.sante.fr/cybersecurite-0?parent=15058",
+      "titre": "Cybersécurité | Agence régionale de santé Nouvelle-Aquitaine"
+    },
+    {
+      "source": "traces_source_url",
+      "role": "preuve",
+      "url": "https://www.ici.fr/infos/faits-divers-justice/creuse-l-apajh-23-perd-173-000-euros-apres-une-arnaque-au-president-1725610",
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "final": "https://www.ici.fr/infos/faits-divers-justice/creuse-l-apajh-23-perd-173-000-euros-apres-une-arnaque-au-president-1725610",
+      "titre": "INFO ICI CREUSE : l'APAJH 23 escroquée de 173.000 euros dans une \"arnaque au président\" - ICI"
+    },
+    {
+      "source": "traces_source_url",
+      "role": "preuve",
+      "url": "https://www.creuse.fr/Sante-vous-bien",
+      "code": 200,
+      "type": "text/html; charset=utf-8",
+      "final": "https://www.creuse.fr/Sante-vous-bien",
+      "titre": "Santé-vous bien ! | Conseil départemental de la Creuse"
+    }
+  ]
+}
