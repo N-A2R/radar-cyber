@@ -1,0 +1,29 @@
+{
+  "generatedAt": "2026-11-22T01:49:57.509Z",
+  "state": {
+    "organizations": 1673151,
+    "sources": 312,
+    "events": 26230
+  },
+  "export": {
+    "naEvents": 104,
+    "exported": 104,
+    "stixObjects": 106,
+    "graySources": 100,
+    "skippedOutsideRegion": 0,
+    "personalDataLeaks": 0
+  },
+  "import": {
+    "mispEvents": 104,
+    "accepted": 104,
+    "rejected": 0,
+    "personalAttributesDropped": 105,
+    "roundTripMatched": 104
+  },
+  "objective": {
+    "exportAndImportTested": 104,
+    "coveragePercent": 100,
+    "passed": true
+  },
+  "durationMs": 399
+}
