@@ -18,6 +18,7 @@ import {
 	DEFAULT_MAX_LEAD_DAYS,
 	detectPreClaim,
 	normaliseKey,
+	objectiveStatement,
 	summariseDetections,
 	type Claim,
 	type EarlySignal,
@@ -253,7 +254,7 @@ async function main(): Promise<void> {
 		"- Seules les revendications déjà ingérées et datées entrent dans la mesure.",
 		"- Les jours gagnés sont mesurés entre horodatages publics, pas entre la survenue",
 		"  de l'attaque et sa détection.",
-		"",
+		objectiveStatement(summary.detected, OBJECTIVE),
 	];
 
 	const resultText = `${JSON.stringify(result, null, "\t")}\n`;
