@@ -4,6 +4,7 @@
   "source": "INSEE SIRENE stock (public data, no paid service)",
   "candidates": 14956,
   "established": 14956,
+  "recoveredFromMerge": 17,
   "byDepartment": {
     "16": 749,
     "17": 2087,

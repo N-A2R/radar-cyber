@@ -86,8 +86,13 @@ test("delay summary reports the measured median, p90, max and 24 h count", () =>
 });
 
 test("hourly monitor writes one review alert per silent source and deduplicates it", async () => {
-	const sourceId = "public-title:na-quotidien-017";
+	const sourceId = "test:silent-source-monitor";
 	const timestamps = hoursAgo(20, 44, 68, 92).map((t) => new Date(t).toISOString());
+	await query(
+		`INSERT INTO source (id, name, family, url)
+		 VALUES ($1, $2, 'cti', 'https://example.invalid/silent-source')`,
+		[sourceId, "Silent source monitor test"],
+	);
 	await query(
 		`INSERT INTO collector_run (source_id, started_at, finished_at, status, items_in, items_new)
 		 SELECT $1, t - interval '1 minute', t, 'ok', 1, 1
@@ -108,10 +113,13 @@ test("hourly monitor writes one review alert per silent source and deduplicates 
 			SILENT_SOURCE_RULE, SILENT_SOURCE_SCOPE, sourceId,
 		]);
 		await query(`DELETE FROM collector_run WHERE source_id=$1 AND finished_at = ANY($2::timestamptz[])`, [sourceId, timestamps]);
+		await query(`DELETE FROM source WHERE id=$1`, [sourceId]);
 	}
 });
 
 test("hourly monitor skips a check inside the interval", async () => {
+	// Own clock: the test must not depend on another test having run first.
+	await runSilentSourceCheck({ now: NOW, force: true });
 	const result = await runSilentSourceCheck({ now: NOW + HOUR_MS - 1 });
 	assert.equal(result.ran, false);
 	assert.equal(result.sources, 0);
