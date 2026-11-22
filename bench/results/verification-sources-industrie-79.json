@@ -1,0 +1,405 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-industrie-79.jsonl",
+  "secteur": "industrie",
+  "departement": "79",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+  "methode": "GET HTTP avec User-Agent navigateur, redirections suivies, statut final, type MIME, URL effective et octets téléchargés relevés pour chaque URL du corpus ; délai 25 s",
+  "sources": 19,
+  "urls_verifiees": 45,
+  "urls_200": 45,
+  "anomalies": [],
+  "detail": {
+    "corpus:industrie-79-01-medef-deux-sevres": {
+      "urls": {
+        "https://www.medef79.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.medef79.fr/",
+          "octets": 27951,
+          "ms": 198
+        },
+        "https://www.medef79.fr/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.medef79.fr/actualites",
+          "octets": 24266,
+          "ms": 162
+        }
+      }
+    },
+    "corpus:industrie-79-02-uimm-nouvelle-aquitaine-antenne-des-deux-sevres-79": {
+      "urls": {
+        "https://www.uimmnouvelleaquitaine.com/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.uimmnouvelleaquitaine.com/",
+          "octets": 20970,
+          "ms": 233
+        },
+        "https://www.uimmnouvelleaquitaine.com/actualite/news.html": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.uimmnouvelleaquitaine.com/actualite/news.html",
+          "octets": 35656,
+          "ms": 244
+        }
+      }
+    },
+    "corpus:industrie-79-03-alt-technopole-niort-deux-sevres": {
+      "urls": {
+        "https://altae-technopole.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://altae-technopole.fr/",
+          "octets": 212293,
+          "ms": 281
+        },
+        "https://altae-technopole.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://altae-technopole.fr/actualites/",
+          "octets": 194027,
+          "ms": 213
+        },
+        "https://altae-technopole.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://altae-technopole.fr/feed/",
+          "octets": 102277,
+          "ms": 763
+        }
+      }
+    },
+    "corpus:industrie-79-04-niort-tech-pole-dinnovation-et-dentrepreneuriat-79": {
+      "urls": {
+        "https://niort-tech.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://niort-tech.fr/",
+          "octets": 176765,
+          "ms": 454
+        },
+        "https://niort-tech.fr/evenements/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://niort-tech.fr/evenements/",
+          "octets": 350143,
+          "ms": 1649
+        },
+        "https://niort-tech.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://niort-tech.fr/feed/",
+          "octets": 1037,
+          "ms": 282
+        }
+      }
+    },
+    "corpus:industrie-79-05-portail-des-entreprises-de-nouvelle-aquitaine-region-performance-indus": {
+      "urls": {
+        "https://entreprises.nouvelle-aquitaine.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://entreprises.nouvelle-aquitaine.fr/",
+          "octets": 111974,
+          "ms": 1050
+        },
+        "https://entreprises.nouvelle-aquitaine.fr/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://entreprises.nouvelle-aquitaine.fr/actualites",
+          "octets": 106319,
+          "ms": 1260
+        },
+        "https://entreprises.nouvelle-aquitaine.fr/liste-rss/naq_actualite": {
+          "code": 200,
+          "type": "application/rss+xml",
+          "url_finale": "https://entreprises.nouvelle-aquitaine.fr/liste-rss/naq_actualite",
+          "octets": 364391,
+          "ms": 1359
+        }
+      }
+    },
+    "corpus:industrie-79-06-annuaire-industrie-magazine-entreprises-des-deux-sevres": {
+      "urls": {
+        "https://annuaire.industrie-magazine.fr/departement/deux-sevres": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://annuaire.industrie-magazine.fr/departement/deux-sevres",
+          "octets": 586327,
+          "ms": 1035
+        },
+        "https://industrie-magazine.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://industrie-magazine.fr/",
+          "octets": 277295,
+          "ms": 645
+        }
+      }
+    },
+    "corpus:industrie-79-07-entreprise-industrielle-annuaire-des-deux-sevres-79": {
+      "urls": {
+        "https://www.entrepriseindustrielle.fr/departements/79-deux-sevres/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.entrepriseindustrielle.fr/departements/79-deux-sevres/",
+          "octets": 44427,
+          "ms": 528
+        }
+      }
+    },
+    "corpus:industrie-79-08-la-nouvelle-republique-edition-deux-sevres-79": {
+      "urls": {
+        "https://www.lanouvellerepublique.fr/deux-sevres": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lanouvellerepublique.fr/deux-sevres",
+          "octets": 1625802,
+          "ms": 178
+        },
+        "https://www.lanouvellerepublique.fr/deux-sevres/economie": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lanouvellerepublique.fr/deux-sevres/economie",
+          "octets": 616197,
+          "ms": 143
+        },
+        "https://www.lanouvellerepublique.fr/api/v1/rss/5e2072f9f30f8cdd4c8b4594": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.lanouvellerepublique.fr/api/v1/rss/5e2072f9f30f8cdd4c8b4594",
+          "octets": 34904,
+          "ms": 96
+        }
+      }
+    },
+    "corpus:industrie-79-09-actu-fr-actu-deux-sevres": {
+      "urls": {
+        "https://actu.fr/nouvelle-aquitaine/deux-sevres_79/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/deux-sevres_79",
+          "octets": 325447,
+          "ms": 174
+        },
+        "https://actu.fr/deux-sevres/economie": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://actu.fr/deux-sevres/economie",
+          "octets": 272235,
+          "ms": 407
+        },
+        "https://actu.fr/deux-sevres/rss.xml": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "url_finale": "https://actu.fr/deux-sevres/rss.xml",
+          "octets": 30130,
+          "ms": 71
+        }
+      }
+    },
+    "corpus:industrie-79-10-placeco-actualites-economiques-des-deux-sevres": {
+      "urls": {
+        "https://www.placeco.fr/deux-sevres/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.placeco.fr/deux-sevres/",
+          "octets": 151529,
+          "ms": 393
+        },
+        "https://news.google.com/rss/search?q=Plac%C3%A9co+Deux-S%C3%A8vres+industrie&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=Plac%C3%A9co+Deux-S%C3%A8vres+industrie&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 3800,
+          "ms": 67
+        }
+      }
+    },
+    "corpus:industrie-79-11-niort-info-presse-locale-economie-et-industrie": {
+      "urls": {
+        "https://niortinfo.media/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://niortinfo.media/",
+          "octets": 467537,
+          "ms": 2840
+        },
+        "https://niortinfo.media/?s=industrie": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://niortinfo.media/?s=industrie",
+          "octets": 417492,
+          "ms": 2104
+        },
+        "https://niortinfo.media/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://niortinfo.media/feed/",
+          "octets": 23852,
+          "ms": 1544
+        }
+      }
+    },
+    "corpus:industrie-79-12-ici-poitou-actualites-des-deux-sevres-79": {
+      "urls": {
+        "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79",
+          "octets": 279728,
+          "ms": 191
+        },
+        "https://www.ici.fr/rss/poitou/rubrique/infos.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "url_finale": "https://www.ici.fr/rss/poitou/rubrique/infos.xml",
+          "octets": 19233,
+          "ms": 111
+        }
+      }
+    },
+    "corpus:industrie-79-13-france-3-nouvelle-aquitaine-edition-deux-sevres": {
+      "urls": {
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/deux-sevres": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/deux-sevres",
+          "octets": 604744,
+          "ms": 182
+        },
+        "https://news.google.com/rss/search?q=France+3+industrie+Deux-S%C3%A8vres&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=France+3+industrie+Deux-S%C3%A8vres&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 63752,
+          "ms": 105
+        }
+      }
+    },
+    "corpus:industrie-79-14-google-actualites-veille-industrie-deux-sevres-79": {
+      "urls": {
+        "https://news.google.com/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://news.google.com/home?ucbcb=1&hl=en-US&gl=US&ceid=US:en",
+          "octets": 1703460,
+          "ms": 799
+        },
+        "https://news.google.com/rss/search?q=industrie+Deux-S%C3%A8vres+79&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "url_finale": "https://news.google.com/rss/search?q=industrie+Deux-S%C3%A8vres+79&hl=fr&gl=FR&ceid=FR:fr",
+          "octets": 90783,
+          "ms": 332
+        }
+      }
+    },
+    "corpus:industrie-79-15-cpme-79-confederation-des-petites-et-moyennes-entreprises-des-deux-sev": {
+      "urls": {
+        "https://www.cpme79.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.cpme79.fr/",
+          "octets": 39367,
+          "ms": 203
+        },
+        "https://www.cpme79.fr/spip.php?page=backend": {
+          "code": 200,
+          "type": "text/xml; charset=utf-8",
+          "url_finale": "https://www.cpme79.fr/spip.php?page=backend",
+          "octets": 23969,
+          "ms": 139
+        }
+      }
+    },
+    "corpus:industrie-79-16-uimm-deux-sevres-79-union-des-industries-metallurgiques": {
+      "urls": {
+        "https://www.uimm79.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.uimm79.fr/",
+          "octets": 6906,
+          "ms": 928
+        },
+        "https://www.uimm79.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.uimm79.fr/feed/",
+          "octets": 8965,
+          "ms": 852
+        }
+      }
+    },
+    "corpus:industrie-79-17-medef-nouvelle-aquitaine-rubrique-cybersecurite": {
+      "urls": {
+        "https://www.medef-nouvelle-aquitaine.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.medef-nouvelle-aquitaine.fr/",
+          "octets": 34600,
+          "ms": 239
+        },
+        "https://www.medef-nouvelle-aquitaine.fr/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.medef-nouvelle-aquitaine.fr/actualites",
+          "octets": 42672,
+          "ms": 203
+        }
+      }
+    },
+    "corpus:industrie-79-18-uimm-nationale-la-fabrication-de-lavenir": {
+      "urls": {
+        "https://uimm.lafabriquedelavenir.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://uimm.lafabriquedelavenir.fr/",
+          "octets": 75359,
+          "ms": 96
+        },
+        "https://uimm.lafabriquedelavenir.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://uimm.lafabriquedelavenir.fr/actualites/",
+          "octets": 68078,
+          "ms": 87
+        },
+        "https://uimm.lafabriquedelavenir.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://uimm.lafabriquedelavenir.fr/feed/",
+          "octets": 114968,
+          "ms": 1901
+        }
+      }
+    },
+    "corpus:industrie-79-19-le-journal-des-entreprises-edition-deux-sevres-79": {
+      "urls": {
+        "https://www.lejournaldesentreprises.com/nouvelle-aquitaine": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.lejournaldesentreprises.com/nouvelle-aquitaine",
+          "octets": 508711,
+          "ms": 359
+        },
+        "https://www.lejournaldesentreprises.com/regions/france/nouvelle-aquitaine/deux-sevres": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.lejournaldesentreprises.com/regions/france/nouvelle-aquitaine/deux-sevres",
+          "octets": 291864,
+          "ms": 307
+        },
+        "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine": {
+          "code": 200,
+          "type": "text/xml; charset=UTF-8",
+          "url_finale": "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine",
+          "octets": 16311,
+          "ms": 177
+        }
+      }
+    }
+  }
+}
