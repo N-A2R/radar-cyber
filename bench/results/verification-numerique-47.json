@@ -1,0 +1,600 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-numerique-47.jsonl",
+  "secteur": "numerique",
+  "departement": "47",
+  "methode": "GET réel avec redirections suivies, User-Agent navigateur, cookies conservés, délai 25 s (Node fetch) ; code HTTP, type de contenu, URL finale et items RSS enregistrés via scripts/verifier-sources.mts",
+  "sources": 28,
+  "urls_verifiees": 63,
+  "urls_200": 63,
+  "candidats_ecartes": [
+    "CCI Lot-et-Garonne (www.lot-et-garonne.cci.fr, lot-et-garonne.cci.fr, cci-lot-et-garonne.fr), MEDEF47.fr, CMA47.fr : échec DNS/réseau (fetch failed).",
+    "https://www.nouvelle-aquitaine.cci.fr/ et /actualites/ : HTTP 403 (accès refusé), homepage non retenue faute de page actualite exploitable.",
+    "Terroriaux MEDEF 47, iut-agen.fr, digital-aquitaine.fr, aquitaine-technopole.fr : échec réseau.",
+    "https://www.ici.fr/rss/lot-et-garonne/a-la-une.xml, https://presselib.com/en-region/lot-et-garonne, https://www.aquitaineonline.com/actualites-en-aquitaine/lot-et-garonne/ : HTTP 404.",
+    "https://actu.fr/nouvelle-aquitaine/lot-et-garonne_47/rss.xml, https://www.campusnumerique47.fr/feed/, https://garonnhack.fr/feed/ : HTTP 200 mais flux sans item, non retenus comme flux."
+  ],
+  "detail": [
+    {
+      "nom": "Syndicat Lot-et-Garonne Numérique",
+      "urls": [
+        {
+          "url": "https://lot-et-garonne-numerique.fr/%f0%9f%9b%a1%ef%b8%8f-garonnhack-05-11-2026-le-rendez-vous-cyber-incontournable-du-lot-et-garonne-les-inscriptions-sont-ouvertes/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://lot-et-garonne-numerique.fr/%f0%9f%9b%a1%ef%b8%8f-garonnhack-05-11-2026-le-rendez-vous-cyber-incontournable-du-lot-et-garonne-les-inscriptions-sont-ouvertes/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.lot-et-garonne-numerique.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://lot-et-garonne-numerique.fr/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.lot-et-garonne-numerique.fr/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://lot-et-garonne-numerique.fr/actualites/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.lot-et-garonne-numerique.fr/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://lot-et-garonne-numerique.fr/feed/",
+          "items_rss": 10
+        }
+      ]
+    },
+    {
+      "nom": "NATHD — Service public de la fibre en Nouvelle-Aquitaine",
+      "urls": [
+        {
+          "url": "https://nathd.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://nathd.fr/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://nathd.fr/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://nathd.fr/feed/",
+          "items_rss": 5
+        }
+      ]
+    },
+    {
+      "nom": "CMA Nouvelle-Aquitaine",
+      "urls": [
+        {
+          "url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.cma-nouvelleaquitaine.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://cma-nouvelleaquitaine.fr/",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "French Tech Bordeaux",
+      "urls": [
+        {
+          "url": "https://frenchtechbordeaux.com/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.frenchtechbordeaux.com/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://frenchtechbordeaux.com/actualites/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.frenchtechbordeaux.com/nos-actualites",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Université de Bordeaux",
+      "urls": [
+        {
+          "url": "https://www.u-bordeaux.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.u-bordeaux.fr/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.u-bordeaux.fr/actualites",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.u-bordeaux.fr/actualites",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Conseil départemental de Lot-et-Garonne",
+      "urls": [
+        {
+          "url": "https://www.lotetgaronne.fr/",
+          "code": 200,
+          "type": "text/html;charset=utf-8",
+          "url_finale": "https://www.lotetgaronne.fr/accueil",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.lotetgaronne.fr/actualites",
+          "code": 200,
+          "type": "text/html;charset=utf-8",
+          "url_finale": "https://www.lotetgaronne.fr/actualites",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "SDIS 47 — Lot-et-Garonne",
+      "urls": [
+        {
+          "url": "https://www.sdis47.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.sdis47.fr/",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "La Dépêche du Midi — Lot-et-Garonne",
+      "urls": [
+        {
+          "url": "https://www.ladepeche.fr/2026/01/26/la-federation-de-chasse-visee-par-un-piratage-informatique-des-donnees-de-108-chasseurs-du-lot-et-garonne-potentiellement-derobees-13188746.php",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ladepeche.fr/2026/01/26/la-federation-de-chasse-visee-par-un-piratage-informatique-des-donnees-de-108-chasseurs-du-lot-et-garonne-potentiellement-derobees-13188746.php",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.ladepeche.fr/communes/lot-et-garonne,47",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ladepeche.fr/communes/lot-et-garonne,47/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.ladepeche.fr/communes/lot-et-garonne,47/rss.xml",
+          "code": 200,
+          "type": "text/xml; charset=UTF-8",
+          "url_finale": "https://www.ladepeche.fr/communes/lot-et-garonne,47/rss.xml",
+          "items_rss": 25
+        }
+      ]
+    },
+    {
+      "nom": "Sud Ouest — Lot-et-Garonne",
+      "urls": [
+        {
+          "url": "https://www.sudouest.fr/economie/cybersecurite/cyberattaque-dans-les-supermarches-75-000-euros-de-pertes-a-intermarche-marmande-un-acte-ecoeurant-selon-la-directrice-31038815.php",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.sudouest.fr/economie/cybersecurite/cyberattaque-dans-les-supermarches-75-000-euros-de-pertes-a-intermarche-marmande-un-acte-ecoeurant-selon-la-directrice-31038815.php",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.sudouest.fr/lot-et-garonne/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.sudouest.fr/lot-et-garonne/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.sudouest.fr/lot-et-garonne/rss.xml",
+          "code": 200,
+          "type": "application/xml",
+          "url_finale": "https://www.sudouest.fr/lot-et-garonne/rss.xml",
+          "items_rss": 20
+        }
+      ]
+    },
+    {
+      "nom": "actu.fr — Lot-et-Garonne",
+      "urls": [
+        {
+          "url": "https://actu.fr/nouvelle-aquitaine/lot-et-garonne_47/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/lot-et-garonne_47",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Le Petit Bleu d'Agen",
+      "urls": [
+        {
+          "url": "https://www.petitbleu.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.petitbleu.fr/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.petitbleu.fr/2026/07/01/il-faut-mettre-un-terme-a-cette-situation-de-souffrance-des-salaries-a-agen-lassociation-la-sauvegarde-en-pleine-crise-informatique-et-sociale-se-13446972.php",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.petitbleu.fr/2026/07/01/il-faut-mettre-un-terme-a-cette-situation-de-souffrance-des-salaries-a-agen-lassociation-la-sauvegarde-en-pleine-crise-informatique-et-sociale-se-13446972.php",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.petitbleu.fr/rss.xml",
+          "code": 200,
+          "type": "text/xml; charset=UTF-8",
+          "url_finale": "https://www.petitbleu.fr/rss.xml",
+          "items_rss": 100
+        }
+      ]
+    },
+    {
+      "nom": "ICI Lot-et-Garonne (47) — Radio France",
+      "urls": [
+        {
+          "url": "https://www.ici.fr/nouvelle-aquitaine/lot-et-garonne-47",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/lot-et-garonne-47",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.ici.fr/rss/gascogne/rubrique/infos.xml",
+          "code": 200,
+          "type": "application/xml",
+          "url_finale": "https://www.ici.fr/rss/gascogne/rubrique/infos.xml",
+          "items_rss": 20
+        }
+      ]
+    },
+    {
+      "nom": "France 3 Nouvelle-Aquitaine — Agen",
+      "urls": [
+        {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/lot-et-garonne/agen",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/lot-et-garonne/agen",
+          "items_rss": 0
+        },
+        {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/lot-et-garonne/agen/les-attaques-peuvent-arriver-de-n-importe-ou-privee-d-internet-apres-une-cyberattaque-massive-cette-mairie-se-reorganise-3229253.html",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/lot-et-garonne/agen/les-attaques-peuvent-arriver-de-n-importe-ou-privee-d-internet-apres-une-cyberattaque-massive-cette-mairie-se-reorganise-3229253.html",
+          "items_rss": 0
+        },
+        {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/lot-et-garonne/rss",
+          "code": 200,
+          "type": "text/xml; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/lot-et-garonne/rss",
+          "items_rss": 30
+        }
+      ]
+    },
+    {
+      "nom": "Quidam Hebdo — Lot-et-Garonne",
+      "urls": [
+        {
+          "url": "https://quidam-hebdo.com/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://quidam-hebdo.com/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://quidam-hebdo.com/category/lot-et-garonne/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://quidam-hebdo.com/category/lot-et-garonne/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://quidam-hebdo.com/category/lot-et-garonne/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://quidam-hebdo.com/category/lot-et-garonne/feed/",
+          "items_rss": 10
+        }
+      ]
+    },
+    {
+      "nom": "La Semaine des Pyrénées — Lot-et-Garonne",
+      "urls": [
+        {
+          "url": "https://www.lasemainedespyrenees.fr/",
+          "code": 200,
+          "type": "text/html",
+          "url_finale": "https://www.lasemainedespyrenees.fr/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.lasemainedespyrenees.fr/category/lot-et-garonne/",
+          "code": 200,
+          "type": "text/html",
+          "url_finale": "https://www.lasemainedespyrenees.fr/category/lot-et-garonne/",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "La Vie Economique — Lot-et-Garonne",
+      "urls": [
+        {
+          "url": "https://www.vie-economique.com/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.vie-economique.com/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.vie-economique.com/categories/lot-et-garonne/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.vie-economique.com/categories/lot-et-garonne/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.vie-economique.com/categories/lot-et-garonne/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.vie-economique.com/categories/lot-et-garonne/feed/",
+          "items_rss": 10
+        }
+      ]
+    },
+    {
+      "nom": "Passion Aquitaine (Ouest-France) — Lot-et-Garonne",
+      "urls": [
+        {
+          "url": "https://passion-aquitaine.ouest-france.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://passion-aquitaine.ouest-france.fr/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://passion-aquitaine.ouest-france.fr/lot-et-garonne/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://passion-aquitaine.ouest-france.fr/lot-et-garonne/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://passion-aquitaine.ouest-france.fr/lot-et-garonne/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://passion-aquitaine.ouest-france.fr/lot-et-garonne/feed/",
+          "items_rss": 40
+        }
+      ]
+    },
+    {
+      "nom": "Actu Locale 365 — Lot-et-Garonne",
+      "urls": [
+        {
+          "url": "https://actulocale365.fr/nouvelle-aquitaine/lot-et-garonne/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://actulocale365.fr/nouvelle-aquitaine/lot-et-garonne/",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "47 FM",
+      "urls": [
+        {
+          "url": "https://www.47fm.net/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.47fm.net/",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Radio 4",
+      "urls": [
+        {
+          "url": "https://www.radio4.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.radio4.fr/",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Cyberattaque.org",
+      "urls": [
+        {
+          "url": "https://www.cyberattaque.org/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.cyberattaque.org/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Campus Numérique 47 / CRC 47",
+      "urls": [
+        {
+          "url": "https://www.campusnumerique47.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.campusnumerique47.fr/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.campusnumerique47.fr/le-campus-numerique-47/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.campusnumerique47.fr/le-campus-numerique-47/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.ladepeche.fr/2026/11/02/garonnhack-evenement-phare-du-campus-numerique-dagen-decortique-la-lutte-contre-les-cyberattaques-13632338.php",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ladepeche.fr/2026/11/02/garonnhack-evenement-phare-du-campus-numerique-dagen-decortique-la-lutte-contre-les-cyberattaques-13632338.php",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Garonn'Hack",
+      "urls": [
+        {
+          "url": "https://garonnhack.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://garonnhack.fr/",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "GACO Agen — IUT de Bordeaux",
+      "urls": [
+        {
+          "url": "https://gaco.iut.u-bordeaux.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://gaco.iut.u-bordeaux.fr/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://gaco.iut.u-bordeaux.fr/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://gaco.iut.u-bordeaux.fr/actualites/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://gaco.iut.u-bordeaux.fr/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://gaco.iut.u-bordeaux.fr/feed/",
+          "items_rss": 5
+        },
+        {
+          "url": "https://www.ladepeche.fr/2024/11/05/tout-le-monde-peut-etre-touche-une-journee-dediee-a-la-cybersecurite-au-campus-numerique-dagen-12303121.php",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ladepeche.fr/2024/11/05/tout-le-monde-peut-etre-touche-une-journee-dediee-a-la-cybersecurite-au-campus-numerique-dagen-12303121.php",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "IUT de Bordeaux — site d'Agen",
+      "urls": [
+        {
+          "url": "https://www.iut.u-bordeaux.fr/actualites/",
+          "code": 200,
+          "type": "text/html",
+          "url_finale": "https://www.iut.u-bordeaux.fr/actualites/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.iut.u-bordeaux.fr/sites-formation/agen/",
+          "code": 200,
+          "type": "text/html",
+          "url_finale": "https://www.iut.u-bordeaux.fr/sites-formation/agen/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.ladepeche.fr/2026/02/01/dans-les-ecoles-agenaises-la-transition-numerique-est-deja-une-realite-un-congres-du-numerique-ouvert-a-tous-les-publics-13201236.php",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ladepeche.fr/2026/02/01/dans-les-ecoles-agenaises-la-transition-numerique-est-deja-une-realite-un-congres-du-numerique-ouvert-a-tous-les-publics-13201236.php",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Préfecture du Lot-et-Garonne",
+      "urls": [
+        {
+          "url": "https://www.ladepeche.fr/2025/03/12/on-peut-sen-premunir-en-hausse-la-cybercriminalite-sinvite-au-marche-du-pin-a-agen-12565476.php",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ladepeche.fr/2025/03/12/on-peut-sen-premunir-en-hausse-la-cybercriminalite-sinvite-au-marche-du-pin-a-agen-12565476.php",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.lot-et-garonne.gouv.fr/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lot-et-garonne.gouv.fr/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.lot-et-garonne.gouv.fr/Actualites",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lot-et-garonne.gouv.fr/Actualites",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "GPI MEDEF 47 — MEDEF Lot-et-Garonne",
+      "urls": [
+        {
+          "url": "https://www.gpi-medef47.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.gpi-medef47.fr/",
+          "items_rss": 0
+        },
+        {
+          "url": "https://www.gpi-medef47.fr/actualites",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.gpi-medef47.fr/actualites",
+          "items_rss": 0
+        }
+      ]
+    },
+    {
+      "nom": "Le Républicain Lot-et-Garonne",
+      "urls": [
+        {
+          "url": "https://actu.fr/le-republicain-lot-et-garonne/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://actu.fr/le-republicain-lot-et-garonne/",
+          "items_rss": 0
+        }
+      ]
+    }
+  ]
+}
