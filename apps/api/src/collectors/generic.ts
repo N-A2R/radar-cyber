@@ -58,6 +58,8 @@ type SourceRow = {
   last_ok_at: string | null;
   last_error_at: string | null;
   relevance: string;
+  /** Code INSEE du département éditeur, pour la veille `presse_locale`. */
+  department: string | null;
 };
 
 /** `skipped` = éléments écartés (porte de pertinence ou filtre anti-bruit). */
@@ -754,9 +756,14 @@ async function ingestNarrative(
     }
   }
 
+  // Veille de presse locale : la provenance départementale est le signal, pas
+  // le vocabulaire du titre. On n'applique donc ni la porte cyber ni la
+  // rétrogradation en `presse` : un titre de la vie locale reste un fait
+  // régional à ne pas perdre. La famille dédiée le distingue des incidents.
+  const localPress = source.family === "presse_locale";
   // Porte de pertinence : un flux de presse généraliste livre sa une, pas de
   // la cyber. Seules les sources `strict` (déjà cyber) passent sans filtre.
-  const gate = source.relevance !== "strict";
+  const gate = !localPress && source.relevance !== "strict";
   const allowedLanguages = configuredLanguages();
   // L'hôte du flux est exclu du matching d'entités (voir relevance.ts).
   let sourceHost = "";
@@ -810,7 +817,7 @@ async function ingestNarrative(
     // autres, ils montent le score au lieu d'être un contournement de la porte.
     // L'URL reste hors du texte examiné par la règle département.
     const epssHit = gate ? admitByEpss(cveTextOf(item, title, summary), coverage) : null;
-    const department = gate && admitsDepartment(`${title} ${summary}`, coverage.deptNames);
+    const department = localPress || (gate && admitsDepartment(`${title} ${summary}`, coverage.deptNames));
     let pertinence = evaluatePertinence(
       { title, summary, url: link, sourceUrl: link },
       {
@@ -821,6 +828,11 @@ async function ingestNarrative(
         department,
       },
     );
+    if (localPress) {
+      // Score conservé pour l'observabilité, mais l'admission est portée par
+      // le département de la source — jamais par un mot-clé du titre.
+      pertinence = { ...pertinence, relevant: true, reason: "dept", rule: "dept" };
+    }
     // La porte consulte aussi le gazetteer : un nom distinctif absent de
     // l'index de pertinence peut encore admettre l'item. Le score suit alors
     // ce rattachement, sinon l'événement serait admis avec un score de rejet.
@@ -892,9 +904,11 @@ async function ingestNarrative(
     // `presse` et conservée ; sur décision utilisateur du 10 novembre, elle
     // est désormais refusée à l'entrée : la base ne contient que du cyber.
     // Les familles `ransomware`/`cert_fr` et l'allowlist gardent leur famille.
-    const family = isFamily(source.family)
-      ? classifyFamily({ title, summary, sourceFamily: source.family, sourceName: source.name })
-      : source.family;
+    const family = localPress
+      ? "presse_locale"
+      : isFamily(source.family)
+        ? classifyFamily({ title, summary, sourceFamily: source.family, sourceName: source.name })
+        : source.family;
     if (family === "presse") {
       rejectedBy["presse"] = (rejectedBy["presse"] ?? 0) + 1;
       skipped++;
@@ -903,15 +917,19 @@ async function ingestNarrative(
 
     // Marqueur d'admission : une organisation rattachée prime ; sinon la règle
     // qui a fait passer l'item, sinon null (admis par la porte de pertinence).
-    const admissionRule = orgId !== null ? "org" : pertinence.rule;
+    // Une veille locale est admise par son département éditeur.
+    const admissionRule = localPress ? "dept" : orgId !== null ? "org" : pertinence.rule;
 
     // Contrat partagé : c'est lui qui tranche désormais, pas les troncatures
     // ad hoc d'ici. Une famille hors contrat ne passe plus (avant l'élargissement
     // de FAMILIES, `leaks`/`paste` traversaient sans contrôle) ; une broutille
     // réparable ne fait plus perdre l'événement. Les écarts sont comptés.
     // Portée régionale calculée à l'écriture : le fil doit pouvoir trier et
-    // filtrer sans recalculer 19 000 textes à chaque requête.
-    const portee = porteeRegionale(`${title} ${summary}`, orgId);
+    // filtrer sans recalculer 19 000 textes à chaque requête. Une veille
+    // locale est régionale par sa source, pas par une mention dans le titre.
+    const portee = localPress && source.department
+      ? { regional: true, motif: "departement" as const }
+      : porteeRegionale(`${title} ${summary}`, orgId);
     const admitted = admitEvent({
       dedupKey,
       family,
@@ -925,7 +943,12 @@ async function ingestNarrative(
       sourceUrl: link || `urn:source:${source.id}`,
       // La preuve porte le pourquoi du rattachement, pas seulement la source,
       // et le run de collecte qui a produit l'événement.
-      evidence: withRunId({ feed: source.name, rattachement: versEvidence(explication), pertinence: { score: pertinence.score, motif: pertinence.reason, termes: pertinence.matches.map((m) => m.term) } }, runId),
+      evidence: withRunId({
+        feed: source.name,
+        rattachement: versEvidence(explication),
+        pertinence: { score: pertinence.score, motif: pertinence.reason, termes: pertinence.matches.map((m) => m.term) },
+        ...(localPress && source.department ? { departement: source.department, presseLocale: true } : {}),
+      }, runId),
       geoType: "unknown",
     });
     contract.record(admitted);
@@ -939,8 +962,8 @@ async function ingestNarrative(
     const event = admitted.event;
     const r = await ingestQuery<{ inserted: boolean }>(
       `INSERT INTO event (dedup_key, family, assertion_type, title, summary, langue, org_id, observed_at, valid_at, at, date_source, date_confidence, severity, confidence,
-        source_id, source_url, evidence, geo_type, admission_rule, regional, regional_motif, fingerprint, pertinence_score, pertinence_rule)
-       VALUES ($1,$2,$13,$3,$10,$22,$11,$4,$20,$21,$5,$6,$14,$15,$7,$8,$9,$16,$12,$17,$18,$19,$23,$24)
+        source_id, source_url, evidence, geo_type, admission_rule, regional, regional_motif, fingerprint, pertinence_score, pertinence_rule, dept)
+       VALUES ($1,$2,$13,$3,$10,$22,$11,$4,$20,$21,$5,$6,$14,$15,$7,$8,$9,$16,$12,$17,$18,$19,$23,$24,$25)
        ON CONFLICT (fingerprint) WHERE fingerprint IS NOT NULL DO NOTHING
        RETURNING (xmax = 0) AS inserted`,
       [event.dedupKey, event.family, event.title, event.observedAt ?? null, parsed.source, parsed.confidence,
@@ -949,7 +972,7 @@ async function ingestNarrative(
         portee.regional, portee.motif, fingerprint,
         // valid_at : la date de l'article ; at : le moment où on l'a lu.
         event.observedAt ?? fetchedAt.toISOString(), fetchedAt.toISOString(), langue.language,
-        pertinence.score, pertinence.rule]
+        pertinence.score, pertinence.rule, localPress ? source.department : null]
     );
     if (r.rows[0]?.inserted) added++;
     faits.push({
@@ -1126,7 +1149,7 @@ export async function runGenericSources(
 	// le moteur générique ne doit pas tenter de les parser comme des flux.
 	const params: unknown[] = [];
 	let sql =
-		"SELECT id, name, family, url, kind, format, parser, interval_sec, last_ok_at, last_error_at, relevance FROM source WHERE enabled AND kind <> 'quarantine' AND id NOT IN ('cert_fr','cisa_kev','ransomlook','epss','hermes_radar_cyber','nvd_cve','ctlog','poc','certfr_misp')";
+		"SELECT id, name, family, url, kind, format, parser, interval_sec, last_ok_at, last_error_at, relevance, department FROM source WHERE enabled AND kind <> 'quarantine' AND id NOT IN ('cert_fr','cisa_kev','ransomlook','epss','hermes_radar_cyber','nvd_cve','ctlog','poc','certfr_misp')";
 	if (opts?.sourceIds?.length) {
 		params.push(opts.sourceIds);
 		sql += ` AND id = ANY($${params.length})`;

@@ -74,7 +74,8 @@ export async function runRetention(
              (dedup_key, family, assertion_type, org_id, org_name, org_kind, dept,
               source_id, source_url, severity, confidence, admission_rule,
               observed_at, collected_at, valid_at, at)
-           SELECT e.dedup_key, e.family, e.assertion_type, e.org_id, o.name, o.kind, o.dept,
+           SELECT e.dedup_key, e.family, e.assertion_type, e.org_id, o.name, o.kind,
+                  COALESCE(e.dept, o.dept),
                   e.source_id, e.source_url, e.severity, e.confidence, e.admission_rule,
                   e.observed_at, e.collected_at, e.valid_at, e.at
              FROM event e
