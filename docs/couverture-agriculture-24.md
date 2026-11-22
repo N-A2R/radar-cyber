@@ -47,3 +47,4 @@ Résultat : **18 sources, 43 URLs toutes en HTTP 200** (dont 8 flux RSS) contrô
 - `https://www.reussirleperigord.fr/actualites/` : 404 — la rubrique est `/actualite`.
 
 Limite de périmètre : les rubriques « agriculture » de Sud Ouest, France 3, Réussir et La France Agricole sont nationales/régionales mais couvrent la Dordogne ; le flux ICI est celui de la station Périgord (pas de flux départemental dédié).
+OBJECTIF : atteint — 18 / 5
