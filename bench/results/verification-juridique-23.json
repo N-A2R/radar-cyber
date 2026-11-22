@@ -1,0 +1,108 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-juridique-23.jsonl",
+  "secteur": "juridique",
+  "departement": "23",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36",
+  "methode": "GET réel avec suivi des redirections, délai maximal 18 s, User-Agent navigateur : code HTTP, type de contenu et nombre d'items RSS relevés pour chaque URL (sites, pages d'actualités et flux).",
+  "sources": 13,
+  "urls_verifiees": 30,
+  "urls_200": 30,
+  "detail": [
+    {
+      "nom": "Tribunal judiciaire de Guéret",
+      "urls": {
+        "https://www.cours-appel.justice.fr/limoges/tribunal-judiciaire-de-gueret": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.cours-appel.justice.fr/limoges/tribunal-judiciaire-de-gueret/actualites": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "Cour d'appel de Limoges — ressort de la Creuse",
+      "urls": {
+        "https://www.cours-appel.justice.fr/limoges": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.cours-appel.justice.fr/limoges/actualites": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "Notaires de France — annuaire des notaires de la Creuse",
+      "urls": {
+        "https://www.notaires.fr/fr/annuaire/nouvelle-aquitaine/creuse": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.notaires.fr/fr/actualites": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.notaires.fr/rss/actualites": {"code": 200, "type": "application/rss+xml; charset=utf-8", "items_rss": 420}
+      }
+    },
+    {
+      "nom": "Notaires de France — annuaire des notaires de Guéret",
+      "urls": {
+        "https://www.notaires.fr/fr/annuaire/nouvelle-aquitaine/creuse/gueret": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.notaires.fr/fr/actualites": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.notaires.fr/rss/actualites": {"code": 200, "type": "application/rss+xml; charset=utf-8", "items_rss": 420}
+      }
+    },
+    {
+      "nom": "Avocat.fr — annuaire du barreau de Limoges",
+      "urls": {
+        "https://consultation.avocat.fr/avocats/barreau-limoges.html": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.avocat.fr/actualites": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.avocat.fr/rss.xml": {"code": 200, "type": "application/rss+xml; charset=utf-8", "items_rss": 10}
+      }
+    },
+    {
+      "nom": "CMA Nouvelle-Aquitaine — Creuse (droit des entreprises)",
+      "urls": {
+        "https://cma-nouvelleaquitaine.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "La Montagne — édition Creuse (Guéret)",
+      "urls": {
+        "https://www.lamontagne.fr/creuse/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.lamontagne.fr/creuse/faits-divers": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "actu.fr — Guéret et Creuse",
+      "urls": {
+        "https://actu.fr/nouvelle-aquitaine/gueret_23096/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://actu.fr/nouvelle-aquitaine/creuse_23": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "ICI Creuse (Radio France)",
+      "urls": {
+        "https://www.ici.fr/nouvelle-aquitaine/creuse-23": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.ici.fr/nouvelle-aquitaine/creuse-23/actu": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.ici.fr/rss/limousin/rubrique/infos.xml": {"code": 200, "type": "application/xml", "items_rss": 20}
+      }
+    },
+    {
+      "nom": "France 3 Nouvelle-Aquitaine — Creuse",
+      "urls": {
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/creuse/gueret/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.franceinfo.fr/societe/justice.rss": {"code": 200, "type": "text/xml; charset=UTF-8", "items_rss": 20}
+      }
+    },
+    {
+      "nom": "Sud Ouest — Creuse / rubrique justice",
+      "urls": {
+        "https://www.sudouest.fr/creuse/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.sudouest.fr/justice/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.sudouest.fr/justice/rss.xml": {"code": 200, "type": "application/xml", "items_rss": 20}
+      }
+    },
+    {
+      "nom": "Conseil départemental de la Creuse",
+      "urls": {
+        "https://www.creuse.fr/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "Village de la Justice — annuaire des barreaux et actualités juridiques",
+      "urls": {
+        "https://www.village-justice.com/articles/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}
+      }
+    }
+  ]
+}
