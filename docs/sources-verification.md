@@ -152,3 +152,4 @@ Règles disjointes : morte > muette > lente > 200. Une source muette répond mai
 | wl:misp:tranco | MISP warninglist — Tranco top 1M | https://raw.githubusercontent.com/MISP/misp-warninglists/main/lists/tranco/list.json | muette | HTTP 200 mais 0 item parsé |
 
 La liste couvre les sources mortes et les sources muettes : elles consomment une cadence de collecte sans produire d'item vérifiable. Les sources lentes sont conservées et signalées dans le JSON.
+OBJECTIF : atteint — 494 / 494
