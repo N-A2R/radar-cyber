@@ -37,6 +37,7 @@ const rows = plan.orgs.flatMap((org) =>
 		org_id: idBySlug.get(org.slug)!,
 		name: org.name,
 		alias: alias.alias,
+		dept: org.dept,
 	})),
 );
 
@@ -45,19 +46,25 @@ const index = buildAliasIndex(rows);
 const buildMs = performance.now() - buildStart;
 
 const nameById = new Map(plan.orgs.map((org, index) => [index + 1, org.name]));
+const deptNom = new Map(data.departements.map((dept) => [dept.code, dept.nom]));
 const communes = plan.orgs.filter((org) => org.sector === "commune");
 const nameCounts = new Map<string, number>();
 for (const org of communes) {
 	const key = (org.city ?? "").toLowerCase();
 	nameCounts.set(key, (nameCounts.get(key) ?? 0) + 1);
 }
-
 type Outcome = "correct" | "abstention" | "erreur";
-const templates: Array<{ id: string; render: (name: string) => string }> = [
+type Commune = (typeof communes)[number];
+const templates: Array<{ id: string; render: (name: string, org: Commune) => string }> = [
 	{ id: "mairie-de", render: (n) => `La mairie de ${n} a été visée par un rançongiciel` },
 	{ id: "ville-de", render: (n) => `La ville de ${n} annonce une fuite de données` },
 	{ id: "commune-de", render: (n) => `Un incident confirmé à la commune de ${n}` },
 	{ id: "nu-contexte", render: (n) => `La mairie de ${n} indique que ses services sont interrompus` },
+	{
+		id: "avec-dept",
+		render: (n, org) =>
+			`La mairie de ${n} (${deptNom.get(org.dept ?? "") ?? org.dept}) a été visée par un rançongiciel`,
+	},
 ];
 
 const results: Array<Record<string, unknown>> = [];
@@ -71,7 +78,7 @@ for (const template of templates) {
 
 	for (const org of communes) {
 		const name = org.city ?? "";
-		const text = template.render(name);
+		const text = template.render(name, org);
 		const started = performance.now();
 		const analysis = analyzeAliasIndex(index, text);
 		latencies.push(performance.now() - started);
