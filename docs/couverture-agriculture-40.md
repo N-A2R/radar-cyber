@@ -37,3 +37,4 @@
 - `https://www.ici.fr/rss/landes/rubrique/infos.xml` et `https://www.cerfrance-adourocean.fr/rss.xml` : 404.
 
 Limite de périmètre : la SAFER, les Cuma, les Chambres et les médias spécialisés sont régionaux ou nationaux mais couvrent explicitement les Landes ; les quatre sources strictement départementales sont la FDSEA 40, le MODEF 40, la Chambre d'agriculture des Landes et Cerfrance Adour-Océan. Aucun exemple cyber agricole landais n'a pu être rattaché à une source vérifiée : le champ `exemple_cyber` est donc vide.
+OBJECTIF : atteint — 15 / 5
