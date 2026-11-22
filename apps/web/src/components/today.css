@@ -160,10 +160,13 @@
 
 .today__table th,
 .today__table td {
-  padding: var(--space-3);
+  /* Rangée dense : 7 px de padding vertical + 13 px/1.4 ≈ 32–33 px de haut.
+     Les titres longs continuent de revenir à la ligne et étirent leur rangée. */
+  padding: 7px var(--space-3);
   border-bottom: 1px solid var(--line);
   text-align: left;
-  vertical-align: top;
+  vertical-align: middle;
+  line-height: 1.4;
 }
 
 .today__table th {
@@ -171,7 +174,7 @@
   top: 0;
   background: var(--surface-2);
   color: var(--faint);
-  font: 600 11px/1.5 var(--font-mono);
+  font: 600 11px/1.4 var(--font-mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -179,7 +182,7 @@
 .today__table time {
   white-space: nowrap;
   color: var(--muted);
-  font: 400 13px/1.5 var(--font-mono);
+  font: 400 13px/1.4 var(--font-mono);
   font-variant-numeric: tabular-nums;
 }
 
@@ -187,16 +190,42 @@
   min-width: 240px;
 }
 
+/* Sévérité : pastille colorée (var(--sev-N)) + libellé court, lisibles sans
+   survol ; le libellé porte l'information, la couleur ne fait que l'appuyer. */
+.today__cellule-sev {
+  white-space: nowrap;
+}
+
+.today__sev {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text);
+  font: 600 12px/1.4 var(--font-mono);
+}
+
+.today__sev-pastille {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.today__sev-vide {
+  color: var(--faint);
+}
+
 .today__lien-titre,
 .today__lien-org {
-  min-height: 44px;
-  padding: var(--space-2);
+  min-height: 0;
+  padding: 0;
   border: 0;
   border-radius: var(--radius);
   background: none;
   color: var(--text);
-  font: 500 13px/1.5 var(--font-sans);
+  font: 500 13px/1.4 var(--font-sans);
   text-align: left;
+  overflow-wrap: anywhere;
   cursor: pointer;
 }
 
@@ -210,7 +239,7 @@
   color: var(--accent);
   display: inline-flex;
   align-items: center;
-  min-height: 44px;
+  line-height: 1.4;
 }
 
 /* Timeline : 12 barres de 2 h, lues par la valeur chiffrée et l'heure, pas
@@ -254,9 +283,67 @@
 .today__timeline-tranche {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+}
+
+/* Chaque tranche est un bouton : le clic filtre le tableau sur sa plage.
+   L'état actif se lit à la bordure, pas seulement au fond coloré. */
+.today__timeline-bouton {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   gap: var(--space-1);
+  width: 100%;
   min-width: 0;
+  padding: 2px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.today__timeline-bouton:hover {
+  border-color: var(--line-strong);
+}
+
+.today__timeline-bouton:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.today__timeline-bouton[aria-pressed="true"] {
+  border-color: var(--accent);
+  outline: 1px solid var(--accent);
+  outline-offset: -1px;
+}
+
+.today__timeline-bouton[aria-pressed="true"] .today__timeline-heure {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.today__timeline-filtre {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.today__timeline-reset {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: 600 12px/1.5 var(--font-mono);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.today__timeline-reset:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .today__timeline-valeur {
@@ -336,14 +423,15 @@
   }
   .today__table td:nth-child(1)::before { content: "date"; }
   .today__table td:nth-child(2)::before { content: "titre"; }
-  .today__table td:nth-child(3)::before { content: "organisation"; }
-  .today__table td:nth-child(4)::before { content: "source"; }
-  .today__table td:nth-child(5)::before { content: "famille"; }
-  .today__table td:nth-child(6)::before { content: "lien"; }
+  .today__table td:nth-child(3)::before { content: "sévérité"; }
+  .today__table td:nth-child(4)::before { content: "organisation"; }
+  .today__table td:nth-child(5)::before { content: "source"; }
+  .today__table td:nth-child(6)::before { content: "famille"; }
+  .today__table td:nth-child(7)::before { content: "lien"; }
   .today__table td:nth-child(2) { font-weight: 600; }
   .today__table time { white-space: normal; }
   .today__lien-titre,
-  .today__lien-org { padding: var(--space-1) 0; }
+  .today__lien-org { min-height: 32px; padding: var(--space-1) 0; }
 
   .today__timeline { padding: var(--space-3); }
   .today__timeline-graphe { gap: 2px; }

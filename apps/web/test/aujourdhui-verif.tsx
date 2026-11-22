@@ -61,9 +61,25 @@ check("une ligne réelle s'affiche", html.includes("FBI hacked again")
 	&& html.includes("leaks"));
 check("date lisible et horodatage machine", html.includes("2026-11-21 12:37 UTC") && /datetime="2026-11-21 13:37:22\+01"/i.test(html));
 check("lien source réel", html.includes("https://databreaches.net/2026/11/21/fbi-hacked-again-criminal-information-database-targeted/"));
+check("colonne sévérité présente entre titre et organisation",
+	html.includes(">sévérité</th>")
+	&& html.indexOf(">titre</th>") < html.indexOf(">sévérité</th>")
+	&& html.indexOf(">sévérité</th>") < html.indexOf(">organisation</th>"));
+check("sévérité 2 rendue en libellé court lisible", html.includes(">faible</span>")
+	&& html.includes("var(--sev-2)"));
 check("compteurs affichés tels que reçus", html.includes(String(compteurs.evenements24h)) && html.includes(String(compteurs.organisations7j)));
 check("tri décroissant", html.indexOf("FBI hacked again") < html.indexOf("Polynésie française"),
 	`ordre : ${triRecents(donnees.evenements).map((e) => e.id).join(", ")}`);
+
+const sansSeverite = renderToStaticMarkup(
+	<TodayView
+		data={{ compteurs, evenements: [{ ...ligneRattachee, severite: undefined as unknown as number }] }}
+		loading={false} error={null} family={null} dept={null} departements={[]}
+		onFamily={() => {}} onDept={() => {}} onOpenOrg={() => {}} onOpenEvent={() => {}} />,
+);
+check("sévérité absente = tiret cadratin, rien d'inventé",
+	sansSeverite.includes('aria-label="sévérité inconnue">—</span>')
+	&& !sansSeverite.includes("today__sev-libelle"));
 
 const sansDonnees = renderToStaticMarkup(
 	<TodayView data={null} loading error={null} family={null} dept={null} departements={[]}
