@@ -51,3 +51,5 @@ Sources strictement départementales (Chambre d'agriculture 64, DDTM 64, MODEF 6
 - `https://www.inrae.fr/actualites` et `https://www.inrae.fr/` : 200 mais aucun centre INRAE identifié dans le 64 à la date du contrôle ; hors périmètre départemental retenu.
 - `https://linktr.ee/fdsea64` : HTTP 200 mais simple page de liens, sans page d'actualités propre ; `https://www.facebook.com/FDSEA64` renvoie HTTP 400 aux requêtes HTTP anonymes. FDSEA 64 n'est donc pas retenue comme source vérifiable.
 - `https://www.bionouvelleaquitaine.com/feed/` : HTTP 200 mais flux sans articles à la date du contrôle ; l'URL reste renseignée et vérifiée, la page d'actualités reste la source primaire.
+
+OBJECTIF : atteint — 23 sources vérifiées en HTTP 200 / 5 sources vérifiées en HTTP 200
