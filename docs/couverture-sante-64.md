@@ -43,3 +43,5 @@ Chaque ligne du corpus porte les neuf clés `{nom, type, secteur, departement, u
 Recherche web par familles (annuaires professionnels, agences sanitaires, ordres, fédérations, hôpitaux, presse locale), identification de la page d'actualités et du flux de chaque organisation, puis contrôle GET des trois URL avec un User-Agent navigateur, suivi des redirections et délai maximal de 25 s. Le nombre d'items est lu dans le flux lorsque le format est RSS/Atom. Les URL répondant 200 mais redirigeant vers une page d'erreur (`ch-pau.fr/rss.xml` → `page-non-trouvee/`) ont été écartées. La migration SQL est idempotente : `ON CONFLICT (id) DO UPDATE` pour `source`, `WHERE NOT EXISTS` pour `source_verification`.
 
 Objectif chiffré : au moins 5 sources vérifiées en 200 pour santé/64. **Résultat : 21/21 sources vérifiées en 200 (63/63 URL).**
+
+OBJECTIF : atteint — 21 / 5
