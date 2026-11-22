@@ -1,0 +1,462 @@
+{
+  "secteur": "banque-assurance",
+  "departement": "33",
+  "fichier": "sources-banque-assurance-33.jsonl",
+  "sources": 27,
+  "urls_verifiees": 75,
+  "urls_http_200": 75,
+  "verifie_le": "2026-11-22",
+  "methode": "GET avec User-Agent navigateur, suivi des redirections, delai 25 s ; titre et contenu controles (pas de page d'erreur ni de mur antibot)",
+  "urls": [
+    {
+      "url": "https://acpr.banque-france.fr/fr",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://acpr.banque-france.fr/fr"
+    },
+    {
+      "url": "https://acpr.banque-france.fr/fr/actualites",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://acpr.banque-france.fr/fr/actualites"
+    },
+    {
+      "url": "https://acpr.banque-france.fr/fr/communiques-de-presse/escroqueries-lacpr-met-en-garde-le-public-contre-les-propositions-frauduleuses-de-credits-de-livrets",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://acpr.banque-france.fr/fr/communiques-de-presse/escroqueries-lacpr-met-en-garde-le-public-contre-les-propositions-frauduleuses-de-credits-de-livrets"
+    },
+    {
+      "url": "https://actu.fr/nouvelle-aquitaine/arcachon_33004",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://actu.fr/nouvelle-aquitaine/arcachon_33004"
+    },
+    {
+      "url": "https://actu.fr/nouvelle-aquitaine/bordeaux_33063",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://actu.fr/nouvelle-aquitaine/bordeaux_33063"
+    },
+    {
+      "url": "https://actu.fr/nouvelle-aquitaine/gironde_33",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://actu.fr/nouvelle-aquitaine/gironde_33"
+    },
+    {
+      "url": "https://actu.fr/nouvelle-aquitaine/gironde_33/rss.xml",
+      "code_http": 200,
+      "content_type": "application/rss+xml; charset=utf-8",
+      "final_url": "https://actu.fr/nouvelle-aquitaine/gironde_33/rss.xml"
+    },
+    {
+      "url": "https://actu.fr/nouvelle-aquitaine/libourne_33243",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://actu.fr/nouvelle-aquitaine/libourne_33243"
+    },
+    {
+      "url": "https://actu.fr/nouvelle-aquitaine/merignac_33281/voiture-disparue-escroquerie-ils-denoncent-une-arnaque-dans-un-parking-pres-de-l-aeroport-de-bordeaux_63054901.html",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://actu.fr/nouvelle-aquitaine/merignac_33281/voiture-disparue-escroquerie-ils-denoncent-une-arnaque-dans-un-parking-pres-de-l-aeroport-de-bordeaux_63054901.html"
+    },
+    {
+      "url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites"
+    },
+    {
+      "url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites/les-artisans-des-cibles-de-choix-pour-les-cybercriminels",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites/les-artisans-des-cibles-de-choix-pour-les-cybercriminels"
+    },
+    {
+      "url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/nous-trouver/cma-gironde",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/nous-trouver/cma-gironde"
+    },
+    {
+      "url": "https://entreprise.maif.fr/actualites",
+      "code_http": 200,
+      "content_type": "text/html;charset=UTF-8",
+      "final_url": "https://entreprise.maif.fr/actualites"
+    },
+    {
+      "url": "https://fbf.fr/fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://fbf.fr/fr/"
+    },
+    {
+      "url": "https://fbf.fr/fr/communique_de_presse/fraude-aux-moyens-de-paiements-un-appel-aux-acteurs-du-numerique-a-se-mobiliser/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://fbf.fr/fr/communique_de_presse/fraude-aux-moyens-de-paiements-un-appel-aux-acteurs-du-numerique-a-se-mobiliser/"
+    },
+    {
+      "url": "https://fbf.fr/fr/rubrique-newsroom/actualites/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://fbf.fr/fr/rubrique-newsroom/actualites/"
+    },
+    {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/"
+    },
+    {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde"
+    },
+    {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux"
+    },
+    {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/les-donnees-personnelles-et-medicales-de-250-000-personnes-ciblees-par-une-cyberattaque-d-ampleur-3331361.html",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/bordeaux/les-donnees-personnelles-et-medicales-de-250-000-personnes-ciblees-par-une-cyberattaque-d-ampleur-3331361.html"
+    },
+    {
+      "url": "https://gironde.msa.fr/lfp/",
+      "code_http": 200,
+      "content_type": "text/html;charset=UTF-8",
+      "final_url": "https://gironde.msa.fr/lfp/"
+    },
+    {
+      "url": "https://gironde.msa.fr/lfp/actualites-particulier",
+      "code_http": 200,
+      "content_type": "text/html;charset=UTF-8",
+      "final_url": "https://gironde.msa.fr/lfp/actualites-particulier"
+    },
+    {
+      "url": "https://gironde.msa.fr/lfp/fraude-internet-telephone",
+      "code_http": 200,
+      "content_type": "text/html;charset=UTF-8",
+      "final_url": "https://gironde.msa.fr/lfp/fraude-internet-telephone"
+    },
+    {
+      "url": "https://nouvelle-aquitaine.mutualite.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://nouvelle-aquitaine.mutualite.fr/"
+    },
+    {
+      "url": "https://nouvelle-aquitaine.mutualite.fr/actualites/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://nouvelle-aquitaine.mutualite.fr/actualites/"
+    },
+    {
+      "url": "https://nouvelle-aquitaine.mutualite.fr/actualites/feed/",
+      "code_http": 200,
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "final_url": "https://nouvelle-aquitaine.mutualite.fr/actualites/feed/"
+    },
+    {
+      "url": "https://www.20minutes.fr/bordeaux/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.20minutes.fr/bordeaux/"
+    },
+    {
+      "url": "https://www.20minutes.fr/faits_divers/4244574-20260911-victime-fraude-kbis-architecte-perdu-entreprise-jour-lendemain",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.20minutes.fr/faits_divers/4244574-20260911-victime-fraude-kbis-architecte-perdu-entreprise-jour-lendemain"
+    },
+    {
+      "url": "https://www.20minutes.fr/feeds/rss-une.xml",
+      "code_http": 200,
+      "content_type": "application/xml",
+      "final_url": "https://www.20minutes.fr/feeds/rss-une.xml"
+    },
+    {
+      "url": "https://www.assurance-maladie.ameli.fr/actualites-et-publications/actualites/nouvelle-aquitaine",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.assurance-maladie.ameli.fr/actualites-et-publications/actualites/nouvelle-aquitaine"
+    },
+    {
+      "url": "https://www.assurance-maladie.ameli.fr/construire-le-systeme-de-sante-de-demain/nous-luttons-contre-les-fraudes-pour-proteger-le-systeme-de-sante",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.assurance-maladie.ameli.fr/construire-le-systeme-de-sante-de-demain/nous-luttons-contre-les-fraudes-pour-proteger-le-systeme-de-sante"
+    },
+    {
+      "url": "https://www.assurance-maladie.ameli.fr/nous-connaitre/organisation/le-reseau-de-proximite/nos-organismes/nouvelle-aquitaine/cpam-de-la-gironde",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.assurance-maladie.ameli.fr/nous-connaitre/organisation/le-reseau-de-proximite/nos-organismes/nouvelle-aquitaine/cpam-de-la-gironde"
+    },
+    {
+      "url": "https://www.banquepopulaire.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.banquepopulaire.fr/"
+    },
+    {
+      "url": "https://www.banquepopulaire.fr/conseils/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.banquepopulaire.fr/conseils/"
+    },
+    {
+      "url": "https://www.banquepopulaire.fr/votre-banque/actualites/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.banquepopulaire.fr/votre-banque/actualites/"
+    },
+    {
+      "url": "https://www.banquepopulaire.fr/votre-banque/securite/le-phishing/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.banquepopulaire.fr/votre-banque/securite/le-phishing/"
+    },
+    {
+      "url": "https://www.banquepopulaire.fr/votre-banque/securite/pass-cyberplus/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.banquepopulaire.fr/votre-banque/securite/pass-cyberplus/"
+    },
+    {
+      "url": "https://www.bfmtv.com/bordeaux/",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.bfmtv.com/bordeaux/"
+    },
+    {
+      "url": "https://www.bfmtv.com/bordeaux/page2/",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.bfmtv.com/bordeaux/page2/"
+    },
+    {
+      "url": "https://www.bfmtv.com/rss/tech/",
+      "code_http": 200,
+      "content_type": "application/xml",
+      "final_url": "https://www.bfmtv.com/rss/tech/"
+    },
+    {
+      "url": "https://www.bfmtv.com/tech/cybersecurite/aucune-donnee-de-paiement-comme-des-numeros-de-cartes-bancaires-n-a-ete-affectee-les-banques-jp-morgan-visa-et-mastercard-victimes-d-une-fuite-de-donnees-apres-le-piratage-d-un-sous-traitant_AD-202611200422.html",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.bfmtv.com/tech/cybersecurite/aucune-donnee-de-paiement-comme-des-numeros-de-cartes-bancaires-n-a-ete-affectee-les-banques-jp-morgan-visa-et-mastercard-victimes-d-une-fuite-de-donnees-apres-le-piratage-d-un-sous-traitant_AD-202611200422.html"
+    },
+    {
+      "url": "https://www.caisse-epargne.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.caisse-epargne.fr/"
+    },
+    {
+      "url": "https://www.caisse-epargne.fr/conseils/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.caisse-epargne.fr/conseils/"
+    },
+    {
+      "url": "https://www.caisse-epargne.fr/votre-banque/securite/le-phishing/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.caisse-epargne.fr/votre-banque/securite/le-phishing/"
+    },
+    {
+      "url": "https://www.carsat-aquitaine.fr/",
+      "code_http": 200,
+      "content_type": "text/html;charset=UTF-8",
+      "final_url": "https://www.carsat-aquitaine.fr/home.html"
+    },
+    {
+      "url": "https://www.carsat-aquitaine.fr/home/actif/actualites-actif.html",
+      "code_http": 200,
+      "content_type": "text/html;charset=UTF-8",
+      "final_url": "https://www.carsat-aquitaine.fr/home/actif/actualites-actif.html"
+    },
+    {
+      "url": "https://www.carsat-aquitaine.fr/home/actif/actualites-actif/toutes%20les%20actualites/courriels-appels-frauduleux.details-actualite.html",
+      "code_http": 200,
+      "content_type": "text/html;charset=UTF-8",
+      "final_url": "https://www.carsat-aquitaine.fr/home/actif/actualites-actif/toutes%20les%20actualites/courriels-appels-frauduleux.details-actualite.html"
+    },
+    {
+      "url": "https://www.credit-agricole.fr/",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://www.credit-agricole.fr/"
+    },
+    {
+      "url": "https://www.credit-agricole.fr/ca-aquitaine/particulier.html",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://www.credit-agricole.fr/ca-aquitaine/particulier.html"
+    },
+    {
+      "url": "https://www.credit-agricole.fr/ca-aquitaine/particulier/conseils/magazine/tout-un-mag.html",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://www.credit-agricole.fr/ca-aquitaine/particulier/conseils/magazine/tout-un-mag.html"
+    },
+    {
+      "url": "https://www.credit-agricole.fr/ca-aquitaine/particulier/conseils/magazine/tout-un-mag/fraudes-a-la-carte-bancaire-en-2018-des-conditions-de-remboursement-plus-favorables.html",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://www.credit-agricole.fr/ca-aquitaine/particulier/conseils/magazine/tout-un-mag/fraudes-a-la-carte-bancaire-en-2018-des-conditions-de-remboursement-plus-favorables.html"
+    },
+    {
+      "url": "https://www.credit-agricole.fr/particulier/cybersecurite/alertes-phishing-email.html",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://www.credit-agricole.fr/particulier/cybersecurite/alertes-phishing-email.html"
+    },
+    {
+      "url": "https://www.credit-agricole.fr/particulier/cybersecurite/alertes.html",
+      "code_http": 200,
+      "content_type": "text/html",
+      "final_url": "https://www.credit-agricole.fr/particulier/cybersecurite/alertes.html"
+    },
+    {
+      "url": "https://www.franceassureurs.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.franceassureurs.fr/"
+    },
+    {
+      "url": "https://www.franceassureurs.fr/actualites/",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.franceassureurs.fr/actualites/"
+    },
+    {
+      "url": "https://www.franceassureurs.fr/espace-presse/8e-cartographie-prospective-des-risques-assurance-dereglement-climatique-cyberattaques/",
+      "code_http": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.franceassureurs.fr/espace-presse/8e-cartographie-prospective-des-risques-assurance-dereglement-climatique-cyberattaques/"
+    },
+    {
+      "url": "https://www.franceassureurs.fr/feed/",
+      "code_http": 200,
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "final_url": "https://www.franceassureurs.fr/feed/"
+    },
+    {
+      "url": "https://www.groupama.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.groupama.fr/"
+    },
+    {
+      "url": "https://www.groupama.fr/assurance-professionnels/conseils/prevention-risque-cyber-entreprise/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.groupama.fr/assurance-professionnels/conseils/prevention-risque-cyber-entreprise/"
+    },
+    {
+      "url": "https://www.groupama.fr/assurance/conseils/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.groupama.fr/assurance/conseils/"
+    },
+    {
+      "url": "https://www.ici.fr/emissions/ici-gironde-ca-marche-avec-isabelle-wagner/la-cybersecurite-au-campus-efrei-bordeaux-9258319",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.ici.fr/emissions/ici-gironde-ca-marche-avec-isabelle-wagner/la-cybersecurite-au-campus-efrei-bordeaux-9258319"
+    },
+    {
+      "url": "https://www.ici.fr/radio/gironde",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.ici.fr/radio/gironde"
+    },
+    {
+      "url": "https://www.ici.fr/radio/gironde/actu",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.ici.fr/radio/gironde/actu"
+    },
+    {
+      "url": "https://www.ici.fr/rss/gironde/rubrique/infos.xml",
+      "code_http": 200,
+      "content_type": "application/xml",
+      "final_url": "https://www.ici.fr/rss/gironde/rubrique/infos.xml"
+    },
+    {
+      "url": "https://www.maif.fr/",
+      "code_http": 200,
+      "content_type": "text/html;charset=UTF-8",
+      "final_url": "https://www.maif.fr/"
+    },
+    {
+      "url": "https://www.maif.fr/conseils-prevention/les-risques-numeriques/securiser-sa-messagerie",
+      "code_http": 200,
+      "content_type": "text/html;charset=UTF-8",
+      "final_url": "https://www.maif.fr/conseils-prevention/les-risques-numeriques/securiser-sa-messagerie"
+    },
+    {
+      "url": "https://www.mutualite.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.mutualite.fr/"
+    },
+    {
+      "url": "https://www.mutualite.fr/actualites/cyberattaques-un-impact-sur-la-prise-en-charge-des-patients/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.mutualite.fr/actualites/cyberattaques-un-impact-sur-la-prise-en-charge-des-patients/"
+    },
+    {
+      "url": "https://www.mutualite.fr/actualites/la-lutte-contre-la-fraude-sociale/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.mutualite.fr/actualites/la-lutte-contre-la-fraude-sociale/"
+    },
+    {
+      "url": "https://www.mutualite.fr/actualites/nos-actualites/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.mutualite.fr/actualites/nos-actualites/"
+    },
+    {
+      "url": "https://www.orias.fr/",
+      "code_http": 200,
+      "content_type": "text/html;charset=UTF-8",
+      "final_url": "https://www.orias.fr/"
+    },
+    {
+      "url": "https://www.orias.fr/home/communications",
+      "code_http": 200,
+      "content_type": "text/html;charset=UTF-8",
+      "final_url": "https://www.orias.fr/home/communications"
+    },
+    {
+      "url": "https://www.smacl.fr/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.smacl.fr/"
+    },
+    {
+      "url": "https://www.smacl.fr/actus-et-conseils/",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.smacl.fr/actus-et-conseils/"
+    },
+    {
+      "url": "https://www.smacl.fr/actus-et-conseils/prevention-cyberattaques-castelnau-le-lez",
+      "code_http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.smacl.fr/actus-et-conseils/prevention-cyberattaques-castelnau-le-lez"
+    }
+  ]
+}
