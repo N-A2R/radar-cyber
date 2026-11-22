@@ -1,0 +1,335 @@
+{
+  "candidates": 1412,
+  "priorQids": 13714,
+  "selected": 62,
+  "verified": 39,
+  "applied": true,
+  "before": {
+    "organisations": 1673220,
+    "nouvelleAquitaine": 1671911,
+    "withDomain": 1580,
+    "withVerifiedProvenance": 1565,
+    "coveragePercent": 0.0936
+  },
+  "after": {
+    "organisations": 1673220,
+    "nouvelleAquitaine": 1671911,
+    "withDomain": 1619,
+    "withVerifiedProvenance": 1604,
+    "coveragePercent": 0.0959
+  },
+  "domains": [
+    {
+      "orgId": 571230,
+      "siren": "905007126",
+      "domain": "editions-libertaires.org",
+      "qid": "Q117423115",
+      "label": "Éditions libertaires",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 240865,
+      "siren": "452439441",
+      "domain": "coffre-a-bd.com",
+      "qid": "Q3221549",
+      "label": "Le Coffre à BD",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2389675,
+      "siren": "850223017",
+      "domain": "europeanconstitution.eu",
+      "qid": "Q110723897",
+      "label": "EuropeanConstitution.eu",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 414622,
+      "siren": "808671234",
+      "domain": "elixir-aircraft.com",
+      "qid": "Q109023355",
+      "label": "Elixir Aircraft",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2350122,
+      "siren": "803025972",
+      "domain": "wiidii.com",
+      "qid": "Q31724265",
+      "label": "Wiidii",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 222116,
+      "siren": "443386446",
+      "domain": "cpmn.info",
+      "qid": "Q2948427",
+      "label": "chambre professionnelle de la médiation et de la négociation",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 309662,
+      "siren": "509233896",
+      "domain": "serpe.org",
+      "qid": "Q124259204",
+      "label": "Société d'études et de recherches préhistoriques des Eyzies",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 269538,
+      "siren": "489155879",
+      "domain": "kino-session.com",
+      "qid": "Q84644773",
+      "label": "Kino Session",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 220454,
+      "siren": "442727400",
+      "domain": "briscadieu-bordeaux.com",
+      "qid": "Q118206707",
+      "label": "Briscadieu Bordeaux",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 360575,
+      "siren": "750352312",
+      "domain": "certifair.com",
+      "qid": "Q112112157",
+      "label": "CertifAir",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 312814,
+      "siren": "510758014",
+      "domain": "smbp24.fr",
+      "qid": "Q125949508",
+      "label": "Société Mycologique et Botanique du Périgord",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 65415,
+      "siren": "107289209",
+      "domain": "atelatoi.fr",
+      "qid": "Q135781291",
+      "label": "Atélatoi",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 22399,
+      "siren": "984685917",
+      "domain": "hopopope.fr",
+      "qid": "Q138357273",
+      "label": "Hopopope",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 152043,
+      "siren": "401550553",
+      "domain": "leh.fr",
+      "qid": "Q139718649",
+      "label": "Les Études Hospitalières",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 27792,
+      "siren": "978856052",
+      "domain": "imogen.fr",
+      "qid": "Q141253653",
+      "label": "IMOGEN",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 21613,
+      "siren": "851387225",
+      "domain": "atoptima.fr",
+      "qid": "Q141489886",
+      "label": "Atoptima",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 21415,
+      "siren": "803963214",
+      "domain": "kapptivate.com",
+      "qid": "Q136375432",
+      "label": "kapptivate",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 647869,
+      "siren": "941567711",
+      "domain": "beliver.fr",
+      "qid": "Q139550416",
+      "label": "BeLiver",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 514904,
+      "siren": "878220318",
+      "domain": "usg-rugby.fr",
+      "qid": "Q133697853",
+      "label": "Union sportive grenadoise rugby",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 2180169,
+      "siren": "432514396",
+      "domain": "salitois.clubeo.com",
+      "qid": "Q133699125",
+      "label": "Sport athlétique litois",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 542876,
+      "siren": "891948333",
+      "domain": "illith.com",
+      "qid": "Q139973450",
+      "label": "ILLITH",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 225429,
+      "siren": "444607717",
+      "domain": "clodejac.com",
+      "qid": "Q130543792",
+      "label": "Clodejac",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 434471,
+      "siren": "818259152",
+      "domain": "femtoeasy.eu",
+      "qid": "Q107530231",
+      "label": "Femto Easy",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 374731,
+      "siren": "782103972",
+      "domain": "asondres.com",
+      "qid": "Q108290259",
+      "label": "Association sportive ondraise",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 119214,
+      "siren": "380712828",
+      "domain": "serma.com",
+      "qid": "Q112112426",
+      "label": "SERMA Group",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 374479,
+      "siren": "782079164",
+      "domain": "hagetmaurugby.fr",
+      "qid": "Q3493859",
+      "label": "Sport athlétique hagetmautien",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 603544,
+      "siren": "920982105",
+      "domain": "fiertes-rurales.org",
+      "qid": "Q135001274",
+      "label": "Fiertés Rurales",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 97886,
+      "siren": "340634096",
+      "domain": "agorila.com",
+      "qid": "Q2827076",
+      "label": "Agorila",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 375853,
+      "siren": "782325997",
+      "domain": "paunoustysports.fr",
+      "qid": "Q86734137",
+      "label": "Pau Nousty Sports",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 655393,
+      "siren": "944503267",
+      "domain": "toulondit.fr",
+      "qid": "Q142141786",
+      "label": "Toulondit",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 239687,
+      "siren": "451931208",
+      "domain": "nobatek.com",
+      "qid": "Q30290760",
+      "label": "Nobatek",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 29988,
+      "siren": "999252125",
+      "domain": "group.croney-technology.com",
+      "qid": "Q138065911",
+      "label": "Croney Technology Group",
+      "confidence": 0.85
+    },
+    {
+      "orgId": 442175,
+      "siren": "821159761",
+      "domain": "anv-cop21.org",
+      "qid": "Q64022197",
+      "label": "Action non-violente COP21",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 82806,
+      "siren": "318976057",
+      "domain": "autocars-souletins.com",
+      "qid": "Q106702606",
+      "label": "Autocars Souletins",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 234770,
+      "siren": "449998202",
+      "domain": "escolagastonfebus.com",
+      "qid": "Q3058027",
+      "label": "Escòla Gaston Fèbus",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 336311,
+      "siren": "526880117",
+      "domain": "cognac-tercinier.com",
+      "qid": "Q111633236",
+      "label": "Vallein Tercinier",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 22544,
+      "siren": "912049053",
+      "domain": "managed-code.com",
+      "qid": "Q140757847",
+      "label": "Managed Code",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 134548,
+      "siren": "390583128",
+      "domain": "menestrersgascons.com",
+      "qid": "Q93982686",
+      "label": "Menestrèrs Gascons",
+      "confidence": 0.95
+    },
+    {
+      "orgId": 235030,
+      "siren": "450100227",
+      "domain": "usnafarroa.eus",
+      "qid": "Q3550500",
+      "label": "Union sportive Nafarroa",
+      "confidence": 0.85
+    }
+  ]
+}

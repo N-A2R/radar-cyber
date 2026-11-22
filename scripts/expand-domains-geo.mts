@@ -155,7 +155,7 @@ export function provenanceForGeo(selection: GeoSelection, verdict: Verdict) {
 }
 
 /** Reads Nouvelle-Aquitaine organisations without a domain by name token. */
-async function organisationsByTokens(tokens: string[]): Promise<Map<string, Organisation[]>> {
+export async function organisationsByTokens(tokens: string[]): Promise<Map<string, Organisation[]>> {
 	if (!tokens.length) return new Map();
 	const { rows } = await query<Organisation & { jeton: string }>(`
 		SELECT DISTINCT o.id, o.name, o.city, o.dept, o.siren, o.domain, lower(jeton) AS jeton
@@ -179,7 +179,7 @@ async function organisationsByTokens(tokens: string[]): Promise<Map<string, Orga
 }
 
 /** QIDs carrying a verified domain, read from public provenance only. */
-async function attributedQids(): Promise<Set<string>> {
+export async function attributedQids(): Promise<Set<string>> {
 	const { rows } = await query<{ qid: string }>(`
 		SELECT DISTINCT preuve->>'qid' AS qid
 		FROM org_enrichissement

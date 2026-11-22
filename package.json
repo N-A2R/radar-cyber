@@ -40,6 +40,7 @@
     "domaines:etendre": "apps/api/node_modules/.bin/tsx scripts/expand-domains.mts",
     "domaines:etendre-racine": "apps/api/node_modules/.bin/tsx scripts/expand-domains-racine.mts",
     "domaines:etendre-geo": "apps/api/node_modules/.bin/tsx scripts/expand-domains-geo.mts",
+    "domaines:etendre-siege": "apps/api/node_modules/.bin/tsx scripts/expand-domains-hq.mts",
     "sources:generate": "node scripts/generer-sources-actives.mts",
     "sources:measure": "node scripts/measure-active-sources.mts"
   },
