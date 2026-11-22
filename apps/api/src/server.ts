@@ -34,6 +34,7 @@ import { installAccessControl } from "./security/rbac.js";
 import { installSecurityHeaders } from "./security/headers.js";
 import { installErrorHandler } from "./errors.js";
 import { installPublicApi } from "./openapi/install.js";
+import { maybeStartHoneypot } from "./honeypot/server.js";
 
 const port = Number(process.env.PORT ?? 8080);
 /** Cadence de la boucle de collecte. */
@@ -254,6 +255,7 @@ async function guarded(name: string, fn: () => Promise<void>): Promise<void> {
 }
 
 const log = (m: string) => app.log.info(m);
+maybeStartHoneypot(log);
 
 /**
  * Un cycle de collecte = les collecteurs dédiés et génériques lancés ensemble,
