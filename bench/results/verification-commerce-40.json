@@ -1,0 +1,383 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-commerce-40.jsonl",
+  "secteur": "commerce",
+  "departement": "40",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+  "methode": "GET réel avec suivi des redirections, délai 25 s, User-Agent navigateur ; code HTTP, type de contenu et nombre d'items RSS enregistrés pour chaque site, page d'actualités, flux et article cyber. Exa hors crédits (402) : candidats identifiés via branches du dépôt et sites officiels, tous contrôlés en HTTP direct.",
+  "sources": 14,
+  "urls_verifiees": 50,
+  "urls_200": 50,
+  "detail": [
+    {
+      "nom": "CCI des Landes — actualités et entreprises",
+      "urls": {
+        "site": {
+          "url": "https://www.landes.cci.fr/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items": 0
+        },
+        "actualites": {
+          "url": "https://www.landes.cci.fr/actualite/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items": 0
+        },
+        "exemple_cyber": {
+          "url": "https://www.landes.cci.fr/presse/marshack-2026-cybersecurite/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items": 0
+        }
+      }
+    },
+    {
+      "nom": "CMA Nouvelle-Aquitaine — antenne des Landes",
+      "urls": {
+        "site": {
+          "url": "https://www.cma-landes.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "actualites": {
+          "url": "https://www.cma-landes.fr/actualites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "exemple_cyber": {
+          "url": "https://www.aquitaineonline.com/actualites-en-aquitaine/landes/9919-mars-hack-cyber-evenement-dans-les-landes.html",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items": 0
+        }
+      }
+    },
+    {
+      "nom": "MEDEF des Landes — actualités",
+      "urls": {
+        "site": {
+          "url": "https://landes.territoriaux.medef.com/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "actualites": {
+          "url": "https://landes.territoriaux.medef.com/actualites",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "flux": {
+          "url": "https://news.google.com/rss/search?q=MEDEF%20Landes&hl=fr&gl=FR&ceid=FR:fr",
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "items": 21
+        },
+        "exemple_cyber": {
+          "url": "https://www.landes.cci.fr/presse/marshack-2026-cybersecurite/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items": 0
+        }
+      }
+    },
+    {
+      "nom": "Club Landes Entreprises",
+      "urls": {
+        "site": {
+          "url": "https://club-landes-entreprises.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "actualites": {
+          "url": "https://club-landes-entreprises.fr/agenda/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "flux": {
+          "url": "https://club-landes-entreprises.fr/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items": 10
+        },
+        "exemple_cyber": {
+          "url": "https://www.landes.cci.fr/presse/marshack-2026-cybersecurite/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items": 0
+        }
+      }
+    },
+    {
+      "nom": "Landes & Business — club d'affaires (Dax)",
+      "urls": {
+        "site": {
+          "url": "https://www.landes-business.fr/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "actualites": {
+          "url": "https://www.landes-business.fr/landes/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "flux": {
+          "url": "https://www.landes-business.fr/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items": 1
+        },
+        "exemple_cyber": {
+          "url": "https://landesinfo.net/05/02/arnaque-au-faux-sms-a-mont-de-marsan-une-victime-perd-52-000-euros/19949/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        }
+      }
+    },
+    {
+      "nom": "Le Journal des Entreprises — Landes",
+      "urls": {
+        "site": {
+          "url": "https://www.lejournaldesentreprises.com/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "actualites": {
+          "url": "https://www.lejournaldesentreprises.com/regions/france/nouvelle-aquitaine/landes",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "flux": {
+          "url": "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine",
+          "code": 200,
+          "type": "text/xml; charset=UTF-8",
+          "items": 20
+        },
+        "exemple_cyber": {
+          "url": "https://actu.fr/nouvelle-aquitaine/mont-de-marsan_40192/les-pompiers-des-landes-victimes-d-une-cyberattaque-des-donnees-personnelles-ont-ete-extraites_64593363.html",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        }
+      }
+    },
+    {
+      "nom": "actu.fr — Landes (économie)",
+      "urls": {
+        "site": {
+          "url": "https://actu.fr/landes/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "actualites": {
+          "url": "https://actu.fr/landes/economie",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "flux": {
+          "url": "https://actu.fr/landes/rss.xml",
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "items": 20
+        },
+        "exemple_cyber": {
+          "url": "https://actu.fr/nouvelle-aquitaine/mont-de-marsan_40192/les-pompiers-des-landes-victimes-d-une-cyberattaque-des-donnees-personnelles-ont-ete-extraites_64593363.html",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        }
+      }
+    },
+    {
+      "nom": "Landes Info — actualités économiques",
+      "urls": {
+        "site": {
+          "url": "https://landesinfo.net/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "actualites": {
+          "url": "https://landesinfo.net/edition",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "flux": {
+          "url": "https://landesinfo.net/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items": 10
+        },
+        "exemple_cyber": {
+          "url": "https://landesinfo.net/05/02/arnaque-au-faux-sms-a-mont-de-marsan-une-victime-perd-52-000-euros/19949/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        }
+      }
+    },
+    {
+      "nom": "Les Annonces Landaises — actualités",
+      "urls": {
+        "site": {
+          "url": "https://www.annonces-landaises.com/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "actualites": {
+          "url": "https://www.annonces-landaises.com/categories/collectivites/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "flux": {
+          "url": "https://www.annonces-landaises.com/feed/",
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items": 10
+        },
+        "exemple_cyber": {
+          "url": "https://www.annonces-landaises.com/actualites/collectivites-octobre-mois-de-la-cybersecurite-a-mont-de-marsan/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        }
+      }
+    },
+    {
+      "nom": "ZE mag 40 — actualités des Landes",
+      "urls": {
+        "site": {
+          "url": "https://www.zemag40.com/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "actualites": {
+          "url": "https://www.zemag40.com/zemag/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "flux": {
+          "url": "https://www.zemag40.com/rss/blog",
+          "code": 200,
+          "type": "application/rss+xml;  charset=utf-8",
+          "items": 1
+        }
+      }
+    },
+    {
+      "nom": "Mon-Entreprise-Info — actualités Landes",
+      "urls": {
+        "site": {
+          "url": "https://mon-entreprise-info.com/",
+          "code": 200,
+          "type": "text/html",
+          "items": 0
+        },
+        "actualites": {
+          "url": "https://mon-entreprise-info.com/actualites/landes/",
+          "code": 200,
+          "type": "text/html",
+          "items": 0
+        },
+        "flux": {
+          "url": "https://mon-entreprise-info.com/actualites/landes/rss.xml",
+          "code": 200,
+          "type": "application/xml",
+          "items": 50
+        }
+      }
+    },
+    {
+      "nom": "Societe.Tech — entreprises Landes",
+      "urls": {
+        "site": {
+          "url": "https://www.societe.tech/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "actualites": {
+          "url": "https://www.societe.tech/actualite-entreprises-nouvelle-aquitaine/actualite-entreprises-landes/",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "flux": {
+          "url": "https://news.google.com/rss/search?q=Societe.Tech%20Landes&hl=fr&gl=FR&ceid=FR:fr",
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "items": 32
+        }
+      }
+    },
+    {
+      "nom": "AquitaineOnLine — Landes",
+      "urls": {
+        "site": {
+          "url": "https://www.aquitaineonline.com/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items": 0
+        },
+        "actualites": {
+          "url": "https://www.aquitaineonline.com/actualites-en-aquitaine/landes/",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items": 0
+        },
+        "exemple_cyber": {
+          "url": "https://www.aquitaineonline.com/actualites-en-aquitaine/landes/9919-mars-hack-cyber-evenement-dans-les-landes.html",
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items": 0
+        }
+      }
+    },
+    {
+      "nom": "ICI Gascogne — Landes (Radio France)",
+      "urls": {
+        "site": {
+          "url": "https://www.ici.fr/nouvelle-aquitaine/landes-40",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "actualites": {
+          "url": "https://www.ici.fr/nouvelle-aquitaine/landes-40",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        },
+        "flux": {
+          "url": "https://www.ici.fr/rss/gascogne/rubrique/infos.xml",
+          "code": 200,
+          "type": "application/xml",
+          "items": 20
+        },
+        "exemple_cyber": {
+          "url": "https://www.ici.fr/infos/faits-divers-justice/des-reseaux-de-transport-landais-victimes-d-une-arnaque-sur-facebook-1671740",
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items": 0
+        }
+      }
+    }
+  ]
+}
