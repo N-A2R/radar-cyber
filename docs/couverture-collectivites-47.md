@@ -43,3 +43,5 @@ Résultat : **17 sources, 43 URL distinctes toutes en HTTP 200** le 2026-11-22 (
 - `https://actu.fr/lot-et-garonne` et son flux : HTTP 403 au contrôle ; non retenus.
 - `https://www.agglo-valdegaronne.fr/`, `https://www.lepassage47.fr/`, `https://www.marmande-val-de-garonne.fr/`, `https://www.cma-lot-et-garonne.fr/`, `https://lot-et-garonne.cci.fr/` : NXDOMAIN ou serveur injoignable ; non retenus.
 - `https://www.journaldetonneins.fr/rss.xml` : HTTP 404 ; le Journal de Tonneins est retenu sans flux.
+
+OBJECTIF : atteint — 17 / 5
