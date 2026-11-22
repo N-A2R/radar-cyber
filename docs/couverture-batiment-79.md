@@ -32,3 +32,5 @@ Corpus : `bench/corpus/sources-batiment-79.jsonl` — preuve HTTP :
 | Niort info — presse locale (chantiers et habitat) | presse en ligne locale | https://niortinfo.media/?s=chantier | https://niortinfo.media/feed/ |
 | Alouette — actualités Deux-Sèvres (construction et chantiers) | radio locale | https://www.alouette.fr/infos | — |
 | France 3 Nouvelle-Aquitaine — édition Deux-Sèvres | télévision publique locale | https://france3-regions.franceinfo.fr/nouvelle-aquitaine/deux-sevres | — |
+
+OBJECTIF : atteint — 22 sources vérifiées HTTP 200 / 5 minimum.
