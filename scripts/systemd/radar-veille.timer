@@ -1,0 +1,15 @@
+# radar-veille.timer — déclenche la veille quotidienne chaque matin à 06:30.
+[Unit]
+Description=Radar Cyber — veille quotidienne de 06:30
+Documentation=file:/home/jolt/radar-cyber/docs/operations.md
+
+[Timer]
+OnCalendar=*-*-* 06:30:00
+# Rattrapage si la machine était éteinte au déclenchement.
+Persistent=true
+RandomizedDelaySec=300
+AccuracySec=1min
+Unit=radar-veille.service
+
+[Install]
+WantedBy=timers.target

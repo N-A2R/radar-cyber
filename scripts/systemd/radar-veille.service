@@ -1,0 +1,17 @@
+# radar-veille.service — cycle de veille quotidien Radar Cyber.
+#
+# Unité autonome, sans jeton @...@ : voir docs/operations.md pour l'installation.
+[Unit]
+Description=Radar Cyber — veille quotidienne (collecte, incidents, confiance, résumé)
+Documentation=file:/home/jolt/radar-cyber/docs/operations.md
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/jolt/radar-cyber/apps/api
+Environment=PATH=/home/jolt/.local/share/mise/shims:/home/jolt/.local/share/mise/installs/node/latest/bin:/usr/local/bin:/usr/bin:/bin
+Environment=HOME=%h
+Environment=DATABASE_URL=postgres://radar:radar@localhost:5432/radar
+ExecStart=/usr/bin/env bash /home/jolt/radar-cyber/scripts/veille-quotidienne.sh
+Nice=10

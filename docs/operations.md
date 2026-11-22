@@ -119,6 +119,33 @@ journalctl --user -u radar-api.service --since "1 hour ago"
 L'API écrit des logs JSON Fastify (niveau info) : collecteurs, erreurs,
 requêtes lentes.
 
+### Veille quotidienne
+
+`radar-veille.timer` déclenche chaque matin à 06:30 (avec rattrapage et
+décalage aléatoire de 5 min) le cycle complet : sources dues, corrélation,
+détection des incidents, scores de confiance, campagnes, puis un résumé daté
+écrit dans `out/veille-quotidienne-AAAA-MM-JJ.json`.
+
+```bash
+# Installation du timer (unités autonomes, comme radar-report.timer)
+cp scripts/systemd/radar-veille.{service,timer} ~/.config/systemd/user/
+systemctl --user daemon-reload
+systemctl --user enable --now radar-veille.timer
+systemctl --user list-timers radar-veille.timer
+
+# Passage manuel et lecture du résumé
+bash scripts/veille-quotidienne.sh
+jq . out/veille-quotidienne-$(date -u +%F).json
+
+# Preuve : cycle complet sur une base jetable, borne à 10 minutes
+cd apps/api
+RADAR_TEST_ADMIN_URL=postgres://radar:radar@127.0.0.1:5433/postgres \
+  ./node_modules/.bin/tsx test/run.ts test/veille-quotidienne.test.ts
+```
+
+Le service lit `DATABASE_URL` (défaut local `postgres://radar:radar@localhost:5432/radar`) ;
+adapter cette variable dans l'unité si PostgreSQL n'écoute pas sur 5432.
+
 ### Rôle précis des unités
 
 - `radar-api.service` — `pnpm -F @radar/api start` depuis la racine du dépôt,
