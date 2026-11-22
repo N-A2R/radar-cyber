@@ -1,0 +1,877 @@
+{
+  "version": 1,
+  "date": "2026-11-22",
+  "protocol": "28 paired cases from live Nouvelle-Aquitaine events: the human text is the real title and summary, the AI text is a language-model rewrite of that same event. Eight AI cases keep dates and identifiers. One real human press excerpt with formulaic phrasing is added as a hard negative. The split is frozen in ai-samples.json; the detector is calibrated on dev only.",
+  "database": {
+    "organisations": "1673151",
+    "sources": "312",
+    "events": "26259",
+    "na_events": "50"
+  },
+  "sha256AiSamples": "cd7bdf96c1a13718105de21ca4d347df1e57445fb1bc3f5cb94fe0678fc8206e",
+  "effectifs": {
+    "cases": 28,
+    "hardNegatives": 1,
+    "entries": 57,
+    "dev": 28,
+    "test": 29
+  },
+  "entries": [
+    {
+      "split": "dev",
+      "department": "33",
+      "sourceKind": "public",
+      "id": "event-1-ai",
+      "label": "ai",
+      "text": "Dans le paysage actuel, cette opération illustre l'importance d'une coordination étroite entre les autorités et les acteurs locaux. Il est important de noter que la montée en charge des incidents peut peser sur la capacité de réponse des organisations. Les parties prenantes semblent vouloir renforcer leur visibilité afin de mieux partager les signaux faibles. En conclusion, la résilience du dispositif pourrait dépendre de la régularité des échanges entre les équipes.",
+      "provenance": {
+        "kind": "llm_rewrite",
+        "eventId": "1",
+        "sourceId": "cert_fr",
+        "family": "cert_fr",
+        "generator": "language model (assistant authoring this chantier)",
+        "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names."
+      }
+    },
+    {
+      "split": "dev",
+      "department": "33",
+      "sourceKind": "public",
+      "id": "event-1-human",
+      "label": "human",
+      "text": "Point de situation de l’opération REACTIV – octobre 2026 (12 novembre 2026). Face à l’intensification des attaques cybercriminelles liées à des violations de données affectant les services de l’État, le Premier ministre a demandé le 1er septembre 2026 à l’Agence nationale de la sécurité des systèmes d’information (ANSSI) de mettre en place une capacité renforcée de...",
+      "provenance": {
+        "kind": "real_event",
+        "eventId": "1",
+        "sourceId": "cert_fr",
+        "family": "cert_fr"
+      }
+    },
+    {
+      "split": "test",
+      "department": "47",
+      "sourceKind": "public",
+      "id": "event-111316-ai",
+      "label": "ai",
+      "text": "In summary, local reporting helps place a cyber incident in its regional context. It is worth noting that officials may frame the same event differently depending on the audience. Residents and organisations could benefit from a clearer environment for understanding the stakes. Overall, coordination between newsrooms and public services appears to support a more resilient response.",
+      "provenance": {
+        "kind": "llm_rewrite",
+        "eventId": "111316",
+        "sourceId": "presse-sudouest-pyrenees",
+        "family": "cti",
+        "generator": "language model (assistant authoring this chantier)",
+        "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names."
+      }
+    },
+    {
+      "split": "test",
+      "department": "47",
+      "sourceKind": "public",
+      "id": "event-111316-human",
+      "label": "human",
+      "text": "Pays basque : un passeport et des bons plans pour lutter contre les cyberattaques. Le projet transfrontalier Edit aide les entreprises du Pays basque français et espagnol à mettre en place le passeport numérique des produits. Les usages de l’intelligence artificielle sont au cœur des",
+      "provenance": {
+        "kind": "real_event",
+        "eventId": "111316",
+        "sourceId": "presse-sudouest-pyrenees",
+        "family": "cti"
+      }
+    },
+    {
+      "split": "test",
+      "department": "16",
+      "sourceKind": "public",
+      "id": "event-112417-ai",
+      "label": "ai",
+      "text": "Dans le paysage médiatique local, un article peut orienter la façon dont les habitants comprennent un incident. Il est important de noter que le niveau d'information peut varier selon les sources consultées. Les acteurs économiques semblent avoir intérêt à commenter les faits avec prudence. En conclusion, la résilience passe par une coordination entre journalistes, experts et collectivités.",
+      "provenance": {
+        "kind": "llm_rewrite",
+        "eventId": "112417",
+        "sourceId": "presse-sudouest-charente",
+        "family": "cti",
+        "generator": "language model (assistant authoring this chantier)",
+        "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names."
+      }
+    },
+    {
+      "split": "test",
+      "department": "16",
+      "sourceKind": "public",
+      "id": "event-112417-human",
+      "label": "human",
+      "text": "Charente et Charente-Maritime : le cognac renouvelle ses instances sous un ciel toujours lourd de menaces. Extrême prudence des négociants, désarroi des viticulteurs : c’est une filière en crise qui installe de nouveaux élus au Bureau national interprofessionnel du cognac (BNIC). L’institution a ouvert un plan",
+      "provenance": {
+        "kind": "real_event",
+        "eventId": "112417",
+        "sourceId": "presse-sudouest-charente",
+        "family": "cti"
+      }
+    },
+    {
+      "split": "test",
+      "department": "64",
+      "sourceKind": "public",
+      "id": "event-116469-ai",
+      "label": "ai",
+      "text": "En somme, le débat local montre que la perception du risque dépasse souvent les seuls chiffres officiels. Il convient de noter que les positions des acteurs peuvent évoluer au fil des réunions publiques. Les élus semblent chercher un équilibre entre écoute et décision dans un contexte tendu. La résilience du territoire dépend finalement de la coordination entre toutes les parties prenantes.",
+      "provenance": {
+        "kind": "llm_rewrite",
+        "eventId": "116469",
+        "sourceId": "presse-sudouest-pyrenees",
+        "family": "cti",
+        "generator": "language model (assistant authoring this chantier)",
+        "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names."
+      }
+    },
+    {
+      "split": "test",
+      "department": "64",
+      "sourceKind": "public",
+      "id": "event-116469-human",
+      "label": "human",
+      "text": "Pyrénées-Atlantiques : face à une hausse de 37,4 % des infractions numériques, élus et industriels s’arment contre la cybercriminalité. Face à l’explosion des cyberattaques, la gendarmerie des Pyrénées-Atlantiques a organisé, mercredi 18 novembre, à Mourenx, un premier séminaire de sensibilisation destiné aux élus et aux industriels du",
+      "provenance": {
+        "kind": "real_event",
+        "eventId": "116469",
+        "sourceId": "presse-sudouest-pyrenees",
+        "family": "cti"
+      }
+    },
+    {
+      "split": "test",
+      "department": "33",
+      "sourceKind": "public",
+      "id": "event-128977-ai",
+      "label": "ai",
+      "text": "In conclusion, a vendor update illustrates how early notices can change the understanding of an incident. It is worth noting that the final scope may differ from the first public description. Regional administrators could then review their own exposure with greater care. Overall, resilience relies on coordination between vendors, agencies and local teams in a changing environment.",
+      "provenance": {
+        "kind": "llm_rewrite",
+        "eventId": "128977",
+        "sourceId": "cert-fr-alerte",
+        "family": "cert_fr",
+        "generator": "language model (assistant authoring this chantier)",
+        "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names."
+      }
+    },
+    {
+      "split": "test",
+      "department": "33",
+      "sourceKind": "public",
+      "id": "event-128977-human",
+      "label": "human",
+      "text": "Incidents de sécurité dans les pare-feux SonicWall (05 août 2025). [Mise à jour du 7 août 2025] Le 6 août 2025, SonicWall a remplacé une partie de son communiqué initial pour indiquer que les incidents de sécurité évoqués étaient vraisemblablement corrélés à la vulnérabilité CVE-2024-40766. Celle-ci a fait l'objet d'un bulletin de sécurité, SNWLID-2024-0015 (cf....",
+      "provenance": {
+        "kind": "real_event",
+        "eventId": "128977",
+        "sourceId": "cert-fr-alerte",
+        "family": "cert_fr"
+      }
+    },
+    {
+      "split": "dev",
+      "department": "17",
+      "sourceKind": "gray",
+      "id": "event-1292-ai",
+      "label": "ai",
+      "text": "Le 3 septembre 2026, un rapport a évoqué l'exposition de données chez un fournisseur de services publics. Il est important de noter que la portée de cet incident peut sembler modeste au premier regard. Les partenaires locaux semblent devoir vérifier leurs propres procédures dans ce contexte. En conclusion, la coordination et la visibilité restent essentielles pour renforcer la résilience.",
+      "provenance": {
+        "kind": "llm_rewrite",
+        "eventId": "1292",
+        "sourceId": "leak:ransomlook:recent-api",
+        "family": "leaks",
+        "generator": "language model (assistant authoring this chantier)",
+        "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names."
+      }
+    },
+    {
+      "split": "dev",
+      "department": "17",
+      "sourceKind": "gray",
+      "id": "event-1292-human",
+      "label": "human",
+      "text": "Stadtwerke Waldbröl GmbH. # Stadtwerke Waldbröl ## Company Description Stadtwerke Waldbröl GmbH is a 100% municipally owned utility company that provides public services in the city of Waldbröl (Germany). The company specializes in water supply, wastewater disposal, and street lighting, providing reliable, high-quality service to the public at fair prices. ## Contact Phone Numbers - Main number: +49 2291 / 9268-0 - Fax: +49 2291 / 9268-30 ## Additional Information - Managing Director: Mirco Kujbida - Court of Registration: Amtsgericht Siegburg - Commercial Register Number: HRB 11372/1 - Tax ID",
+      "provenance": {
+        "kind": "real_event",
+        "eventId": "1292",
+        "sourceId": "leak:ransomlook:recent-api",
+        "family": "leaks"
+      }
+    },
+    {
+      "split": "test",
+      "department": "16",
+      "sourceKind": "gray",
+      "id": "event-23035-ai",
+      "label": "ai",
+      "text": "Le 2 juin 2026, un communiqué a signalé une campagne visant des organisations locales. Il est important de noter que l'ampleur réelle peut être réévaluée après de nouveaux éléments. Les équipes semblent vouloir partager leurs observations avec les autorités. En conclusion, la résilience dépend de la coordination et d'une visibilité continue.",
+      "provenance": {
+        "kind": "llm_rewrite",
+        "eventId": "23035",
+        "sourceId": "ransomlook",
+        "family": "ransomware",
+        "generator": "language model (assistant authoring this chantier)",
+        "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names."
+      }
+    },
+    {
+      "split": "test",
+      "department": "16",
+      "sourceKind": "gray",
+      "id": "event-23035-human",
+      "label": "human",
+      "text": "Momentum Telecom — revendiqué par endzone. Momentum is a telecommunications company founded in 2001 that provides cloud-based communication solutions for businesses, specializing in cloud voice services, managed networks, SD-WAN solutions, and Microsoft Teams Phone integration. We gained access to a diagnostic and provisioning tool used by Momentum through a compromised Multi-Service Operator (MSO). Upon reconnaissance, we identified multiple critical vulnerabilities throughout the system. This tool controls internet and voice services for millions of users across global markets. We successful",
+      "provenance": {
+        "kind": "real_event",
+        "eventId": "23035",
+        "sourceId": "ransomlook",
+        "family": "ransomware"
+      }
+    },
+    {
+      "split": "test",
+      "department": "24",
+      "sourceKind": "gray",
+      "id": "event-23036-ai",
+      "label": "ai",
+      "text": "Overall, a regional claim can make an abstract cyber risk feel concrete for local partners. It is important to note that observers may retain the headline more than the technical detail of the incident. Small teams could use that attention to share practical advice with their clients. In conclusion, awareness grows when coordination turns coverage into useful guidance for everyone.",
+      "provenance": {
+        "kind": "llm_rewrite",
+        "eventId": "23036",
+        "sourceId": "ransomlook",
+        "family": "ransomware",
+        "generator": "language model (assistant authoring this chantier)",
+        "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names."
+      }
+    },
+    {
+      "split": "test",
+      "department": "24",
+      "sourceKind": "gray",
+      "id": "event-23036-human",
+      "label": "human",
+      "text": "Absolute Bail Bonds — revendiqué par endzone. Absolute Bail Bonds is a surety bail bond agency that has provided 24/7 pretrial release services across California since 1987. Founded in Lancaster and headquartered in Los Angeles, the company operates statewide through a network of local branch offices and licensed bail agents. We successfully exfiltrated 5GB of Database Files and Source Code plus 3.5TB encrypted on the DC including backups.",
+      "provenance": {
+        "kind": "real_event",
+        "eventId": "23036",
+        "sourceId": "ransomlook",
+        "family": "ransomware"
+      }
+    },
+    {
+      "split": "dev",
+      "department": "33",
+      "sourceKind": "public",
+      "id": "event-23224-ai",
+      "label": "ai",
+      "text": "Dans un contexte où les avis publics se multiplient, la clarté de l'information devient un enjeu pour les lecteurs. Il est essentiel de noter que la portée d'un signal peut sembler limitée avant d'être confirmée par d'autres sources. Les organisations locales semblent vouloir réagir différemment selon leur niveau de préparation. En conclusion, la coordination entre experts et autorités reste déterminante pour la résilience du territoire.",
+      "provenance": {
+        "kind": "llm_rewrite",
+        "eventId": "23224",
+        "sourceId": "cat-cert-at-blog",
+        "family": "cert",
+        "generator": "language model (assistant authoring this chantier)",
+        "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names."
+      }
+    },
+    {
+      "split": "dev",
+      "department": "33",
+      "sourceKind": "public",
+      "id": "event-23224-human",
+      "label": "human",
+      "text": "In Frankreich wurden Kühlanlagen manipuliert – geht das auch bei uns?. In der Nacht von Sonntag auf Montag (11./12. Oktober) wurden in Frankreich die Kühlanlagen diverser Einzelhandelsketten so manipuliert, dass das Gefriergut aufgeheizt und damit unbrauchbar gemacht wurde. Meine erste Reaktion drauf war, dass da wohl jemand in die Netze eingestiegen war, und von innen heraus die ICS-Komponenten umkonfiguriert hat. Weil so unvorsichtig, diese Systeme offen ins Internet zu hängen, sollten diese Firmen ja doch nicht gewesen sein. Ich habe schon oft gescherzt, dass &bdquo;sollte“ das gefährlichst",
+      "provenance": {
+        "kind": "real_event",
+        "eventId": "23224",
+        "sourceId": "cat-cert-at-blog",
+        "family": "cert"
+      }
+    },
+    {
+      "split": "test",
+      "department": "33",
+      "sourceKind": "public",
+      "id": "event-23502-ai",
+      "label": "ai",
+      "text": "On 5 May 2026, guidance was published for teams handling a regional incident. It is worth noting that the advice may differ from one organisation to another. Local staff could benefit from a common environment for comparing their practices. In conclusion, coordination appears as useful as the detailed instructions themselves.",
+      "provenance": {
+        "kind": "llm_rewrite",
+        "eventId": "23502",
+        "sourceId": "cat-circl-news",
+        "family": "cti",
+        "generator": "language model (assistant authoring this chantier)",
+        "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names."
+      }
+    },
+    {
+      "split": "test",
+      "department": "33",
+      "sourceKind": "public",
+      "id": "event-23502-human",
+      "label": "human",
+      "text": "Operational Guidance for Incident Handling - Rulebooks. Operational guidance for incident handling Traffic Light Protocol (TLP): CLEAR Version: 1.0 (stable) Date: 28 September 2026 Authors: Agence Nationale de la Sécurité des Systèmes d’Information (ANSSI) Commission de Surveillance du Secteur Financier (CSSF) Computer Incident Response Center Luxembourg (CIRCL) Governmental Computer Security Incident Response Team (GovCERT) High Commission for National Protection (HCPN) Institut Luxembourgeois de Régulation (ILR) Disclaimer These rulebooks are solely intended to be used as a practical guidanc",
+      "provenance": {
+        "kind": "real_event",
+        "eventId": "23502",
+        "sourceId": "cat-circl-news",
+        "family": "cti"
+      }
+    },
+    {
+      "split": "test",
+      "department": "33",
+      "sourceKind": "public",
+      "id": "event-24118-ai",
+      "label": "ai",
+      "text": "Le 14 avril 2026, un article local a abordé les usages numériques d'une collectivité. Il est essentiel de noter que le contexte peut varier selon les services concernés. Les élus semblent disposer de peu de marge pour trancher rapidement. En somme, la résilience repose sur une coordination patiente entre les acteurs.",
+      "provenance": {
+        "kind": "llm_rewrite",
+        "eventId": "24118",
+        "sourceId": "eco-dordogne-libre",
+        "family": "cti",
+        "generator": "language model (assistant authoring this chantier)",
+        "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names."
+      }
+    },
+    {
+      "split": "test",
+      "department": "33",
+      "sourceKind": "public",
+      "id": "event-24118-human",
+      "label": "human",
+      "text": "« DL » éco : « Le gain de temps existe » : un side-car polyvalent pour soulager des maraîchers au Buisson-de-Cadouin. Tous les quinze jours, le mardi, « DL éco » met à l’honneur les acteurs économiques du Périgord. Aujourd’hui, rencontre avec Matthieu et Gabrielle Renvoisé sur leur exploitation au Buisson-de-Cadouin.",
+      "provenance": {
+        "kind": "real_event",
+        "eventId": "24118",
+        "sourceId": "eco-dordogne-libre",
+        "family": "cti"
+      }
+    },
+    {
+      "split": "dev",
+      "department": "33",
+      "sourceKind": "public",
+      "id": "event-24227-ai",
+      "label": "ai",
+      "text": "To sum up, this regional story shows how awareness grows when elected officials discuss cyber risks in public. It is important to note that the issue may affect several organisations beyond the commune mentioned. Local stakeholders could benefit from a shared environment where practices and concerns are discussed. Overall, the importance of coordination appears clearer once the discussion includes both public and private actors.",
+      "provenance": {
+        "kind": "llm_rewrite",
+        "eventId": "24227",
+        "sourceId": "gn-17",
+        "family": "cti",
+        "generator": "language model (assistant authoring this chantier)",
+        "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names."
+      }
+    },
+    {
+      "split": "dev",
+      "department": "33",
+      "sourceKind": "public",
+      "id": "event-24227-human",
+      "label": "human",
+      "text": "Cyberattaque dans des supermarchés : qu’est-ce que Shahid Kaveh, l’armée de l’ombre iranienne accusée d’être à l’origine des attaques contre les frigos en France ? - Sud Ouest. Cyberattaque dans des supermarchés : qu’est-ce que Shahid Kaveh, l’armée de l’ombre iranienne accusée d’être à l’origine des attaques contre les frigos en France ? Sud Ouest",
+      "provenance": {
+        "kind": "real_event",
+        "eventId": "24227",
+        "sourceId": "gn-17",
+        "family": "cti"
+      }
+    },
+    {
+      "split": "test",
+      "department": "33",
+      "sourceKind": "public",
+      "id": "event-24236-ai",
+      "label": "ai",
+      "text": "On 19 March 2026, a regional daily reported a cyber incident affecting a public service. It is important to note that the account may evolve once the review finishes. Readers could then judge the situation through the details released by officials. Overall, awareness and coordination shape how resilience is built locally.",
+      "provenance": {
+        "kind": "llm_rewrite",
+        "eventId": "24236",
+        "sourceId": "gn-33",
+        "family": "cti",
+        "generator": "language model (assistant authoring this chantier)",
+        "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names."
+      }
+    },
+    {
+      "split": "test",
+      "department": "33",
+      "sourceKind": "public",
+      "id": "event-24236-human",
+      "label": "human",
+      "text": "Préfecture de la Gironde, mairie de Bordeaux : plusieurs sites inaccessibles après une faille de cybersécurité - ici.fr. Préfecture de la Gironde, mairie de Bordeaux : plusieurs sites inaccessibles après une faille de cybersécurité ici.fr",
+      "provenance": {
+        "kind": "real_event",
+        "eventId": "24236",
+        "sourceId": "gn-33",
+        "family": "cti"
+      }
+    },
+    {
+      "split": "dev",
+      "department": "86",
+      "sourceKind": "public",
+      "id": "event-24334-ai",
+      "label": "ai",
+      "text": "En conclusion, la sensibilisation des élus locaux constitue un levier utile face à des menaces en constante évolution. Il est important de noter que le contexte peut varier d'une commune à l'autre selon les ressources disponibles. Les parties prenantes semblent disposer d'une marge de manoeuvre pour améliorer leur visibilité sur les incidents. La résilience du territoire dépendrait alors d'une coordination régulière entre les acteurs de terrain.",
+      "provenance": {
+        "kind": "llm_rewrite",
+        "eventId": "24334",
+        "sourceId": "gn-79",
+        "family": "cti",
+        "generator": "language model (assistant authoring this chantier)",
+        "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names."
+      }
+    },
+    {
+      "split": "dev",
+      "department": "86",
+      "sourceKind": "public",
+      "id": "event-24334-human",
+      "label": "human",
+      "text": "\"Sans eau potable, tout s’arrête\" : les élus de ce syndicat d’eau de Thouars formés à la lutte contre les cyberattaques - lanouvellerepublique.fr. \"Sans eau potable, tout s’arrête\" : les élus de ce syndicat d’eau de Thouars formés à la lutte contre les cyberattaques lanouvellerepublique.fr",
+      "provenance": {
+        "kind": "real_event",
+        "eventId": "24334",
+        "sourceId": "gn-79",
+        "family": "cti"
+      }
+    },
+    {
+      "split": "dev",
+      "department": "64",
+      "sourceKind": "public",
+      "id": "event-24781-ai",
+      "label": "ai",
+      "text": "In summary, the coverage highlights the importance of keeping the public informed about cyber risks. It is worth noting that viewers may judge the severity of an incident from the way it is presented. Local organisations could use the same environment to explain their own precautions to residents. Overall, coordination between journalists and officials appears to shape how awareness develops across the region.",
+      "provenance": {
+        "kind": "llm_rewrite",
+        "eventId": "24781",
+        "sourceId": "presse-france3-na",
+        "family": "cti",
+        "generator": "language model (assistant authoring this chantier)",
+        "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names."
+      }
+    },
+    {
+      "split": "dev",
+      "department": "64",
+      "sourceKind": "public",
+      "id": "event-24781-human",
+      "label": "human",
+      "text": "\"On protège la vie\" : pour sauver le rat trompette, la justice annule un projet de centrale hydroélectrique dans la vallée d'Aspe. La cour d'administration de Bordeaux a cassé l'autorisation d'exploitation de la centrale hydroélectrique sur le gave du Gabarret en vallée d'Aspe dans les Pyrénées. La survie du desman des Pyrénées, un petit mammifère était en jeu. Les associations de protection de l'environnement saluent cette décision tandis que les porteurs du projet se rendront devant le Conseil d'État.",
+      "provenance": {
+        "kind": "real_event",
+        "eventId": "24781",
+        "sourceId": "presse-france3-na",
+        "family": "cti"
+      }
+    },
+    {
+      "split": "dev",
+      "department": "33",
+      "sourceKind": "gray",
+      "id": "event-3728-ai",
+      "label": "ai",
+      "text": "On 12 October 2026, a notice described a possible exposure affecting a regional supplier. It is worth noting that the impact may look limited until the review is complete. Local teams could still update their guidance and share what they learn with partners. In summary, resilience depends on visibility and coordination across the whole environment.",
+      "provenance": {
+        "kind": "llm_rewrite",
+        "eventId": "3728",
+        "sourceId": "ransomlook",
+        "family": "ransomware",
+        "generator": "language model (assistant authoring this chantier)",
+        "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names."
+      }
+    },
+    {
+      "split": "dev",
+      "department": "33",
+      "sourceKind": "gray",
+      "id": "event-3728-human",
+      "label": "human",
+      "text": "Triad Architects — revendiqué par the gentlemen. triad.co.ke Triad Group is a Kenyan digital marketing and technology company founded in 1993 in Nairobi, making it one of the oldest and largest digital agencies in East Africa with 200 plus employees and 500 plus clients. It operates across five divisions: digital marketing, creative and design, technology, strategy and media, with offices in Kenya, Tanzania and Uganda. Its client roster includes major multinational brands like Unilever, Coca-Cola, Safaricom, KCB and Toyota alongside government agencies and NGOs. Services span branding, video p",
+      "provenance": {
+        "kind": "real_event",
+        "eventId": "3728",
+        "sourceId": "ransomlook",
+        "family": "ransomware"
+      }
+    },
+    {
+      "split": "dev",
+      "department": "86",
+      "sourceKind": "gray",
+      "id": "event-3732-ai",
+      "label": "ai",
+      "text": "En somme, la formation professionnelle illustre combien la visibilité des parcours reste un enjeu pour les jeunes et les entreprises. Il convient de noter que la confiance des familles peut évoluer lorsque des données sont exposées. Les équipes semblent devoir renforcer la coordination avec les établissements afin de limiter l'incertitude. Le contexte régional pourrait néanmoins offrir une marge de manoeuvre pour restaurer la résilience.",
+      "provenance": {
+        "kind": "llm_rewrite",
+        "eventId": "3732",
+        "sourceId": "ransomlook",
+        "family": "ransomware",
+        "generator": "language model (assistant authoring this chantier)",
+        "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names."
+      }
+    },
+    {
+      "split": "dev",
+      "department": "86",
+      "sourceKind": "gray",
+      "id": "event-3732-human",
+      "label": "human",
+      "text": "Groupe Alternance — revendiqué par the gentlemen. groupe-alternance.com Groupe Alternance is a French private education group founded in 2008 in Paris, offering work-study (alternance) programs across 5 schools with 10,000 plus students, 300 plus staff and 1,200 plus partner companies. Its model lets students earn a salary while their employer pays for their education, covering Bachelor, BTS and MBA programs in management, marketing, finance, HR, logistics, tourism and sport management. Key schools include ESAM, EFB, ECE, IPAC and the Institut de Management International, with campuses in Pari",
+      "provenance": {
+        "kind": "real_event",
+        "eventId": "3732",
+        "sourceId": "ransomlook",
+        "family": "ransomware"
+      }
+    },
+    {
+      "split": "dev",
+      "department": "33",
+      "sourceKind": "gray",
+      "id": "event-3747-ai",
+      "label": "ai",
+      "text": "Overall, the reported compromise reflects a broader landscape of pressure on industrial organisations. It is important to note that similar cases may remain unnoticed until a public disclosure appears. Suppliers and local partners could then need a shared view of the situation to plan their response. In conclusion, resilience in this environment relies on coordination and on the clarity of the information exchanged.",
+      "provenance": {
+        "kind": "llm_rewrite",
+        "eventId": "3747",
+        "sourceId": "ransomlook",
+        "family": "ransomware",
+        "generator": "language model (assistant authoring this chantier)",
+        "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names."
+      }
+    },
+    {
+      "split": "dev",
+      "department": "33",
+      "sourceKind": "gray",
+      "id": "event-3747-human",
+      "label": "human",
+      "text": "Kolin — revendiqué par inc ransom. # Kolin Construction **Kolin Construction** (*Kolin İnşaat Turizm Sanayi ve Ticaret A.Ş.*) is one of Turkey’s major construction and industrial companies. Founded in **1977** and headquartered in **Ankara, Turkey**, the company serves as a flagship business of **Koloğlu Holding**. ## Business Activities Kolin Construction operates primarily in large-scale construction, infrastructure, and engineering projects. Its areas of expertise include: * Highways and road infrastructure * Bridges and viaducts * Tunnels * Railways and metro systems * Airports * Ports and",
+      "provenance": {
+        "kind": "real_event",
+        "eventId": "3747",
+        "sourceId": "ransomlook",
+        "family": "ransomware"
+      }
+    },
+    {
+      "split": "dev",
+      "department": "17",
+      "sourceKind": "gray",
+      "id": "event-3764-ai",
+      "label": "ai",
+      "text": "Le 8 octobre 2026, une annonce a fait état d'une fuite concernant un service public régional. Il convient de noter que les conséquences peuvent rester flottantes pendant l'enquête. Les usagers semblent attendre des informations claires avant de modifier leurs habitudes. Au final, la résilience passe par une visibilité partagée et une coordination attentive.",
+      "provenance": {
+        "kind": "llm_rewrite",
+        "eventId": "3764",
+        "sourceId": "ransomlook",
+        "family": "ransomware",
+        "generator": "language model (assistant authoring this chantier)",
+        "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names."
+      }
+    },
+    {
+      "split": "dev",
+      "department": "17",
+      "sourceKind": "gray",
+      "id": "event-3764-human",
+      "label": "human",
+      "text": "Stadtwerke Waldbröl GmbH — revendiqué par inc ransom. # Stadtwerke Waldbröl ## Company Description Stadtwerke Waldbröl GmbH is a 100% municipally owned utility company that provides public services in the city of Waldbröl (Germany). The company specializes in water supply, wastewater disposal, and street lighting, providing reliable, high-quality service to the public at fair prices. ## Contact Phone Numbers - Main number: +49 2291 / 9268-0 - Fax: +49 2291 / 9268-30 ## Additional Information - Managing Director: Mirco Kujbida - Court of Registration: Amtsgericht Siegburg - Commercial Register ",
+      "provenance": {
+        "kind": "real_event",
+        "eventId": "3764",
+        "sourceId": "ransomlook",
+        "family": "ransomware"
+      }
+    },
+    {
+      "split": "dev",
+      "department": "17",
+      "sourceKind": "gray",
+      "id": "event-3765-ai",
+      "label": "ai",
+      "text": "On 21 September 2026, a public notice mentioned a security issue in a regional network. It is important to note that the first description may change as new facts appear. Operators could use that period to review their own visibility and coordinate with peers. Overall, the importance of calm communication appears clear in this environment.",
+      "provenance": {
+        "kind": "llm_rewrite",
+        "eventId": "3765",
+        "sourceId": "ransomlook",
+        "family": "ransomware",
+        "generator": "language model (assistant authoring this chantier)",
+        "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names."
+      }
+    },
+    {
+      "split": "dev",
+      "department": "17",
+      "sourceKind": "gray",
+      "id": "event-3765-human",
+      "label": "human",
+      "text": "Gator Works Computing (Smith Law Firm, Beauchamp Edwards Epas, Wise Accounting Tax Service — revendiqué par inc ransom. # Gator Works Computing Inc. — Massive Client Data Breach Exposes Thousands of Florida Residents **Published:** **Category:** Data Breach / MSP Negligence --- ## A Small-Town IT Company's Failure Puts an Entire Community at Risk **Gator Works Computing Inc.**, a managed IT services provider based in Chiefland, Florida, has suffered a catastrophic security breach that has exposed the sensitive personal, financial, medical, and legal records of thousands of individuals across t",
+      "provenance": {
+        "kind": "real_event",
+        "eventId": "3765",
+        "sourceId": "ransomlook",
+        "family": "ransomware"
+      }
+    },
+    {
+      "split": "dev",
+      "department": "24",
+      "sourceKind": "public",
+      "id": "event-46140-ai",
+      "label": "ai",
+      "text": "Au final, la publication d'une fuite met en lumière la fragilité des systèmes d'information des collectivités. Il convient de noter que l'étendue réelle d'une exposition peut rester incertaine pendant plusieurs semaines. Les équipes semblent alors devoir privilégier une visibilité partagée avec les citoyens concernés. Dans le paysage actuel, la résilience passe par une coordination patiente et par des messages clairs.",
+      "provenance": {
+        "kind": "llm_rewrite",
+        "eventId": "46140",
+        "sourceId": "gn-fuite-metropoles",
+        "family": "cti",
+        "generator": "language model (assistant authoring this chantier)",
+        "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names."
+      }
+    },
+    {
+      "split": "dev",
+      "department": "24",
+      "sourceKind": "public",
+      "id": "event-46140-human",
+      "label": "human",
+      "text": "Des réseaux de contrôle technique dont Sécuritest victimes d’une fuite de données massive : 23 millions d’automobilistes potentiellement concernés - Midi Libre. Des réseaux de contrôle technique dont Sécuritest victimes d’une fuite de données massive : 23 millions d’automobilistes potentiellement concernés Midi Libre",
+      "provenance": {
+        "kind": "real_event",
+        "eventId": "46140",
+        "sourceId": "gn-fuite-metropoles",
+        "family": "cti"
+      }
+    },
+    {
+      "split": "dev",
+      "department": "86",
+      "sourceKind": "gray",
+      "id": "event-49758-ai",
+      "label": "ai",
+      "text": "Overall, the claim illustrates the pressure that ransomware groups place on public sector organisations. It is important to note that attribution may remain uncertain until independent evidence becomes available. Local teams could still draw lessons from the case and review their own visibility. In conclusion, resilience depends less on a single tool than on coordination across the whole environment.",
+      "provenance": {
+        "kind": "llm_rewrite",
+        "eventId": "49758",
+        "sourceId": "tg-ransomwareg",
+        "family": "ransomware",
+        "generator": "language model (assistant authoring this chantier)",
+        "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names."
+      }
+    },
+    {
+      "split": "dev",
+      "department": "86",
+      "sourceKind": "gray",
+      "id": "event-49758-human",
+      "label": "human",
+      "text": "TEDI (Technicien Diagnostic Immobilier) is a French company specializing in technical property and building diagnostics headquartered in Roche-lez-Beaupré France The company provides property inspecti. TEDI (Technicien Diagnostic Immobilier) is a French company specializing in technical property and building diagnostics headquartered in Roche-lez-Beaupré France The company provides property inspection and assessment services including electrical and gas system inspections asbestos and lead detection energy performance assessments property measurements and technical consulting related to buildi",
+      "provenance": {
+        "kind": "real_event",
+        "eventId": "49758",
+        "sourceId": "tg-ransomwareg",
+        "family": "ransomware"
+      }
+    },
+    {
+      "split": "test",
+      "department": "33",
+      "sourceKind": "public",
+      "id": "event-51151-ai",
+      "label": "ai",
+      "text": "Dans le paysage des avis de sécurité, la publication d'une alerte joue un rôle de signal pour les administrateurs. Il est important de noter que la portée d'une vulnérabilité peut sembler théorique avant d'être observée sur le terrain. Les équipes locales semblent devoir adapter leur surveillance en fonction du contexte. En somme, la résilience repose sur une coordination rapide et sur une visibilité partagée des informations.",
+      "provenance": {
+        "kind": "llm_rewrite",
+        "eventId": "51151",
+        "sourceId": "cert_fr",
+        "family": "cert_fr",
+        "generator": "language model (assistant authoring this chantier)",
+        "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names."
+      }
+    },
+    {
+      "split": "test",
+      "department": "33",
+      "sourceKind": "public",
+      "id": "event-51151-human",
+      "label": "human",
+      "text": "Multiples vulnérabilités dans F5 NGINX (18 novembre 2026). Le 18 novembre 2026, F5 a publié deux avis de sécurité concernant les vulnérabilités CVE-2026-123633 et CVE-2026-123007. Celles-ci affectent NGINX Open Source et NGINX Plus permettent à un attaquant non authentifié d'exécuter du code à distance, en utilisant le protocole HTTP en version 2. Le...",
+      "provenance": {
+        "kind": "real_event",
+        "eventId": "51151",
+        "sourceId": "cert_fr",
+        "family": "cert_fr"
+      }
+    },
+    {
+      "split": "test",
+      "department": "33",
+      "sourceKind": "public",
+      "id": "event-51362-ai",
+      "label": "ai",
+      "text": "In conclusion, repeated warnings draw attention to the challenges of maintaining secure services over time. It is worth noting that a single notice may not reveal the full landscape of exposure. Operators could use the same information to improve coordination with their providers. Overall, the importance of clear communication appears as relevant as the technical fix itself.",
+      "provenance": {
+        "kind": "llm_rewrite",
+        "eventId": "51362",
+        "sourceId": "cat-cert-at-warnings",
+        "family": "cert",
+        "generator": "language model (assistant authoring this chantier)",
+        "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names."
+      }
+    },
+    {
+      "split": "test",
+      "department": "33",
+      "sourceKind": "public",
+      "id": "event-51362-human",
+      "label": "human",
+      "text": "Kritische Sicherheitslücken in NGINX Plus und NGINX Open Source - Updates verfügbar. 18. November 2026 Beschreibung In NGINX Plus und NGINX Open Source existieren mehrere Sicherheitslücken in den Modulen ngx_http_v2_module (HTTP/2), ngx_http_v3_module (HTTP/3) und ngx_mail_proxy_module (Mail-Proxy). Es handelt sich um Use-after-free-Schwachstellen sowie einen Heap-Buffer-Overflow, deren Ausnutzung zum Absturz von Worker-Prozessen und unter bestimmten Voraussetzungen zur Ausführung von beliebigem Code führen kann. F5 bewertet die Schwachstellen nach CVSS v4.0 als kritisch. CVE-Nummer(n): CVE-20",
+      "provenance": {
+        "kind": "real_event",
+        "eventId": "51362",
+        "sourceId": "cat-cert-at-warnings",
+        "family": "cert"
+      }
+    },
+    {
+      "split": "test",
+      "department": "33",
+      "sourceKind": "public",
+      "id": "event-51960-ai",
+      "label": "ai",
+      "text": "En conclusion, la coopération internationale montre combien la visibilité des campagnes peut aider les défenseurs. Il convient de noter que le contexte national diffère sensiblement d'une région à l'autre. Les organisations locales semblent pouvoir tirer parti de retours d'expérience partagés. Dans un contexte incertain, la résilience dépend de la coordination entre pairs et de la clarté des échanges.",
+      "provenance": {
+        "kind": "llm_rewrite",
+        "eventId": "51960",
+        "sourceId": "cat-ncsc-nl-news",
+        "family": "cert",
+        "generator": "language model (assistant authoring this chantier)",
+        "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names."
+      }
+    },
+    {
+      "split": "test",
+      "department": "33",
+      "sourceKind": "public",
+      "id": "event-51960-human",
+      "label": "human",
+      "text": "Kwetsbaarheden in F5 Networks NGINX: update nu. Er zijn meerdere kwetsbaarheden gevonden in NGINX Plus en NGINX Open Source van F5 Networks, waaronder CVE-2026-123007 met een hoge ernst (CVSS 8.1). Het Nationaal Cyber Security Centrum (NCSC) beoordeelt de kans op misbruik en de mogelijke schade als groot. Er wordt verwacht dat er binnenkort proof of concept code beschikbaar komt, waardoor grootschalig misbruik waarschijnlijk is.",
+      "provenance": {
+        "kind": "real_event",
+        "eventId": "51960",
+        "sourceId": "cat-ncsc-nl-news",
+        "family": "cert"
+      }
+    },
+    {
+      "split": "test",
+      "department": "87",
+      "sourceKind": "public",
+      "id": "event-72288-ai",
+      "label": "ai",
+      "text": "Overall, the report shows how public attention changes when a cyber incident reaches a regional audience. It is important to note that the tone of coverage may influence how residents perceive the risk. Local organisations could take the opportunity to explain the practical steps they recommend. In summary, awareness and coordination appear to grow together when information stays accessible.",
+      "provenance": {
+        "kind": "llm_rewrite",
+        "eventId": "72288",
+        "sourceId": "presse-france3-na",
+        "family": "cti",
+        "generator": "language model (assistant authoring this chantier)",
+        "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names."
+      }
+    },
+    {
+      "split": "test",
+      "department": "87",
+      "sourceKind": "public",
+      "id": "event-72288-human",
+      "label": "human",
+      "text": "Élus menacés de mort, votes sur les travaux : un mois après l'incendie de l'Hôtel de ville de Limoges, le conseil municipal nouveau réuni. Le premier conseil municipal depuis l'incendie de l'Hôtel de ville de Limoges s'est tenu, jeudi 19 novembre, à la préfecture de la Haute-Vienne. Pour ces premières retrouvailles officielles, les discours d’unité républicaine ont rapidement cédé la place à des débats assez vifs sur plusieurs dossiers.",
+      "provenance": {
+        "kind": "real_event",
+        "eventId": "72288",
+        "sourceId": "presse-france3-na",
+        "family": "cti"
+      }
+    },
+    {
+      "split": "test",
+      "department": "87",
+      "sourceKind": "gray",
+      "id": "event-81836-ai",
+      "label": "ai",
+      "text": "Au final, une nouvelle entrée dans un catalogue de fuites rappelle l'importance de surveiller les traces publiques. Il est essentiel de noter que la date d'observation peut précéder de plusieurs semaines la découverte par les équipes. Les parties prenantes semblent devoir adapter leur visibilité aux informations disponibles. La résilience du dispositif dépend alors d'une coordination entre les services concernés.",
+      "provenance": {
+        "kind": "llm_rewrite",
+        "eventId": "81836",
+        "sourceId": "leak:databreaches:feed",
+        "family": "leaks",
+        "generator": "language model (assistant authoring this chantier)",
+        "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names."
+      }
+    },
+    {
+      "split": "test",
+      "department": "87",
+      "sourceKind": "gray",
+      "id": "event-81836-human",
+      "label": "human",
+      "text": "Ransomware: What we know about the arrests of Chaos affiliates. Valéry Rieß-Marchive reports: The Ukraininan authorities have released further details regarding four individuals arrested as part of a wider ransomware investigation into the cyber criminal ransomware underground. The four detainees linked to the so-called Chaos ransomware operation – a group that has only recently come to light – are described as members of a 27-person...",
+      "provenance": {
+        "kind": "real_event",
+        "eventId": "81836",
+        "sourceId": "leak:databreaches:feed",
+        "family": "leaks"
+      }
+    },
+    {
+      "split": "dev",
+      "department": "87",
+      "sourceKind": "gray",
+      "id": "event-829-ai",
+      "label": "ai",
+      "text": "In summary, the breach underlines the importance of visibility across the whole digital ecosystem. It is worth noting that affected organisations may discover the scope of an incident only after wider disclosure. Customers and partners could face uncertainty while the review of exposed records continues. Overall, the episode shows how resilience depends on clear communication and timely coordination between all parties.",
+      "provenance": {
+        "kind": "llm_rewrite",
+        "eventId": "829",
+        "sourceId": "leak:hibp:latest-breaches",
+        "family": "leaks",
+        "generator": "language model (assistant authoring this chantier)",
+        "prompt": "Write four balanced sentences in French or English about the given real Nouvelle-Aquitaine event, as a neutral analytical note, without figures, dates, case identifiers or personal names."
+      }
+    },
+    {
+      "split": "dev",
+      "department": "87",
+      "sourceKind": "gray",
+      "id": "event-829-human",
+      "label": "human",
+      "text": "Gîtes de France - 117,574 breached accounts. In May 2026, the French holiday rental network Gîtes de France suffered a data breach affecting some of its departmental branches. The incident exposed hundreds of thousands of customer records, including 118k unique email addresses alongside names, phone numbers, postal addresses and booking details.",
+      "provenance": {
+        "kind": "real_event",
+        "eventId": "829",
+        "sourceId": "leak:hibp:latest-breaches",
+        "family": "leaks"
+      }
+    },
+    {
+      "id": "presse-france3-3446430",
+      "split": "test",
+      "department": "17",
+      "sourceKind": "public",
+      "label": "human",
+      "text": "\"On en profite, on remplit les étagères\" : des livres de bibliothèque à un euro pour renouveler les collections d'une médiathèque. Ce samedi 7 novembre, la médiathèque François-Mitterrand de Saintes organisait sa troisième braderie pour vendre à un euro ses collections obsolètes. Dans un contexte de crise économique, l'événement a fait le plein de lecteurs.",
+      "provenance": {
+        "kind": "real_press_excerpt",
+        "corpus": "bench/corpus/articles-presse-na.jsonl",
+        "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente-maritime/la-rochelle/on-en-profite-on-remplit-les-etageres-des-livres-de-bibliotheque-a-un-euro-pour-renouveler-les-collections-d-une-mediatheque-3446430.html",
+        "date": "2026-11-09",
+        "cyber": false,
+        "note": "Human-written Nouvelle-Aquitaine press excerpt kept as a hard negative: it contains a formulaic discourse marker and even sentence rhythm."
+      }
+    }
+  ]
+}
