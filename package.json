@@ -9,6 +9,8 @@
     "migrate": "apps/api/node_modules/.bin/tsx scripts/migrate.mts",
     "test": "pnpm -F @radar/api test",
     "api:client": "apps/api/node_modules/.bin/tsx scripts/generate-api-client.mts",
+    "mesure:api-v1": "apps/api/node_modules/.bin/tsx scripts/mesure-api-v1.mts",
+    "api:contract": "apps/api/node_modules/.bin/tsx scripts/generate-api-contract.mts",
     "dev": "pnpm -r --parallel dev",
     "dev:api": "pnpm -F @radar/api dev",
     "dev:web": "pnpm -F @radar/web dev",

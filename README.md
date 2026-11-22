@@ -105,6 +105,12 @@ sources → collecteurs → PostgreSQL → API Fastify → front React
   générée depuis les schémas Zod des routes. Les deux préfixes `/api` et
   `/api/v1` exposent les mêmes opérations ; la version est renvoyée dans
   l'en-tête `X-API-Version`.
+- **API v1 stable** : la version `1.0.0` est publiée avec un engagement de
+  compatibilité. `X-API-Stability: stable` et `info.x-compatibility` exposent la
+  politique ; les 54 opérations sont figées dans
+  `apps/api/src/openapi/v1-contract.ts`. Aucune rupture n'est permise dans 1.x :
+  ajouts seulement, changement cassant ⇒ version majeure. Vérification :
+  `pnpm mesure:api-v1` (détail dans [docs/rapports/api-v1-stable.md](docs/rapports/api-v1-stable.md)).
 - Lectures publiques limitées par adresse IP (120 req/min par défaut) ;
   écritures réservées à une session ou à une clé de portée `write`. Les clés
   se créent avec `POST /api/v1/keys` (session admin pour `write`), ne sont

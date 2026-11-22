@@ -3,6 +3,8 @@ import { z } from "zod";
 import { OPERATIONS, type Operation, type Security } from "./catalog.js";
 import { SCHEMAS, INPUT_SCHEMAS } from "./schemas.js";
 import { API_VERSION } from "./version.js";
+import { COMPATIBILITY_POLICY, STABILITY } from "./stability.js";
+import { V1_CONTRACT } from "./v1-contract.js";
 
 type Doc = Record<string, any>;
 
@@ -90,7 +92,10 @@ export function buildOpenApi(): Doc {
     info: {
       title: "Radar Cyber API",
       version: API_VERSION,
-      description: "API publique de l'observatoire. Lectures publiques limitées, écritures authentifiées. Les clés d'API portent leur propre quota.",
+      description: "API publique de l'observatoire. Lectures publiques limitées, écritures authentifiées. Les clés d'API portent leur propre quota. Version 1 stable : aucun changement cassant dans 1.x, contract figé publié (voir x-compatibility et x-contract).",
+      "x-stability": STABILITY,
+      "x-compatibility": COMPATIBILITY_POLICY,
+      "x-contract": { version: V1_CONTRACT.version, digest: V1_CONTRACT.digest, operations: V1_CONTRACT.operations.length },
     },
     servers: [
       { url: "/api/v1", description: "Version 1 (recommandée)" },
