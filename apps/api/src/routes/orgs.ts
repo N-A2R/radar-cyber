@@ -7,6 +7,7 @@ import { desaccords, regrouper, resume } from "../analyse/corroboration.js";
 import { publieesPourOrg } from "../domain/rectification.js";
 import { construireHistorique } from "../analyse/historique.js";
 import { parseBody, invalidBody } from "./body-validation.js";
+import { evenementPublicSql } from "../security/tlp.js";
 
 type OrgListRow = {
   id: number;
@@ -223,6 +224,7 @@ export default async function (app: FastifyInstance) {
         `SELECT a.id, a.kind, a.value, a.created_at AS first_seen,
                 (SELECT e.source_id FROM event e
                   WHERE e.asset_id=a.id
+                    AND ${evenementPublicSql("e")}
                   ORDER BY e.observed_at DESC NULLS LAST, e.id DESC
                   LIMIT 1) AS source
          FROM asset a
@@ -231,14 +233,14 @@ export default async function (app: FastifyInstance) {
          LIMIT 10`,
         [orgId]
       ),
-      query<CountRow>("SELECT COUNT(*)::int AS n FROM event WHERE org_id=$1", [orgId]),
+      query<CountRow>(`SELECT COUNT(*)::int AS n FROM event e WHERE e.org_id=$1 AND ${evenementPublicSql("e")}`, [orgId]),
       query<FamilyRow>(
-        "SELECT family, COUNT(*)::int AS n FROM event WHERE org_id=$1 GROUP BY family ORDER BY n DESC, family",
+        `SELECT family, COUNT(*)::int AS n FROM event e WHERE e.org_id=$1 AND ${evenementPublicSql("e")} GROUP BY family ORDER BY n DESC, family`,
         [orgId]
       ),
       query<EventRecentRow>(
         `SELECT id, title, family, severity, observed_at
-         FROM event WHERE org_id=$1
+         FROM event e WHERE e.org_id=$1 AND ${evenementPublicSql("e")}
          ORDER BY observed_at DESC NULLS LAST, id DESC
          LIMIT 20`,
         [orgId]
@@ -263,6 +265,7 @@ export default async function (app: FastifyInstance) {
               ) AS m
          LEFT JOIN event e
            ON e.org_id=$1 AND e.observed_at >= m AND e.observed_at < m + interval '1 month'
+          AND ${evenementPublicSql("e")}
          GROUP BY m
          ORDER BY m`,
         [orgId]
@@ -300,7 +303,7 @@ export default async function (app: FastifyInstance) {
         [orgId]
       ),
       query<CountRow>(
-        "SELECT COUNT(DISTINCT source_id)::int AS n FROM event WHERE org_id=$1",
+        `SELECT COUNT(DISTINCT source_id)::int AS n FROM event e WHERE e.org_id=$1 AND ${evenementPublicSql("e")}`,
         [orgId]
       ),
       publieesPourOrg(orgId),
@@ -327,6 +330,7 @@ export default async function (app: FastifyInstance) {
          FROM event e
         WHERE e.org_id = $1
           AND COALESCE(e.observed_at, e.collected_at) >= now() - interval '180 days'
+          AND ${evenementPublicSql("e")}
         ORDER BY COALESCE(e.observed_at, e.collected_at) DESC
         LIMIT 500`,
       [orgId],

@@ -1,0 +1,63 @@
+{
+  "command": "tsx scripts/fill-na-remaining-gaps.mts",
+  "applied": {
+    "scanned": 0,
+    "refused": 0,
+    "inserted": 0,
+    "alreadyPresent": 0
+  },
+  "scope": "nouvelle-aquitaine",
+  "departments": [
+    {
+      "department": "16",
+      "events": 4
+    },
+    {
+      "department": "17",
+      "events": 4
+    },
+    {
+      "department": "19",
+      "events": 1
+    },
+    {
+      "department": "23",
+      "events": 2
+    },
+    {
+      "department": "24",
+      "events": 1
+    },
+    {
+      "department": "33",
+      "events": 3
+    },
+    {
+      "department": "40",
+      "events": 2
+    },
+    {
+      "department": "47",
+      "events": 5
+    },
+    {
+      "department": "64",
+      "events": 4
+    },
+    {
+      "department": "79",
+      "events": 2
+    },
+    {
+      "department": "86",
+      "events": 2
+    },
+    {
+      "department": "87",
+      "events": 2
+    }
+  ],
+  "zeroDepartments": [],
+  "eventCount": 32,
+  "measuredAt": "2026-11-22T03:32:36.902Z"
+}

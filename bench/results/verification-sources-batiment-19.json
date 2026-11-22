@@ -1,0 +1,171 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-batiment-19.jsonl",
+  "secteur": "bâtiment",
+  "departement": "19",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/131 Safari/537.36",
+  "methode": "GET HTTP avec User-Agent navigateur, suivi des redirections, délai 25 s ; statut et type de contenu relevés pour chaque URL",
+  "sources": 12,
+  "urls_verifiees": 22,
+  "urls_200": 22,
+  "detail": {
+    "CAPEB Corrèze": {
+      "urls": {
+        "https://www.capeb.fr/correze": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.capeb.fr/correze"
+        },
+        "https://www.capeb.fr/correze/actualites": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.capeb.fr/correze/actualites"
+        }
+      }
+    },
+    "CMA Nouvelle-Aquitaine — Corrèze (chambre des métiers et de l'artisanat)": {
+      "urls": {
+        "https://www.cma-correze.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://cma-nouvelleaquitaine.fr/"
+        },
+        "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites"
+        }
+      }
+    },
+    "CAUE 19 — Conseil d'architecture, d'urbanisme et de l'environnement de la Corrèze": {
+      "urls": {
+        "https://www.caue19.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.caue19.fr/news/"
+        },
+        "https://www.caue19.fr/news/category/actualite/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.caue19.fr/news/category/actualite/"
+        },
+        "https://www.caue19.fr/news/category/actualite/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.caue19.fr/news/category/actualite/feed/"
+        }
+      }
+    },
+    "Pro-RGE — Entreprises RGE en Corrèze": {
+      "urls": {
+        "https://pro-rge.fr/entreprises/correze-19/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://pro-rge.fr/entreprises/correze-19/"
+        }
+      }
+    },
+    "La Montagne — Corrèze": {
+      "urls": {
+        "https://www.lamontagne.fr/correze/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lamontagne.fr/correze/"
+        }
+      }
+    },
+    "actu.fr — Corrèze": {
+      "urls": {
+        "https://actu.fr/nouvelle-aquitaine/correze_19/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/correze_19"
+        },
+        "https://actu.fr/nouvelle-aquitaine/correze_19/rss.xml": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/correze_19/rss.xml"
+        }
+      }
+    },
+    "France 3 Nouvelle-Aquitaine — Corrèze": {
+      "urls": {
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze"
+        },
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/rss": {
+          "code": 200,
+          "type": "text/xml; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/correze/rss"
+        }
+      }
+    },
+    "ici Corrèze — Radio France": {
+      "urls": {
+        "https://www.ici.fr/nouvelle-aquitaine/correze-19": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/correze-19"
+        },
+        "https://www.ici.fr/rss/limousin/rubrique/infos.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "url_finale": "https://www.ici.fr/rss/limousin/rubrique/infos.xml"
+        }
+      }
+    },
+    "Tulle agglo — Actualités": {
+      "urls": {
+        "https://www.tulleagglo.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.tulleagglo.fr/"
+        },
+        "https://www.tulleagglo.fr/lagglo/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.tulleagglo.fr/lagglo/actualites/"
+        }
+      }
+    },
+    "La Vie Corrézienne — Actualités": {
+      "urls": {
+        "https://www.laviecorrezienne.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.laviecorrezienne.fr/"
+        },
+        "https://www.laviecorrezienne.fr/actualites-actualites.html": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.laviecorrezienne.fr/actualites-actualites.html"
+        }
+      }
+    },
+    "Préfecture de la Corrèze — Actualités": {
+      "urls": {
+        "https://www.correze.gouv.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.correze.gouv.fr/"
+        },
+        "https://www.correze.gouv.fr/Actualites": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.correze.gouv.fr/Actualites"
+        }
+      }
+    },
+    "Ville de Brive-la-Gaillarde — Actualités": {
+      "urls": {
+        "https://www.brive.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.brive.fr/"
+        }
+      }
+    }
+  }
+}

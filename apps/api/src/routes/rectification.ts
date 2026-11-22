@@ -45,7 +45,7 @@ export default async function (app: FastifyInstance) {
         reference: demande.reference,
         statut: demande.statut,
         createdAt: demande.createdAt,
-        prochaineEtape: "Instruction par un administrateur. Rien n'est publié automatiquement.",
+        prochaineEtape: "Instruction sous 30 jours. Rien n'est publié automatiquement.",
       };
     },
   );

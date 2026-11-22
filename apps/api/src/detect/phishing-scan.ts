@@ -9,6 +9,7 @@
 
 import { resolve4, resolve6 } from "node:dns/promises";
 import { ingestQuery, query } from "../db.js";
+import { closeRun, openRun, withRunId } from "../collecte/runs.js";
 import {
   classerUsurpation,
   deaccent,
@@ -365,6 +366,23 @@ export async function enregistrerResultats(resultat: ResultatScan): Promise<{ ev
   if (resultat.usurpations.length === 0 && resultat.urlsPhishing.length === 0) return { evenements };
   await assurerSource(sourceId, "typosquat", "https://crt.sh/");
 
+  // Un run par source citée : le scan est le collecteur, et chaque événement
+  // qu'il produit porte son identifiant (migration 206).
+  const runs = new Map<string, { id: number; itemsIn: number; itemsNew: number }>();
+  const runFor = async (id: string) => {
+    let run = runs.get(id);
+    if (!run) {
+      run = { id: await openRun(id, "scan"), itemsIn: 0, itemsNew: 0 };
+      runs.set(id, run);
+    }
+    return run;
+  };
+  const closeAll = async (status: "ok" | "error", error?: string) => {
+    for (const run of runs.values()) {
+      await closeRun(run.id, { status, itemsIn: run.itemsIn, itemsNew: run.itemsNew, ...(error ? { error } : {}) }).catch(() => {});
+    }
+  };
+  try {
   for (const { finding, verdict } of resultat.usurpations) {
     const cible: Cible = {
       orgId: finding.orgId,
@@ -375,6 +393,8 @@ export async function enregistrerResultats(resultat: ResultatScan): Promise<{ ev
     };
     const orgId = await assurerOrg(cible);
     const url = `https://${finding.domain}/`;
+    const run = await runFor(sourceId);
+    run.itemsIn += 1;
     const res = await ingestQuery(
       `INSERT INTO event (dedup_key, family, assertion_type, title, summary, observed_at, severity,
         confidence, source_id, source_url, evidence, org_id)
@@ -387,7 +407,7 @@ export async function enregistrerResultats(resultat: ResultatScan): Promise<{ ev
         verdict.confiance === "eleve" ? "B2" : "C3",
         sourceId,
         url,
-        JSON.stringify({
+        JSON.stringify(withRunId({
           orgName: finding.orgName,
           base: finding.base,
           kind: finding.kind,
@@ -398,11 +418,12 @@ export async function enregistrerResultats(resultat: ResultatScan): Promise<{ ev
           page: finding.page ? { status: finding.page.status, url: finding.page.url, title: finding.page.title } : null,
           verdict,
           sources: ["dns", "crt.sh", "page-publique"],
-        }),
+        }, run.id)),
         orgId,
       ],
     );
     evenements += res.rowCount ?? 0;
+    run.itemsNew += res.rowCount ?? 0;
   }
 
   for (const feed of [...new Set(resultat.urlsPhishing.map((u) => u.feed))]) {
@@ -417,6 +438,8 @@ export async function enregistrerResultats(resultat: ResultatScan): Promise<{ ev
       referentiel: true,
     };
     const orgId = await assurerOrg(cible);
+    const run = await runFor(url.feed);
+    run.itemsIn += 1;
     const res = await ingestQuery(
       `INSERT INTO event (dedup_key, family, assertion_type, title, summary, severity, confidence,
         source_id, source_url, evidence, org_id)
@@ -428,11 +451,17 @@ export async function enregistrerResultats(resultat: ResultatScan): Promise<{ ev
         `URL signalée par ${url.feed} et rattachée à ${url.orgName} (${url.motif}).`,
         url.feed,
         url.url,
-        JSON.stringify({ orgName: url.orgName, base: url.base, motif: url.motif, feed: url.feed }),
+        JSON.stringify(withRunId({ orgName: url.orgName, base: url.base, motif: url.motif, feed: url.feed }, run.id)),
         orgId,
       ],
     );
     evenements += res.rowCount ?? 0;
+    run.itemsNew += res.rowCount ?? 0;
   }
+  } catch (error) {
+    await closeAll("error", error instanceof Error ? error.message : String(error));
+    throw error;
+  }
+  await closeAll("ok");
   return { evenements };
 }

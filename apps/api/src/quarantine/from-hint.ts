@@ -17,6 +17,7 @@
  */
 import { randomBytes } from "node:crypto";
 import type { PoolClient } from "pg";
+import { resetReviewIndexes } from "./review-index.js";
 import { z } from "zod";
 import { withTransaction } from "../db.js";
 import { consignerAvec } from "../journal/index.js";
@@ -226,5 +227,9 @@ export async function createOrgFromHintTx(
 
 /** Crée l'organisation dans sa propre transaction (appel historique). */
 export async function createOrgFromHint(raw: unknown): Promise<CreateOrgFromHintResult> {
-  return withTransaction((client) => createOrgFromHintTx(client, raw));
+  const result = await withTransaction((client) => createOrgFromHintTx(client, raw));
+  // Une organisation nouvelle doit apparaître dans la file de revue sans
+  // attendre un redémarrage : le snapshot partagé est reconstruit en fond.
+  if (result.created) resetReviewIndexes();
+  return result;
 }

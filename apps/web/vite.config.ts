@@ -26,4 +26,25 @@ export default defineConfig({
       .filter(Boolean),
     proxy: { "/api": process.env.RADAR_API_ORIGIN ?? "http://localhost:8080" },
   },
+  // `vite preview` a son propre bloc : sans lui, un build de recette renvoie
+  // l'index HTML à la place des réponses d'API, et tous les écrans paraissent
+  // vides (0 flux, 0 entrée) alors que le code est bon.
+  preview: {
+    host: "127.0.0.1",
+    proxy: { "/api": process.env.RADAR_API_ORIGIN ?? "http://localhost:8080" },
+  },
+  // Réglages lus par vitest uniquement : le build navigateur n'y touche pas.
+  test: {
+    // `test/offline.spec.ts` est un spec Playwright (voir playwright.config.ts),
+    // pas un test vitest : on ne collecte que les *.test.*.
+    include: ["test/**/*.test.{ts,tsx}"],
+    alias: [
+      // `?worker&url` n'est pas résolu par le pipeline vitest ; la carte réelle
+      // n'est jamais montée dans les tests, un module vide suffit.
+      {
+        find: /^maplibre-gl\/dist\/maplibre-gl-worker\.mjs\?worker&url$/,
+        replacement: new URL("./test/stubs/maplibre-worker-url.ts", import.meta.url).pathname,
+      },
+    ],
+  },
 });

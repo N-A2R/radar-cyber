@@ -1,0 +1,55 @@
+{
+  "consulte_le": "2026-11-22T13:47:00Z",
+  "methode": "CVE NVD 2.0 (identifiant, description et CPE vérifiés). Le fichier ne fige que la CVE attribuable au produit ; EPSS et KEV sont relus en direct à chaque collecte (API FIRST, flux CISA). Le signal est au niveau du produit observé, pas de l'hôte.",
+  "produits": {
+    "mysql": {
+      "epss_max": 0.96619,
+      "cve": "CVE-2012-2122",
+      "kev": false,
+      "kev_cve": null,
+      "preuve_url": "https://nvd.nist.gov/vuln/detail/CVE-2012-2122"
+    },
+    "postgresql": {
+      "epss_max": 0.16335,
+      "cve": "CVE-2022-1552",
+      "kev": false,
+      "kev_cve": null,
+      "preuve_url": "https://nvd.nist.gov/vuln/detail/CVE-2022-1552"
+    },
+    "mongodb": {
+      "epss_max": 0.78501,
+      "cve": "CVE-2025-14847",
+      "kev": true,
+      "kev_cve": "CVE-2025-14847",
+      "preuve_url": "https://nvd.nist.gov/vuln/detail/CVE-2025-14847"
+    },
+    "redis": {
+      "epss_max": 0.99351,
+      "cve": "CVE-2022-0543",
+      "kev": true,
+      "kev_cve": "CVE-2022-0543",
+      "preuve_url": "https://nvd.nist.gov/vuln/detail/CVE-2022-0543"
+    },
+    "elasticsearch": {
+      "epss_max": 0.99906,
+      "cve": "CVE-2015-1427",
+      "kev": true,
+      "kev_cve": "CVE-2014-3120",
+      "preuve_url": "https://nvd.nist.gov/vuln/detail/CVE-2015-1427"
+    },
+    "memcached": {
+      "epss_max": 0.88002,
+      "cve": "CVE-2018-1000115",
+      "kev": false,
+      "kev_cve": null,
+      "preuve_url": "https://nvd.nist.gov/vuln/detail/CVE-2018-1000115"
+    },
+    "rdp": {
+      "epss_max": 0.99999,
+      "cve": "CVE-2019-0708",
+      "kev": true,
+      "kev_cve": "CVE-2019-0708",
+      "preuve_url": "https://nvd.nist.gov/vuln/detail/CVE-2019-0708"
+    }
+  }
+}

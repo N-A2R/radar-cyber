@@ -128,7 +128,8 @@ async function compilerRuns(
             COALESCE(SUM(items_in), 0)::int AS items_in,
             COALESCE(SUM(items_new), 0)::int AS items_new
        FROM collector_run
-      WHERE finished_at >= $1::timestamptz AND finished_at <= $2::timestamptz`,
+      WHERE finished_at >= $1::timestamptz AND finished_at <= $2::timestamptz
+        AND kind IN ('live', 'scan', 'ingest')`,
     [startedAt, finishedAt],
   );
   const ligne = r.rows[0];
@@ -217,6 +218,7 @@ async function ecrireAlertes(
        FROM collector_run cr
        JOIN source s ON s.id = cr.source_id
       WHERE s.enabled
+        AND cr.kind IN ('live', 'scan', 'ingest')
         AND cr.status = 'ok'
         AND cr.items_in > 0
         AND cr.finished_at >= $1::timestamptz

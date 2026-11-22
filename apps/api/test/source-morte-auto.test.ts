@@ -74,8 +74,8 @@ before(async () => {
     );
   }
   await query(
-    `INSERT INTO event (dedup_key, family, assertion_type, title, source_id)
-     VALUES ($1,'ransomware','confirmed_incident',$2,$3)`,
+    `INSERT INTO event (dedup_key, family, assertion_type, title, source_id, source_url, evidence)
+     VALUES ($1,'ransomware','confirmed_incident',$2,$3,'https://example.invalid/event','{"run_id":"1"}'::jsonb)`,
     [`dedup-${TAG}`, `Événement conservé ${TAG}`, SOURCE_ID],
   );
   for (const [email, role] of [[ADMIN_EMAIL, "admin"], [LECTEUR_EMAIL, "lecteur"]] as const) {

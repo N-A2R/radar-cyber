@@ -16,7 +16,18 @@ type Props = {
 const cellKey = (family: string, dept: string) => `${family}\u0000${dept}`;
 
 const byTotalThenLabel = (a: { label: string; total: number }, b: { label: string; total: number }) =>
-  b.total - a.total || a.label.localeCompare(b.label, "en");
+  b.total - a.total || a.label.localeCompare(b.label, "fr");
+
+/**
+ * Two safe background bands, each paired with a text colour that keeps the
+ * count readable (>= 4.5:1): pale tint + light ink, or saturated tint + dark
+ * ink. A continuous ramp would cross the mid-luminance gap where neither
+ * --text nor --accent-ink reaches 4.5:1 on the dark surface.
+ */
+const cellTone = (ratio: number) =>
+  ratio >= 0.5
+    ? { intensity: 0.7 + ratio * 0.3, className: "gm-cell gm-cell--strong" }
+    : { intensity: 0.18 + ratio * 0.24, className: "gm-cell" };
 
 /**
  * Family × department matrix built from the graph: `rattache` (org → dept)
@@ -92,8 +103,8 @@ export default function GraphMatrix({ nodes, links, loading = false, onRetry }: 
   const { counts, columns, rows, max, contributingOrgs } = matrix;
   const summary = (
     <p className="gm-summary">
-      <b>{contributingOrgs}</b> organisations · <b>{columns.length}</b> departments ·{" "}
-      <b>{rows.length}</b> families
+      <b>{contributingOrgs}</b> organisations · <b>{columns.length}</b> départements ·{" "}
+      <b>{rows.length}</b> familles
     </p>
   );
 
@@ -125,16 +136,32 @@ export default function GraphMatrix({ nodes, links, loading = false, onRetry }: 
   return (
     <div className="gm-root">
       {summary}
+      <div className="gm-legend" aria-label="Lecture de la matrice">
+        <span className="gm-legend-title">Lecture</span>
+        <span className="gm-legend-text">intensité = organisations par case</span>
+        <span className="gm-legend-scale" aria-hidden="true">
+          {[0.18, 0.3, 0.85, 1].map((intensity) => (
+            <span
+              key={intensity}
+              className="gm-swatch"
+              style={{ "--gm-i": intensity } as CSSProperties}
+            />
+          ))}
+        </span>
+        <span className="gm-legend-text">0 → {max}</span>
+        <span className="gm-legend-text">totaux dans les en-têtes de ligne et de colonne</span>
+      </div>
       <div className="gm-scroll">
-        <table className="gm-table" aria-label="Organisations by family and department">
+        <table className="gm-table" aria-label="Organisations par famille et département">
           <thead>
             <tr>
               <th scope="col" className="gm-corner">
-                Family · Department
+                Famille · Département
               </th>
               {columns.map((column) => (
                 <th key={column.label} scope="col" className="gm-col" title={`${column.label} · ${column.total}`}>
                   {column.label}
+                  <span className="gm-total" aria-hidden="true">{column.total}</span>
                 </th>
               ))}
             </tr>
@@ -144,18 +171,19 @@ export default function GraphMatrix({ nodes, links, loading = false, onRetry }: 
               <tr key={row.label}>
                 <th scope="row" className="gm-row" title={`${row.label} · ${row.total}`}>
                   {row.label}
+                  <span className="gm-total" aria-hidden="true">{row.total}</span>
                 </th>
                 {columns.map((column) => {
                   const count = counts.get(cellKey(row.label, column.label)) ?? 0;
                   if (count === 0) {
                     return <td key={column.label} className="gm-cell gm-cell--zero" />;
                   }
-                  const style = { "--gm-i": (count / max).toFixed(3) } as CSSProperties;
+                  const tone = cellTone(count / max);
                   return (
                     <td
                       key={column.label}
-                      className="gm-cell"
-                      style={style}
+                      className={tone.className}
+                      style={{ "--gm-i": tone.intensity.toFixed(3) } as CSSProperties}
                       title={`${row.label} · ${column.label}: ${count}`}
                     >
                       {count}

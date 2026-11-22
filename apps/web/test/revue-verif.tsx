@@ -222,11 +222,11 @@ async function main(): Promise<void> {
     && (container.textContent ?? "").includes("2025-01-05"), (container.querySelector(".revue__row")?.textContent ?? "").slice(0, 300));
   check("candidats avec score affichés", (container.textContent ?? "").includes("Mairie de Pessac")
     && (container.textContent ?? "").includes("0.86"));
-  check("compteur de résultats visible", (container.querySelector(".revue__results")?.textContent ?? "").includes("3 shown out of 3"),
+  check("compteur de résultats visible", (container.querySelector(".revue__results")?.textContent ?? "").includes("3 affichées sur 3"),
     container.querySelector(".revue__results")?.textContent);
 
   // --- filtres, debounce et persistance dans l'URL ---------------------
-  click(buttonIn(container.querySelector(".revue__buckets")!, "Warm"));
+  click(buttonIn(container.querySelector(".revue__buckets")!, "Tiède"));
   await flush();
   check("filtre bucket envoyé", lastCall("/api/review/queue")?.url.includes("bucket=tiede") === true, lastCall("/api/review/queue")?.url);
   check("bucket persisté dans l'URL", dom.window.location.hash.includes("bucket=tiede"), dom.window.location.hash);
@@ -242,47 +242,47 @@ async function main(): Promise<void> {
     dom.window.location.hash.includes("q=acme") && dom.window.location.hash.includes("bucket=tiede"), dom.window.location.hash);
 
   setField(container.querySelector("#revue-q") as HTMLInputElement, "");
-  click(buttonIn(container.querySelector(".revue__search")!, "Search"));
+  click(buttonIn(container.querySelector(".revue__search")!, "Rechercher"));
   await flush();
   check("effacement immédiat de la recherche", lastCall("/api/review/queue")?.url.includes("q=") !== true
     && dom.window.location.hash.includes("q=") !== true, dom.window.location.hash);
-  click(buttonIn(container.querySelector(".revue__buckets")!, "All"));
+  click(buttonIn(container.querySelector(".revue__buckets")!, "Toutes"));
   await flush();
 
   // --- états erreur et vide --------------------------------------------
   queueStatus = 500;
-  click(buttonIn(container.querySelector(".revue__buckets")!, "Cold"));
+  click(buttonIn(container.querySelector(".revue__buckets")!, "Froid"));
   await flush();
   check("message d'erreur affiché", (container.querySelector(".revue__error")?.textContent ?? "").includes("queue unavailable"));
   queueStatus = 200;
-  click(buttonIn(container.querySelector(".revue__buckets")!, "All"));
+  click(buttonIn(container.querySelector(".revue__buckets")!, "Toutes"));
   await flush();
 
   queueBody = payload([]);
-  click(buttonIn(container.querySelector(".revue__buckets")!, "Hot"));
+  click(buttonIn(container.querySelector(".revue__buckets")!, "Chaud"));
   await flush();
-  check("état vide explicite", (container.textContent ?? "").includes("No claims left to review."));
+  check("état vide explicite", (container.textContent ?? "").includes("Aucune revendication restante à examiner."));
   queueBody = payload();
-  click(buttonIn(container.querySelector(".revue__buckets")!, "All"));
+  click(buttonIn(container.querySelector(".revue__buckets")!, "Toutes"));
   await flush();
 
   // --- accepter : motif libre + orgId choisi ---------------------------
   const beforeDecision = queueCalls();
-  click(buttonIn(rowByHint("Commune de Pessac"), "Accept"));
+  click(buttonIn(rowByHint("Commune de Pessac"), "Accepter"));
   await flush();
   let form = container.querySelector(".revue__decision")!;
   let reason = form.querySelector("textarea") as HTMLTextAreaElement;
   check("motif vide à l'ouverture", reason.value === "", reason.value);
-  check("confirmation bloquée sans motif", buttonIn(form, "Confirm").disabled);
+  check("confirmation bloquée sans motif", buttonIn(form, "Confirmer").disabled);
   setField(reason, "domaine confirmé au registre");
   await flush();
-  check("confirmation bloquée sans organisation choisie", buttonIn(form, "Confirm").disabled);
+  check("confirmation bloquée sans organisation choisie", buttonIn(form, "Confirmer").disabled);
   const radio = form.querySelector("input[type=radio]") as HTMLInputElement;
   check("radio candidat présent", radio !== null && radio.value === "7");
   click(radio);
   await flush();
-  check("confirmation activée après motif et candidat", !buttonIn(form, "Confirm").disabled);
-  click(buttonIn(form, "Confirm"));
+  check("confirmation activée après motif et candidat", !buttonIn(form, "Confirmer").disabled);
+  click(buttonIn(form, "Confirmer"));
   await flush();
   const accepted = lastCall("/decision");
   check("POST accepter avec le motif saisi et l'orgId choisi",
@@ -293,7 +293,7 @@ async function main(): Promise<void> {
     rows().length === 2 && queueCalls() === beforeDecision, { lignes: rows().length, gets: queueCalls() - beforeDecision });
 
   // --- refuser : aucun orgId -------------------------------------------
-  click(buttonIn(rowByHint("acme.com"), "Reject"));
+  click(buttonIn(rowByHint("acme.com"), "Rejeter"));
   await flush();
   form = container.querySelector(".revue__decision")!;
   reason = form.querySelector("textarea") as HTMLTextAreaElement;
@@ -301,7 +301,7 @@ async function main(): Promise<void> {
   setField(reason, "hors périmètre régional");
   await flush();
   check("aucune organisation à choisir pour refuser", form.querySelector("input[type=radio]") === null);
-  click(buttonIn(form, "Confirm"));
+  click(buttonIn(form, "Confirmer"));
   await flush();
   const refused = lastCall("/decision");
   check("POST refuser sans orgId",
@@ -309,13 +309,13 @@ async function main(): Promise<void> {
   check("deuxième ligne retirée", rows().length === 1);
 
   // --- créer : aucun orgId, motif libre --------------------------------
-  click(buttonIn(rowByHint("autre.fr"), "Create organisation"));
+  click(buttonIn(rowByHint("autre.fr"), "Créer l'organisation"));
   await flush();
   form = container.querySelector(".revue__decision")!;
   reason = form.querySelector("textarea") as HTMLTextAreaElement;
   setField(reason, "organisation absente du référentiel");
   await flush();
-  click(buttonIn(form, "Confirm"));
+  click(buttonIn(form, "Confirmer"));
   await flush();
   const created = lastCall("/decision");
   check("POST creer sans orgId",
@@ -324,20 +324,20 @@ async function main(): Promise<void> {
     [accepted, refused, created].every((call) => typeof call?.body?.raison === "string" && String(call.body.raison).length > 0)
       && new Set([accepted?.body?.raison, refused?.body?.raison, created?.body?.raison]).size === 3);
   check("dernière ligne retirée, état vide visible",
-    rows().length === 0 && (container.textContent ?? "").includes("No claims left to review."));
+    rows().length === 0 && (container.textContent ?? "").includes("Aucune revendication restante à examiner."));
   check("trois décisions envoyées, aucune relecture de la file", decisionCalls() === 3 && queueCalls() === beforeDecision);
 
   // --- erreur de décision : la ligne reste -----------------------------
-  click(buttonIn(container.querySelector(".revue__buckets")!, "Hot"));
+  click(buttonIn(container.querySelector(".revue__buckets")!, "Chaud"));
   await flush();
   const beforeFailed = rows().length;
   decisionStatus = 400;
-  click(buttonIn(rowByHint("autre.fr"), "Reject"));
+  click(buttonIn(rowByHint("autre.fr"), "Rejeter"));
   await flush();
   form = container.querySelector(".revue__decision")!;
   setField(form.querySelector("textarea") as HTMLTextAreaElement, "motif valide");
   await flush();
-  click(buttonIn(form, "Confirm"));
+  click(buttonIn(form, "Confirmer"));
   await flush();
   check("erreur de décision affichée", (container.querySelector(".revue__error")?.textContent ?? "").includes("decision rejected"));
   check("ligne conservée après échec", rows().length === beforeFailed);
@@ -345,7 +345,7 @@ async function main(): Promise<void> {
 
   // --- 401 -------------------------------------------------------------
   queueStatus = 401;
-  click(buttonIn(container.querySelector(".revue__buckets")!, "All"));
+  click(buttonIn(container.querySelector(".revue__buckets")!, "Toutes"));
   await flush();
   check("401 signalée à l'application", unauthorized > 0);
   check("401 : message d'erreur rendu", (container.querySelector(".revue__error")?.textContent ?? "").includes("queue unavailable"));
@@ -357,20 +357,20 @@ async function main(): Promise<void> {
   await mount({ canWrite: false });
   check("lecture seule : toutes les actions désactivées",
     rows().every((item) => [...item.querySelectorAll(".revue__actions button")].every((button) => (button as HTMLButtonElement).disabled)));
-  check("lecture seule : message explicite", (container.textContent ?? "").includes("Read-only"));
+  check("lecture seule : message explicite", (container.textContent ?? "").includes("Lecture seule"));
 
   await unmount();
   calls.length = 0;
   await mount({ server: false });
   check("sans API : aucun appel réseau", calls.length === 0);
-  check("sans API : état explicite", (container.textContent ?? "").includes("requires the API"));
+  check("sans API : état explicite", (container.textContent ?? "").includes("nécessite l'API"));
   await unmount();
 
   // --- lien profond : l'URL initiale pilote les filtres -----------------
   calls.length = 0;
   dom.window.history.replaceState(null, "", "#/review?bucket=froid&q=depuislien");
   await mount();
-  check("lien profond : bucket coché", buttonIn(container.querySelector(".revue__buckets")!, "Cold").getAttribute("aria-pressed") === "true");
+  check("lien profond : bucket coché", buttonIn(container.querySelector(".revue__buckets")!, "Froid").getAttribute("aria-pressed") === "true");
   check("lien profond : q dans le champ", (container.querySelector("#revue-q") as HTMLInputElement).value === "depuislien");
   check("lien profond : API filtrée",
     lastCall("/api/review/queue")?.url.includes("q=depuislien") === true

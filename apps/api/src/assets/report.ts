@@ -75,6 +75,7 @@ export async function sourceHealth(): Promise<SourceHealth[]> {
              coalesce(sum(items_new), 0) AS items_new
       FROM collector_run
       WHERE started_at > now() - interval '${RUN_WINDOW}'
+        AND kind IN ('live', 'scan', 'ingest')
       GROUP BY source_id
     ) cr ON cr.source_id = s.id
     ORDER BY s.id
