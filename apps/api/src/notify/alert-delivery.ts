@@ -1,5 +1,6 @@
 import { ingestQuery } from "../db.js";
 import { ALERT_SCOPES_REVUE } from "../alert-scope.js";
+import { evenementPublicSql } from "../security/tlp.js";
 
 export const MAX_ATTEMPTS = 10;
 /** Limite par passage pour ne jamais bloquer la collecte. */
@@ -87,6 +88,7 @@ WHERE a.delivered_at IS NULL
   AND a.attempts < $1
   AND (a.next_attempt_at IS NULL OR a.next_attempt_at <= now())
   AND a.scope <> ALL($3::text[])
+  AND ${evenementPublicSql("e")}
 ORDER BY a.created_at ASC, a.id ASC
 LIMIT $2`;
 
