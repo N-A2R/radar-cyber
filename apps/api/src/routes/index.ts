@@ -43,6 +43,7 @@ import onionIndexRoute from "./onion-index.js";
 import confidenceRoute from "./confidence.js";
 import leaksByDomainRoute from "./leaks-by-domain.js";
 import resaleListingsRoute from "./resale-listings.js";
+import c2ServersRoute from "./c2-servers.js";
 import publicMandatesRoute from "./public-mandates.js";
 import custodyRoute from "./custody.js";
 
@@ -58,6 +59,7 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     confidenceRoute,
     leaksByDomainRoute,
     resaleListingsRoute,
+    c2ServersRoute,
     publicMandatesRoute,
     onionIndexRoute,
     custodyRoute,
