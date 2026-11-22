@@ -32,3 +32,4 @@ Découverte par recherche web, sites d'organisations, annuaires et presse locale
 
 Corpus : `bench/corpus/sources-numerique-24.jsonl` (12 lignes, empreinte recalculée dans `bench/corpus/HASH`).
 Base : `db/migrate-096-sources-numerique-24.sql` insère 12 lignes dans `source` (parser pointant vers le corpus) et 12 traces `source_verification` en état `ok200`.
+OBJECTIF : atteint — 12 / 5
