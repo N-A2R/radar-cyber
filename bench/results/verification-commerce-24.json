@@ -1,0 +1,327 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-commerce-24.jsonl",
+  "secteur": "commerce",
+  "departement": "24",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+  "methode": "GET réel avec suivi des redirections, délai 25 s, User-Agent navigateur ; code HTTP, type de contenu et nombre d'items RSS enregistrés pour chaque site, page d'actualités, flux et article cyber. Exa hors crédits (402) : candidats trouvés via moteurs alternatifs et sites officiels, tous contrôlés en HTTP direct.",
+  "sources": 11,
+  "urls_verifiees": 43,
+  "urls_200": 43,
+  "detail": [
+    {
+      "nom": "CCI Dordogne — actualités et entreprises",
+      "urls": {
+        "site": {
+          "url": "https://dordogne.cci.fr/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        },
+        "actualites": {
+          "url": "https://dordogne.cci.fr/actualites/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        },
+        "flux": {
+          "url": "https://dordogne.cci.fr/feed/",
+          "code": 200,
+          "type": "application/rss+xml",
+          "items_rss": 10
+        },
+        "exemple_cyber": {
+          "url": "https://www.sudouest.fr/dordogne/cyberattaque-dans-des-supermarches-plusieurs-magasins-vises-en-dordogne-31039218.php",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "Périgord Commerce — commerçants et artisans de Dordogne",
+      "urls": {
+        "site": {
+          "url": "https://accueil.perigord-commerce.com/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        },
+        "actualites": {
+          "url": "https://accueil.perigord-commerce.com/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        },
+        "flux": {
+          "url": "https://accueil.perigord-commerce.com/feed/",
+          "code": 200,
+          "type": "application/rss+xml",
+          "items_rss": 1
+        },
+        "exemple_cyber": {
+          "url": "https://www.sudouest.fr/dordogne/je-ne-voudrais-pas-que-certains-viennent-se-venger-un-faux-site-de-vente-de-bois-de-chauffage-usurpe-l-identite-d-une-entreprise-de-dordogne-pour-arnaquer-les-clients-31392944.php",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "Le Journal des Entreprises — Dordogne",
+      "urls": {
+        "site": {
+          "url": "https://www.lejournaldesentreprises.com/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        },
+        "actualites": {
+          "url": "https://www.lejournaldesentreprises.com/regions/france/nouvelle-aquitaine/dordogne",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        },
+        "flux": {
+          "url": "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine",
+          "code": 200,
+          "type": "text/xml",
+          "items_rss": 20
+        },
+        "exemple_cyber": {
+          "url": "https://www.sudouest.fr/dordogne/cyberattaque-dans-des-supermarches-plusieurs-magasins-vises-en-dordogne-31039218.php",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "Dordogne Libre — rubrique économie",
+      "urls": {
+        "site": {
+          "url": "https://www.dordognelibre.fr/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        },
+        "actualites": {
+          "url": "https://www.dordognelibre.fr/economie/archives/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        },
+        "flux": {
+          "url": "https://www.dordognelibre.fr/economie/archives/rss.xml",
+          "code": 200,
+          "type": "application/xml",
+          "items_rss": 20
+        },
+        "exemple_cyber": {
+          "url": "https://www.dordognelibre.fr/dordogne/riberac/riberac-liberte-fm-victime-d-un-piratage-lance-une-cagnotte-31290979.php",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "Sud Ouest — Dordogne",
+      "urls": {
+        "site": {
+          "url": "https://www.sudouest.fr/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        },
+        "actualites": {
+          "url": "https://www.sudouest.fr/dordogne/archives/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        },
+        "flux": {
+          "url": "https://www.sudouest.fr/dordogne/rss.xml",
+          "code": 200,
+          "type": "application/xml",
+          "items_rss": 20
+        },
+        "exemple_cyber": {
+          "url": "https://www.sudouest.fr/dordogne/cyberattaque-dans-des-supermarches-plusieurs-magasins-vises-en-dordogne-31039218.php",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "Sud Ouest — Bergerac",
+      "urls": {
+        "site": {
+          "url": "https://www.sudouest.fr/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        },
+        "actualites": {
+          "url": "https://www.sudouest.fr/dordogne/bergerac/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        },
+        "flux": {
+          "url": "https://www.sudouest.fr/dordogne/bergerac/rss.xml",
+          "code": 200,
+          "type": "application/xml",
+          "items_rss": 20
+        },
+        "exemple_cyber": {
+          "url": "https://www.sudouest.fr/dordogne/je-ne-voudrais-pas-que-certains-viennent-se-venger-un-faux-site-de-vente-de-bois-de-chauffage-usurpe-l-identite-d-une-entreprise-de-dordogne-pour-arnaquer-les-clients-31392944.php",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "ICI Périgord — Dordogne (Radio France)",
+      "urls": {
+        "site": {
+          "url": "https://www.ici.fr/radio/perigord",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        },
+        "actualites": {
+          "url": "https://www.ici.fr/nouvelle-aquitaine/dordogne-24/actu",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        },
+        "flux": {
+          "url": "https://www.ici.fr/rss/perigord/rubrique/infos.xml",
+          "code": 200,
+          "type": "application/xml",
+          "items_rss": 20
+        },
+        "exemple_cyber": {
+          "url": "https://www.sudouest.fr/economie/transports/le-reseau-de-transports-du-grand-perigueux-alerte-contre-une-arnaque-23788236.php",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "Réussir le Périgord",
+      "urls": {
+        "site": {
+          "url": "https://www.reussirleperigord.fr/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        },
+        "actualites": {
+          "url": "https://www.reussirleperigord.fr/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        },
+        "flux": {
+          "url": "https://www.reussirleperigord.fr/feed",
+          "code": 200,
+          "type": "application/rss+xml",
+          "items_rss": 10
+        },
+        "exemple_cyber": {
+          "url": "https://www.sudouest.fr/economie/transports/le-reseau-de-transports-du-grand-perigueux-alerte-contre-une-arnaque-23788236.php",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "Mon-Entreprise-Info — actualités Dordogne",
+      "urls": {
+        "site": {
+          "url": "https://mon-entreprise-info.com/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        },
+        "actualites": {
+          "url": "https://mon-entreprise-info.com/actualites/dordogne/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        },
+        "flux": {
+          "url": "https://mon-entreprise-info.com/actualites/dordogne/rss.xml",
+          "code": 200,
+          "type": "application/xml",
+          "items_rss": 50
+        },
+        "exemple_cyber": {
+          "url": "https://www.sudouest.fr/dordogne/je-ne-voudrais-pas-que-certains-viennent-se-venger-un-faux-site-de-vente-de-bois-de-chauffage-usurpe-l-identite-d-une-entreprise-de-dordogne-pour-arnaquer-les-clients-31392944.php",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        }
+      }
+    },
+    {
+      "nom": "Societe.Tech — entreprises Dordogne",
+      "urls": {
+        "site": {
+          "url": "https://www.societe.tech/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        },
+        "actualites": {
+          "url": "https://www.societe.tech/actualite-entreprises-nouvelle-aquitaine/actualite-entreprises-dordogne/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        },
+        "exemple_cyber": {
+          "url": "https://www.sudouest.fr/dordogne/cyberattaque-dans-des-supermarches-plusieurs-magasins-vises-en-dordogne-31039218.php",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        }
+      },
+      "note": "Flux RSS indisponibles (410) ; site et page d'actualités vérifiés en 200."
+    },
+    {
+      "nom": "Ville de Bergerac — commerces et associations",
+      "urls": {
+        "site": {
+          "url": "https://www.bergerac.fr/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        },
+        "actualites": {
+          "url": "https://www.bergerac.fr/coeur-de-ville/commerces-associations/",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        },
+        "flux": {
+          "url": "https://www.bergerac.fr/feed/",
+          "code": 200,
+          "type": "application/rss+xml",
+          "items_rss": 10
+        },
+        "exemple_cyber": {
+          "url": "https://www.sudouest.fr/economie/cybersecurite/les-qr-codes-d-horodateurs-pirates-en-dordogne-25534143.php",
+          "code": 200,
+          "type": "text/html",
+          "items_rss": 0
+        }
+      }
+    }
+  ]
+}
