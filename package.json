@@ -31,6 +31,7 @@
     "mesure:pertinence": "apps/api/node_modules/.bin/tsx scripts/mesure-pertinence.mts",
     "mesure:confiance": "apps/api/node_modules/.bin/tsx scripts/compute-confidence-scores.mts",
     "mesure:corroboration": "apps/api/node_modules/.bin/tsx scripts/measure-incident-corroboration.mts",
+    "mesure:contradictions": "apps/api/node_modules/.bin/tsx scripts/measure-source-contradictions.mts",
     "measure:leaks-by-domain": "apps/api/node_modules/.bin/tsx scripts/measure-leaks-by-domain.mts",
     "mesure:cve-na": "apps/api/node_modules/.bin/tsx scripts/measure-cve-na.mts",
     "corpus:hash": "apps/api/node_modules/.bin/tsx scripts/corpus-hash.mts",
