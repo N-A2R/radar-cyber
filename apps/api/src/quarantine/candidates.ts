@@ -44,13 +44,22 @@ function domainLabels(domain: string | null): string[] {
 	return parts.slice(0, Math.max(0, parts.length - 1)).filter((part) => part.length >= 2);
 }
 
-export function buildCandidateIndex(index: OrgIndexEntry[]): CandidateIndex {
+/**
+ * Étapes de construction, générateur : le même travail sert au chemin
+ * synchrone (tests, petites index) et au chargement de fond, qui rend la main
+ * toutes les 5 000 entrées pour ne pas bloquer la boucle d'événements.
+ */
+const PAS = 5_000;
+
+function* etapesCandidateIndex(index: OrgIndexEntry[]): Generator<void, CandidateIndex> {
 	// Fréquence des jetons de nom : sert à choisir le témoin le plus sélectif.
 	const frequency = new Map<string, number>();
+	let vus = 0;
 	for (const entry of index) {
 		for (const token of new Set(tokensOf(entry.name))) {
 			frequency.set(token, (frequency.get(token) ?? 0) + 1);
 		}
+		if (++vus % PAS === 0) yield;
 	}
 
 	const byToken = new Map<string, OrgIndexEntry[]>();
@@ -60,6 +69,7 @@ export function buildCandidateIndex(index: OrgIndexEntry[]): CandidateIndex {
 		else byToken.set(token, [entry]);
 	};
 
+	vus = 0;
 	for (const entry of index) {
 		const keys = new Set<string>();
 
@@ -89,9 +99,30 @@ export function buildCandidateIndex(index: OrgIndexEntry[]): CandidateIndex {
 		for (const label of domainLabels(entry.websiteDomain)) keys.add(label);
 
 		for (const key of keys) push(key, entry);
+		if (++vus % PAS === 0) yield;
 	}
 
 	return { byToken, all: index, size: index.length };
+}
+
+export function buildCandidateIndex(index: OrgIndexEntry[]): CandidateIndex {
+	const etapes = etapesCandidateIndex(index);
+	for (;;) {
+		const pas = etapes.next();
+		if (pas.done) return pas.value;
+	}
+}
+
+/** Même index, construit sans monopoliser la boucle : une pause toutes les 5 000 entrées. */
+export async function buildCandidateIndexChunked(index: OrgIndexEntry[]): Promise<CandidateIndex> {
+	const etapes = etapesCandidateIndex(index);
+	for (;;) {
+		const pas = etapes.next();
+		if (pas.done) return pas.value;
+		const { promise, resolve } = Promise.withResolvers<void>();
+		setImmediate(resolve);
+		await promise;
+	}
 }
 
 /**
