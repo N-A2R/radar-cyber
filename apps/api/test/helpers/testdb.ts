@@ -89,8 +89,11 @@ VALUES ('ransomware-revendication', 'Alerte de référence (jeu de test)', 3, 'o
 -- une source_url explicite. Le run est déclaré explicitement pour que son
 -- identifiant soit stable d'une base de test à l'autre.
 INSERT INTO collector_run (id, source_id, started_at, finished_at, status, items_in, items_new, kind)
-VALUES (1, 'ransomlook', now(), now(), 'ok', 0, 0, 'live');
-SELECT setval('collector_run_id_seq', 1, true);
+VALUES (1, 'ransomlook', now(), now(), 'ok', 0, 0, 'live')
+ON CONFLICT (id) DO NOTHING;
+-- Une migration peut déjà avoir écrit un run (206 sème les backfills) : la
+-- séquence repart de l'identifiant le plus haut, jamais de 1 en dur.
+SELECT setval('collector_run_id_seq', (SELECT max(id) FROM collector_run), true);
 `;
 
 async function schemaFiles(): Promise<string[]> {

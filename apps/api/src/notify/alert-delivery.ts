@@ -1,4 +1,5 @@
 import { ingestQuery } from "../db.js";
+import { buildSignedWebhookHeaders } from "./webhook-signature.js";
 import { ALERT_SCOPES_REVUE } from "../alert-scope.js";
 import { evenementPublicSql } from "../security/tlp.js";
 
@@ -8,6 +9,8 @@ const BATCH_LIMIT = 50;
 
 export interface DeliveryConfig {
   webhookUrl?: string;
+  /** Secret partagé qui signe le corps exact de chaque webhook (HMAC-SHA256). */
+  webhookSecret?: string;
   telegramBotToken?: string;
   telegramChatId?: string;
   /** Base publique du front pour construire un lien d'alerte (optionnel). */
@@ -51,10 +54,11 @@ export interface DeliveryResult {
 /** Lit la configuration depuis l'environnement. Aucune valeur par défaut sensible. */
 export function readDeliveryConfig(env: NodeJS.ProcessEnv = process.env): DeliveryConfig {
   const webhookUrl = env.RADAR_ALERT_WEBHOOK_URL?.trim() || undefined;
+  const webhookSecret = env.RADAR_ALERT_WEBHOOK_SECRET?.trim() || undefined;
   const telegramBotToken = env.RADAR_ALERT_TELEGRAM_BOT_TOKEN?.trim() || undefined;
   const telegramChatId = env.RADAR_ALERT_TELEGRAM_CHAT_ID?.trim() || undefined;
   const webBaseUrl = env.RADAR_WEB_BASE_URL?.trim().replace(/\/+$/, "") || undefined;
-  return { webhookUrl, telegramBotToken, telegramChatId, webBaseUrl };
+  return { webhookUrl, webhookSecret, telegramBotToken, telegramChatId, webBaseUrl };
 }
 
 /** True si au moins un canal est configuré. */
@@ -174,11 +178,14 @@ export function buildDeliveryMessage(alert: DeliveryAlert, cfg: DeliveryConfig =
   return { alertId: alert.id, text: lines.join("\n"), payload };
 }
 
-async function sendWebhook(url: string, payload: Record<string, unknown>): Promise<void> {
+async function sendWebhook(url: string, payload: Record<string, unknown>, secret: string): Promise<void> {
+  // Le corps est sérialisé une seule fois : la signature porte sur les octets
+  // réellement envoyés, pas sur une seconde sérialisation.
+  const rawBody = JSON.stringify(payload);
   const res = await fetch(url, {
     method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify(payload),
+    headers: buildSignedWebhookHeaders(secret, rawBody),
+    body: rawBody,
   });
   if (!res.ok) {
     const body = await res.text().catch(() => "");
@@ -273,8 +280,11 @@ export async function deliverPendingAlerts(
     try {
       let webhookOk = Boolean(alert.webhook_delivered_at);
       let telegramOk = Boolean(alert.telegram_delivered_at);
+      if (cfg.webhookUrl && !cfg.webhookSecret) {
+        throw new Error("signing secret is not configured");
+      }
       if (cfg.webhookUrl && !webhookOk) {
-        await sendWebhook(cfg.webhookUrl, msg.payload);
+        await sendWebhook(cfg.webhookUrl, msg.payload, cfg.webhookSecret ?? "");
         webhookOk = true;
         await markChannelDelivered(alert.id, "webhook");
       }

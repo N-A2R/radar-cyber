@@ -66,7 +66,11 @@ try {
 	const cmd = existsSync(LOCAL_TSX) ? LOCAL_TSX : "tsx";
 	exitCode = await run(
 		cmd,
-		["--test", "--test-concurrency=1", "--test-timeout=120000", ...flags, ...files],
+		// `--test-force-exit` : la suite rend son verdict puis le processus
+		// sort, même si une connexion de collecte est restée ouverte. Sans lui,
+		// le step de CI attend 20 minutes pour rien (692 tests verts, aucune
+		// sortie), et le job est annulé.
+		["--test", "--test-concurrency=1", "--test-timeout=120000", "--test-force-exit", ...flags, ...files],
 		// Les tests créent des organisations entre deux appels : le snapshot de la
 		// file de revue doit rester frais, donc jamais mis en cache ici.
 		{ ...process.env, DATABASE_URL: db.url, RADAR_REVIEW_INDEX_CACHE: "off" }
