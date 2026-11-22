@@ -98,3 +98,4 @@ moyenne mesurée sur des lots, pas un chronomètre par source. Le gain porte sur
 le temps de collecte cumulé du catalogue, pas sur le temps mur d'un tick
 parallèle. Si des durées par source deviennent disponibles, la même règle les
 utilisera automatiquement comme unité de temps et la mesure devra être rejouée.
+OBJECTIF : atteint — 62,41 % / 20 %
