@@ -497,6 +497,7 @@ Variables d'environnement (voir `.env.example`) :
 | Variable | Rôle |
 |---|---|
 | `RADAR_ALERT_WEBHOOK_URL` | URL recevant un `POST` JSON (`Content-Type: application/json`) |
+| `RADAR_ALERT_WEBHOOK_SECRET` | Secret HMAC partagé, requis dès que l'URL webhook est définie (`openssl rand -hex 32`) |
 | `RADAR_ALERT_TELEGRAM_BOT_TOKEN` | Jeton Bot Telegram (`sendMessage`) |
 | `RADAR_ALERT_TELEGRAM_CHAT_ID` | Identifiant du chat Telegram cible (requis avec le jeton) |
 | `RADAR_WEB_BASE_URL` | Base publique du front pour construire un lien d'alerte (optionnel) |
@@ -510,6 +511,12 @@ Variables d'environnement (voir `.env.example`) :
 At least one complete channel is required: webhook, Telegram token+chat, or
 email host+from+to. Without one, no delivery loop is registered.
 The public RSS feed is always available at `GET /api/alerts/rss.xml`.
+
+Le canal webhook signe le corps JSON brut en HMAC-SHA256 et ajoute
+`x-radar-timestamp` (secondes Unix) et `x-radar-signature` (`sha256=<hex>`).
+Le client recalcule `HMAC-SHA256(secret, timestamp + "." + corps brut)` et refuse
+une signature absente, différente ou dont le timestamp sort de ±300 secondes.
+Sans secret configuré, aucun `POST` n'est envoyé et l'alerte passe en échec.
 
 ### Comportement
 

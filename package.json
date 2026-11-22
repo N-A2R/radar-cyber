@@ -15,6 +15,7 @@
     "collecte:communiques": "apps/api/node_modules/.bin/tsx scripts/collecte-communiques-officiels.mts",
     "mesure:communiques": "apps/api/node_modules/.bin/tsx scripts/mesure-communiques-officiels.mts",
     "mesure:notifications": "apps/api/node_modules/.bin/tsx scripts/mesure-notifications.mts",
+    "mesure:webhook-signatures": "apps/api/node_modules/.bin/tsx scripts/measure-webhook-signatures.mts",
     "test:offline": "pnpm -F @radar/web exec playwright test test/offline.spec.ts",
     "typecheck": "pnpm -r typecheck",
     "verify": "bash scripts/verify-all.sh",

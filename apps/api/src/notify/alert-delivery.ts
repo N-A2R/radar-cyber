@@ -2,6 +2,7 @@ import { ingestQuery } from "../db.js";
 import { fetchNotificationAlerts, type NotificationAlert } from "./notification-alerts.js";
 import { buildNotificationMessage, type NotificationMessage } from "./notification-content.js";
 import { sendSmtpEmail } from "./smtp.js";
+import { buildSignedWebhookHeaders } from "./webhook-signature.js";
 
 export const MAX_ATTEMPTS = 10;
 /** Limite par passage pour ne jamais bloquer la collecte. */
@@ -9,6 +10,7 @@ const BATCH_LIMIT = 50;
 
 export interface DeliveryConfig {
   webhookUrl?: string;
+  webhookSecret?: string;
   telegramBotToken?: string;
   telegramChatId?: string;
   /** Public web base URL used to build an alert link (optional). */
@@ -39,6 +41,7 @@ export interface DeliveryResult {
 /** Lit la configuration depuis l'environnement. Aucune valeur par défaut sensible. */
 export function readDeliveryConfig(env: NodeJS.ProcessEnv = process.env): DeliveryConfig {
   const webhookUrl = env.RADAR_ALERT_WEBHOOK_URL?.trim() || undefined;
+  const webhookSecret = env.RADAR_ALERT_WEBHOOK_SECRET?.trim() || undefined;
   const telegramBotToken = env.RADAR_ALERT_TELEGRAM_BOT_TOKEN?.trim() || undefined;
   const telegramChatId = env.RADAR_ALERT_TELEGRAM_CHAT_ID?.trim() || undefined;
   const webBaseUrl = env.RADAR_WEB_BASE_URL?.trim().replace(/\/+$/, "") || undefined;
@@ -50,7 +53,7 @@ export function readDeliveryConfig(env: NodeJS.ProcessEnv = process.env): Delive
   const emailUser = env.RADAR_ALERT_EMAIL_USER?.trim() || undefined;
   const emailPassword = env.RADAR_ALERT_EMAIL_PASSWORD?.trim() || undefined;
   const emailSecure = env.RADAR_ALERT_EMAIL_SECURE?.trim().toLowerCase() === "true";
-  return { webhookUrl, telegramBotToken, telegramChatId, webBaseUrl, emailHost, emailPort, emailFrom, emailTo, emailUser, emailPassword, emailSecure };
+  return { webhookUrl, webhookSecret, telegramBotToken, telegramChatId, webBaseUrl, emailHost, emailPort, emailFrom, emailTo, emailUser, emailPassword, emailSecure };
 }
 
 /** True when an email destination and a reachable SMTP host are configured. */
@@ -80,11 +83,13 @@ export function buildDeliveryMessage(
   return buildNotificationMessage(alert, cfg.webBaseUrl);
 }
 
-async function sendWebhook(url: string, payload: Record<string, unknown>): Promise<void> {
+async function sendWebhook(url: string, secret: string | undefined, payload: Record<string, unknown>): Promise<void> {
+  if (!secret) throw new Error("webhook signing secret is not configured");
+  const rawBody = JSON.stringify(payload);
   const res = await fetch(url, {
     method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify(payload),
+    headers: buildSignedWebhookHeaders(secret, rawBody),
+    body: rawBody,
   });
   if (!res.ok) {
     const body = await res.text().catch(() => "");
@@ -189,7 +194,7 @@ export async function deliverPendingAlerts(
       let telegramOk = Boolean(alert.telegram_delivered_at);
       let emailOk = Boolean(alert.email_delivered_at);
       if (cfg.webhookUrl && !webhookOk) {
-        await sendWebhook(cfg.webhookUrl, msg.payload);
+        await sendWebhook(cfg.webhookUrl, cfg.webhookSecret, msg.payload);
         webhookOk = true;
         await markChannelDelivered(alert.id, "webhook");
       }

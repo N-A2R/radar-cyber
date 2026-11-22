@@ -165,7 +165,7 @@ test("webhook receives a structured JSON payload and records channel delivery", 
   t.after(server.close);
 
   const result = await deliverPendingAlerts(() => undefined, {
-    cfg: { webhookUrl: `http://127.0.0.1:${server.port}/hook` },
+    cfg: { webhookUrl: `http://127.0.0.1:${server.port}/hook`, webhookSecret: "test-webhook-secret" },
     limit: 1000,
   });
   assert.ok(result.delivered >= 1);
@@ -192,7 +192,7 @@ test("a failing webhook is retried later and never marked delivered", async (t: 
   t.after(server.close);
 
   const result = await deliverPendingAlerts(() => undefined, {
-    cfg: { webhookUrl: `http://127.0.0.1:${server.port}/hook` },
+    cfg: { webhookUrl: `http://127.0.0.1:${server.port}/hook`, webhookSecret: "test-webhook-secret" },
     limit: 1000,
   });
   assert.ok(result.failed >= 1);
