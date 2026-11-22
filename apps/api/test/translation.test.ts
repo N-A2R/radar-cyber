@@ -31,14 +31,27 @@ before(async () => {
 		[`Org ${TAG}`, `${TAG}-org`, `${TAG}.example`],
 	);
 	const inside = await query<{ id: number }>(
-		`INSERT INTO event (dedup_key, family, assertion_type, title, source_id, org_id, regional)
-		 VALUES ($1, 'cti', 'ambient_signal', $2, $3, $4, false) RETURNING id`,
-		[`${TAG}:inside`, "Kwetsbaarheden verholpen in F5 Networks", SOURCE, org.rows[0]!.id],
+		`INSERT INTO event (dedup_key, family, assertion_type, title, source_id, source_url, org_id, regional, evidence)
+		 VALUES ($1, 'cti', 'ambient_signal', $2, $3, $4, $5, false, $6::jsonb) RETURNING id`,
+		[
+			`${TAG}:inside`,
+			"Kwetsbaarheden verholpen in F5 Networks",
+			SOURCE,
+			"https://example.invalid/feed.xml",
+			org.rows[0]!.id,
+			JSON.stringify({ run_id: "1" }),
+		],
 	);
 	const outside = await query<{ id: number }>(
-		`INSERT INTO event (dedup_key, family, assertion_type, title, source_id, regional)
-		 VALUES ($1, 'cti', 'ambient_signal', $2, $3, false) RETURNING id`,
-		[`${TAG}:outside`, "Kwetsbaarheden verholpen in F5 Networks", SOURCE],
+		`INSERT INTO event (dedup_key, family, assertion_type, title, source_id, source_url, regional, evidence)
+		 VALUES ($1, 'cti', 'ambient_signal', $2, $3, $4, false, $5::jsonb) RETURNING id`,
+		[
+			`${TAG}:outside`,
+			"Kwetsbaarheden verholpen in F5 Networks",
+			SOURCE,
+			"https://example.invalid/feed.xml",
+			JSON.stringify({ run_id: "1" }),
+		],
 	);
 	await query(
 		`INSERT INTO article_translation (event_id, language, translated_title, quality)

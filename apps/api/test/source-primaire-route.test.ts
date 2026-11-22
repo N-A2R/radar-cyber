@@ -37,9 +37,9 @@ before(async () => {
      RETURNING id`,
     [
       `${TAG}:public`, `Titre confidentiel ${TAG} public`, OLD_CLAIM, PUBLIC_SOURCE, PUBLIC_URL, orgIds[0],
-      JSON.stringify({ group: "testgroup", org_hint: `${TAG}public.fr`, claimed_at: OLD_CLAIM }),
+      JSON.stringify({ group: "testgroup", org_hint: `${TAG}public.fr`, claimed_at: OLD_CLAIM, run_id: "1" }),
       `${TAG}:onion`, `Titre confidentiel ${TAG} onion`, ONION_SOURCE, ONION_URL, orgIds[1],
-      JSON.stringify({ group: "testgroup", org_hint: `${TAG}onion.fr`, claimed_at: OLD_CLAIM }),
+      JSON.stringify({ group: "testgroup", org_hint: `${TAG}onion.fr`, claimed_at: OLD_CLAIM, run_id: "1" }),
     ],
   );
   eventIds = inserted.rows.map((row) => Number(row.id));

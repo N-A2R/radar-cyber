@@ -44,7 +44,11 @@ test("réponse HTML : CSP stricte avec origines explicitement autorisées", asyn
   assert.match(csp, /script-src 'self'/);
   assert.match(csp, /frame-ancestors 'none'/);
   assert.match(csp, /object-src 'none'/);
-  assert.ok(!csp.includes("'unsafe-inline'"), "aucun script inline autorisé");
+  // MapLibre exige 'unsafe-inline' pour les styles ; aucun script inline ne
+  // doit être autorisé pour autant.
+  const scriptSrc = csp.split(";").map((directive) => directive.trim()).find((directive) => directive.startsWith("script-src"));
+  assert.ok(scriptSrc !== undefined, "directive script-src absente");
+  assert.ok(!scriptSrc.includes("'unsafe-inline'"), "aucun script inline autorisé");
 });
 
 test("erreurs : format et en-têtes restent cohérents", async () => {

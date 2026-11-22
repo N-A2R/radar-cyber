@@ -24,8 +24,9 @@ async function createEvent(
 ): Promise<number> {
   const r = await query<{ id: number }>(
     `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, collected_at,
-                        severity, source_id, org_id, tlp)
-     VALUES ($1, $2, $3, $4, '2026-11-21T10:00:00Z', now(), 5, 'ransomlook', $5, $6)
+                        severity, source_id, source_url, org_id, tlp, evidence)
+     VALUES ($1, $2, $3, $4, '2026-11-21T10:00:00Z', now(), 5, 'ransomlook',
+             'https://example.invalid/ransomlook/claim', $5, $6, $7::jsonb)
      RETURNING id`,
     [
       `victim-test:${randomUUID()}`,
@@ -34,6 +35,7 @@ async function createEvent(
       overrides.title ?? "Victim claim replay",
       orgId,
       overrides.tlp ?? "CLEAR",
+      JSON.stringify({ run_id: "1" }),
     ],
   );
   const id = r.rows[0]?.id;

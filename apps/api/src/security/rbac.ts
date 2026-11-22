@@ -58,7 +58,6 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/corpus/stats", niveau: "public" },
   { methode: "GET", route: "/api/actor-attributions", niveau: "public" },
   { methode: "GET", route: "/api/confidence/distribution", niveau: "public" },
-  { methode: "GET", route: "/api/ransomware-groups", niveau: "public" },
   { methode: "GET", route: "/api/confidence/events/:eventId", niveau: "public" },
   { methode: "GET", route: "/api/confidence/attachments/:eventId/:orgId", niveau: "public" },
   { methode: "GET", route: "/api/collecte/metrics", niveau: "public" },
@@ -100,9 +99,15 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/early-warning/global-to-regional", niveau: "public" },
   { methode: "GET", route: "/api/siret/establishments/count", niveau: "public", motif: "compteur public : établissements SIRET rattachés aux sièges" },
   { methode: "GET", route: "/api/orgs", niveau: "public" },
+  { methode: "GET", route: "/api/reconnaissance", niveau: "public", motif: "empreinte agrégée de la phase de reconnaissance, sans hôte, IP ni nom d'organisation" },
+  { methode: "GET", route: "/api/scan/campaigns", niveau: "public", motif: "campagnes de scan passif reconstruites depuis des rapports publics, sans texte de victime" },
+  { methode: "GET", route: "/api/risk/organisations", niveau: "public", motif: "courbe ROC, AUC et agrégats numériques du modèle de risque" },
+  { methode: "GET", route: "/api/risk/organisations/:id", niveau: "public", motif: "score numérique d'une organisation NA, sans donnée de victime" },
+  { methode: "GET", route: "/api/attestations-negatives", niveau: "public", motif: "registre public des absences signées, vérifiable sans secret" },
 
   // --- Lectures authentifiées ----------------------------------------------
   { methode: "GET", route: "/api/alerts/:id", niveau: "lecteur" },
+  { methode: "GET", route: "/api/ransomware-groups", niveau: "lecteur", motif: "groupes et victimes nommées de Nouvelle-Aquitaine : lecture authentifiée" },
   { methode: "GET", route: "/api/exposition/new-services", niveau: "lecteur" },
   { methode: "GET", route: "/api/orgs/liees", niveau: "lecteur" },
   { methode: "GET", route: "/api/orgs/liees/historique", niveau: "lecteur" },

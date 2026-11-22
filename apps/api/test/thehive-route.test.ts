@@ -65,11 +65,21 @@ before(async () => {
   );
   orgId = Number(org.rows[0]?.id);
   const event = await query<{ id: number }>(
-    `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, source_id, org_id, regional, tlp)
-     VALUES ($1,'ransomware','third_party_claim',$2,now(),$3,$4,true,'CLEAR') RETURNING id`,
-    [`thehive-route:${TAG}`, `${VICTIM_NAME} - rançongiciel`, SOURCE, orgId],
+    `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, source_id, source_url, org_id, regional, tlp, evidence)
+     VALUES ($1,'ransomware','third_party_claim',$2,now(),$3,$4,$5,true,'CLEAR',$6::jsonb) RETURNING id`,
+    [
+      `thehive-route:${TAG}`,
+      `${VICTIM_NAME} - rançongiciel`,
+      SOURCE,
+      `https://example.invalid/${TAG}/claim`,
+      orgId,
+      JSON.stringify({ run_id: "1" }),
+    ],
   );
   eventId = Number(event.rows[0]?.id);
+  // Le trigger victim_alert_on_event crée déjà une alerte pour cette
+  // revendication ; ce test isole l'alerte qu'il déclare lui-même.
+  await query("DELETE FROM alert WHERE event_id=$1", [eventId]);
   const alert = await query<{ id: number }>(
     `INSERT INTO alert (rule_id, title, severity, status, event_id, org_id, scope)
      VALUES ('ransomware-claim','alert',4,'open',$1,$2,'organization_incident') RETURNING id`,

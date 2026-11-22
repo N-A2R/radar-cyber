@@ -70,9 +70,16 @@ before(async () => {
 
   const insertEvent = async (source: string, title: string, day: string): Promise<void> => {
     const row = await query<{ id: number }>(
-      `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, severity, source_id, evidence)
-       VALUES ($1, 'cti', 'reported_observation', $2, $3, 3, $4, '{}') RETURNING id`,
-      [`${TAG}-${source}-${day}`, title, day, source],
+      `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, severity, source_id, source_url, evidence)
+       VALUES ($1, 'cti', 'reported_observation', $2, $3, 3, $4, $5, $6::jsonb) RETURNING id`,
+      [
+        `${TAG}-${source}-${day}`,
+        title,
+        day,
+        source,
+        "https://example.invalid/feed/scan-report",
+        JSON.stringify({ run_id: "1" }),
+      ],
     );
     eventIds.push(Number(row.rows[0]!.id));
   };
