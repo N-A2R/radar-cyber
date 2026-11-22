@@ -9,11 +9,12 @@
  *
  * Le filtre département vit dans l'URL (`?naDept=33`) : la vue se partage.
  */
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import departementsGeojson from "../map/departements-na.geojson";
 import type { NaOverview, NaFil, Org } from "../api";
 import type { NaViewProps } from "../contracts";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
+import "./na.css";
 /** Les douze départements, dans l'ordre du geojson (props : code, nom). */
 const FEATURES = departementsGeojson.features as {
   properties: { code: string; nom: string };
@@ -22,15 +23,41 @@ const FEATURES = departementsGeojson.features as {
 
 const DEPTS = ["16", "17", "19", "23", "24", "33", "40", "47", "64", "79", "86", "87"];
 
-/** Palette honnête : zéro événement n'est pas une couleur d'alerte. */
-const COULEUR_ZERO = "#1d222b";
-const COULEURS = ["#1e3a5f", "#27537f", "#336ca3", "#4d8ec9", "#6fb1e3"];
+/**
+ * Palette honnête : zéro événement n'est pas une couleur d'alerte.
+ * Les cinq bleus (et le gris du zéro) sont des jetons `--na-niveau-*`
+ * déclarés dans `na.css` ; aucun hexadécimal ne vit dans ce fichier.
+ */
+const NIVEAUX = 5;
 
-function couleurPour(v: number, max: number): string {
-  if (v <= 0) return COULEUR_ZERO;
+/** Niveau 1..5 d'un département ; 0 = aucun événement (gris neutre). */
+export function niveauPour(v: number, max: number): number {
+  if (v <= 0) return 0;
   // Échelle sqrt : un département à 20 évts ne doit pas écraser celui à 3.
   const t = max > 0 ? Math.sqrt(v) / Math.sqrt(max) : 0;
-  return COULEURS[Math.min(COULEURS.length - 1, Math.floor(t * COULEURS.length))];
+  return Math.min(NIVEAUX, Math.floor(t * NIVEAUX) + 1);
+}
+
+/**
+ * Bornes entières de chaque niveau, dans l'ordre de `niveauPour`.
+ * Les niveaux vides (petit maximum) sont omis : la légende n'affiche
+ * jamais une borne que la carte ne peut pas produire.
+ */
+export function bornesEchelle(max: number): { niveau: number; lo: number; hi: number }[] {
+  const m = Math.max(1, max);
+  const bornes: { niveau: number; lo: number; hi: number }[] = [];
+  for (let i = 0; i < NIVEAUX; i++) {
+    const lo = Math.max(1, Math.ceil((m * i * i) / (NIVEAUX * NIVEAUX)));
+    const suite = Math.ceil((m * (i + 1) * (i + 1)) / (NIVEAUX * NIVEAUX));
+    const hi = i === NIVEAUX - 1 ? m : Math.min(m, suite - 1);
+    if (lo <= hi) bornes.push({ niveau: i + 1, lo, hi });
+  }
+  return bornes;
+}
+
+/** « 4 événements », « 1 événement » — jamais « 0 événement(s) ». */
+function libelleEvenements(n: number): string {
+  return n <= 1 ? `${n} événement` : `${n} événements`;
 }
 
 /** Bornes des douze départements : une projection équirectangulaire suffit. */
@@ -133,8 +160,18 @@ export default function NaView({ orgs, overview, fil, loading, error, dept, onSe
   }, [overview, orgs]);
 
   const total = overview?.total ?? overviewDepuisOrgs(orgs).total;
-  const maxEvts = Math.max(1, ...[...compteParDept.values()].map((c) => c.evenements));
+  const maxReel = Math.max(0, ...[...compteParDept.values()].map((c) => c.evenements));
+  const maxEvts = Math.max(1, maxReel);
   const nomDept = dept ? (compteParDept.get(dept)?.nom ?? dept) : null;
+  const bornes = useMemo(() => bornesEchelle(maxEvts), [maxEvts]);
+
+  /**
+   * Département survolé ou focalisé : il alimente la lecture chiffrée sous la
+   * carte et met en évidence la ligne correspondante. Aucun autre état.
+   */
+  const [survol, setSurvol] = useState<string | null>(null);
+  const quitterSurvol = (code: string) => setSurvol((s) => (s === code ? null : s));
+  const survole = survol ? compteParDept.get(survol) : null;
 
   /** Organisations du département sélectionné, touchées d'abord. */
   const orgsDept = useMemo(() => {
@@ -184,55 +221,109 @@ export default function NaView({ orgs, overview, fil, loading, error, dept, onSe
       </header>
 
       <div className="na-corps">
-        <svg
-          className="na-carte"
-          viewBox={`0 0 ${SVG_W.toFixed(0)} ${SVG_H.toFixed(0)}`}
-          role="img"
-          aria-label="Carte des douze départements de Nouvelle-Aquitaine, colorés par volume d'événements"
-        >
-          {FEATURES.map((f) => {
-            const code = f.properties.code;
-            const evts = compteParDept.get(code)?.evenements ?? 0;
-            const actif = dept === code;
-            return (
-              <path
-                key={code}
-                className={`na-dept${actif ? " na-dept-actif" : ""}`}
-                data-dept={code}
-                d={cheminDe(f.geometry)}
-                fill={couleurPour(evts, maxEvts)}
-                stroke={actif ? "#1d3a5f" : "#ffffff"}
-                strokeWidth={actif ? 2.5 : 0.8}
-                onClick={() => onSelectDept(actif ? null : code)}
-              >
-                <title>{`${code} — ${compteParDept.get(code)?.nom ?? code} : ${evts} événement(s)`}</title>
-              </path>
-            );
-          })}
-        </svg>
+        <div className="na-carte-bloc">
+          <svg
+            className="na-carte"
+            viewBox={`0 0 ${SVG_W.toFixed(0)} ${SVG_H.toFixed(0)}`}
+            role="group"
+            aria-label="Carte des douze départements de Nouvelle-Aquitaine. Chaque département est un bouton ; sa couleur encode le nombre d'événements rattachés, la légende chiffrée est sous la carte."
+          >
+            {FEATURES.map((f) => {
+              const code = f.properties.code;
+              const c = compteParDept.get(code);
+              const evts = c?.evenements ?? 0;
+              const actif = dept === code;
+              const niveau = niveauPour(evts, maxEvts);
+              return (
+                <path
+                  key={code}
+                  className={`na-dept na-niveau-${niveau}${actif ? " na-dept-actif" : ""}${
+                    survol === code ? " na-dept-survol" : ""
+                  }`}
+                  data-dept={code}
+                  d={cheminDe(f.geometry)}
+                  role="button"
+                  tabIndex={0}
+                  aria-pressed={actif}
+                  aria-label={`${c?.nom ?? code} (${code}) : ${libelleEvenements(evts)}, ${c?.orgsAvecEvenement ?? 0} org. touchées sur ${c?.orgs ?? 0} organisations`}
+                  onMouseEnter={() => setSurvol(code)}
+                  onMouseLeave={() => quitterSurvol(code)}
+                  onFocus={() => setSurvol(code)}
+                  onBlur={() => quitterSurvol(code)}
+                  onClick={() => onSelectDept(actif ? null : code)}
+                  onKeyDown={(e) => {
+                    if (e.key !== "Enter" && e.key !== " ") return;
+                    e.preventDefault();
+                    onSelectDept(actif ? null : code);
+                  }}
+                >
+                  <title>{`${c?.nom ?? code} (${code}) — ${libelleEvenements(evts)} · ${c?.orgsAvecEvenement ?? 0} org. touchée(s) sur ${c?.orgs ?? 0}`}</title>
+                </path>
+              );
+            })}
+          </svg>
+
+          <p className="na-survol" aria-live="polite">
+            {survol && survole
+              ? `${survole.nom} (${survol}) : ${libelleEvenements(survole.evenements)} · ${survole.orgsAvecEvenement} org. touchée${
+                  survole.orgsAvecEvenement > 1 ? "s" : ""
+                } sur ${survole.orgs} organisations`
+              : "Survolez la carte ou une ligne pour lire le détail d'un département."}
+          </p>
+
+          <figure className="na-legende" aria-labelledby="na-legende-titre">
+            <figcaption id="na-legende-titre">
+              Couleur = nombre d'événements rattachés au département (échelle racine carrée,{" "}
+              {libelleEvenements(maxReel)} au maximum en région).
+            </figcaption>
+            <ul className="na-legende-echelle">
+              <li className="na-legende-item">
+                <span className="na-legende-pastille na-niveau-0" aria-hidden="true" />
+                <span>0 événement</span>
+              </li>
+              {bornes.map((b) => (
+                <li key={b.niveau} className="na-legende-item">
+                  <span className={`na-legende-pastille na-niveau-${b.niveau}`} aria-hidden="true" />
+                  <span>{b.lo === b.hi ? libelleEvenements(b.lo) : `${b.lo}–${b.hi} événements`}</span>
+                </li>
+              ))}
+            </ul>
+          </figure>
+        </div>
 
         <div className="na-panneau">
           <h3>{dept ? `${nomDept} (${dept})` : "Les douze départements"}</h3>
-          {dept === null && (
-            <ul className="na-liste">
-              {[...compteParDept.entries()].map(([code, c]) => (
+          <ul className="na-liste">
+            {[...compteParDept.entries()].map(([code, c]) => {
+              const actif = dept === code;
+              return (
                 <li key={code}>
-                  <button type="button" className="na-ligne" data-dept={code} onClick={() => onSelectDept(code)}>
+                  <button
+                    type="button"
+                    className={`na-ligne${actif ? " na-ligne-actif" : ""}${
+                      survol === code ? " na-ligne-survol" : ""
+                    }`}
+                    data-dept={code}
+                    aria-current={actif ? "true" : undefined}
+                    onMouseEnter={() => setSurvol(code)}
+                    onMouseLeave={() => quitterSurvol(code)}
+                    onFocus={() => setSurvol(code)}
+                    onBlur={() => quitterSurvol(code)}
+                    onClick={() => onSelectDept(actif ? null : code)}
+                  >
                     <span className="na-ligne-nom">
                       {c.nom} ({code})
                     </span>
                     <span className="na-ligne-compte">
-                      {c.evenements === 0
-                        ? "0 événement"
-                        : `${c.evenements} événement${c.evenements > 1 ? "s" : ""}`}
+                      {libelleEvenements(c.evenements)}
                       {" · "}
                       {c.orgsAvecEvenement} org. touchée{c.orgsAvecEvenement > 1 ? "s" : ""}
                     </span>
                   </button>
                 </li>
-              ))}
-            </ul>
-          )}
+              );
+            })}
+          </ul>
           {dept !== null && (
             <>
               {evtsDept === 0 && (

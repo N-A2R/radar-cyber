@@ -83,6 +83,7 @@ export async function constaterTransition(
 		const { rows } = await ingestQuery<{ status: string; items_new: number }>(
 			`SELECT status, items_new FROM collector_run
 			  WHERE source_id = $1
+			    AND kind IN ('live', 'scan', 'ingest')
 			  ORDER BY started_at DESC, id DESC
 			  LIMIT 5`,
 			[sourceId],

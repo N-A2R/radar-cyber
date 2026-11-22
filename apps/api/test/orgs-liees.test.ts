@@ -51,14 +51,14 @@ before(async () => {
   // Deux organisations dans les 7 jours, une hors fenêtre (doit être ignorée).
   for (const [i, when] of [orgIds[0], orgIds[1]].entries()) {
     await query(
-      `INSERT INTO event (dedup_key, family, assertion_type, title, severity, source_id, org_id, observed_at)
-       VALUES ($1,'cti','mention',$2,2,'ransomlook',$3, now() - ($4 || ' days')::interval)`,
+      `INSERT INTO event (dedup_key, family, assertion_type, title, severity, source_id, org_id, observed_at, source_url, evidence)
+       VALUES ($1,'cti','mention',$2,2,'ransomlook',$3, now() - ($4 || ' days')::interval,'https://example.invalid/event','{"run_id":"1"}'::jsonb)`,
       [`${TAG}-event-${i}`, `Événement de test ${i}`, when, i === 0 ? "2" : "1"],
     );
   }
   await query(
-    `INSERT INTO event (dedup_key, family, assertion_type, title, severity, source_id, org_id, observed_at)
-     VALUES ($1,'cti','mention','Événement ancien',2,'ransomlook',$2, now() - interval '30 days')`,
+    `INSERT INTO event (dedup_key, family, assertion_type, title, severity, source_id, org_id, observed_at, source_url, evidence)
+     VALUES ($1,'cti','mention','Événement ancien',2,'ransomlook',$2, now() - interval '30 days','https://example.invalid/event','{"run_id":"1"}'::jsonb)`,
     [`${TAG}-event-old`, orgIds[2]],
   );
 

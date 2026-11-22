@@ -46,9 +46,9 @@ before(async () => {
   orgId = Number(org.rows[0].id);
   const inserted = await query<{ id: number }>(
     `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at,
-                        severity, confidence, source_id, source_url, org_id)
-     VALUES ($1,'cti','confirmed_incident',$2, now() - interval '2 hours',3,'A1',$4,$6,$7),
-            ($3,'cti','confirmed_incident',$2, now() - interval '1 hour',3,'B2',$5,$6,$7)
+                        severity, confidence, source_id, source_url, org_id, evidence)
+     VALUES ($1,'cti','confirmed_incident',$2, now() - interval '2 hours',3,'A1',$4,COALESCE($6, 'https://example.invalid/event'),$7,'{"run_id":"1"}'::jsonb),
+            ($3,'cti','confirmed_incident',$2, now() - interval '1 hour',3,'B2',$5,COALESCE($6, 'https://example.invalid/event'),$7,'{"run_id":"1"}'::jsonb)
      RETURNING id`,
     [
       `${TAG}:1`, TITLE, `${TAG}:2`, SOURCES[0], SOURCES[1],

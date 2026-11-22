@@ -22,7 +22,7 @@ test("les ports connus sont classés par famille de service", () => {
 	assert.equal(categoriePort(587), "mail");
 	assert.equal(categoriePort(1194), "vpn");
 	assert.equal(categoriePort(5432), "base_de_donnees");
-	assert.equal(categoriePort(3389), "autre");
+	assert.equal(categoriePort(3389), "rdp");
 	assert.equal(nomService(443), "https");
 	assert.equal(nomService(27017), "mongodb");
 });
@@ -45,6 +45,21 @@ test("les CPE URI 2.2 renvoyés par InternetDB sont reconnus", () => {
 	});
 	assert.equal(services.find((s) => s.port === 25)?.version, "4.100.1");
 	assert.equal(services.find((s) => s.port === 80)?.version, "2.4.71");
+});
+
+test("un CPE de base de données n'est pas attribué à un autre port de base de données", () => {
+	const services = servicesDepuisInternetDb({
+		ip: "192.0.2.30",
+		ports: [3306, 27017],
+		cpes: ["cpe:2.3:a:mysql:mysql:5.7.33:*:*:*:*:*:*:*"],
+	});
+	const mysql = services.find((s) => s.port === 3306);
+	const mongodb = services.find((s) => s.port === 27017);
+	assert.equal(mysql?.technology, "mysql");
+	assert.equal(mysql?.version, "5.7.33");
+	// Le CPE est au niveau de l'hôte : il ne transforme pas 27017 en MySQL.
+	assert.equal(mongodb?.technology, "mongodb");
+	assert.equal(mongodb?.version, null);
 });
 
 test("les CPE sont attribués uniquement au port compatible", () => {

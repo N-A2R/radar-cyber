@@ -122,6 +122,7 @@ export default async function (app: FastifyInstance) {
 			window: result.window,
 			nextCursor: result.nextCursor,
 			counts: result.counts,
+			preparation: result.preparation,
 			tookMs: result.tookMs,
 		};
 		if (etagOu304(reply, corps)) return;

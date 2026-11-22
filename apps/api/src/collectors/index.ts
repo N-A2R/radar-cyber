@@ -75,7 +75,9 @@ export function classifierSante(ligne: LigneSante): EtatSante {
 export async function lireSanteSource(sourceId: string): Promise<SanteSource | null> {
 	const { rows } = await query<LigneSante>(
 		`SELECT s.statut, s.enabled, s.echecs_consecutifs, s.last_ok_at, s.last_error_at, s.last_error,
-		        (SELECT r.status FROM collector_run r WHERE r.source_id = s.id ORDER BY r.finished_at DESC LIMIT 1) AS dernier_statut
+		        (SELECT r.status FROM collector_run r
+		          WHERE r.source_id = s.id AND r.kind IN ('live', 'scan', 'ingest')
+		          ORDER BY r.finished_at DESC NULLS LAST, r.started_at DESC LIMIT 1) AS dernier_statut
 		   FROM source s WHERE s.id = $1`,
 		[sourceId],
 	);
@@ -258,7 +260,9 @@ export async function sourcesJamaisCollectees(limite = 100, ids?: readonly strin
 	let sql = `SELECT s.id FROM source s
 		  WHERE s.enabled AND s.statut <> 'morte' AND s.kind <> 'quarantine'
 		    AND s.id <> ALL($1::text[])
-		    AND NOT EXISTS (SELECT 1 FROM collector_run r WHERE r.source_id = s.id)`;
+		    AND NOT EXISTS (
+		      SELECT 1 FROM collector_run r
+		       WHERE r.source_id = s.id AND r.kind IN ('live', 'scan', 'ingest'))`;
 	if (ids?.length) {
 		params.push([...ids]);
 		sql += ` AND s.id = ANY($2::text[])`;

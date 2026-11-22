@@ -28,6 +28,7 @@
  * déterministe) et ne dupliquent jamais une relation.
  */
 import { query } from "../db.js";
+import { closeRun, openRun, withRunId } from "../collecte/runs.js";
 import { DEPT_LABELS } from "./relevance.js";
 import { CERTFR_MISP_SOURCE_ID, urlEvenementMisp } from "./certfr-misp.collector.js";
 
@@ -223,9 +224,14 @@ export async function correlaterIndicateursCertfrMisp(options: CorrelationOption
 	}
 	const ransomwareRegionaux = regionaux.filter((r) => r.family === "ransomware");
 
+	// Le run est ouvert avant la première corrélation : chaque événement écrit
+	// ci-dessous le cite dans `evidence.run_id` (migration 206).
+	const runId = await openRun(sourceId);
+
 	const dates: string[] = [];
 	let relations = 0;
 	let ecrits = 0;
+	try {
 	for (let i = 0; i < jours; i++) {
 		const jour = jourUtc(maintenant, jours - 1 - i);
 		const dateJour = jour.toISOString().slice(0, 10);
@@ -291,7 +297,7 @@ export async function correlaterIndicateursCertfrMisp(options: CorrelationOption
 			   regional = true, regional_motif = EXCLUDED.regional_motif
 			 RETURNING id::text AS id`,
 			[dedupKey, titre, resume, jour.toISOString(), confiance, sourceId,
-			 urlEvenementMisp(uuid), JSON.stringify(evidence), regional.lat, regional.lon,
+			 urlEvenementMisp(uuid), JSON.stringify(withRunId(evidence, runId)), regional.lat, regional.lon,
 			 regional.org_id, base === "semantique" ? "rattachement" : "departement",
 			 base === "semantique" ? 8 : 5, regional.org_id === null ? null : "org", dateJour],
 		);
@@ -331,6 +337,13 @@ export async function correlaterIndicateursCertfrMisp(options: CorrelationOption
 			relations++;
 		}
 	}
+	} catch (error) {
+		await closeRun(runId, { status: "error", error: String((error as Error)?.message ?? error) }).catch(() => {});
+		throw error;
+	}
+	// Le run couvre tout le passage, y compris un passage qui n'écrit rien
+	// (jours déjà couverts) : il raconte ce que la corrélation a réellement fait.
+	await closeRun(runId, { itemsIn: ecrits, itemsNew: ecrits });
 
 	// Rien de neuf à écrire : le tick serveur repasse souvent, on ne journalise
 	// ni ne réécrit l'état d'une source dont les sept jours sont déjà couverts.

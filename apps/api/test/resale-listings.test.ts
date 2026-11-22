@@ -41,8 +41,8 @@ before(async () => {
   );
   fixtureOrgId = Number(inserted.rows[0]!.id);
   const event = await query<{ id: number }>(
-    `INSERT INTO event (dedup_key, family, assertion_type, title, severity, source_id, org_id, evidence)
-     VALUES ($1, 'ransomware', 'third_party_claim', $2, 3, 'ransomlook', $3, '{}') RETURNING id`,
+    `INSERT INTO event (dedup_key, family, assertion_type, title, severity, source_id, org_id, evidence, source_url)
+     VALUES ($1, 'ransomware', 'third_party_claim', $2, 3, 'ransomlook', $3, '{}'::jsonb || '{"run_id":"1"}'::jsonb, 'https://example.invalid/event') RETURNING id`,
     [`${TAG}-event`, "DATA SALE — database offered for purchase", fixtureOrgId],
   );
   fixtureEventId = Number(event.rows[0]!.id);
