@@ -44,3 +44,4 @@ Trois incidents publics documentés dans `bench/corpus/incidents-correze.jsonl` 
 ## Méthode
 
 Recherche web (annuaires consulaires, chambres consulaires, fédérations, organes de presse locale), identification des pages d'actualités et des flux, puis contrôle GET de chaque URL avec User-Agent navigateur, suivi des redirections et délai maximal de 18 s. Seules les sources dont toutes les URLs ont répondu 200 et dont le contenu est exploitable ont été intégrées au corpus et à la base.
+OBJECTIF : atteint — 11 / 5
