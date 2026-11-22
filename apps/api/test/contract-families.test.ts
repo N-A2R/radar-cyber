@@ -17,11 +17,11 @@ import { FAMILIES } from "@radar/shared";
 import { classifyFamily, isFamily, type Family } from "../src/collectors/classify.js";
 
 test("le contrat connaît les familles du catalogue et de migrate-019", () => {
-	for (const family of ["leaks", "paste", "presse_cyber"]) {
+	for (const family of ["leaks", "paste", "presse_cyber", "bodacc"]) {
 		assert.ok(FAMILIES.includes(family as Family), `${family} doit être au contrat`);
 		assert.equal(isFamily(family), true);
 	}
-	assert.equal(FAMILIES.length, 13);
+	assert.equal(FAMILIES.length, 14);
 	assert.equal(isFamily("nimportequoi"), false);
 });
 

@@ -25,6 +25,10 @@ export const FAMILIES = [
   "leaks",
   "paste",
   "presse_cyber",
+  // Procédures collectives (annonces légales BODACC). Une défaillance
+  // d'entreprise est un fait daté et vérifiable, pas un incident cyber : la
+  // famille reste distincte pour ne pas la confondre avec `presse`.
+  "bodacc",
 ] as const;
 
 /** Nature de l'assertion — jamais fusionnée avec la confiance. */

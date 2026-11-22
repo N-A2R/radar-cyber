@@ -1123,7 +1123,7 @@ export async function runGenericSources(
 	// le moteur générique ne doit pas tenter de les parser comme des flux.
 	const params: unknown[] = [];
 	let sql =
-		"SELECT id, name, family, url, kind, format, parser, interval_sec, last_ok_at, last_error_at, relevance FROM source WHERE enabled AND kind <> 'quarantine' AND id NOT IN ('cert_fr','cisa_kev','ransomlook','epss','hermes_radar_cyber','nvd_cve','ctlog','poc','certfr_misp')";
+		"SELECT id, name, family, url, kind, format, parser, interval_sec, last_ok_at, last_error_at, relevance FROM source WHERE enabled AND kind <> 'quarantine' AND id NOT IN ('cert_fr','cisa_kev','ransomlook','epss','hermes_radar_cyber','nvd_cve','ctlog','poc','certfr_misp','bodacc:pc-na')";
 	if (opts?.sourceIds?.length) {
 		params.push(opts.sourceIds);
 		sql += ` AND id = ANY($${params.length})`;

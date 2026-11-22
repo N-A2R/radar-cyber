@@ -204,6 +204,7 @@
 .corpus__bar-segment[data-family="warninglist"] { background: var(--data-steel); }
 .corpus__bar-segment[data-family="leaks"] { background: var(--sev-5); }
 .corpus__bar-segment[data-family="paste"] { background: var(--sev-2); }
+.corpus__bar-segment[data-family="bodacc"] { background: var(--sev-4); }
 
 .corpus__bar-total {
   text-align: right;
@@ -248,6 +249,7 @@
 .corpus__swatch[data-family="warninglist"] { background: var(--data-steel); }
 .corpus__swatch[data-family="leaks"] { background: var(--sev-5); }
 .corpus__swatch[data-family="paste"] { background: var(--sev-2); }
+.corpus__swatch[data-family="bodacc"] { background: var(--sev-4); }
 
 .corpus__gauge-value {
   margin-bottom: var(--space-2);

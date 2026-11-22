@@ -115,6 +115,7 @@ const OBSERVATION_LABELS: Record<string, string> = {
   "presse_cyber:ambient_signal": "Cybersecurity press report",
   "cert:ambient_signal": "Security advisory",
   "cert_fr:ambient_signal": "National security advisory",
+  "bodacc:confirmed_incident": "Collective procedure (business failure)",
 };
 
 const GREY_FAMILIES: Readonly<Record<string, true>> = {

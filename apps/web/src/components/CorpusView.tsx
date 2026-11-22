@@ -29,6 +29,7 @@ export const FAMILY_LABELS: Record<string, string> = {
   warninglist: "Listes d'alerte",
   leaks: "Fuites",
   paste: "Sites de paste",
+  bodacc: "Procédures collectives",
 };
 
 const numberFormat = new Intl.NumberFormat("fr-FR");
