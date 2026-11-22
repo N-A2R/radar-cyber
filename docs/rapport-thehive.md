@@ -97,3 +97,5 @@ route étant déclarée dans la matrice d'accès avec le rôle `admin`.
 - **Diff de `server.ts`** : 0 ligne (enregistrement via le registre de routes).
 - **Commande la plus longue** : 8,2 s pour le groupe de vérifications ; mesure
   seule 1,6 s, typecheck 7,0 s — toutes sous la limite de 60 s.
+
+OBJECTIF : atteint — 1 421 / 1 421 cas créés depuis les alertes NA réelles et confirmés par identifiant renvoyé (mesure reproductible : `pnpm measure:thehive-cases` → 1421, 0 échec, le 22/11/2026).
