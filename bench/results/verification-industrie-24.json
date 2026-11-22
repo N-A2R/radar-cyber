@@ -1,0 +1,572 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-industrie-24.jsonl",
+  "secteur": "industrie",
+  "departement": "24",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+  "methode": "GET réel avec suivi des redirections, User-Agent navigateur, délai 25 s ; statut, type de contenu, nombre d'items RSS et détection des pages de blocage enregistrés",
+  "sources": 29,
+  "urls_verifiees": 68,
+  "urls_200": 68,
+  "detail": [
+    {
+      "nom": "CCI Dordogne",
+      "urls": {
+        "https://dordogne.cci.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://dordogne.cci.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://dordogne.cci.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 10,
+          "blocage": false
+        }
+      }
+    },
+    {
+      "nom": "MEDEF Nouvelle-Aquitaine (périmètre Dordogne)",
+      "urls": {
+        "https://www.medef-nouvelle-aquitaine.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://www.medef-nouvelle-aquitaine.fr/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        }
+      }
+    },
+    {
+      "nom": "CPME Nouvelle-Aquitaine (périmètre Dordogne)",
+      "urls": {
+        "https://www.cpme-nouvelle-aquitaine.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://www.cpme-nouvelle-aquitaine.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        }
+      }
+    },
+    {
+      "nom": "UIMM Nouvelle-Aquitaine (antenne Périgord)",
+      "urls": {
+        "https://www.uimmnouvelleaquitaine.com/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://www.uimmnouvelleaquitaine.com/actualite/news.html": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        }
+      }
+    },
+    {
+      "nom": "UIMM — La Fabrique de l'avenir",
+      "urls": {
+        "https://uimm.lafabriquedelavenir.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://uimm.lafabriquedelavenir.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://uimm.lafabriquedelavenir.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 10,
+          "blocage": false
+        }
+      }
+    },
+    {
+      "nom": "Fibois Nouvelle-Aquitaine",
+      "urls": {
+        "https://fibois-na.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://fibois-na.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://fibois-na.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 12,
+          "blocage": false
+        }
+      }
+    },
+    {
+      "nom": "CMA Nouvelle-Aquitaine — délégation de la Dordogne",
+      "urls": {
+        "https://cma-nouvelleaquitaine.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        }
+      }
+    },
+    {
+      "nom": "Chambre d'agriculture de la Dordogne (agro-industrie)",
+      "urls": {
+        "https://dordogne.chambres-agriculture.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://dordogne.chambres-agriculture.fr/actualites-1": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0,
+          "blocage": false
+        }
+      }
+    },
+    {
+      "nom": "FDSEA de la Dordogne (agro-industrie)",
+      "urls": {
+        "https://fdsea24.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://fdsea24.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://fdsea24.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 6,
+          "blocage": false
+        }
+      }
+    },
+    {
+      "nom": "Grand Périgueux — développement économique",
+      "urls": {
+        "https://www.grandperigueux.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://www.grandperigueux.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        }
+      }
+    },
+    {
+      "nom": "API Recherche d'entreprises (Étalab / INSEE)",
+      "urls": {
+        "https://recherche-entreprises.api.gouv.fr/": {
+          "code": 200,
+          "type": "text/html;charset=utf-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://recherche-entreprises.api.gouv.fr/search?departement=24&q=industrie": {
+          "code": 200,
+          "type": "application/json",
+          "items_rss": 0,
+          "blocage": false
+        }
+      }
+    },
+    {
+      "nom": "BODACC — annonces commerciales",
+      "urls": {
+        "https://www.bodacc.fr/pages/home/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://www.bodacc.fr/pages/annonces-commerciales-recherche/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0,
+          "blocage": false
+        }
+      }
+    },
+    {
+      "nom": "Sud Ouest — Dordogne",
+      "urls": {
+        "https://www.sudouest.fr/dordogne/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://www.sudouest.fr/economie/industrie/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://www.sudouest.fr/dordogne/rss.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "items_rss": 20,
+          "blocage": false
+        }
+      }
+    },
+    {
+      "nom": "Sud Ouest — Économie",
+      "urls": {
+        "https://www.sudouest.fr/economie/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://www.sudouest.fr/economie/rss.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "items_rss": 20,
+          "blocage": false
+        }
+      }
+    },
+    {
+      "nom": "Dordogne Libre",
+      "urls": {
+        "https://www.dordognelibre.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://www.dordognelibre.fr/rss.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "items_rss": 20,
+          "blocage": false
+        }
+      }
+    },
+    {
+      "nom": "actu.fr — Dordogne",
+      "urls": {
+        "https://actu.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://actu.fr/nouvelle-aquitaine/dordogne_24/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        }
+      }
+    },
+    {
+      "nom": "ICI Périgord (Radio France)",
+      "urls": {
+        "https://www.ici.fr/radio/perigord": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://www.ici.fr/nouvelle-aquitaine/dordogne-24/actu": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://www.ici.fr/rss/perigord/rubrique/infos.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "items_rss": 20,
+          "blocage": false
+        }
+      }
+    },
+    {
+      "nom": "France 3 Nouvelle-Aquitaine — Dordogne",
+      "urls": {
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/dordogne/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/dordogne/rss": {
+          "code": 200,
+          "type": "text/xml; charset=UTF-8",
+          "items_rss": 30,
+          "blocage": false
+        }
+      }
+    },
+    {
+      "nom": "Le Journal des Entreprises — Nouvelle-Aquitaine",
+      "urls": {
+        "https://www.lejournaldesentreprises.com/nouvelle-aquitaine": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://www.lejournaldesentreprises.com/regions/france/nouvelle-aquitaine/dordogne": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine": {
+          "code": 200,
+          "type": "text/xml; charset=UTF-8",
+          "items_rss": 20,
+          "blocage": false
+        }
+      }
+    },
+    {
+      "nom": "Réussir le Périgord",
+      "urls": {
+        "https://www.reussirleperigord.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://www.reussirleperigord.fr/actualite": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://www.reussirleperigord.fr/feed": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 10,
+          "blocage": false
+        }
+      }
+    },
+    {
+      "nom": "La France Agricole",
+      "urls": {
+        "https://www.lafranceagricole.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://www.lafranceagricole.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://www.lafranceagricole.fr/rss/": {
+          "code": 200,
+          "type": "text/xml; charset=utf-8",
+          "items_rss": 20,
+          "blocage": false
+        }
+      }
+    },
+    {
+      "nom": "Happy Radio (Bergerac)",
+      "urls": {
+        "https://happyradio.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://happyradio.fr/feed": {
+          "code": 200,
+          "type": "text/xml;charset=UTF-8",
+          "items_rss": 10,
+          "blocage": false
+        }
+      }
+    },
+    {
+      "nom": "Google News — veille « Dordogne industrie »",
+      "urls": {
+        "https://news.google.com/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://news.google.com/rss/search?q=Dordogne+industrie&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "items_rss": 52,
+          "blocage": false
+        }
+      }
+    },
+    {
+      "nom": "Google News — veille « Dordogne usine »",
+      "urls": {
+        "https://news.google.com/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://news.google.com/rss/search?q=Dordogne+usine&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "items_rss": 51,
+          "blocage": false
+        }
+      }
+    },
+    {
+      "nom": "CPME 24 — Les Entrepreneurs 24",
+      "urls": {
+        "https://cpme24.org/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://24.lesentrepreneurs.fr/agenda/actualites": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0,
+          "blocage": false
+        }
+      }
+    },
+    {
+      "nom": "CAPEB Dordogne",
+      "urls": {
+        "https://capeb24.com/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://capeb24.com/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        }
+      }
+    },
+    {
+      "nom": "Digital Valley (cluster numérique de Dordogne)",
+      "urls": {
+        "https://digital-valley.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://digital-valley.fr/actualites-innovation-digital-dordogne/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://digital-valley.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 10,
+          "blocage": false
+        }
+      }
+    },
+    {
+      "nom": "French Tech Périgord",
+      "urls": {
+        "https://frenchtechperigord.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://frenchtechperigord.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://frenchtechperigord.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 10,
+          "blocage": false
+        }
+      }
+    },
+    {
+      "nom": "Initiative Périgord",
+      "urls": {
+        "https://www.initiative-perigord.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        },
+        "https://www.initiative-perigord.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false
+        }
+      }
+    }
+  ]
+}
