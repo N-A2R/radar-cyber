@@ -41,4 +41,4 @@ Corpus vérifié le 2026-11-22 : **26 sources**, **73 URLs** (sites, pages d'act
 
 Chaque URL a été relevée en GET avec redirection, User-Agent navigateur, type MIME et nombre d'octets. 73/73 URLs en 200, 0 anomalie.
 Des exemples cyber datés figurent dans le champ `exemple_cyber` du corpus.
-OBJECTIF : atteint — 26 / 5 sources vérifiées en HTTP 200 pour le couple secteur « bâtiment » / département 86 (Vienne).
+OBJECTIF : atteint — 26 / 5
