@@ -17,6 +17,8 @@
     "mesure:crise": "apps/api/node_modules/.bin/tsx scripts/measure-crisis-communications.mts",
     "verifie:crise": "apps/api/node_modules/.bin/tsx scripts/verify-crisis-communications-objective.mts",
     "test:offline": "pnpm -F @radar/web exec playwright test test/offline.spec.ts",
+    "mesure:scenarios": "apps/api/node_modules/.bin/tsx scripts/measure-crisis-scenarios.mts",
+    "verify:scenarios": "apps/api/node_modules/.bin/tsx scripts/verify-crisis-scenarios-objective.mts",
     "typecheck": "pnpm -r typecheck",
     "verify": "bash scripts/verify-all.sh",
     "verify:journal": "apps/api/node_modules/.bin/tsx scripts/verify-journal.mts",
