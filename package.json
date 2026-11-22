@@ -22,6 +22,7 @@
     "typecheck": "pnpm -r typecheck",
     "verify": "bash scripts/verify-all.sh",
     "verify:journal": "apps/api/node_modules/.bin/tsx scripts/verify-journal.mts",
+    "verifie:objectif-rapport": "apps/api/node_modules/.bin/tsx scripts/verifie-objectif-rapport-benchmark.mts",
     "custody:measure": "apps/api/node_modules/.bin/tsx scripts/measure-custody.mts",
     "custody:backfill": "apps/api/node_modules/.bin/tsx scripts/backfill-custody.mts",
     "custody:write-boundary": "apps/api/node_modules/.bin/tsx scripts/measure-admission-at-write.mts",
@@ -38,8 +39,12 @@
     "mesure:pertinence": "apps/api/node_modules/.bin/tsx scripts/mesure-pertinence.mts",
     "mesure:confiance": "apps/api/node_modules/.bin/tsx scripts/compute-confidence-scores.mts",
     "mesure:corroboration": "apps/api/node_modules/.bin/tsx scripts/measure-incident-corroboration.mts",
+    "mesure:doublons-semantiques": "apps/api/node_modules/.bin/tsx scripts/semantic-duplicates.mts",
     "measure:leaks-by-domain": "apps/api/node_modules/.bin/tsx scripts/measure-leaks-by-domain.mts",
+    "leak-proofs:archive": "apps/api/node_modules/.bin/tsx scripts/archive-leak-victim-proofs.mts",
+    "leak-proofs:measure": "apps/api/node_modules/.bin/tsx scripts/measure-leak-victim-proofs.mts",
     "measure:resale-na": "apps/api/node_modules/.bin/tsx scripts/measure-resale-na.mts",
+    "measure:incident-cost": "apps/api/node_modules/.bin/tsx scripts/measure-incident-cost.mts",
     "collect:rssi-recruitment": "apps/api/node_modules/.bin/tsx scripts/collect-rssi-recruitment.mts",
     "measure:recruitment-claim": "apps/api/node_modules/.bin/tsx scripts/measure-recruitment-claim.mts",
     "mesure:cve-na": "apps/api/node_modules/.bin/tsx scripts/measure-cve-na.mts",
@@ -61,6 +66,8 @@
     "measure:modes": "apps/api/node_modules/.bin/tsx scripts/measure-operating-modes.mts",
     "services:collect": "apps/api/node_modules/.bin/tsx scripts/collect-service-availability.mts",
     "services:measure": "apps/api/node_modules/.bin/tsx scripts/measure-service-availability.mts",
+    "collect:na-containers": "apps/api/node_modules/.bin/tsx scripts/collect-public-containers.mts",
+    "measure:na-containers": "apps/api/node_modules/.bin/tsx scripts/measure-public-containers.mts"
     "measure:affected": "apps/api/node_modules/.bin/tsx scripts/measure-affected.mts"
   },
   "devDependencies": {
