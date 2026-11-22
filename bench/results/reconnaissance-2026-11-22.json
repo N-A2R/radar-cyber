@@ -1,0 +1,414 @@
+{
+  "command": "pnpm measure:reconnaissance",
+  "scope": "nouvelle-aquitaine",
+  "basis": "observable-attack-surface",
+  "count": 57,
+  "candidates": 120,
+  "falsePositives": 63,
+  "falsePositiveRate": 0.525,
+  "signals": {
+    "service_fingerprint": 17,
+    "subdomain_enumeration": 4,
+    "dns_observation": 39
+  },
+  "candidateSignals": {
+    "service_fingerprint": 83,
+    "subdomain_enumeration": 12,
+    "dns_observation": 39
+  },
+  "observations": {
+    "exposures": 83,
+    "subdomains": 12,
+    "dns": 39
+  },
+  "baseline": {
+    "organizations": 1673220,
+    "sources": 463,
+    "events": 27899,
+    "exposures": 768,
+    "subdomains": 342,
+    "dnsDomains": 1360,
+    "dnsResolved": 145,
+    "departments": [
+      "16",
+      "17",
+      "19",
+      "23",
+      "24",
+      "33",
+      "40",
+      "47",
+      "64",
+      "79",
+      "86",
+      "87",
+      "Charente",
+      "Charente-Maritime",
+      "Corrèze",
+      "correze",
+      "Creuse",
+      "Dordogne",
+      "Gironde",
+      "Landes",
+      "Lot-et-Garonne",
+      "Pyrénées-Atlantiques",
+      "pyrenees-atlantiques",
+      "Deux-Sèvres",
+      "deux-sevres",
+      "Vienne",
+      "Haute-Vienne",
+      "Nouvelle-Aquitaine"
+    ]
+  },
+  "detections": [
+    {
+      "orgId": 12,
+      "dept": "16",
+      "signal": "subdomain_enumeration",
+      "evidence": 10
+    },
+    {
+      "orgId": 73,
+      "dept": "16",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 74,
+      "dept": "16",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 78,
+      "dept": "16",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 89,
+      "dept": "16",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 90,
+      "dept": "16",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 94,
+      "dept": "16",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 118,
+      "dept": "16",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 645,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 2
+    },
+    {
+      "orgId": 1082,
+      "dept": "19",
+      "signal": "service_fingerprint",
+      "evidence": 5
+    },
+    {
+      "orgId": 1918,
+      "dept": "33",
+      "signal": "subdomain_enumeration",
+      "evidence": 99
+    },
+    {
+      "orgId": 1970,
+      "dept": "33",
+      "signal": "subdomain_enumeration",
+      "evidence": 11
+    },
+    {
+      "orgId": 2210,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 9
+    },
+    {
+      "orgId": 2364,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 3
+    },
+    {
+      "orgId": 2385,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 3
+    },
+    {
+      "orgId": 2718,
+      "dept": "47",
+      "signal": "service_fingerprint",
+      "evidence": 2
+    },
+    {
+      "orgId": 3031,
+      "dept": "47",
+      "signal": "service_fingerprint",
+      "evidence": 3
+    },
+    {
+      "orgId": 3059,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 2
+    },
+    {
+      "orgId": 3567,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 2
+    },
+    {
+      "orgId": 3727,
+      "dept": "79",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4010,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 3
+    },
+    {
+      "orgId": 4384,
+      "dept": "64",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 15989,
+      "dept": "23",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 15995,
+      "dept": "23",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 16721,
+      "dept": "33",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 17689,
+      "dept": "33",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 18452,
+      "dept": "47",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 19501,
+      "dept": "64",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 21459,
+      "dept": "33",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 23194,
+      "dept": "17",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 78255,
+      "dept": "47",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 95908,
+      "dept": "16",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 109376,
+      "dept": "33",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 147590,
+      "dept": "40",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 168102,
+      "dept": "33",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 199650,
+      "dept": "33",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 206044,
+      "dept": "64",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 261889,
+      "dept": "64",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 275610,
+      "dept": "64",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 310777,
+      "dept": "33",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 338579,
+      "dept": "33",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 370694,
+      "dept": "17",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 388166,
+      "dept": "16",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 424627,
+      "dept": "79",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 604869,
+      "dept": "23",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 661926,
+      "dept": "16",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 2177841,
+      "dept": "47",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 2347583,
+      "dept": "19",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 2423975,
+      "dept": "Creuse",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 2423977,
+      "dept": "Gironde",
+      "signal": "service_fingerprint",
+      "evidence": 2
+    },
+    {
+      "orgId": 2423979,
+      "dept": "Deux-Sèvres",
+      "signal": "service_fingerprint",
+      "evidence": 2
+    },
+    {
+      "orgId": 2423985,
+      "dept": "Landes",
+      "signal": "service_fingerprint",
+      "evidence": 3
+    },
+    {
+      "orgId": 2423986,
+      "dept": "Gironde",
+      "signal": "service_fingerprint",
+      "evidence": 4
+    },
+    {
+      "orgId": 2423987,
+      "dept": "Gironde",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 2423989,
+      "dept": "Haute-Vienne",
+      "signal": "service_fingerprint",
+      "evidence": 3
+    },
+    {
+      "orgId": 2423990,
+      "dept": "Vienne",
+      "signal": "service_fingerprint",
+      "evidence": 2
+    },
+    {
+      "orgId": 2423991,
+      "dept": "Gironde",
+      "signal": "dns_observation",
+      "evidence": 1
+    }
+  ],
+  "sql": {
+    "exposures": "\n  WITH shared_ip AS (\n    SELECT ip, count(DISTINCT org_id)::int AS orgs\n      FROM exposition_service\n     GROUP BY ip\n  )\n  SELECT o.id::int AS \"orgId\", o.dept, o.domain, o.website,\n         COALESCE(\n           jsonb_agg(DISTINCT h.value) FILTER (WHERE h.value IS NOT NULL),\n           '[]'::jsonb\n         ) AS \"hostnames\",\n         count(DISTINCT e.port)\n           FILTER (WHERE e.technology IS NOT NULL AND e.technology <> '')::int\n           AS \"fingerprintPorts\",\n         COALESCE(bool_or(s.orgs > 1), false) AS \"sharedIp\"\n    FROM exposition_service e\n    JOIN org o ON o.id = e.org_id\n    LEFT JOIN shared_ip s ON s.ip = e.ip\n    LEFT JOIN LATERAL jsonb_array_elements_text(\n      CASE\n        WHEN jsonb_typeof(e.evidence -> 'hostnames') = 'array'\n          THEN e.evidence -> 'hostnames'\n        ELSE '[]'::jsonb\n      END\n    ) AS h(value) ON true\n   WHERE o.dept = ANY($1::text[])\n   GROUP BY o.id, o.dept, o.domain, o.website\n",
+    "subdomains": "\n  WITH domain_orgs AS (\n    SELECT lower(o2.domain) AS domaine, count(DISTINCT o2.id)::int AS orgs\n      FROM ct_sous_domaine c\n      JOIN org o2 ON lower(o2.domain) = lower(c.domaine)\n     GROUP BY lower(o2.domain)\n  )\n  SELECT o.id::int AS \"orgId\", o.dept,\n         o.domain AS \"registeredDomain\",\n         c.domaine AS \"observedDomain\",\n         count(DISTINCT c.sous_domaine)::int AS \"subdomainCount\",\n         (d.orgs > 1) AS \"ambiguous\"\n    FROM ct_sous_domaine c\n    JOIN org o ON lower(o.domain) = lower(c.domaine)\n    JOIN domain_orgs d ON d.domaine = lower(c.domaine)\n   WHERE o.dept = ANY($1::text[])\n   GROUP BY o.id, o.dept, o.domain, c.domaine, d.orgs\n",
+    "dns": "\n  SELECT o.id::int AS \"orgId\", o.dept, d.domain, d.active,\n         d.last_success AS \"lastSuccess\"\n    FROM dns_domaine d\n    JOIN LATERAL unnest(d.org_ids) AS x(oid) ON true\n    JOIN org o ON o.id = x.oid\n   WHERE o.dept = ANY($1::text[])\n     AND d.active\n     AND d.last_success IS NOT NULL\n",
+    "baseline": "\n  SELECT (SELECT count(*)::int FROM org) AS organizations,\n         (SELECT count(*)::int FROM source) AS sources,\n         (SELECT count(*)::int FROM event) AS events,\n         (SELECT count(*)::int FROM exposition_service) AS exposures,\n         (SELECT count(*)::int FROM ct_sous_domaine) AS subdomains,\n         (SELECT count(*)::int FROM dns_domaine) AS \"dnsDomains\",\n         (SELECT count(*)::int FROM dns_domaine\n           WHERE active AND last_success IS NOT NULL) AS \"dnsResolved\"\n"
+  },
+  "measuredAt": "2026-11-22T00:21:02.153Z"
+}

@@ -1,0 +1,2850 @@
+{
+  "command": "pnpm measure:reconnaissance",
+  "scope": "nouvelle-aquitaine",
+  "basis": "observable-attack-surface",
+  "count": 463,
+  "candidates": 9850,
+  "falsePositives": 9387,
+  "falsePositiveRate": 0.952995,
+  "signals": {
+    "service_fingerprint": 432,
+    "subdomain_enumeration": 4,
+    "dns_observation": 39
+  },
+  "candidateSignals": {
+    "service_fingerprint": 9849,
+    "subdomain_enumeration": 12,
+    "dns_observation": 39
+  },
+  "observations": {
+    "exposures": 9849,
+    "subdomains": 12,
+    "dns": 39
+  },
+  "baseline": {
+    "organizations": 1673220,
+    "sources": 1095,
+    "events": 26770,
+    "exposures": 11096,
+    "subdomains": 342,
+    "dnsDomains": 1360,
+    "dnsResolved": 145,
+    "departments": [
+      "16",
+      "17",
+      "19",
+      "23",
+      "24",
+      "33",
+      "40",
+      "47",
+      "64",
+      "79",
+      "86",
+      "87",
+      "Charente",
+      "Charente-Maritime",
+      "Corrèze",
+      "correze",
+      "Creuse",
+      "Dordogne",
+      "Gironde",
+      "Landes",
+      "Lot-et-Garonne",
+      "Pyrénées-Atlantiques",
+      "pyrenees-atlantiques",
+      "Deux-Sèvres",
+      "deux-sevres",
+      "Vienne",
+      "Haute-Vienne",
+      "Nouvelle-Aquitaine"
+    ]
+  },
+  "detections": [
+    {
+      "orgId": 12,
+      "dept": "16",
+      "signal": "subdomain_enumeration",
+      "evidence": 10
+    },
+    {
+      "orgId": 73,
+      "dept": "16",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 74,
+      "dept": "16",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 78,
+      "dept": "16",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 89,
+      "dept": "16",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 90,
+      "dept": "16",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 94,
+      "dept": "16",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 118,
+      "dept": "16",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 146,
+      "dept": "16",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 315,
+      "dept": "16",
+      "signal": "service_fingerprint",
+      "evidence": 13
+    },
+    {
+      "orgId": 385,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 567,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 610,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 619,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 752,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 786,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1398,
+      "dept": "24",
+      "signal": "service_fingerprint",
+      "evidence": 15
+    },
+    {
+      "orgId": 1470,
+      "dept": "24",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1830,
+      "dept": "24",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1861,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 2
+    },
+    {
+      "orgId": 1867,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1885,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1888,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1895,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1897,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1910,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1913,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1918,
+      "dept": "33",
+      "signal": "subdomain_enumeration",
+      "evidence": 99
+    },
+    {
+      "orgId": 1970,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 2
+    },
+    {
+      "orgId": 1973,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 2
+    },
+    {
+      "orgId": 1984,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 2027,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 2043,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 2
+    },
+    {
+      "orgId": 2050,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 3
+    },
+    {
+      "orgId": 2079,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 2085,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 2093,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 3
+    },
+    {
+      "orgId": 2121,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 2132,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 13
+    },
+    {
+      "orgId": 2164,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 2
+    },
+    {
+      "orgId": 2210,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 9
+    },
+    {
+      "orgId": 2235,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 2272,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 13
+    },
+    {
+      "orgId": 2433,
+      "dept": "40",
+      "signal": "service_fingerprint",
+      "evidence": 2
+    },
+    {
+      "orgId": 2602,
+      "dept": "40",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 2871,
+      "dept": "47",
+      "signal": "service_fingerprint",
+      "evidence": 15
+    },
+    {
+      "orgId": 3031,
+      "dept": "47",
+      "signal": "service_fingerprint",
+      "evidence": 3
+    },
+    {
+      "orgId": 3161,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 13
+    },
+    {
+      "orgId": 3284,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 3311,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 3434,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 3446,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 3612,
+      "dept": "79",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 3710,
+      "dept": "79",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 3714,
+      "dept": "79",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 3871,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 17
+    },
+    {
+      "orgId": 3892,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 2
+    },
+    {
+      "orgId": 3938,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 3960,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4095,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4298,
+      "dept": "40",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4306,
+      "dept": "47",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4309,
+      "dept": "79",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4322,
+      "dept": "24",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4323,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4327,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4329,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4330,
+      "dept": "79",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4332,
+      "dept": "19",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4334,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4335,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4337,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4341,
+      "dept": "19",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4342,
+      "dept": "19",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4351,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4361,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4362,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4370,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4373,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4376,
+      "dept": "16",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4378,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4384,
+      "dept": "64",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 4387,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4394,
+      "dept": "19",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4396,
+      "dept": "19",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4397,
+      "dept": "23",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4405,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4407,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4409,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4410,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4426,
+      "dept": "40",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4431,
+      "dept": "40",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4436,
+      "dept": "47",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4438,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4440,
+      "dept": "47",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4446,
+      "dept": "87",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 4449,
+      "dept": "87",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 10793,
+      "dept": "47",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 13143,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 14566,
+      "dept": "16",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 14671,
+      "dept": "16",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 14805,
+      "dept": "16",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 15153,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 15722,
+      "dept": "19",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 15989,
+      "dept": "23",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 15995,
+      "dept": "23",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 16470,
+      "dept": "24",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 16721,
+      "dept": "33",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 16729,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 16764,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 16930,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 16943,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 17018,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 17275,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 17367,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 17374,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 17652,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 17689,
+      "dept": "33",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 17810,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 18212,
+      "dept": "40",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 18214,
+      "dept": "40",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 18416,
+      "dept": "40",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 18452,
+      "dept": "47",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 18484,
+      "dept": "47",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 18566,
+      "dept": "47",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 19037,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 19038,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 19169,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 19248,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 19263,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 19341,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 19501,
+      "dept": "64",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 19800,
+      "dept": "79",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 20064,
+      "dept": "79",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 20376,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 20422,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 20529,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 20530,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 20650,
+      "dept": "87",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 20720,
+      "dept": "87",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 21041,
+      "dept": "16",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 21060,
+      "dept": "79",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 21075,
+      "dept": "79",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 21137,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 21188,
+      "dept": "79",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 21200,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 21252,
+      "dept": "47",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 21328,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 21402,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 21409,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 21459,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 21522,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 21526,
+      "dept": "16",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 21613,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 21648,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 21761,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 22213,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 22399,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 22517,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 22544,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 22608,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 22660,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 23194,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 23769,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 23889,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 24784,
+      "dept": "16",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 25682,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 27792,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 29988,
+      "dept": "87",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 30739,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 31192,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 31785,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 32761,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 33726,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 34380,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 34760,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 54164,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 65415,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 71359,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 77475,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 77553,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 78177,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 78255,
+      "dept": "47",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 79334,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 79554,
+      "dept": "24",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 80944,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 81253,
+      "dept": "24",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 82178,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 82318,
+      "dept": "16",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 82385,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 82516,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 82806,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 84429,
+      "dept": "16",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 85082,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 85993,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 87717,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 91104,
+      "dept": "87",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 91739,
+      "dept": "79",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 93250,
+      "dept": "19",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 94777,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 95908,
+      "dept": "16",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 96935,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 97420,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 102426,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 103244,
+      "dept": "47",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 103707,
+      "dept": "87",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 104972,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 107822,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 109376,
+      "dept": "33",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 111670,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 111812,
+      "dept": "19",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 113518,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 115326,
+      "dept": "24",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 119214,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 120242,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 122471,
+      "dept": "16",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 122560,
+      "dept": "47",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 124348,
+      "dept": "79",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 125782,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 126044,
+      "dept": "40",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 127081,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 127734,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 129260,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 131088,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 131318,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 133425,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 137329,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 138418,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 142137,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 145219,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 147590,
+      "dept": "40",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 148664,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 149342,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 151598,
+      "dept": "47",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 152043,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 154119,
+      "dept": "79",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 157587,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 157691,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 162009,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 162212,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 162406,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 163510,
+      "dept": "87",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 168102,
+      "dept": "33",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 170007,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 170959,
+      "dept": "87",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 171110,
+      "dept": "23",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 177675,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 185267,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 189663,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 189766,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 190091,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 199650,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 202016,
+      "dept": "40",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 202797,
+      "dept": "19",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 204900,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 206044,
+      "dept": "64",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 214075,
+      "dept": "87",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 214253,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 217021,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 220454,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 220674,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 222116,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 223089,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 224445,
+      "dept": "24",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 227242,
+      "dept": "24",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 232568,
+      "dept": "16",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 234336,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 234770,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 235030,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 239687,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 240865,
+      "dept": "16",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 242073,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 254127,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 257693,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 261889,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 263883,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 265419,
+      "dept": "87",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 265810,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 269538,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 275196,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 275610,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 276552,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 279599,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 281247,
+      "dept": "19",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 284445,
+      "dept": "47",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 285582,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 285991,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 286656,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 291086,
+      "dept": "24",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 292846,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 293964,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 295426,
+      "dept": "16",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 296915,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 298752,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 310777,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 313539,
+      "dept": "79",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 314251,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 316414,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 318216,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 325344,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 325474,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 326193,
+      "dept": "16",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 329522,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 331258,
+      "dept": "40",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 332300,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 336055,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 338579,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 338605,
+      "dept": "16",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 341492,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 342577,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 354665,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 358546,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 358796,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 358902,
+      "dept": "79",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 359161,
+      "dept": "24",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 359269,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 362068,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 367804,
+      "dept": "40",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 368622,
+      "dept": "87",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 368644,
+      "dept": "87",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 368762,
+      "dept": "16",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 368802,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 368840,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 368871,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 368901,
+      "dept": "16",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 368942,
+      "dept": "23",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 369580,
+      "dept": "87",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 370694,
+      "dept": "17",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 371520,
+      "dept": "79",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 371643,
+      "dept": "79",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 372177,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 372392,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 373295,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 373356,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 373589,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 373757,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 373885,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 373905,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 373993,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 374004,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 374731,
+      "dept": "40",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 376188,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 376205,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 380096,
+      "dept": "19",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 388166,
+      "dept": "16",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 390539,
+      "dept": "87",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 396829,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 413122,
+      "dept": "87",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 413979,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 423544,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 424627,
+      "dept": "79",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 427521,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 429908,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 432163,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 436697,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 439744,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 451238,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 451277,
+      "dept": "16",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 451900,
+      "dept": "87",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 458833,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 464502,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 467938,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 471201,
+      "dept": "79",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 474735,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 479605,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 482872,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 489057,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 492127,
+      "dept": "19",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 497069,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 499081,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 502390,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 505261,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 517953,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 524071,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 524302,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 524914,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 531266,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 542896,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 548105,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 550934,
+      "dept": "87",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 551276,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 551277,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 551323,
+      "dept": "40",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 555913,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 558096,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 564872,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 566300,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 578072,
+      "dept": "40",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 582933,
+      "dept": "19",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 586496,
+      "dept": "16",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 593617,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 603544,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 604869,
+      "dept": "23",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 607163,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 610799,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 613781,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 616062,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 624921,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 631390,
+      "dept": "24",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 636321,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 636408,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 640259,
+      "dept": "47",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 645071,
+      "dept": "16",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 647869,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 651753,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 653632,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 655393,
+      "dept": "87",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 656203,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 661926,
+      "dept": "16",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 668444,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 679160,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 680171,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 683413,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 700528,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 706888,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1455312,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1466095,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1512381,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1568544,
+      "dept": "47",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1587886,
+      "dept": "16",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1626243,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1723904,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1773346,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1802567,
+      "dept": "87",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1944613,
+      "dept": "87",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1944836,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1946402,
+      "dept": "24",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1948534,
+      "dept": "16",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1962146,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1963200,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1972204,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1974065,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1975177,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1975188,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1975789,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1976014,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1980831,
+      "dept": "40",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1981835,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1985270,
+      "dept": "87",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1985345,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1992022,
+      "dept": "87",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1992576,
+      "dept": "47",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 1994015,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 2024751,
+      "dept": "19",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 2069099,
+      "dept": "40",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 2100437,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 2145508,
+      "dept": "79",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 2177841,
+      "dept": "47",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 2230406,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 2251211,
+      "dept": "17",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 2347583,
+      "dept": "19",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 2350122,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 2350308,
+      "dept": "33",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 2355975,
+      "dept": "86",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 2389675,
+      "dept": "16",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 2402653,
+      "dept": "64",
+      "signal": "service_fingerprint",
+      "evidence": 1
+    },
+    {
+      "orgId": 2423975,
+      "dept": "Creuse",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 2423979,
+      "dept": "Deux-Sèvres",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 2423986,
+      "dept": "Gironde",
+      "signal": "service_fingerprint",
+      "evidence": 4
+    },
+    {
+      "orgId": 2423987,
+      "dept": "Gironde",
+      "signal": "dns_observation",
+      "evidence": 1
+    },
+    {
+      "orgId": 2423989,
+      "dept": "Haute-Vienne",
+      "signal": "service_fingerprint",
+      "evidence": 3
+    },
+    {
+      "orgId": 2423990,
+      "dept": "Vienne",
+      "signal": "service_fingerprint",
+      "evidence": 2
+    },
+    {
+      "orgId": 2423991,
+      "dept": "Gironde",
+      "signal": "dns_observation",
+      "evidence": 1
+    }
+  ],
+  "sql": {
+    "exposures": "\n  WITH shared_ip AS (\n    SELECT ip, count(DISTINCT org_id)::int AS orgs\n      FROM exposition_service\n     GROUP BY ip\n  )\n  SELECT o.id::int AS \"orgId\", o.dept, o.domain, o.website,\n         COALESCE(\n           jsonb_agg(DISTINCT h.value) FILTER (WHERE h.value IS NOT NULL),\n           '[]'::jsonb\n         ) AS \"hostnames\",\n         count(DISTINCT e.port)\n           FILTER (WHERE e.technology IS NOT NULL AND e.technology <> '')::int\n           AS \"fingerprintPorts\",\n         COALESCE(\n           jsonb_agg(DISTINCT e.source_url) FILTER (WHERE e.source_url IS NOT NULL),\n           '[]'::jsonb\n         ) AS \"observedUrls\",\n         COALESCE(bool_or(s.orgs > 1), false) AS \"sharedIp\"\n    FROM exposition_service e\n    JOIN org o ON o.id = e.org_id\n    LEFT JOIN shared_ip s ON s.ip = e.ip\n    LEFT JOIN LATERAL jsonb_array_elements_text(\n      CASE\n        WHEN jsonb_typeof(e.evidence -> 'hostnames') = 'array'\n          THEN e.evidence -> 'hostnames'\n        ELSE '[]'::jsonb\n      END\n    ) AS h(value) ON true\n   WHERE o.dept = ANY($1::text[])\n   GROUP BY o.id, o.dept, o.domain, o.website\n",
+    "subdomains": "\n  WITH domain_orgs AS (\n    SELECT lower(o2.domain) AS domaine, count(DISTINCT o2.id)::int AS orgs\n      FROM ct_sous_domaine c\n      JOIN org o2 ON lower(o2.domain) = lower(c.domaine)\n     GROUP BY lower(o2.domain)\n  )\n  SELECT o.id::int AS \"orgId\", o.dept,\n         o.domain AS \"registeredDomain\",\n         c.domaine AS \"observedDomain\",\n         count(DISTINCT c.sous_domaine)::int AS \"subdomainCount\",\n         (d.orgs > 1) AS \"ambiguous\"\n    FROM ct_sous_domaine c\n    JOIN org o ON lower(o.domain) = lower(c.domaine)\n    JOIN domain_orgs d ON d.domaine = lower(c.domaine)\n   WHERE o.dept = ANY($1::text[])\n   GROUP BY o.id, o.dept, o.domain, c.domaine, d.orgs\n",
+    "dns": "\n  SELECT o.id::int AS \"orgId\", o.dept, d.domain, d.active,\n         d.last_success AS \"lastSuccess\"\n    FROM dns_domaine d\n    JOIN LATERAL unnest(d.org_ids) AS x(oid) ON true\n    JOIN org o ON o.id = x.oid\n   WHERE o.dept = ANY($1::text[])\n     AND d.active\n     AND d.last_success IS NOT NULL\n",
+    "baseline": "\n  SELECT (SELECT count(*)::int FROM org) AS organizations,\n         (SELECT count(*)::int FROM source) AS sources,\n         (SELECT count(*)::int FROM event) AS events,\n         (SELECT count(*)::int FROM exposition_service) AS exposures,\n         (SELECT count(*)::int FROM ct_sous_domaine) AS subdomains,\n         (SELECT count(*)::int FROM dns_domaine) AS \"dnsDomains\",\n         (SELECT count(*)::int FROM dns_domaine\n           WHERE active AND last_success IS NOT NULL) AS \"dnsResolved\"\n"
+  },
+  "measuredAt": "2026-11-22T06:14:57.497Z"
+}
