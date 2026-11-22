@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "scoreVersion": "1.0.0",
+  "measuredAt": "2026-11-22T04:24:52.307Z",
+  "referenceDate": "2026-11-22",
+  "methodology": "docs/score-assurance-organisation.md",
+  "reproduce": "pnpm measure:insurance-score",
+  "objective": {
+    "description": "a comparable and auditable insurance score for every Nouvelle-Aquitaine organization",
+    "achieved": true,
+    "organizationsScored": 1671907,
+    "naOrganizations": 1671907,
+    "coveragePercent": 100
+  },
+  "corpus": {
+    "organizations": 1673151,
+    "sources": 315,
+    "activeSources": 214,
+    "events": 26240,
+    "attachedEvents": 108,
+    "inputGroups": 582
+  },
+  "evidence": {
+    "organizationsWithIncidents": 21,
+    "organizationsWithEvidence": 43,
+    "distinctSourceIds": 22,
+    "greySourcesIncluded": true,
+    "victimDataUsed": false,
+    "paidServicesUsed": false
+  },
+  "distribution": [
+    {
+      "bucket": "0-9",
+      "organizations": 0
+    },
+    {
+      "bucket": "10-19",
+      "organizations": 0
+    },
+    {
+      "bucket": "20-29",
+      "organizations": 0
+    },
+    {
+      "bucket": "30-39",
+      "organizations": 0
+    },
+    {
+      "bucket": "40-49",
+      "organizations": 16
+    },
+    {
+      "bucket": "50-59",
+      "organizations": 6
+    },
+    {
+      "bucket": "60-69",
+      "organizations": 227802
+    },
+    {
+      "bucket": "70-79",
+      "organizations": 1294682
+    },
+    {
+      "bucket": "80-89",
+      "organizations": 149401
+    },
+    {
+      "bucket": "90-99",
+      "organizations": 0
+    },
+    {
+      "bucket": "100",
+      "organizations": 0
+    }
+  ],
+  "componentAverages": {
+    "recordIntegrity": 18.3715,
+    "workforceTransparency": 0.1472,
+    "incidentFreeHistory": 34.9997,
+    "ambientPressure": 14.9999,
+    "sectorPeerPosition": 5.483,
+    "evidenceBreadth": 0.0001
+  },
+  "checksum": "d8d6f1fb06cb8dbafa439e215f85f286916733ac7ce858689b276efe0af93b27"
+}
