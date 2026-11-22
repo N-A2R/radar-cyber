@@ -1,0 +1,920 @@
+{
+  "hashes": {
+    "corpus": "a6287fdce2e969a14986f7359833cd10585b5a30f01f46ee7e43fb23ffa1e58c",
+    "snapshot": "f570ba340ffe5070c596205fa3ea8aca54162a23315e150b0d2e4511fa59d6e0"
+  },
+  "incidents": 100,
+  "eventsInWindows": 9557,
+  "signalsEmitted": 23,
+  "signalsValidated": 0,
+  "truePositives": 0,
+  "falsePositives": 1,
+  "falseNegatives": 0,
+  "trueNegatives": 99,
+  "incidentDetections": 0,
+  "decisionPrecision": 0.99,
+  "detectionPrecision": 0,
+  "recall": null,
+  "verdicts": [
+    {
+      "id": "na-2026-001",
+      "department": "33",
+      "referenceDate": "2026-04-06",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-002",
+      "department": "17",
+      "referenceDate": "2026-08-17",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-003",
+      "department": "40",
+      "referenceDate": "2026-08-27",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-004",
+      "department": "64",
+      "referenceDate": "2026-09-11",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-005",
+      "department": "79",
+      "referenceDate": "2025-12-08",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-006",
+      "department": "33",
+      "referenceDate": "2026-05-10",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-007",
+      "department": "47",
+      "referenceDate": "2025-10-03",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-008",
+      "department": "19",
+      "referenceDate": "2025-01-15",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-009",
+      "department": "33",
+      "referenceDate": "2026-09-08",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-010",
+      "department": "33",
+      "referenceDate": "2026-07-16",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-011",
+      "department": "33",
+      "referenceDate": "2026-07-23",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-012",
+      "department": "19",
+      "referenceDate": "2026-10-12",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-013",
+      "department": "64",
+      "referenceDate": "2026-10-12",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-014",
+      "department": "47",
+      "referenceDate": "2023-12-07",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-015",
+      "department": "19",
+      "referenceDate": "2024-09-01",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-016",
+      "department": "16",
+      "referenceDate": "2026-01-20",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-017",
+      "department": "86",
+      "referenceDate": "2025-08-29",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-018",
+      "department": "33",
+      "referenceDate": "2025-12-09",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-019",
+      "department": "33",
+      "referenceDate": "2026-09-07",
+      "referenceType": "datePublique",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-020",
+      "department": "64",
+      "referenceDate": "2026-08-17",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-021",
+      "department": "40",
+      "referenceDate": "2026-07-25",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-022",
+      "department": "33",
+      "referenceDate": "2026-04-06",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-023",
+      "department": "64",
+      "referenceDate": "2026-08-07",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-024",
+      "department": "86",
+      "referenceDate": "2026-08-01",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-025",
+      "department": "64",
+      "referenceDate": "2026-04-08",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-026",
+      "department": "33",
+      "referenceDate": "2026-04-06",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-027",
+      "department": "33",
+      "referenceDate": "2025-11-15",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-028",
+      "department": "17",
+      "referenceDate": "2025-10-24",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-029",
+      "department": "33",
+      "referenceDate": "2026-04-27",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-030",
+      "department": "17",
+      "referenceDate": "2025-12-11",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-031",
+      "department": "86",
+      "referenceDate": "2026-03-02",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-032",
+      "department": "33",
+      "referenceDate": "2026-10-11",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-033",
+      "department": "79",
+      "referenceDate": "2026-10-11",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-034",
+      "department": "24",
+      "referenceDate": "2026-10-11",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-035",
+      "department": "17",
+      "referenceDate": "2026-10-11",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-036",
+      "department": "86",
+      "referenceDate": "2026-10-11",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-037",
+      "department": "40",
+      "referenceDate": "2026-10-11",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-038",
+      "department": "47",
+      "referenceDate": "2026-10-11",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-039",
+      "department": "33",
+      "referenceDate": "2026-03-25",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-040",
+      "department": "33",
+      "referenceDate": "2025-10-27",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-041",
+      "department": "33",
+      "referenceDate": "2026-04-06",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-042",
+      "department": "87",
+      "referenceDate": "2026-06-22",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-043",
+      "department": "16",
+      "referenceDate": "2025-11-10",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-044",
+      "department": "16",
+      "referenceDate": "2026-02-05",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-045",
+      "department": "33",
+      "referenceDate": "2026-09-04",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-046",
+      "department": "16",
+      "referenceDate": "2026-01-28",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-047",
+      "department": "64",
+      "referenceDate": "2025-09-29",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-048",
+      "department": "24",
+      "referenceDate": "2025-08-11",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-049",
+      "department": "33",
+      "referenceDate": "2025-02-21",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-050",
+      "department": "87",
+      "referenceDate": "2025-10-18",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-051",
+      "department": "87",
+      "referenceDate": "2024-12-15",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-052",
+      "department": "23",
+      "referenceDate": "2025-06-20",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-053",
+      "department": "40",
+      "referenceDate": "2022-01-01",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-054",
+      "department": "40",
+      "referenceDate": "2025-08-26",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-055",
+      "department": "87",
+      "referenceDate": "2023-09-01",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-056",
+      "department": "64",
+      "referenceDate": "2024-05-13",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-057",
+      "department": "33",
+      "referenceDate": "2024-12-31",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-058",
+      "department": "16",
+      "referenceDate": "2024-05-10",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-059",
+      "department": "16",
+      "referenceDate": "2025-07-24",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-2026-060",
+      "department": "33",
+      "referenceDate": "2020-12-01",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-couv-001",
+      "department": "33",
+      "referenceDate": "2024-04-18",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-charente-003",
+      "department": "16",
+      "referenceDate": "2024-08-25",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-charente-004",
+      "department": "16",
+      "referenceDate": "2025-06-13",
+      "referenceType": "datePublique",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-charente-005",
+      "department": "16",
+      "referenceDate": "2025-09-09",
+      "referenceType": "datePublique",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-charente-006",
+      "department": "16",
+      "referenceDate": "2025-11-10",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-charente-007",
+      "department": "16",
+      "referenceDate": "2026-01-23",
+      "referenceType": "datePublique",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-charente-008",
+      "department": "16",
+      "referenceDate": "2026-01-20",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-charente-009",
+      "department": "16",
+      "referenceDate": "2026-02-22",
+      "referenceType": "datePublique",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-charente-010",
+      "department": "16",
+      "referenceDate": "2026-03-02",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "cm-inc-001",
+      "department": "17",
+      "referenceDate": "2024-07-01",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "cm-inc-002",
+      "department": "17",
+      "referenceDate": "2025-02-07",
+      "referenceType": "datePublique",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "cm-inc-003",
+      "department": "17",
+      "referenceDate": "2025-09-18",
+      "referenceType": "datePublique",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "cm-inc-004",
+      "department": "17",
+      "referenceDate": "2025-11-27",
+      "referenceType": "datePublique",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "cm-inc-005",
+      "department": "17",
+      "referenceDate": "2025-12-11",
+      "referenceType": "datePublique",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "cm-inc-006",
+      "department": "17",
+      "referenceDate": "2026-02-25",
+      "referenceType": "datePublique",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "cm-inc-007",
+      "department": "17",
+      "referenceDate": "2026-05-21",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "cm-inc-009",
+      "department": "17",
+      "referenceDate": "2026-09-07",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "cm-inc-010",
+      "department": "17",
+      "referenceDate": "2026-10-12",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "cm-inc-011",
+      "department": "17",
+      "referenceDate": "2026-10-30",
+      "referenceType": "datePublique",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "cm-inc-012",
+      "department": "17",
+      "referenceDate": "2026-11-12",
+      "referenceType": "datePublique",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "cor-001",
+      "department": "19",
+      "referenceDate": "2025-06-20",
+      "referenceType": "datePublique",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "cor-002",
+      "department": "19",
+      "referenceDate": "2025-02-12",
+      "referenceType": "datePublique",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "cor-003",
+      "department": "19",
+      "referenceDate": "2025-02-26",
+      "referenceType": "datePublique",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "cor-004",
+      "department": "19",
+      "referenceDate": "2024-12-15",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "cor-005",
+      "department": "19",
+      "referenceDate": "2025-06-05",
+      "referenceType": "datePublique",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "cor-007",
+      "department": "19",
+      "referenceDate": "2025-10-18",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "cor-008",
+      "department": "19",
+      "referenceDate": "2026-11-05",
+      "referenceType": "datePublique",
+      "signalsEmitted": 23,
+      "signalsValidated": 0,
+      "outcome": "FP"
+    },
+    {
+      "id": "cor-009",
+      "department": "19",
+      "referenceDate": "2026-11-05",
+      "referenceType": "datePublique",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-couv-003",
+      "department": "64",
+      "referenceDate": "2024-05-31",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-creuse-002",
+      "department": "23",
+      "referenceDate": "2024-12-12",
+      "referenceType": "datePublique",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-creuse-004",
+      "department": "23",
+      "referenceDate": "2025-05-15",
+      "referenceType": "datePublique",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-creuse-005",
+      "department": "23",
+      "referenceDate": "2025-07-11",
+      "referenceType": "datePublique",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-creuse-006",
+      "department": "23",
+      "referenceDate": "2025-11-10",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-creuse-007",
+      "department": "23",
+      "referenceDate": "2026-04-29",
+      "referenceType": "datePublique",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-creuse-008",
+      "department": "23",
+      "referenceDate": "2026-08-05",
+      "referenceType": "datePublique",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-creuse-009",
+      "department": "23",
+      "referenceDate": "2026-09-02",
+      "referenceType": "datePublique",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-creuse-003",
+      "department": "23",
+      "referenceDate": "2025-01-17",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-ds-001",
+      "department": "79",
+      "referenceDate": "2025-12-08",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-ds-002",
+      "department": "79",
+      "referenceDate": "2025-11-14",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    },
+    {
+      "id": "na-ds-003",
+      "department": "79",
+      "referenceDate": "2025-02-27",
+      "referenceType": "dateIncident",
+      "signalsEmitted": 0,
+      "signalsValidated": 0,
+      "outcome": "TN"
+    }
+  ]
+}
