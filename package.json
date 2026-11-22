@@ -35,6 +35,8 @@
     "measure:leaks-by-domain": "apps/api/node_modules/.bin/tsx scripts/measure-leaks-by-domain.mts",
     "mesure:cve-na": "apps/api/node_modules/.bin/tsx scripts/measure-cve-na.mts",
     "corpus:hash": "apps/api/node_modules/.bin/tsx scripts/corpus-hash.mts",
+    "gold:build": "apps/api/node_modules/.bin/tsx scripts/gold-build.mts",
+    "gold:measure": "apps/api/node_modules/.bin/tsx scripts/gold-measure.mts",
     "corpus:import": "apps/api/node_modules/.bin/tsx scripts/importer-corpus.mts",
     "mesure:typosquat": "apps/api/node_modules/.bin/tsx scripts/phishing-typosquat.mts",
     "mesure:faux": "apps/api/node_modules/.bin/tsx scripts/measure-false-events.mts",
