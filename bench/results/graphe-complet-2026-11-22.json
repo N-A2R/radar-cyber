@@ -1,0 +1,37 @@
+{
+  "command": "pnpm mesure:graphe",
+  "scope": "Nouvelle-Aquitaine",
+  "edgeTypes": 24,
+  "edges": 11817569,
+  "byType": {
+    "has_alias": 1678051,
+    "has_kind": 1671906,
+    "located_in": 1671906,
+    "in_sector": 1671889,
+    "located_in_city": 1671704,
+    "has_registration_id": 1665575,
+    "identified_by": 1604767,
+    "has_effectif_band": 161219,
+    "subsidiary_of": 14956,
+    "owns_domain": 2586,
+    "hosted_by": 679,
+    "has_host": 342,
+    "signed_by": 342,
+    "in_family": 317,
+    "reported_by": 317,
+    "targeted_by": 282,
+    "issued_by": 263,
+    "resolves_to": 248,
+    "claimed_by": 78,
+    "affects": 74,
+    "attributed_to": 65,
+    "belongs_to": 1,
+    "operated_by": 1,
+    "observed_address": 1
+  },
+  "sql": [
+    "SELECT count(*)::text AS edges FROM graph_complet_edge",
+    "SELECT type, count(*)::text AS edges FROM graph_complet_edge GROUP BY type ORDER BY count(*) DESC"
+  ],
+  "measuredAt": "2026-11-22T01:00:38.665Z"
+}
