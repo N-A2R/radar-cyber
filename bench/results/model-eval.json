@@ -1,0 +1,1060 @@
+{
+  "schema": "radar-model-eval/v1",
+  "generatedAt": "2026-11-22T02:58:54.108Z",
+  "command": "",
+  "database": {
+    "events": 26259,
+    "organisations": 1673151,
+    "sources": 312,
+    "lastObservation": "2026-11-21"
+  },
+  "corpus": {
+    "path": "bench/pertinence/corpus-100.json",
+    "items": 100,
+    "matchedInDatabase": 100,
+    "fingerprint": "dc11af73ef79ddc2b359f671ba050a956a015a4b02b1d5d10495292056089ba3",
+    "region": "Nouvelle-Aquitaine"
+  },
+  "models": [
+    {
+      "model": "relevance-gate",
+      "version": "keywords=79,exclusions=0,threshold=2",
+      "corpusFingerprint": "dc11af73ef79ddc2b359f671ba050a956a015a4b02b1d5d10495292056089ba3",
+      "metrics": {
+        "cases": 100,
+        "evaluated": 100,
+        "abstained": 0,
+        "truePositives": 69,
+        "falsePositives": 0,
+        "trueNegatives": 30,
+        "falseNegatives": 1,
+        "accuracy": 0.99,
+        "precision": 1,
+        "recall": 0.9857142857142858,
+        "falsePositiveRate": 0
+      },
+      "verdicts": [
+        {
+          "id": "24378",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24394",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24349",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "52526",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "52607",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "52603",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24390",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24283",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "81786",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "77183",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "47948",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "52578",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "77174",
+          "expected": "positive",
+          "predicted": false
+        },
+        {
+          "id": "24373",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24334",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24205",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24337",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "109075",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24330",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "79624",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "47901",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24346",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24355",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "77177",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24209",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24212",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24261",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "46140",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "52534",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24278",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "109077",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "78340",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "77201",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "47982",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24286",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "79621",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24319",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "52600",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "52472",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24295",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "74060",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24248",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24293",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "110597",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "71479",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "71448",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24297",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "52434",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24372",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "123345",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24387",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "86712",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "77121",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "79623",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "47941",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "44655",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "52593",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24254",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24331",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24214",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24246",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24313",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "116532",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24307",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24277",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "52591",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "47878",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "52453",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "48007",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "79628",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24131",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "24311",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "24358",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "24379",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "24389",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "24776",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "24856",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "24881",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "24885",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "24895",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "44931",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "47754",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "48043",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "48544",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "48618",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "52865",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "52967",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "72003",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "72288",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "79616",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "79626",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "79627",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "112417",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "115936",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "118380",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "119466",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "127938",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "127939",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "127940",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "128922",
+          "expected": "negative",
+          "predicted": false
+        }
+      ]
+    },
+    {
+      "model": "false-event-gate",
+      "version": "keywords=79,exclusions=0,threshold=2",
+      "corpusFingerprint": "85e0193f3a475a729fae17ba4c86cdcf1f0dc6b2239e17673b90477d5bdc1b82",
+      "metrics": {
+        "cases": 100,
+        "evaluated": 100,
+        "abstained": 0,
+        "truePositives": 80,
+        "falsePositives": 0,
+        "trueNegatives": 20,
+        "falseNegatives": 0,
+        "accuracy": 1,
+        "precision": 1,
+        "recall": 1,
+        "falsePositiveRate": 0
+      },
+      "verdicts": [
+        {
+          "id": "24378",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24394",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24349",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "52526",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "52607",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "52603",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24390",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24283",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "81786",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "77183",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "47948",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "52578",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "77174",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24373",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24334",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24205",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24337",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "109075",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24330",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "79624",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "47901",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24346",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24355",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "77177",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24209",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24212",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24261",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "46140",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "52534",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24278",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "109077",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "78340",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "77201",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "47982",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24286",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "79621",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24319",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "52600",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "52472",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24295",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "74060",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24248",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24293",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "110597",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "71479",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "71448",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24297",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "52434",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24372",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "123345",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24387",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "86712",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "77121",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "79623",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "47941",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "44655",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "52593",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24254",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24331",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24214",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24246",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24313",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "116532",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24307",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24277",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "52591",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "47878",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "52453",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "48007",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "79628",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24131",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "24311",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "24358",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "24379",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "24389",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "24776",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "24856",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "24881",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "24885",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "24895",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "44931",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "47754",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "48043",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "48544",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "48618",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "52865",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "52967",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "72003",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "72288",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "79616",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "79626",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "79627",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "112417",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "115936",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "118380",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "119466",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "127938",
+          "expected": "positive",
+          "predicted": true
+        },
+        {
+          "id": "127939",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "127940",
+          "expected": "negative",
+          "predicted": false
+        },
+        {
+          "id": "128922",
+          "expected": "negative",
+          "predicted": false
+        }
+      ]
+    }
+  ]
+}
