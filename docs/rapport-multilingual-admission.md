@@ -6,7 +6,9 @@ Rapport en français ; code, tests et corpus en anglais.
 
 ## Chiffre livré
 
-**OBJECTIF : atteint — 65 / 65 incidents NA correctement classés par le filtre de langue à l'ingestion**, contre **41 / 65** avec le détecteur historique. Les 24 corrections se décomposent en 21 titres français pourtant étiquetés anglais (résumé d'entreprise en anglais) et 3 revendications réellement anglaises que le détecteur historique rangeait à tort en français.
+OBJECTIF : atteint — 65 / 65 incidents NA correctement classés par le filtre de langue à l'ingestion
+
+Contre **41 / 65** avec le détecteur historique. Les 24 corrections se décomposent en 21 titres français pourtant étiquetés anglais (résumé d'entreprise en anglais) et 3 revendications réellement anglaises que le détecteur historique rangeait à tort en français.
 
 | Verdict | Corrects | Erreurs |
 |---|---:|---:|
