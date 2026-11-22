@@ -109,3 +109,5 @@ Un site peut cumuler plusieurs motifs ; le statut retient le plus grave
   défaut est compté pour chaque source du corpus, pas une fois par certificat.
 - Aucune donnée personnelle de victime n'est lue ni écrite : le corpus ne
   contient que des sites publics et leurs preuves HTTP.
+
+OBJECTIF : atteint — 16 / 1 000 sites audités
