@@ -1,0 +1,164 @@
+{
+  "scope": "Nouvelle-Aquitaine (12 departments)",
+  "rule": "weighted mean of patch-lag, TLS, SPF and DMARC subscores (0.25 each); any signal without a usable sample falls back to the regional rate",
+  "totalOrganizations": 1673151,
+  "sectorsIndexed": 9,
+  "patchLagDays": 2,
+  "minHostsPerSector": 3,
+  "sectors": [
+    {
+      "sector": "agroalimentaire",
+      "organizations": 147597,
+      "index": 64,
+      "patchLagDays": 2,
+      "patchLagScore": 93,
+      "tlsScore": 86,
+      "spfScore": 75,
+      "dmarcScore": 0,
+      "measuredHosts": 28,
+      "basis": "sector",
+      "signalBasis": {
+        "tls": "sector",
+        "spf": "sector",
+        "dmarc": "sector"
+      }
+    },
+    {
+      "sector": "industrie",
+      "organizations": 76618,
+      "index": 69,
+      "patchLagDays": 2,
+      "patchLagScore": 93,
+      "tlsScore": 95,
+      "spfScore": 87,
+      "dmarcScore": 1,
+      "measuredHosts": 0,
+      "basis": "regional-fallback",
+      "signalBasis": {
+        "tls": "regional",
+        "spf": "regional",
+        "dmarc": "regional"
+      }
+    },
+    {
+      "sector": "construction",
+      "organizations": 115649,
+      "index": 69,
+      "patchLagDays": 2,
+      "patchLagScore": 93,
+      "tlsScore": 95,
+      "spfScore": 87,
+      "dmarcScore": 1,
+      "measuredHosts": 0,
+      "basis": "regional-fallback",
+      "signalBasis": {
+        "tls": "regional",
+        "spf": "regional",
+        "dmarc": "regional"
+      }
+    },
+    {
+      "sector": "commerce",
+      "organizations": 175593,
+      "index": 69,
+      "patchLagDays": 2,
+      "patchLagScore": 93,
+      "tlsScore": 95,
+      "spfScore": 87,
+      "dmarcScore": 1,
+      "measuredHosts": 0,
+      "basis": "regional-fallback",
+      "signalBasis": {
+        "tls": "regional",
+        "spf": "regional",
+        "dmarc": "regional"
+      }
+    },
+    {
+      "sector": "sante",
+      "organizations": 82455,
+      "index": 69,
+      "patchLagDays": 2,
+      "patchLagScore": 93,
+      "tlsScore": 95,
+      "spfScore": 87,
+      "dmarcScore": 0,
+      "measuredHosts": 15,
+      "basis": "regional-fallback",
+      "signalBasis": {
+        "tls": "regional",
+        "spf": "sector",
+        "dmarc": "sector"
+      }
+    },
+    {
+      "sector": "enseignement",
+      "organizations": 44385,
+      "index": 66,
+      "patchLagDays": 2,
+      "patchLagScore": 93,
+      "tlsScore": 95,
+      "spfScore": 73,
+      "dmarcScore": 3,
+      "measuredHosts": 40,
+      "basis": "sector",
+      "signalBasis": {
+        "tls": "sector",
+        "spf": "sector",
+        "dmarc": "sector"
+      }
+    },
+    {
+      "sector": "public",
+      "organizations": 7861,
+      "index": 73,
+      "patchLagDays": 2,
+      "patchLagScore": 93,
+      "tlsScore": 97,
+      "spfScore": 100,
+      "dmarcScore": 3,
+      "measuredHosts": 40,
+      "basis": "sector",
+      "signalBasis": {
+        "tls": "sector",
+        "spf": "sector",
+        "dmarc": "sector"
+      }
+    },
+    {
+      "sector": "services",
+      "organizations": 949385,
+      "index": 71,
+      "patchLagDays": 2,
+      "patchLagScore": 93,
+      "tlsScore": 94,
+      "spfScore": 98,
+      "dmarcScore": 0,
+      "measuredHosts": 40,
+      "basis": "sector",
+      "signalBasis": {
+        "tls": "sector",
+        "spf": "sector",
+        "dmarc": "sector"
+      }
+    },
+    {
+      "sector": "autre",
+      "organizations": 73608,
+      "index": 69,
+      "patchLagDays": 2,
+      "patchLagScore": 93,
+      "tlsScore": 95,
+      "spfScore": 87,
+      "dmarcScore": 1,
+      "measuredHosts": 0,
+      "basis": "regional-fallback",
+      "signalBasis": {
+        "tls": "regional",
+        "spf": "regional",
+        "dmarc": "regional"
+      }
+    }
+  ],
+  "relevantCves": 21
+}
