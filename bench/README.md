@@ -97,6 +97,47 @@ payant. Le rapport donne le rappel, la précision et le F1 globaux, puis le
 détail par secteur et par catégorie. Le jeu est choisi pour couvrir les modes
 d'échec connus, ce n'est pas un tirage aléatoire du flux.
 
+### Fautes internes (jeu de stress A4)
+
+```bash
+apps/api/node_modules/.bin/tsx bench/orgs/run-gazetteer.mts \
+  --gold=gold-stress-a4.json \
+  --json=bench/results/A4-typos-internes-c7.json
+```
+
+12 cas hors du jeu A3 : huit fautes internes (inversion de lettres ou lettre
+en trop) et quatre mentions qui doivent rester sans rattachement. Mesure du
+2026-11-22 : 12/12, 0 faux, 0 bruit ; A3 reste à 53/53, 0 faux, 0 bruit.
+
+### Noms longs et doubles fautes (jeu de stress A5)
+
+```bash
+apps/api/node_modules/.bin/tsx bench/orgs/run-gazetteer.mts \
+  --gold=gold-stress-a5.json \
+  --json=bench/results/A5-longues-doubles-c7.json
+```
+
+16 cas hors de A3 et A4 : cinq alias longs (5 à 6 jetons) avec une faute,
+cinq mentions avec deux jetons fautifs, six mentions qui doivent rester sans
+rattachement. Mesure du 2026-11-22 : 16/16, 0 faux, 0 bruit ; A3 reste à 53/53
+et A4 à 12/12.
+
+### Désambiguïsation géographique (homonymes communaux)
+
+```bash
+apps/api/node_modules/.bin/tsx bench/referentiel/probe-match.mts \
+  --json bench/results/NA-homonymes-c7.json
+```
+
+Même balayage des 4 293 communes, avec une cinquième formulation qui cite le
+département : « La mairie de Mazerolles (Pyrénées-Atlantiques)… ». Mesure du
+2026-11-22 : **4 293/4 293 rattachements corrects, 0 abstention, 0 erreur**,
+dont **247/247 communes homonymes** (111 noms). Les quatre formulations sans
+indice restent à 4 033/4 293, 260 abstentions, 0 erreur : le moteur ne devine
+pas sans preuve. Le département n'est utilisé que s'il désigne un seul des
+candidats à égalité, et un nom de département cité ne vole pas la mairie
+nommée dans la phrase.
+
 ### A.3 Audit du catalogue de sources
 
 ```bash
@@ -167,8 +208,10 @@ apps/api/node_modules/.bin/tsx bench/referentiel/probe-match.mts --json bench/re
 ```
 
 Résultat : **93,9 % de rattachements corrects, 0 erreur, 260 abstentions** (les
-111 noms communaux homonymes), index de 22 088 clés construit en 91 ms, décision
-p95 0,065 ms. Interprétation et limites : `docs/research/referentiel-na.md`.
+111 noms communaux homonymes), index de 22 088 clés construit en 77 ms, décision
+p95 0,063 ms. Avec le département cité : **100 % (4 293/4 293), 0 erreur**,
+dont 247/247 homonymes (`NA-homonymes-c7.json`). Interprétation et limites :
+`docs/research/referentiel-na.md`.
 
 **Régénérer le jeu** (quand le découpage administratif change) :
 
