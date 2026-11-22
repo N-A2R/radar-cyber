@@ -79,7 +79,7 @@ export async function installPublicApi(app: FastifyInstance): Promise<void> {
 
     if (apiKey) {
       req.apiKey = apiKey;
-      await consumeApiKey(apiKey);
+      await consumeApiKey(apiKey, reply);
       if (req.method !== "GET" && apiKey.scope !== "write") throw forbidden("api key is read-only");
     }
     const user = await resolveUser(req);

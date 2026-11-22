@@ -1,0 +1,29 @@
+{
+  "generatedAt": "2026-11-22T02:01:12.698Z",
+  "command": "pnpm mesure:quotas-cles",
+  "baseline": {
+    "organisations": 1673151,
+    "sources": 312,
+    "events": 26719,
+    "eventsInWindow": 27899,
+    "provenance": "bench/results/auto-repair-na.json, bench/results/couverture-mesuree.json"
+  },
+  "method": {
+    "transport": "Fastify inject (no network)",
+    "keys": 10,
+    "quotaPerKey": 40,
+    "windowSeconds": 60,
+    "requestsPerKey": 80,
+    "concurrency": 800
+  },
+  "measurement": {
+    "requests": 800,
+    "accepted": 400,
+    "rejected": 400,
+    "overflows": 0,
+    "headersVerified": 800,
+    "elapsedMs": 584,
+    "requestsPerSecond": 1370
+  },
+  "verdict": "enforced"
+}

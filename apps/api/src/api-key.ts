@@ -5,7 +5,7 @@
  * instances de l'API ne peuvent pas dépasser le quota d'une même clé.
  */
 import { createHash, randomBytes } from "node:crypto";
-import type { FastifyRequest } from "fastify";
+import type { FastifyReply, FastifyRequest } from "fastify";
 import { query } from "./db.js";
 import { unauthorized, ApiError } from "./errors.js";
 import type { AuthUser } from "./middleware/auth.js";
@@ -74,7 +74,24 @@ export async function resolveApiKey(req: FastifyRequest): Promise<ApiKey | null>
   };
 }
 
-export async function consumeApiKey(key: ApiKey): Promise<void> {
+export type QuotaState = {
+  limit: number;
+  remaining: number;
+  /** Timestamp returned by Postgres, used for the RFC 9333 reset header. */
+  resetAt: string;
+  retryAfter?: number;
+};
+
+/** Standard rate-limit headers make the per-key quota observable to clients. */
+export function writeQuotaHeaders(reply: FastifyReply, state: QuotaState): void {
+  const reset = Math.max(0, Math.ceil((Date.parse(state.resetAt) - Date.now()) / 1000));
+  reply.header("RateLimit-Limit", String(state.limit));
+  reply.header("RateLimit-Remaining", String(state.remaining));
+  reply.header("RateLimit-Reset", String(reset));
+  if (state.retryAfter !== undefined) reply.header("Retry-After", String(state.retryAfter));
+}
+
+export async function consumeApiKey(key: ApiKey, reply?: FastifyReply): Promise<QuotaState> {
   const r = await query<{ used: number; quota: number; reset_at: string }>(
     `UPDATE api_key
         SET used = CASE WHEN window_start IS NULL OR window_start <= now() - interval '1 minute'
@@ -89,15 +106,29 @@ export async function consumeApiKey(key: ApiKey): Promise<void> {
     [key.id],
   );
   const consumed = r.rows[0];
-  if (consumed) return;
+  if (consumed) {
+    const state: QuotaState = {
+      limit: consumed.quota,
+      remaining: Math.max(0, consumed.quota - consumed.used),
+      resetAt: consumed.reset_at,
+    };
+    if (reply) writeQuotaHeaders(reply, state);
+    return state;
+  }
 
   const state = await query<{ used: number; quota: number; reset_at: string }>(
     "SELECT used, quota, COALESCE(window_start, now()) + interval '1 minute' AS reset_at FROM api_key WHERE id = $1",
     [key.id],
   );
   const s = state.rows[0];
+  const quota = s?.quota ?? key.quota;
+  const used = s?.used ?? quota;
+  const resetAt = s?.reset_at ?? new Date(Date.now() + API_KEY_WINDOW_MS).toISOString();
+  const retryAfter = Math.max(1, Math.ceil((Date.parse(resetAt) - Date.now()) / 1000));
+  const denied: QuotaState = { limit: quota, remaining: 0, resetAt, retryAfter };
+  if (reply) writeQuotaHeaders(reply, denied);
   throw new ApiError(429, "api key quota exceeded", {
     code: "API_KEY_QUOTA_EXCEEDED",
-    details: { keyId: key.id, quota: s?.quota ?? key.quota, used: s?.used ?? key.quota, resetAt: s?.reset_at ?? null },
+    details: { keyId: key.id, quota, used, resetAt, retryAfter, limit: quota, remaining: 0 },
   });
 }

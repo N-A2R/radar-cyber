@@ -111,6 +111,9 @@ sources → collecteurs → PostgreSQL → API Fastify → front React
   se créent avec `POST /api/v1/keys` (session admin pour `write`), ne sont
   renvoyées qu'une fois en clair, et consomment un quota atomique par
   fenêtre de 60 s. Une clé à quota zéro répond `429 API_KEY_QUOTA_EXCEEDED`.
+- Les réponses avec clé exposent le quota en cours (`RateLimit-Limit`,
+  `RateLimit-Remaining`, `RateLimit-Reset`) et `Retry-After` sur les
+  dépassements. Mesure reproductible : `pnpm mesure:quotas-cles`.
 - Client TypeScript généré : `pnpm api:client` régénère
   `apps/api/src/openapi/client.generated.ts` depuis `OPERATIONS` ; aucun appel
   manuel n'est à écrire pour ajouter une route au client.
