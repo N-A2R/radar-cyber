@@ -14,6 +14,11 @@ import {
   type InfrastructureObservation,
   type SharedInfrastructureCluster,
 } from "./shared-infrastructure.js";
+import {
+  buildInfrastructureTimeline,
+  type DatedInfrastructureObservation,
+  type InfrastructureTimeline,
+} from "./shared-infrastructure-timeline.js";
 
 export const NA_DEPARTMENTS: readonly string[] = Object.keys(DEPT_LABELS).sort();
 
@@ -31,21 +36,22 @@ export const SQL = {
                    JOIN org o ON o.id = c.org_id
                    WHERE c.na AND o.dept = ANY($1::text[])
                  ), raw AS (
-                   SELECT c.org_id AS oid, 'leak_site'::text AS kind, s.site_url AS value
+                   SELECT c.org_id AS oid, 'leak_site'::text AS kind, s.site_url AS value,
+                          c.published_at AS observed_at
                    FROM leak_claim c
                    JOIN leak_site s ON s.source = c.source AND s.slug = c.site_slug
                    WHERE c.na AND s.site_url IS NOT NULL
                    UNION ALL
-                   SELECT c.org_id, 'claim_evidence', c.evidence_url
+                   SELECT c.org_id, 'claim_evidence', c.evidence_url, c.published_at
                    FROM leak_claim c
                    WHERE c.na AND c.evidence_url IS NOT NULL
                    UNION ALL
-                   SELECT e.org_id, 'event_source', s.url
+                   SELECT e.org_id, 'event_source', s.url, e.observed_at
                    FROM event e
                    JOIN source s ON s.id = e.source_id
                    WHERE e.org_id IS NOT NULL AND s.url IS NOT NULL
                    UNION ALL
-                   SELECT v.org_id, arr.kind, x.value
+                   SELECT v.org_id, arr.kind, x.value, s.observed_at
                    FROM dns_snapshot s
                    JOIN victims v ON v.org_id = ANY(COALESCE((
                           SELECT d.org_ids FROM dns_domaine d WHERE d.domain = s.domain
@@ -57,7 +63,7 @@ export const SQL = {
                    ) AS arr(kind, values)
                    CROSS JOIN LATERAL unnest(COALESCE(arr.values, '{}'::text[])) AS x(value)
                  )
-                 SELECT DISTINCT r.oid, r.kind, r.value
+                 SELECT DISTINCT r.oid, r.kind, r.value, r.observed_at
                  FROM raw r
                  JOIN victims v ON v.org_id = r.oid
                  WHERE r.value IS NOT NULL AND btrim(r.value) <> ''`,
@@ -75,23 +81,46 @@ export type SharedInfrastructureMeasurement = {
   measuredAt: string;
 };
 
-type ObservationRow = { oid: number; kind: InfrastructureObservation["kind"]; value: string };
+type Baseline = { organizations: number; sources: number; events: number };
 
-/** Runs the real database measurement, once, on the current base state. */
-export async function measureSharedInfrastructure(): Promise<SharedInfrastructureMeasurement> {
+type ObservationRow = {
+  oid: number;
+  kind: InfrastructureObservation["kind"];
+  value: string;
+  observed_at: string | null;
+};
+
+function toIso(value: string | null): string | null {
+  if (!value) return null;
+  const parsed = new Date(value);
+  return Number.isFinite(parsed.getTime()) ? parsed.toISOString() : null;
+}
+
+async function loadInfrastructureData() {
   const [totals, victims, rows] = await Promise.all([
-    query<{ organizations: number; sources: number; events: number }>(SQL.baseline),
+    query<Baseline>(SQL.baseline),
     query<{ org_id: number }>(SQL.victims, [NA_DEPARTMENTS]),
     query<ObservationRow>(SQL.observations, [NA_DEPARTMENTS]),
   ]);
-
-  const observations: InfrastructureObservation[] = rows.rows.map((row) => ({
+  const observations: DatedInfrastructureObservation[] = rows.rows.map((row) => ({
     orgId: Number(row.oid),
     kind: row.kind,
     value: row.value,
+    observedAt: toIso(row.observed_at),
   }));
+  const raw = totals.rows[0] ?? { organizations: 0, sources: 0, events: 0 };
+  const baseline: Baseline = {
+    organizations: Number(raw.organizations),
+    sources: Number(raw.sources),
+    events: Number(raw.events),
+  };
+  return { victims, observations, baseline };
+}
+
+/** Runs the real database measurement, once, on the current base state. */
+export async function measureSharedInfrastructure(): Promise<SharedInfrastructureMeasurement> {
+  const { victims, observations, baseline } = await loadInfrastructureData();
   const detected = detectSharedInfrastructure(observations);
-  const baseline = totals.rows[0] ?? { organizations: 0, sources: 0, events: 0 };
 
   return {
     scope: "nouvelle-aquitaine",
@@ -100,12 +129,39 @@ export async function measureSharedInfrastructure(): Promise<SharedInfrastructur
     victimsInClusters: detected.victimsInClusters,
     sharedAnchors: detected.sharedAnchors,
     normalizedObservations: detected.observations,
-    baseline: {
-      organizations: Number(baseline.organizations),
-      sources: Number(baseline.sources),
-      events: Number(baseline.events),
-    },
+    baseline,
     clusters: detected.clusters,
+    measuredAt: new Date().toISOString(),
+  };
+}
+
+export type SharedInfrastructureTimelineMeasurement = {
+  scope: "nouvelle-aquitaine";
+  clusterCount: number;
+  datedClusters: number;
+  medianReuseDays: number | null;
+  longestReuseDays: number;
+  observationsWithDates: number;
+  clusterTimelines: InfrastructureTimeline["clusterTimelines"];
+  baseline: Baseline;
+  measuredAt: string;
+};
+
+/** Dates the same detected clusters from the observation dates stored in the base. */
+export async function measureSharedInfrastructureTimeline(): Promise<SharedInfrastructureTimelineMeasurement> {
+  const { observations, baseline } = await loadInfrastructureData();
+  const detected = detectSharedInfrastructure(observations);
+  const timeline = buildInfrastructureTimeline(detected, observations);
+
+  return {
+    scope: "nouvelle-aquitaine",
+    clusterCount: timeline.clusterCount,
+    datedClusters: timeline.datedClusters,
+    medianReuseDays: timeline.medianReuseDays,
+    longestReuseDays: timeline.longestReuseDays,
+    observationsWithDates: timeline.observationsWithDates,
+    clusterTimelines: timeline.clusterTimelines,
+    baseline,
     measuredAt: new Date().toISOString(),
   };
 }

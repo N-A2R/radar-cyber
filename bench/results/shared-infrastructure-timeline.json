@@ -1,0 +1,60 @@
+{
+  "command": "pnpm measure:shared-infrastructure-timeline",
+  "scope": "nouvelle-aquitaine",
+  "objective": {
+    "target": 2,
+    "comparator": ">=",
+    "achieved": 3,
+    "unit": "clusters datés"
+  },
+  "clusterCount": 4,
+  "datedClusters": 3,
+  "medianReuseDays": 288,
+  "longestReuseDays": 314,
+  "observationsWithDates": 10,
+  "clusterTimelines": [
+    {
+      "id": "infra:ransomocmou6mnbquqz44ewosbkjk3o5qjsl3orawojexfook2j7esad.onion",
+      "firstSeen": "2025-05-26T14:34:25.203Z",
+      "lastSeen": "2026-03-10T03:38:56.294Z",
+      "datedObservations": 3,
+      "reuseDays": 288,
+      "dated": true
+    },
+    {
+      "id": "infra:6g3aoky5hft4mvzcqt2bugo4r465woaorjhd7em2k2v24sr2exaro5id.onion",
+      "firstSeen": "2026-11-21T23:11:21.926Z",
+      "lastSeen": "2026-11-21T23:11:21.951Z",
+      "datedObservations": 3,
+      "reuseDays": 0,
+      "dated": false
+    },
+    {
+      "id": "infra:mbrlkbtq5jonaqkurjwmxftytyn2ethqvbxfu4rgjbkkknndqwae6byd.onion",
+      "firstSeen": "2026-03-30T20:30:34.659Z",
+      "lastSeen": "2026-08-20T20:33:24.777Z",
+      "datedObservations": 2,
+      "reuseDays": 143,
+      "dated": true
+    },
+    {
+      "id": "infra:z3wqggtxft7id3ibr7srivv5gjof5fwg76slewnzwwakjuf3nlhukdid.onion",
+      "firstSeen": "2025-04-06T23:41:52.388Z",
+      "lastSeen": "2026-02-14T00:38:39.778Z",
+      "datedObservations": 2,
+      "reuseDays": 314,
+      "dated": true
+    }
+  ],
+  "baseline": {
+    "organizations": 1673220,
+    "sources": 543,
+    "events": 26758
+  },
+  "sql": {
+    "baseline": "SELECT (SELECT count(*) FROM org)::int AS organizations,\n                    (SELECT count(*) FROM source)::int AS sources,\n                    (SELECT count(*) FROM event)::int AS events",
+    "victims": "SELECT DISTINCT c.org_id\n            FROM leak_claim c\n            JOIN org o ON o.id = c.org_id\n            WHERE c.na AND o.dept = ANY($1::text[])",
+    "observations": "WITH victims AS (\n                   SELECT DISTINCT c.org_id\n                   FROM leak_claim c\n                   JOIN org o ON o.id = c.org_id\n                   WHERE c.na AND o.dept = ANY($1::text[])\n                 ), raw AS (\n                   SELECT c.org_id AS oid, 'leak_site'::text AS kind, s.site_url AS value,\n                          c.published_at AS observed_at\n                   FROM leak_claim c\n                   JOIN leak_site s ON s.source = c.source AND s.slug = c.site_slug\n                   WHERE c.na AND s.site_url IS NOT NULL\n                   UNION ALL\n                   SELECT c.org_id, 'claim_evidence', c.evidence_url, c.published_at\n                   FROM leak_claim c\n                   WHERE c.na AND c.evidence_url IS NOT NULL\n                   UNION ALL\n                   SELECT e.org_id, 'event_source', s.url, e.observed_at\n                   FROM event e\n                   JOIN source s ON s.id = e.source_id\n                   WHERE e.org_id IS NOT NULL AND s.url IS NOT NULL\n                   UNION ALL\n                   SELECT v.org_id, arr.kind, x.value, s.observed_at\n                   FROM dns_snapshot s\n                   JOIN victims v ON v.org_id = ANY(COALESCE((\n                          SELECT d.org_ids FROM dns_domaine d WHERE d.domain = s.domain\n                        ), '{}'::int[]))\n                     OR EXISTS (SELECT 1 FROM org o WHERE o.domain = s.domain AND o.id = v.org_id)\n                   CROSS JOIN LATERAL (VALUES\n                     ('dns_a'::text, s.a), ('dns_aaaa'::text, s.aaaa),\n                     ('dns_mx'::text, s.mx), ('dns_ns'::text, s.ns)\n                   ) AS arr(kind, values)\n                   CROSS JOIN LATERAL unnest(COALESCE(arr.values, '{}'::text[])) AS x(value)\n                 )\n                 SELECT DISTINCT r.oid, r.kind, r.value, r.observed_at\n                 FROM raw r\n                 JOIN victims v ON v.org_id = r.oid\n                 WHERE r.value IS NOT NULL AND btrim(r.value) <> ''"
+  },
+  "measuredAt": "2026-11-22T02:47:34.963Z"
+}

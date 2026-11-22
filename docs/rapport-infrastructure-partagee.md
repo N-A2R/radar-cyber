@@ -56,3 +56,5 @@ Vérifications exécutées : 8/8 tests verts (`apps/api/node_modules/.bin/tsx --
 - Seules les victimes disposant d'un `org_id` et d'une revendication marquée NA entrent dans le décompte ; les revendications sans organisation rattachée sont exclues plutôt que devinées.
 - La couverture DNS des organisations NA reste limitée (1 445 organisations ont un domaine) : le nombre de clusters croîtra quand de nouvelles observations d'infrastructure seront collectées.
 - Une ancre partagée constate une infrastructure commune, pas une causalité ni une attribution d'attaquant.
+
+Suite : `docs/rapport-infrastructure-datation.md` mesure depuis quand ces ancres relient plusieurs victimes (3 clusters datés sur 4).
