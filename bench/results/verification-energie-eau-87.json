@@ -1,0 +1,140 @@
+{
+  "verifie_le": "2026-11-22",
+  "secteur": "energie-eau",
+  "departement": "87",
+  "methode": "HTTP GET (User-Agent navigateur, timeout 20s, redirections suivies) sur url_site, url_actualites et url_flux de chaque ligne du corpus",
+  "corpus": "bench/corpus/sources-energie-eau-87.jsonl",
+  "sources": [
+    {
+      "nom": "SABV — Syndicat d'alimentation en eau du bassin de la Vienne (Aixe-sur-Vienne)",
+      "url_site": 200,
+      "url_actualites": 200,
+      "url_flux": 200
+    },
+    {
+      "nom": "SIAEP Vienne-Briance-Gorre — eau potable (64 communes, Haute-Vienne)",
+      "url_site": 200,
+      "url_actualites": 200,
+      "url_flux": null
+    },
+    {
+      "nom": "SEHV — Syndicat d'énergie de la Haute-Vienne",
+      "url_site": 200,
+      "url_actualites": 200,
+      "url_flux": 200
+    },
+    {
+      "nom": "SYDED 87 — syndicat départemental des déchets et de l'énergie",
+      "url_site": 200,
+      "url_actualites": 200,
+      "url_flux": 200
+    },
+    {
+      "nom": "Limoges Métropole — eau et assainissement",
+      "url_site": 200,
+      "url_actualites": 200,
+      "url_flux": 200
+    },
+    {
+      "nom": "SUEZ Limoges Métropole — service public eau/déchets",
+      "url_site": 200,
+      "url_actualites": 200,
+      "url_flux": null
+    },
+    {
+      "nom": "Conseil départemental de la Haute-Vienne",
+      "url_site": 200,
+      "url_actualites": 200,
+      "url_flux": null
+    },
+    {
+      "nom": "DREAL Nouvelle-Aquitaine — eau, énergie et environnement",
+      "url_site": 200,
+      "url_actualites": 200,
+      "url_flux": 200
+    },
+    {
+      "nom": "Agence de l'eau Loire-Bretagne",
+      "url_site": 200,
+      "url_actualites": 200,
+      "url_flux": null
+    },
+    {
+      "nom": "SANDRE — données et référentiels sur l'eau (Limoges)",
+      "url_site": 200,
+      "url_actualites": 200,
+      "url_flux": 200
+    },
+    {
+      "nom": "Chambre d'agriculture de la Haute-Vienne",
+      "url_site": 200,
+      "url_actualites": 200,
+      "url_flux": null
+    },
+    {
+      "nom": "CMA Nouvelle-Aquitaine — chambre des métiers de la Haute-Vienne",
+      "url_site": 200,
+      "url_actualites": 200,
+      "url_flux": null
+    },
+    {
+      "nom": "CAPEB Haute-Vienne — artisans du bâtiment et de l'énergie",
+      "url_site": 200,
+      "url_actualites": 200,
+      "url_flux": 200
+    },
+    {
+      "nom": "Enedis — réseau électrique",
+      "url_site": 200,
+      "url_actualites": 200,
+      "url_flux": null
+    },
+    {
+      "nom": "Saur — opérateur de l'eau (Condat-sur-Vienne)",
+      "url_site": 200,
+      "url_actualites": 200,
+      "url_flux": null
+    },
+    {
+      "nom": "ici Limousin — actualités Haute-Vienne",
+      "url_site": 200,
+      "url_actualites": 200,
+      "url_flux": 200
+    },
+    {
+      "nom": "Le Populaire du Centre — Haute-Vienne",
+      "url_site": 200,
+      "url_actualites": 200,
+      "url_flux": null
+    },
+    {
+      "nom": "La Montagne — Limoges",
+      "url_site": 200,
+      "url_actualites": 200,
+      "url_flux": null
+    },
+    {
+      "nom": "France 3 Nouvelle-Aquitaine — Haute-Vienne",
+      "url_site": 200,
+      "url_actualites": 200,
+      "url_flux": 200
+    },
+    {
+      "nom": "20 Minutes — dossier Haute-Vienne",
+      "url_site": 200,
+      "url_actualites": 200,
+      "url_flux": null
+    },
+    {
+      "nom": "e-marchespublics — appels d'offres Haute-Vienne",
+      "url_site": 200,
+      "url_actualites": 200,
+      "url_flux": null
+    }
+  ],
+  "resume": {
+    "sources": 21,
+    "urls_uniques": 45,
+    "urls_en_200": 51
+  }
+}
