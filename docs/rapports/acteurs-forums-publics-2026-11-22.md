@@ -45,3 +45,4 @@ pnpm mesure:forum-actors -- --json=bench/results/forum-actors-2026-11-22.json --
 ```
 
 La première commande capture les flux publics ; la seconde est hors réseau et rejoue exactement les chiffres ci-dessus.
+OBJECTIF : atteint — 9 acteurs identifiés et 12 mentions d'activité / 9 acteurs identifiés et 12 mentions d'activité (rejeu reproductible le 22/11/2026 : `pnpm mesure:forum-actors | jq '{actorsIdentified, mentions}'` → 9 et 12).
