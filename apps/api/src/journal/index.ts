@@ -46,7 +46,9 @@ export type JournalKind =
 	/** Une organisation nommée a demandé une rectification. */
 	| "droit_reponse.demande"
 	/** Une demande de rectification a changé de statut (publication comprise). */
-	| "droit_reponse.decision";
+	| "droit_reponse.decision"
+	/** Une décision de publier un incident NA, ou de le refuser sous `publication-risquee`. */
+	| "publication.decided";
 
 export type JournalEntry = {
 	kind: JournalKind;

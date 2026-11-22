@@ -78,6 +78,7 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/quarantine/stats", niveau: "public" },
   { methode: "GET", route: "/api/quarantine/queue", niveau: "analyste" },
   { methode: "GET", route: "/api/onion-index", niveau: "public" },
+  { methode: "GET", route: "/api/publication-decisions", niveau: "public" },
   { methode: "GET", route: "/api/orgs", niveau: "public" },
 
   // --- Lectures authentifiées ----------------------------------------------

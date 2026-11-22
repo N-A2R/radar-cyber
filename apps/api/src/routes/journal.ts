@@ -39,7 +39,7 @@ type Params = z.infer<typeof JournalQuery>;
 /** Categories shown by the type filter. A category is a fixed set of kinds. */
 const CATEGORY_KINDS: Record<string, readonly string[]> = {
   review: ["review.decided"],
-  publication: ["org.created", "alert.changed", "event.admitted"],
+  publication: ["org.created", "alert.changed", "event.admitted", "publication.decided"],
   correction: ["org.changed", "match.refuse", "match.decided", "event.rattachement"],
 };
 
