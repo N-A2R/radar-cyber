@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { api, authHeaders, type Alert, type AlertConfidence, type AlertStatRow, type AlertStatus } from "../api";
 import type { AlertsViewProps } from "../contracts";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
+import { FAMILY_LABEL } from "./SourcesView";
 import "./alerts.css";
 
 /** Réponse de `GET /api/alerts/:id` : provenance et corroboration d'une alerte. */
@@ -95,11 +96,74 @@ const STATE_LABEL: Record<AlertStatus, string> = {
   resolved: "résolue",
 };
 
+/** Sévérité en mot : le chiffre seul oblige à connaître l'échelle. */
+const SEVERITY_WORD: Record<number, string> = {
+  5: "critique",
+  4: "haute",
+  3: "moyenne",
+  2: "faible",
+  1: "information",
+};
+
+const ORG_KIND_LABEL: Record<string, string> = {
+  sante: "santé",
+  collectivite: "collectivité",
+  entreprise: "entreprise",
+  enseignement: "enseignement",
+  recherche: "recherche",
+  operateur: "opérateur",
+  operateur_critique: "opérateur critique",
+};
+
+/**
+ * Libellé français d'un identifiant de règle. Les règles connues ont une
+ * formulation stable ; les autres sont dépliantes (« rupture:agent-x » →
+ * « Rupture : agent x »). Le code brut reste dans l'infobulle.
+ */
+export function ruleLabel(ruleId: string): string {
+  const rule = ruleId.toLowerCase();
+  if (rule.startsWith("rupture:")) return "Rupture détectée";
+  if (rule.includes("source-muette")) return "Source muette";
+  if (rule.startsWith("incident-confirme")) return "Incident confirmé";
+  if (rule.startsWith("supervision-collecte")) return "Supervision de collecte";
+  const words = rule.replace(/[-_.:]+/g, " ").trim();
+  if (!words) return "Règle de détection";
+  return words.charAt(0).toUpperCase() + words.slice(1);
+}
+
+/** Confiance en mot : la couleur ne doit pas être le seul porteur du sens. */
+export function confidenceWord(score: number): string {
+  if (score >= 75) return "élevée";
+  if (score >= 50) return "moyenne";
+  return "faible";
+}
+
 function formatDate(value: string | null): string {
   if (!value) return "—";
   const d = new Date(value);
   if (Number.isNaN(d.getTime())) return "—";
   return new Intl.DateTimeFormat("fr-FR", { dateStyle: "short", timeStyle: "short" }).format(d);
+}
+
+/** Méta d'une ligne : libellés français, code technique replié dans `title`. */
+function alertMeta(alert: Alert): { label: string; title?: string }[] {
+  const items: { label: string; title?: string }[] = [
+    { label: ALERT_KINDS.find((item) => item.id === alertKind(alert))?.label ?? "Alerte" },
+    { label: ruleLabel(alert.rule_id), title: `Règle : ${alert.rule_id}` },
+  ];
+  if (alert.org_name) items.push({ label: alert.org_name, title: `Organisation : ${alert.org_name}` });
+  if (alert.event_family) {
+    items.push({
+      label: FAMILY_LABEL[alert.event_family] ?? alert.event_family,
+      title: `Famille d'événement : ${alert.event_family}`,
+    });
+  }
+  items.push({
+    label: `sévérité ${SEVERITY_WORD[alert.severity] ?? alert.severity}`,
+    title: `Sévérité ${alert.severity} sur 5`,
+  });
+  items.push({ label: formatDate(alert.created_at), title: alert.created_at });
+  return items;
 }
 
 export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent, refreshSignal = 0 }: AlertsViewProps) {
@@ -271,21 +335,18 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent, refr
               aria-label={`Preuve de l'alerte ${alert.id} : ${alert.title}`}
               onClick={() => setOpenId(openId === alert.id ? null : alert.id)}
             >
-              <span className="alerts__sev" data-level={alert.severity} title={`Sévérité ${alert.severity}`}>
+              <span className="alerts__sev" data-level={alert.severity} title={`Sévérité ${alert.severity} sur 5 — ${SEVERITY_WORD[alert.severity] ?? "non qualifiée"}`}>
                 {alert.severity}
               </span>
               <span className="alerts__body">
                 <span className="alerts__title">{alert.title}</span>
                 <span className="alerts__meta">
-                  {[
-                    ALERT_KINDS.find((item) => item.id === alertKind(alert))?.label,
-                    alert.rule_id,
-                    alert.org_name,
-                    alert.event_family,
-                    formatDate(alert.created_at),
-                  ]
-                    .filter(Boolean)
-                    .join(" · ")}
+                  {alertMeta(alert).map((item, i) => (
+                    <span key={`${item.label}-${i}`}>
+                      {i > 0 ? " · " : null}
+                      <span title={item.title}>{item.label}</span>
+                    </span>
+                  ))}
                 </span>
               </span>
               {alert.confidence ? (
@@ -297,8 +358,9 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent, refr
                       ? "Sous le seuil de vérification : consulter la preuve avant de s'y fier"
                       : "Au-dessus du seuil de vérification"
                   }
+                  aria-label={`Confiance ${confidenceWord(alert.confidence.score)}, ${alert.confidence.score} sur 100`}
                 >
-                  {alert.confidence.score}
+                  {confidenceWord(alert.confidence.score)} · {alert.confidence.score}
                 </span>
               ) : null}
               <span className="alerts__state" data-state={alert.status}>
@@ -342,7 +404,9 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent, refr
                 {detail ? (
                   <>
                     <p className="alerts__detail-line">
-                      <strong>Preuve</strong> · règle {detail.alert.rule_id} · {formatDate(detail.alert.created_at)}
+                      <strong>Preuve</strong> ·{" "}
+                      <span title={`Règle : ${detail.alert.rule_id}`}>{ruleLabel(detail.alert.rule_id)}</span> ·{" "}
+                      {formatDate(detail.alert.created_at)}
                     </p>
                     {evidence?.motif ? <p className="alerts__detail-line">Motif : {evidence.motif}</p> : null}
                     {evidence?.explication ? <p className="alerts__detail-line">Base : {evidence.explication}</p> : null}
@@ -355,7 +419,14 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent, refr
                         {evidence.faits.map((fact, i) => (
                           <span key={`${fact}-${i}`}>
                             {i > 0 ? ", " : null}
-                            <button type="button" onClick={() => onOpenEvent(String(fact))}>#{String(fact)}</button>
+                            <button
+                              type="button"
+                              title={`Ouvrir l'événement ${String(fact)} dans le fil`}
+                              aria-label={`Ouvrir l'événement ${String(fact)} dans le fil`}
+                              onClick={() => onOpenEvent(String(fact))}
+                            >
+                              #{String(fact)}
+                            </button>
                           </span>
                         ))}
                       </p>
@@ -363,13 +434,20 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent, refr
                     {detail.org ? (
                       <p className="alerts__detail-line">
                         Organisation : {detail.org.name}
-                        {detail.org.dept ? ` (${detail.org.dept})` : ""} · {detail.org.kind}
+                        {detail.org.dept ? ` (${detail.org.dept})` : ""} ·{" "}
+                        <span title={`Type : ${detail.org.kind}`}>
+                          {ORG_KIND_LABEL[detail.org.kind] ?? detail.org.kind}
+                        </span>
                       </p>
                     ) : null}
                     {detail.event ? (
                       <>
                         <p className="alerts__detail-line">
-                          <strong>Événement déclencheur</strong> · {detail.event.family} · {formatDate(detail.event.observed_at)}
+                          <strong>Événement déclencheur</strong> ·{" "}
+                          <span title={`Famille : ${detail.event.family}`}>
+                            {FAMILY_LABEL[detail.event.family] ?? detail.event.family}
+                          </span>{" "}
+                          · {formatDate(detail.event.observed_at)}
                         </p>
                         {detail.event.summary ? <p className="alerts__detail-line">{detail.event.summary}</p> : null}
                         <p className="alerts__detail-line">
