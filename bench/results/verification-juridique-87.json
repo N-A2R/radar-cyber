@@ -1,0 +1,117 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-juridique-87.jsonl",
+  "secteur": "juridique",
+  "departement": "87",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36",
+  "methode": "GET réel avec suivi des redirections, délai maximal 18 s, User-Agent navigateur : code HTTP, type de contenu et nombre d'items RSS relevés pour chaque URL (sites, pages d'actualités et flux).",
+  "sources": 14,
+  "urls_verifiees": 34,
+  "urls_200": 34,
+  "detail": [
+    {
+      "nom": "Tribunal judiciaire de Limoges",
+      "urls": {
+        "https://www.cours-appel.justice.fr/limoges/tribunal-judiciaire-de-limoges": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.cours-appel.justice.fr/limoges/tribunal-judiciaire-de-limoges/actualites": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "Cour d'appel de Limoges",
+      "urls": {
+        "https://www.cours-appel.justice.fr/limoges": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.cours-appel.justice.fr/limoges/actualites": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "Ordre des avocats du Barreau de Limoges",
+      "urls": {
+        "https://www.avocats-limoges.org/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.avocats-limoges.org/le-barreau-de-limoges/actualites-et-publications.htm": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "Avocat.fr — annuaire du barreau de Limoges",
+      "urls": {
+        "https://consultation.avocat.fr/avocats/barreau-limoges.html": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.avocat.fr/actualites": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.avocat.fr/rss.xml": {"code": 200, "type": "application/rss+xml; charset=utf-8", "items_rss": 10}
+      }
+    },
+    {
+      "nom": "Chambre interdépartementale des notaires 19-23-87 (Limoges)",
+      "urls": {
+        "https://www.chambre-interdep-19-23-87.notaires.fr/": {"code": 200, "type": "text/html;charset=ISO-8859-1", "items_rss": 0},
+        "https://www.chambre-interdep-19-23-87.notaires.fr/rechercher-un-notaire-sur-la-haute-vienne.html": {"code": 200, "type": "text/html;charset=ISO-8859-1", "items_rss": 0},
+        "https://www.magazine-des-notaires.com/magazine/LIM.html": {"code": 200, "type": "text/html;charset=ISO-8859-1", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "Notaires de France — annuaire des notaires de la Haute-Vienne",
+      "urls": {
+        "https://www.notaires.fr/fr/annuaire/nouvelle-aquitaine/haute-vienne": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.notaires.fr/fr/actualites": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.notaires.fr/rss/actualites": {"code": 200, "type": "application/rss+xml; charset=utf-8", "items_rss": 420}
+      }
+    },
+    {
+      "nom": "Village de la Justice — annuaire des barreaux et actualités juridiques",
+      "urls": {
+        "https://www.village-justice.com/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.village-justice.com/articles/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "Le Populaire du Centre — Haute-Vienne / Limoges",
+      "urls": {
+        "https://www.lepopulaire.fr/haute-vienne/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.lepopulaire.fr/limoges-87000/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "La Montagne — édition Limoges / faits divers",
+      "urls": {
+        "https://www.lamontagne.fr/limoges-87000/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.lamontagne.fr/faits-divers": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "ICI Limousin (Radio France) — infos",
+      "urls": {
+        "https://www.ici.fr/radio/limousin": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.ici.fr/rss": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.ici.fr/rss/limousin/rubrique/infos.xml": {"code": 200, "type": "application/xml", "items_rss": 20}
+      }
+    },
+    {
+      "nom": "France 3 Nouvelle-Aquitaine — Haute-Vienne",
+      "urls": {
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.franceinfo.fr/societe/justice.rss": {"code": 200, "type": "text/xml; charset=UTF-8", "items_rss": 20}
+      }
+    },
+    {
+      "nom": "Sud Ouest — rubrique justice / Haute-Vienne",
+      "urls": {
+        "https://www.sudouest.fr/haute-vienne/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.sudouest.fr/justice/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.sudouest.fr/justice/rss.xml": {"code": 200, "type": "application/xml", "items_rss": 20}
+      }
+    },
+    {
+      "nom": "actu.fr — Haute-Vienne / Limoges",
+      "urls": {
+        "https://actu.fr/nouvelle-aquitaine/haute-vienne_87": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://actu.fr/nouvelle-aquitaine/limoges_87085/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "Conseil départemental de la Haute-Vienne",
+      "urls": {
+        "https://www.haute-vienne.fr/": {"code": 200, "type": "text/html;charset=utf-8", "items_rss": 0},
+        "https://www.haute-vienne.fr/tous-les-actualites-et-evenements": {"code": 200, "type": "text/html;charset=utf-8", "items_rss": 0}
+      }
+    }
+  ]
+}
