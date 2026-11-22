@@ -4,13 +4,16 @@
  * viennent de `GET /api/corpus/stats`, une seule requête, aucune donnée
  * simulée côté navigateur. Chaque chiffre est accompagné de sa définition.
  */
-import type { CorpusDepartment, CorpusIncident, CorpusStats } from "../api";
+import type { CorpusDepartment, CorpusIncident, CorpusStats, PressOnlySummary } from "../api";
 import "./corpus.css";
 
 export type CorpusViewProps = {
   data: CorpusStats | null;
   loading?: boolean;
   error?: string | null;
+  pressOnly?: PressOnlySummary | null;
+  pressOnlyLoading?: boolean;
+  pressOnlyError?: string | null;
 };
 
 /** Libellés anglais des familles présentes dans `source.family`. */
@@ -227,7 +230,48 @@ function recentIncidents(data: CorpusStats) {
   );
 }
 
-export default function CorpusView({ data, loading = false, error = null }: CorpusViewProps) {
+function pressOnlyPanel(summary: PressOnlySummary) {
+  return (
+    <section className="corpus__panel corpus__press-only" aria-labelledby="corpus-press-only-title">
+      <div className="corpus__panel-head">
+        <h2 id="corpus-press-only-title">Press-only incidents</h2>
+        <span className="corpus__panel-meta">{summary.scope}</span>
+      </div>
+      <p className="press-only__count">{formatCount(summary.count)}</p>
+      <p className="corpus__growth-caption">
+        of {formatCount(summary.corpusTotal)} corpus incidents reported by the press alone
+      </p>
+      <p className="corpus__note">
+        Reported by the press without victim or authority confirmation; a claimed attack is not counted.
+        Grey public publishers are detection leads only, never confirmation.
+      </p>
+      <ul className="press-only__list">
+        {summary.incidents.map((incident) => (
+          <li className="press-only__item" key={incident.id}>
+            <code>{incident.id}</code>
+            {" · department "}
+            {incident.department}
+            {" · "}
+            {incident.publicationDate ?? "date unknown"}
+            {" · "}
+            {incident.publisherKind}
+            {" · "}
+            {incident.incidentType ?? "type unknown"}
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+export default function CorpusView({
+  data,
+  loading = false,
+  error = null,
+  pressOnly = null,
+  pressOnlyLoading = false,
+  pressOnlyError = null,
+}: CorpusViewProps) {
   return (
     <div className="corpus">
       <header className="corpus__header">
@@ -272,6 +316,18 @@ export default function CorpusView({ data, loading = false, error = null }: Corp
             {domainGauge(data)}
           </div>
           {recentIncidents(data)}
+          {pressOnlyError ? (
+            <p className="corpus__error" role="alert">
+              {`Could not load press-only incidents: ${pressOnlyError}`}
+            </p>
+          ) : null}
+          {pressOnly === null ? (
+            pressOnlyLoading ? (
+              <p className="corpus__state" role="status">Loading press-only incidents…</p>
+            ) : null
+          ) : (
+            pressOnlyPanel(pressOnly)
+          )}
           <footer className="corpus__footer">
             Source: <code>GET /api/corpus/stats</code> · measured at {data.generatedAt} · read-only, no estimated
             values.

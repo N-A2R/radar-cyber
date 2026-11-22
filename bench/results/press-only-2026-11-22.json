@@ -1,0 +1,209 @@
+{
+  "measuredAt": "2026-11-22T00:17:31.771Z",
+  "corpus": "bench/fixtures/corpus-reference-na.json",
+  "command": "pnpm measure:press-only",
+  "scope": "Nouvelle-Aquitaine",
+  "definition": "rapporte",
+  "corpusTotal": 60,
+  "count": 21,
+  "withGreySource": 3,
+  "byDepartment": [
+    {
+      "department": "16",
+      "count": 2
+    },
+    {
+      "department": "17",
+      "count": 2
+    },
+    {
+      "department": "19",
+      "count": 2
+    },
+    {
+      "department": "23",
+      "count": 1
+    },
+    {
+      "department": "24",
+      "count": 1
+    },
+    {
+      "department": "33",
+      "count": 5
+    },
+    {
+      "department": "40",
+      "count": 4
+    },
+    {
+      "department": "47",
+      "count": 1
+    },
+    {
+      "department": "64",
+      "count": 1
+    },
+    {
+      "department": "79",
+      "count": 1
+    },
+    {
+      "department": "86",
+      "count": 1
+    }
+  ],
+  "byPublisherKind": {
+    "press": 20,
+    "grey": 1
+  },
+  "incidents": [
+    {
+      "id": "na-2026-012",
+      "department": "19",
+      "publicationDate": "2026-10-13",
+      "publisherKind": "press",
+      "incidentType": "autre"
+    },
+    {
+      "id": "na-2026-032",
+      "department": "33",
+      "publicationDate": "2026-10-13",
+      "publisherKind": "press",
+      "incidentType": "autre"
+    },
+    {
+      "id": "na-2026-013",
+      "department": "64",
+      "publicationDate": "2026-10-12",
+      "publisherKind": "press",
+      "incidentType": "autre"
+    },
+    {
+      "id": "na-2026-033",
+      "department": "79",
+      "publicationDate": "2026-10-12",
+      "publisherKind": "press",
+      "incidentType": "autre"
+    },
+    {
+      "id": "na-2026-034",
+      "department": "24",
+      "publicationDate": "2026-10-12",
+      "publisherKind": "press",
+      "incidentType": "autre"
+    },
+    {
+      "id": "na-2026-035",
+      "department": "17",
+      "publicationDate": "2026-10-12",
+      "publisherKind": "press",
+      "incidentType": "autre"
+    },
+    {
+      "id": "na-2026-036",
+      "department": "86",
+      "publicationDate": "2026-10-12",
+      "publisherKind": "press",
+      "incidentType": "autre"
+    },
+    {
+      "id": "na-2026-037",
+      "department": "40",
+      "publicationDate": "2026-10-12",
+      "publisherKind": "press",
+      "incidentType": "autre"
+    },
+    {
+      "id": "na-2026-038",
+      "department": "47",
+      "publicationDate": "2026-10-12",
+      "publisherKind": "press",
+      "incidentType": "autre"
+    },
+    {
+      "id": "na-2026-019",
+      "department": "33",
+      "publicationDate": "2026-09-07",
+      "publisherKind": "press",
+      "incidentType": "fuite"
+    },
+    {
+      "id": "na-2026-045",
+      "department": "33",
+      "publicationDate": "2026-09-04",
+      "publisherKind": "grey",
+      "incidentType": "fuite"
+    },
+    {
+      "id": "na-2026-002",
+      "department": "17",
+      "publicationDate": "2026-08-19",
+      "publisherKind": "press",
+      "incidentType": "compromission"
+    },
+    {
+      "id": "na-2026-021",
+      "department": "40",
+      "publicationDate": "2026-07-27",
+      "publisherKind": "press",
+      "incidentType": "compromission"
+    },
+    {
+      "id": "na-2026-041",
+      "department": "33",
+      "publicationDate": "2026-04-09",
+      "publisherKind": "press",
+      "incidentType": "fuite"
+    },
+    {
+      "id": "na-2026-046",
+      "department": "16",
+      "publicationDate": "2026-02-22",
+      "publisherKind": "press",
+      "incidentType": "fuite"
+    },
+    {
+      "id": "na-2026-060",
+      "department": "33",
+      "publicationDate": "2025-12-09",
+      "publisherKind": "press",
+      "incidentType": "fuite"
+    },
+    {
+      "id": "na-2026-054",
+      "department": "40",
+      "publicationDate": "2025-10-06",
+      "publisherKind": "press",
+      "incidentType": "phishing"
+    },
+    {
+      "id": "na-2026-059",
+      "department": "16",
+      "publicationDate": "2025-09-09",
+      "publisherKind": "press",
+      "incidentType": "compromission"
+    },
+    {
+      "id": "na-2026-052",
+      "department": "23",
+      "publicationDate": "2025-07-11",
+      "publisherKind": "press",
+      "incidentType": "defacement"
+    },
+    {
+      "id": "na-2026-015",
+      "department": "19",
+      "publicationDate": "2025-06-20",
+      "publisherKind": "press",
+      "incidentType": "phishing"
+    },
+    {
+      "id": "na-2026-053",
+      "department": "40",
+      "publicationDate": "2025-02-20",
+      "publisherKind": "press",
+      "incidentType": "autre"
+    }
+  ]
+}

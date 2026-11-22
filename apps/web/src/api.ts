@@ -353,6 +353,24 @@ export type CorpusStats = {
   recentIncidents: CorpusIncident[];
 };
 
+/** Privacy-safe projection of GET /api/press-only/incidents. */
+export type PressOnlySummary = {
+  scope: "Nouvelle-Aquitaine";
+  definition: "rapporte";
+  corpusTotal: number;
+  count: number;
+  withGreySource: number;
+  byDepartment: { department: string; count: number }[];
+  byPublisherKind: { press: number; grey: number };
+  incidents: {
+    id: string;
+    department: string;
+    publicationDate: string | null;
+    publisherKind: "press" | "grey" | "official" | "unknown";
+    incidentType: string | null;
+  }[];
+};
+
 /** Nature d'un nœud du graphe relationnel (GET /api/graph). */
 export type GraphNodeKind =
   | "org"
@@ -1101,6 +1119,8 @@ export const api = {
   statsDepartements: (signal?: AbortSignal) => get<StatsDepartements>("/today/departements", signal),
   /** Écran Corpus : volumes, couverture des domaines et croissance. */
   corpusStats: (signal?: AbortSignal) => get<CorpusStats>("/corpus/stats", signal),
+  /** Press-only incidents: governed by the same versioned corpus, without victim data. */
+  pressOnly: (signal?: AbortSignal) => get<PressOnlySummary>("/press-only/incidents", signal),
   stats: () => get<Stats>("/stats"),
   /** Couverture mesurée : une seule lecture, identique d'un appel à l'autre. */
   couverture: (signal?: AbortSignal) => get<CouvertureResponse>("/couverture", signal),
