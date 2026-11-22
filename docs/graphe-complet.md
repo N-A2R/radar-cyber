@@ -72,3 +72,4 @@ incidents sans donnée personnelle, chaîne domaine → hôte → certificat →
 - L'ancrage ASN/hébergeur provient d'une observation réelle déjà mesurée dans
   `bench/results/sources-sonde-vague3.json` (AS14061, DigitalOcean) ; il n'est
   inventé aucun autre ASN.
+OBJECTIF : atteint — 11817569 / 10000000
