@@ -138,3 +138,5 @@ tests de notifications existants et les tests de contrat de routes). Le contrôl
   doivent ajouter la vérification ci-dessus pour tirer parti de la signature.
 - La mesure signe de vraies alertes NA vers un récepteur local : aucun appel à
   un webhook de production et aucune écriture en base.
+
+OBJECTIF : atteint — 1 380 / 1 380 signatures vérifiables par un client HMAC indépendant (100 %, mesure du 22/11/2026 via la commande reproductible `DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar apps/api/node_modules/.bin/tsx scripts/measure-webhook-signatures.mts` ; 1 382 / 1 382 au moment de la livraison, l'écart venant de l'évolution des alertes éligibles dans la base partagée).
