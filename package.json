@@ -14,6 +14,7 @@
     "dev:api": "pnpm -F @radar/api dev",
     "dev:web": "pnpm -F @radar/web dev",
     "collecte:communiques": "apps/api/node_modules/.bin/tsx scripts/collecte-communiques-officiels.mts",
+    "mesure:contagion": "apps/api/node_modules/.bin/tsx scripts/mesure-contagion.mts",
     "mesure:communiques": "apps/api/node_modules/.bin/tsx scripts/mesure-communiques-officiels.mts",
     "mesure:notifications": "apps/api/node_modules/.bin/tsx scripts/mesure-notifications.mts",
     "mesure:webhook-signatures": "apps/api/node_modules/.bin/tsx scripts/measure-webhook-signatures.mts",
