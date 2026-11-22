@@ -12,7 +12,7 @@
  * Aucune base : l'index est construit depuis le jeu, comme le fait
  * `org-gazetteer.ts` en production.
  *
- *   apps/api/node_modules/.bin/tsx bench/orgs/run-gazetteer.mts [--json=out.json]
+ *   apps/api/node_modules/.bin/tsx bench/orgs/run-gazetteer.mts [--gold=jeu.json] [--json=out.json]
  */
 import { readFileSync, writeFileSync } from "node:fs";
 import { performance } from "node:perf_hooks";
@@ -24,7 +24,8 @@ type Gold = {
 	cases: Array<{ id: string; text: string; expect: number | null; category: string }>;
 };
 
-const path = fileURLToPath(new URL("./gold-attach.json", import.meta.url));
+const goldFile = process.argv.find((a) => a.startsWith("--gold="))?.split("=")[1] ?? "gold-attach.json";
+const path = fileURLToPath(new URL(`./${goldFile}`, import.meta.url));
 const gold = JSON.parse(readFileSync(path, "utf8")) as Gold;
 
 const rows: GazetteerRow[] = gold.orgs.flatMap((org) =>
@@ -112,7 +113,7 @@ const latences = lignes.map((l) => l.ms).sort((a, b) => a - b);
 
 const resultat = {
 	date: new Date().toISOString().slice(0, 10),
-	moteur: "gazetteer@2",
+	moteur: "gazetteer@4+context-resolution",
 	jeu: { organisations: gold.orgs.length, cas: gold.cases.length, alias: rows.length },
 	constructionMs: Math.round(construction),
 	latence: {
