@@ -1,6 +1,6 @@
 # Couverture — sources « juridique » du Lot-et-Garonne (47)
 
-14 sources vérifiées en HTTP 200 le 2026-11-22 (32 URLs contrôlées, 5 flux RSS exploitables).
+19 sources vérifiées en HTTP 200 le 2026-11-22 (44 URLs contrôlées, 8 flux RSS exploitables).
 
 | Source | Type | Site | Actualités / flux |
 | --- | --- | --- | --- |
@@ -18,13 +18,18 @@
 | UDAF 47 — Union départementale des associations familiales | association de défense des droits des familles | https://www.udaf47.fr/ | https://www.udaf47.fr/actualites-udaf47/ |
 | Cour d'appel d'Agen | cour d'appel | https://www.justice.gouv.fr/annuaire/fiche/cour-d-appel-d-agen | https://www.justice.gouv.fr/actualites — flux https://www.justice.gouv.fr/rss.xml (10 items) |
 | Tribunal de commerce d'Agen | juridiction | https://www.justice.gouv.fr/annuaire/fiche/tribunal-de-commerce-d-agen | https://www.justice.gouv.fr/actualites — flux https://www.justice.gouv.fr/rss.xml (10 items) |
+| La Dépêche du Midi — rubrique Justice | rubrique juridique de quotidien régional | https://www.ladepeche.fr/ | https://www.ladepeche.fr/actu/justice/ — flux https://www.ladepeche.fr/actu/justice/rss.xml (25 items) |
+| actu.fr — Lot-et-Garonne | média local numérique | https://actu.fr/ | https://actu.fr/nouvelle-aquitaine/lot-et-garonne_47 (flux déclaré vide) |
+| Le Républicain Lot-et-Garonne (actu.fr) | journal local hébergé par actu.fr | https://actu.fr/le-republicain-lot-et-garonne | idem — flux https://actu.fr/le-republicain-lot-et-garonne/rss.xml (20 items) |
+| France 3 Nouvelle-Aquitaine — Lot-et-Garonne / Agen | télévision régionale publique | https://france3-regions.franceinfo.fr/nouvelle-aquitaine/ | https://france3-regions.franceinfo.fr/nouvelle-aquitaine/lot-et-garonne/agen |
+| WE NEWS — Lot-et-Garonne | média local numérique | https://we-news.com/ | https://we-news.com/fr/47-lot-et-garonne — flux https://we-news.com/fr/feed (100 items) |
 
 ## Preuve
 
 - Corpus : `bench/corpus/sources-juridique-47.jsonl` (champs `nom`, `type`, `secteur`, `departement`, `url_site`, `url_actualites`, `url_flux`, `code_http`, `exemple_cyber`).
-- Relevé HTTP : `bench/results/verification-juridique-47.json` — 32 URLs, 32 codes 200, types de contenu, URL finales et nombres d'items RSS.
+- Relevé HTTP : `bench/results/verification-juridique-47.json` — 44 URLs, 44 codes 200, types de contenu, URL finales et nombres d'items RSS.
 - Contrôle : GET réel, redirections suivies, User-Agent `RadarCyberCorpus/1.0`, délai 20 s ; rejoué le 2026-11-22.
-- Migration : `db/migrate-148-sources-juridique-47.sql` — 14 lignes `source` et 34 traces `source_verification` en `ok200`.
+- Migration : `db/migrate-148-sources-juridique-47.sql` — 19 lignes `source` et 46 traces `source_verification` en `ok200`.
 
 ## Candidats écartés
 

@@ -1,5 +1,5 @@
 -- Sources d'information du secteur « juridique » du département 47 (Lot-et-Garonne).
--- 14 sources, 32 URLs contrôlées en HTTP 200 le 2026-11-22 (GET réel, redirections suivies).
+-- 19 sources, 44 URLs contrôlées en HTTP 200 le 2026-11-22 (GET réel, redirections suivies).
 -- Corpus détaillé : bench/corpus/sources-juridique-47.jsonl
 -- Preuve HTTP : bench/results/verification-juridique-47.json
 
@@ -38,12 +38,17 @@ VALUES
   ('corpus:juridique-47-chambre-interdepartementale-des-notaires-agen', 'Chambre interdépartementale des notaires (Agen)', 'cti', 'https://ci-agen.notaires.fr/', 'source d information sectorielle, diffusion publique', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-juridique-47.jsonl","ligne":11,"type":"source"}}'::jsonb, 3600, 'Nouvelle-Aquitaine', '47', 'Source juridique — Lot-et-Garonne (47) ; chambre professionnelle notariale ; actualités : https://ci-agen.notaires.fr/actualite?type=1&page=1'),
   ('corpus:juridique-47-udaf-47-union-departementale-des-associations-familiales', 'UDAF 47 — Union départementale des associations familiales', 'cti', 'https://www.udaf47.fr/', 'source d information sectorielle, diffusion publique', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-juridique-47.jsonl","ligne":12,"type":"source"}}'::jsonb, 3600, 'Nouvelle-Aquitaine', '47', 'Source juridique — Lot-et-Garonne (47) ; association de défense des droits des familles ; actualités : https://www.udaf47.fr/actualites-udaf47/'),
   ('corpus:juridique-47-cour-d-appel-d-agen', 'Cour d''appel d''Agen', 'cti', 'https://www.justice.gouv.fr/annuaire/fiche/cour-d-appel-d-agen', 'source d information sectorielle, diffusion publique', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-juridique-47.jsonl","ligne":13,"type":"source"}}'::jsonb, 3600, 'Nouvelle-Aquitaine', '47', 'Source juridique — Lot-et-Garonne (47) ; cour d''appel ; actualités : https://www.justice.gouv.fr/actualites'),
-  ('corpus:juridique-47-tribunal-de-commerce-d-agen', 'Tribunal de commerce d''Agen', 'cti', 'https://www.justice.gouv.fr/annuaire/fiche/tribunal-de-commerce-d-agen', 'source d information sectorielle, diffusion publique', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-juridique-47.jsonl","ligne":14,"type":"source"}}'::jsonb, 3600, 'Nouvelle-Aquitaine', '47', 'Source juridique — Lot-et-Garonne (47) ; juridiction ; actualités : https://www.justice.gouv.fr/actualites')
+  ('corpus:juridique-47-tribunal-de-commerce-d-agen', 'Tribunal de commerce d''Agen', 'cti', 'https://www.justice.gouv.fr/annuaire/fiche/tribunal-de-commerce-d-agen', 'source d information sectorielle, diffusion publique', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-juridique-47.jsonl","ligne":14,"type":"source"}}'::jsonb, 3600, 'Nouvelle-Aquitaine', '47', 'Source juridique — Lot-et-Garonne (47) ; juridiction ; actualités : https://www.justice.gouv.fr/actualites'),
+  ('corpus:juridique-47-la-depeche-du-midi-rubrique-justice', 'La Dépêche du Midi — rubrique Justice', 'cti', 'https://www.ladepeche.fr/', 'source d information sectorielle, diffusion publique', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-juridique-47.jsonl","ligne":15,"type":"source"}}'::jsonb, 3600, 'Nouvelle-Aquitaine', '47', 'Source juridique — Lot-et-Garonne (47) ; rubrique juridique de quotidien régional ; actualités : https://www.ladepeche.fr/actu/justice/'),
+  ('corpus:juridique-47-actu-fr-lot-et-garonne', 'actu.fr — Lot-et-Garonne', 'cti', 'https://actu.fr/', 'source d information sectorielle, diffusion publique', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-juridique-47.jsonl","ligne":16,"type":"source"}}'::jsonb, 3600, 'Nouvelle-Aquitaine', '47', 'Source juridique — Lot-et-Garonne (47) ; média local numérique ; actualités : https://actu.fr/nouvelle-aquitaine/lot-et-garonne_47'),
+  ('corpus:juridique-47-le-republicain-lot-et-garonne-actu-fr', 'Le Républicain Lot-et-Garonne (actu.fr)', 'cti', 'https://actu.fr/le-republicain-lot-et-garonne', 'source d information sectorielle, diffusion publique', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-juridique-47.jsonl","ligne":17,"type":"source"}}'::jsonb, 3600, 'Nouvelle-Aquitaine', '47', 'Source juridique — Lot-et-Garonne (47) ; journal local hébergé par actu.fr ; actualités : https://actu.fr/le-republicain-lot-et-garonne'),
+  ('corpus:juridique-47-france-3-nouvelle-aquitaine-lot-et-garonne-agen', 'France 3 Nouvelle-Aquitaine — Lot-et-Garonne / Agen', 'cti', 'https://france3-regions.franceinfo.fr/nouvelle-aquitaine/', 'source d information sectorielle, diffusion publique', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-juridique-47.jsonl","ligne":18,"type":"source"}}'::jsonb, 3600, 'Nouvelle-Aquitaine', '47', 'Source juridique — Lot-et-Garonne (47) ; télévision régionale publique ; actualités : https://france3-regions.franceinfo.fr/nouvelle-aquitaine/lot-et-garonne/agen'),
+  ('corpus:juridique-47-we-news-lot-et-garonne', 'WE NEWS — Lot-et-Garonne', 'cti', 'https://we-news.com/', 'source d information sectorielle, diffusion publique', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-juridique-47.jsonl","ligne":19,"type":"source"}}'::jsonb, 3600, 'Nouvelle-Aquitaine', '47', 'Source juridique — Lot-et-Garonne (47) ; média local numérique ; actualités : https://we-news.com/fr/47-lot-et-garonne')
 ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, family = EXCLUDED.family, url = EXCLUDED.url,
   format = EXCLUDED.format, parser = EXCLUDED.parser, description = EXCLUDED.description,
   region = EXCLUDED.region, department = EXCLUDED.department;
 
--- Trace de vérification HTTP : 32 URLs distinctes (34 traces par source) contrôlées en 200 le 2026-11-22.
+-- Trace de vérification HTTP : 44 URLs distinctes (46 traces par source) contrôlées en 200 le 2026-11-22.
 WITH urls(source_id, url, content_type, items) AS (
   VALUES
     ('corpus:juridique-47-barreau-d-agen', 'https://www.barreau-agen.fr/', 'text/html; charset=UTF-8', 0),
@@ -79,7 +84,19 @@ WITH urls(source_id, url, content_type, items) AS (
     ('corpus:juridique-47-cour-d-appel-d-agen', 'https://www.justice.gouv.fr/rss.xml', 'application/rss+xml; charset=utf-8', 10),
     ('corpus:juridique-47-tribunal-de-commerce-d-agen', 'https://www.justice.gouv.fr/annuaire/fiche/tribunal-de-commerce-d-agen', 'text/html; charset=utf-8', 0),
     ('corpus:juridique-47-tribunal-de-commerce-d-agen', 'https://www.justice.gouv.fr/actualites', 'text/html; charset=utf-8', 0),
-    ('corpus:juridique-47-tribunal-de-commerce-d-agen', 'https://www.justice.gouv.fr/rss.xml', 'application/rss+xml; charset=utf-8', 10)
+    ('corpus:juridique-47-tribunal-de-commerce-d-agen', 'https://www.justice.gouv.fr/rss.xml', 'application/rss+xml; charset=utf-8', 10),
+    ('corpus:juridique-47-la-depeche-du-midi-rubrique-justice', 'https://www.ladepeche.fr/', 'text/html; charset=UTF-8', 0),
+    ('corpus:juridique-47-la-depeche-du-midi-rubrique-justice', 'https://www.ladepeche.fr/actu/justice/', 'text/html; charset=UTF-8', 0),
+    ('corpus:juridique-47-la-depeche-du-midi-rubrique-justice', 'https://www.ladepeche.fr/actu/justice/rss.xml', 'text/xml; charset=UTF-8', 25),
+    ('corpus:juridique-47-actu-fr-lot-et-garonne', 'https://actu.fr/', 'text/html; charset=UTF-8', 0),
+    ('corpus:juridique-47-actu-fr-lot-et-garonne', 'https://actu.fr/nouvelle-aquitaine/lot-et-garonne_47', 'text/html; charset=UTF-8', 0),
+    ('corpus:juridique-47-le-republicain-lot-et-garonne-actu-fr', 'https://actu.fr/le-republicain-lot-et-garonne', 'text/html; charset=UTF-8', 0),
+    ('corpus:juridique-47-le-republicain-lot-et-garonne-actu-fr', 'https://actu.fr/le-republicain-lot-et-garonne/rss.xml', 'application/rss+xml; charset=utf-8', 20),
+    ('corpus:juridique-47-france-3-nouvelle-aquitaine-lot-et-garonne-agen', 'https://france3-regions.franceinfo.fr/nouvelle-aquitaine/', 'text/html; charset=UTF-8', 0),
+    ('corpus:juridique-47-france-3-nouvelle-aquitaine-lot-et-garonne-agen', 'https://france3-regions.franceinfo.fr/nouvelle-aquitaine/lot-et-garonne/agen', 'text/html; charset=UTF-8', 0),
+    ('corpus:juridique-47-we-news-lot-et-garonne', 'https://we-news.com/', 'text/html; charset=UTF-8', 0),
+    ('corpus:juridique-47-we-news-lot-et-garonne', 'https://we-news.com/fr/47-lot-et-garonne', 'text/html; charset=UTF-8', 0),
+    ('corpus:juridique-47-we-news-lot-et-garonne', 'https://we-news.com/fr/feed', 'application/rss+xml; charset=utf-8', 100)
 )
 INSERT INTO source_verification (source_id, url, code_http, content_type, items, ms, verifie_at, user_agent, etat, motif)
 SELECT u.source_id, u.url, 200, u.content_type, u.items, 0, now(), 'RadarCyberCorpus/1.0', 'ok200',

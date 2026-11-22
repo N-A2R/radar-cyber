@@ -2,9 +2,9 @@
   "secteur": "juridique",
   "departement": "47",
   "fichier": "bench/corpus/sources-juridique-47.jsonl",
-  "sources": 14,
-  "urls_verifiees": 32,
-  "urls_http_200": 32,
+  "sources": 19,
+  "urls_verifiees": 44,
+  "urls_http_200": 44,
   "verifie_le": "2026-11-22",
   "methode": "GET réel avec redirections suivies (urllib, User-Agent RadarCyberCorpus/1.0), timeout 20 s ; codes, types de contenu, URL finales et nombre d’items RSS enregistrés",
   "urls": [
@@ -39,7 +39,19 @@
     {"url":"https://www.justice.gouv.fr/annuaire/fiche/cour-d-appel-d-agen","code_http":200,"content_type":"text/html; charset=utf-8","final_url":"https://www.justice.gouv.fr/annuaire/fiche/cour-d-appel-d-agen","items_rss":0},
     {"url":"https://www.justice.gouv.fr/actualites","code_http":200,"content_type":"text/html; charset=utf-8","final_url":"https://www.justice.gouv.fr/actualites","items_rss":0},
     {"url":"https://www.justice.gouv.fr/rss.xml","code_http":200,"content_type":"application/rss+xml; charset=utf-8","final_url":"https://www.justice.gouv.fr/rss.xml","items_rss":10},
-    {"url":"https://www.justice.gouv.fr/annuaire/fiche/tribunal-de-commerce-d-agen","code_http":200,"content_type":"text/html; charset=utf-8","final_url":"https://www.justice.gouv.fr/annuaire/fiche/tribunal-de-commerce-d-agen","items_rss":0}
+    {"url":"https://www.justice.gouv.fr/annuaire/fiche/tribunal-de-commerce-d-agen","code_http":200,"content_type":"text/html; charset=utf-8","final_url":"https://www.justice.gouv.fr/annuaire/fiche/tribunal-de-commerce-d-agen","items_rss":0},
+    {"url":"https://www.ladepeche.fr/","code_http":200,"content_type":"text/html; charset=UTF-8","final_url":"https://www.ladepeche.fr/","items_rss":0},
+    {"url":"https://www.ladepeche.fr/actu/justice/","code_http":200,"content_type":"text/html; charset=UTF-8","final_url":"https://www.ladepeche.fr/actu/justice/","items_rss":0},
+    {"url":"https://www.ladepeche.fr/actu/justice/rss.xml","code_http":200,"content_type":"text/xml; charset=UTF-8","final_url":"https://www.ladepeche.fr/actu/justice/rss.xml","items_rss":25},
+    {"url":"https://actu.fr/","code_http":200,"content_type":"text/html; charset=UTF-8","final_url":"https://actu.fr/","items_rss":0},
+    {"url":"https://actu.fr/nouvelle-aquitaine/lot-et-garonne_47","code_http":200,"content_type":"text/html; charset=UTF-8","final_url":"https://actu.fr/nouvelle-aquitaine/lot-et-garonne_47","items_rss":0},
+    {"url":"https://actu.fr/le-republicain-lot-et-garonne","code_http":200,"content_type":"text/html; charset=UTF-8","final_url":"https://actu.fr/le-republicain-lot-et-garonne/","items_rss":0},
+    {"url":"https://actu.fr/le-republicain-lot-et-garonne/rss.xml","code_http":200,"content_type":"application/rss+xml; charset=utf-8","final_url":"https://actu.fr/le-republicain-lot-et-garonne/rss.xml","items_rss":20},
+    {"url":"https://france3-regions.franceinfo.fr/nouvelle-aquitaine/","code_http":200,"content_type":"text/html; charset=UTF-8","final_url":"https://france3-regions.franceinfo.fr/nouvelle-aquitaine/","items_rss":0},
+    {"url":"https://france3-regions.franceinfo.fr/nouvelle-aquitaine/lot-et-garonne/agen","code_http":200,"content_type":"text/html; charset=UTF-8","final_url":"https://france3-regions.franceinfo.fr/nouvelle-aquitaine/lot-et-garonne/agen","items_rss":0},
+    {"url":"https://we-news.com/","code_http":200,"content_type":"text/html; charset=UTF-8","final_url":"https://we-news.com/","items_rss":0},
+    {"url":"https://we-news.com/fr/47-lot-et-garonne","code_http":200,"content_type":"text/html; charset=UTF-8","final_url":"https://we-news.com/fr/47-lot-et-garonne","items_rss":0},
+    {"url":"https://we-news.com/fr/feed","code_http":200,"content_type":"application/rss+xml; charset=utf-8","final_url":"https://we-news.com/fr/feed","items_rss":100}
   ],
   "candidats_ecartes": [
     {"url":"https://www.barreaudemarmande.fr/","code_http":0,"motif":"domaine inexistant ; le barreau d'Agen couvre tout le département"},
