@@ -83,3 +83,5 @@ d'activité : un établissement dont le siège a disparu du référentiel reste
 non rattaché (35 578 cas), et il ne faut pas en déduire qu'il est fermé. Les
 sièges fermés sont exclus volontairement ; un usage historique pourrait les
 réintégrer, ce qui donnerait 14 993 liens, mais ce ne serait pas un état actif.
+
+OBJECTIF : atteint — 14 956 / 14 956
