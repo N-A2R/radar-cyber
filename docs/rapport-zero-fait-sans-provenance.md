@@ -110,3 +110,5 @@ Les attentes de contexte (1 673 151 / 312 / 26 259) sont des constantes de `gate
 réel de la base change, il faut relancer `measure` et mettre à jour ces constantes dans le même
 commit. C'est volontaire — un artifact périmé ne doit pas faire passer le contrôle — mais cela
 rend la remesure obligatoire à chaque évolution du volume de données.
+
+OBJECTIF : atteint — 0 / 71 faits Nouvelle-Aquitaine sans provenance (cible 0 / 71, soit 71 / 71 faits avec provenance et contrôle CI bloquant ; mesure reproductible du 22/11/2026 : `pnpm provenance:check` → `Provenance gate PASS: 0/71 Nouvelle-Aquitaine facts without provenance.`, code 0 ; l'artifact archivé d'avant réparation donne `71/71` et code 1).
