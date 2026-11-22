@@ -1,5 +1,6 @@
 import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
+import { evenementPublicSql } from "../security/tlp.js";
 
 // 12 centroïdes de départements Nouvelle-Aquitaine (fallback démo)
 const NA_CENTROIDS: Record<string, { lat: number; lon: number; label: string }> = {
@@ -85,6 +86,7 @@ export default async function (app: FastifyInstance) {
     }
     where.push(`e.lat IS NOT NULL AND e.lon IS NOT NULL`);
     where.push(`o.lat IS NOT NULL AND o.lon IS NOT NULL`);
+    where.push(evenementPublicSql("e"));
 
     const sql = `
       SELECT e.id, e.dedup_key, e.family, e.title, e.severity, e.observed_at, e.source_url,

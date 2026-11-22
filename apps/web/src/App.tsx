@@ -56,7 +56,7 @@ const VIEWS: { id: ViewKey; label: string }[] = [
   { id: "health", label: "Santé" },
   { id: "alerts", label: "Alertes" },
   { id: "na", label: "Nouvelle-Aquitaine" },
-  { id: "affected", label: "Affected?" },
+  { id: "affected", label: "Suis-je concerné ?" },
 ];
 
 const FEED_LIMIT = 300;
@@ -626,14 +626,11 @@ export default function App() {
 
   // Le fil occupe un tiers de la largeur sur tous les onglets. Sur Sources,
   // Santé ou Dossier — des vues qui ont besoin de toute la largeur — il se
-  // replie en un rail de 44 px.
+  // replie en un rail de 44 px. La largeur des colonnes vit dans styles.css :
+  // un style inline écrasait les media queries et laissait une colonne vide
+  // de 352 px sous 1024 px.
   const [feedOpen, setFeedOpen] = useState(true);
-  const feedWidth = feedOpen ? "352px" : "44px";
-  const bodyStyle = {
-    gridTemplateColumns: view === "today"
-      ? (inspectorOpen ? "minmax(0,1fr) 320px" : "minmax(0,1fr)")
-      : (inspectorOpen ? `${feedWidth} minmax(0,1fr) 320px` : `${feedWidth} minmax(0,1fr)`),
-  };
+  const feedState = view === "today" ? "none" : feedOpen ? "open" : "rail";
 
   // Sans jeton (hors démonstration), le shell n'est jamais monté : seul
   // l'écran de connexion est rendu, aucune requête authentifiée ne part.
@@ -733,7 +730,11 @@ export default function App() {
         </p>
       ) : null}
 
-      <div className="shell__body" style={bodyStyle}>
+      <div
+        className="shell__body"
+        data-feed={feedState}
+        data-inspector={inspectorOpen ? "open" : "closed"}
+      >
         {view === "today" ? null : feedOpen ? (
         <aside className="shell__feed">
             <button

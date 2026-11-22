@@ -76,6 +76,10 @@ async function main(): Promise<void> {
 	const nombreVariantes = Number(option("variantes", "10"));
 	const variantesParDomaine = Number(option("variantes-par-domaine", "2"));
 	const joursRecents = Number(option("jours", "180"));
+	const domainesImposes = option("domaines", "")
+		.split(",")
+		.map((domaine) => domaine.trim().toLowerCase())
+		.filter(Boolean);
 	const collecteLe = new Date().toISOString();
 	const dateJour = collecteLe.slice(0, 10);
 
@@ -95,7 +99,13 @@ async function main(): Promise<void> {
 		cibles = fusionnerCibles(cibles, ciblesDepuisOrg(orgs.rows));
 	}
 	cibles = trierParPriorite(cibles, corpus);
-	const retenues = cibles.slice(0, limite);
+	const retenues =
+		domainesImposes.length > 0
+			? domainesImposes.map((domaine) => {
+					const connue = cibles.find((cible) => cible.domaine === domaine);
+					return connue ?? { domaine, organisation: domaine, source: "cible:manuel", departement: null };
+				})
+			: cibles.slice(0, limite);
 
 	const domainesCibles = new Set(retenues.map((c) => c.domaine));
 	const variantes: string[] = [];

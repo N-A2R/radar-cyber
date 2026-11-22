@@ -1,4 +1,5 @@
-import { FAMILY_COLORS, FAMILY_COLOR_FALLBACK, FAMILY_LABELS } from "../map/Map3D";
+import { FAMILY_HEX, FAMILY_HEX_FALLBACK } from "../map/arcs";
+import { FAMILY_LABELS } from "../map/libelles";
 
 /**
  * Légende de la carte : sans elle, une couleur ne se décode pas et la carte
@@ -35,7 +36,7 @@ export function MapLegend({ families }: { families: readonly string[] }) {
               <li key={f}>
                 <span
                   className="map-legend__chip"
-                  style={{ background: FAMILY_COLORS[f] ?? FAMILY_COLOR_FALLBACK }}
+                  style={{ background: FAMILY_HEX[f] ?? FAMILY_HEX_FALLBACK }}
                   aria-hidden="true"
                 />
                 {FAMILY_LABELS[f] ?? f}

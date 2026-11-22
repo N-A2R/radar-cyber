@@ -48,7 +48,16 @@ export type SilentSourceAlert = {
  * irregular to have a cadence. Future and invalid timestamps are ignored so a
  * bad clock cannot hide or invent a silence.
  */
-export function detectSilentSource(signal: SourceSignal, now: number = Date.now()): SilentSourceAlert | null {
+export function detectSilentSource(
+	signal: SourceSignal,
+	now: number = Date.now(),
+	thresholdHours: number = SILENCE_ALERT_HOURS,
+): SilentSourceAlert | null {
+	// Le seuil calibré vient de la table `rule_calibration` (heures) ; une
+	// valeur absente ou invalide retombe sur la constante historique.
+	const hours = Number.isFinite(thresholdHours) && thresholdHours > 0
+		? thresholdHours
+		: SILENCE_ALERT_HOURS;
 	const valid = signal.productionTimes
 		.filter((t) => Number.isFinite(t) && t >= 0 && t <= now)
 		.slice()
@@ -57,7 +66,7 @@ export function detectSilentSource(signal: SourceSignal, now: number = Date.now(
 
 	const lastProductionAt = valid[valid.length - 1]!;
 	const silenceMs = now - lastProductionAt;
-	if (silenceMs < SILENCE_ALERT_HOURS * HOUR_MS) return null;
+	if (silenceMs < hours * HOUR_MS) return null;
 
 	const cadenceStart = lastProductionAt - CADENCE_WINDOW_DAYS * DAY_MS;
 	const activeDays = new Set<number>();
@@ -78,10 +87,14 @@ export function detectSilentSource(signal: SourceSignal, now: number = Date.now(
 }
 
 /** Alerts in input order. Each source is evaluated independently. */
-export function detectSilentSources(signals: readonly SourceSignal[], now: number = Date.now()): SilentSourceAlert[] {
+export function detectSilentSources(
+	signals: readonly SourceSignal[],
+	now: number = Date.now(),
+	thresholdHours: number = SILENCE_ALERT_HOURS,
+): SilentSourceAlert[] {
 	const alerts: SilentSourceAlert[] = [];
 	for (const signal of signals) {
-		const alert = detectSilentSource(signal, now);
+		const alert = detectSilentSource(signal, now, thresholdHours);
 		if (alert) alerts.push(alert);
 	}
 	return alerts;

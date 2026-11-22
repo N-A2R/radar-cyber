@@ -178,7 +178,9 @@ casserait les clients qui consomment l'API.
    une décision : `en_instruction`, `publiee` ou `refusee`, avec un motif
    d'au moins 5 caractères pour publier ou refuser. Chaque décision ajoute un
    événement et un fait `droit_reponse.decision` ; la projection `statut`
-   évolue seule.
+   évolue seule. Une demande encore `recu` depuis plus de 24 h passe
+   automatiquement à `en_instruction` (événement et fait de journal) :
+   l'accusé de réception n'est jamais l'état final.
 5. **Publication** — seules les décisions `publiee` alimentent
    `GET /api/orgs/:id/rectifications` et le bloc « droit de réponse » de la
    fiche. Le texte de l'organisation, la référence, la date et le motif de la
@@ -187,7 +189,20 @@ casserait les clients qui consomment l'API.
 6. **Clôture** — une demande `publiee` ou `refusee` ne peut plus être décidée
    (`409 DEMANDE_CLOTUREE`) : une nouvelle demande est nécessaire. Le message
    initial, le moyen de vérification et l'historique des décisions sont
-   immuables (triggers PostgreSQL).
+   immuables (triggers PostgreSQL). Une demande non tranchée au 29e jour est
+   close d'office en `refusee`, motif « délai d'instruction d'un mois
+   dépassé » : c'est le silence gardé de l'article 12.3, pas une publication.
+   L'événement et le fait de journal sont écrits dans la même transaction.
+   L'API rejoue ce passage au démarrage puis toutes les six heures
+   (`instruire_droit_reponse()`), et un trigger de contrainte différé garantit
+   qu'une demande insérée avec une date déjà ancienne est close immédiatement.
+   Aucune demande ne peut donc exister sans événement, ni rester ouverte
+   au-delà de 30 jours.
+7. **Mesure** — `mesure_droit_reponse()` renvoie le total, les demandes
+   ouvertes, les retards, les clôtures sous délai et les délais moyen et
+   maximum en jours. `pnpm verifie:droit-reponse` exécute le critère de sortie
+   sur la base courante : aucune demande de plus de 30 jours ouverte, aucune
+   demande sans événement.
 
 ### 7.2 Interface
 
@@ -224,7 +239,7 @@ existants.
 | Limitation (art. 18) | Les sources peuvent être désactivées sans suppression (`/api/sources/:id/morte`) ; l'accès à un compte peut être retiré en changeant son rôle en `lecteur`. |
 | Portabilité (art. 20) | Export CSV du journal de revue (`GET /api/journal/review/export.csv`) et lecture JSON paginée des autres traitements. |
 | Opposition (art. 21) | Le droit de réponse est le canal prévu pour les informations publiées sur une organisation ; une opposition au traitement des journaux de sécurité est appréciée au cas par cas, la sécurité étant un intérêt légitime. |
-| Décision automatisée (art. 22) | Aucune décision produisant un effet juridique sur une personne n'est automatisée : les rattachements et alertes sont des signaux, la publication d'une rectification est toujours une décision humaine. |
+| Décision automatisée (art. 22) | Aucune décision produisant un effet juridique sur une personne n'est automatisée : les rattachements et alertes sont des signaux, la publication d'une rectification est toujours une décision humaine. Seule la clôture pour délai dépassé est automatique : elle constate le silence gardé prévu par l'article 12.3, sans publier ni trancher le fond. |
 
 Les demandes d'exercice de droits reçues par e-mail doivent être enregistrées
 dans le journal avec l'acteur qui les instruit et la décision prise, selon la

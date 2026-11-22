@@ -93,6 +93,17 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "GET", route: "/api/orgs/:id", niveau: "lecteur" },
   { methode: "GET", route: "/api/orgs/:id/rectifications", niveau: "lecteur" },
 
+  // --- Listes de veille -----------------------------------------------------
+  // L'observatoire déclare ce qu'il surveille ; la lecture des listes est
+  // ouverte aux comptes, leur écriture engage la veille et reste analyste.
+  { methode: "GET", route: "/api/watchlists", niveau: "lecteur" },
+  { methode: "GET", route: "/api/watchlists/:slug", niveau: "lecteur" },
+  { methode: "POST", route: "/api/watchlists", niveau: "analyste" },
+  { methode: "PUT", route: "/api/watchlists/:slug", niveau: "analyste" },
+  { methode: "POST", route: "/api/watchlists/:slug/items", niveau: "analyste" },
+  { methode: "DELETE", route: "/api/watchlists/:slug/items/:itemId", niveau: "analyste" },
+  { methode: "DELETE", route: "/api/watchlists/:slug", niveau: "analyste" },
+
   // --- Travail d'analyse ----------------------------------------------------
   { methode: "GET", route: "/api/review/queue", niveau: "analyste" },
   { methode: "GET", route: "/api/review/stats", niveau: "analyste" },

@@ -127,24 +127,24 @@ describe("ReviewView — keyboard controls and queue tools", () => {
     expect(activeRowId()).toBe("11");
 
     press("x");
-    expect(host.querySelector(".revue__bulk-count")?.textContent).toContain("1 selected out of 3");
+    expect(host.querySelector(".revue__bulk-count")?.textContent).toContain("1 sélectionnée sur 3");
     press("A", { shift: true });
-    expect(host.querySelector(".revue__bulk-count")?.textContent).toContain("3 selected out of 3");
+    expect(host.querySelector(".revue__bulk-count")?.textContent).toContain("3 sélectionnées sur 3");
 
     press("Escape");
-    expect(host.querySelector(".revue__bulk-count")?.textContent).toContain("0 selected out of 3");
+    expect(host.querySelector(".revue__bulk-count")?.textContent).toContain("0 sélectionnée sur 3");
     expect(decisions()).toHaveLength(0);
   });
 
   it("a opens acceptance and posts the chosen candidate", async () => {
     await mount();
     press("a");
-    expect(host.querySelector(".revue__decision-title")?.textContent).toContain("Acceptance");
+    expect(host.querySelector(".revue__decision-title")?.textContent).toContain("Acceptation");
 
     const form = host.querySelector<HTMLFormElement>(".revue__decision")!;
     setField(form.querySelector("textarea")!, "checked against the register");
     await act(async () => { form.querySelector<HTMLInputElement>('input[type="radio"]')!.click(); });
-    await act(async () => { buttonIn(form, "Confirm").click(); });
+    await act(async () => { buttonIn(form, "Confirmer").click(); });
     await flush();
 
     expect(decisions()).toHaveLength(1);
@@ -153,18 +153,18 @@ describe("ReviewView — keyboard controls and queue tools", () => {
       method: "POST",
       body: { decision: "accepter", raison: "checked against the register", orgId: 111 },
     });
-    expect(host.textContent).toContain("Acceptance recorded");
+    expect(host.textContent).toContain("Acceptation enregistrée");
   });
 
   it("r opens rejection and posts no organisation", async () => {
     await mount();
     press("r");
-    expect(host.querySelector(".revue__decision-title")?.textContent).toContain("Rejection");
+    expect(host.querySelector(".revue__decision-title")?.textContent).toContain("Rejet");
 
     const form = host.querySelector<HTMLFormElement>(".revue__decision")!;
     expect(form.querySelector('input[type="radio"]')).toBeNull();
     setField(form.querySelector("textarea")!, "outside the regional scope");
-    await act(async () => { buttonIn(form, "Confirm").click(); });
+    await act(async () => { buttonIn(form, "Confirmer").click(); });
     await flush();
 
     expect(decisions()).toHaveLength(1);
@@ -178,11 +178,11 @@ describe("ReviewView — keyboard controls and queue tools", () => {
   it("c opens organisation creation", async () => {
     await mount();
     press("c");
-    expect(host.querySelector(".revue__decision-title")?.textContent).toContain("Organisation creation");
+    expect(host.querySelector(".revue__decision-title")?.textContent).toContain("Création d'organisation");
 
     const form = host.querySelector<HTMLFormElement>(".revue__decision")!;
     setField(form.querySelector("textarea")!, "missing from the referential");
-    await act(async () => { buttonIn(form, "Confirm").click(); });
+    await act(async () => { buttonIn(form, "Confirmer").click(); });
     await flush();
 
     expect(decisions()).toHaveLength(1);
@@ -192,7 +192,7 @@ describe("ReviewView — keyboard controls and queue tools", () => {
   it("? opens help and Escape closes it", async () => {
     await mount();
     press("?");
-    expect(host.querySelector('[role="dialog"]')?.textContent).toContain("Keyboard shortcuts");
+    expect(host.querySelector('[role="dialog"]')?.textContent).toContain("Raccourcis clavier");
     press("j");
     expect(host.querySelector('[role="dialog"]')).not.toBeNull();
     press("Escape");
@@ -210,8 +210,8 @@ describe("ReviewView — keyboard controls and queue tools", () => {
     }
     setField(textarea, "jkarc? reasons only");
     expect(host.querySelector('[role="dialog"]')).toBeNull();
-    expect(host.querySelector(".revue__decision-title")?.textContent).toContain("Acceptance");
-    expect(host.querySelector(".revue__bulk-count")?.textContent).toContain("0 selected out of 3");
+    expect(host.querySelector(".revue__decision-title")?.textContent).toContain("Acceptation");
+    expect(host.querySelector(".revue__bulk-count")?.textContent).toContain("0 sélectionnée sur 3");
     expect(decisions()).toHaveLength(0);
 
     press("Escape", { target: textarea });
@@ -229,35 +229,35 @@ describe("ReviewView — keyboard controls and queue tools", () => {
     await act(async () => { buttonIn(familyGroup, "lockbit").click(); });
 
     expect(host.querySelectorAll(".revue__row")).toHaveLength(2);
-    expect(host.querySelector(".revue__results")?.textContent).toContain("family: lockbit");
+    expect(host.querySelector(".revue__results")?.textContent).toContain("famille : lockbit");
 
     const check = host.querySelector<HTMLInputElement>('.revue__row input[type="checkbox"]')!;
     await act(async () => { check.click(); });
-    expect(host.querySelector(".revue__bulk-count")?.textContent).toContain("1 selected out of 2");
+    expect(host.querySelector(".revue__bulk-count")?.textContent).toContain("1 sélectionnée sur 2");
 
     await act(async () => { buttonIn(familyGroup, "qilin").click(); });
     expect(host.querySelectorAll(".revue__row")).toHaveLength(1);
-    expect(host.querySelector(".revue__bulk-count")?.textContent).toContain("0 selected out of 1");
+    expect(host.querySelector(".revue__bulk-count")?.textContent).toContain("0 sélectionnée sur 1");
   });
 
   it("refresh re-reads the queue without reloading the page", async () => {
     await mount();
     expect(calls.filter((call) => call.url.includes("/api/review/queue"))).toHaveLength(1);
 
-    const refresh = host.querySelector<HTMLButtonElement>('button[aria-label="Refresh queue"]')!;
+    const refresh = host.querySelector<HTMLButtonElement>('button[aria-label="Actualiser la file"]')!;
     await act(async () => { refresh.click(); });
     await flush();
 
     expect(calls.filter((call) => call.url.includes("/api/review/queue"))).toHaveLength(2);
-    expect(host.querySelector(".revue__notice")?.textContent).toContain("Queue refreshed");
+    expect(host.querySelector(".revue__notice")?.textContent).toContain("File actualisée");
     expect(host.querySelectorAll(".revue__row")).toHaveLength(3);
   });
 
   it("an empty queue shows an explicit state", async () => {
     queueBody = { ...queue, rows: [], total: 0 };
     await mount();
-    expect(host.querySelector(".revue__empty")?.textContent).toContain("No claims left to review.");
-    expect(host.querySelector(".revue__empty")?.textContent).toContain("every public claim has a recorded decision");
-    expect(host.querySelector(".revue__count")?.textContent).toContain("0 claims left to review");
+    expect(host.querySelector(".revue__empty")?.textContent).toContain("Aucune revendication restante à examiner.");
+    expect(host.querySelector(".revue__empty")?.textContent).toContain("chaque revendication publique a une décision enregistrée");
+    expect(host.querySelector(".revue__count")?.textContent).toContain("0 revendications restantes");
   });
 });

@@ -109,6 +109,20 @@ async function main(): Promise<void> {
 			report("migrations", true, `${r.rows[0].n}/${migrations.length} appliquées`);
 		}
 
+		// --- Inventaire CT (sous-domaines) ----------------------------------
+		// Les snapshots de CT logs sont versionnés : une base neuve doit porter
+		// l'inventaire réel, sinon la vue `shadow_it` n'a rien à classer.
+		const ctAvant = await client.query<{ n: string }>("SELECT count(*)::text AS n FROM ct_sous_domaine");
+		if (Number(ctAvant.rows[0].n) > 0) {
+			report("inventaire CT", true, `${ctAvant.rows[0].n} sous-domaine(s)`);
+		} else if (CHECK) {
+			report("inventaire CT", false, "vide — lancez scripts/load-ct-inventory.mts");
+		} else {
+			await runScript("scripts/load-ct-inventory.mts");
+			const ctApres = await client.query<{ n: string }>("SELECT count(*)::text AS n FROM ct_sous_domaine");
+			report("inventaire CT", true, `${ctApres.rows[0].n} sous-domaine(s)`);
+		}
+
 		// --- Catalogue de sources -------------------------------------------
 		const sourceCount = async () => {
 			const r = await client.query<{ n: string }>("SELECT count(*)::text AS n FROM source");

@@ -50,6 +50,7 @@ import custodyRoute from "./custody.js";
 import publicDataContainersRoute from "./public-data-containers.js";
 import affectedRoute from "./affected.js";
 import attestationsNegativesRoute from "./attestations-negatives.js";
+import watchlistsRoute from "./watchlists.js";
 
 export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
   for (const route of [
@@ -70,6 +71,7 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     publicDataContainersRoute,
     affectedRoute,
     attestationsNegativesRoute,
+    watchlistsRoute,
   ]) {
     await app.register(route, { prefix: "/api" });
   }
