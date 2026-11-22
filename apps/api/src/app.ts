@@ -45,6 +45,11 @@ import statsRoute from "./routes/stats.js";
 import streamRoute from "./routes/stream.js";
 import todayRoute from "./routes/today.js";
 import exportMispRoute from "./routes/export-misp.js";
+import reconnaissanceRoute from "./routes/reconnaissance.js";
+import scanCampaignsRoute from "./routes/scan-campaigns.js";
+import attestationsNegativesRoute from "./routes/attestations-negatives.js";
+import actorAttributionsRoute from "./routes/actor-attributions.js";
+import ransomwareGroupsRoute from "./routes/ransomware-groups.js";
 
 const ROUTES = [
   eventsRoute, historyRoute, healthDetailRoute, healthCausesRoute, todayRoute,
@@ -53,8 +58,12 @@ const ROUTES = [
   enrichRoute, authRoute, alertsRoute, quarantineRoute, reviewRoute, journalRoute,
   orgsLieesRoute, orgsLieesHistoriqueRoute, ingestRoute, dossierRoute, keysRoute,
   custodyRoute, exportMispRoute,
+  // Les mêmes routes que le serveur : une application de test qui en ignore
+  // certaines valide une API qui n'existe pas.
+  reconnaissanceRoute, scanCampaignsRoute, attestationsNegativesRoute,
+  actorAttributionsRoute, ransomwareGroupsRoute,
 ];
-const PUBLIC_READ = /^\/api\/(?:v1\/)?(health|stats|sources|flows|search|directory|graph|stream|events|history|orgs|enrich|alerts|quarantine|dossier|healthz|na|today|couverture|custody|export|docs|openapi\.json|auth)(\/|$|\?)/;
+const PUBLIC_READ = /^\/api\/(?:v1\/)?(health|stats|sources|flows|search|directory|graph|stream|events|history|orgs|enrich|alerts|quarantine|dossier|healthz|na|today|couverture|custody|export|docs|openapi\.json|auth|reconnaissance|scan|attestations-negatives|actor-attributions)(\/|$|\?)/;
 
 export async function buildApp(): Promise<FastifyInstance> {
   const app = Fastify({ logger: false });
