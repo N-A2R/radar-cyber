@@ -1,0 +1,82 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-agriculture-17.jsonl",
+  "secteur": "agriculture",
+  "departement": "17",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+  "methode": "GET réel avec suivi des redirections, User-Agent navigateur, délai 20 s ; statut, type de contenu et titre enregistrés",
+  "sources": 9,
+  "urls_verifiees": 24,
+  "urls_200": 24,
+  "detail": [
+    {
+      "nom": "Jeunes Agriculteurs de la Charente-Maritime (JA 17)",
+      "urls": {
+        "https://www.ja17.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.ja17.fr/actualites/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.ja17.fr/feed/": {"code": 200, "type": "application/rss+xml; charset=UTF-8", "items_rss": 2}
+      }
+    },
+    {
+      "nom": "UNIRE — Union des vignerons de l'île de Ré",
+      "urls": {
+        "https://www.vigneronsiledere.com/": {"code": 200, "type": "text/html", "items_rss": 0},
+        "https://www.vigneronsiledere.com/actus.html": {"code": 200, "type": "text/html", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "Terre de Liens Poitou-Charentes",
+      "urls": {
+        "https://terredeliens.org/poitou-charentes/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://terredeliens.org/poitou-charentes/actu/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "ICI La Rochelle — Charente-Maritime (Radio France)",
+      "urls": {
+        "https://www.ici.fr/radio/la-rochelle": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.ici.fr/nouvelle-aquitaine/charente-maritime-17/actu": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.ici.fr/rss/la-rochelle/rubrique/infos.xml": {"code": 200, "type": "application/xml", "items_rss": 20}
+      }
+    },
+    {
+      "nom": "Sud Ouest — Saintes (Charente-Maritime)",
+      "urls": {
+        "https://www.sudouest.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.sudouest.fr/charente-maritime/saintes/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.sudouest.fr/charente-maritime/saintes/rss.xml": {"code": 200, "type": "application/xml", "items_rss": 20}
+      }
+    },
+    {
+      "nom": "Sud Ouest — La Rochelle (Charente-Maritime)",
+      "urls": {
+        "https://www.sudouest.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.sudouest.fr/charente-maritime/la-rochelle/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.sudouest.fr/charente-maritime/la-rochelle/rss.xml": {"code": 200, "type": "application/xml", "items_rss": 20}
+      }
+    },
+    {
+      "nom": "actu.fr — Saintes (Charente-Maritime)",
+      "urls": {
+        "https://actu.fr/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://actu.fr/nouvelle-aquitaine/saintes_17300/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "France 3 Nouvelle-Aquitaine — Charente-Maritime",
+      "urls": {
+        "https://france3-regions.franceinfo.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente-maritime/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/charente-maritime/rss": {"code": 200, "type": "text/xml; charset=UTF-8", "items_rss": 30}
+      }
+    },
+    {
+      "nom": "La Nouvelle République — Charente-Maritime",
+      "urls": {
+        "https://www.lanouvellerepublique.fr/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.lanouvellerepublique.fr/charente-maritime": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://www.lanouvellerepublique.fr/api/v1/rss/592bf255489a4555008b4568": {"code": 200, "type": "application/rss+xml; charset=UTF-8", "items_rss": 20}
+      }
+    }
+  ]
+}
