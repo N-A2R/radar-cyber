@@ -1,0 +1,17 @@
+{
+  "query": "epsilon.example",
+  "total": 1,
+  "entries": [
+    {
+      "id": "dh-005",
+      "name": "Fuite simulée 05 — fournisseur epsilon",
+      "domain": "epsilon.example",
+      "breach_date": null,
+      "accounts": null,
+      "source_url": "https://example.invalid/dehashed-fixture/05",
+      "email": "contact-fictif@example.invalid",
+      "password": "mot-de-passe-fictif",
+      "ip": "203.0.113.14"
+    }
+  ]
+}

@@ -10,6 +10,7 @@ import { z } from "zod";
 import { evaluateCustody, iso, type CustodyEvent, type CustodyFact } from "../custody/chain.js";
 import { query } from "../db.js";
 import { badRequest, notFound } from "../errors.js";
+import { evenementPublicSql } from "../security/tlp.js";
 
 const CustodyQuery = z.object({
   subject: z.string().trim().min(1).max(300),
@@ -45,7 +46,7 @@ export default async function (app: FastifyInstance): Promise<void> {
       query<EventRow>(
         `SELECT dedup_key, family, title, source_id, source_url,
                 observed_at, collected_at, regional
-           FROM event WHERE dedup_key = $1`,
+           FROM event e WHERE e.dedup_key = $1 AND ${evenementPublicSql("e")}`,
         [subject],
       ),
       query<FactRow>(
