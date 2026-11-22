@@ -63,6 +63,7 @@
   --family-reputation: var(--data-green);
   --family-cti: var(--data-steel);
   --family-presse: var(--muted);
+  --family-presse-locale: #7d8ea3;
 
   /* Natures d'organisation */
   --org-sante: #f05545;
@@ -587,6 +588,7 @@ html[data-theme="clair"] {
   --family-reputation: var(--data-green);
   --family-cti: var(--data-steel);
   --family-presse: var(--muted);
+  --family-presse-locale: #4a5a6b;
   --org-sante: #c42d20;
   --org-collectivite: #2969af;
   --org-entreprise: #9c5600;

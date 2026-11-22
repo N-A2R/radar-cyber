@@ -31,6 +31,7 @@ export const FAMILY_HEX: Record<string, string> = {
   reputation: '#22c55e',
   cti: '#3b82f6',
   presse: '#94a3b8',
+  presse_locale: '#7d8ea3',
 }
 
 export const FAMILY_HEX_FALLBACK = '#7dd3fc'
