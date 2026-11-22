@@ -41,7 +41,11 @@
     "domaines:etendre": "apps/api/node_modules/.bin/tsx scripts/expand-domains.mts",
     "sources:generate": "node scripts/generer-sources-actives.mts",
     "sources:measure": "node scripts/measure-active-sources.mts",
-    "onion:index": "apps/api/node_modules/.bin/tsx scripts/build-onion-index.mts"
+    "onion:index": "apps/api/node_modules/.bin/tsx scripts/build-onion-index.mts",
+    "exposition:web": "apps/api/node_modules/.bin/tsx scripts/collecte-services-web.mts",
+    "exposition:osm": "apps/api/node_modules/.bin/tsx scripts/collecte-services-osm.mts",
+    "exposition:wikidata": "apps/api/node_modules/.bin/tsx scripts/collecte-services-wikidata.mts",
+    "exposition:mesurer": "apps/api/node_modules/.bin/tsx scripts/measure-exposition-na.mts"
   },
   "devDependencies": {
     "embedded-postgres": "18.6.0-beta.19"
