@@ -1,0 +1,24 @@
+{
+  "definition": "A Nouvelle-Aquitaine event reclassified from outside the region journals its admission in the same UPDATE, with an actor, a recording clock and stored proof. No victim personal data.",
+  "scope": "nouvelle-aquitaine",
+  "generatedAt": "2026-11-22T06:07:24.570Z",
+  "actor": "custody:write-boundary@1",
+  "before": {
+    "events": 12,
+    "liveWritten": 0,
+    "rate": 0,
+    "complete": 0,
+    "liveAtInsert": 0,
+    "backfilled": 0,
+    "noVictimData": true
+  },
+  "after": {
+    "events": 12,
+    "liveWritten": 12,
+    "rate": 100,
+    "complete": 12,
+    "liveAtInsert": 0,
+    "backfilled": 0,
+    "noVictimData": true
+  }
+}
