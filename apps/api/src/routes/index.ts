@@ -48,6 +48,7 @@ import resaleListingsRoute from "./resale-listings.js";
 import publicMandatesRoute from "./public-mandates.js";
 import custodyRoute from "./custody.js";
 import insuranceScoreRoute from "./insurance-score.js";
+import publicDataContainersRoute from "./public-data-containers.js";
 import affectedRoute from "./affected.js";
 
 export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
@@ -67,6 +68,7 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     onionIndexRoute,
     custodyRoute,
     insuranceScoreRoute,
+    publicDataContainersRoute,
     affectedRoute,
   ]) {
     await app.register(route, { prefix: "/api" });
