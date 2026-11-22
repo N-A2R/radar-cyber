@@ -49,3 +49,4 @@
 - Intégration base : `db/migrate-182-sources-agriculture-87.sql` — 37 lignes `source`, 104 traces `source_verification` en `ok200` (insertion idempotente).
 - Exemple cyber : Cyberattaque Synel/Arsoé (déc. 2024) : identification bovine/ovine hors service dans 22 départements dont la Haute-Vienne ; chambre d'agriculture 87 citée (France 3, 31/12/2024).
 - Presse agricole Caracterres écartée : elle couvre 16/17/79/86 mais pas le 87 ; Union & Territoires (Terre d'Actu) assure la couche locale.
+OBJECTIF : atteint — 37 / 5
