@@ -71,6 +71,8 @@ jobs:
 
       - name: Tests API
         run: pnpm -F @radar/api test
+      - name: Provenance gate (blocking)
+        run: pnpm provenance:check
 
       - name: Build web
         run: pnpm -F @radar/web build
