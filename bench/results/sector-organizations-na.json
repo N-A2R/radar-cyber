@@ -1,0 +1,18 @@
+{
+  "scope": "Nouvelle-Aquitaine (12 departments)",
+  "measuredAt": "2026-11-21",
+  "source": "PostgreSQL radar: SELECT secteur_groupe, count(*) FROM org GROUP BY 1",
+  "report": "docs/secteurs-groupe.md",
+  "total": 1673151,
+  "organizations": {
+    "services": 949385,
+    "commerce": 175593,
+    "agroalimentaire": 147597,
+    "construction": 115649,
+    "sante": 82455,
+    "industrie": 76618,
+    "autre": 73608,
+    "enseignement": 44385,
+    "public": 7861
+  }
+}
