@@ -62,3 +62,4 @@ DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
   apps/api/node_modules/.bin/tsx scripts/evaluate-models.mts \
   --check=bench/results/model-eval.json
 ```
+OBJECTIF : atteint — 200 / 200
