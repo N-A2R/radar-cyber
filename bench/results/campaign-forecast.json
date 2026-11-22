@@ -1,0 +1,110 @@
+{
+  "dataset": {
+    "organizations": 1673220,
+    "sources": 463,
+    "events": 27899,
+    "claims": 34992,
+    "naClaims": 78
+  },
+  "activeGroups": 5,
+  "groups": [
+    {
+      "group": "qilin",
+      "claims": 15,
+      "campaigns": 10,
+      "sector": "services",
+      "period": {
+        "start": "2027-01-11",
+        "end": "2027-01-25"
+      },
+      "expectedGapDays": 65,
+      "lastCampaignEnd": "2026-11-07"
+    },
+    {
+      "group": "the gentlemen",
+      "claims": 10,
+      "campaigns": 6,
+      "sector": "services",
+      "period": {
+        "start": "2026-11-25",
+        "end": "2026-12-09"
+      },
+      "expectedGapDays": 40,
+      "lastCampaignEnd": "2026-10-16"
+    },
+    {
+      "group": "play",
+      "claims": 4,
+      "campaigns": 4,
+      "sector": "services",
+      "period": {
+        "start": "2027-04-14",
+        "end": "2027-04-28"
+      },
+      "expectedGapDays": 237,
+      "lastCampaignEnd": "2026-08-20"
+    },
+    {
+      "group": "everest",
+      "claims": 3,
+      "campaigns": 3,
+      "sector": "services",
+      "period": {
+        "start": "2026-08-01",
+        "end": "2026-08-15"
+      },
+      "expectedGapDays": 144,
+      "lastCampaignEnd": "2026-03-10"
+    },
+    {
+      "group": "lynx",
+      "claims": 3,
+      "campaigns": 2,
+      "sector": "services",
+      "period": {
+        "start": "2025-12-03",
+        "end": "2025-12-17"
+      },
+      "expectedGapDays": 141,
+      "lastCampaignEnd": "2025-07-15"
+    }
+  ],
+  "backtest": {
+    "folds": 20,
+    "sectorHits": 10,
+    "periodHits": 10,
+    "medianErrorDays": 42,
+    "byGroup": [
+      {
+        "group": "qilin",
+        "folds": 9,
+        "sectorHits": 4,
+        "periodHits": 5
+      },
+      {
+        "group": "the gentlemen",
+        "folds": 5,
+        "sectorHits": 1,
+        "periodHits": 4
+      },
+      {
+        "group": "play",
+        "folds": 3,
+        "sectorHits": 2,
+        "periodHits": 0
+      },
+      {
+        "group": "everest",
+        "folds": 2,
+        "sectorHits": 2,
+        "periodHits": 1
+      },
+      {
+        "group": "lynx",
+        "folds": 1,
+        "sectorHits": 1,
+        "periodHits": 0
+      }
+    ]
+  }
+}
