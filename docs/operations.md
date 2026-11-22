@@ -511,12 +511,15 @@ Variables d'environnement (voir `.env.example`) :
 At least one complete channel is required: webhook, Telegram token+chat, or
 email host+from+to. Without one, no delivery loop is registered.
 The public RSS feed is always available at `GET /api/alerts/rss.xml`.
+<<<<<<< ours
 
 Le canal webhook signe le corps JSON brut en HMAC-SHA256 et ajoute
 `x-radar-timestamp` (secondes Unix) et `x-radar-signature` (`sha256=<hex>`).
 Le client recalcule `HMAC-SHA256(secret, timestamp + "." + corps brut)` et refuse
 une signature absente, différente ou dont le timestamp sort de ±300 secondes.
 Sans secret configuré, aucun `POST` n'est envoyé et l'alerte passe en échec.
+=======
+>>>>>>> theirs
 
 ### Comportement
 
