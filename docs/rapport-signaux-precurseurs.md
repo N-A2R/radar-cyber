@@ -34,7 +34,7 @@ La piste suivante, si elle est retenue, est donc d'abord une piste de **données
 
 ## Suite mesurée (22 novembre 2026)
 
-Les deux sources CT rattachables par domaine ont depuis été auditées : voir `docs/rapport-precurseurs-ct.md`. Total désormais couvert : **11 sources horodatées, 165 paires victime × source, 0 signal antérieur, 0/15 victimes couvertes**. La valeur prédictive du classement reste nulle.
+Les deux sources CT rattachables par domaine ont depuis été auditées : voir `docs/rapport-precurseurs-ct.md`. Les indices de quarantaine non rattachés par organisation ont ensuite été audités : voir `docs/rapport-precurseurs-quarantaine.md`. Total désormais couvert : **12 sources horodatées, 180 paires victime × source, 0 signal antérieur, 0/15 victimes couvertes**. La valeur prédictive du classement reste nulle.
 
 ## Conformité
 
