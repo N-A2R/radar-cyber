@@ -1,0 +1,18 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:faed70ad-5d1b-48dc-ad57-7e8ad534d8d6>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 129
+WARC-Block-Digest: sha1:2CHOWWFXFFY5JLQTH52LYO4VYDHK74FC
+X-Claim-Fingerprint: 0daa7b8039d1599807eb61b7
+X-Victim-Key: c0ae4b32a87fa3064c262f34
+
+{
+        "post_title": "American Dream",
+        "group_name": "conti",
+        "discovered": "2021-12-30 01:51:27.442792"
+    }
+

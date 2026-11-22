@@ -1,0 +1,422 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-sante-79.jsonl",
+  "secteur": "santé",
+  "departement": "79",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36",
+  "methode": "GET avec suivi des redirections, statut HTTP final, type de contenu et détection des pages d'erreur soft-404",
+  "sources": 12,
+  "urls_verifiees": 48,
+  "urls_200": 48,
+  "anomalies": [],
+  "detail": {
+    "Centre hospitalier de Niort": [
+      {
+        "role": "site",
+        "url": "https://www.ch-niort.fr/",
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.ch-niort.fr/",
+        "soft_error": false
+      },
+      {
+        "role": "actualites",
+        "url": "https://www.ch-niort.fr/actualites/",
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.ch-niort.fr/actualites",
+        "soft_error": false
+      },
+      {
+        "role": "flux",
+        "url": "https://www.ch-niort.fr/rss.xml",
+        "code": 200,
+        "type": "application/rss+xml; charset=utf-8",
+        "final": "https://www.ch-niort.fr/rss.xml",
+        "soft_error": false
+      },
+      {
+        "role": "cyber",
+        "url": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+        "soft_error": false
+      }
+    ],
+    "ARS Nouvelle-Aquitaine — périmètre Deux-Sèvres (79)": [
+      {
+        "role": "site",
+        "url": "https://www.nouvelle-aquitaine.ars.sante.fr/",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.nouvelle-aquitaine.ars.sante.fr/",
+        "soft_error": false
+      },
+      {
+        "role": "actualites",
+        "url": "https://www.nouvelle-aquitaine.ars.sante.fr/liste-actualites?archive=0",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.nouvelle-aquitaine.ars.sante.fr/liste-actualites?archive=0",
+        "soft_error": false
+      },
+      {
+        "role": "flux",
+        "url": "https://www.nouvelle-aquitaine.ars.sante.fr/rss.xml?type=ars_actualite",
+        "code": 200,
+        "type": "application/rss+xml; charset=utf-8",
+        "final": "https://www.nouvelle-aquitaine.ars.sante.fr/rss.xml?type=ars_actualite",
+        "soft_error": false
+      },
+      {
+        "role": "cyber",
+        "url": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+        "soft_error": false
+      }
+    ],
+    "CPAM des Deux-Sèvres — Assurance Maladie": [
+      {
+        "role": "site",
+        "url": "https://www.ameli.fr/deux-sevres/assure",
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.ameli.fr/deux-sevres/assure",
+        "soft_error": false
+      },
+      {
+        "role": "actualites",
+        "url": "https://www.ameli.fr/deux-sevres/assure/liste-actualites-locales",
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.ameli.fr/deux-sevres/assure/liste-actualites-locales",
+        "soft_error": false
+      },
+      {
+        "role": "flux",
+        "url": "https://www.ameli.fr/deux-sevres/assure/liste-actualites-locales",
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.ameli.fr/deux-sevres/assure/liste-actualites-locales",
+        "soft_error": false
+      },
+      {
+        "role": "cyber",
+        "url": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+        "soft_error": false
+      }
+    ],
+    "Conseil départemental de l'Ordre des médecins des Deux-Sèvres": [
+      {
+        "role": "site",
+        "url": "https://conseil79.ordre.medecin.fr/",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://conseil79.ordre.medecin.fr/",
+        "soft_error": false
+      },
+      {
+        "role": "actualites",
+        "url": "https://conseil79.ordre.medecin.fr/actualites",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://conseil79.ordre.medecin.fr/actualites",
+        "soft_error": false
+      },
+      {
+        "role": "flux",
+        "url": "https://conseil79.ordre.medecin.fr/rss",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://conseil79.ordre.medecin.fr/rss",
+        "soft_error": false
+      },
+      {
+        "role": "cyber",
+        "url": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+        "soft_error": false
+      }
+    ],
+    "FHF Nouvelle-Aquitaine — Fédération Hospitalière de France": [
+      {
+        "role": "site",
+        "url": "https://fhf-na.fr/",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://fhf-na.fr/",
+        "soft_error": false
+      },
+      {
+        "role": "actualites",
+        "url": "https://fhf-na.fr/actualites/",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://fhf-na.fr/2021/12/02/actualites/",
+        "soft_error": false
+      },
+      {
+        "role": "flux",
+        "url": "https://fhf-na.fr/feed/",
+        "code": 200,
+        "type": "application/rss+xml; charset=UTF-8",
+        "final": "https://fhf-na.fr/feed/",
+        "soft_error": false
+      },
+      {
+        "role": "cyber",
+        "url": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+        "soft_error": false
+      }
+    ],
+    "France Assos Santé Nouvelle-Aquitaine": [
+      {
+        "role": "site",
+        "url": "https://nouvelle-aquitaine.france-assos-sante.org/",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://nouvelle-aquitaine.france-assos-sante.org/",
+        "soft_error": false
+      },
+      {
+        "role": "actualites",
+        "url": "https://nouvelle-aquitaine.france-assos-sante.org/actualites/",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://nouvelle-aquitaine.france-assos-sante.org/actualites/",
+        "soft_error": false
+      },
+      {
+        "role": "flux",
+        "url": "https://nouvelle-aquitaine.france-assos-sante.org/feed/",
+        "code": 200,
+        "type": "application/rss+xml; charset=UTF-8",
+        "final": "https://nouvelle-aquitaine.france-assos-sante.org/feed/",
+        "soft_error": false
+      },
+      {
+        "role": "cyber",
+        "url": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+        "soft_error": false
+      }
+    ],
+    "URPS Médecins Libéraux Nouvelle-Aquitaine": [
+      {
+        "role": "site",
+        "url": "https://www.urpsml-na.org/",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.urpsml-na.org/",
+        "soft_error": false
+      },
+      {
+        "role": "actualites",
+        "url": "https://www.urpsml-na.org/",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.urpsml-na.org/",
+        "soft_error": false
+      },
+      {
+        "role": "flux",
+        "url": "https://www.urpsml-na.org/feed/",
+        "code": 200,
+        "type": "application/rss+xml; charset=UTF-8",
+        "final": "https://www.urpsml-na.org/feed/",
+        "soft_error": false
+      },
+      {
+        "role": "cyber",
+        "url": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+        "soft_error": false
+      }
+    ],
+    "actu.fr — Deux-Sèvres (79)": [
+      {
+        "role": "site",
+        "url": "https://actu.fr/nouvelle-aquitaine/deux-sevres_79/",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://actu.fr/nouvelle-aquitaine/deux-sevres_79",
+        "soft_error": false
+      },
+      {
+        "role": "actualites",
+        "url": "https://actu.fr/nouvelle-aquitaine/deux-sevres_79/",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://actu.fr/nouvelle-aquitaine/deux-sevres_79",
+        "soft_error": false
+      },
+      {
+        "role": "flux",
+        "url": "https://actu.fr/nouvelle-aquitaine/deux-sevres_79/rss.xml",
+        "code": 200,
+        "type": "application/rss+xml; charset=utf-8",
+        "final": "https://actu.fr/nouvelle-aquitaine/deux-sevres_79/rss.xml",
+        "soft_error": false
+      },
+      {
+        "role": "cyber",
+        "url": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+        "soft_error": false
+      }
+    ],
+    "ICI Poitou — Deux-Sèvres (79)": [
+      {
+        "role": "site",
+        "url": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79",
+        "soft_error": false
+      },
+      {
+        "role": "actualites",
+        "url": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79",
+        "soft_error": false
+      },
+      {
+        "role": "flux",
+        "url": "https://www.ici.fr/rss/poitou/rubrique/infos.xml",
+        "code": 200,
+        "type": "application/xml",
+        "final": "https://www.ici.fr/rss/poitou/rubrique/infos.xml",
+        "soft_error": false
+      },
+      {
+        "role": "cyber",
+        "url": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+        "soft_error": false
+      }
+    ],
+    "La Nouvelle République — Deux-Sèvres, rubrique Santé": [
+      {
+        "role": "site",
+        "url": "https://www.lanouvellerepublique.fr/deux-sevres",
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.lanouvellerepublique.fr/deux-sevres",
+        "soft_error": false
+      },
+      {
+        "role": "actualites",
+        "url": "https://www.lanouvellerepublique.fr/deux-sevres/sante",
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.lanouvellerepublique.fr/deux-sevres/sante",
+        "soft_error": false
+      },
+      {
+        "role": "flux",
+        "url": "https://www.lanouvellerepublique.fr/deux-sevres/sante",
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.lanouvellerepublique.fr/deux-sevres/sante",
+        "soft_error": false
+      },
+      {
+        "role": "cyber",
+        "url": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+        "soft_error": false
+      }
+    ],
+    "Centre hospitalier Nord Deux-Sèvres (Parthenay, Thouars, Faye-l'Abbesse)": [
+      {
+        "role": "site",
+        "url": "https://www.chnds.fr/",
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.chnds.fr/",
+        "soft_error": false
+      },
+      {
+        "role": "actualites",
+        "url": "https://www.chnds.fr/Actualites/1/14",
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.chnds.fr/Actualites/1/14",
+        "soft_error": false
+      },
+      {
+        "role": "flux",
+        "url": "https://www.chnds.fr/Actualites/1/14",
+        "code": 200,
+        "type": "text/html; charset=utf-8",
+        "final": "https://www.chnds.fr/Actualites/1/14",
+        "soft_error": false
+      },
+      {
+        "role": "cyber",
+        "url": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+        "soft_error": false
+      }
+    ],
+    "Santé publique France — Nouvelle-Aquitaine": [
+      {
+        "role": "site",
+        "url": "https://www.santepubliquefrance.fr/regions-et-territoires/nouvelle-aquitaine",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.santepubliquefrance.fr/regions-et-territoires/nouvelle-aquitaine",
+        "soft_error": false
+      },
+      {
+        "role": "actualites",
+        "url": "https://www.santepubliquefrance.fr/les-actualites",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.santepubliquefrance.fr/les-actualites",
+        "soft_error": false
+      },
+      {
+        "role": "flux",
+        "url": "https://www.santepubliquefrance.fr/rss.xml",
+        "code": 200,
+        "type": "application/rss+xml; charset=utf-8",
+        "final": "https://www.santepubliquefrance.fr/rss.xml",
+        "soft_error": false
+      },
+      {
+        "role": "cyber",
+        "url": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+        "code": 200,
+        "type": "text/html; charset=UTF-8",
+        "final": "https://www.ici.fr/nouvelle-aquitaine/deux-sevres-79/champdeniers/deux-sevres-un-ehpad-de-champdeniers-victime-d-une-cyberattaque-avec-demande-de-rancon-4095797",
+        "soft_error": false
+      }
+    ]
+  }
+}

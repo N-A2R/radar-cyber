@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:aea5ed98-c2ec-41fd-adb4-9ed4c56ac401>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/recent/5000
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 316
+WARC-Block-Digest: sha1:BAGSHEY3JVZTNG4VPPMY7M3SU2O5KA66
+X-Claim-Fingerprint: 80b5357d0a9e0d52e2b36b30
+X-Victim-Key: 1968f0057809db2efe13855b
+
+{"post_title": "Zanichelli", "discovered": "2026-08-16 14:41:04.780306", "description": "Advertising & Marketing", "link": "/site/blog?uuid=f2695bd2-1efb-4617-a01f-6f50a9e53f34", "magnet": null, "screen": "screenshots/qilin/Zanichelli.png", "misp_uuid": "2505dd40-bfbe-50b1-be0f-a8119dc36add", "group_name": "qilin"}
+
