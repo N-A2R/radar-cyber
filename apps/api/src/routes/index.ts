@@ -46,6 +46,8 @@ import confidenceRoute from "./confidence.js";
 import leaksByDomainRoute from "./leaks-by-domain.js";
 import resaleListingsRoute from "./resale-listings.js";
 import publicMandatesRoute from "./public-mandates.js";
+import technicalCoverageRoute from "./technical-coverage.js";
+import naDepartmentsRoute from "./na-departments.js";
 import custodyRoute from "./custody.js";
 import publicDataContainersRoute from "./public-data-containers.js";
 import affectedRoute from "./affected.js";
@@ -66,6 +68,8 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     resaleListingsRoute,
     cyberContractsRoute,
     publicMandatesRoute,
+    technicalCoverageRoute,
+    naDepartmentsRoute,
     onionIndexRoute,
     custodyRoute,
     publicDataContainersRoute,
