@@ -1,0 +1,92 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-batiment-40.jsonl",
+  "secteur": "bâtiment",
+  "departement": "40",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+  "methode": "GET HTTP avec User-Agent navigateur, redirections suivies, statut final, type MIME, URL effective et octets téléchargés relevés pour chaque URL du corpus ; délai 25 s",
+  "sources": 22,
+  "urls_verifiees": 55,
+  "urls_200": 55,
+  "anomalies": [],
+  "detail": {
+    "corpus:batiment-40-01-capeb-landes-section-departementale-du-batiment": {"urls": {
+      "https://www.capeb.fr/landes/": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://www.capeb.fr/landes/", "octets": 55730},
+      "https://www.capeb.fr/landes/actualites": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://www.capeb.fr/landes/actualites", "octets": 48712}
+    }},
+    "corpus:batiment-40-02-cma-nouvelle-aquitaine-chambre-des-metiers-et-de-l-artisanat-landes-40": {"urls": {
+      "https://cma-nouvelleaquitaine.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://cma-nouvelleaquitaine.fr/", "octets": 324235},
+      "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites?news_list%5Bsearch%5D=Landes": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites?news_list%5Bsearch%5D=Landes", "octets": 280390}
+    }},
+    "corpus:batiment-40-03-pro-rge-entreprises-rge-dans-les-landes-40": {"urls": {
+      "https://pro-rge.fr/entreprise/d/40/": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://pro-rge.fr/entreprise/d/40/", "octets": 268061},
+      "https://pro-rge.fr/entreprises/landes-40/": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://pro-rge.fr/entreprises/landes-40/", "octets": 382955},
+      "https://news.google.com/rss/search?q=RGE+Landes+b%C3%A2timent&hl=fr&gl=FR&ceid=FR:fr": {"code": 200, "type": "application/xml; charset=utf-8", "url_finale": "https://news.google.com/rss/search?q=RGE+Landes+b%C3%A2timent&hl=fr&gl=FR&ceid=FR:fr", "octets": 8744}
+    }},
+    "corpus:batiment-40-04-qualibat-certification-et-annuaire-des-entreprises-du-batiment": {"urls": {
+      "https://www.qualibat.com/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.qualibat.com/", "octets": 147636},
+      "https://www.qualibat.com/actualites": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.qualibat.com/actualites", "octets": 99350}
+    }},
+    "corpus:batiment-40-05-artisanat-fr-magazine-d-actualites-de-l-artisanat-cma": {"urls": {
+      "https://www.artisanat.fr/": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://www.artisanat.fr/", "octets": 118288},
+      "https://www.artisanat.fr/magazine/actus": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://www.artisanat.fr/magazine/actus", "octets": 140397}
+    }},
+    "corpus:batiment-40-06-siteartisan-annuaire-des-artisans": {"urls": {
+      "https://www.siteartisan.fr/annuaire/": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://www.siteartisan.fr/annuaire/", "octets": 29208},
+      "https://www.siteartisan.fr/blog/": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://www.siteartisan.fr/blog/", "octets": 60026},
+      "https://www.siteartisan.fr/blog/feed.xml": {"code": 200, "type": "application/rss+xml; charset=utf-8", "url_finale": "https://www.siteartisan.fr/blog/feed.xml", "octets": 28752}
+    }},
+    "corpus:batiment-40-07-artisans-reunis-artisans-des-landes-40": {"urls": {
+      "https://artisansreunis.fr/departement/40-landes": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://artisansreunis.fr/departement/40-landes", "octets": 222512},
+      "https://artisansreunis.fr/blog": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://artisansreunis.fr/blog", "octets": 841531}
+    }},
+    "corpus:batiment-40-08-cci-des-landes-entreprises-du-batiment-et-de-la-construction": {"urls": {
+      "https://landes.cci.fr/": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://www.landes.cci.fr/", "octets": 159580},
+      "https://www.landes.cci.fr/presse/": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://www.landes.cci.fr/presse/", "octets": 208490},
+      "https://news.google.com/rss/search?q=site%3Alandes.cci.fr+b%C3%A2timent&hl=fr&gl=FR&ceid=FR:fr": {"code": 200, "type": "application/xml; charset=utf-8", "url_finale": "https://news.google.com/rss/search?q=site%3Alandes.cci.fr+b%C3%A2timent&hl=fr&gl=FR&ceid=FR:fr", "octets": 54846}
+    }},
+    "corpus:batiment-40-09-ville-de-mont-de-marsan-urbanisme-habitat-et-travaux": {"urls": {
+      "https://www.montdemarsan.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.montdemarsan.fr/", "octets": 413236},
+      "https://www.montdemarsan.fr/connaitre-le-territoire/actualites/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.montdemarsan.fr/connaitre-le-territoire/actualites/", "octets": 306083},
+      "https://www.montdemarsan.fr/feed/": {"code": 200, "type": "application/rss+xml; charset=UTF-8", "url_finale": "https://www.montdemarsan.fr/feed/", "octets": 1010}
+    }},
+    "corpus:batiment-40-10-grand-dax-agglomeration-urbanisme-et-travaux-publics": {"urls": {
+      "https://www.grand-dax.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.grand-dax.fr/", "octets": 285204},
+      "https://www.grand-dax.fr/connaitre-lagglo/actualite-agenda/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.grand-dax.fr/connaitre-lagglo/actualite-agenda/", "octets": 214827},
+      "https://news.google.com/rss/search?q=%22Grand+Dax%22+b%C3%A2timent+construction&hl=fr&gl=FR&ceid=FR:fr": {"code": 200, "type": "application/xml; charset=utf-8", "url_finale": "https://news.google.com/rss/search?q=%22Grand+Dax%22+b%C3%A2timent+construction&hl=fr&gl=FR&ceid=FR:fr", "octets": 12292}
+    }},
+    "corpus:batiment-40-11-ici-gascogne-actualites-landes-40": {"urls": {
+      "https://www.ici.fr/nouvelle-aquitaine/landes-40": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.ici.fr/nouvelle-aquitaine/landes-40", "octets": 292922},
+      "https://www.ici.fr/rss/gascogne/rubrique/infos.xml": {"code": 200, "type": "application/xml", "url_finale": "https://www.ici.fr/rss/gascogne/rubrique/infos.xml", "octets": 19980}
+    }},
+    "corpus:batiment-40-12-france-3-nouvelle-aquitaine-edition-landes": {"urls": {
+      "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes", "octets": 594828},
+      "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes/rss": {"code": 200, "type": "text/xml; charset=UTF-8", "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes/rss", "octets": 79622}
+    }},
+    "corpus:batiment-40-13-actu-fr-actu-landes": {"urls": {
+      "https://actu.fr/nouvelle-aquitaine/landes_40/": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://actu.fr/nouvelle-aquitaine/landes_40", "octets": 329577},
+      "https://actu.fr/landes/dernieres-actus": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://actu.fr/landes/dernieres-actus", "octets": 225574},
+      "https://actu.fr/landes/rss.xml": {"code": 200, "type": "application/rss+xml; charset=utf-8", "url_finale": "https://actu.fr/landes/rss.xml", "octets": 32142}
+    }},
+    "corpus:batiment-40-14-landes-info-actualites-locales": {"urls": {
+      "https://landesinfo.net/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://landesinfo.net/", "octets": 146277},
+      "https://landesinfo.net/edition": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://landesinfo.net/edition", "octets": 143792},
+      "https://landesinfo.net/feed/": {"code": 200, "type": "application/rss+xml; charset=UTF-8", "url_finale": "https://landesinfo.net/feed", "octets": 62693}
+    }},
+    "corpus:batiment-40-15-les-annonces-landaises-hebdomadaire-local": {"urls": {
+      "https://www.annonces-landaises.com/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.annonces-landaises.com/", "octets": 303467},
+      "https://www.annonces-landaises.com/categories/collectivites/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.annonces-landaises.com/categories/collectivites/", "octets": 159124},
+      "https://www.annonces-landaises.com/feed/": {"code": 200, "type": "application/rss+xml; charset=UTF-8", "url_finale": "https://www.annonces-landaises.com/feed/", "octets": 62501}
+    }},
+    "corpus:batiment-40-16-google-actualites-veille-batiment-landes-40": {"urls": {
+      "https://news.google.com/": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://news.google.com/home?ucbcb=1&hl=fr&gl=FR&ceid=FR:fr", "octets": 1687239},
+      "https://news.google.com/rss/search?q=b%C3%A2timent%20Landes%2040&hl=fr&gl=FR&ceid=FR:fr": {"code": 200, "type": "application/xml; charset=utf-8", "url_finale": "https://news.google.com/rss/search?q=b%C3%A2timent%20Landes%2040&hl=fr&gl=FR&ceid=FR:fr", "octets": 53560}
+    }},
+    "corpus:batiment-40-17-caue-des-landes-conseil-d-architecture-d-urbanisme-et-de-l-environnement": {"urls": {"https://caue40.com/": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://caue40.com/", "octets": 52711}, "https://caue40.com/blog": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://caue40.com/blog", "octets": 46921}, "https://caue40.com/rss.xml": {"code": 200, "type": "application/rss+xml; charset=utf-8", "url_finale": "https://caue40.com/rss.xml", "octets": 17308}}},
+    "corpus:batiment-40-18-technopole-domolandes-construction-durable-dax": {"urls": {"https://www.domolandes.fr/": {"code": 200, "type": "text/html", "url_finale": "https://www.domolandes.fr/", "octets": 305613}, "https://www.domolandes.fr/actualites/": {"code": 200, "type": "text/html", "url_finale": "https://www.domolandes.fr/actualites/", "octets": 227083}, "https://www.domolandes.fr/feed/": {"code": 200, "type": "application/rss+xml; charset=UTF-8", "url_finale": "https://www.domolandes.fr/feed/", "octets": 817}}},
+    "corpus:batiment-40-19-cluster-odeys-construction-et-amenagement-durables": {"urls": {"https://www.odeys.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.odeys.fr/", "octets": 77523}, "https://www.odeys.fr/actualites": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.odeys.fr/actualites", "octets": 49055}, "https://www.odeys.fr/rss.xml": {"code": 200, "type": "application/rss+xml; charset=utf-8", "url_finale": "https://www.odeys.fr/rss.xml", "octets": 48903}}},
+    "corpus:batiment-40-20-cerc-nouvelle-aquitaine-observatoire-de-la-construction": {"urls": {"https://www.cerc-na.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.cerc-na.fr/", "octets": 83143}, "https://www.cerc-na.fr/category/actualites/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.cerc-na.fr/category/actualites/", "octets": 62105}, "https://www.cerc-na.fr/feed/": {"code": 200, "type": "application/rss+xml; charset=UTF-8", "url_finale": "https://www.cerc-na.fr/feed/", "octets": 18708}}},
+    "corpus:batiment-40-21-placeco-landes-presse-economique-locale": {"urls": {"https://www.placeco.fr/landes/": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.placeco.fr/landes/", "octets": 143026}, "https://www.placeco.fr/landes/rss.xml": {"code": 200, "type": "text/html; charset=UTF-8", "url_finale": "https://www.placeco.fr/landes/rss.xml", "octets": 37596}}},
+    "corpus:batiment-40-22-artizo-annuaire-des-artisans-des-landes": {"urls": {"https://www.artizo.fr/catalogue/landes/": {"code": 200, "type": "text/html; charset=utf-8", "url_finale": "https://www.artizo.fr/catalogue/landes/", "octets": 61747}}}
+  }
+}
