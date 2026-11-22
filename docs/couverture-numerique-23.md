@@ -36,3 +36,5 @@ Découverte par recherche web, annuaires professionnels, sites d’organisations
 Corpus : `bench/corpus/sources-numerique-23.jsonl` (15 lignes, empreinte recalculée dans `bench/corpus/HASH`).
 Preuve HTTP : `bench/results/verification-numerique-23.json` (43 codes HTTP).
 Base : `db/migrate-082-sources-numerique-23.sql` insère 15 lignes dans `source` (parser pointant vers le corpus) et 15 traces `source_verification` en état `ok200`.
+
+OBJECTIF : atteint — 15 sources vérifiées HTTP 200 / 5 sources vérifiées HTTP 200 minimum (couple « numerique » / 23)
