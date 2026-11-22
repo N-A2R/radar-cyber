@@ -1,0 +1,9 @@
+{
+  "scope": "Nouvelle-Aquitaine (12 departments)",
+  "capturedAt": "2026-11-21",
+  "organisations": 1673151,
+  "sources": 312,
+  "events": 26719,
+  "archivedEvents": 4710,
+  "origin": "docs/couverture-mesuree.md and docs/agents-cpu.md, read-only PostgreSQL state of 2026-11-21"
+}

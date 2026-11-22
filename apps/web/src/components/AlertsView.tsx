@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { api, authHeaders, type Alert, type AlertConfidence, type AlertStatRow, type AlertStatus } from "../api";
+import { api, type Alert, type AlertConfidence, type AlertStatRow, type AlertStatus } from "../api";
 import type { AlertsViewProps } from "../contracts";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
 import { FAMILY_LABEL } from "./SourcesView";
@@ -69,16 +69,6 @@ export function readEvidence(raw: unknown): AlertEvidence | null {
     out.faits = obj.faits.filter((v): v is string | number => typeof v === "string" || typeof v === "number");
   }
   return Object.keys(out).length > 0 ? out : null;
-}
-
-async function fetchAlertDetail(id: number): Promise<AlertDetail> {
-  const res = await fetch(`/api/alerts/${id}`, { headers: authHeaders() });
-  if (!res.ok) {
-    const err = new Error(`/alerts/${id} → ${res.status}`) as Error & { status?: number };
-    err.status = res.status;
-    throw err;
-  }
-  return res.json() as Promise<AlertDetail>;
 }
 
 const STATUSES: { id: AlertStatus | "all"; label: string }[] = [
@@ -189,7 +179,7 @@ export default function AlertsView({ canWrite, onUnauthorized, onOpenEvent, refr
     let cancelled = false;
     setDetail(null);
     setDetailError(null);
-    fetchAlertDetail(openId)
+    api.alertDetail<AlertDetail>(openId)
       .then((d) => {
         if (!cancelled) setDetail(d);
       })
