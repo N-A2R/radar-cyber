@@ -23,6 +23,7 @@ const CouvertureView = lazy(() => import("./components/CouvertureView"));
 const AlertsView = lazy(() => import("./components/AlertsView"));
 const LoginScreen = lazy(() => import("./components/LoginScreen"));
 const CorpusView = lazy(() => import("./components/CorpusView"));
+const WarcProofCard = lazy(() => import("./components/WarcProofCard"));
 import type { ViewKey } from "./contracts";
 import { parseHash, toHash, shareableUrl, type AppUrlState } from "./url-state";
 
@@ -845,7 +846,10 @@ export default function App() {
           {view === "journal" ? <JournalView onUnauthorized={onUnauthorized} /> : null}
 
           {view === "corpus" ? (
-            <CorpusView data={corpusData} loading={corpusLoading} error={corpusError} />
+            <>
+              <CorpusView data={corpusData} loading={corpusLoading} error={corpusError} />
+              {MOCK_MODE ? null : <WarcProofCard />}
+            </>
           ) : null}
           {view === "sources" ? <SourcesView sources={sources} loading={loading} error={error} onRetry={recharger} /> : null}
 

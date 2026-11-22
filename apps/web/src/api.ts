@@ -353,6 +353,27 @@ export type CorpusStats = {
   recentIncidents: CorpusIncident[];
 };
 
+/** Counters published by GET /api/warc/proofs; no archived bodies are exposed. */
+export type WarcProofStats = {
+  scope: string;
+  definition: string;
+  eligibleFacts: number;
+  factsWithArchivableProof: number;
+  target: number;
+  coveragePercent: number;
+  warcFiles: number;
+  warcBytes: number;
+  invalidProofs: number;
+  recent: Array<{
+    eventId: string;
+    sourceUrl: string;
+    recordId: string;
+    sha256: string;
+    capturedAt: string;
+  }>;
+  generatedAt: string;
+};
+
 /** Nature d'un nœud du graphe relationnel (GET /api/graph). */
 export type GraphNodeKind =
   | "org"
@@ -1101,6 +1122,8 @@ export const api = {
   statsDepartements: (signal?: AbortSignal) => get<StatsDepartements>("/today/departements", signal),
   /** Écran Corpus : volumes, couverture des domaines et croissance. */
   corpusStats: (signal?: AbortSignal) => get<CorpusStats>("/corpus/stats", signal),
+  /** Verified WARC-proof counters; metadata only, no archived page bodies. */
+  warcProofs: (signal?: AbortSignal) => get<WarcProofStats>("/warc/proofs", signal),
   stats: () => get<Stats>("/stats"),
   /** Couverture mesurée : une seule lecture, identique d'un appel à l'autre. */
   couverture: (signal?: AbortSignal) => get<CouvertureResponse>("/couverture", signal),
