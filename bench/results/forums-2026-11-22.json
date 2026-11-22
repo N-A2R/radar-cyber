@@ -1,0 +1,64 @@
+{
+  "measuredAt": "2026-11-22T00:48:00.550Z",
+  "corpus": {
+    "capturedAt": "2026-11-22T00:46:31.282Z",
+    "messages": 106,
+    "errors": []
+  },
+  "realState": {
+    "capturedAt": "2026-11-22T00:00:00Z",
+    "database": "postgres://radar:radar@localhost:5432/radar",
+    "captureCommand": "sudo -n -u postgres psql -p 5432 -d radar -tAc \"SELECT (SELECT count(*) FROM org), (SELECT count(*) FROM source), (SELECT count(*) FROM event);\"",
+    "organisations": 1673151,
+    "sources": 312,
+    "events": 26214
+  },
+  "followedForums": 5,
+  "relevantMessages": 10,
+  "messagesSeen": 106,
+  "rejected": {
+    "relevant": 0,
+    "empty": 0,
+    "personal-data": 3,
+    "outside-na": 88,
+    "no-cyber-signal": 5
+  },
+  "bySource": [
+    {
+      "id": "forum:hn:bordeaux",
+      "name": "Hacker News — bordeaux discussion",
+      "seen": 1,
+      "relevant": 1
+    },
+    {
+      "id": "forum:hn:gironde",
+      "name": "Hacker News — gironde discussion",
+      "seen": 0,
+      "relevant": 0
+    },
+    {
+      "id": "forum:hn:poitiers",
+      "name": "Hacker News — poitiers discussion",
+      "seen": 15,
+      "relevant": 9
+    },
+    {
+      "id": "forum:hn:latest",
+      "name": "Hacker News — latest discussion",
+      "seen": 30,
+      "relevant": 0
+    },
+    {
+      "id": "forum:letsencrypt:community",
+      "name": "Let's Encrypt community — latest discussion",
+      "seen": 30,
+      "relevant": 0
+    },
+    {
+      "id": "forum:httparchive:discuss",
+      "name": "HTTP Archive discuss — latest discussion",
+      "seen": 30,
+      "relevant": 0
+    }
+  ]
+}

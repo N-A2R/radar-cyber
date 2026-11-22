@@ -34,6 +34,7 @@ import { installAccessControl } from "./security/rbac.js";
 import { installSecurityHeaders } from "./security/headers.js";
 import { installErrorHandler } from "./errors.js";
 import { installPublicApi } from "./openapi/install.js";
+import { runForumCycle } from "./forums/collect.js";
 
 const port = Number(process.env.PORT ?? 8080);
 /** Cadence de la boucle de collecte. */
@@ -345,6 +346,7 @@ if (COLLECT) {
 	startLiveStream(log);
 	void guarded("corrélation", () => correlateEvents(log));
 	void guarded("hermes", () => runHermesCollector(log));
+	void guarded("forums", () => runForumCycle(log));
 	void guarded("détection", async () => {
 		const pass = await runDetectionPass();
 		log(`detection initiale : ${pass.alerts} alerte(s) sur ${pass.events} evenement(s)`);
