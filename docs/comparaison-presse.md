@@ -1,7 +1,11 @@
 # Comparaison presse / radar — dix incidents du corpus
 
 Mesure du **21 novembre 2026**. Corpus : `bench/fixtures/corpus-reference-na.json`
-(60 incidents, fenêtre `2025-11-01 → 2026-10-31`).
+ (60 incidents, fenêtre `2025-11-01 → 2026-10-31`).
+
+**Objectif déclaré** (22 novembre 2026) : comparer dix incidents publics vérifiés de Nouvelle-Aquitaine — cible **presse 10 / 10, radar 0 / 10**, écart médian 134 jours. Mesure : `pnpm mesure:comparaison-presse -- --check`, sans base ni réseau ; sortie détaillée dans `bench/results/comparaison-presse.json`.
+
+OBJECTIF : atteint — 10 / 10
 
 ## La question posée
 
@@ -173,6 +177,9 @@ une avance sur la presse, et aucun des dix incidents ci-dessus n'y contribue.
 ## Reproduire
 
 ```bash
+# Mesure reproductible de l'objectif (sélection, 10 / 10 et écarts), sans base ni réseau
+pnpm mesure:comparaison-presse -- --check
+
 # Dates presse et dates de première trace (les 10 premiers articles de presse du corpus)
 jq -r '[.incidents[]
   | select(.preuve.editeur | test("Sud Ouest|ICI Poitou|France 3|La Dépêche|La République des Pyrénées"))
