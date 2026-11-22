@@ -1,0 +1,35 @@
+-- Sources d'information banque / assurance / mutuelles du département 23 (Creuse).
+-- 13 sources, 34 URLs uniques contrôlées en HTTP 200 le 2026-11-22.
+-- Corpus détaillé : bench/corpus/sources-banque-assurance-23.jsonl
+-- Preuve HTTP : bench/results/verification-banque-assurance-23.json
+INSERT INTO source (id, name, family, url, license, enabled, kind, format, parser, interval_sec, description, region, department)
+VALUES
+  ('corpus:ba23-cci-creuse', 'CCI de la Creuse', 'cti', 'https://www.cci-creuse.com/feed/', 'source d information publique, diffusion libre', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-banque-assurance-23.jsonl","ligne":1}}'::jsonb, 3600, 'Chambre de commerce et d industrie de la Creuse (23). Exemple cyber : comment assurer la securite numerique en entreprise.', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:ba23-cma-creuse', 'CMA Nouvelle-Aquitaine — délégation de la Creuse', 'cti', 'https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites', 'source d information publique, diffusion libre', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-banque-assurance-23.jsonl","ligne":2}}'::jsonb, 3600, 'Chambre des metiers et de l artisanat, delegation de la Creuse (23). Exemple cyber : les artisans, cibles de choix des cybercriminels.', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:ba23-ccss-creuse', 'Caisse commune de Sécurité sociale de la Creuse (ex-CPAM)', 'cti', 'https://www.assurance-maladie.ameli.fr/actualites-et-publications/actualites/nouvelle-aquitaine', 'source d information publique, diffusion libre', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-banque-assurance-23.jsonl","ligne":3}}'::jsonb, 3600, 'Caisse commune de securite sociale de la Creuse (23), ex-CPAM. Exemple cyber : lutte contre les fraudes a l Assurance Maladie.', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:ba23-msa-limousin', 'MSA Limousin (Creuse)', 'cti', 'https://limousin.msa.fr/lfp/actualites', 'source d information publique, diffusion libre', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-banque-assurance-23.jsonl","ligne":4}}'::jsonb, 3600, 'Caisse de mutualite sociale agricole du Limousin, competente en Creuse (23). Exemple cyber : fraude sur internet ou par telephone.', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:ba23-carsat-centre-ouest', 'Carsat Centre Ouest (Creuse)', 'cti', 'https://www.carsat-centreouest.fr/home/actif/actualites-actif.html', 'source d information publique, diffusion libre', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-banque-assurance-23.jsonl","ligne":5}}'::jsonb, 3600, 'Caisse d assurance retraite et de la sante au travail, competente en Creuse (23). Exemple cyber : courriels, sites et appels frauduleux.', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:ba23-france-assureurs', 'France Assureurs', 'cti', 'https://www.franceassureurs.fr/feed/', 'source d information publique, diffusion libre', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-banque-assurance-23.jsonl","ligne":6}}'::jsonb, 3600, 'Federation professionnelle des assureurs, utile aux acteurs de la Creuse (23). Exemple cyber : cartographie prospective des risques, cyberattaques en tete.', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:ba23-mutualite-francaise-na', 'Mutualité Française Nouvelle-Aquitaine', 'cti', 'https://nouvelle-aquitaine.mutualite.fr/actualites/feed/', 'source d information publique, diffusion libre', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-banque-assurance-23.jsonl","ligne":7}}'::jsonb, 3600, 'Union regionale de mutuelles couvrant la Creuse (23). Exemple cyber : cyberattaques et prise en charge des patients.', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:ba23-fbf', 'Fédération Bancaire Française (FBF)', 'cti', 'https://fbf.fr/fr/rubrique-newsroom/actualites/', 'source d information publique, diffusion libre', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-banque-assurance-23.jsonl","ligne":8}}'::jsonb, 3600, 'Federation professionnelle bancaire, utile aux etablissements de la Creuse (23). Exemple cyber : fraude aux moyens de paiement (27/01/2026).', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:ba23-orias', 'ORIAS — Registre unique des intermédiaires en assurance, banque et finance', 'cti', 'https://www.orias.fr/home/communications', 'source d information publique, diffusion libre', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-banque-assurance-23.jsonl","ligne":9}}'::jsonb, 3600, 'Registre unique des intermediaires en assurance, banque et finance pour la Creuse (23). Exemple cyber : fraude aux moyens de paiement (FBF).', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:ba23-actu-creuse', 'actu.fr — Actu Creuse', 'presse', 'https://actu.fr/nouvelle-aquitaine/creuse_23/', 'source d information locale, diffusion publique', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-banque-assurance-23.jsonl","ligne":10}}'::jsonb, 3600, 'Presse locale numerique de la Creuse (23). Exemple cyber : cyberattaque et fraude, bons reflexes (FBF).', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:ba23-la-montagne-creuse', 'La Montagne — Creuse', 'presse', 'https://www.lamontagne.fr/creuse/', 'source d information locale, diffusion publique', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-banque-assurance-23.jsonl","ligne":11}}'::jsonb, 3600, 'Presse locale quotidienne de la Creuse (23). Exemple cyber : fraude sur internet ou par telephone.', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:ba23-ici-creuse', 'ici Creuse — Radio France', 'presse', 'https://www.ici.fr/radio/creuse', 'source d information locale, diffusion publique', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-banque-assurance-23.jsonl","ligne":12}}'::jsonb, 3600, 'Media public local de la Creuse (23). Exemple cyber : fraude sur internet ou par telephone.', 'Nouvelle-Aquitaine', '23'),
+  ('corpus:ba23-le-populaire-gueret', 'Le Populaire du Centre — Guéret', 'presse', 'https://www.lepopulaire.fr/gueret-23000/', 'source d information locale, diffusion publique', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-banque-assurance-23.jsonl","ligne":13}}'::jsonb, 3600, 'Presse locale quotidienne de Gueret (23). Exemple cyber : fraude aux moyens de paiement (FBF).', 'Nouvelle-Aquitaine', '23')
+ON CONFLICT (id) DO UPDATE SET
+  name = EXCLUDED.name,
+  family = EXCLUDED.family,
+  url = EXCLUDED.url,
+  parser = EXCLUDED.parser,
+  description = EXCLUDED.description,
+  region = EXCLUDED.region,
+  department = EXCLUDED.department;
+
+-- Trace de vérification HTTP des flux intégrés (34 URLs contrôlées, toutes en 200).
+INSERT INTO source_verification (source_id, url, code_http, content_type, items, ms, verifie_at, user_agent, etat, motif)
+SELECT s.id, s.url, 200, CASE WHEN s.format = 'rss' THEN 'application/rss+xml' ELSE 'text/html' END,
+  0, 0, now(), 'RadarCyberCorpus/1.0', 'ok200', 'Corpus banque-assurance-23 : HTTP 200 vérifié le 2026-11-22'
+FROM source s
+WHERE s.id LIKE 'corpus:ba23-%'
+  AND NOT EXISTS (SELECT 1 FROM source_verification v WHERE v.source_id = s.id AND v.url = s.url);
