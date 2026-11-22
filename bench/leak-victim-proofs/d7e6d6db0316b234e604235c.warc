@@ -1,0 +1,18 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:4ccdd156-7ed3-4430-a1ad-985443997df7>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 134
+WARC-Block-Digest: sha1:I6WRE5LK3E23EDLIPSLF4OECZLZXYCC2
+X-Claim-Fingerprint: acd6a976522acb1976bd9e8a
+X-Victim-Key: d7e6d6db0316b234e604235c
+
+{
+        "post_title": "Inspection Services",
+        "group_name": "akira",
+        "discovered": "2024-04-04 15:48:14.633055"
+    }
+

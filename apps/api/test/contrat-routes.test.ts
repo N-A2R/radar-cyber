@@ -81,6 +81,7 @@ const evenement = z.strictObject({
   confidence: json, sourceUrl: chaineNullable, dateSource: chaineNullable,
   dateConfidence: chaineNullable, tlpSource: chaineNullable,
   regionalMotif: chaineNullable, evidence: objet,
+  langue: chaineNullable, pertinenceScore: nombreNullable, pertinenceRule: chaineNullable,
   lat: nombreNullable, lon: nombreNullable, orgId: nombreNullable,
   regional: z.boolean(), fraicheur: objet, confiance: objet,
 });

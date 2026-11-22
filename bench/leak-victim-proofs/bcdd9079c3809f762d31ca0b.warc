@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:d499f9d3-af4c-479b-a6e1-a29b897bcb30>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/posts/2025
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 564
+WARC-Block-Digest: sha1:VUSLRFR4MQLW6RIO3BRTPTLWK5OFYHAS
+X-Claim-Fingerprint: 6b44308fdccd1ebec5e344d7
+X-Victim-Key: bcdd9079c3809f762d31ca0b
+
+{"post_title": "Master System Inc", "discovered": "2025-09-03 22:27:15.220863", "description": "Master System develops and supports software and services that deliver enterprise management and collaborative supply chain solutions to thousands of small to midsize distributors in a number of industries.Master System is headquartered in Ar            ...", "link": "/site/view?uuid=cc3e4dd8-5583-3a7d-bd3b-f6b1425d70d8", "magnet": null, "screen": "screenshots/qilin/Master System Inc.png", "misp_uuid": "1ddac0ca-0cb3-5723-9477-194126c8c9d8", "group_name": "qilin"}
+

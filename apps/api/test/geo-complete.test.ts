@@ -110,7 +110,9 @@ describe("final-mile backfill write path", () => {
     }
 
     const first = await backfillRemainingGeo(() => {}, { lookup });
-    assert.equal(first.updated, 4);
+    // le backfill traite TOUTES les orgs en attente : dans une base partagée le
+    // total varie. Ce qui compte est vérifié ligne par ligne juste après.
+    assert.ok(first.updated >= 4, `au moins 4 orgs mises à jour, obtenu ${first.updated}`);
 
     const { rows } = await query<{ slug: string; lat: number | null; source: string | null }>(
       `SELECT o.slug, o.lat, e.source
