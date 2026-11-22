@@ -25,6 +25,7 @@ import {
 	type LigneSite,
 } from "../apps/api/src/ctlogs/inventaire.js";
 import { construireRapport, enregistrerInventaire } from "../apps/api/src/ctlogs/stockage.js";
+import { analyserCertificats, certificatsDepuisInventaire } from "../apps/api/src/ctlogs/anomalies.js";
 
 function option(nom: string, defaut: string): string {
 	const prefixe = `--${nom}=`;
@@ -159,6 +160,15 @@ async function main(): Promise<void> {
 		const ecriture = await enregistrerInventaire({ sousDomaines, suspects, rapport });
 		console.log(
 			`Base : ${ecriture.sousDomainesInscrits} sous-domaine(s) et ${ecriture.suspectsInscrits} suspect(s) inscrits.`,
+		);
+		// Détection immédiate sur l'inventaire qui vient d'être écrit : les
+		// anomalies de certificat (wildcard, émetteur hors liste, étendu) sont
+		// datées par leur première vue, sans attendre un second passage.
+		const analyse = await analyserCertificats(certificatsDepuisInventaire(sousDomaines));
+		console.log(
+			`Anomalies de certificat : ${analyse.inserees} ligne(s) ajoutée(s) ` +
+				`(wildcard ${analyse.parMotif.wildcard}, hors liste ${analyse.parMotif.emetteur_hors_liste}, ` +
+				`étendu ${analyse.parMotif.certificat_etendu}).`,
 		);
 	} else {
 		console.log("Mode rapport : aucune écriture en base (ajouter --appliquer).");
