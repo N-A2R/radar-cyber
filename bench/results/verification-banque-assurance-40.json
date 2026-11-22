@@ -1,0 +1,761 @@
+{
+  "secteur": "banque-assurance",
+  "departement": "40",
+  "date": "2026-11-22",
+  "sources": 43,
+  "urls_verifiees": 125,
+  "urls_http_200": 125,
+  "methode": "GET HTTP avec User-Agent navigateur, suivi des redirections, delai 25 s ; comptage des items RSS/Atom",
+  "urls": [
+    {
+      "url": "https://acpr.banque-france.fr/fr",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://acpr.banque-france.fr/fr/actualites",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://actu.fr/landes/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://actu.fr/landes/dernieres-actus",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://blog.societe.com/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://entreprise.maif.fr/actualites",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://fbf.fr/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://fbf.fr/fr/rubrique-newsroom/actualites/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/landes/rss",
+      "code": 200,
+      "items": 30,
+      "ct": "text/xml"
+    },
+    {
+      "url": "https://landes.chambres-agriculture.fr/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://landes.chambres-agriculture.fr/actualites-1",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://landesinfo.net/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://landesinfo.net/edition",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://mutualite-landes.fr/actualite/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://mutualite-landes.fr/feed/",
+      "code": 200,
+      "items": 100,
+      "ct": "application/rss+xml"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Banque+Populaire%22+Landes&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "items": 10,
+      "ct": "application/xml"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22CPAM+des+Landes%22+fraude&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "items": 10,
+      "ct": "application/xml"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Carsat+Aquitaine%22+Landes&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "items": 10,
+      "ct": "application/xml"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Chambre+d+agriculture+des+Landes%22&hl=fr&gl=FR&ceid=FR%3Afr",
+      "code": 200,
+      "items": 55,
+      "ct": "application/xml"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22Cr%C3%A9dit+Agricole%22+Landes&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "items": 52,
+      "ct": "application/xml"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=%22F%C3%A9d%C3%A9ration+Bancaire+Fran%C3%A7aise%22+Landes&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "items": 10,
+      "ct": "application/xml"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=ACPR+Landes&hl=fr&gl=FR&ceid=FR%3Afr",
+      "code": 200,
+      "items": 9,
+      "ct": "application/xml"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=AXA%20Landes%20assurance&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "items": 10,
+      "ct": "application/xml"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=CIC%20Landes%20banque&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "items": 10,
+      "ct": "application/xml"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=CNCGP+Landes&hl=fr&gl=FR&ceid=FR%3Afr",
+      "code": 200,
+      "items": 2,
+      "ct": "application/xml"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=CNP%20Assurances%20Landes&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "items": 10,
+      "ct": "application/xml"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Caisse%20d%E2%80%99%C3%89pargne%20Landes&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "items": 4,
+      "ct": "application/xml"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Cr%C3%A9dit%20Mutuel%20Landes&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "items": 12,
+      "ct": "application/xml"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Groupama+Landes&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "items": 18,
+      "ct": "application/xml"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Harmonie%20Mutuelle%20Landes&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "items": 10,
+      "ct": "application/xml"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=LCL%20Landes%20banque&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "items": 9,
+      "ct": "application/xml"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=MAIF+Landes&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "items": 38,
+      "ct": "application/xml"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=MSA%20des%20Landes&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "items": 16,
+      "ct": "application/xml"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=ORIAS+Landes+assurance&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "items": 0,
+      "ct": "application/xml"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=SMACL+Landes&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "items": 2,
+      "ct": "application/xml"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=Soci%C3%A9t%C3%A9%20G%C3%A9n%C3%A9rale%20Landes%20banque&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "items": 35,
+      "ct": "application/xml"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=arnaque+Dax+banque&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "items": 9,
+      "ct": "application/xml"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=mutuelle+Landes+cyber&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "items": 4,
+      "ct": "application/xml"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=site%3Aactu.fr%2Flandes+banque+assurance&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "items": 0,
+      "ct": "application/xml"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=site%3Aici.fr+landes+banque+assurance&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "items": 66,
+      "ct": "application/xml"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=site%3Alandes.cci.fr+banque+assurance&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "items": 12,
+      "ct": "application/xml"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=site%3Alandesinfo.net+banque+assurance&hl=fr&gl=FR&ceid=FR:fr",
+      "code": 200,
+      "items": 0,
+      "ct": "application/xml"
+    },
+    {
+      "url": "https://news.google.com/rss/search?q=societe.com+Landes+banque&hl=fr&gl=FR&ceid=FR%3Afr",
+      "code": 200,
+      "items": 7,
+      "ct": "application/xml"
+    },
+    {
+      "url": "https://nouvelle-aquitaine.mutualite.fr/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://nouvelle-aquitaine.mutualite.fr/actualites/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://nouvelle-aquitaine.mutualite.fr/actualites/feed/",
+      "code": 200,
+      "items": 10,
+      "ct": "application/rss+xml"
+    },
+    {
+      "url": "https://passion-aquitaine.ouest-france.fr/landes/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://passion-aquitaine.ouest-france.fr/landes/archives/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://passion-aquitaine.ouest-france.fr/landes/feed/",
+      "code": 200,
+      "items": 40,
+      "ct": "application/rss+xml"
+    },
+    {
+      "url": "https://tvpi.fr/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://tvpi.fr/feed/",
+      "code": 200,
+      "items": 0,
+      "ct": "application/rss+xml"
+    },
+    {
+      "url": "https://we-news.com/fr/40-landes",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://we-news.com/fr/40-landes/faits-divers",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://we-news.com/fr/feed?p=dept-40-landes",
+      "code": 200,
+      "items": 49,
+      "ct": "application/rss+xml"
+    },
+    {
+      "url": "https://www.ameli.fr/landes/assure",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.ameli.fr/landes/assure/actualites",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.annonces-landaises.com/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.annonces-landaises.com/categories/collectivites/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.annonces-landaises.com/feed/",
+      "code": 200,
+      "items": 10,
+      "ct": "application/rss+xml"
+    },
+    {
+      "url": "https://www.aquitaineonline.com/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.aquitaineonline.com/actualites-en-aquitaine/landes/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.aquitaineonline.com/actualites-en-aquitaine/landes/feed/rss/",
+      "code": 200,
+      "items": 10,
+      "ct": "application/rss+xml"
+    },
+    {
+      "url": "https://www.axa.fr/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.axa.fr/particuliers/qui-sommes-nous/actualites.html",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.banquepopulaire.fr/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.banquepopulaire.fr/votre-banque/actualites/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.caisse-epargne.fr/aquitaine-poitou-charentes/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.caisse-epargne.fr/votre-banque/actualites/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.carsat-aquitaine.fr/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.carsat-aquitaine.fr/home/actif/actualites-actif.html",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.cic.com/fr/actualites/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.cic.fr/fr/index.html",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.cncgp.fr/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.cncgp.fr/actualites",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.cnp.fr/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.cnp.fr/le-groupe-cnp-assurances/newsroom/actualites",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.cotesudfm.fr/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.cotesudfm.fr/category/actualites/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.cotesudfm.fr/feed/",
+      "code": 200,
+      "items": 10,
+      "ct": "application/rss+xml"
+    },
+    {
+      "url": "https://www.credit-agricole.fr/ca-aquitaine/particulier.html",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.credit-agricole.fr/ca-aquitaine/particulier/conseils/magazine/tout-un-mag.html",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.creditmutuel.com/fr/actualites",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.creditmutuel.fr/home/index.html",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.franceassureurs.fr/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.franceassureurs.fr/actualites/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.franceassureurs.fr/feed/",
+      "code": 200,
+      "items": 5,
+      "ct": "application/rss+xml"
+    },
+    {
+      "url": "https://www.groupama.fr/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.groupama.fr/assurance/conseils/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.harmonie-mutuelle.fr/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.harmonie-mutuelle.fr/actualites/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.ici.fr/nouvelle-aquitaine/landes-40",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.ladepeche.fr/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.ladepeche.fr/communes/landes,40/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.ladepeche.fr/communes/landes,40/rss.xml",
+      "code": 200,
+      "items": 25,
+      "ct": "text/xml"
+    },
+    {
+      "url": "https://www.landes.cci.fr/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.landes.cci.fr/presse/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.lasemainedespyrenees.fr/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.lasemainedespyrenees.fr/category/landes/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.lasemainedespyrenees.fr/category/landes/feed/",
+      "code": 200,
+      "items": 10,
+      "ct": "application/rss+xml"
+    },
+    {
+      "url": "https://www.lcl.fr/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.lcl.fr/decouvrir-lcl/newsroom",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.leparisien.fr/landes-40/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.maif.fr/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.msa.fr/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.msa.fr/lfp/actualites",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.mutualite-landes.fr/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.mutualite.fr/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.mutualite.fr/actualites/nos-actualites/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.nrpyrenees.fr/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.nrpyrenees.fr/communes/landes,40/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.nrpyrenees.fr/communes/landes,40/rss.xml",
+      "code": 200,
+      "items": 9,
+      "ct": "text/xml"
+    },
+    {
+      "url": "https://www.orias.fr/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.orias.fr/home/communications",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.radio-mdm.fr/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.radio-mdm.fr/feed/",
+      "code": 200,
+      "items": 0,
+      "ct": "application/rss+xml"
+    },
+    {
+      "url": "https://www.radio-mdm.fr/type-de-programme/actualite/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.smacl.fr/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.smacl.fr/actus-et-conseils/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.societe.com/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.societegenerale.fr/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.societegenerale.fr/actualites/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.zemag40.com/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    },
+    {
+      "url": "https://www.zemag40.com/rss/blog",
+      "code": 200,
+      "items": 1,
+      "ct": "application/rss+xml"
+    },
+    {
+      "url": "https://www.zemag40.com/zemag/",
+      "code": 200,
+      "items": 0,
+      "ct": "text/html"
+    }
+  ]
+}
