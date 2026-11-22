@@ -1,0 +1,38 @@
+{
+  "procedure": "gold-corpus-v1",
+  "generatedAt": "2026-11-22T02:32:38.135Z",
+  "seed": 20261122,
+  "requestedSize": 500,
+  "population": {
+    "orgs": 1673151,
+    "sources": 312,
+    "events": 26259,
+    "curatedCandidates": 292,
+    "eventCandidates": 185,
+    "claimCandidates": 91,
+    "precisionCandidates": 114,
+    "uniqueCandidates": 518
+  },
+  "summary": {
+    "incidents": 500,
+    "departments": 12,
+    "verified": 148,
+    "reported": 165,
+    "claimed": 187,
+    "official": 235,
+    "press": 73,
+    "grey": 192,
+    "incidentTypes": {
+      "ransomware": 217,
+      "intrusion": 166,
+      "data_leak": 60,
+      "other": 30,
+      "phishing": 20,
+      "fraud": 3,
+      "service_disruption": 4
+    },
+    "sha256": "7f3509efa4b20b9983627245e1677ce643b614c062cd27c5144d90f28e647f9f"
+  },
+  "command": "pnpm gold:build",
+  "commandLine": "/data/home/agent-runs/chantier-h8/scripts/gold-build.mts"
+}
