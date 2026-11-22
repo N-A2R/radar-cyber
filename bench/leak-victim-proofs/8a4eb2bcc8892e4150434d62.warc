@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:c5a59d76-b40d-4ff5-a037-039f5fffc09b>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/posts/2025
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 560
+WARC-Block-Digest: sha1:M6UJQF3IYPSMSDYCOLCP35MCI7MLYTWT
+X-Claim-Fingerprint: 5b865656b019d69f89c5a27a
+X-Victim-Key: 8a4eb2bcc8892e4150434d62
+
+{"post_title": "Force Marketing", "discovered": "2025-10-14 15:25:35.916235", "description": "Force Marketing, USA - Founded in 2006, Force Marketing is a leading marketing technology provider to the automotive industry, whose Helix Technologies, WeDrive Automotive and DRIVE video technology brands deliver combined synergies to optimi            ...", "link": "/site/view?uuid=dde60c32-e31c-31f2-b2cf-b44805b5a84c", "magnet": null, "screen": "screenshots/qilin/Force Marketing.png", "misp_uuid": "44965ecd-fb92-577c-af33-dba97ef95669", "group_name": "qilin"}
+
