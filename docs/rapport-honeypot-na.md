@@ -117,3 +117,5 @@ via `X-Forwarded-For` et comparée à une liste publique : un scanner peut la
 falsifier, elle n'est donc pas une attribution. Les hôtes d'appât utilisent un
 TLD réservé : aucune organisation de Nouvelle-Aquitaine n'est usurpée. Aucune
 adresse IP, aucun corps de requête, aucune donnée de victime n'est conservée.
+
+OBJECTIF : atteint — 144 / 144 scans captés en 24 h, avec provenance mesurée (48 `tor-exit`, 48 `abuse-reported`, 48 `unknown`) ; mesure du 22/11/2026 rejouée par `pnpm measure:honeypot` sur la base réelle, sortie `NA honeypot: 144 scans captured in 24 h`, code 0.
