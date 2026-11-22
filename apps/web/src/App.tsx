@@ -1,6 +1,6 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { creerMemoire, etatDonnees, type Instantane } from "./offline";
-import { api, clearAuthToken, getAuthToken, setAuthToken, type CollecteMetrics, type CouvertureResponse, type CorpusStats, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type PressOnlySummary, type Source, type Stats, type TodayResponse, type UnconfirmedClaimsSummary } from "./api";
+import { api, clearAuthToken, getAuthToken, setAuthToken, type CollecteMetrics, type CouvertureResponse, type CorpusStats, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type PressOnlySummary, type Source, type Stats, type TodayResponse, type UnconfirmedClaimsSummary, type ConfirmedIncidentsSummary } from "./api";
 import { mockData } from "./mock";
 const Map3D = lazy(() => import("./map/Map3D"));
 const GraphView = lazy(() => import("./graph/GraphView"));
@@ -86,6 +86,9 @@ export default function App() {
   const [unconfirmedClaims, setUnconfirmedClaims] = useState<UnconfirmedClaimsSummary | null>(null);
   const [unconfirmedClaimsLoading, setUnconfirmedClaimsLoading] = useState(false);
   const [unconfirmedClaimsError, setUnconfirmedClaimsError] = useState<string | null>(null);
+  const [confirmedIncidents, setConfirmedIncidents] = useState<ConfirmedIncidentsSummary | null>(null);
+  const [confirmedIncidentsLoading, setConfirmedIncidentsLoading] = useState(false);
+  const [confirmedIncidentsError, setConfirmedIncidentsError] = useState<string | null>(null);
   const [statsDepartements, setStatsDepartements] = useState<DeptStat[]>([]);
   const [graph, setGraph] = useState<Graph>({ nodes: [], links: [] });
   const [temporalGraph, setTemporalGraph] = useState<Graph | null>(null);
@@ -467,6 +470,35 @@ export default function App() {
         })
         .finally(() => {
           if (!controller.signal.aborted) setUnconfirmedClaimsLoading(false);
+        });
+    };
+    charger();
+    const timer = setInterval(charger, 60_000);
+    return () => {
+      controller.abort();
+      clearInterval(timer);
+    };
+  }, [view]);
+
+  // Confirmed incidents: the complementary `etabli` class of the same corpus.
+  useEffect(() => {
+    if (MOCK_MODE || view !== "corpus") return;
+    const controller = new AbortController();
+    const charger = () => {
+      setConfirmedIncidentsLoading(true);
+      api
+        .confirmedIncidents(controller.signal)
+        .then((donnees) => {
+          setConfirmedIncidents(donnees);
+          setConfirmedIncidentsError(null);
+        })
+        .catch((err: unknown) => {
+          if (!controller.signal.aborted) {
+            setConfirmedIncidentsError(err instanceof Error ? err.message : "unavailable");
+          }
+        })
+        .finally(() => {
+          if (!controller.signal.aborted) setConfirmedIncidentsLoading(false);
         });
     };
     charger();
@@ -909,7 +941,7 @@ export default function App() {
           {view === "journal" ? <JournalView onUnauthorized={onUnauthorized} /> : null}
 
           {view === "corpus" ? (
-            <CorpusView data={corpusData} loading={corpusLoading} error={corpusError} pressOnly={pressOnly} pressOnlyLoading={pressOnlyLoading} pressOnlyError={pressOnlyError} unconfirmedClaims={unconfirmedClaims} unconfirmedClaimsLoading={unconfirmedClaimsLoading} unconfirmedClaimsError={unconfirmedClaimsError} />
+            <CorpusView data={corpusData} loading={corpusLoading} error={corpusError} pressOnly={pressOnly} pressOnlyLoading={pressOnlyLoading} pressOnlyError={pressOnlyError} unconfirmedClaims={unconfirmedClaims} unconfirmedClaimsLoading={unconfirmedClaimsLoading} unconfirmedClaimsError={unconfirmedClaimsError} confirmedIncidents={confirmedIncidents} confirmedIncidentsLoading={confirmedIncidentsLoading} confirmedIncidentsError={confirmedIncidentsError} />
           ) : null}
           {view === "sources" ? <SourcesView sources={sources} loading={loading} error={error} onRetry={recharger} /> : null}
 

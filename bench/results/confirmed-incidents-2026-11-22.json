@@ -1,0 +1,295 @@
+{
+  "measuredAt": "2026-11-22T04:46:50.499Z",
+  "corpus": "bench/fixtures/corpus-reference-na.json",
+  "command": "pnpm measure:confirmed-incidents",
+  "scope": "Nouvelle-Aquitaine",
+  "definition": "etabli",
+  "corpusTotal": 60,
+  "count": 33,
+  "withGreySource": 7,
+  "byDepartment": [
+    {
+      "department": "16",
+      "count": 4
+    },
+    {
+      "department": "17",
+      "count": 2
+    },
+    {
+      "department": "19",
+      "count": 1
+    },
+    {
+      "department": "24",
+      "count": 1
+    },
+    {
+      "department": "33",
+      "count": 11
+    },
+    {
+      "department": "40",
+      "count": 1
+    },
+    {
+      "department": "47",
+      "count": 1
+    },
+    {
+      "department": "64",
+      "count": 4
+    },
+    {
+      "department": "79",
+      "count": 1
+    },
+    {
+      "department": "86",
+      "count": 3
+    },
+    {
+      "department": "87",
+      "count": 4
+    }
+  ],
+  "byPublisherKind": {
+    "press": 21,
+    "grey": 3,
+    "official": 8,
+    "unknown": 1
+  },
+  "incidents": [
+    {
+      "id": "na-2026-004",
+      "department": "64",
+      "publicationDate": "2026-09-16",
+      "publisherKind": "press",
+      "incidentType": "phishing"
+    },
+    {
+      "id": "na-2026-009",
+      "department": "33",
+      "publicationDate": "2026-09-15",
+      "publisherKind": "unknown",
+      "incidentType": "fuite"
+    },
+    {
+      "id": "na-2026-024",
+      "department": "86",
+      "publicationDate": "2026-08-31",
+      "publisherKind": "official",
+      "incidentType": "compromission"
+    },
+    {
+      "id": "na-2026-003",
+      "department": "40",
+      "publicationDate": "2026-08-29",
+      "publisherKind": "press",
+      "incidentType": "ransomware"
+    },
+    {
+      "id": "na-2026-020",
+      "department": "64",
+      "publicationDate": "2026-08-28",
+      "publisherKind": "press",
+      "incidentType": "compromission"
+    },
+    {
+      "id": "na-2026-042",
+      "department": "87",
+      "publicationDate": "2026-06-26",
+      "publisherKind": "official",
+      "incidentType": "fuite"
+    },
+    {
+      "id": "na-2026-006",
+      "department": "33",
+      "publicationDate": "2026-05-13",
+      "publisherKind": "press",
+      "incidentType": "fuite"
+    },
+    {
+      "id": "na-2026-029",
+      "department": "33",
+      "publicationDate": "2026-04-27",
+      "publisherKind": "grey",
+      "incidentType": "fuite"
+    },
+    {
+      "id": "na-2026-025",
+      "department": "64",
+      "publicationDate": "2026-04-10",
+      "publisherKind": "grey",
+      "incidentType": "fuite"
+    },
+    {
+      "id": "na-2026-026",
+      "department": "33",
+      "publicationDate": "2026-04-10",
+      "publisherKind": "grey",
+      "incidentType": "fuite"
+    },
+    {
+      "id": "na-2026-001",
+      "department": "33",
+      "publicationDate": "2026-04-09",
+      "publisherKind": "press",
+      "incidentType": "fuite"
+    },
+    {
+      "id": "na-2026-022",
+      "department": "33",
+      "publicationDate": "2026-04-09",
+      "publisherKind": "official",
+      "incidentType": "fuite"
+    },
+    {
+      "id": "na-2026-039",
+      "department": "33",
+      "publicationDate": "2026-03-28",
+      "publisherKind": "press",
+      "incidentType": "fuite"
+    },
+    {
+      "id": "na-2026-031",
+      "department": "86",
+      "publicationDate": "2026-03-15",
+      "publisherKind": "press",
+      "incidentType": "ransomware"
+    },
+    {
+      "id": "na-2026-027",
+      "department": "33",
+      "publicationDate": "2026-03-02",
+      "publisherKind": "official",
+      "incidentType": "fuite"
+    },
+    {
+      "id": "na-2026-040",
+      "department": "33",
+      "publicationDate": "2026-02-26",
+      "publisherKind": "official",
+      "incidentType": "fuite"
+    },
+    {
+      "id": "na-2026-044",
+      "department": "16",
+      "publicationDate": "2026-02-05",
+      "publisherKind": "official",
+      "incidentType": "fuite"
+    },
+    {
+      "id": "na-2026-016",
+      "department": "16",
+      "publicationDate": "2026-01-22",
+      "publisherKind": "official",
+      "incidentType": "fuite"
+    },
+    {
+      "id": "na-2026-030",
+      "department": "17",
+      "publicationDate": "2025-12-12",
+      "publisherKind": "press",
+      "incidentType": "compromission"
+    },
+    {
+      "id": "na-2026-005",
+      "department": "79",
+      "publicationDate": "2025-12-11",
+      "publisherKind": "press",
+      "incidentType": "ransomware"
+    },
+    {
+      "id": "na-2026-018",
+      "department": "33",
+      "publicationDate": "2025-12-10",
+      "publisherKind": "official",
+      "incidentType": "compromission"
+    },
+    {
+      "id": "na-2026-028",
+      "department": "17",
+      "publicationDate": "2025-11-24",
+      "publisherKind": "press",
+      "incidentType": "fuite"
+    },
+    {
+      "id": "na-2026-043",
+      "department": "16",
+      "publicationDate": "2025-11-13",
+      "publisherKind": "press",
+      "incidentType": "compromission"
+    },
+    {
+      "id": "na-2026-050",
+      "department": "87",
+      "publicationDate": "2025-10-23",
+      "publisherKind": "press",
+      "incidentType": "fuite"
+    },
+    {
+      "id": "na-2026-007",
+      "department": "47",
+      "publicationDate": "2025-10-03",
+      "publisherKind": "press",
+      "incidentType": "ransomware"
+    },
+    {
+      "id": "na-2026-017",
+      "department": "86",
+      "publicationDate": "2025-09-05",
+      "publisherKind": "press",
+      "incidentType": "ransomware"
+    },
+    {
+      "id": "na-2026-048",
+      "department": "24",
+      "publicationDate": "2025-08-11",
+      "publisherKind": "press",
+      "incidentType": "phishing"
+    },
+    {
+      "id": "na-2026-055",
+      "department": "87",
+      "publicationDate": "2025-06-27",
+      "publisherKind": "press",
+      "incidentType": "fuite"
+    },
+    {
+      "id": "na-2026-049",
+      "department": "33",
+      "publicationDate": "2025-02-28",
+      "publisherKind": "press",
+      "incidentType": "ransomware"
+    },
+    {
+      "id": "na-2026-008",
+      "department": "19",
+      "publicationDate": "2025-02-14",
+      "publisherKind": "press",
+      "incidentType": "ransomware"
+    },
+    {
+      "id": "na-2026-051",
+      "department": "87",
+      "publicationDate": "2024-12-31",
+      "publisherKind": "press",
+      "incidentType": "ransomware"
+    },
+    {
+      "id": "na-2026-058",
+      "department": "16",
+      "publicationDate": "2024-06-14",
+      "publisherKind": "press",
+      "incidentType": "ransomware"
+    },
+    {
+      "id": "na-2026-056",
+      "department": "64",
+      "publicationDate": "2024-05-15",
+      "publisherKind": "press",
+      "incidentType": "compromission"
+    }
+  ]
+}
