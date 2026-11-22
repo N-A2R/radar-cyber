@@ -65,3 +65,5 @@ La commande échoue volontairement (`exit 1`) si un composant exporté n'est pas
 - Code et interface Storybook en anglais ; le présent rapport est en français.
 - `apps/api/src/server.ts` : **0 ligne modifiée**.
 - Toutes les commandes exécutées sont restées sous la limite de 60 s (installation incluse : 39,6 s).
+
+OBJECTIF : atteint — 40 / 40 composants documentés (100 %, mesure reproductible : `cd apps/web && node scripts/measure-storybook.mjs`).
