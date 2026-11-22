@@ -1,0 +1,778 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-sante-24.jsonl",
+  "secteur": "santé",
+  "departement": "24",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36",
+  "methode": "GET curl -L avec suivi des redirections, statut HTTP final et type de contenu",
+  "sources": 31,
+  "urls_verifiees": 117,
+  "urls_200": 117,
+  "anomalies": [],
+  "detail": {
+    "Centre hospitalier Samuel Pozzi — Bergerac": [
+      [
+        "https://www.ch-bergerac.fr/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.ch-bergerac.fr/"
+      ],
+      [
+        "https://www.ch-bergerac.fr/actualites/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.ch-bergerac.fr/actualites/"
+      ],
+      [
+        "https://www.ch-bergerac.fr/feed/",
+        200,
+        "application/rss+xml; charset=UTF-8",
+        "https://www.ch-bergerac.fr/feed/"
+      ],
+      [
+        "https://www.cyberattaque.org/centre-hospitalier-de-perpignan-des-dossiers-de-patients-en-fuite/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.cyberattaque.org/centre-hospitalier-de-perpignan-des-dossiers-de-patients-en-fuite/"
+      ]
+    ],
+    "Centre hospitalier Jean Leclaire — Sarlat": [
+      [
+        "https://www.ch-sarlat.fr/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.ch-sarlat.fr/"
+      ],
+      [
+        "https://ch-sarlat.wixsite.com/monsite/l-actualite-de-la-sante-publique-au",
+        200,
+        "text/html; charset=UTF-8",
+        "https://ch-sarlat.wixsite.com/monsite/l-actualite-de-la-sante-publique-au"
+      ],
+      [
+        "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/"
+      ]
+    ],
+    "ARS Nouvelle-Aquitaine — délégation Dordogne": [
+      [
+        "https://www.nouvelle-aquitaine.ars.sante.fr/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.nouvelle-aquitaine.ars.sante.fr/"
+      ],
+      [
+        "https://www.nouvelle-aquitaine.ars.sante.fr/liste-actualites?archive=0",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.nouvelle-aquitaine.ars.sante.fr/liste-actualites?archive=0"
+      ],
+      [
+        "https://www.nouvelle-aquitaine.ars.sante.fr/rss.xml?type=ars_actualite",
+        200,
+        "application/rss+xml; charset=utf-8",
+        "https://www.nouvelle-aquitaine.ars.sante.fr/rss.xml?type=ars_actualite"
+      ],
+      [
+        "https://www.cyberattaque.org/chu-de-reims-des-donnees-de-patients-exposees-apres-la-cyberattaque-dun-logiciel/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.cyberattaque.org/chu-de-reims-des-donnees-de-patients-exposees-apres-la-cyberattaque-dun-logiciel/"
+      ]
+    ],
+    "CPAM de la Dordogne — Assurance Maladie": [
+      [
+        "https://www.ameli.fr/dordogne/assure",
+        200,
+        "text/html; charset=utf-8",
+        "https://www.ameli.fr/dordogne/assure"
+      ],
+      [
+        "https://www.ameli.fr/dordogne/assure/liste-actualites-locales",
+        200,
+        "text/html; charset=utf-8",
+        "https://www.ameli.fr/dordogne/assure/liste-actualites-locales"
+      ],
+      [
+        "https://www.cyberattaque.org/centre-hospitalier-de-perpignan-des-dossiers-de-patients-en-fuite/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.cyberattaque.org/centre-hospitalier-de-perpignan-des-dossiers-de-patients-en-fuite/"
+      ]
+    ],
+    "Ville de Périgueux — rubrique santé": [
+      [
+        "https://www.perigueux.fr/",
+        200,
+        "text/html; charset=utf-8",
+        "https://www.perigueux.fr/"
+      ],
+      [
+        "https://www.perigueux.fr/actualites/cat-Sant%C3%A9-38.html",
+        200,
+        "text/html; charset=utf-8",
+        "https://www.perigueux.fr/actualites/cat-Sant%C3%A9-38.html"
+      ],
+      [
+        "https://www.perigueux.fr/actualites/flux-actualites/rss.xml",
+        200,
+        "application/xml; charset=utf-8",
+        "https://www.perigueux.fr/actualites/flux-actualites/rss.xml"
+      ],
+      [
+        "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/"
+      ]
+    ],
+    "Ville de Sarlat-la-Canéda — actualités": [
+      [
+        "https://sarlat.fr/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://sarlat.fr/"
+      ],
+      [
+        "https://sarlat.fr/mon-quotidien/toutes-les-actualites/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://sarlat.fr/mon-quotidien/toutes-les-actualites/"
+      ],
+      [
+        "https://sarlat.fr/feed/",
+        200,
+        "application/rss+xml; charset=UTF-8",
+        "https://sarlat.fr/feed/"
+      ],
+      [
+        "https://www.cyberattaque.org/chu-de-reims-des-donnees-de-patients-exposees-apres-la-cyberattaque-dun-logiciel/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.cyberattaque.org/chu-de-reims-des-donnees-de-patients-exposees-apres-la-cyberattaque-dun-logiciel/"
+      ]
+    ],
+    "CCI Dordogne — santé au travail": [
+      [
+        "https://dordogne.cci.fr/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://dordogne.cci.fr/"
+      ],
+      [
+        "https://dordogne.cci.fr/actualites/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://dordogne.cci.fr/actualites/"
+      ],
+      [
+        "https://dordogne.cci.fr/feed/",
+        200,
+        "application/rss+xml; charset=UTF-8",
+        "https://dordogne.cci.fr/feed/"
+      ],
+      [
+        "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/"
+      ]
+    ],
+    "Conseil national de l'Ordre des médecins": [
+      [
+        "https://www.conseil-national.medecin.fr/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.conseil-national.medecin.fr/"
+      ],
+      [
+        "https://www.conseil-national.medecin.fr/publications/actualites",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.conseil-national.medecin.fr/publications?categories%5B%5D=28"
+      ],
+      [
+        "https://www.conseil-national.medecin.fr/rss.xml",
+        200,
+        "application/rss+xml; charset=utf-8",
+        "https://www.conseil-national.medecin.fr/rss.xml"
+      ],
+      [
+        "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/"
+      ]
+    ],
+    "Ordre des sages-femmes — conseil départemental 24": [
+      [
+        "https://www.ordre-sages-femmes.fr/conseil-departemental-24/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.ordre-sages-femmes.fr/conseil-departemental-24/"
+      ],
+      [
+        "https://www.ordre-sages-femmes.fr/conseil-departemental-24/actualites-evenements/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.ordre-sages-femmes.fr/conseil-departemental-24/actualites-evenements/"
+      ],
+      [
+        "https://www.ordre-sages-femmes.fr/conseil-departemental-24/actualites-evenements/feed/",
+        200,
+        "application/rss+xml; charset=UTF-8",
+        "https://www.ordre-sages-femmes.fr/conseil-departemental-24/actualites-evenements/feed/"
+      ],
+      [
+        "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/"
+      ]
+    ],
+    "Ordre national des infirmiers": [
+      [
+        "https://www.ordre-infirmiers.fr/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.ordre-infirmiers.fr/"
+      ],
+      [
+        "https://www.ordre-infirmiers.fr/publications-locales?f%5B0%5D=thematique_locale%3A140",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.ordre-infirmiers.fr/publications-locales?f%5B0%5D=thematique_locale%3A140"
+      ],
+      [
+        "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/"
+      ]
+    ],
+    "Ordre national des chirurgiens-dentistes": [
+      [
+        "https://www.ordre-chirurgiens-dentistes.fr/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.ordre-chirurgiens-dentistes.fr/"
+      ],
+      [
+        "https://www.ordre-chirurgiens-dentistes.fr/actualites/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.ordre-chirurgiens-dentistes.fr/actualites/"
+      ],
+      [
+        "https://www.ordre-chirurgiens-dentistes.fr/feed/",
+        200,
+        "application/rss+xml; charset=UTF-8",
+        "https://www.ordre-chirurgiens-dentistes.fr/feed/"
+      ],
+      [
+        "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/"
+      ]
+    ],
+    "Ordre des masseurs-kinésithérapeutes": [
+      [
+        "https://www.ordremk.fr/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.ordremk.fr/"
+      ],
+      [
+        "https://www.ordremk.fr/actualite/ordre/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.ordremk.fr/actualite/ordre/"
+      ],
+      [
+        "https://www.ordremk.fr/feed/",
+        200,
+        "application/rss+xml; charset=UTF-8",
+        "https://www.ordremk.fr/feed/"
+      ],
+      [
+        "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/"
+      ]
+    ],
+    "Annuaire santé — Assurance Maladie": [
+      [
+        "https://annuairesante.ameli.fr/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://annuairesante.ameli.fr/"
+      ],
+      [
+        "https://www.ameli.fr/assure/actualites",
+        200,
+        "text/html; charset=utf-8",
+        "https://www.ameli.fr/assure/actualites"
+      ],
+      [
+        "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/"
+      ]
+    ],
+    "France Assos Santé Nouvelle-Aquitaine": [
+      [
+        "https://nouvelle-aquitaine.france-assos-sante.org/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://nouvelle-aquitaine.france-assos-sante.org/"
+      ],
+      [
+        "https://nouvelle-aquitaine.france-assos-sante.org/actualites/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://nouvelle-aquitaine.france-assos-sante.org/actualites/"
+      ],
+      [
+        "https://nouvelle-aquitaine.france-assos-sante.org/feed/",
+        200,
+        "application/rss+xml; charset=UTF-8",
+        "https://nouvelle-aquitaine.france-assos-sante.org/feed/"
+      ],
+      [
+        "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/"
+      ]
+    ],
+    "FHF Nouvelle-Aquitaine": [
+      [
+        "https://fhf-na.fr/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://fhf-na.fr/"
+      ],
+      [
+        "https://fhf-na.fr/actualites/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://fhf-na.fr/2021/12/02/actualites/"
+      ],
+      [
+        "https://fhf-na.fr/feed/",
+        200,
+        "application/rss+xml; charset=UTF-8",
+        "https://fhf-na.fr/feed/"
+      ],
+      [
+        "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/"
+      ]
+    ],
+    "Fédération de l'Hospitalisation Privée (FHP)": [
+      [
+        "https://www.fhp.fr/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://fhp.fr/"
+      ],
+      [
+        "https://fhp.fr/actualites/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://fhp.fr/actualites/"
+      ],
+      [
+        "https://fhp.fr/feed/",
+        200,
+        "application/rss+xml; charset=UTF-8",
+        "https://fhp.fr/feed/"
+      ],
+      [
+        "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/"
+      ]
+    ],
+    "Dordogne Libre — rubrique santé": [
+      [
+        "https://www.dordognelibre.fr/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.dordognelibre.fr/"
+      ],
+      [
+        "https://www.dordognelibre.fr/sante/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.dordognelibre.fr/sante/"
+      ],
+      [
+        "https://www.dordognelibre.fr/rss.xml",
+        200,
+        "application/xml",
+        "https://www.dordognelibre.fr/rss.xml"
+      ],
+      [
+        "https://www.cyberattaque.org/centre-hospitalier-de-perpignan-des-dossiers-de-patients-en-fuite/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.cyberattaque.org/centre-hospitalier-de-perpignan-des-dossiers-de-patients-en-fuite/"
+      ]
+    ],
+    "Réussir le Périgord": [
+      [
+        "https://www.reussirleperigord.fr/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.reussirleperigord.fr/"
+      ],
+      [
+        "https://www.reussirleperigord.fr/actualite",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.reussirleperigord.fr/actualite"
+      ],
+      [
+        "https://www.reussirleperigord.fr/feed",
+        200,
+        "application/rss+xml; charset=UTF-8",
+        "https://www.reussirleperigord.fr/feed"
+      ],
+      [
+        "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.cyberattaque.org/le-laboratoire-novabio-victime-de-deux-cyberattaques-des-donnees-de-sante-en-fuite/"
+      ]
+    ],
+    "actu.fr — Dordogne": [
+      [
+        "https://actu.fr/nouvelle-aquitaine/dordogne_24",
+        200,
+        "text/html; charset=UTF-8",
+        "https://actu.fr/nouvelle-aquitaine/dordogne_24"
+      ],
+      [
+        "https://actu.fr/tag/sante",
+        200,
+        "text/html; charset=UTF-8",
+        "https://actu.fr/tag/sante"
+      ],
+      [
+        "https://actu.fr/nouvelle-aquitaine/dordogne_24/rss.xml",
+        200,
+        "application/rss+xml; charset=utf-8",
+        "https://actu.fr/nouvelle-aquitaine/dordogne_24/rss.xml"
+      ],
+      [
+        "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/"
+      ]
+    ],
+    "ICI Périgord — radio locale": [
+      [
+        "https://www.ici.fr/radio/perigord",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.ici.fr/radio/perigord"
+      ],
+      [
+        "https://www.ici.fr/radio/perigord/actu",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.ici.fr/radio/perigord/actu"
+      ],
+      [
+        "https://www.ici.fr/rss/perigord/rubrique/infos.xml",
+        200,
+        "application/xml",
+        "https://www.ici.fr/rss/perigord/rubrique/infos.xml"
+      ],
+      [
+        "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/"
+      ]
+    ],
+    "franceinfo — Dordogne": [
+      [
+        "https://www.franceinfo.fr/france/nouvelle-aquitaine/dordogne/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.franceinfo.fr/france/nouvelle-aquitaine/dordogne/"
+      ],
+      [
+        "https://www.franceinfo.fr/sante/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.franceinfo.fr/sante/"
+      ],
+      [
+        "https://www.cyberattaque.org/chu-de-reims-des-donnees-de-patients-exposees-apres-la-cyberattaque-dun-logiciel/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.cyberattaque.org/chu-de-reims-des-donnees-de-patients-exposees-apres-la-cyberattaque-dun-logiciel/"
+      ]
+    ],
+    "Le Journal des Entreprises — Nouvelle-Aquitaine santé": [
+      [
+        "https://www.lejournaldesentreprises.com/nouvelle-aquitaine",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.lejournaldesentreprises.com/nouvelle-aquitaine"
+      ],
+      [
+        "https://www.lejournaldesentreprises.com/secteurs-activite/services/sante",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.lejournaldesentreprises.com/secteurs-activite/services/sante"
+      ],
+      [
+        "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine",
+        200,
+        "text/xml; charset=UTF-8",
+        "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine"
+      ],
+      [
+        "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/"
+      ]
+    ],
+    "sante.fr — annuaire de santé": [
+      [
+        "https://www.sante.fr/",
+        200,
+        "text/html;charset=utf-8",
+        "https://www.sante.fr/"
+      ],
+      [
+        "https://www.sante.fr/actualites",
+        200,
+        "text/html;charset=utf-8",
+        "https://www.sante.fr/"
+      ],
+      [
+        "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.cyberattaque.org/hopital-foch-des-factures-medicales-de-patients-exposees-apres-une-cyberattaque/"
+      ]
+    ],
+    "URPS Médecins Libéraux Nouvelle-Aquitaine": [
+      [
+        "https://www.urpsml-na.org/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.urpsml-na.org/"
+      ],
+      [
+        "https://www.urpsml-na.org/les-journaux/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.urpsml-na.org/les-journaux/"
+      ],
+      [
+        "https://www.urpsml-na.org/feed/",
+        200,
+        "application/rss+xml; charset=UTF-8",
+        "https://www.urpsml-na.org/feed/"
+      ],
+      [
+        "https://www.urps-pharmaciens-na.fr/outils-supports/formations/cybermenaces-et-professionnels-liberaux/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.urps-pharmaciens-na.fr/outils-supports/formations/cybermenaces-et-professionnels-liberaux/"
+      ]
+    ],
+    "URPS Infirmiers Libéraux Nouvelle-Aquitaine": [
+      [
+        "https://urpsinfirmiers-na.fr/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://urpsinfirmiers-na.fr/"
+      ],
+      [
+        "https://urpsinfirmiers-na.fr/actualites/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://urpsinfirmiers-na.fr/actualites/"
+      ],
+      [
+        "https://urpsinfirmiers-na.fr/actualites/feed/",
+        200,
+        "text/xml;charset=UTF-8",
+        "https://urpsinfirmiers-na.fr/actualites/feed/"
+      ],
+      [
+        "https://www.urps-pharmaciens-na.fr/outils-supports/formations/cybermenaces-et-professionnels-liberaux/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.urps-pharmaciens-na.fr/outils-supports/formations/cybermenaces-et-professionnels-liberaux/"
+      ]
+    ],
+    "URPS Pharmaciens Nouvelle-Aquitaine": [
+      [
+        "https://www.urps-pharmaciens-na.fr/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.urps-pharmaciens-na.fr/"
+      ],
+      [
+        "https://www.urps-pharmaciens-na.fr/actualites/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.urps-pharmaciens-na.fr/actualites/"
+      ],
+      [
+        "https://www.urps-pharmaciens-na.fr/feed/",
+        200,
+        "application/rss+xml; charset=UTF-8",
+        "https://www.urps-pharmaciens-na.fr/feed/"
+      ],
+      [
+        "https://www.urps-pharmaciens-na.fr/outils-supports/formations/cybermenaces-et-professionnels-liberaux/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.urps-pharmaciens-na.fr/outils-supports/formations/cybermenaces-et-professionnels-liberaux/"
+      ]
+    ],
+    "Mutualité Française Nouvelle-Aquitaine": [
+      [
+        "https://nouvelle-aquitaine.mutualite.fr/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://nouvelle-aquitaine.mutualite.fr/"
+      ],
+      [
+        "https://nouvelle-aquitaine.mutualite.fr/actualites/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://nouvelle-aquitaine.mutualite.fr/actualites/"
+      ],
+      [
+        "https://nouvelle-aquitaine.mutualite.fr/actualites/feed/",
+        200,
+        "application/rss+xml; charset=UTF-8",
+        "https://nouvelle-aquitaine.mutualite.fr/actualites/feed/"
+      ],
+      [
+        "https://www.la-croix.com/sante/une-cyberattaque-a-touche-des-chambres-froides-de-l-etablissement-francais-du-sang-20261104",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.la-croix.com/sante/une-cyberattaque-a-touche-des-chambres-froides-de-l-etablissement-francais-du-sang-20261104"
+      ]
+    ],
+    "Croix-Rouge française — délégation de la Dordogne": [
+      [
+        "https://www.croix-rouge.fr/delegation-territoriale-de-la-dordogne",
+        200,
+        "text/html;charset=utf-8",
+        "https://www.croix-rouge.fr/delegation-territoriale-de-la-dordogne"
+      ],
+      [
+        "https://www.croix-rouge.fr/actualite",
+        200,
+        "text/html;charset=utf-8",
+        "https://www.croix-rouge.fr/actualite"
+      ],
+      [
+        "https://www.urps-pharmaciens-na.fr/outils-supports/formations/cybermenaces-et-professionnels-liberaux/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.urps-pharmaciens-na.fr/outils-supports/formations/cybermenaces-et-professionnels-liberaux/"
+      ]
+    ],
+    "FHP Nouvelle-Aquitaine": [
+      [
+        "https://fhp.fr/la-federation/les-fhp-regions/nouvelle-aquitaine/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://fhp.fr/la-federation/les-fhp-regions/nouvelle-aquitaine/"
+      ],
+      [
+        "https://fhp.fr/actualites/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://fhp.fr/actualites/"
+      ],
+      [
+        "https://fhp.fr/feed/",
+        200,
+        "application/rss+xml; charset=UTF-8",
+        "https://fhp.fr/feed/"
+      ],
+      [
+        "https://www.lefigaro.fr/secteur/high-tech/cyberattaque-une-clinique-privee-sanctionnee-d-une-amende-de-500-000-euros-apres-un-vol-de-donnees-20260903",
+        200,
+        "text/html; charset=UTF-8",
+        "https://www.lefigaro.fr/secteur/high-tech/cyberattaque-une-clinique-privee-sanctionnee-d-une-amende-de-500-000-euros-apres-un-vol-de-donnees-20260903"
+      ]
+    ],
+    "France 3 Nouvelle-Aquitaine — Dordogne": [
+      [
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/",
+        200,
+        "text/html; charset=UTF-8",
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/"
+      ],
+      [
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/dordogne",
+        200,
+        "text/html; charset=UTF-8",
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/dordogne"
+      ],
+      [
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/rss",
+        200,
+        "text/xml; charset=UTF-8",
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/rss"
+      ],
+      [
+        "https://france3-regions.franceinfo.fr/grand-est/marne/reims/cyberattaque-des-donnees-personnelles-de-patients-derobees-au-chu-de-reims-apres-le-piratage-d-un-logiciel-medical-3449217.html",
+        200,
+        "text/html; charset=UTF-8",
+        "https://france3-regions.franceinfo.fr/grand-est/marne/reims/cyberattaque-des-donnees-personnelles-de-patients-derobees-au-chu-de-reims-apres-le-piratage-d-un-logiciel-medical-3449217.html"
+      ]
+    ],
+    "Le Démocrate Indépendant — Bergerac": [
+      [
+        "https://www.ledemocratedebergerac.fr/",
+        200,
+        "text/html",
+        "https://www.ledemocratedebergerac.fr/"
+      ],
+      [
+        "https://www.ledemocratedebergerac.fr/category/dans-lactu/",
+        200,
+        "text/html",
+        "https://www.ledemocratedebergerac.fr/category/dans-lactu/"
+      ],
+      [
+        "https://www.ledemocratedebergerac.fr/feed/",
+        200,
+        "application/rss+xml; charset=UTF-8",
+        "https://www.ledemocratedebergerac.fr/feed/"
+      ],
+      [
+        "https://france3-regions.franceinfo.fr/grand-est/marne/reims/cyberattaque-des-donnees-personnelles-de-patients-derobees-au-chu-de-reims-apres-le-piratage-d-un-logiciel-medical-3449217.html",
+        200,
+        "text/html; charset=UTF-8",
+        "https://france3-regions.franceinfo.fr/grand-est/marne/reims/cyberattaque-des-donnees-personnelles-de-patients-derobees-au-chu-de-reims-apres-le-piratage-d-un-logiciel-medical-3449217.html"
+      ]
+    ]
+  }
+}
