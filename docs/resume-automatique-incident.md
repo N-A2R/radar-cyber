@@ -93,3 +93,5 @@ correspond plus à ses entrées. Le diff de `apps/api/src/server.ts` est de 0 li
 - Les sources grises sont acceptées comme indices datés, jamais comme preuve
   d'une responsabilité ou d'une identité personnelle.
 - La mesure porte sur les 50 incidents du corpus figé, pas sur toute la base vivante.
+
+OBJECTIF : atteint — 72,92 / 100 de note moyenne sur 50 résumés notés (cible : 70 / 100 ; 37 / 50 résumés au-dessus du seuil diagnostique), mesuré le 22/11/2026 par `jq '.objective'` sur `bench/results/incident-summary-quality.json` et recalculé depuis `bench/couverture/incidents.jsonl` avec la grille indépendante (empreinte `11781aa6a4ac4101`) ; aucun code ni test modifié.
