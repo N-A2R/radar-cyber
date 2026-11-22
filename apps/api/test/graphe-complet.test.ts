@@ -9,8 +9,10 @@ import { createHash } from "node:crypto";
 import Fastify, { type FastifyInstance } from "fastify";
 import { closePools, query } from "../src/db.js";
 import graphCompletRoute from "../src/routes/graph-complet.js";
+import { sirenUnique } from "./helpers/siren.js";
 
 const TAG = `gc${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
+const SIREN = sirenUnique("graphe-complet");
 const NA = TAG.toLowerCase();
 const ALIAS = `Alias ${TAG} SARL`;
 const VICTIM = `VICTIM_SENSITIVE_${TAG}`;
@@ -52,7 +54,7 @@ before(async () => {
 
   const regional = await query<{ id: number }>(
     `INSERT INTO org (name, slug, kind, dept, city, secteur_groupe, naf, siren, entity_code)
-     VALUES ($1,$2,'entreprise','33','Bordeaux','sante','8610Z','123456789','123456789')
+     VALUES ($1,$2,'entreprise','33','Bordeaux','sante','8610Z','${SIREN}','${SIREN}')
      RETURNING id`,
     [`Regional Org ${TAG}`, `regional-${NA}`],
   );

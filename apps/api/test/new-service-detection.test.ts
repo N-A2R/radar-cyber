@@ -17,8 +17,19 @@ import {
 } from "../src/exposition/new-service-monitor.js";
 import newExposedServicesRoute from "../src/routes/exposition-new-services.js";
 
-after(async () => { await closePools(); });
+after(async () => {
+	await query(
+		`DELETE FROM exposition_service_detection
+		  WHERE service_id IN (SELECT id FROM exposition_service WHERE org_id = ANY($1::int[]))`,
+		[createdOrgIds],
+	);
+	await query("DELETE FROM exposition_service WHERE org_id = ANY($1::int[])", [createdOrgIds]);
+	await query("DELETE FROM org WHERE id = ANY($1::int[])", [createdOrgIds]);
+	await closePools();
+});
 beforeEach(() => { resetNewServiceDetectionState(); });
+
+const createdOrgIds: number[] = [];
 
 async function createOrg(dept: string): Promise<number> {
 	const slug = `new-service-${dept}-${Date.now()}-${Math.random().toString(36).slice(2)}`;
@@ -26,6 +37,7 @@ async function createOrg(dept: string): Promise<number> {
 		"INSERT INTO org (name, slug, kind, dept) VALUES ($1,$2,$3,$4) RETURNING id",
 		[`Organisation ${slug}`, slug, "collectivite", dept],
 	);
+	createdOrgIds.push(result.rows[0]!.id);
 	return result.rows[0]!.id;
 }
 

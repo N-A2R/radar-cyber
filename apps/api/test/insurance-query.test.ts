@@ -2,17 +2,19 @@
  * Database behaviour behind the insurance score: region scope, grey sources,
  * global peer baseline and source identifiers. Runs on the disposable test DB.
  */
-import { test } from "node:test";
+import { after, test } from "node:test";
 import assert from "node:assert/strict";
 import { ingestQuery } from "../src/db.js";
 import { inputFromRow, loadInsuranceCorpus, loadInsuranceGroups, loadOrganizationInputs } from "../src/insurance/query.js";
+import { sirenUnique } from "./helpers/siren.js";
 
 const REFERENCE = "2026-11-22";
+const SIREN = sirenUnique("insurance-query");
 
 async function prepare(): Promise<{ naId: number; otherId: number }> {
   await ingestQuery(
     `INSERT INTO org (name, slug, kind, sector, dept, siren, naf, lat, lon, entity_source)
-     VALUES ('NA scored one', 'insurance-na-one', 'entreprise', 'sante', '33', '111111111', '86.90A', 44.8, -0.6, 'sirene'),
+     VALUES ('NA scored one', 'insurance-na-one', 'entreprise', 'sante', '33', '${SIREN}', '86.90A', 44.8, -0.6, 'sirene'),
             ('NA scored two', 'insurance-na-two', 'entreprise', 'sante', '33', NULL, NULL, NULL, NULL, NULL),
             ('NA scored three', 'insurance-na-three', 'entreprise', 'commerce', '17', NULL, NULL, NULL, NULL, NULL),
             ('Outside region', 'insurance-outside', 'entreprise', 'sante', '75', NULL, NULL, NULL, NULL, NULL)
@@ -88,4 +90,10 @@ test("the single-organization endpoint reuses the same regional baseline", async
 test("an organization outside Nouvelle-Aquitaine has no score", async () => {
   const { otherId } = await prepare();
   assert.equal(await loadOrganizationInputs(otherId, REFERENCE), null);
+});
+
+after(async () => {
+  await ingestQuery("DELETE FROM event WHERE dedup_key LIKE 'insurance-%'");
+  await ingestQuery("DELETE FROM org WHERE slug LIKE 'insurance-%'");
+  await ingestQuery("DELETE FROM source WHERE id IN ('grey-forum', 'public-cti')");
 });

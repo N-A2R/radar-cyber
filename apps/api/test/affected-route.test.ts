@@ -11,8 +11,10 @@ import { randomBytes } from "node:crypto";
 import Fastify, { type FastifyInstance } from "fastify";
 import { closePools, query } from "../src/db.js";
 import affectedRoute from "../src/routes/affected.js";
+import { sirenUnique } from "./helpers/siren.js";
 
 const TAG = `aff${Date.now().toString(36)}${randomBytes(3).toString("hex")}`;
+const SIREN = sirenUnique("affected-route");
 const SOURCE = `${TAG}-grey`;
 const NA_SLUG = `${TAG}-na`;
 const OUT_SLUG = `${TAG}-out`;
@@ -31,7 +33,7 @@ before(async () => {
   );
   const na = await query<{ id: number }>(
     `INSERT INTO org (name, slug, kind, sector, city, dept, siren, entity_code, entity_source, geo_source)
-     VALUES ($1,$2,'association','environment','Bordeaux','33','123456789','SIRENE-TEST','sirene','sirene')
+     VALUES ($1,$2,'association','environment','Bordeaux','33','${SIREN}','SIRENE-TEST','sirene','sirene')
      RETURNING id`,
     [`Association Riveraine ${TAG}`, NA_SLUG],
   );
@@ -64,6 +66,9 @@ before(async () => {
 
 after(async () => {
   if (app) await app.close();
+  // Le trigger `victim_alert_on_event` crée une alerte pour la revendication :
+  // elle référence encore l'organisation supprimée si on ne la retire pas.
+  await query("DELETE FROM alert WHERE org_id = ANY($1::int[])", [[naId, outId]]);
   await query("DELETE FROM event WHERE source_id = $1", [SOURCE]);
   await query("DELETE FROM org WHERE slug = ANY($1::text[])", [[NA_SLUG, OUT_SLUG]]);
   await query("DELETE FROM source WHERE id = $1", [SOURCE]);

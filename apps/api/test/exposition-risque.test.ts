@@ -10,7 +10,12 @@ import assert from "node:assert/strict";
 import { closePools, query } from "../src/db.js";
 import { classer, classerServices, niveauRisque, scoreCriticite, SEUIL_EPSS_ELEVE } from "../src/exposition/risque.js";
 
-after(async () => { await closePools(); });
+after(async () => {
+	await query("DELETE FROM exposition_service WHERE org_id IN (SELECT id FROM org WHERE slug LIKE 'test-hote-%')");
+	await query("DELETE FROM exposition_risque_mesure WHERE source IN ('test-classement', 'test-fraicheur')");
+	await query("DELETE FROM org WHERE slug LIKE 'test-hote-%'");
+	await closePools();
+});
 
 const SIX_SERVICES = [
 	{ categorie: "autre", epssMax: 0, kev: false, port: 22, technologie: "ssh" },

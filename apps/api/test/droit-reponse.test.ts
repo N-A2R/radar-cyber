@@ -94,6 +94,7 @@ after(async () => {
   await query("DELETE FROM droit_reponse WHERE org_id=$1", [orgId]);
   await query("DELETE FROM app_session WHERE user_id = ANY($1::int[])", [Object.values(IDS)]);
   await query("DELETE FROM app_user WHERE id = ANY($1::int[])", [Object.values(IDS)]);
+  await query("DELETE FROM org WHERE id = $1", [orgId]);
   await closePools();
 });
 

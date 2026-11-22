@@ -15,7 +15,11 @@ import {
 	servicesDepuisInternetDb,
 } from "../src/exposition/services.js";
 
-after(async () => { await closePools(); });
+after(async () => {
+	await query("DELETE FROM exposition_service WHERE org_id IN (SELECT id FROM org WHERE slug LIKE 'exposition-test-%')");
+	await query("DELETE FROM org WHERE slug LIKE 'exposition-test-%'");
+	await closePools();
+});
 
 test("les ports connus sont classés par famille de service", () => {
 	assert.equal(categoriePort(443), "web");

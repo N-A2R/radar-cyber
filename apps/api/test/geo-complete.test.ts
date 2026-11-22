@@ -3,7 +3,7 @@
  * Pure rules need no database; the write path uses the ephemeral test DB.
  */
 import assert from "node:assert/strict";
-import { describe, it } from "node:test";
+import { after, describe, it } from "node:test";
 import { query } from "../src/db.js";
 import {
   backfillRemainingGeo,
@@ -133,4 +133,9 @@ describe("final-mile backfill write path", () => {
     const second = await backfillRemainingGeo(() => {}, { lookup });
     assert.equal(second.updated, 0);
   });
+});
+
+after(async () => {
+  await query("DELETE FROM org_enrichissement WHERE org_id IN (SELECT id FROM org WHERE slug LIKE 'geo-complete-%')");
+  await query("DELETE FROM org WHERE slug LIKE 'geo-complete-%'");
 });

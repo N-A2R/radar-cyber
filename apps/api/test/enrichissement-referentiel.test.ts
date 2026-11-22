@@ -1,4 +1,4 @@
-import test from "node:test";
+import test, { after } from "node:test";
 import assert from "node:assert/strict";
 import {
 	analyserOrganisation,
@@ -32,6 +32,10 @@ import {
 	mesurerCouverture,
 } from "../src/referentiel/enrichissement-db.js";
 import { query } from "../src/db.js";
+import { sirenUnique } from "./helpers/siren.js";
+
+const SIREN_VIDE = sirenUnique("enrichissement-referentiel:vide");
+const SIREN_PLEIN = sirenUnique("enrichissement-referentiel:plein");
 
 function org(sur: Partial<OrgEnrichissable> = {}): OrgEnrichissable {
 	return {
@@ -310,7 +314,7 @@ test("base : lecture paginée, application idempotente, provenance et non-écras
 	const vide = inseres.find((r) => r.slug === "test-enrichissement-vide")!;
 	const plein = inseres.find((r) => r.slug === "test-enrichissement-plein")!;
 	await query(
-		`UPDATE org SET domain = 'deja.fr', siren = '999999999', sector = 'sante', lat = 48.8, lon = 2.3
+		`UPDATE org SET domain = 'deja.fr', siren = '${SIREN_PLEIN}', sector = 'sante', lat = 48.8, lon = 2.3
 		  WHERE id = $1`,
 		[plein.id],
 	);
@@ -321,7 +325,7 @@ test("base : lecture paginée, application idempotente, provenance et non-écras
 
 	const propositions: Proposition[] = [
 		{ orgId: vide.id, champ: "domain", valeur: { domaine: "nouveau.fr" }, source: "http-200:nouveau.fr", confiance: 0.88, details: { codeHttp: 200 } },
-		{ orgId: vide.id, champ: "siren", valeur: { siren: "123456789" }, source: "recherche-entreprises-api", confiance: 0.93, details: {} },
+		{ orgId: vide.id, champ: "siren", valeur: { siren: SIREN_VIDE }, source: "recherche-entreprises-api", confiance: 0.93, details: {} },
 		{ orgId: vide.id, champ: "secteur", valeur: { secteur: "numerique", naf: "62.02A", libelle: "Numérique" }, source: "recherche-entreprises-api", confiance: 0.91, details: {} },
 		{ orgId: vide.id, champ: "geo", valeur: { lat: 44.8378, lon: -0.5792, codePostal: "33000", commune: "Bordeaux", codeCommune: "33063" }, source: "codes-postaux-communes", confiance: 0.95, details: {} },
 		{ orgId: plein.id, champ: "domain", valeur: { domaine: "écrasement.fr" }, source: "http-200:ecrasement.fr", confiance: 0.99, details: {} },
@@ -337,12 +341,12 @@ test("base : lecture paginée, application idempotente, provenance et non-écras
 	}>("SELECT domain, siren, sector, lat, lon, geo_source, naf FROM org WHERE id = ANY($1::int[])", [[vide.id, plein.id]]);
 	const orgVide = rows.find((r) => r.domain === "nouveau.fr")!;
 	const orgPlein = rows.find((r) => r.domain === "deja.fr")!;
-	assert.equal(orgVide.siren, "123456789");
+	assert.equal(orgVide.siren, SIREN_VIDE);
 	assert.equal(orgVide.sector, "numerique");
 	assert.equal(orgVide.naf, "62.02A");
 	assert.equal(orgVide.lat, 44.8378);
 	assert.match(orgVide.geo_source!, /^code-postal:/);
-	assert.equal(orgPlein.siren, "999999999");
+	assert.equal(orgPlein.siren, SIREN_PLEIN);
 	assert.equal(orgPlein.sector, "sante");
 	assert.equal(orgPlein.lat, 48.8);
 
@@ -360,4 +364,9 @@ test("base : lecture paginée, application idempotente, provenance et non-écras
 	assert.ok(apres.avant.domain.remplis > avant.avant.domain.remplis);
 	assert.equal(apres.avant.geo.traces, 1);
 	assert.equal(apres.avant.siren.traces, 1);
+});
+
+after(async () => {
+	await query("DELETE FROM org_enrichissement WHERE org_id IN (SELECT id FROM org WHERE slug LIKE 'test-enrichissement-%')");
+	await query("DELETE FROM org WHERE slug LIKE 'test-enrichissement-%'");
 });

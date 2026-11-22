@@ -12,8 +12,13 @@ import {
 	countSiretEstablishments,
 } from "../src/referentiel/siret-establishments.js";
 import siretRoute from "../src/routes/siret-establishments.js";
+import { sirenUnique } from "./helpers/siren.js";
 
 const TAG = `se${Date.now().toString(36)}${randomBytes(3).toString("hex")}`;
+const SIREN_ACTIVE = sirenUnique("siret-establishments:active");
+const SIREN_CLOSED = sirenUnique("siret-establishments:closed");
+const SIREN_OUTSIDE = sirenUnique("siret-establishments:outside");
+const SIREN_UNMATCHED = sirenUnique("siret-establishments:unmatched");
 const ids: Record<string, number> = {};
 let app: FastifyInstance;
 
@@ -45,19 +50,20 @@ async function parentOf(key: string): Promise<number | null> {
 }
 
 before(async () => {
-	await insertOrg("activeHq", { siren: "111111111", source: "sirene", dept: "33" });
-	await insertOrg("closedHq", { siren: "222222222", source: "sirene-ferme", dept: "16" });
-	await insertOrg("outsideHq", { siren: "333333333", source: "sirene", dept: "75" });
+	await insertOrg("activeHq", { siren: SIREN_ACTIVE, source: "sirene", dept: "33" });
+	await insertOrg("closedHq", { siren: SIREN_CLOSED, source: "sirene-ferme", dept: "16" });
+	await insertOrg("outsideHq", { siren: SIREN_OUTSIDE, source: "sirene", dept: "75" });
 
-	await insertOrg("linked", { source: "sirene-site", code: "11111111100012", dept: "33" });
-	await insertOrg("closed", { source: "sirene-site", code: "22222222200024", dept: "16" });
-	await insertOrg("malformed", { source: "sirene-site", code: "111111111001", dept: "33" });
-	await insertOrg("outside", { source: "sirene-site", code: "33333333300036", dept: "75" });
-	await insertOrg("unmatched", { source: "sirene-site", code: "44444444400048", dept: "87" });
+	await insertOrg("linked", { source: "sirene-site", code: `${SIREN_ACTIVE}00012`, dept: "33" });
+	await insertOrg("closed", { source: "sirene-site", code: `${SIREN_CLOSED}00024`, dept: "16" });
+	await insertOrg("malformed", { source: "sirene-site", code: `${SIREN_ACTIVE}001`, dept: "33" });
+	await insertOrg("outside", { source: "sirene-site", code: `${SIREN_OUTSIDE}00036`, dept: "75" });
+	await insertOrg("unmatched", { source: "sirene-site", code: `${SIREN_UNMATCHED}00048`, dept: "87" });
 });
 
 after(async () => {
 	if (app) await app.close();
+	await query("DELETE FROM org WHERE id = ANY($1::int[])", [Object.values(ids)]);
 	await closePools();
 });
 

@@ -3,7 +3,7 @@
  * Pure rules need no database; the write path uses the ephemeral test DB.
  */
 import assert from "node:assert/strict";
-import { describe, it } from "node:test";
+import { after, describe, it } from "node:test";
 import { geocodePendingEvents } from "../src/collectors/geocode.js";
 import { query } from "../src/db.js";
 import { backfillOrgGeo } from "../src/geo/backfill.js";
@@ -143,4 +143,10 @@ describe("backfill write path", () => {
       geo_source: "org",
     });
   });
+});
+
+after(async () => {
+  await query("DELETE FROM event WHERE dedup_key = 'geo-backfill-event'");
+  await query("DELETE FROM org_enrichissement WHERE org_id IN (SELECT id FROM org WHERE slug LIKE 'geo-backfill-%')");
+  await query("DELETE FROM org WHERE slug LIKE 'geo-backfill-%'");
 });
