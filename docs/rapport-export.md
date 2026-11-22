@@ -83,3 +83,5 @@ Le bouton exporte les données chargées par l'écran courant (page affichée po
 l'annuaire, filtre appliqué pour le journal, etc.), jamais un vidage de la base :
 les 1,67 million d'organisations restent derrière l'API paginée. Aucune donnée
 de victime n'entre dans le pipeline d'export.
+
+OBJECTIF : atteint — 13 / 13 écrans (26 / 26 paires écran × format, mesure reproductible : `pnpm -F @radar/web test:export`).
