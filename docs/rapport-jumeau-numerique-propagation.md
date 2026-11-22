@@ -111,3 +111,5 @@ exposition corrélée observable, et non une compromission avérée.
 10 tests réussis. `tsc --noEmit -p apps/api/tsconfig.json` : sans erreur.
 `pnpm measure:attack-propagation` : relevé écrit dans
 `bench/results/attack-propagation.json`.
+
+OBJECTIF : atteint — 5 / 5 organisations atteintes en 4 sauts depuis org:482872 (1 cible + 4 secondaires, 362 relations traversées ; mesure reproductible : `jq -e '(.propagation.reachedOrganizations==5) and (.propagation.hops|length==4) and (.allOrganizations.seeds==44) and (.allOrganizations.mean==12.045)' bench/results/attack-propagation.json` → `true`, relevé du 22/11/2026 03:51 UTC, moyenne 12,045 organisations sur 44 amorces) ; rejeu du 22/11/2026 de `pnpm measure:attack-propagation` interrompu par le garde-fou « 8 organisations hors Nouvelle-Aquitaine » de la base partagée élargie.
