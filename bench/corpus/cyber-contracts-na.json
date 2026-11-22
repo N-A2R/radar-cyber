@@ -1,0 +1,323 @@
+{
+  "meta": {
+    "source": "BOAMP open data (DILA) via Opendatasoft public API",
+    "license": "Licence ouverte Etalab",
+    "endpoint": "https://boamp-datadila.opendatasoft.com/api/explore/v2.1/catalog/datasets/boamp/records",
+    "window": {
+      "from": "2025-11-22",
+      "to": "2026-11-22"
+    },
+    "terms": [
+      "cyber",
+      "cybersécurité",
+      "sécurité informatique",
+      "sécurité des systèmes",
+      "pare-feu",
+      "antivirus",
+      "vulnérabilité",
+      "scada",
+      "chiffrement",
+      "sécurité numérique",
+      "sécurité des réseaux",
+      "certificats électroniques",
+      "sase",
+      "siem",
+      "edr",
+      "pentest",
+      "authentification forte"
+    ],
+    "candidates": 53,
+    "collectedAt": "2026-11-22",
+    "scope": "notices whose every place of execution is in one of the 12 Nouvelle-Aquitaine departments"
+  },
+  "notices": [
+    {
+      "id": "25-131639",
+      "date": "2025-11-30",
+      "departments": [
+        "33",
+        "24",
+        "40",
+        "47",
+        "64",
+        "19",
+        "23",
+        "87",
+        "16"
+      ],
+      "buyer": "Association marchés publics d&#039;Aquitaine (AMPA)",
+      "object": "Acquisition de certificats électroniques personnels RGS, signature eIDAS et certificats serveurs.",
+      "nature": "APPEL_OFFRE",
+      "folderId": "0254c27a-059f-4652-858a-a7c7cee79819",
+      "amountEur": null,
+      "amountKind": null,
+      "awardees": []
+    },
+    {
+      "id": "25-131920",
+      "date": "2025-11-30",
+      "departments": [
+        "24"
+      ],
+      "buyer": "CDC Périgord Limousin",
+      "object": "Le marché porte sur la souscription et la gestion de contrats d'assurances, divisé en quatre lots : dommages aux biens, responsabilité civile, parc automobile et cyber risques",
+      "nature": "ATTRIBUTION",
+      "folderId": "1cbeb886-4cfc-464d-8b5a-ef2205cbe138",
+      "amountEur": 43189.09,
+      "amountKind": "awarded",
+      "awardees": [
+        "PARIS NORD",
+        "SARRE et MOSELLE",
+        "SMACL"
+      ]
+    },
+    {
+      "id": "25-138438",
+      "date": "2025-12-18",
+      "departments": [
+        "17"
+      ],
+      "buyer": "SOLURIS (17)",
+      "object": "MAINTENANCE D'UNE SOLUTION ANTIVIRUS MUTUALISEE ET ACQUISITIONS COMPLEMENTAIRES",
+      "nature": "APPEL_OFFRE",
+      "folderId": "514a922d-d0f4-4657-a64d-f78d0ab2c249",
+      "amountEur": 800000,
+      "amountKind": "estimated",
+      "awardees": []
+    },
+    {
+      "id": "25-143041",
+      "date": "2025-12-31",
+      "departments": [
+        "17"
+      ],
+      "buyer": "SOLURIS (17)",
+      "object": "MAINTENANCE D'UNE SOLUTION ANTIVIRUS MUTUALISEE ET ACQUISITIONS COMPLEMENTAIRES",
+      "nature": "APPEL_OFFRE",
+      "folderId": "592445a5-87a6-4b19-8a21-66acd3a80c1a",
+      "amountEur": 800000,
+      "amountKind": "estimated",
+      "awardees": []
+    },
+    {
+      "id": "26-9502",
+      "date": "2026-01-28",
+      "departments": [
+        "64"
+      ],
+      "buyer": "Communauté de communes de Lacq-Orthez",
+      "object": "Prestation d'audit de la sécurité des systèmes d'information de la Communauté de Communes de Lacq-Orthez",
+      "nature": "APPEL_OFFRE",
+      "folderId": null,
+      "amountEur": null,
+      "amountKind": null,
+      "awardees": []
+    },
+    {
+      "id": "26-32747",
+      "date": "2026-04-01",
+      "departments": [
+        "87"
+      ],
+      "buyer": "CHU DE LIMOGES",
+      "object": "Assurance CYBER",
+      "nature": "APPEL_OFFRE",
+      "folderId": "a7593513-9df7-4701-acd9-69be321b4975",
+      "amountEur": 1000000,
+      "amountKind": "estimated",
+      "awardees": []
+    },
+    {
+      "id": "26-34373",
+      "date": "2026-04-05",
+      "departments": [
+        "64"
+      ],
+      "buyer": "Département des Pyrénées-Atlantiques",
+      "object": "Matériels concourant à la Sécurité des Systèmes d'Information des collèges publics - Acquisition, déploiement, maintenance, support et expertise",
+      "nature": "APPEL_OFFRE",
+      "folderId": "0c3c08fb-0a74-45bc-bd1d-13b1ba47f073",
+      "amountEur": 240000,
+      "amountKind": "estimated",
+      "awardees": []
+    },
+    {
+      "id": "26-38413",
+      "date": "2026-04-16",
+      "departments": [
+        "87"
+      ],
+      "buyer": "CHU DE LIMOGES",
+      "object": "Assurance CYBER",
+      "nature": "APPEL_OFFRE",
+      "folderId": "a7593513-9df7-4701-acd9-69be321b4975",
+      "amountEur": 1000000,
+      "amountKind": "estimated",
+      "awardees": []
+    },
+    {
+      "id": "26-42997",
+      "date": "2026-04-28",
+      "departments": [
+        "87"
+      ],
+      "buyer": "SDIS 87 HAUTE-VIENNE",
+      "object": "Remplacement du cluster de pare-feu existant au Service Départemental d'Incendie et de Secours de la Haute-Vienne (SDIS 87) par une solution de cluster de pare-feu de nouvelle génération en haute d...",
+      "nature": "APPEL_OFFRE",
+      "folderId": null,
+      "amountEur": null,
+      "amountKind": null,
+      "awardees": []
+    },
+    {
+      "id": "26-42499",
+      "date": "2026-04-29",
+      "departments": [
+        "16"
+      ],
+      "buyer": "SPL SEMEA",
+      "object": "Fourniture et intégration de matériels et logiciels informatiques, services d'infogérance et de cybersécurité",
+      "nature": "APPEL_OFFRE",
+      "folderId": "6f528497-c81a-4ec2-b34c-a15fc6f8f4e3",
+      "amountEur": null,
+      "amountKind": null,
+      "awardees": []
+    },
+    {
+      "id": "26-46634",
+      "date": "2026-05-09",
+      "departments": [
+        "86"
+      ],
+      "buyer": "SRD - Energies (86)",
+      "object": "Audit Cybersécurité et Sécurité des réseaux Radio et SCADA",
+      "nature": "APPEL_OFFRE",
+      "folderId": "315612fb-e863-4275-8387-0e30f7159d7b",
+      "amountEur": null,
+      "amountKind": null,
+      "awardees": []
+    },
+    {
+      "id": "26-64586",
+      "date": "2026-07-01",
+      "departments": [
+        "87"
+      ],
+      "buyer": "CHU DE LIMOGES",
+      "object": "Assurance CYBER",
+      "nature": "ATTRIBUTION",
+      "folderId": "a7593513-9df7-4701-acd9-69be321b4975",
+      "amountEur": 123440,
+      "amountKind": "awarded",
+      "awardees": [
+        "SATEC"
+      ]
+    },
+    {
+      "id": "26-69375",
+      "date": "2026-07-12",
+      "departments": [
+        "86"
+      ],
+      "buyer": "Société d'Economie Mixte Locale Sorégies (86)",
+      "object": "Acquisition d’une solution SASE (Secure Access Service Edge) pour la cybersécurité du Groupe SOREGIES",
+      "nature": "APPEL_OFFRE",
+      "folderId": "860c0ec4-71be-47ca-8ae0-c91370cfa77b",
+      "amountEur": null,
+      "amountKind": null,
+      "awardees": []
+    },
+    {
+      "id": "26-72703",
+      "date": "2026-07-22",
+      "departments": [
+        "64"
+      ],
+      "buyer": "Département des Pyrénées-Atlantiques",
+      "object": "Matériels concourant à la Sécurité des Systèmes d'Information des collèges publics - Acquisition, déploiement, maintenance, support et expertise",
+      "nature": "ATTRIBUTION",
+      "folderId": "0c3c08fb-0a74-45bc-bd1d-13b1ba47f073",
+      "amountEur": 240000,
+      "amountKind": "estimated",
+      "awardees": [
+        "HELIANTIS"
+      ]
+    },
+    {
+      "id": "26-79862",
+      "date": "2026-08-11",
+      "departments": [
+        "87"
+      ],
+      "buyer": "SDIS 87 HAUTE-VIENNE",
+      "object": "Remplacement du cluster de pare-feu existant au SDIS 87 par une solution de cluster de pare-feu de nouvelle génération en haute disponibilité.",
+      "nature": "ATTRIBUTION",
+      "folderId": null,
+      "amountEur": 62844,
+      "amountKind": "awarded",
+      "awardees": [
+        "SOCIETE INTEGRA SYSTEMS"
+      ]
+    },
+    {
+      "id": "26-96805",
+      "date": "2026-10-07",
+      "departments": [
+        "87"
+      ],
+      "buyer": "LIMOGES METROPOLE - Communauté urbaine",
+      "object": "EVENEMENTS CYBERSECURITE : RENCONTRES CYBER ET CAPTURE THE FLAG – EN 2 LOTS",
+      "nature": "APPEL_OFFRE",
+      "folderId": null,
+      "amountEur": null,
+      "amountKind": null,
+      "awardees": []
+    },
+    {
+      "id": "26-97651",
+      "date": "2026-10-10",
+      "departments": [
+        "86"
+      ],
+      "buyer": "SRD - Energies (86)",
+      "object": "Audit Cybersécurité et Sécurité des réseaux Radio et SCADA",
+      "nature": "ATTRIBUTION",
+      "folderId": "315612fb-e863-4275-8387-0e30f7159d7b",
+      "amountEur": 60000,
+      "amountKind": "awarded",
+      "awardees": [
+        "INTEGRITY360 Holiseum SAS"
+      ]
+    },
+    {
+      "id": "26-104392",
+      "date": "2026-10-27",
+      "departments": [
+        "33"
+      ],
+      "buyer": "Mairie de Bouliac",
+      "object": "Marché de services d'assurances pour la commune de Bouliac : lot n° 1, dommages aux biens mobiliers et immobiliers ; lot n° 2, atteintes au système d'information (Cyber Risques).",
+      "nature": "APPEL_OFFRE",
+      "folderId": null,
+      "amountEur": null,
+      "amountKind": null,
+      "awardees": []
+    },
+    {
+      "id": "26-110896",
+      "date": "2026-11-17",
+      "departments": [
+        "86"
+      ],
+      "buyer": "Société d'Economie Mixte Locale Sorégies (86)",
+      "object": "Acquisition d’une solution SASE (Secure Access Service Edge) pour la cybersécurité du Groupe SOREGIES",
+      "nature": "ATTRIBUTION",
+      "folderId": "860c0ec4-71be-47ca-8ae0-c91370cfa77b",
+      "amountEur": 315341,
+      "amountKind": "awarded",
+      "awardees": [
+        "ADISTA"
+      ]
+    }
+  ]
+}
