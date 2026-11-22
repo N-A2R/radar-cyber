@@ -56,6 +56,44 @@ const PROOF_KEYS: Record<string, true> = {
   evidence: true,
 };
 
+/**
+ * French labels for stored payload keys. The raw key stays available through
+ * the `title` attribute, never as the visible text.
+ */
+export const KEY_LABEL: Record<string, string> = {
+  preuve: "Preuve",
+  proof: "Preuve",
+  evidence: "Preuve",
+  decision: "Décision",
+  reason: "Motif",
+  motif: "Motif",
+  action: "Action",
+  regle: "Règle",
+  agent: "Agent",
+  score: "Score",
+  orgId: "Identifiant d'organisation",
+  nomBrut: "Nom brut",
+  changements: "Changements",
+  quarantineId: "Identifiant de quarantaine",
+  avant: "Avant",
+  apres: "Après",
+  sujet: "Sujet",
+  acteur: "Acteur",
+  resume: "Résumé",
+  raison: "Motif",
+};
+
+/** Readable French label for a payload key; unknown keys are humanised, never raw. */
+export function keyLabel(key: string): string {
+  const known = KEY_LABEL[key];
+  if (known) return known;
+  const words = key
+    .replace(/[._-]+/g, " ")
+    .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+    .toLowerCase();
+  return words.charAt(0).toUpperCase() + words.slice(1);
+}
+
 export function formatValue(value: unknown): string {
   if (value === null || value === undefined || value === "") return "—";
   if (typeof value === "string") return value;
@@ -100,7 +138,7 @@ function EntryDetails({ row }: { row: JournalDecision }) {
             <dl className="journal__detail-values">
               {preuves.map(([key, value]) => (
                 <div key={key}>
-                  <dt>{key}</dt>
+                  <dt title={key}>{keyLabel(key)}</dt>
                   <dd><pre>{formatValue(value)}</pre></dd>
                 </div>
               ))}
@@ -116,7 +154,7 @@ function EntryDetails({ row }: { row: JournalDecision }) {
             <dl className="journal__detail-values">
               {contexte.map(([key, value]) => (
                 <div key={key}>
-                  <dt>{key}</dt>
+                  <dt title={key}>{keyLabel(key)}</dt>
                   <dd><pre>{formatValue(value)}</pre></dd>
                 </div>
               ))}
@@ -256,8 +294,21 @@ export default function JournalList({
         />
       ) : null}
 
-      <div className="journal__scroll">
+      <div
+        className="journal__scroll"
+        role="region"
+        aria-label="Entrées du journal"
+        tabIndex={0}
+      >
         <table className="journal__table">
+          <colgroup>
+            <col />
+            <col />
+            <col />
+            <col />
+            <col />
+            <col />
+          </colgroup>
           <thead>
             <tr>
               <th scope="col">Date (UTC)</th>
@@ -289,7 +340,9 @@ export default function JournalList({
                     {row.decision ? DECISION_LABEL[row.decision] : "Non précisée"}
                   </span>
                 </td>
-                <td>{row.resume ?? row.raison ?? row.indice ?? "—"}</td>
+                <td title={row.resume ?? row.raison ?? row.indice ?? "—"}>
+                  {row.resume ?? row.raison ?? row.indice ?? "—"}
+                </td>
                 <td>
                   <button
                     type="button"

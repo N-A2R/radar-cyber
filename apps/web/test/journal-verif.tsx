@@ -223,6 +223,11 @@ check("detail panel: proof extracted from the payload",
   && withProof.includes(">Preuve</h3>") && withProof.includes(">Contexte</h3>")
   && withProof.includes("nomBrut"));
 
+check("proof keys are labelled in French, raw key kept in title",
+  withProof.includes('title="preuve"') && withProof.includes(">Preuve</dt>")
+  && withProof.includes('title="nomBrut"') && withProof.includes(">Nom brut</dt>")
+  && !withProof.includes("<dt>nomBrut</dt>") && !withProof.includes("<dt>orgId</dt>"));
+
 const truncated = render({ truncated: true });
 check("truncation is announced",
   truncated.includes('role="status"')
@@ -246,9 +251,9 @@ const noMatch = render({ rows: [], resultCount: 0, pageCount: 1, filters: { q: "
 check("explicit empty state with filters",
   noMatch.includes("Aucune entrée de journal ne correspond à ces filtres."));
 
-const exportError = render({ exportError: "CSV export requires administrator access." });
-check("export error is distinct from the API error",
-  exportError.includes("CSV export requires administrator access.")
+const exportError = render({ exportError: "L'export CSV exige un accès administrateur." });
+check("export error is distinct from the API error, in French",
+  exportError.includes("L&#x27;export CSV exige un accès administrateur.")
   && exportError.includes("Exporter en CSV"));
 
 const unspecified = render({
