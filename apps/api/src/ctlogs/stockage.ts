@@ -73,11 +73,13 @@ export async function enregistrerInventaire(args: {
 					ligne.sous_domaine, ligne.domaine, ligne.organisation, ligne.source,
 					ligne.premiere_vue, ligne.certificat_id, ligne.emetteur,
 				);
-				places.push(`($${valeurs.length - 6}, $${valeurs.length - 5}, $${valeurs.length - 4}, $${valeurs.length - 3}, $${valeurs.length - 2}, $${valeurs.length - 1}, $${valeurs.length})`);
+				// `premiere_vue` = instant de notre première observation ; la date
+				// du certificat fournisseur va dans `certificat_vu_le`.
+				places.push(`($${valeurs.length - 6}, $${valeurs.length - 5}, $${valeurs.length - 4}, $${valeurs.length - 3}, now(), $${valeurs.length - 2}, $${valeurs.length - 1}, $${valeurs.length})`);
 			}
 			const resultat = await client.query(
 				`INSERT INTO ct_sous_domaine
-				 (sous_domaine, domaine, organisation, source, premiere_vue, certificat_id, emetteur)
+				 (sous_domaine, domaine, organisation, source, premiere_vue, certificat_vu_le, certificat_id, emetteur)
 				 VALUES ${places.join(", ")} ON CONFLICT (sous_domaine, source) DO NOTHING`,
 				valeurs,
 			);

@@ -224,10 +224,15 @@ export interface ClassifyInput {
 
 /**
  * Garde la famille de la source si le contenu est cyber (ou si la source est
- * explicitement cyber), sinon rétrograde en `presse`. `ransomware` et `cert_fr`
- * sont rendues telles quelles : ces familles ne sont pas concernées par la porte.
+ * explicitement cyber), sinon rétrograde en `presse`. `ransomware`, `cert_fr`
+ * et `presse_locale` sont rendues telles quelles : ces familles ne sont pas
+ * concernées par la porte.
  */
 export function classifyFamily(input: ClassifyInput): Family {
+  // `presse_locale` est une veille de provenance : le titre d'un journal
+  // départemental reste un signal local même sans terme cyber. La famille
+  // n'est jamais utilisée pour qualifier un incident.
+  if (input.sourceFamily === "presse_locale") return input.sourceFamily;
   if (input.sourceFamily === "ransomware" || input.sourceFamily === "cert_fr") return input.sourceFamily;
   if (isCyberSource(input.sourceName)) return input.sourceFamily;
   if (isCyberText(input.title, input.summary)) return input.sourceFamily;

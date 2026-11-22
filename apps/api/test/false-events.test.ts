@@ -29,8 +29,8 @@ async function sourceId(): Promise<string> {
 
 async function insertEvent(title: string, family = "testfalse", orgId: number | null = null): Promise<number> {
   const r = await query<{ id: number }>(
-    `INSERT INTO event (dedup_key, family, assertion_type, title, summary, severity, confidence, source_id, org_id, evidence)
-     VALUES ($1,$2,'ambient_signal',$3,'Culture agenda',3,'C3',$4,$5,'{}') RETURNING id`,
+    `INSERT INTO event (dedup_key, family, assertion_type, title, summary, severity, confidence, source_id, org_id, evidence, source_url)
+     VALUES ($1,$2,'ambient_signal',$3,'Culture agenda',3,'C3',$4,$5,'{}'::jsonb || '{"run_id":"1"}'::jsonb,'https://example.invalid/event') RETURNING id`,
     [next(), family, title, await sourceId(), orgId]
   );
   return r.rows[0].id;

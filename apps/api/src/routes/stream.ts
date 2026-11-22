@@ -3,15 +3,9 @@ import type { FastifyInstance } from "fastify";
 import { query } from "../db.js";
 import { resolveUser } from "../middleware/auth.js";
 import { latestAlertId, selectNewAlerts } from "../notify/alert-feed.js";
+import { evenementPublic } from "../security/tlp.js";
 
 const MAX_CLIENTS = Number(process.env.STREAM_MAX_CLIENTS ?? 200);
-
-function redactEvent(row: Record<string, unknown>): Record<string, unknown> {
-  if (row.tlp === "RED") {
-    return { ...row, summary: null };
-  }
-  return row;
-}
 
 export default async function (app: FastifyInstance) {
   let clients = 0;
@@ -51,11 +45,10 @@ export default async function (app: FastifyInstance) {
       try {
         const r = await query<Record<string, unknown>>("SELECT * FROM event WHERE id > $1 ORDER BY id LIMIT 200", [sinceId]);
         for (const row of r.rows) {
-          if (row.tlp === "RED") {
+          if (!evenementPublic(row)) {
             continue;
           }
-          const redacted = redactEvent(row);
-          reply.raw.write(`id: ${row.id}\nevent: new\ndata: ${JSON.stringify(redacted)}\n\n`);
+          reply.raw.write(`id: ${row.id}\nevent: new\ndata: ${JSON.stringify(row)}\n\n`);
           sinceId = Math.max(sinceId, Number(row.id));
         }
       } catch { /* ignore */ }
@@ -77,11 +70,10 @@ export default async function (app: FastifyInstance) {
         const r = await query<Record<string, unknown>>("SELECT * FROM event WHERE id > $1 ORDER BY id", [lastId]);
         for (const row of r.rows) {
           lastId = Math.max(lastId, Number(row.id));
-          if (row.tlp === "RED") {
+          if (!evenementPublic(row)) {
             continue;
           }
-          const redacted = redactEvent(row);
-          reply.raw.write(`id: ${row.id}\nevent: new\ndata: ${JSON.stringify(redacted)}\n\n`);
+          reply.raw.write(`id: ${row.id}\nevent: new\ndata: ${JSON.stringify(row)}\n\n`);
         }
       } catch { /* ignore */ }
 

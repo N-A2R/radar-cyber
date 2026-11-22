@@ -66,7 +66,7 @@ before(async () => {
     const date = dateMois(i).toISOString();
     lignes.push(
       `(${marque(`${TAG}:cible:${i}`)},'ransomware','confirmed_incident','Fait cible ${i}',` +
-        `${marque(SOURCE)},${marque(cibleId)},${marque(date)},${marque(date)})`,
+        `${marque(SOURCE)},${marque(cibleId)},${marque(date)},${marque(date)},'https://example.invalid/event','{"run_id":"1"}'::jsonb)`,
     );
   }
   // Deux faits d'une autre organisation, un ancien et un récent : le filtre
@@ -75,12 +75,12 @@ before(async () => {
   const recent = new Date(Date.now() - 86_400_000).toISOString();
   lignes.push(
     `(${marque(`${TAG}:autre:ancien`)},'phishing','confirmed_incident','Fait tiers ancien',` +
-      `${marque(SOURCE)},${marque(autreId)},${marque(ancien)},${marque(ancien)})`,
+      `${marque(SOURCE)},${marque(autreId)},${marque(ancien)},${marque(ancien)},'https://example.invalid/event','{"run_id":"1"}'::jsonb)`,
     `(${marque(`${TAG}:autre:recent`)},'phishing','confirmed_incident','Fait tiers récent',` +
-      `${marque(SOURCE)},${marque(autreId)},${marque(recent)},${marque(recent)})`,
+      `${marque(SOURCE)},${marque(autreId)},${marque(recent)},${marque(recent)},'https://example.invalid/event','{"run_id":"1"}'::jsonb)`,
   );
   await query(
-    `INSERT INTO event (dedup_key, family, assertion_type, title, source_id, org_id, observed_at, valid_at)
+    `INSERT INTO event (dedup_key, family, assertion_type, title, source_id, org_id, observed_at, valid_at, source_url, evidence)
      VALUES ${lignes.join(", ")}`,
     valeurs,
   );

@@ -13,7 +13,9 @@
  *
  * Cursor pagination is on the journal id (bigserial): descending id is
  * chronological order and, unlike a timestamp, cannot duplicate a row across
- * two pages.
+ * two pages. `offset` lets a screen jump straight to a page, `limit` (or its
+ * historical alias `limite`) bounds the page, and every response carries the
+ * `total` matching the filters so the screen never counts a client-side buffer.
  */
 import { Readable } from "node:stream";
 import type { FastifyInstance } from "fastify";
@@ -24,8 +26,14 @@ import { pool, query } from "../db.js";
 import { requireAuth, requireRole } from "../middleware/auth.js";
 
 export const JournalQuery = z.object({
-  limite: z.coerce.number().int().min(1).max(500).default(100),
+  /** Nom historique, conservé pour les clients déjà déployés (plafond d'origine). */
+  limite: z.coerce.number().int().min(1).max(500).optional(),
+  /** Nom préféré ; prime sur `limite` quand les deux sont fournis. */
+  limit: z.coerce.number().int().min(1).max(100).optional(),
+  /** Curseur : id de la dernière ligne de la page précédente. */
   avant: z.coerce.number().int().positive().optional(),
+  /** Décalage, pour sauter directement à une page ; compatible avec `avant`. */
+  offset: z.coerce.number().int().min(0).max(10_000_000).optional(),
   /** "all" (default), a category ("review", "publication", "correction") or an exact kind. */
   kind: z.string().trim().max(64).optional(),
   acteur: z.string().trim().max(200).optional(),
@@ -139,13 +147,22 @@ const SELECT_COLUMNS = `
              WHEN 'promote' THEN 'accepter'
              WHEN 'reject' THEN 'refuser'
            END) AS decision,
-  COALESCE(NULLIF(btrim(q.org_hint), ''), j.subject) AS indice,
+  COALESCE(NULLIF(btrim((
+    SELECT q.org_hint
+    FROM quarantine_raw q
+    WHERE q.id = NULLIF(substring(j.subject FROM '^quarantine:([0-9]+)$'), '')::bigint
+  )), ''), j.subject) AS indice,
   COALESCE(NULLIF(btrim(j.payload->>'reason'), ''),
            NULLIF(btrim(j.payload->>'motif'), ''),
            NULLIF(btrim(j.summary), '')) AS raison,
   j.summary AS resume,
   j.payload AS preuve`;
 
+/** Page JSON : la jointure quarantaine est une sous-requête corrélée, évaluée
+ * seulement sur les lignes rendues — pas de hachage des 180 000 lignes. */
+const FROM_JOURNAL = "\n  FROM journal j";
+
+/** Export CSV : le flux parcourt tout le résultat, la jointure reste utile. */
 const FROM_JOIN = `
   FROM journal j
   LEFT JOIN quarantine_raw q ON j.subject = 'quarantine:' || q.id::text`;
@@ -249,28 +266,42 @@ export default async function (app: FastifyInstance) {
   app.get("/journal/review", { preHandler: requireAuth() }, async (req, reply) => {
     const parsed = JournalQuery.safeParse(req.query ?? {});
     if (!parsed.success) zodBadRequest(parsed.error);
-    const { limite, avant } = parsed.data;
+    const { avant, offset } = parsed.data;
+    const limite = parsed.data.limit ?? parsed.data.limite ?? 100;
+    const decalage = offset ?? 0;
     const filters = parseFilters(parsed.data);
 
-    const params: unknown[] = [];
-    const where = whereClause(filters, params);
-    params.push(avant ?? null);
-    params.push(limite + 1);
-    const curseurId = `$${params.length - 1}`;
-    const limiteId = `$${params.length}`;
+    // Le WHERE ne dépend que des filtres : il sert à la page et au total, avec
+    // deux jeux de paramètres distincts (le curseur et la limite n'y entrent pas).
+    const filterParams: unknown[] = [];
+    const where = whereClause(filters, filterParams);
 
-    // +1 row tells us whether another page exists, without a second count.
-    const result = await query<JournalLigne>(
-      `SELECT ${SELECT_COLUMNS}
-       ${FROM_JOIN}
-       ${where}
-       ${where ? "AND" : "WHERE"} (${curseurId}::bigint IS NULL OR j.id < ${curseurId}::bigint)
-       ORDER BY j.id DESC
-       LIMIT ${limiteId}`,
-      params,
-    );
+    const params = [...filterParams];
+    params.push(avant ?? null);
+    params.push(limite);
+    params.push(decalage);
+    const curseurId = `$${filterParams.length + 1}`;
+    const limiteId = `$${filterParams.length + 2}`;
+    const offsetId = `$${filterParams.length + 3}`;
+
+    const [totalResult, result] = await Promise.all([
+      query<{ total: string }>(
+        `SELECT COUNT(*)::text AS total FROM journal j ${where}`,
+        filterParams,
+      ),
+      query<JournalLigne>(
+        `SELECT ${SELECT_COLUMNS}
+         ${FROM_JOURNAL}
+         ${where}
+         ${where ? "AND" : "WHERE"} (${curseurId}::bigint IS NULL OR j.id < ${curseurId}::bigint)
+         ORDER BY j.id DESC
+         LIMIT ${limiteId} OFFSET ${offsetId}`,
+        params,
+      ),
+    ]);
+    const total = Number(totalResult.rows[0]?.total ?? 0);
     const lignes = result.rows ?? [];
-    const rows = lignes.slice(0, limite).map((row) => ({
+    const rows = lignes.map((row) => ({
       id: Number(row.id),
       kind: row.kind,
       sujet: row.sujet,
@@ -282,18 +313,23 @@ export default async function (app: FastifyInstance) {
       resume: row.resume,
       preuve: row.preuve ?? {},
     }));
+    const derniere = rows.length > 0 ? rows[rows.length - 1].id : null;
     return {
       rows,
+      total,
       limite,
-      avant: lignes.length > limite && rows.length > 0 ? rows[rows.length - 1].id : null,
+      offset: decalage,
+      avant: derniere !== null && decalage + rows.length < total ? derniere : null,
     };
   });
 
   /** Audit export: the same filtered entries as a streamed CSV (admin only). */
   app.get("/journal/review/export.csv", { preHandler: requireRole("admin") }, async (req, reply) => {
-    const parsed = JournalQuery.omit({ limite: true, avant: true }).safeParse(req.query ?? {});
+    const parsed = JournalQuery
+      .omit({ limite: true, limit: true, avant: true, offset: true })
+      .safeParse(req.query ?? {});
     if (!parsed.success) zodBadRequest(parsed.error);
-    const filters = parseFilters({ ...parsed.data, limite: 100 });
+    const filters = parseFilters(parsed.data);
     const params: unknown[] = [];
     const where = whereClause(filters, params);
 

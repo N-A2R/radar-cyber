@@ -1,5 +1,6 @@
 import type { FastifyInstance } from "fastify";
 import { ingestQuery } from "../db.js";
+import { closeRun, openRun, withRunId } from "../collecte/runs.js";
 import { consigner } from "../journal/index.js";
 import { porteeRegionale } from "../match/territorial.js";
 import { rateLimit } from "../middleware/rate-limit.js";
@@ -73,6 +74,23 @@ export default async function (app: FastifyInstance) {
     const known = new Set<string>(
       (await ingestQuery<{ id: string }>("SELECT id FROM source")).rows.map((r) => r.id)
     );
+    // Un run par source effectivement écrite : la requête HTTP est elle-même
+    // un collecteur, et chaque événement qu'elle admet le cite (migration 206).
+    const runs = new Map<string, { id: number; itemsIn: number; itemsNew: number }>();
+    const runFor = async (sourceId: string) => {
+      let run = runs.get(sourceId);
+      if (!run) {
+        run = { id: await openRun(sourceId, "ingest"), itemsIn: 0, itemsNew: 0 };
+        runs.set(sourceId, run);
+      }
+      return run;
+    };
+    const closeAll = async (status: "ok" | "error", error?: string) => {
+      for (const run of runs.values()) {
+        await closeRun(run.id, { status, itemsIn: run.itemsIn, itemsNew: run.itemsNew, ...(error ? { error } : {}) }).catch(() => {});
+      }
+    };
+    try {
     for (const e of events) {
       const langue = languageVerdict(e.title, e.summary);
       const pertinence = scoreEventPertinence({ title: e.title, summary: e.summary, sourceUrl: e.source_url });
@@ -108,6 +126,8 @@ export default async function (app: FastifyInstance) {
         continue;
       }
       const event = admitted.event;
+      const run = await runFor(event.sourceId);
+      run.itemsIn += 1;
       const r = await ingestQuery<{ inserted: boolean }>(
         `INSERT INTO event (dedup_key, family, assertion_type, title, summary, langue, observed_at,
            severity, confidence, source_id, source_url, evidence, geo_type,
@@ -125,8 +145,8 @@ export default async function (app: FastifyInstance) {
           event.severity,
           event.confidence ?? "C3",
           event.sourceId,
-          event.sourceUrl ?? null,
-          JSON.stringify(event.evidence ?? {}),
+          event.sourceUrl ?? `urn:source:${event.sourceId}`,
+          JSON.stringify(withRunId(event.evidence ?? {}, run.id)),
           event.geoType,
           ...(() => {
             const p = porteeRegionale(`${event.title} ${event.summary ?? ""}`, null);
@@ -136,6 +156,7 @@ export default async function (app: FastifyInstance) {
       );
       if (r.rows[0]?.inserted) {
         inserted++;
+        run.itemsNew += 1;
         await consigner({
           kind: "event.admitted",
           subject: event.dedupKey,
@@ -146,6 +167,11 @@ export default async function (app: FastifyInstance) {
         });
       } else skipped++;
     }
+    } catch (error) {
+      await closeAll("error", error instanceof Error ? error.message : String(error));
+      throw error;
+    }
+    await closeAll("ok");
     return { inserted, skipped, contract: contract.detail(), rejected };
   });
 }

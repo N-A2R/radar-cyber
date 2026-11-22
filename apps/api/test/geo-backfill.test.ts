@@ -122,9 +122,9 @@ describe("backfill write path", () => {
       "SELECT id FROM org WHERE slug = 'geo-backfill-missing'",
     );
     await query(
-      `INSERT INTO event (dedup_key, family, assertion_type, title, source_id, org_id)
+      `INSERT INTO event (dedup_key, family, assertion_type, title, source_id, org_id, source_url, evidence)
        VALUES ('geo-backfill-event', 'incident', 'confirmed_incident', 'Geo backfill event',
-               'ransomlook', $1)`,
+               'ransomlook', $1, 'https://example.invalid/event', '{"run_id":"1"}'::jsonb)`,
       [rows[0]!.id],
     );
 

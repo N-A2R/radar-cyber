@@ -1,0 +1,17 @@
+{
+  "query": "alpha.example",
+  "total": 1,
+  "entries": [
+    {
+      "id": "dh-001",
+      "name": "Fuite simulée 01 — service alpha",
+      "domain": "alpha.example",
+      "breach_date": "2024-01-15",
+      "accounts": 1200,
+      "source_url": "https://example.invalid/dehashed-fixture/01",
+      "email": "utilisateur-fictif@example.invalid",
+      "password": "mot-de-passe-fictif",
+      "ip": "203.0.113.10"
+    }
+  ]
+}

@@ -180,7 +180,7 @@
   height: 14px;
   border-radius: 50%;
   color: var(--accent-ink);
-  font-size: 9px;
+  font-size: var(--text-label);
   font-weight: 700;
   line-height: 14px;
   text-align: center;
@@ -226,7 +226,7 @@
 .orgsheet__bar-label {
   margin-top: 4px;
   color: var(--faint);
-  font-size: 9px;
+  font-size: var(--text-label);
   text-align: center;
   font-variant-numeric: tabular-nums;
 }

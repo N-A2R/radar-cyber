@@ -1,0 +1,63 @@
+{
+  "scope": "nouvelle-aquitaine",
+  "departments": [
+    {
+      "department": "16",
+      "events": 1
+    },
+    {
+      "department": "17",
+      "events": 7
+    },
+    {
+      "department": "19",
+      "events": 1
+    },
+    {
+      "department": "23",
+      "events": 2
+    },
+    {
+      "department": "24",
+      "events": 3
+    },
+    {
+      "department": "33",
+      "events": 13
+    },
+    {
+      "department": "40",
+      "events": 1
+    },
+    {
+      "department": "47",
+      "events": 5
+    },
+    {
+      "department": "64",
+      "events": 3
+    },
+    {
+      "department": "79",
+      "events": 1
+    },
+    {
+      "department": "86",
+      "events": 4
+    },
+    {
+      "department": "87",
+      "events": 4
+    }
+  ],
+  "zeroDepartments": [],
+  "eventCount": 45,
+  "gapClaimsPending": 0,
+  "sql": {
+    "gapClaims": "SELECT c.id, c.org_id AS \"orgId\", o.dept AS department,\n                     c.group_name AS \"groupName\", c.published_at,\n                     c.evidence_url AS \"evidenceUrl\", c.source\n                FROM leak_claim c\n                JOIN org o ON o.id = c.org_id\n               WHERE c.na\n                 AND o.dept = ANY($1::text[])\n                 AND c.org_id IS NOT NULL\n                 AND c.evidence_url ILIKE 'https://%'\n                 AND NOT EXISTS (SELECT 1 FROM event e WHERE e.dedup_key = $2 || c.id)\n               ORDER BY c.id",
+    "departments": "SELECT o.dept AS department, count(*)::int AS events\n                  FROM event e\n                  JOIN org o ON o.id = e.org_id\n                 WHERE o.dept = ANY($1::text[])\n                 GROUP BY o.dept",
+    "sourceByGroup": "SELECT id FROM source WHERE family = 'ransomware' AND id = $1 LIMIT 1",
+    "sourceFallback": "SELECT id FROM source WHERE family = 'ransomware' ORDER BY id LIMIT 1"
+  },
+  "measuredAt": "2026-11-22T02:14:07.283Z"
+}

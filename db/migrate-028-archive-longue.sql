@@ -68,7 +68,15 @@ COMMENT ON TABLE event_archive IS
 
 -- Vue de lecture : le fil unifié, brut + archive, sans que l'appelant ait à
 -- connaître la distinction. C'est ce que consommera la mesure de couverture.
-CREATE OR REPLACE VIEW v_event_all AS
+-- Rejouable même si une version ultérieure de la vue (migrate-049, colonnes
+-- `valid_at`/`at`) est déjà en place : CREATE OR REPLACE ne sait pas retirer
+-- ni renommer une colonne (`cannot drop columns from view`). La vue est une
+-- projection sans données propres et rien n'en dépend : on la remplace. Sur
+-- une base neuve le DROP est un no-op ; sur une base ancienne, migrate-049
+-- rétablit ensuite la forme canonique à deux horloges.
+DROP VIEW IF EXISTS v_event_all;
+
+CREATE VIEW v_event_all AS
   SELECT id, dedup_key, family, assertion_type, org_id, source_id,
          observed_at, collected_at, severity, confidence, admission_rule,
          'brut'::text AS origine

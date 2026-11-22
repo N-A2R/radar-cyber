@@ -2,6 +2,7 @@ import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } fro
 import { creerMemoire, etatDonnees, type Instantane } from "./offline";
 import { api, clearAuthToken, getAffected, getAuthToken, setAuthToken, type AffectedReport, type CollecteMetrics, type CouvertureResponse, type CorpusStats, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type Stats, type TodayResponse } from "./api";
 import { mockData } from "./mock";
+import MapLegend from "./components/MapLegend";
 const Map3D = lazy(() => import("./map/Map3D"));
 const GraphView = lazy(() => import("./graph/GraphView"));
 const SourcesView = lazy(() => import("./components/SourcesView"));
@@ -44,18 +45,18 @@ function ViewSkeleton() {
 const MOCK_MODE = import.meta.env.VITE_DATA_MODE === "mock";
 
 const VIEWS: { id: ViewKey; label: string }[] = [
-  { id: "today", label: "Today" },
-  { id: "coverage", label: "Coverage" },
-  { id: "review", label: "Review" },
+  { id: "today", label: "Aujourd'hui" },
+  { id: "coverage", label: "Couverture" },
+  { id: "review", label: "Revue" },
   { id: "journal", label: "Journal" },
   { id: "corpus", label: "Corpus" },
   { id: "sources", label: "Sources" },
-  { id: "map", label: "Map" },
-  { id: "graph", label: "Graph" },
-  { id: "health", label: "Health" },
-  { id: "alerts", label: "Alerts" },
+  { id: "map", label: "Carte" },
+  { id: "graph", label: "Graphe" },
+  { id: "health", label: "Santé" },
+  { id: "alerts", label: "Alertes" },
   { id: "na", label: "Nouvelle-Aquitaine" },
-  { id: "affected", label: "Affected?" },
+  { id: "affected", label: "Suis-je concerné ?" },
 ];
 
 const FEED_LIMIT = 300;
@@ -625,14 +626,11 @@ export default function App() {
 
   // Le fil occupe un tiers de la largeur sur tous les onglets. Sur Sources,
   // Santé ou Dossier — des vues qui ont besoin de toute la largeur — il se
-  // replie en un rail de 44 px.
+  // replie en un rail de 44 px. La largeur des colonnes vit dans styles.css :
+  // un style inline écrasait les media queries et laissait une colonne vide
+  // de 352 px sous 1024 px.
   const [feedOpen, setFeedOpen] = useState(true);
-  const feedWidth = feedOpen ? "352px" : "44px";
-  const bodyStyle = {
-    gridTemplateColumns: view === "today"
-      ? (inspectorOpen ? "minmax(0,1fr) 320px" : "minmax(0,1fr)")
-      : (inspectorOpen ? `${feedWidth} minmax(0,1fr) 320px` : `${feedWidth} minmax(0,1fr)`),
-  };
+  const feedState = view === "today" ? "none" : feedOpen ? "open" : "rail";
 
   // Sans jeton (hors démonstration), le shell n'est jamais monté : seul
   // l'écran de connexion est rendu, aucune requête authentifiée ne part.
@@ -679,7 +677,7 @@ export default function App() {
           onClick={() => setPaletteOpen(true)}
           aria-keyshortcuts="Meta+K Control+K"
         >
-          Search ⌘K
+          Rechercher ⌘K
         </button>
 
         {view === "map" ? (
@@ -689,18 +687,18 @@ export default function App() {
             aria-pressed={basemap === "sat"}
             onClick={() => setBasemap(basemap === "sat" ? "plan" : "sat")}
           >
-            {basemap === "sat" ? "satellite" : "street"}
+            {basemap === "sat" ? "satellite" : "plan"}
           </button>
         ) : null}
 
         <span className="rail__live" data-on={connected}>
           <i aria-hidden="true" />
-          {connected ? "live feed" : "feed down"}
+          {connected ? "flux direct" : "flux interrompu"}
         </span>
 
         {token ? (
           <button type="button" className="rail__toggle" onClick={onUnauthorized}>
-            Sign out
+            Déconnexion
           </button>
         ) : null}
       </header>
@@ -732,7 +730,11 @@ export default function App() {
         </p>
       ) : null}
 
-      <div className="shell__body" style={bodyStyle}>
+      <div
+        className="shell__body"
+        data-feed={feedState}
+        data-inspector={inspectorOpen ? "open" : "closed"}
+      >
         {view === "today" ? null : feedOpen ? (
         <aside className="shell__feed">
             <button
@@ -826,18 +828,21 @@ export default function App() {
             <CouvertureView data={couvertureData} loading={couvertureLoading} error={couvertureError} />
           ) : null}
           {view === "map" ? (
-            <Map3D
-              orgs={orgs}
-              events={filtered}
-              families={family ? [family] : undefined}
-              flows={flows}
-              basemap={basemap}
-              onSelect={handleSelectOrg}
-              onSelectEvent={(id) => {
-                setSelectedEventId(id);
-                setSelectedOrgId(null);
-              }}
-            />
+            <div className="map-view">
+              <Map3D
+                orgs={orgs}
+                events={filtered}
+                families={family ? [family] : undefined}
+                flows={flows}
+                basemap={basemap}
+                onSelect={handleSelectOrg}
+                onSelectEvent={(id) => {
+                  setSelectedEventId(id);
+                  setSelectedOrgId(null);
+                }}
+              />
+              <MapLegend families={filtered.map((e) => e.family)} />
+            </div>
           ) : null}
 
           {view === "graph" ? (
@@ -888,10 +893,15 @@ export default function App() {
           {view === "sources" ? <SourcesView sources={sources} loading={loading} error={error} onRetry={recharger} /> : null}
 
           {view === "health" ? (
-            <>
-              <HealthDetailView detail={healthDetail} causes={healthCauses} loading={loading} error={error} onRetry={recharger} />
+            // Le stage est un item de grille en block : deux vues empilées n'y
+            // tiennent pas. Ce conteneur donne à chacune sa place — le résumé
+            // garde 40 % au plus, le tableau prend le reste et défile.
+            <div className="health-ecran">
+              <div className="health-ecran__resume">
+                <HealthDetailView detail={healthDetail} causes={healthCauses} loading={loading} error={error} onRetry={recharger} />
+              </div>
               <HealthView sources={sources} loading={loading} onRetry={recharger} />
-            </>
+            </div>
           ) : null}
 
           {view === "dossier" ? <DossierView /> : null}
