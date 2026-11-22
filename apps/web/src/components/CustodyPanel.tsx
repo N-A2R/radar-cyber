@@ -1,9 +1,9 @@
 /**
- * Chain of custody panel — who saw what, and when.
+ * Panneau de chaîne de traçabilité — qui a vu quoi, et quand.
  *
- * English labels by contract. Only source metadata and journal facts are
- * shown: the event free text is never sent to this panel, so no victim
- * personal data can leak through it.
+ * Seules les métadonnées de source et les faits du journal sont affichés :
+ * le texte libre de l'événement n'est jamais transmis à ce panneau, donc
+ * aucune donnée personnelle de victime ne peut fuiter par lui.
  */
 import { useEffect, useState } from "react";
 import { api, type CustodyChain } from "../api";
@@ -14,26 +14,26 @@ function formatDate(value: string | null): string {
   return Number.isNaN(date.getTime()) ? value : date.toISOString().replace("T", " ").slice(0, 19);
 }
 
-/** Pure rendering, exported so the SSR check can inspect it without a network. */
+/** Rendu pur, exporté pour que le contrôle SSR l'inspecte sans réseau. */
 export function CustodyDetails({ chain }: { chain: CustodyChain }) {
   return (
     <section className="inspector__section" data-custody={chain.complete ? "complete" : "incomplete"}>
-      <h3 className="inspector__section-title">Custody chain</h3>
+      <h3 className="inspector__section-title">Chaîne de traçabilité</h3>
       <dl className="inspector__meta">
         <dt className="inspector__meta-label">Source</dt>
-        <dd className="inspector__meta-value">{chain.source ?? "unknown"}</dd>
-        <dt className="inspector__meta-label">Observed at</dt>
+        <dd className="inspector__meta-value">{chain.source ?? "inconnue"}</dd>
+        <dt className="inspector__meta-label">Observé le</dt>
         <dd className="inspector__meta-value">{formatDate(chain.observedAt)}</dd>
-        <dt className="inspector__meta-label">Status</dt>
+        <dt className="inspector__meta-label">Statut</dt>
         <dd className="inspector__meta-value">
-          {chain.complete ? "Complete" : `Incomplete: ${chain.missing.join(", ")}`}
+          {chain.complete ? "Complète" : `Incomplète : ${chain.missing.join(", ")}`}
         </dd>
       </dl>
       <ol className="inspector__text">
         {chain.links.map((link, index) => (
           <li key={`${link.recordedAt ?? index}-${link.who}`}>
-            {link.who} — {formatDate(link.when)} — recorded {formatDate(link.recordedAt)}
-            {link.proof.length > 0 ? ` — proof: ${link.proof.join(", ")}` : ""}
+            {link.who} — {formatDate(link.when)} — enregistré le {formatDate(link.recordedAt)}
+            {link.proof.length > 0 ? ` — preuve : ${link.proof.join(", ")}` : ""}
           </li>
         ))}
       </ol>
@@ -59,10 +59,10 @@ export default function CustodyPanel({ subject }: { subject: string }) {
   }, [subject]);
 
   if (state.status === "loading") {
-    return <section className="inspector__section">Loading custody chain…</section>;
+    return <section className="inspector__section">Chargement de la chaîne de traçabilité…</section>;
   }
   if (state.status === "error") {
-    return <section className="inspector__section">Custody chain unavailable.</section>;
+    return <section className="inspector__section">Chaîne de traçabilité indisponible.</section>;
   }
   return <CustodyDetails chain={state.chain} />;
 }

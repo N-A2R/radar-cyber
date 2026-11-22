@@ -7,6 +7,7 @@
     "setup": "apps/api/node_modules/.bin/tsx scripts/bootstrap.mts --with-sample",
     "setup:check": "apps/api/node_modules/.bin/tsx scripts/bootstrap.mts --check",
     "migrate": "apps/api/node_modules/.bin/tsx scripts/migrate.mts",
+    "export:stix": "apps/api/node_modules/.bin/tsx scripts/export-stix.mts",
     "test": "pnpm -F @radar/api test",
     "api:client": "apps/api/node_modules/.bin/tsx scripts/generate-api-client.mts",
     "dev": "pnpm -r --parallel dev",
@@ -24,6 +25,7 @@
     "verify:journal": "apps/api/node_modules/.bin/tsx scripts/verify-journal.mts",
     "verifie:objectif-rapport": "apps/api/node_modules/.bin/tsx scripts/verifie-objectif-rapport-benchmark.mts",
     "verifie:fatigue": "apps/api/node_modules/.bin/tsx scripts/verifie-objectif-fatigue.mts",
+    "verifie:rapports-golden": "apps/api/node_modules/.bin/tsx scripts/golden-rapports.mts --db",
     "custody:measure": "apps/api/node_modules/.bin/tsx scripts/measure-custody.mts",
     "custody:backfill": "apps/api/node_modules/.bin/tsx scripts/backfill-custody.mts",
     "custody:write-boundary": "apps/api/node_modules/.bin/tsx scripts/measure-admission-at-write.mts",
@@ -71,7 +73,6 @@
   },
   "devDependencies": {
     "embedded-postgres": "18.6.0-beta.19"
-  },
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild"

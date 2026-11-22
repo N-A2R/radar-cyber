@@ -156,41 +156,41 @@ function render(overrides: Partial<Props> = {}) {
 }
 
 const html = render();
-check("English column headers",
-  ["Date (UTC)", "Type", "Actor", "Decision", "Summary"].every((col) => html.includes(`>${col}</th>`)));
+check("French column headers",
+  ["Date (UTC)", "Type", "Acteur", "Décision", "Résumé"].every((col) => html.includes(`>${col}</th>`)));
 check("actor and UTC timestamp rendered",
   html.includes("humain:analyste@radar.local")
   && html.includes('dateTime="2026-11-21 14:03:12+00"')
   && html.includes("2026-11-21 14:03 UTC"));
 check("all three decision categories rendered",
-  ["Review decision", "Organisation created", "Organisation correction", "Alert change", "Match rejected"]
+  ["Décision de revue", "Organisation créée", "Correction d&#x27;organisation", "Changement d&#x27;alerte", "Rapprochement refusé"]
     .every((label) => html.includes(label)));
 check("decisions are written out",
   (["accepter", "refuser", "creer"] as const).every((d) => html.includes(`data-decision="${d}"`))
-  && html.includes("Accepted") && html.includes("Rejected") && html.includes("Created"));
+  && html.includes("Acceptée") && html.includes("Refusée") && html.includes("Créée"));
 check("summaries are rendered, newest first",
   html.indexOf("accept by analyste") < html.indexOf("reject by admin")
   && html.indexOf("reject by admin") < html.indexOf("organisation created from the claim")
   && html.includes("rattachement refused by the precision rule"));
-check("result count and page label in English",
-  html.includes("6 entries — page 1 / 2"));
+check("result count and page label in French",
+  html.includes("6 entrées — page 1 / 2"));
 
 check("search, actor, type, period, reset and export controls",
-  html.includes('id="journal-q"') && html.includes("subject, actor, reason, evidence…")
+  html.includes('id="journal-q"') && html.includes("sujet, acteur, motif, preuve…")
   && html.includes('id="journal-actor"') && html.includes('id="journal-kind"')
-  && ["All types", "Review decisions", "Publications", "Corrections"]
+  && ["Tous les types", "Décisions de revue", "Publications", "Corrections"]
     .every((option) => html.includes(`>${option}</option>`))
   && html.includes('id="journal-from"') && html.includes('id="journal-to"')
-  && html.includes(">Reset</button>") && html.includes("Export filtered CSV"));
+  && html.includes(">Réinitialiser</button>") && html.includes("Exporter en CSV"));
 
 check("first page: Previous disabled, Next enabled",
-  /<button[^>]*disabled=""[^>]*>Previous<\/button>/.test(html)
-  && /<button(?![^>]*disabled)[^>]*>Next<\/button>/.test(html));
+  /<button[^>]*disabled=""[^>]*>Précédent<\/button>/.test(html)
+  && /<button(?![^>]*disabled)[^>]*>Suivant<\/button>/.test(html));
 const lastPage = render({ page: 2 });
 check("last page: Next disabled, Previous enabled",
   lastPage.includes("page 2 / 2")
-  && /<button[^>]*disabled=""[^>]*>Next<\/button>/.test(lastPage)
-  && /<button(?![^>]*disabled)[^>]*>Previous<\/button>/.test(lastPage));
+  && /<button[^>]*disabled=""[^>]*>Suivant<\/button>/.test(lastPage)
+  && /<button(?![^>]*disabled)[^>]*>Précédent<\/button>/.test(lastPage));
 
 const filteredHtml = render({
   filters: { actor: "moteur", kind: "publication", q: "staff", from: "2026-11-19", to: "2026-11-21" },
@@ -203,30 +203,30 @@ check("search and period reflected in the fields",
   /id="journal-q"[^>]*value="staff"/.test(filteredHtml)
   && /id="journal-from"[^>]*value="2026-11-19"/.test(filteredHtml)
   && /id="journal-to"[^>]*value="2026-11-21"/.test(filteredHtml));
-check("singular result label", filteredHtml.includes("1 entry — page 1 / 2"));
+check("singular result label", filteredHtml.includes("1 entrée — page 1 / 2"));
 
 const detail = render({ selected: rows[3] });
 check("detail panel: metadata and unmodified summary",
-  detail.includes("Details of journal entry 43")
-  && detail.includes("Entry #43") && detail.includes("Organisation correction")
-  && detail.includes("moteur:triage") && detail.includes("Not specified")
+  detail.includes("Détails de l&#x27;entrée de journal 43")
+  && detail.includes("Entrée n°43") && detail.includes("Correction d&#x27;organisation")
+  && detail.includes("moteur:triage") && detail.includes("Non précisée")
   && detail.includes("CHU Bordeaux : name completed") && detail.includes("name completed"));
 check("detail panel: context from the payload",
-  detail.includes(">Context</h3>") && detail.includes("changements")
+  detail.includes(">Contexte</h3>") && detail.includes("changements")
   && detail.includes("&quot;avant&quot;") && detail.includes("&quot;apres&quot;"));
 check("detail panel: explicit empty evidence",
-  detail.includes(">Evidence</h3>") && detail.includes("No evidence recorded for this entry."));
+  detail.includes(">Preuve</h3>") && detail.includes("Aucune preuve enregistrée pour cette entrée."));
 
 const withProof = render({ selected: rows[2] });
 check("detail panel: proof extracted from the payload",
   withProof.includes("https://www.chu-bordeaux.fr")
-  && withProof.includes(">Evidence</h3>") && withProof.includes(">Context</h3>")
+  && withProof.includes(">Preuve</h3>") && withProof.includes(">Contexte</h3>")
   && withProof.includes("nomBrut"));
 
 const truncated = render({ truncated: true });
 check("truncation is announced",
   truncated.includes('role="status"')
-  && truncated.includes("Showing the 10,000 most recent entries only"));
+  && truncated.includes("Seules les 10 000 entrées les plus récentes sont affichées"));
 
 const loading = render({ rows: [], resultCount: 0, loading: true });
 check("loading state announced and controls disabled",
@@ -235,32 +235,32 @@ check("loading state announced and controls disabled",
 
 const error = render({ rows: [], resultCount: 0, error: "/api/journal/review → 500" });
 check("error shown without claiming the list is empty",
-  error.includes('role="alert"') && error.includes("API: /api/journal/review → 500")
-  && !error.includes("No journal entries recorded yet."));
+  error.includes('role="alert"') && error.includes("API : /api/journal/review → 500")
+  && !error.includes("Aucune entrée de journal enregistrée"));
 
 const empty = render({ rows: [], resultCount: 0, pageCount: 1 });
 check("explicit empty state without filters",
-  empty.includes("No journal entries recorded yet.")
-  && empty.includes("0 entries — page 1 / 1") && !empty.includes('role="alert"'));
+  empty.includes("Aucune entrée de journal enregistrée pour l&#x27;instant.")
+  && empty.includes("0 entrées — page 1 / 1") && !empty.includes('role="alert"'));
 const noMatch = render({ rows: [], resultCount: 0, pageCount: 1, filters: { q: "none" } });
 check("explicit empty state with filters",
-  noMatch.includes("No journal entries match these filters."));
+  noMatch.includes("Aucune entrée de journal ne correspond à ces filtres."));
 
 const exportError = render({ exportError: "CSV export requires administrator access." });
 check("export error is distinct from the API error",
   exportError.includes("CSV export requires administrator access.")
-  && exportError.includes("Export filtered CSV"));
+  && exportError.includes("Exporter en CSV"));
 
 const unspecified = render({
   rows: [{ ...rows[3] }], resultCount: 1, pageCount: 1,
 });
 check("entry without decision stays readable",
-  unspecified.includes("Not specified") && unspecified.includes(`data-decision="${DECISION_UNSPECIFIED}"`));
+  unspecified.includes("Non précisée") && unspecified.includes(`data-decision="${DECISION_UNSPECIFIED}"`));
 
 const view = renderToStaticMarkup(<JournalView />);
 check("screen mounted in loading state before the API answers",
-  view.includes("Chargement du journal…") && view.includes("Audit journal")
-  && view.includes("Export filtered CSV"));
+  view.includes("Chargement du journal…") && view.includes("Journal d&#x27;audit")
+  && view.includes("Exporter en CSV"));
 
 console.log(failures === 0 ? "\nJournal: all checks pass." : `\nJournal: ${failures} check(s) failed.`);
 process.exit(failures === 0 ? 0 : 1);
