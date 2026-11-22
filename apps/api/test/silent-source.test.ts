@@ -87,6 +87,12 @@ test("delay summary reports the measured median, p90, max and 24 h count", () =>
 
 test("hourly monitor writes one review alert per silent source and deduplicates it", async () => {
 	const sourceId = "public-title:na-quotidien-017";
+	// la source doit exister : collector_run a une clé étrangère vers source
+	await query(
+		`INSERT INTO source (id, name, family, url, enabled) VALUES ($1, $2, $3, $4, true)
+		 ON CONFLICT (id) DO NOTHING`,
+		[sourceId, "Quotidien NA 017", "presse", "https://exemple.test/na-017"],
+	);
 	const timestamps = hoursAgo(20, 44, 68, 92).map((t) => new Date(t).toISOString());
 	await query(
 		`INSERT INTO collector_run (source_id, started_at, finished_at, status, items_in, items_new)
