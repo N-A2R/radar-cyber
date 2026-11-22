@@ -95,3 +95,5 @@ accord de conflits, un accusé hors ligne serait un mensonge. Le cache contient 
 dernières réponses des écrans ouverts, ce qui est mesurable et suffisant pour une
 tournée de terrain, mais ne remplace pas une réplication locale des 1,67 M
 d'organisations.
+
+OBJECTIF : atteint — 22 / 22 comportements hors ligne vérifiés (11 / 11 vues hors réseau)
