@@ -53,6 +53,67 @@ CREATE TABLE IF NOT EXISTS negative_attestation (
     UNIQUE (org_slug, window_start, window_end, method)
 );
 
+-- Mise à niveau d'une table d'attestation déjà présente dans sa forme
+-- ancienne (`org_id`, fenêtre, compteurs, signature). Les colonnes
+-- d'identité publique, de portée et d'empreintes sont ajoutées puis remplies
+-- depuis `org`, avant que les index et la vue ne les lisent.
+ALTER TABLE negative_attestation
+  ADD COLUMN IF NOT EXISTS org_slug         text,
+  ADD COLUMN IF NOT EXISTS org_name         text,
+  ADD COLUMN IF NOT EXISTS entity_source    text,
+  ADD COLUMN IF NOT EXISTS entity_code      text,
+  ADD COLUMN IF NOT EXISTS source_scope     text NOT NULL DEFAULT 'enabled-sources',
+  ADD COLUMN IF NOT EXISTS source_digest    text,
+  ADD COLUMN IF NOT EXISTS events_found     integer NOT NULL DEFAULT 0,
+  ADD COLUMN IF NOT EXISTS method           text NOT NULL DEFAULT 'event-store-window-v1',
+  ADD COLUMN IF NOT EXISTS signature_method text,
+  ADD COLUMN IF NOT EXISTS payload_digest   text,
+  ADD COLUMN IF NOT EXISTS updated_at       timestamptz NOT NULL DEFAULT now();
+
+UPDATE negative_attestation a
+   SET org_slug       = COALESCE(a.org_slug, o.slug, 'organisation-' || a.org_id),
+       org_name       = COALESCE(a.org_name, o.name, 'organisation ' || a.org_id),
+       entity_source  = COALESCE(a.entity_source, o.entity_source),
+       entity_code    = COALESCE(a.entity_code, o.entity_code),
+       source_digest  = COALESCE(a.source_digest, 'historique-non-calcule'),
+       payload_digest = COALESCE(a.payload_digest, 'historique-non-calcule'),
+       signature_method = COALESCE(a.signature_method, CASE WHEN a.signature IS NOT NULL THEN 'historique' END)
+  FROM org o
+ WHERE o.id = a.org_id
+   AND (a.org_slug IS NULL OR a.org_name IS NULL OR a.source_digest IS NULL OR a.payload_digest IS NULL);
+
+UPDATE negative_attestation
+   SET org_slug       = COALESCE(org_slug, 'organisation-' || org_id),
+       org_name       = COALESCE(org_name, 'organisation ' || org_id),
+       source_digest  = COALESCE(source_digest, 'historique-non-calcule'),
+       payload_digest = COALESCE(payload_digest, 'historique-non-calcule')
+ WHERE org_slug IS NULL OR org_name IS NULL OR source_digest IS NULL OR payload_digest IS NULL;
+
+ALTER TABLE negative_attestation
+  ALTER COLUMN org_slug       SET NOT NULL,
+  ALTER COLUMN org_name       SET NOT NULL,
+  ALTER COLUMN source_digest  SET NOT NULL,
+  ALTER COLUMN payload_digest SET NOT NULL;
+
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'negative_attestation_window_valid') THEN
+    ALTER TABLE negative_attestation
+      ADD CONSTRAINT negative_attestation_window_valid CHECK (window_end > window_start);
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'negative_attestation_signed_sealed') THEN
+    ALTER TABLE negative_attestation
+      ADD CONSTRAINT negative_attestation_signed_sealed CHECK (
+        (signed = false AND signature IS NULL)
+        OR (signed = true AND signature IS NOT NULL AND signature_method IS NOT NULL)
+      );
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'negative_attestation_unique') THEN
+    ALTER TABLE negative_attestation
+      ADD CONSTRAINT negative_attestation_unique UNIQUE (org_slug, window_start, window_end, method);
+  END IF;
+END $$;
+
 CREATE INDEX IF NOT EXISTS negative_attestation_org_idx
   ON negative_attestation (org_id);
 CREATE INDEX IF NOT EXISTS negative_attestation_window_idx

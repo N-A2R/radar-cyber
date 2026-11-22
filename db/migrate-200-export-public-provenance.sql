@@ -32,6 +32,45 @@ CREATE TABLE IF NOT EXISTS export_public_event (
 CREATE INDEX IF NOT EXISTS export_public_event_exported_idx
   ON export_public_event (exported_at DESC);
 
+-- 0. Mise à niveau d'une table d'export déjà présente dans sa forme ancienne
+--    (`event_id`, `exported_at`, `tlp`) : les quatre colonnes de provenance
+--    sont ajoutées puis remplies depuis l'événement et sa source, avant que la
+--    vue et les contraintes ne les exigent.
+ALTER TABLE export_public_event
+  ADD COLUMN IF NOT EXISTS source_url   text,
+  ADD COLUMN IF NOT EXISTS at           timestamptz,
+  ADD COLUMN IF NOT EXISTS collected_at timestamptz,
+  ADD COLUMN IF NOT EXISTS license      text;
+
+UPDATE export_public_event x
+   SET source_url   = COALESCE(NULLIF(btrim(x.source_url), ''), NULLIF(btrim(e.source_url), ''), s.url, 'source inconnue'),
+       at           = COALESCE(x.at, e.at, e.observed_at, e.created_at, x.exported_at),
+       collected_at = COALESCE(x.collected_at, e.collected_at, e.at, e.observed_at, e.created_at, x.exported_at),
+       license      = COALESCE(NULLIF(btrim(x.license), ''), NULLIF(btrim(s.license), ''),
+                               'faits publics - réutilisation avec attribution (licence MIT de la compilation)')
+  FROM event e
+  LEFT JOIN source s ON s.id = e.source_id
+ WHERE e.id = x.event_id
+   AND (x.source_url IS NULL OR x.at IS NULL OR x.collected_at IS NULL OR x.license IS NULL);
+
+ALTER TABLE export_public_event
+  ALTER COLUMN source_url   SET NOT NULL,
+  ALTER COLUMN at           SET NOT NULL,
+  ALTER COLUMN collected_at SET NOT NULL,
+  ALTER COLUMN license      SET NOT NULL;
+
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'export_public_event_url_nonvide') THEN
+    ALTER TABLE export_public_event
+      ADD CONSTRAINT export_public_event_url_nonvide CHECK (btrim(source_url) <> '');
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'export_public_event_license_nonvide') THEN
+    ALTER TABLE export_public_event
+      ADD CONSTRAINT export_public_event_license_nonvide CHECK (btrim(license) <> '');
+  END IF;
+END $$;
+
 CREATE OR REPLACE VIEW export_public_event_provenance AS
 SELECT x.exported_at,
        x.event_id,
