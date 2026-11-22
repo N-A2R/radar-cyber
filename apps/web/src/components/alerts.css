@@ -24,15 +24,16 @@
 
 .alerts__head h2 {
   margin: 0;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--color-muted);
+  font-size: var(--text-title);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-tight);
+  color: var(--color-ink);
 }
 
 .alerts__totals {
   margin-left: auto;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--text-label);
   color: var(--color-ink-2);
   font-variant-numeric: tabular-nums;
 }
@@ -42,7 +43,7 @@
   align-items: center;
   gap: 14px;
   flex-wrap: wrap;
-  padding: 9px 16px;
+  padding: 2px 16px;
   border-bottom: 1px solid var(--color-edge-lo);
   flex: 0 0 auto;
 }
@@ -50,9 +51,11 @@
 .alerts__filters button {
   display: inline-flex;
   align-items: center;
-  min-height: 24px;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
   font: inherit;
-  font-size: 12px;
+  font-size: var(--text-xs);
   background: none;
   border: 0;
   padding: 2px 0;
@@ -98,7 +101,8 @@
 .alerts__sections button {
   background: none;
   border: none;
-  padding: 4px 0;
+  padding: 4px 8px;
+  min-height: 44px;
   font: inherit;
   font-size: var(--text-label);
   color: var(--color-ink-2);
@@ -176,7 +180,7 @@
 
 .alerts__sev {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--text-label);
   color: var(--color-muted);
   font-variant-numeric: tabular-nums;
 }
@@ -197,29 +201,29 @@
 }
 
 .alerts__title {
-  font-size: 14px;
+  font-size: var(--text-read);
   line-height: 1.35;
   overflow-wrap: break-word;
 }
 
 .alerts__meta {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--text-label);
   color: var(--color-muted);
   overflow-wrap: break-word;
 }
 
 .alerts__state {
-  font-size: 11px;
+  font-size: var(--text-label);
   color: var(--color-muted);
   padding-right: 10px;
   white-space: nowrap;
 }
 
-/* Note de confiance : chiffre seul, la couleur dit le statut. */
+/* Note de confiance : un mot porte le sens, le chiffre le précise. */
 .alerts__score {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--text-label);
   font-variant-numeric: tabular-nums;
   color: var(--color-muted);
   padding-right: 8px;
@@ -241,17 +245,23 @@
 .alerts__actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 4px;
   padding: 0 16px 0 4px;
   flex: 0 0 auto;
 }
 
+/* Cible tactile : 44 px de haut et de large, même quand le libellé est court. */
 .alerts__actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 4px 8px;
   font: inherit;
-  font-size: 12px;
+  font-size: var(--text-xs);
   background: none;
   border: 0;
-  padding: 4px 0;
   color: var(--color-ink-2);
   cursor: pointer;
   transition: color 90ms ease, box-shadow 90ms ease;
@@ -283,14 +293,14 @@
 .alerts__status {
   margin: 0;
   padding: 14px 16px;
-  font-size: 12px;
+  font-size: var(--text-xs);
   color: var(--color-muted);
 }
 
 .alerts__error {
   margin: 0;
   padding: 10px 16px;
-  font-size: 12px;
+  font-size: var(--text-xs);
   color: var(--color-alarm);
   border-bottom: 1px solid var(--color-edge-lo);
 }
@@ -350,7 +360,7 @@
 }
 .alerts__detail-line {
   margin: 0 0 5px;
-  font-size: 12px;
+  font-size: var(--text-xs);
   line-height: 1.5;
   color: var(--color-ink-2);
   overflow-wrap: anywhere;
