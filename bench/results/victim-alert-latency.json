@@ -1,0 +1,26 @@
+{
+  "generatedAt": "2026-11-22T00:46:22.019Z",
+  "fingerprint": {
+    "organisations": 1673151,
+    "sources": 312,
+    "events": 26221,
+    "sha256": "5d3d76c63f0594dc1ce3920d3d2d428f94a03ac96658dbf163e40b0ce3db2f0e"
+  },
+  "definition": "event row publication (created_at) to victim alert creation (created_at), same transaction",
+  "targetMs": 1000,
+  "emission": {
+    "realClaims": 21,
+    "replayed": 21,
+    "p50Ms": 0,
+    "p90Ms": 0,
+    "maxMs": 0,
+    "withinTarget": 21
+  },
+  "sourcePublication": {
+    "windowDays": 7,
+    "count": 7,
+    "p50Hours": 16.06,
+    "p90Hours": 26.67,
+    "withinOneHour": 1
+  }
+}
