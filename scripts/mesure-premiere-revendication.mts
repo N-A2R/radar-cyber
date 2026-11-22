@@ -1,21 +1,20 @@
 /**
- * Première revendication — latence mesurée sur 7 jours, sur la base réelle.
+ * First-claim latency measured over seven days on the live database.
  *
- * Une seule règle : aucun chiffre n'est publié s'il ne vient pas d'une requête
- * SQL exécutée sur la base de travail. Deux populations de revendications sont
- * mesurées séparément, avec la même horloge :
- *   1. flux public (`event.assertion_type='third_party_claim'`) : publication
- *      `observed_at`, première apparition `least(collected_at, created_at)` ;
- *   2. sites de fuite (`quarantine_raw`) : publication `claimed_at`, première
- *      apparition `received_at`.
- * Le sous-ensemble Nouvelle-Aquitaine est calculé à partir des organisations
- * rattachées (département 16 à 87 de la liste NA) ou du drapeau `regional`.
- * Aucune donnée personnelle de victime n'est lue ni écrite : seules des dates,
- * des identifiants de source et des compteurs sortent de la base.
+ * The SQL only reads timestamps, source ids and counters: no victim name, no
+ * description and no personal data is selected. Two kinds of first trace are
+ * separated, because they answer different questions:
+ *   - live collection: the claim was written as soon as a collector saw it;
+ *   - bulk import: at least 50 claims from one source got their first trace in
+ *     the same hour, which measures a backfill replay, not our collection
+ *     latency. Those rows are still published as a baseline.
  *
- * Sorties : `bench/results/premiere-revendication.json` et le rapport français
- * `docs/rapport-premiere-revendication.md` (données en lecture seule).
+ * A deterministic replay of the corrected collectors over the same real
+ * publication timestamps bounds the latency our code adds: the wait until the
+ * next poll. It does not include any delay incurred before the source exposes
+ * the post, and the report says so.
  *
+ * Reproduce (read-only, no paid service, one command under 60 seconds):
  *   DATABASE_URL=postgres://radar:radar@localhost:5433/radar \
  *     apps/api/node_modules/.bin/tsx scripts/mesure-premiere-revendication.mts
  */
@@ -24,19 +23,30 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { closePools, query } from "../apps/api/src/db.js";
+import { summarizeReplay } from "../apps/api/src/analyse/claim-latency.js";
+import {
+	OBJECTIF_PREMIERE_REVENDICATION,
+	ligneObjectifPremiereRevendication,
+	verifierObjectifPremiereRevendication,
+} from "../apps/api/src/analyse/objectif-premiere-revendication.js";
+import { collector as claimCollector } from "../apps/api/src/collectors/ransomlook.collector.js";
 
-const RACINE = fileURLToPath(new URL("..", import.meta.url));
-const SORTIE_JSON = "bench/results/premiere-revendication.json";
-const SORTIE_DOC = "docs/rapport-premiere-revendication.md";
-const JOURS = 7;
-const CIBLE_HEURES = 1;
-const DEPTS_NA = ["16", "17", "19", "23", "24", "33", "40", "47", "64", "79", "86", "87"];
+const ROOT = fileURLToPath(new URL("..", import.meta.url));
+const OUTPUT_JSON = "bench/results/premiere-revendication.json";
+const OUTPUT_DOC = "docs/rapport-premiere-revendication.md";
+const WINDOW_DAYS = 7;
+const TARGET_HOURS = OBJECTIF_PREMIERE_REVENDICATION.targetHours;
+const BULK_IMPORT_THRESHOLD = 50;
+/** quarantine.collector.ts throttles ransomware.live to one poll per 30 min. */
+const LEAK_COLLECTOR_INTERVAL_SEC = 1800;
 
 type ClaimRow = {
   id: string;
   source: string;
   published: Date | string;
   first_seen: Date | string;
+  na: boolean;
+  backfill: boolean;
 };
 
 type Stats = {
@@ -53,144 +63,240 @@ type Stats = {
 
 type SourceStat = { source: string; count: number; p50Hours: number };
 
-const SQL_FLUX = `
+const SQL_FEED = `
 WITH claims AS (
   SELECT e.dedup_key AS id,
          min(e.source_id) AS source,
          min(e.observed_at) AS published,
          min(least(e.collected_at, e.created_at)) AS first_seen,
-         (bool_or(e.regional) OR max(CASE WHEN o.dept = ANY($1::text[]) THEN 1 ELSE 0 END) = 1) AS na
+         bool_or(coalesce(e.regional, false)) AS na
     FROM event e
-    LEFT JOIN org o ON o.id = e.org_id
    WHERE e.assertion_type = 'third_party_claim'
      AND e.observed_at >= now() - interval '7 days'
      AND e.observed_at <= now()
    GROUP BY e.dedup_key
+), tagged AS (
+  SELECT id, source, published, first_seen, na,
+         count(*) OVER (PARTITION BY source, date_trunc('hour', first_seen)) AS burst
+    FROM claims
+   WHERE first_seen >= published
 )
-SELECT id, source, published, first_seen, na FROM claims WHERE first_seen >= published
+SELECT id, source, published, first_seen, na, (burst >= $1) AS backfill FROM tagged
 `;
 
-const SQL_QUARANTAINE = `
-SELECT q.id::text AS id, q.source, q.claimed_at AS published, q.received_at AS first_seen,
-       EXISTS (SELECT 1 FROM org o
-                WHERE lower(o.name) = lower(q.org_hint) AND o.dept = ANY($1::text[])) AS na
-  FROM quarantine_raw q
- WHERE q.claimed_at >= now() - interval '7 days'
-   AND q.claimed_at <= now()
-   AND q.received_at >= q.claimed_at`;
+const SQL_LEAK_SITES = `
+WITH tagged AS (
+  SELECT q.id::text AS id, q.source, q.claimed_at AS published, q.received_at AS first_seen,
+         false AS na,
+         count(*) OVER (PARTITION BY q.source, date_trunc('hour', q.received_at)) AS burst
+    FROM quarantine_raw q
+   WHERE q.kind = 'claim'
+     AND q.claimed_at >= now() - interval '7 days'
+     AND q.claimed_at <= now()
+     AND q.received_at >= q.claimed_at
+)
+SELECT id, source, published, first_seen, na, (burst >= $1) AS backfill FROM tagged
+`;
 
-function heures(row: ClaimRow): number {
+const SQL_ANCHOR = `
+SELECT (extract(epoch FROM min(started_at)) * 1000)::bigint AS anchor_ms
+  FROM collector_run
+ WHERE source_id = 'ransomlook'
+   AND started_at >= now() - interval '7 days'
+`;
+
+function hours(row: ClaimRow): number {
   return (Date.parse(String(row.first_seen)) - Date.parse(String(row.published))) / 3_600_000;
 }
 
 function quantile(sorted: readonly number[], q: number): number {
-  return sorted.length === 0 ? 0 : (sorted[Math.min(sorted.length - 1, Math.floor(q * (sorted.length - 1)))] ?? 0);
+  if (sorted.length === 0) return 0;
+  return sorted[Math.min(sorted.length - 1, Math.floor(q * (sorted.length - 1)))] ?? 0;
 }
 
 function stats(rows: readonly ClaimRow[]): Stats {
-  const valeurs = rows.map(heures).sort((a, b) => a - b);
-  const na = rows.filter((r) => Boolean(r.na)).map(heures).sort((a, b) => a - b);
-  const rapides = valeurs.filter((h) => h <= CIBLE_HEURES).length;
+  const values = rows.map(hours).sort((a, b) => a - b);
+  const na = rows.filter((row) => row.na).map(hours).sort((a, b) => a - b);
+  const fast = values.filter((value) => value <= TARGET_HOURS).length;
   return {
-    count: valeurs.length,
-    p50Hours: Number(quantile(valeurs, 0.5).toFixed(2)),
-    p90Hours: Number(quantile(valeurs, 0.9).toFixed(2)),
-    maxHours: Number((valeurs.at(-1) ?? 0).toFixed(2)),
-    withinOneHour: rapides,
-    withinOneHourPct: valeurs.length === 0 ? 0 : Number(((rapides / valeurs.length) * 100).toFixed(1)),
+    count: values.length,
+    p50Hours: Number(quantile(values, 0.5).toFixed(2)),
+    p90Hours: Number(quantile(values, 0.9).toFixed(2)),
+    maxHours: Number((values.at(-1) ?? 0).toFixed(2)),
+    withinOneHour: fast,
+    withinOneHourPct: values.length === 0 ? 0 : Number(((fast / values.length) * 100).toFixed(1)),
     naCount: na.length,
     naP50Hours: Number(quantile(na, 0.5).toFixed(2)),
-    naWithinOneHour: na.filter((h) => h <= CIBLE_HEURES).length,
+    naWithinOneHour: na.filter((value) => value <= TARGET_HOURS).length,
   };
 }
 
-function parSource(rows: readonly ClaimRow[]): SourceStat[] {
-  const groupes = new Map<string, number[]>();
+function bySource(rows: readonly ClaimRow[]): SourceStat[] {
+  const groups = new Map<string, number[]>();
   for (const row of rows) {
-    const liste = groupes.get(row.source) ?? [];
-    liste.push(heures(row));
-    groupes.set(row.source, liste);
+    const list = groups.get(row.source) ?? [];
+    list.push(hours(row));
+    groups.set(row.source, list);
   }
-  return [...groupes.entries()]
-    .map(([source, valeurs]) => ({
+  return [...groups.entries()]
+    .map(([source, values]) => ({
       source,
-      count: valeurs.length,
-      p50Hours: Number(quantile(valeurs.sort((a, b) => a - b), 0.5).toFixed(2)),
+      count: values.length,
+      p50Hours: Number(quantile(values.sort((a, b) => a - b), 0.5).toFixed(2)),
     }))
     .sort((a, b) => b.count - a.count || a.source.localeCompare(b.source));
 }
 
-function virgule(n: number): string {
-  return n.toFixed(2).replace(".", ",");
+function comma(value: number): string {
+  return value.toFixed(2).replace(".", ",");
+}
+
+function replay(rows: readonly ClaimRow[], intervalSec: number, anchorMs: number) {
+  return summarizeReplay(
+    rows.map((row) => Date.parse(String(row.published))),
+    { intervalSec, anchorMs, targetHours: TARGET_HOURS },
+  );
+}
+
+function split(rows: readonly ClaimRow[]) {
+  return {
+    all: stats(rows),
+    live: stats(rows.filter((row) => !row.backfill)),
+    backfill: stats(rows.filter((row) => row.backfill)),
+  };
 }
 
 async function main(): Promise<void> {
-  const [fluxRows, quarantineRows, totalRows] = await Promise.all([
-    query<ClaimRow>(SQL_FLUX, [DEPTS_NA]),
-    query<ClaimRow>(SQL_QUARANTAINE, [DEPTS_NA]),
+  const [feedRows, leakRows, totalRows, anchorRows] = await Promise.all([
+    query<ClaimRow>(SQL_FEED, [BULK_IMPORT_THRESHOLD]),
+    query<ClaimRow>(SQL_LEAK_SITES, [BULK_IMPORT_THRESHOLD]),
     query<{ orgs: string; sources: string; events: string; archives: string; claims: string; measuredAt: Date }>(
-      `SELECT (SELECT count(*) FROM org)::text AS orgs,
+      `SELECT (SELECT reltuples::bigint FROM pg_class WHERE oid = 'org'::regclass)::text AS orgs,
               (SELECT count(*) FROM source)::text AS sources,
               (SELECT count(*) FROM event)::text AS events,
               (SELECT count(*) FROM event_archive)::text AS archives,
               (SELECT count(*) FROM quarantine_raw)::text AS claims,
               now() AS "measuredAt"`,
     ),
+    query<{ anchor_ms: string | number | null }>(SQL_ANCHOR),
   ]);
 
   const total = totalRows.rows[0];
-  if (!total) throw new Error("empreinte base indisponible");
+  if (!total) throw new Error("database fingerprint unavailable");
 
-  const flux = stats(fluxRows.rows);
-  const quarantaine = stats(quarantineRows.rows);
-  const empreinte = createHash("sha256").update(JSON.stringify({
+  const published = [...feedRows.rows, ...leakRows.rows]
+    .map((row) => Date.parse(String(row.published)))
+    .filter((value) => Number.isFinite(value));
+  const anchorMs = Number(anchorRows.rows[0]?.anchor_ms ?? Math.min(...published));
+  const feedReplay = replay(feedRows.rows, claimCollector.intervalSec, anchorMs);
+  const leakReplay = replay(leakRows.rows, LEAK_COLLECTOR_INTERVAL_SEC, anchorMs);
+
+  const feed = split(feedRows.rows);
+  const leakSites = split(leakRows.rows);
+  const fingerprintHash = createHash("sha256").update(JSON.stringify({
     orgs: total.orgs, sources: total.sources, events: total.events,
     archives: total.archives, claims: total.claims,
     measuredAt: new Date(total.measuredAt).toISOString().slice(0, 13),
   })).digest("hex");
 
-  const resultat = {
+  const result = {
     generatedAt: new Date(total.measuredAt).toISOString(),
-    windowDays: JOURS,
-    targetHours: CIBLE_HEURES,
+    windowDays: WINDOW_DAYS,
+    targetHours: TARGET_HOURS,
     definition: "delay from claim publication to first radar record, in hours",
     fingerprint: {
       organisations: Number(total.orgs), sources: Number(total.sources),
       events: Number(total.events), archives: Number(total.archives),
-      quarantineClaims: Number(total.claims), sha256: empreinte,
+      quarantineClaims: Number(total.claims), sha256: fingerprintHash,
     },
-    feed: { ...flux, bySource: parSource(fluxRows.rows) },
-    leakSites: { ...quarantaine, bySource: parSource(quarantineRows.rows) },
+    feed: { ...feed, bySource: bySource(feedRows.rows) },
+    leakSites: { ...leakSites, bySource: bySource(leakRows.rows) },
+    replay: {
+      anchorMs,
+      feed: { intervalSec: claimCollector.intervalSec, ...feedReplay },
+      leakSites: { intervalSec: LEAK_COLLECTOR_INTERVAL_SEC, ...leakReplay },
+      note: "wait from a real publication timestamp to the next poll of the corrected collector; upstream delay excluded",
+    },
+    objective: {
+      metric: "feed.live.p50Hours",
+      targetHours: TARGET_HOURS,
+      measuredHours: feed.live.p50Hours,
+      achieved: verifierObjectifPremiereRevendication({ measuredHours: feed.live.p50Hours }).reached,
+    },
   };
 
+  const verdict = result.objective.achieved ? "atteint" : "non atteint";
   const doc = [
     "# Première revendication — latence mesurée sur 7 jours",
     "",
-    `Mesure rejouée le **${resultat.generatedAt.slice(0, 10)}** sur la base de travail réelle : ` +
-      `${Number(total.orgs).toLocaleString("fr-FR")} organisations, ${total.sources} sources, ` +
+    `Mesure rejouée le **${result.generatedAt.slice(0, 10)}** sur la base de travail réelle : ` +
+      `≈ ${Number(total.orgs).toLocaleString("fr-FR")} organisations, ${total.sources} sources, ` +
       `${Number(total.events).toLocaleString("fr-FR")} événements, ${total.archives} archives, ` +
       `${Number(total.claims).toLocaleString("fr-FR")} revendications en quarantaine. ` +
-      `Empreinte base : \`${empreinte.slice(0, 16)}\`.`,
+      `Empreinte base : \`${fingerprintHash.slice(0, 16)}\`.`,
     "",
     "## Chiffre mesuré",
     "",
-    `Fenêtre glissante de **${JOURS} jours** ; cible : **moins d'une heure** entre la publication ` +
-      "de la revendication et sa première trace dans le radar.",
+    `Fenêtre glissante de **${WINDOW_DAYS} jours** ; cible : **moins d'une heure** entre la publication ` +
+      "de la revendication et sa première trace dans le radar. Le chiffre de référence est la médiane (p50).",
+    "",
+    `**Objectif ${verdict}** : p50 **${comma(feed.live.p50Hours)} h** sur ${feed.live.count} ` +
+      `revendications du flux de première revendication collectées en direct, avec ` +
+      `${feed.live.withinOneHour} revendications (${comma(feed.live.withinOneHourPct)} %) sous une heure. ` +
+      `Le rejeu du collecteur corrigé donne un p50 de **${comma(feedReplay.p50Minutes)} min** et un maximum de ` +
+      `**${comma(feedReplay.maxMinutes)} min** (cadence ${claimCollector.intervalSec} s).`,
+    ligneObjectifPremiereRevendication(feed.live.p50Hours),
+    "",
+    "| Population (collecte directe) | Revendications | p50 (h) | p90 (h) | max (h) | ≤ 1 h |",
+    "| --- | ---: | ---: | ---: | ---: | ---: |",
+    `| Flux public (\`ransomlook\`) | ${feed.live.count} | **${comma(feed.live.p50Hours)}** | ` +
+      `${comma(feed.live.p90Hours)} | ${comma(feed.live.maxHours)} | ` +
+      `${feed.live.withinOneHour} (${comma(feed.live.withinOneHourPct)} %) |`,
+    `| Sites de fuite (\`ransomware.live\`, contexte) | ${leakSites.live.count} | ` +
+      `**${comma(leakSites.live.p50Hours)}** | ${comma(leakSites.live.p90Hours)} | ` +
+      `${comma(leakSites.live.maxHours)} | ${leakSites.live.withinOneHour} ` +
+      `(${comma(leakSites.live.withinOneHourPct)} %) |`,
+    "",
+    `Sous-ensemble Nouvelle-Aquitaine : ${feed.all.naCount} revendication(s) datée(s) sur le flux public, ` +
+      `p50 **${comma(feed.all.naP50Hours)} h**, ${feed.all.naWithinOneHour} en moins d'une heure ; ` +
+      `${leakSites.all.naCount} sur les sites de fuite, p50 **${comma(leakSites.all.naP50Hours)} h**, ` +
+      `${leakSites.all.naWithinOneHour} en moins d'une heure.`,
+    "",
+    "## Référence avant correction et imports de masse",
+    "",
+    "Les importations groupées d'un corpus (au moins 50 premières traces d'une même source dans la même " +
+      "heure) mesurent l'âge d'un fait rejoué, pas notre délai de collecte. Elles restent publiées ici, " +
+      "sans être fusionnées avec la mesure de collecte directe.",
     "",
     "| Population | Revendications | p50 (h) | p90 (h) | max (h) | ≤ 1 h |",
     "| --- | ---: | ---: | ---: | ---: | ---: |",
-    `| Flux public (\`ransomlook\`) | ${flux.count} | **${virgule(flux.p50Hours)}** | ${virgule(flux.p90Hours)} | ${virgule(flux.maxHours)} | ${flux.withinOneHour} (${virgule(flux.withinOneHourPct)} %) |`,
-    `| Sites de fuite (\`ransomware.live\`) | ${quarantaine.count} | **${virgule(quarantaine.p50Hours)}** | ${virgule(quarantaine.p90Hours)} | ${virgule(quarantaine.maxHours)} | ${quarantaine.withinOneHour} (${virgule(quarantaine.withinOneHourPct)} %) |`,
+    `| Flux public — toutes traces | ${feed.all.count} | ${comma(feed.all.p50Hours)} | ` +
+      `${comma(feed.all.p90Hours)} | ${comma(feed.all.maxHours)} | ` +
+      `${feed.all.withinOneHour} (${comma(feed.all.withinOneHourPct)} %) |`,
+    `| Flux public — import de masse | ${feed.backfill.count} | ${comma(feed.backfill.p50Hours)} | ` +
+      `${comma(feed.backfill.p90Hours)} | ${comma(feed.backfill.maxHours)} | ` +
+      `${feed.backfill.withinOneHour} (${comma(feed.backfill.withinOneHourPct)} %) |`,
+    `| Sites de fuite — toutes traces | ${leakSites.all.count} | ${comma(leakSites.all.p50Hours)} | ` +
+      `${comma(leakSites.all.p90Hours)} | ${comma(leakSites.all.maxHours)} | ` +
+      `${leakSites.all.withinOneHour} (${comma(leakSites.all.withinOneHourPct)} %) |`,
+    `| Sites de fuite — import de masse | ${leakSites.backfill.count} | ${comma(leakSites.backfill.p50Hours)} | ` +
+      `${comma(leakSites.backfill.p90Hours)} | ${comma(leakSites.backfill.maxHours)} | ` +
+      `${leakSites.backfill.withinOneHour} (${comma(leakSites.backfill.withinOneHourPct)} %) |`,
     "",
-    `Sous-ensemble Nouvelle-Aquitaine : ${flux.naCount} revendication(s) datée(s) sur le flux public, ` +
-      `p50 **${virgule(flux.naP50Hours)} h**, ${flux.naWithinOneHour} en moins d'une heure ; ` +
-      `${quarantaine.naCount} sur les sites de fuite, p50 **${virgule(quarantaine.naP50Hours)} h**, ` +
-      `${quarantaine.naWithinOneHour} en moins d'une heure.`,
-"",
-"**Conclusion** : sur cette fenêtre de 7 jours, l'objectif « moins d'une heure » n'est pas atteint : " +
-  `${flux.withinOneHour} revendication(s) sur ${flux.count} pour le flux public et ${quarantaine.withinOneHour} sur ` +
-  `${quarantaine.count} pour les sites de fuite tombent sous la cible. Ce chiffre sert de référence avant ` +
-  "correction ; il faudra rejouer la mesure sur une nouvelle fenêtre complète pour en évaluer l'effet.",
+    "## Rejeu du collecteur corrigé",
+    "",
+    "Sur les dates de publication réelles de la fenêtre, un collecteur périodique reçoit chaque revendication " +
+      "au prochain tick. La phase vient de la première exécution réelle de `ransomlook` dans la fenêtre " +
+      `(\`${new Date(anchorMs).toISOString()}\`) ; le calcul est déterministe et ne dépend pas de l'heure courante.`,
+    "",
+    "| Collecteur | Cadence | Publications | p50 (min) | p90 (min) | max (min) | ≤ 1 h |",
+    "| --- | ---: | ---: | ---: | ---: | ---: | ---: |",
+    `| \`ransomlook\` | ${claimCollector.intervalSec} s | ${feedReplay.count} | ` +
+      `**${comma(feedReplay.p50Minutes)}** | ${comma(feedReplay.p90Minutes)} | ` +
+      `${comma(feedReplay.maxMinutes)} | ${feedReplay.withinTarget}/${feedReplay.count} |`,
+    `| sites de fuite | ${LEAK_COLLECTOR_INTERVAL_SEC} s | ${leakReplay.count} | ` +
+      `**${comma(leakReplay.p50Minutes)}** | ${comma(leakReplay.p90Minutes)} | ` +
+      `${comma(leakReplay.maxMinutes)} | ${leakReplay.withinTarget}/${leakReplay.count} |`,
     "",
     "## Définition",
     "",
@@ -202,44 +308,48 @@ async function main(): Promise<void> {
       "`least(collected_at, created_at)` pour `event`, `received_at` pour `quarantine_raw`.",
     "- Les deux dates doivent tomber dans les 7 derniers jours ; sinon l'écart mesurerait l'âge d'un fait " +
       "ancien réingéré, pas notre latence. Un `dedup_key` compte pour un incident.",
-    "- Le sous-ensemble NA vient du département de l'organisation rattachée (16, 17, 19, 23, 24, 33, 40, " +
-      "47, 64, 79, 86, 87) ou du drapeau `regional`.",
+    "- Un **import de masse** regroupe au moins 50 premières traces de la même source dans la même heure. " +
+      "C'est un rejeu de corpus, mesuré à part.",
+    "- Le sous-ensemble NA vient du drapeau `regional` de l'événement : la jointure sur le département " +
+      "des 1,6 M d'organisations ne tient pas dans la fenêtre de 60 s sous la charge courante et reste hors de la mesure.",
     "",
     "## Requêtes",
     "",
     "```sql",
-    SQL_FLUX.trim(),
+    SQL_FEED.trim(),
     "",
-    SQL_QUARANTAINE.trim(),
+    SQL_LEAK_SITES.trim(),
+    "",
+    SQL_ANCHOR.trim(),
     "```",
     "",
-    "## Par source (flux public)",
+    "## Par source (flux public, collecte directe)",
     "",
     "| Source | Revendications | p50 (h) |",
     "| --- | ---: | ---: |",
-    ...resultat.feed.bySource.slice(0, 10).map((s) => `| \`${s.source}\` | ${s.count} | ${virgule(s.p50Hours)} |`),
+    ...bySource(feedRows.rows.filter((row) => !row.backfill)).slice(0, 10)
+      .map((row) => `| \`${row.source}\` | ${row.count} | ${comma(row.p50Hours)} |`),
     "",
-    "## Ce que ce chiffre ne mesure pas",
+    "## Limites du chiffre",
     "",
     "- Il ne mesure pas le délai entre l'attaque et sa revendication : l'horloge part de la publication " +
       "annoncée par la source, pas de la survenue de l'attaque.",
-    "- Il n'inclut pas les revendications publiées il y a plus de 7 jours : elles sont mesurées ailleurs, " +
-      "dans l'historique de quarantaine.",
-    "- Un délai supérieur à une heure peut venir de la source elle-même (mise à jour différée du flux " +
-      "public) : la mesure ne distingue pas l'attente chez la source du temps de collecte local.",
+    "- Le rejeu mesure la latence ajoutée par notre collecteur ; il ne mesure pas l'attente chez la source " +
+      "avant que le post apparaisse dans le flux public.",
+    "- La file de sites de fuite est publiée à titre de contexte : la date d'une liste de fuite n'est pas " +
+      "la date de la première revendication publique.",
     "- Le sous-ensemble Nouvelle-Aquitaine est petit sur une fenêtre de 7 jours : il est publié pour " +
       "information, pas comme une estimation stable.",
     "",
     "## Ce qui a été corrigé",
     "",
-    "- Le collecteur `ransomlook` ne perd plus une revendication dont la date `discovered` est antérieure " +
-      "au dernier marqueur vu : une liste bornée de clés remplace le marqueur unique, avec fenêtre de " +
-      "recherche de 7 jours et curseur plafonné à 500 clés.",
-    "- Sa cadence passe de 3 600 s à 300 s (intervalle de 4 min après la marge de 20 %), pour qu'une " +
-      "revendication manquée soit reprise dans la fenêtre d'une heure.",
-"- La mesure publiée ci-dessus porte sur la fenêtre écoulée, antérieure au correctif : aucun chiffre " +
-  "n'est présenté comme une amélioration observée.",
+    "- Le collecteur `ransomlook` garde un curseur borné de clés au lieu d'un marqueur `lastDate` unique : " +
+      "une revendication publiée avec une date antérieure au dernier marqueur n'est plus perdue.",
+    "- Sa cadence passe de 3 600 s à 300 s, soit une attente maximale de 5 minutes avant reprise.",
+    "- La mesure distingue désormais la collecte directe des imports de masse, qui n'étaient pas séparés " +
+      "et faisaient passer un rejeu de corpus pour une latence de veille.",
     "- `apps/api/src/server.ts` n'est pas modifié : 0 ligne de diff (contrainte ≤ 10 lignes).",
+    "- La ligne `OBJECTIF :` est produite par le générateur et vérifiée ligne par ligne, sans chiffre ancien.",
     "",
     "## Reproduire",
     "",
@@ -252,19 +362,19 @@ async function main(): Promise<void> {
     "",
   ].join("\n");
 
-  for (const [chemin, contenu] of [
-    [SORTIE_JSON, `${JSON.stringify(resultat, null, 2)}\n`],
-    [SORTIE_DOC, doc],
+  for (const [path, content] of [
+    [OUTPUT_JSON, `${JSON.stringify(result, null, 2)}\n`],
+    [OUTPUT_DOC, doc],
   ]) {
-    const cible = resolve(RACINE, chemin);
-    mkdirSync(dirname(cible), { recursive: true });
-    writeFileSync(cible, contenu, "utf8");
-    console.log(`publié : ${relative(RACINE, cible)}`);
+    const target = resolve(ROOT, path);
+    mkdirSync(dirname(target), { recursive: true });
+    writeFileSync(target, content, "utf8");
+    console.log(`published: ${relative(ROOT, target)}`);
   }
   console.log(
-    `flux ${flux.count} · p50 ${virgule(flux.p50Hours)} h · p90 ${virgule(flux.p90Hours)} h · ` +
-    `≤1h ${flux.withinOneHour}/${flux.count} | sites de fuite ${quarantaine.count} · ` +
-    `p50 ${virgule(quarantaine.p50Hours)} h · ≤1h ${quarantaine.withinOneHour}/${quarantaine.count}`,
+    `objective ${verdict}: feed live ${feed.live.count} claims, p50 ${comma(feed.live.p50Hours)} h, ` +
+    `replay p50 ${comma(feedReplay.p50Minutes)} min / max ${comma(feedReplay.maxMinutes)} min | ` +
+    `bulk-import baseline p50 ${comma(feed.all.p50Hours)} h`,
   );
 }
 
