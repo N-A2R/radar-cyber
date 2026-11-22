@@ -1,0 +1,30 @@
+{
+  "generatedAt": "2026-11-22T03:58:36.808Z",
+  "asOf": "2026-11-22",
+  "windowStart": "2026-05-26",
+  "windowEnd": "2026-11-22",
+  "windows": 6,
+  "horizonDays": 30,
+  "victims": 15,
+  "sources": 1,
+  "pairs": 15,
+  "priorSignalPairs": 0,
+  "victimsWithAnyPriorSignal": 0,
+  "coverage": 0,
+  "mentions": {
+    "read": 16770,
+    "attached": 198,
+    "ambiguous": 242,
+    "unmatched": 16330
+  },
+  "perSource": [
+    {
+      "source": "quarantine_raw",
+      "victims": 15,
+      "pairs": 15,
+      "victimsWithPriorSignal": 0,
+      "priorSignals": 0
+    }
+  ],
+  "caveat": "Quarantine hints are attached by exact domain root or exact normalised organisation name; ambiguous keys are never attached. The observation day is strictly before the victim's own claim."
+}

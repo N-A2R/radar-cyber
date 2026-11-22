@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-11-22T04:31:12.229Z",
+  "asOf": "2026-11-22",
+  "windowStart": "2026-05-26",
+  "windowEnd": "2026-11-22",
+  "windows": 6,
+  "horizonDays": 30,
+  "lookbackDays": 30,
+  "victims": 15,
+  "sources": 3,
+  "pairs": 45,
+  "priorSignalPairs": 18,
+  "victimsWithAnyPriorSignal": 11,
+  "coverage": 0.7333,
+  "claimsRead": 74,
+  "perSource": [
+    {
+      "scope": "departement",
+      "victims": 15,
+      "pairs": 15,
+      "victimsWithPriorSignal": 4,
+      "priorSignals": 5
+    },
+    {
+      "scope": "secteur",
+      "victims": 15,
+      "pairs": 15,
+      "victimsWithPriorSignal": 4,
+      "priorSignals": 4
+    },
+    {
+      "scope": "secteur_groupe",
+      "victims": 15,
+      "pairs": 15,
+      "victimsWithPriorSignal": 10,
+      "priorSignals": 24
+    }
+  ],
+  "activeSectorGroupsAtAsOf": [
+    {
+      "key": "services",
+      "count": 1
+    }
+  ],
+  "baseline": {
+    "predictions": 60,
+    "hits": 0,
+    "victims": 15
+  },
+  "injected": {
+    "predictions": 60,
+    "hits": 0,
+    "victims": 15
+  },
+  "dataset": {
+    "organisationsNA": 1671906,
+    "sources": 771,
+    "events": 26770
+  },
+  "caveat": "A wave signal is a claim by another NA organisation in the same scope within 30 days, strictly before the victim's claim. No group label of the future claim is used. The injected ranking adds a bounded sector-group bonus to the published score; it is an audit, not a change to the published forecast."
+}

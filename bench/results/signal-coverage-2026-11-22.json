@@ -1,0 +1,80 @@
+{
+  "generatedAt": "2026-11-22T03:41:04.835Z",
+  "asOf": "2026-11-22",
+  "windowStart": "2026-05-26",
+  "windowEnd": "2026-11-22",
+  "windows": 6,
+  "horizonDays": 30,
+  "victims": 15,
+  "sources": 9,
+  "pairs": 135,
+  "priorSignalPairs": 0,
+  "victimsWithAnyPriorSignal": 0,
+  "coverage": 0,
+  "perSource": [
+    {
+      "source": "alert",
+      "victims": 15,
+      "pairs": 15,
+      "victimsWithPriorSignal": 0,
+      "priorSignals": 0
+    },
+    {
+      "source": "archive_event",
+      "victims": 15,
+      "pairs": 15,
+      "victimsWithPriorSignal": 0,
+      "priorSignals": 0
+    },
+    {
+      "source": "asset",
+      "victims": 15,
+      "pairs": 15,
+      "victimsWithPriorSignal": 0,
+      "priorSignals": 0
+    },
+    {
+      "source": "event",
+      "victims": 15,
+      "pairs": 15,
+      "victimsWithPriorSignal": 0,
+      "priorSignals": 0
+    },
+    {
+      "source": "event_archive",
+      "victims": 15,
+      "pairs": 15,
+      "victimsWithPriorSignal": 0,
+      "priorSignals": 0
+    },
+    {
+      "source": "exposition_service",
+      "victims": 15,
+      "pairs": 15,
+      "victimsWithPriorSignal": 0,
+      "priorSignals": 0
+    },
+    {
+      "source": "org_alias",
+      "victims": 15,
+      "pairs": 15,
+      "victimsWithPriorSignal": 0,
+      "priorSignals": 0
+    },
+    {
+      "source": "org_enrichissement",
+      "victims": 15,
+      "pairs": 15,
+      "victimsWithPriorSignal": 0,
+      "priorSignals": 0
+    },
+    {
+      "source": "public_mandate",
+      "victims": 15,
+      "pairs": 15,
+      "victimsWithPriorSignal": 0,
+      "priorSignals": 0
+    }
+  ],
+  "caveat": "Signals strictly before the organisation's own claim date; a signal on the claim day is excluded."
+}
