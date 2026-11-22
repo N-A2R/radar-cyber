@@ -107,3 +107,5 @@ de sortie 0. Chaque commande exécutée reste sous la limite de 60 s.
 - La base réelle partagée n'a pas été migrée pendant ce chantier : la mesure est
   en lecture seule. Le déploiement doit appliquer `db/migrate-064-*.sql` avant
   d'activer le canal email.
+
+OBJECTIF : atteint — 3 / 3 canaux (email, webhook, RSS) livrés et testés ; mesure reproductible via `scripts/mesure-notifications.mts` : 1 380 alertes Nouvelle-Aquitaine éligibles, 11 tests de notifications et 52/52 tests réussis.
