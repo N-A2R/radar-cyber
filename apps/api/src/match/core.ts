@@ -28,7 +28,13 @@ export type MatchReason =
 
 export type MatchDiagnosis = { match: Match | null; reason: MatchReason };
 
-export type AliasRow = { org_id: number; name: string; alias: string };
+export type AliasRow = {
+	org_id: number;
+	name: string;
+	alias: string;
+	/** Code départemental (NA) de l'organisation, quand il est connu. */
+	dept?: string | null;
+};
 
 export type AliasEntry = {
 	orgId: number;
@@ -37,6 +43,7 @@ export type AliasEntry = {
 	confidence: number;
 	tokens: number;
 	short: boolean;
+	dept: string | null;
 };
 
 export type AliasIndex = {
@@ -141,6 +148,52 @@ function confidenceFor(length: number): number {
 	return 0;
 }
 
+/** Départements de Nouvelle-Aquitaine, du plus long au plus court. */
+const DEPARTEMENTS_NA: ReadonlyArray<{ code: string; tokens: readonly string[] }> = [
+	{ code: "17", tokens: ["charente", "maritime"] },
+	{ code: "87", tokens: ["haute", "vienne"] },
+	{ code: "79", tokens: ["deux", "sevres"] },
+	{ code: "47", tokens: ["lot", "et", "garonne"] },
+	{ code: "64", tokens: ["pyrenees", "atlantiques"] },
+	{ code: "16", tokens: ["charente"] },
+	{ code: "19", tokens: ["correze"] },
+	{ code: "23", tokens: ["creuse"] },
+	{ code: "24", tokens: ["dordogne"] },
+	{ code: "33", tokens: ["gironde"] },
+	{ code: "40", tokens: ["landes"] },
+	{ code: "86", tokens: ["vienne"] },
+];
+
+/** Alias qui ne sont que le nom d'un département : contexte, pas victime. */
+const CLES_DEPARTEMENTS: ReadonlySet<string> = new Set(
+	DEPARTEMENTS_NA.map((dept) => dept.tokens.join(" ")),
+);
+
+/**
+ * Départements explicitement cités dans le texte. Un nom composé est consommé
+ * avant son suffixe : « Charente-Maritime » ne cite pas la Charente.
+ */
+function departementsCites(tokens: readonly string[]): ReadonlySet<string> {
+	const cites = new Set<string>();
+	const pris = new Array<boolean>(tokens.length).fill(false);
+	for (const dept of DEPARTEMENTS_NA) {
+		for (let debut = 0; debut + dept.tokens.length <= tokens.length; debut++) {
+			let libre = true;
+			for (let i = debut; i < debut + dept.tokens.length; i++) {
+				if (pris[i]) {
+					libre = false;
+					break;
+				}
+			}
+			if (!libre || !dept.tokens.every((jeton, i) => tokens[debut + i] === jeton)) continue;
+			cites.add(dept.code);
+			for (let i = debut; i < debut + dept.tokens.length; i++) pris[i] = true;
+			break;
+		}
+	}
+	return cites;
+}
+
 /** Construit l'index en mémoire à partir de lignes `org_alias` actives. */
 export function buildAliasIndex(rows: ReadonlyArray<AliasRow>): AliasIndex {
 	const byKey = new Map<string, AliasEntry[]>();
@@ -169,6 +222,7 @@ export function buildAliasIndex(rows: ReadonlyArray<AliasRow>): AliasIndex {
 			confidence,
 			tokens: tokens.length,
 			short,
+			dept: row.dept ?? null,
 		};
 		if (entries) entries.push(entry);
 		else byKey.set(key, [entry]);
@@ -194,22 +248,30 @@ export function analyzeAliasIndex(index: AliasIndex, text: string): AliasAnalysi
 
 	const tokens = key.split(" ");
 	const hits = new Map<number, AliasEntry>();
+	const territoriaux = new Map<number, AliasEntry>();
 	const allowShort = hasInstitutionalContext(text);
 	let sawShortOnly = false;
 
 	const largest = Math.min(index.maxTokens, tokens.length);
 	for (let size = largest; size >= index.minTokens; size--) {
 		for (let start = 0; start + size <= tokens.length; start++) {
-			const entries = index.byKey.get(tokens.slice(start, start + size).join(" "));
+			const cle = tokens.slice(start, start + size).join(" ");
+			const entries = index.byKey.get(cle);
 			if (!entries) continue;
 			for (const entry of entries) {
 				if (entry.short && !allowShort) {
 					sawShortOnly = true;
 					continue;
 				}
-				if (!hits.has(entry.orgId)) hits.set(entry.orgId, entry);
+				// « Lot-et-Garonne » seul ne nomme pas une victime quand une
+				// organisation est déjà nommée dans la phrase.
+				const cible = CLES_DEPARTEMENTS.has(cle) ? territoriaux : hits;
+				if (!cible.has(entry.orgId)) cible.set(entry.orgId, entry);
 			}
 		}
+	}
+	if (hits.size === 0) {
+		for (const [orgId, entry] of territoriaux) hits.set(orgId, entry);
 	}
 
 	let match: Match | null = null;
@@ -236,18 +298,42 @@ export function analyzeAliasIndex(index: AliasIndex, text: string): AliasAnalysi
 				normalize(entry.alias).length === bestLength,
 		);
 		if (ambiguous) {
-			reason = "ambiguous";
-			const seen = new Set<number>();
+			const exAequo: AliasEntry[] = [];
+			const seen = new Set<number>([best.orgId]);
 			for (const entry of ranked) {
 				if (
-					entry.tokens === best.tokens &&
-					entry.confidence === best.confidence &&
-					normalize(entry.alias).length === bestLength &&
-					!seen.has(entry.orgId)
+					entry.orgId === best.orgId ||
+					entry.tokens !== best.tokens ||
+					entry.confidence !== best.confidence ||
+					normalize(entry.alias).length !== bestLength ||
+					seen.has(entry.orgId)
 				) {
-					seen.add(entry.orgId);
-					tied.push({ id: entry.orgId, name: entry.name, alias: entry.alias, confidence: entry.confidence });
+					continue;
 				}
+				seen.add(entry.orgId);
+				exAequo.push(entry);
+			}
+			const aEgalite = [best, ...exAequo];
+			tied = aEgalite.map((entry) => ({
+				id: entry.orgId,
+				name: entry.name,
+				alias: entry.alias,
+				confidence: entry.confidence,
+			}));
+
+			// Un département explicitement cité départage des homonymes
+			// uniquement s'il désigne un seul des candidats à égalité.
+			const cites = departementsCites(tokens);
+			const parDepartement = aEgalite.filter(
+				(entry) => entry.dept !== null && cites.has(entry.dept),
+			);
+			if (cites.size > 0 && parDepartement.length === 1) {
+				const seul = parDepartement[0] as AliasEntry;
+				match = { orgId: seul.orgId, alias: seul.alias, confidence: seul.confidence };
+				reason = "matched";
+				tied = [];
+			} else {
+				reason = "ambiguous";
 			}
 		} else {
 			match = { orgId: best.orgId, alias: best.alias, confidence: best.confidence };
