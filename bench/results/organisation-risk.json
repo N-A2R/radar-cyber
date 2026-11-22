@@ -1,0 +1,287 @@
+{
+  "generatedAt": "2026-11-22T00:27:46.851Z",
+  "command": "pnpm mesure:risk",
+  "referenceDate": "2026-11-22",
+  "definitions": {
+    "scope": "Nouvelle-Aquitaine organisations identified by department code",
+    "label": "an incident claim observed in leak_claim (na) or event (third_party_claim)",
+    "features": "public numeric aggregates, sector flags and web presence; claim events excluded",
+    "score": "0-100 index: 0 at population baseline, 100 at the 75th percentile of observed incident excess",
+    "auc": "Mann-Whitney AUC of out-of-fold calibrated probabilities, equals the ROC trapezoid area",
+    "negatives": "deterministic sample: id % 997 = 7, no observed incident"
+  },
+  "snapshot": {
+    "totalOrganisations": 1673220,
+    "naOrganisations": 1671906,
+    "events": 27899,
+    "sources": 463,
+    "enabledSources": 362,
+    "naClaimRows": 78
+  },
+  "population": {
+    "totalOrganisations": 1671906,
+    "incidentOrganisations": 92
+  },
+  "cohort": {
+    "total": 1773,
+    "positives": 92,
+    "negatives": 1681,
+    "folds": 5
+  },
+  "model": {
+    "weights": [
+      0,
+      0,
+      0,
+      0,
+      3.123033,
+      0.630609,
+      0.390231,
+      0.535423,
+      0.372432,
+      -0.164013
+    ],
+    "intercept": -9.802893,
+    "priorLogOdds": -9.802156,
+    "meanExponent": 1.000737,
+    "referenceExcess": 0.629873
+  },
+  "evaluation": {
+    "auc": 0.537083,
+    "rocArea": 0.537083,
+    "rocPoints": [
+      {
+        "threshold": null,
+        "truePositiveRate": 0,
+        "falsePositiveRate": 0
+      },
+      {
+        "threshold": 0.001656,
+        "truePositiveRate": 0,
+        "falsePositiveRate": 0.000595
+      },
+      {
+        "threshold": 0.000944,
+        "truePositiveRate": 0.01087,
+        "falsePositiveRate": 0.000595
+      },
+      {
+        "threshold": 0.000424,
+        "truePositiveRate": 0.021739,
+        "falsePositiveRate": 0.000595
+      },
+      {
+        "threshold": 0.000402,
+        "truePositiveRate": 0.032609,
+        "falsePositiveRate": 0.000595
+      },
+      {
+        "threshold": 0.000245,
+        "truePositiveRate": 0.043478,
+        "falsePositiveRate": 0.000595
+      },
+      {
+        "threshold": 0.000157,
+        "truePositiveRate": 0.152174,
+        "falsePositiveRate": 0.120167
+      },
+      {
+        "threshold": 0.000134,
+        "truePositiveRate": 0.163043,
+        "falsePositiveRate": 0.130874
+      },
+      {
+        "threshold": 0.000126,
+        "truePositiveRate": 0.173913,
+        "falsePositiveRate": 0.151101
+      },
+      {
+        "threshold": 0.000105,
+        "truePositiveRate": 0.184783,
+        "falsePositiveRate": 0.161808
+      },
+      {
+        "threshold": 0.000102,
+        "truePositiveRate": 0.184783,
+        "falsePositiveRate": 0.173706
+      },
+      {
+        "threshold": 0.000097,
+        "truePositiveRate": 0.293478,
+        "falsePositiveRate": 0.294468
+      },
+      {
+        "threshold": 0.000096,
+        "truePositiveRate": 0.456522,
+        "falsePositiveRate": 0.405711
+      },
+      {
+        "threshold": 0.000093,
+        "truePositiveRate": 0.456522,
+        "falsePositiveRate": 0.412849
+      },
+      {
+        "threshold": 0.000092,
+        "truePositiveRate": 0.597826,
+        "falsePositiveRate": 0.533016
+      },
+      {
+        "threshold": 0.000091,
+        "truePositiveRate": 0.608696,
+        "falsePositiveRate": 0.546104
+      },
+      {
+        "threshold": 0.00009,
+        "truePositiveRate": 0.619565,
+        "falsePositiveRate": 0.559786
+      },
+      {
+        "threshold": 0.000083,
+        "truePositiveRate": 0.619565,
+        "falsePositiveRate": 0.56633
+      },
+      {
+        "threshold": 0.000083,
+        "truePositiveRate": 0.75,
+        "falsePositiveRate": 0.668055
+      },
+      {
+        "threshold": 0.00008,
+        "truePositiveRate": 0.75,
+        "falsePositiveRate": 0.684117
+      },
+      {
+        "threshold": 0.000074,
+        "truePositiveRate": 0.75,
+        "falsePositiveRate": 0.692445
+      },
+      {
+        "threshold": 0.000071,
+        "truePositiveRate": 0.76087,
+        "falsePositiveRate": 0.703748
+      },
+      {
+        "threshold": 0.000068,
+        "truePositiveRate": 0.782609,
+        "falsePositiveRate": 0.722189
+      },
+      {
+        "threshold": 0.000068,
+        "truePositiveRate": 0.804348,
+        "falsePositiveRate": 0.740631
+      },
+      {
+        "threshold": 0.000066,
+        "truePositiveRate": 0.836957,
+        "falsePositiveRate": 0.762046
+      },
+      {
+        "threshold": 0.000057,
+        "truePositiveRate": 0.869565,
+        "falsePositiveRate": 0.777513
+      },
+      {
+        "threshold": 0.000055,
+        "truePositiveRate": 0.869565,
+        "falsePositiveRate": 0.82094
+      },
+      {
+        "threshold": 0.000055,
+        "truePositiveRate": 0.891304,
+        "falsePositiveRate": 0.857823
+      },
+      {
+        "threshold": 0.000055,
+        "truePositiveRate": 0.902174,
+        "falsePositiveRate": 0.8953
+      },
+      {
+        "threshold": 0.000055,
+        "truePositiveRate": 0.902174,
+        "falsePositiveRate": 0.92326
+      },
+      {
+        "threshold": 0.000055,
+        "truePositiveRate": 0.956522,
+        "falsePositiveRate": 0.953004
+      },
+      {
+        "threshold": 0.000054,
+        "truePositiveRate": 0.956522,
+        "falsePositiveRate": 0.960143
+      },
+      {
+        "threshold": 0.000049,
+        "truePositiveRate": 0.956522,
+        "falsePositiveRate": 0.967281
+      },
+      {
+        "threshold": 0.000047,
+        "truePositiveRate": 0.978261,
+        "falsePositiveRate": 0.978584
+      },
+      {
+        "threshold": 0.000033,
+        "truePositiveRate": 0.98913,
+        "falsePositiveRate": 0.988697
+      },
+      {
+        "threshold": 0.000032,
+        "truePositiveRate": 1,
+        "falsePositiveRate": 1
+      }
+    ],
+    "scoreBuckets": [
+      {
+        "from": 0,
+        "to": 9,
+        "organisations": 415
+      },
+      {
+        "from": 10,
+        "to": 19,
+        "organisations": 0
+      },
+      {
+        "from": 20,
+        "to": 29,
+        "organisations": 14
+      },
+      {
+        "from": 30,
+        "to": 39,
+        "organisations": 72
+      },
+      {
+        "from": 40,
+        "to": 49,
+        "organisations": 53
+      },
+      {
+        "from": 50,
+        "to": 59,
+        "organisations": 0
+      },
+      {
+        "from": 60,
+        "to": 69,
+        "organisations": 19
+      },
+      {
+        "from": 70,
+        "to": 79,
+        "organisations": 46
+      },
+      {
+        "from": 80,
+        "to": 89,
+        "organisations": 43
+      },
+      {
+        "from": 90,
+        "to": 99,
+        "organisations": 62
+      }
+    ]
+  }
+}
