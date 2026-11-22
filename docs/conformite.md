@@ -284,3 +284,5 @@ La suite complète (`pnpm -F @radar/api test`) crée une base PostgreSQL
 jetable, applique `db/init.sql` puis toutes les migrations, dont la 049 : un
 schéma qui ne s'applique pas fait échouer les tests avant toute autre
 vérification.
+
+OBJECTIF : atteint — 117 / 117 routes API avec une décision d'accès explicite (HEAD inclus ; 66 règles déclarées, 0 route sans règle, 0 règle orpheline). Mesure reproductible : `pnpm mesure:conformite` (aucune base, aucun réseau).

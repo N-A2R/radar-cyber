@@ -41,6 +41,7 @@
     "sources:generate": "node scripts/generer-sources-actives.mts",
     "sources:measure": "node scripts/measure-active-sources.mts",
     "onion:index": "apps/api/node_modules/.bin/tsx scripts/build-onion-index.mts",
+    "mesure:conformite": "apps/api/node_modules/.bin/tsx apps/api/scripts/mesure-conformite-routes.mts",
     "measure:live-sources": "apps/api/node_modules/.bin/tsx scripts/measure-live-source-stream.mts"
   },
   "devDependencies": {
