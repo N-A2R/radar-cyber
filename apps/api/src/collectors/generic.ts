@@ -41,6 +41,7 @@ import { parseEmbeddedJson } from "./parsers/embedded-json.js";
 import { parseSource, type SourceFormat } from "./parsers/formats.js";
 import { parseLandingNotice } from "./parsers/landing.js";
 import { parseMalformedOnion } from "./parsers/malformed.js";
+import { hasEncodingDefect, repairItems } from "./parsers/auto-repair.js";
 import { constaterTransition } from "./reveil.js";
 import { libelleMotif, versEvidence, type ExplicationRattachement } from "../journal/rattachement.js";
 
@@ -714,21 +715,40 @@ async function ingestNarrative(
 ): Promise<IngestResult> {
   const parser = source.parser ?? {};
   const declaredPath = typeof parser.itemsPath === "string" ? parser.itemsPath : "";
-  let items = parseNarrativeItems(body, parser, source.format);
+  // A misdecoded body is repaired before parsing so the declared reader sees
+  // the text the publisher sent, not its latin-1 interpretation.
+  let bodyToParse = body;
+  if (hasEncodingDefect(body)) {
+    const fixed = repairItems(body, null, detectItems);
+    if (fixed.repaired && fixed.items.length > 0) {
+      bodyToParse = fixed.body;
+      runLog?.(`[collect] ${source.id} : auto-repair ${fixed.repairs.join("+")} → ${fixed.strategy} → ${fixed.itemCount} item(s)`);
+    }
+  }
+  let items = parseNarrativeItems(bodyToParse, parser, source.format);
   if (items.length === 0) {
-    const detected = detectItems(body, null);
+    const detected = detectItems(bodyToParse, null);
     items = detected.items;
     if (detected.strategy === "none") {
-      // Une page `.onion` illisible n'est pas une page vide : c'est une page
-      // qu'on ne sait pas encore lire. La jeter en silence rendait 64 sources
-      // muettes invisibles. Elle part en quarantaine, où elle est relisible.
-      const quarantined = source.url.includes(".onion")
-        ? await quarantineUnparsedBody(source, body)
-        : false;
-      runLog?.(`[collect] ${source.id} : format non reconnu (${body.length} o) — ${declaredPath ? `itemsPath="${declaredPath}" stérile` : "aucun itemsPath"}, refus explicite${quarantined ? ", page mise en quarantaine" : ""}`);
-      return { items: 0, added: 0, skipped: 0 };
+      // Structural repairs run only after every reader has failed: they
+      // change the transport wrapper, never the content of the items.
+      const fixed = repairItems(bodyToParse, null, detectItems, detected);
+      if (fixed.repaired && fixed.items.length > 0) {
+        items = fixed.items;
+        runLog?.(`[collect] ${source.id} : auto-repair ${fixed.repairs.join("+")} → ${fixed.strategy} → ${items.length} item(s)`);
+      } else {
+        // Une page `.onion` illisible n'est pas une page vide : c'est une page
+        // qu'on ne sait pas encore lire. La jeter en silence rendait 64 sources
+        // muettes invisibles. Elle part en quarantaine, où elle est relisible.
+        const quarantined = source.url.includes(".onion")
+          ? await quarantineUnparsedBody(source, body)
+          : false;
+        runLog?.(`[collect] ${source.id} : format non reconnu (${body.length} o) — ${declaredPath ? `itemsPath="${declaredPath}" stérile` : "aucun itemsPath"}, refus explicite${quarantined ? ", page mise en quarantaine" : ""}`);
+        return { items: 0, added: 0, skipped: 0 };
+      }
+    } else {
+      runLog?.(`[collect] ${source.id} : auto-détection ${detected.strategy}${detected.path ? ` (${detected.path})` : ""} → ${items.length} item(s)`);
     }
-    runLog?.(`[collect] ${source.id} : auto-détection ${detected.strategy}${detected.path ? ` (${detected.path})` : ""} → ${items.length} item(s)`);
   }
 
   // Porte de pertinence : un flux de presse généraliste livre sa une, pas de

@@ -1,0 +1,543 @@
+{
+  "date": "2026-11-22",
+  "fichier": "bench/corpus/sources-transport-87.jsonl",
+  "secteur": "transport",
+  "departement": "87",
+  "methode": "GET réel avec redirections suivies, User-Agent navigateur (Mozilla/5.0), délai 20 s ; code HTTP, type de contenu, URL finale et nombre d'items RSS relevés pour chaque URL.",
+  "sources": 15,
+  "urls_verifiees": 53,
+  "urls_http_200": 53,
+  "flux_rss_verifies": 8,
+  "sources_100pct_200": 15,
+  "detail": [
+    {
+      "nom": "MyTCL — transports en commun de Limoges Métropole",
+      "secteur": "transport",
+      "departement": "87",
+      "urls": {
+        "url_site": {
+          "url": "https://www.stcl.fr/",
+          "code_http": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.stcl.fr/",
+          "items": 0,
+          "octets": 156386
+        },
+        "url_actualites": {
+          "url": "https://www.stcl.fr/actualite-tcl/",
+          "code_http": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.stcl.fr/actualite-tcl/",
+          "items": 0,
+          "octets": 121030
+        },
+        "url_flux": {
+          "url": "https://www.stcl.fr/feed/",
+          "code_http": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.stcl.fr/feed/",
+          "items": 9,
+          "octets": 156177
+        },
+        "exemple_cyber": {
+          "url": "https://www.lepopulaire.fr/limoges-87000/actualites/arnaque-sur-facebook-non-la-societe-de-transports-en-commun-de-limoges-metropole-n-offre-pas-d-abonnements-gratuits_14500861/",
+          "code_http": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lepopulaire.fr/limoges-87000/actualites/arnaque-sur-facebook-non-la-societe-de-transports-en-commun-de-limoges-metropole-n-offre-pas-d-abonnements-gratuits_14500861/",
+          "items": 0,
+          "octets": 233739
+        }
+      }
+    },
+    {
+      "nom": "Aéroport de Limoges-Bellegarde",
+      "secteur": "transport",
+      "departement": "87",
+      "urls": {
+        "url_site": {
+          "url": "https://www.aeroportlimoges.com/",
+          "code_http": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.aeroportlimoges.com/",
+          "items": 0,
+          "octets": 54202
+        },
+        "url_actualites": {
+          "url": "https://www.aeroportlimoges.com/infos-passagers/actualites",
+          "code_http": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.aeroportlimoges.com/infos-passagers/actualites",
+          "items": 0,
+          "octets": 40776
+        },
+        "exemple_cyber": {
+          "url": "https://www.lepopulaire.fr/limoges-87000/faits-divers/cyberattaques-a-limoges-pourquoi-plusieurs-sites-internet-de-la-ville-ont-ete-temporairement-coupes_15067936/",
+          "code_http": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lepopulaire.fr/limoges-87000/faits-divers/cyberattaques-a-limoges-pourquoi-plusieurs-sites-internet-de-la-ville-ont-ete-temporairement-coupes_15067936/",
+          "items": 0,
+          "octets": 242712
+        }
+      }
+    },
+    {
+      "nom": "Roulaud Transports — transport routier et logistique (Limoges)",
+      "secteur": "transport",
+      "departement": "87",
+      "urls": {
+        "url_site": {
+          "url": "https://www.roulaud.com/",
+          "code_http": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.roulaud.com/",
+          "items": 0,
+          "octets": 44875
+        },
+        "url_actualites": {
+          "url": "https://www.roulaud.com/category/actualites/",
+          "code_http": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.roulaud.com/category/actualites/",
+          "items": 0,
+          "octets": 85978
+        },
+        "url_flux": {
+          "url": "https://www.roulaud.com/feed/",
+          "code_http": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.roulaud.com/feed/",
+          "items": 10,
+          "octets": 61426
+        },
+        "exemple_cyber": {
+          "url": "https://www.limogesinfos87.fr/actualite-22011-lutter-contre-le-fleau-des-cyberattaques.html",
+          "code_http": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.limogesinfos87.fr/actualite-22011-lutter-contre-le-fleau-des-cyberattaques.html",
+          "items": 0,
+          "octets": 34812
+        }
+      }
+    },
+    {
+      "nom": "APAN-Océalim — parc d'activités de Limoges Nord",
+      "secteur": "transport",
+      "departement": "87",
+      "urls": {
+        "url_site": {
+          "url": "https://apanord.fr/",
+          "code_http": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://apanord.fr/",
+          "items": 0,
+          "octets": 263328
+        },
+        "url_actualites": {
+          "url": "https://apanord.fr/actualites/",
+          "code_http": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://apanord.fr/actualites/",
+          "items": 0,
+          "octets": 270970
+        },
+        "url_flux": {
+          "url": "https://apanord.fr/feed/",
+          "code_http": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://apanord.fr/feed/",
+          "items": 6,
+          "octets": 92826
+        },
+        "exemple_cyber": {
+          "url": "https://www.limogesinfos87.fr/actualite-22011-lutter-contre-le-fleau-des-cyberattaques.html",
+          "code_http": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.limogesinfos87.fr/actualite-22011-lutter-contre-le-fleau-des-cyberattaques.html",
+          "items": 0,
+          "octets": 34812
+        }
+      }
+    },
+    {
+      "nom": "FNTR Limousin — fédération des transporteurs routiers",
+      "secteur": "transport",
+      "departement": "87",
+      "urls": {
+        "url_site": {
+          "url": "https://www.fntr.fr/limousin",
+          "code_http": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.fntr.fr/limousin",
+          "items": 0,
+          "octets": 109413
+        },
+        "url_actualites": {
+          "url": "https://www.fntr.fr/taxonomy/fntr-limousin",
+          "code_http": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.fntr.fr/taxonomy/fntr-limousin",
+          "items": 0,
+          "octets": 82845
+        },
+        "url_flux": {
+          "url": "https://www.fntr.fr/rss.xml",
+          "code_http": 200,
+          "content_type": "application/rss+xml; charset=utf-8",
+          "url_finale": "https://www.fntr.fr/rss.xml",
+          "items": 4,
+          "octets": 33828
+        },
+        "exemple_cyber": {
+          "url": "https://www.limogesinfos87.fr/actualite-22011-lutter-contre-le-fleau-des-cyberattaques.html",
+          "code_http": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.limogesinfos87.fr/actualite-22011-lutter-contre-le-fleau-des-cyberattaques.html",
+          "items": 0,
+          "octets": 34812
+        }
+      }
+    },
+    {
+      "nom": "Syndicat CFTC Transport du Limousin",
+      "secteur": "transport",
+      "departement": "87",
+      "urls": {
+        "url_site": {
+          "url": "https://www.cftc-nouvelle-aquitaine.fr/fiche_de_contact/syndicat-cftc-transport-du-limousin/",
+          "code_http": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.cftc-nouvelle-aquitaine.fr/fiche_de_contact/syndicat-cftc-transport-du-limousin/",
+          "items": 0,
+          "octets": 142341
+        },
+        "url_actualites": {
+          "url": "https://www.cftc-nouvelle-aquitaine.fr/type_contact/transports/",
+          "code_http": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.cftc-nouvelle-aquitaine.fr/type_contact/transports/",
+          "items": 0,
+          "octets": 134275
+        },
+        "exemple_cyber": {
+          "url": "https://www.limogesinfos87.fr/actualite-22011-lutter-contre-le-fleau-des-cyberattaques.html",
+          "code_http": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.limogesinfos87.fr/actualite-22011-lutter-contre-le-fleau-des-cyberattaques.html",
+          "items": 0,
+          "octets": 34812
+        }
+      }
+    },
+    {
+      "nom": "Limoges Métropole — mobilités et déplacements",
+      "secteur": "transport",
+      "departement": "87",
+      "urls": {
+        "url_site": {
+          "url": "https://www.limoges-metropole.fr/",
+          "code_http": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.limoges-metropole.fr/",
+          "items": 0,
+          "octets": 218989
+        },
+        "url_actualites": {
+          "url": "https://www.limoges-metropole.fr/informations-transversales/actualites",
+          "code_http": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.limoges-metropole.fr/informations-transversales/actualites",
+          "items": 0,
+          "octets": 87917
+        },
+        "url_flux": {
+          "url": "https://www.limoges-metropole.fr/informations-transversales/actualites/rss",
+          "code_http": 200,
+          "content_type": "text/xml;charset=utf-8",
+          "url_finale": "https://www.limoges-metropole.fr/informations-transversales/actualites/rss",
+          "items": 73,
+          "octets": 391415
+        },
+        "exemple_cyber": {
+          "url": "https://www.lepopulaire.fr/limoges-87000/actualites/limoges-metropole-alerte-sur-une-tentative-d-escroquerie-a-la-carte-de-bus_14546518/",
+          "code_http": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lepopulaire.fr/limoges-87000/actualites/limoges-metropole-alerte-sur-une-tentative-d-escroquerie-a-la-carte-de-bus_14546518/",
+          "items": 0,
+          "octets": 225577
+        }
+      }
+    },
+    {
+      "nom": "Le Populaire du Centre — Limoges (transports)",
+      "secteur": "transport",
+      "departement": "87",
+      "urls": {
+        "url_site": {
+          "url": "https://www.lepopulaire.fr/limoges-87000/",
+          "code_http": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lepopulaire.fr/limoges-87000/",
+          "items": 0,
+          "octets": 260681
+        },
+        "url_actualites": {
+          "url": "https://www.lepopulaire.fr/economie/transport",
+          "code_http": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lepopulaire.fr/economie/transport",
+          "items": 0,
+          "octets": 317504
+        },
+        "exemple_cyber": {
+          "url": "https://www.lepopulaire.fr/limoges-87000/actualites/arnaque-sur-facebook-non-la-societe-de-transports-en-commun-de-limoges-metropole-n-offre-pas-d-abonnements-gratuits_14500861/",
+          "code_http": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lepopulaire.fr/limoges-87000/actualites/arnaque-sur-facebook-non-la-societe-de-transports-en-commun-de-limoges-metropole-n-offre-pas-d-abonnements-gratuits_14500861/",
+          "items": 0,
+          "octets": 233739
+        }
+      }
+    },
+    {
+      "nom": "ICI Limousin — actualités de la Haute-Vienne",
+      "secteur": "transport",
+      "departement": "87",
+      "urls": {
+        "url_site": {
+          "url": "https://www.ici.fr/radio/limousin",
+          "code_http": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/radio/limousin",
+          "items": 0,
+          "octets": 385295
+        },
+        "url_actualites": {
+          "url": "https://www.ici.fr/nouvelle-aquitaine/haute-vienne-87/limoges",
+          "code_http": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/haute-vienne-87/limoges",
+          "items": 0,
+          "octets": 328465
+        },
+        "url_flux": {
+          "url": "https://www.ici.fr/rss/limousin/rubrique/infos.xml",
+          "code_http": 200,
+          "content_type": "application/xml",
+          "url_finale": "https://www.ici.fr/rss/limousin/rubrique/infos.xml",
+          "items": 20,
+          "octets": 20408
+        },
+        "exemple_cyber": {
+          "url": "https://www.lepopulaire.fr/limoges-87000/actualites/limoges-metropole-alerte-sur-une-tentative-d-escroquerie-a-la-carte-de-bus_14546518/",
+          "code_http": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lepopulaire.fr/limoges-87000/actualites/limoges-metropole-alerte-sur-une-tentative-d-escroquerie-a-la-carte-de-bus_14546518/",
+          "items": 0,
+          "octets": 225577
+        }
+      }
+    },
+    {
+      "nom": "La Montagne — édition de Limoges",
+      "secteur": "transport",
+      "departement": "87",
+      "urls": {
+        "url_site": {
+          "url": "https://www.lamontagne.fr/limoges-87000/",
+          "code_http": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lamontagne.fr/limoges-87000/",
+          "items": 0,
+          "octets": 258858
+        },
+        "url_actualites": {
+          "url": "https://www.lamontagne.fr/actualites/",
+          "code_http": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lamontagne.fr/actualites/",
+          "items": 0,
+          "octets": 330615
+        },
+        "exemple_cyber": {
+          "url": "https://www.cyberattaque.org/climb-up-pres-de-151-000-profils-en-vente-sur-le-darkweb-apres-une-cyberattaque/",
+          "code_http": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.cyberattaque.org/climb-up-pres-de-151-000-profils-en-vente-sur-le-darkweb-apres-une-cyberattaque/",
+          "items": 0,
+          "octets": 80973
+        }
+      }
+    },
+    {
+      "nom": "Limoges Infos 87",
+      "secteur": "transport",
+      "departement": "87",
+      "urls": {
+        "url_site": {
+          "url": "https://www.limogesinfos87.fr/",
+          "code_http": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.limogesinfos87.fr/",
+          "items": 0,
+          "octets": 37576
+        },
+        "url_actualites": {
+          "url": "https://www.limogesinfos87.fr/actualites.html",
+          "code_http": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.limogesinfos87.fr/actualites.html",
+          "items": 0,
+          "octets": 38614
+        },
+        "exemple_cyber": {
+          "url": "https://www.limogesinfos87.fr/actualite-22011-lutter-contre-le-fleau-des-cyberattaques.html",
+          "code_http": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.limogesinfos87.fr/actualite-22011-lutter-contre-le-fleau-des-cyberattaques.html",
+          "items": 0,
+          "octets": 34812
+        }
+      }
+    },
+    {
+      "nom": "Cyberattaque.org — incidents cyber du Limousin",
+      "secteur": "transport",
+      "departement": "87",
+      "urls": {
+        "url_site": {
+          "url": "https://www.cyberattaque.org/",
+          "code_http": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.cyberattaque.org/",
+          "items": 0,
+          "octets": 70890
+        },
+        "url_actualites": {
+          "url": "https://www.cyberattaque.org/type/attaque/",
+          "code_http": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.cyberattaque.org/type/attaque/",
+          "items": 0,
+          "octets": 67691
+        },
+        "url_flux": {
+          "url": "https://www.cyberattaque.org/feed/",
+          "code_http": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.cyberattaque.org/feed/",
+          "items": 10,
+          "octets": 12389
+        },
+        "exemple_cyber": {
+          "url": "https://www.cyberattaque.org/climb-up-pres-de-151-000-profils-en-vente-sur-le-darkweb-apres-une-cyberattaque/",
+          "code_http": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.cyberattaque.org/climb-up-pres-de-151-000-profils-en-vente-sur-le-darkweb-apres-une-cyberattaque/",
+          "items": 0,
+          "octets": 80973
+        }
+      }
+    },
+    {
+      "nom": "France 3 Nouvelle-Aquitaine — Haute-Vienne",
+      "secteur": "transport",
+      "departement": "87",
+      "urls": {
+        "url_site": {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/",
+          "code_http": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne",
+          "items": 0,
+          "octets": 659490
+        },
+        "url_actualites": {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/",
+          "code_http": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne",
+          "items": 0,
+          "octets": 659490
+        },
+        "exemple_cyber": {
+          "url": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/le-service-d-identification-des-bovins-et-ovins-victime-d-une-cyberattaque-le-travail-des-eleveurs-limousins-perturbe-3084484.html",
+          "code_http": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/le-service-d-identification-des-bovins-et-ovins-victime-d-une-cyberattaque-le-travail-des-eleveurs-limousins-perturbe-3084484.html",
+          "items": 0,
+          "octets": 699717
+        }
+      }
+    },
+    {
+      "nom": "Conseil départemental de la Haute-Vienne — transport scolaire",
+      "secteur": "transport",
+      "departement": "87",
+      "urls": {
+        "url_site": {
+          "url": "https://www.haute-vienne.fr/nos-actions/deplacement-routes/transport-scolaire-deleves-et-etudiants-en-situation-de-handicap",
+          "code_http": 200,
+          "content_type": "text/html;charset=utf-8",
+          "url_finale": "https://www.haute-vienne.fr/nos-actions/deplacement-routes/transport-scolaire-deleves-et-etudiants-en-situation-de-handicap",
+          "items": 0,
+          "octets": 55789
+        },
+        "url_actualites": {
+          "url": "https://www.haute-vienne.fr/tous-les-actualites-et-evenements",
+          "code_http": 200,
+          "content_type": "text/html;charset=utf-8",
+          "url_finale": "https://www.haute-vienne.fr/tous-les-actualites-et-evenements",
+          "items": 0,
+          "octets": 76163
+        },
+        "exemple_cyber": {
+          "url": "https://www.lepopulaire.fr/limoges-87000/actualites/limoges-metropole-alerte-sur-une-tentative-d-escroquerie-a-la-carte-de-bus_14546518/",
+          "code_http": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.lepopulaire.fr/limoges-87000/actualites/limoges-metropole-alerte-sur-une-tentative-d-escroquerie-a-la-carte-de-bus_14546518/",
+          "items": 0,
+          "octets": 225577
+        }
+      }
+    },
+    {
+      "nom": "DREAL Nouvelle-Aquitaine — transports et DDT de la Haute-Vienne",
+      "secteur": "transport",
+      "departement": "87",
+      "urls": {
+        "url_site": {
+          "url": "https://www.nouvelle-aquitaine.developpement-durable.gouv.fr/",
+          "code_http": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.nouvelle-aquitaine.developpement-durable.gouv.fr/",
+          "items": 0,
+          "octets": 67658
+        },
+        "url_actualites": {
+          "url": "https://www.nouvelle-aquitaine.developpement-durable.gouv.fr/actualites-r2.html",
+          "code_http": 200,
+          "content_type": "text/html; charset=utf-8",
+          "url_finale": "https://www.nouvelle-aquitaine.developpement-durable.gouv.fr/actualites-r2.html",
+          "items": 0,
+          "octets": 69898
+        },
+        "url_flux": {
+          "url": "https://www.nouvelle-aquitaine.developpement-durable.gouv.fr/spip.php?page=backend",
+          "code_http": 200,
+          "content_type": "text/xml; charset=utf-8",
+          "url_finale": "https://www.nouvelle-aquitaine.developpement-durable.gouv.fr/spip.php?page=backend",
+          "items": 10,
+          "octets": 120345
+        },
+        "exemple_cyber": {
+          "url": "https://www.limogesinfos87.fr/actualite-22011-lutter-contre-le-fleau-des-cyberattaques.html",
+          "code_http": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.limogesinfos87.fr/actualite-22011-lutter-contre-le-fleau-des-cyberattaques.html",
+          "items": 0,
+          "octets": 34812
+        }
+      }
+    }
+  ]
+}
