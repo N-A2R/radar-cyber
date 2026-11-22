@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:f3de87a7-ed4d-4191-afdd-27dd1c4ba5c4>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/posts/2026
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 653
+WARC-Block-Digest: sha1:MZCJI2KISFEQJBPBMWBYXL4FMUIKSMJH
+X-Claim-Fingerprint: e393d326c2353e78f65c0e1c
+X-Victim-Key: 0ba5987aa3b48f12a76952ad
+
+{"post_title": "IT Management", "discovered": "2026-04-27 16:38:21.593355", "description": "itmanagement.co.th zoominfo.com/c/it-management-co-ltd/446178193 IT Management Co., Ltd. is a small local IT company based in Bangkok, Thailand, located at 562 Dindaeng Road, Din Daeng district. The company specializes in network intelligence and IT infrastructure solutions, assembling teams capable of handling a full range of networking functions. It appears to be a boutique-sized local business with a modest online presence", "link": null, "magnet": null, "screen": null, "misp_uuid": "c2a7c19e-b309-596d-bee8-193103df02b3", "group_name": "the gentlemen"}
+
