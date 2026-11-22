@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:cec2b140-7bc3-48f9-a0a0-1247c6553761>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/recent/5000
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 445
+WARC-Block-Digest: sha1:JN3GODOOCCYVI6XJ6O2FH4LK5IMXBGAZ
+X-Claim-Fingerprint: 7069b048b5149805bd97ebbf
+X-Victim-Key: dd5c3fa6069a8d9807492a3d
+
+{"post_title": "JOHNSON & JOHNSON", "discovered": "2026-08-12 16:43:45.806932", "description": "Status: Leaked\nLocation: Istanbul, Turkey\nSector: Healthcare / Pharmaceutical\nVolume: 1.9 GB\nDeadline: 2026-08-08 03:00:00", "link": "http://tlxoddx4odmc2qvsmtsbgwwsv5j45osb5sox7mz6izxliuju5mkulzad.onion/victim.php?slug=johnson-johnson", "magnet": null, "screen": null, "misp_uuid": "89c54838-2b32-5b4a-995a-ae2381377a99", "group_name": "crpx0"}
+

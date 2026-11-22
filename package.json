@@ -33,6 +33,8 @@
     "mesure:confiance": "apps/api/node_modules/.bin/tsx scripts/compute-confidence-scores.mts",
     "mesure:corroboration": "apps/api/node_modules/.bin/tsx scripts/measure-incident-corroboration.mts",
     "measure:leaks-by-domain": "apps/api/node_modules/.bin/tsx scripts/measure-leaks-by-domain.mts",
+    "leak-proofs:archive": "apps/api/node_modules/.bin/tsx scripts/archive-leak-victim-proofs.mts",
+    "leak-proofs:measure": "apps/api/node_modules/.bin/tsx scripts/measure-leak-victim-proofs.mts",
     "measure:resale-na": "apps/api/node_modules/.bin/tsx scripts/measure-resale-na.mts",
     "mesure:cve-na": "apps/api/node_modules/.bin/tsx scripts/measure-cve-na.mts",
     "mesure:graphe-temporal": "apps/api/node_modules/.bin/tsx scripts/mesure-graphe-temporal.mts",
