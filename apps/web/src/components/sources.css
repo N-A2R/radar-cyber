@@ -413,9 +413,10 @@
 .sources-table__red-badge {
   display: block;
   margin-top: 3px;
-  font-size: 10px;
+  font-size: var(--text-xs);
   color: var(--sev-5);
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 /* Une date relative et un nombre ne se coupent pas en deux. */
@@ -482,7 +483,7 @@
     display: block;
     margin-bottom: 2px;
     color: var(--color-muted);
-    font: 500 10px/1.4 var(--font-mono);
+    font: 500 var(--text-xs)/1.4 var(--font-mono);
   }
   .sources-table tbody td:nth-child(2)::before { content: "famille"; }
   .sources-table tbody td:nth-child(3)::before { content: "état"; }
@@ -497,7 +498,7 @@
     content: "source";
     display: block;
     color: var(--color-muted);
-    font: 500 10px/1.4 var(--font-mono);
+    font: 500 var(--text-xs)/1.4 var(--font-mono);
   }
   .sources-table__empty { grid-column: 1 / -1; }
   .sources-table__reason,
