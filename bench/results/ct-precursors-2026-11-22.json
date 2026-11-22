@@ -1,0 +1,45 @@
+{
+  "generatedAt": "2026-11-22T03:49:43.965Z",
+  "asOf": "2026-11-22",
+  "windowStart": "2026-05-26",
+  "windowEnd": "2026-11-22",
+  "windows": 6,
+  "horizonDays": 30,
+  "victims": 15,
+  "sources": 2,
+  "pairs": 30,
+  "priorSignalPairs": 0,
+  "victimsWithAnyPriorSignal": 0,
+  "coverage": 0,
+  "attachments": {
+    "ct_sous_domaine": {
+      "read": 342,
+      "attached": 120,
+      "ambiguous": 128,
+      "unmatched": 94
+    },
+    "ct_certificat_suspect": {
+      "read": 0,
+      "attached": 0,
+      "ambiguous": 0,
+      "unmatched": 0
+    }
+  },
+  "perSource": [
+    {
+      "source": "ct_certificat_suspect",
+      "victims": 15,
+      "pairs": 15,
+      "victimsWithPriorSignal": 0,
+      "priorSignals": 0
+    },
+    {
+      "source": "ct_sous_domaine",
+      "victims": 15,
+      "pairs": 15,
+      "victimsWithPriorSignal": 0,
+      "priorSignals": 0
+    }
+  ],
+  "caveat": "CT first-seen days strictly before the organisation's own claim; ambiguous domain roots are never attached."
+}

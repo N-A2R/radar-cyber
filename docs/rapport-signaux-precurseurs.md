@@ -32,6 +32,10 @@ Le résultat négatif du pronostic n'est pas un artefact du score : aucune des 1
 
 La piste suivante, si elle est retenue, est donc d'abord une piste de **données** : rattacher une organisation à un signal antérieur (résolution d'alias, presse locale, annonces de prestataires) avant d'espérer améliorer la précision. Le score ne doit toujours pas être présenté comme une alerte fiable.
 
+## Suite mesurée (22 novembre 2026)
+
+Les deux sources CT rattachables par domaine ont depuis été auditées : voir `docs/rapport-precurseurs-ct.md`. Total désormais couvert : **11 sources horodatées, 165 paires victime × source, 0 signal antérieur, 0/15 victimes couvertes**. La valeur prédictive du classement reste nulle.
+
 ## Conformité
 
 - Nouvelle-Aquitaine uniquement : les victimes et les signaux sont filtrés sur les 12 départements de la région.
