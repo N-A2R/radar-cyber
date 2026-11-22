@@ -99,3 +99,5 @@ codes de motif : aucun titre, aucune organisation, aucune donnée de victime.
 Le taux plafonne à 98,06 % tant que deux événements de collecte n'ont qu'une
 date de collecte. Les présenter comme datés reviendrait à inventer un fait ;
 le rapport préfère afficher le chiffre réel et la raison exacte.
+
+OBJECTIF : atteint — 101 / 103 dates NA normalisées (98,06 %) à la livraison, contre 37 / 103 (35,92 %) avant ; mesure reproductible : `DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar apps/api/node_modules/.bin/tsx scripts/measure-date-normalization.mts` (archives `bench/results/date-normalization-na-after.json` et `bench/results/date-normalization-na-verify.json`, rejeu à 0 changement restant) ; les 2 événements non normalisés sont des replis de collecte sans date réelle, exclus par définition ; rejeu du 22/11/2026 sur la base partagée élargie : 53 / 126 (42,06 %), 57 écritures planifiées, les événements ajoutés depuis la livraison n'ayant pas encore été normalisés.
