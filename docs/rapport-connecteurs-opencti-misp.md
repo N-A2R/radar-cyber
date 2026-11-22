@@ -148,3 +148,5 @@ Note d'environnement : dans ce worktree, `node_modules` est un lien symbolique
 et `pnpm` refuse d'utiliser son répertoire d'état (`ERR_PNPM_UNSAFE_TASK_RUN_STATE_PATH`).
 Les vérifications ont donc été lancées avec les binaires locaux `tsx` et `tsc`,
 sans modifier ce lien.
+
+OBJECTIF : atteint — 126 / 126 événements de Nouvelle-Aquitaine exportés vers OpenCTI (bundle STIX 2.1) puis réimportés depuis MISP avec correspondance des identifiants (100 %, 0 rejet, 0 donnée personnelle de victime ; mesure du 22/11/2026 via `DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar apps/api/node_modules/.bin/tsx scripts/measure-connectors.mts` ; 104 / 104 au moment de la livraison, l'écart venant de l'évolution des événements éligibles dans la base partagée).
