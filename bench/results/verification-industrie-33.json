@@ -1,0 +1,1210 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-industrie-33.jsonl",
+  "secteur": "industrie",
+  "departement": "33",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+  "methode": "GET réel avec suivi des redirections, User-Agent navigateur, délai 25 s ; statut, type de contenu, nombre d'items RSS et détection des pages de blocage enregistrés",
+  "sources": 23,
+  "urls_verifiees": 67,
+  "urls_200": 67,
+  "detail": [
+    {
+      "nom": "CPME Gironde (Les Entrepreneurs 33)",
+      "urls": {
+        "https://www.cpmegironde.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 935,
+          "octets": 197505,
+          "erreur": ""
+        },
+        "https://www.cpmegironde.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 711,
+          "octets": 118676,
+          "erreur": ""
+        },
+        "https://www.cpmegironde.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 10,
+          "blocage": false,
+          "ms": 462,
+          "octets": 35722,
+          "erreur": ""
+        }
+      }
+    },
+    {
+      "nom": "MEDEF Gironde",
+      "urls": {
+        "https://medef-gironde.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 1837,
+          "octets": 244455,
+          "erreur": ""
+        },
+        "https://medef-gironde.fr/nos-communications/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 1673,
+          "octets": 221974,
+          "erreur": ""
+        }
+      }
+    },
+    {
+      "nom": "MEDEF Nouvelle-Aquitaine (périmètre Gironde)",
+      "urls": {
+        "https://www.medef-nouvelle-aquitaine.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 221,
+          "octets": 34600,
+          "erreur": ""
+        },
+        "https://www.medef-nouvelle-aquitaine.fr/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 194,
+          "octets": 42672,
+          "erreur": ""
+        }
+      }
+    },
+    {
+      "nom": "UIMM Nouvelle-Aquitaine (antenne Gironde)",
+      "urls": {
+        "https://www.uimmnouvelleaquitaine.com/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 213,
+          "octets": 20970,
+          "erreur": ""
+        },
+        "https://www.uimmnouvelleaquitaine.com/actualite/news.html": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 251,
+          "octets": 35656,
+          "erreur": ""
+        }
+      }
+    },
+    {
+      "nom": "UIMM — La Fabrique de l'avenir",
+      "urls": {
+        "https://uimm.lafabriquedelavenir.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 106,
+          "octets": 75359,
+          "erreur": ""
+        },
+        "https://uimm.lafabriquedelavenir.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 1143,
+          "octets": 68078,
+          "erreur": ""
+        },
+        "https://uimm.lafabriquedelavenir.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 10,
+          "blocage": false,
+          "ms": 842,
+          "octets": 114968,
+          "erreur": ""
+        }
+      }
+    },
+    {
+      "nom": "Fibois Nouvelle-Aquitaine (périmètre Gironde)",
+      "urls": {
+        "https://fibois-na.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 2770,
+          "octets": 60464,
+          "erreur": ""
+        },
+        "https://fibois-na.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 1161,
+          "octets": 44931,
+          "erreur": ""
+        },
+        "https://fibois-na.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 12,
+          "blocage": false,
+          "ms": 752,
+          "octets": 73787,
+          "erreur": ""
+        }
+      }
+    },
+    {
+      "nom": "CMA Nouvelle-Aquitaine — délégation de la Gironde",
+      "urls": {
+        "https://cma-nouvelleaquitaine.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 280,
+          "octets": 324235,
+          "erreur": ""
+        },
+        "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 688,
+          "octets": 280274,
+          "erreur": ""
+        }
+      }
+    },
+    {
+      "nom": "Chambre d'agriculture de la Gironde (agro-industrie)",
+      "urls": {
+        "https://gironde.chambres-agriculture.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 548,
+          "octets": 112902,
+          "erreur": ""
+        },
+        "https://gironde.chambres-agriculture.fr/actualites-33": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 1620,
+          "octets": 86636,
+          "erreur": ""
+        }
+      }
+    },
+    {
+      "nom": "Bordeaux Métropole — développement économique",
+      "urls": {
+        "https://www.bordeaux-metropole.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 429,
+          "octets": 147189,
+          "erreur": ""
+        },
+        "https://www.bordeaux-metropole.fr/actualites-Bordeaux-Metropole": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 513,
+          "octets": 129376,
+          "erreur": ""
+        },
+        "https://www.bordeaux-metropole.fr/rss.xml": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "items_rss": 10,
+          "blocage": false,
+          "ms": 404,
+          "octets": 49339,
+          "erreur": ""
+        }
+      }
+    },
+    {
+      "nom": "Conseil départemental de la Gironde",
+      "urls": {
+        "https://www.gironde.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 287,
+          "octets": 86016,
+          "erreur": ""
+        },
+        "https://www.gironde.fr/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 344,
+          "octets": 83279,
+          "erreur": ""
+        }
+      }
+    },
+    {
+      "nom": "API Recherche d'entreprises (Étalab / INSEE)",
+      "urls": {
+        "https://recherche-entreprises.api.gouv.fr/": {
+          "code": 200,
+          "type": "text/html;charset=utf-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 315,
+          "octets": 171338,
+          "erreur": ""
+        },
+        "https://recherche-entreprises.api.gouv.fr/search?departement=33&q=industrie": {
+          "code": 200,
+          "type": "application/json",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 381,
+          "octets": 66171,
+          "erreur": ""
+        }
+      }
+    },
+    {
+      "nom": "BODACC — annonces commerciales",
+      "urls": {
+        "https://www.bodacc.fr/pages/home/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 96,
+          "octets": 80859,
+          "erreur": ""
+        },
+        "https://www.bodacc.fr/pages/annonces-commerciales-recherche/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 97,
+          "octets": 102434,
+          "erreur": ""
+        }
+      }
+    },
+    {
+      "nom": "actu.fr — Gironde",
+      "urls": {
+        "https://actu.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 317,
+          "octets": 643049,
+          "erreur": ""
+        },
+        "https://actu.fr/nouvelle-aquitaine/gironde_33/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 520,
+          "octets": 333758,
+          "erreur": ""
+        }
+      }
+    },
+    {
+      "nom": "Le Journal des Entreprises — Nouvelle-Aquitaine",
+      "urls": {
+        "https://www.lejournaldesentreprises.com/nouvelle-aquitaine": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 2976,
+          "octets": 508714,
+          "erreur": ""
+        },
+        "https://www.lejournaldesentreprises.com/regions/france/nouvelle-aquitaine/gironde": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 660,
+          "octets": 293467,
+          "erreur": ""
+        },
+        "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine": {
+          "code": 200,
+          "type": "text/xml; charset=UTF-8",
+          "items_rss": 20,
+          "blocage": false,
+          "ms": 200,
+          "octets": 16311,
+          "erreur": ""
+        }
+      }
+    },
+    {
+      "nom": "ICI Gironde (Radio France)",
+      "urls": {
+        "https://www.ici.fr/radio/gironde": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 213,
+          "octets": 428390,
+          "erreur": ""
+        },
+        "https://www.ici.fr/nouvelle-aquitaine/gironde-33/actu": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 183,
+          "octets": 209590,
+          "erreur": ""
+        },
+        "https://www.ici.fr/rss/gironde/rubrique/infos.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "items_rss": 20,
+          "blocage": false,
+          "ms": 104,
+          "octets": 19514,
+          "erreur": ""
+        }
+      }
+    },
+    {
+      "nom": "France 3 Nouvelle-Aquitaine — Gironde",
+      "urls": {
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 287,
+          "octets": 659809,
+          "erreur": ""
+        },
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/rss": {
+          "code": 200,
+          "type": "text/xml; charset=UTF-8",
+          "items_rss": 30,
+          "blocage": false,
+          "ms": 155,
+          "octets": 69085,
+          "erreur": ""
+        }
+      }
+    },
+    {
+      "nom": "Google News — veille « Gironde industrie »",
+      "urls": {
+        "https://news.google.com/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 383,
+          "octets": 1706846,
+          "erreur": ""
+        },
+        "https://news.google.com/rss/search?q=Gironde+industrie&hl=fr&gl=FR&ceid=FR:fr": {
+          "code": 200,
+          "type": "application/xml; charset=utf-8",
+          "items_rss": 61,
+          "blocage": false,
+          "ms": 343,
+          "octets": 98474,
+          "erreur": ""
+        }
+      }
+    },
+    {
+      "nom": "Aerospace Valley (périmètre Gironde)",
+      "urls": {
+        "https://www.aerospace-valley.com/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 200,
+          "octets": 199794,
+          "erreur": ""
+        },
+        "https://www.aerospace-valley.com/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 159,
+          "octets": 115000,
+          "erreur": ""
+        }
+      }
+    },
+    {
+      "nom": "French Tech Bordeaux",
+      "urls": {
+        "https://www.frenchtechbordeaux.com/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 434,
+          "octets": 708850,
+          "erreur": ""
+        },
+        "https://www.frenchtechbordeaux.com/nos-actualites": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 303,
+          "octets": 132703,
+          "erreur": ""
+        }
+      }
+    },
+    {
+      "nom": "Polyvia (délégation Nouvelle-Aquitaine)",
+      "urls": {
+        "https://www.polyvia.fr/fr": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 221,
+          "octets": 172772,
+          "erreur": ""
+        },
+        "https://www.polyvia.fr/fr/nos-actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 208,
+          "octets": 178385,
+          "erreur": ""
+        }
+      }
+    },
+    {
+      "nom": "20 Minutes Bordeaux",
+      "urls": {
+        "https://www.20minutes.fr/bordeaux/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 255,
+          "octets": 505506,
+          "erreur": ""
+        },
+        "https://www.20minutes.fr/feeds/rss-une.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "items_rss": 30,
+          "blocage": false,
+          "ms": 92,
+          "octets": 162050,
+          "erreur": ""
+        }
+      }
+    },
+    {
+      "nom": "Bouger à Bordeaux",
+      "urls": {
+        "https://www.bougerabordeaux.com/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 322,
+          "octets": 153343,
+          "erreur": ""
+        },
+        "https://www.bougerabordeaux.com/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 30,
+          "blocage": false,
+          "ms": 638,
+          "octets": 284900,
+          "erreur": ""
+        }
+      }
+    },
+    {
+      "nom": "Rue89Bordeaux",
+      "urls": {
+        "https://rue89bordeaux.com/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 284,
+          "octets": 399699,
+          "erreur": ""
+        },
+        "https://rue89bordeaux.com/tag/economie/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "items_rss": 0,
+          "blocage": false,
+          "ms": 183,
+          "octets": 263375,
+          "erreur": ""
+        },
+        "https://rue89bordeaux.com/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "items_rss": 14,
+          "blocage": false,
+          "ms": 1127,
+          "octets": 25993,
+          "erreur": ""
+        }
+      }
+    }
+  ],
+  "toutes_urls": {
+    "https://actu.fr/": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 317,
+      "octets": 643049,
+      "erreur": ""
+    },
+    "https://actu.fr/nouvelle-aquitaine/gironde_33/": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 520,
+      "octets": 333758,
+      "erreur": ""
+    },
+    "https://cma-nouvelleaquitaine.fr/": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 280,
+      "octets": 324235,
+      "erreur": ""
+    },
+    "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 688,
+      "octets": 280274,
+      "erreur": ""
+    },
+    "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites/les-artisans-des-cibles-de-choix-pour-les-cybercriminels": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 312,
+      "octets": 295093,
+      "erreur": ""
+    },
+    "https://fibois-na.fr/": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 2770,
+      "octets": 60464,
+      "erreur": ""
+    },
+    "https://fibois-na.fr/actualites/": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 1161,
+      "octets": 44931,
+      "erreur": ""
+    },
+    "https://fibois-na.fr/evenements/digital-ia-au-service-de-la-filiere-foret-bois-cas-dusage-et-demonstrations/": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 825,
+      "octets": 41271,
+      "erreur": ""
+    },
+    "https://fibois-na.fr/feed/": {
+      "code": 200,
+      "type": "application/rss+xml; charset=UTF-8",
+      "items_rss": 12,
+      "blocage": false,
+      "ms": 752,
+      "octets": 73787,
+      "erreur": ""
+    },
+    "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 287,
+      "octets": 659809,
+      "erreur": ""
+    },
+    "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/rss": {
+      "code": 200,
+      "type": "text/xml; charset=UTF-8",
+      "items_rss": 30,
+      "blocage": false,
+      "ms": 155,
+      "octets": 69085,
+      "erreur": ""
+    },
+    "https://gironde.chambres-agriculture.fr/": {
+      "code": 200,
+      "type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 548,
+      "octets": 112902,
+      "erreur": ""
+    },
+    "https://gironde.chambres-agriculture.fr/actualites-33": {
+      "code": 200,
+      "type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 1620,
+      "octets": 86636,
+      "erreur": ""
+    },
+    "https://medef-gironde.fr/": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 1837,
+      "octets": 244455,
+      "erreur": ""
+    },
+    "https://medef-gironde.fr/events/matinee-dinformation-mon-entreprise-est-une-cible-la-cyber-et-la-securite-economique-risque-strategique-pour-le-dirigeant/": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 1,
+      "blocage": false,
+      "ms": 882,
+      "octets": 183553,
+      "erreur": ""
+    },
+    "https://medef-gironde.fr/nos-communications/": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 1673,
+      "octets": 221974,
+      "erreur": ""
+    },
+    "https://news.google.com/": {
+      "code": 200,
+      "type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 383,
+      "octets": 1706846,
+      "erreur": ""
+    },
+    "https://news.google.com/rss/search?q=Gironde+industrie&hl=fr&gl=FR&ceid=FR:fr": {
+      "code": 200,
+      "type": "application/xml; charset=utf-8",
+      "items_rss": 61,
+      "blocage": false,
+      "ms": 343,
+      "octets": 98474,
+      "erreur": ""
+    },
+    "https://recherche-entreprises.api.gouv.fr/": {
+      "code": 200,
+      "type": "text/html;charset=utf-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 315,
+      "octets": 171338,
+      "erreur": ""
+    },
+    "https://recherche-entreprises.api.gouv.fr/search?departement=33&q=industrie": {
+      "code": 200,
+      "type": "application/json",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 381,
+      "octets": 66171,
+      "erreur": ""
+    },
+    "https://rue89bordeaux.com/": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 284,
+      "octets": 399699,
+      "erreur": ""
+    },
+    "https://rue89bordeaux.com/2026/07/a-pessac-un-data-center-sapprete-a-sortir-de-terre-et-souleve-de-nombreuses-questions/": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 1869,
+      "octets": 294084,
+      "erreur": ""
+    },
+    "https://rue89bordeaux.com/feed/": {
+      "code": 200,
+      "type": "application/rss+xml; charset=UTF-8",
+      "items_rss": 14,
+      "blocage": false,
+      "ms": 1127,
+      "octets": 25993,
+      "erreur": ""
+    },
+    "https://rue89bordeaux.com/tag/economie/": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 183,
+      "octets": 263375,
+      "erreur": ""
+    },
+    "https://uimm.lafabriquedelavenir.fr/": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 106,
+      "octets": 75359,
+      "erreur": ""
+    },
+    "https://uimm.lafabriquedelavenir.fr/actualites/": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 1143,
+      "octets": 68078,
+      "erreur": ""
+    },
+    "https://uimm.lafabriquedelavenir.fr/decodage-intelligence-artificielle-et-croissance-a-long-terme/": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 104,
+      "octets": 117821,
+      "erreur": ""
+    },
+    "https://uimm.lafabriquedelavenir.fr/feed/": {
+      "code": 200,
+      "type": "application/rss+xml; charset=UTF-8",
+      "items_rss": 10,
+      "blocage": false,
+      "ms": 842,
+      "octets": 114968,
+      "erreur": ""
+    },
+    "https://www.20minutes.fr/bordeaux/": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 255,
+      "octets": 505506,
+      "erreur": ""
+    },
+    "https://www.20minutes.fr/feeds/rss-une.xml": {
+      "code": 200,
+      "type": "application/xml",
+      "items_rss": 30,
+      "blocage": false,
+      "ms": 92,
+      "octets": 162050,
+      "erreur": ""
+    },
+    "https://www.20minutes.fr/high-tech/by-the-web/4263220-20261121-deteste-belle-mere-fasse-ca-pourquoi-obsession-boomers-photos-ia-rend-fous-parents": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 132,
+      "octets": 467928,
+      "erreur": ""
+    },
+    "https://www.aerospace-valley.com/": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 200,
+      "octets": 199794,
+      "erreur": ""
+    },
+    "https://www.aerospace-valley.com/actualites": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 159,
+      "octets": 115000,
+      "erreur": ""
+    },
+    "https://www.aerospace-valley.com/actualites-membres/lafterwork-des-dirigeants-chez-groupama-doc-lia-est-deja-dans-votre-entreprise": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 102,
+      "octets": 86901,
+      "erreur": ""
+    },
+    "https://www.bodacc.fr/pages/annonces-commerciales-recherche/": {
+      "code": 200,
+      "type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 97,
+      "octets": 102434,
+      "erreur": ""
+    },
+    "https://www.bodacc.fr/pages/home/": {
+      "code": 200,
+      "type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 96,
+      "octets": 80859,
+      "erreur": ""
+    },
+    "https://www.bordeaux-metropole.fr/": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 429,
+      "octets": 147189,
+      "erreur": ""
+    },
+    "https://www.bordeaux-metropole.fr/actualites-Bordeaux-Metropole": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 513,
+      "octets": 129376,
+      "erreur": ""
+    },
+    "https://www.bordeaux-metropole.fr/droits-numeriques-bordeaux-metropole-renforce-son-engagement-a-linternational-sur-son-territoire": {
+      "code": 200,
+      "type": "application/pdf",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 802,
+      "octets": 297069,
+      "erreur": ""
+    },
+    "https://www.bordeaux-metropole.fr/rss.xml": {
+      "code": 200,
+      "type": "application/rss+xml; charset=utf-8",
+      "items_rss": 10,
+      "blocage": false,
+      "ms": 404,
+      "octets": 49339,
+      "erreur": ""
+    },
+    "https://www.bougerabordeaux.com/": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 322,
+      "octets": 153343,
+      "erreur": ""
+    },
+    "https://www.bougerabordeaux.com/actu/news/fin-adsl-gironde-44-communes-31-janvier-2027/": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 323,
+      "octets": 112011,
+      "erreur": ""
+    },
+    "https://www.bougerabordeaux.com/feed/": {
+      "code": 200,
+      "type": "application/rss+xml; charset=UTF-8",
+      "items_rss": 30,
+      "blocage": false,
+      "ms": 638,
+      "octets": 284900,
+      "erreur": ""
+    },
+    "https://www.cpmegironde.fr/": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 935,
+      "octets": 197505,
+      "erreur": ""
+    },
+    "https://www.cpmegironde.fr/actualites/": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 711,
+      "octets": 118676,
+      "erreur": ""
+    },
+    "https://www.cpmegironde.fr/cybermois-2026-les-pme-appelees-a-se-mobiliser/": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 639,
+      "octets": 107516,
+      "erreur": ""
+    },
+    "https://www.cpmegironde.fr/feed/": {
+      "code": 200,
+      "type": "application/rss+xml; charset=UTF-8",
+      "items_rss": 10,
+      "blocage": false,
+      "ms": 462,
+      "octets": 35722,
+      "erreur": ""
+    },
+    "https://www.frenchtechbordeaux.com/": {
+      "code": 200,
+      "type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 434,
+      "octets": 708850,
+      "erreur": ""
+    },
+    "https://www.frenchtechbordeaux.com/nos-actualites": {
+      "code": 200,
+      "type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 303,
+      "octets": 132703,
+      "erreur": ""
+    },
+    "https://www.frenchtechbordeaux.com/nos-actualites/donnees-personnelles-comment-sfbx-cherche-a-retablir-la-confiance": {
+      "code": 200,
+      "type": "text/html; charset=utf-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 581,
+      "octets": 188799,
+      "erreur": ""
+    },
+    "https://www.gironde.fr/": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 287,
+      "octets": 86016,
+      "erreur": ""
+    },
+    "https://www.gironde.fr/actualites": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 344,
+      "octets": 83279,
+      "erreur": ""
+    },
+    "https://www.gironde.fr/actualites/cybersecurite-prevenir-proteger-inclure": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 222,
+      "octets": 71719,
+      "erreur": ""
+    },
+    "https://www.ici.fr/nouvelle-aquitaine/gironde-33/actu": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 183,
+      "octets": 209590,
+      "erreur": ""
+    },
+    "https://www.ici.fr/radio/gironde": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 213,
+      "octets": 428390,
+      "erreur": ""
+    },
+    "https://www.ici.fr/rss/gironde/rubrique/infos.xml": {
+      "code": 200,
+      "type": "application/xml",
+      "items_rss": 20,
+      "blocage": false,
+      "ms": 104,
+      "octets": 19514,
+      "erreur": ""
+    },
+    "https://www.lejournaldesentreprises.com/breve/la-french-tech-bordeaux-place-lintelligence-artificielle-au-coeur-de-son-french-tech-day-2148538": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 767,
+      "octets": 315026,
+      "erreur": ""
+    },
+    "https://www.lejournaldesentreprises.com/nouvelle-aquitaine": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 2976,
+      "octets": 508714,
+      "erreur": ""
+    },
+    "https://www.lejournaldesentreprises.com/regions/france/nouvelle-aquitaine/gironde": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 660,
+      "octets": 293467,
+      "erreur": ""
+    },
+    "https://www.lejournaldesentreprises.com/rss-nouvelle-aquitaine": {
+      "code": 200,
+      "type": "text/xml; charset=UTF-8",
+      "items_rss": 20,
+      "blocage": false,
+      "ms": 200,
+      "octets": 16311,
+      "erreur": ""
+    },
+    "https://www.medef-nouvelle-aquitaine.fr/": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 221,
+      "octets": 34600,
+      "erreur": ""
+    },
+    "https://www.medef-nouvelle-aquitaine.fr/actualite/cybersecurite-des-reflexes-essentiels-pour-proteger-son-activite": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 181,
+      "octets": 31987,
+      "erreur": ""
+    },
+    "https://www.medef-nouvelle-aquitaine.fr/actualites": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 194,
+      "octets": 42672,
+      "erreur": ""
+    },
+    "https://www.polyvia.fr/fr": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 221,
+      "octets": 172772,
+      "erreur": ""
+    },
+    "https://www.polyvia.fr/fr/nos-actualites": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 208,
+      "octets": 178385,
+      "erreur": ""
+    },
+    "https://www.uimmnouvelleaquitaine.com/": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 213,
+      "octets": 20970,
+      "erreur": ""
+    },
+    "https://www.uimmnouvelleaquitaine.com/actualite/news.html": {
+      "code": 200,
+      "type": "text/html; charset=UTF-8",
+      "items_rss": 0,
+      "blocage": false,
+      "ms": 251,
+      "octets": 35656,
+      "erreur": ""
+    }
+  }
+}
