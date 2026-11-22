@@ -1,0 +1,16 @@
+{
+  "generatedAt": "2026-11-21T22:40:52.992Z",
+  "totalOrganisations": 1673203,
+  "groupsFound": 0,
+  "duplicatesFound": 0,
+  "duplicatesMerged": 0,
+  "verification": [],
+  "mode": "report",
+  "groups": [],
+  "rules": {
+    "identity": "same SIREN + normalized name + Nouvelle-Aquitaine department + two ingestion shapes",
+    "scope": "Nouvelle-Aquitaine only; source reputation is not used",
+    "survivor": "smallest org.id (oldest row, stable across runs)",
+    "lossCheck": "event/alert/history/child ids and asset values intact; aliases additive; rollback on failure"
+  }
+}

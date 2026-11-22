@@ -39,6 +39,7 @@ import ingestRoute from "./ingest.js";
 import dossierRoute from "./dossier.js";
 import rectificationRoute from "./rectification.js";
 import auditRoute from "./audit.js";
+import onionIndexRoute from "./onion-index.js";
 import confidenceRoute from "./confidence.js";
 import leaksByDomainRoute from "./leaks-by-domain.js";
 import publicMandatesRoute from "./public-mandates.js";
@@ -55,6 +56,7 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     confidenceRoute,
     leaksByDomainRoute,
     publicMandatesRoute,
+    onionIndexRoute,
   ]) {
     await app.register(route, { prefix: "/api" });
   }
