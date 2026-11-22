@@ -90,3 +90,5 @@ comme route de production et ne modifie pas `server.ts`.
 inchangé, sources grises autorisées, aucune donnée personnelle de victime,
 aucun service payant, code et sortie CLI en anglais, rapport en français,
 toutes les commandes de mesure et de test sous les 60 secondes.
+
+OBJECTIF : atteint — 54 / 54 opérations ont un exemple exécutable rejoué avec succès (0 exemple invalide ; mesure du 22/11/2026 via la commande reproductible `pnpm mesure:openapi-exemples`).
