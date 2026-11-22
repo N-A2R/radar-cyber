@@ -133,6 +133,12 @@ test("date : normalisée en ISO, illisible écartée sans rejet", () => {
 	assert.ok(junk.repairs.includes("date-illisible"));
 });
 
+test("date : format numérique français lu jour avant mois", () => {
+	const result = admitEvent({ ...valid, observedAt: "09/11/2026" });
+	assert.equal(result.ok, true);
+	if (result.ok) assert.equal(result.event.observedAt, "2026-11-09T00:00:00.000Z");
+});
+
 test("URL de provenance illisible : écartée, événement conservé", () => {
 	const result = admitEvent({ ...valid, sourceUrl: "pas une url" });
 	assert.equal(result.ok, true);
