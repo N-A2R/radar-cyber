@@ -17,6 +17,7 @@ import { runQuarantineCollector } from "./collectors/quarantine.collector.js";
 import { promoteMatches } from "./quarantine/promote.js";
 import { fetchResilient } from "./collectors/http.js";
 import { collectors, executerCollecteur, executerPlan, planifierCycle, ratisserSourcesJamaisCollectees } from "./collectors/index.js";
+import { chargerCadencesValeur } from "./collectors/valeur-plan.js";
 import { enregistrerCycleCollecte } from "./collecte/supervision.js";
 import { startLiveStream } from "./collecte/live.js";
 import { consignerLot, type JournalEntry } from "./journal/index.js";
@@ -137,10 +138,11 @@ function makeContext(cursor: Record<string, unknown>, log: (msg: string) => void
  * priorité aux sources jamais collectées sont décidés dans le registre, et
  * `executerPlan` isole chaque échec pour que la suite du cycle ait lieu.
  */
-async function runCollectors(options?: { onlyId?: string; force?: boolean }): Promise<void> {
+async function runCollectors(options?: { onlyId?: string; force?: boolean; intervalles?: Readonly<Record<string, number>> }): Promise<void> {
 	const plan = await planifierCycle({
 		onlyId: options?.onlyId,
 		force: options?.force,
+		intervalles: options?.intervalles,
 		log: (m) => app.log.info(m),
 	});
 	for (const sautee of plan.sautees) {
@@ -264,10 +266,14 @@ const log = (m: string) => app.log.info(m);
 async function executerCycleCollecte(): Promise<void> {
 	const startedAt = new Date();
 	const memoireAvant = process.memoryUsage();
+	const cadences = await chargerCadencesValeur().catch((e: unknown) => {
+		app.log.warn(`cadences de valeur indisponibles, cadences déclarées conservées : ${messageErreur(e)}`);
+		return {} as Record<string, number>;
+	});
 	const taches: { nom: string; run: () => Promise<void> }[] = [
-		{ nom: "collecteurs", run: runCollectors },
+		{ nom: "collecteurs", run: () => runCollectors({ intervalles: cadences }) },
 		{ nom: "sitemap discovery", run: () => runScheduledDiscovery(log) },
-		{ nom: "ingestion générique", run: () => runGenericSources(log) },
+		{ nom: "ingestion générique", run: () => runGenericSources(log, { intervalles: cadences }) },
 	];
 	const resultats = await Promise.allSettled(taches.map((t) => t.run()));
 	const etats = resultats.map((r, i) => ({
