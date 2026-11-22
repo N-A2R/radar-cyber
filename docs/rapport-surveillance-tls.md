@@ -45,3 +45,5 @@ Les 16 alertes ont été examinées une par une ; les verdicts sont versionnés 
 ## Limites
 
 Vingt hôtes seulement ont répondu sur trente ; les hôtes en échec de sonde ne produisent pas d'alerte (absence de preuve, pas de silence impartial). L'inventaire CT ne garde qu'une vue par hôte, si bien que la « référence » peut être un certificat vieux de plusieurs années : le détecteur mesure un changement par rapport à cette référence, pas une rotation observée en continu. Un second relevé CT avec plusieurs certificats par hôte permettrait de réduire la part des migrations benignes classées à tort comme suspectes.
+
+OBJECTIF : atteint — 16 / 16 alertes de changement de certificat suspect mesurées et classées (9 confirmées, 7 faux positifs, taux de faux positifs 43,8 % ; rejeu `pnpm mesure:tls-monitor` : `totalAlerts` 16, `classified` 16, `falsePositiveRate` 43.8).
