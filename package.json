@@ -18,6 +18,8 @@
     "typecheck": "pnpm -r typecheck",
     "verify": "bash scripts/verify-all.sh",
     "verify:journal": "apps/api/node_modules/.bin/tsx scripts/verify-journal.mts",
+    "custody:measure": "apps/api/node_modules/.bin/tsx scripts/measure-custody.mts",
+    "custody:backfill": "apps/api/node_modules/.bin/tsx scripts/backfill-custody.mts",
     "replay:journal": "apps/api/node_modules/.bin/tsx scripts/replay-journal.mts",
     "mesure:couverture": "apps/api/node_modules/.bin/tsx scripts/mesure-couverture.mts",
     "couverture:corpus": "apps/api/node_modules/.bin/tsx scripts/consolider-corpus-couverture.mts",

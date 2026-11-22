@@ -942,6 +942,24 @@ export type ReviewQueueResponse = {
   tookMs: number;
 };
 
+/** Who saw what, when: the append-only custody chain of one event. */
+export type CustodyChain = {
+  subject: string;
+  regional: boolean;
+  complete: boolean;
+  missing: string[];
+  source: string | null;
+  sourceUrl: string | null;
+  observedAt: string | null;
+  links: {
+    who: string;
+    what: string;
+    when: string | null;
+    recordedAt: string | null;
+    proof: string[];
+  }[];
+};
+
 /** One auditable entry: every journal kind, with its proof (raw payload). */
 export type JournalDecision = {
   id: number;
@@ -1046,6 +1064,9 @@ export const api = {
   },
   reviewAction: (ids: number[], action: ReviewAction, reason?: string) =>
     postJson<ReviewOutcome>("/quarantine/review", { ids, action, reason: reason ?? "" }),
+  /** Append-only chain of custody for one event; no event free text. */
+  custody: (subject: string, signal?: AbortSignal) =>
+    get<CustodyChain>(`/custody?subject=${encodeURIComponent(subject)}`, signal),
   /** Auditable journal — every decision kind, filtered, cursor-paginated. */
   journalReview: (params: JournalReviewParams = {}, signal?: AbortSignal) => {
     return get<JournalReviewResponse>(`/journal/review?${journalQuery(params)}`, signal);
