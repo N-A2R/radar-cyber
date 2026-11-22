@@ -23,6 +23,10 @@ import { consignerLot, type JournalEntry } from "./journal/index.js";
 import { porteeRegionale } from "./match/territorial.js";
 import { closePools, ingestQuery, query } from "./db.js";
 import { deliverPendingAlerts, readDeliveryConfig } from "./notify/alert-delivery.js";
+import {
+	orientationVerificationDue,
+	verifierOrientationCollectivites,
+} from "./orientation/verification.js";
 import { runRetention } from "./maintenance/retention.js";
 import { runDetectionPass } from "./detect/incremental.js";
 import { runSilentSourceCheck } from "./detect/silent-source-monitor.js";
@@ -443,6 +447,27 @@ void guarded("mesure organisations reliées", mesurerOrgsLiees);
 setInterval(() => {
   void guarded("mesure organisations reliées", mesurerOrgsLiees);
 }, MESURE_ORGS_LIEES_MS);
+
+/**
+ * Guichet d'orientation des collectivités : contrôle HTTP réel du lien 17Cyber
+ * au démarrage puis chaque jour, rejoué seulement si la dernière date vérifiée
+ * a plus de 7 jours (cadence hebdomadaire). Indépendant de la collecte : un
+ * déploiement `RADAR_COLLECT=0` doit aussi garder son guichet vérifié.
+ */
+const ORIENTATION_TICK_MS = 24 * 3600 * 1000;
+async function verifierOrientation() {
+  if (!(await orientationVerificationDue(query))) return;
+  const r = await verifierOrientationCollectivites(query);
+  if (r.conforme) {
+    log(`orientation collectivités : ${r.ok}/${r.alertes} lien(s) HTTP 200, date ${r.verifie_le}`);
+  } else {
+    app.log.error(
+      `orientation collectivités : contrôle NON conforme (${r.ok}/${r.alertes} en 200, cible ${r.cible}) — date non modifiée`,
+    );
+  }
+}
+void guarded("orientation collectivités", verifierOrientation);
+setInterval(() => void guarded("orientation collectivités", verifierOrientation), ORIENTATION_TICK_MS);
 
 for (const signal of ["SIGINT", "SIGTERM"] as const) {
 	process.once(signal, () => {
