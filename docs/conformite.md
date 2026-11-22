@@ -32,6 +32,7 @@ Références de code : `apps/api/src/security/rbac.ts` (matrice d'accès),
 | Journal des accès API | méthode, route, statut, décision, motif, rôle, identifiant utilisateur, hash IP/user-agent, identifiant de corrélation, durée | Intérêt légitime : sécurité et détection d'abus (art. 6.1.f) ; obligation de sécurité (art. 32) | 90 jours ; les refus restent dans le journal de vérité |
 | Droit de réponse | organisation nommée, coordonnées de contact, motif, texte de la demande, moyen de vérification, décision et auteur | Exercice d'un droit par la personne/organisation concernée (art. 16 et 21) ; intérêt légitime à la traçabilité | Tant que la réponse est publiée ; suppression possible sur demande (cascade de l'historique) |
 | Événements publiés | faits issus de sources ouvertes, parfois associés à une organisation | Intérêt légitime : observatoire de la cybermenace (art. 6.1.f), avec mise en balance | 90 jours en table chaude, résumé archivé |
+| Données brutes de collecte (`quarantine_raw`) | contenu source non structuré, parfois porteur d'un indice d'organisation | Intérêt légitime : pouvoir vérifier et rejouer une admission (art. 6.1.f), durée limitée à la revue | 90 jours par défaut ; durée déclarée **par source** dans `registre_traitement.duree_jours`, purge appliquée par `runRetention` et consignée au journal (`event.purge`, sujet = source) |
 
 Les sources externes sont des données publiques ou diffusées sous licence ; le
 radar n'ajoute pas de catégorie particulière de données au sens de l'article 9
