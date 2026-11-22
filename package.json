@@ -48,6 +48,7 @@
     "exposition:osm-siret": "apps/api/node_modules/.bin/tsx scripts/collecte-services-osm-siret.mts",
     "exposition:wikidata": "apps/api/node_modules/.bin/tsx scripts/collecte-services-wikidata.mts",
     "exposition:wikidata-id": "apps/api/node_modules/.bin/tsx scripts/collecte-services-wikidata-identifier.mts",
+    "exposition:registry-id": "apps/api/node_modules/.bin/tsx scripts/collecte-services-registry-id.mts",
     "exposition:site-zone": "apps/api/node_modules/.bin/tsx scripts/collecte-services-site-zone.mts",
     "exposition:education": "apps/api/node_modules/.bin/tsx scripts/collecte-services-education.mts",
     "exposition:administration": "apps/api/node_modules/.bin/tsx scripts/collecte-services-administration.mts",

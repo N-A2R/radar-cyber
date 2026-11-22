@@ -1,0 +1,2529 @@
+{
+  "consultedAt": "2026-11-22T03:58:43.512Z",
+  "source": "data.inclusion SIRET / OSM ref:FR:FINESS; HTTP 200; DNS A",
+  "attribution": "data.inclusion (Licence Ouverte 2.0) and OpenStreetMap contributors (ODbL)",
+  "applied": true,
+  "onlyMissing": true,
+  "examined": 1899,
+  "eligible": 1189,
+  "selected": 300,
+  "verified": 284,
+  "matched": 277,
+  "written": 277,
+  "measurement": {
+    "scope": "nouvelle-aquitaine",
+    "organisationsWithService": 9312,
+    "organisationsInScope": 1671906,
+    "services": 10205,
+    "bySource": {
+      "http-200": 1256,
+      "osm-http-200": 2941,
+      "rna-http-200": 522,
+      "dila-http-200": 1045,
+      "shodan-internetdb": 399,
+      "wikidata-http-200": 850,
+      "education-http-200": 733,
+      "osm-siret-http-200": 1677,
+      "site-zone-http-200": 381,
+      "registry-id-http-200": 275,
+      "wikidata-id-http-200": 86,
+      "administration-http-200": 40
+    },
+    "measuredAt": "2026-11-22T03:58:50.298Z"
+  },
+  "candidates": [
+    {
+      "kind": "siret",
+      "id": "34371831800052",
+      "dept": "79",
+      "domain": "www.air-aireo.fr",
+      "orgId": 101244,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://www.air-aireo.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "41954772400056",
+      "dept": "86",
+      "domain": "www.emploipluriservices.com",
+      "orgId": 179221,
+      "ip": "52.59.120.70",
+      "sourceUrl": "https://www.emploipluriservices.com"
+    },
+    {
+      "kind": "siret",
+      "id": "82274405800022",
+      "dept": "17",
+      "domain": "www.atout-solidaire.org",
+      "orgId": 446494,
+      "ip": "213.186.33.4",
+      "sourceUrl": "https://www.atout-solidaire.org"
+    },
+    {
+      "kind": "siret",
+      "id": "40201424500011",
+      "dept": "17",
+      "domain": "fraternite17.fr",
+      "orgId": 152976,
+      "ip": "172.67.191.76",
+      "sourceUrl": "https://fraternite17.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "78134189600046",
+      "dept": "17",
+      "domain": "www.christianefaure.fr",
+      "orgId": 370645,
+      "ip": "162.159.143.12",
+      "sourceUrl": "https://www.christianefaure.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "75400493500054",
+      "dept": "86",
+      "domain": "www.vms86.fr",
+      "orgId": 2322929,
+      "ip": "109.234.164.175",
+      "sourceUrl": "https://www.vms86.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548123806",
+      "dept": "17",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944795,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "79425297300027",
+      "dept": "33",
+      "domain": "r3-bordeaux.fr",
+      "orgId": 389586,
+      "ip": "213.186.33.4",
+      "sourceUrl": "https://r3-bordeaux.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "38955847900033",
+      "dept": "19",
+      "domain": "missionlocalebrive.fr",
+      "orgId": 132718,
+      "ip": "5.135.23.164",
+      "sourceUrl": "https://missionlocalebrive.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "40217437900030",
+      "dept": "17",
+      "domain": "www.vivractif.com",
+      "orgId": 153451,
+      "ip": "5.135.23.164",
+      "sourceUrl": "https://www.vivractif.com"
+    },
+    {
+      "kind": "siret",
+      "id": "38218290500028",
+      "dept": "16",
+      "domain": "www.cscs-rivesdecharente.com",
+      "orgId": 121951,
+      "ip": "213.186.33.40",
+      "sourceUrl": "http://www.cscs-rivesdecharente.com"
+    },
+    {
+      "kind": "siret",
+      "id": "77556319000385",
+      "dept": "16",
+      "domain": "www.aisd-emploi.fr",
+      "orgId": 368754,
+      "ip": "51.91.236.193",
+      "sourceUrl": "https://www.aisd-emploi.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "77799935000047",
+      "dept": "23",
+      "domain": "www.udaf23.fr",
+      "orgId": 369227,
+      "ip": "195.154.203.1",
+      "sourceUrl": "https://www.udaf23.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "32404359500010",
+      "dept": "33",
+      "domain": "hjhdg.com",
+      "orgId": 85966,
+      "ip": "213.158.79.81",
+      "sourceUrl": "https://hjhdg.com"
+    },
+    {
+      "kind": "siret",
+      "id": "32872380400048",
+      "dept": "19",
+      "domain": "aravic-francevictimes19.fr",
+      "orgId": 89350,
+      "ip": "51.254.100.190",
+      "sourceUrl": "https://aravic-francevictimes19.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "42397779200047",
+      "dept": "79",
+      "domain": "www.etablissement-lesterrasses.fr",
+      "orgId": 1971632,
+      "ip": "188.114.97.2",
+      "sourceUrl": "https://www.etablissement-lesterrasses.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "77556927000124",
+      "dept": "23",
+      "domain": "www.fol23.fr",
+      "orgId": 368783,
+      "ip": "78.40.9.126",
+      "sourceUrl": "https://www.fol23.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "78134348800057",
+      "dept": "17",
+      "domain": "laligue17.org",
+      "orgId": 370690,
+      "ip": "46.105.57.169",
+      "sourceUrl": "https://laligue17.org"
+    },
+    {
+      "kind": "siret",
+      "id": "22230962700149",
+      "dept": "23",
+      "domain": "www.creuse.fr",
+      "orgId": 1959192,
+      "ip": "37.59.251.196",
+      "sourceUrl": "https://www.creuse.fr/Carte-et-coordonnees-des-UTAS"
+    },
+    {
+      "kind": "siret",
+      "id": "87753559100011",
+      "dept": "33",
+      "domain": "atelier-remumenage.org",
+      "orgId": 513195,
+      "ip": "213.186.33.17",
+      "sourceUrl": "https://atelier-remumenage.org"
+    },
+    {
+      "kind": "siret",
+      "id": "42386374500067",
+      "dept": "86",
+      "domain": "www.jardinsolite.fr",
+      "orgId": 1971627,
+      "ip": "213.186.33.16",
+      "sourceUrl": "https://www.jardinsolite.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "33000351800017",
+      "dept": "86",
+      "domain": "www.mcllarocheposay.fr",
+      "orgId": 90424,
+      "ip": "213.186.33.3",
+      "sourceUrl": "https://www.mcllarocheposay.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "81500733100029",
+      "dept": "23",
+      "domain": "www.reseau-creuse-siae.fr",
+      "orgId": 430935,
+      "ip": "217.160.0.71",
+      "sourceUrl": "http://www.reseau-creuse-siae.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "20007004300100",
+      "dept": "86",
+      "domain": "www.vienneetgartempe.fr",
+      "orgId": 1948359,
+      "ip": "109.234.162.100",
+      "sourceUrl": "https://www.vienneetgartempe.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "38115366700021",
+      "dept": "79",
+      "domain": "www.poe79.fr",
+      "orgId": 120020,
+      "ip": "34.149.87.45",
+      "sourceUrl": "https://www.poe79.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "51128758300013",
+      "dept": "24",
+      "domain": "www.cnpv-lepiedaletrier.fr",
+      "orgId": 313770,
+      "ip": "185.125.27.179",
+      "sourceUrl": "https://www.cnpv-lepiedaletrier.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "38940856800050",
+      "dept": "19",
+      "domain": "www.famillesrurales-correze.fr",
+      "orgId": 132307,
+      "ip": "109.234.162.102",
+      "sourceUrl": "https://www.famillesrurales-correze.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "42887866400039",
+      "dept": "33",
+      "domain": "www.lien-interim-insertion.fr",
+      "orgId": 194487,
+      "ip": "217.160.0.226",
+      "sourceUrl": "https://www.lien-interim-insertion.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548118210",
+      "dept": "24",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944750,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "81277300000037",
+      "dept": "16",
+      "domain": "attapsy.org",
+      "orgId": 425071,
+      "ip": "51.91.236.193",
+      "sourceUrl": "https://attapsy.org"
+    },
+    {
+      "kind": "siret",
+      "id": "83915986000023",
+      "dept": "87",
+      "domain": "lescalier87.org",
+      "orgId": 479933,
+      "ip": "109.234.164.23",
+      "sourceUrl": "https://lescalier87.org"
+    },
+    {
+      "kind": "siret",
+      "id": "32364952500470",
+      "dept": "19",
+      "domain": "pts19.fr",
+      "orgId": 1963650,
+      "ip": "84.16.72.179",
+      "sourceUrl": "https://pts19.fr/connexion-inscription/"
+    },
+    {
+      "kind": "siret",
+      "id": "37883001200050",
+      "dept": "33",
+      "domain": "essor-asso.org",
+      "orgId": 115152,
+      "ip": "188.165.4.35",
+      "sourceUrl": "https://essor-asso.org"
+    },
+    {
+      "kind": "siret",
+      "id": "42213614300498",
+      "dept": "33",
+      "domain": "wimoov.org",
+      "orgId": 1971419,
+      "ip": "46.105.52.4",
+      "sourceUrl": "https://wimoov.org"
+    },
+    {
+      "kind": "siret",
+      "id": "45133852900212",
+      "dept": "79",
+      "domain": "www.groupeidees.fr",
+      "orgId": 1973657,
+      "ip": "5.39.54.210",
+      "sourceUrl": "https://www.groupeidees.fr/ideesinterim/"
+    },
+    {
+      "kind": "siret",
+      "id": "77792713800019",
+      "dept": "19",
+      "domain": "validate.perfdrive.com",
+      "orgId": 368982,
+      "ip": "66.22.63.144",
+      "sourceUrl": "https://validate.perfdrive.com/ef5ead12d2c340cef8e2dde598c60b9a/"
+    },
+    {
+      "kind": "siret",
+      "id": "48949963200011",
+      "dept": "87",
+      "domain": "geiqagri-limousin-perigord.fr",
+      "orgId": 270371,
+      "ip": "109.234.166.43",
+      "sourceUrl": "https://geiqagri-limousin-perigord.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "90431817700014",
+      "dept": "16",
+      "domain": "www.lechantierdacote.com",
+      "orgId": 569438,
+      "ip": "216.198.79.65",
+      "sourceUrl": "https://www.lechantierdacote.com"
+    },
+    {
+      "kind": "siret",
+      "id": "38455338400023",
+      "dept": "19",
+      "domain": "airelle.org",
+      "orgId": 126546,
+      "ip": "212.83.132.163",
+      "sourceUrl": "https://airelle.org"
+    },
+    {
+      "kind": "siret",
+      "id": "34854755500048",
+      "dept": "86",
+      "domain": "aclef.fr",
+      "orgId": 104656,
+      "ip": "193.203.239.79",
+      "sourceUrl": "https://aclef.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "39999070400021",
+      "dept": "47",
+      "domain": "enviplus.fr",
+      "orgId": 148854,
+      "ip": "77.37.50.153",
+      "sourceUrl": "https://enviplus.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "44875189100046",
+      "dept": "87",
+      "domain": "www.a23n.fr",
+      "orgId": 231480,
+      "ip": "87.98.151.204",
+      "sourceUrl": "https://www.a23n.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "80041897200033",
+      "dept": "33",
+      "domain": "entr-autres.eu",
+      "orgId": 399479,
+      "ip": "213.186.33.17",
+      "sourceUrl": "https://entr-autres.eu"
+    },
+    {
+      "kind": "siret",
+      "id": "90860504100015",
+      "dept": "79",
+      "domain": "www.soligo-mobilite.fr",
+      "orgId": 575946,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://www.soligo-mobilite.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "32097973500018",
+      "dept": "86",
+      "domain": "lesminimes.centres-sociaux.fr",
+      "orgId": 83925,
+      "ip": "51.38.207.24",
+      "sourceUrl": "https://lesminimes.centres-sociaux.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "30733663600062",
+      "dept": "33",
+      "domain": "www.infojeunes-na.fr",
+      "orgId": 78182,
+      "ip": "154.50.4.226",
+      "sourceUrl": "https://www.infojeunes-na.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "87785772200038",
+      "dept": "79",
+      "domain": "raivalor.com",
+      "orgId": 513974,
+      "ip": "146.59.209.152",
+      "sourceUrl": "https://raivalor.com"
+    },
+    {
+      "kind": "siret",
+      "id": "45239747400043",
+      "dept": "33",
+      "domain": "alter-go.fr",
+      "orgId": 240770,
+      "ip": "185.31.40.23",
+      "sourceUrl": "https://alter-go.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "18873700100050",
+      "dept": "87",
+      "domain": "www.mission-locale-limoges.fr",
+      "orgId": 1946748,
+      "ip": "109.234.162.31",
+      "sourceUrl": "https://www.mission-locale-limoges.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "78125600300034",
+      "dept": "16",
+      "domain": "cscsflep.com",
+      "orgId": 370313,
+      "ip": "213.186.33.17",
+      "sourceUrl": "http://cscsflep.com"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548119382",
+      "dept": "23",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944757,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548112445",
+      "dept": "64",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944738,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "44918725100011",
+      "dept": "40",
+      "domain": "www.sans-facon.fr",
+      "orgId": 232614,
+      "ip": "172.66.3.8",
+      "sourceUrl": "https://www.sans-facon.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "89921916600027",
+      "dept": "86",
+      "domain": "www.mdaja86.fr",
+      "orgId": 556151,
+      "ip": "85.255.84.120",
+      "sourceUrl": "https://www.mdaja86.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "22870851700831",
+      "dept": "87",
+      "domain": "www.haute-vienne.fr",
+      "orgId": 1959541,
+      "ip": "104.26.7.118",
+      "sourceUrl": "https://www.haute-vienne.fr/accueil"
+    },
+    {
+      "kind": "siret",
+      "id": "85283586700023",
+      "dept": "40",
+      "domain": "www.fermesolidairelacoste.org",
+      "orgId": 510007,
+      "ip": "109.234.162.78",
+      "sourceUrl": "https://www.fermesolidairelacoste.org"
+    },
+    {
+      "kind": "siret",
+      "id": "38029920600041",
+      "dept": "19",
+      "domain": "www.anil.org",
+      "orgId": 118426,
+      "ip": "185.32.99.147",
+      "sourceUrl": "https://www.anil.org/adil-19/"
+    },
+    {
+      "kind": "siret",
+      "id": "89858220000025",
+      "dept": "33",
+      "domain": "www.deux-mains-sans-fautes.com",
+      "orgId": 1819503,
+      "ip": "172.67.182.195",
+      "sourceUrl": "https://www.deux-mains-sans-fautes.com"
+    },
+    {
+      "kind": "siret",
+      "id": "22870851700146",
+      "dept": "87",
+      "domain": "www.haute-vienne.fr",
+      "orgId": 1959500,
+      "ip": "104.26.7.118",
+      "sourceUrl": "https://www.haute-vienne.fr/accueil"
+    },
+    {
+      "kind": "siret",
+      "id": "34399833200039",
+      "dept": "87",
+      "domain": "www.coupdmain.fr",
+      "orgId": 101537,
+      "ip": "51.91.236.193",
+      "sourceUrl": "https://www.coupdmain.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "40109057600018",
+      "dept": "16",
+      "domain": "cedif-asso.fr",
+      "orgId": 151051,
+      "ip": "109.234.162.25",
+      "sourceUrl": "https://cedif-asso.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548108336",
+      "dept": "17",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944730,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "22790001600311",
+      "dept": "79",
+      "domain": "www.deux-sevres.fr",
+      "orgId": 1959465,
+      "ip": "185.236.56.27",
+      "sourceUrl": "https://www.deux-sevres.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "44827548700032",
+      "dept": "33",
+      "domain": "www.missionlocaledesgraves.fr",
+      "orgId": 230179,
+      "ip": "185.158.133.1",
+      "sourceUrl": "https://www.missionlocaledesgraves.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "39251568000024",
+      "dept": "17",
+      "domain": "www.adpahs.fr",
+      "orgId": 138062,
+      "ip": "213.186.33.40",
+      "sourceUrl": "https://www.adpahs.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "43272961400052",
+      "dept": "47",
+      "domain": "ardie-47.jimdoweb.com",
+      "orgId": 201771,
+      "ip": "172.64.154.24",
+      "sourceUrl": "https://ardie-47.jimdoweb.com"
+    },
+    {
+      "kind": "siret",
+      "id": "38469683700077",
+      "dept": "24",
+      "domain": "association3s.fr",
+      "orgId": 126877,
+      "ip": "5.196.51.243",
+      "sourceUrl": "https://association3s.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "88433024200014",
+      "dept": "79",
+      "domain": "www.envie.org",
+      "orgId": 530203,
+      "ip": "5.135.237.138",
+      "sourceUrl": "https://www.envie.org"
+    },
+    {
+      "kind": "siret",
+      "id": "40305794600069",
+      "dept": "79",
+      "domain": "www.geiqbtp-poitoucharentes.fr",
+      "orgId": 155420,
+      "ip": "213.186.33.17",
+      "sourceUrl": "https://www.geiqbtp-poitoucharentes.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548113120",
+      "dept": "64",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944739,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548121321",
+      "dept": "24",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944777,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "45207674800055",
+      "dept": "33",
+      "domain": "www.bati-pessac.fr",
+      "orgId": 240005,
+      "ip": "162.159.143.12",
+      "sourceUrl": "https://www.bati-pessac.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "50832823400044",
+      "dept": "86",
+      "domain": "www.solihaaisvienne.com",
+      "orgId": 307367,
+      "ip": "162.159.143.12",
+      "sourceUrl": "https://www.solihaaisvienne.com"
+    },
+    {
+      "kind": "siret",
+      "id": "34474250700041",
+      "dept": "87",
+      "domain": "www.poucetravail.com",
+      "orgId": 102450,
+      "ip": "213.186.33.4",
+      "sourceUrl": "https://www.poucetravail.com"
+    },
+    {
+      "kind": "siret",
+      "id": "38786009100074",
+      "dept": "40",
+      "domain": "www.landesnettoyage.fr",
+      "orgId": 129181,
+      "ip": "172.66.3.8",
+      "sourceUrl": "https://www.landesnettoyage.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "35600000036458",
+      "dept": "79",
+      "domain": "bookings.cloud.microsoft",
+      "orgId": 1967009,
+      "ip": "52.98.229.2",
+      "sourceUrl": "https://bookings.cloud.microsoft/book/conseillernumriquefranceservices@laposte.onmicrosoft.com/"
+    },
+    {
+      "kind": "siret",
+      "id": "89850515100024",
+      "dept": "86",
+      "domain": "leressort-ebe.fr",
+      "orgId": 554292,
+      "ip": "185.221.182.88",
+      "sourceUrl": "https://leressort-ebe.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "80016897300033",
+      "dept": "86",
+      "domain": "www.mjcvam.fr",
+      "orgId": 398903,
+      "ip": "92.222.139.190",
+      "sourceUrl": "https://www.mjcvam.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548119606",
+      "dept": "17",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944759,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "35027659800017",
+      "dept": "64",
+      "domain": "www.estivade.net",
+      "orgId": 107221,
+      "ip": "162.159.143.12",
+      "sourceUrl": "https://www.estivade.net"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548121719",
+      "dept": "86",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944781,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "44252000300017",
+      "dept": "40",
+      "domain": "www.defisservices.com",
+      "orgId": 219988,
+      "ip": "212.129.35.240",
+      "sourceUrl": "https://www.defisservices.com"
+    },
+    {
+      "kind": "siret",
+      "id": "81925171100027",
+      "dept": "23",
+      "domain": "www.ressourcerieladynamo.com",
+      "orgId": 436949,
+      "ip": "162.159.128.70",
+      "sourceUrl": "https://www.ressourcerieladynamo.com"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548123426",
+      "dept": "16",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944791,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "37749838100039",
+      "dept": "24",
+      "domain": "www.missionlocaledubergeracois.com",
+      "orgId": 112804,
+      "ip": "172.66.3.8",
+      "sourceUrl": "https://www.missionlocaledubergeracois.com"
+    },
+    {
+      "kind": "siret",
+      "id": "39274654100102",
+      "dept": "24",
+      "domain": "intermaide24.com",
+      "orgId": 138506,
+      "ip": "5.135.23.164",
+      "sourceUrl": "https://intermaide24.com"
+    },
+    {
+      "kind": "siret",
+      "id": "84423644800024",
+      "dept": "86",
+      "domain": "www.job86.fr",
+      "orgId": 492890,
+      "ip": "213.186.33.4",
+      "sourceUrl": "https://www.job86.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "39300491600028",
+      "dept": "86",
+      "domain": "actionozon.org",
+      "orgId": 138995,
+      "ip": "51.75.121.118",
+      "sourceUrl": "https://actionozon.org"
+    },
+    {
+      "kind": "siret",
+      "id": "37968222200029",
+      "dept": "86",
+      "domain": "www.mli-poitiers.asso.fr",
+      "orgId": 117156,
+      "ip": "34.163.5.132",
+      "sourceUrl": "https://www.mli-poitiers.asso.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548125835",
+      "dept": "64",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944805,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "37865830600030",
+      "dept": "33",
+      "domain": "www.sosemploi-medoc.com",
+      "orgId": 114817,
+      "ip": "46.18.208.19",
+      "sourceUrl": "http://www.sosemploi-medoc.com"
+    },
+    {
+      "kind": "siret",
+      "id": "77805921200036",
+      "dept": "87",
+      "domain": "varlinpontneuf.fr",
+      "orgId": 369421,
+      "ip": "185.246.47.124",
+      "sourceUrl": "https://varlinpontneuf.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "90319662400014",
+      "dept": "47",
+      "domain": "www.bamboua.fr",
+      "orgId": 566594,
+      "ip": "109.234.166.112",
+      "sourceUrl": "https://www.bamboua.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "22860001100446",
+      "dept": "86",
+      "domain": "www.lavienne86.fr",
+      "orgId": 1959491,
+      "ip": "37.59.251.196",
+      "sourceUrl": "https://www.lavienne86.fr/annuaires/annuaire-des-maisons-departementales-des-solidarites-et-des-permanences-sociales"
+    },
+    {
+      "kind": "siret",
+      "id": "41140667100080",
+      "dept": "33",
+      "domain": "www.retravailler-sudouest.org",
+      "orgId": 166882,
+      "ip": "172.66.3.8",
+      "sourceUrl": "https://www.retravailler-sudouest.org"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548120083",
+      "dept": "33",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944764,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "92079742000022",
+      "dept": "86",
+      "domain": "recyclespoitiers.org",
+      "orgId": 603068,
+      "ip": "185.125.27.121",
+      "sourceUrl": "https://recyclespoitiers.org"
+    },
+    {
+      "kind": "siret",
+      "id": "22160001800636",
+      "dept": "16",
+      "domain": "www.lacharente.fr",
+      "orgId": 1959039,
+      "ip": "137.74.140.241",
+      "sourceUrl": "https://www.lacharente.fr/en-charente/les-actions-du-departement"
+    },
+    {
+      "kind": "siret",
+      "id": "22160001800297",
+      "dept": "16",
+      "domain": "www.lacharente.fr",
+      "orgId": 1959020,
+      "ip": "137.74.140.241",
+      "sourceUrl": "https://www.lacharente.fr/en-charente/les-actions-du-departement"
+    },
+    {
+      "kind": "siret",
+      "id": "49097094400016",
+      "dept": "79",
+      "domain": "csniort.centres-sociaux.fr",
+      "orgId": 274139,
+      "ip": "51.38.207.24",
+      "sourceUrl": "https://csniort.centres-sociaux.fr/centres-socioculturelles/csc-du-parc/"
+    },
+    {
+      "kind": "siret",
+      "id": "50249017000037",
+      "dept": "33",
+      "domain": "www.solidavenir.org",
+      "orgId": 297593,
+      "ip": "150.171.110.120",
+      "sourceUrl": "https://www.solidavenir.org/page/3587061-bienvenue-a-solid-avenir"
+    },
+    {
+      "kind": "siret",
+      "id": "22870851700732",
+      "dept": "87",
+      "domain": "www.haute-vienne.fr",
+      "orgId": 1959531,
+      "ip": "104.26.7.118",
+      "sourceUrl": "https://www.haute-vienne.fr/accueil"
+    },
+    {
+      "kind": "siret",
+      "id": "43203006200033",
+      "dept": "86",
+      "domain": "www.dynamob.fr",
+      "orgId": 200264,
+      "ip": "162.159.129.70",
+      "sourceUrl": "https://www.dynamob.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "22870851700641",
+      "dept": "87",
+      "domain": "www.haute-vienne.fr",
+      "orgId": 1959523,
+      "ip": "104.26.7.118",
+      "sourceUrl": "https://www.haute-vienne.fr/accueil"
+    },
+    {
+      "kind": "siret",
+      "id": "85065667900014",
+      "dept": "86",
+      "domain": "leffetpapillonpoitiers.fr",
+      "orgId": 504400,
+      "ip": "92.222.139.190",
+      "sourceUrl": "https://leffetpapillonpoitiers.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "83952766000014",
+      "dept": "33",
+      "domain": "pro.cap-metiers.fr",
+      "orgId": 480897,
+      "ip": "57.130.68.123",
+      "sourceUrl": "https://pro.cap-metiers.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "48979721700028",
+      "dept": "86",
+      "domain": "lesautosducoeur.fr",
+      "orgId": 271092,
+      "ip": "62.210.100.185",
+      "sourceUrl": "https://lesautosducoeur.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "40109226700020",
+      "dept": "16",
+      "domain": "www.emmaus-ruffec.com",
+      "orgId": 151058,
+      "ip": "188.165.53.185",
+      "sourceUrl": "https://www.emmaus-ruffec.com"
+    },
+    {
+      "kind": "siret",
+      "id": "22160001800586",
+      "dept": "16",
+      "domain": "www.lacharente.fr",
+      "orgId": 1959035,
+      "ip": "137.74.140.241",
+      "sourceUrl": "https://www.lacharente.fr/en-charente/les-actions-du-departement"
+    },
+    {
+      "kind": "siret",
+      "id": "42386374500059",
+      "dept": "86",
+      "domain": "www.job86.fr",
+      "orgId": 189294,
+      "ip": "213.186.33.4",
+      "sourceUrl": "https://www.job86.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "40821728900011",
+      "dept": "64",
+      "domain": "vivre-association.fr",
+      "orgId": 160842,
+      "ip": "109.234.160.109",
+      "sourceUrl": "https://vivre-association.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "79295776300024",
+      "dept": "64",
+      "domain": "lerelais.org",
+      "orgId": 386617,
+      "ip": "213.186.33.2",
+      "sourceUrl": "https://lerelais.org"
+    },
+    {
+      "kind": "siret",
+      "id": "37995065200055",
+      "dept": "33",
+      "domain": "www.mltechnowest.com",
+      "orgId": 117663,
+      "ip": "172.66.3.8",
+      "sourceUrl": "https://www.mltechnowest.com"
+    },
+    {
+      "kind": "siret",
+      "id": "40101593800871",
+      "dept": "33",
+      "domain": "humando.fr",
+      "orgId": 1969617,
+      "ip": "159.60.131.236",
+      "sourceUrl": "https://humando.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "39534663800012",
+      "dept": "40",
+      "domain": "www.arthautelande.fr",
+      "orgId": 143483,
+      "ip": "198.202.211.1",
+      "sourceUrl": "https://www.arthautelande.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "41092098700014",
+      "dept": "79",
+      "domain": "cerizeen.csc79.org",
+      "orgId": 166023,
+      "ip": "54.37.82.14",
+      "sourceUrl": "https://cerizeen.csc79.org"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548124945",
+      "dept": "24",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944801,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "44150226700020",
+      "dept": "87",
+      "domain": "centre-animation-ambazac.fr",
+      "orgId": 217485,
+      "ip": "5.135.23.164",
+      "sourceUrl": "https://centre-animation-ambazac.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "22160001800511",
+      "dept": "16",
+      "domain": "www.lacharente.fr",
+      "orgId": 1959030,
+      "ip": "137.74.140.241",
+      "sourceUrl": "https://www.lacharente.fr/en-charente/les-actions-du-departement"
+    },
+    {
+      "kind": "siret",
+      "id": "22160001800701",
+      "dept": "16",
+      "domain": "www.lacharente.fr",
+      "orgId": 1959045,
+      "ip": "137.74.140.241",
+      "sourceUrl": "https://www.lacharente.fr/en-charente/les-actions-du-departement"
+    },
+    {
+      "kind": "siret",
+      "id": "22870851700658",
+      "dept": "87",
+      "domain": "www.haute-vienne.fr",
+      "orgId": 1959524,
+      "ip": "104.26.7.118",
+      "sourceUrl": "https://www.haute-vienne.fr/accueil"
+    },
+    {
+      "kind": "siret",
+      "id": "42160742500046",
+      "dept": "33",
+      "domain": "interim33coutras.fr",
+      "orgId": 184059,
+      "ip": "83.228.238.83",
+      "sourceUrl": "https://interim33coutras.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "22790001600337",
+      "dept": "79",
+      "domain": "www.deux-sevres.fr",
+      "orgId": 1959467,
+      "ip": "185.236.56.27",
+      "sourceUrl": "https://www.deux-sevres.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "33001295600042",
+      "dept": "24",
+      "domain": "www.anil.org",
+      "orgId": 90431,
+      "ip": "185.32.99.147",
+      "sourceUrl": "https://www.anil.org/adil-24/"
+    },
+    {
+      "kind": "siret",
+      "id": "41282753700058",
+      "dept": "79",
+      "domain": "www.ipso2.fr",
+      "orgId": 169494,
+      "ip": "217.160.0.222",
+      "sourceUrl": "https://www.ipso2.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "33525723400021",
+      "dept": "86",
+      "domain": "www.appui86.fr",
+      "orgId": 94852,
+      "ip": "57.128.26.5",
+      "sourceUrl": "https://www.appui86.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "87970393200019",
+      "dept": "40",
+      "domain": "landesinsertionmobilite.fr",
+      "orgId": 518642,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://landesinsertionmobilite.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "40238413500016",
+      "dept": "86",
+      "domain": "action-emploi86.fr",
+      "orgId": 153942,
+      "ip": "34.163.5.132",
+      "sourceUrl": "https://action-emploi86.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "88350644600037",
+      "dept": "23",
+      "domain": "lamaisondacote23.fr",
+      "orgId": 528363,
+      "ip": "146.88.232.126",
+      "sourceUrl": "https://lamaisondacote23.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "30016423300037",
+      "dept": "33",
+      "domain": "afept.fr",
+      "orgId": 1962041,
+      "ip": "213.186.33.40",
+      "sourceUrl": "https://afept.fr/dispositifs/aci"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548100309",
+      "dept": "87",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944721,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "40770215800038",
+      "dept": "33",
+      "domain": "plielibournais.fr",
+      "orgId": 160037,
+      "ip": "213.186.33.4",
+      "sourceUrl": "https://plielibournais.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "88229607200029",
+      "dept": "47",
+      "domain": "www.transnumeric.fr",
+      "orgId": 525410,
+      "ip": "217.160.0.240",
+      "sourceUrl": "http://www.transnumeric.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "41931794600038",
+      "dept": "33",
+      "domain": "www.insert-nettoyage-bordeaux.fr",
+      "orgId": 178633,
+      "ip": "52.59.120.70",
+      "sourceUrl": "https://www.insert-nettoyage-bordeaux.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "77799888100026",
+      "dept": "23",
+      "domain": "validate.perfdrive.com",
+      "orgId": 369213,
+      "ip": "66.22.63.144",
+      "sourceUrl": "https://validate.perfdrive.com/ef5ead12d2c340cef8e2dde598c60b9a/"
+    },
+    {
+      "kind": "siret",
+      "id": "88793480000020",
+      "dept": "33",
+      "domain": "aspe-eureka.fr",
+      "orgId": 533858,
+      "ip": "217.160.0.253",
+      "sourceUrl": "http://aspe-eureka.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "32920864900056",
+      "dept": "33",
+      "domain": "www.latabledecanabordeaux.fr",
+      "orgId": 89739,
+      "ip": "3.79.173.192",
+      "sourceUrl": "https://www.latabledecanabordeaux.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "34837912400020",
+      "dept": "86",
+      "domain": "www.mjcnaintre.fr",
+      "orgId": 104455,
+      "ip": "99.86.109.73",
+      "sourceUrl": "https://www.mjcnaintre.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "13002792300346",
+      "dept": "86",
+      "domain": "cma-nouvelleaquitaine.fr",
+      "orgId": 1945566,
+      "ip": "151.101.194.216",
+      "sourceUrl": "https://cma-nouvelleaquitaine.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "38786009100082",
+      "dept": "40",
+      "domain": "www.landespartage.fr",
+      "orgId": 129181,
+      "ip": "172.66.3.8",
+      "sourceUrl": "https://www.landespartage.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "39246850000021",
+      "dept": "86",
+      "domain": "www.lenvol86.fr",
+      "orgId": 137962,
+      "ip": "185.37.156.37",
+      "sourceUrl": "https://www.lenvol86.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548120414",
+      "dept": "87",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944768,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "78181276300022",
+      "dept": "33",
+      "domain": "jhas.fr",
+      "orgId": 373171,
+      "ip": "92.222.139.190",
+      "sourceUrl": "https://jhas.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "34959808600024",
+      "dept": "64",
+      "domain": "aps-pau.fr",
+      "orgId": 106204,
+      "ip": "109.234.167.161",
+      "sourceUrl": "https://aps-pau.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "77567227214042",
+      "dept": "79",
+      "domain": "www.croix-rouge.fr",
+      "orgId": 1981854,
+      "ip": "185.94.140.73",
+      "sourceUrl": "https://www.croix-rouge.fr/delegation-territoriale-des-deux-sevres"
+    },
+    {
+      "kind": "siret",
+      "id": "45355983300026",
+      "dept": "17",
+      "domain": "diagonales.info",
+      "orgId": 243731,
+      "ip": "146.59.209.152",
+      "sourceUrl": "https://diagonales.info"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548114599",
+      "dept": "16",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944741,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548100325",
+      "dept": "87",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944722,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "39782258600020",
+      "dept": "79",
+      "domain": "www.chantierspeupins.com",
+      "orgId": 144324,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://www.chantierspeupins.com"
+    },
+    {
+      "kind": "siret",
+      "id": "40848127300055",
+      "dept": "24",
+      "domain": "lamainforte.org",
+      "orgId": 161306,
+      "ip": "78.40.11.68",
+      "sourceUrl": "https://lamainforte.org"
+    },
+    {
+      "kind": "siret",
+      "id": "43977148600024",
+      "dept": "17",
+      "domain": "regierochefort17.fr",
+      "orgId": 212978,
+      "ip": "54.36.91.62",
+      "sourceUrl": "https://regierochefort17.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "47936185900024",
+      "dept": "33",
+      "domain": "www.oiseaulire33.fr",
+      "orgId": 250243,
+      "ip": "213.186.33.5",
+      "sourceUrl": "http://www.oiseaulire33.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "49786279700063",
+      "dept": "16",
+      "domain": "charente.envie.org",
+      "orgId": 21234,
+      "ip": "152.228.147.1",
+      "sourceUrl": "https://charente.envie.org"
+    },
+    {
+      "kind": "siret",
+      "id": "93781864900017",
+      "dept": "87",
+      "domain": "msor.fr",
+      "orgId": 637978,
+      "ip": "195.144.11.125",
+      "sourceUrl": "https://msor.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "22870851701011",
+      "dept": "87",
+      "domain": "www.haute-vienne.fr",
+      "orgId": 1959558,
+      "ip": "104.26.7.118",
+      "sourceUrl": "https://www.haute-vienne.fr/accueil"
+    },
+    {
+      "kind": "siret",
+      "id": "42109558900048",
+      "dept": "86",
+      "domain": "www.initiative-formation86.fr",
+      "orgId": 182733,
+      "ip": "217.154.2.80",
+      "sourceUrl": "https://www.initiative-formation86.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "79008738100014",
+      "dept": "79",
+      "domain": "www.passhaj.org",
+      "orgId": 379923,
+      "ip": "109.234.164.18",
+      "sourceUrl": "https://www.passhaj.org"
+    },
+    {
+      "kind": "siret",
+      "id": "26190312400194",
+      "dept": "19",
+      "domain": "www.brive.fr",
+      "orgId": 1960669,
+      "ip": "109.234.166.78",
+      "sourceUrl": "https://www.brive.fr/etudier-a-brive/se-loger/habitat-jeunes/"
+    },
+    {
+      "kind": "siret",
+      "id": "82293150700021",
+      "dept": "40",
+      "domain": "alundi-emploi.com",
+      "orgId": 446969,
+      "ip": "78.40.9.136",
+      "sourceUrl": "https://alundi-emploi.com"
+    },
+    {
+      "kind": "siret",
+      "id": "84151122300031",
+      "dept": "23",
+      "domain": "www.groupesifu.com",
+      "orgId": 486186,
+      "ip": "51.144.139.13",
+      "sourceUrl": "https://www.groupesifu.com/fr"
+    },
+    {
+      "kind": "siret",
+      "id": "41412644100032",
+      "dept": "33",
+      "domain": "www.geiq-libournais-hautegironde.fr",
+      "orgId": 171976,
+      "ip": "54.36.91.62",
+      "sourceUrl": "https://www.geiq-libournais-hautegironde.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "40262787100054",
+      "dept": "16",
+      "domain": "aru-angouleme.fr",
+      "orgId": 154470,
+      "ip": "213.186.33.18",
+      "sourceUrl": "https://aru-angouleme.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548114763",
+      "dept": "17",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944742,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "38282316900034",
+      "dept": "16",
+      "domain": "www.cibc-nordnouvelleaquitaine.fr",
+      "orgId": 123201,
+      "ip": "185.74.69.197",
+      "sourceUrl": "https://www.cibc-nordnouvelleaquitaine.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "22860001100396",
+      "dept": "86",
+      "domain": "www.lavienne86.fr",
+      "orgId": 1959486,
+      "ip": "37.59.251.196",
+      "sourceUrl": "https://www.lavienne86.fr/les-consultes/service-social-de-proximite"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548122220",
+      "dept": "24",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944786,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "84895665200012",
+      "dept": "64",
+      "domain": "lafermeduhaldia.fr",
+      "orgId": 499838,
+      "ip": "141.95.145.169",
+      "sourceUrl": "https://lafermeduhaldia.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548121214",
+      "dept": "40",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944775,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548118426",
+      "dept": "86",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944751,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548112437",
+      "dept": "64",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944737,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548120588",
+      "dept": "33",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944770,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "35340282900033",
+      "dept": "40",
+      "domain": "www.regieboisetservices.com",
+      "orgId": 111660,
+      "ip": "185.58.213.29",
+      "sourceUrl": "https://www.regieboisetservices.com"
+    },
+    {
+      "kind": "siret",
+      "id": "77556319000401",
+      "dept": "16",
+      "domain": "www.lemaillon-interim.fr",
+      "orgId": 368754,
+      "ip": "51.91.236.193",
+      "sourceUrl": "https://www.lemaillon-interim.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "21790308700039",
+      "dept": "79",
+      "domain": "www.sciecq.fr",
+      "orgId": 1957564,
+      "ip": "212.83.142.210",
+      "sourceUrl": "https://www.sciecq.fr/actions-sociales/"
+    },
+    {
+      "kind": "siret",
+      "id": "41954324400018",
+      "dept": "86",
+      "domain": "larantelle.fr",
+      "orgId": 179206,
+      "ip": "46.4.70.94",
+      "sourceUrl": "https://larantelle.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "77558666200295",
+      "dept": "33",
+      "domain": "alprado.fr",
+      "orgId": 1981611,
+      "ip": "141.94.16.20",
+      "sourceUrl": "https://alprado.fr/dispositif_parcours"
+    },
+    {
+      "kind": "siret",
+      "id": "49249107100014",
+      "dept": "79",
+      "domain": "csniort.centres-sociaux.fr",
+      "orgId": 277871,
+      "ip": "51.38.207.24",
+      "sourceUrl": "https://csniort.centres-sociaux.fr/centres-socioculturelles/csc-sainte-pezenne/"
+    },
+    {
+      "kind": "siret",
+      "id": "39012032700023",
+      "dept": "87",
+      "domain": "www.associationmaximum.com",
+      "orgId": 133756,
+      "ip": "213.186.33.19",
+      "sourceUrl": "https://www.associationmaximum.com"
+    },
+    {
+      "kind": "siret",
+      "id": "39385733900013",
+      "dept": "24",
+      "domain": "www.missionlocaleperigordnoir.com",
+      "orgId": 140788,
+      "ip": "162.159.129.70",
+      "sourceUrl": "https://www.missionlocaleperigordnoir.com"
+    },
+    {
+      "kind": "siret",
+      "id": "91843100800021",
+      "dept": "86",
+      "domain": "www.soligo-mobilite.fr",
+      "orgId": 597607,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://www.soligo-mobilite.fr/soligo-86.html"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548121842",
+      "dept": "87",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944782,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548125686",
+      "dept": "40",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944803,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548111694",
+      "dept": "33",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944735,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "53016274200015",
+      "dept": "24",
+      "domain": "www.saveursduboisduroc.fr",
+      "orgId": 341808,
+      "ip": "155.133.138.12",
+      "sourceUrl": "https://www.saveursduboisduroc.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "40862645500062",
+      "dept": "40",
+      "domain": "www.sct-landes.fr",
+      "orgId": 161681,
+      "ip": "46.218.208.133",
+      "sourceUrl": "https://www.sct-landes.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548118673",
+      "dept": "33",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944755,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "79326510900033",
+      "dept": "79",
+      "domain": "www.ipso2.fr",
+      "orgId": 387343,
+      "ip": "217.160.0.222",
+      "sourceUrl": "https://www.ipso2.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "35344506700021",
+      "dept": "16",
+      "domain": "www.declics-16.com",
+      "orgId": 111721,
+      "ip": "141.94.96.166",
+      "sourceUrl": "https://www.declics-16.com"
+    },
+    {
+      "kind": "siret",
+      "id": "34454157800094",
+      "dept": "33",
+      "domain": "insermedia.com",
+      "orgId": 102194,
+      "ip": "164.132.235.17",
+      "sourceUrl": "https://insermedia.com"
+    },
+    {
+      "kind": "siret",
+      "id": "77571613700374",
+      "dept": "86",
+      "domain": "www.adsea86.fr",
+      "orgId": 368908,
+      "ip": "213.186.33.16",
+      "sourceUrl": "https://www.adsea86.fr/le-pole-enfance/fem"
+    },
+    {
+      "kind": "siret",
+      "id": "32075384100016",
+      "dept": "86",
+      "domain": "lablaiserie.org",
+      "orgId": 83797,
+      "ip": "145.239.37.162",
+      "sourceUrl": "https://lablaiserie.org"
+    },
+    {
+      "kind": "siret",
+      "id": "32385851400017",
+      "dept": "86",
+      "domain": "irfrep.org",
+      "orgId": 85838,
+      "ip": "164.132.235.17",
+      "sourceUrl": "https://irfrep.org"
+    },
+    {
+      "kind": "siret",
+      "id": "18009259500222",
+      "dept": "33",
+      "domain": "www.epide.fr",
+      "orgId": 1946512,
+      "ip": "217.182.121.67",
+      "sourceUrl": "https://www.epide.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "38484600200036",
+      "dept": "19",
+      "domain": "www.arbre.fr",
+      "orgId": 127132,
+      "ip": "54.37.149.18",
+      "sourceUrl": "https://www.arbre.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "22160001800826",
+      "dept": "16",
+      "domain": "www.lacharente.fr",
+      "orgId": 1959057,
+      "ip": "137.74.140.241",
+      "sourceUrl": "https://www.lacharente.fr/en-charente/les-actions-du-departement"
+    },
+    {
+      "kind": "siret",
+      "id": "22870851700443",
+      "dept": "87",
+      "domain": "www.haute-vienne.fr",
+      "orgId": 1959515,
+      "ip": "104.26.6.118",
+      "sourceUrl": "https://www.haute-vienne.fr/accueil"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548119879",
+      "dept": "40",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944761,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "49260037400028",
+      "dept": "19",
+      "domain": "www.asso-coupdemain.com",
+      "orgId": 278181,
+      "ip": "172.66.3.8",
+      "sourceUrl": "https://www.asso-coupdemain.com"
+    },
+    {
+      "kind": "siret",
+      "id": "44120443500065",
+      "dept": "87",
+      "domain": "www.missionlocaleruralehautevienne.com",
+      "orgId": 216697,
+      "ip": "162.159.143.12",
+      "sourceUrl": "https://www.missionlocaleruralehautevienne.com"
+    },
+    {
+      "kind": "siret",
+      "id": "82761242500013",
+      "dept": "86",
+      "domain": "www.a2forces.fr",
+      "orgId": 454541,
+      "ip": "213.186.33.24",
+      "sourceUrl": "https://www.a2forces.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "90083457300017",
+      "dept": "40",
+      "domain": "comptoir-electromenager-solidaire.fr",
+      "orgId": 560540,
+      "ip": "217.160.0.100",
+      "sourceUrl": "https://comptoir-electromenager-solidaire.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "78128494800028",
+      "dept": "17",
+      "domain": "www.chevanceauxservices-mfr.fr",
+      "orgId": 370426,
+      "ip": "54.36.91.62",
+      "sourceUrl": "https://www.chevanceauxservices-mfr.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "48526995500020",
+      "dept": "33",
+      "domain": "www.asso-sportemploi.com",
+      "orgId": 264989,
+      "ip": "172.66.3.8",
+      "sourceUrl": "https://www.asso-sportemploi.com"
+    },
+    {
+      "kind": "siret",
+      "id": "35143010300033",
+      "dept": "33",
+      "domain": "www.mas-services.fr",
+      "orgId": 108741,
+      "ip": "185.246.47.94",
+      "sourceUrl": "https://www.mas-services.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "34510503500025",
+      "dept": "33",
+      "domain": "aihg.fr",
+      "orgId": 102850,
+      "ip": "109.234.166.195",
+      "sourceUrl": "https://aihg.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548119895",
+      "dept": "19",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944762,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548121503",
+      "dept": "17",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944779,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "39896605100037",
+      "dept": "47",
+      "domain": "missionlocalevilleneuvois.org",
+      "orgId": 146612,
+      "ip": "51.159.9.60",
+      "sourceUrl": "https://missionlocalevilleneuvois.org"
+    },
+    {
+      "kind": "siret",
+      "id": "32537357900060",
+      "dept": "86",
+      "domain": "www.anil.org",
+      "orgId": 86855,
+      "ip": "185.32.99.147",
+      "sourceUrl": "https://www.anil.org/adil-86/"
+    },
+    {
+      "kind": "siret",
+      "id": "78184865000011",
+      "dept": "33",
+      "domain": "www.centresocial-foyerfraternel.fr",
+      "orgId": 373410,
+      "ip": "78.40.9.86",
+      "sourceUrl": "https://www.centresocial-foyerfraternel.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "34530502300045",
+      "dept": "87",
+      "domain": "www.association-atos.fr",
+      "orgId": 103093,
+      "ip": "172.66.3.8",
+      "sourceUrl": "https://www.association-atos.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "22860001100438",
+      "dept": "86",
+      "domain": "www.lavienne86.fr",
+      "orgId": 1959490,
+      "ip": "37.59.251.196",
+      "sourceUrl": "https://www.lavienne86.fr/les-consultes/service-social-de-proximite"
+    },
+    {
+      "kind": "siret",
+      "id": "42187794500038",
+      "dept": "19",
+      "domain": "www.fo-r-e-t.com",
+      "orgId": 184695,
+      "ip": "109.234.164.245",
+      "sourceUrl": "https://www.fo-r-e-t.com"
+    },
+    {
+      "kind": "siret",
+      "id": "40874140300039",
+      "dept": "86",
+      "domain": "www.audacie.org",
+      "orgId": 161945,
+      "ip": "91.121.38.35",
+      "sourceUrl": "https://www.audacie.org"
+    },
+    {
+      "kind": "siret",
+      "id": "40370242600038",
+      "dept": "17",
+      "domain": "www.ml-pays-royannais.com",
+      "orgId": 156886,
+      "ip": "162.159.143.12",
+      "sourceUrl": "https://www.ml-pays-royannais.com"
+    },
+    {
+      "kind": "siret",
+      "id": "35294187600026",
+      "dept": "33",
+      "domain": "www.missionlocaledes2rives.com",
+      "orgId": 111026,
+      "ip": "162.159.143.12",
+      "sourceUrl": "https://www.missionlocaledes2rives.com"
+    },
+    {
+      "kind": "siret",
+      "id": "22160001800487",
+      "dept": "16",
+      "domain": "www.lacharente.fr",
+      "orgId": 1959029,
+      "ip": "137.74.140.241",
+      "sourceUrl": "https://www.lacharente.fr/en-charente/les-actions-du-departement"
+    },
+    {
+      "kind": "siret",
+      "id": "39140408400116",
+      "dept": "33",
+      "domain": "www.fringuette.com",
+      "orgId": 135959,
+      "ip": "213.186.33.19",
+      "sourceUrl": "https://www.fringuette.com"
+    },
+    {
+      "kind": "siret",
+      "id": "22160001800578",
+      "dept": "16",
+      "domain": "www.lacharente.fr",
+      "orgId": 1959034,
+      "ip": "137.74.140.241",
+      "sourceUrl": "https://www.lacharente.fr/en-charente/les-actions-du-departement"
+    },
+    {
+      "kind": "siret",
+      "id": "78190352100453",
+      "dept": "33",
+      "domain": "www.institut-don-bosco.fr",
+      "orgId": 373676,
+      "ip": "162.19.88.128",
+      "sourceUrl": "https://www.institut-don-bosco.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "40228354300153",
+      "dept": "33",
+      "domain": "clap-so.org",
+      "orgId": 153666,
+      "ip": "213.186.33.18",
+      "sourceUrl": "https://clap-so.org"
+    },
+    {
+      "kind": "siret",
+      "id": "39810704500021",
+      "dept": "17",
+      "domain": "entrepriseadaptee.org",
+      "orgId": 144888,
+      "ip": "213.186.33.87",
+      "sourceUrl": "https://entrepriseadaptee.org"
+    },
+    {
+      "kind": "siret",
+      "id": "37999717400014",
+      "dept": "16",
+      "domain": "www.acii-asso.fr",
+      "orgId": 117761,
+      "ip": "109.234.165.155",
+      "sourceUrl": "https://www.acii-asso.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548126924",
+      "dept": "33",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944815,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548120422",
+      "dept": "17",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944769,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "48509953500026",
+      "dept": "19",
+      "domain": "aile-iae.fr",
+      "orgId": 264550,
+      "ip": "146.59.209.152",
+      "sourceUrl": "https://aile-iae.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "48344927800025",
+      "dept": "17",
+      "domain": "arborescencia.net",
+      "orgId": 1597027,
+      "ip": "94.247.178.86",
+      "sourceUrl": "https://arborescencia.net"
+    },
+    {
+      "kind": "siret",
+      "id": "34068428100074",
+      "dept": "79",
+      "domain": "atoutservices79.fr",
+      "orgId": 97944,
+      "ip": "213.186.33.4",
+      "sourceUrl": "https://atoutservices79.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "34087800800028",
+      "dept": "17",
+      "domain": "www.csclespictons.org",
+      "orgId": 98114,
+      "ip": "51.91.236.255",
+      "sourceUrl": "https://www.csclespictons.org"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548121230",
+      "dept": "24",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944776,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "50842651700027",
+      "dept": "64",
+      "domain": "btpinsertion.fr",
+      "orgId": 307649,
+      "ip": "5.135.23.164",
+      "sourceUrl": "https://btpinsertion.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "31653755400024",
+      "dept": "33",
+      "domain": "calkassociation.org",
+      "orgId": 81441,
+      "ip": "51.91.236.193",
+      "sourceUrl": "https://calkassociation.org"
+    },
+    {
+      "kind": "siret",
+      "id": "84171868700038",
+      "dept": "33",
+      "domain": "cabinetlebourgeon.fr",
+      "orgId": 1765653,
+      "ip": "217.160.0.25",
+      "sourceUrl": "https://cabinetlebourgeon.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548123343",
+      "dept": "64",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944790,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "78170365700135",
+      "dept": "24",
+      "domain": "www.apei-perigueux.org",
+      "orgId": 372826,
+      "ip": "135.125.1.52",
+      "sourceUrl": "https://www.apei-perigueux.org"
+    },
+    {
+      "kind": "siret",
+      "id": "84779999600016",
+      "dept": "33",
+      "domain": "lacravatesolidaire.org",
+      "orgId": 496877,
+      "ip": "51.38.176.161",
+      "sourceUrl": "https://lacravatesolidaire.org/bordeaux"
+    },
+    {
+      "kind": "siret",
+      "id": "48949004500056",
+      "dept": "87",
+      "domain": "www.groupesifu.com",
+      "orgId": 270350,
+      "ip": "51.144.139.13",
+      "sourceUrl": "https://www.groupesifu.com/fr"
+    },
+    {
+      "kind": "siret",
+      "id": "43765262100024",
+      "dept": "64",
+      "domain": "www.decliccompetences.fr",
+      "orgId": 1570983,
+      "ip": "212.227.172.250",
+      "sourceUrl": "https://www.decliccompetences.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "34535897200023",
+      "dept": "19",
+      "domain": "www.point-travail-services.fr",
+      "orgId": 103165,
+      "ip": "109.234.162.103",
+      "sourceUrl": "https://www.point-travail-services.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "81463499400044",
+      "dept": "23",
+      "domain": "www.gems23.fr",
+      "orgId": 429943,
+      "ip": "109.234.161.116",
+      "sourceUrl": "https://www.gems23.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "77571613700341",
+      "dept": "86",
+      "domain": "www.adsea86.fr",
+      "orgId": 1982159,
+      "ip": "213.186.33.16",
+      "sourceUrl": "https://www.adsea86.fr/le-pole-prevention/prevention-specialisee"
+    },
+    {
+      "kind": "siret",
+      "id": "49118469300019",
+      "dept": "24",
+      "domain": "tri-cycle.org",
+      "orgId": 274701,
+      "ip": "141.94.69.130",
+      "sourceUrl": "https://tri-cycle.org"
+    },
+    {
+      "kind": "siret",
+      "id": "39304718800031",
+      "dept": "33",
+      "domain": "www.missionlocalemedoc.fr",
+      "orgId": 139088,
+      "ip": "34.149.87.45",
+      "sourceUrl": "https://www.missionlocalemedoc.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "22860001100347",
+      "dept": "86",
+      "domain": "www.lavienne86.fr",
+      "orgId": 1959482,
+      "ip": "37.59.251.196",
+      "sourceUrl": "https://www.lavienne86.fr/les-consultes/service-social-de-proximite"
+    },
+    {
+      "kind": "siret",
+      "id": "90888596500024",
+      "dept": "23",
+      "domain": "www.remabat.fr",
+      "orgId": 576654,
+      "ip": "109.234.165.164",
+      "sourceUrl": "https://www.remabat.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "49269087000042",
+      "dept": "86",
+      "domain": "cif-sp.org",
+      "orgId": 278404,
+      "ip": "109.234.162.25",
+      "sourceUrl": "https://cif-sp.org"
+    },
+    {
+      "kind": "siret",
+      "id": "41019570500034",
+      "dept": "86",
+      "domain": "www.capemploi-973.com",
+      "orgId": 164314,
+      "ip": "51.68.79.143",
+      "sourceUrl": "https://www.capemploi-973.com"
+    },
+    {
+      "kind": "siret",
+      "id": "22860001100362",
+      "dept": "86",
+      "domain": "www.lavienne86.fr",
+      "orgId": 1959483,
+      "ip": "37.59.251.196",
+      "sourceUrl": "https://www.lavienne86.fr/les-consultes/service-social-de-proximite"
+    },
+    {
+      "kind": "siret",
+      "id": "22860001100370",
+      "dept": "86",
+      "domain": "www.lavienne86.fr",
+      "orgId": 1959484,
+      "ip": "37.59.251.196",
+      "sourceUrl": "https://www.lavienne86.fr/les-consultes/service-social-de-proximite"
+    },
+    {
+      "kind": "siret",
+      "id": "22860001100172",
+      "dept": "86",
+      "domain": "www.lavienne86.fr",
+      "orgId": 1959475,
+      "ip": "37.59.251.196",
+      "sourceUrl": "https://www.lavienne86.fr/les-consultes/service-social-de-proximite"
+    },
+    {
+      "kind": "siret",
+      "id": "32950775000027",
+      "dept": "86",
+      "domain": "www.missionlocalenordvienne.fr",
+      "orgId": 90012,
+      "ip": "213.186.33.24",
+      "sourceUrl": "https://www.missionlocalenordvienne.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548119614",
+      "dept": "19",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944760,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "43925837700027",
+      "dept": "17",
+      "domain": "laboussole.jimdofree.com",
+      "orgId": 211856,
+      "ip": "185.60.251.252",
+      "sourceUrl": "https://laboussole.jimdofree.com"
+    },
+    {
+      "kind": "siret",
+      "id": "52539457300055",
+      "dept": "86",
+      "domain": "www.deastanceservices.fr",
+      "orgId": 336250,
+      "ip": "154.50.0.246",
+      "sourceUrl": "https://www.deastanceservices.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "32072189700017",
+      "dept": "64",
+      "domain": "www.mjcberlioz.org",
+      "orgId": 83774,
+      "ip": "162.159.143.12",
+      "sourceUrl": "https://www.mjcberlioz.org"
+    },
+    {
+      "kind": "siret",
+      "id": "40037239700069",
+      "dept": "33",
+      "domain": "geiq-btp-bordeaux.fr",
+      "orgId": 149577,
+      "ip": "185.221.182.48",
+      "sourceUrl": "https://geiq-btp-bordeaux.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "38436936900010",
+      "dept": "33",
+      "domain": "www.ifpa.pro",
+      "orgId": 126251,
+      "ip": "66.33.60.66",
+      "sourceUrl": "https://www.ifpa.pro"
+    },
+    {
+      "kind": "siret",
+      "id": "22330001300537",
+      "dept": "33",
+      "domain": "www.gironde.fr",
+      "orgId": 1959289,
+      "ip": "217.109.168.169",
+      "sourceUrl": "https://www.gironde.fr/aides-aux-aidants/accueil-information-orientation-25"
+    },
+    {
+      "kind": "siret",
+      "id": "53050708600045",
+      "dept": "40",
+      "domain": "alundi-emploi.com",
+      "orgId": 342461,
+      "ip": "78.40.9.136",
+      "sourceUrl": "https://alundi-emploi.com"
+    },
+    {
+      "kind": "siret",
+      "id": "51916684700011",
+      "dept": "33",
+      "domain": "www.cvsi.fr",
+      "orgId": 324900,
+      "ip": "162.159.143.12",
+      "sourceUrl": "https://www.cvsi.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "90005343000014",
+      "dept": "33",
+      "domain": "www.valo.info",
+      "orgId": 558368,
+      "ip": "155.133.138.13",
+      "sourceUrl": "https://www.valo.info"
+    },
+    {
+      "kind": "siret",
+      "id": "84531379000022",
+      "dept": "23",
+      "domain": "www.ville-gueret.fr",
+      "orgId": 495833,
+      "ip": "109.234.161.37",
+      "sourceUrl": "https://www.ville-gueret.fr/fiche-annuaire/association-des-communs/"
+    },
+    {
+      "kind": "siret",
+      "id": "50404365400012",
+      "dept": "79",
+      "domain": "lacolporteuse.net",
+      "orgId": 301455,
+      "ip": "213.186.33.19",
+      "sourceUrl": "https://lacolporteuse.net"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548123798",
+      "dept": "33",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944794,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "33797565000017",
+      "dept": "33",
+      "domain": "groupagir.fr",
+      "orgId": 95358,
+      "ip": "109.234.164.210",
+      "sourceUrl": "https://groupagir.fr/reagir/"
+    },
+    {
+      "kind": "siret",
+      "id": "48391715900020",
+      "dept": "40",
+      "domain": "cigl-biscarrosse.fr",
+      "orgId": 261709,
+      "ip": "109.234.162.133",
+      "sourceUrl": "https://cigl-biscarrosse.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548117667",
+      "dept": "79",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944749,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "43529334500011",
+      "dept": "16",
+      "domain": "www.espace-interim16.fr",
+      "orgId": 207576,
+      "ip": "54.36.91.62",
+      "sourceUrl": "https://www.espace-interim16.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "39905773600023",
+      "dept": "87",
+      "domain": "www.clubemploi87.com",
+      "orgId": 146788,
+      "ip": "51.91.236.193",
+      "sourceUrl": "https://www.clubemploi87.com"
+    },
+    {
+      "kind": "siret",
+      "id": "26860015200022",
+      "dept": "86",
+      "domain": "www.montmorillon.fr",
+      "orgId": 1961794,
+      "ip": "54.37.122.20",
+      "sourceUrl": "https://www.montmorillon.fr/contacts/centre-communal-daction-sociale-ccas/"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548122865",
+      "dept": "17",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944787,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "33773826400031",
+      "dept": "86",
+      "domain": "mptchatellerault.centres-sociaux.fr",
+      "orgId": 95174,
+      "ip": "51.38.207.24",
+      "sourceUrl": "https://mptchatellerault.centres-sociaux.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "33107589500044",
+      "dept": "64",
+      "domain": "www.missionlocale-paysbasque.org",
+      "orgId": 91373,
+      "ip": "172.66.3.8",
+      "sourceUrl": "https://www.missionlocale-paysbasque.org"
+    },
+    {
+      "kind": "siret",
+      "id": "13000548126718",
+      "dept": "24",
+      "domain": "www.francetravail.fr",
+      "orgId": 1944810,
+      "ip": "185.215.64.79",
+      "sourceUrl": "https://www.francetravail.fr/accueil/"
+    },
+    {
+      "kind": "siret",
+      "id": "39956518300015",
+      "dept": "24",
+      "domain": "www.beleymenature.org",
+      "orgId": 147944,
+      "ip": "162.159.129.70",
+      "sourceUrl": "https://www.beleymenature.org"
+    },
+    {
+      "kind": "siret",
+      "id": "81481925600011",
+      "dept": "86",
+      "domain": "modedemploi86.jimdofree.com",
+      "orgId": 430447,
+      "ip": "185.60.251.252",
+      "sourceUrl": "https://modedemploi86.jimdofree.com"
+    },
+    {
+      "kind": "siret",
+      "id": "82510086000014",
+      "dept": "79",
+      "domain": "esiamebe.fr",
+      "orgId": 453123,
+      "ip": "217.160.0.76",
+      "sourceUrl": "https://esiamebe.fr"
+    }
+  ]
+}

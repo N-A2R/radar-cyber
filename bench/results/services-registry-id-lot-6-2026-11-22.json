@@ -1,0 +1,180 @@
+{
+  "consultedAt": "2026-11-22T04:00:33.561Z",
+  "source": "data.inclusion SIRET / OSM ref:FR:FINESS; HTTP 200; DNS A",
+  "attribution": "data.inclusion (Licence Ouverte 2.0) and OpenStreetMap contributors (ODbL)",
+  "applied": true,
+  "onlyMissing": true,
+  "examined": 1899,
+  "eligible": 385,
+  "selected": 300,
+  "verified": 16,
+  "matched": 16,
+  "written": 16,
+  "measurement": {
+    "scope": "nouvelle-aquitaine",
+    "organisationsWithService": 9832,
+    "organisationsInScope": 1671906,
+    "services": 10727,
+    "bySource": {
+      "http-200": 1256,
+      "osm-http-200": 2941,
+      "rna-http-200": 522,
+      "dila-http-200": 1045,
+      "shodan-internetdb": 399,
+      "wikidata-http-200": 850,
+      "education-http-200": 733,
+      "osm-siret-http-200": 1677,
+      "site-zone-http-200": 381,
+      "registry-id-http-200": 797,
+      "wikidata-id-http-200": 86,
+      "administration-http-200": 40
+    },
+    "measuredAt": "2026-11-22T04:00:41.205Z"
+  },
+  "candidates": [
+    {
+      "kind": "siret",
+      "id": "34384923800021",
+      "dept": "86",
+      "domain": "loudunmultiservices.fr",
+      "orgId": 101371,
+      "ip": "217.160.0.78",
+      "sourceUrl": "http://loudunmultiservices.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "870016805",
+      "dept": "87",
+      "domain": "inovie.fr",
+      "orgId": 13918,
+      "ip": "46.18.195.20",
+      "sourceUrl": "https://inovie.fr/laboratoire/inovie-biolyss/inovie-biolyss-bellac/"
+    },
+    {
+      "kind": "finess",
+      "id": "170023402",
+      "dept": "17",
+      "domain": "bio17.eu",
+      "orgId": 5249,
+      "ip": "104.21.27.10",
+      "sourceUrl": "https://bio17.eu/laboratoires/chatelaillon/"
+    },
+    {
+      "kind": "finess",
+      "id": "790020978",
+      "dept": "79",
+      "domain": "www.medilab-group.eu",
+      "orgId": 12560,
+      "ip": "51.91.192.255",
+      "sourceUrl": "https://www.medilab-group.eu"
+    },
+    {
+      "kind": "finess",
+      "id": "870006137",
+      "dept": "87",
+      "domain": "www.ch-esquirol-limoges.fr",
+      "orgId": 14075,
+      "ip": "141.94.26.197",
+      "sourceUrl": "https://www.ch-esquirol-limoges.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "160000360",
+      "dept": "16",
+      "domain": "www.chateauneufsurcharente.fr",
+      "orgId": 4723,
+      "ip": "109.234.160.140",
+      "sourceUrl": "https://www.chateauneufsurcharente.fr/centre-hospitalier/"
+    },
+    {
+      "kind": "finess",
+      "id": "330780289",
+      "dept": "33",
+      "domain": "ari-accompagnement.fr",
+      "orgId": 8996,
+      "ip": "51.91.236.193",
+      "sourceUrl": "https://ari-accompagnement.fr/dispositif/loiseau-lyre/"
+    },
+    {
+      "kind": "finess",
+      "id": "190007005",
+      "dept": "19",
+      "domain": "pharmacies.pharmaciengiphar.com",
+      "orgId": 6224,
+      "ip": "52.84.174.85",
+      "sourceUrl": "https://pharmacies.pharmaciengiphar.com/nouvelle-aquitaine/correze"
+    },
+    {
+      "kind": "finess",
+      "id": "330049198",
+      "dept": "33",
+      "domain": "laboratoires.cerballiance.fr",
+      "orgId": 8185,
+      "ip": "104.16.223.185",
+      "sourceUrl": "https://laboratoires.cerballiance.fr/nouvelle-aquitaine/bordeaux/113-avenue-du-g%C3%A9n%C3%A9ral-leclerc"
+    },
+    {
+      "kind": "finess",
+      "id": "870013414",
+      "dept": "87",
+      "domain": "www.pharmanity.com",
+      "orgId": 14346,
+      "ip": "13.37.111.223",
+      "sourceUrl": "https://www.pharmanity.com/pharmacie/pharmacie-du-parc-le-palais-sur-vienne-ph13012"
+    },
+    {
+      "kind": "finess",
+      "id": "330031949",
+      "dept": "33",
+      "domain": "laboratoires.cerballiance.fr",
+      "orgId": 8184,
+      "ip": "104.16.223.185",
+      "sourceUrl": "https://laboratoires.cerballiance.fr/nouvelle-aquitaine/bordeaux/504-avenue-du-mar%C3%A9chal-de-lattre-de-tassigny"
+    },
+    {
+      "kind": "finess",
+      "id": "470000522",
+      "dept": "47",
+      "domain": "www.ch-agen-nerac.fr",
+      "orgId": 10967,
+      "ip": "90.83.53.4",
+      "sourceUrl": "https://www.ch-agen-nerac.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "470000548",
+      "dept": "47",
+      "domain": "www.hopital-de-penne.com",
+      "orgId": 11000,
+      "ip": "146.59.209.152",
+      "sourceUrl": "https://www.hopital-de-penne.com"
+    },
+    {
+      "kind": "finess",
+      "id": "790018428",
+      "dept": "79",
+      "domain": "www.medilab-group.eu",
+      "orgId": 12971,
+      "ip": "51.91.192.255",
+      "sourceUrl": "https://www.medilab-group.eu/medilab-group/nos-laboratoires/"
+    },
+    {
+      "kind": "finess",
+      "id": "160005294",
+      "dept": "16",
+      "domain": "pharmaciepageot.pharmavie.fr",
+      "orgId": 4771,
+      "ip": "62.240.227.147",
+      "sourceUrl": "https://pharmaciepageot.pharmavie.fr"
+    },
+    {
+      "kind": "finess",
+      "id": "330046681",
+      "dept": "33",
+      "domain": "www.pharmacie-du-prieure.fr",
+      "orgId": 8841,
+      "ip": "141.95.207.28",
+      "sourceUrl": "https://www.pharmacie-du-prieure.fr"
+    }
+  ]
+}
