@@ -23,6 +23,7 @@ import directoryRoute from "./directory.js";
 import naRoute from "./na.js";
 import graphRoute from "./graph.js";
 import graphTemporalRoute from "./graph-temporal.js";
+import attackPathRoute from "./attack-path.js";
 import streamRoute from "./stream.js";
 import sourcesRoute from "./sources.js";
 import statsRoute from "./stats.js";
@@ -56,6 +57,7 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     confidenceRoute,
     leaksByDomainRoute,
     publicMandatesRoute,
+    attackPathRoute,
     onionIndexRoute,
   ]) {
     await app.register(route, { prefix: "/api" });

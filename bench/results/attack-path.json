@@ -1,0 +1,25 @@
+{
+  "generatedAt": "2026-11-22T01:03:59.833Z",
+  "command": "DATABASE_URL=<real-db> pnpm measure:attack-path",
+  "database": {
+    "organizations": 1673220,
+    "sources": 463,
+    "events": 27899,
+    "graphentities": 28605,
+    "graphrelations": 56812
+  },
+  "groups": 61,
+  "repetitions": 3,
+  "requests": 183,
+  "found": 183,
+  "p50Ms": 24.9,
+  "p95Ms": 173.3,
+  "maxMs": 419,
+  "targetMs": 500,
+  "worst": {
+    "group": "group:n0n",
+    "ms": 419,
+    "hops": 4,
+    "found": true
+  }
+}

@@ -95,6 +95,7 @@ sources → collecteurs → PostgreSQL → API Fastify → front React
 | GET | `/api/events?limit=&family=&orgId=&from=` | événements (tri `observed_at DESC NULLS LAST`) |
 | GET | `/api/history?from=&to=&org=` | événements brut + archivés sur 12 mois glissants de `valid_at`, agrégés par mois |
 | GET | `/api/graph?days=` | nœuds et liens du graphe |
+| GET | `/api/attack-path?group=&org=&maxHops=` | chemin le plus court d'un groupe vers une organisation NA, avec intermédiaires |
 | GET | `/api/sources` | état détaillé des flux |
 | GET | `/api/stream` | SSE — pousse chaque nouvel événement |
 

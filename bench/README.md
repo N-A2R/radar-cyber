@@ -201,6 +201,19 @@ tête marqués `referentialGap`. Le tri fonctionne ; c'est le **périmètre du
 référentiel** qui ne couvre pas ces entreprises. Détails :
 `docs/research/file-de-revue.md`.
 
+### B.4 — Chemin d'attaque le plus court
+
+Mesure la route `GET /api/attack-path` sur la base réelle, pour tous les groupes
+du graphe (un échauffement puis 3 appels par groupe). Aucune écriture en base.
+
+```bash
+DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar pnpm measure:attack-path
+```
+
+Relevé du 2026-11-22 : p50 **24,9 ms**, p95 **173,3 ms**, max **419 ms** sur
+183 requêtes (61 groupes × 3), chemin trouvé 183/183. Brut :
+`bench/results/attack-path.json`. Détails : `docs/rapport-chemin-attaque.md`.
+
 ## D — Extension du corpus santé/enseignement
 
 Les 457 premières lignes de `bench/corpus/sante-enseignement.jsonl` sont
