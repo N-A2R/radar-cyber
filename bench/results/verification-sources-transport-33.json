@@ -1,0 +1,681 @@
+{
+  "corpus": "bench/corpus/sources-transport-33.jsonl",
+  "verifie_le": "2026-11-22T09:46:00.268014+00:00",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+  "method": "curl -L GET, redirections suivies, code final",
+  "sources": 15,
+  "sources_valides": 15,
+  "urls_sondees": 56,
+  "urls_200": 56,
+  "detail": [
+    {
+      "ligne": 1,
+      "nom": "Grand Port Maritime de Bordeaux",
+      "type": "port public (fret et logistique)",
+      "secteur": "transport",
+      "departement": "33",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.bordeaux-port.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 250974,
+          "url_finale": "https://www.bordeaux-port.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.bordeaux-port.fr/fil-dactualite/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 213072,
+          "url_finale": "https://www.bordeaux-port.fr/fil-dactualite/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.bordeaux-port.fr/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 37088,
+          "url_finale": "https://www.bordeaux-port.fr/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.bordeaux-port.fr/appel-a-projets-bordeaux-technoports-3e-edition/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 150470,
+          "url_finale": "https://www.bordeaux-port.fr/appel-a-projets-bordeaux-technoports-3e-edition/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 2,
+      "nom": "Bordeaux Aéroport (Bordeaux-Mérignac)",
+      "type": "opérateur aéroportuaire",
+      "secteur": "transport",
+      "departement": "33",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.bordeaux.aeroport.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 127279,
+          "url_finale": "https://www.bordeaux.aeroport.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.bordeaux.aeroport.fr/laeroport/presse/communiques-presse",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 89401,
+          "url_finale": "https://www.bordeaux.aeroport.fr/laeroport/presse/communiques-presse",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.bordeaux.aeroport.fr/laeroport/presse/communiques-presse/km-malta-airlines-lance-une-nouvelle-liaison-directe-entre",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 72480,
+          "url_finale": "https://www.bordeaux.aeroport.fr/laeroport/presse/communiques-presse/km-malta-airlines-lance-une-nouvelle-liaison-directe-entre",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 3,
+      "nom": "Union Maritime et Portuaire de Bordeaux (UMPBX)",
+      "type": "fédération professionnelle maritime et portuaire",
+      "secteur": "transport",
+      "departement": "33",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.umpbx.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 117921,
+          "url_finale": "https://www.umpbx.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.umpbx.fr/actualites/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 59329,
+          "url_finale": "https://www.umpbx.fr/actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.umpbx.fr/feed/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 117921,
+          "url_finale": "https://www.umpbx.fr/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.umpbx.fr/barometre-2025-transport-maritime-ce-que-pensent-les-chargeurs/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 55723,
+          "url_finale": "https://www.umpbx.fr/barometre-2025-transport-maritime-ce-que-pensent-les-chargeurs/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 4,
+      "nom": "Transports Bordeaux Métropole (TBM)",
+      "type": "opérateur de transports publics urbains",
+      "secteur": "transport",
+      "departement": "33",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.infotbm.com/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 160585,
+          "url_finale": "https://www.infotbm.com/fr",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.infotbm.com/fr/toutes-les-actualites",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 533103,
+          "url_finale": "https://www.infotbm.com/fr/toutes-les-actualites",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.infotbm.com/fr/rss.xml",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=utf-8",
+          "octets": 46159,
+          "url_finale": "https://www.infotbm.com/fr/rss.xml",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.infotbm.com/fr/actualites/parc-relais-cantinolle-travaux-de-securite-votre-pr-reste-ouvert.html",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 518774,
+          "url_finale": "https://www.infotbm.com/fr/actualites/parc-relais-cantinolle-travaux-de-securite-votre-pr-reste-ouvert.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 5,
+      "nom": "Conseil départemental de la Gironde — Inforoutes",
+      "type": "collectivité départementale, information routière",
+      "secteur": "transport",
+      "departement": "33",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.gironde.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 86016,
+          "url_finale": "https://www.gironde.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.gironde.fr/les-mobilites/inforoutes-les-travaux-sur-nos-routes",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 119398,
+          "url_finale": "https://www.gironde.fr/les-mobilites/inforoutes-les-travaux-sur-nos-routes",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.gironde.fr/actualites/travaux-d-entretien-sur-la-ligne-du-bac-le-verdon-sur-mer-royan",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 72058,
+          "url_finale": "https://www.gironde.fr/actualites/travaux-d-entretien-sur-la-ligne-du-bac-le-verdon-sur-mer-royan",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 6,
+      "nom": "Bordeaux Métropole — Se Déplacer",
+      "type": "autorité métropolitaine des mobilités",
+      "secteur": "transport",
+      "departement": "33",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://sedeplacer.bordeaux-metropole.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 117649,
+          "url_finale": "https://sedeplacer.bordeaux-metropole.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://sedeplacer.bordeaux-metropole.fr/actualites-se-deplacer",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 95972,
+          "url_finale": "https://sedeplacer.bordeaux-metropole.fr/actualites-se-deplacer",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://sedeplacer.bordeaux-metropole.fr/rss.xml",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=utf-8",
+          "octets": 112642,
+          "url_finale": "https://sedeplacer.bordeaux-metropole.fr/rss.xml",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://sedeplacer.bordeaux-metropole.fr/actualites/ligne-g-devient-100-electrique",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 98267,
+          "url_finale": "https://sedeplacer.bordeaux-metropole.fr/actualites/ligne-g-devient-100-electrique",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 7,
+      "nom": "AETL — Antenne de Bordeaux",
+      "type": "association professionnelle formation transport et logistique",
+      "secteur": "transport",
+      "departement": "33",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.aetl.fr/antennes/18-bordeaux/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 19582,
+          "url_finale": "https://www.aetl.fr/antennes/18-bordeaux/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.aetl.fr/antennes/18-bordeaux/articles/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 56579,
+          "url_finale": "https://www.aetl.fr/antennes/18-bordeaux/articles/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.aetl.fr/antennes/18-bordeaux/articles/11-actualite-aetl-et-ses-partenaires/2154/2022/11/28/bpost-la-logistique-urbaine-peut-aussi-etre-durable.html",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 20565,
+          "url_finale": "https://www.aetl.fr/antennes/18-bordeaux/articles/11-actualite-aetl-et-ses-partenaires/2154/2022/11/28/bpost-la-logistique-urbaine-peut-aussi-etre-durable.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 8,
+      "nom": "Union TLF Sud-Ouest",
+      "type": "fédération régionale transport et logistique",
+      "secteur": "transport",
+      "departement": "33",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://e-tlf.com/nos-regions/tlf-sud-ouest/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 738204,
+          "url_finale": "https://e-tlf.com/nos-regions/tlf-sud-ouest/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://e-tlf.com/nos-actualites/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 790352,
+          "url_finale": "https://e-tlf.com/nos-actualites/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://e-tlf.com/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 754,
+          "url_finale": "https://e-tlf.com/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://e-tlf.com/nos-actualites/note-de-conjoncture-de-la-logistique-octobre-2026/",
+          "code": 200,
+          "content_type": "text/html; charset=utf-8",
+          "octets": 740539,
+          "url_finale": "https://e-tlf.com/nos-actualites/note-de-conjoncture-de-la-logistique-octobre-2026/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 9,
+      "nom": "Transports Nouvelle-Aquitaine",
+      "type": "autorité régionale des transports (TER et cars)",
+      "secteur": "transport",
+      "departement": "33",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://transports.nouvelle-aquitaine.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 131657,
+          "url_finale": "https://transports.nouvelle-aquitaine.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://transports.nouvelle-aquitaine.fr/toute-lactualite-des-transports",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 104216,
+          "url_finale": "https://transports.nouvelle-aquitaine.fr/toute-lactualite-des-transports",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://transports.nouvelle-aquitaine.fr/liste-rss/naq_actualite",
+          "code": 200,
+          "content_type": "application/rss+xml",
+          "octets": 77226,
+          "url_finale": "https://transports.nouvelle-aquitaine.fr/liste-rss/naq_actualite",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://transports.nouvelle-aquitaine.fr/toute-lactualite-des-transports/la-nouvelle-ligne-de-car-express-lesparre-bordeaux",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 81878,
+          "url_finale": "https://transports.nouvelle-aquitaine.fr/toute-lactualite-des-transports/la-nouvelle-ligne-de-car-express-lesparre-bordeaux",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 10,
+      "nom": "Sud Ouest — Transports",
+      "type": "presse quotidienne régionale",
+      "secteur": "transport",
+      "departement": "33",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.sudouest.fr/gironde/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 288160,
+          "url_finale": "https://www.sudouest.fr/gironde/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.sudouest.fr/economie/transports/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 325898,
+          "url_finale": "https://www.sudouest.fr/economie/transports/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.sudouest.fr/economie/transports/rss.xml",
+          "code": 200,
+          "content_type": "application/xml",
+          "octets": 29570,
+          "url_finale": "https://www.sudouest.fr/economie/transports/rss.xml",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.sudouest.fr/gironde/bordeaux/begles-une-collision-entre-un-tramway-et-un-velo-fait-un-blesse-grave-31602646.php",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 138576,
+          "url_finale": "https://www.sudouest.fr/gironde/bordeaux/begles-une-collision-entre-un-tramway-et-un-velo-fait-un-blesse-grave-31602646.php",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 11,
+      "nom": "Rue89 Bordeaux — Transports",
+      "type": "presse locale en ligne",
+      "secteur": "transport",
+      "departement": "33",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://rue89bordeaux.com/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 399699,
+          "url_finale": "https://rue89bordeaux.com/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://rue89bordeaux.com/tag/transports/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 262958,
+          "url_finale": "https://rue89bordeaux.com/tag/transports/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://rue89bordeaux.com/tag/transports/feed/",
+          "code": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "octets": 26913,
+          "url_finale": "https://rue89bordeaux.com/tag/transports/feed/",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://rue89bordeaux.com/2026/01/vraiment-un-enfer-a-bordeaux-les-nouvelles-lignes-de-tram-peinent-a-satisfaire-les-usagers/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 284973,
+          "url_finale": "https://rue89bordeaux.com/2026/01/vraiment-un-enfer-a-bordeaux-les-nouvelles-lignes-de-tram-peinent-a-satisfaire-les-usagers/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 12,
+      "nom": "actu.fr — Gironde",
+      "type": "presse locale en ligne",
+      "secteur": "transport",
+      "departement": "33",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://actu.fr/nouvelle-aquitaine/gironde_33/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 334363,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/gironde_33",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://actu.fr/bordeaux/dernieres-actus",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 228266,
+          "url_finale": "https://actu.fr/bordeaux/dernieres-actus",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://actu.fr/nouvelle-aquitaine/canejan_33090/un-double-accident-sur-l-a63-paralyse-l-autoroute-dans-les-deux-sens-a-proximite-de-bordeaux_65082494.html",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 302278,
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/canejan_33090/un-double-accident-sur-l-a63-paralyse-l-autoroute-dans-les-deux-sens-a-proximite-de-bordeaux_65082494.html",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 13,
+      "nom": "ICI Gironde",
+      "type": "radio publique locale",
+      "secteur": "transport",
+      "departement": "33",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.ici.fr/nouvelle-aquitaine/gironde-33/actu",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 209800,
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/gironde-33/actu",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.ici.fr/nouvelle-aquitaine/gironde-33/actu",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 209800,
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/gironde-33/actu",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.ici.fr/rss/gironde/rubrique/infos.xml",
+          "code": 200,
+          "content_type": "application/xml",
+          "octets": 19560,
+          "url_finale": "https://www.ici.fr/rss/gironde/rubrique/infos.xml",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.ici.fr/nouvelle-aquitaine/gironde-33/begles/begles-un-cycliste-de-23-ans-en-urgence-absolue-apres-un-accident-avec-un-tramway-4863850",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 165915,
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/gironde-33/begles/begles-un-cycliste-de-23-ans-en-urgence-absolue-apres-un-accident-avec-un-tramway-4863850",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 14,
+      "nom": "L’Échoppe — Transports Bordeaux",
+      "type": "presse locale en ligne",
+      "secteur": "transport",
+      "departement": "33",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://echoppe33.fr/",
+          "code": 200,
+          "content_type": "text/html",
+          "octets": 223694,
+          "url_finale": "https://echoppe33.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://echoppe33.fr/dossier/transports-bordeaux/",
+          "code": 200,
+          "content_type": "text/html",
+          "octets": 118412,
+          "url_finale": "https://echoppe33.fr/dossier/transports-bordeaux/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://echoppe33.fr/rss.xml",
+          "code": 200,
+          "content_type": "application/xml",
+          "octets": 19604,
+          "url_finale": "https://echoppe33.fr/rss.xml",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://echoppe33.fr/rocade-coupee-trente-heures-a-lormont-pour-soulever-le-pont-de-mireport-2026-11-19/",
+          "code": 200,
+          "content_type": "text/html",
+          "octets": 114804,
+          "url_finale": "https://echoppe33.fr/rocade-coupee-trente-heures-a-lormont-pour-soulever-le-pont-de-mireport-2026-11-19/",
+          "erreur": null
+        }
+      ]
+    },
+    {
+      "ligne": 15,
+      "nom": "Voxlog — Bordeaux logistique",
+      "type": "presse spécialisée transport et logistique",
+      "secteur": "transport",
+      "departement": "33",
+      "valide": true,
+      "problemes": [],
+      "sondes": [
+        {
+          "role": "site",
+          "url": "https://www.voxlog.fr/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 60620,
+          "url_finale": "https://www.voxlog.fr/",
+          "erreur": null
+        },
+        {
+          "role": "actualites",
+          "url": "https://www.voxlog.fr/recherche/Bordeaux/",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 125523,
+          "url_finale": "https://www.voxlog.fr/recherche/Bordeaux/",
+          "erreur": null
+        },
+        {
+          "role": "flux",
+          "url": "https://www.voxlog.fr/rss.php",
+          "code": 200,
+          "content_type": "text/xml; charset=utf-8",
+          "octets": 13567,
+          "url_finale": "https://www.voxlog.fr/rss.php",
+          "erreur": null
+        },
+        {
+          "role": "exemple_cyber",
+          "url": "https://www.voxlog.fr/actualite/10121/kuehne-nagel-agrandit-sa-messagerie-de-saint-medard-deyrans-pres-de-bordeaux",
+          "code": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "octets": 32746,
+          "url_finale": "https://www.voxlog.fr/actualite/10121/kuehne-nagel-agrandit-sa-messagerie-de-saint-medard-deyrans-pres-de-bordeaux",
+          "erreur": null
+        }
+      ]
+    }
+  ]
+}

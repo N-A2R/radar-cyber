@@ -1,0 +1,18 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:3c5eabef-a40a-4d81-a2f9-44cdd1add044>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 132
+WARC-Block-Digest: sha1:JAF7TYAT6URV2TIPYH5IT2XGCOYOGVNS
+X-Claim-Fingerprint: 2eca47e834bbc1b3ce7ec11a
+X-Victim-Key: 5155f880ab2a73a7772f0392
+
+{
+        "post_title": "CETEC Ingénierie",
+        "group_name": "8base",
+        "discovered": "2023-12-20 08:35:43.722368"
+    }
+
