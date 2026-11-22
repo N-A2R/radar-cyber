@@ -17,11 +17,12 @@
  */
 import type { PoolClient } from "pg";
 import { query, withClient, withTransaction } from "../db.js";
-import { buildAliasIndex, analyzeAliasIndex, type AliasRow } from "../match/core.js";
-import { loadOrgIndex, matchOrgInIndex, promoteOne, promoteOneTx, refusParRegles, type OrgIndexEntry } from "./promote.js";
+import { analyzeAliasIndex } from "../match/core.js";
+import { matchOrgInIndex, promoteOne, promoteOneTx, refusParRegles, type OrgIndexEntry } from "./promote.js";
+import { hintMatch, reviewSnapshot } from "./review-index.js";
 import { evaluateEvent } from "../detect/engine.js";
 import { consignerLot, type JournalEntry } from "../journal/index.js";
-import { buildCandidateIndex, candidatesFor } from "./candidates.js";
+import { candidatesFor } from "./candidates.js";
 import { contextesDes, type ContexteLigne } from "./contexte.js";
 import { compareQueueEntries, triageClaim, type TriageBucket, type TriageResult } from "./triage.js";
 
@@ -148,16 +149,6 @@ function facetOf(values: Iterable<string | null>): QueueFacet[] {
 		.sort((a, b) => b.count - a.count || a.value.localeCompare(b.value, "fr"));
 }
 
-/** Index d'alias du référentiel, second avis sur le rattachement. */
-async function loadSecondOpinionIndex() {
-	const r = await query<AliasRow>(
-		`SELECT a.org_id, o.name, a.alias
-		   FROM org_alias a JOIN org o ON o.id = a.org_id
-		  WHERE o.status = 'confirme'`,
-	);
-	return buildAliasIndex(r.rows);
-}
-
 export async function reviewQueue(params: QueueParams = {}): Promise<QueueResult> {
 	const started = performance.now();
 	const limit = Math.min(MAX_LIMIT, Math.max(1, params.limit ?? 50));
@@ -190,7 +181,7 @@ export async function reviewQueue(params: QueueParams = {}): Promise<QueueResult
 	if (cursor !== null) add("id < ?", cursor);
 	values.push(window + 1);
 
-	const [raw, orgIndex, aliasIndex, countsRaw] = await Promise.all([
+	const [raw, countsRaw, { orgIndex, candidates, aliasIndex }] = await Promise.all([
 		query<RawRow>(
 			`SELECT id, source, source_url, groupe, org_hint, claimed_at, received_at, tlp, status,
 			        promoted, promoted_by, promoted_at,
@@ -202,15 +193,13 @@ export async function reviewQueue(params: QueueParams = {}): Promise<QueueResult
 			  LIMIT $${values.length}`,
 			values,
 		),
-		loadOrgIndex(),
-		loadSecondOpinionIndex(),
 		query<{ status: string; promoted: boolean; n: string }>(
 			"SELECT status, promoted, count(*)::text AS n FROM quarantine_raw WHERE kind = 'claim' GROUP BY status, promoted",
 		),
+		reviewSnapshot(),
 	]);
 
 	const truncated = raw.rows.length > window;
-	const candidates = buildCandidateIndex(orgIndex);
 	const orgById = new Map<number, OrgIndexEntry>(orgIndex.map((entry) => [entry.id, entry]));
 
 	// La file humaine montre plusieurs candidats, pas seulement le vainqueur
@@ -259,7 +248,7 @@ export async function reviewQueue(params: QueueParams = {}): Promise<QueueResult
 
 	const scored: QueueRow[] = raw.rows.slice(0, window).map((row) => {
 		const hint = row.org_hint ?? "";
-		const primary = matchOrgInIndex(hint, candidatesFor(hint, candidates));
+		const primary = hintMatch(hint);
 		const second = analyzeAliasIndex(aliasIndex, hint);
 		const secondary = second.match ? { orgId: second.match.orgId, confidence: second.match.confidence } : null;
 		const triage = triageClaim(
