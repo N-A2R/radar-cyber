@@ -960,6 +960,28 @@ export type CustodyChain = {
   }[];
 };
 
+/** "Am I affected?" — evidence-first, non-personal statements about one organization. */
+export type AffectedReport = {
+  organization: { id: number; name: string; department: string | null; region: "Nouvelle-Aquitaine" };
+  scope: "nouvelle-aquitaine";
+  statements: Array<{
+    id: string;
+    category: "identity" | "location" | "activity" | "incident" | "claim";
+    label: string;
+    value: string;
+    observedAt: string | null;
+    evidence: {
+      kind: "registry" | "observation" | "claim";
+      label: string;
+      reference: string;
+      url: string | null;
+      status: "official-record" | "reported" | "unverified-claim";
+    };
+  }>;
+  summary: { statements: number; withEvidence: number; sources: number };
+  limitations: string[];
+};
+
 /** One auditable entry: every journal kind, with its proof (raw payload). */
 export type JournalDecision = {
   id: number;
@@ -1151,3 +1173,8 @@ export const api = {
   enrichIndicator: (id: number) => get<IndicatorEnrichment>(`/enrich/indicator/${id}`),
   enrichEvent: (id: number) => get<EventEnrichment>(`/enrich/events/${id}`),
 };
+
+/** Public evidence-first report for one organization (name, id or domain). */
+export function getAffected(q: string, signal?: AbortSignal): Promise<AffectedReport> {
+  return get<AffectedReport>(`/affected?q=${encodeURIComponent(q)}`, signal);
+}

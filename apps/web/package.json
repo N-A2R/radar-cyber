@@ -20,6 +20,7 @@
     "test:navigation": "vitest run test/navigation-ecrans.test.tsx",
     "test:inspecteur": "vite build --ssr test/inspecteur-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/inspecteur-verif.js",
     "test:custody": "vite build --ssr test/custody-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/custody-verif.js",
+    "test:affected": "vite build --ssr test/affected-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/affected-verif.js",
     "test:fil": "vite build --ssr test/fil-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/fil-verif.js",
     "test:etat": "vite build --ssr test/etat-rendu.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/etat-rendu.js",
     "test:corroboration": "vite build --ssr test/corroboration-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/corroboration-verif.js",
