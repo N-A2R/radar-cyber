@@ -1,0 +1,337 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-batiment-24.jsonl",
+  "secteur": "bâtiment",
+  "departement": "24",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/131 Safari/537.36",
+  "methode": "GET HTTP avec User-Agent navigateur, suivi des redirections, délai 20 s ; code, type MIME, taille et URL effective relevés pour chaque URL du corpus",
+  "sources": 18,
+  "urls_verifiees": 42,
+  "urls_200": 42,
+  "detail": {
+    "CAPEB 24 — L'artisanat du bâtiment": {
+      "urls": {
+        "https://capeb24.com/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://capeb24.com/",
+          "octets": 135369
+        },
+        "https://capeb24.com/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://capeb24.com/actualites/",
+          "octets": 98970
+        },
+        "https://capeb24.com/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://capeb24.com/feed/",
+          "octets": 36767
+        }
+      }
+    },
+    "CAUE 24 — Conseil d'architecture, d'urbanisme et de l'environnement de la Dordogne": {
+      "urls": {
+        "https://cauedordogne.com/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://cauedordogne.com/",
+          "octets": 1522521
+        },
+        "https://cauedordogne.com/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://cauedordogne.com/actualites/",
+          "octets": 1417384
+        },
+        "https://cauedordogne.com/feed/": {
+          "code": 200,
+          "type": "text/xml;charset=UTF-8",
+          "url_finale": "https://cauedordogne.com/feed/",
+          "octets": 465861
+        }
+      }
+    },
+    "Pro-RGE — Entreprises RGE en Dordogne": {
+      "urls": {
+        "https://pro-rge.fr/entreprises/dordogne-24/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://pro-rge.fr/entreprises/dordogne-24/",
+          "octets": 383757
+        }
+      }
+    },
+    "CMA Nouvelle-Aquitaine — antenne Dordogne (chambre des métiers et de l'artisanat)": {
+      "urls": {
+        "https://cma-nouvelleaquitaine.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://cma-nouvelleaquitaine.fr/",
+          "octets": 324235
+        },
+        "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites",
+          "octets": 280274
+        }
+      }
+    },
+    "CCI Dordogne — Chambre de commerce et d'industrie": {
+      "urls": {
+        "https://dordogne.cci.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://dordogne.cci.fr/",
+          "octets": 1085169
+        },
+        "https://dordogne.cci.fr/actualites/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://dordogne.cci.fr/actualites/",
+          "octets": 1566389
+        },
+        "https://dordogne.cci.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://dordogne.cci.fr/feed/",
+          "octets": 56374
+        }
+      }
+    },
+    "Sud Ouest — Dordogne": {
+      "urls": {
+        "https://www.sudouest.fr/dordogne/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.sudouest.fr/dordogne/",
+          "octets": 282158
+        },
+        "https://www.sudouest.fr/dordogne/rss.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "url_finale": "https://www.sudouest.fr/dordogne/rss.xml",
+          "octets": 28991
+        }
+      }
+    },
+    "Dordogne Libre": {
+      "urls": {
+        "https://www.dordognelibre.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.dordognelibre.fr/",
+          "octets": 378442
+        },
+        "https://www.dordognelibre.fr/dordogne/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.dordognelibre.fr/dordogne/",
+          "octets": 203186
+        },
+        "https://www.dordognelibre.fr/rss.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "url_finale": "https://www.dordognelibre.fr/rss.xml",
+          "octets": 28442
+        }
+      }
+    },
+    "Réussir le Périgord": {
+      "urls": {
+        "https://www.reussirleperigord.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.reussirleperigord.fr/",
+          "octets": 400158
+        },
+        "https://www.reussirleperigord.fr/actualite/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.reussirleperigord.fr/actualite",
+          "octets": 423066
+        },
+        "https://www.reussirleperigord.fr/feed": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.reussirleperigord.fr/feed",
+          "octets": 62715
+        }
+      }
+    },
+    "actu.fr — Dordogne": {
+      "urls": {
+        "https://actu.fr/nouvelle-aquitaine/dordogne_24/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/dordogne_24",
+          "octets": 310747
+        },
+        "https://actu.fr/nouvelle-aquitaine/dordogne_24/rss.xml": {
+          "code": 200,
+          "type": "application/rss+xml; charset=utf-8",
+          "url_finale": "https://actu.fr/nouvelle-aquitaine/dordogne_24/rss.xml",
+          "octets": 1389
+        }
+      }
+    },
+    "France 3 Nouvelle-Aquitaine — Dordogne": {
+      "urls": {
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/dordogne/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/dordogne",
+          "octets": 630018
+        },
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/dordogne/rss": {
+          "code": 200,
+          "type": "text/xml; charset=UTF-8",
+          "url_finale": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/dordogne/rss",
+          "octets": 81679
+        }
+      }
+    },
+    "ICI Périgord — Dordogne (24)": {
+      "urls": {
+        "https://www.ici.fr/nouvelle-aquitaine/dordogne-24": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.ici.fr/nouvelle-aquitaine/dordogne-24",
+          "octets": 292853
+        },
+        "https://www.ici.fr/rss/perigord/rubrique/infos.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "url_finale": "https://www.ici.fr/rss/perigord/rubrique/infos.xml",
+          "octets": 19209
+        }
+      }
+    },
+    "franceinfo — Dordogne": {
+      "urls": {
+        "https://www.franceinfo.fr/france/nouvelle-aquitaine/dordogne/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.franceinfo.fr/france/nouvelle-aquitaine/dordogne/",
+          "octets": 535521
+        }
+      }
+    },
+    "Le Démocrate Indépendant — Bergerac": {
+      "urls": {
+        "https://www.ledemocratedebergerac.fr/": {
+          "code": 200,
+          "type": "text/html",
+          "url_finale": "https://www.ledemocratedebergerac.fr/",
+          "octets": 250250
+        },
+        "https://www.ledemocratedebergerac.fr/category/a-la-une/": {
+          "code": 200,
+          "type": "text/html",
+          "url_finale": "https://www.ledemocratedebergerac.fr/category/a-la-une/",
+          "octets": 133772
+        },
+        "https://www.ledemocratedebergerac.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.ledemocratedebergerac.fr/feed/",
+          "octets": 12670
+        }
+      }
+    },
+    "Le Courrier Français — Dordogne": {
+      "urls": {
+        "https://www.courrier-francais.com/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.courrier-francais.com/",
+          "octets": 104021
+        },
+        "https://www.courrier-francais.com/actualites-dordogne.html": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.courrier-francais.com/actualites-dordogne.html",
+          "octets": 80405
+        }
+      }
+    },
+    "Annonces-légales.fr — Dordogne (24)": {
+      "urls": {
+        "https://www.annonces-legales.fr/consultation/nouvelle-aquitaine/dordogne-24": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.annonces-legales.fr/consultation/nouvelle-aquitaine/dordogne-24",
+          "octets": 160884
+        },
+        "https://www.annonces-legales.fr/actualite/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.annonces-legales.fr/actualite/feed/",
+          "octets": 109798
+        }
+      }
+    },
+    "Ville de Périgueux — Actualités": {
+      "urls": {
+        "https://www.perigueux.fr/": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://perigueux.fr/",
+          "octets": 67721
+        },
+        "https://www.perigueux.fr/actualites.html": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.perigueux.fr/actualites.html",
+          "octets": 44529
+        },
+        "https://perigueux.fr/actualites/flux-actualites/rss.xml": {
+          "code": 200,
+          "type": "application/xml",
+          "url_finale": "https://perigueux.fr/actualites/flux-actualites/rss.xml",
+          "octets": 552139
+        }
+      }
+    },
+    "Ville de Bergerac — Actualités": {
+      "urls": {
+        "https://www.bergerac.fr/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.bergerac.fr/",
+          "octets": 512620
+        },
+        "https://www.bergerac.fr/category/actualite/": {
+          "code": 200,
+          "type": "text/html; charset=UTF-8",
+          "url_finale": "https://www.bergerac.fr/category/actualite/",
+          "octets": 161340
+        },
+        "https://www.bergerac.fr/feed/": {
+          "code": 200,
+          "type": "application/rss+xml; charset=UTF-8",
+          "url_finale": "https://www.bergerac.fr/feed/",
+          "octets": 32766
+        }
+      }
+    },
+    "Préfecture de la Dordogne — DDT (urbanisme et construction)": {
+      "urls": {
+        "https://www.dordogne.gouv.fr/Services-de-l-Etat/Les-directions-interministerielles/Direction-departementale-des-territoires-DDT": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.dordogne.gouv.fr/Services-de-l-Etat/Les-directions-interministerielles/Direction-departementale-des-territoires-DDT",
+          "octets": 98098
+        },
+        "https://www.dordogne.gouv.fr/Actualites": {
+          "code": 200,
+          "type": "text/html; charset=utf-8",
+          "url_finale": "https://www.dordogne.gouv.fr/Actualites",
+          "octets": 112474
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:560b56b6-8a5f-49ba-addb-7591cbd60440>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://www.ransomlook.io/api/posts/2026
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 304
+WARC-Block-Digest: sha1:PHMX5BA7QKLLZ7OKHSBXUXZZCVSWB7LF
+X-Claim-Fingerprint: ef2d1cf2cde223bb4b09549c
+X-Victim-Key: 92900205830c8b73bbcb8704
+
+{"post_title": "La Fabrica", "discovered": "2026-02-06 00:44:06.725628", "description": "Hospitality", "link": "/site/view?uuid=50859380-ee6b-3768-acd2-8eab4b73ad24", "magnet": null, "screen": "screenshots/qilin/La Fabrica.png", "misp_uuid": "24d4efb8-db1d-5bf2-a0f8-f5373abc4db6", "group_name": "qilin"}
+
