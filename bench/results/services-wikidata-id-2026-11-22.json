@@ -1,0 +1,818 @@
+{
+  "consultedAt": "2026-11-22T03:25:37.499Z",
+  "source": "wikidata:P3215/P3202+P856; HTTP 200; DNS A",
+  "attribution": "Wikidata (CC0) — public SIRET/UAI and official website",
+  "applied": true,
+  "onlyMissing": true,
+  "examined": 23317,
+  "eligible": 257,
+  "selected": 257,
+  "verified": 87,
+  "matched": 87,
+  "written": 87,
+  "measurement": {
+    "scope": "nouvelle-aquitaine",
+    "organisationsWithService": 9037,
+    "organisationsInScope": 1671906,
+    "services": 9930,
+    "bySource": {
+      "http-200": 1256,
+      "osm-http-200": 2941,
+      "rna-http-200": 522,
+      "dila-http-200": 1045,
+      "shodan-internetdb": 399,
+      "wikidata-http-200": 850,
+      "education-http-200": 733,
+      "osm-siret-http-200": 1677,
+      "site-zone-http-200": 381,
+      "wikidata-id-http-200": 86,
+      "administration-http-200": 40
+    },
+    "measuredAt": "2026-11-22T03:25:44.895Z"
+  },
+  "candidates": [
+    {
+      "kind": "siret",
+      "id": "622720159",
+      "dept": "64",
+      "domain": "www.hotel-du-palais.com",
+      "orgId": 358880,
+      "ip": "188.114.97.2",
+      "sourceUrl": "https://www.hotel-du-palais.com"
+    },
+    {
+      "kind": "siret",
+      "id": "328491170",
+      "dept": "64",
+      "domain": "gureikastola.eus",
+      "orgId": 89144,
+      "ip": "217.160.0.100",
+      "sourceUrl": "https://gureikastola.eus"
+    },
+    {
+      "kind": "siret",
+      "id": "424833002",
+      "dept": "64",
+      "domain": "meekolegioa.eus",
+      "orgId": 191422,
+      "ip": "188.114.96.2",
+      "sourceUrl": "https://meekolegioa.eus"
+    },
+    {
+      "kind": "siret",
+      "id": "418642658",
+      "dept": "33",
+      "domain": "www.chateaumarrin.com",
+      "orgId": 177314,
+      "ip": "162.159.143.12",
+      "sourceUrl": "https://www.chateaumarrin.com"
+    },
+    {
+      "kind": "siret",
+      "id": "398233338",
+      "dept": "64",
+      "domain": "www.hotel-restaurant-euzkadi.com",
+      "orgId": 145179,
+      "ip": "91.212.26.171",
+      "sourceUrl": "https://www.hotel-restaurant-euzkadi.com"
+    },
+    {
+      "kind": "siret",
+      "id": "539932566",
+      "dept": "24",
+      "domain": "www.fitnesspark.fr",
+      "orgId": 358204,
+      "ip": "13.227.231.93",
+      "sourceUrl": "https://www.fitnesspark.fr/club/jurancon/"
+    },
+    {
+      "kind": "siret",
+      "id": "817651722",
+      "dept": "86",
+      "domain": "www.fitnesspark.fr",
+      "orgId": 432837,
+      "ip": "13.227.231.91",
+      "sourceUrl": "https://www.fitnesspark.fr/club/poitiers-centre/"
+    },
+    {
+      "kind": "siret",
+      "id": "899498265",
+      "dept": "64",
+      "domain": "www.fitnesspark.fr",
+      "orgId": 556824,
+      "ip": "13.227.231.51",
+      "sourceUrl": "https://www.fitnesspark.fr/club/bayonne-ametzondo/"
+    },
+    {
+      "kind": "siret",
+      "id": "912126190",
+      "dept": "33",
+      "domain": "www.fitnesspark.fr",
+      "orgId": 585638,
+      "ip": "13.227.231.93",
+      "sourceUrl": "https://www.fitnesspark.fr/club/bordeaux-meriadeck/"
+    },
+    {
+      "kind": "siret",
+      "id": "917610131",
+      "dept": "87",
+      "domain": "www.fitnesspark.fr",
+      "orgId": 595379,
+      "ip": "13.227.231.93",
+      "sourceUrl": "https://www.fitnesspark.fr/club/limoges/"
+    },
+    {
+      "kind": "siret",
+      "id": "905052999",
+      "dept": "33",
+      "domain": "www.fitnesspark.fr",
+      "orgId": 571349,
+      "ip": "13.227.231.93",
+      "sourceUrl": "https://www.fitnesspark.fr/club/merignac/"
+    },
+    {
+      "kind": "siret",
+      "id": "503464299",
+      "dept": "33",
+      "domain": "www.museeduvinbordeaux.com",
+      "orgId": 300021,
+      "ip": "213.186.33.87",
+      "sourceUrl": "https://www.museeduvinbordeaux.com"
+    },
+    {
+      "kind": "siret",
+      "id": "409684263",
+      "dept": "79",
+      "domain": "stjo-secondigny.fr",
+      "orgId": 163332,
+      "ip": "83.166.138.3",
+      "sourceUrl": "http://stjo-secondigny.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "334873353",
+      "dept": "64",
+      "domain": "www.lyceesaintchristophe.com",
+      "orgId": 94506,
+      "ip": "213.186.33.40",
+      "sourceUrl": "https://www.lyceesaintchristophe.com"
+    },
+    {
+      "kind": "siret",
+      "id": "781263942",
+      "dept": "17",
+      "domain": "www.stsa17.org",
+      "orgId": 370364,
+      "ip": "213.186.33.4",
+      "sourceUrl": "https://www.stsa17.org"
+    },
+    {
+      "kind": "siret",
+      "id": "777911512",
+      "dept": "19",
+      "domain": "www.jda-argentat.com",
+      "orgId": 368947,
+      "ip": "62.210.16.62",
+      "sourceUrl": "http://www.jda-argentat.com"
+    },
+    {
+      "kind": "siret",
+      "id": "334608700",
+      "dept": "64",
+      "domain": "stjosteagnesbayonne.com",
+      "orgId": 94217,
+      "ip": "188.114.97.2",
+      "sourceUrl": "https://stjosteagnesbayonne.com"
+    },
+    {
+      "kind": "siret",
+      "id": "379359110",
+      "dept": "24",
+      "domain": "new.smsf-bergerac.com",
+      "orgId": 116291,
+      "ip": "146.88.233.171",
+      "sourceUrl": "https://new.smsf-bergerac.com"
+    },
+    {
+      "kind": "siret",
+      "id": "334687803",
+      "dept": "24",
+      "domain": "lecluzeau.com",
+      "orgId": 94310,
+      "ip": "5.135.23.164",
+      "sourceUrl": "https://lecluzeau.com"
+    },
+    {
+      "kind": "siret",
+      "id": "513207332",
+      "dept": "64",
+      "domain": "beau-rameau.org",
+      "orgId": 317410,
+      "ip": "213.186.33.2",
+      "sourceUrl": "https://beau-rameau.org"
+    },
+    {
+      "kind": "siret",
+      "id": "782355168",
+      "dept": "64",
+      "domain": "www.immac-pau.com",
+      "orgId": 375930,
+      "ip": "94.23.250.211",
+      "sourceUrl": "https://www.immac-pau.com"
+    },
+    {
+      "kind": "siret",
+      "id": "782355333",
+      "dept": "64",
+      "domain": "www.saintmaurpau.fr",
+      "orgId": 375934,
+      "ip": "172.66.3.8",
+      "sourceUrl": "https://www.saintmaurpau.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "782366694",
+      "dept": "64",
+      "domain": "www.clgsaintemarie.fr",
+      "orgId": 376031,
+      "ip": "51.77.134.73",
+      "sourceUrl": "https://www.clgsaintemarie.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "782123467",
+      "dept": "40",
+      "domain": "www.ecoleetcollegesaintetherese.com",
+      "orgId": 374921,
+      "ip": "172.66.3.8",
+      "sourceUrl": "https://www.ecoleetcollegesaintetherese.com"
+    },
+    {
+      "kind": "siret",
+      "id": "782382139",
+      "dept": "64",
+      "domain": "www.sfxustaritz.fr",
+      "orgId": 376156,
+      "ip": "162.159.143.12",
+      "sourceUrl": "https://www.sfxustaritz.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "782151732",
+      "dept": "47",
+      "domain": "www.institutionadt.fr",
+      "orgId": 375092,
+      "ip": "213.186.33.40",
+      "sourceUrl": "https://www.institutionadt.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "781780895",
+      "dept": "33",
+      "domain": "jdarcsr.com",
+      "orgId": 373131,
+      "ip": "195.35.27.170",
+      "sourceUrl": "https://jdarcsr.com"
+    },
+    {
+      "kind": "siret",
+      "id": "781842521",
+      "dept": "33",
+      "domain": "smb33.fr",
+      "orgId": 373255,
+      "ip": "213.186.33.24",
+      "sourceUrl": "https://smb33.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "781513551",
+      "dept": "86",
+      "domain": "www.st-gab.com",
+      "orgId": 372133,
+      "ip": "217.160.0.235",
+      "sourceUrl": "https://www.st-gab.com"
+    },
+    {
+      "kind": "siret",
+      "id": "781519475",
+      "dept": "86",
+      "domain": "www.jdacivray.fr",
+      "orgId": 372164,
+      "ip": "213.186.33.50",
+      "sourceUrl": "https://www.jdacivray.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "781711411",
+      "dept": "24",
+      "domain": "www.jda24.fr",
+      "orgId": 372868,
+      "ip": "84.32.84.67",
+      "sourceUrl": "https://www.jda24.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "781931076",
+      "dept": "33",
+      "domain": "www.stjo-libourne.com",
+      "orgId": 373779,
+      "ip": "46.105.54.26",
+      "sourceUrl": "https://www.stjo-libourne.com"
+    },
+    {
+      "kind": "siret",
+      "id": "781422167",
+      "dept": "79",
+      "domain": "steannemauleon.com",
+      "orgId": 371186,
+      "ip": "146.88.233.96",
+      "sourceUrl": "https://steannemauleon.com"
+    },
+    {
+      "kind": "siret",
+      "id": "781543434",
+      "dept": "86",
+      "domain": "etab.ac-poitiers.fr",
+      "orgId": 372274,
+      "ip": "195.83.13.37",
+      "sourceUrl": "https://etab.ac-poitiers.fr/coll-pr-montmorillon/"
+    },
+    {
+      "kind": "siret",
+      "id": "781702329",
+      "dept": "24",
+      "domain": "stjo-24.fr",
+      "orgId": 372791,
+      "ip": "5.135.23.164",
+      "sourceUrl": "https://stjo-24.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "781365515",
+      "dept": "17",
+      "domain": "stesophie.fr",
+      "orgId": 370786,
+      "ip": "54.36.91.62",
+      "sourceUrl": "https://stesophie.fr/le-college/"
+    },
+    {
+      "kind": "siret",
+      "id": "781388913",
+      "dept": "17",
+      "domain": "www.jeannedarc-ecole-college-prive-surgeres.com",
+      "orgId": 370873,
+      "ip": "217.160.0.242",
+      "sourceUrl": "https://www.jeannedarc-ecole-college-prive-surgeres.com"
+    },
+    {
+      "kind": "siret",
+      "id": "782259170",
+      "dept": "64",
+      "domain": "www.collegenotredamebayonne.com",
+      "orgId": 375528,
+      "ip": "188.114.96.2",
+      "sourceUrl": "http://www.collegenotredamebayonne.com"
+    },
+    {
+      "kind": "siret",
+      "id": "782272314",
+      "dept": "64",
+      "domain": "immac-btz.fr",
+      "orgId": 375603,
+      "ip": "217.160.0.63",
+      "sourceUrl": "https://immac-btz.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "781897004",
+      "dept": "33",
+      "domain": "isnab.com",
+      "orgId": 373653,
+      "ip": "146.88.233.115",
+      "sourceUrl": "https://isnab.com"
+    },
+    {
+      "kind": "siret",
+      "id": "782316921",
+      "dept": "64",
+      "domain": "larps-mauleon.fr",
+      "orgId": 375814,
+      "ip": "146.88.233.89",
+      "sourceUrl": "https://larps-mauleon.fr/fr/"
+    },
+    {
+      "kind": "siret",
+      "id": "781735493",
+      "dept": "24",
+      "domain": "lecluzeau.com",
+      "orgId": 2329598,
+      "ip": "5.135.23.164",
+      "sourceUrl": "https://lecluzeau.com"
+    },
+    {
+      "kind": "siret",
+      "id": "782382147",
+      "dept": "64",
+      "domain": "www.saintjo64.fr",
+      "orgId": 376157,
+      "ip": "109.234.165.33",
+      "sourceUrl": "https://www.saintjo64.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "781842760",
+      "dept": "33",
+      "domain": "svpbordeaux.fr",
+      "orgId": 373260,
+      "ip": "213.186.33.3",
+      "sourceUrl": "https://svpbordeaux.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "782247290",
+      "dept": "64",
+      "domain": "www.ltp-naybaudreix.com",
+      "orgId": 2333643,
+      "ip": "146.59.209.152",
+      "sourceUrl": "https://www.ltp-naybaudreix.com"
+    },
+    {
+      "kind": "siret",
+      "id": "342836665",
+      "dept": "33",
+      "domain": "agences.banquepopulaire.fr",
+      "orgId": 2061676,
+      "ip": "15.188.175.64",
+      "sourceUrl": "https://agences.banquepopulaire.fr/fr/agence/ag-dax-clients-particuliers-1090700020"
+    },
+    {
+      "kind": "siret",
+      "id": "985620137",
+      "dept": "40",
+      "domain": "agences.banquepopulaire.fr",
+      "orgId": 2422541,
+      "ip": "15.188.175.64",
+      "sourceUrl": "https://agences.banquepopulaire.fr/fr/agence/ag-dax-clients-particuliers-1090700020"
+    },
+    {
+      "kind": "siret",
+      "id": "504841131",
+      "dept": "64",
+      "domain": "arberoaikastola.org",
+      "orgId": 303472,
+      "ip": "213.186.33.4",
+      "sourceUrl": "http://arberoaikastola.org"
+    },
+    {
+      "kind": "siret",
+      "id": "482371481",
+      "dept": "33",
+      "domain": "www.coopalpha.coop",
+      "orgId": 257893,
+      "ip": "217.70.180.131",
+      "sourceUrl": "https://www.coopalpha.coop"
+    },
+    {
+      "kind": "siret",
+      "id": "812834612",
+      "dept": "16",
+      "domain": "mineraux.fr",
+      "orgId": 425266,
+      "ip": "188.114.96.2",
+      "sourceUrl": "https://mineraux.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "812834612",
+      "dept": "16",
+      "domain": "www.minerals-kingdom.com",
+      "orgId": 425266,
+      "ip": "104.21.76.99",
+      "sourceUrl": "https://www.minerals-kingdom.com"
+    },
+    {
+      "kind": "siret",
+      "id": "812834612",
+      "dept": "16",
+      "domain": "www.france-perles.fr",
+      "orgId": 425266,
+      "ip": "188.114.97.2",
+      "sourceUrl": "https://www.france-perles.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "812834612",
+      "dept": "16",
+      "domain": "www.reino-minerales.es",
+      "orgId": 425266,
+      "ip": "188.114.97.2",
+      "sourceUrl": "https://www.reino-minerales.es"
+    },
+    {
+      "kind": "siret",
+      "id": "812834612",
+      "dept": "16",
+      "domain": "www.france-mineraux.fr",
+      "orgId": 425266,
+      "ip": "104.26.5.145",
+      "sourceUrl": "https://www.france-mineraux.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "811230002",
+      "dept": "33",
+      "domain": "www.lacoupole-paris.com",
+      "orgId": 421045,
+      "ip": "13.227.231.36",
+      "sourceUrl": "https://www.lacoupole-paris.com"
+    },
+    {
+      "kind": "siret",
+      "id": "571980101",
+      "dept": "24",
+      "domain": "www.dordognelibre.fr",
+      "orgId": 358668,
+      "ip": "45.223.102.231",
+      "sourceUrl": "https://www.dordognelibre.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "200037547",
+      "dept": "64",
+      "domain": "www.ch-saintpalais.fr",
+      "orgId": 21022,
+      "ip": "83.173.94.228",
+      "sourceUrl": "https://www.ch-saintpalais.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "755501418",
+      "dept": "87",
+      "domain": "www.grandecran.fr",
+      "orgId": 368625,
+      "ip": "63.176.8.218",
+      "sourceUrl": "https://www.grandecran.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "419317722",
+      "dept": "33",
+      "domain": "www.camping-cote-dargent.com",
+      "orgId": 178631,
+      "ip": "5.39.9.145",
+      "sourceUrl": "https://www.camping-cote-dargent.com"
+    },
+    {
+      "kind": "siret",
+      "id": "326142353",
+      "dept": "17",
+      "domain": "www.cgrcinemas.fr",
+      "orgId": 87362,
+      "ip": "35.157.26.135",
+      "sourceUrl": "https://www.cgrcinemas.fr/cinema/w3300-cgr-bordeaux-le-francais/"
+    },
+    {
+      "kind": "siret",
+      "id": "893383356",
+      "dept": "33",
+      "domain": "www.oser-la-rse.fr",
+      "orgId": 546427,
+      "ip": "83.166.133.68",
+      "sourceUrl": "https://www.oser-la-rse.fr"
+    },
+    {
+      "kind": "siret",
+      "id": "792729485",
+      "dept": "47",
+      "domain": "www.france-literie.fr",
+      "orgId": 386083,
+      "ip": "5.39.103.4",
+      "sourceUrl": "https://www.france-literie.fr/magasins/france-literie-villeneuve-sur-lot/"
+    },
+    {
+      "kind": "siret",
+      "id": "101744118",
+      "dept": "47",
+      "domain": "www.france-literie.fr",
+      "orgId": 51141,
+      "ip": "5.39.103.4",
+      "sourceUrl": "https://www.france-literie.fr/magasins/france-literie-villeneuve-sur-lot/"
+    },
+    {
+      "kind": "siret",
+      "id": "808104921",
+      "dept": "87",
+      "domain": "valerie-moreau.com",
+      "orgId": 1707443,
+      "ip": "109.234.167.48",
+      "sourceUrl": "https://valerie-moreau.com"
+    },
+    {
+      "kind": "siret",
+      "id": "793648429",
+      "dept": "33",
+      "domain": "www.laboutiqueduthe.com",
+      "orgId": 388185,
+      "ip": "185.158.133.1",
+      "sourceUrl": "https://www.laboutiqueduthe.com/fr-fr/boutiques/bordeaux"
+    },
+    {
+      "kind": "siret",
+      "id": "991514803",
+      "dept": "33",
+      "domain": "www.laboutiqueduthe.com",
+      "orgId": 700219,
+      "ip": "185.158.133.1",
+      "sourceUrl": "https://www.laboutiqueduthe.com/fr-fr/boutiques/nice"
+    },
+    {
+      "kind": "uai",
+      "id": "0642087W",
+      "dept": "64",
+      "domain": "uhabia-ikastola.eus",
+      "orgId": 19088,
+      "ip": "217.160.0.231",
+      "sourceUrl": "https://uhabia-ikastola.eus/eu/"
+    },
+    {
+      "kind": "uai",
+      "id": "0641733L",
+      "dept": "64",
+      "domain": "gureikastola.eus",
+      "orgId": 19252,
+      "ip": "217.160.0.100",
+      "sourceUrl": "https://gureikastola.eus"
+    },
+    {
+      "kind": "uai",
+      "id": "0331880P",
+      "dept": "33",
+      "domain": "p.neruda.free.fr",
+      "orgId": 16658,
+      "ip": "212.27.63.116",
+      "sourceUrl": "http://p.neruda.free.fr"
+    },
+    {
+      "kind": "uai",
+      "id": "0331884U",
+      "dept": "33",
+      "domain": "www.college-bassens.fr",
+      "orgId": 16637,
+      "ip": "109.234.161.39",
+      "sourceUrl": "https://www.college-bassens.fr"
+    },
+    {
+      "kind": "uai",
+      "id": "0160027T",
+      "dept": "16",
+      "domain": "www.jean-lartaut.fr",
+      "orgId": 14713,
+      "ip": "46.105.57.169",
+      "sourceUrl": "http://www.jean-lartaut.fr"
+    },
+    {
+      "kind": "uai",
+      "id": "0240047W",
+      "dept": "24",
+      "domain": "college.chamiers.free.fr",
+      "orgId": 16167,
+      "ip": "212.27.63.132",
+      "sourceUrl": "http://college.chamiers.free.fr"
+    },
+    {
+      "kind": "uai",
+      "id": "0470732R",
+      "dept": "47",
+      "domain": "www.collegelucieaubrac47.websco.fr",
+      "orgId": 18549,
+      "ip": "213.186.33.24",
+      "sourceUrl": "http://www.collegelucieaubrac47.websco.fr"
+    },
+    {
+      "kind": "uai",
+      "id": "0640069C",
+      "dept": "64",
+      "domain": "www.college-la-citadelle.webou.net",
+      "orgId": 19618,
+      "ip": "51.91.218.42",
+      "sourceUrl": "http://www.college-la-citadelle.webou.net"
+    },
+    {
+      "kind": "uai",
+      "id": "0640041X",
+      "dept": "64",
+      "domain": "blogpeda.ac-bordeaux.fr",
+      "orgId": 19386,
+      "ip": "194.199.36.59",
+      "sourceUrl": "https://blogpeda.ac-bordeaux.fr/jeansarrailh/"
+    },
+    {
+      "kind": "uai",
+      "id": "0241111C",
+      "dept": "24",
+      "domain": "perigord.educagri.fr",
+      "orgId": 16264,
+      "ip": "194.167.15.75",
+      "sourceUrl": "https://perigord.educagri.fr"
+    },
+    {
+      "kind": "uai",
+      "id": "0330115W",
+      "dept": "33",
+      "domain": "app.lycee-foyen.fr",
+      "orgId": 17693,
+      "ip": "109.234.160.19",
+      "sourceUrl": "https://app.lycee-foyen.fr"
+    },
+    {
+      "kind": "uai",
+      "id": "0330089T",
+      "dept": "33",
+      "domain": "www.j-monnet.net",
+      "orgId": 17365,
+      "ip": "142.251.39.115",
+      "sourceUrl": "https://www.j-monnet.net"
+    },
+    {
+      "kind": "uai",
+      "id": "0330114V",
+      "dept": "33",
+      "domain": "app.lycee-foyen.fr",
+      "orgId": 17692,
+      "ip": "109.234.160.19",
+      "sourceUrl": "https://app.lycee-foyen.fr"
+    },
+    {
+      "kind": "uai",
+      "id": "0332835C",
+      "dept": "33",
+      "domain": "blogpeda.ac-bordeaux.fr",
+      "orgId": 17645,
+      "ip": "194.199.36.59",
+      "sourceUrl": "https://blogpeda.ac-bordeaux.fr/lyceesphilippecousteau/"
+    },
+    {
+      "kind": "uai",
+      "id": "0332802S",
+      "dept": "33",
+      "domain": "lycee-victor-louis.fr",
+      "orgId": 17885,
+      "ip": "192.0.78.150",
+      "sourceUrl": "https://lycee-victor-louis.fr"
+    },
+    {
+      "kind": "uai",
+      "id": "0332569N",
+      "dept": "33",
+      "domain": "blogpeda.ac-bordeaux.fr",
+      "orgId": 17505,
+      "ip": "194.199.36.59",
+      "sourceUrl": "https://blogpeda.ac-bordeaux.fr/clgparempuyre33/"
+    },
+    {
+      "kind": "uai",
+      "id": "0870056N",
+      "dept": "87",
+      "domain": "www.lyc-turgot.ac-limoges.fr",
+      "orgId": 20849,
+      "ip": "51.91.165.35",
+      "sourceUrl": "https://www.lyc-turgot.ac-limoges.fr"
+    },
+    {
+      "kind": "uai",
+      "id": "0190779U",
+      "dept": "19",
+      "domain": "www.jda-argentat.com",
+      "orgId": 15552,
+      "ip": "62.210.16.62",
+      "sourceUrl": "http://www.jda-argentat.com"
+    },
+    {
+      "kind": "uai",
+      "id": "0332282B",
+      "dept": "33",
+      "domain": "isnab.com",
+      "orgId": 17955,
+      "ip": "146.88.233.115",
+      "sourceUrl": "https://isnab.com"
+    },
+    {
+      "kind": "uai",
+      "id": "0641895M",
+      "dept": "64",
+      "domain": "azkaingoikastola.eus",
+      "orgId": 18959,
+      "ip": "164.132.235.17",
+      "sourceUrl": "https://azkaingoikastola.eus"
+    },
+    {
+      "kind": "uai",
+      "id": "0642077K",
+      "dept": "64",
+      "domain": "arberoaikastola.org",
+      "orgId": 19629,
+      "ip": "213.186.33.4",
+      "sourceUrl": "http://arberoaikastola.org"
+    }
+  ]
+}

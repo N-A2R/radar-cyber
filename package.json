@@ -47,7 +47,7 @@
     "exposition:dila": "apps/api/node_modules/.bin/tsx scripts/collecte-services-dila.mts",
     "exposition:osm-siret": "apps/api/node_modules/.bin/tsx scripts/collecte-services-osm-siret.mts",
     "exposition:wikidata": "apps/api/node_modules/.bin/tsx scripts/collecte-services-wikidata.mts",
-    "exposition:rna": "apps/api/node_modules/.bin/tsx scripts/collecte-services-rna.mts",
+    "exposition:wikidata-id": "apps/api/node_modules/.bin/tsx scripts/collecte-services-wikidata-identifier.mts",
     "exposition:site-zone": "apps/api/node_modules/.bin/tsx scripts/collecte-services-site-zone.mts",
     "exposition:education": "apps/api/node_modules/.bin/tsx scripts/collecte-services-education.mts",
     "exposition:administration": "apps/api/node_modules/.bin/tsx scripts/collecte-services-administration.mts",
