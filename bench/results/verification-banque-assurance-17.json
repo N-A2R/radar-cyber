@@ -1,0 +1,61 @@
+secteur: banque-assurance
+departement: 17
+date: 2026-11-22
+sources: 11
+urls_verifiees: 22
+urls_http_200: 22
+methode: GET HTTP avec User-Agent navigateur, suivi des redirections, délai 25 s ; contrôle du type de contenu HTML ou XML/RSS pour chaque URL
+urls:
+  (22 rows) url|code_http|content_type
+  https://actu.fr/nouvelle-aquitaine/la-rochelle_17300/|200|text/html
+  https://cma-nouvelleaquitaine.fr/|200|text/html
+  https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites|200|text/html
+  https://charentes.msa.fr/lfp|200|text/html
+  https://charentes.msa.fr/lfp/actualites-et-evenements|200|text/html
+  https://www.credit-agricole.fr/ca-cmds/particulier.html|200|text/html
+  https://www.credit-agricole.fr/ca-cmds/|200|text/html (redirection vers /particulier.html)
+  https://fbf.fr/fr/|200|text/html
+  https://fbf.fr/fr/rubrique-newsroom/actualites/|200|text/html
+  https://nouvelle-aquitaine.mutualite.fr/|200|text/html
+  https://nouvelle-aquitaine.mutualite.fr/actualites/|200|text/html
+  https://nouvelle-aquitaine.mutualite.fr/actualites/feed/|200|application/rss+xml
+  https://www.ameli.fr/charente-maritime/assure|200|text/html
+  https://www.ameli.fr/charente-maritime/assure/actualites|200|text/html
+  https://www.franceassureurs.fr/|200|text/html
+  https://www.franceassureurs.fr/actualites/|200|text/html
+  https://www.franceassureurs.fr/feed/|200|application/rss+xml
+  https://www.ici.fr/nouvelle-aquitaine/charente-maritime-17|200|text/html
+  https://www.orias.fr/|200|text/html
+  https://www.sudouest.fr/charente-maritime|200|text/html
+  https://www.sudouest.fr/charente-maritime/archives/|200|text/html
+  https://www.sudouest.fr/charente-maritime/rss.xml|200|application/xml
+exemples_cyber_verifies:
+  (13 rows) url|code_http
+  https://aide.msa.fr/lfp/fraude-sur-internet|200
+  https://charentes.msa.fr/lfp/actions-partenaires/bilan-lutte-fraude|200
+  https://fbf.fr/fr/communique_de_presse/fraude-aux-moyens-de-paiements-un-appel-aux-acteurs-du-numerique-a-se-mobiliser/|200
+  https://www.credit-agricole.fr/ca-charente-perigord/particulier/cybersecurite/bons-reflexes-face-a-la-fraude.html|200
+  https://www.credit-agricole.fr/ca-cmds/particulier/cybersecurite.html|200
+  https://www.hautesaintonge.fr/actualite-27395-charente-maritime-une-alerte-a-l-arnaque-sur-les-factures-d-eau-a-jonzac|200
+  https://www.sudouest.fr/charente-maritime/royan/une-usurpation-d-ampleur-du-numero-du-commissariat-de-royan-a-fait-des-victimes-ce-lundi-7-septembre-30529604.php|200
+  https://www.sudouest.fr/charente-maritime/la-rochelle/fuite-de-donnees-chez-synbird-la-rochelle-touchee-comme-1-300-communes-de-france-26875312.php|200
+  https://actu.fr/nouvelle-aquitaine/surgeres_17434/en-charente-maritime-ce-magasin-e-leclerc-est-victime-de-la-cyberattaque-les-vitrines-et-bacs-sont-vides-entierement_64912834.html|200
+  https://www.ici.fr/infos/faits-divers-justice/la-billetterie-du-theatre-de-la-coursive-a-la-rochelle-victime-d-une-attaque-informatique-1178940|200
+  https://www.charentelibre.fr/charente/val-de-bonnieure/en-un-clic-un-couple-de-saint-angeau-se-fait-pirater-13-600-euros-sur-ses-comptes-bancaires-la-banque-refuse-de-rembourser-20798426.php|200
+  https://www.sudouest.fr/charente-maritime/aytre/aytre-la-ville-appelle-a-la-vigilance-apres-des-appels-frauduleux-31470114.php|200
+  https://www.bfmtv.com/charente-maritime/cette-commune-de-charente-maritime-alerte-sur-une-arnaque-a-la-facture-d-eau_AN-202509220637.html|200
+candidats_ecartes:
+  - https://www.credit-agricole.fr/ca-charente-maritime-deux-sevres/particulier.html|404
+  - https://www.mutualite17.fr/|000 (DNS)
+  - https://www.me17.fr/|000 (DNS)
+  - https://www.larochelleci.fr/|000 (DNS)
+  - https://www.caisse-epargne.fr/poitou-charentes/|000 (DNS)
+  - https://www.orias.fr/actualites/|200 mais redirection vers /login/auth (non retenu)
+  - https://fbf.fr/fr/rss.xml|404
+  - https://www.ici.fr/nouvelle-aquitaine/charente-maritime-17/rss|404
+  - https://actu.fr/nouvelle-aquitaine/la-rochelle_17300/rss.xml|404
+  - https://recours-france.fr/annuaire/banque/17-charente-maritime|404
+  - https://www.kompass.com/fr/annuaire/banques/charente-maritime-17/|403
+  - https://www.pagesjaunes.fr/annuaire/banques/charente-maritime|403
+  - https://www.allianz.fr/|403
+  - https://www.macif.fr/|403

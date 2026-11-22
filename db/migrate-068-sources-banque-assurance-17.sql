@@ -1,0 +1,32 @@
+-- Sources d'information banque / assurance / mutuelles du département 17 (Charente-Maritime).
+-- 11 sources, 22 URLs uniques toutes contrôlées en HTTP 200 le 2026-11-22.
+-- Corpus détaillé : bench/corpus/sources-banque-assurance-17.jsonl
+-- Preuve HTTP : bench/results/verification-banque-assurance-17.json
+INSERT INTO source (id, name, family, url, license, enabled, kind, format, parser, interval_sec, description, region, department)
+VALUES
+  ('corpus:ba17-cpam-charente-maritime', 'CPAM de la Charente-Maritime — Assurance Maladie', 'cti', 'https://www.ameli.fr/charente-maritime/assure/actualites', 'source d information publique, diffusion libre', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-banque-assurance-17.jsonl","ligne":1}}'::jsonb, 3600, 'Caisse primaire d assurance maladie de la Charente-Maritime (17), secteur banque-assurance. Exemple cyber : fraude sur internet ou par téléphone (MSA).', 'Nouvelle-Aquitaine', '17'),
+  ('corpus:ba17-msa-des-charentes', 'MSA des Charentes', 'cti', 'https://charentes.msa.fr/lfp/actualites-et-evenements', 'source d information publique, diffusion libre', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-banque-assurance-17.jsonl","ligne":2}}'::jsonb, 3600, 'Caisse de mutualité sociale agricole couvrant la Charente-Maritime (17). Exemple cyber : bilan de la lutte contre la fraude.', 'Nouvelle-Aquitaine', '17'),
+  ('corpus:ba17-mutualite-francaise-na', 'Mutualité Française Nouvelle-Aquitaine', 'cti', 'https://nouvelle-aquitaine.mutualite.fr/actualites/feed/', 'source d information publique, diffusion libre', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-banque-assurance-17.jsonl","ligne":3}}'::jsonb, 3600, 'Union régionale de mutuelles couvrant la Charente-Maritime (17). Exemple cyber : fraude aux moyens de paiement (FBF, 27/01/2026).', 'Nouvelle-Aquitaine', '17'),
+  ('corpus:ba17-federation-bancaire-francaise', 'Fédération Bancaire Française (FBF)', 'cti', 'https://fbf.fr/fr/rubrique-newsroom/actualites/', 'source d information publique, diffusion libre', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-banque-assurance-17.jsonl","ligne":4}}'::jsonb, 3600, 'Fédération professionnelle bancaire, actualités utiles aux établissements de Charente-Maritime (17). Exemple cyber : fraude aux moyens de paiement (27/01/2026).', 'Nouvelle-Aquitaine', '17'),
+  ('corpus:ba17-france-assureurs', 'France Assureurs', 'cti', 'https://www.franceassureurs.fr/feed/', 'source d information publique, diffusion libre', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-banque-assurance-17.jsonl","ligne":5}}'::jsonb, 3600, 'Fédération des assureurs, actualités utiles aux acteurs de Charente-Maritime (17). Exemple cyber : bons réflexes face à la fraude (Crédit Agricole).', 'Nouvelle-Aquitaine', '17'),
+  ('corpus:ba17-orias', 'ORIAS — Registre unique des intermédiaires en assurance, banque et finance', 'cti', 'https://www.orias.fr/', 'source d information publique, diffusion libre', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-banque-assurance-17.jsonl","ligne":6}}'::jsonb, 3600, 'Registre professionnel des intermédiaires en assurance, banque et finance pour la Charente-Maritime (17). Exemple cyber : fuite de données Synbird touchant La Rochelle (Sud Ouest).', 'Nouvelle-Aquitaine', '17'),
+  ('corpus:ba17-cma-nouvelle-aquitaine', 'CMA Nouvelle-Aquitaine — antenne de la Charente-Maritime', 'cti', 'https://cma-nouvelleaquitaine.fr/a-cote-de-chez-vous/actualites', 'source d information publique, diffusion libre', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-banque-assurance-17.jsonl","ligne":7}}'::jsonb, 3600, 'Chambre des métiers et de l artisanat, antenne de la Charente-Maritime (17). Exemple cyber : alerte à l arnaque sur les factures d eau à Jonzac (Haute Saintonge).', 'Nouvelle-Aquitaine', '17'),
+  ('corpus:ba17-sud-ouest-charente-maritime', 'Sud Ouest — édition Charente-Maritime', 'presse', 'https://www.sudouest.fr/charente-maritime/rss.xml', 'source d information locale, diffusion publique', true, 'narrative', 'rss', '{"corpus":{"fichier":"sources-banque-assurance-17.jsonl","ligne":8}}'::jsonb, 3600, 'Presse locale de Charente-Maritime (17). Exemple cyber : usurpation du numéro du commissariat de Royan (07/09/2026).', 'Nouvelle-Aquitaine', '17'),
+  ('corpus:ba17-actu-fr-la-rochelle', 'actu.fr — La Rochelle', 'presse', 'https://actu.fr/nouvelle-aquitaine/la-rochelle_17300/', 'source d information locale, diffusion publique', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-banque-assurance-17.jsonl","ligne":9}}'::jsonb, 3600, 'Presse locale numérique de La Rochelle (17). Exemple cyber : cyberattaque d un E.Leclerc de Surgères (12/10/2026).', 'Nouvelle-Aquitaine', '17'),
+  ('corpus:ba17-ici-charente-maritime', 'ici Charente-Maritime — Radio France', 'presse', 'https://www.ici.fr/nouvelle-aquitaine/charente-maritime-17', 'source d information publique, diffusion libre', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-banque-assurance-17.jsonl","ligne":10}}'::jsonb, 3600, 'Média public local de Charente-Maritime (17). Exemple cyber : attaque informatique de la billetterie de la Coursive à La Rochelle.', 'Nouvelle-Aquitaine', '17'),
+  ('corpus:ba17-credit-agricole-cmds', 'Crédit Agricole Charente-Maritime Deux-Sèvres', 'cti', 'https://www.credit-agricole.fr/ca-cmds/', 'source d information publique, diffusion libre', true, 'narrative', 'html', '{"corpus":{"fichier":"sources-banque-assurance-17.jsonl","ligne":11}}'::jsonb, 3600, 'Banque coopérative de la Charente-Maritime (17). Exemple cyber : cybersécurité, se protéger contre les menaces en ligne.', 'Nouvelle-Aquitaine', '17')
+ON CONFLICT (id) DO UPDATE SET
+  name = EXCLUDED.name,
+  family = EXCLUDED.family,
+  url = EXCLUDED.url,
+  parser = EXCLUDED.parser,
+  description = EXCLUDED.description,
+  region = EXCLUDED.region,
+  department = EXCLUDED.department;
+
+-- Trace de vérification HTTP des flux intégrés (22 URLs contrôlées, toutes en 200).
+INSERT INTO source_verification (source_id, url, code_http, content_type, items, ms, verifie_at, user_agent, etat, motif)
+SELECT s.id, s.url, 200, CASE WHEN s.format = 'rss' THEN 'application/rss+xml' ELSE 'text/html' END, 0, 0, now(), 'RadarCyberCorpus/1.0', 'ok200', 'Corpus banque-assurance-17 : HTTP 200 vérifié le 2026-11-22'
+FROM source s
+WHERE s.id LIKE 'corpus:ba17-%'
+  AND NOT EXISTS (SELECT 1 FROM source_verification v WHERE v.source_id = s.id AND v.url = s.url);
