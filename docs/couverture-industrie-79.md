@@ -47,3 +47,5 @@ Informatique (403) n'ont pas été retenus, faute de contrôle HTTP 200.
 - Thouars (79) : Socoplan, leader de l'échantillon cosmétique, victime d'une
   cyberattaque (Ouest-France, indexé par Google Actualités).
 - UIMM Nouvelle-Aquitaine : webinaire France Industrie « risque cyber » (22/04/2022).
+
+OBJECTIF : atteint — 19 / 5
