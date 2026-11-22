@@ -1,6 +1,6 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { creerMemoire, etatDonnees, type Instantane } from "./offline";
-import { api, clearAuthToken, getAuthToken, setAuthToken, type CollecteMetrics, type CouvertureResponse, type CorpusStats, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type Stats, type TodayResponse } from "./api";
+import { api, clearAuthToken, getAffected, getAuthToken, setAuthToken, type AffectedReport, type CollecteMetrics, type CouvertureResponse, type CorpusStats, type DeptStat, type Event, type FlowArc, type Graph, type HealthCauses, type HealthDetail, type LiveAlert, type NaFil, type NaOverview, type Org, type Source, type Stats, type TodayResponse } from "./api";
 import { mockData } from "./mock";
 const Map3D = lazy(() => import("./map/Map3D"));
 const GraphView = lazy(() => import("./graph/GraphView"));
@@ -23,6 +23,7 @@ const CouvertureView = lazy(() => import("./components/CouvertureView"));
 const AlertsView = lazy(() => import("./components/AlertsView"));
 const LoginScreen = lazy(() => import("./components/LoginScreen"));
 const CorpusView = lazy(() => import("./components/CorpusView"));
+const AffectedView = lazy(() => import("./components/AffectedView"));
 import type { ViewKey } from "./contracts";
 import { parseHash, toHash, shareableUrl, type AppUrlState } from "./url-state";
 
@@ -54,6 +55,7 @@ const VIEWS: { id: ViewKey; label: string }[] = [
   { id: "health", label: "Health" },
   { id: "alerts", label: "Alerts" },
   { id: "na", label: "Nouvelle-Aquitaine" },
+  { id: "affected", label: "Affected?" },
 ];
 
 const FEED_LIMIT = 300;
@@ -80,6 +82,11 @@ export default function App() {
   const [corpusData, setCorpusData] = useState<CorpusStats | null>(null);
   const [corpusLoading, setCorpusLoading] = useState(false);
   const [corpusError, setCorpusError] = useState<string | null>(null);
+  // "Am I affected?" is a user action: one request per Check, never on view load.
+  const [affectedReport, setAffectedReport] = useState<AffectedReport | null>(null);
+  const [affectedLoading, setAffectedLoading] = useState(false);
+  const [affectedError, setAffectedError] = useState<string | null>(null);
+  const [affectedQuery, setAffectedQuery] = useState("");
   const [statsDepartements, setStatsDepartements] = useState<DeptStat[]>([]);
   const [graph, setGraph] = useState<Graph>({ nodes: [], links: [] });
   const [temporalGraph, setTemporalGraph] = useState<Graph | null>(null);
@@ -581,6 +588,37 @@ export default function App() {
     setError(null);
   }, []);
 
+  const affectedController = useRef<AbortController | null>(null);
+  const onAffectedSubmit = useCallback((q: string) => {
+    if (q.trim() === "") {
+      setAffectedReport(null);
+      setAffectedError(null);
+      return;
+    }
+    affectedController.current?.abort();
+    const controller = new AbortController();
+    affectedController.current = controller;
+    setAffectedLoading(true);
+    setAffectedError(null);
+    getAffected(q.trim(), controller.signal)
+      .then((next) => {
+        if (!controller.signal.aborted) {
+          setAffectedReport(next);
+          setAffectedError(null);
+        }
+      })
+      .catch((err: unknown) => {
+        if (!controller.signal.aborted) {
+          setAffectedReport(null);
+          setAffectedError(err instanceof Error ? err.message : "unavailable");
+        }
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setAffectedLoading(false);
+      });
+  }, []);
+  useEffect(() => () => affectedController.current?.abort(), []);
+
 
   const inspectorOpen =
     selectedEventId !== null || selectedOrgId !== null || sheetOrgId !== null;
@@ -881,6 +919,17 @@ export default function App() {
                 setSelectedEventId(id);
                 setSelectedOrgId(null);
               }}
+            />
+          ) : null}
+
+          {view === "affected" ? (
+            <AffectedView
+              report={affectedReport}
+              loading={affectedLoading}
+              error={affectedError}
+              query={affectedQuery}
+              onQueryChange={setAffectedQuery}
+              onSubmit={onAffectedSubmit}
             />
           ) : null}
 
