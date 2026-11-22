@@ -73,3 +73,5 @@ Limite de périmètre : MEDEF NA, Fibois NA, UIMM FdA, Polyvia NA et Aerospace V
 organisations régionales/nationales dont l'activité couvre la Gironde ; le type le précise. Les sources
 strictement girondines (CPME Gironde, MEDEF Gironde, CMA/Chambre d'agriculture, Bordeaux Métropole,
 Conseil départemental, presse locale) suffisent à elles seules à dépasser l'objectif de 5 sources.
+
+OBJECTIF : atteint — 23 / 5
