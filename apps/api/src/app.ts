@@ -32,6 +32,7 @@ import ingestRoute from "./routes/ingest.js";
 import journalRoute from "./routes/journal.js";
 import keysRoute from "./routes/keys.js";
 import naRoute from "./routes/na.js";
+import providersRoute from "./routes/providers.js";
 import orgsLieesHistoriqueRoute from "./routes/orgs-liees-historique.js";
 import orgsLieesRoute from "./routes/orgs-liees.js";
 import orgsRoute from "./routes/orgs.js";
@@ -47,7 +48,7 @@ import todayRoute from "./routes/today.js";
 const ROUTES = [
   eventsRoute, historyRoute, healthDetailRoute, healthCausesRoute, todayRoute,
   statsDepartementsRoute, couvertureRoute, flowsRoute, orgsRoute, directoryRoute,
-  naRoute, graphRoute, streamRoute, sourcesRoute, statsRoute, searchRoute,
+  naRoute, providersRoute, graphRoute, streamRoute, sourcesRoute, statsRoute, searchRoute,
   enrichRoute, authRoute, alertsRoute, quarantineRoute, reviewRoute, journalRoute,
   orgsLieesRoute, orgsLieesHistoriqueRoute, ingestRoute, dossierRoute, keysRoute,
 ];
