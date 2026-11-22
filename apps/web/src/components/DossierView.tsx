@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { api } from "../api";
 import { EmptyState, LoadingSkeleton } from "./Skeleton";
+import { useScreenExport } from "./ExportMenu";
 import "./dossier.css";
 
 type DossierPayload = {
@@ -28,6 +29,9 @@ type DossierPayload = {
 
 export default function DossierView() {
 	const [data, setData] = useState<DossierPayload | null>(null);
+	useScreenExport("dossier", (data?.dossier.sections ?? []).map((section) => ({
+		section: section.titre, detail: section.points.join("; "),
+	})));
 	const [error, setError] = useState<string | null>(null);
 	const [loading, setLoading] = useState(true);
 	const [reloadSignal, setReloadSignal] = useState(0);

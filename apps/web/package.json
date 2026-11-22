@@ -31,7 +31,8 @@
     "test:sources-rouges": "vite build --ssr test/sources-rouges-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/sources-rouges-verif.js",
     "test:journal": "vite build --ssr test/journal-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/journal-verif.js",
     "test:droit-reponse": "vite build --ssr test/droit-reponse-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/droit-reponse-verif.js",
-    "test:etats-vides": "vite build --ssr test/etats-vides-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/etats-vides-verif.js"
+    "test:etats-vides": "vite build --ssr test/etats-vides-verif.tsx --outDir .smoke-out --logLevel warn && node .smoke-out/etats-vides-verif.js",
+    "test:export": "vitest run test/export.test.tsx --environment jsdom --reporter=verbose"
   },
   "dependencies": {
     "@radar/shared": "workspace:*",

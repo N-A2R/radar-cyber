@@ -9,6 +9,7 @@
  * on unmount or when the filters change.
  */
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useScreenExport } from "./ExportMenu";
 import { api, type JournalDecision, type JournalReviewParams } from "../api";
 import JournalList, {
   DECISION_UNSPECIFIED, KIND_CATEGORIES, KIND_LABEL, DECISION_LABEL,
@@ -84,6 +85,10 @@ type Props = {
 
 export default function JournalView({ onUnauthorized }: Props) {
   const [rows, setRows] = useState<JournalDecision[]>([]);
+  useScreenExport("journal", rows.map((entry) => ({
+    date: entry.horodatage, kind: entry.kind, actor: entry.acteur,
+    target: entry.sujet, decision: entry.decision,
+  })));
   const [filters, setFilters] = useState<JournalFilters>({});
   /** Debounced copy actually sent to the API. */
   const [applied, setApplied] = useState<JournalFilters>({});
