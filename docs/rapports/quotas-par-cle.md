@@ -103,3 +103,5 @@ typecheck API passe.
 - **Diff de `server.ts` ≤ 10 lignes** : **0 ligne modifiée**.
 - **Aucune commande de plus de 60 s** : mesure ~2 s, tests ~4 s, typecheck
   ~8 s.
+
+OBJECTIF : atteint — 400 / 400 requêtes hors quota refusées sans dépassement (800 requêtes injectées sur 10 clés à 40/60 s : 400 acceptées, 400 refusées, 0 overflow, 800/800 en-têtes conformes, verdict `enforced` ; mesure rejouée le 22/11/2026 avec `DATABASE_URL=postgres://radar:radar@127.0.0.1:5433/radar apps/api/node_modules/.bin/tsx scripts/mesure-quotas-cles.mts`).
