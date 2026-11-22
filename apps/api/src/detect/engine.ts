@@ -1,6 +1,7 @@
 import { query, ingestQuery } from "../db.js";
 import { classifyScope, isConfident, isScopeGateEnabled } from "./scope.js";
 import { REVIEW_THRESHOLD, scoreAlert } from "./confidence.js";
+import { NA_ANCHOR_BONUS } from "./calibration.js";
 import { discardIfFalse } from "./false-events.js";
 
 export type RuleMatch = {
@@ -36,6 +37,23 @@ export async function loadRules(force = false): Promise<Rule[]> {
   const r = await query<{ id: string; name: string; description: string | null; severity: number; enabled: boolean; match: unknown; action: string }>("SELECT id, name, description, severity, enabled, match, action FROM detection_rule WHERE enabled = true");
   cachedRules = r.rows.map((row) => ({ id: row.id, name: row.name, description: row.description, severity: row.severity, enabled: row.enabled, match: (typeof row.match === "string" ? JSON.parse(row.match as string) : row.match) as RuleMatch, action: row.action }));
   return cachedRules;
+}
+
+let cachedRuleThresholds: Map<string, number> | null = null;
+
+/**
+ * Seuils calibrés par règle (table `rule_calibration`, holdout 30 jours).
+ *
+ * Chargés une fois puis gardés en mémoire : les relire à chaque événement
+ * ferait payer une requête par évaluation. `force` recharge après une mesure.
+ */
+export async function loadRuleThresholds(force = false): Promise<Map<string, number>> {
+  if (cachedRuleThresholds && !force) return cachedRuleThresholds;
+  const r = await query<{ rule_id: string; threshold: string }>(
+    "SELECT rule_id, threshold FROM rule_calibration"
+  );
+  cachedRuleThresholds = new Map(r.rows.map((row) => [row.rule_id, Number(row.threshold)]));
+  return cachedRuleThresholds;
 }
 
 function textOf(e: Record<string, unknown>): string {
@@ -161,12 +179,36 @@ export async function evaluateEvent(eventId: number, ctx?: { corroboration?: Map
     return 0;
   }
 
+  // Échelle mesurée par la calibration : note de confiance, majorée quand un
+  // ancrage régional est observable (rattachement organisation ou drapeau
+  // `regional` de l'événement). Aucun autre signal n'entre dans ce score.
+  const anchored = orgId != null || e.regional === true;
+  const calibratedScore = confidence.score + (anchored ? NA_ANCHOR_BONUS : 0);
+  const ruleThresholds = await loadRuleThresholds();
+
   let created = 0;
   for (const rule of matched) {
+    // Un seuil calibré ne peut que resserrer : il s'applique après la porte
+    // globale de 65, et une promotion humaine (`force`) le conserve.
+    const threshold = ruleThresholds.get(rule.id);
+    if (!ctx?.force && threshold != null && calibratedScore < threshold) {
+      console.warn(
+        JSON.stringify({
+          detect: "alert_skipped_below_rule_threshold",
+          event_id: Number(e.id),
+          rule_id: rule.id,
+          score: calibratedScore,
+          threshold,
+          anchored,
+        })
+      );
+      continue;
+    }
     const scope = orgId != null ? "organization_incident" : "regional_advisory";
     const evidence = {
       event_title: e.title,
       confidence: confidenceEvidence,
+      ...(threshold != null ? { calibration: { score: calibratedScore, threshold, anchored } } : {}),
       ...(regionalVerdict ? { scope_decision: regionalVerdict } : {}),
     };
     const ins = await ingestQuery(
