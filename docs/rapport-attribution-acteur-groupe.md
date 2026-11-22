@@ -116,3 +116,5 @@ Elle attribuait à tort `lockbit3_fs` (groupe distinct non suivi en NA) à
 LockBit 3.0, avec une confiance faible de 65. La règle a été resserrée à une
 seule différence, avec un test de non-régression dédié ; la mesure est passée
 de 22 à **21 attributions**, toutes désormais `high`.
+
+OBJECTIF : atteint — 21 / 21
