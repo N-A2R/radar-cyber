@@ -8,7 +8,6 @@ import {
 	detecterAnomaliesSeries,
 	FENETRE_REFERENCE_JOURS,
 	OBSERVATIONS_MIN,
-	SEUIL_Z,
 	type AxeAnomalie,
 	type PointSerie,
 } from "../src/analyse/anomalies-series.js";
@@ -58,7 +57,9 @@ test("pic franc : l'alerte porte valeur, distribution, écart, z et fait", () =>
 	assert.equal(a?.distribution.mediane, 2);
 	assert.equal(a?.distribution.jours, FENETRE_REFERENCE_JOURS);
 	assert.equal(a?.ecart, 10);
-	assert.ok((a?.z ?? 0) > SEUIL_Z);
+	assert.ok((a?.z ?? 0) > 3);
+	assert.ok(a?.fdr.rejette);
+	assert.ok(a.fdr.p <= a.fdr.seuil);
 	assert.deepEqual(a?.faits, ["flux-a-39"]);
 	assert.match(a?.explication ?? "", /12 faits/);
 	assert.match(a?.explication ?? "", /médiane 2/);
@@ -103,7 +104,8 @@ test("un valeur extrême dans la fenêtre ne gonfle pas la médiane", () => {
 	assert.ok(dernier, "le pic final reste détecté");
 	assert.equal(dernier.distribution.mediane, 2);
 	assert.equal(dernier.distribution.max, 50);
-	assert.ok(dernier.z > SEUIL_Z);
+	assert.ok(dernier.z > 3);
+	assert.ok(dernier.fdr.rejette);
 });
 
 test("maintenant borne le rejeu : le futur n'entre ni dans la fenêtre ni dans les alertes", () => {
@@ -132,7 +134,7 @@ test("points du même jour agrégés, baisses ignorées", () => {
 
 test("les trois axes suivent la même règle", () => {
 	const valeurs = Array.from({ length: 40 }, () => 2);
-	valeurs[39] = 12;
+	valeurs[39] = 20;
 	const r = detecterAnomaliesSeries([
 		...serie(valeurs, "organisation", "org-1"),
 		...serie(valeurs, "secteur", "sante"),
@@ -140,13 +142,25 @@ test("les trois axes suivent la même règle", () => {
 	]);
 	assert.deepEqual(r.alertes.map((a) => a.axe), ["organisation", "secteur", "source"]);
 	assert.equal(r.diagnostics.length, 3);
+	const parRang = [...r.alertes].sort((a, b) => a.fdr.rang - b.fdr.rang);
+	for (let i = 1; i < parRang.length; i++) {
+		assert.ok(parRang[i]!.fdr.seuil < parRang[i - 1]!.fdr.seuil, "le seuil se resserre à chaque test");
+	}
+});
+
+test("le FDR remplace le seuil fixe : un z > 3 tardif ne suffit plus", () => {
+	const valeurs = Array.from({ length: 40 }, () => 2);
+	valeurs[39] = 10; // z ≈ 3,1 : l'ancien seuil z ≥ 3 alertait
+	const r = detecterAnomaliesSeries(serie(valeurs));
+	assert.deepEqual(r.alertes, [], "après 12 tests, le seuil FDR est plus strict que z ≥ 3");
 });
 
 test("options invalides refusées avant tout calcul", () => {
 	const base = serie(Array.from({ length: 40 }, () => 2));
 	assert.throws(() => detecterAnomaliesSeries(base, { fenetreJours: 6 }), RangeError);
 	assert.throws(() => detecterAnomaliesSeries(base, { observationsMin: 1 }), RangeError);
-	assert.throws(() => detecterAnomaliesSeries(base, { seuilZ: 0 }), RangeError);
+	assert.throws(() => detecterAnomaliesSeries(base, { fdrCible: 0 }), RangeError);
+	assert.throws(() => detecterAnomaliesSeries(base, { fdrCible: 1 }), RangeError);
 	assert.throws(() => detecterAnomaliesSeries(base, { ecartMin: -1 }), RangeError);
 	assert.throws(() => detecterAnomaliesSeries(base, { maintenant: Number.NaN }), RangeError);
 });
