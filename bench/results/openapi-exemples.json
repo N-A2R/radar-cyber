@@ -1,0 +1,21 @@
+{
+  "objective": "executable documentation",
+  "command": "pnpm mesure:openapi-exemples",
+  "baseline": {
+    "organisations": 1673151,
+    "sources": 312,
+    "evenements": 26719,
+    "archivedEvenements": 4710,
+    "region": "Nouvelle-Aquitaine",
+    "provenance": "docs/couverture-mesuree.md",
+    "matchesPublishedState": true
+  },
+  "operations": 54,
+  "documentedOperations": 54,
+  "operationsWithExecutableExample": 54,
+  "replayed": 54,
+  "passed": 54,
+  "failed": 0,
+  "failures": [],
+  "verdict": "executable"
+}
