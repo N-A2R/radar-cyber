@@ -1,0 +1,54 @@
+{
+  "measuredAt": "2026-11-22T03:23:35.074Z",
+  "method": "local NA decoy listener -> real HTTP requests -> 24 h in-memory aggregation",
+  "region": "nouvelle-aquitaine",
+  "windowHours": 24,
+  "window": {
+    "from": "2026-11-21T12:00:00.000Z",
+    "to": "2026-11-22T12:00:00.000Z"
+  },
+  "scansCaptured24h": 144,
+  "distinctActors": 144,
+  "provenance": {
+    "byNetwork": {
+      "tor-exit": 48,
+      "abuse-reported": 48,
+      "unknown": 48
+    },
+    "byAgent": {
+      "nmap": 29,
+      "masscan": 29,
+      "curl": 29,
+      "script": 29,
+      "browser": 28,
+      "unknown": 0
+    },
+    "byPath": {
+      "direct": 0,
+      "forwarded": 144
+    },
+    "byProbe": {
+      "/.env": 24,
+      "/.git/config": 24,
+      "/actuator/env": 24,
+      "/phpmyadmin/": 24,
+      "/wp-login.php": 24,
+      "/xmlrpc.php": 24
+    }
+  },
+  "replay": {
+    "scansSent": 144,
+    "outOfWindowSent": 8,
+    "ignoredRequests": 2,
+    "capturedTotal": 152
+  },
+  "baseline": {
+    "organisations": 1673151,
+    "sources": 312,
+    "events": 26259
+  },
+  "networkDataset": {
+    "generatedAt": "2026-11-22",
+    "addresses": 800
+  }
+}
