@@ -41,3 +41,5 @@ Découverte par recherches web, annuaires professionnels, sites d'organisations,
 Corpus : `bench/corpus/sources-numerique-40.jsonl` (20 lignes, empreinte recalculée dans `bench/corpus/HASH`).
 Rapport : `bench/results/verification-numerique-40.json`.
 Base : `db/migrate-123-sources-numerique-40.sql` (20 sources insérées dans `source`, 20 traces `source_verification`).
+
+OBJECTIF : atteint — 20 / 5
