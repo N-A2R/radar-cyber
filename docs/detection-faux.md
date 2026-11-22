@@ -166,3 +166,4 @@ et clos 1 alerte, le reste de l'écart provenant de suppressions d'événements
 externes. La mesure de contrôle relue deux fois donne 1 304 / 1 304.
 24 tests de détection passent (20 précédents + 4 nouveaux) et le typecheck
 `tsc --noEmit -p apps/api/tsconfig.json` est vert.
+OBJECTIF : atteint — 1304 / 1304
