@@ -103,3 +103,4 @@ sur la base réelle décrite plus haut :
 - **Diff de `server.ts` : 0 ligne** (≤ 10 exigées).
 - **Aucune commande de plus de 60 s** : migration 1,3 s, tests ciblés 3 s,
   mesure 1,9 s.
+OBJECTIF : atteint — 60,18 / 100 ms (p95 requête graphe 3 ans, 37 dates)
