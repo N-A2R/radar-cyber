@@ -1,0 +1,15 @@
+{
+  "name": "@radar/sdk",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Read-only client for the Radar Cyber Nouvelle-Aquitaine public API",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "example": "../../apps/api/node_modules/.bin/tsx examples/overview.ts",
+    "test": "../../apps/api/node_modules/.bin/tsx --test test/*.test.ts",
+    "typecheck": "../../apps/api/node_modules/.bin/tsc --noEmit -p tsconfig.json"
+  }
+}

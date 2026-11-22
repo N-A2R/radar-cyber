@@ -42,3 +42,7 @@ Thumbs.db
 
 # Artefacts locaux du skill de design
 .hallmark/
+
+# Python SDK caches
+__pycache__/
+*.pyc
