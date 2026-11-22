@@ -42,3 +42,4 @@ Mesure du 2026-11-22. Objectif : au moins 5 sources vérifiées en HTTP 200 pour
 ## Méthode
 
 Recherche web (annuaires consulaires, fédérations, presse locale, sites d'établissements) suivie d'un contrôle `curl -L -s -o /dev/null -w '%{http_code}'` sur chaque URL du corpus. Le champ `code_http` du JSONL vaut 200 pour chaque source ; les URL sont détaillées dans le corpus et la table `source_verification`.
+OBJECTIF : atteint — 13 / 5
