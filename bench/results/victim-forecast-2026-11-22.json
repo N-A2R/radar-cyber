@@ -1,0 +1,173 @@
+{
+  "generatedAt": "2026-11-22T00:21:01.877Z",
+  "asOf": "2026-11-22",
+  "horizonDays": 30,
+  "horizonEnd": "2026-12-22",
+  "topN": 10,
+  "backtestMonths": 6,
+  "cutoffs": [
+    "2026-05-26",
+    "2026-06-25",
+    "2026-07-25",
+    "2026-08-24",
+    "2026-09-23",
+    "2026-10-23"
+  ],
+  "dataset": {
+    "organisationsNA": 1671906,
+    "sources": 463,
+    "events": 27899,
+    "naClaims": 74,
+    "naOrganisationEvents": 240
+  },
+  "backtest": {
+    "predictions": 60,
+    "hits": 0,
+    "victims": 15,
+    "precision": 0,
+    "recall": 0,
+    "recallInterval": [
+      0,
+      0.20388926630434784
+    ],
+    "perWindow": [
+      {
+        "cutoff": "2026-05-26",
+        "horizonEnd": "2026-06-25",
+        "predicted": 10,
+        "victims": 2,
+        "hits": 0,
+        "precision": 0,
+        "recall": 0
+      },
+      {
+        "cutoff": "2026-06-25",
+        "horizonEnd": "2026-07-25",
+        "predicted": 10,
+        "victims": 3,
+        "hits": 0,
+        "precision": 0,
+        "recall": 0
+      },
+      {
+        "cutoff": "2026-07-25",
+        "horizonEnd": "2026-08-24",
+        "predicted": 10,
+        "victims": 6,
+        "hits": 0,
+        "precision": 0,
+        "recall": 0
+      },
+      {
+        "cutoff": "2026-08-24",
+        "horizonEnd": "2026-09-23",
+        "predicted": 10,
+        "victims": 0,
+        "hits": 0,
+        "precision": 0,
+        "recall": null
+      },
+      {
+        "cutoff": "2026-09-23",
+        "horizonEnd": "2026-10-23",
+        "predicted": 10,
+        "victims": 3,
+        "hits": 0,
+        "precision": 0,
+        "recall": 0
+      },
+      {
+        "cutoff": "2026-10-23",
+        "horizonEnd": "2026-11-22",
+        "predicted": 10,
+        "victims": 1,
+        "hits": 0,
+        "precision": 0,
+        "recall": 0
+      }
+    ]
+  },
+  "forecast": [
+    {
+      "rank": 1,
+      "orgId": 2190093,
+      "name": "AGENCE NATIONALE",
+      "sector": "activites-specialisees",
+      "dept": "33",
+      "score": 48.93
+    },
+    {
+      "rank": 2,
+      "orgId": 604869,
+      "name": "23 NOT' FOLLES",
+      "sector": "culture-loisirs",
+      "dept": "23",
+      "score": 45.43
+    },
+    {
+      "rank": 3,
+      "orgId": 160389,
+      "name": "BCI",
+      "sector": "immobilier",
+      "dept": "33",
+      "score": 44.27
+    },
+    {
+      "rank": 4,
+      "orgId": 2230758,
+      "name": "GREAT LAKES",
+      "sector": "activites-specialisees",
+      "dept": "33",
+      "score": 42.67
+    },
+    {
+      "rank": 5,
+      "orgId": 2285568,
+      "name": "ZANICHELLI",
+      "sector": "activites-specialisees",
+      "dept": "17",
+      "score": 40.73
+    },
+    {
+      "rank": 6,
+      "orgId": 2175692,
+      "name": "DATA STORAGE",
+      "sector": "activites-specialisees",
+      "dept": "17",
+      "score": 39.2
+    },
+    {
+      "rank": 7,
+      "orgId": 482872,
+      "name": "OPEN SOURCE",
+      "sector": "associations",
+      "dept": "33",
+      "score": 38.93
+    },
+    {
+      "rank": 8,
+      "orgId": 213857,
+      "name": "MAISON HEBRARD",
+      "sector": "commerce",
+      "dept": "33",
+      "score": 38.43
+    },
+    {
+      "rank": 9,
+      "orgId": 688670,
+      "name": "JOHNSON  & JOHNSON",
+      "sector": "immobilier",
+      "dept": "17",
+      "score": 37.6
+    },
+    {
+      "rank": 10,
+      "orgId": 313584,
+      "name": "AXE EXPERTS",
+      "sector": "activites-specialisees",
+      "dept": "87",
+      "score": 37.5
+    }
+  ],
+  "caveat": "Retrospective evaluation: a claim published in a window is a victim even if the radar learned of it later. Features use only facts dated before the cutoff."
+}
