@@ -16,8 +16,6 @@ import { runScheduledDiscovery } from "./discovery/discover.js";
 import { runHermesCollector } from "./collectors/hermes.collector.js";
 import { runQuarantineCollector } from "./collectors/quarantine.collector.js";
 import { promoteMatches } from "./quarantine/promote.js";
-import { prechaufferIndexRevue } from "./quarantine/review-index.js";
-import { reviewQueue } from "./quarantine/review.js";
 import { fetchResilient } from "./collectors/http.js";
 import { collectors, executerCollecteur, executerPlan, planifierCycle, ratisserSourcesJamaisCollectees } from "./collectors/index.js";
 import { enregistrerCycleCollecte } from "./collecte/supervision.js";
@@ -541,19 +539,8 @@ for (const signal of ["SIGINT", "SIGTERM"] as const) {
 // (vite proxifie /api en localhost). Pour l'exposer sciemment — tailnet, LAN —
 // lancer avec HOST=0.0.0.0.
 const host = process.env.HOST ?? "127.0.0.1";
-// Index de la file de revue : chargé une seule fois, avant d'accepter du trafic.
-// Page par page et en rendant la main, donc sans figer la boucle ; aucune
-// requête ne paiera ensuite les balayages `org` / `org_alias`.
-{
-	const debut = performance.now();
-	try {
-		await prechaufferIndexRevue();
-		// Un premier passage à vide : la première requête réelle ne paie ni le
-		// JIT ni l'échauffement des requêtes SQL de la file.
-		await reviewQueue({ limit: 1 });
-		log(`index de revue : chargé en ${Math.round(performance.now() - debut)} ms (org + org_alias)`);
-	} catch (e) {
-		app.log.error(e, "index de revue indisponible au démarrage");
-	}
-}
+// L'index de la file de revue (org + org_alias, 1,5 à 2,8 Go) n'est plus
+// chargé ici : il se construit à la première requête de revue, en tâche de
+// fond, et celle-ci répond « en préparation » pendant ce temps. Le démarrage
+// n'attend donc plus ~20 s et le RSS au repos reste celui du serveur seul.
 await app.listen({ port, host });
