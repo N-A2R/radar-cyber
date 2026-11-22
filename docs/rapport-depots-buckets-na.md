@@ -74,3 +74,4 @@ Vérifications exécutées : 12/12 tests du nouveau module, 30/30 tests ciblés 
 ## Limites
 
 Le décompte porte sur le corpus mesuré, issu des requêtes publiques listées dans le script de collecte ; il n'est pas une exhaustivité du web. La recherche GitHub peut varier dans le temps : le corpus versionné garantit que la mesure publiée reste rejouable. Les buckets sont détectés et vérifiés (S3, GCS, Azure Blob), mais aucun bucket anonymement lisible lié à des données NA n'a été observé lors de cette collecte.
+OBJECTIF : atteint — 29 / 29 dépôts publics accessibles contenant des données NA et 0 / 0 bucket public exposant des données NA détecté (mesure reproductible du 22/11/2026 : `DATABASE_URL=postgres://radar:radar@localhost:5433/radar pnpm measure:na-containers` → `NA public containers with NA data: 29 (repositories=29, gists=0, buckets=0, scanned=496)`, code 0).
