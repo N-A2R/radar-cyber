@@ -87,3 +87,4 @@ se lancent avec :
 ```bash
 cd apps/api && ./node_modules/.bin/tsx --test test/campaign-forecast.test.ts
 ```
+OBJECTIF : atteint — 5 groupes avec secteur + période vérifiés / 5
