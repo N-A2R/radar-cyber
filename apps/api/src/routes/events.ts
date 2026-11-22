@@ -25,7 +25,7 @@ function dateObservee(row: Record<string, unknown>): string | null {
 function redactEvent(row: Record<string, unknown>) {
   const summary = row.tlp === "RED" ? null : row.summary;
   return {
-    id: row.id,
+    id: Number(row.id),
     dedupKey: row.dedup_key,
     family: row.family,
     assertionType: row.assertion_type,

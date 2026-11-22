@@ -1,0 +1,18 @@
+WARC/1.1
+WARC-Type: resource
+WARC-Record-ID: <urn:uuid:95715fae-733d-4c54-a9ea-f6bac9c58b7a>
+WARC-Date: 2026-11-22T03:26:01.301Z
+WARC-Target-URI: https://raw.githubusercontent.com/joshhighet/ransomwatch/main/posts.json
+WARC-Identified-Payload-Type: application/json
+Content-Type: application/json
+Content-Length: 131
+WARC-Block-Digest: sha1:K5MBJOPB3B6EERL3FHHK4WQSRIBJU2IA
+X-Claim-Fingerprint: f452e7ec75dd5888cc7ffeae
+X-Victim-Key: a5ca0a7e157c470a63c12b40
+
+{
+        "post_title": "FONTAINEBLEAU",
+        "group_name": "hiveleak",
+        "discovered": "2022-09-15 11:16:21.227539"
+    }
+
