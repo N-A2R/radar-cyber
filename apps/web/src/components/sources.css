@@ -174,7 +174,11 @@
   min-width: 0;
   border-collapse: collapse;
   font-size: 12px;
-  table-layout: fixed;
+  /* `fixed` arrondissait chaque pourcentage de colonne au pixel supérieur :
+     la somme dépassait le tableau de 2 px à certaines largeurs et rallumait
+     la barre horizontale. En `auto`, le navigateur répartit le reste sans
+     déborder, tout en respectant les largeurs du `<colgroup>`. */
+  table-layout: auto;
 }
 
 .sources-table thead th {
@@ -418,7 +422,9 @@
    2. état et rendement : masqués quand le stage tombe sous 880 px ;
    3. motif de rejet, unicité, action : masqués dès que le fil est ouvert
       (stage < 1 100 px).
-   Les largeurs ci-dessous valent pour le niveau complet (11 colonnes, 100 %). */
+   Les largeurs ci-dessous valent pour le niveau complet ; la dernière colonne
+   visible de chaque palier reste en `auto` : elle absorbe les arrondis de
+   pourcentage, qui sinon ajoutaient 2 px au scrollWidth du tableau. */
 .sources-table__col--name { width: 18%; }
 .sources-table__col--family { width: 9%; }
 .sources-table__col--status { width: 8%; }
@@ -429,7 +435,7 @@
 .sources-table__col--rendement { width: 7%; }
 .sources-table__col--unicite { width: 6%; }
 .sources-table__col--motif { width: 8%; }
-.sources-table__col--action { width: 8%; }
+.sources-table__col--action { width: auto; }
 
 /* Niveau 3 masqué : 8 colonnes, 100 %. */
 @container sources (max-width: 1099px) {
@@ -449,7 +455,7 @@
   .sources-table__col--lastErrorAt { width: 11%; }
   .sources-table__col--entrees { width: 9%; }
   .sources-table__col--evenements30j { width: 9%; }
-  .sources-table__col--rendement { width: 8%; }
+  .sources-table__col--rendement { width: auto; }
 }
 
 /* Sous 760 px, même les six colonnes prioritaires sont serrées : le badge
@@ -476,7 +482,7 @@
   .sources-table__col--lastProduction { width: 24%; }
   .sources-table__col--lastErrorAt { width: 14%; }
   .sources-table__col--entrees { width: 11%; }
-  .sources-table__col--evenements30j { width: 11%; }
+  .sources-table__col--evenements30j { width: auto; }
 }
 
 .sources-view__red-count {
