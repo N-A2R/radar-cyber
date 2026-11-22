@@ -52,15 +52,17 @@ before(async () => {
     ["outside", LATE, "qilin", outsideOrgId],
   ] as const) {
     const inserted = await query<{ id: number }>(
-      `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, source_id, org_id, evidence)
-       VALUES ($1, 'ransomware', 'observation', $2, $3, $4, $5, $6) RETURNING id`,
+      `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, source_id, org_id,
+                          source_url, evidence)
+       VALUES ($1, 'ransomware', 'observation', $2, $3, $4, $5, $6, $7) RETURNING id`,
       [
         `${TAG}-${key}`,
         `Leak at ${VICTIM}`,
         when,
         TAG,
         orgId,
-        JSON.stringify({ group, vendor: "Apache", product: "Http Server" }),
+        `https://example.invalid/ga/${TAG}/${key}`,
+        JSON.stringify({ group, vendor: "Apache", product: "Http Server", run_id: "1" }),
       ],
     );
     if (key === "early") earlyEventId = inserted.rows[0]!.id;

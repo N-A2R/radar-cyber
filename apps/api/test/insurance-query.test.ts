@@ -31,10 +31,14 @@ async function prepare(): Promise<{ naId: number; otherId: number }> {
      ON CONFLICT (id) DO NOTHING`,
   );
   await ingestQuery(
-    `INSERT INTO event (dedup_key, family, assertion_type, title, at, severity, org_id, source_id)
-     VALUES ('insurance-claim-na', 'ransomware', 'third_party_claim', 'Synthetic fixture claim', $1::date, 4, $2::int, 'grey-forum'),
-            ('insurance-ambient-na', 'cti', 'ambient_signal', 'Synthetic fixture signal', $1::date, 3, $2::int, 'public-cti'),
-            ('insurance-claim-outside', 'ransomware', 'third_party_claim', 'Synthetic fixture outside', $1::date, 4, $3::int, 'grey-forum')
+    `INSERT INTO event (dedup_key, family, assertion_type, title, at, severity, org_id, source_id,
+                        source_url, evidence)
+     VALUES ('insurance-claim-na', 'ransomware', 'third_party_claim', 'Synthetic fixture claim', $1::date, 4, $2::int, 'grey-forum',
+             'https://example.invalid/insurance/claim-na', '{"run_id":"1"}'::jsonb),
+            ('insurance-ambient-na', 'cti', 'ambient_signal', 'Synthetic fixture signal', $1::date, 3, $2::int, 'public-cti',
+             'https://example.invalid/insurance/ambient-na', '{"run_id":"1"}'::jsonb),
+            ('insurance-claim-outside', 'ransomware', 'third_party_claim', 'Synthetic fixture outside', $1::date, 4, $3::int, 'grey-forum',
+             'https://example.invalid/insurance/claim-outside', '{"run_id":"1"}'::jsonb)
      ON CONFLICT (dedup_key) DO NOTHING`,
     [REFERENCE, naId, otherId],
   );

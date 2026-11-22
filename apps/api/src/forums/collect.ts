@@ -18,6 +18,7 @@ import {
 } from "./classify.js";
 import { FORUM_SOURCES, type ForumSource } from "./sources.js";
 import { persistForumActorMentions } from "./actor-store.js";
+import { closeRun, openRun, withRunId, type RunOutcome } from "../collecte/runs.js";
 
 export type ForumCollection = {
   verdicts: ForumVerdict[];
@@ -148,27 +149,70 @@ export async function collectForums(options: {
 /** Persist admitted messages as events; a second pass never doubles the count. */
 export async function persistForumMessages(collection: ForumCollection): Promise<number> {
   let inserted = 0;
+  const bySource = new Map<string, Array<{ message: ForumMessage; verdict: ForumVerdict }>>();
   for (const message of collection.admitted) {
     const verdict = collection.verdicts.find((v) => v.dedupKey === dedupKey(message));
     if (!verdict?.relevant) continue;
-    const language = languageVerdict(message.title, message.summary ?? null).language;
-    const result = await query(
-      `INSERT INTO event
-         (dedup_key, family, assertion_type, title, summary, observed_at, valid_at, at,
-          severity, confidence, source_id, source_url, evidence, geo_type,
-          regional, regional_motif, pertinence_score, langue)
-       VALUES ($1, 'forum_message', 'ambient_signal', $2, $3, $4, $4, now(),
-               3, 'C3', $5, $6, $7, 'unknown', true, $8, $9, $10)
-       ON CONFLICT (dedup_key) DO NOTHING`,
-      [
-        verdict.dedupKey, message.title, message.summary || null, message.observedAt || null,
-        message.sourceId, message.url || null,
-        JSON.stringify({ scope: verdict.place, score: verdict.score, reason: verdict.reason }),
-        verdict.place, verdict.score,
-        language === "fr" || language === "en" ? language : null,
-      ],
-    );
-    inserted += result.rowCount ?? 0;
+    const entries = bySource.get(message.sourceId) ?? [];
+    entries.push({ message, verdict });
+    bySource.set(message.sourceId, entries);
+  }
+  for (const [sourceId, entries] of bySource) {
+    // Migration 206 : les événements doivent citer un run réel. Un run par
+    // source traitée, ouvert avant les inserts et toujours refermé.
+    let runId: number;
+    try {
+      runId = await openRun(sourceId, "ingest");
+    } catch {
+      continue;
+    }
+    let itemsNew = 0;
+    let outcome: RunOutcome = { itemsIn: entries.length, itemsNew: 0 };
+    try {
+      const { rows } = await query<{ url: string | null }>(
+        "SELECT url FROM source WHERE id = $1",
+        [sourceId],
+      );
+      const sourceUrl = rows[0]?.url ?? null;
+      for (const { message, verdict } of entries) {
+        // Une ligne sans URL violerait `event_source_url_required` : on préfère
+        // ne pas l'insérer plutôt que rompre la chaîne de preuve.
+        const url = message.url || sourceUrl;
+        if (!url) continue;
+        const language = languageVerdict(message.title, message.summary ?? null).language;
+        const result = await query(
+          `INSERT INTO event
+             (dedup_key, family, assertion_type, title, summary, observed_at, valid_at, at,
+              severity, confidence, source_id, source_url, evidence, geo_type,
+              regional, regional_motif, pertinence_score, langue)
+           VALUES ($1, 'forum_message', 'ambient_signal', $2, $3, $4, $4, now(),
+                   3, 'C3', $5, $6, $7::jsonb, 'unknown', true, $8, $9, $10)
+           ON CONFLICT (dedup_key) DO NOTHING`,
+          [
+            verdict.dedupKey, message.title, message.summary || null, message.observedAt || null,
+            message.sourceId, url,
+            JSON.stringify(withRunId(
+              { scope: verdict.place, score: verdict.score, reason: verdict.reason },
+              runId,
+            )),
+            verdict.place, verdict.score,
+            language === "fr" || language === "en" ? language : null,
+          ],
+        );
+        const added = result.rowCount ?? 0;
+        inserted += added;
+        itemsNew += added;
+      }
+      outcome = { itemsIn: entries.length, itemsNew };
+    } catch (error) {
+      outcome = {
+        status: "error",
+        itemsIn: entries.length,
+        itemsNew,
+        error: error instanceof Error ? error.message : String(error),
+      };
+    }
+    await closeRun(runId, outcome).catch(() => {});
   }
   return inserted;
 }

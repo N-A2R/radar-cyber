@@ -136,9 +136,10 @@ test("the loader attaches the organisation department used for NA scope", async 
   const orgId = Number(org.rows[0].id);
   const event = await query<{ id: number }>(
     `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at,
-                        severity, confidence, source_id, source_url, org_id, regional)
-     VALUES ($1,'cti','third_party_claim',$2,now(),3,'A1',$3,$4,$5,false) RETURNING id`,
-    [`${tag}:event`, `Incident ${tag}`, sourceId, `https://exemple.invalid/${tag}/preuve`, orgId],
+                        severity, confidence, source_id, source_url, org_id, regional, evidence)
+     VALUES ($1,'cti','third_party_claim',$2,now(),3,'A1',$3,$4,$5,false,$6::jsonb) RETURNING id`,
+    [`${tag}:event`, `Incident ${tag}`, sourceId, `https://exemple.invalid/${tag}/preuve`, orgId,
+     JSON.stringify({ run_id: "1" })],
   );
   const eventId = Number(event.rows[0].id);
   try {
@@ -166,9 +167,10 @@ test("a blank organisation department is treated as absent", async () => {
   const orgId = Number(org.rows[0].id);
   const event = await query<{ id: number }>(
     `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at,
-                        severity, confidence, source_id, source_url, org_id, regional)
-     VALUES ($1,'cti','third_party_claim',$2,now(),3,'A1',$3,$4,$5,false) RETURNING id`,
-    [`${tag}:event`, `Incident ${tag}`, sourceId, `https://exemple.invalid/${tag}/preuve`, orgId],
+                        severity, confidence, source_id, source_url, org_id, regional, evidence)
+     VALUES ($1,'cti','third_party_claim',$2,now(),3,'A1',$3,$4,$5,false,$6::jsonb) RETURNING id`,
+    [`${tag}:event`, `Incident ${tag}`, sourceId, `https://exemple.invalid/${tag}/preuve`, orgId,
+     JSON.stringify({ run_id: "1" })],
   );
   const eventId = Number(event.rows[0].id);
   try {

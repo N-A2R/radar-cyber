@@ -60,7 +60,7 @@ test("victim personal data produces no actor mention", () => {
 });
 
 test("a summary counts distinct actors, messages and mentions separately", () => {
-  const first = message("forum:zataz:bordeaux", "ZATAZ et NoName perturbent une commune");
+  const first = message("forum:zataz:bordeaux", "ZATAZ et NoName revendiquent une attaque contre une commune");
   const second = message("forum:zataz:poitiers", "NoName revendique une attaque");
   const summary = summarizeActorActivity([first, second]);
   assert.equal(summary.actorsIdentified, 2);
@@ -82,7 +82,7 @@ test("activity reports the first and last public observation and source breadth"
     message("forum:zataz:bordeaux", "RansomHouse publie une fuite", {
       observedAt: "Sun, 11 Oct 2026 13:40:26 +0000",
     }),
-    message("forum:zataz:poitiers", "RansomHouse publie une analyse", {
+    message("forum:zataz:poitiers", "RansomHouse publie une analyse de la fuite de données", {
       observedAt: "Wed, 18 Mar 2026 19:02:23 +0000",
     }),
   ];

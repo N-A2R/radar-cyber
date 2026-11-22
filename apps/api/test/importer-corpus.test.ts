@@ -123,7 +123,6 @@ describe("importer-corpus", () => {
 		try {
 			const analyse = await analyserCorpus({ dir, probe: sonde });
 			const avant = await comptes();
-			const idsAvant = await corpusIds();
 
 			const premier = await importer(analyse);
 			assert.equal(premier.sourcesInserees, 4); // 2 sources + 2 éditeurs d'incidents

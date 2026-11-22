@@ -27,9 +27,18 @@ before(async () => {
   const times = ["2026-11-01T00:00:00Z", "2026-11-02T00:00:00Z", "2026-11-03T00:00:00Z"];
   for (const [index, observedAt] of times.entries()) {
     const inserted = await query<{ id: number }>(
-      `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, source_id, regional)
-       VALUES ($1, 'ransomware', 'confirmed_incident', $2, $3, $4, $5) RETURNING id`,
-      [`ew-fixture-${TAG}-${index}`, `Synthetic fixture ${TAG} ${index}`, observedAt, SOURCE_ID, index === 2],
+      `INSERT INTO event (dedup_key, family, assertion_type, title, observed_at, source_id, regional,
+                          source_url, evidence)
+       VALUES ($1, 'ransomware', 'confirmed_incident', $2, $3, $4, $5, $6, $7::jsonb) RETURNING id`,
+      [
+        `ew-fixture-${TAG}-${index}`,
+        `Synthetic fixture ${TAG} ${index}`,
+        observedAt,
+        SOURCE_ID,
+        index === 2,
+        `https://example.invalid/ew/${TAG}/${index}`,
+        JSON.stringify({ run_id: "1" }),
+      ],
     );
     EVENT_IDS.push(Number(inserted.rows[0]!.id));
   }

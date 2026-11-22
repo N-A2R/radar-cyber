@@ -68,9 +68,11 @@ test("event et seconde source : score 2, donc publiable", async () => {
      VALUES ('test-cert', 'CERT de test', 'cert_fr', 'https://example.invalid/cert')`,
   );
   await query(
-    `INSERT INTO event (dedup_key, family, assertion_type, title, source_id, org_id)
-     VALUES ($1, 'ransomware', 'third_party_claim', 'Revendication corroborée', 'test-cert', $2)`,
-    [`corro-${Date.now()}`, orgId],
+    `INSERT INTO event (dedup_key, family, assertion_type, title, source_id, org_id, source_url, evidence)
+     VALUES ($1, 'ransomware', 'third_party_claim', 'Revendication corroborée', 'test-cert', $2,
+             $3, $4::jsonb)`,
+    [`corro-${Date.now()}`, orgId, "https://example.invalid/cert/revendication",
+     JSON.stringify({ run_id: "1" })],
   );
 
   await query("SELECT recompute_leak_claim_corroboration($1)", [orgId]);
