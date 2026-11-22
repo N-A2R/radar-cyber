@@ -153,3 +153,5 @@ départ) : la route passe par le registre unique `registerApiRoutes`.
   de généralisation. Les 16 572 décisions automatiques du journal, les 14 258
   réclamations archivées sans jugement et les réclamations encore en attente
   ne sont pas incluses dans le dénominateur.
+
+OBJECTIF : atteint — 91,14 % d'acceptation des suggestions (72 / 79 décisions humaines) / 91,14 % de taux d'acceptation déclaré comme objectif du chantier (mesure reproductible rejouée le 22/11/2026 : `pnpm measure:review-assistant` → 91.14%, 72/79, référence majoritaire 68,35 %).
