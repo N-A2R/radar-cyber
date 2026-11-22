@@ -126,8 +126,8 @@ describe("Coverage and Corpus navigation", () => {
     const labels = [...host.querySelectorAll("nav.rail__nav button")]
       .map((button) => button.textContent?.trim());
     expect(labels.slice(0, 10)).toEqual([
-      "Today", "Coverage", "Review", "Journal", "Corpus",
-      "Sources", "Map", "Graph", "Health", "Alerts",
+      "Aujourd'hui", "Couverture", "Revue", "Journal", "Corpus",
+      "Sources", "Carte", "Graphe", "Santé", "Alertes",
     ]);
   });
 

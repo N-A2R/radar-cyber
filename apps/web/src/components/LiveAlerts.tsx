@@ -168,12 +168,12 @@ export default function LiveAlerts({
           className="live-alerts__ctl"
           aria-pressed={soundOn}
           onClick={onToggleSound}
-          title="Sound for severity 4 and 5 alerts"
+          title="Son pour les alertes de sévérité 4 et 5"
         >
-          {soundOn ? "Sound on" : "Sound off"}
+          {soundOn ? "Son activé" : "Son coupé"}
         </button>
         {latest ? (
-          <button type="button" className="live-alerts__ctl" onClick={onDismiss} aria-label="Hide the alert banner">
+          <button type="button" className="live-alerts__ctl" onClick={onDismiss} aria-label="Masquer la bannière d'alerte">
             ×
           </button>
         ) : null}
