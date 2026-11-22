@@ -49,3 +49,4 @@ Tranche du 2026-11-22 : **21 sources vérifiées en HTTP 200** pour le couple se
 - `vienne.cci.fr`, `cma86.fr` : aucune réponse HTTP ; CCI retenue via `poitiers.cci.fr`.
 
 Méthode : découverte via annuaires institutionnels, chambres consulaires, fédérations et presse locale ; chaque URL contrôlée par GET HTTP réel (`curl -L`, User-Agent navigateur, délai 25 s) le 2026-11-22 ; les flux sont contrôlés comme documents XML avec items non vides.
+OBJECTIF : atteint — 21 / 5
