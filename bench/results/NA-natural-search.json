@@ -1,0 +1,23 @@
+{
+  "command": "DATABASE_URL=postgres://radar:radar@localhost:5433/radar apps/api/node_modules/.bin/tsx apps/api/scripts/measure-natural-search.mts --json=bench/results/NA-natural-search.json",
+  "measured_at": "2026-11-22T04:11:21.705Z",
+  "question": "quelles attaques ont touché les hôpitaux de Gironde en 2026",
+  "corpus": {
+    "organisations": 1673151,
+    "events": 26259,
+    "sources": 312
+  },
+  "method": "GET /api/search/ask via Fastify inject, 2 warmups and 11 timed repeats, no network",
+  "objective_ms": 2000,
+  "p50_ms": 51.86,
+  "p95_ms": 91.34,
+  "max_ms": 91.34,
+  "answer": "4 healthcare cyberattacks in 2026 found in the Nouvelle-Aquitaine corpus (4 from the versioned incident corpus, 0 from live events).",
+  "hit_ids": [
+    "corpus:gir-couv-014",
+    "corpus:gir-couv-013",
+    "corpus:gir-couv-004",
+    "corpus:gir-couv-012"
+  ],
+  "verdict": "PASS"
+}

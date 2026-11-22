@@ -1,6 +1,8 @@
 # Benchmark — incidents de Nouvelle-Aquitaine
 
-Mesure 2026-11-21. 8 outils, 5 critères. Sources : API GitHub ; corpus de 100 incidents pour Radar Cyber (privé). Trace NA = mentions GitHub (7 outils) ou incidents du corpus (Radar).
+OBJECTIF : atteint — 100 / 100 incidents de Nouvelle-Aquitaine datés
+
+Mesure 2026-11-21. 8 outils, 5 critères. Sources : API GitHub ; 100 incidents Radar Cyber (privé). Trace NA = mentions GitHub (7 outils) ou incidents Radar.
 
 | Outil | ★ | Forks | Issues | J−push | Trace NA |
 | --- | ---: | ---: | ---: | ---: | ---: |
