@@ -127,6 +127,7 @@ export const POLITIQUE_ACCES: RegleAcces[] = [
   { methode: "POST", route: "/api/ingest", niveau: "admin", motif: "ingestion machine à machine" },
   { methode: "POST", route: "/api/sources/:id/morte", niveau: "admin" },
   { methode: "POST", route: "/api/sources/:id/reactiver", niveau: "admin" },
+  { methode: "POST", route: "/api/thehive/cases", niveau: "admin", motif: "case creation in an external tool" },
 
   // --- Droit de réponse -----------------------------------------------------
   { methode: "POST", route: "/api/rectifications", niveau: "public", motif: "demande publique, publication décidée ensuite" },
