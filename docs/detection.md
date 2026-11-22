@@ -94,6 +94,28 @@ Idempotence : `ON CONFLICT (rule_id, event_id)` et `(rule_id, indicator_id)`.
 - `evaluateAll()` : batch complet (utilisé pour le backfill).
 - Les règles sont mises en cache ; `loadRules(true)` force le rechargement.
 
+### Signaux DNS : l'historique devient détection
+
+`apps/api/src/dns/changements.ts` compare **chaque paire consécutive** de
+`dns_snapshot` (quatre relevés = trois comparaisons) et écrit les différences
+dans `dns_change` avec le vocabulaire des enregistrements : `A`, `MX`, `NS`,
+plus les signaux dérivés `hebergeur`, `mx-inconnu`, `registrar`.
+
+| Commande | Effet |
+|---|---|
+| `pnpm dns:detection` | rapport seul : paires comparées, changements trouvés |
+| `pnpm dns:detection -- --appliquer` | écrit les signaux (rejeu sans doublon) |
+| `tsx scripts/dns-detection.mts --appliquer --domaine=exemple.fr` | périmètre ciblé |
+
+L'index unique `(previous_snapshot_id, current_snapshot_id, kind)` rend le rejeu
+inoffensif. Migration : `db/migrate-200-dns-change-signaux.sql` (renomme les
+libellés hérités `ip`/`mx`/`ns` en `A`/`MX`/`NS`).
+
+Critère mesurable : `SELECT count(*) FROM dns_change WHERE kind IN ('A','MX','NS')`
+doit être ≥ 30 sur le jeu de test — vérifié par
+`test/dns-change-signaux.test.ts`, qui détecte aussi exactement 2 changements A
+et 1 MX sur 4 snapshots synthétiques.
+
 ## 3. Alertes → tri
 
 La vue `Alerts` (front) est la file de tri : filtres statut/sévérité, tri,
