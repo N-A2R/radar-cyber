@@ -1,0 +1,66 @@
+{
+  "date": "2026-11-22",
+  "corpus": "bench/corpus/sources-agriculture-33.jsonl",
+  "secteur": "agriculture",
+  "departement": "33",
+  "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+  "methode": "GET réel avec suivi des redirections, User-Agent navigateur, délai 20 s ; statut, type de contenu, URL finale et nombre d'items RSS/Atom enregistrés",
+  "sources": 7,
+  "urls_verifiees": 18,
+  "urls_200": 18,
+  "detail": [
+    {
+      "nom": "Chambre d'agriculture de la Gironde",
+      "urls": {
+        "https://gironde.chambres-agriculture.fr/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://gironde.chambres-agriculture.fr/actualites-33": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://gironde.chambres-agriculture.fr/actualites-33/detail-de-lactualite/alerte-sur-une-tentative-de-fraude-1-1": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "Jeunes Agriculteurs de la Gironde (JA 33)",
+      "urls": {
+        "https://ja33.fr/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://ja33.fr/?page_id=9": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://ja33.fr/?feed=rss2": {"code": 200, "type": "application/rss+xml; charset=UTF-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "Confédération paysanne — Gironde (33)",
+      "urls": {
+        "https://gironde.confederationpaysanne.fr/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://gironde.confederationpaysanne.fr/recherche.php?type=A&rech=0&raz=1": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://gironde.confederationpaysanne.fr/sites/34/rss/rss_communiques_de_presse.xml": {"code": 200, "type": "application/xml", "items_rss": 10}
+      }
+    },
+    {
+      "nom": "Vins de Bordeaux — Interprofession (CIVB)",
+      "urls": {
+        "https://www.bordeaux.com/fr/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.bordeaux.com/fr/mag/blog/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0}
+      }
+    },
+    {
+      "nom": "ICI Gironde — Radio France",
+      "urls": {
+        "https://www.ici.fr/radio/gironde": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.ici.fr/nouvelle-aquitaine/gironde-33/actu": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://www.ici.fr/rss/gironde/rubrique/infos.xml": {"code": 200, "type": "application/xml", "items_rss": 20}
+      }
+    },
+    {
+      "nom": "France 3 Nouvelle-Aquitaine — Gironde",
+      "urls": {
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/": {"code": 200, "type": "text/html; charset=UTF-8", "items_rss": 0},
+        "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/gironde/rss": {"code": 200, "type": "text/xml; charset=UTF-8", "items_rss": 30}
+      }
+    },
+    {
+      "nom": "actu.fr — Bordeaux (Gironde)",
+      "urls": {
+        "https://actu.fr/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0},
+        "https://actu.fr/nouvelle-aquitaine/bordeaux_33000/": {"code": 200, "type": "text/html; charset=utf-8", "items_rss": 0}
+      }
+    }
+  ]
+}
