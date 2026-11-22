@@ -35,6 +35,7 @@
     "measure:ct-precursors": "apps/api/node_modules/.bin/tsx scripts/measure-ct-precursors.mts",
     "measure:quarantine-precursors": "apps/api/node_modules/.bin/tsx scripts/measure-quarantine-precursors.mts",
     "measure:group-precursors": "apps/api/node_modules/.bin/tsx scripts/measure-group-precursors.mts",
+    "measure:sector-wave": "apps/api/node_modules/.bin/tsx scripts/measure-sector-wave.mts",
     "mesure:cve-na": "apps/api/node_modules/.bin/tsx scripts/measure-cve-na.mts",
     "corpus:hash": "apps/api/node_modules/.bin/tsx scripts/corpus-hash.mts",
     "corpus:import": "apps/api/node_modules/.bin/tsx scripts/importer-corpus.mts",

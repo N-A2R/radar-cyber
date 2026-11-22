@@ -34,7 +34,7 @@ La piste suivante, si elle est retenue, est donc d'abord une piste de **données
 
 ## Suite mesurée (22 novembre 2026)
 
-Les deux sources CT rattachables par domaine ont depuis été auditées : voir `docs/rapport-precurseurs-ct.md`. Les indices de quarantaine non rattachés par organisation ont ensuite été audités : voir `docs/rapport-precurseurs-quarantaine.md`. Total des sources individuelles : **12 sources horodatées, 180 paires victime × source, 0 signal antérieur, 0/15 victimes couvertes**. Une treizième classe, collective cette fois, a ensuite été mesurée : voir `docs/rapport-precurseurs-groupe.md`. **7/15 victimes** portent un signal collectif antérieur, mais il est conditionné au groupe futur et reste inutilisable au classement : la valeur prédictive du top-10 reste nulle (0/60).
+Les deux sources CT rattachables par domaine ont depuis été auditées : voir `docs/rapport-precurseurs-ct.md`. Les indices de quarantaine non rattachés par organisation ont ensuite été audités : voir `docs/rapport-precurseurs-quarantaine.md`. Total des sources individuelles : **12 sources horodatées, 180 paires victime × source, 0 signal antérieur, 0/15 victimes couvertes**. Une treizième classe, collective cette fois, a ensuite été mesurée : voir `docs/rapport-precurseurs-groupe.md`. **7/15 victimes** portent un signal collectif antérieur, mais il est conditionné au groupe futur et reste inutilisable au classement : la valeur prédictive du top-10 reste nulle (0/60). Une vague sectorielle group-agnostique, calculable à la coupure, a ensuite été mesurée et injectée : voir `docs/rapport-vague-sectorielle.md`. **11/15 victimes** sont couvertes, mais le top-10 reste à 0 hit sur 60.
 
 ## Conformité
 
