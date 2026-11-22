@@ -40,6 +40,7 @@ import dossierRoute from "./dossier.js";
 import rectificationRoute from "./rectification.js";
 import auditRoute from "./audit.js";
 import confidenceRoute from "./confidence.js";
+import ransomwareGroupsRoute from "./ransomware-groups.js";
 
 export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
   for (const route of [
@@ -51,6 +52,7 @@ export async function registerApiRoutes(app: FastifyInstance): Promise<void> {
     journalRoute, orgsLieesRoute, orgsLieesHistoriqueRoute, ingestRoute, dossierRoute,
     rectificationRoute, auditRoute,
     confidenceRoute,
+    ransomwareGroupsRoute,
   ]) {
     await app.register(route, { prefix: "/api" });
   }
